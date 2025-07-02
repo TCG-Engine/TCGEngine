@@ -1,0 +1,7 @@
+localhost/TCGEngine/Data/SMDB.json
+localhost/TCGEngine/Data/Images/SoulMasters/
+jpg
+Cards
+
+
+Name,Number,Type,Cost:number,Attack:number,Shield:number,Armor:number,Health:number,ShieldEnergy:number,Rarity,Subtype,Faction,FactionSubtype,Resource:number,CoreEnergy:number,Conversion:number,MercenaryLimit,Artist,Effect,Specialization,Set

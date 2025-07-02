@@ -1,0 +1,60 @@
+SWUDeck
+Auto
+None
+AssetOwner
+Header: title=Home, icon=/TCGEngine/Assets/Images/blueDiamond.png, link=/TCGEngine/SharedUI/MainMenu.php
+Header: title=Edit, link=/TCGEngine/NextTurn.php?gameName>$gameName&playerID>1&folderPath>SWUDeck
+Header: title=Stats, link=/TCGEngine/SWUDeck/DeckStats.php?gameName>$gameName
+Header: title=Print, link=/TCGEngine/SWUDeck/CreatePDF.php?gameName>$gameName, target=blank
+Header: title=Visibility, module=AssetVisibility, AssetType=1
+Header: title=Versions, module=Versions, Zones=Leader;Base;MainDeck;Sideboard
+PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
+Initialization: Initialize.php
+ServerInclude: /Custom/DeckValidation.php
+ServerInclude: /Custom/CustomInput.php
+ClientInclude: /TCGEngine/SWUDeck/Custom/Filters.js
+ClientInclude: /TCGEngine/SWUDeck/Custom/ClientActions.js
+Leader - CardID:string
+Display: Visibility=Self, Mode=All, Left=40%, Top=10px, Split=None
+AddValidation: ValidateLeaderAddition
+Base - CardID:string
+Display: Visibility=Self, Mode=All, Left=62%, Top=10px, Split=None
+AddValidation: ValidateBaseAddition
+MainDeck - CardID:string
+Display: Visibility=Self, Mode=Tile, Left=26%, Top=20%, Bottom=130px, Split=None
+Click: Remove(myCards)
+AddValidation: ValidateMainDeckAddition
+Widgets: CustomInput=<&<<<&V&+&Notes
+Heatmap: Property=myStats, FunctionMap={"Play_Win_Rate":{"Function":"CardPlayWinRate","ColorMap":"HigherIsBetter"},"Resource_Rate":{"Function":"CardResourceRatio","ColorMap":"LowerIsBetter"},"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"},"Karabast_Implementation":{"Function":"KarabastImplemented","ColorMap":"HigherIsBetter"},"Petranaki_Implementation":{"Function":"PetranakiImplemented","ColorMap":"HigherIsBetter"}}
+Sort: Property=mySort
+CardPane - Value:string
+Display: Visibility=Self, Mode=Panel, Left=10px, Top=10px, Width=25%, Bottom=10px, Split=None
+Leaders - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Swap(myLeader)
+Bases - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Swap(myBase)
+Cards - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
+Click: Add(myMainDeck)
+DragMode: Clone
+Filter: InAspectFilter
+Widgets: CustomInput=V&>&>>>&Notes
+Sideboard - CardID:string
+Display: Visibility=Self, Mode=Tile, Left=26%, Bottom=10px, Split=None
+Click: Remove(mySideboard)
+Widgets: CustomInput=<&<<<&^&+&Notes
+Deck - CardID:string
+Display: Visibility=Self, Mode=Count(MainDeck), Left=26%, Top=16%, Split=None
+Widgets: CustomInput=Hand Draw
+Stats - Value:string
+Display: Visibility=Public, Mode=Radio(Value), Left=39%, Top=16%
+Widgets: Value=Play_Win_Rate&Resource_Rate&Hypergeo
+Sort - Value:string
+Display: Visibility=Public, Mode=Radio(Value), Left=83%, Top=16%
+Widgets: Value=Title&Cost&Aspect&Power&HP
+CardNotes - CardID:string, Notes:string
+Display: Visibility=Self, Mode=None
+Versions - Version:string
+Display: Visibility=Self, Mode=None

@@ -1,0 +1,14 @@
+SWUCardList
+Auto
+None
+None
+Initialization: Initialize.php
+ServerInclude: /Custom/CustomInput.php
+ClientInclude: /TCGEngine/SWUCardList/Custom/Filters.js
+ClientInclude: /TCGEngine/SWUCardList/Custom/ClientActions.js
+PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
+AssetReflection: SWUDeck
+CardPane - Value:string
+Display: Visibility=Self, Mode=Panel, Left=10px, Top=10px, Width=100%, Bottom=10px, Split=None
+Cards - CardID:string
+Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None

@@ -1,0 +1,7 @@
+https://admin.starwarsunlimited.com/api/cards?locale=en&pagination[pageSize]=100&filters[variantOf][id][$null]=true
+https://cdn.starwarsunlimited.com/
+png
+data
+pagination[page]
+meta->pagination->pageCount
+title,subtitle,cardNumber:number,cost:number,hp:number,power:number,text,unique,upgradeHp:number,upgradePower:number,aspect,trait,arena,type,rarity,set
