@@ -61,13 +61,15 @@ if(GetEditAuth() == "AssetOwner") {
   $assetData = LoadAssetData(1, $gameName);
   $assetOwner = $assetData["assetOwner"];
   $assetVisibility = $assetData["assetVisibility"];
-  if(($assetVisibility < 1000 || $assetVisibility > 1000000) && $loggedInUser != $assetOwner) {
-    echo("You must own this asset to edit it.");
-    exit;
-  } else if($assetVisibility >= 1000) {
-    $userData = LoadUserDataFromId($loggedInUser);
-    if($userData['teamID'] == null || $userData['teamID'] != $assetVisibility - 1000) {
-      echo("You must be on the correct team to edit this asset.");
+  if($loggedInUser != $assetOwner) { //Owner can always edit
+    if($assetVisibility >= 1000) {
+      $userData = LoadUserDataFromId($loggedInUser);
+      if($userData['teamID'] == null || $userData['teamID'] != $assetVisibility - 1000) {
+        echo("You must be on the correct team to edit this asset.");
+        exit;
+      }
+    } else {
+      echo("You must own this asset to edit it.");
       exit;
     }
   }
