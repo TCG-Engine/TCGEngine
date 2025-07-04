@@ -629,10 +629,12 @@ function LoadDecks() {
               $isKTODPatron = IsPatron("11987758");
               $isRebelResourcePatron = IsPatron("12716027");
               $isStubbHubbPatron = IsPatron("13088942");
+              $isStarWarzDadPatron = IsPatron("12636483");
               echo("<button style='padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-ktod', event)\"><img src='../Assets/Images/logos/KTODLogo.webp' alt='KTOD' style='height: 15px;'></button>");
               echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-rebel', event)\"><img src='../Assets/Images/logos/RebelResourceLogo.webp' alt='Rebel Resource' style='height: 15px;'></button>");
               echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-L8Night', event)\"><img src='../Assets/Images/logos/L8NightBanner.webp' alt='L8 Night Gaming' style='height: 15px; '></button>");
               echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-StubbHub', event)\"><img src='../Assets/Images/logos/StubbHub.webp' alt='Stubb Hub' style='height: 15px; '></button>");
+              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-StarWarzDad', event)\"><img src='../Assets/Images/logos/StarWarzDad.webp' alt='Force Fam' style='height: 15px; '></button>");
               ?>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
@@ -700,6 +702,17 @@ function LoadDecks() {
                     LoadPatreonDecks("13088942");
                   } else {
                     echo("<p>Subscribe to <a href='https://patreon.com/stubbshub' target='_blank'>Stubb Hub</a> on Patreon to unlock exclusive access decklists!</p>");
+                  }
+                ?>
+              </div>
+            </div>
+            <div id="tab-StarWarzDad" class="tab-content" style="display: none;">
+              <div>
+                <?php
+                  if ($isStarWarzDadPatron) {
+                    LoadPatreonDecks("12636483");
+                  } else {
+                    echo("<p>Subscribe to <a href='https://www.patreon.com/STARWARSDAD' target='_blank'>Force Fam</a> on Patreon to unlock exclusive access decklists!</p>");
                   }
                 ?>
               </div>

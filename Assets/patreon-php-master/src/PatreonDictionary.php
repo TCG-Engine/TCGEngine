@@ -75,6 +75,7 @@ enum PatreonCampaign : string
   case OotTheMonk = "12163989";
   case RebelResource = "12716027";
   case StubbsHub = "13088942";
+  case StarWarzDad = "12636483";
 
   public function SessionID(): string
   {
@@ -85,6 +86,7 @@ enum PatreonCampaign : string
       case "11987758": return "isKTODPatron";
       case "12716027": return "isRebelResourcePatron";
       case "13088942": return "isStubbsHubPatron";
+      case "12636483": return "isStarWarzDadPatron";
       default: return "";
     }
   }
@@ -98,6 +100,7 @@ enum PatreonCampaign : string
       case "11987758": return "KTOD";
       case "12716027": return "Rebel Resource";
       case "13088942": return "Stubbs Hub";
+      case "12636483": return "Force Fam";
       default: return "";
     }
   }
@@ -111,6 +114,7 @@ enum PatreonCampaign : string
       case "11987758": return ($userName == "Chrono" || $userName == "BobbySapphire" || $userName == "Reflex" || $userName == "allstarz97" || $userName == "wooooo" || $userName == "Brunas" || $userName == "Matty" || $userName == "KTODMATTY");
       case "12716027": return ($userName == "RebelResource");
       case "13088942": return ($userName == "rodneystubbs");
+      case "12636483": return ($userName == "StarWarzDad");
       default: return "";
     }
   }
