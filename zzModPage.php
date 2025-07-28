@@ -117,6 +117,48 @@ if (isset($_POST['updateOwnershipOwner']) && $_POST['updateOwnershipOwner'] === 
     exit();
 }
 
+// Handle user account lookup by usersUid or email
+if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
+    $usersUid = isset($_POST['usersUid']) ? trim($_POST['usersUid']) : '';
+    $usersEmail = isset($_POST['usersEmail']) ? trim($_POST['usersEmail']) : '';
+    $conn = GetLocalMySQLConnection();
+    $response = new stdClass();
+    if ($conn && ($usersUid !== '' || $usersEmail !== '')) {
+        if ($usersUid !== '') {
+            $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE usersUid = ? LIMIT 1");
+            mysqli_stmt_bind_param($stmt, 's', $usersUid);
+        } else {
+            $stmt = mysqli_prepare($conn, "SELECT * FROM users WHERE usersEmail = ? LIMIT 1");
+            mysqli_stmt_bind_param($stmt, 's', $usersEmail);
+        }
+        mysqli_stmt_execute($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        if ($row = mysqli_fetch_assoc($result)) {
+            $response->success = true;
+            // Remove sensitive fields
+            unset($row['usersPwd']);
+            $row['hasRememberMeToken'] = !empty($row['rememberMeToken']) ? true : false;
+            unset($row['rememberMeToken']);
+            $row['hasPatreonAccessToken'] = !empty($row['patreonAccessToken']) ? true : false;
+            unset($row['patreonAccessToken']);
+            $row['hasPatreonRefreshToken'] = !empty($row['patreonRefreshToken']) ? true : false;
+            unset($row['patreonRefreshToken']);
+            $response->user = $row;
+        } else {
+            $response->success = false;
+            $response->error = "No user found.";
+        }
+        mysqli_stmt_close($stmt);
+        mysqli_close($conn);
+    } else {
+        $response->success = false;
+        $response->error = "Please provide either usersUid or usersEmail.";
+    }
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
+}
+
 // HTML and JS for truncate button
 ?>
 <!DOCTYPE html>
@@ -146,6 +188,14 @@ if (isset($_POST['updateOwnershipOwner']) && $_POST['updateOwnershipOwner'] === 
         <button id="updateOwnershipBtn">Update Owner</button>
     </form>
     <div id="updateOwnershipResult" style="margin-top:10px;"></div>
+
+    <h3>Lookup User Account</h3>
+    <form id="lookupUserForm" onsubmit="return false;">
+        <label>usersUid: <input type="text" id="lookupUsersUid"></label>
+        <label>or Email: <input type="email" id="lookupUsersEmail"></label>
+        <button id="lookupUserBtn">Lookup</button>
+    </form>
+    <pre id="lookupUserResult" style="background:#f0f0f0;padding:10px;"></pre>
 
     <script>
     document.getElementById('truncateBtn').onclick = function() {
@@ -215,6 +265,35 @@ if (isset($_POST['updateOwnershipOwner']) && $_POST['updateOwnershipOwner'] === 
         })
         .catch(e => {
             document.getElementById('updateOwnershipResult').innerText = 'Request failed.';
+        });
+    };
+
+    document.getElementById('lookupUserBtn').onclick = function() {
+        var usersUid = document.getElementById('lookupUsersUid').value.trim();
+        var usersEmail = document.getElementById('lookupUsersEmail').value.trim();
+        if (!usersUid && !usersEmail) {
+            document.getElementById('lookupUserResult').innerText = 'Please enter usersUid or email.';
+            return;
+        }
+        document.getElementById('lookupUserResult').innerText = 'Loading...';
+        var params = 'lookupUserAccount=1';
+        if (usersUid) params += '&usersUid=' + encodeURIComponent(usersUid);
+        if (usersEmail) params += '&usersEmail=' + encodeURIComponent(usersEmail);
+        fetch(window.location.pathname, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('lookupUserResult').innerText = JSON.stringify(data.user, null, 2);
+            } else {
+                document.getElementById('lookupUserResult').innerText = data.error || 'Unknown error.';
+            }
+        })
+        .catch(e => {
+            document.getElementById('lookupUserResult').innerText = 'Request failed.';
         });
     };
     </script>
