@@ -1,8 +1,5 @@
 <?php
-
-
 require_once "./Database/ConnectionManager.php";
-
 include_once './AccountFiles/AccountSessionAPI.php';
 include_once './AccountFiles/AccountDatabaseAPI.php';
 
@@ -20,6 +17,45 @@ if($userName != "OotTheMonk") {
   echo (json_encode($response));
   exit();
 }
+
+// Handle mod password reset by usersId
+if (isset($_POST['modResetUserPassword']) && $_POST['modResetUserPassword'] === '1') {
+    $usersId = isset($_POST['usersId']) ? intval($_POST['usersId']) : 0;
+    $newPassword = isset($_POST['newPassword']) ? $_POST['newPassword'] : '';
+    $response = new stdClass();
+    if ($usersId > 0 && !empty($newPassword)) {
+        $conn = GetLocalMySQLConnection();
+        if ($conn) {
+            $newPwdHash = password_hash($newPassword, PASSWORD_DEFAULT);
+            $stmt = mysqli_prepare($conn, "UPDATE users SET usersPwd=? WHERE usersId=?");
+            mysqli_stmt_bind_param($stmt, 'si', $newPwdHash, $usersId);
+            if (mysqli_stmt_execute($stmt)) {
+                if (mysqli_stmt_affected_rows($stmt) > 0) {
+                    $response->success = true;
+                    $response->message = "Password reset successfully.";
+                } else {
+                    $response->success = false;
+                    $response->error = "No user updated. Check usersId.";
+                }
+            } else {
+                $response->success = false;
+                $response->error = mysqli_stmt_error($stmt);
+            }
+            mysqli_stmt_close($stmt);
+            mysqli_close($conn);
+        } else {
+            $response->success = false;
+            $response->error = "Database connection failed.";
+        }
+    } else {
+        $response->success = false;
+        $response->error = "Please provide a valid usersId and new password.";
+    }
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
+}
+
 
 // Handle truncate request
 if (isset($_POST['truncateMetaStats']) && $_POST['truncateMetaStats'] === '1') {
@@ -189,6 +225,7 @@ if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
     </form>
     <div id="updateOwnershipResult" style="margin-top:10px;"></div>
 
+
     <h3>Lookup User Account</h3>
     <form id="lookupUserForm" onsubmit="return false;">
         <label>usersUid: <input type="text" id="lookupUsersUid"></label>
@@ -196,6 +233,14 @@ if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
         <button id="lookupUserBtn">Lookup</button>
     </form>
     <pre id="lookupUserResult" style="background:#f0f0f0;padding:10px;"></pre>
+
+    <h3>Reset User Password</h3>
+    <form id="modResetPasswordForm" onsubmit="return false;">
+        <label>usersId: <input type="number" id="modResetUsersId" required></label>
+        <label>New Password: <input type="password" id="modResetNewPassword" required></label>
+        <button id="modResetPasswordBtn">Reset Password</button>
+    </form>
+    <div id="modResetPasswordResult" style="margin-top:10px;"></div>
 
     <script>
     document.getElementById('truncateBtn').onclick = function() {
@@ -294,6 +339,32 @@ if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
         })
         .catch(e => {
             document.getElementById('lookupUserResult').innerText = 'Request failed.';
+        });
+    };
+    document.getElementById('modResetPasswordBtn').onclick = function() {
+        var usersId = document.getElementById('modResetUsersId').value;
+        var newPassword = document.getElementById('modResetNewPassword').value;
+        if (!usersId || !newPassword) {
+            document.getElementById('modResetPasswordResult').innerText = 'Please enter both usersId and new password.';
+            return;
+        }
+        document.getElementById('modResetPasswordResult').innerText = 'Processing...';
+        var params = 'modResetUserPassword=1&usersId=' + encodeURIComponent(usersId) + '&newPassword=' + encodeURIComponent(newPassword);
+        fetch(window.location.pathname, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('modResetPasswordResult').innerText = data.message;
+            } else {
+                document.getElementById('modResetPasswordResult').innerText = data.error || 'Unknown error.';
+            }
+        })
+        .catch(e => {
+            document.getElementById('modResetPasswordResult').innerText = 'Request failed.';
         });
     };
     </script>
