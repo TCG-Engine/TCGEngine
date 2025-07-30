@@ -8,6 +8,15 @@ include_once '../AccountFiles/AccountDatabaseAPI.php';
 $response = new stdClass();
 
 if(!IsUserLoggedIn()) {
+  if (isset($_COOKIE["rememberMeToken"])) {
+    include_once '../Assets/patreon-php-master/src/OAuth.php';
+    include_once '../Assets/patreon-php-master/src/PatreonLibraries.php';
+    include_once '../Assets/patreon-php-master/src/API.php';
+    include_once '../Assets/patreon-php-master/src/PatreonDictionary.php';
+    include_once '../Database/functions.inc.php';
+    include_once '../Database/dbh.inc.php';
+    loginFromCookie();
+  }
   $response->error = "You must be logged in to use this API";
   echo (json_encode($response));
   exit();
