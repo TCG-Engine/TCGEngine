@@ -3,27 +3,49 @@
   require_once "../Core/HTTPLibraries.php";
   require_once "../Database/ConnectionManager.php";
 
+  session_start();
+  require_once "../AccountFiles/AccountSessionAPI.php";
+  $response = new stdClass();
+  $response->success = false;
+
+  if (!IsUserLoggedIn()) {
+    $response->error = "You must be logged in.";
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
+  }
+
   $conn = GetLocalMySQLConnection();
+  $newPass = isset($_GET['newPass']) ? $_GET['newPass'] : '';
 
-  $newPass = TryGet("newPass", "");
-  $email = TryGet("email", "");
-  $key = TryGet("key", "");
+  if (empty($newPass)) {
+    $response->error = "No password provided.";
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
+  }
 
-  if($key != hash('sha256', 'There was an issue resetting your password.')) exit;
-
-    // Finally we update the users table with the newly created password.
-    $sql = "UPDATE users SET usersPwd=? WHERE usersEmail=?";
-    $stmt = mysqli_stmt_init($conn);
-    if (!mysqli_stmt_prepare($stmt, $sql)) {
-      $response->error = "There was an issue resetting your password.";
-      echo (json_encode($response));
-    	mysqli_close($conn);
-      exit();
+  $userId = LoggedInUser();
+  $sql = "UPDATE users SET usersPwd=? WHERE usersId=?";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)) {
+    $response->error = "There was an issue resetting your password.";
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    mysqli_close($conn);
+    exit();
+  } else {
+    $newPwdHash = password_hash($newPass, PASSWORD_DEFAULT);
+    mysqli_stmt_bind_param($stmt, "si", $newPwdHash, $userId);
+    if (mysqli_stmt_execute($stmt)) {
+      $response->success = true;
+      $response->message = "Password updated successfully.";
     } else {
-      $newPwdHash = password_hash($newPass, PASSWORD_DEFAULT);
-      mysqli_stmt_bind_param($stmt, "ss", $newPwdHash, $email);
-      mysqli_stmt_execute($stmt);
-      mysqli_close($conn);
-      exit();
+      $response->error = "Failed to update password.";
     }
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    mysqli_close($conn);
+    exit();
+  }
 ?>
