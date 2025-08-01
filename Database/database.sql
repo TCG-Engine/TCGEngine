@@ -334,6 +334,30 @@ ALTER TABLE `deckmetastats`
   ADD PRIMARY KEY (`leaderID`,`baseID`),
   ADD KEY `week` (`week`);
 
+
+CREATE TABLE `deckmetamatchupstats` (
+  `leaderID` varchar(16) NOT NULL,
+  `baseID` varchar(16) NOT NULL,
+  `opponentLeaderID` varchar(16) NOT NULL,
+  `opponentBaseID` varchar(16) NOT NULL,
+  `week` int(11) NOT NULL DEFAULT 0,
+  `numWins` int(11) NOT NULL DEFAULT 0,
+  `numPlays` int(11) NOT NULL DEFAULT 0,
+  `playsGoingFirst` int(11) NOT NULL DEFAULT 0,
+  `turnsInWins` int(11) NOT NULL DEFAULT 0,
+  `totalTurns` int(11) NOT NULL DEFAULT 0,
+  `cardsResourcedInWins` int(11) NOT NULL DEFAULT 0,
+  `totalCardsResourced` int(11) NOT NULL DEFAULT 0,
+  `remainingHealthInWins` int(11) NOT NULL DEFAULT 0,
+  `winsGoingFirst` int(11) NOT NULL DEFAULT 0,
+  `winsGoingSecond` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+ALTER TABLE `deckmetamatchupstats`
+  ADD PRIMARY KEY (`leaderID`,`baseID`,`opponentLeaderID`,`opponentBaseID`),
+  ADD KEY `week` (`week`);
+
+
 CREATE TABLE `team` (
   `teamID` int(11) NOT NULL,
   `TeamName` varchar(64) NOT NULL,
