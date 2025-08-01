@@ -12,10 +12,54 @@ if(!IsUserLoggedIn()) {
 }
 
 $userName = LoggedInUserName();
+
 if($userName != "OotTheMonk") {
   $response->error = "Error: You must be an approved user to use this";
   echo (json_encode($response));
   exit();
+}
+
+// Handle arbitrary SQL execution (admin only)
+if (isset($_POST['adminExecuteSQL']) && $_POST['adminExecuteSQL'] === '1') {
+    $sql = isset($_POST['sql']) ? trim($_POST['sql']) : '';
+    $response = new stdClass();
+    if ($sql !== '') {
+        $conn = GetLocalMySQLConnection();
+        if ($conn) {
+            // Only allow single statement for safety
+            if (preg_match('/;.*\S/', $sql)) {
+                $response->success = false;
+                $response->error = "Only single SQL statements are allowed.";
+            } else {
+                $result = mysqli_query($conn, $sql);
+                if ($result === TRUE) {
+                    $response->success = true;
+                    $response->message = "Query executed successfully.";
+                } else if ($result) {
+                    // SELECT or similar: fetch rows
+                    $rows = [];
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $rows[] = $row;
+                    }
+                    $response->success = true;
+                    $response->rows = $rows;
+                } else {
+                    $response->success = false;
+                    $response->error = mysqli_error($conn);
+                }
+            }
+            mysqli_close($conn);
+        } else {
+            $response->success = false;
+            $response->error = "Database connection failed.";
+        }
+    } else {
+        $response->success = false;
+        $response->error = "No SQL provided.";
+    }
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
 }
 
 // Handle mod password reset by usersId
@@ -242,7 +286,46 @@ if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
     </form>
     <div id="modResetPasswordResult" style="margin-top:10px;"></div>
 
+    <hr style="margin:20px 0;">
+    <h3>Admin SQL Executor</h3>
+    <form id="adminSQLForm" onsubmit="return false;">
+        <label>SQL Statement:<br>
+            <textarea id="adminSQLInput" rows="3" cols="80" style="font-family:monospace;"></textarea>
+        </label><br>
+        <button id="adminSQLBtn">Execute SQL</button>
+    </form>
+    <pre id="adminSQLResult" style="background:#f0f0f0;padding:10px;"></pre>
+
     <script>
+    document.getElementById('adminSQLBtn').onclick = function() {
+        var sql = document.getElementById('adminSQLInput').value.trim();
+        if (!sql) {
+            document.getElementById('adminSQLResult').innerText = 'Please enter SQL.';
+            return;
+        }
+        document.getElementById('adminSQLResult').innerText = 'Processing...';
+        var params = 'adminExecuteSQL=1&sql=' + encodeURIComponent(sql);
+        fetch(window.location.pathname, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                if (data.rows) {
+                    document.getElementById('adminSQLResult').innerText = JSON.stringify(data.rows, null, 2);
+                } else {
+                    document.getElementById('adminSQLResult').innerText = data.message || 'Success.';
+                }
+            } else {
+                document.getElementById('adminSQLResult').innerText = data.error || 'Unknown error.';
+            }
+        })
+        .catch(e => {
+            document.getElementById('adminSQLResult').innerText = 'Request failed.';
+        });
+    };
     document.getElementById('truncateBtn').onclick = function() {
         if (!confirm('Are you sure you want to truncate cardmetastats and deckmetastats? This cannot be undone!')) return;
         var btn = this;
