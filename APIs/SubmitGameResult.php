@@ -23,16 +23,16 @@
   $logFile = '../logs/game_results.log';
   $logDir = dirname($logFile);
   if (!file_exists($logDir)) {
-    mkdir($logDir, 0755, true);
+	mkdir($logDir, 0755, true);
   }
 
   function writeLog($message) {
-    global $logFile;
-    // Only log if debug mode is enabled
-    if(true) return;
-    $timestamp = date('Y-m-d H:i:s');
-    $logMessage = "[$timestamp] $message\n";
-    file_put_contents($logFile, $logMessage, FILE_APPEND);
+	global $logFile;
+	// Only log if debug mode is enabled
+	if(true) return;
+	$timestamp = date('Y-m-d H:i:s');
+	$logMessage = "[$timestamp] $message\n";
+	file_put_contents($logFile, $logMessage, FILE_APPEND);
   }
 
   writeLog("Received game result. P1 token: " . $p1SWUStatsToken . ", P2 token: " . $p2SWUStatsToken);
@@ -172,6 +172,7 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 	
 	if(!$disableMetaStats) {
 		$week = 0;
+		// deckmetastats
 		$sql = "SELECT COUNT(*) FROM deckmetastats WHERE leaderID = ? AND baseID = ? AND week = ?";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
@@ -190,6 +191,30 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 						mysqli_stmt_close($stmt);
 				}
 		}
+
+		// deckmetamatchupstats
+			   $opponentLeaderID = isset($playerJSON["opposingHero"]) ? $playerJSON["opposingHero"] : "";
+			   $opponentBaseID = isset($playerJSON["opposingBaseColor"]) ? $playerJSON["opposingBaseColor"] : "";
+			   if ($opponentLeaderID !== "" && $opponentBaseID !== "") {
+					   $sql = "SELECT COUNT(*) FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
+					   $stmt = mysqli_stmt_init($conn);
+					   if (mysqli_stmt_prepare($stmt, $sql)) {
+							   mysqli_stmt_bind_param($stmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week);
+							   mysqli_stmt_execute($stmt);
+							   mysqli_stmt_bind_result($stmt, $matchupCount);
+							   mysqli_stmt_fetch($stmt);
+							   mysqli_stmt_close($stmt);
+					   }
+					   if ($matchupCount == 0) {
+							   $sql = "INSERT INTO deckmetamatchupstats (leaderID, baseID, opponentLeaderID, opponentBaseID, week) VALUES (?, ?, ?, ?, ?)";
+							   $stmt = mysqli_stmt_init($conn);
+							   if (mysqli_stmt_prepare($stmt, $sql)) {
+									   mysqli_stmt_bind_param($stmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week);
+									   mysqli_stmt_execute($stmt);
+									   mysqli_stmt_close($stmt);
+							   }
+					   }
+			   }
 	}
 
 	$cardsResourced = 0;
