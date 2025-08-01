@@ -192,29 +192,7 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 				}
 		}
 
-		// deckmetamatchupstats
-			   $opponentLeaderID = isset($playerJSON["opposingHero"]) ? $playerJSON["opposingHero"] : "";
-			   $opponentBaseID = isset($playerJSON["opposingBaseColor"]) ? $playerJSON["opposingBaseColor"] : "";
-			   if ($opponentLeaderID !== "" && $opponentBaseID !== "") {
-					   $sql = "SELECT COUNT(*) FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
-					   $stmt = mysqli_stmt_init($conn);
-					   if (mysqli_stmt_prepare($stmt, $sql)) {
-							   mysqli_stmt_bind_param($stmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week);
-							   mysqli_stmt_execute($stmt);
-							   mysqli_stmt_bind_result($stmt, $matchupCount);
-							   mysqli_stmt_fetch($stmt);
-							   mysqli_stmt_close($stmt);
-					   }
-					   if ($matchupCount == 0) {
-							   $sql = "INSERT INTO deckmetamatchupstats (leaderID, baseID, opponentLeaderID, opponentBaseID, week) VALUES (?, ?, ?, ?, ?)";
-							   $stmt = mysqli_stmt_init($conn);
-							   if (mysqli_stmt_prepare($stmt, $sql)) {
-									   mysqli_stmt_bind_param($stmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week);
-									   mysqli_stmt_execute($stmt);
-									   mysqli_stmt_close($stmt);
-							   }
-					   }
-			   }
+
 	}
 
 	$cardsResourced = 0;
@@ -343,42 +321,117 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 	}
 
 	if(!$disableMetaStats) {
-		$sql = "UPDATE deckmetastats SET 
-			numPlays = numPlays + 1, 
-			totalTurns = totalTurns + ?, 
-			totalCardsResourced = totalCardsResourced + ?";
-		if ($won) {
-			$sql .= ", numWins = numWins + 1, 
-				turnsInWins = turnsInWins + ?, 
-				cardsResourcedInWins = cardsResourcedInWins + ?, 
-				remainingHealthInWins = remainingHealthInWins + ?";
-		}
-		$sql .= " WHERE leaderID = ? AND baseID = ? AND week = ?";
-		$stmt = mysqli_stmt_init($conn);
-		if (mysqli_stmt_prepare($stmt, $sql)) {
-			if ($won) {
-			mysqli_stmt_bind_param($stmt, "iiiiissi", 
-				$numRounds, 
-				$cardsResourced, 
-				$numRounds, 
-				$cardsResourced, 
-				$winnerHealth, 
-				$leaderID, 
-				$baseID, 
-				$week
-			);
-			} else {
-			mysqli_stmt_bind_param($stmt, "iissi", 
-				$numRounds, 
-				$cardsResourced, 
-				$leaderID, 
-				$baseID, 
-				$week
-			);
-			}
-			mysqli_stmt_execute($stmt);
-			mysqli_stmt_close($stmt);
-		}	
+
+	   $sql = "UPDATE deckmetastats SET 
+		   numPlays = numPlays + 1, 
+		   totalTurns = totalTurns + ?, 
+		   totalCardsResourced = totalCardsResourced + ?";
+	   if ($won) {
+		   $sql .= ", numWins = numWins + 1, 
+			   turnsInWins = turnsInWins + ?, 
+			   cardsResourcedInWins = cardsResourcedInWins + ?, 
+			   remainingHealthInWins = remainingHealthInWins + ?";
+	   }
+	   $sql .= " WHERE leaderID = ? AND baseID = ? AND week = ?";
+	   $stmt = mysqli_stmt_init($conn);
+	   if (mysqli_stmt_prepare($stmt, $sql)) {
+		   if ($won) {
+		   mysqli_stmt_bind_param($stmt, "iiiiissi", 
+			   $numRounds, 
+			   $cardsResourced, 
+			   $numRounds, 
+			   $cardsResourced, 
+			   $winnerHealth, 
+			   $leaderID, 
+			   $baseID, 
+			   $week
+		   );
+		   } else {
+		   mysqli_stmt_bind_param($stmt, "iissi", 
+			   $numRounds, 
+			   $cardsResourced, 
+			   $leaderID, 
+			   $baseID, 
+			   $week
+		   );
+		   }
+		   mysqli_stmt_execute($stmt);
+		   mysqli_stmt_close($stmt);
+	   }
+
+	   // deckmetamatchupstats update (moved here)
+	   $opponentLeaderID = isset($playerJSON["opposingHero"]) ? $playerJSON["opposingHero"] : "";
+	   $opponentBaseID = isset($playerJSON["opposingBaseColor"]) ? $playerJSON["opposingBaseColor"] : "";
+	   if ($opponentLeaderID !== "" && $opponentBaseID !== "") {
+		   $sql = "SELECT COUNT(*) FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
+		   $stmt = mysqli_stmt_init($conn);
+		   if (mysqli_stmt_prepare($stmt, $sql)) {
+			   mysqli_stmt_bind_param($stmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week);
+			   mysqli_stmt_execute($stmt);
+			   mysqli_stmt_bind_result($stmt, $matchupCount);
+			   mysqli_stmt_fetch($stmt);
+			   mysqli_stmt_close($stmt);
+		   }
+		   if ($matchupCount == 0) {
+			   $sql = "INSERT INTO deckmetamatchupstats (leaderID, baseID, opponentLeaderID, opponentBaseID, week) VALUES (?, ?, ?, ?, ?)";
+			   $stmt = mysqli_stmt_init($conn);
+			   if (mysqli_stmt_prepare($stmt, $sql)) {
+				   mysqli_stmt_bind_param($stmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week);
+				   mysqli_stmt_execute($stmt);
+				   mysqli_stmt_close($stmt);
+			   }
+		   }
+		   $updateSql = "UPDATE deckmetamatchupstats SET 
+			   numPlays = numPlays + 1, 
+			   totalTurns = totalTurns + ?, 
+			   totalCardsResourced = totalCardsResourced + ?";
+		   if ($won) {
+			   $updateSql .= ", numWins = numWins + 1, 
+				   turnsInWins = turnsInWins + ?, 
+				   cardsResourcedInWins = cardsResourcedInWins + ?, 
+				   remainingHealthInWins = remainingHealthInWins + ?";
+			   if ($wasFirstPlayer) {
+				   $updateSql .= ", winsGoingFirst = winsGoingFirst + 1";
+			   } else {
+				   $updateSql .= ", winsGoingSecond = winsGoingSecond + 1";
+			   }
+		   }
+		   if ($wasFirstPlayer) {
+			   $updateSql .= ", playsGoingFirst = playsGoingFirst + 1";
+		   }
+		   $updateSql .= " WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
+		   $stmt = mysqli_stmt_init($conn);
+		   if (mysqli_stmt_prepare($stmt, $updateSql)) {
+			   if ($won) {
+				   // If won, 5 stats + 5 keys = 10 args
+				   mysqli_stmt_bind_param($stmt, "iiiiissssi", 
+					   $numRounds, 
+					   $cardsResourced, 
+					   $numRounds, 
+					   $cardsResourced, 
+					   $winnerHealth, 
+					   $leaderID, 
+					   $baseID, 
+					   $opponentLeaderID, 
+					   $opponentBaseID, 
+					   $week
+				   );
+			   } else {
+				   // If not won, 2 stats + 5 keys = 7 args
+				   mysqli_stmt_bind_param($stmt, "iissssi", 
+					   $numRounds, 
+					   $cardsResourced, 
+					   $leaderID, 
+					   $baseID, 
+					   $opponentLeaderID, 
+					   $opponentBaseID, 
+					   $week
+				   );
+			   }
+			   mysqli_stmt_execute($stmt);
+			   mysqli_stmt_close($stmt);
+		   }
+	   }
 	}
 
 	$leaderID = $playerJSON["opposingHero"];
