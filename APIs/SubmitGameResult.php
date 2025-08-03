@@ -144,14 +144,24 @@
 	$stmt = mysqli_stmt_init($conn);
 	$gameResultID = 0;
 	if(mysqli_stmt_prepare($stmt, $sql)) {
-	  $winnerDeck = $data["winnerDeck"];
-	  $winnerDeck = substr($winnerDeck, 0, 999);
-	  $loserDeck = $data["loserDeck"];
-	  $loserDeck = substr($loserDeck, 0, 999);
-	  mysqli_stmt_bind_param($stmt, "ssssssss", $data["winHero"], $data["loseHero"], $data["round"], $winnerDeck, $loserDeck, $data["winnerHealth"], $firstPlayer, $winner);
-	  mysqli_stmt_execute($stmt);
-	  $gameResultID = mysqli_insert_id($conn);
-	  mysqli_stmt_close($stmt);
+  $winnerDeck = $data["winnerDeck"];
+  if (is_array($winnerDeck)) {
+	// Special handling for array winnerDeck (for now, just set to '...')
+	$winnerDeck = '...';
+  } else {
+	$winnerDeck = substr($winnerDeck, 0, 999);
+  }
+  $loserDeck = $data["loserDeck"];
+  if (is_array($loserDeck)) {
+	// Special handling for array loserDeck (for now, just set to '...')
+	$loserDeck = '...';
+  } else {
+	$loserDeck = substr($loserDeck, 0, 999);
+  }
+  mysqli_stmt_bind_param($stmt, "ssssssss", $data["winHero"], $data["loseHero"], $data["round"], $winnerDeck, $loserDeck, $data["winnerHealth"], $firstPlayer, $winner);
+  mysqli_stmt_execute($stmt);
+  $gameResultID = mysqli_insert_id($conn);
+  mysqli_stmt_close($stmt);
 	}
 	mysqli_close($conn);
   }
@@ -161,8 +171,11 @@
   // wasFirstPlayer: true if this player was the first player in the game, false if they were the second player
 function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, $winnerHealth, $gameName, $disableMetaStats, $isDeckOwner) {
 	global $input;
-
-	$playerJSON = json_decode($playerData, true);
+	if (is_string($playerData)) {
+		$playerJSON = json_decode($playerData, true);
+	} else {
+		$playerJSON = $playerData;
+	}
 	$leaderID = $playerJSON["leader"];
 	$baseID = $playerJSON["base"];
 	$source = $isDeckOwner ? 1 : 0;
