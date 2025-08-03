@@ -26,12 +26,11 @@ $isMobile = IsMobile();
 
 ?>
 
-<head>
-  <meta charset="utf-8">
+<head>  <meta charset="utf-8">
   <title>SWU Stats</title>
   <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/blueDiamond.png">
-  <!--<link rel="stylesheet" href="./css/menuStyles.css">-->
-  <link rel="stylesheet" href="/TCGEngine/SharedUI/css/menuStyles.css">
+  <!--<link rel="stylesheet" href="./css/menuStyles.css">-->  <link rel="stylesheet" href="/TCGEngine/SharedUI/css/menuStyles.css">  <script src="/TCGEngine/SharedUI/js/device-detector.js"></script>
+  <script src="/TCGEngine/SharedUI/js/burger-menu.js"></script>
   <!-- <link rel="stylesheet" href="./css/menuStyles2.css"> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,13 +39,12 @@ $isMobile = IsMobile();
 </head>
 
 <body>
+  <!-- Simple menu overlay div that will be controlled by JS -->
+  <div class="menu-overlay" style="display: none;"></div>
 
   <div class='nav-bar'>
-
     <div class='nav-bar-user'>
       <ul class='rightnav'>
-        <?php //if($isPatron) echo "<li><a href='Replays.php'>Replays[BETA]</a></li>";
-        ?>
         <?php
         echo "<li><a href='https://www.patreon.com/c/OotTheMonk' target='_blank' class='NavBarItem'>Support</a></li>";
         echo "<li><a href='/TCGEngine/Stats/APIs.php' class='NavBarItem'>APIs</a></li>";
@@ -70,15 +68,9 @@ $isMobile = IsMobile();
           echo "<li><a href='/TCGEngine/SharedUI/Signup.php' class='NavBarItem'>Sign Up</a></li>";
           echo "<li><a href='/TCGEngine/SharedUI/LoginPage.php' class='NavBarItem'>Log In</a></li>";
         }
+        echo '<li><a target="_blank" href="https://github.com/TCG-Engine/TCGEngine"><img src="../Assets/Images/icons/github.svg"></img></a></li>';
+        echo '<li><a target="_blank" href="https://discord.gg/5ZHXyVvVFC"><img src="../Assets/Images/icons/discord.svg"></img></a></li>';
         ?>
-      </ul>
-    </div>
-
-    <div class='nav-bar-links'>
-      <ul>
-          <?php
-            echo '<li><a target="_blank" href="https://discord.gg/5ZHXyVvVFC"><img src="../Assets/Images/icons/discord.svg"></img></a></li>';
-          ?>
       </ul>
     </div>
 

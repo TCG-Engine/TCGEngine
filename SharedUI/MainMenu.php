@@ -732,9 +732,9 @@ function LoadDecks() {
         </div>
       </div>
       <div class="login container bg-black news-section">
-        <h2>Record stats no matter where you play!</h2>
-        <p class="login-message">Now you can add stats to your decks no matter how you play! Click the Add Stats button on the stats screen!</p>
-        <p class="login-message">You can now add our new Discord bot to your server by clicking <a href="https://discord.com/oauth2/authorize?client_id=1338995198730043432&permissions=2147600384&integration_type=0&scope=bot+applications.commands" target="_blank">this link</a>.</p>
+        <h2>SWU Stats is open source!</h2>
+        <p class="login-message">SWU Stats is now open source! This project has been ongoing for a while as I wanted to mature the engine and make it possible for others to use. You can find a link to the source code in the top right corner of the page. It's based on a generic TCG card engine I made from lessons learned from all my work on Karabast/Petranaki/Talishar/other card game simulators.</p>
+        <p style="margin-top: 12px;">If you would like to support my contributions to open source software, I would greatly appreciate if you check out my <a href="https://www.patreon.com/c/OotTheMonk" target="_blank" rel="noopener noreferrer">Patreon page</a>!</p>
       </div>
     </div>
   </div> <!-- Close core-wrapper div -->

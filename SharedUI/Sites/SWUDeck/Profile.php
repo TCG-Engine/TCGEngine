@@ -8,11 +8,6 @@ include_once '../Assets/patreon-php-master/src/PatreonLibraries.php';
 include_once '../Assets/patreon-php-master/src/PatreonDictionary.php';
 include_once "../Database/ConnectionManager.php";
 
-if (!IsUserLoggedIn()) {
-    header('Location: ./MainMenu.php');
-    die();
-}
-
 include_once "../APIKeys/APIKeys.php";
 
   /*
@@ -32,13 +27,31 @@ include_once "../APIKeys/APIKeys.php";
 include_once 'Header.php';
 
 $userData = LoadUserDataFromId(LoggedInUser());
+
+
+if (!IsUserLoggedIn()) {
+    header('Location: ./MainMenu.php');
+    die();
+}
+
 ?>
 
 
 
 <div id="cardDetail" style="z-index:100000; display:none; position:fixed;"></div>
 
+
 <div class="core-wrapper">
+
+<div class="container bg-black" style="margin-bottom:30px;">
+    <h2>Change Your Password</h2>
+    <form id="selfResetPasswordForm" onsubmit="return false;">
+        <label>New Password: <input type="password" id="selfNewPassword" required></label><br>
+        <label>Confirm Password: <input type="password" id="selfConfirmPassword" required></label><br>
+        <button id="selfResetPasswordBtn">Change Password</button>
+    </form>
+    <div id="selfResetPasswordResult" style="margin-top:10px;"></div>
+</div>
 
 <div class='fav-decks container bg-black'>
 <h2>Welcome <?php echo $_SESSION['useruid'] ?>!</h2>
@@ -162,6 +175,38 @@ $userData = LoadUserDataFromId(LoggedInUser());
             ?>
         </div>
 </div>
+
+<script>
+document.getElementById('selfResetPasswordBtn').onclick = function() {
+    var newPassword = document.getElementById('selfNewPassword').value;
+    var confirmPassword = document.getElementById('selfConfirmPassword').value;
+    if (!newPassword || !confirmPassword) {
+        document.getElementById('selfResetPasswordResult').innerText = 'Please fill out both fields.';
+        return;
+    }
+    if (newPassword !== confirmPassword) {
+        document.getElementById('selfResetPasswordResult').innerText = 'Passwords do not match.';
+        return;
+    }
+    document.getElementById('selfResetPasswordResult').innerText = 'Processing...';
+    var params = 'newPass=' + encodeURIComponent(newPassword);
+    var url = 'https://www.swustats.net/TCGEngine/APIs/ResetPassword.php?' + params;
+    fetch(url, {
+        method: 'GET'
+    })
+    .then(r => r.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('selfResetPasswordResult').innerText = data.message;
+        } else {
+            document.getElementById('selfResetPasswordResult').innerText = data.error || 'Unknown error.';
+        }
+    })
+    .catch(e => {
+        document.getElementById('selfResetPasswordResult').innerText = 'Request failed.';
+    });
+};
+</script>
 
 <div class="oauth-management container bg-black">
     <h2>Developer Options</h2>

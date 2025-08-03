@@ -68,6 +68,7 @@ $isMobile = IsMobile();
           echo "<li><a href='/TCGEngine/SharedUI/Signup.php' class='NavBarItem'>Sign Up</a></li>";
           echo "<li><a href='/TCGEngine/SharedUI/LoginPage.php' class='NavBarItem'>Log In</a></li>";
         }
+        echo '<li><a target="_blank" href="https://github.com/TCG-Engine/TCGEngine"><img src="../Assets/Images/icons/github.svg"></img></a></li>';
         echo '<li><a target="_blank" href="https://discord.gg/5ZHXyVvVFC"><img src="../Assets/Images/icons/discord.svg"></img></a></li>';
         ?>
       </ul>
