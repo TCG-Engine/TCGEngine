@@ -110,6 +110,24 @@
   }
 
   if(!$disableMetaStats) {
+
+	// Check for null winHero or loseHero
+	if (!isset($data["winHero"]) || $data["winHero"] === null || !isset($data["loseHero"]) || $data["loseHero"] === null) {
+	  http_response_code(400);
+	  header('Content-Type: application/json');
+	  // Remove API key if present before logging/serializing
+	  $dataToLog = $data;
+	  if (isset($dataToLog['apiKey'])) {
+		unset($dataToLog['apiKey']);
+	  }
+	  echo json_encode([
+		"success" => false,
+		"error" => "Missing winHero or loseHero in request data.",
+		"rawData" => $dataToLog
+	  ]);
+	  exit;
+	}
+	
 	$columns = "WinningHero, LosingHero, NumTurns, WinnerDeck, LoserDeck, WinnerHealth, FirstPlayer, WinningPlayer";
 	$values = "?, ?, ?, ?, ?, ?, ?, ?";
   
