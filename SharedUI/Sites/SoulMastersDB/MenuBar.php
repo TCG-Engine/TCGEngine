@@ -26,7 +26,7 @@ $isMobile = IsMobile();
 
 <head>
   <meta charset="utf-8">
-  <title>Soul Masters DB</title>
+  <title>Soul Masters Deck Builder</title>
   <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/icons/soulMastersIcon.png">
   <!--<link rel="stylesheet" href="./css/menuStyles.css">-->
   <link rel="stylesheet" href="/TCGEngine/SharedUI/css/menuStyles.css">
