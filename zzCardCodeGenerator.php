@@ -45,12 +45,19 @@ while($hasMoreData) {
     "Content-Type: application/json",
   );
   curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-  curl_setopt($curl, CURLOPT_URL, $jsonUrl . ($paginationUrlParameter != "" ? "&" . $paginationUrlParameter . "=" . $currentPage : ""));
+  $urlWithParams = $jsonUrl . ($paginationUrlParameter != "" ? "?" . $paginationUrlParameter . "=" . $currentPage : "");
+  echo("Fetching data from: " . $urlWithParams . "<BR>");
+  curl_setopt($curl, CURLOPT_URL, $urlWithParams);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
   $apiData = curl_exec($curl);
   curl_close($curl);
 
+  // Remove BOM if present
+  if (substr($apiData, 0, 3) === "\xEF\xBB\xBF") {
+      $apiData = substr($apiData, 3);
+  }
   $response = json_decode($apiData);
+  echo($response ? "Response received successfully.<BR>" : "Failed to decode JSON response.<BR>");
 
   echo(count($response->$cardArrayJson) . " cards on page " . $currentPage . "<BR>");
 

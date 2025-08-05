@@ -25,15 +25,29 @@ function CheckImage($cardID, $url, $definedType, $isBack=false, $set="SOR", $roo
     {
       echo("Image for " . $cardID . " successfully retrieved.<BR>");
       echo("Normalizing file size for " . $cardID . ".<BR>");
-      $extension = strtolower(pathinfo($tempName, PATHINFO_EXTENSION));
-      if ($extension == 'webp') {
-        $image = imagecreatefromwebp($tempName);
-      } elseif ($extension == 'png') {
-        $image = imagecreatefrompng($tempName);
-      } elseif ($extension == 'jpeg' || $extension == 'jpg') {
-        $image = imagecreatefromjpeg($tempName);
+      // Robust image type detection
+      $imageInfo = @getimagesize($tempName);
+      if ($imageInfo === false) {
+        echo("Failed to get image info for $cardID. Deleting file.<BR>");
+        unlink($tempName);
+        return;
+      }
+      $mime = $imageInfo['mime'];
+      $image = false;
+      if ($mime === 'image/webp') {
+        $image = @imagecreatefromwebp($tempName);
+      } elseif ($mime === 'image/png') {
+        $image = @imagecreatefrompng($tempName);
+      } elseif ($mime === 'image/jpeg') {
+        $image = @imagecreatefromjpeg($tempName);
       } else {
-        echo("Unsupported image format: " . $extension . "<BR>");
+        echo("Unsupported or unrecognized image MIME type: $mime for $cardID. Deleting file.<BR>");
+        unlink($tempName);
+        return;
+      }
+      if ($image === false) {
+        echo("Failed to create image resource for $cardID. Deleting file.<BR>");
+        unlink($tempName);
         return;
       }
       if($definedType == "Base" || $definedType == "Leader") {
