@@ -131,7 +131,8 @@ function ValidateCommanderAddition($cardID) {
         "SM-SD-02-001" => ["SM-SD-02-001", "SM-SD-02-002", "SM-SD-02-003"],
         "SM-AW-061" => ["SM-AW-061", "SM-AW-062", "SM-AW-063"],
         "SM-AW-121" => ["SM-AW-121", "SM-AW-122", "SM-AW-123"],
-        "SM-AW-181" => ["SM-AW-181", "SM-AW-182", "SM-AW-183"]
+        "SM-AW-181" => ["SM-AW-181", "SM-AW-182", "SM-AW-183"],
+        "SM-SA-01-001" => ["SM-SA-01-001"]
     ];
 
     if (array_key_exists($cardID, $commanderSets)) {
