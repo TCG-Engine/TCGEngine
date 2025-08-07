@@ -19,28 +19,28 @@ function LoadUserData($username) {
 
 function LoadUserDataFromId($userId) {
 	$conn = GetLocalMySQLConnection();
-	
+
 	// Using LEFT JOIN so that if the user has no team, team columns will be null.
-	$sql = "SELECT u.*, 
-								 t.teamID AS team_teamID, 
-								 t.teamName, 
-								 t.ownerID 
-					FROM users u 
-					LEFT JOIN team t ON u.teamID = t.teamID 
+	$sql = "SELECT u.*,
+								 t.teamID AS team_teamID,
+								 t.teamName,
+								 t.ownerID
+					FROM users u
+					LEFT JOIN team t ON u.teamID = t.teamID
 					WHERE u.usersId = ?";
-					
+
 	$stmt = mysqli_stmt_init($conn);
 	if (!mysqli_stmt_prepare($stmt, $sql)) {
 		mysqli_close($conn);
 		return NULL;
 	}
-	
+
 	mysqli_stmt_bind_param($stmt, "i", $userId);
 	mysqli_stmt_execute($stmt);
 	$result = mysqli_stmt_get_result($stmt);
 	$row = mysqli_fetch_assoc($result);
 	mysqli_stmt_close($stmt);
-	
+
 	if ($row) {
 		// If team data is available, collect it in a nested array.
 		$team = null;
@@ -54,11 +54,11 @@ function LoadUserDataFromId($userId) {
 		// Remove the team columns from the main row and nest them.
 		unset($row['team_teamID'], $row['teamName'], $row['teamDescription']);
 		$row['team'] = $team;
-		
+
 		// Load team invites using the existing function.
 		$row['teamInvites'] = LoadUserTeamInvites($userId, $conn);
 	}
-	
+
 	mysqli_close($conn);
 	return $row;
 }
@@ -256,6 +256,16 @@ function SaveAssetOwnership($assetType, $assetID, $userID, $assetSource=null, $a
 		mysqli_stmt_close($stmt);
 		mysqli_close($conn);
 	}
+}
+
+function UpdateAssetName($assetType, $assetID, $newName) {
+  $conn = GetLocalMySQLConnection();
+  $stmt = $conn->prepare("UPDATE ownership SET assetName = ? WHERE assetIdentifier = ? AND assetType = ?");
+  $stmt->bind_param("sii", $newName, $assetID, $assetType);
+  $result = $stmt->execute();
+  $stmt->close();
+  $conn->close();
+  return $result;
 }
 
 function storeRememberMeCookie($conn, $uuid, $cookie)

@@ -101,7 +101,7 @@
         </style>
 
     <?php
-    
+
     error_reporting(E_ALL);
 
     include './Core/HTTPLibraries.php';
@@ -399,10 +399,10 @@
         <?php endif; ?>
     </div>
         -->
-    
+
     <?php include "./" . $folderPath . "/InitialLayout.php"; ?>
     </div>
-  
+
 
     <input type='hidden' id='gameName' value='<?= htmlspecialchars($gameName, ENT_QUOTES, 'UTF-8'); ?>'>
     <input type='hidden' id='playerID' value='<?= htmlspecialchars($playerID, ENT_QUOTES, 'UTF-8'); ?>'>

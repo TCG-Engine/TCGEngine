@@ -45,7 +45,7 @@ while($hasMoreData) {
     "Content-Type: application/json",
   );
   curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-  $urlWithParams = $jsonUrl . ($paginationUrlParameter != "" ? "?" . $paginationUrlParameter . "=" . $currentPage : "");
+  $urlWithParams = $jsonUrl . ($paginationUrlParameter != "" ? "&" . $paginationUrlParameter . "=" . $currentPage : "");
   echo("Fetching data from: " . $urlWithParams . "<BR>");
   curl_setopt($curl, CURLOPT_URL, $urlWithParams);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -64,7 +64,7 @@ while($hasMoreData) {
   for ($i = 0; $i < count($response->$cardArrayJson); ++$i)
   {
     $card = $response->$cardArrayJson[$i];
-    
+
     if($rootName == "Lorcana") {
       $setNumber = $card->setId;
       if($setNumber < 10) $setNumber = "00" . $setNumber;
@@ -79,7 +79,8 @@ while($hasMoreData) {
       $card = $card->attributes;
       $cardID = $card->cardUid;
       $setCode = $card->expansion->data->attributes->code ?? "Unknown";
-      if($setCode != "SOR" && $setCode != "SHD" && $setCode != "TWI" && $setCode != "JTL" && $setCode != "LOF") {
+      $validSets = ["SOR", "SHD", "TWI", "JTL", "LOF", "IBH"];
+      if(!in_array($setCode, $validSets)) {
         continue;
       }
 
@@ -88,7 +89,7 @@ while($hasMoreData) {
         $duplicateMap[$nameHash] = true;
         $reprintMap[$cardID] = true;
       }
-      
+
       $definedType = $card->type->data->attributes->name;
       if($definedType == "Token Unit" || $definedType == "Token Upgrade" || $definedType == "Force Token") {
         continue;
@@ -129,6 +130,8 @@ foreach ($properties as $property) {
 if($rootName == "SWUDeck") {
   $associativeArrays["uuidLookup"] = [];
   $associativeArrays["cardIdLookup"] = [];
+  $associativeArrays["setNumOffsets"] = [];
+  foreach($validSets as $set) { $associativeArrays["setNumOffsets"][$set] = 1000 * (1 + array_search($set, $validSets)); }
 }
 $allCardIds = [];
 for ($i = 0; $i < count($cardArray); ++$i) {
@@ -186,6 +189,16 @@ foreach ($properties as $property) {
   fwrite($handler, "var " . $property . "Data = " . json_encode($associativeArrays[$property]) . ";\r\n");
   fwrite($handler, "function Card" . $property . "(cardID) {\r\n");
   fwrite($handler, "  return " . $property . "Data[cardID] !== undefined ? " . $property . "Data[cardID] : null;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+if($rootName == "SWUDeck") {
+  fwrite($handler, "var setNumOffsets = " . json_encode($associativeArrays["setNumOffsets"]) . ";\r\n");
+  fwrite($handler, "function Cardsetnum(cardID) {\r\n");
+  fwrite($handler, "  var set = Cardset(cardID);\r\n");
+  fwrite($handler, "  if(set == null) return null;\r\n");
+  fwrite($handler, "  var offset = setNumOffsets[set];\r\n");
+  fwrite($handler, "  if(offset == null) return null;\r\n");
+  fwrite($handler, "  return offset + CardcardNumber(cardID);\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
 //Add should filter function

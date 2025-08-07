@@ -2,6 +2,7 @@
   include_once './GamestateParser.php';
   include_once './ZoneAccessors.php';
   include_once './ZoneClasses.php';
+  include_once './Overrides.php';
   include_once '../Core/CoreZoneModifiers.php';
   include_once './GeneratedCode/GeneratedCardDictionaries.php';
   include_once '../Core/HTTPLibraries.php';
@@ -62,14 +63,16 @@
   array_push($p1Base, new Base($base));
   $deck = $deckObj->deck;
   for($i=0; $i<count($deck); ++$i) {
-    $cardID = UUIDLookup($deck[$i]->id);
+    $cardID = CardIDOverride($deck[$i]->id);
+    $cardID = UUIDLookup($cardID);
     for($j=0; $j<$deck[$i]->count; ++$j) {
       array_push($p1MainDeck, new MainDeck($cardID));
     }
   }
   $sideboard = $deckObj->sideboard ?? [];
   for($i=0; $i<count($sideboard); ++$i) {
-    $cardID = UUIDLookup($sideboard[$i]->id);
+    $cardID = CardIDOverride($sideboard[$i]->id);
+    $cardID = UUIDLookup($cardID);
     for($j=0; $j<$sideboard[$i]->count; ++$j) {
       array_push($p1Sideboard, new Sideboard($cardID));
     }

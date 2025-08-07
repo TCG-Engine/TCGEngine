@@ -42,14 +42,4 @@
 
   echo json_encode($response);
 
-  function UpdateAssetName($assetType, $assetID, $newName) {
-    $conn = GetLocalMySQLConnection();
-    $stmt = $conn->prepare("UPDATE ownership SET assetName = ? WHERE assetIdentifier = ? AND assetType = ?");
-    $stmt->bind_param("sii", $newName, $assetID, $assetType);
-    $result = $stmt->execute();
-    $stmt->close();
-    $conn->close();
-    return $result;
-  }
-
 ?>

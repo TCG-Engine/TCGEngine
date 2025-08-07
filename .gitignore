@@ -1,10 +1,12 @@
 .DS_Store
 .env
-.vscode
+.vscode/*
+!.vscode/launch.json
 Lorcana
 SoulMasters
 SoulMastersSim
 vendor
+HostFiles/
 SWUDeck/concat
 SWUDeck/crops
 SWUDeck/Games
