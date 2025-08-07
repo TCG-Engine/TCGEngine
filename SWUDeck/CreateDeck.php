@@ -2,6 +2,7 @@
   include_once './GamestateParser.php';
   include_once './ZoneAccessors.php';
   include_once './ZoneClasses.php';
+  include_once './Overrides.php';
   include_once '../Core/CoreZoneModifiers.php';
   include_once './GeneratedCode/GeneratedCardDictionaries.php';
   include_once '../Core/HTTPLibraries.php';
@@ -62,7 +63,7 @@
       $decklinkArr = explode("/", $deckLink);
       $assetSource = 2;
       $assetSourceID = substr(trim($decklinkArr[count($decklinkArr) - 1]), 0, 31);
-      
+
       // Fetch the HTML content from melee.gg
       $curl = curl_init();
       curl_setopt($curl, CURLOPT_URL, $deckLink);
@@ -72,29 +73,29 @@
       $apiInfo = curl_getinfo($curl);
       $errorMessage = curl_error($curl);
       curl_close($curl);
-      
+
       if(!empty($htmlContent)) {
         // Create a DOM parser
         $dom = new DOMDocument();
         @$dom->loadHTML($htmlContent);
         $xpath = new DOMXPath($dom);
-        
+
         // Create the structure that matches our expected format
         $deckObj = new stdClass();
-        
+
         // Extract deck title
         $deckTitleNodes = $xpath->query("//div[@class='decklist-title']");
         $deckTitle = "";
         if($deckTitleNodes->length > 0) {
           $deckTitle = trim($deckTitleNodes->item(0)->nodeValue);
-          
+
           // Add metadata with the deck name
           $deckObj->metadata = new stdClass();
           $deckObj->metadata->name = $deckTitle;
-          
+
           // Parse deck name to identify leader and base
           $deckNameParts = explode(" - ", $deckTitle);
-          
+
           if(count($deckNameParts) >= 2) {
             // Create leader object - from title
             $deckObj->leader = new stdClass();
@@ -105,7 +106,7 @@
               $deckObj->leader->id = $leaderSetCode;
               $deckObj->leader->count = 1;
             }
-            
+
             // Create base object - from title
             $deckObj->base = new stdClass();
             $baseName = $deckNameParts[1];
@@ -117,11 +118,11 @@
             }
           }
         }
-        
+
         // Extract cards from the HTML
         $deckObj->deck = [];
         $deckObj->sideboard = [];
-        
+
         // Find all card categories
         $categoryNodes = $xpath->query("//div[@class='decklist-category']");
         foreach($categoryNodes as $categoryNode) {
@@ -131,7 +132,7 @@
           if($categoryTitleNodes->length > 0) {
             $categoryTitle = trim($categoryTitleNodes->item(0)->nodeValue);
           }
-          
+
           // Skip processing if we already have leader and base from title
           if($categoryTitle == "Leader (1)" || $categoryTitle == "Base (1)") {
             // If leader wasn't found in the title, try to extract it here
@@ -152,7 +153,7 @@
                 }
               }
             }
-            
+
             // If base wasn't found in the title, try to extract it here
             if($categoryTitle == "Base (1)" && (!isset($deckObj->base) || !isset($deckObj->base->id))) {
               $cardNodes = $xpath->query(".//div[@class='decklist-record']", $categoryNode);
@@ -173,24 +174,24 @@
             }
             continue;
           }
-          
+
           // Process cards in this category
           $cardNodes = $xpath->query(".//div[@class='decklist-record']", $categoryNode);
           foreach($cardNodes as $cardNode) {
             $quantityNodes = $xpath->query(".//span[@class='decklist-record-quantity']", $cardNode);
             $nameNodes = $xpath->query(".//a[@class='decklist-record-name']", $cardNode);
-            
+
             if($quantityNodes->length > 0 && $nameNodes->length > 0) {
               $quantity = intval(trim($quantityNodes->item(0)->nodeValue));
               $cardName = trim($nameNodes->item(0)->nodeValue);
-              
+
               // Find card ID - use the shared helper function
               $cardSetCode = FindCardSetCode($cardName);
               if($cardSetCode != null) {
                 $cardObject = new stdClass();
                 $cardObject->id = $cardSetCode;
                 $cardObject->count = $quantity;
-                
+
                 // Add to appropriate list based on category
                 if(stripos($categoryTitle, "Sideboard") !== false) {
                   $deckObj->sideboard[] = $cardObject;
@@ -204,7 +205,7 @@
             }
           }
         }
-        
+
         // Convert back to JSON string
         $json = json_encode($deckObj);
       }
@@ -212,6 +213,9 @@
     if(isset($json) && $json != "") {
       SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID);//assetType 1 = Deck
       $deckObj = json_decode($json);
+      if (isset($deckObj->metadata->name)) {
+        UpdateAssetName(1, $gameName, $deckObj->metadata->name); // Update deck name if available
+      }
       if(isset($deckObj->leader)) {
         $leader = UUIDLookup($deckObj->leader->id);
         SetAssetKeyIdentifier(1, $gameName, 1, $leader);
@@ -225,7 +229,8 @@
       $deck = $deckObj->deck ?? [];
       if($deck != null) {
         for($i=0; $i<count($deck); ++$i) {
-          $cardID = UUIDLookup($deck[$i]->id);
+          $cardID = CardIDOverride($deck[$i]->id);
+          $cardID = UUIDLookup($cardID);
           for($j=0; $j<$deck[$i]->count; ++$j) {
             array_push($p1MainDeck, new MainDeck($cardID));
           }
@@ -234,7 +239,8 @@
       $sideboard = $deckObj->sideboard ?? [];
       if($sideboard != null) {
         for($i=0; $i<count($sideboard); ++$i) {
-          $cardID = UUIDLookup($sideboard[$i]->id);
+          $cardID = CardIDOverride($sideboard[$i]->id);
+          $cardID = UUIDLookup($cardID);
           for($j=0; $j<$sideboard[$i]->count; ++$j) {
             array_push($p1Sideboard, new Sideboard($cardID));
           }

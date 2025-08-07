@@ -9,6 +9,7 @@ Header: title=Print, link=/TCGEngine/SWUDeck/CreatePDF.php?gameName>$gameName, t
 Header: title=Visibility, module=AssetVisibility, AssetType=1
 Header: title=Versions, module=Versions, Zones=Leader;Base;MainDeck;Sideboard
 PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
+AssetReflection: SWUDeck
 Initialization: Initialize.php
 ServerInclude: /Custom/DeckValidation.php
 ServerInclude: /Custom/CustomInput.php
@@ -42,7 +43,7 @@ DragMode: Clone
 Filter: InAspectFilter
 Widgets: CustomInput=V&>&>>>&Notes
 Sideboard - CardID:string
-Display: Visibility=Self, Mode=Tile, Left=26%, Bottom=10px, Split=None
+Display: Visibility=Self, Mode=Tile, Left=26%, Bottom=5%, Split=None
 Click: Remove(mySideboard)
 Widgets: CustomInput=<&<<<&^&+&Notes
 Deck - CardID:string
@@ -52,8 +53,8 @@ Stats - Value:string
 Display: Visibility=Public, Mode=Radio(Value), Left=39%, Top=16%
 Widgets: Value=Play_Win_Rate&Resource_Rate&Hypergeo
 Sort - Value:string
-Display: Visibility=Public, Mode=Radio(Value), Left=83%, Top=16%
-Widgets: Value=Title&Cost&Aspect&Power&HP
+Display: Visibility=Public, Mode=Radio(Value), Left=80%, Top=16%
+Widgets: Value=Title&Cost&Aspect&Power&HP&SetNum
 CardNotes - CardID:string, Notes:string
 Display: Visibility=Self, Mode=None
 Versions - Version:string
