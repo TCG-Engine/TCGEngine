@@ -5,6 +5,15 @@ include_once './SWUDeck/ZoneAccessors.php';
 include_once './SWUDeck/ZoneClasses.php';
 include_once './Database/ConnectionManager.php';
 include_once './AccountFiles/AccountDatabaseAPI.php';
+include_once "./AccountFiles/AccountSessionAPI.php";
+
+$response = new stdClass();
+$error = CheckLoggedInUserMod();
+if($error !== "") {
+  $response->error = $error;
+  echo json_encode($response);
+  exit();
+}
 
 $conn = GetLocalMySQLConnection();
 for($i=12192; $i<15927; ++$i) {

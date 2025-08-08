@@ -4,18 +4,10 @@ include_once './AccountFiles/AccountSessionAPI.php';
 include_once './AccountFiles/AccountDatabaseAPI.php';
 
 $response = new stdClass();
-
-if(!IsUserLoggedIn()) {
-  $response->error = "You must be logged in to use this";
-  echo (json_encode($response));
-    exit();
-}
-
-$userName = LoggedInUserName();
-
-if($userName != "OotTheMonk") {
-  $response->error = "Error: You must be an approved user to use this";
-  echo (json_encode($response));
+$error = CheckLoggedInUserMod();
+if($error !== "") {
+  $response->error = $error;
+  echo json_encode($response);
   exit();
 }
 

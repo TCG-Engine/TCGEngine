@@ -1,4 +1,13 @@
 <?php
+include_once "./AccountFiles/AccountSessionAPI.php";
+
+$response = new stdClass();
+$error = CheckLoggedInUserMod();
+if($error !== "") {
+  $response->error = $error;
+  echo json_encode($response);
+  exit();
+}
 // Get folder names from the Schemas directory
 $directory = 'Schemas';
 $items = array_filter(glob($directory . '/*'), 'is_dir');
@@ -22,7 +31,7 @@ function createButtons($item) {
         function sendCurlRequest(item, url, responseElementId) {
             //display a loading gif because the card code generation can take a while
             document.getElementById(responseElementId).innerHTML = '<img src="Assets/Loading.gif" alt="Loading..." style="width: 50px; height: 50px;">';
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open("GET", url + "?rootName=" + item, true);
             xhr.onreadystatechange = function () {
