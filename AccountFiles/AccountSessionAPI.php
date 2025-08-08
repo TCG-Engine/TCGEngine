@@ -18,6 +18,22 @@
     return $_SESSION["useruid"];
   }
 
+  function CheckLoggedInUserMod()
+  {
+    if(!IsUserLoggedIn()) {
+      return "You must be logged in to use this";
+    }
+
+    $userName = LoggedInUserName();
+    $mods = ["ninin", "OotTheMonk"];
+
+    if(!in_array($userName, $mods)) {
+      return "Error: You must be an approved user to use this";
+    }
+
+    return "";
+  }
+
   function IsLoggedInUserPatron()
   {
     return (isset($_SESSION["isPatron"]) ? "1" : "0");

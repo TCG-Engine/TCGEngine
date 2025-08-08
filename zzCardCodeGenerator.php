@@ -3,6 +3,15 @@
 include './zzImageConverter.php';
 include './Core/Trie.php';
 include "./Core/HTTPLibraries.php";
+include_once "./AccountFiles/AccountSessionAPI.php";
+
+$response = new stdClass();
+$error = CheckLoggedInUserMod();
+if($error !== "") {
+  $response->error = $error;
+  echo json_encode($response);
+  exit();
+}
 
 $rootName = TryGET("rootName", "");
 

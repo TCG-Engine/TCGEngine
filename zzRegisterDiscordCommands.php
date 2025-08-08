@@ -1,6 +1,15 @@
 <?php
 
 include_once "./APIKeys/APIKeys.php";
+include_once "./AccountFiles/AccountSessionAPI.php";
+
+$response = new stdClass();
+$error = CheckLoggedInUserMod();
+if($error !== "") {
+  $response->error = $error;
+  echo json_encode($response);
+  exit();
+}
 
 $botToken = $discordBotToken;  // Replace with your bot token
 $applicationId = isset($discordClientID) ? $discordClientID : '1338995198730043432';

@@ -1,4 +1,13 @@
 <?php
+include_once './AccountFiles/AccountSessionAPI.php';
+
+$response = new stdClass();
+$error = CheckLoggedInUserMod();
+if($error !== "") {
+  $response->error = $error;
+  echo json_encode($response);
+  exit();
+}
 
 //TODO: Make the card image generation size customizable in a schema file
 function CheckImage($cardID, $url, $definedType, $isBack=false, $set="SOR", $rootPath="")
@@ -80,14 +89,14 @@ function CheckImage($cardID, $url, $definedType, $isBack=false, $set="SOR", $roo
     if(file_exists($filename))
     {
       echo("Attempting to convert image for " . $cardID . " to concat.<BR>");
-      
+
       $image = imagecreatefromwebp($filename);
       //$image = imagecreatefrompng($filename);
-      
+
       if($definedType == "Event") {
         $imageTop = imagecrop($image, ['x' => 0, 'y' => 0, 'width' => 450, 'height' => 110]);
         $imageBottom = imagecrop($image, ['x' => 0, 'y' => 320, 'width' => 450, 'height' => 628]);
-  
+
         $dest = imagecreatetruecolor(450, 450);
         imagecopy($dest, $imageTop, 0, 0, 0, 0, 450, 110);
         imagecopy($dest, $imageBottom, 0, 111, 0, 0, 450, 404);
@@ -97,7 +106,7 @@ function CheckImage($cardID, $url, $definedType, $isBack=false, $set="SOR", $roo
         //$imageBottom = imagecrop($image, ['x' => 0, 'y' => 570, 'width' => 450, 'height' => 628]);
         $imageTop = imagecrop($image, ['x' => 0, 'y' => 0, 'width' => 450, 'height' => 397]);
         $imageBottom = imagecrop($image, ['x' => 0, 'y' => 595, 'width' => 450, 'height' => 628]);
-  
+
         $dest = imagecreatetruecolor(450, 450);
         imagecopy($dest, $imageTop, 0, 0, 0, 0, 450, 397);
         imagecopy($dest, $imageBottom, 0, 398, 0, 0, 450, 53);
