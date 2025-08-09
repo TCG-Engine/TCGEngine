@@ -12,7 +12,7 @@ if ($error !== "") {
 function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", $rootPath = "")
 {
     $filename = $rootPath . "WebpImages/" . $cardID . ".webp";
-    $filenameNew = "UnimplementedCards/" . $cardID . ".webp";
+    $filenameNew = $rootPath . "UnimplementedCards/" . $cardID . ".webp";
     $concatFilename = $rootPath . "concat/" . $cardID . ".webp";
     $cropFilename = $rootPath . "crops/" . $cardID . "_cropped.png";
     $isNew = false;
@@ -129,6 +129,7 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
                 $image->writeImage($filenameNew);
                 $image->clear();
                 $image->destroy();
+                $image->
             } catch (Exception $e) {
                 echo "Imagick failed converting new format for $cardID: " . $e->getMessage() . "<br>";
             }
