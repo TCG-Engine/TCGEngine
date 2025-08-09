@@ -171,12 +171,18 @@
 
     $borderColor = ($darkMode ? "#DDD" : "#1a1a1a");
 
+    $dictionaryFiles = glob("./" . $folderPath . "/GeneratedCode/GeneratedCardDictionaries*.js");
+    $generateFilename = $dictionaryFiles[0];
+    $lastSlashPos = strrpos($generateFilename, '/');
+    if ($lastSlashPos !== false) {
+      $generateFilename = substr($generateFilename, $lastSlashPos + 1);
+    }
     // Check if GetAssetReflectionPath function exists and include appropriate scripts based on folder path
     if (function_exists('GetAssetReflectionPath')) {
       $reflectionPath = GetAssetReflectionPath($folderPath);
-      echo '<script src="./' . $reflectionPath . '/GeneratedCode/GeneratedCardDictionaries.js"></script>';
+      echo '<script src="./' . $reflectionPath . '/GeneratedCode/' . $generateFilename . '"></script>';
     } else {
-      echo '<script src="./' . $folderPath . '/GeneratedCode/GeneratedCardDictionaries.js"></script>';
+      echo '<script src="./' . $folderPath . '/GeneratedCode/' . $generateFilename . '"></script>';
     }
 
     ?>
@@ -198,7 +204,16 @@
     </script>
 
     <script src="./Core/jsInclude.js"></script>
-    <script src="./<?php echo($folderPath); ?>/GeneratedUI.js"></script>
+    <script src="./<?php
+      $generateFilename = glob("./" . $folderPath . "/GeneratedUI*.js")[0];
+      $lastSlashPos = strrpos($generateFilename, '/');
+      if ($lastSlashPos !== false) {
+        $generateFilename = substr($generateFilename, $lastSlashPos + 1);
+      }
+      echo("$folderPath/$generateFilename");
+      ?>">
+
+    </script>
 
     <style>
       :root {

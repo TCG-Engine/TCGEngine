@@ -14,7 +14,7 @@ SWUDeck/GeneratedCode
 SWUDeck/TempImages
 SWUDeck/WebpImages
 SWUDeck/GamestateParser.php
-SWUDeck/GeneratedUI.js
+SWUDeck/GeneratedUI*.js
 SWUDeck/GetNextTurn.php
 SWUDeck/InitialLayout.php
 SWUDeck/NextTurnRender.php
@@ -27,7 +27,7 @@ SoulMastersDB/GeneratedCode
 SoulMastersDB/TempImages
 SoulMastersDB/WebpImages
 SoulMastersDB/GamestateParser.php
-SoulMastersDB/GeneratedUI.js
+SoulMastersDB/GeneratedUI*.js
 SoulMastersDB/GetNextTurn.php
 SoulMastersDB/InitialLayout.php
 SoulMastersDB/NextTurnRender.php
@@ -42,7 +42,7 @@ SoulMastersSim/Games/GameIDCounter.txt
 SWUCardList/concat
 SWUCardList/GeneratedCode
 SWUCardList/GamestateParser.php
-SWUCardList/GeneratedUI.js
+SWUCardList/GeneratedUI*.js
 SWUCardList/GetNextTurn.php
 SWUCardList/InitialLayout.php
 SWUCardList/NextTurnRender.php

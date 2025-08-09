@@ -545,7 +545,13 @@ fclose($handler);
 WriteInitialLayout();
 
 //Write JavaScript helper file
-$filename = $rootPath . "/GeneratedUI.js";
+$fileSuffix = date("YmdHis");
+$filename = "$rootPath/GeneratedUI_$fileSuffix.js";
+//delete old files if they exist
+$oldFiles = glob("$rootPath/GeneratedUI*.js");
+foreach ($oldFiles as $oldFile) {
+    unlink($oldFile);
+}
 $handler = fopen($filename, "w");
 fwrite($handler, AddGeneratedUI() . "\r\n");
 fclose($handler);

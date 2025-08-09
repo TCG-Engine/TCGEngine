@@ -192,7 +192,14 @@ fwrite($handler, "}\r\n\r\n");
 fwrite($handler, "?>");
 fclose($handler);
 
-$generateFilename = $directory . "/GeneratedCardDictionaries.js";
+$fileSuffix = date("YmdHis");
+$generateFilename = $directory . "/GeneratedCardDictionaries_$fileSuffix.js";
+$oldFiles = glob($directory . "/GeneratedCardDictionaries*.js");
+foreach ($oldFiles as $oldFile) {
+  if (strpos($oldFile, "GeneratedCardDictionaries_") === 0 && strpos($oldFile, ".js") === strlen($oldFile) - 3) {
+    unlink($oldFile);
+  }
+}
 $handler = fopen($generateFilename, "w");
 foreach ($properties as $property) {
   fwrite($handler, "var " . $property . "Data = " . json_encode($associativeArrays[$property]) . ";\r\n");
