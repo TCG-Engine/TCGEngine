@@ -123,29 +123,18 @@ function CheckImage($cardID, $url, $definedType, $isBack=false, $set="SOR", $roo
   }
   if(!file_exists($cropFilename))
   {
-    $imageURL = $url;
-    $urlExtension = pathinfo($imageURL, PATHINFO_EXTENSION);
-    $tempName = $rootPath . "TempImages/" . $cardID . "." . $urlExtension;
     echo("Crop image for " . $cardID . " does not exist.<BR>");
     if(file_exists($filename))
     {
       echo("Attempting to convert image for " . $cardID . " to crops.<BR>");
       try {
-        // Use Imagick for WebP
-        if (class_exists('Imagick')) {
-            $imagick = new Imagick();
-            $imagick->readImage($filename);
-            $imagick->clear();
-            $imagick->destroy();
-        } else {
-          $image = imagecreatefromwebp($filename);
-        }
+        $image = imagecreatefromwebp($filename);
       } catch(Exception $e) {
         $image = imagecreatefrompng($filename);
       }
-      $imageToCrop = imagecreatefrompng($tempName);
-      if($definedType == "Event") $image = imagecrop($imageToCrop, ['x' => 50, 'y' => 326, 'width' => 350, 'height' => 246]);
-      else $image = imagecrop($imageToCrop, ['x' => 50, 'y' => 100, 'width' => 350, 'height' => 270]);
+      //$image = imagecreatefrompng($filename);
+      if($definedType == "Event") $image = imagecrop($image, ['x' => 50, 'y' => 326, 'width' => 350, 'height' => 246]);
+      else $image = imagecrop($image, ['x' => 50, 'y' => 100, 'width' => 350, 'height' => 270]);
       imagepng($image, $cropFilename);
       imagedestroy($image);
       if(file_exists($cropFilename)) echo("Image for " . $cardID . " successfully converted to crops.<BR>");
