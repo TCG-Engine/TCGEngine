@@ -13,6 +13,7 @@ SWUDeck/Games
 SWUDeck/GeneratedCode
 SWUDeck/TempImages
 SWUDeck/WebpImages
+SWUDeck/UnimplementedCards
 SWUDeck/GamestateParser.php
 SWUDeck/GeneratedUI*.js
 SWUDeck/GetNextTurn.php
