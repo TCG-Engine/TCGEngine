@@ -129,7 +129,6 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
                 $image->writeImage($filenameNew);
                 $image->clear();
                 $image->destroy();
-                $image->
             } catch (Exception $e) {
                 echo "Imagick failed converting new format for $cardID: " . $e->getMessage() . "<br>";
             }
