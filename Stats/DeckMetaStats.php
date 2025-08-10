@@ -116,7 +116,20 @@ $(function() {
           var r = json[i];
           html += '<tr>'
             + '<td>' + (r.opponentLeaderID ? '<img src="../SWUDeck/concat/' + r.opponentLeaderID + '.webp" style="height:40px;vertical-align:middle;" title="' + (r.opponentLeaderID) + '" />' : '') + '</td>'
-            + '<td>' + (r.opponentBaseID ? '<img src="../SWUDeck/concat/' + r.opponentBaseID + '.webp" style="height:40px;vertical-align:middle;" title="' + (r.opponentBaseID) + '" />' : '') + '</td>'
+            + '<td>' + (function() {
+                if (!r.opponentBaseID) return '';
+                var colorMap = {
+                  'Red': 'Aggression',
+                  'Green': 'Command',
+                  'Blue': 'Vigilance',
+                  'Yellow': 'Cunning'
+                };
+                if (colorMap[r.opponentBaseID]) {
+                  return '<img src="../Assets/Images/icons/SWU/' + colorMap[r.opponentBaseID] + '.webp" style="height:40px;vertical-align:middle;" title="' + r.opponentBaseID + '" />';
+                } else {
+                  return '<img src="../SWUDeck/concat/' + r.opponentBaseID + '.webp" style="height:40px;vertical-align:middle;" title="' + r.opponentBaseID + '" />';
+                }
+              })() + '</td>'
             + '<td>' + r.numPlays + '</td>'
             + '<td>' + (r.numPlays > 0 ? (parseInt(r.numWins)/parseInt(r.numPlays)*100).toFixed(2) + '%' : 'N/A') + '</td>'
             + '<td>' + (r.numWins > 0 ? (parseFloat(r.turnsInWins)/parseInt(r.numWins)).toFixed(2) : 'N/A') + '</td>'
