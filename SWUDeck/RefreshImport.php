@@ -17,14 +17,18 @@
   }
 
   $gameName = TryGet("deckID", "");
+  $assetSource = TryGet("source", null);
   $assetSourceID = TryGet("sourceID", "");
 
-  if($gameName == "" || $assetSourceID == "") {
+  if($gameName == "" || $assetSource == null || $assetSourceID == "") {
     header("location: ../SharedUI/ErrorPage.php?error=MissingParameters");
     exit();
   }
 
   $deckLink = "https://swudb.com/api/getDeckJson/" . $assetSourceID;
+  if ($assetSource == 3) {
+      $deckLink = "https://swubase.com/api/deck/" . $assetSourceID . "/deck";
+  }
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $deckLink);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);

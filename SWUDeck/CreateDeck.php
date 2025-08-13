@@ -209,6 +209,19 @@
         // Convert back to JSON string
         $json = json_encode($deckObj);
       }
+    } else if(str_contains($deckLink, "swubase.com")) {
+        $decklinkArr = explode("/", $deckLink);
+        $assetSource = 3;
+        $assetSourceID = trim($decklinkArr[count($decklinkArr) - 1]);
+        $deckLink = "https://swubase.com/api/deck/" . $assetSourceID . "/deck";
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $deckLink);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $apiDeck = curl_exec($curl);
+        $apiInfo = curl_getinfo($curl);
+        $errorMessage = curl_error($curl);
+        curl_close($curl);
+        $json = $apiDeck;
     } else $json = $deckLink;
     if(isset($json) && $json != "") {
       SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID);//assetType 1 = Deck
