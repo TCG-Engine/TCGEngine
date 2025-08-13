@@ -27,7 +27,7 @@
 
   $deckLink = "https://swudb.com/api/getDeckJson/" . $assetSourceID;
   if ($assetSource == 3) {
-      $deckLink = "https://swubase.com/api/deck/" . $assetSourceID . "/deck";
+      $deckLink = "https://swubase.com/api/deck/" . $assetSourceID . "/json";
   }
   $curl = curl_init();
   curl_setopt($curl, CURLOPT_URL, $deckLink);
