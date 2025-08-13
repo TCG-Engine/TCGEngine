@@ -134,7 +134,7 @@ function LoadDecks() {
       $thisDeck .= "<img src='../Assets/Icons/clipboard-check.svg' width='16' height='16' alt='Copy Link' style='filter:invert(100%);' />";
       $thisDeck .= "</button>";
       if (!is_null($deck["assetSource"]) && !is_null($deck["assetSourceID"])) {
-      $thisDeck .= "<button title='Refresh' onclick='event.stopPropagation(); RefreshDeck(\"" . $deck["assetIdentifier"] . "\", \"" . $deck["assetSourceID"] . "\", event)'>";
+      $thisDeck .= "<button title='Refresh' onclick='event.stopPropagation(); RefreshDeck(\"" . $deck["assetIdentifier"] . "\", " . $deck["assetSource"] . ", \"" . $deck["assetSourceID"] . "\", event)'>";
       $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-clockwise' viewBox='0 0 16 16'>
       <path fill-rule='evenodd' d='M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z'/>
       <path d='M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466'/>
@@ -166,7 +166,7 @@ function LoadDecks() {
       $thisDeck .= "</button>";
       $thisDeck .= "</td>";
       // Mobile dropdown button
-      $thisDeck .= "<td class='deck-actions-mobile' style='padding: 3px; display: none;'><button class='deck-more-btn' title='More' onclick='event.stopPropagation(); showDeckDropdown(this, \"$id\", \"{$deck['assetIdentifier']}\", \"{$deck['assetSourceID']}\", {$deck['assetFolder']}, " . (!is_null($deck['assetSource']) && !is_null($deck['assetSourceID']) ? "true" : "false") . ")'>⋮</button></td>";
+      $thisDeck .= "<td class='deck-actions-mobile' style='padding: 3px; display: none;'><button class='deck-more-btn' title='More' onclick='event.stopPropagation(); showDeckDropdown(this, \"$id\", \"{$deck['assetIdentifier']}\", {$deck['assetSource']}, \"{$deck['assetSourceID']}\", {$deck['assetFolder']}, " . (!is_null($deck['assetSource']) && !is_null($deck['assetSourceID']) ? "true" : "false") . ")'>⋮</button></td>";
       $thisDeck .= "</tr>";
       if($deck["assetFolder"] == 0) $otherDecks .= $thisDeck;
       else $favoriteDecks .= $thisDeck;
@@ -278,9 +278,9 @@ function LoadDecks() {
       }, 900);
     }
 
-    function RefreshDeck(deckID, assetSourceID, event) {
+    function RefreshDeck(deckID, assetSource, assetSourceID, event) {
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "../SWUDeck/RefreshImport.php?deckID=" + deckID + "&sourceID=" + assetSourceID, true);
+      xhr.open("GET", "../SWUDeck/RefreshImport.php?deckID=" + deckID + "&source=" + assetSource + "&sourceID=" + assetSourceID, true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           showFlashMessage("Deck refreshed successfully!", event);
@@ -528,7 +528,7 @@ function LoadDecks() {
   }
 
   // Dropdown for mobile deck actions
-  function showDeckDropdown(btn, id, deckID, assetSourceID, assetFolder, canRefresh) {
+  function showDeckDropdown(btn, id, deckID, assetSource, assetSourceID, assetFolder, canRefresh) {
     // Remove any existing dropdown
     var existing = document.getElementById('deckDropdownMenu');
     if (existing) existing.remove();
@@ -578,7 +578,7 @@ function LoadDecks() {
       ` : `
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); showCopyOptions("${deckID}", event); setTimeout(()=>{if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();},200);'>${icons.copy}Copy Link/Export</button>
       `}
-      <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' ${canRefresh ? '' : 'disabled style="color:#888;"'} onclick='event.stopPropagation(); if(${canRefresh}) RefreshDeck("${deckID}", "${assetSourceID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.refresh}Refresh</button>
+      <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' ${canRefresh ? '' : 'disabled style="color:#888;"'} onclick='event.stopPropagation(); if(${canRefresh}) RefreshDeck("${deckID}", ${assetSource}, "${assetSourceID}", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.refresh}Refresh</button>
       <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); MoveDeck("${id}", ${assetFolder == 1 ? 0 : 1}); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.favorite}${assetFolder == 1 ? 'Unfavorite' : 'Favorite'}</button>
       <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); DeleteDeck("${id}"); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.delete}Delete</button>
     `;

@@ -209,6 +209,27 @@
         // Convert back to JSON string
         $json = json_encode($deckObj);
       }
+    } else if(str_contains($deckLink, "swubase.com")) {
+        $decklinkArr = explode("/", $deckLink);
+        $assetSource = 3;
+        $assetSourceID = trim($decklinkArr[count($decklinkArr) - 1]);
+
+        /**
+         * Swubase IDs are guids with 36 characters
+         *  - to fit into `assetSourceID` 32 character limit, we remove dashes (that will make it exactly 32 characters long).
+         *  - swubase API was updated to also accept IDs without dashes
+         */
+        $assetSourceID = str_replace('-', '', $assetSourceID);
+
+        $deckLink = "https://swubase.com/api/deck/" . $assetSourceID . "/json";
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $deckLink);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $apiDeck = curl_exec($curl);
+        $apiInfo = curl_getinfo($curl);
+        $errorMessage = curl_error($curl);
+        curl_close($curl);
+        $json = $apiDeck;
     } else $json = $deckLink;
     if(isset($json) && $json != "") {
       SaveAssetOwnership(1, $gameName, $userID, $assetSource, $assetSourceID);//assetType 1 = Deck
