@@ -154,6 +154,52 @@ include_once "../SharedUI/Header.php";
     </div>
 
     <div class="api-section">
+        <h2>Deck Matchup Statistics API</h2>
+        <p>Access detailed matchup statistics for a specific deck (leader + base combination) against all other decks.</p>
+        <div class="api-endpoint">
+            <h3>Get Deck Matchup Statistics</h3>
+            <p><span class="method get">GET</span> <code>/TCGEngine/APIs/DeckMetaMatchupStatsAPI.php</code></p>
+            <p>Retrieve matchup statistics for a deck, showing how it performs against other leader/base combinations.</p>
+            <h4>Query Parameters:</h4>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>leaderID</td>
+                    <td>string</td>
+                    <td>The ID of the leader for the deck</td>
+                </tr>
+                <tr>
+                    <td>baseID</td>
+                    <td>string</td>
+                    <td>The ID of the base for the deck</td>
+                </tr>
+            </table>
+            <h4>Example Response:</h4>
+            <pre><code>[
+    {
+        "opponentLeaderID": "1234567890",
+        "opponentBaseID": "0987654321",
+        "numWins": 12,
+        "numPlays": 30,
+        "playsGoingFirst": 15,
+        "turnsInWins": 90,
+        "totalTurns": 210,
+        "cardsResourcedInWins": 80,
+        "totalCardsResourced": 200,
+        "remainingHealthInWins": 45,
+        "winsGoingFirst": 7,
+        "winsGoingSecond": 5
+    }
+    // More matchup objects...
+]</code></pre>
+        </div>
+    </div>
+
+    <div class="api-section">
         <h2>Card Statistics API</h2>
         <p>Access statistical information about individual cards, including play rates, resource rates, and more.</p>
         
