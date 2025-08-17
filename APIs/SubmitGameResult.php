@@ -2,9 +2,21 @@
 
   require_once "../Core/HTTPLibraries.php";
   require_once "../Database/ConnectionManager.php";
+  require_once "../APIKeys/APIKeys.php";
 
   $input = file_get_contents('php://input');
   $data = json_decode($input, true);
+
+  $apiKey = isset($data["apiKey"]) ? $data["apiKey"] : "";
+  if($apiKey != $petranakiAPIKey && $apiKey != $karabastAPIKey) {
+	http_response_code(403);
+	header('Content-Type: application/json');
+	echo json_encode([
+		"success" => false,
+		"error" => "Invalid API key."
+	]);
+	exit;
+  }
 
   $disableMetaStats = false;
 
