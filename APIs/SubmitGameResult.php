@@ -32,11 +32,13 @@
   $p1SWUStatsToken = isset($data["p1SWUStatsToken"]) ? $data["p1SWUStatsToken"] : "";
   $p2SWUStatsToken = isset($data["p2SWUStatsToken"]) ? $data["p2SWUStatsToken"] : "";
 
+  /*
   $logFile = '../logs/game_results.log';
   $logDir = dirname($logFile);
   if (!file_exists($logDir)) {
 	mkdir($logDir, 0755, true);
   }
+	*/
 
   function writeLog($message) {
 	global $logFile;
