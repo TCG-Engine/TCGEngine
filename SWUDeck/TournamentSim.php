@@ -60,6 +60,8 @@ $baseName = count($arr) > 0 ? CardTitle($arr[0]->CardID) : null;
 $numTournaments = intval(TryGet('numTournaments', 1000));
 $numParticipants = intval(TryGet('numParticipants', 64));
 $numRounds = intval(TryGet('numRounds', 6));
+// optional melee tournament id to use as meta
+$meleeId = TryGet('meleeId', '');
 
 if ($leaderName === null || $baseName === null) {
   echo json_encode(["error" => "No leader or base found in the loaded deck."]);
@@ -70,6 +72,9 @@ if ($leaderName === null || $baseName === null) {
 // Ensure the path matches your workspace; use an absolute path for reliability.
 $nodeScript = __DIR__ . DIRECTORY_SEPARATOR . 'tournamentSim.js';
 $cmd = 'node ' . escapeshellarg($nodeScript) . ' ' . escapeshellarg(strval($numTournaments)) . ' ' . escapeshellarg(strval($numParticipants)) . ' ' . escapeshellarg(strval($numRounds)) . ' ' . escapeshellarg($leaderName) . ' ' . escapeshellarg($baseName);
+if ($meleeId !== '') {
+  $cmd .= ' ' . escapeshellarg(strval($meleeId));
+}
 
 $output = null;
 // Use shell_exec as a simple approach. On Windows ensure node is in PATH.
@@ -98,6 +103,16 @@ echo '<style>body{font-family:Arial,Helvetica,sans-serif;margin:24px;color:#222}
 echo '</head><body>';
 echo '<h1>Tournament Simulation Results</h1>';
 echo '<div class="card">';
+// small parameter form
+echo '<form method="get" style="margin-bottom:12px">';
+// preserve gameName when re-submitting the form
+echo '<input type="hidden" name="gameName" value="' . htmlspecialchars($gameName) . '">';
+echo 'Tournaments: <input type="number" name="numTournaments" value="' . htmlspecialchars($numTournaments) . '" style="width:80px;margin-right:8px">';
+echo 'Participants: <input type="number" name="numParticipants" value="' . htmlspecialchars($numParticipants) . '" style="width:80px;margin-right:8px">';
+echo 'Rounds: <input type="number" name="numRounds" value="' . htmlspecialchars($numRounds) . '" style="width:60px;margin-right:8px">';
+echo 'Melee ID: <input type="text" name="meleeId" value="' . htmlspecialchars($meleeId) . '" style="width:120px;margin-right:8px">';
+echo '<input type="submit" value="Run">';
+echo '</form>';
 echo '<p><strong>Deck:</strong> ' . htmlspecialchars($leaderName . ' / ' . $baseName) . '</p>';
 echo '<p class="muted">Command: ' . htmlspecialchars($cmd) . '</p>';
 if ($prefix) echo '<p class="muted">' . nl2br(htmlspecialchars($prefix)) . '</p>';
@@ -113,7 +128,18 @@ if ($decoded === null) {
 // show summary
 echo '<p><strong>Parameters:</strong> Tournaments=' . intval($numTournaments) . ', Participants=' . intval($numParticipants) . ', Rounds=' . intval($numRounds) . '</p>';
 if (isset($decoded['target'])) {
-  echo '<p><strong>Target archetype:</strong> ' . htmlspecialchars($decoded['target']['leader'] . ' / ' . $decoded['target']['base']) . '</p>';
+  $tLeader = htmlspecialchars($decoded['target']['leader']);
+  $tBase = htmlspecialchars($decoded['target']['base']);
+  // try to map to names if archetypeMap present
+  if (isset($decoded['archetypeMap'])) {
+    $key = $decoded['target']['leader'] . '||' . $decoded['target']['base'];
+    if (isset($decoded['archetypeMap'][$key])) {
+      $m = $decoded['archetypeMap'][$key];
+      $tLeader = htmlspecialchars($m['leaderName'] . ' (' . $m['leaderId'] . ')');
+      $tBase = htmlspecialchars($m['baseName'] . ' (' . $m['baseId'] . ')');
+    }
+  }
+  echo '<p><strong>Target archetype:</strong> ' . $tLeader . ' / ' . $tBase . '</p>';
   echo '<ul>';
   echo '<li>Top‑8 rate: ' . (isset($decoded['target']['top8Rate']) ? round($decoded['target']['top8Rate'] * 100, 2) . '%' : 'N/A') . '</li>';
   echo '<li>Average rank: ' . (isset($decoded['target']['avgRank']) ? round($decoded['target']['avgRank'], 2) : 'N/A') . '</li>';
@@ -127,11 +153,18 @@ if (isset($decoded['totals']) && is_array($decoded['totals'])) {
   echo '<table><thead><tr><th>Leader</th><th>Base</th><th>Top‑8 Appearances</th><th>Top‑8 Rate</th></tr></thead><tbody>';
   foreach ($decoded['totals'] as $row) {
     $parts = explode('||', $row['archetype']);
-    $leader = isset($parts[0]) ? $parts[0] : '';
-    $base = isset($parts[1]) ? $parts[1] : '';
+    $leaderId = isset($parts[0]) ? $parts[0] : '';
+    $baseId = isset($parts[1]) ? $parts[1] : '';
+    $leaderDisplay = htmlspecialchars($leaderId);
+    $baseDisplay = htmlspecialchars($baseId);
+    if (isset($decoded['archetypeMap'][$row['archetype']])) {
+      $m = $decoded['archetypeMap'][$row['archetype']];
+      $leaderDisplay = htmlspecialchars($m['leaderName'] . ' (' . $m['leaderId'] . ')');
+      $baseDisplay = htmlspecialchars($m['baseName'] . ' (' . $m['baseId'] . ')');
+    }
     echo '<tr>';
-    echo '<td>' . htmlspecialchars($leader) . '</td>';
-    echo '<td>' . htmlspecialchars($base) . '</td>';
+    echo '<td>' . $leaderDisplay . '</td>';
+    echo '<td>' . $baseDisplay . '</td>';
     echo '<td>' . intval($row['top8Appearances']) . '</td>';
     echo '<td>' . (isset($row['top8Rate']) ? round($row['top8Rate'] * 100, 3) . '%' : '') . '</td>';
     echo '</tr>';
