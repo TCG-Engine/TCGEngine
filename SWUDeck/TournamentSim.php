@@ -171,6 +171,71 @@ if (isset($decoded['totals']) && is_array($decoded['totals'])) {
   }
   echo '</tbody></table>';
 }
+// Pairwise matrix visualization (collapsed by default)
+if (isset($decoded['pairwise']) && isset($decoded['pairwise']['probs'])) {
+  $pairwise = $decoded['pairwise']['probs'];
+  echo '<h3>Empirical pairwise matrix</h3>';
+  // Data source links
+  if ($meleeId !== '') {
+    $swustatsUrl = 'https://swustats.net/TCGEngine/APIs/GetMeleeTournament.php?id=' . rawurlencode($meleeId) . '&include_matchups=1';
+    $localUrl = '/TCGEngine/APIs/GetMeleeTournament.php?id=' . rawurlencode($meleeId) . '&include_matchups=1';
+    echo '<p class="muted">Data source: <a href="' . htmlspecialchars($swustatsUrl) . '" target="_blank" rel="noopener noreferrer">swustats.net API</a> — local proxy: <a href="' . htmlspecialchars($localUrl) . '" target="_blank" rel="noopener noreferrer">GetMeleeTournament.php</a></p>';
+  }
+
+  echo '<details><summary style="cursor:pointer">Show/hide pairwise matrix (collapsed by default)</summary>';
+  echo '<div style="max-width:1100px;overflow:auto;margin-top:12px">';
+
+  // collect all keys
+  $allKeys = array_keys($pairwise);
+  // also ensure we include keys that appear only as opponents
+  foreach ($pairwise as $a => $row) {
+    foreach ($row as $b => $cell) {
+      if (!in_array($b, $allKeys)) $allKeys[] = $b;
+    }
+  }
+
+  // header
+  echo '<table><thead><tr><th style="min-width:220px">Archetype</th>';
+  foreach ($allKeys as $colKey) {
+    $colLabel = $colKey;
+    if (isset($decoded['archetypeMap'][$colKey])) {
+      $m = $decoded['archetypeMap'][$colKey];
+      $colLabel = $m['leaderName'] . ' / ' . $m['baseName'] . ' (' . $m['leaderId'] . '/' . $m['baseId'] . ')';
+    }
+    echo '<th>' . htmlspecialchars($colLabel) . '</th>';
+  }
+  echo '</tr></thead><tbody>';
+
+  foreach ($allKeys as $rowKey) {
+    $rowLabel = $rowKey;
+    if (isset($decoded['archetypeMap'][$rowKey])) {
+      $m = $decoded['archetypeMap'][$rowKey];
+      $rowLabel = $m['leaderName'] . ' / ' . $m['baseName'] . ' (' . $m['leaderId'] . '/' . $m['baseId'] . ')';
+    }
+    echo '<tr><td style="font-weight:600">' . htmlspecialchars($rowLabel) . '</td>';
+    foreach ($allKeys as $colKey) {
+      $cellHtml = '&mdash;';
+      if (isset($pairwise[$rowKey]) && isset($pairwise[$rowKey][$colKey])) {
+        $cell = $pairwise[$rowKey][$colKey];
+        $smoothed = isset($cell['prob']) ? round($cell['prob'] * 100, 2) . '%' : '';
+        $games = isset($cell['games']) ? intval($cell['games']) : 0;
+        $wins = isset($cell['wins']) ? floatval($cell['wins']) : 0;
+        $observed = ($games > 0) ? round(($wins / $games) * 100, 2) . '%' : 'N/A';
+        // show smoothed (used by simulator) and observed (raw) so users understand smoothing
+        $cellHtml = htmlspecialchars($smoothed) . '<br><span class="muted">g:' . $games . ' w:' . round($wins,2) . ' obs:' . $observed . '</span>';
+      }
+      echo '<td style="text-align:center;min-width:120px">' . $cellHtml . '</td>';
+    }
+    echo '</tr>';
+  }
+
+  echo '</tbody></table>';
+  echo '</div></details>';
+}
+
+if (isset($decoded['pairwise']) && isset($decoded['pairwise']['probs'])) {
+  echo '<p class="muted">Note: probabilities shown are Laplace-smoothed (alpha=1) estimates used by the simulator; "obs" shows the raw observed win rate from the recorded matches.</p>';
+}
 
 echo '</div></body></html>';
 ?>

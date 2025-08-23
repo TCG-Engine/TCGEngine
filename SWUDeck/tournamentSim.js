@@ -77,8 +77,8 @@ function participantsFromApiDecks(decks) {
   return participants;
 }
 
-function fetchMeleeTournament(meleeId) {
-  const url = `/TCGEngine/APIs/GetMeleeTournament.php?id=${encodeURIComponent(meleeId)}`;
+function fetchMeleeTournament(meleeId, includeMatchups = false) {
+  const url = `/TCGEngine/APIs/GetMeleeTournament.php?id=${encodeURIComponent(meleeId)}` + (includeMatchups ? '&include_matchups=1' : '');
   // use hostname without scheme; use HTTPS on port 443
   const options = { hostname: 'swustats.net', port: 443, path: url, method: 'GET' };
   return new Promise((resolve, reject) => {
@@ -90,7 +90,12 @@ function fetchMeleeTournament(meleeId) {
           const parsed = JSON.parse(data);
           if (!parsed.success || !parsed.decks) return reject(new Error('API returned no decks'));
           const participants = participantsFromApiDecks(parsed.decks);
-          resolve(participants);
+          if (includeMatchups) {
+            const pairwise = buildPairwiseFromMatchups(parsed.decks);
+            resolve({ participants, pairwise });
+          } else {
+            resolve({ participants });
+          }
         } catch (e) {
           reject(e);
         }
@@ -100,6 +105,55 @@ function fetchMeleeTournament(meleeId) {
     req.end();
   });
 }
+
+// Build pairwise win counts/probabilities from API matchups.
+// Returns an object { counts, probs } where counts[a][b] = { wins, games }, probs[a][b] = probability A beats B
+function buildPairwiseFromMatchups(decks, alpha = 1) {
+  // map deck id -> archetype key
+  const deckToKey = {};
+  for (const d of decks) {
+    const lid = (d.leader && d.leader.uuid) ? String(d.leader.uuid) : (d.leaderId || ('L_' + d.id));
+    const bid = (d.base && d.base.uuid) ? String(d.base.uuid) : (d.baseId || ('B_' + d.id));
+    deckToKey[d.id] = `${lid}||${bid}`;
+  }
+
+  const counts = {}; // counts[a][b] = { wins, games }
+  for (const d of decks) {
+    const aKey = deckToKey[d.id];
+    if (!d.matchups || !Array.isArray(d.matchups)) continue;
+    for (const mu of d.matchups) {
+      const oppId = mu.opponent_id;
+      const bKey = deckToKey[oppId];
+      if (!bKey) continue; // skip missing opponent
+      const wins = Number(mu.wins || 0);
+      const losses = Number(mu.losses || 0);
+      const draws = Number(mu.draws || 0);
+      const games = wins + losses + draws;
+      const effectiveWins = wins + 0.5 * draws;
+      counts[aKey] = counts[aKey] || {};
+      counts[aKey][bKey] = counts[aKey][bKey] || { wins: 0, games: 0 };
+      counts[aKey][bKey].wins += effectiveWins;
+      counts[aKey][bKey].games += games;
+    }
+  }
+
+  // convert to probabilities with Laplace smoothing
+  const probs = {};
+  for (const aKey of Object.keys(counts)) {
+    probs[aKey] = {};
+    for (const bKey of Object.keys(counts[aKey])) {
+      const rec = counts[aKey][bKey];
+      const wins = rec.wins;
+      const games = rec.games;
+      const p = (wins + alpha) / (games + 2 * alpha);
+      probs[aKey][bKey] = { prob: p, wins: rec.wins, games: rec.games };
+    }
+  }
+  return { counts, probs };
+}
+
+let empiricalMatrix = null;
+function setEmpiricalMatrix(m) { empiricalMatrix = m; }
 
 function GetWinProbability(leaderA, baseA, leaderB, baseB) {
   // Coerce inputs to strings so string ops below won't throw
@@ -114,21 +168,14 @@ function GetWinProbability(leaderA, baseA, leaderB, baseB) {
   if (leaderA === leaderB && baseA === baseB) return 0.5; // mirror
 
   // Example rules: A beats B if leader letter comes earlier in alphabet (very rough)
-  // Derive small deterministic numeric values from ids for comparison
-  const hash = s => { let h=0; for(let i=0;i<s.length;i++){h=(h*31 + s.charCodeAt(i))|0;} return Math.abs(h); };
-  const la = hash(leaderA) % 1000;
-  const lb = hash(leaderB) % 1000;
-  let baseFactor = 0;
-  if (baseA === baseB) baseFactor = 0;
-  else if (baseA === 'Base_X' && baseB === 'Base_Y') baseFactor = 0.05;
-  else if (baseA === 'Base_Y' && baseB === 'Base_Z') baseFactor = 0.05;
-  else if (baseA === 'Base_Z' && baseB === 'Base_X') baseFactor = 0.05;
-
-  let diff = (lb - la) / 2000; // small normalized range
-  let p = 0.5 + diff + baseFactor;
-  if (p < 0.02) p = 0.02;
-  if (p > 0.98) p = 0.98;
-  return p;
+  // If an empirical matrix was provided, use it when possible.
+  const aKey = `${leaderA}||${baseA}`;
+  const bKey = `${leaderB}||${baseB}`;
+  if (empiricalMatrix && empiricalMatrix.probs && empiricalMatrix.probs[aKey] && empiricalMatrix.probs[aKey][bKey]) {
+    return empiricalMatrix.probs[aKey][bKey].prob;
+  }
+  // No empirical data for this pair: use flat 50% prior as fallback
+  return 0.5;
 }
 
 function pairSwiss(participants, round) {
@@ -260,8 +307,11 @@ if (require.main === module) {
     let out = null;
     try {
       if (meleeId) {
-        // fetch participants from the API
-        const participants = await fetchMeleeTournament(meleeId);
+        // fetch participants and matchups from the API
+        const fetched = await fetchMeleeTournament(meleeId, true);
+        const participants = fetched.participants;
+        const pairwise = fetched.pairwise; // { counts, probs }
+        if (pairwise) setEmpiricalMatrix(pairwise);
         const results = [];
         const archetypeMap = {};
         let targetTop8Count = 0, targetTotalRank = 0, targetMatchWins = 0, targetMatchTotal = 0;
@@ -311,7 +361,8 @@ if (require.main === module) {
         for (const r of results) aggregate[r.archetype] = (aggregate[r.archetype] || 0) + r.top8;
         const totals = Object.entries(aggregate).map(([k,v]) => ({ archetype: k, top8Appearances: v, top8Rate: v / (numT * 8) }));
         totals.sort((a,b) => b.top8Appearances - a.top8Appearances);
-        out = { numTournaments: numT, numParticipants: participants.length, numRounds: numR, totals, archetypeMap };
+  out = { numTournaments: numT, numParticipants: participants.length, numRounds: numR, totals, archetypeMap };
+  if (pairwise) out.pairwise = pairwise;
         if (targetLeader && targetBase) {
           out.target = { leader: targetLeader, base: targetBase, top8Rate: targetTop8Count / numT, avgRank: targetTotalRank / Math.max(1, numT), matchWinRate: targetMatchTotal > 0 ? targetMatchWins / targetMatchTotal : null };
         }
