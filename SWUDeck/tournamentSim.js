@@ -90,11 +90,33 @@ function fetchMeleeTournament(meleeId, includeMatchups = false) {
           const parsed = JSON.parse(data);
           if (!parsed.success || !parsed.decks) return reject(new Error('API returned no decks'));
           const participants = participantsFromApiDecks(parsed.decks);
+          // compute rounds: prefer explicit tournament rounds, otherwise infer from decks' standings
+          let rounds = null;
+          if (parsed.tournament && parsed.tournament.rounds) rounds = parsed.tournament.rounds;
+          else {
+            let maxMatches = 0;
+            for (const d of parsed.decks) {
+              if (d.standings && typeof d.standings.match_wins !== 'undefined') {
+                const mw = Number(d.standings.match_wins || 0);
+                const ml = Number(d.standings.match_losses || 0);
+                const md = Number(d.standings.match_draws || 0);
+                const matches = mw + ml + md;
+                if (matches > maxMatches) maxMatches = matches;
+              } else if (d.standings && d.standings.match_record) {
+                const parts = d.standings.match_record.split(/[-:]/).map(x => Number(x));
+                const matches = parts.reduce((s,v) => s + (isNaN(v) ? 0 : v), 0);
+                if (matches > maxMatches) maxMatches = matches;
+              }
+            }
+            if (maxMatches > 0) rounds = maxMatches;
+          }
+
+          const parts = participantsFromApiDecks(parsed.decks);
           if (includeMatchups) {
             const pairwise = buildPairwiseFromMatchups(parsed.decks);
-            resolve({ participants, pairwise });
+            resolve({ participants: parts, pairwise, rounds });
           } else {
-            resolve({ participants });
+            resolve({ participants: parts, rounds });
           }
         } catch (e) {
           reject(e);
@@ -309,9 +331,17 @@ if (require.main === module) {
       if (meleeId) {
         // fetch participants and matchups from the API
         const fetched = await fetchMeleeTournament(meleeId, true);
-        const participants = fetched.participants;
-        const pairwise = fetched.pairwise; // { counts, probs }
-        if (pairwise) setEmpiricalMatrix(pairwise);
+  let participants = fetched.participants;
+  const pairwise = fetched.pairwise; // { counts, probs }
+  const fetchedRounds = (typeof fetched.rounds !== 'undefined' && fetched.rounds !== null) ? Number(fetched.rounds) : null;
+  if (pairwise) setEmpiricalMatrix(pairwise);
+  // if rounds were provided by the tournament data, use them but subtract 3 to account for Top-8 elimination rounds
+  let roundsToUse;
+  if (fetchedRounds !== null) {
+    roundsToUse = Math.max(1, fetchedRounds - 3);
+  } else {
+    roundsToUse = numR;
+  }
         const results = [];
         const archetypeMap = {};
         let targetTop8Count = 0, targetTotalRank = 0, targetMatchWins = 0, targetMatchTotal = 0;
@@ -320,7 +350,7 @@ if (require.main === module) {
           // initialize players from participants (clone) with ids and names
           const players = participants.map((d, i) => ({ id: i+1, leaderId: d.leaderId, baseId: d.baseId, leaderName: d.leaderName, baseName: d.baseName, score: 0 }));
 
-          for (let r = 1; r <= numR; r++) {
+          for (let r = 1; r <= roundsToUse; r++) {
             const pairs = pairSwiss(players, r);
             for (const [pA, pB] of pairs) {
               if (!pB) { pA.score += 3; continue; }
@@ -345,7 +375,7 @@ if (require.main === module) {
             if (targetLeader && targetBase && (p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase)) targetTotalRank += (i+1);
             if (targetLeader && targetBase && (p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase)) {
               const wins = Math.round(p.score / 3);
-              targetMatchWins += wins; targetMatchTotal += numR;
+              targetMatchWins += wins; targetMatchTotal += roundsToUse;
             }
           }
 
@@ -361,7 +391,7 @@ if (require.main === module) {
         for (const r of results) aggregate[r.archetype] = (aggregate[r.archetype] || 0) + r.top8;
         const totals = Object.entries(aggregate).map(([k,v]) => ({ archetype: k, top8Appearances: v, top8Rate: v / (numT * 8) }));
         totals.sort((a,b) => b.top8Appearances - a.top8Appearances);
-  out = { numTournaments: numT, numParticipants: participants.length, numRounds: numR, totals, archetypeMap };
+  out = { numTournaments: numT, numParticipants: participants.length, numRounds: roundsToUse, totals, archetypeMap };
   if (pairwise) out.pairwise = pairwise;
         if (targetLeader && targetBase) {
           out.target = { leader: targetLeader, base: targetBase, top8Rate: targetTop8Count / numT, avgRank: targetTotalRank / Math.max(1, numT), matchWinRate: targetMatchTotal > 0 ? targetMatchWins / targetMatchTotal : null };

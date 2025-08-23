@@ -125,8 +125,14 @@ if ($decoded === null) {
   exit;
 }
 
-// show summary
-echo '<p><strong>Parameters:</strong> Tournaments=' . intval($numTournaments) . ', Participants=' . intval($numParticipants) . ', Rounds=' . intval($numRounds) . '</p>';
+// show summary — prefer actual values returned by the simulator when available
+$displayParticipants = isset($decoded['numParticipants']) ? intval($decoded['numParticipants']) : intval($numParticipants);
+$displayRounds = isset($decoded['numRounds']) ? intval($decoded['numRounds']) : intval($numRounds);
+echo '<p><strong>Parameters:</strong> Tournaments=' . intval($numTournaments) . ', Participants=' . $displayParticipants . ', Rounds=' . $displayRounds . '</p>';
+// if the simulator reports a different participant/round count than requested, show a brief hint
+if ($displayParticipants !== intval($numParticipants) || $displayRounds !== intval($numRounds)) {
+  echo '<p class="muted">Note: the simulator returned actual Participants=' . $displayParticipants . ' and Rounds=' . $displayRounds . ' (requested Participants=' . intval($numParticipants) . ', Rounds=' . intval($numRounds) . ').</p>';
+}
 if (isset($decoded['target'])) {
   $tLeader = htmlspecialchars($decoded['target']['leader']);
   $tBase = htmlspecialchars($decoded['target']['base']);
