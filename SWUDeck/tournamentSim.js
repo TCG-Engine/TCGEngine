@@ -249,6 +249,8 @@ function runManyTournaments(numTournaments = 1000, numParticipants = DEFAULT_PAR
   let targetTotalRank = 0; // aggregate finishing position
   let targetMatchWins = 0;
   let targetMatchTotal = 0;
+    // per-instance (per player bringing the deck) metrics
+    let targetInstanceCount = 0, targetInstanceTop8Count = 0, targetInstanceWins = 0, targetInstanceRankSum = 0, targetInstanceMatchWinsSum = 0, targetInstanceMatchTotal = 0;
 
   for (let t = 0; t < numTournaments; t++) {
     const standings = simulateSingleTournament(numParticipants, numRounds);
@@ -264,10 +266,14 @@ function runManyTournaments(numTournaments = 1000, numParticipants = DEFAULT_PAR
       if (!archetypeMap[key]) archetypeMap[key] = { leaderId: String(lid), baseId: String(bid), leaderName: p.leaderName || p.leader || String(lid), baseName: p.baseName || p.base || String(bid) };
       topCounts[key] = (topCounts[key] || 0) + (i < 8 ? 1 : 0);
 
-      // if this player is the target archetype, accumulate rank
-  if (targetLeader && targetBase && (p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase)) {
+      // if this player is the target archetype and finished in Top-8, accumulate rank
+      if (i < 8 && targetLeader && targetBase && (p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase)) {
         targetTotalRank += (i + 1); // ranks are 1-based
-      }
+          // per-instance tracking for the target archetype
+          targetInstanceCount += 1;
+          if (i < 8) targetInstanceTop8Count += 1;
+          if (i === 0) targetInstanceWins += 1;
+          targetInstanceRankSum += (i + 1);
     }
 
     // matches: estimate match wins by comparing against simulated pairings using GetWinProbability
@@ -280,16 +286,13 @@ function runManyTournaments(numTournaments = 1000, numParticipants = DEFAULT_PAR
         const wins = Math.round(tp.score / 3); // rough
         targetMatchWins += wins;
         targetMatchTotal += numRounds;
+          targetInstanceMatchWinsSum += wins;
+          targetInstanceMatchTotal += numRounds;
       }
     }
 
-    // count top8 occurrences
-    for (const k of Object.keys(topCounts)) results.push({ archetype: k, top8: topCounts[k] });
-    // also account straightforwardly for top8Count for target
-    if (targetLeader && targetBase) {
-    const key = `${targetLeader}||${targetBase}`;
-    const foundInTop = top.some(p => ((p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase)));
-      if (foundInTop) targetTop8Count++;
+  // count top8 occurrences
+  if (foundInTop) targetTop8Count++;
     }
   }
 
@@ -307,9 +310,38 @@ function runManyTournaments(numTournaments = 1000, numParticipants = DEFAULT_PAR
 
   const out = { numTournaments, numParticipants, numRounds, totals, archetypeMap };
   if (targetLeader && targetBase) {
-    const avgRank = targetTotalRank / Math.max(1, (numTournaments));
+    // resolve archetype key
+    let targetKey = null;
+    for (const k of Object.keys(archetypeMap)) {
+      const m = archetypeMap[k];
+      if (!m) continue;
+      const leaderMatches = (m.leaderId === targetLeader || m.leaderName === targetLeader || m.leaderId === String(targetLeader) || m.leaderName === String(targetLeader));
+      const baseMatches = (m.baseId === targetBase || m.baseName === targetBase || m.baseId === String(targetBase) || m.baseName === String(targetBase));
+      if (leaderMatches && baseMatches) { targetKey = k; break; }
+    }
+    if (!targetKey) targetKey = `${targetLeader}||${targetBase}`;
+    const totalAppearances = aggregate[targetKey] || 0;
+    const presenceRate = targetTop8Count / numTournaments;
+    const slotShare = totalAppearances / (numTournaments * 8);
+    const avgRankPerAppearance = totalAppearances > 0 ? (targetTotalRank / totalAppearances) : null;
     const matchWinRate = targetMatchTotal > 0 ? (targetMatchWins / targetMatchTotal) : null;
-  out.target = { leader: targetLeader, base: targetBase, top8Rate: targetTop8Count / numTournaments, avgRank, matchWinRate };
+    out.target = {
+      leader: targetLeader,
+      base: targetBase,
+      top8PresenceRate: presenceRate,
+      top8SlotShare: slotShare,
+      avgRankPerAppearance,
+      matchWinRate,
+      perInstance: {
+        totalEntries: targetInstanceCount,
+        chanceTop8: targetInstanceCount > 0 ? (targetInstanceTop8Count / targetInstanceCount) : null,
+        chanceWin: targetInstanceCount > 0 ? (targetInstanceWins / targetInstanceCount) : null,
+        expectedMatchWinRate: targetInstanceMatchTotal > 0 ? (targetInstanceMatchWinsSum / targetInstanceMatchTotal) : null,
+        expectedFinishWhenTop8: targetInstanceTop8Count > 0 ? (targetInstanceRankSum / targetInstanceTop8Count) : null
+      },
+      _resolvedKey: targetKey,
+      _totalAppearances: totalAppearances
+    };
   }
   return out;
 }
@@ -342,9 +374,11 @@ if (require.main === module) {
   } else {
     roundsToUse = numR;
   }
-        const results = [];
-        const archetypeMap = {};
-        let targetTop8Count = 0, targetTotalRank = 0, targetMatchWins = 0, targetMatchTotal = 0;
+  const results = [];
+  const archetypeMap = {};
+  let targetTop8Count = 0, targetTotalRank = 0, targetMatchWins = 0, targetMatchTotal = 0;
+  // per-instance counters for individual players bringing the target deck
+  let targetInstanceCount = 0, targetInstanceTop8Count = 0, targetInstanceWins = 0, targetInstanceRankSum = 0, targetInstanceMatchWinsSum = 0, targetInstanceMatchTotal = 0;
 
         for (let t = 0; t < numT; t++) {
           // initialize players from participants (clone) with ids and names
@@ -372,10 +406,18 @@ if (require.main === module) {
             const key = `${lid}||${bid}`;
             if (!archetypeMap[key]) archetypeMap[key] = { leaderId: String(lid), baseId: String(bid), leaderName: p.leaderName || String(lid), baseName: p.baseName || String(bid) };
             if (i < 8) keyCounts[key] = (keyCounts[key] || 0) + 1;
-            if (targetLeader && targetBase && (p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase)) targetTotalRank += (i+1);
             if (targetLeader && targetBase && (p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase)) {
+              // per-tournament aggregate
+              if (i < 8) targetTotalRank += (i+1);
               const wins = Math.round(p.score / 3);
               targetMatchWins += wins; targetMatchTotal += roundsToUse;
+              // per-instance tracking
+              targetInstanceCount += 1;
+              if (i < 8) targetInstanceTop8Count += 1;
+              if (i === 0) targetInstanceWins += 1;
+              targetInstanceRankSum += (i + 1);
+              targetInstanceMatchWinsSum += wins;
+              targetInstanceMatchTotal += roundsToUse;
             }
           }
 
@@ -391,10 +433,46 @@ if (require.main === module) {
         for (const r of results) aggregate[r.archetype] = (aggregate[r.archetype] || 0) + r.top8;
         const totals = Object.entries(aggregate).map(([k,v]) => ({ archetype: k, top8Appearances: v, top8Rate: v / (numT * 8) }));
         totals.sort((a,b) => b.top8Appearances - a.top8Appearances);
+
+  // build output and clearer target metrics
   out = { numTournaments: numT, numParticipants: participants.length, numRounds: roundsToUse, totals, archetypeMap };
   if (pairwise) out.pairwise = pairwise;
         if (targetLeader && targetBase) {
-          out.target = { leader: targetLeader, base: targetBase, top8Rate: targetTop8Count / numT, avgRank: targetTotalRank / Math.max(1, numT), matchWinRate: targetMatchTotal > 0 ? targetMatchWins / targetMatchTotal : null };
+          // try to resolve the aggregate key by inspecting archetypeMap (match by id or name)
+          let targetKey = null;
+          for (const k of Object.keys(archetypeMap)) {
+            const m = archetypeMap[k];
+            if (!m) continue;
+            const leaderMatches = (m.leaderId === targetLeader || m.leaderName === targetLeader || m.leaderId === String(targetLeader) || m.leaderName === String(targetLeader));
+            const baseMatches = (m.baseId === targetBase || m.baseName === targetBase || m.baseId === String(targetBase) || m.baseName === String(targetBase));
+            if (leaderMatches && baseMatches) { targetKey = k; break; }
+          }
+          // fallback to naive key if not found
+          if (!targetKey) targetKey = `${targetLeader}||${targetBase}`;
+
+          const totalAppearances = aggregate[targetKey] || 0; // total top8 slots occupied by target across all tournaments
+          const presenceRate = targetTop8Count / numT; // fraction of tournaments where target had at least one top8
+          const slotShare = totalAppearances / (numT * 8); // fraction of all top8 slots occupied by target
+          const avgRankPerAppearance = totalAppearances > 0 ? (targetTotalRank / totalAppearances) : null; // average finishing position per appearance
+          out.target = {
+            leader: targetLeader,
+            base: targetBase,
+            top8PresenceRate: presenceRate,
+            top8SlotShare: slotShare,
+            avgRankPerAppearance,
+            matchWinRate: targetMatchTotal > 0 ? targetMatchWins / targetMatchTotal : null,
+            // per-instance probabilities (per individual copy of the deck)
+            perInstance: {
+              totalEntries: targetInstanceCount,
+              chanceTop8: targetInstanceCount > 0 ? (targetInstanceTop8Count / targetInstanceCount) : null,
+              chanceWin: targetInstanceCount > 0 ? (targetInstanceWins / targetInstanceCount) : null,
+              expectedMatchWinRate: targetInstanceMatchTotal > 0 ? (targetInstanceMatchWinsSum / targetInstanceMatchTotal) : null,
+              expectedFinishWhenTop8: targetInstanceTop8Count > 0 ? (targetInstanceRankSum / targetInstanceTop8Count) : null
+            },
+            // expose resolved key and totalAppearances for debugging/UI
+            _resolvedKey: targetKey,
+            _totalAppearances: totalAppearances
+          };
         }
       } else {
         out = runManyTournaments(numT, numP, numR, targetLeader, targetBase);

@@ -147,10 +147,33 @@ if (isset($decoded['target'])) {
   }
   echo '<p><strong>Target archetype:</strong> ' . $tLeader . ' / ' . $tBase . '</p>';
   echo '<ul>';
-  echo '<li>Top‑8 rate: ' . (isset($decoded['target']['top8Rate']) ? round($decoded['target']['top8Rate'] * 100, 2) . '%' : 'N/A') . '</li>';
-  echo '<li>Average rank: ' . (isset($decoded['target']['avgRank']) ? round($decoded['target']['avgRank'], 2) : 'N/A') . '</li>';
+  // show both the presence rate (fraction of tournaments with at least one top-8) and the slot share (fraction of total top-8 slots)
+  if (isset($decoded['target']['top8PresenceRate'])) {
+    echo '<li>Top‑8 presence (had at least one Top‑8 in a tournament): ' . round($decoded['target']['top8PresenceRate'] * 100, 2) . '%</li>';
+  } elseif (isset($decoded['target']['top8Rate'])) {
+    echo '<li>Top‑8 presence: ' . round($decoded['target']['top8Rate'] * 100, 2) . '%</li>';
+  } else {
+    echo '<li>Top‑8 presence: N/A</li>';
+  }
+  if (isset($decoded['target']['top8SlotShare'])) {
+    echo '<li>Top‑8 slot share (fraction of all Top‑8 slots occupied): ' . round($decoded['target']['top8SlotShare'] * 100, 3) . '%</li>';
+  }
+  echo '<li>Average rank when appearing: ' . (isset($decoded['target']['avgRankPerAppearance']) && $decoded['target']['avgRankPerAppearance'] !== null ? round($decoded['target']['avgRankPerAppearance'], 2) : 'N/A') . '</li>';
   echo '<li>Match win rate (approx): ' . (isset($decoded['target']['matchWinRate']) && $decoded['target']['matchWinRate'] !== null ? round($decoded['target']['matchWinRate'] * 100, 2) . '%' : 'N/A') . '</li>';
   echo '</ul>';
+
+  // per-instance (per-copy) probabilities for someone bringing this deck
+  if (isset($decoded['target']['perInstance'])) {
+    $pi = $decoded['target']['perInstance'];
+    echo '<h4>Per-copy perspective (if you bring this deck)</h4>';
+    echo '<ul>';
+    echo '<li>Total copies simulated: ' . intval($pi['totalEntries']) . '</li>';
+    echo '<li>Chance your copy makes Top‑8: ' . ($pi['chanceTop8'] !== null ? round($pi['chanceTop8'] * 100, 2) . '%' : 'N/A') . '</li>';
+    echo '<li>Chance your copy wins the event: ' . ($pi['chanceWin'] !== null ? round($pi['chanceWin'] * 100, 3) . '%' : 'N/A') . '</li>';
+    echo '<li>Expected match win rate for your copy: ' . ($pi['expectedMatchWinRate'] !== null ? round($pi['expectedMatchWinRate'] * 100, 2) . '%' : 'N/A') . '</li>';
+    echo '<li>Average finish among copies that made Top‑8: ' . ($pi['expectedFinishWhenTop8'] !== null ? round($pi['expectedFinishWhenTop8'], 2) : 'N/A') . '</li>';
+    echo '</ul>';
+  }
 }
 
 // table of totals
