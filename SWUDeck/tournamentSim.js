@@ -383,10 +383,20 @@ function pairSwiss(participants, round) {
   return pairs;
 }
 
-function simulateSingleTournament(numParticipants = DEFAULT_PARTICIPANTS, numRounds = 6) {
+function simulateSingleTournament(numParticipants = DEFAULT_PARTICIPANTS, numRounds = 6, targetLeader = null, targetBase = null) {
   const meta = GenerateRepresentativeMeta(numParticipants);
   // initialize players (use id fields)
-  const players = meta.map((d, i) => ({ id: i+1, leaderId: String(d.leaderId), baseId: String(d.baseId), leaderName: String(d.leaderName), baseName: String(d.baseName), score: 0 }));
+  const players = meta.map((d, i) => ({ 
+    id: i+1, 
+    leaderId: String(d.leaderId), 
+    baseId: String(d.baseId), 
+    leaderName: String(d.leaderName), 
+    baseName: String(d.baseName), 
+    score: 0,
+    matchWins: 0,
+    matchLosses: 0,
+    matchDraws: 0
+  }));
 
   for (let r = 1; r <= numRounds; r++) {
     const pairs = pairSwiss(players, r);
@@ -399,18 +409,56 @@ function simulateSingleTournament(numParticipants = DEFAULT_PARTICIPANTS, numRou
       const roll = Math.random();
       if (roll < p) {
         pA.score += 3;
+        pA.matchWins += 1;
+        pB.matchLosses += 1;
       } else if (roll < p + (1-p)/2) {
         // tie
-        pA.score += 1; pB.score += 1;
+        pA.score += 1; 
+        pB.score += 1;
+        pA.matchDraws += 1;
+        pB.matchDraws += 1;
       } else {
         pB.score += 3;
+        pB.matchWins += 1;
+        pA.matchLosses += 1;
       }
     }
   }
 
   // return standings
   players.sort((a,b) => b.score - a.score || a.id - b.id);
-  return players;
+  return { standings: players, fieldComposition: meta };
+}
+
+function calculateFieldWeightedWinRate(targetLeader, targetBase, fieldComposition) {
+  // Calculate expected win rate based on field composition and matchup probabilities
+  if (!fieldComposition || fieldComposition.length === 0) return null;
+  
+  // Count frequency of each archetype in the field
+  const fieldCounts = {};
+  let totalOpponents = 0;
+  
+  for (const deck of fieldComposition) {
+    const key = `${deck.leaderId}||${deck.baseId}`;
+    // Don't count mirrors as opponents for the expected win rate calculation
+    if (deck.leaderId !== targetLeader || deck.baseId !== targetBase) {
+      fieldCounts[key] = (fieldCounts[key] || 0) + 1;
+      totalOpponents++;
+    }
+  }
+  
+  if (totalOpponents === 0) return 0.5; // Only mirrors in field
+  
+  // Calculate weighted win rate
+  let weightedWinRate = 0;
+  for (const [opponentKey, count] of Object.entries(fieldCounts)) {
+    const [opponentLeader, opponentBase] = opponentKey.split('||');
+    const frequency = count / totalOpponents;
+    const winRate = GetWinProbability(targetLeader, targetBase, opponentLeader, opponentBase);
+    weightedWinRate += frequency * winRate;
+  }
+  
+  return weightedWinRate;
 }
 
 function runManyTournaments(numTournaments = 1000, numParticipants = DEFAULT_PARTICIPANTS, numRounds = 6, targetLeader = null, targetBase = null) {
@@ -425,7 +473,16 @@ function runManyTournaments(numTournaments = 1000, numParticipants = DEFAULT_PAR
     let targetInstanceCount = 0, targetInstanceTop8Count = 0, targetInstanceWins = 0, targetInstanceRankSum = 0, targetInstanceMatchWinsSum = 0, targetInstanceMatchTotal = 0;
 
   for (let t = 0; t < numTournaments; t++) {
-    const standings = simulateSingleTournament(numParticipants, numRounds);
+    const result = simulateSingleTournament(numParticipants, numRounds);
+    const standings = result.standings;
+    const fieldComposition = result.fieldComposition;
+    
+    // Calculate field-weighted expected win rate for this tournament
+    let tournamentFieldWeightedWinRate = null;
+    if (targetLeader && targetBase) {
+      tournamentFieldWeightedWinRate = calculateFieldWeightedWinRate(targetLeader, targetBase, fieldComposition);
+    }
+    
     // record top-8 leader/base counts
     const top = standings.slice(0, Math.min(8, standings.length));
     const topCounts = {};
@@ -448,18 +505,20 @@ function runManyTournaments(numTournaments = 1000, numParticipants = DEFAULT_PAR
           targetInstanceRankSum += (i + 1);
     }
 
-    // matches: estimate match wins by comparing against simulated pairings using GetWinProbability
-    // naive approach: for each player, simulate matches again vs opponents deterministically
-  if (targetLeader && targetBase) {
-  // find all players with target archetype in this tournament (match by id or name)
-  const targets = standings.filter(p => (p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase));
-      // for each target, approximate match wins by comparing its final score to average: (score/3) approx wins
+    // Use ACTUAL match results instead of theoretical expectations
+    if (targetLeader && targetBase) {
+      // find all players with target archetype in this tournament
+      const targets = standings.filter(p => (p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase));
+      
       for (const tp of targets) {
-        const wins = Math.round(tp.score / 3); // rough
-        targetMatchWins += wins;
-        targetMatchTotal += numRounds;
-          targetInstanceMatchWinsSum += wins;
-          targetInstanceMatchTotal += numRounds;
+        // Use actual match record from simulation
+        const actualWins = tp.matchWins + (tp.matchDraws * 0.5); // Count draws as half wins
+        const actualMatches = tp.matchWins + tp.matchLosses + tp.matchDraws;
+        
+        targetMatchWins += actualWins;
+        targetMatchTotal += actualMatches;
+        targetInstanceMatchWinsSum += actualWins;
+        targetInstanceMatchTotal += actualMatches;
       }
     }
 
@@ -575,17 +634,41 @@ if (require.main === module) {
 
         for (let t = 0; t < numT; t++) {
           // initialize players from participants (clone) with ids and names
-          const players = participants.map((d, i) => ({ id: i+1, leaderId: d.leaderId, baseId: d.baseId, leaderName: d.leaderName, baseName: d.baseName, score: 0 }));
+          const players = participants.map((d, i) => ({ 
+            id: i+1, 
+            leaderId: d.leaderId, 
+            baseId: d.baseId, 
+            leaderName: d.leaderName, 
+            baseName: d.baseName, 
+            score: 0,
+            matchWins: 0,
+            matchLosses: 0,
+            matchDraws: 0
+          }));
 
           for (let r = 1; r <= roundsToUse; r++) {
             const pairs = pairSwiss(players, r);
             for (const [pA, pB] of pairs) {
-              if (!pB) { pA.score += 3; continue; }
+              if (!pB) { 
+                pA.score += 3; 
+                continue; 
+              }
               const p = GetWinProbability(pA.leaderId, pA.baseId, pB.leaderId, pB.baseId);
               const roll = Math.random();
-              if (roll < p) pA.score += 3;
-              else if (roll < p + (1-p)/2) { pA.score += 1; pB.score += 1; }
-              else pB.score += 3;
+              if (roll < p) {
+                pA.score += 3;
+                pA.matchWins += 1;
+                pB.matchLosses += 1;
+              } else if (roll < p + (1-p)/2) { 
+                pA.score += 1; 
+                pB.score += 1; 
+                pA.matchDraws += 1;
+                pB.matchDraws += 1;
+              } else {
+                pB.score += 3;
+                pB.matchWins += 1;
+                pA.matchLosses += 1;
+              }
             }
           }
 
@@ -602,15 +685,20 @@ if (require.main === module) {
             if (targetLeader && targetBase && (p.leaderId === targetLeader || p.leaderName === targetLeader) && (p.baseId === targetBase || p.baseName === targetBase)) {
               // per-tournament aggregate
               if (i < 8) targetTotalRank += (i+1);
-              const wins = Math.round(p.score / 3);
-              targetMatchWins += wins; targetMatchTotal += roundsToUse;
+              
+              // Use actual match results from simulation
+              const actualWins = p.matchWins + (p.matchDraws * 0.5);
+              const actualMatches = p.matchWins + p.matchLosses + p.matchDraws;
+              targetMatchWins += actualWins; 
+              targetMatchTotal += actualMatches;
+              targetInstanceMatchWinsSum += actualWins;
+              targetInstanceMatchTotal += actualMatches;
+              
               // per-instance tracking
               targetInstanceCount += 1;
               if (i < 8) targetInstanceTop8Count += 1;
               if (i === 0) targetInstanceWins += 1;
               targetInstanceRankSum += (i + 1);
-              targetInstanceMatchWinsSum += wins;
-              targetInstanceMatchTotal += roundsToUse;
             }
           }
 
