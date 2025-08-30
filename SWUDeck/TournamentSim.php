@@ -60,7 +60,9 @@ $baseName = count($arr) > 0 ? CardTitle($arr[0]->CardID) : null;
 $numTournaments = intval(TryGet('numTournaments', 1000));
 $numParticipants = intval(TryGet('numParticipants', 64));
 $numRounds = intval(TryGet('numRounds', 6));
-// optional melee tournament id to use as meta
+// data source selection
+$dataSource = TryGet('dataSource', 'meta'); // 'meta' for MetaMatchupStatsAPI, 'melee' for specific tournament
+// optional melee tournament id to use as meta (only when dataSource is 'melee')
 $meleeId = TryGet('meleeId', '');
 
 if ($leaderName === null || $baseName === null) {
@@ -71,7 +73,7 @@ if ($leaderName === null || $baseName === null) {
 // Call the Node.js simulator with the target leader/base so it reports performance from that archetype's perspective.
 // Ensure the path matches your workspace; use an absolute path for reliability.
 $nodeScript = __DIR__ . DIRECTORY_SEPARATOR . 'tournamentSim.js';
-$cmd = 'node ' . escapeshellarg($nodeScript) . ' ' . escapeshellarg(strval($numTournaments)) . ' ' . escapeshellarg(strval($numParticipants)) . ' ' . escapeshellarg(strval($numRounds)) . ' ' . escapeshellarg($leaderName) . ' ' . escapeshellarg($baseName);
+$cmd = 'node ' . escapeshellarg($nodeScript) . ' ' . escapeshellarg(strval($numTournaments)) . ' ' . escapeshellarg(strval($numParticipants)) . ' ' . escapeshellarg(strval($numRounds)) . ' ' . escapeshellarg($leaderName) . ' ' . escapeshellarg($baseName) . ' ' . escapeshellarg($dataSource);
 if ($meleeId !== '') {
   $cmd .= ' ' . escapeshellarg(strval($meleeId));
 }
@@ -111,7 +113,12 @@ echo 'Tournaments: <input type="number" name="numTournaments" value="' . htmlspe
 echo 'Participants: <input type="number" name="numParticipants" value="' . htmlspecialchars($numParticipants) . '" style="width:80px;margin-right:8px">';
 echo 'Rounds: <input type="number" name="numRounds" value="' . htmlspecialchars($numRounds) . '" style="width:60px;margin-right:8px">';
 echo 'Melee ID: <input type="text" name="meleeId" value="' . htmlspecialchars($meleeId) . '" style="width:120px;margin-right:8px">';
+echo 'Matchup Data: <select name="dataSource" style="margin-right:8px">';
+echo '<option value="meta"' . ($dataSource === 'meta' ? ' selected' : '') . '>Player Reported Stats (MetaMatchupStatsAPI)</option>';
+echo '<option value="tournament"' . ($dataSource === 'tournament' ? ' selected' : '') . '>Tournament Specific Matchups</option>';
+echo '</select>';
 echo '<input type="submit" value="Run">';
+echo '</form>';
 echo '</form>';
 echo '<p><strong>Deck:</strong> ' . htmlspecialchars($leaderName . ' / ' . $baseName) . '</p>';
 echo '<p class="muted">Command: ' . htmlspecialchars($cmd) . '</p>';
@@ -204,10 +211,18 @@ if (isset($decoded['pairwise']) && isset($decoded['pairwise']['probs'])) {
   $pairwise = $decoded['pairwise']['probs'];
   echo '<h3>Empirical pairwise matrix</h3>';
   // Data source links
-  if ($meleeId !== '') {
+  if ($dataSource === 'meta') {
+    $metaUrl = 'https://swustats.net/TCGEngine/APIs/MetaMatchupStatsAPI.php';
+    $localUrl = '/TCGEngine/APIs/MetaMatchupStatsAPI.php';
+    echo '<p class="muted">Matchup data source: <a href="' . htmlspecialchars($metaUrl) . '" target="_blank" rel="noopener noreferrer">swustats.net MetaMatchupStats API</a> — local proxy: <a href="' . htmlspecialchars($localUrl) . '" target="_blank" rel="noopener noreferrer">MetaMatchupStatsAPI.php</a></p>';
+  } else if ($dataSource === 'tournament' && $meleeId !== '') {
     $swustatsUrl = 'https://swustats.net/TCGEngine/APIs/GetMeleeTournament.php?id=' . rawurlencode($meleeId) . '&include_matchups=1';
     $localUrl = '/TCGEngine/APIs/GetMeleeTournament.php?id=' . rawurlencode($meleeId) . '&include_matchups=1';
-    echo '<p class="muted">Data source: <a href="' . htmlspecialchars($swustatsUrl) . '" target="_blank" rel="noopener noreferrer">swustats.net API</a> — local proxy: <a href="' . htmlspecialchars($localUrl) . '" target="_blank" rel="noopener noreferrer">GetMeleeTournament.php</a></p>';
+    echo '<p class="muted">Matchup data source: <a href="' . htmlspecialchars($swustatsUrl) . '" target="_blank" rel="noopener noreferrer">swustats.net API</a> — local proxy: <a href="' . htmlspecialchars($localUrl) . '" target="_blank" rel="noopener noreferrer">GetMeleeTournament.php</a></p>';
+  }
+  if ($meleeId !== '') {
+    $meleeUrl = 'https://swustats.net/TCGEngine/APIs/GetMeleeTournament.php?id=' . rawurlencode($meleeId);
+    echo '<p class="muted">Tournament field source: <a href="' . htmlspecialchars($meleeUrl) . '" target="_blank" rel="noopener noreferrer">Melee Tournament ' . htmlspecialchars($meleeId) . '</a></p>';
   }
 
   echo '<details><summary style="cursor:pointer">Show/hide pairwise matrix (collapsed by default)</summary>';

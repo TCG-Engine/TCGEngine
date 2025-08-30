@@ -77,6 +77,120 @@ function participantsFromApiDecks(decks) {
   return participants;
 }
 
+function fetchMetaMatchupStats() {
+  const url = '/TCGEngine/APIs/MetaMatchupStatsAPI.php';
+  // use hostname without scheme; use HTTPS on port 443
+  const options = { hostname: 'swustats.net', port: 443, path: url, method: 'GET' };
+  return new Promise((resolve, reject) => {
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        try {
+          const parsed = JSON.parse(data);
+          if (!Array.isArray(parsed)) return reject(new Error('API returned invalid data format'));
+          // build pairwise matrix from the meta stats
+          const pairwise = buildPairwiseFromMetaStats(parsed);
+          // generate representative meta from the stats
+          const participants = generateMetaFromStats(parsed);
+          resolve({ participants, pairwise });
+        } catch (e) {
+          reject(e);
+        }
+      });
+    });
+    req.on('error', (e) => reject(e));
+    req.end();
+  });
+}
+
+function buildPairwiseFromMetaStats(metaStats, alpha = 1) {
+  const counts = {}; // counts[a][b] = { wins, games }
+  const probs = {}; // probs[a][b] = { prob, wins, games }
+  
+  for (const stat of metaStats) {
+    const aKey = `${stat.leaderID}||${stat.baseID}`;
+    const bKey = `${stat.opponentLeaderID}||${stat.opponentBaseID}`;
+    
+    const wins = Number(stat.numWins || 0);
+    const games = Number(stat.numPlays || 0);
+    
+    if (games === 0) continue; // skip if no games played
+    
+    // Initialize if needed
+    counts[aKey] = counts[aKey] || {};
+    counts[aKey][bKey] = { wins, games };
+    
+    // Calculate Laplace-smoothed probability
+    probs[aKey] = probs[aKey] || {};
+    probs[aKey][bKey] = {
+      prob: (wins + alpha) / (games + 2 * alpha),
+      wins,
+      games
+    };
+  }
+  
+  return { counts, probs };
+}
+
+function generateMetaFromStats(metaStats, numParticipants = DEFAULT_PARTICIPANTS) {
+  // Aggregate total games played by each archetype to determine meta share
+  const archetypeCounts = {};
+  
+  for (const stat of metaStats) {
+    const aKey = `${stat.leaderID}||${stat.baseID}`;
+    const bKey = `${stat.opponentLeaderID}||${stat.opponentBaseID}`;
+    
+    const games = Number(stat.numPlays || 0);
+    archetypeCounts[aKey] = (archetypeCounts[aKey] || 0) + games;
+    archetypeCounts[bKey] = (archetypeCounts[bKey] || 0) + games;
+  }
+  
+  // Convert to array and sort by frequency
+  const sortedArchetypes = Object.entries(archetypeCounts)
+    .sort(([,a], [,b]) => b - a)
+    .map(([key, count]) => {
+      const [leaderId, baseId] = key.split('||');
+      return { leaderId, baseId, count };
+    });
+  
+  // Calculate shares based on total games
+  const totalGames = sortedArchetypes.reduce((sum, arch) => sum + arch.count, 0);
+  const participants = [];
+  
+  for (const arch of sortedArchetypes) {
+    const share = arch.count / totalGames;
+    const count = Math.max(1, Math.round(share * numParticipants));
+    
+    for (let i = 0; i < count; i++) {
+      participants.push({
+        leaderId: arch.leaderId,
+        baseId: arch.baseId,
+        leaderName: arch.leaderId, // Use ID as name for now, could be enhanced with name lookup
+        baseName: arch.baseId
+      });
+    }
+    
+    if (participants.length >= numParticipants) break;
+  }
+  
+  // Trim to exact number if needed
+  participants.length = Math.min(participants.length, numParticipants);
+  
+  // Fill remaining slots with most popular archetype if needed
+  while (participants.length < numParticipants && sortedArchetypes.length > 0) {
+    const top = sortedArchetypes[0];
+    participants.push({
+      leaderId: top.leaderId,
+      baseId: top.baseId,
+      leaderName: top.leaderId,
+      baseName: top.baseId
+    });
+  }
+  
+  return participants;
+}
+
 function fetchMeleeTournament(meleeId, includeMatchups = false) {
   const url = `/TCGEngine/APIs/GetMeleeTournament.php?id=${encodeURIComponent(meleeId)}` + (includeMatchups ? '&include_matchups=1' : '');
   // use hostname without scheme; use HTTPS on port 443
@@ -291,8 +405,12 @@ function runManyTournaments(numTournaments = 1000, numParticipants = DEFAULT_PAR
       }
     }
 
-  // count top8 occurrences
-  if (foundInTop) targetTop8Count++;
+    // count top8 occurrences - need to check if target was found in top8
+    const foundInTop = targetLeader && targetBase && top.some(p => 
+      (p.leaderId === targetLeader || p.leaderName === targetLeader) && 
+      (p.baseId === targetBase || p.baseName === targetBase)
+    );
+    if (foundInTop) targetTop8Count++;
     }
   }
 
@@ -355,25 +473,42 @@ if (require.main === module) {
     const numR = parseInt(args[2]) || 6;
     const targetLeader = args[3] || null;
     const targetBase = args[4] || null;
-    const meleeId = args[5] || null;
+    const dataSource = args[5] || 'meta'; // 'meta' or 'melee'
+    const meleeId = args[6] || null;
 
     console.time('sim');
     let out = null;
     try {
       if (meleeId) {
-        // fetch participants and matchups from the API
-        const fetched = await fetchMeleeTournament(meleeId, true);
-  let participants = fetched.participants;
-  const pairwise = fetched.pairwise; // { counts, probs }
-  const fetchedRounds = (typeof fetched.rounds !== 'undefined' && fetched.rounds !== null) ? Number(fetched.rounds) : null;
-  if (pairwise) setEmpiricalMatrix(pairwise);
-  // if rounds were provided by the tournament data, use them but subtract 3 to account for Top-8 elimination rounds
-  let roundsToUse;
-  if (fetchedRounds !== null) {
-    roundsToUse = Math.max(1, fetchedRounds - 3);
-  } else {
-    roundsToUse = numR;
-  }
+        // Always fetch participants from the Melee tournament for deck composition
+        const fetched = await fetchMeleeTournament(meleeId, dataSource === 'tournament');
+        let participants = fetched.participants;
+        let pairwise = null;
+        
+        if (dataSource === 'tournament') {
+          // Use tournament-specific matchup data
+          pairwise = fetched.pairwise; // { counts, probs }
+        } else if (dataSource === 'meta') {
+          // Use MetaMatchupStatsAPI for matchup data but keep tournament participants
+          try {
+            const metaData = await fetchMetaMatchupStats();
+            pairwise = metaData.pairwise;
+          } catch (e) {
+            console.warn('Failed to fetch meta matchup stats, falling back to tournament data:', e.message);
+            pairwise = fetched.pairwise; // fallback to tournament data
+          }
+        }
+        
+        const fetchedRounds = (typeof fetched.rounds !== 'undefined' && fetched.rounds !== null) ? Number(fetched.rounds) : null;
+        if (pairwise) setEmpiricalMatrix(pairwise);
+        
+        // if rounds were provided by the tournament data, use them but subtract 3 to account for Top-8 elimination rounds
+        let roundsToUse;
+        if (fetchedRounds !== null) {
+          roundsToUse = Math.max(1, fetchedRounds - 3);
+        } else {
+          roundsToUse = numR;
+        }
   const results = [];
   const archetypeMap = {};
   let targetTop8Count = 0, targetTotalRank = 0, targetMatchWins = 0, targetMatchTotal = 0;
