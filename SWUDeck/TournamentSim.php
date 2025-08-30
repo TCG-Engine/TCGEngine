@@ -171,7 +171,6 @@ if (isset($decoded['target'])) {
     echo '<li>Chance your copy makes Top‑8: ' . ($pi['chanceTop8'] !== null ? round($pi['chanceTop8'] * 100, 2) . '%' : 'N/A') . '</li>';
     echo '<li>Chance your copy wins the event: ' . ($pi['chanceWin'] !== null ? round($pi['chanceWin'] * 100, 3) . '%' : 'N/A') . '</li>';
     echo '<li>Expected match win rate for your copy: ' . ($pi['expectedMatchWinRate'] !== null ? round($pi['expectedMatchWinRate'] * 100, 2) . '%' : 'N/A') . '</li>';
-    echo '<li>Average finish among copies that made Top‑8: ' . ($pi['expectedFinishWhenTop8'] !== null ? round($pi['expectedFinishWhenTop8'], 2) : 'N/A') . '</li>';
     echo '</ul>';
   }
 }
