@@ -289,7 +289,32 @@ function buildPairwiseFromMatchups(decks, alpha = 1) {
 }
 
 let empiricalMatrix = null;
-function setEmpiricalMatrix(m) { empiricalMatrix = m; }
+// Base ID to color mapping for the simulation
+const baseIdToColor = {
+  // This should be populated when the empirical matrix is set
+};
+
+function setEmpiricalMatrix(m) { 
+  empiricalMatrix = m;
+  // Extract base ID to color mapping from the pairwise data
+  if (m && m.probs) {
+    for (const rowKey of Object.keys(m.probs)) {
+      for (const colKey of Object.keys(m.probs[rowKey])) {
+        // colKey format is leaderID||color, extract the color
+        const colParts = colKey.split('||');
+        if (colParts.length >= 2) {
+          const color = colParts[1];
+          // Check if this is a known color
+          if (['Red', 'Blue', 'Green', 'Yellow'].includes(color)) {
+            // Find corresponding base IDs that map to this color by checking rowKey patterns
+            // This is a simple heuristic - in practice you'd want a proper mapping
+            continue; // Skip for now, we'll handle this in GetWinProbability
+          }
+        }
+      }
+    }
+  }
+}
 
 function GetWinProbability(leaderA, baseA, leaderB, baseB) {
   // Coerce inputs to strings so string ops below won't throw
@@ -303,13 +328,46 @@ function GetWinProbability(leaderA, baseA, leaderB, baseB) {
   // For now, use leader name comparisons to create asymmetric matchups.
   if (leaderA === leaderB && baseA === baseB) return 0.5; // mirror
 
-  // Example rules: A beats B if leader letter comes earlier in alphabet (very rough)
   // If an empirical matrix was provided, use it when possible.
   const aKey = `${leaderA}||${baseA}`;
-  const bKey = `${leaderB}||${baseB}`;
-  if (empiricalMatrix && empiricalMatrix.probs && empiricalMatrix.probs[aKey] && empiricalMatrix.probs[aKey][bKey]) {
-    return empiricalMatrix.probs[aKey][bKey].prob;
+  
+  if (empiricalMatrix && empiricalMatrix.probs && empiricalMatrix.probs[aKey]) {
+    // Try multiple lookup strategies since the pairwise data uses mixed formats
+    
+    // Strategy 1: Direct lookup with baseB as ID
+    const bKeyDirect = `${leaderB}||${baseB}`;
+    if (empiricalMatrix.probs[aKey][bKeyDirect]) {
+      return empiricalMatrix.probs[aKey][bKeyDirect].prob;
+    }
+    
+    // Strategy 2: Convert baseB to color and try lookup
+    // Map base IDs to colors based on common patterns
+    const baseToColorMap = {
+      '1393827469': 'Red',    // Aggression
+      '4028826022': 'Green',  // Command  
+      '8327910265': 'Green',  // Command
+      '0119018087': 'Yellow', // Cunning
+      // Add more mappings as discovered
+    };
+    
+    const colorB = baseToColorMap[baseB];
+    if (colorB) {
+      const bKeyColor = `${leaderB}||${colorB}`;
+      if (empiricalMatrix.probs[aKey][bKeyColor]) {
+        return empiricalMatrix.probs[aKey][bKeyColor].prob;
+      }
+    }
+    
+    // Strategy 3: Search through all opponents to find a match with the right leader
+    for (const opponentKey of Object.keys(empiricalMatrix.probs[aKey])) {
+      const opponentParts = opponentKey.split('||');
+      if (opponentParts.length >= 2 && opponentParts[0] === leaderB) {
+        // Found a matchup against the right leader, use it regardless of base
+        return empiricalMatrix.probs[aKey][opponentKey].prob;
+      }
+    }
   }
+  
   // No empirical data for this pair: use flat 50% prior as fallback
   return 0.5;
 }

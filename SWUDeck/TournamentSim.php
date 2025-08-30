@@ -228,12 +228,85 @@ if (isset($decoded['pairwise']) && isset($decoded['pairwise']['probs'])) {
   echo '<details><summary style="cursor:pointer">Show/hide pairwise matrix (collapsed by default)</summary>';
   echo '<div style="max-width:1100px;overflow:auto;margin-top:12px">';
 
-  // collect all keys
-  $allKeys = array_keys($pairwise);
-  // also ensure we include keys that appear only as opponents
-  foreach ($pairwise as $a => $row) {
-    foreach ($row as $b => $cell) {
-      if (!in_array($b, $allKeys)) $allKeys[] = $b;
+  // Only include archetypes that are represented in the tournament
+  $tournamentKeys = array();
+  if (isset($decoded['totals']) && is_array($decoded['totals'])) {
+    foreach ($decoded['totals'] as $row) {
+      $tournamentKeys[] = $row['archetype'];
+    }
+  }
+  
+  // Create mapping from base IDs to colors for tournament archetypes
+  $baseIdToColor = array();
+  $leaderBaseToColor = array(); // leader||color format for tournament archetypes
+  
+  // Aspect to color mapping
+  $aspectToColor = array(
+    'Vigilance' => 'Blue',
+    'Aggression' => 'Red', 
+    'Command' => 'Green',
+    'Cunning' => 'Yellow'
+  );
+  
+  if (isset($decoded['archetypeMap'])) {
+    foreach ($tournamentKeys as $key) {
+      if (isset($decoded['archetypeMap'][$key])) {
+        $archetype = $decoded['archetypeMap'][$key];
+        $leaderId = $archetype['leaderId'];
+        $baseId = $archetype['baseId'];
+        
+        // Use CardAspect function to get the aspect, then convert to color
+        $aspect = CardAspect($baseId);
+        $color = null;
+        
+        if ($aspect) {
+          // CardAspect might return multiple aspects like "Vigilance,Heroism"
+          // We want the first aspect that maps to a color
+          $aspects = explode(',', $aspect);
+          foreach ($aspects as $singleAspect) {
+            $singleAspect = trim($singleAspect);
+            if (isset($aspectToColor[$singleAspect])) {
+              $color = $aspectToColor[$singleAspect];
+              break;
+            }
+          }
+        }
+        
+        if ($color) {
+          $baseIdToColor[$baseId] = $color;
+          $leaderBaseToColor[$key] = $leaderId . '||' . $color;
+        }
+      }
+    }
+  }
+  
+  // Filter to show pairwise data - try both formats
+  $allKeys = array();
+  foreach ($tournamentKeys as $key) {
+    // Try direct match first (tournament format: leaderID||baseID)
+    if (isset($pairwise[$key])) {
+      $allKeys[] = $key;
+    }
+  }
+  
+  // Also collect opponent keys that appear in matchups against tournament archetypes
+  // These might be in leaderID||color format
+  foreach ($tournamentKeys as $tournamentKey) {
+    if (isset($pairwise[$tournamentKey])) {
+      foreach ($pairwise[$tournamentKey] as $opponentKey => $matchupData) {
+        // Add opponent keys that are also tournament archetypes
+        if (in_array($opponentKey, $tournamentKeys) && !in_array($opponentKey, $allKeys)) {
+          $allKeys[] = $opponentKey;
+        }
+        // Also check if this opponent key matches any of our tournament archetypes when converted to color format
+        foreach ($tournamentKeys as $checkKey) {
+          if (isset($leaderBaseToColor[$checkKey]) && $leaderBaseToColor[$checkKey] === $opponentKey) {
+            if (!in_array($checkKey, $allKeys)) {
+              $allKeys[] = $checkKey;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -249,7 +322,10 @@ if (isset($decoded['pairwise']) && isset($decoded['pairwise']['probs'])) {
   }
   echo '</tr></thead><tbody>';
 
+  // Only show rows for tournament archetypes
   foreach ($allKeys as $rowKey) {
+    if (!in_array($rowKey, $tournamentKeys)) continue; // Skip if not in tournament
+    
     $rowLabel = $rowKey;
     if (isset($decoded['archetypeMap'][$rowKey])) {
       $m = $decoded['archetypeMap'][$rowKey];
@@ -258,15 +334,43 @@ if (isset($decoded['pairwise']) && isset($decoded['pairwise']['probs'])) {
     echo '<tr><td style="font-weight:600">' . htmlspecialchars($rowLabel) . '</td>';
     foreach ($allKeys as $colKey) {
       $cellHtml = '&mdash;';
-      if (isset($pairwise[$rowKey]) && isset($pairwise[$rowKey][$colKey])) {
-        $cell = $pairwise[$rowKey][$colKey];
-        $smoothed = isset($cell['prob']) ? round($cell['prob'] * 100, 2) . '%' : '';
-        $games = isset($cell['games']) ? intval($cell['games']) : 0;
-        $wins = isset($cell['wins']) ? floatval($cell['wins']) : 0;
+      
+      // Try to find matchup data
+      $matchupData = null;
+      
+      // The pairwise data structure is:
+      // pairwise[leaderID||baseID][opponentLeaderID||opponentBaseColor] = matchup data
+      
+      // First try direct tournament key lookup
+      if (isset($pairwise[$rowKey])) {
+        // Check if column key exists directly
+        if (isset($pairwise[$rowKey][$colKey])) {
+          $matchupData = $pairwise[$rowKey][$colKey];
+        }
+        // Check if column key exists in color format
+        else if (isset($leaderBaseToColor[$colKey]) && isset($pairwise[$rowKey][$leaderBaseToColor[$colKey]])) {
+          $matchupData = $pairwise[$rowKey][$leaderBaseToColor[$colKey]];
+        }
+        // Check all opponents to see if any match our column archetype in color format
+        else {
+          foreach ($pairwise[$rowKey] as $opponentKey => $data) {
+            if (isset($leaderBaseToColor[$colKey]) && $opponentKey === $leaderBaseToColor[$colKey]) {
+              $matchupData = $data;
+              break;
+            }
+          }
+        }
+      }
+      
+      if ($matchupData) {
+        $smoothed = isset($matchupData['prob']) ? round($matchupData['prob'] * 100, 2) . '%' : '';
+        $games = isset($matchupData['games']) ? intval($matchupData['games']) : 0;
+        $wins = isset($matchupData['wins']) ? floatval($matchupData['wins']) : 0;
         $observed = ($games > 0) ? round(($wins / $games) * 100, 2) . '%' : 'N/A';
         // show smoothed (used by simulator) and observed (raw) so users understand smoothing
         $cellHtml = htmlspecialchars($smoothed) . '<br><span class="muted">g:' . $games . ' w:' . round($wins,2) . ' obs:' . $observed . '</span>';
       }
+      
       echo '<td style="text-align:center;min-width:120px">' . $cellHtml . '</td>';
     }
     echo '</tr>';
@@ -277,7 +381,7 @@ if (isset($decoded['pairwise']) && isset($decoded['pairwise']['probs'])) {
 }
 
 if (isset($decoded['pairwise']) && isset($decoded['pairwise']['probs'])) {
-  echo '<p class="muted">Note: probabilities shown are Laplace-smoothed (alpha=1) estimates used by the simulator; "obs" shows the raw observed win rate from the recorded matches.</p>';
+  echo '<p class="muted">Note: probabilities shown are Laplace-smoothed (alpha=1) estimates used by the simulator; "obs" shows the raw observed win rate from the recorded matches. Matrix is filtered to only show archetypes represented in this tournament.</p>';
 }
 
 echo '</div></body></html>';
