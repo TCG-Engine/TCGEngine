@@ -121,7 +121,6 @@ echo '<input type="submit" value="Run">';
 echo '</form>';
 echo '</form>';
 echo '<p><strong>Deck:</strong> ' . htmlspecialchars($leaderName . ' / ' . $baseName) . '</p>';
-echo '<p class="muted">Command: ' . htmlspecialchars($cmd) . '</p>';
 if ($prefix) echo '<p class="muted">' . nl2br(htmlspecialchars($prefix)) . '</p>';
 
 if ($decoded === null) {
