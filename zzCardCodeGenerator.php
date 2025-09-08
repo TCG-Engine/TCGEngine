@@ -196,7 +196,7 @@ $fileSuffix = date("YmdHis");
 $generateFilename = $directory . "/GeneratedCardDictionaries_$fileSuffix.js";
 $oldFiles = glob($directory . "/GeneratedCardDictionaries*.js");
 foreach ($oldFiles as $oldFile) {
-  if (strpos($oldFile, "GeneratedCardDictionaries_") === 0 && strpos($oldFile, ".js") === strlen($oldFile) - 3) {
+  if (preg_match('/GeneratedCardDictionaries_\d+\.js$/', basename($oldFile))) {
     unlink($oldFile);
   }
 }
