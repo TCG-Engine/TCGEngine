@@ -53,8 +53,8 @@ Stats - Value:string
 Display: Visibility=Public, Mode=Radio(Value), Left=39%, Top=16%
 Widgets: Value=Play_Win_Rate&Resource_Rate&Hypergeo
 Sort - Value:string
-Display: Visibility=Public, Mode=Radio(Value), Left=80%, Top=16%
-Widgets: Value=Title&Cost&Aspect&Power&HP&SetNum
+Display: Visibility=Public, Mode=Radio(Value), Left=75%, Top=12%
+Widgets: Value=Title&Cost&Aspect&Power&HP&SetNum&SWUDB
 CardNotes - CardID:string, Notes:string
 Display: Visibility=Self, Mode=None
 Versions - Version:string

@@ -68,7 +68,7 @@
         }        //var altText = " alt='" + CardTitle(cardNumber) + "' ";//TODO:Fix screenreader mode
         var altText = " alt='Card' ";
         rv += "<img " + (id != "" ? "id='" + id + "-img' " : "") + altText + orientation + "loading='lazy' style='" + border + " height:" + height + "; width:" + width + "px; position:relative;' src='" + folderPath + "/" + cardNumber + fileExt + "' />";
-        
+
         if(heatmapFunction != "") {
             var heatmapValue = window[heatmapFunction](cardNumber);
             var overlayColor = "rgba(0, 0, 0, .7)"; // Initialize to gray color
@@ -168,7 +168,7 @@
         return `rgba(${red}, ${green}, 0, .7)`;
       }
 
-      
+
       function Hotkeys(event) {
         //if (event.keyCode === 32) { if(document.getElementById("passConfirm").innerText == "false" || confirm("Do you want to skip arsenal?")) SubmitInput(99, ""); } //Space = pass
         //if (event.keyCode === 117) SubmitInput(10000, ""); //U = undo
@@ -290,7 +290,7 @@
             newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneName + ":</span>";
             var id = zone + "-0";
             var buttons = createWidgetButtons(zoneName, id, "-", zoneData);
-            newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;'>" + buttons.middleButtons + "</div>";
+            newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;flex-wrap: wrap; gap:0.5rem 0;'>" + buttons.middleButtons + "</div>";
           } else if(mode == 'Panel') {
             var id = zone;
             newHTML += "div id='" + id + "' style='display: flex; flex-wrap: wrap; justify-content: center;'></div>";
@@ -562,7 +562,7 @@
         if(action == "Notes") {
           DisplayTextPopup(cardId, widgetType, action);
         } else if (typeof ClientWidgetActions === 'function' && ClientWidgetActions(action)) {
-            
+
         } else {
           SubmitInput("10001", "&cardID=" + encodeURIComponent(cardId + "!" + widgetType + "!" + action));
         }
@@ -858,7 +858,7 @@
         var paneVar = `${prefix}${zoneName}Panes`;
         RenderPane(prefix, zoneName, window[paneVar]);
       }
-      
+
       function PaneFilterCards(prefix, zoneName, event, source) {
         event.stopPropagation();
         var fullName = prefix + zoneName;
@@ -911,7 +911,7 @@
         myDiv.innerHTML += myStatic;
         theirDiv.innerHTML += theirStatic;
       }
-      
+
       function chkSubmit(mode, count) {
         var input = "";
         input += "&gameName=" + document.getElementById("gameName").value;
@@ -936,7 +936,7 @@
       {
         e.stopPropagation();
       }
-      
+
       function UpdateAssetVisibility(newVisibility, gameName, assetType) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', './APIs/UpdateAssetVisibility.php', true);
@@ -950,7 +950,7 @@
         if (existingFlash) {
           document.body.removeChild(existingFlash);
         }
-        
+
         // Create flash message container
         const flashMessage = document.createElement('div');
         flashMessage.id = 'flash-message';
@@ -972,14 +972,14 @@
         flashMessage.style.borderLeft = '4px solid #007bff';
         flashMessage.style.borderRight = '4px solid #007bff';
         flashMessage.style.borderBottom = '4px solid #007bff';
-        
+
         // Add content container (to handle HTML)
         const contentDiv = document.createElement('div');
         contentDiv.className = 'flash-content';
         contentDiv.style.maxHeight = '200px';
         contentDiv.style.overflowY = 'auto';
         contentDiv.innerHTML = message;
-        
+
         // Add close button
         const closeButton = document.createElement('button');
         closeButton.textContent = '×';
@@ -995,23 +995,23 @@
         closeButton.addEventListener('click', () => {
           hideFlashMessage(flashMessage);
         });
-        
+
         // Add elements to DOM
         flashMessage.appendChild(contentDiv);
         flashMessage.appendChild(closeButton);
         document.body.appendChild(flashMessage);
-        
+
         // Show the flash message
         setTimeout(() => {
           flashMessage.style.transform = 'translateX(-50%) translateY(0)';
         }, 100);
-        
+
         // Auto-hide after duration
         setTimeout(() => {
           hideFlashMessage(flashMessage);
         }, duration);
       }
-      
+
       function hideFlashMessage(flashMessage) {
         flashMessage.style.transform = 'translateX(-50%) translateY(-100%)';
         setTimeout(() => {
