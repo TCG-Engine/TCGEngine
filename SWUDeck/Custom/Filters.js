@@ -151,6 +151,44 @@ function HyperGeo(cardID) {
       chance += (1-chance) * hypergeoWrapper(1, 10, costArr[3], deckData.length - 1) * hypergeoWrapper(1, 9, costArr[2], deckData.length - 1) * hypergeoWrapper(1, 8, costArr[2], deckData.length - 1);
       chance += (1-chance) * hypergeoWrapper(1, 10, costArr[3], deckData.length - 1) * hypergeoWrapper(1, 9, costArr[3], deckData.length - 1) * hypergeoWrapper(1, 8, costArr[1], deckData.length - 1);
       return chance;
+    case "5264998537"://Owen Lars
+      var numForce = 0;
+      for (var i = 0; i < deckData.length; i++) {
+        if (TraitContains(deckData[i], "Force")) ++numForce;
+      }
+      return hypergeoWrapper(1, 5, numForce, deckData.length - 1);
+    case "5472129982"://Luthen Rael
+      var numItem = 0;
+      for (var i = 0; i < deckData.length; i++) {
+        if (TraitContains(deckData[i], "Item")) ++numItem;
+      }
+      return hypergeoWrapper(1, 5, numItem, deckData.length - 1);
+    case "1553569317"://Kelleran Beq
+      var numMatch = 0;
+      for(var i = 0; i < deckData.length; i++) {
+        if(Cardtype(deckData[i]) != "Unit") continue;
+        ++numMatch;
+      }
+      return hypergeoWrapper(1, 7, numMatch, deckData.length-1);
+    case "4387584779"://Following the Path
+      var numForce = 0;
+      for(var i = 0; i < deckData.length; i++) {
+        if(TraitContains(deckData[i], "Force")) ++numForce;
+      }
+      return hypergeoWrapper(2, 8, numForce, deckData.length-1);
+    case "1708605474"://Dagoyan Master
+      var numForce = 0;
+      for (var i = 0; i < deckData.length; i++) {
+        if (TraitContains(deckData[i], "Force")) ++numForce;
+      }
+      return hypergeoWrapper(1, 5, numForce, deckData.length - 1);
+    case "8580514429"://Pillio Star Compass
+      var numMatch = 0;
+      for(var i = 0; i < deckData.length; i++) {
+        if(Cardtype(deckData[i]) != "Unit") continue;
+        ++numMatch;
+      }
+      return hypergeoWrapper(1, 3, numMatch, deckData.length-1);
     default: break;
   }
   return -1;
