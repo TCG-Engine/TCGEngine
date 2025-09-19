@@ -85,22 +85,19 @@ if (empty($scope)) {
 
 // Handle the form submission (user consent)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Use POSTed values for redirect_uri, client_id, scope, and state
-    $redirectUri = isset($_POST['redirect_uri']) ? $_POST['redirect_uri'] : $redirectUri;
-    $clientId = isset($_POST['client_id']) ? $_POST['client_id'] : $clientId;
-    $scope = isset($_POST['scope']) ? $_POST['scope'] : $scope;
-    $state = isset($_POST['state']) ? $_POST['state'] : $state;
-
     if (isset($_POST['approve'])) {
         // User approved the authorization
         $code = $server->createAuthCode($clientId, $userId, $redirectUri, $scope);
+        
         if ($code) {
             $redirectUrl = $redirectUri;
             $redirectUrl .= (strpos($redirectUrl, '?') !== false ? '&' : '?') . 'code=' . $code;
+            
             // Add state parameter if provided
             if ($state) {
                 $redirectUrl .= '&state=' . urlencode($state);
             }
+            
             header('Location: ' . $redirectUrl);
             exit;
         } else {
@@ -110,10 +107,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // User denied the authorization
         $redirectUrl = $redirectUri;
         $redirectUrl .= (strpos($redirectUrl, '?') !== false ? '&' : '?') . 'error=access_denied';
+        
         // Add state parameter if provided
         if ($state) {
             $redirectUrl .= '&state=' . urlencode($state);
         }
+        
         header('Location: ' . $redirectUrl);
         exit;
     }
@@ -220,10 +219,6 @@ foreach ($scopes as $requestedScope) {
         </div>
         
         <form method="post">
-            <input type="hidden" name="redirect_uri" value="<?php echo htmlspecialchars($redirectUri); ?>">
-            <input type="hidden" name="client_id" value="<?php echo htmlspecialchars($clientId); ?>">
-            <input type="hidden" name="scope" value="<?php echo htmlspecialchars($scope); ?>">
-            <input type="hidden" name="state" value="<?php echo htmlspecialchars($state); ?>">
             <div class="buttons">
                 <button type="submit" name="approve" class="approve">Approve</button>
                 <button type="submit" name="deny" class="deny">Deny</button>
