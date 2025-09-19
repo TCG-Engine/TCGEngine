@@ -74,7 +74,7 @@ if ($error) {
 }
 
 // Use client's redirect URI if not provided in request
-$redirectUri = $redirectUri ?: $clientDetails['redirect_uri'];
+$redirectUri = $clientDetails['redirect_uri'];
 
 // Get and validate scopes
 if (empty($scope)) {
