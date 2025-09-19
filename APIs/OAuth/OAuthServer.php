@@ -290,11 +290,13 @@ class OAuthServer {
      * @return array|bool Token details or false if invalid
      */
     public function verifyAccessToken($accessToken) {
-        // Set up logging
-        $logFile = '../../logs/oauth_debug.log';
-        $logDir = dirname($logFile);
-        if (!file_exists($logDir)) {
-            mkdir($logDir, 0755, true);
+        // Set up logging only if debug mode is enabled
+        if ($this->debugMode) {
+            $logFile = '../../logs/oauth_debug.log';
+            $logDir = dirname($logFile);
+            if (!file_exists($logDir)) {
+                mkdir($logDir, 0755, true);
+            }
         }
         
         $this->logOAuth("Verifying access token: " . substr($accessToken, 0, 10) . '...');

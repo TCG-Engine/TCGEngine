@@ -17,15 +17,17 @@ $server = new OAuthServer();
 // Set up logging
 $logFile = '../../logs/api_access.log';
 $logDir = dirname($logFile);
-if (!file_exists($logDir)) {
-    mkdir($logDir, 0755, true);
-}
+
 
 function writeLog($message) {
     global $logFile, $server;
     // Only log if debug mode is enabled
     if (!$server->debugMode) return;
-    
+    $logFile = '../../logs/api_access.log';
+    $logDir = dirname($logFile);
+    if (!file_exists($logDir)) {
+        mkdir($logDir, 0755, true);
+    }
     $timestamp = date('Y-m-d H:i:s');
     $logMessage = "[$timestamp] $message\n";
     file_put_contents($logFile, $logMessage, FILE_APPEND);
