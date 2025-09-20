@@ -171,19 +171,14 @@
 
     $borderColor = ($darkMode ? "#DDD" : "#1a1a1a");
 
-    $dictionaryFiles = glob("./" . $folderPath . "/GeneratedCode/GeneratedCardDictionaries*.js");
+    $assetPath = function_exists('GetAssetReflectionPath') ? GetAssetReflectionPath($folderPath) : $folderPath;
+    $dictionaryFiles = glob("./" . $assetPath . "/GeneratedCode/GeneratedCardDictionaries*.js");
     $generateFilename = $dictionaryFiles[0];
     $lastSlashPos = strrpos($generateFilename, '/');
     if ($lastSlashPos !== false) {
       $generateFilename = substr($generateFilename, $lastSlashPos + 1);
     }
-    // Check if GetAssetReflectionPath function exists and include appropriate scripts based on folder path
-    if (function_exists('GetAssetReflectionPath')) {
-      $reflectionPath = GetAssetReflectionPath($folderPath);
-      echo '<script src="./' . $reflectionPath . '/GeneratedCode/' . $generateFilename . '"></script>';
-    } else {
-      echo '<script src="./' . $folderPath . '/GeneratedCode/' . $generateFilename . '"></script>';
-    }
+    echo '<script src="./' . $assetPath . '/GeneratedCode/' . $generateFilename . '"></script>';
 
     ?>
 
