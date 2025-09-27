@@ -22,7 +22,7 @@ $forIndividual = false;
   // Compute current week upper bound server-side and render dropdowns
   $currentWeek = GetWeekSinceRef();
 ?>
-<div class="week-controls" style="margin-bottom:12px;">
+<div class="week-controls">
   <div class="week-control">
     <label for="startWeek">Start week</label>
     <div class="select-wrap"><select id="startWeek" class="week-select"></select></div>
@@ -33,30 +33,6 @@ $forIndividual = false;
   </div>
   <button id="refreshWeeks" class="week-refresh">Refresh</button>
 </div>
-
-<style>
-  /* Week picker alignment/styling */
-  .week-controls{ display:flex; gap:12px; align-items:center; }
-  .week-control{ display:flex; gap:8px; align-items:center; }
-  /* Normalize typography and vertical alignment */
-  .week-control label{ color:#BFDFFF; font-weight:600; min-width:100px; display:inline-flex; align-items:center; justify-content:flex-end; padding-right:8px; font-size:14px; line-height:1; }
-  /* Dark themed select to match page background and improve contrast */
-  .select-wrap{ position:relative; display:inline-block; }
-  .week-select{ margin:0px; width:120px; padding:6px 8px; padding-right:30px; border-radius:4px; background:#071029; color:#BFDFFF; border:1px solid rgba(127,200,255,0.12); box-sizing:border-box; display:inline-block; vertical-align:middle; -webkit-appearance:none; -moz-appearance:none; appearance:none; font-size:14px; line-height:1.2; }
-  .week-select option{ background:#071029; color:#BFDFFF; }
-  .week-refresh{ background:#222a44; color:#7FDBFF; border:none; border-radius:4px; padding:6px 12px; cursor:pointer; display:inline-flex; align-items:center; font-size:14px; line-height:1; }
-
-  /* Add a small chevron on the right of select for consistent look */
-  .week-control{ position:relative; }
-  .select-wrap::after{ content:'▾'; position:absolute; right:10px; top:50%; transform:translateY(-50%); pointer-events:none; color:rgba(127,200,255,0.4); font-size:12px; }
-
-  /* Small screens: stack controls */
-  @media (max-width:600px){
-    .week-controls{ flex-direction:column; align-items:flex-start; }
-    .week-control{ width:100%; }
-    .week-select{ width:160px; }
-  }
-</style>
 
 <script>
   // Populate week dropdowns with options 0..currentWeek and default to show latest (start=0, end=currentWeek)

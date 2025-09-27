@@ -24,10 +24,16 @@ $forIndividual = false;
 <link rel="stylesheet" href="/TCGEngine/SharedUI/css/statsTables.css">
  
 <?php $cardCurrentWeek = GetWeekSinceRef(); ?>
-<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
-  Start week: <select id="cardStartWeek" style="width:120px;padding:4px;"></select>
-  End week: <select id="cardEndWeek" style="width:120px;padding:4px;"></select>
-  <button id="cardRefreshWeeks" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;">Refresh</button>
+<div class="week-controls">
+  <div class="week-control">
+    <label for="cardStartWeek">Start week</label>
+    <div class="select-wrap"><select id="cardStartWeek" class="week-select"></select></div>
+  </div>
+  <div class="week-control">
+    <label for="cardEndWeek">End week</label>
+    <div class="select-wrap"><select id="cardEndWeek" class="week-select"></select></div>
+  </div>
+  <button id="cardRefreshWeeks" class="week-refresh">Refresh</button>
 </div>
 <script>
   (function() {
