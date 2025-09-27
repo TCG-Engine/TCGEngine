@@ -11,86 +11,93 @@ $isMobile = IsMobile();
 
 $forIndividual = false;
 
-$conn = GetLocalMySQLConnection();
-echo "<div style='overflow-x:auto; overflow-y:auto; max-height: calc(100vh - 200px); bottom:20px; scrollbar-width: thin; scrollbar-color: #888 #f1f1f1; display: flex; justify-content: center;'>";
-echo "<style>
-  /* Modern scrollbar styles */
-  ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: #888;
-    border-radius: 10px;
-    border: 2px solid transparent;
-    background-clip: content-box;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: #555;
-  }
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-  }
-</style>";
+// ...existing code...
 
-$sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'cardID';
-$sortOrder = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'desc' : 'asc';
-$newOrder = $sortOrder == 'asc' ? 'desc' : 'asc';
-$arrow = $sortOrder == 'asc' ? '↑' : '↓';
-
-$query = "SELECT * FROM cardmetastats ORDER BY $sortColumn $sortOrder";
-$result = $conn->query($query);
-
-if ($result->num_rows > 0) {
-  echo "<table border='1' style='border-collapse: collapse;'>";
-  echo "<tr style='background: linear-gradient(135deg, rgba(16, 16, 128, 0.8) 25%, rgba(32, 32, 144, 0.8) 25%, rgba(32, 32, 144, 0.8) 50%, rgba(16, 16, 128, 0.8) 50%, rgba(16, 16, 128, 0.8) 75%, rgba(32, 32, 144, 0.8) 75%, rgba(32, 32, 144, 0.8)); background-size: 28.28px 28.28px; color: white;'>"; // Blended pattern
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'><a href='?sort=cardID&order=$newOrder'>Card ID" . ($sortColumn == 'cardID' ? " $arrow" : "") . "</a></th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'><a href='?sort=week&order=$newOrder'>Week" . ($sortColumn == 'week' ? " $arrow" : "") . "</a></th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'><a href='?sort=timesIncluded&order=$newOrder'>Times Included" . ($sortColumn == 'timesIncluded' ? " $arrow" : "") . "</a></th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'><a href='?sort=timesIncludedInWins&order=$newOrder'>Times Included In Wins" . ($sortColumn == 'timesIncludedInWins' ? " $arrow" : "") . "</a></th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'>% Included In Wins</th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'><a href='?sort=timesPlayed&order=$newOrder'>Times Played" . ($sortColumn == 'timesPlayed' ? " $arrow" : "") . "</a></th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'><a href='?sort=timesPlayedInWins&order=$newOrder'>Times Played In Wins" . ($sortColumn == 'timesPlayedInWins' ? " $arrow" : "") . "</a></th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'>% Played In Wins</th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'><a href='?sort=timesResourced&order=$newOrder'>Times Resourced" . ($sortColumn == 'timesResourced' ? " $arrow" : "") . "</a></th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'><a href='?sort=timesResourcedInWins&order=$newOrder'>Times Resourced In Wins" . ($sortColumn == 'timesResourcedInWins' ? " $arrow" : "") . "</a></th>";
-  echo "<th style='border: 1px solid #ddd; padding: 8px;'>% Resourced In Wins</th>";
-  echo "</tr>";
-
-  while ($row = $result->fetch_assoc()) {
-    $percentIncludedInWins = ($row['timesIncluded'] > 0) ? ($row['timesIncludedInWins'] / $row['timesIncluded']) * 100 : 0;
-    $percentPlayedInWins = ($row['timesPlayed'] > 0) ? ($row['timesPlayedInWins'] / $row['timesPlayed']) * 100 : 0;
-    $percentResourcedInWins = ($row['timesResourced'] > 0) ? ($row['timesResourcedInWins'] / $row['timesResourced']) * 100 : 0;
-
-    $cardTitle = CardTitle($row['cardID']);
-    $cardSubtitle = CardSubtitle($row['cardID']);
-    $cardName = $cardTitle;
-    if ($cardSubtitle != "") {
-      $cardName .= ", " . $cardSubtitle;
-    }
-    echo "<tr>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>" . $cardName . "</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>{$row['week']}</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>{$row['timesIncluded']}</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>{$row['timesIncludedInWins']}</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>" . number_format($percentIncludedInWins, 2) . "%</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>{$row['timesPlayed']}</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>{$row['timesPlayedInWins']}</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>" . number_format($percentPlayedInWins, 2) . "%</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>{$row['timesResourced']}</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>{$row['timesResourcedInWins']}</td>";
-    echo "<td style='border: 1px solid #ddd; padding: 8px;'>" . number_format($percentResourcedInWins, 2) . "%</td>";
-    echo "</tr>";
-  }
-  echo "</table>";
-} else {
-  echo "No records found.";
-}
-echo "</div>";
-
-$conn->close();
-
-include_once '../SharedUI/Disclaimer.php';
-
+// Client-side rendering: fetch from CardMetaStatsAPI.php and display with DataTables
 ?>
+<!-- jQuery and DataTables (required for this page) -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+ 
+<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
+  Start week: <input type="number" id="cardStartWeek" value="0" min="0" style="width:80px;padding:4px;" />
+  End week: <input type="number" id="cardEndWeek" value="0" min="0" style="width:80px;padding:4px;" />
+  <button id="cardRefreshWeeks" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;">Refresh</button>
+</div>
+
+<table id="cardMetaStatsTable" border="1" cellspacing="0" cellpadding="5" style="width:100%;">
+  <thead>
+    <tr>
+      <th>Card</th>
+      <th>Times Included</th>
+      <th>Times Included In Wins</th>
+      <th>% Included In Wins</th>
+      <th>Times Played</th>
+      <th>Times Played In Wins</th>
+      <th>% Played In Wins</th>
+      <th>Times Resourced</th>
+      <th>Times Resourced In Wins</th>
+      <th>% Resourced In Wins</th>
+    </tr>
+  </thead>
+  <tbody id="cardMetaStatsBody"></tbody>
+</table>
+
+<script>
+  var cardTable = null;
+  function fetchCardMeta() {
+    var start = parseInt(document.getElementById('cardStartWeek').value || '0', 10);
+    var end = parseInt(document.getElementById('cardEndWeek').value || '0', 10);
+    var params = {};
+    if (!isNaN(start)) params.startWeek = start;
+    if (!isNaN(end)) params.endWeek = end;
+    document.getElementById('cardMetaStatsBody').innerHTML = '<tr><td colspan="10">Loading...</td></tr>';
+    $.get('../Stats/CardMetaStatsAPI.php', params, function(data) {
+      var json = typeof data === 'string' ? JSON.parse(data) : data;
+      if (!Array.isArray(json) || json.length === 0) {
+        document.getElementById('cardMetaStatsBody').innerHTML = '<tr><td colspan="10">No records found for the selected week(s).</td></tr>';
+        return;
+      }
+      var rows = '';
+      for (var i=0;i<json.length;++i) {
+        var r = json[i];
+        rows += '<tr>';
+        rows += '<td>' + (r.cardName || r.cardUid) + '</td>';
+        rows += '<td>' + (r.timesIncluded || 0) + '</td>';
+        rows += '<td>' + (r.timesIncludedInWins || 0) + '</td>';
+        rows += '<td>' + (r.percentIncludedInWins || '0.00') + '%</td>';
+        rows += '<td>' + (r.timesPlayed || 0) + '</td>';
+        rows += '<td>' + (r.timesPlayedInWins || 0) + '</td>';
+        rows += '<td>' + (r.percentPlayedInWins || '0.00') + '%</td>';
+        rows += '<td>' + (r.timesResourced || 0) + '</td>';
+        rows += '<td>' + (r.timesResourcedInWins || 0) + '</td>';
+        rows += '<td>' + (r.percentResourcedInWins || '0.00') + '%</td>';
+        rows += '</tr>';
+      }
+
+      // Reinit DataTable: destroy, set tbody, init
+      try {
+        if (cardTable) { try { cardTable.destroy(); } catch(e){} cardTable = null; }
+        $('#cardMetaStatsTable tbody').empty().append(rows);
+        cardTable = $('#cardMetaStatsTable').DataTable({
+          "order": [[1, 'desc']],
+          "paging": false,
+          "searching": false
+        });
+      } catch(e) {
+        console.error('Error rendering card meta', e);
+      }
+    }).fail(function() {
+      document.getElementById('cardMetaStatsBody').innerHTML = '<tr><td colspan="10">Error fetching data from API.</td></tr>';
+    });
+  }
+
+  document.getElementById('cardRefreshWeeks').addEventListener('click', fetchCardMeta);
+  // initial load
+  fetchCardMeta();
+</script>
+
+<?php
+
+// ...existing code...
