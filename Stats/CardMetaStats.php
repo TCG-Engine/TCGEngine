@@ -108,6 +108,7 @@ $forIndividual = false;
         cardTable = $('#cardMetaStatsTable').DataTable({
           "order": [[1, 'desc']],
           "paging": false,
+          "info": false,
           "searching": false
         });
       } catch(e) {

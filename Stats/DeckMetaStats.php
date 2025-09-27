@@ -340,22 +340,23 @@ $forIndividual = false;
         // Ensure the tbody contains the new rows
         $('#deckMetaStatsTable tbody').empty().append(rows);
 
-        dataTable = $('#deckMetaStatsTable').DataTable({
-        "order": [[ 3, "desc" ]],
-        "scrollY": tableHeight + "px",
-        "paging": false,
-        "searching": false,
-        "columnDefs": [
-            { "type": "num", "targets": [3] },
-            { "targets": 4, "render": function ( data, type, row ) {
-                  if (type === 'sort') {
-                      return parseFloat(data.replace('%',''));
-                  }
-                  return data;
-               }
-            }
-        ]
-      });
+    dataTable = $('#deckMetaStatsTable').DataTable({
+    "order": [[ 3, "desc" ]],
+    "scrollY": tableHeight + "px",
+    "paging": false,
+    "info": false,
+    "searching": false,
+    "columnDefs": [
+      { "type": "num", "targets": [3] },
+      { "targets": 4, "render": function ( data, type, row ) {
+          if (type === 'sort') {
+            return parseFloat(data.replace('%',''));
+          }
+          return data;
+         }
+      }
+    ]
+    });
       } catch (e) {
         console.error('Error rendering deck meta table', e);
       }
