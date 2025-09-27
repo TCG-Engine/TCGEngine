@@ -75,5 +75,7 @@ $isMobile = IsMobile();
     </div>
 
   </div>
-</body>
-</html>
+<!-- Note: do not close </body> or </html> here. Pages that include MenuBar.php will render the rest of
+  the document and should be responsible for closing body/html. Removing these tags prevents
+  prematurely terminating the DOM which can break client-side scripts that rely on event handlers
+  and dynamically-inserted elements (e.g. the header/menu JS). -->
