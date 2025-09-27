@@ -46,7 +46,7 @@ $forIndividual = false;
   })();
 </script>
 
-<table id="deckMetaStatsTable" border="1" cellspacing="0" cellpadding="5">
+<table id="deckMetaStatsTable" cellspacing="0" cellpadding="5">
   <thead>
     <tr>
       <th>Deck Search</th>
@@ -205,7 +205,10 @@ $forIndividual = false;
   }
 
   /* Header */
-  #deckMetaStatsTable thead th {
+  /* Target both original table header and DataTables' cloned/scrolling header */
+  #deckMetaStatsTable thead th,
+  table.dataTable thead th,
+  .dataTables_scrollHead table thead th {
     background: linear-gradient(180deg,#071029 0%, #08142a 100%);
     color: #7FDBFF;
     padding: 10px 12px;
