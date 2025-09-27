@@ -181,13 +181,18 @@ $forIndividual = false;
         rows += '<td>' + (r.avgRemainingHealthInWins !== null ? r.avgRemainingHealthInWins : 'N/A') + '</td>';
         rows += '</tr>';
       }
-      $('#deckMetaStatsBody').html(rows);
+      // Replace table body and (re)initialize DataTable in a robust way
+      try {
+        // Ensure the tbody contains the new rows
+        $('#deckMetaStatsTable tbody').empty().append(rows);
 
-      // Initialize or re-draw DataTable
-      if (dataTable) {
-        dataTable.destroy();
-      }
-      dataTable = $('#deckMetaStatsTable').DataTable({
+        // If a DataTable instance exists, destroy it first to avoid conflicts
+        if (dataTable) {
+          try { dataTable.destroy(); } catch (e) { /* ignore */ }
+          dataTable = null;
+        }
+
+        dataTable = $('#deckMetaStatsTable').DataTable({
         "order": [[ 3, "desc" ]],
         "scrollY": tableHeight + "px",
         "paging": false,
