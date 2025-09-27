@@ -216,7 +216,9 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 	}
 	
 	if(!$disableMetaStats) {
-		$week = 0;
+		// Compute the week number (number of full weeks since 2025-09-20).
+		// Week 0 is historical; nearby logic lives in GetWeekSinceRef().
+		$week = GetWeekSinceRef('2025-09-20');
 		// deckmetastats
 		$sql = "SELECT COUNT(*) FROM deckmetastats WHERE leaderID = ? AND baseID = ? AND week = ?";
 		$stmt = mysqli_stmt_init($conn);
@@ -297,10 +299,10 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 
 		if(!$disableMetaStats) {
 		// Update cardmetastats
-			$sql = "SELECT COUNT(*) FROM cardmetastats WHERE cardID = ? AND week = 0";
+			$sql = "SELECT COUNT(*) FROM cardmetastats WHERE cardID = ? AND week = ?";
 			$stmt = mysqli_stmt_init($conn);
 			if (mysqli_stmt_prepare($stmt, $sql)) {
-				mysqli_stmt_bind_param($stmt, "s", $card["cardId"]);
+				mysqli_stmt_bind_param($stmt, "si", $card["cardId"], $week);
 				mysqli_stmt_execute($stmt);
 				mysqli_stmt_bind_result($stmt, $metaCount);
 				mysqli_stmt_fetch($stmt);
@@ -308,10 +310,10 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 			}
 
 			if ($metaCount == 0) {
-				$sql = "INSERT INTO cardmetastats (cardID, week) VALUES (?, 0)";
+				$sql = "INSERT INTO cardmetastats (cardID, week) VALUES (?, ?)";
 				$stmt = mysqli_stmt_init($conn);
 				if (mysqli_stmt_prepare($stmt, $sql)) {
-					mysqli_stmt_bind_param($stmt, "s", $card["cardId"]);
+					mysqli_stmt_bind_param($stmt, "si", $card["cardId"], $week);
 					mysqli_stmt_execute($stmt);
 					mysqli_stmt_close($stmt);
 				}
@@ -324,10 +326,11 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 					timesPlayedInWins = timesPlayedInWins + ?, 
 					timesResourced = timesResourced + ?, 
 					timesResourcedInWins = timesResourcedInWins + ? 
-					WHERE cardID = ? AND week = 0";
+					WHERE cardID = ? AND week = ?";
 			$stmt = mysqli_stmt_init($conn);
 			if (mysqli_stmt_prepare($stmt, $sql)) {
-				mysqli_stmt_bind_param($stmt, "iiiiiii", $timesIncluded, $timesIncludedInWins, $timesPlayed, $timesPlayedInWins, $timesResourced, $timesResourcedInWins, $card["cardId"]);
+				// 6 integer stats, then cardID (string), then week (int)
+				mysqli_stmt_bind_param($stmt, "iiiiiisi", $timesIncluded, $timesIncludedInWins, $timesPlayed, $timesPlayedInWins, $timesResourced, $timesResourcedInWins, $card["cardId"], $week);
 				mysqli_stmt_execute($stmt);
 				mysqli_stmt_close($stmt);
 			}
@@ -517,6 +520,32 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 	}
 
 	mysqli_close($conn);
+}
+
+/**
+ * Return the number of full weeks elapsed since the given reference date.
+ *
+ * - The reference date string should be in a format parseable by DateTime.
+ * - Returns 0 on error or if $now is before the reference date.
+ * - Example: reference = '2025-09-20'. If today is 2025-09-27, returns 1.
+ *
+ * @param string $refDateString
+ * @param DateTime|null $now
+ * @return int
+ */
+function GetWeekSinceRef($refDateString = '2025-09-20', DateTime $now = null) {
+	try {
+		$refDate = new DateTime($refDateString);
+		$now = $now ?: new DateTime();
+		if ($now < $refDate) {
+			return 0;
+		}
+		$days = (int)$refDate->diff($now)->format('%a');
+		$week = (int) floor($days / 7);
+		return max(0, $week);
+	} catch (Exception $e) {
+		return 0;
+	}
 }
 
 ?>
