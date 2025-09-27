@@ -10,7 +10,7 @@ $isMobile = IsMobile();
 
 $forIndividual = false;
 ?>
-<!-- jQuery and DataTables (local CDN references) -->
+<!-- jQuery and DataTables (required for this page) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
@@ -183,14 +183,14 @@ $forIndividual = false;
       }
       // Replace table body and (re)initialize DataTable in a robust way
       try {
-        // Ensure the tbody contains the new rows
-        $('#deckMetaStatsTable tbody').empty().append(rows);
-
         // If a DataTable instance exists, destroy it first to avoid conflicts
         if (dataTable) {
           try { dataTable.destroy(); } catch (e) { /* ignore */ }
           dataTable = null;
         }
+
+        // Ensure the tbody contains the new rows
+        $('#deckMetaStatsTable tbody').empty().append(rows);
 
         dataTable = $('#deckMetaStatsTable').DataTable({
         "order": [[ 3, "desc" ]],
@@ -208,6 +208,9 @@ $forIndividual = false;
             }
         ]
       });
+      } catch (e) {
+        console.error('Error rendering deck meta table', e);
+      }
     }).fail(function() {
       $('#deckMetaStatsBody').html('<tr><td colspan="9">Error fetching data from API.</td></tr>');
     });
