@@ -15,6 +15,8 @@ $forIndividual = false;
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<!-- Shared stats table styles -->
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/statsTables.css">
 
 <?php
   // Compute current week upper bound server-side and render dropdowns
@@ -46,7 +48,7 @@ $forIndividual = false;
   })();
 </script>
 
-<table id="deckMetaStatsTable" cellspacing="0" cellpadding="5">
+<table id="deckMetaStatsTable" class="stats-table" cellspacing="0" cellpadding="5">
   <thead>
     <tr>
       <th>Deck Search</th>

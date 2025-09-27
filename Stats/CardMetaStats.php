@@ -20,6 +20,8 @@ $forIndividual = false;
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+<!-- Shared stats table styles -->
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/statsTables.css">
  
 <?php $cardCurrentWeek = GetWeekSinceRef(); ?>
 <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
@@ -43,7 +45,7 @@ $forIndividual = false;
   })();
 </script>
 
-<table id="cardMetaStatsTable" border="1" cellspacing="0" cellpadding="5" style="width:100%;">
+<table id="cardMetaStatsTable" class="stats-table" cellspacing="0" cellpadding="5" style="width:100%;">
   <thead>
     <tr>
       <th>Card</th>
