@@ -205,12 +205,12 @@ $forIndividual = false;
       for (var i=0; i<json.length; ++i) {
         var r = json[i];
         rows += '<tr>';
-        rows += '<td style="white-space:nowrap;display:flex;gap:6px;align-items:center;">'
+        rows += '<td style="white-space:nowrap;display:flex;gap:6px;align-items:stretch;">'
           + '<a href="https://swustats.net/TCGEngine/Stats/Decks.php?leader=' + r.leaderID + '&base=' + r.baseID + '">' 
           + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">'
           + '<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>'
           + '</svg></a>'
-          + '<button class="drilldown-btn" data-leader="' + r.leaderID + '" data-base="' + r.baseID + '" title="Show Matchup Breakout" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;">Matchups</button>'
+          + '<button class="drilldown-btn" data-leader="' + r.leaderID + '" data-base="' + r.baseID + '" title="Show Matchup Breakout" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;height:100%;align-self:stretch;">Matchups</button>'
           + '</td>';
         rows += '<td><img src="../SWUDeck/concat/' + r.leaderID + '.webp" style="height: 80px;" title="' + r.leaderTitle + '" /></td>';
         rows += '<td><img src="../SWUDeck/concat/' + r.baseID + '.webp" style="height: 80px;" title="' + r.baseTitle + '" /></td>';
