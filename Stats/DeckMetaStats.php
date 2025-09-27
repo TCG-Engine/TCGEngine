@@ -112,9 +112,13 @@ $forIndividual = false;
                 if (!r.opponentBaseID) return '';
                 var colorMap = {
                   'Red': 'Aggression',
+                  'red': 'Aggression',
                   'Green': 'Command',
+                  'green': 'Command',
                   'Blue': 'Vigilance',
-                  'Yellow': 'Cunning'
+                  'blue': 'Vigilance',
+                  'Yellow': 'Cunning',
+                  'yellow': 'Cunning'
                 };
                 if (colorMap[r.opponentBaseID]) {
                   return '<img src="../Assets/Images/icons/SWU/' + colorMap[r.opponentBaseID] + '.webp" style="height:40px;vertical-align:middle;" title="' + r.opponentBaseID + '" />';
