@@ -187,6 +187,98 @@ $forIndividual = false;
 
 </style>
 
+<!-- Sci-fi themed table styles -->
+<style>
+  /* Table overall */
+  #deckMetaStatsTable {
+    border-collapse: separate; /* allow neon separators */
+    border-spacing: 0 6px; /* vertical spacing between rows */
+    width: 100%;
+    background: transparent;
+    color: #BFDFFF;
+    font-family: 'Montserrat', system-ui, Arial, sans-serif;
+  }
+
+  /* Remove any default table borders/attributes that show as white lines */
+  #deckMetaStatsTable, #deckMetaStatsTable th, #deckMetaStatsTable td {
+    border: none !important;
+  }
+
+  /* Header */
+  #deckMetaStatsTable thead th {
+    background: linear-gradient(180deg,#071029 0%, #08142a 100%);
+    color: #7FDBFF;
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(127,200,255,0.08);
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.6px;
+    position: relative; /* for sort indicator */
+    padding-right: 30px; /* room for sort icon */
+  }
+
+  /* Rows: card-like panels with subtle inner background */
+  #deckMetaStatsTable tbody tr {
+    background: linear-gradient(180deg, rgba(9,12,22,0.6), rgba(6,8,15,0.6));
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+    border-radius: 6px;
+  }
+
+  /* Cells inside rows should appear as separate columns (remove default cell borders) */
+  #deckMetaStatsTable tbody td {
+    border: none;
+    padding: 10px 12px;
+    vertical-align: middle;
+  }
+
+  /* Hover highlight */
+  #deckMetaStatsTable tbody tr:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.7), inset 0 0 14px rgba(127,200,255,0.02);
+    background: linear-gradient(180deg, rgba(12,20,36,0.75), rgba(8,12,22,0.75));
+  }
+
+  /* Subtle neon separators between columns using pseudo-element */
+  #deckMetaStatsTable tbody td + td::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 60%;
+    background: linear-gradient(180deg, rgba(127,200,255,0.08), rgba(127,200,255,0.02));
+    margin-left: -6px;
+  }
+
+  /* Make each cell positioned relative so pseudo-elements align */
+  #deckMetaStatsTable tbody td { position: relative; }
+
+  /* DataTables sort indicators (custom, to work with our themed header) */
+  #deckMetaStatsTable thead th.sorting:after {
+    content: '\25B4\25BE'; /* up + down */
+    font-size: 10px;
+    color: rgba(127,200,255,0.35);
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  #deckMetaStatsTable thead th.sorting_asc:after {
+    content: '\25B4'; /* up */
+    color: #7FDBFF;
+  }
+  #deckMetaStatsTable thead th.sorting_desc:after {
+    content: '\25BE'; /* down */
+    color: #7FDBFF;
+  }
+  #deckMetaStatsTable thead th { cursor: pointer; }
+
+  /* Smaller screens: increase readability */
+  @media (max-width:900px) {
+    #deckMetaStatsTable thead th, #deckMetaStatsTable tbody td { padding: 8px; }
+  }
+
+</style>
+
 <script>
 
   var tableHeight = $(window).height() - 280;
