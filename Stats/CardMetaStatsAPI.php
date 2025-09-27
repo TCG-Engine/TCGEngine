@@ -6,10 +6,25 @@ include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 
 $conn = GetLocalMySQLConnection();
 
+// Accept optional startWeek and endWeek query parameters (integers). Default to week=0 for backward compatibility.
+$startWeek = isset($_GET['startWeek']) ? intval($_GET['startWeek']) : null;
+$endWeek = isset($_GET['endWeek']) ? intval($_GET['endWeek']) : null;
+
 $sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'cardID';
 $sortOrder = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'desc' : 'asc';
 
-$query = "SELECT * FROM cardmetastats ORDER BY $sortColumn $sortOrder";
+if ($startWeek === null && $endWeek === null) {
+  $where = 'week = 0';
+} elseif ($startWeek !== null && $endWeek === null) {
+  $where = 'week = ' . $startWeek;
+} else {
+  if ($startWeek === null) $startWeek = $endWeek;
+  if ($endWeek === null) $endWeek = $startWeek;
+  if ($startWeek > $endWeek) { $tmp = $startWeek; $startWeek = $endWeek; $endWeek = $tmp; }
+  $where = 'week BETWEEN ' . $startWeek . ' AND ' . $endWeek;
+}
+
+$query = "SELECT * FROM cardmetastats WHERE " . $where . " ORDER BY $sortColumn $sortOrder";
 $result = $conn->query($query);
 
 $response = [];

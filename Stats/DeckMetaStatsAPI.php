@@ -7,7 +7,27 @@ include_once '../SWUDeck/Custom/CardIdentifiers.php';
 header('Content-Type: application/json');
 
 $conn = GetLocalMySQLConnection();
-$query = "SELECT leaderID, baseID, week, numWins, numPlays, playsGoingFirst, turnsInWins, totalTurns, cardsResourcedInWins, totalCardsResourced, remainingHealthInWins, winsGoingFirst, winsGoingSecond FROM deckmetastats WHERE week = 0";
+
+// Accept optional startWeek and endWeek query parameters (integers). Default behavior is week=0 for backward compatibility.
+$startWeek = isset($_GET['startWeek']) ? intval($_GET['startWeek']) : null;
+$endWeek = isset($_GET['endWeek']) ? intval($_GET['endWeek']) : null;
+
+if ($startWeek === null && $endWeek === null) {
+  $where = 'week = 0';
+} elseif ($startWeek !== null && $endWeek === null) {
+  // Single week
+  $where = 'week = ' . $startWeek;
+} else {
+  // Both provided or only endWeek provided: normalize so start <= end
+  if ($startWeek === null) $startWeek = $endWeek;
+  if ($endWeek === null) $endWeek = $startWeek;
+  if ($startWeek > $endWeek) {
+    $tmp = $startWeek; $startWeek = $endWeek; $endWeek = $tmp;
+  }
+  $where = 'week BETWEEN ' . $startWeek . ' AND ' . $endWeek;
+}
+
+$query = "SELECT leaderID, baseID, week, numWins, numPlays, playsGoingFirst, turnsInWins, totalTurns, cardsResourcedInWins, totalCardsResourced, remainingHealthInWins, winsGoingFirst, winsGoingSecond FROM deckmetastats WHERE " . $where;
 $result = $conn->query($query);
 
 $response = [];

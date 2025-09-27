@@ -129,6 +129,16 @@ include_once "../SharedUI/Header.php";
                     <td>The ID of the deck to retrieve stats for</td>
                 </tr>
                 <tr>
+                    <td>startWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) Start week (inclusive). If omitted and endWeek omitted, defaults to week = 0 (historical/current week depending on server config).</td>
+                </tr>
+                <tr>
+                    <td>endWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) End week (inclusive). If provided together with startWeek, returns the inclusive range between them.</td>
+                </tr>
+                <tr>
                     <td>format</td>
                     <td>string</td>
                     <td>(Optional) Filter by game format</td>
@@ -262,6 +272,16 @@ include_once "../SharedUI/Header.php";
                     <td>cardId</td>
                     <td>string</td>
                     <td>The ID of the card to retrieve stats for</td>
+                </tr>
+                <tr>
+                    <td>startWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) Start week (inclusive). If omitted and endWeek omitted, defaults to week = 0.</td>
+                </tr>
+                <tr>
+                    <td>endWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) End week (inclusive). If provided together with startWeek, returns the inclusive range between them.</td>
                 </tr>
                 <tr>
                     <td>format</td>
