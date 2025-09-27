@@ -6,6 +6,7 @@ include_once '../Core/HTTPLibraries.php';
 include_once "../Core/UILibraries.php";
 include_once '../Database/ConnectionManager.php';
 include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
+include_once '../Core/StatsHelpers.php';
 
 $isMobile = IsMobile();
 
@@ -20,11 +21,27 @@ $forIndividual = false;
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
  
+<?php $cardCurrentWeek = GetWeekSinceRef(); ?>
 <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
-  Start week: <input type="number" id="cardStartWeek" value="0" min="0" style="width:80px;padding:4px;" />
-  End week: <input type="number" id="cardEndWeek" value="0" min="0" style="width:80px;padding:4px;" />
+  Start week: <select id="cardStartWeek" style="width:120px;padding:4px;"></select>
+  End week: <select id="cardEndWeek" style="width:120px;padding:4px;"></select>
   <button id="cardRefreshWeeks" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;">Refresh</button>
 </div>
+<script>
+  (function() {
+    var currentWeek = <?php echo intval($cardCurrentWeek); ?>;
+    var s = document.getElementById('cardStartWeek');
+    var e = document.getElementById('cardEndWeek');
+    for (var w = 0; w <= currentWeek; ++w) {
+      var o1 = document.createElement('option'); o1.value = w; o1.text = w;
+      var o2 = document.createElement('option'); o2.value = w; o2.text = w;
+      s.appendChild(o1);
+      e.appendChild(o2);
+    }
+    s.value = 0;
+    e.value = currentWeek;
+  })();
+</script>
 
 <table id="cardMetaStatsTable" border="1" cellspacing="0" cellpadding="5" style="width:100%;">
   <thead>

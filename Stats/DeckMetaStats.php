@@ -5,6 +5,7 @@ include_once '../Core/HTTPLibraries.php';
 include_once "../Core/UILibraries.php";
 include_once '../Database/ConnectionManager.php';
 include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
+include_once '../Core/StatsHelpers.php';
 
 $isMobile = IsMobile();
 
@@ -15,11 +16,35 @@ $forIndividual = false;
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
+<?php
+  // Compute current week upper bound server-side and render dropdowns
+  $currentWeek = GetWeekSinceRef();
+?>
 <div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
-  Start week: <input type="number" id="startWeek" value="0" min="0" style="width:80px;padding:4px;" />
-  End week: <input type="number" id="endWeek" value="0" min="0" style="width:80px;padding:4px;" />
+  Start week: <select id="startWeek" style="width:120px;padding:4px;"></select>
+  End week: <select id="endWeek" style="width:120px;padding:4px;"></select>
   <button id="refreshWeeks" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;">Refresh</button>
 </div>
+
+<script>
+  // Populate week dropdowns with options 0..currentWeek and default to show latest (start=0, end=currentWeek)
+  (function() {
+    var currentWeek = <?php echo intval($currentWeek); ?>;
+    var startSelect = document.getElementById('startWeek');
+    var endSelect = document.getElementById('endWeek');
+    for (var w = 0; w <= currentWeek; ++w) {
+      var opt1 = document.createElement('option');
+      opt1.value = w; opt1.text = w;
+      var opt2 = document.createElement('option');
+      opt2.value = w; opt2.text = w;
+      startSelect.appendChild(opt1);
+      endSelect.appendChild(opt2);
+    }
+    // Defaults: show all data up to current week
+    startSelect.value = 0;
+    endSelect.value = currentWeek;
+  })();
+</script>
 
 <table id="deckMetaStatsTable" border="1" cellspacing="0" cellpadding="5">
   <thead>
@@ -148,8 +173,8 @@ $forIndividual = false;
   // Fetch and populate table via API
   var dataTable = null;
   function fetchAndRender() {
-    var start = parseInt($('#startWeek').val());
-    var end = parseInt($('#endWeek').val());
+    var start = parseInt($('#startWeek').val(), 10);
+    var end = parseInt($('#endWeek').val(), 10);
     var params = {};
     if (!isNaN(start)) params.startWeek = start;
     if (!isNaN(end)) params.endWeek = end;
