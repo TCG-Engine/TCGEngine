@@ -1,5 +1,4 @@
 <?php
-
 include_once '../SharedUI/MenuBar.php';
 include_once '../SharedUI/Header.php';
 include_once '../Core/HTTPLibraries.php';
@@ -10,84 +9,37 @@ include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 $isMobile = IsMobile();
 
 $forIndividual = false;
-
-$conn = GetLocalMySQLConnection();
-$query = "SELECT leaderID, baseID, week, numWins, numPlays, playsGoingFirst, turnsInWins, totalTurns, cardsResourcedInWins, totalCardsResourced, remainingHealthInWins, winsGoingFirst, winsGoingSecond FROM deckmetastats WHERE week = 0";
-$result = $conn->query($query);
-
-if ($result && $result->num_rows > 0) {
-  echo "<table id='deckMetaStatsTable' border='1' cellspacing='0' cellpadding='5'>";
-  echo "<thead><tr>";
-  echo("<th>Deck Search</th>");
-  echo "<th>Leader ID</th>";
-  echo "<th>Base ID</th>";
-  echo "<th>Num Plays</th>";
-  echo "<th>Win Rate</th>";
-  //echo "<th>Plays Going First</th>";
-  echo "<th>Avg. Turns in Wins</th>";
-  echo "<th>Avg. Turns in Losses</th>";
-  echo "<th>Avg. Cards Resourced in Wins</th>";
-  //echo "<th>Total Cards Resourced</th>";
-  echo "<th>Avg. Remaining Health in Wins</th>";
-  echo "</tr></thead>";
-  echo "<tbody>";
-  while ($row = $result->fetch_assoc()) {
-    $leaderID = htmlspecialchars($row['leaderID']);
-    $baseID = htmlspecialchars($row['baseID']);
-    if($leaderID === "" || $baseID === "") {
-      continue; // Skip rows with invalid leader or base IDs
-    }
-    if (intval($leaderID) === -1 || intval($baseID) === -1 || $row['numPlays'] == 0) {
-      continue;
-    }
-    echo "<tr>";
-    // Drilldown button
-    echo '<td style="white-space:nowrap;display:flex;gap:6px;align-items:center;">'
-        . '<a href="https://swustats.net/TCGEngine/Stats/Decks.php?leader=' . $leaderID . '&base=' . $baseID . '">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-        </svg>
-        </a>'
-        . '<button class="drilldown-btn" data-leader="' . $leaderID . '" data-base="' . $baseID . '" title="Show Matchup Breakout" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;">Matchups</button>'
-        . '</td>';
-    echo("<td><img src='../SWUDeck/concat/" . $leaderID . ".webp' style='height: 80px;' title='" . CardTitle($leaderID) . "' /></td>");
-    echo("<td><img src='../SWUDeck/concat/" . $baseID . ".webp' style='height: 80px;' title='" . CardTitle($baseID) . "' /></td>");
-    echo "<td>" . $row['numPlays'] . "</td>";
-    echo "<td>" . number_format($row['numWins'] / $row['numPlays'] * 100, 2) . "%</td>";
-    //echo "<td>" . $row['playsGoingFirst'] . "</td>";
-    echo "<td>" . ($row['numWins'] ? number_format($row['turnsInWins'] / $row['numWins'], 2) : "N/A") . "</td>";
-    echo "<td>" . (($row['numPlays'] - $row['numWins']) ? number_format(($row['totalTurns'] - $row['turnsInWins']) / ($row['numPlays'] - $row['numWins']), 2) : "N/A") . "</td>";
-    echo "<td>" . ($row['numWins'] ? number_format($row['cardsResourcedInWins'] / $row['numWins'], 2) : "N/A") . "</td>";
-    //echo "<td>" . $row['totalCardsResourced'] . "</td>";
-    echo "<td>" . ($row['numWins'] ? number_format($row['remainingHealthInWins'] / $row['numWins'], 2) : "N/A") . "</td>";
-    echo "</tr>";
-  }
-  echo "</tbody>";
-  echo "</table>";
-} else {
-  echo "<p>No deck meta stats found for week 0.</p>";
-}
-
-$conn->close();
-
-include_once '../SharedUI/Disclaimer.php';
 ?>
-
+<!-- jQuery and DataTables (local CDN references) -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
-<!-- Popup Modal for Matchup Drilldown -->
-<div id="matchupModal" style="display:none;position:fixed;z-index:9999;left:0;top:0;width:100vw;height:100vh;background:rgba(10,16,32,0.85);align-items:center;justify-content:center;">
-  <div id="matchupModalContent" style="background:#101a2b;color:#fff;padding:24px 18px 18px 18px;border-radius:12px;max-width:98vw;max-height:90vh;overflow:auto;box-shadow:0 0 32px #0074D9;position:relative;">
-    <button id="closeMatchupModal" style="position:absolute;top:8px;right:12px;background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:2px 10px;cursor:pointer;font-size:18px;">&times;</button>
-    <div id="matchupModalBody">Loading...</div>
-  </div>
+<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px;">
+  Start week: <input type="number" id="startWeek" value="0" min="0" style="width:80px;padding:4px;" />
+  End week: <input type="number" id="endWeek" value="0" min="0" style="width:80px;padding:4px;" />
+  <button id="refreshWeeks" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;">Refresh</button>
 </div>
 
+<table id="deckMetaStatsTable" border="1" cellspacing="0" cellpadding="5">
+  <thead>
+    <tr>
+      <th>Deck Search</th>
+      <th>Leader ID</th>
+      <th>Base ID</th>
+      <th>Num Plays</th>
+      <th>Win Rate</th>
+      <th>Avg. Turns in Wins</th>
+      <th>Avg. Turns in Losses</th>
+      <th>Avg. Cards Resourced in Wins</th>
+      <th>Avg. Remaining Health in Wins</th>
+    </tr>
+  </thead>
+  <tbody id="deckMetaStatsBody"></tbody>
+</table>
+
 <script>
-$(function() {
-  // Drilldown button click handler
+  // Drilldown button click handler (delegated)
   $(document).on('click', '.drilldown-btn', function() {
     var leaderID = $(this).data('leader');
     var baseID = $(this).data('base');
@@ -144,7 +96,6 @@ $(function() {
         $('#matchupModalBody').html('<p>Error loading matchup data.</p>');
       }
     });
-  });
   // Close modal
   $('#closeMatchupModal, #matchupModal').on('click', function(e) {
     if (e.target === this || e.target.id === 'closeMatchupModal') {
@@ -194,31 +145,74 @@ $(function() {
 <script>
 
   var tableHeight = $(window).height() - 280;
-  $('#deckMetaStatsTable').DataTable({
-      "order": [[ 3, "desc" ]],
-      "scrollY": tableHeight + "px",
-      "paging": false,
-      "searching": false,
-      "columnDefs": [
-          { "type": "num", "targets": [4, 5, 6, 7, 8] },
-          { "targets": 4, "render": function ( data, type, row ) {
-                if (type === 'sort') {
-                    return parseFloat(data.replace('%',''));
-                }
-                return data;
-             }
-          },
-          { "targets": [5, 6, 7, 8], "render": function( data, type, row ) {
-                if (type === 'sort'){
-                  var num = parseFloat(data);
-                  if(isNaN(num)) return -1;
-                  return num;
-                }
-                return data;
-             }
-          }
-      ]
-  });
+  // Fetch and populate table via API
+  var dataTable = null;
+  function fetchAndRender() {
+    var start = parseInt($('#startWeek').val());
+    var end = parseInt($('#endWeek').val());
+    var params = {};
+    if (!isNaN(start)) params.startWeek = start;
+    if (!isNaN(end)) params.endWeek = end;
+    $('#deckMetaStatsBody').html('<tr><td colspan="9">Loading...</td></tr>');
+    $.get('../Stats/DeckMetaStatsAPI.php', params, function(data) {
+      var json = typeof data === 'string' ? JSON.parse(data) : data;
+      if (!Array.isArray(json) || json.length === 0) {
+        $('#deckMetaStatsBody').html('<tr><td colspan="9">No records found for the selected week(s).</td></tr>');
+        return;
+      }
+      var rows = '';
+      for (var i=0; i<json.length; ++i) {
+        var r = json[i];
+        rows += '<tr>';
+        rows += '<td style="white-space:nowrap;display:flex;gap:6px;align-items:center;">'
+          + '<a href="https://swustats.net/TCGEngine/Stats/Decks.php?leader=' + r.leaderID + '&base=' + r.baseID + '">' 
+          + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">'
+          + '<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>'
+          + '</svg></a>'
+          + '<button class="drilldown-btn" data-leader="' + r.leaderID + '" data-base="' + r.baseID + '" title="Show Matchup Breakout" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:2px 8px;cursor:pointer;">Matchups</button>'
+          + '</td>';
+        rows += '<td><img src="../SWUDeck/concat/' + r.leaderID + '.webp" style="height: 80px;" title="' + r.leaderTitle + '" /></td>';
+        rows += '<td><img src="../SWUDeck/concat/' + r.baseID + '.webp" style="height: 80px;" title="' + r.baseTitle + '" /></td>';
+        rows += '<td>' + r.numPlays + '</td>';
+        rows += '<td>' + (r.numPlays > 0 ? (parseFloat(r.winRate)).toFixed(2) + '%' : 'N/A') + '</td>';
+        rows += '<td>' + (r.avgTurnsInWins !== null ? r.avgTurnsInWins : 'N/A') + '</td>';
+        rows += '<td>' + (r.avgTurnsInLosses !== null ? r.avgTurnsInLosses : 'N/A') + '</td>';
+        rows += '<td>' + (r.avgCardsResourcedInWins !== null ? r.avgCardsResourcedInWins : 'N/A') + '</td>';
+        rows += '<td>' + (r.avgRemainingHealthInWins !== null ? r.avgRemainingHealthInWins : 'N/A') + '</td>';
+        rows += '</tr>';
+      }
+      $('#deckMetaStatsBody').html(rows);
+
+      // Initialize or re-draw DataTable
+      if (dataTable) {
+        dataTable.destroy();
+      }
+      dataTable = $('#deckMetaStatsTable').DataTable({
+        "order": [[ 3, "desc" ]],
+        "scrollY": tableHeight + "px",
+        "paging": false,
+        "searching": false,
+        "columnDefs": [
+            { "type": "num", "targets": [3] },
+            { "targets": 4, "render": function ( data, type, row ) {
+                  if (type === 'sort') {
+                      return parseFloat(data.replace('%',''));
+                  }
+                  return data;
+               }
+            }
+        ]
+      });
+    }).fail(function() {
+      $('#deckMetaStatsBody').html('<tr><td colspan="9">Error fetching data from API.</td></tr>');
+    });
+  }
+
+  // Wire refresh button
+  $('#refreshWeeks').on('click', function() { fetchAndRender(); });
+
+  // Initial load
+  fetchAndRender();
 
 </script>
 
