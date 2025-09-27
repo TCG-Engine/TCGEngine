@@ -27,39 +27,62 @@ if ($startWeek === null && $endWeek === null) {
 $query = "SELECT * FROM cardmetastats WHERE " . $where . " ORDER BY $sortColumn $sortOrder";
 $result = $conn->query($query);
 
+// Aggregate across weeks by cardID
 $response = [];
+$aggregates = [];
 
-if ($result->num_rows > 0) {
+if ($result && $result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
-    $percentIncludedInWins = ($row['timesIncluded'] > 0) ? ($row['timesIncludedInWins'] / $row['timesIncluded']) * 100 : 0;
-    $percentPlayedInWins = ($row['timesPlayed'] > 0) ? ($row['timesPlayedInWins'] / $row['timesPlayed']) * 100 : 0;
-    $percentResourcedInWins = ($row['timesResourced'] > 0) ? ($row['timesResourcedInWins'] / $row['timesResourced']) * 100 : 0;
+    $cardId = $row['cardID'];
+    if (!isset($aggregates[$cardId])) {
+      $aggregates[$cardId] = [
+        'cardID' => $cardId,
+        'timesIncluded' => 0,
+        'timesIncludedInWins' => 0,
+        'timesPlayed' => 0,
+        'timesPlayedInWins' => 0,
+        'timesResourced' => 0,
+        'timesResourcedInWins' => 0,
+      ];
+    }
+    $aggregates[$cardId]['timesIncluded'] += intval($row['timesIncluded']);
+    $aggregates[$cardId]['timesIncludedInWins'] += intval($row['timesIncludedInWins']);
+    $aggregates[$cardId]['timesPlayed'] += intval($row['timesPlayed']);
+    $aggregates[$cardId]['timesPlayedInWins'] += intval($row['timesPlayedInWins']);
+    $aggregates[$cardId]['timesResourced'] += intval($row['timesResourced']);
+    $aggregates[$cardId]['timesResourcedInWins'] += intval($row['timesResourcedInWins']);
+  }
 
-    $cardTitle = CardTitle($row['cardID']);
-    $cardSubtitle = CardSubtitle($row['cardID']);
+  foreach ($aggregates as $card) {
+    $percentIncludedInWins = ($card['timesIncluded'] > 0) ? ($card['timesIncludedInWins'] / $card['timesIncluded']) * 100 : 0;
+    $percentPlayedInWins = ($card['timesPlayed'] > 0) ? ($card['timesPlayedInWins'] / $card['timesPlayed']) * 100 : 0;
+    $percentResourcedInWins = ($card['timesResourced'] > 0) ? ($card['timesResourcedInWins'] / $card['timesResourced']) * 100 : 0;
+
+    $cardTitle = CardTitle($card['cardID']);
+    $cardSubtitle = CardSubtitle($card['cardID']);
     $cardName = $cardTitle;
     if ($cardSubtitle != "") {
       $cardName .= ", " . $cardSubtitle;
     }
 
     $response[] = [
-      'cardUid' => $row['cardID'],
+      'cardUid' => $card['cardID'],
       'cardName' => $cardName,
-      'week' => $row['week'],
-      'timesIncluded' => $row['timesIncluded'],
-      'timesIncludedInWins' => $row['timesIncludedInWins'],
+      'timesIncluded' => $card['timesIncluded'],
+      'timesIncludedInWins' => $card['timesIncludedInWins'],
       'percentIncludedInWins' => number_format($percentIncludedInWins, 2),
-      'timesPlayed' => $row['timesPlayed'],
-      'timesPlayedInWins' => $row['timesPlayedInWins'],
+      'timesPlayed' => $card['timesPlayed'],
+      'timesPlayedInWins' => $card['timesPlayedInWins'],
       'percentPlayedInWins' => number_format($percentPlayedInWins, 2),
-      'timesResourced' => $row['timesResourced'],
-      'timesResourcedInWins' => $row['timesResourcedInWins'],
+      'timesResourced' => $card['timesResourced'],
+      'timesResourcedInWins' => $card['timesResourcedInWins'],
       'percentResourcedInWins' => number_format($percentResourcedInWins, 2),
     ];
   }
 } else {
   $response['message'] = "No records found.";
 }
+
 $conn->close();
 
 header('Content-Type: application/json');

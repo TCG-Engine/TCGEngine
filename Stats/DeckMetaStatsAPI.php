@@ -30,37 +30,72 @@ if ($startWeek === null && $endWeek === null) {
 $query = "SELECT leaderID, baseID, week, numWins, numPlays, playsGoingFirst, turnsInWins, totalTurns, cardsResourcedInWins, totalCardsResourced, remainingHealthInWins, winsGoingFirst, winsGoingSecond FROM deckmetastats WHERE " . $where;
 $result = $conn->query($query);
 
+// Aggregate results across weeks by leaderID+baseID
 $response = [];
+$aggregates = [];
 
 if ($result && $result->num_rows > 0) {
   while ($row = $result->fetch_assoc()) {
-    // Store original string values to preserve leading zeros
     $leaderIDstr = $row['leaderID'];
     $baseIDstr = $row['baseID'];
-    
-    // Use integers only for comparison, not for storage
+
+    // Use integers only for comparison
     $leaderID_int = intval($leaderIDstr);
     $baseID_int = intval($baseIDstr);
     $numPlays = intval($row['numPlays']);
 
-    // Skip entries with empty leaderID, -1 IDs, or zero plays
+    // Skip invalid entries
     if ($leaderIDstr === "" || $leaderID_int === -1 || $baseID_int === -1 || $numPlays === 0) {
       continue;
     }
 
+    $key = $leaderIDstr . '|' . $baseIDstr;
+    if (!isset($aggregates[$key])) {
+      $aggregates[$key] = [
+        'leaderID' => $leaderIDstr,
+        'baseID' => $baseIDstr,
+        'numWins' => 0,
+        'numPlays' => 0,
+        'playsGoingFirst' => 0,
+        'turnsInWins' => 0,
+        'totalTurns' => 0,
+        'cardsResourcedInWins' => 0,
+        'totalCardsResourced' => 0,
+        'remainingHealthInWins' => 0,
+        'winsGoingFirst' => 0,
+        'winsGoingSecond' => 0,
+      ];
+    }
+
+    $aggregates[$key]['numWins'] += intval($row['numWins']);
+    $aggregates[$key]['numPlays'] += intval($row['numPlays']);
+    $aggregates[$key]['playsGoingFirst'] += intval($row['playsGoingFirst']);
+    $aggregates[$key]['turnsInWins'] += intval($row['turnsInWins']);
+    $aggregates[$key]['totalTurns'] += intval($row['totalTurns']);
+    $aggregates[$key]['cardsResourcedInWins'] += intval($row['cardsResourcedInWins']);
+    $aggregates[$key]['totalCardsResourced'] += intval($row['totalCardsResourced']);
+    $aggregates[$key]['remainingHealthInWins'] += intval($row['remainingHealthInWins']);
+    $aggregates[$key]['winsGoingFirst'] += intval($row['winsGoingFirst']);
+    $aggregates[$key]['winsGoingSecond'] += intval($row['winsGoingSecond']);
+  }
+
+  // Build response from aggregates
+  foreach ($aggregates as $agg) {
+    $numPlays = $agg['numPlays'];
+    $numWins = $agg['numWins'];
     $response[] = [
-      'leaderID' => $leaderIDstr,
-      'leaderTitle' => CardTitle($leaderIDstr),
-      'leaderSubtitle' => CardSubtitle($leaderIDstr),
-      'baseID' => $baseIDstr,
-      'baseTitle' => CardTitle($baseIDstr),
-      'baseSubtitle' => CardSubtitle($baseIDstr),
+      'leaderID' => $agg['leaderID'],
+      'leaderTitle' => CardTitle($agg['leaderID']),
+      'leaderSubtitle' => CardSubtitle($agg['leaderID']),
+      'baseID' => $agg['baseID'],
+      'baseTitle' => CardTitle($agg['baseID']),
+      'baseSubtitle' => CardSubtitle($agg['baseID']),
       'numPlays' => $numPlays,
-      'winRate' => number_format(($numPlays > 0 ? ($row['numWins'] / $numPlays) * 100 : 0), 2, '.', ''),
-      'avgTurnsInWins' => $row['numWins'] > 0 ? number_format($row['turnsInWins'] / $row['numWins'], 2, '.', '') : null,
-      'avgTurnsInLosses' => ($numPlays - $row['numWins']) > 0 ? number_format(($row['totalTurns'] - $row['turnsInWins']) / ($numPlays - $row['numWins']), 2, '.', '') : null,
-      'avgCardsResourcedInWins' => $row['numWins'] > 0 ? number_format($row['cardsResourcedInWins'] / $row['numWins'], 2, '.', '') : null,
-      'avgRemainingHealthInWins' => $row['numWins'] > 0 ? number_format($row['remainingHealthInWins'] / $row['numWins'], 2, '.', '') : null,
+      'winRate' => number_format(($numPlays > 0 ? ($numWins / $numPlays) * 100 : 0), 2, '.', ''),
+      'avgTurnsInWins' => $numWins > 0 ? number_format($agg['turnsInWins'] / $numWins, 2, '.', '') : null,
+      'avgTurnsInLosses' => ($numPlays - $numWins) > 0 ? number_format(($agg['totalTurns'] - $agg['turnsInWins']) / ($numPlays - $numWins), 2, '.', '') : null,
+      'avgCardsResourcedInWins' => $numWins > 0 ? number_format($agg['cardsResourcedInWins'] / $numWins, 2, '.', '') : null,
+      'avgRemainingHealthInWins' => $numWins > 0 ? number_format($agg['remainingHealthInWins'] / $numWins, 2, '.', '') : null,
     ];
   }
 }
