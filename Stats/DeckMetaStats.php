@@ -63,7 +63,21 @@ $forIndividual = false;
   <tbody id="deckMetaStatsBody"></tbody>
 </table>
 
+<!-- Matchup modal (was missing) -->
+<div id="matchupModal" style="display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;display:flex;align-items:center;justify-content:center;">
+  <div id="matchupModalContent" style="background:#071029;color:#7FDBFF;padding:12px;border-radius:8px;max-width:900px;width:90%;max-height:85%;overflow:auto;box-shadow:0 8px 24px rgba(0,0,0,0.8);margin:48px auto;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+      <h3 style="margin:0;padding:0;color:#7FDBFF;">Matchup Breakout</h3>
+      <button id="closeMatchupModal" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:6px 10px;cursor:pointer;">Close</button>
+    </div>
+    <div id="matchupModalBody"> </div>
+  </div>
+</div>
+
 <script>
+  // Ensure drilldown button doesn't shrink in flex cells
+  $('<style> .drilldown-btn{flex:0 0 auto;} .drilldown-btn img{vertical-align:middle;} </style>').appendTo('head');
+
   // Drilldown button click handler (delegated)
   $(document).on('click', '.drilldown-btn', function() {
     var leaderID = $(this).data('leader');
@@ -121,13 +135,14 @@ $forIndividual = false;
         $('#matchupModalBody').html('<p>Error loading matchup data.</p>');
       }
     });
-  // Close modal
+  });
+
+  // Close modal (bound once)
   $('#closeMatchupModal, #matchupModal').on('click', function(e) {
     if (e.target === this || e.target.id === 'closeMatchupModal') {
       $('#matchupModal').hide();
     }
   });
-});
 </script>
 
 <style>
