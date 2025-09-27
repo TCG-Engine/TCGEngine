@@ -26,7 +26,10 @@
   }
 
   $deckLink = "https://swudb.com/api/getDeckJson/" . $assetSourceID;
-  if ($assetSource == 3) {
+  if($assetSource == 2) {
+      $deckLink = "https://melee.gg/Decklist/View/" . $assetSourceID;
+  }
+  else if($assetSource == 3) {
       $deckLink = "https://swubase.com/api/deck/" . $assetSourceID . "/json";
   }
   $curl = curl_init();
