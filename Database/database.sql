@@ -310,7 +310,7 @@ CREATE TABLE `cardmetastats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `cardmetastats`
-  ADD PRIMARY KEY (`cardID`),
+  ADD PRIMARY KEY (`cardID`,`week`),
   ADD KEY `week` (`week`);
 
 
@@ -331,7 +331,7 @@ CREATE TABLE `deckmetastats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `deckmetastats`
-  ADD PRIMARY KEY (`leaderID`,`baseID`),
+  ADD PRIMARY KEY (`leaderID`,`baseID`,`week`),
   ADD KEY `week` (`week`);
 
 
@@ -354,7 +354,7 @@ CREATE TABLE `deckmetamatchupstats` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 ALTER TABLE `deckmetamatchupstats`
-  ADD PRIMARY KEY (`leaderID`,`baseID`,`opponentLeaderID`,`opponentBaseID`),
+  ADD PRIMARY KEY (`leaderID`,`baseID`,`opponentLeaderID`,`opponentBaseID`,`week`),
   ADD KEY `week` (`week`);
 
 
