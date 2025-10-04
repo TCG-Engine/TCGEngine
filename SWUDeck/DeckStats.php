@@ -656,6 +656,8 @@
     border: 2px solid #5a5a5a; /* Light grey */
     border-radius: 8px;
     font-family: 'Roboto', sans-serif; /* Modern font */
+    /* Reduce the base font size slightly to make the page less 'large' */
+    font-size: 14px;
     color: #ffffff; /* White */
   }
 
@@ -674,6 +676,8 @@
   .statsTable th, .statsTable td {
     border: 1px solid #2a2a2a;
     padding: 5px;
+    /* slightly reduce table cell font for denser display */
+    font-size: 12px;
   }
   
   /* Ensure table cells don't get too narrow */
@@ -725,7 +729,8 @@
     flex: 1;
     justify-content: center;
     max-width: 150px;
-    font-size: 14px;
+    /* slightly smaller selector text to match reduced base font */
+    font-size: 12px;
   }
   
   .selector-btn:hover {
@@ -768,6 +773,8 @@
       width: 100%;
       max-width: 200px;
       margin-bottom: 5px;
+      /* increase touch target on small screens while keeping text modest */
+      font-size: 14px;
     }
   }
 </style>
