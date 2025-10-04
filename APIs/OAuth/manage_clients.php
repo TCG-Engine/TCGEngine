@@ -70,6 +70,7 @@ $availableScopes = $server->getScopes();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWUDeck - Manage OAuth Applications</title>
+    <link rel="stylesheet" href="/TCGEngine/SharedUI/css/buttons.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -148,22 +149,7 @@ $availableScopes = $server->getScopes();
             margin-right: 20px;
             margin-bottom: 10px;
         }
-        button, .button {
-            padding: 8px 15px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .primary {
-            background-color: #007bff;
-            color: white;
-        }
-        .danger {
-            background-color: #dc3545;
-            color: white;
-        }
+        /* Button styles are loaded from /SharedUI/css/buttons.css */
         .client-secret {
             background-color: #444;
             padding: 10px;

@@ -17,6 +17,7 @@
   ParseGamestate(__DIR__ . "/");
 
   echo '<link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/blueDiamond.png">';
+  echo '<link rel="stylesheet" href="/TCGEngine/SharedUI/css/buttons.css">';
   echo("<body style='margin:0px; scroll: none;'>");
   $skipInitialize = true;
   $playerID = 1;//To fix php errors
@@ -724,53 +725,7 @@
     vertical-align: middle;
   }
 
-  /* Reusable site button styles (match SharedUI primary/danger look) */
-  .btn, button.btn {
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: none;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 13px;
-    color: #fff;
-    background-color: rgba(255,255,255,0.06);
-    transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
-    box-shadow: 0 1px 0 rgba(0,0,0,0.4) inset;
-  }
-
-  .btn:hover {
-    transform: translateY(-2px);
-    opacity: 0.98;
-  }
-
-  .btn:active {
-    transform: translateY(0);
-  }
-
-  .btn.primary {
-    background-color: #007bff;
-    border: 1px solid #006ae6;
-    color: #fff;
-  }
-
-  .btn.secondary {
-    background-color: #6c757d;
-    border: 1px solid #60666b;
-    color: #fff;
-  }
-
-  .btn.danger, .danger {
-    background-color: #dc3545;
-    border: 1px solid #c92b3a;
-    color: #fff;
-  }
-
-  /* Small utility: disabled look */
-  .btn[disabled], .btn.disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
+  /* Button styles are loaded from SharedUI/css/buttons.css */
   
   .selector-buttons {
     display: flex;
