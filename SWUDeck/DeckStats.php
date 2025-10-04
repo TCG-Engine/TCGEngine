@@ -123,7 +123,7 @@
 
     $stmt->close();    $deckStatsOutput = "";
     if($deckStats != null) {
-      $deckStatsOutput = "<div style='margin: 10px; max-height:calc(98vh - 150px); overflow-y:auto; scrollbar-width: thin; scrollbar-color: #5a5a5a #2a2a2a;'>";
+      $deckStatsOutput = "<div style='margin: 10px; max-height:calc(98vh - 50px); overflow-y:auto; scrollbar-width: thin; scrollbar-color: #5a5a5a #2a2a2a;'>";
       $deckStatsOutput .= "<table style='padding:10px; color: white; border-collapse: collapse; width: 100%;'><tr><td style='vertical-align: top; min-width: 300px;'>";
       //Leader and base image
       $leaders = &GetLeader(1);
@@ -137,7 +137,9 @@
         $baseID = $bases[0]->CardID;
         $deckStatsOutput .= "<img src='./concat/" . $baseID . ".webp' alt='" . CardTitle($baseID) . "' style='max-width: 100px;'>";
       }
-      $deckStatsOutput .= "</div>";
+  $deckStatsOutput .= "</div>";
+  // token for inserting the compact stats source selector directly under the portraits
+  $deckStatsOutput .= "__INLINE_STATS_SELECTOR__" . "<br><br>";
       //Number of wins stats
       $deckStatsOutput .= "<strong>Number of wins:</strong> " . $deckStats["numWins"] . "<br>";
       $deckStatsOutput .= "<strong>Number of losses:</strong> " . ($deckStats["numPlays"] - $deckStats["numWins"]) . "<br>";
@@ -175,11 +177,13 @@
       $deckStatsOutput .= "<br>";
       $winRateGoingFirst = ($deckStats["numPlays"] > 0 && $deckStats["playsGoingFirst"] > 0) ? ($deckStats["winsGoingFirst"] / $deckStats["playsGoingFirst"]) * 100 : 0;
       $winRateGoingSecond = ($deckStats["numPlays"] > 0 && ($deckStats["numPlays"] - $deckStats["playsGoingFirst"]) > 0) ? ($deckStats["winsGoingSecond"] / ($deckStats["numPlays"] - $deckStats["playsGoingFirst"])) * 100 : 0;      $deckStatsOutput .= "<strong>Win rate going first:</strong> " . number_format($winRateGoingFirst, 2) . "%<br>";      $deckStatsOutput .= "<strong>Win rate going second:</strong> " . number_format($winRateGoingSecond, 2) . "%<br>";
-      $deckStatsOutput .= "<br><div style='display:flex; gap:10px;'>";
-      // Add an id so JS can safely reference the clear button when it exists
-      $deckStatsOutput .= "<button id='clearStatsButton' onclick='clearStats()'>Clear Stats</button>";
-      $deckStatsOutput .= "<button onclick='showAddStatsForm()'>Add Stats</button>";
-      $deckStatsOutput .= "</div>";
+  // Place action buttons (selector is injected under portraits via token)
+  $deckStatsOutput .= "<div style='margin-top:10px; display:flex; flex-direction:column; gap:8px;'>";
+  $deckStatsOutput .= "<div style='display:flex; gap:10px;'>";
+  // Add an id so JS can safely reference the clear button when it exists
+  $deckStatsOutput .= "<button id='clearStatsButton' onclick='clearStats()'>Clear Stats</button>";
+  $deckStatsOutput .= "<button onclick='showAddStatsForm()'>Add Stats</button>";
+  $deckStatsOutput .= "</div></div>";
       $deckStatsOutput .= "</td><td style='width: 70%;'><div>";
     }    $allLeaders = &GetLeaders(1);
     $allMainDeck = &GetMainDeck(1);
@@ -291,32 +295,47 @@
     $conn->close();
 
     $deckStatsOutput .= "</div></td></tr></table>";    // Create the source selection UI with styled toggle buttons
-    $sourceSelector = '<div class=\"stats-source-selector\">';
-    $sourceSelector .= '<div class=\"selector-buttons\">';
-    $sourceSelector .= '<div class=\"selector-btn ' . ($statsSource === "all" ? "active" : "") . '\" onclick=\"changeStatsSource(\'all\')\" title=\"Combined statistics from both owner and community\">';
-    $sourceSelector .= '<i class=\"selector-icon all-icon\">&#9733;</i>All Stats</div>';
-    
-    $sourceSelector .= '<div class=\"selector-btn ' . ($statsSource === "owner" ? "active" : "") . '\" onclick=\"changeStatsSource(\'owner\')\" title=\"Statistics submitted by the deck owner only\">';
-    $sourceSelector .= '<i class=\"selector-icon owner-icon\">&#9787;</i>Owner Stats</div>';
-    
-    $sourceSelector .= '<div class=\"selector-btn ' . ($statsSource === "community" ? "active" : "") . '\" onclick=\"changeStatsSource(\'community\')\" title=\"Statistics submitted by the community excluding the owner\">';
-    $sourceSelector .= '<i class=\"selector-icon community-icon\">&#9734;</i>Community Stats</div>';
-    
-    $sourceSelector .= '</div>';
-    $sourceSelector .= '</div>';
-      if(!$hasDeckStats) {
-        // When there are no stats, still show the source selector and an Add Stats button so users can submit manual stats
-        echo "var deckStats = \"<div style='margin: 10px;'>";
-        echo $sourceSelector;
-        echo "<strong>No stats available for this deck with the selected filter. </strong>";
-        echo "<div style='margin-top:10px;'><button onclick='showAddStatsForm()'>Add Stats</button></div></div>\";";
+  // Create a compact source selector (no large grey box) so it can be placed inline above action buttons
+  $sourceSelector = '<div class=\"stats-source-selector compact\">';
+  $sourceSelector .= '<div class=\"selector-buttons compact-row\">';
+  $sourceSelector .= '<div class=\"selector-btn ' . ($statsSource === "all" ? "active" : "") . '\" onclick=\"changeStatsSource(\'all\')\" title=\"Combined statistics from both owner and community\">';
+  $sourceSelector .= '<i class=\"selector-icon all-icon\">&#9733;</i><span class=\"selector-text\">All</span></div>';
+
+  $sourceSelector .= '<div class=\"selector-btn ' . ($statsSource === "owner" ? "active" : "") . '\" onclick=\"changeStatsSource(\'owner\')\" title=\"Statistics submitted by the deck owner only\">';
+  $sourceSelector .= '<i class=\"selector-icon owner-icon\">&#9787;</i><span class=\"selector-text\">Owner</span></div>';
+
+  $sourceSelector .= '<div class=\"selector-btn ' . ($statsSource === "community" ? "active" : "") . '\" onclick=\"changeStatsSource(\'community\')\" title=\"Statistics submitted by the community excluding the owner\">';
+  $sourceSelector .= '<i class=\"selector-icon community-icon\">&#9734;</i><span class=\"selector-text\">Community</span></div>';
+
+  $sourceSelector .= '</div>';
+  $sourceSelector .= '</div>';
+      // Inject selector into the stats output (it will appear under the portraits where token was placed)
+      $deckStatsOutput = str_replace('__INLINE_STATS_SELECTOR__', $sourceSelector, $deckStatsOutput);
+
+      // If there are no stats, insert a small inline message and Add button where appropriate
+      if (!$hasDeckStats) {
+        // Build a small inline no-stats message. Only include an Add button if the action buttons
+        // are not already present in the generated deckStats HTML to avoid duplicates.
+        $noStatsHtml = "<div style='margin-top:8px; color: #ddd;'><strong>No stats available for this deck with the selected filter.</strong>";
+        if (strpos($deckStatsOutput, "showAddStatsForm()") === false) {
+          $noStatsHtml .= " <button onclick='showAddStatsForm()' style='margin-left:8px;'>Add Stats</button>";
+        }
+        $noStatsHtml .= "</div>";
+
+        // Place the inline no-stats message near the stats summary area (after portraits and before detailed tables)
+        // We look for a logical anchor (the start of the card stats section) and insert before it. If not found, append.
+        $insertPos = strpos($deckStatsOutput, "<br><strong>Main Deck Stats:");
+        if ($insertPos !== false) {
+          $deckStatsOutput = substr_replace($deckStatsOutput, $noStatsHtml, $insertPos, 0);
+        } else {
+          // fall back: append near the start of the scrollable content
+          $deckStatsOutput = $deckStatsOutput . $noStatsHtml;
+        }
       }
-    else {
+
       echo "var deckStats = \"";
-      echo $sourceSelector;
       echo $deckStatsOutput;
       echo "\";";
-    }
       // Add a modal overlay and ensure the form has a high z-index so it appears above the source selector
       echo "deckStats += \"<div id='modalOverlay' style='display:none; position:fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.4); z-index: 9998;'></div>\";";
       echo "deckStats += \"<div id='addStatsForm' style='display:none; max-height: 80%; overflow-y: auto; z-index: 9999; position:fixed;'>\";";
@@ -698,15 +717,11 @@
   
   /* Stats Source Selector Styling */
   .stats-source-selector {
-    background-color: #2a2a2a;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 0 0 20px 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    position: sticky;
-    top: 10px;
-    z-index: 100;
-    border: 1px solid #444;
+    /* Default selector styling (kept for backward compatibility). Compact variant removes heavy background. */
+    border-radius: 8px;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
   }
   
   .selector-buttons {
@@ -715,35 +730,38 @@
     gap: 10px;
     padding-top:10px;
   }
+
+  /* Compact row variant used above the action buttons */
+  .selector-buttons.compact-row {
+    padding-top: 0;
+    justify-content: flex-start;
+    gap: 6px;
+  }
   
   .selector-btn {
-    background-color: #3a3a3a;
-    border: 1px solid #5a5a5a;
-    color: #cccccc;
-    padding: 8px 15px;
-    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid rgba(255,255,255,0.06);
+    color: #cfcfcf;
+    padding: 6px 10px;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
+    transition: background-color 0.15s ease, transform 0.15s ease;
+    display: inline-flex;
     align-items: center;
-    flex: 1;
     justify-content: center;
-    max-width: 150px;
-    /* slightly smaller selector text to match reduced base font */
+    min-width: 64px;
     font-size: 12px;
   }
   
   .selector-btn:hover {
-    background-color: #4a4a4a;
+    background-color: rgba(255,255,255,0.03);
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
   
   .selector-btn.active {
     background-color: #5a76a0;
     color: white;
     border-color: #7a96c0;
-    box-shadow: 0 2px 8px rgba(90, 118, 160, 0.4);
   }
   
   .selector-icon {
@@ -766,15 +784,16 @@
   @media (max-width: 768px) {
     .selector-buttons {
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
+      gap: 6px;
     }
     
     .selector-btn {
-      width: 100%;
-      max-width: 200px;
-      margin-bottom: 5px;
-      /* increase touch target on small screens while keeping text modest */
+      width: auto;
+      max-width: none;
+      margin-bottom: 0;
       font-size: 14px;
+      padding: 8px 12px;
     }
   }
 </style>
