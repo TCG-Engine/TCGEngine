@@ -173,7 +173,9 @@
       $winRateGoingFirst = ($deckStats["numPlays"] > 0 && $deckStats["playsGoingFirst"] > 0) ? ($deckStats["winsGoingFirst"] / $deckStats["playsGoingFirst"]) * 100 : 0;
       $winRateGoingSecond = ($deckStats["numPlays"] > 0 && ($deckStats["numPlays"] - $deckStats["playsGoingFirst"]) > 0) ? ($deckStats["winsGoingSecond"] / ($deckStats["numPlays"] - $deckStats["playsGoingFirst"])) * 100 : 0;      $deckStatsOutput .= "<strong>Win rate going first:</strong> " . number_format($winRateGoingFirst, 2) . "%<br>";      $deckStatsOutput .= "<strong>Win rate going second:</strong> " . number_format($winRateGoingSecond, 2) . "%<br>";
       $deckStatsOutput .= "<br><div style='display:flex; gap:10px;'>";
-      $deckStatsOutput .= "<button onclick='clearStats()'>Clear Stats</button>";      $deckStatsOutput .= "<button onclick='showAddStatsForm()'>Add Stats</button>";
+      // Add an id so JS can safely reference the clear button when it exists
+      $deckStatsOutput .= "<button id='clearStatsButton' onclick='clearStats()'>Clear Stats</button>";
+      $deckStatsOutput .= "<button onclick='showAddStatsForm()'>Add Stats</button>";
       $deckStatsOutput .= "</div>";
       $deckStatsOutput .= "</td><td style='width: 70%;'><div>";
     }    $allLeaders = &GetLeaders(1);
@@ -300,10 +302,12 @@
     $sourceSelector .= '</div>';
     $sourceSelector .= '</div>';
       if(!$hasDeckStats) {
-      echo "var deckStats = \"<div style='margin: 10px;'>";
-      echo $sourceSelector;
-      echo "<strong>No stats available for this deck with the selected filter. </strong></div>\";";
-    }
+        // When there are no stats, still show the source selector and an Add Stats button so users can submit manual stats
+        echo "var deckStats = \"<div style='margin: 10px;'>";
+        echo $sourceSelector;
+        echo "<strong>No stats available for this deck with the selected filter. </strong>";
+        echo "<div style='margin-top:10px;'><button onclick='showAddStatsForm()'>Add Stats</button></div></div>\";";
+      }
     else {
       echo "var deckStats = \"";
       echo $sourceSelector;
@@ -360,6 +364,7 @@
 
     function showAddStatsForm() {
       var form = document.getElementById('addStatsForm');
+      if (!form) return; // nothing to show
       form.style.position = 'fixed';
       form.style.top = '50%';
       form.style.left = '50%';
@@ -371,7 +376,8 @@
       document.getElementById('addStatsForm').style.display = 'block';
       document.body.style.pointerEvents = 'none';
       form.style.pointerEvents = 'auto';
-      clearStatsButton.disabled = true;
+      var clearBtn = document.getElementById('clearStatsButton');
+      if (clearBtn) clearBtn.disabled = true;
     }
 
     function validateNumberInput(input) {
@@ -470,16 +476,22 @@
       console.log(JSON.stringify(data));
       xhr.send(JSON.stringify(data));
       document.body.style.pointerEvents = 'auto';
-      form.style.pointerEvents = 'none';
-      clearStatsButton.disabled = false;
+      var form = document.getElementById('addStatsForm');
+      if (form) form.style.pointerEvents = 'none';
+      var clearBtn2 = document.getElementById('clearStatsButton');
+      if (clearBtn2) clearBtn2.disabled = false;
     }
 
     function cancelAddStats()  {
-      document.getElementById('addStatsForm').style.display = 'none';
+      var form = document.getElementById('addStatsForm');
+      if (form) form.style.display = 'none';
       document.body.style.pointerEvents = 'auto';
-      form.style.pointerEvents = 'none';
-      clearStatsButton.disabled = false;
-    }    function clearStats() {
+      if (form) form.style.pointerEvents = 'none';
+      var clearBtn3 = document.getElementById('clearStatsButton');
+      if (clearBtn3) clearBtn3.disabled = false;
+    }
+
+    function clearStats() {
       if (confirm('Are you sure you want to clear your stats? This is unreversable.')) {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/TCGEngine/SWUDeck/ClearStats.php?deckID=' + <?php echo($gameName); ?>, true);
