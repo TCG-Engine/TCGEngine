@@ -181,8 +181,8 @@
   $deckStatsOutput .= "<div style='margin-top:10px; display:flex; flex-direction:column; gap:8px;'>";
   $deckStatsOutput .= "<div style='display:flex; gap:10px;'>";
   // Add an id so JS can safely reference the clear button when it exists
-  $deckStatsOutput .= "<button id='clearStatsButton' onclick='clearStats()'>Clear Stats</button>";
-  $deckStatsOutput .= "<button onclick='showAddStatsForm()'>Add Stats</button>";
+  $deckStatsOutput .= "<button id='clearStatsButton' class='btn danger' onclick='clearStats()'>Clear Stats</button>";
+  $deckStatsOutput .= "<button class='btn primary' onclick='showAddStatsForm()'>Add Stats</button>";
   $deckStatsOutput .= "</div></div>";
       $deckStatsOutput .= "</td><td style='width: 70%;'><div>";
     }    $allLeaders = &GetLeaders(1);
@@ -318,7 +318,7 @@
         // are not already present in the generated deckStats HTML to avoid duplicates.
         $noStatsHtml = "<div style='margin-top:8px; color: #ddd;'><strong>No stats available for this deck with the selected filter.</strong>";
         if (strpos($deckStatsOutput, "showAddStatsForm()") === false) {
-          $noStatsHtml .= " <button onclick='showAddStatsForm()' style='margin-left:8px;'>Add Stats</button>";
+          $noStatsHtml .= " <button class='btn primary' onclick='showAddStatsForm()' style='margin-left:8px;'>Add Stats</button>";
         }
         $noStatsHtml .= "</div>";
 
@@ -380,7 +380,7 @@
           echo "deckStats += \"<input type='number' id='resourced_$cardID' name='resourced_$cardID' placeholder='0' value='0' style='display: inline-block; width: 100px;' min='0' max='100' oninput='validateNumberInput(this)' onkeypress='handleKeyPress(event)'><br>\";";
         }
       }
-      echo "deckStats += \"<br><button type='button' onclick='confirmAddStats()' style='margin-right: 10px;'>Add</button><button type='button' onclick='cancelAddStats()'>Cancel</button>\";";
+  echo "deckStats += \"<br><button type='button' class='btn primary' onclick='confirmAddStats()' style='margin-right: 10px;'>Add</button><button type='button' class='btn secondary' onclick='cancelAddStats()'>Cancel</button>\";";
       echo "deckStats += \"</form></div>\";";
 
     ?>
@@ -722,6 +722,54 @@
     margin: 0;
     display: inline-block;
     vertical-align: middle;
+  }
+
+  /* Reusable site button styles (match SharedUI primary/danger look) */
+  .btn, button.btn {
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 13px;
+    color: #fff;
+    background-color: rgba(255,255,255,0.06);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.4) inset;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+    opacity: 0.98;
+  }
+
+  .btn:active {
+    transform: translateY(0);
+  }
+
+  .btn.primary {
+    background-color: #007bff;
+    border: 1px solid #006ae6;
+    color: #fff;
+  }
+
+  .btn.secondary {
+    background-color: #6c757d;
+    border: 1px solid #60666b;
+    color: #fff;
+  }
+
+  .btn.danger, .danger {
+    background-color: #dc3545;
+    border: 1px solid #c92b3a;
+    color: #fff;
+  }
+
+  /* Small utility: disabled look */
+  .btn[disabled], .btn.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
   }
   
   .selector-buttons {
