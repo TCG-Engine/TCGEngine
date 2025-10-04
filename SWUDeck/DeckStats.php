@@ -317,14 +317,14 @@
       // Add a modal overlay and ensure the form has a high z-index so it appears above the source selector
       echo "deckStats += \"<div id='modalOverlay' style='display:none; position:fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.4); z-index: 9998;'></div>\";";
       echo "deckStats += \"<div id='addStatsForm' style='display:none; max-height: 80%; overflow-y: auto; z-index: 9999; position:fixed;'>\";";
-      echo "deckStats += \"<form><label for='statType' style='display: inline-block; width: 110px; margin-right: 10px;'>Leaders:</label><select id='leader'>\";";
+      echo "deckStats += \"<form><label for='leader' style='display: inline-block; width: 110px; margin-right: 10px;'>Leaders:</label><select id='leader'>\";";
       foreach ($allLeaders as $leader) {
         $leaderID = $leader->CardID;
         $leaderName = htmlspecialchars(CardTitle($leaderID), ENT_QUOTES, 'UTF-8');
         echo "deckStats += \"<option value='$leaderID'>$leaderName</option>\";";
       }
       echo "deckStats += \"</select><br><br>\";";
-      echo "deckStats += \"<label for='BaseColor' style='display: inline-block; width: 110px; margin-right: 10px;'>Base Color:</label><select id='baseColor'><option value='Green'>Green</option><option value='Blue'>Blue</option><option value='Red'>Red</option><option value='Yellow'>Yellow</option></select><br><br>\";";
+      echo "deckStats += \"<label for='baseColor' style='display: inline-block; width: 110px; margin-right: 10px;'>Base Color:</label><select id='baseColor'><option value='Green'>Green</option><option value='Blue'>Blue</option><option value='Red'>Red</option><option value='Yellow'>Yellow</option></select><br><br>\";";
       echo "deckStats += \"<input type='radio' id='win' name='statType' value='win'><label for='win' style='margin-right: 10px;'>Win</label>\";";
       echo "deckStats += \"<input type='radio' id='loss' name='statType' value='loss'><label for='loss'>Loss</label><br><br>\";";
       echo "deckStats += \"<input type='radio' id='firstPlayer' name='playerType' value='firstPlayer'><label for='firstPlayer'  style='margin-right: 10px;'>First Player</label>\";";
@@ -364,9 +364,21 @@
     ?>
     el.innerHTML = deckStats;
 
+    // Esc and overlay handlers are declared once and referenced by name so they can be removed later
+    function escKeyListener(e) {
+      if (e.key === 'Escape' || e.key === 'Esc') {
+        cancelAddStats();
+      }
+    }
+
+    function overlayClickHandler(e) {
+      // Close whenever the overlay is clicked (simpler and more reliable)
+      cancelAddStats();
+    }
+
     function showAddStatsForm() {
       var form = document.getElementById('addStatsForm');
-  if (!form) return; // nothing to show
+      if (!form) return; // nothing to show
       form.style.position = 'fixed';
       form.style.top = '50%';
       form.style.left = '50%';
@@ -375,10 +387,26 @@
       form.style.padding = '20px';
       form.style.border = '2px solid #5a5a5a';
       form.style.borderRadius = '8px';
-      document.getElementById('modalOverlay').style.display = 'block';
-      document.getElementById('addStatsForm').style.display = 'block';
-      document.body.style.pointerEvents = 'none';
+      var overlay = document.getElementById('modalOverlay');
+      if (overlay) {
+        // Ensure overlay is above other page elements and can receive clicks
+        overlay.style.display = 'block';
+        overlay.style.pointerEvents = 'auto';
+        overlay.style.zIndex = '10002';
+        // attach click-to-close handler
+        overlay.addEventListener('click', overlayClickHandler);
+      }
+      var addForm = document.getElementById('addStatsForm');
+      if (addForm) {
+        addForm.style.display = 'block';
+        addForm.style.zIndex = '10003';
+      }
+  // Disable pointer events only on the stats content so the overlay can still receive clicks
+  var content = document.getElementById('myStuff') || document.querySelector('.myStuff');
+  if (content) content.style.pointerEvents = 'none';
       form.style.pointerEvents = 'auto';
+      // attach Esc listener
+      document.addEventListener('keydown', escKeyListener);
       var clearBtn = document.getElementById('clearStatsButton');
       if (clearBtn) clearBtn.disabled = true;
     }
@@ -478,11 +506,19 @@
       };
       console.log(JSON.stringify(data));
       xhr.send(JSON.stringify(data));
-      document.body.style.pointerEvents = 'auto';
+  var content = document.getElementById('myStuff') || document.querySelector('.myStuff');
+  if (content) content.style.pointerEvents = 'auto';
       var form = document.getElementById('addStatsForm');
       if (form) form.style.pointerEvents = 'none';
       var overlay = document.getElementById('modalOverlay');
-      if (overlay) overlay.style.display = 'none';
+      if (overlay) {
+        overlay.style.display = 'none';
+        overlay.style.pointerEvents = '';
+        overlay.style.zIndex = '';
+        try { overlay.removeEventListener('click', overlayClickHandler); } catch (e) {}
+      }
+      // detach Esc key listener
+      try { document.removeEventListener('keydown', escKeyListener); } catch (e) {}
       var clearBtn2 = document.getElementById('clearStatsButton');
       if (clearBtn2) clearBtn2.disabled = false;
     }
@@ -491,8 +527,16 @@
       var form = document.getElementById('addStatsForm');
       if (form) form.style.display = 'none';
       var overlay = document.getElementById('modalOverlay');
-      if (overlay) overlay.style.display = 'none';
-      document.body.style.pointerEvents = 'auto';
+      if (overlay) {
+        overlay.style.display = 'none';
+        overlay.style.pointerEvents = '';
+        overlay.style.zIndex = '';
+        try { overlay.removeEventListener('click', overlayClickHandler); } catch (e) {}
+      }
+  // detach Esc key listener
+  try { document.removeEventListener('keydown', escKeyListener); } catch (e) {}
+  var content = document.getElementById('myStuff') || document.querySelector('.myStuff');
+  if (content) content.style.pointerEvents = 'auto';
       if (form) form.style.pointerEvents = 'none';
       var clearBtn3 = document.getElementById('clearStatsButton');
       if (clearBtn3) clearBtn3.disabled = false;
