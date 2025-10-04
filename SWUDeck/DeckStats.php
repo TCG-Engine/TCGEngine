@@ -88,9 +88,12 @@
       $result = $stmt->get_result();
     }
     
-    $matchupStats = "<br><strong>Matchup Stats:</strong><br>";
-    $matchupStats .= "<table class='statsTable'><tr><th rowspan='2'>Leader</th><th rowspan='2'>Wins</th><th rowspan='2'>Losses</th><th rowspan='2'>Win Rate</th><th colspan='2'>Green</th><th colspan='2'>Blue</th><th colspan='2'>Red</th><th colspan='2'>Yellow</th></tr>";
-    $matchupStats .= "<tr><th>Win%</th><th>Played</th><th>Win%</th><th>Played</th><th>Win%</th><th>Played</th><th>Win%</th><th>Played</th></tr>";
+  // Matchup stats table (use DataTables-friendly markup and id)
+  $matchupStats = "<br><strong>Matchup Stats:</strong><br>";
+  $matchupStats .= "<table id='matchupStatsTable' class='statsTable display' cellspacing='0' width='100%'><thead>";
+  $matchupStats .= "<tr><th rowspan='2'>Leader</th><th rowspan='2'>Wins</th><th rowspan='2'>Losses</th><th rowspan='2'>Win Rate</th><th colspan='2'>Green</th><th colspan='2'>Blue</th><th colspan='2'>Red</th><th colspan='2'>Yellow</th></tr>";
+  $matchupStats .= "<tr><th>Win%</th><th>Played</th><th>Win%</th><th>Played</th><th>Win%</th><th>Played</th><th>Win%</th><th>Played</th></tr>";
+  $matchupStats .= "</thead><tbody>";
     while ($row = $result->fetch_assoc()) {
       $totalPlays = $row["totalVsGreen"] + $row["totalVsBlue"] + $row["totalVsRed"] + $row["totalVsYellow"];
       $totalWins = $row["winsVsGreen"] + $row["winsVsBlue"] + $row["winsVsRed"] + $row["winsVsYellow"];
@@ -116,7 +119,7 @@
       $matchupStats .= "</tr>";
     }
    
-    $matchupStats .= "</table>";
+  $matchupStats .= "</tbody></table>";
 
     $stmt->close();    $deckStatsOutput = "";
     if($deckStats != null) {
@@ -237,9 +240,9 @@
     // Table header
     $tableHeader = "<tr><th>Card Name</th><th>Times Included</th><th>Times Included In Wins</th><th>Times Drawn</th><th>Times Drawn In Wins</th><th>Times Played</th><th>Times Played In Wins</th><th>Times Resourced</th><th>Times Resourced In Wins</th><th>Times Discarded</th><th>Times Discarded In Wins</th></tr>";
     
-    // Main deck stats table
-    $cardStatsTable = "<br><strong>Main Deck Stats:</strong><br>";
-    $cardStatsTable .= "<table class='statsTable'>" . $tableHeader;
+  // Main deck stats table (use an id so we can initialize DataTables like CardMetaStats)
+  $cardStatsTable = "<br><strong>Main Deck Stats:</strong><br>";
+  $cardStatsTable .= "<table id='deckMainStatsTable' class='statsTable display' cellspacing='0' width='100%'><thead>" . $tableHeader . "</thead><tbody>";
     
     foreach ($mainDeckCardStats as $row) {
       $cardStatsTable .= "<tr>";
@@ -257,12 +260,12 @@
       $cardStatsTable .= "</tr>";
     }
     
-    $cardStatsTable .= "</table>";
+  $cardStatsTable .= "</tbody></table>";
     
     // Sideboard stats table (only if there are sideboard cards with stats)
     if (!empty($sideboardCardStats)) {
       $cardStatsTable .= "<br><strong>Sideboard Stats:</strong><br>";
-      $cardStatsTable .= "<table class='statsTable'>" . $tableHeader;
+  $cardStatsTable .= "<table id='deckSideStatsTable' class='statsTable display' cellspacing='0' width='100%'><thead>" . $tableHeader . "</thead><tbody>";
       
       foreach ($sideboardCardStats as $row) {
         $cardStatsTable .= "<tr>";
@@ -280,7 +283,7 @@
         $cardStatsTable .= "</tr>";
       }
       
-      $cardStatsTable .= "</table>";
+  $cardStatsTable .= "</tbody></table>";
     }
     $deckStatsOutput .= $cardStatsTable . $matchupStats . "</div>";
 
@@ -363,6 +366,59 @@
 
     ?>
     el.innerHTML = deckStats;
+
+    // Load DataTables and initialize nicer tables for the card stats (mimicking CardMetaStats.php)
+    (function() {
+      function loadCSS(href) { var l = document.createElement('link'); l.rel = 'stylesheet'; l.href = href; document.head.appendChild(l); }
+      function loadScript(src, cb) { var s = document.createElement('script'); s.src = src; s.onload = cb; document.head.appendChild(s); }
+
+      function ensureDataTables(callback) {
+        var cssLoaded = false;
+        // Load DataTables CSS and shared stats table styles used by CardMetaStats
+        loadCSS('https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css');
+        loadCSS('/TCGEngine/SharedUI/css/statsTables.css');
+        // Ensure jQuery then DataTables
+        function onDataTablesReady() { if (callback) callback(); }
+        if (window.jQuery && jQuery.fn && jQuery.fn.dataTable) {
+          onDataTablesReady();
+        } else if (window.jQuery) {
+          loadScript('https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js', onDataTablesReady);
+        } else {
+          loadScript('https://code.jquery.com/jquery-3.6.0.min.js', function() {
+            loadScript('https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js', onDataTablesReady);
+          });
+        }
+      }
+
+      ensureDataTables(function() {
+        try {
+          if (document.getElementById('deckMainStatsTable')) {
+            try { if ($.fn.dataTable.isDataTable('#deckMainStatsTable')) { $('#deckMainStatsTable').DataTable().destroy(); } } catch(e){}
+            var thCount = document.querySelectorAll('#deckMainStatsTable thead th').length || 0;
+            var cols = (new Array(thCount)).fill(null);
+            $('#deckMainStatsTable').DataTable({ "order": [[1, 'desc']], "paging": false, "info": false, "searching": false, "columns": cols });
+          }
+          if (document.getElementById('deckSideStatsTable')) {
+            try { if ($.fn.dataTable.isDataTable('#deckSideStatsTable')) { $('#deckSideStatsTable').DataTable().destroy(); } } catch(e){}
+            var thCount2 = document.querySelectorAll('#deckSideStatsTable thead th').length || 0;
+            var cols2 = (new Array(thCount2)).fill(null);
+            $('#deckSideStatsTable').DataTable({ "order": [[1, 'desc']], "paging": false, "info": false, "searching": false, "columns": cols2 });
+          }
+            // Initialize matchup stats table
+            if (document.getElementById('matchupStatsTable')) {
+              try { if ($.fn.dataTable.isDataTable('#matchupStatsTable')) { $('#matchupStatsTable').DataTable().destroy(); } } catch(e){}
+              // compute number of columns by summing the colSpan of the first header row (handles grouped headers)
+              var matchupThCount = 0;
+              var firstHeaderRow = document.querySelectorAll('#matchupStatsTable thead tr')[0];
+              if (firstHeaderRow) {
+                firstHeaderRow.querySelectorAll('th').forEach(function(th) { matchupThCount += (th.colSpan || 1); });
+              }
+              var matchupCols = (new Array(matchupThCount)).fill(null);
+              $('#matchupStatsTable').DataTable({ "order": [], "paging": false, "info": false, "searching": false, "columns": matchupCols });
+            }
+        } catch(e) { console.error('Error initializing DataTables on DeckStats:', e); }
+      });
+    })();
 
     // Esc and overlay handlers are declared once and referenced by name so they can be removed later
     function escKeyListener(e) {
@@ -610,7 +666,6 @@
     padding: 10px;
     color: white;
     text-align: center;
-    border: 1px solid #2a2a2a;
     border-collapse: collapse;
     width: 100%;
     table-layout: auto;
