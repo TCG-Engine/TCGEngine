@@ -314,7 +314,9 @@
       echo $deckStatsOutput;
       echo "\";";
     }
-        echo "deckStats += \"<div id='addStatsForm' style='display:none; max-height: 80%; overflow-y: auto;'>\";";
+      // Add a modal overlay and ensure the form has a high z-index so it appears above the source selector
+      echo "deckStats += \"<div id='modalOverlay' style='display:none; position:fixed; top:0; left:0; right:0; bottom:0; background: rgba(0,0,0,0.4); z-index: 9998;'></div>\";";
+      echo "deckStats += \"<div id='addStatsForm' style='display:none; max-height: 80%; overflow-y: auto; z-index: 9999; position:fixed;'>\";";
       echo "deckStats += \"<form><label for='statType' style='display: inline-block; width: 110px; margin-right: 10px;'>Leaders:</label><select id='leader'>\";";
       foreach ($allLeaders as $leader) {
         $leaderID = $leader->CardID;
@@ -364,7 +366,7 @@
 
     function showAddStatsForm() {
       var form = document.getElementById('addStatsForm');
-      if (!form) return; // nothing to show
+  if (!form) return; // nothing to show
       form.style.position = 'fixed';
       form.style.top = '50%';
       form.style.left = '50%';
@@ -373,6 +375,7 @@
       form.style.padding = '20px';
       form.style.border = '2px solid #5a5a5a';
       form.style.borderRadius = '8px';
+      document.getElementById('modalOverlay').style.display = 'block';
       document.getElementById('addStatsForm').style.display = 'block';
       document.body.style.pointerEvents = 'none';
       form.style.pointerEvents = 'auto';
@@ -478,6 +481,8 @@
       document.body.style.pointerEvents = 'auto';
       var form = document.getElementById('addStatsForm');
       if (form) form.style.pointerEvents = 'none';
+      var overlay = document.getElementById('modalOverlay');
+      if (overlay) overlay.style.display = 'none';
       var clearBtn2 = document.getElementById('clearStatsButton');
       if (clearBtn2) clearBtn2.disabled = false;
     }
@@ -485,6 +490,8 @@
     function cancelAddStats()  {
       var form = document.getElementById('addStatsForm');
       if (form) form.style.display = 'none';
+      var overlay = document.getElementById('modalOverlay');
+      if (overlay) overlay.style.display = 'none';
       document.body.style.pointerEvents = 'auto';
       if (form) form.style.pointerEvents = 'none';
       var clearBtn3 = document.getElementById('clearStatsButton');
