@@ -19,13 +19,24 @@
 	exit;
   }
 
-  	// Meta stats are disabled if:
+	// Meta stats are disabled if:
 	// - It's a shared team deck
 	// - The format is not 'premier'
+	// - One or more players opts out of meta stats collection
 	$disableMetaStats = false;
 	$format = isset($data['format']) ? strtolower($data['format']) : 'premier';
 	if ($format !== 'premier') {
 		$disableMetaStats = true;
+	}
+	if (isset($data['disableMetaStats'])) {
+		$explicitDisable = $data['disableMetaStats'];
+		if (is_string($explicitDisable)) {
+			$explicitDisable = strtolower($explicitDisable);
+			$explicitDisable = ($explicitDisable === 'true' || $explicitDisable === '1');
+		}
+		if ($explicitDisable) {
+			$disableMetaStats = true;
+		}
 	}
 
   $conn = GetLocalMySQLConnection();

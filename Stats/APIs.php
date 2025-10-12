@@ -329,6 +329,7 @@ include_once "../SharedUI/Header.php";
     "p1id": "player1_id",      // Optional player IDs
     "p2id": "player2_id",
     "format": "premier",       // Optional: game format (default: "premier"). Examples: "premier", "preview"
+    "disableMetaStats": false, // Optional: set to true if one or more players opts out of meta stats collection
     "gameName": "12345",       // Game identifier
     "sequenceNumber": 1        // Optional sequence number for BO3 matches
 }</code></pre>
