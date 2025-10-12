@@ -328,6 +328,7 @@ include_once "../SharedUI/Header.php";
     "p2DeckLink": "https://swustats.net/path/to/deck?gameName=5678",
     "p1id": "player1_id",      // Optional player IDs
     "p2id": "player2_id",
+    "format": "premier",       // Optional: game format (default: "premier"). Examples: "premier", "preview"
     "gameName": "12345",       // Game identifier
     "sequenceNumber": 1        // Optional sequence number for BO3 matches
 }</code></pre>
