@@ -19,7 +19,14 @@
 	exit;
   }
 
-  $disableMetaStats = false;
+  	// Meta stats are disabled if:
+	// - It's a shared team deck
+	// - The format is not 'premier'
+	$disableMetaStats = false;
+	$format = isset($data['format']) ? strtolower($data['format']) : 'premier';
+	if ($format !== 'premier') {
+		$disableMetaStats = true;
+	}
 
   $conn = GetLocalMySQLConnection();
 
