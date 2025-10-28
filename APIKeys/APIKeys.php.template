@@ -20,3 +20,5 @@ $patreonClientSecret = "op://$APP_ENV/Patreon/credential";
 
 $petranakiAPIKey = "";
 $karabastAPIKey = "";
+
+$isProduction = false;

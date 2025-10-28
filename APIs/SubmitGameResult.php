@@ -40,7 +40,30 @@
 	}
 
   $conn = GetLocalMySQLConnection();
-
+		// Validate SWU tokens (if provided). Returns:
+		//  - null  => no token provided
+		//  - int   => user_id for valid token
+		//  - false => token provided but invalid/expired
+		function ValidateSWUToken($conn, $token) {
+			if ($token === "" || $token === null) return null;
+			$sql = "SELECT user_id, expires FROM oauth_access_tokens WHERE access_token = ?";
+			$stmt = mysqli_stmt_init($conn);
+			if (!mysqli_stmt_prepare($stmt, $sql)) return false;
+			mysqli_stmt_bind_param($stmt, "s", $token);
+			mysqli_stmt_execute($stmt);
+			$result = mysqli_stmt_get_result($stmt);
+			$row = mysqli_fetch_assoc($result);
+			mysqli_stmt_close($stmt);
+			if (!$row) return false;
+			// Treat tokens without an associated user as invalid for this flow
+			if (!isset($row['user_id']) || $row['user_id'] === null) return false;
+			// Enforce expiry using the `expires` column
+			if (isset($row['expires']) && $row['expires'] !== null && $row['expires'] !== '') {
+				$expires = strtotime($row['expires']);
+				if ($expires !== false && time() > $expires) return false;
+			}
+			return intval($row['user_id']);
+		}
   $winner = $data["winner"];
   $firstPlayer = $data["firstPlayer"];
   $p1id = $data["p1id"];
@@ -50,6 +73,28 @@
   $p2DeckLink = $data["p2DeckLink"];
   $p1SWUStatsToken = isset($data["p1SWUStatsToken"]) ? $data["p1SWUStatsToken"] : "";
   $p2SWUStatsToken = isset($data["p2SWUStatsToken"]) ? $data["p2SWUStatsToken"] : "";
+
+	// Validate provided tokens and enforce failure when invalid/expired
+	$p1SWUUserId = ValidateSWUToken($conn, $p1SWUStatsToken);
+	if ($p1SWUStatsToken !== "" && $p1SWUUserId === false) {
+		http_response_code(401);
+		header('Content-Type: application/json');
+		echo json_encode([
+			"success" => false,
+			"error" => "Invalid or expired p1SWUStatsToken."
+		]);
+		exit;
+	}
+	$p2SWUUserId = ValidateSWUToken($conn, $p2SWUStatsToken);
+	if ($p2SWUStatsToken !== "" && $p2SWUUserId === false) {
+		http_response_code(401);
+		header('Content-Type: application/json');
+		echo json_encode([
+			"success" => false,
+			"error" => "Invalid or expired p2SWUStatsToken."
+		]);
+		exit;
+	}
 
   /*
   $logFile = '../logs/game_results.log';
@@ -89,17 +134,8 @@
 		if($deckVisibility < 1000000 && $deckVisibility > 1000) $disableMetaStats = true;
 		$isDeckOwner = false;
 		if($p1SWUStatsToken != "") {
-			$sql = "SELECT user_id FROM oauth_access_tokens WHERE access_token = ?";
-			$stmt = mysqli_stmt_init($conn);
-			if (mysqli_stmt_prepare($stmt, $sql)) {
-				mysqli_stmt_bind_param($stmt, "s", $p1SWUStatsToken);
-				mysqli_stmt_execute($stmt);
-				$result = mysqli_stmt_get_result($stmt);
-				$token = mysqli_fetch_assoc($result);
-				mysqli_stmt_close($stmt);
-				if($token && isset($deckAsset["assetOwner"]) && $token["user_id"] == $deckAsset["assetOwner"]) {
-					$isDeckOwner = true;
-				}
+			if ($p1SWUUserId !== null && isset($deckAsset["assetOwner"]) && $p1SWUUserId == $deckAsset["assetOwner"]) {
+				$isDeckOwner = true;
 			}
 		}
 		SaveDeckStats($deckID, $data["player1"], $winner == 1, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner);
@@ -125,17 +161,8 @@
 		if($deckVisibility < 1000000 && $deckVisibility > 1000) $disableMetaStats = true;
 		$isDeckOwner = false;
 		if($p2SWUStatsToken != "") {
-			$sql = "SELECT user_id FROM oauth_access_tokens WHERE access_token = ?";
-			$stmt = mysqli_stmt_init($conn);
-			if (mysqli_stmt_prepare($stmt, $sql)) {
-				mysqli_stmt_bind_param($stmt, "s", $p2SWUStatsToken);
-				mysqli_stmt_execute($stmt);
-				$result = mysqli_stmt_get_result($stmt);
-				$token = mysqli_fetch_assoc($result);
-				mysqli_stmt_close($stmt);
-				if($token && isset($deckAsset["assetOwner"]) && $token["user_id"] == $deckAsset["assetOwner"]) {
-					$isDeckOwner = true;
-				}
+			if ($p2SWUUserId !== null && isset($deckAsset["assetOwner"]) && $p2SWUUserId == $deckAsset["assetOwner"]) {
+				$isDeckOwner = true;
 			}
 		}
 		SaveDeckStats($deckID, $data["player2"], $winner == 2, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner);
