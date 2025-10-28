@@ -74,24 +74,29 @@
   $p1SWUStatsToken = isset($data["p1SWUStatsToken"]) ? $data["p1SWUStatsToken"] : "";
   $p2SWUStatsToken = isset($data["p2SWUStatsToken"]) ? $data["p2SWUStatsToken"] : "";
 
-	// Validate provided tokens and enforce failure when invalid/expired
+	// Validate provided tokens and collect failures (don't exit on the first)
 	$p1SWUUserId = ValidateSWUToken($conn, $p1SWUStatsToken);
-	if ($p1SWUStatsToken !== "" && $p1SWUUserId === false) {
-		http_response_code(401);
-		header('Content-Type: application/json');
-		echo json_encode([
-			"success" => false,
-			"error" => "Invalid or expired p1SWUStatsToken."
-		]);
-		exit;
-	}
 	$p2SWUUserId = ValidateSWUToken($conn, $p2SWUStatsToken);
+	$errors = [];
+	if ($p1SWUStatsToken !== "" && $p1SWUUserId === false) {
+		$errors[] = "Invalid or expired p1SWUStatsToken.";
+	}
 	if ($p2SWUStatsToken !== "" && $p2SWUUserId === false) {
+		$errors[] = "Invalid or expired p2SWUStatsToken.";
+	}
+	if (count($errors) > 0) {
 		http_response_code(401);
 		header('Content-Type: application/json');
+		$structured = [];
+		if (in_array("Invalid or expired p1SWUStatsToken.", $errors)) {
+			$structured['p1SWUStatsToken'] = 'Invalid or expired';
+		}
+		if (in_array("Invalid or expired p2SWUStatsToken.", $errors)) {
+			$structured['p2SWUStatsToken'] = 'Invalid or expired';
+		}
 		echo json_encode([
 			"success" => false,
-			"error" => "Invalid or expired p2SWUStatsToken."
+			"errors" => $structured
 		]);
 		exit;
 	}
@@ -225,6 +230,13 @@
 	}
 	mysqli_close($conn);
   }
+
+	// Return success JSON for the main request processing. Include the inserted gameResultID when present.
+	header('Content-Type: application/json');
+	$resp = ["success" => true];
+	echo json_encode($resp);
+	// Finish the request; SaveDeckStats is defined below and may be used by other callers.
+	exit;
 
   //Parameters:
   // won: true if this player won the game, false if they lost
