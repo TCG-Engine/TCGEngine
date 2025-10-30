@@ -373,9 +373,20 @@ include_once "../SharedUI/Header.php";
 }</code></pre>
             
             <h4>Example Response:</h4>
+            <h5>Success (HTTP 200)</h5>
             <pre><code>{
-    "status": "success",
-    "message": "Game result recorded successfully"
+    "success": true,
+    "gameResultID": 12345
+}</code></pre>
+
+            <h5>Invalid/Expired Tokens (HTTP 401)</h5>
+            <p>If one or more provided SWU OAuth tokens are invalid or expired the API returns a 401 with a structured <code>errors</code> object describing which token(s) failed.</p>
+            <pre><code>{
+    "success": false,
+    "errors": {
+        "p1SWUStatsToken": "Invalid or expired",
+        "p2SWUStatsToken": "Invalid or expired"
+    }
 }</code></pre>
         </div>
     </div>
