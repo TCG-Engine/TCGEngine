@@ -26,7 +26,7 @@ Display: Visibility=Self, Mode=Tile, Left=26%, Top=20%, Bottom=130px, Split=None
 Click: Remove(myCards)
 AddValidation: ValidateMainDeckAddition
 Widgets: CustomInput=<&<<<&V&+&Notes
-Heatmap: Property=myStats, FunctionMap={"Play_Win_Rate":{"Function":"CardPlayWinRate","ColorMap":"HigherIsBetter"},"Resource_Rate":{"Function":"CardResourceRatio","ColorMap":"LowerIsBetter"},"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"},"Karabast_Implementation":{"Function":"KarabastImplemented","ColorMap":"HigherIsBetter"},"Petranaki_Implementation":{"Function":"PetranakiImplemented","ColorMap":"HigherIsBetter"}}
+Heatmap: Property=myStats, FunctionMap={"Play_Win_Rate":{"Function":"CardPlayWinRate","ColorMap":"HigherIsBetter"},"Resource_Rate":{"Function":"CardResourceRatio","ColorMap":"LowerIsBetter"},"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"},"Price":{"Function":"PriceHeatmap","ColorMap":"LowerIsBetter"},"Karabast_Implementation":{"Function":"KarabastImplemented","ColorMap":"HigherIsBetter"},"Petranaki_Implementation":{"Function":"PetranakiImplemented","ColorMap":"HigherIsBetter"}}
 Sort: Property=mySort
 CardPane - Value:string
 Display: Visibility=Self, Mode=Panel, Left=10px, Top=10px, Width=25%, Bottom=10px, Split=None
@@ -51,7 +51,7 @@ Display: Visibility=Self, Mode=Count(MainDeck), Left=26%, Top=16%, Split=None
 Widgets: CustomInput=Hand Draw
 Stats - Value:string
 Display: Visibility=Public, Mode=Radio(Value), Left=39%, Top=16%
-Widgets: Value=Play_Win_Rate&Resource_Rate&Hypergeo
+Widgets: Value=Play_Win_Rate&Resource_Rate&Hypergeo&Price
 Sort - Value:string
 Display: Visibility=Public, Mode=Radio(Value), Left=75%, Top=12%
 Widgets: Value=Title&Cost&Aspect&Power&HP&SetNum&SWUDB

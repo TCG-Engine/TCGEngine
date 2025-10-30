@@ -61,6 +61,12 @@
   echo("    default: return -1;\r\n");
   echo("  }\r\n");
   echo("}\r\n");
+  echo("function PriceHeatmap(cardId) {\r\n");
+  echo("  switch(cardId) {\r\n");
+  //echo($resourceRatio);
+  echo("    default: return 0.01;\r\n");
+  echo("  }\r\n");
+  echo("}\r\n");
   echo("</script>\r\n");
 
   include_once './Utils/Output/SWUSimImplementation.php';
