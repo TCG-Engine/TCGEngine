@@ -168,6 +168,75 @@ include_once "../SharedUI/Header.php";
     </div>
 
     <div class="api-section">
+        <h2>Deck Edit API</h2>
+        <p>Modify a deck you own (add or remove cards). This endpoint requires OAuth authentication with the 'decks' scope and the caller must be the deck owner.</p>
+        <div class="api-endpoint">
+            <h3>Edit Deck Card</h3>
+            <p><span class="method post">POST</span> <code>/TCGEngine/APIs/EditDeckCard.php</code></p>
+
+            <h4>Authentication:</h4>
+            <p>This endpoint requires an OAuth access token. Provide the token via one of the following:</p>
+            <ul style="color: #000; font-weight: 500;">
+                <li><strong>Authorization header:</strong> <code>Authorization: Bearer {access_token}</code></li>
+                <li><strong>JSON body:</strong> <code>{"access_token": "{access_token}"}</code> (recommended for local testing where Authorization headers may be stripped)</li>
+            </ul>
+
+            <h4>Request Body (JSON):</h4>
+            <pre><code>{
+    "access_token": "your_oauth_token",    // or provide in Authorization header
+    "deckID": 123,                          // integer deck id
+    "action": "add|remove",               // add or remove
+    "cardID": "CARD_UID",                 // card id used in gamestate
+    "count": 1,                             // number to add/remove (optional, default 1)
+    "zone": "main|side"                   // zone to change (optional, default "main")
+}</code></pre>
+
+            <h4>Example Responses:</h4>
+            <h5>Success (HTTP 200)</h5>
+            <pre><code>POST /TCGEngine/APIs/EditDeckCard.php
+{
+    "success": true,
+    "deckID": 123,
+    "action": "remove",
+    "cardID": "CARD_UID",
+    "zone": "main",
+    "removed": 1
+}
+</code></pre>
+
+            <h5>Missing or Invalid Token (HTTP 401)</h5>
+            <pre><code>{
+    "success": false,
+    "errors": {
+        "access_token": "Missing access token"
+    }
+}
+// or
+{
+    "success": false,
+    "errors": {
+        "access_token": "Invalid or expired"
+    }
+}
+</code></pre>
+
+            <h5>Not Owner (HTTP 403)</h5>
+            <pre><code>{
+    "success": false,
+    "error": "Not deck owner"
+}
+</code></pre>
+
+            <h5>Card Not Present (HTTP 404)</h5>
+            <pre><code>{
+    "success": false,
+    "error": "Card not found in specified zone"
+}
+</code></pre>
+        </div>
+    </div>
+
+    <div class="api-section">
         <h2>All Matchup Statistics API</h2>
         <p>Retrieve all matchup statistics across all leader/base combinations. Useful for bulk analysis or building aggregated views.</p>
         <div class="api-endpoint">
