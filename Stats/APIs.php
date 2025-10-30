@@ -49,6 +49,10 @@ include_once "../SharedUI/Header.php";
             color: #000; /* Making Query Parameters and Example Response headers black */
             font-weight: 600;
         }
+        .api-endpoint h5 {
+            color: #1a2535; /* Dark color for h5 headings inside API endpoint boxes */
+            font-weight: 600;
+        }
         code {
             background-color: #272822;
             color: #f8f8f2;
