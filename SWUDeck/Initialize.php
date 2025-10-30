@@ -82,7 +82,8 @@
   echo("    return Math.min(price / 100.0, 1.0);\r\n");
   echo("  }\r\n");
   echo("  // If not loaded, start a single lazy load and return -1 (No Data) for now.\r\n");
-  echo("  if(!window.PriceHeatmapLoading) {\r\n");
+  echo("  // Use PriceHeatmapLoaded to avoid re-fetching during the same page session.\r\n");
+  echo("  if(!window.PriceHeatmapLoading && !window.PriceHeatmapLoaded) {\r\n");
   echo("    window.PriceHeatmapLoading = true;\r\n");
   echo("    showFlashMessage('Loading price heatmap...');\r\n");
   echo("    // Use safeJsonFetch to avoid trying to parse HTML/error pages as JSON\r\n");
@@ -105,6 +106,8 @@
   echo("          });\r\n");
   echo("        }\r\n");
   echo("        window.PriceHeatmapLoading = false;\r\n");
+  echo("        // Mark that we've attempted/loaded price data so we won't re-fetch repeatedly.\r\n");
+  echo("        window.PriceHeatmapLoaded = true;\r\n");
   echo("        showFlashMessage('Price heatmap loaded', 3000);\r\n");
   echo("        // Update overlays now that data is available\r\n");
   echo("        setTimeout(function() { UpdatePriceOverlays(); }, 50);\r\n");
@@ -112,6 +115,8 @@
   echo("        // Any unexpected error - mark loading false and surface a message\r\n");
   echo("        console.warn('Error loading price data', e);\r\n");
   echo("        window.PriceHeatmapLoading = false;\r\n");
+  echo("        // Mark as attempted so we don't keep retrying while on this page.\r\n");
+  echo("        window.PriceHeatmapLoaded = true;\r\n");
   echo("        showFlashMessage('Failed to load price data');\r\n");
   echo("      });\r\n");
   echo("  }\r\n");
