@@ -1,4 +1,6 @@
 <?php
+// tcgcsv category id for Star Wars Unlimited - change here if needed
+$priceCategory = 79;
 
 
   include_once './SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
@@ -87,11 +89,11 @@
   echo("    window.PriceHeatmapLoading = true;\r\n");
   echo("    showFlashMessage('Loading price heatmap...');\r\n");
   echo("    // Use safeJsonFetch to avoid trying to parse HTML/error pages as JSON\r\n");
-  echo("    safeJsonFetch('https://tcgcsv.com/tcgplayer/3/groups')\r\n");
+  echo("    safeJsonFetch('https://tcgcsv.com/tcgplayer/" . intval($priceCategory) . "/groups')\r\n");
   echo("      .then(groupsObj => {\r\n");
   echo("        var groups = (groupsObj && groupsObj.results) ? groupsObj.results : [];\r\n");
   echo("        // Fetch prices per group in parallel, but use safeJsonFetch to avoid parse errors\r\n");
-  echo("        var fetches = groups.map(g => safeJsonFetch('https://tcgcsv.com/tcgplayer/3/' + g.groupId + '/prices'));\r\n");
+  echo("        var fetches = groups.map(g => safeJsonFetch('https://tcgcsv.com/tcgplayer/" . intval($priceCategory) . "/' + g.groupId + '/prices'));\r\n");
   echo("        return Promise.all(fetches);\r\n");
   echo("      })\r\n");
   echo("      .then(allResults => {\r\n");
