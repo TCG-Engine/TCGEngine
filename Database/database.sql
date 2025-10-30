@@ -522,6 +522,7 @@ INSERT INTO `oauth_scopes` (`scope`, `is_default`, `description`) VALUES
 ('profile', 1, 'Access to user profile information'),
 ('email', 1, 'Access to user email'),
 ('decks', 0, 'Access to user deck information'),
+('editdecks', 0, 'Access to edit user decks'),
 ('stats', 0, 'Access to user gameplay statistics');
 
 -- --------------------------------------------------------

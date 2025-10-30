@@ -47,7 +47,7 @@
   // Validate access token against oauth_access_tokens table
   function ValidateTokenForUser($conn, $token) {
     if ($token === null || $token === "") return false;
-    $sql = "SELECT user_id, expires FROM oauth_access_tokens WHERE access_token = ?";
+    $sql = "SELECT user_id, expires, scope FROM oauth_access_tokens WHERE access_token = ?";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)) return false;
     mysqli_stmt_bind_param($stmt, "s", $token);
@@ -61,12 +61,15 @@
       $expires = strtotime($row['expires']);
       if ($expires !== false && time() > $expires) return false;
     }
-    return intval($row['user_id']);
+    return [
+      'user_id' => intval($row['user_id']),
+      'scope' => isset($row['scope']) ? $row['scope'] : ''
+    ];
   }
 
   $conn = GetLocalMySQLConnection();
-  $userId = ValidateTokenForUser($conn, $accessToken);
-  if ($accessToken !== "" && $userId === false) {
+  $tokenInfo = ValidateTokenForUser($conn, $accessToken);
+  if ($accessToken !== "" && $tokenInfo === false) {
     http_response_code(401);
     echo json_encode(["success" => false, "errors" => ["access_token" => "Invalid or expired"]]);
     mysqli_close($conn);
@@ -75,6 +78,19 @@
   if ($accessToken === "") {
     http_response_code(401);
     echo json_encode(["success" => false, "errors" => ["access_token" => "Missing access token"]]);
+    mysqli_close($conn);
+    exit;
+  }
+
+  $userId = intval($tokenInfo['user_id']);
+  $tokenScope = isset($tokenInfo['scope']) ? $tokenInfo['scope'] : '';
+
+  // Enforce required scope for deck edits
+  $requiredScope = 'editdecks';
+  $scopes = preg_split('/[\s,]+/', trim($tokenScope));
+  if (!in_array($requiredScope, $scopes)) {
+    http_response_code(403);
+    echo json_encode(["success" => false, "error" => "insufficient_scope", "required" => $requiredScope]);
     mysqli_close($conn);
     exit;
   }
