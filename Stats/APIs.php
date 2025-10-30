@@ -180,6 +180,7 @@ include_once "../SharedUI/Header.php";
                 <li><strong>Authorization header:</strong> <code>Authorization: Bearer {access_token}</code></li>
                 <li><strong>JSON body:</strong> <code>{"access_token": "{access_token}"}</code> (recommended for local testing where Authorization headers may be stripped)</li>
             </ul>
+            <p><strong>Required scope:</strong> <code>decks</code> — the token must include the <code>decks</code> scope or the API will return HTTP 403 (insufficient_scope).</p>
 
             <h4>Request Body (JSON):</h4>
             <pre><code>{
@@ -224,6 +225,15 @@ include_once "../SharedUI/Header.php";
             <pre><code>{
     "success": false,
     "error": "Not deck owner"
+}
+</code></pre>
+
+            <h5>Insufficient Scope (HTTP 403)</h5>
+            <p>If the provided access token does not include the required scope the API returns HTTP 403 with the following body:</p>
+            <pre><code>{
+    "success": false,
+    "error": "insufficient_scope",
+    "required": "decks"
 }
 </code></pre>
 
