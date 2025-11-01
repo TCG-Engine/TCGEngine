@@ -1,6 +1,9 @@
 <?php
 // tcgcsv category id for Star Wars Unlimited - change here if needed
 $priceCategory = 79;
+// Path to SWUDeck directory as seen by the browser (used to call PriceCache.php)
+$scriptNameDir = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
+$swuDeckBase = $scriptNameDir . "/SWUDeck";
 
 
   include_once './SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
@@ -88,24 +91,12 @@ $priceCategory = 79;
   echo("  if(!window.PriceHeatmapLoading && !window.PriceHeatmapLoaded) {\r\n");
   echo("    window.PriceHeatmapLoading = true;\r\n");
   echo("    showFlashMessage('Loading price heatmap...');\r\n");
-  echo("    // Use safeJsonFetch to avoid trying to parse HTML/error pages as JSON\r\n");
-  echo("    safeJsonFetch('https://tcgcsv.com/tcgplayer/" . intval($priceCategory) . "/groups')\r\n");
-  echo("      .then(groupsObj => {\r\n");
-  echo("        var groups = (groupsObj && groupsObj.results) ? groupsObj.results : [];\r\n");
-  echo("        // Fetch prices per group in parallel, but use safeJsonFetch to avoid parse errors\r\n");
-  echo("        var fetches = groups.map(g => safeJsonFetch('https://tcgcsv.com/tcgplayer/" . intval($priceCategory) . "/' + g.groupId + '/prices'));\r\n");
-  echo("        return Promise.all(fetches);\r\n");
-  echo("      })\r\n");
-  echo("      .then(allResults => {\r\n");
+  echo("    // Fetch cached price data from our server-side proxy/cache endpoint\r\n");
+  echo("    safeJsonFetch('" . $swuDeckBase . "/PriceCache.php')\r\n");
+  echo("      .then(j => {\r\n");
   echo("        window.PriceHeatmapData = {};\r\n");
-  echo("        if(allResults && allResults.length) {\r\n");
-  echo("          allResults.forEach(res => {\r\n");
-  echo("            if(!res || !res.results) return;\r\n");
-  echo("            res.results.forEach(p => {\r\n");
-  echo("              // productId should map to our card ids in the generated dictionaries\r\n");
-  echo("              if(p.productId && p.midPrice != null) window.PriceHeatmapData[String(p.productId)] = p.midPrice;\r\n");
-  echo("            });\r\n");
-  echo("          });\r\n");
+  echo("        if(j && j.results) {\r\n");
+  echo("          Object.keys(j.results).forEach(k => { window.PriceHeatmapData[String(k)] = j.results[k]; });\r\n");
   echo("        }\r\n");
   echo("        window.PriceHeatmapLoading = false;\r\n");
   echo("        // Mark that we've attempted/loaded price data so we won't re-fetch repeatedly.\r\n");

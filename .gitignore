@@ -50,3 +50,4 @@ SWUCardList/NextTurnRender.php
 SWUCardList/ZoneAccessors.php
 SWUCardList/ZoneClasses.php
 SWUCardList/Games
+SWUDeck/cache/price_cache.json
