@@ -1,0 +1,7 @@
+localhost/TCGEngine/Data/RB.json
+https://static.dotgg.gg/riftbound/cards/
+webp
+data
+
+
+id,name,effect,cost:number,type,might:number,rarity
