@@ -45,24 +45,64 @@ function safe_fetch_json($url) {
 
 $groups = safe_fetch_json($baseUrl . '/groups');
 $results = [];
+$priceDetails = [];
+$products = [];
 if ($groups && isset($groups['results']) && is_array($groups['results'])) {
     foreach ($groups['results'] as $g) {
         if (!isset($g['groupId'])) continue;
+        // Fetch product metadata for this group
+        $prods = safe_fetch_json($baseUrl . '/' . $g['groupId'] . '/products');
+        if ($prods && isset($prods['results']) && is_array($prods['results'])) {
+            foreach ($prods['results'] as $prod) {
+                if (isset($prod['productId'])) {
+                    // Keep raw product metadata; we can later pick which fields to use for matching
+                    $products[strval($prod['productId'])] = $prod;
+                }
+            }
+        }
+
+        // Fetch prices for this group
         $prices = safe_fetch_json($baseUrl . '/' . $g['groupId'] . '/prices');
-        if (!$prices || !isset($prices['results'])) continue;
-        foreach ($prices['results'] as $p) {
-            if (isset($p['productId']) && isset($p['midPrice'])) {
-                $results[strval($p['productId'])] = $p['midPrice'];
+        if ($prices && isset($prices['results']) && is_array($prices['results'])) {
+            foreach ($prices['results'] as $p) {
+                if (isset($p['productId']) && isset($p['midPrice'])) {
+                    $pid = strval($p['productId']);
+                    $results[$pid] = $p['midPrice'];
+                    // capture lowPrice if present
+                    $priceDetails[$pid] = [
+                        'midPrice' => $p['midPrice'],
+                        'lowPrice' => isset($p['lowPrice']) ? $p['lowPrice'] : null
+                    ];
+                }
             }
         }
     }
 }
 
 // Write cache atomically
+// Build merged items map: productId -> merged metadata + midPrice
+$items = [];
+foreach ($products as $pid => $pdata) {
+    $items[$pid] = $pdata;
+    if (isset($priceDetails[$pid])) {
+        $items[$pid]['midPrice'] = $priceDetails[$pid]['midPrice'];
+        $items[$pid]['lowPrice'] = $priceDetails[$pid]['lowPrice'];
+    } else {
+        $items[$pid]['midPrice'] = isset($results[$pid]) ? $results[$pid] : null;
+        $items[$pid]['lowPrice'] = null;
+    }
+}
+// Include any price-only entries that weren't in products
+foreach ($results as $pid => $price) {
+    if (!isset($items[$pid])) {
+        $items[$pid] = ['productId' => $pid, 'midPrice' => $price, 'lowPrice' => (isset($priceDetails[$pid]) ? $priceDetails[$pid]['lowPrice'] : null)];
+    }
+}
+
 $tmp = $cacheFile . '.tmp';
-@file_put_contents($tmp, json_encode(['generated' => time(), 'results' => $results]));
+@file_put_contents($tmp, json_encode(['generated' => time(), 'items' => $items]));
 @rename($tmp, $cacheFile);
 
 header('Content-Type: application/json');
-echo json_encode(['generated' => time(), 'results' => $results]);
+echo json_encode(['generated' => time(), 'items' => $items]);
 exit(0);
