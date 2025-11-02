@@ -103,6 +103,8 @@ while($hasMoreData) {
       if($definedType == "Token Unit" || $definedType == "Token Upgrade" || $definedType == "Force Token") {
         continue;
       }
+    } else if($rootName == "RBDeck") {
+      $cardID = $card->id;
     }
     $card->id = $cardID;
     $cardArray[] = $card;
