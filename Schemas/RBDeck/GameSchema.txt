@@ -1,26 +1,27 @@
-SWUDeck
+RBDeck
 Auto
 None
 AssetOwner
 Header: title=Home, icon=/TCGEngine/Assets/Images/blueDiamond.png, link=/TCGEngine/SharedUI/MainMenu.php
-Header: title=Edit, link=/TCGEngine/NextTurn.php?gameName>$gameName&playerID>1&folderPath>SWUDeck
-Header: title=Stats, link=/TCGEngine/SWUDeck/DeckStats.php?gameName>$gameName
-Header: title=Print, link=/TCGEngine/SWUDeck/CreatePDF.php?gameName>$gameName, target=blank
+Header: title=Edit, link=/TCGEngine/NextTurn.php?gameName>$gameName&playerID>1&folderPath>RBDeck
+Header: title=Stats, link=/TCGEngine/RBDeck/DeckStats.php?gameName>$gameName
+Header: title=Print, link=/TCGEngine/RBDeck/CreatePDF.php?gameName>$gameName, target=blank
 Header: title=Visibility, module=AssetVisibility, AssetType=1
-Header: title=Versions, module=Versions, Zones=Leader;Base;MainDeck;Sideboard
+Header: title=Versions, module=Versions, Zones=Legend;Battlefield;MainDeck;Sideboard
 PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
-AssetReflection: SWUDeck
+AssetReflection: RBDeck
 Initialization: Initialize.php
 ServerInclude: /Custom/DeckValidation.php
 ServerInclude: /Custom/CustomInput.php
-ClientInclude: /TCGEngine/SWUDeck/Custom/Filters.js
-ClientInclude: /TCGEngine/SWUDeck/Custom/ClientActions.js
-Leader - CardID:string
+ClientInclude: /TCGEngine/RBDeck/Custom/Filters.js
+ClientInclude: /TCGEngine/RBDeck/Custom/ClientActions.js
+Legend - CardID:string
 Display: Visibility=Self, Mode=All, Left=40%, Top=10px, Split=None
-AddValidation: ValidateLeaderAddition
-Base - CardID:string
+AddValidation: ValidateLegendAddition
+Battlefield - CardID:string
 Display: Visibility=Self, Mode=All, Left=62%, Top=10px, Split=None
-AddValidation: ValidateBaseAddition
+AddValidation: ValidateBattlefieldAddition
+Click: Remove(myBattlefield)
 MainDeck - CardID:string
 Display: Visibility=Self, Mode=Tile, Left=26%, Top=20%, Bottom=130px, Split=None
 Click: Remove(myCards)
@@ -30,12 +31,12 @@ Heatmap: Property=myStats, FunctionMap={"Play_Win_Rate":{"Function":"CardPlayWin
 Sort: Property=mySort
 CardPane - Value:string
 Display: Visibility=Self, Mode=Panel, Left=10px, Top=10px, Width=25%, Bottom=10px, Split=None
-Leaders - CardID:string
+Legends - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
-Click: Swap(myLeader)
-Bases - CardID:string
+Click: Swap(myLegend)
+Battlefields - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
-Click: Swap(myBase)
+Click: Add(myBattlefield)
 Cards - CardID:string
 Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
 Click: Add(myMainDeck)
