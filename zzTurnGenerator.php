@@ -1,6 +1,4 @@
 <?php
-// zzTurnGenerator.php
-// Generates turn progression helper files from Schemas/<rootName>/TurnSchema.txt
 
 include './Core/HTTPLibraries.php';
 
@@ -103,8 +101,6 @@ foreach($states as $abbr => $st) {
   fwrite($h, "  ),\n");
 }
 fwrite($h, ");\n\n");
-// Note: we deliberately do not emit GetTurnStates(); generated controllers will rely on
-// the emitted switch-based logic and EvaluateTransition for lookups to avoid an extra function.
 
 fclose($h);
 
