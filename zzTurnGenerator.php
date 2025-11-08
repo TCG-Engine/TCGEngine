@@ -157,6 +157,7 @@ fwrite($h, "    // Use EvaluateTransition('AUTO') to determine the next auto tar
 fwrite($h, "    \$next = EvaluateTransition('AUTO');\n");
 fwrite($h, "    if(\$next === \$gCurrentPhase) break;\n");
 fwrite($h, "    \$gCurrentPhase = \$next;\n");
+fwrite($h, "    ExecutePhase();\n");
 fwrite($h, "    \$changed = true;\n");
 fwrite($h, "  }\n");
 fwrite($h, "  return \$changed;\n");
@@ -195,7 +196,6 @@ fwrite($h, "// Auto-advance along AUTO transitions and execute final phase if ch
 fwrite($h, "function AutoAdvanceAndExecute() {\n");
 fwrite($h, "  global \$gCurrentPhase;\n");
 fwrite($h, "  \$changed = AutoAdvance();\n");
-fwrite($h, "  if(\$changed) ExecutePhase();\n");
 fwrite($h, "  return \$changed;\n");
 fwrite($h, "}\n\n");
 
