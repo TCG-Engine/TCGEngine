@@ -103,7 +103,8 @@ foreach($states as $abbr => $st) {
   fwrite($h, "  ),\n");
 }
 fwrite($h, ");\n\n");
-fwrite($h, "function GetTurnStates() { global \$turnStates; return \$turnStates; }\n");
+// Note: we deliberately do not emit GetTurnStates(); generated controllers will rely on
+// the emitted switch-based logic and EvaluateTransition for lookups to avoid an extra function.
 
 fclose($h);
 
@@ -117,8 +118,7 @@ fwrite($h, "include_once __DIR__ . '/TurnStates.php';\n\n");
 // Emit a phase-based EvaluateTransition that uses the global $gCurrentPhase
 fwrite($h, "function EvaluateTransition(\$input) {\n");
 fwrite($h, "  global \$gCurrentPhase;\n");
-fwrite($h, "  \$states = GetTurnStates();\n");
-fwrite($h, "  if(!isset(\$gCurrentPhase) || !isset(\$states[\$gCurrentPhase])) return \$gCurrentPhase;\n");
+fwrite($h, "  if(!isset(\$gCurrentPhase)) return \$gCurrentPhase;\n");
 fwrite($h, "  switch(\$gCurrentPhase) {\n");
 // For each state, emit case block checking that state's transitions
 foreach($states as $abbr => $st) {
@@ -155,16 +155,12 @@ fwrite($h, "}\n\n");
 // Auto-advance along AUTO transitions until none remain. Returns true if state changed.
 fwrite($h, "function AutoAdvance() {\n");
 fwrite($h, "  global \$gCurrentPhase;\n");
-fwrite($h, "  \$states = GetTurnStates();\n");
 fwrite($h, "  \$changed = false;\n");
 fwrite($h, "  while(true) {\n");
-fwrite($h, "    if(!isset(\$states[\$gCurrentPhase])) break;\n");
-fwrite($h, "    \$trans = \$states[\$gCurrentPhase]['Transitions'];\n");
-fwrite($h, "    \$autoTarget = null;\n");
-fwrite($h, "    foreach(\$trans as \$t) { if(strtoupper(trim(\$t['Input'])) == 'AUTO') { \$autoTarget = \$t['Target']; break; } }\n");
-fwrite($h, "    if(\$autoTarget === null) break;\n");
-fwrite($h, "    if(\$autoTarget === \$gCurrentPhase) break;\n");
-fwrite($h, "    \$gCurrentPhase = \$autoTarget;\n");
+fwrite($h, "    // Use EvaluateTransition('AUTO') to determine the next auto target for the current phase.\n");
+fwrite($h, "    \$next = EvaluateTransition('AUTO');\n");
+fwrite($h, "    if(\$next === \$gCurrentPhase) break;\n");
+fwrite($h, "    \$gCurrentPhase = \$next;\n");
 fwrite($h, "    \$changed = true;\n");
 fwrite($h, "  }\n");
 fwrite($h, "  return \$changed;\n");
@@ -174,8 +170,7 @@ fwrite($h, "}\n\n");
 fwrite($h, "// Execute the current phase's code using a switch-based registry for performance.\n");
 fwrite($h, "function ExecutePhase() {\n");
 fwrite($h, "  global \$gCurrentPhase;\n");
-fwrite($h, "  \$states = GetTurnStates();\n");
-fwrite($h, "  if(!isset(\$gCurrentPhase) || !isset(\$states[\$gCurrentPhase])) return false;\n");
+fwrite($h, "  if(!isset(\$gCurrentPhase)) return false;\n");
 fwrite($h, "  switch(\$gCurrentPhase) {\n");
 foreach($states as $abbr => $st) {
   $codeName = addslashes($st->Code);
