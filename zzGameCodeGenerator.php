@@ -641,11 +641,11 @@ function AddReadGamestate() {
       $readGamestate .= "        \$line = fgets(\$handler);\r\n";
       $readGamestate .= "        if (\$line !== false) {\r\n";
       $readGamestate .= "          \$obj = new " . $zone->Name . "(trim(\$line));\r\n";
-      $readGamestate .= "          \$g" . $zone->Name . " = \$obj;\r\n";
+      $readGamestate .= "          array_push(\$g" . $zone->Name . ", \$obj);\r\n";
       $readGamestate .= "        }\r\n";
       $readGamestate .= "      }\r\n";
       $readGamestate .= "    }\r\n";
-      if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $readGamestate .= "    if(\$g" . $zone->Name . " == null) \$g" . $zone->Name . " = new " . $zone->Name . "(0);\r\n";
+      if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $readGamestate .= "    if(count(\$g" . $zone->Name . ") == 0) array_push(\$g" . $zone->Name . ", new " . $zone->Name . "(0));\r\n";
     } else {
       $readGamestate .= AddReadZone($zone, 1);
       $readGamestate .= AddReadZone($zone, 2);
@@ -691,7 +691,11 @@ function AddWriteGamestate() {
     if (strtolower($scope) == 'global') {
       $writeGamestate .= "  \$zoneText = \"\";\r\n";
       $writeGamestate .= "  \$count = 0;\r\n";
-      $writeGamestate .= "  if(\$g" . $zoneName . " !== null && !\$g" . $zoneName . "->Removed()) { \$count = 1; \$zoneText = trim(\$g" . $zoneName . "->Serialize()) . \"\\r\\n\"; }\r\n";
+      $writeGamestate .= "  for(\$i=0; \$i<count(\$g" . $zoneName . "); ++\$i) {\r\n";
+      $writeGamestate .= "    if(\$g" . $zoneName . "[\$i]->Removed()) continue;\r\n";
+      $writeGamestate .= "    ++\$count;\r\n";
+      $writeGamestate .= "    \$zoneText .= trim(\$g" . $zoneName . "[\$i]->Serialize()) . \"\\r\\n\";\r\n";
+      $writeGamestate .= "  }\r\n";
       $writeGamestate .= "  fwrite(\$handler, \$count . \"\\r\\n\");\r\n";
       $writeGamestate .= "  fwrite(\$handler, \$zoneText);\r\n";
     } else {
