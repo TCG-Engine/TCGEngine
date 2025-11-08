@@ -272,18 +272,31 @@ for($i=0; $i<count($zones); ++$i) {
   $zoneName = $zone->Name;
   //Getter
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+  $isValueType = ($zone->DisplayMode == 'Value' || $zone->DisplayMode == 'Radio');
   if (strtolower($scope) == 'global') {
     // Global-scoped zones don't take a player parameter
     fwrite($handler, "function &Get" . $zoneName . "() {\r\n");
     fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
     fwrite($handler, "  return \$g" . $zoneName . ";\r\n");
     fwrite($handler, "}\r\n\r\n");
+    if ($isValueType) {
+      fwrite($handler, "function &" . $zoneName . "Value() {\r\n");
+      fwrite($handler, "  \$arr = &Get" . $zoneName . "();\r\n");
+      fwrite($handler, "  return \$arr[0]->Value;\r\n");
+      fwrite($handler, "}\r\n\r\n");
+    }
   } else {
     fwrite($handler, "function &Get" . $zoneName . "(\$player) {\r\n");
     fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
     fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
     fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
     fwrite($handler, "}\r\n\r\n");
+    if ($isValueType) {
+      fwrite($handler, "function &" . $zoneName . "Value(\$player) {\r\n");
+      fwrite($handler, "  \$arr = &Get" . $zoneName . "(\$player);\r\n");
+      fwrite($handler, "  return \$arr[0]->Value;\r\n");
+      fwrite($handler, "}\r\n\r\n");
+    }
   }
   //Setter
   fwrite($handler, "function Add" . $zoneName . "(\$player");
