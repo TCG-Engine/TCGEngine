@@ -303,8 +303,8 @@ for($i=0; $i<count($zones); ++$i) {
   }
   fwrite($handler, ");\r\n");
   if (strtolower($scope) == 'global') {
-    fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
-    fwrite($handler, "  \$g" . $zoneName . " = \$zoneObj;\r\n");
+    fwrite($handler, "  \$zone = &Get" . $zoneName . "();\r\n");
+    fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
   } else {
     fwrite($handler, "  \$zone = &Get" . $zoneName . "(\$player);\r\n");
     fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
@@ -314,10 +314,8 @@ for($i=0; $i<count($zones); ++$i) {
   //Add to the master zone object getter
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
-    $mzGetObject .= "    case \"my" . $zoneName . "\": return \$g" . $zoneName . ";\r\n";
-    $mzGetObject .= "    case \"their" . $zoneName . "\": return \$g" . $zoneName . ";\r\n";
-    $mzGetZone .= "    case \"my" . $zoneName . "\": return \$g" . $zoneName . ";\r\n";
-    $mzGetZone .= "    case \"their" . $zoneName . "\": return \$g" . $zoneName . ";\r\n";
+    $mzGetObject .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr[\$mzArr[1]];\r\n";
+    $mzGetZone .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr;\r\n";
   } else {
     $mzGetObject .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr[\$mzArr[1]];\r\n";
     $mzGetObject .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr[\$mzArr[1]];\r\n";
@@ -342,7 +340,7 @@ for($i=0; $i<count($zones); ++$i) {
   $zoneName = $zone->Name;
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
-    fwrite($handler, "    case \"g" . $zoneName . "\": \$g" . $zoneName . " = new " . $zoneName . "(\$cardID); break;\r\n");
+    fwrite($handler, "    case \"" . $zoneName . "\": Add" . $zoneName . "(CardID:\$cardID); break;\r\n");
   } else {
     fwrite($handler, "    case \"my" . $zoneName . "\": Add" . $zoneName . "(\$player, CardID:\$cardID); break;\r\n");
     fwrite($handler, "    case \"their" . $zoneName . "\": Add" . $zoneName . "(\$player == 1 ? 2 : 1, CardID:\$cardID); break;\r\n");
@@ -360,7 +358,7 @@ for($i=0; $i<count($zones); ++$i) {
   $zoneName = $zone->Name;
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
-    fwrite($handler, "    case \"g" . $zoneName . "\": \$g" . $zoneName . " = null; break;\r\n");
+    fwrite($handler, "    case \"" . $zoneName . "\": \$zone = &Get" . $zoneName . "(); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
   } else {
     fwrite($handler, "    case \"my" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
     fwrite($handler, "    case \"their" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player == 1 ? 2 : 1); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
@@ -477,7 +475,7 @@ for($i=0; $i<count($zones); ++$i) {
   $zoneName = $zone->Name;
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
-    fwrite($handler, "  \$g" . $zoneName . " = null;\r\n");
+    fwrite($handler, "  \$g" . $zoneName . " = [];\r\n");
   } else {
     fwrite($handler, "  \$p1" . $zoneName . " = [];\r\n");
     fwrite($handler, "  \$p2" . $zoneName . " = [];\r\n");
@@ -836,8 +834,7 @@ function AddNextTurn() {
     $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
     if (strtolower($scope) == 'global') {
       // Server will emit the same value in the slot for both players; use the base index
-      $setData .= "echo(\"window.my" . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
-      $setData .= "echo(\"window.their" . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
+      $setData .= "echo(\"window." . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
     } else {
       $setData .= "echo(\"window.my" . $zone->Name . "Data = responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "];\");\r\n";
       $setData .= "echo(\"window.their" . $zone->Name . "Data = responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "];\");\r\n";
