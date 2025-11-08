@@ -39,7 +39,22 @@ while(!feof($handler)) {
     $lineArr = explode(":", $line);
     $lineType = $lineArr[0];
     $lineValue = count($lineArr) > 1 ? implode(":", array_slice($lineArr, 1)) : "";
-    switch($lineType) {
+  switch($lineType) {
+      case "Overlay":
+        // Overlay: Status=1:exhausted
+        if (!isset($zoneObj->Overlays)) $zoneObj->Overlays = [];
+        $overlayParts = explode(":", $lineValue);
+        if (count($overlayParts) == 2) {
+          $cond = trim($overlayParts[0]); // e.g. Status=1
+          $overlayName = trim($overlayParts[1]); // e.g. exhausted
+          $condParts = explode("=", $cond);
+          if (count($condParts) == 2) {
+            $field = trim($condParts[0]);
+            $value = trim($condParts[1]);
+            $zoneObj->Overlays[] = ["field" => $field, "value" => $value, "overlay" => $overlayName];
+          }
+        }
+        break;
       case "Initialization":
         $initializeScript = trim($lineValue);
         break;
@@ -972,6 +987,17 @@ function AddGeneratedUI() {
   $rv .= "      return {};\r\n";
   $rv .= "  }\r\n";
   $rv .= "}\r\n";
+
+
+  // Emit overlay rules as a JS object
+  $overlayRules = [];
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if (isset($zone->Overlays) && is_array($zone->Overlays) && count($zone->Overlays) > 0) {
+      $overlayRules[$zone->Name] = $zone->Overlays;
+    }
+  }
+  $rv .= "const OverlayRules = " . json_encode($overlayRules) . ";\r\n";
 
   //Client dictionary of all zone data
   $rv .= "function GetZoneData(zoneName) {\r\n";

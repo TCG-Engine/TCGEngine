@@ -400,7 +400,25 @@
         var click = " onclick='CardClick(event, \"" + zoneName + "\", \"" + id + "\")'";
         if (id != "-") newHTML += "<span id='" + id + "' " + styles + droppable + click + ">";
         else newHTML += "<span " + styles + droppable + click + ">";
-        newHTML += Card(cardArr[0], folder, size, 0, 1, 0, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap);
+
+        // Determine overlay parameter for Card()
+        var overlay = 0;
+        try {
+          if (typeof OverlayRules !== 'undefined' && OverlayRules[zoneName]) {
+            var cardData = {};
+            if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
+              try { cardData = JSON.parse(cardArr[2]); } catch (e) {}
+            }
+            OverlayRules[zoneName].forEach(function(rule) {
+              if (cardData.hasOwnProperty(rule.field) && String(cardData[rule.field]) === String(rule.value)) {
+                overlay = 1;
+              }
+            });
+          }
+        } catch (e) {}
+
+        newHTML += Card(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap);
+
         var buttons = createWidgetButtons(zoneName, id, cardArr[2]);
         newHTML += "<span class='widget-buttons' style='z-index:1000; display: none; justify-content: center; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%);'>" + buttons.middleButtons + "</span>";
         newHTML += "<div class='widget-buttons' style='display: none; position:absolute; top:0; right:0; z-index:1001;'>" + buttons.topRightButtons + "</div>";
