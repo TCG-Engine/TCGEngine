@@ -157,6 +157,9 @@ switch($mode) {
         MZClearZone($playerID, $destination);
         MZAddZone($playerID, $destination, $card->CardID);
         break;
+      case "FSM":
+        ActionMap($actionCard);
+        break;
       default: break;
     }
     break;
