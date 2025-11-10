@@ -270,6 +270,11 @@
 
       //Note: 96 = Card Size
       function PopulateZone(zone, zoneData, size = 96, folder = "concat", row = 1, mode = 'All', filter="") {
+          // Skip rendering if zone visibility is None
+          var zoneMeta = GetZoneData(zone);
+          if(zoneMeta && zoneMeta.Visibility && zoneMeta.Visibility.toLowerCase() === 'none') {
+            return "";
+          }
           zoneData = zoneData.trim();
           var dragProps = mode != "Panel" ? "ondragover='dragOver(event)' ondrop='drop(event)' " : "";
           var newHTML = "<span id='" + zone + "' " + dragProps + "style='display: flex; flex-wrap: wrap; justify-content: center;'>";
