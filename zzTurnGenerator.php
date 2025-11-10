@@ -36,15 +36,27 @@ if(!file_exists($schemaFile)) {
 
 $handler = fopen($schemaFile, 'r');
 $states = []; // array of state objects: {id, abbr, code, transitions: [{input, target}]}
-
+$decisionQueueEnabled = false;
 $currentState = null;
 
+// First pass: look for DecisionQueue: Enabled and collect lines for state parsing
+$schemaLines = [];
 while(!feof($handler)) {
   $line = fgets($handler);
   if($line === false) break;
   $line = trim($line);
   if($line == "") continue;
-  // If line contains ";" it's a state header: Title; Abbr; Code
+  if(stripos($line, 'DecisionQueue:') === 0) {
+    if(stripos($line, 'enabled') !== false) $decisionQueueEnabled = true;
+    continue;
+  }
+  $schemaLines[] = $line;
+}
+fclose($handler);
+
+// Second pass: parse states and transitions from $schemaLines
+$currentState = null;
+foreach($schemaLines as $line) {
   if(strpos($line, ';') !== false) {
     $parts = array_map('trim', explode(';', $line));
     $title = $parts[0];
@@ -58,18 +70,14 @@ while(!feof($handler)) {
     $states[$abbr] = $currentState;
     continue;
   }
-  // Otherwise it's a transition line of the form: INPUT -> TARGET
   $arr = preg_split('/->|→/', $line);
   if(count($arr) >= 2 && $currentState != null) {
     $input = trim($arr[0]);
     $target = trim($arr[1]);
-    // allow target abbreviations or full names; normalize to abbreviation if possible
     $t = $target;
     $currentState->Transitions[] = (object)[ 'Input' => $input, 'Target' => $t ];
   }
 }
-
-fclose($handler);
 
 // Ensure output folder exists
 $rootPath = './' . $rootName;
@@ -110,6 +118,9 @@ $h = fopen($ctrlFile, 'w');
 fwrite($h, "<?php\n");
 fwrite($h, "// Auto-generated turn controller by zzTurnGenerator.php\n\n");
 fwrite($h, "include_once __DIR__ . '/TurnStates.php';\n\n");
+// Emit DecisionQueue flag for use in controller logic
+fwrite($h, "\n");
+fwrite($h, "function IsDecisionQueueEnabled() { return $decisionQueueEnabled; }\n\n");
 
 // Emit a phase-based EvaluateTransition that uses the global $gCurrentPhase
 fwrite($h, "function EvaluateTransition(\$input) {\n");
