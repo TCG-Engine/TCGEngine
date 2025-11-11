@@ -272,7 +272,7 @@
       function PopulateZone(zone, zoneData, size = 96, folder = "concat", row = 1, mode = 'All', filter="") {
           // Skip rendering if zone visibility is None
           var zoneMeta = GetZoneData(zone);
-          if(zoneMeta && zoneMeta.Visibility && zoneMeta.Visibility.toLowerCase() === 'none') {
+          if(zoneMeta && zoneMeta.Display && zoneMeta.Display.toLowerCase() === 'none') {
             return "";
           }
           zoneData = zoneData.trim();

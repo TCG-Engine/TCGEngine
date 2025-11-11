@@ -110,6 +110,9 @@ while(!feof($handler)) {
               // Scope can be Global or Player (default)
               $zoneObj->Scope = $propertyArr[1];
               break;
+            case "Display":
+              $zoneObj->Display = $propertyArr[1];
+              break;
             case "Split":
               $zoneObj->Split = $propertyArr[1];
               break;
@@ -242,6 +245,7 @@ while(!feof($handler)) {
         //Assign default value for all zoneObj display properties
         $zoneObj->Visibility = "Public";
         $zoneObj->DisplayMode = "Single";
+        $zoneObj->Display = "Normal";
         $zoneObj->Split = "Auto";
         $zoneObj->Row = -1;
         $zoneObj->Left = -1;
