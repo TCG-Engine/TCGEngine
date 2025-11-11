@@ -125,9 +125,15 @@ fwrite($h, "\n");
 // Emit DecisionQueue flag for use in controller logic
 fwrite($h, "function IsDecisionQueueEnabled() { return $decisionQueueEnabled; }\n\n");
 
+
 // Emit a phase-based EvaluateTransition that uses the global $gCurrentPhase
 fwrite($h, "function EvaluateTransition(\$input) {\n");
 fwrite($h, "  global \$gCurrentPhase;\n");
+if ($decisionQueueEnabled) {
+    fwrite($h, "  // DecisionQueue check: block phase progression if any player has pending decisions\n");
+    fwrite($h, "  \$dqController = new DecisionQueueController();\n");
+    fwrite($h, "  if (!\$dqController->AllQueuesEmpty()) return 'PENDING_DECISION';\n");
+}
 fwrite($h, "  if(!isset(\$gCurrentPhase)) return \$gCurrentPhase;\n");
 fwrite($h, "  switch(\$gCurrentPhase) {\n");
 // For each state, emit case block checking that state's transitions
