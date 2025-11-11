@@ -117,9 +117,12 @@ $ctrlFile = $rootPath . '/TurnController.php';
 $h = fopen($ctrlFile, 'w');
 fwrite($h, "<?php\n");
 fwrite($h, "// Auto-generated turn controller by zzTurnGenerator.php\n\n");
-fwrite($h, "include_once __DIR__ . '/TurnStates.php';\n\n");
-// Emit DecisionQueue flag for use in controller logic
+fwrite($h, "include_once __DIR__ . '/TurnStates.php';\n");
+if ($decisionQueueEnabled) {
+  fwrite($h, "include_once __DIR__ . '/../Core/DecisionQueueController.php';\n");
+}
 fwrite($h, "\n");
+// Emit DecisionQueue flag for use in controller logic
 fwrite($h, "function IsDecisionQueueEnabled() { return $decisionQueueEnabled; }\n\n");
 
 // Emit a phase-based EvaluateTransition that uses the global $gCurrentPhase

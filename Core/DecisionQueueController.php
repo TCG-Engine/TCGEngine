@@ -1,9 +1,9 @@
 <?php
-// Core/DecisionQueue.php
+// Core/DecisionQueueController.php
 // Helper class for managing player decision queues in the game engine.
 // ASSUMES: You have a per-player zone named "DecisionQueue"
 
-class DecisionQueue {
+class DecisionQueueController {
     private $numPlayers = 2;
 
     public function __construct() {
