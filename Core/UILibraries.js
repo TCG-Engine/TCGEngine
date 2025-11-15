@@ -1047,3 +1047,113 @@
       function OnVersionChanged(newVersion) {
         SubmitInput("10003", "&cardID=" + newVersion, true);
       }
+
+// Show a YES/NO popup for a decision queue entry
+function ShowYesNoDecisionPopup(decision, onSubmit) {
+  // Remove any existing modal
+  let existing = document.getElementById('yesno-decision-modal');
+  if (existing) existing.remove();
+
+  let overlay = document.createElement('div');
+  overlay.id = 'yesno-decision-modal';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.width = '100vw';
+  overlay.style.height = '100vh';
+  overlay.style.background = 'rgba(0,0,0,0.5)';
+  overlay.style.zIndex = '5000';
+  overlay.style.display = 'flex';
+  overlay.style.alignItems = 'center';
+  overlay.style.justifyContent = 'center';
+
+  let modal = document.createElement('div');
+  modal.style.background = '#0D1B2A';
+  modal.style.padding = '32px 24px';
+  modal.style.borderRadius = '10px';
+  modal.style.boxShadow = '0 0 20px #0008';
+  modal.style.textAlign = 'center';
+  modal.style.minWidth = '300px';
+  modal.style.fontFamily = "'Orbitron', sans-serif";
+
+  let prompt = document.createElement('div');
+  prompt.style.fontSize = '20px';
+  prompt.style.color = '#fff';
+  prompt.style.marginBottom = '24px';
+  prompt.textContent = decision.Param && decision.Param !== '-' ? decision.Param : 'Please choose Yes or No:';
+  modal.appendChild(prompt);
+
+  let yesBtn = document.createElement('button');
+  yesBtn.textContent = 'Yes';
+  yesBtn.style.margin = '0 16px 0 0';
+  yesBtn.style.padding = '8px 24px';
+  yesBtn.style.fontSize = '18px';
+  yesBtn.style.background = '#28a745';
+  yesBtn.style.color = '#fff';
+  yesBtn.style.border = 'none';
+  yesBtn.style.borderRadius = '5px';
+  yesBtn.style.cursor = 'pointer';
+  yesBtn.onclick = function() {
+    overlay.remove();
+    if (onSubmit) onSubmit('YES');
+  };
+  modal.appendChild(yesBtn);
+
+  let noBtn = document.createElement('button');
+  noBtn.textContent = 'No';
+  noBtn.style.padding = '8px 24px';
+  noBtn.style.fontSize = '18px';
+  noBtn.style.background = '#dc3545';
+  noBtn.style.color = '#fff';
+  noBtn.style.border = 'none';
+  noBtn.style.borderRadius = '5px';
+  noBtn.style.cursor = 'pointer';
+  noBtn.onclick = function() {
+    overlay.remove();
+    if (onSubmit) onSubmit('NO');
+  };
+  modal.appendChild(noBtn);
+
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+}
+
+// Pre-processes a raw decision queue string into an array of objects
+function ParseDecisionQueue(raw) {
+  if (!raw || typeof raw !== 'string') return [];
+  // Split on <|> and filter out empty segments
+  const segments = raw.split('<|>').map(s => s.trim()).filter(Boolean);
+  const result = [];
+  for (const seg of segments) {
+    // Each segment is like: '- 0 {"Type":"YESNO",...}'
+    const jsonStart = seg.indexOf('{');
+    if (jsonStart !== -1) {
+      try {
+        const obj = JSON.parse(seg.slice(jsonStart));
+        result.push(obj);
+      } catch (e) {
+        // Ignore parse errors
+      }
+    }
+  }
+  return result;
+}
+
+// Call this after game state update to check for pending YESNO decisions
+function CheckAndShowDecisionQueue(decisionQueue) {
+  // Accept raw string or array
+  if (typeof decisionQueue === 'string') {
+    decisionQueue = ParseDecisionQueue(decisionQueue);
+  }
+  if (!decisionQueue || !Array.isArray(decisionQueue)) return;
+  for (let i = 0; i < decisionQueue.length; ++i) {
+    let entry = decisionQueue[i];
+    if (entry && entry.Type === 'YESNO' && !entry.removed) {
+      ShowYesNoDecisionPopup(entry, function(result) {
+        // Send result to server (customize as needed)
+        SubmitInput('DECISION', '&decisionIndex=' + i + '&result=' + result);
+      });
+      break; // Only show one at a time
+    }
+  }
+}

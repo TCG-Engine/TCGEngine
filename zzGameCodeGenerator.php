@@ -29,6 +29,7 @@ $serverIncludes = [];
 $assetReflection = null;
 $pageBackground = "";
 $numRows = 0;
+$hasDecisionQueue = false;
 
 $zoneObj = null;
 while(!feof($handler)) {
@@ -39,7 +40,7 @@ while(!feof($handler)) {
     $lineArr = explode(":", $line);
     $lineType = $lineArr[0];
     $lineValue = count($lineArr) > 1 ? implode(":", array_slice($lineArr, 1)) : "";
-  switch($lineType) {
+    switch($lineType) {
       case "Overlay":
         // Overlay: Status=1:exhausted
         if (!isset($zoneObj->Overlays)) $zoneObj->Overlays = [];
@@ -229,6 +230,9 @@ while(!feof($handler)) {
         $zone = str_replace(' ', '', $line);
         $zoneArr = explode("-", $zone);
         $zoneName = $zoneArr[0];
+        if ($zoneName === 'DecisionQueue') {
+          $hasDecisionQueue = true;
+        }
         $zoneObj = new StdClass();
         $zoneObj->Name = $zoneName;
         $zoneObj->Properties = [];
@@ -836,7 +840,7 @@ function AddGetNextTurnForPlayer($player) {
   return $getNextTurn;
 }
 function AddNextTurn() {
-  global $zones, $numRows, $rootPath;
+  global $zones, $numRows, $rootPath, $hasDecisionQueue;
   $startPiece = 1;
   $numPieces = count($zones);
   $setData = "";
@@ -900,6 +904,9 @@ function AddNextTurn() {
     }
   }
 
+  if ($hasDecisionQueue) {
+    $footer .= "echo(\"CheckAndShowDecisionQueue(window.myDecisionQueueData);\");\r\n";
+  }
   return $header . $setData . $myStuff . $theirStuff . $myStaticStuff . $theirStaticStuff . $footer;
 }
 
