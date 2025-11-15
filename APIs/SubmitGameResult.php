@@ -143,7 +143,9 @@
 				$isDeckOwner = true;
 			}
 		}
-		SaveDeckStats($deckID, $data["player1"], $winner == 1, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner);
+		// If tie, $won is null so SaveDeckStats can handle it as a tie
+		$won = ($winner == 1 ? true : ($winner == 2 ? false : null));
+		SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner);
 	}
   }
   if(strpos($p2DeckLink, 'swustats.net') !== false) {
@@ -170,7 +172,9 @@
 				$isDeckOwner = true;
 			}
 		}
-		SaveDeckStats($deckID, $data["player2"], $winner == 2, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner);
+		// If tie, $won is null so SaveDeckStats can handle it as a tie
+		$won = ($winner == 2 ? true : ($winner == 1 ? false : null));
+		SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner);
 	}
   }
 
@@ -327,15 +331,15 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 		}
 		$cardsResourced += $card["resourced"];
 		$timesIncluded = 1;
-		$timesIncludedInWins = $won ? 1 : 0;
+		$timesIncludedInWins = ($won === true) ? 1 : 0;
 		$timesPlayed = $card["played"];
-		$timesPlayedInWins = $won ? $card["played"] : 0;
+		$timesPlayedInWins = ($won === true) ? $card["played"] : 0;
 		$timesResourced = $card["resourced"];
-		$timesResourcedInWins = $won ? $card["resourced"] : 0;
+		$timesResourcedInWins = ($won === true) ? $card["resourced"] : 0;
 		$timesDiscarded = $card["discarded"];
-		$timesDiscardedInWins = $won ? $card["discarded"] : 0;
+		$timesDiscardedInWins = ($won === true) ? $card["discarded"] : 0;
 		$timesDrawn = $card["drawn"];
-		$timesDrawnInWins = $won ? $card["drawn"] : 0;
+		$timesDrawnInWins = ($won === true) ? $card["drawn"] : 0;
 		$sql = "UPDATE carddeckstats SET 
 				timesIncluded = timesIncluded + ?, 
 				timesIncludedInWins = timesIncludedInWins + ?, 
@@ -400,70 +404,70 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 			totalTurns = totalTurns + ?, 
 			totalCardsResourced = totalCardsResourced + ?";
 
-	if ($wasFirstPlayer) {
-		$sql .= ", playsGoingFirst = playsGoingFirst + 1";
-	}
-	if ($won) {
-		$sql .= ", numWins = numWins + 1, 
+       if ($wasFirstPlayer) {
+	       $sql .= ", playsGoingFirst = playsGoingFirst + 1";
+       }
+       if ($won === true) {
+	       $sql .= ", numWins = numWins + 1, 
+			 turnsInWins = turnsInWins + ?, 
+			 cardsResourcedInWins = cardsResourcedInWins + ?, 
+			 remainingHealthInWins = remainingHealthInWins + ?";
+	       if ($wasFirstPlayer) {
+		       $sql .= ", winsGoingFirst = winsGoingFirst + 1";
+	       } else {
+		       $sql .= ", winsGoingSecond = winsGoingSecond + 1";
+	       }
+       }
+       $sql .= " WHERE deckID = ? AND source = ?";
+       $stmt = mysqli_stmt_init($conn);
+       if (mysqli_stmt_prepare($stmt, $sql)) {
+	       if ($won === true) {
+		       mysqli_stmt_bind_param($stmt, "iiiiiii", $numRounds, $cardsResourced, $numRounds, $cardsResourced, $winnerHealth, $deckID, $source);
+	       } else {
+		       mysqli_stmt_bind_param($stmt, "iiii", $numRounds, $cardsResourced, $deckID, $source);
+	       }
+	       mysqli_stmt_execute($stmt);
+	       mysqli_stmt_close($stmt);
+       }
+
+	   if(!$disableMetaStats) {
+
+		  $sql = "UPDATE deckmetastats SET 
+			  numPlays = numPlays + 1, 
+			  totalTurns = totalTurns + ?, 
+			  totalCardsResourced = totalCardsResourced + ?";
+		  if ($won === true) {
+			  $sql .= ", numWins = numWins + 1, 
 				  turnsInWins = turnsInWins + ?, 
 				  cardsResourcedInWins = cardsResourcedInWins + ?, 
 				  remainingHealthInWins = remainingHealthInWins + ?";
-		if ($wasFirstPlayer) {
-			$sql .= ", winsGoingFirst = winsGoingFirst + 1";
-		} else {
-			$sql .= ", winsGoingSecond = winsGoingSecond + 1";
-		}
-	}
-	$sql .= " WHERE deckID = ? AND source = ?";
-	$stmt = mysqli_stmt_init($conn);
-	if (mysqli_stmt_prepare($stmt, $sql)) {
-		if ($won) {
-			mysqli_stmt_bind_param($stmt, "iiiiiii", $numRounds, $cardsResourced, $numRounds, $cardsResourced, $winnerHealth, $deckID, $source);
-		} else {
-			mysqli_stmt_bind_param($stmt, "iiii", $numRounds, $cardsResourced, $deckID, $source);
-		}
-		mysqli_stmt_execute($stmt);
-		mysqli_stmt_close($stmt);
-	}
-
-	if(!$disableMetaStats) {
-
-	   $sql = "UPDATE deckmetastats SET 
-		   numPlays = numPlays + 1, 
-		   totalTurns = totalTurns + ?, 
-		   totalCardsResourced = totalCardsResourced + ?";
-	   if ($won) {
-		   $sql .= ", numWins = numWins + 1, 
-			   turnsInWins = turnsInWins + ?, 
-			   cardsResourcedInWins = cardsResourcedInWins + ?, 
-			   remainingHealthInWins = remainingHealthInWins + ?";
-	   }
-	   $sql .= " WHERE leaderID = ? AND baseID = ? AND week = ?";
-	   $stmt = mysqli_stmt_init($conn);
-	   if (mysqli_stmt_prepare($stmt, $sql)) {
-		   if ($won) {
-		   mysqli_stmt_bind_param($stmt, "iiiiissi", 
-			   $numRounds, 
-			   $cardsResourced, 
-			   $numRounds, 
-			   $cardsResourced, 
-			   $winnerHealth, 
-			   $leaderID, 
-			   $baseID, 
-			   $week
-		   );
-		   } else {
-		   mysqli_stmt_bind_param($stmt, "iissi", 
-			   $numRounds, 
-			   $cardsResourced, 
-			   $leaderID, 
-			   $baseID, 
-			   $week
-		   );
-		   }
-		   mysqli_stmt_execute($stmt);
-		   mysqli_stmt_close($stmt);
-	   }
+		  }
+		  $sql .= " WHERE leaderID = ? AND baseID = ? AND week = ?";
+		  $stmt = mysqli_stmt_init($conn);
+		  if (mysqli_stmt_prepare($stmt, $sql)) {
+			  if ($won === true) {
+			  mysqli_stmt_bind_param($stmt, "iiiiissi", 
+				  $numRounds, 
+				  $cardsResourced, 
+				  $numRounds, 
+				  $cardsResourced, 
+				  $winnerHealth, 
+				  $leaderID, 
+				  $baseID, 
+				  $week
+			  );
+			  } else {
+			  mysqli_stmt_bind_param($stmt, "iissi", 
+				  $numRounds, 
+				  $cardsResourced, 
+				  $leaderID, 
+				  $baseID, 
+				  $week
+			  );
+			  }
+			  mysqli_stmt_execute($stmt);
+			  mysqli_stmt_close($stmt);
+		  }
 
 	   // deckmetamatchupstats update (moved here)
 	   $opponentLeaderID = isset($playerJSON["opposingHero"]) ? $playerJSON["opposingHero"] : "";
@@ -487,56 +491,56 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 				   mysqli_stmt_close($stmt);
 			   }
 		   }
-		   $updateSql = "UPDATE deckmetamatchupstats SET 
-			   numPlays = numPlays + 1, 
-			   totalTurns = totalTurns + ?, 
-			   totalCardsResourced = totalCardsResourced + ?";
-		   if ($won) {
-			   $updateSql .= ", numWins = numWins + 1, 
-				   turnsInWins = turnsInWins + ?, 
-				   cardsResourcedInWins = cardsResourcedInWins + ?, 
-				   remainingHealthInWins = remainingHealthInWins + ?";
-			   if ($wasFirstPlayer) {
-				   $updateSql .= ", winsGoingFirst = winsGoingFirst + 1";
-			   } else {
-				   $updateSql .= ", winsGoingSecond = winsGoingSecond + 1";
-			   }
-		   }
-		   if ($wasFirstPlayer) {
-			   $updateSql .= ", playsGoingFirst = playsGoingFirst + 1";
-		   }
-		   $updateSql .= " WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
-		   $stmt = mysqli_stmt_init($conn);
-		   if (mysqli_stmt_prepare($stmt, $updateSql)) {
-			   if ($won) {
-				   // If won, 5 stats + 5 keys = 10 args
-				   mysqli_stmt_bind_param($stmt, "iiiiissssi", 
-					   $numRounds, 
-					   $cardsResourced, 
-					   $numRounds, 
-					   $cardsResourced, 
-					   $winnerHealth, 
-					   $leaderID, 
-					   $baseID, 
-					   $opponentLeaderID, 
-					   $opponentBaseID, 
-					   $week
-				   );
-			   } else {
-				   // If not won, 2 stats + 5 keys = 7 args
-				   mysqli_stmt_bind_param($stmt, "iissssi", 
-					   $numRounds, 
-					   $cardsResourced, 
-					   $leaderID, 
-					   $baseID, 
-					   $opponentLeaderID, 
-					   $opponentBaseID, 
-					   $week
-				   );
-			   }
-			   mysqli_stmt_execute($stmt);
-			   mysqli_stmt_close($stmt);
-		   }
+		  $updateSql = "UPDATE deckmetamatchupstats SET 
+			  numPlays = numPlays + 1, 
+			  totalTurns = totalTurns + ?, 
+			  totalCardsResourced = totalCardsResourced + ?";
+		  if ($won === true) {
+			  $updateSql .= ", numWins = numWins + 1, 
+				  turnsInWins = turnsInWins + ?, 
+				  cardsResourcedInWins = cardsResourcedInWins + ?, 
+				  remainingHealthInWins = remainingHealthInWins + ?";
+			  if ($wasFirstPlayer) {
+				  $updateSql .= ", winsGoingFirst = winsGoingFirst + 1";
+			  } else {
+				  $updateSql .= ", winsGoingSecond = winsGoingSecond + 1";
+			  }
+		  }
+		  if ($wasFirstPlayer) {
+			  $updateSql .= ", playsGoingFirst = playsGoingFirst + 1";
+		  }
+		  $updateSql .= " WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
+		  $stmt = mysqli_stmt_init($conn);
+		  if (mysqli_stmt_prepare($stmt, $updateSql)) {
+			  if ($won === true) {
+				  // If won, 5 stats + 5 keys = 10 args
+				  mysqli_stmt_bind_param($stmt, "iiiiissssi", 
+					  $numRounds, 
+					  $cardsResourced, 
+					  $numRounds, 
+					  $cardsResourced, 
+					  $winnerHealth, 
+					  $leaderID, 
+					  $baseID, 
+					  $opponentLeaderID, 
+					  $opponentBaseID, 
+					  $week
+				  );
+			  } else {
+				  // If not won, 2 stats + 5 keys = 7 args
+				  mysqli_stmt_bind_param($stmt, "iissssi", 
+					  $numRounds, 
+					  $cardsResourced, 
+					  $leaderID, 
+					  $baseID, 
+					  $opponentLeaderID, 
+					  $opponentBaseID, 
+					  $week
+				  );
+			  }
+			  mysqli_stmt_execute($stmt);
+			  mysqli_stmt_close($stmt);
+		  }
 	   }
 	}
 
@@ -569,7 +573,7 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 		$sql = "UPDATE opponentdeckstats SET $winColumn = $winColumn + ?, $totalColumn = $totalColumn + ? WHERE deckID = ? AND leaderID = ? AND source = ?";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
-			$wins = $won ? 1 : 0;
+			$wins = ($won === true) ? 1 : 0;
 			$total = 1;
 			mysqli_stmt_bind_param($stmt, "iiisi", $wins, $total, $deckID, $leaderID, $source);
 			mysqli_stmt_execute($stmt);

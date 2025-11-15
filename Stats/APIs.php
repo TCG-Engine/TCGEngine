@@ -397,7 +397,7 @@ include_once "../SharedUI/Header.php";
             <h4>Request Body:</h4>
             <pre><code>{
     "apiKey": "your_api_key",  // Your API key
-    "winner": 1,               // 1 for player 1, 2 for player 2
+    "winner": 1,               // 1 for player 1, 2 for player 2, 0 for draw
     "firstPlayer": 1,          // 1 for player 1, 2 for player 2
     "round": 10,               // Number of turns/rounds played
     "winnerHealth": 5,         // Health remaining for winner
