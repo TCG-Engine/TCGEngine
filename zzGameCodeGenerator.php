@@ -905,7 +905,7 @@ function AddNextTurn() {
   }
 
   if ($hasDecisionQueue) {
-    $footer .= "echo(\"CheckAndShowDecisionQueue(window.myDecisionQueueData);\");\r\n";
+    $setData .= "echo(\"CheckAndShowDecisionQueue(window.myDecisionQueueData);\");\r\n";
   }
   return $header . $setData . $myStuff . $theirStuff . $myStaticStuff . $theirStaticStuff . $footer;
 }

@@ -318,15 +318,6 @@
             if(sortFunction != null && typeof window[sortFunction] !== 'function') {
               var sortFunction = sortProperty != "" ? "Card" + window[sortProperty + "Data"].toLowerCase() : null;
             }
-            /*
-            if(sortFunction != null) {
-              zoneArr.sort((a, b) => {
-              const idA = a.split(" ")[0];
-              const idB = b.split(" ")[0];
-              return window[sortFunction](idA) - window[sortFunction](idB);
-              });
-            }
-              */
             var heatmapFunction = "";
             var heatmapColorMap = "";
             if(heatmaps != null) {
@@ -396,13 +387,19 @@
       }
 
       function createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction = "", heatmapColorMap = "") {
+        let isSelectable = false;
+        if (window.SelectionMode.active && window.SelectionMode.allowedZones.includes(zone)) {
+          isSelectable = true;
+        }
         var newHTML = "";
         var id = zone + "-" + i;
         var positionStyle = "relative";
-        var className = "";
+        var className = isSelectable ? "selectable-card" : "";
         var styles = " style='position:" + positionStyle + "; margin:1px;'";
         var droppable = " class='draggable " + className + "' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'";
-        var click = " onclick='CardClick(event, \"" + zoneName + "\", \"" + id + "\")'";
+        var click = isSelectable
+          ? " onclick=\"OnSelectableCardClick('" + zoneName + "', '" + id + "')\""
+          : " onclick=\"CardClick(event, '" + zoneName + "', '" + id + "')\"";
         if (id != "-") newHTML += "<span id='" + id + "' " + styles + droppable + click + ">";
         else newHTML += "<span " + styles + droppable + click + ">";
 
@@ -1150,10 +1147,79 @@ function CheckAndShowDecisionQueue(decisionQueue) {
     let entry = decisionQueue[i];
     if (entry && entry.Type === 'YESNO' && !entry.removed) {
       ShowYesNoDecisionPopup(entry, function(result) {
-        // Send result to server (customize as needed)
         SubmitInput('DECISION', '&decisionIndex=' + i + '&result=' + result);
       });
-      break; // Only show one at a time
+      break;
+    } else if (entry && entry.Type === 'MZCHOOSE' && !entry.removed) {
+      // Set up selection mode
+      window.SelectionMode.active = true;
+      window.SelectionMode.mode = '100';
+      window.SelectionMode.allowedZones = (entry.Param || '').split('&').map(z => z.trim()).filter(Boolean);
+      window.SelectionMode.decisionIndex = i;
+      window.SelectionMode.callback = function(zoneName, cardId, decisionIndex) {
+        SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&result=' + encodeURIComponent(zoneName + ':' + cardId));
+      };
+      ShowSelectionMessage('Select a card from an allowed zone.');
+      // Highlight/selectable will be handled in rendering
+
+      // After setting selection mode for MZCHOOSE, force a re-render of all zones
+      if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+        RenderRows(window.myRows, window.theirRows);
+      }
+      break;
     }
   }
+};
+
+// --- Selection Mode State ---
+window.SelectionMode = {
+  active: false,
+  mode: '', // e.g., '100' for decision queue
+  allowedZones: [],
+  callback: null,
+  decisionIndex: null
+};
+
+function ClearSelectionMode() {
+  window.SelectionMode = {
+    active: false,
+    mode: '',
+    allowedZones: [],
+    callback: null,
+    decisionIndex: null
+  };
+  // Remove selectable highlight from all cards
+  document.querySelectorAll('.selectable-card').forEach(el => {
+    el.classList.remove('selectable-card');
+    el.onclick = null;
+  });
+  HideSelectionMessage();
+}
+
+function ShowSelectionMessage(msg) {
+  // Use flash message or unobtrusive banner
+  let existing = document.getElementById('selection-message');
+  if (!existing) {
+    existing = document.createElement('div');
+    existing.id = 'selection-message';
+    existing.style.position = 'fixed';
+    existing.style.bottom = '20px';
+    existing.style.left = '50%';
+    existing.style.transform = 'translateX(-50%)';
+    existing.style.background = '#0D1B2A';
+    existing.style.color = '#fff';
+    existing.style.padding = '10px 24px';
+    existing.style.borderRadius = '8px';
+    existing.style.boxShadow = '0 0 10px #0008';
+    existing.style.fontFamily = "'Orbitron', sans-serif";
+    existing.style.zIndex = '9999';
+    document.body.appendChild(existing);
+  }
+  existing.textContent = msg;
+  existing.style.display = 'block';
+}
+
+function HideSelectionMessage() {
+  let existing = document.getElementById('selection-message');
+  if (existing) existing.style.display = 'none';
 }
