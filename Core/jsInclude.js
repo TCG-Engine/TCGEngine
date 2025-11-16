@@ -135,6 +135,7 @@ function ZoneClickHandler(zone) {
 }
 
 function SubmitInput(mode, params, fullRefresh = false) {
+  mode = ModeAliasLookup(mode);
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -151,6 +152,15 @@ function SubmitInput(mode, params, fullRefresh = false) {
   ajaxLink += params;
   xmlhttp.open("GET", ajaxLink, true);
   xmlhttp.send();
+}
+
+function ModeAliasLookup(mode) {
+  switch(mode) {
+    case 'DECISION':
+      return 100;
+    default:
+      return mode;
+  }
 }
 
 function RefreshPopupContent(name) {

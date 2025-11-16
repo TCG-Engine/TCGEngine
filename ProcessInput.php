@@ -84,6 +84,14 @@ function CardExists($mzid) {
 }
 
 switch($mode) {
+  case 100://Decision Queue Input
+    echo("Decision Queue Input received<BR>");
+    $dqController = new DecisionQueueController();
+    $decision = $dqController->NextDecision($playerID);
+    if($decision != null) {
+      $dqController->PopDecision($playerID);
+    }
+    break;
   case 10000://Execute Zone Macro
     $macro = $buttonInput;
     $zone = &GetZone($inputText);
