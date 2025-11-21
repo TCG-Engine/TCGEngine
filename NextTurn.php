@@ -92,11 +92,11 @@
         }
 
         .theirStuff {
-          background-color: red;
+          background-color: #2a2a2a;
         }
 
         .theirStuffWrapper {
-          background-color: red;
+          background-color: #2a2a2a;
         }
         </style>
 
