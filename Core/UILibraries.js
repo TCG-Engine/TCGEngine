@@ -576,6 +576,115 @@
       `;
       document.head.appendChild(flashStyle);
 
+      // Add selectable-card green glow styles (brighter, lighter, less transparent)
+      const selectableStyle = document.createElement('style');
+        selectableStyle.innerHTML = `
+          /* Light lime glow for selectable cards */
+
+          .selectable-card {
+            display: inline-block; /* ensure box-shadow applies nicely */
+            position: relative;
+            overflow: visible;
+            border-radius: 8px;
+            transition: transform 160ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms ease, outline-color 200ms ease;
+            /* no wrapper border — border lives on the image so it hugs art exactly */
+            box-shadow: none;
+            border: none;
+            will-change: transform, box-shadow;
+          }
+
+          /* Slight lift on hover for tactile feedback */
+          .selectable-card:hover {
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 2px 5px rgba(100, 250, 0, 0.18);
+          }
+
+          /* Image-level border and inner glow (so it sits flush with art) */
+          .selectable-card img {
+            border-radius: 6px;
+            display: block;
+            position: relative;
+            z-index: 1;
+            /* tight inset glow that hugs the artwork */
+            box-shadow: inset 0 0 14px rgba(220,255,140,1), inset 0 0 6px rgba(200,255,120,0.8);
+            /* border lives on the image so it sits flush with the art; make slightly thicker */
+            border: 3px solid rgba(100,250,0,0.50);
+            transition: box-shadow 140ms ease, border-color 140ms ease, transform 160ms ease;
+          }
+
+          /* On hover: hide the border visually and show a compact outer box-shadow */
+          .selectable-card:hover img {
+            /* keep the inner inset but add a modest outer shadow that hugs the card */
+            box-shadow: inset 0 0 20px rgba(245,255,180,0.72), inset 0 0 10px rgba(230,255,160,0.48), 0 10px 22px rgba(200,255,120,0.28);
+            /* visually remove the border without causing layout shift */
+            border-color: transparent;
+          }
+
+          /* Gentle pulsing lime glow when selection mode is active (pulse the image border color) */
+          @keyframes selectable-border-pulse {
+            0% { border-color: rgba(100,250,0,1); border-width: 2px; }
+            50% { border-color: rgba(65, 163, 0, 1); border-width: 2px; }
+            100% { border-color: rgba(100,250,0,1); border-width: 2px; }
+          }
+
+          /* Pulse the image border when the wrapper has the pulse class */
+          .selectable-card.pulse img {
+            animation: selectable-border-pulse 1.5s infinite;
+          }
+        `;
+      document.head.appendChild(selectableStyle);
+
+      // Temporarily set nearest scrollable ancestor overflow to visible while hovering a selectable card
+      function findOverflowingAncestor(el) {
+        while (el && el !== document.documentElement) {
+          el = el.parentElement;
+          if (!el) break;
+          const cs = window.getComputedStyle(el);
+          // consider it overflowing if overflow or overflow-y is not 'visible'
+          if (cs.overflow !== 'visible' || cs.overflowY !== 'visible' || cs.overflowX !== 'visible') {
+            // only return if it actually can clip (auto/hidden/scroll)
+            if (['hidden','auto','scroll'].includes(cs.overflow) || ['hidden','auto','scroll'].includes(cs.overflowY) || ['hidden','auto','scroll'].includes(cs.overflowX)) {
+              return el;
+            }
+          }
+        }
+        return null;
+      }
+
+      // Manage hover delegation to avoid adding listeners to every card
+      document.addEventListener('mouseover', function(e) {
+        const card = e.target.closest && e.target.closest('.selectable-card');
+        if (!card) return;
+        const anc = findOverflowingAncestor(card);
+        if (!anc) return;
+        // initialize counter if needed
+        if (!anc.dataset._overflowCount) anc.dataset._overflowCount = '0';
+        if (!anc.dataset.prevOverflow) {
+          anc.dataset.prevOverflow = anc.style.overflow || '';
+        }
+        // increment
+        anc.dataset._overflowCount = String(parseInt(anc.dataset._overflowCount || '0') + 1);
+        anc.style.overflow = 'visible';
+      });
+
+      document.addEventListener('mouseout', function(e) {
+        const card = e.target.closest && e.target.closest('.selectable-card');
+        if (!card) return;
+        // if moving to an element still inside the card, do nothing
+        const to = e.relatedTarget;
+        if (to && card.contains(to)) return;
+        const anc = findOverflowingAncestor(card);
+        if (!anc) return;
+        const count = Math.max(0, parseInt(anc.dataset._overflowCount || '0') - 1);
+        anc.dataset._overflowCount = String(count);
+        if (count <= 0) {
+          // restore previous overflow
+          anc.style.overflow = anc.dataset.prevOverflow || '';
+          delete anc.dataset.prevOverflow;
+          delete anc.dataset._overflowCount;
+        }
+      });
+
       function handleWidgetAction(event, cardId, widgetType, action) {
         event.stopPropagation(); // Prevent the click event from bubbling up
         // Implement the action handling logic here
@@ -1166,6 +1275,10 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
         RenderRows(window.myRows, window.theirRows);
       }
+          // Add gentle pulsing glow to selectable cards after re-render (DOM needs a moment)
+          setTimeout(() => {
+            document.querySelectorAll('.selectable-card').forEach(el => el.classList.add('pulse'));
+          }, 60);
       break;
     }
   }
@@ -1191,6 +1304,7 @@ function ClearSelectionMode() {
   // Remove selectable highlight from all cards
   document.querySelectorAll('.selectable-card').forEach(el => {
     el.classList.remove('selectable-card');
+    el.classList.remove('pulse');
     el.onclick = null;
   });
   HideSelectionMessage();
@@ -1223,3 +1337,4 @@ function HideSelectionMessage() {
   let existing = document.getElementById('selection-message');
   if (existing) existing.style.display = 'none';
 }
+
