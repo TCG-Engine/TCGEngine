@@ -39,7 +39,23 @@ class DecisionQueueController {
     public function PopDecision($player) {
         $playerQueue = &GetDecisionQueue($player);
         if (!empty($playerQueue)) {
-            array_shift($playerQueue);
+            return array_shift($playerQueue);
+        }
+        return null;
+    }
+
+    function ExecuteStaticMethods($player) {
+        $playerQueue = &GetDecisionQueue($player);
+        while($decision = $this->NextDecision($player)) {
+            switch($decision->Type) {
+                case "MZMOVE":
+                    echo($decision->Type . " " . $decision->Param . " " . $decision->Block);
+                    break;
+                default:
+                    // Not static, return
+                    return;
+            }
+            $this->PopDecision($player);
         }
     }
 
