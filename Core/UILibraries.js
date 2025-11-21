@@ -386,6 +386,29 @@
         }
       }
 
+      // Handler for selectable cards. Inline markup calls this when a card is marked selectable.
+      // If selection mode is active, invoke the configured callback. Otherwise delegate to CardClick.
+      function OnSelectableCardClick(zoneName, cardId) {
+        try {
+          // If selection mode is active, call the selection callback (used for decision queue selections)
+          if (window.SelectionMode && window.SelectionMode.active) {
+            if (typeof window.SelectionMode.callback === 'function') {
+              window.SelectionMode.callback(zoneName, cardId, window.SelectionMode.decisionIndex);
+            }
+            // Clear selection UI/state after making a selection
+            ClearSelectionMode();
+            return;
+          }
+
+          // Not in selection mode: delegate to CardClick. CardClick expects an event object, so provide a minimal stub.
+          var fakeEvent = { stopPropagation: function() {} };
+          CardClick(fakeEvent, zoneName, cardId);
+        } catch (e) {
+          // Swallow errors to avoid breaking UI; log to console for debugging
+          if (console && console.error) console.error('OnSelectableCardClick error', e);
+        }
+      }
+
       function createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction = "", heatmapColorMap = "") {
         let isSelectable = false;
         if (window.SelectionMode.active && window.SelectionMode.allowedZones.includes(zone)) {
