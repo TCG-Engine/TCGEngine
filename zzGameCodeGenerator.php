@@ -225,6 +225,9 @@ while(!feof($handler)) {
           array_push($zoneObj->Widgets, $widgetObj);
         }
         break;
+      case "AddReplacement":
+        $zoneObj->AddReplacement = trim($lineValue);
+        break;
       default://This is a new zone
         if($zoneObj != null) array_push($zones, $zoneObj);
         $zone = str_replace(' ', '', $line);
@@ -266,6 +269,7 @@ while(!feof($handler)) {
         $zoneObj->Sort = null;
         $zoneObj->AddValidation = "";
         $zoneObj->Scope = "Player";
+        $zoneObj->AddReplacement = null;
         break;
     }
   }
@@ -322,14 +326,21 @@ for($i=0; $i<count($zones); ++$i) {
     }
   }
   //Setter
-  fwrite($handler, "function Add" . $zoneName . "(\$player");
-    for($j=0; $j<count($zone->Properties); ++$j) {
-      $property = $zone->Properties[$j];
-      fwrite($handler, ", \$" . $property->Name . "=" . $property->DefaultValue);
-    }
+  $parameters = "";
+  $parametersNoDefaults = "";
+  for($j=0; $j<count($zone->Properties); ++$j) {
+    $property = $zone->Properties[$j];
+    $parameters .= ", \$" . $property->Name . "=" . $property->DefaultValue;
+    $parametersNoDefaults .= ", \$" . $property->Name;
+  }
+  fwrite($handler, "function Add" . $zoneName . "(\$player" . $parameters);
   fwrite($handler, ") {\r\n");
   if($zone->AddValidation != "") {
     fwrite($handler, "  if(!" . $zone->AddValidation . "(\$CardID)) return;\r\n");
+  }
+  if ($zone->AddReplacement != null) {
+    fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(\$player" . $parametersNoDefaults . ");\r\n");
+    fwrite($handler, "  if(\$replaceResult) return;\r\n");
   }
   fwrite($handler, "  \$zoneObj = new " . $zoneName . "(");
   for($j=0; $j<count($zone->Properties); ++$j) {
