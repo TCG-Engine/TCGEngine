@@ -1,6 +1,7 @@
   <head>
 
     <script src="./Core/UILibraries.js"></script>
+    <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
 
     <style>
       @keyframes move {
@@ -372,6 +373,7 @@
         var newHTML = "";
         var playerID = <?php echo($playerID); ?>;
         <?php include "./" . $folderPath . "/NextTurnRender.php"; ?>
+        UpdateTurnPlayerMiasma();
       }
 
     </script>

@@ -1361,3 +1361,39 @@ function HideSelectionMessage() {
   if (existing) existing.style.display = 'none';
 }
 
+function _ensureTurnMiasmaOverlay() {
+  let el = document.getElementById('turn-miasma-overlay');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'turn-miasma-overlay';
+    document.body.appendChild(el);
+  }
+  return el;
+}
+
+function UpdateTurnPlayerMiasma() {
+  try {
+    const overlay = _ensureTurnMiasmaOverlay();
+    const turnVal = typeof window.TurnPlayerData !== 'undefined' ? parseInt(window.TurnPlayerData) : NaN;
+    const viewerVal = (document.getElementById('playerID') && document.getElementById('playerID').value) ? parseInt(document.getElementById('playerID').value) : NaN;
+
+    // If we don't have a valid turn value, hide the overlay
+    if (isNaN(turnVal)) {
+      overlay.style.display = 'none';
+      return;
+    }
+
+    // If viewer value available, only show miasma when viewer is NOT the turn player
+    if (!isNaN(viewerVal)) {
+      const viewerIsTurn = viewerVal === turnVal;
+      overlay.style.display = viewerIsTurn ? 'none' : 'block';
+      return;
+    }
+
+    // For spectators (no viewerVal) show overlay by default when turnVal exists
+    overlay.style.display = 'block';
+  } catch (e) {
+    if (console && console.error) console.error('UpdateTurnPlayerMiasma error', e);
+  }
+}
+

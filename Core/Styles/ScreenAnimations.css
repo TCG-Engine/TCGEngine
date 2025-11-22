@@ -1,0 +1,60 @@
+
+#turn-miasma-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9998;
+  display: none; /* toggled by JS */
+  overflow: hidden;
+}
+
+#turn-miasma-overlay::before {
+  /* soft moving gradient band around edges (less transparent) */
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  /* stronger stops: increase alpha so the effect is more visible */
+  background: radial-gradient(closest-side at 10% 10%, rgba(120,120,120,0.10), rgba(0,0,0,0) 30%),
+              radial-gradient(closest-side at 90% 90%, rgba(120,120,120,0.10), rgba(0,0,0,0) 30%),
+              linear-gradient(90deg, rgba(200,200,200,0.06), rgba(200,200,200,0.12) 50%, rgba(200,200,200,0.06));
+  filter: blur(8px) saturate(0.7) brightness(0.93);
+  mix-blend-mode: normal;
+  transform: translateZ(0);
+  animation: miasmaShift 5.5s linear infinite;
+}
+
+@keyframes miasmaShift {
+  0% { transform: translateX(-4%); opacity: 1; }
+  50% { transform: translateX(4%); opacity: 0.88; }
+  100% { transform: translateX(-4%); opacity: 1; }
+}
+
+/* Additional pseudo-layer to create a cloudy / foggy texture */
+#turn-miasma-overlay::after {
+  content: '';
+  position: absolute;
+  /* extend slightly beyond edges so blur looks natural */
+  inset: -12%;
+  pointer-events: none;
+  z-index: 9999;
+  /* denser layered soft cloud blobs to emulate fog (more blobs, varied sizes/alphas) */
+  background:
+    radial-gradient(28% 18% at 8% 18%, rgba(255,255,255,0.12), rgba(255,255,255,0) 36%),
+    radial-gradient(22% 14% at 22% 30%, rgba(250,250,250,0.10), rgba(255,255,255,0) 36%),
+    radial-gradient(30% 20% at 40% 12%, rgba(245,245,245,0.09), rgba(255,255,255,0) 38%),
+    radial-gradient(40% 28% at 60% 72%, rgba(245,245,245,0.11), rgba(255,255,255,0) 40%),
+    radial-gradient(36% 26% at 78% 82%, rgba(250,250,250,0.10), rgba(255,255,255,0) 42%),
+    radial-gradient(50% 35% at 50% 50%, rgba(250,250,250,0.08), rgba(255,255,255,0) 45%);
+  filter: blur(28px) saturate(0.6) contrast(0.95);
+  opacity: 0.96;
+  transform: translateX(-6%);
+  animation: cloudDrift 28s linear infinite;
+  mix-blend-mode: normal;
+}
+
+@keyframes cloudDrift {
+  0% { transform: translateX(-6%); }
+  50% { transform: translateX(6%); }
+  100% { transform: translateX(-6%); }
+}
