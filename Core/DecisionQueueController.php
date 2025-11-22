@@ -44,12 +44,15 @@ class DecisionQueueController {
         return null;
     }
 
-    function ExecuteStaticMethods($player) {
+    function ExecuteStaticMethods($player, $lastDecision = null) {
         $playerQueue = &GetDecisionQueue($player);
         while($decision = $this->NextDecision($player)) {
             switch($decision->Type) {
                 case "MZMOVE":
-                    echo($decision->Type . " " . $decision->Param . " " . $decision->Block);
+                    $removed = GetZoneObject($decision->Param);
+                    $removed->Remove();
+                    $destination = explode("-", $lastDecision)[0];
+                    MZAddZone($player, $destination, $removed->CardID);
                     break;
                 default:
                     // Not static, return

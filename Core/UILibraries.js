@@ -1289,7 +1289,7 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       window.SelectionMode.allowedZones = (entry.Param || '').split('&').map(z => z.trim()).filter(Boolean);
       window.SelectionMode.decisionIndex = i;
       window.SelectionMode.callback = function(zoneName, cardId, decisionIndex) {
-        SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&result=' + encodeURIComponent(zoneName + ':' + cardId));
+        SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(cardId));
       };
       ShowSelectionMessage('Select a card from an allowed zone.');
       // Highlight/selectable will be handled in rendering

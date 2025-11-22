@@ -87,7 +87,7 @@ switch($mode) {
   case 100://Decision Queue Input
     $dqController = new DecisionQueueController();
     $dqController->PopDecision($playerID);
-    $dqController->ExecuteStaticMethods($playerID);
+    $dqController->ExecuteStaticMethods($playerID, $cardID);
     break;
   case 10000://Execute Zone Macro
     $macro = $buttonInput;
