@@ -228,6 +228,9 @@ while(!feof($handler)) {
       case "AddReplacement":
         $zoneObj->AddReplacement = trim($lineValue);
         break;
+      case "AfterAdd":
+        $zoneObj->AfterAdd = trim($lineValue);
+        break;
       default://This is a new zone
         if($zoneObj != null) array_push($zones, $zoneObj);
         $zone = str_replace(' ', '', $line);
@@ -270,6 +273,7 @@ while(!feof($handler)) {
         $zoneObj->AddValidation = "";
         $zoneObj->Scope = "Player";
         $zoneObj->AddReplacement = null;
+        $zoneObj->AfterAdd = null;
         break;
     }
   }
@@ -355,6 +359,9 @@ for($i=0; $i<count($zones); ++$i) {
   } else {
     fwrite($handler, "  \$zone = &Get" . $zoneName . "(\$player);\r\n");
     fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
+  }
+  if ($zone->AfterAdd != null) {
+    fwrite($handler, "  " . $zone->AfterAdd . "(\$player" . $parametersNoDefaults . ");\r\n");
   }
   fwrite($handler, "}\r\n\r\n");
 
