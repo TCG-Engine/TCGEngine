@@ -54,6 +54,12 @@ class DecisionQueueController {
                     $destination = explode("-", $lastDecision)[0];
                     MZAddZone($player, $destination, $removed->CardID);
                     break;
+                case "CUSTOM":
+                    global $customDQHandlers;
+                    $parts = explode("|", $decision->Param);
+                    $handlerName = array_shift($parts);
+                    $customDQHandlers[$handlerName]($player, $parts, $lastDecision);
+                    break;
                 default:
                     // Not static, return
                     return;
@@ -63,8 +69,8 @@ class DecisionQueueController {
     }
 
     // Add a decision to a player's queue
-    public function AddDecision($player, $type, $param = '', $block = 0) {
+    public function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '') {
         $playerQueue = &GetDecisionQueue($player);
-        $playerQueue[] = new DecisionQueue($type . " " . $param . " " . $block);
+        $playerQueue[] = new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip);
     }
 }
