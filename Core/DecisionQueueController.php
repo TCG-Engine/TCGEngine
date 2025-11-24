@@ -70,6 +70,7 @@ class DecisionQueueController {
 
     // Add a decision to a player's queue
     public function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '') {
+        $tooltip = str_replace(' ', '_', $tooltip);
         $playerQueue = &GetDecisionQueue($player);
         $playerQueue[] = new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip);
     }
