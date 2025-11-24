@@ -1291,7 +1291,8 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       window.SelectionMode.callback = function(zoneName, cardId, decisionIndex) {
         SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(cardId));
       };
-      ShowSelectionMessage('Select a card from an allowed zone.');
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Select a card from an allowed zone.';
+      ShowSelectionMessage(tooltip);
       // Highlight/selectable will be handled in rendering
 
       // After setting selection mode for MZCHOOSE, force a re-render of all zones
