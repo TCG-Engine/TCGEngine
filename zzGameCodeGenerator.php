@@ -56,6 +56,39 @@ while(!feof($handler)) {
           }
         }
         break;
+      case "Counters":
+        // Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)
+        if (!isset($zoneObj->Counters)) $zoneObj->Counters = [];
+        $parts = explode("=", $lineValue, 2);
+        if (count($parts) == 2) {
+          $field = trim($parts[0]);
+          $spec = trim($parts[1]);
+          $counterType = $spec;
+          $params = [];
+          // If spec has parentheses, parse type and params
+          $pos = strpos($spec, '(');
+          if ($pos !== false) {
+            $counterType = trim(substr($spec, 0, $pos));
+            $paramString = trim(substr($spec, $pos + 1));
+            // Remove trailing ) if present
+            if (substr($paramString, -1) == ')') $paramString = substr($paramString, 0, -1);
+            // Split on commas for simple key=value pairs
+            $paramParts = $paramString === '' ? [] : explode(',', $paramString);
+            for ($i = 0; $i < count($paramParts); ++$i) {
+              $p = trim($paramParts[$i]);
+              if ($p == '') continue;
+              $kv = explode('=', $p, 2);
+              if (count($kv) == 2) {
+                $params[trim($kv[0])] = trim($kv[1]);
+              } else {
+                // positional param (e.g. IconName)
+                $params[] = $kv[0];
+              }
+            }
+          }
+          $zoneObj->Counters[] = ["field" => $field, "type" => $counterType, "params" => $params];
+        }
+        break;
       case "Initialization":
         $initializeScript = trim($lineValue);
         break;
@@ -1027,6 +1060,16 @@ function AddGeneratedUI() {
     }
   }
   $rv .= "const OverlayRules = " . json_encode($overlayRules) . ";\r\n";
+
+  // Emit counter rules as a JS object
+  $counterRules = [];
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if (isset($zone->Counters) && is_array($zone->Counters) && count($zone->Counters) > 0) {
+      $counterRules[$zone->Name] = $zone->Counters;
+    }
+  }
+  $rv .= "const CounterRules = " . json_encode($counterRules) . ";\r\n";
 
   //Client dictionary of all zone data
   $rv .= "function GetZoneData(zoneName) {\r\n";
