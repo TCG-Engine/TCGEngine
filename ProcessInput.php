@@ -162,7 +162,7 @@ switch($mode) {
         MZClearZone($playerID, $destination);
         MZAddZone($playerID, $destination, $card->CardID);
         break;
-      case "FSM":
+      case "FSM"://Finite State Machine
         ActionMap($actionCard);
         break;
       default: break;
