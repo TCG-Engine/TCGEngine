@@ -1398,7 +1398,7 @@ function CheckAndShowDecisionQueue(decisionQueue) {
           // Add gentle pulsing glow to selectable cards after re-render (DOM needs a moment)
           setTimeout(() => {
             document.querySelectorAll('.selectable-card').forEach(el => el.classList.add('pulse'));
-          }, 60);
+          }, 0);
       break;
     }
   }
