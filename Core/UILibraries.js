@@ -411,8 +411,8 @@
 
       function createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction = "", heatmapColorMap = "") {
         let isSelectable = false;
-        if (window.SelectionMode.active && window.SelectionMode.allowedZones.includes(zone)) {
-          isSelectable = true;
+        if (window.SelectionMode.active && typeof IsSelectableCard === 'function') {
+          isSelectable = IsSelectableCard(zone, cardArr, i);
         }
         var newHTML = "";
         var id = zone + "-" + i;
@@ -1364,7 +1364,25 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       // Set up selection mode
       window.SelectionMode.active = true;
       window.SelectionMode.mode = '100';
-      window.SelectionMode.allowedZones = (entry.Param || '').split('&').map(z => z.trim()).filter(Boolean);
+      // Parse allowed zones into objects { zone: 'myBase', filters: [ { field, op, value } ] }
+      window.SelectionMode.allowedZones = (entry.Param || '').split('&').map(s => s.trim()).filter(Boolean).map(spec => {
+        const parts = spec.split(':');
+        const zoneName = parts[0].trim();
+        const filters = [];
+        if (parts.length > 1) {
+          const filtString = parts.slice(1).join(':');
+          const clauses = filtString.split(',').map(f => f.trim()).filter(Boolean);
+          clauses.forEach(cl => {
+            const m = cl.match(/^(\w+)(==|!=|<=|>=|=|<|>)(.*)$/);
+            if (m) {
+              filters.push({ field: m[1], op: m[2], value: m[3] });
+            } else {
+              filters.push({ field: cl, op: '=', value: 'true' });
+            }
+          });
+        }
+        return { zone: zoneName, filters: filters };
+      });
       window.SelectionMode.decisionIndex = i;
       window.SelectionMode.callback = function(zoneName, cardId, decisionIndex) {
         SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(cardId));
@@ -1438,6 +1456,76 @@ function ShowSelectionMessage(msg) {
 function HideSelectionMessage() {
   let existing = document.getElementById('selection-message');
   if (existing) existing.style.display = 'none';
+}
+
+// Determine if a card element (in a given zone) should be selectable based on
+// the current SelectionMode.allowedZones definitions. Supports filters like
+// "myBase:index=0" or "myBattlefield:CardID=ABC". Returns true if the
+// zone matches and all filters pass.
+function IsSelectableCard(zone, cardArr, index) {
+  try {
+    if (!window.SelectionMode || !window.SelectionMode.active) return false;
+    const specs = window.SelectionMode.allowedZones || [];
+    for (let si = 0; si < specs.length; ++si) {
+      const spec = specs[si];
+      if (!spec || !spec.zone) continue;
+      if (spec.zone !== zone) continue;
+      const filters = spec.filters || [];
+      if (filters.length === 0) return true;
+      // parse card JSON if present
+      let cardData = {};
+      if (cardArr && cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
+        try { cardData = JSON.parse(cardArr[2]); } catch (e) { cardData = {}; }
+      }
+      let allOk = true;
+      for (let fi = 0; fi < filters.length; ++fi) {
+        const f = filters[fi];
+        const field = f.field;
+        const op = f.op;
+        const target = f.value;
+        let actual = null;
+        if (field.toLowerCase() === 'index' || field.toLowerCase() === 'i') {
+          actual = Number(index);
+        } else {
+          actual = cardData.hasOwnProperty(field) ? cardData[field] : null;
+        }
+        if (actual === null || actual === undefined) { allOk = false; break; }
+        const numActual = Number(actual);
+        const numTarget = Number(target);
+        const numericCompare = !isNaN(numActual) && !isNaN(numTarget);
+        switch(op) {
+          case '=': case '==':
+            if (numericCompare) { if (!(numActual == numTarget)) allOk = false; }
+            else { if (String(actual) !== String(target)) allOk = false; }
+            break;
+          case '!=':
+            if (numericCompare) { if (!(numActual != numTarget)) allOk = false; }
+            else { if (String(actual) === String(target)) allOk = false; }
+            break;
+          case '<':
+            if (!numericCompare || !(numActual < numTarget)) allOk = false;
+            break;
+          case '>':
+            if (!numericCompare || !(numActual > numTarget)) allOk = false;
+            break;
+          case '<=':
+            if (!numericCompare || !(numActual <= numTarget)) allOk = false;
+            break;
+          case '>=':
+            if (!numericCompare || !(numActual >= numTarget)) allOk = false;
+            break;
+          default:
+            allOk = false;
+        }
+        if (!allOk) break;
+      }
+      if (allOk) return true;
+    }
+    return false;
+  } catch (e) {
+    if (console && console.error) console.error('IsSelectableCard error', e);
+    return false;
+  }
 }
 
 function _ensureTurnMiasmaOverlay() {
