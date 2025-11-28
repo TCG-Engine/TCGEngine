@@ -345,9 +345,9 @@ for($i=0; $i<count($zones); ++$i) {
       fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
       fwrite($handler, "  return \$g" . $zoneName . ";\r\n");
       fwrite($handler, "}\r\n\r\n");
-      fwrite($handler, "function &" . $zoneName . "Value() {\r\n");
+      fwrite($handler, "function Set" . $zoneName . "(\$value) {\r\n");
       fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
-      fwrite($handler, "  return \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "  \$g" . $zoneName . " = \$value;\r\n");
       fwrite($handler, "}\r\n\r\n");
     } else {
       fwrite($handler, "function &Get" . $zoneName . "() {\r\n");

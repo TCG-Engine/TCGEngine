@@ -162,21 +162,19 @@ fwrite($h, "}\n\n");
 
 // AdvanceTurnState now operates on CurrentPhase zone
 fwrite($h, "function AdvanceTurnState(\$input) {\n");
-fwrite($h, "  \$currentPhase = &GetCurrentPhase();\n");
 fwrite($h, "  \$next = EvaluateTransition(\$input);\n");
-fwrite($h, "  if(\$next !== \$currentPhase) { \$currentPhase = \$next; return true; }\n");
+fwrite($h, "  if(\$next !== GetCurrentPhase() && \$next !== \"PENDING_DECISION\") { SetCurrentPhase(\$next); return true; }\n");
 fwrite($h, "  return false;\n");
 fwrite($h, "}\n\n");
 
 // Auto-advance along AUTO transitions until none remain. Returns true if state changed.
 fwrite($h, "function AutoAdvance() {\n");
-fwrite($h, "  \$currentPhase = &GetCurrentPhase();\n");
 fwrite($h, "  \$changed = false;\n");
 fwrite($h, "  while(true) {\n");
 fwrite($h, "    // Use EvaluateTransition('AUTO') to determine the next auto target for the current phase.\n");
 fwrite($h, "    \$next = EvaluateTransition('AUTO');\n");
-    fwrite($h, "    if(\$next === \$currentPhase) break;\n");
-    fwrite($h, "    \$currentPhase = \$next;\n");
+fwrite($h, "    if(\$next === GetCurrentPhase() || \$next == \"PENDING_DECISION\") break;\n");
+fwrite($h, "    SetCurrentPhase(\$next);\n");
 fwrite($h, "    ExecutePhase();\n");
 fwrite($h, "    \$changed = true;\n");
 fwrite($h, "  }\n");

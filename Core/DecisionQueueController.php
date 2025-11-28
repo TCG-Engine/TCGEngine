@@ -66,6 +66,7 @@ class DecisionQueueController {
             }
             $this->PopDecision($player);
         }
+        AutoAdvance();
     }
 
     // Add a decision to a player's queue
