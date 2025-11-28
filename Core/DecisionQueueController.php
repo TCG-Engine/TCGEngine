@@ -49,12 +49,14 @@ class DecisionQueueController {
         while($decision = $this->NextDecision($player)) {
             switch($decision->Type) {
                 case "MZMOVE":
+                    if($lastDecision == "PASS") break;
                     $removed = GetZoneObject($decision->Param);
                     $removed->Remove();
                     $destination = explode("-", $lastDecision)[0];
                     MZAddZone($player, $destination, $removed->CardID);
                     break;
                 case "CUSTOM":
+                    if($lastDecision == "PASS") break;
                     global $customDQHandlers;
                     $parts = explode("|", $decision->Param);
                     $handlerName = array_shift($parts);
@@ -62,7 +64,17 @@ class DecisionQueueController {
                     break;
                 default:
                     // Not static, return
-                    return;
+                    $numChoices = 0;
+                    $zones = explode(" ", $decision->Param);
+                    foreach($zones as $zoneName) {
+                        $numChoices+=MZZoneCount($zoneName);
+                    }
+                    if($numChoices === 0) {
+                        // No valid choices, auto-PASS
+                        $this->PopDecision($player);
+                        $lastDecision = "PASS";
+                        break;
+                    } else return;
             }
             $this->PopDecision($player);
         }

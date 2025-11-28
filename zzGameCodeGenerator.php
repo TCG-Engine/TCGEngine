@@ -474,6 +474,14 @@ fwrite($handler, "  \$removed->Remove();\r\n");
 fwrite($handler, "  MZAddZone(\$player, \$toZone, \$removed->CardID);\r\n");
 fwrite($handler, "}\r\n\r\n");
 
+fwrite($handler, "function MZZoneCount(\$zoneName) {\r\n");
+fwrite($handler, "  \$zone = GetZone(\$zoneName);\r\n");
+fwrite($handler, "  for(\$i=0, \$count=0; \$i<count(\$zone); ++\$i) {\r\n");
+fwrite($handler, "    if(!\$zone[\$i]->removed) ++\$count;\r\n");
+fwrite($handler, "  }\r\n");
+fwrite($handler, "  return \$count;\r\n");
+fwrite($handler, "}\r\n\r\n");
+
 //MZAddZone
 fwrite($handler, "function MZAddZone(\$player, \$zoneName, \$cardID) {\r\n");
 fwrite($handler, "  switch(\$zoneName) {\r\n");
