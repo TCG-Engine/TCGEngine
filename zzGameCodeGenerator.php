@@ -468,6 +468,12 @@ $mzGetZone .= "}\r\n\r\n";
 fwrite($handler, $mzGetObject);
 fwrite($handler, $mzGetZone);
 
+fwrite($handler, "function MZMove(\$player, \$mzIndex, \$toZone) {\r\n");
+fwrite($handler, "  \$removed = GetZoneObject(\$mzIndex);\r\n");
+fwrite($handler, "  \$removed->Remove();\r\n");
+fwrite($handler, "  MZAddZone(\$player, \$toZone, \$removed->CardID);\r\n");
+fwrite($handler, "}\r\n\r\n");
+
 //MZAddZone
 fwrite($handler, "function MZAddZone(\$player, \$zoneName, \$cardID) {\r\n");
 fwrite($handler, "  switch(\$zoneName) {\r\n");
