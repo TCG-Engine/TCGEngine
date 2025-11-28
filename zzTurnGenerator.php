@@ -161,9 +161,13 @@ fwrite($h, "  return \$currentPhase;\n");
 fwrite($h, "}\n\n");
 
 // AdvanceTurnState now operates on CurrentPhase zone
-fwrite($h, "function AdvanceTurnState(\$input) {\n");
+fwrite($h, "function AdvanceTurnState(\$input, \$params = null) {\n");
 fwrite($h, "  \$next = EvaluateTransition(\$input);\n");
-fwrite($h, "  if(\$next !== GetCurrentPhase() && \$next !== \"PENDING_DECISION\") { SetCurrentPhase(\$next); return true; }\n");
+fwrite($h, "  if(\$next !== GetCurrentPhase() && \$next !== \"PENDING_DECISION\") { \n");
+fwrite($h, "    SetCurrentPhase(\$next);\n");
+fwrite($h, "    if(\$params !== null) SetPhaseParameters(json_encode(\$params));\n");
+fwrite($h, "    return true;\n");
+fwrite($h, "  }\n");
 fwrite($h, "  return false;\n");
 fwrite($h, "}\n\n");
 
@@ -186,12 +190,31 @@ fwrite($h, "// Execute the current phase's code using a switch-based registry fo
 fwrite($h, "function ExecutePhase() {\n");
 fwrite($h, "  \$currentPhase = GetCurrentPhase();\n");
 fwrite($h, "  if(!isset(\$currentPhase)) return false;\n");
+fwrite($h, "  \$phaseParamsStr = GetPhaseParameters();\n");
+fwrite($h, "  \$storedParams = (\$phaseParamsStr !== '') ? json_decode(\$phaseParamsStr, true) : null;\n");
+fwrite($h, "  SetPhaseParameters('');\n");
 fwrite($h, "  switch(\$currentPhase) {\n");
 foreach($states as $abbr => $st) {
   $codeName = addslashes($st->Code);
   fwrite($h, "    case '" . addslashes($abbr) . "':\n");
   if($codeName !== '') {
-    fwrite($h, "      if(function_exists('" . $codeName . "')) { " . $codeName . "(); }\n");
+    // Parse function name and default parameters
+    if(strpos($codeName, '(') !== false) {
+      $funcParts = explode('(', $codeName, 2);
+      $funcName = trim($funcParts[0]);
+      $defaultArgs = rtrim($funcParts[1], ')');
+      $defaultArgs = $defaultArgs === '' ? [] : explode(',', $defaultArgs);
+      $defaultArgs = array_map('trim', $defaultArgs);
+      fwrite($h, "      if(function_exists('" . $funcName . "')) { \n");
+      fwrite($h, "        if(\$storedParams !== null) " . $funcName . "(...\$storedParams);\n");
+      fwrite($h, "        else " . $funcName . "(" . implode(',', $defaultArgs) . ");\n");
+      fwrite($h, "      }\n");
+    } else {
+      fwrite($h, "      if(function_exists('" . $codeName . "')) { \n");
+      fwrite($h, "        if(\$storedParams !== null) " . $codeName . "(...\$storedParams);\n");
+      fwrite($h, "        else " . $codeName . "();\n");
+      fwrite($h, "      }\n");
+    }
   }
   fwrite($h, "      break;\n");
 }
