@@ -337,29 +337,54 @@ for($i=0; $i<count($zones); ++$i) {
   //Getter
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   $isValueType = ($zone->DisplayMode == 'Value' || $zone->DisplayMode == 'Radio');
+  $isValueOnly = ($zone->DisplayMode == 'Value');
   if (strtolower($scope) == 'global') {
     // Global-scoped zones don't take a player parameter
-    fwrite($handler, "function &Get" . $zoneName . "() {\r\n");
-    fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
-    fwrite($handler, "  return \$g" . $zoneName . ";\r\n");
-    fwrite($handler, "}\r\n\r\n");
-    if ($isValueType) {
-      fwrite($handler, "function &" . $zoneName . "Value() {\r\n");
-      fwrite($handler, "  \$arr = &Get" . $zoneName . "();\r\n");
-      fwrite($handler, "  return \$arr[0]->Value;\r\n");
+    if ($isValueOnly) {
+      fwrite($handler, "function &Get" . $zoneName . "() {\r\n");
+      fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "  return \$g" . $zoneName . ";\r\n");
       fwrite($handler, "}\r\n\r\n");
+      fwrite($handler, "function &" . $zoneName . "Value() {\r\n");
+      fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "  return \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "}\r\n\r\n");
+    } else {
+      fwrite($handler, "function &Get" . $zoneName . "() {\r\n");
+      fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "  return \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "}\r\n\r\n");
+      if ($isValueType) {
+        fwrite($handler, "function &" . $zoneName . "Value() {\r\n");
+        fwrite($handler, "  \$arr = &Get" . $zoneName . "();\r\n");
+        fwrite($handler, "  return \$arr[0]->Value;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
     }
   } else {
-    fwrite($handler, "function &Get" . $zoneName . "(\$player) {\r\n");
-    fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
-    fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
-    fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
-    fwrite($handler, "}\r\n\r\n");
-    if ($isValueType) {
-      fwrite($handler, "function &" . $zoneName . "Value(\$player) {\r\n");
-      fwrite($handler, "  \$arr = &Get" . $zoneName . "(\$player);\r\n");
-      fwrite($handler, "  return \$arr[0]->Value;\r\n");
+    if ($isValueOnly) {
+      fwrite($handler, "function &Get" . $zoneName . "(\$player) {\r\n");
+      fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
+      fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
+      fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
       fwrite($handler, "}\r\n\r\n");
+      fwrite($handler, "function &" . $zoneName . "Value(\$player) {\r\n");
+      fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
+      fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
+      fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
+      fwrite($handler, "}\r\n\r\n");
+    } else {
+      fwrite($handler, "function &Get" . $zoneName . "(\$player) {\r\n");
+      fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
+      fwrite($handler, "  if (\$player == 1) return \$p1" . $zoneName . ";\r\n");
+      fwrite($handler, "  else return \$p2" . $zoneName . ";\r\n");
+      fwrite($handler, "}\r\n\r\n");
+      if ($isValueType) {
+        fwrite($handler, "function &" . $zoneName . "Value(\$player) {\r\n");
+        fwrite($handler, "  \$arr = &Get" . $zoneName . "(\$player);\r\n");
+        fwrite($handler, "  return \$arr[0]->Value;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
     }
   }
   //Setter
@@ -379,19 +404,31 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(\$player" . $parametersNoDefaults . ");\r\n");
     fwrite($handler, "  if(\$replaceResult) return;\r\n");
   }
-  fwrite($handler, "  \$zoneObj = new " . $zoneName . "(");
-  for($j=0; $j<count($zone->Properties); ++$j) {
-    $property = $zone->Properties[$j];
-    fwrite($handler, "\$" . $property->Name);
-    if($j < count($zone->Properties) - 1) fwrite($handler, " . ' ' . ");
-  }
-  fwrite($handler, ");\r\n");
-  if (strtolower($scope) == 'global') {
-    fwrite($handler, "  \$zone = &Get" . $zoneName . "();\r\n");
-    fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
+  if ($isValueOnly) {
+    // For Value zones, set the global variable directly
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
+      fwrite($handler, "  \$g" . $zoneName . " = \$Value;\r\n");
+    } else {
+      fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
+      fwrite($handler, "  if (\$player == 1) \$p1" . $zoneName . " = \$Value;\r\n");
+      fwrite($handler, "  else \$p2" . $zoneName . " = \$Value;\r\n");
+    }
   } else {
-    fwrite($handler, "  \$zone = &Get" . $zoneName . "(\$player);\r\n");
-    fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
+    fwrite($handler, "  \$zoneObj = new " . $zoneName . "(");
+    for($j=0; $j<count($zone->Properties); ++$j) {
+      $property = $zone->Properties[$j];
+      fwrite($handler, "\$" . $property->Name);
+      if($j < count($zone->Properties) - 1) fwrite($handler, " . ' ' . ");
+    }
+    fwrite($handler, ");\r\n");
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  \$zone = &Get" . $zoneName . "();\r\n");
+      fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
+    } else {
+      fwrite($handler, "  \$zone = &Get" . $zoneName . "(\$player);\r\n");
+      fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
+    }
   }
   if ($zone->AfterAdd != null) {
     fwrite($handler, "  " . $zone->AfterAdd . "(\$player" . $parametersNoDefaults . ");\r\n");
@@ -401,13 +438,25 @@ for($i=0; $i<count($zones); ++$i) {
   //Add to the master zone object getter
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
-    $mzGetObject .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr[\$mzArr[1]];\r\n";
-    $mzGetZone .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr;\r\n";
+    if ($zone->DisplayMode == 'Value') {
+      $mzGetObject .= "    case \"" . $zoneName . "\": return Get" . $zoneName . "();\r\n";
+      $mzGetZone .= "    case \"" . $zoneName . "\": return Get" . $zoneName . "();\r\n";
+    } else {
+      $mzGetObject .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr[\$mzArr[1]];\r\n";
+      $mzGetZone .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr;\r\n";
+    }
   } else {
-    $mzGetObject .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr[\$mzArr[1]];\r\n";
-    $mzGetObject .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr[\$mzArr[1]];\r\n";
-    $mzGetZone .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr;\r\n";
-    $mzGetZone .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr;\r\n";
+    if ($zone->DisplayMode == 'Value') {
+      $mzGetObject .= "    case \"my" . $zoneName . "\": return Get" . $zoneName . "(\$playerID);\r\n";
+      $mzGetObject .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
+      $mzGetZone .= "    case \"my" . $zoneName . "\": return Get" . $zoneName . "(\$playerID);\r\n";
+      $mzGetZone .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
+    } else {
+      $mzGetObject .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr[\$mzArr[1]];\r\n";
+      $mzGetObject .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr[\$mzArr[1]];\r\n";
+      $mzGetZone .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr;\r\n";
+      $mzGetZone .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr;\r\n";
+    }
   }
 }
 $mzGetObject .= "    default: return null;\r\n";
@@ -445,10 +494,21 @@ for($i=0; $i<count($zones); ++$i) {
   $zoneName = $zone->Name;
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
-    fwrite($handler, "    case \"" . $zoneName . "\": \$zone = &Get" . $zoneName . "(); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+    if ($zone->DisplayMode == 'Value') {
+      fwrite($handler, "    case \"" . $zoneName . "\": \$g" . $zoneName . " = 0; break;\r\n");
+    } else {
+      fwrite($handler, "    case \"" . $zoneName . "\": \$zone = &Get" . $zoneName . "(); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+    }
   } else {
-    fwrite($handler, "    case \"my" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
-    fwrite($handler, "    case \"their" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player == 1 ? 2 : 1); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+    if ($zone->DisplayMode == 'Value') {
+      // Emit code like: case "myZone": ${'p' . $player . 'Zone'} = 0; break;
+      fwrite($handler, "    case \"my" . $zoneName . "\": \${'p' . \$player . '" . $zoneName . "'} = 0; break;\r\n");
+      // Emit code like: case "theirZone": ${'p' . ($player == 1 ? 2 : 1) . 'Zone'} = 0; break;
+      fwrite($handler, "    case \"their" . $zoneName . "\": \${'p' . (\$player == 1 ? 2 : 1) . '" . $zoneName . "'} = 0; break;\r\n");
+    } else {
+      fwrite($handler, "    case \"my" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+      fwrite($handler, "    case \"their" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player == 1 ? 2 : 1); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+    }
   }
 }
 fwrite($handler, "    default: break;\r\n");
@@ -562,10 +622,19 @@ for($i=0; $i<count($zones); ++$i) {
   $zoneName = $zone->Name;
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
-    fwrite($handler, "  \$g" . $zoneName . " = [];\r\n");
+    if ($zone->DisplayMode == 'Value') {
+      fwrite($handler, "  \$g" . $zoneName . " = 0;\r\n");
+    } else {
+      fwrite($handler, "  \$g" . $zoneName . " = [];\r\n");
+    }
   } else {
-    fwrite($handler, "  \$p1" . $zoneName . " = [];\r\n");
-    fwrite($handler, "  \$p2" . $zoneName . " = [];\r\n");
+    if ($zone->DisplayMode == 'Value') {
+      fwrite($handler, "  \$p1" . $zoneName . " = 0;\r\n");
+      fwrite($handler, "  \$p2" . $zoneName . " = 0;\r\n");
+    } else {
+      fwrite($handler, "  \$p1" . $zoneName . " = [];\r\n");
+      fwrite($handler, "  \$p2" . $zoneName . " = [];\r\n");
+    }
   }
 }
 fwrite($handler, "  \$currentPlayer = 1;\r\n");//TODO: Change this to startPlayer (needs to be linked up w/ lobby code)
@@ -721,18 +790,25 @@ function AddReadGamestate() {
     $zone = $zones[$i];
     $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
     if (strtolower($scope) == 'global') {
-      $readGamestate .= "    \$line = fgets(\$handler);\r\n";
-      $readGamestate .= "    if (\$line !== false) {\r\n";
-      $readGamestate .= "      \$num = intval(\$line);\r\n";
-      $readGamestate .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
-      $readGamestate .= "        \$line = fgets(\$handler);\r\n";
-      $readGamestate .= "        if (\$line !== false) {\r\n";
-      $readGamestate .= "          \$obj = new " . $zone->Name . "(trim(\$line));\r\n";
-      $readGamestate .= "          array_push(\$g" . $zone->Name . ", \$obj);\r\n";
-      $readGamestate .= "        }\r\n";
-      $readGamestate .= "      }\r\n";
-      $readGamestate .= "    }\r\n";
-      if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $readGamestate .= "    if(count(\$g" . $zone->Name . ") == 0) array_push(\$g" . $zone->Name . ", new " . $zone->Name . "(0));\r\n";
+      if ($zone->DisplayMode == 'Value') {
+        $readGamestate .= "    \$line = fgets(\$handler);\r\n";
+        $readGamestate .= "    if (\$line !== false) {\r\n";
+        $readGamestate .= "      \$g" . $zone->Name . " = intval(trim(\$line));\r\n";
+        $readGamestate .= "    }\r\n";
+      } else {
+        $readGamestate .= "    \$line = fgets(\$handler);\r\n";
+        $readGamestate .= "    if (\$line !== false) {\r\n";
+        $readGamestate .= "      \$num = intval(\$line);\r\n";
+        $readGamestate .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
+        $readGamestate .= "        \$line = fgets(\$handler);\r\n";
+        $readGamestate .= "        if (\$line !== false) {\r\n";
+        $readGamestate .= "          \$obj = new " . $zone->Name . "(trim(\$line));\r\n";
+        $readGamestate .= "          array_push(\$g" . $zone->Name . ", \$obj);\r\n";
+        $readGamestate .= "        }\r\n";
+        $readGamestate .= "      }\r\n";
+        $readGamestate .= "    }\r\n";
+        if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $readGamestate .= "    if(count(\$g" . $zone->Name . ") == 0) array_push(\$g" . $zone->Name . ", new " . $zone->Name . "(0));\r\n";
+      }
     } else {
       $readGamestate .= AddReadZone($zone, 1);
       $readGamestate .= AddReadZone($zone, 2);
@@ -745,20 +821,29 @@ function AddReadGamestate() {
 
 function AddReadZone($zone, $player) {
   $zoneName = $zone->Name;
-  $rv = "";
-  $rv .= "    \$line = fgets(\$handler);\r\n";
-  $rv .= "    if (\$line !== false) {\r\n";
-  $rv .= "      \$num = intval(\$line);\r\n";
-  $rv .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
-  $rv .= "        \$line = fgets(\$handler);\r\n";
-  $rv .= "        if (\$line !== false) {\r\n";
-  $rv .= "          \$obj = new " . $zoneName . "(trim(\$line));\r\n";
-  $rv .= "          array_push(\$p" . $player . $zoneName . ", \$obj);\r\n";
-  $rv .= "        }\r\n";
-  $rv .= "      }\r\n";
-  $rv .= "    }\r\n";
-  if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $rv .= "    if(count(\$p" . $player . $zoneName . ") == 0) array_push(\$p" . $player . $zoneName . ", new " . $zoneName . "(0));\r\n";
-  return $rv;
+  if ($zone->DisplayMode == 'Value') {
+    $rv = "";
+    $rv .= "    \$line = fgets(\$handler);\r\n";
+    $rv .= "    if (\$line !== false) {\r\n";
+    $rv .= "      \$p" . $player . $zoneName . " = intval(trim(\$line));\r\n";
+    $rv .= "    }\r\n";
+    return $rv;
+  } else {
+    $rv = "";
+    $rv .= "    \$line = fgets(\$handler);\r\n";
+    $rv .= "    if (\$line !== false) {\r\n";
+    $rv .= "      \$num = intval(\$line);\r\n";
+    $rv .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
+    $rv .= "        \$line = fgets(\$handler);\r\n";
+    $rv .= "        if (\$line !== false) {\r\n";
+    $rv .= "          \$obj = new " . $zoneName . "(trim(\$line));\r\n";
+    $rv .= "          array_push(\$p" . $player . $zoneName . ", \$obj);\r\n";
+    $rv .= "        }\r\n";
+    $rv .= "      }\r\n";
+    $rv .= "    }\r\n";
+    if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $rv .= "    if(count(\$p" . $player . $zoneName . ") == 0) array_push(\$p" . $player . $zoneName . ", new " . $zoneName . "(0));\r\n";
+    return $rv;
+  }
 }
 
 function AddWriteGamestate() {
@@ -776,18 +861,27 @@ function AddWriteGamestate() {
     $zoneName = $zone->Name;
     $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
     if (strtolower($scope) == 'global') {
-      $writeGamestate .= "  \$zoneText = \"\";\r\n";
-      $writeGamestate .= "  \$count = 0;\r\n";
-      $writeGamestate .= "  for(\$i=0; \$i<count(\$g" . $zoneName . "); ++\$i) {\r\n";
-      $writeGamestate .= "    if(\$g" . $zoneName . "[\$i]->Removed()) continue;\r\n";
-      $writeGamestate .= "    ++\$count;\r\n";
-      $writeGamestate .= "    \$zoneText .= trim(\$g" . $zoneName . "[\$i]->Serialize()) . \"\\r\\n\";\r\n";
-      $writeGamestate .= "  }\r\n";
-      $writeGamestate .= "  fwrite(\$handler, \$count . \"\\r\\n\");\r\n";
-      $writeGamestate .= "  fwrite(\$handler, \$zoneText);\r\n";
+      if ($zone->DisplayMode == 'Value') {
+        $writeGamestate .= "  fwrite(\$handler, \$g" . $zoneName . " . \"\\r\\n\");\r\n";
+      } else {
+        $writeGamestate .= "  \$zoneText = \"\";\r\n";
+        $writeGamestate .= "  \$count = 0;\r\n";
+        $writeGamestate .= "  for(\$i=0; \$i<count(\$g" . $zoneName . "); ++\$i) {\r\n";
+        $writeGamestate .= "    if(\$g" . $zoneName . "[\$i]->Removed()) continue;\r\n";
+        $writeGamestate .= "    ++\$count;\r\n";
+        $writeGamestate .= "    \$zoneText .= trim(\$g" . $zoneName . "[\$i]->Serialize()) . \"\\r\\n\";\r\n";
+        $writeGamestate .= "  }\r\n";
+        $writeGamestate .= "  fwrite(\$handler, \$count . \"\\r\\n\");\r\n";
+        $writeGamestate .= "  fwrite(\$handler, \$zoneText);\r\n";
+      }
     } else {
-      $writeGamestate .= AddWriteZone($zoneName, 1);
-      $writeGamestate .= AddWriteZone($zoneName, 2);
+      if ($zone->DisplayMode == 'Value') {
+        $writeGamestate .= "  fwrite(\$handler, \$p1" . $zoneName . " . \"\\r\\n\");\r\n";
+        $writeGamestate .= "  fwrite(\$handler, \$p2" . $zoneName . " . \"\\r\\n\");\r\n";
+      } else {
+        $writeGamestate .= AddWriteZone($zoneName, 1);
+        $writeGamestate .= AddWriteZone($zoneName, 2);
+      }
     }
   }
   return $writeGamestate;
@@ -868,11 +962,10 @@ function AddGetNextTurnForPlayer($player) {
       }
     } else if($zone->DisplayMode == "Value") {
       if (strtolower(isset($zone->Scope) ? $zone->Scope : 'Player') == 'global') {
-        $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
+        $getNextTurn .= "  echo(\$g" . $zone->Name . ");\r\n";
       } else {
-        $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
+        $getNextTurn .= "  echo(\$p" . $player . $zone->Name . ");\r\n";
       }
-      $getNextTurn .= "  echo(\$arr[0]->Value);\r\n";
     }
     else if($zone->DisplayMode == "Radio") {
       if (strtolower(isset($zone->Scope) ? $zone->Scope : 'Player') == 'global') {

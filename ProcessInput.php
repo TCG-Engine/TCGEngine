@@ -110,9 +110,9 @@ switch($mode) {
     }
     switch($action) {
       case "-1": case "+1":
-        if(!CardExists($actionCard)) break;
-        $card = GetZoneObject($actionCard);
-        $card->$widgetType += intval($action);
+        $card = &GetZoneObject($actionCard);
+        if(is_object($card)) $card->$widgetType += intval($action);
+        else $card += intval($action);
         break;
       case "Notes":
         if(!CardExists($actionCard)) break;
@@ -130,10 +130,15 @@ switch($mode) {
         }
         break;
       default:
-        if(!CardExists($actionCard)) break;
-        $card = GetZoneObject($actionCard);
-        if($card->$widgetType == $action) $card->$widgetType = "-";
-        else $card->$widgetType = $action;
+        $card = &GetZoneObject($actionCard);
+        if(is_object($card)) {
+          if($card->$widgetType == $action) $card->$widgetType = "-";
+          else $card->$widgetType = $action;
+        }
+        else {
+          if($card == $action) $card = "-";
+          else $card = $action;
+        }
         break;
     }
     break;
