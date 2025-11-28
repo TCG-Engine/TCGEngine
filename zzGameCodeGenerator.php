@@ -793,7 +793,11 @@ function AddReadGamestate() {
       if ($zone->DisplayMode == 'Value') {
         $readGamestate .= "    \$line = fgets(\$handler);\r\n";
         $readGamestate .= "    if (\$line !== false) {\r\n";
-        $readGamestate .= "      \$g" . $zone->Name . " = intval(trim(\$line));\r\n";
+        if($zone->Properties[0]->Type == "number") {
+          $readGamestate .= "      \$g" . $zone->Name . " = intval(trim(\$line));\r\n";
+        } else {
+          $readGamestate .= "      \$g" . $zone->Name . " = trim(\$line);\r\n";
+        }
         $readGamestate .= "    }\r\n";
       } else {
         $readGamestate .= "    \$line = fgets(\$handler);\r\n";

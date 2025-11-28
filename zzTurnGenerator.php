@@ -126,16 +126,16 @@ fwrite($h, "\n");
 fwrite($h, "function IsDecisionQueueEnabled() { return $decisionQueueEnabled; }\n\n");
 
 
-// Emit a phase-based EvaluateTransition that uses the global $gCurrentPhase
+// Emit a phase-based EvaluateTransition that uses the CurrentPhase zone
 fwrite($h, "function EvaluateTransition(\$input) {\n");
-fwrite($h, "  global \$gCurrentPhase;\n");
+fwrite($h, "  \$currentPhase = GetCurrentPhase();\n");
 if ($decisionQueueEnabled) {
     fwrite($h, "  // DecisionQueue check: block phase progression if any player has pending decisions\n");
     fwrite($h, "  \$dqController = new DecisionQueueController();\n");
     fwrite($h, "  if (!\$dqController->AllQueuesEmpty()) return 'PENDING_DECISION';\n");
 }
-fwrite($h, "  if(!isset(\$gCurrentPhase)) return \$gCurrentPhase;\n");
-fwrite($h, "  switch(\$gCurrentPhase) {\n");
+fwrite($h, "  if(!isset(\$currentPhase)) return \$currentPhase;\n");
+fwrite($h, "  switch(\$currentPhase) {\n");
 // For each state, emit case block checking that state's transitions
 foreach($states as $abbr => $st) {
   fwrite($h, "    case '" . addslashes($abbr) . "':\n");
@@ -157,26 +157,26 @@ foreach($states as $abbr => $st) {
 }
 fwrite($h, "    default: break;\n");
 fwrite($h, "  }\n");
-fwrite($h, "  return \$gCurrentPhase;\n");
+fwrite($h, "  return \$currentPhase;\n");
 fwrite($h, "}\n\n");
 
-// AdvanceTurnState now operates on global $gCurrentPhase
+// AdvanceTurnState now operates on CurrentPhase zone
 fwrite($h, "function AdvanceTurnState(\$input) {\n");
-fwrite($h, "  global \$gCurrentPhase;\n");
+fwrite($h, "  \$currentPhase = &GetCurrentPhase();\n");
 fwrite($h, "  \$next = EvaluateTransition(\$input);\n");
-fwrite($h, "  if(\$next !== \$gCurrentPhase) { \$gCurrentPhase = \$next; return true; }\n");
+fwrite($h, "  if(\$next !== \$currentPhase) { \$currentPhase = \$next; return true; }\n");
 fwrite($h, "  return false;\n");
 fwrite($h, "}\n\n");
 
 // Auto-advance along AUTO transitions until none remain. Returns true if state changed.
 fwrite($h, "function AutoAdvance() {\n");
-fwrite($h, "  global \$gCurrentPhase;\n");
+fwrite($h, "  \$currentPhase = &GetCurrentPhase();\n");
 fwrite($h, "  \$changed = false;\n");
 fwrite($h, "  while(true) {\n");
 fwrite($h, "    // Use EvaluateTransition('AUTO') to determine the next auto target for the current phase.\n");
 fwrite($h, "    \$next = EvaluateTransition('AUTO');\n");
-fwrite($h, "    if(\$next === \$gCurrentPhase) break;\n");
-fwrite($h, "    \$gCurrentPhase = \$next;\n");
+    fwrite($h, "    if(\$next === \$currentPhase) break;\n");
+    fwrite($h, "    \$currentPhase = \$next;\n");
 fwrite($h, "    ExecutePhase();\n");
 fwrite($h, "    \$changed = true;\n");
 fwrite($h, "  }\n");
@@ -186,9 +186,9 @@ fwrite($h, "}\n\n");
 // Emit ExecutePhase and convenience helpers that advance+execute or auto-advance+execute
 fwrite($h, "// Execute the current phase's code using a switch-based registry for performance.\n");
 fwrite($h, "function ExecutePhase() {\n");
-fwrite($h, "  global \$gCurrentPhase;\n");
-fwrite($h, "  if(!isset(\$gCurrentPhase)) return false;\n");
-fwrite($h, "  switch(\$gCurrentPhase) {\n");
+fwrite($h, "  \$currentPhase = GetCurrentPhase();\n");
+fwrite($h, "  if(!isset(\$currentPhase)) return false;\n");
+fwrite($h, "  switch(\$currentPhase) {\n");
 foreach($states as $abbr => $st) {
   $codeName = addslashes($st->Code);
   fwrite($h, "    case '" . addslashes($abbr) . "':\n");
@@ -200,13 +200,12 @@ foreach($states as $abbr => $st) {
 fwrite($h, "    default: break;\n");
 fwrite($h, "  }\n");
 fwrite($h, "  // Optional persistence hook that user code can implement to persist the current phase.\n");
-fwrite($h, "  if(function_exists('PersistCurrentPhase')) { PersistCurrentPhase(\$gCurrentPhase); }\n");
+fwrite($h, "  if(function_exists('PersistCurrentPhase')) { PersistCurrentPhase(\$currentPhase); }\n");
 fwrite($h, "  return true;\n");
 fwrite($h, "}\n\n");
 
 fwrite($h, "// Advance by input and execute the new phase if it changed. Returns true if changed.\n");
 fwrite($h, "function AdvanceAndExecute(\$input) {\n");
-fwrite($h, "  global \$gCurrentPhase;\n");
 fwrite($h, "  \$changed = AdvanceTurnState(\$input);\n");
 fwrite($h, "  if(\$changed) ExecutePhase();\n");
 fwrite($h, "  return \$changed;\n");
@@ -214,7 +213,6 @@ fwrite($h, "}\n\n");
 
 fwrite($h, "// Auto-advance along AUTO transitions and execute final phase if changed.\n");
 fwrite($h, "function AutoAdvanceAndExecute() {\n");
-fwrite($h, "  global \$gCurrentPhase;\n");
 fwrite($h, "  \$changed = AutoAdvance();\n");
 fwrite($h, "  return \$changed;\n");
 fwrite($h, "}\n\n");
