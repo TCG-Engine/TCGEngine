@@ -492,6 +492,7 @@
               if (!isNaN(value)) value = Number(value);
               // Handle ShowZero
               if (params.ShowZero !== undefined && String(params.ShowZero).toLowerCase() === 'false' && Number(value) === 0) continue;
+              if (params.ShowNegative !== undefined && String(params.ShowNegative).toLowerCase() === 'false' && Number(value) < 0) continue;
               // Determine visual style
               var sizePx = 22;
               var bg = params.Color ? params.Color : 'red';

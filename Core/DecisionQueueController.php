@@ -65,7 +65,7 @@ class DecisionQueueController {
                 default:
                     // Not static, return
                     $numChoices = 0;
-                    $zones = explode(" ", $decision->Param);
+                    $zones = $this->MZZoneArray($decision->Param);
                     foreach($zones as $zoneName) {
                         $numChoices+=MZZoneCount($zoneName);
                     }
@@ -86,5 +86,15 @@ class DecisionQueueController {
         $tooltip = str_replace(' ', '_', $tooltip);
         $playerQueue = &GetDecisionQueue($player);
         $playerQueue[] = new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip);
+    }
+
+    private function MZZoneArray($zoneStr) {
+        $zones = explode("&", $zoneStr);
+        $output = [];
+        for($i=0; $i<count($zones); ++$i) {
+            $zone = explode(":", $zones[$i]);
+            $output[] = $zone[0];
+        }
+        return $output;
     }
 }
