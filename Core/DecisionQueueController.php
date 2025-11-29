@@ -54,10 +54,8 @@ class DecisionQueueController {
                     $parts = explode("->", $resolvedParam);
                     $source = $parts[0];
                     $destination = explode("-", $parts[1])[0];
-                    echo("Source: " . $source . " Dest: " . $destination . "<BR>");
                     $removed = GetZoneObject($source);
                     $removed->Remove();
-                    echo("Moving CardID " . $removed->CardID . "<BR>");
                     MZAddZone($player, $destination, $removed->CardID);
                     break;
                 case "CUSTOM":
