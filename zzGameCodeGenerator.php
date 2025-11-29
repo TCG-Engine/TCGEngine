@@ -702,7 +702,9 @@ if($versionsModule != null) {
     fwrite($handler, "    if(count(\$data) > 0) {\r\n");
     fwrite($handler, "      \$zone = &GetZone(\"" . $versionZones[$i] . "\");\r\n");
     fwrite($handler, "      \$zone = [];\r\n");
-    $className = substr($versionZones[$i], 2); // remove "my"
+    $className = $versionZones[$i];
+    if(str_starts_with($className, "my")) $className = substr($className, 2);
+    elseif(str_starts_with($className, "their")) $className = substr($className, 5);
     fwrite($handler, "      for(\$j=0; \$j<count(\$data); ++\$j) {\r\n");
     fwrite($handler, "        if(trim(\$data[\$j]) == \"\") continue;\r\n");
     fwrite($handler, "        \$data[\$j] = str_replace(\"<v2>\", \" \", \$data[\$j]);\r\n");
