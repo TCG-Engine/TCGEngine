@@ -567,12 +567,12 @@ for($i=0; $i<count($zones); ++$i) {
   }
   fwrite($handler, "  }\r\n");
   //Serialize function
-  fwrite($handler, "  function Serialize() {\r\n");
+  fwrite($handler, "  function Serialize(\$delimiter = \" \") {\r\n");
   fwrite($handler, "    \$rv = \"\";\r\n");
   for($j=0; $j<count($zone->Properties); ++$j) {
     $property = $zone->Properties[$j];
     $propertyName = $property->Name;
-    if($j > 0) fwrite($handler, "    \$rv .= \" \";\r\n");
+    if($j > 0) fwrite($handler, "    \$rv .= \$delimiter;\r\n");
     fwrite($handler, "    \$rv .= \$this->" . $propertyName . ";\r\n");
   }
   fwrite($handler, "    return \$rv;\r\n");
@@ -615,7 +615,7 @@ for($i=0; $i<count($zones); ++$i) {
         fwrite($handler, "    \$zone = &GetZone(\"" . $versionZones[$j] . "\");\r\n");
         fwrite($handler, "    for(\$i=0; \$i<count(\$zone); ++\$i) {\r\n");
         fwrite($handler, "      if(\$i > 0) \$rv .= \"<v1>\";\r\n");
-        fwrite($handler, "      \$rv .= \$zone[\$i]->Serialize();\r\n");
+        fwrite($handler, "      \$rv .= \$zone[\$i]->Serialize(\"<v2>\");\r\n");
         fwrite($handler, "    }\r\n");
         if($j < count($versionZones) - 1) fwrite($handler, "    \$rv .= \"<v0>\";\r\n");
       }
@@ -705,6 +705,7 @@ if($versionsModule != null) {
     $className = substr($versionZones[$i], 2); // remove "my"
     fwrite($handler, "      for(\$j=0; \$j<count(\$data); ++\$j) {\r\n");
     fwrite($handler, "        if(trim(\$data[\$j]) == \"\") continue;\r\n");
+    fwrite($handler, "        \$data[\$j] = str_replace(\"<v2>\", \" \", \$data[\$j]);\r\n");
     fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j]));\r\n");
     fwrite($handler, "      }\r\n");
     fwrite($handler, "    }\r\n");
