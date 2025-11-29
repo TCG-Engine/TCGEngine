@@ -83,6 +83,9 @@ function CardExists($mzid) {
   return $mzArr[1] < count($zone);
 }
 
+//Reset flash message at the start of each input processing
+if(function_exists('SetFlashMessage')) SetFlashMessage("");
+
 switch($mode) {
   case 100://Decision Queue Input
     $dqController = new DecisionQueueController();
@@ -234,6 +237,7 @@ switch($mode) {
     break;
   case 10004://Undo last action
     LoadVersion($playerID);
+    SetFlashMessage("Player " . $playerID . " undid their last action.");
     break;
   case 10005://Save snapshot
     SaveVersion($playerID);

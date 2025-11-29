@@ -31,6 +31,7 @@ $pageBackground = "";
 $numRows = 0;
 $hasDecisionQueue = false;
 $modules = [];
+$hasFlashMessage = false;
 
 $zoneObj = null;
 while(!feof($handler)) {
@@ -281,6 +282,9 @@ while(!feof($handler)) {
         $zoneName = $zoneArr[0];
         if ($zoneName === 'DecisionQueue') {
           $hasDecisionQueue = true;
+        }
+        if ($zoneName === 'FlashMessage') {
+          $hasFlashMessage = true;
         }
         $zoneObj = new StdClass();
         $zoneObj->Name = $zoneName;
@@ -1056,7 +1060,7 @@ function AddGetNextTurnForPlayer($player) {
   return $getNextTurn;
 }
 function AddNextTurn() {
-  global $zones, $numRows, $rootPath, $hasDecisionQueue;
+  global $zones, $numRows, $rootPath, $hasDecisionQueue, $hasFlashMessage;
   $startPiece = 1;
   $numPieces = count($zones);
   $setData = "";
@@ -1123,6 +1127,9 @@ function AddNextTurn() {
   if ($hasDecisionQueue) {
     $setData .= "echo(\"CheckAndShowDecisionQueue(window.myDecisionQueueData);\");\r\n";
   }
+  if($hasFlashMessage) {
+    $setData .= "echo(\"if(window.FlashMessageData && window.FlashMessageData != '') { showFlashMessage(window.FlashMessageData); window.FlashMessageData = ''; }\");\r\n";
+  }
   return $header . $setData . $myStuff . $theirStuff . $myStaticStuff . $theirStaticStuff . $footer;
 }
 
@@ -1148,7 +1155,7 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
 }
 
 function AddGeneratedUI() {
-  global $zones, $assetReflection;
+  global $zones, $assetReflection, $hasFlashMessage;
   $rv = "";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -1276,6 +1283,43 @@ function AddGeneratedUI() {
   $rv .= "function AssetReflectionPath() {\r\n";
   $rv .= "  return " . ($assetReflection === null ? "''" : "'" . $assetReflection . "'") . ";\r\n";
   $rv .= "}\r\n";
+
+  if($hasFlashMessage) {
+    $rv .= "function showFlashMessage(message) {\r\n";
+    $rv .= "  var overlay = document.createElement('div');\r\n";
+    $rv .= "  overlay.style.position = 'fixed';\r\n";
+    $rv .= "  overlay.style.top = '0';\r\n";
+    $rv .= "  overlay.style.left = '0';\r\n";
+    $rv .= "  overlay.style.width = '100%';\r\n";
+    $rv .= "  overlay.style.height = '100%';\r\n";
+    $rv .= "  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';\r\n";
+    $rv .= "  overlay.style.zIndex = '10000';\r\n";
+    $rv .= "  overlay.style.display = 'flex';\r\n";
+    $rv .= "  overlay.style.alignItems = 'center';\r\n";
+    $rv .= "  overlay.style.justifyContent = 'center';\r\n";
+    $rv .= "  overlay.style.opacity = '0';\r\n";
+    $rv .= "  overlay.style.transition = 'opacity 0.10s ease-in';\r\n";
+    $rv .= "  var messageBox = document.createElement('div');\r\n";
+    $rv .= "  messageBox.innerHTML = message;\r\n";
+    $rv .= "  messageBox.style.backgroundColor = 'rgba(50, 50, 50, 0.9)';\r\n";
+    $rv .= "  messageBox.style.padding = '20px';\r\n";
+    $rv .= "  messageBox.style.borderRadius = '10px';\r\n";
+    $rv .= "  messageBox.style.boxShadow = '0 4px 8px rgba(0,0,0,0.3)';\r\n";
+    $rv .= "  messageBox.style.maxWidth = '80%';\r\n";
+    $rv .= "  messageBox.style.textAlign = 'center';\r\n";
+    $rv .= "  messageBox.style.fontSize = '18px';\r\n";
+    $rv .= "  messageBox.style.fontWeight = 'bold';\r\n";
+    $rv .= "  messageBox.style.color = 'white';\r\n";
+    $rv .= "  overlay.appendChild(messageBox);\r\n";
+    $rv .= "  document.body.appendChild(overlay);\r\n";
+    $rv .= "  setTimeout(function() { overlay.style.opacity = '1'; }, 10);\r\n";
+    $rv .= "  setTimeout(function() {\r\n";
+    $rv .= "    overlay.style.transition = 'opacity .250s ease-out';\r\n";
+    $rv .= "    overlay.style.opacity = '0';\r\n";
+    $rv .= "    setTimeout(function() { if(overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 250);\r\n";
+    $rv .= "  }, 500);\r\n";
+    $rv .= "}\r\n";
+  }
 
   //Client function for if screen should be split or not
   return $rv;
