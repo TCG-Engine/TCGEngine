@@ -30,6 +30,7 @@ $assetReflection = null;
 $pageBackground = "";
 $numRows = 0;
 $hasDecisionQueue = false;
+$modules = [];
 
 $zoneObj = null;
 while(!feof($handler)) {
@@ -121,6 +122,15 @@ while(!feof($handler)) {
           if($varName == "Link") $headerElement->Link = str_replace(">", "=", $headerElement->Link);
         }
         array_push($headerElements, $headerElement);
+        break;
+      case "Module":
+        $module = new StdClass();
+        $module->Name = "";
+        $module->Parameters = "";
+        $moduleArr = explode("=", $lineValue, 2);
+        $module->Name = trim($moduleArr[0]);
+        $module->Parameters = isset($moduleArr[1]) ? trim($moduleArr[1]) : "";
+        array_push($modules, $module);
         break;
       case "PageBackground":
         $pageBackground = trim($lineValue);
@@ -590,13 +600,19 @@ for($i=0; $i<count($zones); ++$i) {
   fwrite($handler, "];\r\n");
   fwrite($handler, "  }\r\n");
   if($zoneName == "Versions") {
-    $versionsModule = GetModuleOfType("Versions");
-    if($versionsModule != NULL) {
-      $versionZones = explode(";", $versionsModule->Zones);
+    $versionsModule = GetModule("Versions");
+    $isNewModule = true;
+    if($versionsModule == null) {
+      $versionsModule = GetModuleOfType("Versions");
+      $isNewModule = false;
+    }
+    if($versionsModule != null) {
+      $separator = $isNewModule ? "," : ";";
+      $versionZones = explode($separator, $versionsModule->Parameters ?? $versionsModule->Zones ?? "");
       fwrite($handler, "  static function GetSerializedZones() {\r\n");
       fwrite($handler, "    \$rv = \"\";\r\n");
       for($j=0; $j<count($versionZones); ++$j) {
-        fwrite($handler, "    \$zone = &GetZone(\"my" . $versionZones[$j] . "\");\r\n");
+        fwrite($handler, "    \$zone = &GetZone(\"" . $versionZones[$j] . "\");\r\n");
         fwrite($handler, "    for(\$i=0; \$i<count(\$zone); ++\$i) {\r\n");
         fwrite($handler, "      if(\$i > 0) \$rv .= \"<v1>\";\r\n");
         fwrite($handler, "      \$rv .= \$zone[\$i]->Serialize();\r\n");
@@ -668,6 +684,41 @@ fwrite($handler, GetCoreGlobals() . "\r\n");
 fwrite($handler, AddReadGamestate() . "\r\n");
 
 fwrite($handler, "}\r\n\r\n");
+
+//Load version function
+$versionsModule = GetModule("Versions");
+if($versionsModule != null) {
+  fwrite($handler, "function LoadVersion(\$playerID, \$versionNum = -1) {\r\n");
+  fwrite($handler, "  \$versions = &GetVersions(\$playerID);\r\n");
+  fwrite($handler, "  if(\$versionNum == -1) \$versionNum = count(\$versions) - 1;\r\n");
+  fwrite($handler, "  if(\$versionNum == -1) return;\r\n//No versions to load\r\n");
+  fwrite($handler, "  \$versionNum = intval(\$versionNum);\r\n");
+  fwrite($handler, "  \$copyFrom = \$versions[\$versionNum];\r\n");
+  fwrite($handler, "  \$zones = explode(\"<v0>\", \$copyFrom->Version);\r\n");
+  $versionZones = explode(",", $versionsModule->Parameters);
+  for($i=0; $i<count($versionZones); ++$i) {
+    fwrite($handler, "  if(count(\$zones) > " . $i . ") {\r\n");
+    fwrite($handler, "    \$data = explode(\"<v1>\", \$zones[" . $i . "]);\r\n");
+    fwrite($handler, "    if(count(\$data) > 0) {\r\n");
+    fwrite($handler, "      \$zone = &GetZone(\"" . $versionZones[$i] . "\");\r\n");
+    fwrite($handler, "      \$zone = [];\r\n");
+    $className = substr($versionZones[$i], 2); // remove "my"
+    fwrite($handler, "      for(\$j=0; \$j<count(\$data); ++\$j) {\r\n");
+    fwrite($handler, "        if(trim(\$data[\$j]) == \"\") continue;\r\n");
+    fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j]));\r\n");
+    fwrite($handler, "      }\r\n");
+    fwrite($handler, "    }\r\n");
+    fwrite($handler, "  }\r\n");
+  }
+  fwrite($handler, "}\r\n\r\n");
+
+  //Save version function
+  fwrite($handler, "function SaveVersion(\$playerID) {\r\n");
+  fwrite($handler, "  \$zones = Versions::GetSerializedZones();\r\n");
+  fwrite($handler, "  AddVersions(\$playerID, \$zones);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+
 fwrite($handler, "?>");
 fclose($handler);
 
@@ -1310,6 +1361,14 @@ function GetModuleOfType($type) {
   for($i=0; $i<count($headerElements); ++$i) {
     $headerElement = $headerElements[$i];
     if($headerElement->Module == $type) return $headerElement;
+  }
+  return null;
+}
+
+function GetModule($type) {
+  global $modules;
+  for($i=0; $i<count($modules); ++$i) {
+    if($modules[$i]->Name == $type) return $modules[$i];
   }
   return null;
 }

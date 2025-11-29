@@ -7,7 +7,7 @@ Header: title=Edit, link=/TCGEngine/NextTurn.php?gameName>$gameName&playerID>1&f
 Header: title=Stats, link=/TCGEngine/SWUDeck/DeckStats.php?gameName>$gameName
 Header: title=Print, link=/TCGEngine/SWUDeck/CreatePDF.php?gameName>$gameName, target=blank
 Header: title=Visibility, module=AssetVisibility, AssetType=1
-Header: title=Versions, module=Versions, Zones=Leader;Base;MainDeck;Sideboard
+Header: title=Versions, module=Versions, Zones=myLeader;myBase;myMainDeck;mySideboard
 PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
 AssetReflection: SWUDeck
 Initialization: Initialize.php

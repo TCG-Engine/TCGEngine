@@ -225,11 +225,18 @@ switch($mode) {
           $zone = &GetZone("mySideboard");
           $zone = [];
           for($i=0; $i<count($data); ++$i) {
+            if(trim($data[$i]) == "") continue;
             array_push($zone, new Sideboard($data[$i]));
           }
         }
       }
     }
+    break;
+  case 10004://Undo last action
+    LoadVersion($playerID);
+    break;
+  case 10005://Save snapshot
+    SaveVersion($playerID);
     break;
   case 10014://Manual mode drag and drop
     $inpArr = explode("!", $cardID);

@@ -5,7 +5,7 @@ AssetOwner
 Header: title=Home, icon=./Assets/Images/blueDiamond.png, link=./SharedUI/MainMenu.php
 Header: title=Print, link=/TCGEngine/SoulMastersDB/CreatePDF.php?gameName>$gameName, target=blank
 Header: title=Visibility, module=AssetVisibility, AssetType=1
-Header: title=Versions, module=Versions, Zones=Commander;ReserveDeck;MainDeck
+Header: title=Versions, module=Versions, Zones=myCommander;myReserveDeck;myMainDeck
 PageBackground: /TCGEngine/Assets/Images/soulMastersBackground.jpg
 Initialization: Initialize.php
 ServerInclude: /Custom/DeckValidation.php

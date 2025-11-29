@@ -171,7 +171,10 @@
 
       function Hotkeys(event) {
         //if (event.keyCode === 32) { if(document.getElementById("passConfirm").innerText == "false" || confirm("Do you want to skip arsenal?")) SubmitInput(99, ""); } //Space = pass
-        //if (event.keyCode === 117) SubmitInput(10000, ""); //U = undo
+        if(window.rootPath == './RBSim') {
+          if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
+          if (event.keyCode === 85) SubmitInput(10004, ""); //U = Undo
+        }
         //if (event.keyCode === 104) SubmitInput(3, "&cardID=0"); //H = hero ability
         //if (event.keyCode === 109) TogglePopup("menuPopup"); //M = open menu
         //TODO: Add schema file to define hotkeys
