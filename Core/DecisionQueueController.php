@@ -65,6 +65,13 @@ class DecisionQueueController {
                     $handlerName = array_shift($parts);
                     $customDQHandlers[$handlerName]($player, $parts, $lastDecision);
                     break;
+                case "SYSTEM":
+                    if($lastDecision == "PASS") break;
+                    global $systemDQHandlers;
+                    $parts = explode("|", $decision->Param);
+                    $handlerName = array_shift($parts);
+                    $systemDQHandlers[$handlerName]($player, $parts, $lastDecision);
+                    break;
                 default:
                     // Not static, return
                     $numChoices = 0;

@@ -31,6 +31,7 @@ $pageBackground = "";
 $numRows = 0;
 $hasDecisionQueue = false;
 $modules = [];
+$macros = [];
 $hasFlashMessage = false;
 
 $zoneObj = null;
@@ -132,6 +133,17 @@ while(!feof($handler)) {
         $module->Name = trim($moduleArr[0]);
         $module->Parameters = isset($moduleArr[1]) ? trim($moduleArr[1]) : "";
         array_push($modules, $module);
+        break;
+      case "Macro":
+        $macro = new StdClass();
+        $macroArr = explode(",", $lineValue);
+        for($i=0; $i<count($macroArr); ++$i) {
+          $macroArr[$i] = trim($macroArr[$i]);
+          $parameterArr = explode("=", $macroArr[$i]);
+          $varName = ucwords($parameterArr[0]);
+          $macro->$varName = $parameterArr[1];
+        }
+        array_push($macros, $macro);
         break;
       case "PageBackground":
         $pageBackground = trim($lineValue);
@@ -542,6 +554,64 @@ for($i=0; $i<count($zones); ++$i) {
 fwrite($handler, "    default: break;\r\n");
 fwrite($handler, "  }\r\n");
 fwrite($handler, "}\r\n\r\n");
+
+fwrite($handler, "\$systemDQHandlers = [];\r\n");
+//Generate macro functions
+global $macros;
+for($i=0; $i<count($macros); ++$i) {
+  $macro = $macros[$i];
+  // Generate handlers
+  // Choice handler
+  if(isset($macro->Choice) && substr($macro->Choice, 0, 1) == '{') {
+    $choiceSpec = substr($macro->Choice, 1, -1);
+    $parts = explode(':', $choiceSpec);
+    $type = $parts[0];
+    $param = $parts[1];
+    if($type == 'MZCHOOSE') {
+      $paramParts = explode('|', $param);
+      $source = $paramParts[0];
+      $tooltip = isset($paramParts[1]) ? $paramParts[1] : "Choose a card";
+      fwrite($handler, "\$systemDQHandlers[\"" . $macro->Name . "_Choice\"] = function(\$player, \$param, \$lastResult) {\r\n");
+      fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
+      fwrite($handler, "  \$dqController->AddDecision(\$player, \"MZCHOOSE\", \"" . $source . "\", 1, \"" . $tooltip . "\");\r\n");
+      fwrite($handler, "  \$dqController->AddDecision(\$player, \"SYSTEM\", \"" . $macro->Name . "_AfterChoice\", 1);\r\n");
+      fwrite($handler, "};\r\n\r\n");
+    }
+  }
+  // AfterChoice handler
+  fwrite($handler, "\$systemDQHandlers[\"" . $macro->Name . "_AfterChoice\"] = function(\$player, \$param, \$lastResult) {\r\n");
+  if(isset($macro->AfterChoice)) {
+    fwrite($handler, "  " . $macro->AfterChoice . "(\$player, \$lastResult);\r\n");
+  }
+  fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
+  fwrite($handler, "  \$dqController->AddDecision(\$player, \"SYSTEM\", \"" . $macro->Name . "_Action\", 1);\r\n");
+  fwrite($handler, "};\r\n\r\n");
+  // Action handler
+  if(isset($macro->Action) && substr($macro->Action, 0, 1) == '{') {
+    $actionSpec = substr($macro->Action, 1, -1);
+    $parts = explode(':', $actionSpec);
+    $type = $parts[0];
+    $param = $parts[1];
+    if($type == 'MZMOVE') {
+      fwrite($handler, "\$systemDQHandlers[\"" . $macro->Name . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
+      fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
+      fwrite($handler, "  \$dqController->AddDecision(\$player, \"MZMOVE\", \"" . $param . "\", 1);\r\n");
+      fwrite($handler, "  \$dqController->AddDecision(\$player, \"SYSTEM\", \"" . $macro->Name . "_AfterAction\", 1);\r\n");
+      fwrite($handler, "};\r\n\r\n");
+    }
+  }
+  // AfterAction handler
+  fwrite($handler, "\$systemDQHandlers[\"" . $macro->Name . "_AfterAction\"] = function(\$player, \$param, \$lastResult) {\r\n");
+  if(isset($macro->AfterAction)) {
+    fwrite($handler, "  " . $macro->AfterAction . "(\$player, \$lastResult);\r\n");
+  }
+  fwrite($handler, "};\r\n\r\n");
+  // Main macro function
+  fwrite($handler, "function " . $macro->Name . "(\$player) {\r\n");
+  fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
+  fwrite($handler, "  \$dqController->AddDecision(\$player, \"SYSTEM\", \"" . $macro->Name . "_Choice\", 1);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
 
 fwrite($handler, "?>");
 fclose($handler);
