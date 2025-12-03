@@ -48,6 +48,9 @@ class DecisionQueueController {
         $playerQueue = &GetDecisionQueue($player);
         while($decision = $this->NextDecision($player)) {
             switch($decision->Type) {
+                case "PASSPARAMETER":
+                    $lastDecision = $decision->Param;
+                    break;
                 case "MZMOVE":
                     if($lastDecision == "PASS") break;
                     $resolvedParam = str_replace("{<-}", $lastDecision, $decision->Param);
