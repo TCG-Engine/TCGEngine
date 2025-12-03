@@ -1291,7 +1291,7 @@ function ShowYesNoDecisionPopup(decision, onSubmit) {
   prompt.style.fontSize = '20px';
   prompt.style.color = '#fff';
   prompt.style.marginBottom = '24px';
-  prompt.textContent = decision.Param && decision.Param !== '-' ? decision.Param : 'Please choose Yes or No:';
+  prompt.textContent = decision.Tooltip && decision.Tooltip !== '-' ? decision.Tooltip.replace(/_/g, ' ') : 'Please choose Yes or No:';
   modal.appendChild(prompt);
 
   let yesBtn = document.createElement('button');
