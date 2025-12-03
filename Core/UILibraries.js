@@ -1361,7 +1361,7 @@ function CheckAndShowDecisionQueue(decisionQueue) {
     let entry = decisionQueue[i];
     if (entry && entry.Type === 'YESNO' && !entry.removed) {
       ShowYesNoDecisionPopup(entry, function(result) {
-        SubmitInput('DECISION', '&decisionIndex=' + i + '&result=' + result);
+        SubmitInput('DECISION', '&decisionIndex=' + i + '&cardID=' + result);
       });
       break;
     } else if (entry && entry.Type === 'MZCHOOSE' && !entry.removed) {

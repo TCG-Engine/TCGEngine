@@ -74,17 +74,20 @@ class DecisionQueueController {
                     break;
                 default:
                     // Not static, return
-                    $numChoices = 0;
-                    $zones = $this->MZZoneArray($decision->Param);
-                    foreach($zones as $zoneName) {
-                        $numChoices+=MZZoneCount($zoneName);
+                    if($decision->Type == "MZCHOOSE") { //We need to validate every decision type separately
+                        $numChoices = 0;
+                        $zones = $this->MZZoneArray($decision->Param);
+                        foreach($zones as $zoneName) {
+                            $numChoices+=MZZoneCount($zoneName);
+                        }
+                        if($numChoices === 0) {
+                            // No valid choices, auto-PASS
+                            $this->PopDecision($player);
+                            $lastDecision = "PASS";
+                            break;
+                        } else return;
                     }
-                    if($numChoices === 0) {
-                        // No valid choices, auto-PASS
-                        $this->PopDecision($player);
-                        $lastDecision = "PASS";
-                        break;
-                    } else return;
+                    return;
             }
             $this->PopDecision($player);
         }
