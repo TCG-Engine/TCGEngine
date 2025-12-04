@@ -582,9 +582,8 @@ for($i=0; $i<count($macros); ++$i) {
       $source = $paramParts[0];
       $tooltip = isset($paramParts[1]) ? $paramParts[1] : "Choose a card";
       fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Choice\"] = function(\$player, \$param, \$lastResult) {\r\n");
-      fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
-      fwrite($handler, "  \$dqController->AddDecision(\$player, \"MZCHOOSE\", \"" . $source . "\", 1, \"" . $tooltip . "\");\r\n");
-      fwrite($handler, "  \$dqController->AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterChoice\", 1);\r\n");
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZCHOOSE\", \"" . $source . "\", 1, \"" . $tooltip . "\");\r\n");
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterChoice\", 99);\r\n");
       fwrite($handler, "};\r\n\r\n");
     }
   }
@@ -592,9 +591,8 @@ for($i=0; $i<count($macros); ++$i) {
   fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterChoice\"] = function(\$player, \$param, \$lastResult) {\r\n");
   if(isset($macro->AfterChoice)) {
     fwrite($handler, "  " . $macro->AfterChoice . "(\$player, \$lastResult);\r\n");
-  }
-  fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
-  fwrite($handler, "  \$dqController->AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Action\", 1);\r\n");
+          }
+  fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Action\", 99);\r\n");
   fwrite($handler, "};\r\n\r\n");
   // Action handler
   if(isset($macro->Action) && substr($macro->Action, 0, 1) == '{') {
@@ -604,9 +602,8 @@ for($i=0; $i<count($macros); ++$i) {
     $param = $parts[1];
     if($type == 'MZMOVE') {
       fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
-      fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
-      fwrite($handler, "  \$dqController->AddDecision(\$player, \"MZMOVE\", \"" . $param . "\", 1);\r\n");
-      fwrite($handler, "  \$dqController->AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 1);\r\n");
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZMOVE\", \"" . $param . "\", 1);\r\n");
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
       fwrite($handler, "};\r\n\r\n");
     }
   }
@@ -622,7 +619,6 @@ for($i=0; $i<count($macros); ++$i) {
     $paramList .= ', $' . implode(', $', $macro->Parameters);
   }
   fwrite($handler, "function " . $macro->FunctionName . "($paramList) {\r\n");
-  fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
   if(isset($macro->ChoiceFunction)) {
     $choiceParts = explode('|', $macro->ChoiceFunction);
     $cfName = $choiceParts[0];
@@ -632,10 +628,10 @@ for($i=0; $i<count($macros); ++$i) {
       $cfArgs = '$player';
     }
     fwrite($handler, "  \$result = " . $cfName . "(" . $cfArgs . ");\r\n");
-    fwrite($handler, "  \$dqController->AddDecision(\$player, \"PASSPARAMETER\", \"\$result\", 1);\r\n");
-    fwrite($handler, "  \$dqController->AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterChoice\", 1);\r\n");
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"PASSPARAMETER\", \"\$result\", 1);\r\n");
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterChoice\", 99);\r\n");
   } else {
-    fwrite($handler, "  \$dqController->AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice\", 1);\r\n");
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice\", 99);\r\n");
   }
   fwrite($handler, "}\r\n\r\n");
 }

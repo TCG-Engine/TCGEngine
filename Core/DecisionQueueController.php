@@ -98,10 +98,26 @@ class DecisionQueueController {
     }
 
     // Add a decision to a player's queue
-    public function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '') {
+    public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '') {
         $tooltip = str_replace(' ', '_', $tooltip);
         $playerQueue = &GetDecisionQueue($player);
         $playerQueue[] = new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip);
+        /*
+        $insertIndex = 0;
+        for($i = 0; $i < count($playerQueue); $i++){
+            if($playerQueue[$i]->Block > $block){
+                break;
+            }
+            $insertIndex = $i + 1;
+        }
+        
+        // Do the splice and IMMEDIATELY use the reference again
+        array_splice($playerQueue, $insertIndex, 0, [new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip)]);
+        
+        // Force the reference to "refresh" by reassigning to itself
+        $temp = $playerQueue;
+        $playerQueue = $temp;
+        */
     }
 
     private function MZZoneArray($zoneStr) {
