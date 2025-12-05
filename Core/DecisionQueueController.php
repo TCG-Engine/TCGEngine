@@ -5,6 +5,7 @@
 
 class DecisionQueueController {
     private $numPlayers = 2;
+    private static $debugMode = false;
 
     public function __construct() {
 
@@ -46,6 +47,7 @@ class DecisionQueueController {
 
     function ExecuteStaticMethods($player, $lastDecision = null) {
         while($decision = $this->NextDecision($player)) {
+            if(self::$debugMode) echo("Processing decision for player " . $player . ": " . $decision->Type . " " . $decision->Param . "<BR>");
             $this->PopDecision($player);
             switch($decision->Type) {
                 case "PASSPARAMETER":
@@ -92,6 +94,7 @@ class DecisionQueueController {
                     // Put it back at the front
                     $playerQueue = &GetDecisionQueue($player);
                     array_unshift($playerQueue, $decision);
+                    if(self::$debugMode) echo("Re-adding decision to player " . $player . " queue: " . $decision->Type . " " . $decision->Param . "<BR>");
                     return;
             }
         }
@@ -109,6 +112,7 @@ class DecisionQueueController {
             }
             $insertIndex = $i + 1;
         }
+        if(self::$debugMode) echo("Adding decision to player " . $player . " queue: " . $type . " " . $param . " Block: " . $block . " at index " . $insertIndex . "<BR>");
         array_splice($playerQueue, $insertIndex, 0, [new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip)]);
     }
 
