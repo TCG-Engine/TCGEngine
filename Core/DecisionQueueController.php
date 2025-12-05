@@ -45,8 +45,8 @@ class DecisionQueueController {
     }
 
     function ExecuteStaticMethods($player, $lastDecision = null) {
-        $playerQueue = &GetDecisionQueue($player);
         while($decision = $this->NextDecision($player)) {
+            $this->PopDecision($player);
             switch($decision->Type) {
                 case "PASSPARAMETER":
                     $lastDecision = $decision->Param;
@@ -85,14 +85,15 @@ class DecisionQueueController {
                         }
                         if($numChoices === 0) {
                             // No valid choices, auto-PASS
-                            $this->PopDecision($player);
                             $lastDecision = "PASS";
                             break;
-                        } else return;
+                        }
                     }
+                    // Put it back at the front
+                    $playerQueue = &GetDecisionQueue($player);
+                    array_unshift($playerQueue, $decision);
                     return;
             }
-            $this->PopDecision($player);
         }
         AutoAdvance();
     }
@@ -101,8 +102,6 @@ class DecisionQueueController {
     public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '') {
         $tooltip = str_replace(' ', '_', $tooltip);
         $playerQueue = &GetDecisionQueue($player);
-        $playerQueue[] = new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip);
-        /*
         $insertIndex = 0;
         for($i = 0; $i < count($playerQueue); $i++){
             if($playerQueue[$i]->Block > $block){
@@ -110,14 +109,7 @@ class DecisionQueueController {
             }
             $insertIndex = $i + 1;
         }
-        
-        // Do the splice and IMMEDIATELY use the reference again
         array_splice($playerQueue, $insertIndex, 0, [new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip)]);
-        
-        // Force the reference to "refresh" by reassigning to itself
-        $temp = $playerQueue;
-        $playerQueue = $temp;
-        */
     }
 
     private function MZZoneArray($zoneStr) {
