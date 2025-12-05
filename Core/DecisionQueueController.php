@@ -5,7 +5,7 @@
 
 class DecisionQueueController {
     private $numPlayers = 2;
-    private static $debugMode = false;
+    private static $debugMode = true;
 
     public function __construct() {
 
@@ -47,7 +47,7 @@ class DecisionQueueController {
 
     function ExecuteStaticMethods($player, $lastDecision = null) {
         while($decision = $this->NextDecision($player)) {
-            if(self::$debugMode) echo("Processing decision for player " . $player . ": " . $decision->Type . " " . $decision->Param . "<BR>");
+            if(self::$debugMode) echo("Processing decision for player " . $player . ": " . $decision->Type . " " . $decision->Param . " Last decision: " . $lastDecision . "<BR>");
             $this->PopDecision($player);
             switch($decision->Type) {
                 case "PASSPARAMETER":
