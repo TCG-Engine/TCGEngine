@@ -628,8 +628,8 @@ for($i=0; $i<count($macros); ++$i) {
       $cfArgs = '$player';
     }
     fwrite($handler, "  \$result = " . $cfName . "(" . $cfArgs . ");\r\n");
-    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"PASSPARAMETER\", \"\$result\", 1);\r\n");
-    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterChoice\", 99);\r\n");
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"PASSPARAMETER\", \"\$result\", 99);\r\n");
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Action\", 99);\r\n");
   } else {
     fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice\", 99);\r\n");
   }
