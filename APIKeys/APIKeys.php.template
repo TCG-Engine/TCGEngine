@@ -22,3 +22,5 @@ $petranakiAPIKey = "";
 $karabastAPIKey = "";
 
 $isProduction = false;
+
+const OPENAI_API_KEY = "";
