@@ -105,6 +105,7 @@ while($hasMoreData) {
       }
     } else if($rootName == "RBDeck") {
       $cardID = $card->id;
+      $cardID = explode("/", $cardID)[0];
     }
     $card->id = $cardID;
     $cardArray[] = $card;
