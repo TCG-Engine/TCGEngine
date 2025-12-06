@@ -1,5 +1,9 @@
 <?php
 
+// Increase max execution time to 1 hour (3600 seconds)
+set_time_limit(3600);
+
+
 include_once "../Core/LLMAPI.php";
 
 $cardJsonFile = "RB.json";
@@ -29,6 +33,45 @@ function getKeywordsInText($text, $keywords) {
         }
     }
     return $foundKeywords;
+}
+
+// Function to parse AI result into structured data
+function parseKeywordResult($aiResult) {
+    $keywords = [];
+    
+    // Split by lines
+    $lines = explode("\n", trim($aiResult));
+    
+    foreach ($lines as $line) {
+        $line = trim($line);
+        
+        // Skip empty lines or lines that say "N/A" (no keywords)
+        if (empty($line) || strtoupper($line) === 'N/A') {
+            continue;
+        }
+        
+        // Expected format: [Keyword]: [Value or 'N/A']: [self/others]
+        $parts = explode(':', $line);
+        
+        if (count($parts) >= 3) {
+            $keyword = trim($parts[0]);
+            $value = trim($parts[1]);
+            $applicability = trim($parts[2]);
+            
+            // Normalize value - if it says "N/A", set to null
+            if (strtoupper($value) === 'N/A') {
+                $value = null;
+            }
+            
+            $keywords[] = [
+                'keyword' => $keyword,
+                'value' => $value,
+                'applicability' => $applicability
+            ];
+        }
+    }
+    
+    return $keywords;
 }
 
 // Function to process a single card
@@ -69,11 +112,14 @@ CARD TEXT:
 
 OUTPUT:";
     
-    $result = OpenAICall($prompt, $model="gpt-4o-mini");
+    //$result = OpenAICall($prompt, $model="gpt-4o-mini");
     //$result = OpenAICall($prompt, $model="gpt-5-nano");
     //$result = OpenAICall($prompt, $model="gpt-5-mini");
-    //$result = OpenAICall($prompt, $model="gpt-4.1");
+    $result = OpenAICall($prompt, $model="gpt-4.1");
     echo "Result: <BR>$result<BR>";
+    
+    // Parse the result
+    $parsedKeywords = parseKeywordResult($result);
     
     // Flush output buffer to show progress in real-time
     if (ob_get_level() > 0) {
@@ -81,12 +127,17 @@ OUTPUT:";
     }
     flush();
     
-    return $result;
+    return [
+        'cardId' => $cardId,
+        'cardName' => $cardName,
+        'keywords' => $parsedKeywords
+    ];
 }
 
 // Process each card
 $processedCount = 0;
 $skippedCount = 0;
+$keywordData = []; // Array to store all card keyword data
 
 echo "<h2>Processing Cards from $cardJsonFile</h2>";
 
@@ -98,9 +149,16 @@ foreach ($cardsData['data'] as $card) {
     
     // Only process if the card contains at least one keyword
     if (!empty($cardKeywords)) {
-        processCard($card, $keywords);
+        $cardData = processCard($card, $keywords);
+        
+        // Add to our results array
+        $keywordData[$cardData['cardId']] = [
+            'name' => $cardData['cardName'],
+            'keywords' => $cardData['keywords']
+        ];
+        
         $processedCount++;
-        if($processedCount == 10) break;
+        //if($processedCount == 10) break;
         
         // Optional: Add a small delay to avoid rate limiting
         // usleep(100000); // 0.1 second delay
@@ -113,5 +171,14 @@ echo "<BR><BR>========================================<BR>";
 echo "<strong>Summary:</strong><BR>";
 echo "Processed: $processedCount cards<BR>";
 echo "Skipped: $skippedCount cards (no keywords found)<BR>";
+
+// Generate and save JSON output
+$jsonOutput = json_encode($keywordData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+$outputFile = "RB_Keywords.json";
+file_put_contents($outputFile, $jsonOutput);
+
+echo "<BR><BR><strong>JSON output saved to: $outputFile</strong><BR>";
+echo "<BR><strong>Preview of JSON structure:</strong><BR>";
+echo "<pre>" . htmlspecialchars($jsonOutput) . "</pre>";
 
 ?>

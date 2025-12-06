@@ -1,0 +1,3449 @@
+{
+    "OGN-179": {
+        "name": "Acceptable Losses",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-001": {
+        "name": "Against the Odds",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-117": {
+        "name": "Ancient Henge",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-131": {
+        "name": "Ancient Warmonger",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Assault",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-011": {
+        "name": "Angle Shot",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-200": {
+        "name": "Arcane Shift",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-002": {
+        "name": "Armed Assailant",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-107": {
+        "name": "Ava Achiever",
+        "keywords": []
+    },
+    "SFD-050": {
+        "name": "Azir - Ascendant",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-050A": {
+        "name": "Azir - Ascendant",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-177": {
+        "name": "Azir - Sovereign",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-177A": {
+        "name": "Azir - Sovereign",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-206": {
+        "name": "Back to Back",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-080": {
+        "name": "Bellows Breath",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-125": {
+        "name": "Bilgewater Bully",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-012": {
+        "name": "Blast of Power",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-097": {
+        "name": "Blastcone Fae",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-001": {
+        "name": "Blazing Scorcher",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-001-P": {
+        "name": "Blazing Scorcher",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-025": {
+        "name": "Blind Fury",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-067": {
+        "name": "Blitzcrank - Impassive",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-067-p": {
+        "name": "Blitzcrank, Impassive",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-057": {
+        "name": "Block",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Shield",
+                "value": "3",
+                "applicability": "others"
+            },
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-162": {
+        "name": "Blood Money",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-003": {
+        "name": "Blood Rush",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Assault",
+                "value": "2",
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-151": {
+        "name": "Bonds of Strength",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-071": {
+        "name": "Breakneck Mech",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "others"
+            },
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-268": {
+        "name": "Bullet Time",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-004": {
+        "name": "Bushwhack",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-207": {
+        "name": "Call to Glory",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-122": {
+        "name": "Called Shot",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-127": {
+        "name": "Cannon Barrage",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-015": {
+        "name": "Captain Farron",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-128": {
+        "name": "Challenge",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-128-P": {
+        "name": "Challenge",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-003": {
+        "name": "Chemtech Enforcer",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-004": {
+        "name": "Cleave",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "3",
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-064": {
+        "name": "Cloth Armor",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-231": {
+        "name": "Commander Ledros",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-129": {
+        "name": "Confront",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-083": {
+        "name": "Consult the Past",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-083-P": {
+        "name": "Consult the Past",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-108": {
+        "name": "Convergent Mutation",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-179": {
+        "name": "Corina Veraza",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-194": {
+        "name": "Counter Strike",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-182": {
+        "name": "Danger Zone",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-016": {
+        "name": "Dangerous Duo",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-210": {
+        "name": "Daring Poro",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-210-P": {
+        "name": "Daring Poro",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-243": {
+        "name": "Darius - Executioner",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-243a": {
+        "name": "Darius - Executioner",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-236": {
+        "name": "Darius - Executioner",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-236-STAR": {
+        "name": "Darius - Executioner",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-253": {
+        "name": "Darius - Hand of Noxus",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-302": {
+        "name": "Darius - Hand of Noxus",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-302-STAR": {
+        "name": "Darius - Hand of Noxus",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-253-P": {
+        "name": "Darius, Hand of Noxus",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-161": {
+        "name": "Deadbloom Predator",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-163": {
+        "name": "Deathgrip",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-024": {
+        "name": "Decisive Strike",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-196": {
+        "name": "Defiant Dance",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-045": {
+        "name": "Defy",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-058": {
+        "name": "Discipline",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-058-P": {
+        "name": "Discipline",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-005": {
+        "name": "Disintegrate",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-164": {
+        "name": "Drag Under",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-148": {
+        "name": "Draven - Audacious",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-148A": {
+        "name": "Draven - Audacious",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-139": {
+        "name": "Edge of Night",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-110": {
+        "name": "Ekko - Recurrent",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-167": {
+        "name": "Ember Monk",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-043": {
+        "name": "Emperor's Divide",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-046": {
+        "name": "En Garde",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-098": {
+        "name": "Energy Conduit",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-082": {
+        "name": "Ezreal - Dashing",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-082A": {
+        "name": "Ezreal - Dashing",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-199": {
+        "name": "Ezreal - Prodigal Explorer",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-248": {
+        "name": "Ezreal - Prodigal Explorer",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-220": {
+        "name": "Facebreaker",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-135": {
+        "name": "Factory Recall",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-180": {
+        "name": "Fading Memories",
+        "keywords": [
+            {
+                "keyword": "Temporary",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-085": {
+        "name": "Falling Comet",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-034": {
+        "name": "Feral Strength",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-021": {
+        "name": "Ferrous Forerunner",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-168": {
+        "name": "Fight or Flight",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-022": {
+        "name": "Final Spark",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-047": {
+        "name": "Find Your Center",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-232": {
+        "name": "Fiora - Victorious",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Shield",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-011": {
+        "name": "Flash",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-133": {
+        "name": "Flurry of Blades",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-065": {
+        "name": "Forecaster",
+        "keywords": [
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-279": {
+        "name": "Fortified Position",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "2",
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-279\/298": {
+        "name": "Fortified Position (Oversized)",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "2",
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-256": {
+        "name": "Fox-Fire",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-066": {
+        "name": "Frigid Touch",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-007": {
+        "name": "Garen - Rugged",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "2",
+                "applicability": "self"
+            },
+            {
+                "keyword": "Shield",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-068": {
+        "name": "Gearhead",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-007": {
+        "name": "Gem Jammer",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-100": {
+        "name": "Gemcraft Seer",
+        "keywords": [
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGS-008": {
+        "name": "Gentlemen's Duel",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-008": {
+        "name": "Get Excited!",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-165": {
+        "name": "Glasc Mixologist",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD": {
+        "name": "Gold",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-T03": {
+        "name": "Gold",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-154": {
+        "name": "Guards!",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-264": {
+        "name": "Guerilla Warfare",
+        "keywords": []
+    },
+    "OGN-169": {
+        "name": "Gust",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-136": {
+        "name": "Hard Bargain",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-111": {
+        "name": "Here to Help",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-083": {
+        "name": "Hextech Anomaly",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-009": {
+        "name": "Hextech Ray",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-213": {
+        "name": "Hidden Blade",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-020": {
+        "name": "Highlander",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-155": {
+        "name": "Honest Broker",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-202": {
+        "name": "Hostile Takeover",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-037": {
+        "name": "Immortal Phoenix",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-221": {
+        "name": "Imperial Decree",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-003": {
+        "name": "Incinerate",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-057": {
+        "name": "Irelia - Fervent",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-057A": {
+        "name": "Irelia - Fervent",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-225": {
+        "name": "Irelia - Fervent",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-225-STAR": {
+        "name": "Irelia - Fervent",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-053": {
+        "name": "Janna - Savior",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-103": {
+        "name": "Jaull-Fish",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-054": {
+        "name": "Jax - Unmatched",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-054A": {
+        "name": "Jax - Unmatched",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-086": {
+        "name": "Jeweled Colossus",
+        "keywords": [
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-030": {
+        "name": "Jinx - Demolitionist",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Assault",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-030a": {
+        "name": "Jinx - Demolitionist",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Assault",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-247": {
+        "name": "Kai'Sa - Daughter of the Void",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-299": {
+        "name": "Kai'Sa - Daughter of the Void",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-299-STAR": {
+        "name": "Kai'Sa - Daughter of the Void",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-112": {
+        "name": "Kai'Sa - Evolutionary",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-112a": {
+        "name": "Kai'Sa - Evolutionary",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-039": {
+        "name": "Kai'Sa - Survivor",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-039a": {
+        "name": "Kai'Sa - Survivor",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-247-P": {
+        "name": "Kai'Sa, Daughter of the Void",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-235": {
+        "name": "Karma - Channeler",
+        "keywords": [
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-237": {
+        "name": "Karma - Channeler",
+        "keywords": [
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-237-STAR": {
+        "name": "Karma - Channeler",
+        "keywords": [
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-236": {
+        "name": "Karthus - Eternal",
+        "keywords": []
+    },
+    "SFD-112": {
+        "name": "Kato the Arm",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-189": {
+        "name": "Kayn - Unleashed",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-190": {
+        "name": "Kog'Maw - Caustic",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-150": {
+        "name": "Kraken Hunter",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-260": {
+        "name": "Last Breath",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-069": {
+        "name": "Last Stand",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Temporary",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-096": {
+        "name": "Laurent Bladekeeper",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-156": {
+        "name": "Laurent Duelist",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-087": {
+        "name": "Lecturing Yordle",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-078": {
+        "name": "Lee Sin - Ascetic",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-078-P": {
+        "name": "Lee Sin - Ascetic",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-078a": {
+        "name": "Lee Sin - Ascetic",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-151": {
+        "name": "Lee Sin - Centered",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-151a": {
+        "name": "Lee Sin - Centered",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-010": {
+        "name": "Legion Rearguard",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-238": {
+        "name": "Leona - Determined",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-238a": {
+        "name": "Leona - Determined",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-036": {
+        "name": "Lonely Poro",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-022": {
+        "name": "Long Sword",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-028": {
+        "name": "Lucian - Gunslinger",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-028A": {
+        "name": "Lucian - Gunslinger",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-183": {
+        "name": "Lucian - Purifier",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-241": {
+        "name": "Lucian - Purifier",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGS-014": {
+        "name": "Lux - Crownguard",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-239": {
+        "name": "Machine Evangel",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-191": {
+        "name": "Maddened Marauder",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-113": {
+        "name": "Malzahar - Fanatic",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-114": {
+        "name": "Marching Orders",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-009": {
+        "name": "Master Yi - Honed",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-048": {
+        "name": "Meditation",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-267": {
+        "name": "Miss Fortune - Bounty Hunter",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-309": {
+        "name": "Miss Fortune - Bounty Hunter",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-309-STAR": {
+        "name": "Miss Fortune - Bounty Hunter",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-162": {
+        "name": "Miss Fortune - Captain",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-162a": {
+        "name": "Miss Fortune - Captain",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-267-P": {
+        "name": "Miss Fortune, Bounty Hunter",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-170": {
+        "name": "Morbid Return",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-171": {
+        "name": "Mystic Poro",
+        "keywords": [
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-171-P": {
+        "name": "Mystic Poro",
+        "keywords": [
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-080": {
+        "name": "Mystic Reversal",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-037": {
+        "name": "Navori Scout",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-055": {
+        "name": "Needlessly Large Yordle",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "5",
+                "applicability": "self"
+            },
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-194": {
+        "name": "Nocturne - Horrifying",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-045": {
+        "name": "Not So Fast",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-254": {
+        "name": "Noxian Guillotine",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-012": {
+        "name": "Noxus Hopeful",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-018": {
+        "name": "Noxus Saboteur",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-189": {
+        "name": "Ornn - Fire Below the Mountain",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-244": {
+        "name": "Ornn - Fire Below the Mountain",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-085": {
+        "name": "Ornn - Forge God",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-085A": {
+        "name": "Ornn - Forge God",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-153": {
+        "name": "Overt Operation",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-135": {
+        "name": "Pakaa Cub",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-135-P": {
+        "name": "Pakaa Cub",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-104": {
+        "name": "Petricite Monument",
+        "keywords": [
+            {
+                "keyword": "Temporary",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-215": {
+        "name": "Petty Officer",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-102": {
+        "name": "Portal Rescue",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-203": {
+        "name": "Possession",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-013": {
+        "name": "Pouty Poro",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-013-P": {
+        "name": "Pouty Poro",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-087": {
+        "name": "Premonition",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-154": {
+        "name": "Primal Strength",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-097": {
+        "name": "Punch First",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-155": {
+        "name": "Qiyana - Victorious",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-019": {
+        "name": "Raging Soul",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-166": {
+        "name": "Rally the Troops",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-172": {
+        "name": "Rebuke",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-015": {
+        "name": "Recruit the Vanguard",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-029": {
+        "name": "Rek'Sai - Breacher",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "self"
+            },
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-029A": {
+        "name": "Rek'Sai - Breacher",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "self"
+            },
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-184": {
+        "name": "Relentless Pursuit",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-024": {
+        "name": "Rell - Magnetic",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-025": {
+        "name": "Rengar - Pouncing",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Assault",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-104": {
+        "name": "Retreat",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-173": {
+        "name": "Ride the Wind",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-206": {
+        "name": "Riposte",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-026": {
+        "name": "Rumble - Hotheaded",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-026A": {
+        "name": "Rumble - Hotheaded",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "1",
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-181": {
+        "name": "Rumble - Mechanized Menace",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-240": {
+        "name": "Rumble - Mechanized Menace",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-050": {
+        "name": "Rune Prison",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-174": {
+        "name": "Sai Scout",
+        "keywords": [
+            {
+                "keyword": "Vision",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-224": {
+        "name": "Salvage",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-020": {
+        "name": "Scrapyard Champion",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-204": {
+        "name": "Seal of Discord",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-234": {
+        "name": "Seal of Discord",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-081": {
+        "name": "Seal of Focus",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-226": {
+        "name": "Seal of Focus",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-120": {
+        "name": "Seal of Insight",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-229": {
+        "name": "Seal of Insight",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-040": {
+        "name": "Seal of Rage",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-222": {
+        "name": "Seal of Rage",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-163": {
+        "name": "Seal of Strength",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-231": {
+        "name": "Seal of Strength",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-238": {
+        "name": "Seal of Unity",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-240": {
+        "name": "Sett - Kingpin",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-240a": {
+        "name": "Sett - Kingpin",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-033": {
+        "name": "Shakedown",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-241": {
+        "name": "Shen - Kinkou",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Shield",
+                "value": "2",
+                "applicability": "self"
+            },
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-106": {
+        "name": "Show of Strength",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-266": {
+        "name": "Siphon Power",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-120": {
+        "name": "Sivir - Ambitious",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-120A": {
+        "name": "Sivir - Ambitious",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-143": {
+        "name": "Sivir - Mercenary",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-143A": {
+        "name": "Sivir - Mercenary",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-014": {
+        "name": "Sky Splitter",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-093": {
+        "name": "Smoke Screen",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-216": {
+        "name": "Soaring Scout",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-186": {
+        "name": "Spinning Axe",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Temporary",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-063": {
+        "name": "Spirit's Refuge",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-144": {
+        "name": "Spoils of War",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-274": {
+        "name": "Sprite",
+        "keywords": [
+            {
+                "keyword": "Temporary",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-094": {
+        "name": "Sprite Call",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Temporary",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-106": {
+        "name": "Sprite Mother",
+        "keywords": [
+            {
+                "keyword": "Temporary",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-183": {
+        "name": "Stacked Deck",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-183-P": {
+        "name": "Stacked Deck",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-052": {
+        "name": "Stalwart Poro",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-052-P": {
+        "name": "Stalwart Poro",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-053": {
+        "name": "Stand United",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-056": {
+        "name": "Sterak's Gage",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-137": {
+        "name": "Stormclaw Ursine",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-137-P": {
+        "name": "Stormclaw Ursine",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-095": {
+        "name": "Stupefy",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-017": {
+        "name": "Sudden Storm",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-021": {
+        "name": "Sun Disc",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-054": {
+        "name": "Sunlit Guardian",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            },
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-145": {
+        "name": "Switcheroo",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-074": {
+        "name": "Taric - Protector",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            },
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Shield",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "OGN-075": {
+        "name": "Tasty Faefolk",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-197": {
+        "name": "Teemo - Scout",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-197-p": {
+        "name": "Teemo - Scout",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-197a": {
+        "name": "Teemo - Scout",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-197b": {
+        "name": "Teemo - Scout",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-121": {
+        "name": "Teemo - Strategist",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-121a": {
+        "name": "Teemo - Strategist",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-230": {
+        "name": "Teemo - Strategist",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-230-STAR": {
+        "name": "Teemo - Strategist",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-263": {
+        "name": "Teemo - Swift Scout",
+        "keywords": []
+    },
+    "OGN-263-a": {
+        "name": "Teemo - Swift Scout",
+        "keywords": []
+    },
+    "OGN-263-P": {
+        "name": "Teemo - Swift Scout",
+        "keywords": []
+    },
+    "OGN-307": {
+        "name": "Teemo - Swift Scout",
+        "keywords": []
+    },
+    "OGN-307-STAR": {
+        "name": "Teemo - Swift Scout",
+        "keywords": []
+    },
+    "OGN-022": {
+        "name": "Thermo Beam",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-116": {
+        "name": "Thousand-Tailed Watcher",
+        "keywords": [
+            {
+                "keyword": "Accelerate",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-040": {
+        "name": "Thwonk!",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-060": {
+        "name": "Tianna Crownguard",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-199": {
+        "name": "Tideturner",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-217": {
+        "name": "Trifarian Gloryseeker",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-157": {
+        "name": "Udyr - Wildman",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-178": {
+        "name": "Undercover Agent",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-167": {
+        "name": "Unsung Hero",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-145": {
+        "name": "Unyielding Spirit",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-218": {
+        "name": "Vanguard Captain",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-218-P": {
+        "name": "Vanguard Captain",
+        "keywords": [
+            {
+                "keyword": "Legion",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-035": {
+        "name": "Vayne - Hunter",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "3",
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-223": {
+        "name": "Vayne - Hunter",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "3",
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-223-STAR": {
+        "name": "Vayne - Hunter",
+        "keywords": [
+            {
+                "keyword": "Assault",
+                "value": "3",
+                "applicability": "self"
+            }
+        ]
+    },
+    "ARC-001": {
+        "name": "Vi - Destructive",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-036": {
+        "name": "Vi - Destructive",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-024": {
+        "name": "Void Seeker",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-024-P": {
+        "name": "Void Seeker",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-041": {
+        "name": "Volibear - Furious",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-041a": {
+        "name": "Volibear - Furious",
+        "keywords": [
+            {
+                "keyword": "Deflect",
+                "value": "2",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-158": {
+        "name": "Volibear - Imposing",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "3",
+                "applicability": "self"
+            },
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-158a": {
+        "name": "Volibear - Imposing",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "3",
+                "applicability": "self"
+            },
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-070": {
+        "name": "Wages of Pain",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            },
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-146": {
+        "name": "Wallop",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-096": {
+        "name": "Watchful Sentry",
+        "keywords": [
+            {
+                "keyword": "Deathknell",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-064": {
+        "name": "Wind Wall",
+        "keywords": [
+            {
+                "keyword": "Reaction",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-138": {
+        "name": "Windsinger",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-297": {
+        "name": "Windswept Hillock",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "others"
+            }
+        ]
+    },
+    "SFD-176": {
+        "name": "Xin Zhao - Vigilant",
+        "keywords": [
+            {
+                "keyword": "Tank",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-205": {
+        "name": "Yasuo - Windrider",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-205a": {
+        "name": "Yasuo - Windrider",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-235": {
+        "name": "Yasuo - Windrider",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "SFD-235-STAR": {
+        "name": "Yasuo - Windrider",
+        "keywords": [
+            {
+                "keyword": "Ganking",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-262": {
+        "name": "Zenith Blade",
+        "keywords": [
+            {
+                "keyword": "Action",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGS-005": {
+        "name": "Zephyr Sage",
+        "keywords": [
+            {
+                "keyword": "Shield",
+                "value": "1",
+                "applicability": "self"
+            }
+        ]
+    },
+    "OGN-077": {
+        "name": "Zhonya's Hourglass",
+        "keywords": [
+            {
+                "keyword": "Hidden",
+                "value": null,
+                "applicability": "self"
+            }
+        ]
+    }
+}
