@@ -242,7 +242,7 @@ foreach($keywordTypes as $keywordName => $type) {
   if($type === 'boolean') {
     fwrite($handler, "  return isset(\$" . $keywordName . "Data[\$cardID]) ? \$" . $keywordName . "Data[\$cardID] : false;\r\n");
   } else {
-    fwrite($handler, "  return isset(\$" . $keywordName . "Data[\$cardID]) ? \$" . $keywordName . "Data[\$cardID] : null;\r\n");
+    fwrite($handler, "  return isset(\$" . $keywordName . "Data[\$cardID]) ? \$" . $keywordName . "Data[\$cardID] : 0;\r\n");
   }
   fwrite($handler, "}\r\n\r\n");
 }
