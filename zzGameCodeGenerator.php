@@ -706,14 +706,38 @@ for($i=0; $i<count($zones); ++$i) {
     if($versionsModule != null) {
       $separator = $isNewModule ? "," : ";";
       $versionZones = explode($separator, $versionsModule->Parameters ?? $versionsModule->Zones ?? "");
+      
+      // Build lookup map for Value mode zones
+      $valueZones = [];
+      for($k=0; $k<count($zones); ++$k) {
+        if($zones[$k]->DisplayMode == 'Value') {
+          $valueZones[$zones[$k]->Name] = true;
+        }
+      }
+      
       fwrite($handler, "  static function GetSerializedZones() {\r\n");
       fwrite($handler, "    \$rv = \"\";\r\n");
       for($j=0; $j<count($versionZones); ++$j) {
-        fwrite($handler, "    \$zone = &GetZone(\"" . $versionZones[$j] . "\");\r\n");
-        fwrite($handler, "    for(\$i=0; \$i<count(\$zone); ++\$i) {\r\n");
-        fwrite($handler, "      if(\$i > 0) \$rv .= \"<v1>\";\r\n");
-        fwrite($handler, "      \$rv .= \$zone[\$i]->Serialize(\"<v2>\");\r\n");
-        fwrite($handler, "    }\r\n");
+        $baseZoneName = $versionZones[$j];
+        // Strip my/their prefix to check zone DisplayMode
+        $checkZoneName = $baseZoneName;
+        if(str_starts_with($checkZoneName, "my")) $checkZoneName = substr($checkZoneName, 2);
+        elseif(str_starts_with($checkZoneName, "their")) $checkZoneName = substr($checkZoneName, 5);
+        
+        $isValueZone = isset($valueZones[$checkZoneName]);
+        
+        if($isValueZone) {
+          // Value zones are single objects, not arrays
+          fwrite($handler, "    global \$g" . $checkZoneName . ";\r\n");
+          fwrite($handler, "    \$rv .= \$g" . $checkZoneName . ";\r\n");
+        } else {
+          // Array zones
+          fwrite($handler, "    \$zone = &GetZone(\"" . $baseZoneName . "\");\r\n");
+          fwrite($handler, "    for(\$i=0; \$i<count(\$zone); ++\$i) {\r\n");
+          fwrite($handler, "      if(\$i > 0) \$rv .= \"<v1>\";\r\n");
+          fwrite($handler, "      \$rv .= \$zone[\$i]->Serialize(\"<v2>\");\r\n");
+          fwrite($handler, "    }\r\n");
+        }
         if($j < count($versionZones) - 1) fwrite($handler, "    \$rv .= \"<v0>\";\r\n");
       }
       fwrite($handler, "    return \$rv;\r\n");
@@ -785,6 +809,14 @@ fwrite($handler, "}\r\n\r\n");
 //Load version function
 $versionsModule = GetModule("Versions");
 if($versionsModule != null) {
+  // Build lookup map for Value mode zones
+  $valueZones = [];
+  for($k=0; $k<count($zones); ++$k) {
+    if($zones[$k]->DisplayMode == 'Value') {
+      $valueZones[$zones[$k]->Name] = true;
+    }
+  }
+  
   fwrite($handler, "function LoadVersion(\$playerID, \$versionNum = -1) {\r\n");
   fwrite($handler, "  \$versions = &GetVersions(\$playerID);\r\n");
   fwrite($handler, "  if(\$versionNum == -1) \$versionNum = count(\$versions) - 1;\r\n");
@@ -794,20 +826,34 @@ if($versionsModule != null) {
   fwrite($handler, "  \$zones = explode(\"<v0>\", \$copyFrom->Version);\r\n");
   $versionZones = explode(",", $versionsModule->Parameters);
   for($i=0; $i<count($versionZones); ++$i) {
-    fwrite($handler, "  if(count(\$zones) > " . $i . ") {\r\n");
-    fwrite($handler, "    \$data = explode(\"<v1>\", \$zones[" . $i . "]);\r\n");
-    fwrite($handler, "    if(count(\$data) > 0) {\r\n");
-    fwrite($handler, "      \$zone = &GetZone(\"" . $versionZones[$i] . "\");\r\n");
-    fwrite($handler, "      \$zone = [];\r\n");
-    $className = $versionZones[$i];
+    $baseZoneName = $versionZones[$i];
+    $className = $baseZoneName;
     if(str_starts_with($className, "my")) $className = substr($className, 2);
     elseif(str_starts_with($className, "their")) $className = substr($className, 5);
-    fwrite($handler, "      for(\$j=0; \$j<count(\$data); ++\$j) {\r\n");
-    fwrite($handler, "        if(trim(\$data[\$j]) == \"\") continue;\r\n");
-    fwrite($handler, "        \$data[\$j] = str_replace(\"<v2>\", \" \", \$data[\$j]);\r\n");
-    fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j]));\r\n");
-    fwrite($handler, "      }\r\n");
-    fwrite($handler, "    }\r\n");
+    
+    $isValueZone = isset($valueZones[$className]);
+    
+    fwrite($handler, "  if(count(\$zones) > " . $i . ") {\r\n");
+    if($isValueZone) {
+      // Value zones are single objects, not arrays
+      fwrite($handler, "    global \$g" . $baseZoneName . ";\r\n");
+      fwrite($handler, "    \$data = str_replace(\"<v2>\", \" \", \$zones[" . $i . "]);\r\n");
+      fwrite($handler, "    if(trim(\$data) != \"\") {\r\n");
+      fwrite($handler, "      \$g" . $baseZoneName . " = \$data;\r\n");
+      fwrite($handler, "    }\r\n");
+    } else {
+      // Array zones
+      fwrite($handler, "    \$data = explode(\"<v1>\", \$zones[" . $i . "]);\r\n");
+      fwrite($handler, "    if(count(\$data) > 0) {\r\n");
+      fwrite($handler, "      \$zone = &GetZone(\"" . $baseZoneName . "\");\r\n");
+      fwrite($handler, "      \$zone = [];\r\n");
+      fwrite($handler, "      for(\$j=0; \$j<count(\$data); ++\$j) {\r\n");
+      fwrite($handler, "        if(trim(\$data[\$j]) == \"\") continue;\r\n");
+      fwrite($handler, "        \$data[\$j] = str_replace(\"<v2>\", \" \", \$data[\$j]);\r\n");
+      fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j]));\r\n");
+      fwrite($handler, "      }\r\n");
+      fwrite($handler, "    }\r\n");
+    }
     fwrite($handler, "  }\r\n");
   }
   fwrite($handler, "}\r\n\r\n");
