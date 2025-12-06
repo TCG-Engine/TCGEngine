@@ -5,3 +5,4 @@ data
 
 
 id,name,effect,cost:number,type,might:number,rarity
+./Data/RB_Keywords.json

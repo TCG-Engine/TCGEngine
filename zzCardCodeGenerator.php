@@ -24,6 +24,7 @@ $cardArrayJson = trim(fgets($handler));
 $paginationUrlParameter = trim(fgets($handler));
 $paginationResponseMetadata = trim(fgets($handler));
 $properties = explode(",", fgets($handler));
+$keywordsFile = trim(fgets($handler));
 $propertyTypes = [];
 fclose($handler);
 
@@ -166,6 +167,58 @@ for ($i = 0; $i < count($cardArray); ++$i) {
   }
 }
 
+// Process keywords file if it exists
+$keywordData = [];
+$keywordTypes = []; // 'boolean' or 'value'
+if(!empty($keywordsFile) && file_exists($keywordsFile)) {
+  echo("Processing keywords from: " . $keywordsFile . "<BR>");
+  $keywordsJson = file_get_contents($keywordsFile);
+  $keywordsData = json_decode($keywordsJson, true);
+  
+  // First pass: identify all unique keywords with applicability="self" and determine their types
+  $keywordValueCheck = []; // Track if any card has a value for each keyword
+  foreach($keywordsData as $cardId => $cardData) {
+    if(!isset($cardData['keywords'])) continue;
+    foreach($cardData['keywords'] as $kw) {
+      if($kw['applicability'] !== 'self') continue;
+      $keywordName = $kw['keyword'];
+      
+      if(!isset($keywordValueCheck[$keywordName])) {
+        $keywordValueCheck[$keywordName] = false;
+      }
+      if($kw['value'] !== null) {
+        $keywordValueCheck[$keywordName] = true;
+      }
+    }
+  }
+  
+  // Determine keyword types
+  foreach($keywordValueCheck as $keywordName => $hasValue) {
+    $keywordTypes[$keywordName] = $hasValue ? 'value' : 'boolean';
+    $keywordData[$keywordName] = [];
+  }
+  
+  // Second pass: populate keyword data arrays
+  foreach($keywordsData as $cardId => $cardData) {
+    if(!isset($cardData['keywords'])) continue;
+    foreach($cardData['keywords'] as $kw) {
+      if($kw['applicability'] !== 'self') continue;
+      $keywordName = $kw['keyword'];
+      
+      if($keywordTypes[$keywordName] === 'boolean') {
+        $keywordData[$keywordName][$cardId] = true;
+      } else {
+        // For value keywords, store the numeric value
+        if($kw['value'] !== null) {
+          $keywordData[$keywordName][$cardId] = intval($kw['value']);
+        }
+      }
+    }
+  }
+  
+  echo("Processed " . count($keywordTypes) . " unique keywords<BR>");
+}
+
 $directory = "./" . $rootName . "/GeneratedCode";
 if(!is_dir($directory)) mkdir($directory, 777, true);
 
@@ -177,6 +230,20 @@ foreach ($properties as $property) {
   fwrite($handler, "function Card" . ucwords($property) . "(\$cardID) {\r\n");
   fwrite($handler, "  global \$" . $property . "Data;\r\n");
   fwrite($handler, "  return isset(\$" . $property . "Data[\$cardID]) ? \$" . $property . "Data[\$cardID] : null;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+
+// Generate keyword functions
+foreach($keywordTypes as $keywordName => $type) {
+  $functionName = $type === 'boolean' ? "CardHas" . $keywordName : "Card" . $keywordName . "Amount";
+  fwrite($handler, "  \$" . $keywordName . "Data = " . var_export($keywordData[$keywordName], true) . ";\r\n");
+  fwrite($handler, "function " . $functionName . "(\$cardID) {\r\n");
+  fwrite($handler, "  global \$" . $keywordName . "Data;\r\n");
+  if($type === 'boolean') {
+    fwrite($handler, "  return isset(\$" . $keywordName . "Data[\$cardID]) ? \$" . $keywordName . "Data[\$cardID] : false;\r\n");
+  } else {
+    fwrite($handler, "  return isset(\$" . $keywordName . "Data[\$cardID]) ? \$" . $keywordName . "Data[\$cardID] : null;\r\n");
+  }
   fwrite($handler, "}\r\n\r\n");
 }
 if($rootName == "SWUDeck") {
