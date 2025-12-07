@@ -456,6 +456,14 @@ for($i=0; $i<count($zones); ++$i) {
       fwrite($handler, "\$" . $property->Name);
       if($j < count($zone->Properties) - 1) fwrite($handler, " . ' ' . ");
     }
+    if (strtolower($scope) == 'player') {
+      fwrite($handler, ", ");
+      if (strtolower($scope) == 'global') {
+        fwrite($handler, "'" . $zoneName . "', 0");
+      } else {
+        fwrite($handler, "'my" . $zoneName . "', \$player");
+      }
+    }
     fwrite($handler, ");\r\n");
     if (strtolower($scope) == 'global') {
       fwrite($handler, "  \$zone = &Get" . $zoneName . "();\r\n");
@@ -651,7 +659,16 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "  public \$" . $property->Name . ";\r\n");
   }
   fwrite($handler, "  public \$removed;\r\n");
-  fwrite($handler, "  function __construct(\$line) {\r\n");
+  $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+  if (strtolower($scope) == 'player') {
+    fwrite($handler, "  public \$Location;\r\n");
+    fwrite($handler, "  public \$PlayerID;\r\n");
+  }
+  if (strtolower($scope) == 'player') {
+    fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0) {\r\n");
+  } else {
+    fwrite($handler, "  function __construct(\$line) {\r\n");
+  }
   fwrite($handler, "    \$arr = explode(\" \", \$line);\r\n");
   for($j=0; $j<count($zone->Properties); ++$j) {
     $property = $zone->Properties[$j];
@@ -661,6 +678,10 @@ for($i=0; $i<count($zones); ++$i) {
     if($propertyType == "int" || $propertyType == "number") fwrite($handler, "(count(\$arr) > " . $j . " ? intval(\$arr[" . $j . "]) : -1);\r\n");
     else if($propertyType == "float") fwrite($handler, "(count(\$arr) > " . $j . " ? floatval(\$arr[" . $j . "]) : -1);\r\n");
     else fwrite($handler, "(count(\$arr) > " . $j . " ? \$arr[" . $j . "] : \"\");\r\n");
+  }
+  if (strtolower($scope) == 'player') {
+    fwrite($handler, "    \$this->Location = \$location;\r\n");
+    fwrite($handler, "    \$this->PlayerID = \$playerID;\r\n");
   }
   fwrite($handler, "  }\r\n");
   //Serialize function
@@ -852,15 +873,16 @@ if($versionsModule != null) {
     if($isValueZone) {
       // Value zones are single objects, not arrays
       fwrite($handler, "    \$data = str_replace(\"<v2>\", \" \", \$zones[" . $i . "]);\r\n");
-      fwrite($handler, "    if(trim(\$data) != \"\") {\r\n");
+      
       if($isGlobalZone) {
-        fwrite($handler, "    global \$g" . $className . ";\r\n");
-        fwrite($handler, "    \$g" . $className . " = \$data;\r\n");
+        fwrite($handler, "  global \$g" . $className . ";\r\n");
+        fwrite($handler, "  \$g" . $className . " = \$data;\r\n");
       } else {
+        fwrite($handler, "    if(trim(\$data) != \"\") {\r\n");
         fwrite($handler, "      \$zone = &GetZone(\"" . $baseZoneName . "\");\r\n");
         fwrite($handler, "      \$zone = \$data;\r\n");
+        fwrite($handler, "    }\r\n");
       }
-      fwrite($handler, "    }\r\n");
     } else {
       // Array zones
       fwrite($handler, "    \$data = explode(\"<v1>\", \$zones[" . $i . "]);\r\n");
@@ -870,7 +892,20 @@ if($versionsModule != null) {
       fwrite($handler, "      for(\$j=0; \$j<count(\$data); ++\$j) {\r\n");
       fwrite($handler, "        if(trim(\$data[\$j]) == \"\") continue;\r\n");
       fwrite($handler, "        \$data[\$j] = str_replace(\"<v2>\", \" \", \$data[\$j]);\r\n");
-      fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j]));\r\n");
+      fwrite($handler, "        \$location = '" . $baseZoneName . "';\r\n");
+      fwrite($handler, "        \$controller = ");
+      if(str_starts_with('" . $baseZoneName . "', 'my')) {
+        fwrite($handler, "\$playerID;\r\n");
+      } elseif(str_starts_with('" . $baseZoneName . "', 'their')) {
+        fwrite($handler, "(\$playerID == 1 ? 2 : 1);\r\n");
+      } else {
+        fwrite($handler, "0;\r\n");
+      }
+      if(str_starts_with('" . $baseZoneName . "', 'my') || str_starts_with('" . $baseZoneName . "', 'their')) {
+        fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j], \$location, \$controller));\r\n");
+      } else {
+        fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j]));\r\n");
+      }
       fwrite($handler, "      }\r\n");
       fwrite($handler, "    }\r\n");
     }
@@ -1071,7 +1106,7 @@ function AddReadZone($zone, $player) {
     $rv .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
     $rv .= "        \$line = fgets(\$handler);\r\n";
     $rv .= "        if (\$line !== false) {\r\n";
-    $rv .= "          \$obj = new " . $zoneName . "(trim(\$line));\r\n";
+    $rv .= "          \$obj = new " . $zoneName . "(trim(\$line), '" . $zoneName . "', " . $player . ");\r\n";
     $rv .= "          array_push(\$p" . $player . $zoneName . ", \$obj);\r\n";
     $rv .= "        }\r\n";
     $rv .= "      }\r\n";
