@@ -709,9 +709,13 @@ for($i=0; $i<count($zones); ++$i) {
       
       // Build lookup map for Value mode zones
       $valueZones = [];
+      $globalZones = [];
       for($k=0; $k<count($zones); ++$k) {
         if($zones[$k]->DisplayMode == 'Value') {
           $valueZones[$zones[$k]->Name] = true;
+        }
+        if($zones[$k]->Scope == 'Global') {
+          $globalZones[$zones[$k]->Name] = true;
         }
       }
       
@@ -725,11 +729,17 @@ for($i=0; $i<count($zones); ++$i) {
         elseif(str_starts_with($checkZoneName, "their")) $checkZoneName = substr($checkZoneName, 5);
         
         $isValueZone = isset($valueZones[$checkZoneName]);
+        $isGlobalZone = isset($globalZones[$checkZoneName]);
         
         if($isValueZone) {
+          $globalName = $isGlobalZone ? "g" . $checkZoneName : $baseZoneName;
           // Value zones are single objects, not arrays
-          fwrite($handler, "    global \$g" . $checkZoneName . ";\r\n");
-          fwrite($handler, "    \$rv .= \$g" . $checkZoneName . ";\r\n");
+          if($isGlobalZone) {
+            fwrite($handler, "    global \$g" . $checkZoneName . ";\r\n");
+            fwrite($handler, "    \$rv .= \$g" . $checkZoneName . ";\r\n");
+          } else {
+            fwrite($handler, "    \$rv .= GetZone(\"" . $baseZoneName . "\");\r\n");
+          }
         } else {
           // Array zones
           fwrite($handler, "    \$zone = &GetZone(\"" . $baseZoneName . "\");\r\n");
@@ -811,9 +821,13 @@ $versionsModule = GetModule("Versions");
 if($versionsModule != null) {
   // Build lookup map for Value mode zones
   $valueZones = [];
+  $globalZones = [];
   for($k=0; $k<count($zones); ++$k) {
     if($zones[$k]->DisplayMode == 'Value') {
       $valueZones[$zones[$k]->Name] = true;
+    }
+    if($zones[$k]->Scope == 'Global') {
+      $globalZones[$zones[$k]->Name] = true;
     }
   }
   
@@ -832,14 +846,20 @@ if($versionsModule != null) {
     elseif(str_starts_with($className, "their")) $className = substr($className, 5);
     
     $isValueZone = isset($valueZones[$className]);
+    $isGlobalZone = isset($globalZones[$className]);
     
     fwrite($handler, "  if(count(\$zones) > " . $i . ") {\r\n");
     if($isValueZone) {
       // Value zones are single objects, not arrays
-      fwrite($handler, "    global \$g" . $baseZoneName . ";\r\n");
       fwrite($handler, "    \$data = str_replace(\"<v2>\", \" \", \$zones[" . $i . "]);\r\n");
       fwrite($handler, "    if(trim(\$data) != \"\") {\r\n");
-      fwrite($handler, "      \$g" . $baseZoneName . " = \$data;\r\n");
+      if($isGlobalZone) {
+        fwrite($handler, "    global \$g" . $className . ";\r\n");
+        fwrite($handler, "    \$g" . $className . " = \$data;\r\n");
+      } else {
+        fwrite($handler, "      \$zone = &GetZone(\"" . $baseZoneName . "\");\r\n");
+        fwrite($handler, "      \$zone = \$data;\r\n");
+      }
       fwrite($handler, "    }\r\n");
     } else {
       // Array zones
