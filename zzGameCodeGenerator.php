@@ -686,7 +686,7 @@ for($i=0; $i<count($macros); ++$i) {
     // If macro has parameters and uses Choice (not ChoiceFunction), pass them to the Choice handler
     if (!empty($macro->Parameters)) {
       $paramString = implode(" . '|' . ", array_map(fn($p) => '$' . $p, $macro->Parameters));
-      fwrite($handler, "  \$paramString = " . $paramString . ";\r\n");
+      fwrite($handler, "  \$paramString = str_replace(' ', '_', " . $paramString . ");\r\n");
       fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice|\$paramString\", 99);\r\n");
     } else {
       fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice\", 99);\r\n");
