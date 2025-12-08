@@ -136,7 +136,7 @@ while(!feof($handler)) {
         break;
       case "Macro":
         $macro = new StdClass();
-        $macroArr = explode(",", $lineValue);
+        $macroArr = explode(";", $lineValue);
         for($i=0; $i<count($macroArr); ++$i) {
           $macroArr[$i] = trim($macroArr[$i]);
           $parameterArr = explode("=", $macroArr[$i]);
@@ -622,10 +622,14 @@ for($i=0; $i<count($macros); ++$i) {
     $actionSpec = substr($macro->Action, 1, -1);
     $parts = explode(':', $actionSpec);
     $type = $parts[0];
-    $param = $parts[1];
     if($type == 'MZMOVE') {
+      $param = $parts[1];
       fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
       fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZMOVE\", \"" . $param . "\", 1);\r\n");
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
+      fwrite($handler, "};\r\n\r\n");
+    } else {
+      fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
       fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
       fwrite($handler, "};\r\n\r\n");
     }
