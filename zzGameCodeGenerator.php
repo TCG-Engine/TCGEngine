@@ -296,6 +296,20 @@ while(!feof($handler)) {
       case "AfterAdd":
         $zoneObj->AfterAdd = trim($lineValue);
         break;
+      case "Virtual":
+        // Parse virtual properties: PropertyName=FunctionName()
+        $virtualArr = explode(",", $lineValue);
+        for($i=0; $i<count($virtualArr); ++$i) {
+          $virtualArr[$i] = trim($virtualArr[$i]);
+          $virtualParts = explode("=", $virtualArr[$i]);
+          if(count($virtualParts) == 2) {
+            $virtualObj = new StdClass();
+            $virtualObj->Name = trim($virtualParts[0]);
+            $virtualObj->Function = trim($virtualParts[1]);
+            array_push($zoneObj->VirtualProperties, $virtualObj);
+          }
+        }
+        break;
       default://This is a new zone
         if($zoneObj != null) array_push($zones, $zoneObj);
         $zone = str_replace(' ', '', $line);
@@ -342,6 +356,7 @@ while(!feof($handler)) {
         $zoneObj->Scope = "Player";
         $zoneObj->AddReplacement = null;
         $zoneObj->AfterAdd = null;
+        $zoneObj->VirtualProperties = [];
         break;
     }
   }
@@ -644,6 +659,28 @@ for($i=0; $i<count($macros); ++$i) {
   fwrite($handler, "}\r\n\r\n");
 }
 
+// Generate ComputeVirtualProperties function for zones with virtual properties
+fwrite($handler, "// Compute virtual properties for objects before sending to client\r\n");
+fwrite($handler, "function ComputeVirtualProperties(\$obj) {\r\n");
+fwrite($handler, "  if(!isset(\$obj->Location)) return;\r\n");
+fwrite($handler, "  switch(\$obj->Location) {\r\n");
+for($i=0; $i<count($zones); ++$i) {
+  $zone = $zones[$i];
+  if(count($zone->VirtualProperties) > 0) {
+    $zoneName = $zone->Name;
+    fwrite($handler, "    case \"" . $zoneName . "\":\r\n");
+    for($j=0; $j<count($zone->VirtualProperties); ++$j) {
+      $virtual = $zone->VirtualProperties[$j];
+      $functionName = rtrim($virtual->Function, '()');
+      fwrite($handler, "      \$obj->" . $virtual->Name . " = " . $functionName . "(\$obj);\r\n");
+    }
+    fwrite($handler, "      break;\r\n");
+  }
+}
+fwrite($handler, "    default: break;\r\n");
+fwrite($handler, "  }\r\n");
+fwrite($handler, "}\r\n\r\n");
+
 fwrite($handler, "?>");
 fclose($handler);
 //Write the class file
@@ -934,6 +971,7 @@ fwrite($handler, "include '../Assets/patreon-php-master/src/PatreonLibraries.php
 fwrite($handler, "include './GamestateParser.php';\r\n");
 fwrite($handler, "include './ZoneAccessors.php';\r\n");
 fwrite($handler, "include './ZoneClasses.php';\r\n");
+fwrite($handler, "include './GeneratedCode/GeneratedCardDictionaries.php';\r\n");
 //TODO: Validate these inputs
 fwrite($handler, "\$gameName = TryGet(\"gameName\");\r\n");
 fwrite($handler, "\$playerID = TryGet(\"playerID\");\r\n");
@@ -1187,6 +1225,9 @@ function AddGetNextTurnForPlayer($player) {
         } else {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
         }
+        if(count($zone->VirtualProperties) > 0) {
+          $getNextTurn .= "  if(count(\$arr) > 0) ComputeVirtualProperties(\$arr[0]);\r\n";
+        }
         $getNextTurn .= "  echo(count(\$arr) > 0 ? ClientRenderedCard(\$arr[0]->CardID, counters:count(\$" . $zoneName . "), cardJSON:json_encode(\$arr[0])) : \"\");\r\n";
       } else if($zone->Visibility == "Private") {
         //Single Private
@@ -1204,6 +1245,9 @@ function AddGetNextTurnForPlayer($player) {
       $getNextTurn .= "  for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
       $getNextTurn .= "    if(\$i > 0) echo(\"<|>\");\r\n";
       $getNextTurn .= "    \$obj = \$arr[\$i];\r\n";
+      if(count($zone->VirtualProperties) > 0) {
+        $getNextTurn .= "    ComputeVirtualProperties(\$obj);\r\n";
+      }
       if($zone->Visibility == "Public") {
         $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
         $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
