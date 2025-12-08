@@ -604,8 +604,33 @@ for($i=0; $i<count($macros); ++$i) {
       $paramParts = explode('|', $param);
       $source = $paramParts[0];
       $tooltip = isset($paramParts[1]) ? $paramParts[1] : "Choose a card";
+      
       fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Choice\"] = function(\$player, \$param, \$lastResult) {\r\n");
-      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZCHOOSE\", \"" . $source . "\", 1, \"" . $tooltip . "\");\r\n");
+      
+      // If macro has parameters, parse them from $param which is pipe-delimited
+      if (!empty($macro->Parameters)) {
+        //fwrite($handler, "  \$params = explode('|', \$param);\r\n");
+        for ($pIdx = 0; $pIdx < count($macro->Parameters); $pIdx++) {
+          fwrite($handler, "  \$" . $macro->Parameters[$pIdx] . " = \$param[" . $pIdx . "] ?? '';\r\n");
+        }
+        // Now $source and $tooltip might reference parameter names, so we need to evaluate them
+        // If the source/tooltip exactly match a parameter name, use the variable directly
+        if (in_array($source, $macro->Parameters)) {
+          fwrite($handler, "  \$source = \$" . $source . ";\r\n");
+        } else {
+          fwrite($handler, "  \$source = \"" . $source . "\";\r\n");
+        }
+        if (in_array($tooltip, $macro->Parameters)) {
+          fwrite($handler, "  \$tooltip = \$" . $tooltip . ";\r\n");
+        } else {
+          fwrite($handler, "  \$tooltip = \"" . $tooltip . "\";\r\n");
+        }
+      } else {
+        fwrite($handler, "  \$source = \"" . $source . "\";\r\n");
+        fwrite($handler, "  \$tooltip = \"" . $tooltip . "\";\r\n");
+      }
+      
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZCHOOSE\", \$source, 1, \$tooltip);\r\n");
       fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterChoice\", 99);\r\n");
       fwrite($handler, "};\r\n\r\n");
     }
@@ -658,7 +683,14 @@ for($i=0; $i<count($macros); ++$i) {
     fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"PASSPARAMETER\", \"\$result\", 99);\r\n");
     fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Action\", 99);\r\n");
   } else {
-    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice\", 99);\r\n");
+    // If macro has parameters and uses Choice (not ChoiceFunction), pass them to the Choice handler
+    if (!empty($macro->Parameters)) {
+      $paramString = implode(" . '|' . ", array_map(fn($p) => '$' . $p, $macro->Parameters));
+      fwrite($handler, "  \$paramString = " . $paramString . ";\r\n");
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice|\$paramString\", 99);\r\n");
+    } else {
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice\", 99);\r\n");
+    }
   }
   fwrite($handler, "}\r\n\r\n");
 }
