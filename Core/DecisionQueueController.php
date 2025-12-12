@@ -59,9 +59,7 @@ class DecisionQueueController {
                     $parts = explode("->", $resolvedParam);
                     $source = $parts[0];
                     $destination = explode("-", $parts[1])[0];
-                    $removed = GetZoneObject($source);
-                    $removed->Remove();
-                    MZAddZone($player, $destination, $removed->CardID);
+                    MZMove($player, $source, $destination);
                     break;
                 case "CUSTOM":
                     if($lastDecision == "PASS") break;

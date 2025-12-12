@@ -452,17 +452,19 @@ for($i=0; $i<count($zones); ++$i) {
   }
   if ($zone->AddReplacement != null) {
     fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(\$player" . $parametersNoDefaults . ");\r\n");
-    fwrite($handler, "  if(\$replaceResult) return;\r\n");
+    fwrite($handler, "  if(\$replaceResult) return \$replaceResult;\r\n");
   }
   if ($isValueOnly) {
     // For Value zones, set the global variable directly
     if (strtolower($scope) == 'global') {
       fwrite($handler, "  global \$g" . $zoneName . ";\r\n");
       fwrite($handler, "  \$g" . $zoneName . " = \$Value;\r\n");
+      fwrite($handler, "  return null;\r\n");
     } else {
       fwrite($handler, "  global \$p1" . $zoneName . ", \$p2" . $zoneName . ";\r\n");
       fwrite($handler, "  if (\$player == 1) \$p1" . $zoneName . " = \$Value;\r\n");
       fwrite($handler, "  else \$p2" . $zoneName . " = \$Value;\r\n");
+      fwrite($handler, "  return null;\r\n");
     }
   } else {
     fwrite($handler, "  \$zoneObj = new " . $zoneName . "(");
@@ -490,6 +492,9 @@ for($i=0; $i<count($zones); ++$i) {
   }
   if ($zone->AfterAdd != null) {
     fwrite($handler, "  " . $zone->AfterAdd . "(\$player" . $parametersNoDefaults . ");\r\n");
+  }
+  if (!$isValueOnly) {
+    fwrite($handler, "  return \$zoneObj;\r\n");
   }
   fwrite($handler, "}\r\n\r\n");
 
@@ -529,7 +534,16 @@ fwrite($handler, $mzGetZone);
 fwrite($handler, "function MZMove(\$player, \$mzIndex, \$toZone) {\r\n");
 fwrite($handler, "  \$removed = GetZoneObject(\$mzIndex);\r\n");
 fwrite($handler, "  \$removed->Remove();\r\n");
-fwrite($handler, "  MZAddZone(\$player, \$toZone, \$removed->CardID);\r\n");
+fwrite($handler, "  \$newObj = MZAddZone(\$player, \$toZone, \$removed->CardID);\r\n");
+fwrite($handler, "  // Deep copy public properties from removed object to newly added object\r\n");
+fwrite($handler, "  if(\$newObj !== null) {\r\n");
+fwrite($handler, "    \$properties = get_object_vars(\$removed);\r\n");
+fwrite($handler, "    foreach(\$properties as \$prop => \$value) {\r\n");
+fwrite($handler, "      if(\$prop !== 'removed' && \$prop !== 'Location' && \$prop !== 'PlayerID') {\r\n");
+fwrite($handler, "        \$newObj->\$prop = \$value;\r\n");
+fwrite($handler, "      }\r\n");
+fwrite($handler, "    }\r\n");
+fwrite($handler, "  }\r\n");
 fwrite($handler, "}\r\n\r\n");
 
 fwrite($handler, "function MZZoneCount(\$zoneName) {\r\n");
@@ -548,13 +562,13 @@ for($i=0; $i<count($zones); ++$i) {
   $zoneName = $zone->Name;
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
-    fwrite($handler, "    case \"" . $zoneName . "\": Add" . $zoneName . "(CardID:\$cardID); break;\r\n");
+    fwrite($handler, "    case \"" . $zoneName . "\": return Add" . $zoneName . "(CardID:\$cardID);\r\n");
   } else {
-    fwrite($handler, "    case \"my" . $zoneName . "\": Add" . $zoneName . "(\$player, CardID:\$cardID); break;\r\n");
-    fwrite($handler, "    case \"their" . $zoneName . "\": Add" . $zoneName . "(\$player == 1 ? 2 : 1, CardID:\$cardID); break;\r\n");
+    fwrite($handler, "    case \"my" . $zoneName . "\": return Add" . $zoneName . "(\$player, CardID:\$cardID);\r\n");
+    fwrite($handler, "    case \"their" . $zoneName . "\": return Add" . $zoneName . "(\$player == 1 ? 2 : 1, CardID:\$cardID);\r\n");
   }
 }
-fwrite($handler, "    default: break;\r\n");
+fwrite($handler, "    default: return null;\r\n");
 fwrite($handler, "  }\r\n");
 fwrite($handler, "}\r\n\r\n");
 
