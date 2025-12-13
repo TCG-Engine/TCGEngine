@@ -139,6 +139,7 @@ while(!feof($handler)) {
         $macroArr = explode(";", $lineValue);
         for($i=0; $i<count($macroArr); ++$i) {
           $macroArr[$i] = trim($macroArr[$i]);
+          if($macroArr[$i] == "") continue;
           $parameterArr = explode("=", $macroArr[$i]);
           $varName = ucwords($parameterArr[0]);
           $macro->$varName = $parameterArr[1];
