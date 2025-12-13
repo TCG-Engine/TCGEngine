@@ -1768,59 +1768,29 @@ function GenerateMacroCode() {
     
     // Generate card-specific macro implementations
     if (count($abilitiesByMacro) > 0) {
-      fwrite($handler, "// Card-specific macro implementations\r\n\r\n");
+      fwrite($handler, "// Card-specific macro implementations\r\n");
+      fwrite($handler, "// Each macro has an array where card IDs are keys and ability functions are values\r\n\r\n");
       
       foreach ($abilitiesByMacro as $macroName => $abilities) {
-        // Create a switch case function for this macro
-        $functionName = "Get" . str_replace("-", "", $macroName) . "Ability";
-        
-        fwrite($handler, "/**\r\n");
-        fwrite($handler, " * Get custom ability code for $macroName macro\r\n");
-        fwrite($handler, " * Called during macro execution for specific card implementations\r\n");
-        fwrite($handler, " */\r\n");
-        fwrite($handler, "function " . $functionName . "(\$cardID) {\r\n");
-        fwrite($handler, "  switch(\$cardID) {\r\n");
+        // Convert macro name to valid variable name (e.g., "card-play" -> "cardPlayAbilities")
+        $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
         
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
           $name = $ability['ability_name'] ?? $cardId;
           
-          fwrite($handler, "    case \"$cardId\": // " . $name . "\r\n");
-          fwrite($handler, "      return function(\$player, \$params, \$lastDecision) {\r\n");
-          fwrite($handler, "        " . str_replace("\n", "\n        ", trim($code)) . "\r\n");
-          fwrite($handler, "      };\r\n");
+          fwrite($handler, "\$" . $varName . "[\"" . $cardId . "\"] = function(\$player) { //" . $name . "\r\n");
+          fwrite($handler, "  " . str_replace("\n", "\n  ", trim($code)) . "\r\n");
+          fwrite($handler, "};\r\n");
         }
         
-        fwrite($handler, "    default: return null;\r\n");
-        fwrite($handler, "  }\r\n");
-        fwrite($handler, "}\r\n\r\n");
+        fwrite($handler, "\r\n");
       }
-      
-      // Generate a master function to query macro abilities
-      fwrite($handler, "/**\r\n");
-      fwrite($handler, " * Get card-specific macro implementation\r\n");
-      fwrite($handler, " * Returns a callable function or null if no custom implementation exists\r\n");
-      fwrite($handler, " */\r\n");
-      fwrite($handler, "function GetCardMacroAbility(\$macroName, \$cardID) {\r\n");
-      fwrite($handler, "  switch(\$macroName) {\r\n");
-      
-      foreach (array_keys($abilitiesByMacro) as $macroName) {
-        $functionName = "Get" . str_replace("-", "", $macroName) . "Ability";
-        fwrite($handler, "    case \"$macroName\":\r\n");
-        fwrite($handler, "      return " . $functionName . "(\$cardID);\r\n");
-      }
-      
-      fwrite($handler, "    default: return null;\r\n");
-      fwrite($handler, "  }\r\n");
-      fwrite($handler, "}\r\n\r\n");
       
     } else {
       fwrite($handler, "// No custom macro implementations found in database\r\n");
       fwrite($handler, "// This file will be populated as abilities are added through CardEditor\r\n\r\n");
-      fwrite($handler, "function GetCardMacroAbility(\$macroName, \$cardID) {\r\n");
-      fwrite($handler, "  return null;\r\n");
-      fwrite($handler, "}\r\n");
     }
     
     fwrite($handler, "?>");
