@@ -311,6 +311,57 @@
             margin-bottom: 10px;
             font-size: 13px;
         }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: #2d2d30;
+            border-bottom: 1px solid #3e3e42;
+            margin-bottom: 10px;
+        }
+        
+        .checkbox-group input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: #007acc;
+        }
+        
+        .checkbox-group label {
+            cursor: pointer;
+            font-size: 13px;
+            color: #cccccc;
+            flex: 1;
+        }
+        
+        .checkbox-group input[type="checkbox"]:checked + label {
+            color: #007acc;
+        }
+        
+        .inline-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .inline-checkbox input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+            accent-color: #007acc;
+        }
+        
+        .inline-checkbox label {
+            cursor: pointer;
+            font-size: 12px;
+            color: #cccccc;
+        }
+        
+        .inline-checkbox input[type="checkbox"]:checked + label {
+            color: #007acc;
+        }
     </style>
 </head>
 <body>
@@ -325,7 +376,13 @@
                 </select>
             </div>
             
-            <div class="panel-header" style="flex: 0 0 auto;">Cards</div>
+            <div class="panel-header" style="flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center;">
+                <span>Cards</span>
+                <div class="inline-checkbox">
+                    <input type="checkbox" id="hideImplemented" onchange="onFilterChanged()" />
+                    <label for="hideImplemented" title="Hide implemented cards">Unimpl. only</label>
+                </div>
+            </div>
             
             <div class="card-list" id="cardList">
                 <div class="loading">Loading roots...</div>
@@ -378,6 +435,71 @@
         }
         
         function onRootChanged() {
+            // Reset filter when changing root
+            document.getElementById('hideImplemented').checked = false;
+            populateCardList();
+        }
+        
+        function onFilterChanged() {
+            populateCardList();
+        }
+        
+        function populateCardList() {
+            const rootSelect = document.getElementById('rootSelect');
+            const selectedRoot = rootSelect.value;
+            const cardList = document.getElementById('cardList');
+            const hideImplemented = document.getElementById('hideImplemented').checked;
+            
+            if (!selectedRoot) {
+                cardList.innerHTML = '<div class="loading">Select a root</div>';
+                clearEditor();
+                return;
+            }
+            
+            const cards = window.availableRoots[selectedRoot] || {};
+            let cardIds = Object.keys(cards).sort();
+            
+            // Apply filter if needed
+            if (hideImplemented) {
+                cardIds = cardIds.filter(cardId => {
+                    const cardData = cards[cardId];
+                    // Handle both old format (string) and new format (object with isImplemented)
+                    if (typeof cardData === 'object' && cardData.isImplemented !== undefined) {
+                        return !cardData.isImplemented;
+                    }
+                    return true; // If no implementation data, show the card
+                });
+            }
+            
+            if (cardIds.length === 0) {
+                cardList.innerHTML = '<div class="loading">No cards found</div>';
+                clearEditor();
+                return;
+            }
+            
+            // Clear previous selection and populate card list
+            cardList.innerHTML = '';
+            cardIds.forEach((cardId, index) => {
+                const cardItem = document.createElement('div');
+                cardItem.className = 'card-item' + (index === 0 ? ' active' : '');
+                const cardData = cards[cardId];
+                const displayName = typeof cardData === 'object' ? cardData.cardId : cardData;
+                const isImplemented = typeof cardData === 'object' ? cardData.isImplemented : false;
+                const statusBadge = isImplemented ? ' ✓' : '';
+                cardItem.innerHTML = `
+                    <div class="card-item-id">${displayName}${statusBadge}</div>
+                `;
+                cardItem.onclick = () => onCardSelected(selectedRoot, cardId);
+                cardList.appendChild(cardItem);
+            });
+            
+            // Auto-select first card
+            if (cardIds.length > 0) {
+                onCardSelected(selectedRoot, cardIds[0]);
+            }
+        }
+        
+        function onRootChanged_OLD() {
             const rootSelect = document.getElementById('rootSelect');
             const selectedRoot = rootSelect.value;
             const cardList = document.getElementById('cardList');

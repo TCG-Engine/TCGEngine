@@ -53,12 +53,13 @@ try {
             $macroName = $ability['macroName'] ?? null;
             $abilityCode = $ability['abilityCode'] ?? null;
             $abilityName = $ability['abilityName'] ?? null;
+            $isImplemented = $ability['isImplemented'] ?? 0;
             
             if (!$macroName || !$abilityCode) {
                 throw new Exception("Ability missing macroName or abilityCode");
             }
             
-            $savedId = $db->saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $abilityName);
+            $savedId = $db->saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $abilityName, $isImplemented);
             if (!$savedId) {
                 throw new Exception("Failed to save ability");
             }

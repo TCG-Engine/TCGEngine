@@ -15,7 +15,7 @@ class CardAbilityDB {
     public function loadCardAbilities($rootName, $cardId) {
         try {
             $stmt = mysqli_prepare($this->conn, "
-                SELECT id, macro_name, ability_code, ability_name, created_at, updated_at
+                SELECT id, macro_name, ability_code, ability_name, is_implemented, created_at, updated_at
                 FROM card_abilities
                 WHERE root_name = ? AND card_id = ?
                 ORDER BY created_at ASC
@@ -39,15 +39,15 @@ class CardAbilityDB {
      * Save a single ability (insert or update)
      * If $id is null, creates new record. Otherwise updates existing.
      */
-    public function saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $abilityName = null) {
+    public function saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $abilityName = null, $isImplemented = 0) {
         try {
             if ($id === null) {
                 // Insert new
                 $stmt = mysqli_prepare($this->conn, "
-                    INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, ability_name)
-                    VALUES (?, ?, ?, ?, ?)
+                    INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, ability_name, is_implemented)
+                    VALUES (?, ?, ?, ?, ?, ?)
                 ");
-                mysqli_stmt_bind_param($stmt, "sssss", $rootName, $cardId, $macroName, $abilityCode, $abilityName);
+                mysqli_stmt_bind_param($stmt, "sssssi", $rootName, $cardId, $macroName, $abilityCode, $abilityName, $isImplemented);
                 if (mysqli_stmt_execute($stmt)) {
                     $newId = mysqli_insert_id($this->conn);
                     mysqli_stmt_close($stmt);
@@ -59,10 +59,10 @@ class CardAbilityDB {
                 // Update existing
                 $stmt = mysqli_prepare($this->conn, "
                     UPDATE card_abilities
-                    SET macro_name = ?, ability_code = ?, ability_name = ?
+                    SET macro_name = ?, ability_code = ?, ability_name = ?, is_implemented = ?
                     WHERE id = ? AND root_name = ? AND card_id = ?
                 ");
-                mysqli_stmt_bind_param($stmt, "sssiss", $macroName, $abilityCode, $abilityName, $id, $rootName, $cardId);
+                mysqli_stmt_bind_param($stmt, "ssssiss", $macroName, $abilityCode, $abilityName, $isImplemented, $id, $rootName, $cardId);
                 $result = mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
                 return $result ? $id : false;

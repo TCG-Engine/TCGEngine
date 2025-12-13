@@ -11,7 +11,8 @@ class AbilityEditor {
             id: a.id || null,
             macroName: a.macro_name,
             abilityCode: a.ability_code,
-            abilityName: a.ability_name
+            abilityName: a.ability_name,
+            isImplemented: a.is_implemented ? true : false
         }));
         this.editorContainer = document.getElementById('editorArea');
         this.statusMessage = null;
@@ -56,6 +57,8 @@ class AbilityEditor {
             `<option value="${m}" ${m === ability.macroName ? 'selected' : ''}>${m}</option>`
         ).join('');
         
+        const isImplementedChecked = ability.isImplemented ? 'checked' : '';
+        
         return `
             <div class="ability-editor" data-index="${index}">
                 <div class="ability-header">
@@ -74,6 +77,17 @@ class AbilityEditor {
                             value="${ability.abilityName || ''}"
                             onchange="window.abilityEditor.updateAbility(${index}, 'abilityName', this.value)"
                         />
+                    </div>
+                    <div class="form-group" style="flex: 0 0 auto;">
+                        <div class="inline-checkbox">
+                            <input 
+                                type="checkbox" 
+                                id="implemented_${index}"
+                                ${isImplementedChecked}
+                                onchange="window.abilityEditor.updateAbility(${index}, 'isImplemented', this.checked)"
+                            />
+                            <label for="implemented_${index}">Implemented</label>
+                        </div>
                     </div>
                     <button class="delete-btn" onclick="window.abilityEditor.deleteAbility(${index})">
                         Delete
@@ -103,7 +117,8 @@ class AbilityEditor {
             id: null,
             macroName: '',
             abilityCode: '',
-            abilityName: ''
+            abilityName: '',
+            isImplemented: false
         });
         this.render();
     }

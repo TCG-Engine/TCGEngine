@@ -10,6 +10,9 @@ try {
     // First, get roots from the database (from card_abilities table)
     $conn = GetLocalMySQLConnection();
     
+    // Check if we should hide unimplemented cards
+    $hideUnimplemented = isset($_GET['hideUnimplemented']) ? (int)$_GET['hideUnimplemented'] : 0;
+    
     // Query for unique root names in the database
     $stmt = mysqli_prepare($conn, "SELECT DISTINCT root_name FROM card_abilities ORDER BY root_name ASC");
     if (!$stmt) {
@@ -43,7 +46,27 @@ try {
     // Now load cards for each root from the database
     $roots = [];
     foreach ($databaseRoots as $rootName) {
-        $cardsStmt = mysqli_prepare($conn, "SELECT DISTINCT card_id FROM card_abilities WHERE root_name = ? ORDER BY card_id ASC");
+        // Build query based on filter
+        if ($hideUnimplemented) {
+            // Only get cards with is_implemented = 1
+            $cardsStmt = mysqli_prepare($conn, "
+                SELECT DISTINCT card_id, MAX(is_implemented) as isImplemented 
+                FROM card_abilities 
+                WHERE root_name = ? AND is_implemented = 1
+                GROUP BY card_id
+                ORDER BY card_id ASC
+            ");
+        } else {
+            // Get all cards with their implementation status
+            $cardsStmt = mysqli_prepare($conn, "
+                SELECT DISTINCT card_id, MAX(is_implemented) as isImplemented 
+                FROM card_abilities 
+                WHERE root_name = ?
+                GROUP BY card_id
+                ORDER BY card_id ASC
+            ");
+        }
+        
         if (!$cardsStmt) {
             throw new Exception("Prepare cards query failed: " . mysqli_error($conn));
         }
@@ -57,8 +80,11 @@ try {
         $cards = [];
         while ($cardRow = mysqli_fetch_assoc($cardsResult)) {
             $cardId = $cardRow['card_id'];
-            // Use card ID as both key and display name (can be enhanced later with card names from other sources)
-            $cards[$cardId] = $cardId;
+            // Store both the card ID and its implementation status
+            $cards[$cardId] = [
+                'cardId' => $cardId,
+                'isImplemented' => (bool)$cardRow['isImplemented']
+            ];
         }
         mysqli_stmt_close($cardsStmt);
         
