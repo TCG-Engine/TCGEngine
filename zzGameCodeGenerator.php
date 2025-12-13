@@ -4,6 +4,8 @@ include './zzImageConverter.php';
 include './Core/Trie.php';
 include "./Core/HTTPLibraries.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
+include_once "./Database/ConnectionManager.php";
+include_once "./CardEditor/Database/CardAbilityDB.php";
 
 $response = new stdClass();
 $error = CheckLoggedInUserMod();
@@ -1107,6 +1109,8 @@ $handler = fopen($filename, "w");
 fwrite($handler, AddGeneratedUI() . "\r\n");
 fclose($handler);
 
+// Generate macro code from database card abilities
+GenerateMacroCode();
 
 echo("Game code generator completed successfully!");
 
@@ -1708,4 +1712,127 @@ function GetModule($type) {
   }
   return null;
 }
+
+/**
+ * Generate macro code from database card abilities
+ * Creates a GeneratedMacroCode.php file in the GeneratedCode folder
+ * This file contains implementations of macros for specific cards
+ */
+function GenerateMacroCode() {
+  global $rootName;
+  
+  try {
+    $conn = GetLocalMySQLConnection();
+    $cardAbilityDB = new CardAbilityDB($conn);
+    
+    $rootPath = "./" . $rootName;
+    $directory = $rootPath . "/GeneratedCode";
+    
+    if (!is_dir($directory)) {
+      mkdir($directory, 0755, true);
+    }
+    
+    $filename = $directory . "/GeneratedMacroCode.php";
+    $handler = fopen($filename, "w");
+    
+    fwrite($handler, "<?php\r\n");
+    fwrite($handler, "// AUTO-GENERATED FILE: Macro implementations from CardEditor database\r\n");
+    fwrite($handler, "// DO NOT EDIT MANUALLY - changes will be overwritten when generator runs\r\n");
+    fwrite($handler, "// Last generated: " . date("Y-m-d H:i:s") . "\r\n\r\n");
+    
+    // Get all macros defined in the schema
+    $schemaFile = "./Schemas/" . $rootName . "/GameSchema.txt";
+    $macrosByName = [];
+    
+    if (file_exists($schemaFile)) {
+      $lines = file($schemaFile, FILE_IGNORE_NEW_LINES);
+      foreach ($lines as $line) {
+        if (strpos($line, 'Macro:') === 0) {
+          // Extract macro name from: Macro: Name=MacroName(...);
+          if (preg_match('/Name=([^(;]+)/', $line, $matches)) {
+            $macroName = trim($matches[1]);
+            $macrosByName[$macroName] = true;
+          }
+        }
+      }
+    }
+    
+    // Group abilities by macro name
+    $abilitiesByMacro = [];
+    foreach ($macrosByName as $macroName => $dummy) {
+      $abilities = $cardAbilityDB->getAbilitiesByMacro($rootName, $macroName);
+      if (count($abilities) > 0) {
+        $abilitiesByMacro[$macroName] = $abilities;
+      }
+    }
+    
+    // Generate card-specific macro implementations
+    if (count($abilitiesByMacro) > 0) {
+      fwrite($handler, "// Card-specific macro implementations\r\n\r\n");
+      
+      foreach ($abilitiesByMacro as $macroName => $abilities) {
+        // Create a switch case function for this macro
+        $functionName = "Get" . str_replace("-", "", $macroName) . "Ability";
+        
+        fwrite($handler, "/**\r\n");
+        fwrite($handler, " * Get custom ability code for $macroName macro\r\n");
+        fwrite($handler, " * Called during macro execution for specific card implementations\r\n");
+        fwrite($handler, " */\r\n");
+        fwrite($handler, "function " . $functionName . "(\$cardID) {\r\n");
+        fwrite($handler, "  switch(\$cardID) {\r\n");
+        
+        foreach ($abilities as $ability) {
+          $cardId = $ability['card_id'];
+          $code = $ability['ability_code'];
+          $name = $ability['ability_name'] ?? $cardId;
+          
+          fwrite($handler, "    case \"$cardId\": // " . $name . "\r\n");
+          fwrite($handler, "      return function(\$player, \$params, \$lastDecision) {\r\n");
+          fwrite($handler, "        " . str_replace("\n", "\n        ", trim($code)) . "\r\n");
+          fwrite($handler, "      };\r\n");
+        }
+        
+        fwrite($handler, "    default: return null;\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+      
+      // Generate a master function to query macro abilities
+      fwrite($handler, "/**\r\n");
+      fwrite($handler, " * Get card-specific macro implementation\r\n");
+      fwrite($handler, " * Returns a callable function or null if no custom implementation exists\r\n");
+      fwrite($handler, " */\r\n");
+      fwrite($handler, "function GetCardMacroAbility(\$macroName, \$cardID) {\r\n");
+      fwrite($handler, "  switch(\$macroName) {\r\n");
+      
+      foreach (array_keys($abilitiesByMacro) as $macroName) {
+        $functionName = "Get" . str_replace("-", "", $macroName) . "Ability";
+        fwrite($handler, "    case \"$macroName\":\r\n");
+        fwrite($handler, "      return " . $functionName . "(\$cardID);\r\n");
+      }
+      
+      fwrite($handler, "    default: return null;\r\n");
+      fwrite($handler, "  }\r\n");
+      fwrite($handler, "}\r\n\r\n");
+      
+    } else {
+      fwrite($handler, "// No custom macro implementations found in database\r\n");
+      fwrite($handler, "// This file will be populated as abilities are added through CardEditor\r\n\r\n");
+      fwrite($handler, "function GetCardMacroAbility(\$macroName, \$cardID) {\r\n");
+      fwrite($handler, "  return null;\r\n");
+      fwrite($handler, "}\r\n");
+    }
+    
+    fwrite($handler, "?>");
+    fclose($handler);
+    
+    mysqli_close($conn);
+    
+    echo("Generated macro code file: $filename<BR>");
+    
+  } catch (Exception $e) {
+    echo("Note: Could not generate macro code file: " . $e->getMessage() . "<BR>");
+  }
+}
+
 ?>

@@ -4,6 +4,8 @@ include './zzImageConverter.php';
 include './Core/Trie.php';
 include "./Core/HTTPLibraries.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
+include_once "./Database/ConnectionManager.php";
+include_once "./CardEditor/Database/CardAbilityDB.php";
 
 $response = new stdClass();
 $error = CheckLoggedInUserMod();
@@ -14,6 +16,9 @@ if($error !== "") {
 }
 
 $rootName = TryGET("rootName", "");
+
+// Optional override for card database path (useful when multiple roots share card data)
+$cardDBOverride = TryGET("CardDBOverride", "");
 
 $schemaFile = "./Schemas/" . $rootName . "/ImportSchema.txt";
 $handler = fopen($schemaFile, "r");
@@ -217,6 +222,35 @@ if(!empty($keywordsFile) && file_exists($keywordsFile)) {
   }
   
   echo("Processed " . count($keywordTypes) . " unique keywords<BR>");
+}
+
+// Populate card abilities database with card IDs from this root
+// Only inserts cards that don't already have entries (preserves existing custom code)
+// Uses CardDBOverride if provided, otherwise uses rootName for the database root
+try {
+  $conn = GetLocalMySQLConnection();
+  $cardAbilityDB = new CardAbilityDB($conn);
+  
+  // Determine which root to use for the card abilities database
+  $databaseRoot = !empty($cardDBOverride) ? $cardDBOverride : $rootName;
+  
+  $existingCount = 0;
+  
+  foreach($allCardIds as $cardId) {
+    // Check if this card already has abilities in the database (using the appropriate database root)
+    if(!$cardAbilityDB->cardHasAbilities($databaseRoot, $cardId)) {
+      // Create placeholder entry for this card so it shows up in the editor
+      // Placeholder has empty macro_name and ability_code, ready to be filled in via CardEditor
+      $cardAbilityDB->saveAbility(null, $databaseRoot, $cardId, "", "", null);
+    }
+    $existingCount++;
+  }
+  
+  mysqli_close($conn);
+  echo("Card abilities database initialized for $databaseRoot. " . count($allCardIds) . " total cards available for editing.<BR>");
+  
+} catch (Exception $e) {
+  echo("Note: Could not initialize card abilities database: " . $e->getMessage() . "<BR>");
 }
 
 $directory = "./" . $rootName . "/GeneratedCode";

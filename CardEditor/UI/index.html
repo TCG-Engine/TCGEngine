@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Editor</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #1e1e1e;
+            color: #e0e0e0;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        /* Left panel - Root selection and card list */
+        .left-panel {
+            width: 25%;
+            background: #252526;
+            border-right: 1px solid #3e3e42;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .panel-header {
+            padding: 15px;
+            background: #2d2d30;
+            border-bottom: 1px solid #3e3e42;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            color: #cccccc;
+        }
+        
+        .root-selector {
+            padding: 10px 15px;
+            background: #2d2d30;
+            border-bottom: 1px solid #3e3e42;
+        }
+        
+        .root-selector select {
+            width: 100%;
+            padding: 8px;
+            background: #3c3c3c;
+            color: #e0e0e0;
+            border: 1px solid #555555;
+            border-radius: 3px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+        
+        .root-selector select:focus {
+            outline: none;
+            border-color: #0e639c;
+            box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
+        }
+        
+        .card-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 0;
+        }
+        
+        .card-item {
+            padding: 10px 15px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: background 0.2s, border-color 0.2s;
+            font-size: 13px;
+            user-select: none;
+        }
+        
+        .card-item:hover {
+            background: #3c3c3c;
+        }
+        
+        .card-item.active {
+            background: #264f78;
+            border-left-color: #007acc;
+            color: #ffffff;
+        }
+        
+        .card-item-id {
+            font-weight: 500;
+        }
+        
+        .card-item-name {
+            font-size: 12px;
+            color: #858585;
+            margin-top: 2px;
+        }
+        
+        .card-item.active .card-item-name {
+            color: #c8e1f5;
+        }
+        
+        /* Right panel - Ability editor */
+        .right-panel {
+            flex: 1;
+            background: #1e1e1e;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .editor-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 20px;
+        }
+        
+        .no-card-selected {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #858585;
+            font-size: 16px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #3e3e42;
+        }
+        
+        .card-info h2 {
+            font-size: 18px;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        
+        .card-info p {
+            font-size: 13px;
+            color: #858585;
+        }
+        
+        .save-button {
+            padding: 8px 20px;
+            background: #007acc;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        
+        .save-button:hover {
+            background: #005a9e;
+        }
+        
+        .save-button:active {
+            background: #004578;
+        }
+        
+        .abilities-area {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 15px;
+        }
+        
+        .ability-editor {
+            background: #252526;
+            border: 1px solid #3e3e42;
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 12px;
+            position: relative;
+        }
+        
+        .ability-header {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: flex-end;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            flex: 1;
+        }
+        
+        .form-group label {
+            font-size: 12px;
+            color: #858585;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        
+        .form-group select,
+        .form-group input {
+            padding: 8px;
+            background: #3c3c3c;
+            color: #e0e0e0;
+            border: 1px solid #555555;
+            border-radius: 3px;
+            font-size: 13px;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0e639c;
+            box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
+        }
+        
+        .code-editor {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            background: #1e1e1e;
+            color: #e0e0e0;
+            border: 1px solid #555555;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            resize: vertical;
+            margin-top: 8px;
+        }
+        
+        .code-editor:focus {
+            outline: none;
+            border-color: #0e639c;
+            box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
+        }
+        
+        .delete-btn {
+            padding: 6px 12px;
+            background: #d13438;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background 0.2s;
+            align-self: flex-start;
+        }
+        
+        .delete-btn:hover {
+            background: #a1262f;
+        }
+        
+        .add-ability-btn {
+            padding: 10px 20px;
+            background: #2d8659;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: background 0.2s;
+            align-self: flex-start;
+        }
+        
+        .add-ability-btn:hover {
+            background: #237648;
+        }
+        
+        .footer {
+            padding: 10px 20px;
+            background: #2d2d30;
+            border-top: 1px solid #3e3e42;
+            font-size: 12px;
+            color: #858585;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #858585;
+        }
+        
+        .error-message {
+            background: #5f2c2c;
+            border: 1px solid #d13438;
+            color: #f48771;
+            padding: 10px 15px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+        
+        .success-message {
+            background: #2d5a3d;
+            border: 1px solid #2d8659;
+            color: #6ccf8e;
+            padding: 10px 15px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel: Root Selection and Card List -->
+        <div class="left-panel">
+            <div class="panel-header">Root Selection</div>
+            
+            <div class="root-selector">
+                <select id="rootSelect" onchange="onRootChanged()">
+                    <option value="">-- Select a Root --</option>
+                </select>
+            </div>
+            
+            <div class="panel-header" style="flex: 0 0 auto;">Cards</div>
+            
+            <div class="card-list" id="cardList">
+                <div class="loading">Loading roots...</div>
+            </div>
+        </div>
+        
+        <!-- Right Panel: Ability Editor -->
+        <div class="right-panel">
+            <div id="editorArea" class="editor-container">
+                <div class="no-card-selected">
+                    Select a root and card to begin editing
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="AbilityEditor.js"></script>
+    <script>
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        
+        async function initializeApp() {
+            try {
+                // Load roots from backend
+                const response = await fetch('../API/GetRoots.php');
+                const data = await response.json();
+                
+                if (!data.success || !data.roots) {
+                    throw new Error(data.error || 'Failed to load roots');
+                }
+                
+                // Populate root selector
+                const rootSelect = document.getElementById('rootSelect');
+                const roots = Object.keys(data.roots).sort();
+                
+                roots.forEach(rootName => {
+                    const option = document.createElement('option');
+                    option.value = rootName;
+                    option.textContent = rootName;
+                    rootSelect.appendChild(option);
+                });
+                
+                // Store roots globally for later use
+                window.availableRoots = data.roots;
+                
+            } catch (error) {
+                document.getElementById('cardList').innerHTML = 
+                    `<div class="loading error-message">Error: ${error.message}</div>`;
+            }
+        }
+        
+        function onRootChanged() {
+            const rootSelect = document.getElementById('rootSelect');
+            const selectedRoot = rootSelect.value;
+            const cardList = document.getElementById('cardList');
+            
+            if (!selectedRoot) {
+                cardList.innerHTML = '<div class="loading">Select a root</div>';
+                clearEditor();
+                return;
+            }
+            
+            const cards = window.availableRoots[selectedRoot] || {};
+            const cardIds = Object.keys(cards).sort();
+            
+            if (cardIds.length === 0) {
+                cardList.innerHTML = '<div class="loading">No cards found</div>';
+                clearEditor();
+                return;
+            }
+            
+            // Clear previous selection and populate card list
+            cardList.innerHTML = '';
+            cardIds.forEach((cardId, index) => {
+                const cardItem = document.createElement('div');
+                cardItem.className = 'card-item' + (index === 0 ? ' active' : '');
+                cardItem.innerHTML = `
+                    <div class="card-item-id">${cardId}</div>
+                    <div class="card-item-name">${cards[cardId]}</div>
+                `;
+                cardItem.onclick = () => onCardSelected(selectedRoot, cardId);
+                cardList.appendChild(cardItem);
+            });
+            
+            // Auto-select first card
+            if (cardIds.length > 0) {
+                onCardSelected(selectedRoot, cardIds[0]);
+            }
+        }
+        
+        function onCardSelected(rootName, cardId) {
+            // Update active card in list
+            document.querySelectorAll('.card-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.closest('.card-item').classList.add('active');
+            
+            // Load and display editor
+            window.currentRoot = rootName;
+            window.currentCard = cardId;
+            showEditor(rootName, cardId);
+        }
+        
+        function clearEditor() {
+            document.getElementById('editorArea').innerHTML = `
+                <div class="no-card-selected">
+                    Select a root and card to begin editing
+                </div>
+            `;
+        }
+        
+        async function showEditor(rootName, cardId) {
+            try {
+                // Load abilities for this card
+                const response = await fetch(`../API/LoadAbilities.php?root=${encodeURIComponent(rootName)}&card=${encodeURIComponent(cardId)}`);
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to load abilities');
+                }
+                
+                // Load macros for this root
+                const macrosResponse = await fetch(`../API/GetMacros.php?root=${encodeURIComponent(rootName)}`);
+                const macrosData = await macrosResponse.json();
+                
+                if (!macrosData.success) {
+                    throw new Error(macrosData.error || 'Failed to load macros');
+                }
+                
+                window.currentMacros = macrosData.macros || [];
+                
+                // Render the editor UI
+                renderEditor(rootName, cardId, data.abilities || []);
+                
+            } catch (error) {
+                document.getElementById('editorArea').innerHTML = `
+                    <div class="editor-container">
+                        <div class="error-message">Error: ${error.message}</div>
+                    </div>
+                `;
+            }
+        }
+        
+        function renderEditor(rootName, cardId, abilities) {
+            const editor = new AbilityEditor(rootName, cardId, window.currentMacros, abilities);
+            editor.render();
+        }
+    </script>
+</body>
+</html>
