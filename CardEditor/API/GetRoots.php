@@ -7,80 +7,76 @@ include_once('../../Database/ConnectionManager.php');
 header('Content-Type: application/json');
 
 try {
-    // Scan for root folders that contain GameSchema and card data
-    $rootsDir = '../../';
+    // First, get roots from the database (from card_abilities table)
+    $conn = GetLocalMySQLConnection();
+    
+    // Query for unique root names in the database
+    $stmt = mysqli_prepare($conn, "SELECT DISTINCT root_name FROM card_abilities ORDER BY root_name ASC");
+    if (!$stmt) {
+        throw new Exception("Prepare failed: " . mysqli_error($conn));
+    }
+    
+    if (!mysqli_stmt_execute($stmt)) {
+        throw new Exception("Execute failed: " . mysqli_stmt_error($stmt));
+    }
+    
+    $result = mysqli_stmt_get_result($stmt);
+    
+    $databaseRoots = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $databaseRoots[] = $row['root_name'];
+    }
+    mysqli_stmt_close($stmt);
+    
+    // If no roots found in database, return error
+    if (empty($databaseRoots)) {
+        mysqli_close($conn);
+        http_response_code(400);
+        echo json_encode([
+            'success' => false,
+            'error' => 'No roots found in database. Run zzCardCodeGenerator first.',
+            'databaseRootsCount' => 0
+        ]);
+        exit;
+    }
+    
+    // Now load cards for each root from the database
     $roots = [];
-    
-    $dirs = array_filter(scandir($rootsDir), function($item) use ($rootsDir) {
-        $path = $rootsDir . $item;
-        return is_dir($path) && $item[0] !== '.' && file_exists($path . '/ZoneAccessors.php');
-    });
-    
-    foreach ($dirs as $dir) {
-        $rootName = $dir;
-        $rootPath = $rootsDir . $dir;
+    foreach ($databaseRoots as $rootName) {
+        $cardsStmt = mysqli_prepare($conn, "SELECT DISTINCT card_id FROM card_abilities WHERE root_name = ? ORDER BY card_id ASC");
+        if (!$cardsStmt) {
+            throw new Exception("Prepare cards query failed: " . mysqli_error($conn));
+        }
         
-        // Load cards from the root's card data source
-        // Typically cards.json or fetched from zzCardCodeGenerator
-        $cards = loadCardsForRoot($rootName, $rootPath);
+        mysqli_stmt_bind_param($cardsStmt, "s", $rootName);
+        if (!mysqli_stmt_execute($cardsStmt)) {
+            throw new Exception("Execute cards query failed: " . mysqli_stmt_error($cardsStmt));
+        }
         
-        if ($cards !== null) {
+        $cardsResult = mysqli_stmt_get_result($cardsStmt);
+        $cards = [];
+        while ($cardRow = mysqli_fetch_assoc($cardsResult)) {
+            $cardId = $cardRow['card_id'];
+            // Use card ID as both key and display name (can be enhanced later with card names from other sources)
+            $cards[$cardId] = $cardId;
+        }
+        mysqli_stmt_close($cardsStmt);
+        
+        if (!empty($cards)) {
             $roots[$rootName] = $cards;
         }
     }
     
+    mysqli_close($conn);
+    
     echo json_encode([
         'success' => true,
-        'roots' => $roots
+        'roots' => $roots,
+        'databaseRootsCount' => count($databaseRoots),
+        'loadedRootsCount' => count($roots)
     ]);
     
 } catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['error' => 'Failed to load roots: ' . $e->getMessage()]);
-}
-
-/**
- * Load cards for a specific root game
- * Tries multiple sources: cards.json, generated card list, etc.
- */
-function loadCardsForRoot($rootName, $rootPath) {
-    $cards = [];
-    
-    // Try cards.json first (standard format)
-    $cardsJsonPath = $rootPath . '/cards.json';
-    if (file_exists($cardsJsonPath)) {
-        $json = json_decode(file_get_contents($cardsJsonPath), true);
-        if (is_array($json)) {
-            foreach ($json as $card) {
-                $cardId = $card['CardID'] ?? $card['id'] ?? null;
-                if ($cardId) {
-                    $cards[$cardId] = $card['Name'] ?? $cardId;
-                }
-            }
-        }
-    }
-    
-    // Try top-level cards.json if root-specific not found
-    if (empty($cards)) {
-        $cardsJsonPath = '../../cards.json';
-        if (file_exists($cardsJsonPath)) {
-            $json = json_decode(file_get_contents($cardsJsonPath), true);
-            if (is_array($json)) {
-                foreach ($json as $card) {
-                    $cardId = $card['CardID'] ?? $card['id'] ?? null;
-                    if ($cardId) {
-                        $cards[$cardId] = $card['Name'] ?? $cardId;
-                    }
-                }
-            }
-        }
-    }
-    
-    // Return null if no cards found, otherwise return sorted array
-    if (empty($cards)) {
-        return null;
-    }
-    
-    ksort($cards);
-    return $cards;
 }
