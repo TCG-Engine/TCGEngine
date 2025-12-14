@@ -1,6 +1,7 @@
 <?php
 // Save Abilities API Endpoint
 // Saves or updates abilities for a given card
+// Also supports marking cards as implemented without abilities
 
 include_once('../../Database/ConnectionManager.php');
 include_once('../Database/CardAbilityDB.php');
@@ -20,6 +21,7 @@ try {
     $rootName = $input['root'] ?? null;
     $cardId = $input['card'] ?? null;
     $abilities = $input['abilities'] ?? [];
+    $cardImplemented = $input['cardImplemented'] ?? false;
     
     if (!$rootName || !$cardId) {
         http_response_code(400);
@@ -68,6 +70,15 @@ try {
             $results[] = ['id' => $savedId, 'macroName' => $macroName];
         }
         
+        // If card is marked as implemented but has no abilities, create a marker ability
+        if ($cardImplemented && count($abilities) === 0) {
+            // Create a marker ability to indicate card is implemented (no macro, no code, just the flag)
+            $markerId = $db->saveAbility(null, $rootName, $cardId, '', '', '[Card Implemented]', 1);
+            if ($markerId) {
+                $savedIds[] = $markerId;
+            }
+        }
+        
         // Delete any abilities that were removed (existed but not in current request)
         foreach ($existingIds as $existingId) {
             if (!in_array($existingId, $savedIds)) {
@@ -80,8 +91,9 @@ try {
         
         echo json_encode([
             'success' => true,
-            'message' => 'Abilities saved successfully',
-            'saved' => $results
+            'message' => 'Saved successfully',
+            'saved' => $results,
+            'cardImplemented' => $cardImplemented
         ]);
         
         mysqli_close($conn);
@@ -95,3 +107,4 @@ try {
     echo json_encode(['error' => 'Save failed: ' . $e->getMessage()]);
 }
 
+?>

@@ -8,6 +8,7 @@ class AbilityEditor {
         this.cardId = cardId;
         this.macros = macros;
         this.assetPath = assetPath || rootName; // Default to current root if not specified
+        this.cardImplemented = false; // Track if card is marked as implemented
         this.abilities = existingAbilities.map(a => ({
             id: a.id || null,
             macroName: a.macro_name,
@@ -15,6 +16,10 @@ class AbilityEditor {
             abilityName: a.ability_name,
             isImplemented: a.is_implemented ? true : false
         }));
+        // Check if card should be marked as implemented (if any ability is implemented)
+        if (this.abilities.length > 0 && this.abilities.some(a => a.isImplemented)) {
+            this.cardImplemented = true;
+        }
         this.editorContainer = document.getElementById('editorArea');
         this.statusMessage = null;
     }
@@ -37,9 +42,20 @@ class AbilityEditor {
                         <h2>${this.cardId}</h2>
                         <p>Root: ${this.rootName}</p>
                     </div>
-                    <button class="save-button" onclick="window.abilityEditor.saveAbilities()">
-                        Save Abilities
-                    </button>
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <div class="inline-checkbox">
+                            <input 
+                                type="checkbox" 
+                                id="cardImplemented"
+                                ${this.cardImplemented ? 'checked' : ''}
+                                onchange="window.abilityEditor.updateCardImplemented(this.checked)"
+                            />
+                            <label for="cardImplemented">Card Implemented</label>
+                        </div>
+                        <button class="save-button" onclick="window.abilityEditor.saveAbilities()">
+                            Save Abilities
+                        </button>
+                    </div>
                 </div>
                 
                 <div id="statusArea"></div>
@@ -125,6 +141,10 @@ class AbilityEditor {
         }
     }
     
+    updateCardImplemented(isImplemented) {
+        this.cardImplemented = isImplemented;
+    }
+    
     addAbility() {
         this.abilities.push({
             id: null,
@@ -144,11 +164,18 @@ class AbilityEditor {
     }
     
     async saveAbilities() {
-        // Validate that macros are selected
+        // Validate that any abilities that exist have both macro and code
         const validAbilities = this.abilities.filter(a => a.macroName && a.abilityCode);
+        const incompleteAbilities = this.abilities.filter(a => (a.macroName && !a.abilityCode) || (!a.macroName && a.abilityCode));
         
-        if (validAbilities.length === 0 && this.abilities.length > 0) {
-            this.showStatus('error', 'Please select a macro and enter code for each ability');
+        if (incompleteAbilities.length > 0) {
+            this.showStatus('error', 'All abilities must have both a macro and code, or be removed');
+            return;
+        }
+        
+        // Allow saving if: (1) there are valid abilities, or (2) card is marked as implemented with no abilities
+        if (validAbilities.length === 0 && !this.cardImplemented) {
+            this.showStatus('info', 'Add abilities or mark the card as implemented to save');
             return;
         }
         
@@ -161,7 +188,8 @@ class AbilityEditor {
                 body: JSON.stringify({
                     root: this.rootName,
                     card: this.cardId,
-                    abilities: this.abilities.filter(a => a.macroName && a.abilityCode)
+                    abilities: validAbilities,
+                    cardImplemented: this.cardImplemented
                 })
             });
             
@@ -180,11 +208,15 @@ class AbilityEditor {
                     id: a.id,
                     macroName: a.macro_name,
                     abilityCode: a.ability_code,
-                    abilityName: a.ability_name
+                    abilityName: a.ability_name,
+                    isImplemented: a.is_implemented ? true : false
                 }));
             }
             
-            this.showStatus('success', `Saved ${validAbilities.length} ability(ies) successfully`);
+            const message = validAbilities.length > 0 
+                ? `Saved ${validAbilities.length} ability(ies)` 
+                : 'Card marked as implemented';
+            this.showStatus('success', message + ' successfully');
             this.render();
             
         } catch (error) {
