@@ -448,13 +448,13 @@ for($i=0; $i<count($zones); ++$i) {
     $parameters .= ", \$" . $property->Name . "=" . $property->DefaultValue;
     $parametersNoDefaults .= ", \$" . $property->Name;
   }
-  fwrite($handler, "function Add" . $zoneName . "(\$player" . $parameters);
+  fwrite($handler, "function Add" . $zoneName . "(\$player" . $parameters . ", \$sourceObject=null");
   fwrite($handler, ") {\r\n");
   if($zone->AddValidation != "") {
     fwrite($handler, "  if(!" . $zone->AddValidation . "(\$CardID)) return;\r\n");
   }
   if ($zone->AddReplacement != null) {
-    fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(\$player" . $parametersNoDefaults . ");\r\n");
+    fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(\$player" . $parametersNoDefaults . ", \$sourceObject);\r\n");
     fwrite($handler, "  if(\$replaceResult) return \$replaceResult;\r\n");
   }
   if ($isValueOnly) {
@@ -481,7 +481,7 @@ for($i=0; $i<count($zones); ++$i) {
       if (strtolower($scope) == 'global') {
         fwrite($handler, "'" . $zoneName . "', 0");
       } else {
-        fwrite($handler, "'my" . $zoneName . "', \$player");
+        fwrite($handler, "'" . $zoneName . "', \$player");
       }
     }
     fwrite($handler, ");\r\n");
@@ -492,6 +492,18 @@ for($i=0; $i<count($zones); ++$i) {
       fwrite($handler, "  \$zone = &Get" . $zoneName . "(\$player);\r\n");
       fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
     }
+  }
+  // Copy properties from sourceObject before calling AfterAdd
+  if (!$isValueOnly) {
+    fwrite($handler, "  // Deep copy properties from sourceObject if provided\r\n");
+    fwrite($handler, "  if(\$sourceObject !== null) {\r\n");
+    fwrite($handler, "    \$properties = get_object_vars(\$sourceObject);\r\n");
+    fwrite($handler, "    foreach(\$properties as \$prop => \$value) {\r\n");
+    fwrite($handler, "      if(\$prop !== 'removed' && \$prop !== 'Location') {\r\n");
+    fwrite($handler, "        \$zoneObj->\$prop = \$value;\r\n");
+    fwrite($handler, "      }\r\n");
+    fwrite($handler, "    }\r\n");
+    fwrite($handler, "  }\r\n");
   }
   if ($zone->AfterAdd != null) {
     fwrite($handler, "  " . $zone->AfterAdd . "(\$player" . $parametersNoDefaults . ");\r\n");
@@ -537,16 +549,8 @@ fwrite($handler, $mzGetZone);
 fwrite($handler, "function MZMove(\$player, \$mzIndex, \$toZone) {\r\n");
 fwrite($handler, "  \$removed = GetZoneObject(\$mzIndex);\r\n");
 fwrite($handler, "  \$removed->Remove();\r\n");
-fwrite($handler, "  \$newObj = MZAddZone(\$player, \$toZone, \$removed->CardID);\r\n");
-fwrite($handler, "  // Deep copy public properties from removed object to newly added object\r\n");
-fwrite($handler, "  if(\$newObj !== null) {\r\n");
-fwrite($handler, "    \$properties = get_object_vars(\$removed);\r\n");
-fwrite($handler, "    foreach(\$properties as \$prop => \$value) {\r\n");
-fwrite($handler, "      if(\$prop !== 'removed' && \$prop !== 'Location' && \$prop !== 'PlayerID') {\r\n");
-fwrite($handler, "        \$newObj->\$prop = \$value;\r\n");
-fwrite($handler, "      }\r\n");
-fwrite($handler, "    }\r\n");
-fwrite($handler, "  }\r\n");
+fwrite($handler, "  // Pass the removed object to MZAddZone so properties are copied before AfterAdd hooks fire\r\n");
+fwrite($handler, "  \$newObj = MZAddZone(\$player, \$toZone, \$removed->CardID, \$removed);\r\n");
 fwrite($handler, "}\r\n\r\n");
 
 fwrite($handler, "function MZZoneCount(\$zoneName) {\r\n");
@@ -558,17 +562,17 @@ fwrite($handler, "  return \$count;\r\n");
 fwrite($handler, "}\r\n\r\n");
 
 //MZAddZone
-fwrite($handler, "function MZAddZone(\$player, \$zoneName, \$cardID) {\r\n");
+fwrite($handler, "function MZAddZone(\$player, \$zoneName, \$cardID, \$sourceObject=null) {\r\n");
 fwrite($handler, "  switch(\$zoneName) {\r\n");
 for($i=0; $i<count($zones); ++$i) {
   $zone = $zones[$i];
   $zoneName = $zone->Name;
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
-    fwrite($handler, "    case \"" . $zoneName . "\": return Add" . $zoneName . "(CardID:\$cardID);\r\n");
+    fwrite($handler, "    case \"" . $zoneName . "\": return Add" . $zoneName . "(CardID:\$cardID, sourceObject:\$sourceObject);\r\n");
   } else {
-    fwrite($handler, "    case \"my" . $zoneName . "\": return Add" . $zoneName . "(\$player, CardID:\$cardID);\r\n");
-    fwrite($handler, "    case \"their" . $zoneName . "\": return Add" . $zoneName . "(\$player == 1 ? 2 : 1, CardID:\$cardID);\r\n");
+    fwrite($handler, "    case \"my" . $zoneName . "\": return Add" . $zoneName . "(\$player, CardID:\$cardID, sourceObject:\$sourceObject);\r\n");
+    fwrite($handler, "    case \"their" . $zoneName . "\": return Add" . $zoneName . "(\$player == 1 ? 2 : 1, CardID:\$cardID, sourceObject:\$sourceObject);\r\n");
   }
 }
 fwrite($handler, "    default: return null;\r\n");
