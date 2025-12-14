@@ -737,6 +737,8 @@ for($i=0; $i<count($macros); ++$i) {
     fwrite($handler, "  \$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"](\$player, \$result, null);\r\n");
     fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"PASSPARAMETER\", \"\$result\", 99);\r\n");
     fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
+    fwrite($handler, "  \$dqController = new DecisionQueueController();\r\n");
+    fwrite($handler, "  \$dqController->ExecuteStaticMethods(\$player, \"-\");\r\n");
   } else {
     // If macro has parameters and uses Choice (not ChoiceFunction), pass them to the Choice handler
     if (!empty($macro->Parameters)) {
