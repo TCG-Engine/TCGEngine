@@ -112,6 +112,7 @@ while($hasMoreData) {
     } else if($rootName == "RBDeck") {
       $cardID = $card->id;
       $cardID = explode("/", $cardID)[0];
+      if (substr($cardID, -2) === '-P' || substr($cardID, -5) === '-STAR' || substr($cardID, -1) === 'A') continue;
     }
     $card->id = $cardID;
     $cardArray[] = $card;
