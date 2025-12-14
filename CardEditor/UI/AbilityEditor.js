@@ -3,10 +3,11 @@
  * Manages the UI for editing card abilities
  */
 class AbilityEditor {
-    constructor(rootName, cardId, macros, existingAbilities = []) {
+    constructor(rootName, cardId, macros, existingAbilities = [], assetPath = null) {
         this.rootName = rootName;
         this.cardId = cardId;
         this.macros = macros;
+        this.assetPath = assetPath || rootName; // Default to current root if not specified
         this.abilities = existingAbilities.map(a => ({
             id: a.id || null,
             macroName: a.macro_name,
@@ -19,32 +20,44 @@ class AbilityEditor {
     }
     
     render() {
+        // Use the reflected asset path for images
+        // Go up two levels (CardEditor/UI -> CardEditor -> root) to reach the actual root folder
+        const cardImagePath = `../../${this.assetPath}/WebpImages/${this.cardId}.webp`;
+        
         const html = `
-            <div class="card-header">
-                <div class="card-info">
-                    <h2>${this.cardId}</h2>
-                    <p>Root: ${this.rootName}</p>
+            <div class="card-image-sidebar">
+                <div class="card-image-container" id="cardImageContainer">
+                    <img src="${cardImagePath}" alt="${this.cardId}" onerror="this.parentElement.classList.add('empty'); this.style.display='none'; this.parentElement.textContent='Image not found';" />
                 </div>
-                <button class="save-button" onclick="window.abilityEditor.saveAbilities()">
-                    Save Abilities
+            </div>
+            
+            <div class="editor-container">
+                <div class="card-header">
+                    <div class="card-info">
+                        <h2>${this.cardId}</h2>
+                        <p>Root: ${this.rootName}</p>
+                    </div>
+                    <button class="save-button" onclick="window.abilityEditor.saveAbilities()">
+                        Save Abilities
+                    </button>
+                </div>
+                
+                <div id="statusArea"></div>
+                
+                <div class="abilities-area" id="abilitiesArea">
+                    ${this.abilities.length === 0 
+                        ? '<div class="loading">No abilities yet. Click "Add Ability" to create one.</div>'
+                        : this.abilities.map((ability, index) => this.renderAbility(ability, index)).join('')
+                    }
+                </div>
+                
+                <button class="add-ability-btn" onclick="window.abilityEditor.addAbility()">
+                    + Add Ability
                 </button>
-            </div>
-            
-            <div id="statusArea"></div>
-            
-            <div class="abilities-area" id="abilitiesArea">
-                ${this.abilities.length === 0 
-                    ? '<div class="loading">No abilities yet. Click "Add Ability" to create one.</div>'
-                    : this.abilities.map((ability, index) => this.renderAbility(ability, index)).join('')
-                }
-            </div>
-            
-            <button class="add-ability-btn" onclick="window.abilityEditor.addAbility()">
-                + Add Ability
-            </button>
-            
-            <div class="footer">
-                Root: ${this.rootName} | Card: ${this.cardId} | Abilities: ${this.abilities.length}
+                
+                <div class="footer">
+                    Root: ${this.rootName} | Card: ${this.cardId} | Abilities: ${this.abilities.length}
+                </div>
             </div>
         `;
         

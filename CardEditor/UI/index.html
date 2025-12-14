@@ -115,11 +115,52 @@
             overflow: hidden;
         }
         
+        .editor-wrapper {
+            display: flex;
+            height: 100%;
+            gap: 20px;
+            padding: 20px;
+        }
+        
+        .card-image-sidebar {
+            width: 200px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        
+        .card-image-container {
+            width: 100%;
+            aspect-ratio: 5 / 7;
+            background: #252526;
+            border: 1px solid #3e3e42;
+            border-radius: 4px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        
+        .card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .card-image-container.empty {
+            color: #858585;
+            font-size: 12px;
+            text-align: center;
+            padding: 10px;
+        }
+        
         .editor-container {
             display: flex;
             flex-direction: column;
-            height: 100%;
-            padding: 20px;
+            flex: 1;
+            overflow: hidden;
         }
         
         .no-card-selected {
@@ -391,7 +432,7 @@
         
         <!-- Right Panel: Ability Editor -->
         <div class="right-panel">
-            <div id="editorArea" class="editor-container">
+            <div id="editorArea" class="editor-wrapper">
                 <div class="no-card-selected">
                     Select a root and card to begin editing
                 </div>
@@ -577,10 +618,15 @@
                     throw new Error(macrosData.error || 'Failed to load macros');
                 }
                 
+                // Load asset path (for asset reflection support)
+                const assetResponse = await fetch(`../API/GetAssetPath.php?root=${encodeURIComponent(rootName)}`);
+                const assetData = await assetResponse.json();
+                const assetPath = assetData.success ? assetData.assetPath : rootName;
+                
                 window.currentMacros = macrosData.macros || [];
                 
                 // Render the editor UI
-                renderEditor(rootName, cardId, data.abilities || []);
+                renderEditor(rootName, cardId, data.abilities || [], assetPath);
                 
             } catch (error) {
                 document.getElementById('editorArea').innerHTML = `
@@ -591,8 +637,8 @@
             }
         }
         
-        function renderEditor(rootName, cardId, abilities) {
-            const editor = new AbilityEditor(rootName, cardId, window.currentMacros, abilities);
+        function renderEditor(rootName, cardId, abilities, assetPath) {
+            const editor = new AbilityEditor(rootName, cardId, window.currentMacros, abilities, assetPath);
             editor.render();
         }
     </script>
