@@ -214,10 +214,8 @@ if(!empty($keywordsFile) && file_exists($keywordsFile)) {
       if($keywordTypes[$keywordName] === 'boolean') {
         $keywordData[$keywordName][$cardId] = true;
       } else {
-        // For value keywords, store the numeric value
-        if($kw['value'] !== null) {
-          $keywordData[$keywordName][$cardId] = intval($kw['value']);
-        }
+        // For value keywords, store the numeric value (default to 1 if null)
+        $keywordData[$keywordName][$cardId] = $kw['value'] !== null ? intval($kw['value']) : 1;
       }
     }
   }
