@@ -656,36 +656,68 @@ for($i=0; $i<count($macros); ++$i) {
       fwrite($handler, "};\r\n\r\n");
     }
   }
-  // AfterChoice handler
-  fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterChoice\"] = function(\$player, \$param, \$lastResult) {\r\n");
-  if(isset($macro->AfterChoice)) {
-    fwrite($handler, "  " . $macro->AfterChoice . "(\$player, \$lastResult);\r\n");
-          }
-  fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Action\", 99);\r\n");
-  fwrite($handler, "};\r\n\r\n");
-  // Action handler
-  if(isset($macro->Action) && substr($macro->Action, 0, 1) == '{') {
-    $actionSpec = substr($macro->Action, 1, -1);
-    $parts = explode(':', $actionSpec);
-    $type = $parts[0];
-    if($type == 'MZMOVE') {
-      $param = $parts[1];
-      fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
-      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZMOVE\", \"" . $param . "\", 1);\r\n");
-      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
-      fwrite($handler, "};\r\n\r\n");
-    } else {
-      fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
-      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
-      fwrite($handler, "};\r\n\r\n");
+  // For ChoiceFunction macros: generate Action handler that executes directly without decision queue
+  // For Choice-based macros: keep AfterChoice and traditional Action handlers
+  if(isset($macro->ChoiceFunction)) {
+    // ChoiceFunction variant: Action handler calls MZMove directly
+    if(isset($macro->Action) && substr($macro->Action, 0, 1) == '{') {
+      $actionSpec = substr($macro->Action, 1, -1);
+      $parts = explode(':', $actionSpec);
+      $type = $parts[0];
+      if($type == 'MZMOVE') {
+        $param = $parts[1];
+        fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$result, \$lastDecision) {\r\n");
+        // Resolve {<-} placeholder with the result from ChoiceFunction
+        fwrite($handler, "  \$resolvedParam = str_replace(\"{<-}\", \$result, \"" . $param . "\");\r\n");
+        fwrite($handler, "  \$parts = explode(\"->\", \$resolvedParam);\r\n");
+        fwrite($handler, "  \$source = \$parts[0];\r\n");
+        fwrite($handler, "  \$destination = explode(\"-\", \$parts[1])[0];\r\n");
+        fwrite($handler, "  MZMove(\$player, \$source, \$destination);\r\n");
+        fwrite($handler, "};\r\n\r\n");
+      } else {
+        fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$result, \$lastDecision) {\r\n");
+        fwrite($handler, "};\r\n\r\n");
+      }
     }
+    // AfterAction handler for ChoiceFunction
+    fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterAction\"] = function(\$player, \$param, \$lastResult) {\r\n");
+    if(isset($macro->AfterAction)) {
+      fwrite($handler, "  " . $macro->AfterAction . "(\$player, \$lastResult);\r\n");
+    }
+    fwrite($handler, "};\r\n\r\n");
+  } else {
+    // Choice-based variant: traditional handlers
+    // AfterChoice handler
+    fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterChoice\"] = function(\$player, \$param, \$lastResult) {\r\n");
+    if(isset($macro->AfterChoice)) {
+      fwrite($handler, "  " . $macro->AfterChoice . "(\$player, \$lastResult);\r\n");
+    }
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Action\", 99);\r\n");
+    fwrite($handler, "};\r\n\r\n");
+    // Action handler
+    if(isset($macro->Action) && substr($macro->Action, 0, 1) == '{') {
+      $actionSpec = substr($macro->Action, 1, -1);
+      $parts = explode(':', $actionSpec);
+      $type = $parts[0];
+      if($type == 'MZMOVE') {
+        $param = $parts[1];
+        fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
+        fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZMOVE\", \"" . $param . "\", 1);\r\n");
+        fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
+        fwrite($handler, "};\r\n\r\n");
+      } else {
+        fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"] = function(\$player, \$param, \$lastResult) {\r\n");
+        fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
+        fwrite($handler, "};\r\n\r\n");
+      }
+    }
+    // AfterAction handler
+    fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterAction\"] = function(\$player, \$param, \$lastResult) {\r\n");
+    if(isset($macro->AfterAction)) {
+      fwrite($handler, "  " . $macro->AfterAction . "(\$player, \$lastResult);\r\n");
+    }
+    fwrite($handler, "};\r\n\r\n");
   }
-  // AfterAction handler
-  fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterAction\"] = function(\$player, \$param, \$lastResult) {\r\n");
-  if(isset($macro->AfterAction)) {
-    fwrite($handler, "  " . $macro->AfterAction . "(\$player, \$lastResult);\r\n");
-  }
-  fwrite($handler, "};\r\n\r\n");
   // Main macro function
   $paramList = '$player';
   if (!empty($macro->Parameters)) {
@@ -701,8 +733,10 @@ for($i=0; $i<count($macros); ++$i) {
       $cfArgs = '$player';
     }
     fwrite($handler, "  \$result = " . $cfName . "(" . $cfArgs . ");\r\n");
+    fwrite($handler, "  global \$systemDQHandlers;\r\n");
+    fwrite($handler, "  \$systemDQHandlers[\"" . $macro->FunctionName . "_Action\"](\$player, \$result, null);\r\n");
     fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"PASSPARAMETER\", \"\$result\", 99);\r\n");
-    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Action\", 99);\r\n");
+    fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterAction\", 99);\r\n");
   } else {
     // If macro has parameters and uses Choice (not ChoiceFunction), pass them to the Choice handler
     if (!empty($macro->Parameters)) {
