@@ -64,4 +64,6 @@ GudnakSim/InitialLayout.php
 GudnakSim/NextTurnRender.php
 GudnakSim/ZoneAccessors.php
 GudnakSim/ZoneClasses.php
+GudnakSim/TurnStates.php
+GudnakSim/TurnController.php
 GudnakSim/Games
