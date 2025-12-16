@@ -53,3 +53,15 @@ SWUCardList/NextTurnRender.php
 SWUCardList/ZoneAccessors.php
 SWUCardList/ZoneClasses.php
 SWUCardList/Games
+GudnakSim/WebpImages
+GudnakSim/crops
+GudnakSim/concat
+GudnakSim/GeneratedCode
+GudnakSim/GamestateParser.php
+GudnakSim/GeneratedUI*.js
+GudnakSim/GetNextTurn.php
+GudnakSim/InitialLayout.php
+GudnakSim/NextTurnRender.php
+GudnakSim/ZoneAccessors.php
+GudnakSim/ZoneClasses.php
+GudnakSim/Games

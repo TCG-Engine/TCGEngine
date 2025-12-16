@@ -9,7 +9,7 @@ if ($error !== "") {
     exit();
 }
 
-function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", $rootPath = "")
+function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", $rootPath = "", $squareCards = false)
 {
     $filename = $rootPath . "WebpImages/" . $cardID . ".webp";
     $filenameNew = $rootPath . "UnimplementedCards/" . $cardID . ".webp";
@@ -50,13 +50,15 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
             try {
                 $image = new Imagick($tempName);
 
-                if ($definedType == "Base" || $definedType == "Leader") {
-                    if ($image->getImageHeight() > $image->getImageWidth()) {
-                        $image->rotateimage(new ImagickPixel('none'), -90);
+                if (!$squareCards) {
+                    if ($definedType == "Base" || $definedType == "Leader") {
+                        if ($image->getImageHeight() > $image->getImageWidth()) {
+                            $image->rotateimage(new ImagickPixel('none'), -90);
+                        }
+                        $image->resizeImage(628, 450, Imagick::FILTER_LANCZOS, 1, true);
+                    } else {
+                        $image->resizeImage(450, 628, Imagick::FILTER_LANCZOS, 1, true);
                     }
-                    $image->resizeImage(628, 450, Imagick::FILTER_LANCZOS, 1, true);
-                } else {
-                    $image->resizeImage(450, 628, Imagick::FILTER_LANCZOS, 1, true);
                 }
 
                 $image->setImageFormat('webp');
@@ -99,11 +101,13 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
                 unlink($tempName);
                 return;
             }
-            if ($definedType == "Base" || $definedType == "Leader") {
-                if (imagesy($image) > imagesx($image)) $image = imagerotate($image, -90, 0);
-                $image = imagescale($image, 628, 450);
-            } else {
-                $image = imagescale($image, 450, 628);
+            if (!$squareCards) {
+                if ($definedType == "Base" || $definedType == "Leader") {
+                    if (imagesy($image) > imagesx($image)) $image = imagerotate($image, -90, 0);
+                    $image = imagescale($image, 628, 450);
+                } else {
+                    $image = imagescale($image, 450, 628);
+                }
             }
             if (!imagewebp($image, $filename)) {
                 echo("Failed to convert image to webp format for $cardID.<br>");
@@ -148,77 +152,83 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
     if (!file_exists($concatFilename)) {
         echo "Concat image for $cardID does not exist. Converting: $filename<br>";
         if (file_exists($filename)) {
-            if (class_exists('Imagick')) {
-                try {
-                    $image = new Imagick($filename);
+            if ($squareCards) {
+                // For square cards, just copy the webp image as the concat image
+                copy($filename, $concatFilename);
+                echo "Image for $cardID successfully copied to concat (square cards).<br>";
+            } else {
+                if (class_exists('Imagick')) {
+                    try {
+                        $image = new Imagick($filename);
 
+                        if ($definedType == "Event") {
+                            $imageTop = $image->clone();
+                            $imageTop->cropImage(450, 110, 0, 0);
+
+                            $imageBottom = $image->clone();
+                            $imageBottom->cropImage(450, 628 - 320, 0, 320);
+
+                            $dest = new Imagick();
+                            $dest->newImage(450, 450, new ImagickPixel('transparent'));
+                            $dest->compositeImage($imageTop, Imagick::COMPOSITE_DEFAULT, 0, 0);
+                            $dest->compositeImage($imageBottom, Imagick::COMPOSITE_DEFAULT, 0, 111);
+                        } else {
+                            $imageTop = $image->clone();
+                            $imageTop->cropImage(450, 397, 0, 0);
+
+                            $imageBottom = $image->clone();
+                            $imageBottom->cropImage(450, 628 - 595, 0, 595);
+
+                            $dest = new Imagick();
+                            $dest->newImage(450, 450, new ImagickPixel('transparent'));
+                            $dest->compositeImage($imageTop, Imagick::COMPOSITE_DEFAULT, 0, 0);
+                            $dest->compositeImage($imageBottom, Imagick::COMPOSITE_DEFAULT, 0, 398);
+                        }
+
+                        $dest->setImageFormat('webp');
+                        $dest->writeImage($concatFilename);
+
+                        $image->clear();
+                        $image->destroy();
+                        $dest->clear();
+                        $dest->destroy();
+                        $imageTop->clear();
+                        $imageTop->destroy();
+                        $imageBottom->clear();
+                        $imageBottom->destroy();
+
+                        if (file_exists($concatFilename)) {
+                            echo "Image for $cardID successfully converted to concat.<br>";
+                        }
+                    } catch (Exception $e) {
+                        echo "Imagick concat conversion failed for $cardID: " . $e->getMessage() . "<br>";
+                        // fallback GD below
+                    }
+                }
+                if (!file_exists($concatFilename)) {
+                    // fallback GD
+                    $image = imagecreatefromwebp($filename);
                     if ($definedType == "Event") {
-                        $imageTop = $image->clone();
-                        $imageTop->cropImage(450, 110, 0, 0);
-
-                        $imageBottom = $image->clone();
-                        $imageBottom->cropImage(450, 628 - 320, 0, 320);
-
-                        $dest = new Imagick();
-                        $dest->newImage(450, 450, new ImagickPixel('transparent'));
-                        $dest->compositeImage($imageTop, Imagick::COMPOSITE_DEFAULT, 0, 0);
-                        $dest->compositeImage($imageBottom, Imagick::COMPOSITE_DEFAULT, 0, 111);
+                        $imageTop = imagecrop($image, ['x' => 0, 'y' => 0, 'width' => 450, 'height' => 110]);
+                        $imageBottom = imagecrop($image, ['x' => 0, 'y' => 320, 'width' => 450, 'height' => 628]);
+                        $dest = imagecreatetruecolor(450, 450);
+                        imagecopy($dest, $imageTop, 0, 0, 0, 0, 450, 110);
+                        imagecopy($dest, $imageBottom, 0, 111, 0, 0, 450, 404);
                     } else {
-                        $imageTop = $image->clone();
-                        $imageTop->cropImage(450, 397, 0, 0);
-
-                        $imageBottom = $image->clone();
-                        $imageBottom->cropImage(450, 628 - 595, 0, 595);
-
-                        $dest = new Imagick();
-                        $dest->newImage(450, 450, new ImagickPixel('transparent'));
-                        $dest->compositeImage($imageTop, Imagick::COMPOSITE_DEFAULT, 0, 0);
-                        $dest->compositeImage($imageBottom, Imagick::COMPOSITE_DEFAULT, 0, 398);
+                        $imageTop = imagecrop($image, ['x' => 0, 'y' => 0, 'width' => 450, 'height' => 397]);
+                        $imageBottom = imagecrop($image, ['x' => 0, 'y' => 595, 'width' => 450, 'height' => 628]);
+                        $dest = imagecreatetruecolor(450, 450);
+                        imagecopy($dest, $imageTop, 0, 0, 0, 0, 450, 397);
+                        imagecopy($dest, $imageBottom, 0, 398, 0, 0, 450, 53);
                     }
-
-                    $dest->setImageFormat('webp');
-                    $dest->writeImage($concatFilename);
-
-                    $image->clear();
-                    $image->destroy();
-                    $dest->clear();
-                    $dest->destroy();
-                    $imageTop->clear();
-                    $imageTop->destroy();
-                    $imageBottom->clear();
-                    $imageBottom->destroy();
-
+                    imagewebp($dest, $concatFilename);
+                    imagedestroy($image);
+                    imagedestroy($dest);
+                    imagedestroy($imageTop);
+                    imagedestroy($imageBottom);
                     if (file_exists($concatFilename)) {
-                        echo "Image for $cardID successfully converted to concat.<br>";
+                        echo "Image for $cardID successfully converted to concat (GD fallback).<br>";
                     }
-                } catch (Exception $e) {
-                    echo "Imagick concat conversion failed for $cardID: " . $e->getMessage() . "<br>";
-                    // fallback GD below
-                }
-            }
-            if (!file_exists($concatFilename)) {
-                // fallback GD
-                $image = imagecreatefromwebp($filename);
-                if ($definedType == "Event") {
-                    $imageTop = imagecrop($image, ['x' => 0, 'y' => 0, 'width' => 450, 'height' => 110]);
-                    $imageBottom = imagecrop($image, ['x' => 0, 'y' => 320, 'width' => 450, 'height' => 628]);
-                    $dest = imagecreatetruecolor(450, 450);
-                    imagecopy($dest, $imageTop, 0, 0, 0, 0, 450, 110);
-                    imagecopy($dest, $imageBottom, 0, 111, 0, 0, 450, 404);
-                } else {
-                    $imageTop = imagecrop($image, ['x' => 0, 'y' => 0, 'width' => 450, 'height' => 397]);
-                    $imageBottom = imagecrop($image, ['x' => 0, 'y' => 595, 'width' => 450, 'height' => 628]);
-                    $dest = imagecreatetruecolor(450, 450);
-                    imagecopy($dest, $imageTop, 0, 0, 0, 0, 450, 397);
-                    imagecopy($dest, $imageBottom, 0, 398, 0, 0, 450, 53);
-                }
-                imagewebp($dest, $concatFilename);
-                imagedestroy($image);
-                imagedestroy($dest);
-                imagedestroy($imageTop);
-                imagedestroy($imageBottom);
-                if (file_exists($concatFilename)) {
-                    echo "Image for $cardID successfully converted to concat (GD fallback).<br>";
                 }
             }
         }

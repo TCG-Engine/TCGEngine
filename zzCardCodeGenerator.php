@@ -74,6 +74,12 @@ while($hasMoreData) {
   $response = json_decode($apiData);
   echo($response ? "Response received successfully.<BR>" : "Failed to decode JSON response.<BR>");
 
+  if($cardArrayJson == "") {
+    $cardArrayJson = "Data";
+    $responseCopy = $response;
+    $response = new stdClass();
+    $response->$cardArrayJson = $responseCopy;
+  }
   echo(count($response->$cardArrayJson) . " cards on page " . $currentPage . "<BR>");
 
   for ($i = 0; $i < count($response->$cardArrayJson); ++$i)
@@ -113,17 +119,23 @@ while($hasMoreData) {
       $cardID = $card->id;
       $cardID = explode("/", $cardID)[0];
       if (substr($cardID, -2) === '-P' || substr($cardID, -5) === '-STAR' || substr($cardID, -1) === 'A') continue;
+    } else if($rootName == "GudnakSim") {
+      $cardID = $card->id;
     }
     $card->id = $cardID;
     $cardArray[] = $card;
 
     $thisImageUrl = $imageUrl . $cardID . "." . $imageFormat;
+    $squareCards = false;
     if($rootName == "SWUDeck") {
       $thisImageUrl = $card->artFront->data->attributes->formats->card->url;
     } else if($rootName == "SoulMastersDB" || $rootName == "SoulMastersSim") {
       $thisImageUrl = $imageUrl . $cardID . "-CYMK.jpg";
+    } else if($rootName == "GudnakSim") {
+      $thisImageUrl = $imageUrl . $card->number . ".jpg";
+      $squareCards = true;
     }
-    CheckImage($cardID, $thisImageUrl, "", "", rootPath:"./" . $rootName . "/");
+    CheckImage($cardID, $thisImageUrl, "", "", rootPath:"./" . $rootName . "/", squareCards:$squareCards);
 
     ++$count;
   }
