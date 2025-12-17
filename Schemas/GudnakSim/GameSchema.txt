@@ -20,22 +20,31 @@ Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
 Click: FSM()
 BG1 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=41%
+Sort: Reverse=true
 BG2 - CardID:string
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=48%
+Sort: Reverse=true
 BG3 - CardID:string
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=55%
+Sort: Reverse=true
 BG4 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=41%
+Sort: Reverse=true
 BG5 - CardID:string
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=48%
+Sort: Reverse=true
 BG6 - CardID:string
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=55%
+Sort: Reverse=true
 BG7 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=41%
+Sort: Reverse=true
 BG8 - CardID:string
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=48%
+Sort: Reverse=true
 BG9 - CardID:string
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=55%
+Sort: Reverse=true
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string

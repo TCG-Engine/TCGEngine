@@ -241,6 +241,9 @@ while(!feof($handler)) {
             case "Property":
               $zoneObj->Sort->Property = $propertyArr[1];
               break;
+            case "Reverse":
+              $zoneObj->Sort->Reverse = strtolower($propertyArr[1]) === "true";
+              break;
             default: break;
           }
         }
@@ -1340,10 +1343,13 @@ function AddGetNextTurnForPlayer($player) {
         } else {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
         }
+        // Check if Reverse is set to determine which card index to use
+        $useLastCard = ($zone->Sort && isset($zone->Sort->Reverse) && $zone->Sort->Reverse) ? true : false;
+        $cardIndex = $useLastCard ? "(count(\$arr)-1)" : "0";
         if(count($zone->VirtualProperties) > 0) {
-          $getNextTurn .= "  if(count(\$arr) > 0) ComputeVirtualProperties(\$arr[0]);\r\n";
+          $getNextTurn .= "  if(count(\$arr) > 0) ComputeVirtualProperties(\$arr[" . $cardIndex . "]);\r\n";
         }
-        $getNextTurn .= "  echo(count(\$arr) > 0 ? ClientRenderedCard(\$arr[0]->CardID, counters:count(\$" . $zoneName . "), cardJSON:json_encode(\$arr[0])) : \"\");\r\n";
+        $getNextTurn .= "  echo(count(\$arr) > 0 ? ClientRenderedCard(\$arr[" . $cardIndex . "]->CardID, counters:count(\$" . $zoneName . "), cardJSON:json_encode(\$arr[" . $cardIndex . "])) : \"\");\r\n";
       } else if($zone->Visibility == "Private") {
         //Single Private
         $getNextTurn .= "  echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";

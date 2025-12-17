@@ -316,7 +316,7 @@
             var zoneMetadata = GetZoneData(zoneName);
             var filters = zoneMetadata.Filters;
             var heatmaps = zoneMetadata.Heatmaps;
-            var sortProperty = zoneMetadata.Sort != null ? zoneMetadata.Sort.Property : "";
+            var sortProperty = (zoneMetadata.Sort && zoneMetadata.Sort.Property) ? zoneMetadata.Sort.Property : "";
             var sortFunction = sortProperty != "" ? "Card" + window[sortProperty + "Data"] : null;
             if(sortFunction != null && typeof window[sortFunction] !== 'function') {
               var sortFunction = sortProperty != "" ? "Card" + window[sortProperty + "Data"].toLowerCase() : null;
@@ -333,6 +333,10 @@
             }
             var filterFunction = null;
             if (!!filters && filters.length > 0) filterFunction = window[filters[0]];
+            // Reverse the zone array if Sort.Reverse is true (for all modes except Tile, which reverses after sorting)
+            if(mode != "Tile" && zoneMetadata.Sort && zoneMetadata.Sort.Reverse) {
+              zoneArr.reverse();
+            }
             for (var i = 0; i < zoneArr.length; ++i) {
               cardArr = zoneArr[i].split(" ");
               if(filter != "") {
@@ -371,6 +375,9 @@
                     return valueA - valueB;
                     });
                   }
+                }
+                if(zoneMetadata.Sort && zoneMetadata.Sort.Reverse) {
+                  tiledCardArr.reverse();
                 }
               tiledCardArr.forEach((cardObject) => {
                 newHTML += createCardHTML(zone, zoneName, folder, size, [cardObject.id, cardObject.quantity > 1 ? cardObject.quantity : 0, cardObject.cardJson], cardObject.index, heatmapFunction, heatmapColorMap);
