@@ -30,6 +30,22 @@ foreach ($lobby->players as $player) {
 
 $bg1 = &GetBG1();
 array_push($bg1, new BG1("GudnakTerrain"));
+$bg2 = &GetBG2();
+array_push($bg2, new BG2("GudnakTerrain"));
+$bg3 = &GetBG3();
+array_push($bg3, new BG3("GudnakTerrain"));
+$bg4 = &GetBG4();
+array_push($bg4, new BG4("GudnakTerrain"));
+$bg5 = &GetBG5();
+array_push($bg5, new BG5("GudnakTerrain"));
+$bg6 = &GetBG6();
+array_push($bg6, new BG6("GudnakTerrain"));
+$bg7 = &GetBG7();
+array_push($bg7, new BG7("GudnakTerrain"));
+$bg8 = &GetBG8();
+array_push($bg8, new BG8("GudnakTerrain"));
+$bg9 = &GetBG9();
+array_push($bg9, new BG9("GudnakTerrain"));
 
 $firstPlayer = &GetFirstPlayer();
 //$firstPlayer = &FirstPlayerValue();
