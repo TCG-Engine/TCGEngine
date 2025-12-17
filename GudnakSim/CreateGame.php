@@ -28,6 +28,9 @@ foreach ($lobby->players as $player) {
     ++$playerCounter;
 }
 
+$bg1 = &GetBG1();
+array_push($bg1, new BG1("GudnakTerrain"));
+
 $firstPlayer = &GetFirstPlayer();
 //$firstPlayer = &FirstPlayerValue();
 $firstPlayer = 1;

@@ -18,6 +18,24 @@ Display: Visibility=Public, Mode=Single, Bottom=10px, Right=10px
 Hand - CardID:string
 Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
 Click: FSM()
+BG1 - CardID:string, Controller:number, Status:number=2
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=200px, Left=41%
+BG2 - CardID:string
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=200px, Left=48%
+BG3 - CardID:string
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=200px, Left=55%
+BG4 - CardID:string, Controller:number, Status:number=2
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=41%
+BG5 - CardID:string
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=48%
+BG6 - CardID:string
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=55%
+BG7 - CardID:string, Controller:number, Status:number=2
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=400px, Left=41%
+BG8 - CardID:string
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=400px, Left=48%
+BG9 - CardID:string
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=400px, Left=55%
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string

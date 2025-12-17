@@ -448,13 +448,26 @@ for($i=0; $i<count($zones); ++$i) {
     $parameters .= ", \$" . $property->Name . "=" . $property->DefaultValue;
     $parametersNoDefaults .= ", \$" . $property->Name;
   }
-  fwrite($handler, "function Add" . $zoneName . "(\$player" . $parameters . ", \$sourceObject=null");
+  // For global zones, don't include $player parameter
+  if (strtolower($scope) == 'global') {
+    // Remove leading comma from parameters if present
+    $cleanParams = ltrim($parameters, ',');
+    fwrite($handler, "function Add" . $zoneName . "(" . $cleanParams);
+    if ($cleanParams != "") fwrite($handler, ", ");
+    fwrite($handler, "\$sourceObject=null");
+  } else {
+    fwrite($handler, "function Add" . $zoneName . "(\$player" . $parameters . ", \$sourceObject=null");
+  }
   fwrite($handler, ") {\r\n");
   if($zone->AddValidation != "") {
     fwrite($handler, "  if(!" . $zone->AddValidation . "(\$CardID)) return;\r\n");
   }
   if ($zone->AddReplacement != null) {
-    fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(\$player" . $parametersNoDefaults . ", \$sourceObject);\r\n");
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(" . ltrim($parametersNoDefaults, ',') . ", \$sourceObject);\r\n");
+    } else {
+      fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(\$player" . $parametersNoDefaults . ", \$sourceObject);\r\n");
+    }
     fwrite($handler, "  if(\$replaceResult) return \$replaceResult;\r\n");
   }
   if ($isValueOnly) {
@@ -476,13 +489,12 @@ for($i=0; $i<count($zones); ++$i) {
       fwrite($handler, "\$" . $property->Name);
       if($j < count($zone->Properties) - 1) fwrite($handler, " . ' ' . ");
     }
-    if (strtolower($scope) == 'player') {
-      fwrite($handler, ", ");
-      if (strtolower($scope) == 'global') {
-        fwrite($handler, "'" . $zoneName . "', 0");
-      } else {
-        fwrite($handler, "'" . $zoneName . "', \$player");
-      }
+    // Add zone name and player/owner to constructor
+    fwrite($handler, ", ");
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "'" . $zoneName . "', 0");
+    } else {
+      fwrite($handler, "'" . $zoneName . "', \$player");
     }
     fwrite($handler, ");\r\n");
     if (strtolower($scope) == 'global') {
@@ -506,7 +518,11 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "  }\r\n");
   }
   if ($zone->AfterAdd != null) {
-    fwrite($handler, "  " . $zone->AfterAdd . "(\$player" . $parametersNoDefaults . ");\r\n");
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  " . $zone->AfterAdd . "(" . ltrim($parametersNoDefaults, ',') . ");\r\n");
+    } else {
+      fwrite($handler, "  " . $zone->AfterAdd . "(\$player" . $parametersNoDefaults . ");\r\n");
+    }
   }
   if (!$isValueOnly) {
     fwrite($handler, "  return \$zoneObj;\r\n");
@@ -1309,13 +1325,17 @@ function AddGetNextTurnForPlayer($player) {
   $getNextTurn = "";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
-    $zoneName = "p" . $player . $zone->Name;
+    $scope = strtolower(isset($zone->Scope) ? $zone->Scope : 'Player');
+    // Skip global zones for player 2, they were already output for player 1
+    if ($scope == 'global' && $player > 1) continue;
+    
+    $zoneName = ($scope == 'global') ? "g" . $zone->Name : "p" . $player . $zone->Name;
     echo($zoneName . "<BR>");
     if($i > 0 || $player > 1) $getNextTurn .= "echo(\"<~>\");\r\n";
     if($zone->DisplayMode == "Single") {
       if($zone->Visibility == "Public") {
         //$getNextTurn .= "echo \"Single Public\";\r\n";
-        if (strtolower(isset($zone->Scope) ? $zone->Scope : 'Player') == 'global') {
+        if ($scope == 'global') {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
         } else {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
@@ -1332,7 +1352,7 @@ function AddGetNextTurnForPlayer($player) {
         //$getNextTurn .= "echo \"Single Self\";\r\n";
       }
     } else if($zone->DisplayMode == "All" || $zone->DisplayMode == "Pane" || $zone->DisplayMode == "Tile" || $zone->DisplayMode == "None") {
-      if (strtolower(isset($zone->Scope) ? $zone->Scope : 'Player') == 'global') {
+      if ($scope == 'global') {
         $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
       } else {
         $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
@@ -1355,11 +1375,11 @@ function AddGetNextTurnForPlayer($player) {
       }
       $getNextTurn .= "  }\r\n";
     } else if($zone->DisplayMode == "Count") {
-      $zoneName = count($zone->DisplayParameters) == 0 ? $zone->Name : $zone->DisplayParameters[0];
-      if (strtolower(isset($zone->Scope) ? $zone->Scope : 'Player') == 'global') {
-        $getNextTurn .= "  \$arr = &Get" . $zoneName . "();\r\n";
+      $countZoneName = count($zone->DisplayParameters) == 0 ? $zone->Name : $zone->DisplayParameters[0];
+      if ($scope == 'global') {
+        $getNextTurn .= "  \$arr = &Get" . $countZoneName . "();\r\n";
       } else {
-        $getNextTurn .= "  \$arr = &Get" . $zoneName . "(" . $player . ");\r\n";
+        $getNextTurn .= "  \$arr = &Get" . $countZoneName . "(" . $player . ");\r\n";
       }
       $getNextTurn .= "  echo(count(\$arr));\r\n";
       if($zone->Visibility == "Public") {
@@ -1370,14 +1390,14 @@ function AddGetNextTurnForPlayer($player) {
         //$getNextTurn .= "echo \"Count Self\";\r\n";
       }
     } else if($zone->DisplayMode == "Value") {
-      if (strtolower(isset($zone->Scope) ? $zone->Scope : 'Player') == 'global') {
+      if ($scope == 'global') {
         $getNextTurn .= "  echo(\$g" . $zone->Name . ");\r\n";
       } else {
         $getNextTurn .= "  echo(\$p" . $player . $zone->Name . ");\r\n";
       }
     }
     else if($zone->DisplayMode == "Radio") {
-      if (strtolower(isset($zone->Scope) ? $zone->Scope : 'Player') == 'global') {
+      if ($scope == 'global') {
         $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
       } else {
         $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
@@ -1445,15 +1465,23 @@ function AddNextTurn() {
   }
 
   // Finally add static positioned zones
+  $globalStaticStuff = "";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
     $index = $i + $startPiece;
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
     if($zone->Row < 0) {
-      $myStaticStuff .= "echo(\"var dataIndex = " . $index . " + (currentPlayerIndex-1)*" . count($zones) . ";\");\r\n";
-      $myStaticStuff .= GeneratedZoneElement($zone, "my", "dataIndex", $dummy);
+      if (strtolower($scope) == 'global') {
+        // Global zones: single zone, no my/their prefix, use absolute positioning
+        $globalStaticStuff .= GeneratedGlobalZoneElement($zone, $index, $dummy);
+      } else {
+        // Player zones: create my/their versions with mirrored positioning
+        $myStaticStuff .= "echo(\"var dataIndex = " . $index . " + (currentPlayerIndex-1)*" . count($zones) . ";\");\r\n";
+        $myStaticStuff .= GeneratedZoneElement($zone, "my", "dataIndex", $dummy);
 
-      $theirStaticStuff .= "echo(\"var dataIndex = " . $index . " + (otherPlayerIndex-1)*" . count($zones) . ";\");\r\n";
-      $theirStaticStuff .= GeneratedZoneElement($zone, "their", "dataIndex", $dummy);
+        $theirStaticStuff .= "echo(\"var dataIndex = " . $index . " + (otherPlayerIndex-1)*" . count($zones) . ";\");\r\n";
+        $theirStaticStuff .= GeneratedZoneElement($zone, "their", "dataIndex", $dummy);
+      }
     }
   }
 
@@ -1463,7 +1491,29 @@ function AddNextTurn() {
   if($hasFlashMessage) {
     $setData .= "echo(\"if(window.FlashMessageData && window.FlashMessageData != '') { showFlashMessage(window.FlashMessageData); window.FlashMessageData = ''; }\");\r\n";
   }
-  return $header . $setData . $myStuff . $theirStuff . $myStaticStuff . $theirStaticStuff . $footer;
+  return $header . $setData . $myStuff . $theirStuff . $myStaticStuff . $theirStaticStuff . $globalStaticStuff . $footer;
+}
+
+function GeneratedGlobalZoneElement($zone, $index, &$setData) {
+  global $rootPath;
+  $rv = "";
+  $style = "position: absolute;";
+  $onclick = "onclick=\\\"ZoneClickHandler(\\\'" . $zone->Name . "\\\');\\\"";
+  $onscroll = $zone->DisplayMode == "Panel" ? "onscroll=\\\"ZoneScrollHandler(\\\'" . $zone->Name . "\\\');\\\"" : "";
+  // Use absolute positioning for global zones (not mirrored)
+  if($zone->Left > -1) $style .= " left:" . $zone->Left . ";";
+  if($zone->Right > -1) $style .= " right:" . $zone->Right . ";";
+  if($zone->Top > -1) $style .= " top:" . $zone->Top . ";";
+  if($zone->Bottom > -1) $style .= " bottom:" . $zone->Bottom . ";";
+  if($zone->Width > -1) $style .= " width:" . $zone->Width . ";";
+  if($zone->DisplayMode != "Pane") $style .= " overflow-y:auto;";
+  if($zone->DisplayMode == "Pane") {
+    $rv .= "echo(\"globalCardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+  } else {
+    $rv .= "echo(\"myStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+  }
+  if($zone->DisplayMode == "None") return "";
+  return $rv;
 }
 
 function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
@@ -1501,11 +1551,17 @@ function AddGeneratedUI() {
   $rv .= "  var zone = null;\r\n";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
-    $rv .= "  zone = document.getElementById(\"my" . $zone->Name . "\");\r\n";
-    $rv .= "  if(!!zone) zone.classList.add(\"droppable\");\r\n";
-    //TODO: Only allow their with a setting? Or holding ctrl?
-    $rv .= "  zone = document.getElementById(\"their" . $zone->Name . "\");\r\n";
-    $rv .= "  if(!!zone) zone.classList.add(\"droppable\");\r\n";
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if (strtolower($scope) == 'global') {
+      $rv .= "  zone = document.getElementById(\"" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.add(\"droppable\");\r\n";
+    } else {
+      $rv .= "  zone = document.getElementById(\"my" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.add(\"droppable\");\r\n";
+      //TODO: Only allow their with a setting? Or holding ctrl?
+      $rv .= "  zone = document.getElementById(\"their" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.add(\"droppable\");\r\n";
+    }
   }
   $rv .= "}\r\n";
 
@@ -1513,11 +1569,17 @@ function AddGeneratedUI() {
   $rv .= "  var zone = null;\r\n";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
-    $rv .= "  zone = document.getElementById(\"my" . $zone->Name . "\");\r\n";
-    $rv .= "  if(!!zone) zone.classList.remove(\"droppable\");\r\n";
-    //TODO: Only allow their with a setting? Or holding ctrl?
-    $rv .= "  zone = document.getElementById(\"their" . $zone->Name . "\");\r\n";
-    $rv .= "  if(!!zone) zone.classList.remove(\"droppable\");\r\n";
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if (strtolower($scope) == 'global') {
+      $rv .= "  zone = document.getElementById(\"" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.remove(\"droppable\");\r\n";
+    } else {
+      $rv .= "  zone = document.getElementById(\"my" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.remove(\"droppable\");\r\n";
+      //TODO: Only allow their with a setting? Or holding ctrl?
+      $rv .= "  zone = document.getElementById(\"their" . $zone->Name . "\");\r\n";
+      $rv .= "  if(!!zone) zone.classList.remove(\"droppable\");\r\n";
+    }
   }
   $rv .= "}\r\n";
 
