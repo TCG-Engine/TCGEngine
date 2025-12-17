@@ -1139,11 +1139,22 @@
         }
       }
 
-      function AppendStaticZones(myStatic, theirStatic) {
+      function AppendStaticZones(myStatic, theirStatic, globalStatic) {
         var myDiv = document.getElementById("myStuff");
         var theirDiv = document.getElementById("theirStuff");
         myDiv.innerHTML += myStatic;
         theirDiv.innerHTML += theirStatic;
+        if (globalStatic) {
+          var globalDiv = document.getElementById("globalStuff");
+          if (globalDiv) {
+            globalDiv.innerHTML += globalStatic;
+            // Re-enable pointer events on child elements since the container has pointer-events:none
+            var children = globalDiv.querySelectorAll('[id$="Wrapper"]');
+            for (var i = 0; i < children.length; i++) {
+              children[i].style.pointerEvents = 'auto';
+            }
+          }
+        }
       }
 
       function chkSubmit(mode, count) {

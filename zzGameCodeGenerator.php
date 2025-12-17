@@ -1423,13 +1423,14 @@ function AddNextTurn() {
   $theirStaticStuff = "";
   $header = "echo(\"var myStatic = '';\");\r\n";
   $header .= "echo(\"var theirStatic = '';\");\r\n";
+  $header .= "echo(\"var globalStatic = '';\");\r\n";
   $header .= "echo(\"var myRows = [];\");\r\n";
   $header .= "echo(\"var theirRows = [];\");\r\n";
   $header .= "echo(\"window.rootPath = '" . $rootPath . "';\");\r\n";
   $header .= "echo(\"var currentPlayerIndex = playerID;\");\r\n";
   $header .= "echo(\"var otherPlayerIndex = playerID == 1 ? 2 : 1;\");\r\n";
   $footer = "echo(\"RenderRows(myRows, theirRows);\");\r\n";
-  $footer .= "echo(\"AppendStaticZones(myStatic, theirStatic);\");\r\n";
+  $footer .= "echo(\"AppendStaticZones(myStatic, theirStatic, globalStatic);\");\r\n";
   for ($i = 0; $i < count($zones); ++$i) {
     $zone = $zones[$i];
     if ($zone->DisplayMode == "Panel") {
@@ -1497,20 +1498,46 @@ function AddNextTurn() {
 function GeneratedGlobalZoneElement($zone, $index, &$setData) {
   global $rootPath;
   $rv = "";
-  $style = "position: absolute;";
+  
+  // Build style dynamically based on playerID to support mirroring for player 2
+  $baseStyle = "position: fixed; z-index:30;";
+  $staticStyles = "";
+  
   $onclick = "onclick=\\\"ZoneClickHandler(\\\'" . $zone->Name . "\\\');\\\"";
   $onscroll = $zone->DisplayMode == "Panel" ? "onscroll=\\\"ZoneScrollHandler(\\\'" . $zone->Name . "\\\');\\\"" : "";
-  // Use absolute positioning for global zones (not mirrored)
-  if($zone->Left > -1) $style .= " left:" . $zone->Left . ";";
-  if($zone->Right > -1) $style .= " right:" . $zone->Right . ";";
-  if($zone->Top > -1) $style .= " top:" . $zone->Top . ";";
-  if($zone->Bottom > -1) $style .= " bottom:" . $zone->Bottom . ";";
-  if($zone->Width > -1) $style .= " width:" . $zone->Width . ";";
-  if($zone->DisplayMode != "Pane") $style .= " overflow-y:auto;";
+  
+  // Static properties (not mirrored)
+  if($zone->Width > -1) $staticStyles .= " width:" . $zone->Width . ";";
+  if($zone->DisplayMode != "Pane") $staticStyles .= " overflow-y:auto;";
+  
+  // Check what positioning properties are defined
+  $hasLeft = $zone->Left > -1;
+  $hasRight = $zone->Right > -1;
+  $hasTop = $zone->Top > -1;
+  $hasBottom = $zone->Bottom > -1;
+  
   if($zone->DisplayMode == "Pane") {
     $rv .= "echo(\"globalCardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
   } else {
-    $rv .= "echo(\"myStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+    // Build dynamic style with conditional mirroring for player 2
+    $rv .= "echo(\"var globalStyle_" . $zone->Name . " = '" . $baseStyle . $staticStyles . "' + (playerID == 1 ? '";
+    
+    // Player 1 styles
+    if($hasLeft) $rv .= " left:" . $zone->Left . ";";
+    if($hasRight) $rv .= " right:" . $zone->Right . ";";
+    if($hasTop) $rv .= " top:" . $zone->Top . ";";
+    if($hasBottom) $rv .= " bottom:" . $zone->Bottom . ";";
+    
+    $rv .= "' : '";
+    
+    // Player 2 styles (mirrored - left↔right, top↔bottom)
+    if($hasLeft) $rv .= " right:" . $zone->Left . ";";
+    if($hasRight) $rv .= " left:" . $zone->Right . ";";
+    if($hasTop) $rv .= " bottom:" . $zone->Top . ";";
+    if($hasBottom) $rv .= " top:" . $zone->Bottom . ";";
+    
+    $rv .= "');\");\r\n";
+    $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
   }
   if($zone->DisplayMode == "None") return "";
   return $rv;
@@ -1792,6 +1819,7 @@ function WriteInitialLayout() {
   } else {
     fwrite($handler, "echo(\"<div class='myStuffWrapper' style='position:relative; z-index:10; left:0; top:0; width:100%; height:100%;'><div class='stuffParent'><div id='myStuff' class='stuff myStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\r\n<div id='theirStuff' style='display:none;' class='theirStuff'></div>\");\r\n");
   }
+  fwrite($handler, "echo(\"<div id='globalStuff' style='position:fixed; top:0; left:0; width:100%; height:100%; z-index:30; pointer-events:none;'></div>\");\r\n");
   fwrite($handler, "echo(\"</div>\");\r\n");
   fwrite($handler, "echo(\"</div>\");\r\n");
   fwrite($handler, "?>");
