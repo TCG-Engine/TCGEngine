@@ -171,7 +171,7 @@
 
       function Hotkeys(event) {
         //if (event.keyCode === 32) { if(document.getElementById("passConfirm").innerText == "false" || confirm("Do you want to skip arsenal?")) SubmitInput(99, ""); } //Space = pass
-        if(window.rootPath == './RBSim') {
+        if(window.rootPath == './RBSim' || window.rootPath == './GudnakSim') {
           if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
           if (event.keyCode === 85) SubmitInput(10004, ""); //U = Undo
         }

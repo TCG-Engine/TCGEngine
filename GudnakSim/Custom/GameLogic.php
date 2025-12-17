@@ -36,7 +36,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
     }
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
-            DecisionQueueController::AddDecision($player, "MZCHOOSE", "bg1&bg2&bg3", 1);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
             DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
             break;

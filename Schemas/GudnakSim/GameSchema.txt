@@ -7,7 +7,7 @@ ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 AssetReflection: GudnakSim
-Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myGraveyard,myDeck
+Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myGraveyard,myDeck,myDecisionQueue,theirHand,theirGraveyard,theirDeck,theirDecisionQueue
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Deck - CardID:string
@@ -19,11 +19,11 @@ Hand - CardID:string
 Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
 Click: FSM()
 BG1 - CardID:string, Controller:number, Status:number=2
-Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=200px, Left=41%
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=41%
 BG2 - CardID:string
-Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=200px, Left=48%
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=48%
 BG3 - CardID:string
-Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=200px, Left=55%
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=55%
 BG4 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=41%
 BG5 - CardID:string
@@ -31,11 +31,11 @@ Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=48%
 BG6 - CardID:string
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=55%
 BG7 - CardID:string, Controller:number, Status:number=2
-Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=400px, Left=41%
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=41%
 BG8 - CardID:string
-Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=400px, Left=48%
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=48%
 BG9 - CardID:string
-Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=400px, Left=55%
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=55%
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string
