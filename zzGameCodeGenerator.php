@@ -261,8 +261,6 @@ while(!feof($handler)) {
           $clickObj->Action = $functionName;
           $params = rtrim($paramString, ')');
           $clickObj->Parameters = $params ? explode(',', $params) : [];
-          echo $clickObj->Action . "<BR>";
-          echo implode(", ", $clickObj->Parameters) . "<BR>";
           array_push($zoneObj->ClickActions, $clickObj);
         }
         break;
