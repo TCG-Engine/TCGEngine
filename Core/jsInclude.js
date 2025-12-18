@@ -129,7 +129,7 @@ function ZoneClickHandler(zone) {
     case "Calculate":
       break;
     default:
-      TogglePopup(zone);
+      //TogglePopup(zone);
       break;
   }
 }
