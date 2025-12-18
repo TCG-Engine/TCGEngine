@@ -7,7 +7,7 @@ ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 AssetReflection: GudnakSim
-Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myGraveyard,myDeck,myDecisionQueue,theirHand,theirGraveyard,theirDeck,theirDecisionQueue
+Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myGraveyard,myDeck,myDecisionQueue,myActions,theirHand,theirGraveyard,theirDeck,theirDecisionQueue,theirActions
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Deck - CardID:string
@@ -18,6 +18,9 @@ Display: Visibility=Public, Mode=Single, Bottom=10px, Right=10px
 Hand - CardID:string
 Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
 Click: FSM()
+Actions - Value:number=0
+Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
+Widgets: CustomInput=Draw
 BG1 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=41%
 Sort: Reverse=true

@@ -53,6 +53,8 @@ $firstPlayer = 1;
 //$turnPlayer = &TurnPlayerValue();
 $turnPlayer = &GetTurnPlayer();
 $turnPlayer = ($firstPlayer == 1) ? 2 : 1;
+$actions = &GetActions($firstPlayer);
+$actions = 2;
 
 $currentPhase = &GetCurrentPhase();
 $currentPhase = 'ACT';

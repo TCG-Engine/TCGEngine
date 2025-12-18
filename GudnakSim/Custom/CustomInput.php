@@ -5,11 +5,10 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
     $zone = $cardArr[0];
     $index = $cardArr[1];
     switch ($zone) {
-      case "myHealth"://Actually pass ... TODO: Clean this up?
-        global $gCurrentPhase;
-        $gCurrentPhase = "ACT";
-        AdvanceAndExecute("PASS");
-        AutoAdvanceAndExecute();
+      case "myActions"://Actually draw ... TODO: Clean this up?
+        Draw($playerID, amount: 1);
+        $actions = &GetActions($playerID);
+        $actions -= 1;
         break;
       default: break;
     }
