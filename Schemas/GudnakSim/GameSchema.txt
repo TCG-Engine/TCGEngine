@@ -41,35 +41,44 @@ BG1 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=41%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
+Click: FSM()
 BG2 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=48%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
+Click: FSM()
 BG3 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
+Click: FSM()
 BG4 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=41%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
+Click: FSM()
 BG5 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=48%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
+Click: FSM()
 BG6 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
+Click: FSM()
 BG7 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=41%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
+Click: FSM()
 BG8 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=48%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
+Click: FSM()
 BG9 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
+Click: FSM()

@@ -15,6 +15,13 @@ function ActionMap($actionCard)
                 return "PLAY";
             }
             break;
+        case "BG1": case "BG2": case "BG3": case "BG4": case "BG5": case "BG6": case "BG7": case "BG8": case "BG9":
+            if($currentPhase == "ACT") {
+                DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", $mzCard . "FighterAction|" . $cardZone, 1);
+                return "MOVE";
+            }
+            break;
         default: break;
     }
     return "";
@@ -144,6 +151,25 @@ $customDQHandlers["AfterFighterPlayed"] = function($player, $param, $lastResult)
             $target->Status = 1; // Exhaust the unit
             $target->Controller = $player;
         }
+    }
+};
+
+$customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
+    UseActions(amount:1);
+    $destZoneName = explode("-", $lastResult)[0];
+    $fromZone = &GetZone($param[0]);
+    $destZone = &GetZone($destZoneName);
+    if(count($destZone) == 1) {
+        //This is a move, move the whole stack from 1 -> end
+        for($i = 1; $i < count($fromZone); ++$i) {
+            $fromZone[$i]->Status = 1; // Exhaust the unit
+            MZMove($player, $param[0] . "-" . $i, $destZoneName);
+        }
+        return;
+    } else {
+        //This is an attack
+        $fromZone[0]->Status = 1; // Exhaust the unit
+        MZMove($player, $param . "-0", $destZoneName);
     }
 };
 
