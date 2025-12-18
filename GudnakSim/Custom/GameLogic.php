@@ -24,26 +24,16 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
 {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
-    if(!$ignoreCost) {
-        $toPay = CardCost($sourceObject->CardID);
-        switch($sourceObject->CardID) { //Self cost modifications
-
-            default:
-                break;
-        }
-        //$amountPaid = PayEnergy($player, $toPay);
-
-    }
-    $actions = &GetActions($player);
+    
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
-            $actions -= 1;
+            UseActions(amount:1);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
             DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
             break;
         case "Tactic":
-            $actions -= intval(CardCost($sourceObject->CardID));
+            UseActions(amount:CardCost($sourceObject->CardID));
             MZMove($player, $mzCard, "myGraveyard");
             $customDQHandlers["CardPlayed"]($player, [$sourceObject->CardID], null);
             break;
@@ -61,6 +51,15 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
 
         default: break;
     }
+}
+
+function UseActions($amount=1, $player=null) {
+    if($player === null) {
+        global $currentPlayer;
+        $player = $currentPlayer;
+    }
+    $actions = &GetActions($player);
+    $actions -= $amount;
 }
 
 function AwakenStep() {

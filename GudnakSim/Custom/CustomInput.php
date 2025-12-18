@@ -7,8 +7,7 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
     switch ($zone) {
       case "myActions"://Actually draw ... TODO: Clean this up?
         Draw($playerID, amount: 1);
-        $actions = &GetActions($playerID);
-        $actions -= 1;
+        UseActions(amount:1, player:$playerID);
         break;
       default: break;
     }
