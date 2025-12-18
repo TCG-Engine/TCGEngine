@@ -31,7 +31,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
             UseActions(amount:1);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
             DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ExhaustLast|-", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "AfterFighterPlayed|-", 1);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
             break;
         case "Tactic":
@@ -93,19 +93,56 @@ function PassTurn() {
     if ($turnPlayer == $firstPlayer) {
         ++$currentTurn;
     }
+
+    $bg1 = &GetZone("BG1");
+    foreach($bg1 as $index => $obj) {
+        if($obj->Controller == $turnPlayer) $obj->Status = 2;
+    }
+    $bg2 = &GetZone("BG2");
+    foreach($bg2 as $index => $obj) {
+        if($obj->Controller == $turnPlayer) $obj->Status = 2;
+    }
+    $bg3 = &GetZone("BG3");
+    foreach($bg3 as $index => $obj) {
+        if($obj->Controller == $turnPlayer) $obj->Status = 2;
+    }
+    $bg4 = &GetZone("BG4");
+    foreach($bg4 as $index => $obj) {
+        if($obj->Controller == $turnPlayer) $obj->Status = 2;
+    }
+    $bg5 = &GetZone("BG5");
+    foreach($bg5 as $index => $obj) {
+        if($obj->Controller == $turnPlayer) $obj->Status = 2;
+    }
+    $bg6 = &GetZone("BG6");
+    foreach($bg6 as $index => $obj) {
+        if($obj->Controller == $turnPlayer) $obj->Status = 2;
+    }
+    $bg7 = &GetZone("BG7");
+    foreach($bg7 as $index => $obj) {
+        if($obj->Controller == $turnPlayer) $obj->Status = 2;
+    }   
+    $bg8 = &GetZone("BG8");
+    foreach($bg8 as $index => $obj) {
+        if($obj->Controller == $turnPlayer) $obj->Status = 2;
+    }
+    $bg9 = &GetZone("BG9");
+    foreach($bg9 as $index => $obj) {
+        if($obj->Controller == $turnPlayer) $obj->Status = 2;
+    }
 }
 
 $customDQHandlers = [];
 
-$customDQHandlers["ExhaustLast"] = function($player, $param, $lastResult) {
+$customDQHandlers["AfterFighterPlayed"] = function($player, $param, $lastResult) {
     $zoneName = explode("-", $lastResult)[0];
     $zoneArr = &GetZone($zoneName);
     if (!empty($zoneArr)) {
         $lastIndex = count($zoneArr) - 1;
-        echo("Exhausting index: " . $zoneName . "-" . $lastIndex . "<BR>");
         $target = &GetZoneObject($zoneName . "-" . $lastIndex);
         if ($target !== null) {
             $target->Status = 1; // Exhaust the unit
+            $target->Controller = $player;
         }
     }
 };
