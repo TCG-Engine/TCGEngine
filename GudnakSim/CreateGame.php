@@ -74,7 +74,8 @@ function LoadPlayer($playerID, $deckLink) {
 
     $gameDeck = &GetDeck($playerID);
 
-    $deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    //$deck = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    $deck = [169,171,172,174,175,178,178,179,180,185,186,187,204,206,207,207,208,213,216];
     for($i=0; $i<count($deck); ++$i) {
       $cardID = $deck[$i];
       array_push($gameDeck, new Deck($cardID));
