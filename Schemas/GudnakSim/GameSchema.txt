@@ -21,6 +21,22 @@ Click: FSM()
 Actions - Value:number=0
 Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
 Widgets: CustomInput=Draw
+DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
+Display: Visibility=Self, Mode=All, Display=None
+Versions - Version:string
+Display: Visibility=None, Mode=All, Display=None
+TurnNumber - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FirstPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+TurnPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+CurrentPhase - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+PhaseParameters - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FlashMessage - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 BG1 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=41%
 Sort: Reverse=true
@@ -57,19 +73,3 @@ BG9 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
-DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
-Display: Visibility=Self, Mode=All, Display=None
-Versions - Version:string
-Display: Visibility=None, Mode=All, Display=None
-TurnNumber - Value:number=0
-Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-FirstPlayer - Value:number=1
-Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-TurnPlayer - Value:number=1
-Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-CurrentPhase - Value:string
-Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-PhaseParameters - Value:string
-Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-FlashMessage - Value:string
-Display: Visibility=None, Mode=Value, Scope=Global, Display=None

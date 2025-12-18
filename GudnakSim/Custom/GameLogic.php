@@ -3,7 +3,7 @@
 //TODO: Add this to a schema
 function ActionMap($actionCard)
 {
-    global $currentPlayer;
+    $turnPlayer = &GetTurnPlayer();
     $currentPhase = GetCurrentPhase();
     $cardArr = explode("-", $actionCard);
     $cardZone = $cardArr[0];
@@ -11,7 +11,7 @@ function ActionMap($actionCard)
     switch ($cardZone) {
         case "myHand":
             if($currentPhase == "ACT") {
-                PlayCard($currentPlayer, $actionCard, false);
+                PlayCard($turnPlayer, $actionCard, false);
                 return "PLAY";
             }
             break;
@@ -24,6 +24,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
 {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
+    echo("Playing card: " . $sourceObject->CardID . " for player " . $player . "<BR>");
 
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
@@ -56,35 +57,27 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
 
 function UseActions($amount=1, $player=null) {
     if($player === null) {
-        global $currentPlayer;
-        $player = $currentPlayer;
+        $turnPlayer = &GetTurnPlayer();
+        $player = $turnPlayer;
     }
     $actions = &GetActions($player);
     $actions -= $amount;
+    if($actions <= 0) {
+        $actions = 0;
+        SetCurrentPhase("STPASS");
+    }
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($player, "-");
 }
 
-function AwakenStep() {
-
-    
-}
-
-function BeginningStep() {
-}
-
-function ChannelStep() {
-
-    
-}
-
-function DrawStep() {
+function CheckSiege() {
     $turnPlayer = &GetTurnPlayer();
     Draw($turnPlayer, amount: 1);
 }
 
 function ActionStep() {
-    global $currentPlayer;
-    $turnPlayer = &GetTurnPlayer();
-    $currentPlayer = $turnPlayer;
+
+    
 }
 
 function PassTurn() {
@@ -93,6 +86,9 @@ function PassTurn() {
     $turnPlayer = &GetTurnPlayer();
 
     $turnPlayer = ($turnPlayer == 1) ? 2 : 1;
+
+    $actions = &GetActions($turnPlayer);
+    $actions = 2;
 
     if ($turnPlayer == $firstPlayer) {
         ++$currentTurn;

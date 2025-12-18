@@ -1,11 +1,5 @@
 DecisionQueue: Enabled
-Awaken; A; AwakenStep
-AUTO -> B
-Beginning; B; BeginningStep
-AUTO -> C
-Channel; C; ChannelStep
-AUTO -> D
-Draw; D; DrawStep
+CheckSiege; CS; CheckSiege
 AUTO -> ACT
 Action; ACT; ActionStep
 PASS -> PASS
@@ -14,5 +8,7 @@ ShowdownPending; SP; ShowdownPending
 AUTO -> RS
 ResolveShowdown; RS; ResolveShowdown
 AUTO -> ACT
+StartPass; STPASS; PassTurn
+AUTO -> PASS
 PassTurn; PASS; PassTurn
-AUTO -> A
+AUTO -> CS
