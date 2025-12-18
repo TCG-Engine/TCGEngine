@@ -178,6 +178,16 @@ function ClosePopup() {
   }
 }
 
+function ShowZonePopup(cardId) {
+  // Extract zone name from card ID (format: "zoneName-index")
+  // Handle cases where there's no "-" or the format is different
+  var parts = cardId.split("-");
+  var zoneName = parts.length > 1 ? parts[0] : cardId;
+  if (zoneName) {
+    TogglePopup(zoneName);
+  }
+}
+
 function TogglePopup(name) {
   var id = name + "Popup";
   if (document.getElementById(id)?.style.display == "inline") {
@@ -212,6 +222,7 @@ function fetchPopupContent(name, callback) {
 
 function createPopupHTML(name, responseText) {
   var id = name + "Popup";
+  var folderPath = document.getElementById("folderPath").value;
   var popup = "<div id='" + id + "' style='overflow-y: auto; background-color:rgba(0, 0, 0, 0.6); backdrop-filter: blur(20px); border-radius: 10px; padding: 10px; font-weight: 500; scrollbar-color: #888888 rgba(0, 0, 0, 0); scrollbar-width: thin; z-index:1000; position: absolute; top:40%; left:calc(25% - 129px); width:50%; height:30%; display:inline;'>";
   popup += "<div style='display: flex; justify-content: center; align-items: center; padding-bottom: 10px;'>";
   popup += "<h2 style='text-align: center; color: white; margin: 0;'>" + name.split(/(?=[A-Z])/).join(" ").replace(/^./, str => str.toUpperCase()) + "</h2>";
@@ -220,7 +231,7 @@ function createPopupHTML(name, responseText) {
   var responseArr = responseText.split("</>");
   var macros = responseArr[0] == "" ? [] : responseArr[0].split(",");
   var cards = responseArr[1];
-  popup += PopulateZone(name, cards, 96, document.getElementById("folderPath").value + "/concat", 1, "All");
+  popup += PopulateZone(name, cards, 96, "./" + folderPath + "/concat", 1, "All");
   macros.forEach(function(macro) {
     popup += "<button style='margin: 5px; padding: 5px 10px; background-color: #444; color: white; border: none; border-radius: 5px; cursor: pointer;' onclick='SubmitInput(10000, \"&buttonInput=" + macro + "&inputText=" + name + "\")'>" + macro + "</button>";
   });
