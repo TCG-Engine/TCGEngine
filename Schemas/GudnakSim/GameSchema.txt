@@ -24,30 +24,39 @@ Widgets: CustomInput=Draw
 BG1 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=41%
 Sort: Reverse=true
-BG2 - CardID:string
+Overlay: Status=1:exhausted
+BG2 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=48%
 Sort: Reverse=true
-BG3 - CardID:string
+Overlay: Status=1:exhausted
+BG3 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=55%
 Sort: Reverse=true
+Overlay: Status=1:exhausted
 BG4 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=41%
 Sort: Reverse=true
-BG5 - CardID:string
+Overlay: Status=1:exhausted
+BG5 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=48%
 Sort: Reverse=true
-BG6 - CardID:string
+Overlay: Status=1:exhausted
+BG6 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=55%
 Sort: Reverse=true
+Overlay: Status=1:exhausted
 BG7 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=41%
 Sort: Reverse=true
-BG8 - CardID:string
+Overlay: Status=1:exhausted
+BG8 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=48%
 Sort: Reverse=true
-BG9 - CardID:string
+Overlay: Status=1:exhausted
+BG9 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=55%
 Sort: Reverse=true
+Overlay: Status=1:exhausted
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string

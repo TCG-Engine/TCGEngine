@@ -24,17 +24,18 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
 {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
-    
+
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
             UseActions(amount:1);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
             DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ExhaustLast|-", 1);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
             break;
         case "Tactic":
             UseActions(amount:CardCost($sourceObject->CardID));
-            MZMove($player, $mzCard, "myGraveyard");
+            $newObj = MZMove($player, $mzCard, "myGraveyard");
             $customDQHandlers["CardPlayed"]($player, [$sourceObject->CardID], null);
             break;
         default: break;
@@ -100,8 +101,20 @@ function PassTurn() {
 
 $customDQHandlers = [];
 
+$customDQHandlers["ExhaustLast"] = function($player, $param, $lastResult) {
+    $zoneName = explode("-", $lastResult)[0];
+    $zoneArr = &GetZone($zoneName);
+    if (!empty($zoneArr)) {
+        $lastIndex = count($zoneArr) - 1;
+        echo("Exhausting index: " . $zoneName . "-" . $lastIndex . "<BR>");
+        $target = &GetZoneObject($zoneName . "-" . $lastIndex);
+        if ($target !== null) {
+            $target->Status = 1; // Exhaust the unit
+        }
+    }
+};
+
 $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
-    // lastResult is expected to be an mzID like 'myBattlefield-3'
     if ($lastResult && $lastResult !== "-") {
         $target = &GetZoneObject($lastResult);
         if ($target !== null) {
@@ -111,7 +124,6 @@ $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
 };
 
 $customDQHandlers["Bounce"] = function($player, $param, $lastResult) {
-    // lastResult is expected to be an mzID like 'myBattlefield-3'
     if ($lastResult && $lastResult !== "-") {
         MZMove($player, $lastResult, "myHand");
     }
