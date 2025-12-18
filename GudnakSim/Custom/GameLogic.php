@@ -34,13 +34,16 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
         //$amountPaid = PayEnergy($player, $toPay);
 
     }
+    $actions = &GetActions($player);
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
+            $actions -= 1;
             DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
             DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
             break;
         case "Tactic":
+            $actions -= intval(CardCost($sourceObject->CardID));
             MZMove($player, $mzCard, "myGraveyard");
             $customDQHandlers["CardPlayed"]($player, [$sourceObject->CardID], null);
             break;
