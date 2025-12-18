@@ -159,17 +159,41 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
     $destZoneName = explode("-", $lastResult)[0];
     $fromZone = &GetZone($param[0]);
     $destZone = &GetZone($destZoneName);
+    for($i = 1; $i < count($fromZone); ++$i) {
+        $fromZone[$i]->Status = 1; // Exhaust the unit
+    }
     if(count($destZone) == 1) {
         //This is a move, move the whole stack from 1 -> end
         for($i = 1; $i < count($fromZone); ++$i) {
-            $fromZone[$i]->Status = 1; // Exhaust the unit
             MZMove($player, $param[0] . "-" . $i, $destZoneName);
         }
         return;
     } else {
         //This is an attack
-        $fromZone[0]->Status = 1; // Exhaust the unit
-        MZMove($player, $param . "-0", $destZoneName);
+        $fromTop = $fromZone[count($fromZone) - 1];
+        $destTop = $destZone[count($destZone) - 1];
+        $fromPower = CardPower($fromTop->CardID);
+        $destPower = CardPower($destTop->CardID);
+        //Simple combat: Higher power wins, both are destroyed on a tie
+        if($fromPower > $destPower) {
+            //Attacker wins
+            MZMove($player, $destZoneName . "-" . (count($destZone) - 1), "theirGraveyard");//TODO: Should be a macro
+            if(count($destZone) == 2) { //Means there was only one defender
+                //Move the whole stack
+                for($i = 1; $i < count($fromZone); ++$i) {
+                    MZMove($player, $param[0] . "-" . $i, $destZoneName);
+                }
+            }
+        } else if($fromPower < $destPower) {
+            //Defender wins
+            //MZMove($player, $param . "-0", "myGraveyard");
+        } else {
+            //Both destroyed
+            //MZMove($player, $param . "-0", "myGraveyard");
+            //MZMove($player, $lastResult, "theirGraveyard");
+        }
+
+        //MZMove($player, $param . "-0", $destZoneName);
     }
 };
 
