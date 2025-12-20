@@ -209,6 +209,16 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
                 $fromPower += 1;
             }
             break;
+        case "RYBF1DWNB": case "RYBF2DWNB": case "RYBF3DWNB": //Dawnbringer Brute
+            if($isAttacker) {
+                $fromPower += 1;
+            }
+            break;
+        case "RYBF1SLSD": case "RYBF2SLSD": case "RYBF3SLSD": //Solaran Soldier
+            if($isAttacker) {
+                $fromPower += 1;
+            }
+            break;
         default: break;
     }
     return $fromPower;
