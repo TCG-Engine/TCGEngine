@@ -172,8 +172,8 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
         //This is an attack
         $fromTop = $fromZone[count($fromZone) - 1];
         $destTop = $destZone[count($destZone) - 1];
-        $fromPower = CardPower($fromTop->CardID);
-        $destPower = CardPower($destTop->CardID);
+        $fromPower = CurrentCardPower($fromZone, $destZone, true);
+        $destPower = CurrentCardPower($destZone, $fromZone, false);
         //Simple combat: Higher power wins, both are destroyed on a tie
         if($fromPower > $destPower) {
             //Attacker wins
@@ -197,6 +197,22 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
         //MZMove($player, $param . "-0", $destZoneName);
     }
 };
+
+function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
+    $fromTop = $fromZone[count($fromZone) - 1];
+    $destTop = $destZone[count($destZone) - 1];
+    $fromPower = CardPower($fromTop->CardID);
+    //Self power modifiers
+    switch($fromTop->CardID) {
+        case "RYBF1DSKH": case "RYBF2DSKH": case "RYBF3DSKH": //Dusklight Hunter
+            if($isAttacker) {
+                $fromPower += 1;
+            }
+            break;
+        default: break;
+    }
+    return $fromPower;
+}
 
 function DoFighterDestroyed($player, $mzCard) {
     MZMove($player, $mzCard, "myGraveyard");
