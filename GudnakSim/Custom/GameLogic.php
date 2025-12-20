@@ -62,6 +62,15 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
     }
 }
 
+function GainActions($amount=1, $player=null) {
+    if($player === null) {
+        $turnPlayer = &GetTurnPlayer();
+        $player = $turnPlayer;
+    }
+    $actions = &GetActions($player);
+    $actions += $amount;
+}
+
 function UseActions($amount=1, $player=null) {
     if($player === null) {
         $turnPlayer = &GetTurnPlayer();
