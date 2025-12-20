@@ -177,7 +177,8 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
         //Simple combat: Higher power wins, both are destroyed on a tie
         if($fromPower > $destPower) {
             //Attacker wins
-            MZMove($player, $destZoneName . "-" . (count($destZone) - 1), "theirGraveyard");//TODO: Should be a macro
+            FighterDestroyed($player, $destZoneName . "-" . (count($destZone) - 1));
+            //MZMove($player, $destZoneName . "-" . (count($destZone) - 1), "theirGraveyard");//TODO: Should be a macro
             if(count($destZone) == 2) { //Means there was only one defender
                 //Move the whole stack
                 for($i = 1; $i < count($fromZone); ++$i) {
@@ -196,6 +197,10 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
         //MZMove($player, $param . "-0", $destZoneName);
     }
 };
+
+function DoFighterDestroyed($player, $mzCard) {
+    MZMove($player, $mzCard, "myGraveyard");
+}
 
 $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
     if ($lastResult && $lastResult !== "-") {
