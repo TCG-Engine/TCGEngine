@@ -120,7 +120,7 @@ while($hasMoreData) {
       $cardID = explode("/", $cardID)[0];
       if (substr($cardID, -2) === '-P' || substr($cardID, -5) === '-STAR' || substr($cardID, -1) === 'A') continue;
     } else if($rootName == "GudnakSim") {
-      $cardID = $card->id;
+      $cardID = $card->number;
     }
     $card->id = $cardID;
     $cardArray[] = $card;
