@@ -29,9 +29,12 @@ class AbilityEditor {
         // Go up two levels (CardEditor/UI -> CardEditor -> root) to reach the actual root folder
         const cardImagePath = `../../${this.assetPath}/WebpImages/${this.cardId}.webp`;
         
+        // Apply square aspect ratio for GudnakSim cards
+        const squareClass = this.rootName === 'GudnakSim' ? 'square' : '';
+        
         const html = `
             <div class="card-image-sidebar">
-                <div class="card-image-container" id="cardImageContainer">
+                <div class="card-image-container ${squareClass}" id="cardImageContainer">
                     <img src="${cardImagePath}" alt="${this.cardId}" onerror="this.parentElement.classList.add('empty'); this.style.display='none'; this.parentElement.textContent='Image not found';" />
                 </div>
             </div>
