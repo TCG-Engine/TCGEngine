@@ -1850,7 +1850,7 @@ function GetModule($type) {
 /**
  * Generate macro code from database card abilities
  * Creates a GeneratedMacroCode.php file in the GeneratedCode folder
- * This file contains implementations of macros for specific cards
+ * This file contains implementations of macros for specific cards and macro count functions
  */
 function GenerateMacroCode() {
   global $rootName;
@@ -1922,6 +1922,39 @@ function GenerateMacroCode() {
         fwrite($handler, "\r\n");
       }
       
+      // Generate macro count data and functions
+      fwrite($handler, "// Global macro count arrays - stores how many of each macro each card has\r\n");
+      fwrite($handler, "// These are built once at file load time for optimal performance\r\n\r\n");
+      
+      foreach ($abilitiesByMacro as $macroName => $abilities) {
+        // Generate PHP function
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $varName = "\$" . $functionName . "Data";
+        
+        // Build associative array of card ID => count
+        $countArray = [];
+        foreach ($abilities as $ability) {
+          $cardId = $ability['card_id'];
+          if (!isset($countArray[$cardId])) {
+            $countArray[$cardId] = 0;
+          }
+          $countArray[$cardId]++;
+        }
+        
+        // Emit global array
+        fwrite($handler, $varName . " = [\r\n");
+        foreach ($countArray as $cardId => $count) {
+          fwrite($handler, "  \"" . addslashes($cardId) . "\" => " . intval($count) . ",\r\n");
+        }
+        fwrite($handler, "];\r\n\r\n");
+        
+        // Emit lookup function
+        fwrite($handler, "function " . $functionName . "(\$cardId) {\r\n");
+        fwrite($handler, "  global \$" . $functionName . "Data;\r\n");
+        fwrite($handler, "  return isset(\$" . $functionName . "Data[\$cardId]) ? \$" . $functionName . "Data[\$cardId] : 0;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+      
     } else {
       fwrite($handler, "// No custom macro implementations found in database\r\n");
       fwrite($handler, "// This file will be populated as abilities are added through CardEditor\r\n\r\n");
@@ -1930,12 +1963,80 @@ function GenerateMacroCode() {
     fwrite($handler, "?>");
     fclose($handler);
     
+    // Generate JavaScript macro count functions
+    GenerateMacroCountJS($rootName, $abilitiesByMacro);
+    
     mysqli_close($conn);
     
     echo("Generated macro code file: $filename<BR>");
     
   } catch (Exception $e) {
     echo("Note: Could not generate macro code file: " . $e->getMessage() . "<BR>");
+  }
+}
+
+/**
+ * Generate JavaScript macro count functions
+ * Creates count functions that can be called client-side to query macro counts by card ID
+ */
+function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
+  try {
+    $rootPath = "./" . $rootName;
+    $directory = $rootPath . "/GeneratedCode";
+    
+    if (!is_dir($directory)) {
+      mkdir($directory, 0755, true);
+    }
+    
+    $filename = $directory . "/GeneratedMacroCount.js";
+    $handler = fopen($filename, "w");
+    
+    fwrite($handler, "// AUTO-GENERATED FILE: Macro count functions\r\n");
+    fwrite($handler, "// DO NOT EDIT MANUALLY - changes will be overwritten when generator runs\r\n");
+    fwrite($handler, "// Last generated: " . date("Y-m-d H:i:s") . "\r\n\r\n");
+    
+    if (count($abilitiesByMacro) > 0) {
+      fwrite($handler, "// Global macro count objects - stores how many of each macro each card has\r\n");
+      fwrite($handler, "// These are built once at file load time for optimal performance\r\n\r\n");
+      
+      foreach ($abilitiesByMacro as $macroName => $abilities) {
+        // Generate JavaScript function
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $varName = $functionName . "Data";
+        
+        // Build associative array of card ID => count
+        $countArray = [];
+        foreach ($abilities as $ability) {
+          $cardId = $ability['card_id'];
+          if (!isset($countArray[$cardId])) {
+            $countArray[$cardId] = 0;
+          }
+          $countArray[$cardId]++;
+        }
+        
+        // Emit global object
+        fwrite($handler, "const " . $varName . " = {\r\n");
+        foreach ($countArray as $cardId => $count) {
+          fwrite($handler, "  \"" . addslashes($cardId) . "\": " . intval($count) . ",\r\n");
+        }
+        fwrite($handler, "};\r\n\r\n");
+        
+        // Emit lookup function
+        fwrite($handler, "function " . $functionName . "(cardId) {\r\n");
+        fwrite($handler, "  return " . $varName . "[cardId] !== undefined ? " . $varName . "[cardId] : 0;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+      
+    } else {
+      fwrite($handler, "// No custom macro implementations found in database\r\n");
+      fwrite($handler, "// This file will be populated as abilities are added through CardEditor\r\n\r\n");
+    }
+    
+    fclose($handler);
+    echo("Generated JavaScript macro count file: $filename<BR>");
+    
+  } catch (Exception $e) {
+    echo("Note: Could not generate JavaScript macro count file: " . $e->getMessage() . "<BR>");
   }
 }
 
