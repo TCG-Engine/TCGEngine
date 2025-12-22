@@ -214,17 +214,17 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
     //Self power modifiers
     switch($fromTop->CardID) {
         case "RYBF1DSKH": case "RYBF2DSKH": case "RYBF3DSKH": //Dusklight Hunter
-            if($isAttacker) {
+            if($isAttacker && TraitContains($destTop, "Brute")) {
                 $fromPower += 1;
             }
             break;
         case "RYBF1DWNB": case "RYBF2DWNB": case "RYBF3DWNB": //Dawnbringer Brute
-            if($isAttacker) {
+            if($isAttacker && TraitContains($destTop, "Soldier")) {
                 $fromPower += 1;
             }
             break;
         case "RYBF1SLSD": case "RYBF2SLSD": case "RYBF3SLSD": //Solaran Soldier
-            if($isAttacker) {
+            if($isAttacker && TraitContains($destTop, "Hunter")) {
                 $fromPower += 1;
             }
             break;
@@ -262,6 +262,12 @@ $customDQHandlers["CardPlayed"] = function($player, $param, $lastResult) {
 
 function OnCardChosen($player, $lastResult) {
     $card = &GetZoneObject($lastResult);
+}
+
+function TraitContains($card, $trait) {
+    $traits = CardTraits($card->CardID);
+    $traitArr = explode(",", $traits);
+    return in_array($trait, $traitArr);
 }
 
 ?>
