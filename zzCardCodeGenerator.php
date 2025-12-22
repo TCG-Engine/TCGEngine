@@ -462,6 +462,15 @@ function GetPropertyValue($card, $property)
           return isset($card->$property) ? intval($card->$property) : -1;
         default: return isset($card->$property) ? $card->$property : "";
         }
+    case "GudnakSim":
+      switch($property) {
+        case "traits":
+          if(isset($card->$property) && is_array($card->$property)) {
+            return implode(",", $card->$property);
+          }
+          return isset($card->$property) ? $card->$property : "";
+        default: return isset($card->$property) ? $card->$property : "";
+      }
     default: return isset($card->$property) ? $card->$property : "";
   }
 }

@@ -4,4 +4,4 @@ jpg
 
 
 
-id:number,number,card_type,power:number,cost:number,title
+id:number,number,card_type,power:number,cost:number,title,traits
