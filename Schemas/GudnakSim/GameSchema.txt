@@ -11,6 +11,7 @@ Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myGraveyard,myDe
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=FighterDestroyed(mzID); ChoiceFunction=DoFighterDestroyed; Action={}
+Macro: Name=ActivateAbility(mzID); ChoiceFunction=DoActivatedAbility; Action={}
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle
@@ -43,43 +44,52 @@ Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=41%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
+Widgets: CustomInput=Activate(Position:BottomLeft)
 BG2 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=48%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
+Widgets: CustomInput=Activate(Position:BottomLeft)
 BG3 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
+Widgets: CustomInput=Activate(Position:BottomLeft)
 BG4 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=41%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
+Widgets: CustomInput=Activate(Position:BottomLeft)
 BG5 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=48%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
+Widgets: CustomInput=Activate(Position:BottomLeft)
 BG6 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
+Widgets: CustomInput=Activate(Position:BottomLeft)
 BG7 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=41%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
+Widgets: CustomInput=Activate(Position:BottomLeft)
 BG8 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=48%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
+Widgets: CustomInput=Activate(Position:BottomLeft)
 BG9 - CardID:string, Controller:number, Status:number=2
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
+Widgets: CustomInput=Activate(Position:BottomLeft)

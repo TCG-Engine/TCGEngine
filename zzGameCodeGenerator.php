@@ -282,7 +282,16 @@ while(!feof($handler)) {
           $widgetArr = explode("=", $widgetsArr[$i]);
           $widgetObj = new StdClass();
           $widgetObj->LinkedProperty = $widgetArr[0];
-          $actionArr = explode("&", $widgetArr[1]);
+          $widgetObj->Position = "Center"; // Default position
+          
+          $fullActionSpec = $widgetArr[1];
+          // Check if position parameter is specified, e.g. Activate(Position=BottomLeft)
+          if (preg_match('/\(Position:([^)]+)\)/', $fullActionSpec, $matches)) {
+            $widgetObj->Position = trim($matches[1]);
+            $fullActionSpec = preg_replace('/\([^)]*\)/', '', $fullActionSpec); // Remove params from spec
+          }
+          
+          $actionArr = explode("&", $fullActionSpec);
           $widgetObj->Actions = [];
           for($j=0; $j<count($actionArr); ++$j) {
             $actionArr[$j] = trim($actionArr[$j]);
@@ -1621,7 +1630,11 @@ function AddGeneratedUI() {
     $zone = $zones[$i];
     $widgets = [];
     foreach ($zone->Widgets as $widget) {
-      $widgets[$widget->LinkedProperty] = $widget->Actions;
+      $widgetEntry = ['actions' => $widget->Actions];
+      if (isset($widget->Position)) {
+        $widgetEntry['position'] = $widget->Position;
+      }
+      $widgets[$widget->LinkedProperty] = $widgetEntry;
     }
     $rv .= "    case '" . $zone->Name . "':\r\n";
     $rv .= "      return " . json_encode($widgets) . ";\r\n";

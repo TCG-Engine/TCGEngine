@@ -463,6 +463,9 @@
         var buttons = createWidgetButtons(zoneName, id, cardArr[2]);
         newHTML += "<span class='widget-buttons' style='z-index:1000; display: none; justify-content: center; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%);'>" + buttons.middleButtons + "</span>";
         newHTML += "<div class='widget-buttons' style='display: none; position:absolute; top:0; right:0; z-index:1001;'>" + buttons.topRightButtons + "</div>";
+        if (buttons.topLeftButtons) newHTML += "<div class='widget-buttons' style='display: none; position:absolute; top:0; left:0; z-index:1001;'>" + buttons.topLeftButtons + "</div>";
+        if (buttons.bottomLeftButtons) newHTML += "<div class='widget-buttons' style='display: none; position:absolute; bottom:0; left:0; z-index:1001;'>" + buttons.bottomLeftButtons + "</div>";
+        if (buttons.bottomRightButtons) newHTML += "<div class='widget-buttons' style='display: none; position:absolute; bottom:0; right:0; z-index:1001;'>" + buttons.bottomRightButtons + "</div>";
         newHTML += "</span>";
         return newHTML;
       }
@@ -555,8 +558,16 @@
         let buttons = {};
         let buttonsHtml = '';
         let topRightButtons = '';
+        let bottomLeftButtons = '';
+        let bottomRightButtons = '';
+        let topLeftButtons = '';
+        
         for (const widgetType in widgets) {
-          widgets[widgetType].forEach(widget => {
+          const widgetGroup = widgets[widgetType];
+          const widgetActions = Array.isArray(widgetGroup) ? widgetGroup : widgetGroup.actions || [];
+          const position = (!Array.isArray(widgetGroup) && widgetGroup.position) ? widgetGroup.position.toLowerCase() : 'center';
+          
+          widgetActions.forEach(widget => {
             if(widget.Action == "Display" && cardData.hasOwnProperty(widgetType)) {
               var widgetContent = typeof cardData[widgetType] === 'string' ? cardData[widgetType].replace(/_/g, ' ') : cardData[widgetType];
               if(widgetContent == "Notes") {
@@ -569,19 +580,36 @@
             else {
               var widgetName = widget.Action.replace(/_/g, ' ');
               widgetContent = widgetIcons(widgetName);
+              const buttonHtml = `&nbsp;<button class="widget-button${currentValue != "" && widget.Action == currentValue ? '-selected' : ''}" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${widget.Action}')">${widgetContent}</button>`;
+              
               if(widgetName == "Notes") {
-                topRightButtons += `&nbsp;<button class="widget-button" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${widget.Action}')">${widgetContent}</button>`;
+                topRightButtons += buttonHtml;
               } else {
-                if(currentValue != "" && widget.Action == currentValue)
-                  buttonsHtml += `&nbsp;<button class="widget-button-selected" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${widget.Action}')">${widgetContent}</button>`;
-                else
-                  buttonsHtml += `&nbsp;<button class="widget-button" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${widget.Action}')">${widgetContent}</button>`;
+                switch(position) {
+                  case 'topright':
+                    topRightButtons += buttonHtml;
+                    break;
+                  case 'topleft':
+                    topLeftButtons += buttonHtml;
+                    break;
+                  case 'bottomleft':
+                    bottomLeftButtons += buttonHtml;
+                    break;
+                  case 'bottomright':
+                    bottomRightButtons += buttonHtml;
+                    break;
+                  default: // center
+                    buttonsHtml += buttonHtml;
+                }
               }
             }
           });
         }
         buttons.middleButtons = buttonsHtml;
         buttons.topRightButtons = topRightButtons;
+        buttons.bottomLeftButtons = bottomLeftButtons;
+        buttons.bottomRightButtons = bottomRightButtons;
+        buttons.topLeftButtons = topLeftButtons;
         return buttons;
       }
 
