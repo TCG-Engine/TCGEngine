@@ -566,6 +566,17 @@
           const widgetGroup = widgets[widgetType];
           const widgetActions = Array.isArray(widgetGroup) ? widgetGroup : widgetGroup.actions || [];
           const position = (!Array.isArray(widgetGroup) && widgetGroup.position) ? widgetGroup.position.toLowerCase() : 'center';
+          const condition = (!Array.isArray(widgetGroup) && widgetGroup.condition) ? widgetGroup.condition : null;
+          
+          // Check if condition is met (if one exists)
+          let conditionMet = true;
+          if (condition && condition.field && condition.value !== undefined) {
+            const fieldValue = cardData.hasOwnProperty(condition.field) ? cardData[condition.field] : null;
+            conditionMet = fieldValue !== null && String(fieldValue) === String(condition.value);
+          }
+          
+          // Skip rendering if condition is not met
+          if (!conditionMet) continue;
           
           widgetActions.forEach(widget => {
             if(widget.Action == "Display" && cardData.hasOwnProperty(widgetType)) {

@@ -275,19 +275,57 @@ while(!feof($handler)) {
         }
         break;
       case "Widgets":
-        $widgetsArr = explode(",", $lineValue);
+        // Split by comma, but respect parentheses (don't split on commas inside parens)
+        $widgetsArr = [];
+        $current = "";
+        $parenDepth = 0;
+        for ($c = 0; $c < strlen($lineValue); $c++) {
+          $char = $lineValue[$c];
+          if ($char === '(') {
+            $parenDepth++;
+            $current .= $char;
+          } else if ($char === ')') {
+            $parenDepth--;
+            $current .= $char;
+          } else if ($char === ',' && $parenDepth === 0) {
+            if ($current !== "") {
+              $widgetsArr[] = trim($current);
+            }
+            $current = "";
+          } else {
+            $current .= $char;
+          }
+        }
+        if ($current !== "") {
+          $widgetsArr[] = trim($current);
+        }
+        
         for($i=0; $i<count($widgetsArr); ++$i) {
-          $widgetsArr[$i] = trim($widgetsArr[$i]);
           if($widgetsArr[$i] == "None") continue;
-          $widgetArr = explode("=", $widgetsArr[$i]);
+          $widgetArr = explode("=", $widgetsArr[$i], 2);
           $widgetObj = new StdClass();
           $widgetObj->LinkedProperty = $widgetArr[0];
           $widgetObj->Position = "Center"; // Default position
+          $widgetObj->Condition = null; // No condition by default
           
           $fullActionSpec = $widgetArr[1];
-          // Check if position parameter is specified, e.g. Activate(Position=BottomLeft)
-          if (preg_match('/\(Position:([^)]+)\)/', $fullActionSpec, $matches)) {
-            $widgetObj->Position = trim($matches[1]);
+          // Parse parameters: Position:BottomLeft, Condition:Status=2, etc.
+          if (preg_match('/\(([^)]+)\)/', $fullActionSpec, $matches)) {
+            $paramString = $matches[1];
+            $params = explode(',', $paramString);
+            foreach($params as $param) {
+              $param = trim($param);
+              $paramParts = explode(':', $param, 2);
+              if (count($paramParts) == 2) {
+                $paramName = trim($paramParts[0]);
+                $paramValue = trim($paramParts[1]);
+                if ($paramName === 'Position') {
+                  $widgetObj->Position = $paramValue;
+                } else if ($paramName === 'Condition') {
+                  $widgetObj->Condition = $paramValue;
+                }
+              }
+            }
             $fullActionSpec = preg_replace('/\([^)]*\)/', '', $fullActionSpec); // Remove params from spec
           }
           
@@ -1633,6 +1671,12 @@ function AddGeneratedUI() {
       $widgetEntry = ['actions' => $widget->Actions];
       if (isset($widget->Position)) {
         $widgetEntry['position'] = $widget->Position;
+      }
+      if (isset($widget->Condition) && $widget->Condition !== null) {
+        $condParts = explode('=', $widget->Condition, 2);
+        if (count($condParts) == 2) {
+          $widgetEntry['condition'] = ['field' => trim($condParts[0]), 'value' => trim($condParts[1])];
+        }
       }
       $widgets[$widget->LinkedProperty] = $widgetEntry;
     }
