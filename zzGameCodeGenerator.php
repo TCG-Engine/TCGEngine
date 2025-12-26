@@ -537,13 +537,9 @@ for($i=0; $i<count($zones); ++$i) {
       fwrite($handler, "\$" . $property->Name);
       if($j < count($zone->Properties) - 1) fwrite($handler, " . ' ' . ");
     }
-    // Add zone name and player/owner to constructor
+    // Add location and playerID to constructor for Player or Global scopes
     fwrite($handler, ", ");
-    if (strtolower($scope) == 'global') {
-      fwrite($handler, "'" . $zoneName . "', 0");
-    } else {
-      fwrite($handler, "'" . $zoneName . "', \$player");
-    }
+    fwrite($handler, "'" . $zoneName . "', " . (strtolower($scope) == 'global' ? "0" : "\$player"));
     fwrite($handler, ");\r\n");
     if (strtolower($scope) == 'global') {
       fwrite($handler, "  \$zone = &Get" . $zoneName . "();\r\n");
@@ -854,15 +850,9 @@ for($i=0; $i<count($zones); ++$i) {
   }
   fwrite($handler, "  public \$removed;\r\n");
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
-  if (strtolower($scope) == 'player') {
-    fwrite($handler, "  public \$Location;\r\n");
-    fwrite($handler, "  public \$PlayerID;\r\n");
-  }
-  if (strtolower($scope) == 'player') {
-    fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0) {\r\n");
-  } else {
-    fwrite($handler, "  function __construct(\$line) {\r\n");
-  }
+  fwrite($handler, "  public \$Location;\r\n");
+  fwrite($handler, "  public \$PlayerID;\r\n");
+  fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0) {\r\n");
   fwrite($handler, "    \$arr = explode(\" \", \$line);\r\n");
   for($j=0; $j<count($zone->Properties); ++$j) {
     $property = $zone->Properties[$j];
@@ -873,10 +863,8 @@ for($i=0; $i<count($zones); ++$i) {
     else if($propertyType == "float") fwrite($handler, "(count(\$arr) > " . $j . " ? floatval(\$arr[" . $j . "]) : -1);\r\n");
     else fwrite($handler, "(count(\$arr) > " . $j . " ? \$arr[" . $j . "] : \"\");\r\n");
   }
-  if (strtolower($scope) == 'player') {
-    fwrite($handler, "    \$this->Location = \$location;\r\n");
-    fwrite($handler, "    \$this->PlayerID = \$playerID;\r\n");
-  }
+  fwrite($handler, "    \$this->Location = \$location;\r\n");
+  fwrite($handler, "    \$this->PlayerID = \$playerID;\r\n");
   fwrite($handler, "  }\r\n");
   //Serialize function
   fwrite($handler, "  function Serialize(\$delimiter = \" \") {\r\n");
@@ -1095,11 +1083,7 @@ if($versionsModule != null) {
       } else {
         fwrite($handler, "0;\r\n");
       }
-      if(str_starts_with('" . $baseZoneName . "', 'my') || str_starts_with('" . $baseZoneName . "', 'their')) {
-        fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j], \$location, \$controller));\r\n");
-      } else {
-        fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j]));\r\n");
-      }
+      fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j], \$location, \$controller));\r\n");
       fwrite($handler, "      }\r\n");
       fwrite($handler, "    }\r\n");
     }
@@ -1269,7 +1253,7 @@ function AddReadGamestate() {
         $readGamestate .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
         $readGamestate .= "        \$line = fgets(\$handler);\r\n";
         $readGamestate .= "        if (\$line !== false) {\r\n";
-        $readGamestate .= "          \$obj = new " . $zone->Name . "(trim(\$line));\r\n";
+        $readGamestate .= "          \$obj = new " . $zone->Name . "(trim(\$line), '" . $zone->Name . "', 0);\r\n";
         $readGamestate .= "          array_push(\$g" . $zone->Name . ", \$obj);\r\n";
         $readGamestate .= "        }\r\n";
         $readGamestate .= "      }\r\n";
