@@ -270,4 +270,8 @@ function TraitContains($card, $trait) {
     return in_array($trait, $traitArr);
 }
 
+function CardHasAbility($obj) {
+    return CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
+}
+
 ?>
