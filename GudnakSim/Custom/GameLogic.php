@@ -271,7 +271,8 @@ function TraitContains($card, $trait) {
 }
 
 function CardHasAbility($obj) {
-    return CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
+    $turnPlayer = &GetTurnPlayer();
+    return $turnPlayer == $obj->Controller && CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
 }
 
 ?>
