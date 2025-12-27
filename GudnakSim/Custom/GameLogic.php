@@ -38,10 +38,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
             UseActions(amount:1);
-            DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
-            DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "AfterFighterPlayed|-", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
+            DoBasicFighterActions($player, $mzCard);
             break;
         case "Tactic":
             UseActions(amount:CardCost($sourceObject->CardID));
@@ -56,6 +53,13 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
     $dqController->ExecuteStaticMethods($player, "-");
 }
 
+function DoBasicFighterActions($player, $mzCard) {
+    $sourceObject = &GetZoneObject($mzCard);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
+    DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AfterFighterPlayed|-", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
+}
 
 function CardPlayedEffects($player, $card, $cardPlayed) {
     switch($card->CardID) {
