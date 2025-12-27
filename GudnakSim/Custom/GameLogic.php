@@ -19,8 +19,7 @@ function ActionMap($actionCard)
             break;
         case "BG1": case "BG2": case "BG3": case "BG4": case "BG5": case "BG6": case "BG7": case "BG8": case "BG9":
             if($currentPhase == "ACT") {
-                DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
-                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", $mzCard . "FighterAction|" . $cardZone, 1);
+                DoFighterAction($turnPlayer, $cardZone);
                 return "MOVE";
             }
             break;
@@ -33,12 +32,10 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
 {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
-    echo("Playing card: " . $sourceObject->CardID . " for player " . $player . "<BR>");
-
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
             UseActions(amount:1);
-            DoBasicFighterActions($player, $mzCard);
+            DoPlayFighter($player, $mzCard);
             break;
         case "Tactic":
             UseActions(amount:CardCost($sourceObject->CardID));
@@ -53,7 +50,28 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
     $dqController->ExecuteStaticMethods($player, "-");
 }
 
-function DoBasicFighterActions($player, $mzCard) {
+function DoActivatedAbility($player, $mzCard) {
+    global $customDQHandlers;
+    $sourceObject = &GetZoneObject($mzCard);
+    switch(CardCard_type($sourceObject->CardID)) {
+        case "Fighter":
+            $sourceObject->Status = 1; // Exhaust the unit
+            break;
+        default: break;
+    }
+    //My activated ability effects
+    $customDQHandlers["AbilityActivated"]($player, [$sourceObject->CardID], null);
+
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($player, "-");
+}
+
+function DoFighterAction($player, $cardZone) {
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FighterAction|" . $cardZone, 1);
+}
+
+function DoPlayFighter($player, $mzCard) {
     $sourceObject = &GetZoneObject($mzCard);
     DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
     DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
@@ -260,6 +278,14 @@ $customDQHandlers["CardPlayed"] = function($player, $param, $lastResult) {
     $cardID = $param[0];
     if(isset($playCardAbilities[$cardID])) {
         $playCardAbilities[$cardID]($player);
+    }
+};
+
+$customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
+    global $activateAbilityAbilities;
+    $cardID = $param[0];
+    if(isset($activateAbilityAbilities[$cardID])) {
+        $activateAbilityAbilities[$cardID]($player);
     }
 };
 
