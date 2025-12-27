@@ -190,7 +190,8 @@ $customDQHandlers["AfterFighterPlayed"] = function($player, $param, $lastResult)
 $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
     UseActions(amount:1);
     $destZoneName = explode("-", $lastResult)[0];
-    $fromZone = &GetZone($param[0]);
+    $fromZoneName = explode("-", $param[0])[0];
+    $fromZone = &GetZone($fromZoneName);
     $destZone = &GetZone($destZoneName);
     for($i = 1; $i < count($fromZone); ++$i) {
         $fromZone[$i]->Status = 1; // Exhaust the unit
@@ -198,7 +199,7 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
     if(count($destZone) == 1) {
         //This is a move, move the whole stack from 1 -> end
         for($i = 1; $i < count($fromZone); ++$i) {
-            MZMove($player, $param[0] . "-" . $i, $destZoneName);
+            MZMove($player, $fromZoneName . "-" . $i, $destZoneName);
         }
         return;
     } else {
@@ -214,16 +215,16 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
             if(count($destZone) == 2) { //Means there was only one defender
                 //Move the whole stack
                 for($i = 1; $i < count($fromZone); ++$i) {
-                    MZMove($player, $param[0] . "-" . $i, $destZoneName);
+                    MZMove($player, $fromZoneName . "-" . $i, $destZoneName);
                 }
             }
         } else if($fromPower < $destPower) {
             //Defender wins
-            FighterDestroyed($fromTop->Controller, $param[0] . "-" . (count($fromZone) - 1));
+            FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
         } else {
             //Both destroyed
             FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
-            FighterDestroyed($fromTop->Controller, $param[0] . "-" . (count($fromZone) - 1));
+            FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
         }
     }
 };
