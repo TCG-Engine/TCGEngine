@@ -1,5 +1,7 @@
 <?php
 
+$debugMode = true;
+
 //TODO: Add this to a schema
 function ActionMap($actionCard)
 {
@@ -196,14 +198,12 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
             }
         } else if($fromPower < $destPower) {
             //Defender wins
-            //MZMove($player, $param . "-0", "myGraveyard");
+            FighterDestroyed($fromTop->Controller, $param[0] . "-" . (count($fromZone) - 1));
         } else {
             //Both destroyed
-            //MZMove($player, $param . "-0", "myGraveyard");
-            //MZMove($player, $lastResult, "theirGraveyard");
+            FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
+            FighterDestroyed($fromTop->Controller, $param[0] . "-" . (count($fromZone) - 1));
         }
-
-        //MZMove($player, $param . "-0", $destZoneName);
     }
 };
 
@@ -271,6 +271,10 @@ function TraitContains($card, $trait) {
 }
 
 function CardHasAbility($obj) {
+    global $debugMode;
+    if($debugMode) {
+        return CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
+    }
     $turnPlayer = &GetTurnPlayer();
     return $turnPlayer == $obj->Controller && CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
 }
