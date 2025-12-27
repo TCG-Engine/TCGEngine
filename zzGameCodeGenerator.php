@@ -1893,6 +1893,115 @@ function GetModule($type) {
  * Creates a GeneratedMacroCode.php file in the GeneratedCode folder
  * This file contains implementations of macros for specific cards and macro count functions
  */
+/**
+ * Transform await syntax in ability code to DecisionQueue calls
+ * Pattern: $var = await $player.ChoiceType(params)
+ * Becomes: AddDecision + continuation handler
+ * 
+ * REQUIREMENTS FOR CORE/DecisionQueueController.php:
+ * 
+ * 1. AddDecision method must accept 5th parameter $varName (optional):
+ *    public static function AddDecision($player, $type, $param, $priority = 1, $varName = null)
+ * 
+ * 2. Add private static array to store variables:
+ *    private static $variables = [];
+ * 
+ * 3. Add SetVariable method (called when decision completes):
+ *    public static function SetVariable($name, $value) {
+ *      self::$variables[$name] = $value;
+ *    }
+ * 
+ * 4. Add GetVariable method (called by continuation handlers):
+ *    public static function GetVariable($name) {
+ *      return self::$variables[$name] ?? null;
+ *    }
+ * 
+ * 5. When ExecuteStaticMethods processes a decision with $varName set,
+ *    it should call SetVariable($varName, $lastDecision) before popping the decision
+ * 
+ * Example transformation:
+ *   INPUT:
+ *     $actionCard = await $player.MZChoose("BG1&BG2");
+ *     DoFighterAction($player, $actionCard);
+ * 
+ *   OUTPUT (main handler):
+ *     DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2", 1, "actionCard");
+ *     DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-1", 1);
+ * 
+ *   OUTPUT (continuation handler):
+ *     $customDQHandlers["CARDID-1"] = function($player) {
+ *       $actionCard = DecisionQueueController::GetVariable("actionCard");
+ *       DoFighterAction($player, $actionCard);
+ *     };
+ */
+function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) {
+  $lines = explode("\n", $code);
+  $transformedCode = "";
+  $awaitCount = 0;
+  $remainingCode = [];
+  $inAwaitContext = false;
+  
+  for ($i = 0; $i < count($lines); $i++) {
+    $line = $lines[$i];
+    
+    // Check if this line contains await syntax
+    if (preg_match('/(\$\w+)\s*=\s*await\s+(\$\w+)\.(\w+)\((.*?)\)/', $line, $matches)) {
+      $awaitCount++;
+      $returnVar = $matches[1];  // e.g., $actionCard
+      $playerVar = $matches[2];  // e.g., $player
+      $choiceType = $matches[3]; // e.g., MZChoose
+      $params = $matches[4];     // e.g., "BG1&BG2&BG3..."
+      
+      // Map user-friendly choice types to DQ types
+      $dqType = strtoupper($choiceType); // MZChoose -> MZCHOOSE, YesNo -> YESNO
+      
+      // Remove quotes from params if they exist
+      $params = trim($params, '"\'');
+      
+      // Transform await line to AddDecision call
+      // Parameters: $player, $type, $param, $block, $tooltip, $varName
+      $varName = substr($returnVar, 1); // Remove $ prefix
+      $transformedCode .= "DecisionQueueController::AddDecision(" . $playerVar . ", \"" . $dqType . "\", \"" . $params . "\", 1, \"\", \"" . $varName . "\");\n";
+      
+      // Collect all remaining lines for continuation handler
+      $inAwaitContext = true;
+      $remainingCode = array_slice($lines, $i + 1);
+      
+      // If there are remaining lines, create continuation handler reference
+      if (count($remainingCode) > 0 && trim(implode("\n", $remainingCode)) != "") {
+        $continuationHandlerName = $cardId . "-" . $awaitCount;
+        $transformedCode .= "DecisionQueueController::AddDecision(" . $playerVar . ", \"CUSTOM\", \"" . $continuationHandlerName . "\", 1);\n";
+        
+        // Recursively transform remaining code (might contain more awaits)
+        $continuationCode = implode("\n", $remainingCode);
+        $retrieveVar = "  " . $returnVar . " = DecisionQueueController::GetVariable(\"" . $varName . "\");\n";
+        $transformedContinuation = TransformAwaitCode($continuationCode, $cardId, $macroName, $continuationHandlers);
+        
+        // Store continuation handler for later generation
+        $continuationHandlers[$continuationHandlerName] = [
+          'retrieveVar' => $retrieveVar,
+          'code' => $transformedContinuation,
+          'comment' => $macroName
+        ];
+      }
+      
+      break; // Stop processing after first await
+    } else {
+      // Regular line, add to transformed code
+      if (!$inAwaitContext) {
+        $transformedCode .= $line . "\n";
+      }
+    }
+  }
+  
+  // If no await found, return original code
+  if ($awaitCount == 0) {
+    return $code;
+  }
+  
+  return rtrim($transformedCode);
+}
+
 function GenerateMacroCode() {
   global $rootName;
   
@@ -1946,6 +2055,8 @@ function GenerateMacroCode() {
       fwrite($handler, "// Card-specific macro implementations\r\n");
       fwrite($handler, "// Each macro has an array where card IDs are keys and ability functions are values\r\n\r\n");
       
+      $allContinuationHandlers = []; // Store all continuation handlers for output later
+      
       foreach ($abilitiesByMacro as $macroName => $abilities) {
         // Convert macro name to valid variable name (e.g., "card-play" -> "cardPlayAbilities")
         $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
@@ -1955,12 +2066,32 @@ function GenerateMacroCode() {
           $code = $ability['ability_code'];
           $name = $ability['ability_name'] ?? $cardId;
           
+          // Transform code to handle await syntax
+          $continuationHandlers = [];
+          $transformedCode = TransformAwaitCode($code, $cardId, $name, $continuationHandlers);
+          
+          // Merge continuation handlers into global collection
+          $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);
+          
           fwrite($handler, "\$" . $varName . "[\"" . $cardId . "\"] = function(\$player) { //" . $name . "\r\n");
-          fwrite($handler, "  " . str_replace("\n", "\n  ", trim($code)) . "\r\n");
+          fwrite($handler, "  " . str_replace("\n", "\n  ", trim($transformedCode)) . "\r\n");
           fwrite($handler, "};\r\n");
         }
         
         fwrite($handler, "\r\n");
+      }
+      
+      // Generate continuation handlers (from await transformations)
+      if (count($allContinuationHandlers) > 0) {
+        fwrite($handler, "// Continuation handlers for await syntax\r\n");
+        fwrite($handler, "// These handlers are called after player makes a choice in an ability\r\n\r\n");
+        
+        foreach ($allContinuationHandlers as $handlerName => $handlerData) {
+          fwrite($handler, "\$customDQHandlers[\"" . $handlerName . "\"] = function(\$player, \$parts, \$lastDecision) { //" . $handlerData['comment'] . "\r\n");
+          fwrite($handler, $handlerData['retrieveVar']); // Retrieve the stored variable
+          fwrite($handler, "  " . str_replace("\n", "\n  ", trim($handlerData['code'])) . "\r\n");
+          fwrite($handler, "};\r\n\r\n");
+        }
       }
       
       // Generate macro count data and functions
