@@ -279,7 +279,7 @@ function CardHasAbility($obj) {
         return CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
     }
     $turnPlayer = &GetTurnPlayer();
-    return $turnPlayer == $obj->Controller && CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
+    return $obj->Status == 2 && $turnPlayer == $obj->Controller && CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
 }
 
 ?>
