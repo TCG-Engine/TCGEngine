@@ -1959,9 +1959,8 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) 
       $params = trim($params, '"\'');
       
       // Transform await line to AddDecision call
-      // Parameters: $player, $type, $param, $block, $tooltip, $varName
-      $varName = substr($returnVar, 1); // Remove $ prefix
-      $transformedCode .= "DecisionQueueController::AddDecision(" . $playerVar . ", \"" . $dqType . "\", \"" . $params . "\", 1, \"\", \"" . $varName . "\");\n";
+      $varName = substr($returnVar, 1); // Remove $ prefix for storage
+      $transformedCode .= "DecisionQueueController::AddDecision(" . $playerVar . ", \"" . $dqType . "\", \"" . $params . "\", 1);\n";
       
       // Collect all remaining lines for continuation handler
       $inAwaitContext = true;
@@ -1974,7 +1973,8 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) 
         
         // Recursively transform remaining code (might contain more awaits)
         $continuationCode = implode("\n", $remainingCode);
-        $retrieveVar = "  " . $returnVar . " = DecisionQueueController::GetVariable(\"" . $varName . "\");\n";
+        // Retrieve variable from $lastDecision parameter that continuation handler receives
+        $retrieveVar = "  " . $returnVar . " = \$lastDecision;\n";
         $transformedContinuation = TransformAwaitCode($continuationCode, $cardId, $macroName, $continuationHandlers);
         
         // Store continuation handler for later generation

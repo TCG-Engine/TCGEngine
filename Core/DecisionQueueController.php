@@ -6,9 +6,6 @@
 class DecisionQueueController {
     private $numPlayers = 2;
     private static $debugMode = true;
-    
-    // Storage for await variable values (used by generated continuation handlers)
-    private static $variables = [];
 
     public function __construct() {
 
@@ -51,13 +48,6 @@ class DecisionQueueController {
     function ExecuteStaticMethods($player, $lastDecision = null) {
         while($decision = $this->NextDecision($player)) {
             if(self::$debugMode) echo("Processing decision for player " . $player . ": " . $decision->Type . " " . $decision->Param . " Last decision: " . $lastDecision . "<BR>");
-            
-            // Store variable if this decision has a variable name (await syntax)
-            if(isset($decision->VarName) && $decision->VarName != '' && $lastDecision !== null) {
-                self::SetVariable($decision->VarName, $lastDecision);
-                if(self::$debugMode) echo("Stored variable " . $decision->VarName . " = " . $lastDecision . "<BR>");
-            }
-            
             $this->PopDecision($player);
             switch($decision->Type) {
                 case "PASSPARAMETER":
@@ -110,8 +100,7 @@ class DecisionQueueController {
     }
 
     // Add a decision to a player's queue
-    // $varName: Optional variable name for await syntax (stores result for continuation handler)
-    public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '', $varName = null) {
+    public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '') {
         $tooltip = str_replace(' ', '_', $tooltip);
         $playerQueue = &GetDecisionQueue($player);
         $insertIndex = 0;
@@ -122,11 +111,7 @@ class DecisionQueueController {
             $insertIndex = $i + 1;
         }
         if(self::$debugMode) echo("Adding decision to player " . $player . " queue: " . $type . " " . $param . " Block: " . $block . " at index " . $insertIndex . "<BR>");
-        $decision = new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip);
-        if($varName !== null) {
-            $decision->VarName = $varName;
-        }
-        array_splice($playerQueue, $insertIndex, 0, [$decision]);
+        array_splice($playerQueue, $insertIndex, 0, [new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip)]);
     }
 
     private function MZZoneArray($zoneStr) {
@@ -137,15 +122,5 @@ class DecisionQueueController {
             $output[] = $zone[0];
         }
         return $output;
-    }
-    
-    // Store a variable value (called when await decision completes)
-    public static function SetVariable($name, $value) {
-        self::$variables[$name] = $value;
-    }
-    
-    // Retrieve a variable value (called by continuation handlers)
-    public static function GetVariable($name) {
-        return self::$variables[$name] ?? null;
     }
 }
