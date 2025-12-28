@@ -1932,10 +1932,10 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) 
     if (preg_match('/(\$\w+)\s*=\s*await\s+(\$\w+)\.(\w+)\((.*?)\)/', $line, $matches)) {
       $awaits[] = [
         'lineIndex' => $i,
-        'returnVar' => $matches[1],  // e.g., $unit1
+        'returnVar' => $matches[1],  // e.g., $cardToDeploy
         'playerVar' => $matches[2],  // e.g., $player
         'choiceType' => strtoupper($matches[3]), // e.g., MZCHOOSE
-        'params' => trim($matches[4], '"\'') // e.g., BG1&BG2...
+        'params' => trim($matches[4], '"\'') // e.g., myHand
       ];
     }
   }
@@ -1964,28 +1964,36 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) 
     
     $handlerCode = "";
     
-    // Store the current variable (from $lastDecision)
+    // Store the current variable (from $lastDecision) for potential later use
     $handlerCode .= "  DecisionQueueController::StoreVariable(\"" . $varName . "\", \$lastDecision);\n";
+    
+    // Retrieve all previously stored variables that might be referenced in the code block
+    for ($j = 0; $j < $awaitIndex; $j++) {
+      $prevVarName = substr($awaits[$j]['returnVar'], 1);
+      $handlerCode .= "  " . $awaits[$j]['returnVar'] . " = DecisionQueueController::GetVariable(\"" . $prevVarName . "\");\n";
+    }
+    
+    // Assign the current result from $lastDecision to the awaited variable
+    $handlerCode .= "  " . $currentAwait['returnVar'] . " = \$lastDecision;\n";
+    
+    // Get the code between this await and the next await (or end of code)
+    $startLine = $currentAwait['lineIndex'] + 1;
+    $endLine = ($awaitIndex + 1 < count($awaits)) ? $awaits[$awaitIndex + 1]['lineIndex'] : count($lines);
+    
+    // Add the code between awaits
+    for ($i = $startLine; $i < $endLine; $i++) {
+      // Skip the next await line itself if we're not at the last await
+      if ($awaitIndex + 1 < count($awaits) && $i == $awaits[$awaitIndex + 1]['lineIndex']) {
+        break;
+      }
+      $handlerCode .= "  " . $lines[$i] . "\n";
+    }
     
     // If there's another await after this one, queue it
     if ($awaitIndex + 1 < count($awaits)) {
       $nextAwait = $awaits[$awaitIndex + 1];
       $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", \"" . $nextAwait['params'] . "\", 1);\n";
       $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
-    } else {
-      // This is the final handler - retrieve all stored variables and execute remaining code
-      for ($j = 0; $j < count($awaits) - 1; $j++) {
-        $prevVarName = substr($awaits[$j]['returnVar'], 1);
-        $handlerCode .= "  " . $awaits[$j]['returnVar'] . " = DecisionQueueController::GetVariable(\"" . $prevVarName . "\");\n";
-      }
-      // Current await variable comes from $lastDecision
-      $handlerCode .= "  " . $currentAwait['returnVar'] . " = \$lastDecision;\n";
-      
-      // Add remaining code after the last await
-      $remainingLines = array_slice($lines, $currentAwait['lineIndex'] + 1);
-      if (count($remainingLines) > 0) {
-        $handlerCode .= "  " . str_replace("\n", "\n  ", trim(implode("\n", $remainingLines))) . "\n";
-      }
     }
     
     // Store handler for generation
