@@ -1,5 +1,5 @@
 <div class="disclaimer">
-    <p>Soul Masters DB is in no way affiliated with Soul Master Games LLC. Soul Masters characters, cards, logos, and art are property of Soul Master Games LLC. All Soul Masters assets are used with permission from the owners.
+    <p>Gudnak Simulator is a fan-made, unofficial simulator and is not affiliated with or endorsed by the creators of Gudnak. Gudnak is the intellectual property of its respective creators. All Gudnak assets are used for fan purposes only.
         &nbsp;
         <a href="/TCGEngine/SharedUI/TermsOfUse.php">Terms of Use</a>
         &nbsp;
