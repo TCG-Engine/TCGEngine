@@ -123,4 +123,22 @@ class DecisionQueueController {
         }
         return $output;
     }
+    
+    // Variable storage for await syntax using DecisionQueueVariables zone
+    public static function StoreVariable($name, $value) {
+        $vars = json_decode(GetDecisionQueueVariables(), true);
+        if (!is_array($vars)) $vars = [];
+        $vars[$name] = $value;
+        SetDecisionQueueVariables(json_encode($vars));
+    }
+    
+    public static function GetVariable($name) {
+        $vars = json_decode(GetDecisionQueueVariables(), true);
+        if (!is_array($vars)) return null;
+        return $vars[$name] ?? null;
+    }
+    
+    public static function ClearVariables() {
+        SetDecisionQueueVariables('{}');
+    }
 }

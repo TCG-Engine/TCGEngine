@@ -102,3 +102,5 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+DecisionQueueVariables - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
