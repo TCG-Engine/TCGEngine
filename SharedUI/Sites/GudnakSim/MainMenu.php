@@ -33,6 +33,7 @@ include_once 'Header.php';
     <div>
       <label for="deck-link">Deck Link:</label>
       <input type="text" id="deck-link" name="deck_link" required>
+      <!--
       <label for="game-name">Game Name:</label>
       <input type="text" id="game-name" name="game_name" required>
       <br>
@@ -41,6 +42,7 @@ include_once 'Header.php';
       <option value="casual">Casual</option>
       <option value="ranked">Ranked</option>
       </select>
+    -->
       <br>
       <button onclick="joinQueue()">Join Queue</button>
     </div>
