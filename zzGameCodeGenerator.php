@@ -1898,11 +1898,17 @@ function GetModule($type) {
  * Pattern: $var = await $player.ChoiceType(params)
  * Becomes: AddDecision + continuation handler with variable storage
  * 
+ * Supported choice types:
+ *   - MZChoose: Mandatory card choice from zones
+ *   - MZMayChoose: Optional card choice (client shows Pass button)
+ *   - YesNo: Yes/No choice
+ *   - Custom types: Any name is converted to uppercase (e.g., CustomChoice -> CUSTOMCHOICE)
+ * 
  * Example transformation:
  *   INPUT:
  *     $unit1 = await $player.MZChoose("BG1&BG2");
- *     $unit2 = await $player.MZChoose("BG1&BG2");
- *     SwapPosition($unit1, $unit2);
+ *     $unit2 = await $player.MZMayChoose("BG1&BG2");  // Optional choice
+ *     if ($unit2 !== "PASS") SwapPosition($unit1, $unit2);
  * 
  *   OUTPUT (main handler):
  *     DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2", 1);
@@ -1910,16 +1916,16 @@ function GetModule($type) {
  * 
  *   OUTPUT (first continuation handler):
  *     $customDQHandlers["CARDID-1"] = function($player, $parts, $lastDecision) {
- *       StoreVariable("unit1", $lastDecision);
- *       DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2", 1);
+ *       DecisionQueueController::StoreVariable("unit1", $lastDecision);
+ *       DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", "BG1&BG2", 1);
  *       DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-2", 1);
  *     };
  * 
  *   OUTPUT (second continuation handler):
  *     $customDQHandlers["CARDID-2"] = function($player, $parts, $lastDecision) {
- *       $unit1 = GetVariable("unit1");
- *       $unit2 = $lastDecision;
- *       SwapPosition($unit1, $unit2);
+ *       $unit1 = DecisionQueueController::GetVariable("unit1");
+ *       $unit2 = $lastDecision;  // Will be "PASS" if player passed
+ *       if ($unit2 !== "PASS") SwapPosition($unit1, $unit2);
  *     };
  */
 function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) {

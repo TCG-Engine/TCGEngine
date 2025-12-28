@@ -1421,10 +1421,11 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         SubmitInput('DECISION', '&decisionIndex=' + i + '&cardID=' + result);
       });
       break;
-    } else if (entry && entry.Type === 'MZCHOOSE' && !entry.removed) {
+    } else if (entry && (entry.Type === 'MZCHOOSE' || entry.Type === 'MZMAYCHOOSE') && !entry.removed) {
       // Set up selection mode
       window.SelectionMode.active = true;
       window.SelectionMode.mode = '100';
+      window.SelectionMode.mayPass = (entry.Type === 'MZMAYCHOOSE');
       // Parse allowed zones into objects { zone: 'myBase', filters: [ { field, op, value } ] }
       window.SelectionMode.allowedZones = (entry.Param || '').split('&').map(s => s.trim()).filter(Boolean).map(spec => {
         const parts = spec.split(':');
@@ -1449,7 +1450,7 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(cardId));
       };
       var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Select a card from an allowed zone.';
-      ShowSelectionMessage(tooltip);
+      ShowSelectionMessage(tooltip, window.SelectionMode.mayPass, i);
       // Highlight/selectable will be handled in rendering
 
       // After setting selection mode for MZCHOOSE, force a re-render of all zones
@@ -1471,7 +1472,8 @@ window.SelectionMode = {
   mode: '', // e.g., '100' for decision queue
   allowedZones: [],
   callback: null,
-  decisionIndex: null
+  decisionIndex: null,
+  mayPass: false
 };
 
 function ClearSelectionMode() {
@@ -1480,7 +1482,8 @@ function ClearSelectionMode() {
     mode: '',
     allowedZones: [],
     callback: null,
-    decisionIndex: null
+    decisionIndex: null,
+    mayPass: false
   };
   // Remove selectable highlight from all cards
   document.querySelectorAll('.selectable-card').forEach(el => {
@@ -1491,7 +1494,7 @@ function ClearSelectionMode() {
   HideSelectionMessage();
 }
 
-function ShowSelectionMessage(msg) {
+function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
   // Use flash message or unobtrusive banner
   let existing = document.getElementById('selection-message');
   if (!existing) {
@@ -1508,10 +1511,43 @@ function ShowSelectionMessage(msg) {
     existing.style.boxShadow = '0 0 10px #0008';
     existing.style.fontFamily = "'Orbitron', sans-serif";
     existing.style.zIndex = '9999';
+    existing.style.display = 'flex';
+    existing.style.alignItems = 'center';
+    existing.style.gap = '16px';
     document.body.appendChild(existing);
   }
-  existing.textContent = msg;
-  existing.style.display = 'block';
+  
+  // Clear previous content
+  existing.innerHTML = '';
+  
+  // Add message text
+  let msgSpan = document.createElement('span');
+  msgSpan.textContent = msg;
+  existing.appendChild(msgSpan);
+  
+  // Add Pass button if allowed
+  if (showPassButton) {
+    let passBtn = document.createElement('button');
+    passBtn.textContent = 'Pass';
+    passBtn.style.padding = '6px 16px';
+    passBtn.style.fontSize = '14px';
+    passBtn.style.background = '#6c757d';
+    passBtn.style.color = '#fff';
+    passBtn.style.border = 'none';
+    passBtn.style.borderRadius = '5px';
+    passBtn.style.cursor = 'pointer';
+    passBtn.style.marginLeft = '8px';
+    passBtn.onmouseover = function() { passBtn.style.background = '#5a6268'; };
+    passBtn.onmouseout = function() { passBtn.style.background = '#6c757d'; };
+    passBtn.onclick = function() {
+      // Submit PASS as a DECISION action (action code 100)
+      SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=PASS');
+      ClearSelectionMode();
+    };
+    existing.appendChild(passBtn);
+  }
+  
+  existing.style.display = 'flex';
 }
 
 function HideSelectionMessage() {
