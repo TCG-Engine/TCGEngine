@@ -309,4 +309,19 @@ function CardHasAbility($obj) {
     return $obj->Status == 2 && $turnPlayer == $obj->Controller && CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
 }
 
+function SwapPosition($unit1, $unit2) {
+    // Parse zone names from unit references (e.g., "BG4-0" -> "BG4")
+    $zone1Name = explode("-", $unit1)[0];
+    $zone2Name = explode("-", $unit2)[0];
+    
+    // Get references to both zones
+    $zone1 = &GetZone($zone1Name);
+    $zone2 = &GetZone($zone2Name);
+    
+    // Swap the entire zone contents (all cards in both positions)
+    $temp = $zone1;
+    $zone1 = $zone2;
+    $zone2 = $temp;
+}
+
 ?>
