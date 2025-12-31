@@ -229,6 +229,9 @@ if (isset($interaction['type']) && $interaction['type'] === 2) {
 		$query->close();
 		$conn->close();
 	} elseif ($command === "card") {
+		$discordID = $interaction['member']['user']['id'] ?? ($interaction['user']['id'] ?? 'Unknown');
+		$SWUStatsUsername = SWUStatsUserName($discordID);
+
         // Extract card name from command options
         $options = $interaction['data']['options'] ?? [];
         $cardName = "Unknown";
@@ -242,7 +245,7 @@ if (isset($interaction['type']) && $interaction['type'] === 2) {
             }
         }
 		//$cardName = substr_replace($cardName, '_', 3, 0);
-		$matches = FindCard($cardName);
+		$matches = FindCard($cardName, $SWUStatsUsername == "OotTheMonk");
 		if(count($matches) == 1) {
 			$uuid = $matches[0];
 			$responseText = "Fetching details for: " . CardTitle($uuid);
@@ -310,6 +313,8 @@ if (isset($interaction['type']) && $interaction['type'] === 2) {
 			];
 		}
     } elseif ($command === "cardstats") {
+		$discordID = $interaction['member']['user']['id'] ?? ($interaction['user']['id'] ?? 'Unknown');
+		$SWUStatsUsername = SWUStatsUserName($discordID);
 		// Extract card name from command options
         $options = $interaction['data']['options'] ?? [];
         $cardName = "Unknown";
@@ -323,7 +328,7 @@ if (isset($interaction['type']) && $interaction['type'] === 2) {
             }
         }
 		//$cardName = substr_replace($cardName, '_', 3, 0);
-		$matches = FindCard($cardName);
+		$matches = FindCard($cardName, $SWUStatsUsername == "OotTheMonk");
 		if(count($matches) == 1) {
 			$uuid = $matches[0];
 			$conn = GetLocalMySQLConnection();
@@ -420,7 +425,7 @@ if (isset($interaction['type']) && $interaction['type'] === 2) {
         // Extract the setID or card ID
         $setID = substr($customId, strlen('select_card_'));
 
-		$matches = FindCard($setID);
+		$matches = FindCard($setID, false);
 
 		if(count($matches) > 0) {
 			$uuid = $matches[0];
@@ -445,7 +450,7 @@ if (isset($interaction['type']) && $interaction['type'] === 2) {
 		exit;
     } else if (strpos($customId, 'card_stats_') === 0) {
         $setID = substr($customId, strlen('card_stats_'));
-		$matches = FindCard($setID);
+		$matches = FindCard($setID, false);
 		if(count($matches) > 0) {
 			$uuid = $matches[0];
 			$response = StatsResponse($uuid);
@@ -469,7 +474,7 @@ http_response_code(400);
 echo "Unhandled interaction type";
 exit;
 
-function FindCard($cardName, &$response=null) {
+function FindCard($cardName, $semanticAllowed=false) {
 	$cardName = trim($cardName);
 	$cardName = str_replace('_', '', $cardName);
 	$uuid = UUIDLookup(substr_replace(strtoupper($cardName), '_', 3, 0));
@@ -483,6 +488,18 @@ function FindCard($cardName, &$response=null) {
 		foreach ($titleData as $uuid => $title) {
 			if (stripos($title, $cardName) !== false) {
 				$matches[] = $uuid;
+			}
+		}
+		if($semanticAllowed && count($matches) == 0) {
+			//If we STILL found no matches, treat this as a semantic search
+			include_once "../AIEndpoints/ElasticSearchHelper.php";
+			$searchResponse = PerformConversationalSearch($cardName);
+			if(isset($searchResponse->message)) {
+				// Parse the message to extract UUIDs from "specificCards=uuid1,uuid2,uuid3" format
+				if(strpos($searchResponse->message, 'specificCards=') === 0) {
+					$cardIds = substr($searchResponse->message, strlen('specificCards='));
+					$matches = array_filter(explode(',', $cardIds));
+				}
 			}
 		}
 		return $matches;
