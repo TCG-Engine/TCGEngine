@@ -28,12 +28,12 @@
     return false;
   }
 
-  function PatreonLoginByUserId($userId)
+function PatreonLoginByUserId($userId)
   {
     require_once __DIR__ . '/../../../Database/ConnectionManager.php';
     
     $conn = GetLocalMySQLConnection();
-    $query = $conn->prepare("SELECT patreonAccessToken FROM users WHERE usersId = ?");
+    $query = $conn->prepare("SELECT usersId, usersUid, patreonAccessToken FROM users WHERE usersId = ?");
     $query->bind_param("i", $userId);
     $query->execute();
     $result = $query->get_result();
@@ -41,6 +41,10 @@
     if ($result && $result->num_rows > 0) {
       $userRecord = $result->fetch_assoc();
       $patreonAccessToken = $userRecord['patreonAccessToken'];
+      
+      // Populate session with user info so IsUserLoggedIn() works
+      $_SESSION['userid'] = $userRecord['usersId'];
+      $_SESSION['useruid'] = $userRecord['usersUid'];
       
       if ($patreonAccessToken) {
         try {

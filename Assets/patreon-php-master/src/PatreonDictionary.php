@@ -110,7 +110,7 @@ enum PatreonCampaign : string
     switch($this->value)
     {
       case "99999999": return ($userName == "LoopeeL8NG");
-      case "12163989": return ($userName == "OotTheMonk" || $userName == "LoopeeL8NG");
+      case "12163989": return ($userName == "OotTheMonk");
       case "11987758": return ($userName == "Chrono" || $userName == "BobbySapphire" || $userName == "Reflex" || $userName == "allstarz97" || $userName == "wooooo" || $userName == "Brunas" || $userName == "Matty" || $userName == "KTODMATTY");
       case "12716027": return ($userName == "RebelResource");
       case "13088942": return ($userName == "rodneystubbs");
