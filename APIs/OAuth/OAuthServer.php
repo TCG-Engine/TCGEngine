@@ -6,9 +6,9 @@
  * allowing third-party applications to authenticate with SWUDeck.
  */
 
-include_once '../../Core/HTTPLibraries.php';
-include_once '../../AccountFiles/AccountSessionAPI.php';
-include_once '../../Database/ConnectionManager.php';
+include_once __DIR__ . '/../../Core/HTTPLibraries.php';
+include_once __DIR__ . '/../../AccountFiles/AccountSessionAPI.php';
+include_once __DIR__ . '/../../Database/ConnectionManager.php';
 
 class OAuthServer {
     public $conn; // Changed from private to public to allow access from authorize.php

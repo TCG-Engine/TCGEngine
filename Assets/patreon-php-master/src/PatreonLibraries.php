@@ -30,7 +30,7 @@
 
   function PatreonLoginByUserId($userId)
   {
-    require_once __DIR__ . '/../../Database/ConnectionManager.php';
+    require_once __DIR__ . '/../../../Database/ConnectionManager.php';
     
     $conn = GetLocalMySQLConnection();
     $query = $conn->prepare("SELECT patreonAccessToken FROM users WHERE usersId = ?");
