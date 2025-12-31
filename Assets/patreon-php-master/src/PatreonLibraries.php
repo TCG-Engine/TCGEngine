@@ -2,6 +2,11 @@
 
   use Patreon\API;
   use Patreon\OAuth;
+
+  // Ensure required files are included
+  require_once __DIR__ . '/API.php';
+  require_once __DIR__ . '/OAuth.php';
+
   function GetUserPatreonID()
   {
     if(!IsUserLoggedIn()) return "";
@@ -25,7 +30,7 @@
 
   function PatreonLoginByUserId($userId)
   {
-    include_once '../Database/ConnectionManager.php';
+    require_once __DIR__ . '/../../Database/ConnectionManager.php';
     
     $conn = GetLocalMySQLConnection();
     $query = $conn->prepare("SELECT patreonAccessToken FROM users WHERE usersId = ?");

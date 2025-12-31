@@ -61,7 +61,7 @@ if (!$tokenInfo) {
     echo json_encode($response);
     exit();
 }
-/*
+
 // Check if the token has the required 'search' scope
 $scopes = explode(' ', $tokenInfo['scope']);
 if (!in_array('search', $scopes)) {
@@ -70,7 +70,6 @@ if (!in_array('search', $scopes)) {
     echo json_encode($response);
     exit();
 }
-    */
 
 // Check if the user associated with the token is a patron
 $userId = $tokenInfo['user_id'] ?? null;
