@@ -39,6 +39,7 @@ function PatreonLoginByUserId($userId)
     $result = $query->get_result();
     
     if ($result && $result->num_rows > 0) {
+      session_start();
       $userRecord = $result->fetch_assoc();
       $patreonAccessToken = $userRecord['patreonAccessToken'];
       
