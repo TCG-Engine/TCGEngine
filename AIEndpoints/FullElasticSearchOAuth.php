@@ -18,6 +18,8 @@ include_once '../Core/HTTPLibraries.php';
 include_once '../Database/ConnectionManager.php';
 include_once '../APIs/OAuth/OAuthServer.php';
 include_once 'ElasticSearchHelper.php';
+include_once '../Assets/patreon-php-master/src/PatreonLibraries.php';
+include_once '../Assets/patreon-php-master/src/PatreonDictionary.php';
 
 $response = new stdClass();
 
@@ -65,6 +67,20 @@ $scopes = explode(' ', $tokenInfo['scope']);
 if (!in_array('search', $scopes)) {
     http_response_code(403);
     $response->error = "Access token does not have required 'search' scope";
+    echo json_encode($response);
+    exit();
+}
+
+// Check if the user associated with the token is a patron
+$userId = $tokenInfo['user_id'] ?? null;
+if ($userId) {
+    PatreonLoginByUserId($userId);
+}
+
+// Verify that the user is a patron of the OotTheMonk campaign
+if (!IsPatron("12163989")) {
+    http_response_code(403);
+    $response->error = "Support <a href='https://www.patreon.com/OotTheMonk' target='_blank'>my patreon</a> to use conversational card search";
     echo json_encode($response);
     exit();
 }

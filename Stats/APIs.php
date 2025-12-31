@@ -741,5 +741,37 @@ include_once "../SharedUI/Header.php";
         </div>
     </div>
 
+    <div class="api-section">
+        <div class="api-endpoint">
+            <h3>OAuth-based Semantic Search</h3>
+            <p><span class="method get">GET</span> <code>/TCGEngine/AIEndpoints/FullElasticSearchOAuth.php</code></p>
+            <p>Search for cards using OAuth authentication. Requires a valid OAuth access token with the 'search' scope. User must be a current Patreon subscriber.</p>
+            
+            <h4>Query Parameters:</h4>
+            <table>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>request</td>
+                    <td>string</td>
+                    <td>The natural language card search query (URL encoded)</td>
+                </tr>
+                <tr>
+                    <td>access_token</td>
+                    <td>string</td>
+                    <td>OAuth access token with 'search' scope (or provide via Authorization header)</td>
+                </tr>
+            </table>
+            
+            <h4>Example Response:</h4>
+            <pre><code>{
+    "message": "specificCards=uuid1,uuid2,uuid3,uuid4,uuid5"
+}</code></pre>
+        </div>
+    </div>
+
 </body>
 </html>

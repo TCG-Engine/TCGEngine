@@ -23,6 +23,32 @@
     return false;
   }
 
+  function PatreonLoginByUserId($userId)
+  {
+    include_once '../Database/ConnectionManager.php';
+    
+    $conn = GetLocalMySQLConnection();
+    $query = $conn->prepare("SELECT patreonAccessToken FROM users WHERE usersId = ?");
+    $query->bind_param("i", $userId);
+    $query->execute();
+    $result = $query->get_result();
+    
+    if ($result && $result->num_rows > 0) {
+      $userRecord = $result->fetch_assoc();
+      $patreonAccessToken = $userRecord['patreonAccessToken'];
+      
+      if ($patreonAccessToken) {
+        try {
+          PatreonLogin($patreonAccessToken, true, false);
+        } catch (\Exception $e) {
+          // If patreon validation fails, they're not a patron
+        }
+      }
+    }
+    $query->close();
+    $conn->close();
+  }
+
 function PatreonLogin($access_token, $silent=true, $debugMode=false)
 {
   $output = new stdClass();
