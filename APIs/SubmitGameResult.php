@@ -66,8 +66,8 @@
 		}
   $winner = $data["winner"];
   $firstPlayer = $data["firstPlayer"];
-  $p1id = $data["p1id"];
-  $p2id = $data["p2id"];
+  $p1id = isset($data["p1id"]) ? $data["p1id"] : "";
+  $p2id = isset($data["p2id"]) ? $data["p2id"] : "";
 
   $p1DeckLink = $data["p1DeckLink"];
   $p2DeckLink = $data["p2DeckLink"];
@@ -213,14 +213,14 @@
 	$stmt = mysqli_stmt_init($conn);
 	$gameResultID = 0;
 	if(mysqli_stmt_prepare($stmt, $sql)) {
-  $winnerDeck = $data["winnerDeck"];
+  $winnerDeck = isset($data["winnerDeck"]) ? $data["winnerDeck"] : "";
   if (is_array($winnerDeck)) {
 	// Special handling for array winnerDeck (for now, just set to '...')
 	$winnerDeck = '...';
   } else {
 	$winnerDeck = substr($winnerDeck, 0, 999);
   }
-  $loserDeck = $data["loserDeck"];
+  $loserDeck = isset($data["loserDeck"]) ? $data["loserDeck"] : "";
   if (is_array($loserDeck)) {
 	// Special handling for array loserDeck (for now, just set to '...')
 	$loserDeck = '...';
