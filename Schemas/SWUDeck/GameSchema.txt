@@ -46,6 +46,8 @@ Sideboard - CardID:string
 Display: Visibility=Self, Mode=Tile, Left=26%, Bottom=5%, Split=None
 Click: Remove(mySideboard)
 Widgets: CustomInput=<&<<<&^&+&Notes
+Heatmap: Property=myStats, FunctionMap={"Play_Win_Rate":{"Function":"CardPlayWinRate","ColorMap":"HigherIsBetter"},"Resource_Rate":{"Function":"CardResourceRatio","ColorMap":"LowerIsBetter"},"Hypergeo":{"Function":"HyperGeo","ColorMap":"HigherIsBetter"},"Karabast_Implementation":{"Function":"KarabastImplemented","ColorMap":"HigherIsBetter"},"Petranaki_Implementation":{"Function":"PetranakiImplemented","ColorMap":"HigherIsBetter"}}
+Sort: Property=mySort
 Deck - CardID:string
 Display: Visibility=Self, Mode=Count(MainDeck), Left=26%, Top=16%, Split=None
 Widgets: CustomInput=Hand Draw
