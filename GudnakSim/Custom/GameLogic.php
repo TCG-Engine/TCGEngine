@@ -324,4 +324,27 @@ function SwapPosition($unit1, $unit2) {
     $zone2 = $temp;
 }
 
+function AdjacentZones($zone) {
+    switch($zone) {
+        case "BG1": return ["BG2", "BG4"];
+        case "BG2": return ["BG1", "BG3", "BG5"];
+        case "BG3": return ["BG2", "BG6"];
+        case "BG4": return ["BG1", "BG5", "BG7"];
+        case "BG5": return ["BG2", "BG4", "BG6", "BG8"];
+        case "BG6": return ["BG3", "BG5", "BG9"];
+        case "BG7": return ["BG4", "BG8"];
+        case "BG8": return ["BG5", "BG7", "BG9"];
+        case "BG9": return ["BG6", "BG8"];
+        default: return [];
+    }
+}
+
+function DestroyTopCard($zoneName) {
+    $zone = &GetZone($zoneName);
+    if(count($zone) > 1) {
+        $topIndex = count($zone) - 1;
+        FighterDestroyed($zone[$topIndex]->Controller, $zoneName . "-" . $topIndex);
+    }
+}
+
 ?>
