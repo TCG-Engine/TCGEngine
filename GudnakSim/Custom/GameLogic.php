@@ -34,13 +34,13 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
     $sourceObject = &GetZoneObject($mzCard);
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
-            UseActions(amount:1);
             DoPlayFighter($player, $mzCard);
+            UseActions(amount:1);
             break;
         case "Tactic":
-            UseActions(amount:CardCost($sourceObject->CardID));
             $newObj = MZMove($player, $mzCard, "myGraveyard");
             $customDQHandlers["CardPlayed"]($player, [$sourceObject->CardID], null);
+            UseActions(amount:CardCost($sourceObject->CardID));
             break;
         default: break;
     }
@@ -112,12 +112,35 @@ function UseActions($amount=1, $player=null) {
 
 function CheckSiege() {
     $turnPlayer = &GetTurnPlayer();
-    Draw($turnPlayer, amount: 1);
+    $gates = GetGates($turnPlayer);
+    $topGates = GetTopCard($gates);
+    echo("Gates: " . $gates . "\n");
+    echo("Top gate controller: " . ($topGates !== null ? $topGates->Controller : "null") . "\n");
+    if($topGates !== null && $topGates->Controller != $turnPlayer) {
+        //Siege happened
+        $deck = &GetDeck($turnPlayer);
+        if(count($deck) == 0) {
+            SetFlashMessage("Player " . $topGates->Controller . " has won!");
+        }
+        else {
+            SetFlashMessage("Player " . $turnPlayer . " was sieged!");
+        }
+    } else {
+        SetFlashMessage("Player " . $turnPlayer . "'s turn has begun");
+        Draw($turnPlayer, amount: 1);
+    }
+}
+
+function GetGates($player) {
+    if($player == 1) {
+        return "BG2";
+    } else {
+        return "BG8";
+    }
 }
 
 function ActionStep() {
 
-    
 }
 
 function PassTurn() {
@@ -188,7 +211,6 @@ $customDQHandlers["AfterFighterPlayed"] = function($player, $param, $lastResult)
 };
 
 $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
-    UseActions(amount:1);
     $destZoneName = explode("-", $lastResult)[0];
     $fromZoneName = explode("-", $param[0])[0];
     $fromZone = &GetZone($fromZoneName);
@@ -227,6 +249,7 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
             FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
         }
     }
+    UseActions(amount:1);
 };
 
 function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
@@ -337,6 +360,15 @@ function AdjacentZones($zone) {
         case "BG9": return ["BG6", "BG8"];
         default: return [];
     }
+}
+
+function GetTopCard($zoneName) {
+    $zone = &GetZone($zoneName);
+    if(count($zone) > 1) {
+        $topIndex = count($zone) - 1;
+        return $zone[$topIndex];
+    }
+    return null;
 }
 
 function DestroyTopCard($zoneName) {
