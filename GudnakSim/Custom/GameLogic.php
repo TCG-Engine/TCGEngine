@@ -94,7 +94,7 @@ function CanAttack($player, $fromZone, $toZone) {
         $fromTop = $fromZoneArr[count($fromZoneArr) - 1];
         $toTop = $toZoneArr[count($toZoneArr) - 1];
         if($fromTop->Controller != $player || $toTop->Controller == $player) return false;
-        if($toTop->HasTurnEffects("RYBF1HBTCS")) return false;
+        if($toTop->HasTurnEffects("RYBF1HBTCS") || $toTop->HasTurnEffects("RYBTDVPT")) return false;
         return true;
     }
     return false;
