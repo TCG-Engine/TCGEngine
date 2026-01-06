@@ -24,4 +24,16 @@
     return null;
   }
 
+  function ZoneCount($zoneName) {
+    $zoneName = explode("-", $zoneName)[0];//In case it's an mzid
+    $zone = &GetZone($zoneName);
+    $count = 0;
+    for($i=0; $i<count($zone); ++$i) {
+      if(!$zone[$i]->Removed()) {
+        ++$count;
+      }
+    }
+    return $count;
+  }
+
 ?>
