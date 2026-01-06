@@ -247,6 +247,7 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
     for($i = 1; $i < count($fromZone); ++$i) {
         $fromZone[$i]->Status = 1; // Exhaust the unit
     }
+    UseActions(amount:1);
     if(count($destZone) == 1) {
         //This is a move, move the whole stack from 1 -> end
         for($i = 1; $i < count($fromZone); ++$i) {
@@ -278,7 +279,6 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
             FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
         }
     }
-    UseActions(amount:1);
 };
 
 function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
