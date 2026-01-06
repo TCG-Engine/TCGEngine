@@ -100,9 +100,23 @@ function CanAttack($player, $fromZone, $toZone) {
     return false;
 }
 
+function GetDeployZones($player, $cardID) {
+    $legalZones = [];
+    if($player == 1) {
+        array_push($legalZones, "BG1");
+        array_push($legalZones, "BG2");
+        array_push($legalZones, "BG3");
+    } else {
+        array_push($legalZones, "BG7");
+        array_push($legalZones, "BG8");
+        array_push($legalZones, "BG9");
+    }
+    return $legalZones;
+}
+
 function DoPlayFighter($player, $mzCard) {
     $sourceObject = &GetZoneObject($mzCard);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", GetDeployZones($player, $sourceObject->CardID)), 1);
     DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "AfterFighterPlayed|-", 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
