@@ -66,9 +66,38 @@ function DoActivatedAbility($player, $mzCard) {
     $dqController->ExecuteStaticMethods($player, "-");
 }
 
-function DoFighterAction($player, $cardZone) {
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2&BG3&BG4&BG5&BG6&BG7&BG8&BG9", 1);
+function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true) {
+    $adjacentZones = AdjacentZones($cardZone);
+    $legalZones = [];
+    foreach($adjacentZones as $zone) {
+        $zoneArr = &GetZone($zone);
+        if(count($zoneArr) == 1) {
+            //Can move to empty zone
+            if($includeMove) array_push($legalZones, $zone);
+        } else if(count($zoneArr) > 1) {
+            $topCard = $zoneArr[count($zoneArr) - 1];
+            if($includeAttack && $topCard->Controller != $player) {
+                if(CanAttack($player, $cardZone, $zone)) array_push($legalZones, $zone);
+            } else if($includeMove && $topCard->Controller == $player) {
+                array_push($legalZones, $zone);
+            }
+        }
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $legalZones), 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "FighterAction|" . $cardZone, 1);
+}
+
+function CanAttack($player, $fromZone, $toZone) {
+    $fromZoneArr = &GetZone($fromZone);
+    $toZoneArr = &GetZone($toZone);
+    if(count($fromZoneArr) > 1 && count($toZoneArr) > 1) {
+        $fromTop = $fromZoneArr[count($fromZoneArr) - 1];
+        $toTop = $toZoneArr[count($toZoneArr) - 1];
+        if($fromTop->Controller != $player || $toTop->Controller == $player) return false;
+        if($toTop->HasTurnEffects("RYBF1HBTCS")) return false;
+        return true;
+    }
+    return false;
 }
 
 function DoPlayFighter($player, $mzCard) {
