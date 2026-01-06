@@ -39,63 +39,72 @@ PhaseParameters - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 FlashMessage - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-BG1 - CardID:string, Controller:number, Status:number=2
+BG1 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=41%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
-BG2 - CardID:string, Controller:number, Status:number=2
+BG2 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=48%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
-BG3 - CardID:string, Controller:number, Status:number=2
+BG3 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
-BG4 - CardID:string, Controller:number, Status:number=2
+BG4 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=41%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
-BG5 - CardID:string, Controller:number, Status:number=2
+BG5 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=48%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
-BG6 - CardID:string, Controller:number, Status:number=2
+BG6 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
-BG7 - CardID:string, Controller:number, Status:number=2
+BG7 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=41%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
-BG8 - CardID:string, Controller:number, Status:number=2
+BG8 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=48%
 Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
-BG9 - CardID:string, Controller:number, Status:number=2
+BG9 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=55%
 Sort: Reverse=true
 Overlay: Status=1:exhausted

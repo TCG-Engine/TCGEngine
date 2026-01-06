@@ -35,6 +35,7 @@ $hasDecisionQueue = false;
 $modules = [];
 $macros = [];
 $hasFlashMessage = false;
+$hasAnyIndexedProperties = false;
 
 $zoneObj = null;
 while(!feof($handler)) {
@@ -361,6 +362,17 @@ while(!feof($handler)) {
           }
         }
         break;
+      case "Index":
+        // Parse indexed properties: Index: PropertyName1, PropertyName2
+        // These properties will be tracked in $objectDataIndices global
+        $indexArr = explode(",", $lineValue);
+        for($i=0; $i<count($indexArr); ++$i) {
+          $propName = trim($indexArr[$i]);
+          if($propName != "") {
+            array_push($zoneObj->IndexedProperties, $propName);
+          }
+        }
+        break;
       default://This is a new zone
         if($zoneObj != null) array_push($zones, $zoneObj);
         $zone = str_replace(' ', '', $line);
@@ -381,7 +393,15 @@ while(!feof($handler)) {
           $propertyObj = new StdClass();
           $propertyObj->Name = trim($thisProperty[0]);
           $thisProperty = explode("=", $thisProperty[1]);
-          $propertyObj->Type = trim($thisProperty[0]);
+          $rawType = trim($thisProperty[0]);
+          // Check for array type: array[innerType]
+          if(preg_match('/^array\[(\w+)\]$/', $rawType, $matches)) {
+            $propertyObj->Type = "array";
+            $propertyObj->InnerType = $matches[1];
+          } else {
+            $propertyObj->Type = $rawType;
+            $propertyObj->InnerType = null;
+          }
           $propertyObj->DefaultValue = count($thisProperty)>1 ? trim($thisProperty[1]) : "\"-\"";
           array_push($zoneObj->Properties, $propertyObj);
         }
@@ -408,6 +428,7 @@ while(!feof($handler)) {
         $zoneObj->AddReplacement = null;
         $zoneObj->AfterAdd = null;
         $zoneObj->VirtualProperties = [];
+        $zoneObj->IndexedProperties = [];
         break;
     }
   }
@@ -416,6 +437,14 @@ while(!feof($handler)) {
 if($zoneObj != null) array_push($zones, $zoneObj);//The previous ones are added when a new one is found, need to add the last one
 
 fclose($handler);
+
+// Check if any zone has indexed properties
+for($i=0; $i<count($zones); ++$i) {
+  if(count($zones[$i]->IndexedProperties) > 0) {
+    $hasAnyIndexedProperties = true;
+    break;
+  }
+}
 
 $rootPath = "./" . $rootName;
 if(!is_dir($rootPath)) mkdir($rootPath, 0755, true);
@@ -543,9 +572,11 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, ");\r\n");
     if (strtolower($scope) == 'global') {
       fwrite($handler, "  \$zone = &Get" . $zoneName . "();\r\n");
+      fwrite($handler, "  \$zoneObj->mzIndex = count(\$zone);\r\n");
       fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
     } else {
       fwrite($handler, "  \$zone = &Get" . $zoneName . "(\$player);\r\n");
+      fwrite($handler, "  \$zoneObj->mzIndex = count(\$zone);\r\n");
       fwrite($handler, "  array_push(\$zone, \$zoneObj);\r\n");
     }
   }
@@ -555,11 +586,16 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "  if(\$sourceObject !== null) {\r\n");
     fwrite($handler, "    \$properties = get_object_vars(\$sourceObject);\r\n");
     fwrite($handler, "    foreach(\$properties as \$prop => \$value) {\r\n");
-    fwrite($handler, "      if(\$prop !== 'removed' && \$prop !== 'Location') {\r\n");
+    fwrite($handler, "      if(\$prop !== 'removed' && \$prop !== 'Location' && \$prop !== 'mzIndex') {\r\n");
     fwrite($handler, "        \$zoneObj->\$prop = \$value;\r\n");
     fwrite($handler, "      }\r\n");
     fwrite($handler, "    }\r\n");
     fwrite($handler, "  }\r\n");
+    // Build index for zones with indexed properties
+    $hasIndexedProperties = count($zone->IndexedProperties) > 0;
+    if($hasIndexedProperties) {
+      fwrite($handler, "  \$zoneObj->BuildIndex();\r\n");
+    }
   }
   if ($zone->AfterAdd != null) {
     if (strtolower($scope) == 'global') {
@@ -834,6 +870,44 @@ fwrite($handler, "    default: break;\r\n");
 fwrite($handler, "  }\r\n");
 fwrite($handler, "}\r\n\r\n");
 
+// Generate global index helper functions if any zone has indexed properties
+if($hasAnyIndexedProperties) {
+  // HasIndexedValue - check if an mzID has a specific value in a specific property
+  fwrite($handler, "// Check if an object has a specific value in an indexed property\r\n");
+  fwrite($handler, "function HasIndexedValue(\$mzID, \$propertyName, \$value) {\r\n");
+  fwrite($handler, "  global \$objectDataIndices;\r\n");
+  fwrite($handler, "  return isset(\$objectDataIndices[\$mzID][\$propertyName][\$value]) && \$objectDataIndices[\$mzID][\$propertyName][\$value] > 0;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  
+  // GetIndexedValueCount - get the count of a specific value in a property for an mzID
+  fwrite($handler, "// Get the count of a specific value in an indexed property\r\n");
+  fwrite($handler, "function GetIndexedValueCount(\$mzID, \$propertyName, \$value) {\r\n");
+  fwrite($handler, "  global \$objectDataIndices;\r\n");
+  fwrite($handler, "  return isset(\$objectDataIndices[\$mzID][\$propertyName][\$value]) ? \$objectDataIndices[\$mzID][\$propertyName][\$value] : 0;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  
+  // GetAllIndexedValues - get all unique values for a property of an mzID
+  fwrite($handler, "// Get all unique values in an indexed property for an object\r\n");
+  fwrite($handler, "function GetAllIndexedValues(\$mzID, \$propertyName) {\r\n");
+  fwrite($handler, "  global \$objectDataIndices;\r\n");
+  fwrite($handler, "  if(!isset(\$objectDataIndices[\$mzID][\$propertyName])) return [];\r\n");
+  fwrite($handler, "  return array_keys(\$objectDataIndices[\$mzID][\$propertyName]);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  
+  // FindObjectsWithIndexedValue - find all mzIDs that have a specific value in a property
+  fwrite($handler, "// Find all objects that have a specific value in an indexed property\r\n");
+  fwrite($handler, "function FindObjectsWithIndexedValue(\$propertyName, \$value) {\r\n");
+  fwrite($handler, "  global \$objectDataIndices;\r\n");
+  fwrite($handler, "  \$results = [];\r\n");
+  fwrite($handler, "  foreach(\$objectDataIndices as \$mzID => \$properties) {\r\n");
+  fwrite($handler, "    if(isset(\$properties[\$propertyName][\$value]) && \$properties[\$propertyName][\$value] > 0) {\r\n");
+  fwrite($handler, "      \$results[] = \$mzID;\r\n");
+  fwrite($handler, "    }\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return \$results;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
+
 fwrite($handler, "?>");
 fclose($handler);
 //Write the class file
@@ -843,6 +917,7 @@ fwrite($handler, "<?php\r\n");
 for($i=0; $i<count($zones); ++$i) {
   $zone = $zones[$i];
   $zoneName = $zone->Name;
+  $hasIndexedProperties = count($zone->IndexedProperties) > 0;
   fwrite($handler, "class " . $zoneName . " {\r\n");
   for($j=0; $j<count($zone->Properties); ++$j) {
     $property = $zone->Properties[$j];
@@ -852,19 +927,28 @@ for($i=0; $i<count($zones); ++$i) {
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   fwrite($handler, "  public \$Location;\r\n");
   fwrite($handler, "  public \$PlayerID;\r\n");
-  fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0) {\r\n");
+  fwrite($handler, "  public \$mzIndex;\r\n"); // Add mzIndex property for all classes
+  fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0, \$mzIndex = -1) {\r\n");
   fwrite($handler, "    \$arr = explode(\" \", \$line);\r\n");
   for($j=0; $j<count($zone->Properties); ++$j) {
     $property = $zone->Properties[$j];
     $propertyName = $property->Name;
     $propertyType = $property->Type;
     fwrite($handler, "    \$this->" . $propertyName . " = ");
-    if($propertyType == "int" || $propertyType == "number") fwrite($handler, "(count(\$arr) > " . $j . " ? intval(\$arr[" . $j . "]) : -1);\r\n");
-    else if($propertyType == "float") fwrite($handler, "(count(\$arr) > " . $j . " ? floatval(\$arr[" . $j . "]) : -1);\r\n");
-    else fwrite($handler, "(count(\$arr) > " . $j . " ? \$arr[" . $j . "] : \"\");\r\n");
+    if($propertyType == "int" || $propertyType == "number") {
+      fwrite($handler, "(count(\$arr) > " . $j . " ? intval(\$arr[" . $j . "]) : -1);\r\n");
+    } else if($propertyType == "float") {
+      fwrite($handler, "(count(\$arr) > " . $j . " ? floatval(\$arr[" . $j . "]) : -1);\r\n");
+    } else if($propertyType == "array") {
+      // Arrays are serialized with ~ delimiter, e.g. "item1~item2~item3" or "-" for empty
+      fwrite($handler, "(count(\$arr) > " . $j . " && \$arr[" . $j . "] != \"-\" ? explode(\"~\", \$arr[" . $j . "]) : []);\r\n");
+    } else {
+      fwrite($handler, "(count(\$arr) > " . $j . " ? \$arr[" . $j . "] : \"\");\r\n");
+    }
   }
   fwrite($handler, "    \$this->Location = \$location;\r\n");
   fwrite($handler, "    \$this->PlayerID = \$playerID;\r\n");
+  fwrite($handler, "    \$this->mzIndex = \$mzIndex;\r\n");
   fwrite($handler, "  }\r\n");
   //Serialize function
   fwrite($handler, "  function Serialize(\$delimiter = \" \") {\r\n");
@@ -873,13 +957,116 @@ for($i=0; $i<count($zones); ++$i) {
     $property = $zone->Properties[$j];
     $propertyName = $property->Name;
     if($j > 0) fwrite($handler, "    \$rv .= \$delimiter;\r\n");
-    fwrite($handler, "    \$rv .= \$this->" . $propertyName . ";\r\n");
+    if($property->Type == "array") {
+      // Serialize arrays with ~ delimiter, or "-" if empty
+      fwrite($handler, "    \$rv .= (count(\$this->" . $propertyName . ") > 0 ? implode(\"~\", \$this->" . $propertyName . ") : \"-\");\r\n");
+    } else {
+      fwrite($handler, "    \$rv .= \$this->" . $propertyName . ";\r\n");
+    }
   }
   fwrite($handler, "    return \$rv;\r\n");
   fwrite($handler, "  }\r\n");
+  
+  // Generate indexed property methods if this zone has any
+  if($hasIndexedProperties) {
+    // GetMzID function
+    fwrite($handler, "  function GetMzID() {\r\n");
+    fwrite($handler, "    return \$this->Location . \"-\" . \$this->mzIndex;\r\n");
+    fwrite($handler, "  }\r\n");
+    
+    // For each indexed property that is an array, generate Add/Remove methods
+    for($j=0; $j<count($zone->Properties); ++$j) {
+      $property = $zone->Properties[$j];
+      if(in_array($property->Name, $zone->IndexedProperties) && $property->Type == "array") {
+        $propName = $property->Name;
+        
+        // Add method
+        fwrite($handler, "  function Add" . $propName . "(\$value) {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$this->" . $propName . "[] = \$value;\r\n");
+        fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "    if(!isset(\$objectDataIndices[\$mzID])) \$objectDataIndices[\$mzID] = [];\r\n");
+        fwrite($handler, "    if(!isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"])) \$objectDataIndices[\$mzID][\"" . $propName . "\"] = [];\r\n");
+        fwrite($handler, "    if(!isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value])) \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] = 0;\r\n");
+        fwrite($handler, "    \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]++;\r\n");
+        fwrite($handler, "  }\r\n");
+        
+        // Remove method
+        fwrite($handler, "  function Remove" . $propName . "(\$value) {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$key = array_search(\$value, \$this->" . $propName . ");\r\n");
+        fwrite($handler, "    if(\$key !== false) {\r\n");
+        fwrite($handler, "      array_splice(\$this->" . $propName . ", \$key, 1);\r\n");
+        fwrite($handler, "      \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "      if(isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value])) {\r\n");
+        fwrite($handler, "        \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]--;\r\n");
+        fwrite($handler, "        if(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] <= 0) {\r\n");
+        fwrite($handler, "          unset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]);\r\n");
+        fwrite($handler, "        }\r\n");
+        fwrite($handler, "      }\r\n");
+        fwrite($handler, "    }\r\n");
+        fwrite($handler, "  }\r\n");
+        
+        // Has method
+        fwrite($handler, "  function Has" . $propName . "(\$value) {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "    return isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]) && \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] > 0;\r\n");
+        fwrite($handler, "  }\r\n");
+        
+        // Get count method
+        fwrite($handler, "  function Get" . $propName . "Count(\$value) {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "    return isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]) ? \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] : 0;\r\n");
+        fwrite($handler, "  }\r\n");
+        
+        // Clear method
+        fwrite($handler, "  function Clear" . $propName . "() {\r\n");
+        fwrite($handler, "    global \$objectDataIndices;\r\n");
+        fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+        fwrite($handler, "    \$this->" . $propName . " = [];\r\n");
+        fwrite($handler, "    if(isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"])) {\r\n");
+        fwrite($handler, "      \$objectDataIndices[\$mzID][\"" . $propName . "\"] = [];\r\n");
+        fwrite($handler, "    }\r\n");
+        fwrite($handler, "  }\r\n");
+      }
+    }
+    
+    // BuildIndex method to rebuild indices from current array state
+    fwrite($handler, "  function BuildIndex() {\r\n");
+    fwrite($handler, "    global \$objectDataIndices;\r\n");
+    fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+    fwrite($handler, "    if(!isset(\$objectDataIndices[\$mzID])) \$objectDataIndices[\$mzID] = [];\r\n");
+    for($j=0; $j<count($zone->Properties); ++$j) {
+      $property = $zone->Properties[$j];
+      if(in_array($property->Name, $zone->IndexedProperties) && $property->Type == "array") {
+        $propName = $property->Name;
+        fwrite($handler, "    \$objectDataIndices[\$mzID][\"" . $propName . "\"] = [];\r\n");
+        fwrite($handler, "    foreach(\$this->" . $propName . " as \$val) {\r\n");
+        fwrite($handler, "      if(!isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$val])) \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$val] = 0;\r\n");
+        fwrite($handler, "      \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$val]++;\r\n");
+        fwrite($handler, "    }\r\n");
+      }
+    }
+    fwrite($handler, "  }\r\n");
+    
+    // ClearIndex method to clear this object's entries from the index
+    fwrite($handler, "  function ClearIndex() {\r\n");
+    fwrite($handler, "    global \$objectDataIndices;\r\n");
+    fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
+    fwrite($handler, "    if(isset(\$objectDataIndices[\$mzID])) {\r\n");
+    fwrite($handler, "      unset(\$objectDataIndices[\$mzID]);\r\n");
+    fwrite($handler, "    }\r\n");
+    fwrite($handler, "  }\r\n");
+  }
+  
   //Remove function
   fwrite($handler, "  function Remove(\$trigger=\"\") {\r\n");
   fwrite($handler, "    \$this->removed = true;\r\n");
+  if($hasIndexedProperties) {
+    fwrite($handler, "    \$this->ClearIndex();\r\n");
+  }
   fwrite($handler, "  }\r\n");
   //Removed function
   fwrite($handler, "  function Removed() {\r\n");
@@ -981,6 +1168,9 @@ fwrite($handler, "}\r\n\r\n");
 fwrite($handler, "function InitializeGamestate() {\r\n");
 fwrite($handler, GetZoneGlobals($zones) . "\r\n");
 fwrite($handler, GetCoreGlobals() . "\r\n");
+if($hasAnyIndexedProperties) {
+  fwrite($handler, "  \$objectDataIndices = [];\r\n");
+}
 for($i=0; $i<count($zones); ++$i) {
   $zone = $zones[$i];
   $zoneName = $zone->Name;
@@ -1218,8 +1408,12 @@ function GetZoneGlobals($zones) {
 }
 
 function GetCoreGlobals() {
+  global $hasAnyIndexedProperties;
   $coreGlobals = "";
   $coreGlobals .= "  global \$currentPlayer, \$updateNumber;\r\n";
+  if($hasAnyIndexedProperties) {
+    $coreGlobals .= "  global \$objectDataIndices;\r\n";
+  }
   return $coreGlobals;
 }
 
@@ -1236,6 +1430,7 @@ function AddReadGamestate() {
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
     $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    $hasIndexedProperties = count($zone->IndexedProperties) > 0;
     if (strtolower($scope) == 'global') {
       if ($zone->DisplayMode == 'Value') {
         $readGamestate .= "    \$line = fgets(\$handler);\r\n";
@@ -1253,8 +1448,11 @@ function AddReadGamestate() {
         $readGamestate .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
         $readGamestate .= "        \$line = fgets(\$handler);\r\n";
         $readGamestate .= "        if (\$line !== false) {\r\n";
-        $readGamestate .= "          \$obj = new " . $zone->Name . "(trim(\$line), '" . $zone->Name . "', 0);\r\n";
+        $readGamestate .= "          \$obj = new " . $zone->Name . "(trim(\$line), '" . $zone->Name . "', 0, \$i);\r\n";
         $readGamestate .= "          array_push(\$g" . $zone->Name . ", \$obj);\r\n";
+        if($hasIndexedProperties) {
+          $readGamestate .= "          \$obj->BuildIndex();\r\n";
+        }
         $readGamestate .= "        }\r\n";
         $readGamestate .= "      }\r\n";
         $readGamestate .= "    }\r\n";
@@ -1272,6 +1470,7 @@ function AddReadGamestate() {
 
 function AddReadZone($zone, $player) {
   $zoneName = $zone->Name;
+  $hasIndexedProperties = count($zone->IndexedProperties) > 0;
   if ($zone->DisplayMode == 'Value') {
     $rv = "";
     $rv .= "    \$line = fgets(\$handler);\r\n";
@@ -1287,8 +1486,11 @@ function AddReadZone($zone, $player) {
     $rv .= "      for(\$i=0; \$i<\$num; ++\$i) {\r\n";
     $rv .= "        \$line = fgets(\$handler);\r\n";
     $rv .= "        if (\$line !== false) {\r\n";
-    $rv .= "          \$obj = new " . $zoneName . "(trim(\$line), '" . $zoneName . "', " . $player . ");\r\n";
+    $rv .= "          \$obj = new " . $zoneName . "(trim(\$line), '" . $zoneName . "', " . $player . ", \$i);\r\n";
     $rv .= "          array_push(\$p" . $player . $zoneName . ", \$obj);\r\n";
+    if($hasIndexedProperties) {
+      $rv .= "          \$obj->BuildIndex();\r\n";
+    }
     $rv .= "        }\r\n";
     $rv .= "      }\r\n";
     $rv .= "    }\r\n";
