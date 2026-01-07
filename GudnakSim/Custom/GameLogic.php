@@ -397,6 +397,12 @@ function SelectionMetadata($obj) {
     if ($obj->CardID == "GudnakTerrain") {
         return json_encode(['highlight' => false]);
     }
+
+    if (isset($obj->Status) && $obj->Status != 2) { // Not ready
+        if($obj->CardID != "RYBF1GFDG" && $obj->CardID != "RYBF2HSLRC") { //Gryffdogs and Solaran Cavalry can attack and move while exhausted
+            return json_encode(['highlight' => false]);
+        }
+    }
     
     // Only highlight cards belonging to the turn player
     // Check both Controller (for BG zones) and PlayerID (for Hand zone)
