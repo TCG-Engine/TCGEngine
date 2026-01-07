@@ -426,9 +426,15 @@
         }
         
         // Check if this card should be highlighted based on HighlightRules
+        // Only apply highlighting for the turn player
         let highlightMetadata = null;
         try {
-          if (typeof HighlightRules !== 'undefined' && HighlightRules[zoneName]) {
+          // Check if viewer is the turn player
+          const turnVal = typeof window.TurnPlayerData !== 'undefined' ? parseInt(window.TurnPlayerData) : NaN;
+          const viewerVal = (document.getElementById('playerID') && document.getElementById('playerID').value) ? parseInt(document.getElementById('playerID').value) : NaN;
+          const viewerIsTurnPlayer = !isNaN(turnVal) && !isNaN(viewerVal) && viewerVal === turnVal;
+          
+          if (viewerIsTurnPlayer && typeof HighlightRules !== 'undefined' && HighlightRules[zoneName]) {
             const highlightProperty = HighlightRules[zoneName];
             var cardData = {};
             if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
@@ -441,18 +447,14 @@
               if (typeof rawValue === 'string') {
                 try {
                   highlightMetadata = JSON.parse(rawValue);
-                  console.log('Parsed highlight metadata:', highlightMetadata, 'for zone:', zoneName);
                 } catch (e) {
                   // If not JSON, treat as simple truthy value
                   highlightMetadata = { highlight: true };
-                  console.log('Non-JSON highlight for zone:', zoneName);
                 }
               } else if (typeof rawValue === 'object') {
                 highlightMetadata = rawValue;
-                console.log('Object highlight metadata:', highlightMetadata, 'for zone:', zoneName);
               } else {
                 highlightMetadata = { highlight: true };
-                console.log('Simple truthy highlight for zone:', zoneName);
               }
               isSelectable = true; // Highlight implies selectable
             }
@@ -468,16 +470,17 @@
         
         // Build inline styles - combine position and custom color variable
         var inlineStyles = "position:" + positionStyle + "; margin:1px;";
-        if (highlightMetadata && highlightMetadata.color) {
-          // Clean up the color string - replace underscores with spaces (serialization artifact)
-          var cleanColor = highlightMetadata.color.replace(/_/g, ' ');
-          // Add custom CSS variable for the custom color
-          inlineStyles += " --highlight-color: " + cleanColor + ";";
-          console.log('Setting custom color:', cleanColor, 'for zone:', zoneName, 'id:', id);
-        } else if (isSelectable) {
-          // Set default green color for selectable cards
-          inlineStyles += " --highlight-color: rgba(100,250,0,0.50);";
-          console.log('Setting default green for zone:', zoneName, 'id:', id);
+        if (isSelectable) {
+          // If selectable, always set the highlight color (custom or default)
+          if (highlightMetadata && highlightMetadata.color) {
+            // Clean up the color string - replace underscores with spaces (serialization artifact)
+            var cleanColor = highlightMetadata.color.replace(/_/g, ' ');
+            // Add custom CSS variable for the custom color
+            inlineStyles += " --highlight-color: " + cleanColor + ";";
+          } else {
+            // Set default green color for selectable cards without custom color
+            inlineStyles += " --highlight-color: rgba(100,250,0,0.50);";
+          }
         }
         
         var styles = " style='" + inlineStyles + "'";
@@ -1255,7 +1258,7 @@
         if (globalStatic) {
           var globalDiv = document.getElementById("globalStuff");
           if (globalDiv) {
-            globalDiv.innerHTML += globalStatic;
+            globalDiv.innerHTML = globalStatic;
             // Re-enable pointer events on child elements since the container has pointer-events:none
             var children = globalDiv.querySelectorAll('[id$="Wrapper"]');
             for (var i = 0; i < children.length; i++) {

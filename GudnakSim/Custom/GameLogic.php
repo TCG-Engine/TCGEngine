@@ -375,28 +375,36 @@ function CardHasAbility($obj) {
     return $obj->Status == 2 && $turnPlayer == $obj->Controller && CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
 }
 
-function SelectionMetadata($obj) {
-    // Example stub function showing how to return selection highlighting metadata
-    // Return null if the card should not be highlighted
-    // Return a JSON string with 'color' property to customize the highlight color
-    
-    // Example 1: Always highlight with custom color
     // return json_encode(['color' => 'rgba(255, 100, 100, 0.7)']); // Red highlight
-    
-    // Example 2: Conditional highlighting based on card properties
-    // if ($obj->Status == 1) {
-    //     return json_encode(['color' => 'rgba(255, 200, 0, 0.7)']); // Yellow for exhausted
-    // }
-    return json_encode(['color' => 'rgba(255, 0, 179, 0.7)']);
-    // Example 3: No highlight
     //return null;
+function SelectionMetadata($obj) {
+    // Only highlight cards during the ACT phase when the decision queue is empty
+    // and the card belongs to the turn player
     
-    // Future: You can add more style properties like:
-    // return json_encode([
-    //     'color' => 'rgba(100, 100, 255, 0.7)',
-    //     'borderWidth' => '4px',
-    //     'pulseSpeed' => '2s'
-    // ]);
+    $currentPhase = GetCurrentPhase();
+    if ($currentPhase !== "ACT") {
+        return null;
+    }
+    
+    // Check if decision queue is empty
+    $turnPlayer = &GetTurnPlayer();
+    $decisionQueue = &GetDecisionQueue($turnPlayer);
+    if (count($decisionQueue) > 0) {
+        return null;
+    }
+    
+    // Don't highlight terrain
+    if ($obj->CardID == "GudnakTerrain") {
+        return null;
+    }
+    
+    // Only highlight cards belonging to the turn player
+    if ($obj->Controller !== $turnPlayer) {
+        return null;
+    }
+    
+    // Return bright vibrant lime green highlight for valid selectable cards
+    return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']); // vivid lime green
 }
 
 function SwapPosition($unit1, $unit2) {
