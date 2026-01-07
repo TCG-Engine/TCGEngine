@@ -15,10 +15,46 @@
       .droppable {
           border: 3px dashed #ffff00 !important;
       }
+      
+      <?php
+
+        error_reporting(E_ALL);
+
+        include './Core/HTTPLibraries.php';
+        //We should always have a player ID as a URL parameter
+        $folderPath = TryGet("folderPath", "");
+        if($folderPath == "") {
+          echo ("Invalid folder path.");
+          exit;
+        }
+
+        // Define theme-specific colors based on folder path
+        if ($folderPath === "GudnakSim") {
+          $primaryBg = "#3e503fff";      // Grass green
+          $secondaryBg = "#3e503fff";    // Grass green
+          $borderColor = "transparent"; // No border
+          $borderWidth = "0px";
+          $accentBg = "#5AAD4D";       // Darker grass green
+          $scrollbarBg = "#6BBF59";
+          $scrollbarAccent = "#5AAD4D";
+          $textColor = "#ffffff";      // White text for contrast
+        } else {
+          // Default grey theme
+          $primaryBg = "#1e1e1e";      // Dark grey
+          $secondaryBg = "#2a2a2a";    // Slightly lighter grey
+          $borderColor = "#3a3a3a";    // Medium grey
+          $borderWidth = "2px";
+          $accentBg = "#333333";       // Dark grey
+          $scrollbarBg = "#1e1e1e";
+          $scrollbarAccent = "#5a5a5a";
+          $textColor = "#ffffff";      // White text
+        }
+      ?>
+      
         .panelTab {
           transition: background-color 0.3s, transform 0.3s, color 0.3s;
-          background-color: #1e1e1e; /* Dark grey */
-          border: 2px solid #3a3a3a; /* Medium grey */
+          background-color: <?php echo $primaryBg; ?>;
+          border: <?php echo $borderWidth; ?> solid <?php echo $borderColor; ?>;
           border-radius: 8px;
           margin: 3px 3px;
           padding: 4px;
@@ -26,40 +62,40 @@
         }
 
         .panelTab:hover {
-          background-color: #2a2a2a; /* Slightly lighter grey */
-          color: #ffffff; /* White */
+          background-color: <?php echo $secondaryBg; ?>;
+          color: <?php echo $textColor; ?>;
           transform: scale(1.05);
         }
 
         .panelTab:active {
-          background-color: #333333; /* Dark grey */
+          background-color: <?php echo $accentBg; ?>;
           transform: scale(0.95);
-          color: #ffffff; /* White */
+          color: <?php echo $textColor; ?>;
         }
 
         /* Custom scrollbar styles */
         ::-webkit-scrollbar-thumb:hover {
-          background: linear-gradient(45deg, #3a3a3a, #5a5a5a);
+          background: <?php echo $borderColor; ?>;
         }
         ::-webkit-scrollbar-thumb {
           border-radius: 10px;
-          background: linear-gradient(45deg, #5a5a5a, #3a3a3a);
-          border: 2px solid #2a2a2a;
+          background: <?php echo $scrollbarAccent; ?>;
+          border: 2px solid <?php echo $scrollbarBg; ?>;
         }
         ::-webkit-scrollbar-track {
           border-radius: 10px;
-          background: #1e1e1e;
+          background: <?php echo $scrollbarBg; ?>;
         }
         ::-webkit-scrollbar {
           width: 12px;
         }
 
         .filterBar {
-          background-color: #2a2a2a; /* Dark grey */
-          border: 2px solid #3a3a3a; /* Medium grey */
+          background-color: <?php echo $secondaryBg; ?>;
+          border: <?php echo $borderWidth; ?> solid <?php echo $borderColor; ?>;
           border-radius: 8px;
           font-family: 'Roboto', sans-serif; /* Modern font */
-          color: #ffffff; /* White */
+          color: <?php echo $textColor; ?>;
         }
 
         .stuffParent {
@@ -81,38 +117,27 @@
         }
 
         .myStuff {
-          background-color: #3a3a3a; /* Medium grey */
-          border: 2px solid #5a5a5a; /* Light grey */
+          background-color: <?php echo $primaryBg; ?>;
+          border: <?php echo $borderWidth; ?> solid <?php echo ($folderPath === "GudnakSim" ? "transparent" : "#5a5a5a"); ?>;
           border-radius: 8px;
           font-family: 'Roboto', sans-serif; /* Modern font */
-          color: #ffffff; /* White */
+          color: <?php echo $textColor; ?>;
         }
 
         .myStuffWrapper {
-          background-color: #2a2a2a; /* Dark grey */
+          background-color: <?php echo $secondaryBg; ?>;
         }
 
         .theirStuff {
-          background-color: #2a2a2a;
+          background-color: <?php echo $secondaryBg; ?>;
         }
 
         .theirStuffWrapper {
-          background-color: #2a2a2a;
+          background-color: <?php echo $secondaryBg; ?>;
         }
         </style>
 
     <?php
-
-    error_reporting(E_ALL);
-
-    include './Core/HTTPLibraries.php';
-
-    //We should always have a player ID as a URL parameter
-    $folderPath = TryGet("folderPath", "");
-    if($folderPath == "") {
-      echo ("Invalid folder path.");
-      exit;
-    }
 
     $gameName = TryGet("gameName", "");
     if (!IsGameNameValid($gameName)) {
