@@ -10,6 +10,8 @@ var showDetailTimeout;
 
 function ShowCardDetail(e, that) {
   clearTimeout(showDetailTimeout);//In case there was another card waiting to show detail
+  var folderPath = document.getElementById("folderPath").value;
+  var timeOut = folderPath == "GudnakSim" ? 350 : 1;
   showDetailTimeout = setTimeout(function() {
     if (e.target.hasAttribute("data-subcard-id")) {
       var subCardID = e.target.getAttribute("data-subcard-id");
@@ -17,7 +19,7 @@ function ShowCardDetail(e, that) {
     } else {
       ShowDetail(e, that.getElementsByTagName("IMG")[0].src);
     }
-  }, 1); // 1 milliseconds delay (hover delay)
+  }, timeOut); //(hover delay)
 }
 
 function ShowDetail(e, imgSource) {
