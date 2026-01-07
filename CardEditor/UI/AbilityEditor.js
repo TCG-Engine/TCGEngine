@@ -20,6 +20,8 @@ class AbilityEditor {
         if (this.abilities.length > 0 && this.abilities.some(a => a.isImplemented)) {
             this.cardImplemented = true;
         }
+        // Track original state to detect changes
+        this.originalCardImplemented = this.cardImplemented;
         this.editorContainer = document.getElementById('editorArea');
         this.statusMessage = null;
     }
@@ -176,9 +178,13 @@ class AbilityEditor {
             return;
         }
         
-        // Allow saving if: (1) there are valid abilities, or (2) card is marked as implemented with no abilities
-        if (validAbilities.length === 0 && !this.cardImplemented) {
-            this.showStatus('info', 'Add abilities or mark the card as implemented to save');
+        // Check if there are any changes to save
+        const implementationStatusChanged = this.cardImplemented !== this.originalCardImplemented;
+        const hasAbilityChanges = validAbilities.length > 0;
+        
+        // Allow saving if: (1) there are valid abilities, or (2) the implementation status changed
+        if (!hasAbilityChanges && !implementationStatusChanged) {
+            this.showStatus('info', 'Add abilities or change the card implementation status to save');
             return;
         }
         
@@ -216,15 +222,52 @@ class AbilityEditor {
                 }));
             }
             
+            // Update the card list to reflect the new implementation status
+            this.updateCardListUI();
+            
+            // Update original state so the card is no longer considered "changed"
+            this.originalCardImplemented = this.cardImplemented;
+            
             const message = validAbilities.length > 0 
                 ? `Saved ${validAbilities.length} ability(ies)` 
-                : 'Card marked as implemented';
+                : 'Card marked as ' + (this.cardImplemented ? 'implemented' : 'not implemented');
             this.showStatus('success', message + ' successfully');
             this.render();
             
         } catch (error) {
             this.showStatus('error', `Save failed: ${error.message}`);
         }
+    }
+    
+    updateCardListUI() {
+        // Update the global availableRoots with the new implementation status
+        if (window.availableRoots && window.availableRoots[this.rootName]) {
+            const cards = window.availableRoots[this.rootName];
+            if (cards[this.cardId]) {
+                // Ensure the card data is an object with isImplemented property
+                if (typeof cards[this.cardId] === 'string') {
+                    cards[this.cardId] = {
+                        cardId: cards[this.cardId],
+                        isImplemented: this.cardImplemented
+                    };
+                } else {
+                    cards[this.cardId].isImplemented = this.cardImplemented;
+                }
+            }
+        }
+        
+        // Update the card list display to show the check mark
+        const cardListItems = document.querySelectorAll('.card-item');
+        cardListItems.forEach(item => {
+            const itemCardId = item.textContent.trim().replace(' ✓', '');
+            if (itemCardId === this.cardId) {
+                const statusBadge = this.cardImplemented ? ' ✓' : '';
+                const baseText = this.cardId;
+                item.innerHTML = `
+                    <div class="card-item-id">${baseText}${statusBadge}</div>
+                `;
+            }
+        });
     }
     
     showStatus(type, message) {
