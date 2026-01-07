@@ -375,6 +375,30 @@ function CardHasAbility($obj) {
     return $obj->Status == 2 && $turnPlayer == $obj->Controller && CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
 }
 
+function SelectionMetadata($obj) {
+    // Example stub function showing how to return selection highlighting metadata
+    // Return null if the card should not be highlighted
+    // Return a JSON string with 'color' property to customize the highlight color
+    
+    // Example 1: Always highlight with custom color
+    // return json_encode(['color' => 'rgba(255, 100, 100, 0.7)']); // Red highlight
+    
+    // Example 2: Conditional highlighting based on card properties
+    // if ($obj->Status == 1) {
+    //     return json_encode(['color' => 'rgba(255, 200, 0, 0.7)']); // Yellow for exhausted
+    // }
+    return json_encode(['color' => 'rgba(255, 0, 179, 0.7)']);
+    // Example 3: No highlight
+    //return null;
+    
+    // Future: You can add more style properties like:
+    // return json_encode([
+    //     'color' => 'rgba(100, 100, 255, 0.7)',
+    //     'borderWidth' => '4px',
+    //     'pulseSpeed' => '2s'
+    // ]);
+}
+
 function SwapPosition($unit1, $unit2) {
     // Parse zone names from unit references (e.g., "BG4-0" -> "BG4")
     $zone1Name = explode("-", $unit1)[0];

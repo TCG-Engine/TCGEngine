@@ -46,7 +46,9 @@ Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Highlight: SelectionMetadata
 BG2 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
 Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=48%
@@ -54,7 +56,9 @@ Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Highlight: SelectionMetadata
 BG3 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
 Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=55%
@@ -62,7 +66,9 @@ Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Highlight: SelectionMetadata
 BG4 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
 Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=41%
@@ -70,7 +76,9 @@ Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Highlight: SelectionMetadata
 BG5 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
 Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=48%
@@ -78,7 +86,9 @@ Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Highlight: SelectionMetadata
 BG6 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
 Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=300px, Left=55%
@@ -86,7 +96,9 @@ Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Highlight: SelectionMetadata
 BG7 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
 Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=41%
@@ -94,7 +106,9 @@ Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Highlight: SelectionMetadata
 BG8 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
 Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=48%
@@ -102,7 +116,9 @@ Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Highlight: SelectionMetadata
 BG9 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
 Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=410px, Left=55%
@@ -110,6 +126,8 @@ Sort: Reverse=true
 Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata()
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Highlight: SelectionMetadata
 DecisionQueueVariables - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None

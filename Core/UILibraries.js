@@ -424,11 +424,63 @@
         if (window.SelectionMode.active && typeof IsSelectableCard === 'function') {
           isSelectable = IsSelectableCard(zone, cardArr, i);
         }
+        
+        // Check if this card should be highlighted based on HighlightRules
+        let highlightMetadata = null;
+        try {
+          if (typeof HighlightRules !== 'undefined' && HighlightRules[zoneName]) {
+            const highlightProperty = HighlightRules[zoneName];
+            var cardData = {};
+            if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
+              try { cardData = JSON.parse(cardArr[2]); } catch (e) {}
+            }
+            // Check if the card has the highlight property and it's truthy
+            if (cardData.hasOwnProperty(highlightProperty) && cardData[highlightProperty]) {
+              const rawValue = cardData[highlightProperty];
+              // Try to parse as JSON if it's a string
+              if (typeof rawValue === 'string') {
+                try {
+                  highlightMetadata = JSON.parse(rawValue);
+                  console.log('Parsed highlight metadata:', highlightMetadata, 'for zone:', zoneName);
+                } catch (e) {
+                  // If not JSON, treat as simple truthy value
+                  highlightMetadata = { highlight: true };
+                  console.log('Non-JSON highlight for zone:', zoneName);
+                }
+              } else if (typeof rawValue === 'object') {
+                highlightMetadata = rawValue;
+                console.log('Object highlight metadata:', highlightMetadata, 'for zone:', zoneName);
+              } else {
+                highlightMetadata = { highlight: true };
+                console.log('Simple truthy highlight for zone:', zoneName);
+              }
+              isSelectable = true; // Highlight implies selectable
+            }
+          }
+        } catch (e) {
+          if (console && console.error) console.error('Highlight check error', e);
+        }
+        
         var newHTML = "";
         var id = zone + "-" + i;
         var positionStyle = "relative";
         var className = isSelectable ? "selectable-card" : "";
-        var styles = " style='position:" + positionStyle + "; margin:1px;'";
+        
+        // Build inline styles - combine position and custom color variable
+        var inlineStyles = "position:" + positionStyle + "; margin:1px;";
+        if (highlightMetadata && highlightMetadata.color) {
+          // Clean up the color string - replace underscores with spaces (serialization artifact)
+          var cleanColor = highlightMetadata.color.replace(/_/g, ' ');
+          // Add custom CSS variable for the custom color
+          inlineStyles += " --highlight-color: " + cleanColor + ";";
+          console.log('Setting custom color:', cleanColor, 'for zone:', zoneName, 'id:', id);
+        } else if (isSelectable) {
+          // Set default green color for selectable cards
+          inlineStyles += " --highlight-color: rgba(100,250,0,0.50);";
+          console.log('Setting default green for zone:', zoneName, 'id:', id);
+        }
+        
+        var styles = " style='" + inlineStyles + "'";
         var droppable = " class='draggable " + className + "' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'";
         var click = isSelectable
           ? " onclick=\"OnSelectableCardClick('" + zoneName + "', '" + id + "')\""
@@ -747,35 +799,45 @@
           /* Slight lift on hover for tactile feedback */
           .selectable-card:hover {
             transform: translateY(-4px) scale(1.04);
-            box-shadow: 0 2px 5px rgba(100, 250, 0, 0.18);
           }
 
-          /* Image-level border and inner glow (so it sits flush with art) */
+          /* Image-level border - use custom color variable */
           .selectable-card img {
             border-radius: 6px;
             display: block;
             position: relative;
             z-index: 1;
-            /* tight inset glow that hugs the artwork */
-            box-shadow: inset 0 0 14px rgba(220,255,140,1), inset 0 0 6px rgba(200,255,120,0.8);
-            /* border lives on the image so it sits flush with the art; make slightly thicker */
-            border: 3px solid rgba(100,250,0,0.50);
-            transition: box-shadow 140ms ease, border-color 140ms ease, transform 160ms ease;
+            /* Always show border with custom color */
+            border: 2px solid var(--highlight-color);
+            /* Subtle outer glow even at rest */
+            box-shadow: 0 0 8px var(--highlight-color);
+            transition: box-shadow 140ms ease, border-color 140ms ease, border-width 140ms ease, transform 160ms ease;
           }
 
-          /* On hover: hide the border visually and show a compact outer box-shadow */
+          /* On hover: slightly thicker border and enhanced glow */
           .selectable-card:hover img {
-            /* keep the inner inset but add a modest outer shadow that hugs the card */
-            box-shadow: inset 0 0 20px rgba(245,255,180,0.72), inset 0 0 10px rgba(230,255,160,0.48), 0 10px 22px rgba(200,255,120,0.28);
-            /* visually remove the border without causing layout shift */
-            border-color: transparent;
+            /* Slightly thicker border */
+            border: 2.5px solid var(--highlight-color);
+            /* Enhanced but still subtle glow on hover */
+            box-shadow: 
+              0 0 12px var(--highlight-color),
+              0 0 6px var(--highlight-color);
           }
 
-          /* Gentle pulsing lime glow when selection mode is active (pulse the image border color) */
+          /* Gentle pulsing for active selection mode */
           @keyframes selectable-border-pulse {
-            0% { border-color: rgba(100,250,0,1); border-width: 2px; }
-            50% { border-color: rgba(65, 163, 0, 1); border-width: 2px; }
-            100% { border-color: rgba(100,250,0,1); border-width: 2px; }
+            0% { 
+              border-color: rgba(100,250,0,0.50);
+              box-shadow: 0 0 8px rgba(100,250,0,0.3);
+            }
+            50% { 
+              border-color: rgba(100,250,0,0.80);
+              box-shadow: 0 0 12px rgba(100,250,0,0.5);
+            }
+            100% { 
+              border-color: rgba(100,250,0,0.50);
+              box-shadow: 0 0 8px rgba(100,250,0,0.3);
+            }
           }
 
           /* Pulse the image border when the wrapper has the pulse class */

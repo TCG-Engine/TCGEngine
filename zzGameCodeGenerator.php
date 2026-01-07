@@ -362,6 +362,11 @@ while(!feof($handler)) {
           }
         }
         break;
+      case "Highlight":
+        // Parse highlight property: PropertyName (should be a virtual property)
+        // e.g., Highlight: SelectionMetadata
+        $zoneObj->HighlightProperty = trim($lineValue);
+        break;
       case "Index":
         // Parse indexed properties: Index: PropertyName1, PropertyName2
         // These properties will be tracked in $objectDataIndices global
@@ -429,6 +434,7 @@ while(!feof($handler)) {
         $zoneObj->AfterAdd = null;
         $zoneObj->VirtualProperties = [];
         $zoneObj->IndexedProperties = [];
+        $zoneObj->HighlightProperty = null;
         break;
     }
   }
@@ -1911,6 +1917,16 @@ function AddGeneratedUI() {
     }
   }
   $rv .= "const CounterRules = " . json_encode($counterRules) . ";\r\n";
+
+  // Emit highlight rules as a JS object
+  $highlightRules = [];
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if (isset($zone->HighlightProperty) && $zone->HighlightProperty !== null) {
+      $highlightRules[$zone->Name] = $zone->HighlightProperty;
+    }
+  }
+  $rv .= "const HighlightRules = " . json_encode($highlightRules) . ";\r\n";
 
   //Client dictionary of all zone data
   $rv .= "function GetZoneData(zoneName) {\r\n";
