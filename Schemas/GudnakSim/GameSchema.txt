@@ -20,6 +20,8 @@ Display: Visibility=Public, Mode=Single, Bottom=10px, Right=10px
 Hand - CardID:string
 Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
 Click: FSM()
+Virtual: SelectionMetadata=SelectionMetadata()
+Highlight: SelectionMetadata
 Actions - Value:number=0
 Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
 Widgets: CustomInput=Draw

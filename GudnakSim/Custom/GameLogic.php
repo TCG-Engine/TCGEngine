@@ -383,28 +383,30 @@ function SelectionMetadata($obj) {
     
     $currentPhase = GetCurrentPhase();
     if ($currentPhase !== "ACT") {
-        return null;
+        return json_encode(['highlight' => false]);
     }
     
     // Check if decision queue is empty
     $turnPlayer = &GetTurnPlayer();
     $decisionQueue = &GetDecisionQueue($turnPlayer);
     if (count($decisionQueue) > 0) {
-        return null;
+        return json_encode(['highlight' => false]);
     }
     
     // Don't highlight terrain
     if ($obj->CardID == "GudnakTerrain") {
-        return null;
+        return json_encode(['highlight' => false]);
     }
     
     // Only highlight cards belonging to the turn player
-    if ($obj->Controller !== $turnPlayer) {
-        return null;
+    // Check both Controller (for BG zones) and PlayerID (for Hand zone)
+    $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
+    if ($owner !== $turnPlayer) {
+        return json_encode(['highlight' => false]);
     }
     
     // Return bright vibrant lime green highlight for valid selectable cards
-    return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']); // vivid lime green
+    return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
 }
 
 function SwapPosition($unit1, $unit2) {

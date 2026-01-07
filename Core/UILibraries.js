@@ -442,21 +442,22 @@
             }
             // Check if the card has the highlight property and it's truthy
             if (cardData.hasOwnProperty(highlightProperty) && cardData[highlightProperty]) {
-              const rawValue = cardData[highlightProperty];
-              // Try to parse as JSON if it's a string
+              let rawValue = cardData[highlightProperty];
+              // If the value is a string (nested JSON), parse it
               if (typeof rawValue === 'string') {
                 try {
-                  highlightMetadata = JSON.parse(rawValue);
+                  rawValue = JSON.parse(rawValue);
                 } catch (e) {
-                  // If not JSON, treat as simple truthy value
-                  highlightMetadata = { highlight: true };
+                  // If parsing fails, skip highlighting
+                  rawValue = null;
                 }
-              } else if (typeof rawValue === 'object') {
-                highlightMetadata = rawValue;
-              } else {
-                highlightMetadata = { highlight: true };
               }
-              isSelectable = true; // Highlight implies selectable
+              
+              // Check if we have valid highlight metadata with a color property
+              if (rawValue && typeof rawValue === 'object' && rawValue.color) {
+                highlightMetadata = rawValue;
+                isSelectable = true;
+              }
             }
           }
         } catch (e) {
@@ -608,7 +609,16 @@
       document.head.appendChild(widgetstyle);
 
       function createWidgetButtons(zoneName, cardId, cardJSON="-", currentValue="") {
-        const cardData = cardJSON != "-" ? JSON.parse(cardJSON) : {};
+        let cardData = {};
+        if (cardJSON && cardJSON !== "-" && cardJSON.trim() !== "") {
+          try {
+            cardData = JSON.parse(cardJSON);
+          } catch (e) {
+            // If JSON parsing fails, log the error and use empty object
+            if (console && console.error) console.error('createWidgetButtons: Failed to parse cardJSON for', cardId, ':', cardJSON, e);
+            cardData = {};
+          }
+        }
         const widgets = GetZoneWidgets(zoneName);
         let buttons = {};
         let buttonsHtml = '';
@@ -811,16 +821,16 @@
             position: relative;
             z-index: 1;
             /* Always show border with custom color */
-            border: 2px solid var(--highlight-color);
+            border: 1px solid var(--highlight-color);
             /* Subtle outer glow even at rest */
-            box-shadow: 0 0 8px var(--highlight-color);
+            box-shadow: 0 0 4px var(--highlight-color);
             transition: box-shadow 140ms ease, border-color 140ms ease, border-width 140ms ease, transform 160ms ease;
           }
 
           /* On hover: slightly thicker border and enhanced glow */
           .selectable-card:hover img {
             /* Slightly thicker border */
-            border: 2.5px solid var(--highlight-color);
+            border: 2px solid var(--highlight-color);
             /* Enhanced but still subtle glow on hover */
             box-shadow: 
               0 0 12px var(--highlight-color),
