@@ -78,11 +78,8 @@ class DecisionQueueController {
                 default:
                     // Not static, return
                     if($decision->Type == "MZCHOOSE") { //We need to validate every decision type separately
-                        $numChoices = 0;
-                        $zones = $this->MZZoneArray($decision->Param);
-                        foreach($zones as $zoneName) {
-                            $numChoices+=MZZoneCount($zoneName);
-                        }
+                        // Use the new counting method that handles both zones and specific cards
+                        $numChoices = $this->MZCountChoices($decision->Param);
                         if($numChoices === 0) {
                             // No valid choices, auto-PASS
                             $lastDecision = "PASS";
@@ -119,9 +116,64 @@ class DecisionQueueController {
         $output = [];
         for($i=0; $i<count($zones); ++$i) {
             $zone = explode(":", $zones[$i]);
-            $output[] = $zone[0];
+            $zoneOrCard = $zone[0];
+            // Check if this is a specific card reference (zoneName-index)
+            if (preg_match('/^(.+)-(\d+)$/', $zoneOrCard, $matches)) {
+                // It's a specific card reference - extract zone name
+                $output[] = $matches[1];
+            } else {
+                // It's a zone reference
+                $output[] = $zoneOrCard;
+            }
         }
         return $output;
+    }
+    
+    // Parse zone string into array of specs with zone names and optional specific indices
+    // Returns array of ['zone' => 'zoneName', 'specificIndex' => int|null]
+    private function MZParseSpecs($zoneStr) {
+        $zones = explode("&", $zoneStr);
+        $output = [];
+        for($i=0; $i<count($zones); ++$i) {
+            $zone = explode(":", $zones[$i]);
+            $zoneOrCard = $zone[0];
+            // Check if this is a specific card reference (zoneName-index)
+            if (preg_match('/^(.+)-(\d+)$/', $zoneOrCard, $matches)) {
+                // It's a specific card reference
+                $output[] = [
+                    'zone' => $matches[1],
+                    'specificIndex' => intval($matches[2]),
+                    'original' => $zoneOrCard
+                ];
+            } else {
+                // It's a zone reference
+                $output[] = [
+                    'zone' => $zoneOrCard,
+                    'specificIndex' => null,
+                    'original' => $zoneOrCard
+                ];
+            }
+        }
+        return $output;
+    }
+    
+    // Count available choices from a zone string (handles both zones and specific cards)
+    private function MZCountChoices($zoneStr) {
+        $specs = $this->MZParseSpecs($zoneStr);
+        $numChoices = 0;
+        foreach($specs as $spec) {
+            if ($spec['specificIndex'] !== null) {
+                // Specific card - counts as 1 if the card exists in the zone
+                $zoneCount = MZZoneCount($spec['zone']);
+                if ($spec['specificIndex'] < $zoneCount) {
+                    $numChoices += 1;
+                }
+            } else {
+                // Whole zone - count all cards
+                $numChoices += MZZoneCount($spec['zone']);
+            }
+        }
+        return $numChoices;
     }
     
     // Variable storage for await syntax using DecisionQueueVariables zone

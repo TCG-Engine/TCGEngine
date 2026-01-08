@@ -45,7 +45,7 @@
         array_push($mzIndices, $zoneName . "-" . $i);
       }
     }
-    return implode(",", $mzIndices);
+    return implode("&", $mzIndices);
   }
 
 ?>
