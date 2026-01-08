@@ -36,4 +36,16 @@
     return $count;
   }
 
+  function ZoneMZIndices($zoneName) {
+    $zoneName = explode("-", $zoneName)[0];//In case it's an mzid
+    $zone = &GetZone($zoneName);
+    $mzIndices = [];
+    for($i=0; $i<count($zone); ++$i) {
+      if(!$zone[$i]->Removed()) {
+        array_push($mzIndices, $zoneName . "-" . $i);
+      }
+    }
+    return implode(",", $mzIndices);
+  }
+
 ?>
