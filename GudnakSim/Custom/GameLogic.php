@@ -45,9 +45,24 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
         default: break;
     }
     //My played card effects
+    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
+    foreach($zones as $zoneName) {
+        CardPlayedEffects($player, GetTopCard($zoneName), $sourceObject->CardID);
+    }
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
+}
+
+function CardPlayedEffects($player, $card, $cardPlayed) {
+    switch($card->CardID) {
+        case "RYBF1HKNLM"://Kennel Master
+            if($card->Controller == $player && $card->Status == 2 && CardCard_type($cardPlayed) == "Tactic") {
+                AddHand($player, "RYBF1GFDG"); //Gryffdog
+            }
+            break;
+        default: break;
+    }
 }
 
 function DoActivatedAbility($player, $mzCard) {
@@ -120,13 +135,6 @@ function DoPlayFighter($player, $mzCard) {
     DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "AfterFighterPlayed|-", 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
-}
-
-function CardPlayedEffects($player, $card, $cardPlayed) {
-    switch($card->CardID) {
-
-        default: break;
-    }
 }
 
 function GainActions($amount=1, $player=null) {
