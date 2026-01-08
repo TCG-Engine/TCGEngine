@@ -281,7 +281,7 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
         $fromTop = $fromZone[count($fromZone) - 1];
         $destTop = $destZone[count($destZone) - 1];
         $fromPower = CurrentCardPower($fromZone, $destZone, true);
-        $destPower = CurrentCardPower($destZone, $fromZone, false);
+        $destPower = CurrentCardPower($fromZone, $destZone, false);
         //Simple combat: Higher power wins, both are destroyed on a tie
         if($fromPower > $destPower) {
             //Attacker wins
@@ -306,27 +306,48 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
 function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
     $fromTop = $fromZone[count($fromZone) - 1];
     $destTop = $destZone[count($destZone) - 1];
-    $fromPower = CardPower($fromTop->CardID);
+    $thisCard = $isAttacker ? $fromTop : $destTop;
+    $totalPower = CardPower($thisCard->CardID);
     //Self power modifiers
-    switch($fromTop->CardID) {
+    switch($thisCard->CardID) {
         case "RYBF1DSKH": case "RYBF2DSKH": case "RYBF3DSKH": //Dusklight Hunter
             if($isAttacker && TraitContains($destTop, "Brute")) {
-                $fromPower += 1;
+                $totalPower += 1;
             }
             break;
         case "RYBF1DWNB": case "RYBF2DWNB": case "RYBF3DWNB": //Dawnbringer Brute
             if($isAttacker && TraitContains($destTop, "Soldier")) {
-                $fromPower += 1;
+                $totalPower += 1;
             }
             break;
         case "RYBF1SLSD": case "RYBF2SLSD": case "RYBF3SLSD": //Solaran Soldier
             if($isAttacker && TraitContains($destTop, "Hunter")) {
-                $fromPower += 1;
+                $totalPower += 1;
             }
             break;
         default: break;
     }
-    return $fromPower;
+    $adjacentZones = AdjacentZones($thisCard->Location);
+    foreach($adjacentZones as $zoneName) {
+        $totalPower += AdjacentZonePowerModifiers($fromTop, $destTop, $zoneName, $isAttacker);
+    }
+    echo("Card " . $thisCard->CardID . " power: " . $totalPower . "\n");
+    return $totalPower;
+}
+
+function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $isAttacker=false) {
+    $modifier = 0;
+    $checkTop = GetTopCard($checkZone);
+    if($checkTop === null || $toTop === null) return $modifier;
+    switch($checkTop->CardID) {
+        case "RYBF1HLMSH"://Luminous Shieldsman
+            if($isAttacker == false && $checkTop->Controller == $toTop->Controller) {
+                $modifier += 1;
+            }
+            break;
+        default: break;
+    }
+    return $modifier;
 }
 
 function DoFighterDestroyed($player, $mzCard) {
