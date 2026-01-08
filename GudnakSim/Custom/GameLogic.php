@@ -329,19 +329,18 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
     }
     $adjacentZones = AdjacentZones($thisCard->Location);
     foreach($adjacentZones as $zoneName) {
-        $totalPower += AdjacentZonePowerModifiers($fromTop, $destTop, $zoneName, $isAttacker);
+        $totalPower += AdjacentZonePowerModifiers($fromTop, $destTop, $zoneName, $totalPower, $isAttacker);
     }
-    echo("Card " . $thisCard->CardID . " power: " . $totalPower . "\n");
     return $totalPower;
 }
 
-function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $isAttacker=false) {
+function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $currentPower, $isAttacker=false) {
     $modifier = 0;
     $checkTop = GetTopCard($checkZone);
     if($checkTop === null || $toTop === null) return $modifier;
     switch($checkTop->CardID) {
         case "RYBF1HLMSH"://Luminous Shieldsman
-            if($isAttacker == false && $checkTop->Controller == $toTop->Controller) {
+            if($isAttacker == false && $checkTop->Controller == $toTop->Controller && $currentPower < 3) {
                 $modifier += 1;
             }
             break;
