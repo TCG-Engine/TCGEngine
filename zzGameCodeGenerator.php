@@ -831,6 +831,11 @@ for($i=0; $i<count($macros); ++$i) {
     $cfName = $choiceParts[0];
     if (!empty($macro->Parameters)) {
       $cfArgs = '$player, ' . implode(', ', array_map(fn($p) => '$' . $p, $macro->Parameters));
+      // Store macro parameters in DecisionQueueVariables before calling ChoiceFunction
+      fwrite($handler, "  // Store macro parameters for access in generated ability code\r\n");
+      foreach ($macro->Parameters as $param) {
+        fwrite($handler, "  DecisionQueueController::StoreVariable(\"" . $param . "\", \$" . $param . ");\r\n");
+      }
     } else {
       $cfArgs = '$player';
     }
@@ -2112,6 +2117,42 @@ function GetModule($type) {
  * This file contains implementations of macros for specific cards and macro count functions
  */
 /**
+ * Generate code to retrieve macro parameters from DecisionQueueVariables
+ * This allows ability code to access the parameters that were passed when invoking the macro
+ * 
+ * @param array $macroParams Array of parameter names from the macro definition
+ * @return string PHP code to retrieve all macro parameters
+ */
+function GenerateMacroParamRetrievalCode($macroParams) {
+  if (empty($macroParams)) {
+    return "";
+  }
+  $code = "// Retrieve macro parameters\n";
+  foreach ($macroParams as $param) {
+    $code .= "\$" . $param . " = DecisionQueueController::GetVariable(\"" . $param . "\");\n";
+  }
+  return $code;
+}
+
+/**
+ * Generate code to retrieve macro parameters with indentation (for continuation handlers)
+ * 
+ * @param array $macroParams Array of parameter names from the macro definition
+ * @param string $indent Indentation to prepend to each line
+ * @return string PHP code to retrieve all macro parameters
+ */
+function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
+  if (empty($macroParams)) {
+    return "";
+  }
+  $code = $indent . "// Retrieve macro parameters\n";
+  foreach ($macroParams as $param) {
+    $code .= $indent . "\$" . $param . " = DecisionQueueController::GetVariable(\"" . $param . "\");\n";
+  }
+  return $code;
+}
+
+/**
  * Transform await syntax in ability code to DecisionQueue calls with variable storage
  * Pattern: $var = await $player.ChoiceType(params)
  * Becomes: AddDecision + continuation handler with variable storage
@@ -2150,7 +2191,7 @@ function GetModule($type) {
  *       DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-3", 1);
  *     };
  */
-function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) {
+function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, $macroParams = []) {
   $lines = explode("\n", $code);
   $awaits = [];
   
@@ -2181,13 +2222,16 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) 
     }
   }
   
-  // If no awaits found, return original code
+  // If no awaits found, return original code with macro param retrieval prepended
   if (count($awaits) == 0) {
-    return $code;
+    $paramRetrievalCode = GenerateMacroParamRetrievalCode($macroParams);
+    return $paramRetrievalCode . $code;
   }
   
   // Generate main handler code (up to first await)
   $transformedCode = "";
+  // Add macro parameter retrieval at the start
+  $transformedCode .= GenerateMacroParamRetrievalCode($macroParams);
   for ($i = 0; $i < $awaits[0]['lineIndex']; $i++) {
     $transformedCode .= $lines[$i] . "\n";
   }
@@ -2209,6 +2253,9 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) 
     $varName = substr($currentAwait['returnVar'], 1); // Remove $ prefix
     
     $handlerCode = "";
+    
+    // Retrieve macro parameters first (they persist across continuations)
+    $handlerCode .= GenerateMacroParamRetrievalCodeIndented($macroParams);
     
     // Store the current variable (from $lastDecision) for potential later use
     $handlerCode .= "  DecisionQueueController::StoreVariable(\"" . $varName . "\", \$lastDecision);\n";
@@ -2287,10 +2334,18 @@ function GenerateMacroCode() {
       $lines = file($schemaFile, FILE_IGNORE_NEW_LINES);
       foreach ($lines as $line) {
         if (strpos($line, 'Macro:') === 0) {
-          // Extract macro name from: Macro: Name=MacroName(...);
-          if (preg_match('/Name=([^(;]+)/', $line, $matches)) {
+          // Extract macro name and parameters from: Macro: Name=MacroName(param1,param2);
+          if (preg_match('/Name=(\w+)(?:\(([^)]*)\))?/', $line, $matches)) {
             $macroName = trim($matches[1]);
-            $macrosByName[$macroName] = true;
+            // Parse parameter names if present
+            $params = [];
+            if (isset($matches[2]) && $matches[2] !== '') {
+              $paramList = explode(',', $matches[2]);
+              foreach ($paramList as $param) {
+                $params[] = trim($param);
+              }
+            }
+            $macrosByName[$macroName] = $params;
           }
         }
       }
@@ -2298,7 +2353,7 @@ function GenerateMacroCode() {
     
     // Group abilities by macro name
     $abilitiesByMacro = [];
-    foreach ($macrosByName as $macroName => $dummy) {
+    foreach ($macrosByName as $macroName => $params) {
       $abilities = $cardAbilityDB->getAbilitiesByMacro($rootName, $macroName);
       if (count($abilities) > 0) {
         $abilitiesByMacro[$macroName] = $abilities;
@@ -2316,14 +2371,17 @@ function GenerateMacroCode() {
         // Convert macro name to valid variable name (e.g., "card-play" -> "cardPlayAbilities")
         $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
         
+        // Get the macro parameters from the schema
+        $macroParams = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : [];
+        
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
           $name = $ability['ability_name'] ?? $cardId;
           
-          // Transform code to handle await syntax
+          // Transform code to handle await syntax (pass macro params for variable retrieval)
           $continuationHandlers = [];
-          $transformedCode = TransformAwaitCode($code, $cardId, $name, $continuationHandlers);
+          $transformedCode = TransformAwaitCode($code, $cardId, $name, $continuationHandlers, $macroParams);
           
           // Merge continuation handlers into global collection
           $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);

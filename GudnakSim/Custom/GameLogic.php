@@ -556,4 +556,16 @@ function RearrangeBattlefield($zone, $order) {
     $zoneArr = $newZoneArr;
 }
 
+function UnoccupiedBattlefields() {
+    $unoccupied = [];
+    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
+    foreach($zones as $zoneName) {
+        $zoneArr = &GetZone($zoneName);
+        if(count($zoneArr) == 1) {
+            array_push($unoccupied, $zoneName);
+        }
+    }
+    return $unoccupied;
+}
+
 ?>
