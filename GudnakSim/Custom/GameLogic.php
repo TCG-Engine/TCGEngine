@@ -147,6 +147,25 @@ function GetDeployZones($player, $cardID) {
         array_push($legalZones, "BG8");
         array_push($legalZones, "BG9");
     }
+    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
+    switch($cardID) {
+        case "RYBF3HBLGR"://Bullgryff Rider
+            foreach($zones as $zoneName) {
+                $zoneArr = &GetZone($zoneName);
+                if(count($zoneArr) == 1) {
+                    $adjZones = AdjacentZones($zoneName);
+                    foreach($adjZones as $adjZone) {
+                        $topCard = GetTopCard($adjZone);
+                        if($topCard !== null && $topCard->Controller == $player) {
+                            array_push($legalZones, $zoneName);
+                            break;
+                        }
+                    }
+                }
+            }
+            break;
+        default: break;
+    }
     return $legalZones;
 }
 
