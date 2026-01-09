@@ -499,4 +499,21 @@ function DestroyTopCard($zoneName) {
     }
 }
 
+function RearrangeBattlefield($zone, $order) {
+    $order = explode("=", $order)[1];
+    $orderArr = explode(",", $order);
+    $zoneArr = &GetZone($zone);
+    $newZoneArr = [$zoneArr[0]]; // Keep the terrain card at index 0
+    foreach($orderArr as $cardID) {
+        // Find the card object with this ID in the zone
+        for($i = 1; $i < count($zoneArr); ++$i) {
+            if($zoneArr[$i]->CardID === $cardID) {
+                array_push($newZoneArr, $zoneArr[$i]);
+                break;
+            }
+        }
+    }
+    $zoneArr = $newZoneArr;
+}
+
 ?>
