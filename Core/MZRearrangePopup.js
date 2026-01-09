@@ -150,6 +150,14 @@
       border-radius: 8px;
       background: rgba(0, 200, 255, 0.1);
       animation: mzrearrange-pulse 1s ease-in-out infinite;
+      transition: all 0.2s ease;
+      margin: 2px 0;
+    }
+
+    .mzrearrange-card-placeholder.active {
+      transform: scaleY(1.15);
+      background: rgba(0, 200, 255, 0.2);
+      border-width: 3px;
     }
 
     @keyframes mzrearrange-pulse {
@@ -556,11 +564,14 @@
       dragPreview.style.top = (currentMouseY + 10) + 'px';
       document.body.appendChild(dragPreview);
       
-      // Create placeholder
+      // Create placeholder (smaller than actual card)
       placeholder = document.createElement('div');
       placeholder.className = 'mzrearrange-card-placeholder';
-      placeholder.style.height = draggedCard.offsetHeight + 'px';
+      const placeholderHeight = Math.max(20, draggedCard.offsetHeight * 0.3);
+      placeholder.style.height = placeholderHeight + 'px';
       placeholder.style.width = draggedCard.offsetWidth + 'px';
+      placeholder.dataset.originalHeight = placeholderHeight;
+      placeholder.dataset.fullHeight = draggedCard.offsetHeight;
       
       // Set drag image to transparent (we use our own preview)
       const emptyImg = new Image();
@@ -647,6 +658,38 @@
         const emptyMsg = cardsContainer.querySelector('.mzrearrange-empty-message');
         if (emptyMsg) emptyMsg.remove();
         
+        // Determine if placeholder would actually move the card
+        const draggedCardParent = draggedCard.parentNode;
+        let wouldMove = false;
+        
+        if (draggedCardParent !== cardsContainer) {
+          // Moving to a different pile - always show placeholder
+          wouldMove = true;
+        } else {
+          // Same pile - check if position would actually change
+          if (afterElement === null) {
+            // Dropping at end - check if dragged card is not already last
+            const lastCard = cards[cards.length - 1];
+            wouldMove = (lastCard !== draggedCard);
+          } else {
+            // Check if we're not dropping in the same position
+            const nextSibling = draggedCard.nextElementSibling;
+            const prevSibling = draggedCard.previousElementSibling;
+            // Would move if afterElement is not the dragged card's next sibling
+            // and afterElement is not the dragged card itself
+            wouldMove = (afterElement !== draggedCard && afterElement !== nextSibling);
+          }
+        }
+        
+        if (!wouldMove) {
+          // Remove placeholder if it wouldn't actually move the card
+          if (placeholder.parentNode) {
+            placeholder.remove();
+            placeholder.classList.remove('active');
+          }
+          return;
+        }
+        
         // Position placeholder
         if (placeholder.parentNode !== cardsContainer) {
           if (placeholder.parentNode) placeholder.remove();
@@ -657,12 +700,18 @@
         } else {
           cardsContainer.appendChild(placeholder);
         }
+        
+        // Add active class for better visual feedback
+        placeholder.classList.add('active');
       });
       
       pile.addEventListener('dragleave', (e) => {
         // Only remove if actually leaving the pile
         if (!pile.contains(e.relatedTarget)) {
           pile.classList.remove('drag-over');
+          if (placeholder) {
+            placeholder.classList.remove('active');
+          }
         }
       });
       
