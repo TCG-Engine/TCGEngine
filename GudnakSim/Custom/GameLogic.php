@@ -31,6 +31,7 @@ function ActionMap($actionCard)
 function DoPlayCard($player, $mzCard, $ignoreCost = false)
 {
     global $customDQHandlers;
+    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
     $sourceObject = &GetZoneObject($mzCard);
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
@@ -40,18 +41,38 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
         case "Tactic":
             $newObj = MZMove($player, $mzCard, "myGraveyard");
             $customDQHandlers["CardPlayed"]($player, [$sourceObject->CardID], null);
-            UseActions(amount:CardCost($sourceObject->CardID));
+            $actionCost = CardCost($sourceObject->CardID);
+            foreach($zones as $zoneName) {
+                $actionCost += BattlefieldCostReductions($player, $zoneName, $sourceObject->CardID);
+            }
+            if($actionCost < 0) $actionCost = 0;
+            UseActions(amount:$actionCost);
             break;
         default: break;
     }
     //My played card effects
-    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
     foreach($zones as $zoneName) {
         CardPlayedEffects($player, GetTopCard($zoneName), $sourceObject->CardID);
     }
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
+}
+
+function BattlefieldCostReductions($player, $zoneName, $cardPlayed) {
+    $modifier = 0;
+    $zoneArr = &GetZone($zoneName);
+    foreach($zoneArr as $index => $obj) {
+        switch($obj->CardID) {
+            case "RYBF2SNSR"://Sunseer
+                if($obj->Controller == $player && CardCard_type($cardPlayed) == "Tactic") {
+                    $modifier -= 1;
+                }
+                break;
+            default: break;
+        }
+    }
+    return $modifier;
 }
 
 function CardPlayedEffects($player, $card, $cardPlayed) {
