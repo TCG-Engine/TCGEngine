@@ -81,7 +81,8 @@
       padding: 16px;
       min-width: 180px;
       min-height: 200px;
-      transition: all 0.3s ease;
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      will-change: transform, box-shadow;
     }
 
     .mzrearrange-pile.drag-over {
@@ -113,10 +114,11 @@
       position: relative;
       cursor: grab;
       border-radius: 8px;
-      transition: all 0.2s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
       user-select: none;
       background: rgba(30, 50, 70, 0.5);
       padding: 4px;
+      will-change: transform;
     }
 
     .mzrearrange-card:hover {
@@ -126,9 +128,10 @@
     }
 
     .mzrearrange-card.dragging {
-      opacity: 0.5;
+      opacity: 0.4;
       transform: scale(0.95);
       cursor: grabbing;
+      transition: none;
     }
 
     .mzrearrange-card.drag-preview {
@@ -138,6 +141,8 @@
       opacity: 0.9;
       transform: rotate(5deg) scale(1.1);
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+      will-change: transform, left, top;
+      transition: none;
     }
 
     .mzrearrange-card-placeholder {
@@ -502,6 +507,9 @@
     let draggedCard = null;
     let dragPreview = null;
     let placeholder = null;
+    let currentMouseX = 0;
+    let currentMouseY = 0;
+    let animationFrameId = null;
     
     /**
      * Setup listeners for cards in a container
@@ -517,16 +525,35 @@
     // Make setupCardDragListeners available globally for reset
     window._mzrearrangeSetupCardDragListeners = setupCardDragListeners;
     
+    /**
+     * Smoothly update preview position using requestAnimationFrame
+     */
+    function updatePreviewPosition() {
+      if (dragPreview && currentMouseX && currentMouseY) {
+        dragPreview.style.left = (currentMouseX + 10) + 'px';
+        dragPreview.style.top = (currentMouseY + 10) + 'px';
+      }
+      if (draggedCard) {
+        animationFrameId = requestAnimationFrame(updatePreviewPosition);
+      }
+    }
+    
     function handleDragStart(e) {
       draggedCard = e.target.closest('.mzrearrange-card');
       if (!draggedCard) return;
       
       draggedCard.classList.add('dragging');
       
+      // Store initial mouse position
+      currentMouseX = e.clientX;
+      currentMouseY = e.clientY;
+      
       // Create drag preview
       dragPreview = draggedCard.cloneNode(true);
       dragPreview.classList.add('drag-preview');
       dragPreview.classList.remove('dragging');
+      dragPreview.style.left = (currentMouseX + 10) + 'px';
+      dragPreview.style.top = (currentMouseY + 10) + 'px';
       document.body.appendChild(dragPreview);
       
       // Create placeholder
@@ -540,9 +567,18 @@
       emptyImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
       e.dataTransfer.setDragImage(emptyImg, 0, 0);
       e.dataTransfer.effectAllowed = 'move';
+      
+      // Start smooth animation loop
+      animationFrameId = requestAnimationFrame(updatePreviewPosition);
     }
     
     function handleDragEnd(e) {
+      // Cancel animation frame
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+      
       if (draggedCard) {
         draggedCard.classList.remove('dragging');
       }
@@ -579,13 +615,15 @@
       });
       
       draggedCard = null;
+      currentMouseX = 0;
+      currentMouseY = 0;
     }
     
-    // Track mouse/touch for preview position
-    document.addEventListener('drag', (e) => {
-      if (dragPreview && e.clientX && e.clientY) {
-        dragPreview.style.left = (e.clientX + 10) + 'px';
-        dragPreview.style.top = (e.clientY + 10) + 'px';
+    // Track mouse position continuously for smooth preview movement
+    document.addEventListener('dragover', (e) => {
+      if (draggedCard && e.clientX && e.clientY) {
+        currentMouseX = e.clientX;
+        currentMouseY = e.clientY;
       }
     });
     
