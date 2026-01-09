@@ -1591,6 +1591,19 @@ function CheckAndShowDecisionQueue(decisionQueue) {
             document.querySelectorAll('.selectable-card').forEach(el => el.classList.add('pulse'));
           }, 0);
       break;
+    } else if (entry && entry.Type === 'MZREARRANGE' && !entry.removed) {
+      // MZREARRANGE: Allow player to rearrange cards between piles
+      // Param format: "PileName1=card1,card2;PileName2=card3,card4"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Arrange the cards';
+      
+      if (typeof ShowMZRearrangePopup === 'function') {
+        ShowMZRearrangePopup(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
+        });
+      } else {
+        console.error('MZRearrangePopup.js not loaded - ShowMZRearrangePopup function not found');
+      }
+      break;
     }
   }
 };
@@ -1627,6 +1640,10 @@ function ClearSelectionMode() {
   HideSelectionMessage();
   // Also hide the MZChoose popup if it exists
   HideMZChoosePopup();
+  // Also hide the MZRearrange popup if it exists
+  if (typeof HideMZRearrangePopup === 'function') {
+    HideMZRearrangePopup();
+  }
 }
 
 function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
