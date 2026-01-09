@@ -2120,6 +2120,7 @@ function GetModule($type) {
  *   - MZChoose: Mandatory card choice from zones
  *   - MZMayChoose: Optional card choice (client shows Pass button)
  *   - YesNo: Yes/No choice
+ *   - Rearrange: Rearrange cards with zones and starting cards (semicolon-delimited)
  *   - Custom types: Any name is converted to uppercase (e.g., CustomChoice -> CUSTOMCHOICE)
  * 
  * Example transformation:
@@ -2127,6 +2128,7 @@ function GetModule($type) {
  *     $unit1 = await $player.MZChoose("BG1&BG2");
  *     $unit2 = await $player.MZMayChoose("BG1&BG2");  // Optional choice
  *     if ($unit2 !== "PASS") SwapPosition($unit1, $unit2);
+ *     $order = await $player.Rearrange("Battlefield=" . $cards);
  * 
  *   OUTPUT (main handler):
  *     DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2", 1);
@@ -2144,6 +2146,8 @@ function GetModule($type) {
  *       $unit1 = DecisionQueueController::GetVariable("unit1");
  *       $unit2 = $lastDecision;  // Will be "PASS" if player passed
  *       if ($unit2 !== "PASS") SwapPosition($unit1, $unit2);
+ *       DecisionQueueController::AddDecision($player, "MZREARRANGE", "Battlefield=" . $cards, 1);
+ *       DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-3", 1);
  *     };
  */
 function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) {
@@ -2153,13 +2157,26 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) 
   // First pass: find all await statements
   for ($i = 0; $i < count($lines); $i++) {
     $line = $lines[$i];
-    if (preg_match('/(\$\w+)\s*=\s*await\s+(\$\w+)\.(\w+)\((.*?)\)/', $line, $matches)) {
+    // Updated regex to capture the full parameter including string concatenation
+    if (preg_match('/(\$\w+)\s*=\s*await\s+(\$\w+)\.(\w+)\((.*)\)\s*;?\s*$/', $line, $matches)) {
+      $rawParams = trim($matches[4]);
+      $methodName = $matches[3];
+      
+      // For Rearrange, keep the parameter exactly as-is (with string concatenation)
+      // For other methods, trim quotes
+      if (strtolower($methodName) === 'rearrange') {
+        $params = $rawParams;
+      } else {
+        $params = trim($rawParams, '"\'');
+      }
+      
       $awaits[] = [
         'lineIndex' => $i,
         'returnVar' => $matches[1],  // e.g., $cardToDeploy
         'playerVar' => $matches[2],  // e.g., $player
-        'choiceType' => strtoupper($matches[3]), // e.g., MZCHOOSE
-        'params' => trim($matches[4], '"\'') // e.g., myHand
+        'choiceType' => strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : strtoupper($methodName), // e.g., MZCHOOSE or MZREARRANGE
+        'params' => $params, // e.g., myHand or "Battlefield=" . $cards
+        'isRearrange' => strtolower($methodName) === 'rearrange'
       ];
     }
   }
@@ -2177,7 +2194,12 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) 
   
   // Add first decision
   $firstAwait = $awaits[0];
-  $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"" . $firstAwait['choiceType'] . "\", \"" . $firstAwait['params'] . "\", 1);\n";
+  // For Rearrange and other complex params, don't add extra quotes if they contain concatenation
+  if (isset($firstAwait['isRearrange']) && $firstAwait['isRearrange']) {
+    $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"" . $firstAwait['choiceType'] . "\", " . $firstAwait['params'] . ", 1);\n";
+  } else {
+    $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"" . $firstAwait['choiceType'] . "\", \"" . $firstAwait['params'] . "\", 1);\n";
+  }
   $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
   
   // Generate continuation handlers for each await
@@ -2216,7 +2238,12 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers) 
     // If there's another await after this one, queue it
     if ($awaitIndex + 1 < count($awaits)) {
       $nextAwait = $awaits[$awaitIndex + 1];
-      $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", \"" . $nextAwait['params'] . "\", 1);\n";
+      // For Rearrange and other complex params, don't add extra quotes if they contain concatenation
+      if (isset($nextAwait['isRearrange']) && $nextAwait['isRearrange']) {
+        $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", " . $nextAwait['params'] . ", 1);\n";
+      } else {
+        $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", \"" . $nextAwait['params'] . "\", 1);\n";
+      }
       $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
     }
     

@@ -482,6 +482,15 @@ function GetTopCard($zoneName) {
     return null;
 }
 
+function GetBattlefieldCardIDs($zoneName) {
+    $zone = &GetZone($zoneName);
+    $cards = [];
+    for($i = 1; $i < count($zone); ++$i) {
+        array_push($cards, $zone[$i]->CardID);
+    }
+    return $cards;
+}
+
 function DestroyTopCard($zoneName) {
     $zone = &GetZone($zoneName);
     if(count($zone) > 1) {
