@@ -165,6 +165,19 @@
       50% { opacity: 1; }
     }
 
+    @keyframes mzrearrange-drop {
+      from {
+        transform: var(--drop-from-transform);
+      }
+      to {
+        transform: translate(0, 0);
+      }
+    }
+
+    .mzrearrange-card.dropping {
+      animation: mzrearrange-drop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
     .mzrearrange-card-order {
       position: absolute;
       top: -8px;
@@ -721,10 +734,36 @@
         
         if (!draggedCard || !placeholder) return;
         
+        // Capture positions for FLIP animation
+        const draggedRect = draggedCard.getBoundingClientRect();
+        const dragPreviewRect = dragPreview ? dragPreview.getBoundingClientRect() : draggedRect;
+        
         // Move the card to placeholder position
         if (placeholder.parentNode) {
           placeholder.parentNode.insertBefore(draggedCard, placeholder);
           placeholder.remove();
+        }
+        
+        // Get final position
+        const finalRect = draggedCard.getBoundingClientRect();
+        
+        // Calculate transform from drag position to final position
+        const deltaX = dragPreviewRect.left - finalRect.left;
+        const deltaY = dragPreviewRect.top - finalRect.top;
+        
+        // Only animate if there's actual movement
+        if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
+          // Set custom property for animation
+          draggedCard.style.setProperty('--drop-from-transform', `translate(${deltaX}px, ${deltaY}px)`);
+          
+          // Add dropping class to trigger animation
+          draggedCard.classList.add('dropping');
+          
+          // Remove animation class after animation completes
+          setTimeout(() => {
+            draggedCard.classList.remove('dropping');
+            draggedCard.style.removeProperty('--drop-from-transform');
+          }, 300);
         }
         
         // Re-setup listeners for the moved card
