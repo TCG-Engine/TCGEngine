@@ -467,7 +467,15 @@ function CardHasAbility($obj) {
 }
 
 function CardCurrentEffects($obj) {
-    return implode(",", $obj->TurnEffects);
+    //Start with this object's effects
+    $effects = $obj->TurnEffects;
+    //Now add global effects
+    $turnPlayer = &GetTurnPlayer();
+    $globalEffects = $obj->Controller == $turnPlayer ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
+    foreach($globalEffects as $index => $effectObj) {
+        array_push($effects, $effectObj->CardID);
+    }
+    return implode(",", $effects);
 }
 
     // return json_encode(['color' => 'rgba(255, 100, 100, 0.7)']); // Red highlight
