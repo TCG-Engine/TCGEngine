@@ -251,7 +251,9 @@ function PassTurn() {
     $currentTurn = &GetTurnNumber();
     $turnPlayer = &GetTurnPlayer();
 
+    ExpireEffects(isEndTurn:true);
     $turnPlayer = ($turnPlayer == 1) ? 2 : 1;
+    ExpireEffects(isEndTurn:false);
 
     $actions = &GetActions($turnPlayer);
     $actions = 2;
@@ -607,5 +609,26 @@ function DiscardCards($player, $amount=1) {
         DecisionQueueController::AddDecision($player, "MZMOVE", "{<-}->myGraveyard", 1);
     }
 }
+
+function ExpireEffects($isEndTurn=true) {
+    $turnPlayer = &GetTurnPlayer();
+    global $untilBeginTurnEffects;
+    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
+    foreach($zones as $zoneName) {
+        $zoneArr = &GetZone($zoneName);
+        foreach($zoneArr as $index => $obj) {
+            if($obj->Controller != $turnPlayer) continue;
+            $newEffects = [];
+            foreach($obj->TurnEffects as $effect) {
+                if($isEndTurn && in_array($effect, $untilBeginTurnEffects)) { //Effects that last until end of turn
+                    array_push($newEffects, $effect);
+                }
+            }
+            $obj->TurnEffects = $newEffects;
+        }
+    }
+}
+
+$untilBeginTurnEffects = ["RYBF1HBTCS"];
 
 ?>
