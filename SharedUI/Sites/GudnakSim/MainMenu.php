@@ -63,8 +63,8 @@ include_once 'Header.php';
 
       function joinQueue() {
         var deckLink = document.getElementById('deck-link').value;
-        var gameName = document.getElementById('game-name').value;
-        var gameType = document.getElementById('game-type').value;
+        var gameName = 'Quick Match'; // Default game name since input is commented out
+        var gameType = 'casual'; // Default game type since select is commented out
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '../../../APIs/Lobbies/JoinQueue.php', true);

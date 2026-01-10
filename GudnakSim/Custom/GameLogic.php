@@ -205,8 +205,6 @@ function CheckSiege() {
     $turnPlayer = &GetTurnPlayer();
     $gates = GetGates($turnPlayer);
     $topGates = GetTopCard($gates);
-    echo("Gates: " . $gates . "\n");
-    echo("Top gate controller: " . ($topGates !== null ? $topGates->Controller : "null") . "\n");
     if($topGates !== null && $topGates->Controller != $turnPlayer) {
         //Siege happened
         $deck = &GetDeck($turnPlayer);
