@@ -367,6 +367,7 @@ function MoveStack($fromZone, $toZone) {
 }
 
 function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
+    global $doesGlobalEffectApply;
     $fromTop = $fromZone[count($fromZone) - 1];
     $destTop = $destZone[count($destZone) - 1];
     $thisCard = $isAttacker ? $fromTop : $destTop;
@@ -393,6 +394,19 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
     $adjacentZones = AdjacentZones($thisCard->Location);
     foreach($adjacentZones as $zoneName) {
         $totalPower += AdjacentZonePowerModifiers($fromTop, $destTop, $zoneName, $totalPower, $isAttacker);
+    }
+    if($isAttacker) $globalEffects = GetZone("myGlobalEffects");
+    else $globalEffects = GetZone("theirGlobalEffects");
+    foreach($globalEffects as $index => $effectObj) {
+        if(isset($doesGlobalEffectApply[$effectObj->CardID]) && !$doesGlobalEffectApply[$effectObj->CardID]($thisCard)) {
+            continue;
+        }
+        switch($effectObj->CardID) {
+            case "RYBTPDRL"://Precision Drills
+                if($totalPower < 3) $totalPower += 1;
+                break;
+            default: break;
+        }
     }
     return $totalPower;
 }
@@ -480,8 +494,6 @@ function CardCurrentEffects($obj) {
     return implode(",", $effects);
 }
 
-    // return json_encode(['color' => 'rgba(255, 100, 100, 0.7)']); // Red highlight
-    //return null;
 function SelectionMetadata($obj) {
     // Only highlight cards during the ACT phase when the decision queue is empty
     // and the card belongs to the turn player
