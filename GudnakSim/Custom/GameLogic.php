@@ -467,13 +467,16 @@ function CardHasAbility($obj) {
 }
 
 function CardCurrentEffects($obj) {
+    global $doesGlobalEffectApply;
     //Start with this object's effects
     $effects = $obj->TurnEffects;
     //Now add global effects
     $turnPlayer = &GetTurnPlayer();
     $globalEffects = $obj->Controller == $turnPlayer ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
     foreach($globalEffects as $index => $effectObj) {
-        array_push($effects, $effectObj->CardID);
+        if(isset($doesGlobalEffectApply[$effectObj->CardID]) && $doesGlobalEffectApply[$effectObj->CardID]($obj)) {
+            array_push($effects, $effectObj->CardID);
+        }
     }
     return implode(",", $effects);
 }
@@ -638,5 +641,10 @@ function ExpireEffects($isEndTurn=true) {
 }
 
 $untilBeginTurnEffects = ["RYBF1HBTCS"];
+
+$doesGlobalEffectApply["RYBTPDRL"] = function($obj) { //Precision Drills
+    $zone = GetZone($obj->Location);
+    return count($zone) > 2;
+};
 
 ?>
