@@ -287,6 +287,10 @@ include_once 'Header.php';
                   countdownElement.style.color = '#2ecc71';
                   countdownElement.style.animation = 'countdownPop 0.3s ease-out forwards';
                   setTimeout(function() {
+                    // Remove the popup before redirecting
+                    if (matchPopup && matchPopup.parentNode) {
+                      matchPopup.parentNode.removeChild(matchPopup);
+                    }
                     // Redirect with fade parameter
                     window.location.href = `../../../NextTurn.php?playerID=${playerID}&gameName=${gameName}&folderPath=${encodeURIComponent(rootName)}&fromMatch=1`;
                   }, 400);
@@ -296,6 +300,16 @@ include_once 'Header.php';
           }
         }
         updateCountdown();
+        
+        // Also clean up any existing match found popups on page load to handle browser back button
+        window.addEventListener('pageshow', function(event) {
+          if (event.persisted) {
+            var existingPopup = document.getElementById('match-found-popup');
+            if (existingPopup) {
+              existingPopup.remove();
+            }
+          }
+        });
       }
 
       function refreshOpenGames() {
