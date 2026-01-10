@@ -251,6 +251,81 @@
 
   <body onkeydown='Hotkeys(event)' onload='OnLoadCallback(<?php echo (filemtime("./" . $folderPath . "/Games/" . $gameName . "/Gamestate.txt")); ?>)'>
 
+    <?php
+      // Check if coming from match (for fade-in effect)
+      $fromMatch = TryGet("fromMatch", "0");
+      if ($fromMatch === "1") {
+        echo '<style>
+          @keyframes cloudsPartTop {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100%); opacity: 0; }
+          }
+          @keyframes cloudsPartBottom {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(100%); opacity: 0; }
+          }
+          @keyframes cloudsDrift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+          }
+          .cloud-overlay {
+            position: fixed;
+            left: 0;
+            right: 0;
+            height: 55%;
+            z-index: 9999;
+            pointer-events: none;
+            background: linear-gradient(180deg, 
+              rgba(60, 70, 80, 0.98) 0%,
+              rgba(80, 90, 100, 0.95) 30%,
+              rgba(100, 110, 120, 0.9) 60%,
+              rgba(140, 150, 160, 0.7) 80%,
+              rgba(180, 190, 200, 0.3) 95%,
+              transparent 100%);
+          }
+          .cloud-overlay::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+              radial-gradient(ellipse 80% 40% at 20% 60%, rgba(255,255,255,0.15) 0%, transparent 50%),
+              radial-gradient(ellipse 60% 30% at 70% 40%, rgba(255,255,255,0.1) 0%, transparent 50%),
+              radial-gradient(ellipse 90% 50% at 50% 80%, rgba(255,255,255,0.12) 0%, transparent 50%),
+              radial-gradient(ellipse 70% 35% at 30% 30%, rgba(200,210,220,0.1) 0%, transparent 50%);
+            animation: cloudsDrift 2s ease-out forwards;
+          }
+          .cloud-overlay-top {
+            top: 0;
+            animation: cloudsPartTop 1.2s ease-in-out 0.3s forwards;
+          }
+          .cloud-overlay-bottom {
+            bottom: 0;
+            transform: scaleY(-1);
+            animation: cloudsPartBottom 1.2s ease-in-out 0.3s forwards;
+          }
+        </style>
+        <div class="cloud-overlay cloud-overlay-top"></div>
+        <div class="cloud-overlay cloud-overlay-bottom"></div>
+        <script>
+          // Remove the fromMatch parameter from the URL and clean up clouds after animation
+          document.addEventListener("DOMContentLoaded", function() {
+            var url = new URL(window.location);
+            url.searchParams.delete("fromMatch");
+            window.history.replaceState({}, document.title, url.toString());
+            
+            // Remove cloud overlays after animation completes
+            setTimeout(function() {
+              var clouds = document.querySelectorAll(".cloud-overlay");
+              clouds.forEach(function(cloud) { cloud.remove(); });
+            }, 1600);
+          });
+        </script>';
+      }
+    ?>
+
     <?php echo (CreatePopup("inactivityWarningPopup", [], 0, 0, "⚠️ Inactivity Warning ⚠️", 1, "", "", true, true, "Interact with the screen in the next 30 seconds or you could be kicked for inactivity.")); ?>
     <?php echo (CreatePopup("inactivePopup", [], 0, 0, "⚠️ You are Inactive ⚠️", 1, "", "", true, true, "You are inactive. Your opponent is able to claim victory. Interact with the screen to clear this.")); ?>
 

@@ -96,7 +96,7 @@ include_once 'Header.php';
             console.log('Successfully joined queue:', xhr.responseText);
             var response = JSON.parse(xhr.responseText);
             if(response.ready) {
-              window.location.href = `../../../NextTurn.php?playerID=${response.playerID}&gameName=${response.gameName}&folderPath=${encodeURIComponent(rootName)}`;
+              DisplayMatchFoundPopup(response.playerID, response.gameName);
             } else {
               _lobby_id = response.lobbyID;
               DisplayWaitingPopup("Waiting for opponent... (Esc to cancel)", response.playerID, response.authKey);
@@ -190,6 +190,114 @@ include_once 'Header.php';
         });
       }
 
+      function DisplayMatchFoundPopup(playerID, gameName) {
+        var matchPopup = document.createElement('div');
+        matchPopup.id = 'match-found-popup';
+        matchPopup.style.cssText = `
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.9);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          z-index: 1000;
+          animation: fadeInPopup 0.3s ease-out;
+        `;
+
+        var style = document.createElement('style');
+        style.textContent = `
+          @keyframes fadeInPopup {
+            from { opacity: 0; }
+            to { opacity: 1; }
+          }
+          @keyframes pulseGlow {
+            0%, 100% { text-shadow: 0 0 20px rgba(52, 152, 219, 0.8), 0 0 40px rgba(52, 152, 219, 0.4); }
+            50% { text-shadow: 0 0 30px rgba(52, 152, 219, 1), 0 0 60px rgba(52, 152, 219, 0.6); }
+          }
+          @keyframes countdownPop {
+            0% { transform: scale(1.5); opacity: 0; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 1; }
+          }
+          @keyframes countdownFade {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.8); opacity: 0; }
+          }
+        `;
+        document.head.appendChild(style);
+
+        var titleElement = document.createElement('h1');
+        titleElement.textContent = '⚔️ Match Found!';
+        titleElement.style.cssText = `
+          color: #3498db;
+          font-size: 48px;
+          margin-bottom: 30px;
+          font-family: 'Roboto', sans-serif;
+          animation: pulseGlow 1.5s ease-in-out infinite;
+        `;
+
+        var subtitleElement = document.createElement('p');
+        subtitleElement.textContent = 'Joining in...';
+        subtitleElement.style.cssText = `
+          color: #ccc;
+          font-size: 20px;
+          margin-bottom: 20px;
+          font-family: 'Roboto', sans-serif;
+        `;
+
+        var countdownElement = document.createElement('div');
+        countdownElement.id = 'countdown-number';
+        countdownElement.style.cssText = `
+          color: white;
+          font-size: 120px;
+          font-weight: bold;
+          font-family: 'Roboto', sans-serif;
+          min-height: 150px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        `;
+
+        matchPopup.appendChild(titleElement);
+        matchPopup.appendChild(subtitleElement);
+        matchPopup.appendChild(countdownElement);
+        document.body.appendChild(matchPopup);
+
+        // Animated countdown
+        var count = 3;
+        function updateCountdown() {
+          countdownElement.textContent = count;
+          countdownElement.style.animation = 'none';
+          countdownElement.offsetHeight; // Trigger reflow
+          countdownElement.style.animation = 'countdownPop 0.5s ease-out forwards';
+          
+          if (count > 0) {
+            setTimeout(function() {
+              countdownElement.style.animation = 'countdownFade 0.4s ease-in forwards';
+              setTimeout(function() {
+                count--;
+                if (count > 0) {
+                  updateCountdown();
+                } else {
+                  countdownElement.textContent = 'GO!';
+                  countdownElement.style.color = '#2ecc71';
+                  countdownElement.style.animation = 'countdownPop 0.3s ease-out forwards';
+                  setTimeout(function() {
+                    // Redirect with fade parameter
+                    window.location.href = `../../../NextTurn.php?playerID=${playerID}&gameName=${gameName}&folderPath=${encodeURIComponent(rootName)}&fromMatch=1`;
+                  }, 400);
+                }
+              }, 400);
+            }, 500);
+          }
+        }
+        updateCountdown();
+      }
+
       function refreshOpenGames() {
         console.log('Refreshing open games');
         var xhr = new XMLHttpRequest();
@@ -247,8 +355,10 @@ include_once 'Header.php';
           if (xhr.status >= 200 && xhr.status < 300) {
             var response = JSON.parse(xhr.responseText);
             if (response.ready) {
-              // Redirect to the game page if the lobby is ready
-              window.location.href = `../../../NextTurn.php?playerID=${response.playerID}&gameName=${response.gameName}&folderPath=${encodeURIComponent(rootName)}`;
+              // Close waiting popup and show match found popup
+              var waitingPopup = document.getElementById('waiting-popup');
+              if (waitingPopup) waitingPopup.remove();
+              DisplayMatchFoundPopup(response.playerID, response.gameName);
             } else {
               // Continue polling if the lobby is not ready
               pollLobbyUpdates(playerID, authKey);
