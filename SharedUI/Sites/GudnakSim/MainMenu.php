@@ -46,6 +46,7 @@ include_once 'Header.php';
       " onmouseover="this.style.borderColor='rgba(52, 152, 219, 0.8)'; this.style.backgroundColor='rgba(50, 50, 50, 0.95)';" onmouseout="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.backgroundColor='rgba(40, 40, 40, 0.95)';" onfocus="this.style.borderColor='#3498db'; this.style.boxShadow='0 0 8px rgba(52, 152, 219, 0.4)';" onblur="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.boxShadow='none';">
         <option value="" disabled selected style="color: #999;">Select a preconstructed deck...</option>
         <option value="Refractory">Refractory</option>
+        <option value="Gloaming">Gloaming</option>
       </select>
       <label for="deck-link" style="display: none;">Deck Link:</label>
       <input type="text" id="deck-link" name="deck_link" style="display: none;">

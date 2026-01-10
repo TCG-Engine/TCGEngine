@@ -70,18 +70,19 @@ $lobby->gameName = $gameName;
 function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
     // For now, ignore deckLink and use the preconstructed deck
     // When preconstructedDeck is "Refractory" or empty, use the default deck
+    $gameDeck = &GetDeck($playerID);
     if($preconstructedDeck == '' || $preconstructedDeck == 'Refractory') {
-        $gameDeck = &GetDeck($playerID);
-
         $deck = ["RYBF1DSKH","RYBF1DWNB","RYBF1HBTCS","RYBF1HSTDB","RYBF1SLSD","RYBF1SLSD","RYBF2DSKH","RYBF2DWNB","RYBF2HBLGF","RYBF2HSLRC","RYBF2SLSD","RYBF2SLSD","RYBF3DWNB","RYBF3HBLGR","RYBF3SLSD","RYBTBRRG","RYBTPDRL","RYBTRPDD","RYBTRPOS","RYBTTMPO"];
-        for($i=0; $i<count($deck); ++$i) {
-          $cardID = $deck[$i];
-          array_push($gameDeck, new Deck($cardID));
-        }
-
-        Shuffle($gameDeck);
-        Draw($playerID, amount: 5);
     }
+    else if($preconstructedDeck == 'Gloaming') {
+        $deck = ["GMBF1SPCH","GMBF2SPCH","GMBF2SPCH","GMBF1AMBT","GMBF2AMBT","GMBF3AMBT","GMBF1SKLS","GMBF1SKLS","GMBF2SKLS","GMBF3SKLS","GMBTBYNG","GMBTCNFN","GMBTMNTM","GMBTSLSW","GMBTWHTT","GMBF3HVRKG","GMBF2HDTHK","GMBF2HCRVP","GMBF1HNDMN","GMBF1HNDHR"];
+    }
+    for($i=0; $i<count($deck); ++$i) {
+        $cardID = $deck[$i];
+        array_push($gameDeck, new Deck($cardID));
+    }
+    Shuffle($gameDeck);
+    Draw($playerID, amount: 5);
     // Future: Add handling for other preconstructed decks or deckLink
 }
 
