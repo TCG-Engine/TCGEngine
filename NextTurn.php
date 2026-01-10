@@ -45,8 +45,8 @@
 
         // Define theme-specific colors based on folder path
         if ($folderPath === "GudnakSim") {
-          $primaryBg = "#3e503fff";      // Grass green
-          $secondaryBg = "#3e503fff";    // Grass green
+          $primaryBg = "#2c392c00";      // Grass green
+          $secondaryBg = "#2c392c00";    // Grass green
           $borderColor = "transparent"; // No border
           $borderWidth = "0px";
           $accentBg = "#5AAD4D";       // Darker grass green
@@ -132,7 +132,7 @@
         }
 
         .myStuff {
-          background-color: <?php echo ($folderPath === "GudnakSim" ? "rgba(62, 80, 63, 0.3)" : $primaryBg); ?>;
+          background-color: <?php echo ($primaryBg); ?>;
           border: <?php echo $borderWidth; ?> solid <?php echo ($folderPath === "GudnakSim" ? "transparent" : "#5a5a5a"); ?>;
           border-radius: 8px;
           font-family: 'Roboto', sans-serif; /* Modern font */
@@ -140,15 +140,15 @@
         }
 
         .myStuffWrapper {
-          background-color: <?php echo ($folderPath === "GudnakSim" ? "rgba(62, 80, 63, 0.2)" : $secondaryBg); ?>;
+          background-color: <?php echo ($secondaryBg); ?>;
         }
 
         .theirStuff {
-          background-color: <?php echo ($folderPath === "GudnakSim" ? "rgba(62, 80, 63, 0.3)" : $secondaryBg); ?>;
+          background-color: <?php echo ($secondaryBg); ?>;
         }
 
         .theirStuffWrapper {
-          background-color: <?php echo ($folderPath === "GudnakSim" ? "rgba(62, 80, 63, 0.2)" : $secondaryBg); ?>;
+          background-color: <?php echo ($secondaryBg); ?>;
         }
         </style>
 
