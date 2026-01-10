@@ -103,6 +103,7 @@ function DoActivatedAbility($player, $mzCard) {
 }
 
 function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true) {
+    $cardZone = explode("-", $cardZone)[0];
     $adjacentZones = AdjacentZones($cardZone);
     $legalZones = [];
     foreach($adjacentZones as $zone) {
