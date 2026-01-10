@@ -3,12 +3,14 @@
   class Player implements JsonSerializable {
     private $playerID;
     private $deckLink;
+    private $preconstructedDeck;
     private $authKey;
     private $gamePlayerID; // This is the ID used in the game, not the lobby
     
-    public function __construct($playerID, $deckLink) {
+    public function __construct($playerID, $deckLink, $preconstructedDeck = '') {
         $this->playerID = $playerID;
         $this->deckLink = $deckLink;
+        $this->preconstructedDeck = $preconstructedDeck;
         $this->authKey = bin2hex(random_bytes(16)); // Generate a unique auth key
     }
 
@@ -18,6 +20,10 @@
 
     public function getDeckLink() {
         return $this->deckLink;
+    }
+
+    public function getPreconstructedDeck() {
+        return $this->preconstructedDeck;
     }
 
     public function getAuthKey() {
@@ -37,10 +43,15 @@
         $this->deckLink = $deckLink;
     }
 
+    public function setPreconstructedDeck($preconstructedDeck) {
+        $this->preconstructedDeck = $preconstructedDeck;
+    }
+
     public function jsonSerialize() {
         return [
             'playerID' => $this->getPlayerID(),
             'deckLink' => $this->getDeckLink(),
+            'preconstructedDeck' => $this->getPreconstructedDeck(),
             'authKey' => $this->getAuthKey()
         ];
     }

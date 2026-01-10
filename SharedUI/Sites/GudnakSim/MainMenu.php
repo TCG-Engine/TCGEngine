@@ -31,8 +31,24 @@ include_once 'Header.php';
   <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px;">
     <h2>Create a New Game</h2>
     <div>
-      <label for="deck-link">Deck Link:</label>
-      <input type="text" id="deck-link" name="deck_link" required>
+      <label for="preconstructed-deck" style="display: block; margin-bottom: 8px; font-weight: 500;">Choose Your Deck:</label>
+      <select id="preconstructed-deck" name="preconstructed_deck" required style="
+        width: 100%;
+        padding: 10px 15px;
+        background-color: rgba(40, 40, 40, 0.95);
+        color: white;
+        border: 2px solid rgba(100, 100, 100, 0.5);
+        border-radius: 8px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        outline: none;
+      " onmouseover="this.style.borderColor='rgba(52, 152, 219, 0.8)'; this.style.backgroundColor='rgba(50, 50, 50, 0.95)';" onmouseout="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.backgroundColor='rgba(40, 40, 40, 0.95)';" onfocus="this.style.borderColor='#3498db'; this.style.boxShadow='0 0 8px rgba(52, 152, 219, 0.4)';" onblur="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.boxShadow='none';">
+        <option value="" disabled selected style="color: #999;">Select a preconstructed deck...</option>
+        <option value="Refractory">Refractory</option>
+      </select>
+      <label for="deck-link" style="display: none;">Deck Link:</label>
+      <input type="text" id="deck-link" name="deck_link" style="display: none;">
       <!--
       <label for="game-name">Game Name:</label>
       <input type="text" id="game-name" name="game_name" required>
@@ -62,7 +78,12 @@ include_once 'Header.php';
       var _lobby_id = "";
 
       function joinQueue() {
-        var deckLink = document.getElementById('deck-link').value;
+        var preconstructedDeck = document.getElementById('preconstructed-deck').value;
+        if (!preconstructedDeck) {
+          alert('Please select a preconstructed deck.');
+          return;
+        }
+        var deckLink = document.getElementById('deck-link').value; // Keep for future
         var gameName = 'Quick Match'; // Default game name since input is commented out
         var gameType = 'casual'; // Default game type since select is commented out
 
@@ -92,6 +113,7 @@ include_once 'Header.php';
         };
 
         var params = 'deckLink=' + encodeURIComponent(deckLink) + '&game_type=' + encodeURIComponent(gameType);
+        params += '&preconstructedDeck=' + encodeURIComponent(preconstructedDeck);
         params += "&rootName=" + encodeURIComponent(rootName);
         xhr.send(params);
       }

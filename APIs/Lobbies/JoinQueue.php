@@ -15,14 +15,17 @@
   }
   $rootName = $_POST['rootName'];
 
-  if(!isset($_POST['deckLink']) || empty($_POST['deckLink'])) {
+  $deckLink = isset($_POST['deckLink']) ? $_POST['deckLink'] : '';
+  $preconstructedDeck = isset($_POST['preconstructedDeck']) ? $_POST['preconstructedDeck'] : '';
+
+  // Require either deckLink or preconstructedDeck
+  if(empty($deckLink) && empty($preconstructedDeck)) {
     $response->success = false;
-    $response->message = "Deck link is required.";
+    $response->message = "Either deck link or preconstructed deck is required.";
     header('Content-Type: application/json');
     echo json_encode($response);
     exit;
   }
-  $deckLink = $_POST['deckLink'];
 
   $response->success = false;
   $response->message = "Failed to join queue.";
@@ -43,7 +46,7 @@
                   $lobby->ready = true;
               }
               $playerID = $lobby->numPlayers;
-              $newPlayer = new Player($playerID, $deckLink);
+              $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck);
               $lobby->players[] = $newPlayer;
               if($lobby->ready) {
                 include_once '../../' . $rootName . '/CreateGame.php';
@@ -73,7 +76,7 @@
       $lobby->maxPlayers = 2;
       $lobby->ready = false;
       $lobby->id = $lobbyId;
-      $newPlayer = new Player(1, $deckLink);
+      $newPlayer = new Player(1, $deckLink, $preconstructedDeck);
       $lobby->players = array($newPlayer);
 
       apcu_store($lobbyId, $lobby, $ttl);
