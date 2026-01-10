@@ -100,6 +100,7 @@ function DoActivatedAbility($player, $mzCard) {
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
+    UseActions(amount:1);
 }
 
 function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true) {
