@@ -343,12 +343,12 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
 
 function MoveStack($fromZone, $toZone) {
     $fromZoneName = explode("-", $fromZone)[0];
+    $toZoneName = explode("-", $toZone)[0];
     $fromZoneArr = &GetZone($fromZoneName);
     if(count($fromZoneArr) <= 1) return;
     $player = $fromZoneArr[1]->Controller;
-    $toZoneArr = &GetZone($toZone);
     for($i = 1; $i < count($fromZoneArr); ++$i) {
-        MZMove($player, $fromZone . "-" . $i, $toZone);
+        MZMove($player, $fromZoneName . "-" . $i, $toZoneName);
     }
 }
 
