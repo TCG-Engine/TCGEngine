@@ -328,9 +328,7 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
             FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
             if(count($destZone) == 2) { //Means there was only one defender
                 //Move the whole stack
-                for($i = 1; $i < count($fromZone); ++$i) {
-                    MZMove($player, $fromZoneName . "-" . $i, $destZoneName);
-                }
+                MoveStack($fromZoneName, $destZoneName);
             }
         } else if($fromPower < $destPower) {
             //Defender wins
@@ -342,6 +340,17 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
         }
     }
 };
+
+function MoveStack($fromZone, $toZone) {
+    $fromZoneName = explode("-", $fromZone)[0];
+    $fromZoneArr = &GetZone($fromZoneName);
+    if(count($fromZoneArr) <= 1) return;
+    $player = $fromZoneArr[1]->Controller;
+    $toZoneArr = &GetZone($toZone);
+    for($i = 1; $i < count($fromZoneArr); ++$i) {
+        MZMove($player, $fromZone . "-" . $i, $toZone);
+    }
+}
 
 function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
     $fromTop = $fromZone[count($fromZone) - 1];
