@@ -104,6 +104,11 @@ function DoActivatedAbility($player, $mzCard) {
 
 function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true) {
     $cardZone = explode("-", $cardZone)[0];
+    $topCard = GetTopCard($cardZone);
+    if($topCard->Controller != $player) {
+        DoDefendAction($player, $cardZone);
+        return;
+    }
     $adjacentZones = AdjacentZones($cardZone);
     $legalZones = [];
     foreach($adjacentZones as $zone) {
@@ -122,6 +127,13 @@ function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack
     }
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $legalZones), 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "FighterAction|" . $cardZone, 1);
+}
+
+function DoDefendAction($player, $cardZone) {
+    $topCard = GetTopCard($cardZone);
+    DiscardCards($player, amount:CardPower($topCard->CardID));
+    FighterDestroyed($topCard->Controller, $cardZone . "-" . $topCard->mzIndex);
+    UseActions(amount:1);
 }
 
 function CanAttack($player, $fromZone, $toZone) {
@@ -473,22 +485,30 @@ function SelectionMetadata($obj) {
     if ($obj->CardID == "GudnakTerrain") {
         return json_encode(['highlight' => false]);
     }
-
+    
+    // Only highlight cards belonging to the turn player, except for defend action
+    $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
+    if ($owner !== $turnPlayer) {
+        if(IsGates($turnPlayer, $obj->Location)) {
+            return json_encode(['color' => 'rgba(255, 0, 0, 0.95)']);
+        }
+        return json_encode(['highlight' => false]);
+    }
+    
     if (isset($obj->Status) && $obj->Status != 2) { // Not ready
         if($obj->CardID != "RYBF1GFDG" && $obj->CardID != "RYBF2HSLRC") { //Gryffdogs and Solaran Cavalry can attack and move while exhausted
             return json_encode(['highlight' => false]);
         }
     }
     
-    // Only highlight cards belonging to the turn player
-    // Check both Controller (for BG zones) and PlayerID (for Hand zone)
-    $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
-    if ($owner !== $turnPlayer) {
-        return json_encode(['highlight' => false]);
-    }
-    
     // Return bright vibrant lime green highlight for valid selectable cards
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+}
+
+function IsGates($player, $zoneName) {
+    $zoneName = explode("-", $zoneName)[0];
+    $gates = GetGates($player);
+    return $zoneName == $gates;
 }
 
 function SwapPosition($unit1, $unit2) {
@@ -574,6 +594,13 @@ function UnoccupiedBattlefields() {
         }
     }
     return $unoccupied;
+}
+
+function DiscardCards($player, $amount=1) {
+    for($i = 0; $i < $amount; ++$i) {
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", ZoneMZIndices("myHand"), 1);
+        DecisionQueueController::AddDecision($player, "MZMOVE", "{<-}->myGraveyard", 1);
+    }
 }
 
 ?>
