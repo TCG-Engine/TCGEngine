@@ -463,6 +463,10 @@ function CardHasAbility($obj) {
     return $obj->Status == 2 && $turnPlayer == $obj->Controller && CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
 }
 
+function CardCurrentEffects($obj) {
+    return implode(",", $obj->TurnEffects);
+}
+
     // return json_encode(['color' => 'rgba(255, 100, 100, 0.7)']); // Red highlight
     //return null;
 function SelectionMetadata($obj) {

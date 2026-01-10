@@ -49,6 +49,8 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Counters: CurrentEffects=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Highlight: SelectionMetadata
 BG2 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
@@ -59,6 +61,8 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Counters: CurrentEffects=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Highlight: SelectionMetadata
 BG3 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
@@ -69,6 +73,8 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Counters: CurrentEffects=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Highlight: SelectionMetadata
 BG4 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
@@ -79,6 +85,8 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Counters: CurrentEffects=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Highlight: SelectionMetadata
 BG5 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
@@ -89,6 +97,8 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Counters: CurrentEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Highlight: SelectionMetadata
 BG6 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
@@ -99,6 +109,8 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Counters: CurrentEffects=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Highlight: SelectionMetadata
 BG7 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
@@ -109,6 +121,8 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Counters: CurrentEffects=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Highlight: SelectionMetadata
 BG8 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
@@ -119,6 +133,8 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Counters: CurrentEffects=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Highlight: SelectionMetadata
 BG9 - CardID:string, Controller:number, Status:number=2, TurnEffects:array[string]
@@ -129,6 +145,8 @@ Overlay: Status=1:exhausted
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Counters: CurrentEffects=Badge(Color=Yellow,Position=TopLeft,ShowZero=false)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Highlight: SelectionMetadata
 DecisionQueueVariables - Value:string

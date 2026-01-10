@@ -1,6 +1,7 @@
   <head>
 
     <script src="./Core/UILibraries.js"></script>
+    <script src="./Core/CounterRendering.js"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
 
