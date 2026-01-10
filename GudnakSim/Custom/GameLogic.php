@@ -103,7 +103,7 @@ function DoActivatedAbility($player, $mzCard) {
     UseActions(amount:1);
 }
 
-function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true) {
+function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true, $shouldExhaust = true, $ignoreActionCost = false) {
     $cardZone = explode("-", $cardZone)[0];
     $topCard = GetTopCard($cardZone);
     if($topCard->Controller != $player) {
@@ -127,7 +127,7 @@ function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack
         }
     }
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $legalZones), 1);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "FighterAction|" . $cardZone, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FighterAction|" . $cardZone . "|" . ($shouldExhaust ? "1" : "0") . "|" . ($ignoreActionCost ? "1" : "0"), 1);
 }
 
 function DoDefendAction($player, $cardZone) {
@@ -320,10 +320,12 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
     $fromZoneName = explode("-", $param[0])[0];
     $fromZone = &GetZone($fromZoneName);
     $destZone = &GetZone($destZoneName);
-    for($i = 1; $i < count($fromZone); ++$i) {
-        $fromZone[$i]->Status = 1; // Exhaust the unit
+    if($param[1] == "1") {
+        for($i = 1; $i < count($fromZone); ++$i) {
+            $fromZone[$i]->Status = 1; // Exhaust the unit
+        }
     }
-    UseActions(amount:1);
+    if($param[2] == "0") UseActions(amount:1);
     if(count($destZone) == 1) {
         //This is a move, move the whole stack from 1 -> end
         for($i = 1; $i < count($fromZone); ++$i) {
