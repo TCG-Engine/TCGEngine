@@ -3,6 +3,14 @@
     <script src="./Core/UILibraries.js"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
+    <?php
+    // Include GudnakSim-specific grassland background
+    $tempFolderPath = isset($_GET['folderPath']) ? $_GET['folderPath'] : '';
+    if ($tempFolderPath === 'GudnakSim') {
+      echo '<link rel="stylesheet" type="text/css" href="./GudnakSim/Styles/GrasslandBackground.css">';
+      echo '<script src="./GudnakSim/Styles/GrasslandBackground.js"></script>';
+    }
+    ?>
 
     <style>
       @keyframes move {
@@ -27,6 +35,12 @@
         if($folderPath == "") {
           echo ("Invalid folder path.");
           exit;
+        }
+
+        // Include GudnakSim-specific grassland background
+        if ($folderPath === 'GudnakSim') {
+          echo '<link rel="stylesheet" type="text/css" href="./GudnakSim/Styles/GrasslandBackground.css">';
+          echo '<script src="./GudnakSim/Styles/GrasslandBackground.js"></script>';
         }
 
         // Define theme-specific colors based on folder path
@@ -118,7 +132,7 @@
         }
 
         .myStuff {
-          background-color: <?php echo $primaryBg; ?>;
+          background-color: <?php echo ($folderPath === "GudnakSim" ? "rgba(62, 80, 63, 0.3)" : $primaryBg); ?>;
           border: <?php echo $borderWidth; ?> solid <?php echo ($folderPath === "GudnakSim" ? "transparent" : "#5a5a5a"); ?>;
           border-radius: 8px;
           font-family: 'Roboto', sans-serif; /* Modern font */
@@ -126,15 +140,15 @@
         }
 
         .myStuffWrapper {
-          background-color: <?php echo $secondaryBg; ?>;
+          background-color: <?php echo ($folderPath === "GudnakSim" ? "rgba(62, 80, 63, 0.2)" : $secondaryBg); ?>;
         }
 
         .theirStuff {
-          background-color: <?php echo $secondaryBg; ?>;
+          background-color: <?php echo ($folderPath === "GudnakSim" ? "rgba(62, 80, 63, 0.3)" : $secondaryBg); ?>;
         }
 
         .theirStuffWrapper {
-          background-color: <?php echo $secondaryBg; ?>;
+          background-color: <?php echo ($folderPath === "GudnakSim" ? "rgba(62, 80, 63, 0.2)" : $secondaryBg); ?>;
         }
         </style>
 

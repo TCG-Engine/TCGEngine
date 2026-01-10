@@ -1,0 +1,230 @@
+/* GudnakSim Animated Grassland Background
+ * A subtle, non-obtrusive animated grass landscape
+ */
+
+/* Main background container */
+.gudnak-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(180deg, 
+    #87CEEB 0%,      /* Sky blue at top */
+    #98D4E8 15%,     /* Lighter sky */
+    #B8E6C1 35%,     /* Transition to green */
+    #5AAD4D 50%,     /* Main grass color */
+    #4A9D3D 70%,     /* Darker grass */
+    #3A8D2D 85%,     /* Even darker */
+    #2A6D1D 100%     /* Dark grass at bottom */
+  );
+}
+
+/* Subtle hills layer */
+.gudnak-background::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 60%;
+  background: 
+    radial-gradient(ellipse 80% 50% at 20% 100%, #4A9D3D 0%, transparent 70%),
+    radial-gradient(ellipse 60% 40% at 50% 100%, #5AAD4D 0%, transparent 60%),
+    radial-gradient(ellipse 70% 45% at 80% 100%, #4A9D3D 0%, transparent 65%),
+    radial-gradient(ellipse 50% 35% at 35% 100%, #5BBF4E 0%, transparent 55%),
+    radial-gradient(ellipse 65% 40% at 65% 100%, #4A9D3D 0%, transparent 60%);
+  animation: hillsSway 30s ease-in-out infinite;
+  opacity: 0.7;
+}
+
+/* Grass blades container */
+.grass-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* Individual grass blade styling */
+.grass-blade {
+  position: absolute;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(to top, #3A8D2D, #6BBF59);
+  border-radius: 50% 50% 0 0;
+  transform-origin: bottom center;
+  animation: grassSway var(--sway-duration, 3s) ease-in-out infinite;
+  animation-delay: var(--sway-delay, 0s);
+  opacity: 0.6;
+}
+
+/* Grass sway animation */
+@keyframes grassSway {
+  0%, 100% {
+    transform: rotate(-5deg) scaleY(1);
+  }
+  25% {
+    transform: rotate(3deg) scaleY(1.02);
+  }
+  50% {
+    transform: rotate(5deg) scaleY(1);
+  }
+  75% {
+    transform: rotate(-3deg) scaleY(0.98);
+  }
+}
+
+/* Subtle hills movement */
+@keyframes hillsSway {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-2%);
+  }
+}
+
+/* Floating particles (pollen/dust) */
+.particle-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 255, 220, 0.6);
+  border-radius: 50%;
+  animation: floatParticle var(--float-duration, 15s) linear infinite;
+  animation-delay: var(--float-delay, 0s);
+  opacity: 0;
+}
+
+@keyframes floatParticle {
+  0% {
+    opacity: 0;
+    transform: translateY(100vh) translateX(0) scale(0.5);
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-20vh) translateX(100px) scale(1);
+  }
+}
+
+/* Gentle light rays */
+.light-rays {
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(
+    ellipse at center top,
+    rgba(255, 255, 200, 0.15) 0%,
+    rgba(255, 255, 200, 0.05) 30%,
+    transparent 60%
+  );
+  transform: translateX(-50%);
+  animation: lightPulse 8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes lightPulse {
+  0%, 100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Subtle wind wave overlay */
+.wind-wave {
+  position: absolute;
+  bottom: 0;
+  left: -100%;
+  width: 300%;
+  height: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(107, 191, 89, 0.2) 25%,
+    rgba(90, 173, 77, 0.3) 50%,
+    rgba(107, 191, 89, 0.2) 75%,
+    transparent 100%
+  );
+  animation: windWave 12s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes windWave {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(33.33%);
+  }
+}
+
+/* Second wind wave for layered effect */
+.wind-wave-2 {
+  animation-duration: 18s;
+  animation-delay: -6s;
+  height: 30%;
+  opacity: 0.5;
+}
+
+/* Distant treeline silhouette */
+.treeline {
+  position: absolute;
+  bottom: 45%;
+  left: 0;
+  width: 100%;
+  height: 15%;
+  opacity: 0.15;
+  background: 
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 30'%3E%3Cpath fill='%232A4D1D' d='M0,30 L0,20 Q5,10 10,20 Q15,5 20,20 Q25,8 30,20 Q35,12 40,20 Q45,6 50,20 Q55,10 60,20 Q65,4 70,20 Q75,14 80,20 Q85,8 90,20 Q95,12 100,20 L100,30 Z'/%3E%3C/svg%3E") repeat-x;
+  background-size: 300px 100%;
+  animation: treeSway 25s ease-in-out infinite;
+}
+
+@keyframes treeSway {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+}
+
+/* Subtle vignette for depth */
+.vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.15) 100%
+  );
+  pointer-events: none;
+}
