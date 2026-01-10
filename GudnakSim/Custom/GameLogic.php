@@ -630,6 +630,33 @@ function UnoccupiedBattlefields() {
     return $unoccupied;
 }
 
+function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null) {
+    if($adjacentTo !== null) $adjacentTo = explode("-", $adjacentTo)[0];
+    $results = [];
+    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
+    foreach($zones as $zoneName) {
+        $zoneArr = &GetZone($zoneName);
+        for($i = 1; $i < count($zoneArr); ++$i) {
+            $obj = $zoneArr[$i];
+            if(($controller === null || $obj->Controller == $controller) &&
+               ($minBasePower === null || CardPower($obj->CardID) >= $minBasePower) &&
+               ($maxBasePower === null || CardPower($obj->CardID) <= $maxBasePower) &&
+               ($adjacentTo === null || in_array($zoneName, AdjacentZones($adjacentTo)))) {
+                if($zoneOnly) {
+                    if(!in_array($zoneName, $results)) {
+                        array_push($results, $zoneName);
+                    }
+                    // No need to check other cards in this zone when only zone names are requested
+                    break;
+                } else {
+                    array_push($results, $zoneName . "-" . $i);
+                }
+            }
+        }
+    }
+    return $results;
+}
+
 function DiscardCards($player, $amount=1) {
     for($i = 0; $i < $amount; ++$i) {
         DecisionQueueController::AddDecision($player, "MZCHOOSE", ZoneMZIndices("myHand"), 1);
