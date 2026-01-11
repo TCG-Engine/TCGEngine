@@ -645,12 +645,25 @@ function UnoccupiedBattlefields() {
     return $unoccupied;
 }
 
-function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null) {
+function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null, $emptyOnly=false, $excludeGates=null) {
     if($adjacentTo !== null) $adjacentTo = explode("-", $adjacentTo)[0];
     $results = [];
     $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
+    $gatesZone = $excludeGates != null ? GetGates($excludeGates) : null; // Get gates zone to exclude if needed
+    
     foreach($zones as $zoneName) {
+        // Skip gates zone if excludeGates is true
+        if($excludeGates && $zoneName == $gatesZone) {
+            continue;
+        }
+        
         $zoneArr = &GetZone($zoneName);
+        
+        // If emptyOnly is true, only consider empty zones (count == 1 means only terrain)
+        if($emptyOnly && count($zoneArr) != 1) {
+            continue;
+        }
+        
         for($i = $zoneOnly ? count($zoneArr)-1 : 1; $i < count($zoneArr); ++$i) {
             $obj = $zoneArr[$i];
             if(($controller === null || $obj->Controller == $controller) &&
