@@ -712,6 +712,19 @@ function ZoneSearch($zoneName, $minBasePower=null, $maxBasePower=null) {
     return $results;
 }
 
+function ZoneCardSearch($zoneName, $cardID) {
+    $zoneName = explode("-", $zoneName)[0];
+    $results = [];
+    $zoneArr = &GetZone($zoneName);
+    for($i = 0; $i < count($zoneArr); ++$i) {
+        $obj = $zoneArr[$i];
+        if($obj->CardID == $cardID) {
+            array_push($results, $zoneName . "-" . $i);
+        }
+    }
+    return $results;
+}
+
 function DiscardCards($player, $amount=1) {
     for($i = 0; $i < $amount; ++$i) {
         DecisionQueueController::AddDecision($player, "MZCHOOSE", ZoneMZIndices("myHand"), 1);
@@ -721,7 +734,7 @@ function DiscardCards($player, $amount=1) {
 
 function ExpireEffects($isEndTurn=true) {
     $turnPlayer = &GetTurnPlayer();
-    global $untilBeginTurnEffects;
+    global $untilBeginTurnEffects, $foreverEffects;
     $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
     foreach($zones as $zoneName) {
         $zoneArr = &GetZone($zoneName);
@@ -745,7 +758,7 @@ function ExpireEffects($isEndTurn=true) {
     }
     $newGlobalEffects = [];
     foreach($globalEffects as $index => $effectObj) {
-        if($isEndTurn && isset($untilBeginTurnEffects[$effectObj->CardID])) {
+        if(isset($foreverEffects[$effectObj->CardID]) || ($isEndTurn && isset($untilBeginTurnEffects[$effectObj->CardID]))) {
             array_push($newGlobalEffects, $effectObj);
         }
     }
@@ -755,11 +768,27 @@ function ExpireEffects($isEndTurn=true) {
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $untilBeginTurnEffects["RYBTPDRL"] = true;
 $untilBeginTurnEffects["GMBF3HVRKG"] = true;
+$foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 
 $doesGlobalEffectApply["RYBTPDRL"] = function($obj) { //Precision Drills
     $zone = GetZone($obj->Location);
     return count($zone) > 2;
 };
+
+$doesGlobalEffectApply["GMBTMNTM"] = function($obj) { //Memento Mori
+    return false;
+};
+
+function GlobalEffectCount($player, $effectID) {
+    $zoneArr = &GetGlobalEffects($player);
+    $count = 0;
+    foreach($zoneArr as $index => $obj) {
+        if($obj->CardID == $effectID) {
+            ++$count;
+        }
+    }
+    return $count;
+}
 
 ?>
