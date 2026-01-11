@@ -207,6 +207,12 @@
       $generateFilename = substr($generateFilename, $lastSlashPos + 1);
     }
     echo '<script src="./' . $assetPath . '/GeneratedCode/' . $generateFilename . '"></script>';
+    
+    // Include GeneratedMacroCount.js for ability count and names (if it exists)
+    $macroCountFile = "./" . $assetPath . "/GeneratedCode/GeneratedMacroCount.js";
+    if (file_exists($macroCountFile)) {
+      echo '<script src="' . $macroCountFile . '"></script>';
+    }
 
     ?>
 

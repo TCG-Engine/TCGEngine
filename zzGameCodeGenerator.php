@@ -2367,9 +2367,12 @@ function GenerateMacroCode() {
     // Generate card-specific macro implementations
     if (count($abilitiesByMacro) > 0) {
       fwrite($handler, "// Card-specific macro implementations\r\n");
-      fwrite($handler, "// Each macro has an array where card IDs are keys and ability functions are values\r\n\r\n");
+      fwrite($handler, "// Each macro has an array where card IDs are keys (or CardID:Index for multiple abilities)\r\n\r\n");
       
       $allContinuationHandlers = []; // Store all continuation handlers for output later
+      
+      // Track ability index per card for macros that support multiple abilities
+      $abilityIndexByCard = [];
       
       foreach ($abilitiesByMacro as $macroName => $abilities) {
         // Convert macro name to valid variable name (e.g., "card-play" -> "cardPlayAbilities")
@@ -2378,19 +2381,33 @@ function GenerateMacroCode() {
         // Get the macro parameters from the schema
         $macroParams = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : [];
         
+        // Reset ability index tracking for this macro type
+        $abilityIndexByCard = [];
+        
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
           $name = $ability['ability_name'] ?? $cardId;
           
+          // Track ability index for this card
+          if (!isset($abilityIndexByCard[$cardId])) {
+            $abilityIndexByCard[$cardId] = 0;
+          }
+          $abilityIndex = $abilityIndexByCard[$cardId];
+          $abilityIndexByCard[$cardId]++;
+          
+          // Use CardID:Index as the key for abilities (supports multiple per card)
+          $abilityKey = $cardId . ":" . $abilityIndex;
+          
           // Transform code to handle await syntax (pass macro params for variable retrieval)
+          // Use the ability key for continuation handlers instead of just cardId
           $continuationHandlers = [];
-          $transformedCode = TransformAwaitCode($code, $cardId, $name, $continuationHandlers, $macroParams);
+          $transformedCode = TransformAwaitCode($code, $abilityKey, $name, $continuationHandlers, $macroParams);
           
           // Merge continuation handlers into global collection
           $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);
           
-          fwrite($handler, "\$" . $varName . "[\"" . $cardId . "\"] = function(\$player) { //" . $name . "\r\n");
+          fwrite($handler, "\$" . $varName . "[\"" . $abilityKey . "\"] = function(\$player) { //" . $name . "\r\n");
           fwrite($handler, "  " . str_replace("\n", "\n  ", trim($transformedCode)) . "\r\n");
           fwrite($handler, "};\r\n");
         }
@@ -2440,6 +2457,45 @@ function GenerateMacroCode() {
         fwrite($handler, "function " . $functionName . "(\$cardId) {\r\n");
         fwrite($handler, "  global \$" . $functionName . "Data;\r\n");
         fwrite($handler, "  return isset(\$" . $functionName . "Data[\$cardId]) ? \$" . $functionName . "Data[\$cardId] : 0;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+        
+        // Generate ability names array for this macro (e.g., CardActivateAbilityNames)
+        $namesVarName = "\$" . $functionName . "NamesData";
+        $abilityIndexByCard = [];
+        
+        fwrite($handler, $namesVarName . " = [\r\n");
+        foreach ($abilities as $ability) {
+          $cardId = $ability['card_id'];
+          $name = $ability['ability_name'] ?? $cardId;
+          
+          if (!isset($abilityIndexByCard[$cardId])) {
+            $abilityIndexByCard[$cardId] = 0;
+          }
+          $abilityIndex = $abilityIndexByCard[$cardId];
+          $abilityIndexByCard[$cardId]++;
+          
+          $abilityKey = $cardId . ":" . $abilityIndex;
+          fwrite($handler, "  \"" . addslashes($abilityKey) . "\" => \"" . addslashes($name) . "\",\r\n");
+        }
+        fwrite($handler, "];\r\n\r\n");
+        
+        // Emit ability names lookup function
+        $namesFunction = $functionName . "Names";
+        fwrite($handler, "function " . $namesFunction . "(\$cardId, \$abilityIndex = null) {\r\n");
+        fwrite($handler, "  global \$" . $functionName . "NamesData;\r\n");
+        fwrite($handler, "  if (\$abilityIndex !== null) {\r\n");
+        fwrite($handler, "    \$key = \$cardId . \":\" . \$abilityIndex;\r\n");
+        fwrite($handler, "    return isset(\$" . $functionName . "NamesData[\$key]) ? \$" . $functionName . "NamesData[\$key] : \"\";\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  // Return all ability names for the card as an array\r\n");
+        fwrite($handler, "  \$names = [];\r\n");
+        fwrite($handler, "  for (\$i = 0; \$i < CardActivateAbilityCount(\$cardId); \$i++) {\r\n");
+        fwrite($handler, "    \$key = \$cardId . \":\" . \$i;\r\n");
+        fwrite($handler, "    if (isset(\$" . $functionName . "NamesData[\$key])) {\r\n");
+        fwrite($handler, "      \$names[] = \$" . $functionName . "NamesData[\$key];\r\n");
+        fwrite($handler, "    }\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  return \$names;\r\n");
         fwrite($handler, "}\r\n\r\n");
       }
       
@@ -2512,6 +2568,45 @@ function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
         // Emit lookup function
         fwrite($handler, "function " . $functionName . "(cardId) {\r\n");
         fwrite($handler, "  return " . $varName . "[cardId] !== undefined ? " . $varName . "[cardId] : 0;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+        
+        // Generate ability names data for this macro
+        $namesVarName = $functionName . "NamesData";
+        $abilityIndexByCard = [];
+        
+        fwrite($handler, "const " . $namesVarName . " = {\r\n");
+        foreach ($abilities as $ability) {
+          $abCardId = $ability['card_id'];
+          $name = $ability['ability_name'] ?? $abCardId;
+          
+          if (!isset($abilityIndexByCard[$abCardId])) {
+            $abilityIndexByCard[$abCardId] = 0;
+          }
+          $abilityIndex = $abilityIndexByCard[$abCardId];
+          $abilityIndexByCard[$abCardId]++;
+          
+          $abilityKey = $abCardId . ":" . $abilityIndex;
+          fwrite($handler, "  \"" . addslashes($abilityKey) . "\": \"" . addslashes($name) . "\",\r\n");
+        }
+        fwrite($handler, "};\r\n\r\n");
+        
+        // Emit ability names lookup function
+        $namesFunction = $functionName . "Names";
+        fwrite($handler, "function " . $namesFunction . "(cardId, abilityIndex) {\r\n");
+        fwrite($handler, "  if (abilityIndex !== undefined && abilityIndex !== null) {\r\n");
+        fwrite($handler, "    const key = cardId + \":\" + abilityIndex;\r\n");
+        fwrite($handler, "    return " . $namesVarName . "[key] !== undefined ? " . $namesVarName . "[key] : \"\";\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  // Return all ability names for the card as an array\r\n");
+        fwrite($handler, "  const names = [];\r\n");
+        fwrite($handler, "  const count = " . $functionName . "(cardId);\r\n");
+        fwrite($handler, "  for (let i = 0; i < count; i++) {\r\n");
+        fwrite($handler, "    const key = cardId + \":\" + i;\r\n");
+        fwrite($handler, "    if (" . $namesVarName . "[key] !== undefined) {\r\n");
+        fwrite($handler, "      names.push(" . $namesVarName . "[key]);\r\n");
+        fwrite($handler, "    }\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  return names;\r\n");
         fwrite($handler, "}\r\n\r\n");
       }
       

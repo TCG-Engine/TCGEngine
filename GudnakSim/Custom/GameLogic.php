@@ -86,9 +86,14 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
     }
 }
 
-function DoActivatedAbility($player, $mzCard) {
+function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
+    $cardID = $sourceObject->CardID;
+    
+    // Ability index is now passed directly from the frontend button click
+    $selectedAbilityIndex = intval($abilityIndex);
+    
     switch(CardCard_type($sourceObject->CardID)) {
         case "Fighter":
             $sourceObject->Status = 1; // Exhaust the unit
@@ -96,7 +101,7 @@ function DoActivatedAbility($player, $mzCard) {
         default: break;
     }
     //My activated ability effects
-    $customDQHandlers["AbilityActivated"]($player, [$sourceObject->CardID], null);
+    $customDQHandlers["AbilityActivated"]($player, [$sourceObject->CardID, $selectedAbilityIndex], null);
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
@@ -496,8 +501,11 @@ $customDQHandlers["CardPlayed"] = function($player, $param, $lastResult) {
 $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     global $activateAbilityAbilities;
     $cardID = $param[0];
-    if(isset($activateAbilityAbilities[$cardID])) {
-        $activateAbilityAbilities[$cardID]($player);
+    $abilityIndex = isset($param[1]) ? intval($param[1]) : 0;
+    // Use CardID:Index as the key for ability lookup
+    $abilityKey = $cardID . ":" . $abilityIndex;
+    if(isset($activateAbilityAbilities[$abilityKey])) {
+        $activateAbilityAbilities[$abilityKey]($player);
     }
 };
 

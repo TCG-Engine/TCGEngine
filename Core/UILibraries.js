@@ -613,6 +613,31 @@
             }
             else {
               var widgetName = widget.Action.replace(/_/g, ' ');
+              
+              // Special handling for Activate button with multiple abilities
+              if (widget.Action === 'Activate' && cardData.CardID && typeof CardActivateAbilityCount === 'function') {
+                const abilityCount = CardActivateAbilityCount(cardData.CardID);
+                if (abilityCount > 1) {
+                  // Generate multiple buttons for each ability
+                  const abilityNames = typeof CardActivateAbilityCountNames === 'function' 
+                    ? CardActivateAbilityCountNames(cardData.CardID) 
+                    : [];
+                  for (let i = 0; i < abilityCount; i++) {
+                    const abilityName = abilityNames[i] || `Ability ${i + 1}`;
+                    const actionWithIndex = `Activate:${i}`;
+                    const buttonHtml = `&nbsp;<button class="widget-button" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${actionWithIndex}')" title="${abilityName}">${abilityName}</button>`;
+                    switch(position) {
+                      case 'topright': topRightButtons += buttonHtml; break;
+                      case 'topleft': topLeftButtons += buttonHtml; break;
+                      case 'bottomleft': bottomLeftButtons += buttonHtml; break;
+                      case 'bottomright': bottomRightButtons += buttonHtml; break;
+                      default: buttonsHtml += buttonHtml;
+                    }
+                  }
+                  return; // Skip the default button generation
+                }
+              }
+              
               widgetContent = widgetIcons(widgetName);
               const buttonHtml = `&nbsp;<button class="widget-button${currentValue != "" && widget.Action == currentValue ? '-selected' : ''}" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${widget.Action}')">${widgetContent}</button>`;
               
