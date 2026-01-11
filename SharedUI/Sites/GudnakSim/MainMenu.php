@@ -47,6 +47,7 @@ include_once 'Header.php';
         <option value="" disabled selected style="color: #999;">Select a preconstructed deck...</option>
         <option value="Refractory">Refractory</option>
         <option value="Gloaming">Gloaming</option>
+        <option value="Shardsworn">Shardsworn</option>
       </select>
       <label for="deck-link" style="display: none;">Deck Link:</label>
       <input type="text" id="deck-link" name="deck_link" style="display: none;">

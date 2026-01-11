@@ -77,6 +77,9 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
     else if($preconstructedDeck == 'Gloaming') {
         $deck = ["GMBF1SPCH","GMBF2SPCH","GMBF2SPCH","GMBF1AMBT","GMBF2AMBT","GMBF3AMBT","GMBF1SKLS","GMBF1SKLS","GMBF2SKLS","GMBF3SKLS","GMBTBYNG","GMBTCNFN","GMBTMNTM","GMBTSLSW","GMBTWHTT","GMBF3HVRKG","GMBF2HDTHK","GMBF2HNCRM","GMBF1HNDMN","GMBF1HNDHR"];
     }
+    else if($preconstructedDeck == 'Shardsworn') {
+        $deck = ["SHBF1GBHT","SHBF1GBHT","SHBF1OGRB","SHBF1ORCS","SHBF2GBHT","SHBF2GBHT","SHBF2OGRB","SHBF2ORCS","SHBF3GBHT","SHBF3ORCS","SHBF1HELDR","SHBF1HELRN","SHBF2HMSTH","SHBF2HGRCK","SHBF3HELVV","SHBTDVSN","SHBTMBSH","SHBTSNAR","SHBTTOSS","SHBTTRBZ"];
+    }
     for($i=0; $i<count($deck); ++$i) {
         $cardID = $deck[$i];
         array_push($gameDeck, new Deck($cardID));
