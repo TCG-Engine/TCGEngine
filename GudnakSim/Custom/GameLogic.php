@@ -636,7 +636,7 @@ function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null,
     $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
     foreach($zones as $zoneName) {
         $zoneArr = &GetZone($zoneName);
-        for($i = 1; $i < count($zoneArr); ++$i) {
+        for($i = $zoneOnly ? count($zoneArr)-1 : 1; $i < count($zoneArr); ++$i) {
             $obj = $zoneArr[$i];
             if(($controller === null || $obj->Controller == $controller) &&
                ($minBasePower === null || CardPower($obj->CardID) >= $minBasePower) &&
