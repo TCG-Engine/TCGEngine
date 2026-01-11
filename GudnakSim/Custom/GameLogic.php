@@ -145,6 +145,7 @@ function CanAttack($player, $fromZone, $toZone) {
         $toTop = $toZoneArr[count($toZoneArr) - 1];
         if($fromTop->Controller != $player || $toTop->Controller == $player) return false;
         if($toTop->HasTurnEffects("RYBF1HBTCS") || $toTop->HasTurnEffects("RYBTDVPT")) return false;
+        if(GlobalEffectCount($toTop->Controller, "GMBTWHTT") > 0) return false;
         return true;
     }
     return false;
@@ -768,6 +769,7 @@ function ExpireEffects($isEndTurn=true) {
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $untilBeginTurnEffects["RYBTPDRL"] = true;
 $untilBeginTurnEffects["GMBF3HVRKG"] = true;
+$untilBeginTurnEffects["GMBTWHTT"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 
