@@ -353,7 +353,7 @@ function ResolveAttack($fromZoneName, $destZoneName) {
         //Attacker wins
         FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
         if(count($destZone) == 2) { //Means there was only one defender
-            MoveStack($fromZoneName, $destZoneName);
+            if($fromTop->CardID != "SHBF2HMSTH") MoveStack($fromZoneName, $destZoneName);
         }
     } else if($fromPower < $destPower) {
         //Defender wins
@@ -573,13 +573,21 @@ function SelectionMetadata($obj) {
     }
     
     if (isset($obj->Status) && $obj->Status != 2) { // Not ready
-        if($obj->CardID != "RYBF1GFDG" && $obj->CardID != "RYBF2HSLRC") { //Gryffdogs and Solaran Cavalry can attack and move while exhausted
+        if(!CanActExhausted($obj)) {
             return json_encode(['highlight' => false]);
         }
     }
     
     // Return bright vibrant lime green highlight for valid selectable cards
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+}
+
+function CanActExhausted($obj) {
+    if($obj->CardID == "RYBF1GFDG" || $obj->CardID == "RYBF2HSLRC") return true; //Gryffdogs and Solaran Cavalry can act while exhausted
+    if(TraitContains($obj, "Hunter") && PlayerHasCard($obj->Controller, "SHBF2HMSTH") || GlobalEffectCount($obj->Controller, "SHBTTRBZ") > 0) { //Master Hunter or Trailblaze effect
+        return true;
+    }
+    return false;
 }
 
 function IsGates($player, $zoneName) {
@@ -671,6 +679,17 @@ function UnoccupiedBattlefields() {
         }
     }
     return $unoccupied;
+}
+
+function PlayerHasCard($player, $cardID) {
+    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
+    foreach($zones as $zoneName) {
+        $topCard = GetTopCard($zoneName);
+        if($topCard !== null && $topCard->Controller == $player && $topCard->CardID == $cardID) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null, $emptyOnly=false, $minFighters=null, $maxFighters=null, $excludeGates=null) {
@@ -810,6 +829,10 @@ $doesGlobalEffectApply["GMBTMNTM"] = function($obj) { //Memento Mori
 
 $doesGlobalEffectApply["GMBF2HDTHK"] = function($obj) { //Death Knight
     return false;
+};
+
+$doesGlobalEffectApply["SHBTTRBZ"] = function($obj) { //Trailblaze
+    return TraitContains($obj, "Hunter");
 };
 
 function GlobalEffectCount($player, $effectID) {
