@@ -715,10 +715,11 @@ function ExpireEffects($isEndTurn=true) {
             if($obj->Controller != $turnPlayer) continue;
             $newEffects = [];
             foreach($obj->TurnEffects as $effect) {
-                if($isEndTurn && in_array($effect, $untilBeginTurnEffects)) { //Effects that last until end of turn
+                if($isEndTurn && isset($untilBeginTurnEffects[$effect])) { //Effects that last until end of turn
                     array_push($newEffects, $effect);
                 }
             }
+            echo(count($obj->TurnEffects) . " -> " . count($newEffects) . " effects on " . $zoneName . "-" . $index . "\n");
             $obj->TurnEffects = $newEffects;
         }
     }
@@ -730,15 +731,15 @@ function ExpireEffects($isEndTurn=true) {
     }
     $newGlobalEffects = [];
     foreach($globalEffects as $index => $effectObj) {
-        if($isEndTurn && in_array($effectObj->CardID, $untilBeginTurnEffects)) {
+        if($isEndTurn && isset($untilBeginTurnEffects[$effectObj->CardID])) {
             array_push($newGlobalEffects, $effectObj);
         }
     }
     $globalEffects = $newGlobalEffects;
 }
 
-$untilBeginTurnEffects = ["RYBF1HBTCS"];
-$untilBeginTurnEffects = ["RYBTPDRL"];
+$untilBeginTurnEffects["RYBF1HBTCS"] = true;
+$untilBeginTurnEffects["RYBTPDRL"] = true;
 
 $doesGlobalEffectApply["RYBTPDRL"] = function($obj) { //Precision Drills
     $zone = GetZone($obj->Location);
