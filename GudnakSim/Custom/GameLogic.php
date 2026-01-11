@@ -308,7 +308,9 @@ $customDQHandlers["AfterFighterPlayed"] = function($player, $param, $lastResult)
     $zoneArr = &GetZone($zoneName);
     if (!empty($zoneArr)) {
         $lastIndex = count($zoneArr) - 1;
-        $target = &GetZoneObject($zoneName . "-" . $lastIndex);
+        $mzIndex = $zoneName . "-" . $lastIndex;
+        DecisionQueueController::StoreVariable("mzID", $mzIndex);
+        $target = &GetZoneObject($mzIndex);
         if ($target !== null) {
             $target->Status = 1; // Exhaust the unit
             $target->Controller = $player;
@@ -660,7 +662,7 @@ function UnoccupiedBattlefields() {
     return $unoccupied;
 }
 
-function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null, $emptyOnly=false, $excludeGates=null) {
+function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null, $emptyOnly=false, $minFighters=null, $maxFighters=null, $excludeGates=null) {
     if($adjacentTo !== null) $adjacentTo = explode("-", $adjacentTo)[0];
     $results = [];
     $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
@@ -676,6 +678,19 @@ function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null,
         
         // If emptyOnly is true, only consider empty zones (count == 1 means only terrain)
         if($emptyOnly && count($zoneArr) != 1) {
+            continue;
+        }
+        
+        // Calculate number of fighters (total count - 1 for terrain)
+        $numFighters = count($zoneArr) - 1;
+        
+        // Apply minFighters filter
+        if($minFighters !== null && $numFighters < $minFighters) {
+            continue;
+        }
+        
+        // Apply maxFighters filter
+        if($maxFighters !== null && $numFighters > $maxFighters) {
             continue;
         }
         
