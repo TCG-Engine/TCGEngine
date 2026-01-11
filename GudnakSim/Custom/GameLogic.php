@@ -664,6 +664,19 @@ function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null,
     return $results;
 }
 
+function ZoneSearch($zoneName, $minBasePower=null, $maxBasePower=null) {
+    $results = [];
+    $zoneArr = &GetZone($zoneName);
+    for($i = 1; $i < count($zoneArr); ++$i) {
+        $obj = $zoneArr[$i];
+        if(($minBasePower === null || CardPower($obj->CardID) >= $minBasePower) &&
+           ($maxBasePower === null || CardPower($obj->CardID) <= $maxBasePower)) {
+            array_push($results, $zoneName . "-" . $i);
+        }
+    }
+    return $results;
+}
+
 function DiscardCards($player, $amount=1) {
     for($i = 0; $i < $amount; ++$i) {
         DecisionQueueController::AddDecision($player, "MZCHOOSE", ZoneMZIndices("myHand"), 1);
