@@ -439,6 +439,14 @@ function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $currentPower,
 }
 
 function DoFighterDestroyed($player, $mzCard) {
+    $card = &GetZoneObject($mzCard);
+    switch($card->CardID) {
+        case "GMBF1HNDMN"://Undying Minion
+            $deck = &GetDeck($card->Controller);
+            MZMove($player, $mzCard, "myHand");
+            return;
+        default: break;
+    }
     MZMove($player, $mzCard, "myGraveyard");
 }
 
