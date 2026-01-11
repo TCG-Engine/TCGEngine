@@ -283,6 +283,37 @@
           var newHTML = "<span id='" + zone + "' " + dragProps + "style='display: flex; flex-wrap: wrap; justify-content: center;'>";
           var zoneArr = (zoneData.length == 0 ? [] : zoneData.split("<|>"));
           var zoneName = zone.replace("my", "").replace("their", "");
+          
+          // Handle Single display mode - only render one card (first or last based on Reverse)
+          if(mode == 'Single' && zoneArr.length > 0) {
+            var zoneMetadata = GetZoneData(zoneName);
+            var useReverse = zoneMetadata.Sort && zoneMetadata.Sort.Reverse;
+            var displayIndex = useReverse ? (zoneArr.length - 1) : 0;
+            var cardArr = zoneArr[displayIndex].split(" ");
+            
+            // Override counter to show total zone count (cardArr[1] is normally counter data)
+            // This replicates the count bubble that was previously shown
+            if(zoneArr.length > 1) {
+              cardArr[1] = String(zoneArr.length);
+            }
+            
+            var heatmapFunction = "";
+            var heatmapColorMap = "";
+            // Apply heatmaps if defined
+            var heatmaps = zoneMetadata.Heatmaps;
+            if(heatmaps != null) {
+              for(var i = 0; i < heatmaps.length; ++i) {
+                var heatmapProperty = window[heatmaps[i].Property + "Data"];
+                var heatmapFunctionMap = JSON.parse(heatmaps[i].FunctionMap);
+                heatmapFunction = heatmapProperty && heatmapFunctionMap[heatmapProperty] ? heatmapFunctionMap[heatmapProperty].Function : "";
+                heatmapColorMap = heatmapProperty && heatmapFunctionMap[heatmapProperty] ? heatmapFunctionMap[heatmapProperty].ColorMap : "";
+              }
+            }
+            newHTML += createCardHTML(zone, zoneName, folder, size, cardArr, displayIndex, heatmapFunction, heatmapColorMap);
+            newHTML += "</span>";
+            return newHTML;
+          }
+          
           if(zoneArr.length == 0 && mode != "Calculate") {
             newHTML += "<span style='margin: 1px;'>" + zoneName + "</span>";
           } else if(mode == 'Count') {
@@ -1781,19 +1812,22 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   
   // For each popup card spec, find and display the card
   for (const spec of popupCards) {
-    // Find the zone element to get card data
-    const zoneEl = document.getElementById(spec.zone);
-    if (!zoneEl) continue;
+    // Get card data from the zone's window data variable
+    const zoneDataVar = spec.zone + 'Data';
+    const zoneDataStr = window[zoneDataVar];
+    if (!zoneDataStr || typeof zoneDataStr !== 'string') continue;
     
-    // Get the card data from the zone
-    // We need to find the actual card data for this specific index
-    // The card data is stored in the window as zone data, or we parse from responseArr
-    let cardData = null;
-    let cardId = '-';
+    // Parse the zone data to get the card at the specific index
+    const zoneCards = zoneDataStr.split('<|>').filter(s => s.trim());
+    if (spec.specificIndex >= zoneCards.length) continue;
     
-    // Try to find the card element directly
-    const cardElId = spec.zone + '-' + spec.specificIndex;
-    const cardEl = document.getElementById(cardElId);
+    const cardEntry = zoneCards[spec.specificIndex];
+    const cardArr = cardEntry.split(' ');
+    // cardArr[0] = card number (image filename)
+    // cardArr[1] = counter data
+    // cardArr[2] = JSON data
+    const cardNumber = cardArr[0];
+    const counters = cardArr.length > 1 ? cardArr[1] : '0';
     
     // Create card wrapper
     let cardWrapper = document.createElement('div');
@@ -1812,46 +1846,22 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
       cardWrapper.style.boxShadow = 'none';
     };
     
-    // Create card image container
+    // Create card image container using the Card() function
     let cardImgContainer = document.createElement('div');
     cardImgContainer.style.position = 'relative';
     
-    // If we found the card element, clone the card image
-    if (cardEl) {
-      const imgEl = cardEl.querySelector('img');
-      if (imgEl) {
-        let clonedImg = imgEl.cloneNode(true);
-        clonedImg.style.width = cardSize + 'px';
-        clonedImg.style.height = 'auto';
-        clonedImg.style.borderRadius = '6px';
-        cardImgContainer.appendChild(clonedImg);
-      } else {
-        // Fallback: create placeholder
-        let placeholder = document.createElement('div');
-        placeholder.style.width = cardSize + 'px';
-        placeholder.style.height = (cardSize * 1.4) + 'px';
-        placeholder.style.background = '#1a2a3a';
-        placeholder.style.borderRadius = '6px';
-        placeholder.style.display = 'flex';
-        placeholder.style.alignItems = 'center';
-        placeholder.style.justifyContent = 'center';
-        placeholder.style.color = '#666';
-        placeholder.textContent = spec.originalSpec;
-        cardImgContainer.appendChild(placeholder);
-      }
-    } else {
-      // Fallback: create placeholder
-      let placeholder = document.createElement('div');
-      placeholder.style.width = cardSize + 'px';
-      placeholder.style.height = (cardSize * 1.4) + 'px';
-      placeholder.style.background = '#1a2a3a';
-      placeholder.style.borderRadius = '6px';
-      placeholder.style.display = 'flex';
-      placeholder.style.alignItems = 'center';
-      placeholder.style.justifyContent = 'center';
-      placeholder.style.color = '#666';
-      placeholder.textContent = spec.originalSpec;
-      cardImgContainer.appendChild(placeholder);
+    // Use the Card() function to generate the card HTML
+    // Card(cardNumber, folder, maxHeight, action, showHover, overlay, borderColor, counters, ...)
+    const folder = rootPath + '/concat';
+    const cardHTML = Card(cardNumber, folder, cardSize, 0, 0, 0, 0, counters);
+    cardImgContainer.innerHTML = cardHTML;
+    
+    // Style the generated image
+    const imgEl = cardImgContainer.querySelector('img');
+    if (imgEl) {
+      imgEl.style.width = cardSize + 'px';
+      imgEl.style.height = 'auto';
+      imgEl.style.borderRadius = '6px';
     }
     
     cardWrapper.appendChild(cardImgContainer);

@@ -1585,13 +1585,17 @@ function AddGetNextTurnForPlayer($player) {
         } else {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
         }
-        // Check if Reverse is set to determine which card index to use
-        $useLastCard = ($zone->Sort && isset($zone->Sort->Reverse) && $zone->Sort->Reverse) ? true : false;
-        $cardIndex = $useLastCard ? "(count(\$arr)-1)" : "0";
+        // For Single Public zones, return ALL cards so they can be accessed from window data
+        // (needed for MZCHOOSE decision queue and other client-side operations)
+        $getNextTurn .= "  for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
+        $getNextTurn .= "    if(\$i > 0) echo(\"<|>\");\r\n";
+        $getNextTurn .= "    \$obj = \$arr[\$i];\r\n";
         if(count($zone->VirtualProperties) > 0) {
-          $getNextTurn .= "  if(count(\$arr) > 0) ComputeVirtualProperties(\$arr[" . $cardIndex . "]);\r\n";
+          $getNextTurn .= "    ComputeVirtualProperties(\$obj);\r\n";
         }
-        $getNextTurn .= "  echo(count(\$arr) > 0 ? ClientRenderedCard(\$arr[" . $cardIndex . "]->CardID, counters:count(\$" . $zoneName . "), cardJSON:json_encode(\$arr[" . $cardIndex . "])) : \"\");\r\n";
+        $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        $getNextTurn .= "  }\r\n";
       } else if($zone->Visibility == "Private") {
         //Single Private
         $getNextTurn .= "  echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
