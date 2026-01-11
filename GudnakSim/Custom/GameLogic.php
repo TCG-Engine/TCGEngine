@@ -454,6 +454,14 @@ function DoFighterDestroyed($player, $mzCard) {
             $deck = &GetDeck($card->Controller);
             MZMove($player, $mzCard, "myHand");
             return;
+        case "GMBF2HDTHK"://Death Knight
+            if(GlobalEffectCount($card->Controller, "GMBF2HDTHK") == 0) {
+                AddGlobalEffects($card->Controller, "GMBF2HDTHK");
+                MZMove($player, $mzCard, "myHand");
+                return;
+            }
+            $deck = &GetDeck($card->Controller);
+            break;
         default: break;
     }
     MZMove($player, $mzCard, "myGraveyard");
@@ -794,6 +802,10 @@ $doesGlobalEffectApply["RYBTPDRL"] = function($obj) { //Precision Drills
 };
 
 $doesGlobalEffectApply["GMBTMNTM"] = function($obj) { //Memento Mori
+    return false;
+};
+
+$doesGlobalEffectApply["GMBF2HDTHK"] = function($obj) { //Death Knight
     return false;
 };
 
