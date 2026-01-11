@@ -333,29 +333,36 @@ $customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
         }
         return;
     } else {
-        //This is an attack
-        $fromTop = $fromZone[count($fromZone) - 1];
-        $destTop = $destZone[count($destZone) - 1];
-        $fromPower = CurrentCardPower($fromZone, $destZone, true);
-        $destPower = CurrentCardPower($fromZone, $destZone, false);
-        //Simple combat: Higher power wins, both are destroyed on a tie
-        if($fromPower > $destPower) {
-            //Attacker wins
-            FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
-            if(count($destZone) == 2) { //Means there was only one defender
-                //Move the whole stack
-                MoveStack($fromZoneName, $destZoneName);
-            }
-        } else if($fromPower < $destPower) {
-            //Defender wins
-            FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
-        } else {
-            //Both destroyed
-            FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
-            FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
-        }
+        ResolveAttack($fromZoneName, $destZoneName);
     }
 };
+
+function ResolveAttack($fromZoneName, $destZoneName) {
+    $destZoneName = explode("-", $destZoneName)[0];
+    $fromZoneName = explode("-", $fromZoneName)[0];
+    $fromZone = &GetZone($fromZoneName);
+    $destZone = &GetZone($destZoneName);
+    $fromTop = $fromZone[count($fromZone) - 1];
+    $destTop = $destZone[count($destZone) - 1];
+    $fromPower = CurrentCardPower($fromZone, $destZone, true);
+    $destPower = CurrentCardPower($fromZone, $destZone, false);
+    if($fromPower > $destPower) {
+        //Attacker wins
+        FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
+        if(count($destZone) == 2) { //Means there was only one defender
+            MoveStack($fromZoneName, $destZoneName);
+        }
+    } else if($fromPower < $destPower) {
+        //Defender wins
+        FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
+    } else {
+        //Both destroyed
+        echo($destZoneName . "-" . (count($destZone) - 1));
+        echo($fromZoneName . "-" . (count($fromZone) - 1));
+        FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
+        FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
+    }
+}
 
 function MoveStack($fromZone, $toZone) {
     $fromZoneName = explode("-", $fromZone)[0];
