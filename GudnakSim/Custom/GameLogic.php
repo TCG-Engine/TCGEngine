@@ -407,13 +407,19 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
     foreach($adjacentZones as $zoneName) {
         $totalPower += AdjacentZonePowerModifiers($fromTop, $destTop, $zoneName, $totalPower, $isAttacker);
     }
-    if($isAttacker) $globalEffects = GetZone("myGlobalEffects");
-    else $globalEffects = GetZone("theirGlobalEffects");
-    foreach($globalEffects as $index => $effectObj) {
-        if(isset($doesGlobalEffectApply[$effectObj->CardID]) && !$doesGlobalEffectApply[$effectObj->CardID]($thisCard)) {
-            continue;
+    $cardCurrentEffects = explode(",", CardCurrentEffects($thisCard));
+    //First effects that set power to specific value
+    foreach($cardCurrentEffects as $effectID) {
+        switch($effectID) {
+            case "GMBF3HVRKG"://The Everking
+                $totalPower = 1;
+                break;
+            default: break;
         }
-        switch($effectObj->CardID) {
+    }
+    //Now effects that modify power
+    foreach($cardCurrentEffects as $effectID) {
+        switch($effectID) {
             case "RYBTPDRL"://Precision Drills
                 if($totalPower < 3) $totalPower += 1;
                 break;
@@ -501,14 +507,22 @@ function CardHasAbility($obj) {
 }
 
 function CardCurrentEffects($obj) {
-    global $doesGlobalEffectApply, $playerID;
+    global $doesGlobalEffectApply, $effectAppliesToBoth,$playerID;
     //Start with this object's effects
     $effects = $obj->TurnEffects;
     //Now add global effects
-    $globalEffects = $obj->Controller == $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
-    foreach($globalEffects as $index => $effectObj) {
-        if(isset($doesGlobalEffectApply[$effectObj->CardID]) && $doesGlobalEffectApply[$effectObj->CardID]($obj)) {
-            array_push($effects, $effectObj->CardID);
+    if($obj->Controller != -1) {
+        $controllerEffects = $obj->Controller == $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
+        foreach($controllerEffects as $index => $effectObj) {
+            if(!isset($doesGlobalEffectApply[$effectObj->CardID]) || $doesGlobalEffectApply[$effectObj->CardID]($obj)) {
+                array_push($effects, $effectObj->CardID);
+            }
+        }
+        $otherEffects = $obj->Controller != $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
+        foreach($otherEffects as $index => $effectObj) {
+            if(isset($effectAppliesToBoth[$effectObj->CardID]) && (!isset($doesGlobalEffectApply[$effectObj->CardID]) || $doesGlobalEffectApply[$effectObj->CardID]($obj))) {
+                array_push($effects, $effectObj->CardID);
+            }
         }
     }
     return implode(",", $effects);
@@ -740,6 +754,8 @@ function ExpireEffects($isEndTurn=true) {
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $untilBeginTurnEffects["RYBTPDRL"] = true;
+$untilBeginTurnEffects["GMBF3HVRKG"] = true;
+$effectAppliesToBoth["GMBF3HVRKG"] = true;
 
 $doesGlobalEffectApply["RYBTPDRL"] = function($obj) { //Precision Drills
     $zone = GetZone($obj->Location);
