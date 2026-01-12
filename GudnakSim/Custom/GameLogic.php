@@ -434,6 +434,9 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
             case "RYBTPDRL"://Precision Drills
                 if($totalPower < 3) $totalPower += 1;
                 break;
+            case "SHBF1HELDR"://Elven Druid
+                $totalPower += 2;
+                break;
             default: break;
         }
     }
@@ -493,8 +496,9 @@ $customDQHandlers["Bounce"] = function($player, $param, $lastResult) {
 $customDQHandlers["CardPlayed"] = function($player, $param, $lastResult) {
     global $playCardAbilities;
     $cardID = $param[0];
-    if(isset($playCardAbilities[$cardID])) {
-        $playCardAbilities[$cardID]($player);
+    $handlerName = $cardID . ":0";
+    if(isset($playCardAbilities[$handlerName])) {
+        $playCardAbilities[$handlerName]($player);
     }
 };
 
@@ -823,6 +827,7 @@ $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $untilBeginTurnEffects["RYBTPDRL"] = true;
 $untilBeginTurnEffects["GMBF3HVRKG"] = true;
 $untilBeginTurnEffects["GMBTWHTT"] = true;
+$untilBeginTurnEffects["SHBF1HELDR"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 
