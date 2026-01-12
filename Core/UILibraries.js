@@ -614,11 +614,11 @@
             else {
               var widgetName = widget.Action.replace(/_/g, ' ');
               
-              // Special handling for Activate button with multiple abilities
+              // Special handling for Activate button - show ability names
               if (widget.Action === 'Activate' && cardData.CardID && typeof CardActivateAbilityCount === 'function') {
                 const abilityCount = CardActivateAbilityCount(cardData.CardID);
-                if (abilityCount > 1) {
-                  // Generate multiple buttons for each ability
+                if (abilityCount >= 1) {
+                  // Generate button(s) for each ability with their names
                   const abilityNames = typeof CardActivateAbilityCountNames === 'function' 
                     ? CardActivateAbilityCountNames(cardData.CardID) 
                     : [];
