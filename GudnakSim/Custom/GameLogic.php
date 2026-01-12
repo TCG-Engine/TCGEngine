@@ -259,7 +259,6 @@ function PassTurn() {
 
     ExpireEffects(isEndTurn:true);
     $turnPlayer = ($turnPlayer == 1) ? 2 : 1;
-    ExpireEffects(isEndTurn:false);
 
     $actions = &GetActions($turnPlayer);
     $actions = 2;
@@ -271,39 +270,49 @@ function PassTurn() {
     $bg1 = &GetZone("BG1");
     foreach($bg1 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
     }
     $bg2 = &GetZone("BG2");
     foreach($bg2 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
     }
     $bg3 = &GetZone("BG3");
     foreach($bg3 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
     }
     $bg4 = &GetZone("BG4");
     foreach($bg4 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
     }
     $bg5 = &GetZone("BG5");
     foreach($bg5 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
     }
     $bg6 = &GetZone("BG6");
     foreach($bg6 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
     }
     $bg7 = &GetZone("BG7");
     foreach($bg7 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
     }   
     $bg8 = &GetZone("BG8");
     foreach($bg8 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
     }
     $bg9 = &GetZone("BG9");
     foreach($bg9 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
     }
+    ExpireEffects(isEndTurn:false);
 }
 
 $customDQHandlers = [];
@@ -857,6 +866,17 @@ function GlobalEffectCount($player, $effectID) {
         }
     }
     return $count;
+}
+
+function ObjectHasEffect($obj, $targetEffect) {
+    $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
+    //First effects that set power to specific value
+    foreach($cardCurrentEffects as $effectID) {
+        if($effectID == $targetEffect) {
+            return true;
+        }
+    }
+    return false;
 }
 
 ?>
