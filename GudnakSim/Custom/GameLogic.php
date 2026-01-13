@@ -405,6 +405,7 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
         case "RYBF1DSKH": case "RYBF2DSKH": case "RYBF3DSKH": //Dusklight Hunter
         case "GMBF1SPCH": case "GMBF2SPCH": case "GMBF3SPCH": //Spectral Hunter
         case "SHBF1GBHT": case "SHBF2GBHT": case "SHBF3GBHT": //Goblin Hunter
+        case "DNBF1CHNT": case "DNBF2CHNT": case "DNBF3CHNT": //Echo Hunter
             if($isAttacker && TraitContains($destTop, "Brute")) {
                 $totalPower += 1;
             }
@@ -412,6 +413,7 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
         case "RYBF1DWNB": case "RYBF2DWNB": case "RYBF3DWNB": //Dawnbringer Brute
         case "GMBF1AMBT": case "GMBF2AMBT": case "GMBF3AMBT": //Amalgam Brute
         case "SHBF1OGRB": case "SHBF2OGRB": case "SHBF3OGRB": //Ogre Brute
+        case "DNBF1CSHB": case "DNBF2CSHB": case "DNBF3CSHB": //Crusher Brute
             if($isAttacker && TraitContains($destTop, "Soldier")) {
                 $totalPower += 1;
             }
@@ -419,6 +421,7 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
         case "RYBF1SLSD": case "RYBF2SLSD": case "RYBF3SLSD": //Solaran Soldier
         case "GMBF1SKLS": case "GMBF2SKLS": case "GMBF3SKLS": //Spectral Soldier
         case "SHBF1ORCS": case "SHBF2ORCS": case "SHBF3ORCS": //Orc Soldier
+        case "DNBF1DRKS": case "DNBF2DRKS": case "DNBF3DRKS": //Deeprock Soldier
             if($isAttacker && TraitContains($destTop, "Hunter")) {
                 $totalPower += 1;
             }
