@@ -115,7 +115,8 @@ function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack
         DoDefendAction($player, $cardZone);
         return;
     }
-    $adjacentZones = AdjacentZones($cardZone);
+    $includeDiagonals = PlayerHasCard($player, "SHBF3HELVV"); //Elven Valkyrie
+    $adjacentZones = AdjacentZones($cardZone, $includeDiagonals);
     $legalZones = [];
     foreach($adjacentZones as $zone) {
         $zoneArr = &GetZone($zone);
@@ -367,7 +368,7 @@ function ResolveAttack($fromZoneName, $destZoneName) {
         //Attacker wins
         FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
         if(count($destZone) == 2) { //Means there was only one defender
-            if($fromTop->CardID != "SHBF2HMSTH") MoveStack($fromZoneName, $destZoneName);
+            if($fromTop->CardID != "SHBF2HMSTH" && $fromTop->CardID != "SHBF3HELVV") MoveStack($fromZoneName, $destZoneName);
         }
     } else if($fromPower < $destPower) {
         //Defender wins
@@ -632,17 +633,17 @@ function SwapPosition($unit1, $unit2) {
     $zone2 = $temp;
 }
 
-function AdjacentZones($zone) {
+function AdjacentZones($zone, $includeDiagonals=false) {
     switch($zone) {
-        case "BG1": return ["BG2", "BG4"];
-        case "BG2": return ["BG1", "BG3", "BG5"];
-        case "BG3": return ["BG2", "BG6"];
-        case "BG4": return ["BG1", "BG5", "BG7"];
-        case "BG5": return ["BG2", "BG4", "BG6", "BG8"];
-        case "BG6": return ["BG3", "BG5", "BG9"];
-        case "BG7": return ["BG4", "BG8"];
-        case "BG8": return ["BG5", "BG7", "BG9"];
-        case "BG9": return ["BG6", "BG8"];
+        case "BG1": return $includeDiagonals ? ["BG2", "BG4", "BG5"] : ["BG2", "BG4"];
+        case "BG2": return $includeDiagonals ? ["BG1", "BG3", "BG4", "BG5", "BG6"] : ["BG1", "BG3", "BG5"];
+        case "BG3": return $includeDiagonals ? ["BG2", "BG6", "BG5"] : ["BG2", "BG6"];
+        case "BG4": return $includeDiagonals ? ["BG1", "BG2", "BG5", "BG7", "BG8"] : ["BG1", "BG5", "BG7"];
+        case "BG5": return $includeDiagonals ? ["BG2", "BG4", "BG6", "BG8", "BG1", "BG3", "BG7", "BG9"] : ["BG2", "BG4", "BG6", "BG8"];
+        case "BG6": return $includeDiagonals ? ["BG3", "BG5", "BG9", "BG5"] : ["BG3", "BG5", "BG9"];
+        case "BG7": return $includeDiagonals ? ["BG4", "BG8", "BG5"] : ["BG4", "BG8"];
+        case "BG8": return $includeDiagonals ? ["BG4", "BG5", "BG6", "BG7", "BG9"] : ["BG5", "BG7", "BG9"];
+        case "BG9": return $includeDiagonals ? ["BG6", "BG8", "BG5"] : ["BG6", "BG8"];
         default: return [];
     }
 }
@@ -813,7 +814,6 @@ function ExpireEffects($isEndTurn=true) {
                     array_push($newEffects, $effect);
                 }
             }
-            echo(count($obj->TurnEffects) . " -> " . count($newEffects) . " effects on " . $zoneName . "-" . $index . "\n");
             $obj->TurnEffects = $newEffects;
         }
     }
