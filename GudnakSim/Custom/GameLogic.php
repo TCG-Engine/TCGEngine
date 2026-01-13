@@ -714,7 +714,7 @@ function PlayerHasCard($player, $cardID) {
     return false;
 }
 
-function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null, $emptyOnly=false, $minFighters=null, $maxFighters=null, $excludeGates=null) {
+function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null, $emptyOnly=false, $minFighters=null, $maxFighters=null, $excludeGates=null, $hasTrait=null) {
     if($adjacentTo !== null) $adjacentTo = explode("-", $adjacentTo)[0];
     $results = [];
     $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
@@ -751,7 +751,8 @@ function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null,
             if(($controller === null || $obj->Controller == $controller) &&
                ($minBasePower === null || CardPower($obj->CardID) >= $minBasePower) &&
                ($maxBasePower === null || CardPower($obj->CardID) <= $maxBasePower) &&
-               ($adjacentTo === null || in_array($zoneName, AdjacentZones($adjacentTo)))) {
+               ($adjacentTo === null || in_array($zoneName, AdjacentZones($adjacentTo))) &&
+               ($hasTrait === null || TraitContains($obj, $hasTrait))) {
                 if($zoneOnly) {
                     if(!in_array($zoneName, $results)) {
                         array_push($results, $zoneName);
