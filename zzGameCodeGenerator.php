@@ -2158,41 +2158,51 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
 
 /**
  * Transform await syntax in ability code to DecisionQueue calls with variable storage
- * Pattern: $var = await $player.ChoiceType(params)
- * Becomes: AddDecision + continuation handler with variable storage
  * 
- * Supported choice types:
+ * Supported patterns:
+ *   Pattern 1: $var = await $player.ChoiceType(params)
+ *     Becomes: AddDecision + continuation handler with variable storage
+ *   
+ *   Pattern 2: await FunctionName($player, args)
+ *     Becomes: FunctionName call + continuation handler (for functions that queue decisions)
+ * 
+ * Supported choice types (Pattern 1):
  *   - MZChoose: Mandatory card choice from zones
  *   - MZMayChoose: Optional card choice (client shows Pass button)
  *   - YesNo: Yes/No choice
  *   - Rearrange: Rearrange cards with zones and starting cards (semicolon-delimited)
  *   - Custom types: Any name is converted to uppercase (e.g., CustomChoice -> CUSTOMCHOICE)
  * 
- * Example transformation:
+ * Example transformation (Pattern 1 - choice):
  *   INPUT:
  *     $unit1 = await $player.MZChoose("BG1&BG2");
  *     $unit2 = await $player.MZMayChoose("BG1&BG2");  // Optional choice
  *     if ($unit2 !== "PASS") SwapPosition($unit1, $unit2);
- *     $order = await $player.Rearrange("Battlefield=" . $cards);
  * 
  *   OUTPUT (main handler):
  *     DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2", 1);
  *     DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-1", 1);
  * 
- *   OUTPUT (first continuation handler):
- *     $customDQHandlers["CARDID-1"] = function($player, $parts, $lastDecision) {
- *       DecisionQueueController::StoreVariable("unit1", $lastDecision);
- *       DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", "BG1&BG2", 1);
- *       DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-2", 1);
- *     };
+ * Example transformation (Pattern 2 - void function):
+ *   INPUT:
+ *     $hunter = await $player.MZChoose($hunters);
+ *     await DoPlayFighter($player, $hunter);
+ *     echo("Fighter deployed!");
  * 
- *   OUTPUT (second continuation handler):
+ *   OUTPUT (main handler):
+ *     DecisionQueueController::AddDecision($player, "MZCHOOSE", $hunters, 1);
+ *     DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-1", 1);
+ * 
+ *   OUTPUT (continuation handler):
+ *     $customDQHandlers["CARDID-1"] = function($player, $parts, $lastDecision) {
+ *       DecisionQueueController::StoreVariable("hunter", $lastDecision);
+ *       $hunter = $lastDecision;
+ *       DoPlayFighter($player, $hunter);  // Calls function which queues decisions
+ *       DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-2", 1);  // Continue after
+ *     };
  *     $customDQHandlers["CARDID-2"] = function($player, $parts, $lastDecision) {
- *       $unit1 = DecisionQueueController::GetVariable("unit1");
- *       $unit2 = $lastDecision;  // Will be "PASS" if player passed
- *       if ($unit2 !== "PASS") SwapPosition($unit1, $unit2);
- *       DecisionQueueController::AddDecision($player, "MZREARRANGE", "Battlefield=" . $cards, 1);
- *       DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-3", 1);
+ *       $hunter = DecisionQueueController::GetVariable("hunter");
+ *       echo("Fighter deployed!");
  *     };
  */
 function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, $macroParams = []) {
@@ -2202,7 +2212,7 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, 
   // First pass: find all await statements
   for ($i = 0; $i < count($lines); $i++) {
     $line = $lines[$i];
-    // Updated regex to capture the full parameter including string concatenation
+    // Pattern 1: $var = await $player.ChoiceType(params) - method call on player variable
     if (preg_match('/(\$\w+)\s*=\s*await\s+(\$\w+)\.(\w+)\((.*)\)\s*;?\s*$/', $line, $matches)) {
       $rawParams = trim($matches[4]);
       $methodName = $matches[3];
@@ -2221,7 +2231,30 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, 
         'playerVar' => $matches[2],  // e.g., $player
         'choiceType' => strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : strtoupper($methodName), // e.g., MZCHOOSE or MZREARRANGE
         'params' => $params, // e.g., myHand or "Battlefield=" . $cards
-        'isRearrange' => strtolower($methodName) === 'rearrange'
+        'isRearrange' => strtolower($methodName) === 'rearrange',
+        'isVoidFunction' => false
+      ];
+    }
+    // Pattern 2: await FunctionName(args) - void function call that queues decisions
+    // Also matches: await FunctionName($player, $arg) etc.
+    else if (preg_match('/^\s*await\s+(\w+)\s*\((.+)\)\s*;?\s*$/', $line, $matches)) {
+      $functionName = $matches[1];
+      $functionArgs = trim($matches[2]);
+      
+      // Try to extract $player from the arguments (first argument is typically player)
+      // This handles cases like DoPlayFighter($player, $card)
+      $playerVar = '$player'; // Default
+      if (preg_match('/^\s*(\$\w+)/', $functionArgs, $playerMatch)) {
+        $playerVar = $playerMatch[1];
+      }
+      
+      $awaits[] = [
+        'lineIndex' => $i,
+        'returnVar' => null,  // No return variable for void await
+        'playerVar' => $playerVar,
+        'functionName' => $functionName,
+        'functionArgs' => $functionArgs,
+        'isVoidFunction' => true
       ];
     }
   }
@@ -2240,38 +2273,52 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, 
     $transformedCode .= $lines[$i] . "\n";
   }
   
-  // Add first decision
+  // Add first decision (or call function for void await)
   $firstAwait = $awaits[0];
-  // For Rearrange and other complex params, don't add extra quotes if they contain concatenation
-  if (isset($firstAwait['isRearrange']) && $firstAwait['isRearrange']) {
-    $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"" . $firstAwait['choiceType'] . "\", " . $firstAwait['params'] . ", 1);\n";
+  if (isset($firstAwait['isVoidFunction']) && $firstAwait['isVoidFunction']) {
+    // For void function await: call the function, then queue continuation
+    $transformedCode .= $firstAwait['functionName'] . "(" . $firstAwait['functionArgs'] . ");\n";
+    $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
   } else {
-    $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"" . $firstAwait['choiceType'] . "\", \"" . $firstAwait['params'] . "\", 1);\n";
+    // For Rearrange and other complex params, don't add extra quotes if they contain concatenation
+    if (isset($firstAwait['isRearrange']) && $firstAwait['isRearrange']) {
+      $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"" . $firstAwait['choiceType'] . "\", " . $firstAwait['params'] . ", 1);\n";
+    } else {
+      $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"" . $firstAwait['choiceType'] . "\", \"" . $firstAwait['params'] . "\", 1);\n";
+    }
+    $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
   }
-  $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
   
   // Generate continuation handlers for each await
   for ($awaitIndex = 0; $awaitIndex < count($awaits); $awaitIndex++) {
     $currentAwait = $awaits[$awaitIndex];
     $handlerName = $cardId . "-" . ($awaitIndex + 1);
-    $varName = substr($currentAwait['returnVar'], 1); // Remove $ prefix
     
     $handlerCode = "";
     
     // Retrieve macro parameters first (they persist across continuations)
     $handlerCode .= GenerateMacroParamRetrievalCodeIndented($macroParams);
     
-    // Store the current variable (from $lastDecision) for potential later use
-    $handlerCode .= "  DecisionQueueController::StoreVariable(\"" . $varName . "\", \$lastDecision);\n";
+    // For non-void awaits: store the current variable (from $lastDecision)
+    if (!isset($currentAwait['isVoidFunction']) || !$currentAwait['isVoidFunction']) {
+      $varName = substr($currentAwait['returnVar'], 1); // Remove $ prefix
+      $handlerCode .= "  DecisionQueueController::StoreVariable(\"" . $varName . "\", \$lastDecision);\n";
+    }
     
     // Retrieve all previously stored variables that might be referenced in the code block
     for ($j = 0; $j < $awaitIndex; $j++) {
-      $prevVarName = substr($awaits[$j]['returnVar'], 1);
-      $handlerCode .= "  " . $awaits[$j]['returnVar'] . " = DecisionQueueController::GetVariable(\"" . $prevVarName . "\");\n";
+      $prevAwait = $awaits[$j];
+      // Only retrieve variables from non-void awaits
+      if (!isset($prevAwait['isVoidFunction']) || !$prevAwait['isVoidFunction']) {
+        $prevVarName = substr($prevAwait['returnVar'], 1);
+        $handlerCode .= "  " . $prevAwait['returnVar'] . " = DecisionQueueController::GetVariable(\"" . $prevVarName . "\");\n";
+      }
     }
     
-    // Assign the current result from $lastDecision to the awaited variable
-    $handlerCode .= "  " . $currentAwait['returnVar'] . " = \$lastDecision;\n";
+    // For non-void awaits: assign the current result from $lastDecision to the awaited variable
+    if (!isset($currentAwait['isVoidFunction']) || !$currentAwait['isVoidFunction']) {
+      $handlerCode .= "  " . $currentAwait['returnVar'] . " = \$lastDecision;\n";
+    }
     
     // Get the code between this await and the next await (or end of code)
     $startLine = $currentAwait['lineIndex'] + 1;
@@ -2289,13 +2336,19 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, 
     // If there's another await after this one, queue it
     if ($awaitIndex + 1 < count($awaits)) {
       $nextAwait = $awaits[$awaitIndex + 1];
-      // For Rearrange and other complex params, don't add extra quotes if they contain concatenation
-      if (isset($nextAwait['isRearrange']) && $nextAwait['isRearrange']) {
-        $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", " . $nextAwait['params'] . ", 1);\n";
+      if (isset($nextAwait['isVoidFunction']) && $nextAwait['isVoidFunction']) {
+        // For void function await: call the function, then queue continuation
+        $handlerCode .= "  " . $nextAwait['functionName'] . "(" . $nextAwait['functionArgs'] . ");\n";
+        $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
       } else {
-        $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", \"" . $nextAwait['params'] . "\", 1);\n";
+        // For Rearrange and other complex params, don't add extra quotes if they contain concatenation
+        if (isset($nextAwait['isRearrange']) && $nextAwait['isRearrange']) {
+          $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", " . $nextAwait['params'] . ", 1);\n";
+        } else {
+          $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", \"" . $nextAwait['params'] . "\", 1);\n";
+        }
+        $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
       }
-      $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
     }
     
     // Store handler for generation
