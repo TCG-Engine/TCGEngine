@@ -76,6 +76,7 @@ function BattlefieldCostReductions($player, $zoneName, $cardPlayed) {
 }
 
 function CardPlayedEffects($player, $card, $cardPlayed) {
+    if($card === null) return;
     switch($card->CardID) {
         case "RYBF1HKNLM"://Kennel Master
             if($card->Controller == $player && $card->Status == 2 && CardCard_type($cardPlayed) == "Tactic") {
@@ -768,13 +769,15 @@ function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null,
     return $results;
 }
 
-function ZoneSearch($zoneName, $minBasePower=null, $maxBasePower=null) {
+function ZoneSearch($zoneName, $minBasePower=null, $maxBasePower=null, $hasTrait=null) {
     $results = [];
     $zoneArr = &GetZone($zoneName);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = $zoneArr[$i];
+        echo($obj->CardID . " " . ($hasTrait ? "yes" : "no") . " " . (TraitContains($obj, $hasTrait) ? "yes" : "no") . " \n");
         if(($minBasePower === null || CardPower($obj->CardID) >= $minBasePower) &&
-           ($maxBasePower === null || CardPower($obj->CardID) <= $maxBasePower)) {
+           ($maxBasePower === null || CardPower($obj->CardID) <= $maxBasePower) &&
+           ($hasTrait === null || TraitContains($obj, $hasTrait))) {
             array_push($results, $zoneName . "-" . $i);
         }
     }
