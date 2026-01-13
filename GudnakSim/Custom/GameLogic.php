@@ -271,47 +271,47 @@ function PassTurn() {
     $bg1 = &GetZone("BG1");
     foreach($bg1 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
-        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK") || ObjectHasEffect($obj, "SHBTSNAR")) $obj->Status = 1;
     }
     $bg2 = &GetZone("BG2");
     foreach($bg2 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
-        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK") || ObjectHasEffect($obj, "SHBTSNAR")) $obj->Status = 1;
     }
     $bg3 = &GetZone("BG3");
     foreach($bg3 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
-        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK") || ObjectHasEffect($obj, "SHBTSNAR")) $obj->Status = 1;
     }
     $bg4 = &GetZone("BG4");
     foreach($bg4 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
-        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK") || ObjectHasEffect($obj, "SHBTSNAR")) $obj->Status = 1;
     }
     $bg5 = &GetZone("BG5");
     foreach($bg5 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
-        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK") || ObjectHasEffect($obj, "SHBTSNAR")) $obj->Status = 1;
     }
     $bg6 = &GetZone("BG6");
     foreach($bg6 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
-        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK") || ObjectHasEffect($obj, "SHBTSNAR")) $obj->Status = 1;
     }
     $bg7 = &GetZone("BG7");
     foreach($bg7 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
-        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK") || ObjectHasEffect($obj, "SHBTSNAR")) $obj->Status = 1;
     }   
     $bg8 = &GetZone("BG8");
     foreach($bg8 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
-        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK") || ObjectHasEffect($obj, "SHBTSNAR")) $obj->Status = 1;
     }
     $bg9 = &GetZone("BG9");
     foreach($bg9 as $index => $obj) {
         if($obj->Controller == $turnPlayer) $obj->Status = 2;
-        if(ObjectHasEffect($obj, "SHBF2HGRCK")) $obj->Status = 1;
+        if(ObjectHasEffect($obj, "SHBF2HGRCK") || ObjectHasEffect($obj, "SHBTSNAR")) $obj->Status = 1;
     }
     ExpireEffects(isEndTurn:false);
 }
