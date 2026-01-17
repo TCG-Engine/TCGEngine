@@ -611,8 +611,6 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
         mysqli_stmt_close($stmt);
     }
     
-    $log[] = "  Processed $mergedCount rows";
-    return ['count' => $mergedCount, 'log' => $log]
     echo "  Processed $mergedCount rows\n";
     return $mergedCount;
 }
