@@ -668,8 +668,6 @@ function mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $op
         );
         mysqli_stmt_execute($updateStmt);
         mysqli_stmt_close($updateStmt);
-        $log[] = "    Merged into existing canonical row
-        mysqli_stmt_close($updateStmt);
         echo "    Merged into existing canonical row\n";
     }
 }
