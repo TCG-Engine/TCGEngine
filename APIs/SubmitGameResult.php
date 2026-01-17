@@ -242,6 +242,39 @@
 	// Finish the request; SaveDeckStats is defined below and may be used by other callers.
 	exit;
 
+// Normalize base IDs to their canonical versions to de-duplicate functional duplicates
+// All bases with CardHP=30 are mapped to a canonical base by aspect
+function NormalizeBaseID($baseID) {
+	if(CardHP($baseID) == 30) {
+		// Canonical base IDs by aspect
+		$canonicalBases = [
+			'Cunning' => '2376813177',
+			'Command' => '7790300585',
+			'Aggression' => '2696059415',
+			'Vigilance' => '9014930596'
+		];
+
+		// Map of known base IDs to their aspect (add more as needed)
+		// This should include all bases with CardHP=30
+		$baseToAspect = [
+			'2376813177' => 'Cunning',
+			'7790300585' => 'Command',
+			'2696059415' => 'Aggression',
+			'9014930596' => 'Vigilance',
+			// Add other functional duplicates here as they are identified
+		];
+
+		// If this base is in our mapping, return the canonical version
+		if (isset($baseToAspect[$baseID])) {
+			$aspect = $baseToAspect[$baseID];
+			return $canonicalBases[$aspect];
+		}
+	}
+
+	// Otherwise return the original base ID unchanged
+	return $baseID;
+}
+
   //Parameters:
   // won: true if this player won the game, false if they lost
   // wasFirstPlayer: true if this player was the first player in the game, false if they were the second player
@@ -253,7 +286,7 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 		$playerJSON = $playerData;
 	}
 	$leaderID = $playerJSON["leader"];
-	$baseID = $playerJSON["base"];
+	$baseID = NormalizeBaseID($playerJSON["base"]);
 	$source = $isDeckOwner ? 1 : 0;
 
 	$conn = GetLocalMySQLConnection();
@@ -471,7 +504,7 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 
 	   // deckmetamatchupstats update (moved here)
 	   $opponentLeaderID = isset($playerJSON["opposingHero"]) ? $playerJSON["opposingHero"] : "";
-	   $opponentBaseID = isset($playerJSON["opposingBaseColor"]) ? $playerJSON["opposingBaseColor"] : "";
+	   $opponentBaseID = isset($playerJSON["opposingBaseColor"]) ? NormalizeBaseID($playerJSON["opposingBaseColor"]) : "";
 	   if ($opponentLeaderID !== "" && $opponentBaseID !== "") {
 		   $sql = "SELECT COUNT(*) FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
 		   $stmt = mysqli_stmt_init($conn);
