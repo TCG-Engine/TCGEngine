@@ -4,6 +4,7 @@
   require_once "../Database/ConnectionManager.php";
   require_once "../APIKeys/APIKeys.php";
   require_once "../Core/StatsHelpers.php";
+  require_once "../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
 
   $input = file_get_contents('php://input');
   $data = json_decode($input, true);
@@ -243,9 +244,8 @@
 	exit;
 
 // Normalize base IDs to their canonical versions to de-duplicate functional duplicates
-// All bases with CardHP=30 are mapped to a canonical base by aspect
 function NormalizeBaseID($baseID) {
-	if(CardHP($baseID) == 30) {
+	if(CardHp($baseID) == 30) {
 		// Canonical base IDs by aspect
 		$canonicalBases = [
 			'Cunning' => '2376813177',
@@ -255,7 +255,6 @@ function NormalizeBaseID($baseID) {
 		];
 
 		// Map of known base IDs to their aspect (add more as needed)
-		// This should include all bases with CardHP=30
 		$baseToAspect = [
 			'2376813177' => 'Cunning',
 			'7790300585' => 'Command',
