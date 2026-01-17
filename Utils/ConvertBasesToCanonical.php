@@ -116,17 +116,29 @@ if ($isAjax || (isset($_POST['action']) && $_POST['action'] === 'process')) {
         foreach ($weeks as $week) {
             $output[] = "--- Processing Week $week ---";
             
+            // Count total rows in deckmetastats for this week
+            $countResult = mysqli_query($conn, "SELECT COUNT(*) as cnt FROM deckmetastats WHERE week = $week");
+            $countRow = mysqli_fetch_assoc($countResult);
+            $deckmetaStatsTotal = $countRow['cnt'];
+            
             // Process deckmetastats table
-            $output[] = "[deckmetastats]";
+            $output[] = "[deckmetastats] Total rows: $deckmetaStatsTotal";
             $result = processDeckMetaStats($conn, $week, $dryRun);
             $output = array_merge($output, $result['log']);
+            $output[] = "  Non-canonical rows processed: " . $result['count'];
             $deckMetaStatsTotal += $result['count'];
             $totalMerged += $result['count'];
             
+            // Count total rows in deckmetamatchupstats for this week
+            $countResult = mysqli_query($conn, "SELECT COUNT(*) as cnt FROM deckmetamatchupstats WHERE week = $week");
+            $countRow = mysqli_fetch_assoc($countResult);
+            $matchupStatsTotal = $countRow['cnt'];
+            
             // Process deckmetamatchupstats table
-            $output[] = "[deckmetamatchupstats]";
+            $output[] = "[deckmetamatchupstats] Total rows: $matchupStatsTotal";
             $result = processDeckMetaMatchupStats($conn, $week, $dryRun);
             $output = array_merge($output, $result['log']);
+            $output[] = "  Non-canonical rows processed: " . $result['count'];
             $matchupStatsTotal += $result['count'];
             $totalMerged += $result['count'];
         }
