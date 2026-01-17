@@ -434,12 +434,41 @@ function getNonCanonicalBases($conn) {
 }
 
 /**
+ * Get mapping of non-canonical bases to their canonical equivalents
+ */
+function getNonCanonicalBaseMapping($conn) {
+    global $canonicalBases;
+    $mapping = [];
+    
+    // Get all unique baseIDs from deckmetastats and deckmetamatchupstats
+    $sql = "SELECT DISTINCT baseID FROM deckmetastats 
+            UNION 
+            SELECT DISTINCT opponentBaseID as baseID FROM deckmetamatchupstats";
+    $result = mysqli_query($conn, $sql);
+    
+    while ($row = mysqli_fetch_assoc($result)) {
+        $baseID = $row['baseID'];
+        $hp = CardHp($baseID);
+        $aspect = CardAspect($baseID);
+        
+        // Only consider HP 30 bases with a valid aspect
+        if ($hp == 30 && $aspect && !in_array($baseID, $canonicalBases)) {
+            $mapping[$baseID] = $aspect;
+        }
+    }
+    
+    return $mapping;
+}
+
+/**
  * Process deckmetastats table for a given week
  */
 function processDeckMetaStats($conn, $week, $dryRun) {
-    global $canonicalBases, $nonCanonicalBases;
+    global $canonicalBases;
+    $nonCanonicalBases = getNonCanonicalBaseMapping($conn);
     
     $mergedCount = 0;
+    $log = [];
     
     foreach ($nonCanonicalBases as $nonCanonicalBaseID => $aspect) {
         $canonicalBaseID = $canonicalBases[$aspect];
@@ -448,7 +477,7 @@ function processDeckMetaStats($conn, $week, $dryRun) {
         $sql = "SELECT * FROM deckmetastats WHERE baseID = ? AND week = ?";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            echo "  Error preparing statement: " . mysqli_error($conn) . "\n";
+            $log[] = "  Error preparing statement: " . mysqli_error($conn);
             continue;
         }
         mysqli_stmt_bind_param($stmt, "si", $nonCanonicalBaseID, $week);
@@ -551,7 +580,7 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
         $sql = "SELECT * FROM deckmetamatchupstats WHERE baseID = ? AND week = ?";
         $stmt = mysqli_stmt_init($conn);
         if (!mysqli_stmt_prepare($stmt, $sql)) {
-            echo "  Error preparing statement: " . mysqli_error($conn) . "\n";
+            $log[] = "  Error preparing statement: " . mysqli_error($conn);
             continue;
         }
         mysqli_stmt_bind_param($stmt, "si", $nonCanonicalBaseID, $week);
@@ -614,14 +643,14 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
         mysqli_stmt_close($stmt);
     }
     
-    echo "  Processed $mergedCount rows\n";
-    return $mergedCount;
+    $log[] = "  Processed $mergedCount rows";
+    return ['count' => $mergedCount, 'log' => $log];
 }
 
 /**
- * Merge a matchup row into the canonical row (create if needed), &$log
+ * Merge a matchup row into the canonical row (create if needed)
  */
-function mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week) {
+function mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week, &$log) {
     // Check if canonical row exists
     $checkSql = "SELECT COUNT(*) FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
     $checkStmt = mysqli_stmt_init($conn);
@@ -645,6 +674,8 @@ function mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $op
             $row['cardsResourcedInWins'], $row['totalCardsResourced'],
             $row['remainingHealthInWins'], $row['winsGoingFirst'], $row['winsGoingSecond']
         );
+        mysqli_stmt_execute($insertStmt);
+        mysqli_stmt_close($insertStmt);
         $log[] = "    Created new canonical row";
     } else {
         // Update existing canonical row
@@ -671,7 +702,7 @@ function mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $op
         );
         mysqli_stmt_execute($updateStmt);
         mysqli_stmt_close($updateStmt);
-        echo "    Merged into existing canonical row\n";
+        $log[] = "    Merged into existing canonical row";
     }
 }
 
