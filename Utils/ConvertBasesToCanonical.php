@@ -110,6 +110,8 @@ if ($isAjax || (isset($_POST['action']) && $_POST['action'] === 'process')) {
         
         $output = [];
         $totalMerged = 0;
+        $deckMetaStatsTotal = 0;
+        $matchupStatsTotal = 0;
         
         foreach ($weeks as $week) {
             $output[] = "--- Processing Week $week ---";
@@ -118,17 +120,21 @@ if ($isAjax || (isset($_POST['action']) && $_POST['action'] === 'process')) {
             $output[] = "[deckmetastats]";
             $result = processDeckMetaStats($conn, $week, $dryRun);
             $output = array_merge($output, $result['log']);
+            $deckMetaStatsTotal += $result['count'];
             $totalMerged += $result['count'];
             
             // Process deckmetamatchupstats table
             $output[] = "[deckmetamatchupstats]";
             $result = processDeckMetaMatchupStats($conn, $week, $dryRun);
             $output = array_merge($output, $result['log']);
+            $matchupStatsTotal += $result['count'];
             $totalMerged += $result['count'];
         }
         
         $output[] = "=== Summary ===";
-        $output[] = "Total rows merged/deleted: $totalMerged";
+        $output[] = "deckmetastats rows: $deckMetaStatsTotal";
+        $output[] = "deckmetamatchupstats rows: $matchupStatsTotal";
+        $output[] = "Total rows to be merged/deleted: $totalMerged";
         if ($dryRun) {
             $output[] = "*** This was a dry run - no actual changes were made ***";
         }
