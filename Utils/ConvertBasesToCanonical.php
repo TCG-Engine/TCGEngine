@@ -429,6 +429,7 @@ function getNonCanonicalBases($conn) {
     }
     
     return $nonCanonicalBases;
+}
 
 /**
  * Process deckmetastats table for a given week
