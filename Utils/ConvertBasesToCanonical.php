@@ -572,6 +572,7 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
     
     $mergedCount = 0;
     $log = [];
+    $processedRows = []; // Track processed rows to avoid double-counting
     
     foreach ($nonCanonicalBases as $nonCanonicalBaseID => $aspect) {
         $canonicalBaseID = $canonicalBases[$aspect];
@@ -590,7 +591,11 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
         while ($row = mysqli_fetch_assoc($result)) {
             $leaderID = $row['leaderID'];
             $opponentLeaderID = $row['opponentLeaderID'];
+            $opponentBaseID = $row['opponentBaseID'];
             $log[] = "  Found baseID: leaderID=$leaderID, baseID=$nonCanonicalBaseID -> $canonicalBaseID, vs $opponentLeaderID/$opponentBaseID";
+            
+            // Create unique row key to avoid double-counting
+            $rowKey = "$leaderID|$nonCanonicalBaseID|$opponentLeaderID|$opponentBaseID|$week";
             
             if (!$dryRun) {
                 mergeMatchupRow($conn, $row, $leaderID, $canonicalBaseID, $opponentLeaderID, $opponentBaseID, $week, $log);
@@ -604,7 +609,10 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
                 mysqli_stmt_close($deleteStmt);
             }
             
-            $mergedCount++;
+            if (!isset($processedRows[$rowKey])) {
+                $processedRows[$rowKey] = true;
+                $mergedCount++;
+            }
         }
         mysqli_stmt_close($stmt);
         
@@ -626,6 +634,9 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
             
             $log[] = "  Found opponentBaseID: leaderID=$leaderID/$baseID vs opponentBaseID=$nonCanonicalBaseID -> $canonicalBaseID";
             
+            // Create unique row key to avoid double-counting
+            $rowKey = "$leaderID|$baseID|$opponentLeaderID|$nonCanonicalBaseID|$week";
+            
             if (!$dryRun) {
                 mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $canonicalBaseID, $week, $log);
                 
@@ -638,7 +649,10 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
                 mysqli_stmt_close($deleteStmt);
             }
             
-            $mergedCount++;
+            if (!isset($processedRows[$rowKey])) {
+                $processedRows[$rowKey] = true;
+                $mergedCount++;
+            }
         }
         mysqli_stmt_close($stmt);
     }
