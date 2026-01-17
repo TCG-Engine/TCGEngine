@@ -96,7 +96,9 @@ if ($isAjax || (isset($_POST['action']) && $_POST['action'] === 'process')) {
             exit();
         }
         
-// Get list of weeks to process
+        $conn = GetLocalMySQLConnection();
+        
+        // Get list of weeks to process
         if ($weeks === 'all') {
             $sql = "SELECT DISTINCT week FROM deckmetastats ORDER BY week";
             $result = mysqli_query($conn, $sql);
