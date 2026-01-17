@@ -570,7 +570,7 @@ function processDeckMetaStats($conn, $week, $dryRun) {
 
 /**
  * Process deckmetamatchupstats table for a given week
- * Handles both baseID and opponentBaseID columns
+ * Single pass: check BOTH baseID and opponentBaseID for each row
  */
 function processDeckMetaMatchupStats($conn, $week, $dryRun) {
     global $canonicalBases;
@@ -578,107 +578,74 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
     
     $mergedCount = 0;
     $log = [];
-    $processedRows = []; // Track processed rows to avoid double-counting
     
-    foreach ($nonCanonicalBases as $nonCanonicalBaseID => $aspect) {
-        $canonicalBaseID = $canonicalBases[$aspect];
+    // Get ALL rows for this week - we'll check each one
+    $sql = "SELECT * FROM deckmetamatchupstats WHERE week = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)) {
+        $log[] = "  Error preparing statement: " . mysqli_error($conn);
+        return ['count' => 0, 'log' => $log];
+    }
+    mysqli_stmt_bind_param($stmt, "i", $week);
+    mysqli_stmt_execute($stmt);
+    $result = mysqli_stmt_get_result($stmt);
+    
+    // Collect all rows first (so we don't modify while iterating)
+    $rowsToProcess = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $baseID = $row['baseID'];
+        $opponentBaseID = $row['opponentBaseID'];
         
-        // Process rows where baseID is non-canonical
-        $sql = "SELECT * FROM deckmetamatchupstats WHERE baseID = ? AND week = ?";
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            $log[] = "  Error preparing statement: " . mysqli_error($conn);
-            continue;
-        }
-        mysqli_stmt_bind_param($stmt, "si", $nonCanonicalBaseID, $week);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
+        // Check if either base needs normalization
+        $baseNeedsNormalization = isset($nonCanonicalBases[$baseID]);
+        $opponentNeedsNormalization = isset($nonCanonicalBases[$opponentBaseID]);
         
-        while ($row = mysqli_fetch_assoc($result)) {
-            $leaderID = $row['leaderID'];
-            $opponentLeaderID = $row['opponentLeaderID'];
-            $opponentBaseID = $row['opponentBaseID'];
-            
-            // Normalize opponent base too if it's non-canonical
-            $normalizedOpponentBaseID = $opponentBaseID;
-            if (isset($nonCanonicalBases[$opponentBaseID])) {
-                $opponentAspect = $nonCanonicalBases[$opponentBaseID];
-                $normalizedOpponentBaseID = $canonicalBases[$opponentAspect];
-            }
-            
-            $log[] = "  Found baseID: leaderID=$leaderID, baseID=$nonCanonicalBaseID -> $canonicalBaseID, vs $opponentLeaderID/$opponentBaseID" . 
-                     ($normalizedOpponentBaseID !== $opponentBaseID ? " -> $normalizedOpponentBaseID" : "");
-            
-            // Create unique row key to avoid double-counting
-            $rowKey = "$leaderID|$nonCanonicalBaseID|$opponentLeaderID|$opponentBaseID|$week";
-            
-            if (!$dryRun) {
-                mergeMatchupRow($conn, $row, $leaderID, $canonicalBaseID, $opponentLeaderID, $normalizedOpponentBaseID, $week, $log);
-                
-                // Delete the non-canonical row
-                $deleteSql = "DELETE FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
-                $deleteStmt = mysqli_stmt_init($conn);
-                mysqli_stmt_prepare($deleteStmt, $deleteSql);
-                mysqli_stmt_bind_param($deleteStmt, "ssssi", $leaderID, $nonCanonicalBaseID, $opponentLeaderID, $opponentBaseID, $week);
-                mysqli_stmt_execute($deleteStmt);
-                mysqli_stmt_close($deleteStmt);
-            }
-            
-            if (!isset($processedRows[$rowKey])) {
-                $processedRows[$rowKey] = true;
-                $mergedCount++;
-            }
+        if ($baseNeedsNormalization || $opponentNeedsNormalization) {
+            $rowsToProcess[] = $row;
         }
-        mysqli_stmt_close($stmt);
+    }
+    mysqli_stmt_close($stmt);
+    
+    // Now process each row that needs normalization
+    foreach ($rowsToProcess as $row) {
+        $leaderID = $row['leaderID'];
+        $baseID = $row['baseID'];
+        $opponentLeaderID = $row['opponentLeaderID'];
+        $opponentBaseID = $row['opponentBaseID'];
         
-        // Process rows where opponentBaseID is non-canonical
-        $sql = "SELECT * FROM deckmetamatchupstats WHERE opponentBaseID = ? AND week = ?";
-        $stmt = mysqli_stmt_init($conn);
-        if (!mysqli_stmt_prepare($stmt, $sql)) {
-            $log[] = "  Error preparing statement: " . mysqli_error($conn);
-            continue;
+        // Determine canonical base IDs
+        $canonicalBaseID = $baseID;
+        if (isset($nonCanonicalBases[$baseID])) {
+            $aspect = $nonCanonicalBases[$baseID];
+            $canonicalBaseID = $canonicalBases[$aspect];
         }
-        mysqli_stmt_bind_param($stmt, "si", $nonCanonicalBaseID, $week);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
         
-        while ($row = mysqli_fetch_assoc($result)) {
-            $leaderID = $row['leaderID'];
-            $baseID = $row['baseID'];
-            $opponentLeaderID = $row['opponentLeaderID'];
-            
-            // Normalize base too if it's non-canonical
-            $normalizedBaseID = $baseID;
-            if (isset($nonCanonicalBases[$baseID])) {
-                $baseAspect = $nonCanonicalBases[$baseID];
-                $normalizedBaseID = $canonicalBases[$baseAspect];
-            }
-            
-            $log[] = "  Found opponentBaseID: leaderID=$leaderID/" . 
-                     ($normalizedBaseID !== $baseID ? "$baseID -> $normalizedBaseID" : $baseID) . 
-                     " vs opponentBaseID=$nonCanonicalBaseID -> $canonicalBaseID";
-            
-            // Create unique row key to avoid double-counting
-            $rowKey = "$leaderID|$baseID|$opponentLeaderID|$nonCanonicalBaseID|$week";
-            
-            if (!$dryRun) {
-                mergeMatchupRow($conn, $row, $leaderID, $normalizedBaseID, $opponentLeaderID, $canonicalBaseID, $week, $log);
-                
-                // Delete the non-canonical row
-                $deleteSql = "DELETE FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
-                $deleteStmt = mysqli_stmt_init($conn);
-                mysqli_stmt_prepare($deleteStmt, $deleteSql);
-                mysqli_stmt_bind_param($deleteStmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $nonCanonicalBaseID, $week);
-                mysqli_stmt_execute($deleteStmt);
-                mysqli_stmt_close($deleteStmt);
-            }
-            
-            if (!isset($processedRows[$rowKey])) {
-                $processedRows[$rowKey] = true;
-                $mergedCount++;
-            }
+        $canonicalOpponentBaseID = $opponentBaseID;
+        if (isset($nonCanonicalBases[$opponentBaseID])) {
+            $aspect = $nonCanonicalBases[$opponentBaseID];
+            $canonicalOpponentBaseID = $canonicalBases[$aspect];
         }
-        mysqli_stmt_close($stmt);
+        
+        // Build descriptive log message
+        $baseChange = ($canonicalBaseID !== $baseID) ? "$baseID -> $canonicalBaseID" : $baseID;
+        $oppBaseChange = ($canonicalOpponentBaseID !== $opponentBaseID) ? "$opponentBaseID -> $canonicalOpponentBaseID" : $opponentBaseID;
+        $log[] = "  Found: $leaderID/$baseChange vs $opponentLeaderID/$oppBaseChange";
+        
+        if (!$dryRun) {
+            // Merge into canonical row
+            mergeMatchupRow($conn, $row, $leaderID, $canonicalBaseID, $opponentLeaderID, $canonicalOpponentBaseID, $week, $log);
+            
+            // Delete the original non-canonical row
+            $deleteSql = "DELETE FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
+            $deleteStmt = mysqli_stmt_init($conn);
+            mysqli_stmt_prepare($deleteStmt, $deleteSql);
+            mysqli_stmt_bind_param($deleteStmt, "ssssi", $leaderID, $baseID, $opponentLeaderID, $opponentBaseID, $week);
+            mysqli_stmt_execute($deleteStmt);
+            mysqli_stmt_close($deleteStmt);
+            $log[] = "    Deleted original row";
+        }
+        
+        $mergedCount++;
     }
     
     $log[] = "  Processed $mergedCount rows";
