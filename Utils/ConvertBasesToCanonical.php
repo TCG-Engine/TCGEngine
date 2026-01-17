@@ -598,13 +598,22 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
             $leaderID = $row['leaderID'];
             $opponentLeaderID = $row['opponentLeaderID'];
             $opponentBaseID = $row['opponentBaseID'];
-            $log[] = "  Found baseID: leaderID=$leaderID, baseID=$nonCanonicalBaseID -> $canonicalBaseID, vs $opponentLeaderID/$opponentBaseID";
+            
+            // Normalize opponent base too if it's non-canonical
+            $normalizedOpponentBaseID = $opponentBaseID;
+            if (isset($nonCanonicalBases[$opponentBaseID])) {
+                $opponentAspect = $nonCanonicalBases[$opponentBaseID];
+                $normalizedOpponentBaseID = $canonicalBases[$opponentAspect];
+            }
+            
+            $log[] = "  Found baseID: leaderID=$leaderID, baseID=$nonCanonicalBaseID -> $canonicalBaseID, vs $opponentLeaderID/$opponentBaseID" . 
+                     ($normalizedOpponentBaseID !== $opponentBaseID ? " -> $normalizedOpponentBaseID" : "");
             
             // Create unique row key to avoid double-counting
             $rowKey = "$leaderID|$nonCanonicalBaseID|$opponentLeaderID|$opponentBaseID|$week";
             
             if (!$dryRun) {
-                mergeMatchupRow($conn, $row, $leaderID, $canonicalBaseID, $opponentLeaderID, $opponentBaseID, $week, $log);
+                mergeMatchupRow($conn, $row, $leaderID, $canonicalBaseID, $opponentLeaderID, $normalizedOpponentBaseID, $week, $log);
                 
                 // Delete the non-canonical row
                 $deleteSql = "DELETE FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
@@ -638,13 +647,22 @@ function processDeckMetaMatchupStats($conn, $week, $dryRun) {
             $baseID = $row['baseID'];
             $opponentLeaderID = $row['opponentLeaderID'];
             
-            $log[] = "  Found opponentBaseID: leaderID=$leaderID/$baseID vs opponentBaseID=$nonCanonicalBaseID -> $canonicalBaseID";
+            // Normalize base too if it's non-canonical
+            $normalizedBaseID = $baseID;
+            if (isset($nonCanonicalBases[$baseID])) {
+                $baseAspect = $nonCanonicalBases[$baseID];
+                $normalizedBaseID = $canonicalBases[$baseAspect];
+            }
+            
+            $log[] = "  Found opponentBaseID: leaderID=$leaderID/" . 
+                     ($normalizedBaseID !== $baseID ? "$baseID -> $normalizedBaseID" : $baseID) . 
+                     " vs opponentBaseID=$nonCanonicalBaseID -> $canonicalBaseID";
             
             // Create unique row key to avoid double-counting
             $rowKey = "$leaderID|$baseID|$opponentLeaderID|$nonCanonicalBaseID|$week";
             
             if (!$dryRun) {
-                mergeMatchupRow($conn, $row, $leaderID, $baseID, $opponentLeaderID, $canonicalBaseID, $week, $log);
+                mergeMatchupRow($conn, $row, $leaderID, $normalizedBaseID, $opponentLeaderID, $canonicalBaseID, $week, $log);
                 
                 // Delete the non-canonical row
                 $deleteSql = "DELETE FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
