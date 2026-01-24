@@ -100,7 +100,7 @@ while($hasMoreData) {
       $card = $card->attributes;
       $cardID = $card->cardUid;
       $setCode = $card->expansion->data->attributes->code ?? "Unknown";
-      $validSets = ["SOR", "SHD", "TWI", "JTL", "LOF", "IBH", "SEC"];
+      $validSets = ["SOR", "SHD", "TWI", "JTL", "LOF", "IBH", "SEC", "LAW"];
       if(!in_array($setCode, $validSets)) {
         continue;
       }
