@@ -1,5 +1,7 @@
 <?php
 
+include_once __DIR__ . '/CardLogic.php';
+
 $debugMode = true;
 
 //TODO: Add this to a schema
@@ -112,10 +114,14 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
 
 function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true, $shouldExhaust = true, $ignoreActionCost = false) {
     $cardZone = explode("-", $cardZone)[0];
-    $topCard = GetTopCard($cardZone);
-    if($topCard->Controller != $player) {
+    $selectedCard = GetTopCard($cardZone);
+    if($selectedCard->Controller != $player) {
+        //TODO: Should only apply to Gates
         DoDefendAction($player, $cardZone);
         return;
+    }
+    if($selectedCard->CardID == "DNBF3HNLKS") { //Nihl'othrakis
+        $includeMove = false;
     }
     $includeDiagonals = PlayerHasCard($player, "SHBF3HELVV"); //Elven Valkyrie
     $adjacentZones = AdjacentZones($cardZone, $includeDiagonals);
@@ -133,6 +139,18 @@ function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack
                 array_push($legalZones, $zone);
             }
         }
+    }
+    
+    // Check for card-specific attack targets
+    $cardSpecificTargets = GetCardSpecificAttackTargets($player, $cardZone, $selectedCard->CardID, $includeAttack, $includeDiagonals);
+    foreach($cardSpecificTargets as $zone) {
+        if(!in_array($zone, $legalZones)) {
+            array_push($legalZones, $zone);
+        }
+    }
+    if(count($legalZones) == 0) {
+        SetFlashMessage("No legal actions available for this fighter.");
+        return;
     }
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $legalZones), 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "FighterAction|" . $cardZone . "|" . ($shouldExhaust ? "1" : "0") . "|" . ($ignoreActionCost ? "1" : "0"), 1);
