@@ -40,6 +40,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
             break;
         case "Tactic":
             $newObj = MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
             $customDQHandlers["CardPlayed"]($player, [$sourceObject->CardID], null);
             $actionCost = CardCost($sourceObject->CardID);
             foreach($zones as $zoneName) {
@@ -723,7 +724,6 @@ function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null,
     $results = [];
     $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
     $gatesZone = $excludeGates != null ? GetGates($excludeGates) : null; // Get gates zone to exclude if needed
-    
     foreach($zones as $zoneName) {
         // Skip gates zone if excludeGates is true
         if($excludeGates && $zoneName == $gatesZone) {

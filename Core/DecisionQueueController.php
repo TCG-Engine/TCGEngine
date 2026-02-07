@@ -193,4 +193,27 @@ class DecisionQueueController {
     public static function ClearVariables() {
         SetDecisionQueueVariables('{}');
     }
+    
+    public static function CleanupRemovedCards() {
+        $allZones = GetAllZones();
+        foreach ($allZones as $zoneName) {
+            $zone = &GetZone($zoneName);
+            if (!is_array($zone)) continue;
+            
+            // Physically remove cards marked as removed (reverse iteration to safely splice)
+            for ($i = count($zone) - 1; $i >= 0; $i--) {
+                if (isset($zone[$i]) && method_exists($zone[$i], 'Removed') && $zone[$i]->Removed()) {
+                    array_splice($zone, $i, 1);
+                }
+            }
+            
+            // Rebuild mzIndex values and indexed properties for remaining cards
+            for ($i = 0; $i < count($zone); $i++) {
+                if (isset($zone[$i])) {
+                    $zone[$i]->mzIndex = $i;
+                    $zone[$i]->BuildIndex();
+                }
+            }
+        }
+    }
 }

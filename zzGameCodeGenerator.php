@@ -648,6 +648,25 @@ $mzGetZone .= "}\r\n\r\n";
 fwrite($handler, $mzGetObject);
 fwrite($handler, $mzGetZone);
 
+// Generate GetAllZones helper for CleanupRemovedCards
+fwrite($handler, "// Get all zone names for iteration (used by CleanupRemovedCards)\r\n");
+fwrite($handler, "function GetAllZones() {\r\n");
+fwrite($handler, "  return [\r\n");
+for($i=0; $i<count($zones); ++$i) {
+  $zone = $zones[$i];
+  $zoneName = $zone->Name;
+  $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+  // Skip Value display mode zones (they're not arrays)
+  if ($zone->DisplayMode == 'Value') continue;
+  if (strtolower($scope) == 'global') {
+    fwrite($handler, "    \"" . $zoneName . "\",\r\n");
+  } else {
+    fwrite($handler, "    \"my" . $zoneName . "\", \"their" . $zoneName . "\",\r\n");
+  }
+}
+fwrite($handler, "  ];\r\n");
+fwrite($handler, "}\r\n\r\n");
+
 fwrite($handler, "function MZMove(\$player, \$mzIndex, \$toZone) {\r\n");
 fwrite($handler, "  \$removed = GetZoneObject(\$mzIndex);\r\n");
 fwrite($handler, "  \$removed->Remove();\r\n");
@@ -1069,6 +1088,14 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "    if(isset(\$objectDataIndices[\$mzID])) {\r\n");
     fwrite($handler, "      unset(\$objectDataIndices[\$mzID]);\r\n");
     fwrite($handler, "    }\r\n");
+    fwrite($handler, "  }\r\n");
+  } else {
+    // If no indexed properties, just add empty BuildIndex and ClearIndex methods for consistency
+    fwrite($handler, "  function BuildIndex() {\r\n");
+    fwrite($handler, "    // No indexed properties\r\n");
+    fwrite($handler, "  }\r\n");
+    fwrite($handler, "  function ClearIndex() {\r\n");
+    fwrite($handler, "    // No indexed properties\r\n");
     fwrite($handler, "  }\r\n");
   }
   
