@@ -452,6 +452,9 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
             case "SHBF1HELDR"://Elven Druid
                 $totalPower += 2;
                 break;
+            case "DNBTSCTN"://Secret Tunnel
+                $totalPower += 1;
+                break;
             default: break;
         }
     }
@@ -844,6 +847,7 @@ $untilBeginTurnEffects["RYBTPDRL"] = true;
 $untilBeginTurnEffects["GMBF3HVRKG"] = true;
 $untilBeginTurnEffects["GMBTWHTT"] = true;
 $untilBeginTurnEffects["SHBF1HELDR"] = true;
+$untilBeginTurnEffects["DNBTSCTN"] = true;//Secret Tunnel
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 
