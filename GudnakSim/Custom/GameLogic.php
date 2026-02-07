@@ -124,7 +124,7 @@ function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack
         $includeMove = false;
     }
     $includeDiagonals = PlayerHasCard($player, "SHBF3HELVV"); //Elven Valkyrie
-    $adjacentZones = AdjacentZones($cardZone, $includeDiagonals);
+    $adjacentZones = GetCardSpecificAdjacentZones($cardZone, $selectedCard->CardID, $includeDiagonals);
     $legalZones = [];
     foreach($adjacentZones as $zone) {
         $zoneArr = &GetZone($zone);
@@ -266,6 +266,12 @@ function GetGates($player) {
         return "BG2";
     } else {
         return "BG8";
+    }
+}
+
+function GetBackRow($player=null) {
+    if($player === null) {
+        return ["BG1", "BG2", "BG3", "BG7", "BG8", "BG9"];
     }
 }
 

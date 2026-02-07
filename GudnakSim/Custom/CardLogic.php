@@ -6,6 +6,39 @@
  */
 
 /**
+ * Get extended adjacent zones based on card-specific adjacency rules
+ * Some cards can treat non-adjacent zones as adjacent
+ */
+function GetCardSpecificAdjacentZones($cardZone, $cardID, $includeDiagonals) {
+    // Start with standard adjacent zones
+    $zones = AdjacentZones($cardZone, $includeDiagonals);
+    
+    switch($cardID) {
+        case "DNBF2HDRDV": // Deeprock Delver - treats other non-Gate back row squares as adjacent
+            $cardZoneName = explode("-", $cardZone)[0];
+            $backRowZones = GetBackRow();
+            $gatesZone1 = GetGates(1);
+            $gatesZone2 = GetGates(2);
+            $nonGateBackRowZones = array_filter($backRowZones, function($zone) use ($gatesZone1, $gatesZone2) {
+                return $zone !== $gatesZone1 && $zone !== $gatesZone2;
+            });
+            
+            if(in_array($cardZoneName, $nonGateBackRowZones)) {
+                foreach($nonGateBackRowZones as $zone) {
+                    if($zone !== $cardZoneName && !in_array($zone, $zones)) {
+                        array_push($zones, $zone);
+                    }
+                }
+            }
+            break;
+        default:
+            break;
+    }
+    
+    return $zones;
+}
+
+/**
  * Get additional attack targets based on card-specific abilities
  * Returns an array of zone names that can be attacked due to card effects
  */
