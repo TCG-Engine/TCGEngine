@@ -7,7 +7,7 @@ ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 AssetReflection: GudnakSim
-Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myGraveyard,myDeck,myDecisionQueue,myActions,myGlobalEffects,theirHand,theirGraveyard,theirDeck,theirDecisionQueue,theirActions,theirGlobalEffects,BG1,BG2,BG3,BG4,BG5,BG6,BG7,BG8,BG9,DecisionQueueVariables
+Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myActions,myGlobalEffects,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirActions,theirGlobalEffects,BG1,BG2,BG3,BG4,BG5,BG6,BG7,BG8,BG9,DecisionQueueVariables
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=FighterDestroyed(mzID); ChoiceFunction=DoFighterDestroyed; Action={}
@@ -24,6 +24,10 @@ Display: Visibility=None, Mode=None
 Hand - CardID:string
 Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
 Click: FSM()
+Virtual: SelectionMetadata=SelectionMetadata()
+Highlight: SelectionMetadata
+TempZone - CardID:string
+Display: Visibility=Public, Mode=Single, Bottom=10px, Left=10px
 Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
 Actions - Value:number=0

@@ -508,18 +508,18 @@ function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $currentPower,
 
 
 function DoDrawCard($player, $amount=1) {
-    $zone = &GetDeck($player);
-    $hand = &GetHand($player);
-    for($i=0; $i<$amount; ++$i) {
-      if(count($zone) == 0) {
-        return;
-      }
-      if(PlayerHasCard($player, "DNBF1HSTNS")) { //Stoneseeker
-      
-      } else {
-        $card = array_shift($zone);
-        array_push($hand, $card);
-      }
+    if(PlayerHasCard($player, "DNBF1HSTNS")) { //Stoneseeker
+        DoStoneSeekerDraw($player, $amount);
+    } else {
+        $zone = &GetDeck($player);
+        $hand = &GetHand($player);
+        for($i=0; $i<$amount; ++$i) {
+            if(count($zone) == 0) {
+                return;
+            }
+            $card = array_shift($zone);
+            array_push($hand, $card);
+        }
     }
 }
 
@@ -580,6 +580,19 @@ $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     $abilityKey = $cardID . ":" . $abilityIndex;
     if(isset($activateAbilityAbilities[$abilityKey])) {
         $activateAbilityAbilities[$abilityKey]($player);
+    }
+};
+
+$customDQHandlers["StoneSeekerDrawChoice"] = function($player, $param, $lastResult) {
+    $zone = &GetDeck($player);
+    $hand = &GetHand($player);
+    $tempZone = &GetTempZone($player);
+    if($lastResult == "myTempZone-0") {
+        MZMove($player, "myTempZone-1", "myDeck");
+        MZMove($player, "myTempZone-0", "myHand");
+    } else {
+        MZMove($player, "myTempZone-0", "myDeck");
+        MZMove($player, "myTempZone-1", "myHand");
     }
 };
 

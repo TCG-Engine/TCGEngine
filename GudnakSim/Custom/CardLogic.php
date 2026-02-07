@@ -78,4 +78,30 @@ function GetCardSpecificAttackTargets($player, $cardZone, $cardID, $includeAttac
     return $additionalTargets;
 }
 
+/**
+ * Handle Stoneseeker's draw ability
+ * Player looks at top 2 cards, chooses one to draw, puts other on bottom of deck
+ */
+function DoStoneSeekerDraw($player, $amount=1) {
+    $zone = &GetDeck($player);
+    $hand = &GetHand($player);
+    for($i = 0; $i < $amount; ++$i) {
+        if(count($zone) == 0) {
+            return;
+        }
+        // We need at least 1 card to draw
+        if(count($zone) == 1) {
+            $card = array_shift($zone);
+            array_push($hand, $card);
+            continue;
+        }
+        // Add top 2 cards to temp zone so they can be displayed for selection
+        MZMove($player, "myDeck-0", "myTempZone");
+        MZMove($player, "myDeck-1", "myTempZone");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", "myTempZone-0&myTempZone-1", 1, "Choose_a_card_to_draw");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "StoneSeekerDrawChoice", 1);
+    }
+}
+
 ?>
+
