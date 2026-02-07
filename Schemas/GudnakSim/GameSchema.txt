@@ -13,6 +13,7 @@ Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=FighterDestroyed(mzID); ChoiceFunction=DoFighterDestroyed; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; Action={}
 Macro: Name=SacrificeFighter(mzID); ChoiceFunction=DoSacrificeFighter; Action={}
+Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle

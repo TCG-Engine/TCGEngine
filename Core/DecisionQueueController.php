@@ -5,7 +5,7 @@
 
 class DecisionQueueController {
     private $numPlayers = 2;
-    private static $debugMode = true;
+    private static $debugMode = false;
 
     public function __construct() {
 
