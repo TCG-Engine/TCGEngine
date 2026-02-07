@@ -427,6 +427,12 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
                 $totalPower += 1;
             }
             break;
+        case "DNBF2HFGFT"://Forgefather
+            $hand = &GetHand($thisCard->Controller);
+            if(count($hand) >= 6) {
+                $totalPower += 1;
+            }
+            break;
         default: break;
     }
     $adjacentZones = AdjacentZones($thisCard->Location);
@@ -474,6 +480,11 @@ function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $currentPower,
         default: break;
     }
     return $modifier;
+}
+
+function DoSacrificeFighter($player, $mzCard) {
+    
+    FighterDestroyed($player, $mzCard);
 }
 
 function DoFighterDestroyed($player, $mzCard) {
@@ -722,7 +733,7 @@ function PlayerHasCard($player, $cardID) {
     return false;
 }
 
-function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null, $emptyOnly=false, $minFighters=null, $maxFighters=null, $excludeGates=null, $hasTrait=null) {
+function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null, $emptyOnly=false, $minFighters=null, $maxFighters=null, $excludeGates=null, $hasTrait=null, $excludeTrait=null) {
     if($adjacentTo !== null) $adjacentTo = explode("-", $adjacentTo)[0];
     $results = [];
     $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
@@ -759,7 +770,8 @@ function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null,
                ($minBasePower === null || CardPower($obj->CardID) >= $minBasePower) &&
                ($maxBasePower === null || CardPower($obj->CardID) <= $maxBasePower) &&
                ($adjacentTo === null || in_array($zoneName, AdjacentZones($adjacentTo))) &&
-               ($hasTrait === null || TraitContains($obj, $hasTrait))) {
+               ($hasTrait === null || TraitContains($obj, $hasTrait)) &&
+               ($excludeTrait === null || !TraitContains($obj, $excludeTrait))) {
                 if($zoneOnly) {
                     if(!in_array($zoneName, $results)) {
                         array_push($results, $zoneName);
