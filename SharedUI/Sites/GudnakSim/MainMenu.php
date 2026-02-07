@@ -48,6 +48,7 @@ include_once 'Header.php';
         <option value="Refractory">Refractory</option>
         <option value="Gloaming">Gloaming</option>
         <option value="Shardsworn">Shardsworn</option>
+        <option value="Delguon">Delguon</option>
       </select>
       <label for="deck-link" style="display: none;">Deck Link:</label>
       <input type="text" id="deck-link" name="deck_link" style="display: none;">

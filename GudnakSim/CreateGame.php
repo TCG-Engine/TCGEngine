@@ -80,6 +80,9 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
     else if($preconstructedDeck == 'Shardsworn') {
         $deck = ["SHBF1GBHT","SHBF1GBHT","SHBF1OGRB","SHBF1ORCS","SHBF2GBHT","SHBF2GBHT","SHBF2OGRB","SHBF2ORCS","SHBF3GBHT","SHBF3ORCS","SHBF1HELDR","SHBF1HELRN","SHBF2HMSTH","SHBF2HGRCK","SHBF3HELVV","SHBTDVSN","SHBTMBSH","SHBTSNAR","SHBTTOSS","SHBTTRBZ"];
     }
+    else if($preconstructedDeck == 'Delguon') {
+        $deck = ["DNBF1CHNT", "DNBF2CHNT", "DNBF3CHNT", "DNBF1CSHB", "DNBF1CSHB", "DNBF2CSHB", "DNBF2CSHB", "DNBF3CSHB", "DNBF1DRKS", "DNBF2DRKS"];
+    }
     for($i=0; $i<count($deck); ++$i) {
         $cardID = $deck[$i];
         array_push($gameDeck, new Deck($cardID));
