@@ -859,6 +859,13 @@ function ExpireEffects($isEndTurn=true) {
                 if($isEndTurn && isset($untilBeginTurnEffects[$effect])) { //Effects that last until end of turn
                     array_push($newEffects, $effect);
                 }
+                //It expired, apply any expiration effects
+                switch($effect) {
+                    case "DNBTLTMS"://Ultimate Sacrifice
+                        SacrificeFighter($turnPlayer, $zoneName . "-" . $index);
+                        break;
+                    default: break;
+                }
             }
             $obj->TurnEffects = $newEffects;
         }
