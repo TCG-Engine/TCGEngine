@@ -1539,7 +1539,7 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         const zoneData = GetZoneData(spec.zone);
         const displayMode = zoneData && zoneData.DisplayMode ? zoneData.DisplayMode : 'All';
         
-        if (spec.isSpecificCard && displayMode === 'Single') {
+        if (spec.isSpecificCard && (displayMode === 'Single' || displayMode === 'None')) {
           // Specific card from a Single mode zone - needs popup
           popupCards.push(spec);
         } else {

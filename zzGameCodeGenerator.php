@@ -1818,7 +1818,7 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
     $rv .= "');\");\r\n";
     $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
   }
-  if($zone->DisplayMode == "None") return "";
+  if($zone->Visibility == "Private") return "";
   return $rv;
 }
 

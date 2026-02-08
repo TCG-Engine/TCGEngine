@@ -27,7 +27,7 @@ Click: FSM()
 Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
 TempZone - CardID:string
-Display: Visibility=Public, Mode=Single, Bottom=10px, Left=10px
+Display: Visibility=Self, Mode=None
 Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
 Actions - Value:number=0
