@@ -1,0 +1,8 @@
+https://api.gatcg.com/cards/search?name=
+https://img.silvie.org/cdn/deck-builder/
+jpg
+data
+page
+has_more
+uuid,name,element,type,speed,cost_memory:number,cost_reserve:number,level:number,power:number,life:number,durability:number,classes,subtypes,effect
+

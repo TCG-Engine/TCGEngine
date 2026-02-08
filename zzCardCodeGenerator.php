@@ -1,5 +1,7 @@
 <?php
 
+set_time_limit(10800);
+
 include './zzImageConverter.php';
 include './Core/Trie.php';
 include "./Core/HTTPLibraries.php";
@@ -121,6 +123,8 @@ while($hasMoreData) {
       if (substr($cardID, -2) === '-P' || substr($cardID, -5) === '-STAR' || substr($cardID, -1) === 'A') continue;
     } else if($rootName == "GudnakSim") {
       $cardID = $card->number;
+    } else if($rootName == "GrandArchiveSim") {
+      $cardID = $card->uuid;
     }
     $card->id = $cardID;
     $cardArray[] = $card;
@@ -134,6 +138,8 @@ while($hasMoreData) {
     } else if($rootName == "GudnakSim") {
       $thisImageUrl = $imageUrl . $card->number . ".jpg";
       $squareCards = true;
+    } else if($rootName == "GrandArchiveSim") {
+      $thisImageUrl = $imageUrl . $cardID . "." . $imageFormat;
     }
     CheckImage($cardID, $thisImageUrl, "", "", rootPath:"./" . $rootName . "/", squareCards:$squareCards);
 
@@ -142,11 +148,17 @@ while($hasMoreData) {
   if($paginationUrlParameter != "") {
     echo("Parsed " . $count . " cards on page " . $currentPage . "<BR>");
     $currentPage++;
-    $pageCount = 1;
+    
+    // Check for more data based on response metadata
     if($rootName == "SWUDeck") {
       $pageCount = $response->meta->pagination->pageCount;
+      $hasMoreData = $currentPage <= $pageCount;
+    } else if($paginationResponseMetadata != "") {
+      // Navigate to the metadata field in the response
+      $hasMoreData = GetResponseMetadata($response, $paginationResponseMetadata);
+    } else {
+      $hasMoreData = false;
     }
-    $hasMoreData = $currentPage <= $pageCount;
   } else {
     $hasMoreData = false;
   }
@@ -408,6 +420,26 @@ for ($i = 0; $i < count($properties); ++$i) {
 fwrite($handler, "];\r\n\r\n");
 fclose($handler);
 
+function GetResponseMetadata($response, $metadataPath)
+{
+  // Navigate nested properties using dot notation
+  // e.g., "meta.pagination.pageCount" or simple "has_more"
+  $path = explode(".", $metadataPath);
+  $current = $response;
+  
+  foreach($path as $key) {
+    if(is_object($current) && isset($current->$key)) {
+      $current = $current->$key;
+    } else if(is_array($current) && isset($current[$key])) {
+      $current = $current[$key];
+    } else {
+      return false;
+    }
+  }
+  
+  return $current;
+}
+
 function GetPropertyValue($card, $property)
 {
   global $rootName;
@@ -469,6 +501,24 @@ function GetPropertyValue($card, $property)
             return implode(",", $card->$property);
           }
           return isset($card->$property) ? $card->$property : "";
+        default: return isset($card->$property) ? $card->$property : "";
+      }
+    case "GrandArchiveSim":
+      switch($property) {
+        case "type":
+          return isset($card->types) && is_array($card->types) ? implode(",", $card->types) : "";
+        case "classes":
+          return isset($card->classes) && is_array($card->classes) ? implode(",", $card->classes) : "";
+        case "subtypes":
+          return isset($card->subtypes) && is_array($card->subtypes) ? implode(",", $card->subtypes) : "";
+        case "cost_memory":
+        case "cost_reserve":
+        case "level":
+        case "power":
+        case "life":
+        case "durability":
+        case "speed":
+          return isset($card->$property) && $card->$property !== null ? $card->$property : -1;
         default: return isset($card->$property) ? $card->$property : "";
       }
     default: return isset($card->$property) ? $card->$property : "";

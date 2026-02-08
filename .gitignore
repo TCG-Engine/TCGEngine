@@ -67,3 +67,16 @@ GudnakSim/ZoneClasses.php
 GudnakSim/TurnStates.php
 GudnakSim/TurnController.php
 GudnakSim/Games
+GrandArchiveSim/concat
+GrandArchiveSim/crops
+GrandArchiveSim/Games
+GrandArchiveSim/GeneratedCode
+GrandArchiveSim/TempImages
+GrandArchiveSim/WebpImages
+GrandArchiveSim/GamestateParser.php
+GrandArchiveSim/GeneratedUI*.js
+GrandArchiveSim/GetNextTurn.php
+GrandArchiveSim/InitialLayout.php
+GrandArchiveSim/NextTurnRender.php
+GrandArchiveSim/ZoneAccessors.php
+GrandArchiveSim/ZoneClasses.php
