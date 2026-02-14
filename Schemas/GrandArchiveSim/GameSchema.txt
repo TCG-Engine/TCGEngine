@@ -1,60 +1,56 @@
-GrandArchiveDB
-Auto
+GrandArchiveSim
+Polling
 None
-AssetOwner
-Header: title=Home, icon=./Assets/Images/blueDiamond.png, link=./SharedUI/MainMenu.php
-Header: title=Print, link=/TCGEngine/SoulMastersDB/CreatePDF.php?gameName>$gameName, target=blank
-Header: title=Visibility, module=AssetVisibility, AssetType=1
-Header: title=Versions, module=Versions, Zones=Commander;ReserveDeck;MainDeck
-PageBackground: /TCGEngine/Assets/Images/soulMastersBackground.jpg
-Initialization: Initialize.php
-ServerInclude: /Custom/DeckValidation.php
+None
 ServerInclude: /Custom/CustomInput.php
-ClientInclude: /TCGEngine/SoulMastersDB/Custom/Filters.js
-ClientInclude: /TCGEngine/SoulMastersDB/Custom/ClientActions.js
-Commander - CardID:string
-Display: Visibility=Self, Mode=All, Left=31%, Top=40px, Split=None
-Click: Remove(myCommanders)
-AddValidation: ValidateCommanderAddition
-ReserveDeck - CardID:string
-Display: Visibility=Self, Mode=Tile, Left=31%, Top=82%, Split=None
-Click: Remove(myReserves)
-AddValidation: ValidateDeckAddition
-Widgets: CustomInput=Notes
-MainDeck - CardID:string
-Display: Visibility=Self, Mode=Tile, Left=31%, Top=23%, Split=None
-Click: Remove(myCards)
-AddValidation: ValidateDeckAddition
-Widgets: CustomInput=<&<<<&+&Notes
-Sort: Property=mySort
-CardPane - Value:string
-Display: Visibility=Self, Mode=Panel, Left=10px, Top=10px, Width=30%, Bottom=10px, Split=None
-Macros: None
-Widgets: None
-Commanders - CardID:string
-Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
-Click: Add(myCommander)
-Reserves - CardID:string
-Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
-Click: Add(myReserveDeck)
-DragMode: Clone
-Filter: InFactionFilter
-Widgets: CustomInput=Notes
-Cards - CardID:string
-Display: Visibility=Self, Mode=Pane(CardPane), Left=10px, Top=10px, Split=None
-Click: Add(myMainDeck)
-DragMode: Clone
-Filter: InFactionFilter
-Widgets: CustomInput=>&>>>&Notes
-NumReserve - CardID:string
-Display: Visibility=Self, Mode=Calculate(ReserveDisplay), Left=31%, Top=79%, Split=None
-CountsDisplay - CardID:string
-Display: Visibility=Self, Mode=Calculate(CountsDisplay), Left=31%, Top=10px, Split=None
-Widgets: CustomInput=Hand Draw
-Sort - Value:string
-Display: Visibility=Public, Mode=Radio(Value), Left=63%, Top=16%
-Widgets: Value=Name&Type&Cost&Attack&Health
-CardNotes - CardID:string, Notes:string
+ServerInclude: /Custom/GameLogic.php
+ServerInclude: /TurnController.php
+ServerInclude: /GeneratedCode/GeneratedMacroCode.php
+AssetReflection: GrandArchiveSim
+Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myActions,myGlobalEffects,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirActions,theirGlobalEffects,DecisionQueueVariables
+Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
+Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
+Macro: Name=AllyDestroyed(mzID); ChoiceFunction=DoAllyDestroyed; Action={}
+Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; Action={}
+Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
+Deck - CardID:string
+Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
+Macros: Shuffle
+Graveyard - CardID:string
+Display: Visibility=Public, Mode=Single, Bottom=10px, Right=10px
+GlobalEffects - CardID:string
+Display: Visibility=None, Mode=None
+Hand - CardID:string
+Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
+Click: FSM()
+Virtual: SelectionMetadata=SelectionMetadata()
+Highlight: SelectionMetadata
+Memory - CardID:string
+Display: Visibility=Public, Mode=Single, Bottom=70px, Left=28%
+Material - CardID:string
+Display: Visibility=Self, Mode=Single, Bottom=70px, Left=0%
+TempZone - CardID:string
 Display: Visibility=Self, Mode=None
+Virtual: SelectionMetadata=SelectionMetadata()
+Highlight: SelectionMetadata
+Actions - Value:number=0
+Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
+Widgets: CustomInput=Draw
+DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
+Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string
-Display: Visibility=Self, Mode=None
+Display: Visibility=None, Mode=All, Display=None
+TurnNumber - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FirstPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+TurnPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+CurrentPhase - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+PhaseParameters - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FlashMessage - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+DecisionQueueVariables - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None

@@ -1,0 +1,13 @@
+DecisionQueue: Enabled
+WakeUp; WU; WakeUpPhase
+AUTO -> MAT
+Materialize; MAT; MaterializePhase
+AUTO -> REC
+Recollection; REC; RecollectionPhase
+PASS -> DRAW
+Draw; DRAW; DrawPhase
+AUTO -> MAIN
+Main; MAIN; MainPhase
+PASS -> END
+End; END; EndPhase
+AUTO -> WU

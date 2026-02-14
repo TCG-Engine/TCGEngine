@@ -1,0 +1,144 @@
+/* GUDNAK MENU STYLES - Override and extend the shared menuStyles.css with Gudnak branding */
+
+/* Import the shared styles first */
+@import url('/TCGEngine/SharedUI/css/menuStyles.css');
+
+/* GUDNAK-SPECIFIC OVERRIDES */
+
+/* Background */
+body {
+    background-image: url('/TCGEngine/Assets/Images/GudnakRefractory-bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* HEADER - Gudnak Banner Blocks */
+
+/* Use Gudnak tile artwork for the banner blocks */
+.block-1 { 
+    background-image: url('/TCGEngine/Assets/Images/Gudnak-tile-1.webp');
+    background-position: center 0px;
+}
+
+.block-2 { 
+    background-image: url('/TCGEngine/Assets/Images/Gudnak-tile-2.webp');
+    background-position: center 0px;
+}
+
+.block-3 { 
+    background-image: url('/TCGEngine/Assets/Images/Gudnak-tile-3.webp');
+    background-position: center 0px;
+}
+
+.block-4 { 
+    background-image: url('/TCGEngine/Assets/Images/Gudnak-tile-1.webp');
+    background-position: center 0px;
+}
+
+/* ACCENT COLORS - Gudnak Theme */
+
+/* Cards and containers with Gudnak color palette */
+.card, .container {
+    background: rgba(20, 40, 60, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(100, 180, 120, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Buttons - Gudnak styled */
+button, .GameLobby_Button, .create-game-button, .ServerChecker_Button, .JoinGame_Button, .spectate-button {
+    background: linear-gradient(135deg, #2d6b46 0%, #1a472a 100%);
+    border: 1px solid rgba(100, 180, 120, 0.4);
+    color: #e0f0d8;
+    transition: 150ms ease-in-out;
+}
+
+button:hover, .GameLobby_Button:hover, .create-game-button:hover, .ServerChecker_Button:hover, .JoinGame_Button:hover, .spectate-button:hover {
+    background: linear-gradient(135deg, #3d8b56 0%, #2a573a 100%);
+    border-color: rgba(100, 180, 120, 0.6);
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(100, 180, 120, 0.3);
+}
+
+/* Input Fields */
+input, select, textarea {
+    background: rgba(15, 30, 45, 0.7);
+    border: 1px solid rgba(100, 180, 120, 0.3);
+    color: #e0f0d8;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: rgba(100, 180, 120, 0.6);
+    outline: none;
+    box-shadow: 0 0 10px rgba(100, 180, 120, 0.2);
+}
+
+/* Text colors - Gudnak palette */
+p, label {
+    color: #d0e8c0;
+}
+
+p a {
+    color: #7ec97e;
+}
+
+p a:hover {
+    color: #a0d9a0;
+}
+
+/* Heading colors */
+h1, h2, h3, h4, h5, h6 {
+    color: #b0e0a0;
+}
+
+/* Info boxes */
+.info-box {
+    background: rgba(20, 50, 35, 0.6);
+    border: 1px solid rgba(100, 180, 120, 0.2);
+}
+
+/* Game browser styling */
+.game-browser .game-item {
+    background: rgba(15, 35, 25, 0.5);
+    border: 1px solid rgba(100, 180, 120, 0.15);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Accent highlights for active elements */
+.nav-bar-user, .nav-bar-links {
+    background-color: rgba(20, 40, 60, 0.7);
+    border: 1px solid rgba(100, 180, 120, 0.2);
+}
+
+/* Links styling */
+a {
+    color: #7ec97e;
+    transition: color 150ms ease-in-out;
+}
+
+a:hover {
+    color: #a0d9a0;
+}
+
+/* Scrollbar styling for Gudnak theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(15, 30, 45, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(100, 180, 120, 0.4);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(100, 180, 120, 0.6);
+}
