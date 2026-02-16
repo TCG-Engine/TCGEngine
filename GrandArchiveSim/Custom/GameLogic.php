@@ -3,6 +3,7 @@
 include_once __DIR__ . '/CardLogic.php';
 
 $debugMode = true;
+$customDQHandlers = [];
 
 //TODO: Add this to a schema
 function ActionMap($actionCard)
@@ -175,34 +176,6 @@ function CanAttack($player, $fromZone, $toZone) {
 
 function GetDeployZones($player, $cardID) {
     $legalZones = [];
-    if($player == 1) {
-        array_push($legalZones, "BG1");
-        array_push($legalZones, "BG2");
-        array_push($legalZones, "BG3");
-    } else {
-        array_push($legalZones, "BG7");
-        array_push($legalZones, "BG8");
-        array_push($legalZones, "BG9");
-    }
-    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
-    switch($cardID) {
-        case "RYBF3HBLGR"://Bullgryff Rider
-            foreach($zones as $zoneName) {
-                $zoneArr = &GetZone($zoneName);
-                if(count($zoneArr) == 1) {
-                    $adjZones = AdjacentZones($zoneName);
-                    foreach($adjZones as $adjZone) {
-                        $topCard = GetTopCard($adjZone);
-                        if($topCard !== null && $topCard->Controller == $player) {
-                            array_push($legalZones, $zoneName);
-                            break;
-                        }
-                    }
-                }
-            }
-            break;
-        default: break;
-    }
     return $legalZones;
 }
 
@@ -222,7 +195,14 @@ function WakeUpPhase() {
 function MaterializePhase() {
     // Materialize phase - cards ready for action
     SetFlashMessage("Materialize Phase");
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "MZCHOOSE", ZoneMZIndices("myMaterial"), 1);
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "MATERIALIZE", 1);
 }
+
+$customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
+{
+
+};
 
 function RecollectionPhase() {
     // Recollection phase - player gains Opportunity
@@ -232,12 +212,13 @@ function RecollectionPhase() {
 function DrawPhase() {
     // Draw phase - player draws a card
     $turnPlayer = &GetTurnPlayer();
-    SetFlashMessage("Draw Phase");
+    echo("Draw");
     Draw($turnPlayer, amount: 1);
 }
 
 function MainPhase() {
     // Main phase - player can play cards and activate abilities
+    echo("Main");
     SetFlashMessage("Main Phase");
 }
 
@@ -260,8 +241,6 @@ function PassTurn() {
 
     ExpireEffects(isEndTurn:false);
 }
-
-$customDQHandlers = [];
 
 $customDQHandlers["AfterFighterPlayed"] = function($player, $param, $lastResult) {
     $zoneName = explode("-", $lastResult)[0];
@@ -427,18 +406,14 @@ function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $currentPower,
 
 
 function DoDrawCard($player, $amount=1) {
-    if(PlayerHasCard($player, "DNBF1HSTNS")) { //Stoneseeker
-        DoStoneSeekerDraw($player, $amount);
-    } else {
-        $zone = &GetDeck($player);
-        $hand = &GetHand($player);
-        for($i=0; $i<$amount; ++$i) {
-            if(count($zone) == 0) {
-                return;
-            }
-            $card = array_shift($zone);
-            array_push($hand, $card);
+    $zone = &GetDeck($player);
+    $hand = &GetHand($player);
+    for($i=0; $i<$amount; ++$i) {
+        if(count($zone) == 0) {
+            return;
         }
+        $card = array_shift($zone);
+        array_push($hand, $card);
     }
 }
 

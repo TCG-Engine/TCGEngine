@@ -69,15 +69,15 @@ include_once 'Header.php';
   
   <!-- News Section -->
   <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px;">
-    <h2>Welcome to Gudnak Simulator!</h2>
-    <p class="login-message">Gudnak Simulator is a fan-made online simulator for the Gudnak expandable card game.</p>
+    <h2>Welcome to Clarent!</h2>
+    <p class="login-message">Clarent is a fan-made online simulator for the Grand Archive expandable card game.</p>
     <p class="login-message">Build your deck, challenge other players, and master the game. Join our community on Discord for feedback and updates!</p>
   </div>
 </div>
 
 <script>
 
-  var rootName = "GudnakSim";
+  var rootName = "GrandArchiveSim";
       var _lobby_id = "";
 
       function joinQueue() {

@@ -38,7 +38,7 @@ $actions = &GetActions($firstPlayer);
 $actions = 2;
 
 $currentPhase = &GetCurrentPhase();
-$currentPhase = 'ACT';
+$currentPhase = 'MAIN';
 SetPhaseParameters("-");
 AdvanceAndExecute("PASS");
 AutoAdvanceAndExecute();

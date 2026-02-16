@@ -80,3 +80,5 @@ GrandArchiveSim/InitialLayout.php
 GrandArchiveSim/NextTurnRender.php
 GrandArchiveSim/ZoneAccessors.php
 GrandArchiveSim/ZoneClasses.php
+GrandArchiveSim/TurnStates.php
+GrandArchiveSim/TurnController.php
