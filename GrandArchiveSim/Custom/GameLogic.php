@@ -20,6 +20,9 @@ function ActionMap($actionCard)
                 return "PLAY";
             }
             break;
+        case "myField":
+            
+            break;
         default: break;
     }
     return "";
