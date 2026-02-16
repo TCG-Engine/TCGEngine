@@ -14,6 +14,7 @@ Macro: Name=AllyDestroyed(mzID); ChoiceFunction=DoAllyDestroyed; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=Materialize(mzID); ChoiceFunction=DoMaterialize; Action={}
+Macro: Name=Enter(CardID); ChoiceFunction=OnEnter; Action={}
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle
@@ -34,6 +35,7 @@ Overlay: Status=1:exhausted
 Counters: Damage=Badge(Color=red,Position=TopLeft,ShowZero=false)
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
+AfterAdd: FieldAfterAdd
 Memory - CardID:string
 Display: Visibility=Public, Mode=Single, Bottom=70px, Left=28%
 Material - CardID:string

@@ -205,7 +205,19 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 };
 
 function DoMaterialize($player, $mzCard) {
+    global $customDQHandlers;
+    $sourceObject = &GetZoneObject($mzCard);
+    $sourceId = $sourceObject->CardID;
     MZMove($player, $mzCard, "myField");
+}
+
+function OnEnter($player, $CardID) {
+    global $enterAbilities;
+    $enterAbilities[$CardID . ":0"]($player);
+}
+
+function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Controller="-", $Damage=0) {
+    Enter($player, $CardID);
 }
 
 function RecollectionPhase() {
@@ -215,14 +227,14 @@ function RecollectionPhase() {
 
 function DrawPhase() {
     // Draw phase - player draws a card
+    $currentTurn = &GetTurnNumber();
+    if($currentTurn == 1) return;//Don't draw on first turn
     $turnPlayer = &GetTurnPlayer();
-    echo("Draw");
     Draw($turnPlayer, amount: 1);
 }
 
 function MainPhase() {
     // Main phase - player can play cards and activate abilities
-    echo("Main");
     SetFlashMessage("Main Phase");
 }
 
@@ -407,8 +419,6 @@ function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $currentPower,
 
 
 function DoDrawCard($player, $amount=1) {
-    $currentTurn = &GetTurnNumber();
-    if($currentTurn == 1) return;//Don't draw on first turn
     $zone = &GetDeck($player);
     $hand = &GetHand($player);
     for($i=0; $i<$amount; ++$i) {
