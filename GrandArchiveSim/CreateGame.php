@@ -34,11 +34,13 @@ $firstPlayer = 1;
 //$turnPlayer = &TurnPlayerValue();
 $turnPlayer = &GetTurnPlayer();
 $turnPlayer = ($firstPlayer == 1) ? 2 : 1;
+$currentTurn = &GetTurnNumber();
+$currentTurn = 1;
 $actions = &GetActions($firstPlayer);
 $actions = 2;
 
 $currentPhase = &GetCurrentPhase();
-$currentPhase = 'MAIN';
+$currentPhase = 'WU';
 SetPhaseParameters("-");
 AdvanceAndExecute("PASS");
 AutoAdvanceAndExecute();
