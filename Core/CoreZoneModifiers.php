@@ -46,4 +46,9 @@
     return implode("&", $mzIndices);
   }
 
+  function PropertyContains($property, $value) {
+    $propertyArr = explode(",", $property);
+    return in_array($value, $propertyArr);
+  }
+
 ?>

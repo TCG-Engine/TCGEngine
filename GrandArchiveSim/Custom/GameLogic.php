@@ -557,6 +557,20 @@ function SelectionMetadata($obj) {
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
 }
 
+function FieldSelectionMetadata($obj) {
+    $currentPhase = GetCurrentPhase();
+    if ($currentPhase !== "MAIN") {
+        return json_encode(['highlight' => false]);
+    }
+    $cardType = CardType($obj->CardID);
+    if(!PropertyContains($cardType, "ALLY")) {
+        return json_encode(['highlight' => false]);
+    }
+
+    // Return bright vibrant lime green highlight for valid selectable cards
+    return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+}
+
 function CanActExhausted($obj) {
     if($obj->CardID == "RYBF1GFDG" || $obj->CardID == "RYBF2HSLRC") return true; //Gryffdogs and Solaran Cavalry can act while exhausted
     if(TraitContains($obj, "Hunter") && PlayerHasCard($obj->Controller, "SHBF2HMSTH") || GlobalEffectCount($obj->Controller, "SHBTTRBZ") > 0) { //Master Hunter or Trailblaze effect

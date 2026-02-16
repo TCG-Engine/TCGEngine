@@ -33,12 +33,15 @@ Highlight: SelectionMetadata
 Field - CardID:string, Status:number=2, Owner:number, Damage:number=0
 Virtual: CurrentPower=ObjectCurrentPower()
 Virtual: CurrentHP=ObjectCurrentHP()
+Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Display: Visibility=Public, Mode=All, Top=110px, Right=120px
 Overlay: Status=1:exhausted
 Counters: Damage=Badge(Color=red,Position=TopLeft,ShowZero=false)
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
 AfterAdd: FieldAfterAdd
+Highlight: FieldSelectionMetadata
+Click: FSM()
 Memory - CardID:string
 Display: Visibility=Public, Mode=Single, Bottom=70px, Left=28%
 Material - CardID:string
