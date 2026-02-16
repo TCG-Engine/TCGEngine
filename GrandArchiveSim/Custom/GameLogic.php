@@ -106,7 +106,6 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
-    UseActions(amount:1);
 }
 
 function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true, $shouldExhaust = true, $ignoreActionCost = false) {
@@ -188,12 +187,12 @@ function DoPlayFighter($player, $mzCard) {
 }
 
 function WakeUpPhase() {
-    // Wake Up phase - beginning of turn setup
+    // Wake Up phase
     SetFlashMessage("Wake Up Phase");
 }
 
 function MaterializePhase() {
-    // Materialize phase - cards ready for action
+    // Materialize phase
     SetFlashMessage("Materialize Phase");
     DecisionQueueController::AddDecision(GetTurnPlayer(), "MZCHOOSE", ZoneMZIndices("myMaterial"), 1);
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "MATERIALIZE", 1);
@@ -545,11 +544,11 @@ function CardCurrentEffects($obj) {
 }
 
 function SelectionMetadata($obj) {
-    // Only highlight cards during the ACT phase when the decision queue is empty
+    // Only highlight cards during the MAIN phase when the decision queue is empty
     // and the card belongs to the turn player
     
     $currentPhase = GetCurrentPhase();
-    if ($currentPhase !== "ACT") {
+    if ($currentPhase !== "MAIN") {
         return json_encode(['highlight' => false]);
     }
     
@@ -557,11 +556,6 @@ function SelectionMetadata($obj) {
     $turnPlayer = &GetTurnPlayer();
     $decisionQueue = &GetDecisionQueue($turnPlayer);
     if (count($decisionQueue) > 0) {
-        return json_encode(['highlight' => false]);
-    }
-    
-    // Don't highlight terrain
-    if ($obj->CardID == "GudnakTerrain") {
         return json_encode(['highlight' => false]);
     }
     

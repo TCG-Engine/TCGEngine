@@ -36,8 +36,6 @@ $turnPlayer = &GetTurnPlayer();
 $turnPlayer = ($firstPlayer == 1) ? 2 : 1;
 $currentTurn = &GetTurnNumber();
 $currentTurn = 1;
-$actions = &GetActions($firstPlayer);
-$actions = 2;
 
 $currentPhase = &GetCurrentPhase();
 $currentPhase = 'WU';

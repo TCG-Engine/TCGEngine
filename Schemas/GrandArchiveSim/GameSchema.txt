@@ -7,7 +7,7 @@ ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 AssetReflection: GrandArchiveSim
-Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myActions,myGlobalEffects,myMaterial,myField,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirActions,theirGlobalEffects,theirMaterial,theirField,DecisionQueueVariables
+Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myGlobalEffects,myMaterial,myField,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirGlobalEffects,theirMaterial,theirField,DecisionQueueVariables
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=AllyDestroyed(mzID); ChoiceFunction=DoAllyDestroyed; Action={}
@@ -44,9 +44,9 @@ TempZone - CardID:string
 Display: Visibility=Self, Mode=None
 Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
-Actions - Value:number=0
+Health - Value:number=0
 Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
-Widgets: CustomInput=Draw
+Widgets: Value=-1&+1,CustomInput=Pass
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string
