@@ -201,8 +201,12 @@ function MaterializePhase() {
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 {
-
+    Materialize($player, $lastDecision);
 };
+
+function DoMaterialize($player, $mzCard) {
+    MZMove($player, $mzCard, "myField");
+}
 
 function RecollectionPhase() {
     // Recollection phase - player gains Opportunity
@@ -306,15 +310,12 @@ function ResolveAttack($fromZoneName, $destZoneName) {
     }
 }
 
-function MoveStack($fromZone, $toZone) {
-    $fromZoneName = explode("-", $fromZone)[0];
-    $toZoneName = explode("-", $toZone)[0];
-    $fromZoneArr = &GetZone($fromZoneName);
-    if(count($fromZoneArr) <= 1) return;
-    $player = $fromZoneArr[1]->Controller;
-    for($i = 1; $i < count($fromZoneArr); ++$i) {
-        MZMove($player, $fromZoneName . "-" . $i, $toZoneName);
-    }
+function ObjectCurrentPower($obj) {
+    return 0;
+}
+
+function ObjectCurrentHP($obj) {
+    return 0;
 }
 
 function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
@@ -406,6 +407,8 @@ function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $currentPower,
 
 
 function DoDrawCard($player, $amount=1) {
+    $currentTurn = &GetTurnNumber();
+    if($currentTurn == 1) return;//Don't draw on first turn
     $zone = &GetDeck($player);
     $hand = &GetHand($player);
     for($i=0; $i<$amount; ++$i) {
@@ -577,68 +580,6 @@ function CanActExhausted($obj) {
         return true;
     }
     return false;
-}
-
-function IsGates($player, $zoneName) {
-    $zoneName = explode("-", $zoneName)[0];
-    $gates = GetGates($player);
-    return $zoneName == $gates;
-}
-
-function SwapPosition($unit1, $unit2) {
-    // Parse zone names from unit references (e.g., "BG4-0" -> "BG4")
-    $zone1Name = explode("-", $unit1)[0];
-    $zone2Name = explode("-", $unit2)[0];
-    
-    // Get references to both zones
-    $zone1 = &GetZone($zone1Name);
-    $zone2 = &GetZone($zone2Name);
-    
-    // Swap the entire zone contents (all cards in both positions)
-    $temp = $zone1;
-    $zone1 = $zone2;
-    $zone2 = $temp;
-}
-
-function AdjacentZones($zone, $includeDiagonals=false) {
-    switch($zone) {
-        case "BG1": return $includeDiagonals ? ["BG2", "BG4", "BG5"] : ["BG2", "BG4"];
-        case "BG2": return $includeDiagonals ? ["BG1", "BG3", "BG4", "BG5", "BG6"] : ["BG1", "BG3", "BG5"];
-        case "BG3": return $includeDiagonals ? ["BG2", "BG6", "BG5"] : ["BG2", "BG6"];
-        case "BG4": return $includeDiagonals ? ["BG1", "BG2", "BG5", "BG7", "BG8"] : ["BG1", "BG5", "BG7"];
-        case "BG5": return $includeDiagonals ? ["BG2", "BG4", "BG6", "BG8", "BG1", "BG3", "BG7", "BG9"] : ["BG2", "BG4", "BG6", "BG8"];
-        case "BG6": return $includeDiagonals ? ["BG3", "BG5", "BG9", "BG5"] : ["BG3", "BG5", "BG9"];
-        case "BG7": return $includeDiagonals ? ["BG4", "BG8", "BG5"] : ["BG4", "BG8"];
-        case "BG8": return $includeDiagonals ? ["BG4", "BG5", "BG6", "BG7", "BG9"] : ["BG5", "BG7", "BG9"];
-        case "BG9": return $includeDiagonals ? ["BG6", "BG8", "BG5"] : ["BG6", "BG8"];
-        default: return [];
-    }
-}
-
-function GetTopCard($zoneName) {
-    $zone = &GetZone($zoneName);
-    if(count($zone) > 1) {
-        $topIndex = count($zone) - 1;
-        return $zone[$topIndex];
-    }
-    return null;
-}
-
-function GetBattlefieldCardIDs($zoneName) {
-    $zone = &GetZone($zoneName);
-    $cards = [];
-    for($i = 1; $i < count($zone); ++$i) {
-        array_push($cards, $zone[$i]->CardID);
-    }
-    return $cards;
-}
-
-function DestroyTopCard($zoneName) {
-    $zone = &GetZone($zoneName);
-    if(count($zone) > 1) {
-        $topIndex = count($zone) - 1;
-        FighterDestroyed($zone[$topIndex]->Controller, $zoneName . "-" . $topIndex);
-    }
 }
 
 function RearrangeBattlefield($zone, $order) {
