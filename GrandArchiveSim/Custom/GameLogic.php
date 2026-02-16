@@ -21,7 +21,11 @@ function ActionMap($actionCard)
             }
             break;
         case "myField":
-            
+            $obj = &GetZoneObject($actionCard);
+            $cardType = CardType($obj->CardID);
+            if(PropertyContains($cardType, "ALLY")) {
+                echo("This is an ally");
+            }
             break;
         default: break;
     }
@@ -582,100 +586,6 @@ function CanActExhausted($obj) {
     return false;
 }
 
-function RearrangeBattlefield($zone, $order) {
-    $order = explode("=", $order)[1];
-    $orderArr = explode(",", $order);
-    $zoneArr = &GetZone($zone);
-    $newZoneArr = [$zoneArr[0]]; // Keep the terrain card at index 0
-    foreach($orderArr as $cardID) {
-        // Find the card object with this ID in the zone
-        for($i = 1; $i < count($zoneArr); ++$i) {
-            if($zoneArr[$i]->CardID === $cardID) {
-                array_push($newZoneArr, $zoneArr[$i]);
-                break;
-            }
-        }
-    }
-    $zoneArr = $newZoneArr;
-}
-
-function UnoccupiedBattlefields() {
-    $unoccupied = [];
-    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
-    foreach($zones as $zoneName) {
-        $zoneArr = &GetZone($zoneName);
-        if(count($zoneArr) == 1) {
-            array_push($unoccupied, $zoneName);
-        }
-    }
-    return $unoccupied;
-}
-
-function PlayerHasCard($player, $cardID) {
-    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
-    foreach($zones as $zoneName) {
-        $topCard = GetTopCard($zoneName);
-        if($topCard !== null && $topCard->Controller == $player && $topCard->CardID == $cardID) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function BattlefieldSearch($zoneOnly=true, $controller=null, $minBasePower=null, $maxBasePower=null, $adjacentTo=null, $emptyOnly=false, $minFighters=null, $maxFighters=null, $excludeGates=null, $hasTrait=null, $excludeTrait=null) {
-    if($adjacentTo !== null) $adjacentTo = explode("-", $adjacentTo)[0];
-    $results = [];
-    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
-    $gatesZone = $excludeGates != null ? GetGates($excludeGates) : null; // Get gates zone to exclude if needed
-    foreach($zones as $zoneName) {
-        // Skip gates zone if excludeGates is true
-        if($excludeGates && $zoneName == $gatesZone) {
-            continue;
-        }
-        
-        $zoneArr = &GetZone($zoneName);
-        
-        // If emptyOnly is true, only consider empty zones (count == 1 means only terrain)
-        if($emptyOnly && count($zoneArr) != 1) {
-            continue;
-        }
-        
-        // Calculate number of fighters (total count - 1 for terrain)
-        $numFighters = count($zoneArr) - 1;
-        
-        // Apply minFighters filter
-        if($minFighters !== null && $numFighters < $minFighters) {
-            continue;
-        }
-        
-        // Apply maxFighters filter
-        if($maxFighters !== null && $numFighters > $maxFighters) {
-            continue;
-        }
-        
-        for($i = $zoneOnly ? count($zoneArr)-1 : 1; $i < count($zoneArr); ++$i) {
-            $obj = $zoneArr[$i];
-            if(($controller === null || $obj->Controller == $controller) &&
-               ($minBasePower === null || CardPower($obj->CardID) >= $minBasePower) &&
-               ($maxBasePower === null || CardPower($obj->CardID) <= $maxBasePower) &&
-               ($adjacentTo === null || in_array($zoneName, AdjacentZones($adjacentTo))) &&
-               ($hasTrait === null || TraitContains($obj, $hasTrait)) &&
-               ($excludeTrait === null || !TraitContains($obj, $excludeTrait))) {
-                if($zoneOnly) {
-                    if(!in_array($zoneName, $results)) {
-                        array_push($results, $zoneName);
-                    }
-                    // No need to check other cards in this zone when only zone names are requested
-                    break;
-                } else {
-                    array_push($results, $zoneName . "-" . $i);
-                }
-            }
-        }
-    }
-    return $results;
-}
-
 function ZoneSearch($zoneName, $minBasePower=null, $maxBasePower=null, $hasTrait=null) {
     $results = [];
     $zoneArr = &GetZone($zoneName);
@@ -798,6 +708,11 @@ function ObjectHasEffect($obj, $targetEffect) {
         }
     }
     return false;
+}
+
+function DealChampionDamage($player, $amount=1) {
+    $health = &GetHealth($player);
+    $health += $amount;
 }
 
 ?>
