@@ -36,4 +36,14 @@
     return implode("&", $mzIndices);
   }
 
+  function ZoneObjMZIndices($zone, $prefix) {
+    $mzIndices = [];
+    for($i=0; $i<count($zone); ++$i) {
+      if(!$zone[$i]->Removed()) {
+        array_push($mzIndices, $prefix . "-" . $i);
+      }
+    }
+    return implode("&", $mzIndices);
+  }
+
 ?>

@@ -194,8 +194,10 @@ function WakeUpPhase() {
 function MaterializePhase() {
     // Materialize phase
     SetFlashMessage("Materialize Phase");
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "MZCHOOSE", ZoneMZIndices("myMaterial"), 1);
-    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "MATERIALIZE", 1);
+    $turnPlayer = GetTurnPlayer();
+    $material = &GetMaterial($turnPlayer);
+    DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", ZoneObjMZIndices($material, "myMaterial"), 1);
+    DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MATERIALIZE", 1);
 }
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
@@ -212,7 +214,7 @@ function DoMaterialize($player, $mzCard) {
 
 function OnEnter($player, $CardID) {
     global $enterAbilities;
-    $enterAbilities[$CardID . ":0"]($player);
+    if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
 }
 
 function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Controller="-", $Damage=0) {
@@ -238,11 +240,6 @@ function MainPhase() {
 }
 
 function EndPhase() {
-    // End phase - turn resolution and cleanup
-    SetFlashMessage("End Phase");
-}
-
-function PassTurn() {
     $firstPlayer = &GetFirstPlayer();
     $currentTurn = &GetTurnNumber();
     $turnPlayer = &GetTurnPlayer();
@@ -562,9 +559,6 @@ function SelectionMetadata($obj) {
     // Only highlight cards belonging to the turn player, except for defend action
     $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
     if ($owner !== $turnPlayer) {
-        if(IsGates($turnPlayer, $obj->Location)) {
-            return json_encode(['color' => 'rgba(255, 0, 0, 0.95)']);
-        }
         return json_encode(['highlight' => false]);
     }
     
@@ -718,6 +712,7 @@ function DiscardCards($player, $amount=1) {
 function ExpireEffects($isEndTurn=true) {
     $turnPlayer = &GetTurnPlayer();
     global $untilBeginTurnEffects, $foreverEffects;
+    /*
     $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
     foreach($zones as $zoneName) {
         $zoneArr = &GetZone($zoneName);
@@ -739,6 +734,7 @@ function ExpireEffects($isEndTurn=true) {
             $obj->TurnEffects = $newEffects;
         }
     }
+        */
     //Global effects
     if($isEndTurn) {
         $globalEffects = &GetZone("myGlobalEffects");

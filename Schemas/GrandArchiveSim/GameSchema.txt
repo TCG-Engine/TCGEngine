@@ -7,7 +7,7 @@ ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 AssetReflection: GrandArchiveSim
-Module: Versions=TurnPlayer,CurrentPhase,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myGlobalEffects,myMaterial,myField,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirGlobalEffects,theirMaterial,theirField,DecisionQueueVariables
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myGlobalEffects,myMaterial,myField,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirGlobalEffects,theirMaterial,theirField,DecisionQueueVariables
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=AllyDestroyed(mzID); ChoiceFunction=DoAllyDestroyed; Action={}

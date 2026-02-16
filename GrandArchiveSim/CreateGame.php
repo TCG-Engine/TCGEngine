@@ -33,7 +33,7 @@ $firstPlayer = &GetFirstPlayer();
 $firstPlayer = 1;
 //$turnPlayer = &TurnPlayerValue();
 $turnPlayer = &GetTurnPlayer();
-$turnPlayer = ($firstPlayer == 1) ? 2 : 1;
+$turnPlayer = $firstPlayer;
 $currentTurn = &GetTurnNumber();
 $currentTurn = 1;
 
