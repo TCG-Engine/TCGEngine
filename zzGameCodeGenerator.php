@@ -672,6 +672,7 @@ fwrite($handler, "  \$removed = GetZoneObject(\$mzIndex);\r\n");
 fwrite($handler, "  \$removed->Remove();\r\n");
 fwrite($handler, "  // Pass the removed object to MZAddZone so properties are copied before AfterAdd hooks fire\r\n");
 fwrite($handler, "  \$newObj = MZAddZone(\$player, \$toZone, \$removed->CardID, \$removed);\r\n");
+fwrite($handler, "  return \$newObj;\r\n");
 fwrite($handler, "}\r\n\r\n");
 
 fwrite($handler, "function MZZoneCount(\$zoneName) {\r\n");

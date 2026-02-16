@@ -7,14 +7,17 @@ ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 AssetReflection: GrandArchiveSim
-Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myGlobalEffects,myMaterial,myField,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirGlobalEffects,theirMaterial,theirField,DecisionQueueVariables
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myGlobalEffects,myMaterial,myField,myMemory,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirGlobalEffects,theirMaterial,theirField,theirMemory,DecisionQueueVariables,EffectStack
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
+Macro: Name=ActivateCard(mzID,ignoreCost); ChoiceFunction=DoActivateCard; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=AllyDestroyed(mzID); ChoiceFunction=DoAllyDestroyed; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=Materialize(mzID); ChoiceFunction=DoMaterialize; Action={}
 Macro: Name=Enter(CardID); ChoiceFunction=OnEnter; Action={}
+Macro: Name=ReserveCard(); Choice={MZCHOOSE:myHand}; AfterChoice=OnCardReserved; Action={}
+Macro: Name=CardActivated(mzID); ChoiceFunction=OnCardActivated; Action={}
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle
@@ -65,3 +68,6 @@ FlashMessage - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 DecisionQueueVariables - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+EffectStack - CardID:string, Controller:number
+Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=3%
+Sort: Reverse=true

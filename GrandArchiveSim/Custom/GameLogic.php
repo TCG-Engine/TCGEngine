@@ -15,8 +15,8 @@ function ActionMap($actionCard)
     $cardIndex = $cardArr[1];
     switch ($cardZone) {
         case "myHand":
-            if($currentPhase == "ACT") {
-                PlayCard($turnPlayer, $actionCard, false);
+            if($currentPhase == "MAIN") {
+                ActivateCard($turnPlayer, $actionCard, false);
                 return "PLAY";
             }
             break;
@@ -25,64 +25,69 @@ function ActionMap($actionCard)
     return "";
 }
 
-
-
-function DoPlayCard($player, $mzCard, $ignoreCost = false)
-{
-    global $customDQHandlers;
-    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
+function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $sourceObject = &GetZoneObject($mzCard);
-    switch(CardCard_type($sourceObject->CardID)) {
-        case "Fighter":
-            DoPlayFighter($player, $mzCard);
-            UseActions(amount:1);
-            break;
-        case "Tactic":
-            $newObj = MZMove($player, $mzCard, "myGraveyard");
-            DecisionQueueController::CleanupRemovedCards();
-            $customDQHandlers["CardPlayed"]($player, [$sourceObject->CardID], null);
-            $actionCost = CardCost($sourceObject->CardID);
-            foreach($zones as $zoneName) {
-                $actionCost += BattlefieldCostReductions($player, $zoneName, $sourceObject->CardID);
-            }
-            if($actionCost < 0) $actionCost = 0;
-            UseActions(amount:$actionCost);
-            break;
-        default: break;
+    //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
+    $obj = MZMove($player, $mzCard, "EffectStack");
+    $obj->Controller = $player;
+
+    //TODO: 1.2 Checking Elements: Then, the game checks whether the player has the required elements enabled to activate the card. If not, the activation is illegal.
+    
+    //TODO: 1.3 Declaring Costs: Next, the player declares the intended cost parameters for the card.
+
+    //TODO: 1.4 Selecting Modes
+
+    //TODO: 1.5 Declaring Targets
+
+    //TODO: 1.6 Checking Legality
+
+    //1.7 Calculating Reserve Cost
+    $reserveCost = CardCost_reserve($obj->CardID);
+
+    //1.8 Paying Costs
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
-    //My played card effects
-    foreach($zones as $zoneName) {
-        CardPlayedEffects($player, GetTopCard($zoneName), $sourceObject->CardID);
-    }
+
+    //1.9 Activation
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CardActivated|" . $obj->Location . "-" . $obj->mzIndex, 100);
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
 }
 
-function BattlefieldCostReductions($player, $zoneName, $cardPlayed) {
-    $modifier = 0;
-    $zoneArr = &GetZone($zoneName);
-    foreach($zoneArr as $index => $obj) {
-        switch($obj->CardID) {
-            case "RYBF2SNSR"://Sunseer
-                if($obj->Controller == $player && CardCard_type($cardPlayed) == "Tactic") {
-                    $modifier -= 1;
-                }
-                break;
-            default: break;
-        }
-    }
-    return $modifier;
+$customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
+    ReserveCard($player);
+};
+
+function OnCardReserved($player, $mzCard) {
+    $obj = MZMove($player, $mzCard, "myMemory");
+}
+
+$customDQHandlers["CardActivated"] = function($player, $parts, $lastDecision) {
+    CardActivated($player, $parts[0]);
+};
+
+function OnCardActivated($player, $mzCard) {
+    echo("Activated card: " . $mzCard);
+    $obj = MZMove($player, $mzCard, "myField");
+    //$obj->Status = 1; //Exhaust the card
+    //CardActivatedEffects($player, $obj->CardID);
+}
+
+function DoPlayCard($player, $mzCard, $ignoreCost = false)
+{
+    global $customDQHandlers;
+    $sourceObject = &GetZoneObject($mzCard);
+
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($player, "-");
 }
 
 function CardPlayedEffects($player, $card, $cardPlayed) {
     if($card === null) return;
     switch($card->CardID) {
-        case "RYBF1HKNLM"://Kennel Master
-            if($card->Controller == $player && $card->Status == 2 && CardCard_type($cardPlayed) == "Tactic") {
-                AddHand($player, "RYBF1GFDG"); //Gryffdog
-            }
-            break;
+        
         default: break;
     }
 }
@@ -111,11 +116,6 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
 function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true, $shouldExhaust = true, $ignoreActionCost = false) {
     $cardZone = explode("-", $cardZone)[0];
     $selectedCard = GetTopCard($cardZone);
-    if($selectedCard->Controller != $player) {
-        //TODO: Should only apply to Gates
-        DoDefendAction($player, $cardZone);
-        return;
-    }
     if($selectedCard->CardID == "DNBF3HNLKS") { //Nihl'othrakis
         $includeMove = false;
     }
@@ -152,13 +152,6 @@ function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack
     DecisionQueueController::AddDecision($player, "CUSTOM", "FighterAction|" . $cardZone . "|" . ($shouldExhaust ? "1" : "0") . "|" . ($ignoreActionCost ? "1" : "0"), 1);
 }
 
-function DoDefendAction($player, $cardZone) {
-    $topCard = GetTopCard($cardZone);
-    DiscardCards($player, amount:CardPower($topCard->CardID));
-    FighterDestroyed($topCard->Controller, $cardZone . "-" . $topCard->mzIndex);
-    UseActions(amount:1);
-}
-
 function CanAttack($player, $fromZone, $toZone) {
     $fromZoneArr = &GetZone($fromZone);
     $toZoneArr = &GetZone($toZone);
@@ -171,19 +164,6 @@ function CanAttack($player, $fromZone, $toZone) {
         return true;
     }
     return false;
-}
-
-function GetDeployZones($player, $cardID) {
-    $legalZones = [];
-    return $legalZones;
-}
-
-function DoPlayFighter($player, $mzCard) {
-    $sourceObject = &GetZoneObject($mzCard);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", GetDeployZones($player, $sourceObject->CardID)), 1);
-    DecisionQueueController::AddDecision($player, "MZMOVE", $mzCard . "->{<-}", 1);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "AfterFighterPlayed|-", 1);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "CardPlayed|" . $sourceObject->CardID, 1);
 }
 
 function WakeUpPhase() {
@@ -222,8 +202,13 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Controller=
 }
 
 function RecollectionPhase() {
-    // Recollection phase - player gains Opportunity
+    // Recollection phase
     SetFlashMessage("Recollection Phase");
+    $turnPlayer = &GetTurnPlayer();
+    $memory = &GetMemory($turnPlayer);
+    for($i=count($memory)-1; $i>=0; --$i) {
+        MZMove($turnPlayer, "myMemory-" . $i, "myHand");
+    }
 }
 
 function DrawPhase() {
