@@ -1,10 +1,10 @@
 <?php
 
-include_once __DIR__ . '/CardLogic.php';
-include_once __DIR__ . '/CombatLogic.php';
-
 $debugMode = true;
 $customDQHandlers = [];
+
+include_once __DIR__ . '/CardLogic.php';
+include_once __DIR__ . '/CombatLogic.php';
 
 //TODO: Add this to a schema
 function ActionMap($actionCard)
@@ -579,15 +579,12 @@ function CanActExhausted($obj) {
     return false;
 }
 
-function ZoneSearch($zoneName, $minBasePower=null, $maxBasePower=null, $hasTrait=null) {
+function ZoneSearch($zoneName, $cardTypes=null) {
     $results = [];
     $zoneArr = &GetZone($zoneName);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = $zoneArr[$i];
-        echo($obj->CardID . " " . ($hasTrait ? "yes" : "no") . " " . (TraitContains($obj, $hasTrait) ? "yes" : "no") . " \n");
-        if(($minBasePower === null || CardPower($obj->CardID) >= $minBasePower) &&
-           ($maxBasePower === null || CardPower($obj->CardID) <= $maxBasePower) &&
-           ($hasTrait === null || TraitContains($obj, $hasTrait))) {
+        if(($cardTypes === null || in_array(CardType($obj->CardID), (array)$cardTypes))) {
             array_push($results, $zoneName . "-" . $i);
         }
     }

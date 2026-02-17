@@ -18,7 +18,26 @@ function BeginCombatPhase($actionCard) {
         return false;
     }
     ExhaustCard($turnPlayer, $actionCard);
+    //Combat 1.e: If there are any additional costs imposed for declaring attacks, they must be paid as attacks are being declared. If they can’t be paid, the attack can’t be declared.
+    
+    //Combat 1.h: Players can't declare attacks on their first turn unless they are the last player in the first turn cycle
+    
+    //Combat 2.a: Attack cards may be played without a valid target, but they will immediately fizzle
+
+    //Combat 2.b: Attack declarations from allies and champions must specify the attack target during declaration. If there is no valid target, the attack cannot be declared.
+    ChooseValidAttackTarget($actionCard);
     return true;
 }
+
+function ChooseValidAttackTarget($actionCard) {
+    $obj = &GetZoneObject($actionCard);
+    $player = GetTurnPlayer();
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", ZoneSearch("theirField", ["ALLY", "CHAMPION"])), 100);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AttackTargetChosen", 100);
+}
+
+$customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecision) {
+    echo("Chosen attack target: " . $lastDecision . "\n");
+};
 
 ?>
