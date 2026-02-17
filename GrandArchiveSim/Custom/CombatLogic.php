@@ -33,11 +33,18 @@ function ChooseValidAttackTarget($actionCard) {
     $obj = &GetZoneObject($actionCard);
     $player = GetTurnPlayer();
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", ZoneSearch("theirField", ["ALLY", "CHAMPION"])), 100);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "AttackTargetChosen", 100);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AttackTargetChosen|" . $actionCard, 100);
 }
 
 $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecision) {
-    echo("Chosen attack target: " . $lastDecision . "\n");
+    $attacker = &GetZoneObject($parts[0]);
+    $target = &GetZoneObject($lastDecision);
+    DealDamage($player, $parts[0], $lastDecision, CardPower($attacker->CardID));
 };
+
+function OnDealDamage($player, $source, $target, $amount) {
+    $targetObj = &GetZoneObject($target);
+    $targetObj->Damage += $amount;
+}
 
 ?>

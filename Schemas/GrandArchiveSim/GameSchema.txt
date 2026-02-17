@@ -19,6 +19,7 @@ Macro: Name=Enter(CardID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=ReserveCard(); Choice={MZCHOOSE:myHand}; AfterChoice=OnCardReserved; Action={}
 Macro: Name=CardActivated(mzID); ChoiceFunction=OnCardActivated; Action={}
 Macro: Name=ExhaustCard(mzID); ChoiceFunction=OnExhaustCard; Action={}
+Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Action={}
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle
