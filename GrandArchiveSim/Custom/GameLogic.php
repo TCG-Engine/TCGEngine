@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . '/CardLogic.php';
+include_once __DIR__ . '/CombatLogic.php';
 
 $debugMode = true;
 $customDQHandlers = [];
@@ -24,7 +25,7 @@ function ActionMap($actionCard)
             $obj = &GetZoneObject($actionCard);
             $cardType = CardType($obj->CardID);
             if(PropertyContains($cardType, "ALLY")) {
-                echo("This is an ally");
+                BeginCombatPhase($actionCard);
             }
             break;
         default: break;
@@ -311,10 +312,18 @@ function ResolveAttack($fromZoneName, $destZoneName) {
 }
 
 function ObjectCurrentPower($obj) {
-    return 0;
+    return CardPower($obj->CardID);
 }
 
 function ObjectCurrentHP($obj) {
+    return CardLife($obj->CardID);
+}
+
+function ObjectCurrentPowerDisplay($obj) {
+    return 0;
+}
+
+function ObjectCurrentHPDisplay($obj) {
     return 0;
 }
 
@@ -389,22 +398,6 @@ function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
     }
     return $totalPower;
 }
-
-function AdjacentZonePowerModifiers($fromTop, $toTop, $checkZone, $currentPower, $isAttacker=false) {
-    $modifier = 0;
-    $checkTop = GetTopCard($checkZone);
-    if($checkTop === null || $toTop === null) return $modifier;
-    switch($checkTop->CardID) {
-        case "RYBF1HLMSH"://Luminous Shieldsman
-            if($isAttacker == false && $checkTop->Controller == $toTop->Controller && $currentPower < 3) {
-                $modifier += 1;
-            }
-            break;
-        default: break;
-    }
-    return $modifier;
-}
-
 
 function DoDrawCard($player, $amount=1) {
     $zone = &GetDeck($player);
@@ -713,6 +706,11 @@ function ObjectHasEffect($obj, $targetEffect) {
 function DealChampionDamage($player, $amount=1) {
     $health = &GetHealth($player);
     $health += $amount;
+}
+
+function OnExhaustCard($player, $mzCard) {
+    $obj = &GetZoneObject($mzCard);
+    $obj->Status = 1; // Exhaust the card
 }
 
 ?>

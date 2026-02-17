@@ -18,6 +18,7 @@ Macro: Name=Materialize(mzID); ChoiceFunction=DoMaterialize; Action={}
 Macro: Name=Enter(CardID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=ReserveCard(); Choice={MZCHOOSE:myHand}; AfterChoice=OnCardReserved; Action={}
 Macro: Name=CardActivated(mzID); ChoiceFunction=OnCardActivated; Action={}
+Macro: Name=ExhaustCard(mzID); ChoiceFunction=OnExhaustCard; Action={}
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle
@@ -31,8 +32,8 @@ Click: FSM()
 Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
 Field - CardID:string, Status:number=2, Owner:number, Damage:number=0
-Virtual: CurrentPower=ObjectCurrentPower()
-Virtual: CurrentHP=ObjectCurrentHP()
+Virtual: CurrentPower=ObjectCurrentPowerDisplay()
+Virtual: CurrentHP=ObjectCurrentHPDisplay()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Display: Visibility=Public, Mode=All, Top=110px, Right=120px
 Overlay: Status=1:exhausted
