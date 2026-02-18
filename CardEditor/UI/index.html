@@ -407,6 +407,38 @@
         .inline-checkbox input[type="checkbox"]:checked + label {
             color: #007acc;
         }
+
+        .filter-section {
+            padding: 6px 15px;
+            background: #2d2d30;
+            border-bottom: 1px solid #3e3e42;
+        }
+
+        .filter-section label {
+            font-size: 11px;
+            color: #858585;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-bottom: 3px;
+            display: block;
+        }
+
+        .filter-section select {
+            width: 100%;
+            padding: 6px 8px;
+            background: #3c3c3c;
+            color: #e0e0e0;
+            border: 1px solid #555555;
+            border-radius: 3px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .filter-section select:focus {
+            outline: none;
+            border-color: #0e639c;
+            box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -429,6 +461,13 @@
                 </div>
             </div>
             
+            <div class="filter-section" id="setFilterSection" style="display: none;">
+                <label for="setFilter">Card Set</label>
+                <select id="setFilter" onchange="onFilterChanged()">
+                    <option value="">All Sets</option>
+                </select>
+            </div>
+
             <div class="card-list" id="cardList">
                 <div class="loading">Loading roots...</div>
             </div>
@@ -446,6 +485,65 @@
     
     <script src="AbilityEditor.js"></script>
     <script>
+        // Per-root filter configuration (hardcoded per game)
+        const ROOT_FILTER_CONFIG = {
+            'GrandArchiveSim': { setFilter: true }
+        };
+
+        // Track which roots have had their generated dicts loaded
+        const loadedDictScripts = {};
+
+        // Dynamically load GeneratedCardDictionaries script for a root
+        async function loadGeneratedDicts(rootName) {
+            if (loadedDictScripts[rootName]) return true;
+            try {
+                const res = await fetch(`../API/GetGeneratedDictPath.php?root=${encodeURIComponent(rootName)}`);
+                const data = await res.json();
+                if (!data.success) return false;
+                return new Promise((resolve) => {
+                    const script = document.createElement('script');
+                    script.src = data.path;
+                    script.onload = () => { loadedDictScripts[rootName] = true; resolve(true); };
+                    script.onerror = () => resolve(false);
+                    document.head.appendChild(script);
+                });
+            } catch (e) {
+                return false;
+            }
+        }
+
+        // Show/hide and populate the set filter for a given root
+        function updateSetFilter(rootName) {
+            const config = ROOT_FILTER_CONFIG[rootName];
+            const section = document.getElementById('setFilterSection');
+            const select = document.getElementById('setFilter');
+
+            if (config && config.setFilter) {
+                section.style.display = '';
+                // Gather unique sets from all card IDs in this root
+                const cards = (window.availableRoots || {})[rootName] || {};
+                const cardIds = Object.keys(cards);
+                const sets = new Set();
+                cardIds.forEach(cardId => {
+                    if (typeof Cardset === 'function') {
+                        const s = Cardset(cardId);
+                        if (s) sets.add(s);
+                    }
+                });
+                // Rebuild options
+                select.innerHTML = '<option value="">All Sets</option>';
+                [...sets].sort().forEach(setName => {
+                    const opt = document.createElement('option');
+                    opt.value = setName;
+                    opt.textContent = setName;
+                    select.appendChild(opt);
+                });
+            } else {
+                section.style.display = 'none';
+                select.value = '';
+            }
+        }
+
         // Initialize the application
         document.addEventListener('DOMContentLoaded', initializeApp);
         
@@ -479,9 +577,22 @@
             }
         }
         
-        function onRootChanged() {
-            // Reset filter when changing root
+        async function onRootChanged() {
+            // Reset filters when changing root
             document.getElementById('hideImplemented').checked = false;
+            document.getElementById('setFilter').value = '';
+
+            const rootName = document.getElementById('rootSelect').value;
+            const config = ROOT_FILTER_CONFIG[rootName];
+
+            // Load generated dictionaries and populate set filter if needed
+            if (config && config.setFilter) {
+                await loadGeneratedDicts(rootName);
+                updateSetFilter(rootName);
+            } else {
+                updateSetFilter(rootName);
+            }
+
             populateCardList();
         }
         
@@ -494,6 +605,7 @@
             const selectedRoot = rootSelect.value;
             const cardList = document.getElementById('cardList');
             const hideImplemented = document.getElementById('hideImplemented').checked;
+            const selectedSet = document.getElementById('setFilter').value;
             
             if (!selectedRoot) {
                 cardList.innerHTML = '<div class="loading">Select a root</div>';
@@ -504,7 +616,7 @@
             const cards = window.availableRoots[selectedRoot] || {};
             let cardIds = Object.keys(cards).sort();
             
-            // Apply filter if needed
+            // Apply unimplemented filter if needed
             if (hideImplemented) {
                 cardIds = cardIds.filter(cardId => {
                     const cardData = cards[cardId];
@@ -514,6 +626,11 @@
                     }
                     return true; // If no implementation data, show the card
                 });
+            }
+
+            // Apply set filter if one is selected (GrandArchiveSim and similar)
+            if (selectedSet && typeof Cardset === 'function') {
+                cardIds = cardIds.filter(cardId => Cardset(cardId) === selectedSet);
             }
             
             if (cardIds.length === 0) {
