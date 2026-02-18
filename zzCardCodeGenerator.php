@@ -519,6 +519,8 @@ function GetPropertyValue($card, $property)
         case "durability":
         case "speed":
           return isset($card->$property) && $card->$property !== null ? $card->$property : -1;
+        case "set":
+          return isset($card->editions) && isset($card->editions[0]->set) && isset($card->editions[0]->set->prefix) ? $card->editions[0]->set->prefix : "";
         default: return isset($card->$property) ? $card->$property : "";
       }
     default: return isset($card->$property) ? $card->$property : "";
