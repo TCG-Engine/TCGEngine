@@ -5,11 +5,6 @@ set_time_limit(3600);
 
 include_once __DIR__ . '/../GrandArchiveSim/GeneratedCode/GeneratedCardDictionaries.php';
 
-// ===== CONFIGURATION =====
-$targetSet = "DOA Alter"; // Set to process (e.g., "Spark", "Flame", "Light", etc.)
-$maxCardsToProcess = 1000; // Max cards to process (set to a large number for all)
-// ========================
-
 // Grand Archive Keywords
 $keywords = [
     "Preserve",
@@ -168,25 +163,14 @@ $processedCount = 0;
 $skippedCount = 0;
 $keywordData = []; // Array to store all card keyword data
 
-echo "<h2>Processing Cards for Set: <strong>$targetSet</strong></h2>";
-echo "<p>Max cards to process: $maxCardsToProcess</p>";
+echo "<h2>Processing Cards</h2>";
 
 $allCardIds = GetAllCardIds();
 $cardsProcessedInSet = 0;
 
 foreach ($allCardIds as $cardId) {
-    // Check if we've reached the max cards to process
-    if ($cardsProcessedInSet >= $maxCardsToProcess) {
-        break;
-    }
-    
     // Get the set for this card
     $cardSet = CardSet($cardId);
-    
-    // Skip if not the target set
-    if ($cardSet !== $targetSet) {
-        continue;
-    }
     
     // Get card effect text
     $cardEffect = CardEffect($cardId);
@@ -213,13 +197,12 @@ foreach ($allCardIds as $cardId) {
 
 echo "<BR><BR>========================================<BR>";
 echo "<strong>Summary:</strong><BR>";
-echo "Set: <strong>$targetSet</strong><BR>";
 echo "Processed: $processedCount cards<BR>";
 echo "Skipped: $skippedCount cards (no keywords/conditions found)<BR>";
 
 // Generate and save JSON output
 $jsonOutput = json_encode($keywordData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-$outputFile = "GA_Keywords_" . str_replace(" ", "_", $targetSet) . ".json";
+$outputFile = "GA_Keywords.json";
 file_put_contents($outputFile, $jsonOutput);
 
 echo "<BR><BR><strong>JSON output saved to: $outputFile</strong><BR>";

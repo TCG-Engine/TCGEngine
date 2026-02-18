@@ -1,0 +1,1753 @@
+{
+    "0hsncz1fz2": {
+        "name": "0hsncz1fz2",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "s4vxfy51ec": {
+        "name": "s4vxfy51ec",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "9lbewemius": {
+        "name": "9lbewemius",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "8n4zw4gq5w": {
+        "name": "8n4zw4gq5w",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "akb1k0zi5h": {
+        "name": "akb1k0zi5h",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Cleave",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "tsvbgl6ffq": {
+        "name": "tsvbgl6ffq",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "acmde97dbu": {
+        "name": "acmde97dbu",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "3gygojwk0p": {
+        "name": "3gygojwk0p",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "r278evrcdz": {
+        "name": "r278evrcdz",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "oy34bro89w": {
+        "name": "oy34bro89w",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "ZSYwzoUEdz": {
+        "name": "ZSYwzoUEdz",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [
+                    {
+                        "name": "Level",
+                        "value": "1"
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "g9g8lun4ol": {
+        "name": "g9g8lun4ol",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "vk56lbihtc": {
+        "name": "vk56lbihtc",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "i1sh9r9rda": {
+        "name": "i1sh9r9rda",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Vigor",
+                "conditions": [
+                    {
+                        "name": "Level",
+                        "value": "1"
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "hmjr33ijq6": {
+        "name": "hmjr33ijq6",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "du50pcescf": {
+        "name": "du50pcescf",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [
+                    {
+                        "name": "Level",
+                        "value": "2"
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "dJlNMQ5rWP": {
+        "name": "dJlNMQ5rWP",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "zcvq77mdgd": {
+        "name": "zcvq77mdgd",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "cworak5y4y": {
+        "name": "cworak5y4y",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "u0yaub9dal": {
+        "name": "u0yaub9dal",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "zthwm68lgo": {
+        "name": "zthwm68lgo",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "wosk26yg5z": {
+        "name": "wosk26yg5z",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "88zq9ox7u6": {
+        "name": "88zq9ox7u6",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [
+                    {
+                        "name": "Level",
+                        "value": "2"
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "urfp66pv4n": {
+        "name": "urfp66pv4n",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "mwd3n9u8ej": {
+        "name": "mwd3n9u8ej",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "plywc08c9h": {
+        "name": "plywc08c9h",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "zyEMI5XNHt": {
+        "name": "zyEMI5XNHt",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "p16w5j93mk": {
+        "name": "p16w5j93mk",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "ty0tcpdiny": {
+        "name": "ty0tcpdiny",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "3n4l6aoj4t": {
+        "name": "3n4l6aoj4t",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "l6gt7lh9v2": {
+        "name": "l6gt7lh9v2",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "Dz8I0eJzaf": {
+        "name": "Dz8I0eJzaf",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "yqm3l6lbns": {
+        "name": "yqm3l6lbns",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Preserve",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "u1a1s4ys44": {
+        "name": "u1a1s4ys44",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "gwve1d47o7": {
+        "name": "gwve1d47o7",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "g3DQoQvyjI": {
+        "name": "g3DQoQvyjI",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "x7u6wzh973": {
+        "name": "x7u6wzh973",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "px60u5n1do": {
+        "name": "px60u5n1do",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "w6ax750524": {
+        "name": "w6ax750524",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "tdRR5lQHMN": {
+        "name": "tdRR5lQHMN",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "t1cn1tzgcx": {
+        "name": "t1cn1tzgcx",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "i7chsbaleg": {
+        "name": "i7chsbaleg",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "xW6SZSlJX6": {
+        "name": "xW6SZSlJX6",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "4NkVdSx9ed": {
+        "name": "4NkVdSx9ed",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "12XYNDPi49": {
+        "name": "12XYNDPi49",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "3ewnten2rn": {
+        "name": "3ewnten2rn",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "voy5ttkk39": {
+        "name": "voy5ttkk39",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Level",
+                        "value": "2"
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "xxoo7dl5j4": {
+        "name": "xxoo7dl5j4",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Level",
+                        "value": "2"
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "opb1wdktia": {
+        "name": "opb1wdktia",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "iabqeB0I6t": {
+        "name": "iabqeB0I6t",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "7dl5j4lx6x": {
+        "name": "7dl5j4lx6x",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "7NMFSRR5V3": {
+        "name": "7NMFSRR5V3",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Vigor",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "2ugmnmp5af": {
+        "name": "2ugmnmp5af",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "5h8asbierp": {
+        "name": "5h8asbierp",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "cWJqSwhKEQ": {
+        "name": "cWJqSwhKEQ",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "WsunZX4IlW": {
+        "name": "WsunZX4IlW",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "9fZMLbyRWd": {
+        "name": "9fZMLbyRWd",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "zPC4Yqo9Fs": {
+        "name": "zPC4Yqo9Fs",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "iD8qbpA8z5": {
+        "name": "iD8qbpA8z5",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "UmZpK4rt2M": {
+        "name": "UmZpK4rt2M",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "f28y5rn0dt": {
+        "name": "f28y5rn0dt",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "4a7QLLouGk": {
+        "name": "4a7QLLouGk",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "zGlZDatGXe": {
+        "name": "zGlZDatGXe",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "SSu2eQZFJV": {
+        "name": "SSu2eQZFJV",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "vefcX6tBeg": {
+        "name": "vefcX6tBeg",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "iqzaNLhqk4": {
+        "name": "iqzaNLhqk4",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "do1blsupu0": {
+        "name": "do1blsupu0",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "YqQsXwEvv5": {
+        "name": "YqQsXwEvv5",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "3hgldrogit": {
+        "name": "3hgldrogit",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "FhbVHkHQRb": {
+        "name": "FhbVHkHQRb",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "rqjnvhf26m": {
+        "name": "rqjnvhf26m",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "FGvq4eQPbP": {
+        "name": "FGvq4eQPbP",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Cleave",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "VV6ADdMrr5": {
+        "name": "VV6ADdMrr5",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "7fqr67duh1": {
+        "name": "7fqr67duh1",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "x6jo8zxhl9": {
+        "name": "x6jo8zxhl9",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "CvvgJR4fNa": {
+        "name": "CvvgJR4fNa",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "0r7j97g2zh": {
+        "name": "0r7j97g2zh",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "y6q4goxi8a": {
+        "name": "y6q4goxi8a",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "uTBsOYf15p": {
+        "name": "uTBsOYf15p",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "CfU2EmuKwY": {
+        "name": "CfU2EmuKwY",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "fw8yvhf3mz": {
+        "name": "fw8yvhf3mz",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Vigor",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "pi9ftq3sul": {
+        "name": "pi9ftq3sul",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "5wdysg327b": {
+        "name": "5wdysg327b",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "ypwc8tuhuy": {
+        "name": "ypwc8tuhuy",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "txgvf6xpkq": {
+        "name": "txgvf6xpkq",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "fxwy3haEXU": {
+        "name": "fxwy3haEXU",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "2bbmoqk2c7": {
+        "name": "2bbmoqk2c7",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "2djBo4ecDL": {
+        "name": "2djBo4ecDL",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "wklzjmwuir": {
+        "name": "wklzjmwuir",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "IyXuaLKjSA": {
+        "name": "IyXuaLKjSA",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "iqs2hipwsc": {
+        "name": "iqs2hipwsc",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Cleave",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "kYG1EDltdI": {
+        "name": "kYG1EDltdI",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "uzFmjocICd": {
+        "name": "uzFmjocICd",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "WUAOMTZ7P2": {
+        "name": "WUAOMTZ7P2",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "wnyqmrcwda": {
+        "name": "wnyqmrcwda",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "39srnovht1": {
+        "name": "39srnovht1",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "PZM9uvCFai": {
+        "name": "PZM9uvCFai",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "pn9gQjV3Rb": {
+        "name": "pn9gQjV3Rb",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "Bzy2hRKUmR": {
+        "name": "Bzy2hRKUmR",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "DBJ4DuLABr": {
+        "name": "DBJ4DuLABr",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "4s0c9XgLg7": {
+        "name": "4s0c9XgLg7",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "LNSRQ5xW6E": {
+        "name": "LNSRQ5xW6E",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "it9jbu4axg": {
+        "name": "it9jbu4axg",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "GuDKuPKNgh": {
+        "name": "GuDKuPKNgh",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Cleave",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "heq49UQGvQ": {
+        "name": "heq49UQGvQ",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "qxnv0jqeym": {
+        "name": "qxnv0jqeym",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Vigor",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "1wl8ao8bls": {
+        "name": "1wl8ao8bls",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Cleave",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "UfQh069mc3": {
+        "name": "UfQh069mc3",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "xiazfnm292": {
+        "name": "xiazfnm292",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Cleave",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "UVAb8CmjtL": {
+        "name": "UVAb8CmjtL",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "ny1te7hcjm": {
+        "name": "ny1te7hcjm",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "4V6qKuM7xs": {
+        "name": "4V6qKuM7xs",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "lrbcgpny3d": {
+        "name": "lrbcgpny3d",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "ZgA7cWNKGy": {
+        "name": "ZgA7cWNKGy",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "qexcwmx2ug": {
+        "name": "qexcwmx2ug",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "mHd6LLyMyF": {
+        "name": "mHd6LLyMyF",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "zmoegdo111": {
+        "name": "zmoegdo111",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Preserve",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "3TfIePpuZO": {
+        "name": "3TfIePpuZO",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "True Sight",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "aKgdkLSBza": {
+        "name": "aKgdkLSBza",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "ZfCtSldRIy": {
+        "name": "ZfCtSldRIy",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "JEOxGQppTE": {
+        "name": "JEOxGQppTE",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Vigor",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "ZSSegCjquB": {
+        "name": "ZSSegCjquB",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "TvugEkGGVd": {
+        "name": "TvugEkGGVd",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Vigor",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "WWnmb1Hjdo": {
+        "name": "WWnmb1Hjdo",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Floating Memory",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "VAFTR5taNG": {
+        "name": "VAFTR5taNG",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "G5E0PIUd0W": {
+        "name": "G5E0PIUd0W",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Efficiency",
+                "conditions": [
+                    {
+                        "name": "Class Bonus",
+                        "value": null
+                    }
+                ],
+                "value": null
+            }
+        ]
+    },
+    "PLljzdiMmq": {
+        "name": "PLljzdiMmq",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Preserve",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "cVRIUJdTW5": {
+        "name": "cVRIUJdTW5",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Preserve",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "2Ojrn7buPe": {
+        "name": "2Ojrn7buPe",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Preserve",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "FWnxKjSeB1": {
+        "name": "FWnxKjSeB1",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Stealth",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    },
+    "rpOaAjgtue": {
+        "name": "rpOaAjgtue",
+        "items": [
+            {
+                "type": "KEYWORD",
+                "name": "Intercept",
+                "conditions": [],
+                "value": null
+            }
+        ]
+    }
+}
