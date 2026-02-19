@@ -108,6 +108,10 @@ function CardIDOverride($cardID) {
     case "LOF_060": return "TWI_058"; //Padawon Starfighter
     case "LOF_162": return "SHD_168"; //Hunting Nexu
     case "LOF_164": return "SOR_164"; //Wampa
+    case "LAW_115": return "SHD_057"; //Rickety Quadjumper
+    case "LAW_175": return "JTL_136"; //Prototype TIE Advanced
+    case "LAW_253": return "SOR_237"; //Alliance X-Wing
+    case "LAW_261": return "SHD_260"; //Street Gang Recruiter
     default: return $cardID;
   }
 }
