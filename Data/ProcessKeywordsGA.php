@@ -13,22 +13,22 @@ $reportMode = false; // Set to true to see detailed processing output
 
 // Grand Archive Keywords
 $keywords = [
-    "Preserve",
-    "Pride",
-    "Intercept",
-    "Floating Memory",
-    "True Sight",
-    "Vigor",
-    "Efficiency",
-    "Cleave",
-    "Stealth",
-    "Prepare"
+    [ 'name' => "Preserve" ],
+    [ 'name' => "Pride" ],
+    [ 'name' => "Intercept" ],
+    [ 'name' => "Floating Memory" ],
+    [ 'name' => "True Sight" ],
+    [ 'name' => "Vigor" ],
+    [ 'name' => "Efficiency" ],
+    [ 'name' => "Cleave" ],
+    [ 'name' => "Stealth" ],
+    [ 'name' => "Prepare" ]
 ];
 
 // Grand Archive Conditions
 $conditions = [
-    "Class Bonus",
-    "Level"
+    [ 'name' => "Class Bonus" ],
+    [ 'name' => "Level" ]
 ];
 
 // Function to parse keywords and conditions from card effect text
@@ -64,7 +64,7 @@ function parseKeywordsAndConditions($text, $keywords, $conditions) {
                 // Check if this keyword is in our list
                 $matchedKeyword = null;
                 foreach ($keywords as $kw) {
-                    if (strtolower($keyword) === strtolower($kw)) {
+                    if (strtolower($keyword) === strtolower($kw['name'])) {
                         $matchedKeyword = $kw;
                         break;
                     }
@@ -73,7 +73,7 @@ function parseKeywordsAndConditions($text, $keywords, $conditions) {
                 if ($matchedKeyword) {
                     $entry = [
                         'type' => 'KEYWORD',
-                        'name' => $matchedKeyword,
+                        'name' => $matchedKeyword['name'],
                         'conditions' => [],
                         'value' => null
                     ];
@@ -94,7 +94,7 @@ function parseKeywordsAndConditions($text, $keywords, $conditions) {
                                 
                                 // Check if this condition is in our list
                                 foreach ($conditions as $cond) {
-                                    if (stripos($conditionText, $cond) !== false) {
+                                    if (stripos($conditionText, $cond['name']) !== false) {
                                         $condValue = null;
                                         // Extract numeric value if present (e.g., "Level 1+")
                                         if (preg_match('/(\d+)/', $conditionText, $valueMatch)) {
@@ -102,7 +102,7 @@ function parseKeywordsAndConditions($text, $keywords, $conditions) {
                                         }
                                         
                                         $entry['conditions'][] = [
-                                            'name' => $cond,
+                                            'name' => $cond['name'],
                                             'value' => $condValue
                                         ];
                                         break;
