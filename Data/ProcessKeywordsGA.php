@@ -5,6 +5,12 @@ set_time_limit(3600);
 
 include_once __DIR__ . '/../GrandArchiveSim/GeneratedCode/GeneratedCardDictionaries.php';
 
+$rootName = "GrandArchiveSim";
+
+// ===== REPORT MODE =====
+$reportMode = false; // Set to true to see detailed processing output
+// ========================
+
 // Grand Archive Keywords
 $keywords = [
     "Preserve",
@@ -39,7 +45,9 @@ function parseKeywordsAndConditions($text, $keywords, $conditions) {
     foreach ($lines as $line) {
         // Remove reminder text (anything in *(...)*)
         $line = preg_replace('/\*\([^)]*\)\*/i', '', $line);
-        echo("Processing line: $line<BR>");
+        if ($GLOBALS['reportMode']) {
+            echo("Processing line: $line<BR>");
+        }
         $line = trim($line);
         if (empty($line)) {
             continue;
@@ -125,23 +133,25 @@ function processCard($cardId, $cardName, $cardText, $allKeywords, $allConditions
         return null;
     }
     
-    echo "<BR><BR>========================================<BR>";
-    echo "Processing Card: <strong>$cardName</strong> ($cardId)<BR>";
-    echo "Card Text: $cardText<BR>";
-    
-    $keywordNames = [];
-    foreach ($items as $item) {
-        $keywordNames[] = $item['name'];
+    if ($GLOBALS['reportMode']) {
+        echo "<BR><BR>========================================<BR>";
+        echo "Processing Card: <strong>$cardName</strong> ($cardId)<BR>";
+        echo "Card Text: $cardText<BR>";
+        
+        $keywordNames = [];
+        foreach ($items as $item) {
+            $keywordNames[] = $item['name'];
+        }
+        echo "Keywords found: <em>" . implode(", ", $keywordNames) . "</em><BR>";
+        echo "----------------------------------------<BR>";
+        echo "Parsed Items: <pre>" . htmlspecialchars(json_encode($items, JSON_PRETTY_PRINT)) . "</pre><BR>";
+        
+        // Flush output buffer to show progress in real-time
+        if (ob_get_level() > 0) {
+            ob_flush();
+        }
+        flush();
     }
-    echo "Keywords found: <em>" . implode(", ", $keywordNames) . "</em><BR>";
-    echo "----------------------------------------<BR>";
-    echo "Parsed Items: <pre>" . htmlspecialchars(json_encode($items, JSON_PRETTY_PRINT)) . "</pre><BR>";
-    
-    // Flush output buffer to show progress in real-time
-    if (ob_get_level() > 0) {
-        ob_flush();
-    }
-    flush();
     
     return [
         'cardId' => $cardId,
@@ -155,7 +165,9 @@ $processedCount = 0;
 $skippedCount = 0;
 $keywordData = []; // Array to store all card keyword data
 
-echo "<h2>Processing Cards</h2>";
+if ($reportMode) {
+    echo "<h2>Processing Cards</h2>";
+}
 
 $allCardIds = GetAllCardIds();
 $cardsProcessedInSet = 0;
@@ -198,7 +210,9 @@ $outputFile = "GA_Keywords.json";
 file_put_contents($outputFile, $jsonOutput);
 
 echo "<BR><BR><strong>JSON output saved to: $outputFile</strong><BR>";
-echo "<BR><strong>Preview of JSON structure:</strong><BR>";
-echo "<pre>" . htmlspecialchars($jsonOutput) . "</pre>";
+if($reportMode) {
+    echo "<BR><strong>Preview of JSON structure:</strong><BR>";
+    echo "<pre>" . htmlspecialchars($jsonOutput) . "</pre>";
+}
 
 ?>
