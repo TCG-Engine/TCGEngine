@@ -9,6 +9,7 @@ $rootName = "GrandArchiveSim";
 
 // ===== REPORT MODE =====
 $reportMode = false; // Set to true to see detailed processing output
+$generatePHPMode = true; // Set to true to generate PHP code instead of JSON
 // ========================
 
 // Grand Archive Keywords
@@ -123,6 +124,89 @@ function parseKeywordsAndConditions($text, $keywords, $conditions) {
 
 
 
+// Function to generate PHP keyword code from parsed keyword data
+function generatePHPCode($keywordData, $keywords, $conditions, $rootName) {
+    $php = "<?php\n\n";
+    $php .= "// Generated Keyword Code for $rootName\n";
+    $php .= "// Generated on: " . date('Y-m-d H:i:s') . "\n\n";
+
+    foreach ($keywords as $kw) {
+        $kwName = $kw['name'];
+        $kwKey = str_replace(' ', '', $kwName); // e.g. FloatingMemory
+
+        // Collect all cards that have this keyword
+        $cardEntries = [];
+        foreach ($keywordData as $cardId => $cardData) {
+            foreach ($cardData['items'] as $item) {
+                if ($item['name'] === $kwName) {
+                    $cardEntries[$cardId] = [
+                        'value' => $item['value'],
+                        'conditions' => $item['conditions']
+                    ];
+                    break;
+                }
+            }
+        }
+
+        if (empty($cardEntries)) {
+            continue; // No cards have this keyword, skip
+        }
+
+        $php .= "// ===== $kwName =====\n\n";
+
+        // Emit the lookup array
+        $php .= "\${$kwKey}_Cards = [\n";
+        foreach ($cardEntries as $cardId => $entry) {
+            $php .= "    '$cardId' => [\n";
+            $php .= "        'value' => " . var_export($entry['value'], true) . ",\n";
+            $php .= "        'conditions' => [\n";
+            foreach ($entry['conditions'] as $cond) {
+                $condValue = var_export($cond['value'], true);
+                $php .= "            ['name' => '{$cond['name']}', 'value' => $condValue],\n";
+            }
+            $php .= "        ]\n";
+            $php .= "    ],\n";
+        }
+        $php .= "];\n\n";
+
+        // Emit HasKeyword function
+        $php .= "function HasKeyword_{$kwKey}(\$obj) {\n";
+        $php .= "    global \${$kwKey}_Cards;\n";
+        $php .= "    \$cardId = \$obj->CardID;\n";
+        $php .= "    if (!isset(\${$kwKey}_Cards[\$cardId])) return false;\n";
+        $php .= "    \$entry = \${$kwKey}_Cards[\$cardId];\n";
+        $php .= "    \$player = \$obj->PlayerID;\n";
+        $php .= "    foreach (\$entry['conditions'] as \$cond) {\n";
+
+        foreach ($conditions as $cond) {
+            $condName = $cond['name'];
+            $evalFn = $cond['evalFunction']; // e.g. GetPlayerLevel($player)
+            $isVariable = $cond['isVariable'];
+
+            $php .= "        if (\$cond['name'] === '$condName') {\n";
+            if ($isVariable) {
+                $php .= "            if (!($evalFn >= \$cond['value'])) return false;\n";
+            } else {
+                $php .= "            if (!($evalFn)) return false;\n";
+            }
+            $php .= "        }\n";
+        }
+
+        $php .= "    }\n";
+        $php .= "    return true;\n";
+        $php .= "}\n\n";
+
+        // Emit GetValue function
+        $php .= "function GetKeyword_{$kwKey}_Value(\$obj) {\n";
+        $php .= "    if (!HasKeyword_{$kwKey}(\$obj)) return null;\n";
+        $php .= "    global \${$kwKey}_Cards;\n";
+        $php .= "    return \${$kwKey}_Cards[\$obj->CardID]['value'];\n";
+        $php .= "}\n\n";
+    }
+
+    return $php;
+}
+
 // Function to process a single card
 function processCard($cardId, $cardName, $cardText, $allKeywords, $allConditions) {
     // Parse keywords and conditions from the card text
@@ -204,15 +288,25 @@ echo "<strong>Summary:</strong><BR>";
 echo "Processed: $processedCount cards<BR>";
 echo "Skipped: $skippedCount cards (no keywords/conditions found)<BR>";
 
-// Generate and save JSON output
-$jsonOutput = json_encode($keywordData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-$outputFile = "GA_Keywords.json";
-file_put_contents($outputFile, $jsonOutput);
-
-echo "<BR><BR><strong>JSON output saved to: $outputFile</strong><BR>";
-if($reportMode) {
-    echo "<BR><strong>Preview of JSON structure:</strong><BR>";
-    echo "<pre>" . htmlspecialchars($jsonOutput) . "</pre>";
+// Generate output
+if ($generatePHPMode) {
+    $phpCode = generatePHPCode($keywordData, $keywords, $conditions, $rootName);
+    $outputFile = __DIR__ . "/../$rootName/GeneratedCode/GeneratedKeywordCode.php";
+    file_put_contents($outputFile, $phpCode);
+    echo "<BR><BR><strong>PHP code saved to: $outputFile</strong><BR>";
+    if ($reportMode) {
+        echo "<BR><strong>Preview of generated PHP:</strong><BR>";
+        echo "<pre>" . htmlspecialchars($phpCode) . "</pre>";
+    }
+} else {
+    $jsonOutput = json_encode($keywordData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+    $outputFile = "GA_Keywords.json";
+    file_put_contents($outputFile, $jsonOutput);
+    echo "<BR><BR><strong>JSON output saved to: $outputFile</strong><BR>";
+    if ($reportMode) {
+        echo "<BR><strong>Preview of JSON structure:</strong><BR>";
+        echo "<pre>" . htmlspecialchars($jsonOutput) . "</pre>";
+    }
 }
 
 ?>
