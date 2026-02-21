@@ -33,87 +33,79 @@ function parseKeywordsAndConditions($text, $keywords, $conditions) {
         return $items;
     }
     
-    // Remove reminder text (anything in *(...)*)
-    $text = preg_replace('/\*\([^)]*\)\*/i', '', $text);
-    
     // Split by newlines to process each line
-    $lines = explode('\n', $text);
+    $lines = explode('<br>', $text);
     
     foreach ($lines as $line) {
+        // Remove reminder text (anything in *(...)*)
+        $line = preg_replace('/\*\([^)]*\)\*/i', '', $line);
+        echo("Processing line: $line<BR>");
         $line = trim($line);
         if (empty($line)) {
             continue;
         }
         
-        // Find conditions in square brackets at the start of the line: [Condition] or [Condition Value]
-        $conditionMatches = [];
-        if (preg_match_all('/^\[([^\]]+)\]/', $line, $matches)) {
-            $conditionMatches = $matches[1]; // Get the content inside brackets
-        }
-        
-        // Find keywords in bold at the start of the line (after conditions): **Keyword**
-        $keywordMatches = [];
-        if (preg_match_all('/^\*\*([^*]+)\*\*/', $line, $matches)) {
-            $keywordMatches = $matches[1]; // Get the content inside bold markers
-        }
-        
-        // If no keywords at line start, also check after conditions: [Condition] **Keyword**
-        if (empty($keywordMatches) && !empty($conditionMatches)) {
-            if (preg_match('/\*\*([^*]+)\*\*/', $line, $matches)) {
-                $keywordMatches = [$matches[1]];
-            }
-        }
-        
-        // Process each keyword found in this line
-        foreach ($keywordMatches as $keyword) {
-            $keyword = trim($keyword);
-            
-            // Check if this keyword is in our list
-            $matchedKeyword = null;
-            foreach ($keywords as $kw) {
-                if (strtolower($keyword) === strtolower($kw)) {
-                    $matchedKeyword = $kw;
-                    break;
-                }
-            }
-            
-            if ($matchedKeyword) {
-                $entry = [
-                    'type' => 'KEYWORD',
-                    'name' => $matchedKeyword,
-                    'conditions' => [],
-                    'value' => null
-                ];
+        // Look for patterns: optional [Conditions] followed by **Keyword**
+        // Match at start of line or after reminder text closing: )*
+        // Pattern: (^|\)\*\s*)((?:\[[^\]]+\]\s*)*)\*\*([^*]+)\*\*
+        if (preg_match_all('/(^|\)\*\s*)((?:\[[^\]]+\]\s*)*)\*\*([^*]+)\*\*/', $line, $matches, PREG_SET_ORDER)) {
+            foreach ($matches as $match) {
+                $conditionsPrefix = $match[2]; // Everything before the keyword (conditions)
+                $keyword = trim($match[3]); // The keyword itself
                 
-                // Extract value if keyword has X format (e.g., "Pride 2" or "Pride X")
-                $keywordLower = strtolower($keyword);
-                if (preg_match('/(\d+)/', $keyword, $valueMatch)) {
-                    $entry['value'] = $valueMatch[1];
-                }
-                
-                // Attach all conditions from this line to this keyword
-                foreach ($conditionMatches as $conditionText) {
-                    $conditionText = trim($conditionText);
-                    
-                    // Check if this condition is in our list
-                    foreach ($conditions as $cond) {
-                        if (stripos($conditionText, $cond) !== false) {
-                            $condValue = null;
-                            // Extract numeric value if present (e.g., "Level 1+")
-                            if (preg_match('/(\d+)/', $conditionText, $valueMatch)) {
-                                $condValue = $valueMatch[1];
-                            }
-                            
-                            $entry['conditions'][] = [
-                                'name' => $cond,
-                                'value' => $condValue
-                            ];
-                            break;
-                        }
+                // Check if this keyword is in our list
+                $matchedKeyword = null;
+                foreach ($keywords as $kw) {
+                    if (strtolower($keyword) === strtolower($kw)) {
+                        $matchedKeyword = $kw;
+                        break;
                     }
                 }
                 
-                $items[] = $entry;
+                if ($matchedKeyword) {
+                    $entry = [
+                        'type' => 'KEYWORD',
+                        'name' => $matchedKeyword,
+                        'conditions' => [],
+                        'value' => null
+                    ];
+                    
+                    // Extract value if keyword has X format (e.g., "Pride 2" or "Pride X")
+                    if (preg_match('/(\d+)/', $keyword, $valueMatch)) {
+                        $entry['value'] = $valueMatch[1];
+                    }
+                    
+                    // Extract all conditions from the prefix
+                    if (!empty($conditionsPrefix)) {
+                        if (preg_match_all('/\[([^\]]+)\]/', $conditionsPrefix, $condMatches)) {
+                            $conditionMatches = $condMatches[1];
+                            
+                            // Attach conditions to this keyword
+                            foreach ($conditionMatches as $conditionText) {
+                                $conditionText = trim($conditionText);
+                                
+                                // Check if this condition is in our list
+                                foreach ($conditions as $cond) {
+                                    if (stripos($conditionText, $cond) !== false) {
+                                        $condValue = null;
+                                        // Extract numeric value if present (e.g., "Level 1+")
+                                        if (preg_match('/(\d+)/', $conditionText, $valueMatch)) {
+                                            $condValue = $valueMatch[1];
+                                        }
+                                        
+                                        $entry['conditions'][] = [
+                                            'name' => $cond,
+                                            'value' => $condValue
+                                        ];
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    $items[] = $entry;
+                }
             }
         }
     }

@@ -521,6 +521,8 @@ function GetPropertyValue($card, $property)
           return isset($card->$property) && $card->$property !== null ? $card->$property : -1;
         case "set":
           return isset($card->editions) && isset($card->editions[0]->set) && isset($card->editions[0]->set->prefix) ? $card->editions[0]->set->prefix : "";
+        case "effect":
+          return isset($card->$property) ? str_replace("\n", "<br>", $card->$property) : "";
         default: return isset($card->$property) ? $card->$property : "";
       }
     default: return isset($card->$property) ? $card->$property : "";
