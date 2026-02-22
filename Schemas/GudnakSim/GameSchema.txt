@@ -33,7 +33,7 @@ Highlight: SelectionMetadata
 Actions - Value:number=0
 Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
 Widgets: CustomInput=Draw
-DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
+DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string
 Display: Visibility=None, Mode=All, Display=None
