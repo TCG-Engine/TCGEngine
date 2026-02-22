@@ -122,59 +122,6 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $dqController->ExecuteStaticMethods($player, "-");
 }
 
-function DoFighterAction($player, $cardZone, $includeMove = true, $includeAttack = true, $shouldExhaust = true, $ignoreActionCost = false) {
-    $cardZone = explode("-", $cardZone)[0];
-    $selectedCard = GetTopCard($cardZone);
-    if($selectedCard->CardID == "DNBF3HNLKS") { //Nihl'othrakis
-        $includeMove = false;
-    }
-    $includeDiagonals = PlayerHasCard($player, "SHBF3HELVV"); //Elven Valkyrie
-    $adjacentZones = GetCardSpecificAdjacentZones($cardZone, $selectedCard->CardID, $includeDiagonals);
-    $legalZones = [];
-    foreach($adjacentZones as $zone) {
-        $zoneArr = &GetZone($zone);
-        if(count($zoneArr) == 1) {
-            //Can move to empty zone
-            if($includeMove) array_push($legalZones, $zone);
-        } else if(count($zoneArr) > 1) {
-            $topCard = $zoneArr[count($zoneArr) - 1];
-            if($includeAttack && $topCard->Controller != $player) {
-                if(CanAttack($player, $cardZone, $zone)) array_push($legalZones, $zone);
-            } else if($includeMove && $topCard->Controller == $player) {
-                array_push($legalZones, $zone);
-            }
-        }
-    }
-    
-    // Check for card-specific attack targets
-    $cardSpecificTargets = GetCardSpecificAttackTargets($player, $cardZone, $selectedCard->CardID, $includeAttack, $includeDiagonals);
-    foreach($cardSpecificTargets as $zone) {
-        if(!in_array($zone, $legalZones)) {
-            array_push($legalZones, $zone);
-        }
-    }
-    if(count($legalZones) == 0) {
-        SetFlashMessage("No legal actions available for this fighter.");
-        return;
-    }
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $legalZones), 1);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "FighterAction|" . $cardZone . "|" . ($shouldExhaust ? "1" : "0") . "|" . ($ignoreActionCost ? "1" : "0"), 1);
-}
-
-function CanAttack($player, $fromZone, $toZone) {
-    $fromZoneArr = &GetZone($fromZone);
-    $toZoneArr = &GetZone($toZone);
-    if(count($fromZoneArr) > 1 && count($toZoneArr) > 1) {
-        $fromTop = $fromZoneArr[count($fromZoneArr) - 1];
-        $toTop = $toZoneArr[count($toZoneArr) - 1];
-        if($fromTop->Controller != $player || $toTop->Controller == $player) return false;
-        if($toTop->HasTurnEffects("RYBF1HBTCS") || $toTop->HasTurnEffects("RYBTDVPT")) return false;
-        if(GlobalEffectCount($toTop->Controller, "GMBTWHTT") > 0) return false;
-        return true;
-    }
-    return false;
-}
-
 function WakeUpPhase() {
     // Wake Up phase
     SetFlashMessage("Wake Up Phase");
@@ -227,70 +174,6 @@ function EndPhase() {
     ExpireEffects(isEndTurn:false);
 }
 
-$customDQHandlers["AfterFighterPlayed"] = function($player, $param, $lastResult) {
-    $zoneName = explode("-", $lastResult)[0];
-    $zoneArr = &GetZone($zoneName);
-    if (!empty($zoneArr)) {
-        $lastIndex = count($zoneArr) - 1;
-        $mzIndex = $zoneName . "-" . $lastIndex;
-        DecisionQueueController::StoreVariable("mzID", $mzIndex);
-        $target = &GetZoneObject($mzIndex);
-        if ($target !== null) {
-            $target->Status = 1; // Exhaust the unit
-            $target->Controller = $player;
-        }
-    }
-};
-
-$customDQHandlers["FighterAction"] = function($player, $param, $lastResult) {
-    $destZoneName = explode("-", $lastResult)[0];
-    $fromZoneName = explode("-", $param[0])[0];
-    $fromZone = &GetZone($fromZoneName);
-    $destZone = &GetZone($destZoneName);
-    if($param[1] == "1") {
-        for($i = 1; $i < count($fromZone); ++$i) {
-            $fromZone[$i]->Status = 1; // Exhaust the unit
-        }
-    }
-    if($param[2] == "0") UseActions(amount:1);
-    if(count($destZone) == 1) {
-        //This is a move, move the whole stack from 1 -> end
-        for($i = 1; $i < count($fromZone); ++$i) {
-            MZMove($player, $fromZoneName . "-" . $i, $destZoneName);
-        }
-        return;
-    } else {
-        ResolveAttack($fromZoneName, $destZoneName);
-    }
-};
-
-function ResolveAttack($fromZoneName, $destZoneName) {
-    $destZoneName = explode("-", $destZoneName)[0];
-    $fromZoneName = explode("-", $fromZoneName)[0];
-    $fromZone = &GetZone($fromZoneName);
-    $destZone = &GetZone($destZoneName);
-    $fromTop = $fromZone[count($fromZone) - 1];
-    $destTop = $destZone[count($destZone) - 1];
-    $fromPower = CurrentCardPower($fromZone, $destZone, true);
-    $destPower = CurrentCardPower($fromZone, $destZone, false);
-    if($fromPower > $destPower) {
-        //Attacker wins
-        FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
-        if(count($destZone) == 2) { //Means there was only one defender
-            if($fromTop->CardID != "SHBF2HMSTH" && $fromTop->CardID != "SHBF3HELVV") MoveStack($fromZoneName, $destZoneName);
-        }
-    } else if($fromPower < $destPower) {
-        //Defender wins
-        FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
-    } else {
-        //Both destroyed
-        echo($destZoneName . "-" . (count($destZone) - 1));
-        echo($fromZoneName . "-" . (count($fromZone) - 1));
-        FighterDestroyed($destTop->Controller, $destZoneName . "-" . (count($destZone) - 1));
-        FighterDestroyed($fromTop->Controller, $fromZoneName . "-" . (count($fromZone) - 1));
-    }
-}
-
 function ObjectCurrentPower($obj) {
     return CardPower($obj->CardID);
 }
@@ -305,78 +188,6 @@ function ObjectCurrentPowerDisplay($obj) {
 
 function ObjectCurrentHPDisplay($obj) {
     return 0;
-}
-
-function CurrentCardPower($fromZone, $destZone, $isAttacker=false) {
-    global $doesGlobalEffectApply;
-    $fromTop = $fromZone[count($fromZone) - 1];
-    $destTop = $destZone[count($destZone) - 1];
-    $thisCard = $isAttacker ? $fromTop : $destTop;
-    $totalPower = CardPower($thisCard->CardID);
-    //Self power modifiers
-    switch($thisCard->CardID) {
-        case "RYBF1DSKH": case "RYBF2DSKH": case "RYBF3DSKH": //Dusklight Hunter
-        case "GMBF1SPCH": case "GMBF2SPCH": case "GMBF3SPCH": //Spectral Hunter
-        case "SHBF1GBHT": case "SHBF2GBHT": case "SHBF3GBHT": //Goblin Hunter
-        case "DNBF1CHNT": case "DNBF2CHNT": case "DNBF3CHNT": //Echo Hunter
-            if($isAttacker && TraitContains($destTop, "Brute")) {
-                $totalPower += 1;
-            }
-            break;
-        case "RYBF1DWNB": case "RYBF2DWNB": case "RYBF3DWNB": //Dawnbringer Brute
-        case "GMBF1AMBT": case "GMBF2AMBT": case "GMBF3AMBT": //Amalgam Brute
-        case "SHBF1OGRB": case "SHBF2OGRB": case "SHBF3OGRB": //Ogre Brute
-        case "DNBF1CSHB": case "DNBF2CSHB": case "DNBF3CSHB": //Crusher Brute
-            if($isAttacker && TraitContains($destTop, "Soldier")) {
-                $totalPower += 1;
-            }
-            break;
-        case "RYBF1SLSD": case "RYBF2SLSD": case "RYBF3SLSD": //Solaran Soldier
-        case "GMBF1SKLS": case "GMBF2SKLS": case "GMBF3SKLS": //Spectral Soldier
-        case "SHBF1ORCS": case "SHBF2ORCS": case "SHBF3ORCS": //Orc Soldier
-        case "DNBF1DRKS": case "DNBF2DRKS": case "DNBF3DRKS": //Deeprock Soldier
-            if($isAttacker && TraitContains($destTop, "Hunter")) {
-                $totalPower += 1;
-            }
-            break;
-        case "DNBF2HFGFT"://Forgefather
-            $hand = &GetHand($thisCard->Controller);
-            if(count($hand) >= 6) {
-                $totalPower += 1;
-            }
-            break;
-        default: break;
-    }
-    $adjacentZones = AdjacentZones($thisCard->Location);
-    foreach($adjacentZones as $zoneName) {
-        $totalPower += AdjacentZonePowerModifiers($fromTop, $destTop, $zoneName, $totalPower, $isAttacker);
-    }
-    $cardCurrentEffects = explode(",", CardCurrentEffects($thisCard));
-    //First effects that set power to specific value
-    foreach($cardCurrentEffects as $effectID) {
-        switch($effectID) {
-            case "GMBF3HVRKG"://The Everking
-                $totalPower = 1;
-                break;
-            default: break;
-        }
-    }
-    //Now effects that modify power
-    foreach($cardCurrentEffects as $effectID) {
-        switch($effectID) {
-            case "RYBTPDRL"://Precision Drills
-                if($totalPower < 3) $totalPower += 1;
-                break;
-            case "SHBF1HELDR"://Elven Druid
-                $totalPower += 2;
-                break;
-            case "DNBTSCTN"://Secret Tunnel
-                $totalPower += 1;
-                break;
-            default: break;
-        }
-    }
-    return $totalPower;
 }
 
 function DoDrawCard($player, $amount=1) {
@@ -448,19 +259,6 @@ $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     $abilityKey = $cardID . ":" . $abilityIndex;
     if(isset($activateAbilityAbilities[$abilityKey])) {
         $activateAbilityAbilities[$abilityKey]($player);
-    }
-};
-
-$customDQHandlers["StoneSeekerDrawChoice"] = function($player, $param, $lastResult) {
-    $zone = &GetDeck($player);
-    $hand = &GetHand($player);
-    $tempZone = &GetTempZone($player);
-    if($lastResult == "myTempZone-0") {
-        MZMove($player, "myTempZone-1", "myDeck");
-        MZMove($player, "myTempZone-0", "myHand");
-    } else {
-        MZMove($player, "myTempZone-0", "myDeck");
-        MZMove($player, "myTempZone-1", "myHand");
     }
 };
 
@@ -552,10 +350,7 @@ function FieldSelectionMetadata($obj) {
 }
 
 function CanActExhausted($obj) {
-    if($obj->CardID == "RYBF1GFDG" || $obj->CardID == "RYBF2HSLRC") return true; //Gryffdogs and Solaran Cavalry can act while exhausted
-    if(TraitContains($obj, "Hunter") && PlayerHasCard($obj->Controller, "SHBF2HMSTH") || GlobalEffectCount($obj->Controller, "SHBTTRBZ") > 0) { //Master Hunter or Trailblaze effect
-        return true;
-    }
+    
     return false;
 }
 
@@ -634,29 +429,12 @@ function ExpireEffects($isEndTurn=true) {
 }
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
-$untilBeginTurnEffects["RYBTPDRL"] = true;
-$untilBeginTurnEffects["GMBF3HVRKG"] = true;
-$untilBeginTurnEffects["GMBTWHTT"] = true;
-$untilBeginTurnEffects["SHBF1HELDR"] = true;
-$untilBeginTurnEffects["DNBTSCTN"] = true;//Secret Tunnel
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 
 $doesGlobalEffectApply["RYBTPDRL"] = function($obj) { //Precision Drills
     $zone = GetZone($obj->Location);
     return count($zone) > 2;
-};
-
-$doesGlobalEffectApply["GMBTMNTM"] = function($obj) { //Memento Mori
-    return false;
-};
-
-$doesGlobalEffectApply["GMBF2HDTHK"] = function($obj) { //Death Knight
-    return false;
-};
-
-$doesGlobalEffectApply["SHBTTRBZ"] = function($obj) { //Trailblaze
-    return TraitContains($obj, "Hunter");
 };
 
 function GlobalEffectCount($player, $effectID) {
