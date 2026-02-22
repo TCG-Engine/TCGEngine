@@ -381,6 +381,13 @@ function FieldSelectionMetadata($obj) {
     if(!PropertyContains($cardType, "ALLY")) {
         return json_encode(['highlight' => false]);
     }
+    
+    // Check if decision queue is empty
+    $turnPlayer = &GetTurnPlayer();
+    $decisionQueue = &GetDecisionQueue($turnPlayer);
+    if (count($decisionQueue) > 0) {
+        return json_encode(['highlight' => false]);
+    }
 
     // Return bright vibrant lime green highlight for valid selectable cards
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
@@ -494,6 +501,10 @@ function ObjectHasEffect($obj, $targetEffect) {
         }
     }
     return false;
+}
+
+function IsClassBonusActive($player, $classes=null) {
+    return true;
 }
 
 function DealChampionDamage($player, $amount=1) {
