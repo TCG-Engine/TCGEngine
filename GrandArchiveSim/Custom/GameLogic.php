@@ -83,6 +83,7 @@ function OnCardActivated($player, $mzCard) {
     $cardType = CardType($obj->CardID);
     if(PropertyContains($cardType, "ALLY")) {
         $obj = MZMove($player, $mzCard, "myField");
+        $obj->Controller = $player;
     } else if(PropertyContains($cardType, "ACTION")) {
         $obj = MZMove($player, $mzCard, "myGraveyard");
     }
@@ -186,7 +187,17 @@ function ObjectCurrentPower($obj) {
 }
 
 function ObjectCurrentHP($obj) {
-    return CardLife($obj->CardID);
+    $cardLife = CardLife($obj->CardID);
+    $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
+    foreach($cardCurrentEffects as $effectID) {
+        switch($effectID) {
+            case "dsAqxMezGb"://Favorable Winds
+                $cardLife += 1;
+                break;
+            default: break;
+        }
+    }
+    return $cardLife;
 }
 
 function ObjectCurrentPowerDisplay($obj) {
@@ -194,7 +205,9 @@ function ObjectCurrentPowerDisplay($obj) {
 }
 
 function ObjectCurrentHPDisplay($obj) {
-    return 0;
+    $cardLife = CardLife($obj->CardID);
+    $currentCardLife = ObjectCurrentHP($obj);
+    return $cardLife == $currentCardLife ? 0 : $currentCardLife;
 }
 
 function DoDrawCard($player, $amount=1) {
@@ -439,9 +452,8 @@ $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 
-$doesGlobalEffectApply["RYBTPDRL"] = function($obj) { //Precision Drills
-    $zone = GetZone($obj->Location);
-    return count($zone) > 2;
+$doesGlobalEffectApply["dsAqxMezGb"] = function($obj) { //Favorable Winds
+    return PropertyContains(CardType($obj->CardID), "ALLY");
 };
 
 function GlobalEffectCount($player, $effectID) {
