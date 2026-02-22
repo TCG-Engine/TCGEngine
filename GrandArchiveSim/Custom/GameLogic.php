@@ -78,10 +78,17 @@ $customDQHandlers["CardActivated"] = function($player, $parts, $lastDecision) {
 };
 
 function OnCardActivated($player, $mzCard) {
-    echo("Activated card: " . $mzCard);
-    $obj = MZMove($player, $mzCard, "myField");
-    //$obj->Status = 1; //Exhaust the card
-    //CardActivatedEffects($player, $obj->CardID);
+    global $cardActivatedAbilities;
+    $obj = GetZoneObject($mzCard);
+    $cardType = CardType($obj->CardID);
+    if(PropertyContains($cardType, "ALLY")) {
+        $obj = MZMove($player, $mzCard, "myField");
+    } else if(PropertyContains($cardType, "ACTION")) {
+        $obj = MZMove($player, $mzCard, "myGraveyard");
+    }
+    if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
+        $cardActivatedAbilities[$obj->CardID . ":0"]($player);
+    }
 }
 
 function DoPlayCard($player, $mzCard, $ignoreCost = false)

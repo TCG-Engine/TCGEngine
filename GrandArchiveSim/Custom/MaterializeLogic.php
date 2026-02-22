@@ -55,6 +55,7 @@ function DoMaterialize($player, $mzCard) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
     $sourceId = $sourceObject->CardID;
+    //TODO: Handle lineage mechanics
     MZMove($player, $mzCard, "myField");
 }
 ?>
