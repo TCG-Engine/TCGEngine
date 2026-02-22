@@ -190,7 +190,40 @@ function MaterializePhase() {
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 {
+    //First pay memory cost
+    $materializeCard = &GetZoneObject($lastDecision);
+    $memoryCost = CardMemoryCost($materializeCard);
+    if($memoryCost > 0) {
+        DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
+        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+    }
+    //Then materialize the card
     Materialize($player, $lastDecision);
+};
+
+$customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
+    MZMove($player, $lastDecision, "myBanish");
+    $toPay = $parts[0];
+    --$toPay;
+    DecisionQueueController::StoreVariable("MemoryCost", $toPay);
+    if($toPay > 0) {
+        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $toPay, 1);
+    }
+    return $toPay;
+};
+
+$customDQHandlers["FINISHPAYMATERIALIZE"] = function($player, $parts, $lastDecision) {
+    $memoryCost = DecisionQueueController::GetVariable("MemoryCost");
+    echo("Finished paying memory cost, remaining cost: " . $memoryCost);
+    for($i = 0; $i < $memoryCost; ++$i) {
+        MZMove($player, "myMemory-" . $i, "myBanish");//TODO: Make random
+    }
+    DecisionQueueController::ClearVariable("MemoryCost");
 };
 
 function DoMaterialize($player, $mzCard) {
@@ -579,12 +612,13 @@ function CanActExhausted($obj) {
     return false;
 }
 
-function ZoneSearch($zoneName, $cardTypes=null) {
+function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false) {
     $results = [];
     $zoneArr = &GetZone($zoneName);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = $zoneArr[$i];
-        if(($cardTypes === null || in_array(CardType($obj->CardID), (array)$cardTypes))) {
+        if(($cardTypes === null || in_array(CardType($obj->CardID), (array)$cardTypes)) &&
+        (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
             array_push($results, $zoneName . "-" . $i);
         }
     }
@@ -708,6 +742,14 @@ function DealChampionDamage($player, $amount=1) {
 function OnExhaustCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
     $obj->Status = 1; // Exhaust the card
+}
+
+function HasFloatingMemory($obj) {
+    return HasKeyword_FloatingMemory($obj);
+}
+
+function CardMemoryCost($obj) {
+    return CardCost_memory($obj->CardID);
 }
 
 ?>

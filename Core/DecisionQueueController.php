@@ -54,7 +54,7 @@ class DecisionQueueController {
                     $lastDecision = $decision->Param;
                     break;
                 case "MZMOVE":
-                    if($lastDecision == "PASS") break;
+                    if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
                     $resolvedParam = str_replace("{<-}", $lastDecision, $decision->Param);
                     $parts = explode("->", $resolvedParam);
                     $source = $parts[0];
@@ -62,14 +62,14 @@ class DecisionQueueController {
                     MZMove($player, $source, $destination);
                     break;
                 case "CUSTOM":
-                    if($lastDecision == "PASS") break;
+                    if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
                     global $customDQHandlers;
                     $parts = explode("|", $decision->Param);
                     $handlerName = array_shift($parts);
                     $customDQHandlers[$handlerName]($player, $parts, $lastDecision);
                     break;
                 case "SYSTEM":
-                    if($lastDecision == "PASS") break;
+                    if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
                     global $systemDQHandlers;
                     $parts = explode("|", $decision->Param);
                     $handlerName = array_shift($parts);
@@ -97,7 +97,7 @@ class DecisionQueueController {
     }
 
     // Add a decision to a player's queue
-    public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '') {
+    public static function AddDecision($player, $type, $param = '', $block = 0, $tooltip = '', $dontSkipOnPass = 0) {
         $tooltip = str_replace(' ', '_', $tooltip);
         $playerQueue = &GetDecisionQueue($player);
         $insertIndex = 0;
@@ -108,7 +108,7 @@ class DecisionQueueController {
             $insertIndex = $i + 1;
         }
         if(self::$debugMode) echo("Adding decision to player " . $player . " queue: " . $type . " " . $param . " Block: " . $block . " at index " . $insertIndex . "<BR>");
-        array_splice($playerQueue, $insertIndex, 0, [new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip)]);
+        array_splice($playerQueue, $insertIndex, 0, [new DecisionQueue($type . " " . $param . " " . $block . " " . $tooltip . " " . $dontSkipOnPass)]);
     }
 
     private function MZZoneArray($zoneStr) {
@@ -188,6 +188,13 @@ class DecisionQueueController {
         $vars = json_decode(GetDecisionQueueVariables(), true);
         if (!is_array($vars)) return null;
         return $vars[$name] ?? null;
+    }
+
+    public static function ClearVariable($name) {
+        $vars = json_decode(GetDecisionQueueVariables(), true);
+        if (!is_array($vars)) return;
+        unset($vars[$name]);
+        SetDecisionQueueVariables(json_encode($vars));
     }
     
     public static function ClearVariables() {

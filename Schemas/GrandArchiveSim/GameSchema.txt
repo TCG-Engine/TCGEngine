@@ -6,8 +6,9 @@ ServerInclude: /Custom/CustomInput.php
 ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
+ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: GrandArchiveSim
-Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myGlobalEffects,myMaterial,myField,myMemory,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirGlobalEffects,theirMaterial,theirField,theirMemory,DecisionQueueVariables,EffectStack
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myGlobalEffects,myMaterial,myField,myMemory,myBanish,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirGlobalEffects,theirMaterial,theirField,theirMemory,theirBanish,DecisionQueueVariables,EffectStack
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
 Macro: Name=ActivateCard(mzID,ignoreCost); ChoiceFunction=DoActivateCard; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
@@ -23,6 +24,8 @@ Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Actio
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle
+Banish - CardID:string
+Display: Visibility=Public, Mode=Single, Bottom=230px, Right=10px
 Graveyard - CardID:string
 Display: Visibility=Public, Mode=Single, Bottom=10px, Right=10px
 GlobalEffects - CardID:string
@@ -55,7 +58,7 @@ Highlight: SelectionMetadata
 Health - Value:number=0
 Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
 Widgets: Value=-1&+1,CustomInput=Pass
-DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string
+DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string
 Display: Visibility=None, Mode=All, Display=None
