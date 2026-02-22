@@ -87,6 +87,7 @@ function OnCardActivated($player, $mzCard) {
     } else if(PropertyContains($cardType, "ACTION")) {
         $obj = MZMove($player, $mzCard, "myGraveyard");
     }
+    DecisionQueueController::CleanupRemovedCards();
     if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
         $cardActivatedAbilities[$obj->CardID . ":0"]($player);
     }
@@ -130,6 +131,17 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $dqController->ExecuteStaticMethods($player, "-");
 }
 
+function DoAllyDestroyed($player, $mzCard) {
+    global $allyDestroyedAbilities;
+    $obj = GetZoneObject($mzCard);
+    $controller = $obj->Controller;
+    $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
+    MZMove($player, $mzCard, $dest);
+    if(isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
+        $allyDestroyedAbilities[$obj->CardID . ":0"]($controller);
+    }
+}
+
 function WakeUpPhase() {
     // Wake Up phase
     SetFlashMessage("Wake Up Phase");
@@ -137,6 +149,7 @@ function WakeUpPhase() {
 
 function OnEnter($player, $CardID) {
     global $enterAbilities;
+    DecisionQueueController::CleanupRemovedCards();
     if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
 }
 
@@ -220,6 +233,10 @@ function DoDrawCard($player, $amount=1) {
         $card = array_shift($zone);
         array_push($hand, $card);
     }
+}
+
+function DoDiscardCard($player, $mzCard) {
+    MZMove($player, $mzCard, "myGraveyard");
 }
 
 function DoSacrificeFighter($player, $mzCard) {
@@ -374,12 +391,13 @@ function CanActExhausted($obj) {
     return false;
 }
 
-function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false) {
+function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null) {
     $results = [];
     $zoneArr = &GetZone($zoneName);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = $zoneArr[$i];
         if(($cardTypes === null || in_array(CardType($obj->CardID), (array)$cardTypes)) &&
+           ($cardElements === null || in_array(CardElement($obj->CardID), (array)$cardElements)) &&
         (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
             array_push($results, $zoneName . "-" . $i);
         }

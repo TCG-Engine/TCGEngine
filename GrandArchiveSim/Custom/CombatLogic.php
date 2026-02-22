@@ -45,6 +45,10 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
 function OnDealDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
     $targetObj->Damage += $amount;
+    $currentHp = ObjectCurrentHP($targetObj);
+    if($targetObj->Damage >= $currentHp) {
+        AllyDestroyed($player, $target);
+    }
 }
 
 ?>
