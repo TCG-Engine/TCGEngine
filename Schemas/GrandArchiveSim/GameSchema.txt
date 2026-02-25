@@ -42,6 +42,7 @@ Virtual: CurrentHP=ObjectCurrentHPDisplay()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: CurrentLevel=ObjectCurrentLevelDisplay()
+Index: TurnEffects
 Display: Visibility=Public, Mode=All, Top=110px, Right=120px
 Overlay: Status=1:exhausted
 Counters: CurrentEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)

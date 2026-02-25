@@ -196,7 +196,17 @@ function EndPhase() {
 }
 
 function ObjectCurrentPower($obj) {
-    return CardPower($obj->CardID);
+    $power = CardPower($obj->CardID);
+    $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
+    foreach($cardCurrentEffects as $effectID) {
+        switch($effectID) {
+            case "FCbKYZcbNq"://Trusty Steed
+                $power += 2;
+                break;
+            default: break;
+        }
+    }
+    return $power;
 }
 
 function ObjectCurrentLevel($obj) {
@@ -228,7 +238,9 @@ function ObjectCurrentHP($obj) {
 }
 
 function ObjectCurrentPowerDisplay($obj) {
-    return 0;
+    $cardPower = CardPower($obj->CardID);
+    $currentCardPower = ObjectCurrentPower($obj);
+    return $cardPower == $currentCardPower ? 0 : $currentCardPower;
 }
 
 function ObjectCurrentHPDisplay($obj) {

@@ -39,7 +39,7 @@ function ChooseValidAttackTarget($actionCard) {
 $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecision) {
     $attacker = &GetZoneObject($parts[0]);
     $target = &GetZoneObject($lastDecision);
-    DealDamage($player, $parts[0], $lastDecision, CardPower($attacker->CardID));
+    DealDamage($player, $parts[0], $lastDecision, ObjectCurrentPower($attacker));
 };
 
 function OnDealDamage($player, $source, $target, $amount) {
