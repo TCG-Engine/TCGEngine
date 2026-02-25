@@ -199,6 +199,20 @@ function ObjectCurrentPower($obj) {
     return CardPower($obj->CardID);
 }
 
+function ObjectCurrentLevel($obj) {
+    $cardLevel = CardLevel($obj->CardID);
+    $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
+    foreach($cardCurrentEffects as $effectID) {
+        switch($effectID) {
+            case "9GWxrTMfBz"://Cram Session
+                $cardLevel += 1;
+                break;
+            default: break;
+        }
+    }
+    return $cardLevel;
+}
+
 function ObjectCurrentHP($obj) {
     $cardLife = CardLife($obj->CardID);
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
@@ -221,6 +235,16 @@ function ObjectCurrentHPDisplay($obj) {
     $cardLife = CardLife($obj->CardID);
     $currentCardLife = ObjectCurrentHP($obj);
     return $cardLife == $currentCardLife ? 0 : $currentCardLife;
+}
+
+
+function ObjectCurrentLevelDisplay($obj) {
+    if(!PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        return 0;
+    }
+    $cardLevel = CardLevel($obj->CardID);
+    $currentLevel = ObjectCurrentLevel($obj);
+    return $cardLevel == $currentLevel ? 0 : $currentLevel;
 }
 
 function DoDrawCard($player, $amount=1) {
@@ -477,6 +501,10 @@ $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 
+$doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
+    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
 $doesGlobalEffectApply["dsAqxMezGb"] = function($obj) { //Favorable Winds
     return PropertyContains(CardType($obj->CardID), "ALLY");
 };
@@ -501,6 +529,22 @@ function ObjectHasEffect($obj, $targetEffect) {
         }
     }
     return false;
+}
+
+function PlayerLevel($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $zoneArr = GetZone($zone);
+    $maxLevel = 0;
+    foreach($zoneArr as $index => $obj) {
+        if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+            $cardLevel = CardLevel($obj->CardID);
+            if($cardLevel > $maxLevel) {
+                $maxLevel = $cardLevel;
+            }
+        }
+    }
+    return $maxLevel;
 }
 
 function IsClassBonusActive($player, $classes=null) {

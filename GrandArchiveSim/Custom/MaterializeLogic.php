@@ -7,6 +7,10 @@
 function MaterializePhase() {
     // Materialize phase
     SetFlashMessage("Materialize Phase");
+    MaterializeChoice();
+}
+
+function MaterializeChoice() {
     $turnPlayer = GetTurnPlayer();
     $material = &GetMaterial($turnPlayer);
     DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", ZoneObjMZIndices($material, "myMaterial"), 1);

@@ -41,12 +41,14 @@ Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentHP=ObjectCurrentHPDisplay()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: CurrentLevel=ObjectCurrentLevelDisplay()
 Display: Visibility=Public, Mode=All, Top=110px, Right=120px
 Overlay: Status=1:exhausted
 Counters: CurrentEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
+Counters: CurrentLevel=Badge(Color=Orange,Position=BottomLeft,ShowZero=false)
 AfterAdd: FieldAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()
