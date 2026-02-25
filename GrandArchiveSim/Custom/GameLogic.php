@@ -504,7 +504,16 @@ function ObjectHasEffect($obj, $targetEffect) {
 }
 
 function IsClassBonusActive($player, $classes=null) {
-    return true;
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $zoneArr = GetZone($zone);
+    foreach($zoneArr as $index => $obj) {
+        $cardClasses = explode(",", CardClasses($obj->CardID));
+        if(PropertyContains(CardType($obj->CardID), "CHAMPION") && ($classes === null || count(array_intersect($cardClasses, (array)$classes)) > 0)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 function DealChampionDamage($player, $amount=1) {
