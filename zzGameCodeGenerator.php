@@ -1003,7 +1003,9 @@ for($i=0; $i<count($zones); ++$i) {
   if($hasIndexedProperties) {
     // GetMzID function
     fwrite($handler, "  function GetMzID() {\r\n");
-    fwrite($handler, "    return \$this->Location . \"-\" . \$this->mzIndex;\r\n");
+    fwrite($handler, "    global \$playerID;\r\n");
+    fwrite($handler, "    \$prefix = \$playerID == \$this->Controller ? \"my\" : \"their\";\r\n");
+    fwrite($handler, "    return \$prefix . \$this->Location . \"-\" . \$this->mzIndex;\r\n");
     fwrite($handler, "  }\r\n");
     
     // For each indexed property that is an array, generate Add/Remove methods

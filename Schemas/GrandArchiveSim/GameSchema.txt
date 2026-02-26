@@ -16,7 +16,7 @@ Macro: Name=AllyDestroyed(mzID); ChoiceFunction=DoAllyDestroyed; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=Materialize(mzID); ChoiceFunction=DoMaterialize; Action={}
-Macro: Name=Enter(CardID); ChoiceFunction=OnEnter; Action={}
+Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=ReserveCard(); Choice={MZCHOOSE:myHand}; AfterChoice=OnCardReserved; Action={}
 Macro: Name=CardActivated(mzID); ChoiceFunction=OnCardActivated; Action={}
 Macro: Name=ExhaustCard(mzID); ChoiceFunction=OnExhaustCard; Action={}

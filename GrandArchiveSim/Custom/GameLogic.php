@@ -147,14 +147,24 @@ function WakeUpPhase() {
     SetFlashMessage("Wake Up Phase");
 }
 
-function OnEnter($player, $CardID) {
+function OnEnter($player, $mzID) {
     global $enterAbilities;
+    $obj = GetZoneObject($mzID);
+    $CardID = $obj->CardID;
     DecisionQueueController::CleanupRemovedCards();
     if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
 }
 
 function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Controller="-", $Damage=0) {
-    Enter($player, $CardID);
+    $field = &GetField($player);
+    $added = $field[count($field)-1];
+    $added->Controller = $player;
+    if($added->Owner == 0) $added->Owner = $player;
+    global $playerID;
+    echo("Player " . $player . " " . $playerID);
+    echo($field[count($field)-1]->CardID . " with status " . $field[count($field)-1]->Status);
+    echo("<BR>" . $field[count($field)-1]->GetMzID() . " Controller " . $field[count($field)-1]->PlayerID);
+    Enter($player, $field[count($field)-1]->GetMzID());
 }
 
 function RecollectionPhase() {
@@ -425,6 +435,15 @@ function FieldSelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
 
+    if ($obj->Controller !== $turnPlayer) {
+        return json_encode(['highlight' => false]);
+    }
+
+    $prideAmount = PrideAmount($obj);
+    if($prideAmount > 0 && PlayerLevel($turnPlayer) < $prideAmount) {
+        return json_encode(['highlight' => false]);
+    }
+
     // Return bright vibrant lime green highlight for valid selectable cards
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
 }
@@ -584,6 +603,11 @@ function OnExhaustCard($player, $mzCard) {
 
 function HasFloatingMemory($obj) {
     return HasKeyword_FloatingMemory($obj);
+}
+
+function PrideAmount($obj) {
+    $prideValue = GetKeyword_Pride_Value($obj);
+    return $prideValue !== null ? $prideValue : 0;
 }
 
 function CardMemoryCost($obj) {

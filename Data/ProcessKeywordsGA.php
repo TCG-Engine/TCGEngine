@@ -60,12 +60,21 @@ function parseKeywordsAndConditions($text, $keywords, $conditions) {
         if (preg_match_all('/(^|\)\*\s*)((?:\[[^\]]+\]\s*)*)\*\*([^*]+)\*\*/', $line, $matches, PREG_SET_ORDER)) {
             foreach ($matches as $match) {
                 $conditionsPrefix = $match[2]; // Everything before the keyword (conditions)
-                $keyword = trim($match[3]); // The keyword itself
+                $keyword = trim($match[3]); // The keyword itself (may include value like "Pride 5")
+                
+                // Extract value if keyword has numeric suffix (e.g., "Pride 2" or "Intercept 3")
+                $value = null;
+                $keywordName = $keyword;
+                if (preg_match('/(\d+)/', $keyword, $valueMatch)) {
+                    $value = $valueMatch[1];
+                    // Remove the number(s) from the keyword name for comparison
+                    $keywordName = trim(preg_replace('/\d+/', '', $keyword));
+                }
                 
                 // Check if this keyword is in our list
                 $matchedKeyword = null;
                 foreach ($keywords as $kw) {
-                    if (strtolower($keyword) === strtolower($kw['name'])) {
+                    if (strtolower($keywordName) === strtolower($kw['name'])) {
                         $matchedKeyword = $kw;
                         break;
                     }
@@ -76,13 +85,8 @@ function parseKeywordsAndConditions($text, $keywords, $conditions) {
                         'type' => 'KEYWORD',
                         'name' => $matchedKeyword['name'],
                         'conditions' => [],
-                        'value' => null
+                        'value' => $value
                     ];
-                    
-                    // Extract value if keyword has X format (e.g., "Pride 2" or "Pride X")
-                    if (preg_match('/(\d+)/', $keyword, $valueMatch)) {
-                        $entry['value'] = $valueMatch[1];
-                    }
                     
                     // Extract all conditions from the prefix
                     if (!empty($conditionsPrefix)) {
