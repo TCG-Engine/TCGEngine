@@ -246,6 +246,9 @@ function ObjectCurrentLevel($obj) {
             case "9GWxrTMfBz"://Cram Session
                 $cardLevel += 1;
                 break;
+            case "Kc5Bktw0yK"://Empowering Harmony
+                $cardLevel += 2;
+                break;
             default: break;
         }
     }
