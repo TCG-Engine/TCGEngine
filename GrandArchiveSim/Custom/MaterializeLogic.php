@@ -25,8 +25,10 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
         $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
-        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-        DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+        if($floatingIndices != "") {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+        }
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
     }
     //Then materialize the card

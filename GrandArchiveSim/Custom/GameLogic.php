@@ -160,10 +160,6 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Controller=
     $added = $field[count($field)-1];
     $added->Controller = $player;
     if($added->Owner == 0) $added->Owner = $player;
-    global $playerID;
-    echo("Player " . $player . " " . $playerID);
-    echo($field[count($field)-1]->CardID . " with status " . $field[count($field)-1]->Status);
-    echo("<BR>" . $field[count($field)-1]->GetMzID() . " Controller " . $field[count($field)-1]->PlayerID);
     Enter($player, $field[count($field)-1]->GetMzID());
 }
 
@@ -207,6 +203,14 @@ function EndPhase() {
 
 function ObjectCurrentPower($obj) {
     $power = CardPower($obj->CardID);
+    switch($obj->CardID) { //Self power modifiers
+        case "HWFWO0TB8l"://Tempest Silverback
+            if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                $power += 2;
+            }
+            break;
+        default: break;
+    }
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
     foreach($cardCurrentEffects as $effectID) {
         switch($effectID) {
@@ -235,6 +239,14 @@ function ObjectCurrentLevel($obj) {
 
 function ObjectCurrentHP($obj) {
     $cardLife = CardLife($obj->CardID);
+    switch($obj->CardID) { //Self hp modifiers
+        case "HWFWO0TB8l"://Tempest Silverback
+            if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                $cardLife += 2;
+            }
+            break;
+        default: break;
+    }
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
     foreach($cardCurrentEffects as $effectID) {
         switch($effectID) {
