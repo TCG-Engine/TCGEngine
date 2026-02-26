@@ -20,6 +20,7 @@ Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=ReserveCard(); Choice={MZCHOOSE:myHand}; AfterChoice=OnCardReserved; Action={}
 Macro: Name=CardActivated(mzID); ChoiceFunction=OnCardActivated; Action={}
 Macro: Name=ExhaustCard(mzID); ChoiceFunction=OnExhaustCard; Action={}
+Macro: Name=WakeupCard(mzID); ChoiceFunction=OnWakeupCard; Action={}
 Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Action={}
 Macro: Name=DiscardCard(mzID); ChoiceFunction=DoDiscardCard; Action={}
 Deck - CardID:string

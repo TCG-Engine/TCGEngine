@@ -217,6 +217,9 @@ function ObjectCurrentPower($obj) {
             case "FCbKYZcbNq"://Trusty Steed
                 $power += 2;
                 break;
+            case "Huh1DljE0j"://Second Wind
+                $power += 1;
+                break;
             default: break;
         }
     }
@@ -611,6 +614,11 @@ function DealChampionDamage($player, $amount=1) {
 function OnExhaustCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
     $obj->Status = 1; // Exhaust the card
+}
+
+function OnWakeupCard($player, $mzCard) {
+    $obj = &GetZoneObject($mzCard);
+    $obj->Status = 2; // Wake up the card
 }
 
 function HasFloatingMemory($obj) {
