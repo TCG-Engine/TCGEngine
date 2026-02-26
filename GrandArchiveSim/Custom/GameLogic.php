@@ -191,6 +191,13 @@ function EndPhase() {
     $currentTurn = &GetTurnNumber();
     $turnPlayer = &GetTurnPlayer();
 
+    $field = &GetField($turnPlayer);
+    for($i=0; $i<count($field); ++$i) {
+        if(HasVigor($field[$i])) {
+            $field[$i]->Status = 2; // Vigor units ready themselves at end of turn
+        }
+    }
+
     ExpireEffects(isEndTurn:true);
     $turnPlayer = ($turnPlayer == 1) ? 2 : 1;
 
@@ -628,6 +635,10 @@ function OnWakeupCard($player, $mzCard) {
 
 function HasFloatingMemory($obj) {
     return HasKeyword_FloatingMemory($obj);
+}
+
+function HasVigor($obj) {
+    return HasKeyword_Vigor($obj);
 }
 
 function PrideAmount($obj) {
