@@ -566,6 +566,10 @@ $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(CardType($obj->CardID), "CHAMPION");
 };
 
+$doesGlobalEffectApply["Kc5Bktw0yK"] = function($obj) { //Empowering Harmony
+    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
 $doesGlobalEffectApply["dsAqxMezGb"] = function($obj) { //Favorable Winds
     return PropertyContains(CardType($obj->CardID), "ALLY");
 };

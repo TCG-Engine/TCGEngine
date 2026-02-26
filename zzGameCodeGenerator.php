@@ -857,6 +857,17 @@ for($i=0; $i<count($macros); ++$i) {
       foreach ($macro->Parameters as $param) {
         fwrite($handler, "  DecisionQueueController::StoreVariable(\"" . $param . "\", \$" . $param . ");\r\n");
       }
+      // If mzID is a parameter, look up the card ID and increment the turn index
+      if (in_array('mzID', $macro->Parameters)) {
+        fwrite($handler, "  // Track this macro invocation in the persistent turn index (keyed by card ID)\r\n");
+        fwrite($handler, "  \$_mzObj = GetZoneObject(\$mzID);\r\n");
+        fwrite($handler, "  \$_mzCardID = \$_mzObj !== null ? (\$_mzObj->CardID ?? null) : null;\r\n");
+        fwrite($handler, "  if (\$_mzCardID !== null) {\r\n");
+        fwrite($handler, "    \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+        fwrite($handler, "    \$_ti[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] = (\$_ti[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] ?? 0) + 1;\r\n");
+        fwrite($handler, "    SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+        fwrite($handler, "  }\r\n");
+      }
     } else {
       $cfArgs = '$player';
     }
@@ -878,6 +889,37 @@ for($i=0; $i<count($macros); ++$i) {
     }
   }
   fwrite($handler, "}\r\n\r\n");
+}
+
+// Generate macro turn-index helpers for macros with an mzID parameter
+$mzIDMacros = [];
+foreach ($macros as $macro) {
+  if (!empty($macro->Parameters) && in_array('mzID', $macro->Parameters)) {
+    $mzIDMacros[] = $macro;
+  }
+}
+if (!empty($mzIDMacros)) {
+  fwrite($handler, "// Macro turn-index helpers\r\n");
+  fwrite($handler, "// For each macro that has an mzID parameter, three functions are generated:\r\n");
+  fwrite($handler, "//   MacroNameTurnCount(\$player, \$cardID)  - how many times the macro fired for that card this turn\r\n");
+  fwrite($handler, "//   MacroNameTurnCards(\$player)           - array of [cardID => count] for all cards this turn\r\n");
+  fwrite($handler, "//   ClearMacroNameTurnIndex()             - reset the index (call at end-of-turn)\r\n\r\n");
+  foreach ($mzIDMacros as $macro) {
+    $fn = $macro->FunctionName;
+    fwrite($handler, "function " . $fn . "TurnCount(\$player, \$cardID) {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  return \$_ti[\"" . $fn . "\"][\$player][\$cardID] ?? 0;\r\n");
+    fwrite($handler, "}\r\n\r\n");
+    fwrite($handler, "function " . $fn . "TurnCards(\$player) {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  return \$_ti[\"" . $fn . "\"][\$player] ?? [];\r\n");
+    fwrite($handler, "}\r\n\r\n");
+    fwrite($handler, "function Clear" . $fn . "TurnIndex() {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  unset(\$_ti[\"" . $fn . "\"]);\r\n");
+    fwrite($handler, "  SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+    fwrite($handler, "}\r\n\r\n");
+  }
 }
 
 // Generate ComputeVirtualProperties function for zones with virtual properties

@@ -8,7 +8,7 @@ ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: GrandArchiveSim
-Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myGlobalEffects,myMaterial,myField,myMemory,myBanish,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirGlobalEffects,theirMaterial,theirField,theirMemory,theirBanish,DecisionQueueVariables,EffectStack
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myGlobalEffects,myMaterial,myField,myMemory,myBanish,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirGlobalEffects,theirMaterial,theirField,theirMemory,theirBanish,DecisionQueueVariables,EffectStack,MacroTurnIndex
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
 Macro: Name=ActivateCard(mzID,ignoreCost); ChoiceFunction=DoActivateCard; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
@@ -86,3 +86,5 @@ Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 EffectStack - CardID:string, Controller:number
 Display: Visibility=Public, Mode=Single, Scope=Global, Bottom=190px, Left=3%
 Sort: Reverse=true
+MacroTurnIndex - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
