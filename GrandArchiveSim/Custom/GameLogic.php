@@ -209,6 +209,11 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
             }
             break;
+        case "JAs9SmLqUS"://Gildas, Chronicler of Aesal
+            $memory = &GetMemory($obj->Controller);
+            $hand = &GetHand($obj->Controller);
+            if(count($memory) == count($hand)) $power += 3;
+            break;
         default: break;
     }
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
