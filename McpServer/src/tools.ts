@@ -9,6 +9,80 @@ const __dirname = path.dirname(__filename);
 const ENGINE_ROOT = path.resolve(__dirname, "..", "..");
 
 // ---------------------------------------------------------------------------
+// Card dictionary cache — parsed from GeneratedCardDictionaries_*.js files
+// ---------------------------------------------------------------------------
+interface CardDictionaries {
+  nameData: Record<string, string>;
+  setData: Record<string, string>;
+  effectData: Record<string, string>;
+  elementData: Record<string, string>;
+  typeData: Record<string, string>;
+  cost_memoryData: Record<string, number>;
+  cost_reserveData: Record<string, number>;
+  levelData: Record<string, number>;
+  powerData: Record<string, number>;
+  lifeData: Record<string, number>;
+  classesData: Record<string, string>;
+  subtypesData: Record<string, string>;
+}
+
+const dictCache = new Map<string, { data: CardDictionaries; mtime: number }>();
+
+function findGeneratedJsFile(root: string): string | null {
+  const genDir = path.join(ENGINE_ROOT, root, "GeneratedCode");
+  if (!fs.existsSync(genDir)) return null;
+  const files = fs.readdirSync(genDir).filter(f => f.startsWith("GeneratedCardDictionaries_") && f.endsWith(".js"));
+  if (files.length === 0) return null;
+  // Pick the most recent one (sorted desc by timestamp in filename)
+  files.sort((a, b) => b.localeCompare(a));
+  return path.join(genDir, files[0]);
+}
+
+function parseGeneratedJs(filePath: string): CardDictionaries {
+  const content = fs.readFileSync(filePath, "utf-8");
+  const lines = content.split(/\r?\n/);
+  const result: any = {};
+  const fieldNames = [
+    "nameData", "setData", "effectData", "elementData", "typeData",
+    "cost_memoryData", "cost_reserveData", "levelData", "powerData",
+    "lifeData", "classesData", "subtypesData",
+  ];
+  for (const line of lines) {
+    for (const field of fieldNames) {
+      const prefix = `var ${field} = `;
+      if (line.startsWith(prefix)) {
+        // Extract JSON object from "var xxxData = {...};" or "var xxxData = {...}"
+        let jsonStr = line.slice(prefix.length);
+        if (jsonStr.endsWith(";")) jsonStr = jsonStr.slice(0, -1);
+        try {
+          result[field] = JSON.parse(jsonStr);
+        } catch {
+          result[field] = {};
+        }
+        break;
+      }
+    }
+  }
+  // Fill in any missing fields
+  for (const field of fieldNames) {
+    if (!result[field]) result[field] = {};
+  }
+  return result as CardDictionaries;
+}
+
+function getCardDictionaries(root: string): CardDictionaries | null {
+  const filePath = findGeneratedJsFile(root);
+  if (!filePath) return null;
+  const stat = fs.statSync(filePath);
+  const mtime = stat.mtimeMs;
+  const cached = dictCache.get(root);
+  if (cached && cached.mtime === mtime) return cached.data;
+  const data = parseGeneratedJs(filePath);
+  dictCache.set(root, { data, mtime });
+  return data;
+}
+
+// ---------------------------------------------------------------------------
 // list_roots — returns available game roots with card counts
 // ---------------------------------------------------------------------------
 export async function listRoots(): Promise<{
@@ -37,6 +111,8 @@ export interface ListCardsParams {
   offset?: number;
   limit?: number;
   hideImplemented?: boolean;
+  set?: string;
+  cardName?: string;
 }
 
 export async function listCards(params: ListCardsParams): Promise<{
@@ -46,8 +122,9 @@ export async function listCards(params: ListCardsParams): Promise<{
   offset: number;
   limit: number;
 }> {
-  const { root, offset = 0, limit = 50, hideImplemented = false } = params;
+  const { root, offset = 0, limit = 50, hideImplemented = false, set, cardName } = params;
   const pool = getPool();
+  const dicts = getCardDictionaries(root);
 
   // Build WHERE clause
   let where = "WHERE root_name = ?";
@@ -56,6 +133,29 @@ export async function listCards(params: ListCardsParams): Promise<{
   if (hideImplemented) {
     where += " AND card_id NOT IN (SELECT DISTINCT card_id FROM card_abilities WHERE root_name = ? AND is_implemented = 1)";
     queryParams.push(root);
+  }
+
+  // Build set of card IDs matching set/name filters (applied in-memory via dictionaries)
+  let filterCardIds: Set<string> | null = null;
+  if ((set || cardName) && dicts) {
+    filterCardIds = new Set<string>();
+    const allIds = Object.keys(dicts.nameData);
+    for (const id of allIds) {
+      if (set && dicts.setData[id] !== set) continue;
+      if (cardName) {
+        const name = dicts.nameData[id];
+        if (!name || !name.toLowerCase().includes(cardName.toLowerCase())) continue;
+      }
+      filterCardIds.add(id);
+    }
+    if (filterCardIds.size > 0) {
+      const placeholders = [...filterCardIds].map(() => "?").join(",");
+      where += ` AND card_id IN (${placeholders})`;
+      queryParams.push(...filterCardIds);
+    } else {
+      // No cards match the filter — return empty
+      return { root, cards: [], total: 0, offset, limit };
+    }
   }
 
   // Get total count
@@ -78,10 +178,19 @@ export async function listCards(params: ListCardsParams): Promise<{
 
   return {
     root,
-    cards: (rows as any[]).map((r) => ({
-      cardId: r.card_id,
-      isImplemented: Boolean(r.isImplemented),
-    })),
+    cards: (rows as any[]).map((r) => {
+      const cardId = r.card_id;
+      const entry: any = {
+        cardId,
+        isImplemented: Boolean(r.isImplemented),
+      };
+      // Include name and set from dictionaries if available
+      if (dicts) {
+        if (dicts.nameData[cardId]) entry.name = dicts.nameData[cardId];
+        if (dicts.setData[cardId]) entry.set = dicts.setData[cardId];
+      }
+      return entry;
+    }),
     total,
     offset,
     limit,
@@ -261,6 +370,63 @@ export async function saveCardAbilities(
   } finally {
     conn.release();
   }
+}
+
+// ---------------------------------------------------------------------------
+// get_card_info — get card metadata (name, set, effect, stats) from generated dictionaries
+// ---------------------------------------------------------------------------
+export function getCardInfo(
+  root: string,
+  cardId: string
+): {
+  root: string;
+  cardId: string;
+  found: boolean;
+  name?: string;
+  set?: string;
+  effect?: string;
+  element?: string;
+  type?: string;
+  cost_memory?: number;
+  cost_reserve?: number;
+  level?: number;
+  power?: number;
+  life?: number;
+  classes?: string;
+  subtypes?: string;
+} {
+  const dicts = getCardDictionaries(root);
+  if (!dicts || !(cardId in dicts.nameData)) {
+    return { root, cardId, found: false };
+  }
+  const numOrUndef = (v: number | undefined) => (v !== undefined && v !== -1) ? v : undefined;
+  return {
+    root,
+    cardId,
+    found: true,
+    name: dicts.nameData[cardId] || undefined,
+    set: dicts.setData[cardId] || undefined,
+    effect: dicts.effectData[cardId] || undefined,
+    element: dicts.elementData[cardId] || undefined,
+    type: dicts.typeData[cardId] || undefined,
+    cost_memory: numOrUndef(dicts.cost_memoryData[cardId]),
+    cost_reserve: numOrUndef(dicts.cost_reserveData[cardId]),
+    level: numOrUndef(dicts.levelData[cardId]),
+    power: numOrUndef(dicts.powerData[cardId]),
+    life: numOrUndef(dicts.lifeData[cardId]),
+    classes: dicts.classesData[cardId] || undefined,
+    subtypes: dicts.subtypesData[cardId] || undefined,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// list_sets — list unique set codes available for a root
+// ---------------------------------------------------------------------------
+export function listSets(root: string): { root: string; sets: string[] } {
+  const dicts = getCardDictionaries(root);
+  if (!dicts) return { root, sets: [] };
+  const sets = new Set(Object.values(dicts.setData));
+  return { root, sets: [...sets].sort() };
 }
 
 // mysql2 type import for RowDataPacket / ResultSetHeader
