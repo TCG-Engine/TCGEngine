@@ -76,6 +76,19 @@ function GetValidAttackTargets($attackerMZ) {
 }
 
 /**
+ * Flip a zone mzID between player perspectives.
+ * e.g. "myField-2" becomes "theirField-2" and vice versa.
+ */
+function FlipZonePerspective($mzID) {
+    if(strpos($mzID, "my") === 0) {
+        return "their" . substr($mzID, 2);
+    } else if(strpos($mzID, "their") === 0) {
+        return "my" . substr($mzID, 5);
+    }
+    return $mzID; // global zones like EffectStack don't flip
+}
+
+/**
  * Send all attack cards from intent zone to graveyard after combat resolves.
  */
 function ClearIntent($player) {
@@ -270,15 +283,16 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         DealDamage($player, $attackerMZ, $lastDecision, $totalPower);
     }
 
-    // Retaliation: defender deals damage back to the attacker (if defender is still alive)
-    $defenderPower = ObjectCurrentPower($target);
-    if($defenderPower > 0 && $target->Damage < ObjectCurrentHP($target)) {
-        DealDamage($player, $lastDecision, $attackerMZ, $defenderPower);
-    }
+    // Retaliation step: let the defending player choose whether to retaliate
+    // Flip zone refs so they're correct from the defender's perspective
+    $defenderPlayer = ($player == 1) ? 2 : 1;
+    $defenderMZ_fromDefender = FlipZonePerspective($lastDecision);
+    $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
+    DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $defenderMZ_fromDefender, 100, "Retaliate?");
+    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender, 100);
 
-    // After combat: move all intent cards to graveyard
-    ClearIntent($player);
-    DecisionQueueController::ClearVariable("CombatAttacker");
+    // Cleanup queued after retaliation resolves
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CombatCleanup", 100);
 };
 
 /**
@@ -300,18 +314,48 @@ $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
         }
     }
 
-    // Retaliation: each surviving defender retaliates
-    // Re-fetch list since some may have been destroyed
+    // Retaliation step: let the defending player choose whether to retaliate
+    $defenderPlayer = ($player == 1) ? 2 : 1;
+    $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
+    // Re-fetch surviving opponents for retaliation choices
     $survivingOpponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
-    foreach($survivingOpponents as $defenderMZ) {
-        $defender = &GetZoneObject($defenderMZ);
-        $defPower = ObjectCurrentPower($defender);
-        if($defPower > 0) {
-            DealDamage($player, $defenderMZ, $attackerMZ, $defPower);
-        }
+    if(!empty($survivingOpponents)) {
+        // Flip each survivor's mzID to the defender's perspective
+        $survivorsFromDefender = array_map('FlipZonePerspective', $survivingOpponents);
+        $survivorList = implode("&", $survivorsFromDefender);
+        DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $survivorList, 100, "Retaliate_with?");
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender, 100);
     }
 
-    // After combat: clear intent
+    // Cleanup queued after retaliation resolves
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CombatCleanup", 100);
+};
+
+/**
+ * Handler: defending player chose whether to retaliate.
+ * $parts[0] = attacker mzID (from defender's perspective, i.e. theirField-X)
+ * $parts[1] = defender mzID (from defender's perspective, i.e. myField-X) -- only for single-target
+ * $lastDecision = the card they clicked (myField-X) or "-" if they passed.
+ */
+$customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = $parts[0]; // from defender's perspective: theirField-X
+    if($lastDecision === "-" || $lastDecision === "") {
+        // Defender chose not to retaliate
+        return;
+    }
+
+    // $lastDecision is the defender's unit from their perspective (myField-X)
+    $defender = &GetZoneObject($lastDecision);
+    $defenderPower = ObjectCurrentPower($defender);
+    if($defenderPower > 0 && $defender->Damage < ObjectCurrentHP($defender)) {
+        DealDamage($player, $lastDecision, $attackerMZ, $defenderPower);
+    }
+};
+
+/**
+ * Handler: clean up after combat resolves (intent + variables).
+ */
+$customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     ClearIntent($player);
     DecisionQueueController::ClearVariable("CombatAttacker");
 };

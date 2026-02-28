@@ -221,6 +221,7 @@ function EndPhase() {
 
 function ObjectCurrentPower($obj) {
     $power = CardPower($obj->CardID);
+    if($power < 0) $power = 0;
     switch($obj->CardID) { //Self power modifiers
         case "HWFWO0TB8l"://Tempest Silverback
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
