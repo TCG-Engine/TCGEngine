@@ -657,4 +657,15 @@ function CardMemoryCost($obj) {
     return CardCost_memory($obj->CardID);
 }
 
+function IsHarmonizeActive($player) {
+    $cards = CardActivatedTurnCards($player);
+    foreach($cards as $cardID => $count) {
+        $subtypes = explode(",", CardSubtypes($cardID));
+        if(in_array("MELODY", $subtypes)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 ?>
