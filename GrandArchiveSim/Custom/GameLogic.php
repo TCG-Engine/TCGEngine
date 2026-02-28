@@ -25,7 +25,7 @@ function ActionMap($actionCard)
         case "myField":
             $obj = &GetZoneObject($actionCard);
             $cardType = CardType($obj->CardID);
-            if(PropertyContains($cardType, "ALLY")) {
+            if(PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION")) {
                 BeginCombatPhase($actionCard);
             }
             break;
@@ -86,10 +86,18 @@ function OnCardActivated($player, $mzCard) {
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "ACTION")) {
         $obj = MZMove($player, $mzCard, "myGraveyard");
+    } else if(PropertyContains($cardType, "ATTACK")) {
+        // Attack cards resolve and enter the champion's intent zone
+        $obj = MZMove($player, $mzCard, "myIntent");
+        $obj->Controller = $player;
     }
     DecisionQueueController::CleanupRemovedCards();
     if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
         $cardActivatedAbilities[$obj->CardID . ":0"]($player);
+    }
+    // After an attack card enters intent and its abilities resolve, declare the champion attack
+    if(PropertyContains($cardType, "ATTACK")) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareChampionAttack", 100);
     }
 }
 
@@ -191,8 +199,11 @@ function EndPhase() {
     $currentTurn = &GetTurnNumber();
     $turnPlayer = &GetTurnPlayer();
 
+    // Clear any remaining intent cards (unused attack cards) to graveyard
+    ClearIntent($turnPlayer);
+
     $field = &GetField($turnPlayer);
-    for($i=0; $i<count($field); ++$i) {
+    for($i=count($field)-1; $i>=0; --$i) {
         if(HasVigor($field[$i])) {
             $field[$i]->Status = 2; // Vigor units ready themselves at end of turn
         }
@@ -454,7 +465,7 @@ function FieldSelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
     $cardType = CardType($obj->CardID);
-    if(!PropertyContains($cardType, "ALLY")) {
+    if(!PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) {
         return json_encode(['highlight' => false]);
     }
     
