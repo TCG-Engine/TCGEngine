@@ -53,6 +53,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     //1.7 Calculating Reserve Cost
     $reserveCost = CardCost_reserve($obj->CardID);
 
+    // Class Bonus: reduce cost if champion's class matches card's class
+    $classBonusDiscount = ClassBonusActivateCostReduction($obj->CardID);
+    if($classBonusDiscount > 0 && IsClassBonusActive($player, explode(",", CardClasses($obj->CardID)))) {
+        $reserveCost = max(0, $reserveCost - $classBonusDiscount);
+    }
+
     //1.8 Paying Costs
     for($i = 0; $i < $reserveCost; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -635,6 +641,51 @@ function IsClassBonusActive($player, $classes=null) {
         }
     }
     return false;
+}
+
+// Lookup for cards with "[Class Bonus] This card costs N less to activate"
+// Returns the flat discount amount (0 if card has no class bonus cost reduction)
+function ClassBonusActivateCostReduction($cardID) {
+    static $reductions = [
+        'qwtprd5b5r' => 1,
+        'ioxgugw9r9' => 1,
+        '4gdubtwij9' => 1,
+        'hmjr33ijq6' => 1,
+        'ej4mcnqsm3' => 1,
+        'xi74wa4x7e' => 1,
+        'yhu0djqlp8' => 1,
+        'ao8bls6g7x' => 1,
+        'rqtjot4nmx' => 1,
+        '7iak6hyh6b' => 1,
+        '2ugmnmp5af' => 1,
+        'bb3oeup7oq' => 1,
+        'w7g91ru45w' => 1,
+        '5sw9f8uqrp' => 1,
+        'oz13xfpk9x' => 1,
+        'ru4g75uz1i' => 1,
+        '4a8hl5dben' => 1,
+        'i7sbjy86ep' => 1,
+        '145y6KBhxe' => 1,
+        'grlpk1akxj' => 1,
+        'xhs5jwsl7d' => 1,
+        'edg616r0za' => 1,
+        'df9q1wl8ao' => 1,
+        '67duh1cy3g' => 1,
+        'btjuxztaug' => 1,
+        '99sx6q3p6i' => 1,
+        'n0esog2898' => 1,
+        'gn1b2sbrq9' => 1,
+        'zc7wxgur23' => 1,
+        'pc0y3xneg7' => 1,
+        '8qgr2drym1' => 1,
+        'usa6qyq3ka' => 1,
+        'MwXulmKsIg' => 1,
+        'yunjm0of8e' => 1,
+        'o0nkly21ee' => 1,
+        'RUqtU0Lczf' => 1,
+        'yrzexkW5Ej' => 1,
+    ];
+    return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
 
 function DealChampionDamage($player, $amount=1) {
