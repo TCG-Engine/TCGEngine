@@ -8,8 +8,9 @@
  *   3. The attacker is rested (exhausted) as a cost.
  *   4. (Optional) The attacking player may choose weapons/objects to add to the attack (step 2.b).
  *   5. The attacking player chooses an attack target -- enemy ally or champion (step 2.c).
- *      - Intercept: if any defender has Intercept, it must be targeted first.
- *      - Cleave: if the attacker has Cleave, all enemy units become defenders.
+ *      - Stealth: units with Stealth can't be targeted unless the attacker has True Sight.
+ *      - Intercept: if any non-Stealth defender has Intercept, it must be targeted first.
+ *      - Cleave: if the attacker has Cleave, all eligible enemy units become defenders.
  *   6. Additional costs are paid (step 2.d).
  *   7. Restrictions (e.g. Taunt) are reconciled (step 2.e).
  *   8. Combat damage is dealt:
@@ -52,13 +53,56 @@ function GetTotalAttackPower($attackerObj, $player) {
 }
 
 /**
+ * Check whether the attacking side has True Sight for this combat.
+ * True Sight can come from:
+ *   - The attacking unit itself ("This unit's attacks can target units with stealth.")
+ *   - Attack cards in the attacker's intent zone ("This attack can target units with stealth.")
+ *   - Weapons used in the attack ("Attacks using this weapon can target units with stealth.")
+ *     (Weapon selection is not yet implemented; will be checked here once it is.)
+ */
+function AttackerHasTrueSight($attackerMZ, $player) {
+    // Check the attacking unit
+    $attacker = &GetZoneObject($attackerMZ);
+    if(HasTrueSight($attacker)) return true;
+
+    // Check attack cards in intent
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $intentMZ) {
+        $intentObj = &GetZoneObject($intentMZ);
+        if(HasTrueSight($intentObj)) return true;
+    }
+
+    //TODO: Check weapons once weapon selection is implemented
+
+    return false;
+}
+
+/**
  * Get valid attack targets on the opponent's field.
- * Enforces Intercept: if any opposing unit has the Intercept keyword,
- * only Intercept units may be targeted.
+ * Enforces:
+ *   - Stealth: units with Stealth can't be targeted unless the attacker has True Sight.
+ *   - Intercept: if any remaining opposing unit has Intercept, only those may be targeted.
  */
 function GetValidAttackTargets($attackerMZ) {
+    global $playerID;
+    $player = (strpos($attackerMZ, "my") === 0) ? $playerID : (($playerID == 1) ? 2 : 1);
+
     $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
     if(empty($opponents)) return $opponents;
+
+    // Stealth: filter out units with Stealth unless the attacker has True Sight
+    $hasTrueSight = AttackerHasTrueSight($attackerMZ, $player);
+    if(!$hasTrueSight) {
+        $nonStealthOpponents = [];
+        foreach($opponents as $mzID) {
+            $obj = &GetZoneObject($mzID);
+            if(!HasStealth($obj)) {
+                $nonStealthOpponents[] = $mzID;
+            }
+        }
+        $opponents = $nonStealthOpponents;
+        if(empty($opponents)) return $opponents;
+    }
 
     // Check for Intercept -- units with Intercept must be targeted first
     $interceptTargets = [];
@@ -306,6 +350,15 @@ $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
 
     $totalPower = GetTotalAttackPower($attacker, $player);
     $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
+
+    // Stealth: filter out units with Stealth unless the attacker has True Sight
+    $hasTrueSight = AttackerHasTrueSight($attackerMZ, $player);
+    if(!$hasTrueSight) {
+        $opponents = array_values(array_filter($opponents, function($mzID) {
+            $obj = &GetZoneObject($mzID);
+            return !HasStealth($obj);
+        }));
+    }
 
     // Deal damage to each defending unit
     foreach($opponents as $defenderMZ) {

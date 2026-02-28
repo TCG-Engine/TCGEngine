@@ -660,6 +660,14 @@ function HasVigor($obj) {
     return HasKeyword_Vigor($obj);
 }
 
+function HasStealth($obj) {
+    return HasKeyword_Stealth($obj);
+}
+
+function HasTrueSight($obj) {
+    return HasKeyword_TrueSight($obj);
+}
+
 function PrideAmount($obj) {
     $prideValue = GetKeyword_Pride_Value($obj);
     return $prideValue !== null ? $prideValue : 0;
