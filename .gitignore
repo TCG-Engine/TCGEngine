@@ -2,6 +2,9 @@
 .env
 .vscode/*
 !.vscode/launch.json
+!.vscode/mcp.json
+node_modules
+McpServer/dist
 Lorcana
 SoulMasters
 SoulMastersSim

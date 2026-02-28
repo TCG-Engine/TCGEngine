@@ -1,0 +1,15 @@
+{
+  "servers": {
+    "tcgengine-card-editor": {
+      "type": "stdio",
+      "command": "node",
+      "args": ["${workspaceFolder}/McpServer/dist/index.js"],
+      "env": {
+        "MYSQL_SERVER_NAME": "localhost",
+        "MYSQL_SERVER_USER_NAME": "root",
+        "MYSQL_ROOT_PASSWORD": "",
+        "MYSQL_DATABASE_NAME": "swuonline"
+      }
+    }
+  }
+}

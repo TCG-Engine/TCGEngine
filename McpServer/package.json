@@ -1,0 +1,19 @@
+{
+  "name": "tcgengine-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for TCGEngine card editor - enables AI agents to read/write card abilities",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "mysql2": "^3.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.7.0"
+  }
+}
