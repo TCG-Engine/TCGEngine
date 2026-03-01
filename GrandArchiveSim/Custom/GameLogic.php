@@ -296,6 +296,11 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
             }
             break;
+        case "csMiEObm2l": // Strapping Conscript: [Class Bonus][Level 2+] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 1;
+            }
+            break;
         default: break;
     }
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
@@ -375,6 +380,11 @@ function ObjectCurrentHP($obj) {
             global $playerID;
             $zone = $obj->Controller == $playerID ? "myField" : "theirField";
             if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["BEAST"]))) {
+                $cardLife += 1;
+            }
+            break;
+        case "csMiEObm2l": // Strapping Conscript: [Class Bonus][Level 2+] +1 LIFE
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
                 $cardLife += 1;
             }
             break;
