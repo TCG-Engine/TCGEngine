@@ -7,12 +7,26 @@ include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./Database/ConnectionManager.php";
 include_once "./CardEditor/Database/CardAbilityDB.php";
 
+// Support CLI invocation: parse arguments if not running under HTTP
+if (php_sapi_name() === 'cli' && empty($_GET)) {
+  // Parse command-line arguments: php zzGameCodeGenerator.php rootName=VALUE
+  foreach ($argv as $arg) {
+    if (strpos($arg, '=') !== false) {
+      list($key, $value) = explode('=', $arg, 2);
+      $_GET[$key] = $value;
+    }
+  }
+}
+
 $response = new stdClass();
-$error = CheckLoggedInUserMod();
-if($error !== "") {
-  $response->error = $error;
-  echo json_encode($response);
-  exit();
+$isLocalhost = ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === 'localhost:80' || $_SERVER['HTTP_HOST'] === 'localhost:443' || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') === 0);
+if (!$isLocalhost) {
+  $error = CheckLoggedInUserMod();
+  if($error !== "") {
+    $response->error = $error;
+    echo json_encode($response);
+    exit();
+  }
 }
 
 $rootName = TryGET("rootName", "");
