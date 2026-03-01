@@ -44,8 +44,10 @@ Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: CurrentLevel=ObjectCurrentLevelDisplay()
 Virtual: BuffCounterCount=GetBuffCounterCount()
+Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
 Display: Visibility=Public, Mode=All, Top=110px, Right=120px
+Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Overlay: Status=1:exhausted
 Counters: CurrentEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)

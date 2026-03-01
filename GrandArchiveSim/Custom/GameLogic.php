@@ -132,12 +132,12 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
     
-    switch(CardCard_type($sourceObject->CardID)) {
-        case "Fighter":
-            $sourceObject->Status = 1; // Exhaust the unit
-            break;
-        default: break;
+    // Exhaust the unit as the REST cost for any ally or champion with an activated ability
+    $cardType = CardType($sourceObject->CardID);
+    if(PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION")) {
+        $sourceObject->Status = 1;
     }
+
     //My activated ability effects
     $customDQHandlers["AbilityActivated"]($player, [$sourceObject->CardID, $selectedAbilityIndex], null);
 
@@ -262,6 +262,9 @@ function ObjectCurrentPower($obj) {
             case "Huh1DljE0j"://Second Wind
                 $power += 1;
                 break;
+            case "1i6ierdDjq"://Flamelash Subduer activated ability: +2 POWER until end of turn
+                $power += 2;
+                break;
             default: break;
         }
     }
@@ -280,6 +283,27 @@ function ObjectCurrentLevel($obj) {
                 $cardLevel += 2;
                 break;
             default: break;
+        }
+    }
+    // Field-presence passives — iterate once and switch on card ID
+    // Each unique card's passive is only counted once (duplicates don't stack)
+    if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        $appliedPassives = [];
+        foreach($field as $fieldObj) {
+            $fID = $fieldObj->CardID;
+            if(isset($appliedPassives[$fID])) continue;
+            switch($fID) {
+                case "1i6ierdDjq": // Flamelash Subduer: +1 level while you control an Animal or Beast ally
+                    if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]))) {
+                        $cardLevel += 1;
+                    }
+                    $appliedPassives[$fID] = true;
+                    break;
+                default: break;
+            }
         }
     }
     return $cardLevel;
@@ -516,16 +540,19 @@ function CanActExhausted($obj) {
     return false;
 }
 
-function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null) {
+function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null) {
     $results = [];
     $zoneArr = &GetZone($zoneName);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = $zoneArr[$i];
         $cardTypeStr = CardType($obj->CardID);
         $cardTypes_arr = $cardTypeStr ? explode(",", $cardTypeStr) : [];
+        $cardSubtypesStr = CardSubtypes($obj->CardID);
+        $cardSubtypes_arr = $cardSubtypesStr ? explode(",", $cardSubtypesStr) : [];
         if(($cardTypes === null || count(array_intersect($cardTypes_arr, (array)$cardTypes)) > 0) &&
            ($cardElements === null || in_array(CardElement($obj->CardID), (array)$cardElements)) &&
-        (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
+           ($cardSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$cardSubtypes)) > 0) &&
+           (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
             array_push($results, $zoneName . "-" . $i);
         }
     }
@@ -591,6 +618,22 @@ function ExpireEffects($isEndTurn=true) {
         }
     }
     $globalEffects = $newGlobalEffects;
+
+    // Clear per-card TurnEffects from the expiring player's field
+    $fieldZone = $isEndTurn ? "myField" : "theirField";
+    $fieldArr = &GetZone($fieldZone);
+    foreach($fieldArr as &$fieldObj) {
+        $fieldObj->TurnEffects = [];
+    }
+    unset($fieldObj);
+}
+
+function AddTurnEffect($mzCard, $effectID) {
+    $obj = &GetZoneObject($mzCard);
+    if($obj === null) return;
+    if(!in_array($effectID, $obj->TurnEffects)) {
+        array_push($obj->TurnEffects, $effectID);
+    }
 }
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;

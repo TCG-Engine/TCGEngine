@@ -76,6 +76,11 @@ This is the canonical workflow for implementing card abilities. Follow these ste
 - **NEVER manually edit `<RootName>/GeneratedCode/GeneratedMacroCode.php`** — this file is auto-generated from the database. The MCP `save_card_abilities` tool saves to the DB and triggers the code generator automatically. Any manual edits will be overwritten.
 - **NEVER manually edit `<RootName>/GeneratedCode/GeneratedMacroCount.js`** — same reason.
 - Helper functions that don't already exist should be added to the appropriate file in `<RootName>/Custom/` based on theme (e.g. combat helpers in CombatLogic.php, general helpers in GameLogic.php).
+- **Per-card stat modifiers** — continuous effects that raise/lower a single card's POWER, HP, or Level should be implemented by:
+  1. Using `AddTurnEffect($mzCard, $effectID)` to tag the card with the effect when the ability resolves.
+  2. Adding a `case "$effectID":` to the relevant `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel` switch in `GameLogic.php`.
+  The effect is automatically cleared at end of turn by `ExpireEffects`.
+- **Field-presence passives** (e.g. "champion gets +1 level while you control X") belong in `ObjectCurrentLevel`/`ObjectCurrentPower`/`ObjectCurrentHP`. Use the established pattern: loop the field once, switch on card ID, deduplicate with `$appliedPassives[$fID]` to prevent duplicate copies from stacking inadvertently.
 
 ### Step 1: Gather card information
 Call the MCP `get_card_info` tool with the card ID to get the card's name, effect text, element, type, cost, and other metadata.
@@ -90,14 +95,15 @@ Call the MCP `get_zone_schema` tool to understand what properties exist on cards
 
 ### Step 3: Find existing helper functions
 Call the MCP `get_helper_functions` tool to discover what helper functions already exist. Search with relevant terms. Key helpers for Grand Archive include:
-- `ZoneSearch(zoneName, cardTypes, floatingMemoryOnly, cardElements)` — search a zone by type/element
+- `ZoneSearch(zoneName, cardTypes, floatingMemoryOnly, cardElements, cardSubtypes)` — search a zone by type/element/subtype. All params after `zoneName` are optional and can be passed by name (e.g. `ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"])`).
 - `DealChampionDamage(player, amount)` — add damage to the player's champion on the field
 - `RecoverChampion(player, amount)` — remove damage from the player's champion on the field
 - `DealDamage(player, source, target, amount)` — deal damage from a source to a target (via macro)
 - `Draw(player, amount)` — draw cards (macro call, preferred over DoDrawCard)
 - `MZMove(player, mzCard, destZone)` — move a card between zones
 - `IsClassBonusActive(player, classes)` — check if champion's class matches
-- `AddGlobalEffects(player, effectID)` — add a global effect
+- `AddGlobalEffects(player, effectID)` — add a global effect that affects all matching cards this turn (via `doesGlobalEffectApply` / `CardCurrentEffects`)
+- `AddTurnEffect(mzCard, effectID)` — add a per-card turn effect to a specific field card's `TurnEffects` array. Use this when the effect targets a single card (e.g. "+2 POWER until end of turn on a specific ally") rather than `AddGlobalEffects` which broadcasts to all matching cards. The effect ID is conventionally the source card's ID. It is cleared at end of turn by `ExpireEffects`.
 - `ExhaustCard(player, mzID)` — exhaust a card
 - `WakeupCard(player, mzID)` — ready a card
 - `ObjectCurrentPower(obj)`, `ObjectCurrentHP(obj)` — get computed stats
