@@ -569,7 +569,12 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "  \$zoneObj = new " . $zoneName . "(");
     for($j=0; $j<count($zone->Properties); ++$j) {
       $property = $zone->Properties[$j];
-      fwrite($handler, "\$" . $property->Name);
+      if($property->Type == "json") {
+        // JSON fields need to be base64-encoded for the space-delimited constructor line
+        fwrite($handler, "(is_array(\$" . $property->Name . ") ? base64_encode(json_encode(\$" . $property->Name . ")) : \$" . $property->Name . ")");
+      } else {
+        fwrite($handler, "\$" . $property->Name);
+      }
       if($j < count($zone->Properties) - 1) fwrite($handler, " . ' ' . ");
     }
     // Add location and playerID to constructor for Player or Global scopes
@@ -1016,6 +1021,9 @@ for($i=0; $i<count($zones); ++$i) {
     } else if($propertyType == "array") {
       // Arrays are serialized with ~ delimiter, e.g. "item1~item2~item3" or "-" for empty
       fwrite($handler, "(count(\$arr) > " . $j . " && \$arr[" . $j . "] != \"-\" ? explode(\"~\", \$arr[" . $j . "]) : []);\r\n");
+    } else if($propertyType == "json") {
+      // JSON fields are base64-encoded in the serialized line to avoid space/delimiter collisions
+      fwrite($handler, "(count(\$arr) > " . $j . " && \$arr[" . $j . "] != \"-\" ? json_decode(base64_decode(\$arr[" . $j . "]), true) : []);\r\n");
     } else {
       fwrite($handler, "(count(\$arr) > " . $j . " ? \$arr[" . $j . "] : \"\");\r\n");
     }
@@ -1034,6 +1042,9 @@ for($i=0; $i<count($zones); ++$i) {
     if($property->Type == "array") {
       // Serialize arrays with ~ delimiter, or "-" if empty
       fwrite($handler, "    \$rv .= (count(\$this->" . $propertyName . ") > 0 ? implode(\"~\", \$this->" . $propertyName . ") : \"-\");\r\n");
+    } else if($property->Type == "json") {
+      // Serialize JSON fields as base64-encoded JSON strings, or "-" if empty
+      fwrite($handler, "    \$rv .= (!empty(\$this->" . $propertyName . ") ? base64_encode(json_encode(\$this->" . $propertyName . ")) : \"-\");\r\n");
     } else {
       fwrite($handler, "    \$rv .= \$this->" . $propertyName . ";\r\n");
     }

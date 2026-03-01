@@ -37,12 +37,13 @@ Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
 Click: FSM()
 Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
-Field - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string]
+Field - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentHP=ObjectCurrentHPDisplay()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: CurrentLevel=ObjectCurrentLevelDisplay()
+Virtual: BuffCounterCount=GetBuffCounterCount()
 Index: TurnEffects
 Display: Visibility=Public, Mode=All, Top=110px, Right=120px
 Overlay: Status=1:exhausted
@@ -51,6 +52,7 @@ Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
 Counters: CurrentLevel=Badge(Color=Orange,Position=BottomLeft,ShowZero=false)
+Counters: BuffCounterCount=Badge(Color=Gold,Position=Center,ShowZero=false)
 AfterAdd: FieldAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()

@@ -169,7 +169,7 @@ function OnEnter($player, $mzID) {
     if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
 }
 
-function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Controller="-", $Damage=0) {
+function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $Controller="-", $TurnEffects="-", $Counters="-") {
     $field = &GetField($player);
     $added = $field[count($field)-1];
     $added->Controller = $player;
@@ -227,7 +227,9 @@ function EndPhase() {
 
 function ObjectCurrentPower($obj) {
     $power = CardPower($obj->CardID);
-    if($power < 0) $power = 0;
+    if($power === null || $power < 0) return 0; // No power stat — buff counters do not generate one
+    // Buff counter modifier: +1 power per buff counter (applied before other modifiers)
+    $power += GetCounterCount($obj, "buff");
     switch($obj->CardID) { //Self power modifiers
         case "HWFWO0TB8l"://Tempest Silverback
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
@@ -275,6 +277,9 @@ function ObjectCurrentLevel($obj) {
 
 function ObjectCurrentHP($obj) {
     $cardLife = CardLife($obj->CardID);
+    if($cardLife === null || $cardLife < 0) return 0; // No life stat — buff counters do not generate one
+    // Buff counter modifier: +1 life per buff counter (applied before other modifiers)
+    $cardLife += GetCounterCount($obj, "buff");
     switch($obj->CardID) { //Self hp modifiers
         case "HWFWO0TB8l"://Tempest Silverback
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
@@ -760,6 +765,104 @@ function IsHarmonizeActive($player) {
         }
     }
     return false;
+}
+
+// =============================================================================
+// Counter System — generic add/remove/query for card-level counters
+// =============================================================================
+
+/**
+ * Get the number of a specific counter type on a card object.
+ * @param object $obj   A Field zone object with a Counters property (json array/assoc).
+ * @param string $type  Counter type key, e.g. "buff", "debuff".
+ * @return int
+ */
+function GetCounterCount($obj, $type) {
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) return 0;
+    return isset($obj->Counters[$type]) ? intval($obj->Counters[$type]) : 0;
+}
+
+/**
+ * Virtual property callback: returns the number of buff counters on the object.
+ * Used for the BuffCounterCount display badge.
+ */
+function GetBuffCounterCount($obj) {
+    return GetCounterCount($obj, "buff");
+}
+
+/**
+ * Add counters of a given type to a card on the field.
+ * Handles buff/debuff cancellation: if adding buff counters to a card with debuff
+ * counters, each buff counter cancels one debuff counter and vice versa.
+ *
+ * @param int    $player      The acting player.
+ * @param string $mzCard      The mzID of the card (e.g. "myField-3").
+ * @param string $counterType The counter type key, e.g. "buff", "debuff".
+ * @param int    $amount      Number of counters to add (positive).
+ */
+function AddCounters($player, $mzCard, $counterType, $amount = 1) {
+    if($amount <= 0) return;
+    $obj = &GetZoneObject($mzCard);
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) $obj->Counters = [];
+
+    // Determine the opposite type for cancellation
+    $oppositeType = null;
+    if($counterType === "buff") $oppositeType = "debuff";
+    else if($counterType === "debuff") $oppositeType = "buff";
+
+    // If there is an opposite counter type, cancel pairs first
+    if($oppositeType !== null && isset($obj->Counters[$oppositeType]) && $obj->Counters[$oppositeType] > 0) {
+        $oppositeCount = intval($obj->Counters[$oppositeType]);
+        $cancelAmount = min($amount, $oppositeCount);
+        $obj->Counters[$oppositeType] -= $cancelAmount;
+        $amount -= $cancelAmount;
+        if($obj->Counters[$oppositeType] <= 0) {
+            unset($obj->Counters[$oppositeType]);
+        }
+    }
+
+    // Add remaining counters
+    if($amount > 0) {
+        if(!isset($obj->Counters[$counterType])) $obj->Counters[$counterType] = 0;
+        $obj->Counters[$counterType] += $amount;
+    }
+}
+
+/**
+ * Remove counters of a given type from a card on the field.
+ *
+ * @param int    $player      The acting player.
+ * @param string $mzCard      The mzID of the card.
+ * @param string $counterType The counter type key, e.g. "buff", "debuff".
+ * @param int    $amount      Number of counters to remove (positive).
+ */
+function RemoveCounters($player, $mzCard, $counterType, $amount = 1) {
+    if($amount <= 0) return;
+    $obj = &GetZoneObject($mzCard);
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) return;
+    if(!isset($obj->Counters[$counterType])) return;
+
+    $obj->Counters[$counterType] = max(0, intval($obj->Counters[$counterType]) - $amount);
+    if($obj->Counters[$counterType] <= 0) {
+        unset($obj->Counters[$counterType]);
+    }
+}
+
+/**
+ * Remove ALL counters of a given type from a card on the field.
+ */
+function ClearCounters($player, $mzCard, $counterType) {
+    $obj = &GetZoneObject($mzCard);
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) return;
+    unset($obj->Counters[$counterType]);
+}
+
+/**
+ * Remove ALL counters of every type from a card on the field.
+ */
+function ClearAllCounters($player, $mzCard) {
+    $obj = &GetZoneObject($mzCard);
+    $obj->Counters = [];
 }
 
 ?>

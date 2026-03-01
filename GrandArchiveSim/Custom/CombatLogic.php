@@ -417,10 +417,18 @@ $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
 
 /**
  * Apply damage to a target unit. If damage >= HP, destroy it.
+ * After applying damage, trigger any DealDamage abilities on the target card.
  */
 function OnDealDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
     $targetObj->Damage += $amount;
+
+    // Trigger per-card DealDamage abilities on the target card
+    global $dealDamageAbilities;
+    if(isset($dealDamageAbilities) && isset($dealDamageAbilities[$targetObj->CardID . ":0"])) {
+        $dealDamageAbilities[$targetObj->CardID . ":0"]($player);
+    }
+
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
         AllyDestroyed($player, $target);
