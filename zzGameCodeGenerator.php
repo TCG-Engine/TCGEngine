@@ -8,7 +8,8 @@ include_once "./Database/ConnectionManager.php";
 include_once "./CardEditor/Database/CardAbilityDB.php";
 
 // Support CLI invocation: parse arguments if not running under HTTP
-if (php_sapi_name() === 'cli' && empty($_GET)) {
+$isCLI = (php_sapi_name() === 'cli' && empty($_GET));
+if ($isCLI) {
   // Parse command-line arguments: php zzGameCodeGenerator.php rootName=VALUE
   foreach ($argv as $arg) {
     if (strpos($arg, '=') !== false) {
@@ -19,8 +20,7 @@ if (php_sapi_name() === 'cli' && empty($_GET)) {
 }
 
 $response = new stdClass();
-$isLocalhost = ($_SERVER['HTTP_HOST'] === 'localhost' || $_SERVER['HTTP_HOST'] === 'localhost:80' || $_SERVER['HTTP_HOST'] === 'localhost:443' || strpos($_SERVER['HTTP_HOST'], '127.0.0.1') === 0);
-if (!$isLocalhost) {
+if (!$isCLI) {
   $error = CheckLoggedInUserMod();
   if($error !== "") {
     $response->error = $error;
