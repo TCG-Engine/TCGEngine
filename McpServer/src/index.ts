@@ -11,6 +11,9 @@ import {
   saveCardAbilities,
   getCardInfo,
   listSets,
+  getHelperFunctions,
+  getImplementedExamples,
+  getZoneSchema,
 } from "./tools.js";
 import { closePool } from "./db.js";
 
@@ -185,6 +188,69 @@ server.tool(
   async (params) => {
     try {
       const result = listSets(params.root);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: get_helper_functions
+// ---------------------------------------------------------------------------
+server.tool(
+  "get_helper_functions",
+  "Scan the Custom/*.php files of a game root and return all available helper functions with their signatures, file locations, and doc comments. Use this BEFORE implementing a card ability to discover what helper functions already exist (e.g. DealChampionDamage, RecoverChampion, ZoneSearch, DoDrawCard, MZMove, etc). Optionally filter by a search term.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    searchTerm: z.string().optional().describe("Optional search term to filter helpers by name, params, or body content (case-insensitive)"),
+  },
+  { readOnlyHint: true, destructiveHint: false },
+  async (params) => {
+    try {
+      const result = getHelperFunctions(params.root, params.searchTerm);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: get_implemented_examples
+// ---------------------------------------------------------------------------
+server.tool(
+  "get_implemented_examples",
+  "Get example ability implementations for a given macro type (e.g. 'CardActivated', 'Enter', 'AllyDestroyed'). Returns the ability code, card name, and effect text for already-implemented cards. Use this to learn the correct coding patterns before implementing a new card ability. Examples are sorted by code length (simplest first) so you see basic patterns first.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    macroName: z.string().describe("The macro name to get examples for (e.g. 'CardActivated', 'Enter')"),
+    limit: z.number().int().min(1).max(10).optional().describe("Max number of examples to return (default: 3)"),
+  },
+  { readOnlyHint: true, destructiveHint: false },
+  async (params) => {
+    try {
+      const result = await getImplementedExamples(params.root, params.macroName, params.limit);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: get_zone_schema
+// ---------------------------------------------------------------------------
+server.tool(
+  "get_zone_schema",
+  "Get the zone definitions and macro definitions from a game's schema. Returns all zones with their field types (e.g. Field has CardID, Status, Damage, Controller, TurnEffects), display settings, overlays, counters, and virtual properties. Also returns all macro definitions with their parameters. Use this to understand what data is available on cards in each zone and what macros exist.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+  },
+  { readOnlyHint: true, destructiveHint: false },
+  async (params) => {
+    try {
+      const result = getZoneSchema(params.root);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err: any) {
       return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };

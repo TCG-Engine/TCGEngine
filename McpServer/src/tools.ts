@@ -429,5 +429,234 @@ export function listSets(root: string): { root: string; sets: string[] } {
   return { root, sets: [...sets].sort() };
 }
 
+// ---------------------------------------------------------------------------
+// get_helper_functions — scan Custom/*.php for function signatures and helpers
+// ---------------------------------------------------------------------------
+export function getHelperFunctions(
+  root: string, 
+  searchTerm?: string
+): {
+  root: string;
+  helpers: { name: string; signature: string; file: string; line: number; docComment?: string }[];
+} {
+  const customDir = path.join(ENGINE_ROOT, root, "Custom");
+  if (!fs.existsSync(customDir)) return { root, helpers: [] };
+
+  const helpers: { name: string; signature: string; file: string; line: number; docComment?: string }[] = [];
+  const files = fs.readdirSync(customDir).filter(f => f.endsWith(".php"));
+
+  for (const file of files) {
+    const filePath = path.join(customDir, file);
+    const content = fs.readFileSync(filePath, "utf-8");
+    const lines = content.split(/\r?\n/);
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const match = line.match(/^function\s+(\w+)\s*\(([^)]*)\)/);
+      if (!match) continue;
+
+      const funcName = match[1];
+      const params = match[2];
+      const signature = `${funcName}(${params})`;
+
+      // Check search term filter
+      if (searchTerm) {
+        const term = searchTerm.toLowerCase();
+        if (!funcName.toLowerCase().includes(term) && !params.toLowerCase().includes(term)) {
+          // Also check the next few lines of the function body for the search term
+          let bodySnippet = "";
+          for (let j = i; j < Math.min(i + 10, lines.length); j++) {
+            bodySnippet += lines[j] + "\n";
+          }
+          if (!bodySnippet.toLowerCase().includes(term)) continue;
+        }
+      }
+
+      // Look for a doc comment above the function
+      let docComment: string | undefined;
+      if (i > 0) {
+        // Check for // comment on the line above
+        const prevLine = lines[i - 1].trim();
+        if (prevLine.startsWith("//")) {
+          docComment = prevLine.replace(/^\/\/\s*/, "");
+        }
+        // Check for multi-line /** */ comment
+        else if (prevLine === "*/") {
+          let commentLines: string[] = [];
+          for (let j = i - 1; j >= 0; j--) {
+            commentLines.unshift(lines[j].trim());
+            if (lines[j].trim().startsWith("/**") || lines[j].trim().startsWith("/*")) break;
+          }
+          docComment = commentLines
+            .map(l => l.replace(/^\/\*\*?\s?/, "").replace(/\*\/\s*$/, "").replace(/^\*\s?/, ""))
+            .filter(l => l.length > 0)
+            .join(" ");
+        }
+      }
+
+      helpers.push({ name: funcName, signature, file: `Custom/${file}`, line: i + 1, docComment });
+    }
+  }
+
+  // Also scan for $customDQHandlers registrations
+  for (const file of files) {
+    const filePath = path.join(customDir, file);
+    const content = fs.readFileSync(filePath, "utf-8");
+    const lines = content.split(/\r?\n/);
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const match = line.match(/\$customDQHandlers\["(\w+)"\]\s*=/);
+      if (!match) continue;
+
+      const handlerName = match[1];
+      if (searchTerm && !handlerName.toLowerCase().includes(searchTerm.toLowerCase())) continue;
+
+      helpers.push({
+        name: `$customDQHandlers["${handlerName}"]`,
+        signature: `handler(player, parts, lastDecision)`,
+        file: `Custom/${file}`,
+        line: i + 1,
+        docComment: `Custom DQ handler: ${handlerName}`,
+      });
+    }
+  }
+
+  return { root, helpers };
+}
+
+// ---------------------------------------------------------------------------
+// get_implemented_examples — return N example ability implementations for a macro
+// ---------------------------------------------------------------------------
+export async function getImplementedExamples(
+  root: string,
+  macroName: string,
+  limit: number = 3
+): Promise<{
+  root: string;
+  macroName: string;
+  examples: {
+    cardId: string;
+    cardName?: string;
+    effect?: string;
+    abilityCode: string;
+  }[];
+}> {
+  const pool = getPool();
+  const [rows] = await pool.query<mysql.RowDataPacket[]>(
+    `SELECT card_id, ability_code
+     FROM card_abilities
+     WHERE root_name = ? AND macro_name = ? AND ability_code != ''
+     ORDER BY CHAR_LENGTH(ability_code) ASC
+     LIMIT ?`,
+    [root, macroName, limit]
+  );
+
+  const dicts = getCardDictionaries(root);
+
+  const examples = (rows as any[]).map((r) => {
+    const entry: any = {
+      cardId: r.card_id,
+      abilityCode: r.ability_code,
+    };
+    if (dicts) {
+      if (dicts.nameData[r.card_id]) entry.cardName = dicts.nameData[r.card_id];
+      if (dicts.effectData[r.card_id]) entry.effect = dicts.effectData[r.card_id];
+    }
+    return entry;
+  });
+
+  return { root, macroName, examples };
+}
+
+// ---------------------------------------------------------------------------
+// get_zone_schema — parse GameSchema.txt and return zone definitions
+// ---------------------------------------------------------------------------
+export function getZoneSchema(root: string): {
+  root: string;
+  zones: {
+    name: string;
+    fields: string[];
+    display?: string;
+    overlays?: string[];
+    counters?: string[];
+    virtuals?: string[];
+    click?: string;
+    afterAdd?: string;
+  }[];
+  macros: { name: string; params: string[]; choiceFunction?: string }[];
+} {
+  const schemaPath = path.join(ENGINE_ROOT, "Schemas", root, "GameSchema.txt");
+  if (!fs.existsSync(schemaPath)) return { root, zones: [], macros: [] };
+
+  const content = fs.readFileSync(schemaPath, "utf-8");
+  const lines = content.split(/\r?\n/);
+
+  const zones: any[] = [];
+  const macros: any[] = [];
+  let currentZone: any = null;
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+
+    // Macro definitions
+    if (trimmed.startsWith("Macro:")) {
+      const nameMatch = trimmed.match(/Name=(\w+)(?:\(([^)]*)\))?/);
+      const choiceMatch = trimmed.match(/ChoiceFunction=(\w+)/);
+      if (nameMatch) {
+        const params = nameMatch[2] ? nameMatch[2].split(",").map(p => p.trim()) : [];
+        macros.push({
+          name: nameMatch[1],
+          params,
+          choiceFunction: choiceMatch ? choiceMatch[1] : undefined,
+        });
+      }
+      continue;
+    }
+
+    // Zone definition (line that starts with a word followed by " - ")
+    const zoneMatch = trimmed.match(/^(\w+)\s*-\s*(.+)/);
+    if (zoneMatch && !trimmed.startsWith("Display:") && !trimmed.startsWith("Overlay:")
+        && !trimmed.startsWith("Counters:") && !trimmed.startsWith("Virtual:")
+        && !trimmed.startsWith("Click:") && !trimmed.startsWith("AfterAdd:")
+        && !trimmed.startsWith("Highlight:") && !trimmed.startsWith("Macros:")
+        && !trimmed.startsWith("Sort:") && !trimmed.startsWith("Index:")
+        && !trimmed.startsWith("Widgets:") && !trimmed.startsWith("Module:")
+        && !trimmed.startsWith("ServerInclude:") && !trimmed.startsWith("AssetReflection:")) {
+      currentZone = {
+        name: zoneMatch[1],
+        fields: zoneMatch[2].split(",").map((f: string) => f.trim()),
+      };
+      zones.push(currentZone);
+      continue;
+    }
+
+    // Zone properties (indented or prefixed lines that augment the current zone)
+    if (currentZone) {
+      if (trimmed.startsWith("Display:")) {
+        currentZone.display = trimmed.replace("Display:", "").trim();
+      } else if (trimmed.startsWith("Overlay:")) {
+        if (!currentZone.overlays) currentZone.overlays = [];
+        currentZone.overlays.push(trimmed.replace("Overlay:", "").trim());
+      } else if (trimmed.startsWith("Counters:")) {
+        if (!currentZone.counters) currentZone.counters = [];
+        currentZone.counters.push(trimmed.replace("Counters:", "").trim());
+      } else if (trimmed.startsWith("Virtual:")) {
+        if (!currentZone.virtuals) currentZone.virtuals = [];
+        currentZone.virtuals.push(trimmed.replace("Virtual:", "").trim());
+      } else if (trimmed.startsWith("Click:")) {
+        currentZone.click = trimmed.replace("Click:", "").trim();
+      } else if (trimmed.startsWith("AfterAdd:")) {
+        currentZone.afterAdd = trimmed.replace("AfterAdd:", "").trim();
+      } else if (zoneMatch || trimmed.startsWith("Module:") || trimmed.startsWith("ServerInclude:") || trimmed.startsWith("Macro:") || trimmed.startsWith("AssetReflection:")) {
+        currentZone = null;
+      }
+    }
+  }
+
+  return { root, zones, macros };
+}
+
 // mysql2 type import for RowDataPacket / ResultSetHeader
 import type * as mysql from "mysql2/promise";
