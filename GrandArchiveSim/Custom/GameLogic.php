@@ -282,6 +282,13 @@ function ObjectCurrentPower($obj) {
             $hand = &GetHand($obj->Controller);
             if(count($memory) == count($hand)) $power += 3;
             break;
+        case "7NMFSRR5V3"://Fervent Beastmaster: +1 POWER while you control a Beast ally
+            global $playerID;
+            $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+            if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["BEAST"]))) {
+                $power += 1;
+            }
+            break;
         default: break;
     }
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
@@ -352,6 +359,13 @@ function ObjectCurrentHP($obj) {
         case "HWFWO0TB8l"://Tempest Silverback
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
                 $cardLife += 2;
+            }
+            break;
+        case "7NMFSRR5V3"://Fervent Beastmaster: +1 LIFE while you control a Beast ally
+            global $playerID;
+            $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+            if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["BEAST"]))) {
+                $cardLife += 1;
             }
             break;
         default: break;
