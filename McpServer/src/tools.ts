@@ -2,11 +2,15 @@ import { getPool } from "./db.js";
 import * as fs from "fs";
 import * as path from "path";
 import { fileURLToPath } from "url";
+import { execFile } from "child_process";
+import { promisify } from "util";
 
 // Resolve the TCGEngine root directory (two levels up from McpServer/dist/)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ENGINE_ROOT = path.resolve(__dirname, "..", "..");
+
+const execFileAsync = promisify(execFile);
 
 // ---------------------------------------------------------------------------
 // Card dictionary cache — parsed from GeneratedCardDictionaries_*.js files
@@ -363,12 +367,38 @@ export async function saveCardAbilities(
     }
 
     await conn.commit();
+    
+    // Trigger the code generator asynchronously after saving
+    // This regenerates the GeneratedMacroCode.php and GeneratedMacroCount.js files
+    runCodeGenerator(root).catch(err => {
+      console.error(`Warning: Code generator failed for ${root}: ${err.message}`);
+    });
+    
     return { success: true, savedCount, deletedCount };
   } catch (err) {
     await conn.rollback();
     throw err;
   } finally {
     conn.release();
+  }
+}
+
+// Run the code generator to regenerate GeneratedMacroCode.php and GeneratedMacroCount.js
+async function runCodeGenerator(root: string): Promise<void> {
+  try {
+    const generatorPath = path.join(ENGINE_ROOT, "zzGameCodeGenerator.php");
+    // Execute PHP CLI with rootName as argument
+    // The PHP script will parse this and populate $_GET accordingly
+    const { stdout, stderr } = await execFileAsync("php", [generatorPath, `rootName=${root}`], {
+      cwd: ENGINE_ROOT,
+      maxBuffer: 10 * 1024 * 1024, // 10MB buffer for large outputs
+    });
+    
+    if (stderr && !stderr.includes("Deprecated")) {
+      console.warn(`Code generator stderr: ${stderr}`);
+    }
+  } catch (err: any) {
+    throw new Error(`Failed to run code generator: ${err.message}`);
   }
 }
 
