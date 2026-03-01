@@ -1,12 +1,17 @@
 <?php
 include_once './AccountFiles/AccountSessionAPI.php';
 
+// Skip auth check for CLI invocations (e.g., code generator running from MCP server)
+$isHTTPRequest = php_sapi_name() !== 'cli' && !empty($_SERVER['REQUEST_METHOD']);
+
 $response = new stdClass();
-$error = CheckLoggedInUserMod();
-if ($error !== "") {
-    $response->error = $error;
-    echo json_encode($response);
-    exit();
+if ($isHTTPRequest) {
+    $error = CheckLoggedInUserMod();
+    if ($error !== "") {
+        $response->error = $error;
+        echo json_encode($response);
+        exit();
+    }
 }
 
 function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", $rootPath = "", $squareCards = false)

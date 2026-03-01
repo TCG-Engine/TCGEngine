@@ -368,11 +368,15 @@ export async function saveCardAbilities(
 
     await conn.commit();
     
-    // Trigger the code generator asynchronously after saving
+    // Trigger the code generator and wait for it to complete
     // This regenerates the GeneratedMacroCode.php and GeneratedMacroCount.js files
-    runCodeGenerator(root).catch(err => {
+    try {
+      await runCodeGenerator(root);
+    } catch (err: any) {
       console.error(`Warning: Code generator failed for ${root}: ${err.message}`);
-    });
+      // Don't throw - we want to return success even if generator has issues
+      // but log the error for debugging
+    }
     
     return { success: true, savedCount, deletedCount };
   } catch (err) {
@@ -394,11 +398,28 @@ async function runCodeGenerator(root: string): Promise<void> {
       maxBuffer: 10 * 1024 * 1024, // 10MB buffer for large outputs
     });
     
-    if (stderr && !stderr.includes("Deprecated")) {
-      console.warn(`Code generator stderr: ${stderr}`);
+    // Check if there's JSON error response (e.g., auth failure or other error)
+    if (stdout && stdout.trim().startsWith("{")) {
+      try {
+        const response = JSON.parse(stdout);
+        if (response.error) {
+          throw new Error(`Code generator error: ${response.error}`);
+        }
+      } catch (parseErr: any) {
+        // If it's not valid JSON or doesn't have error field, it might be normal output
+        if (parseErr instanceof Error && parseErr.message.includes("Code generator error")) {
+          throw parseErr;
+        }
+      }
     }
+    
+    if (stderr && !stderr.includes("Deprecated")) {
+      console.warn(`Code generator stderr for ${root}: ${stderr}`);
+    }
+    
+    console.log(`Code generator completed successfully for ${root}`);
   } catch (err: any) {
-    throw new Error(`Failed to run code generator: ${err.message}`);
+    throw new Error(`Failed to run code generator for ${root}: ${err.message}`);
   }
 }
 
