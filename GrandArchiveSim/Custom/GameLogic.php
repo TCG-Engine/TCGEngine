@@ -91,7 +91,12 @@ function OnCardActivated($player, $mzCard) {
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "ACTION")) {
-        $obj = MZMove($player, $mzCard, "myGraveyard");
+        // Special case: Preserve cards go to Material zone
+        if($obj->CardID == "2Ojrn7buPe") { // Tera Sight - Preserve
+            $obj = MZMove($player, $mzCard, "myMaterial");
+        } else {
+            $obj = MZMove($player, $mzCard, "myGraveyard");
+        }
     } else if(PropertyContains($cardType, "ATTACK")) {
         // Attack cards resolve and enter the champion's intent zone
         $obj = MZMove($player, $mzCard, "myIntent");
