@@ -296,6 +296,9 @@ function ObjectCurrentPower($obj) {
             case "1i6ierdDjq"://Flamelash Subduer activated ability: +2 POWER until end of turn
                 $power += 2;
                 break;
+            case "4hbA9FT56L-2"://Song of Nurturing (Class Bonus): +1 POWER until end of turn
+                $power += 1;
+                break;
             default: break;
         }
     }
@@ -358,6 +361,9 @@ function ObjectCurrentHP($obj) {
         switch($effectID) {
             case "dsAqxMezGb"://Favorable Winds
                 $cardLife += 1;
+                break;
+            case "4hbA9FT56L-1"://Song of Nurturing: +2 LIFE until end of turn
+                $cardLife += 2;
                 break;
             default: break;
         }

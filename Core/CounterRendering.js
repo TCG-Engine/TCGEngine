@@ -198,12 +198,19 @@ function showCardIdsBadgePopup(badgeEl, event) {
     var html = '<div class="cardids-popup-header">Active Effects</div>';
     html += '<div class="cardids-popup-cards">';
     
+    var seenDisplayIds = {};
     for (var i = 0; i < cardIds.length; i++) {
       var cardId = cardIds[i];
+      // Strip trailing numeric variant suffix (e.g. "4hbA9FT56L-2" -> "4hbA9FT56L")
+      // so that multi-effect cards using the cardID-N convention still resolve to the correct image.
+      var displayCardId = cardId.replace(/-\d+$/, '');
+      // Deduplicate: only show each source card's image once even if it contributes multiple effects
+      if (seenDisplayIds[displayCardId]) continue;
+      seenDisplayIds[displayCardId] = true;
       // Try concat folder first, fallback to WebpImages
-      var imgPath = rootPath + '/concat/' + cardId + '.webp';
+      var imgPath = rootPath + '/concat/' + displayCardId + '.webp';
       html += '<div class="cardids-popup-card">';
-      html += '<img src="' + imgPath + '" alt="' + cardId + '" onerror="this.src=\'' + rootPath + '/WebpImages/' + cardId + '.webp\'" loading="lazy" />';
+      html += '<img src="' + imgPath + '" alt="' + displayCardId + '" onerror="this.src=\'' + rootPath + '/WebpImages/' + displayCardId + '.webp\'" loading="lazy" />';
       html += '</div>';
     }
     
@@ -320,8 +327,19 @@ function CreateCountersHTML(zoneName, cardArr, id) {
         // Value is a comma-delimited list of card IDs
         var valueStr = String(value).trim();
         if (valueStr === '') continue; // Skip if empty
-        cardIds = valueStr.split(',').map(function(id) { return id.trim(); }).filter(function(id) { return id !== ''; });
-        displayValue = cardIds.length; // Display the count
+        var rawIds = valueStr.split(',').map(function(id) { return id.trim(); }).filter(function(id) { return id !== ''; });
+        // Strip trailing numeric variant suffix (e.g. "cardID-2" -> "cardID") and deduplicate
+        // so multi-effect cards (using the cardID-N convention) count and display as one source card.
+        var seenBase = {};
+        cardIds = [];
+        rawIds.forEach(function(id) {
+          var baseId = id.replace(/-\d+$/, '');
+          if (!seenBase[baseId]) {
+            seenBase[baseId] = true;
+            cardIds.push(id); // Keep original ID for now; popup rendering will strip suffix
+          }
+        });
+        displayValue = cardIds.length; // Display the count of unique source cards
         if (displayValue === 0) continue; // Skip if no card IDs
       } else {
         // normalize numeric strings for default mode
