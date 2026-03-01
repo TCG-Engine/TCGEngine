@@ -78,6 +78,30 @@ function AttackerHasTrueSight($attackerMZ, $player) {
 }
 
 /**
+ * Check whether the attacking side has Cleave for this combat.
+ * Cleave can come from:
+ *   - The attacking unit itself ("Attack all units a chosen opponent controls.")
+ *   - Attack cards in the attacker's intent zone (e.g. Hurricane Sweep)
+ *   - Weapons used in the attack (not yet implemented)
+ */
+function AttackerHasCleave($attackerMZ, $player) {
+    // Check the attacking unit
+    $attacker = &GetZoneObject($attackerMZ);
+    if(HasKeyword_Cleave($attacker)) return true;
+
+    // Check attack cards in intent
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $intentMZ) {
+        $intentObj = &GetZoneObject($intentMZ);
+        if(HasKeyword_Cleave($intentObj)) return true;
+    }
+
+    //TODO: Check weapons once weapon selection is implemented
+
+    return false;
+}
+
+/**
  * Get valid attack targets on the opponent's field.
  * Enforces:
  *   - Stealth: units with Stealth can't be targeted unless the attacker has True Sight.
@@ -179,8 +203,8 @@ function DeclareChampionAttack($player) {
         return false;
     }
 
-    // Check valid targets
-    $hasCleave = HasKeyword_Cleave($champion);
+    // Check valid targets (Cleave can come from the champion OR an attack card in intent)
+    $hasCleave = AttackerHasCleave($championMZ, $player);
     if(!$hasCleave) {
         $validTargets = GetValidAttackTargets($championMZ);
         if(empty($validTargets)) {
@@ -254,7 +278,8 @@ function BeginCombatPhase($actionCard) {
     }
 
     // Step 2.c (pre-check) -- Must have at least one valid target, unless attacker has Cleave
-    $hasCleave = HasKeyword_Cleave($obj);
+    // Cleave can come from the attacking unit itself OR from an attack card already in intent
+    $hasCleave = AttackerHasCleave($actionCard, $turnPlayer);
     if(!$hasCleave) {
         $validTargets = GetValidAttackTargets($actionCard);
         if(empty($validTargets)) {
@@ -410,20 +435,20 @@ $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
         }
     }
 
-    // Retaliation step: let the defending player choose whether to retaliate
+    // Retaliation step: per the Cleave rules, each defending unit may independently retaliate.
+    // Queue a separate MZMAYCHOOSE + Retaliate for each surviving defender.
     $defenderPlayer = ($player == 1) ? 2 : 1;
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
-    // Re-fetch surviving opponents for retaliation choices
+    // Re-fetch surviving opponents (snapshot after damage; units that die are already gone)
     $survivingOpponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
-    if(!empty($survivingOpponents)) {
-        // Flip each survivor's mzID to the defender's perspective
-        $survivorsFromDefender = array_map('FlipZonePerspective', $survivingOpponents);
-        $survivorList = implode("&", $survivorsFromDefender);
-        DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $survivorList, 100, "Retaliate_with?");
+    foreach($survivingOpponents as $survivorMZ) {
+        $survivorFromDefender = FlipZonePerspective($survivorMZ);
+        // Ask the defender whether this specific unit retaliates (optional)
+        DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $survivorFromDefender, 100, "Retaliate_with_" . $survivorFromDefender . "?");
         DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender, 100);
     }
 
-    // Cleanup queued after retaliation resolves
+    // Cleanup queued after all retaliation decisions resolve
     DecisionQueueController::AddDecision($player, "CUSTOM", "CombatCleanup", 100);
 };
 
