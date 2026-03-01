@@ -181,6 +181,16 @@ function RecollectionPhase() {
     // Recollection phase
     SetFlashMessage("Recollection Phase");
     $turnPlayer = &GetTurnPlayer();
+    
+    // Trigger recollection phase abilities for cards on the field
+    // Arima, Gaia's Wings (075L8pLihO): Put three buff counters on Arima
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID == "075L8pLihO") {
+            AddCounters($turnPlayer, "myField-" . $i, "buff", 3);
+        }
+    }
+    
     $memory = &GetMemory($turnPlayer);
     for($i=count($memory)-1; $i>=0; --$i) {
         MZMove($turnPlayer, "myMemory-" . $i, "myHand");
@@ -511,7 +521,9 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
     $zoneArr = &GetZone($zoneName);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = $zoneArr[$i];
-        if(($cardTypes === null || in_array(CardType($obj->CardID), (array)$cardTypes)) &&
+        $cardTypeStr = CardType($obj->CardID);
+        $cardTypes_arr = $cardTypeStr ? explode(",", $cardTypeStr) : [];
+        if(($cardTypes === null || count(array_intersect($cardTypes_arr, (array)$cardTypes)) > 0) &&
            ($cardElements === null || in_array(CardElement($obj->CardID), (array)$cardElements)) &&
         (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
             array_push($results, $zoneName . "-" . $i);
