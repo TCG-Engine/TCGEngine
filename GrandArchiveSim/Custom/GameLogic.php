@@ -179,6 +179,12 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     $added = $field[count($field)-1];
     $added->Controller = $player;
     if($added->Owner == 0) $added->Owner = $player;
+    
+    // Crusader of Aesa (2Q60hBYO3i): enters the field rested
+    if($added->CardID == "2Q60hBYO3i") {
+        $added->Status = 1;
+    }
+    
     Enter($player, $field[count($field)-1]->GetMzID());
 }
 
