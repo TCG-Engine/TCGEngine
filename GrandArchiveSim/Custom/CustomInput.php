@@ -12,14 +12,13 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         AutoAdvanceAndExecute();
         break;
       case "myField":
-        $zoneArr = &GetZone($zone, $playerID);
         // Parse ability index from action (e.g., "Activate:0", "Activate:1")
         $abilityIndex = 0;
         if (strpos($action, ':') !== false) {
             $actionParts = explode(':', $action);
             $abilityIndex = intval($actionParts[1]);
         }
-        ActivateAbility($playerID, $zone . "-" . (count($zoneArr) - 1), $abilityIndex);
+        ActivateAbility($playerID, $actionCard, $abilityIndex);
         break;
       default: break;
     }

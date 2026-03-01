@@ -548,11 +548,11 @@
         }
 
         var buttons = createWidgetButtons(zoneName, id, cardArr[2]);
-        newHTML += "<span class='widget-buttons' style='z-index:1000; display: none; justify-content: center; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%);'>" + buttons.middleButtons + "</span>";
-        newHTML += "<div class='widget-buttons' style='display: none; position:absolute; top:0; right:0; z-index:1001;'>" + buttons.topRightButtons + "</div>";
-        if (buttons.topLeftButtons) newHTML += "<div class='widget-buttons' style='display: none; position:absolute; top:0; left:0; z-index:1001;'>" + buttons.topLeftButtons + "</div>";
-        if (buttons.bottomLeftButtons) newHTML += "<div class='widget-buttons' style='display: none; position:absolute; bottom:0; left:0; z-index:1001;'>" + buttons.bottomLeftButtons + "</div>";
-        if (buttons.bottomRightButtons) newHTML += "<div class='widget-buttons' style='display: none; position:absolute; bottom:0; right:0; z-index:1001;'>" + buttons.bottomRightButtons + "</div>";
+        newHTML += "<span class='widget-buttons' style='z-index:1000; visibility:hidden; pointer-events:none; display:flex; justify-content: center; position:absolute; top:50%; left:50%; transform: translate(-50%, -50%);'>" + buttons.middleButtons + "</span>";
+        newHTML += "<div class='widget-buttons' style='visibility:hidden; pointer-events:none; position:absolute; top:0; right:0; z-index:1001;'>" + buttons.topRightButtons + "</div>";
+        if (buttons.topLeftButtons) newHTML += "<div class='widget-buttons' style='visibility:hidden; pointer-events:none; position:absolute; top:0; left:0; z-index:1001;'>" + buttons.topLeftButtons + "</div>";
+        if (buttons.bottomLeftButtons) newHTML += "<div class='widget-buttons' style='visibility:hidden; pointer-events:none; position:absolute; bottom:0; left:0; z-index:1001;'>" + buttons.bottomLeftButtons + "</div>";
+        if (buttons.bottomRightButtons) newHTML += "<div class='widget-buttons' style='visibility:hidden; pointer-events:none; position:absolute; bottom:0; right:0; z-index:1001;'>" + buttons.bottomRightButtons + "</div>";
         newHTML += "</span>";
         return newHTML;
       }
@@ -561,7 +561,8 @@
       const widgetstyle = document.createElement('style');
       widgetstyle.innerHTML = `
         span.draggable:hover .widget-buttons {
-          display: flex !important;
+          visibility: visible !important;
+          pointer-events: auto !important;
         }
       `;
       document.head.appendChild(widgetstyle);
@@ -617,8 +618,13 @@
               // Special handling for Activate button - show ability names
               if (widget.Action === 'Activate' && cardData.CardID && typeof CardActivateAbilityCount === 'function') {
                 const abilityCount = CardActivateAbilityCount(cardData.CardID);
-                if (abilityCount >= 1) {
-                  // Generate button(s) for each ability with their names
+                // Read server-computed dynamic abilities (generic — no game-specific logic here)
+                let dynamicAbilities = [];
+                if (cardData.DynamicAbilities && cardData.DynamicAbilities !== '' && cardData.DynamicAbilities !== '[]') {
+                  try { dynamicAbilities = JSON.parse(cardData.DynamicAbilities); } catch(e) {}
+                }
+                if (abilityCount >= 1 || dynamicAbilities.length > 0) {
+                  // Generate button(s) for each static ability
                   const abilityNames = typeof CardActivateAbilityCountNames === 'function' 
                     ? CardActivateAbilityCountNames(cardData.CardID) 
                     : [];
@@ -632,6 +638,18 @@
                       case 'bottomleft': bottomLeftButtons += buttonHtml; break;
                       case 'bottomright': bottomRightButtons += buttonHtml; break;
                       default: buttonsHtml += buttonHtml;
+                    }
+                  }
+                  // Generate button(s) for each server-provided dynamic ability
+                  for (const dynAbility of dynamicAbilities) {
+                    const dynAction = `Activate:${dynAbility.index}`;
+                    const dynButtonHtml = `&nbsp;<button class="widget-button" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${dynAction}')" title="${dynAbility.name}">${dynAbility.name}</button>`;
+                    switch(position) {
+                      case 'topright': topRightButtons += dynButtonHtml; break;
+                      case 'topleft': topLeftButtons += dynButtonHtml; break;
+                      case 'bottomleft': bottomLeftButtons += dynButtonHtml; break;
+                      case 'bottomright': bottomRightButtons += dynButtonHtml; break;
+                      default: buttonsHtml += dynButtonHtml;
                     }
                   }
                   return; // Skip the default button generation

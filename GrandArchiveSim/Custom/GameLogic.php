@@ -59,6 +59,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - $classBonusDiscount);
     }
 
+    // Efficiency: reduce cost by the champion's current level
+    global $Efficiency_Cards;
+    if(isset($Efficiency_Cards[$obj->CardID])) {
+        $myField = GetZone("myField");
+        foreach($myField as $fieldObj) {
+            if(PropertyContains(CardType($fieldObj->CardID), "CHAMPION")) {
+                $champLevel = ObjectCurrentLevel($fieldObj);
+                $reserveCost = max(0, $reserveCost - $champLevel);
+                break;
+            }
+        }
+    }
+
     //1.8 Paying Costs
     for($i = 0; $i < $reserveCost; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -137,14 +150,21 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
     
-    // Exhaust the unit as the REST cost for any ally or champion with an activated ability
+    // Exhaust the unit as the REST cost — only for static abilities, not dynamic ones (which have their own costs)
     $cardType = CardType($sourceObject->CardID);
-    if(PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION")) {
+    $staticAbilityCount = CardActivateAbilityCount($cardID);
+    if($selectedAbilityIndex < $staticAbilityCount && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION"))) {
         $sourceObject->Status = 1;
     }
 
     //My activated ability effects
     $customDQHandlers["AbilityActivated"]($player, [$sourceObject->CardID, $selectedAbilityIndex], null);
+
+    // Enlighten activated ability: triggered when abilityIndex is beyond static count and champion has 3+ enlighten counters
+    if($selectedAbilityIndex >= $staticAbilityCount && GetCounterCount($sourceObject, "enlighten") >= 3) {
+        RemoveCounters($player, $mzCard, "enlighten", 3);
+        Draw($player, 1);
+    }
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
@@ -463,11 +483,12 @@ function TraitContains($card, $trait) {
 
 function CardHasAbility($obj) {
     global $debugMode;
+    $hasDynamic = GetDynamicAbilities($obj) !== "";
     if($debugMode) {
-        return CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
+        return (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic) ? 1 : 0;
     }
     $turnPlayer = &GetTurnPlayer();
-    return $obj->Status == 2 && $turnPlayer == $obj->Controller && CardActivateAbilityCount($obj->CardID) > 0 ? 1 : 0;
+    return $obj->Status == 2 && $turnPlayer == $obj->Controller && (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic) ? 1 : 0;
 }
 
 function CardCurrentEffects($obj) {
@@ -862,6 +883,35 @@ function GetCounterCount($obj, $type) {
  */
 function GetBuffCounterCount($obj) {
     return GetCounterCount($obj, "buff");
+}
+
+/**
+ * Virtual property callback: returns the number of enlighten counters on the object.
+ * Used for the EnlightenCounterCount display badge.
+ */
+function GetEnlightenCounterCount($obj) {
+    return GetCounterCount($obj, "enlighten");
+}
+
+/**
+ * Virtual property callback: returns a JSON-encoded array of dynamic activated abilities
+ * currently available on this card based on game state (e.g. counter thresholds).
+ * Each entry is {"name":"...","index":N} where index is the ability slot (after static abilities).
+ * Returns an empty string when no dynamic abilities are available.
+ * UILibraries.js reads this generically — no game-specific logic in core UI code.
+ *
+ * @param object $obj  A Field zone object.
+ * @return string JSON array, or empty string.
+ */
+function GetDynamicAbilities($obj) {
+    $abilities = [];
+    $staticCount = CardActivateAbilityCount($obj->CardID);
+    // Enlighten: champion may remove 3 enlighten counters to draw a card
+    if(PropertyContains(CardType($obj->CardID), "CHAMPION") && GetCounterCount($obj, "enlighten") >= 3) {
+        $abilities[] = ["name" => "Enlighten", "index" => $staticCount];
+    }
+    if(empty($abilities)) return "";
+    return json_encode($abilities);
 }
 
 /**
