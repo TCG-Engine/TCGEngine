@@ -214,11 +214,18 @@ function RecollectionPhase() {
     $turnPlayer = &GetTurnPlayer();
     
     // Trigger recollection phase abilities for cards on the field
-    // Arima, Gaia's Wings (075L8pLihO): Put three buff counters on Arima
     $field = &GetField($turnPlayer);
     for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed && $field[$i]->CardID == "075L8pLihO") {
-            AddCounters($turnPlayer, "myField-" . $i, "buff", 3);
+        if(!$field[$i]->removed) {
+            switch($field[$i]->CardID) {
+                case "075L8pLihO": // Arima, Gaia's Wings: Put three buff counters on Arima
+                    AddCounters($turnPlayer, "myField-" . $i, "buff", 3);
+                    break;
+                case "CvvgJR4fNa": // Patient Rogue: gets +3 POWER until end of turn
+                    AddTurnEffect("myField-" . $i, "CvvgJR4fNa");
+                    break;
+                default: break;
+            }
         }
     }
     
@@ -305,6 +312,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "4hbA9FT56L-2"://Song of Nurturing (Class Bonus): +1 POWER until end of turn
                 $power += 1;
+                break;
+            case "CvvgJR4fNa": // Patient Rogue: +3 POWER from beginning of recollection phase
+                $power += 3;
                 break;
             default: break;
         }
@@ -712,6 +722,10 @@ $doesGlobalEffectApply["dsAqxMezGb"] = function($obj) { //Favorable Winds
     return PropertyContains(CardType($obj->CardID), "ALLY");
 };
 
+$doesGlobalEffectApply["DBJ4DuLABr"] = function($obj) { //Shroud in Mist: units you control gain stealth
+    return PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
@@ -804,6 +818,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'o0nkly21ee' => 1,
         'RUqtU0Lczf' => 1,
         'yrzexkW5Ej' => 1,
+        'DBJ4DuLABr' => 2,
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -855,7 +870,20 @@ function HasVigor($obj) {
 }
 
 function HasStealth($obj) {
-    return HasKeyword_Stealth($obj);
+    // Patient Rogue: [Class Bonus] stealth while awake
+    if($obj->CardID === "CvvgJR4fNa") {
+        return isset($obj->Status) && $obj->Status == 2 && IsClassBonusActive($obj->Controller, ["ASSASSIN"]);
+    }
+    if(HasKeyword_Stealth($obj)) return true;
+    // Check for temporary stealth effects granted by other cards
+    $effects = explode(",", CardCurrentEffects($obj));
+    foreach($effects as $effectID) {
+        switch($effectID) {
+            case "DBJ4DuLABr": // Shroud in Mist: units you control gain stealth
+                return true;
+        }
+    }
+    return false;
 }
 
 function HasTrueSight($obj) {
