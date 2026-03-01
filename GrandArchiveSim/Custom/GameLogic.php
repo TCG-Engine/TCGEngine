@@ -372,6 +372,14 @@ function DoDiscardCard($player, $mzCard) {
     MZMove($player, $mzCard, "myGraveyard");
 }
 
+function DoRevealCard($player, $revealedMZ) {
+    $obj = GetZoneObject($revealedMZ);
+    if($obj === null) return null;
+    $CardID = $obj->CardID;
+    SetFlashMessage("Revealed: " . CardName($CardID));
+    return $revealedMZ;
+}
+
 function DoSacrificeFighter($player, $mzCard) {
     
     FighterDestroyed($player, $mzCard);

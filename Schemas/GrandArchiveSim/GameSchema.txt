@@ -23,6 +23,7 @@ Macro: Name=ExhaustCard(mzID); ChoiceFunction=OnExhaustCard; Action={}
 Macro: Name=WakeupCard(mzID); ChoiceFunction=OnWakeupCard; Action={}
 Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Action={}
 Macro: Name=DiscardCard(mzID); ChoiceFunction=DoDiscardCard; Action={}
+Macro: Name=Reveal(revealedMZ); ChoiceFunction=DoRevealCard; Action={}
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle
