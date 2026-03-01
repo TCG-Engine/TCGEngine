@@ -928,4 +928,41 @@ function ClearAllCounters($player, $mzCard) {
     $obj->Counters = [];
 }
 
+/**
+ * Get the critical amount on a combat source.
+ * Checks the unit's TurnEffects for dynamically-granted critical (e.g. "CRITICAL_1").
+ * Also checks intent cards for critical effects (attack cards with critical).
+ *
+ * @param object $obj    The attacking unit's zone object.
+ * @param int    $player The attacking player.
+ * @return int The highest critical N value found (0 if none).
+ */
+function GetCriticalAmount($obj, $player) {
+    $maxCritical = 0;
+
+    // Check the unit's own TurnEffects
+    if(isset($obj->TurnEffects) && is_array($obj->TurnEffects)) {
+        foreach($obj->TurnEffects as $effect) {
+            if(preg_match('/^CRITICAL_(\d+)$/', $effect, $matches)) {
+                $maxCritical = max($maxCritical, intval($matches[1]));
+            }
+        }
+    }
+
+    // Check intent cards for critical effects
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $intentMZ) {
+        $intentObj = &GetZoneObject($intentMZ);
+        if(isset($intentObj->TurnEffects) && is_array($intentObj->TurnEffects)) {
+            foreach($intentObj->TurnEffects as $effect) {
+                if(preg_match('/^CRITICAL_(\d+)$/', $effect, $matches)) {
+                    $maxCritical = max($maxCritical, intval($matches[1]));
+                }
+            }
+        }
+    }
+
+    return $maxCritical;
+}
+
 ?>

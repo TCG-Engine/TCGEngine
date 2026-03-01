@@ -297,6 +297,22 @@ function ChooseAttackTarget($player, $attackerMZ) {
     DecisionQueueController::AddDecision($player, "CUSTOM", "AttackTargetChosen|" . $attackerMZ, 100);
 }
 
+// --- On Attack trigger dispatch -------------------------------------------------
+
+/**
+ * Dispatch On Attack abilities for a unit that just declared an attack.
+ * Called via the generated OnAttack() macro wrapper.
+ */
+function OnAttackTrigger($player, $mzID) {
+    global $onAttackAbilities;
+    $obj = GetZoneObject($mzID);
+    if($obj === null) return;
+    $CardID = $obj->CardID;
+    if(isset($onAttackAbilities) && isset($onAttackAbilities[$CardID . ":0"])) {
+        $onAttackAbilities[$CardID . ":0"]($player);
+    }
+}
+
 // --- DQ handlers ---------------------------------------------------------------
 
 /**
@@ -315,23 +331,43 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     $attacker = &GetZoneObject($attackerMZ);
     $target = &GetZoneObject($lastDecision);
 
-    //TODO: On Attack triggers would fire here -- place them on the EffectStack
+    // Fire On Attack triggers (may grant effects like critical)
+    OnAttack($player, $attackerMZ);
+
     //TODO: Step 2.d -- Pay additional costs
     //TODO: Step 2.e -- Reconcile restrictions (Taunt, etc.)
 
     // Calculate total attack power (unit + intent cards)
     $totalPower = GetTotalAttackPower($attacker, $player);
 
-    // Deal damage to defender
-    if($totalPower > 0) {
-        DealDamage($player, $attackerMZ, $lastDecision, $totalPower);
-    }
-
-    // Retaliation step: let the defending player choose whether to retaliate
-    // Flip zone refs so they're correct from the defender's perspective
     $defenderPlayer = ($player == 1) ? 2 : 1;
     $defenderMZ_fromDefender = FlipZonePerspective($lastDecision);
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
+
+    // Check for critical on the attacker and intent cards
+    if($totalPower > 0) {
+        $criticalAmount = GetCriticalAmount($attacker, $player);
+
+        if($criticalAmount > 0) {
+            // Critical: ask defender to discard to prevent double damage
+            $opponentHand = &GetZone("theirHand");
+            if(count($opponentHand) >= $criticalAmount) {
+                // Defender has enough cards — give them the choice
+                DecisionQueueController::AddDecision($defenderPlayer, "YESNO", "critical", 100,
+                    "Discard_" . $criticalAmount . "_to_prevent_critical?");
+                DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM",
+                    "CriticalResolve|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender . "|" . $totalPower . "|" . $criticalAmount, 100);
+            } else {
+                // Defender can't pay — damage is automatically doubled
+                DealDamage($player, $attackerMZ, $lastDecision, $totalPower * 2);
+            }
+        } else {
+            // No critical — deal normal damage
+            DealDamage($player, $attackerMZ, $lastDecision, $totalPower);
+        }
+    }
+
+    // Retaliation step: let the defending player choose whether to retaliate
     DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $defenderMZ_fromDefender, 100, "Retaliate?");
     DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender, 100);
 
@@ -346,7 +382,8 @@ $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
     $attackerMZ = $parts[0];
     $attacker = &GetZoneObject($attackerMZ);
 
-    //TODO: On Attack triggers would fire here
+    // Fire On Attack triggers (may grant effects like critical)
+    OnAttack($player, $attackerMZ);
 
     $totalPower = GetTotalAttackPower($attacker, $player);
     $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
@@ -360,10 +397,16 @@ $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
         }));
     }
 
+    // Check for critical on the attacker and intent cards
+    $criticalAmount = GetCriticalAmount($attacker, $player);
+    $effectivePower = ($criticalAmount > 0) ? $totalPower * 2 : $totalPower;
+    // Note: for Cleave, critical doubles all damage (no per-target discard choice)
+    // The defender gets one discard choice for the entire cleave
+
     // Deal damage to each defending unit
     foreach($opponents as $defenderMZ) {
-        if($totalPower > 0) {
-            DealDamage($player, $attackerMZ, $defenderMZ, $totalPower);
+        if($effectivePower > 0) {
+            DealDamage($player, $attackerMZ, $defenderMZ, $effectivePower);
         }
     }
 
@@ -411,6 +454,55 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     ClearIntent($player);
     DecisionQueueController::ClearVariable("CombatAttacker");
+};
+
+// --- critical resolution -------------------------------------------------------
+
+/**
+ * Handler: defender chose whether to discard to prevent critical doubling.
+ * Runs in the DEFENDER's player context.
+ * $parts[0] = attacker mzID (from defender's perspective: theirField-X)
+ * $parts[1] = target mzID  (from defender's perspective: myField-X)
+ * $parts[2] = base total power
+ * $parts[3] = critical discard amount
+ * $lastDecision = "YES" or "NO"
+ */
+$customDQHandlers["CriticalResolve"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = $parts[0]; // from defender's perspective: theirField-X
+    $targetMZ = $parts[1];   // from defender's perspective: myField-X
+    $totalPower = intval($parts[2]);
+    $critAmount = intval($parts[3]);
+
+    $attackerPlayer = ($player == 1) ? 2 : 1;
+
+    if($lastDecision === "YES") {
+        // Defender pays: discard N cards, then deal normal damage
+        DiscardCards($player, $critAmount);
+        // Queue damage after discards resolve (block 50 < retaliation block 100)
+        // Keep mzIDs in defender's perspective for correct interpretation in handler
+        DecisionQueueController::AddDecision($player, "CUSTOM",
+            "FinishCombatDamage|" . $attackerMZ . "|" . $targetMZ . "|" . $totalPower, 50);
+    } else {
+        // Defender refuses: deal doubled damage
+        // mzIDs are in defender's perspective; GetZoneObject will interpret them with defender's $playerID
+        DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
+    }
+};
+
+/**
+ * Handler: deal combat damage after critical discard resolves.
+ * Runs in the DEFENDER's player context.
+ * $parts[0] = attacker mzID (from defender's perspective: theirField-X)
+ * $parts[1] = target mzID  (from defender's perspective: myField-X)
+ * $parts[2] = damage amount
+ */
+$customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = $parts[0];   // from defender's perspective: theirField-X
+    $targetMZ = $parts[1];     // from defender's perspective: myField-X
+    $amount = intval($parts[2]);
+    $attackerPlayer = ($player == 1) ? 2 : 1;
+    // Keep mzIDs in defender's perspective; GetZoneObject interprets them with defender's $playerID
+    DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
 };
 
 // --- damage resolution ---------------------------------------------------------
