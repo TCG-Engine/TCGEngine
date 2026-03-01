@@ -439,6 +439,40 @@
             border-color: #0e639c;
             box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
         }
+
+        .refresh-button {
+            padding: 6px 10px;
+            background: #0e639c;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s, transform 0.2s;
+            line-height: 1;
+        }
+
+        .refresh-button:hover {
+            background: #1177bb;
+        }
+
+        .refresh-button:active {
+            background: #0d4f7f;
+        }
+
+        .refresh-button.refreshing {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
     </style>
 </head>
 <body>
@@ -455,9 +489,12 @@
             
             <div class="panel-header" style="flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center;">
                 <span>Cards</span>
-                <div class="inline-checkbox">
-                    <input type="checkbox" id="hideImplemented" onchange="onFilterChanged()" />
-                    <label for="hideImplemented" title="Hide implemented cards">Unimpl. only</label>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <button id="refreshBtn" class="refresh-button" title="Refresh card list" onclick="refreshCardList()" style="display: none;">↻</button>
+                    <div class="inline-checkbox">
+                        <input type="checkbox" id="hideImplemented" onchange="onFilterChanged()" />
+                        <label for="hideImplemented" title="Hide implemented cards">Unimpl. only</label>
+                    </div>
                 </div>
             </div>
             
@@ -585,6 +622,9 @@
             const rootName = document.getElementById('rootSelect').value;
             const config = ROOT_FILTER_CONFIG[rootName];
 
+            // Show/hide refresh button based on root selection
+            document.getElementById('refreshBtn').style.display = rootName ? 'block' : 'none';
+
             // Load generated dictionaries and populate set filter if needed
             if (config && config.setFilter) {
                 await loadGeneratedDicts(rootName);
@@ -651,13 +691,14 @@
                 cardItem.innerHTML = `
                     <div class="card-item-id">${displayName}${statusBadge}</div>
                 `;
-                cardItem.onclick = () => onCardSelected(selectedRoot, cardId);
+                cardItem.onclick = () => onCardSelected(selectedRoot, cardId, cardItem);
                 cardList.appendChild(cardItem);
             });
             
             // Auto-select first card
             if (cardIds.length > 0) {
-                onCardSelected(selectedRoot, cardIds[0]);
+                const firstItem = cardList.querySelector('.card-item');
+                onCardSelected(selectedRoot, cardIds[0], firstItem);
             }
         }
         
@@ -700,12 +741,14 @@
             }
         }
         
-        function onCardSelected(rootName, cardId) {
+        function onCardSelected(rootName, cardId, cardItem) {
             // Update active card in list
             document.querySelectorAll('.card-item').forEach(item => {
                 item.classList.remove('active');
             });
-            event.target.closest('.card-item').classList.add('active');
+            if (cardItem) {
+                cardItem.classList.add('active');
+            }
             
             // Load and display editor
             window.currentRoot = rootName;
@@ -761,6 +804,42 @@
         function renderEditor(rootName, cardId, abilities, assetPath) {
             const editor = new AbilityEditor(rootName, cardId, window.currentMacros, abilities, assetPath);
             editor.render();
+        }
+        
+        async function refreshCardList() {
+            const refreshBtn = document.getElementById('refreshBtn');
+            const rootSelect = document.getElementById('rootSelect');
+            const selectedRoot = rootSelect.value;
+            
+            if (!selectedRoot) return;
+            
+            try {
+                // Show loading state
+                refreshBtn.classList.add('refreshing');
+                refreshBtn.disabled = true;
+                
+                // Re-fetch roots from backend
+                const response = await fetch('../API/GetRoots.php');
+                const data = await response.json();
+                
+                if (!data.success || !data.roots) {
+                    throw new Error(data.error || 'Failed to refresh cards');
+                }
+                
+                // Update global roots data
+                window.availableRoots = data.roots;
+                
+                // Re-populate the card list with preserved filters
+                populateCardList();
+                
+            } catch (error) {
+                document.getElementById('cardList').innerHTML = 
+                    `<div class="loading error-message">Error: ${error.message}</div>`;
+            } finally {
+                // Hide loading state
+                refreshBtn.classList.remove('refreshing');
+                refreshBtn.disabled = false;
+            }
         }
     </script>
 </body>
