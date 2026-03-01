@@ -689,8 +689,31 @@ function ClassBonusActivateCostReduction($cardID) {
 }
 
 function DealChampionDamage($player, $amount=1) {
-    $health = &GetHealth($player);
-    $health += $amount;
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $zoneArr = &GetZone($zone);
+    for($i = 0; $i < count($zoneArr); ++$i) {
+        $obj = &$zoneArr[$i];
+        if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+            $obj->Damage += $amount;
+            return $obj;
+        }
+    }
+    return null;
+}
+
+function RecoverChampion($player, $amount=1) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $zoneArr = &GetZone($zone);
+    for($i = 0; $i < count($zoneArr); ++$i) {
+        $obj = &$zoneArr[$i];
+        if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+            $obj->Damage = max(0, $obj->Damage - $amount);
+            return $obj;
+        }
+    }
+    return null;
 }
 
 function OnExhaustCard($player, $mzCard) {
