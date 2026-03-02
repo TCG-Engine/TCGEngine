@@ -341,6 +341,9 @@ function ObjectCurrentPower($obj) {
             case "CvvgJR4fNa": // Patient Rogue: +3 POWER from beginning of recollection phase
                 $power += 3;
                 break;
+            case "fMv7tIOZwL-PWR": // Aqueous Enchanting: allies get +1 POWER until end of turn
+                $power += 1;
+                break;
             default: break;
         }
     }
@@ -424,6 +427,9 @@ function ObjectCurrentHP($obj) {
                 break;
             case "4hbA9FT56L-1"://Song of Nurturing: +2 LIFE until end of turn
                 $cardLife += 2;
+                break;
+            case "fMv7tIOZwL-LIF": // Aqueous Enchanting: allies get +1 LIFE until end of turn
+                $cardLife += 1;
                 break;
             default: break;
         }
@@ -763,6 +769,14 @@ $doesGlobalEffectApply["DBJ4DuLABr"] = function($obj) { //Shroud in Mist: units 
 };
 
 $doesGlobalEffectApply["k71PE3clOI"] = function($obj) { //Inspiring Call: allies get +1 POWER until end of turn
+    return PropertyContains(CardType($obj->CardID), "ALLY");
+};
+
+$doesGlobalEffectApply["fMv7tIOZwL-PWR"] = function($obj) { //Aqueous Enchanting: allies get +1 POWER until end of turn
+    return PropertyContains(CardType($obj->CardID), "ALLY");
+};
+
+$doesGlobalEffectApply["fMv7tIOZwL-LIF"] = function($obj) { //Aqueous Enchanting: allies get +1 LIFE until end of turn
     return PropertyContains(CardType($obj->CardID), "ALLY");
 };
 
