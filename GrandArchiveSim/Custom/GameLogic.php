@@ -303,6 +303,23 @@ function ObjectCurrentPower($obj) {
             break;
         default: break;
     }
+    // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
+    if($obj->Controller != -1 && !PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fieldObj) {
+            if($fieldObj->CardID === "IAkuSSnzYB") { // Banner Knight: [Class Bonus][Level 2+] Other allies and weapons get +1 POWER
+                if($obj->CardID !== "IAkuSSnzYB" &&
+                   (PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "WEAPON")) &&
+                   IsClassBonusActive($obj->Controller, ["WARRIOR"]) &&
+                   PlayerLevel($obj->Controller) >= 2) {
+                    $power += 1;
+                }
+                break; // Only count the first Banner Knight (duplicates don't stack)
+            }
+        }
+    }
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
     foreach($cardCurrentEffects as $effectID) {
         switch($effectID) {
@@ -336,6 +353,12 @@ function ObjectCurrentLevel($obj) {
                 $cardLevel += 1;
                 break;
             case "Kc5Bktw0yK"://Empowering Harmony
+                $cardLevel += 2;
+                break;
+            case "gvXQa57cxe"://Shout at Your Pets: +1 level until end of turn
+                $cardLevel += 1;
+                break;
+            case "dmfoA7jOjy"://Crystal of Empowerment: +2 level until end of turn
                 $cardLevel += 2;
                 break;
             default: break;
