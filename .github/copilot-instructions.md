@@ -113,11 +113,25 @@ Call the MCP `get_helper_functions` tool to discover what helper functions alrea
 Call the MCP `get_implemented_examples` tool with the relevant macro name (e.g. "CardActivated", "Enter") to see how similar abilities are coded. This shows you the exact pattern to follow.
 
 ### Step 5: Write the ability code
-Write ONLY the function body (not the closure wrapper). The code generator wraps it in the appropriate `$macroAbilities["cardID:0"] = function($player) { ... }` closure automatically. The code can use:
+
+**Key Point:** Write ONLY the function body (closure body). The code generator automatically wraps your code in:
+```php
+$enterAbilities["cardID:0"] = function($player) {
+  // YOUR CODE HERE
+};
+```
+or
+```php
+$cardActivatedAbilities["cardID:0"] = function($player) {
+  // YOUR CODE HERE
+};
+```
+
+So in the ability code, you have access to:
 - `$player` — the player who owns/activated the card
 - `DecisionQueueController::GetVariable("mzID")` — the mzID of the card (auto-retrieved by generator)
 - Any helper functions from Step 3
-- **Await syntax** for player choices:
+- **Await syntax** for player choices (see Multi-Step Ability Patterns below):
   - `$var = await $player.MZChoose("zone-0&zone-1")` — mandatory card choice
   - `$var = await $player.MZMayChoose("zone-0&zone-1")` — optional card choice
   - `$var = await $player.YesNo("prompt")` — yes/no choice
@@ -125,6 +139,33 @@ Write ONLY the function body (not the closure wrapper). The code generator wraps
 
 ### Step 6: Save via MCP
 Call `save_card_abilities` with the card ID, macro name, and ability code. The MCP server saves to the database AND automatically runs the code generator, so `GeneratedMacroCode.php` is updated.
+
+**Important:** `save_card_abilities` auto-generates the macro code (e.g., `cardActivatedAbilities["cardID:0"] = function($player) { ... }`), but you remain responsible for any custom GameLogic.php edits:
+- If using `AddGlobalEffects(...)`, you must manually add a filter in `$doesGlobalEffectApply[$cardID]` if the effect applies conditionally (e.g., only to allies).
+- If adding per-turn stat modifiers via `AddGlobalEffects`, manually add a `case "$cardID":` to `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel` to declare the modifier.
+- If registering custom DQ handlers in the ability code (e.g., to handle multi-step flows), ensure those handlers exist in `Custom/GameLogic.php` (the generator will wrap them but won't invent new handlers).
+
+### Multi-Step Ability Patterns (YesNo, Target Selection)
+
+**Pattern:** When an ability requires player input (YesNo, card choice), write ability code that *queues* decisions rather than awaiting inline. The generator will compile these into custom DQ handlers.
+
+**Example: Card with YesNo + target selection**
+```php
+// Ability code (write only the body — generator wraps in function($player) { })
+$targetSelf = await $player.YesNo("Target_yourself?");
+$deckRef = $targetSelf == "YES" ? "myDeck" : "theirDeck";
+$gravRef = $targetSelf == "YES" ? "myGraveyard" : "theirGraveyard";
+for($i = 0; $i < 3; ++$i) {
+    if(empty(ZoneSearch($deckRef))) break;
+    MZMove($player, $deckRef . "-0", $gravRef);
+}
+```
+
+The generator translates `await` statements into queued `DecisionQueueController::AddDecision()` calls. Each `await` becomes:
+1. A decision queue entry (YESNO, MZCHOOSE, or MZMAYCHOOSE)
+2. A custom DQ handler that processes the player's response
+
+The `lastDecision` parameter in the handler receives the player's choice ("YES"/"NO" for YesNo, or the mzID for card choices).
 
 ### Step 7: Add any new helper functions
 If the card requires a new helper function (like `RecoverChampion`), add it to the appropriate Custom/*.php file. Group by theme:
