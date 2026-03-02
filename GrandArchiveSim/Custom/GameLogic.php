@@ -335,6 +335,9 @@ function ObjectCurrentPower($obj) {
             case "4hbA9FT56L-2"://Song of Nurturing (Class Bonus): +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "k71PE3clOI": // Inspiring Call: allies get +1 POWER until end of turn
+                $power += 1;
+                break;
             case "CvvgJR4fNa": // Patient Rogue: +3 POWER from beginning of recollection phase
                 $power += 3;
                 break;
@@ -757,6 +760,10 @@ $doesGlobalEffectApply["dsAqxMezGb"] = function($obj) { //Favorable Winds
 
 $doesGlobalEffectApply["DBJ4DuLABr"] = function($obj) { //Shroud in Mist: units you control gain stealth
     return PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
+$doesGlobalEffectApply["k71PE3clOI"] = function($obj) { //Inspiring Call: allies get +1 POWER until end of turn
+    return PropertyContains(CardType($obj->CardID), "ALLY");
 };
 
 function GlobalEffectCount($player, $effectID) {
