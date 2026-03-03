@@ -301,6 +301,19 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
             }
             break;
+        case "LUfgfsWTTO": // Fiery Momentum: [Class Bonus] +1 POWER for each fire element card in your graveyard
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                global $playerID;
+                $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
+                $fireCards = ZoneSearch($gravZone, cardElements: ["FIRE"]);
+                $power += count($fireCards);
+            }
+            break;
+        case "FGvq4eQPbP": // Flame Sweep: [Class Bonus][Level 2+] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 1;
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -873,6 +886,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'RUqtU0Lczf' => 1,
         'yrzexkW5Ej' => 1,
         'DBJ4DuLABr' => 2,
+        'RIVahUIQVD' => 2, // Fireball: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
