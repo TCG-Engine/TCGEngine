@@ -213,8 +213,8 @@ function DeclareChampionAttack($player) {
         }
     }
 
-    // Exhaust the champion as cost
-    ExhaustCard($player, $championMZ);
+    // Rest the champion as cost (Grand Archive: "rest" = exhaust)
+    RestCard($player, $championMZ);
 
     // Store attacker for resolution
     DecisionQueueController::StoreVariable("CombatAttacker", $championMZ);
@@ -288,8 +288,8 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
-    // Step 2.a' -- Rest (exhaust) the attacker as a cost to attack
-    ExhaustCard($turnPlayer, $actionCard);
+    // Step 2.a' -- Rest the attacker as a cost to attack
+    RestCard($turnPlayer, $actionCard);
 
     // Store the attacker location for later handlers
     DecisionQueueController::StoreVariable("CombatAttacker", $actionCard);

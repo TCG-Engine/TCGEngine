@@ -10,19 +10,28 @@ include_once __DIR__ . '/MaterializeLogic.php';
 //TODO: Add this to a schema
 function ActionMap($actionCard)
 {
+    global $playerID;
     $turnPlayer = &GetTurnPlayer();
     $currentPhase = GetCurrentPhase();
     $cardArr = explode("-", $actionCard);
     $cardZone = $cardArr[0];
     $cardIndex = $cardArr[1];
+
+    // Block all FSM actions while any player has pending DQ decisions
+    // (Opportunity windows, ability choices, combat decisions, etc.)
+    $dqController = new DecisionQueueController();
+    if(!$dqController->AllQueuesEmpty()) return "";
+
     switch ($cardZone) {
         case "myHand":
-            if($currentPhase == "MAIN") {
-                ActivateCard($turnPlayer, $actionCard, false);
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                // Turn player can play any card during their main phase
+                ActivateCard($playerID, $actionCard, false);
                 return "PLAY";
             }
             break;
         case "myField":
+            if($playerID != $turnPlayer) break; // Only turn player can declare attacks
             $obj = &GetZoneObject($actionCard);
             $cardType = CardType($obj->CardID);
             if(PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION")) {
@@ -77,11 +86,10 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
 
-    //1.9 Activation
-    DecisionQueueController::AddDecision($player, "CUSTOM", "CardActivated|" . $obj->Location . "-" . $obj->mzIndex, 100);
-
-    $dqController = new DecisionQueueController();
-    $dqController->ExecuteStaticMethods($player, "-");
+    //1.9 Activation — grant Opportunity to the opponent before resolving
+    // (The generated ActivateCard() wrapper calls ExecuteStaticMethods, which will
+    //  process ReserveCard costs, then EffectStackOpportunity.)
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 }
 
 $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
@@ -691,22 +699,22 @@ function CardCurrentEffects($obj) {
 }
 
 function SelectionMetadata($obj) {
-    // Only highlight cards during the MAIN phase when the decision queue is empty
-    // and the card belongs to the turn player
-    
+    global $playerID;
     $currentPhase = GetCurrentPhase();
+    $turnPlayer = &GetTurnPlayer();
+
+    // Standard main phase check
     if ($currentPhase !== "MAIN") {
         return json_encode(['highlight' => false]);
     }
     
     // Check if decision queue is empty
-    $turnPlayer = &GetTurnPlayer();
     $decisionQueue = &GetDecisionQueue($turnPlayer);
     if (count($decisionQueue) > 0) {
         return json_encode(['highlight' => false]);
     }
     
-    // Only highlight cards belonging to the turn player, except for defend action
+    // Only highlight cards belonging to the turn player
     $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
     if ($owner !== $turnPlayer) {
         return json_encode(['highlight' => false]);
@@ -1022,9 +1030,233 @@ function OnExhaustCard($player, $mzCard) {
     $obj->Status = 1; // Exhaust the card
 }
 
+function OnRestCard($player, $mzCard) {
+    $obj = &GetZoneObject($mzCard);
+    $obj->Status = 1; // Rest the card (Grand Archive terminology for exhaust)
+}
+
 function OnWakeupCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
     $obj->Status = 2; // Wake up the card
+}
+
+/**
+ * Check if combat is currently active (an attacker has been declared).
+ */
+function IsCombatActive() {
+    $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+    return ($combatAttacker !== null && $combatAttacker !== "" && $combatAttacker !== "-");
+}
+
+/**
+ * Check if a unit (given by mzID from current player perspective) is the
+ * current combat attacker.
+ */
+function IsUnitAttacking($mzTarget) {
+    $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+    if($combatAttacker === null || $combatAttacker === "" || $combatAttacker === "-") return false;
+
+    global $playerID;
+    $turnPlayer = GetTurnPlayer();
+
+    // CombatAttacker was stored from the turn player's perspective.
+    // If current player is NOT the turn player, flip to match perspective.
+    $normalizedAttacker = $combatAttacker;
+    if($playerID != $turnPlayer) {
+        $normalizedAttacker = FlipZonePerspective($combatAttacker);
+    }
+
+    return $mzTarget === $normalizedAttacker;
+}
+
+/**
+ * End the current combat: clear intent cards and combat tracking variables.
+ * Any remaining combat decisions (damage, retaliation) that are still queued
+ * will be skipped by their handlers because CombatAttacker is cleared.
+ */
+function EndCombat($player) {
+    $turnPlayer = GetTurnPlayer();
+    ClearIntent($turnPlayer);
+    DecisionQueueController::ClearVariable("CombatAttacker");
+
+    // Pop remaining combat decisions (AttackTargetChosen, CleaveAttack,
+    // Retaliate, CombatCleanup) from both players' queues.
+    for($p = 1; $p <= 2; ++$p) {
+        $queue = &GetDecisionQueue($p);
+        $filtered = [];
+        foreach($queue as $decision) {
+            $param = $decision->Param ?? '';
+            // Keep non-combat decisions
+            if(strpos($param, 'AttackTargetChosen') === false
+                && strpos($param, 'CleaveAttack') === false
+                && strpos($param, 'Retaliate') === false
+                && strpos($param, 'CombatCleanup') === false
+                && strpos($param, 'CriticalResolve') === false
+                && strpos($param, 'FinishCombatDamage') === false
+                && strpos($param, 'DeclareChampionAttack') === false) {
+                $filtered[] = $decision;
+            }
+        }
+        $queue = $filtered;
+    }
+}
+
+/**
+ * Check if a player currently has Opportunity to act at fast speed.
+ * A player has Opportunity when:
+ *  - The EffectStack is non-empty (a spell/ability is pending resolution), OR
+ *  - Combat is active (between attack declaration and cleanup)
+ */
+function HasOpportunity($player) {
+    $effectStack = &GetEffectStack();
+    if(!empty($effectStack)) return true;
+    if(IsCombatActive()) return true;
+    return false;
+}
+
+// =============================================================================
+// Opportunity / Priority System
+// =============================================================================
+
+/**
+ * Get the list of fast-speed cards a player can play from their hand.
+ * Returns an array of mzID strings from the player's own perspective (e.g. "myHand-0").
+ *
+ * @param int $player The player to check.
+ * @return array Array of mzID strings for fast-speed hand cards.
+ */
+function GetPlayableFastCards($player) {
+    $hand = &GetHand($player);
+    $fastCards = [];
+    for($i = 0; $i < count($hand); $i++) {
+        $obj = $hand[$i];
+        if(isset($obj->removed) && $obj->removed) continue;
+        $speed = CardSpeed($obj->CardID);
+        if($speed === true) { // Fast speed
+            $fastCards[] = "myHand-" . $i;
+        }
+    }
+    return $fastCards;
+}
+
+/**
+ * DQ handler: After a card is placed on the EffectStack and costs are paid,
+ * grant the opponent Opportunity to respond with fast cards.
+ * If the opponent has no fast cards, auto-resolve the top of the stack.
+ *
+ * $player = the player who just placed a card on the EffectStack.
+ */
+$customDQHandlers["EffectStackOpportunity"] = function($player, $parts, $lastDecision) {
+    $effectStack = &GetEffectStack();
+    DecisionQueueController::CleanupRemovedCards();
+    $effectStack = &GetEffectStack();
+    if(empty($effectStack)) return;
+
+    $otherPlayer = ($player == 1) ? 2 : 1;
+
+    // Check if the other player has fast cards they can play
+    $fastCards = GetPlayableFastCards($otherPlayer);
+
+    if(!empty($fastCards)) {
+        // Grant Opportunity: add MZMAYCHOOSE for the other player
+        $cardList = implode("&", $fastCards);
+        DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+        DecisionQueueController::AddDecision($otherPlayer, "CUSTOM", "OpportunityResponse", 100, "", 1); // dontSkipOnPass=1
+    } else {
+        // Opponent has no fast cards — auto-resolve the top of the stack
+        ResolveTopOfEffectStack();
+    }
+};
+
+/**
+ * DQ handler: Process the opponent's response to an Opportunity window.
+ * - If they passed (lastDecision = "-"): resolve the top of the EffectStack.
+ * - If they chose a fast card: activate it and grant Opportunity to the other player.
+ *
+ * $player = the player who was given Opportunity (the responder).
+ */
+$customDQHandlers["OpportunityResponse"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        // Player passed — resolve the top of the EffectStack
+        ResolveTopOfEffectStack();
+    } else {
+        // Player chose a fast card to play from their hand
+        // Activate it: move to EffectStack, pay costs, then grant Opportunity to the other player
+        DoActivateCard($player, $lastDecision, false);
+        // DoActivateCard queues: ReserveCard decisions + EffectStackOpportunity
+        // The ExecuteStaticMethods while-loop will pick these up next
+    }
+};
+
+/**
+ * DQ handler: After a card resolves from the EffectStack and all its abilities
+ * finish, check whether there are more cards on the stack to resolve.
+ * If so, grant Opportunity to the opponent of the next card's owner.
+ *
+ * Uses high block (200) so it runs after any ability decisions (block 1-100).
+ */
+$customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecision) {
+    DecisionQueueController::CleanupRemovedCards();
+    $effectStack = &GetEffectStack();
+    if(empty($effectStack)) return;
+
+    // More cards to resolve — grant Opportunity to the opponent of the new top card's owner
+    $nextTopObj = end($effectStack);
+    $nextCardOwner = $nextTopObj->Controller;
+    $respondingPlayer = ($nextCardOwner == 1) ? 2 : 1;
+
+    $fastCards = GetPlayableFastCards($respondingPlayer);
+    if(!empty($fastCards)) {
+        $cardList = implode("&", $fastCards);
+        DecisionQueueController::AddDecision($respondingPlayer, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+        DecisionQueueController::AddDecision($respondingPlayer, "CUSTOM", "OpportunityResponse", 100, "", 1); // dontSkipOnPass=1
+    } else {
+        // Auto-resolve the next card (no one can respond)
+        ResolveTopOfEffectStack();
+    }
+};
+
+/**
+ * Resolve the top card of the EffectStack.
+ *
+ * Swaps $playerID to match the card owner so that all my/their zone references
+ * resolve correctly, then calls the generated CardActivated() wrapper (which
+ * stores mzID, tracks MacroTurnIndex, calls OnCardActivated, and processes
+ * ability decisions). After resolution, queues PostResolutionCheck to handle
+ * remaining EffectStack entries.
+ */
+function ResolveTopOfEffectStack() {
+    $effectStack = &GetEffectStack();
+    DecisionQueueController::CleanupRemovedCards();
+    $effectStack = &GetEffectStack();
+    if(empty($effectStack)) return;
+
+    $topIndex = count($effectStack) - 1;
+    $topObj = $effectStack[$topIndex];
+    $cardOwner = $topObj->Controller;
+    $topMZ = "EffectStack-" . $topIndex;
+
+    // Swap $playerID to the card owner for correct my/their resolution
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $cardOwner;
+
+    // Call the generated CardActivated() wrapper, which:
+    //  - Stores mzID variable for ability code
+    //  - Tracks MacroTurnIndex
+    //  - Calls OnCardActivated (moves card, fires abilities)
+    //  - Calls ExecuteStaticMethods to process any ability decisions
+    CardActivated($cardOwner, $topMZ);
+
+    // Queue PostResolutionCheck to run after all ability interactions (block 200)
+    DecisionQueueController::AddDecision($cardOwner, "CUSTOM", "PostResolutionCheck", 200);
+
+    // Process PostResolutionCheck now if no interactive decisions are pending
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($cardOwner, "-");
+
+    // Restore $playerID
+    $playerID = $savedPlayerID;
 }
 
 function HasFloatingMemory($obj) {
