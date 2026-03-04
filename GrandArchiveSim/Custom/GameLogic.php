@@ -930,7 +930,7 @@ function PlayerLevel($player) {
 
 function IsClassBonusActive($player, $classes=null) {
     global $playerID;
-    return true;
+    return true;//TODO: Delete this
     $zone = $player == $playerID ? "myField" : "theirField";
     $zoneArr = GetZone($zone);
     foreach($zoneArr as $index => $obj) {
