@@ -484,6 +484,35 @@ function DoDrawCard($player, $amount=1) {
     }
 }
 
+/**
+ * Glimpse N: show the top N cards of the player's deck and let them choose
+ * which cards go back to the top vs. the bottom, in any order.
+ * Queues an MZREARRANGE decision followed by a GlimpseApply custom handler.
+ *
+ * @param int $player The acting player.
+ * @param int $amount Number of cards to glimpse.
+ */
+function Glimpse($player, $amount) {
+    $zone = &GetDeck($player);
+    $n = min($amount, count($zone));
+    if($n == 0) return;
+
+    // Collect the top N card IDs (they stay in the deck; we just show them)
+    $cardIDs = [];
+    for($i = 0; $i < $n; ++$i) {
+        $cardIDs[] = $zone[$i]->CardID;
+    }
+
+    // Build MZREARRANGE param: all cards start in the Top pile
+    $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
+
+    // Remember how many cards are being glimpsed so the handler knows how many to remove
+    DecisionQueueController::StoreVariable("glimpseCount", strval($n));
+
+    DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
+}
+
 function DoDiscardCard($player, $mzCard) {
     MZMove($player, $mzCard, "myGraveyard");
 }
@@ -553,6 +582,63 @@ $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     $abilityKey = $cardID . ":" . $abilityIndex;
     if(isset($activateAbilityAbilities[$abilityKey])) {
         $activateAbilityAbilities[$abilityKey]($player);
+    }
+};
+
+/**
+ * Resolves a Glimpse decision. Called after the player submits their MZREARRANGE choice.
+ * $lastDecision is the serialized pile string, e.g. "Top=cardA;Bottom=cardB,cardC".
+ * Cards in the "Top" pile are placed on top of the deck (in order).
+ * Cards in the "Bottom" pile are placed on the bottom of the deck (in order).
+ */
+$customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
+    $zone = &GetDeck($player);
+    $n = intval(DecisionQueueController::GetVariable("glimpseCount"));
+
+    // Remove the top N cards from the deck — these are the ones the player viewed
+    $removedCards = [];
+    for($i = 0; $i < $n; ++$i) {
+        if(count($zone) > 0) {
+            $removedCards[] = array_shift($zone);
+        }
+    }
+
+    // Build a map from cardID to the actual card object
+    $cardMap = [];
+    foreach($removedCards as $cardObj) {
+        // A deck can have duplicates; map each ID to an array of objects
+        $cardMap[$cardObj->CardID][] = $cardObj;
+    }
+    // Helper to pop one card object by ID from the map
+    $popCard = function($cardID) use (&$cardMap) {
+        if(!isset($cardMap[$cardID]) || count($cardMap[$cardID]) === 0) return null;
+        return array_shift($cardMap[$cardID]);
+    };
+
+    // Parse the MZREARRANGE result into piles
+    $piles = ["Top" => [], "Bottom" => []];
+    $pileStrings = explode(";", $lastDecision);
+    foreach($pileStrings as $pileStr) {
+        $eqPos = strpos($pileStr, "=");
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        $cardIDs = ($cardsStr !== "") ? explode(",", $cardsStr) : [];
+        $piles[$pileName] = $cardIDs;
+    }
+
+    // Put "Top" pile cards at the front of the deck (reverse-iterate to preserve order)
+    $topCards = $piles["Top"];
+    for($i = count($topCards) - 1; $i >= 0; --$i) {
+        $obj = $popCard($topCards[$i]);
+        if($obj !== null) array_unshift($zone, $obj);
+    }
+
+    // Put "Bottom" pile cards at the back of the deck (in order)
+    $bottomCards = $piles["Bottom"];
+    foreach($bottomCards as $cardID) {
+        $obj = $popCard($cardID);
+        if($obj !== null) array_push($zone, $obj);
     }
 };
 
@@ -1007,6 +1093,14 @@ function GetBuffCounterCount($obj) {
  */
 function GetEnlightenCounterCount($obj) {
     return GetCounterCount($obj, "enlighten");
+}
+
+/**
+ * Virtual property callback: returns the number of preparation counters on the object.
+ * Used for the PrepCounterCount display badge.
+ */
+function GetPrepCounterCount($obj) {
+    return GetCounterCount($obj, "preparation");
 }
 
 /**
