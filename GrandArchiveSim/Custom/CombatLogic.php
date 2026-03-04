@@ -213,8 +213,8 @@ function DeclareChampionAttack($player) {
         }
     }
 
-    // Exhaust the champion as cost
-    ExhaustCard($player, $championMZ);
+    // Rest the champion as cost (Grand Archive: "rest" = exhaust)
+    RestCard($player, $championMZ);
 
     // Store attacker for resolution
     DecisionQueueController::StoreVariable("CombatAttacker", $championMZ);
@@ -288,8 +288,8 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
-    // Step 2.a' -- Rest (exhaust) the attacker as a cost to attack
-    ExhaustCard($turnPlayer, $actionCard);
+    // Step 2.a' -- Rest the attacker as a cost to attack
+    RestCard($turnPlayer, $actionCard);
 
     // Store the attacker location for later handlers
     DecisionQueueController::StoreVariable("CombatAttacker", $actionCard);
@@ -342,7 +342,7 @@ function OnAttackTrigger($player, $mzID) {
 
 /**
  * Handler: player chose an attack target.
- * Resolves single-target combat.
+ * Stores combat state and grants Opportunity before the damage step.
  */
 $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecision) {
     $attackerMZ = $parts[0];
@@ -353,51 +353,114 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         return;
     }
 
-    $attacker = &GetZoneObject($attackerMZ);
-    $target = &GetZoneObject($lastDecision);
-
     // Fire On Attack triggers (may grant effects like critical)
     OnAttack($player, $attackerMZ);
 
-    //TODO: Step 2.d -- Pay additional costs
-    //TODO: Step 2.e -- Reconcile restrictions (Taunt, etc.)
+    // Store combat state for the damage and retaliation handlers
+    DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
+    DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
+    DecisionQueueController::StoreVariable("CombatIsCleave", "0");
 
-    // Calculate total attack power (unit + intent cards)
-    $totalPower = GetTotalAttackPower($attacker, $player);
+    // Grant Opportunity window before damage step (turn player gets priority first)
+    $turnPlayer = GetTurnPlayer();
+    GrantOpportunityWindow($turnPlayer, "CombatDealDamage", $player);
+};
 
-    $defenderPlayer = ($player == 1) ? 2 : 1;
-    $defenderMZ_fromDefender = FlipZonePerspective($lastDecision);
+/**
+ * Handler: Deal single-target combat damage after the damage-step Opportunity.
+ * $playerID is the attacker (swapped by ResolveOpportunityWindow).
+ */
+$customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    $targetMZ   = DecisionQueueController::GetVariable("CombatTarget");
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer"));
+    $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
+
+    if($attackerMZ === null || $targetMZ === null) return;
+
+    // Validate attacker still exists (may have been removed during Opportunity)
+    $attacker = &GetZoneObject($attackerMZ);
+    if($attacker === null) {
+        ClearIntent($attackerPlayer);
+        DecisionQueueController::ClearVariable("CombatAttacker");
+        DecisionQueueController::ClearVariable("CombatTarget");
+        DecisionQueueController::ClearVariable("CombatAttackerPlayer");
+        DecisionQueueController::ClearVariable("CombatIsCleave");
+        return;
+    }
+
+    $totalPower = GetTotalAttackPower($attacker, $attackerPlayer);
+
+    // Flip mzIDs to defender's perspective for critical / retaliation handlers
+    $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
 
-    // Check for critical on the attacker and intent cards
     if($totalPower > 0) {
-        $criticalAmount = GetCriticalAmount($attacker, $player);
+        $criticalAmount = GetCriticalAmount($attacker, $attackerPlayer);
 
         if($criticalAmount > 0) {
-            // Critical: ask defender to discard to prevent double damage
             $opponentHand = &GetZone("theirHand");
             if(count($opponentHand) >= $criticalAmount) {
-                // Defender has enough cards — give them the choice
+                // Critical: ask defender to discard to prevent double damage
                 DecisionQueueController::AddDecision($defenderPlayer, "YESNO", "critical", 100,
                     "Discard_" . $criticalAmount . "_to_prevent_critical?");
                 DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM",
                     "CriticalResolve|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender . "|" . $totalPower . "|" . $criticalAmount, 100);
+                // Retaliation Opportunity on defender's queue after critical resolves
+                DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatRetaliationOpportunity", 150);
             } else {
-                // Defender can't pay — damage is automatically doubled
-                DealDamage($player, $attackerMZ, $lastDecision, $totalPower * 2);
+                // Defender can't pay — damage automatically doubled
+                DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
             }
         } else {
             // No critical — deal normal damage
-            DealDamage($player, $attackerMZ, $lastDecision, $totalPower);
+            DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
         }
+    } else {
+        // Zero power — no damage, proceed to retaliation
+        DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
     }
+};
+
+/**
+ * Handler: Grant Opportunity before the retaliation step (shared by single/cleave).
+ */
+$customDQHandlers["CombatRetaliationOpportunity"] = function($player, $parts, $lastDecision) {
+    $turnPlayer = GetTurnPlayer();
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
+    $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
+    $isCleave = DecisionQueueController::GetVariable("CombatIsCleave") === "1";
+    $nextHandler = $isCleave ? "CleaveProceedToRetaliation" : "CombatProceedToRetaliation";
+    GrantOpportunityWindow($turnPlayer, $nextHandler, $defenderPlayer);
+};
+
+/**
+ * Handler: Proceed to single-target retaliation after Opportunity.
+ * $playerID is the defender (swapped by ResolveOpportunityWindow).
+ */
+$customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    $targetMZ   = DecisionQueueController::GetVariable("CombatTarget");
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
+    $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
+
+    if($attackerMZ === null || $targetMZ === null) {
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        return;
+    }
+
+    // Flip to defender's perspective
+    $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
+    $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
 
     // Retaliation step: let the defending player choose whether to retaliate
     DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $defenderMZ_fromDefender, 100, "Retaliate?");
     DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender, 100);
 
-    // Cleanup queued after retaliation resolves
-    DecisionQueueController::AddDecision($player, "CUSTOM", "CombatCleanup", 100);
+    // Cleanup on defender's queue after retaliation (block 200)
+    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
 };
 
 /**
@@ -405,16 +468,43 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
  */
 $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
     $attackerMZ = $parts[0];
-    $attacker = &GetZoneObject($attackerMZ);
 
     // Fire On Attack triggers (may grant effects like critical)
     OnAttack($player, $attackerMZ);
 
-    $totalPower = GetTotalAttackPower($attacker, $player);
+    // Store combat state
+    DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
+    DecisionQueueController::StoreVariable("CombatIsCleave", "1");
+
+    // Grant Opportunity window before damage step
+    $turnPlayer = GetTurnPlayer();
+    GrantOpportunityWindow($turnPlayer, "CleaveDealDamage", $player);
+};
+
+/**
+ * Handler: Deal Cleave damage to all opponents after Opportunity.
+ * $playerID is the attacker (swapped by ResolveOpportunityWindow).
+ */
+$customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer"));
+
+    if($attackerMZ === null) return;
+
+    $attacker = &GetZoneObject($attackerMZ);
+    if($attacker === null) {
+        ClearIntent($attackerPlayer);
+        DecisionQueueController::ClearVariable("CombatAttacker");
+        DecisionQueueController::ClearVariable("CombatAttackerPlayer");
+        DecisionQueueController::ClearVariable("CombatIsCleave");
+        return;
+    }
+
+    $totalPower = GetTotalAttackPower($attacker, $attackerPlayer);
     $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
 
     // Stealth: filter out units with Stealth unless the attacker has True Sight
-    $hasTrueSight = AttackerHasTrueSight($attackerMZ, $player);
+    $hasTrueSight = AttackerHasTrueSight($attackerMZ, $attackerPlayer);
     if(!$hasTrueSight) {
         $opponents = array_values(array_filter($opponents, function($mzID) {
             $obj = &GetZoneObject($mzID);
@@ -422,34 +512,47 @@ $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
         }));
     }
 
-    // Check for critical on the attacker and intent cards
-    $criticalAmount = GetCriticalAmount($attacker, $player);
+    // Cleave critical: doubles all damage (no per-target discard choice)
+    $criticalAmount = GetCriticalAmount($attacker, $attackerPlayer);
     $effectivePower = ($criticalAmount > 0) ? $totalPower * 2 : $totalPower;
-    // Note: for Cleave, critical doubles all damage (no per-target discard choice)
-    // The defender gets one discard choice for the entire cleave
 
-    // Deal damage to each defending unit
     foreach($opponents as $defenderMZ) {
         if($effectivePower > 0) {
-            DealDamage($player, $attackerMZ, $defenderMZ, $effectivePower);
+            DealDamage($attackerPlayer, $attackerMZ, $defenderMZ, $effectivePower);
         }
     }
 
-    // Retaliation step: per the Cleave rules, each defending unit may independently retaliate.
-    // Queue a separate MZMAYCHOOSE + Retaliate for each surviving defender.
-    $defenderPlayer = ($player == 1) ? 2 : 1;
+    // Queue CombatRetaliationOpportunity (shared with single-target)
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
+};
+
+/**
+ * Handler: Proceed to Cleave retaliation after Opportunity.
+ * Each surviving defender independently retaliates.
+ * $playerID is the defender (swapped by ResolveOpportunityWindow).
+ */
+$customDQHandlers["CleaveProceedToRetaliation"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
+    $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
+
+    if($attackerMZ === null) {
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        return;
+    }
+
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
-    // Re-fetch surviving opponents (snapshot after damage; units that die are already gone)
-    $survivingOpponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
+
+    // Each surviving defender may retaliate independently
+    // ($playerID = defender, so myField = defender's field)
+    $survivingOpponents = ZoneSearch("myField", ["ALLY", "CHAMPION"]);
     foreach($survivingOpponents as $survivorMZ) {
-        $survivorFromDefender = FlipZonePerspective($survivorMZ);
-        // Ask the defender whether this specific unit retaliates (optional)
-        DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $survivorFromDefender, 100, "Retaliate_with_" . $survivorFromDefender . "?");
+        DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $survivorMZ, 100, "Retaliate_with_" . $survivorMZ . "?");
         DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender, 100);
     }
 
-    // Cleanup queued after all retaliation decisions resolve
-    DecisionQueueController::AddDecision($player, "CUSTOM", "CombatCleanup", 100);
+    // Cleanup on defender's queue after all retaliation decisions (block 200)
+    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
 };
 
 /**
@@ -477,8 +580,20 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
  * Handler: clean up after combat resolves (intent + variables).
  */
 $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
-    ClearIntent($player);
+    // $parts[0] = attacker player ID (when cleanup is on the defender's queue)
+    $attackerPlayer = !empty($parts[0]) ? intval($parts[0]) : $player;
+
+    // Swap $playerID to attacker so ClearIntent resolves my/their correctly
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $attackerPlayer;
+    ClearIntent($attackerPlayer);
+    $playerID = $savedPlayerID;
+
     DecisionQueueController::ClearVariable("CombatAttacker");
+    DecisionQueueController::ClearVariable("CombatTarget");
+    DecisionQueueController::ClearVariable("CombatAttackerPlayer");
+    DecisionQueueController::ClearVariable("CombatIsCleave");
 };
 
 // --- critical resolution -------------------------------------------------------
