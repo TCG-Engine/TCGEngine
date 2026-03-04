@@ -330,11 +330,19 @@ function ChooseAttackTarget($player, $attackerMZ) {
  */
 function OnAttackTrigger($player, $mzID) {
     global $onAttackAbilities;
+    // Dispatch OnAttack for the attacker itself (ally or champion attacking directly)
     $obj = GetZoneObject($mzID);
-    if($obj === null) return;
-    $CardID = $obj->CardID;
-    if(isset($onAttackAbilities) && isset($onAttackAbilities[$CardID . ":0"])) {
-        $onAttackAbilities[$CardID . ":0"]($player);
+    if($obj !== null && isset($onAttackAbilities[$obj->CardID . ":0"])) {
+        $onAttackAbilities[$obj->CardID . ":0"]($player);
+    }
+    // Also dispatch OnAttack for any attack cards currently in the player's intent zone
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $iMZ) {
+        $iObj = GetZoneObject($iMZ);
+        if($iObj === null) continue;
+        if(isset($onAttackAbilities[$iObj->CardID . ":0"])) {
+            $onAttackAbilities[$iObj->CardID . ":0"]($player);
+        }
     }
 }
 
@@ -653,6 +661,11 @@ $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecisio
  */
 function OnDealDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
+    // Barrier Servant: prevent next damage if tagged with BARRIER_PREVENT_DAMAGE (one-time)
+    if(in_array("BARRIER_PREVENT_DAMAGE", $targetObj->TurnEffects)) {
+        $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));
+        return; // Damage fully prevented
+    }
     // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage
     if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {
         $amount += 1;

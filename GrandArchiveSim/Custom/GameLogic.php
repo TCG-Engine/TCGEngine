@@ -68,6 +68,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - $classBonusDiscount);
     }
 
+    // Arcane Elemental: [Class Bonus] costs 1 less per arcane element card in banishment
+    if($obj->CardID === "wFH1kBLrWh" && IsClassBonusActive($player, ["MAGE"])) {
+        $arcaneCount = count(ZoneSearch("myBanish", cardElements: ["ARCANE"]));
+        $reserveCost = max(0, $reserveCost - $arcaneCount);
+    }
+
     // Efficiency: reduce cost by the champion's current level
     global $Efficiency_Cards;
     if(isset($Efficiency_Cards[$obj->CardID])) {
@@ -265,6 +271,32 @@ function EndPhase() {
     $currentTurn = &GetTurnNumber();
     $turnPlayer = &GetTurnPlayer();
 
+    // Arcane Elemental: banish at the beginning of end phase if marked
+    global $playerID;
+    $savedPlayerID = $playerID;
+    for($p = 1; $p <= 2; ++$p) {
+        if(GlobalEffectCount($p, "wFH1kBLrWh_BANISH") > 0) {
+            $playerID = $p;
+            $pField = GetField($p);
+            for($fi = count($pField) - 1; $fi >= 0; --$fi) {
+                if(!$pField[$fi]->removed && $pField[$fi]->CardID === "wFH1kBLrWh") {
+                    MZMove($p, "myField-" . $fi, "myBanish");
+                    break;
+                }
+            }
+            // Clear the GlobalEffect marker
+            $ge = &GetGlobalEffects($p);
+            $newGE = [];
+            foreach($ge as $geItem) {
+                if($geItem->CardID !== "wFH1kBLrWh_BANISH") {
+                    $newGE[] = $geItem;
+                }
+            }
+            $ge = $newGE;
+        }
+    }
+    $playerID = $savedPlayerID;
+
     // Clear any remaining intent cards (unused attack cards) to graveyard
     ClearIntent($turnPlayer);
 
@@ -392,6 +424,9 @@ function ObjectCurrentLevel($obj) {
             case "dmfoA7jOjy"://Crystal of Empowerment: +2 level until end of turn
                 $cardLevel += 2;
                 break;
+            case "zpkcFs72Ah"://Smack with Flute: champion gets +1 level until end of turn
+                $cardLevel += 1;
+                break;
             default: break;
         }
     }
@@ -411,6 +446,19 @@ function ObjectCurrentLevel($obj) {
                         $cardLevel += 1;
                     }
                     $appliedPassives[$fID] = true;
+                    break;
+                default: break;
+            }
+        }
+        // Material zone passives — items that grant level while materialized
+        $matZone = GetMaterial($obj->Controller);
+        foreach($matZone as $matObj) {
+            if($matObj->removed) continue;
+            switch($matObj->CardID) {
+                case "yDARN8eV6B": // Tome of Knowledge: [Class Bonus] champion gets +1 level
+                    if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
+                        $cardLevel += 1;
+                    }
                     break;
                 default: break;
             }
@@ -546,26 +594,6 @@ function DoRevealCard($player, $revealedMZ) {
 function DoSacrificeFighter($player, $mzCard) {
     
     FighterDestroyed($player, $mzCard);
-}
-
-function DoFighterDestroyed($player, $mzCard) {
-    $card = &GetZoneObject($mzCard);
-    switch($card->CardID) {
-        case "GMBF1HNDMN"://Undying Minion
-            $deck = &GetDeck($card->Controller);
-            MZMove($player, $mzCard, "myHand");
-            return;
-        case "GMBF2HDTHK"://Death Knight
-            if(GlobalEffectCount($card->Controller, "GMBF2HDTHK") == 0) {
-                AddGlobalEffects($card->Controller, "GMBF2HDTHK");
-                MZMove($player, $mzCard, "myHand");
-                return;
-            }
-            $deck = &GetDeck($card->Controller);
-            break;
-        default: break;
-    }
-    MZMove($player, $mzCard, "myGraveyard");
 }
 
 $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
@@ -868,9 +896,14 @@ function AddTurnEffect($mzCard, $effectID) {
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $foreverEffects["GMBTMNTM"] = true;
+$foreverEffects["wFH1kBLrWh_BANISH"] = true; // Arcane Elemental: banish at next end phase
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
+    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
+$doesGlobalEffectApply["zpkcFs72Ah"] = function($obj) { //Smack with Flute: champion gets +1 level until end of turn
     return PropertyContains(CardType($obj->CardID), "CHAMPION");
 };
 
@@ -1008,6 +1041,12 @@ function DealChampionDamage($player, $amount=1) {
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = &$zoneArr[$i];
         if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+            // Safeguard Amulet: prevent up to 4 non-combat damage (one-time)
+            if(in_array("yj2rJBREH8", $obj->TurnEffects)) {
+                $prevented = min(4, $amount);
+                $amount -= $prevented;
+                $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "yj2rJBREH8"));
+            }
             $obj->Damage += $amount;
             return $obj;
         }
