@@ -538,6 +538,10 @@ $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecisio
  */
 function OnDealDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
+    // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage
+    if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {
+        $amount += 1;
+    }
     $targetObj->Damage += $amount;
 
     // Trigger per-card DealDamage abilities on the target card

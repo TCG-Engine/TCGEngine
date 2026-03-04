@@ -444,6 +444,12 @@ function ObjectCurrentHP($obj) {
             case "fMv7tIOZwL-LIF": // Aqueous Enchanting: allies get +1 LIFE until end of turn
                 $cardLife += 1;
                 break;
+            case "hw8dxKAnMX": // Mist Resonance: allies get +1 LIFE until end of turn
+                $cardLife += 1;
+                break;
+            case "hLHpI5rHIK": // Bauble of Mending class bonus: +1 LIFE until end of turn
+                $cardLife += 1;
+                break;
             default: break;
         }
     }
@@ -751,7 +757,7 @@ function CanActExhausted($obj) {
     return false;
 }
 
-function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null) {
+function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null) {
     $results = [];
     $zoneArr = &GetZone($zoneName);
     for($i = 0; $i < count($zoneArr); ++$i) {
@@ -763,6 +769,7 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
         if(($cardTypes === null || count(array_intersect($cardTypes_arr, (array)$cardTypes)) > 0) &&
            ($cardElements === null || in_array(CardElement($obj->CardID), (array)$cardElements)) &&
            ($cardSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$cardSubtypes)) > 0) &&
+           ($excludeSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$excludeSubtypes)) === 0) &&
            (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
             array_push($results, $zoneName . "-" . $i);
         }
@@ -879,6 +886,10 @@ $doesGlobalEffectApply["fMv7tIOZwL-LIF"] = function($obj) { //Aqueous Enchanting
     return PropertyContains(CardType($obj->CardID), "ALLY");
 };
 
+$doesGlobalEffectApply["hw8dxKAnMX"] = function($obj) { //Mist Resonance: allies get +1 LIFE until end of turn
+    return PropertyContains(CardType($obj->CardID), "ALLY");
+};
+
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
@@ -919,6 +930,7 @@ function PlayerLevel($player) {
 
 function IsClassBonusActive($player, $classes=null) {
     global $playerID;
+    return true;
     $zone = $player == $playerID ? "myField" : "theirField";
     $zoneArr = GetZone($zone);
     foreach($zoneArr as $index => $obj) {
