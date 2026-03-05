@@ -516,7 +516,7 @@ function EndPhase() {
 
 function ObjectCurrentPower($obj) {
     $power = CardPower($obj->CardID);
-    if($power === null || $power < 0) return 0; // No power stat — buff counters do not generate one
+    if($power === null || $power < 0) $power = 0;
     // Buff counter modifier: +1 power per buff counter (applied before other modifiers)
     $power += GetCounterCount($obj, "buff");
     switch($obj->CardID) { //Self power modifiers
@@ -638,6 +638,9 @@ function ObjectCurrentPower($obj) {
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
     foreach($cardCurrentEffects as $effectID) {
         switch($effectID) {
+            case "vcZSHNHvKX": // Spirit Blade: Ghost Strike
+                $power += 1;
+                break;
             case "FCbKYZcbNq"://Trusty Steed
                 $power += 2;
                 break;
@@ -684,9 +687,7 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
                 break;
             case "vcZSHNHvKX": // Spirit Blade: Ghost Strike: champion attacks +1 POWER
-                if(PropertyContains(CardType($obj->CardID), "CHAMPION") || PropertyContains(CardType($obj->CardID), "ATTACK")) {
-                    $power += 1;
-                }
+                $power += 1;
                 break;
             case "dZ960Hnkzv": // Vertus, Gaia's Roar: +1 POWER until end of turn
                 $power += 1;
@@ -1313,6 +1314,10 @@ $doesGlobalEffectApply["rxxwQT054x"] = function($obj) { //Command the Hunt: alli
 
 $doesGlobalEffectApply["rxxwQT054x_VIGOR"] = function($obj) { //Command the Hunt: allies gain vigor
     return PropertyContains(CardType($obj->CardID), "ALLY");
+};
+
+$doesGlobalEffectApply["vcZSHNHvKX"] = function($obj) { //Spirit Blade: Ghost Strike: +1 POWER on champion attacks
+    return PropertyContains(CardType($obj->CardID), "CHAMPION");
 };
 
 $doesGlobalEffectApply["LEVELED_UP_THIS_TURN"] = function($obj) { //Flag only — no visual effect on cards
