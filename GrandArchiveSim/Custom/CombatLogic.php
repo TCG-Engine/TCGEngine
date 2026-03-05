@@ -468,6 +468,7 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         // No target chosen / fizzled -- clean up intent and return
         ClearIntent($player);
         DecisionQueueController::ClearVariable("CombatAttacker");
+        DecisionQueueController::ClearVariable("CombatWeapon");
         return;
     }
 
@@ -508,6 +509,19 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
     }
 
     $totalPower = GetTotalAttackPower($attacker, $attackerPlayer);
+
+    // Weapon durability loss: occurs in the damage step regardless of how much damage is dealt.
+    // (Per rules: durability is still removed if damage = 0, but NOT if the damage step is skipped.)
+    $weaponMZ = GetCombatWeapon();
+    if($weaponMZ !== null) {
+        $weaponObj = &GetZoneObject($weaponMZ);
+        if($weaponObj !== null && !$weaponObj->removed) {
+            RemoveCounters($attackerPlayer, $weaponMZ, "durability", 1);
+            if(GetCounterCount($weaponObj, "durability") <= 0) {
+                DoAllyDestroyed($attackerPlayer, $weaponMZ);
+            }
+        }
+    }
 
     // Flip mzIDs to defender's perspective for critical / retaliation handlers
     $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
@@ -615,10 +629,24 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
         DecisionQueueController::ClearVariable("CombatAttacker");
         DecisionQueueController::ClearVariable("CombatAttackerPlayer");
         DecisionQueueController::ClearVariable("CombatIsCleave");
+        DecisionQueueController::ClearVariable("CombatWeapon");
         return;
     }
 
     $totalPower = GetTotalAttackPower($attacker, $attackerPlayer);
+
+    // Weapon durability loss: occurs in the damage step regardless of how much damage is dealt.
+    $weaponMZ = GetCombatWeapon();
+    if($weaponMZ !== null) {
+        $weaponObj = &GetZoneObject($weaponMZ);
+        if($weaponObj !== null && !$weaponObj->removed) {
+            RemoveCounters($attackerPlayer, $weaponMZ, "durability", 1);
+            if(GetCounterCount($weaponObj, "durability") <= 0) {
+                DoAllyDestroyed($attackerPlayer, $weaponMZ);
+            }
+        }
+    }
+
     $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
 
     // Stealth: filter out units with Stealth unless the attacker has True Sight
@@ -696,8 +724,6 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
 
 /**
  * Handler: clean up after combat resolves (intent + variables).
- * Also handles weapon durability loss: remove 1 durability counter from the
- * weapon used in combat (if any). If durability reaches 0, destroy the weapon.
  */
 $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     // $parts[0] = attacker player ID (when cleanup is on the defender's queue)
@@ -706,21 +732,6 @@ $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $attackerPlayer;
-
-    // Weapon durability loss: remove 1 durability counter from the weapon used in combat
-    $weaponMZ = GetCombatWeapon();
-    if($weaponMZ !== null) {
-        $weaponObj = &GetZoneObject($weaponMZ);
-        if($weaponObj !== null && !$weaponObj->removed) {
-            RemoveCounters($attackerPlayer, $weaponMZ, "durability", 1);
-            // State-based action: weapon with 0 durability is destroyed
-            if(GetCounterCount($weaponObj, "durability") <= 0) {
-                DoAllyDestroyed($attackerPlayer, $weaponMZ);
-            }
-        }
-    }
-
-    // Clear intent (attack cards → graveyard)
     ClearIntent($attackerPlayer);
     $playerID = $savedPlayerID;
 
