@@ -199,6 +199,10 @@ function OnCardActivated($player, $mzCard) {
     if(PropertyContains($cardType, "ALLY")) {
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
+    } else if(PropertyContains($cardType, "WEAPON")) {
+        // Weapons enter the field like allies (main-deck weapons with reserve cost)
+        $obj = MZMove($player, $mzCard, "myField");
+        $obj->Controller = $player;
     } else if(PropertyContains($cardType, "ACTION")) {
         // Special case: Preserve cards go to Material zone
         if($obj->CardID == "2Ojrn7buPe") { // Tera Sight - Preserve
@@ -376,6 +380,14 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         $added->Status = 1;
     }
     
+    // Weapons enter with durability counters equal to their printed durability stat
+    if(PropertyContains(CardType($added->CardID), "WEAPON")) {
+        $durability = CardDurability($added->CardID);
+        if($durability !== null && $durability > 0) {
+            AddCounters($player, "myField-" . (count($field) - 1), "durability", $durability);
+        }
+    }
+
     // Silvie, Wilds Whisperer (RfPP8h16Wv): next Animal/Beast ally enters with a buff counter
     if(PropertyContains(CardType($added->CardID), "ALLY")) {
         $subtypes = CardSubtypes($added->CardID);
@@ -1141,6 +1153,7 @@ function FieldSelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
     $cardType = CardType($obj->CardID);
+    // Allies and champions can attack; champions with weapons can also start combat
     if(!PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) {
         return json_encode(['highlight' => false]);
     }
@@ -2013,6 +2026,14 @@ function GetEnlightenCounterCount($obj) {
  */
 function GetPrepCounterCount($obj) {
     return GetCounterCount($obj, "preparation");
+}
+
+/**
+ * Virtual property callback: returns the number of durability counters on the object.
+ * Used for the DurabilityCounterCount display badge.
+ */
+function GetDurabilityCounterCount($obj) {
+    return GetCounterCount($obj, "durability");
 }
 
 /**

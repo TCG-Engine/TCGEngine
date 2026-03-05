@@ -49,6 +49,7 @@ Virtual: CurrentLevel=ObjectCurrentLevelDisplay()
 Virtual: BuffCounterCount=GetBuffCounterCount()
 Virtual: EnlightenCounterCount=GetEnlightenCounterCount()
 Virtual: PrepCounterCount=GetPrepCounterCount()
+Virtual: DurabilityCounterCount=GetDurabilityCounterCount()
 Virtual: DynamicAbilities=GetDynamicAbilities()
 Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
@@ -63,6 +64,7 @@ Counters: CurrentLevel=Badge(Color=Orange,Position=BottomLeft,ShowZero=false)
 Counters: BuffCounterCount=Badge(Color=Gold,Position=Center,ShowZero=false)
 Counters: EnlightenCounterCount=Badge(Color=Cyan,Position=Center,ShowZero=false)
 Counters: PrepCounterCount=Badge(Color=Silver,Position=Center,ShowZero=false)
+Counters: DurabilityCounterCount=Badge(Color=Brown,Position=TopRight,ShowZero=false)
 AfterAdd: FieldAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()

@@ -6,7 +6,7 @@
  *   1. Attack cards are played from hand -> EffectStack -> resolve -> enter champion's intent (myIntent zone).
  *   2. A player declares an attack by selecting an awake ally or champion on the field.
  *   3. The attacker is rested (exhausted) as a cost.
- *   4. (Optional) The attacking player may choose weapons/objects to add to the attack (step 2.b).
+ *   4. (Optional) The attacking player may choose a weapon to add to the attack (champion only).
  *   5. The attacking player chooses an attack target -- enemy ally or champion (step 2.c).
  *      - Stealth: units with Stealth can't be targeted unless the attacker has True Sight.
  *      - Intercept: if any non-Stealth defender has Intercept, it must be targeted first.
@@ -20,6 +20,31 @@
  */
 
 // --- helpers -------------------------------------------------------------------
+
+/**
+ * Return an array of mzIDs for awake weapon cards on a player's field.
+ * Only returns weapons with durability > 0.
+ */
+function GetAvailableWeapons($player) {
+    $weapons = ZoneSearch("myField", ["WEAPON"]);
+    $available = [];
+    foreach($weapons as $mzID) {
+        $obj = &GetZoneObject($mzID);
+        if($obj->Status == 2 && GetCounterCount($obj, "durability") > 0) {
+            $available[] = $mzID;
+        }
+    }
+    return $available;
+}
+
+/**
+ * Return the mzID of the currently selected combat weapon, or null.
+ */
+function GetCombatWeapon() {
+    $mz = DecisionQueueController::GetVariable("CombatWeapon");
+    if($mz === null || $mz === "-" || $mz === "") return null;
+    return $mz;
+}
 
 /**
  * Return an array of mzIDs for attack cards currently in a player's intent zone.
@@ -49,6 +74,17 @@ function GetTotalAttackPower($attackerObj, $player) {
             $totalPower += $intentPower;
         }
     }
+    // Add weapon power if a weapon was selected for this attack
+    $weaponMZ = GetCombatWeapon();
+    if($weaponMZ !== null) {
+        $weaponObj = &GetZoneObject($weaponMZ);
+        if($weaponObj !== null) {
+            $weaponPower = ObjectCurrentPower($weaponObj);
+            if($weaponPower > 0) {
+                $totalPower += $weaponPower;
+            }
+        }
+    }
     return $totalPower;
 }
 
@@ -57,8 +93,7 @@ function GetTotalAttackPower($attackerObj, $player) {
  * True Sight can come from:
  *   - The attacking unit itself ("This unit's attacks can target units with stealth.")
  *   - Attack cards in the attacker's intent zone ("This attack can target units with stealth.")
- *   - Weapons used in the attack ("Attacks using this weapon can target units with stealth.")
- *     (Weapon selection is not yet implemented; will be checked here once it is.)
+ *   - Weapons used in the attack
  */
 function AttackerHasTrueSight($attackerMZ, $player) {
     // Check the attacking unit
@@ -72,7 +107,12 @@ function AttackerHasTrueSight($attackerMZ, $player) {
         if(HasTrueSight($intentObj)) return true;
     }
 
-    //TODO: Check weapons once weapon selection is implemented
+    // Check the weapon used in this attack
+    $weaponMZ = GetCombatWeapon();
+    if($weaponMZ !== null) {
+        $weaponObj = &GetZoneObject($weaponMZ);
+        if($weaponObj !== null && HasTrueSight($weaponObj)) return true;
+    }
 
     return false;
 }
@@ -82,7 +122,7 @@ function AttackerHasTrueSight($attackerMZ, $player) {
  * Cleave can come from:
  *   - The attacking unit itself ("Attack all units a chosen opponent controls.")
  *   - Attack cards in the attacker's intent zone (e.g. Hurricane Sweep)
- *   - Weapons used in the attack (not yet implemented)
+ *   - Weapons used in the attack
  */
 function AttackerHasCleave($attackerMZ, $player) {
     // Check the attacking unit
@@ -98,6 +138,13 @@ function AttackerHasCleave($attackerMZ, $player) {
 
     // Bestial Frenzy (HsaWNAsmAQ): cleave via turn effect
     if(ObjectHasEffect($attacker, "HsaWNAsmAQ_CLEAVE")) return true;
+
+    // Check the weapon used in this attack
+    $weaponMZ = GetCombatWeapon();
+    if($weaponMZ !== null) {
+        $weaponObj = &GetZoneObject($weaponMZ);
+        if($weaponObj !== null && HasKeyword_Cleave($weaponObj)) return true;
+    }
 
     return false;
 }
@@ -228,6 +275,16 @@ function DeclareChampionAttack($player) {
     // Store attacker for resolution
     DecisionQueueController::StoreVariable("CombatAttacker", $championMZ);
 
+    // Step 2.b -- Weapon selection: if the attacker is a champion, offer weapon choice
+    $availableWeapons = GetAvailableWeapons($player);
+    if(!empty($availableWeapons)) {
+        $weaponList = implode("&", $availableWeapons);
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $weaponList, 95, "Choose_weapon?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "WeaponSelected", 95);
+    } else {
+        DecisionQueueController::StoreVariable("CombatWeapon", "-");
+    }
+
     // Choose target and resolve
     if($hasCleave) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "CleaveAttack|" . $championMZ, 100);
@@ -250,7 +307,7 @@ $customDQHandlers["DeclareChampionAttack"] = function($player, $parts, $lastDeci
  * Steps (per rules):
  *   2.a  Select attacker -- must be awake (Status == 2) or granted permission by an effect.
  *   2.a' Rest the attacker as a cost.
- *   2.b  (Future) Choose additional weapons / objects.
+ *   2.b  Choose additional weapons to add to the attack (champion only).
  *   2.c  Choose attack target (respecting Intercept / Cleave).
  *   2.d  Pay any calculated / additional costs.
  *   2.e  Reconcile restrictions (Taunt, etc.).
@@ -273,10 +330,12 @@ function BeginCombatPhase($actionCard) {
         return false;
     }
 
-    // Validate power > 0
+    // Validate power > 0 (champions with 0 power can still attack if they have a weapon)
     if(ObjectCurrentPower($obj) <= 0) {
-        SetFlashMessage("Cannot attack with a unit that has 0 or less power.");
-        return false;
+        if(!PropertyContains($cardType, "CHAMPION") || empty(GetAvailableWeapons($turnPlayer))) {
+            SetFlashMessage("Cannot attack with a unit that has 0 or less power.");
+            return false;
+        }
     }
 
     // Rule 1.h -- Players can't declare attacks on their first turn
@@ -303,8 +362,20 @@ function BeginCombatPhase($actionCard) {
     // Store the attacker location for later handlers
     DecisionQueueController::StoreVariable("CombatAttacker", $actionCard);
 
-    // Step 2.b -- (Future) Choose additional weapons to add to the attack
-    //TODO: Add weapon selection step here (REGALIA,WEAPON cards)
+    // Step 2.b -- Weapon selection: only for champion attacks, not allies
+    if(PropertyContains($cardType, "CHAMPION")) {
+        $availableWeapons = GetAvailableWeapons($turnPlayer);
+        if(!empty($availableWeapons)) {
+            $weaponList = implode("&", $availableWeapons);
+            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $weaponList, 95, "Choose_weapon?");
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponSelected", 95);
+        } else {
+            DecisionQueueController::StoreVariable("CombatWeapon", "-");
+        }
+    } else {
+        // Allies can't use weapons
+        DecisionQueueController::StoreVariable("CombatWeapon", "-");
+    }
 
     // Step 2.c -- Choose attack target
     if($hasCleave) {
@@ -353,16 +424,13 @@ function OnAttackTrigger($player, $mzID) {
             $onAttackAbilities[$iObj->CardID . ":0"]($player);
         }
     }
-    // Weapon OnAttack: if the champion is attacking, also fire OnAttack for weapons on the field
+    // Weapon OnAttack: if the champion is attacking and a weapon was selected, fire its OnAttack
     if($obj !== null && PropertyContains(CardType($obj->CardID), "CHAMPION")) {
-        $field = &GetField($player);
-        for($fi = 0; $fi < count($field); ++$fi) {
-            if($field[$fi]->removed) continue;
-            $fCardType = CardType($field[$fi]->CardID);
-            if(PropertyContains($fCardType, "WEAPON") || PropertyContains($fCardType, "REGALIA")) {
-                if(isset($onAttackAbilities[$field[$fi]->CardID . ":0"])) {
-                    $onAttackAbilities[$field[$fi]->CardID . ":0"]($player);
-                }
+        $weaponMZ = GetCombatWeapon();
+        if($weaponMZ !== null) {
+            $weaponObj = GetZoneObject($weaponMZ);
+            if($weaponObj !== null && isset($onAttackAbilities[$weaponObj->CardID . ":0"])) {
+                $onAttackAbilities[$weaponObj->CardID . ":0"]($player);
             }
         }
     }
@@ -375,6 +443,20 @@ function OnAttackTrigger($player, $mzID) {
 }
 
 // --- DQ handlers ---------------------------------------------------------------
+
+/**
+ * Handler: player chose a weapon for the attack (or passed).
+ * Stores the weapon mzID so GetTotalAttackPower, TrueSight/Cleave checks, and
+ * CombatCleanup (durability loss) can reference it.
+ */
+$customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") {
+        // Player declined to use a weapon
+        DecisionQueueController::StoreVariable("CombatWeapon", "-");
+    } else {
+        DecisionQueueController::StoreVariable("CombatWeapon", $lastDecision);
+    }
+};
 
 /**
  * Handler: player chose an attack target.
@@ -614,15 +696,31 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
 
 /**
  * Handler: clean up after combat resolves (intent + variables).
+ * Also handles weapon durability loss: remove 1 durability counter from the
+ * weapon used in combat (if any). If durability reaches 0, destroy the weapon.
  */
 $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     // $parts[0] = attacker player ID (when cleanup is on the defender's queue)
     $attackerPlayer = !empty($parts[0]) ? intval($parts[0]) : $player;
 
-    // Swap $playerID to attacker so ClearIntent resolves my/their correctly
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $attackerPlayer;
+
+    // Weapon durability loss: remove 1 durability counter from the weapon used in combat
+    $weaponMZ = GetCombatWeapon();
+    if($weaponMZ !== null) {
+        $weaponObj = &GetZoneObject($weaponMZ);
+        if($weaponObj !== null && !$weaponObj->removed) {
+            RemoveCounters($attackerPlayer, $weaponMZ, "durability", 1);
+            // State-based action: weapon with 0 durability is destroyed
+            if(GetCounterCount($weaponObj, "durability") <= 0) {
+                DoAllyDestroyed($attackerPlayer, $weaponMZ);
+            }
+        }
+    }
+
+    // Clear intent (attack cards → graveyard)
     ClearIntent($attackerPlayer);
     $playerID = $savedPlayerID;
 
@@ -630,6 +728,7 @@ $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::ClearVariable("CombatTarget");
     DecisionQueueController::ClearVariable("CombatAttackerPlayer");
     DecisionQueueController::ClearVariable("CombatIsCleave");
+    DecisionQueueController::ClearVariable("CombatWeapon");
 };
 
 // --- critical resolution -------------------------------------------------------
