@@ -96,7 +96,8 @@ function AttackerHasCleave($attackerMZ, $player) {
         if(HasKeyword_Cleave($intentObj)) return true;
     }
 
-    //TODO: Check weapons once weapon selection is implemented
+    // Bestial Frenzy (HsaWNAsmAQ): cleave via turn effect
+    if(ObjectHasEffect($attacker, "HsaWNAsmAQ_CLEAVE")) return true;
 
     return false;
 }
@@ -129,16 +130,24 @@ function GetValidAttackTargets($attackerMZ) {
     }
 
     // Check for Intercept -- units with Intercept must be targeted first
-    $interceptTargets = [];
-    foreach($opponents as $mzID) {
-        $obj = &GetZoneObject($mzID);
-        if(HasKeyword_Intercept($obj)) {
-            $interceptTargets[] = $mzID;
-        }
+    // Port Smuggler (uCIEMgGjWe): CB attacks can't be intercepted
+    $attacker = &GetZoneObject($attackerMZ);
+    $bypassIntercept = false;
+    if($attacker !== null && $attacker->CardID === "uCIEMgGjWe" && IsClassBonusActive($player, CardClasses("uCIEMgGjWe"))) {
+        $bypassIntercept = true;
     }
-    // If any opposing unit has Intercept, only those may be targeted
-    if(!empty($interceptTargets)) {
-        return $interceptTargets;
+    if(!$bypassIntercept) {
+        $interceptTargets = [];
+        foreach($opponents as $mzID) {
+            $obj = &GetZoneObject($mzID);
+            if(HasKeyword_Intercept($obj)) {
+                $interceptTargets[] = $mzID;
+            }
+        }
+        // If any opposing unit has Intercept, only those may be targeted
+        if(!empty($interceptTargets)) {
+            return $interceptTargets;
+        }
     }
     return $opponents;
 }
@@ -342,6 +351,26 @@ function OnAttackTrigger($player, $mzID) {
         if($iObj === null) continue;
         if(isset($onAttackAbilities[$iObj->CardID . ":0"])) {
             $onAttackAbilities[$iObj->CardID . ":0"]($player);
+        }
+    }
+    // Weapon OnAttack: if the champion is attacking, also fire OnAttack for weapons on the field
+    if($obj !== null && PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        $field = &GetField($player);
+        for($fi = 0; $fi < count($field); ++$fi) {
+            if($field[$fi]->removed) continue;
+            $fCardType = CardType($field[$fi]->CardID);
+            if(PropertyContains($fCardType, "WEAPON") || PropertyContains($fCardType, "REGALIA")) {
+                if(isset($onAttackAbilities[$field[$fi]->CardID . ":0"])) {
+                    $onAttackAbilities[$field[$fi]->CardID . ":0"]($player);
+                }
+            }
+        }
+    }
+    // Majestic Spirit's Crest (Tx6iJQNSA6): global effect — when champion attacks, draw 1
+    if($obj !== null && PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        if(GlobalEffectCount($player, "Tx6iJQNSA6") > 0) {
+            Draw($player, 1);
+            RemoveGlobalEffect($player, "Tx6iJQNSA6");
         }
     }
 }
@@ -665,6 +694,13 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(in_array("BARRIER_PREVENT_DAMAGE", $targetObj->TurnEffects)) {
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));
         return; // Damage fully prevented
+    }
+    // Intangible Geist (Zu53izIFTX): CB prevent all combat damage
+    if($targetObj->CardID === "Zu53izIFTX") {
+        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+        if($combatAttacker !== null && IsClassBonusActive($targetObj->Controller, CardClasses("Zu53izIFTX"))) {
+            return; // Combat damage prevented
+        }
     }
     // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage
     if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {

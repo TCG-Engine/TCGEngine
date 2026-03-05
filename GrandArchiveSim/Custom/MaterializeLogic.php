@@ -63,5 +63,10 @@ function DoMaterialize($player, $mzCard) {
     $sourceId = $sourceObject->CardID;
     //TODO: Handle lineage mechanics
     MZMove($player, $mzCard, "myField");
+    // Track that a champion leveled up this turn (for Invigorated Slash etc.)
+    // Only set the flag when materializing a champion
+    if(PropertyContains(CardType($sourceId), "CHAMPION")) {
+        AddGlobalEffects($player, "LEVELED_UP_THIS_TURN");
+    }
 }
 ?>

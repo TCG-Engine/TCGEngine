@@ -87,6 +87,26 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Channeling Stone (EBWWwvSxr3): global effect reduces next card cost by 2
+    if(GlobalEffectCount($player, "EBWWwvSxr3") > 0) {
+        $reserveCost = max(0, $reserveCost - 2);
+        RemoveGlobalEffect($player, "EBWWwvSxr3");
+    }
+
+    // Horn of Beastcalling (6e7lRnczfL): global effect reduces next Beast ally cost by 3
+    if(GlobalEffectCount($player, "6e7lRnczfL") > 0) {
+        if(PropertyContains($cardType, "ALLY") && PropertyContains(CardSubtypes($obj->CardID), "BEAST")) {
+            $reserveCost = max(0, $reserveCost - 3);
+            RemoveGlobalEffect($player, "6e7lRnczfL");
+        }
+    }
+
+    // Command the Hunt (rxxwQT054x): global effect reduces next card cost by 2 if no attacks this turn  
+    if(GlobalEffectCount($player, "rxxwQT054x_COST") > 0) {
+        $reserveCost = max(0, $reserveCost - 2);
+        RemoveGlobalEffect($player, "rxxwQT054x_COST");
+    }
+
     //1.8 Paying Costs
     for($i = 0; $i < $reserveCost; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -133,6 +153,26 @@ function OnCardActivated($player, $mzCard) {
     if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
         $cardActivatedAbilities[$obj->CardID . ":0"]($player);
     }
+
+    // "Whenever you activate" triggers — check field for listening cards
+    $field = &GetField($player);
+    $subtypes = CardSubtypes($obj->CardID);
+    for($fi = 0; $fi < count($field); ++$fi) {
+        if($field[$fi]->removed) continue;
+        switch($field[$fi]->CardID) {
+            case "3traenEA8M": // Galatine: when you activate a Sword attack, add a durability counter
+                if(PropertyContains($cardType, "ATTACK") && PropertyContains($subtypes, "SWORD")) {
+                    AddCounters($player, "myField-" . $fi, "durability", 1);
+                }
+                break;
+            case "aKgdkLSBza": // Wilderness Harpist: when you activate a Melody or Harmony, +1 level this turn
+                if(PropertyContains($subtypes, "MELODY") || PropertyContains($subtypes, "HARMONY")) {
+                    AddTurnEffect("myField-" . $fi, "aKgdkLSBza");
+                }
+                break;
+        }
+    }
+
     // After an attack card enters intent and its abilities resolve, declare the champion attack
     if(PropertyContains($cardType, "ATTACK")) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareChampionAttack", 100);
@@ -222,6 +262,32 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     if($added->CardID == "2Q60hBYO3i") {
         $added->Status = 1;
     }
+    // Luxera's Map (s23UHXgcZq): enters the field rested
+    if($added->CardID == "s23UHXgcZq") {
+        $added->Status = 1;
+    }
+    // Artificer's Opus (G5E0PIUd0W): enters the field rested
+    if($added->CardID == "G5E0PIUd0W") {
+        $added->Status = 1;
+    }
+    
+    // Silvie, Wilds Whisperer (RfPP8h16Wv): next Animal/Beast ally enters with a buff counter
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        $subtypes = CardSubtypes($added->CardID);
+        if(PropertyContains($subtypes, "ANIMAL") || PropertyContains($subtypes, "BEAST")) {
+            if(GlobalEffectCount($player, "RfPP8h16Wv") > 0) {
+                AddCounters($player, "myField-" . (count($field) - 1), "buff", 1);
+                // Remove one instance of the global effect
+                $ge = &GetGlobalEffects($player);
+                foreach($ge as $gIdx => $geItem) {
+                    if($geItem->CardID === "RfPP8h16Wv") {
+                        $ge[$gIdx]->removed = true;
+                        break;
+                    }
+                }
+            }
+        }
+    }
     
     Enter($player, $field[count($field)-1]->GetMzID());
 }
@@ -241,6 +307,15 @@ function RecollectionPhase() {
                     break;
                 case "CvvgJR4fNa": // Patient Rogue: gets +3 POWER until end of turn
                     AddTurnEffect("myField-" . $i, "CvvgJR4fNa");
+                    break;
+                case "P7hHZBVScB": // Orb of Glitter: glimpse 1 during recollection
+                    Glimpse($turnPlayer, 1);
+                    break;
+                case "ZfCtSldRIy": // Windrider Mage: CB may return to hand + enlighten
+                    if(IsClassBonusActive($turnPlayer, CardClasses("ZfCtSldRIy"))) {
+                        DecisionQueueController::AddDecision($turnPlayer, "YESNO", "Return_Windrider_Mage_to_hand?", 1);
+                        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WindriderMageBounce|$i", 1);
+                    }
                     break;
                 default: break;
             }
@@ -300,6 +375,23 @@ function EndPhase() {
     // Clear any remaining intent cards (unused attack cards) to graveyard
     ClearIntent($turnPlayer);
 
+    // Mistbound Watcher (mA4n0Z7BQz): CB add 1 enlighten counter on champion at end of turn
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "mA4n0Z7BQz") {
+            if(IsClassBonusActive($turnPlayer, CardClasses("mA4n0Z7BQz"))) {
+                // Find champion and add enlighten counter
+                for($ci = 0; $ci < count($field); ++$ci) {
+                    if(!$field[$ci]->removed && CardType($field[$ci]->CardID) === "CHAMPION") {
+                        AddCounters($turnPlayer, "myField-" . $ci, "enlighten", 1);
+                        break;
+                    }
+                }
+            }
+            break; // Only one Mistbound Watcher matters
+        }
+    }
+
     $field = &GetField($turnPlayer);
     for($i=count($field)-1; $i>=0; --$i) {
         if(HasVigor($field[$i])) {
@@ -358,6 +450,67 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
             }
             break;
+        case "jF1VuIR7a6": // Warrior's Longsword: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $power += 1;
+            }
+            break;
+        case "dpu9pHGX48": // Sword of Adversity: [Class Bonus] +1 POWER while no allies
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                if(empty(ZoneSearch($zone, ["ALLY"]))) {
+                    $power += 1;
+                }
+            }
+            break;
+        case "krgjMyVHRd": // Lakeside Serpent: [Class Bonus] +1 POWER per water card in graveyard
+            if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                global $playerID;
+                $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
+                $waterCards = ZoneSearch($gravZone, cardElements: ["WATER"]);
+                $power += count($waterCards);
+            }
+            break;
+        case "vBetRTn3eW": // Opening Cut: [Class Bonus] +2 POWER while exactly 1 card in memory
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $memory = &GetMemory($obj->Controller);
+                if(count($memory) == 1) {
+                    $power += 2;
+                }
+            }
+            break;
+        case "sxg6WefxIe": // Backstab: [Class Bonus] +2 POWER while attacking rested unit
+            if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget != "-" && $combatTarget != "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && isset($targetObj->Status) && $targetObj->Status == 1) {
+                        $power += 2;
+                    }
+                }
+            }
+            break;
+        case "LNSRQ5xW6E": // Stillwater Patrol: +1 POWER while attacking a unit with stealth
+            $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+            if($combatTarget != "-" && $combatTarget != "") {
+                $targetObj = GetZoneObject($combatTarget);
+                if($targetObj !== null && HasStealth($targetObj)) {
+                    $power += 1;
+                }
+            }
+            break;
+        case "3traenEA8M": // Galatine, Sword of Sunlight: [Class Bonus] +1 POWER per 3 durability counters
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $durability = GetCounterCount($obj, "durability");
+                $power += intdiv($durability, 3);
+            }
+            break;
+        case "W1g0hNzXAC": // Invigorated Slash: +2 POWER while champion leveled up this turn
+            if(GlobalEffectCount($obj->Controller, "LEVELED_UP_THIS_TURN") > 0) {
+                $power += 2;
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -401,6 +554,44 @@ function ObjectCurrentPower($obj) {
             case "fMv7tIOZwL-PWR": // Aqueous Enchanting: allies get +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "qyQLlDYBlr": // Ornamental Greatsword: +1 POWER until end of turn
+                $power += 1;
+                break;
+            case "XMb6pSHFJg": // Embersong class bonus: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "W1vZwOXfG3": // Embertail Squirrel: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "usb5FgKvZX": // Sharpening Stone: +1 POWER until end of turn
+                $power += 1;
+                break;
+            case "F1t18omUlx_POWER": // Beastbond Paws: +1 POWER until end of turn
+                $power += 1;
+                break;
+            case "OofVX5hX8X": // Poisoned Coating Oil: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "8yzADlgx4R": // Assassin's Ripper: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "QQaOgurnjX": // Imbue in Frost: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "vcZSHNHvKX": // Spirit Blade: Ghost Strike: champion attacks +1 POWER
+                if(PropertyContains(CardType($obj->CardID), "CHAMPION") || PropertyContains(CardType($obj->CardID), "ATTACK")) {
+                    $power += 1;
+                }
+                break;
+            case "dZ960Hnkzv": // Vertus, Gaia's Roar: +1 POWER until end of turn
+                $power += 1;
+                break;
+            case "rxxwQT054x": // Command the Hunt: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "HsaWNAsmAQ_POWER": // Bestial Frenzy: +1 POWER until end of turn
+                $power += 1;
+                break;
             default: break;
         }
     }
@@ -427,12 +618,36 @@ function ObjectCurrentLevel($obj) {
             case "zpkcFs72Ah"://Smack with Flute: champion gets +1 level until end of turn
                 $cardLevel += 1;
                 break;
+            case "XLrHaYV9VB": // Arcane Sight: +1 level until end of turn
+                $cardLevel += 1;
+                break;
+            case "MECS7RHRZ8": // Impassioned Tutor: +1 level until end of turn
+                $cardLevel += 1;
+                break;
+            case "raG5r85ieO": // Piper's Lullaby: +1 level until end of turn
+                $cardLevel += 1;
+                break;
+            case "HsaWNAsmAQ": // Bestial Frenzy: +1 level until end of turn
+                $cardLevel += 1;
+                break;
+            case "aKgdkLSBza": // Wilderness Harpist: +1 level until end of turn
+                $cardLevel += 1;
+                break;
             default: break;
         }
     }
     // Field-presence passives — iterate once and switch on card ID
     // Each unique card's passive is only counted once (duplicates don't stack)
     if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        // Champion self-level modifiers
+        if($obj->CardID === "YPaL2BxDSN") { // Allen, Beast Beckoner: +2 level while controlling 2+ Animal/Beast allies
+            global $playerID;
+            $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+            $animalBeast = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+            if(count($animalBeast) >= 2) {
+                $cardLevel += 2;
+            }
+        }
         global $playerID;
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
@@ -447,6 +662,29 @@ function ObjectCurrentLevel($obj) {
                     }
                     $appliedPassives[$fID] = true;
                     break;
+                case "pnDhApDNvR": // Magus Disciple: champion gets +1 level
+                    $cardLevel += 1;
+                    $appliedPassives[$fID] = true;
+                    break;
+                case "q2okpDFJw5": // Energetic Beastbonder: +1 level while Animal/Beast
+                case "qxbdXU7H4Z": // Deep Sea Beastbonder: same
+                case "izGEjxBPo9": // Menagerie Beastbonder: same
+                case "JPcFmCpdiF": // Beastbond Ears: +1 level while Animal/Beast ally
+                    if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]))) {
+                        $cardLevel += 1;
+                    }
+                    $appliedPassives[$fID] = true;
+                    break;
+                case "WAFNy2lY5t": // Melodious Flute: +1 level while Animal/Beast
+                    if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]))) {
+                        $cardLevel += 1;
+                    }
+                    $appliedPassives[$fID] = true;
+                    break;
+                case "umSsPWqb5H": // Merlin, Memory Thief: +1 level per level counter
+                    $cardLevel += GetCounterCount($fieldObj, "level");
+                    $appliedPassives[$fID] = true;
+                    break;
                 default: break;
             }
         }
@@ -458,6 +696,18 @@ function ObjectCurrentLevel($obj) {
                 case "yDARN8eV6B": // Tome of Knowledge: [Class Bonus] champion gets +1 level
                     if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
                         $cardLevel += 1;
+                    }
+                    break;
+                case "j5iQQPd2m5": // Crystal of Argus: [Class Bonus] +1 level per 3 enlighten counters on champion
+                    if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
+                        $champField = GetZone($zone);
+                        foreach($champField as $cObj) {
+                            if(PropertyContains(CardType($cObj->CardID), "CHAMPION")) {
+                                $enlighten = GetCounterCount($cObj, "enlighten");
+                                $cardLevel += intdiv($enlighten, 3);
+                                break;
+                            }
+                        }
                     }
                     break;
                 default: break;
@@ -685,6 +935,24 @@ $customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
     foreach($bottomCards as $cardID) {
         $obj = $popCard($cardID);
         if($obj !== null) array_push($zone, $obj);
+    }
+};
+
+$customDQHandlers["WindriderMageBounce"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        $fieldIndex = intval($parts[0]);
+        $field = &GetField($player);
+        if(isset($field[$fieldIndex]) && !$field[$fieldIndex]->removed && $field[$fieldIndex]->CardID === "ZfCtSldRIy") {
+            MZMove($player, "myField-" . $fieldIndex, "myHand");
+            // Put an enlighten counter on champion
+            $pField = &GetField($player);
+            for($ci = 0; $ci < count($pField); ++$ci) {
+                if(!$pField[$ci]->removed && CardType($pField[$ci]->CardID) === "CHAMPION") {
+                    AddCounters($player, "myField-" . $ci, "enlighten", 1);
+                    break;
+                }
+            }
+        }
     }
 };
 
@@ -935,6 +1203,22 @@ $doesGlobalEffectApply["hw8dxKAnMX"] = function($obj) { //Mist Resonance: allies
     return PropertyContains(CardType($obj->CardID), "ALLY");
 };
 
+$doesGlobalEffectApply["rxxwQT054x"] = function($obj) { //Command the Hunt: allies get +2 POWER
+    return PropertyContains(CardType($obj->CardID), "ALLY");
+};
+
+$doesGlobalEffectApply["rxxwQT054x_VIGOR"] = function($obj) { //Command the Hunt: allies gain vigor
+    return PropertyContains(CardType($obj->CardID), "ALLY");
+};
+
+$doesGlobalEffectApply["LEVELED_UP_THIS_TURN"] = function($obj) { //Flag only — no visual effect on cards
+    return false;
+};
+
+$doesGlobalEffectApply["RfPP8h16Wv"] = function($obj) { //Flag only — next Animal/Beast ally gets buff counter, no visual effect
+    return false;
+};
+
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
@@ -944,6 +1228,17 @@ function GlobalEffectCount($player, $effectID) {
         }
     }
     return $count;
+}
+
+function RemoveGlobalEffect($player, $effectID) {
+    $ge = &GetGlobalEffects($player);
+    foreach($ge as $gIdx => $geItem) {
+        if($geItem->CardID === $effectID) {
+            array_splice($ge, $gIdx, 1);
+            return true;
+        }
+    }
+    return false;
 }
 
 function ObjectHasEffect($obj, $targetEffect) {
@@ -1030,6 +1325,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'yrzexkW5Ej' => 1,
         'DBJ4DuLABr' => 2,
         'RIVahUIQVD' => 2, // Fireball: [Class Bonus] costs 2 less
+        'mdiK8UC78c' => 2, // Call the Pack: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -1471,17 +1767,48 @@ $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecisio
 };
 
 function HasFloatingMemory($obj) {
-    return HasKeyword_FloatingMemory($obj);
+    if(HasKeyword_FloatingMemory($obj)) return true;
+    // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
+    if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
+        for($p = 1; $p <= 2; $p++) {
+            $pField = &GetField($p);
+            foreach($pField as $fCard) {
+                if(!$fCard->removed && $fCard->CardID === "WI2owxIw0z") {
+                    $grav = &GetGraveyard($p);
+                    foreach($grav as $gCard) {
+                        if($gCard === $obj) return true;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+    return false;
 }
 
 function HasVigor($obj) {
-    return HasKeyword_Vigor($obj);
+    if(HasKeyword_Vigor($obj)) return true;
+    // Command the Hunt (rxxwQT054x): allies gain vigor via global effect
+    if(ObjectHasEffect($obj, "rxxwQT054x_VIGOR")) return true;
+    return false;
 }
 
 function HasStealth($obj) {
     // Patient Rogue: [Class Bonus] stealth while awake
     if($obj->CardID === "CvvgJR4fNa") {
         return isset($obj->Status) && $obj->Status == 2 && IsClassBonusActive($obj->Controller, ["ASSASSIN"]);
+    }
+    // Blackmarket Broker (hHVf5xyjob): CB stealth while champion has 3+ prep counters
+    if($obj->CardID === "hHVf5xyjob") {
+        if(IsClassBonusActive($obj->Controller, CardClasses("hHVf5xyjob"))) {
+            $pField = &GetField($obj->Controller);
+            foreach($pField as $fCard) {
+                if(!$fCard->removed && CardType($fCard->CardID) === "CHAMPION") {
+                    if(GetCounterCount($fCard, "prep") >= 3) return true;
+                    break;
+                }
+            }
+        }
     }
     if(HasKeyword_Stealth($obj)) return true;
     // Check for temporary stealth effects granted by other cards
@@ -1490,13 +1817,18 @@ function HasStealth($obj) {
         switch($effectID) {
             case "DBJ4DuLABr": // Shroud in Mist: units you control gain stealth
                 return true;
+            case "ScGcOmkoQt": // Smoke Bombs: target ally gains stealth this turn
+                return true;
         }
     }
     return false;
 }
 
 function HasTrueSight($obj) {
-    return HasKeyword_TrueSight($obj);
+    if(HasKeyword_TrueSight($obj)) return true;
+    if(ObjectHasEffect($obj, "iiZtKTulPg")) return true; // Eye of Argus
+    if(ObjectHasEffect($obj, "F1t18omUlx_SIGHT")) return true; // Beastbond Paws
+    return false;
 }
 
 function PrideAmount($obj) {
@@ -1665,6 +1997,11 @@ function ClearAllCounters($player, $mzCard) {
  */
 function GetCriticalAmount($obj, $player) {
     $maxCritical = 0;
+
+    // Bushwhack Bandit (kT8CeTFj82): CB Critical 1
+    if($obj->CardID === "kT8CeTFj82" && IsClassBonusActive($player, CardClasses("kT8CeTFj82"))) {
+        $maxCritical = max($maxCritical, 1);
+    }
 
     // Check the unit's own TurnEffects
     if(isset($obj->TurnEffects) && is_array($obj->TurnEffects)) {
