@@ -51,4 +51,9 @@
     return in_array($value, $propertyArr);
   }
 
+  function ShuffleZone($zoneName) {
+    $zone = &GetZone($zoneName);
+    Shuffle($zone);
+  }
+
 ?>

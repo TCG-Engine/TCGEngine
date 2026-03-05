@@ -719,4 +719,28 @@ function OnDealDamage($player, $source, $target, $amount) {
     }
 }
 
+/**
+ * Apply unpreventable damage to a target unit. Bypasses BARRIER_PREVENT_DAMAGE.
+ * Otherwise identical to OnDealDamage: amplify effects still apply, death still triggers.
+ */
+function DealUnpreventableDamage($player, $source, $target, $amount) {
+    $targetObj = &GetZoneObject($target);
+    // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage
+    if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {
+        $amount += 1;
+    }
+    $targetObj->Damage += $amount;
+
+    // Trigger per-card DealDamage abilities on the target card
+    global $dealDamageAbilities;
+    if(isset($dealDamageAbilities) && isset($dealDamageAbilities[$targetObj->CardID . ":0"])) {
+        $dealDamageAbilities[$targetObj->CardID . ":0"]($player);
+    }
+
+    $currentHp = ObjectCurrentHP($targetObj);
+    if($targetObj->Damage >= $currentHp) {
+        AllyDestroyed($player, $target);
+    }
+}
+
 ?>

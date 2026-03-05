@@ -885,8 +885,7 @@ function DoRevealCard($player, $revealedMZ) {
 }
 
 function DoSacrificeFighter($player, $mzCard) {
-    
-    FighterDestroyed($player, $mzCard);
+    DoAllyDestroyed($player, $mzCard);
 }
 
 $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
