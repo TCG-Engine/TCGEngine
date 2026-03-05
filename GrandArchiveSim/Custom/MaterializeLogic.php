@@ -10,18 +10,20 @@ function MaterializePhase() {
     MaterializeChoice();
 }
 
-function MaterializeChoice() {
+function MaterializeChoice($ignoreCost = false) {
     $turnPlayer = GetTurnPlayer();
     $material = &GetMaterial($turnPlayer);
     DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", ZoneObjMZIndices($material, "myMaterial"), 1);
-    DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MATERIALIZE", 1);
+    $handlerParam = $ignoreCost ? "MATERIALIZE|NOCOST" : "MATERIALIZE";
+    DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", $handlerParam, 1);
 }
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 {
-    //First pay memory cost
+    $ignoreCost = isset($parts[0]) && $parts[0] === "NOCOST";
+    //First pay memory cost (unless cost is being ignored)
     $materializeCard = &GetZoneObject($lastDecision);
-    $memoryCost = CardMemoryCost($materializeCard);
+    $memoryCost = $ignoreCost ? 0 : CardMemoryCost($materializeCard);
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
         $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));

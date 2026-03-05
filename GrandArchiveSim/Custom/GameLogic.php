@@ -313,7 +313,7 @@ function RecollectionPhase() {
                     break;
                 case "ZfCtSldRIy": // Windrider Mage: CB may return to hand + enlighten
                     if(IsClassBonusActive($turnPlayer, CardClasses("ZfCtSldRIy"))) {
-                        DecisionQueueController::AddDecision($turnPlayer, "YESNO", "Return_Windrider_Mage_to_hand?", 1);
+                        DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Return_Windrider_Mage_to_hand?");
                         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WindriderMageBounce|$i", 1);
                     }
                     break;
@@ -1220,6 +1220,10 @@ $doesGlobalEffectApply["RfPP8h16Wv"] = function($obj) { //Flag only — next Ani
 };
 
 $doesGlobalEffectApply["MECS7RHRZ8"] = function($obj) { //Impassioned Tutor
+    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
+$doesGlobalEffectApply["aKgdkLSBza"] = function($obj) { //Wilderness Harpist
     return PropertyContains(CardType($obj->CardID), "CHAMPION");
 };
 
