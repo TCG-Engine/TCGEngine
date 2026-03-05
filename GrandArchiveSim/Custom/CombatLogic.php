@@ -366,11 +366,10 @@ function OnAttackTrigger($player, $mzID) {
             }
         }
     }
-    // Majestic Spirit's Crest (Tx6iJQNSA6): global effect — when champion attacks, draw 1
+    // Majestic Spirit's Crest (Tx6iJQNSA6): TurnEffect on champion — when champion attacks, draw 1
     if($obj !== null && PropertyContains(CardType($obj->CardID), "CHAMPION")) {
-        if(GlobalEffectCount($player, "Tx6iJQNSA6") > 0) {
+        if(in_array("Tx6iJQNSA6", $obj->TurnEffects)) {
             Draw($player, 1);
-            RemoveGlobalEffect($player, "Tx6iJQNSA6");
         }
     }
 }
