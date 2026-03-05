@@ -240,8 +240,15 @@ function DoAllyDestroyed($player, $mzCard) {
 }
 
 function WakeUpPhase() {
-    // Wake Up phase
+    // Wake Up phase — ready all cards on the turn player's field
     SetFlashMessage("Wake Up Phase");
+    $turnPlayer = &GetTurnPlayer();
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed) {
+            $field[$i]->Status = 2;
+        }
+    }
 }
 
 function OnEnter($player, $mzID) {
