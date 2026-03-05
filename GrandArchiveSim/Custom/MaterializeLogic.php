@@ -13,7 +13,7 @@ function MaterializePhase() {
 function MaterializeChoice() {
     $turnPlayer = GetTurnPlayer();
     $material = &GetMaterial($turnPlayer);
-    DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", ZoneObjMZIndices($material, "myMaterial"), 1);
+    DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", ZoneObjMZIndices($material, "myMaterial"), 1);
     DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MATERIALIZE", 1);
 }
 
