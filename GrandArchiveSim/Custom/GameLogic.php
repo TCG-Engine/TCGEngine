@@ -196,23 +196,59 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
     }
 }
 
+/**
+ * Pay the non-reserve costs for an activated ability (e.g., banish self, REST).
+ * Called before AbilityActivated so the card is already gone before the opponent
+ * receives priority via AbilityOpportunity.
+ *
+ * @param int    $player  The activating player
+ * @param string $mzCard  The mzID of the card paying the cost
+ * @param string $cardID  The card's dictionary ID
+ */
+function ActivatedAbilityCost($player, $mzCard, $cardID) {
+    switch($cardID) {
+        // --- Always banish self ---
+        case "iiZtKTulPg": // Eye of Argus
+        case "usb5FgKvZX": // Sharpening Stone
+        case "F1t18omUlx": // Beastbond Paws
+        case "ScGcOmkoQt": // Smoke Bombs
+        case "qYH9PJP7uM": // Blinding Orb
+        case "OofVX5hX8X": // Poisoned Coating Oil
+        case "Z9TCpaMJTc": // Bauble of Abundance
+        case "EQZZsiUDyl": // Storm Tyrant's Eye
+        case "6e7lRnczfL": // Horn of Beastcalling
+        case "EBWWwvSxr3": // Channeling Stone
+        case "s23UHXgcZq": // Luxera's Map — REST + banish self
+        case "Tx6iJQNSA6": // Majestic Spirit's Crest — [Class Bonus] banish self
+        case "WAFNy2lY5t": // Melodious Flute — [Class Bonus] banish self
+        case "UiohpiTtgs": // Chalice of Blood — banish self only if champion has 20+ damage
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+    }
+}
+
 function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
+    // Capture cardID now — the card may be moved to banishment as a cost below.
     $cardID = $sourceObject->CardID;
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
     
     // Exhaust the unit as the REST cost — only for static abilities, not dynamic ones (which have their own costs)
-    $cardType = CardType($sourceObject->CardID);
+    $cardType = CardType($cardID);
     $staticAbilityCount = CardActivateAbilityCount($cardID);
     if($selectedAbilityIndex < $staticAbilityCount && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION"))) {
         $sourceObject->Status = 1;
     }
 
+    // Pay non-reserve costs (e.g., banish self) before the opponent gets priority.
+    ActivatedAbilityCost($player, $mzCard, $cardID);
+
     //My activated ability effects
-    $customDQHandlers["AbilityActivated"]($player, [$sourceObject->CardID, $selectedAbilityIndex], null);
+    $customDQHandlers["AbilityActivated"]($player, [$cardID, $selectedAbilityIndex], null);
 
     // Enlighten activated ability: triggered when abilityIndex is beyond static count and champion has 3+ enlighten counters
     if($selectedAbilityIndex >= $staticAbilityCount && GetCounterCount($sourceObject, "enlighten") >= 3) {
