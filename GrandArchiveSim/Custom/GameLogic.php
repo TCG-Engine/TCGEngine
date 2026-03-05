@@ -1774,11 +1774,7 @@ function HasFloatingMemory($obj) {
             $pField = &GetField($p);
             foreach($pField as $fCard) {
                 if(!$fCard->removed && $fCard->CardID === "WI2owxIw0z") {
-                    $grav = &GetGraveyard($p);
-                    foreach($grav as $gCard) {
-                        if($gCard === $obj) return true;
-                    }
-                    break;
+                    return true;
                 }
             }
         }
