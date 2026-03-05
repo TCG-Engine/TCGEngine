@@ -62,6 +62,7 @@ Important notes and gotchas
 ## Where to change things (map of responsibilities)
 - Decision queue static behavior: `Core/DecisionQueueController.php::ExecuteStaticMethods()`
 - Register game-specific handlers: `<RootName>/Custom/GameLogic.php` (see `$customDQHandlers` array)
+- Additional activation costs: `<RootName>/Custom/GameLogic.php` (see `$additionalActivationCosts` array + `DeclareAdditionalCost` handler)
 - Generator parsing & code emission: `zzGameCodeGenerator.php` (Counters, Overlays, Zone metadata, GeneratedUI emission)
 - Client rendering: `Core/UILibraries.js` (PopulateZone, createCardHTML, CreateCountersHTML, overlays injection)
 - Endpoint that serves next-turn data: generated `<RootName>/GetNextTurn.php` (see `zzGameCodeGenerator.php` which writes this file)
@@ -166,6 +167,39 @@ The generator translates `await` statements into queued `DecisionQueueController
 2. A custom DQ handler that processes the player's response
 
 The `lastDecision` parameter in the handler receives the player's choice ("YES"/"NO" for YesNo, or the mzID for card choices).
+
+### Additional Activation Costs (optional reserve at activation time)
+
+Some cards say "As an additional cost to activate this card, you may pay (N)." These costs are declared and paid **at activation time** (Grand Archive rules step 1.3), before the opponent gets priority, not at resolution time inside the ability.
+
+**Framework:** `$additionalActivationCosts` in `GameLogic.php` — a registry mapping `cardID` to cost config.
+
+**How it works:**
+1. `DoActivateCard()` checks `$additionalActivationCosts[$cardID]` after computing the base reserve cost.
+2. If the entry exists and its `condition` callback returns true and the player has enough cards in hand, a YESNO decision is queued.
+3. The `DeclareAdditionalCost` DQ handler processes the answer, stores `"additionalCostPaid"` as `"YES"` or `"NO"`, then queues all reserve payments (base + extra if YES) followed by `EffectStackOpportunity`.
+4. At resolution time, ability code reads `DecisionQueueController::GetVariable("additionalCostPaid")` to branch.
+
+**To register a new additional cost:**
+```php
+$additionalActivationCosts["<cardID>"] = [
+    'prompt'       => 'Pay_N_extra_for_effect?',   // YesNo prompt text
+    'extraReserve' => 2,                            // extra hand→memory payments
+    'condition'    => function($player) {            // optional — when to offer
+        return !empty(ZoneSearch("myGraveyard", cardElements: ["CRUX"]));
+    }
+];
+```
+
+**In the ability code** (saved via `save_card_abilities`), check the result:
+```php
+$additionalCostPaid = DecisionQueueController::GetVariable("additionalCostPaid");
+if($additionalCostPaid === "YES") {
+    // additional-cost-specific effects (e.g. banish self, recover card)
+}
+```
+
+**Important:** The cost payment (hand→memory) is handled automatically by the framework. The ability code should only implement the *effects* that happen when the additional cost was paid — do NOT re-implement the reserve payment inside ability code.
 
 ### Step 7: Add any new helper functions
 If the card requires a new helper function (like `RecoverChampion`), add it to the appropriate Custom/*.php file. Group by theme:

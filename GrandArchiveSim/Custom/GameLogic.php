@@ -7,6 +7,22 @@ include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
 include_once __DIR__ . '/MaterializeLogic.php';
 
+// --- Additional Activation Costs Registry ---
+// Cards that offer an optional extra reserve cost at activation time (Grand Archive rule 1.3).
+// Each entry maps a cardID to:
+//   'prompt'       => string shown in the YesNo dialog
+//   'extraReserve' => int, number of extra hand→memory payments
+//   'condition'    => callable($player) that returns true if the option should be offered
+$additionalActivationCosts = [];
+
+// Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
+// banish this card as it resolves and return a crux card from graveyard to hand."
+// No condition — always offer when affordable; recovery may fizzle at resolution.
+$additionalActivationCosts["P9Y1Q5cQ0F"] = [
+    'prompt'       => 'Pay_2_additional_reserve_to_banish_and_recover_crux?',
+    'extraReserve' => 2,
+];
+
 //TODO: Add this to a schema
 function ActionMap($actionCard)
 {
@@ -107,19 +123,65 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         RemoveGlobalEffect($player, "rxxwQT054x_COST");
     }
 
-    //1.8 Paying Costs
-    for($i = 0; $i < $reserveCost; ++$i) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    //1.3 Declaring Costs — check for optional additional costs
+    global $additionalActivationCosts;
+    $hasAdditionalCost = false;
+    if(isset($additionalActivationCosts[$obj->CardID])) {
+        $costEntry = $additionalActivationCosts[$obj->CardID];
+        $extraReserve = $costEntry['extraReserve'];
+        $hand = GetZone("myHand");
+        $conditionMet = !isset($costEntry['condition']) || $costEntry['condition']($player);
+        if($conditionMet && count($hand) >= $reserveCost + $extraReserve) {
+            $hasAdditionalCost = true;
+            $prompt = $costEntry['prompt'];
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:$prompt);
+            DecisionQueueController::AddDecision($player, "CUSTOM",
+                "DeclareAdditionalCost|" . $obj->CardID . "|" . $reserveCost . "|" . $extraReserve, 100);
+        }
     }
 
-    //1.9 Activation — grant Opportunity to the opponent before resolving
-    // (The generated ActivateCard() wrapper calls ExecuteStaticMethods, which will
-    //  process ReserveCard costs, then EffectStackOpportunity.)
-    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+    if(!$hasAdditionalCost) {
+        // No additional cost — store default and queue normal reserve + opportunity
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+
+        //1.8 Paying Costs
+        for($i = 0; $i < $reserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+
+        //1.9 Activation — grant Opportunity to the opponent before resolving
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+    }
+    // When $hasAdditionalCost is true, the DeclareAdditionalCost handler takes over
+    // queuing reserve payments and EffectStackOpportunity after the player answers.
 }
 
 $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
     ReserveCard($player);
+};
+
+/**
+ * DQ handler: processes the player's YesNo answer for an optional additional
+ * activation cost. Stores the result so ability code can read it at resolution,
+ * then queues ALL reserve payments (base + extra if YES) followed by the
+ * EffectStackOpportunity. Parts: [cardID, baseReserve, extraReserve].
+ */
+$customDQHandlers["DeclareAdditionalCost"] = function($player, $parts, $lastDecision) {
+    $cardID      = $parts[0];
+    $baseReserve = intval($parts[1]);
+    $extraReserve = intval($parts[2]);
+
+    DecisionQueueController::StoreVariable("additionalCostPaid", $lastDecision);
+
+    $totalCost = $baseReserve;
+    if($lastDecision === "YES") {
+        $totalCost += $extraReserve;
+    }
+
+    for($i = 0; $i < $totalCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
 function OnCardReserved($player, $mzCard) {
