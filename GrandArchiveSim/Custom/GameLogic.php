@@ -95,7 +95,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     // Horn of Beastcalling (6e7lRnczfL): global effect reduces next Beast ally cost by 3
     if(GlobalEffectCount($player, "6e7lRnczfL") > 0) {
-        if(PropertyContains($cardType, "ALLY") && PropertyContains(CardSubtypes($obj->CardID), "BEAST")) {
+        if(PropertyContains(CardType($obj->CardID), "ALLY") && PropertyContains(CardSubtypes($obj->CardID), "BEAST")) {
             $reserveCost = max(0, $reserveCost - 3);
             RemoveGlobalEffect($player, "6e7lRnczfL");
         }
@@ -1268,6 +1268,18 @@ $doesGlobalEffectApply["MECS7RHRZ8"] = function($obj) { //Impassioned Tutor
 
 $doesGlobalEffectApply["aKgdkLSBza"] = function($obj) { //Wilderness Harpist
     return PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
+$doesGlobalEffectApply["WAFNy2lY5t"] = function($obj) { //Melodious Flute
+    return false;
+};
+
+$doesGlobalEffectApply["6e7lRnczfL"] = function($obj) { //Horn of Beastcalling
+    return false;
+};
+
+$doesGlobalEffectApply["EBWWwvSxr3"] = function($obj) { //Horn of Beastcalling
+    return false;
 };
 
 function GlobalEffectCount($player, $effectID) {
