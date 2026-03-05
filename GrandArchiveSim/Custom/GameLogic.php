@@ -1219,6 +1219,10 @@ $doesGlobalEffectApply["RfPP8h16Wv"] = function($obj) { //Flag only — next Ani
     return false;
 };
 
+$doesGlobalEffectApply["MECS7RHRZ8"] = function($obj) { //Impassioned Tutor
+    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
