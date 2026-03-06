@@ -31,7 +31,8 @@ Macro: Name=OnKill(mzID); ChoiceFunction=OnKillTrigger; Action={}
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle
-Banish - CardID:string
+Banish - CardID:string, TurnEffects:array[string]
+Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Bottom=230px, Right=10px
 Graveyard - CardID:string
 Display: Visibility=Public, Mode=Single, Bottom=10px, Right=10px

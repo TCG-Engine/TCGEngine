@@ -9,6 +9,8 @@ Draw; DRAW; DrawPhase
 AUTO -> MAIN
 Main; MAIN; MainPhase
 AUTO -> MAIN
-PASS -> END
+PASS -> BEND
+BeforeEnd; BEND; BeforeEndPhase
+AUTO -> END
 End; END; EndPhase
 AUTO -> WU

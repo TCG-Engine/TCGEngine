@@ -1069,10 +1069,15 @@ for($i=0; $i<count($zones); ++$i) {
   
   // Generate indexed property methods if this zone has any
   if($hasIndexedProperties) {
-    // GetMzID function
+    // GetMzID function — use Controller if the zone has it, otherwise fall back to PlayerID
+    $hasControllerField = false;
+    foreach($zone->Properties as $prop) {
+      if($prop->Name === 'Controller') { $hasControllerField = true; break; }
+    }
+    $ownerExpr = $hasControllerField ? "\$this->Controller" : "\$this->PlayerID";
     fwrite($handler, "  function GetMzID() {\r\n");
     fwrite($handler, "    global \$playerID;\r\n");
-    fwrite($handler, "    \$prefix = \$playerID == \$this->Controller ? \"my\" : \"their\";\r\n");
+    fwrite($handler, "    \$prefix = \$playerID == " . $ownerExpr . " ? \"my\" : \"their\";\r\n");
     fwrite($handler, "    return \$prefix . \$this->Location . \"-\" . \$this->mzIndex;\r\n");
     fwrite($handler, "  }\r\n");
     

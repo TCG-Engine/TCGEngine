@@ -508,36 +508,66 @@ function MainPhase() {
     SetFlashMessage("Main Phase");
 }
 
+/**
+ * Suppress an ally: banish it and schedule its return at the beginning of the next end phase.
+ * The card is moved to its owner's banishment zone and tagged with a "SUPPRESSED" TurnEffect
+ * on the banished card itself so EndPhase can find and return it.
+ * @param int    $player  The acting player.
+ * @param string $mzCard  The mzID of the ally to suppress (e.g. "theirField-2").
+ */
+function SuppressAlly($player, $mzCard) {
+    $obj = GetZoneObject($mzCard);
+    if($obj === null) return;
+    $owner = $obj->Owner;
+    // Move to the owner's banishment zone
+    $banishZone = ($player == $owner) ? "myBanish" : "theirBanish";
+    $banishObj = MZMove($player, $mzCard, $banishZone);
+    if($banishObj !== null) {
+        // Clear any field TurnEffects carried over by the zone copy, then tag as suppressed
+        $banishObj->ClearTurnEffects();
+        $banishObj->AddTurnEffects("SUPPRESSED");
+    }
+}
+
+function BeforeEndPhase() {
+    global $playerID;
+
+    // BANISH_SELF TurnEffect: move any field card tagged BANISH_SELF to banishment.
+    // Uses "my"/"their" zone names relative to $playerID — no $playerID mutation needed.
+    $field = GetZone("myField");
+    for($fi = count($field) - 1; $fi >= 0; --$fi) {
+        if(!$field[$fi]->removed && in_array("BANISH_SELF", $field[$fi]->TurnEffects)) {
+            MZMove($playerID, "myField-" . $fi, "myBanish");
+        }
+    }
+    $field = GetZone("theirField");
+    for($fi = count($field) - 1; $fi >= 0; --$fi) {
+        if(!$field[$fi]->removed && in_array("BANISH_SELF", $field[$fi]->TurnEffects)) {
+            MZMove($playerID, "theirField-" . $fi, "theirBanish");
+        }
+    }
+
+    // Suppress: return suppressed allies from banishment to the field under their owner's control.
+    // Iterate highest-index-first so that splicing doesn't shift unvisited entries.
+    // Zone references ("my"/"their") are resolved relative to global $playerID.
+    $banish = GetZone("myBanish");
+    for($sbi = count($banish) - 1; $sbi >= 0; --$sbi) {
+        if(!$banish[$sbi]->removed && in_array("SUPPRESSED", $banish[$sbi]->TurnEffects)) {
+            MZMove($playerID, "myBanish-" . $sbi, "myField");
+        }
+    }
+    $banish = GetZone("theirBanish");
+    for($sbi = count($banish) - 1; $sbi >= 0; --$sbi) {
+        if(!$banish[$sbi]->removed && in_array("SUPPRESSED", $banish[$sbi]->TurnEffects)) {
+            MZMove($playerID, "theirBanish-" . $sbi, "theirField");
+        }
+    }
+}
+
 function EndPhase() {
     $firstPlayer = &GetFirstPlayer();
     $currentTurn = &GetTurnNumber();
     $turnPlayer = &GetTurnPlayer();
-
-    // Arcane Elemental: banish at the beginning of end phase if marked
-    global $playerID;
-    $savedPlayerID = $playerID;
-    for($p = 1; $p <= 2; ++$p) {
-        if(GlobalEffectCount($p, "wFH1kBLrWh_BANISH") > 0) {
-            $playerID = $p;
-            $pField = GetField($p);
-            for($fi = count($pField) - 1; $fi >= 0; --$fi) {
-                if(!$pField[$fi]->removed && $pField[$fi]->CardID === "wFH1kBLrWh") {
-                    MZMove($p, "myField-" . $fi, "myBanish");
-                    break;
-                }
-            }
-            // Clear the GlobalEffect marker
-            $ge = &GetGlobalEffects($p);
-            $newGE = [];
-            foreach($ge as $geItem) {
-                if($geItem->CardID !== "wFH1kBLrWh_BANISH") {
-                    $newGE[] = $geItem;
-                }
-            }
-            $ge = $newGE;
-        }
-    }
-    $playerID = $savedPlayerID;
 
     // Clear any remaining intent cards (unused attack cards) to graveyard
     ClearIntent($turnPlayer);
@@ -1349,7 +1379,6 @@ function AddTurnEffect($mzCard, $effectID) {
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $foreverEffects["GMBTMNTM"] = true;
-$foreverEffects["wFH1kBLrWh_BANISH"] = true; // Arcane Elemental: banish at next end phase
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
