@@ -183,6 +183,19 @@ function GetValidAttackTargets($attackerMZ) {
     if($attacker !== null && $attacker->CardID === "uCIEMgGjWe" && IsClassBonusActive($player, CardClasses("uCIEMgGjWe"))) {
         $bypassIntercept = true;
     }
+    // Strike from the Mist (DHn9J7gX6g): CB if prepared, can't be intercepted
+    if(!$bypassIntercept) {
+        $intentCards = GetIntentCards($player);
+        foreach($intentCards as $intentMZ) {
+            $intentObj = &GetZoneObject($intentMZ);
+            if($intentObj !== null && $intentObj->CardID === "DHn9J7gX6g"
+                && in_array("PREPARED", $intentObj->TurnEffects)
+                && IsClassBonusActive($player, explode(",", CardClasses("DHn9J7gX6g")))) {
+                $bypassIntercept = true;
+                break;
+            }
+        }
+    }
     if(!$bypassIntercept) {
         $interceptTargets = [];
         foreach($opponents as $mzID) {
@@ -442,6 +455,44 @@ function OnAttackTrigger($player, $mzID) {
     }
 }
 
+/**
+ * Dispatch On Hit abilities for a unit whose attack just dealt damage.
+ * Called after combat damage is dealt (including after critical resolution).
+ * Fires for: the attacking unit, attack cards in intent, and weapons.
+ *
+ * @param int    $player     The attacking player
+ * @param string $attackerMZ The attacker's mzID
+ */
+function OnHitTrigger($player, $attackerMZ) {
+    global $onHitAbilities;
+    if(!isset($onHitAbilities) || !is_array($onHitAbilities)) return;
+
+    // Dispatch On Hit for the attacker itself
+    $obj = GetZoneObject($attackerMZ);
+    if($obj !== null && isset($onHitAbilities[$obj->CardID . ":0"])) {
+        $onHitAbilities[$obj->CardID . ":0"]($player);
+    }
+
+    // Dispatch On Hit for attack cards in intent
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $iMZ) {
+        $iObj = GetZoneObject($iMZ);
+        if($iObj === null) continue;
+        if(isset($onHitAbilities[$iObj->CardID . ":0"])) {
+            $onHitAbilities[$iObj->CardID . ":0"]($player);
+        }
+    }
+
+    // Dispatch On Hit for combat weapon
+    $weaponMZ = GetCombatWeapon();
+    if($weaponMZ !== null) {
+        $weaponObj = GetZoneObject($weaponMZ);
+        if($weaponObj !== null && isset($onHitAbilities[$weaponObj->CardID . ":0"])) {
+            $onHitAbilities[$weaponObj->CardID . ":0"]($player);
+        }
+    }
+}
+
 // --- DQ handlers ---------------------------------------------------------------
 
 /**
@@ -543,11 +594,13 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
             } else {
                 // Defender can't pay — damage automatically doubled
                 DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
+                OnHitTrigger($attackerPlayer, $attackerMZ);
                 DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
             }
         } else {
             // No critical — deal normal damage
             DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower);
+            OnHitTrigger($attackerPlayer, $attackerMZ);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
         }
     } else {
@@ -662,10 +715,15 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
     $criticalAmount = GetCriticalAmount($attacker, $attackerPlayer);
     $effectivePower = ($criticalAmount > 0) ? $totalPower * 2 : $totalPower;
 
+    $hitDealt = false;
     foreach($opponents as $defenderMZ) {
         if($effectivePower > 0) {
             DealDamage($attackerPlayer, $attackerMZ, $defenderMZ, $effectivePower);
+            $hitDealt = true;
         }
+    }
+    if($hitDealt) {
+        OnHitTrigger($attackerPlayer, $attackerMZ);
     }
 
     // Queue CombatRetaliationOpportunity (shared with single-target)
@@ -772,6 +830,7 @@ $customDQHandlers["CriticalResolve"] = function($player, $parts, $lastDecision) 
         // Defender refuses: deal doubled damage
         // mzIDs are in defender's perspective; GetZoneObject will interpret them with defender's $playerID
         DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
+        OnHitTrigger($attackerPlayer, $attackerMZ);
     }
 };
 
@@ -789,6 +848,7 @@ $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecisio
     $attackerPlayer = ($player == 1) ? 2 : 1;
     // Keep mzIDs in defender's perspective; GetZoneObject interprets them with defender's $playerID
     DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
+    OnHitTrigger($attackerPlayer, $attackerMZ);
 };
 
 // --- damage resolution ---------------------------------------------------------

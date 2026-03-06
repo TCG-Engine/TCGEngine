@@ -123,6 +123,32 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         RemoveGlobalEffect($player, "rxxwQT054x_COST");
     }
 
+    //1.3 Declaring Costs — Prepare keyword: optional removal of preparation counters
+    $hasPrepare = false;
+    if(HasKeyword_Prepare($obj)) {
+        $prepValue = intval(GetKeyword_Prepare_Value($obj));
+        $myField = GetZone("myField");
+        $champMZ = null;
+        foreach($myField as $fi => $fieldObj) {
+            if(PropertyContains(CardType($fieldObj->CardID), "CHAMPION")) {
+                $champMZ = "myField-" . $fi;
+                break;
+            }
+        }
+        if($champMZ !== null) {
+            $champObj = GetZoneObject($champMZ);
+            if(GetPrepCounterCount($champObj) >= $prepValue) {
+                $hasPrepare = true;
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Remove_" . $prepValue . "_preparation_counters?");
+                DecisionQueueController::AddDecision($player, "CUSTOM",
+                    "DeclarePrepareCost|" . $champMZ . "|" . $prepValue, 100);
+            }
+        }
+    }
+    if(!$hasPrepare) {
+        DecisionQueueController::StoreVariable("wasPrepared", "NO");
+    }
+
     //1.3 Declaring Costs — check for optional additional costs
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
@@ -184,6 +210,23 @@ $customDQHandlers["DeclareAdditionalCost"] = function($player, $parts, $lastDeci
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
+/**
+ * DQ handler: processes the player's YesNo answer for the optional Prepare cost.
+ * If YES, removes N preparation counters from the champion and stores wasPrepared = YES.
+ * Parts: [champMZ, prepValue].
+ */
+$customDQHandlers["DeclarePrepareCost"] = function($player, $parts, $lastDecision) {
+    $champMZ   = $parts[0];
+    $prepValue = intval($parts[1]);
+
+    if($lastDecision === "YES") {
+        RemoveCounters($player, $champMZ, "preparation", $prepValue);
+        DecisionQueueController::StoreVariable("wasPrepared", "YES");
+    } else {
+        DecisionQueueController::StoreVariable("wasPrepared", "NO");
+    }
+};
+
 function OnCardReserved($player, $mzCard) {
     $obj = MZMove($player, $mzCard, "myMemory");
 }
@@ -214,6 +257,13 @@ function OnCardActivated($player, $mzCard) {
         // Attack cards resolve and enter the champion's intent zone
         $obj = MZMove($player, $mzCard, "myIntent");
         $obj->Controller = $player;
+        // Tag with PREPARED TurnEffect if the Prepare cost was paid
+        $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
+        if($wasPrepared === "YES") {
+            $intentZone = &GetZone("myIntent");
+            $intentIdx = count($intentZone) - 1;
+            AddTurnEffect("myIntent-" . $intentIdx, "PREPARED");
+        }
     }
     DecisionQueueController::CleanupRemovedCards();
     if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
@@ -709,6 +759,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "HsaWNAsmAQ_POWER": // Bestial Frenzy: +1 POWER until end of turn
                 $power += 1;
+                break;
+            case "GRkBQ1Uvir_POWER": // Ignited Stab: if prepared, +2 POWER until end of turn
+                $power += 2;
                 break;
             default: break;
         }
