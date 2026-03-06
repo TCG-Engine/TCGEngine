@@ -27,6 +27,7 @@ Macro: Name=DiscardCard(mzID); ChoiceFunction=DoDiscardCard; Action={}
 Macro: Name=Reveal(revealedMZ); ChoiceFunction=DoRevealCard; Action={}
 Macro: Name=OnAttack(mzID); ChoiceFunction=OnAttackTrigger; Action={}
 Macro: Name=OnHit(mzID); ChoiceFunction=OnHitTrigger; Action={}
+Macro: Name=OnKill(mzID); ChoiceFunction=OnKillTrigger; Action={}
 Deck - CardID:string
 Display: Visibility=Private, Mode=Single, Top=110px, Right=10px
 Macros: Shuffle

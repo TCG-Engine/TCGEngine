@@ -766,6 +766,20 @@ function ObjectCurrentPower($obj) {
             default: break;
         }
     }
+    // Lorraine, Blademaster (TJTeWcZnsQ): if champion has TJTeWcZnsQ TurnEffect,
+    // all attack cards get +2 POWER until end of turn.
+    if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
+        $controller = $obj->Controller ?? null;
+        if($controller !== null && $controller > 0) {
+            $field = GetField($controller);
+            foreach($field as $fieldObj) {
+                if(PropertyContains(CardType($fieldObj->CardID), "CHAMPION") && in_array("TJTeWcZnsQ", $fieldObj->TurnEffects)) {
+                    $power += 2;
+                    break;
+                }
+            }
+        }
+    }
     return $power;
 }
 

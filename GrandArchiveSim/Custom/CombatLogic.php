@@ -493,6 +493,96 @@ function OnHitTrigger($player, $attackerMZ) {
     }
 }
 
+/**
+ * Track whether a combat kill occurred during damage resolution.
+ * Set to true by OnDealDamage/DealUnpreventableDamage when a unit is killed
+ * by combat damage (goes directly from field to graveyard).
+ * Reset by combat handlers before dealing damage, read after.
+ *
+ * Per rules: On Kill only triggers when the unit enters the graveyard
+ * directly from play due to combat damage, NOT through secondary effects
+ * like On Hit abilities. Therefore OnKillTrigger fires BEFORE OnHitTrigger.
+ */
+$_combatKillOccurred = false;
+
+/**
+ * Mark that a combat kill just occurred. Called from OnDealDamage when
+ * damage >= HP and a CombatAttacker variable is set (indicating combat context).
+ */
+function SetCombatKillOccurred() {
+    global $_combatKillOccurred;
+    $_combatKillOccurred = true;
+}
+
+/**
+ * Check and reset the combat kill flag.
+ * @return bool True if a kill occurred since last reset.
+ */
+function ConsumeCombatKill() {
+    global $_combatKillOccurred;
+    $result = $_combatKillOccurred;
+    $_combatKillOccurred = false;
+    return $result;
+}
+
+/**
+ * Reset the combat kill flag (call before dealing combat damage).
+ */
+function ResetCombatKill() {
+    global $_combatKillOccurred;
+    $_combatKillOccurred = false;
+}
+
+/**
+ * Dispatch On Kill abilities for a unit whose attack just killed a defender.
+ * Called after combat damage is dealt and the defender has been destroyed,
+ * but BEFORE OnHitTrigger fires (per rules: On Kill only triggers from
+ * direct combat damage kills, not from secondary On Hit effects).
+ *
+ * Fires for: the attacking unit, attack cards in intent, and weapons.
+ * Mirrors OnHitTrigger's dispatch pattern.
+ *
+ * @param int    $player     The attacking player
+ * @param string $attackerMZ The attacker's mzID
+ */
+function OnKillTrigger($player, $attackerMZ) {
+    global $onKillAbilities;
+
+    // Dispatch On Kill for the attacker itself
+    $obj = GetZoneObject($attackerMZ);
+    if(isset($onKillAbilities) && is_array($onKillAbilities)) {
+        if($obj !== null && isset($onKillAbilities[$obj->CardID . ":0"])) {
+            $onKillAbilities[$obj->CardID . ":0"]($player);
+        }
+
+        // Dispatch On Kill for attack cards in intent
+        $intentCards = GetIntentCards($player);
+        foreach($intentCards as $iMZ) {
+            $iObj = GetZoneObject($iMZ);
+            if($iObj === null) continue;
+            if(isset($onKillAbilities[$iObj->CardID . ":0"])) {
+                $onKillAbilities[$iObj->CardID . ":0"]($player);
+            }
+        }
+
+        // Dispatch On Kill for combat weapon
+        $weaponMZ = GetCombatWeapon();
+        if($weaponMZ !== null) {
+            $weaponObj = GetZoneObject($weaponMZ);
+            if($weaponObj !== null && isset($onKillAbilities[$weaponObj->CardID . ":0"])) {
+                $onKillAbilities[$weaponObj->CardID . ":0"]($player);
+            }
+        }
+    }
+
+    // Granted On Kill effects via TurnEffects on the attacker (champion).
+    // Lorraine, Blademaster (TJTeWcZnsQ): On Enter grants "On Kill: Draw a card" to attacks.
+    // The TurnEffect is placed on the champion; when the champion's attack kills, draw a card.
+    if($obj !== null && in_array("TJTeWcZnsQ", $obj->TurnEffects)) {
+        Draw($player, amount: 1);
+    }
+}
+
 // --- DQ handlers ---------------------------------------------------------------
 
 /**
@@ -593,13 +683,17 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
                 DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatRetaliationOpportunity", 150);
             } else {
                 // Defender can't pay — damage automatically doubled
+                ResetCombatKill();
                 DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
+                if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
                 OnHitTrigger($attackerPlayer, $attackerMZ);
                 DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
             }
         } else {
             // No critical — deal normal damage
+            ResetCombatKill();
             DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower);
+            if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
             OnHitTrigger($attackerPlayer, $attackerMZ);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
         }
@@ -716,6 +810,7 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
     $effectivePower = ($criticalAmount > 0) ? $totalPower * 2 : $totalPower;
 
     $hitDealt = false;
+    ResetCombatKill();
     foreach($opponents as $defenderMZ) {
         if($effectivePower > 0) {
             DealDamage($attackerPlayer, $attackerMZ, $defenderMZ, $effectivePower);
@@ -723,6 +818,7 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
         }
     }
     if($hitDealt) {
+        if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
         OnHitTrigger($attackerPlayer, $attackerMZ);
     }
 
@@ -829,7 +925,9 @@ $customDQHandlers["CriticalResolve"] = function($player, $parts, $lastDecision) 
     } else {
         // Defender refuses: deal doubled damage
         // mzIDs are in defender's perspective; GetZoneObject will interpret them with defender's $playerID
+        ResetCombatKill();
         DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
+        if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
         OnHitTrigger($attackerPlayer, $attackerMZ);
     }
 };
@@ -847,7 +945,9 @@ $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecisio
     $amount = intval($parts[2]);
     $attackerPlayer = ($player == 1) ? 2 : 1;
     // Keep mzIDs in defender's perspective; GetZoneObject interprets them with defender's $playerID
+    ResetCombatKill();
     DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
+    if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
     OnHitTrigger($attackerPlayer, $attackerMZ);
 };
 
@@ -885,6 +985,12 @@ function OnDealDamage($player, $source, $target, $amount) {
 
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
+        // If we're in combat context, record that a kill occurred from combat damage.
+        // This is checked by combat handlers to fire OnKillTrigger BEFORE OnHitTrigger.
+        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+        if($combatAttacker !== null) {
+            SetCombatKillOccurred();
+        }
         AllyDestroyed($player, $target);
     }
 }
@@ -909,6 +1015,11 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
 
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
+        // If we're in combat context, record that a kill occurred from combat damage.
+        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+        if($combatAttacker !== null) {
+            SetCombatKillOccurred();
+        }
         AllyDestroyed($player, $target);
     }
 }
