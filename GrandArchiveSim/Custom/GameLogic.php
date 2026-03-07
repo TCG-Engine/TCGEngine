@@ -1152,8 +1152,14 @@ function DoRevealCard($player, $revealedMZ) {
     $obj = GetZoneObject($revealedMZ);
     if($obj === null) return null;
     $CardID = $obj->CardID;
-    // Send REVEAL:<cardID> prefix so the client renders the card image
-    SetFlashMessage("REVEAL:" . $CardID);
+    // Accumulate REVEAL: messages so multiple reveals in one response all display.
+    // Format: REVEAL:id1|id2|id3
+    $existing = GetFlashMessage();
+    if(is_string($existing) && strpos($existing, 'REVEAL:') === 0) {
+        SetFlashMessage($existing . '|' . $CardID);
+    } else {
+        SetFlashMessage('REVEAL:' . $CardID);
+    }
     // Determine source zone from the mzID (e.g. "myMemory-3" → "myMemory")
     $parts = explode("-", $revealedMZ);
     $sourceZone = $parts[0];
