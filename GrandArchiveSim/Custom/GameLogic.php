@@ -380,10 +380,20 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $dqController->ExecuteStaticMethods($player, "-");
 }
 
+function OnLeaveField($player, $mzID) {
+    global $leaveFieldAbilities;
+    $obj = GetZoneObject($mzID);
+    if($obj === null) return;
+    $controller = $obj->Controller;
+    DecisionQueueController::CleanupRemovedCards();
+    if(isset($leaveFieldAbilities[$obj->CardID . ":0"])) $leaveFieldAbilities[$obj->CardID . ":0"]($controller);
+}
+
 function DoAllyDestroyed($player, $mzCard) {
     global $allyDestroyedAbilities;
     $obj = GetZoneObject($mzCard);
     $controller = $obj->Controller;
+    OnLeaveField($player, $mzCard);
     $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
     MZMove($player, $mzCard, $dest);
     if(isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
@@ -519,6 +529,7 @@ function SuppressAlly($player, $mzCard) {
     $obj = GetZoneObject($mzCard);
     if($obj === null) return;
     $owner = $obj->Owner;
+    OnLeaveField($player, $mzCard);
     // Move to the owner's banishment zone
     $banishZone = ($player == $owner) ? "myBanish" : "theirBanish";
     $banishObj = MZMove($player, $mzCard, $banishZone);
@@ -537,12 +548,14 @@ function BeforeEndPhase() {
     $field = GetZone("myField");
     for($fi = count($field) - 1; $fi >= 0; --$fi) {
         if(!$field[$fi]->removed && in_array("BANISH_SELF", $field[$fi]->TurnEffects)) {
+            OnLeaveField($playerID, "myField-" . $fi);
             MZMove($playerID, "myField-" . $fi, "myBanish");
         }
     }
     $field = GetZone("theirField");
     for($fi = count($field) - 1; $fi >= 0; --$fi) {
         if(!$field[$fi]->removed && in_array("BANISH_SELF", $field[$fi]->TurnEffects)) {
+            OnLeaveField($playerID, "theirField-" . $fi);
             MZMove($playerID, "theirField-" . $fi, "theirBanish");
         }
     }
@@ -1071,6 +1084,7 @@ $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
 
 $customDQHandlers["Bounce"] = function($player, $param, $lastResult) {
     if ($lastResult && $lastResult !== "-") {
+        OnLeaveField($player, $lastResult);
         MZMove($player, $lastResult, "myHand");
     }
 };
@@ -1157,6 +1171,7 @@ $customDQHandlers["WindriderMageBounce"] = function($player, $parts, $lastDecisi
         $fieldIndex = intval($parts[0]);
         $field = &GetField($player);
         if(isset($field[$fieldIndex]) && !$field[$fieldIndex]->removed && $field[$fieldIndex]->CardID === "ZfCtSldRIy") {
+            OnLeaveField($player, "myField-" . $fieldIndex);
             MZMove($player, "myField-" . $fieldIndex, "myHand");
             // Put an enlighten counter on champion
             $pField = &GetField($player);
