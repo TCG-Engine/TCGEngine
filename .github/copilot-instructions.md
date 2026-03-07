@@ -137,6 +137,7 @@ So in the ability code, you have access to:
   - `$var = await $player.MZMayChoose("zone-0&zone-1")` — optional card choice
   - `$var = await $player.YesNo("prompt")` — yes/no choice
   - `await FunctionName($player, $args)` — call a function that queues decisions
+  - await does not currently support being inside loops or conditionals, but you can queue custom functions that themselves queue decisions to achieve multi-step flows.
 
 ### Step 6: Save via MCP
 Call `save_card_abilities` with the card ID, macro name, and ability code. The MCP server saves to the database AND automatically runs the code generator, so `GeneratedMacroCode.php` is updated.

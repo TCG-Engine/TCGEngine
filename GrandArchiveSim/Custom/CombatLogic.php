@@ -964,6 +964,58 @@ function OnDealDamage($player, $source, $target, $amount) {
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));
         return; // Damage fully prevented
     }
+
+    // PREVENT_COMBAT_N: prevent up to N combat damage this turn (Deflecting Edge)
+    $isCombat = DecisionQueueController::GetVariable("CombatAttacker") !== null;
+    if($isCombat && $amount > 0) {
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "PREVENT_COMBAT_") === 0) {
+                $budget = intval(substr($effect, 15));
+                $prevented = min($budget, $amount);
+                $amount -= $prevented;
+                $remaining = $budget - $prevented;
+                if($remaining <= 0) {
+                    unset($targetObj->TurnEffects[$idx]);
+                    $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                } else {
+                    $targetObj->TurnEffects[$idx] = "PREVENT_COMBAT_" . $remaining;
+                }
+                break;
+            }
+        }
+        if($amount <= 0) return;
+    }
+
+    // Champion-only prevention effects
+    $isChampion = PropertyContains(CardType($targetObj->CardID), "CHAMPION");
+    if($isChampion && $amount > 0) {
+        // PREVENT_CHAMP_ENLIGHTEN: prevent all of next damage to champion; gain enlighten = amount prevented (Spellshield: Arcane)
+        if(in_array("PREVENT_CHAMP_ENLIGHTEN", $targetObj->TurnEffects)) {
+            $prevented = $amount;
+            $amount = 0;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "PREVENT_CHAMP_ENLIGHTEN"));
+            AddCounters($targetObj->Controller, $target, "enlighten", $prevented);
+            return;
+        }
+        // PREVENT_CHAMP_N: prevent up to N damage to champion this turn (Veiling Breeze)
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "PREVENT_CHAMP_") === 0 && strpos($effect, "PREVENT_CHAMP_ENLIGHTEN") !== 0) {
+                $budget = intval(substr($effect, 14));
+                $prevented = min($budget, $amount);
+                $amount -= $prevented;
+                $remaining = $budget - $prevented;
+                if($remaining <= 0) {
+                    unset($targetObj->TurnEffects[$idx]);
+                    $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                } else {
+                    $targetObj->TurnEffects[$idx] = "PREVENT_CHAMP_" . $remaining;
+                }
+                break;
+            }
+        }
+        if($amount <= 0) return;
+    }
+
     // Intangible Geist (Zu53izIFTX): CB prevent all combat damage
     if($targetObj->CardID === "Zu53izIFTX") {
         $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");

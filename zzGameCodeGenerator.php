@@ -2085,6 +2085,11 @@ function AddGeneratedUI() {
 
   if($hasFlashMessage) {
     $rv .= "function showFlashMessage(message) {\r\n";
+    $rv .= "  if(message.startsWith('REVEAL:')) {\r\n";
+    $rv .= "    var cardID = message.substring(7);\r\n";
+    $rv .= "    showCardReveal(cardID);\r\n";
+    $rv .= "    return;\r\n";
+    $rv .= "  }\r\n";
     $rv .= "  var overlay = document.createElement('div');\r\n";
     $rv .= "  overlay.style.position = 'fixed';\r\n";
     $rv .= "  overlay.style.top = '0';\r\n";
@@ -2117,6 +2122,48 @@ function AddGeneratedUI() {
     $rv .= "    overlay.style.opacity = '0';\r\n";
     $rv .= "    setTimeout(function() { if(overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 250);\r\n";
     $rv .= "  }, 500);\r\n";
+    $rv .= "}\r\n";
+    // showCardReveal: displays a full card image centered on screen with auto-dismiss
+    $rv .= "function showCardReveal(cardID) {\r\n";
+    $rv .= "  var overlay = document.createElement('div');\r\n";
+    $rv .= "  overlay.style.position = 'fixed';\r\n";
+    $rv .= "  overlay.style.top = '0';\r\n";
+    $rv .= "  overlay.style.left = '0';\r\n";
+    $rv .= "  overlay.style.width = '100%';\r\n";
+    $rv .= "  overlay.style.height = '100%';\r\n";
+    $rv .= "  overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';\r\n";
+    $rv .= "  overlay.style.zIndex = '10000';\r\n";
+    $rv .= "  overlay.style.display = 'flex';\r\n";
+    $rv .= "  overlay.style.flexDirection = 'column';\r\n";
+    $rv .= "  overlay.style.alignItems = 'center';\r\n";
+    $rv .= "  overlay.style.justifyContent = 'center';\r\n";
+    $rv .= "  overlay.style.opacity = '0';\r\n";
+    $rv .= "  overlay.style.transition = 'opacity 0.15s ease-in';\r\n";
+    $rv .= "  var label = document.createElement('div');\r\n";
+    $rv .= "  label.textContent = 'Revealed';\r\n";
+    $rv .= "  label.style.color = '#FFD700';\r\n";
+    $rv .= "  label.style.fontSize = '22px';\r\n";
+    $rv .= "  label.style.fontWeight = 'bold';\r\n";
+    $rv .= "  label.style.fontFamily = 'Orbitron, sans-serif';\r\n";
+    $rv .= "  label.style.marginBottom = '12px';\r\n";
+    $rv .= "  label.style.textShadow = '0 0 10px rgba(255,215,0,0.5)';\r\n";
+    $rv .= "  overlay.appendChild(label);\r\n";
+    $rv .= "  var img = document.createElement('img');\r\n";
+    $rv .= "  var rootPath = typeof AssetReflectionPath === 'function' ? AssetReflectionPath() : '';\r\n";
+    $rv .= "  img.src = './' + rootPath + '/WebpImages/' + cardID + '.webp';\r\n";
+    $rv .= "  img.style.maxHeight = '60vh';\r\n";
+    $rv .= "  img.style.maxWidth = '80vw';\r\n";
+    $rv .= "  img.style.borderRadius = '12px';\r\n";
+    $rv .= "  img.style.boxShadow = '0 0 30px rgba(255,215,0,0.4), 0 8px 32px rgba(0,0,0,0.6)';\r\n";
+    $rv .= "  img.style.border = '2px solid rgba(255,215,0,0.6)';\r\n";
+    $rv .= "  overlay.appendChild(img);\r\n";
+    $rv .= "  document.body.appendChild(overlay);\r\n";
+    $rv .= "  setTimeout(function() { overlay.style.opacity = '1'; }, 10);\r\n";
+    $rv .= "  setTimeout(function() {\r\n";
+    $rv .= "    overlay.style.transition = 'opacity 0.4s ease-out';\r\n";
+    $rv .= "    overlay.style.opacity = '0';\r\n";
+    $rv .= "    setTimeout(function() { if(overlay.parentNode) overlay.parentNode.removeChild(overlay); }, 400);\r\n";
+    $rv .= "  }, 1200);\r\n";
     $rv .= "}\r\n";
   }
 

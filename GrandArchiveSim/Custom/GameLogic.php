@@ -123,6 +123,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         RemoveGlobalEffect($player, "rxxwQT054x_COST");
     }
 
+    // Deflecting Edge (g7uDOmUf2u): costs 1 less if you control a Sword weapon
+    if($obj->CardID === "g7uDOmUf2u") {
+        if(!empty(ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["SWORD"]))) {
+            $reserveCost = max(0, $reserveCost - 1);
+        }
+    }
+
     //1.3 Declaring Costs — Prepare keyword: optional removal of preparation counters
     $hasPrepare = false;
     if(HasKeyword_Prepare($obj)) {
@@ -848,6 +855,9 @@ function ObjectCurrentPower($obj) {
             case "GRkBQ1Uvir_POWER": // Ignited Stab: if prepared, +2 POWER until end of turn
                 $power += 2;
                 break;
+            case "qufoIF014c_POWER": // Gleaming Cut: revealed luxem card from memory, +2 POWER
+                $power += 2;
+                break;
             default: break;
         }
     }
@@ -1045,6 +1055,9 @@ function ObjectCurrentHP($obj) {
             case "hLHpI5rHIK": // Bauble of Mending class bonus: +1 LIFE until end of turn
                 $cardLife += 1;
                 break;
+            case "nIKhHFa0rK_HP": // Cry for Help class bonus: +1 LIFE until end of turn
+                $cardLife += 1;
+                break;
             default: break;
         }
     }
@@ -1086,6 +1099,22 @@ function DoDrawCard($player, $amount=1) {
 }
 
 /**
+ * Draw cards from the top of the deck into memory instead of hand.
+ * Used by effects that say "draw a card into your memory."
+ * @param int $player The acting player.
+ * @param int $amount Number of cards to draw into memory.
+ */
+function DrawIntoMemory($player, $amount=1) {
+    $zone = &GetDeck($player);
+    $memory = &GetMemory($player);
+    for($i=0; $i<$amount; ++$i) {
+        if(count($zone) == 0) return;
+        $card = array_shift($zone);
+        array_push($memory, $card);
+    }
+}
+
+/**
  * Glimpse N: show the top N cards of the player's deck and let them choose
  * which cards go back to the top vs. the bottom, in any order.
  * Queues an MZREARRANGE decision followed by a GlimpseApply custom handler.
@@ -1119,12 +1148,24 @@ function DoDiscardCard($player, $mzCard) {
 }
 
 function DoRevealCard($player, $revealedMZ) {
+    global $revealAbilities;
     $obj = GetZoneObject($revealedMZ);
     if($obj === null) return null;
     $CardID = $obj->CardID;
-    SetFlashMessage("Revealed: " . CardName($CardID));
+    // Send REVEAL:<cardID> prefix so the client renders the card image
+    SetFlashMessage("REVEAL:" . $CardID);
+    // Determine source zone from the mzID (e.g. "myMemory-3" → "myMemory")
+    $parts = explode("-", $revealedMZ);
+    $sourceZone = $parts[0];
+    // Fire reveal triggers for this card
+    if(isset($revealAbilities[$CardID . ":0"])) {
+        DecisionQueueController::StoreVariable("revealedMZ", $revealedMZ);
+        DecisionQueueController::StoreVariable("revealSourceZone", $sourceZone);
+        $revealAbilities[$CardID . ":0"]($player);
+    }
     return $revealedMZ;
 }
+$revealAbilities = [];
 
 function DoSacrificeFighter($player, $mzCard) {
     DoAllyDestroyed($player, $mzCard);
@@ -1606,6 +1647,26 @@ function IsClassBonusActive($player, $classes=null) {
         $cardClasses = explode(",", CardClasses($obj->CardID));
         if(PropertyContains(CardType($obj->CardID), "CHAMPION") && ($classes === null || count(array_intersect($cardClasses, (array)$classes)) > 0)) {
             return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check if Element Bonus is active for a given card.
+ * Element Bonus is active when the player's champion's element matches the card's element.
+ * @param int    $player  The player number
+ * @param string $cardID  The card ID to check element for
+ * @return bool  True if the champion's element matches the card's element
+ */
+function IsElementBonusActive($player, $cardID) {
+    $cardElement = CardElement($cardID);
+    if($cardElement === null || $cardElement === "NORM") return false;
+    $field = &GetField($player);
+    foreach($field as $obj) {
+        if(!$obj->removed && PropertyContains(CardType($obj->CardID), "CHAMPION") && $obj->Controller == $player) {
+            $champElement = CardElement($obj->CardID);
+            return $champElement === $cardElement;
         }
     }
     return false;
