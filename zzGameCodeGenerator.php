@@ -2428,7 +2428,7 @@ function BuildAddDecisionCall($await, $cardId, $indent = '') {
   }
 }
 
-function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, $macroParams = []) {
+function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = []) {
   $lines = explode("\n", $code);
   $awaits = [];
   
@@ -2567,7 +2567,7 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, 
     // Store handler for generation
     $continuationHandlers[$handlerName] = [
       'code' => $handlerCode,
-      'comment' => $macroName
+      'comment' => $abilityName
     ];
   }
   
@@ -2647,7 +2647,7 @@ function GenerateMacroCode() {
         // Get the macro parameters from the schema
         $macroParams = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : [];
         
-        // Reset ability index tracking for this macro type
+        // Reset per-macro so each macro's first ability is :0 (abilities arrays are looked up as cardID:0)
         $abilityIndexByCard = [];
         
         foreach ($abilities as $ability) {
@@ -2665,10 +2665,12 @@ function GenerateMacroCode() {
           // Use CardID:Index as the key for abilities (supports multiple per card)
           $abilityKey = $cardId . ":" . $abilityIndex;
           
-          // Transform code to handle await syntax (pass macro params for variable retrieval)
-          // Use the ability key for continuation handlers instead of just cardId
+          // Transform code to handle await syntax (pass macro params for variable retrieval).
+          // Use abilityKey:macroName as handlerPrefix so continuation handler names are unique
+          // even when the same card has abilities for multiple macros (e.g. OnAttack + Reveal).
           $continuationHandlers = [];
-          $transformedCode = TransformAwaitCode($code, $abilityKey, $name, $continuationHandlers, $macroParams);
+          $handlerPrefix = $abilityKey . ":" . $macroName;
+          $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams);
           
           // Merge continuation handlers into global collection
           $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);

@@ -1666,6 +1666,7 @@ function IsClassBonusActive($player, $classes=null) {
  * @return bool  True if the champion's element matches the card's element
  */
 function IsElementBonusActive($player, $cardID) {
+    return true;//TODO: Delete this
     $cardElement = CardElement($cardID);
     if($cardElement === null || $cardElement === "NORM") return false;
     $field = &GetField($player);
