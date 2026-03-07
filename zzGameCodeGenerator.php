@@ -2310,6 +2310,24 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
  *       echo("Fighter deployed!");
  *     };
  */
+/**
+ * Build a single DecisionQueueController::AddDecision() statement for a player-choice await.
+ * For YESNO decisions the prompt text belongs in the tooltip slot (5th arg), not param.
+ */
+function BuildAddDecisionCall($await, $cardId, $indent = '') {
+  $pv = $await['playerVar'];
+  $ct = $await['choiceType'];
+
+  if ($ct === 'YESNO') {
+    // param is a placeholder; prompt text goes into tooltip so the UI can display it
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"YESNO\", \"-\", 1, \"" . $await['params'] . "\");\n";
+  } else if (isset($await['isRearrange']) && $await['isRearrange']) {
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['params'] . ", 1);\n";
+  } else {
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", \"" . $await['params'] . "\", 1);\n";
+  }
+}
+
 function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, $macroParams = []) {
   $lines = explode("\n", $code);
   $awaits = [];
@@ -2385,12 +2403,7 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, 
     $transformedCode .= $firstAwait['functionName'] . "(" . $firstAwait['functionArgs'] . ");\n";
     $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
   } else {
-    // For Rearrange and other complex params, don't add extra quotes if they contain concatenation
-    if (isset($firstAwait['isRearrange']) && $firstAwait['isRearrange']) {
-      $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"" . $firstAwait['choiceType'] . "\", " . $firstAwait['params'] . ", 1);\n";
-    } else {
-      $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"" . $firstAwait['choiceType'] . "\", \"" . $firstAwait['params'] . "\", 1);\n";
-    }
+    $transformedCode .= BuildAddDecisionCall($firstAwait, $cardId);
     $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
   }
   
@@ -2446,12 +2459,7 @@ function TransformAwaitCode($code, $cardId, $macroName, &$continuationHandlers, 
         $handlerCode .= "  " . $nextAwait['functionName'] . "(" . $nextAwait['functionArgs'] . ");\n";
         $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
       } else {
-        // For Rearrange and other complex params, don't add extra quotes if they contain concatenation
-        if (isset($nextAwait['isRearrange']) && $nextAwait['isRearrange']) {
-          $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", " . $nextAwait['params'] . ", 1);\n";
-        } else {
-          $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"" . $nextAwait['choiceType'] . "\", \"" . $nextAwait['params'] . "\", 1);\n";
-        }
+        $handlerCode .= BuildAddDecisionCall($nextAwait, $cardId, '  ');
         $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
       }
     }
