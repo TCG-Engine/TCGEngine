@@ -405,9 +405,35 @@ function WakeUpPhase() {
     // Wake Up phase — ready all cards on the turn player's field
     SetFlashMessage("Wake Up Phase");
     $turnPlayer = &GetTurnPlayer();
+    $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
     $field = &GetField($turnPlayer);
+
+    // Check if opponent controls Snow Fairy (4s0c9XgLg7)
+    $opponentField = &GetField($otherPlayer);
+    $opponentHasSnowFairy = false;
+    foreach($opponentField as $opp) {
+        if(!$opp->removed && $opp->CardID === "4s0c9XgLg7") {
+            $opponentHasSnowFairy = true;
+            break;
+        }
+    }
+
     for($i = 0; $i < count($field); ++$i) {
         if(!$field[$i]->removed) {
+            // SKIP_WAKEUP: one-time skip — consume the effect and don't wake
+            if(in_array("SKIP_WAKEUP", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["SKIP_WAKEUP"]));
+                continue;
+            }
+            // FROZEN_BY_SNOW_FAIRY: persistent freeze while opponent controls Snow Fairy
+            if(in_array("FROZEN_BY_SNOW_FAIRY", $field[$i]->TurnEffects)) {
+                if($opponentHasSnowFairy) {
+                    continue; // Still frozen — don't wake, keep the effect
+                } else {
+                    // Snow Fairy gone — remove the effect, card will wake normally
+                    $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["FROZEN_BY_SNOW_FAIRY"]));
+                }
+            }
             $field[$i]->Status = 2;
         }
     }
@@ -1375,11 +1401,19 @@ function ExpireEffects($isEndTurn=true) {
     }
     $globalEffects = $newGlobalEffects;
 
-    // Clear per-card TurnEffects from the expiring player's field
+    // Clear per-card TurnEffects from the expiring player's field,
+    // but retain effects flagged as persistent (survive across turns).
+    global $persistentTurnEffects;
     $fieldZone = $isEndTurn ? "myField" : "theirField";
     $fieldArr = &GetZone($fieldZone);
     foreach($fieldArr as &$fieldObj) {
-        $fieldObj->TurnEffects = [];
+        $newEffects = [];
+        foreach($fieldObj->TurnEffects as $effect) {
+            if(isset($persistentTurnEffects[$effect])) {
+                $newEffects[] = $effect;
+            }
+        }
+        $fieldObj->TurnEffects = $newEffects;
     }
     unset($fieldObj);
 }
@@ -1395,6 +1429,13 @@ function AddTurnEffect($mzCard, $effectID) {
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
+
+// Persistent per-card TurnEffects that survive ExpireEffects across turns.
+// SKIP_WAKEUP: consumed by WakeUpPhase (one-time skip).
+// FROZEN_BY_SNOW_FAIRY: persists as long as opponent controls Snow Fairy.
+$persistentTurnEffects = [];
+$persistentTurnEffects["SKIP_WAKEUP"] = true;
+$persistentTurnEffects["FROZEN_BY_SNOW_FAIRY"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(CardType($obj->CardID), "CHAMPION");
