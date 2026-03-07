@@ -15,7 +15,8 @@ function ShowCardDetail(e, that) {
   showDetailTimeout = setTimeout(function() {
     if (e.target.hasAttribute("data-subcard-id")) {
       var subCardID = e.target.getAttribute("data-subcard-id");
-      ShowDetail(e, `${window.location.origin}/SWUOnline/WebpImages/${subCardID}.webp`);
+      var assetFolder = (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) ? AssetReflectionPath() : folderPath;
+      ShowDetail(e, `${window.location.origin}/TCGEngine/${assetFolder}/${subCardID}.png`);
     } else {
       ShowDetail(e, that.getElementsByTagName("IMG")[0].src);
     }
@@ -73,6 +74,29 @@ function ShowDetail(e, imgSource) {
   }
   el.style.zIndex = 100000;
   el.style.display = "none";
+}
+
+function ShowSubcardDetail(e, imgEl) {
+  clearTimeout(showDetailTimeout);
+  showDetailTimeout = setTimeout(function() {
+    var src = imgEl.getAttribute('src') || '';
+    // Transform concat URL to WebpImages for the popup
+    src = src.replace('/concat/', '/WebpImages/');
+    src = src.replace('.webp', '.webp'); // Keep as webp
+    var el = document.getElementById('cardDetail');
+    var displayHeight = 400;
+    var displayWidth = Math.round(400 * 0.71);
+    el.innerHTML = "<img style='height:" + displayHeight + "px; width:" + displayWidth + "px;' src='" + src + "' />";
+    el.style.display = 'inline';
+    el.style.opacity = 0;
+    showDetailTimeout = setTimeout(function() {
+      el.style.transition = 'opacity 0.5s';
+      el.style.opacity = 1;
+    }, 100);
+    el.style.left = (e.clientX < window.innerWidth / 2 ? e.clientX + 30 : e.clientX - 400) + 'px';
+    el.style.top = Math.max(5, Math.min(e.clientY - 200, window.innerHeight - 530)) + 'px';
+    el.style.zIndex = 100000;
+  }, 1);
 }
 
 function HideCardDetail() {

@@ -63,12 +63,60 @@ function DoMaterialize($player, $mzCard) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
     $sourceId = $sourceObject->CardID;
-    //TODO: Handle lineage mechanics
-    MZMove($player, $mzCard, "myField");
-    // Track that a champion leveled up this turn (for Invigorated Slash etc.)
-    // Only set the flag when materializing a champion
+
     if(PropertyContains(CardType($sourceId), "CHAMPION")) {
+        // Champion lineage: find existing champion on the field
+        $field = &GetField($player);
+        $existingChampionIdx = -1;
+        $existingSubcards = [];
+        $existingChampionCardID = null;
+        $existingDamage = 0;
+        $existingCounters = [];
+
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && PropertyContains(CardType($field[$i]->CardID), "CHAMPION") && $field[$i]->Controller == $player) {
+                $existingChampionIdx = $i;
+                $existingChampionCardID = $field[$i]->CardID;
+                $existingSubcards = is_array($field[$i]->Subcards) ? $field[$i]->Subcards : [];
+                $existingDamage = $field[$i]->Damage;
+                $existingCounters = is_array($field[$i]->Counters) ? $field[$i]->Counters : [];
+                break;
+            }
+        }
+
+        // Build new lineage: old champion's CardID prepended to its subcards
+        $newSubcards = [];
+        if($existingChampionCardID !== null) {
+            $newSubcards = array_merge([$existingChampionCardID], $existingSubcards);
+            // Remove old champion from field without triggering OnLeaveField/AllyDestroyed
+            $field[$existingChampionIdx]->removed = true;
+        }
+
+        // Move new champion to field
+        $newObj = MZMove($player, $mzCard, "myField");
+
+        // Transfer lineage (subcards), damage, and counters from old champion
+        if(!empty($newSubcards)) {
+            $newObj->Subcards = $newSubcards;
+        }
+        if($existingDamage > 0) {
+            $newObj->Damage = $existingDamage;
+        }
+        if(!empty($existingCounters)) {
+            // Merge counters from old champion (e.g. enlighten counters carry over)
+            foreach($existingCounters as $counterType => $counterVal) {
+                if(!isset($newObj->Counters[$counterType])) {
+                    $newObj->Counters[$counterType] = $counterVal;
+                } else {
+                    $newObj->Counters[$counterType] += $counterVal;
+                }
+            }
+        }
+
+        // Track that a champion leveled up this turn (for Invigorated Slash etc.)
         AddGlobalEffects($player, "LEVELED_UP_THIS_TURN");
+    } else {
+        MZMove($player, $mzCard, "myField");
     }
 }
 ?>

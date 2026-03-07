@@ -289,6 +289,22 @@ function OnCardActivated($player, $mzCard) {
         }
     }
 
+    // Rai, Archmage (zdIhSL5RhK) — Inherited Effect:
+    // Whenever you activate your first Mage action card each turn, put an enlighten counter on your champion.
+    if(PropertyContains($cardType, "ACTION") && PropertyContains(CardClasses($obj->CardID), "MAGE")) {
+        if(ChampionHasInLineage($player, "zdIhSL5RhK") && GlobalEffectCount($player, "RAI_ARCHMAGE_TRIGGERED") == 0) {
+            AddGlobalEffects($player, "RAI_ARCHMAGE_TRIGGERED");
+            // Find champion and add enlighten counter
+            $champField = &GetField($player);
+            for($ci = 0; $ci < count($champField); ++$ci) {
+                if(!$champField[$ci]->removed && PropertyContains(CardType($champField[$ci]->CardID), "CHAMPION") && $champField[$ci]->Controller == $player) {
+                    AddCounters($player, "myField-" . $ci, "enlighten", 1);
+                    break;
+                }
+            }
+        }
+    }
+
     // After an attack card enters intent and its abilities resolve, declare the champion attack
     if(PropertyContains($cardType, "ATTACK")) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareChampionAttack", 100);
@@ -447,7 +463,7 @@ function OnEnter($player, $mzID) {
     if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
 }
 
-function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $Controller="-", $TurnEffects="-", $Counters="-") {
+function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $Controller="-", $TurnEffects="-", $Counters="-", $Subcards="-") {
     $field = &GetField($player);
     $added = $field[count($field)-1];
     $added->Controller = $player;
@@ -845,6 +861,21 @@ function ObjectCurrentPower($obj) {
                 if(PropertyContains(CardType($fieldObj->CardID), "CHAMPION") && in_array("TJTeWcZnsQ", $fieldObj->TurnEffects)) {
                     $power += 2;
                     break;
+                }
+            }
+        }
+    }
+    // Zander, Always Watching (tOK1Gr0N8f) — Inherited Effect:
+    // +1 POWER to attacks while attacking a rested unit.
+    // Applies when tOK1Gr0N8f is in the champion's lineage (current champion or subcards).
+    if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
+        $controller = $obj->Controller ?? null;
+        if($controller !== null && $controller > 0 && ChampionHasInLineage($controller, "tOK1Gr0N8f")) {
+            $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+            if($combatTarget != "-" && $combatTarget != "") {
+                $targetObj = GetZoneObject($combatTarget);
+                if($targetObj !== null && isset($targetObj->Status) && $targetObj->Status == 1) {
+                    $power += 1;
                 }
             }
         }
@@ -1489,6 +1520,10 @@ $doesGlobalEffectApply["LEVELED_UP_THIS_TURN"] = function($obj) { //Flag only �
     return false;
 };
 
+$doesGlobalEffectApply["RAI_ARCHMAGE_TRIGGERED"] = function($obj) { //Flag only — tracks first Mage action this turn for Rai, Archmage inherited effect
+    return false;
+};
+
 $doesGlobalEffectApply["RfPP8h16Wv"] = function($obj) { //Flag only — next Animal/Beast ally gets buff counter, no visual effect
     return false;
 };
@@ -1656,6 +1691,36 @@ function RecoverChampion($player, $amount=1) {
         }
     }
     return null;
+}
+
+/**
+ * Get the full lineage of a player's champion (current champion CardID + all subcards).
+ * Returns an array of CardIDs representing the lineage from newest to oldest.
+ * @param int $player  The player number
+ * @return array  Array of CardIDs, empty if no champion on field
+ */
+function GetChampionLineage($player) {
+    $field = &GetField($player);
+    foreach($field as $obj) {
+        if(!$obj->removed && PropertyContains(CardType($obj->CardID), "CHAMPION") && $obj->Controller == $player) {
+            $subcards = is_array($obj->Subcards) ? $obj->Subcards : [];
+            return array_merge([$obj->CardID], $subcards);
+        }
+    }
+    return [];
+}
+
+/**
+ * Check if a specific card is part of a player's champion lineage.
+ * This includes the current champion itself and all subcards beneath it.
+ * Used for "Inherited Effect" abilities that persist while a card is in the lineage.
+ * @param int    $player  The player number
+ * @param string $cardID  The card ID to check for
+ * @return bool  True if the card is in the lineage
+ */
+function ChampionHasInLineage($player, $cardID) {
+    $lineage = GetChampionLineage($player);
+    return in_array($cardID, $lineage);
 }
 
 function OnExhaustCard($player, $mzCard) {

@@ -540,6 +540,33 @@
         } catch (e) {}
 
         newHTML += Card(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id);
+
+        // Render subcards (lineage) as offset images behind the card
+        try {
+          var cardDataSub = {};
+          if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
+            try { cardDataSub = JSON.parse(cardArr[2]); } catch (e) {}
+          }
+          if (cardDataSub.Subcards && Array.isArray(cardDataSub.Subcards) && cardDataSub.Subcards.length > 0) {
+            var subcards = cardDataSub.Subcards;
+            for (var si = subcards.length - 1; si >= 0; si--) {
+              var offsetTop = (si + 1) * 10;
+              var offsetLeft = (si + 1) * 3;
+              var subFolder = folder;
+              if (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) {
+                subFolder = AssetReflectionPath();
+              }
+              var subSrc = "./" + subFolder + "/concat/" + subcards[si] + ".webp";
+              newHTML += "<img data-subcard-id='" + subcards[si] + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
+                + "loading='lazy' class='lineage-subcard' style='position:absolute; top:-" + offsetTop + "px; left:" + offsetLeft + "px; height:" + size + "px; width:" + size + "px; "
+                + "border:1px solid transparent; opacity:0.85; z-index:-" + (si + 1) + "; pointer-events:auto;' "
+                + "src='" + subSrc + "' alt='Lineage card' />";
+            }
+          }
+        } catch (e) {
+          if (console && console.error) console.error('Subcards render error', e);
+        }
+
         try {
           // Append counters HTML generated from CounterRules (if defined for this zone)
           newHTML += CreateCountersHTML(zoneName, cardArr, id);
@@ -797,6 +824,21 @@
       const selectableStyle = document.createElement('style');
         selectableStyle.innerHTML = `
           /* Light lime glow for selectable cards */
+
+          /* Any span containing a lineage subcard must not clip its overflow */
+          span:has(.lineage-subcard) {
+            position: relative;
+            z-index: 1;
+            margin-top: 12px;
+            overflow: visible !important;
+          }
+
+          /* Lineage subcard images must not inherit the selectable highlight */
+          .selectable-card .lineage-subcard {
+            border: 1px solid transparent !important;
+            box-shadow: none !important;
+            transform: none !important;
+          }
 
           .selectable-card {
             display: inline-block; /* ensure box-shadow applies nicely */
