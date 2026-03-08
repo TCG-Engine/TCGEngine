@@ -870,7 +870,10 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
 
     // $lastDecision is the defender's unit from their perspective (myField-X)
     $defender = &GetZoneObject($lastDecision);
+    // Track the retaliating unit so passive power bonuses (e.g. Intrepid Highwayman) can check it
+    DecisionQueueController::StoreVariable("CombatRetaliator", $lastDecision);
     $defenderPower = ObjectCurrentPower($defender);
+    DecisionQueueController::ClearVariable("CombatRetaliator");
     if($defenderPower > 0 && $defender->Damage < ObjectCurrentHP($defender)) {
         DealDamage($player, $lastDecision, $attackerMZ, $defenderPower);
     }

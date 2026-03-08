@@ -365,6 +365,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "iohZMWh5v5": // Blazing Throw: sacrifice a weapon as additional cost
+            $weapons = ZoneSearch("myField", ["WEAPON"]);
+            if(!empty($weapons)) {
+                $choices = implode("&", $weapons);
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "BT_SacrificeWeapon", 1);
+            }
+            break;
     }
 }
 
@@ -792,6 +800,11 @@ function ObjectCurrentPower($obj) {
         case "TgYTZg6TaG": // Wind Cutter: [Class Bonus] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["RANGER", "WARRIOR"])) {
                 $power += 1;
+            }
+            break;
+        case "WUAOMTZ7P2": // Intrepid Highwayman: +3 POWER while retaliating
+            if(DecisionQueueController::GetVariable("CombatRetaliator") !== null) {
+                $power += 3;
             }
             break;
         default: break;
@@ -1611,6 +1624,10 @@ $doesGlobalEffectApply["aKgdkLSBza"] = function($obj) { //Wilderness Harpist
     return PropertyContains(CardType($obj->CardID), "CHAMPION");
 };
 
+$doesGlobalEffectApply["HsaWNAsmAQ"] = function($obj) { // Bestial Frenzy: +1 level applies only to champions
+    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
 $doesGlobalEffectApply["WAFNy2lY5t"] = function($obj) { //Melodious Flute
     return false;
 };
@@ -1751,6 +1768,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'DBJ4DuLABr' => 2,
         'RIVahUIQVD' => 2, // Fireball: [Class Bonus] costs 2 less
         'mdiK8UC78c' => 2, // Call the Pack: [Class Bonus] costs 2 less
+        'Uxn14UqyQg' => 2, // Immolation Trap: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -2223,6 +2241,8 @@ $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecisio
 
 function HasFloatingMemory($obj) {
     if(HasKeyword_FloatingMemory($obj)) return true;
+    // Intrepid Highwayman (WUAOMTZ7P2): [Class Bonus] Floating Memory
+    if($obj->CardID === "WUAOMTZ7P2" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
     if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
         for($p = 1; $p <= 2; $p++) {
@@ -2518,5 +2538,126 @@ function GetCriticalAmount($obj, $player) {
 
     return $maxCritical;
 }
+
+/**
+ * Custom DQ handler: Blazing Throw (iohZMWh5v5) — move the chosen weapon to the graveyard.
+ */
+$customDQHandlers["BT_SacrificeWeapon"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+/**
+ * Custom DQ handler: Intangible Geist (Zu53izIFTX) Enter — recursively put regalia from banishment to material.
+ */
+$customDQHandlers["Zu53izIFTX_RecurseRegalia"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        MZMove($player, $lastDecision, "myMaterial");
+        DecisionQueueController::CleanupRemovedCards();
+    } else {
+        return; // Player passed — stop loop
+    }
+    $regalias = ZoneSearch("myBanish", ["REGALIA"]);
+    if(empty($regalias)) return;
+    $choices = implode("&", $regalias);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "Zu53izIFTX_RecurseRegalia", 1);
+};
+
+/**
+ * Custom DQ handlers: Bestial Frenzy (HsaWNAsmAQ)
+ * Option A: champion +1 level (AddGlobalEffects)
+ * Option B: target Beast ally +1 POWER (AddTurnEffect HsaWNAsmAQ_POWER)
+ * Option C: target Beast ally gains cleave (AddTurnEffect HsaWNAsmAQ_CLEAVE)
+ * Choose one; [Class Bonus] choose up to two instead.
+ */
+$customDQHandlers["HsaWNAsmAQ_OptionA"] = function($player, $parts, $lastDecision) {
+    $chosen = 0;
+    if($lastDecision === "YES") {
+        AddGlobalEffects($player, "HsaWNAsmAQ");
+        $chosen = 1;
+    }
+    DecisionQueueController::StoreVariable("BF_chosen", "$chosen");
+    $maxChoices = IsClassBonusActive($player) ? 2 : 1;
+    if($chosen < $maxChoices) {
+        $beasts = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]);
+        if(!empty($beasts)) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Use_B:_Beast_ally_+1_POWER?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "HsaWNAsmAQ_OptionB", 1);
+        } else {
+            // No beasts for B — check for C
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Use_C:_Beast_ally_gains_cleave?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "HsaWNAsmAQ_OptionC", 1);
+        }
+    }
+};
+
+$customDQHandlers["HsaWNAsmAQ_OptionB"] = function($player, $parts, $lastDecision) {
+    $chosen = intval(DecisionQueueController::GetVariable("BF_chosen"));
+    $maxChoices = IsClassBonusActive($player) ? 2 : 1;
+    if($lastDecision === "YES") {
+        $beasts = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]);
+        if(!empty($beasts)) {
+            $chosen++;
+            DecisionQueueController::StoreVariable("BF_chosen", "$chosen");
+            $choices = implode("&", $beasts);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "HsaWNAsmAQ_TargetB", 1);
+        }
+    }
+    if($chosen < $maxChoices) {
+        $beasts = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]);
+        if(!empty($beasts)) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Use_C:_Beast_ally_gains_cleave?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "HsaWNAsmAQ_OptionC", 1);
+        }
+    }
+};
+
+$customDQHandlers["HsaWNAsmAQ_TargetB"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        AddTurnEffect($lastDecision, "HsaWNAsmAQ_POWER");
+    }
+};
+
+$customDQHandlers["HsaWNAsmAQ_OptionC"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        $beasts = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]);
+        if(!empty($beasts)) {
+            $choices = implode("&", $beasts);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "HsaWNAsmAQ_TargetC", 1);
+        }
+    }
+};
+
+$customDQHandlers["HsaWNAsmAQ_TargetC"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        AddTurnEffect($lastDecision, "HsaWNAsmAQ_CLEAVE");
+    }
+};
+
+/**
+ * Custom DQ handler: Call the Pack (mdiK8UC78c) — loop once per Animal ally,
+ * offering the player the chance to put a Beast from hand onto the field.
+ */
+$customDQHandlers["CTP_BeastLoop"] = function($player, $parts, $lastDecision) {
+    $remaining = intval(DecisionQueueController::GetVariable("CTP_remaining")) - 1;
+    DecisionQueueController::StoreVariable("CTP_remaining", "$remaining");
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        MZMove($player, $lastDecision, "myField");
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    if($remaining <= 0) return;
+    $beasts = ZoneSearch("myHand", ["ALLY"], cardSubtypes: ["BEAST"]);
+    if(empty($beasts)) return;
+    $choices = implode("&", $beasts);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CTP_BeastLoop", 1);
+};
 
 ?>
