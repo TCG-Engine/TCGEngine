@@ -632,6 +632,17 @@ function BeforeEndPhase() {
             MZMove($playerID, "theirBanish-" . $sbi, "theirField");
         }
     }
+
+    // MEM_BANISHED: return banished memory cards to their owner's memory.
+    // Only scan myBanish so the return fires on the banished card's owner's end phase,
+    // not the opponent's end phase. (The card sits in theirBanish from the acting player's
+    // perspective, which becomes myBanish when that player's own end phase runs.)
+    $banish = GetZone("myBanish");
+    for($sbi = count($banish) - 1; $sbi >= 0; --$sbi) {
+        if(!$banish[$sbi]->removed && in_array("MEM_BANISHED", $banish[$sbi]->TurnEffects)) {
+            MZMove($playerID, "myBanish-" . $sbi, "myMemory");
+        }
+    }
 }
 
 function EndPhase() {
