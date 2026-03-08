@@ -81,6 +81,7 @@ This is the canonical workflow for implementing card abilities. Follow these ste
   1. Using `AddTurnEffect($mzCard, $effectID)` to tag the card with the effect when the ability resolves.
   2. Adding a `case "$effectID":` to the relevant `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel` switch in `GameLogic.php`.
   The effect is automatically cleared at end of turn by `ExpireEffects`.
+  3. When creating effect ids, make it be the card id plus a dash and suffix (if that card needs multiple distinct effects or other information encoded)
 - **Field-presence passives** (e.g. "champion gets +1 level while you control X") belong in `ObjectCurrentLevel`/`ObjectCurrentPower`/`ObjectCurrentHP`. Use the established pattern: loop the field once, switch on card ID, deduplicate with `$appliedPassives[$fID]` to prevent duplicate copies from stacking inadvertently.
 
 ### Step 1: Gather card information
@@ -96,7 +97,7 @@ Call the MCP `get_zone_schema` tool to understand what properties exist on cards
 
 ### Step 3: Find existing helper functions
 Call the MCP `get_helper_functions` tool to discover what helper functions already exist. Search with relevant terms. Key helpers for Grand Archive include:
-- `ZoneSearch(zoneName, cardTypes, floatingMemoryOnly, cardElements, cardSubtypes)` — search a zone by type/element/subtype. All params after `zoneName` are optional and can be passed by name (e.g. `ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"])`).
+- `ZoneSearch(zoneName, cardTypes, floatingMemoryOnly, cardElements, cardSubtypes)` — search a zone by type/element/subtype. All params after `zoneName` are optional and can be passed by name (e.g. `ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"])`). If the card is a spell, you'll need to use FilterSpellshroudTargets to filter the results.
 - `DealChampionDamage(player, amount)` — add damage to the player's champion on the field
 - `RecoverChampion(player, amount)` — remove damage from the player's champion on the field
 - `DealDamage(player, source, target, amount)` — deal damage from a source to a target (via macro)

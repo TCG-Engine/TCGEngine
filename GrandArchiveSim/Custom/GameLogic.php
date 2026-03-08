@@ -361,6 +361,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "Tx6iJQNSA6": // Majestic Spirit's Crest — [Class Bonus] banish self
         case "WAFNy2lY5t": // Melodious Flute — [Class Bonus] banish self
         case "UiohpiTtgs": // Chalice of Blood — banish self only if champion has 20+ damage
+        case "xjuCkODVRx": // Beastbond Boots — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -456,6 +457,13 @@ function WakeUpPhase() {
                     // Snow Fairy gone — remove the effect, card will wake normally
                     $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["FROZEN_BY_SNOW_FAIRY"]));
                 }
+            }
+            // SPELLSHROUD_NEXT_TURN / STEALTH_NEXT_TURN: expire at beginning of controller's next turn
+            if(in_array("SPELLSHROUD_NEXT_TURN", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["SPELLSHROUD_NEXT_TURN"]));
+            }
+            if(in_array("STEALTH_NEXT_TURN", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["STEALTH_NEXT_TURN"]));
             }
             $field[$i]->Status = 2;
         }
@@ -1516,9 +1524,13 @@ $effectAppliesToBoth["GMBF3HVRKG"] = true;
 // Persistent per-card TurnEffects that survive ExpireEffects across turns.
 // SKIP_WAKEUP: consumed by WakeUpPhase (one-time skip).
 // FROZEN_BY_SNOW_FAIRY: persists as long as opponent controls Snow Fairy.
+// SPELLSHROUD_NEXT_TURN / STEALTH_NEXT_TURN: "until beginning of your next turn" effects,
+//   consumed by WakeUpPhase of the controller's next turn.
 $persistentTurnEffects = [];
 $persistentTurnEffects["SKIP_WAKEUP"] = true;
 $persistentTurnEffects["FROZEN_BY_SNOW_FAIRY"] = true;
+$persistentTurnEffects["SPELLSHROUD_NEXT_TURN"] = true;
+$persistentTurnEffects["STEALTH_NEXT_TURN"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(CardType($obj->CardID), "CHAMPION");
@@ -2239,6 +2251,8 @@ function HasStealth($obj) {
         }
     }
     if(HasKeyword_Stealth($obj)) return true;
+    // STEALTH_NEXT_TURN: persistent stealth until beginning of controller's next turn (e.g. Zander)
+    if(in_array("STEALTH_NEXT_TURN", $obj->TurnEffects)) return true;
     // Check for temporary stealth effects granted by other cards
     $effects = explode(",", CardCurrentEffects($obj));
     foreach($effects as $effectID) {
@@ -2257,6 +2271,36 @@ function HasTrueSight($obj) {
     if(ObjectHasEffect($obj, "iiZtKTulPg")) return true; // Eye of Argus
     if(ObjectHasEffect($obj, "F1t18omUlx_SIGHT")) return true; // Beastbond Paws
     return false;
+}
+
+/**
+ * Check whether a field object currently has Spellshroud.
+ * Objects with spellshroud can't be targeted by Spells.
+ * Sources:
+ *   - TurnEffect "SPELLSHROUD" (until end of turn, e.g. Beastbond Boots)
+ *   - TurnEffect "SPELLSHROUD_NEXT_TURN" (until beginning of next turn, e.g. Zander)
+ */
+function HasSpellshroud($obj) {
+    if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
+    if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
+    return false;
+}
+
+/**
+ * Filter an array of mzID strings, removing any that point to objects with Spellshroud.
+ * Use this when building target lists for abilities that are Spell sources.
+ *
+ * @param array $mzIDs  Array of mzID strings (e.g. ["myField-0", "theirField-2"])
+ * @return array  Filtered array with spellshroud objects removed
+ */
+function FilterSpellshroudTargets($mzIDs) {
+    $filtered = [];
+    foreach($mzIDs as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj !== null && HasSpellshroud($obj)) continue;
+        $filtered[] = $mzID;
+    }
+    return $filtered;
 }
 
 function PrideAmount($obj) {
