@@ -770,6 +770,11 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
             }
             break;
+        case "TgYTZg6TaG": // Wind Cutter: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["RANGER", "WARRIOR"])) {
+                $power += 1;
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
