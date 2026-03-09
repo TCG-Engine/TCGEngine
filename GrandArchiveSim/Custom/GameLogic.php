@@ -1007,6 +1007,12 @@ function ObjectCurrentPower($obj) {
             case "sdbzr5zs29-debuff": // Corhazi Trapper: target unit's attacks get -3 POWER until end of turn
                 $power -= 3;
                 break;
+            case "lx6xwr42i6": // Windrider Invoker: +3 POWER until end of turn
+                $power += 3;
+                break;
+            case "w9n0wpbhig": // Lancelot, Goliath of Aesa: +3 POWER until end of turn
+                $power += 3;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -1027,6 +1033,16 @@ function ObjectCurrentPower($obj) {
                     break;
                 }
             }
+        }
+    }
+    // Ally Link: check for power bonuses from linked Phantasia cards via Subcards
+    $linkedCards = GetLinkedCards($obj);
+    foreach($linkedCards as $linkedObj) {
+        switch($linkedObj->CardID) {
+            case "80mttsvbgl": // Mark of Fervor: linked ally gets +1 POWER
+                $power += 1;
+                break;
+            default: break;
         }
     }
     // Zander, Always Watching (tOK1Gr0N8f) — Inherited Effect:
@@ -1191,6 +1207,11 @@ function ObjectCurrentHP($obj) {
                 $cardLife += 1;
             }
             break;
+        case "w9n0wpbhig": // Lancelot, Goliath of Aesa: [Class Bonus][Level 2+] +2 LIFE
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN", "WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
+                $cardLife += 2;
+            }
+            break;
         default: break;
     }
     // Ally Link: check for bonuses from linked Phantasia cards via Subcards
@@ -1198,6 +1219,9 @@ function ObjectCurrentHP($obj) {
     foreach($linkedCards as $linkedObj) {
         switch($linkedObj->CardID) {
             case "4muq2r6v37": // Ocean's Blessing: linked ally gets +1 LIFE
+                $cardLife += 1;
+                break;
+            case "80mttsvbgl": // Mark of Fervor: linked ally gets +1 LIFE
                 $cardLife += 1;
                 break;
             default: break;
@@ -2398,6 +2422,11 @@ function HasVigor($obj) {
     if(HasKeyword_Vigor($obj)) return true;
     // Command the Hunt (rxxwQT054x): allies gain vigor via global effect
     if(ObjectHasEffect($obj, "rxxwQT054x_VIGOR")) return true;
+    // Ally Link: Mark of Fervor (80mttsvbgl): linked ally has vigor
+    $linkedCards = GetLinkedCards($obj);
+    foreach($linkedCards as $linkedObj) {
+        if($linkedObj->CardID === "80mttsvbgl") return true;
+    }
     return false;
 }
 
@@ -2488,12 +2517,25 @@ function HasTaunt($obj) {
     if(HasKeyword_Taunt($obj)) return true;
     if(in_array("TAUNT", $obj->TurnEffects)) return true;
     if(in_array("TAUNT_NEXT_TURN", $obj->TurnEffects)) return true;
-    // Ally Link: check if any linked Phantasia grants taunt
+    // Ally Link: check if any linked Phantasia/ally grants taunt
     $linkedCards = GetLinkedCards($obj);
     foreach($linkedCards as $linkedObj) {
         switch($linkedObj->CardID) {
             case "4muq2r6v37": // Ocean's Blessing: linked ally has taunt
                 return true;
+            case "fqsuo6gb0o": // Avatar of Gaia: linked ally has taunt
+                return true;
+        }
+    }
+    // Bedivere, Woodland Overseer (pwakb1k0zi): has taunt while controlling another Animal/Beast ally
+    if($obj->CardID === "pwakb1k0zi") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $animalBeast = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+        // Must control ANOTHER Animal/Beast ally (not counting Bedivere itself)
+        foreach($animalBeast as $abMZ) {
+            $abObj = GetZoneObject($abMZ);
+            if($abObj !== null && $abObj->CardID !== "pwakb1k0zi") return true;
         }
     }
     return false;
@@ -2518,7 +2560,13 @@ function FilterSpellshroudTargets($mzIDs) {
 
 function PrideAmount($obj) {
     $prideValue = GetKeyword_Pride_Value($obj);
-    return $prideValue !== null ? $prideValue : 0;
+    if($prideValue === null) return 0;
+    // Avatar of Gaia (fqsuo6gb0o): linked ally loses pride
+    $linkedCards = GetLinkedCards($obj);
+    foreach($linkedCards as $linkedObj) {
+        if($linkedObj->CardID === "fqsuo6gb0o") return 0;
+    }
+    return $prideValue;
 }
 
 function CardMemoryCost($obj) {

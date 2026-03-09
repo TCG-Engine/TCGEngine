@@ -33,7 +33,7 @@ $keywords = [
 // Grand Archive Conditions
 $conditions = [
     [ 'name' => "Class Bonus", 'evalFunction' => "IsClassBonusActive(\$player)", 'isVariable' => false ],
-    [ 'name' => "Level", 'evalFunction' => "GetPlayerLevel(\$player)", 'isVariable' => true ]
+    [ 'name' => "Level", 'evalFunction' => "PlayerLevel(\$player)", 'isVariable' => true ]
 ];
 
 // Function to parse keywords and conditions from card effect text
