@@ -260,7 +260,10 @@ function OnCardActivated($player, $mzCard) {
         // Weapons enter the field like allies (main-deck weapons with reserve cost)
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
-    } else if(PropertyContains($cardType, "ACTION")) {
+    } else if(PropertyContains($cardType, "PHANTASIA")) {
+        $obj = MZMove($player, $mzCard, "myField");
+        $obj->Controller = $player;
+    }  else if(PropertyContains($cardType, "ACTION")) {
         // Special case: Preserve cards go to Material zone
         if($obj->CardID == "2Ojrn7buPe") { // Tera Sight - Preserve
             $obj = MZMove($player, $mzCard, "myMaterial");
