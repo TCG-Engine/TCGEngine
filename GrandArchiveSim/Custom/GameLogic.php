@@ -147,6 +147,35 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Rally the Peasants (q1uwq8sdbz): [Class Bonus] costs 3 less if opponent controls 3+ allies
+    if($obj->CardID === "q1uwq8sdbz" && IsClassBonusActive($player, ["WARRIOR"])) {
+        $oppAllies = ZoneSearch("theirField", ["ALLY"]);
+        if(count($oppAllies) >= 3) {
+            $reserveCost = max(0, $reserveCost - 3);
+        }
+    }
+
+    // Steady Verse Harmony Discount: next Harmony card costs 1 less
+    if(GlobalEffectCount($player, "STEADY_VERSE_HARMONY_DISCOUNT") > 0) {
+        if(PropertyContains(CardSubtypes($obj->CardID), "HARMONY")) {
+            $reserveCost = max(0, $reserveCost - 1);
+            RemoveGlobalEffect($player, "STEADY_VERSE_HARMONY_DISCOUNT");
+        }
+    }
+
+    // Incarnate Majesty (7dl5j4lx6x): costs 1 less per regalia weapon in banishment
+    if($obj->CardID === "7dl5j4lx6x") {
+        $banishWeapons = ZoneSearch("myBanish", ["WEAPON"]);
+        $regaliaCount = 0;
+        foreach($banishWeapons as $bwMZ) {
+            $bwObj = GetZoneObject($bwMZ);
+            if(PropertyContains(CardType($bwObj->CardID), "REGALIA")) {
+                $regaliaCount++;
+            }
+        }
+        $reserveCost = max(0, $reserveCost - $regaliaCount);
+    }
+
     // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
     if($hasAllyLink) {
         $allyTargets = ZoneSearch("myField", ["ALLY"]);
@@ -181,6 +210,51 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::StoreVariable("wasPrepared", "NO");
     }
 
+    //1.3 Declaring Costs — Innervate Knowledge / Innervate Agility: mandatory delevel + recover 5
+    if($obj->CardID === "pcescfpwak" || $obj->CardID === "v43ehjdu50") {
+        $field = &GetField($player);
+        $champIdx = -1;
+        $champObj = null;
+        for($fi = 0; $fi < count($field); ++$fi) {
+            if(!$field[$fi]->removed && PropertyContains(CardType($field[$fi]->CardID), "CHAMPION") && $field[$fi]->Controller == $player) {
+                $champIdx = $fi;
+                $champObj = &$field[$fi];
+                break;
+            }
+        }
+        $subcards = ($champObj !== null && is_array($champObj->Subcards)) ? $champObj->Subcards : [];
+        if(empty($subcards)) {
+            // No lineage card to delevel — can't activate. Move card back from effect stack to hand.
+            $es = &GetEffectStack();
+            $esIdx = count($es) - 1;
+            MZMove($player, "EffectStack-" . $esIdx, "myHand");
+            return;
+        }
+        // Pop the top lineage card (first subcard = most recent level) back to material
+        $poppedCardID = array_shift($champObj->Subcards);
+        AddMaterial($player, $poppedCardID);
+        // Recover 5
+        RecoverChampion($player, 5);
+    }
+
+    //1.3 Declaring Costs — Song of Frost (t1cn1tzgcx): [Class Bonus] may banish floating-memory GY card instead of reserve
+    $hasSongOfFrostAltCost = false;
+    if($obj->CardID === "t1cn1tzgcx" && IsClassBonusActive($player, ["TAMER"])) {
+        $floatingGY = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if(!$gy[$gi]->removed && HasFloatingMemory($gy[$gi])) {
+                $floatingGY[] = "myGraveyard-" . $gi;
+            }
+        }
+        if(!empty($floatingGY) && $reserveCost > 0) {
+            $hasSongOfFrostAltCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Banish_floating-memory_GY_card_instead_of_reserve?");
+            DecisionQueueController::AddDecision($player, "CUSTOM",
+                "SongOfFrostAltCost|" . $reserveCost, 100);
+        }
+    }
+
     //1.3 Declaring Costs — check for optional additional costs
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
@@ -198,13 +272,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
         //1.8 Paying Costs
-        for($i = 0; $i < $reserveCost; ++$i) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        if(!$ignoreCost) {
+            for($i = 0; $i < $reserveCost; ++$i) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
         }
 
         //1.9 Activation — grant Opportunity to the opponent before resolving
@@ -212,6 +288,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     }
     // When $hasAdditionalCost is true, the DeclareAdditionalCost handler takes over
     // queuing reserve payments and EffectStackOpportunity after the player answers.
+    // When $hasSongOfFrostAltCost is true, SongOfFrostAltCost handler queues its own
+    // reserve/banish + EffectStackOpportunity.
 }
 
 $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
@@ -299,6 +377,10 @@ function OnCardActivated($player, $mzCard) {
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "WEAPON")) {
         // Weapons enter the field like allies (main-deck weapons with reserve cost)
+        $obj = MZMove($player, $mzCard, "myField");
+        $obj->Controller = $player;
+    }  else if(PropertyContains($cardType, "REGALIA")) {
+        // Regalia enter the field like allies (main-deck regalia with reserve cost)
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "PHANTASIA")) {
@@ -1252,6 +1334,9 @@ function ObjectCurrentHP($obj) {
             case "x7u6wzh973": // Frostbinder Apostle: -4 LIFE until end of turn
                 $cardLife -= 4;
                 break;
+            case "vbgl6ffqsu-HP": // Anthem of Vitality: +3 LIFE until end of turn
+                $cardLife += 3;
+                break;
             default: break;
         }
     }
@@ -1799,6 +1884,18 @@ $doesGlobalEffectApply["6e7lRnczfL"] = function($obj) { //Horn of Beastcalling
 
 $doesGlobalEffectApply["EBWWwvSxr3"] = function($obj) { //Horn of Beastcalling
     return false;
+};
+
+$doesGlobalEffectApply["STEADY_VERSE_HARMONY_DISCOUNT"] = function($obj) { //Steady Verse: flag only — next Harmony card costs 1 less
+    return false;
+};
+
+$doesGlobalEffectApply["INNERVATE_STEALTH"] = function($obj) { //Innervate Agility: units gain stealth
+    return PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
+$doesGlobalEffectApply["INNERVATE_SPELLSHROUD"] = function($obj) { //Innervate Agility: units gain spellshroud
+    return PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "CHAMPION");
 };
 
 function GlobalEffectCount($player, $effectID) {
@@ -2458,6 +2555,8 @@ function HasStealth($obj) {
                 return true;
             case "ScGcOmkoQt": // Smoke Bombs: target ally gains stealth this turn
                 return true;
+            case "INNERVATE_STEALTH": // Innervate Agility: units gain stealth until EOT
+                return true;
         }
     }
     return false;
@@ -2480,6 +2579,9 @@ function HasTrueSight($obj) {
 function HasSpellshroud($obj) {
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
+    // Innervate Agility: units gain spellshroud until EOT via global effect
+    $effects = explode(",", CardCurrentEffects($obj));
+    if(in_array("INNERVATE_SPELLSHROUD", $effects)) return true;
     return false;
 }
 
@@ -2622,7 +2724,7 @@ function CreateAllyLink($player, $phantasiaMZ, $allyMZ) {
  * @return array  Array of linked Phantasia field objects.
  */
 function GetLinkedCards($obj) {
-    if(!is_array($obj->Subcards) || empty($obj->Subcards)) return [];
+    if(!isset($obj->Subcards) || !is_array($obj->Subcards) || empty($obj->Subcards)) return [];
     global $playerID;
     $zoneRef = $obj->Controller == $playerID ? "myField" : "theirField";
     $field = GetZone($zoneRef);
@@ -2995,6 +3097,141 @@ $customDQHandlers["CTP_BeastLoop"] = function($player, $parts, $lastDecision) {
     $choices = implode("&", $beasts);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "CTP_BeastLoop", 1);
+};
+
+/**
+ * Anthem of Vitality Harmonize: if harmonize is active, choose Animal/Beast ally for buff counters.
+ */
+$customDQHandlers["AnthemOfVitalityHarmonize"] = function($player, $parts, $lastDecision) {
+    if(!IsHarmonizeActive($player)) return;
+    $harmTargets = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+    if(empty($harmTargets)) return;
+    $harmChoices = implode("&", $harmTargets);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $harmChoices, 1, "Choose_Animal/Beast_ally_for_buff_counters");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AnthemOfVitalityBuff", 1);
+};
+
+$customDQHandlers["AnthemOfVitalityBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "PASS" && $lastDecision !== "-" && !empty($lastDecision)) {
+        AddCounters($player, $lastDecision, "buff", 2);
+    }
+};
+
+/**
+ * Rally the Peasants: process MZREARRANGE result.
+ * lastDecision format: "ToHand=cardA;Reveal=cardB,cardC;"
+ * If player dragged a Human to ToHand, pull it from the deck (already on bottom) into hand.
+ */
+$customDQHandlers["RallyPeasantsApply"] = function($player, $parts, $lastDecision) {
+    $toHandIDs = [];
+    foreach(explode(";", $lastDecision) as $pile) {
+        $pile = trim($pile);
+        if(empty($pile) || strpos($pile, "=") === false) continue;
+        [$pileName, $cardStr] = explode("=", $pile, 2);
+        $cardStr = trim($cardStr);
+        if($pileName === "ToHand" && !empty($cardStr)) {
+            $toHandIDs = explode(",", $cardStr);
+        }
+    }
+    if(empty($toHandIDs)) return;
+    $chosenID = $toHandIDs[0]; // only take the first one regardless of how many player moved
+    $deck = &GetDeck($player);
+    $hand = &GetHand($player);
+    foreach($deck as $i => $card) {
+        if($card->CardID === $chosenID) {
+            SetFlashMessage('REVEAL:' . $chosenID);
+            $obj = array_splice($deck, $i, 1)[0];
+            array_push($hand, $obj);
+            return;
+        }
+    }
+};
+
+/**
+ * Slay the King On Attack: process YesNo answer to banish from material deck.
+ */
+$customDQHandlers["SlayTheKingOnAttack"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") {
+        DecisionQueueController::StoreVariable("SlayTheKing_BanishedCardID", "");
+        return;
+    }
+    $matChoices = DecisionQueueController::GetVariable("slayTheKingMats");
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $matChoices, 1, "Choose_card_to_banish");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SlayTheKingBanish", 1);
+};
+
+$customDQHandlers["SlayTheKingBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) {
+        DecisionQueueController::StoreVariable("SlayTheKing_BanishedCardID", "");
+        return;
+    }
+    $obj = GetZoneObject($lastDecision);
+    DecisionQueueController::StoreVariable("SlayTheKing_BanishedCardID", $obj->CardID);
+    MZMove($player, $lastDecision, "myBanish");
+};
+
+/**
+ * Slay the King On Kill: process YesNo to play the banished card.
+ */
+$customDQHandlers["SlayTheKingOnKill"] = function($player, $parts, $lastDecision) {
+    $banishedCardID = DecisionQueueController::GetVariable("SlayTheKing_BanishedCardID");
+    DecisionQueueController::StoreVariable("SlayTheKing_BanishedCardID", "");
+    if($lastDecision !== "YES") return;
+    if(empty($banishedCardID) || $banishedCardID === "-") return;
+    $banish = GetZone("myBanish");
+    for($i = 0; $i < count($banish); ++$i) {
+        if(!$banish[$i]->removed && $banish[$i]->CardID === $banishedCardID) {
+            DoActivateCard($player, "myBanish-" . $i, true);
+            break;
+        }
+    }
+};
+
+/**
+ * Innervate Agility: apply stealth or spellshroud to all units you control.
+ */
+$customDQHandlers["InnervateAgilityApply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        // Stealth: add TurnEffect to all units (champion + allies)
+        AddGlobalEffects($player, "INNERVATE_STEALTH");
+    } else {
+        // Spellshroud: add TurnEffect to all units
+        AddGlobalEffects($player, "INNERVATE_SPELLSHROUD");
+    }
+};
+
+/**
+ * Song of Frost: process YesNo to banish floating-memory GY card instead of reserve cost.
+ */
+$customDQHandlers["SongOfFrostAltCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0]);
+    if($lastDecision === "YES") {
+        // Banish the floating-memory GY card instead of paying reserve
+        $floatingGY = [];
+        $gy = GetZone("myGraveyard");
+        for($i = 0; $i < count($gy); ++$i) {
+            if(!$gy[$i]->removed && HasFloatingMemory($gy[$i])) {
+                $floatingGY[] = "myGraveyard-" . $i;
+            }
+        }
+        if(!empty($floatingGY)) {
+            $choices = implode("&", $floatingGY);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1, "Banish_a_floating-memory_card");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SongOfFrostBanish", 1);
+        }
+    } else {
+        // Pay normal reserve cost
+        for($i = 0; $i < $reserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+$customDQHandlers["SongOfFrostBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "PASS" && $lastDecision !== "-" && !empty($lastDecision)) {
+        MZMove($player, $lastDecision, "myBanish");
+    }
 };
 
 /**

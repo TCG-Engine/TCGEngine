@@ -986,6 +986,26 @@ function OnDealDamage($player, $source, $target, $amount) {
         return; // Damage fully prevented
     }
 
+    // PREVENT_ALL_N: prevent up to N of any damage this turn (Guarded Dissipation)
+    if($amount > 0) {
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "PREVENT_ALL_") === 0) {
+                $budget = intval(substr($effect, 12));
+                $prevented = min($budget, $amount);
+                $amount -= $prevented;
+                $remaining = $budget - $prevented;
+                if($remaining <= 0) {
+                    unset($targetObj->TurnEffects[$idx]);
+                    $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                } else {
+                    $targetObj->TurnEffects[$idx] = "PREVENT_ALL_" . $remaining;
+                }
+                break;
+            }
+        }
+        if($amount <= 0) return;
+    }
+
     // PREVENT_COMBAT_N: prevent up to N combat damage this turn (Deflecting Edge)
     $isCombat = DecisionQueueController::GetVariable("CombatAttacker") !== null;
     if($isCombat && $amount > 0) {
