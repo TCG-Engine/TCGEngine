@@ -509,25 +509,6 @@ function OnHitTrigger($player, $attackerMZ) {
             $onHitAbilities[$weaponObj->CardID . ":0"]($player);
         }
     }
-
-    // On Champion Hit: scan field allies for champion-hit abilities
-    $attackerObj = GetZoneObject($attackerMZ);
-    if($attackerObj !== null && PropertyContains(CardType($attackerObj->CardID), "CHAMPION")) {
-        global $playerID;
-        $zone = $player == $playerID ? "myField" : "theirField";
-        $field = GetZone($zone);
-        foreach($field as $fi => $fObj) {
-            if($fObj->removed) continue;
-            switch($fObj->CardID) {
-                case "du50pcescf": // Gawain, Chivalrous Thief: [CB] On Champion Hit: sacrifice to discard from opponent's memory
-                    if(!IsClassBonusActive($player, ["ASSASSIN", "RANGER"])) break;
-                    $gawainMZ = $zone . "-" . $fi;
-                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Sacrifice_Gawain?");
-                    DecisionQueueController::AddDecision($player, "CUSTOM", "GawainOnChampionHit|" . $gawainMZ, 1);
-                    break;
-            }
-        }
-    }
 }
 
 /**
@@ -1115,26 +1096,5 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         AllyDestroyed($player, $target);
     }
 }
-
-// --- Gawain, Chivalrous Thief (du50pcescf): On Champion Hit DQ handlers ---
-$customDQHandlers["GawainOnChampionHit"] = function($player, $parts, $lastDecision) {
-    if($lastDecision !== "YES") return;
-    $gawainMZ = $parts[0];
-    $gawainObj = GetZoneObject($gawainMZ);
-    if($gawainObj === null || $gawainObj->removed || $gawainObj->CardID !== "du50pcescf") return;
-    // Sacrifice Gawain
-    DoAllyDestroyed($player, $gawainMZ);
-    // Choose a card from opponent's memory to discard
-    $oppMemory = ZoneSearch("theirMemory");
-    if(empty($oppMemory)) return;
-    $targets = implode("&", $oppMemory);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targets, 1, "Choose_a_card_to_discard_from_opponent's_memory");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "GawainOnChampionHit_Discard", 1);
-};
-
-$customDQHandlers["GawainOnChampionHit_Discard"] = function($player, $parts, $lastDecision) {
-    if(empty($lastDecision) || $lastDecision === "-") return;
-    MZMove($player, $lastDecision, "theirGraveyard");
-};
 
 ?>
