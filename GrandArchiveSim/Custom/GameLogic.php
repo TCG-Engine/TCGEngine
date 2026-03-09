@@ -2403,6 +2403,23 @@ function HasReservable($obj) {
 }
 
 /**
+ * Check whether a field object currently has Taunt.
+ * Taunt: "While awake, this must be targeted before other objects you control during your
+ *         opponents' attack declarations, if able."
+ * Taunt is redundant. Multiple instances don't increase priority.
+ * Sources:
+ *   - Static keyword from card dictionary (HasKeyword_Taunt)
+ *   - TurnEffect "TAUNT" (until end of turn, e.g. granted by a spell)
+ *   - TurnEffect "TAUNT_NEXT_TURN" (until beginning of controller's next turn, e.g. On Enter grant)
+ */
+function HasTaunt($obj) {
+    if(HasKeyword_Taunt($obj)) return true;
+    if(in_array("TAUNT", $obj->TurnEffects)) return true;
+    if(in_array("TAUNT_NEXT_TURN", $obj->TurnEffects)) return true;
+    return false;
+}
+
+/**
  * Filter an array of mzID strings, removing any that point to objects with Spellshroud.
  * Use this when building target lists for abilities that are Spell sources.
  *

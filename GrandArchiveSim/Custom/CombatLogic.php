@@ -209,6 +209,24 @@ function GetValidAttackTargets($attackerMZ) {
             return $interceptTargets;
         }
     }
+
+    // Check for Taunt -- awake units with Taunt must be targeted before other units.
+    // Unblockable bypasses Taunt just as it bypasses Intercept (same $bypassIntercept flag).
+    // Taunt only applies while the unit is awake (Status == 2).
+    if(!$bypassIntercept) {
+        $tauntTargets = [];
+        foreach($opponents as $mzID) {
+            $obj = &GetZoneObject($mzID);
+            if(HasTaunt($obj) && $obj->Status == 2) {
+                $tauntTargets[] = $mzID;
+            }
+        }
+        // If any opposing unit has Taunt (and is awake), only those may be targeted
+        if(!empty($tauntTargets)) {
+            return $tauntTargets;
+        }
+    }
+
     return $opponents;
 }
 

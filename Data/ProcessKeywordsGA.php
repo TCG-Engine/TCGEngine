@@ -25,7 +25,9 @@ $keywords = [
     [ 'name' => "Stealth" ],
     [ 'name' => "Prepare" ],
     [ 'name' => "Hindered" ],
-    [ 'name' => "Reservable" ]
+    [ 'name' => "Reservable" ],
+    [ 'name' => "Ally Link" ],
+    [ 'name' => "Taunt" ]
 ];
 
 // Grand Archive Conditions
