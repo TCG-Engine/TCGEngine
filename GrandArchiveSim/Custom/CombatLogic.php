@@ -767,6 +767,16 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         return;
     }
 
+    // Check if any intent card has NO_RETALIATE (e.g. Seeking Shot [Class Bonus])
+    $attackerIntentCards = GetIntentCards($attackerPlayer);
+    foreach($attackerIntentCards as $iMZ) {
+        $iObj = GetZoneObject($iMZ);
+        if($iObj !== null && in_array("NO_RETALIATE", $iObj->TurnEffects)) {
+            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+            return;
+        }
+    }
+
     // Flip to defender's perspective
     $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
@@ -1003,6 +1013,14 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(in_array("BARRIER_PREVENT_DAMAGE", $targetObj->TurnEffects)) {
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));
         return; // Damage fully prevented
+    }
+
+    // Protective Fractal: prevent 1 damage per effect
+    $protectivePrevention = GetProtectiveFractalPrevention($targetObj);
+    if($protectivePrevention > 0) {
+        $amount -= 1;
+        $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "1lw9n0wpbh"));
+        if($amount <= 0) return; // All damage prevented
     }
 
     // PREVENT_ALL_N: prevent up to N of any damage this turn (Guarded Dissipation)

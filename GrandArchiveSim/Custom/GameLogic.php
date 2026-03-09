@@ -1047,6 +1047,15 @@ function ObjectCurrentPower($obj) {
                 $power += 3;
             }
             break;
+        case "88zq9ox7u6": // Seeking Shot: +3 POWER while attacking a Human ally
+            $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+            if($combatTarget != "-" && $combatTarget != "") {
+                $targetObj = GetZoneObject($combatTarget);
+                if($targetObj !== null && PropertyContains(CardSubtypes($targetObj->CardID), "HUMAN")) {
+                    $power += 3;
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -2717,7 +2726,21 @@ function HasTrueSight($obj) {
     if(HasKeyword_TrueSight($obj)) return true;
     if(ObjectHasEffect($obj, "iiZtKTulPg")) return true; // Eye of Argus
     if(ObjectHasEffect($obj, "F1t18omUlx_SIGHT")) return true; // Beastbond Paws
+    // Seeking Shot: [Level 2+] True Sight
+    if($obj->CardID === "88zq9ox7u6" && PlayerLevel($obj->Controller) >= 2) return true;
     return false;
+}
+
+/**
+ * Get damage prevention value from Protective Fractal effect.
+ * Protective Fractal grants 1 damage prevention per active effect.
+ */
+function GetProtectiveFractalPrevention($obj) {
+    $count = 0;
+    foreach($obj->TurnEffects as $effect) {
+        if($effect === "1lw9n0wpbh") $count++;
+    }
+    return $count;
 }
 
 /**
