@@ -368,12 +368,39 @@
             if(mode != "Tile" && zoneMetadata.Sort && zoneMetadata.Sort.Reverse) {
               zoneArr.reverse();
             }
+            // Pre-collect CardIDs that appear as Subcards of other cards in this zone.
+            // Such cards are rendered inline as subcard thumbnails and should be hidden
+            // from standalone rendering (e.g. Ally Link Phantasia cards linked to an ally).
+            // Safety: only skip if the CardID is also a standalone entry in this same zone
+            // (prevents hiding cards whose CardID just happens to match a lineage history entry).
+            var linkedSubcardCardIDs = {};
+            var standaloneCardIDs = {};
+            for (var _si = 0; _si < zoneArr.length; ++_si) {
+              var _tempArr = zoneArr[_si].split(" ");
+              standaloneCardIDs[_tempArr[0]] = true;
+            }
+            for (var _si = 0; _si < zoneArr.length; ++_si) {
+              var _tempArr = zoneArr[_si].split(" ");
+              if (_tempArr.length > 2 && _tempArr[2] && _tempArr[2] !== '-') {
+                try {
+                  var _tempData = JSON.parse(_tempArr[2]);
+                  if (_tempData.Subcards && Array.isArray(_tempData.Subcards)) {
+                    _tempData.Subcards.forEach(function(sid) {
+                      if (sid && typeof sid === 'string' && standaloneCardIDs[sid]) {
+                        linkedSubcardCardIDs[sid] = true;
+                      }
+                    });
+                  }
+                } catch (e) {}
+              }
+            }
             for (var i = 0; i < zoneArr.length; ++i) {
               cardArr = zoneArr[i].split(" ");
               if(filter != "") {
                 if(ShouldFilter(cardArr[0], filter)) continue;
               }
               if(filterFunction != null && window.customFilter && filterFunction(cardArr[0])) continue;
+              if(linkedSubcardCardIDs[cardArr[0]]) continue; // skip cards rendered inline as subcards
               if(mode == "Tile") {
                 var cardObject = {
                   id: cardArr[0],

@@ -68,6 +68,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     }
     
     $sourceObject = &GetZoneObject($mzCard);
+
+    // 1.5 Ally Link pre-check: if the card has Ally Link, there must be at least
+    // one ally on the field to link to. If not, the activation is illegal.
+    global $AllyLink_Cards;
+    $hasAllyLink = isset($AllyLink_Cards[$sourceObject->CardID]);
+    if($hasAllyLink) {
+        $allyTargets = ZoneSearch("myField", ["ALLY"]);
+        if(empty($allyTargets)) return; // No valid Link target — block activation
+    }
+
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
@@ -135,6 +145,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(!empty(ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["SWORD"]))) {
             $reserveCost = max(0, $reserveCost - 1);
         }
+    }
+
+    // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
+    if($hasAllyLink) {
+        $allyTargets = ZoneSearch("myField", ["ALLY"]);
+        $allyChoices = implode("&", $allyTargets);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyChoices, 100, tooltip:"Choose_ally_to_link");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareAllyLinkTarget", 100);
     }
 
     //1.3 Declaring Costs — Prepare keyword: optional removal of preparation counters
@@ -284,6 +302,36 @@ function OnCardActivated($player, $mzCard) {
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "PHANTASIA")) {
+        // Ally Link fizzle check: validate the link target is still legal at resolution time
+        global $AllyLink_Cards;
+        if(isset($AllyLink_Cards[$obj->CardID])) {
+            $linkTargetMZ = DecisionQueueController::GetVariable("linkTargetMZ");
+            $linkTargetCardID = DecisionQueueController::GetVariable("linkTargetCardID");
+            $targetObj = (!empty($linkTargetMZ) && $linkTargetMZ !== "-") ? GetZoneObject($linkTargetMZ) : null;
+            $targetValid = ($targetObj !== null && !$targetObj->removed
+                && $targetObj->CardID === $linkTargetCardID
+                && PropertyContains(CardType($targetObj->CardID), "ALLY"));
+            if(!$targetValid && !empty($linkTargetCardID)) {
+                // Target index may have shifted — scan field for the same CardID
+                $field = GetZone("myField");
+                $targetValid = false;
+                for($fi = 0; $fi < count($field); $fi++) {
+                    if(!$field[$fi]->removed && $field[$fi]->CardID === $linkTargetCardID
+                        && PropertyContains(CardType($field[$fi]->CardID), "ALLY")) {
+                        DecisionQueueController::StoreVariable("linkTargetMZ", "myField-" . $fi);
+                        $targetValid = true;
+                        break;
+                    }
+                }
+            }
+            if(!$targetValid) {
+                // Fizzle — link target no longer exists
+                $obj = MZMove($player, $mzCard, "myGraveyard");
+                DecisionQueueController::StoreVariable("linkTargetMZ", "");
+                DecisionQueueController::CleanupRemovedCards();
+                return;
+            }
+        }
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "ACTION")) {
@@ -450,6 +498,8 @@ function OnLeaveField($player, $mzID) {
     $obj = GetZoneObject($mzID);
     if($obj === null) return;
     $controller = $obj->Controller;
+    // Check and break any Link connections involving the departing card
+    CheckAndBreakLinks($player, $mzID);
     DecisionQueueController::CleanupRemovedCards();
     if(isset($leaveFieldAbilities[$obj->CardID . ":0"])) $leaveFieldAbilities[$obj->CardID . ":0"]($controller);
 }
@@ -547,6 +597,17 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         $durability = CardDurability($added->CardID);
         if($durability !== null && $durability > 0) {
             AddCounters($player, "myField-" . (count($field) - 1), "durability", $durability);
+        }
+    }
+
+    // Ally Link: if the entering card has Ally Link, establish the link via Subcards
+    global $AllyLink_Cards;
+    if(isset($AllyLink_Cards[$added->CardID])) {
+        $linkTargetMZ = DecisionQueueController::GetVariable("linkTargetMZ");
+        if(!empty($linkTargetMZ) && $linkTargetMZ !== "-") {
+            $phantasiaMZ = "myField-" . (count($field) - 1);
+            CreateAllyLink($player, $phantasiaMZ, $linkTargetMZ);
+            DecisionQueueController::StoreVariable("linkTargetMZ", ""); // Clear after use
         }
     }
 
@@ -1132,6 +1193,17 @@ function ObjectCurrentHP($obj) {
             break;
         default: break;
     }
+    // Ally Link: check for bonuses from linked Phantasia cards via Subcards
+    $linkedCards = GetLinkedCards($obj);
+    foreach($linkedCards as $linkedObj) {
+        switch($linkedObj->CardID) {
+            case "4muq2r6v37": // Ocean's Blessing: linked ally gets +1 LIFE
+                $cardLife += 1;
+                break;
+            default: break;
+        }
+    }
+
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
     foreach($cardCurrentEffects as $effectID) {
         switch($effectID) {
@@ -2416,6 +2488,14 @@ function HasTaunt($obj) {
     if(HasKeyword_Taunt($obj)) return true;
     if(in_array("TAUNT", $obj->TurnEffects)) return true;
     if(in_array("TAUNT_NEXT_TURN", $obj->TurnEffects)) return true;
+    // Ally Link: check if any linked Phantasia grants taunt
+    $linkedCards = GetLinkedCards($obj);
+    foreach($linkedCards as $linkedObj) {
+        switch($linkedObj->CardID) {
+            case "4muq2r6v37": // Ocean's Blessing: linked ally has taunt
+                return true;
+        }
+    }
     return false;
 }
 
@@ -2454,6 +2534,113 @@ function IsHarmonizeActive($player) {
         }
     }
     return false;
+}
+
+// =============================================================================
+// Ally Link System — link tracking via Subcards
+// =============================================================================
+
+/**
+ * Create a link between a Phantasia card (with Ally Link keyword) and an ally.
+ * The ally's Subcards stores the Phantasia's CardID (for UI display).
+ * The Phantasia's Counters stores {"linkedToAlly": allyCardID} for reverse lookup.
+ * @param int    $player       The acting player.
+ * @param string $phantasiaMZ  The mzID of the Phantasia (e.g. "myField-5").
+ * @param string $allyMZ       The mzID of the ally to link to (e.g. "myField-2").
+ */
+function CreateAllyLink($player, $phantasiaMZ, $allyMZ) {
+    $phantasiaObj = &GetZoneObject($phantasiaMZ);
+    $allyObj = &GetZoneObject($allyMZ);
+    if($phantasiaObj === null || $allyObj === null) return;
+
+    // Store Phantasia CardID in ally's Subcards for UI subcard display
+    if(!is_array($allyObj->Subcards)) $allyObj->Subcards = [];
+    if(!in_array($phantasiaObj->CardID, $allyObj->Subcards)) {
+        array_push($allyObj->Subcards, $phantasiaObj->CardID);
+    }
+
+    // Store reverse link in Phantasia's Counters for reverse lookup
+    if(!is_array($phantasiaObj->Counters)) {
+        $phantasiaObj->Counters = [];
+    }
+    $phantasiaObj->Counters['linkedToAlly'] = $allyObj->CardID;
+}
+
+/**
+ * Find all Phantasia field cards linked to a given ally object.
+ * The ally's Subcards contains the Phantasia's CardID; the Phantasia's
+ * Counters->linkedToAlly points back to the ally's CardID.
+ * @param object $obj  A Field zone object (the ally).
+ * @return array  Array of linked Phantasia field objects.
+ */
+function GetLinkedCards($obj) {
+    if(!is_array($obj->Subcards) || empty($obj->Subcards)) return [];
+    global $playerID;
+    $zoneRef = $obj->Controller == $playerID ? "myField" : "theirField";
+    $field = GetZone($zoneRef);
+    $linked = [];
+    foreach($obj->Subcards as $subcardCardID) {
+        if(empty($subcardCardID)) continue;
+        foreach($field as $fObj) {
+            if($fObj->removed) continue;
+            if($fObj->CardID !== $subcardCardID) continue;
+            // Confirm it's actually linked (has the reverse pointer)
+            if(!is_array($fObj->Counters) || !isset($fObj->Counters['linkedToAlly'])) continue;
+            $linked[] = $fObj;
+        }
+    }
+    return $linked;
+}
+
+/**
+ * Check if the departing card was involved in any Ally Link relationships and
+ * break those links.
+ * - If the departing card is an ally with linked Phantasias (CardIDs in Subcards),
+ *   sacrifice all linked Phantasias.
+ * - If the departing card is a Phantasia (has Counters->linkedToAlly),
+ *   remove it from the linked ally's Subcards.
+ * @param int    $player      The acting player.
+ * @param string $departingMZ The mzID of the card leaving the field.
+ */
+function CheckAndBreakLinks($player, $departingMZ) {
+    $obj = GetZoneObject($departingMZ);
+    if($obj === null) return;
+
+    global $playerID;
+    $controller = $obj->Controller;
+    $zoneRef = ($controller == $playerID) ? "myField" : "theirField";
+    $field = GetZone($zoneRef);
+
+    // Case 1: Departing card is a Phantasia — remove it from the linked ally's Subcards
+    if(is_array($obj->Counters) && isset($obj->Counters['linkedToAlly'])) {
+        $allyCardID = $obj->Counters['linkedToAlly'];
+        foreach($field as $idx => $fObj) {
+            if($fObj->removed) continue;
+            if($fObj->CardID !== $allyCardID) continue;
+            if(!is_array($fObj->Subcards)) continue;
+            $fObj->Subcards = array_values(array_filter($fObj->Subcards, fn($id) => $id !== $obj->CardID));
+            break;
+        }
+        return;
+    }
+
+    // Case 2: Departing card is an ally with linked Phantasias
+    if(!is_array($obj->Subcards) || empty($obj->Subcards)) return;
+
+    $toSacrifice = [];
+    foreach($field as $idx => $fObj) {
+        if($fObj->removed) continue;
+        if(!in_array($fObj->CardID, $obj->Subcards)) continue;
+        if(!is_array($fObj->Counters) || !isset($fObj->Counters['linkedToAlly'])) continue;
+        // This is a linked Phantasia — its link is broken when the ally leaves
+        $toSacrifice[] = $idx;
+    }
+
+    // Sacrifice linked Phantasias in reverse index order to preserve indices
+    rsort($toSacrifice);
+    foreach($toSacrifice as $idx) {
+        DoSacrificeFighter($controller, $zoneRef . "-" . $idx);
+    }
 }
 
 // =============================================================================
@@ -2760,6 +2947,21 @@ $customDQHandlers["CTP_BeastLoop"] = function($player, $parts, $lastDecision) {
     $choices = implode("&", $beasts);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1);
     DecisionQueueController::AddDecision($player, "CUSTOM", "CTP_BeastLoop", 1);
+};
+
+/**
+ * Custom DQ handler: DeclareAllyLinkTarget — stores the chosen ally mzID
+ * and CardID as DQ variables for Ally Link resolution.
+ */
+$customDQHandlers["DeclareAllyLinkTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) {
+        DecisionQueueController::StoreVariable("linkTargetMZ", "");
+        DecisionQueueController::StoreVariable("linkTargetCardID", "");
+        return;
+    }
+    $targetObj = GetZoneObject($lastDecision);
+    DecisionQueueController::StoreVariable("linkTargetMZ", $lastDecision);
+    DecisionQueueController::StoreVariable("linkTargetCardID", $targetObj !== null ? $targetObj->CardID : "");
 };
 
 ?>
