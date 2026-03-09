@@ -197,7 +197,30 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 }
 
 $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
-    ReserveCard($player);
+    // Build MZCHOOSE source: hand cards + ready reservable field cards
+    $source = "myHand";
+    $field = GetZone("myField");
+    foreach($field as $i => $fieldObj) {
+        if($fieldObj->removed) continue;
+        if(isset($fieldObj->Status) && $fieldObj->Status == 2 && HasReservable($fieldObj)) {
+            $source .= "&myField-" . $i;
+        }
+    }
+    $tooltip = "Choose_a_card_to_pay_reserve_cost";
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 1, $tooltip);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard_Process", 99);
+};
+
+$customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS") return;
+    // Determine if the chosen card is from the field (reservable) or hand
+    if(strpos($lastDecision, "myField-") === 0) {
+        // Reservable card on field: rest/exhaust it to pay for 1 reserve cost
+        ExhaustCard($player, $lastDecision);
+    } else {
+        // Hand card: move to memory as normal
+        OnCardReserved($player, $lastDecision);
+    }
 };
 
 /**
@@ -502,15 +525,19 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     $added->Controller = $player;
     if($added->Owner == 0) $added->Owner = $player;
     
-    // Crusader of Aesa (2Q60hBYO3i): enters the field rested
+    // Hindered keyword: this object enters the field rested
+    if(HasHindered($added)) {
+        $added->Status = 1;
+    }
+    // Crusader of Aesa (2Q60hBYO3i): enters the field rested (card text, not keyword)
     if($added->CardID == "2Q60hBYO3i") {
         $added->Status = 1;
     }
-    // Luxera's Map (s23UHXgcZq): enters the field rested
+    // Luxera's Map (s23UHXgcZq): enters the field rested (card text, not keyword)
     if($added->CardID == "s23UHXgcZq") {
         $added->Status = 1;
     }
-    // Artificer's Opus (G5E0PIUd0W): enters the field rested
+    // Artificer's Opus (G5E0PIUd0W): enters the field rested (card text, not keyword)
     if($added->CardID == "G5E0PIUd0W") {
         $added->Status = 1;
     }
@@ -2352,6 +2379,26 @@ function HasTrueSight($obj) {
 function HasSpellshroud($obj) {
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
+    return false;
+}
+
+/**
+ * Check whether a card has the Hindered keyword.
+ * Hindered: "This object enters the field rested."
+ * Hindered is redundant.
+ */
+function HasHindered($obj) {
+    if(HasKeyword_Hindered($obj)) return true;
+    return false;
+}
+
+/**
+ * Check whether a field object currently has the Reservable keyword.
+ * Reservable: "While paying for a reserve cost, you may rest this object to pay for 1 of that cost."
+ * Reservable is redundant.
+ */
+function HasReservable($obj) {
+    if(HasKeyword_Reservable($obj)) return true;
     return false;
 }
 
