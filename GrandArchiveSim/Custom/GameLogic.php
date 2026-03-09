@@ -176,6 +176,24 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - $regaliaCount);
     }
 
+    // Viridian Protective Trinket (s3572j3oda): during your turn, opponent's water element cards cost 2 more
+    $opponent = ($player == 1) ? 2 : 1;
+    $turnPlayer = &GetTurnPlayer();
+    if($player !== $turnPlayer) {
+        // It's the opponent's turn — check if the turn player controls Viridian Protective Trinket
+        global $playerID;
+        $oppFieldZone = ($turnPlayer == $playerID) ? "myField" : "theirField";
+        $oppField = GetZone($oppFieldZone);
+        foreach($oppField as $oppObj) {
+            if(!$oppObj->removed && $oppObj->CardID === "s3572j3oda") {
+                if(CardElement($obj->CardID) === "WATER") {
+                    $reserveCost += 2;
+                }
+                break;
+            }
+        }
+    }
+
     // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
     if($hasAllyLink) {
         $allyTargets = ZoneSearch("myField", ["ALLY"]);
@@ -475,6 +493,22 @@ function OnCardActivated($player, $mzCard) {
         }
     }
 
+    // Effigy of Gaia (akb1k0zi5h): when an OPPONENT activates an attack card with cleave,
+    // Animal/Beast allies you control get +2 LIFE until end of turn.
+    if(PropertyContains($cardType, "ATTACK")) {
+        $opponent = ($player == 1) ? 2 : 1;
+        $oppField = &GetField($opponent);
+        for($ofi = 0; $ofi < count($oppField); ++$ofi) {
+            if(!$oppField[$ofi]->removed && $oppField[$ofi]->CardID === "akb1k0zi5h") {
+                // Check if the attack card has cleave
+                if(HasKeyword_Cleave($obj)) {
+                    AddGlobalEffects($opponent, "akb1k0zi5h");
+                }
+                break;
+            }
+        }
+    }
+
     // After an attack card enters intent and its abilities resolve, declare the champion attack
     if(PropertyContains($cardType, "ATTACK")) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareChampionAttack", 100);
@@ -525,6 +559,10 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "WAFNy2lY5t": // Melodious Flute — [Class Bonus] banish self
         case "UiohpiTtgs": // Chalice of Blood — banish self only if champion has 20+ damage
         case "xjuCkODVRx": // Beastbond Boots — banish self
+        case "73fdt8ptrz": // Windwalker Boots — banish self
+        case "n0wpbhigka": // Wand of Frost — banish self
+        case "96659ytyj2": // Crimson Protective Trinket — banish self
+        case "m3pal7cpvn": // Azure Protective Trinket — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -547,7 +585,6 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
-    
     // Exhaust the unit as the REST cost — only for static abilities, not dynamic ones (which have their own costs)
     $cardType = CardType($cardID);
     $staticAbilityCount = CardActivateAbilityCount($cardID);
@@ -858,6 +895,24 @@ function EndPhase() {
         }
     }
 
+    // Windwalker Boots (73fdt8ptrz): [Class Bonus] if champion is awake, add preparation counter
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "73fdt8ptrz") {
+            if(IsClassBonusActive($turnPlayer, ["ASSASSIN"])) {
+                for($ci = 0; $ci < count($field); ++$ci) {
+                    if(!$field[$ci]->removed && PropertyContains(CardType($field[$ci]->CardID), "CHAMPION")) {
+                        if($field[$ci]->Status == 2) { // Awake
+                            AddCounters($turnPlayer, "myField-" . $ci, "preparation", 1);
+                        }
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+    }
+
     $field = &GetField($turnPlayer);
     for($i=count($field)-1; $i>=0; --$i) {
         if(HasVigor($field[$i])) {
@@ -1095,6 +1150,9 @@ function ObjectCurrentPower($obj) {
             case "w9n0wpbhig": // Lancelot, Goliath of Aesa: +3 POWER until end of turn
                 $power += 3;
                 break;
+            case "suo6gb0op3": // Fractured Crown: first attack each turn +2 POWER
+                $power += 2;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -1114,6 +1172,17 @@ function ObjectCurrentPower($obj) {
                     $power += 2;
                     break;
                 }
+            }
+        }
+    }
+    // Wand of Frost (n0wpbhigka): if the attacking unit has n0wpbhigka TurnEffect,
+    // attacks from that unit get -3 POWER until end of turn.
+    if(PropertyContains(CardType($obj->CardID), "ATTACK") || PropertyContains(CardType($obj->CardID), "CHAMPION") || PropertyContains(CardType($obj->CardID), "ALLY")) {
+        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+        if($combatAttacker !== null && $combatAttacker != "-" && $combatAttacker != "") {
+            $attackerObj = GetZoneObject($combatAttacker);
+            if($attackerObj !== null && in_array("n0wpbhigka", $attackerObj->TurnEffects)) {
+                $power -= 3;
             }
         }
     }
@@ -1234,6 +1303,14 @@ function ObjectCurrentLevel($obj) {
                     $cardLevel += GetCounterCount($fieldObj, "level");
                     $appliedPassives[$fID] = true;
                     break;
+                case "akb1k0zi5h": // Effigy of Gaia: [Class Bonus] +1 level while controlling Animal/Beast ally
+                    if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                        if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]))) {
+                            $cardLevel += 1;
+                        }
+                    }
+                    $appliedPassives[$fID] = true;
+                    break;
                 default: break;
             }
         }
@@ -1296,6 +1373,29 @@ function ObjectCurrentHP($obj) {
             break;
         default: break;
     }
+    // Fractured Crown (suo6gb0op3): [Class Bonus] champion gets +2 LIFE per unique ally card in GY
+    if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID === "suo6gb0op3") {
+                if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                    $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
+                    $gyAllies = ZoneSearch($gravZone, ["ALLY"]);
+                    $uniqueCount = 0;
+                    foreach($gyAllies as $gyMZ) {
+                        $gyObj = GetZoneObject($gyMZ);
+                        if(PropertyContains(CardType($gyObj->CardID), "UNIQUE")) {
+                            $uniqueCount++;
+                        }
+                    }
+                    $cardLife += $uniqueCount * 2;
+                }
+                break;
+            }
+        }
+    }
     // Ally Link: check for bonuses from linked Phantasia cards via Subcards
     $linkedCards = GetLinkedCards($obj);
     foreach($linkedCards as $linkedObj) {
@@ -1337,6 +1437,9 @@ function ObjectCurrentHP($obj) {
             case "vbgl6ffqsu-HP": // Anthem of Vitality: +3 LIFE until end of turn
                 $cardLife += 3;
                 break;
+            case "akb1k0zi5h": // Effigy of Gaia: Animal/Beast allies get +2 LIFE until end of turn
+                $cardLife += 2;
+                break;
             default: break;
         }
     }
@@ -1369,6 +1472,24 @@ function DoDrawCard($player, $amount=1) {
     $zone = &GetDeck($player);
     $hand = &GetHand($player);
     for($i=0; $i<$amount; ++$i) {
+        // Tithe Proclamation (q8sdbzr5zs): draw cap of 3 per player per turn (not on first turn)
+        $currentTurn = &GetTurnNumber();
+        if($currentTurn > 1) {
+            $titheOnField = false;
+            $p1Field = GetField(1);
+            foreach($p1Field as $fObj) {
+                if(!$fObj->removed && $fObj->CardID === "q8sdbzr5zs") { $titheOnField = true; break; }
+            }
+            if(!$titheOnField) {
+                $p2Field = GetField(2);
+                foreach($p2Field as $fObj) {
+                    if(!$fObj->removed && $fObj->CardID === "q8sdbzr5zs") { $titheOnField = true; break; }
+                }
+            }
+            if($titheOnField && DrawTurnCount($player) >= 3) {
+                return; // Draw cap reached
+            }
+        }
         if(count($zone) == 0) {
             return;
         }
@@ -1490,6 +1611,27 @@ $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     if(isset($activateAbilityAbilities[$abilityKey])) {
         $activateAbilityAbilities[$abilityKey]($player);
     }
+};
+
+/**
+ * Azure Protective Trinket (m3pal7cpvn): continue banishing up to N more fire element cards
+ * from the chosen graveyard. Queues MZMAYCHOOSE + handler for each remaining pick.
+ */
+function AzureTrinketContinue($player, $gravRef, $remaining) {
+    if($remaining <= 0) return;
+    $fireGY = ZoneSearch($gravRef, cardElements: ["FIRE"]);
+    if(empty($fireGY)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_fire_card?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AzureTrinketPick|$gravRef|$remaining", 1);
+}
+
+$customDQHandlers["AzureTrinketPick"] = function($player, $parts, $lastDecision) {
+    $gravRef = $parts[0];
+    $remaining = intval($parts[1]);
+    if($lastDecision == "-" || $lastDecision == "") return;
+    $destZone = (strpos($gravRef, "my") === 0) ? "myBanish" : "theirBanish";
+    MZMove($player, $lastDecision, $destZone);
+    AzureTrinketContinue($player, $gravRef, $remaining - 1);
 };
 
 /**
@@ -1896,6 +2038,15 @@ $doesGlobalEffectApply["INNERVATE_STEALTH"] = function($obj) { //Innervate Agili
 
 $doesGlobalEffectApply["INNERVATE_SPELLSHROUD"] = function($obj) { //Innervate Agility: units gain spellshroud
     return PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
+$doesGlobalEffectApply["FRACTURED_CROWN_FIRED"] = function($obj) { //Fractured Crown: first attack this turn flag (flag only)
+    return false;
+};
+
+$doesGlobalEffectApply["akb1k0zi5h"] = function($obj) { //Effigy of Gaia: Animal/Beast allies get +2 LIFE
+    return PropertyContains(CardType($obj->CardID), "ALLY")
+        && (PropertyContains(CardSubtypes($obj->CardID), "ANIMAL") || PropertyContains(CardSubtypes($obj->CardID), "BEAST"));
 };
 
 function GlobalEffectCount($player, $effectID) {

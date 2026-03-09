@@ -471,6 +471,25 @@ function OnAttackTrigger($player, $mzID) {
             Draw($player, 1);
         }
     }
+
+    // Fractured Crown (suo6gb0op3): first attack each turn gets +2 POWER
+    // Check if the attacking player controls Fractured Crown on field and hasn't fired yet this turn
+    $field = &GetField($player);
+    $hasFracturedCrown = false;
+    for($fci = 0; $fci < count($field); ++$fci) {
+        if(!$field[$fci]->removed && $field[$fci]->CardID === "suo6gb0op3") {
+            $hasFracturedCrown = true;
+            break;
+        }
+    }
+    if($hasFracturedCrown && GlobalEffectCount($player, "FRACTURED_CROWN_FIRED") == 0) {
+        AddGlobalEffects($player, "FRACTURED_CROWN_FIRED");
+        // Apply +2 POWER to attack cards in intent
+        $intentCards = GetIntentCards($player);
+        foreach($intentCards as $iMZ) {
+            AddTurnEffect($iMZ, "suo6gb0op3");
+        }
+    }
 }
 
 /**

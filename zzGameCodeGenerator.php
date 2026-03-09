@@ -942,6 +942,32 @@ if (!empty($mzIDMacros)) {
   }
 }
 
+// Generate per-player turn-count helpers for macros with an 'amount' parameter but no mzID.
+// These macros use DoDrawCard (or similar) which manually increments the counter per actual unit.
+// Helpers generated: MacroNameTurnCount($player), ClearMacroNameTurnIndex().
+$amountOnlyMacros = array_filter($macros, fn($m) =>
+  !empty($m->Parameters) &&
+  in_array('amount', $m->Parameters) &&
+  !in_array('mzID', $m->Parameters)
+);
+if (!empty($amountOnlyMacros)) {
+  fwrite($handler, "// Per-player turn-count helpers for amount-based macros (no mzID).\r\n");
+  fwrite($handler, "// The counter is incremented inside the ChoiceFunction (e.g. DoDrawCard) per\r\n");
+  fwrite($handler, "// actual unit processed, not per macro call.\r\n\r\n");
+  foreach ($amountOnlyMacros as $macro) {
+    $fn = $macro->FunctionName;
+    fwrite($handler, "function " . $fn . "TurnCount(\$player) {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  return \$_ti[\"" . $fn . "\"][\$player] ?? 0;\r\n");
+    fwrite($handler, "}\r\n\r\n");
+    fwrite($handler, "function Clear" . $fn . "TurnIndex() {\r\n");
+    fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+    fwrite($handler, "  unset(\$_ti[\"" . $fn . "\"]);\r\n");
+    fwrite($handler, "  SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+    fwrite($handler, "}\r\n\r\n");
+  }
+}
+
 // Generate ComputeVirtualProperties function for zones with virtual properties
 fwrite($handler, "// Compute virtual properties for objects before sending to client\r\n");
 fwrite($handler, "function ComputeVirtualProperties(\$obj) {\r\n");
