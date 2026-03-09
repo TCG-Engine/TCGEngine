@@ -60,6 +60,13 @@ function ActionMap($actionCard)
 }
 
 function DoActivateCard($player, $mzCard, $ignoreCost = false) {
+    // Check if opponent has Corhazi Outlook lockdown effect
+    $opponent = ($player == 1) ? 2 : 1;
+    if(GlobalEffectCount($opponent, "rw8qq1uwq8-lockdown") > 0) {
+        // Activation is blocked
+        return;
+    }
+    
     $sourceObject = &GetZoneObject($mzCard);
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     $obj = MZMove($player, $mzCard, "EffectStack");
@@ -766,6 +773,11 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "a4dk88zq9o": // Varuckan Acolyte: [Level 3+] +3 POWER
+            if(PlayerLevel($obj->Controller) >= 3) {
+                $power += 3;
+            }
+            break;
         case "sxg6WefxIe": // Backstab: [Class Bonus] +2 POWER while attacking rested unit
             if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) {
                 $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
@@ -895,7 +907,21 @@ function ObjectCurrentPower($obj) {
             case "qufoIF014c_POWER": // Gleaming Cut: revealed luxem card from memory, +2 POWER
                 $power += 2;
                 break;
-            default: break;
+            case "i6eifnz0fg": // Zephyr's Edge: [CB] +1 POWER until end of turn (entered outside materialize phase)
+                $power += 1;
+                break;
+            case "yuvuxnrw8q": // Hone by Fire: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "sdbzr5zs29-debuff": // Corhazi Trapper: target unit's attacks get -3 POWER until end of turn
+                $power -= 3;
+                break;
+            default:
+                // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
+                if(strpos($effectID, "659ytyj2s3-") === 0) {
+                    $power += intval(substr($effectID, strlen("659ytyj2s3-")));
+                }
+                break;
         }
     }
     // Lorraine, Blademaster (TJTeWcZnsQ): if champion has TJTeWcZnsQ TurnEffect,
@@ -932,6 +958,8 @@ function ObjectCurrentPower($obj) {
 
 function ObjectCurrentLevel($obj) {
     $cardLevel = CardLevel($obj->CardID);
+    // Level counter modifier: +1 level per level counter on this card
+    $cardLevel += GetCounterCount($obj, "level");
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
     foreach($cardCurrentEffects as $effectID) {
         switch($effectID) {
@@ -1094,6 +1122,9 @@ function ObjectCurrentHP($obj) {
                 break;
             case "nIKhHFa0rK_HP": // Cry for Help class bonus: +1 LIFE until end of turn
                 $cardLife += 1;
+                break;
+            case "x7u6wzh973": // Frostbinder Apostle: -4 LIFE until end of turn
+                $cardLife -= 4;
                 break;
             default: break;
         }
@@ -1618,6 +1649,10 @@ $doesGlobalEffectApply["RfPP8h16Wv"] = function($obj) { //Flag only — next Ani
 
 $doesGlobalEffectApply["MECS7RHRZ8"] = function($obj) { //Impassioned Tutor
     return PropertyContains(CardType($obj->CardID), "CHAMPION");
+};
+
+$doesGlobalEffectApply["rw8qq1uwq8-lockdown"] = function($obj) { //Corhazi Outlook: Opponents can't activate cards this turn
+    return false; // Global effect only, no visual on cards
 };
 
 $doesGlobalEffectApply["aKgdkLSBza"] = function($obj) { //Wilderness Harpist

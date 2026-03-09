@@ -201,9 +201,9 @@ function showCardIdsBadgePopup(badgeEl, event) {
     var seenDisplayIds = {};
     for (var i = 0; i < cardIds.length; i++) {
       var cardId = cardIds[i];
-      // Strip trailing numeric variant suffix (e.g. "4hbA9FT56L-2" -> "4hbA9FT56L")
-      // so that multi-effect cards using the cardID-N convention still resolve to the correct image.
-      var displayCardId = cardId.replace(/-\d+$/, '');
+      // Strip trailing variant suffix (e.g. "4hbA9FT56L-2" -> "4hbA9FT56L", "sdbzr5zs29-debuff" -> "sdbzr5zs29")
+      // so that multi-effect cards using the cardID-suffix convention still resolve to the correct image.
+      var displayCardId = cardId.replace(/-[^-]+$/, '');
       // Deduplicate: only show each source card's image once even if it contributes multiple effects
       if (seenDisplayIds[displayCardId]) continue;
       seenDisplayIds[displayCardId] = true;
@@ -328,12 +328,12 @@ function CreateCountersHTML(zoneName, cardArr, id) {
         var valueStr = String(value).trim();
         if (valueStr === '') continue; // Skip if empty
         var rawIds = valueStr.split(',').map(function(id) { return id.trim(); }).filter(function(id) { return id !== ''; });
-        // Strip trailing numeric variant suffix (e.g. "cardID-2" -> "cardID") and deduplicate
-        // so multi-effect cards (using the cardID-N convention) count and display as one source card.
+        // Strip trailing variant suffix (e.g. "cardID-2" -> "cardID", "cardID-debuff" -> "cardID") and deduplicate
+        // so multi-effect cards (using the cardID-suffix convention) count and display as one source card.
         var seenBase = {};
         cardIds = [];
         rawIds.forEach(function(id) {
-          var baseId = id.replace(/-\d+$/, '');
+          var baseId = id.replace(/-[^-]+$/, '');
           if (!seenBase[baseId]) {
             seenBase[baseId] = true;
             cardIds.push(id); // Keep original ID for now; popup rendering will strip suffix
