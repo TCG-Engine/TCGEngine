@@ -83,6 +83,7 @@ This is the canonical workflow for implementing card abilities. Follow these ste
   The effect is automatically cleared at end of turn by `ExpireEffects`.
   3. When creating effect ids, make it be the card id plus a dash and suffix (if that card needs multiple distinct effects or other information encoded)
 - **Field-presence passives** (e.g. "champion gets +1 level while you control X") belong in `ObjectCurrentLevel`/`ObjectCurrentPower`/`ObjectCurrentHP`. Use the established pattern: loop the field once, switch on card ID, deduplicate with `$appliedPassives[$fID]` to prevent duplicate copies from stacking inadvertently.
+- **Runtime card overrides** ("becomes a Phantasia", "loses all abilities", "cards in graveyards are NORM element") — use `ApplyPersistentOverride($mzCard, $overrides)` to store indefinite overrides in `$obj->Counters['_overrides']`. For temporary end-of-turn suppression, use `AddTurnEffect($mzCard, 'NO_ABILITIES')`. Always use `EffectiveCardType/Subtype/Classes/Element($obj)` (never raw `CardType($obj->CardID)` etc.) when querying field objects in Custom/*.php — the Effective* wrappers check these overrides automatically.
 
 ### Step 1: Gather card information
 Call the MCP `get_card_info` tool with the card ID to get the card's name, effect text, element, type, cost, and other metadata.
@@ -113,6 +114,11 @@ Call the MCP `get_helper_functions` tool to discover what helper functions alrea
 - `ObjectCurrentPower(obj)`, `ObjectCurrentHP(obj)` — get computed stats
 - `CardElement(cardID)`, `CardType(cardID)`, `CardClasses(cardID)` — card dictionary lookups
 - `MacroNameCallCount($player)` — how many times a macro was invoked for a player this turn. Every generated macro has a corresponding `*CallCount($player)` helper (e.g. `CardActivatedCallCount($player)`, `EnterCallCount($player)`). These read from `MacroTurnIndex` and are reset at the start of each turn. Useful for cards that depend on how many times you did something this turn.
+- `HasNoAbilities($obj)` — returns true if a field object has the `NO_ABILITIES` TurnEffect (temporary) or `$obj->Counters['_overrides']['NO_ABILITIES']` (persistent). All keyword wrappers and ability dispatch already check this automatically; you don't need to guard code manually.
+- `EffectiveCardType($obj)` / `EffectiveCardSubtypes($obj)` / `EffectiveCardClasses($obj)` / `EffectiveCardElement($obj)` — get a field object's runtime-overridden type/subtypes/classes/element. Always use these (not raw `CardType($obj->CardID)` etc.) when querying field objects in Custom/*.php code.
+- `ApplyPersistentOverride($mzCard, $overrides)` — write indefinite overrides into `$obj->Counters['_overrides']`. Keys are `type`, `subtypes`, `classes`, `element`, `NO_ABILITIES`, `granted_keywords` (array of keyword names). Overrides survive serialization and persist until the card leaves the field. Used by Fracturize.
+- `HasGrantedKeyword($obj, $keyword)` — check for a keyword explicitly granted by a persistent override (e.g. `'Reservable'`). This bypasses `HasNoAbilities`, so a Fracturized card can still be reserved.
+- `ZoneContainsCardID($zoneName, $cardID)` — scan a zone for a card ID; used by field-presence passives (e.g. Nullifying Lantern's graveyard-element override in `EffectiveCardElement`).
 
 ### Step 4: Study existing examples
 Call the MCP `get_implemented_examples` tool with the relevant macro name (e.g. "CardActivated", "Enter") to see how similar abilities are coded. This shows you the exact pattern to follow.

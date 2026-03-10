@@ -207,10 +207,12 @@ function showCardIdsBadgePopup(badgeEl, event) {
       // Deduplicate: only show each source card's image once even if it contributes multiple effects
       if (seenDisplayIds[displayCardId]) continue;
       seenDisplayIds[displayCardId] = true;
-      // Try concat folder first, fallback to WebpImages
+      // Try concat folder first, fallback to WebpImages, then hide to avoid infinite 404 spam
       var imgPath = rootPath + '/concat/' + displayCardId + '.webp';
+      var imgFallback = rootPath + '/WebpImages/' + displayCardId + '.webp';
       html += '<div class="cardids-popup-card">';
-      html += '<img src="' + imgPath + '" alt="' + displayCardId + '" onerror="this.src=\'' + rootPath + '/WebpImages/' + displayCardId + '.webp\'" loading="lazy" />';
+      html += '<img src="' + imgPath + '" alt="' + displayCardId + '" loading="lazy"'
+           + ' onerror="if(this.dataset.tried){this.onerror=null;this.style.display=\'none\';}else{this.dataset.tried=\'1\';this.src=\'' + imgFallback + '\';}" />';
       html += '</div>';
     }
     
