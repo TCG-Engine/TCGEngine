@@ -100,12 +100,12 @@ Cards blocked:
 
 ### Missing: Runtime Subtype Addition
 
-**Status**: `CardSubtypes($cardID)` reads directly from the generated card dictionary. There is no mechanism to extend a card's subtypes with a runtime overlay keyed to its mzID or a TurnEffect.
+**Status**: `EffectiveCardSubtypes` can fully replace subtypes (used by Fracturize), but no mechanism to *add* subtypes while keeping originals. `ApplyPersistentOverride` overwrites the subtypes string; an "additional subtypes" merge would be needed.
 
-Would need: A subtype-override lookup (mzID → additional subtypes array) checked in `CardSubtypes` and everywhere subtypes are used (ZoneSearch, pride checks, combat bonus checks).
+Would need: An `additional_subtypes` override key that gets merged with the original subtypes in `EffectiveCardSubtypes`.
 
 Cards blocked:
-- Beastsoul Visage (8asbierp5k) — Ally Link item. "Linked ally gets +2 POWER, has pride 3, and is a Beast in addition to its other types." (+2 POWER and pride 3 override are implementable; the Beast subtype addition is blocked.)
+- Beastsoul Visage (8asbierp5k) — Ally Link item. "Linked ally gets +2 POWER, has pride 3, and is a Beast in addition to its other types." (+2 POWER and pride 3 override are implementable; the Beast subtype *addition* is blocked.)
 
 ---
 
@@ -117,17 +117,6 @@ Would need: An alternative activation flow for material-zone cards that checks a
 
 Cards blocked:
 - Varuckan Soulknife (9ox7u6wzh9) — "[Class Bonus] [Element Bonus] You may banish three fire element cards from your graveyard to activate this card from your material deck." (Class Bonus On Kill recycling from banishment IS implementable.)
-
----
-
-### Missing: Indefinite Card Transformation
-
-**Status**: `TurnEffects` are cleared at end of turn. There is no persistent-until-removed effect layer that can change a card's type, subtype, and ability set indefinitely. Fracturize's "lasts indefinitely" clause cannot be implemented without a permanent effect registry.
-
-Would need: A persistent-effect store (not tied to turns) that overrides `CardType`, `CardSubtypes`, and the ability lookup for a specific mzID or CardID instance.
-
-Cards blocked:
-- Fracturize (cpvn96659y) — "Target item or weapon becomes a Cleric Fractal phantasia with reservable and loses all other abilities. (This effect lasts indefinitely.)" (Floating Memory keyword IS implementable.)
 
 ---
 
@@ -150,17 +139,6 @@ Would need: A registered passive-effect list (keyed by player) checked in `OnDea
 
 Cards blocked:
 - The Majestic Spirit (tsvbgl6ffq) — "If another crux element unit you control would take damage, prevent half of that damage, rounded up." (Intercept/True Sight/Vigor and the champion spellshroud passive ARE implementable.)
-
----
-
-### Missing: Per-Card Self Ability Suppression (Loses All Abilities)
-
-**Status**: `SuppressAlly` removes the card from the field temporarily. "Loses all abilities" without leaving the field requires a flag that silences the card's keywords (pride, etc.) and blocks ability dispatch for it specifically. No such per-card "blanket suppress" TurnEffect exists; pride is checked globally via `PrideAmount()` and class bonus checks are not guarded by any per-card ability flag.
-
-Would need: A `NO_ABILITIES` TurnEffect variant that is consulted in `PrideAmount`, `GetDynamicAbilities`, `ClassBonusActivateCostReduction`, and the `cardActivatedAbilities` dispatch to skip the card.
-
-Cards blocked:
-- Capricious Lynx (v1au7t9m4m) — Pride 4. "[Class Bonus] On Enter: CARDNAME loses all abilities until end of turn."
 
 ---
 
@@ -277,10 +255,6 @@ Cards blocked:
 - Needs: At beginning of recollection phase, put durability counter on target weapon
 - **Blocker**: Recollection phase currently synchronous loop; adding mid-loop player choice (which weapon to target) requires upgrading to async DQ decisions
 
-**Nullifying Lantern (urKxcUjz9a)**
-- Needs: Cards in graveyards are norm element
-- **Blocker**: Graveyard element override requires changes in every place that checks card element (ZoneSearch, CardElement lookups, IsHarmonizeActive, etc.)
-
 **Swan Song / Gaia's Blessing (ymhDYTPfi1)**
 - Needs: Play with top of deck revealed; may activate Animal/Beast ally cards from the top of deck
 - **Blocker**: "Face-up" deck and allowing direct play from top is significant UI/engine addition
@@ -313,5 +287,8 @@ Since the blockers list was created, the following capabilities HAVE been added:
 - ✅ **MZSplitAssign** — split-assign a numeric pool across multiple targets with inline +/- UI overlay. Await syntax: `$result = await $player.MZSplitAssign($targets, $amount, "tooltip")`. Returns comma-separated `mzID:amount` pairs.
 - ✅ **Retaliate from non-defending position** — `CombatProceedToRetaliation` now appends any ready non-defending Lurking Assailant (`uq2r6v374c`) to the `MZMAYCHOOSE` retaliator list; `HasStealth` also covers its stealth-while-awake passive.
 - ✅ **Per-macro call count** — every generated macro function now increments `MacroNameCallCount($player)` in `MacroTurnIndex` on each invocation. Enables "activate only if you have not attacked this turn" gates (`OnAttackCallCount($player)`) and cross-turn attack prevention via `foreverEffects` global cleared at `RecollectionPhase`.
+- ✅ **Per-card ability suppression (NO_ABILITIES)** — `HasNoAbilities($obj)` checks TurnEffect `NO_ABILITIES` (temporary) and persistent `$obj->Counters['_overrides']['NO_ABILITIES']`. All keyword wrappers, ability dispatch, and stat functions consult this flag.
+- ✅ **Persistent card overrides** — `ApplyPersistentOverride($mzCard, $overrides)` stores indefinite type/subtype/class/element/keyword overrides in `$obj->Counters['_overrides']`. `Effective*` wrapper functions (`EffectiveCardType`, `EffectiveCardSubtypes`, `EffectiveCardClasses`, `EffectiveCardElement`) used throughout the codebase.
+- ✅ **Graveyard element override** — `EffectiveCardElement` detects Nullifying Lantern on field and returns "NORM" for all graveyard cards. `ZoneContainsCardID` helper enables efficient field scanning.
 
 This has enabled many cards from the original list to become implementable. See Easy.md for those cards.

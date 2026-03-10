@@ -49,7 +49,7 @@ function ActionMap($actionCard)
         case "myField":
             if($playerID != $turnPlayer) break; // Only turn player can declare attacks
             $obj = &GetZoneObject($actionCard);
-            $cardType = CardType($obj->CardID);
+            $cardType = EffectiveCardType($obj);
             if(PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION")) {
                 BeginCombatPhase($actionCard);
             }
@@ -133,7 +133,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(isset($Efficiency_Cards[$obj->CardID])) {
         $myField = GetZone("myField");
         foreach($myField as $fieldObj) {
-            if(PropertyContains(CardType($fieldObj->CardID), "CHAMPION")) {
+            if(PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
                 $champLevel = ObjectCurrentLevel($fieldObj);
                 $reserveCost = max(0, $reserveCost - $champLevel);
                 break;
@@ -258,7 +258,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $myField = GetZone("myField");
         $champMZ = null;
         foreach($myField as $fi => $fieldObj) {
-            if(PropertyContains(CardType($fieldObj->CardID), "CHAMPION")) {
+            if(PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
                 $champMZ = "myField-" . $fi;
                 break;
             }
@@ -662,17 +662,18 @@ function OnLeaveField($player, $mzID) {
     // Check and break any Link connections involving the departing card
     CheckAndBreakLinks($player, $mzID);
     DecisionQueueController::CleanupRemovedCards();
-    if(isset($leaveFieldAbilities[$obj->CardID . ":0"])) $leaveFieldAbilities[$obj->CardID . ":0"]($controller);
+    if(!HasNoAbilities($obj) && isset($leaveFieldAbilities[$obj->CardID . ":0"])) $leaveFieldAbilities[$obj->CardID . ":0"]($controller);
 }
 
 function DoAllyDestroyed($player, $mzCard) {
     global $allyDestroyedAbilities;
     $obj = GetZoneObject($mzCard);
     $controller = $obj->Controller;
+    $suppressed = HasNoAbilities($obj);
     OnLeaveField($player, $mzCard);
     $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
     MZMove($player, $mzCard, $dest);
-    if(isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
+    if(!$suppressed && isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
         $allyDestroyedAbilities[$obj->CardID . ":0"]($controller);
     }
 }
@@ -727,6 +728,7 @@ function OnEnter($player, $mzID) {
     $obj = GetZoneObject($mzID);
     $CardID = $obj->CardID;
     DecisionQueueController::CleanupRemovedCards();
+    if(HasNoAbilities($obj)) return;
     if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
 }
 
@@ -937,7 +939,7 @@ function EndPhase() {
             if(IsClassBonusActive($turnPlayer, CardClasses("mA4n0Z7BQz"))) {
                 // Find champion and add enlighten counter
                 for($ci = 0; $ci < count($field); ++$ci) {
-                    if(!$field[$ci]->removed && CardType($field[$ci]->CardID) === "CHAMPION") {
+                    if(!$field[$ci]->removed && EffectiveCardType($field[$ci]) === "CHAMPION") {
                         AddCounters($turnPlayer, "myField-" . $ci, "enlighten", 1);
                         break;
                     }
@@ -953,7 +955,7 @@ function EndPhase() {
         if(!$field[$i]->removed && $field[$i]->CardID === "73fdt8ptrz") {
             if(IsClassBonusActive($turnPlayer, ["ASSASSIN"])) {
                 for($ci = 0; $ci < count($field); ++$ci) {
-                    if(!$field[$ci]->removed && PropertyContains(CardType($field[$ci]->CardID), "CHAMPION")) {
+                    if(!$field[$ci]->removed && PropertyContains(EffectiveCardType($field[$ci]), "CHAMPION")) {
                         if($field[$ci]->Status == 2) { // Awake
                             AddCounters($turnPlayer, "myField-" . $ci, "preparation", 1);
                         }
@@ -1111,14 +1113,14 @@ function ObjectCurrentPower($obj) {
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
-    if($obj->Controller != -1 && !PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+    if($obj->Controller != -1 && !PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         global $playerID;
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fieldObj) {
             if($fieldObj->CardID === "IAkuSSnzYB") { // Banner Knight: [Class Bonus][Level 2+] Other allies and weapons get +1 POWER
                 if($obj->CardID !== "IAkuSSnzYB" &&
-                   (PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "WEAPON")) &&
+                   (PropertyContains(EffectiveCardType($obj), "ALLY") || PropertyContains(EffectiveCardType($obj), "WEAPON")) &&
                    IsClassBonusActive($obj->Controller, ["WARRIOR"]) &&
                    PlayerLevel($obj->Controller) >= 2) {
                     $power += 1;
@@ -1224,12 +1226,12 @@ function ObjectCurrentPower($obj) {
     }
     // Lorraine, Blademaster (TJTeWcZnsQ): if champion has TJTeWcZnsQ TurnEffect,
     // all attack cards get +2 POWER until end of turn.
-    if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
+    if(PropertyContains(EffectiveCardType($obj), "ATTACK")) {
         $controller = $obj->Controller ?? null;
         if($controller !== null && $controller > 0) {
             $field = GetField($controller);
             foreach($field as $fieldObj) {
-                if(PropertyContains(CardType($fieldObj->CardID), "CHAMPION") && in_array("TJTeWcZnsQ", $fieldObj->TurnEffects)) {
+                if(PropertyContains(EffectiveCardType($fieldObj), "CHAMPION") && in_array("TJTeWcZnsQ", $fieldObj->TurnEffects)) {
                     $power += 2;
                     break;
                 }
@@ -1257,7 +1259,7 @@ function ObjectCurrentPower($obj) {
     // Zander, Always Watching (tOK1Gr0N8f) — Inherited Effect:
     // +1 POWER to attacks while attacking a rested unit.
     // Applies when tOK1Gr0N8f is in the champion's lineage (current champion or subcards).
-    if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
+    if(PropertyContains(EffectiveCardType($obj), "ATTACK")) {
         $controller = $obj->Controller ?? null;
         if($controller !== null && $controller > 0 && ChampionHasInLineage($controller, "tOK1Gr0N8f")) {
             $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
@@ -1319,7 +1321,7 @@ function ObjectCurrentLevel($obj) {
     }
     // Field-presence passives — iterate once and switch on card ID
     // Each unique card's passive is only counted once (duplicates don't stack)
-    if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         // Champion self-level modifiers
         if($obj->CardID === "YPaL2BxDSN") { // Allen, Beast Beckoner: +2 level while controlling 2+ Animal/Beast allies
             global $playerID;
@@ -1437,7 +1439,7 @@ function ObjectCurrentHP($obj) {
         default: break;
     }
     // Fractured Crown (suo6gb0op3): [Class Bonus] champion gets +2 LIFE per unique ally card in GY
-    if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         global $playerID;
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
@@ -1523,7 +1525,7 @@ function ObjectCurrentHPDisplay($obj) {
 
 
 function ObjectCurrentLevelDisplay($obj) {
-    if(!PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+    if(!PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         return 0;
     }
     $cardLevel = CardLevel($obj->CardID);
@@ -1785,6 +1787,7 @@ function TraitContains($card, $trait) {
 
 function CardHasAbility($obj) {
     global $debugMode;
+    if(HasNoAbilities($obj)) return 0;
     $hasDynamic = GetDynamicAbilities($obj) !== "";
     if($debugMode) {
         return (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic) ? 1 : 0;
@@ -1852,8 +1855,7 @@ function FieldSelectionMetadata($obj) {
     if ($currentPhase !== "MAIN") {
         return json_encode(['highlight' => false]);
     }
-    $cardType = CardType($obj->CardID);
-    // Allies and champions can attack; champions with weapons can also start combat
+    $cardType = EffectiveCardType($obj);
     if(!PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) {
         return json_encode(['highlight' => false]);
     }
@@ -1888,12 +1890,12 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
     $zoneArr = &GetZone($zoneName);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = $zoneArr[$i];
-        $cardTypeStr = CardType($obj->CardID);
+        $cardTypeStr = EffectiveCardType($obj);
         $cardTypes_arr = $cardTypeStr ? explode(",", $cardTypeStr) : [];
-        $cardSubtypesStr = CardSubtypes($obj->CardID);
+        $cardSubtypesStr = EffectiveCardSubtypes($obj);
         $cardSubtypes_arr = $cardSubtypesStr ? explode(",", $cardSubtypesStr) : [];
         if(($cardTypes === null || count(array_intersect($cardTypes_arr, (array)$cardTypes)) > 0) &&
-           ($cardElements === null || in_array(CardElement($obj->CardID), (array)$cardElements)) &&
+           ($cardElements === null || in_array(EffectiveCardElement($obj), (array)$cardElements)) &&
            ($cardSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$cardSubtypes)) > 0) &&
            ($excludeSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$excludeSubtypes)) === 0) &&
            (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
@@ -2014,51 +2016,51 @@ $persistentTurnEffects["STEALTH_NEXT_TURN"] = true;
 $persistentTurnEffects["NO_UPKEEP"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
-    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["zpkcFs72Ah"] = function($obj) { //Smack with Flute: champion gets +1 level until end of turn
-    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["Kc5Bktw0yK"] = function($obj) { //Empowering Harmony
-    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["dsAqxMezGb"] = function($obj) { //Favorable Winds
-    return PropertyContains(CardType($obj->CardID), "ALLY");
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 $doesGlobalEffectApply["DBJ4DuLABr"] = function($obj) { //Shroud in Mist: units you control gain stealth
-    return PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "ALLY") || PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["k71PE3clOI"] = function($obj) { //Inspiring Call: allies get +1 POWER until end of turn
-    return PropertyContains(CardType($obj->CardID), "ALLY");
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 $doesGlobalEffectApply["fMv7tIOZwL-PWR"] = function($obj) { //Aqueous Enchanting: allies get +1 POWER until end of turn
-    return PropertyContains(CardType($obj->CardID), "ALLY");
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 $doesGlobalEffectApply["fMv7tIOZwL-LIF"] = function($obj) { //Aqueous Enchanting: allies get +1 LIFE until end of turn
-    return PropertyContains(CardType($obj->CardID), "ALLY");
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 $doesGlobalEffectApply["hw8dxKAnMX"] = function($obj) { //Mist Resonance: allies get +1 LIFE until end of turn
-    return PropertyContains(CardType($obj->CardID), "ALLY");
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 $doesGlobalEffectApply["rxxwQT054x"] = function($obj) { //Command the Hunt: allies get +2 POWER
-    return PropertyContains(CardType($obj->CardID), "ALLY");
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 $doesGlobalEffectApply["rxxwQT054x_VIGOR"] = function($obj) { //Command the Hunt: allies gain vigor
-    return PropertyContains(CardType($obj->CardID), "ALLY");
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 $doesGlobalEffectApply["vcZSHNHvKX"] = function($obj) { //Spirit Blade: Ghost Strike: +1 POWER on champion attacks
-    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["LEVELED_UP_THIS_TURN"] = function($obj) { //Flag only — no visual effect on cards
@@ -2074,7 +2076,7 @@ $doesGlobalEffectApply["RfPP8h16Wv"] = function($obj) { //Flag only — next Ani
 };
 
 $doesGlobalEffectApply["MECS7RHRZ8"] = function($obj) { //Impassioned Tutor
-    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["rw8qq1uwq8-lockdown"] = function($obj) { //Corhazi Outlook: Opponents can't activate cards this turn
@@ -2082,11 +2084,11 @@ $doesGlobalEffectApply["rw8qq1uwq8-lockdown"] = function($obj) { //Corhazi Outlo
 };
 
 $doesGlobalEffectApply["aKgdkLSBza"] = function($obj) { //Wilderness Harpist
-    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["HsaWNAsmAQ"] = function($obj) { // Bestial Frenzy: +1 level applies only to champions
-    return PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["WAFNy2lY5t"] = function($obj) { //Melodious Flute
@@ -2106,11 +2108,11 @@ $doesGlobalEffectApply["STEADY_VERSE_HARMONY_DISCOUNT"] = function($obj) { //Ste
 };
 
 $doesGlobalEffectApply["INNERVATE_STEALTH"] = function($obj) { //Innervate Agility: units gain stealth
-    return PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "ALLY") || PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["INNERVATE_SPELLSHROUD"] = function($obj) { //Innervate Agility: units gain spellshroud
-    return PropertyContains(CardType($obj->CardID), "ALLY") || PropertyContains(CardType($obj->CardID), "CHAMPION");
+    return PropertyContains(EffectiveCardType($obj), "ALLY") || PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
 $doesGlobalEffectApply["FRACTURED_CROWN_FIRED"] = function($obj) { //Fractured Crown: first attack this turn flag (flag only)
@@ -2118,8 +2120,8 @@ $doesGlobalEffectApply["FRACTURED_CROWN_FIRED"] = function($obj) { //Fractured C
 };
 
 $doesGlobalEffectApply["akb1k0zi5h"] = function($obj) { //Effigy of Gaia: Animal/Beast allies get +2 LIFE
-    return PropertyContains(CardType($obj->CardID), "ALLY")
-        && (PropertyContains(CardSubtypes($obj->CardID), "ANIMAL") || PropertyContains(CardSubtypes($obj->CardID), "BEAST"));
+    return PropertyContains(EffectiveCardType($obj), "ALLY")
+        && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"));
 };
 
 function GlobalEffectCount($player, $effectID) {
@@ -2161,7 +2163,7 @@ function PlayerLevel($player) {
     $zoneArr = GetZone($zone);
     $maxLevel = 0;
     foreach($zoneArr as $index => $obj) {
-        if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
             $cardLevel = CardLevel($obj->CardID);
             if($cardLevel > $maxLevel) {
                 $maxLevel = $cardLevel;
@@ -2177,8 +2179,8 @@ function IsClassBonusActive($player, $classes=null) {
     $zone = $player == $playerID ? "myField" : "theirField";
     $zoneArr = GetZone($zone);
     foreach($zoneArr as $index => $obj) {
-        $cardClasses = explode(",", CardClasses($obj->CardID));
-        if(PropertyContains(CardType($obj->CardID), "CHAMPION") && ($classes === null || count(array_intersect($cardClasses, (array)$classes)) > 0)) {
+        $cardClasses = explode(",", EffectiveCardClasses($obj));
+        if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && ($classes === null || count(array_intersect($cardClasses, (array)$classes)) > 0)) {
             return true;
         }
     }
@@ -2198,8 +2200,8 @@ function IsElementBonusActive($player, $cardID) {
     if($cardElement === null || $cardElement === "NORM") return false;
     $field = &GetField($player);
     foreach($field as $obj) {
-        if(!$obj->removed && PropertyContains(CardType($obj->CardID), "CHAMPION") && $obj->Controller == $player) {
-            $champElement = CardElement($obj->CardID);
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
+            $champElement = EffectiveCardElement($obj);
             return $champElement === $cardElement;
         }
     }
@@ -2261,7 +2263,7 @@ function DealChampionDamage($player, $amount=1) {
     $zoneArr = &GetZone($zone);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = &$zoneArr[$i];
-        if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
             // Safeguard Amulet: prevent up to 4 non-combat damage (one-time)
             if(in_array("yj2rJBREH8", $obj->TurnEffects)) {
                 $prevented = min(4, $amount);
@@ -2281,7 +2283,7 @@ function RecoverChampion($player, $amount=1) {
     $zoneArr = &GetZone($zone);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = &$zoneArr[$i];
-        if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
             $obj->Damage = max(0, $obj->Damage - $amount);
             return $obj;
         }
@@ -2298,7 +2300,7 @@ function RecoverChampion($player, $amount=1) {
 function GetChampionLineage($player) {
     $field = &GetField($player);
     foreach($field as $obj) {
-        if(!$obj->removed && PropertyContains(CardType($obj->CardID), "CHAMPION") && $obj->Controller == $player) {
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
             $subcards = is_array($obj->Subcards) ? $obj->Subcards : [];
             return array_merge([$obj->CardID], $subcards);
         }
@@ -2739,7 +2741,156 @@ function HasFloatingMemory($obj) {
     return false;
 }
 
+// =============================================================================
+// Card Property Override System
+// =============================================================================
+// Provides runtime overrides for card properties (element, type, subtypes,
+// classes) and a blanket ability suppression flag (NO_ABILITIES).
+//
+// Temporary overrides use TurnEffects (cleared by ExpireEffects at end of turn).
+// Persistent/indefinite overrides use Counters['_overrides'] on field objects
+// (survives serialization and ExpireEffects).
+//
+// Effective* wrappers should be used wherever an on-field (or in-graveyard)
+// object's property is queried and might differ from its printed card.
+// Raw Card*() functions remain correct for static lookups by card ID (e.g.
+// dictionary queries, deck/hand cards that have no field overrides).
+// =============================================================================
+
+/**
+ * Check whether a field object currently has all abilities suppressed.
+ * A card with NO_ABILITIES loses all keyword abilities (pride, intercept,
+ * stealth, vigor, etc.), all triggered abilities (On Enter, On Hit, etc.),
+ * and all activated abilities.
+ *
+ * Sources:
+ *   - TurnEffect "NO_ABILITIES" (until end of turn, e.g. Capricious Lynx)
+ *   - Persistent override in Counters (indefinite, e.g. Fracturize)
+ */
+function HasNoAbilities($obj) {
+    if(isset($obj->TurnEffects) && in_array("NO_ABILITIES", $obj->TurnEffects)) return true;
+    if(isset($obj->Counters['_overrides']['NO_ABILITIES']) && $obj->Counters['_overrides']['NO_ABILITIES']) return true;
+    return false;
+}
+
+/**
+ * Get the effective element for a zone object, considering runtime overrides.
+ * Checks: persistent overrides (Fracturize), zone-based overrides (Nullifying
+ * Lantern — cards in graveyards are NORM), then falls back to card dictionary.
+ *
+ * @param object $obj  A zone object with at least CardID and Location properties.
+ * @return string|null The effective element string (e.g. "FIRE", "NORM").
+ */
+function EffectiveCardElement($obj) {
+    // Persistent override (e.g. Fracturize transforms element)
+    if(isset($obj->Counters['_overrides']['element'])) {
+        return $obj->Counters['_overrides']['element'];
+    }
+    // Zone override: cards in graveyards are NORM while Nullifying Lantern is on the field
+    if(isset($obj->Location) && $obj->Location === 'Graveyard') {
+        if(ZoneContainsCardID("myField", "urKxcUjz9a") || ZoneContainsCardID("theirField", "urKxcUjz9a")) {
+            return "NORM";
+        }
+    }
+    return CardElement($obj->CardID);
+}
+
+/**
+ * Get the effective type for a zone object, considering runtime overrides.
+ * Checks persistent overrides (Fracturize), then falls back to card dictionary.
+ *
+ * @param object $obj  A zone object (typically Field).
+ * @return string|null The effective type string (e.g. "ALLY", "PHANTASIA").
+ */
+function EffectiveCardType($obj) {
+    if(isset($obj->Counters['_overrides']['type'])) {
+        return $obj->Counters['_overrides']['type'];
+    }
+    return CardType($obj->CardID);
+}
+
+/**
+ * Get the effective subtypes for a zone object, considering runtime overrides.
+ * Checks persistent overrides (Fracturize), then falls back to card dictionary.
+ *
+ * @param object $obj  A zone object (typically Field).
+ * @return string|null The effective subtypes (comma-separated, e.g. "CLERIC,FRACTAL").
+ */
+function EffectiveCardSubtypes($obj) {
+    if(isset($obj->Counters['_overrides']['subtypes'])) {
+        return $obj->Counters['_overrides']['subtypes'];
+    }
+    return CardSubtypes($obj->CardID);
+}
+
+/**
+ * Get the effective classes for a zone object, considering runtime overrides.
+ * Checks persistent overrides (Fracturize), then falls back to card dictionary.
+ *
+ * @param object $obj  A zone object (typically Field).
+ * @return string|null The effective classes (comma-separated, e.g. "CLERIC").
+ */
+function EffectiveCardClasses($obj) {
+    if(isset($obj->Counters['_overrides']['classes'])) {
+        return $obj->Counters['_overrides']['classes'];
+    }
+    return CardClasses($obj->CardID);
+}
+
+/**
+ * Apply a persistent (indefinite) card property override to a field object.
+ * Stored in Counters['_overrides'] so it survives serialization and ExpireEffects.
+ * Used for effects like Fracturize that last indefinitely.
+ *
+ * @param string $mzCard    The mzID of the field card (e.g. "myField-3").
+ * @param array  $overrides Key-value pairs. Valid keys:
+ *                          'type', 'subtypes', 'classes', 'element', 'NO_ABILITIES' (bool).
+ */
+function ApplyPersistentOverride($mzCard, $overrides) {
+    $obj = &GetZoneObject($mzCard);
+    if($obj === null) return;
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) {
+        $obj->Counters = [];
+    }
+    if(!isset($obj->Counters['_overrides'])) {
+        $obj->Counters['_overrides'] = [];
+    }
+    foreach($overrides as $key => $value) {
+        $obj->Counters['_overrides'][$key] = $value;
+    }
+}
+
+/**
+ * Check if a zone contains a specific card ID (not removed).
+ * Scans the zone array — O(n) where n is zone size.
+ *
+ * @param string $zoneName Zone name (e.g. "myField", "theirGraveyard").
+ * @param string $cardID   Card ID to search for.
+ * @return bool
+ */
+function ZoneContainsCardID($zoneName, $cardID) {
+    $zoneArr = &GetZone($zoneName);
+    foreach($zoneArr as $obj) {
+        if(!$obj->removed && $obj->CardID === $cardID) return true;
+    }
+    return false;
+}
+
+/**
+ * Check if a field object has a keyword explicitly granted by persistent overrides.
+ * Used for effects like Fracturize that grant specific keywords while suppressing all others.
+ *
+ * @param object $obj     Field object to check.
+ * @param string $keyword Keyword name (e.g. 'Reservable').
+ * @return bool
+ */
+function HasGrantedKeyword($obj, $keyword) {
+    if(!isset($obj->Counters['_overrides']['granted_keywords'])) return false;
+    return in_array($keyword, $obj->Counters['_overrides']['granted_keywords']);
+}
+
 function HasVigor($obj) {
+    if(HasNoAbilities($obj)) return false;
     if(HasKeyword_Vigor($obj)) return true;
     // Command the Hunt (rxxwQT054x): allies gain vigor via global effect
     if(ObjectHasEffect($obj, "rxxwQT054x_VIGOR")) return true;
@@ -2752,6 +2903,7 @@ function HasVigor($obj) {
 }
 
 function HasStealth($obj) {
+    if(HasNoAbilities($obj)) return false;
     // Lurking Assailant (uq2r6v374c): stealth as long as it's awake
     if($obj->CardID === "uq2r6v374c") {
         return isset($obj->Status) && $obj->Status == 2;
@@ -2765,7 +2917,7 @@ function HasStealth($obj) {
         if(IsClassBonusActive($obj->Controller, CardClasses("hHVf5xyjob"))) {
             $pField = &GetField($obj->Controller);
             foreach($pField as $fCard) {
-                if(!$fCard->removed && CardType($fCard->CardID) === "CHAMPION") {
+                if(!$fCard->removed && EffectiveCardType($fCard) === "CHAMPION") {
                     if(GetCounterCount($fCard, "prep") >= 3) return true;
                     break;
                 }
@@ -2791,6 +2943,7 @@ function HasStealth($obj) {
 }
 
 function HasTrueSight($obj) {
+    if(HasNoAbilities($obj)) return false;
     if(HasKeyword_TrueSight($obj)) return true;
     if(ObjectHasEffect($obj, "iiZtKTulPg")) return true; // Eye of Argus
     if(ObjectHasEffect($obj, "F1t18omUlx_SIGHT")) return true; // Beastbond Paws
@@ -2819,6 +2972,7 @@ function GetProtectiveFractalPrevention($obj) {
  *   - TurnEffect "SPELLSHROUD_NEXT_TURN" (until beginning of next turn, e.g. Zander)
  */
 function HasSpellshroud($obj) {
+    if(HasNoAbilities($obj)) return false;
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
     // Innervate Agility: units gain spellshroud until EOT via global effect
@@ -2833,6 +2987,7 @@ function HasSpellshroud($obj) {
  * Hindered is redundant.
  */
 function HasHindered($obj) {
+    if(HasNoAbilities($obj)) return false;
     if(HasKeyword_Hindered($obj)) return true;
     return false;
 }
@@ -2843,6 +2998,9 @@ function HasHindered($obj) {
  * Reservable is redundant.
  */
 function HasReservable($obj) {
+    // Check for keywords explicitly granted by persistent overrides (e.g. Fracturize)
+    if(HasGrantedKeyword($obj, 'Reservable')) return true;
+    if(HasNoAbilities($obj)) return false;
     if(HasKeyword_Reservable($obj)) return true;
     return false;
 }
@@ -2858,6 +3016,7 @@ function HasReservable($obj) {
  *   - TurnEffect "TAUNT_NEXT_TURN" (until beginning of controller's next turn, e.g. On Enter grant)
  */
 function HasTaunt($obj) {
+    if(HasNoAbilities($obj)) return false;
     if(HasKeyword_Taunt($obj)) return true;
     if(in_array("TAUNT", $obj->TurnEffects)) return true;
     if(in_array("TAUNT_NEXT_TURN", $obj->TurnEffects)) return true;
@@ -2903,6 +3062,7 @@ function FilterSpellshroudTargets($mzIDs) {
 }
 
 function PrideAmount($obj) {
+    if(HasNoAbilities($obj)) return 0;
     $prideValue = GetKeyword_Pride_Value($obj);
     if($prideValue === null) return 0;
     // Avatar of Gaia (fqsuo6gb0o): linked ally loses pride
@@ -3093,10 +3253,11 @@ function GetDurabilityCounterCount($obj) {
  * @return string JSON array, or empty string.
  */
 function GetDynamicAbilities($obj) {
+    if(HasNoAbilities($obj)) return "";
     $abilities = [];
     $staticCount = CardActivateAbilityCount($obj->CardID);
     // Enlighten: champion may remove 3 enlighten counters to draw a card
-    if(PropertyContains(CardType($obj->CardID), "CHAMPION") && GetCounterCount($obj, "enlighten") >= 3) {
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && GetCounterCount($obj, "enlighten") >= 3) {
         $abilities[] = ["name" => "Enlighten", "index" => $staticCount];
     }
     if(empty($abilities)) return "";
@@ -3653,7 +3814,7 @@ function ProcessSplitDamage($player, $source, $assignmentStr) {
 function Delevel($player) {
     $field = &GetField($player);
     foreach($field as &$obj) {
-        if(!$obj->removed && PropertyContains(CardType($obj->CardID), "CHAMPION") && $obj->Controller == $player) {
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
             $subcards = is_array($obj->Subcards) ? $obj->Subcards : [];
             if(empty($subcards)) return false; // Level 1 champion, can't delevel
             // Current champion goes to material deck

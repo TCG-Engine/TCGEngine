@@ -1686,7 +1686,7 @@ function AddWriteGamestate() {
         $writeGamestate .= "  \$zoneText = \"\";\r\n";
         $writeGamestate .= "  \$count = 0;\r\n";
         $writeGamestate .= "  for(\$i=0; \$i<count(\$g" . $zoneName . "); ++\$i) {\r\n";
-        $writeGamestate .= "    if(\$g" . $zoneName . "[\$i]->Removed()) continue;\r\n";
+        $writeGamestate .= "    if(\$g" . $zoneName . "[\$i] == null || \$g" . $zoneName . "[\$i]->Removed()) continue;\r\n";
         $writeGamestate .= "    ++\$count;\r\n";
         $writeGamestate .= "    \$zoneText .= trim(\$g" . $zoneName . "[\$i]->Serialize()) . \"\\r\\n\";\r\n";
         $writeGamestate .= "  }\r\n";
@@ -1711,7 +1711,7 @@ function AddWriteZone($zoneName, $player) {
   $rv .= "  \$zoneText = \"\";\r\n";
   $rv .= "  \$count = 0;\r\n";
   $rv .= "  for(\$i=0; \$i<count(\$p" . $player . $zoneName . "); ++\$i) {\r\n";
-  $rv .= "    if(\$p" . $player . $zoneName . "[\$i]->Removed()) continue;\r\n";
+  $rv .= "    if(\$p" . $player . $zoneName . "[\$i] == null || \$p" . $player . $zoneName . "[\$i]->Removed()) continue;\r\n";
   $rv .= "    ++\$count;\r\n";
   $rv .= "    \$zoneText .= trim(\$p" . $player . $zoneName . "[\$i]->Serialize()) . \"\\r\\n\";\r\n";
   $rv .= "  }\r\n";

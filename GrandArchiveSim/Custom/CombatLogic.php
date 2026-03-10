@@ -127,7 +127,7 @@ function AttackerHasTrueSight($attackerMZ, $player) {
 function AttackerHasCleave($attackerMZ, $player) {
     // Check the attacking unit
     $attacker = &GetZoneObject($attackerMZ);
-    if(HasKeyword_Cleave($attacker)) return true;
+    if(!HasNoAbilities($attacker) && HasKeyword_Cleave($attacker)) return true;
 
     // Check attack cards in intent
     $intentCards = GetIntentCards($player);
@@ -137,13 +137,13 @@ function AttackerHasCleave($attackerMZ, $player) {
     }
 
     // Bestial Frenzy (HsaWNAsmAQ): cleave via turn effect
-    if(ObjectHasEffect($attacker, "HsaWNAsmAQ_CLEAVE")) return true;
+    if(!HasNoAbilities($attacker) && ObjectHasEffect($attacker, "HsaWNAsmAQ_CLEAVE")) return true;
 
     // Check the weapon used in this attack
     $weaponMZ = GetCombatWeapon();
     if($weaponMZ !== null) {
         $weaponObj = &GetZoneObject($weaponMZ);
-        if($weaponObj !== null && HasKeyword_Cleave($weaponObj)) return true;
+        if($weaponObj !== null && !HasNoAbilities($weaponObj) && HasKeyword_Cleave($weaponObj)) return true;
     }
 
     return false;
@@ -200,7 +200,7 @@ function GetValidAttackTargets($attackerMZ) {
         $interceptTargets = [];
         foreach($opponents as $mzID) {
             $obj = &GetZoneObject($mzID);
-            if(HasKeyword_Intercept($obj)) {
+            if(!HasNoAbilities($obj) && HasKeyword_Intercept($obj)) {
                 $interceptTargets[] = $mzID;
             }
         }
@@ -355,7 +355,7 @@ $customDQHandlers["DeclareChampionAttack"] = function($player, $parts, $lastDeci
 function BeginCombatPhase($actionCard) {
     $turnPlayer = GetTurnPlayer();
     $obj = &GetZoneObject($actionCard);
-    $cardType = CardType($obj->CardID);
+    $cardType = EffectiveCardType($obj);
 
     // Only allies and champions can declare attacks as the attacking unit
     if(!PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) {
@@ -459,7 +459,7 @@ function OnAttackTrigger($player, $mzID) {
     global $onAttackAbilities;
     // Dispatch OnAttack for the attacker itself (ally or champion attacking directly)
     $obj = GetZoneObject($mzID);
-    if($obj !== null && isset($onAttackAbilities[$obj->CardID . ":0"])) {
+    if($obj !== null && !HasNoAbilities($obj) && isset($onAttackAbilities[$obj->CardID . ":0"])) {
         $onAttackAbilities[$obj->CardID . ":0"]($player);
     }
     // Also dispatch OnAttack for any attack cards currently in the player's intent zone
@@ -472,7 +472,7 @@ function OnAttackTrigger($player, $mzID) {
         }
     }
     // Weapon OnAttack: if the champion is attacking and a weapon was selected, fire its OnAttack
-    if($obj !== null && PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         $weaponMZ = GetCombatWeapon();
         if($weaponMZ !== null) {
             $weaponObj = GetZoneObject($weaponMZ);
@@ -482,7 +482,7 @@ function OnAttackTrigger($player, $mzID) {
         }
     }
     // Majestic Spirit's Crest (Tx6iJQNSA6): TurnEffect on champion — when champion attacks, draw 1
-    if($obj !== null && PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         if(in_array("Tx6iJQNSA6", $obj->TurnEffects)) {
             Draw($player, 1);
         }
@@ -522,7 +522,7 @@ function OnHitTrigger($player, $attackerMZ) {
 
     // Dispatch On Hit for the attacker itself
     $obj = GetZoneObject($attackerMZ);
-    if($obj !== null && isset($onHitAbilities[$obj->CardID . ":0"])) {
+    if($obj !== null && !HasNoAbilities($obj) && isset($onHitAbilities[$obj->CardID . ":0"])) {
         $onHitAbilities[$obj->CardID . ":0"]($player);
     }
 
@@ -604,7 +604,7 @@ function OnKillTrigger($player, $attackerMZ) {
     // Dispatch On Kill for the attacker itself
     $obj = GetZoneObject($attackerMZ);
     if(isset($onKillAbilities) && is_array($onKillAbilities)) {
-        if($obj !== null && isset($onKillAbilities[$obj->CardID . ":0"])) {
+        if($obj !== null && !HasNoAbilities($obj) && isset($onKillAbilities[$obj->CardID . ":0"])) {
             $onKillAbilities[$obj->CardID . ":0"]($player);
         }
 
@@ -1158,7 +1158,7 @@ function OnDealDamage($player, $source, $target, $amount) {
     }
 
     // Champion-only prevention effects
-    $isChampion = PropertyContains(CardType($targetObj->CardID), "CHAMPION");
+    $isChampion = PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
     if($isChampion && $amount > 0) {
         // PREVENT_CHAMP_ENLIGHTEN: prevent all of next damage to champion; gain enlighten = amount prevented (Spellshield: Arcane)
         if(in_array("PREVENT_CHAMP_ENLIGHTEN", $targetObj->TurnEffects)) {
