@@ -92,6 +92,21 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     //TODO: 1.6 Checking Legality
 
+    // Right of Realm (ptrz1bqry4): "Whenever you activate a domain card, you may sacrifice
+    // Right of Realm. If you do, that domain enters the field without any of its upkeep abilities."
+    $cardType = CardType($obj->CardID);
+    if(PropertyContains($cardType, "DOMAIN")) {
+        $field = GetZone("myField");
+        for($ri = 0; $ri < count($field); ++$ri) {
+            if(!$field[$ri]->removed && $field[$ri]->CardID === "ptrz1bqry4") {
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 100,
+                    tooltip:"Sacrifice_Right_of_Realm_so_domain_enters_without_upkeep?");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "RightOfRealmChoice|$ri", 100);
+                break; // Only one Right of Realm can trigger
+            }
+        }
+    }
+
     //1.7 Calculating Reserve Cost
     $reserveCost = CardCost_reserve($obj->CardID);
 
@@ -190,6 +205,20 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
                     $reserveCost += 2;
                 }
                 break;
+            }
+        }
+    }
+
+    // Dawn of Ashes (4coy34bro8): "Non-norm element cards cost 1 more to activate."
+    // This applies to ALL players when any player controls Dawn of Ashes on the field.
+    if(CardElement($obj->CardID) !== "NORM") {
+        // Check both players' fields for Dawn of Ashes
+        $myField = GetZone("myField");
+        $theirField = GetZone("theirField");
+        foreach(array_merge($myField, $theirField) as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "4coy34bro8") {
+                $reserveCost += 1;
+                break; // Multiple Dawn of Ashes shouldn't stack (unique)
             }
         }
     }
@@ -434,6 +463,10 @@ function OnCardActivated($player, $mzCard) {
         }
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
+    } else if(PropertyContains($cardType, "DOMAIN")) {
+        // Domains enter the field like allies/regalia — they are objects that persist
+        $obj = MZMove($player, $mzCard, "myField");
+        $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "ACTION")) {
         // Special case: Preserve cards go to Material zone
         if($obj->CardID == "2Ojrn7buPe") { // Tera Sight - Preserve
@@ -461,6 +494,7 @@ function OnCardActivated($player, $mzCard) {
     // "Whenever you activate" triggers — check field for listening cards
     $field = &GetField($player);
     $subtypes = CardSubtypes($obj->CardID);
+    $activatedElement = CardElement($obj->CardID);
     for($fi = 0; $fi < count($field); ++$fi) {
         if($field[$fi]->removed) continue;
         switch($field[$fi]->CardID) {
@@ -472,6 +506,14 @@ function OnCardActivated($player, $mzCard) {
             case "aKgdkLSBza": // Wilderness Harpist: when you activate a Melody or Harmony, +1 level this turn
                 if(PropertyContains($subtypes, "MELODY") || PropertyContains($subtypes, "HARMONY")) {
                     AddTurnEffect("myField-" . $fi, "aKgdkLSBza");
+                }
+                break;
+            case "41WnFOT5YS": // Avalon, Cursed Isle: whenever you activate a water element card,
+                // target player puts the top two cards of their deck into their graveyard
+                if($activatedElement === "WATER") {
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                        tooltip:"Mill_yourself?_(No=mill_opponent)");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "AvalonMill", 1);
                 }
                 break;
         }
@@ -755,6 +797,11 @@ function RecollectionPhase() {
     // Recollection phase
     SetFlashMessage("Recollection Phase");
     $turnPlayer = &GetTurnPlayer();
+    
+    // --- Domain Recollection Upkeep ---
+    // Process domain upkeep checks that trigger "at the beginning of your recollection phase".
+    // Must run BEFORE memory is returned to hand, since the checks reveal memory cards.
+    DomainRecollectionUpkeep($turnPlayer);
     
     // Trigger recollection phase abilities for cards on the field
     $field = &GetField($turnPlayer);
@@ -1943,11 +1990,13 @@ $effectAppliesToBoth["GMBF3HVRKG"] = true;
 // FROZEN_BY_SNOW_FAIRY: persists as long as opponent controls Snow Fairy.
 // SPELLSHROUD_NEXT_TURN / STEALTH_NEXT_TURN: "until beginning of your next turn" effects,
 //   consumed by WakeUpPhase of the controller's next turn.
+// NO_UPKEEP: Right of Realm exemption — domain permanently skips its upkeep abilities.
 $persistentTurnEffects = [];
 $persistentTurnEffects["SKIP_WAKEUP"] = true;
 $persistentTurnEffects["FROZEN_BY_SNOW_FAIRY"] = true;
 $persistentTurnEffects["SPELLSHROUD_NEXT_TURN"] = true;
 $persistentTurnEffects["STEALTH_NEXT_TURN"] = true;
+$persistentTurnEffects["NO_UPKEEP"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(CardType($obj->CardID), "CHAMPION");
@@ -3421,6 +3470,130 @@ $customDQHandlers["DeclareAllyLinkTarget"] = function($player, $parts, $lastDeci
     $targetObj = GetZoneObject($lastDecision);
     DecisionQueueController::StoreVariable("linkTargetMZ", $lastDecision);
     DecisionQueueController::StoreVariable("linkTargetCardID", $targetObj !== null ? $targetObj->CardID : "");
+};
+
+// ============================================================================
+// Domain Card Type — Recollection Upkeep, Passive Effects, and Helpers
+// ============================================================================
+
+/**
+ * Process domain upkeep checks that trigger "At the beginning of your recollection phase".
+ * Called from RecollectionPhase() BEFORE memory is returned to hand.
+ *
+ * Dawn of Ashes (4coy34bro8): reveal random memory; if not norm element, sacrifice.
+ * Prismatic Sanctuary (9w0ejcyuvu): reveal random memory; if not fire/water/wind, sacrifice.
+ */
+function DomainRecollectionUpkeep($player) {
+    $field = &GetField($player);
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if($field[$i]->removed) continue;
+        // Right of Realm exemption: domains tagged NO_UPKEEP skip recollection upkeep
+        if(in_array("NO_UPKEEP", $field[$i]->TurnEffects)) continue;
+        switch($field[$i]->CardID) {
+            case "4coy34bro8": // Dawn of Ashes
+                DomainRevealMemoryUpkeep($player, $i, ["NORM"], "4coy34bro8");
+                break;
+            case "9w0ejcyuvu": // Prismatic Sanctuary
+                DomainRevealMemoryUpkeep($player, $i, ["FIRE", "WATER", "WIND"], "9w0ejcyuvu");
+                break;
+        }
+    }
+}
+
+/**
+ * Domain upkeep helper: reveal a random memory card. If its element is NOT in the
+ * allowed list, sacrifice the domain at fieldIndex.
+ *
+ * @param int    $player          The controlling player
+ * @param int    $fieldIndex      Index of the domain in the field
+ * @param array  $allowedElements Array of allowed element strings (e.g. ["NORM"])
+ * @param string $domainCardID    CardID of the domain (for logging/identification)
+ */
+function DomainRevealMemoryUpkeep($player, $fieldIndex, $allowedElements, $domainCardID) {
+    $memory = &GetMemory($player);
+    if(count($memory) == 0) {
+        // No memory cards — sacrifice (can't meet element condition)
+        DoSacrificeFighter($player, "myField-" . $fieldIndex);
+        DecisionQueueController::CleanupRemovedCards();
+        return;
+    }
+    // Pick a random memory card and reveal it
+    $randomIdx = array_rand($memory);
+    $memObj = $memory[$randomIdx];
+    $memMZ = "myMemory-" . $randomIdx;
+    DoRevealCard($player, $memMZ);
+
+    $element = CardElement($memObj->CardID);
+    if(!in_array($element, $allowedElements)) {
+        // Element doesn't match — sacrifice the domain
+        // Re-fetch field index since CleanupRemovedCards may have shifted indices
+        $field = &GetField($player);
+        for($si = 0; $si < count($field); ++$si) {
+            if(!$field[$si]->removed && $field[$si]->CardID === $domainCardID) {
+                DoSacrificeFighter($player, "myField-" . $si);
+                break;
+            }
+        }
+        DecisionQueueController::CleanupRemovedCards();
+    }
+}
+
+/**
+ * Right of Realm (ptrz1bqry4): "Whenever you activate a domain card, you may sacrifice
+ * CARDNAME. If you do, that domain enters the field without any of its upkeep abilities."
+ *
+ * This DQ handler is called after the YesNo prompt. If YES, sacrifice Right of Realm
+ * and tag the domain (on the EffectStack) with NO_UPKEEP so materialize-sacrifice
+ * and recollection upkeep checks skip it.
+ */
+$customDQHandlers["RightOfRealmChoice"] = function($player, $parts, $lastDecision) {
+    $rightOfRealmIdx = intval($parts[0]);
+    if($lastDecision !== "YES") return;
+
+    // Sacrifice Right of Realm
+    $field = &GetField($player);
+    if(isset($field[$rightOfRealmIdx]) && !$field[$rightOfRealmIdx]->removed
+        && $field[$rightOfRealmIdx]->CardID === "ptrz1bqry4") {
+        DoSacrificeFighter($player, "myField-" . $rightOfRealmIdx);
+        DecisionQueueController::CleanupRemovedCards();
+    }
+
+    // Tag the domain on the EffectStack with NO_UPKEEP
+    // The domain is currently the top of the EffectStack (about to resolve)
+    $es = &GetEffectStack();
+    if(count($es) > 0) {
+        $topIdx = count($es) - 1;
+        $es[$topIdx]->TurnEffects[] = "NO_UPKEEP";
+    }
+};
+
+/**
+ * Mill N cards from a player's deck (move top N cards from deck to graveyard).
+ * @param int    $player   The acting player (perspective for zone names)
+ * @param string $deckRef  "myDeck" or "theirDeck"
+ * @param string $gyRef    "myGraveyard" or "theirGraveyard"
+ * @param int    $amount   Number of cards to mill
+ */
+function MillCards($player, $deckRef, $gyRef, $amount) {
+    $deck = GetZone($deckRef);
+    $n = min($amount, count($deck));
+    // Always move index 0 (top of deck) — after each move the next card becomes index 0
+    for($i = 0; $i < $n; ++$i) {
+        MZMove($player, "$deckRef-0", $gyRef);
+    }
+}
+
+/**
+ * Avalon, Cursed Isle (41WnFOT5YS): "Whenever you activate a water element card,
+ * target player puts the top two cards of their deck into their graveyard."
+ * YES = mill yourself, NO = mill opponent.
+ */
+$customDQHandlers["AvalonMill"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        MillCards($player, "myDeck", "myGraveyard", 2);
+    } else {
+        MillCards($player, "theirDeck", "theirGraveyard", 2);
+    }
 };
 
 ?>

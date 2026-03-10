@@ -118,5 +118,43 @@ function DoMaterialize($player, $mzCard) {
     } else {
         MZMove($player, $mzCard, "myField");
     }
+
+    // --- Domain Upkeep: "Whenever you materialize a card, sacrifice [domain]" ---
+    // After any materialize, check if the player controls domains with materialize-sacrifice upkeep.
+    // Domains tagged with NO_UPKEEP (via Right of Realm) skip this trigger.
+    DomainMaterializeSacrifice($player);
+}
+
+/**
+ * Domains with "Whenever you materialize a card, sacrifice [domain name]" upkeep.
+ * Maps domain CardID → true for all domains that have this trigger.
+ */
+$DOMAIN_MATERIALIZE_SACRIFICE = [
+    "41WnFOT5YS" => true, // Avalon, Cursed Isle
+    "IyM7IBCQeb" => true, // Varuck, Smoldering Spire
+    "R9UFbI4Fsh" => true, // Camelot, Impenetrable
+];
+
+/**
+ * After a materialize action, sacrifice any domains the player controls that have
+ * "Whenever you materialize a card, sacrifice [domain]" upkeep.
+ * Domains tagged with the NO_UPKEEP TurnEffect are exempt (Right of Realm).
+ */
+function DomainMaterializeSacrifice($player) {
+    global $DOMAIN_MATERIALIZE_SACRIFICE;
+    $field = &GetField($player);
+    // Iterate backwards since sacrifice removes cards from the field
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if($field[$i]->removed) continue;
+        $cardID = $field[$i]->CardID;
+        if(isset($DOMAIN_MATERIALIZE_SACRIFICE[$cardID])) {
+            // Check for NO_UPKEEP tag (Right of Realm exemption — permanent)
+            if(in_array("NO_UPKEEP", $field[$i]->TurnEffects)) {
+                continue; // NO_UPKEEP persists — domain is permanently exempt from materialize-sacrifice
+            }
+            DoSacrificeFighter($player, "myField-" . $i);
+        }
+    }
+    DecisionQueueController::CleanupRemovedCards();
 }
 ?>

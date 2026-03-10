@@ -1009,6 +1009,26 @@ $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecisio
  */
 function OnDealDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
+
+    // Varuck, Smoldering Spire (IyM7IBCQeb): "Damage dealt by fire element sources you
+    // control can't be prevented." If the source is fire element and the source's controller
+    // has Varuck on the field, bypass all prevention effects → use DealUnpreventableDamage path.
+    $sourceObj = GetZoneObject($source);
+    if($sourceObj !== null) {
+        $sourceElement = CardElement($sourceObj->CardID);
+        if($sourceElement === "FIRE") {
+            $sourceController = $sourceObj->Controller ?? $player;
+            $scField = &GetField($sourceController);
+            foreach($scField as $scObj) {
+                if(!$scObj->removed && $scObj->CardID === "IyM7IBCQeb") {
+                    // Fire source + Varuck present → unpreventable
+                    DealUnpreventableDamage($player, $source, $target, $amount);
+                    return;
+                }
+            }
+        }
+    }
+
     // Barrier Servant: prevent next damage if tagged with BARRIER_PREVENT_DAMAGE (one-time)
     if(in_array("BARRIER_PREVENT_DAMAGE", $targetObj->TurnEffects)) {
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));
