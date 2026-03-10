@@ -1233,13 +1233,10 @@ function ObjectCurrentPower($obj) {
     }
     // Wand of Frost (n0wpbhigka): if the attacking unit has n0wpbhigka TurnEffect,
     // attacks from that unit get -3 POWER until end of turn.
-    if(PropertyContains(CardType($obj->CardID), "ATTACK") || PropertyContains(CardType($obj->CardID), "CHAMPION") || PropertyContains(CardType($obj->CardID), "ALLY")) {
-        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
-        if($combatAttacker !== null && $combatAttacker != "-" && $combatAttacker != "") {
-            $attackerObj = GetZoneObject($combatAttacker);
-            if($attackerObj !== null && in_array("n0wpbhigka", $attackerObj->TurnEffects)) {
+    $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+    if($combatAttacker !== null && $combatAttacker != "-" && $combatAttacker != "" && $obj->GetMzID() === $combatAttacker) {
+        if($obj !== null && in_array("n0wpbhigka", $obj->TurnEffects)) {
                 $power -= 3;
-            }
         }
     }
     // Ally Link: check for power bonuses from linked Phantasia cards via Subcards

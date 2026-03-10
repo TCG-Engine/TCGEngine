@@ -1036,14 +1036,12 @@ function OnDealDamage($player, $source, $target, $amount) {
     }
 
     // Protective Fractal: prevent 1 damage per effect
-    /*
     $protectivePrevention = GetProtectiveFractalPrevention($targetObj);
     if($protectivePrevention > 0) {
         $amount -= 1;
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "1lw9n0wpbh"));
         if($amount <= 0) return; // All damage prevented
     }
-        */
 
     // PREVENT_ALL_N: prevent up to N of any damage this turn (Guarded Dissipation)
     if($amount > 0) {
