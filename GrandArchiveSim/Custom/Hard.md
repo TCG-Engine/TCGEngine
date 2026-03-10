@@ -67,22 +67,6 @@ Cards blocked:
 
 ---
 
-### Missing: Split Damage (Multiple Target Allocation)
-
-**Status**: Dealing a pool of damage split among any number of chosen targets requires new UI interaction (allocating N damage across M units).
-
-Current system: `OnDealDamage` and `DealUnpreventableDamage` accept a single target per call. Splitting would require either:
-- A new SPLITDAmagE DQ decision type
-- Or a loop of single-target damage with player allocation choices
-
-Cards blocked:
-- Erupting Rhapsody (dBAdWMoPEz) — Harmonize clause: deal LV damage, split as you choose among any units.
-- Advent of the Stormcaller (ZSSegCjquB) — Deal 2 damage per banished arcane card, each to a separately chosen target.
-- Lightweaver's Assault (zxB4tzy9iy) — Main effect: reveal all memory, deal damage split among units.
-- Innervate Fury (wpbhigka5a) — Mandatory additional cost: delevel + recover 5. Main effect: deal 7 damage split among any amount of target allies.
-
----
-
 ### Missing: Death Replacement Effect
 
 **Status**: No mechanism to intercept the "unit dies" event and redirect it to banishment instead. The `DoAllyDestroyed` function moves the card to the graveyard unconditionally; there is no pre-death hook that can reroute the destination.
@@ -365,5 +349,6 @@ Since the blockers list was created, the following capabilities HAVE been added:
 - ✅ **DealUnpreventableDamage** — unpreventable damage handling
 - ✅ **Domain card type** — activation framework, materialize-sacrifice upkeep, recollection upkeep, Right of Realm NO_UPKEEP exemption
 - ✅ **Non-combat damage flag** — `OnDealDamage` now receives an explicit `$isCombat` param; all combat damage flows through `DealCombatDamage`; passive field-scan prevention for non-combat events is now implementable (used by Blanche, Sheltering Saint)
+- ✅ **MZSplitAssign** — split-assign a numeric pool across multiple targets with inline +/- UI overlay. Await syntax: `$result = await $player.MZSplitAssign($targets, $amount, "tooltip")`. Returns comma-separated `mzID:amount` pairs.
 
 This has enabled many cards from the original list to become implementable. See Easy.md for those cards.

@@ -258,28 +258,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     }
 
     //1.3 Declaring Costs — Innervate Knowledge / Innervate Agility: mandatory delevel + recover 5
-    if($obj->CardID === "pcescfpwak" || $obj->CardID === "v43ehjdu50") {
-        $field = &GetField($player);
-        $champIdx = -1;
-        $champObj = null;
-        for($fi = 0; $fi < count($field); ++$fi) {
-            if(!$field[$fi]->removed && PropertyContains(CardType($field[$fi]->CardID), "CHAMPION") && $field[$fi]->Controller == $player) {
-                $champIdx = $fi;
-                $champObj = &$field[$fi];
-                break;
-            }
-        }
-        $subcards = ($champObj !== null && is_array($champObj->Subcards)) ? $champObj->Subcards : [];
-        if(empty($subcards)) {
-            // No lineage card to delevel — can't activate. Move card back from effect stack to hand.
-            $es = &GetEffectStack();
-            $esIdx = count($es) - 1;
-            MZMove($player, "EffectStack-" . $esIdx, "myHand");
-            return;
-        }
-        // Pop the top lineage card (first subcard = most recent level) back to material
-        $poppedCardID = array_shift($champObj->Subcards);
-        AddMaterial($player, $poppedCardID);
+    if($obj->CardID === "pcescfpwak" || $obj->CardID === "v43ehjdu50" || $obj->CardID === "wpbhigka5a") {
+        Delevel($player);
         // Recover 5
         RecoverChampion($player, 5);
     }
@@ -1304,7 +1284,12 @@ function ObjectCurrentLevel($obj) {
             case "aKgdkLSBza": // Wilderness Harpist: +1 level until end of turn
                 $cardLevel += 1;
                 break;
-            default: break;
+            default:
+                // Erupting Rhapsody (dBAdWMoPEz): +1 level per banished card, encoded as "dBAdWMoPEz-N"
+                if(strpos($effectID, "dBAdWMoPEz-") === 0) {
+                    $cardLevel += intval(substr($effectID, strlen("dBAdWMoPEz-")));
+                }
+                break;
         }
     }
     // Field-presence passives — iterate once and switch on card ID
@@ -3592,5 +3577,240 @@ $customDQHandlers["AvalonMill"] = function($player, $parts, $lastDecision) {
         MillCards($player, "theirDeck", "theirGraveyard", 2);
     }
 };
+
+// ============================================================================
+// Split Damage — shared helper for processing MZSplitAssign results
+// ============================================================================
+
+/**
+ * Process the comma-separated mzID:amount result from an MZSplitAssign decision.
+ * Calls DealDamage for each non-zero assignment.
+ * @param int    $player        The acting player
+ * @param string $source        The mzID of the damage source (e.g. the card dealing damage)
+ * @param string $assignmentStr The MZSplitAssign result, e.g. "myField-0:3,theirField-1:2"
+ */
+function ProcessSplitDamage($player, $source, $assignmentStr) {
+    if(empty($assignmentStr) || $assignmentStr === "-") return;
+    $pairs = explode(",", $assignmentStr);
+    foreach($pairs as $pair) {
+        $parts = explode(":", $pair);
+        if(count($parts) < 2) continue;
+        $targetMZ = $parts[0];
+        $amount = intval($parts[1]);
+        if($amount > 0) {
+            DealDamage($player, $source, $targetMZ, $amount);
+        }
+    }
+}
+
+// ============================================================================
+// Delevel — return the top card of the champion's lineage to material deck
+// ============================================================================
+
+/**
+ * Delevel a player's champion: the current champion card is returned to the
+ * owner's material deck, and the top subcard becomes the new champion.
+ * @param int $player The acting player
+ * @return bool True if deleveled successfully, false if champion has no lineage
+ */
+function Delevel($player) {
+    $field = &GetField($player);
+    foreach($field as &$obj) {
+        if(!$obj->removed && PropertyContains(CardType($obj->CardID), "CHAMPION") && $obj->Controller == $player) {
+            $subcards = is_array($obj->Subcards) ? $obj->Subcards : [];
+            if(empty($subcards)) return false; // Level 1 champion, can't delevel
+            // Current champion goes to material deck
+            $demotedCardID = $obj->CardID;
+            MZAddZone($player, "myMaterial", $demotedCardID);
+            // Previous champion (top subcard) becomes current
+            $obj->CardID = array_shift($obj->Subcards);
+            return true;
+        }
+    }
+    return false;
+}
+
+// ============================================================================
+// Erupting Rhapsody (dBAdWMoPEz) — banish fire GY cards, +level, harmonize split damage
+// ============================================================================
+
+/**
+ * Begin the loop of optionally banishing fire cards from graveyard.
+ * @param int $player        The acting player
+ * @param int $banishedCount Number of cards banished so far
+ */
+function EruptingRhapsodyContinue($player, $banishedCount) {
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(empty($fireGY)) {
+        EruptingRhapsodyFinalize($player, $banishedCount);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_a_fire_card_from_graveyard?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EruptingRhapsodyPick|$banishedCount", 1);
+}
+
+$customDQHandlers["EruptingRhapsodyPick"] = function($player, $parts, $lastDecision) {
+    $banishedCount = intval($parts[0]);
+    if($lastDecision == "-" || $lastDecision == "") {
+        EruptingRhapsodyFinalize($player, $banishedCount);
+        return;
+    }
+    MZMove($player, $lastDecision, "myBanish");
+    EruptingRhapsodyContinue($player, $banishedCount + 1);
+};
+
+/**
+ * After banishing is done: apply +1 level per banished card, then harmonize check.
+ * @param int $player        The acting player
+ * @param int $banishedCount Number of fire cards banished
+ */
+function EruptingRhapsodyFinalize($player, $banishedCount) {
+    if($banishedCount > 0) {
+        // Champion gets +1 level per banished card until end of turn
+        $champions = ZoneSearch("myField", ["CHAMPION"]);
+        if(!empty($champions)) {
+            AddTurnEffect($champions[0], "dBAdWMoPEz-" . $banishedCount);
+        }
+    }
+    // Harmonize: if you've activated a Melody card this turn
+    if(IsHarmonizeActive($player)) {
+        // Get champion's current level (including the boost just applied)
+        $champMZArr = ZoneSearch("myField", ["CHAMPION"]);
+        $level = 0;
+        if(!empty($champMZArr)) {
+            $champObj = GetZoneObject($champMZArr[0]);
+            $level = ObjectCurrentLevel($champObj);
+        }
+        if($level > 0) {
+            $allUnits = array_merge(
+                ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+                ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+            );
+            $allUnits = FilterSpellshroudTargets($allUnits);
+            if(!empty($allUnits)) {
+                $mzID = DecisionQueueController::GetVariable("mzID");
+                DecisionQueueController::StoreVariable("eruptingRhapsodySource", $mzID);
+                $targetStr = implode("&", $allUnits);
+                DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", $level . "|" . $targetStr, 1, tooltip:"Split_LV_damage_among_units");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "EruptingRhapsodyDamage", 1);
+            }
+        }
+    }
+}
+
+$customDQHandlers["EruptingRhapsodyDamage"] = function($player, $parts, $lastDecision) {
+    $source = DecisionQueueController::GetVariable("eruptingRhapsodySource");
+    ProcessSplitDamage($player, $source, $lastDecision);
+};
+
+// ============================================================================
+// Lightweaver's Assault (zxB4tzy9iy) — [CB][EB] Reveal trigger: deal 2 to chosen unit
+// ============================================================================
+
+$customDQHandlers["LightweaverRevealDmg"] = function($player, $parts, $lastDecision) {
+    if($lastDecision == "-" || $lastDecision == "") return;
+    $revealedMZ = DecisionQueueController::GetVariable("revealedMZ");
+    DealDamage($player, $revealedMZ, $lastDecision, 2);
+};
+
+// ============================================================================
+// Advent of the Stormcaller (ZSSegCjquB) — reveal top LV, banish arcane, deal 2 each, rearrange rest
+// ============================================================================
+
+/**
+ * Begin the loop of optionally banishing arcane cards from temp zone (revealed cards).
+ * @param int $player        The acting player
+ * @param int $banishedCount Number of arcane cards banished so far
+ */
+function AdventStormcallerBanishLoop($player, $banishedCount) {
+    $arcaneTmp = ZoneSearch("myTempZone", cardElements: ["ARCANE"]);
+    if(empty($arcaneTmp)) {
+        AdventStormcallerDamagePhase($player, $banishedCount);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $arcaneTmp), 1, tooltip:"Banish_an_arcane_card?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AdventBanishPick|$banishedCount", 1);
+}
+
+$customDQHandlers["AdventBanishPick"] = function($player, $parts, $lastDecision) {
+    $banishedCount = intval($parts[0]);
+    if($lastDecision == "-" || $lastDecision == "") {
+        AdventStormcallerDamagePhase($player, $banishedCount);
+        return;
+    }
+    MZMove($player, $lastDecision, "myBanish");
+    AdventStormcallerBanishLoop($player, $banishedCount + 1);
+};
+
+/**
+ * After banishing: deal 2 damage per banished card (each to a separate chosen unit).
+ * @param int $player        The acting player
+ * @param int $banishedCount Number of arcane cards banished
+ */
+function AdventStormcallerDamagePhase($player, $banishedCount) {
+    if($banishedCount > 0) {
+        DecisionQueueController::StoreVariable("adventDmgRemaining", strval($banishedCount));
+        AdventStormcallerDamageStep($player, $banishedCount);
+    } else {
+        AdventStormcallerRearrange($player);
+    }
+}
+
+/**
+ * Recursive step: choose a unit and deal 2 damage, then continue or rearrange.
+ * @param int $player    The acting player
+ * @param int $remaining Number of damage choices remaining
+ */
+function AdventStormcallerDamageStep($player, $remaining) {
+    if($remaining <= 0) {
+        AdventStormcallerRearrange($player);
+        return;
+    }
+    $allUnits = array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    $allUnits = FilterSpellshroudTargets($allUnits);
+    if(empty($allUnits)) {
+        AdventStormcallerRearrange($player);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allUnits), 1, tooltip:"Choose_unit_to_deal_2_damage");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AdventDealDmg|$remaining", 1);
+}
+
+$customDQHandlers["AdventDealDmg"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    if($lastDecision != "-" && $lastDecision != "") {
+        $mzID = DecisionQueueController::GetVariable("mzID");
+        DealDamage($player, $mzID, $lastDecision, 2);
+    }
+    AdventStormcallerDamageStep($player, $remaining - 1);
+};
+
+/**
+ * After damage phase: move remaining temp zone cards to deck top, then Glimpse to rearrange.
+ */
+function AdventStormcallerRearrange($player) {
+    $tempCards = ZoneSearch("myTempZone");
+    if(empty($tempCards)) return;
+    $n = count($tempCards);
+    // Move temp zone cards to top of deck
+    $deck = &GetDeck($player);
+    $tempZone = &GetTempZone($player);
+    foreach($tempZone as $obj) {
+        if(!$obj->removed) {
+            $newDeckObj = new Deck($obj->CardID, 'Deck', $player);
+            array_unshift($deck, $newDeckObj);
+            $obj->Remove();
+        }
+    }
+    // Reindex deck
+    for($i = 0; $i < count($deck); ++$i) {
+        $deck[$i]->mzIndex = $i;
+    }
+    // Use Glimpse to let the player arrange top N
+    Glimpse($player, $n);
+}
 
 ?>

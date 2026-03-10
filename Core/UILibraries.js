@@ -1674,6 +1674,19 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         console.error('MZRearrangePopup.js not loaded - ShowMZRearrangePopup function not found');
       }
       break;
+    } else if (entry && entry.Type === 'MZSPLITASSIGN' && !entry.removed) {
+      // MZSPLITASSIGN: Split-assign a numeric pool across multiple target cards
+      // Param format: "amount|mzID1&mzID2&mzID3"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Assign points';
+
+      if (typeof ShowMZSplitAssignUI === 'function') {
+        ShowMZSplitAssignUI(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
+        });
+      } else {
+        console.error('MZSplitAssignUI.js not loaded - ShowMZSplitAssignUI function not found');
+      }
+      break;
     }
   }
 };
@@ -1713,6 +1726,10 @@ function ClearSelectionMode() {
   // Also hide the MZRearrange popup if it exists
   if (typeof HideMZRearrangePopup === 'function') {
     HideMZRearrangePopup();
+  }
+  // Also hide the MZSplitAssign UI if it exists
+  if (typeof HideMZSplitAssignUI === 'function') {
+    HideMZSplitAssignUI();
   }
 }
 

@@ -2402,6 +2402,7 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
  *   - MZMayChoose: Optional card choice (client shows Pass button)
  *   - YesNo: Yes/No choice
  *   - Rearrange: Rearrange cards with zones and starting cards (semicolon-delimited)
+ *   - MZSplitAssign: Split-assign a pool of N across multiple targets
  *   - Custom types: Any name is converted to uppercase (e.g., CustomChoice -> CUSTOMCHOICE)
  * 
  * Example transformation (Pattern 1 - choice):
@@ -2440,6 +2441,46 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
  * Build a single DecisionQueueController::AddDecision() statement for a player-choice await.
  * For YESNO decisions the prompt text belongs in the tooltip slot (5th arg), not param.
  */
+/**
+ * Parse comma-separated arguments respecting nested parentheses and quoted strings.
+ * E.g. 'implode("&", $arr), $amount, "tooltip"' => ['implode("&", $arr)', '$amount', '"tooltip"']
+ */
+function ParseAwaitArgs($argsStr) {
+  $args = [];
+  $depth = 0;
+  $current = '';
+  $inString = false;
+  $stringChar = '';
+  for ($i = 0; $i < strlen($argsStr); $i++) {
+    $ch = $argsStr[$i];
+    if ($inString) {
+      $current .= $ch;
+      if ($ch === '\\' && $i + 1 < strlen($argsStr)) {
+        $current .= $argsStr[++$i];
+      } else if ($ch === $stringChar) {
+        $inString = false;
+      }
+    } else if ($ch === '"' || $ch === "'") {
+      $inString = true;
+      $stringChar = $ch;
+      $current .= $ch;
+    } else if ($ch === '(') {
+      $depth++;
+      $current .= $ch;
+    } else if ($ch === ')') {
+      $depth--;
+      $current .= $ch;
+    } else if ($ch === ',' && $depth === 0) {
+      $args[] = trim($current);
+      $current = '';
+    } else {
+      $current .= $ch;
+    }
+  }
+  if (trim($current) !== '') $args[] = trim($current);
+  return $args;
+}
+
 function BuildAddDecisionCall($await, $cardId, $indent = '') {
   $pv = $await['playerVar'];
   $ct = $await['choiceType'];
@@ -2449,6 +2490,10 @@ function BuildAddDecisionCall($await, $cardId, $indent = '') {
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"YESNO\", \"-\", 1, \"" . $await['params'] . "\");\n";
   } else if (isset($await['isRearrange']) && $await['isRearrange']) {
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['params'] . ", 1);\n";
+  } else if (isset($await['isSplitAssign']) && $await['isSplitAssign']) {
+    // MZSplitAssign: Param = amount|targets (dynamic), tooltip in 5th arg
+    $tooltip = isset($await['splitTooltip']) ? $await['splitTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['splitAmount'] . " . \"|\" . " . $await['splitTargets'] . ", 1, \"" . $tooltip . "\");\n";
   } else {
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", \"" . $await['params'] . "\", 1);\n";
   }
@@ -2466,23 +2511,35 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
       $rawParams = trim($matches[4]);
       $methodName = $matches[3];
       
-      // For Rearrange, keep the parameter exactly as-is (with string concatenation)
+      // For Rearrange and MZSplitAssign, keep the parameter exactly as-is (with string concatenation)
       // For other methods, trim quotes
       if (strtolower($methodName) === 'rearrange') {
         $params = $rawParams;
+      } else if (strtolower($methodName) === 'mzsplitassign') {
+        // MZSplitAssign($targets, $amount) or MZSplitAssign($targets, $amount, "tooltip")
+        $splitArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
       } else {
         $params = trim($rawParams, '"\'');
       }
       
-      $awaits[] = [
+      $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
+      $awaitEntry = [
         'lineIndex' => $i,
         'returnVar' => $matches[1],  // e.g., $cardToDeploy
         'playerVar' => $matches[2],  // e.g., $player
-        'choiceType' => strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : strtoupper($methodName), // e.g., MZCHOOSE or MZREARRANGE
-        'params' => $params, // e.g., myHand or "Battlefield=" . $cards
+        'choiceType' => strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : strtoupper($methodName)),
+        'params' => $params,
         'isRearrange' => strtolower($methodName) === 'rearrange',
+        'isSplitAssign' => $isSplitAssign,
         'isVoidFunction' => false
       ];
+      if ($isSplitAssign && isset($splitArgs)) {
+        $awaitEntry['splitTargets'] = trim($splitArgs[0]);
+        $awaitEntry['splitAmount'] = trim($splitArgs[1]);
+        $awaitEntry['splitTooltip'] = isset($splitArgs[2]) ? trim(trim($splitArgs[2]), '"\'') : '';
+      }
+      $awaits[] = $awaitEntry;
     }
     // Pattern 2: await FunctionName(args) - void function call that queues decisions
     // Also matches: await FunctionName($player, $arg) etc.

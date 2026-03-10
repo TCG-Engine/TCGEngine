@@ -3,6 +3,7 @@
     <script src="./Core/UILibraries.js"></script>
     <script src="./Core/CounterRendering.js"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
+    <script src="./Core/MZSplitAssignUI.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
 
     <style>

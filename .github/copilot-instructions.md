@@ -106,6 +106,8 @@ Call the MCP `get_helper_functions` tool to discover what helper functions alrea
 - `IsClassBonusActive(player, classes)` — check if champion's class matches
 - `AddGlobalEffects(player, effectID)` — add a global effect that affects all matching cards this turn (via `doesGlobalEffectApply` / `CardCurrentEffects`)
 - `AddTurnEffect(mzCard, effectID)` — add a per-card turn effect to a specific field card's `TurnEffects` array. Use this when the effect targets a single card (e.g. "+2 POWER until end of turn on a specific ally") rather than `AddGlobalEffects` which broadcasts to all matching cards. The effect ID is conventionally the source card's ID. It is cleared at end of turn by `ExpireEffects`.
+- `ProcessSplitDamage(player, source, assignmentStr)` — process the comma-separated `mzID:amount` result from MZSplitAssign, calling `DealDamage` for each non-zero assignment
+- `Delevel(player)` — delevel the player's champion by returning its current card to material deck and promoting the top subcard. Returns false if champion has no lineage.
 - `ExhaustCard(player, mzID)` — exhaust a card
 - `WakeupCard(player, mzID)` — ready a card
 - `ObjectCurrentPower(obj)`, `ObjectCurrentHP(obj)` — get computed stats
@@ -137,6 +139,7 @@ So in the ability code, you have access to:
   - `$var = await $player.MZChoose("zone-0&zone-1")` — mandatory card choice
   - `$var = await $player.MZMayChoose("zone-0&zone-1")` — optional card choice
   - `$var = await $player.YesNo("prompt")` — yes/no choice
+  - `$var = await $player.MZSplitAssign($targets, $amount, "prompt")` — split-assign a pool across targets. Returns comma-separated `mzID:amount` pairs (e.g. `"myField-0:3,myField-1:2"`). `$targets` is an `&`-delimited mzID string, `$amount` is the total pool to assign.
   - `await FunctionName($player, $args)` — call a function that queues decisions
   - await does not currently support being inside loops or conditionals, but you can queue custom functions that themselves queue decisions to achieve multi-step flows.
   - await does not support function calls as parameters, so if you need to implode a ZoneSearch it'll need to be done on a separate line.
@@ -170,6 +173,36 @@ The generator translates `await` statements into queued `DecisionQueueController
 2. A custom DQ handler that processes the player's response
 
 The `lastDecision` parameter in the handler receives the player's choice ("YES"/"NO" for YesNo, or the mzID for card choices).
+
+### MZSplitAssign — Split Damage / Split Pool Pattern
+
+**Decision type:** `MZSPLITASSIGN` — lets the player distribute a numeric pool (e.g., damage) across multiple card targets on the board.
+
+**Await syntax:** `$var = await $player.MZSplitAssign($targets, $amount, "tooltip")`
+- `$targets`: `&`-delimited mzID string (e.g. `"myField-0&theirField-2"`)
+- `$amount`: integer pool to distribute
+- `"tooltip"` (optional): underscore-separated prompt shown in the UI
+
+**Return value:** Comma-separated `mzID:amount` pairs for non-zero assignments, e.g. `"myField-0:3,theirField-1:2"`. Returns `"-"` if the player had no valid targets.
+
+**Processing the result:** Use `ProcessSplitDamage($player, $source, $assignmentStr)` to deal damage for each assignment. This is a shared helper in `GameLogic.php` that calls `DealDamage()` for each non-zero pair.
+
+**Full example — deal N damage split among all units:**
+```php
+$allUnits = array_merge(
+    ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+    ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+);
+$allUnits = FilterSpellshroudTargets($allUnits);
+if(empty($allUnits)) return;
+$targetStr = implode("&", $allUnits);
+$assignments = await $player.MZSplitAssign($targetStr, $damageAmount, "Split_damage_among_units");
+ProcessSplitDamage($player, $mzID, $assignments);
+```
+
+**UI behavior:** Inline overlay on each target card with +/− buttons and a counter. A bottom banner shows the remaining pool. The Confirm button is disabled until the entire pool is assigned (all-or-nothing).
+
+**When to use vs. repeated MZCHOOSE:** Use `MZSplitAssign` when the total pool can be split freely. Use repeated `MZCHOOSE` when each "instance" must be a fixed amount (e.g., "for each card banished, choose a unit and deal 2 damage to it").
 
 ### Additional Activation Costs (optional reserve at activation time)
 
