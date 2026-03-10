@@ -298,10 +298,6 @@ Cards blocked:
 - Needs: Play with top of deck revealed; may activate Animal/Beast ally cards from the top of deck
 - **Blocker**: "Face-up" deck and allowing direct play from top is significant UI/engine addition
 
-**Surveillance Stone (kk46Whz7CJ)**
-- Needs: Whenever an opponent declares their third attack each turn, may banish to draw
-- **Blocker**: Per-turn per-player attack-declaration counts tracked globally, then checked on each BeginCombatPhase call
-
 **Hymn of Gaia's Grace (okDVkV1l76)**
 - Needs: Glimpse 3, draw. May put an Animal/Beast ally from hand to field and redirect incoming attack to it
 - **Blocker**: "Enter as interceptor mid-combat" timing is a new fast-speed play context

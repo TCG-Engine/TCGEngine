@@ -669,6 +669,19 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     // Fire On Attack triggers (may grant effects like critical)
     OnAttack($player, $attackerMZ);
 
+    // Surveillance Stone (kk46Whz7CJ): opponent may banish it to draw on the attacker's 3rd attack
+    if(OnAttackCallCount($player) === 3) {
+        $ssOwner = ($player == 1) ? 2 : 1;
+        $ssField = GetField($ssOwner);
+        for($ssi = count($ssField) - 1; $ssi >= 0; $ssi--) {
+            if(!$ssField[$ssi]->removed && $ssField[$ssi]->CardID === "kk46Whz7CJ") {
+                DecisionQueueController::AddDecision($ssOwner, "YESNO", "-", 51, tooltip:"Banish_Surveillance_Stone_to_draw?");
+                DecisionQueueController::AddDecision($ssOwner, "CUSTOM", "SurveillanceStone", 51);
+                break;
+            }
+        }
+    }
+
     // Store combat state for the damage and retaliation handlers
     DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
     DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
@@ -830,6 +843,19 @@ $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
     // Fire On Attack triggers (may grant effects like critical)
     OnAttack($player, $attackerMZ);
 
+    // Surveillance Stone (kk46Whz7CJ): opponent may banish it to draw on the attacker's 3rd attack
+    if(OnAttackCallCount($player) === 3) {
+        $ssOwner = ($player == 1) ? 2 : 1;
+        $ssField = GetField($ssOwner);
+        for($ssi = count($ssField) - 1; $ssi >= 0; $ssi--) {
+            if(!$ssField[$ssi]->removed && $ssField[$ssi]->CardID === "kk46Whz7CJ") {
+                DecisionQueueController::AddDecision($ssOwner, "YESNO", "-", 51, tooltip:"Banish_Surveillance_Stone_to_draw?");
+                DecisionQueueController::AddDecision($ssOwner, "CUSTOM", "SurveillanceStone", 51);
+                break;
+            }
+        }
+    }
+
     // Store combat state
     DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
     DecisionQueueController::StoreVariable("CombatIsCleave", "1");
@@ -955,6 +981,21 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::ClearVariable("CombatRetaliator");
     if($defenderPower > 0 && $defender->Damage < ObjectCurrentHP($defender)) {
         DealDamage($player, $lastDecision, $attackerMZ, $defenderPower);
+    }
+};
+
+/**
+ * Handler: Surveillance Stone — banish self and draw if YES.
+ */
+$customDQHandlers["SurveillanceStone"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $ssField = GetField($player);
+    for($ssi = count($ssField) - 1; $ssi >= 0; $ssi--) {
+        if(!$ssField[$ssi]->removed && $ssField[$ssi]->CardID === "kk46Whz7CJ") {
+            MZMove($player, "myField-" . $ssi, "myBanish");
+            Draw($player, amount: 1);
+            break;
+        }
     }
 };
 
