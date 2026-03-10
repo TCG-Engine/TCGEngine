@@ -290,6 +290,12 @@ function DeclareChampionAttack($player) {
         return false;
     }
 
+    // Peaceful Reunion: attacks are blocked for both players
+    if(GlobalEffectCount($player, "wr42i6eifn") > 0) {
+        SetFlashMessage("Attacks are prevented until the beginning of your next turn.");
+        return false;
+    }
+
     // Check valid targets (Cleave can come from the champion OR an attack card in intent)
     $hasCleave = AttackerHasCleave($championMZ, $player);
     if(!$hasCleave) {
@@ -373,6 +379,12 @@ function BeginCombatPhase($actionCard) {
     $currentTurn = GetTurnNumber();
     if($currentTurn <= 1) {
         SetFlashMessage("Cannot attack on the first turn.");
+        return false;
+    }
+
+    // Peaceful Reunion: attacks are blocked for both players
+    if(GlobalEffectCount($turnPlayer, "wr42i6eifn") > 0) {
+        SetFlashMessage("Attacks are prevented until the beginning of your next turn.");
         return false;
     }
 

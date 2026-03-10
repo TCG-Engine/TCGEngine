@@ -78,6 +78,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($allyTargets)) return; // No valid Link target — block activation
     }
 
+    // Peaceful Reunion: can only activate if you have not declared an attack this turn
+    if($sourceObject->CardID === "wr42i6eifn" && OnAttackCallCount($player) > 0) {
+        SetFlashMessage("Peaceful Reunion can only be activated if you haven't declared an attack this turn.");
+        return;
+    }
+
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
@@ -782,6 +788,11 @@ function RecollectionPhase() {
     // Process domain upkeep checks that trigger "at the beginning of your recollection phase".
     // Must run BEFORE memory is returned to hand, since the checks reveal memory cards.
     DomainRecollectionUpkeep($turnPlayer);
+
+    // Peaceful Reunion: clear attack-prevention at the beginning of the caster's next turn
+    if(GlobalEffectCount($turnPlayer, "wr42i6eifn") > 0) {
+        RemoveGlobalEffect($turnPlayer, "wr42i6eifn");
+    }
     
     // Trigger recollection phase abilities for cards on the field
     $field = &GetField($turnPlayer);
@@ -1966,6 +1977,10 @@ function AddTurnEffect($mzCard, $effectID) {
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
+// Peaceful Reunion: never auto-expire (cleared manually at caster's RecollectionPhase)
+$foreverEffects["wr42i6eifn"] = true;
+// Don't display this effect on field cards — it's a global attack-prevention flag
+$doesGlobalEffectApply["wr42i6eifn"] = function($obj) { return false; };
 
 // Persistent per-card TurnEffects that survive ExpireEffects across turns.
 // SKIP_WAKEUP: consumed by WakeUpPhase (one-time skip).

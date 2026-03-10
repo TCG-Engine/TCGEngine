@@ -867,6 +867,11 @@ for($i=0; $i<count($macros); ++$i) {
     $paramList .= ', $' . implode(', $', $macro->Parameters);
   }
   fwrite($handler, "function " . $macro->FunctionName . "($paramList) {\r\n");
+  // Unconditionally track total call count per player in MacroTurnIndex
+  fwrite($handler, "  // Track total macro call count per player\r\n");
+  fwrite($handler, "  { \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+  fwrite($handler, "    \$_ti[\"" . $macro->FunctionName . "Calls\"][\$player] = (\$_ti[\"" . $macro->FunctionName . "Calls\"][\$player] ?? 0) + 1;\r\n");
+  fwrite($handler, "    SetMacroTurnIndex(json_encode(\$_ti)); }\r\n");
   if(isset($macro->ChoiceFunction)) {
     $choiceParts = explode('|', $macro->ChoiceFunction);
     $cfName = $choiceParts[0];
@@ -923,7 +928,9 @@ if (!empty($mzIDMacros)) {
   fwrite($handler, "// For each macro that has an mzID parameter, three functions are generated:\r\n");
   fwrite($handler, "//   MacroNameTurnCount(\$player, \$cardID)  - how many times the macro fired for that card this turn\r\n");
   fwrite($handler, "//   MacroNameTurnCards(\$player)           - array of [cardID => count] for all cards this turn\r\n");
-  fwrite($handler, "//   ClearMacroNameTurnIndex()             - reset the index (call at end-of-turn)\r\n\r\n");
+  fwrite($handler, "//   ClearMacroNameTurnIndex()             - reset the index (call at end-of-turn)\r\n");
+  fwrite($handler, "//   MacroNameCallCount(\$player)           - total times the macro was called for that player this turn\r\n");
+  fwrite($handler, "//   ClearMacroNameCallIndex()             - reset the total call counter\r\n\r\n");
   foreach ($mzIDMacros as $macro) {
     $fn = $macro->FunctionName;
     fwrite($handler, "function " . $fn . "TurnCount(\$player, \$cardID) {\r\n");
@@ -940,6 +947,23 @@ if (!empty($mzIDMacros)) {
     fwrite($handler, "  SetMacroTurnIndex(json_encode(\$_ti));\r\n");
     fwrite($handler, "}\r\n\r\n");
   }
+}
+
+// Generate per-player total call-count helpers for ALL macros.
+// Incremented once per macro function call regardless of card identity.
+fwrite($handler, "// Per-player total call-count helpers for all macros.\r\n");
+fwrite($handler, "// CallCount increments every time the macro function is entered, regardless of card.\r\n\r\n");
+foreach ($macros as $_cm) {
+  $_cfn = $_cm->FunctionName;
+  fwrite($handler, "function " . $_cfn . "CallCount(\$player) {\r\n");
+  fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+  fwrite($handler, "  return \$_ti[\"" . $_cfn . "Calls\"][\$player] ?? 0;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  fwrite($handler, "function Clear" . $_cfn . "CallIndex() {\r\n");
+  fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+  fwrite($handler, "  unset(\$_ti[\"" . $_cfn . "Calls\"]);\r\n");
+  fwrite($handler, "  SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+  fwrite($handler, "}\r\n\r\n");
 }
 
 // Generate per-player turn-count helpers for macros with an 'amount' parameter but no mzID.

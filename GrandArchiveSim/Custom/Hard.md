@@ -177,17 +177,6 @@ Cards blocked:
 
 ---
 
-### Missing: Cross-Turn Attack Prevention
-
-**Status**: No mechanism to block attack declarations for the remainder of a turn and then into the opponent's next turn. Attack declarations are implicit (champion selects a target); there is no pre-declaration gate currently checked. Carrying this restriction through the turn boundary (surviving recollection) requires persistent state plus cleanup in `RecollectionPhase`.
-
-Would need: A `StoreVariable`-based "attacks blocked" flag per player, a check in the champion attack selection flow (before `DeclareChampionAttack`), and cleanup at the target player's recollection phase.
-
-Cards blocked:
-- Peaceful Reunion (wr42i6eifn) — "Activate only if you have not declared an attack this turn. Until the beginning of your next turn, you and target player can't declare attacks. Banish Peaceful Reunion."
-
----
-
 ### Missing: Negate Activation
 
 **Status**: No system for countering/negating a card mid-stack after it has been placed on the EffectStack.
@@ -340,5 +329,6 @@ Since the blockers list was created, the following capabilities HAVE been added:
 - ✅ **Non-combat damage flag** — `OnDealDamage` now receives an explicit `$isCombat` param; all combat damage flows through `DealCombatDamage`; passive field-scan prevention for non-combat events is now implementable (used by Blanche, Sheltering Saint)
 - ✅ **MZSplitAssign** — split-assign a numeric pool across multiple targets with inline +/- UI overlay. Await syntax: `$result = await $player.MZSplitAssign($targets, $amount, "tooltip")`. Returns comma-separated `mzID:amount` pairs.
 - ✅ **Retaliate from non-defending position** — `CombatProceedToRetaliation` now appends any ready non-defending Lurking Assailant (`uq2r6v374c`) to the `MZMAYCHOOSE` retaliator list; `HasStealth` also covers its stealth-while-awake passive.
+- ✅ **Per-macro call count** — every generated macro function now increments `MacroNameCallCount($player)` in `MacroTurnIndex` on each invocation. Enables "activate only if you have not attacked this turn" gates (`OnAttackCallCount($player)`) and cross-turn attack prevention via `foreverEffects` global cleared at `RecollectionPhase`.
 
 This has enabled many cards from the original list to become implementable. See Easy.md for those cards.
