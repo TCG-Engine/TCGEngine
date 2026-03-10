@@ -1036,12 +1036,14 @@ function OnDealDamage($player, $source, $target, $amount) {
     }
 
     // Protective Fractal: prevent 1 damage per effect
+    /*
     $protectivePrevention = GetProtectiveFractalPrevention($targetObj);
     if($protectivePrevention > 0) {
         $amount -= 1;
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "1lw9n0wpbh"));
         if($amount <= 0) return; // All damage prevented
     }
+        */
 
     // PREVENT_ALL_N: prevent up to N of any damage this turn (Guarded Dissipation)
     if($amount > 0) {
@@ -1121,6 +1123,22 @@ function OnDealDamage($player, $source, $target, $amount) {
             return; // Combat damage prevented
         }
     }
+
+    if (!$isCombat && $amount > 0 && $targetObj->CardID !== "5k1vt1cn1t") {
+        $targetController = $targetObj->Controller ?? $player;
+        $controllerField = &GetField($targetController);
+        foreach ($controllerField as $blancheObj) {
+            if ($blancheObj === null || $blancheObj->removed) continue;
+            if ($blancheObj->CardID === "5k1vt1cn1t"
+                    && PlayerLevel($targetController) >= 2) {
+                $memoryCount = count(GetMemory($targetController));
+                $amount = max(0, $amount - $memoryCount);
+                break;
+            }
+        }
+        if ($amount <= 0) $amount = 0;
+    }
+
     // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage
     if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {
         $amount += 1;

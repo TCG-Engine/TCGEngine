@@ -127,17 +127,6 @@ Cards blocked:
 
 ---
 
-### Missing: Passive Non-Combat Damage Prevention for Allied Units
-
-**Status**: `OnDealDamage` is called with a specific target mzID per damage event, but there is no listener pattern for continuous passive effects on *other* units that intercepts damage to them. Adding this would require checking all field cards for passive prevention effects inside `OnDealDamage`, which itself would require knowing whether the damage is combat or non-combat.
-
-Would need: A "non-combat damage" flag passed into `OnDealDamage` + a scan of the controlling player's field for passive prevention cards.
-
-Cards blocked:
-- Blanche, Sheltering Saint (5k1vt1cn1t) — [Level 2+] Fast Activation. "If another unit you control would be dealt non-combat damage, prevent an amount of that damage equal to cards in your memory."
-
----
-
 ### Missing: Runtime Subtype Addition
 
 **Status**: `CardSubtypes($cardID)` reads directly from the generated card dictionary. There is no mechanism to extend a card's subtypes with a runtime overlay keyed to its mzID or a TurnEffect.
@@ -375,5 +364,6 @@ Since the blockers list was created, the following capabilities HAVE been added:
 - ✅ **await syntax** — multi-step ability code with player decisions
 - ✅ **DealUnpreventableDamage** — unpreventable damage handling
 - ✅ **Domain card type** — activation framework, materialize-sacrifice upkeep, recollection upkeep, Right of Realm NO_UPKEEP exemption
+- ✅ **Non-combat damage flag** — `OnDealDamage` now receives an explicit `$isCombat` param; all combat damage flows through `DealCombatDamage`; passive field-scan prevention for non-combat events is now implementable (used by Blanche, Sheltering Saint)
 
 This has enabled many cards from the original list to become implementable. See Easy.md for those cards.
