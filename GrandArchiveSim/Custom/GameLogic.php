@@ -2719,6 +2719,10 @@ function HasVigor($obj) {
 }
 
 function HasStealth($obj) {
+    // Lurking Assailant (uq2r6v374c): stealth as long as it's awake
+    if($obj->CardID === "uq2r6v374c") {
+        return isset($obj->Status) && $obj->Status == 2;
+    }
     // Patient Rogue: [Class Bonus] stealth while awake
     if($obj->CardID === "CvvgJR4fNa") {
         return isset($obj->Status) && $obj->Status == 2 && IsClassBonusActive($obj->Controller, ["ASSASSIN"]);

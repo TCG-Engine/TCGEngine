@@ -166,17 +166,6 @@ Cards blocked:
 
 ---
 
-### Missing: Retaliate from Non-Defending Position
-
-**Status**: `CombatProceedToRetaliation` only offers retaliation to the unit that was attacked (the defending unit). There is no flow to allow a third unit (neither attacker nor defender) to assign retaliation damage.
-
-Would need: An additional retaliation-offer step that presents all ready ally units on the defender's side (excluding the attacker and defender) and lets one assign retaliation hits.
-
-Cards blocked:
-- Lurking Assailant (uq2r6v374c) — "[Level 1+] CARDNAME may retaliate against attackers while not defending." (Conditional stealth while awake IS implementable.)
-
----
-
 ### Missing: Per-Card Self Ability Suppression (Loses All Abilities)
 
 **Status**: `SuppressAlly` removes the card from the field temporarily. "Loses all abilities" without leaving the field requires a flag that silences the card's keywords (pride, etc.) and blocks ability dispatch for it specifically. No such per-card "blanket suppress" TurnEffect exists; pride is checked globally via `PrideAmount()` and class bonus checks are not guarded by any per-card ability flag.
@@ -350,5 +339,6 @@ Since the blockers list was created, the following capabilities HAVE been added:
 - ✅ **Domain card type** — activation framework, materialize-sacrifice upkeep, recollection upkeep, Right of Realm NO_UPKEEP exemption
 - ✅ **Non-combat damage flag** — `OnDealDamage` now receives an explicit `$isCombat` param; all combat damage flows through `DealCombatDamage`; passive field-scan prevention for non-combat events is now implementable (used by Blanche, Sheltering Saint)
 - ✅ **MZSplitAssign** — split-assign a numeric pool across multiple targets with inline +/- UI overlay. Await syntax: `$result = await $player.MZSplitAssign($targets, $amount, "tooltip")`. Returns comma-separated `mzID:amount` pairs.
+- ✅ **Retaliate from non-defending position** — `CombatProceedToRetaliation` now appends any ready non-defending Lurking Assailant (`uq2r6v374c`) to the `MZMAYCHOOSE` retaliator list; `HasStealth` also covers its stealth-while-awake passive.
 
 This has enabled many cards from the original list to become implementable. See Easy.md for those cards.

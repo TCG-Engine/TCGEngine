@@ -781,8 +781,24 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
 
+    // Build the list of valid retaliators: the actual defender plus any unit that
+    // can retaliate while not defending (e.g. Lurking Assailant).
+    $retaliatorOptions = [$defenderMZ_fromDefender];
+    $defenderField = GetField($defenderPlayer);
+    foreach($defenderField as $i => $fieldObj) {
+        if($fieldObj->removed) continue;
+        $mzID = "myField-" . $i; // in defender's perspective
+        if($mzID === $defenderMZ_fromDefender) continue; // skip the actual defender
+        if($fieldObj->Status != 2) continue; // must be ready (awake)
+        // Lurking Assailant (uq2r6v374c): [Level 1+] may retaliate while not defending
+        if($fieldObj->CardID === "uq2r6v374c") {
+            $retaliatorOptions[] = $mzID;
+        }
+    }
+    $retaliatorOptionStr = implode("&", $retaliatorOptions);
+
     // Retaliation step: let the defending player choose whether to retaliate
-    DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $defenderMZ_fromDefender, 100, "Retaliate?");
+    DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $retaliatorOptionStr, 100, "Retaliate?");
     DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender, 100);
 
     // Cleanup on defender's queue after retaliation (block 200)
