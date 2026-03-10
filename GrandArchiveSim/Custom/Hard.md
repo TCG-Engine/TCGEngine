@@ -54,19 +54,6 @@ Cards blocked:
 
 ---
 
-### Missing: Cost Increase for Specific Card Names
-
-**Status**: No mechanism to make cards of a given name cost more for the opponent to play. Would require:
-- A per-player registry of "locked" card names and their cost modifiers
-- Checks in GetDynamicCost when reserving/playing those cards
-- Cleanup at end of turn
-
-Cards blocked:
-- Nia, Mistveiled Scout (PZM9uvCFai) — On Enter: look at opponent's memory, choose a card name; cards with that name cost 1 more.
-  - Note: Stealth keyword IS in schema.
-
----
-
 ### Missing: Death Replacement Effect
 
 **Status**: No mechanism to intercept the "unit dies" event and redirect it to banishment instead. The `DoAllyDestroyed` function moves the card to the graveyard unconditionally; there is no pre-death hook that can reroute the destination.

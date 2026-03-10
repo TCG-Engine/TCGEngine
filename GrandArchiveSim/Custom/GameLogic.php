@@ -215,6 +215,20 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Nia, Mistveiled Scout (PZM9uvCFai): named card costs 1 more — stored as TurnEffect "PZM9uvCFai-<CardID>" on Nia
+    foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $niaFieldObj) {
+        if($niaFieldObj->removed || $niaFieldObj->CardID !== "PZM9uvCFai") continue;
+        foreach($niaFieldObj->TurnEffects as $niaTe) {
+            if(strpos($niaTe, "PZM9uvCFai-") === 0) {
+                $namedCardID = substr($niaTe, strlen("PZM9uvCFai-"));
+                if($obj->CardID === $namedCardID) {
+                    $reserveCost += 1;
+                    break 2;
+                }
+            }
+        }
+    }
+
     // Dawn of Ashes (4coy34bro8): "Non-norm element cards cost 1 more to activate."
     // This applies to ALL players when any player controls Dawn of Ashes on the field.
     if(CardElement($obj->CardID) !== "NORM") {
@@ -1958,6 +1972,10 @@ function ExpireEffects($isEndTurn=true) {
         $newEffects = [];
         foreach($fieldObj->TurnEffects as $effect) {
             if(isset($persistentTurnEffects[$effect])) {
+                $newEffects[] = $effect;
+            }
+            // Nia, Mistveiled Scout (PZM9uvCFai): named-card lock persists while Nia is on the field
+            if(strpos($effect, "PZM9uvCFai-") === 0) {
                 $newEffects[] = $effect;
             }
         }
