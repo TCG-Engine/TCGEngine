@@ -112,6 +112,7 @@ Call the MCP `get_helper_functions` tool to discover what helper functions alrea
 - `WakeupCard(player, mzID)` — ready a card
 - `ObjectCurrentPower(obj)`, `ObjectCurrentHP(obj)` — get computed stats
 - `CardElement(cardID)`, `CardType(cardID)`, `CardClasses(cardID)` — card dictionary lookups
+- `MacroNameCallCount($player)` — how many times a macro was invoked for a player this turn. Every generated macro has a corresponding `*CallCount($player)` helper (e.g. `CardActivatedCallCount($player)`, `EnterCallCount($player)`). These read from `MacroTurnIndex` and are reset at the start of each turn. Useful for cards that depend on how many times you did something this turn.
 
 ### Step 4: Study existing examples
 Call the MCP `get_implemented_examples` tool with the relevant macro name (e.g. "CardActivated", "Enter") to see how similar abilities are coded. This shows you the exact pattern to follow.

@@ -290,8 +290,10 @@ function DeclareChampionAttack($player) {
         return false;
     }
 
-    // Peaceful Reunion: attacks are blocked for both players
-    if(GlobalEffectCount($player, "wr42i6eifn") > 0) {
+    // Peaceful Reunion: attacks are blocked for both players until beginning of caster's next turn.
+    // Effect is stored only on the caster; check both sides here.
+    $prOpponent = ($player == 1) ? 2 : 1;
+    if(GlobalEffectCount($player, "wr42i6eifn") > 0 || GlobalEffectCount($prOpponent, "wr42i6eifn") > 0) {
         SetFlashMessage("Attacks are prevented until the beginning of your next turn.");
         return false;
     }
@@ -382,8 +384,10 @@ function BeginCombatPhase($actionCard) {
         return false;
     }
 
-    // Peaceful Reunion: attacks are blocked for both players
-    if(GlobalEffectCount($turnPlayer, "wr42i6eifn") > 0) {
+    // Peaceful Reunion: attacks are blocked for both players until beginning of caster's next turn.
+    // Effect is stored only on the caster; check both sides here.
+    $prOpp = ($turnPlayer == 1) ? 2 : 1;
+    if(GlobalEffectCount($turnPlayer, "wr42i6eifn") > 0 || GlobalEffectCount($prOpp, "wr42i6eifn") > 0) {
         SetFlashMessage("Attacks are prevented until the beginning of your next turn.");
         return false;
     }
