@@ -203,6 +203,14 @@ function GetValidAttackTargets($attackerMZ) {
             if(!HasNoAbilities($obj) && HasKeyword_Intercept($obj)) {
                 $interceptTargets[] = $mzID;
             }
+            // Awakened Deacon (c9p4lpnvx7): intercept while controlling 2+ phantasias
+            if(!HasNoAbilities($obj) && $obj->CardID === "c9p4lpnvx7") {
+                global $playerID;
+                $deaconField = $obj->Controller == $playerID ? "myField" : "theirField";
+                if(count(ZoneSearch($deaconField, ["PHANTASIA"])) >= 2) {
+                    if(!in_array($mzID, $interceptTargets)) $interceptTargets[] = $mzID;
+                }
+            }
         }
         // If any opposing unit has Intercept, only those may be targeted
         if(!empty($interceptTargets)) {
@@ -1146,6 +1154,21 @@ function OnDealDamage($player, $source, $target, $amount) {
                     DealUnpreventableDamage($player, $source, $target, $amount);
                     return;
                 }
+            }
+        }
+    }
+
+    // Overwhelming Swing (aebjvwbciz): [Class Bonus][Level 2+] combat damage is unpreventable
+    $isCombatContext = DecisionQueueController::GetVariable("CombatAttacker") !== null;
+    if($isCombatContext) {
+        $intentCards = GetIntentCards($player);
+        foreach($intentCards as $intentMZ) {
+            $intentObj = GetZoneObject($intentMZ);
+            if($intentObj !== null && $intentObj->CardID === "aebjvwbciz"
+                && IsClassBonusActive($player, explode(",", CardClasses("aebjvwbciz")))
+                && PlayerLevel($player) >= 2) {
+                DealUnpreventableDamage($player, $source, $target, $amount);
+                return;
             }
         }
     }

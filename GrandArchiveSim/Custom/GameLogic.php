@@ -647,6 +647,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "n0wpbhigka": // Wand of Frost — banish self
         case "96659ytyj2": // Crimson Protective Trinket — banish self
         case "m3pal7cpvn": // Azure Protective Trinket — banish self
+        case "9agwj4f15j": // Crystalline Mirror — banish self
+        case "af098kmoi0": // Orb of Hubris — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -661,8 +663,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "5joh300z2s": // Manaroot: sacrifice self to graveyard
         case "69iq4d5vet": // Springleaf: sacrifice self to graveyard
         case "5swaf8urrq": // Whirlwind Vizier: sacrifice self to graveyard
+        case "bd7ozuj68m": // Silvershine: sacrifice self to graveyard
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "a5uhjxhkur": // Resplendent Kite Shield: REST + remove refinement counter
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            RemoveCounters($player, $mzCard, "refinement", 1);
             break;
         case "oy34bro89w": // Cunning Broker: remove 2 prep counters from champion
             $pField = &GetField($player);
@@ -681,6 +689,13 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $sourceObject = &GetZoneObject($mzCard);
     // Capture cardID now — the card may be moved to banishment as a cost below.
     $cardID = $sourceObject->CardID;
+
+    // Crystalline Mirror (9agwj4f15j): CB + 3+ phantasias required
+    if($cardID === "9agwj4f15j") {
+        if(!IsClassBonusActive($player, explode(",", CardClasses("9agwj4f15j"))) || count(ZoneSearch("myField", ["PHANTASIA"])) < 3) return;
+    }
+    // Resplendent Kite Shield (a5uhjxhkur): needs refinement counter
+    if($cardID === "a5uhjxhkur" && GetCounterCount($sourceObject, "refinement") < 1) return;
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -878,6 +893,16 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             }
         }
     }
+
+    // Crystalline Mirror (9agwj4f15j): whenever a phantasia enters the field under your control, glimpse 1
+    if(PropertyContains(CardType($added->CardID), "PHANTASIA")) {
+        for($cm = 0; $cm < count($field); ++$cm) {
+            if(!$field[$cm]->removed && $field[$cm]->CardID === "9agwj4f15j" && !HasNoAbilities($field[$cm])) {
+                Glimpse($player, 1);
+                break;
+            }
+        }
+    }
     
     Enter($player, $field[count($field)-1]->GetMzID());
 }
@@ -921,6 +946,16 @@ function RecollectionPhase() {
                     if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, CardClasses("ka5av43ehj"))) {
                         DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Glimpse_1?_(No=Recover_1)");
                         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MorganSoulGuideRecollection", 1);
+                    }
+                    break;
+                case "ao8bls6g7x": // Healing Aura: recover 1 at beginning of recollection phase
+                    if(!HasNoAbilities($field[$i])) {
+                        RecoverChampion($turnPlayer, 1);
+                    }
+                    break;
+                case "c7wklzjmwu": // Palatial Concourse: glimpse 1 at beginning of recollection phase
+                    if(!HasNoAbilities($field[$i])) {
+                        Glimpse($turnPlayer, 1);
                     }
                     break;
                 default: break;
@@ -1221,6 +1256,31 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "9q1wl8ao8b": // Crimson Tear: [Level 1+] +1 POWER while attacking/retaliating vs Human
+            if(PlayerLevel($obj->Controller) >= 1) {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget != "-" && $combatTarget != "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(CardSubtypes($targetObj->CardID), "HUMAN")) {
+                        $power += 1;
+                    }
+                }
+            }
+            break;
+        case "bcizm6h38l": // Subjugating Lash: +2 POWER while champion has 12+ damage
+            {
+                $controller = $obj->Controller;
+                $champField = &GetField($controller);
+                foreach($champField as $champObj) {
+                    if(!$champObj->removed && PropertyContains(EffectiveCardType($champObj), "CHAMPION")) {
+                        if($champObj->Damage >= 12) {
+                            $power += 2;
+                        }
+                        break;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -1371,6 +1431,12 @@ function ObjectCurrentPower($obj) {
         switch($linkedObj->CardID) {
             case "80mttsvbgl": // Mark of Fervor: linked ally gets +1 POWER
                 $power += 1;
+                break;
+            case "c8ljyevpmu": // Alliance Gearshield: [Class Bonus] +2 POWER while retaliating
+                if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])
+                    && DecisionQueueController::GetVariable("CombatRetaliator") !== null) {
+                    $power += 2;
+                }
                 break;
             default: break;
         }
@@ -1596,6 +1662,9 @@ function ObjectCurrentHP($obj) {
                 $cardLife += 1;
                 break;
             case "80mttsvbgl": // Mark of Fervor: linked ally gets +1 LIFE
+                $cardLife += 1;
+                break;
+            case "c8ljyevpmu": // Alliance Gearshield: linked ally gets +1 LIFE
                 $cardLife += 1;
                 break;
             default: break;
@@ -1956,6 +2025,24 @@ $customDQHandlers["GreenSlimeTransfer"] = function($player, $parts, $lastDecisio
         if($buffCount > 0) {
             AddCounters($player, $lastDecision, "buff", $buffCount);
         }
+    }
+};
+
+// Orb of Hubris: shuffle cards from hand into deck one at a time
+function OrbOfHubrisShuffle($player, $remaining) {
+    if($remaining <= 0) return;
+    $hand = ZoneSearch("myHand");
+    if(empty($hand)) return;
+    $choices = implode("&", $hand);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1, tooltip:"Choose_card_to_shuffle_into_deck");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "OrbOfHubrisShuffleStep|$remaining", 1);
+}
+
+$customDQHandlers["OrbOfHubrisShuffleStep"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    MZMove($player, $lastDecision, "myDeck");
+    if($remaining > 1) {
+        OrbOfHubrisShuffle($player, $remaining - 1);
     }
 };
 
@@ -3477,6 +3564,10 @@ function GetPrepCounterCount($obj) {
  */
 function GetDurabilityCounterCount($obj) {
     return GetCounterCount($obj, "durability");
+}
+
+function GetRefinementCounterCount($obj) {
+    return GetCounterCount($obj, "refinement");
 }
 
 /**
