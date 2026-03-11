@@ -281,6 +281,21 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Diffusive Block (o7eanl1gxr): costs 1 less if you control a Shield item
+    if($obj->CardID === "o7eanl1gxr") {
+        if(!empty(ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]))) {
+            $reserveCost = max(0, $reserveCost - 1);
+        }
+    }
+
+    // Seasprite Diver (mxqsm4o98v): costs 1 less if opponent has 4+ cards in graveyard
+    if($obj->CardID === "mxqsm4o98v") {
+        $oppGY = ZoneSearch("theirGraveyard");
+        if(count($oppGY) >= 4) {
+            $reserveCost = max(0, $reserveCost - 1);
+        }
+    }
+
     // Excoriate (ls6g7xgwve): [Level 2+] costs 1 less
     if($obj->CardID === "ls6g7xgwve" && PlayerLevel($player) >= 2) {
         $reserveCost = max(0, $reserveCost - 1);
@@ -328,6 +343,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             if(!$fObj->removed && $fObj->CardID === "4coy34bro8") {
                 $reserveCost += 1;
                 break; // Multiple Dawn of Ashes shouldn't stack (unique)
+            }
+        }
+    }
+
+    // Wayfinder's Map (porhlq2kkv): domain cards cost 1 less
+    if(PropertyContains($cardType, "DOMAIN")) {
+        $myField = GetZone("myField");
+        foreach($myField as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "porhlq2kkv") {
+                $reserveCost = max(0, $reserveCost - 1);
+                break;
             }
         }
     }
@@ -723,6 +749,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "9agwj4f15j": // Crystalline Mirror — banish self
         case "af098kmoi0": // Orb of Hubris — banish self
         case "fp66pv4n1n": // Rusted Warshield — banish self
+        case "porhlq2kkv": // Wayfinder's Map — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -752,6 +779,10 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
             $sourceObj->Status = 1;
             RemoveCounters($player, $mzCard, "refinement", 1);
             break;
+        case "n1voy5ttkk": // Shatterfall Keep: REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
         case "oy34bro89w": // Cunning Broker: remove 2 prep counters from champion
             $pField = &GetField($player);
             for($ci = 0; $ci < count($pField); ++$ci) {
@@ -776,6 +807,18 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     }
     // Resplendent Kite Shield (a5uhjxhkur): needs refinement counter
     if($cardID === "a5uhjxhkur" && GetCounterCount($sourceObject, "refinement") < 1) return;
+    // Wayfinder's Map (porhlq2kkv): needs 3+ domains on field
+    if($cardID === "porhlq2kkv" && count(ZoneSearch("myField", ["DOMAIN"])) < 3) return;
+    // Shatterfall Keep (n1voy5ttkk): needs floating memory card in graveyard + must be awake
+    if($cardID === "n1voy5ttkk") {
+        if($sourceObject->Status != 2) return;
+        $gy = GetZone("myGraveyard");
+        $hasFloating = false;
+        foreach($gy as $gyObj) {
+            if(!$gyObj->removed && HasFloatingMemory($gyObj)) { $hasFloating = true; break; }
+        }
+        if(!$hasFloating) return;
+    }
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -1211,6 +1254,10 @@ function EndPhase() {
         if(HasVigor($field[$i])) {
             $field[$i]->Status = 2; // Vigor units ready themselves at end of turn
         }
+        // Attune with Flames (nvx7mnu1xh): clear ATTUNE_FLAMES_BUFF at end of controller's turn
+        if(in_array("ATTUNE_FLAMES_BUFF", $field[$i]->TurnEffects)) {
+            $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["ATTUNE_FLAMES_BUFF"]));
+        }
     }
 
     ExpireEffects(isEndTurn:true);
@@ -1389,6 +1436,18 @@ function ObjectCurrentPower($obj) {
                 $power += $tokenCount;
             }
             break;
+        case "m4c8ljyevp": // Academy Attendant: [Class Bonus][Memory 4+] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["CLERIC"])) {
+                $memory = &GetMemory($obj->Controller);
+                if(count($memory) >= 4) $power += 1;
+            }
+            break;
+        case "ot4nmxqsm4": // Inzali, Unshackled Blaze: [Level 3+][Memory 4+] +2 POWER
+            if(PlayerLevel($obj->Controller) >= 3) {
+                $memory = &GetMemory($obj->Controller);
+                if(count($memory) >= 4) $power += 2;
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -1405,6 +1464,15 @@ function ObjectCurrentPower($obj) {
                     $power += 1;
                 }
                 break; // Only count the first Banner Knight (duplicates don't stack)
+            }
+        }
+        // Exalted Dorumegian Throne (p4lpnvx7mn): allies get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "p4lpnvx7mn") {
+                    $power += 1;
+                    break;
+                }
             }
         }
     }
@@ -1503,6 +1571,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "i1f0ht2tsn": // Strategic Warfare: allies get +1 POWER until end of turn
                 $power += 1;
+                break;
+            case "ATTUNE_FLAMES_BUFF": // Attune with Flames: +5 POWER until end of next turn
+                $power += 5;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -1758,6 +1829,18 @@ function ObjectCurrentHP($obj) {
             }
             break;
         default: break;
+    }
+    // Exalted Dorumegian Throne (p4lpnvx7mn): allies get +1 LIFE
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && $obj->Controller != -1) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID === "p4lpnvx7mn") {
+                $cardLife += 1;
+                break;
+            }
+        }
     }
     // Fractured Crown (suo6gb0op3): [Class Bonus] champion gets +2 LIFE per unique ally card in GY
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
@@ -2444,6 +2527,7 @@ $persistentTurnEffects["FROZEN_BY_SNOW_FAIRY"] = true;
 $persistentTurnEffects["SPELLSHROUD_NEXT_TURN"] = true;
 $persistentTurnEffects["STEALTH_NEXT_TURN"] = true;
 $persistentTurnEffects["NO_UPKEEP"] = true;
+$persistentTurnEffects["ATTUNE_FLAMES_BUFF"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -2708,6 +2792,8 @@ function ClassBonusActivateCostReduction($cardID) {
         'mdiK8UC78c' => 2, // Call the Pack: [Class Bonus] costs 2 less
         'Uxn14UqyQg' => 2, // Immolation Trap: [Class Bonus] costs 2 less
         '215upufyoz' => 2, // Tether in Flames: [Class Bonus] costs 2 less
+        'nmp5af098k' => 2, // Spellshield: Astra: [Class Bonus] costs 2 less
+        'nvx7mnu1xh' => 2, // Attune with Flames: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -3361,6 +3447,8 @@ function HasGrantedKeyword($obj, $keyword) {
 function HasVigor($obj) {
     if(HasNoAbilities($obj)) return false;
     if(HasKeyword_Vigor($obj)) return true;
+    // VIGOR_EOT TurnEffect: granted vigor until end of turn (e.g. Assemble the Ancients)
+    if(in_array("VIGOR_EOT", $obj->TurnEffects)) return true;
     // Uther, Illustrious King (5h8asbierp): always has Vigor
     if($obj->CardID === "5h8asbierp") return true;
     // Command the Hunt (rxxwQT054x): allies gain vigor via global effect
@@ -4202,6 +4290,34 @@ function DomainRecollectionUpkeep($player) {
             case "9w0ejcyuvu": // Prismatic Sanctuary
                 DomainRevealMemoryUpkeep($player, $i, ["FIRE", "WATER", "WIND"], "9w0ejcyuvu");
                 break;
+            case "n1voy5ttkk": // Shatterfall Keep: sacrifice if < 3 water in graveyard
+                {
+                    global $playerID;
+                    $gravZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+                    $waterGY = ZoneSearch($gravZone, cardElements: ["WATER"]);
+                    if(count($waterGY) < 3) {
+                        DoSacrificeFighter($player, "myField-" . $i);
+                        DecisionQueueController::CleanupRemovedCards();
+                    }
+                }
+                break;
+            case "p4lpnvx7mn": // Exalted Dorumegian Throne: sacrifice if <= 4 other domains
+                {
+                    global $playerID;
+                    $zone = $player == $playerID ? "myField" : "theirField";
+                    $otherDomains = 0;
+                    $fieldArr = GetZone($zone);
+                    foreach($fieldArr as $fi => $fObj) {
+                        if(!$fObj->removed && $fObj->CardID !== "p4lpnvx7mn" && PropertyContains(CardType($fObj->CardID), "DOMAIN")) {
+                            $otherDomains++;
+                        }
+                    }
+                    if($otherDomains <= 4) {
+                        DoSacrificeFighter($player, "myField-" . $i);
+                        DecisionQueueController::CleanupRemovedCards();
+                    }
+                }
+                break;
         }
     }
 }
@@ -4676,6 +4792,42 @@ function EnhanceHearingFinish($player, $chosen) {
     $remaining = ZoneSearch("myTempZone");
     foreach($remaining as $rmz) {
         MZMove($player, $rmz, "myDeck");
+    }
+}
+
+// --- Assemble the Ancients (moi0a5uhjx): sacrifice domains then summon Automaton Drone tokens ---
+
+function AssembleAncientsSacrifice($player, $count) {
+    $domains = ZoneSearch("myField", ["DOMAIN"]);
+    if(empty($domains)) {
+        AssembleAncientsFinalize($player, $count);
+        return;
+    }
+    $domainStr = implode("&", $domains);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $domainStr, 1, "Sacrifice_a_domain?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AssembleAncientsSacChoice|$count", 1);
+}
+
+$customDQHandlers["AssembleAncientsSacChoice"] = function($player, $parts, $lastDecision) {
+    $count = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        AssembleAncientsFinalize($player, $count);
+        return;
+    }
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    AssembleAncientsSacrifice($player, $count + 1);
+};
+
+function AssembleAncientsFinalize($player, $count) {
+    if($count <= 0) return;
+    for($i = 0; $i < $count; ++$i) {
+        MZAddZone($player, "myField", "mu6gvnta6q"); // Automaton Drone token
+        $field = &GetField($player);
+        $newIdx = count($field) - 1;
+        $field[$newIdx]->Status = 1; // Enter rested
+        AddCounters($player, "myField-" . $newIdx, "buff", $count);
+        AddTurnEffect("myField-" . $newIdx, "VIGOR_EOT");
     }
 }
 

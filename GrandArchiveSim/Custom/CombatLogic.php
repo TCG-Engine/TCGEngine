@@ -1295,6 +1295,16 @@ function OnDealDamage($player, $source, $target, $amount) {
             AddCounters($targetObj->Controller, $target, "enlighten", $prevented);
             return;
         }
+        // PREVENT_CHAMP_ASTRA_GLIMPSE: prevent all of next damage to champion; Glimpse X where X = amount prevented (Spellshield: Astra)
+        if(in_array("PREVENT_CHAMP_ASTRA_GLIMPSE", $targetObj->TurnEffects)) {
+            $prevented = $amount;
+            $amount = 0;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "PREVENT_CHAMP_ASTRA_GLIMPSE"));
+            if($prevented > 0) {
+                Glimpse($targetObj->Controller, $prevented);
+            }
+            return;
+        }
         // PREVENT_CHAMP_WIND_BUFF: prevent all of next damage to champion; if 3+ prevented, buff an ally (Spellshield: Wind)
         if(in_array("PREVENT_CHAMP_WIND_BUFF", $targetObj->TurnEffects)) {
             $prevented = $amount;
@@ -1314,7 +1324,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
         // PREVENT_CHAMP_N: prevent up to N damage to champion this turn (Veiling Breeze)
         foreach($targetObj->TurnEffects as $idx => $effect) {
-            if(strpos($effect, "PREVENT_CHAMP_") === 0 && strpos($effect, "PREVENT_CHAMP_ENLIGHTEN") !== 0 && strpos($effect, "PREVENT_CHAMP_WIND_BUFF") !== 0) {
+            if(strpos($effect, "PREVENT_CHAMP_") === 0 && strpos($effect, "PREVENT_CHAMP_ENLIGHTEN") !== 0 && strpos($effect, "PREVENT_CHAMP_WIND_BUFF") !== 0 && strpos($effect, "PREVENT_CHAMP_ASTRA_GLIMPSE") !== 0) {
                 $budget = intval(substr($effect, 14));
                 $prevented = min($budget, $amount);
                 $amount -= $prevented;
