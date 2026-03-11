@@ -301,6 +301,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 1);
     }
 
+    // Sidestep (voy5ttkk39): [Level 2+] costs 1 less
+    if($obj->CardID === "voy5ttkk39" && PlayerLevel($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
     // Viridian Protective Trinket (s3572j3oda): during your turn, opponent's water element cards cost 2 more
     $opponent = ($player == 1) ? 2 : 1;
     $turnPlayer = &GetTurnPlayer();
@@ -783,7 +788,15 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
+        case "uy4xippor7": // Oasis Trading Post: REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
         case "soporhlq2k": // Fraysia: sacrifice self to graveyard
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "uhuy4xippo": // Fractal of Snow: sacrifice self to graveyard
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -857,6 +870,10 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         }
         if(!$hasFloating) return;
     }
+    // Fractal of Snow (uhuy4xippo): needs class bonus
+    if($cardID === "uhuy4xippo" && !IsClassBonusActive($player, explode(",", CardClasses("uhuy4xippo")))) return;
+    // Oasis Trading Post (uy4xippor7): must be awake
+    if($cardID === "uy4xippor7" && $sourceObject->Status != 2) return;
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -945,6 +962,20 @@ function DoAllyDestroyed($player, $mzCard) {
     if(!$suppressed && isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
         $allyDestroyedAbilities[$obj->CardID . ":0"]($controller);
     }
+    // Synthetic Core (w0y6isxy5l): whenever a non-token Automaton ally you control dies,
+    // you may banish Synthetic Core to return that ally to your memory.
+    if(PropertyContains(CardSubtypes($obj->CardID), "AUTOMATON") && !PropertyContains(CardType($obj->CardID), "TOKEN")) {
+        global $playerID;
+        $controllerField = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($controllerField);
+        for($si = 0; $si < count($field); ++$si) {
+            if(!$field[$si]->removed && $field[$si]->CardID === "w0y6isxy5l" && !HasNoAbilities($field[$si])) {
+                DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, tooltip:"Banish_Synthetic_Core_to_return_ally_to_memory?");
+                DecisionQueueController::AddDecision($controller, "CUSTOM", "SyntheticCoreChoice|$si|" . $obj->CardID, 1);
+                break;
+            }
+        }
+    }
 }
 
 function WakeUpPhase() {
@@ -990,6 +1021,13 @@ function WakeUpPhase() {
             // Blazing Charge (s5jwsl7ded): expire damage amp at beginning of controller's next turn
             if(in_array("BLAZING_CHARGE_NEXT_TURN", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["BLAZING_CHARGE_NEXT_TURN"]));
+            }
+            // TAUNT_NEXT_TURN / VIGOR_NEXT_TURN: expire at beginning of controller's next turn
+            if(in_array("TAUNT_NEXT_TURN", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["TAUNT_NEXT_TURN"]));
+            }
+            if(in_array("VIGOR_NEXT_TURN", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["VIGOR_NEXT_TURN"]));
             }
             $field[$i]->Status = 2;
         }
@@ -1074,6 +1112,14 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             }
         }
     }
+
+    // Fractal of Snow (uhuy4xippo): next allies enter rested
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        if(GlobalEffectCount($player, "uhuy4xippo") > 0) {
+            $added->Status = 1;
+            RemoveGlobalEffect($player, "uhuy4xippo");
+        }
+    }
     
     Enter($player, $field[count($field)-1]->GetMzID());
 }
@@ -1147,6 +1193,16 @@ function RecollectionPhase() {
                     if(!HasNoAbilities($field[$i]) && !in_array("NO_UPKEEP", $field[$i]->TurnEffects)) {
                         DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Pay_2_to_keep_The_Eternal_Kingdom?");
                         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "EternalKingdomUpkeep|$i", 1);
+                    }
+                    break;
+                case "t3q2svd53z": // Aqueous Armor: mill 1 at beginning of recollection phase
+                    if(!HasNoAbilities($field[$i])) {
+                        MillCards($turnPlayer, "myDeck", "myGraveyard", 1);
+                    }
+                    break;
+                case "ta6qsesw2u": // Tonoris, Genesis Aegis: choose one that hasn't been chosen — summon Obelisk token
+                    if(!HasNoAbilities($field[$i])) {
+                        TonorisRecollection($turnPlayer, $i);
                     }
                     break;
                 default: break;
@@ -1727,6 +1783,12 @@ function ObjectCurrentPower($obj) {
             }
         }
     }
+    // Into the Fray (tu9agwj4f1): +N POWER until end of turn (N encoded in TurnEffect)
+    foreach($obj->TurnEffects as $te) {
+        if(strpos($te, "tu9agwj4f1-") === 0) {
+            $power += intval(substr($te, strlen("tu9agwj4f1-")));
+        }
+    }
     return $power;
 }
 
@@ -1960,6 +2022,11 @@ function ObjectCurrentHP($obj) {
                 break;
             case "c8ljyevpmu": // Alliance Gearshield: linked ally gets +1 LIFE
                 $cardLife += 1;
+                break;
+            case "t3q2svd53z": // Aqueous Armor: [Class Bonus] linked ally gets +2 LIFE
+                if(IsClassBonusActive($linkedObj->Controller, ["GUARDIAN"])) {
+                    $cardLife += 2;
+                }
                 break;
             default: break;
         }
@@ -2612,6 +2679,8 @@ $persistentTurnEffects["STEALTH_NEXT_TURN"] = true;
 $persistentTurnEffects["NO_UPKEEP"] = true;
 $persistentTurnEffects["ATTUNE_FLAMES_BUFF"] = true;
 $persistentTurnEffects["BLAZING_CHARGE_NEXT_TURN"] = true;
+$persistentTurnEffects["TAUNT_NEXT_TURN"] = true;
+$persistentTurnEffects["VIGOR_NEXT_TURN"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -3544,6 +3613,8 @@ function HasVigor($obj) {
     if(HasKeyword_Vigor($obj)) return true;
     // VIGOR_EOT TurnEffect: granted vigor until end of turn (e.g. Assemble the Ancients)
     if(in_array("VIGOR_EOT", $obj->TurnEffects)) return true;
+    // VIGOR_NEXT_TURN: granted vigor until beginning of controller's next turn (e.g. Rousing Slam)
+    if(in_array("VIGOR_NEXT_TURN", $obj->TurnEffects)) return true;
     // Uther, Illustrious King (5h8asbierp): always has Vigor
     if($obj->CardID === "5h8asbierp") return true;
     // Command the Hunt (rxxwQT054x): allies gain vigor via global effect
@@ -3579,6 +3650,8 @@ function HasStealth($obj) {
         }
     }
     if(HasKeyword_Stealth($obj)) return true;
+    // STEALTH: granted stealth until end of turn (e.g. Vanish from Sight, Sidestep)
+    if(in_array("STEALTH", $obj->TurnEffects)) return true;
     // STEALTH_NEXT_TURN: persistent stealth until beginning of controller's next turn (e.g. Zander)
     if(in_array("STEALTH_NEXT_TURN", $obj->TurnEffects)) return true;
     // Check for temporary stealth effects granted by other cards
@@ -4991,6 +5064,107 @@ $customDQHandlers["SwoopingTalons_Choice"] = function($player, $parts, $lastDeci
         SwoopingTalonsMode1($player);
     } else {
         SwoopingTalonsMode2($player);
+    }
+};
+
+// --- Gather (Grand Archive keyword): summon a random herb token ---
+
+function Gather($player) {
+    $herbTokens = ["i0a5uhjxhk", "5joh300z2s", "bd7ozuj68m", "soporhlq2k", "jnltv5klry", "69iq4d5vet"];
+    $randomHerb = $herbTokens[array_rand($herbTokens)];
+    MZAddZone($player, "myField", $randomHerb);
+}
+
+// --- Tonoris, Genesis Aegis (ta6qsesw2u): recollection phase Obelisk summon ---
+
+function TonorisRecollection($player, $fieldIndex) {
+    $field = &GetField($player);
+    $obj = $field[$fieldIndex];
+    $obelisks = [
+        "wk0pw0y6is" => "Summon_Obelisk_of_Armaments?",
+        "xy5lh23qu7" => "Summon_Obelisk_of_Fabrication?",
+        "d6soporhlq" => "Summon_Obelisk_of_Protection?"
+    ];
+    $counters = is_array($obj->Counters) ? $obj->Counters : [];
+    $chosen = isset($counters['tonoris_chosen']) ? $counters['tonoris_chosen'] : [];
+    $available = [];
+    foreach($obelisks as $id => $tooltip) {
+        if(!in_array($id, $chosen)) {
+            $available[$id] = $tooltip;
+        }
+    }
+    if(empty($available)) return;
+    if(count($available) == 1) {
+        $obeliskID = array_key_first($available);
+        MZAddZone($player, "myField", $obeliskID);
+        $chosen[] = $obeliskID;
+        if(!is_array($field[$fieldIndex]->Counters)) $field[$fieldIndex]->Counters = [];
+        $field[$fieldIndex]->Counters['tonoris_chosen'] = $chosen;
+        return;
+    }
+    $firstID = array_key_first($available);
+    $firstTooltip = $available[$firstID];
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$firstTooltip);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TonorisChooseObelisk|$fieldIndex|$firstID", 1);
+}
+
+$customDQHandlers["TonorisChooseObelisk"] = function($player, $parts, $lastDecision) {
+    $fieldIndex = intval($parts[0]);
+    $currentObeliskID = $parts[1];
+    $field = &GetField($player);
+    if(!isset($field[$fieldIndex]) || $field[$fieldIndex]->removed) return;
+    $obj = $field[$fieldIndex];
+    $counters = is_array($obj->Counters) ? $obj->Counters : [];
+    $chosen = isset($counters['tonoris_chosen']) ? $counters['tonoris_chosen'] : [];
+
+    if($lastDecision === "YES") {
+        MZAddZone($player, "myField", $currentObeliskID);
+        $chosen[] = $currentObeliskID;
+        if(!is_array($field[$fieldIndex]->Counters)) $field[$fieldIndex]->Counters = [];
+        $field[$fieldIndex]->Counters['tonoris_chosen'] = $chosen;
+        return;
+    }
+
+    // Player said NO — move to next available obelisk
+    $obelisks = ["wk0pw0y6is", "xy5lh23qu7", "d6soporhlq"];
+    $tooltips = [
+        "wk0pw0y6is" => "Summon_Obelisk_of_Armaments?",
+        "xy5lh23qu7" => "Summon_Obelisk_of_Fabrication?",
+        "d6soporhlq" => "Summon_Obelisk_of_Protection?"
+    ];
+    $remaining = [];
+    foreach($obelisks as $id) {
+        if(!in_array($id, $chosen) && $id !== $currentObeliskID) {
+            $remaining[] = $id;
+        }
+    }
+    if(count($remaining) == 1) {
+        MZAddZone($player, "myField", $remaining[0]);
+        $chosen[] = $remaining[0];
+        if(!is_array($field[$fieldIndex]->Counters)) $field[$fieldIndex]->Counters = [];
+        $field[$fieldIndex]->Counters['tonoris_chosen'] = $chosen;
+    } elseif(count($remaining) > 1) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltips[$remaining[0]]);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "TonorisChooseObelisk|$fieldIndex|$remaining[0]", 1);
+    }
+};
+
+// --- Synthetic Core (w0y6isxy5l): return dying Automaton ally to memory ---
+
+$customDQHandlers["SyntheticCoreChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $fieldIndex = intval($parts[0]);
+    $dyingCardID = $parts[1];
+    // Banish Synthetic Core
+    MZMove($player, "myField-" . $fieldIndex, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    // Return the dying ally from graveyard to memory
+    $gy = GetZone("myGraveyard");
+    for($gi = count($gy) - 1; $gi >= 0; --$gi) {
+        if(!$gy[$gi]->removed && $gy[$gi]->CardID === $dyingCardID) {
+            MZMove($player, "myGraveyard-" . $gi, "myMemory");
+            break;
+        }
     }
 };
 
