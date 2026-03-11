@@ -616,6 +616,15 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "BT_SacrificeWeapon", 1);
             }
             break;
+        case "oy34bro89w": // Cunning Broker: remove 2 prep counters from champion
+            $pField = &GetField($player);
+            for($ci = 0; $ci < count($pField); ++$ci) {
+                if(!$pField[$ci]->removed && PropertyContains(EffectiveCardType($pField[$ci]), "CHAMPION")) {
+                    RemoveCounters($player, "myField-" . $ci, "preparation", 2);
+                    break;
+                }
+            }
+            break;
     }
 }
 
@@ -830,6 +839,12 @@ function RecollectionPhase() {
                         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WindriderMageBounce|$i", 1);
                     }
                     break;
+                case "ka5av43ehj": // Morgan, Soul Guide: [CB] Glimpse 1 or Recover 1
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, CardClasses("ka5av43ehj"))) {
+                        DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Glimpse_1?_(No=Recover_1)");
+                        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MorganSoulGuideRecollection", 1);
+                    }
+                    break;
                 default: break;
             }
         }
@@ -962,6 +977,17 @@ function EndPhase() {
                         break;
                     }
                 }
+            }
+            break;
+        }
+    }
+
+    // Tristan, Grim Stalker (K5luT8aRzc): At beginning of your end phase, if Tristan is awake, put a preparation counter on Tristan.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "K5luT8aRzc") {
+            if($field[$i]->Status == 2) { // Awake (Status 2 = ready)
+                AddCounters($turnPlayer, "myField-" . $i, "preparation", 1);
             }
             break;
         }
@@ -1775,6 +1801,57 @@ $customDQHandlers["WindriderMageBounce"] = function($player, $parts, $lastDecisi
     }
 };
 
+$customDQHandlers["MorganSoulGuideRecollection"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        Glimpse($player, 1);
+    } else {
+        RecoverChampion($player, 1);
+    }
+};
+
+$customDQHandlers["ParcenetReveal"] = function($player, $parts, $lastDecision) {
+    $deck = &GetDeck($player);
+    if(empty($deck)) return;
+    $topCard = $deck[0];
+    DoRevealCard($player, "myDeck-0");
+    if(CardElement($topCard->CardID) === "WIND") {
+        // Find Parcenet's mzID so we can exclude it from choices
+        $parcenetMZ = null;
+        $field = &GetField($player);
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && $field[$i]->CardID === "xxoo7dl5j4") {
+                $parcenetMZ = "myField-" . $i;
+                break;
+            }
+        }
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        $targets = [];
+        foreach($allies as $a) {
+            if($a !== $parcenetMZ) $targets[] = $a;
+        }
+        if(!empty($targets)) {
+            $targetStr = implode("&", $targets);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Choose_ally_to_gain_stealth");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ParcenetGrantStealth", 1);
+        }
+    }
+};
+
+$customDQHandlers["ParcenetGrantStealth"] = function($player, $parts, $lastDecision) {
+    if($lastDecision && $lastDecision !== "-") {
+        AddTurnEffect($lastDecision, "xxoo7dl5j4_STEALTH");
+    }
+};
+
+$customDQHandlers["GreenSlimeTransfer"] = function($player, $parts, $lastDecision) {
+    if($lastDecision && $lastDecision !== "-") {
+        $buffCount = intval(DecisionQueueController::GetVariable("GreenSlimeBuffCount"));
+        if($buffCount > 0) {
+            AddCounters($player, $lastDecision, "buff", $buffCount);
+        }
+    }
+};
+
 function OnCardChosen($player, $lastResult) {
     $card = &GetZoneObject($lastResult);
 }
@@ -1793,7 +1870,22 @@ function CardHasAbility($obj) {
         return (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic) ? 1 : 0;
     }
     $turnPlayer = &GetTurnPlayer();
-    return $obj->Status == 2 && $turnPlayer == $obj->Controller && (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic) ? 1 : 0;
+    $hasAbility = (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic);
+    if(!$hasAbility) return 0;
+    if($obj->Status != 2 || $turnPlayer != $obj->Controller) return 0;
+
+    // Cunning Broker (oy34bro89w): requires 2+ prep counters on champion
+    if($obj->CardID === "oy34bro89w") {
+        $pField = &GetField($obj->Controller);
+        foreach($pField as $fCard) {
+            if(!$fCard->removed && PropertyContains(EffectiveCardType($fCard), "CHAMPION")) {
+                if(GetCounterCount($fCard, "preparation") < 2) return 0;
+                break;
+            }
+        }
+    }
+
+    return 1;
 }
 
 function CardCurrentEffects($obj) {
@@ -2279,6 +2371,18 @@ function DealChampionDamage($player, $amount=1) {
 
 function RecoverChampion($player, $amount=1) {
     global $playerID;
+
+    // Morgan, Soul Guide (ka5av43ehj): [Level 2+] opponents can't recover
+    $opponent = ($player == 1) ? 2 : 1;
+    $oppField = &GetField($opponent);
+    foreach($oppField as $oppObj) {
+        if(!$oppObj->removed && $oppObj->CardID === "ka5av43ehj" && !HasNoAbilities($oppObj)) {
+            if(PlayerLevel($oppObj->Controller) >= 2) {
+                return null; // Recovery blocked by Morgan
+            }
+        }
+    }
+
     $zone = $player == $playerID ? "myField" : "theirField";
     $zoneArr = &GetZone($zone);
     for($i = 0; $i < count($zoneArr); ++$i) {
@@ -2892,6 +2996,8 @@ function HasGrantedKeyword($obj, $keyword) {
 function HasVigor($obj) {
     if(HasNoAbilities($obj)) return false;
     if(HasKeyword_Vigor($obj)) return true;
+    // Uther, Illustrious King (5h8asbierp): always has Vigor
+    if($obj->CardID === "5h8asbierp") return true;
     // Command the Hunt (rxxwQT054x): allies gain vigor via global effect
     if(ObjectHasEffect($obj, "rxxwQT054x_VIGOR")) return true;
     // Ally Link: Mark of Fervor (80mttsvbgl): linked ally has vigor
@@ -2936,6 +3042,8 @@ function HasStealth($obj) {
             case "ScGcOmkoQt": // Smoke Bombs: target ally gains stealth this turn
                 return true;
             case "INNERVATE_STEALTH": // Innervate Agility: units gain stealth until EOT
+                return true;
+            case "xxoo7dl5j4_STEALTH": // Parcenet, Royal Maid: target ally gains stealth until EOT
                 return true;
         }
     }

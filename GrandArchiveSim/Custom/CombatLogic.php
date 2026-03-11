@@ -544,6 +544,33 @@ function OnHitTrigger($player, $attackerMZ) {
             $onHitAbilities[$weaponObj->CardID . ":0"]($player);
         }
     }
+
+    // Tristan, Grim Stalker (K5luT8aRzc): On Ally Hit passive —
+    // when any ally you control hits an enemy ally, you may remove 3 prep counters to destroy the hit ally.
+    $attackerObj = GetZoneObject($attackerMZ);
+    $isAllyAttacker = $attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "ALLY");
+    if($isAllyAttacker) {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($hitTarget !== null) {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
+                // Look for Tristan on the attacker's field
+                $myField = GetZone("myField");
+                foreach($myField as $fi => $fObj) {
+                    if(!$fObj->removed && $fObj->CardID === "K5luT8aRzc" && !HasNoAbilities($fObj)) {
+                        if(GetPrepCounterCount($fObj) >= 3) {
+                            $tristanMZ = "myField-" . $fi;
+                            DecisionQueueController::StoreVariable("TristanHitTarget", $hitTarget);
+                            DecisionQueueController::StoreVariable("TristanChampMZ", $tristanMZ);
+                            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Remove_3_prep_counters_to_destroy_hit_ally?");
+                            DecisionQueueController::AddDecision($player, "CUSTOM", "TristanOnAllyHit", 1);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -1000,6 +1027,27 @@ $customDQHandlers["SurveillanceStone"] = function($player, $parts, $lastDecision
 };
 
 /**
+ * Handler: Tristan, Grim Stalker (K5luT8aRzc) On Ally Hit response.
+ * $lastDecision = "YES" or "NO" from the preceding YESNO decision.
+ */
+$customDQHandlers["TristanOnAllyHit"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $champMZ = DecisionQueueController::GetVariable("TristanChampMZ");
+    if($champMZ === null) return;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null || $champObj->removed || $champObj->CardID !== "K5luT8aRzc") return;
+    if(GetPrepCounterCount($champObj) < 3) return;
+    RemoveCounters($player, $champMZ, "preparation", 3);
+    $hitTarget = DecisionQueueController::GetVariable("TristanHitTarget");
+    if($hitTarget !== null) {
+        $targetObj = GetZoneObject($hitTarget);
+        if($targetObj !== null && !$targetObj->removed) {
+            DoAllyDestroyed($player, $hitTarget);
+        }
+    }
+};
+
+/**
  * Handler: clean up after combat resolves (intent + variables).
  */
 $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
@@ -1195,6 +1243,14 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Morgan, Soul Guide (ka5av43ehj): [Level 1+] prevent all non-combat damage to Morgan
+    if($targetObj->CardID === "ka5av43ehj" && !$isCombat) {
+        $targetController = $targetObj->Controller ?? $player;
+        if(PlayerLevel($targetController) >= 1) {
+            return; // Non-combat damage prevented
+        }
+    }
+
     if (!$isCombat && $amount > 0 && $targetObj->CardID !== "5k1vt1cn1t") {
         $targetController = $targetObj->Controller ?? $player;
         $controllerField = &GetField($targetController);
@@ -1208,6 +1264,33 @@ function OnDealDamage($player, $source, $target, $amount) {
             }
         }
         if ($amount <= 0) $amount = 0;
+    }
+
+    // Intrepid Spearman (pal7cpvn96): [Level 1+] once per turn replacement effect —
+    // when combat damage would be dealt to this card, reveal a random memory card;
+    // if it is wind element, prevent 3 of that damage.
+    if($isCombat && $amount > 0 && $targetObj->CardID === "pal7cpvn96"
+            && !in_array("pal7cpvn96", $targetObj->TurnEffects)) {
+        $targetController = $targetObj->Controller ?? $player;
+        if(PlayerLevel($targetController) >= 1) {
+            $memory = GetMemory($targetController);
+            if(!empty($memory)) {
+                $randomIdx = array_rand($memory);
+                $revealedCard = $memory[$randomIdx];
+                // Visual reveal via flash message
+                $existing = GetFlashMessage();
+                if(is_string($existing) && strpos($existing, 'REVEAL:') === 0) {
+                    SetFlashMessage($existing . '|' . $revealedCard->CardID);
+                } else {
+                    SetFlashMessage('REVEAL:' . $revealedCard->CardID);
+                }
+                if(CardElement($revealedCard->CardID) === "WIND") {
+                    $amount = max(0, $amount - 3);
+                }
+                $targetObj->TurnEffects[] = "pal7cpvn96";
+                if($amount <= 0) return;
+            }
+        }
     }
 
     // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage

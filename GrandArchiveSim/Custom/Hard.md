@@ -7,17 +7,7 @@
 ### Missing: Activated abilities from Graveyard
 Voltaic Sphere (0op3nq0ymv)
 
-### Missing: "On Ally Hit" (Triggered When Ally Takes Damage)
 
-**Status**: OnHit macro EXISTS for the attacking unit's perspective (fires after hit), but no system for triggered abilities that fire on a defending card when IT takes damage from an attack.
-
-Would need: A defending-unit damage event hook that dispatches passive/triggered abilities on the defending card.
-
-Cards blocked:
-- Tristan, Grim Stalker (K5luT8aRzc) — On Ally Hit: remove 3 prep counters to destroy hit ally.
-- Intrepid Spearman (pal7cpvn96) — [Level 1+] When combat damage would be dealt to CARDNAME, reveal a random memory card; if wind element, prevent 3 of that damage (once per turn). This is a replacement effect that fires on the defending unit when it receives combat damage.
-
----
 
 
 
@@ -290,5 +280,7 @@ Since the blockers list was created, the following capabilities HAVE been added:
 - ✅ **Per-card ability suppression (NO_ABILITIES)** — `HasNoAbilities($obj)` checks TurnEffect `NO_ABILITIES` (temporary) and persistent `$obj->Counters['_overrides']['NO_ABILITIES']`. All keyword wrappers, ability dispatch, and stat functions consult this flag.
 - ✅ **Persistent card overrides** — `ApplyPersistentOverride($mzCard, $overrides)` stores indefinite type/subtype/class/element/keyword overrides in `$obj->Counters['_overrides']`. `Effective*` wrapper functions (`EffectiveCardType`, `EffectiveCardSubtypes`, `EffectiveCardClasses`, `EffectiveCardElement`) used throughout the codebase.
 - ✅ **Graveyard element override** — `EffectiveCardElement` detects Nullifying Lantern on field and returns "NORM" for all graveyard cards. `ZoneContainsCardID` helper enables efficient field scanning.
+- ✅ **Per-unit combat damage replacement effects** — `OnDealDamage` now checks for per-card (target-side) replacement effects before applying damage. Intrepid Spearman (pal7cpvn96) uses this: when combat damage would be dealt to it, reveals a random memory card and prevents 3 damage if wind element (once per turn via `ISP_TRIGGERED` TurnEffect).
+- ✅ **On Ally Hit (attacker-side, ally-only filter)** — Tristan, Grim Stalker (K5luT8aRzc) uses the existing OnHit macro with a guard for ally targets. The `CombatTarget` DQ variable (set to `theirField-X` from the attacker's perspective) provides the hit unit's identity within the OnHit handler. YesNo decision removes 3 prep counters from Tristan and destroys the hit ally via `DoAllyDestroyed`. Tristan also accrues 1 prep counter each end phase while awake (implemented directly in `EndPhase()`).
 
 This has enabled many cards from the original list to become implementable. See Easy.md for those cards.
