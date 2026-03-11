@@ -1403,6 +1403,10 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {
         $amount += 1;
     }
+    // Blazing Charge (s5jwsl7ded): if target is champion with BLAZING_CHARGE_NEXT_TURN, +1 damage
+    if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION") && in_array("BLAZING_CHARGE_NEXT_TURN", $targetObj->TurnEffects)) {
+        $amount += 1;
+    }
     $targetObj->Damage += $amount;
 
     // Trigger per-card DealDamage abilities on the target card
@@ -1431,6 +1435,10 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
     // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage
     if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {
+        $amount += 1;
+    }
+    // Blazing Charge (s5jwsl7ded): if target is champion with BLAZING_CHARGE_NEXT_TURN, +1 damage
+    if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION") && in_array("BLAZING_CHARGE_NEXT_TURN", $targetObj->TurnEffects)) {
         $amount += 1;
     }
     $targetObj->Damage += $amount;

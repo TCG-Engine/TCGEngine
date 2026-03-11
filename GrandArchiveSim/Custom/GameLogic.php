@@ -783,6 +783,26 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
+        case "soporhlq2k": // Fraysia: sacrifice self to graveyard
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "sw2ugmnmp5": // Navigation Compass: REST + discard a domain card
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            $domCards = [];
+            $hZone = GetZone("myHand");
+            foreach($hZone as $hIdx => $hObj) {
+                if(!$hObj->removed && PropertyContains(CardType($hObj->CardID), "DOMAIN")) {
+                    $domCards[] = "myHand-" . $hIdx;
+                }
+            }
+            if(!empty($domCards)) {
+                $domStr = implode("&", $domCards);
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", $domStr, 1, "Discard_a_domain_card");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "NavCompass_Discard", 1);
+            }
+            break;
         case "oy34bro89w": // Cunning Broker: remove 2 prep counters from champion
             $pField = &GetField($player);
             for($ci = 0; $ci < count($pField); ++$ci) {
@@ -809,6 +829,24 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "a5uhjxhkur" && GetCounterCount($sourceObject, "refinement") < 1) return;
     // Wayfinder's Map (porhlq2kkv): needs 3+ domains on field
     if($cardID === "porhlq2kkv" && count(ZoneSearch("myField", ["DOMAIN"])) < 3) return;
+    // Dormant Sacrificial Altar (px8jypwc8t): needs both Automaton and Human allies on field
+    if($cardID === "px8jypwc8t") {
+        $automatons = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
+        $humans = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HUMAN"]);
+        if(empty($automatons) || empty($humans)) return;
+        $combined = array_unique(array_merge($automatons, $humans));
+        if(count($combined) < 2) return;
+    }
+    // Navigation Compass (sw2ugmnmp5): must be awake + have domain card in hand
+    if($cardID === "sw2ugmnmp5") {
+        if($sourceObject->Status != 2) return;
+        $domainHand = [];
+        $hand = GetZone("myHand");
+        foreach($hand as $hObj) {
+            if(!$hObj->removed && PropertyContains(CardType($hObj->CardID), "DOMAIN")) { $domainHand[] = true; break; }
+        }
+        if(empty($domainHand)) return;
+    }
     // Shatterfall Keep (n1voy5ttkk): needs floating memory card in graveyard + must be awake
     if($cardID === "n1voy5ttkk") {
         if($sourceObject->Status != 2) return;
@@ -896,7 +934,13 @@ function DoAllyDestroyed($player, $mzCard) {
     $controller = $obj->Controller;
     $suppressed = HasNoAbilities($obj);
     OnLeaveField($player, $mzCard);
-    $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
+    // Fireworks Display (sx6q3p6i0i): banish instead of graveyard
+    $fireworksBanish = GlobalEffectCount($controller, "FIREWORKS_BANISH") > 0;
+    if($fireworksBanish) {
+        $dest = $player == $controller ? "myBanish" : "theirBanish";
+    } else {
+        $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
+    }
     MZMove($player, $mzCard, $dest);
     if(!$suppressed && isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
         $allyDestroyedAbilities[$obj->CardID . ":0"]($controller);
@@ -942,6 +986,10 @@ function WakeUpPhase() {
             }
             if(in_array("STEALTH_NEXT_TURN", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["STEALTH_NEXT_TURN"]));
+            }
+            // Blazing Charge (s5jwsl7ded): expire damage amp at beginning of controller's next turn
+            if(in_array("BLAZING_CHARGE_NEXT_TURN", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["BLAZING_CHARGE_NEXT_TURN"]));
             }
             $field[$i]->Status = 2;
         }
@@ -1203,6 +1251,27 @@ function EndPhase() {
     // Clear any remaining intent cards (unused attack cards) to graveyard
     ClearIntent($turnPlayer);
 
+    // Forgelight Scepter (smw3rrii17): at beginning of each opponent's end phase,
+    // if that player has odd cards in memory, deal 2 unpreventable damage to their champion
+    $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
+    $forgeField = &GetField($otherPlayer);
+    for($fi = 0; $fi < count($forgeField); ++$fi) {
+        if(!$forgeField[$fi]->removed && $forgeField[$fi]->CardID === "smw3rrii17" && !HasNoAbilities($forgeField[$fi])) {
+            $tpMemory = &GetMemory($turnPlayer);
+            if(count($tpMemory) % 2 == 1) {
+                // Deal 2 unpreventable damage directly to turn player's champion
+                $champField = &GetField($turnPlayer);
+                for($ci = 0; $ci < count($champField); ++$ci) {
+                    if(!$champField[$ci]->removed && PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
+                        $champField[$ci]->Damage += 2;
+                        break;
+                    }
+                }
+            }
+            break;
+        }
+    }
+
     // Mistbound Watcher (mA4n0Z7BQz): CB add 1 enlighten counter on champion at end of turn
     $field = &GetField($turnPlayer);
     for($i = 0; $i < count($field); ++$i) {
@@ -1442,6 +1511,11 @@ function ObjectCurrentPower($obj) {
                 if(count($memory) >= 4) $power += 1;
             }
             break;
+        case "s5jwsl7ded": // Blazing Charge: [Class Bonus] +2 POWER
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                $power += 2;
+            }
+            break;
         case "ot4nmxqsm4": // Inzali, Unshackled Blaze: [Level 3+][Memory 4+] +2 POWER
             if(PlayerLevel($obj->Controller) >= 3) {
                 $memory = &GetMemory($obj->Controller);
@@ -1569,6 +1643,9 @@ function ObjectCurrentPower($obj) {
             case "fzcyfrzrpl": // Heatwave Generator: +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "qmyn2rz308": // Flameblessed Trainee: +3 POWER from fire discard
+                $power += 3;
+                break;
             case "i1f0ht2tsn": // Strategic Warfare: allies get +1 POWER until end of turn
                 $power += 1;
                 break;
@@ -1612,6 +1689,12 @@ function ObjectCurrentPower($obj) {
         if($obj !== null && in_array("n0wpbhigka", $obj->TurnEffects)) {
                 $power -= 3;
         }
+    }
+    // Conjure Downpour (r0zadf9q1w): whenever a unit attacks, that attack gets -2 POWER
+    if($combatAttacker !== null && $combatAttacker != "-" && $combatAttacker != "" && $obj->GetMzID() === $combatAttacker) {
+        $p1Count = GlobalEffectCount(1, "r0zadf9q1w");
+        $p2Count = GlobalEffectCount(2, "r0zadf9q1w");
+        $power -= 2 * ($p1Count + $p2Count);
     }
     // Ally Link: check for power bonuses from linked Phantasia cards via Subcards
     $linkedCards = GetLinkedCards($obj);
@@ -2528,6 +2611,7 @@ $persistentTurnEffects["SPELLSHROUD_NEXT_TURN"] = true;
 $persistentTurnEffects["STEALTH_NEXT_TURN"] = true;
 $persistentTurnEffects["NO_UPKEEP"] = true;
 $persistentTurnEffects["ATTUNE_FLAMES_BUFF"] = true;
+$persistentTurnEffects["BLAZING_CHARGE_NEXT_TURN"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -2661,6 +2745,13 @@ $doesGlobalEffectApply["i0a5uhjxhk"] = function($obj) { //Blightroot: champion g
 // Plea for Peace (ir99sx6q3p): flag only — attack tax handled in BeginCombatPhase
 $foreverEffects["ir99sx6q3p"] = true;
 $doesGlobalEffectApply["ir99sx6q3p"] = function($obj) { return false; };
+
+// Conjure Downpour (r0zadf9q1w): flag only — power reduction handled in ObjectCurrentPower
+$effectAppliesToBoth["r0zadf9q1w"] = true;
+$doesGlobalEffectApply["r0zadf9q1w"] = function($obj) { return false; };
+
+// Fireworks Display (sx6q3p6i0i): flag only — banish-instead-of-die handled in DoAllyDestroyed
+$doesGlobalEffectApply["FIREWORKS_BANISH"] = function($obj) { return false; };
 
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
@@ -2810,6 +2901,10 @@ function DealChampionDamage($player, $amount=1) {
                 $prevented = min(4, $amount);
                 $amount -= $prevented;
                 $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "yj2rJBREH8"));
+            }
+            // Blazing Charge (s5jwsl7ded): champion takes +1 damage
+            if(in_array("BLAZING_CHARGE_NEXT_TURN", $obj->TurnEffects)) {
+                $amount += 1;
             }
             $obj->Damage += $amount;
             return $obj;
@@ -3669,6 +3764,20 @@ function CardMemoryCost($obj) {
                 $cost = max(0, $cost - 1);
                 break;
             }
+        }
+    }
+    // Forgelight Scepter (smw3rrii17): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "smw3rrii17") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
+            $cost = max(0, $cost - 1);
+        }
+    }
+    // Navigation Compass (sw2ugmnmp5): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "sw2ugmnmp5") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["RANGER"])) {
+            $cost = max(0, $cost - 1);
         }
     }
     return $cost;
@@ -4830,5 +4939,59 @@ function AssembleAncientsFinalize($player, $count) {
         AddTurnEffect("myField-" . $newIdx, "VIGOR_EOT");
     }
 }
+
+// --- Navigation Compass (sw2ugmnmp5) DQ handler ---
+$customDQHandlers["NavCompass_Discard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DoDiscardCard($player, $lastDecision);
+};
+
+// --- Swooping Talons (rj52215upu) helpers ---
+function SwoopingTalonsMode1($player) {
+    $allAllies = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+    if(empty($allAllies)) return;
+    $allyStr = implode("&", $allAllies);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyStr, 1, "Deal_2_damage_to_target_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SwoopingTalons_DealDmg", 1);
+}
+
+function SwoopingTalonsMode2($player) {
+    $validItems = [];
+    $allItems = array_merge(ZoneSearch("myField", ["ITEM", "REGALIA"]), ZoneSearch("theirField", ["ITEM", "REGALIA"]));
+    foreach($allItems as $mzI) {
+        $iObj = GetZoneObject($mzI);
+        if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 4) {
+            $validItems[] = $mzI;
+        }
+    }
+    if(empty($validItems)) return;
+    $itemStr = implode("&", $validItems);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $itemStr, 1, "Destroy_target_item");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SwoopingTalons_DestroyItem", 1);
+}
+
+$customDQHandlers["SwoopingTalons_DealDmg"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    DealDamage($player, $mzID, $lastDecision, 2);
+};
+
+$customDQHandlers["SwoopingTalons_DestroyItem"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null) return;
+    OnLeaveField($player, $lastDecision);
+    $dest = $player == $targetObj->Controller ? "myGraveyard" : "theirGraveyard";
+    MZMove($player, $lastDecision, $dest);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+$customDQHandlers["SwoopingTalons_Choice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        SwoopingTalonsMode1($player);
+    } else {
+        SwoopingTalonsMode2($player);
+    }
+};
 
 ?>
