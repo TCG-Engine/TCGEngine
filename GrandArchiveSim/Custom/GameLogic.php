@@ -1977,9 +1977,20 @@ function CanActExhausted($obj) {
     return false;
 }
 
-function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null) {
+function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null) {
+    global $playerID;
+    // $forPlayer: when specified and different from $playerID, flip the zone name so we
+    // search the zone that corresponds to "my..." from $forPlayer's perspective. Results
+    // are then flipped back to $forPlayer's coordinate space so they can be used directly
+    // in MZChoose decisions (which are always resolved from the requesting player's view).
+    $flip = ($forPlayer !== null && $forPlayer != $playerID);
+    $searchZone = $zoneName;
+    if ($flip) {
+        if (substr($searchZone, 0, 2) === "my")        $searchZone = "their" . substr($searchZone, 2);
+        elseif (substr($searchZone, 0, 5) === "their") $searchZone = "my"    . substr($searchZone, 5);
+    }
     $results = [];
-    $zoneArr = &GetZone($zoneName);
+    $zoneArr = &GetZone($searchZone);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = $zoneArr[$i];
         $cardTypeStr = EffectiveCardType($obj);
@@ -1991,7 +2002,9 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
            ($cardSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$cardSubtypes)) > 0) &&
            ($excludeSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$excludeSubtypes)) === 0) &&
            (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
-            array_push($results, $zoneName . "-" . $i);
+            $mzID = $searchZone . "-" . $i;
+            if ($flip) $mzID = FlipZonePerspective($mzID);
+            array_push($results, $mzID);
         }
     }
     return $results;
