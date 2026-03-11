@@ -104,6 +104,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         return;
     }
 
+    // Smash with Obelisk (2kkvoqk1l7): mandatory sacrifice of a domain you control
+    if($sourceObject->CardID === "2kkvoqk1l7") {
+        $domains = ZoneSearch("myField", ["DOMAIN"]);
+        if(empty($domains)) return; // No domains to sacrifice — block activation
+    }
+
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
@@ -179,6 +185,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(GlobalEffectCount($player, "rxxwQT054x_COST") > 0) {
         $reserveCost = max(0, $reserveCost - 2);
         RemoveGlobalEffect($player, "rxxwQT054x_COST");
+    }
+
+    // Summon Sentinels (5tlzsmw3rr): [Class Bonus] costs 1 less for each domain you control
+    if($obj->CardID === "5tlzsmw3rr" && IsClassBonusActive($player, ["GUARDIAN"])) {
+        $domainCount = count(ZoneSearch("myField", ["DOMAIN"]));
+        $reserveCost = max(0, $reserveCost - $domainCount);
     }
 
     // Deflecting Edge (g7uDOmUf2u): costs 1 less if you control a Sword weapon
@@ -302,6 +314,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         Delevel($player);
         // Recover 5
         RecoverChampion($player, 5);
+    }
+
+    //1.3 Declaring Costs — Smash with Obelisk (2kkvoqk1l7): mandatory sacrifice of a domain
+    if($obj->CardID === "2kkvoqk1l7") {
+        $domains = ZoneSearch("myField", ["DOMAIN"]);
+        if(!empty($domains)) {
+            $domainChoices = implode("&", $domains);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $domainChoices, 100, tooltip:"Sacrifice_a_domain");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SmashWithObeliskSacrifice", 100);
+        }
     }
 
     //1.3 Declaring Costs — Song of Frost (t1cn1tzgcx): [Class Bonus] may banish floating-memory GY card instead of reserve
@@ -635,6 +657,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
                 DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1);
                 DecisionQueueController::AddDecision($player, "CUSTOM", "BT_SacrificeWeapon", 1);
             }
+            break;
+        case "5joh300z2s": // Manaroot: sacrifice self to graveyard
+        case "69iq4d5vet": // Springleaf: sacrifice self to graveyard
+        case "5swaf8urrq": // Whirlwind Vizier: sacrifice self to graveyard
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
             break;
         case "oy34bro89w": // Cunning Broker: remove 2 prep counters from champion
             $pField = &GetField($player);
@@ -1172,6 +1200,13 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
             }
             break;
+        case "1gxrpx8jyp": // Fanatical Devotee: [Memory 4+] +1 POWER
+            $memory = &GetMemory($obj->Controller);
+            if(count($memory) >= 4) $power += 1;
+            break;
+        case "2tsn0ye3ae": // Allied Warpriestess: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["CLERIC", "GUARDIAN"])) $power += 1;
+            break;
         case "WUAOMTZ7P2": // Intrepid Highwayman: +3 POWER while retaliating
             if(DecisionQueueController::GetVariable("CombatRetaliator") !== null) {
                 $power += 3;
@@ -1297,6 +1332,14 @@ function ObjectCurrentPower($obj) {
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
                     $power += intval(substr($effectID, strlen("659ytyj2s3-")));
                 }
+                // Smash with Obelisk: +X POWER from sacrificed domain (effect ID: 2kkvoqk1l7-X)
+                if(strpos($effectID, "2kkvoqk1l7-") === 0) {
+                    $power += intval(substr($effectID, strlen("2kkvoqk1l7-")));
+                }
+                // Amorphous Strike: +X POWER from banished attack card (effect ID: 5kt3q2svd5-X)
+                if(strpos($effectID, "5kt3q2svd5-") === 0) {
+                    $power += intval(substr($effectID, strlen("5kt3q2svd5-")));
+                }
                 break;
         }
     }
@@ -1385,6 +1428,9 @@ function ObjectCurrentLevel($obj) {
                 $cardLevel += 1;
                 break;
             case "aKgdkLSBza": // Wilderness Harpist: +1 level until end of turn
+                $cardLevel += 1;
+                break;
+            case "5joh300z2s": // Manaroot: +1 level until end of turn
                 $cardLevel += 1;
                 break;
             default:
@@ -1510,6 +1556,11 @@ function ObjectCurrentHP($obj) {
         case "w9n0wpbhig": // Lancelot, Goliath of Aesa: [Class Bonus][Level 2+] +2 LIFE
             if(IsClassBonusActive($obj->Controller, ["GUARDIAN", "WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
                 $cardLife += 2;
+            }
+            break;
+        case "5swaf8urrq": // Whirlwind Vizier: [Class Bonus] +1 LIFE
+            if(IsClassBonusActive($obj->Controller, ["CLERIC"])) {
+                $cardLife += 1;
             }
             break;
         default: break;
@@ -1731,6 +1782,12 @@ $customDQHandlers["Bounce"] = function($player, $param, $lastResult) {
     if ($lastResult && $lastResult !== "-") {
         OnLeaveField($player, $lastResult);
         MZMove($player, $lastResult, "myHand");
+    }
+};
+
+$customDQHandlers["SpellshieldWindBuff"] = function($player, $param, $lastResult) {
+    if($lastResult && $lastResult !== "-") {
+        AddCounters($player, $lastResult, "buff", 1);
     }
 };
 
@@ -2234,6 +2291,10 @@ $doesGlobalEffectApply["MECS7RHRZ8"] = function($obj) { //Impassioned Tutor
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
+$doesGlobalEffectApply["5joh300z2s"] = function($obj) { //Manaroot: champion gets +1 level until end of turn
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
 $doesGlobalEffectApply["rw8qq1uwq8-lockdown"] = function($obj) { //Corhazi Outlook: Opponents can't activate cards this turn
     return false; // Global effect only, no visual on cards
 };
@@ -2271,6 +2332,10 @@ $doesGlobalEffectApply["INNERVATE_SPELLSHROUD"] = function($obj) { //Innervate A
 };
 
 $doesGlobalEffectApply["FRACTURED_CROWN_FIRED"] = function($obj) { //Fractured Crown: first attack this turn flag (flag only)
+    return false;
+};
+
+$doesGlobalEffectApply["39i1f0ht2t"] = function($obj) { //Storm of Thorns: flag only — prevention handled in OnDealDamage
     return false;
 };
 
@@ -2408,6 +2473,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'RIVahUIQVD' => 2, // Fireball: [Class Bonus] costs 2 less
         'mdiK8UC78c' => 2, // Call the Pack: [Class Bonus] costs 2 less
         'Uxn14UqyQg' => 2, // Immolation Trap: [Class Bonus] costs 2 less
+        '215upufyoz' => 2, // Tether in Flames: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -4194,5 +4260,63 @@ function AdventStormcallerRearrange($player) {
     // Use Glimpse to let the player arrange top N
     Glimpse($player, $n);
 }
+
+// --- Smash with Obelisk (2kkvoqk1l7): sacrifice domain and store its reserve cost ---
+$customDQHandlers["SmashWithObeliskSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision == "-" || $lastDecision == "") {
+        DecisionQueueController::StoreVariable("smashObeliskBonus", "0");
+        return;
+    }
+    $obj = GetZoneObject($lastDecision);
+    $cost = ($obj !== null) ? CardCost_reserve($obj->CardID) : 0;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::StoreVariable("smashObeliskBonus", strval($cost));
+};
+
+// --- Fanatical Devotee (1gxrpx8jyp): multi-step banish fire cards from graveyard ---
+function FanaticalDevoteeContinue($player, $firstChoice) {
+    if($firstChoice == "-" || $firstChoice == "" || $firstChoice == "PASS") return;
+    // Banish the first chosen card
+    MZMove($player, $firstChoice, "myBanish");
+    // Build choices for second fire card (excluding the one we just banished)
+    $fireCards = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    $filtered = [];
+    $skippedSelf = false;
+    foreach($fireCards as $fc) {
+        $obj = GetZoneObject($fc);
+        if(!$skippedSelf && $obj->CardID === "1gxrpx8jyp") {
+            $skippedSelf = true;
+            continue;
+        }
+        $filtered[] = $fc;
+    }
+    if(empty($filtered)) return;
+    $choices2 = implode("&", $filtered);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices2, 1, tooltip:"Banish_second_fire_card");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FanaticalDevoteeBanish2", 1);
+}
+
+$customDQHandlers["FanaticalDevoteeBanish2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision == "-" || $lastDecision == "") return;
+    // Banish the second fire card
+    MZMove($player, $lastDecision, "myBanish");
+    // Now deal 3 damage to target champion
+    $champions = array_merge(
+        ZoneSearch("myField", ["CHAMPION"]),
+        ZoneSearch("theirField", ["CHAMPION"])
+    );
+    $champions = FilterSpellshroudTargets($champions);
+    if(empty($champions)) return;
+    $targetStr = implode("&", $champions);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Choose_champion_to_deal_3_damage");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FanaticalDevoteeDamage", 1);
+};
+
+$customDQHandlers["FanaticalDevoteeDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision == "-" || $lastDecision == "") return;
+    // Determine which player's champion was chosen
+    $targetPlayer = (strpos($lastDecision, "their") === 0) ? (($player == 1) ? 2 : 1) : $player;
+    DealChampionDamage($targetPlayer, 3);
+};
 
 ?>

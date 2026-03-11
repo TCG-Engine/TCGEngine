@@ -1156,6 +1156,28 @@ function OnDealDamage($player, $source, $target, $amount) {
         return; // Damage fully prevented
     }
 
+    // Storm of Thorns (39i1f0ht2t): prevent 1 damage to units you control this turn;
+    // if the damage source is a unit, deal 1 damage to that source.
+    static $stormOfThornsGuard = false;
+    if(!$stormOfThornsGuard && $amount > 0) {
+        $targetController = $targetObj->Controller ?? $player;
+        $isUnit = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
+        if($isUnit && GlobalEffectCount($targetController, "39i1f0ht2t") > 0) {
+            $amount -= 1;
+            // Reflect: if source is a unit on the field, deal 1 damage back
+            $sourceObj = GetZoneObject($source);
+            if($sourceObj !== null && !$sourceObj->removed) {
+                $sourceType = EffectiveCardType($sourceObj);
+                if(PropertyContains($sourceType, "ALLY") || PropertyContains($sourceType, "CHAMPION")) {
+                    $stormOfThornsGuard = true;
+                    OnDealDamage($targetController, $target, $source, 1);
+                    $stormOfThornsGuard = false;
+                }
+            }
+            if($amount <= 0) return;
+        }
+    }
+
     // Protective Fractal: prevent 1 damage per effect
     $protectivePrevention = GetProtectiveFractalPrevention($targetObj);
     if($protectivePrevention > 0) {
@@ -1216,9 +1238,26 @@ function OnDealDamage($player, $source, $target, $amount) {
             AddCounters($targetObj->Controller, $target, "enlighten", $prevented);
             return;
         }
+        // PREVENT_CHAMP_WIND_BUFF: prevent all of next damage to champion; if 3+ prevented, buff an ally (Spellshield: Wind)
+        if(in_array("PREVENT_CHAMP_WIND_BUFF", $targetObj->TurnEffects)) {
+            $prevented = $amount;
+            $amount = 0;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "PREVENT_CHAMP_WIND_BUFF"));
+            if($prevented >= 3) {
+                $controller = $targetObj->Controller;
+                global $playerID;
+                $fieldZone = $controller == $playerID ? "myField" : "theirField";
+                $allies = ZoneSearch($fieldZone, ["ALLY"]);
+                if(!empty($allies)) {
+                    DecisionQueueController::AddDecision($controller, "MZCHOOSE", implode("&", $allies), 1, tooltip:"Put_a_buff_counter_on_an_ally");
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "SpellshieldWindBuff", 1);
+                }
+            }
+            return;
+        }
         // PREVENT_CHAMP_N: prevent up to N damage to champion this turn (Veiling Breeze)
         foreach($targetObj->TurnEffects as $idx => $effect) {
-            if(strpos($effect, "PREVENT_CHAMP_") === 0 && strpos($effect, "PREVENT_CHAMP_ENLIGHTEN") !== 0) {
+            if(strpos($effect, "PREVENT_CHAMP_") === 0 && strpos($effect, "PREVENT_CHAMP_ENLIGHTEN") !== 0 && strpos($effect, "PREVENT_CHAMP_WIND_BUFF") !== 0) {
                 $budget = intval(substr($effect, 14));
                 $prevented = min($budget, $amount);
                 $amount -= $prevented;

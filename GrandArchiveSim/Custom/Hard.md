@@ -141,6 +141,8 @@ Would need: An effect that can remove an EffectStack entry and skip its resoluti
 Cards blocked:
 - Camelot, Impenetrable (R9UFbI4Fsh) — May negate wind element activations and suppress an ally.
   - Note: Domain upkeep (materialize-sacrifice) IS implemented. Only the negate activation part remains blocked.
+- Tether in Flames (215upufyoz) — Negate unless controller takes 1+LV unpreventable damage.
+  - Note: [Class Bonus] costs 2 less IS registered in ClassBonusActivateCostReduction.
 
 ---
 
