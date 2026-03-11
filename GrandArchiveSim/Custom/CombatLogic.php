@@ -1250,6 +1250,24 @@ function OnDealDamage($player, $source, $target, $amount) {
         if($amount <= 0) return;
     }
 
+    // PREVENT_EXACT_N: prevent damage only if exactly N (Perfect Repulsion), then draw a card
+    if($amount > 0) {
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "PREVENT_EXACT_") === 0) {
+                $exactAmount = intval(substr($effect, 14));
+                if($amount === $exactAmount) {
+                    $amount = 0;
+                    unset($targetObj->TurnEffects[$idx]);
+                    $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                    $controller = $targetObj->Controller;
+                    Draw($controller, 1);
+                }
+                break;
+            }
+        }
+        if($amount <= 0) return;
+    }
+
     // Champion-only prevention effects
     $isChampion = PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
     if($isChampion && $amount > 0) {

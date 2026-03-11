@@ -200,6 +200,32 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Meltdown (ht2tsn0ye3): [Level 2+] costs 1 less
+    if($obj->CardID === "ht2tsn0ye3" && PlayerLevel($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
+    // Winds of Retribution (huqj5bbae3): [Class Bonus][Level 2+] costs 2 less
+    if($obj->CardID === "huqj5bbae3" && IsClassBonusActive($player, ["GUARDIAN"]) && PlayerLevel($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Astral Seal (e3aebjvwbc): [Class Bonus] costs 3 less if a card in any banishment shares a name with a card on the effect stack
+    if($obj->CardID === "e3aebjvwbc" && IsClassBonusActive($player, ["CLERIC"])) {
+        $banishCardIDs = [];
+        foreach(array_merge(GetZone("myBanish"), GetZone("theirBanish")) as $bObj) {
+            $banishCardIDs[$bObj->CardID] = true;
+        }
+        $es = GetZone("EffectStack");
+        foreach($es as $esObj) {
+            if($esObj->removed) continue;
+            if(isset($banishCardIDs[$esObj->CardID])) {
+                $reserveCost = max(0, $reserveCost - 3);
+                break;
+            }
+        }
+    }
+
     // Rally the Peasants (q1uwq8sdbz): [Class Bonus] costs 3 less if opponent controls 3+ allies
     if($obj->CardID === "q1uwq8sdbz" && IsClassBonusActive($player, ["WARRIOR"])) {
         $oppAllies = ZoneSearch("theirField", ["ALLY"]);
@@ -649,8 +675,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "m3pal7cpvn": // Azure Protective Trinket — banish self
         case "9agwj4f15j": // Crystalline Mirror — banish self
         case "af098kmoi0": // Orb of Hubris — banish self
+        case "fp66pv4n1n": // Rusted Warshield — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "d6soporhlq": // Obelisk of Protection — REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
             break;
         case "iohZMWh5v5": // Blazing Throw: sacrifice a weapon as additional cost
             $weapons = ZoneSearch("myField", ["WEAPON"]);
@@ -956,6 +987,21 @@ function RecollectionPhase() {
                 case "c7wklzjmwu": // Palatial Concourse: glimpse 1 at beginning of recollection phase
                     if(!HasNoAbilities($field[$i])) {
                         Glimpse($turnPlayer, 1);
+                    }
+                    break;
+                case "fzcyfrzrpl": // Heatwave Generator: target ally gets +1 POWER until end of turn
+                    if(!HasNoAbilities($field[$i])) {
+                        $allies = ZoneSearch("myField", ["ALLY"]);
+                        if(!empty($allies)) {
+                            DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $allies), 1, tooltip:"Choose_ally_for_+1_POWER");
+                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "HeatwaveGeneratorBuff", 1);
+                        }
+                    }
+                    break;
+                case "fyoz23yfzk": // The Eternal Kingdom: pay 2 or sacrifice
+                    if(!HasNoAbilities($field[$i]) && !in_array("NO_UPKEEP", $field[$i]->TurnEffects)) {
+                        DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Pay_2_to_keep_The_Eternal_Kingdom?");
+                        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "EternalKingdomUpkeep|$i", 1);
                     }
                     break;
                 default: break;
@@ -1387,6 +1433,12 @@ function ObjectCurrentPower($obj) {
             case "suo6gb0op3": // Fractured Crown: first attack each turn +2 POWER
                 $power += 2;
                 break;
+            case "huqj5bbae3": // Winds of Retribution: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "fzcyfrzrpl": // Heatwave Generator: +1 POWER until end of turn
+                $power += 1;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -1693,6 +1745,9 @@ function ObjectCurrentHP($obj) {
                 $cardLife += 1;
                 break;
             case "x7u6wzh973": // Frostbinder Apostle: -4 LIFE until end of turn
+                $cardLife -= 4;
+                break;
+            case "cyfrzrplyw": // Hypothermia: -4 LIFE until end of turn
                 $cardLife -= 4;
                 break;
             case "vbgl6ffqsu-HP": // Anthem of Vitality: +3 LIFE until end of turn
@@ -2429,6 +2484,10 @@ $doesGlobalEffectApply["39i1f0ht2t"] = function($obj) { //Storm of Thorns: flag 
 $doesGlobalEffectApply["akb1k0zi5h"] = function($obj) { //Effigy of Gaia: Animal/Beast allies get +2 LIFE
     return PropertyContains(EffectiveCardType($obj), "ALLY")
         && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"));
+};
+
+$doesGlobalEffectApply["huqj5bbae3"] = function($obj) { //Winds of Retribution: allies get +2 POWER
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 function GlobalEffectCount($player, $effectID) {
@@ -3326,6 +3385,19 @@ function HasReservable($obj) {
     if(HasGrantedKeyword($obj, 'Reservable')) return true;
     if(HasNoAbilities($obj)) return false;
     if(HasKeyword_Reservable($obj)) return true;
+    // The Eternal Kingdom (fyoz23yfzk): [Class Bonus] Domains you control have reservable
+    if(PropertyContains(EffectiveCardType($obj), "DOMAIN")) {
+        $controller = $obj->Controller;
+        global $playerID;
+        $zone = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID === "fyoz23yfzk" && !HasNoAbilities($fieldObj)
+                && IsClassBonusActive($controller, ["GUARDIAN"])) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -3398,7 +3470,15 @@ function PrideAmount($obj) {
 }
 
 function CardMemoryCost($obj) {
-    return CardCost_memory($obj->CardID);
+    $cost = CardCost_memory($obj->CardID);
+    // Heatwave Generator (fzcyfrzrpl): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "fzcyfrzrpl") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
+            $cost = max(0, $cost - 1);
+        }
+    }
+    return $cost;
 }
 
 function IsHarmonizeActive($player) {
@@ -4409,5 +4489,50 @@ $customDQHandlers["FanaticalDevoteeDamage"] = function($player, $parts, $lastDec
     $targetPlayer = (strpos($lastDecision, "their") === 0) ? (($player == 1) ? 2 : 1) : $player;
     DealChampionDamage($targetPlayer, 3);
 };
+
+$customDQHandlers["HeatwaveGeneratorBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "fzcyfrzrpl");
+};
+
+$customDQHandlers["EternalKingdomUpkeep"] = function($player, $parts, $lastDecision) {
+    $fieldIdx = intval($parts[0]);
+    $field = &GetField($player);
+    if($lastDecision === "YES") {
+        // Pay 2 reserve
+        $hand = &GetHand($player);
+        if(count($hand) >= 2) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+        } else {
+            // Can't pay — sacrifice
+            if(isset($field[$fieldIdx]) && !$field[$fieldIdx]->removed && $field[$fieldIdx]->CardID === "fyoz23yfzk") {
+                DoSacrificeFighter($player, "myField-" . $fieldIdx);
+                DecisionQueueController::CleanupRemovedCards();
+            }
+        }
+    } else {
+        // Sacrifice
+        if(isset($field[$fieldIdx]) && !$field[$fieldIdx]->removed && $field[$fieldIdx]->CardID === "fyoz23yfzk") {
+            DoSacrificeFighter($player, "myField-" . $fieldIdx);
+            DecisionQueueController::CleanupRemovedCards();
+        }
+    }
+};
+
+/**
+ * Enhance Hearing: after player chooses or passes, move remaining TempZone to bottom of deck.
+ */
+function EnhanceHearingFinish($player, $chosen) {
+    if($chosen !== "PASS" && $chosen !== "-" && $chosen !== "") {
+        Reveal($player, revealedMZ: $chosen);
+        MZMove($player, $chosen, "myHand");
+    }
+    // Move remaining TempZone cards to bottom of deck
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
+    }
+}
 
 ?>
