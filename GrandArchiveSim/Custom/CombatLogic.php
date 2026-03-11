@@ -200,7 +200,7 @@ function GetValidAttackTargets($attackerMZ) {
         $interceptTargets = [];
         foreach($opponents as $mzID) {
             $obj = &GetZoneObject($mzID);
-            if(!HasNoAbilities($obj) && HasKeyword_Intercept($obj)) {
+            if(!HasNoAbilities($obj) && HasKeyword_Intercept($obj) && !in_array("NO_INTERCEPT", $obj->TurnEffects)) {
                 $interceptTargets[] = $mzID;
             }
             // Awakened Deacon (c9p4lpnvx7): intercept while controlling 2+ phantasias
@@ -400,6 +400,17 @@ function BeginCombatPhase($actionCard) {
         return false;
     }
 
+    // Plea for Peace (ir99sx6q3p): players must pay (1) for each attack declaration.
+    // Effect is stored on the caster; check both sides.
+    $pleaActive = (GlobalEffectCount($turnPlayer, "ir99sx6q3p") > 0 || GlobalEffectCount($prOpp, "ir99sx6q3p") > 0);
+    if($pleaActive) {
+        $hand = GetZone("myHand");
+        if(count($hand) < 1) {
+            SetFlashMessage("Must pay (1) to attack (Plea for Peace). Not enough cards in hand.");
+            return false;
+        }
+    }
+
     // Step 2.c (pre-check) -- Must have at least one valid target, unless attacker has Cleave
     // Cleave can come from the attacking unit itself OR from an attack card already in intent
     $hasCleave = AttackerHasCleave($actionCard, $turnPlayer);
@@ -413,6 +424,11 @@ function BeginCombatPhase($actionCard) {
 
     // Step 2.a' -- Rest the attacker as a cost to attack
     RestCard($turnPlayer, $actionCard);
+
+    // Plea for Peace (ir99sx6q3p): pay (1) reserve for each attack declaration
+    if($pleaActive) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
 
     // Store the attacker location for later handlers
     DecisionQueueController::StoreVariable("CombatAttacker", $actionCard);

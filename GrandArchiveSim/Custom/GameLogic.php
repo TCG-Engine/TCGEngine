@@ -110,6 +110,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($domains)) return; // No domains to sacrifice — block activation
     }
 
+    // Firetuned Automaton (lzjmwuir99): mandatory discard of a fire element card
+    if($sourceObject->CardID === "lzjmwuir99") {
+        $hand = GetZone("myHand");
+        $hasFireDiscard = false;
+        foreach($hand as $hi => $hObj) {
+            if(!$hObj->removed && "myHand-" . $hi !== $mzCard && CardElement($hObj->CardID) === "FIRE") {
+                $hasFireDiscard = true;
+                break;
+            }
+        }
+        if(!$hasFireDiscard) return; // No fire card to discard — block activation
+    }
+
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
@@ -255,6 +268,24 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - $regaliaCount);
     }
 
+    // Neos Elemental (jwsl7dedg6): [Class Bonus] costs 1 less per token object you control
+    if($obj->CardID === "jwsl7dedg6" && IsClassBonusActive($player, ["GUARDIAN"])) {
+        $tokenCount = count(ZoneSearch("myField", ["TOKEN"]));
+        $reserveCost = max(0, $reserveCost - $tokenCount);
+    }
+
+    // Frigid Bash (k2c7wklzjm): costs 2 less if you control a Shield item
+    if($obj->CardID === "k2c7wklzjm") {
+        if(!empty(ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]))) {
+            $reserveCost = max(0, $reserveCost - 2);
+        }
+    }
+
+    // Excoriate (ls6g7xgwve): [Level 2+] costs 1 less
+    if($obj->CardID === "ls6g7xgwve" && PlayerLevel($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
     // Viridian Protective Trinket (s3572j3oda): during your turn, opponent's water element cards cost 2 more
     $opponent = ($player == 1) ? 2 : 1;
     $turnPlayer = &GetTurnPlayer();
@@ -349,6 +380,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $domainChoices = implode("&", $domains);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $domainChoices, 100, tooltip:"Sacrifice_a_domain");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SmashWithObeliskSacrifice", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Firetuned Automaton (lzjmwuir99): mandatory discard of a fire element card
+    if($obj->CardID === "lzjmwuir99") {
+        $fireCards = [];
+        $hand = GetZone("myHand");
+        foreach($hand as $hi => $hObj) {
+            if(!$hObj->removed && CardElement($hObj->CardID) === "FIRE") {
+                $fireCards[] = "myHand-" . $hi;
+            }
+        }
+        if(!empty($fireCards)) {
+            $fireStr = implode("&", $fireCards);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $fireStr, 100, tooltip:"Discard_a_fire_element_card");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "FiretunedAutomatonDiscard", 100);
         }
     }
 
@@ -695,6 +742,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "69iq4d5vet": // Springleaf: sacrifice self to graveyard
         case "5swaf8urrq": // Whirlwind Vizier: sacrifice self to graveyard
         case "bd7ozuj68m": // Silvershine: sacrifice self to graveyard
+        case "i0a5uhjxhk": // Blightroot: sacrifice self to graveyard
+        case "jnltv5klry": // Razorvine: sacrifice self to graveyard
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -951,6 +1000,11 @@ function RecollectionPhase() {
     // Peaceful Reunion: clear attack-prevention at the beginning of the caster's next turn
     if(GlobalEffectCount($turnPlayer, "wr42i6eifn") > 0) {
         RemoveGlobalEffect($turnPlayer, "wr42i6eifn");
+    }
+
+    // Plea for Peace: clear attack tax at the beginning of the caster's next turn
+    if(GlobalEffectCount($turnPlayer, "ir99sx6q3p") > 0) {
+        RemoveGlobalEffect($turnPlayer, "ir99sx6q3p");
     }
     
     // Trigger recollection phase abilities for cards on the field
@@ -1327,6 +1381,14 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "jwsl7dedg6": // Neos Elemental: +1 POWER per token object you control
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $tokenCount = count(ZoneSearch($zone, ["TOKEN"]));
+                $power += $tokenCount;
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -1439,6 +1501,9 @@ function ObjectCurrentPower($obj) {
             case "fzcyfrzrpl": // Heatwave Generator: +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "i1f0ht2tsn": // Strategic Warfare: allies get +1 POWER until end of turn
+                $power += 1;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -1549,6 +1614,9 @@ function ObjectCurrentLevel($obj) {
                 $cardLevel += 1;
                 break;
             case "5joh300z2s": // Manaroot: +1 level until end of turn
+                $cardLevel += 1;
+                break;
+            case "i0a5uhjxhk": // Blightroot: +1 level until end of turn
                 $cardLevel += 1;
                 break;
             default:
@@ -1679,6 +1747,14 @@ function ObjectCurrentHP($obj) {
         case "5swaf8urrq": // Whirlwind Vizier: [Class Bonus] +1 LIFE
             if(IsClassBonusActive($obj->Controller, ["CLERIC"])) {
                 $cardLife += 1;
+            }
+            break;
+        case "jwsl7dedg6": // Neos Elemental: +1 LIFE per token object you control
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $tokenCount = count(ZoneSearch($zone, ["TOKEN"]));
+                $cardLife += $tokenCount;
             }
             break;
         default: break;
@@ -2490,6 +2566,18 @@ $doesGlobalEffectApply["huqj5bbae3"] = function($obj) { //Winds of Retribution: 
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
+$doesGlobalEffectApply["i1f0ht2tsn"] = function($obj) { //Strategic Warfare: allies get +1 POWER
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+
+$doesGlobalEffectApply["i0a5uhjxhk"] = function($obj) { //Blightroot: champion gets +1 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+// Plea for Peace (ir99sx6q3p): flag only — attack tax handled in BeginCombatPhase
+$foreverEffects["ir99sx6q3p"] = true;
+$doesGlobalEffectApply["ir99sx6q3p"] = function($obj) { return false; };
+
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
@@ -3106,6 +3194,8 @@ function HasFloatingMemory($obj) {
     if(HasKeyword_FloatingMemory($obj)) return true;
     // Intrepid Highwayman (WUAOMTZ7P2): [Class Bonus] Floating Memory
     if($obj->CardID === "WUAOMTZ7P2" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
+    // Firetuned Automaton (lzjmwuir99): [Class Bonus] Floating Memory
+    if($obj->CardID === "lzjmwuir99" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
     if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
         for($p = 1; $p <= 2; $p++) {
@@ -3330,6 +3420,7 @@ function HasTrueSight($obj) {
     if(HasKeyword_TrueSight($obj)) return true;
     if(ObjectHasEffect($obj, "iiZtKTulPg")) return true; // Eye of Argus
     if(ObjectHasEffect($obj, "F1t18omUlx_SIGHT")) return true; // Beastbond Paws
+    if(ObjectHasEffect($obj, "i1f0ht2tsn_SIGHT")) return true; // Strategic Warfare
     // Seeking Shot: [Level 2+] True Sight
     if($obj->CardID === "88zq9ox7u6" && PlayerLevel($obj->Controller) >= 2) return true;
     return false;
@@ -3413,6 +3504,7 @@ function HasReservable($obj) {
  */
 function HasTaunt($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(in_array("NO_TAUNT", $obj->TurnEffects)) return false;
     if(HasKeyword_Taunt($obj)) return true;
     if(in_array("TAUNT", $obj->TurnEffects)) return true;
     if(in_array("TAUNT_NEXT_TURN", $obj->TurnEffects)) return true;
@@ -3476,6 +3568,19 @@ function CardMemoryCost($obj) {
         $turnPlayer = &GetTurnPlayer();
         if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
             $cost = max(0, $cost - 1);
+        }
+    }
+    // Academy Guide (kk39i1f0ht): Champion cards you materialize cost 1 less
+    if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
+        $turnPlayer = &GetTurnPlayer();
+        global $playerID;
+        $zone = $turnPlayer == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID === "kk39i1f0ht" && !HasNoAbilities($fieldObj)) {
+                $cost = max(0, $cost - 1);
+                break;
+            }
         }
     }
     return $cost;
@@ -4442,6 +4547,45 @@ $customDQHandlers["SmashWithObeliskSacrifice"] = function($player, $parts, $last
     $cost = ($obj !== null) ? CardCost_reserve($obj->CardID) : 0;
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::StoreVariable("smashObeliskBonus", strval($cost));
+};
+
+$customDQHandlers["FiretunedAutomatonDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision == "-" || $lastDecision == "" || $lastDecision == "PASS") return;
+    DoDiscardCard($player, $lastDecision);
+};
+
+$customDQHandlers["FrigidBashPayment"] = function($player, $parts, $lastDecision) {
+    $targetMZ = $parts[0];
+    if($lastDecision === "YES") {
+        // Player chose to pay (2) — queue 2 reserve card payments
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    } else {
+        // Player declined — target doesn't wake up during next wake up phase
+        AddTurnEffect($targetMZ, "SKIP_WAKEUP");
+    }
+};
+
+$customDQHandlers["SanctumOfEsotericTruth1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    // Put first card on bottom of deck
+    MZMove($player, $lastDecision, "myDeck");
+    // Choose second card
+    $handAndMemory = array_merge(ZoneSearch("myHand"), ZoneSearch("myMemory"));
+    if(!empty($handAndMemory)) {
+        $choices = implode("&", $handAndMemory);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1,
+            tooltip:"Sanctum:_Put_card_on_bottom_of_deck_(2/2)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SanctumOfEsotericTruth2", 1);
+    }
+};
+
+$customDQHandlers["SanctumOfEsotericTruth2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    // Put second card on bottom of deck
+    MZMove($player, $lastDecision, "myDeck");
+    // Draw two cards
+    Draw($player, 2);
 };
 
 // --- Fanatical Devotee (1gxrpx8jyp): multi-step banish fire cards from graveyard ---

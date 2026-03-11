@@ -115,6 +115,21 @@ function DoMaterialize($player, $mzCard) {
 
         // Track that a champion leveled up this turn (for Invigorated Slash etc.)
         AddGlobalEffects($player, "LEVELED_UP_THIS_TURN");
+
+        // Sanctum of Esoteric Truth (k45swaf8ur): whenever your champion levels up,
+        // you may put two cards from hand/memory on bottom of deck, then draw two.
+        $field = &GetField($player);
+        for($si = 0; $si < count($field); ++$si) {
+            if(!$field[$si]->removed && $field[$si]->CardID === "k45swaf8ur" && !HasNoAbilities($field[$si])) {
+                $handAndMemory = array_merge(ZoneSearch("myHand", forPlayer: $player), ZoneSearch("myMemory", forPlayer: $player));
+                if(count($handAndMemory) >= 2) {
+                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $handAndMemory), 1,
+                        tooltip:"Sanctum:_Put_card_on_bottom_of_deck_(1/2)?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "SanctumOfEsotericTruth1", 1);
+                }
+                break;
+            }
+        }
     } else {
         MZMove($player, $mzCard, "myField");
     }
