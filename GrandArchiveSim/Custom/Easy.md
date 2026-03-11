@@ -1,21 +1,9 @@
 # FTC Cards — Implementable with Current Engine
-
-All 43 cards below can be implemented using existing helpers, macros, and patterns.
 For cards requiring new engine development, see Hard.md.
 
 ---
 
 ## Ally Champions (Inner Lineage)
-
-**Spirit of Serene Fire (da2ha4dk88)** — FIRE CHAMPION, Spirit
-- On Enter: Glimpse 6, Draw 6 (standard `Glimpse` + `Draw` helpers).
-- Lineage Release: Recover 6 (standard `RecoverChampion` via the Lineage Release macro).
-
-**Spirit of Serene Wind (h973fdt8pt)** — WIND CHAMPION, Spirit
-- Identical effect to Spirit of Serene Fire. Use the same macro pattern.
-
-**Spirit of Serene Water (zq9ox7u6wz)** — WATER CHAMPION, Spirit
-- Identical effect to Spirit of Serene Fire. Use the same macro pattern.
 
 **Merlin, Kingslayer (rz1bqry41l)** — CRUX CHAMPION, Mage/Warrior
 - RecollectionPhase: add a level counter. If counter total is even, draw a card and apply a TurnEffect to the champion's attacks granting +2 POWER.

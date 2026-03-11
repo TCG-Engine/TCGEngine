@@ -23,6 +23,26 @@ $additionalActivationCosts["P9Y1Q5cQ0F"] = [
     'extraReserve' => 2,
 ];
 
+// --- Lineage Release Abilities Registry ---
+// Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
+// When a card with a Lineage Release entry is in the champion's inner lineage (subcards),
+// the topmost champion shows a dynamic "LR: <name>" button. Activating it banishes the
+// subcard and executes the registered effect.
+$lineageReleaseAbilities = [];
+
+$lineageReleaseAbilities["da2ha4dk88"] = [ // Spirit of Serene Fire
+    'name' => 'LR: Recover 6',
+    'effect' => function($player) { RecoverChampion($player, 6); }
+];
+$lineageReleaseAbilities["h973fdt8pt"] = [ // Spirit of Serene Wind
+    'name' => 'LR: Recover 6',
+    'effect' => function($player) { RecoverChampion($player, 6); }
+];
+$lineageReleaseAbilities["zq9ox7u6wz"] = [ // Spirit of Serene Water
+    'name' => 'LR: Recover 6',
+    'effect' => function($player) { RecoverChampion($player, 6); }
+];
+
 //TODO: Add this to a schema
 function ActionMap($actionCard)
 {
@@ -647,12 +667,42 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     ActivatedAbilityCost($player, $mzCard, $cardID);
 
     //My activated ability effects
-    $customDQHandlers["AbilityActivated"]($player, [$cardID, $selectedAbilityIndex], null);
-
-    // Enlighten activated ability: triggered when abilityIndex is beyond static count and champion has 3+ enlighten counters
-    if($selectedAbilityIndex >= $staticAbilityCount && GetCounterCount($sourceObject, "enlighten") >= 3) {
-        RemoveCounters($player, $mzCard, "enlighten", 3);
-        Draw($player, 1);
+    // Reconstruct which dynamic ability was selected (matching GetDynamicAbilities index assignment)
+    $isDynamic = $selectedAbilityIndex >= $staticAbilityCount;
+    $handledDynamic = false;
+    if($isDynamic) {
+        global $lineageReleaseAbilities;
+        $dynIndex = $staticAbilityCount;
+        // Enlighten check
+        if(PropertyContains($cardType, "CHAMPION") && GetCounterCount($sourceObject, "enlighten") >= 3) {
+            if($selectedAbilityIndex == $dynIndex) {
+                RemoveCounters($player, $mzCard, "enlighten", 3);
+                Draw($player, 1);
+                $handledDynamic = true;
+            }
+            $dynIndex++;
+        }
+        // Lineage Release check
+        if(!$handledDynamic && PropertyContains($cardType, "CHAMPION")) {
+            $subcards = is_array($sourceObject->Subcards) ? $sourceObject->Subcards : [];
+            foreach($subcards as $scIdx => $subcardID) {
+                if(isset($lineageReleaseAbilities[$subcardID])) {
+                    if($selectedAbilityIndex == $dynIndex) {
+                        // Cost: banish the subcard from the inner lineage
+                        array_splice($sourceObject->Subcards, $scIdx, 1);
+                        MZAddZone($player, "myBanish", $subcardID);
+                        // Effect: execute the registered LR ability
+                        $lineageReleaseAbilities[$subcardID]['effect']($player);
+                        $handledDynamic = true;
+                        break;
+                    }
+                    $dynIndex++;
+                }
+            }
+        }
+    }
+    if(!$isDynamic) {
+        $customDQHandlers["AbilityActivated"]($player, [$cardID, $selectedAbilityIndex], null);
     }
 
     // Queue Opportunity for the opponent to respond after the ability resolves.
@@ -3375,11 +3425,24 @@ function GetDurabilityCounterCount($obj) {
  */
 function GetDynamicAbilities($obj) {
     if(HasNoAbilities($obj)) return "";
+    global $lineageReleaseAbilities;
     $abilities = [];
     $staticCount = CardActivateAbilityCount($obj->CardID);
+    $nextIndex = $staticCount;
     // Enlighten: champion may remove 3 enlighten counters to draw a card
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && GetCounterCount($obj, "enlighten") >= 3) {
-        $abilities[] = ["name" => "Enlighten", "index" => $staticCount];
+        $abilities[] = ["name" => "Enlighten", "index" => $nextIndex];
+        $nextIndex++;
+    }
+    // Lineage Release: show a button for each subcard that has a registered LR ability
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Status == 2) {
+        $subcards = is_array($obj->Subcards) ? $obj->Subcards : [];
+        foreach($subcards as $subcardID) {
+            if(isset($lineageReleaseAbilities[$subcardID])) {
+                $abilities[] = ["name" => $lineageReleaseAbilities[$subcardID]['name'], "index" => $nextIndex];
+                $nextIndex++;
+            }
+        }
     }
     if(empty($abilities)) return "";
     return json_encode($abilities);
