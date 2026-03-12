@@ -530,6 +530,12 @@ function OnAttackTrigger($player, $mzID) {
             AddTurnEffect($iMZ, "suo6gb0op3");
         }
     }
+
+    // Tonoris, Might of Humanity (yevpmu6gvn): next attack +3 POWER — consume and apply
+    if($obj !== null && in_array("yevpmu6gvn", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "yevpmu6gvn_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["yevpmu6gvn"]));
+    }
 }
 
 /**

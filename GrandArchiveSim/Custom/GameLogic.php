@@ -759,8 +759,15 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "d6soporhlq": // Obelisk of Protection — REST
+        case "wk0pw0y6is": // Obelisk of Armaments — REST
+        case "xy5lh23qu7": // Obelisk of Fabrication — REST
+        case "waf8urrqtj": // Gloamspire, Black Market — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
+            break;
+        case "x7mnu1xhs5": // Fractal of Creation — sacrifice self
+            DoSacrificeFighter($player, $mzCard);
+            DecisionQueueController::CleanupRemovedCards();
             break;
         case "iohZMWh5v5": // Blazing Throw: sacrifice a weapon as additional cost
             $weapons = ZoneSearch("myField", ["WEAPON"]);
@@ -874,6 +881,19 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "uhuy4xippo" && !IsClassBonusActive($player, explode(",", CardClasses("uhuy4xippo")))) return;
     // Oasis Trading Post (uy4xippor7): must be awake
     if($cardID === "uy4xippor7" && $sourceObject->Status != 2) return;
+    // Obelisk of Armaments (wk0pw0y6is): must be awake
+    if($cardID === "wk0pw0y6is" && $sourceObject->Status != 2) return;
+    // Obelisk of Fabrication (xy5lh23qu7): must be awake
+    if($cardID === "xy5lh23qu7" && $sourceObject->Status != 2) return;
+    // Gloamspire, Black Market (waf8urrqtj): must be awake + slow speed only
+    if($cardID === "waf8urrqtj") {
+        if($sourceObject->Status != 2) return;
+        if(HasOpportunity($player)) return;
+    }
+    // Geni, Gifted Mechanist (wuir99sx6q): must have cards in graveyard
+    if($cardID === "wuir99sx6q" && empty(ZoneSearch("myGraveyard"))) return;
+    // Fractal of Creation (x7mnu1xhs5): needs tokens on field
+    if($cardID === "x7mnu1xhs5" && empty(ZoneSearch("myField", ["TOKEN"]))) return;
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -1578,6 +1598,12 @@ function ObjectCurrentPower($obj) {
                 if(count($memory) >= 4) $power += 2;
             }
             break;
+        case "zk96yd609g": // Armored Valkyrie: [Class Bonus] +2 POWER while retaliating
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])
+                && DecisionQueueController::GetVariable("CombatRetaliator") !== null) {
+                $power += 2;
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -1704,6 +1730,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "i1f0ht2tsn": // Strategic Warfare: allies get +1 POWER until end of turn
                 $power += 1;
+                break;
+            case "yevpmu6gvn_POWER": // Tonoris, Might of Humanity: +3 POWER on next attack
+                $power += 3;
                 break;
             case "ATTUNE_FLAMES_BUFF": // Attune with Flames: +5 POWER until end of next turn
                 $power += 5;
@@ -1834,6 +1863,9 @@ function ObjectCurrentLevel($obj) {
                 break;
             case "i0a5uhjxhk": // Blightroot: +1 level until end of turn
                 $cardLevel += 1;
+                break;
+            case "yfzk96yd60": // Empowering Prayer: +2 level until end of turn
+                $cardLevel += 2;
                 break;
             default:
                 // Erupting Rhapsody (dBAdWMoPEz): +1 level per banished card, encoded as "dBAdWMoPEz-N"
@@ -2759,6 +2791,10 @@ $doesGlobalEffectApply["aKgdkLSBza"] = function($obj) { //Wilderness Harpist
 };
 
 $doesGlobalEffectApply["HsaWNAsmAQ"] = function($obj) { // Bestial Frenzy: +1 level applies only to champions
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["yfzk96yd60"] = function($obj) { // Empowering Prayer: champion gets +2 level
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
@@ -4483,6 +4519,17 @@ function DomainRecollectionUpkeep($player) {
                     }
                 }
                 break;
+            case "waf8urrqtj": // Gloamspire, Black Market: sacrifice if influence >= 8
+                {
+                    global $playerID;
+                    $memZone = $player == $playerID ? "myMemory" : "theirMemory";
+                    $influence = count(GetZone($memZone));
+                    if($influence >= 8) {
+                        DoSacrificeFighter($player, "myField-" . $i);
+                        DecisionQueueController::CleanupRemovedCards();
+                    }
+                }
+                break;
             case "p4lpnvx7mn": // Exalted Dorumegian Throne: sacrifice if <= 4 other domains
                 {
                     global $playerID;
@@ -4856,8 +4903,8 @@ $customDQHandlers["FrigidBashPayment"] = function($player, $parts, $lastDecision
     $targetMZ = $parts[0];
     if($lastDecision === "YES") {
         // Player chose to pay (2) — queue 2 reserve card payments
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+        ReserveCard($player);
+        ReserveCard($player);
     } else {
         // Player declined — target doesn't wake up during next wake up phase
         AddTurnEffect($targetMZ, "SKIP_WAKEUP");
@@ -5166,6 +5213,106 @@ $customDQHandlers["SyntheticCoreChoice"] = function($player, $parts, $lastDecisi
             break;
         }
     }
+};
+
+// --- Winbless Gatekeeper (y5ttkk39i1): On Enter may pay (2) to buff Guardian ally ---
+
+$customDQHandlers["WinblessGatekeeperPay"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $hand = &GetHand($player);
+    if(count($hand) < 2) return;
+    ReserveCard($player);
+    ReserveCard($player);
+    $guardianAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["GUARDIAN"]);
+    if(empty($guardianAllies)) return;
+    $targetStr = implode("&", $guardianAllies);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Put_buff_on_Guardian_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "WinblessGatekeeperBuff", 1);
+};
+
+$customDQHandlers["WinblessGatekeeperBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+// --- Reconstructive Surgery (z308kuz07n): choose one DQ handlers ---
+
+$customDQHandlers["ReconSurgeryBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+$customDQHandlers["ReconSurgeryReturn"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myMemory");
+};
+
+$customDQHandlers["ReconSurgeryChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        $automatonAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
+        $automatonAllies = FilterSpellshroudTargets($automatonAllies);
+        if(empty($automatonAllies)) return;
+        $targetStr = implode("&", $automatonAllies);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Put_buff_on_Automaton_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReconSurgeryBuff", 1);
+    } else {
+        $gyAutomatons = ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
+        if(empty($gyAutomatons)) return;
+        $targetStr = implode("&", $gyAutomatons);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Return_Automaton_to_memory");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReconSurgeryReturn", 1);
+    }
+};
+
+// --- Geni, Gifted Mechanist (wuir99sx6q): banish from graveyard DQ handlers ---
+
+$customDQHandlers["GeniMechanistBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $chosenObj = GetZoneObject($lastDecision);
+    if($chosenObj === null) return;
+    $chosenCardID = $chosenObj->CardID;
+    $hadFloating = HasFloatingMemory($chosenObj);
+    MZMove($player, $lastDecision, "myBanish");
+    // If Automaton ally, summon Automaton Drone
+    if(PropertyContains(CardType($chosenCardID), "ALLY") && PropertyContains(CardSubtypes($chosenCardID), "AUTOMATON")) {
+        MZAddZone($player, "myField", "mu6gvnta6q");
+    }
+    // If floating memory, buff an Automaton ally
+    if($hadFloating) {
+        $automatonAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
+        if(!empty($automatonAllies)) {
+            $targetStr = implode("&", $automatonAllies);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Put_2_buff_counters_on_Automaton");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "GeniMechanistBuff", 1);
+        }
+    }
+};
+
+$customDQHandlers["GeniMechanistBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "buff", 2);
+};
+
+// --- Fractal of Creation (x7mnu1xhs5): summon token copy DQ handler ---
+
+$customDQHandlers["FractalCreationCopy"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null) return;
+    MZAddZone($player, "myField", $targetObj->CardID);
+};
+
+// Obelisk of Armaments — summon Aurousteel Greatsword after reserve payment
+$customDQHandlers["ObeliskArmamentsSummon"] = function($player, $parts, $lastDecision) {
+    MZAddZone($player, "myField", "hkurfp66pv"); // Aurousteel Greatsword token
+};
+
+// Obelisk of Fabrication — summon Automaton Drone with buff counter after reserve payment
+$customDQHandlers["ObeliskFabricationSummon"] = function($player, $parts, $lastDecision) {
+    MZAddZone($player, "myField", "mu6gvnta6q"); // Automaton Drone token
+    $field = &GetField($player);
+    $newIdx = count($field) - 1;
+    AddCounters($player, "myField-" . $newIdx, "buff", 1);
 };
 
 ?>
