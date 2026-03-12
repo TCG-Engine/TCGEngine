@@ -9,9 +9,10 @@ include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./Database/ConnectionManager.php";
 include_once "./CardEditor/Database/CardAbilityDB.php";
 
+$isDev = getenv("IS_DEV") === "true";
 $response = new stdClass();
 $error = CheckLoggedInUserMod();
-if($error !== "") {
+if($error !== "" && !$isDev) {
   $response->error = $error;
   echo json_encode($response);
   exit();
@@ -148,7 +149,7 @@ while($hasMoreData) {
   if($paginationUrlParameter != "") {
     echo("Parsed " . $count . " cards on page " . $currentPage . "<BR>");
     $currentPage++;
-    
+
     // Check for more data based on response metadata
     if($rootName == "SWUDeck") {
       $pageCount = $response->meta->pagination->pageCount;
@@ -204,7 +205,7 @@ if(!empty($keywordsFile) && file_exists($keywordsFile)) {
   echo("Processing keywords from: " . $keywordsFile . "<BR>");
   $keywordsJson = file_get_contents($keywordsFile);
   $keywordsData = json_decode($keywordsJson, true);
-  
+
   // First pass: identify all unique keywords with applicability="self" and determine their types
   $keywordValueCheck = []; // Track if any card has a value for each keyword
   foreach($keywordsData as $cardId => $cardData) {
@@ -212,7 +213,7 @@ if(!empty($keywordsFile) && file_exists($keywordsFile)) {
     foreach($cardData['keywords'] as $kw) {
       if($kw['applicability'] !== 'self') continue;
       $keywordName = $kw['keyword'];
-      
+
       if(!isset($keywordValueCheck[$keywordName])) {
         $keywordValueCheck[$keywordName] = false;
       }
@@ -221,20 +222,20 @@ if(!empty($keywordsFile) && file_exists($keywordsFile)) {
       }
     }
   }
-  
+
   // Determine keyword types
   foreach($keywordValueCheck as $keywordName => $hasValue) {
     $keywordTypes[$keywordName] = $hasValue ? 'value' : 'boolean';
     $keywordData[$keywordName] = [];
   }
-  
+
   // Second pass: populate keyword data arrays
   foreach($keywordsData as $cardId => $cardData) {
     if(!isset($cardData['keywords'])) continue;
     foreach($cardData['keywords'] as $kw) {
       if($kw['applicability'] !== 'self') continue;
       $keywordName = $kw['keyword'];
-      
+
       if($keywordTypes[$keywordName] === 'boolean') {
         $keywordData[$keywordName][$cardId] = true;
       } else {
@@ -243,7 +244,7 @@ if(!empty($keywordsFile) && file_exists($keywordsFile)) {
       }
     }
   }
-  
+
   echo("Processed " . count($keywordTypes) . " unique keywords<BR>");
 }
 
@@ -253,12 +254,12 @@ if(!empty($keywordsFile) && file_exists($keywordsFile)) {
 try {
   $conn = GetLocalMySQLConnection();
   $cardAbilityDB = new CardAbilityDB($conn);
-  
+
   // Determine which root to use for the card abilities database
   $databaseRoot = !empty($cardDBOverride) ? $cardDBOverride : $rootName;
-  
+
   $existingCount = 0;
-  
+
   foreach($allCardIds as $cardId) {
     // Check if this card already has abilities in the database (using the appropriate database root)
     if(!$cardAbilityDB->cardHasAbilities($databaseRoot, $cardId)) {
@@ -268,10 +269,10 @@ try {
     }
     $existingCount++;
   }
-  
+
   mysqli_close($conn);
   echo("Card abilities database initialized for $databaseRoot. " . count($allCardIds) . " total cards available for editing.<BR>");
-  
+
 } catch (Exception $e) {
   echo("Note: Could not initialize card abilities database: " . $e->getMessage() . "<BR>");
 }
@@ -361,9 +362,17 @@ if($rootName == "SWUDeck") {
   fwrite($handler, "  };\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
+// Load AllSets data for ordered set filtering
+$allSetsOrdered = [];
+if(($rootName == "SWUDeck" || $rootName == "SoulMastersDB") && file_exists("./" . $rootName . "/AllSets.php")) {
+  $allSetsOrdered = include("./" . $rootName . "/AllSets.php");
+  if(!is_array($allSetsOrdered)) $allSetsOrdered = [];
+}
+$allSetsJson = json_encode($allSetsOrdered, JSON_FORCE_OBJECT);
+fwrite($handler, "var allSetsData = " . $allSetsJson . ";\r\n");
 //Add should filter function
 fwrite($handler, "function ShouldFilter(cardID,filter) {\r\n");
-fwrite($handler, "  var filterArr = filter.split(\" \");\r\n");
+fwrite($handler, "  var filterArr = filter.match(/(?:[^\\s\"]+|\"[^\"]*\")+/g) || [];\r\n");
 fwrite($handler, "  for(var i=0; i<filterArr.length; ++i) {\r\n");
 fwrite($handler, "    var operand = '';\r\n");
 fwrite($handler, "    var operandArr = [':', '=', '<', '>', '<=', '>='];\r\n");
@@ -382,14 +391,38 @@ fwrite($handler, "      var thisFilterArr = filterArr[i].split(operand);\r\n");
 fwrite($handler, "      var thisFilter = thisFilterArr[0].toLowerCase();\r\n");
 fwrite($handler, "      var thisValue = thisFilterArr[1];\r\n");
 fwrite($handler, "    }\r\n");
+fwrite($handler, "    if(thisValue && thisValue.length >= 2 && thisValue[0] === '\"' && thisValue[thisValue.length-1] === '\"') {\r\n");
+fwrite($handler, "      thisValue = thisValue.slice(1, -1);\r\n");
+fwrite($handler, "    }\r\n");
 fwrite($handler, "    if(thisValue == \"\") continue;\r\n");
+if($rootName == "SWUDeck") {
+  fwrite($handler, "    var _filterAliases = {t:\"text\",p:\"power\",tr:\"trait\",up:\"upgradepower\",uhp:\"upgradehp\",r:\"rarity\",a:\"arena\"};\r\n");
+  fwrite($handler, "    if(_filterAliases[thisFilter]) thisFilter = _filterAliases[thisFilter];\r\n");
+}
 fwrite($handler, "    switch(thisFilter) {\r\n");
 for ($i = 0; $i < count($properties); ++$i) {
   $property = $properties[$i];
   fwrite($handler, "      case \"" . strtolower($property) . "\":\r\n");
   if($propertyTypes[$i] == "string") {
-    fwrite($handler, "        var propertyValue = Card" . $property . "(cardID);\r\n");
-    fwrite($handler, "        if(propertyValue == null || !propertyValue.toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
+    if(strtolower($property) == "set" && ($rootName == "SWUDeck" || $rootName == "SoulMastersDB")) {
+      fwrite($handler, "        var propertyValue = Card" . $property . "(cardID);\r\n");
+      fwrite($handler, "        if(propertyValue == null) return true;\r\n");
+      fwrite($handler, "        if(Object.keys(allSetsData).length === 0 || operand === '=' || operand === ':') {\r\n");
+      fwrite($handler, "          if(!propertyValue.toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
+      fwrite($handler, "        } else {\r\n");
+      fwrite($handler, "          var targetOrder = allSetsData[thisValue.toUpperCase()];\r\n");
+      fwrite($handler, "          var cardOrder = allSetsData[propertyValue.toUpperCase()];\r\n");
+      fwrite($handler, "          if(targetOrder === undefined || cardOrder === undefined) {\r\n");
+      fwrite($handler, "            if(!propertyValue.toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
+      fwrite($handler, "          } else if(operand == '>' && cardOrder <= targetOrder) return true;\r\n");
+      fwrite($handler, "          else if(operand == '<' && cardOrder >= targetOrder) return true;\r\n");
+      fwrite($handler, "          else if(operand == '>=' && cardOrder < targetOrder) return true;\r\n");
+      fwrite($handler, "          else if(operand == '<=' && cardOrder > targetOrder) return true;\r\n");
+      fwrite($handler, "        }\r\n");
+    } else {
+      fwrite($handler, "        var propertyValue = Card" . $property . "(cardID);\r\n");
+      fwrite($handler, "        if(propertyValue == null || !propertyValue.toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
+    }
   } else if($propertyTypes[$i] == "number") {
     fwrite($handler, "        if(operand == '=' && Card" . $property . "(cardID) != parseInt(thisValue)) return true;\r\n");
     fwrite($handler, "        else if(operand == ':' && Card" . $property . "(cardID) != parseInt(thisValue)) return true;\r\n");
@@ -404,6 +437,17 @@ fwrite($handler, "      case \"specificcards\":\r\n");
 fwrite($handler, "        var cardArr = thisValue.split(',');\r\n");
 fwrite($handler, "        if(cardArr.indexOf(cardID) === -1) return true;\r\n");
 fwrite($handler, "        break;\r\n");
+if($rootName == "SWUDeck") {
+  fwrite($handler, "      case \"c\":\r\n");
+  fwrite($handler, "        var _aspectColorMap = {b:\"Vigilance\",g:\"Command\",r:\"Aggression\",y:\"Cunning\",w:\"Heroism\",k:\"Villainy\"};\r\n");
+  fwrite($handler, "        var _pv = Cardaspect(cardID);\r\n");
+  fwrite($handler, "        if(_pv == null) return true;\r\n");
+  fwrite($handler, "        for(var _ci = 0; _ci < thisValue.length; ++_ci) {\r\n");
+  fwrite($handler, "          var _fa = _aspectColorMap[thisValue[_ci].toLowerCase()];\r\n");
+  fwrite($handler, "          if(_fa && !_pv.toLowerCase().includes(_fa.toLowerCase())) return true;\r\n");
+  fwrite($handler, "        }\r\n");
+  fwrite($handler, "        break;\r\n");
+}
 fwrite($handler, "      default: break;\r\n");
 fwrite($handler, "    }\r\n");
 fwrite($handler, "  }\r\n");
@@ -426,7 +470,7 @@ function GetResponseMetadata($response, $metadataPath)
   // e.g., "meta.pagination.pageCount" or simple "has_more"
   $path = explode(".", $metadataPath);
   $current = $response;
-  
+
   foreach($path as $key) {
     if(is_object($current) && isset($current->$key)) {
       $current = $current->$key;
@@ -436,7 +480,7 @@ function GetResponseMetadata($response, $metadataPath)
       return false;
     }
   }
-  
+
   return $current;
 }
 

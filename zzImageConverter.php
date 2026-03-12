@@ -7,7 +7,8 @@ $isHTTPRequest = php_sapi_name() !== 'cli' && !empty($_SERVER['REQUEST_METHOD'])
 $response = new stdClass();
 if ($isHTTPRequest) {
     $error = CheckLoggedInUserMod();
-    if ($error !== "") {
+    $isDev = getenv("IS_DEV") === "true";
+    if ($error !== "" && !$isDev) {
         $response->error = $error;
         echo json_encode($response);
         exit();
