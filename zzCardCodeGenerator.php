@@ -9,10 +9,11 @@ include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./Database/ConnectionManager.php";
 include_once "./CardEditor/Database/CardAbilityDB.php";
 
-$isDev = getenv("IS_DEV") === "true";
+// IsPrivateOrLocalAddress is defined in zzImageConverter.php (included above).
+$isLocalhost = IsPrivateOrLocalAddress($_SERVER['REMOTE_ADDR'] ?? '');
 $response = new stdClass();
 $error = CheckLoggedInUserMod();
-if($error !== "" && !$isDev) {
+if($error !== "" && !$isLocalhost) {
   $response->error = $error;
   echo json_encode($response);
   exit();
