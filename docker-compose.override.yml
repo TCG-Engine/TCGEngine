@@ -12,4 +12,3 @@ services:
     environment:
       XDEBUG_MODE: debug
       XDEBUG_CONFIG: client_host=host.docker.internal client_port=9003
-      IS_DEV: "true"
