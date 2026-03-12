@@ -271,6 +271,74 @@
         }
       }
 
+      // Split a filter string on " or " at the top level (not inside parentheses)
+      function _splitOnTopLevelOr(filter) {
+        var parts = [];
+        var depth = 0;
+        var start = 0;
+        for(var i = 0; i < filter.length; i++) {
+          if(filter[i] === '(') depth++;
+          else if(filter[i] === ')') depth--;
+          else if(depth === 0 && filter.slice(i, i+4) === ' or ') {
+            parts.push(filter.slice(start, i).trim());
+            start = i + 4;
+            i += 3;
+          }
+        }
+        parts.push(filter.slice(start).trim());
+        return parts;
+      }
+
+      // Split a filter string on spaces at the top level (not inside parentheses or double quotes)
+      function _splitOnTopLevelSpaces(filter) {
+        var tokens = [];
+        var depth = 0;
+        var inQuote = false;
+        var start = 0;
+        for(var i = 0; i < filter.length; i++) {
+          if(filter[i] === '"') { inQuote = !inQuote; }
+          else if(!inQuote && filter[i] === '(') depth++;
+          else if(!inQuote && filter[i] === ')') depth--;
+          else if(!inQuote && depth === 0 && filter[i] === ' ') {
+            var tok = filter.slice(start, i).trim();
+            if(tok.length > 0) tokens.push(tok);
+            start = i + 1;
+          }
+        }
+        var tok = filter.slice(start).trim();
+        if(tok.length > 0) tokens.push(tok);
+        return tokens;
+      }
+
+      // Returns true if the card should be filtered OUT (hidden) given a full filter string
+      // Supports: space = AND, " or " = OR, (parens) for grouping
+      function ShouldFilterWithOr(cardID, filter) {
+        filter = filter.trim();
+        if(filter === '') return false;
+        var orGroups = _splitOnTopLevelOr(filter);
+        for(var g = 0; g < orGroups.length; g++) {
+          var group = orGroups[g].trim();
+          if(group === '') continue;
+          // Evaluate this AND-group: all tokens must pass (not filter the card)
+          var tokens = _splitOnTopLevelSpaces(group);
+          var groupFails = false;
+          for(var t = 0; t < tokens.length; t++) {
+            var tok = tokens[t].trim();
+            if(tok === '') continue;
+            var filtered;
+            if(tok[0] === '(' && tok[tok.length-1] === ')') {
+              // Parenthesised sub-expression — recurse
+              filtered = ShouldFilterWithOr(cardID, tok.slice(1, tok.length-1));
+            } else {
+              filtered = ShouldFilter(cardID, tok);
+            }
+            if(filtered) { groupFails = true; break; }
+          }
+          if(!groupFails) return false; // At least one OR-group matched: show the card
+        }
+        return true; // All OR-groups filtered the card: hide it
+      }
+
       //Note: 96 = Card Size
       function PopulateZone(zone, zoneData, size = 96, folder = "concat", row = 1, mode = 'All', filter="") {
           // Skip rendering if zone visibility is None
@@ -283,20 +351,20 @@
           var newHTML = "<span id='" + zone + "' " + dragProps + "style='display: flex; flex-wrap: wrap; justify-content: center;'>";
           var zoneArr = (zoneData.length == 0 ? [] : zoneData.split("<|>"));
           var zoneName = zone.replace("my", "").replace("their", "");
-          
+
           // Handle Single display mode - only render one card (first or last based on Reverse)
           if(mode == 'Single' && zoneArr.length > 0) {
             var zoneMetadata = GetZoneData(zoneName);
             var useReverse = zoneMetadata.Sort && zoneMetadata.Sort.Reverse;
             var displayIndex = useReverse ? (zoneArr.length - 1) : 0;
             var cardArr = zoneArr[displayIndex].split(" ");
-            
+
             // Override counter to show total zone count (cardArr[1] is normally counter data)
             // This replicates the count bubble that was previously shown
             if(zoneArr.length > 1) {
               cardArr[1] = String(zoneArr.length);
             }
-            
+
             var heatmapFunction = "";
             var heatmapColorMap = "";
             // Apply heatmaps if defined
@@ -313,7 +381,7 @@
             newHTML += "</span>";
             return newHTML;
           }
-          
+
           if(zoneArr.length == 0 && mode != "Calculate") {
             newHTML += "<span style='margin: 1px;'>" + zoneName + "</span>";
           } else if(mode == 'Count') {
@@ -397,7 +465,7 @@
             for (var i = 0; i < zoneArr.length; ++i) {
               cardArr = zoneArr[i].split(" ");
               if(filter != "") {
-                if(ShouldFilter(cardArr[0], filter)) continue;
+                if(ShouldFilterWithOr(cardArr[0], filter)) continue;
               }
               if(filterFunction != null && window.customFilter && filterFunction(cardArr[0])) continue;
               if(linkedSubcardCardIDs[cardArr[0]]) continue; // skip cards rendered inline as subcards
@@ -482,7 +550,7 @@
         if (window.SelectionMode.active && typeof IsSelectableCard === 'function') {
           isSelectable = IsSelectableCard(zone, cardArr, i);
         }
-        
+
         // Check if this card should be highlighted based on HighlightRules
         // Only apply highlighting for the turn player
         let highlightMetadata = null;
@@ -491,7 +559,7 @@
           const turnVal = typeof window.TurnPlayerData !== 'undefined' ? parseInt(window.TurnPlayerData) : NaN;
           const viewerVal = (document.getElementById('playerID') && document.getElementById('playerID').value) ? parseInt(document.getElementById('playerID').value) : NaN;
           const viewerIsTurnPlayer = !isNaN(turnVal) && !isNaN(viewerVal) && viewerVal === turnVal;
-          
+
           if (viewerIsTurnPlayer && typeof HighlightRules !== 'undefined' && HighlightRules[zoneName]) {
             const highlightProperty = HighlightRules[zoneName];
             var cardData = {};
@@ -510,7 +578,7 @@
                   rawValue = null;
                 }
               }
-              
+
               // Check if we have valid highlight metadata with a color property
               if (rawValue && typeof rawValue === 'object' && rawValue.color) {
                 highlightMetadata = rawValue;
@@ -521,12 +589,12 @@
         } catch (e) {
           if (console && console.error) console.error('Highlight check error', e);
         }
-        
+
         var newHTML = "";
         var id = zone + "-" + i;
         var positionStyle = "relative";
         var className = isSelectable ? "selectable-card" : "";
-        
+
         // Build inline styles - combine position and custom color variable
         var inlineStyles = "position:" + positionStyle + "; margin:1px;";
         if (isSelectable) {
@@ -541,7 +609,7 @@
             inlineStyles += " --highlight-color: rgba(100,250,0,0.50);";
           }
         }
-        
+
         var styles = " style='" + inlineStyles + "'";
         var droppable = " class='draggable " + className + "' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'";
         var click = isSelectable
@@ -639,23 +707,23 @@
         let bottomLeftButtons = '';
         let bottomRightButtons = '';
         let topLeftButtons = '';
-        
+
         for (const widgetType in widgets) {
           const widgetGroup = widgets[widgetType];
           const widgetActions = Array.isArray(widgetGroup) ? widgetGroup : widgetGroup.actions || [];
           const position = (!Array.isArray(widgetGroup) && widgetGroup.position) ? widgetGroup.position.toLowerCase() : 'center';
           const condition = (!Array.isArray(widgetGroup) && widgetGroup.condition) ? widgetGroup.condition : null;
-          
+
           // Check if condition is met (if one exists)
           let conditionMet = true;
           if (condition && condition.field && condition.value !== undefined) {
             const fieldValue = cardData.hasOwnProperty(condition.field) ? cardData[condition.field] : null;
             conditionMet = fieldValue !== null && String(fieldValue) === String(condition.value);
           }
-          
+
           // Skip rendering if condition is not met
           if (!conditionMet) continue;
-          
+
           widgetActions.forEach(widget => {
             if(widget.Action == "Display" && cardData.hasOwnProperty(widgetType)) {
               var widgetContent = typeof cardData[widgetType] === 'string' ? cardData[widgetType].replace(/_/g, ' ') : cardData[widgetType];
@@ -668,7 +736,7 @@
             }
             else {
               var widgetName = widget.Action.replace(/_/g, ' ');
-              
+
               // Special handling for Activate button - show ability names
               if (widget.Action === 'Activate' && cardData.CardID && typeof CardActivateAbilityCount === 'function') {
                 const abilityCount = CardActivateAbilityCount(cardData.CardID);
@@ -679,8 +747,8 @@
                 }
                 if (abilityCount >= 1 || dynamicAbilities.length > 0) {
                   // Generate button(s) for each static ability
-                  const abilityNames = typeof CardActivateAbilityCountNames === 'function' 
-                    ? CardActivateAbilityCountNames(cardData.CardID) 
+                  const abilityNames = typeof CardActivateAbilityCountNames === 'function'
+                    ? CardActivateAbilityCountNames(cardData.CardID)
                     : [];
                   for (let i = 0; i < abilityCount; i++) {
                     const abilityName = abilityNames[i] || `Ability ${i + 1}`;
@@ -709,10 +777,10 @@
                   return; // Skip the default button generation
                 }
               }
-              
+
               widgetContent = widgetIcons(widgetName);
               const buttonHtml = `&nbsp;<button class="widget-button${currentValue != "" && widget.Action == currentValue ? '-selected' : ''}" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${widget.Action}')">${widgetContent}</button>`;
-              
+
               if(widgetName == "Notes") {
                 topRightButtons += buttonHtml;
               } else {
@@ -902,22 +970,22 @@
             /* Slightly thicker border */
             border: 2px solid var(--highlight-color);
             /* Enhanced but still subtle glow on hover */
-            box-shadow: 
+            box-shadow:
               0 0 12px var(--highlight-color),
               0 0 6px var(--highlight-color);
           }
 
           /* Gentle pulsing for active selection mode */
           @keyframes selectable-border-pulse {
-            0% { 
+            0% {
               border-color: rgba(100,250,0,0.50);
               box-shadow: 0 0 8px rgba(100,250,0,0.3);
             }
-            50% { 
+            50% {
               border-color: rgba(100,250,0,0.80);
               box-shadow: 0 0 12px rgba(100,250,0,0.5);
             }
-            100% { 
+            100% {
               border-color: rgba(100,250,0,0.50);
               box-shadow: 0 0 8px rgba(100,250,0,0.3);
             }
@@ -1250,7 +1318,7 @@
         setTimeout(() => {
           document.getElementById(fullName + "Wrapper").scrollTop = scrollPosition;
         }, 0);
-        html += `<input type="text" style='height:28px; margin-top:3px;' class='filterBar' id="${fullName}FilterText" onkeydown="PaneFilterKeyDown('${prefix}', '${zoneName}', event);" oninput="PaneFilterCards('${prefix}', '${zoneName}', event, 'textFilter');" placeholder="Filter cards..." ${filterText ? `value="${filterText}"` : ''}></input>`;
+        html += `<input type="text" style='height:28px; margin-top:3px;' class='filterBar' id="${fullName}FilterText" onkeydown="PaneFilterKeyDown('${prefix}', '${zoneName}', event);" oninput="PaneFilterCards('${prefix}', '${zoneName}', event, 'textFilter');" placeholder="Filter cards..." ${filterText ? `value="${filterText.replace(/"/g, '&quot;')}"` : ''}></input>`;
         html += `<img src='./Assets/Images/infoicon.png' style='cursor: pointer; position: absolute; top: 2px; right: 2px; height:12px; width:12px;' onclick='ShowFilterBarHelp()' aria-label='Click for filter syntax' />`;
         html += `</div>`;
         var paneHTML = "<span id='" + prefix + "_" + zoneName + "_content'>";
@@ -1571,7 +1639,7 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       window.SelectionMode.active = true;
       window.SelectionMode.mode = '100';
       window.SelectionMode.mayPass = (entry.Type === 'MZMAYCHOOSE');
-      
+
       // Parse allowed zones/cards into objects
       // Supports:
       //   - Zone selection: "myHand" or "BG1" (selects any card in the zone)
@@ -1593,7 +1661,7 @@ function CheckAndShowDecisionQueue(decisionQueue) {
             }
           });
         }
-        
+
         // Check if this is a specific card reference (zoneName-index)
         const cardMatch = zoneOrCard.match(/^(.+)-(\d+)$/);
         if (cardMatch) {
@@ -1610,22 +1678,22 @@ function CheckAndShowDecisionQueue(decisionQueue) {
           return { zone: zoneOrCard, filters: filters, isSpecificCard: false };
         }
       });
-      
+
       window.SelectionMode.allowedZones = parsedSpecs;
       window.SelectionMode.decisionIndex = i;
       window.SelectionMode.callback = function(zoneName, cardId, decisionIndex) {
         SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(cardId));
       };
       var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Select a card from an allowed zone.';
-      
+
       // Categorize specs into inline (All mode or any zone match) vs popup (Single mode specific cards)
       const inlineSpecs = [];
       const popupCards = [];
-      
+
       for (const spec of parsedSpecs) {
         const zoneData = GetZoneData(spec.zone);
         const displayMode = zoneData && zoneData.DisplayMode ? zoneData.DisplayMode : 'All';
-        
+
         if (spec.isSpecificCard && (displayMode === 'Single' || displayMode === 'None')) {
           // Specific card from a Single mode zone - needs popup
           popupCards.push(spec);
@@ -1634,22 +1702,22 @@ function CheckAndShowDecisionQueue(decisionQueue) {
           inlineSpecs.push(spec);
         }
       }
-      
+
       // Store categorized specs for rendering
       window.SelectionMode.inlineSpecs = inlineSpecs;
       window.SelectionMode.popupCards = popupCards;
-      
+
       // Only show selection message banner if there are inline selectable options
       // If only popup cards, the popup handles the UI
       if (inlineSpecs.length > 0) {
         ShowSelectionMessage(tooltip, window.SelectionMode.mayPass, i);
       }
-      
+
       // Show popup for Single mode zone cards if any
       if (popupCards.length > 0) {
         ShowMZChoosePopup(popupCards, tooltip, window.SelectionMode.mayPass, i);
       }
-      
+
       // Highlight/selectable will be handled in rendering for inline specs
 
       // After setting selection mode for MZCHOOSE, force a re-render of all zones
@@ -1665,7 +1733,7 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       // MZREARRANGE: Allow player to rearrange cards between piles
       // Param format: "PileName1=card1,card2;PileName2=card3,card4"
       var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Arrange the cards';
-      
+
       if (typeof ShowMZRearrangePopup === 'function') {
         ShowMZRearrangePopup(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
           SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
@@ -1755,15 +1823,15 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
     existing.style.gap = '16px';
     document.body.appendChild(existing);
   }
-  
+
   // Clear previous content
   existing.innerHTML = '';
-  
+
   // Add message text
   let msgSpan = document.createElement('span');
   msgSpan.textContent = msg;
   existing.appendChild(msgSpan);
-  
+
   // Add Pass button if allowed
   if (showPassButton) {
     let passBtn = document.createElement('button');
@@ -1785,7 +1853,7 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
     };
     existing.appendChild(passBtn);
   }
-  
+
   existing.style.display = 'flex';
 }
 
@@ -1804,23 +1872,23 @@ function HideSelectionMessage() {
 function IsSelectableCard(zone, cardArr, index) {
   try {
     if (!window.SelectionMode || !window.SelectionMode.active) return false;
-    
+
     // Use inlineSpecs if available, otherwise fall back to allowedZones for compatibility
     const specs = window.SelectionMode.inlineSpecs || window.SelectionMode.allowedZones || [];
-    
+
     for (let si = 0; si < specs.length; ++si) {
       const spec = specs[si];
       if (!spec || !spec.zone) continue;
       if (spec.zone !== zone) continue;
-      
+
       // If this is a specific card reference, check the index matches exactly
       if (spec.isSpecificCard) {
         if (spec.specificIndex !== index) continue;
       }
-      
+
       const filters = spec.filters || [];
       if (filters.length === 0) return true;
-      
+
       // parse card JSON if present
       let cardData = {};
       if (cardArr && cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
@@ -1889,9 +1957,9 @@ function HideMZChoosePopup() {
 function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   // Remove any existing popup
   HideMZChoosePopup();
-  
+
   if (!popupCards || popupCards.length === 0) return;
-  
+
   // Create overlay
   let overlay = document.createElement('div');
   overlay.id = 'mzchoose-popup';
@@ -1907,7 +1975,7 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   overlay.style.alignItems = 'center';
   overlay.style.justifyContent = 'center';
   overlay.style.fontFamily = "'Orbitron', sans-serif";
-  
+
   // Create modal container
   let modal = document.createElement('div');
   modal.style.background = '#0D1B2A';
@@ -1917,7 +1985,7 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   modal.style.maxWidth = '90vw';
   modal.style.maxHeight = '80vh';
   modal.style.overflow = 'auto';
-  
+
   // Title/tooltip
   let title = document.createElement('div');
   title.style.fontSize = '18px';
@@ -1926,7 +1994,7 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   title.style.textAlign = 'center';
   title.textContent = tooltip;
   modal.appendChild(title);
-  
+
   // Cards container - horizontal wrap
   let cardsContainer = document.createElement('div');
   cardsContainer.style.display = 'flex';
@@ -1934,22 +2002,22 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   cardsContainer.style.justifyContent = 'center';
   cardsContainer.style.gap = '16px';
   cardsContainer.style.marginBottom = '20px';
-  
+
   // Get card size from window or use default
   const cardSize = window.cardSize || 96;
   const rootPath = window.rootPath || '.';
-  
+
   // For each popup card spec, find and display the card
   for (const spec of popupCards) {
     // Get card data from the zone's window data variable
     const zoneDataVar = spec.zone + 'Data';
     const zoneDataStr = window[zoneDataVar];
     if (!zoneDataStr || typeof zoneDataStr !== 'string') continue;
-    
+
     // Parse the zone data to get the card at the specific index
     const zoneCards = zoneDataStr.split('<|>').filter(s => s.trim());
     if (spec.specificIndex >= zoneCards.length) continue;
-    
+
     const cardEntry = zoneCards[spec.specificIndex];
     const cardArr = cardEntry.split(' ');
     // cardArr[0] = card number (image filename)
@@ -1957,14 +2025,14 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
     // cardArr[2] = JSON data
     const cardNumber = cardArr[0];
     const counters = cardArr.length > 1 ? cardArr[1] : '0';
-    
+
     // Create card wrapper
     let cardWrapper = document.createElement('div');
     cardWrapper.style.position = 'relative';
     cardWrapper.style.cursor = 'pointer';
     cardWrapper.style.transition = 'transform 0.2s, box-shadow 0.2s';
     cardWrapper.style.borderRadius = '8px';
-    
+
     // Add hover effect
     cardWrapper.onmouseenter = function() {
       cardWrapper.style.transform = 'scale(1.05)';
@@ -1974,17 +2042,17 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
       cardWrapper.style.transform = 'scale(1)';
       cardWrapper.style.boxShadow = 'none';
     };
-    
+
     // Create card image container using the Card() function
     let cardImgContainer = document.createElement('div');
     cardImgContainer.style.position = 'relative';
-    
+
     // Use the Card() function to generate the card HTML
     // Card(cardNumber, folder, maxHeight, action, showHover, overlay, borderColor, counters, ...)
     const folder = rootPath + '/concat';
     const cardHTML = Card(cardNumber, folder, cardSize, 0, 0, 0, 0, counters);
     cardImgContainer.innerHTML = cardHTML;
-    
+
     // Style the generated image
     const imgEl = cardImgContainer.querySelector('img');
     if (imgEl) {
@@ -1992,9 +2060,9 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
       imgEl.style.height = 'auto';
       imgEl.style.borderRadius = '6px';
     }
-    
+
     cardWrapper.appendChild(cardImgContainer);
-    
+
     // Zone label at bottom of card
     let zoneLabel = document.createElement('div');
     zoneLabel.style.position = 'absolute';
@@ -2011,7 +2079,7 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
     let displayZoneName = spec.zone.replace(/^(my|their)/, '');
     zoneLabel.textContent = displayZoneName;
     cardWrapper.appendChild(zoneLabel);
-    
+
     // Click handler - select this card
     const cardIdToSubmit = spec.originalSpec; // e.g., "myHand-0" or "BG1-2"
     const zoneNameForCallback = spec.zone;
@@ -2021,18 +2089,18 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
       }
       ClearSelectionMode();
     };
-    
+
     cardsContainer.appendChild(cardWrapper);
   }
-  
+
   modal.appendChild(cardsContainer);
-  
+
   // Buttons container
   let buttonsContainer = document.createElement('div');
   buttonsContainer.style.display = 'flex';
   buttonsContainer.style.justifyContent = 'center';
   buttonsContainer.style.gap = '16px';
-  
+
   // Pass button (if allowed)
   if (showPassButton) {
     let passBtn = document.createElement('button');
@@ -2053,7 +2121,7 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
     };
     buttonsContainer.appendChild(passBtn);
   }
-  
+
   modal.appendChild(buttonsContainer);
   overlay.appendChild(modal);
   document.body.appendChild(overlay);

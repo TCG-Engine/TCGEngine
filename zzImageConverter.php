@@ -1,7 +1,8 @@
 <?php
 include_once './AccountFiles/AccountSessionAPI.php';
 
-// Skip auth check for CLI invocations (e.g., code generator running from MCP server)
+// Skip auth check for CLI invocations (e.g., code generator running from MCP server).
+// HTTP requests always require a valid mod session.
 $isHTTPRequest = php_sapi_name() !== 'cli' && !empty($_SERVER['REQUEST_METHOD']);
 
 $response = new stdClass();

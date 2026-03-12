@@ -177,9 +177,17 @@ for($i=0; $i<count($properties); ++$i) {
   GetTypeData($propertyType, $defaultValue, $dataType);
   GenerateFunction($tries[$property], $handler, "Card" . $property, $propertyType == "string", $defaultValue, $dataType, "js");
 }
+// Load AllSets data for ordered set filtering
+$allSetsOrdered = [];
+if(($rootName == "SWUDeck" || $rootName == "SoulMastersDB") && file_exists("./" . $rootName . "/AllSets.php")) {
+  $allSetsOrdered = include("./" . $rootName . "/AllSets.php");
+  if(!is_array($allSetsOrdered)) $allSetsOrdered = [];
+}
+$allSetsJson = json_encode($allSetsOrdered, JSON_FORCE_OBJECT);
+fwrite($handler, "var allSetsData = " . $allSetsJson . ";\r\n");
 //Add should filter function
 fwrite($handler, "function ShouldFilter(cardID,filter) {\r\n");
-fwrite($handler, "  var filterArr = filter.split(\" \");\r\n");
+fwrite($handler, "  var filterArr = filter.match(/(?:[^\\s\"]+|\"[^\"]*\")+/g) || [];\r\n");
 fwrite($handler, "  for(var i=0; i<filterArr.length; ++i) {\r\n");
 fwrite($handler, "    var operand = '';\r\n");
 fwrite($handler, "    var operandArr = [':', '=', '<', '>', '<=', '>='];\r\n");
@@ -198,13 +206,33 @@ fwrite($handler, "      var thisFilterArr = filterArr[i].split(operand);\r\n");
 fwrite($handler, "      var thisFilter = thisFilterArr[0].toLowerCase();\r\n");
 fwrite($handler, "      var thisValue = thisFilterArr[1];\r\n");
 fwrite($handler, "    }\r\n");
+fwrite($handler, "    if(thisValue && thisValue.length >= 2 && thisValue[0] === '\"' && thisValue[thisValue.length-1] === '\"') {\r\n");
+fwrite($handler, "      thisValue = thisValue.slice(1, -1);\r\n");
+fwrite($handler, "    }\r\n");
 fwrite($handler, "    if(thisValue == \"\") continue;\r\n");
 fwrite($handler, "    switch(thisFilter) {\r\n");
 for($i=0; $i<count($properties); ++$i) {
   $property = $properties[$i];
   fwrite($handler, "      case \"" . strtolower($property) . "\":\r\n");
   if($propertyTypes[$i] == "string") {
-    fwrite($handler, "        if(!Card" . $property . "(cardID).toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
+    if(strtolower($property) == "set" && ($rootName == "SWUDeck" || $rootName == "SoulMastersDB")) {
+      fwrite($handler, "        var propertyValue = Card" . $property . "(cardID);\r\n");
+      fwrite($handler, "        if(propertyValue == null) return true;\r\n");
+      fwrite($handler, "        if(Object.keys(allSetsData).length === 0 || operand === '=' || operand === ':') {\r\n");
+      fwrite($handler, "          if(!propertyValue.toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
+      fwrite($handler, "        } else {\r\n");
+      fwrite($handler, "          var targetOrder = allSetsData[thisValue.toUpperCase()];\r\n");
+      fwrite($handler, "          var cardOrder = allSetsData[propertyValue.toUpperCase()];\r\n");
+      fwrite($handler, "          if(targetOrder === undefined || cardOrder === undefined) {\r\n");
+      fwrite($handler, "            if(!propertyValue.toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
+      fwrite($handler, "          } else if(operand == '>' && cardOrder <= targetOrder) return true;\r\n");
+      fwrite($handler, "          else if(operand == '<' && cardOrder >= targetOrder) return true;\r\n");
+      fwrite($handler, "          else if(operand == '>=' && cardOrder < targetOrder) return true;\r\n");
+      fwrite($handler, "          else if(operand == '<=' && cardOrder > targetOrder) return true;\r\n");
+      fwrite($handler, "        }\r\n");
+    } else {
+      fwrite($handler, "        if(!Card" . $property . "(cardID).toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
+    }
   } else if($propertyTypes[$i] == "number") {
     fwrite($handler, "        if(operand == '=' && Card" . $property . "(cardID) != parseInt(thisValue)) return true;\r\n");
     fwrite($handler, "        else if(operand == ':' && Card" . $property . "(cardID) != parseInt(thisValue)) return true;\r\n");
