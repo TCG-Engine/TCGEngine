@@ -908,9 +908,13 @@ for($i=0; $i<count($macros); ++$i) {
     if (!empty($macro->Parameters)) {
       $paramString = implode(" . '|' . ", array_map(fn($p) => '$' . $p, $macro->Parameters));
       fwrite($handler, "  \$paramString = str_replace(' ', '_', " . $paramString . ");\r\n");
-      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice|\$paramString\", 99);\r\n");
+      // Block 100 ensures the full chain completes before the next multi-call fires
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice|\$paramString\", 100);\r\n");
     } else {
-      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice\", 99);\r\n");
+      // Block 100 (higher than the inner chain blocks 1/99) ensures the full
+      // Choice→MZCHOOSE→AfterChoice chain completes before the next call fires
+      // when the same macro is invoked multiple times in sequence.
+      fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Choice\", 100);\r\n");
     }
   }
   fwrite($handler, "}\r\n\r\n");

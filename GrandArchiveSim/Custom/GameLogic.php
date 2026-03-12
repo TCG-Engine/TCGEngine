@@ -4991,8 +4991,10 @@ $customDQHandlers["EternalKingdomUpkeep"] = function($player, $parts, $lastDecis
         // Pay 2 reserve
         $hand = &GetHand($player);
         if(count($hand) >= 2) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            // Must use block 100 (same as DoActivateCard) so each ReserveCard's
+            // MZCHOOSE→Process chain (blocks 1/99) completes before the next fires.
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
         } else {
             // Can't pay — sacrifice
             if(isset($field[$fieldIdx]) && !$field[$fieldIdx]->removed && $field[$fieldIdx]->CardID === "fyoz23yfzk") {
@@ -5226,8 +5228,10 @@ $customDQHandlers["WinblessGatekeeperPay"] = function($player, $parts, $lastDeci
     $guardianAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["GUARDIAN"]);
     if(empty($guardianAllies)) return;
     $targetStr = implode("&", $guardianAllies);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Put_buff_on_Guardian_ally");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "WinblessGatekeeperBuff", 1);
+    // Block 105: must come after the two ReserveCard_Choice(100) chains fully
+    // resolve (inner blocks 1/99) before the Guardian ally target is chosen.
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 105, "Put_buff_on_Guardian_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "WinblessGatekeeperBuff", 105);
 };
 
 $customDQHandlers["WinblessGatekeeperBuff"] = function($player, $parts, $lastDecision) {
