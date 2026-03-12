@@ -16,7 +16,7 @@ REQ-2: If AllSets array is empty, then fallback to regular "=" for the filter
 REQ-3: If the user inputs "set>SET" (SET being a place holder for an actual set code), then generated function should filter on sets strictly greater than the target set's order value
 REQ-4: If the user inputs "set>=SET", then generated function should filter on sets greater than the target set's order value and include the set targetted
 REQ-5: If the user inputs "set<SET", then generated function should filter on sets less than the target set's order value
-REQ-6: If the user inputs "set<=SET", then generated function should filter onsets less that the target set's order value and include the set targetted
+REQ-6: If the user inputs "set<=SET", then generated function should filter on sets less than the target set's order value and include the targeted set
 ## Other Requirements
 FMT-1: Formatting should remain the same as in existing generator, with `fwrite($handler,` lines
 
