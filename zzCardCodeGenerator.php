@@ -9,11 +9,12 @@ include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./Database/ConnectionManager.php";
 include_once "./CardEditor/Database/CardAbilityDB.php";
 
-// IsPrivateOrLocalAddress is defined in zzImageConverter.php (included above).
-$isLocalhost = IsPrivateOrLocalAddress($_SERVER['REMOTE_ADDR'] ?? '');
+// zzImageConverter.php (included above) already enforces auth for HTTP requests.
+// zzCardCodeGenerator is only reachable via HTTP, so enforce auth here too.
+// CLI invocations (e.g. from MCP server) do not go through this file directly.
 $response = new stdClass();
 $error = CheckLoggedInUserMod();
-if($error !== "" && !$isLocalhost) {
+if($error !== "") {
   $response->error = $error;
   echo json_encode($response);
   exit();
