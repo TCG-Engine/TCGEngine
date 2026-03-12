@@ -1,5 +1,5 @@
 # Overview
-Filters need to be able to be combined to be able to search for multiple properties in one query. Groupings in paranthesis can be used to group many OR logics with other AND logic.
+Filters need to be able to be combined to be able to search for multiple properties in one query. Groupings in parentheses can be used to group many OR logics with other AND logic.
 
 # Requirements
 REQ-1: a single space delimiter is continued to be used for AND logic
