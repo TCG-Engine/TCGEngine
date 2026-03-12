@@ -1,7 +1,7 @@
 # Overview
 Filtering values should allow to search for multiple words in the properties
 
-# Requiremnts
+# Requirements
 REQ-1: multiple words should be accepted when inside double quotes `"text here"`
 
 # Examples
