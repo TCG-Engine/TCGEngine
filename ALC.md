@@ -1,0 +1,263 @@
+# ALC — Unimplemented Cards Analysis
+
+**107 unimplemented cards** across the full ALC set. This document groups mechanically related clusters first, then lists isolated cards bucketed by implementation difficulty.
+
+---
+
+## Mechanically Related Groups
+
+Cards in each group depend on or strongly reinforce each other and should be implemented as a unit.
+
+---
+
+### 1. Diana Champion Lineage
+*These five cards form a tightly coupled system built around the Umbra Curse-in-lineage archetype. Diana Duskstalker's `Generate` ability produces Creeping Torment and requires it to exist. Diana Cursebreaker needs 4+ Curses already in the lineage, making the overall build-up critical. Code Creeping Torment first.*
+
+| Card | ID | Note |
+|------|----|------|
+| Diana, Keen Huntress | `e3z4pyx8bd` | L1; Lineage Release — materialize a Gun from material deck |
+| Diana, Deadly Duelist | `7ozuj68m69` | L2; On Enter: materialize a Bullet; Inherited: Ranged 2 |
+| Diana, Duskstalker | `iq4d5vettc` | L3; On Enter: becomes distant; On Champion Hit: **Generate** Creeping Torment to lineage |
+| Diana, Cursebreaker | `o0qtb31x97` | L3 alt; banish 4+ Curses → materialize 2 Bullets + gains "On Attack: wake up Diana" |
+| Creeping Torment | `zrplywc08c` | Phantasia Curse; On Enter: goes to lineage; Inherited: whenever controller draws their 2nd card each turn, deal 2 unpreventable to champion |
+
+---
+
+### 2. Arisanna Champion Lineage
+*Full three-level lineage for the Astra Cleric Herb/Alchemist champion. Herbalist Prodigy and Master Alchemist both Gather on enter, establishing the herb-token engine. Lucent Arbiter introduces a Negate that checks the top card of deck vs. the activation's reserve cost — a timing-sensitive effect. Astral Zenith provides free Starcalling once per turn, which synergises with the Starcalling & Glimpse group.*
+
+| Card | ID | Note |
+|------|----|------|
+| Arisanna, Herbalist Prodigy | `b31x97n2jn` | L1; On Enter: Gather twice |
+| Arisanna, Master Alchemist | `ltv5klryvf` | L2; On Enter: Gather twice; Inherited: beginning of end phase may sacrifice 2 same-name Herbs → draw |
+| Arisanna, Lucent Arbiter | `7e22tk3ir1` | L3; (3) REST: reveal top card, negate an activation whose reserve cost matches |
+| Arisanna, Astral Zenith | `q3huqj5bba` | L3 alt; once per turn may pay (0) rather than any Starcalling cost |
+
+---
+
+### 3. Gun & Bullet Package
+*The Gun/Bullet ecosystem relies on the shared loading/unloading mechanic where Bullets are loaded into unloaded Gun weapons and enter the attacker's intent on attack. Most Bullets REST to load, some have Floating Memory, several have On Hit or On Champion Hit triggers. The support actions (Force Load, Rapid Reload, Refresh Chamber) all interact with the material deck or durability counters. Implement the loading infrastructure and bullet resolution before individual bullet triggers.*
+
+*Note: Load Soul and Gloamspire Lance also carry the Curse-in-lineage theme (see Curse Lineage Package below). Bombard Flarecannon is in the Polkhawk group.*
+
+| Card | ID | Note |
+|------|----|------|
+| Seeker's Rifle | `3gygojwk0p` | Regalia Gun; Class Bonus: True Sight, Spellshroud; On Kill: pay (2) → materialize Bullet |
+| Gloamspire Lance | `8vn1voy5tt` | Regalia Gun; Class Bonus On Hit: deal X unpreventable + recover X (X = Curses in lineage + 1) |
+| Vanishing Shot | `0iqmyn2rz3` | Bullet 2; REST: load into unloaded Gun; On Ally Hit: may return hit ally to memory |
+| Mindbreak Bullet | `9htu9agwj4` | Bullet 3; REST: load; Class Bonus On Champion Hit: look at memory, discard a card |
+| Freezing Round | `r7ch2bbmoq` | Bullet 2; REST: load; On Champion Hit: banish random card from memory, return at their next end phase; Class Bonus: Floating Memory |
+| Anathema's End | `ii17fzcyfr` | Bullet 1; REST: load; Class Bonus On Champion Hit: banish all Curses in champion's lineage, deal 2 per Curse |
+| Turbulent Bullet | `f8urrqtjot` | Renewable Regalia Bullet 1; REST: load; Class Bonus On Hit: up to 2 allies get +1 power |
+| Cascading Round | `ywc08c9htu` | Renewable Regalia Bullet 2; REST: load; On Hit: mill top card |
+| Force Load | `y6isxy5lh2` | Choose fire or norm 0-cost Bullet from material deck, load directly into a Gun |
+| Rapid Reload | `ypwc8tuhuy` | Materialize a Bullet; Class Bonus: Efficiency (costs LV less) |
+| Refresh Chamber | `7nk45swaf8` | Materialize a Bullet; optionally banish Floating Memory card → put this card into memory |
+| Deploy Gunshield | `bjvwbcizm6` | Target Gun gains Spellshroud; Floating Memory |
+| Load Soul | `8tuhuy4xip` | Materialize Bullet + put 2 durability counters on a Gun; puts itself on bottom of lineage as Curse; Inherited: -2 Life |
+| Supply Drone | `ljyevpmu6g` | Ally Automaton; Class Bonus: at beginning of recollection phase materialize a 0-cost Bullet |
+
+---
+
+### 5. Curse Lineage Package
+*These Umbra/Ranger cards all interact with the "Curses in champion's lineage" mechanic — either adding themselves to the lineage as Curse cards (each carrying a punishing Inherited Effect of -2 Life), counting existing Curses, or removing them. Note that Load Soul and Gloamspire Lance (in the Gun group), Anathema's End (in the Bullet group), and Creeping Torment (in the Diana lineage) also belong to this ecosystem; implement those first.*
+
+| Card | ID | Note |
+|------|----|------|
+| Shadecursed Hunter | `oqk2c7wklz` | Ally; Ranged 5, Stealth; On Death: add itself to bottom of champion's lineage; Inherited: -2 Life |
+| Violet Haze | `vdxi74wa4x` | Action Curse Spell; all your units become distant; puts itself on target champion's lineage; Inherited: -2 Life |
+| Demon's Aim | `6g7xgwve1d` | Action Curse Spell; puts itself on bottom of lineage; champion's attacks this turn gain True Sight, ignore Taunt, and can't be redirected by Intercept; Inherited: -2 Life |
+| Umbra Sight | `f15joh300z` | Action Curse Spell; draw a card; option to also draw into memory and put itself on lineage, dealing 2 unpreventable per existing Curse in lineage |
+| Exorcise Curses | `u1xhs5jwsl` | Action; choose up to 2 Curse cards from a champion's lineage and discard them; Floating Memory |
+
+---
+
+### 6. Distant & Ranged Ally Package
+*The core Ranger aggro units that revolve around the Distant keyword and Ranged bonus (unit gains +N power while distant). Many grant or check the Distant state on enter/attack. Freydis is the late-game payoff for accumulating tactic counters: after 3 she makes all Ranger units permanently distant. Code the Distant state infrastructure (which is already partly in place for existing implementations) before the conditional passives like Dahlia's dynamic Ranged X.*
+
+| Card | ID | Note |
+|------|----|------|
+| Battlefield Spotter | `44vm5kt3q2` | Ally; Class Bonus On Enter: another ally becomes distant; [Level 2+] other units get Ranged 1 |
+| Winbless Arbalest | `m4o98vn1vo` | Ally; Ranged 2; Class Bonus: Vigor |
+| Airship Cruiser | `609g44vm5k` | Ally; Ranged 2; Class Bonus: Floating Memory |
+| Airship Engineer | `66pv4n1n3g` | Ally; Class Bonus: Ranged 2; On Enter: if you control a distant unit → draw into memory |
+| Airship Cannoneer | `d53zc9p4lp` | Ally; Class Bonus: Ranged 4; On Attack: banish 3 fire cards from GY → becomes distant |
+| Lone Gunslinger | `eanl1gxrpx` | Ally; Ranged 1; Class Bonus: Floating Memory |
+| Trained Sharpshooter | `uhjxhkurfp` | Ally; Class Bonus: Ranged 2 |
+| Automaton Bomber | `ygojwk0pw0` | Ally Automaton; Ranged 4; Class Bonus: Floating Memory |
+| Fiery Duelist | `wc8tuhuy4x` | Ally; Class Bonus: Ranged 2; On Enter: may discard a fire card → draw + becomes distant |
+| Krustallan Archer | `3p6i0iqmyn` | Ally; Class Bonus: Ranged 3; On Attack: banish Floating Memory card from GY → draw + becomes distant |
+| Gloamspire Wraith | `xrpx8jypwc` | Ally; Class Bonus: Ranged 2; while distant has "On Hit: Recover X where X = damage dealt" |
+| Relentless Hexchaser | `por7ch2bbm` | Ally; Ranged 2; On Enter: if you control a distant unit, becomes distant; Element Bonus: (2) return from GY to field rested |
+| Dahlia, Idyllic Dreamer | `7xgwve1d47` | Unique Ally Automaton; Class Bonus On Attack: look at top card, if water → put in GY; Ranged X where X = water cards in GY |
+| Perse, Relentless Raptor | `nl1gxrpx8j` | Unique Ally; Ranged 2; REST: Suppress target ally/item/weapon (only if this unit is distant) |
+| Lena, Dorumegia's Herald | `gwve1d47o7` | Unique Ally; Class Bonus: True Sight; (4) REST: look at top 4, reveal a Ranger ally to hand (costs (2) less while distant) |
+| Freydis, Master Tactician | `7dedg616r0` | Unique Ally; Class Bonus: beginning of recollection, put a tactic counter on self + Glimpse X (X = tactic counters); Remove 3 tactic counters: for the rest of the game, Ranger units always stay distant |
+
+---
+
+### 7. Distant Reaction & Support Actions
+*These actions create or leverage the Distant state, several as Reactions. They share the theme of repositioning units defensively or offensively. Reposition is the simplest. Tactical Retreat ends the combat phase if the targeted unit is defending — a complex timing interaction. Reconnaissance Field is a Phantasia that persists and grants True Sight.*
+
+| Card | ID | Note |
+|------|----|------|
+| Reposition | `vfq3huqj5b` | Target unit becomes distant; Class Bonus: Floating Memory |
+| Take Aim | `vnta6qsesw` | Target unit's next attack +2 power; Class Bonus: that unit also gets Ranged 2 |
+| Take Cover | `2ugmnmp5af` | Target unit gains Stealth + becomes distant; Class Bonus: costs 1 less |
+| Calculated Foresight | `sl7dedg616` | Mill top 2; optionally banish Floating Memory card from GY → champion gains Ranged 3 |
+| False Step | `47o7eanl1g` | Reaction; prevent 2 damage to champion, champion becomes distant; optionally pay (2) → allies also become distant |
+| Rocket Jump | `rhlq2kkvoq` | Reaction; target unit becomes distant; if that unit is defending, deal 4 damage to its attacker; Class Bonus: costs 2 less |
+| Tactical Retreat | `sn0ye3aebj` | Reaction; target unit becomes distant; if that unit is defending, end the combat phase; Class Bonus: Floating Memory |
+| Veiled Dash | `08kuz07nk4` | Reaction; up to 2 units become distant; reveal any amount of wind cards from memory → prevent X damage to each target (X = wind cards revealed); Class Bonus: costs 2 less |
+| Reconnaissance Field | `2rz308kuz0` | Phantasia; On Enter: look at opponent's hand and memory; Class Bonus REST: target unit gains Ranged 1 + True Sight |
+
+---
+
+### 8. Foster Package
+*The Foster mechanic (ally hasn't been dealt damage since end of previous turn → becomes "fostered") is the Guardian aggro/value mechanic. Seasoned Shieldmaster is the payoff card that draws on every Foster trigger. Organize the Alliance manually fosters an ally. All five cards are tightly connected by this shared mechanic.*
+
+| Card | ID | Note |
+|------|----|------|
+| Young Peacekeeper | `z4pyx8bd7o` | Ally; Foster; gets +1/+1 while fostered; Class Bonus: Floating Memory |
+| Forgelight Shieldmaiden | `kuz07nk45s` | Ally; Foster; On Foster: draw 2, discard 1; Class Bonus: if a fire card was discarded → +buff counter |
+| Awakened Frostguard | `mnu1xhs5jw` | Ally Automaton; Class Bonus: Foster; On Foster: banish up to 2 Floating Memory cards → buff counter + draw per card; Vigor while fostered |
+| Seasoned Shieldmaster | `qsm4o98vn1` | Ally; whenever ally becomes fostered → draw into memory; Class Bonus: fostered allies get +1/+1 |
+| Organize the Alliance | `ch2bbmoqk2` | Action; target ally becomes fostered; Class Bonus: Floating Memory |
+
+---
+
+### 9. Starcalling & Glimpse Package
+*The Astra Cleric Glimpse/Starcalling engine. These cards modify or unlock free Starcalling activations while glimpsing. The Elysian Astrolabe is the keystone — it grants free Starcalling for anything glimpsed that turn and has special materialize restrictions. Arisanna, Astral Zenith (in the Arisanna group) is the champion-level payoff.*
+
+| Card | ID | Note |
+|------|----|------|
+| Astra Sight | `zuj68m69iq` | Starcalling (0); Glimpse 1, then draw a card |
+| Cometfall | `4d5vettczb` | Starcalling (2); deal 3 (4 with Class Bonus) damage to all non-astra units |
+| Scry the Stars | `oz23yfzk96` | Until end of turn, glimpsed cards have Starcalling (X) where X = their reserve cost; Glimpse 3; Class Bonus: may banish Scry the Skies from GY as an alternate cost |
+| Celestial Calling | `izm6h38lrj` | Reveal top of deck until finding an astra Spell; banish it; at the beginning of your next recollection phase you may activate it for free; Class Bonus: costs 2 less |
+| The Elysian Astrolabe | `4nmxqsm4o9` | Regalia Artifact; Hindered; materialize only if it's the last card in a 12-card material deck; REST: until end of turn pay (0) rather than Starcalling costs; when you do, Glimpse 5 |
+
+---
+
+### 10. Nico + Magebane Lash
+*Magebane Lash has an explicit Nico Bonus and shares the "lash counter" currency with Nico. Code them together.*
+
+| Card | ID | Note |
+|------|----|------|
+| Nico, Whiplash Allure | `5bbae3z4py` | L2 Champion; whenever a Floating Memory card is banished from your GY → put a lash counter on Nico; On Champion Hit: opponent mills X where X = lash counters on Nico |
+| Magebane Lash | `oh300z2sns` | Regalia Lash weapon; power = number of lash counters on champion; Class Bonus On Enter: add a lash counter to champion; Nico Bonus: whenever champion takes non-combat damage → Recover 2 |
+
+---
+
+### 11. Polkhawk + Bombard Flarecannon
+*Bombard Flarecannon has an explicit Polkhawk Bonus.*
+
+| Card | ID | Note |
+|------|----|------|
+| Polkhawk, Bombastic Shot | `ryvfq3huqj` | L2 Champion; Ranged 2; Ranger Reaction cards cost 1 less |
+| Bombard Flarecannon | `oqk1l75tlz` | Regalia Gun; power 1; Polkhawk Bonus On Attack: if there's a fire card in the attacker's intent, deal 2 to all defending units |
+
+---
+
+### 12. Vanitas Convergent Ruin + Dominating Strike
+*Dominating Strike has an explicit Vanitas Bonus alternative cost.*
+
+| Card | ID | Note |
+|------|----|------|
+| Vanitas, Convergent Ruin | `8m69iq4d5v` | L2 Champion; whenever you activate a Spell → next weaponless attack this turn gets +1 power; On Champion Hit: if 7+ damage dealt → opponent's materializes cost 1 more until your next turn |
+| Dominating Strike | `svd53zc9p4` | Attack 4 Fist; weapons can't be used for this attack; Vanitas Bonus: may reveal 3 wind cards from memory as alt cost |
+
+---
+
+### 13. Carter & Claude — Automaton Synergy
+*Carter triggers a bonus specifically when sacrificing an Automaton ally. Claude returns Automaton allies from the graveyard to memory. Both are Unique allies built around Automaton synergy, making them natural companions.*
+
+| Card | ID | Note |
+|------|----|------|
+| Carter, Synthetic Reaper | `1wl8ao8bls` | Unique Ally; Class Bonus: Cleave; whenever an ally dies → Recover 1; On Enter: may sacrifice another ally → +2 power; if that ally was Automaton → also draw |
+| Claude, Fated Visionary | `52215upufy` | Unique Ally; On Enter: mill top LV cards, return up to 2 Automaton ally cards from GY to memory; Automaton allies you control have Taunt + "On Death: Glimpse 3" |
+
+---
+
+### 14. Negate Package
+*Flash Freeze and Tether in Flames are both Reaction Negate cards with different payment conditions. The Constellatory Spire triggers whenever you negate, rewarding the archetype with chip damage. All three should be wired up together once the Negate activation logic and its trigger window are confirmed.*
+
+| Card | ID | Note |
+|------|----|------|
+| Flash Freeze | `w3rrii17fz` | Reaction; Negate target activation unless its controller pays (LV); that card is then banished; Class Bonus: costs 2 less |
+| Tether in Flames | `215upufyoz` | Reaction; Negate target activation unless its controller has this deal 1+LV unpreventable damage to their champion; Class Bonus: costs 2 less |
+| The Constellatory Spire | `yd609g44vm` | Domain Spire; On Enter: draw; whenever you negate an activation → may rest this to deal 2 to target unit; Class Bonus: costs 2 less |
+
+---
+
+---
+
+## Isolated Cards
+
+Cards with no strong mechanical dependency on other unimplemented cards. Bucketed by implementation effort.
+
+---
+
+### Easy
+
+Straightforward static passives, simple single-trigger On Enter/On Hit effects, no multi-step decisions.
+
+| Card | ID | Effect Summary |
+|------|----|----------------|
+| Veteran Blazebearer | `23yfzk96yd` | Ally; On Enter: gains Taunt until beginning of your next turn; Class Bonus: Steadfast |
+| Vaporjet Shieldbearer | `8lrj52215u` | Ally Automaton; Steadfast; Class Bonus On Hit: look at top card, may put in GY |
+| Fatal Timepiece | `6gvnta6qse` | Regalia Artifact; at beginning of each player's recollection phase, if they did not materialize this turn → deal 2 unpreventable to their champion |
+| Umbral Tithe | `2snsdwmxz1` | Action Spell; each player draws 2 into memory; then deal 4 to each champion whose controller has 6+ cards in memory; costs 1 less per Curse in any lineage |
+
+---
+
+### Medium
+
+Multiple triggers, conditional passives, multi-step On Enter choices, delayed effects, or moderate zone-state checks.
+
+| Card | ID | Effect Summary |
+|------|----|----------------|
+| Rose, Eternal Paragon | `2bbmoqk2c7` | Unique Ally Automaton; Intercept, True Sight; Class Bonus: Fast Activation; [Level 2+] On Enter: may redirect an ongoing attack to Rose, she gets +1 Life if so |
+| Provoke Obstinance | `16r0zadf9q` | Reaction Spell; up to 5 targets gain Spellshroud; prevent 2 damage to each that are units; Class Bonus: if exactly 1 target → draw into memory |
+| Cyclonic Strike | `3ir1o0qtb3` | Attack 4 Sword; Class Bonus (0) in-intent ability: Suppress target opponent ally, CARDNAME gets -2 power; activate only once; only while in intent |
+| Fireblooded Oath | `bmoqk2c7wk` | Action Spell; additional cost: banish 3 fire cards from GY; level up your champion; at the beginning of the next end phase → delevel; Class Bonus: costs 2 less |
+| Tonoris, Creation's Will | `n2jnltv5kl` | L3 Champion; if you would summon tokens, may summon that many Aurousteel Greatsword tokens instead; token weapons gain "Sacrifice this: target weapon gets +X power where X = this object's power" |
+
+---
+
+### Hard
+
+Complex replacement effects, permanent global state modifications, copy mechanics, during-payment triggers, or unusual timing windows requiring significant engine work.
+
+| Card | ID | Effect Summary |
+|------|----|----------------|
+| Clockwork Amalgam | `3zc9p4lpnv` | Phantasia; enters as a copy of any ally or weapon on field, but adds a bounce ability: "at beginning of your recollection phase, may return this to hand" |
+| Astarte, Celestial Dawn | `f0ht2tsn0y` | Unique Ally; Class Bonus: Fast Activation; replacement effect: if any object would enter the field under an opponent's control from anywhere except the effects stack, banish it face down instead |
+| Dusklight Communion | `5upufyoz23` | Unique Phantasia; additional cost: banish an astra or umbra card from your material deck; if astra → destroy target phantasia; if umbra → this card gains "Champions get -1 level" as a global passive effect |
+| Temporal Spectrometer | `h23qu7d6so` | Regalia Artifact (Divine Relic); REST: add a time counter; while paying a memory cost, may sacrifice this to pay for X of that cost (X = time counters); requires during-payment interaction |
+
+---
+
+## Summary
+
+| Category | Count |
+|---|---|
+| Mechanically Related Groups (14 groups) | 94 cards |
+| Isolated — Easy | 4 cards |
+| Isolated — Medium | 5 cards |
+| Isolated — Hard | 4 cards |
+| **Total Unimplemented** | **107 cards** |
+
+### Recommended Implementation Order
+
+1. **Gun & Bullet Package** — foundational loading/unloading infrastructure; many cards depend on it
+2. **Diana Lineage** — requires Creeping Torment first, then each level
+3. **Brew/Herb/Potion Package** — large group but mostly self-contained Brew/Gather tokens
+4. **Arisanna Lineage** — pairs naturally with the Herb package
+5. **Foster Package** — small, self-contained
+6. **Distant & Ranged Allies + Distant Reaction Actions** — shares Distant state infrastructure
+7. **Curse Lineage Package** — depends on lineage Curse counting (partially enabled by Diana + Gun implementations)
+8. **Starcalling & Glimpse Package** — Astra Cleric engine
+9. **Smaller champion pairs** (Nico, Polkhawk, Vanitas, Carter/Claude)
+10. **Negate Package**
+11. **Isolated Easy → Medium → Hard**
