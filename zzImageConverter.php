@@ -1,23 +1,14 @@
 <?php
 include_once './AccountFiles/AccountSessionAPI.php';
 
-// Returns true for loopback and RFC 1918 private addresses (covers Docker bridge networks).
-function IsPrivateOrLocalAddress(string $ip): bool {
-    if ($ip === '127.0.0.1' || $ip === '::1') return true;
-    if (str_starts_with($ip, '10.')) return true;
-    if (str_starts_with($ip, '192.168.')) return true;
-    if (preg_match('/^172\.(1[6-9]|2\d|3[01])\./', $ip)) return true;
-    return false;
-}
-
-// Skip auth check for CLI invocations (e.g., code generator running from MCP server)
+// Skip auth check for CLI invocations (e.g., code generator running from MCP server).
+// HTTP requests always require a valid mod session.
 $isHTTPRequest = php_sapi_name() !== 'cli' && !empty($_SERVER['REQUEST_METHOD']);
 
 $response = new stdClass();
 if ($isHTTPRequest) {
     $error = CheckLoggedInUserMod();
-    $isLocalhost = IsPrivateOrLocalAddress($_SERVER['REMOTE_ADDR'] ?? '');
-    if ($error !== "" && !$isLocalhost) {
+    if ($error !== "") {
         $response->error = $error;
         echo json_encode($response);
         exit();
