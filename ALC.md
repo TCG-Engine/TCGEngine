@@ -1,29 +1,5 @@
 # ALC — Unimplemented Cards Analysis
 
-### 1. Diana Champion Lineage
-*These five cards form a tightly coupled system built around the Umbra Curse-in-lineage archetype. Diana Duskstalker's `Generate` ability produces Creeping Torment and requires it to exist. Diana Cursebreaker needs 4+ Curses already in the lineage, making the overall build-up critical. Code Creeping Torment first.*
-
-| Card | ID | Note |
-|------|----|------|
-| Diana, Keen Huntress | `e3z4pyx8bd` | L1; Lineage Release — materialize a Gun from material deck |
-| Diana, Deadly Duelist | `7ozuj68m69` | L2; On Enter: materialize a Bullet; Inherited: Ranged 2 |
-| Diana, Duskstalker | `iq4d5vettc` | L3; On Enter: becomes distant; On Champion Hit: **Generate** Creeping Torment to lineage |
-| Diana, Cursebreaker | `o0qtb31x97` | L3 alt; banish 4+ Curses → materialize 2 Bullets + gains "On Attack: wake up Diana" |
-| Creeping Torment | `zrplywc08c` | Phantasia Curse; On Enter: goes to lineage; Inherited: whenever controller draws their 2nd card each turn, deal 2 unpreventable to champion |
-
----
-
-### 5. Curse Lineage Package
-*These Umbra/Ranger cards all interact with the "Curses in champion's lineage" mechanic — either adding themselves to the lineage as Curse cards (each carrying a punishing Inherited Effect of -2 Life), counting existing Curses, or removing them. Note that Load Soul and Gloamspire Lance (in the Gun group), Anathema's End (in the Bullet group), and Creeping Torment (in the Diana lineage) also belong to this ecosystem; implement those first.*
-
-| Card | ID | Note |
-|------|----|------|
-| Shadecursed Hunter | `oqk2c7wklz` | Ally; Ranged 5, Stealth; On Death: add itself to bottom of champion's lineage; Inherited: -2 Life |
-| Violet Haze | `vdxi74wa4x` | Action Curse Spell; all your units become distant; puts itself on target champion's lineage; Inherited: -2 Life |
-| Demon's Aim | `6g7xgwve1d` | Action Curse Spell; puts itself on bottom of lineage; champion's attacks this turn gain True Sight, ignore Taunt, and can't be redirected by Intercept; Inherited: -2 Life |
-| Umbra Sight | `f15joh300z` | Action Curse Spell; draw a card; option to also draw into memory and put itself on lineage, dealing 2 unpreventable per existing Curse in lineage |
-| Exorcise Curses | `u1xhs5jwsl` | Action; choose up to 2 Curse cards from a champion's lineage and discard them; Floating Memory |
-
 ---
 
 ### 12. Vanitas Convergent Ruin + Dominating Strike

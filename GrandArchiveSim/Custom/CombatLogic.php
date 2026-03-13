@@ -183,6 +183,10 @@ function GetValidAttackTargets($attackerMZ) {
     if($attacker !== null && $attacker->CardID === "uCIEMgGjWe" && IsClassBonusActive($player, CardClasses("uCIEMgGjWe"))) {
         $bypassIntercept = true;
     }
+    // Demon's Aim (6g7xgwve1d): champion ignores intercept and taunt this turn
+    if(!$bypassIntercept && $attacker !== null && in_array("6g7xgwve1d", $attacker->TurnEffects)) {
+        $bypassIntercept = true;
+    }
     // Strike from the Mist (DHn9J7gX6g): CB if prepared, can't be intercepted
     if(!$bypassIntercept) {
         $intentCards = GetIntentCards($player);
@@ -548,6 +552,11 @@ function OnAttackTrigger($player, $mzID) {
     if($obj !== null && in_array("vnta6qsesw", $obj->TurnEffects)) {
         AddTurnEffect($mzID, "vnta6qsesw_POWER");
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["vnta6qsesw"]));
+    }
+
+    // Diana, Cursebreaker (o0qtb31x97): "On Attack: Wake up Diana" granted turn effect
+    if($obj !== null && in_array("CURSEBREAKER_ON_ATTACK", $obj->TurnEffects)) {
+        WakeupCard($player, $mzID);
     }
 }
 

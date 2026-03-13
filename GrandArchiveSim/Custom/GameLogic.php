@@ -43,6 +43,23 @@ $lineageReleaseAbilities["zq9ox7u6wz"] = [ // Spirit of Serene Water
     'name' => 'LR: Recover 6',
     'effect' => function($player) { RecoverChampion($player, 6); }
 ];
+$lineageReleaseAbilities["e3z4pyx8bd"] = [ // Diana, Keen Huntress
+    'name' => 'LR: Materialize Gun',
+    'effect' => function($player) {
+        // Materialize a Gun card from material deck (you still pay its costs)
+        $materialZone = GetZone("myMaterial");
+        $gunMZs = [];
+        for($i = 0; $i < count($materialZone); ++$i) {
+            $obj = $materialZone[$i];
+            if(!$obj->removed && PropertyContains(CardSubtypes($obj->CardID), "GUN")) {
+                $gunMZs[] = "myMaterial-" . $i;
+            }
+        }
+        if(empty($gunMZs)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $gunMZs), 1, "Materialize_a_Gun");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+    }
+];
 
 //TODO: Add this to a schema
 function ActionMap($actionCard)
@@ -1085,6 +1102,30 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             if($selectedAbilityIndex == $dynIndex) {
                 RemoveCounters($player, $mzCard, "tactic", 3);
                 AddGlobalEffects($player, "FREYDIS_PERMANENT_DISTANT");
+                $handledDynamic = true;
+            }
+            $dynIndex++;
+        }
+        // Diana, Cursebreaker (o0qtb31x97): Banish all curses from lineage, materialize 2 Bullets,
+        // grant "On Attack: Wake up Diana" until end of turn
+        if(!$handledDynamic && $cardID === "o0qtb31x97" && CountCursesInLineage($player) >= 4) {
+            if($selectedAbilityIndex == $dynIndex) {
+                // Cost: Banish all Curse cards from Diana's lineage
+                if(is_array($sourceObject->Subcards)) {
+                    $remaining = [];
+                    foreach($sourceObject->Subcards as $scID) {
+                        if(PropertyContains(CardSubtypes($scID), "CURSE")) {
+                            MZAddZone($player, "myBanish", $scID);
+                        } else {
+                            $remaining[] = $scID;
+                        }
+                    }
+                    $sourceObject->Subcards = $remaining;
+                }
+                // Effect: Materialize two Bullet cards from material deck
+                CursebreakerMaterializeBullets($player, 2);
+                // Grant "On Attack: Wake up Diana" until end of turn
+                AddTurnEffect($mzCard, "CURSEBREAKER_ON_ATTACK");
                 $handledDynamic = true;
             }
             $dynIndex++;
@@ -2405,6 +2446,13 @@ function ObjectCurrentHP($obj) {
             if($lineageCardID === "8tuhuy4xip") { // Load Soul: -2 LIFE
                 $cardLife -= 2;
             }
+            // Curse cards with Inherited Effect: -2 LIFE
+            if($lineageCardID === "oqk2c7wklz" // Shadecursed Hunter
+            || $lineageCardID === "vdxi74wa4x" // Violet Haze
+            || $lineageCardID === "6g7xgwve1d" // Demon's Aim
+            ) {
+                $cardLife -= 2;
+            }
         }
     }
 
@@ -2518,6 +2566,17 @@ function DoDrawCard($player, $amount=1) {
         }
         $card = array_shift($zone);
         array_push($hand, $card);
+
+        // Track per-card draw count for this turn
+        $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+        $_ti["Draw"][$player] = ($_ti["Draw"][$player] ?? 0) + 1;
+        SetMacroTurnIndex(json_encode($_ti));
+
+        // Creeping Torment (zrplywc08c) Inherited Effect:
+        // "Whenever you draw your 2nd card each turn, deal 2 unpreventable to this champion."
+        if($_ti["Draw"][$player] == 2) {
+            CreepingTormentDrawTrigger($player);
+        }
     }
 }
 
@@ -5123,6 +5182,11 @@ function GetDynamicAbilities($obj) {
         $abilities[] = ["name" => "Permanent Distant", "index" => $nextIndex];
         $nextIndex++;
     }
+    // Diana, Cursebreaker (o0qtb31x97): Banish all curses from lineage if 4+ curses
+    if($obj->CardID === "o0qtb31x97" && $obj->Status == 2 && CountCursesInLineage($obj->Controller) >= 4) {
+        $abilities[] = ["name" => "Cursebreaker", "index" => $nextIndex];
+        $nextIndex++;
+    }
     if(empty($abilities)) return "";
     return json_encode($abilities);
 }
@@ -6396,6 +6460,26 @@ function GetUnloadedGuns($player) {
 }
 
 /**
+ * Diana, Cursebreaker: materialize N Bullet cards from material deck sequentially.
+ * Queues MZCHOOSE + MATERIALIZE for each bullet.
+ */
+function CursebreakerMaterializeBullets($player, $count) {
+    for($b = 0; $b < $count; ++$b) {
+        $materialZone = GetZone("myMaterial");
+        $bulletMZs = [];
+        for($i = 0; $i < count($materialZone); ++$i) {
+            $obj = $materialZone[$i];
+            if(!$obj->removed && PropertyContains(CardSubtypes($obj->CardID), "BULLET")) {
+                $bulletMZs[] = "myMaterial-" . $i;
+            }
+        }
+        if(empty($bulletMZs)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $bulletMZs), 1, "Materialize_Bullet_" . ($b + 1));
+        DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+    }
+}
+
+/**
  * Load a bullet into a gun weapon.
  * The bullet is removed from the field (its CardID is stored in the gun's Subcards).
  * The bullet card must be on the field and the gun must be unloaded.
@@ -6425,6 +6509,152 @@ function CountCursesInLineage($player) {
         }
     }
     return $count;
+}
+
+/**
+ * Creeping Torment (zrplywc08c) inherited trigger:
+ * "Whenever you draw your 2nd card each turn, deal 2 unpreventable damage to this champion."
+ * Called from DoDrawCard when the 2nd card is drawn.
+ */
+function CreepingTormentDrawTrigger($player) {
+    if(!ChampionHasInLineage($player, "zrplywc08c")) return;
+    $champions = ZoneSearch("myField", ["CHAMPION"]);
+    if(empty($champions)) return;
+    DealUnpreventableDamage($player, $champions[0], $champions[0], 2);
+}
+
+/**
+ * Get Curse card IDs from a champion's lineage along with their indices.
+ * @param int $player The player whose champion to check.
+ * @return array Array of ['cardID' => string, 'index' => int] for each curse subcard.
+ */
+function GetCursesInLineage($player) {
+    $field = &GetField($player);
+    foreach($field as $obj) {
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
+            if(!is_array($obj->Subcards)) return [];
+            $curses = [];
+            foreach($obj->Subcards as $idx => $cardID) {
+                if(PropertyContains(CardSubtypes($cardID), "CURSE")) {
+                    $curses[] = ['cardID' => $cardID, 'index' => $idx];
+                }
+            }
+            return $curses;
+        }
+    }
+    return [];
+}
+
+// --- Exorcise Curses (u1xhs5jwsl): choose up to 2 Curse cards from a champion's lineage ---
+
+/**
+ * Set up the Exorcise Curses flow: stage curses from the chosen champion's lineage
+ * into TempZone and queue MZMAYCHOOSE decisions.
+ * @param int    $player       The acting player.
+ * @param int    $targetPlayer The player whose champion's lineage to exorcise.
+ */
+function ExorciseCursesSetup($player, $targetPlayer) {
+    DecisionQueueController::StoreVariable("ExorciseTarget", $targetPlayer);
+    $curses = GetCursesInLineage($targetPlayer);
+    if(empty($curses)) return;
+    $tempZone = &GetTempZone($player);
+    // Clear TempZone first
+    while(count($tempZone) > 0) array_pop($tempZone);
+    foreach($curses as $curse) {
+        MZAddZone($player, "myTempZone", $curse['cardID']);
+    }
+    $tempMZs = [];
+    for($i = 0; $i < count($curses); ++$i) {
+        $tempMZs[] = "myTempZone-" . $i;
+    }
+    $options = implode("&", $tempMZs);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $options, 1, "Choose_Curse_to_discard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ExorciseCursesPick1", 1);
+}
+
+$customDQHandlers["ExorciseCursesPick1"] = function($player, $parts, $lastDecision) {
+    $targetPlayer = intval(DecisionQueueController::GetVariable("ExorciseTarget"));
+    if($lastDecision === "-" || $lastDecision === "") {
+        // Player declined — clean up TempZone
+        $tempZone = &GetTempZone($player);
+        while(count($tempZone) > 0) array_pop($tempZone);
+        return;
+    }
+    // Remove the chosen curse from lineage
+    $chosenObj = GetZoneObject($lastDecision);
+    $chosenCardID = $chosenObj->CardID;
+    RemoveFromChampionLineage($targetPlayer, $chosenCardID, "myGraveyard");
+    // Remove from TempZone
+    MZRemove($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    // Offer second pick if any curses remain in TempZone
+    $tempZone = &GetTempZone($player);
+    $remaining = [];
+    for($i = 0; $i < count($tempZone); ++$i) {
+        if(!$tempZone[$i]->removed) {
+            $remaining[] = "myTempZone-" . $i;
+        }
+    }
+    if(!empty($remaining)) {
+        $options = implode("&", $remaining);
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $options, 1, "Choose_another_Curse_to_discard");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ExorciseCursesPick2", 1);
+    } else {
+        while(count($tempZone) > 0) array_pop($tempZone);
+    }
+};
+
+$customDQHandlers["ExorciseCursesPick2"] = function($player, $parts, $lastDecision) {
+    $targetPlayer = intval(DecisionQueueController::GetVariable("ExorciseTarget"));
+    $tempZone = &GetTempZone($player);
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        $chosenObj = GetZoneObject($lastDecision);
+        $chosenCardID = $chosenObj->CardID;
+        RemoveFromChampionLineage($targetPlayer, $chosenCardID, "myGraveyard");
+    }
+    // Clean up TempZone
+    while(count($tempZone) > 0) array_pop($tempZone);
+};
+
+/**
+ * Add a card to the bottom of a player's champion lineage (Subcards array).
+ * Used by curse spells and abilities that say "put CARDNAME on the bottom
+ * of [target] champion's lineage."
+ * @param int    $player The player whose champion receives the card.
+ * @param string $cardID The card ID to add to the lineage.
+ */
+function AddToChampionLineage($player, $cardID) {
+    $field = &GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && PropertyContains(EffectiveCardType($field[$i]), "CHAMPION") && $field[$i]->Controller == $player) {
+            if(!is_array($field[$i]->Subcards)) $field[$i]->Subcards = [];
+            $field[$i]->Subcards[] = $cardID;
+            return;
+        }
+    }
+}
+
+/**
+ * Remove a card from a player's champion lineage and return it to a destination zone.
+ * Used by Exorcise Curses and similar effects that remove cards from lineage.
+ * @param int    $player    The player whose champion's lineage to modify.
+ * @param string $cardID    The card ID to remove.
+ * @param string $destZone  Destination zone (e.g. "myGraveyard").
+ * @return bool  True if the card was found and removed.
+ */
+function RemoveFromChampionLineage($player, $cardID, $destZone = "myGraveyard") {
+    $field = &GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && PropertyContains(EffectiveCardType($field[$i]), "CHAMPION") && $field[$i]->Controller == $player) {
+            if(!is_array($field[$i]->Subcards)) return false;
+            $idx = array_search($cardID, $field[$i]->Subcards);
+            if($idx === false) return false;
+            array_splice($field[$i]->Subcards, $idx, 1);
+            MZAddZone($player, $destZone, $cardID);
+            return true;
+        }
+    }
+    return false;
 }
 
 /**
