@@ -380,6 +380,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Umbral Tithe (2snsdwmxz1): costs 1 less for each Curse card in any champion's lineage
+    if($obj->CardID === "2snsdwmxz1") {
+        $opponent = ($player == 1) ? 2 : 1;
+        $curseCount = CountCursesInLineage($player) + CountCursesInLineage($opponent);
+        $reserveCost = max(0, $reserveCost - $curseCount);
+    }
+
     // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
     if($hasAllyLink) {
         $allyTargets = ZoneSearch("myField", ["ALLY"]);
@@ -1334,6 +1341,25 @@ function RecollectionPhase() {
     // Plea for Peace: clear attack tax at the beginning of the caster's next turn
     if(GlobalEffectCount($turnPlayer, "ir99sx6q3p") > 0) {
         RemoveGlobalEffect($turnPlayer, "ir99sx6q3p");
+    }
+
+    // Fatal Timepiece (6gvnta6qse): at the beginning of each player's recollection phase,
+    // if that player did not materialize a card this turn → deal 2 unpreventable to their champion.
+    $hasTimepiece = false;
+    foreach(array_merge(GetField(1), GetField(2)) as $tpObj) {
+        if(!$tpObj->removed && $tpObj->CardID === "6gvnta6qse" && !HasNoAbilities($tpObj)) {
+            $hasTimepiece = true;
+            break;
+        }
+    }
+    if($hasTimepiece && MaterializeCallCount($turnPlayer) === 0) {
+        $champField = &GetField($turnPlayer);
+        for($ci = 0; $ci < count($champField); ++$ci) {
+            if(!$champField[$ci]->removed && PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
+                $champField[$ci]->Damage += 2;
+                break;
+            }
+        }
     }
     
     // --- Foster Processing ---
