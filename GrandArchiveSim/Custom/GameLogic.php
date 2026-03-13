@@ -3109,6 +3109,10 @@ function CardCurrentEffects($obj) {
     global $doesGlobalEffectApply, $effectAppliesToBoth,$playerID;
     //Start with this object's effects
     $effects = $obj->TurnEffects;
+    //Filter out internal effects that shouldn't display in UI
+    $effects = array_filter($effects, function($effectID) {
+        return $effectID !== "DAMAGED_SINCE_LAST_TURN";
+    });
     //Now add global effects
     if($obj->Controller != -1) {
         $controllerEffects = $obj->Controller == $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
