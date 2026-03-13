@@ -50,8 +50,11 @@ include_once 'Header.php';
         <option value="Shardsworn">Shardsworn</option>
         <option value="Delguon">Delguon</option>
       </select>
-      <label for="deck-link" style="display: none;">Deck Link:</label>
-      <input type="text" id="deck-link" name="deck_link" style="display: none;">
+      <div style="display: flex; align-items: center; margin: 12px 0; color: #888;">
+        <hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;"><span style="margin: 0 10px; font-size: 12px;">OR</span><hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;">
+      </div>
+      <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a TCGArchitect deck link:</label>
+      <input type="text" id="deck-link" name="deck_link" placeholder="https://app.tcgarchitect.com/deck/..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
       <!--
       <label for="game-name">Game Name:</label>
       <input type="text" id="game-name" name="game_name" required>
@@ -82,11 +85,11 @@ include_once 'Header.php';
 
       function joinQueue() {
         var preconstructedDeck = document.getElementById('preconstructed-deck').value;
-        if (!preconstructedDeck) {
-          alert('Please select a preconstructed deck.');
+        var deckLink = document.getElementById('deck-link').value.trim();
+        if (!deckLink && !preconstructedDeck) {
+          alert('Please select a preconstructed deck or enter a deck link.');
           return;
         }
-        var deckLink = document.getElementById('deck-link').value; // Keep for future
         var gameName = 'Quick Match'; // Default game name since input is commented out
         var gameType = 'casual'; // Default game type since select is commented out
 
