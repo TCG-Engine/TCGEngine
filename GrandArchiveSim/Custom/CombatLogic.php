@@ -536,6 +536,12 @@ function OnAttackTrigger($player, $mzID) {
         AddTurnEffect($mzID, "yevpmu6gvn_POWER");
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["yevpmu6gvn"]));
     }
+
+    // Take Aim (vnta6qsesw): next attack this turn gets +2 POWER — consume and apply
+    if($obj !== null && in_array("vnta6qsesw", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "vnta6qsesw_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["vnta6qsesw"]));
+    }
 }
 
 /**

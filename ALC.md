@@ -70,46 +70,6 @@ Cards in each group depend on or strongly reinforce each other and should be imp
 | Umbra Sight | `f15joh300z` | Action Curse Spell; draw a card; option to also draw into memory and put itself on lineage, dealing 2 unpreventable per existing Curse in lineage |
 | Exorcise Curses | `u1xhs5jwsl` | Action; choose up to 2 Curse cards from a champion's lineage and discard them; Floating Memory |
 
----
-
-### 6. Distant & Ranged Ally Package
-*The core Ranger aggro units that revolve around the Distant keyword and Ranged bonus (unit gains +N power while distant). Many grant or check the Distant state on enter/attack. Freydis is the late-game payoff for accumulating tactic counters: after 3 she makes all Ranger units permanently distant. Code the Distant state infrastructure (which is already partly in place for existing implementations) before the conditional passives like Dahlia's dynamic Ranged X.*
-
-| Card | ID | Note |
-|------|----|------|
-| Battlefield Spotter | `44vm5kt3q2` | Ally; Class Bonus On Enter: another ally becomes distant; [Level 2+] other units get Ranged 1 |
-| Winbless Arbalest | `m4o98vn1vo` | Ally; Ranged 2; Class Bonus: Vigor |
-| Airship Cruiser | `609g44vm5k` | Ally; Ranged 2; Class Bonus: Floating Memory |
-| Airship Engineer | `66pv4n1n3g` | Ally; Class Bonus: Ranged 2; On Enter: if you control a distant unit → draw into memory |
-| Airship Cannoneer | `d53zc9p4lp` | Ally; Class Bonus: Ranged 4; On Attack: banish 3 fire cards from GY → becomes distant |
-| Lone Gunslinger | `eanl1gxrpx` | Ally; Ranged 1; Class Bonus: Floating Memory |
-| Trained Sharpshooter | `uhjxhkurfp` | Ally; Class Bonus: Ranged 2 |
-| Automaton Bomber | `ygojwk0pw0` | Ally Automaton; Ranged 4; Class Bonus: Floating Memory |
-| Fiery Duelist | `wc8tuhuy4x` | Ally; Class Bonus: Ranged 2; On Enter: may discard a fire card → draw + becomes distant |
-| Krustallan Archer | `3p6i0iqmyn` | Ally; Class Bonus: Ranged 3; On Attack: banish Floating Memory card from GY → draw + becomes distant |
-| Gloamspire Wraith | `xrpx8jypwc` | Ally; Class Bonus: Ranged 2; while distant has "On Hit: Recover X where X = damage dealt" |
-| Relentless Hexchaser | `por7ch2bbm` | Ally; Ranged 2; On Enter: if you control a distant unit, becomes distant; Element Bonus: (2) return from GY to field rested |
-| Dahlia, Idyllic Dreamer | `7xgwve1d47` | Unique Ally Automaton; Class Bonus On Attack: look at top card, if water → put in GY; Ranged X where X = water cards in GY |
-| Perse, Relentless Raptor | `nl1gxrpx8j` | Unique Ally; Ranged 2; REST: Suppress target ally/item/weapon (only if this unit is distant) |
-| Lena, Dorumegia's Herald | `gwve1d47o7` | Unique Ally; Class Bonus: True Sight; (4) REST: look at top 4, reveal a Ranger ally to hand (costs (2) less while distant) |
-| Freydis, Master Tactician | `7dedg616r0` | Unique Ally; Class Bonus: beginning of recollection, put a tactic counter on self + Glimpse X (X = tactic counters); Remove 3 tactic counters: for the rest of the game, Ranger units always stay distant |
-
----
-
-### 7. Distant Reaction & Support Actions
-*These actions create or leverage the Distant state, several as Reactions. They share the theme of repositioning units defensively or offensively. Reposition is the simplest. Tactical Retreat ends the combat phase if the targeted unit is defending — a complex timing interaction. Reconnaissance Field is a Phantasia that persists and grants True Sight.*
-
-| Card | ID | Note |
-|------|----|------|
-| Reposition | `vfq3huqj5b` | Target unit becomes distant; Class Bonus: Floating Memory |
-| Take Aim | `vnta6qsesw` | Target unit's next attack +2 power; Class Bonus: that unit also gets Ranged 2 |
-| Take Cover | `2ugmnmp5af` | Target unit gains Stealth + becomes distant; Class Bonus: costs 1 less |
-| Calculated Foresight | `sl7dedg616` | Mill top 2; optionally banish Floating Memory card from GY → champion gains Ranged 3 |
-| False Step | `47o7eanl1g` | Reaction; prevent 2 damage to champion, champion becomes distant; optionally pay (2) → allies also become distant |
-| Rocket Jump | `rhlq2kkvoq` | Reaction; target unit becomes distant; if that unit is defending, deal 4 damage to its attacker; Class Bonus: costs 2 less |
-| Tactical Retreat | `sn0ye3aebj` | Reaction; target unit becomes distant; if that unit is defending, end the combat phase; Class Bonus: Floating Memory |
-| Veiled Dash | `08kuz07nk4` | Reaction; up to 2 units become distant; reveal any amount of wind cards from memory → prevent X damage to each target (X = wind cards revealed); Class Bonus: costs 2 less |
-| Reconnaissance Field | `2rz308kuz0` | Phantasia; On Enter: look at opponent's hand and memory; Class Bonus REST: target unit gains Ranged 1 + True Sight |
 
 ---
 

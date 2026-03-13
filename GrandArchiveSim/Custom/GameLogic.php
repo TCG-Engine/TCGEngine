@@ -963,13 +963,18 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         if($sourceObject->Status != 2) return;
         if(empty(ZoneSearch("myDeck"))) return;
     }
+    // Reconnaissance Field (2rz308kuz0): must be awake + CB required
+    if($cardID === "2rz308kuz0") {
+        if($sourceObject->Status != 2) return;
+        if(!IsClassBonusActive($player, ["RANGER"])) return;
+    }
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
     // Exhaust the unit as the REST cost — only for static abilities, not dynamic ones (which have their own costs)
     $cardType = CardType($cardID);
     $staticAbilityCount = CardActivateAbilityCount($cardID);
-    if($selectedAbilityIndex < $staticAbilityCount && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION"))) {
+    if($selectedAbilityIndex < $staticAbilityCount && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;
     }
 
@@ -1832,6 +1837,9 @@ function ObjectCurrentPower($obj) {
             case "yevpmu6gvn_POWER": // Tonoris, Might of Humanity: +3 POWER on next attack
                 $power += 3;
                 break;
+            case "vnta6qsesw_POWER": // Take Aim: +2 POWER on next attack
+                $power += 2;
+                break;
             case "ATTUNE_FLAMES_BUFF": // Attune with Flames: +5 POWER until end of next turn
                 $power += 5;
                 break;
@@ -2364,6 +2372,63 @@ $customDQHandlers["SpellshieldWindBuff"] = function($player, $param, $lastResult
         AddCounters($player, $lastResult, "buff", 1);
     }
 };
+
+// False Step (47o7eanl1g): after paying (2), all allies become distant
+$customDQHandlers["FalseStepDistantAllies"] = function($player, $param, $lastResult) {
+    $allies = ZoneSearch("myField", ["ALLY"]);
+    foreach($allies as $allyMZ) {
+        BecomeDistant($player, $allyMZ);
+    }
+};
+
+// Veiled Dash (08kuz07nk4): choose optional second target, then reveal wind+prevent
+$customDQHandlers["VeiledDashContinue"] = function($player, $param, $lastResult) {
+    $target1 = DecisionQueueController::GetVariable("target1");
+    if($target1 === null || $target1 === "-") return;
+    BecomeDistant($player, $target1);
+    // Check for second target (optional)
+    $units = array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    $units = FilterSpellshroudTargets($units);
+    $remaining = array_values(array_diff($units, [$target1]));
+    if(!empty($remaining)) {
+        $remainStr = implode("&", $remaining);
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", "$remainStr", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "VeiledDashFinish", 1);
+    } else {
+        // No second target possible — just do wind reveal for target1
+        VeiledDashApplyPrevention($player, $target1, null);
+    }
+};
+
+$customDQHandlers["VeiledDashFinish"] = function($player, $param, $lastResult) {
+    $target1 = DecisionQueueController::GetVariable("target1");
+    $target2 = ($lastResult !== "-" && $lastResult !== null) ? $lastResult : null;
+    if($target2 !== null) {
+        BecomeDistant($player, $target2);
+    }
+    VeiledDashApplyPrevention($player, $target1, $target2);
+};
+
+function VeiledDashApplyPrevention($player, $target1, $target2) {
+    $windCards = ZoneSearch("myMemory", cardElements: ["WIND"]);
+    $windCount = count($windCards);
+    if($windCount <= 0) return;
+    $revealIDs = [];
+    foreach($windCards as $wMZ) {
+        $wObj = GetZoneObject($wMZ);
+        if($wObj !== null) $revealIDs[] = $wObj->CardID;
+    }
+    if(!empty($revealIDs)) {
+        SetFlashMessage('REVEAL:' . implode('|', $revealIDs));
+    }
+    AddTurnEffect($target1, "PREVENT_ALL_" . $windCount);
+    if($target2 !== null) {
+        AddTurnEffect($target2, "PREVENT_ALL_" . $windCount);
+    }
+}
 
 $customDQHandlers["CardPlayed"] = function($player, $param, $lastResult) {
     global $playCardAbilities;
@@ -3248,6 +3313,44 @@ function IsUnitAttacking($mzTarget) {
 }
 
 /**
+ * Check if a unit (given by mzID from current player perspective) is the
+ * current combat target (defender).
+ */
+function IsUnitDefending($mzTarget) {
+    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($combatTarget === null || $combatTarget === "" || $combatTarget === "-") return false;
+
+    global $playerID;
+    $turnPlayer = GetTurnPlayer();
+
+    // CombatTarget was stored from the turn player's (attacker's) perspective.
+    // If current player is NOT the turn player, flip to match perspective.
+    $normalizedTarget = $combatTarget;
+    if($playerID != $turnPlayer) {
+        $normalizedTarget = FlipZonePerspective($combatTarget);
+    }
+
+    return $mzTarget === $normalizedTarget;
+}
+
+/**
+ * Get the combat attacker's mzID from the current player's perspective.
+ * Returns null if no combat is active.
+ */
+function GetCombatAttackerMZ() {
+    $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+    if($combatAttacker === null || $combatAttacker === "" || $combatAttacker === "-") return null;
+
+    global $playerID;
+    $turnPlayer = GetTurnPlayer();
+
+    if($playerID != $turnPlayer) {
+        return FlipZonePerspective($combatAttacker);
+    }
+    return $combatAttacker;
+}
+
+/**
  * End the current combat: clear intent cards and combat tracking variables.
  * Any remaining combat decisions (damage, retaliation) that are still queued
  * will be skipped by their handlers because CombatAttacker is cleared.
@@ -3839,6 +3942,7 @@ function HasStealth($obj) {
 function HasTrueSight($obj) {
     if(HasNoAbilities($obj)) return false;
     if(HasKeyword_TrueSight($obj)) return true;
+    if(in_array("TRUE_SIGHT", $obj->TurnEffects)) return true;
     if(ObjectHasEffect($obj, "iiZtKTulPg")) return true; // Eye of Argus
     if(ObjectHasEffect($obj, "F1t18omUlx_SIGHT")) return true; // Beastbond Paws
     if(ObjectHasEffect($obj, "i1f0ht2tsn_SIGHT")) return true; // Strategic Warfare
