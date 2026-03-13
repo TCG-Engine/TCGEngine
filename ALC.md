@@ -1,15 +1,5 @@
 # ALC — Unimplemented Cards Analysis
 
-**107 unimplemented cards** across the full ALC set. This document groups mechanically related clusters first, then lists isolated cards bucketed by implementation difficulty.
-
----
-
-## Mechanically Related Groups
-
-Cards in each group depend on or strongly reinforce each other and should be implemented as a unit.
-
----
-
 ### 1. Diana Champion Lineage
 *These five cards form a tightly coupled system built around the Umbra Curse-in-lineage archetype. Diana Duskstalker's `Generate` ability produces Creeping Torment and requires it to exist. Diana Cursebreaker needs 4+ Curses already in the lineage, making the overall build-up critical. Code Creeping Torment first.*
 
@@ -33,20 +23,6 @@ Cards in each group depend on or strongly reinforce each other and should be imp
 | Demon's Aim | `6g7xgwve1d` | Action Curse Spell; puts itself on bottom of lineage; champion's attacks this turn gain True Sight, ignore Taunt, and can't be redirected by Intercept; Inherited: -2 Life |
 | Umbra Sight | `f15joh300z` | Action Curse Spell; draw a card; option to also draw into memory and put itself on lineage, dealing 2 unpreventable per existing Curse in lineage |
 | Exorcise Curses | `u1xhs5jwsl` | Action; choose up to 2 Curse cards from a champion's lineage and discard them; Floating Memory |
-
-
----
-
-### 8. Foster Package
-*The Foster mechanic (ally hasn't been dealt damage since end of previous turn → becomes "fostered") is the Guardian aggro/value mechanic. Seasoned Shieldmaster is the payoff card that draws on every Foster trigger. Organize the Alliance manually fosters an ally. All five cards are tightly connected by this shared mechanic.*
-
-| Card | ID | Note |
-|------|----|------|
-| Young Peacekeeper | `z4pyx8bd7o` | Ally; Foster; gets +1/+1 while fostered; Class Bonus: Floating Memory |
-| Forgelight Shieldmaiden | `kuz07nk45s` | Ally; Foster; On Foster: draw 2, discard 1; Class Bonus: if a fire card was discarded → +buff counter |
-| Awakened Frostguard | `mnu1xhs5jw` | Ally Automaton; Class Bonus: Foster; On Foster: banish up to 2 Floating Memory cards → buff counter + draw per card; Vigor while fostered |
-| Seasoned Shieldmaster | `qsm4o98vn1` | Ally; whenever ally becomes fostered → draw into memory; Class Bonus: fostered allies get +1/+1 |
-| Organize the Alliance | `ch2bbmoqk2` | Action; target ally becomes fostered; Class Bonus: Floating Memory |
 
 ---
 
@@ -148,27 +124,3 @@ Complex replacement effects, permanent global state modifications, copy mechanic
 | Temporal Spectrometer | `h23qu7d6so` | Regalia Artifact (Divine Relic); REST: add a time counter; while paying a memory cost, may sacrifice this to pay for X of that cost (X = time counters); requires during-payment interaction |
 
 ---
-
-## Summary
-
-| Category | Count |
-|---|---|
-| Mechanically Related Groups (14 groups) | 94 cards |
-| Isolated — Easy | 4 cards |
-| Isolated — Medium | 5 cards |
-| Isolated — Hard | 4 cards |
-| **Total Unimplemented** | **107 cards** |
-
-### Recommended Implementation Order
-
-1. **Gun & Bullet Package** — foundational loading/unloading infrastructure; many cards depend on it
-2. **Diana Lineage** — requires Creeping Torment first, then each level
-3. **Brew/Herb/Potion Package** — large group but mostly self-contained Brew/Gather tokens
-4. **Arisanna Lineage** — pairs naturally with the Herb package
-5. **Foster Package** — small, self-contained
-6. **Distant & Ranged Allies + Distant Reaction Actions** — shares Distant state infrastructure
-7. **Curse Lineage Package** — depends on lineage Curse counting (partially enabled by Diana + Gun implementations)
-8. **Starcalling & Glimpse Package** — Astra Cleric engine
-9. **Smaller champion pairs** (Nico, Polkhawk, Vanitas, Carter/Claude)
-10. **Negate Package**
-11. **Isolated Easy → Medium → Hard**

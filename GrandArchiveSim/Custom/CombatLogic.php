@@ -1448,6 +1448,12 @@ function OnDealDamage($player, $source, $target, $amount) {
     }
     $targetObj->Damage += $amount;
 
+    // Foster tracking: mark that this unit received damage and remove fostered state
+    if(!in_array("DAMAGED_SINCE_LAST_TURN", $targetObj->TurnEffects)) {
+        $targetObj->TurnEffects[] = "DAMAGED_SINCE_LAST_TURN";
+    }
+    $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "FOSTERED"));
+
     // Trigger per-card DealDamage abilities on the target card
     global $dealDamageAbilities;
     if(isset($dealDamageAbilities) && isset($dealDamageAbilities[$targetObj->CardID . ":0"])) {
@@ -1481,6 +1487,12 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         $amount += 1;
     }
     $targetObj->Damage += $amount;
+
+    // Foster tracking: mark that this unit received damage and remove fostered state
+    if(!in_array("DAMAGED_SINCE_LAST_TURN", $targetObj->TurnEffects)) {
+        $targetObj->TurnEffects[] = "DAMAGED_SINCE_LAST_TURN";
+    }
+    $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "FOSTERED"));
 
     // Trigger per-card DealDamage abilities on the target card
     global $dealDamageAbilities;

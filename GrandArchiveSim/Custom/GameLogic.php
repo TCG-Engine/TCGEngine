@@ -1301,6 +1301,48 @@ function RecollectionPhase() {
         RemoveGlobalEffect($turnPlayer, "ir99sx6q3p");
     }
     
+    // --- Foster Processing ---
+    // "At the beginning of your recollection phase, if this ally hasn't been dealt damage
+    // since the end of your previous turn, it becomes fostered."
+    $field = &GetField($turnPlayer);
+    $newlyFostered = [];
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        if(!HasFoster($field[$i])) continue;
+        $hasDamage = in_array("DAMAGED_SINCE_LAST_TURN", $field[$i]->TurnEffects);
+        if(!$hasDamage) {
+            $wasFostered = IsFostered($field[$i]);
+            BecomeFostered($turnPlayer, "myField-" . $i);
+            if(!$wasFostered) {
+                $newlyFostered[] = $i;
+            }
+        } else {
+            // Ally was damaged — remove fostered state if present
+            $field[$i]->TurnEffects = array_values(array_filter($field[$i]->TurnEffects, fn($e) => $e !== "FOSTERED"));
+        }
+    }
+    // Clear DAMAGED_SINCE_LAST_TURN from all field cards (reset for next cycle)
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed) {
+            $field[$i]->TurnEffects = array_values(array_filter($field[$i]->TurnEffects, fn($e) => $e !== "DAMAGED_SINCE_LAST_TURN"));
+        }
+    }
+    // Seasoned Shieldmaster (qsm4o98vn1): whenever an ally becomes fostered → draw into memory
+    if(!empty($newlyFostered)) {
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && $field[$i]->CardID === "qsm4o98vn1" && !HasNoAbilities($field[$i])) {
+                DrawIntoMemory($turnPlayer, count($newlyFostered));
+                break;
+            }
+        }
+    }
+    // Fire OnFoster triggered abilities for newly fostered allies
+    foreach($newlyFostered as $fieldIdx) {
+        if(!$field[$fieldIdx]->removed) {
+            OnFoster($turnPlayer, "myField-" . $fieldIdx);
+        }
+    }
+
     // Trigger recollection phase abilities for cards on the field
     $field = &GetField($turnPlayer);
     for($i = 0; $i < count($field); ++$i) {
@@ -1798,6 +1840,9 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
             }
             break;
+        case "z4pyx8bd7o": // Young Peacekeeper: +1 POWER while fostered
+            if(IsFostered($obj)) $power += 1;
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -1821,6 +1866,18 @@ function ObjectCurrentPower($obj) {
             foreach($field as $fieldObj) {
                 if(!$fieldObj->removed && $fieldObj->CardID === "p4lpnvx7mn") {
                     $power += 1;
+                    break;
+                }
+            }
+        }
+        // Seasoned Shieldmaster (qsm4o98vn1): [Class Bonus] fostered allies get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && IsFostered($obj)) {
+            $appliedShieldmaster = false;
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "qsm4o98vn1" && !HasNoAbilities($fieldObj)
+                    && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                    $power += 1;
+                    $appliedShieldmaster = true;
                     break;
                 }
             }
@@ -2216,6 +2273,9 @@ function ObjectCurrentHP($obj) {
                 $cardLife += $tokenCount;
             }
             break;
+        case "z4pyx8bd7o": // Young Peacekeeper: +1 LIFE while fostered
+            if(IsFostered($obj)) $cardLife += 1;
+            break;
         default: break;
     }
     // Exalted Dorumegian Throne (p4lpnvx7mn): allies get +1 LIFE
@@ -2227,6 +2287,16 @@ function ObjectCurrentHP($obj) {
             if(!$fieldObj->removed && $fieldObj->CardID === "p4lpnvx7mn") {
                 $cardLife += 1;
                 break;
+            }
+        }
+        // Seasoned Shieldmaster (qsm4o98vn1): [Class Bonus] fostered allies get +1 LIFE
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && IsFostered($obj)) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "qsm4o98vn1" && !HasNoAbilities($fieldObj)
+                    && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                    $cardLife += 1;
+                    break;
+                }
             }
         }
     }
@@ -2593,6 +2663,66 @@ function VeiledDashApplyPrevention($player, $target1, $target2) {
         AddTurnEffect($target2, "PREVENT_ALL_" . $windCount);
     }
 }
+
+// --- Foster: Awakened Frostguard (mnu1xhs5jw) On Foster helper ---
+// "On Foster: You may banish up to two cards with floating memory from your graveyard.
+//  For each card banished this way, put a buff counter on CARDNAME and draw a card."
+function FrostguardOnFoster($player, $mzID) {
+    $floatingCards = [];
+    $graveyard = ZoneSearch("myGraveyard");
+    foreach($graveyard as $gMZ) {
+        $gObj = GetZoneObject($gMZ);
+        if($gObj !== null && HasFloatingMemory($gObj)) $floatingCards[] = $gMZ;
+    }
+    if(empty($floatingCards)) return;
+    $cardStr = implode("&", $floatingCards);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $cardStr, 1, tooltip:"Banish_a_floating_memory_card_from_graveyard?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FrostguardBanish|$mzID|1", 1);
+}
+
+$customDQHandlers["FrostguardBanish"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0];
+    $step = intval($parts[1]);
+    if($lastDecision === null || $lastDecision === "-" || $lastDecision === "") {
+        return; // Player declined
+    }
+    // Banish the chosen card
+    MZMove($player, $lastDecision, "myBanish");
+    AddCounters($player, $mzID, "buff", 1);
+    Draw($player, 1);
+    if($step >= 2) return; // Already did 2
+    // Offer second banish
+    $floatingCards = [];
+    $graveyard = ZoneSearch("myGraveyard");
+    foreach($graveyard as $gMZ) {
+        $gObj = GetZoneObject($gMZ);
+        if($gObj !== null && HasFloatingMemory($gObj)) $floatingCards[] = $gMZ;
+    }
+    if(empty($floatingCards)) return;
+    $cardStr = implode("&", $floatingCards);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $cardStr, 1, tooltip:"Banish_another_floating_memory_card?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FrostguardBanish|$mzID|2", 1);
+};
+
+// --- Foster: Organize the Alliance (ch2bbmoqk2) ---
+// "Target ally becomes fostered."
+$customDQHandlers["OrganizeAllianceFoster"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === null || $lastDecision === "-" || $lastDecision === "") return;
+    BecomeFostered($player, $lastDecision);
+    // Seasoned Shieldmaster (qsm4o98vn1): whenever ally becomes fostered → draw into memory
+    $field = &GetField($player);
+    foreach($field as $fieldObj) {
+        if(!$fieldObj->removed && $fieldObj->CardID === "qsm4o98vn1" && !HasNoAbilities($fieldObj)) {
+            DrawIntoMemory($player, 1);
+            break;
+        }
+    }
+    // Fire OnFoster triggered ability on the target if it has one
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj !== null && HasFoster($targetObj) && !HasNoAbilities($targetObj)) {
+        OnFoster($player, $lastDecision);
+    }
+};
 
 $customDQHandlers["CardPlayed"] = function($player, $param, $lastResult) {
     global $playCardAbilities;
@@ -3120,29 +3250,6 @@ function DiscardCards($player, $amount=1) {
 function ExpireEffects($isEndTurn=true) {
     $turnPlayer = &GetTurnPlayer();
     global $untilBeginTurnEffects, $foreverEffects;
-    /*
-    $zones = ["BG1", "BG2", "BG3", "BG4", "BG5", "BG6", "BG7", "BG8", "BG9"];
-    foreach($zones as $zoneName) {
-        $zoneArr = &GetZone($zoneName);
-        foreach($zoneArr as $index => $obj) {
-            if($obj->Controller != $turnPlayer) continue;
-            $newEffects = [];
-            foreach($obj->TurnEffects as $effect) {
-                if($isEndTurn && isset($untilBeginTurnEffects[$effect])) { //Effects that last until end of turn
-                    array_push($newEffects, $effect);
-                }
-                //It expired, apply any expiration effects
-                switch($effect) {
-                    case "DNBTLTMS"://Ultimate Sacrifice
-                        SacrificeFighter($turnPlayer, $zoneName . "-" . $index);
-                        break;
-                    default: break;
-                }
-            }
-            $obj->TurnEffects = $newEffects;
-        }
-    }
-        */
     //Global effects
     if($isEndTurn) {
         $globalEffects = &GetZone("myGlobalEffects");
@@ -3217,6 +3324,8 @@ $persistentTurnEffects["BLAZING_CHARGE_NEXT_TURN"] = true;
 $persistentTurnEffects["TAUNT_NEXT_TURN"] = true;
 $persistentTurnEffects["VIGOR_NEXT_TURN"] = true;
 $persistentTurnEffects["FREEZING_ROUND_RETURN"] = true;
+$persistentTurnEffects["FOSTERED"] = true;
+$persistentTurnEffects["DAMAGED_SINCE_LAST_TURN"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -4218,6 +4327,8 @@ function HasVigor($obj) {
     foreach($linkedCards as $linkedObj) {
         if($linkedObj->CardID === "80mttsvbgl") return true;
     }
+    // Awakened Frostguard (mnu1xhs5jw): vigor while fostered
+    if($obj->CardID === "mnu1xhs5jw" && IsFostered($obj)) return true;
     return false;
 }
 
@@ -4382,6 +4493,70 @@ function HasTaunt($obj) {
         }
     }
     return false;
+}
+
+// =============================================================================
+// Foster Keyword
+// =============================================================================
+
+/**
+ * Check whether a field object has the Foster keyword.
+ * Foster: "At the beginning of your recollection phase, if this ally hasn't been
+ * dealt damage since the end of your previous turn, it becomes fostered."
+ */
+function HasFoster($obj) {
+    if(HasNoAbilities($obj)) return false;
+    // Unconditional Foster cards
+    static $fosterCards = [
+        "z4pyx8bd7o" => true, // Young Peacekeeper
+        "kuz07nk45s" => true, // Forgelight Shieldmaiden
+        "bqjdmthh88" => true, // Peacekeeper Sentinel
+        "22tk3ir1o0" => true, // Peacekeeper Sentinel (alt)
+        "lzsmw3rrii" => true, // Guardian Bulwark
+        "xhi5jnsl7d" => true, // Stalwart Protector
+    ];
+    if(isset($fosterCards[$obj->CardID])) return true;
+    // [Class Bonus] Foster cards
+    static $fosterCBCards = [
+        "mnu1xhs5jw" => ["GUARDIAN"], // Awakened Frostguard
+        "1x97n2jnlt" => ["GUARDIAN"], // Guardian Scout
+        "a3v1ybmvpb" => ["GUARDIAN"], // Sunglory Sentinel
+    ];
+    if(isset($fosterCBCards[$obj->CardID])) {
+        return IsClassBonusActive($obj->Controller, $fosterCBCards[$obj->CardID]);
+    }
+    return false;
+}
+
+/**
+ * Check whether a field object is currently in the fostered state.
+ */
+function IsFostered($obj) {
+    return in_array("FOSTERED", $obj->TurnEffects);
+}
+
+/**
+ * Make an ally become fostered by adding the FOSTERED TurnEffect.
+ * @param int    $player The controller.
+ * @param string $mzID   The mzID of the ally.
+ */
+function BecomeFostered($player, $mzID) {
+    AddTurnEffect($mzID, "FOSTERED");
+}
+
+/**
+ * Dispatch OnFoster triggered abilities for a card that just became fostered.
+ * Called by RecollectionPhase when a Foster ally transitions to fostered state.
+ */
+function OnFosterTrigger($player, $mzID) {
+    global $onFosterAbilities;
+    $obj = GetZoneObject($mzID);
+    if($obj === null) return;
+    $CardID = $obj->CardID;
+    if(HasNoAbilities($obj)) return;
+    if(isset($onFosterAbilities) && isset($onFosterAbilities[$CardID . ":0"])) {
+        $onFosterAbilities[$CardID . ":0"]($player);
+    }
 }
 
 /**
