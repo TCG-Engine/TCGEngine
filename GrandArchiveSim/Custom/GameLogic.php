@@ -1140,6 +1140,30 @@ function DoAllyDestroyed($player, $mzCard) {
             }
         }
     }
+    // Carter, Synthetic Reaper (1wl8ao8bls): whenever an ally dies, the champion recovers 1
+    {
+        global $playerID;
+        $controllerField = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($controllerField);
+        foreach($field as $carterObj) {
+            if(!$carterObj->removed && $carterObj->CardID === "1wl8ao8bls" && !HasNoAbilities($carterObj)) {
+                RecoverChampion($controller, 1);
+                break;
+            }
+        }
+    }
+    // Claude, Fated Visionary (52215upufy): Automaton allies you control have "On Death: Glimpse 3"
+    if(PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON") && !PropertyContains(EffectiveCardType($obj), "TOKEN") && !$suppressed) {
+        global $playerID;
+        $controllerField = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($controllerField);
+        foreach($field as $claudeObj) {
+            if(!$claudeObj->removed && $claudeObj->CardID === "52215upufy" && !HasNoAbilities($claudeObj)) {
+                Glimpse($controller, 3);
+                break;
+            }
+        }
+    }
 }
 
 function WakeUpPhase() {
@@ -2004,6 +2028,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "ATTUNE_FLAMES_BUFF": // Attune with Flames: +5 POWER until end of next turn
                 $power += 5;
+                break;
+            case "1wl8ao8bls": // Carter, Synthetic Reaper: sacrificed ally On Enter -> +2 POWER until end of turn
+                $power += 2;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -4507,6 +4534,17 @@ function HasTaunt($obj) {
             if($abObj !== null && $abObj->CardID !== "pwakb1k0zi") return true;
         }
     }
+    // Claude, Fated Visionary (52215upufy): Automaton allies you control have Taunt
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $claudeObj) {
+            if(!$claudeObj->removed && $claudeObj->CardID === "52215upufy" && !HasNoAbilities($claudeObj)) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -6157,6 +6195,23 @@ $customDQHandlers["SyntheticCoreChoice"] = function($player, $parts, $lastDecisi
             break;
         }
     }
+};
+
+// --- Claude, Fated Visionary (52215upufy): return up to N Automaton allies from GY to memory ---
+function ClaudeReturnAutomatonContinue($player, $remaining) {
+    if($remaining <= 0) return;
+    $gyAutomatons = ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
+    if(empty($gyAutomatons)) return;
+    $targetStr = implode("&", $gyAutomatons);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Return_Automaton_ally_from_graveyard_to_memory?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ClaudeReturnAutomaton|$remaining", 1);
+}
+
+$customDQHandlers["ClaudeReturnAutomaton"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myMemory");
+    ClaudeReturnAutomatonContinue($player, $remaining - 1);
 };
 
 // --- Winbless Gatekeeper (y5ttkk39i1): On Enter may pay (2) to buff Guardian ally ---

@@ -46,16 +46,6 @@
 
 ---
 
-### 13. Carter & Claude — Automaton Synergy
-*Carter triggers a bonus specifically when sacrificing an Automaton ally. Claude returns Automaton allies from the graveyard to memory. Both are Unique allies built around Automaton synergy, making them natural companions.*
-
-| Card | ID | Note |
-|------|----|------|
-| Carter, Synthetic Reaper | `1wl8ao8bls` | Unique Ally; Class Bonus: Cleave; whenever an ally dies → Recover 1; On Enter: may sacrifice another ally → +2 power; if that ally was Automaton → also draw |
-| Claude, Fated Visionary | `52215upufy` | Unique Ally; On Enter: mill top LV cards, return up to 2 Automaton ally cards from GY to memory; Automaton allies you control have Taunt + "On Death: Glimpse 3" |
-
----
-
 ### 14. Negate Package
 *Flash Freeze and Tether in Flames are both Reaction Negate cards with different payment conditions. The Constellatory Spire triggers whenever you negate, rewarding the archetype with chip damage. All three should be wired up together once the Negate activation logic and its trigger window are confirmed.*
 
