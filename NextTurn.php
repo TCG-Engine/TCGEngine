@@ -1,4 +1,5 @@
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <script src="./Core/UILibraries20260313.js"></script>
     <script src="./Core/CounterRendering.js"></script>
@@ -138,6 +139,16 @@
         .theirStuffWrapper {
           background-color: <?php echo $secondaryBg; ?>;
         }
+
+        /* ---- Mobile layout (≤1000px): deck editor panel reorganization ---- */
+        @media (max-width: 1000px) {
+          body, html { overflow-x: hidden; }
+          .stuffParent { overflow: hidden; }
+          /* Tighter radius on mobile for more screen real-estate */
+          .myStuff { border-radius: 4px !important; }
+          /* Header nav wraps gracefully on small screens */
+          .flex-item { flex-wrap: wrap; }
+        }
         </style>
 
     <?php
@@ -228,7 +239,7 @@
     </head>
 
     <script>
-      var cardSize = window.innerWidth / 16;
+      var cardSize = window.innerWidth <= 1000 ? 110 : window.innerWidth / 16;
       //Note: 96 = Card Size
 
     </script>
