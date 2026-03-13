@@ -36,16 +36,6 @@
 
 ---
 
-### 11. Polkhawk + Bombard Flarecannon
-*Bombard Flarecannon has an explicit Polkhawk Bonus.*
-
-| Card | ID | Note |
-|------|----|------|
-| Polkhawk, Bombastic Shot | `ryvfq3huqj` | L2 Champion; Ranged 2; Ranger Reaction cards cost 1 less |
-| Bombard Flarecannon | `oqk1l75tlz` | Regalia Gun; power 1; Polkhawk Bonus On Attack: if there's a fire card in the attacker's intent, deal 2 to all defending units |
-
----
-
 ### 12. Vanitas Convergent Ruin + Dominating Strike
 *Dominating Strike has an explicit Vanitas Bonus alternative cost.*
 

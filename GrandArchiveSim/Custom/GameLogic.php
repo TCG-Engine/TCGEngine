@@ -369,6 +369,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Polkhawk, Bombastic Shot (ryvfq3huqj): Ranger Reaction cards cost 1 less
+    if(PropertyContains(CardSubtypes($obj->CardID), "REACTION") && PropertyContains(CardClasses($obj->CardID), "RANGER")) {
+        $myField = GetZone("myField");
+        foreach($myField as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "ryvfq3huqj" && !HasNoAbilities($fObj)) {
+                $reserveCost = max(0, $reserveCost - 1);
+                break;
+            }
+        }
+    }
+
     // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
     if($hasAllyLink) {
         $allyTargets = ZoneSearch("myField", ["ALLY"]);
