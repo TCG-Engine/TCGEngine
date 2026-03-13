@@ -1416,6 +1416,10 @@
             }
           }
         }
+        // Reorganize layout for mobile deck editor
+        if (window.innerWidth <= 1000 && typeof MobileDeckEditorLayout === 'function') {
+          MobileDeckEditorLayout();
+        }
       }
 
       function chkSubmit(mode, count) {
@@ -2163,5 +2167,85 @@ function UpdateTurnPlayerMiasma() {
   } catch (e) {
     if (console && console.error) console.error('UpdateTurnPlayerMiasma error', e);
   }
+}
+
+// ---- Mobile Deck Editor Layout ----
+// Reorganizes #myStuff into a vertical layout for screens ≤1000px:
+//   - Leader + Base side-by-side at the top (scrollable)
+//   - Deck count / Stats / Sort controls row
+//   - Main deck and Sideboard tiles
+//   - Card search/browse pane fixed at the bottom
+// Called automatically from AppendStaticZones on every render update.
+function MobileDeckEditorLayout() {
+  if (window.innerWidth > 1000) return;
+  var myStuff = document.getElementById('myStuff');
+  var cardPaneWrapper = document.getElementById('myCardPaneWrapper');
+  if (!myStuff || !cardPaneWrapper) return;
+
+  var leaderWrapper   = document.getElementById('myLeaderWrapper');
+  var baseWrapper     = document.getElementById('myBaseWrapper');
+  var mainDeckWrapper = document.getElementById('myMainDeckWrapper');
+  var sideboardWrapper= document.getElementById('mySideboardWrapper');
+  var deckWrapper     = document.getElementById('myDeckWrapper');
+  var statsWrapper    = document.getElementById('myStatsWrapper');
+  var sortWrapper     = document.getElementById('mySortWrapper');
+
+  // Scrollable top section
+  var topArea = document.createElement('div');
+  topArea.id = 'mobileTopArea';
+  topArea.style.cssText = 'flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;width:100%;box-sizing:border-box;';
+
+  // Leader + Base side-by-side row
+  var leaderBaseRow = document.createElement('div');
+  leaderBaseRow.style.cssText = 'display:flex;flex-direction:row;justify-content:center;align-items:flex-start;padding:8px 4px;gap:8px;flex-wrap:wrap;';
+  var relStyle = 'position:relative;left:0;top:0;bottom:auto;right:auto;width:auto;';
+  if (leaderWrapper)  { leaderWrapper.style.cssText  = relStyle; leaderBaseRow.appendChild(leaderWrapper); }
+  if (baseWrapper)    { baseWrapper.style.cssText    = relStyle; leaderBaseRow.appendChild(baseWrapper); }
+  topArea.appendChild(leaderBaseRow);
+
+  // Controls row: deck count + stats + sort
+  var controlsRow = document.createElement('div');
+  controlsRow.style.cssText = 'display:flex;flex-direction:row;flex-wrap:wrap;align-items:flex-start;padding:2px 8px 4px;gap:4px;';
+  if (deckWrapper)  { deckWrapper.style.cssText  = relStyle; controlsRow.appendChild(deckWrapper); }
+  if (statsWrapper) { statsWrapper.style.cssText = relStyle; controlsRow.appendChild(statsWrapper); }
+  if (sortWrapper)  { sortWrapper.style.cssText  = relStyle; controlsRow.appendChild(sortWrapper); }
+  topArea.appendChild(controlsRow);
+
+  // Main deck + Sideboard (full width) with sticky section title headers
+  var wideStyle = 'position:relative;left:0;top:0;bottom:auto;right:auto;width:100%;box-sizing:border-box;';
+  var sectionTitleStyle = 'position:sticky;top:0;z-index:10;background:#1a1a2e;color:#ccc;font-size:0.75rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:3px 8px;border-bottom:1px solid #444;box-sizing:border-box;';
+  if (mainDeckWrapper) {
+    var mainDeckTitle = document.createElement('div');
+    mainDeckTitle.id = 'mobileMainDeckTitle';
+    mainDeckTitle.textContent = 'Main Deck';
+    mainDeckTitle.style.cssText = sectionTitleStyle;
+    topArea.appendChild(mainDeckTitle);
+    mainDeckWrapper.style.cssText = wideStyle;
+    topArea.appendChild(mainDeckWrapper);
+  }
+  if (sideboardWrapper) {
+    var sideboardTitle = document.createElement('div');
+    sideboardTitle.id = 'mobileSideboardTitle';
+    sideboardTitle.textContent = 'Sideboard';
+    sideboardTitle.style.cssText = sectionTitleStyle;
+    topArea.appendChild(sideboardTitle);
+    sideboardWrapper.style.cssText = wideStyle;
+    topArea.appendChild(sideboardWrapper);
+  }
+
+  // Card pane: fixed height at bottom
+  cardPaneWrapper.style.cssText = 'position:relative;left:0;top:0;bottom:0;right:0;width:100%;height:50vh;min-height:250px;flex-shrink:0;border-top:2px solid #444;box-sizing:border-box;overflow-y:auto;';
+
+  // Detach card pane from myStuff (all other wrappers already moved to topArea)
+  if (cardPaneWrapper.parentNode === myStuff) myStuff.removeChild(cardPaneWrapper);
+
+  // Clear any stragglers and apply flex column layout
+  myStuff.innerHTML = '';
+  myStuff.style.display        = 'flex';
+  myStuff.style.flexDirection  = 'column';
+  myStuff.style.overflow       = 'hidden';
+
+  myStuff.appendChild(topArea);
+  myStuff.appendChild(cardPaneWrapper);
 }
 
