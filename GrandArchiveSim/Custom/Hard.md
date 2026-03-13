@@ -143,6 +143,8 @@ Cards blocked:
   - Note: Domain upkeep (materialize-sacrifice) IS implemented. Only the negate activation part remains blocked.
 - Tether in Flames (215upufyoz) — Negate unless controller takes 1+LV unpreventable damage.
   - Note: [Class Bonus] costs 2 less IS registered in ClassBonusActivateCostReduction.
+- Arisanna, Lucent Arbiter (7e22tk3ir1) — (3) REST: reveal top card, negate target activation if reserve cost matches.
+  - The activation shell (REST cost, 3 reserve) could be wired; but the actual negate has no effect until the engine exists.
 
 ---
 

@@ -1529,6 +1529,16 @@ function EndPhase() {
         }
     }
 
+    // Master Alchemist (ltv5klryvf): Inherited Effect —
+    // At the beginning of your end phase, you may sacrifice two Herbs with the same name to draw a card.
+    if(ChampionHasInLineage($turnPlayer, "ltv5klryvf")) {
+        $validHerbs = MasterAlchemistGetDuplicateHerbs();
+        if(!empty($validHerbs)) {
+            DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Sacrifice_two_same-name_Herbs_to_draw?_(Inherited:_Arisanna,_Master_Alchemist)");
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MasterAlchemistEndPhaseYesNo", 1);
+        }
+    }
+
     $field = &GetField($turnPlayer);
     for($i=count($field)-1; $i>=0; --$i) {
         if(HasVigor($field[$i])) {

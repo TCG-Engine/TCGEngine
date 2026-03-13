@@ -23,18 +23,6 @@ Cards in each group depend on or strongly reinforce each other and should be imp
 
 ---
 
-### 2. Arisanna Champion Lineage
-*Full three-level lineage for the Astra Cleric Herb/Alchemist champion. Herbalist Prodigy and Master Alchemist both Gather on enter, establishing the herb-token engine. Lucent Arbiter introduces a Negate that checks the top card of deck vs. the activation's reserve cost — a timing-sensitive effect. Astral Zenith provides free Starcalling once per turn, which synergises with the Starcalling & Glimpse group.*
-
-| Card | ID | Note |
-|------|----|------|
-| Arisanna, Herbalist Prodigy | `b31x97n2jn` | L1; On Enter: Gather twice |
-| Arisanna, Master Alchemist | `ltv5klryvf` | L2; On Enter: Gather twice; Inherited: beginning of end phase may sacrifice 2 same-name Herbs → draw |
-| Arisanna, Lucent Arbiter | `7e22tk3ir1` | L3; (3) REST: reveal top card, negate an activation whose reserve cost matches |
-| Arisanna, Astral Zenith | `q3huqj5bba` | L3 alt; once per turn may pay (0) rather than any Starcalling cost |
-
----
-
 ### 5. Curse Lineage Package
 *These Umbra/Ranger cards all interact with the "Curses in champion's lineage" mechanic — either adding themselves to the lineage as Curse cards (each carrying a punishing Inherited Effect of -2 Life), counting existing Curses, or removing them. Note that Load Soul and Gloamspire Lance (in the Gun group), Anathema's End (in the Bullet group), and Creeping Torment (in the Diana lineage) also belong to this ecosystem; implement those first.*
 
@@ -72,6 +60,7 @@ Cards in each group depend on or strongly reinforce each other and should be imp
 | Scry the Stars | `oz23yfzk96` | Until end of turn, glimpsed cards have Starcalling (X) where X = their reserve cost; Glimpse 3; Class Bonus: may banish Scry the Skies from GY as an alternate cost |
 | Celestial Calling | `izm6h38lrj` | Reveal top of deck until finding an astra Spell; banish it; at the beginning of your next recollection phase you may activate it for free; Class Bonus: costs 2 less |
 | The Elysian Astrolabe | `4nmxqsm4o9` | Regalia Artifact; Hindered; materialize only if it's the last card in a 12-card material deck; REST: until end of turn pay (0) rather than Starcalling costs; when you do, Glimpse 5 |
+- Arisanna, Astral Zenith (q3huqj5bba) — "Once per turn, pay (0) rather than any starcalling cost." (Passive that reduces starcalling cost; inert until starcalling activation exists.)
 
 ---
 
