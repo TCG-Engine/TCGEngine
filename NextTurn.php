@@ -1,6 +1,7 @@
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="./Core/UILibraries.js"></script>
+    <script src="./Core/UILibraries20260313.js"></script>
     <script src="./Core/CounterRendering.js"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
@@ -18,7 +19,7 @@
       .droppable {
           border: 3px dashed #ffff00 !important;
       }
-      
+
       <?php
 
         error_reporting(E_ALL);
@@ -53,7 +54,7 @@
           $textColor = "#ffffff";      // White text
         }
       ?>
-      
+
         .panelTab {
           transition: background-color 0.3s, transform 0.3s, color 0.3s;
           background-color: <?php echo $primaryBg; ?>;
@@ -138,6 +139,16 @@
         .theirStuffWrapper {
           background-color: <?php echo $secondaryBg; ?>;
         }
+
+        /* ---- Mobile layout (≤1000px): deck editor panel reorganization ---- */
+        @media (max-width: 1000px) {
+          body, html { overflow-x: hidden; }
+          .stuffParent { overflow: hidden; }
+          /* Tighter radius on mobile for more screen real-estate */
+          .myStuff { border-radius: 4px !important; }
+          /* Header nav wraps gracefully on small screens */
+          .flex-item { flex-wrap: wrap; }
+        }
         </style>
 
     <?php
@@ -208,7 +219,7 @@
       $generateFilename = substr($generateFilename, $lastSlashPos + 1);
     }
     echo '<script src="./' . $assetPath . '/GeneratedCode/' . $generateFilename . '"></script>';
-    
+
     // Include GeneratedMacroCount.js for ability count and names (if it exists)
     $macroCountFile = "./" . $assetPath . "/GeneratedCode/GeneratedMacroCount.js";
     if (file_exists($macroCountFile)) {
@@ -228,7 +239,7 @@
     </head>
 
     <script>
-      var cardSize = window.innerWidth / 16;
+      var cardSize = window.innerWidth <= 1000 ? 110 : window.innerWidth / 16;
       //Note: 96 = Card Size
 
     </script>
@@ -282,7 +293,7 @@
             height: 55%;
             z-index: 9999;
             pointer-events: none;
-            background: linear-gradient(180deg, 
+            background: linear-gradient(180deg,
               rgba(60, 70, 80, 0.98) 0%,
               rgba(80, 90, 100, 0.95) 30%,
               rgba(100, 110, 120, 0.9) 60%,
@@ -297,7 +308,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-image: 
+            background-image:
               radial-gradient(ellipse 80% 40% at 20% 60%, rgba(255,255,255,0.15) 0%, transparent 50%),
               radial-gradient(ellipse 60% 30% at 70% 40%, rgba(255,255,255,0.1) 0%, transparent 50%),
               radial-gradient(ellipse 90% 50% at 50% 80%, rgba(255,255,255,0.12) 0%, transparent 50%),
@@ -322,7 +333,7 @@
             var url = new URL(window.location);
             url.searchParams.delete("fromMatch");
             window.history.replaceState({}, document.title, url.toString());
-            
+
             // Remove cloud overlays after animation completes
             setTimeout(function() {
               var clouds = document.querySelectorAll(".cloud-overlay");
