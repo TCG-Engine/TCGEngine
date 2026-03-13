@@ -6,6 +6,7 @@ $customDQHandlers = [];
 include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
 include_once __DIR__ . '/MaterializeLogic.php';
+include_once __DIR__ . '/PotionLogic.php';
 
 // --- Additional Activation Costs Registry ---
 // Cards that offer an optional extra reserve cost at activation time (Grand Archive rule 1.3).
@@ -22,23 +23,6 @@ $additionalActivationCosts["P9Y1Q5cQ0F"] = [
     'prompt'       => 'Pay_2_additional_reserve_to_banish_and_recover_crux?',
     'extraReserve' => 2,
 ];
-
-// --- Brew Costs Registry ---
-// Maps potion cardID => array of ingredient slots.
-// Each slot: ["type"=>"CARD","cardID"=>"..."] for a specific herb,
-//            ["type"=>"SUBTYPE","subtype"=>"..."] for a subtype-filtered herb,
-//            ["type"=>"HERB"] for any herb.
-// "count" defaults to 1 when omitted.
-$brewCosts = [];
-$brewCosts["bae3z4pyx8"] = [["type"=>"HERB","count"=>3]]; // Serum of Wisdom: 3 Herbs
-$brewCosts["qtb31x97n2"] = [["type"=>"HERB","count"=>2]]; // Potion of Healing: 2 Herbs
-$brewCosts["g616r0zadf"] = [["type"=>"CARD","cardID"=>"jnltv5klry"], ["type"=>"HERB"]]; // Bottled Forgelight: Razorvine + Herb
-$brewCosts["h38lrj5221"] = [["type"=>"CARD","cardID"=>"i0a5uhjxhk"], ["type"=>"HERB"]]; // Distilled Atrophy: Blightroot + Herb
-$brewCosts["tjot4nmxqs"] = [["type"=>"HERB","count"=>2]]; // Wildgrowth Elixir: 2 Herbs
-$brewCosts["l8ao8bls6g"] = [["type"=>"CARD","cardID"=>"soporhlq2k"]]; // Convalescent Tonic: Fraysia
-$brewCosts["lpnvx7mnu1"] = [["type"=>"CARD","cardID"=>"69iq4d5vet"], ["type"=>"HERB","count"=>2]]; // Draught of Stamina: Springleaf + 2 Herbs
-$brewCosts["9g44vm5kt3"] = [["type"=>"CARD","cardID"=>"5joh300z2s"], ["type"=>"HERB"]]; // Empowering Tincture: Manaroot + Herb
-$brewCosts["14m4c8ljye"] = [["type"=>"CARD","cardID"=>"bd7ozuj68m"], ["type"=>"SUBTYPE","subtype"=>"ADJUVANT","count"=>2], ["type"=>"SUBTYPE","subtype"=>"CATALYST","count"=>2]]; // Condensed Supernova: Silvershine + 2 Adjuvants + 2 Catalysts
 
 // --- Lineage Release Abilities Registry ---
 // Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
@@ -963,6 +947,22 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "wuir99sx6q" && empty(ZoneSearch("myGraveyard"))) return;
     // Fractal of Creation (x7mnu1xhs5): needs tokens on field
     if($cardID === "x7mnu1xhs5" && empty(ZoneSearch("myField", ["TOKEN"]))) return;
+    // Perse, Relentless Raptor (nl1gxrpx8j): must be awake, must be distant, needs valid target
+    if($cardID === "nl1gxrpx8j") {
+        if($sourceObject->Status != 2) return;
+        if(!IsDistant($sourceObject)) return;
+        $targets = array_merge(
+            ZoneSearch("theirField", ["ALLY"]),
+            ZoneSearch("theirField", ["REGALIA"], cardSubtypes: ["ITEM"]),
+            ZoneSearch("theirField", ["REGALIA"], cardSubtypes: ["WEAPON"])
+        );
+        if(empty($targets)) return;
+    }
+    // Lena, Dorumegia's Herald (gwve1d47o7): must be awake, needs deck cards
+    if($cardID === "gwve1d47o7") {
+        if($sourceObject->Status != 2) return;
+        if(empty(ZoneSearch("myDeck"))) return;
+    }
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -1009,6 +1009,15 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
                     $dynIndex++;
                 }
             }
+        }
+        // Freydis, Master Tactician: Remove 3 tactic counters → permanent distant
+        if(!$handledDynamic && $cardID === "7dedg616r0" && GetCounterCount($sourceObject, "tactic") >= 3) {
+            if($selectedAbilityIndex == $dynIndex) {
+                RemoveCounters($player, $mzCard, "tactic", 3);
+                AddGlobalEffects($player, "FREYDIS_PERMANENT_DISTANT");
+                $handledDynamic = true;
+            }
+            $dynIndex++;
         }
     }
     if(!$isDynamic) {
@@ -1303,6 +1312,15 @@ function RecollectionPhase() {
                 case "8bls6g7xgw": // Fertile Grounds: summon a token copy of an Herb you control
                     if(!HasNoAbilities($field[$i])) {
                         FertileGroundsRecollection($turnPlayer);
+                    }
+                    break;
+                case "7dedg616r0": // Freydis, Master Tactician: [CB] put a tactic counter + Glimpse X
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["RANGER"])) {
+                        AddCounters($turnPlayer, "myField-" . $i, "tactic", 1);
+                        $tacticCount = GetCounterCount($field[$i], "tactic");
+                        if($tacticCount > 0) {
+                            Glimpse($turnPlayer, $tacticCount);
+                        }
                     }
                     break;
                 default: break;
@@ -1897,6 +1915,11 @@ function ObjectCurrentPower($obj) {
         if(strpos($te, "tu9agwj4f1-") === 0) {
             $power += intval(substr($te, strlen("tu9agwj4f1-")));
         }
+    }
+    // Ranged N: while this unit is distant, its attacks get +N POWER
+    if(IsDistant($obj)) {
+        $rangedValue = GetRangedValue($obj);
+        if($rangedValue > 0) $power += $rangedValue;
     }
     return $power;
 }
@@ -2786,8 +2809,14 @@ $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 // Peaceful Reunion: never auto-expire (cleared manually at caster's RecollectionPhase)
 $foreverEffects["wr42i6eifn"] = true;
+// Freydis permanent distant: Ranger units are always distant for the rest of the game
+$foreverEffects["FREYDIS_PERMANENT_DISTANT"] = true;
 // Don't display this effect on field cards — it's a global attack-prevention flag
 $doesGlobalEffectApply["wr42i6eifn"] = function($obj) { return false; };
+// Freydis permanent distant: apply to Ranger units only
+$doesGlobalEffectApply["FREYDIS_PERMANENT_DISTANT"] = function($obj) {
+    return PropertyContains(EffectiveCardClasses($obj), "RANGER");
+};
 
 // Persistent per-card TurnEffects that survive ExpireEffects across turns.
 // SKIP_WAKEUP: consumed by WakeUpPhase (one-time skip).
@@ -3925,6 +3954,201 @@ function HasTaunt($obj) {
 }
 
 /**
+ * Check whether a field object is currently distant.
+ * Distant: "Units stay distant until the end of their controller's turn."
+ * Sources:
+ *   - TurnEffect "DISTANT" (until end of turn, standard source)
+ *   - Freydis permanent distant: global forever effect makes all Ranger units always distant
+ */
+function IsDistant($obj) {
+    if(HasNoAbilities($obj)) return false;
+    if(in_array("DISTANT", $obj->TurnEffects)) return true;
+    // Freydis permanent distant: Ranger units are always distant for the rest of the game
+    if(GlobalEffectCount($obj->Controller, "FREYDIS_PERMANENT_DISTANT") > 0) {
+        if(PropertyContains(EffectiveCardClasses($obj), "RANGER")) return true;
+    }
+    return false;
+}
+
+/**
+ * Make a unit become distant by adding the DISTANT TurnEffect.
+ * @param int    $player The acting player.
+ * @param string $mzID   The mzID of the unit (e.g. "myField-2").
+ */
+function BecomeDistant($player, $mzID) {
+    AddTurnEffect($mzID, "DISTANT");
+}
+
+/**
+ * Move all TempZone cards back to the top of the player's deck (preserving order).
+ */
+function PutTempZoneOnTopOfDeck($player) {
+    $deck = &GetDeck($player);
+    $tempZone = &GetTempZone($player);
+    foreach($tempZone as $obj) {
+        if(!$obj->removed) {
+            $newDeckObj = new Deck($obj->CardID, 'Deck', $player);
+            array_unshift($deck, $newDeckObj);
+            $obj->Remove();
+        }
+    }
+    for($i = 0; $i < count($deck); ++$i) {
+        $deck[$i]->mzIndex = $i;
+    }
+}
+
+/**
+ * Dahlia OnAttack: finish after YesNo — put water card to GY or back on top of deck.
+ */
+function DahliaLookFinish($player, $answer) {
+    if($answer === "YES") {
+        $tempCards = ZoneSearch("myTempZone");
+        if(!empty($tempCards)) {
+            MZMove($player, $tempCards[0], "myGraveyard");
+        }
+    } else {
+        PutTempZoneOnTopOfDeck($player);
+    }
+}
+
+// Static Ranged values: cardID => [value, classBonusRequired, classes]
+// Class Bonus entries require the champion's class to match for Ranged to apply.
+$rangedCardValues = [
+    // ALC Distant & Ranged Ally Package
+    "m4o98vn1vo" => [2, false, []], // Winbless Arbalest
+    "609g44vm5k" => [2, false, []], // Airship Cruiser
+    "66pv4n1n3g" => [2, true, ["RANGER"]], // Airship Engineer
+    "d53zc9p4lp" => [4, true, ["RANGER"]], // Airship Cannoneer
+    "eanl1gxrpx" => [1, false, []], // Lone Gunslinger
+    "uhjxhkurfp" => [2, true, ["RANGER"]], // Trained Sharpshooter
+    "ygojwk0pw0" => [4, false, []], // Automaton Bomber
+    "wc8tuhuy4x" => [2, true, ["RANGER"]], // Fiery Duelist
+    "3p6i0iqmyn" => [3, true, ["RANGER"]], // Krustallan Archer
+    "xrpx8jypwc" => [2, true, ["RANGER"]], // Gloamspire Wraith
+    "por7ch2bbm" => [2, false, []], // Relentless Hexchaser
+    "nl1gxrpx8j" => [2, false, []], // Perse, Relentless Raptor
+    // Other sets — Ranged allies/champions
+    "ryvfq3huqj" => [2, false, []], // Polkhawk, Bombastic Shot
+    "ki6fxxgmue" => [2, false, []], // Bertha, Spry Howitzer
+    "4e1gqwah01" => [2, false, []], // Corsair Captain
+    "iffei7chsb" => [2, false, []], // Charged Hunter
+    "7i24g0nbxz" => [2, false, []], // Alacritous Huntress
+    "bx4k3akqx7" => [2, false, []], // Hidden Longbowman
+    "hohkep3vi9" => [2, false, []], // Dyadic Fletcher
+    "9dqou3vgi8" => [2, false, []], // Marksman Captain
+    "2nc48s3oqh" => [3, false, []], // Mad Hatter, Morose Heritor
+    "gbnvtkm7rf" => [1, false, []], // Renascent Sharpshooter
+    "svdv3zb9p4" => [2, false, []], // Charged Gunslinger
+    "5yw862q547" => [4, false, []], // Flamebolt Arbalist
+    "m3n9yvn1uo" => [2, false, []], // Volatile Fusilier
+    "etaebjlwab" => [2, false, []], // Cell Sharpshooter
+    "lgl8pux7v9" => [2, false, []], // Ghost Hunter
+    "6hjlgx72rf" => [4, false, []], // Gloamspire Sniper
+    "a53rqmuqxf" => [2, false, []], // Liu Bei, Oathkeeper
+    "3w5wskifp2" => [2, false, []], // Waterlogged Ranger
+    "rltyxefm80" => [2, false, []], // Outrider of Waves
+    "5qyee9vkp8" => [2, false, []], // Seaside Rangefinder
+    "7fqr67duh1" => [4, false, []], // Concealed Marksman
+    "8gv9f4a0nk" => [3, false, []], // Galewind Scout
+    "nrow8iopvc" => [2, false, []], // Imperial Scout
+    "wkz77mbyj0" => [3, false, []], // Poised Bowman
+    "fpvw2ifz1n" => [3, false, []], // Powered Armsmaster
+    "58xpspudnf" => [2, false, []], // Skilled Aerotheurge
+    "1mvv1f83ls" => [4, false, []], // Aethercloak Sentinel
+    "oqk2c7wklz" => [5, false, []], // Shadecursed Hunter
+    "lwuupowx4p" => [2, false, []], // Reconnaissance Scout
+    "gc18dq28my" => [2, false, []], // Xia Hou Dun, Gloryseeker
+    // Class Bonus Ranged — other sets
+    "17fzcyfrzr" => [2, true, ["RANGER"]], // Imperial Rifleman
+    "k6d4367ixj" => [2, true, ["RANGER"]], // Horse Archer (base; +1 from Horse handled dynamically)
+    "inQV2nZfdJ" => [3, true, ["RANGER"]], // Alizarin Longbowman
+    "fvyhuxzjk8" => [3, true, ["RANGER"]], // Seasoned Archer
+    "m6c8xy4cje" => [2, true, ["RANGER"]], // Misteye Archer
+    "lClyP34mj6" => [2, true, ["RANGER"]], // Mistral Ranger
+    "ann23jkuys" => [2, true, ["RANGER"]], // Yunzhou Cavalry
+    "fta5isdgrk" => [2, false, []], // Veteran Aerotheurge (base Ranged 2; CB adds +2 dynamically)
+];
+
+/**
+ * Get the effective Ranged value for a field object.
+ * Combines static lookup, class bonus checks, dynamic card-specific values,
+ * TurnEffect-based grants, field-presence passives, and inherited effects.
+ *
+ * @param object $obj A field zone object.
+ * @return int  The total Ranged value (0 if none).
+ */
+function GetRangedValue($obj) {
+    if(HasNoAbilities($obj)) return 0;
+    global $rangedCardValues;
+    $ranged = 0;
+    $cardID = $obj->CardID;
+
+    // 1. Static lookup
+    if(isset($rangedCardValues[$cardID])) {
+        [$val, $needsCB, $classes] = $rangedCardValues[$cardID];
+        if(!$needsCB || IsClassBonusActive($obj->Controller, $classes)) {
+            $ranged += $val;
+        }
+    }
+
+    // 2. Dynamic per-card cases
+    switch($cardID) {
+        case "7xgwve1d47": // Dahlia: Ranged X where X = water cards in GY
+            global $playerID;
+            $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
+            $ranged += count(ZoneSearch($gravZone, cardElements: ["WATER"]));
+            break;
+        case "k6d4367ixj": // Horse Archer: Equestrian — Ranged 3 while controlling a Horse ally
+            global $playerID;
+            $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+            if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["HORSE"]))) {
+                $ranged += 1; // +1 on top of the base 2 from static lookup
+            }
+            break;
+        case "fta5isdgrk": // Veteran Aerotheurge: CB adds +2 Ranged (stacking with base 2)
+            if(IsClassBonusActive($obj->Controller, ["RANGER"])) {
+                $ranged += 2;
+            }
+            break;
+    }
+
+    // 3. TurnEffect-based Ranged grants (from spells like Ranger Strides, Take Aim, etc.)
+    foreach($obj->TurnEffects as $te) {
+        if(strpos($te, "RANGED_") === 0) {
+            $ranged += intval(substr($te, 7));
+        }
+    }
+
+    // 4. Field-presence passives
+    if($obj->Controller != -1) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        $selfMzID = $obj->GetMzID();
+        foreach($field as $fieldObj) {
+            if($fieldObj->removed || HasNoAbilities($fieldObj)) continue;
+            switch($fieldObj->CardID) {
+                case "44vm5kt3q2": // Battlefield Spotter: [Level 2+] Other units get Ranged 1
+                    if($fieldObj->GetMzID() !== $selfMzID && PlayerLevel($obj->Controller) >= 2) {
+                        $ranged += 1;
+                    }
+                    break;
+            }
+        }
+    }
+
+    // 5. Champion inherited Ranged (Diana lineage)
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        $controller = $obj->Controller;
+        if(ChampionHasInLineage($controller, "m7f6r8f3y8")) $ranged += 1; // Diana, Aether Dilettante
+        if(ChampionHasInLineage($controller, "7ozuj68m69")) $ranged += 2; // Diana, Deadly Duelist
+        if(ChampionHasInLineage($controller, "wiztyu6o24")) $ranged += 1; // Diana, Judgment
+    }
+
+    return $ranged;
+}
+
+/**
  * Filter an array of mzID strings, removing any that point to objects with Spellshroud.
  * Use this when building target lists for abilities that are Spell sources.
  *
@@ -4191,6 +4415,11 @@ function GetDynamicAbilities($obj) {
                 $nextIndex++;
             }
         }
+    }
+    // Freydis, Master Tactician: Remove 3 tactic counters → permanent distant
+    if($obj->CardID === "7dedg616r0" && GetCounterCount($obj, "tactic") >= 3) {
+        $abilities[] = ["name" => "Permanent Distant", "index" => $nextIndex];
+        $nextIndex++;
     }
     if(empty($abilities)) return "";
     return json_encode($abilities);
@@ -5216,15 +5445,6 @@ $customDQHandlers["SwoopingTalons_Choice"] = function($player, $parts, $lastDeci
     }
 };
 
-// --- Gather (Grand Archive keyword): summon a random herb token ---
-
-function Gather($player) {
-    $herbTokens = ["i0a5uhjxhk", "5joh300z2s", "bd7ozuj68m", "soporhlq2k", "jnltv5klry", "69iq4d5vet"];
-    $randomHerb = $herbTokens[array_rand($herbTokens)];
-    MZAddZone($player, "myField", $randomHerb);
-    OnGather($player);
-}
-
 // --- Tonoris, Genesis Aegis (ta6qsesw2u): recollection phase Obelisk summon ---
 
 function TonorisRecollection($player, $fieldIndex) {
@@ -5418,531 +5638,6 @@ $customDQHandlers["ObeliskFabricationSummon"] = function($player, $parts, $lastD
     $field = &GetField($player);
     $newIdx = count($field) - 1;
     AddCounters($player, "myField-" . $newIdx, "buff", 1);
-};
-
-// =======================================================================
-// --- Brew Mechanic ---
-// =======================================================================
-
-/**
- * Check whether the player controls enough herbs to pay a brew cost.
- */
-function CanPayBrewCost($player, $slots) {
-    $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
-    if(empty($herbs)) return false;
-
-    $available = [];
-    foreach($herbs as $mz) {
-        $obj = GetZoneObject($mz);
-        $available[] = [
-            'mz' => $mz,
-            'cardID' => $obj->CardID,
-            'subtypes' => CardSubtypes($obj->CardID)
-        ];
-    }
-
-    // Greedy check: satisfy specific-card slots first, then subtype, then generic
-    $used = [];
-
-    foreach($slots as $slot) {
-        $count = $slot['count'] ?? 1;
-        if($slot['type'] !== 'CARD') continue;
-        for($c = 0; $c < $count; ++$c) {
-            $found = false;
-            for($i = 0; $i < count($available); ++$i) {
-                if(in_array($i, $used)) continue;
-                if($available[$i]['cardID'] === $slot['cardID']) {
-                    $used[] = $i;
-                    $found = true;
-                    break;
-                }
-            }
-            if(!$found) return false;
-        }
-    }
-
-    foreach($slots as $slot) {
-        $count = $slot['count'] ?? 1;
-        if($slot['type'] !== 'SUBTYPE') continue;
-        for($c = 0; $c < $count; ++$c) {
-            $found = false;
-            for($i = 0; $i < count($available); ++$i) {
-                if(in_array($i, $used)) continue;
-                if(PropertyContains($available[$i]['subtypes'], $slot['subtype'])) {
-                    $used[] = $i;
-                    $found = true;
-                    break;
-                }
-            }
-            if(!$found) return false;
-        }
-    }
-
-    foreach($slots as $slot) {
-        $count = $slot['count'] ?? 1;
-        if($slot['type'] !== 'HERB') continue;
-        for($c = 0; $c < $count; ++$c) {
-            $found = false;
-            for($i = 0; $i < count($available); ++$i) {
-                if(in_array($i, $used)) continue;
-                $used[] = $i;
-                $found = true;
-                break;
-            }
-            if(!$found) return false;
-        }
-    }
-
-    return true;
-}
-
-/**
- * Flatten brew cost slots into sequential selection steps.
- * Specific-card slots first, then subtype, then generic herbs.
- */
-function FlattenBrewSlots($slots) {
-    $steps = [];
-    $herbNames = [
-        "i0a5uhjxhk" => "Blightroot", "5joh300z2s" => "Manaroot",
-        "bd7ozuj68m" => "Silvershine", "soporhlq2k" => "Fraysia",
-        "jnltv5klry" => "Razorvine",   "69iq4d5vet" => "Springleaf",
-    ];
-    foreach($slots as $slot) {
-        $count = $slot['count'] ?? 1;
-        if($slot['type'] === 'CARD') {
-            $name = $herbNames[$slot['cardID']] ?? 'Herb';
-            for($i = 0; $i < $count; ++$i)
-                $steps[] = ["filter" => "CARD:" . $slot['cardID'], "tooltip" => "Sacrifice_" . $name];
-        }
-    }
-    foreach($slots as $slot) {
-        $count = $slot['count'] ?? 1;
-        if($slot['type'] === 'SUBTYPE') {
-            for($i = 0; $i < $count; ++$i)
-                $steps[] = ["filter" => "SUBTYPE:" . $slot['subtype'], "tooltip" => "Sacrifice_" . $slot['subtype'] . "_herb"];
-        }
-    }
-    foreach($slots as $slot) {
-        $count = $slot['count'] ?? 1;
-        if($slot['type'] === 'HERB') {
-            for($i = 0; $i < $count; ++$i)
-                $steps[] = ["filter" => "HERB", "tooltip" => "Sacrifice_an_herb"];
-        }
-    }
-    return $steps;
-}
-
-/**
- * Get available herb mzIDs matching a filter, excluding already-chosen mzIDs.
- */
-function GetFilteredHerbs($filter, $excludeMZs) {
-    $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
-    $matches = [];
-    foreach($herbs as $mz) {
-        if(in_array($mz, $excludeMZs)) continue;
-        $obj = GetZoneObject($mz);
-        if(str_starts_with($filter, "CARD:")) {
-            if($obj->CardID === substr($filter, 5)) $matches[] = $mz;
-        } elseif(str_starts_with($filter, "SUBTYPE:")) {
-            if(PropertyContains(CardSubtypes($obj->CardID), substr($filter, 8))) $matches[] = $mz;
-        } else {
-            $matches[] = $mz;
-        }
-    }
-    return $matches;
-}
-
-/**
- * Called after herbs are sacrificed for a Brew. Fires "whenever you brew" triggers.
- */
-function OnBrew($player) {
-    AddGlobalEffects($player, "BREWED_POTION");
-
-    // Imperial Alchemist (ve1d47o7ea): whenever you brew a Potion → buff counter
-    $field = &GetField($player);
-    for($i = 0; $i < count($field); ++$i) {
-        if($field[$i]->removed) continue;
-        if($field[$i]->CardID === "ve1d47o7ea" && !HasNoAbilities($field[$i])) {
-            AddCounters($player, "myField-" . $i, "buff", 1);
-        }
-    }
-}
-
-// --- DeclareBrew handler: player chose YES/NO to brew ---
-$customDQHandlers["DeclareBrew"] = function($player, $parts, $lastDecision) {
-    global $brewCosts;
-    $cardID = $parts[0];
-    $reserveCost = intval($parts[1]);
-
-    if($lastDecision !== "YES") {
-        DecisionQueueController::StoreVariable("wasBrewed", "NO");
-        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
-        for($i = 0; $i < $reserveCost; ++$i) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
-        }
-        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
-        return;
-    }
-
-    // Player chose to brew — start sequential herb selection
-    DecisionQueueController::StoreVariable("wasBrewed", "YES");
-    DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
-    $slots = $brewCosts[$cardID];
-    $steps = FlattenBrewSlots($slots);
-
-    DecisionQueueController::StoreVariable("brewSteps", json_encode($steps));
-    DecisionQueueController::StoreVariable("brewChosen", "");
-    DecisionQueueController::StoreVariable("brewStepIndex", "0");
-
-    $available = GetFilteredHerbs($steps[0]['filter'], []);
-    if(empty($available)) {
-        DecisionQueueController::StoreVariable("wasBrewed", "NO");
-        for($i = 0; $i < $reserveCost; ++$i) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
-        }
-        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
-        return;
-    }
-    $herbStr = implode("&", $available);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $herbStr, 100, tooltip:$steps[0]['tooltip']);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "BrewSelectHerb", 100);
-};
-
-// --- BrewSelectHerb handler: process one herb selection and queue next or finalize ---
-$customDQHandlers["BrewSelectHerb"] = function($player, $parts, $lastDecision) {
-    $chosen = DecisionQueueController::GetVariable("brewChosen");
-    $chosen = $chosen === "" ? $lastDecision : $chosen . "," . $lastDecision;
-    DecisionQueueController::StoreVariable("brewChosen", $chosen);
-
-    $stepIndex = intval(DecisionQueueController::GetVariable("brewStepIndex")) + 1;
-    DecisionQueueController::StoreVariable("brewStepIndex", strval($stepIndex));
-
-    $steps = json_decode(DecisionQueueController::GetVariable("brewSteps"), true);
-
-    if($stepIndex >= count($steps)) {
-        // All herbs selected — sacrifice them and fire brew event
-        BrewFinalizeHerbs($player, $chosen);
-        return;
-    }
-
-    // More herbs needed — queue next selection
-    $excludeMZs = explode(",", $chosen);
-    $nextStep = $steps[$stepIndex];
-    $available = GetFilteredHerbs($nextStep['filter'], $excludeMZs);
-    if(empty($available)) {
-        BrewFinalizeHerbs($player, $chosen);
-        return;
-    }
-    $herbStr = implode("&", $available);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $herbStr, 100, tooltip:$nextStep['tooltip']);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "BrewSelectHerb", 100);
-};
-
-/**
- * Sacrifice all chosen herbs and fire the Brew event.
- */
-function BrewFinalizeHerbs($player, $chosenStr) {
-    $chosenArr = explode(",", $chosenStr);
-    usort($chosenArr, function($a, $b) {
-        return intval(explode("-", $b)[1]) - intval(explode("-", $a)[1]);
-    });
-    foreach($chosenArr as $herbMZ) {
-        $herbObj = GetZoneObject($herbMZ);
-        if($herbObj !== null) {
-            OnLeaveField($player, $herbMZ);
-            MZMove($player, $herbMZ, "myGraveyard");
-        }
-    }
-    DecisionQueueController::CleanupRemovedCards();
-    OnBrew($player);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
-}
-
-// --- Gather trigger: whenever you Gather, check for listening cards ---
-function OnGather($player) {
-    $field = &GetField($player);
-    for($i = 0; $i < count($field); ++$i) {
-        if($field[$i]->removed) continue;
-        switch($field[$i]->CardID) {
-            case "ettczb14m4": // Alchemist's Kit: whenever you gather → refinement counter
-                if(!HasNoAbilities($field[$i])) {
-                    AddCounters($player, "myField-" . $i, "refinement", 1);
-                }
-                break;
-        }
-    }
-}
-
-// --- Fertile Grounds (8bls6g7xgw): recollection phase — summon a token copy of an Herb you control ---
-function FertileGroundsRecollection($player) {
-    $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
-    if(empty($herbs)) return;
-    if(count($herbs) == 1) {
-        // Only one herb — copy it automatically
-        $obj = GetZoneObject($herbs[0]);
-        MZAddZone($player, "myField", $obj->CardID);
-        return;
-    }
-    $herbStr = implode("&", $herbs);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $herbStr, 1, tooltip:"Choose_herb_to_copy");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "FertileGroundsCopy", 1);
-}
-
-$customDQHandlers["FertileGroundsCopy"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $obj = GetZoneObject($lastDecision);
-    if($obj === null) return;
-    MZAddZone($player, "myField", $obj->CardID);
-};
-
-// --- Potion Infusion sacrifice trigger: check for infusion TurnEffects before potion's own effect ---
-function ProcessPotionInfusionTriggers($player, $potionMZ) {
-    $obj = GetZoneObject($potionMZ);
-    if($obj === null) return;
-    // Store potion CardID for EnhancePotencyCheck
-    DecisionQueueController::StoreVariable("potionCardID", $obj->CardID);
-    $te = $obj->TurnEffects;
-    if(!is_array($te)) return;
-
-    foreach($te as $effect) {
-        switch($effect) {
-            case "INFUSION_CLARITY": // Potion Infusion: Clarity — draw 2
-                Draw($player, 2);
-                break;
-            case "INFUSION_STARLIGHT": // Potion Infusion: Starlight — +4 level until eot
-                $champs = ZoneSearch("myField", ["CHAMPION"]);
-                if(!empty($champs)) {
-                    AddTurnEffect($champs[0], "INFUSION_STARLIGHT");
-                }
-                break;
-            case "INFUSION_FROSTBITE": // Potion Infusion: Frostbite — rest target unit, next water damage +4
-                $units = array_merge(
-                    ZoneSearch("myField", ["ALLY", "CHAMPION"]),
-                    ZoneSearch("theirField", ["ALLY", "CHAMPION"])
-                );
-                $units = FilterSpellshroudTargets($units);
-                if(!empty($units)) {
-                    $targetStr = implode("&", $units);
-                    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Rest_target_unit_(Frostbite)");
-                    DecisionQueueController::AddDecision($player, "CUSTOM", "InfusionFrostbiteApply", 1);
-                }
-                break;
-            case "ENHANCE_POTENCY": // Enhance Potency — copy the next sacrifice ability
-                DecisionQueueController::StoreVariable("enhancePotency", "YES");
-                break;
-        }
-    }
-}
-
-$customDQHandlers["InfusionFrostbiteApply"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") return;
-    $targetObj = GetZoneObject($lastDecision);
-    if($targetObj === null) return;
-    // Rest the target
-    ExhaustCard($player, $lastDecision);
-    // Mark it: next water damage +4
-    AddTurnEffect($lastDecision, "FROSTBITE_WATER_VULN");
-};
-
-// --- Enhance Potency: re-invoke the potion's SACRIFICE ability if enhanced ---
-function EnhancePotencyCheck($player) {
-    if(DecisionQueueController::GetVariable("enhancePotency") === "YES") {
-        DecisionQueueController::StoreVariable("enhancePotency", "NO");
-        global $activateAbilityAbilities;
-        $cardID = DecisionQueueController::GetVariable("potionCardID");
-        if($cardID !== null && isset($activateAbilityAbilities[$cardID . ":0"])) {
-            $activateAbilityAbilities[$cardID . ":0"]($player);
-        }
-    }
-}
-
-// --- Barter Herbs: sacrifice up to 2 herbs, summon chosen herbs ---
-function BarterHerbsSacrificeLoop($player, $count) {
-    if($count >= 2) return;
-    $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
-    if(empty($herbs)) return;
-    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $herbs), 1, tooltip:"Sacrifice_an_Herb?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "BarterHerbsSacrifice|$count", 1);
-}
-
-$customDQHandlers["BarterHerbsSacrifice"] = function($player, $parts, $lastDecision) {
-    $count = intval($parts[0]);
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    OnLeaveField($player, $lastDecision);
-    MZMove($player, $lastDecision, "myGraveyard");
-    DecisionQueueController::CleanupRemovedCards();
-    // Present choice of which herb to summon
-    BarterHerbsChooseType($player, $count);
-};
-
-function BarterHerbsChooseType($player, $count) {
-    $herbTokens = ["i0a5uhjxhk", "5joh300z2s", "bd7ozuj68m", "soporhlq2k", "jnltv5klry", "69iq4d5vet"];
-    foreach($herbTokens as $herbID) {
-        MZAddZone($player, "myTempZone", $herbID);
-    }
-    $choices = ZoneSearch("myTempZone");
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, tooltip:"Choose_Herb_to_summon");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "BarterHerbsSelect|$count", 1);
-}
-
-$customDQHandlers["BarterHerbsSelect"] = function($player, $parts, $lastDecision) {
-    $count = intval($parts[0]);
-    $chosenID = null;
-    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
-        $obj = GetZoneObject($lastDecision);
-        if($obj !== null) $chosenID = $obj->CardID;
-    }
-    // Clear TempZone
-    $tempZone = &GetTempZone($player);
-    foreach($tempZone as $t) { $t->Remove(); }
-    $tempZone = [];
-    if($chosenID !== null) {
-        MZAddZone($player, "myField", $chosenID);
-    }
-    BarterHerbsSacrificeLoop($player, $count + 1);
-};
-
-// --- Brewing Kit: sacrifice 3 herbs then look at top 6 for a Potion ---
-function BrewingKitHerbSacrifice($player, $count) {
-    if($count >= 3) {
-        BrewingKitLookTop6($player);
-        return;
-    }
-    $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
-    if(count($herbs) < 3 - $count) return;
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $herbs), 1, tooltip:"Sacrifice_Herb_(" . ($count+1) . "_of_3)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "BrewingKitHerbSac|$count", 1);
-}
-
-$customDQHandlers["BrewingKitHerbSac"] = function($player, $parts, $lastDecision) {
-    $count = intval($parts[0]);
-    if($lastDecision === "-" || $lastDecision === "") return;
-    OnLeaveField($player, $lastDecision);
-    MZMove($player, $lastDecision, "myGraveyard");
-    DecisionQueueController::CleanupRemovedCards();
-    BrewingKitHerbSacrifice($player, $count + 1);
-};
-
-function BrewingKitLookTop6($player) {
-    $deck = &GetDeck($player);
-    $n = min(6, count($deck));
-    if($n == 0) return;
-    // Move top N from deck to TempZone
-    for($i = 0; $i < $n; ++$i) {
-        MZAddZone($player, "myTempZone", $deck[0]->CardID);
-        array_shift($deck);
-    }
-    // Reindex deck
-    for($i = 0; $i < count($deck); ++$i) {
-        $deck[$i]->mzIndex = $i;
-    }
-    // Find Potion items in TempZone
-    $potions = ZoneSearch("myTempZone", cardSubtypes: ["POTION"]);
-    if(!empty($potions)) {
-        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $potions), 1, tooltip:"Reveal_a_Potion_and_put_into_hand?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "BrewingKitPotionPick", 1);
-    } else {
-        BrewingKitCleanup($player);
-    }
-}
-
-$customDQHandlers["BrewingKitPotionPick"] = function($player, $parts, $lastDecision) {
-    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
-        MZMove($player, $lastDecision, "myHand");
-    }
-    BrewingKitCleanup($player);
-};
-
-function BrewingKitCleanup($player) {
-    $remaining = ZoneSearch("myTempZone");
-    $deck = &GetDeck($player);
-    $tempZone = &GetTempZone($player);
-    foreach($tempZone as $obj) {
-        if(!$obj->removed) {
-            $newObj = new Deck($obj->CardID, 'Deck', $player);
-            array_push($deck, $newObj);
-            $obj->Remove();
-        }
-    }
-    $tempZone = [];
-    // Reindex deck
-    for($i = 0; $i < count($deck); ++$i) {
-        $deck[$i]->mzIndex = $i;
-    }
-}
-
-// --- Distilled Atrophy (h38lrj5221): delevels target champion X times, deals X if would reach 0 ---
-function DistilledAtrophyApplyDirect($player, $targetMZ) {
-    $x = intval(DecisionQueueController::GetVariable("ageCounters"));
-    if($x <= 0 || $targetMZ === "-" || $targetMZ === "" || $targetMZ === "PASS") return;
-    $targetIsOpponent = (strpos($targetMZ, "their") === 0);
-    $targetPlayer = $targetIsOpponent ? (1 - $player) : $player;
-    // Get current level before deleveling
-    $champField = &GetField($targetPlayer);
-    $currentLevel = 1;
-    foreach($champField as $obj) {
-        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
-            $currentLevel = ObjectCurrentLevel($obj);
-            break;
-        }
-    }
-    for($i = 0; $i < $x; $i++) {
-        Delevel($targetPlayer);
-    }
-    // Deal X damage if champion's level would be 0 or lower
-    if($currentLevel <= $x) {
-        DealChampionDamage($targetPlayer, $x);
-    }
-}
-
-// --- Wildgrowth Elixir (tjot4nmxqs): puts X buff counters on target ally ---
-function WildgrowthElixirApplyDirect($player, $targetMZ) {
-    $x = intval(DecisionQueueController::GetVariable("ageCounters"));
-    if($x <= 0 || $targetMZ === "-" || $targetMZ === "" || $targetMZ === "PASS") return;
-    AddCounters($player, $targetMZ, "buff", $x);
-}
-
-// --- Convalescent Tonic (l8ao8bls6g): cycle up to 2 cards ---
-function ConvalescentTonicCycleStep($player, $count) {
-    if($count >= 2) {
-        RecoverChampion($player, 3);
-        return;
-    }
-    $hand = ZoneSearch("myHand");
-    if(empty($hand)) {
-        RecoverChampion($player, 3);
-        return;
-    }
-    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $hand), 1, tooltip:"Cycle_a_card?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ConvalescentTonicCycle|$count", 1);
-}
-
-$customDQHandlers["ConvalescentTonicCycle"] = function($player, $parts, $lastDecision) {
-    $count = intval($parts[0]);
-    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
-        MZMove($player, $lastDecision, "myGraveyard");
-        DoDrawCard($player);
-    }
-    ConvalescentTonicCycleStep($player, $count + 1);
-};
-
-// --- Bottled Forgelight (g616r0zadf): deal 2 damage to a unit ---
-function BottledForgelightDamageEffect($player, $sourceMZ) {
-    $units = array_merge(
-        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
-        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
-    );
-    $units = FilterSpellshroudTargets($units);
-    if(empty($units)) return;
-    DecisionQueueController::StoreVariable("bfgSourceMZ", $sourceMZ);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $units), 1, tooltip:"Deal_2_damage_to_a_unit_(Bottled_Forgelight)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "BFG_DealDamage", 1);
-}
-
-$customDQHandlers["BFG_DealDamage"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $srcMZ = DecisionQueueController::GetVariable("bfgSourceMZ");
-    DealDamage($player, $srcMZ, $lastDecision, 2);
 };
 
 ?>
