@@ -1460,6 +1460,13 @@ function OnDealDamage($player, $source, $target, $amount) {
         $dealDamageAbilities[$targetObj->CardID . ":0"]($player);
     }
 
+    // Magebane Lash (oh300z2sns): Nico Bonus — whenever Nico takes non-combat damage, recover 2
+    if(!$isCombat && $amount > 0
+            && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")
+            && $targetObj->CardID === "5bbae3z4py") {
+        MagebaneNicoBonusCheck($targetObj->Controller ?? $player);
+    }
+
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
         // If we're in combat context, record that a kill occurred from combat damage.
@@ -1498,6 +1505,14 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     global $dealDamageAbilities;
     if(isset($dealDamageAbilities) && isset($dealDamageAbilities[$targetObj->CardID . ":0"])) {
         $dealDamageAbilities[$targetObj->CardID . ":0"]($player);
+    }
+
+    // Magebane Lash (oh300z2sns): Nico Bonus — whenever Nico takes non-combat damage, recover 2
+    $isNonCombat = DecisionQueueController::GetVariable("CombatAttacker") === null;
+    if($isNonCombat && $amount > 0
+            && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")
+            && $targetObj->CardID === "5bbae3z4py") {
+        MagebaneNicoBonusCheck($targetObj->Controller ?? $player);
     }
 
     $currentHp = ObjectCurrentHP($targetObj);

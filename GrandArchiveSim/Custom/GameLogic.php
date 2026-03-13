@@ -1904,6 +1904,18 @@ function ObjectCurrentPower($obj) {
         case "z4pyx8bd7o": // Young Peacekeeper: +1 POWER while fostered
             if(IsFostered($obj)) $power += 1;
             break;
+        case "oh300z2sns": // Magebane Lash: +1 POWER per lash counter on champion
+            {
+                $controller = $obj->Controller;
+                $champField = &GetField($controller);
+                foreach($champField as $champObj) {
+                    if(!$champObj->removed && PropertyContains(EffectiveCardType($champObj), "CHAMPION")) {
+                        $power += GetCounterCount($champObj, "lash");
+                        break;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -2752,6 +2764,7 @@ $customDQHandlers["FrostguardBanish"] = function($player, $parts, $lastDecision)
     }
     // Banish the chosen card
     MZMove($player, $lastDecision, "myBanish");
+    NicoOnFloatingMemoryBanished($player);
     AddCounters($player, $mzID, "buff", 1);
     Draw($player, 1);
     if($step >= 2) return; // Already did 2
@@ -3707,6 +3720,10 @@ function DealChampionDamage($player, $amount=1) {
                 $amount += 1;
             }
             $obj->Damage += $amount;
+            // Magebane Lash (oh300z2sns): Nico Bonus — whenever Nico takes non-combat damage, recover 2
+            if($amount > 0 && $obj->CardID === "5bbae3z4py") {
+                MagebaneNicoBonusCheck($player);
+            }
             return $obj;
         }
     }
@@ -5480,6 +5497,7 @@ $customDQHandlers["SongOfFrostAltCost"] = function($player, $parts, $lastDecisio
 $customDQHandlers["SongOfFrostBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "PASS" && $lastDecision !== "-" && !empty($lastDecision)) {
         MZMove($player, $lastDecision, "myBanish");
+        NicoOnFloatingMemoryBanished($player);
     }
 };
 
@@ -6733,5 +6751,41 @@ $customDQHandlers["ScryTheStarsAltCost"] = function($player, $parts, $lastDecisi
     DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
+
+// ============================================================================
+// Nico, Whiplash Allure (5bbae3z4py) + Magebane Lash (oh300z2sns) helpers
+// ============================================================================
+
+/**
+ * Fire whenever a floating memory card is banished from the player's graveyard.
+ * If Nico (5bbae3z4py) is on that player's field and has abilities, add a lash counter.
+ */
+function NicoOnFloatingMemoryBanished($player) {
+    global $playerID;
+    $zone = ($player == $playerID) ? "myField" : "theirField";
+    $field = &GetField($player);
+    foreach($field as $fi => $fObj) {
+        if($fObj->removed) continue;
+        if($fObj->CardID === "5bbae3z4py" && !HasNoAbilities($fObj)) {
+            AddCounters($player, "$zone-$fi", "lash", 1);
+            return;
+        }
+    }
+}
+
+/**
+ * Magebane Lash (oh300z2sns): Nico Bonus — when Nico, Whiplash Allure is the champion
+ * and takes non-combat damage, recover 2 if Magebane Lash is on the field with abilities.
+ */
+function MagebaneNicoBonusCheck($player) {
+    $field = &GetField($player);
+    foreach($field as $fObj) {
+        if($fObj->removed) continue;
+        if($fObj->CardID === "oh300z2sns" && !HasNoAbilities($fObj)) {
+            RecoverChampion($player, 2);
+            return;
+        }
+    }
+}
 
 ?>

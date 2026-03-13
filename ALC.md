@@ -26,16 +26,6 @@
 
 ---
 
-### 10. Nico + Magebane Lash
-*Magebane Lash has an explicit Nico Bonus and shares the "lash counter" currency with Nico. Code them together.*
-
-| Card | ID | Note |
-|------|----|------|
-| Nico, Whiplash Allure | `5bbae3z4py` | L2 Champion; whenever a Floating Memory card is banished from your GY → put a lash counter on Nico; On Champion Hit: opponent mills X where X = lash counters on Nico |
-| Magebane Lash | `oh300z2sns` | Regalia Lash weapon; power = number of lash counters on champion; Class Bonus On Enter: add a lash counter to champion; Nico Bonus: whenever champion takes non-combat damage → Recover 2 |
-
----
-
 ### 12. Vanitas Convergent Ruin + Dominating Strike
 *Dominating Strike has an explicit Vanitas Bonus alternative cost.*
 
@@ -62,19 +52,6 @@
 ## Isolated Cards
 
 Cards with no strong mechanical dependency on other unimplemented cards. Bucketed by implementation effort.
-
----
-
-### Easy
-
-Straightforward static passives, simple single-trigger On Enter/On Hit effects, no multi-step decisions.
-
-| Card | ID | Effect Summary |
-|------|----|----------------|
-| Veteran Blazebearer | `23yfzk96yd` | Ally; On Enter: gains Taunt until beginning of your next turn; Class Bonus: Steadfast |
-| Vaporjet Shieldbearer | `8lrj52215u` | Ally Automaton; Steadfast; Class Bonus On Hit: look at top card, may put in GY |
-| Fatal Timepiece | `6gvnta6qse` | Regalia Artifact; at beginning of each player's recollection phase, if they did not materialize this turn → deal 2 unpreventable to their champion |
-| Umbral Tithe | `2snsdwmxz1` | Action Spell; each player draws 2 into memory; then deal 4 to each champion whose controller has 6+ cards in memory; costs 1 less per Curse in any lineage |
 
 ---
 
