@@ -1313,14 +1313,15 @@
         var filterText = window.filterText ? window.filterText : "";//TODO: Separate filter text for each zone
         var customFilterStatus = window.customFilter ? window.customFilter : false;
         var scrollPosition = window[fullName + "ScrollPosition"] || 0;
-        var html = "<div style='display: flex; justify-content: center; width:100%; overflow-y: auto;'>";
-        html += `<div style='position: relative; display: inline-block;'>`;
+        var html = "<div style='display: flex; flex-direction: column; width:100%; overflow-y: auto;'>";
+        html += `<div style='position: relative; width: 100%; box-sizing: border-box;'>`;
         setTimeout(() => {
           document.getElementById(fullName + "Wrapper").scrollTop = scrollPosition;
         }, 0);
-        html += `<input type="text" style='height:28px; margin-top:3px;' class='filterBar' id="${fullName}FilterText" onkeydown="PaneFilterKeyDown('${prefix}', '${zoneName}', event);" oninput="PaneFilterCards('${prefix}', '${zoneName}', event, 'textFilter');" placeholder="Filter cards..." ${filterText ? `value="${filterText.replace(/"/g, '&quot;')}"` : ''}></input>`;
+        html += `<input type="text" style='height:28px; margin-top:3px; width:100%; box-sizing:border-box; padding-right:20px;' class='filterBar' id="${fullName}FilterText" onkeydown="PaneFilterKeyDown('${prefix}', '${zoneName}', event);" oninput="PaneFilterCards('${prefix}', '${zoneName}', event, 'textFilter');" placeholder="Filter cards..." ${filterText ? `value="${filterText.replace(/"/g, '&quot;')}"` : ''}></input>`;
         html += `<img src='./Assets/Images/infoicon.png' style='cursor: pointer; position: absolute; top: 2px; right: 2px; height:12px; width:12px;' onclick='ShowFilterBarHelp()' aria-label='Click for filter syntax' />`;
         html += `</div>`;
+        html += `<div style='display: flex; align-items: center; flex-wrap: wrap; margin-top: 4px;'>`;
         var paneHTML = "<span id='" + prefix + "_" + zoneName + "_content'>";
         var panelNames = GetPaneData(zoneName);
         var activePaneVar = `_${prefix}_${zoneName}_activePane`;
@@ -1338,9 +1339,10 @@
         if(hasCustomFilter) {
           html += `<div style='display: flex; align-items: center; margin-left: 10px;'>
           <input type='checkbox' id='customFilterCheckbox' onchange='PaneFilterCards("${prefix}", "${zoneName}", event, "check");' ${customFilterStatus ? 'checked' : ''}>
-          <label for='customFilterCheckbox' style='margin-left: 5px;'></label>
+          <label for='customFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter</label>
               </div>`;
         }
+        html += `</div>`;
         paneHTML += "</span>";
         html += "</div>";
         document.getElementById(fullName).innerHTML = html + paneHTML;
