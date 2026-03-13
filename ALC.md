@@ -50,20 +50,6 @@ Cards in each group depend on or strongly reinforce each other and should be imp
 
 ---
 
-### 9. Starcalling & Glimpse Package
-*The Astra Cleric Glimpse/Starcalling engine. These cards modify or unlock free Starcalling activations while glimpsing. The Elysian Astrolabe is the keystone — it grants free Starcalling for anything glimpsed that turn and has special materialize restrictions. Arisanna, Astral Zenith (in the Arisanna group) is the champion-level payoff.*
-
-| Card | ID | Note |
-|------|----|------|
-| Astra Sight | `zuj68m69iq` | Starcalling (0); Glimpse 1, then draw a card |
-| Cometfall | `4d5vettczb` | Starcalling (2); deal 3 (4 with Class Bonus) damage to all non-astra units |
-| Scry the Stars | `oz23yfzk96` | Until end of turn, glimpsed cards have Starcalling (X) where X = their reserve cost; Glimpse 3; Class Bonus: may banish Scry the Skies from GY as an alternate cost |
-| Celestial Calling | `izm6h38lrj` | Reveal top of deck until finding an astra Spell; banish it; at the beginning of your next recollection phase you may activate it for free; Class Bonus: costs 2 less |
-| The Elysian Astrolabe | `4nmxqsm4o9` | Regalia Artifact; Hindered; materialize only if it's the last card in a 12-card material deck; REST: until end of turn pay (0) rather than Starcalling costs; when you do, Glimpse 5 |
-- Arisanna, Astral Zenith (q3huqj5bba) — "Once per turn, pay (0) rather than any starcalling cost." (Passive that reduces starcalling cost; inert until starcalling activation exists.)
-
----
-
 ### 10. Nico + Magebane Lash
 *Magebane Lash has an explicit Nico Bonus and shares the "lash counter" currency with Nico. Code them together.*
 

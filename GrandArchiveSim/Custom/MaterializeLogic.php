@@ -23,6 +23,15 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     $ignoreCost = isset($parts[0]) && $parts[0] === "NOCOST";
     //First pay memory cost (unless cost is being ignored)
     $materializeCard = &GetZoneObject($lastDecision);
+
+    // The Elysian Astrolabe (4nmxqsm4o9): can only materialize if it's the last card in material deck
+    if($materializeCard->CardID === "4nmxqsm4o9") {
+        $matZone = GetZone("myMaterial");
+        $remaining = 0;
+        foreach($matZone as $mObj) { if(!$mObj->removed) $remaining++; }
+        if($remaining > 1) return; // Not the last card — block materialize
+    }
+
     $memoryCost = $ignoreCost ? 0 : CardMemoryCost($materializeCard);
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);

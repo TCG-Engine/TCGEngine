@@ -219,6 +219,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 1);
     }
 
+    // Celestial Calling (izm6h38lrj): [Class Bonus] costs 2 less
+    if($obj->CardID === "izm6h38lrj" && IsClassBonusActive($player, ["CLERIC"])) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
     // Winds of Retribution (huqj5bbae3): [Class Bonus][Level 2+] costs 2 less
     if($obj->CardID === "huqj5bbae3" && IsClassBonusActive($player, ["GUARDIAN"]) && PlayerLevel($player) >= 2) {
         $reserveCost = max(0, $reserveCost - 2);
@@ -449,6 +454,25 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Scry the Stars (oz23yfzk96): [CB] may banish Scry the Skies from GY instead of reserve
+    $hasScryAltCost = false;
+    if($obj->CardID === "oz23yfzk96" && IsClassBonusActive($player, ["CLERIC"])) {
+        $hasScryTheSkies = false;
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if(!$gy[$gi]->removed && $gy[$gi]->CardID === "F9POfB5Nah") {
+                $hasScryTheSkies = true;
+                break;
+            }
+        }
+        if($hasScryTheSkies && $reserveCost > 0) {
+            $hasScryAltCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Banish_Scry_the_Skies_from_GY_instead_of_reserve?");
+            DecisionQueueController::AddDecision($player, "CUSTOM",
+                "ScryTheStarsAltCost|" . $reserveCost, 100);
+        }
+    }
+
     //1.3 Declaring Costs — check for optional additional costs
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
@@ -479,7 +503,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -498,6 +522,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasSongOfFrostAltCost is true, SongOfFrostAltCost handler queues its own
     // reserve/banish + EffectStackOpportunity.
     // When $hasBrewAltCost is true, DeclareBrew handler queues herb sacrifice or
+    // normal reserve + EffectStackOpportunity.
+    // When $hasScryAltCost is true, ScryTheStarsAltCost handler queues banish or
     // normal reserve + EffectStackOpportunity.
 }
 
@@ -782,6 +808,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "wk0pw0y6is": // Obelisk of Armaments — REST
         case "xy5lh23qu7": // Obelisk of Fabrication — REST
         case "waf8urrqtj": // Gloamspire, Black Market — REST
+        case "4nmxqsm4o9": // The Elysian Astrolabe — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -984,6 +1011,10 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         if($sourceObject->Status != 2) return;
         if(empty(GetUnloadedGuns($player))) return;
     }
+    // The Elysian Astrolabe (4nmxqsm4o9): REST - must be awake
+    if($cardID === "4nmxqsm4o9") {
+        if($sourceObject->Status != 2) return;
+    }
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -1183,6 +1214,10 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     if($added->CardID == "s23UHXgcZq") {
         $added->Status = 1;
     }
+    // The Elysian Astrolabe (4nmxqsm4o9): Hindered — enters the field rested
+    if($added->CardID == "4nmxqsm4o9") {
+        $added->Status = 1;
+    }
     // Artificer's Opus (G5E0PIUd0W): enters the field rested (card text, not keyword)
     if($added->CardID == "G5E0PIUd0W") {
         $added->Status = 1;
@@ -1357,6 +1392,20 @@ function RecollectionPhase() {
         }
     }
     
+    // --- Celestial Calling: check for banished cards tagged for free activation ---
+    CelestialCallingRecollectionCheck($turnPlayer);
+
+    // --- Arisanna, Astral Zenith (q3huqj5bba): once per turn free starcalling ---
+    // Grant the free starcalling effect at the beginning of each of the player's turns.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "q3huqj5bba" && !HasNoAbilities($field[$i])) {
+            AddGlobalEffects($turnPlayer, "ARISANNA_FREE_STARCALLING");
+            AddGlobalEffects($turnPlayer, "FREE_STARCALLING");
+            break;
+        }
+    }
+
     $memory = &GetMemory($turnPlayer);
     for($i=count($memory)-1; $i>=0; --$i) {
         MZMove($turnPlayer, "myMemory-" . $i, "myHand");
@@ -2342,9 +2391,43 @@ function DrawIntoMemory($player, $amount=1) {
     }
 }
 
+// --- Starcalling Registry ---
+// Maps cardID => starcalling cost (int). Cards with this keyword can be activated
+// mid-glimpse by paying their starcalling cost. Other glimpsed cards go to deck bottom.
+$starcallingCards = [];
+$starcallingCards["zuj68m69iq"] = 0; // Astra Sight: Starcalling (0)
+$starcallingCards["4d5vettczb"] = 2; // Cometfall: Starcalling (2)
+
+/**
+ * Get the effective starcalling cost for a card during a glimpse.
+ * Checks: 1) innate starcalling, 2) Scry the Stars dynamic starcalling,
+ * 3) free starcalling from Arisanna L3 or Elysian Astrolabe.
+ * Returns the cost to pay, or -1 if the card has no starcalling.
+ */
+function GetStarcallingCost($player, $cardID) {
+    global $starcallingCards;
+    $cost = -1;
+    // Check innate starcalling
+    if(isset($starcallingCards[$cardID])) {
+        $cost = $starcallingCards[$cardID];
+    }
+    // Scry the Stars: "cards you look at while glimpsing have Starcalling (X) where X = reserve cost"
+    if($cost < 0 && GlobalEffectCount($player, "oz23yfzk96") > 0) {
+        $cost = CardCost_reserve($cardID);
+        if($cost < 0) $cost = 0;
+    }
+    if($cost < 0) return -1;
+    // Free starcalling: Arisanna L3 or Elysian Astrolabe global effect
+    if(GlobalEffectCount($player, "FREE_STARCALLING") > 0) {
+        $cost = 0;
+    }
+    return $cost;
+}
+
 /**
  * Glimpse N: show the top N cards of the player's deck and let them choose
  * which cards go back to the top vs. the bottom, in any order.
+ * If any glimpsed card has Starcalling, offer the player a chance to starcall first.
  * Queues an MZREARRANGE decision followed by a GlimpseApply custom handler.
  *
  * @param int $player The acting player.
@@ -2355,20 +2438,47 @@ function Glimpse($player, $amount) {
     $n = min($amount, count($zone));
     if($n == 0) return;
 
-    // Collect the top N card IDs (they stay in the deck; we just show them)
+    // Collect the top N card IDs
     $cardIDs = [];
     for($i = 0; $i < $n; ++$i) {
         $cardIDs[] = $zone[$i]->CardID;
     }
 
-    // Build MZREARRANGE param: all cards start in the Top pile
-    $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
-
     // Remember how many cards are being glimpsed so the handler knows how many to remove
     DecisionQueueController::StoreVariable("glimpseCount", strval($n));
 
-    DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
+    // Check for starcalling candidates among glimpsed cards
+    $starcallCandidateIndices = [];
+    for($i = 0; $i < $n; ++$i) {
+        $sc = GetStarcallingCost($player, $cardIDs[$i]);
+        if($sc >= 0) {
+            // Check if player can afford: sc == 0 is free, otherwise need enough hand cards
+            if($sc == 0 || count(GetZone("myHand")) >= $sc) {
+                $starcallCandidateIndices[] = $i;
+            }
+        }
+    }
+
+    if(!empty($starcallCandidateIndices)) {
+        // Move top N cards to myTempZone so the popup can display them face-up
+        // (always use myDeck-0 since each MZMove shifts remaining deck cards down)
+        for($i = 0; $i < $n; ++$i) {
+            MZMove($player, "myDeck-0", "myTempZone");
+        }
+        // Store card IDs and tempzone flag for handlers
+        DecisionQueueController::StoreVariable("glimpseCardIDs", implode(",", $cardIDs));
+        DecisionQueueController::StoreVariable("glimpsedToTempZone", "1");
+        // Offer starcalling choice using tempzone refs (face-up cards in popup)
+        $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $starcallCandidateIndices));
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Starcall_a_card?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingOffer", 1);
+    } else {
+        // No starcalling candidates — cards stay in deck, proceed with normal glimpse
+        DecisionQueueController::StoreVariable("glimpsedToTempZone", "0");
+        $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
+        DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
+    }
 }
 
 function DoDiscardCard($player, $mzCard) {
@@ -2540,8 +2650,57 @@ $customDQHandlers["AzureTrinketPick"] = function($player, $parts, $lastDecision)
 $customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
     $zone = &GetDeck($player);
     $n = intval(DecisionQueueController::GetVariable("glimpseCount"));
+    $fromTempZone = DecisionQueueController::GetVariable("glimpsedToTempZone") === "1";
 
-    // Remove the top N cards from the deck — these are the ones the player viewed
+    // Parse the MZREARRANGE result into piles
+    $piles = ["Top" => [], "Bottom" => []];
+    $pileStrings = explode(";", $lastDecision);
+    foreach($pileStrings as $pileStr) {
+        $eqPos = strpos($pileStr, "=");
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        $pidList = ($cardsStr !== "") ? explode(",", $cardsStr) : [];
+        $piles[$pileName] = $pidList;
+    }
+
+    if($fromTempZone) {
+        // Cards were moved to myTempZone by Glimpse() for face-up display
+        // Collect their objects and build a cardID→object map
+        $tempZone = &GetTempZone($player);
+        $tempObjs = [];
+        for($i = 0; $i < count($tempZone); ++$i) {
+            if(!$tempZone[$i]->removed) {
+                $tempObjs[] = $tempZone[$i];
+            }
+        }
+        $tCardMap = [];
+        foreach($tempObjs as $obj) {
+            $tCardMap[$obj->CardID][] = $obj;
+        }
+        $popTCard = function($cardID) use (&$tCardMap) {
+            if(empty($tCardMap[$cardID])) return null;
+            return array_shift($tCardMap[$cardID]);
+        };
+        // Remove all tempzone objects cleanly
+        foreach($tempObjs as $obj) { $obj->Remove(); }
+        DecisionQueueController::CleanupRemovedCards();
+
+        // Top pile: add to deck front (reverse iterate preserves original order)
+        $topCards = $piles["Top"];
+        for($i = count($topCards) - 1; $i >= 0; --$i) {
+            $src = $popTCard($topCards[$i]);
+            AddDeckTop($player, $topCards[$i], $src);
+        }
+        // Bottom pile: add to deck back
+        foreach($piles["Bottom"] as $cid) {
+            $src = $popTCard($cid);
+            AddDeck($player, $cid, $src);
+        }
+        return;
+    }
+
+    // Original deck-top path: remove top N cards and re-insert per player choice
     $removedCards = [];
     for($i = 0; $i < $n; ++$i) {
         if(count($zone) > 0) {
@@ -2561,18 +2720,6 @@ $customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
         return array_shift($cardMap[$cardID]);
     };
 
-    // Parse the MZREARRANGE result into piles
-    $piles = ["Top" => [], "Bottom" => []];
-    $pileStrings = explode(";", $lastDecision);
-    foreach($pileStrings as $pileStr) {
-        $eqPos = strpos($pileStr, "=");
-        if($eqPos === false) continue;
-        $pileName = substr($pileStr, 0, $eqPos);
-        $cardsStr = trim(substr($pileStr, $eqPos + 1));
-        $cardIDs = ($cardsStr !== "") ? explode(",", $cardsStr) : [];
-        $piles[$pileName] = $cardIDs;
-    }
-
     // Put "Top" pile cards at the front of the deck (reverse-iterate to preserve order)
     $topCards = $piles["Top"];
     for($i = count($topCards) - 1; $i >= 0; --$i) {
@@ -2586,6 +2733,122 @@ $customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
         $obj = $popCard($cardID);
         if($obj !== null) array_push($zone, $obj);
     }
+};
+
+/**
+ * Starcalling offer handler: player either chose a card to starcall or passed.
+ * If they chose a card, pay its starcalling cost, put ALL other glimpsed cards
+ * on the bottom of the deck, then activate the starcalled card.
+ * If they passed, fall back to normal Glimpse rearrange.
+ */
+$customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision) {
+    $n = intval(DecisionQueueController::GetVariable("glimpseCount"));
+    $cardIDsStr = DecisionQueueController::GetVariable("glimpseCardIDs");
+    $cardIDs = explode(",", $cardIDsStr);
+
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        // Player declined starcalling — cards are in tempzone; GlimpseApply will recover them
+        $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
+        DecisionQueueController::StoreVariable("glimpsedToTempZone", "1"); // ensure flag is set
+        DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
+        return;
+    }
+
+    // Player chose a card to starcall — lastDecision is e.g. "myTempZone-2"
+    $tmpParts = explode("-", $lastDecision);
+    $chosenTempIndex = intval($tmpParts[1]);
+    $chosenCardID = $cardIDs[$chosenTempIndex];
+    $starcallingCost = GetStarcallingCost($player, $chosenCardID);
+
+    // Consume free starcalling if applicable
+    $usedFreeStarcalling = false;
+    if($starcallingCost == 0 && GlobalEffectCount($player, "FREE_STARCALLING") > 0) {
+        // Arisanna L3 (q3huqj5bba): once per turn
+        if(GlobalEffectCount($player, "ARISANNA_FREE_STARCALLING") > 0) {
+            RemoveGlobalEffect($player, "ARISANNA_FREE_STARCALLING");
+            RemoveGlobalEffect($player, "FREE_STARCALLING");
+            $usedFreeStarcalling = true;
+        }
+        // Elysian Astrolabe (4nmxqsm4o9): until end of turn, unlimited
+        if(GlobalEffectCount($player, "ASTROLABE_FREE_STARCALLING") > 0) {
+            $usedFreeStarcalling = true;
+            DecisionQueueController::StoreVariable("astrolabeGlimpseAfterStarcall", "1");
+        }
+    }
+
+    // Move chosen card from tempzone to hand
+    MZMove($player, "myTempZone-" . $chosenTempIndex, "myHand");
+    // Move all other tempzone cards to deck BOTTOM (per starcalling rules: others go on bottom)
+    // Do NOT call CleanupRemovedCards yet — original indices 0..N-1 remain valid (just some removed)
+    for($i = 0; $i < $n; ++$i) {
+        if($i === $chosenTempIndex) continue;
+        $tempObj = GetZoneObject("myTempZone-" . $i);
+        if($tempObj && !$tempObj->removed) {
+            MZMove($player, "myTempZone-" . $i, "myDeck");
+        }
+    }
+    DecisionQueueController::CleanupRemovedCards();
+
+    // Find the chosen card in hand (search from end for most-recently-added)
+    $hand = GetZone("myHand");
+    $handMZ = null;
+    for($hi = count($hand) - 1; $hi >= 0; --$hi) {
+        if(!$hand[$hi]->removed && $hand[$hi]->CardID === $chosenCardID) {
+            $handMZ = "myHand-" . $hi;
+            break;
+        }
+    }
+    if($handMZ === null) return;
+
+    // Pay starcalling cost, then activate the card
+    if($starcallingCost > 0) {
+        for($i = 0; $i < $starcallingCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingActivate|$handMZ|$chosenCardID", 100);
+};
+
+/**
+ * After starcalling cost is paid, activate the card from hand.
+ */
+$customDQHandlers["StarcallingActivate"] = function($player, $parts, $lastDecision) {
+    $mzCard = $parts[0];
+    $chosenCardID = $parts[1];
+
+    // Find the card in hand (index may have shifted due to reserve payments)
+    $hand = GetZone("myHand");
+    $actualMZ = null;
+    for($i = 0; $i < count($hand); ++$i) {
+        if(!$hand[$i]->removed && $hand[$i]->CardID === $chosenCardID) {
+            $actualMZ = "myHand-" . $i;
+            break;
+        }
+    }
+    if($actualMZ === null) return;
+
+    // Tag as starcalled so the card's ability code can check
+    DecisionQueueController::StoreVariable("wasStarcalled", "YES");
+
+    // Move to effect stack
+    $obj = MZMove($player, $actualMZ, "EffectStack");
+    $obj->Controller = $player;
+
+    // Queue EffectStackOpportunity (opponent may respond)
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+
+    // Astrolabe: trigger Glimpse 5 after starcalling completes
+    $astrolabeGlimpse = DecisionQueueController::GetVariable("astrolabeGlimpseAfterStarcall");
+    if($astrolabeGlimpse === "1") {
+        DecisionQueueController::StoreVariable("astrolabeGlimpseAfterStarcall", "0");
+        // Queue glimpse 5 after the starcalled card resolves (high block)
+        DecisionQueueController::AddDecision($player, "CUSTOM", "AstrolabeStarcallGlimpse", 201);
+    }
+};
+
+$customDQHandlers["AstrolabeStarcallGlimpse"] = function($player, $parts, $lastDecision) {
+    Glimpse($player, 5);
 };
 
 $customDQHandlers["WindriderMageBounce"] = function($player, $parts, $lastDecision) {
@@ -3106,6 +3369,12 @@ $doesGlobalEffectApply["r0zadf9q1w"] = function($obj) { return false; };
 
 // Fireworks Display (sx6q3p6i0i): flag only — banish-instead-of-die handled in DoAllyDestroyed
 $doesGlobalEffectApply["FIREWORKS_BANISH"] = function($obj) { return false; };
+
+// Starcalling global effect flags — not displayed on field cards
+$doesGlobalEffectApply["FREE_STARCALLING"] = function($obj) { return false; };
+$doesGlobalEffectApply["ARISANNA_FREE_STARCALLING"] = function($obj) { return false; };
+$doesGlobalEffectApply["ASTROLABE_FREE_STARCALLING"] = function($obj) { return false; };
+$doesGlobalEffectApply["oz23yfzk96"] = function($obj) { return false; }; // Scry the Stars dynamic starcalling
 
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
@@ -6060,5 +6329,138 @@ function SupplyDroneMaterialize($player) {
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $bulletMZs), 1, "Materialize_a_0-cost_Bullet");
     DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
 }
+
+// ============================================================================
+// Celestial Calling (izm6h38lrj): reveal from deck, banish astra Spell, free activate next recollection
+// ============================================================================
+
+/**
+ * Reveal cards from the top of the deck until an astra Spell is found.
+ * Banish that card (tagged with CELESTIAL_CALLING TurnEffect), put the rest on bottom in random order.
+ */
+function CelestialCallingReveal($player) {
+    $deck = &GetDeck($player);
+    $foundIndex = -1;
+    // Reveal cards top-down until we find an astra Spell
+    for($i = 0; $i < count($deck); ++$i) {
+        $cardID = $deck[$i]->CardID;
+        if(CardElement($cardID) === "ASTRA" && PropertyContains(CardSubtypes($cardID), "SPELL")) {
+            $foundIndex = $i;
+            break;
+        }
+    }
+    if($foundIndex < 0) {
+        // No astra Spell found — put all revealed cards on bottom in random order
+        // (all cards were "revealed" conceptually, but deck stays intact)
+        return;
+    }
+
+    // Remove the found card and all cards above it from the deck
+    $revealed = [];
+    for($i = 0; $i <= $foundIndex; ++$i) {
+        $revealed[] = array_shift($deck);
+    }
+
+    // Show the found card as a reveal
+    $foundCard = $revealed[$foundIndex];
+    SetFlashMessage('REVEAL:' . $foundCard->CardID);
+
+    // Banish the found astra Spell, tag it for free activation next recollection
+    $banishObj = AddBanish($player, $foundCard->CardID);
+    $banishObj->AddTurnEffects("CELESTIAL_CALLING");
+
+    // Put remaining revealed cards on the bottom of the deck in random order
+    $remaining = [];
+    for($i = 0; $i < count($revealed); ++$i) {
+        if($i === $foundIndex) continue;
+        $remaining[] = $revealed[$i];
+    }
+    shuffle($remaining);
+    foreach($remaining as $cardObj) {
+        array_push($deck, $cardObj);
+    }
+}
+
+/**
+ * Process Celestial Calling trigger during RecollectionPhase.
+ * Scans banishment for a card with CELESTIAL_CALLING TurnEffect and offers free activation.
+ */
+function CelestialCallingRecollectionCheck($player) {
+    $banish = GetZone("myBanish");
+    for($i = 0; $i < count($banish); ++$i) {
+        if(!$banish[$i]->removed && in_array("CELESTIAL_CALLING", $banish[$i]->TurnEffects)) {
+            $mz = "myBanish-" . $i;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                tooltip:"Activate_" . CardName($banish[$i]->CardID) . "_for_free?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "CelestialCallingActivate|$mz|" . $banish[$i]->CardID, 1);
+            return; // Only one at a time
+        }
+    }
+}
+
+$customDQHandlers["CelestialCallingActivate"] = function($player, $parts, $lastDecision) {
+    $targetMZ = $parts[0];
+    $targetCardID = $parts[1];
+    // Clear the tag regardless of choice
+    $banish = GetZone("myBanish");
+    for($i = 0; $i < count($banish); ++$i) {
+        if(!$banish[$i]->removed && in_array("CELESTIAL_CALLING", $banish[$i]->TurnEffects)) {
+            $banish[$i]->TurnEffects = array_values(array_diff($banish[$i]->TurnEffects, ["CELESTIAL_CALLING"]));
+            break;
+        }
+    }
+    if($lastDecision !== "YES") return;
+
+    // Find the card in banishment (index may have shifted)
+    $banish = GetZone("myBanish");
+    $actualMZ = null;
+    for($i = 0; $i < count($banish); ++$i) {
+        if(!$banish[$i]->removed && $banish[$i]->CardID === $targetCardID) {
+            $actualMZ = "myBanish-" . $i;
+            break;
+        }
+    }
+    if($actualMZ === null) return;
+
+    // Move to hand then activate for free (ignoreCost = true)
+    $handObj = MZMove($player, $actualMZ, "myHand");
+    DecisionQueueController::CleanupRemovedCards();
+    // Find in hand
+    $hand = GetZone("myHand");
+    $handMZ = null;
+    for($hi = count($hand) - 1; $hi >= 0; --$hi) {
+        if(!$hand[$hi]->removed && $hand[$hi]->CardID === $targetCardID) {
+            $handMZ = "myHand-" . $hi;
+            break;
+        }
+    }
+    if($handMZ === null) return;
+    ActivateCard($player, $handMZ, true);
+};
+
+// ============================================================================
+// Scry the Stars (oz23yfzk96): CB alt-cost banish Scry the Skies from GY
+// ============================================================================
+
+$customDQHandlers["ScryTheStarsAltCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0]);
+    if($lastDecision === "YES") {
+        // Banish Scry the Skies (F9POfB5Nah) from graveyard
+        $gy = GetZone("myGraveyard");
+        for($i = count($gy) - 1; $i >= 0; --$i) {
+            if(!$gy[$i]->removed && $gy[$i]->CardID === "F9POfB5Nah") {
+                MZMove($player, "myGraveyard-" . $i, "myBanish");
+                break;
+            }
+        }
+    } else {
+        // Pay normal reserve cost
+        for($i = 0; $i < $reserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+    }
+    DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
 
 ?>
