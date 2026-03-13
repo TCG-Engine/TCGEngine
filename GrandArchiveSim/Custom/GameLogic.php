@@ -885,6 +885,16 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
                 }
             }
             break;
+        // Bullets: REST + choose unloaded Gun (load is handled by ability body)
+        case "0iqmyn2rz3": // Vanishing Shot
+        case "9htu9agwj4": // Mindbreak Bullet
+        case "r7ch2bbmoq": // Freezing Round
+        case "ii17fzcyfr": // Anathema's End
+        case "f8urrqtjot": // Turbulent Bullet
+        case "ywc08c9htu": // Cascading Round
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1; // REST
+            break;
     }
 }
 
@@ -967,6 +977,12 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "2rz308kuz0") {
         if($sourceObject->Status != 2) return;
         if(!IsClassBonusActive($player, ["RANGER"])) return;
+    }
+    // Bullets (REST: Load into unloaded Gun): must be awake + unloaded Gun exists
+    if($cardID === "0iqmyn2rz3" || $cardID === "9htu9agwj4" || $cardID === "r7ch2bbmoq"
+       || $cardID === "ii17fzcyfr" || $cardID === "f8urrqtjot" || $cardID === "ywc08c9htu") {
+        if($sourceObject->Status != 2) return;
+        if(empty(GetUnloadedGuns($player))) return;
     }
     
     // Ability index is now passed directly from the frontend button click
@@ -1056,7 +1072,10 @@ function DoAllyDestroyed($player, $mzCard) {
     OnLeaveField($player, $mzCard);
     // Fireworks Display (sx6q3p6i0i): banish instead of graveyard
     $fireworksBanish = GlobalEffectCount($controller, "FIREWORKS_BANISH") > 0;
-    if($fireworksBanish) {
+    if(IsRenewable($obj->CardID) && !$fireworksBanish) {
+        // Renewable: goes to material deck instead of graveyard/banish
+        $dest = $player == $controller ? "myMaterial" : "theirMaterial";
+    } else if($fireworksBanish) {
         $dest = $player == $controller ? "myBanish" : "theirBanish";
     } else {
         $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
@@ -1328,6 +1347,11 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "ljyevpmu6g": // Supply Drone: [CB] materialize a 0-cost Bullet from material deck
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["RANGER"])) {
+                        SupplyDroneMaterialize($turnPlayer);
+                    }
+                    break;
                 default: break;
             }
         }
@@ -1417,6 +1441,14 @@ function BeforeEndPhase() {
     $banish = GetZone("myBanish");
     for($sbi = count($banish) - 1; $sbi >= 0; --$sbi) {
         if(!$banish[$sbi]->removed && in_array("MEM_BANISHED", $banish[$sbi]->TurnEffects)) {
+            MZMove($playerID, "myBanish-" . $sbi, "myMemory");
+        }
+    }
+
+    // FREEZING_ROUND_RETURN: return cards banished by Freezing Round to their owner's memory.
+    $banish = GetZone("myBanish");
+    for($sbi = count($banish) - 1; $sbi >= 0; --$sbi) {
+        if(!$banish[$sbi]->removed && in_array("FREEZING_ROUND_RETURN", $banish[$sbi]->TurnEffects)) {
             MZMove($playerID, "myBanish-" . $sbi, "myMemory");
         }
     }
@@ -1834,6 +1866,9 @@ function ObjectCurrentPower($obj) {
             case "i1f0ht2tsn": // Strategic Warfare: allies get +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "f8urrqtjot": // Turbulent Bullet: [CB] On Hit: target ally gets +1 POWER until end of turn
+                $power += 1;
+                break;
             case "yevpmu6gvn_POWER": // Tonoris, Might of Humanity: +3 POWER on next attack
                 $power += 3;
                 break;
@@ -2159,6 +2194,15 @@ function ObjectCurrentHP($obj) {
             }
         }
     }
+    // Inherited Effects: check champion lineage for curse effects
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && is_array($obj->Subcards)) {
+        foreach($obj->Subcards as $lineageCardID) {
+            if($lineageCardID === "8tuhuy4xip") { // Load Soul: -2 LIFE
+                $cardLife -= 2;
+            }
+        }
+    }
+
     // Ally Link: check for bonuses from linked Phantasia cards via Subcards
     $linkedCards = GetLinkedCards($obj);
     foreach($linkedCards as $linkedObj) {
@@ -2899,6 +2943,7 @@ $persistentTurnEffects["ATTUNE_FLAMES_BUFF"] = true;
 $persistentTurnEffects["BLAZING_CHARGE_NEXT_TURN"] = true;
 $persistentTurnEffects["TAUNT_NEXT_TURN"] = true;
 $persistentTurnEffects["VIGOR_NEXT_TURN"] = true;
+$persistentTurnEffects["FREEZING_ROUND_RETURN"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -3714,6 +3759,8 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "WUAOMTZ7P2" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
     // Firetuned Automaton (lzjmwuir99): [Class Bonus] Floating Memory
     if($obj->CardID === "lzjmwuir99" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
+    // Freezing Round (r7ch2bbmoq): [Class Bonus] Floating Memory
+    if($obj->CardID === "r7ch2bbmoq" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
     if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
         for($p = 1; $p <= 2; $p++) {
@@ -3972,6 +4019,7 @@ function GetProtectiveFractalPrevention($obj) {
  */
 function HasSpellshroud($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($obj)) return true;
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
     // Innervate Agility: units gain spellshroud until EOT via global effect
@@ -5743,5 +5791,264 @@ $customDQHandlers["ObeliskFabricationSummon"] = function($player, $parts, $lastD
     $newIdx = count($field) - 1;
     AddCounters($player, "myField-" . $newIdx, "buff", 1);
 };
+
+// ============================================================================
+// Gun & Bullet Infrastructure
+// ============================================================================
+
+/**
+ * Renewable cards: if banished from field or intent, go to material deck instead.
+ */
+$Renewable_Cards = [
+    "f8urrqtjot" => true, // Turbulent Bullet
+    "ywc08c9htu" => true, // Cascading Round
+];
+
+/**
+ * Check if a weapon (Gun) currently has a bullet loaded.
+ * Loaded bullets are stored in the gun's Subcards array.
+ */
+function IsGunLoaded($obj) {
+    return is_array($obj->Subcards) && !empty($obj->Subcards);
+}
+
+/**
+ * Get mzIDs of unloaded Gun weapons the player controls that are awake.
+ */
+function GetUnloadedGuns($player) {
+    $guns = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["GUN"]);
+    $unloaded = [];
+    foreach($guns as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj !== null && !IsGunLoaded($obj)) {
+            $unloaded[] = $mzID;
+        }
+    }
+    return $unloaded;
+}
+
+/**
+ * Load a bullet into a gun weapon.
+ * The bullet is removed from the field (its CardID is stored in the gun's Subcards).
+ * The bullet card must be on the field and the gun must be unloaded.
+ */
+function LoadBulletIntoGun($player, $bulletMZ, $gunMZ) {
+    $bulletObj = GetZoneObject($bulletMZ);
+    $gunObj = &GetZoneObject($gunMZ);
+    if($bulletObj === null || $gunObj === null) return;
+    $bulletCardID = $bulletObj->CardID;
+    // Store bullet CardID in gun's Subcards
+    if(!is_array($gunObj->Subcards)) $gunObj->Subcards = [];
+    $gunObj->Subcards[] = $bulletCardID;
+    // Remove bullet from field silently (loading is a cost, no LeaveField triggers)
+    $bulletObj->removed = true;
+    DecisionQueueController::CleanupRemovedCards();
+}
+
+/**
+ * Count Curse cards in a player's champion lineage.
+ */
+function CountCursesInLineage($player) {
+    $lineage = GetChampionLineage($player);
+    $count = 0;
+    foreach($lineage as $cardID) {
+        if(PropertyContains(CardSubtypes($cardID), "CURSE")) {
+            $count++;
+        }
+    }
+    return $count;
+}
+
+/**
+ * Check if a card is Renewable.
+ */
+function IsRenewable($cardID) {
+    global $Renewable_Cards;
+    return isset($Renewable_Cards[$cardID]);
+}
+
+// --- Vanishing Shot: return hit ally to owner's memory ---
+$customDQHandlers["VanishingShotReturn"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $targetMZ = DecisionQueueController::GetVariable("VanishingShotTarget");
+    if(empty($targetMZ) || $targetMZ === "-") return;
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) return;
+    // Return to owner's memory
+    global $playerID;
+    $dest = $targetObj->Owner == $playerID ? "myMemory" : "theirMemory";
+    MZMove($player, $targetMZ, $dest);
+};
+
+// --- LoadBullet: custom DQ handler for the REST:Load activated ability ---
+$customDQHandlers["LoadBullet"] = function($player, $parts, $lastDecision) {
+    // $parts[0] = mzID of the bullet that was rested
+    // $lastDecision = mzID of the chosen unloaded gun
+    $bulletMZ = $parts[0];
+    if($lastDecision === "-" || $lastDecision === "") return;
+    LoadBulletIntoGun($player, $bulletMZ, $lastDecision);
+};
+
+// --- Force Load: step 1 — store bullet choice, then choose gun ---
+$customDQHandlers["ForceLoadStoreBullet"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $guns = GetUnloadedGuns($player);
+    if(empty($guns)) return;
+    $gunStr = implode("&", $guns);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $gunStr, 1, "Choose_Gun_to_load");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ForceLoadChooseGun|" . $lastDecision, 1);
+};
+
+// --- Force Load: step 2 — materialize bullet to field, load into gun ---
+$customDQHandlers["ForceLoadChooseGun"] = function($player, $parts, $lastDecision) {
+    // $parts[0] = mzID of the chosen bullet from material deck
+    // $lastDecision = mzID of the chosen gun
+    $bulletMZ = $parts[0];
+    if($lastDecision === "-" || $lastDecision === "") return;
+    // Materialize the bullet to field first (paying 0 cost since it's memory cost 0)
+    $bulletObj = MZMove($player, $bulletMZ, "myField");
+    $bulletObj->Controller = $player;
+    DecisionQueueController::CleanupRemovedCards();
+    // Now find the bullet on the field and load it into the gun
+    $field = GetZone("myField");
+    $bulletFieldMZ = null;
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if(!$field[$i]->removed && $field[$i] === $bulletObj) {
+            $bulletFieldMZ = "myField-" . $i;
+            break;
+        }
+    }
+    if($bulletFieldMZ !== null) {
+        LoadBulletIntoGun($player, $bulletFieldMZ, $lastDecision);
+    }
+};
+
+// --- Refresh Chamber: after materialize, may banish floating from GY to put card in memory ---
+$customDQHandlers["RefreshChamberBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    // Banish the floating memory card from graveyard
+    MZMove($player, $lastDecision, "myBanish");
+    // Find Refresh Chamber on the effect stack or graveyard (it just resolved to GY)
+    // and move it to memory
+    $gy = GetZone("myGraveyard");
+    for($i = count($gy) - 1; $i >= 0; --$i) {
+        if(!$gy[$i]->removed && $gy[$i]->CardID === "7nk45swaf8") {
+            MZMove($player, "myGraveyard-" . $i, "myMemory");
+            break;
+        }
+    }
+};
+
+// --- Load Soul: after materialize, may add durability to Gun and put card on lineage ---
+$customDQHandlers["LoadSoulDurability"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    // $lastDecision = mzID of the chosen Gun
+    AddCounters($player, $lastDecision, "durability", 2);
+    // Put Load Soul on bottom of champion's lineage
+    $field = &GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && PropertyContains(EffectiveCardType($field[$i]), "CHAMPION") && $field[$i]->Controller == $player) {
+            if(!is_array($field[$i]->Subcards)) $field[$i]->Subcards = [];
+            $field[$i]->Subcards[] = "8tuhuy4xip"; // Load Soul CardID
+            break;
+        }
+    }
+    // Remove Load Soul from graveyard (it was just activated and resolved)
+    $gy = GetZone("myGraveyard");
+    for($gi = count($gy) - 1; $gi >= 0; --$gi) {
+        if(!$gy[$gi]->removed && $gy[$gi]->CardID === "8tuhuy4xip") {
+            MZRemove($player, "myGraveyard-" . $gi);
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        }
+    }
+};
+
+// --- Deploy Gunshield: target Gun gains spellshroud until EOT ---
+$customDQHandlers["DeployGunshieldTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddTurnEffect($lastDecision, "SPELLSHROUD");
+};
+
+// --- Seeker's Rifle: On Kill pay (2) to materialize a Bullet ---
+$customDQHandlers["SeekersRifleOnKill"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    // Pay 2 reserve (move 2 cards from hand to memory)
+    $hand = GetZone("myHand");
+    if(count($hand) < 2) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", array_map(function($i) { return "myHand-" . $i; }, range(0, count($hand) - 1))), 1, "Pay_reserve_(1/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SeekersRiflePayReserve|1", 1);
+};
+
+$customDQHandlers["SeekersRiflePayReserve"] = function($player, $parts, $lastDecision) {
+    $payNum = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myMemory");
+    if($payNum < 2) {
+        $hand = GetZone("myHand");
+        if(!empty($hand)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", array_map(function($i) { return "myHand-" . $i; }, range(0, count($hand) - 1))), 1, "Pay_reserve_(2/2)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SeekersRiflePayReserve|2", 1);
+        }
+    } else {
+        // Payment complete — materialize a Bullet
+        SupplyDroneMaterialize($player);
+    }
+};
+
+// --- Mindbreak Bullet: CB On Champion Hit — look at memory, discard a card ---
+$customDQHandlers["MindbreakBulletDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    // Discard the chosen card from opponent's memory
+    MZMove($player, $lastDecision, "theirGraveyard");
+};
+
+// --- Freezing Round: On Champion Hit — banish random from memory, return at next end phase ---
+$customDQHandlers["FreezingRoundReturn"] = function($player, $parts, $lastDecision) {
+    // $parts[0] = cardID of the banished card, $parts[1] = opponent player number
+    $cardID = $parts[0];
+    $opponent = intval($parts[1]);
+    // Find the banished card with FREEZING_ROUND_RETURN TurnEffect and return to memory
+    $banishZone = $opponent == $player ? "myBanish" : "theirBanish";
+    $memoryZone = $opponent == $player ? "myMemory" : "theirMemory";
+    $zone = GetZone($banishZone);
+    for($i = 0; $i < count($zone); ++$i) {
+        if(!$zone[$i]->removed && $zone[$i]->CardID === $cardID && in_array("FREEZING_ROUND_RETURN", $zone[$i]->TurnEffects)) {
+            $zone[$i]->TurnEffects = array_values(array_diff($zone[$i]->TurnEffects, ["FREEZING_ROUND_RETURN"]));
+            MZMove($player, $banishZone . "-" . $i, $memoryZone);
+            break;
+        }
+    }
+};
+
+// --- Turbulent Bullet: CB On Hit — up to 2 allies get +1 power ---
+$customDQHandlers["TurbulentBulletBuff"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $remaining <= 0) return;
+    AddTurnEffect($lastDecision, "f8urrqtjot"); // Turbulent Bullet effect ID
+    if($remaining > 1) {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($allies)) {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $allies), 1, "Choose_another_ally_for_+1_power?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "TurbulentBulletBuff|0", 1);
+        }
+    }
+};
+
+// --- Supply Drone: materialize a 0-cost Bullet from material deck ---
+function SupplyDroneMaterialize($player) {
+    $materialZone = GetZone("myMaterial");
+    $bulletMZs = [];
+    for($i = 0; $i < count($materialZone); ++$i) {
+        $obj = $materialZone[$i];
+        if(!$obj->removed && PropertyContains(CardSubtypes($obj->CardID), "BULLET") && CardMemoryCost($obj) == 0) {
+            $bulletMZs[] = "myMaterial-" . $i;
+        }
+    }
+    if(empty($bulletMZs)) return;
+    // The player materializes a 0-cost Bullet (pays memory cost which is 0)
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $bulletMZs), 1, "Materialize_a_0-cost_Bullet");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+}
 
 ?>

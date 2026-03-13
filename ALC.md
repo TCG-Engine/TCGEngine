@@ -35,30 +35,6 @@ Cards in each group depend on or strongly reinforce each other and should be imp
 
 ---
 
-### 3. Gun & Bullet Package
-*The Gun/Bullet ecosystem relies on the shared loading/unloading mechanic where Bullets are loaded into unloaded Gun weapons and enter the attacker's intent on attack. Most Bullets REST to load, some have Floating Memory, several have On Hit or On Champion Hit triggers. The support actions (Force Load, Rapid Reload, Refresh Chamber) all interact with the material deck or durability counters. Implement the loading infrastructure and bullet resolution before individual bullet triggers.*
-
-*Note: Load Soul and Gloamspire Lance also carry the Curse-in-lineage theme (see Curse Lineage Package below). Bombard Flarecannon is in the Polkhawk group.*
-
-| Card | ID | Note |
-|------|----|------|
-| Seeker's Rifle | `3gygojwk0p` | Regalia Gun; Class Bonus: True Sight, Spellshroud; On Kill: pay (2) → materialize Bullet |
-| Gloamspire Lance | `8vn1voy5tt` | Regalia Gun; Class Bonus On Hit: deal X unpreventable + recover X (X = Curses in lineage + 1) |
-| Vanishing Shot | `0iqmyn2rz3` | Bullet 2; REST: load into unloaded Gun; On Ally Hit: may return hit ally to memory |
-| Mindbreak Bullet | `9htu9agwj4` | Bullet 3; REST: load; Class Bonus On Champion Hit: look at memory, discard a card |
-| Freezing Round | `r7ch2bbmoq` | Bullet 2; REST: load; On Champion Hit: banish random card from memory, return at their next end phase; Class Bonus: Floating Memory |
-| Anathema's End | `ii17fzcyfr` | Bullet 1; REST: load; Class Bonus On Champion Hit: banish all Curses in champion's lineage, deal 2 per Curse |
-| Turbulent Bullet | `f8urrqtjot` | Renewable Regalia Bullet 1; REST: load; Class Bonus On Hit: up to 2 allies get +1 power |
-| Cascading Round | `ywc08c9htu` | Renewable Regalia Bullet 2; REST: load; On Hit: mill top card |
-| Force Load | `y6isxy5lh2` | Choose fire or norm 0-cost Bullet from material deck, load directly into a Gun |
-| Rapid Reload | `ypwc8tuhuy` | Materialize a Bullet; Class Bonus: Efficiency (costs LV less) |
-| Refresh Chamber | `7nk45swaf8` | Materialize a Bullet; optionally banish Floating Memory card → put this card into memory |
-| Deploy Gunshield | `bjvwbcizm6` | Target Gun gains Spellshroud; Floating Memory |
-| Load Soul | `8tuhuy4xip` | Materialize Bullet + put 2 durability counters on a Gun; puts itself on bottom of lineage as Curse; Inherited: -2 Life |
-| Supply Drone | `ljyevpmu6g` | Ally Automaton; Class Bonus: at beginning of recollection phase materialize a 0-cost Bullet |
-
----
-
 ### 5. Curse Lineage Package
 *These Umbra/Ranger cards all interact with the "Curses in champion's lineage" mechanic — either adding themselves to the lineage as Curse cards (each carrying a punishing Inherited Effect of -2 Life), counting existing Curses, or removing them. Note that Load Soul and Gloamspire Lance (in the Gun group), Anathema's End (in the Bullet group), and Creeping Torment (in the Diana lineage) also belong to this ecosystem; implement those first.*
 

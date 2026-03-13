@@ -255,10 +255,17 @@ function FlipZonePerspective($mzID) {
  * Send all attack cards from intent zone to graveyard after combat resolves.
  */
 function ClearIntent($player) {
+    global $Renewable_Cards;
     $intentCards = GetIntentCards($player);
     // Work backwards so index removal doesn't shift remaining cards
     for($i = count($intentCards) - 1; $i >= 0; --$i) {
-        MZMove($player, $intentCards[$i], "myGraveyard");
+        $iObj = GetZoneObject($intentCards[$i]);
+        if($iObj !== null && isset($Renewable_Cards[$iObj->CardID])) {
+            // Renewable: goes to material deck instead of graveyard
+            MZMove($player, $intentCards[$i], "myMaterial");
+        } else {
+            MZMove($player, $intentCards[$i], "myGraveyard");
+        }
     }
 }
 
@@ -712,6 +719,17 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
         DecisionQueueController::StoreVariable("CombatWeapon", "-");
     } else {
         DecisionQueueController::StoreVariable("CombatWeapon", $lastDecision);
+        // Gun weapons: move loaded bullet from weapon's Subcards into intent
+        $weaponObj = &GetZoneObject($lastDecision);
+        if($weaponObj !== null && PropertyContains(CardSubtypes($weaponObj->CardID), "GUN") && is_array($weaponObj->Subcards) && !empty($weaponObj->Subcards)) {
+            foreach($weaponObj->Subcards as $bulletCardID) {
+                MZAddZone($player, "myIntent", $bulletCardID);
+                $intentZone = &GetZone("myIntent");
+                $newIdx = count($intentZone) - 1;
+                $intentZone[$newIdx]->Controller = $player;
+            }
+            $weaponObj->Subcards = []; // Gun is now unloaded
+        }
     }
 };
 
