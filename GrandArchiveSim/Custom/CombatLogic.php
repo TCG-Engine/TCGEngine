@@ -1343,6 +1343,60 @@ function OnDealDamage($player, $source, $target, $amount) {
         if($amount <= 0) return; // All damage prevented
     }
 
+    // Linked Shield damage prevention (Unit Link items)
+    if($amount > 0) {
+        $linkedCards = GetLinkedCards($targetObj);
+        foreach($linkedCards as $linkedObj) {
+            if(HasNoAbilities($linkedObj)) continue;
+            switch($linkedObj->CardID) {
+                case "y208kkz07n": // Vaporjet Shield: [CB] prevent 1 damage to linked unit
+                    if(IsClassBonusActive($linkedObj->Controller, ["GUARDIAN"])) {
+                        $amount -= 1;
+                    }
+                    break;
+                case "zadf9q1vk8": // Prototype Shield: [CB] prevent 3 while linked unit is attacking
+                    if(IsClassBonusActive($linkedObj->Controller, ["GUARDIAN"])) {
+                        $combatAttackerCheck = DecisionQueueController::GetVariable("CombatAttacker");
+                        if($combatAttackerCheck !== null && $combatAttackerCheck === $target) {
+                            $amount -= 3;
+                        }
+                    }
+                    break;
+            }
+        }
+        if($amount <= 0) return;
+    }
+
+    // Enthralling Visage (ycwz9gv4vm): prevent 2 damage, banish target graveyard card
+    if($amount > 0) {
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "ycwz_") === 0) {
+                $evParts = explode("_", substr($effect, 5));
+                $evOwner = intval($evParts[0]);
+                $evCardID = $evParts[1];
+                $budget = 2;
+                $prevented = min($budget, $amount);
+                $amount -= $prevented;
+                unset($targetObj->TurnEffects[$idx]);
+                $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                if($prevented > 0) {
+                    global $playerID;
+                    $gravZone = ($evOwner == $playerID) ? "myGraveyard" : "theirGraveyard";
+                    $banishDest = ($evOwner == $playerID) ? "myBanish" : "theirBanish";
+                    $gravCards = GetZone($gravZone);
+                    for($gi = count($gravCards) - 1; $gi >= 0; --$gi) {
+                        if(!$gravCards[$gi]->removed && $gravCards[$gi]->CardID === $evCardID) {
+                            MZMove($evOwner, $gravZone . "-" . $gi, $banishDest);
+                            break;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        if($amount <= 0) return;
+    }
+
     // PREVENT_ALL_N: prevent up to N of any damage this turn (Guarded Dissipation)
     if($amount > 0) {
         foreach($targetObj->TurnEffects as $idx => $effect) {

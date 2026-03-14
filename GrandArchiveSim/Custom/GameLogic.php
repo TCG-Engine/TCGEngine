@@ -1054,6 +1054,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "9gv4vm4kj3": // Backup Charger — banish self
         case "9xycwz9gv4": // Memento Mori — banish self
         case "uqrptjej4m": // Tonic of Remembrance — banish self
+        case "xfpk9xycwz": // Alkahest — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -1101,6 +1102,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "h38lrj5221": // Distilled Atrophy: sacrifice self — store age counters
         case "tjot4nmxqs": // Wildgrowth Elixir: sacrifice self — store age counters
         case "k0hliqs2hi": // Liquid Amnesia: sacrifice self — store age counters
+        case "y5ttkat9hr": // Aqua Vitae: sacrifice self — store age counters
             {
                 $ageObj = GetZoneObject($mzCard);
                 $age = isset($ageObj->Counters['age']) ? $ageObj->Counters['age'] : 0;
@@ -1368,6 +1370,8 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         if($sourceObject->Status != 2) return;
         if(empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]))) return;
     }
+    // Alkahest (xfpk9xycwz): [Level 4+] Banish self — destroy target item/weapon
+    if($cardID === "xfpk9xycwz" && PlayerLevel($player) < 4) return;
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -1930,6 +1934,24 @@ function RecollectionPhase() {
                     }
                     break;
                 case "k0hliqs2hi": // Liquid Amnesia: [CB] put an age counter
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["CLERIC"])) {
+                        AddCounters($turnPlayer, "myField-" . $i, "age", 1);
+                    }
+                    break;
+                case "xfpk9xycwz": // Alkahest: put an age counter on a Potion item you control
+                    if(!HasNoAbilities($field[$i])) {
+                        $potions = ZoneSearch("myField", ["ITEM"], cardSubtypes: ["POTION"]);
+                        if(!empty($potions)) {
+                            if(count($potions) == 1) {
+                                AddCounters($turnPlayer, $potions[0], "age", 1);
+                            } else {
+                                DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $potions), 1, tooltip:"Choose_Potion_for_age_counter");
+                                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "AlkahestAgeCounter", 1);
+                            }
+                        }
+                    }
+                    break;
+                case "y5ttkat9hr": // Aqua Vitae: [CB] put an age counter on self
                     if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["CLERIC"])) {
                         AddCounters($turnPlayer, "myField-" . $i, "age", 1);
                     }
@@ -3030,6 +3052,11 @@ function ObjectCurrentHP($obj) {
             break;
         case "z4pyx8bd7o": // Young Peacekeeper: +1 LIFE while fostered
             if(IsFostered($obj)) $cardLife += 1;
+            break;
+        case "xhi5jnsl7d": // Embershield Keeper: [Class Bonus] +2 LIFE while fostered
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"]) && IsFostered($obj)) {
+                $cardLife += 2;
+            }
             break;
         default: break;
     }
@@ -5355,6 +5382,12 @@ function HasTaunt($obj) {
             }
         }
     }
+    // Powered Defender (z07nau5sw9): [Class Bonus][Level 2+] Taunt
+    if($obj->CardID === "z07nau5sw9") {
+        if(IsClassBonusActive($obj->Controller, ["GUARDIAN"]) && PlayerLevel($obj->Controller) >= 2) {
+            return true;
+        }
+    }
     return false;
 }
 
@@ -5376,7 +5409,8 @@ function HasFoster($obj) {
         "bqjdmthh88" => true, // City Protector
         "22tk3ir1o0" => true, // Peacekeeper Sentinel (alt)
         "lzsmw3rrii" => true, // Guardian Bulwark
-        "xhi5jnsl7d" => true, // Stalwart Protector
+        "xhi5jnsl7d" => true, // Embershield Keeper
+        "zihslnhzj4" => true, // Cell Generator
     ];
     if(isset($fosterCards[$obj->CardID])) return true;
     // [Class Bonus] Foster cards
@@ -6967,6 +7001,12 @@ $customDQHandlers["SmashingForceDestroy"] = function($player, $parts, $lastDecis
     $dest = $player == $targetObj->Controller ? "myGraveyard" : "theirGraveyard";
     MZMove($player, $lastDecision, $dest);
     DecisionQueueController::CleanupRemovedCards();
+};
+
+// --- Alkahest (xfpk9xycwz): choose Potion for age counter ---
+$customDQHandlers["AlkahestAgeCounter"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "age", 1);
 };
 
 // --- Swooping Talons (rj52215upu) helpers ---
