@@ -49,41 +49,6 @@ Several cards generate, count, or consume the Powercell token (already defined a
 
 ---
 
-### 6. Starcall / Astra Mechanics
-
-Three cards revolve around the Starcalling mechanic and the Astra element. Meteor Strike uses existing Starcall engine behavior. Lunar Conduit is a persistent artifact with charge counters. Stargazer's Portent (the copy effect) is the hardest of the three.
-
-| Card | ID | Note |
-|------|----|------|
-| Meteor Strike | `dwavcoxpnj` | Starcalling (3); while being starcalled: deal 3 damage to all units except your champion; otherwise: destroy target non-champion object |
-| Stargazer's Portent | `btjuxztaug` | Astra Cleric Skill; Class Bonus costs 1 less; the next time you starcall a card this turn, copy that activation (new targets optional) — **Hard** |
-| Lunar Conduit | `0yetaebjlw` | Astra Regalia Staff; Class Bonus costs 1 less; whenever you activate an astra element card, put a charge counter on it; REST (3): as a Spell, deal damage to target unit = charge counters, then remove one charge counter |
-
----
-
-### 7. Foster Allies
-
-Two allies share the Foster keyword with different passive bonuses that activate while fostered. If the Foster keyword is already in the engine, both are minor stat-modifier additions.
-
-| Card | ID | While Fostered |
-|------|----|----------------|
-| Krustallan Patrol | `8sugly4wif` | On Foster: put a buff counter; gains Steadfast (retaliates while rested, doesn't rest to do so) |
-| Embershield Keeper | `xhi5jnsl7d` | Gets +2 LIFE |
-
----
-
-### 8. Tamer / Beast Synergy
-
-Three Tamer-class cards that buff, generate, or recover Animal and Beast allies.
-
-| Card | ID | Note |
-|------|----|------|
-| Spirited Falconer | `a5igwbsmks` | Wind Tamer Human Ally; Class Bonus: Fast Activation; Class Bonus On Enter: put a buff counter on up to two target Animal and/or Beast allies |
-| Seaside Ringleader | `eirpdm44nt` | Water Tamer Human Ally; Class+Element Bonus GY activation: (2), banish this → draw into memory; while active this turn, Animal/Beast allies you activate enter with an extra buff counter |
-| Automaton Beastkeeper | `i5jnsl7ddc` | NORM Tamer Automaton Ally; Class Bonus On Enter: may return a Beast ally card from your graveyard to your memory |
-
----
-
 ### 9. Gun Weapons
 
 Two Gun weapons share the Gun mechanic (must be loaded, can't combine with an attack card) with class-bonus interactions on load or activation.

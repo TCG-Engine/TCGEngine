@@ -174,6 +174,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($powercells)) return;
     }
 
+    // Overlord Mk III (sl7ddcgw05): mandatory sacrifice of 4 Powercells
+    if($sourceObject->CardID === "sl7ddcgw05") {
+        $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+        if(count($powercells) < 4) return;
+    }
+
     // Ravishing Finale (jlgx72rfgv): mandatory banish 2 floating memory from GY
     if($sourceObject->CardID === "jlgx72rfgv") {
         $floatingGY = [];
@@ -609,6 +615,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $pcChoices = implode("&", $powercells);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $pcChoices, 100, tooltip:"Sacrifice_a_Powercell");
             DecisionQueueController::AddDecision($player, "CUSTOM", "PowercellSacrifice", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Overlord Mk III (sl7ddcgw05): sacrifice 4 Powercells
+    if($obj->CardID === "sl7ddcgw05") {
+        $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+        if(count($powercells) >= 4) {
+            $pcChoices = implode("&", $powercells);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $pcChoices, 100, tooltip:"Sacrifice_a_Powercell_(1_of_4)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "OverlordSacrifice|3", 100);
         }
     }
 
@@ -2296,6 +2312,27 @@ function EndPhase() {
             $tokens = ZoneSearch("myField", ["TOKEN"]);
             if(count($tokens) >= 4) {
                 DrawIntoMemory($turnPlayer, 1);
+            }
+            break;
+        }
+    }
+
+    // Overlord Mk III (sl7ddcgw05): At beginning of end phase, may banish an
+    // Automaton from GY → put a buff counter on CARDNAME and draw a card.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "sl7ddcgw05" && !HasNoAbilities($field[$i])) {
+            $automatons = [];
+            $gy = GetZone("myGraveyard");
+            for($gi = 0; $gi < count($gy); ++$gi) {
+                if(!$gy[$gi]->removed && PropertyContains(CardSubtypes($gy[$gi]->CardID), "AUTOMATON")) {
+                    $automatons[] = "myGraveyard-" . $gi;
+                }
+            }
+            if(!empty($automatons)) {
+                $autoStr = implode("&", $automatons);
+                DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $autoStr, 1, tooltip:"Banish_an_Automaton_from_GY?_(Overlord_Mk_III)");
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "OverlordEndPhase|" . $i, 1);
             }
             break;
         }
@@ -5098,6 +5135,8 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "lzjmwuir99" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Freezing Round (r7ch2bbmoq): [Class Bonus] Floating Memory
     if($obj->CardID === "r7ch2bbmoq" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
+    // Cell Converter (eqhj1trn0y): [Class Bonus] Floating Memory
+    if($obj->CardID === "eqhj1trn0y" && IsClassBonusActive($obj->Controller, ["CLERIC"])) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
     if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
         for($p = 1; $p <= 2; $p++) {
@@ -5272,9 +5311,11 @@ function HasVigor($obj) {
     // Command the Hunt (rxxwQT054x): allies gain vigor via global effect
     if(ObjectHasEffect($obj, "rxxwQT054x_VIGOR")) return true;
     // Ally Link: Mark of Fervor (80mttsvbgl): linked ally has vigor
+    // Ally Link: Winbless Kiteshield (uoy5ttkat9): linked unit has vigor
     $linkedCards = GetLinkedCards($obj);
     foreach($linkedCards as $linkedObj) {
         if($linkedObj->CardID === "80mttsvbgl") return true;
+        if($linkedObj->CardID === "uoy5ttkat9") return true;
     }
     // Awakened Frostguard (mnu1xhs5jw): vigor while fostered
     if($obj->CardID === "mnu1xhs5jw" && IsFostered($obj)) return true;
@@ -5842,6 +5883,13 @@ function CardMemoryCost($obj) {
     if($obj->CardID === "0yetaebjlw") {
         $turnPlayer = &GetTurnPlayer();
         if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
+            $cost = max(0, $cost - 1);
+        }
+    }
+    // Winbless Kiteshield (uoy5ttkat9): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "uoy5ttkat9") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
             $cost = max(0, $cost - 1);
         }
     }
@@ -8341,6 +8389,34 @@ $customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecisio
     MZMove($player, $lastDecision, "myGraveyard");
     DecisionQueueController::CleanupRemovedCards();
     TriggerPowercellSacrifice($player);
+};
+
+// Overlord Mk III (sl7ddcgw05): iterative sacrifice of 4 Powercells
+$customDQHandlers["OverlordSacrifice"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        OnLeaveField($player, $lastDecision);
+        MZMove($player, $lastDecision, "myGraveyard");
+        DecisionQueueController::CleanupRemovedCards();
+        TriggerPowercellSacrifice($player);
+    }
+    if($remaining > 0) {
+        $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+        if(!empty($powercells)) {
+            $pcChoices = implode("&", $powercells);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $pcChoices, 100, tooltip:"Sacrifice_a_Powercell_(" . (5 - $remaining) . "_of_4)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "OverlordSacrifice|" . ($remaining - 1), 100);
+        }
+    }
+};
+
+// Overlord Mk III (sl7ddcgw05): end phase — banish Automaton from GY → buff + draw
+$customDQHandlers["OverlordEndPhase"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    $fieldIdx = intval($parts[0]);
+    AddCounters($player, "myField-" . $fieldIdx, "buff", 1);
+    Draw($player, 1);
 };
 
 // ============================================================================
