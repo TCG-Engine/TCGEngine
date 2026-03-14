@@ -5,6 +5,7 @@
     <script src="./Core/CounterRendering.js"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
+    <script src="./Core/MZModalUI.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
 
     <style>

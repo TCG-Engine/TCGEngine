@@ -8,18 +8,6 @@
 
 ---
 
-### 2. Imbue Multi-Modal Decrees
-
-Three spells share an identical Imbue-3 structure: choose 1 option; if imbued, choose 2. Once the template is proven for one, the other two are trivial.
-
-| Card | ID | Options |
-|------|----|---------|
-| Verdigris Decree | `7cx66hjlgx` | Suppress ally / +2 POWER to ally / Destroy target Phantasia |
-| Cerulean Decree | `ipl6gt7lh9` | Negate activation (unless pay 2) / target unit attacks get -3 POWER / draw into memory |
-| Vermilion Decree | `tjej4mcnqs` | Deal 3 to target champion / deal 2 to target ally / each player draws a card |
-
----
-
 ### 3. Potion Infusion Cycle
 
 Three spells that rest a target Potion and grant it a temporary On-Sacrifice ability until end of turn. They share the same "attach ephemeral ability to a Potion" mechanic; implement the attach mechanism once and each card is a small variation.

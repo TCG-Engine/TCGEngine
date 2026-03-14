@@ -1748,6 +1748,19 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         console.error('MZRearrangePopup.js not loaded - ShowMZRearrangePopup function not found');
       }
       break;
+    } else if (entry && entry.Type === 'MZMODAL' && !entry.removed) {
+      // MZMODAL: Choose N of M labeled options
+      // Param format: "min|max|label1&label2&label3"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose options';
+
+      if (typeof ShowMZModalUI === 'function') {
+        ShowMZModalUI(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
+        });
+      } else {
+        console.error('MZModalUI.js not loaded - ShowMZModalUI function not found');
+      }
+      break;
     } else if (entry && entry.Type === 'MZSPLITASSIGN' && !entry.removed) {
       // MZSPLITASSIGN: Split-assign a numeric pool across multiple target cards
       // Param format: "amount|mzID1&mzID2&mzID3"
@@ -1804,6 +1817,10 @@ function ClearSelectionMode() {
   // Also hide the MZSplitAssign UI if it exists
   if (typeof HideMZSplitAssignUI === 'function') {
     HideMZSplitAssignUI();
+  }
+  // Also hide the MZModal UI if it exists
+  if (typeof HideMZModalUI === 'function') {
+    HideMZModalUI();
   }
 }
 

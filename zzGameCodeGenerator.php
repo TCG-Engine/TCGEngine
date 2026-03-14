@@ -2522,6 +2522,10 @@ function BuildAddDecisionCall($await, $cardId, $indent = '') {
     // MZSplitAssign: Param = amount|targets (dynamic), tooltip in 5th arg
     $tooltip = isset($await['splitTooltip']) ? $await['splitTooltip'] : '';
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['splitAmount'] . " . \"|\" . " . $await['splitTargets'] . ", 1, \"" . $tooltip . "\");\n";
+  } else if (isset($await['isModal']) && $await['isModal']) {
+    // Modal: Param = min|max|label1&label2&label3, tooltip in 5th arg
+    $tooltip = isset($await['modalTooltip']) ? $await['modalTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['modalMin'] . " . \"|\" . " . $await['modalMax'] . " . \"|\" . \"" . $await['modalOptions'] . "\", 1, \"" . $tooltip . "\");\n";
   } else {
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", \"" . $await['params'] . "\", 1);\n";
   }
@@ -2547,25 +2551,38 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
         // MZSplitAssign($targets, $amount) or MZSplitAssign($targets, $amount, "tooltip")
         $splitArgs = ParseAwaitArgs($rawParams);
         $params = $rawParams; // store raw for reference
+      } else if (strtolower($methodName) === 'modal') {
+        // Modal($min, $max, "label1&label2&label3", "tooltip")
+        $modalArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
       } else {
         $params = trim($rawParams, '"\'');
       }
       
       $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
+      $isModal = strtolower($methodName) === 'modal';
+      $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isModal ? 'MZMODAL' : strtoupper($methodName)));
       $awaitEntry = [
         'lineIndex' => $i,
         'returnVar' => $matches[1],  // e.g., $cardToDeploy
         'playerVar' => $matches[2],  // e.g., $player
-        'choiceType' => strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : strtoupper($methodName)),
+        'choiceType' => $choiceType,
         'params' => $params,
         'isRearrange' => strtolower($methodName) === 'rearrange',
         'isSplitAssign' => $isSplitAssign,
+        'isModal' => $isModal,
         'isVoidFunction' => false
       ];
       if ($isSplitAssign && isset($splitArgs)) {
         $awaitEntry['splitTargets'] = trim($splitArgs[0]);
         $awaitEntry['splitAmount'] = trim($splitArgs[1]);
         $awaitEntry['splitTooltip'] = isset($splitArgs[2]) ? trim(trim($splitArgs[2]), '"\'') : '';
+      }
+      if ($isModal && isset($modalArgs)) {
+        $awaitEntry['modalMin'] = trim($modalArgs[0]);
+        $awaitEntry['modalMax'] = trim($modalArgs[1]);
+        $awaitEntry['modalOptions'] = trim($modalArgs[2], '"\'');
+        $awaitEntry['modalTooltip'] = isset($modalArgs[3]) ? trim(trim($modalArgs[3]), '"\'') : '';
       }
       $awaits[] = $awaitEntry;
     }

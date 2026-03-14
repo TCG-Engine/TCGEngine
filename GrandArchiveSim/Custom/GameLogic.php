@@ -16,6 +16,14 @@ include_once __DIR__ . '/PotionLogic.php';
 //   'condition'    => callable($player) that returns true if the option should be offered
 $additionalActivationCosts = [];
 
+// --- Imbue Cards Registry ---
+// Maps cardID => imbue threshold (N). A card becomes imbued when at least N of
+// the cards reserved to pay its cost match the card's element.
+$Imbue_Cards = [];
+$Imbue_Cards["7cx66hjlgx"] = 3; // Verdigris Decree (WIND)
+$Imbue_Cards["ipl6gt7lh9"] = 3; // Cerulean Decree (WATER)
+$Imbue_Cards["tjej4mcnqs"] = 3; // Vermilion Decree (FIRE)
+
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
 // No condition — always offer when affordable; recovery may fizzle at resolution.
@@ -740,11 +748,30 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
+        // Imbue: snapshot memory before reserve payment so we can count element-matching additions
+        global $Imbue_Cards;
+        $hasImbue = isset($Imbue_Cards[$obj->CardID]);
+        if($hasImbue) {
+            $memoryBefore = count(GetZone("myMemory"));
+            $imbueElement = CardElement($obj->CardID);
+            $imbueThreshold = $Imbue_Cards[$obj->CardID];
+            DecisionQueueController::StoreVariable("imbueMemoryBefore", "$memoryBefore");
+            DecisionQueueController::StoreVariable("imbueElement", $imbueElement);
+            DecisionQueueController::StoreVariable("imbueThreshold", "$imbueThreshold");
+        }
+
         //1.8 Paying Costs
         if(!$ignoreCost) {
             for($i = 0; $i < $reserveCost; ++$i) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
+        }
+
+        // Imbue: after reserve payment, evaluate whether the card is imbued
+        if($hasImbue) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "CheckImbue", 100);
+        } else {
+            DecisionQueueController::StoreVariable("isImbued", "NO");
         }
 
         //1.9 Activation — grant Opportunity to the opponent before resolving
@@ -785,6 +812,27 @@ $customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecisi
         // Hand card: move to memory as normal
         OnCardReserved($player, $lastDecision);
     }
+};
+
+/**
+ * DQ handler: after reserve payment completes for an Imbue card, count how many
+ * of the newly added memory cards match the card's element. Stores "isImbued"
+ * as "YES" or "NO" for ability code to read at resolution time.
+ */
+$customDQHandlers["CheckImbue"] = function($player, $parts, $lastDecision) {
+    $memoryBefore = intval(DecisionQueueController::GetVariable("imbueMemoryBefore"));
+    $element = DecisionQueueController::GetVariable("imbueElement");
+    $threshold = intval(DecisionQueueController::GetVariable("imbueThreshold"));
+
+    $memory = GetZone("myMemory");
+    $elementMatches = 0;
+    // Count element-matching cards among the newly added memory entries
+    for($i = $memoryBefore; $i < count($memory); ++$i) {
+        if(!$memory[$i]->removed && CardElement($memory[$i]->CardID) === $element) {
+            $elementMatches++;
+        }
+    }
+    DecisionQueueController::StoreVariable("isImbued", $elementMatches >= $threshold ? "YES" : "NO");
 };
 
 /**
@@ -2706,6 +2754,12 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
                 break;
             case "sdbzr5zs29-debuff": // Corhazi Trapper: target unit's attacks get -3 POWER until end of turn
+                $power -= 3;
+                break;
+            case "7cx66hjlgx": // Verdigris Decree: target ally gets +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "ipl6gt7lh9-debuff": // Cerulean Decree: target unit's attacks get -3 POWER until end of turn
                 $power -= 3;
                 break;
             case "lx6xwr42i6": // Windrider Invoker: +3 POWER until end of turn
@@ -6200,6 +6254,172 @@ $customDQHandlers["HsaWNAsmAQ_TargetC"] = function($player, $parts, $lastDecisio
     if($lastDecision !== "-" && $lastDecision !== "") {
         AddTurnEffect($lastDecision, "HsaWNAsmAQ_CLEAVE");
     }
+};
+
+// =============================================================================
+// Decree Card Handlers (Imbue modal pattern)
+// =============================================================================
+
+/**
+ * Verdigris Decree (7cx66hjlgx) — WIND
+ * Modes: A=Suppress ally, B=+2 POWER ally, C=Destroy phantasia
+ */
+$customDQHandlers["VerdigrisDecree_Process"] = function($player, $parts, $lastDecision) {
+    $choices = DecisionQueueController::GetVariable("VD_choices");
+    if($choices === "-" || $choices === "") return;
+    $modes = explode(",", $choices);
+    foreach($modes as $modeIdx) {
+        $modeIdx = trim($modeIdx);
+        switch($modeIdx) {
+            case "0": // Suppress up to one target ally
+                $allies = array_merge(
+                    ZoneSearch("myField", ["ALLY"]),
+                    ZoneSearch("theirField", ["ALLY"])
+                );
+                $allies = FilterSpellshroudTargets($allies);
+                if(!empty($allies)) {
+                    $targets = implode("&", $allies);
+                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targets, 1, "Suppress_target_ally");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "VerdigrisDecree_ExecA", 1);
+                }
+                break;
+            case "1": // Target ally gets +2 POWER until end of turn
+                $allies = array_merge(
+                    ZoneSearch("myField", ["ALLY"]),
+                    ZoneSearch("theirField", ["ALLY"])
+                );
+                $allies = FilterSpellshroudTargets($allies);
+                if(!empty($allies)) {
+                    $targets = implode("&", $allies);
+                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targets, 1, "Target_ally_+2_power");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "VerdigrisDecree_ExecB", 1);
+                }
+                break;
+            case "2": // Destroy up to one target phantasia
+                $phantasias = array_merge(
+                    ZoneSearch("myField", ["PHANTASIA"]),
+                    ZoneSearch("theirField", ["PHANTASIA"])
+                );
+                $phantasias = FilterSpellshroudTargets($phantasias);
+                if(!empty($phantasias)) {
+                    $targets = implode("&", $phantasias);
+                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targets, 1, "Destroy_target_phantasia");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "VerdigrisDecree_ExecC", 1);
+                }
+                break;
+        }
+    }
+};
+
+$customDQHandlers["VerdigrisDecree_ExecA"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    SuppressAlly($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+$customDQHandlers["VerdigrisDecree_ExecB"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddTurnEffect($lastDecision, "7cx66hjlgx");
+};
+
+$customDQHandlers["VerdigrisDecree_ExecC"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    $owner = $obj->Owner;
+    OnLeaveField($player, $lastDecision);
+    $gravZone = ($player == $owner) ? "myGraveyard" : "theirGraveyard";
+    MZMove($player, $lastDecision, $gravZone);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+/**
+ * Vermilion Decree (tjej4mcnqs) — FIRE
+ * Modes: A=3 dmg to champion, B=2 dmg to ally, C=Each player draws
+ */
+$customDQHandlers["VermilionDecree_Process"] = function($player, $parts, $lastDecision) {
+    $choices = DecisionQueueController::GetVariable("VM_choices");
+    if($choices === "-" || $choices === "") return;
+    $modes = explode(",", $choices);
+    foreach($modes as $modeIdx) {
+        $modeIdx = trim($modeIdx);
+        switch($modeIdx) {
+            case "0": // Deal 3 damage to up to one target champion
+                $champions = array_merge(
+                    ZoneSearch("myField", ["CHAMPION"]),
+                    ZoneSearch("theirField", ["CHAMPION"])
+                );
+                $champions = FilterSpellshroudTargets($champions);
+                if(!empty($champions)) {
+                    $targets = implode("&", $champions);
+                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targets, 1, "Deal_3_damage_to_champion");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "VermilionDecree_ExecA", 1);
+                }
+                break;
+            case "1": // Deal 2 damage to up to one target ally
+                $allies = array_merge(
+                    ZoneSearch("myField", ["ALLY"]),
+                    ZoneSearch("theirField", ["ALLY"])
+                );
+                $allies = FilterSpellshroudTargets($allies);
+                if(!empty($allies)) {
+                    $targets = implode("&", $allies);
+                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targets, 1, "Deal_2_damage_to_ally");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "VermilionDecree_ExecB", 1);
+                }
+                break;
+            case "2": // Each player draws a card
+                Draw($player, 1);
+                Draw($player == 1 ? 2 : 1, 1);
+                break;
+        }
+    }
+};
+
+$customDQHandlers["VermilionDecree_ExecA"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DealDamage($player, "tjej4mcnqs", $lastDecision, 3);
+};
+
+$customDQHandlers["VermilionDecree_ExecB"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DealDamage($player, "tjej4mcnqs", $lastDecision, 2);
+};
+
+/**
+ * Cerulean Decree (ipl6gt7lh9) — WATER
+ * Modes: A=-3 POWER on unit attacks, B=Draw into memory
+ * NOTE: Negate mode is NOT implemented (engine lacks negate support).
+ */
+$customDQHandlers["CeruleanDecree_Process"] = function($player, $parts, $lastDecision) {
+    $choices = DecisionQueueController::GetVariable("CD_choices");
+    if($choices === "-" || $choices === "") return;
+    $modes = explode(",", $choices);
+    foreach($modes as $modeIdx) {
+        $modeIdx = trim($modeIdx);
+        switch($modeIdx) {
+            case "0": // Target unit's attacks get -3 POWER until end of turn
+                $units = array_merge(
+                    ZoneSearch("myField", ["ALLY", "CHAMPION", "PHANTASIA"]),
+                    ZoneSearch("theirField", ["ALLY", "CHAMPION", "PHANTASIA"])
+                );
+                $units = FilterSpellshroudTargets($units);
+                if(!empty($units)) {
+                    $targets = implode("&", $units);
+                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targets, 1, "Target_unit_-3_power_to_attacks");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "CeruleanDecree_ExecA", 1);
+                }
+                break;
+            case "1": // Draw a card into your memory
+                DrawIntoMemory($player, 1);
+                break;
+        }
+    }
+};
+
+$customDQHandlers["CeruleanDecree_ExecA"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddTurnEffect($lastDecision, "ipl6gt7lh9-debuff");
 };
 
 /**
