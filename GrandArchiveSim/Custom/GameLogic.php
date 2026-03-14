@@ -128,6 +128,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($domains)) return; // No domains to sacrifice — block activation
     }
 
+    // Primordial Ritual (4mcnqsm3n9): mandatory sacrifice of an ally you control
+    if($sourceObject->CardID === "4mcnqsm3n9") {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(empty($allies)) return; // No allies to sacrifice — block activation
+    }
+
     // Firetuned Automaton (lzjmwuir99): mandatory discard of a fire element card
     if($sourceObject->CardID === "lzjmwuir99") {
         $hand = GetZone("myHand");
@@ -319,6 +325,20 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Tempest Downfall (4etkr73opc): [Class Bonus] costs 3 less if an ally has been suppressed this turn
+    if($obj->CardID === "4etkr73opc" && IsClassBonusActive($player, ["MAGE"])) {
+        $allyWasSuppressed = false;
+        foreach(array_merge(GetZone("myBanish"), GetZone("theirBanish")) as $bObj) {
+            if(!$bObj->removed && in_array("SUPPRESSED", $bObj->TurnEffects)) {
+                $allyWasSuppressed = true;
+                break;
+            }
+        }
+        if($allyWasSuppressed) {
+            $reserveCost = max(0, $reserveCost - 3);
+        }
+    }
+
     // Excoriate (ls6g7xgwve): [Level 2+] costs 1 less
     if($obj->CardID === "ls6g7xgwve" && PlayerLevel($player) >= 2) {
         $reserveCost = max(0, $reserveCost - 1);
@@ -452,6 +472,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $domainChoices = implode("&", $domains);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $domainChoices, 100, tooltip:"Sacrifice_a_domain");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SmashWithObeliskSacrifice", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Primordial Ritual (4mcnqsm3n9): mandatory sacrifice of an ally
+    if($obj->CardID === "4mcnqsm3n9") {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($allies)) {
+            $allyChoices = implode("&", $allies);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyChoices, 100, tooltip:"Sacrifice_an_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PrimordialRitualSacrifice", 100);
         }
     }
 
@@ -957,6 +987,10 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1; // REST
             break;
+        case "3p5iqigcom": // Spirit Shard: sacrifice self
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
     }
 }
 
@@ -1050,6 +1084,8 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "4nmxqsm4o9") {
         if($sourceObject->Status != 2) return;
     }
+    // Spirit Shard (3p5iqigcom): [Level 3+] sacrifice self: draw a card
+    if($cardID === "3p5iqigcom" && PlayerLevel($player) < 3) return;
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -1284,6 +1320,9 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     $added = $field[count($field)-1];
     $added->Controller = $player;
     if($added->Owner == 0) $added->Owner = $player;
+
+    // Track that this card entered the field this turn (for Tempest Downfall etc.)
+    $added->TurnEffects[] = "ENTERED_THIS_TURN";
     
     // Hindered keyword: this object enters the field rested
     if(HasHindered($added)) {
@@ -1531,8 +1570,26 @@ function RecollectionPhase() {
                         SupplyDroneMaterialize($turnPlayer);
                     }
                     break;
+                case "1dvdlhtiym": // Winbless Hurricane Farm: reveal 3 wind element cards from memory → summon Powercell
+                    if(!HasNoAbilities($field[$i])) {
+                        $windMem = ZoneSearch("myMemory", cardElements: ["WIND"]);
+                        if(count($windMem) >= 3) {
+                            DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Reveal_3_wind_cards_from_memory_to_summon_Powercell?");
+                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WinblessHurricaneFarmReveal", 1);
+                        }
+                    }
+                    break;
                 default: break;
             }
+        }
+    }
+
+    // Hidden Enclave (1vk8ao8bki): at the beginning of each player's recollection phase,
+    // that player puts the top card of their deck into their graveyard.
+    foreach(array_merge(GetField(1), GetField(2)) as $heObj) {
+        if(!$heObj->removed && $heObj->CardID === "1vk8ao8bki" && !HasNoAbilities($heObj)) {
+            MillCards($turnPlayer, "myDeck", "myGraveyard", 1);
+            break;
         }
     }
     
@@ -4596,6 +4653,19 @@ function HasReservable($obj) {
             }
         }
     }
+    // Cordelia, Aurous Kaiser (4mwrg35j36): [CB GUARDIAN] Token objects you control have reservable
+    if(PropertyContains(EffectiveCardType($obj), "TOKEN")) {
+        $controller = $obj->Controller;
+        global $playerID;
+        $zone = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID === "4mwrg35j36" && !HasNoAbilities($fieldObj)
+                && IsClassBonusActive($controller, ["GUARDIAN"])) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -6960,6 +7030,30 @@ $customDQHandlers["CelestialCallingActivate"] = function($player, $parts, $lastD
 // ============================================================================
 // Scry the Stars (oz23yfzk96): CB alt-cost banish Scry the Skies from GY
 // ============================================================================
+
+$customDQHandlers["PrimordialRitualSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision && $lastDecision !== "-") {
+        DoSacrificeFighter($player, $lastDecision);
+        DecisionQueueController::CleanupRemovedCards();
+    }
+};
+
+$customDQHandlers["WinblessHurricaneFarmReveal"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        $windMem = ZoneSearch("myMemory", cardElements: ["WIND"]);
+        // Reveal 3 wind cards from memory
+        $revealIDs = [];
+        for($ri = 0; $ri < min(3, count($windMem)); ++$ri) {
+            $rObj = GetZoneObject($windMem[$ri]);
+            if($rObj !== null) $revealIDs[] = $rObj->CardID;
+        }
+        if(!empty($revealIDs)) {
+            SetFlashMessage('REVEAL:' . implode('|', $revealIDs));
+        }
+        // Summon a Powercell token
+        MZAddZone($player, "myField", "qzzadf9q1v");
+    }
+};
 
 $customDQHandlers["ScryTheStarsAltCost"] = function($player, $parts, $lastDecision) {
     $reserveCost = intval($parts[0]);
