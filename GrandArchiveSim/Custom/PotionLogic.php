@@ -16,6 +16,7 @@ $brewCosts["l8ao8bls6g"] = [["type"=>"CARD","cardID"=>"soporhlq2k"]]; // Convale
 $brewCosts["lpnvx7mnu1"] = [["type"=>"CARD","cardID"=>"69iq4d5vet"], ["type"=>"HERB","count"=>2]]; // Draught of Stamina: Springleaf + 2 Herbs
 $brewCosts["9g44vm5kt3"] = [["type"=>"CARD","cardID"=>"5joh300z2s"], ["type"=>"HERB"]]; // Empowering Tincture: Manaroot + Herb
 $brewCosts["14m4c8ljye"] = [["type"=>"CARD","cardID"=>"bd7ozuj68m"], ["type"=>"SUBTYPE","subtype"=>"ADJUVANT","count"=>2], ["type"=>"SUBTYPE","subtype"=>"CATALYST","count"=>2]]; // Condensed Supernova: Silvershine + 2 Adjuvants + 2 Catalysts
+$brewCosts["df9q1vk8ao"] = [["type"=>"SUBTYPE","subtype"=>"FLOWER"], ["type"=>"HERB"]]; // Molten Cinder: One Flower, One Herb
 
 // --- Gather (Grand Archive keyword): summon a random herb token ---
 

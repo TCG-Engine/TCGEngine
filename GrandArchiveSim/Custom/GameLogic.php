@@ -134,6 +134,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($allies)) return; // No allies to sacrifice — block activation
     }
 
+    // Turbo Charge (cnqsm3n9yv): mandatory sacrifice of a Powercell
+    // Atmos Armor Type-Hermes (dlx7mdk0xh): mandatory sacrifice of a Powercell
+    if($sourceObject->CardID === "cnqsm3n9yv" || $sourceObject->CardID === "dlx7mdk0xh") {
+        $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+        if(empty($powercells)) return;
+    }
+
+    // Kindling Flare (dcgw05qzza): needs at least one Herb to sacrifice
+    if($sourceObject->CardID === "dcgw05qzza") {
+        $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
+        if(empty($herbs)) return;
+    }
+
     // Firetuned Automaton (lzjmwuir99): mandatory discard of a fire element card
     if($sourceObject->CardID === "lzjmwuir99") {
         $hand = GetZone("myHand");
@@ -485,6 +498,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Turbo Charge (cnqsm3n9yv) / Atmos Armor Type-Hermes (dlx7mdk0xh): sacrifice a Powercell
+    if($obj->CardID === "cnqsm3n9yv" || $obj->CardID === "dlx7mdk0xh") {
+        $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+        if(!empty($powercells)) {
+            $pcChoices = implode("&", $powercells);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $pcChoices, 100, tooltip:"Sacrifice_a_Powercell");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PowercellSacrifice", 100);
+        }
+    }
+
     //1.3 Declaring Costs — Firetuned Automaton (lzjmwuir99): mandatory discard of a fire element card
     if($obj->CardID === "lzjmwuir99") {
         $fireCards = [];
@@ -555,6 +578,24 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Kindling Flare (dcgw05qzza): sacrifice any amount of Herbs
+    $hasKindlingFlareCost = false;
+    if($obj->CardID === "dcgw05qzza") {
+        $hasKindlingFlareCost = true;
+        $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
+        DecisionQueueController::StoreVariable("kindlingHerbCount", "0");
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        if(!empty($herbs)) {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $herbs), 100, tooltip:"Sacrifice_an_Herb?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "KindlingFlareSacHerb|$reserveCost", 100);
+        } else {
+            for($i = 0; $i < $reserveCost; ++$i) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        }
+    }
+
     //1.3 Declaring Costs — Brew: may sacrifice herbs instead of paying reserve
     global $brewCosts;
     $hasBrewAltCost = false;
@@ -568,7 +609,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -950,6 +991,11 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "df9q1vk8ao": // Molten Cinder: sacrifice self to graveyard
+            ProcessPotionInfusionTriggers($player, $mzCard);
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "uhuy4xippo": // Fractal of Snow: sacrifice self to graveyard
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
@@ -987,6 +1033,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "f8urrqtjot": // Turbulent Bullet
         case "ywc08c9htu": // Cascading Round
         case "ao8bki6fxx": // Steel Slug
+        case "dcgw05q66h": // Purified Shot
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1; // REST
             break;
@@ -1106,9 +1153,13 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Bullets (REST: Load into unloaded Gun): must be awake + unloaded Gun exists
     if($cardID === "0iqmyn2rz3" || $cardID === "9htu9agwj4" || $cardID === "r7ch2bbmoq"
        || $cardID === "ii17fzcyfr" || $cardID === "f8urrqtjot" || $cardID === "ywc08c9htu"
-       || $cardID === "ao8bki6fxx") {
+       || $cardID === "ao8bki6fxx" || $cardID === "dcgw05q66h") {
         if($sourceObject->Status != 2) return;
         if(empty(GetUnloadedGuns($player))) return;
+    }
+    // Molten Cinder (df9q1vk8ao): sacrifice self — target champion that leveled up this turn
+    if($cardID === "df9q1vk8ao") {
+        if(GlobalEffectCount(1, "LEVELED_UP_THIS_TURN") == 0 && GlobalEffectCount(2, "LEVELED_UP_THIS_TURN") == 0) return;
     }
     // The Elysian Astrolabe (4nmxqsm4o9): REST - must be awake
     if($cardID === "4nmxqsm4o9") {
@@ -1637,6 +1688,11 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "eanbrfnrow": // Blast Shield: deal 2 damage to your champion at recollection
+                    if(!HasNoAbilities($field[$i])) {
+                        DealChampionDamage($turnPlayer, 2);
+                    }
+                    break;
                 default: break;
             }
         }
@@ -2119,6 +2175,20 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "chsbalegbs": // Impact Hammer: [CB] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                $power += 1;
+            }
+            break;
+        case "cxwjbqjdmt": // Krustallan Longsword: [CB] +1 POWER if 4+ water cards in graveyard
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                global $playerID;
+                $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
+                if(count(ZoneSearch($gravZone, cardElements: ["WATER"])) >= 4) {
+                    $power += 1;
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -2154,6 +2224,17 @@ function ObjectCurrentPower($obj) {
                     && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
                     $power += 1;
                     $appliedShieldmaster = true;
+                    break;
+                }
+            }
+        }
+        // Atmos Armor Type-Hermes (dlx7mdk0xh): [Level 1+] Other Automaton allies get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "dlx7mdk0xh" && !HasNoAbilities($fieldObj)
+                   && $obj->CardID !== "dlx7mdk0xh"
+                   && PlayerLevel($obj->Controller) >= 1) {
+                    $power += 1;
                     break;
                 }
             }
@@ -2276,6 +2357,9 @@ function ObjectCurrentPower($obj) {
             case "1wl8ao8bls": // Carter, Synthetic Reaper: sacrificed ally On Enter -> +2 POWER until end of turn
                 $power += 2;
                 break;
+            case "bscxwjbqjd": // Sharpen Blade: target Dagger +2 POWER until end of turn
+                $power += 2;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -2330,6 +2414,11 @@ function ObjectCurrentPower($obj) {
             case "c8ljyevpmu": // Alliance Gearshield: [Class Bonus] +2 POWER while retaliating
                 if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])
                     && DecisionQueueController::GetVariable("CombatRetaliator") !== null) {
+                    $power += 2;
+                }
+                break;
+            case "eanbrfnrow": // Blast Shield: [CB] linked ally gets +2 POWER
+                if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
                     $power += 2;
                 }
                 break;
@@ -5424,6 +5513,21 @@ function AddCounters($player, $mzCard, $counterType, $amount = 1) {
     $obj = &GetZoneObject($mzCard);
     if(!isset($obj->Counters) || !is_array($obj->Counters)) $obj->Counters = [];
 
+    // Winbless Forecaster (dm44nt1lyk): if enlighten counters are being put on a champion,
+    // and the controller has a Winbless Forecaster on field, add +1
+    if($counterType === "enlighten" && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        $controller = $obj->Controller ?? $player;
+        global $playerID;
+        $zone = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "dm44nt1lyk" && !HasNoAbilities($fObj)) {
+                $amount += 1;
+                break;
+            }
+        }
+    }
+
     // Determine the opposite type for cancellation
     $oppositeType = null;
     if($counterType === "buff") $oppositeType = "debuff";
@@ -7351,6 +7455,112 @@ $customDQHandlers["SpiritedFalconerBuff2"] = function($player, $parts, $lastDeci
     $chosen2 = $lastDecision;
     if($chosen2 !== "-" && $chosen2 !== "" && $chosen2 !== "PASS") {
         AddCounters($player, $chosen2, "buff", 1);
+    }
+};
+
+// ============================================================================
+// Turbo Charge / Atmos Armor Type-Hermes: sacrifice a Powercell
+// ============================================================================
+$customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+// ============================================================================
+// Kindling Flare (dcgw05qzza): iterative herb sacrifice as additional cost
+// ============================================================================
+$customDQHandlers["KindlingFlareSacHerb"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0]);
+    $herbCount = intval(DecisionQueueController::GetVariable("kindlingHerbCount"));
+
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        // Player declined — done sacrificing, queue reserve payments
+        for($i = 0; $i < $reserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+
+    // Sacrifice the chosen herb
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+    $herbCount++;
+    DecisionQueueController::StoreVariable("kindlingHerbCount", strval($herbCount));
+
+    // Check for more herbs
+    $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
+    if(!empty($herbs)) {
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $herbs), 100, tooltip:"Sacrifice_another_Herb?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "KindlingFlareSacHerb|$reserveCost", 100);
+    } else {
+        // No more herbs — queue reserve payments
+        for($i = 0; $i < $reserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+    }
+};
+
+// ============================================================================
+// Molten Cinder (df9q1vk8ao): ActivateAbility target champion that leveled up
+// ============================================================================
+$customDQHandlers["MoltenCinderTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DealDamage($player, "df9q1vk8ao", $lastDecision, 3);
+};
+
+// ============================================================================
+// Lost in Thought (egbscxwjbq): iterative floating memory banish from GY
+// ============================================================================
+$customDQHandlers["LostInThoughtBanish"] = function($player, $parts, $lastDecision) {
+    $banished = intval($parts[0]);
+
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        // Player declined — draw for all banished so far
+        if($banished > 0) Draw($player, $banished);
+        return;
+    }
+
+    // Banish the chosen card
+    MZMove($player, $lastDecision, "myBanish");
+    NicoOnFloatingMemoryBanished($player);
+    $banished++;
+
+    // Check for more floating memory cards in graveyard
+    $floatingGY = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
+    if(!empty($floatingGY)) {
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $floatingGY), 1, tooltip:"Banish_another_floating_memory_card?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "LostInThoughtBanish|$banished", 1);
+    } else {
+        // No more — draw for all banished
+        if($banished > 0) Draw($player, $banished);
+    }
+};
+
+// ============================================================================
+// Purified Shot (dcgw05q66h): [CB] On Champion Hit — banish up to X from opponent GY
+// ============================================================================
+$customDQHandlers["PurifiedShotBanish"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        return; // Player declined
+    }
+
+    // Banish the chosen card from opponent's graveyard
+    MZMove($player, $lastDecision, "theirBanish");
+    $remaining--;
+
+    if($remaining > 0) {
+        $oppGY = ZoneSearch("theirGraveyard");
+        if(!empty($oppGY)) {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $oppGY), 1, tooltip:"Banish_another_card_from_opponent_graveyard?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PurifiedShotBanish|$remaining", 1);
+        }
     }
 };
 
