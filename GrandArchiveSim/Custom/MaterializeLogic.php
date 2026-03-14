@@ -125,6 +125,18 @@ function DoMaterialize($player, $mzCard) {
         // Track that a champion leveled up this turn (for Invigorated Slash etc.)
         AddGlobalEffects($player, "LEVELED_UP_THIS_TURN");
 
+        // Tristan, Shadowreaver (4upufooz13) — Tristan Lineage: when she levels up, draw 2 cards
+        // The new champion is already on the field; check if the lineage contains Shadowreaver
+        $field = &GetField($player);
+        for($tli = 0; $tli < count($field); ++$tli) {
+            if(!$field[$tli]->removed && PropertyContains(EffectiveCardType($field[$tli]), "CHAMPION") && $field[$tli]->Controller == $player) {
+                if(ChampionHasInLineage($player, "4upufooz13")) {
+                    Draw($player, amount: 2);
+                }
+                break;
+            }
+        }
+
         // Sanctum of Esoteric Truth (k45swaf8ur): whenever your champion levels up,
         // you may put two cards from hand/memory on bottom of deck, then draw two.
         $field = &GetField($player);

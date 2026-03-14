@@ -159,6 +159,22 @@ function GetValidAttackTargets($attackerMZ) {
     global $playerID;
     $player = (strpos($attackerMZ, "my") === 0) ? $playerID : (($playerID == 1) ? 2 : 1);
 
+    // Ominous Shadow (gveirpdm44): can only attack units your champion dealt combat damage to this turn
+    $attacker = &GetZoneObject($attackerMZ);
+    if($attacker !== null && $attacker->CardID === "gveirpdm44" && !HasNoAbilities($attacker)) {
+        $champDamageTargets = GetChampionCombatDamageTargets($player);
+        if(empty($champDamageTargets)) return []; // No valid targets
+        // Filter to only units still on opponent field
+        $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
+        $validTargets = [];
+        foreach($opponents as $mzID) {
+            if(in_array($mzID, $champDamageTargets)) {
+                $validTargets[] = $mzID;
+            }
+        }
+        return $validTargets;
+    }
+
     $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
     if(empty($opponents)) return $opponents;
 
@@ -176,11 +192,15 @@ function GetValidAttackTargets($attackerMZ) {
         if(empty($opponents)) return $opponents;
     }
 
+    // Unblockable: Ominous Shadow bypasses intercept and taunt
+    $bypassIntercept = false;
+    if($attacker !== null && $attacker->CardID === "gveirpdm44" && !HasNoAbilities($attacker)) {
+        $bypassIntercept = true;
+    }
+
     // Check for Intercept -- units with Intercept must be targeted first
     // Port Smuggler (uCIEMgGjWe): CB attacks can't be intercepted
-    $attacker = &GetZoneObject($attackerMZ);
-    $bypassIntercept = false;
-    if($attacker !== null && $attacker->CardID === "uCIEMgGjWe" && IsClassBonusActive($player, CardClasses("uCIEMgGjWe"))) {
+    if(!$bypassIntercept && $attacker !== null && $attacker->CardID === "uCIEMgGjWe" && IsClassBonusActive($player, CardClasses("uCIEMgGjWe"))) {
         $bypassIntercept = true;
     }
     // Demon's Aim (6g7xgwve1d): champion ignores intercept and taunt this turn
@@ -863,6 +883,8 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
                 // Defender can't pay — damage automatically doubled
                 ResetCombatKill();
                 DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
+                // Track champion combat damage for Ominous Shadow
+                if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
                 if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
                 OnHitTrigger($attackerPlayer, $attackerMZ);
                 DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
@@ -871,6 +893,8 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
             // No critical — deal normal damage
             ResetCombatKill();
             DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower);
+            // Track champion combat damage for Ominous Shadow
+            if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
             if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
             OnHitTrigger($attackerPlayer, $attackerMZ);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
@@ -934,6 +958,23 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         // Lurking Assailant (uq2r6v374c): [Level 1+] may retaliate while not defending
         if($fieldObj->CardID === "uq2r6v374c") {
             $retaliatorOptions[] = $mzID;
+        }
+        // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
+        // (may retaliate while not defending)
+        if(!HasNoAbilities($fieldObj)
+            && PropertyContains(EffectiveCardType($fieldObj), "PHANTASIA")
+            && EffectiveCardElement($fieldObj) === "UMBRA") {
+            // Check if the defender controls Gloamspire Mantle on their field
+            $hasMantleOnField = false;
+            foreach($defenderField as $mi => $mantleObj) {
+                if(!$mantleObj->removed && $mantleObj->CardID === "fooz13xfpk" && !HasNoAbilities($mantleObj)) {
+                    $hasMantleOnField = true;
+                    break;
+                }
+            }
+            if($hasMantleOnField && !in_array($mzID, $retaliatorOptions)) {
+                $retaliatorOptions[] = $mzID;
+            }
         }
     }
     $retaliatorOptionStr = implode("&", $retaliatorOptions);
@@ -1183,6 +1224,9 @@ $customDQHandlers["CriticalResolve"] = function($player, $parts, $lastDecision) 
         // mzIDs are in defender's perspective; GetZoneObject will interpret them with defender's $playerID
         ResetCombatKill();
         DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
+        // Track champion combat damage for Ominous Shadow
+        $critAttacker = GetZoneObject($attackerMZ);
+        if($critAttacker !== null && PropertyContains(EffectiveCardType($critAttacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
         if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
         OnHitTrigger($attackerPlayer, $attackerMZ);
     }
@@ -1203,6 +1247,9 @@ $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecisio
     // Keep mzIDs in defender's perspective; GetZoneObject interprets them with defender's $playerID
     ResetCombatKill();
     DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
+    // Track champion combat damage for Ominous Shadow
+    $finishAttacker = GetZoneObject($attackerMZ);
+    if($finishAttacker !== null && PropertyContains(EffectiveCardType($finishAttacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
     if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
     OnHitTrigger($attackerPlayer, $attackerMZ);
 };
@@ -1305,6 +1352,12 @@ function OnDealDamage($player, $source, $target, $amount) {
                 return;
             }
         }
+    }
+
+    // Ominous Shadow (gveirpdm44): prevent 3 of any damage dealt to it
+    if($amount > 0 && $targetObj->CardID === "gveirpdm44" && !HasNoAbilities($targetObj)) {
+        $amount -= 3;
+        if($amount <= 0) return;
     }
 
     // Barrier Servant: prevent next damage if tagged with BARRIER_PREVENT_DAMAGE (one-time)
@@ -1711,6 +1764,45 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         }
         AllyDestroyed($player, $target);
     }
+}
+
+// ============================================================================
+// Ominous Shadow — Champion Combat Damage Target Tracking
+// ============================================================================
+
+/**
+ * Track that a champion dealt combat damage to a target unit this turn.
+ * Stored as TurnEffects on the target: "CHAMP_DMG_BY_P1" or "CHAMP_DMG_BY_P2".
+ * Called from CombatDealDamage after combat damage is dealt by a champion.
+ * @param int    $player   The player whose champion dealt damage.
+ * @param string $targetMZ The mzID of the target that was damaged.
+ */
+function TrackChampionCombatDamage($player, $targetMZ) {
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) return;
+    $tag = "CHAMP_DMG_BY_P" . $player;
+    if(!in_array($tag, $targetObj->TurnEffects)) {
+        $targetObj->TurnEffects[] = $tag;
+    }
+}
+
+/**
+ * Get all unit mzIDs on the opponent's field that this player's champion dealt combat damage to this turn.
+ * Used by Ominous Shadow's attack restriction.
+ * @param int $player The attacking player (Ominous Shadow's controller).
+ * @return array mzIDs (in "theirField-N" form) of valid targets.
+ */
+function GetChampionCombatDamageTargets($player) {
+    $tag = "CHAMP_DMG_BY_P" . $player;
+    $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
+    $targets = [];
+    foreach($opponents as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj !== null && in_array($tag, $obj->TurnEffects)) {
+            $targets[] = $mzID;
+        }
+    }
+    return $targets;
 }
 
 ?>

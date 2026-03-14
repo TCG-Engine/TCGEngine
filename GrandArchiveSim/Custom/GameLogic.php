@@ -1714,6 +1714,17 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Collapsing Trap (v2214upufo): next time allies enter the field this turn, they enter rested
+    if(PropertyContains(CardType($added->CardID), "ALLY") || (PropertyContains(CardType($added->CardID), "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY"))) {
+        for($ctp = 1; $ctp <= 2; ++$ctp) {
+            if(GlobalEffectCount($ctp, "COLLAPSING_TRAP") > 0) {
+                $added->Status = 1;
+                RemoveGlobalEffect($ctp, "COLLAPSING_TRAP");
+                break;
+            }
+        }
+    }
+
     // Freezing Steel (x7mdk0xhi5): next items enter the field rested
     if(PropertyContains(CardType($added->CardID), "ITEM") || PropertyContains(CardType($added->CardID), "TOKEN")) {
         // Check both players for the global effect (applies to "this turn" items)
@@ -4309,6 +4320,12 @@ $doesGlobalEffectApply["oz23yfzk96"] = function($obj) { return false; }; // Scry
 
 // Foretold Bloom (lnhzj43qiw): flag only — herb-sacrifice glimpse handled in DoSacrificeFighter/BrewFinalizeHerbs
 $doesGlobalEffectApply["FORETOLD_BLOOM"] = function($obj) { return false; };
+
+// Agility N: flag only — triggered ability at beginning of end phase, returns N cards from memory
+$doesGlobalEffectApply["AGILITY_3"] = function($obj) { return false; };
+
+// Collapsing Trap (v2214upufo): flag only — next allies enter rested, handled in FieldAfterAdd
+$doesGlobalEffectApply["COLLAPSING_TRAP"] = function($obj) { return false; };
 
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
@@ -8406,5 +8423,134 @@ function LiquidAmnesiaBanish($player, $memRef, $remaining) {
         LiquidAmnesiaBanish($player, $memRef, $remaining);
     }
 }
+
+// ============================================================================
+// Tristan Package — Helper Functions
+// ============================================================================
+
+/**
+ * Check if a player's champion is a Tristan for Tristan Bonus abilities.
+ * Returns true if any Tristan card ID is in the champion's lineage.
+ */
+function IsTristanBonus($player) {
+    $tristanIDs = ["K5luT8aRzc", "he6kd7hocc", "bjlwabipl6", "gt7lh9v221", "4upufooz13"];
+    $lineage = GetChampionLineage($player);
+    foreach($tristanIDs as $tid) {
+        if(in_array($tid, $lineage)) return true;
+    }
+    return false;
+}
+
+/**
+ * Find the mzID of a player's champion on the field.
+ * @param int $player The player number.
+ * @return string|null The mzID (e.g. "myField-0") or null if not found.
+ */
+function FindChampionMZ($player) {
+    global $playerID;
+    $zone = ($player == $playerID) ? "myField" : "theirField";
+    $champions = ZoneSearch($zone, ["CHAMPION"]);
+    return !empty($champions) ? $champions[0] : null;
+}
+
+/**
+ * Add a preparation counter to a player's champion.
+ * @param int $player The player whose champion gets the counter.
+ * @return bool True if counter was added, false if no champion found.
+ */
+function AddPrepCounter($player, $amount = 1) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return false;
+    AddCounters($player, $champMZ, "preparation", $amount);
+    return true;
+}
+
+/**
+ * Gain Agility N for this turn. Adds a global effect tracking the agility amount.
+ * At the beginning of the end phase, the player returns N cards from memory to hand.
+ * @param int $player The player gaining agility.
+ * @param int $amount The agility value (e.g. 3).
+ */
+function GainAgility($player, $amount) {
+    AddGlobalEffects($player, "AGILITY_" . $amount);
+}
+
+// ============================================================================
+// Penumbral Waltz — prep counter removal chain
+// ============================================================================
+
+/**
+ * Start the YESNO chain for removing prep counters for Penumbral Waltz.
+ */
+function PenumbralWaltzChooseX($player) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) { PenumbralWaltzResolve($player); return; }
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null || GetPrepCounterCount($champObj) <= 0) { PenumbralWaltzResolve($player); return; }
+    $x = intval(DecisionQueueController::GetVariable("penumbralWaltzX") ?? "0");
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Remove_a_preparation_counter?_(current_X=" . $x . ")");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PenumbralWaltzCost", 1);
+}
+
+$customDQHandlers["PenumbralWaltzCost"] = function($player, $parts, $lastDecision) {
+    $x = intval(DecisionQueueController::GetVariable("penumbralWaltzX") ?? "0");
+    if($lastDecision === "YES") {
+        $champMZ = FindChampionMZ($player);
+        if($champMZ !== null) {
+            RemoveCounters($player, $champMZ, "preparation", 1);
+            $x++;
+            DecisionQueueController::StoreVariable("penumbralWaltzX", strval($x));
+        }
+        // Check for more counters
+        $champObj = ($champMZ !== null) ? GetZoneObject($champMZ) : null;
+        if($champObj !== null && GetPrepCounterCount($champObj) > 0) {
+            PenumbralWaltzChooseX($player);
+            return;
+        }
+    }
+    PenumbralWaltzResolve($player);
+};
+
+/**
+ * Resolve Penumbral Waltz after X prep counters have been removed.
+ * Prevent X+3 damage to champion. If Tristan Bonus and X >= 3, summon 2 Ominous Shadows.
+ */
+function PenumbralWaltzResolve($player) {
+    $x = intval(DecisionQueueController::GetVariable("penumbralWaltzX") ?? "0");
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) {
+        $preventAmount = $x + 3;
+        $champObj = &GetZoneObject($champMZ);
+        if($champObj !== null) {
+            // Add prevention as per-card TurnEffect (PREVENT_CHAMP_N pattern)
+            AddTurnEffect($champMZ, "PREVENT_CHAMP_" . $preventAmount);
+        }
+    }
+    if($x >= 3 && IsTristanBonus($player)) {
+        MZAddZone($player, "myField", "gveirpdm44");
+        MZAddZone($player, "myField", "gveirpdm44");
+    }
+}
+
+// ============================================================================
+// Sadi, Blood Harvester — ActivateAbility handler
+// ============================================================================
+
+$customDQHandlers["SadiReturnToHand"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0] ?? null;
+    if($mzID === null) return;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->CardID !== "ugly4wiffe") return;
+    MZMove($player, $mzID, "myHand");
+    AddPrepCounter($player);
+};
+
+// ============================================================================
+// Gloamspire Mantle — Summon Ominous Shadow after payment
+// ============================================================================
+
+$customDQHandlers["GloamspireMantleSummon"] = function($player, $parts, $lastDecision) {
+    MZAddZone($player, "myField", "gveirpdm44");
+};
 
 ?>
