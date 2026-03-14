@@ -92,6 +92,31 @@ function ActionMap($actionCard)
                 BeginCombatPhase($actionCard);
             }
             break;
+        case "myBanish":
+            // Naia, Diviner of Fortunes (jdmthh88rx): activate spell from banishment
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && in_array("NAIA_BANISHED", $bObj->TurnEffects)) {
+                    // Check if Naia is still on the field
+                    $naiaOnField = false;
+                    $field = GetZone("myField");
+                    foreach($field as $fObj) {
+                        if(!$fObj->removed && $fObj->CardID === "jdmthh88rx" && !HasNoAbilities($fObj)) {
+                            $naiaOnField = true;
+                            break;
+                        }
+                    }
+                    if($naiaOnField) {
+                        // Move to hand and activate normally
+                        $handObj = MZMove($playerID, $actionCard, "myHand");
+                        $hand = &GetHand($playerID);
+                        $handIdx = count($hand) - 1;
+                        ActivateCard($playerID, "myHand-" . $handIdx, false);
+                        return "PLAY";
+                    }
+                }
+            }
+            break;
         default: break;
     }
     return "";
@@ -139,6 +164,18 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($sourceObject->CardID === "cnqsm3n9yv" || $sourceObject->CardID === "dlx7mdk0xh") {
         $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
         if(empty($powercells)) return;
+    }
+
+    // Ravishing Finale (jlgx72rfgv): mandatory banish 2 floating memory from GY
+    if($sourceObject->CardID === "jlgx72rfgv") {
+        $floatingGY = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if(!$gy[$gi]->removed && HasFloatingMemory($gy[$gi])) {
+                $floatingGY[] = "myGraveyard-" . $gi;
+            }
+        }
+        if(count($floatingGY) < 2) return;
     }
 
     // Kindling Flare (dcgw05qzza): needs at least one Herb to sacrifice
@@ -316,6 +353,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - $tokenCount);
     }
 
+    // Blade of Creation (iqs2hipwsc): [Class Bonus] costs 1 less per token object you control
+    if($obj->CardID === "iqs2hipwsc" && IsClassBonusActive($player, ["GUARDIAN"])) {
+        $tokenCount = count(ZoneSearch("myField", ["TOKEN"]));
+        $reserveCost = max(0, $reserveCost - $tokenCount);
+    }
+
     // Frigid Bash (k2c7wklzjm): costs 2 less if you control a Shield item
     if($obj->CardID === "k2c7wklzjm") {
         if(!empty(ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]))) {
@@ -488,6 +531,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Ravishing Finale (jlgx72rfgv): mandatory banish 2 floating memory from GY
+    $hasRavishingFinaleCost = false;
+    if($obj->CardID === "jlgx72rfgv") {
+        $hasRavishingFinaleCost = true;
+        $floatingGY = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if(!$gy[$gi]->removed && HasFloatingMemory($gy[$gi])) {
+                $floatingGY[] = "myGraveyard-" . $gi;
+            }
+        }
+        $floatingStr = implode("&", $floatingGY);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $floatingStr, 100, tooltip:"Banish_floating-memory_card_(1_of_2)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "RavishingFinaleBanish1|$reserveCost", 100);
+    }
+
     //1.3 Declaring Costs — Primordial Ritual (4mcnqsm3n9): mandatory sacrifice of an ally
     if($obj->CardID === "4mcnqsm3n9") {
         $allies = ZoneSearch("myField", ["ALLY"]);
@@ -609,7 +668,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -951,6 +1010,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         case "h38lrj5221": // Distilled Atrophy: sacrifice self — store age counters
         case "tjot4nmxqs": // Wildgrowth Elixir: sacrifice self — store age counters
+        case "k0hliqs2hi": // Liquid Amnesia: sacrifice self — store age counters
             {
                 $ageObj = GetZoneObject($mzCard);
                 $age = isset($ageObj->Counters['age']) ? $ageObj->Counters['age'] : 0;
@@ -1695,6 +1755,11 @@ function RecollectionPhase() {
                 case "h38lrj5221": // Distilled Atrophy: put an age counter
                 case "tjot4nmxqs": // Wildgrowth Elixir: put an age counter
                     if(!HasNoAbilities($field[$i])) {
+                        AddCounters($turnPlayer, "myField-" . $i, "age", 1);
+                    }
+                    break;
+                case "k0hliqs2hi": // Liquid Amnesia: [CB] put an age counter
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["CLERIC"])) {
                         AddCounters($turnPlayer, "myField-" . $i, "age", 1);
                     }
                     break;
@@ -7586,6 +7651,21 @@ $customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecisio
             }
         }
     }
+
+    // Engineered Slime (kkz07nau5s): [CB] whenever you sacrifice a Powercell, choose one —
+    // buff counter or spellshroud until end of turn
+    if(IsClassBonusActive($player, ["TAMER"])) {
+        global $playerID;
+        $fieldZone = $player == $playerID ? "myField" : "theirField";
+        $field = GetZone($fieldZone);
+        for($ai = 0; $ai < count($field); ++$ai) {
+            if(!$field[$ai]->removed && $field[$ai]->CardID === "kkz07nau5s" && !HasNoAbilities($field[$ai])) {
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Buff_counter?_(No=Spellshroud)");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "EngineeredSlimeChoice|$fieldZone-$ai", 1);
+                break;
+            }
+        }
+    }
 };
 
 // ============================================================================
@@ -7683,5 +7763,184 @@ $customDQHandlers["PurifiedShotBanish"] = function($player, $parts, $lastDecisio
         }
     }
 };
+
+// ============================================================================
+// Engineered Slime (kkz07nau5s): choose buff counter or spellshroud
+// ============================================================================
+$customDQHandlers["EngineeredSlimeChoice"] = function($player, $parts, $lastDecision) {
+    $slimeMZ = $parts[0];
+    $obj = GetZoneObject($slimeMZ);
+    if($obj === null || $obj->removed) return;
+    if($lastDecision === "YES") {
+        AddCounters($player, $slimeMZ, "buff", 1);
+    } else {
+        AddTurnEffect($slimeMZ, "SPELLSHROUD");
+    }
+};
+
+// ============================================================================
+// Ravishing Finale (jlgx72rfgv): mandatory banish 2 floating memory from GY
+// ============================================================================
+$customDQHandlers["RavishingFinaleBanish1"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));
+    MZMove($player, $lastDecision, "myBanish");
+    if($hadFloating) NicoOnFloatingMemoryBanished($player);
+    // Second pick
+    $floatingGY = [];
+    $gy = GetZone("myGraveyard");
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if(!$gy[$gi]->removed && HasFloatingMemory($gy[$gi])) {
+            $floatingGY[] = "myGraveyard-" . $gi;
+        }
+    }
+    if(empty($floatingGY)) return;
+    $floatingStr = implode("&", $floatingGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $floatingStr, 100, tooltip:"Banish_floating-memory_card_(2_of_2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RavishingFinaleBanish2|$reserveCost", 100);
+};
+
+$customDQHandlers["RavishingFinaleBanish2"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));
+    MZMove($player, $lastDecision, "myBanish");
+    if($hadFloating) NicoOnFloatingMemoryBanished($player);
+    // Queue normal reserve payments + opportunity
+    DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+// ============================================================================
+// Purification (k8ao8bki6f): choose up to 2 Curse cards from lineage to discard
+// ============================================================================
+function PurificationCursePick($player) {
+    $curses = GetCursesInLineage($player);
+    if(empty($curses)) return;
+    $tempZone = &GetTempZone($player);
+    while(count($tempZone) > 0) array_pop($tempZone);
+    foreach($curses as $curse) {
+        MZAddZone($player, "myTempZone", $curse['cardID']);
+    }
+    $tempMZs = [];
+    for($i = 0; $i < count($curses); ++$i) {
+        $tempMZs[] = "myTempZone-" . $i;
+    }
+    $options = implode("&", $tempMZs);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $options, 1, "Choose_Curse_to_discard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse1", 1);
+}
+
+$customDQHandlers["PurificationCurse1"] = function($player, $parts, $lastDecision) {
+    $tempZone = &GetTempZone($player);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        while(count($tempZone) > 0) array_pop($tempZone);
+        return;
+    }
+    $chosenObj = GetZoneObject($lastDecision);
+    $chosenCardID = $chosenObj->CardID;
+    MZRemove($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    RemoveFromChampionLineage($player, $chosenCardID, "myGraveyard");
+    RecoverChampion($player, 2);
+    // Offer second pick
+    $tempZone = &GetTempZone($player);
+    $remaining = [];
+    for($i = 0; $i < count($tempZone); ++$i) {
+        if(!$tempZone[$i]->removed) {
+            $remaining[] = "myTempZone-" . $i;
+        }
+    }
+    if(!empty($remaining)) {
+        $options = implode("&", $remaining);
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $options, 1, "Choose_another_Curse_to_discard");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PurificationCurse2", 1);
+    } else {
+        while(count($tempZone) > 0) array_pop($tempZone);
+    }
+};
+
+$customDQHandlers["PurificationCurse2"] = function($player, $parts, $lastDecision) {
+    $tempZone = &GetTempZone($player);
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $chosenObj = GetZoneObject($lastDecision);
+        $chosenCardID = $chosenObj->CardID;
+        RemoveFromChampionLineage($player, $chosenCardID, "myGraveyard");
+        RecoverChampion($player, 2);
+    }
+    while(count($tempZone) > 0) array_pop($tempZone);
+};
+
+// ============================================================================
+// Bertha, Spry Howitzer (ki6fxxgmue): look at top 5, may activate Ranger action
+// ============================================================================
+function BerthaLookFinish($player) {
+    $tempCards = ZoneSearch("myTempZone");
+    // Find valid Ranger action cards with reserve cost ≤ 2
+    $validActions = [];
+    foreach($tempCards as $tmz) {
+        $tObj = GetZoneObject($tmz);
+        if(PropertyContains(CardType($tObj->CardID), "ACTION")
+            && PropertyContains(CardClasses($tObj->CardID), "RANGER")
+            && CardCost_reserve($tObj->CardID) <= 2) {
+            $validActions[] = $tmz;
+        }
+    }
+    if(!empty($validActions)) {
+        $actionStr = implode("&", $validActions);
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $actionStr, 1, tooltip:"Activate_a_Ranger_action_for_free?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BerthaChooseAction", 1);
+    } else {
+        // No valid actions — shuffle rest to bottom of deck
+        BerthaPutRestOnBottom($player);
+    }
+}
+
+$customDQHandlers["BerthaChooseAction"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        BerthaPutRestOnBottom($player);
+        return;
+    }
+    // Move chosen card to hand, then activate it for free
+    $chosenObj = GetZoneObject($lastDecision);
+    $chosenCardID = $chosenObj->CardID;
+    MZMove($player, $lastDecision, "myHand");
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    // Remove remaining TempZone to bottom of deck first
+    BerthaPutRestOnBottom($player);
+    // Activate the card for free (ignoreCost = true)
+    ActivateCard($player, "myHand-" . $handIdx, true);
+};
+
+function BerthaPutRestOnBottom($player) {
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
+    }
+}
+
+// ============================================================================
+// Liquid Amnesia (k0hliqs2hi): banish random cards from memory
+// ============================================================================
+function LiquidAmnesiaBanish($player, $memRef, $remaining) {
+    if($remaining <= 0) return;
+    $memCards = ZoneSearch($memRef);
+    if(empty($memCards)) return;
+    // Pick random card from memory
+    $randomIdx = array_rand($memCards);
+    $randomCard = $memCards[$randomIdx];
+    // Convert to banish zone reference
+    $banishRef = (strpos($memRef, "my") === 0) ? "myBanish" : "theirBanish";
+    MZMove($player, $randomCard, $banishRef);
+    $remaining--;
+    if($remaining > 0) {
+        LiquidAmnesiaBanish($player, $memRef, $remaining);
+    }
+}
 
 ?>

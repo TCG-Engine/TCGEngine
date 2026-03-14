@@ -558,6 +558,13 @@ function OnAttackTrigger($player, $mzID) {
     if($obj !== null && in_array("CURSEBREAKER_ON_ATTACK", $obj->TurnEffects)) {
         WakeupCard($player, $mzID);
     }
+
+    // Mechanical Hare (j3q2svdv3z): 2+ buff counters → "On Attack: Banish up to two target cards in a single graveyard"
+    if($obj !== null && $obj->CardID === "j3q2svdv3z" && !HasNoAbilities($obj)) {
+        if(GetCounterCount($obj, "buff") >= 2) {
+            MechanicalHareOnAttack($player);
+        }
+    }
 }
 
 /**
@@ -1186,6 +1193,54 @@ $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecisio
 };
 
 // --- damage resolution ---------------------------------------------------------
+
+/**
+ * Mechanical Hare (j3q2svdv3z): On Attack with 2+ buff counters — banish up to 2 cards
+ * from a single graveyard. Choose which graveyard, then pick up to 2 cards.
+ */
+function MechanicalHareOnAttack($player) {
+    $myGY = ZoneSearch("myGraveyard");
+    $theirGY = ZoneSearch("theirGraveyard");
+    if(empty($myGY) && empty($theirGY)) return;
+    if(!empty($myGY) && !empty($theirGY)) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Target_your_own_graveyard?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "MechanicalHareGYChoice", 1);
+    } else if(!empty($myGY)) {
+        MechanicalHareBanishStart($player, "myGraveyard");
+    } else {
+        MechanicalHareBanishStart($player, "theirGraveyard");
+    }
+}
+
+function MechanicalHareBanishStart($player, $gyRef) {
+    $gyCards = ZoneSearch($gyRef);
+    if(empty($gyCards)) return;
+    $gyStr = implode("&", $gyCards);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $gyStr, 1, tooltip:"Banish_a_card?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MechanicalHareBanish1|$gyRef", 1);
+}
+
+$customDQHandlers["MechanicalHareGYChoice"] = function($player, $parts, $lastDecision) {
+    $gyRef = ($lastDecision === "YES") ? "myGraveyard" : "theirGraveyard";
+    MechanicalHareBanishStart($player, $gyRef);
+};
+
+$customDQHandlers["MechanicalHareBanish1"] = function($player, $parts, $lastDecision) {
+    $gyRef = $parts[0];
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    // Second pick
+    $gyCards = ZoneSearch($gyRef);
+    if(empty($gyCards)) return;
+    $gyStr = implode("&", $gyCards);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $gyStr, 1, tooltip:"Banish_another_card?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MechanicalHareBanish2", 1);
+};
+
+$customDQHandlers["MechanicalHareBanish2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+};
 
 /**
  * Apply damage to a target unit. If damage >= HP, destroy it.
