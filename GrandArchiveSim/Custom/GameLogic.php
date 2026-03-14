@@ -1504,6 +1504,18 @@ function DoAllyDestroyed($player, $mzCard) {
             }
         }
     }
+    // Harvester Mk II (ttkat9hreq): Automaton allies you control have "On Death: Summon a Powercell token."
+    if(PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON") && !$suppressed) {
+        global $playerID;
+        $controllerField = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($controllerField);
+        foreach($field as $harvesterObj) {
+            if(!$harvesterObj->removed && $harvesterObj->CardID === "ttkat9hreq" && !HasNoAbilities($harvesterObj)) {
+                MZAddZone($controller, "myField", "qzzadf9q1v"); // Powercell token
+                break;
+            }
+        }
+    }
 }
 
 function WakeUpPhase() {
@@ -1690,8 +1702,35 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Airship Captain (t9hreqhj1t): whenever a domain enters under your control, deal 2 to target champion
+    if(PropertyContains(CardType($added->CardID), "DOMAIN")) {
+        for($ac = 0; $ac < count($field); ++$ac) {
+            if(!$field[$ac]->removed && $field[$ac]->CardID === "t9hreqhj1t" && !HasNoAbilities($field[$ac])) {
+                $champions = array_merge(
+                    ZoneSearch("myField", ["CHAMPION"]),
+                    ZoneSearch("theirField", ["CHAMPION"])
+                );
+                if(!empty($champions)) {
+                    if(count($champions) == 1) {
+                        DealDamage($player, "t9hreqhj1t", $champions[0], 2);
+                    } else {
+                        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $champions), 1, tooltip:"Deal_2_damage_to_target_champion_(Airship_Captain)");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "AirshipCaptainDamage", 1);
+                    }
+                }
+                break;
+            }
+        }
+    }
+
     Enter($player, $field[count($field)-1]->GetMzID());
 }
+
+// Airship Captain (t9hreqhj1t): deal 2 damage to chosen champion
+$customDQHandlers["AirshipCaptainDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DealDamage($player, "t9hreqhj1t", $lastDecision, 2);
+};
 
 function RecollectionPhase() {
     // Recollection phase
@@ -1884,6 +1923,14 @@ function RecollectionPhase() {
                 case "eanbrfnrow": // Blast Shield: deal 2 damage to your champion at recollection
                     if(!HasNoAbilities($field[$i])) {
                         DealChampionDamage($turnPlayer, 2);
+                    }
+                    break;
+                case "tiymuyv3fp": // Waterveil Apostle: [CB][Memory 4+] gather at recollection
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["CLERIC"])) {
+                        $memory = &GetMemory($turnPlayer);
+                        if(count($memory) >= 4) {
+                            Gather($turnPlayer);
+                        }
                     }
                     break;
                 default: break;
@@ -2410,6 +2457,20 @@ function ObjectCurrentPower($obj) {
         case "ly4wiffei7": // Forgelight Blade: [Class Bonus] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
                 $power += 1;
+            }
+            break;
+        case "rh0foylxnq": // Atmos Armor Type-Ares: [CB] +1 POWER per Atmos Shield ally you control
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $shieldField = GetZone($zone);
+                $shieldCount = 0;
+                foreach($shieldField as $fObj) {
+                    if(!$fObj->removed && $fObj->CardID === "80yu75k0hl") {
+                        $shieldCount++;
+                    }
+                }
+                $power += $shieldCount;
             }
             break;
         case "n1uoy5ttka": // Vicious Slice: [Class Bonus] +1 POWER while attacking a Human
@@ -3761,7 +3822,7 @@ function CardCurrentEffects($obj) {
     $effects = $obj->TurnEffects;
     //Filter out internal effects that shouldn't display in UI
     $effects = array_filter($effects, function($effectID) {
-        return $effectID !== "DAMAGED_SINCE_LAST_TURN";
+        return $effectID !== "DAMAGED_SINCE_LAST_TURN" && $effectID !== "ENTERED_THIS_TURN";
     });
     //Now add global effects
     if($obj->Controller != -1) {
@@ -7788,6 +7849,25 @@ function TriggerPowercellSacrifice($player) {
         }
     }
 
+    // Charged Gunslinger (svdv3zb9p4): [CB] whenever you sacrifice a Powercell,
+    // draw a card, discard a card. If fire discarded, becomes distant.
+    if(IsClassBonusActive($player, ["RANGER"])) {
+        global $playerID;
+        $fieldZone = $player == $playerID ? "myField" : "theirField";
+        $field = GetZone($fieldZone);
+        for($ai = 0; $ai < count($field); ++$ai) {
+            if(!$field[$ai]->removed && $field[$ai]->CardID === "svdv3zb9p4" && !HasNoAbilities($field[$ai])) {
+                Draw($player, 1);
+                $hand = ZoneSearch("myHand");
+                if(!empty($hand)) {
+                    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $hand), 1, tooltip:"Discard_a_card_(Charged_Gunslinger)");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ChargedGunslingerDiscard|$fieldZone-$ai", 1);
+                }
+                break;
+            }
+        }
+    }
+
     // Engineered Slime (kkz07nau5s): [CB] whenever you sacrifice a Powercell, choose one —
     // buff counter or spellshroud until end of turn
     if(IsClassBonusActive($player, ["TAMER"])) {
@@ -7803,6 +7883,18 @@ function TriggerPowercellSacrifice($player) {
         }
     }
 }
+
+// Charged Gunslinger (svdv3zb9p4): discard handler — if fire element, become distant
+$customDQHandlers["ChargedGunslingerDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $gunslingerMZ = $parts[0];
+    $cardObj = GetZoneObject($lastDecision);
+    $cardID = $cardObj !== null ? $cardObj->CardID : null;
+    DoDiscardCard($player, $lastDecision);
+    if($cardID !== null && CardElement($cardID) === "FIRE") {
+        BecomeDistant($player, $gunslingerMZ);
+    }
+};
 
 // Turbo Charge / Atmos Armor Type-Hermes: sacrifice a Powercell
 $customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecision) {
