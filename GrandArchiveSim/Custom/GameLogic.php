@@ -866,6 +866,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "af098kmoi0": // Orb of Hubris — banish self
         case "fp66pv4n1n": // Rusted Warshield — banish self
         case "porhlq2kkv": // Wayfinder's Map — banish self
+        case "9gv4vm4kj3": // Backup Charger — banish self
+        case "9xycwz9gv4": // Memento Mori — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -984,6 +986,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "ii17fzcyfr": // Anathema's End
         case "f8urrqtjot": // Turbulent Bullet
         case "ywc08c9htu": // Cascading Round
+        case "ao8bki6fxx": // Steel Slug
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1; // REST
             break;
@@ -1090,9 +1093,20 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         if($sourceObject->Status != 2) return;
         if(!IsClassBonusActive($player, ["RANGER"])) return;
     }
+    // Backup Charger (9gv4vm4kj3): (3), Banish self — needs 3+ cards in hand for reserve
+    if($cardID === "9gv4vm4kj3") {
+        $hand = &GetHand($player);
+        if(count($hand) < 3) return;
+    }
+    // Memento Mori (9xycwz9gv4): Banish self — slow speed only + 6+ prize counters
+    if($cardID === "9xycwz9gv4") {
+        if(HasOpportunity($player)) return;
+        if(GetCounterCount($sourceObject, "prize") < 6) return;
+    }
     // Bullets (REST: Load into unloaded Gun): must be awake + unloaded Gun exists
     if($cardID === "0iqmyn2rz3" || $cardID === "9htu9agwj4" || $cardID === "r7ch2bbmoq"
-       || $cardID === "ii17fzcyfr" || $cardID === "f8urrqtjot" || $cardID === "ywc08c9htu") {
+       || $cardID === "ii17fzcyfr" || $cardID === "f8urrqtjot" || $cardID === "ywc08c9htu"
+       || $cardID === "ao8bki6fxx") {
         if($sourceObject->Status != 2) return;
         if(empty(GetUnloadedGuns($player))) return;
     }
@@ -1271,6 +1285,17 @@ function DoAllyDestroyed($player, $mzCard) {
             if(!$claudeObj->removed && $claudeObj->CardID === "52215upufy" && !HasNoAbilities($claudeObj)) {
                 Glimpse($controller, 3);
                 break;
+            }
+        }
+    }
+    // Memento Mori (9xycwz9gv4): whenever an ally dies, put a prize counter on Memento Mori
+    {
+        global $playerID;
+        $controllerField = $controller == $playerID ? "myField" : "theirField";
+        $field = &GetZone($controllerField);
+        for($mi = 0; $mi < count($field); ++$mi) {
+            if(!$field[$mi]->removed && $field[$mi]->CardID === "9xycwz9gv4" && !HasNoAbilities($field[$mi])) {
+                AddCounters($controller, $controllerField . "-" . $mi, "prize", 1);
             }
         }
     }
@@ -1580,6 +1605,13 @@ function RecollectionPhase() {
                 case "8bls6g7xgw": // Fertile Grounds: summon a token copy of an Herb you control
                     if(!HasNoAbilities($field[$i])) {
                         FertileGroundsRecollection($turnPlayer);
+                    }
+                    break;
+                case "b1w1mvu68a": // Convoking Slime: [CB] summon a copy of self rested
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["TAMER"])) {
+                        MZAddZone($turnPlayer, "myField", "b1w1mvu68a");
+                        $fieldRef = &GetField($turnPlayer);
+                        $fieldRef[count($fieldRef) - 1]->Status = 1; // Rested
                     }
                     break;
                 case "7dedg616r0": // Freydis, Master Tactician: [CB] put a tactic counter + Glimpse X
@@ -2075,6 +2107,15 @@ function ObjectCurrentPower($obj) {
                     if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
                         $power += 2;
                     }
+                }
+            }
+            break;
+        case "alegbscxwj": // Charged Mannequin: +1 POWER while you control a Powercell
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                if(!empty(ZoneSearch($zone, cardSubtypes: ["POWERCELL"]))) {
+                    $power += 1;
                 }
             }
             break;
@@ -3908,6 +3949,10 @@ function DealChampionDamage($player, $amount=1) {
             if($amount > 0 && $obj->CardID === "5bbae3z4py") {
                 MagebaneNicoBonusCheck($player);
             }
+            // Aegis of Dawn (abipl6gt7l): whenever champion dealt 4+ damage, summon Automaton Drone
+            if($amount >= 4) {
+                AegisOfDawnTrigger($player);
+            }
             return $obj;
         }
     }
@@ -4108,14 +4153,26 @@ function HasOpportunity($player) {
  * @param int $player The player to check.
  * @return array Array of mzID strings for fast-speed hand cards.
  */
+// Cards with [Class Bonus] Fast Activation — cardID => required class(es)
+$cbFastActivationCards = [
+    "a5igwbsmks" => ["TAMER"], // Spirited Falconer
+    "itwys9kf4r" => ["ASSASSIN"], // Cloaked Executioner
+    "cqadnk9iz0" => ["TAMER"], // Baby Green Slime
+    "2bbmoqk2c7" => ["GUARDIAN"], // Rose, Eternal Paragon
+    "f0ht2tsn0y" => ["GUARDIAN"], // Astarte, Celestial Dawn
+];
+
 function GetPlayableFastCards($player) {
+    global $cbFastActivationCards;
     $hand = &GetHand($player);
     $fastCards = [];
     for($i = 0; $i < count($hand); $i++) {
         $obj = $hand[$i];
         if(isset($obj->removed) && $obj->removed) continue;
         $speed = CardSpeed($obj->CardID);
-        if($speed === true) { // Fast speed
+        if($speed === true) {
+            $fastCards[] = "myHand-" . $i;
+        } elseif(isset($cbFastActivationCards[$obj->CardID]) && IsClassBonusActive($player, $cbFastActivationCards[$obj->CardID])) {
             $fastCards[] = "myHand-" . $i;
         }
     }
@@ -4819,7 +4876,7 @@ function HasFoster($obj) {
     static $fosterCards = [
         "z4pyx8bd7o" => true, // Young Peacekeeper
         "kuz07nk45s" => true, // Forgelight Shieldmaiden
-        "bqjdmthh88" => true, // Peacekeeper Sentinel
+        "bqjdmthh88" => true, // City Protector
         "22tk3ir1o0" => true, // Peacekeeper Sentinel (alt)
         "lzsmw3rrii" => true, // Guardian Bulwark
         "xhi5jnsl7d" => true, // Stalwart Protector
@@ -5125,6 +5182,13 @@ function CardMemoryCost($obj) {
     if($obj->CardID === "sw2ugmnmp5") {
         $turnPlayer = &GetTurnPlayer();
         if(IsClassBonusActive($turnPlayer, ["RANGER"])) {
+            $cost = max(0, $cost - 1);
+        }
+    }
+    // Aegis of Dawn (abipl6gt7l): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "abipl6gt7l") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
             $cost = max(0, $cost - 1);
         }
     }
@@ -6652,6 +6716,7 @@ $customDQHandlers["ObeliskFabricationSummon"] = function($player, $parts, $lastD
 $Renewable_Cards = [
     "f8urrqtjot" => true, // Turbulent Bullet
     "ywc08c9htu" => true, // Cascading Round
+    "ao8bki6fxx" => true, // Steel Slug
 ];
 
 /**
@@ -7259,5 +7324,34 @@ function MagebaneNicoBonusCheck($player) {
         }
     }
 }
+
+/**
+ * Aegis of Dawn (abipl6gt7l): whenever your champion is dealt 4+ damage,
+ * summon an Automaton Drone token. Only fires if Aegis of Dawn is on the field.
+ */
+function AegisOfDawnTrigger($player) {
+    $field = &GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "abipl6gt7l" && !HasNoAbilities($field[$i])) {
+            MZAddZone($player, "myField", "mu6gvnta6q"); // Automaton Drone token
+        }
+    }
+}
+
+// --- Backup Charger (9gv4vm4kj3): after reserve payment, summon Powercell rested + draw into memory ---
+$customDQHandlers["BackupChargerEffect"] = function($player, $parts, $lastDecision) {
+    MZAddZone($player, "myField", "qzzadf9q1v"); // Powercell token
+    $field = &GetField($player);
+    $field[count($field) - 1]->Status = 1; // Rested
+    DrawIntoMemory($player, 1);
+};
+
+// Spirited Falconer: second buff counter pick after the first ally was chosen
+$customDQHandlers["SpiritedFalconerBuff2"] = function($player, $parts, $lastDecision) {
+    $chosen2 = $lastDecision;
+    if($chosen2 !== "-" && $chosen2 !== "" && $chosen2 !== "PASS") {
+        AddCounters($player, $chosen2, "buff", 1);
+    }
+};
 
 ?>

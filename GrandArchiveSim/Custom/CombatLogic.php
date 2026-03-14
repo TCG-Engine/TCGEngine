@@ -1476,6 +1476,11 @@ function OnDealDamage($player, $source, $target, $amount) {
         MagebaneNicoBonusCheck($targetObj->Controller ?? $player);
     }
 
+    // Aegis of Dawn (abipl6gt7l): whenever champion dealt 4+ damage, summon Automaton Drone
+    if($amount >= 4 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        AegisOfDawnTrigger($targetObj->Controller ?? $player);
+    }
+
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
         // If we're in combat context, record that a kill occurred from combat damage.
@@ -1522,6 +1527,11 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
             && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")
             && $targetObj->CardID === "5bbae3z4py") {
         MagebaneNicoBonusCheck($targetObj->Controller ?? $player);
+    }
+
+    // Aegis of Dawn (abipl6gt7l): whenever champion dealt 4+ damage, summon Automaton Drone
+    if($amount >= 4 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        AegisOfDawnTrigger($targetObj->Controller ?? $player);
     }
 
     $currentHp = ObjectCurrentHP($targetObj);
