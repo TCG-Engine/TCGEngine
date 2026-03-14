@@ -480,6 +480,31 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - $curseCount);
     }
 
+    // Calamity Cannon (lwabipl6gt): [Polkhawk Bonus] costs 3 less
+    if($obj->CardID === "lwabipl6gt") {
+        $myField = GetZone("myField");
+        foreach($myField as $fObj) {
+            if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+                if(in_array($fObj->CardID, ["ryvfq3huqj", "8eyeqhc37y"])) {
+                    $reserveCost = max(0, $reserveCost - 3);
+                }
+                break;
+            }
+        }
+    }
+
+    // Geldus, Terror of Dorumegia (n9yvn1uoy5): [Level 3+] costs 2 less
+    if($obj->CardID === "n9yvn1uoy5" && PlayerLevel($player) >= 3) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Bolster Ranks (n0esog2898): [Class Bonus] costs 1 less
+    if($obj->CardID === "n0esog2898") {
+        if(IsClassBonusActive($player, ["GUARDIAN"])) {
+            $reserveCost = max(0, $reserveCost - 1);
+        }
+    }
+
     // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
     if($hasAllyLink) {
         $allyTargets = ZoneSearch("myField", ["ALLY"]);
@@ -1472,6 +1497,11 @@ function WakeUpPhase() {
             if(in_array("BLAZING_CHARGE_NEXT_TURN", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["BLAZING_CHARGE_NEXT_TURN"]));
             }
+            // Calamity Cannon: convert persistent marker to active (consumable this turn)
+            if(in_array("CALAMITY_CANNON", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["CALAMITY_CANNON"]));
+                $field[$i]->TurnEffects[] = "CALAMITY_CANNON_ACTIVE";
+            }
             // TAUNT_NEXT_TURN / VIGOR_NEXT_TURN: expire at beginning of controller's next turn
             if(in_array("TAUNT_NEXT_TURN", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["TAUNT_NEXT_TURN"]));
@@ -2324,6 +2354,22 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "ly4wiffei7": // Forgelight Blade: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $power += 1;
+            }
+            break;
+        case "n1uoy5ttka": // Vicious Slice: [Class Bonus] +1 POWER while attacking a Human
+            if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget != "-" && $combatTarget != "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(CardSubtypes($targetObj->CardID), "HUMAN")) {
+                        $power += 1;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -2494,6 +2540,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "bscxwjbqjd": // Sharpen Blade: target Dagger +2 POWER until end of turn
                 $power += 2;
+                break;
+            case "lwabipl6gt_POWER": // Calamity Cannon: first Gun attack +10 POWER
+                $power += 10;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -3110,7 +3159,14 @@ function DoRevealCard($player, $revealedMZ) {
 $revealAbilities = [];
 
 function DoSacrificeFighter($player, $mzCard) {
+    $obj = GetZoneObject($mzCard);
+    $isHerb = $obj !== null && PropertyContains(CardSubtypes($obj->CardID), "HERB");
+    $controller = $obj !== null ? $obj->Controller : $player;
     DoAllyDestroyed($player, $mzCard);
+    // Foretold Bloom (lnhzj43qiw): whenever you sacrifice an Herb, Glimpse 2
+    if($isHerb && GlobalEffectCount($controller, "FORETOLD_BLOOM") > 0) {
+        Glimpse($controller, 2);
+    }
 }
 
 $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
@@ -3850,6 +3906,8 @@ $persistentTurnEffects = [];
 $persistentTurnEffects["SKIP_WAKEUP"] = true;
 $persistentTurnEffects["FROZEN_BY_SNOW_FAIRY"] = true;
 $persistentTurnEffects["SPELLSHROUD_NEXT_TURN"] = true;
+// Calamity Cannon (lwabipl6gt): champion gets +10 POWER on first Gun attack during next turn
+$persistentTurnEffects["CALAMITY_CANNON"] = true;
 $persistentTurnEffects["STEALTH_NEXT_TURN"] = true;
 $persistentTurnEffects["NO_UPKEEP"] = true;
 $persistentTurnEffects["ATTUNE_FLAMES_BUFF"] = true;
@@ -4017,6 +4075,9 @@ $doesGlobalEffectApply["FREE_STARCALLING"] = function($obj) { return false; };
 $doesGlobalEffectApply["ARISANNA_FREE_STARCALLING"] = function($obj) { return false; };
 $doesGlobalEffectApply["ASTROLABE_FREE_STARCALLING"] = function($obj) { return false; };
 $doesGlobalEffectApply["oz23yfzk96"] = function($obj) { return false; }; // Scry the Stars dynamic starcalling
+
+// Foretold Bloom (lnhzj43qiw): flag only — herb-sacrifice glimpse handled in DoSacrificeFighter/BrewFinalizeHerbs
+$doesGlobalEffectApply["FORETOLD_BLOOM"] = function($obj) { return false; };
 
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
@@ -4895,6 +4956,10 @@ function HasStealth($obj) {
     // Patient Rogue: [Class Bonus] stealth while awake
     if($obj->CardID === "CvvgJR4fNa") {
         return isset($obj->Status) && $obj->Status == 2 && IsClassBonusActive($obj->Controller, ["ASSASSIN"]);
+    }
+    // Imperial Spy (l6gt7lh9v2): [Class Bonus] Stealth
+    if($obj->CardID === "l6gt7lh9v2") {
+        if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
     }
     // Blackmarket Broker (hHVf5xyjob): CB stealth while champion has 3+ prep counters
     if($obj->CardID === "hHVf5xyjob") {

@@ -172,6 +172,12 @@ function OnBrew($player) {
         if($field[$i]->CardID === "ve1d47o7ea" && !HasNoAbilities($field[$i])) {
             AddCounters($player, "myField-" . $i, "buff", 1);
         }
+        // Astromech Attendant (mloejozihs): [CB] whenever you brew → draw into memory
+        if($field[$i]->CardID === "mloejozihs" && !HasNoAbilities($field[$i])) {
+            if(IsClassBonusActive($player, ["CLERIC"])) {
+                DrawIntoMemory($player, 1);
+            }
+        }
     }
 }
 
@@ -253,11 +259,19 @@ function BrewFinalizeHerbs($player, $chosenStr) {
     usort($chosenArr, function($a, $b) {
         return intval(explode("-", $b)[1]) - intval(explode("-", $a)[1]);
     });
+    $herbCount = 0;
     foreach($chosenArr as $herbMZ) {
         $herbObj = GetZoneObject($herbMZ);
         if($herbObj !== null) {
+            $herbCount++;
             OnLeaveField($player, $herbMZ);
             MZMove($player, $herbMZ, "myGraveyard");
+        }
+    }
+    // Foretold Bloom (lnhzj43qiw): whenever you sacrifice an Herb, Glimpse 2
+    if(GlobalEffectCount($player, "FORETOLD_BLOOM") > 0) {
+        for($h = 0; $h < $herbCount; $h++) {
+            Glimpse($player, 2);
         }
     }
     DecisionQueueController::CleanupRemovedCards();
@@ -274,6 +288,13 @@ function OnGather($player) {
             case "ettczb14m4": // Alchemist's Kit: whenever you gather → refinement counter
                 if(!HasNoAbilities($field[$i])) {
                     AddCounters($player, "myField-" . $i, "refinement", 1);
+                }
+                break;
+            case "lgdlx7mdk0": // Cinderbloom Tender: [Class Bonus] Whenever you gather, deal 1 damage to each champion
+                if(!HasNoAbilities($field[$i]) && IsClassBonusActive($player, ["CLERIC"])) {
+                    $opponent = ($player == 1) ? 2 : 1;
+                    DealChampionDamage($player, 1);
+                    DealChampionDamage($opponent, 1);
                 }
                 break;
         }

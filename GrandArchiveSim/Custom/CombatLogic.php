@@ -565,6 +565,18 @@ function OnAttackTrigger($player, $mzID) {
             MechanicalHareOnAttack($player);
         }
     }
+
+    // Calamity Cannon (lwabipl6gt): first Gun attack this turn gets +10 POWER — consume and apply
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION") && in_array("CALAMITY_CANNON_ACTIVE", $obj->TurnEffects)) {
+        $weaponMZ = GetCombatWeapon();
+        if($weaponMZ !== null) {
+            $weaponObj = GetZoneObject($weaponMZ);
+            if($weaponObj !== null && PropertyContains(CardSubtypes($weaponObj->CardID), "GUN")) {
+                $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["CALAMITY_CANNON_ACTIVE"]));
+                AddTurnEffect($mzID, "lwabipl6gt_POWER");
+            }
+        }
+    }
 }
 
 /**
