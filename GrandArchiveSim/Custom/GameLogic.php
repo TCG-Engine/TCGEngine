@@ -989,6 +989,11 @@ function OnCardActivated($player, $mzCard) {
                     DecisionQueueController::AddDecision($player, "CUSTOM", "AvalonMill", 1);
                 }
                 break;
+            case "0yetaebjlw": // Lunar Conduit: whenever you activate an astra element card, put a charge counter
+                if($activatedElement === "ASTRA" && !HasNoAbilities($field[$fi])) {
+                    AddCounters($player, "myField-" . $fi, "charge", 1);
+                }
+                break;
             case "u6o6eanbrf": // Imperial Apprentice: whenever you activate a Spell card,
                 // you may banish a floating memory card from GY to draw a card
                 if(PropertyContains($subtypes, "SPELL") && !HasNoAbilities($field[$fi])) {
@@ -1111,6 +1116,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "xy5lh23qu7": // Obelisk of Fabrication — REST
         case "waf8urrqtj": // Gloamspire, Black Market — REST
         case "4nmxqsm4o9": // The Elysian Astrolabe — REST
+        case "0yetaebjlw": // Lunar Conduit — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -1395,6 +1401,13 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Prima Materia (vt9y597fqr): REST - must be awake
     if($cardID === "vt9y597fqr") {
         if($sourceObject->Status != 2) return;
+    }
+    // Lunar Conduit (0yetaebjlw): (3), REST — must be awake + has charge counters + 3 cards in hand
+    if($cardID === "0yetaebjlw") {
+        if($sourceObject->Status != 2) return;
+        if(GetCounterCount($sourceObject, "charge") < 1) return;
+        $hand = &GetHand($player);
+        if(count($hand) < 3) return;
     }
     // Spirit Shard (3p5iqigcom): [Level 3+] sacrifice self: draw a card
     if($cardID === "3p5iqigcom" && PlayerLevel($player) < 3) return;
@@ -3332,6 +3345,7 @@ function DrawIntoMemory($player, $amount=1) {
 $starcallingCards = [];
 $starcallingCards["zuj68m69iq"] = 0; // Astra Sight: Starcalling (0)
 $starcallingCards["4d5vettczb"] = 2; // Cometfall: Starcalling (2)
+$starcallingCards["dwavcoxpnj"] = 3; // Meteor Strike: Starcalling (3)
 
 /**
  * Get the effective starcalling cost for a card during a glimpse.
@@ -3848,10 +3862,28 @@ $customDQHandlers["StarcallingActivate"] = function($player, $parts, $lastDecisi
         // Queue glimpse 5 after the starcalled card resolves (high block)
         DecisionQueueController::AddDecision($player, "CUSTOM", "AstrolabeStarcallGlimpse", 201);
     }
+
+    // Stargazer's Portent (btjuxztaug): copy the starcalled card's activation
+    if(GlobalEffectCount($player, "btjuxztaug") > 0) {
+        RemoveGlobalEffect($player, "btjuxztaug");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "StargazersPortentCopy|$chosenCardID", 201);
+    }
 };
 
 $customDQHandlers["AstrolabeStarcallGlimpse"] = function($player, $parts, $lastDecision) {
     Glimpse($player, 5);
+};
+
+// --- Stargazer's Portent (btjuxztaug): copy the starcalled card's activation ---
+$customDQHandlers["StargazersPortentCopy"] = function($player, $parts, $lastDecision) {
+    global $cardActivatedAbilities;
+    $cardID = $parts[0];
+    $abilityKey = $cardID . ":0";
+    if(isset($cardActivatedAbilities[$abilityKey])) {
+        DecisionQueueController::StoreVariable("wasStarcalled", "YES");
+        DecisionQueueController::StoreVariable("mzID", "COPY");
+        $cardActivatedAbilities[$abilityKey]($player);
+    }
 };
 
 $customDQHandlers["WindriderMageBounce"] = function($player, $parts, $lastDecision) {
@@ -5482,6 +5514,7 @@ function HasFoster($obj) {
         "lzsmw3rrii" => true, // Guardian Bulwark
         "xhi5jnsl7d" => true, // Embershield Keeper
         "zihslnhzj4" => true, // Cell Generator
+        "8sugly4wif" => true, // Krustallan Patrol
     ];
     if(isset($fosterCards[$obj->CardID])) return true;
     // [Class Bonus] Foster cards
@@ -5802,6 +5835,13 @@ function CardMemoryCost($obj) {
     if($obj->CardID === "abipl6gt7l") {
         $turnPlayer = &GetTurnPlayer();
         if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
+            $cost = max(0, $cost - 1);
+        }
+    }
+    // Lunar Conduit (0yetaebjlw): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "0yetaebjlw") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
             $cost = max(0, $cost - 1);
         }
     }
@@ -7240,6 +7280,17 @@ $customDQHandlers["SmashingForceDestroy"] = function($player, $parts, $lastDecis
     DecisionQueueController::CleanupRemovedCards();
 };
 
+// --- Meteor Strike (dwavcoxpnj): destroy chosen non-champion object ---
+$customDQHandlers["MeteorStrikeDestroy"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null) return;
+    OnLeaveField($player, $lastDecision);
+    $dest = $player == $targetObj->Controller ? "myGraveyard" : "theirGraveyard";
+    MZMove($player, $lastDecision, $dest);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 // --- Alkahest (xfpk9xycwz): choose Potion for age counter ---
 $customDQHandlers["AlkahestAgeCounter"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
@@ -8197,6 +8248,19 @@ $customDQHandlers["BackupChargerEffect"] = function($player, $parts, $lastDecisi
     $field = &GetField($player);
     $field[count($field) - 1]->Status = 1; // Rested
     DrawIntoMemory($player, 1);
+};
+
+// --- Lunar Conduit (0yetaebjlw): deal damage = charge counters, then remove 1 charge ---
+$customDQHandlers["LunarConduitDamage"] = function($player, $parts, $lastDecision) {
+    $sourceMZ = $parts[0];
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $sourceObj = GetZoneObject($sourceMZ);
+    if($sourceObj === null) return;
+    $chargeCount = GetCounterCount($sourceObj, "charge");
+    if($chargeCount > 0) {
+        DealDamage($player, $sourceMZ, $lastDecision, $chargeCount);
+        RemoveCounters($player, $sourceMZ, "charge", 1);
+    }
 };
 
 // Spirited Falconer: second buff counter pick after the first ally was chosen
