@@ -264,7 +264,10 @@ function ClearIntent($player) {
     // Work backwards so index removal doesn't shift remaining cards
     for($i = count($intentCards) - 1; $i >= 0; --$i) {
         $iObj = GetZoneObject($intentCards[$i]);
-        if($iObj !== null && isset($Renewable_Cards[$iObj->CardID])) {
+        if($iObj !== null && in_array("CURSE_TO_LINEAGE", $iObj->TurnEffects)) {
+            // Card was put into champion's lineage by OnHit — banish the physical copy
+            MZMove($player, $intentCards[$i], "myBanish");
+        } else if($iObj !== null && isset($Renewable_Cards[$iObj->CardID])) {
             // Renewable: goes to material deck instead of graveyard
             MZMove($player, $intentCards[$i], "myMaterial");
         } else {
@@ -1542,6 +1545,18 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION") && in_array("BLAZING_CHARGE_NEXT_TURN", $targetObj->TurnEffects)) {
         $amount += 1;
     }
+    // Prima Materia (vt9y597fqr): next astra source damage to units +3
+    $sourceObj = GetZoneObject($source);
+    if($sourceObj !== null && $amount > 0) {
+        $isUnit = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
+        if($isUnit && EffectiveCardElement($sourceObj) === "ASTRA") {
+            $srcCtrl = $sourceObj->Controller ?? $player;
+            if(GlobalEffectCount($srcCtrl, "PRIMA_MATERIA_BOOST") > 0) {
+                $amount += 3;
+                RemoveGlobalEffect($srcCtrl, "PRIMA_MATERIA_BOOST");
+            }
+        }
+    }
     $targetObj->Damage += $amount;
 
     // Foster tracking: mark that this unit received damage and remove fostered state
@@ -1593,6 +1608,18 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     // Blazing Charge (s5jwsl7ded): if target is champion with BLAZING_CHARGE_NEXT_TURN, +1 damage
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION") && in_array("BLAZING_CHARGE_NEXT_TURN", $targetObj->TurnEffects)) {
         $amount += 1;
+    }
+    // Prima Materia (vt9y597fqr): next astra source damage to units +3
+    $sourceObj2 = GetZoneObject($source);
+    if($sourceObj2 !== null && $amount > 0) {
+        $isUnit = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
+        if($isUnit && EffectiveCardElement($sourceObj2) === "ASTRA") {
+            $srcCtrl = $sourceObj2->Controller ?? $player;
+            if(GlobalEffectCount($srcCtrl, "PRIMA_MATERIA_BOOST") > 0) {
+                $amount += 3;
+                RemoveGlobalEffect($srcCtrl, "PRIMA_MATERIA_BOOST");
+            }
+        }
     }
     $targetObj->Damage += $amount;
 

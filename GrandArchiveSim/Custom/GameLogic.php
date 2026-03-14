@@ -486,6 +486,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - $curseCount);
     }
 
+    // Debilitating Grasp (wbsmks4etk) Inherited Effect:
+    // "The first card you activate each turn costs 1 more to activate."
+    if(ChampionHasInLineage($player, "wbsmks4etk") && CardActivatedCallCount($player) == 0) {
+        $reserveCost += 1;
+    }
+
     // Calamity Cannon (lwabipl6gt): [Polkhawk Bonus] costs 3 less
     if($obj->CardID === "lwabipl6gt") {
         $myField = GetZone("myField");
@@ -935,6 +941,23 @@ function OnCardActivated($player, $mzCard) {
                     DecisionQueueController::AddDecision($player, "CUSTOM", "AvalonMill", 1);
                 }
                 break;
+            case "u6o6eanbrf": // Imperial Apprentice: whenever you activate a Spell card,
+                // you may banish a floating memory card from GY to draw a card
+                if(PropertyContains($subtypes, "SPELL") && !HasNoAbilities($field[$fi])) {
+                    $floatingGY = [];
+                    $gy = GetZone("myGraveyard");
+                    for($gi = 0; $gi < count($gy); ++$gi) {
+                        if(!$gy[$gi]->removed && HasFloatingMemory($gy[$gi])) {
+                            $floatingGY[] = "myGraveyard-" . $gi;
+                        }
+                    }
+                    if(!empty($floatingGY)) {
+                        $choices = implode("&", $floatingGY);
+                        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1, "Banish_floating_memory_to_draw?");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "ImperialApprenticeFloating", 1);
+                    }
+                }
+                break;
         }
     }
 
@@ -1030,6 +1053,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "porhlq2kkv": // Wayfinder's Map — banish self
         case "9gv4vm4kj3": // Backup Charger — banish self
         case "9xycwz9gv4": // Memento Mori — banish self
+        case "uqrptjej4m": // Tonic of Remembrance — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -1038,6 +1062,10 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "xy5lh23qu7": // Obelisk of Fabrication — REST
         case "waf8urrqtj": // Gloamspire, Black Market — REST
         case "4nmxqsm4o9": // The Elysian Astrolabe — REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
+        case "vt9y597fqr": // Prima Materia — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -1212,6 +1240,11 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "a5uhjxhkur" && GetCounterCount($sourceObject, "refinement") < 1) return;
     // Wayfinder's Map (porhlq2kkv): needs 3+ domains on field
     if($cardID === "porhlq2kkv" && count(ZoneSearch("myField", ["DOMAIN"])) < 3) return;
+    // Tonic of Remembrance (uqrptjej4m): [CB] needs cards in memory
+    if($cardID === "uqrptjej4m") {
+        if(!IsClassBonusActive($player, ["CLERIC"])) return;
+        if(empty(ZoneSearch("myMemory"))) return;
+    }
     // Dormant Sacrificial Altar (px8jypwc8t): needs both Automaton and Human allies on field
     if($cardID === "px8jypwc8t") {
         $automatons = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
@@ -1307,6 +1340,10 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     }
     // The Elysian Astrolabe (4nmxqsm4o9): REST - must be awake
     if($cardID === "4nmxqsm4o9") {
+        if($sourceObject->Status != 2) return;
+    }
+    // Prima Materia (vt9y597fqr): REST - must be awake
+    if($cardID === "vt9y597fqr") {
         if($sourceObject->Status != 2) return;
     }
     // Spirit Shard (3p5iqigcom): [Level 3+] sacrifice self: draw a card
@@ -1670,6 +1707,18 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         if(GlobalEffectCount($player, "uhuy4xippo") > 0) {
             $added->Status = 1;
             RemoveGlobalEffect($player, "uhuy4xippo");
+        }
+    }
+
+    // Freezing Steel (x7mdk0xhi5): next items enter the field rested
+    if(PropertyContains(CardType($added->CardID), "ITEM") || PropertyContains(CardType($added->CardID), "TOKEN")) {
+        // Check both players for the global effect (applies to "this turn" items)
+        for($fsp = 1; $fsp <= 2; ++$fsp) {
+            if(GlobalEffectCount($fsp, "FREEZING_STEEL") > 0) {
+                $added->Status = 1;
+                RemoveGlobalEffect($fsp, "FREEZING_STEEL");
+                break;
+            }
         }
     }
 
@@ -2305,6 +2354,19 @@ function ObjectCurrentPower($obj) {
             $memory = &GetMemory($obj->Controller);
             if(count($memory) >= 4) $power += 1;
             break;
+        case "uesdu6o6ea": // Powered Bishop: [Memory 4+] +1 POWER
+            $memory = &GetMemory($obj->Controller);
+            if(count($memory) >= 4) $power += 1;
+            break;
+        case "v4vm4kj3q2": // Charged Alchemist: [CB] +1 POWER while you control a Powercell
+            if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                if(!empty(ZoneSearch($zone, cardSubtypes: ["POWERCELL"]))) {
+                    $power += 1;
+                }
+            }
+            break;
         case "2tsn0ye3ae": // Allied Warpriestess: [Class Bonus] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["CLERIC", "GUARDIAN"])) $power += 1;
             break;
@@ -2880,6 +2942,14 @@ function ObjectCurrentLevel($obj) {
                 case "akb1k0zi5h": // Effigy of Gaia: [Class Bonus] +1 level while controlling Animal/Beast ally
                     if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
                         if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]))) {
+                            $cardLevel += 1;
+                        }
+                    }
+                    $appliedPassives[$fID] = true;
+                    break;
+                case "v4vm4kj3q2": // Charged Alchemist: [CB] +1 level while you control a Powercell
+                    if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
+                        if(!empty(ZoneSearch($zone, cardSubtypes: ["POWERCELL"]))) {
                             $cardLevel += 1;
                         }
                     }
@@ -4118,6 +4188,14 @@ $doesGlobalEffectApply["9g44vm5kt3"] = function($obj) { // Empowering Tincture s
 
 $doesGlobalEffectApply["BREWED_POTION"] = function($obj) { // Flag only — tracks if a potion was brewed this turn
     return false; // No visual effect on cards
+};
+
+$doesGlobalEffectApply["FREEZING_STEEL"] = function($obj) { // Flag only — next items enter rested
+    return false;
+};
+
+$doesGlobalEffectApply["PRIMA_MATERIA_BOOST"] = function($obj) { // Flag only — next astra damage to units +3
+    return false;
 };
 
 $doesGlobalEffectApply["rw8qq1uwq8-lockdown"] = function($obj) { //Corhazi Outlook: Opponents can't activate cards this turn
@@ -7749,6 +7827,25 @@ $customDQHandlers["ScryTheStarsAltCost"] = function($player, $parts, $lastDecisi
 // ============================================================================
 // Nico, Whiplash Allure (5bbae3z4py) + Magebane Lash (oh300z2sns) helpers
 // ============================================================================
+
+// --- Imperial Apprentice (u6o6eanbrf): may banish floating memory from GY to draw ---
+$customDQHandlers["ImperialApprenticeFloating"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    Draw($player, 1);
+};
+
+// --- Cell Assembler (vc8sugly4w): summon Powercell rested after paying (2) ---
+$customDQHandlers["CellAssemblerSummon"] = function($player, $parts, $lastDecision) {
+    $pcObj = MZAddZone($player, "myField", "qzzadf9q1v");
+    $pcObj->Status = 1; // rested
+};
+
+// --- Tonic of Remembrance (uqrptjej4m): return a card from memory to hand ---
+$customDQHandlers["TonicOfRemembranceReturn"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myHand");
+};
 
 // Krustallan Ruins (fei7chsbal): pay (1) or rest the entering ally
 $customDQHandlers["KrustallanRuinsPayOrRest"] = function($player, $parts, $lastDecision) {
