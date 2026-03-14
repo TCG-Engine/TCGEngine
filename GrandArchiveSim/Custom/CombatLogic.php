@@ -1293,8 +1293,28 @@ function OnDealDamage($player, $source, $target, $amount) {
         if($amount <= 0) return;
     }
 
-    // PREVENT_COMBAT_N: prevent up to N combat damage this turn (Deflecting Edge)
+    // PREVENT_NONCOMBAT_N: prevent up to N non-combat damage this turn (Dodge Roll)
     $isCombat = DecisionQueueController::GetVariable("CombatAttacker") !== null;
+    if(!$isCombat && $amount > 0) {
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "PREVENT_NONCOMBAT_") === 0) {
+                $budget = intval(substr($effect, 18));
+                $prevented = min($budget, $amount);
+                $amount -= $prevented;
+                $remaining = $budget - $prevented;
+                if($remaining <= 0) {
+                    unset($targetObj->TurnEffects[$idx]);
+                    $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                } else {
+                    $targetObj->TurnEffects[$idx] = "PREVENT_NONCOMBAT_" . $remaining;
+                }
+                break;
+            }
+        }
+        if($amount <= 0) return;
+    }
+
+    // PREVENT_COMBAT_N: prevent up to N combat damage this turn (Deflecting Edge)
     if($isCombat && $amount > 0) {
         foreach($targetObj->TurnEffects as $idx => $effect) {
             if(strpos($effect, "PREVENT_COMBAT_") === 0) {

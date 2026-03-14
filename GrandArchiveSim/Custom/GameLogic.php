@@ -881,7 +881,7 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
  * @param string $mzCard  The mzID of the card paying the cost
  * @param string $cardID  The card's dictionary ID
  */
-function ActivatedAbilityCost($player, $mzCard, $cardID) {
+function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
     switch($cardID) {
         // --- Always banish self ---
         case "iiZtKTulPg": // Eye of Argus
@@ -1034,8 +1034,18 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
         case "ywc08c9htu": // Cascading Round
         case "ao8bki6fxx": // Steel Slug
         case "dcgw05q66h": // Purified Shot
+        case "hreqhj1trn": // Windpiercer
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1; // REST
+            break;
+        case "gmuesdu6o6": // Worn Diary
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1; // REST
+            if($abilityIndex == 1) {
+                // Ability 1: REST, Banish — draw a card (only if 10+ page counters)
+                MZMove($player, $mzCard, "myBanish");
+                DecisionQueueController::CleanupRemovedCards();
+            }
             break;
         case "3p5iqigcom": // Spirit Shard: sacrifice self
             MZMove($player, $mzCard, "myGraveyard");
@@ -1153,9 +1163,15 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Bullets (REST: Load into unloaded Gun): must be awake + unloaded Gun exists
     if($cardID === "0iqmyn2rz3" || $cardID === "9htu9agwj4" || $cardID === "r7ch2bbmoq"
        || $cardID === "ii17fzcyfr" || $cardID === "f8urrqtjot" || $cardID === "ywc08c9htu"
-       || $cardID === "ao8bki6fxx" || $cardID === "dcgw05q66h") {
+       || $cardID === "ao8bki6fxx" || $cardID === "dcgw05q66h" || $cardID === "hreqhj1trn") {
         if($sourceObject->Status != 2) return;
         if(empty(GetUnloadedGuns($player))) return;
+    }
+    // Worn Diary (gmuesdu6o6): both abilities require awake
+    if($cardID === "gmuesdu6o6") {
+        if($sourceObject->Status != 2) return;
+        // Ability 1 (banish + draw): requires 10+ page counters
+        if(intval($abilityIndex) == 1 && GetCounterCount($sourceObject, "page") < 10) return;
     }
     // Molten Cinder (df9q1vk8ao): sacrifice self — target champion that leveled up this turn
     if($cardID === "df9q1vk8ao") {
@@ -1188,7 +1204,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     }
 
     // Pay non-reserve costs (e.g., banish self) before the opponent gets priority.
-    ActivatedAbilityCost($player, $mzCard, $cardID);
+    ActivatedAbilityCost($player, $mzCard, $cardID, $selectedAbilityIndex);
 
     //My activated ability effects
     // Reconstruct which dynamic ability was selected (matching GetDynamicAbilities index assignment)
@@ -1501,7 +1517,36 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             RemoveGlobalEffect($player, "uhuy4xippo");
         }
     }
-    
+
+    // Krustallan Ruins (fei7chsbal): whenever an ally enters the field under a player's control,
+    // rest that ally unless that player pays (1).
+    $enteredCardType = CardType($added->CardID);
+    if(PropertyContains($enteredCardType, "ALLY") || (PropertyContains($enteredCardType, "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY"))) {
+        // Check both players' fields for Krustallan Ruins
+        for($kp = 1; $kp <= 2; ++$kp) {
+            $kField = &GetField($kp);
+            $hasRuins = false;
+            foreach($kField as $kObj) {
+                if(!$kObj->removed && $kObj->CardID === "fei7chsbal" && !HasNoAbilities($kObj)) {
+                    $hasRuins = true;
+                    break;
+                }
+            }
+            if($hasRuins) {
+                // Check if player has cards in hand to pay (1)
+                $hand = &GetHand($player);
+                if(count($hand) > 0) {
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Pay_(1)_to_keep_ally_awake?_(Krustallan_Ruins)");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "KrustallanRuinsPayOrRest|" . (count($field) - 1), 1);
+                } else {
+                    // Can't pay — rest the ally
+                    $added->Status = 1;
+                }
+                break; // Only one Krustallan Ruins trigger per entry
+            }
+        }
+    }
+
     Enter($player, $field[count($field)-1]->GetMzID());
 }
 
@@ -1888,6 +1933,31 @@ function EndPhase() {
         if(!$field[$i]->removed && $field[$i]->CardID === "K5luT8aRzc") {
             if($field[$i]->Status == 2) { // Awake (Status 2 = ready)
                 AddCounters($turnPlayer, "myField-" . $i, "preparation", 1);
+            }
+            break;
+        }
+    }
+
+    // Cell Converter (eqhj1trn0y): At the beginning of your end phase, summon a Powercell token rested.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "eqhj1trn0y" && !HasNoAbilities($field[$i])) {
+            $pcObj = MZAddZone($turnPlayer, "myField", "qzzadf9q1v");
+            $pcObj->Status = 1;
+            $pcObj->Controller = $turnPlayer;
+            $pcObj->Owner = $turnPlayer;
+            break;
+        }
+    }
+
+    // Alchemical Scripture (h9v2214upu): At the beginning of your end phase,
+    // if you control four or more tokens, draw a card into your memory.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "h9v2214upu" && !HasNoAbilities($field[$i])) {
+            $tokens = ZoneSearch("myField", ["TOKEN"]);
+            if(count($tokens) >= 4) {
+                DrawIntoMemory($turnPlayer, 1);
             }
             break;
         }
@@ -2445,6 +2515,10 @@ function ObjectCurrentPower($obj) {
         if(strpos($te, "tu9agwj4f1-") === 0) {
             $power += intval(substr($te, strlen("tu9agwj4f1-")));
         }
+    }
+    // Windpiercer (hreqhj1trn): On Attack reveal — if wind element, +2 POWER
+    if(in_array("hreqhj1trn-power", $obj->TurnEffects)) {
+        $power += 2;
     }
     // Ranged N: while this unit is distant, its attacks get +N POWER
     if(IsDistant($obj)) {
@@ -6821,6 +6895,7 @@ $Renewable_Cards = [
     "f8urrqtjot" => true, // Turbulent Bullet
     "ywc08c9htu" => true, // Cascading Round
     "ao8bki6fxx" => true, // Steel Slug
+    "hreqhj1trn" => true, // Windpiercer
 ];
 
 /**
@@ -6882,6 +6957,17 @@ function LoadBulletIntoGun($player, $bulletMZ, $gunMZ) {
     // Remove bullet from field silently (loading is a cost, no LeaveField triggers)
     $bulletObj->removed = true;
     DecisionQueueController::CleanupRemovedCards();
+
+    // Loaded Thoughts (hh88rx6p3p): [CB] Whenever becomes loaded, may put top card of deck into GY
+    if($gunObj->CardID === "hh88rx6p3p" && !HasNoAbilities($gunObj)) {
+        if(IsClassBonusActive($player, ["RANGER"])) {
+            $deck = GetDeck($player);
+            if(!empty($deck)) {
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_top_card_of_deck_into_graveyard?_(Loaded_Thoughts)");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "LoadedThoughtsMill", 1);
+            }
+        }
+    }
 }
 
 /**
@@ -7397,6 +7483,28 @@ $customDQHandlers["ScryTheStarsAltCost"] = function($player, $parts, $lastDecisi
 // Nico, Whiplash Allure (5bbae3z4py) + Magebane Lash (oh300z2sns) helpers
 // ============================================================================
 
+// Krustallan Ruins (fei7chsbal): pay (1) or rest the entering ally
+$customDQHandlers["KrustallanRuinsPayOrRest"] = function($player, $parts, $lastDecision) {
+    $fieldIdx = intval($parts[0]);
+    $field = &GetField($player);
+    if(!isset($field[$fieldIdx]) || $field[$fieldIdx]->removed) return;
+    if($lastDecision === "YES") {
+        // Pay (1): move a card from hand to memory
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    } else {
+        // Rest the ally
+        $field[$fieldIdx]->Status = 1;
+    }
+};
+
+// Loaded Thoughts (hh88rx6p3p): mill top card of deck when gun becomes loaded
+$customDQHandlers["LoadedThoughtsMill"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $deck = GetDeck($player);
+    if(empty($deck)) return;
+    MZMove($player, "myDeck-0", "myGraveyard");
+};
+
 /**
  * Fire whenever a floating memory card is banished from the player's graveyard.
  * If Nico (5bbae3z4py) is on that player's field and has abilities, add a lash counter.
@@ -7466,6 +7574,18 @@ $customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecisio
     OnLeaveField($player, $lastDecision);
     MZMove($player, $lastDecision, "myGraveyard");
     DecisionQueueController::CleanupRemovedCards();
+
+    // Powered Armsmaster (fpvw2ifz1n): [CB] whenever you sacrifice a Powercell, becomes distant
+    if(IsClassBonusActive($player, ["RANGER"])) {
+        global $playerID;
+        $fieldZone = $player == $playerID ? "myField" : "theirField";
+        $field = GetZone($fieldZone);
+        for($ai = 0; $ai < count($field); ++$ai) {
+            if(!$field[$ai]->removed && $field[$ai]->CardID === "fpvw2ifz1n" && !HasNoAbilities($field[$ai])) {
+                BecomeDistant($player, $fieldZone . "-" . $ai);
+            }
+        }
+    }
 };
 
 // ============================================================================
