@@ -197,6 +197,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(!$hasFireDiscard) return; // No fire card to discard — block activation
     }
 
+    // Expunge (r73opcqtzs): mandatory discard of a Curse from any champion's lineage
+    if($sourceObject->CardID === "r73opcqtzs") {
+        $opp = ($player == 1) ? 2 : 1;
+        if(CountCursesInLineage($player) + CountCursesInLineage($opp) == 0) return;
+    }
+
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
@@ -693,7 +699,38 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost) {
+    //1.3 Declaring Costs — Expunge (r73opcqtzs): mandatory discard of a Curse from any champion's lineage
+    $hasExpungeCost = false;
+    if($obj->CardID === "r73opcqtzs") {
+        $hasExpungeCost = true;
+        $championsWithCurses = [];
+        foreach([1, 2] as $p) {
+            global $playerID;
+            $fz = $p == $playerID ? "myField" : "theirField";
+            $fld = GetZone($fz);
+            for($fi = 0; $fi < count($fld); ++$fi) {
+                if($fld[$fi]->removed) continue;
+                if(!PropertyContains(EffectiveCardType($fld[$fi]), "CHAMPION")) continue;
+                if(!is_array($fld[$fi]->Subcards)) continue;
+                foreach($fld[$fi]->Subcards as $sc) {
+                    if(PropertyContains(CardSubtypes($sc), "CURSE")) {
+                        $championsWithCurses[] = $fz . "-" . $fi;
+                        break;
+                    }
+                }
+            }
+        }
+        if(count($championsWithCurses) == 1) {
+            DecisionQueueController::StoreVariable("expungeChampion", $championsWithCurses[0]);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ExpungePickCurse|$reserveCost", 100);
+        } else {
+            $champStr = implode("&", $championsWithCurses);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $champStr, 100, tooltip:"Choose_champion_for_Curse_discard");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ExpungeChosenChampion|$reserveCost", 100);
+        }
+    }
+
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1076,6 +1113,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "qzzadf9q1v": // Powercell: sacrifice self to graveyard
+            OnLeaveField($player, $mzCard);
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            TriggerPowercellSacrifice($player);
+            break;
         case "df9q1vk8ao": // Molten Cinder: sacrifice self to graveyard
             ProcessPotionInfusionTriggers($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
@@ -1277,6 +1320,16 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             if(!$gyObj->removed && HasFloatingMemory($gyObj)) { $hasFloating = true; break; }
         }
         if(!$hasFloating) return;
+    }
+    // Lunar Seer (qjt0ooffy4): [CB] REST — must be awake + CB
+    if($cardID === "qjt0ooffy4") {
+        if($sourceObject->Status != 2) return;
+        if(!IsClassBonusActive($player, ["CLERIC"])) return;
+    }
+    // Powercell (qzzadf9q1v): REST + sacrifice — must be awake + have Automaton allies
+    if($cardID === "qzzadf9q1v") {
+        if($sourceObject->Status != 2) return;
+        if(empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]))) return;
     }
     
     // Ability index is now passed directly from the frontend button click
@@ -2543,6 +2596,18 @@ function ObjectCurrentPower($obj) {
                 break;
             case "lwabipl6gt_POWER": // Calamity Cannon: first Gun attack +10 POWER
                 $power += 10;
+                break;
+            case "o6eanbrfnr": // Reprogram: -1 POWER until end of turn
+                $power -= 1;
+                break;
+            case "pk9xycwz9g-power": // Cell Handler: -1 POWER until end of turn
+                $power -= 1;
+                break;
+            case "qzzadf9q1v": // Powercell: +1 POWER until end of turn
+                $power += 1;
+                break;
+            case "qzzadf9q1v-2": // Powercell: +1 POWER until end of turn (stacks to +2)
+                $power += 1;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -5242,6 +5307,15 @@ function IsDistant($obj) {
  */
 function BecomeDistant($player, $mzID) {
     AddTurnEffect($mzID, "DISTANT");
+    // Imperial Scout (nrow8iopvc): when this becomes distant, may mill 2
+    $obj = GetZoneObject($mzID);
+    if($obj !== null && $obj->CardID === "nrow8iopvc" && !HasNoAbilities($obj)) {
+        $deck = ZoneSearch("myDeck");
+        if(count($deck) >= 2) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_top_2_cards_of_deck_into_graveyard?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ImperialScoutMill", 1);
+        }
+    }
 }
 
 /**
@@ -5434,6 +5508,8 @@ function PrideAmount($obj) {
     if(HasNoAbilities($obj)) return 0;
     $prideValue = GetKeyword_Pride_Value($obj);
     if($prideValue === null) return 0;
+    // Cell Handler (pk9xycwz9g): target loses pride until end of turn
+    if(in_array("pk9xycwz9g", $obj->TurnEffects)) return 0;
     // Avatar of Gaia (fqsuo6gb0o): linked ally loses pride
     $linkedCards = GetLinkedCards($obj);
     foreach($linkedCards as $linkedObj) {
@@ -7697,14 +7773,9 @@ $customDQHandlers["SpiritedFalconerBuff2"] = function($player, $parts, $lastDeci
 };
 
 // ============================================================================
-// Turbo Charge / Atmos Armor Type-Hermes: sacrifice a Powercell
+// Powercell sacrifice triggers (shared by Turbo Charge, Atmos Armor, Powercell self-sacrifice)
 // ============================================================================
-$customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") return;
-    OnLeaveField($player, $lastDecision);
-    MZMove($player, $lastDecision, "myGraveyard");
-    DecisionQueueController::CleanupRemovedCards();
-
+function TriggerPowercellSacrifice($player) {
     // Powered Armsmaster (fpvw2ifz1n): [CB] whenever you sacrifice a Powercell, becomes distant
     if(IsClassBonusActive($player, ["RANGER"])) {
         global $playerID;
@@ -7731,6 +7802,15 @@ $customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecisio
             }
         }
     }
+}
+
+// Turbo Charge / Atmos Armor Type-Hermes: sacrifice a Powercell
+$customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+    TriggerPowercellSacrifice($player);
 };
 
 // ============================================================================
@@ -7841,6 +7921,96 @@ $customDQHandlers["EngineeredSlimeChoice"] = function($player, $parts, $lastDeci
     } else {
         AddTurnEffect($slimeMZ, "SPELLSHROUD");
     }
+};
+
+// ============================================================================
+// Imperial Scout (nrow8iopvc): when becoming distant, may mill 2
+// ============================================================================
+$customDQHandlers["ImperialScoutMill"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    for($i = 0; $i < 2; ++$i) {
+        $deck = ZoneSearch("myDeck");
+        if(!empty($deck)) {
+            MZMove($player, $deck[0], "myGraveyard");
+        }
+    }
+};
+
+// ============================================================================
+// Expunge (r73opcqtzs): mandatory Curse discard from a champion's lineage
+// ============================================================================
+$customDQHandlers["ExpungeChosenChampion"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0]);
+    DecisionQueueController::StoreVariable("expungeChampion", $lastDecision);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ExpungePickCurse|$reserveCost", 1);
+};
+
+$customDQHandlers["ExpungePickCurse"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0]);
+    $champMZ = DecisionQueueController::GetVariable("expungeChampion");
+    $champObj = &GetZoneObject($champMZ);
+    if($champObj === null) return;
+
+    $curses = [];
+    foreach($champObj->Subcards as $scIdx => $scID) {
+        if(PropertyContains(CardSubtypes($scID), "CURSE")) {
+            $curses[] = ['idx' => $scIdx, 'cardID' => $scID];
+        }
+    }
+
+    if(count($curses) == 1) {
+        $curse = $curses[0];
+        $curseCost = CardCost_reserve($curse['cardID']);
+        array_splice($champObj->Subcards, $curse['idx'], 1);
+        MZAddZone($player, "myGraveyard", $curse['cardID']);
+        DecisionQueueController::StoreVariable("expungeCurseCost", strval($curseCost));
+        for($i = 0; $i < $reserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+    } else {
+        // Multiple Curses — put into TempZone for UI display
+        foreach($curses as $c) {
+            MZAddZone($player, "myTempZone", $c['cardID']);
+        }
+        $tempCards = ZoneSearch("myTempZone");
+        $tempStr = implode("&", $tempCards);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $tempStr, 1, tooltip:"Choose_Curse_to_discard");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ExpungeCurseChosen|$reserveCost|$champMZ", 1);
+    }
+};
+
+$customDQHandlers["ExpungeCurseChosen"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0]);
+    $champMZ = $parts[1];
+    $champObj = &GetZoneObject($champMZ);
+
+    $chosenObj = GetZoneObject($lastDecision);
+    $chosenCardID = $chosenObj->CardID;
+    $curseCost = CardCost_reserve($chosenCardID);
+
+    // Remove the chosen Curse CardID from the champion's Subcards
+    for($i = 0; $i < count($champObj->Subcards); ++$i) {
+        if($champObj->Subcards[$i] === $chosenCardID) {
+            array_splice($champObj->Subcards, $i, 1);
+            break;
+        }
+    }
+
+    // Clear TempZone
+    $tempZone = &GetZone("myTempZone");
+    foreach($tempZone as $tObj) {
+        $tObj->Remove();
+    }
+
+    // Record the discarded Curse in the graveyard
+    MZAddZone($player, "myGraveyard", $chosenCardID);
+
+    DecisionQueueController::StoreVariable("expungeCurseCost", strval($curseCost));
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
 // ============================================================================
