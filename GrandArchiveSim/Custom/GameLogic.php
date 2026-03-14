@@ -991,6 +991,22 @@ function ActivatedAbilityCost($player, $mzCard, $cardID) {
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "6p3p5iqigc": // Portside Pirate: banish floating memory card from graveyard
+            {
+                $floatingGY = [];
+                $gy = GetZone("myGraveyard");
+                for($i = 0; $i < count($gy); ++$i) {
+                    if(!$gy[$i]->removed && HasFloatingMemory($gy[$i])) {
+                        $floatingGY[] = "myGraveyard-" . $i;
+                    }
+                }
+                if(!empty($floatingGY)) {
+                    $choices = implode("&", $floatingGY);
+                    DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1, "Banish_a_floating-memory_card");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "PortsidePirateBanish", 1);
+                }
+            }
+            break;
     }
 }
 
@@ -1086,6 +1102,16 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     }
     // Spirit Shard (3p5iqigcom): [Level 3+] sacrifice self: draw a card
     if($cardID === "3p5iqigcom" && PlayerLevel($player) < 3) return;
+    // Portside Pirate (6p3p5iqigc): [CB] need floating memory card in graveyard
+    if($cardID === "6p3p5iqigc") {
+        if(!IsClassBonusActive($player, ["ASSASSIN"])) return;
+        $gy = GetZone("myGraveyard");
+        $hasFloating = false;
+        foreach($gy as $gyObj) {
+            if(!$gyObj->removed && HasFloatingMemory($gyObj)) { $hasFloating = true; break; }
+        }
+        if(!$hasFloating) return;
+    }
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -2014,6 +2040,44 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "5j36gn1b2s": // Shred to Ribbons: [CB] +3 POWER while attacking ally with 5+ LIFE
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN", "WARRIOR"])) {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget != "-" && $combatTarget != "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY") && ObjectCurrentHP($targetObj) >= 5) {
+                        $power += 3;
+                    }
+                }
+            }
+            break;
+        case "7lh9v2214u": // Captivating Cutthroat: [CB] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) {
+                $power += 1;
+            }
+            break;
+        case "7nau5sw9f8": // Synthetic Strike: +1 POWER while attacking Automaton unit
+            {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget != "-" && $combatTarget != "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(CardSubtypes($targetObj->CardID), "AUTOMATON")) {
+                        $power += 1;
+                    }
+                }
+            }
+            break;
+        case "8iopvc8sug": // Contraband Revolver: [CB] +2 POWER while attacking a champion
+            if(IsClassBonusActive($obj->Controller, ["RANGER"])) {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget != "-" && $combatTarget != "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+                        $power += 2;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -2155,6 +2219,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "f8urrqtjot": // Turbulent Bullet: [CB] On Hit: target ally gets +1 POWER until end of turn
                 $power += 1;
+                break;
+            case "6fxxgmuesd": // Icebound Slam: +5 POWER from OnAttack water graveyard condition
+                $power += 5;
                 break;
             case "yevpmu6gvn_POWER": // Tonoris, Might of Humanity: +3 POWER on next attack
                 $power += 3;
@@ -3814,6 +3881,7 @@ function ClassBonusActivateCostReduction($cardID) {
         '215upufyoz' => 2, // Tether in Flames: [Class Bonus] costs 2 less
         'nmp5af098k' => 2, // Spellshield: Astra: [Class Bonus] costs 2 less
         'nvx7mnu1xh' => 2, // Attune with Flames: [Class Bonus] costs 2 less
+        '6fxxgmuesd' => 2, // Icebound Slam: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -4616,6 +4684,22 @@ function HasSpellshroud($obj) {
     // Innervate Agility: units gain spellshroud until EOT via global effect
     $effects = explode(",", CardCurrentEffects($obj));
     if(in_array("INNERVATE_SPELLSHROUD", $effects)) return true;
+    // Twilight Slime (62u1231c0z): [CB] champion and other Slime objects you control have spellshroud
+    if($obj->CardID !== "62u1231c0z") {
+        $isChampOrSlime = PropertyContains(EffectiveCardType($obj), "CHAMPION")
+            || PropertyContains(CardSubtypes($obj->CardID), "SLIME");
+        if($isChampOrSlime) {
+            global $playerID;
+            $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+            $field = GetZone($zone);
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "62u1231c0z" && !HasNoAbilities($fieldObj)
+                    && IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                    return true;
+                }
+            }
+        }
+    }
     return false;
 }
 
@@ -6232,6 +6316,70 @@ function AssembleAncientsFinalize($player, $count) {
 $customDQHandlers["NavCompass_Discard"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
     DoDiscardCard($player, $lastDecision);
+};
+
+// --- Portside Pirate (6p3p5iqigc) DQ handler ---
+$customDQHandlers["PortsidePirateBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));
+    MZMove($player, $lastDecision, "myBanish");
+    if($hadFloating) NicoOnFloatingMemoryBanished($player);
+};
+
+// --- Smashing Force (88rx6p3p5i) helpers ---
+function SmashingForceBanishStart($player) {
+    $fireCards = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(count($fireCards) < 2) return;
+    $fireStr = implode("&", $fireCards);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $fireStr, 1, "Banish_first_fire_card");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SmashingForceBanish1", 1);
+}
+
+$customDQHandlers["SmashingForceBanish1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));
+    MZMove($player, $lastDecision, "myBanish");
+    if($hadFloating) NicoOnFloatingMemoryBanished($player);
+    $fireCards2 = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(empty($fireCards2)) return;
+    $fireStr2 = implode("&", $fireCards2);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $fireStr2, 1, "Banish_second_fire_card");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SmashingForceBanish2", 1);
+};
+
+$customDQHandlers["SmashingForceBanish2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $hadFloating = HasFloatingMemory(GetZoneObject($lastDecision));
+    MZMove($player, $lastDecision, "myBanish");
+    if($hadFloating) NicoOnFloatingMemoryBanished($player);
+    // Now destroy target item or weapon with memory cost 0 or reserve cost <= 4
+    $validTargets = [];
+    $allItems = array_merge(
+        ZoneSearch("myField", ["ITEM", "REGALIA"]),
+        ZoneSearch("theirField", ["ITEM", "REGALIA"]),
+        ZoneSearch("myField", ["WEAPON"]),
+        ZoneSearch("theirField", ["WEAPON"])
+    );
+    foreach($allItems as $mzI) {
+        $iObj = GetZoneObject($mzI);
+        if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 4) {
+            $validTargets[] = $mzI;
+        }
+    }
+    if(empty($validTargets)) return;
+    $targetStr = implode("&", $validTargets);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, "Destroy_target_item_or_weapon");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SmashingForceDestroy", 1);
+};
+
+$customDQHandlers["SmashingForceDestroy"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null) return;
+    OnLeaveField($player, $lastDecision);
+    $dest = $player == $targetObj->Controller ? "myGraveyard" : "theirGraveyard";
+    MZMove($player, $lastDecision, $dest);
+    DecisionQueueController::CleanupRemovedCards();
 };
 
 // --- Swooping Talons (rj52215upu) helpers ---
