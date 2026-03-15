@@ -159,6 +159,18 @@ function AttackerHasCleave($attackerMZ, $player) {
     // Bestial Frenzy (HsaWNAsmAQ): cleave via turn effect
     if(!HasNoAbilities($attacker) && ObjectHasEffect($attacker, "HsaWNAsmAQ_CLEAVE")) return true;
 
+    // Hemorrhaging Rend (xiazfnm292): [Damage 20+] Cleave — check if intent has this card and champion has 20+ damage
+    foreach($intentCards as $intentMZ) {
+        $intentObj = &GetZoneObject($intentMZ);
+        if($intentObj->CardID === "xiazfnm292") {
+            $champMZ = FindChampionMZ($player);
+            if($champMZ !== null) {
+                $champObj = GetZoneObject($champMZ);
+                if($champObj !== null && $champObj->Damage >= 20) return true;
+            }
+        }
+    }
+
     // Check the weapon used in this attack
     $weaponMZ = GetCombatWeapon();
     if($weaponMZ !== null) {
@@ -443,6 +455,12 @@ function BeginCombatPhase($actionCard) {
     $currentTurn = GetTurnNumber();
     if($currentTurn <= 1) {
         SetFlashMessage("Cannot attack on the first turn.");
+        return false;
+    }
+
+    // Bring Down the Mighty (ybds1rkgnp): target ally can't attack until beginning of caster's next turn
+    if(in_array("CANT_ATTACK_NEXT_TURN", $obj->TurnEffects)) {
+        SetFlashMessage("This unit can't attack (Bring Down the Mighty).");
         return false;
     }
 
@@ -1516,6 +1534,11 @@ function OnDealDamage($player, $source, $target, $amount) {
 
     // Nascent Barrier (6bc3ogf0o8): prevent up to N damage to champion (encoded as NASCENT_BARRIER_N)
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        // Water Barrier (xWJND68I8X): prevent all but 1 of next damage to champion
+        if(in_array("WATER_BARRIER", $targetObj->TurnEffects) && $amount > 1) {
+            $amount = 1;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "WATER_BARRIER"));
+        }
         foreach($targetObj->TurnEffects as $te) {
             if(strpos($te, "NASCENT_BARRIER_") === 0) {
                 $preventAmount = intval(substr($te, strlen("NASCENT_BARRIER_")));

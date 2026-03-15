@@ -1976,6 +1976,13 @@ function WakeUpPhase() {
             $field[$i]->Status = 2;
         }
     }
+    // Bring Down the Mighty: clear CANT_ATTACK_NEXT_TURN from opponent's field at beginning of caster's turn
+    $oppField = &GetField($otherPlayer);
+    for($i = 0; $i < count($oppField); ++$i) {
+        if(!$oppField[$i]->removed && in_array("CANT_ATTACK_NEXT_TURN", $oppField[$i]->TurnEffects)) {
+            $oppField[$i]->TurnEffects = array_values(array_diff($oppField[$i]->TurnEffects, ["CANT_ATTACK_NEXT_TURN"]));
+        }
+    }
 }
 
 function OnEnter($player, $mzID) {
@@ -2634,6 +2641,11 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "xp6qqi6vwf": // Tempus Stalker: [CB] put a buff counter at recollection
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["TAMER"])) {
+                        AddCounters($turnPlayer, "myField-" . $i, "buff", 1);
+                    }
+                    break;
                 default: break;
             }
         }
@@ -3002,6 +3014,11 @@ function ObjectCurrentPower($obj) {
         case "FGvq4eQPbP": // Flame Sweep: [Class Bonus][Level 2+] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
                 $power += 1;
+            }
+            break;
+        case "wljhyokktb": // Emergent Dagger: [Class Bonus][Level 2+] +2 POWER
+            if(IsClassBonusActive($obj->Controller, ["ASSASSIN"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 2;
             }
             break;
         case "jF1VuIR7a6": // Warrior's Longsword: [Class Bonus] +1 POWER
@@ -4079,6 +4096,9 @@ function ObjectCurrentHP($obj) {
             case "ic1ahsmwd0": // Lumbering Steed: +1 LIFE until end of turn
                 $cardLife += 1;
                 break;
+            case "yhu0djqlp8": // Lead with Force: +1 LIFE until end of turn
+                $cardLife += 1;
+                break;
             default: break;
         }
     }
@@ -5100,6 +5120,7 @@ $persistentTurnEffects["FOSTERED"] = true;
 $persistentTurnEffects["DAMAGED_SINCE_LAST_TURN"] = true;
 $persistentTurnEffects["IMBUED"] = true;
 $persistentTurnEffects["INGRESS_SANGUINE"] = true; // Ingress of Sanguine Ire: +3 POWER on first attack next turn
+$persistentTurnEffects["CANT_ATTACK_NEXT_TURN"] = true; // Bring Down the Mighty: ally can't attack until beginning of caster's next turn
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -5449,6 +5470,11 @@ function DealChampionDamage($player, $amount=1) {
                     $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== $te));
                     break;
                 }
+            }
+            // Water Barrier (xWJND68I8X): prevent all but 1 of next damage to champion
+            if(in_array("WATER_BARRIER", $obj->TurnEffects) && $amount > 1) {
+                $amount = 1;
+                $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "WATER_BARRIER"));
             }
             // Blazing Charge (s5jwsl7ded): champion takes +1 damage
             if(in_array("BLAZING_CHARGE_NEXT_TURN", $obj->TurnEffects)) {
@@ -6799,6 +6825,8 @@ function PrideAmount($obj) {
             }
         }
     }
+    // Lavasoul Tiger (zq0dvl1m3z): loses pride until end of turn via TurnEffect
+    if($obj->CardID === "zq0dvl1m3z" && in_array("zq0dvl1m3z", $obj->TurnEffects)) return 0;
     return $prideValue;
 }
 
