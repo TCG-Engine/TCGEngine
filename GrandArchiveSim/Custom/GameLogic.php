@@ -150,6 +150,24 @@ function ActionMap($actionCard)
                         }
                     }
                 }
+                // Molten Arrow (mvfcd0ukk6): Banish 3 other fire GY cards → load from GY into unloaded Bow
+                if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "mvfcd0ukk6") {
+                    $fireGY = [];
+                    $gy = GetZone("myGraveyard");
+                    for($gi = 0; $gi < count($gy); ++$gi) {
+                        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE"
+                            && $gy[$gi]->CardID !== "mvfcd0ukk6") {
+                            $fireGY[] = "myGraveyard-" . $gi;
+                        }
+                    }
+                    $bows = GetUnloadedBows($playerID);
+                    if(count($fireGY) >= 3 && !empty($bows)) {
+                        DecisionQueueController::StoreVariable("MoltenArrowGYMZ", $actionCard);
+                        DecisionQueueController::AddDecision($playerID, "MZCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_fire_card_1_of_3");
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "MoltenArrowGYBanish1", 1);
+                        return "PLAY";
+                    }
+                }
             }
             break;
         case "myBanish":
@@ -307,6 +325,9 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     //1.7 Calculating Reserve Cost
     $reserveCost = CardCost_reserve($obj->CardID);
+
+    // Ghostsight Glass (cc0jmpmman): activated ability costs (3) reserve
+    if($obj->CardID === "cc0jmpmman") $reserveCost = 3;
 
     // Class Bonus: reduce cost if champion's class matches card's class
     $classBonusDiscount = ClassBonusActivateCostReduction($obj->CardID);
@@ -703,6 +724,28 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(PropertyContains(CardType($obj->CardID), "ALLY") && PropertyContains(CardSubtypes($obj->CardID), "HORSE")) {
             $reserveCost = max(0, $reserveCost - 2);
             RemoveGlobalEffect($player, "7qjnqww067");
+        }
+    }
+
+    // Crimson Prescience (0dsdojl6l3): [Class Bonus][Damage 25+] costs 1 less
+    if($obj->CardID === "0dsdojl6l3" && IsClassBonusActive($player, ["WARRIOR"])) {
+        $champ = ZoneSearch("myField", ["CHAMPION"]);
+        if(!empty($champ)) {
+            $champObj = GetZoneObject($champ[0]);
+            if($champObj !== null && $champObj->Damage >= 25) {
+                $reserveCost = max(0, $reserveCost - 1);
+            }
+        }
+    }
+
+    // Guan Yu, Prime Exemplar (0oyxjld8jh): costs 2 less if a Human ally you controlled died this turn
+    if($obj->CardID === "0oyxjld8jh") {
+        $deadAllies = AllyDestroyedTurnCards($player);
+        foreach($deadAllies as $deadCardID => $deadCount) {
+            if(PropertyContains(CardSubtypes($deadCardID), "HUMAN")) {
+                $reserveCost = max(0, $reserveCost - 2);
+                break;
+            }
         }
     }
 
@@ -1318,6 +1361,14 @@ function OnCardActivated($player, $mzCard) {
                     AddTurnEffect("myField-" . $fi, "9f0nsj62l6");
                 }
                 break;
+            case "aws20fsihd": // Fervent Lancer: whenever you activate an exia element card, may banish it as it resolves
+                if($activatedElement === "EXIA" && !HasNoAbilities($field[$fi])) {
+                    DecisionQueueController::StoreVariable("FerventLancerIdx", strval($fi));
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                        tooltip:"Banish_this_card_via_Fervent_Lancer?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "FerventLancerBanish", 1);
+                }
+                break;
         }
     }
 
@@ -1423,6 +1474,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "uqrptjej4m": // Tonic of Remembrance — banish self
         case "xfpk9xycwz": // Alkahest — banish self
         case "sz1ty7vq6z": // Fan of Insight — banish self
+        case "nrvth9vyz1": // Everflame Staff — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -1435,6 +1487,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "q2svdv3zb9": // Clockwork Musicbox — REST
         case "5pw07bh5wf": // Fractal of Sparks — REST
         case "si9ux3ak6o": // Razor Broadhead — REST
+        case "mvfcd0ukk6": // Molten Arrow — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -1731,6 +1784,11 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         if($sourceObject->Status != 2) return;
         if(empty(GetUnloadedBows($player))) return;
     }
+    // Molten Arrow (mvfcd0ukk6): REST — must be awake + needs unloaded Bow
+    if($cardID === "mvfcd0ukk6") {
+        if($sourceObject->Status != 2) return;
+        if(empty(GetUnloadedBows($player))) return;
+    }
     // Blazing Lunge (wewvlfkfp7): [CB] banish 2 fire from GY for unpreventable — must be in intent
     if($cardID === "wewvlfkfp7") {
         if(!IsClassBonusActive($player, ["WARRIOR"])) return;
@@ -1744,6 +1802,11 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Prima Materia (vt9y597fqr): REST - must be awake
     if($cardID === "vt9y597fqr") {
         if($sourceObject->Status != 2) return;
+    }
+    // Everflame Staff (nrvth9vyz1): [CB] Banish — 3+ refinement counters required
+    if($cardID === "nrvth9vyz1") {
+        if(!IsClassBonusActive($player, ["CLERIC", "MAGE"])) return;
+        if(GetCounterCount($sourceObject, "refinement") < 3) return;
     }
     // Ghostsight Glass (cc0jmpmman): (3), REST — must be awake + slow speed only
     if($cardID === "cc0jmpmman") {
@@ -3517,6 +3580,22 @@ function ObjectCurrentPower($obj) {
                 if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["HORSE"]))) {
                     $power += 1;
                 }
+            }
+            break;
+        case "blyb6fd6vy": // Bloodbond Bladesworn: [CB] +1 POWER per 10 damage counters on champion
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $champs = ZoneSearch($obj->Controller == $playerID ? "myField" : "theirField", ["CHAMPION"]);
+                if(!empty($champs)) {
+                    $champObj = GetZoneObject($champs[0]);
+                    if($champObj !== null) {
+                        $power += intdiv($champObj->Damage, 10);
+                    }
+                }
+            }
+            break;
+        case "aws20fsihd": // Fervent Lancer: +2 POWER while a card is banished by it
+            if(is_array($obj->Counters) && isset($obj->Counters['banished_card']) && $obj->Counters['banished_card']) {
+                $power += 2;
             }
             break;
         default: break;
@@ -6310,6 +6389,15 @@ function GetPlayableFastCards($player) {
         } elseif($obj->CardID === "zeig1e49wb" && GetShiftingCurrents($player) === "NORTH") {
             // Solar Pinnacle: Fast Activation while SC faces North
             $fastCards[] = "myHand-" . $i;
+        } elseif($obj->CardID === "0oyxjld8jh") {
+            // Guan Yu, Prime Exemplar: Fast Activation if a Human ally you controlled died this turn
+            $deadAllies = AllyDestroyedTurnCards($player);
+            foreach($deadAllies as $deadCardID => $deadCount) {
+                if(PropertyContains(CardSubtypes($deadCardID), "HUMAN")) {
+                    $fastCards[] = "myHand-" . $i;
+                    break;
+                }
+            }
         }
     }
     return $fastCards;
@@ -8444,6 +8532,79 @@ $customDQHandlers["RazorgaleCallingDamage"] = function($player, $parts, $lastDec
     } else {
         $opponent = ($player == 1) ? 2 : 1;
         DealChampionDamage($opponent, 1);
+    }
+};
+
+// Fervent Lancer: may banish the exia card as it resolves
+$customDQHandlers["FerventLancerBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $lancerIdx = DecisionQueueController::GetVariable("FerventLancerIdx");
+    // The card just resolved — it should be on the effect stack or in graveyard.
+    // Find the card that just resolved (top of effect stack or last resolved)
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    if($mzID === null || $mzID === "" || $mzID === "-") return;
+    $obj = GetZoneObject($mzID);
+    if($obj === null) return;
+    // Banish the resolved card
+    MZMove($player, $mzID, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    // Mark this Fervent Lancer as having banished a card (for +2 POWER)
+    $lancerMZ = "myField-" . $lancerIdx;
+    $lancerObj = &GetZoneObject($lancerMZ);
+    if($lancerObj !== null && $lancerObj->CardID === "aws20fsihd") {
+        if(!is_array($lancerObj->Counters)) $lancerObj->Counters = [];
+        $lancerObj->Counters['banished_card'] = true;
+    }
+};
+
+// Molten Arrow GY ability: banish 3 fire GY cards sequentially, then load into bow
+$customDQHandlers["MoltenArrowGYBanish1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $fireGY = [];
+    $gy = GetZone("myGraveyard");
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE"
+            && $gy[$gi]->CardID !== "mvfcd0ukk6") {
+            $fireGY[] = "myGraveyard-" . $gi;
+        }
+    }
+    if(count($fireGY) < 2) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_fire_card_2_of_3");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MoltenArrowGYBanish2", 1);
+};
+
+$customDQHandlers["MoltenArrowGYBanish2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $fireGY = [];
+    $gy = GetZone("myGraveyard");
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE"
+            && $gy[$gi]->CardID !== "mvfcd0ukk6") {
+            $fireGY[] = "myGraveyard-" . $gi;
+        }
+    }
+    if(count($fireGY) < 1) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1, tooltip:"Banish_fire_card_3_of_3");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MoltenArrowGYBanish3", 1);
+};
+
+$customDQHandlers["MoltenArrowGYBanish3"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    // Now load Molten Arrow from GY into an unloaded Bow
+    $arrowMZ = DecisionQueueController::GetVariable("MoltenArrowGYMZ");
+    $bows = GetUnloadedBows($player);
+    if(empty($bows)) return;
+    if(count($bows) == 1) {
+        LoadArrowIntoBow($player, $arrowMZ, $bows[0]);
+    } else {
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $bows), 1, tooltip:"Choose_Bow_to_load");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "LoadArrow|" . $arrowMZ, 1);
     }
 };
 

@@ -1789,9 +1789,56 @@ function OnDealDamage($player, $source, $target, $amount) {
             }
             return;
         }
+        // PREVENT_CHAMP_TERA_PRESERVE: prevent all damage to champion; reveal X from deck, put into material deck preserved
+        // (Spellshield: Tera)
+        if(in_array("PREVENT_CHAMP_TERA_PRESERVE", $targetObj->TurnEffects)) {
+            $prevented = $amount;
+            $amount = 0;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "PREVENT_CHAMP_TERA_PRESERVE"));
+            if($prevented > 0) {
+                $controller = $targetObj->Controller;
+                global $playerID;
+                $deckRef = $controller == $playerID ? "myDeck" : "theirDeck";
+                $matRef = $controller == $playerID ? "myMaterial" : "theirMaterial";
+                $deck = GetZone($deckRef);
+                $revealCount = min($prevented, count($deck));
+                $revealIDs = [];
+                for($ri = 0; $ri < $revealCount; ++$ri) {
+                    if(!$deck[$ri]->removed) {
+                        $revealIDs[] = $deck[$ri]->CardID;
+                    }
+                }
+                if(!empty($revealIDs)) {
+                    SetFlashMessage('REVEAL:' . implode('|', $revealIDs));
+                }
+                // Move top $revealCount cards from deck to material deck (preserved)
+                global $Preserve_Cards;
+                for($ri = 0; $ri < $revealCount; ++$ri) {
+                    $deckZone = GetZone($deckRef);
+                    if(empty($deckZone)) break;
+                    $cardID = $deckZone[0]->CardID;
+                    MZMove($controller, $deckRef . "-0", $matRef);
+                    if(!isset($Preserve_Cards)) $Preserve_Cards = [];
+                    $Preserve_Cards[$cardID] = true;
+                }
+            }
+            return;
+        }
+        // PREVENT_BY_NAME_*: prevent damage from any source whose CardID matches the named card
+        // (Crimson Prescience)
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "PREVENT_BY_NAME_") === 0) {
+                $namedCardID = substr($effect, 16);
+                $sourceObj = GetZoneObject($source);
+                if($sourceObj !== null && $sourceObj->CardID === $namedCardID) {
+                    $amount = 0;
+                    return;
+                }
+            }
+        }
         // PREVENT_CHAMP_N: prevent up to N damage to champion this turn (Veiling Breeze)
         foreach($targetObj->TurnEffects as $idx => $effect) {
-            if(strpos($effect, "PREVENT_CHAMP_") === 0 && strpos($effect, "PREVENT_CHAMP_ENLIGHTEN") !== 0 && strpos($effect, "PREVENT_CHAMP_WIND_BUFF") !== 0 && strpos($effect, "PREVENT_CHAMP_ASTRA_GLIMPSE") !== 0) {
+            if(strpos($effect, "PREVENT_CHAMP_") === 0 && strpos($effect, "PREVENT_CHAMP_ENLIGHTEN") !== 0 && strpos($effect, "PREVENT_CHAMP_WIND_BUFF") !== 0 && strpos($effect, "PREVENT_CHAMP_ASTRA_GLIMPSE") !== 0 && strpos($effect, "PREVENT_CHAMP_TERA_PRESERVE") !== 0) {
                 $budget = intval(substr($effect, 14));
                 $prevented = min($budget, $amount);
                 $amount -= $prevented;
@@ -1913,6 +1960,22 @@ function OnDealDamage($player, $source, $target, $amount) {
     global $dealDamageAbilities;
     if(isset($dealDamageAbilities) && isset($dealDamageAbilities[$targetObj->CardID . ":0"])) {
         $dealDamageAbilities[$targetObj->CardID . ":0"]($player);
+    }
+
+    // Everflame Staff (nrvth9vyz1): whenever a fire Spell source you control deals damage,
+    // put a refinement counter on Everflame Staff
+    $sourceObj2 = GetZoneObject($source);
+    if($sourceObj2 !== null && CardElement($sourceObj2->CardID) === "FIRE"
+        && PropertyContains(CardSubtypes($sourceObj2->CardID), "SPELL")) {
+        $sourceController = $sourceObj2->Controller ?? $player;
+        global $playerID;
+        $staffZone = $sourceController == $playerID ? "myField" : "theirField";
+        $staffField = GetZone($staffZone);
+        foreach($staffField as $si => $sObj) {
+            if(!$sObj->removed && $sObj->CardID === "nrvth9vyz1" && !HasNoAbilities($sObj)) {
+                AddCounters($sourceController, $staffZone . "-" . $si, "refinement", 1);
+            }
+        }
     }
 
     // Magebane Lash (oh300z2sns): Nico Bonus — whenever Nico takes non-combat damage, recover 2
