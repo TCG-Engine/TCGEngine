@@ -27,10 +27,25 @@
  */
 function GetAvailableWeapons($player) {
     $weapons = ZoneSearch("myField", ["WEAPON"]);
+    $intentCards = GetIntentCards($player);
     $available = [];
     foreach($weapons as $mzID) {
         $obj = &GetZoneObject($mzID);
         if($obj->Status == 2 && GetCounterCount($obj, "durability") > 0) {
+            // Mechanized Smasher (qsm3n9yvn1): can't be used with attack cards
+            if($obj->CardID === "qsm3n9yvn1" && !empty($intentCards)) continue;
+            // Mechanized Smasher: requires 4 wind element cards in memory
+            if($obj->CardID === "qsm3n9yvn1") {
+                $windMem = ZoneSearch("myMemory", cardElements: ["WIND"]);
+                if(count($windMem) < 4) continue;
+            }
+            // Tideholder Claymore (5iqigcom2r): requires enough hand cards to pay additional cost
+            if($obj->CardID === "5iqigcom2r") {
+                $waterGY = ZoneSearch("myGraveyard", cardElements: ["WATER"]);
+                $cost = max(0, 10 - count($waterGY));
+                $hand = &GetHand($player);
+                if(count($hand) < $cost) continue;
+            }
             $available[] = $mzID;
         }
     }
@@ -781,6 +796,29 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
             }
             $weaponObj->Subcards = []; // Gun is now unloaded
         }
+
+        // Tideholder Claymore (5iqigcom2r): additional cost to attack — pay (10) reduced by (1) per water GY card
+        if($weaponObj !== null && $weaponObj->CardID === "5iqigcom2r") {
+            $waterGY = ZoneSearch("myGraveyard", cardElements: ["WATER"]);
+            $cost = max(0, 10 - count($waterGY));
+            for($wc = 0; $wc < $cost; ++$wc) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+            }
+        }
+
+        // Mechanized Smasher (qsm3n9yvn1): additional cost to attack — reveal 4 wind cards from memory
+        if($weaponObj !== null && $weaponObj->CardID === "qsm3n9yvn1") {
+            $windMem = ZoneSearch("myMemory", cardElements: ["WIND"]);
+            if(count($windMem) >= 4) {
+                for($wmi = 0; $wmi < 4; ++$wmi) {
+                    $remaining = ZoneSearch("myMemory", cardElements: ["WIND"]);
+                    if(!empty($remaining)) {
+                        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $remaining), 97, "Reveal_wind_card_from_memory_(" . ($wmi+1) . "/4)");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "MechanizedSmasherReveal", 97);
+                    }
+                }
+            }
+        }
     }
 };
 
@@ -957,6 +995,10 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         if($fieldObj->Status != 2) continue; // must be ready (awake)
         // Lurking Assailant (uq2r6v374c): [Level 1+] may retaliate while not defending
         if($fieldObj->CardID === "uq2r6v374c") {
+            $retaliatorOptions[] = $mzID;
+        }
+        // Sinister Mindreaver (jozihslnhz): Ambush — may retaliate while not defending
+        if($fieldObj->CardID === "jozihslnhz" && !HasNoAbilities($fieldObj)) {
             $retaliatorOptions[] = $mzID;
         }
         // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
@@ -1532,12 +1574,36 @@ function OnDealDamage($player, $source, $target, $amount) {
     // Champion-only prevention effects
     $isChampion = PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
     if($isChampion && $amount > 0) {
+        // SURGE_PROTECTOR_SHIELD: prevent all champion damage and sacrifice the tagged shield
+        $controller = $targetObj->Controller;
+        $shieldField = GetField($controller);
+        global $playerID;
+        $shieldZone = ($controller == $playerID) ? "myField" : "theirField";
+        foreach($shieldField as $si => $sObj) {
+            if($sObj->removed) continue;
+            if(in_array("SURGE_PROTECTOR_SHIELD", $sObj->TurnEffects)) {
+                $amount = 0;
+                MZMove($controller, $shieldZone . "-" . $si, ($controller == $playerID) ? "myGraveyard" : "theirGraveyard");
+                DecisionQueueController::CleanupRemovedCards();
+                return;
+            }
+        }
         // PREVENT_CHAMP_ENLIGHTEN: prevent all of next damage to champion; gain enlighten = amount prevented (Spellshield: Arcane)
         if(in_array("PREVENT_CHAMP_ENLIGHTEN", $targetObj->TurnEffects)) {
             $prevented = $amount;
             $amount = 0;
             $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "PREVENT_CHAMP_ENLIGHTEN"));
             AddCounters($targetObj->Controller, $target, "enlighten", $prevented);
+            return;
+        }
+        // PREVENT_CHAMP_MILL: prevent all of next damage to champion; mill X where X = amount prevented (Hailstorm Guard)
+        if(in_array("PREVENT_CHAMP_MILL", $targetObj->TurnEffects)) {
+            $prevented = $amount;
+            $amount = 0;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "PREVENT_CHAMP_MILL"));
+            if($prevented > 0) {
+                MillCards($targetObj->Controller, "myDeck", "myGraveyard", $prevented);
+            }
             return;
         }
         // PREVENT_CHAMP_ASTRA_GLIMPSE: prevent all of next damage to champion; Glimpse X where X = amount prevented (Spellshield: Astra)
@@ -1804,5 +1870,12 @@ function GetChampionCombatDamageTargets($player) {
     }
     return $targets;
 }
+
+// Mechanized Smasher: reveal a wind card from memory as additional attack cost
+$customDQHandlers["MechanizedSmasherReveal"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        DoRevealCard($player, $lastDecision);
+    }
+};
 
 ?>

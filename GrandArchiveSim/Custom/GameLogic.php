@@ -23,6 +23,14 @@ $Imbue_Cards = [];
 $Imbue_Cards["7cx66hjlgx"] = 3; // Verdigris Decree (WIND)
 $Imbue_Cards["ipl6gt7lh9"] = 3; // Cerulean Decree (WATER)
 $Imbue_Cards["tjej4mcnqs"] = 3; // Vermilion Decree (FIRE)
+$Imbue_Cards["3zb9p4lgdl"] = 2; // Fractal of Rain (WATER)
+$Imbue_Cards["coxpnjvt9y"] = 2; // Suffocating Miasma (UMBRA)
+$Imbue_Cards["cy3gme0xxw"] = 1; // Cultivate (WIND)
+$Imbue_Cards["ooffy4dwav"] = 2; // Slip Away (UMBRA)
+$Imbue_Cards["brq9x9z2k2"] = 2; // Skirting Step (WIND)
+$Imbue_Cards["08kkz07nau"] = 3; // Surging Bolt (FIRE)
+$Imbue_Cards["fz1nr5a3pm"] = 2; // Windmill Engineer (WIND)
+$Imbue_Cards["vw2ifz1nr5"] = 3; // Andronika (WIND)
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -98,6 +106,24 @@ function ActionMap($actionCard)
             $cardType = EffectiveCardType($obj);
             if(PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION")) {
                 BeginCombatPhase($actionCard);
+            }
+            break;
+        case "myGraveyard":
+            // Frost Shard (jnsl7ddcgw): [CB] activate from GY if leveled up this turn, banish on resolve
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $gyObj = GetZoneObject($actionCard);
+                if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "jnsl7ddcgw") {
+                    if(IsClassBonusActive($playerID, ["MAGE"]) &&
+                       GlobalEffectCount($playerID, "LEVELED_UP_THIS_TURN") > 0) {
+                        $handObj = MZMove($playerID, $actionCard, "myHand");
+                        $hand = &GetHand($playerID);
+                        $handIdx = count($hand) - 1;
+                        global $gyActivatedCardID;
+                        $gyActivatedCardID = "jnsl7ddcgw";
+                        ActivateCard($playerID, "myHand-" . $handIdx, false);
+                        return "PLAY";
+                    }
+                }
             }
             break;
         case "myBanish":
@@ -957,8 +983,13 @@ function OnCardActivated($player, $mzCard) {
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "ACTION")) {
+        // Frost Shard (jnsl7ddcgw): banish on resolve when activated from graveyard
+        global $gyActivatedCardID;
+        if(isset($gyActivatedCardID) && $gyActivatedCardID === $obj->CardID) {
+            $obj = MZMove($player, $mzCard, "myBanish");
+            $gyActivatedCardID = null;
         // Special case: Preserve cards go to Material zone
-        if($obj->CardID == "2Ojrn7buPe") { // Tera Sight - Preserve
+        } else if($obj->CardID == "2Ojrn7buPe") { // Tera Sight - Preserve
             $obj = MZMove($player, $mzCard, "myMaterial");
         } else {
             $obj = MZMove($player, $mzCard, "myGraveyard");
@@ -1025,6 +1056,16 @@ function OnCardActivated($player, $mzCard) {
                         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1, "Banish_floating_memory_to_draw?");
                         DecisionQueueController::AddDecision($player, "CUSTOM", "ImperialApprenticeFloating", 1);
                     }
+                }
+                break;
+            case "q2svdv3zb9": // Clockwork Musicbox: [CB] banish Harmony/Melody as it resolves
+                if((PropertyContains($subtypes, "MELODY") || PropertyContains($subtypes, "HARMONY"))
+                    && !HasNoAbilities($field[$fi])
+                    && IsClassBonusActive($player, ["TAMER"])) {
+                    DecisionQueueController::StoreVariable("MusicboxBanishCardID", $obj->CardID);
+                    DecisionQueueController::StoreVariable("MusicboxFieldIdx", strval($fi));
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Banish_via_Clockwork_Musicbox?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "MusicboxBanish", 1);
                 }
                 break;
         }
@@ -1133,6 +1174,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "waf8urrqtj": // Gloamspire, Black Market — REST
         case "4nmxqsm4o9": // The Elysian Astrolabe — REST
         case "0yetaebjlw": // Lunar Conduit — REST
+        case "q2svdv3zb9": // Clockwork Musicbox — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -1446,6 +1488,16 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "qzzadf9q1v") {
         if($sourceObject->Status != 2) return;
         if(empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]))) return;
+    }
+    // Clockwork Musicbox (q2svdv3zb9): REST — must be awake + have musicbox-banished cards
+    if($cardID === "q2svdv3zb9") {
+        if($sourceObject->Status != 2) return;
+        $banish = GetZone("myBanish");
+        $hasMusicboxCards = false;
+        foreach($banish as $bObj) {
+            if(!$bObj->removed && isset($bObj->Counters['_musicbox'])) { $hasMusicboxCards = true; break; }
+        }
+        if(!$hasMusicboxCards) return;
     }
     // Alkahest (xfpk9xycwz): [Level 4+] Banish self — destroy target item/weapon
     if($cardID === "xfpk9xycwz" && PlayerLevel($player) < 4) return;
@@ -2084,6 +2136,15 @@ function RecollectionPhase() {
                         DealChampionDamage($turnPlayer, 2);
                     }
                     break;
+                case "3zb9p4lgdl": // Fractal of Rain: if imbued, target player mills 1
+                    if(!HasNoAbilities($field[$i]) && in_array("IMBUED", $field[$i]->TurnEffects)) {
+                        $champions = array_merge(ZoneSearch("myField", ["CHAMPION"]), ZoneSearch("theirField", ["CHAMPION"]));
+                        if(!empty($champions)) {
+                            DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $champions), 1, tooltip:"Choose_player_to_mill_1_(Fractal_of_Rain)");
+                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "FractalOfRainMill", 1);
+                        }
+                    }
+                    break;
                 case "tiymuyv3fp": // Waterveil Apostle: [CB][Memory 4+] gather at recollection
                     if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["CLERIC"])) {
                         $memory = &GetMemory($turnPlayer);
@@ -2102,6 +2163,27 @@ function RecollectionPhase() {
     foreach(array_merge(GetField(1), GetField(2)) as $heObj) {
         if(!$heObj->removed && $heObj->CardID === "1vk8ao8bki" && !HasNoAbilities($heObj)) {
             MillCards($turnPlayer, "myDeck", "myGraveyard", 1);
+            break;
+        }
+    }
+
+    // Suffocating Miasma (coxpnjvt9y): at the beginning of each opponent's recollection phase,
+    // that player puts a debuff counter on an ally they control. If they don't, deal 2 unpreventable.
+    $nonTurnPlayer = ($turnPlayer == 1) ? 2 : 1;
+    $nonTurnField = GetField($nonTurnPlayer);
+    foreach($nonTurnField as $smObj) {
+        if(!$smObj->removed && $smObj->CardID === "coxpnjvt9y" && !HasNoAbilities($smObj)) {
+            // turnPlayer is the opponent — they must debuff an ally or take 2 unpreventable
+            $turnAllies = ZoneSearch("myField", ["ALLY"]);
+            if(!empty($turnAllies)) {
+                DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $turnAllies), 1, "Put_debuff_counter_on_an_ally_(or_take_2_unpreventable)");
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "SuffocatingMiasmaRecollection", 1);
+            } else {
+                $champMZ = FindChampionMZ($turnPlayer);
+                if($champMZ !== null) {
+                    DealUnpreventableDamage($turnPlayer, $champMZ, $champMZ, 2);
+                }
+            }
             break;
         }
     }
@@ -4274,6 +4356,7 @@ $persistentTurnEffects["VIGOR_NEXT_TURN"] = true;
 $persistentTurnEffects["FREEZING_ROUND_RETURN"] = true;
 $persistentTurnEffects["FOSTERED"] = true;
 $persistentTurnEffects["DAMAGED_SINCE_LAST_TURN"] = true;
+$persistentTurnEffects["IMBUED"] = true;
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -4583,6 +4666,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'nmp5af098k' => 2, // Spellshield: Astra: [Class Bonus] costs 2 less
         'nvx7mnu1xh' => 2, // Attune with Flames: [Class Bonus] costs 2 less
         '6fxxgmuesd' => 2, // Icebound Slam: [Class Bonus] costs 2 less
+        '05qzzadf9q' => 2, // Hailstorm Guard: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -4820,6 +4904,7 @@ $cbFastActivationCards = [
     "cqadnk9iz0" => ["TAMER"], // Baby Green Slime
     "2bbmoqk2c7" => ["GUARDIAN"], // Rose, Eternal Paragon
     "f0ht2tsn0y" => ["GUARDIAN"], // Astarte, Celestial Dawn
+    "jozihslnhz" => ["ASSASSIN"], // Sinister Mindreaver
 ];
 
 function GetPlayableFastCards($player) {
@@ -5888,6 +5973,20 @@ function CardMemoryCost($obj) {
     }
     // Winbless Kiteshield (uoy5ttkat9): [Class Bonus] costs 1 less to materialize
     if($obj->CardID === "uoy5ttkat9") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
+            $cost = max(0, $cost - 1);
+        }
+    }
+    // Tideholder Claymore (5iqigcom2r): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "5iqigcom2r") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
+            $cost = max(0, $cost - 1);
+        }
+    }
+    // Mechanized Smasher (qsm3n9yvn1): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "qsm3n9yvn1") {
         $turnPlayer = &GetTurnPlayer();
         if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
             $cost = max(0, $cost - 1);
@@ -8234,6 +8333,94 @@ $customDQHandlers["KrustallanRuinsPayOrRest"] = function($player, $parts, $lastD
     } else {
         // Rest the ally
         $field[$fieldIdx]->Status = 1;
+    }
+};
+
+// --- Fractal of Rain (3zb9p4lgdl): target player mills 1 ---
+$customDQHandlers["FractalOfRainMill"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    // Determine which player owns the chosen champion
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null) return;
+    $targetPlayer = $targetObj->Controller;
+    global $playerID;
+    $deckRef = ($targetPlayer == $playerID) ? "myDeck" : "theirDeck";
+    $gyRef = ($targetPlayer == $playerID) ? "myGraveyard" : "theirGraveyard";
+    MillCards($player, $deckRef, $gyRef, 1);
+};
+
+// Suffocating Miasma recollection: debuff chosen ally or deal 2 unpreventable to champion
+$customDQHandlers["SuffocatingMiasmaRecollection"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        AddCounters($player, $lastDecision, "debuff", 1);
+    } else {
+        $champMZ = FindChampionMZ($player);
+        if($champMZ !== null) {
+            DealUnpreventableDamage($player, $champMZ, $champMZ, 2);
+        }
+    }
+};
+
+// Clockwork Musicbox: banish just-activated Harmony/Melody and tag it
+$customDQHandlers["MusicboxBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $cardID = DecisionQueueController::GetVariable("MusicboxBanishCardID");
+    if(empty($cardID)) return;
+    // Find the card — it could be in graveyard (ACTION) or on field (ALLY/PHANTASIA)
+    $gy = GetZone("myGraveyard");
+    for($i = count($gy) - 1; $i >= 0; --$i) {
+        if(!$gy[$i]->removed && $gy[$i]->CardID === $cardID) {
+            $banished = MZMove($player, "myGraveyard-" . $i, "myBanish");
+            if($banished !== null) $banished->Counters['_musicbox'] = 1;
+            return;
+        }
+    }
+    $field = GetZone("myField");
+    $musicboxIdx = intval(DecisionQueueController::GetVariable("MusicboxFieldIdx") ?? "-1");
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === $cardID && $i !== $musicboxIdx) {
+            $banished = MZMove($player, "myField-" . $i, "myBanish");
+            if($banished !== null) $banished->Counters['_musicbox'] = 1;
+            DecisionQueueController::CleanupRemovedCards();
+            return;
+        }
+    }
+};
+
+// Clockwork Musicbox REST: activate a card banished by Musicbox
+$customDQHandlers["MusicboxActivate"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MusicboxActivateCard($player, $lastDecision);
+};
+
+function MusicboxActivateCard($player, $banishedMZ) {
+    $handObj = MZMove($player, $banishedMZ, "myHand");
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    ActivateCard($player, "myHand-" . $handIdx, false);
+}
+
+// Sinister Mindreaver: continue after first memory pick
+function SinisterMindreaverContinue($player, $pick1) {
+    if($pick1 === "-" || $pick1 === "" || $pick1 === "PASS") return;
+    MZMove($player, $pick1, "theirGraveyard");
+    $oppMemory2 = ZoneSearch("theirMemory");
+    if(!empty($oppMemory2)) {
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $oppMemory2), 1, "Discard_another_from_memory?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SinisterMindreaverPick2", 1);
+    } else {
+        $opponent = ($player == 1) ? 2 : 1;
+        DrawIntoMemory($opponent, 1);
+    }
+}
+
+$customDQHandlers["SinisterMindreaverPick2"] = function($player, $parts, $lastDecision) {
+    $opponent = ($player == 1) ? 2 : 1;
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "theirGraveyard");
+        DrawIntoMemory($opponent, 2);
+    } else {
+        DrawIntoMemory($opponent, 1);
     }
 };
 

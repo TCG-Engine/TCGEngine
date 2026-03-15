@@ -23,32 +23,6 @@ Three spells that rest a target Potion and grant it a temporary On-Sacrifice abi
 
 ---
 
-### 4. Unit Link Shields
-
-Three Shield Regalia all use Unit Link to protect the linked unit. The core Unit Link mechanism already exists; each card simply adds a passive protection rule tied to the link.
-
-| Card | ID | Linked-Unit Bonus |
-|------|----|--------------------|
-| Prototype Shield | `zadf9q1vk8` | Class Bonus: prevent 3 damage while linked unit is attacking |
-| Vaporjet Shield | `y208kkz07n` | Class Bonus: prevent 1 damage to linked unit |
-| Winbless Kiteshield | `uoy5ttkat9` | Class Bonus costs 1 less; linked unit has Vigor |
-
----
-
-### 5. Powercell Token Synergy
-
-Several cards generate, count, or consume the Powercell token (already defined as a card in the set). The cluster below should be implemented together once it is confirmed the Powercell token (card `qzzadf9q1v`) resolves correctly from summon sources.
-
-| Card | ID | Role |
-|------|----|------|
-| Cell Converter | `eqhj1trn0y` | At beginning of end phase, summon a Powercell token rested; Class Bonus: Floating Memory |
-| Cell Forging | `pufooz13xf` | Choose: 2 durability counters on target weapon OR summon a Powercell token |
-| Charged Assailant | `ffy4dwavco` | Wind Automaton; Class Bonus On Enter: if you control a Powercell, gain Agility 3 |
-| Alchemical Scripture | `h9v2214upu` | Neos Regalia Book; at beginning of end phase, if you control 4+ tokens, draw a card into memory |
-| Overlord Mk III | `sl7ddcgw05` | Unique NORM Guardian Automaton; additional cost: sacrifice 4 Powercells; Intercept / Spellshroud / Steadfast / True Sight; at beginning of end phase: may banish an Automaton from GY → buff counter + draw |
-
----
-
 ### 9. Gun Weapons
 
 Two Gun weapons share the Gun mechanic (must be loaded, can't combine with an attack card) with class-bonus interactions on load or activation.
@@ -81,26 +55,6 @@ Simple On-Enter triggers, standard keyword application, straightforward damage s
 | Imperial Scout | `nrow8iopvc` | Water Ranger Human Ally; Ranged 2; whenever CARDNAME becomes Distant, may put top 2 cards of deck into graveyard |
 | Andronika, Eternal Herald | `vw2ifz1nr5` | Unique Wind Warrior Automaton Ally; Imbue 3; while imbued: +1 POWER, +1 LIFE, has Vigor; Class Bonus On Enter: put a buff counter on up to two Automaton allies you control |
 
----
-
-### Medium
-
-Multiple conditions, zone-state lookups, GY-activation gates, recollection-phase triggers, or mechanics that require moderate engine hooks.
-
-| Card | ID | Effect Summary |
-|------|----|----------------|
-| Hailstorm Guard | `05qzzadf9q` | Water Guardian Reaction Spell; Class Bonus costs 2 less; prevent the next damage dealt to your champion this turn; then mill from top of deck equal to the amount prevented |
-| Fractal of Rain | `3zb9p4lgdl` | Water Cleric Phantasia Fractal; Imbue 2; Reservable; at beginning of your recollection phase, if imbued: target player mills 1 from deck |
-| Tideholder Claymore | `5iqigcom2r` | Water Guardian Sword Weapon; Class Bonus costs 1 less; additional cost to attack: pay (10) reduced by (1) for each water element card in your graveyard |
-| Gloamspire Sniper | `6hjlgx72rf` | Umbra Ranger Human Ally; Ranged 4, True Sight; Class Bonus On Kill: Generate a Creeping Torment card and put it on the bottom of target champion's lineage |
-| Frost Shard | `jnsl7ddcgw` | Water Mage Spell; Class Bonus: if your champion has leveled up this turn, may activate from graveyard (banish on resolve); deal 2 damage to target unit (3 if that unit is rested) |
-| Sinister Mindreaver | `jozihslnhz` | Umbra Assassin Human Ally; Class Bonus: Fast Activation, Ambush; On Champion Hit: look at that opponent's memory, may discard up to 2 cards from it, they draw that many into their memory |
-| Suffocating Miasma | `coxpnjvt9y` | Umbra Assassin Phantasia; Imbue 2; On Enter if imbued: put 3 debuff counters on target ally; at the beginning of each opponent's recollection phase: they put a debuff counter on an ally they control or take 2 unpreventable damage to their champion |
-| Mechanized Smasher | `qsm3n9yvn1` | Wind Guardian Fist Weapon; Class Bonus costs 1 less; can't be used with attack cards; additional cost to attack: reveal four wind element cards from your memory |
-| Surge Protector | `qigcom2ry2` | Fire Guardian Skill; until end of turn, target Shield item you control gains "If damage would be dealt to your champion, prevent that damage and sacrifice this object instead" |
-| Cultivate | `cy3gme0xxw` | Wind Cleric Skill; Imbue 1; for every three Herb items you control, Gather; if imbued: Gather one additional time |
-| Clockwork Musicbox | `q2svdv3zb9` | NORM Tamer Artifact Regalia; Hindered (enters rested); Class Bonus: whenever you activate a Harmony or Melody card from hand, may banish it as it resolves; REST: activate a card banished by CARDNAME (you still pay its costs) |
-| Krustallan Ruins | `fei7chsbal` | Water Cleric Domain Ruins; whenever any ally enters the field under any player's control, rest that ally unless that player pays (1) |
 
 ---
 
