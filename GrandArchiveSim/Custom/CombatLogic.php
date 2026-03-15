@@ -1130,6 +1130,15 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         return;
     }
 
+    // Sun Jian, Wolvesbane (b23a85z88j): attacks can't be retaliated while attacking a Beast unit
+    if($attackerObj !== null && $attackerObj->CardID === "b23a85z88j" && !HasNoAbilities($attackerObj)) {
+        $targetObj = GetZoneObject($targetMZ);
+        if($targetObj !== null && PropertyContains(CardSubtypes($targetObj->CardID), "BEAST")) {
+            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+            return;
+        }
+    }
+
     // Flip to defender's perspective
     $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);

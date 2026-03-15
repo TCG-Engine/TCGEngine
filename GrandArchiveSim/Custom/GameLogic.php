@@ -603,6 +603,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 2);
     }
 
+    // Rebounding Gust (9e0z7hb9id): costs 2 less while targeting an attacking ally (approximated: during combat)
+    if($obj->CardID === "9e0z7hb9id" && IsCombatActive()) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
     // Break Apart (4ns2jbt4hq): costs 2 more if targeting a regalia
     $hasBreakApartCost = false;
     if($obj->CardID === "4ns2jbt4hq") {
@@ -1720,6 +1725,9 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "9krp8brw64": // Keeper of the Wild: sacrifice self
+            DoSacrificeFighter($player, $mzCard);
+            break;
         case "6p3p5iqigc": // Portside Pirate: banish floating memory card from graveyard
             {
                 $floatingGY = [];
@@ -2294,6 +2302,10 @@ function WakeUpPhase() {
             }
             if(in_array("VIGOR_NEXT_TURN", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["VIGOR_NEXT_TURN"]));
+            }
+            // Stand Fast (ao1cfkhbp6): +1 LIFE until beginning of next turn
+            if(in_array("ao1cfkhbp6", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["ao1cfkhbp6"]));
             }
             $field[$i]->Status = 2;
         }
@@ -3377,6 +3389,24 @@ function EndPhase() {
         }
     }
 
+    // Scorching Imperilment (aj7pz79wsp): At beginning of each player's end phase,
+    // that player may discard a card. If they do, they draw a card.
+    $hasImperilment = false;
+    foreach(array_merge(GetField(1), GetField(2)) as $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "aj7pz79wsp" && !HasNoAbilities($fObj)) {
+            $hasImperilment = true;
+            break;
+        }
+    }
+    if($hasImperilment) {
+        $tpHand = &GetHand($turnPlayer);
+        if(count($tpHand) > 0) {
+            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", ZoneMZIndices("myHand"), 1,
+                tooltip:"Discard_a_card_to_draw_a_card?_(Scorching_Imperilment)");
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ScorchingImperilmentDiscard", 1);
+        }
+    }
+
     // Shifting Currents Mastery: [Kongming Bonus] At beginning of end phase,
     // may change direction to a different direction of your choice.
     if(HasShiftingCurrents($turnPlayer) && IsKongmingBonus($turnPlayer)) {
@@ -3856,6 +3886,30 @@ function ObjectCurrentPower($obj) {
             }
             $power += $revealCount;
             break;
+        case "a3v1ybmvpb": // Sunglory Sentinel: [CB] +2 POWER while fostered and attacking a champion
+            if(IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                if($combatTarget != "-" && $combatTarget != "" && $combatAttacker !== null && $obj->GetMzID() === $combatAttacker) {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+                        $power += 2;
+                    }
+                }
+            }
+            break;
+        case "b23a85z88j": // Sun Jian, Wolvesbane: +2 POWER while attacking a Beast unit
+            {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                if($combatTarget != "-" && $combatTarget != "" && $combatAttacker !== null && $obj->GetMzID() === $combatAttacker) {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(CardSubtypes($targetObj->CardID), "BEAST")) {
+                        $power += 2;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -3964,6 +4018,22 @@ function ObjectCurrentPower($obj) {
                    && IsClassBonusActive($obj->Controller, ["TAMER"])
                    && PlayerLevel($obj->Controller) >= 2) {
                     $power += 1;
+                    break;
+                }
+            }
+        }
+    }
+    // General at Arms (9m72c8x9oh): [CB] Polearm attack cards get +2 POWER
+    if(PropertyContains(EffectiveCardType($obj), "ATTACK") && PropertyContains(CardSubtypes($obj->CardID), "POLEARM")) {
+        $controller = $obj->Controller ?? null;
+        if($controller !== null && $controller > 0) {
+            global $playerID;
+            $zone = $controller == $playerID ? "myField" : "theirField";
+            $field = GetZone($zone);
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "9m72c8x9oh" && !HasNoAbilities($fieldObj)
+                   && IsClassBonusActive($controller, ["WARRIOR"])) {
+                    $power += 2;
                     break;
                 }
             }
@@ -4755,6 +4825,14 @@ function ObjectCurrentHP($obj) {
                 break;
             default: break;
         }
+    }
+    // Keeper of the Wild (9krp8brw64): +2 LIFE until end of turn
+    if(in_array("9krp8brw64", $obj->TurnEffects)) {
+        $cardLife += 2;
+    }
+    // Stand Fast (ao1cfkhbp6): +1 LIFE until beginning of next turn
+    if(in_array("ao1cfkhbp6", $obj->TurnEffects)) {
+        $cardLife += 1;
     }
     return $cardLife;
 }
@@ -5861,6 +5939,7 @@ $persistentTurnEffects["DAMAGED_SINCE_LAST_TURN"] = true;
 $persistentTurnEffects["IMBUED"] = true;
 $persistentTurnEffects["INGRESS_SANGUINE"] = true; // Ingress of Sanguine Ire: +3 POWER on first attack next turn
 $persistentTurnEffects["CANT_ATTACK_NEXT_TURN"] = true; // Bring Down the Mighty: ally can't attack until beginning of caster's next turn
+$persistentTurnEffects["ao1cfkhbp6"] = true; // Stand Fast: +1 LIFE until beginning of next turn
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -6241,6 +6320,7 @@ function ClassBonusActivateCostReduction($cardID) {
         '3cmrkv3y16' => 2, // Cyclical Breeze: [Class Bonus] costs 2 less
         '6ilt42sehq' => 1, // Slipstream Vault: [Class Bonus] costs 1 less (if targets unique ally)
         'rzsr6aw4hz' => 2, // Burst Asunder: [Class Bonus] costs 2 less
+        'aj7pz79wsp' => 2, // Scorching Imperilment: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -7568,6 +7648,8 @@ function HasStealth($obj) {
             }
         }
     }
+    // Hidden Longbowman (bx4k3akqx7): stealth while distant
+    if($obj->CardID === "bx4k3akqx7" && IsDistant($obj)) return true;
     if(HasKeyword_Stealth($obj)) return true;
     // STEALTH: granted stealth until end of turn (e.g. Vanish from Sight, Sidestep)
     if(in_array("STEALTH", $obj->TurnEffects)) return true;
@@ -12084,5 +12166,107 @@ $customDQHandlers["RedHareDiscardFinish"] = function($player, $parts, $lastDecis
     DoDiscardCard($player, $lastDecision);
     Draw($player, 1);
 };
+
+// ============================================================================
+// Scorching Imperilment (aj7pz79wsp): discard → draw handler
+// ============================================================================
+$customDQHandlers["ScorchingImperilmentDiscard"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DoDiscardCard($player, $lastDecision);
+    Draw($player, 1);
+};
+
+// ============================================================================
+// Ameliorating Mantra (b3sm5e7pan): remove wither counters from up to 2 targets
+// ============================================================================
+function FindWitherTargets($exclude = null) {
+    $targets = [];
+    foreach(["myField", "theirField"] as $zoneName) {
+        $field = GetZone($zoneName);
+        for($i = 0; $i < count($field); $i++) {
+            if(!$field[$i]->removed && GetCounterCount($field[$i], "wither") > 0) {
+                $mz = $zoneName . "-" . $i;
+                if($mz !== $exclude) $targets[] = $mz;
+            }
+        }
+    }
+    return $targets;
+}
+
+function AmelioratingMantraContinue($player, $firstTarget) {
+    if($firstTarget !== "-" && $firstTarget !== "") {
+        RemoveCounters($player, $firstTarget, "wither", 2);
+    }
+    $targets = FindWitherTargets($firstTarget);
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1,
+        tooltip:"Remove_2_wither_from_another_target?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AmelioratingMantraSecond", 1);
+}
+
+$customDQHandlers["AmelioratingMantraSecond"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    RemoveCounters($player, $lastDecision, "wither", 2);
+};
+
+// ============================================================================
+// Stabilizing Capacitance (c4sy8u49sk): memory → deck bottom loop + draw into memory
+// ============================================================================
+function StabilizingCapacitanceLoop($player, $count) {
+    $memCards = ZoneMZIndices("myMemory");
+    if(empty($memCards) || $memCards === "") {
+        StabilizingCapacitanceFinish($player, $count);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $memCards, 1,
+        tooltip:"Put_a_card_from_memory_on_bottom_of_deck?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StabilizingCapacitancePick|$count", 1);
+}
+
+function StabilizingCapacitanceFinish($player, $count) {
+    if($count > 0) {
+        DrawIntoMemory($player, $count);
+    }
+    // [Class Bonus] [Level 7+] Draw a card
+    if(IsClassBonusActive($player, ["MAGE"]) && PlayerLevel($player) >= 7) {
+        Draw($player, 1);
+    }
+}
+
+$customDQHandlers["StabilizingCapacitancePick"] = function($player, $params, $lastDecision) {
+    $count = intval($params[0]);
+    if($lastDecision === "-" || $lastDecision === "") {
+        StabilizingCapacitanceFinish($player, $count);
+        return;
+    }
+    MZMove($player, $lastDecision, "myDeck");
+    StabilizingCapacitanceLoop($player, $count + 1);
+};
+
+// ============================================================================
+// Sylph's Envelopment (c7d7xdy3y9): banish ally, return to field rested, buff if phantasia
+// ============================================================================
+function SylphEnvelopmentExecute($player, $target) {
+    $obj = GetZoneObject($target);
+    if($obj === null) return;
+    $cardID = $obj->CardID;
+    $isPhantasia = PropertyContains(EffectiveCardType($obj), "PHANTASIA");
+    OnLeaveField($player, $target);
+    MZMove($player, $target, "myBanish");
+    // Find the banished card and return it to field
+    $banish = GetZone("myBanish");
+    for($i = count($banish) - 1; $i >= 0; --$i) {
+        if(!$banish[$i]->removed && $banish[$i]->CardID === $cardID) {
+            $returnedObj = MZMove($player, "myBanish-" . $i, "myField");
+            $returnedObj->Status = 1; // Rested
+            if($isPhantasia) {
+                $field = &GetField($player);
+                AddCounters($player, "myField-" . (count($field) - 1), "buff", 1);
+            }
+            break;
+        }
+    }
+}
 
 ?>
