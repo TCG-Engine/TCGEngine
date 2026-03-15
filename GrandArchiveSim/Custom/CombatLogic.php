@@ -46,6 +46,11 @@ function GetAvailableWeapons($player) {
                 $hand = &GetHand($player);
                 if(count($hand) < $cost) continue;
             }
+            // Defender's Maul (chnppup4iz): additional cost to attack — pay (2)
+            if($obj->CardID === "chnppup4iz") {
+                $hand = &GetHand($player);
+                if(count($hand) < 2) continue;
+            }
             $available[] = $mzID;
         }
     }
@@ -623,6 +628,12 @@ function OnAttackTrigger($player, $mzID) {
         WakeupCard($player, $mzID);
     }
 
+    // Ingress of Sanguine Ire (dfchplzf6m): first attack this turn gets +3 POWER — consume active marker
+    if($obj !== null && in_array("INGRESS_ACTIVE", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "dfchplzf6m_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["INGRESS_ACTIVE"]));
+    }
+
     // Guandu, Theater of War (95ynk6lmnf): whenever you declare an attack with an ally
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY")) {
         $field = &GetField($player);
@@ -826,6 +837,13 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
             $waterGY = ZoneSearch("myGraveyard", cardElements: ["WATER"]);
             $cost = max(0, 10 - count($waterGY));
             for($wc = 0; $wc < $cost; ++$wc) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+            }
+        }
+
+        // Defender's Maul (chnppup4iz): additional cost to attack — pay (2)
+        if($weaponObj !== null && $weaponObj->CardID === "chnppup4iz") {
+            for($dmc = 0; $dmc < 2; ++$dmc) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
             }
         }

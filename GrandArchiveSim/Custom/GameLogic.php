@@ -1282,6 +1282,10 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
+        case "cc0jmpmman": // Ghostsight Glass — REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
         case "x7mnu1xhs5": // Fractal of Creation — sacrifice self
             DoSacrificeFighter($player, $mzCard);
             DecisionQueueController::CleanupRemovedCards();
@@ -1560,6 +1564,11 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Prima Materia (vt9y597fqr): REST - must be awake
     if($cardID === "vt9y597fqr") {
         if($sourceObject->Status != 2) return;
+    }
+    // Ghostsight Glass (cc0jmpmman): (3), REST — must be awake + slow speed only
+    if($cardID === "cc0jmpmman") {
+        if($sourceObject->Status != 2) return;
+        if(HasOpportunity($player)) return;
     }
     // Lunar Conduit (0yetaebjlw): (3), REST — must be awake + has charge counters + 3 cards in hand
     if($cardID === "0yetaebjlw") {
@@ -1840,6 +1849,11 @@ function WakeUpPhase() {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["CALAMITY_CANNON"]));
                 $field[$i]->TurnEffects[] = "CALAMITY_CANNON_ACTIVE";
             }
+            // Ingress of Sanguine Ire: convert persistent marker to active (consumable this turn)
+            if(in_array("INGRESS_SANGUINE", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["INGRESS_SANGUINE"]));
+                $field[$i]->TurnEffects[] = "INGRESS_ACTIVE";
+            }
             // TAUNT_NEXT_TURN / VIGOR_NEXT_TURN: expire at beginning of controller's next turn
             if(in_array("TAUNT_NEXT_TURN", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["TAUNT_NEXT_TURN"]));
@@ -1977,6 +1991,16 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             if(GlobalEffectCount($ctp, "COLLAPSING_TRAP") > 0) {
                 $added->Status = 1;
                 RemoveGlobalEffect($ctp, "COLLAPSING_TRAP");
+                break;
+            }
+        }
+    }
+
+    // Sudden Snow (dxAEI20h8F): allies enter the field rested this turn
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        for($ssp = 1; $ssp <= 2; ++$ssp) {
+            if(GlobalEffectCount($ssp, "SUDDEN_SNOW_RESTED") > 0) {
+                $added->Status = 1;
                 break;
             }
         }
@@ -2281,6 +2305,15 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "dqqwey9xys": // Relic of Sunken Past: if 3+ water cards in GY, may sacrifice to draw
+                    if(!HasNoAbilities($field[$i])) {
+                        $waterGY = ZoneSearch("myGraveyard", cardElements: ["WATER"]);
+                        if(count($waterGY) >= 3) {
+                            DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Sacrifice_Relic_of_Sunken_Past_to_draw?");
+                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "RelicOfSunkenPastSacrifice|$i", 1);
+                        }
+                    }
+                    break;
                 default: break;
             }
         }
@@ -2293,6 +2326,12 @@ function RecollectionPhase() {
             MillCards($turnPlayer, "myDeck", "myGraveyard", 1);
             break;
         }
+    }
+
+    // Bathe in Light (d9zax2g20h): delayed recover 4 at beginning of next recollection
+    if(GlobalEffectCount($turnPlayer, "BATHE_IN_LIGHT_RECOVER") > 0) {
+        RecoverChampion($turnPlayer, 4);
+        RemoveGlobalEffect($turnPlayer, "BATHE_IN_LIGHT_RECOVER");
     }
 
     // Suffocating Miasma (coxpnjvt9y): at the beginning of each opponent's recollection phase,
@@ -2853,6 +2892,11 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
             }
             break;
+        case "chnppup4iz": // Defender's Maul: [CB] [Level 2+] +2 POWER
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 2;
+            }
+            break;
         case "cxwjbqjdmt": // Krustallan Longsword: [CB] +1 POWER if 4+ water cards in graveyard
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
                 global $playerID;
@@ -2898,6 +2942,20 @@ function ObjectCurrentPower($obj) {
                 $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
                 if(count(ZoneSearch($gravZone, cardElements: ["WATER"])) >= 4) {
                     $power += 3;
+                }
+            }
+            break;
+        case "gc18dq28my": // Xia Hou Dun, Gloryseeker: [CB] +1 POWER while you control a Sword or Bow weapon
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR", "RANGER"])) {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $field = GetZone($zone);
+                foreach($field as $fObj) {
+                    if(!$fObj->removed && PropertyContains(CardType($fObj->CardID), "WEAPON")
+                        && (PropertyContains(CardSubtypes($fObj->CardID), "SWORD") || PropertyContains(CardSubtypes($fObj->CardID), "BOW"))) {
+                        $power += 1;
+                        break;
+                    }
                 }
             }
             break;
@@ -3090,6 +3148,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "5ramr16052_POWER": // Jin, Zealous Maverick: +1 POWER on next attack
                 $power += 1;
+                break;
+            case "dfchplzf6m_POWER": // Ingress of Sanguine Ire: +3 POWER on first attack
+                $power += 3;
                 break;
             case "ATTUNE_FLAMES_BUFF": // Attune with Flames: +5 POWER until end of next turn
                 $power += 5;
@@ -4256,6 +4317,17 @@ $customDQHandlers["MorganSoulGuideRecollection"] = function($player, $parts, $la
     }
 };
 
+$customDQHandlers["RelicOfSunkenPastSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        $fieldIdx = intval($parts[0]);
+        $field = &GetField($player);
+        if(isset($field[$fieldIdx]) && !$field[$fieldIdx]->removed && $field[$fieldIdx]->CardID === "dqqwey9xys") {
+            DoSacrificeFighter($player, "myField-" . $fieldIdx);
+            Draw($player, 1);
+        }
+    }
+};
+
 $customDQHandlers["ParcenetReveal"] = function($player, $parts, $lastDecision) {
     $deck = &GetDeck($player);
     if(empty($deck)) return;
@@ -4581,6 +4653,7 @@ $persistentTurnEffects["FREEZING_ROUND_RETURN"] = true;
 $persistentTurnEffects["FOSTERED"] = true;
 $persistentTurnEffects["DAMAGED_SINCE_LAST_TURN"] = true;
 $persistentTurnEffects["IMBUED"] = true;
+$persistentTurnEffects["INGRESS_SANGUINE"] = true; // Ingress of Sanguine Ire: +3 POWER on first attack next turn
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -4756,6 +4829,13 @@ $doesGlobalEffectApply["AGILITY_3"] = function($obj) { return false; };
 
 // Collapsing Trap (v2214upufo): flag only — next allies enter rested, handled in FieldAfterAdd
 $doesGlobalEffectApply["COLLAPSING_TRAP"] = function($obj) { return false; };
+
+// Bathe in Light (d9zax2g20h): flag only — delayed recover 4 at next recollection
+$doesGlobalEffectApply["BATHE_IN_LIGHT_RECOVER"] = function($obj) { return false; };
+$untilBeginTurnEffects["BATHE_IN_LIGHT_RECOVER"] = true;
+
+// Sudden Snow (dxAEI20h8F): flag only — allies enter rested this turn
+$doesGlobalEffectApply["SUDDEN_SNOW_RESTED"] = function($obj) { return false; };
 
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
@@ -5468,6 +5548,8 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "r7ch2bbmoq" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     // Cell Converter (eqhj1trn0y): [Class Bonus] Floating Memory
     if($obj->CardID === "eqhj1trn0y" && IsClassBonusActive($obj->Controller, ["CLERIC"])) return true;
+    // Relic of Sunken Past (dqqwey9xys): [Class Bonus] Floating Memory
+    if($obj->CardID === "dqqwey9xys" && IsClassBonusActive($obj->Controller, ["TAMER"])) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
     if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
         for($p = 1; $p <= 2; $p++) {
@@ -5650,6 +5732,21 @@ function HasVigor($obj) {
     }
     // Awakened Frostguard (mnu1xhs5jw): vigor while fostered
     if($obj->CardID === "mnu1xhs5jw" && IsFostered($obj)) return true;
+    // Dilu, Auspicious Charger (du4eaktghh): vigor while you control a wind unique Human ally
+    if($obj->CardID === "du4eaktghh") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID !== "du4eaktghh"
+                && PropertyContains(EffectiveCardType($fObj), "ALLY")
+                && PropertyContains(CardType($fObj->CardID), "UNIQUE")
+                && PropertyContains(EffectiveCardSubtypes($fObj), "HUMAN")
+                && CardElement($fObj->CardID) === "WIND") {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -5676,6 +5773,21 @@ function HasStealth($obj) {
                     if(GetCounterCount($fCard, "prep") >= 3) return true;
                     break;
                 }
+            }
+        }
+    }
+    // Jueying, Shadowmare (c3plbuv3fr): stealth while you control a water unique Human ally
+    if($obj->CardID === "c3plbuv3fr") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID !== "c3plbuv3fr"
+                && PropertyContains(EffectiveCardType($fObj), "ALLY")
+                && PropertyContains(CardType($fObj->CardID), "UNIQUE")
+                && PropertyContains(EffectiveCardSubtypes($fObj), "HUMAN")
+                && CardElement($fObj->CardID) === "WATER") {
+                return true;
             }
         }
     }
@@ -5710,6 +5822,21 @@ function HasTrueSight($obj) {
     if(ObjectHasEffect($obj, "i1f0ht2tsn_SIGHT")) return true; // Strategic Warfare
     // Seeking Shot: [Level 2+] True Sight
     if($obj->CardID === "88zq9ox7u6" && PlayerLevel($obj->Controller) >= 2) return true;
+    // Jueying, Shadowmare (c3plbuv3fr): true sight while you control a water unique Human ally
+    if($obj->CardID === "c3plbuv3fr") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID !== "c3plbuv3fr"
+                && PropertyContains(EffectiveCardType($fObj), "ALLY")
+                && PropertyContains(CardType($fObj->CardID), "UNIQUE")
+                && PropertyContains(EffectiveCardSubtypes($fObj), "HUMAN")
+                && CardElement($fObj->CardID) === "WATER") {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -6178,6 +6305,48 @@ function PrideAmount($obj) {
     $linkedCards = GetLinkedCards($obj);
     foreach($linkedCards as $linkedObj) {
         if($linkedObj->CardID === "fqsuo6gb0o") return 0;
+    }
+    // Jueying, Shadowmare (c3plbuv3fr): loses pride while you control a water unique Human ally
+    if($obj->CardID === "c3plbuv3fr") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID !== "c3plbuv3fr"
+                && PropertyContains(EffectiveCardType($fObj), "ALLY")
+                && PropertyContains(CardType($fObj->CardID), "UNIQUE")
+                && PropertyContains(EffectiveCardSubtypes($fObj), "HUMAN")
+                && CardElement($fObj->CardID) === "WATER") {
+                return 0;
+            }
+        }
+    }
+    // Dilu, Auspicious Charger (du4eaktghh): loses pride while you control a wind unique Human ally
+    if($obj->CardID === "du4eaktghh") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID !== "du4eaktghh"
+                && PropertyContains(EffectiveCardType($fObj), "ALLY")
+                && PropertyContains(CardType($fObj->CardID), "UNIQUE")
+                && PropertyContains(EffectiveCardSubtypes($fObj), "HUMAN")
+                && CardElement($fObj->CardID) === "WIND") {
+                return 0;
+            }
+        }
+    }
+    // Sun Quan, Sealbearer (c5hgwip1ik): [Level 2+] allies with buff counter lose pride
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && GetCounterCount($obj, "buff") > 0) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "c5hgwip1ik" && !HasNoAbilities($fObj)
+                && PlayerLevel($obj->Controller) >= 2) {
+                return 0;
+            }
+        }
     }
     return $prideValue;
 }
