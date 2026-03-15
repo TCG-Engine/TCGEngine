@@ -706,6 +706,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Intervention (vmqe225jkb): [CB] may rest champion to pay for 2 reserve
+    $hasInterventionCost = false;
+    if($obj->CardID === "vmqe225jkb" && IsClassBonusActive($player, ["WARRIOR"])) {
+        $champField = GetZone("myField");
+        foreach($champField as $fObj) {
+            if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")
+               && $fObj->Controller == $player && isset($fObj->Status) && $fObj->Status == 2) {
+                // Champion is awake — offer to rest it to reduce reserve cost by 2
+                $hasInterventionCost = true;
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Rest_champion_to_pay_2_of_reserve_cost?");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "InterventionRestCost|" . $reserveCost, 100);
+                break;
+            }
+        }
+    }
+
     //1.3 Declaring Costs — Ravishing Finale (jlgx72rfgv): mandatory banish 2 floating memory from GY
     $hasRavishingFinaleCost = false;
     if($obj->CardID === "jlgx72rfgv") {
@@ -884,7 +900,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -993,6 +1009,32 @@ $customDQHandlers["DeclareAdditionalCost"] = function($player, $parts, $lastDeci
         $totalCost += $extraReserve;
     }
 
+    for($i = 0; $i < $totalCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+/**
+ * DQ handler: Intervention (vmqe225jkb) — if YES, rest champion and reduce reserve cost by 2.
+ * Parts: [baseReserve].
+ */
+$customDQHandlers["InterventionRestCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "YES") {
+        // Rest the champion as payment
+        $champField = GetZone("myField");
+        for($fi = 0; $fi < count($champField); ++$fi) {
+            if(!$champField[$fi]->removed && PropertyContains(EffectiveCardType($champField[$fi]), "CHAMPION")
+               && $champField[$fi]->Controller == $player) {
+                ExhaustCard($player, "myField-" . $fi);
+                break;
+            }
+        }
+        $totalCost = max(0, $baseReserve - 2);
+    } else {
+        $totalCost = $baseReserve;
+    }
     for($i = 0; $i < $totalCost; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
@@ -1600,6 +1642,17 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "si9ux3ak6o") {
         if($sourceObject->Status != 2) return;
         if(empty(GetUnloadedBows($player))) return;
+    }
+    // Savage Arrow (uuty5scwug): REST — must be awake + needs unloaded Bow
+    if($cardID === "uuty5scwug") {
+        if($sourceObject->Status != 2) return;
+        if(empty(GetUnloadedBows($player))) return;
+    }
+    // Blazing Lunge (wewvlfkfp7): [CB] banish 2 fire from GY for unpreventable — must be in intent
+    if($cardID === "wewvlfkfp7") {
+        if(!IsClassBonusActive($player, ["WARRIOR"])) return;
+        if(count(ZoneSearch("myGraveyard", cardElements: ["FIRE"])) < 2) return;
+        if(strpos($mzCard, "myIntent") !== 0) return;
     }
     // Fan of Insight (sz1ty7vq6z): Banish — needs cards in memory
     if($cardID === "sz1ty7vq6z") {
@@ -3284,6 +3337,21 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "td460e8ig0": // Heated Vengeance: +3 POWER as long as champion took damage this turn
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $fld = GetZone($zone);
+                foreach($fld as $fObj) {
+                    if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION") && $fObj->Controller == $obj->Controller) {
+                        if(in_array("DAMAGED_SINCE_LAST_TURN", $fObj->TurnEffects)) {
+                            $power += 3;
+                        }
+                        break;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -3361,6 +3429,16 @@ function ObjectCurrentPower($obj) {
                             break;
                         }
                     }
+                }
+            }
+        }
+        // Adept Swordmaster (txgvf6xpkq): [Class Bonus] Weapons you control get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "WEAPON")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "txgvf6xpkq" && !HasNoAbilities($fieldObj)
+                   && IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                    $power += 1;
+                    break;
                 }
             }
         }
@@ -3536,6 +3614,15 @@ function ObjectCurrentPower($obj) {
                 } else {
                     $power += 2;
                 }
+                break;
+            case "welp9q7c5l": // Inundating Clash: [CB] +3 POWER while attacking rested unit
+                $power += 3;
+                break;
+            case "vlno9ankzi": // Oath of the Sakura: +2 POWER until end of turn (exactly 3 unique allies)
+                $power += 2;
+                break;
+            case "wjzg76zofp": // Temper in Flames: +1 POWER until end of turn
+                $power += 1;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -7929,6 +8016,29 @@ function ProcessSplitDamage($player, $source, $assignmentStr) {
             DealDamage($player, $source, $targetMZ, $amount);
         }
     }
+}
+
+// ============================================================================
+// LevelUpChampion — materialize the top champion card from the material deck for free
+// ============================================================================
+
+/**
+ * Level up the player's champion by materializing the first champion card in their
+ * material deck without paying a cost. Used by effects that say "level up your champion."
+ * @param int $player The acting player
+ * @return bool True if successful, false if no champion found in material deck
+ */
+function LevelUpChampion($player) {
+    global $playerID;
+    $material = GetMaterial($player);
+    $zoneName = $player == $playerID ? "myMaterial" : "theirMaterial";
+    for($i = 0; $i < count($material); ++$i) {
+        if(!$material[$i]->removed && PropertyContains(CardType($material[$i]->CardID), "CHAMPION")) {
+            DoMaterialize($player, $zoneName . "-" . $i);
+            return true;
+        }
+    }
+    return false;
 }
 
 // ============================================================================

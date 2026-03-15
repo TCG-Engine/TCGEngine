@@ -1489,6 +1489,19 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Blazing Lunge (wewvlfkfp7): [CB] banished 2 fire cards in intent — combat damage is unpreventable
+    if($isCombatContext) {
+        $intentCards = GetIntentCards($player);
+        foreach($intentCards as $intentMZ) {
+            $intentObj = GetZoneObject($intentMZ);
+            if($intentObj !== null && $intentObj->CardID === "wewvlfkfp7"
+               && in_array("wewvlfkfp7_UNPREVENTABLE", $intentObj->TurnEffects ?? [])) {
+                DealUnpreventableDamage($player, $source, $target, $amount);
+                return;
+            }
+        }
+    }
+
     // Ominous Shadow (gveirpdm44): prevent 3 of any damage dealt to it
     if($amount > 0 && $targetObj->CardID === "gveirpdm44" && !HasNoAbilities($targetObj)) {
         $amount -= 3;
