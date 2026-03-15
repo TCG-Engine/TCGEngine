@@ -1580,6 +1580,16 @@ function OnDealDamage($player, $source, $target, $amount) {
         return; // Damage fully prevented
     }
 
+    // Pang Tong, Young Phoenix (0mz09ojy0t): prevent all but 3 damage when hand count == memory count
+    if($targetObj->CardID === "0mz09ojy0t" && !HasNoAbilities($targetObj) && $amount > 3) {
+        $ptController = $targetObj->Controller ?? $player;
+        $handCount = count(array_filter(GetZone($ptController == 1 ? "myHand" : "theirHand"), fn($c) => !$c->removed));
+        $memCount = count(array_filter(GetZone($ptController == 1 ? "myMemory" : "theirMemory"), fn($c) => !$c->removed));
+        if($handCount === $memCount) {
+            $amount = 3;
+        }
+    }
+
     // Nascent Barrier (6bc3ogf0o8): prevent up to N damage to champion (encoded as NASCENT_BARRIER_N)
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         // Water Barrier (xWJND68I8X): prevent all but 1 of next damage to champion

@@ -1280,6 +1280,9 @@ function OnCardActivated($player, $mzCard) {
         // Special case: Preserve cards go to Material zone
         } else if(isset($Preserve_Cards[$obj->CardID])) {
             $obj = MZMove($player, $mzCard, "myMaterial");
+        } else if(HasFloatingMemory($obj) && IsBrackishLutistOnField()) {
+            // Brackish Lutist (1clswn3ba2): floating memory → banish instead of graveyard
+            $obj = MZMove($player, $mzCard, "myBanish");
         } else {
             $obj = MZMove($player, $mzCard, "myGraveyard");
         }
@@ -2048,6 +2051,12 @@ function DoAllyDestroyed($player, $mzCard) {
     } else {
         $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
     }
+    // Brackish Lutist (1clswn3ba2): if floating memory card would go to graveyard, banish instead
+    if(strpos($dest, "Graveyard") !== false && HasFloatingMemory($obj)) {
+        if(IsBrackishLutistOnField()) {
+            $dest = $player == $controller ? "myBanish" : "theirBanish";
+        }
+    }
     MZMove($player, $mzCard, $dest);
     if(!$suppressed && isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
         $allyDestroyedAbilities[$obj->CardID . ":0"]($controller);
@@ -2109,6 +2118,23 @@ function DoAllyDestroyed($player, $mzCard) {
         foreach($field as $harvesterObj) {
             if(!$harvesterObj->removed && $harvesterObj->CardID === "ttkat9hreq" && !HasNoAbilities($harvesterObj)) {
                 MZAddZone($controller, "myField", "qzzadf9q1v"); // Powercell token
+                break;
+            }
+        }
+    }
+    // Lumen Borealis (3ejd9yj9rl): whenever an Animal ally you control dies, you may reveal from memory
+    if(PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") && PropertyContains(EffectiveCardType($obj), "ALLY")) {
+        global $playerID;
+        $controllerField = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($controllerField);
+        foreach($field as $lbObj) {
+            if(!$lbObj->removed && $lbObj->CardID === "3ejd9yj9rl" && !HasNoAbilities($lbObj)) {
+                $memCards = ZoneSearch($controller == $playerID ? "myMemory" : "theirMemory");
+                if(!empty($memCards)) {
+                    $memStr = implode("&", $memCards);
+                    DecisionQueueController::AddDecision($controller, "MZMAYCHOOSE", $memStr, 1, "Reveal_a_card_from_memory?");
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LumenBorealisReveal", 1);
+                }
                 break;
             }
         }
@@ -3004,6 +3030,17 @@ function SuppressAlly($player, $mzCard) {
         $banishObj->ClearTurnEffects();
         $banishObj->AddTurnEffects("SUPPRESSED");
     }
+    // Fleetfoot Filly (1hrgshgthu): whenever a player suppresses an object, put a buff counter on Fleetfoot Filly
+    for($sp = 1; $sp <= 2; ++$sp) {
+        $spField = &GetField($sp);
+        for($si = 0; $si < count($spField); ++$si) {
+            if(!$spField[$si]->removed && $spField[$si]->CardID === "1hrgshgthu" && !HasNoAbilities($spField[$si])) {
+                global $playerID;
+                $ffZone = $sp == $playerID ? "myField" : "theirField";
+                AddCounters($sp, $ffZone . "-" . $si, "buff", 1);
+            }
+        }
+    }
 }
 
 function BeforeEndPhase() {
@@ -3690,6 +3727,13 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
             }
             break;
+        case "2lukkhisu5": // Striking Illuminance: +1 POWER per luxem memory reveal
+            $revealCount = 0;
+            foreach($obj->TurnEffects as $te) {
+                if($te === "2lukkhisu5_REVEAL_POWER") $revealCount++;
+            }
+            $power += $revealCount;
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -3775,6 +3819,16 @@ function ObjectCurrentPower($obj) {
             foreach($field as $fieldObj) {
                 if(!$fieldObj->removed && $fieldObj->CardID === "txgvf6xpkq" && !HasNoAbilities($fieldObj)
                    && IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
+        // Lumen Borealis (3ejd9yj9rl): [CB] Animal allies you control get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "3ejd9yj9rl" && !HasNoAbilities($fieldObj)
+                   && IsClassBonusActive($obj->Controller, ["TAMER"])) {
                     $power += 1;
                     break;
                 }
@@ -3970,6 +4024,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "9f0nsj62l6-POWER": // Apprentice Aeromancer: [CB] wind spell trigger +1 POWER until EOT
                 $power += 1;
+                break;
+            case "1i2luu7dft": // Wulin Lancer: +2 POWER from Shifting Currents N→W transition
+                $power += 2;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -4410,6 +4467,16 @@ function ObjectCurrentHP($obj) {
         if($obj->CardID === "acmde97dbu" && GetShiftingCurrents($obj->Controller) === "EAST") {
             $cardLife += 2;
         }
+        // Lumen Borealis (3ejd9yj9rl): [CB] Animal allies you control get +1 LIFE
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "3ejd9yj9rl" && !HasNoAbilities($fieldObj)
+                   && IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                    $cardLife += 1;
+                    break;
+                }
+            }
+        }
     }
     // Fractured Crown (suo6gb0op3): [Class Bonus] champion gets +2 LIFE per unique ally card in GY
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
@@ -4607,6 +4674,23 @@ function DoDrawCard($player, $amount=1) {
         if($_ti["Draw"][$player] == 2) {
             CreepingTormentDrawTrigger($player);
         }
+        // Delusional Vapors (2ghdzy9tz7): whenever opponent draws this turn, mill 4
+        {
+            $pChamps = ZoneSearch($player == $GLOBALS['playerID'] ? "myField" : "theirField", ["CHAMPION"]);
+            foreach($pChamps as $champMZ) {
+                $champObj = GetZoneObject($champMZ);
+                if($champObj !== null && in_array("DELUSIONAL_VAPORS_MILL", $champObj->TurnEffects)) {
+                    $pDeck = &GetDeck($player);
+                    $pGY = &GetGraveyard($player);
+                    for($dm = 0; $dm < 4; ++$dm) {
+                        if(count($pDeck) == 0) break;
+                        $millCard = array_shift($pDeck);
+                        array_push($pGY, $millCard);
+                    }
+                    break;
+                }
+            }
+        }
     }
 }
 
@@ -4718,7 +4802,13 @@ function Glimpse($player, $amount) {
 }
 
 function DoDiscardCard($player, $mzCard) {
-    MZMove($player, $mzCard, "myGraveyard");
+    // Brackish Lutist (1clswn3ba2): floating memory cards go to banish instead of graveyard
+    $discObj = GetZoneObject($mzCard);
+    if($discObj !== null && HasFloatingMemory($discObj) && IsBrackishLutistOnField()) {
+        MZMove($player, $mzCard, "myBanish");
+    } else {
+        MZMove($player, $mzCard, "myGraveyard");
+    }
 }
 
 function DoRevealCard($player, $revealedMZ) {
@@ -4742,6 +4832,18 @@ function DoRevealCard($player, $revealedMZ) {
         DecisionQueueController::StoreVariable("revealedMZ", $revealedMZ);
         DecisionQueueController::StoreVariable("revealSourceZone", $sourceZone);
         $revealAbilities[$CardID . ":0"]($player);
+    }
+    // Striking Illuminance (2lukkhisu5): whenever you reveal a luxem card from memory, +1 POWER
+    if(strpos($sourceZone, "Memory") !== false && CardElement($CardID) === "LUXEM") {
+        global $playerID;
+        $pZone = $player == $playerID ? "myIntent" : "theirIntent";
+        $intent = GetZone($pZone);
+        foreach($intent as $idx => $iObj) {
+            if(!$iObj->removed && $iObj->CardID === "2lukkhisu5") {
+                AddTurnEffect($pZone . "-" . $idx, "2lukkhisu5_REVEAL_POWER");
+                break;
+            }
+        }
     }
     return $revealedMZ;
 }
@@ -5209,6 +5311,12 @@ $customDQHandlers["RelicOfSunkenPastSacrifice"] = function($player, $parts, $las
             Draw($player, 1);
         }
     }
+};
+
+// Lumen Borealis (3ejd9yj9rl): reveal chosen memory card when animal ally dies
+$customDQHandlers["LumenBorealisReveal"] = function($player, $parts, $lastDecision) {
+    if($lastDecision == "-" || $lastDecision == "") return;
+    DoRevealCard($player, $lastDecision);
 };
 
 $customDQHandlers["ParcenetReveal"] = function($player, $parts, $lastDecision) {
@@ -6210,6 +6318,11 @@ $shiftingCurrentsTransitions["WEST->EAST"]["pmx99jrukm"] = function($player, $mz
 // Pupil of Sacred Flames (n06isycm60): On Death + East → draw + change direction
 // (This is an OnDeath trigger, not a transition trigger. Handled in AllyDestroyed.)
 
+// Wulin Lancer (1i2luu7dft): N→W: CARDNAME gets +2 POWER until end of turn
+$shiftingCurrentsTransitions["NORTH->WEST"]["1i2luu7dft"] = function($player, $mzID) {
+    AddTurnEffect($mzID, "1i2luu7dft");
+};
+
 // --- Shifting Currents Custom DQ Handlers ---
 
 $customDQHandlers["GemOfSearingFlameDamage"] = function($player, $params, $lastDecision) {
@@ -6886,6 +6999,17 @@ function HasFloatingMemory($obj) {
     return false;
 }
 
+// Brackish Lutist (1clswn3ba2): check if any Brackish Lutist is on the field with abilities
+function IsBrackishLutistOnField() {
+    for($p = 1; $p <= 2; ++$p) {
+        $field = &GetField($p);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "1clswn3ba2" && !HasNoAbilities($fObj)) return true;
+        }
+    }
+    return false;
+}
+
 // =============================================================================
 // Card Property Override System
 // =============================================================================
@@ -7222,6 +7346,17 @@ function HasStealth($obj) {
     // STEALTH_NEXT_TURN: persistent stealth until beginning of controller's next turn (e.g. Zander)
     if(in_array("STEALTH_NEXT_TURN", $obj->TurnEffects)) return true;
     // Check for temporary stealth effects granted by other cards
+    // Zhang He, Cloak of Night (09axbotwlz): target ally gains stealth for as long as you control Zhang He
+    if(is_array($obj->Counters) && isset($obj->Counters['zhangHeStealth']) && $obj->Counters['zhangHeStealth']) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID === "09axbotwlz" && !HasNoAbilities($fieldObj)) {
+                return true;
+            }
+        }
+    }
     $effects = explode(",", CardCurrentEffects($obj));
     foreach($effects as $effectID) {
         switch($effectID) {
@@ -7359,6 +7494,21 @@ function HasReservable($obj) {
                 return true;
             }
         }
+    }
+    // Dissonant Fractal (2d7rgchttu): reservable while you control 2+ other phantasias
+    if($obj->CardID === "2d7rgchttu") {
+        $controller = $obj->Controller;
+        global $playerID;
+        $zone = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        $phantasiaCount = 0;
+        foreach($field as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID !== "2d7rgchttu"
+                && PropertyContains(EffectiveCardType($fieldObj), "PHANTASIA")) {
+                $phantasiaCount++;
+            }
+        }
+        if($phantasiaCount >= 2) return true;
     }
     return false;
 }
