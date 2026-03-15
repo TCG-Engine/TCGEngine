@@ -8,6 +8,8 @@ function MaterializePhase() {
     // Materialize phase
     SetFlashMessage("Materialize Phase");
     MaterializeChoice();
+    // Eventide Spear (xjkdokzfd9): [CB:Warrior] may also activate from material deck if opponent has 2+ rested units
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "EVENTIDE_MATERIAL_CHECK", 1);
 }
 
 function MaterializeChoice($ignoreCost = false) {
@@ -17,6 +19,31 @@ function MaterializeChoice($ignoreCost = false) {
     $handlerParam = $ignoreCost ? "MATERIALIZE|NOCOST" : "MATERIALIZE";
     DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", $handlerParam, 1);
 }
+
+$customDQHandlers["EVENTIDE_MATERIAL_CHECK"] = function($player, $parts, $lastDecision) {
+    // Eventide Spear (xjkdokzfd9): [CB:Warrior] if opponent controls 2+ rested units, offer extra materialize
+    if(!IsClassBonusActive($player, ["WARRIOR"])) return;
+    $material = GetMaterial($player);
+    $eventideMZ = null;
+    for($i = 0; $i < count($material); ++$i) {
+        if(!$material[$i]->removed && $material[$i]->CardID === "xjkdokzfd9") {
+            $eventideMZ = "myMaterial-" . $i;
+            break;
+        }
+    }
+    if($eventideMZ === null) return;
+    global $playerID;
+    $oppFieldZone = ($player == $playerID) ? "theirField" : "myField";
+    $oppField = GetZone($oppFieldZone);
+    $restedCount = 0;
+    foreach($oppField as $rObj) {
+        if(!$rObj->removed && $rObj->Status == 1) $restedCount++;
+    }
+    if($restedCount < 2) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $eventideMZ, 1,
+        tooltip: "Activate_Eventide_Spear_from_material_deck?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE|NOCOST", 1);
+};
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 {

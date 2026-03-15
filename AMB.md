@@ -63,18 +63,7 @@ Cards with no strong mechanical dependency on other unimplemented cards. Buckete
 
 Simple On-Enter triggers, standard keyword applications, single-condition checks, or GY activation gates.
 
-| Card | ID | Effect Summary |
-|------|----|----------------|
-| Brash Defender | `i1sh9r9rda` | NORM Guardian Ally; Level 1+: Vigor; Retort 3 |
-| Invective Instruction | `smr2rn78qo` | NORM Tamer Skill; target ally gets +3 POWER until EOT; Class Bonus: if you control a non-Human ally → draw into memory |
-| Palace Guard | `k940jhff6v` | NORM Guardian Human Ally; Taunt; Class Bonus: Retort 2 |
-| Sword Saint of Everflame | `lpy7ie4v8n` | Fire Warrior Human Ally; Class Bonus: (2), banish this from GY → target fire weapon or ally gets +2 POWER until EOT |
-| Set Ablaze | `d4z3tj2nu8` | Fire Mage Spell; deal 4 to target ally; Class Bonus Level 3+: deal 3 to each champion controlled by the same player as that ally |
-| Tidal Tirade | `kyhl7zy5yj` | Water Guardian/Warrior Reaction Skill; target Human ally gets +1 LIFE and Retort 2 until EOT; Class Bonus: Floating Memory |
-| Acolyte of Cultivation | `nsowyyn6jt` | NORM Cleric/Mage Ally; Class Bonus: as long as you've activated a Spell card this turn, costs 3 less |
-| Fan of Insight | `sz1ty7vq6z` | NORM Regalia Fan; Class Bonus L2+ On Enter: draw into memory; Banish CARDNAME: return a card from your memory to hand |
-| Rippleback Terrapin | `srkomr8ght` | Water Tamer Animal/Turtle Ally; Class Bonus: Spellshroud; On Enter: banish a floating-memory GY card → put a buff counter on CARDNAME and draw a card |
-| Eventide Spear | `xjkdokzfd9` | Water Regalia Polearm Weapon; Class Bonus: as long as an opponent controls two or more rested units, you may activate this card from your material deck |
+*(All Easy cards from this set have been implemented.)*
 
 ---
 

@@ -124,6 +124,32 @@ function ActionMap($actionCard)
                         return "PLAY";
                     }
                 }
+                // Sword Saint of Everflame (lpy7ie4v8n): [CB:Warrior] (2), banish from GY → fire weapon/ally +2 POWER
+                if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "lpy7ie4v8n") {
+                    if(IsClassBonusActive($playerID, ["WARRIOR"])) {
+                        $hand = &GetHand($playerID);
+                        if(count($hand) >= 2) {
+                            $fireTargets = array_merge(
+                                ZoneSearch("myField", ["ALLY"], cardElements: ["FIRE"]),
+                                ZoneSearch("myField", ["WEAPON"], cardElements: ["FIRE"]),
+                                ZoneSearch("theirField", ["ALLY"], cardElements: ["FIRE"]),
+                                ZoneSearch("theirField", ["WEAPON"], cardElements: ["FIRE"])
+                            );
+                            $fireTargets = FilterSpellshroudTargets($fireTargets);
+                            if(!empty($fireTargets)) {
+                                MZMove($playerID, $actionCard, "myBanish");
+                                DecisionQueueController::CleanupRemovedCards();
+                                DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                                DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                                DecisionQueueController::AddDecision($playerID, "CUSTOM", "EffectStackOpportunity", 100);
+                                $targetStr = implode("&", $fireTargets);
+                                DecisionQueueController::AddDecision($playerID, "MZCHOOSE", $targetStr, 1, tooltip:"Give_fire_unit_+2_POWER");
+                                DecisionQueueController::AddDecision($playerID, "CUSTOM", "SwordSaintGY_Apply", 1);
+                                return "PLAY";
+                            }
+                        }
+                    }
+                }
             }
             break;
         case "myBanish":
@@ -677,6 +703,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(PropertyContains(CardType($obj->CardID), "ALLY") && PropertyContains(CardSubtypes($obj->CardID), "HORSE")) {
             $reserveCost = max(0, $reserveCost - 2);
             RemoveGlobalEffect($player, "7qjnqww067");
+        }
+    }
+
+    // Acolyte of Cultivation (nsowyyn6jt): [CB:Cleric/Mage] costs 3 less if a Spell was activated this turn
+    if($obj->CardID === "nsowyyn6jt" && IsClassBonusActive($player, ["CLERIC", "MAGE"])) {
+        $activatedThisTurn = CardActivatedTurnCards($player);
+        foreach($activatedThisTurn as $actCardID => $actCount) {
+            if(PropertyContains(CardSubtypes($actCardID), "SPELL")) {
+                $reserveCost = max(0, $reserveCost - 3);
+                break;
+            }
         }
     }
 
@@ -3754,6 +3791,9 @@ function ObjectCurrentPower($obj) {
             case "wjzg76zofp": // Temper in Flames: +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "lpy7ie4v8n": // Sword Saint of Everflame: +2 POWER until end of turn
+                $power += 2;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -4273,6 +4313,9 @@ function ObjectCurrentHP($obj) {
                 $cardLife += 1;
                 break;
             case "yhu0djqlp8": // Lead with Force: +1 LIFE until end of turn
+                $cardLife += 1;
+                break;
+            case "kyhl7zy5yj_LIFE": // Tidal Tirade: +1 LIFE until end of turn
                 $cardLife += 1;
                 break;
             default: break;
@@ -6783,6 +6826,8 @@ function HasVigor($obj) {
             return true;
         }
     }
+    // Brash Defender (i1sh9r9rda): [Level 1+] Vigor — HasKeyword_Vigor uses null PlayerID for level check
+    if($obj->CardID === "i1sh9r9rda" && PlayerLevel($obj->Controller) >= 1) return true;
     return false;
 }
 
@@ -9039,6 +9084,12 @@ $customDQHandlers["FanaticalDevoteeDamage"] = function($player, $parts, $lastDec
 $customDQHandlers["HeatwaveGeneratorBuff"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     AddTurnEffect($lastDecision, "fzcyfrzrpl");
+};
+
+$customDQHandlers["SwordSaintGY_Apply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        AddTurnEffect($lastDecision, "lpy7ie4v8n");
+    }
 };
 
 $customDQHandlers["EternalKingdomUpkeep"] = function($player, $parts, $lastDecision) {
