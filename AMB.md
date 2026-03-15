@@ -8,25 +8,6 @@
 
 ---
 
-### 2. Jin Lineage & Polearm Support
-
-The Jin champion line centers on Polearm weapons and an aggressive cross-turn attack buff strategy. Jin, Undying Resolve's **immortality** mechanic — the champion cannot die except during the end phase — is the hardest piece, requiring a phase-gated death-prevention hook.
-
-**New engine needs:**
-- **Jin Bonus** champion-check (may already be present from the existing Jin champion in a prior set).
-- **Phase-gated immortality**: hook death/damage-lethal resolution to check both the keyword and the current phase; only allow death during end phase.
-- **Preserve** keyword for Fang of Dragon's Breath: a Phantasia weapon-link that must die when its linked weapon leaves the field, with a REST activated ability conditionally added by Jin Bonus.
-
-| Card | ID | Note |
-|------|----|------|
-| Jin, Fate Defiant | `zd8l14052j` | L1 Champion; Inherited Effect: whenever Jin attacks with a Polearm weapon and/or Polearm attack, target Horse or Human ally you control gets +1 POWER until EOT |
-| Jin, Undying Resolve | `c4yrrtv7o1` | L3 Champion; Jin Lineage; as long as it's not your end phase, Jin has Immortality (can't die) |
-| Beseeching Flourish | `d60jobz3ct` | Wind Warrior Polearm Attack 3; Jin Bonus On Hit: Materialize a Polearm weapon card from your material deck (you still pay costs) |
-| Fang of Dragon's Breath | `iebo5fu381` | Fire Warrior Phantasia; Polearm Weapon Link (enters linked to a Polearm; dies if link breaks); linked weapon gets +2 POWER; Jin Bonus: linked weapon gains "REST, Remove a durability counter: deal 2 damage to target unit" |
-| Fraternal Garrison | `ln926ymxdc` | Wind Warrior Ally; Jin Bonus: whenever another ally enters the field under your control, CARDNAME gets +1 POWER until EOT |
-
----
-
 ### 4. Empower Engine
 
 AMB introduces several items and allies that grant **Empower** and several spells that branch on whether they are in an empowered state at resolution. Once the Empower system is confirmed working, these follow repeatable patterns.

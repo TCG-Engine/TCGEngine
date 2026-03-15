@@ -220,10 +220,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     }
 
     // Weapon Link pre-check: Sheath of Faceted Lapis (0cnn1eh85y) requires a Warrior weapon on field
-    $hasWeaponLink = ($sourceObject->CardID === "0cnn1eh85y");
+    // Fang of Dragon's Breath (iebo5fu381) requires a Polearm weapon on field
+    $hasWeaponLink = ($sourceObject->CardID === "0cnn1eh85y" || $sourceObject->CardID === "iebo5fu381");
     if($hasWeaponLink) {
-        $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["WARRIOR"]);
-        if(empty($weaponTargets)) return; // No valid Warrior weapon — block activation
+        if($sourceObject->CardID === "iebo5fu381") {
+            $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["POLEARM"]);
+        } else {
+            $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["WARRIOR"]);
+        }
+        if(empty($weaponTargets)) return; // No valid weapon — block activation
     }
 
     // Peaceful Reunion: can only activate if you have not declared an attack this turn
@@ -768,9 +773,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareAllyLinkTarget", 100);
     }
 
-    // Weapon Link: prompt the player to choose a target Warrior weapon
+    // Weapon Link: prompt the player to choose a target weapon
     if($hasWeaponLink) {
-        $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["WARRIOR"]);
+        if($sourceObject->CardID === "iebo5fu381") {
+            $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["POLEARM"]);
+        } else {
+            $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["WARRIOR"]);
+        }
         $weaponChoices = implode("&", $weaponTargets);
         DecisionQueueController::AddDecision($player, "MZCHOOSE", $weaponChoices, 100, tooltip:"Choose_weapon_to_link");
         DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareWeaponLinkTarget", 100);
@@ -1226,7 +1235,7 @@ function OnCardActivated($player, $mzCard) {
             }
         }
         // Weapon Link fizzle check: validate the weapon link target
-        if($obj->CardID === "0cnn1eh85y") {
+        if($obj->CardID === "0cnn1eh85y" || $obj->CardID === "iebo5fu381") {
             $wlTargetMZ = DecisionQueueController::GetVariable("weaponLinkTargetMZ");
             $wlTargetCardID = DecisionQueueController::GetVariable("weaponLinkTargetCardID");
             $wlTargetObj = (!empty($wlTargetMZ) && $wlTargetMZ !== "-") ? GetZoneObject($wlTargetMZ) : null;
@@ -1934,6 +1943,51 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             }
             $dynIndex++;
         }
+        // Fang of Dragon's Breath (iebo5fu381): [Jin Bonus] weapon REST ability — deal 2 damage to a unit
+        if(!$handledDynamic && PropertyContains(CardType($cardID), "WEAPON")) {
+            $linkedCards = GetLinkedCards($sourceObject);
+            $fangObj = null;
+            $fangMZ = null;
+            foreach($linkedCards as $lObj) {
+                if($lObj->CardID === "iebo5fu381" && !HasNoAbilities($lObj)) {
+                    if(GetCounterCount($lObj, "durability") > 0) {
+                        $fangObj = $lObj;
+                        $fangMZ = $lObj->GetMzID();
+                    }
+                    break;
+                }
+            }
+            if($fangMZ !== null) {
+                global $playerID;
+                $zone = $sourceObject->Controller == $playerID ? "myField" : "theirField";
+                $controllerField = GetZone($zone);
+                $isJin = false;
+                foreach($controllerField as $fObj) {
+                    if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+                        if(strpos(CardName($fObj->CardID), "Jin") === 0) $isJin = true;
+                        break;
+                    }
+                }
+                if($isJin && $selectedAbilityIndex == $dynIndex) {
+                    // Cost: REST (exhaust) the weapon and remove a durability counter from Fang
+                    $sourceObject->Status = 1;
+                    RemoveCounters($player, $fangMZ, "durability", 1);
+                    // Effect: deal 2 damage to target unit
+                    $allUnits = array_merge(
+                        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+                        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+                    );
+                    $allUnits = FilterSpellshroudTargets($allUnits);
+                    if(!empty($allUnits)) {
+                        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allUnits), 1,
+                            tooltip:"Deal_2_damage_to_target_unit_(Fang_of_Dragon's_Breath)");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "FangDragonBreathDamage|" . $mzCard, 1);
+                    }
+                    $handledDynamic = true;
+                }
+                $dynIndex++;
+            }
+        }
     }
     if(!$isDynamic) {
         $customDQHandlers["AbilityActivated"]($player, [$cardID, $selectedAbilityIndex], null);
@@ -2190,7 +2244,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     }
 
     // Weapon Link: if the entering card has Weapon Link, establish the link
-    if($added->CardID === "0cnn1eh85y") {
+    if($added->CardID === "0cnn1eh85y" || $added->CardID === "iebo5fu381") {
         $weaponLinkTargetMZ = DecisionQueueController::GetVariable("weaponLinkTargetMZ");
         if(!empty($weaponLinkTargetMZ) && $weaponLinkTargetMZ !== "-") {
             $phantasiaMZ = "myField-" . (count($field) - 1);
@@ -2490,6 +2544,26 @@ function BriskWindtrotterLevel2Buff($player) {
 $customDQHandlers["BriskWindtrotterBuff2"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
     AddCounters($player, $lastDecision, "buff", 1);
+};
+
+// Jin, Fate Defiant (zd8l14052j): Inherited Effect — +1 POWER to chosen Horse or Human ally
+$customDQHandlers["JinFateDefiantBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "zd8l14052j");
+};
+
+// Fang of Dragon's Breath (iebo5fu381): Jin Bonus REST ability — deal 2 damage to chosen unit
+$customDQHandlers["FangDragonBreathDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $weaponMZ = $parts[0];
+    DealDamage($player, $weaponMZ, $lastDecision, 2);
+};
+
+// Beseeching Flourish (d60jobz3ct): Jin Bonus On Hit — materialize chosen Polearm weapon
+$customDQHandlers["BeeseechingFlourishMaterialize"] = function($player, $parts, $lastDecision) {
+    global $customDQHandlers;
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $customDQHandlers["MATERIALIZE"]($player, [], $lastDecision);
 };
 
 // Scorchfire Assassin (o4h8cfo21a): remove prep counters for +2 POWER each
@@ -3842,6 +3916,9 @@ function ObjectCurrentPower($obj) {
             case "ln926ymxdc": // Fraternal Garrison: +1 POWER until end of turn (from ally entering)
                 $power += 1;
                 break;
+            case "zd8l14052j": // Jin, Fate Defiant (Inherited Effect): +1 POWER until end of turn
+                $power += 1;
+                break;
             case "o4h8cfo21a": // Scorchfire Assassin: +2 POWER per prep counter removed
                 $power += 2;
                 break;
@@ -3947,6 +4024,9 @@ function ObjectCurrentPower($obj) {
                 if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
                     $power += 2;
                 }
+                break;
+            case "iebo5fu381": // Fang of Dragon's Breath: linked weapon gets +2 POWER
+                $power += 2;
                 break;
             case "bhhdb7x044": // Tricky Chimps: [CB] On Enter +2 POWER until end of turn
                 $power += 2;
@@ -7932,6 +8012,32 @@ function GetDynamicAbilities($obj) {
     if($obj->CardID === "o0qtb31x97" && $obj->Status == 2 && CountCursesInLineage($obj->Controller) >= 4) {
         $abilities[] = ["name" => "Cursebreaker", "index" => $nextIndex];
         $nextIndex++;
+    }
+    // Fang of Dragon's Breath (iebo5fu381): [Jin Bonus] linked weapon REST ability — deal 2 damage to a unit
+    if(PropertyContains(EffectiveCardType($obj), "WEAPON")) {
+        $linkedCards = GetLinkedCards($obj);
+        foreach($linkedCards as $linkedObj) {
+            if($linkedObj->CardID === "iebo5fu381" && !HasNoAbilities($linkedObj)) {
+                if(GetCounterCount($linkedObj, "durability") > 0) {
+                    global $playerID;
+                    $controller = $obj->Controller;
+                    $zone = $controller == $playerID ? "myField" : "theirField";
+                    $controllerField = GetZone($zone);
+                    $isJin = false;
+                    foreach($controllerField as $fObj) {
+                        if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+                            if(strpos(CardName($fObj->CardID), "Jin") === 0) $isJin = true;
+                            break;
+                        }
+                    }
+                    if($isJin) {
+                        $abilities[] = ["name" => "Fang: REST, Deal 2 damage", "index" => $nextIndex];
+                        $nextIndex++;
+                    }
+                }
+                break;
+            }
+        }
     }
     if(empty($abilities)) return "";
     return json_encode($abilities);

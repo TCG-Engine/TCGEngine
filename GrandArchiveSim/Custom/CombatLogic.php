@@ -676,6 +676,41 @@ function OnAttackTrigger($player, $mzID) {
             break;
         }
     }
+
+    // Jin, Fate Defiant (zd8l14052j): Inherited Effect —
+    // When Jin attacks with a Polearm weapon or Polearm attack card,
+    // target Horse or Human ally gets +1 POWER until end of turn.
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")
+            && ChampionHasInLineage($player, "zd8l14052j")) {
+        $isPolearmAttack = false;
+        $weaponMZ = GetCombatWeapon();
+        if($weaponMZ !== null) {
+            $weaponObj = GetZoneObject($weaponMZ);
+            if($weaponObj !== null && PropertyContains(CardSubtypes($weaponObj->CardID), "POLEARM")) {
+                $isPolearmAttack = true;
+            }
+        }
+        if(!$isPolearmAttack) {
+            $intentCards = GetIntentCards($player);
+            foreach($intentCards as $iMZ) {
+                $iObj = GetZoneObject($iMZ);
+                if($iObj !== null && PropertyContains(CardSubtypes($iObj->CardID), "POLEARM")) {
+                    $isPolearmAttack = true;
+                    break;
+                }
+            }
+        }
+        if($isPolearmAttack) {
+            $horseTargets = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]);
+            $humanTargets = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HUMAN"]);
+            $targets = array_values(array_unique(array_merge($horseTargets, $humanTargets)));
+            if(!empty($targets)) {
+                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1,
+                    tooltip:"Choose_Horse_or_Human_ally_for_+1_POWER_(Jin_Fate_Defiant)");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "JinFateDefiantBuff", 1);
+            }
+        }
+    }
 }
 
 /**
@@ -1990,6 +2025,22 @@ function OnDealDamage($player, $source, $target, $amount) {
         AegisOfDawnTrigger($targetObj->Controller ?? $player);
     }
 
+    // Jin, Undying Resolve (c4yrrtv7o1): Immortality — can't die except during Jin's controller's end phase
+    if($amount > 0 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        $champController = $targetObj->Controller ?? $player;
+        $isJinUndying = ($targetObj->CardID === "c4yrrtv7o1")
+            || ChampionHasInLineage($champController, "c4yrrtv7o1");
+        if($isJinUndying) {
+            $isJinEndPhase = (GetCurrentPhase() === "END" && GetTurnPlayer() == $champController);
+            if(!$isJinEndPhase) {
+                $hpNow = ObjectCurrentHP($targetObj);
+                if($targetObj->Damage >= $hpNow) {
+                    $targetObj->Damage = $hpNow - 1; // Immortality: prevent lethal damage outside Jin's end phase
+                }
+            }
+        }
+    }
+
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
         // If we're in combat context, record that a kill occurred from combat damage.
@@ -2068,6 +2119,22 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     // Aegis of Dawn (abipl6gt7l): whenever champion dealt 4+ damage, summon Automaton Drone
     if($amount >= 4 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         AegisOfDawnTrigger($targetObj->Controller ?? $player);
+    }
+
+    // Jin, Undying Resolve (c4yrrtv7o1): Immortality — can't die except during Jin's controller's end phase
+    if($amount > 0 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        $champController = $targetObj->Controller ?? $player;
+        $isJinUndying = ($targetObj->CardID === "c4yrrtv7o1")
+            || ChampionHasInLineage($champController, "c4yrrtv7o1");
+        if($isJinUndying) {
+            $isJinEndPhase = (GetCurrentPhase() === "END" && GetTurnPlayer() == $champController);
+            if(!$isJinEndPhase) {
+                $hpNow = ObjectCurrentHP($targetObj);
+                if($targetObj->Damage >= $hpNow) {
+                    $targetObj->Damage = $hpNow - 1; // Immortality: prevent lethal damage outside Jin's end phase
+                }
+            }
+        }
     }
 
     $currentHp = ObjectCurrentHP($targetObj);
