@@ -239,6 +239,10 @@ function GetValidAttackTargets($attackerMZ) {
     if(!$bypassIntercept && $attacker !== null && in_array("6g7xgwve1d", $attacker->TurnEffects)) {
         $bypassIntercept = true;
     }
+    // Suzaku's Command (5v598k3m1w): target Beast ally can't be intercepted this turn
+    if(!$bypassIntercept && $attacker !== null && (in_array("5v598k3m1w", $attacker->TurnEffects) || in_array("5v598k3m1w-SHENJU", $attacker->TurnEffects))) {
+        $bypassIntercept = true;
+    }
     // Strike from the Mist (DHn9J7gX6g): CB if prepared, can't be intercepted
     if(!$bypassIntercept) {
         $intentCards = GetIntentCards($player);
@@ -1559,6 +1563,15 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Suzaku's Command Shenju (5v598k3m1w-SHENJU): combat damage is unpreventable
+    if($isCombatContext) {
+        $sourceObj = GetZoneObject($source);
+        if($sourceObj !== null && in_array("5v598k3m1w-SHENJU", $sourceObj->TurnEffects)) {
+            DealUnpreventableDamage($player, $source, $target, $amount);
+            return;
+        }
+    }
+
     // Ominous Shadow (gveirpdm44): prevent 3 of any damage dealt to it
     if($amount > 0 && $targetObj->CardID === "gveirpdm44" && !HasNoAbilities($targetObj)) {
         $amount -= 3;
@@ -1656,6 +1669,17 @@ function OnDealDamage($player, $source, $target, $amount) {
                         if($combatAttackerCheck !== null && $combatAttackerCheck === $target) {
                             $amount -= 3;
                         }
+                    }
+                    break;
+                case "7lr2jiu66i": // Forged Scalemail: may banish to prevent 2 and draw a card
+                    {
+                        $prevented = min(2, $amount);
+                        $amount -= $prevented;
+                        $smController = $linkedObj->Controller;
+                        $linkedMZ = $linkedObj->GetMzID();
+                        MZMove($smController, $linkedMZ, ($smController == $playerID) ? "myBanish" : "theirBanish");
+                        DecisionQueueController::CleanupRemovedCards();
+                        Draw($smController, 1);
                     }
                     break;
             }

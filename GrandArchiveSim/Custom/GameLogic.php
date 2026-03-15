@@ -1564,6 +1564,21 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
+        case "7gz0j8p4sx": // Minister of Ceremony — REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
+        case "7kr1haizu8": // Forgetful Concoction — REST + sacrifice self
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            ProcessPotionInfusionTriggers($player, $mzCard);
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "9cy4wipw4k": // Tabula of Salvage — banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "x7mnu1xhs5": // Fractal of Creation — sacrifice self
             DoSacrificeFighter($player, $mzCard);
             DecisionQueueController::CleanupRemovedCards();
@@ -1888,6 +1903,18 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "nrvth9vyz1") {
         if(!IsClassBonusActive($player, ["CLERIC", "MAGE"])) return;
         if(GetCounterCount($sourceObject, "refinement") < 3) return;
+    }
+    // Minister of Ceremony (7gz0j8p4sx): REST — must be awake + slow speed + SC East
+    if($cardID === "7gz0j8p4sx") {
+        if($sourceObject->Status != 2) return;
+        if(HasOpportunity($player)) return;
+        if(GetShiftingCurrents($player) !== "EAST") return;
+    }
+    // Forgetful Concoction (7kr1haizu8): REST + sacrifice — must be awake + opponent has memory
+    if($cardID === "7kr1haizu8") {
+        if($sourceObject->Status != 2) return;
+        $oppMem = &GetMemory(($player == 1) ? 2 : 1);
+        if(empty($oppMem)) return;
     }
     // Ghostsight Glass (cc0jmpmman): (3), REST — must be awake + slow speed only
     if($cardID === "cc0jmpmman") {
@@ -2993,6 +3020,18 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "89nl1vcn33": // Lycoria: deal 1 unpreventable damage to your champion
+                    if($field[$i]->Controller == $turnPlayer && !HasNoAbilities($field[$i])) {
+                        $champZone = $turnPlayer == $playerID ? "myField" : "theirField";
+                        $champField = GetZone($champZone);
+                        for($ci = 0; $ci < count($champField); ++$ci) {
+                            if(PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
+                                DealUnpreventableDamage($turnPlayer, $champZone . "-" . $i, $champZone . "-" . $ci, 1);
+                                break;
+                            }
+                        }
+                    }
+                    break;
                 default: break;
             }
         }
@@ -3917,6 +3956,18 @@ function ObjectCurrentPower($obj) {
                 }
             }
         }
+        // Direwolf Alpha (5n874ubgai): [CB][Level 2+] Other Wolf objects get +1 POWER
+        if(PropertyContains(EffectiveCardSubtypes($obj), "WOLF")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "5n874ubgai" && !HasNoAbilities($fieldObj)
+                   && $obj->CardID !== "5n874ubgai"
+                   && IsClassBonusActive($obj->Controller, ["TAMER"])
+                   && PlayerLevel($obj->Controller) >= 2) {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
     }
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
     foreach($cardCurrentEffects as $effectID) {
@@ -4070,6 +4121,12 @@ function ObjectCurrentPower($obj) {
                 break;
             case "ln926ymxdc": // Fraternal Garrison: +1 POWER until end of turn (from ally entering)
                 $power += 1;
+                break;
+            case "5v598k3m1w": // Suzaku's Command: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "5v598k3m1w-SHENJU": // Suzaku's Command (Shenju): +4 POWER until end of turn
+                $power += 4;
                 break;
             case "zd8l14052j": // Jin, Fate Defiant (Inherited Effect): +1 POWER until end of turn
                 $power += 1;
@@ -4358,6 +4415,17 @@ function ObjectCurrentLevel($obj) {
             $animalBeast = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
             if(count($animalBeast) >= 2) {
                 $cardLevel += 2;
+            }
+        }
+        // Acerbica (7ax4ywyv19): Champions you control get -1 level (per instance)
+        {
+            global $playerID;
+            $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+            $acerbicaField = GetZone($zone);
+            foreach($acerbicaField as $aObj) {
+                if(!$aObj->removed && $aObj->CardID === "7ax4ywyv19" && !HasNoAbilities($aObj)) {
+                    $cardLevel -= 1;
+                }
             }
         }
         global $playerID;
@@ -4681,6 +4749,9 @@ function ObjectCurrentHP($obj) {
                 break;
             case "kyhl7zy5yj_LIFE": // Tidal Tirade: +1 LIFE until end of turn
                 $cardLife += 1;
+                break;
+            case "90i1prp63s": // Evanescent Winds: Phantasia allies get +2 LIFE until end of turn
+                $cardLife += 2;
                 break;
             default: break;
         }
@@ -5478,6 +5549,51 @@ $customDQHandlers["OrbOfHubrisShuffleStep"] = function($player, $parts, $lastDec
     }
 };
 
+// Forgetful Concoction (7kr1haizu8): banish 2 random cards from opponent's memory
+function ForgetfulConcoctionExecute($player) {
+    $opponent = ($player == 1) ? 2 : 1;
+    global $playerID;
+    $memZone = ($opponent == $playerID) ? "myMemory" : "theirMemory";
+    $banishZone = ($opponent == $playerID) ? "myBanish" : "theirBanish";
+    $mem = GetZone($memZone);
+    $indices = [];
+    for($i = 0; $i < count($mem); ++$i) {
+        if(!$mem[$i]->removed) $indices[] = $i;
+    }
+    shuffle($indices);
+    $toBanish = array_slice($indices, 0, 2);
+    // Sort descending so removals don't shift indices
+    rsort($toBanish);
+    foreach($toBanish as $idx) {
+        $mzCard = $memZone . "-" . $idx;
+        $banishedObj = &GetZoneObject($mzCard);
+        if($banishedObj !== null) {
+            $banishedObj->Counters['MEM_BANISHED'] = $opponent;
+        }
+        MZMove($opponent, $mzCard, $banishZone);
+    }
+    DecisionQueueController::CleanupRemovedCards();
+}
+
+// Tabula of Salvage (9cy4wipw4k): iteratively choose cards from GY to put on deck bottom
+function TabulaSalvageLoop($player, $remaining) {
+    if($remaining <= 0) return;
+    $gy = ZoneSearch("myGraveyard");
+    if(empty($gy)) return;
+    $choices = implode("&", $gy);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1, tooltip:"Choose_card_to_put_on_deck_bottom");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TabulaSalvagePick|$remaining", 1);
+}
+
+$customDQHandlers["TabulaSalvagePick"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    if($lastDecision == "-" || $lastDecision == "") return; // Player passed
+    MZMove($player, $lastDecision, "myDeck");
+    if($remaining > 1) {
+        TabulaSalvageLoop($player, $remaining - 1);
+    }
+};
+
 function OnCardChosen($player, $lastResult) {
     $card = &GetZoneObject($lastResult);
 }
@@ -5760,6 +5876,10 @@ $doesGlobalEffectApply["Kc5Bktw0yK"] = function($obj) { //Empowering Harmony
 
 $doesGlobalEffectApply["dsAqxMezGb"] = function($obj) { //Favorable Winds
     return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+
+$doesGlobalEffectApply["90i1prp63s"] = function($obj) { // Evanescent Winds: Phantasia allies get +2 LIFE
+    return PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardType($obj), "PHANTASIA");
 };
 
 $doesGlobalEffectApply["DBJ4DuLABr"] = function($obj) { //Shroud in Mist: units you control gain stealth
@@ -6263,6 +6383,15 @@ function IsKongmingBonus($player) {
         || ChampionHasInLineage($player, "a01pyxwo25")  // Kongming, Ascetic Vice
         || ChampionHasInLineage($player, "7x2v4tdop1") // Kongming, Fel Eidolon
         || ChampionHasInLineage($player, "0i139x5eub"); // Kongming, Erudite Strategist
+}
+
+/**
+ * Check if a player's champion is Diao Chan (any level).
+ */
+function IsDiaoChanBonus($player) {
+    return ChampionHasInLineage($player, "00xbh8oc00")  // Diao Chan L1
+        || ChampionHasInLineage($player, "pknaxnn0xo")  // Diao Chan L2
+        || ChampionHasInLineage($player, "d7l6i5thdy"); // Diao Chan L3
 }
 
 /**
