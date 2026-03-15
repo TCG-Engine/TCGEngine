@@ -31,6 +31,7 @@ $Imbue_Cards["brq9x9z2k2"] = 2; // Skirting Step (WIND)
 $Imbue_Cards["08kkz07nau"] = 3; // Surging Bolt (FIRE)
 $Imbue_Cards["fz1nr5a3pm"] = 2; // Windmill Engineer (WIND)
 $Imbue_Cards["vw2ifz1nr5"] = 3; // Andronika (WIND)
+$Imbue_Cards["4a87hk0bkh"] = 3; // Splashing Spearguard (WATER)
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -597,6 +598,40 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Ceasing Edict (4f3bi5lohu): costs 2 less while Shifting Currents face South
+    if($obj->CardID === "4f3bi5lohu" && GetShiftingCurrents($player) === "SOUTH") {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Break Apart (4ns2jbt4hq): costs 2 more if targeting a regalia
+    $hasBreakApartCost = false;
+    if($obj->CardID === "4ns2jbt4hq") {
+        $allBPTargets = array_merge(
+            ZoneSearch("myField", ["ITEM"]), ZoneSearch("myField", ["WEAPON"]),
+            ZoneSearch("theirField", ["ITEM"]), ZoneSearch("theirField", ["WEAPON"])
+        );
+        $bpRegaliaCount = 0;
+        $bpNonRegaliaCount = 0;
+        foreach($allBPTargets as $bpMZ) {
+            $bpObj = GetZoneObject($bpMZ);
+            if(PropertyContains(CardType($bpObj->CardID), "REGALIA")) {
+                $bpRegaliaCount++;
+            } else {
+                $bpNonRegaliaCount++;
+            }
+        }
+        if($bpRegaliaCount > 0 && $bpNonRegaliaCount == 0) {
+            $reserveCost += 2;
+            DecisionQueueController::StoreVariable("breakApartTargetRegalia", "YES");
+        } else if($bpRegaliaCount > 0 && $bpNonRegaliaCount > 0) {
+            $hasBreakApartCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Target_a_regalia?_(costs_2_more)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "BreakApartCostChoice|$reserveCost", 100);
+        } else {
+            DecisionQueueController::StoreVariable("breakApartTargetRegalia", "NO");
+        }
+    }
+
     // Wayfinder's Map (porhlq2kkv): domain cards cost 1 less
     if(PropertyContains($cardType, "DOMAIN")) {
         $myField = GetZone("myField");
@@ -1022,7 +1057,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1111,6 +1146,22 @@ $customDQHandlers["CheckImbue"] = function($player, $parts, $lastDecision) {
         }
     }
     DecisionQueueController::StoreVariable("isImbued", $elementMatches >= $threshold ? "YES" : "NO");
+};
+
+// Break Apart (4ns2jbt4hq): DQ handler for the YESNO choice of whether to target a regalia
+$customDQHandlers["BreakApartCostChoice"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    DecisionQueueController::StoreVariable("breakApartTargetRegalia", $lastDecision);
+    $totalCost = $baseReserve;
+    if($lastDecision === "YES") {
+        $totalCost += 2;
+    }
+    DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+    for($i = 0; $i < $totalCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
 /**
@@ -2910,6 +2961,38 @@ function RecollectionPhase() {
                         AddCounters($turnPlayer, "myField-" . $i, "buff", 1);
                     }
                     break;
+                case "4s1kmjeaks": // Floodbloom: banish top 2 cards of deck at recollection
+                    if(!HasNoAbilities($field[$i])) {
+                        for($fb = 0; $fb < 2; ++$fb) {
+                            $deck = GetZone("myDeck");
+                            if(!empty($deck)) {
+                                MZMove($turnPlayer, "myDeck-0", "myBanish");
+                            }
+                        }
+                    }
+                    break;
+                case "55d7vo62fc": // Zhou Yu, Enlightened Sage: [CB] if control Book/Scripture, enlighten counter on champion
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["MAGE"])) {
+                        $bookScriptureFound = false;
+                        for($zyi = 0; $zyi < count($field); ++$zyi) {
+                            if($field[$zyi]->removed) continue;
+                            if(PropertyContains(EffectiveCardSubtypes($field[$zyi]), "BOOK")
+                               || PropertyContains(EffectiveCardSubtypes($field[$zyi]), "SCRIPTURE")) {
+                                $bookScriptureFound = true;
+                                break;
+                            }
+                        }
+                        if($bookScriptureFound) {
+                            $champField = GetZone("myField");
+                            for($ci = 0; $ci < count($champField); ++$ci) {
+                                if(!$champField[$ci]->removed && PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
+                                    AddCounters($turnPlayer, "myField-" . $ci, "enlighten", 1);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    break;
                 default: break;
             }
         }
@@ -4405,6 +4488,21 @@ function ObjectCurrentHP($obj) {
             break;
         case "z4pyx8bd7o": // Young Peacekeeper: +1 LIFE while fostered
             if(IsFostered($obj)) $cardLife += 1;
+            break;
+        case "3kwkn38b7v": // Tidebreaker Sentinel: [CB] +2 LIFE while fostered
+            if(IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                $cardLife += 2;
+            }
+            break;
+        case "4ilomec3u3": // Sunblessed Gazelle: +X LIFE where X is highest opponent influence
+            {
+                global $playerID;
+                $opponent = ($obj->Controller == 1) ? 2 : 1;
+                $oppHand = &GetHand($opponent);
+                $oppMem = &GetMemory($opponent);
+                $oppInfluence = count($oppHand) + count($oppMem);
+                $cardLife += $oppInfluence;
+            }
             break;
         case "xhi5jnsl7d": // Embershield Keeper: [Class Bonus] +2 LIFE while fostered
             if(IsClassBonusActive($obj->Controller, ["GUARDIAN"]) && IsFostered($obj)) {
@@ -6163,7 +6261,8 @@ function ChampionHasInLineage($player, $cardID) {
 function IsKongmingBonus($player) {
     return ChampionHasInLineage($player, "346vgwz3y4")  // Kongming, Wayward Maven
         || ChampionHasInLineage($player, "a01pyxwo25")  // Kongming, Ascetic Vice
-        || ChampionHasInLineage($player, "7x2v4tdop1"); // Kongming, Fel Eidolon
+        || ChampionHasInLineage($player, "7x2v4tdop1") // Kongming, Fel Eidolon
+        || ChampionHasInLineage($player, "0i139x5eub"); // Kongming, Erudite Strategist
 }
 
 /**
@@ -7575,6 +7674,12 @@ function HasTaunt($obj) {
             return true;
         }
     }
+    // Tidebreaker Sentinel (3kwkn38b7v): [CB] taunt while fostered
+    if($obj->CardID === "3kwkn38b7v" && IsFostered($obj)) {
+        if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+            return true;
+        }
+    }
     return false;
 }
 
@@ -7606,6 +7711,7 @@ function HasFoster($obj) {
         "mnu1xhs5jw" => ["GUARDIAN"], // Awakened Frostguard
         "1x97n2jnlt" => ["GUARDIAN"], // Guardian Scout
         "a3v1ybmvpb" => ["GUARDIAN"], // Sunglory Sentinel
+        "3kwkn38b7v" => ["GUARDIAN"], // Tidebreaker Sentinel
     ];
     if(isset($fosterCBCards[$obj->CardID])) {
         return IsClassBonusActive($obj->Controller, $fosterCBCards[$obj->CardID]);
@@ -7935,6 +8041,21 @@ function PrideAmount($obj) {
     }
     // Lavasoul Tiger (zq0dvl1m3z): loses pride until end of turn via TurnEffect
     if($obj->CardID === "zq0dvl1m3z" && in_array("zq0dvl1m3z", $obj->TurnEffects)) return 0;
+    // Red Hare, Unrivaled Stallion (5du8f077ua): loses pride while you control a fire or tera unique Human ally
+    if($obj->CardID === "5du8f077ua") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID !== "5du8f077ua"
+                && PropertyContains(EffectiveCardType($fObj), "ALLY")
+                && PropertyContains(CardType($fObj->CardID), "UNIQUE")
+                && PropertyContains(EffectiveCardSubtypes($fObj), "HUMAN")
+                && (CardElement($fObj->CardID) === "FIRE" || CardElement($fObj->CardID) === "TERA")) {
+                return 0;
+            }
+        }
+    }
     return $prideValue;
 }
 
@@ -11751,6 +11872,88 @@ $customDQHandlers["SadiReturnToHand"] = function($player, $parts, $lastDecision)
 
 $customDQHandlers["GloamspireMantleSummon"] = function($player, $parts, $lastDecision) {
     MZAddZone($player, "myField", "gveirpdm44");
+};
+
+// ============================================================================
+// Extricating Touch (4a8hl5dben) — choose player → hand/memory → pick card → discard
+// ============================================================================
+
+$customDQHandlers["ExtricatingTouchZoneChoice"] = function($player, $parts, $lastDecision) {
+    // $lastDecision = chosen champion mzID (the target player)
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null) return;
+    $targetPlayer = $targetObj->Controller;
+    DecisionQueueController::StoreVariable("extricatingTarget", strval($targetPlayer));
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Reveal_hand?_(No=Reveal_memory)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ExtricatingTouchReveal", 1);
+};
+
+$customDQHandlers["ExtricatingTouchReveal"] = function($player, $parts, $lastDecision) {
+    $targetPlayer = intval(DecisionQueueController::GetVariable("extricatingTarget"));
+    global $playerID;
+    if($lastDecision === "YES") {
+        // Reveal hand
+        $handZone = $targetPlayer == $playerID ? "myHand" : "theirHand";
+        $hand = GetZone($handZone);
+        $handMZs = [];
+        for($i = 0; $i < count($hand); ++$i) {
+            if(!$hand[$i]->removed) $handMZs[] = $handZone . "-" . $i;
+        }
+        if(empty($handMZs)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $handMZs), 1, tooltip:"Choose_card_to_discard");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ExtricatingTouchDiscard", 1);
+    } else {
+        // Reveal memory
+        $memZone = $targetPlayer == $playerID ? "myMemory" : "theirMemory";
+        $mem = GetZone($memZone);
+        $memMZs = [];
+        for($i = 0; $i < count($mem); ++$i) {
+            if(!$mem[$i]->removed) $memMZs[] = $memZone . "-" . $i;
+        }
+        if(empty($memMZs)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $memMZs), 1, tooltip:"Choose_card_to_discard");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ExtricatingTouchDiscard", 1);
+    }
+};
+
+$customDQHandlers["ExtricatingTouchDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $targetPlayer = intval(DecisionQueueController::GetVariable("extricatingTarget"));
+    DoDiscardCard($targetPlayer, $lastDecision);
+};
+
+// ============================================================================
+// Zhou Yu, Enlightened Sage (55d7vo62fc) — [CB] On Enter: materialize Book/Scripture from material deck
+// ============================================================================
+
+$customDQHandlers["ZhouYuMaterialize"] = function($player, $parts, $lastDecision) {
+    global $customDQHandlers;
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $customDQHandlers["MATERIALIZE"]($player, [], $lastDecision);
+};
+
+// ============================================================================
+// Red Hare (5du8f077ua) — On Attack discard-to-draw flow
+// ============================================================================
+
+$customDQHandlers["RedHareDiscardDraw"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $hand = GetZone("myHand");
+    if(empty($hand)) return;
+    $handMZs = [];
+    for($i = 0; $i < count($hand); ++$i) {
+        if(!$hand[$i]->removed) $handMZs[] = "myHand-" . $i;
+    }
+    if(empty($handMZs)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $handMZs), 1, tooltip:"Choose_card_to_discard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RedHareDiscardFinish", 1);
+};
+
+$customDQHandlers["RedHareDiscardFinish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoDiscardCard($player, $lastDecision);
+    Draw($player, 1);
 };
 
 ?>
