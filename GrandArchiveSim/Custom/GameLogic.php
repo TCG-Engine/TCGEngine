@@ -3883,6 +3883,10 @@ function ObjectCurrentPower($obj) {
         $rangedValue = GetRangedValue($obj);
         if($rangedValue > 0) $power += $rangedValue;
     }
+    // Retort N: while this card is retaliating, it gets +N POWER
+    if(DecisionQueueController::GetVariable("CombatRetaliator") !== null && HasRetort($obj)) {
+        $power += GetRetortValue($obj);
+    }
     return $power;
 }
 
@@ -6788,12 +6792,10 @@ function HasVigor($obj) {
  */
 function HasSteadfast($obj) {
     if(HasNoAbilities($obj)) return false;
-    // Static Steadfast keyword cards
-    if(in_array($obj->CardID, ["sl7ddcgw05", "8lrj52215u", "zk96yd609g", "jwsl7dedg6"])) return true;
-    // Veteran Blazebearer (23yfzk96yd): [Class Bonus] Steadfast
-    if($obj->CardID === "23yfzk96yd" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
-    // War Marshal (dlvr8wunhg): [Class Bonus] Steadfast
-    if($obj->CardID === "dlvr8wunhg" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
+    // Generated keyword dictionary (handles Class Bonus conditions automatically)
+    if(HasKeyword_Steadfast($obj)) return true;
+    // sl7ddcgw05: missed by keyword parser (comma-separated keyword line)
+    if($obj->CardID === "sl7ddcgw05") return true;
     // Krustallan Patrol (8sugly4wif): Steadfast while fostered
     if($obj->CardID === "8sugly4wif" && IsFostered($obj)) return true;
     // Jadelight Protector (o18wr3f4ab): allies have Steadfast while Shifting Currents face South
@@ -6811,6 +6813,68 @@ function HasSteadfast($obj) {
     // TurnEffect-based Steadfast (e.g. from Mortal Ambition)
     if(in_array("STEADFAST", $obj->TurnEffects)) return true;
     return false;
+}
+
+/**
+ * Check whether a field object currently has Retort.
+ * Retort N: "As long as this ally is retaliating, it gets +N [POWER]."
+ * Sources:
+ *   - Static keyword from generated dictionary (HasKeyword_Retort)
+ *   - 0oyxjld8jh (Guan Yu, Prime Exemplar): Retort 2 (missed by parser — comma-separated keyword line)
+ *   - o18wr3f4ab (Jadelight Protector): allies have Retort 1 while Shifting Currents face South
+ *   - TurnEffect "RETORT_N" (e.g. granted by spells/abilities until end of turn)
+ */
+function HasRetort($obj) {
+    if(HasNoAbilities($obj)) return false;
+    if(HasKeyword_Retort($obj)) return true;
+    // 0oyxjld8jh (Guan Yu, Prime Exemplar): Retort 2 — missed by parser (comma-separated keyword line)
+    if($obj->CardID === "0oyxjld8jh") return true;
+    // Jadelight Protector (o18wr3f4ab): allies have Retort 1 while Shifting Currents face South
+    if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "o18wr3f4ab" && !HasNoAbilities($fObj)
+                && GetShiftingCurrents($obj->Controller) === "SOUTH") {
+                return true;
+            }
+        }
+    }
+    // TurnEffect-based Retort (e.g. granted by spells/abilities until end of turn)
+    foreach($obj->TurnEffects as $te) {
+        if(strpos($te, "RETORT_") === 0) return true;
+    }
+    return false;
+}
+
+/**
+ * Returns the numeric Retort bonus for a field object, or 0 if it has no Retort.
+ */
+function GetRetortValue($obj) {
+    $val = intval(GetKeyword_Retort_Value($obj));
+    if($val > 0) return $val;
+    if($obj->CardID === "0oyxjld8jh") return 2;
+    // Jadelight Protector (o18wr3f4ab): Retort 1 while Shifting Currents face South
+    if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "o18wr3f4ab" && !HasNoAbilities($fObj)
+                && GetShiftingCurrents($obj->Controller) === "SOUTH") {
+                return 1;
+            }
+        }
+    }
+    // TurnEffect-based Retort — value encoded as "RETORT_N"
+    $maxTE = 0;
+    foreach($obj->TurnEffects as $te) {
+        if(strpos($te, "RETORT_") === 0) {
+            $maxTE = max($maxTE, intval(substr($te, 7)));
+        }
+    }
+    return $maxTE;
 }
 
 function HasStealth($obj) {
