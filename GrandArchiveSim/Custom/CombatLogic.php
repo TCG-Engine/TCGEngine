@@ -980,6 +980,14 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         }
     }
 
+    // Xiao Qiao, Cinderkeeper (3hgldrogit): [Class Bonus] attacks can't be retaliated
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj !== null && $attackerObj->CardID === "3hgldrogit" && !HasNoAbilities($attackerObj)
+        && IsClassBonusActive($attackerPlayer, ["ASSASSIN", "TAMER"])) {
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        return;
+    }
+
     // Flip to defender's perspective
     $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);

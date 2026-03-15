@@ -1677,12 +1677,14 @@ function DoAllyDestroyed($player, $mzCard) {
     $controller = $obj->Controller;
     $suppressed = HasNoAbilities($obj);
     OnLeaveField($player, $mzCard);
+    // Xiao Qiao, Cinderkeeper (3hgldrogit): if unit was hit by Xiao Qiao this turn, banish instead
+    $xiaoQiaoBanish = in_array("HIT_BY_3hgldrogit", $obj->TurnEffects);
     // Fireworks Display (sx6q3p6i0i): banish instead of graveyard
     $fireworksBanish = GlobalEffectCount($controller, "FIREWORKS_BANISH") > 0;
-    if(IsRenewable($obj->CardID) && !$fireworksBanish) {
+    if(IsRenewable($obj->CardID) && !$fireworksBanish && !$xiaoQiaoBanish) {
         // Renewable: goes to material deck instead of graveyard/banish
         $dest = $player == $controller ? "myMaterial" : "theirMaterial";
-    } else if($fireworksBanish) {
+    } else if($fireworksBanish || $xiaoQiaoBanish) {
         $dest = $player == $controller ? "myBanish" : "theirBanish";
     } else {
         $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
@@ -1896,6 +1898,21 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
                         $ge[$gIdx]->removed = true;
                         break;
                     }
+                }
+            }
+        }
+    }
+
+    // Wildgrowth Feline (3krdvxapdp): [Class Bonus] when another Animal/Beast ally enters, put a buff counter on Wildgrowth Feline
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        $subtypes = CardSubtypes($added->CardID);
+        if(PropertyContains($subtypes, "ANIMAL") || PropertyContains($subtypes, "BEAST")) {
+            for($wgf = 0; $wgf < count($field); ++$wgf) {
+                if(!$field[$wgf]->removed && $field[$wgf]->CardID === "3krdvxapdp"
+                    && !HasNoAbilities($field[$wgf])
+                    && $wgf !== (count($field) - 1)
+                    && IsClassBonusActive($player, ["TAMER"])) {
+                    AddCounters($player, "myField-" . $wgf, "buff", 1);
                 }
             }
         }
@@ -2840,6 +2857,34 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "4le7ehjyxs": // Aqueous Stallion: +3 POWER if 4+ water cards in graveyard
+            {
+                global $playerID;
+                $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
+                if(count(ZoneSearch($gravZone, cardElements: ["WATER"])) >= 4) {
+                    $power += 3;
+                }
+            }
+            break;
+        case "51l757wvez": // Royal Bear: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                $power += 1;
+            }
+            break;
+        case "59ueoujs9f": // Flamewing Fowl: [Class Bonus] +1 POWER while attacking a champion
+            if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget != "-" && $combatTarget != "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+                        $combatAttackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+                        if($combatAttackerMZ !== null && $obj->GetMzID() === $combatAttackerMZ) {
+                            $power += 1;
+                        }
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -3034,6 +3079,13 @@ function ObjectCurrentPower($obj) {
                 break;
             case "qzzadf9q1v-2": // Powercell: +1 POWER until end of turn (stacks to +2)
                 $power += 1;
+                break;
+            case "3bxtj3te9i": // Combat Training: +2 POWER (or +3 if unique) until end of turn
+                if(PropertyContains(EffectiveCardType($obj), "UNIQUE")) {
+                    $power += 3;
+                } else {
+                    $power += 2;
+                }
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -3344,6 +3396,11 @@ function ObjectCurrentHP($obj) {
                 $cardLife += 2;
             }
             break;
+        case "51l757wvez": // Royal Bear: [Class Bonus] +1 LIFE
+            if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                $cardLife += 1;
+            }
+            break;
         default: break;
     }
     // Exalted Dorumegian Throne (p4lpnvx7mn): allies get +1 LIFE
@@ -3511,6 +3568,30 @@ function DoDrawCard($player, $amount=1) {
             if($titheOnField && DrawTurnCount($player) >= 3) {
                 return; // Draw cap reached
             }
+        }
+        // Mandate of Honor (5ckzgqa186): if controller has a unique ally, players with influence 8+ can't draw
+        $mandateBlocked = false;
+        for($mp = 1; $mp <= 2; ++$mp) {
+            $mField = GetField($mp);
+            $hasMandateOnField = false;
+            $hasUniqueAlly = false;
+            foreach($mField as $mObj) {
+                if($mObj->removed) continue;
+                if($mObj->CardID === "5ckzgqa186" && !HasNoAbilities($mObj)) $hasMandateOnField = true;
+                if(PropertyContains(EffectiveCardType($mObj), "ALLY") && PropertyContains(EffectiveCardType($mObj), "UNIQUE")) $hasUniqueAlly = true;
+            }
+            if($hasMandateOnField && $hasUniqueAlly) {
+                $pHand = &GetHand($player);
+                $pMem = &GetMemory($player);
+                $influence = count($pHand) + count($pMem);
+                if($influence >= 8) {
+                    $mandateBlocked = true;
+                    break;
+                }
+            }
+        }
+        if($mandateBlocked) {
+            return; // Draw prevented by Mandate of Honor
         }
         if(count($zone) == 0) {
             return;
@@ -4759,6 +4840,7 @@ function ClassBonusActivateCostReduction($cardID) {
         '0k0p6n5nr7' => 2, // Scorching Strafe: [Class Bonus] costs 2 less
         '16hrusesqi' => 2, // Invigoration: [Class Bonus] costs 2 less
         '1m48260b7b' => 2, // Razorgale Calling: [Class Bonus] costs 2 less
+        '3cmrkv3y16' => 2, // Cyclical Breeze: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
