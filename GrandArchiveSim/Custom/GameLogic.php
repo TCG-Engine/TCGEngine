@@ -32,6 +32,8 @@ $Imbue_Cards["08kkz07nau"] = 3; // Surging Bolt (FIRE)
 $Imbue_Cards["fz1nr5a3pm"] = 2; // Windmill Engineer (WIND)
 $Imbue_Cards["vw2ifz1nr5"] = 3; // Andronika (WIND)
 $Imbue_Cards["4a87hk0bkh"] = 3; // Splashing Spearguard (WATER)
+$Imbue_Cards["disqw3d0o5"] = 4; // Captain Archer (WIND)
+$Imbue_Cards["ep3ajxiyd3"] = 2; // Squallbind Pounce (WIND)
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -246,6 +248,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     // Primordial Ritual (4mcnqsm3n9): mandatory sacrifice of an ally you control
     if($sourceObject->CardID === "4mcnqsm3n9") {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(empty($allies)) return; // No allies to sacrifice — block activation
+    }
+
+    // Primeval Ritual (fan41iqm8b): mandatory sacrifice of an ally you control
+    if($sourceObject->CardID === "fan41iqm8b") {
         $allies = ZoneSearch("myField", ["ALLY"]);
         if(empty($allies)) return; // No allies to sacrifice — block activation
     }
@@ -910,6 +918,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Primeval Ritual (fan41iqm8b): mandatory sacrifice of an ally
+    if($obj->CardID === "fan41iqm8b") {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($allies)) {
+            $allyChoices = implode("&", $allies);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyChoices, 100, tooltip:"Sacrifice_an_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PrimordialRitualSacrifice", 100);
+        }
+    }
+
     //1.3 Declaring Costs — Turbo Charge (cnqsm3n9yv) / Atmos Armor Type-Hermes (dlx7mdk0xh): sacrifice a Powercell
     if($obj->CardID === "cnqsm3n9yv" || $obj->CardID === "dlx7mdk0xh") {
         $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
@@ -1374,6 +1392,16 @@ function OnCardActivated($player, $mzCard) {
             case "aKgdkLSBza": // Wilderness Harpist: when you activate a Melody or Harmony, +1 level this turn
                 if(PropertyContains($subtypes, "MELODY") || PropertyContains($subtypes, "HARMONY")) {
                     AddTurnEffect("myField-" . $fi, "aKgdkLSBza");
+                }
+                break;
+            case "f28y5rn0dt": // Sly Songstress: whenever you activate a Harmony or Melody, may discard→draw
+                if((PropertyContains($subtypes, "HARMONY") || PropertyContains($subtypes, "MELODY"))
+                    && !HasNoAbilities($field[$fi])) {
+                    $hand = &GetHand($player);
+                    if(count($hand) > 0) {
+                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Discard_a_card_to_draw_a_card?(Sly_Songstress)");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "SlySongstressDiscard|" . $fi, 1);
+                    }
                 }
                 break;
             case "41WnFOT5YS": // Avalon, Cursed Isle: whenever you activate a water element card,
@@ -2401,6 +2429,16 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
                         break;
                     }
                 }
+            }
+        }
+    }
+
+    // Wildheart Hymn (f05n4ulo84): whenever an Animal enters the field under your control, put a buff counter on it
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        $subtypes = CardSubtypes($added->CardID);
+        if(PropertyContains($subtypes, "ANIMAL")) {
+            if(GlobalEffectCount($player, "f05n4ulo84") > 0) {
+                AddCounters($player, "myField-" . (count($field) - 1), "buff", 1);
             }
         }
     }
@@ -7621,6 +7659,10 @@ function HasStealth($obj) {
     if($obj->CardID === "l6gt7lh9v2") {
         if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
     }
+    // Sly Songstress (f28y5rn0dt): [Class Bonus] Stealth
+    if($obj->CardID === "f28y5rn0dt") {
+        if(IsClassBonusActive($obj->Controller, ["TAMER"])) return true;
+    }
     // Blackmarket Broker (hHVf5xyjob): CB stealth while champion has 3+ prep counters
     if($obj->CardID === "hHVf5xyjob") {
         if(IsClassBonusActive($obj->Controller, CardClasses("hHVf5xyjob"))) {
@@ -11136,6 +11178,43 @@ $customDQHandlers["PrimordialRitualSacrifice"] = function($player, $parts, $last
     if($lastDecision && $lastDecision !== "-") {
         DoSacrificeFighter($player, $lastDecision);
         DecisionQueueController::CleanupRemovedCards();
+    }
+};
+
+// Sly Songstress (f28y5rn0dt): whenever you activate Harmony/Melody, may discard→draw
+$customDQHandlers["SlySongstressDiscard"] = function($player, $parts, $lastDecision) {
+    $fieldIdx = intval($parts[0]);
+    if($lastDecision !== "YES") return;
+    $field = &GetField($player);
+    if(!isset($field[$fieldIdx]) || $field[$fieldIdx]->removed || $field[$fieldIdx]->CardID !== "f28y5rn0dt") return;
+    $hand = &GetHand($player);
+    if(count($hand) == 0) return;
+    $handCards = [];
+    for($i = 0; $i < count($hand); ++$i) {
+        if(!$hand[$i]->removed) $handCards[] = "myHand-" . $i;
+    }
+    if(empty($handCards)) return;
+    $handStr = implode("&", $handCards);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $handStr, 1, "Discard_a_card");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SlySongstressDrawAfterDiscard", 1);
+};
+
+$customDQHandlers["SlySongstressDrawAfterDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision && $lastDecision !== "-") {
+        DoDiscardCard($player, $lastDecision);
+        Draw($player, 1);
+    }
+};
+
+$customDQHandlers["SquallbindPounceDistant"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-") {
+        BecomeDistant($player, $lastDecision);
+    }
+};
+
+$customDQHandlers["SquallbindPounceSuppress"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-") {
+        SuppressAlly($player, $lastDecision);
     }
 };
 
