@@ -650,6 +650,14 @@ function OnAttackTrigger($player, $mzID) {
             }
         }
     }
+
+    // Hulao Gate, Sun's Ascent (snke7lneo4): whenever a unit declares an attack, deal 2 damage to it
+    foreach(array_merge(GetField(1), GetField(2)) as $hgObj) {
+        if(!$hgObj->removed && $hgObj->CardID === "snke7lneo4" && !HasNoAbilities($hgObj)) {
+            DealDamage($player, $hgObj->GetMzID(), $mzID, 2);
+            break;
+        }
+    }
 }
 
 /**
