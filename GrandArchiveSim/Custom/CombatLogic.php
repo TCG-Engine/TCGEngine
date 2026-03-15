@@ -1287,6 +1287,10 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::ClearVariable("CombatRetaliator");
     if($defenderPower > 0 && $defender->Damage < ObjectCurrentHP($defender)) {
         DealDamage($player, $lastDecision, $attackerMZ, $defenderPower);
+        // Rest the retaliator after dealing retaliation damage, unless it has Steadfast
+        if(!HasSteadfast($defender)) {
+            OnRestCard($player, $lastDecision);
+        }
     }
 };
 

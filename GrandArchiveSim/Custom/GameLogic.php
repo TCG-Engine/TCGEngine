@@ -633,6 +633,27 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Determined Spearman (c8z5ntioqs): Equestrian — costs 1 less while you control a Horse ally
+    if($obj->CardID === "c8z5ntioqs") {
+        if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]))) {
+            $reserveCost = max(0, $reserveCost - 1);
+        }
+    }
+
+    // Shu Frontliner (uhaao91ee1): Equestrian — costs 1 less while you control a Horse ally
+    if($obj->CardID === "uhaao91ee1") {
+        if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]))) {
+            $reserveCost = max(0, $reserveCost - 1);
+        }
+    }
+
+    // Cao Cao, Aspirant of Chaos (d5og6z31q9): Equestrian — costs 3 less while you control a Horse ally
+    if($obj->CardID === "d5og6z31q9") {
+        if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]))) {
+            $reserveCost = max(0, $reserveCost - 3);
+        }
+    }
+
     // Hire Mercenaries (8swok9u930): costs 1 less if opponent controls 1+ allies
     if($obj->CardID === "8swok9u930") {
         if(!empty(ZoneSearch("theirField", ["ALLY"]))) {
@@ -3443,6 +3464,24 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "v5ppxyu1jm": // Nanyue Portsman: Equestrian — +1 POWER while you control a Horse ally
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["HORSE"]))) {
+                    $power += 1;
+                }
+            }
+            break;
+        case "dlvr8wunhg": // War Marshal: [CB] Equestrian — +1 POWER while you control a Horse ally
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["HORSE"]))) {
+                    $power += 1;
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -3808,6 +3847,9 @@ function ObjectCurrentPower($obj) {
             case "aKgdkLSBza": // Wilderness Harpist: +1 level (actually power) from Melody/Harmony activation
                 $power += 1;
                 break;
+            case "yrm3xibmoz": // Stolid Vanguard: Equestrian On Enter +2 POWER until end of turn
+                $power += 2;
+                break;
             default: break;
         }
     }
@@ -4072,6 +4114,20 @@ function ObjectCurrentHP($obj) {
         case "51l757wvez": // Royal Bear: [Class Bonus] +1 LIFE
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
                 $cardLife += 1;
+            }
+            break;
+        case "c8z5ntioqs": // Determined Spearman: [Level 1+] +1 LIFE
+            if(PlayerLevel($obj->Controller) >= 1) {
+                $cardLife += 1;
+            }
+            break;
+        case "dlvr8wunhg": // War Marshal: [CB] Equestrian — +1 LIFE while you control a Horse ally
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["HORSE"]))) {
+                    $cardLife += 1;
+                }
             }
             break;
         default: break;
@@ -6512,6 +6568,10 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "eqhj1trn0y" && IsClassBonusActive($obj->Controller, ["CLERIC"])) return true;
     // Relic of Sunken Past (dqqwey9xys): [Class Bonus] Floating Memory
     if($obj->CardID === "dqqwey9xys" && IsClassBonusActive($obj->Controller, ["TAMER"])) return true;
+    // Nanyue Portsman (v5ppxyu1jm): [Class Bonus] Floating Memory
+    if($obj->CardID === "v5ppxyu1jm" && IsClassBonusActive($obj->Controller, ["GUARDIAN", "WARRIOR"])) return true;
+    // Shu Frontliner (uhaao91ee1): [Class Bonus] Floating Memory
+    if($obj->CardID === "uhaao91ee1" && IsClassBonusActive($obj->Controller, ["WARRIOR"])) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
     if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
         for($p = 1; $p <= 2; $p++) {
@@ -6711,6 +6771,45 @@ function HasVigor($obj) {
             }
         }
     }
+    // Ritai Guard (jbc30d18ys): [CB] Equestrian — Vigor while you control a Horse ally
+    if($obj->CardID === "jbc30d18ys" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["HORSE"]))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * Check whether a field object currently has Steadfast.
+ * Steadfast: "This ally can retaliate while rested and doesn't rest to do so."
+ */
+function HasSteadfast($obj) {
+    if(HasNoAbilities($obj)) return false;
+    // Static Steadfast keyword cards
+    if(in_array($obj->CardID, ["sl7ddcgw05", "8lrj52215u", "zk96yd609g", "jwsl7dedg6"])) return true;
+    // Veteran Blazebearer (23yfzk96yd): [Class Bonus] Steadfast
+    if($obj->CardID === "23yfzk96yd" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
+    // War Marshal (dlvr8wunhg): [Class Bonus] Steadfast
+    if($obj->CardID === "dlvr8wunhg" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
+    // Krustallan Patrol (8sugly4wif): Steadfast while fostered
+    if($obj->CardID === "8sugly4wif" && IsFostered($obj)) return true;
+    // Jadelight Protector (o18wr3f4ab): allies have Steadfast while Shifting Currents face South
+    if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "o18wr3f4ab" && !HasNoAbilities($fObj)
+                && GetShiftingCurrents($obj->Controller) === "SOUTH") {
+                return true;
+            }
+        }
+    }
+    // TurnEffect-based Steadfast (e.g. from Mortal Ambition)
+    if(in_array("STEADFAST", $obj->TurnEffects)) return true;
     return false;
 }
 
@@ -6953,6 +7052,14 @@ function HasTaunt($obj) {
     // Powered Defender (z07nau5sw9): [Class Bonus][Level 2+] Taunt
     if($obj->CardID === "z07nau5sw9") {
         if(IsClassBonusActive($obj->Controller, ["GUARDIAN"]) && PlayerLevel($obj->Controller) >= 2) {
+            return true;
+        }
+    }
+    // Ritai Guard (jbc30d18ys): [CB] Equestrian — Taunt while you control a Horse ally
+    if($obj->CardID === "jbc30d18ys" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["HORSE"]))) {
             return true;
         }
     }

@@ -27,29 +27,6 @@ The Jin champion line centers on Polearm weapons and an aggressive cross-turn at
 
 ---
 
-### 3. Equestrian Keyword Cluster
-
-Ten Human allies share the **Equestrian** keyword, granting cost reductions, conditional passives, or On-Enter effects that require controlling at least one Horse ally. The Equestrian keyword check is the shared primitive; once confirmed working, each card is a small variation.
-
-**New engine needs:**
-- `ZoneSearch("myField", cardSubtypes: ["HORSE"])` condition — if Horse subtype query already works, no new engine primitive is needed.
-- Persistent stat passives (War Marshal, Nanyue Portsman, Determined Spearman) must re-evaluate dynamically as Horses enter or leave the field mid-turn.
-
-| Card | ID | Equestrian Bonus |
-|------|----|-----------------|
-| Stolid Vanguard | `yrm3xibmoz` | On Enter: if you control a Horse ally → CARDNAME gets +2 POWER until EOT |
-| Determined Spearman | `c8z5ntioqs` | Costs 1 less while you control a Horse; separate passive: Level 1+ → +1 LIFE |
-| Skilled Plainsman | `55u41ilks4` | Class Bonus On Enter: if you control a Horse → put a buff counter on CARDNAME |
-| War Marshal | `dlvr8wunhg` | Class Bonus: Steadfast; Class Bonus Equestrian: as long as you control a Horse → +1 POWER and +1 LIFE |
-| Yunzhou Cavalry | `ann23jkuys` | Class Bonus: Ranged 2; On Enter: if you control a Horse → CARDNAME becomes distant |
-| Ritai Guard | `jbc30d18ys` | Class Bonus Equestrian: as long as you control a Horse → gains Taunt and Vigor |
-| Poised Rearguard | `qso7cbzrky` | Hindered; Class Bonus On Enter: if you control a Horse → wake up CARDNAME |
-| Shu Frontliner | `uhaao91ee1` | Costs 1 less while you control a Horse; Class Bonus: Floating Memory |
-| Nanyue Portsman | `v5ppxyu1jm` | Gets +1 POWER while you control a Horse; Class Bonus: Floating Memory |
-| Cao Cao, Aspirant of Chaos | `d5og6z31q9` | Unique; costs 3 less while you control a Horse; Class Bonus On Attack: banish a floating-memory GY card → deal 2 damage to each rested unit you don't control |
-
----
-
 ### 4. Empower Engine
 
 AMB introduces several items and allies that grant **Empower** and several spells that branch on whether they are in an empowered state at resolution. Once the Empower system is confirmed working, these follow repeatable patterns.
