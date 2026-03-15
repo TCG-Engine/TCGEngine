@@ -24,10 +24,10 @@ function ShowIconChoiceUI(param, tooltip, decisionIndex, submitCallback) {
 
   // Arrow symbols for each direction
   var arrowSymbols = {
-    NORTH: '\u25B2', // ▲
-    SOUTH: '\u25BC', // ▼
-    EAST:  '\u25B6', // ▶
-    WEST:  '\u25C0'  // ◀
+    NORTH: '\u5317\u25B2', // ▲
+    SOUTH: '\u5357\u25BC', // ▼
+    EAST:  '\u4E1C\u25B6', // ▶
+    WEST:  '\u25C0\u897F'  // ◀
   };
 
   var dirLabels = {
