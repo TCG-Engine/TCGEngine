@@ -581,6 +581,39 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Cavalier Rescue (75uhspxqme): Equestrian — costs 2 less if you control a Horse ally
+    if($obj->CardID === "75uhspxqme") {
+        if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]))) {
+            $reserveCost = max(0, $reserveCost - 2);
+        }
+    }
+
+    // Hire Mercenaries (8swok9u930): costs 1 less if opponent controls 1+ allies
+    if($obj->CardID === "8swok9u930") {
+        if(!empty(ZoneSearch("theirField", ["ALLY"]))) {
+            $reserveCost = max(0, $reserveCost - 1);
+        }
+    }
+
+    // Lost Wisdom (8codb9zatv): [Class Bonus] costs 2 less if you control 1+ unique allies
+    if($obj->CardID === "8codb9zatv" && IsClassBonusActive($player, ["CLERIC", "MAGE"])) {
+        $myField = GetZone("myField");
+        foreach($myField as $fObj) {
+            if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "ALLY") && PropertyContains(EffectiveCardType($fObj), "UNIQUE")) {
+                $reserveCost = max(0, $reserveCost - 2);
+                break;
+            }
+        }
+    }
+
+    // Paired Minds, Kindred Souls (7qjnqww067): global effect — next Horse ally costs 2 less
+    if(GlobalEffectCount($player, "7qjnqww067") > 0) {
+        if(PropertyContains(CardType($obj->CardID), "ALLY") && PropertyContains(CardSubtypes($obj->CardID), "HORSE")) {
+            $reserveCost = max(0, $reserveCost - 2);
+            RemoveGlobalEffect($player, "7qjnqww067");
+        }
+    }
+
     // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
     if($hasAllyLink) {
         $allyTargets = ZoneSearch("myField", ["ALLY"]);
@@ -1241,6 +1274,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "4nmxqsm4o9": // The Elysian Astrolabe — REST
         case "0yetaebjlw": // Lunar Conduit — REST
         case "q2svdv3zb9": // Clockwork Musicbox — REST
+        case "5pw07bh5wf": // Fractal of Sparks — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -1333,6 +1367,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "uhuy4xippo": // Fractal of Snow: sacrifice self to graveyard
+        case "5fnmnpavo4": // Fractal of Polar Depths: sacrifice self to graveyard
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -3053,6 +3088,9 @@ function ObjectCurrentPower($obj) {
             case "vnta6qsesw_POWER": // Take Aim: +2 POWER on next attack
                 $power += 2;
                 break;
+            case "5ramr16052_POWER": // Jin, Zealous Maverick: +1 POWER on next attack
+                $power += 1;
+                break;
             case "ATTUNE_FLAMES_BUFF": // Attune with Flames: +5 POWER until end of next turn
                 $power += 5;
                 break;
@@ -3099,6 +3137,10 @@ function ObjectCurrentPower($obj) {
                 // Amorphous Strike: +X POWER from banished attack card (effect ID: 5kt3q2svd5-X)
                 if(strpos($effectID, "5kt3q2svd5-") === 0) {
                     $power += intval(substr($effectID, strlen("5kt3q2svd5-")));
+                }
+                // Infusion of Crescent Jade (91jnc6v71t): +X POWER to target Polearm weapon
+                if(strpos($effectID, "91jnc6v71t-") === 0) {
+                    $power += intval(substr($effectID, strlen("91jnc6v71t-")));
                 }
                 break;
         }
@@ -3518,6 +3560,9 @@ function ObjectCurrentHP($obj) {
                 break;
             case "akb1k0zi5h": // Effigy of Gaia: Animal/Beast allies get +2 LIFE until end of turn
                 $cardLife += 2;
+                break;
+            case "75uhspxqme": // Cavalier Rescue: +3 LIFE until end of turn
+                $cardLife += 3;
                 break;
             default: break;
         }
@@ -4841,6 +4886,7 @@ function ClassBonusActivateCostReduction($cardID) {
         '16hrusesqi' => 2, // Invigoration: [Class Bonus] costs 2 less
         '1m48260b7b' => 2, // Razorgale Calling: [Class Bonus] costs 2 less
         '3cmrkv3y16' => 2, // Cyclical Breeze: [Class Bonus] costs 2 less
+        '6ilt42sehq' => 1, // Slipstream Vault: [Class Bonus] costs 1 less (if targets unique ally)
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -4857,6 +4903,16 @@ function DealChampionDamage($player, $amount=1) {
                 $prevented = min(4, $amount);
                 $amount -= $prevented;
                 $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "yj2rJBREH8"));
+            }
+            // Nascent Barrier (6bc3ogf0o8): prevent up to N damage (encoded as NASCENT_BARRIER_N)
+            foreach($obj->TurnEffects as $te) {
+                if(strpos($te, "NASCENT_BARRIER_") === 0) {
+                    $preventAmount = intval(substr($te, strlen("NASCENT_BARRIER_")));
+                    $prevented = min($preventAmount, $amount);
+                    $amount -= $prevented;
+                    $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== $te));
+                    break;
+                }
             }
             // Blazing Charge (s5jwsl7ded): champion takes +1 damage
             if(in_array("BLAZING_CHARGE_NEXT_TURN", $obj->TurnEffects)) {
@@ -7097,6 +7153,17 @@ function DomainRecollectionUpkeep($player) {
                     }
                 }
                 break;
+            case "95ynk6lmnf": // Guandu, Theater of War: remove 2 battle counters or sacrifice
+                {
+                    $battleCount = GetCounterCount($field[$i], "battle");
+                    if($battleCount >= 2) {
+                        RemoveCounters($player, "myField-" . $i, "battle", 2);
+                    } else {
+                        DoSacrificeFighter($player, "myField-" . $i);
+                        DecisionQueueController::CleanupRemovedCards();
+                    }
+                }
+                break;
         }
     }
 }
@@ -7195,6 +7262,51 @@ $customDQHandlers["AvalonMill"] = function($player, $parts, $lastDecision) {
     } else {
         MillCards($player, "theirDeck", "theirGraveyard", 2);
     }
+};
+
+// ============================================================================
+// Paired Minds, Kindred Souls (7qjnqww067) helpers
+// ============================================================================
+
+/**
+ * Queue the Horse ally choice from TempZone, or finish directly if none found.
+ */
+function PairedMindsChoose($player) {
+    $horseAllies = ZoneSearch("myTempZone", ["ALLY"], cardSubtypes: ["HORSE"]);
+    if(!empty($horseAllies)) {
+        $horseStr = implode("&", $horseAllies);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $horseStr, 1, "Reveal_a_Horse_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PairedMindsResult", 1);
+    } else {
+        PairedMindsFinish($player);
+    }
+}
+
+function PairedMindsFinish($player) {
+    // Put remaining TempZone cards on bottom of deck
+    $tempRemaining = ZoneSearch("myTempZone");
+    $n = count($tempRemaining);
+    for($i = 0; $i < $n; ++$i) {
+        MZMove($player, "myTempZone-0", "myDeck");
+    }
+    // [Class Bonus] if unique ally, next Horse ally costs 2 less
+    if(IsClassBonusActive($player, ["WARRIOR"])) {
+        $myField = GetZone("myField");
+        foreach($myField as $fObj) {
+            if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "ALLY") && PropertyContains(EffectiveCardType($fObj), "UNIQUE")) {
+                AddGlobalEffects($player, "7qjnqww067");
+                break;
+            }
+        }
+    }
+}
+
+$customDQHandlers["PairedMindsResult"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        DoRevealCard($player, $lastDecision);
+        MZMove($player, $lastDecision, "myHand");
+    }
+    PairedMindsFinish($player);
 };
 
 // ============================================================================

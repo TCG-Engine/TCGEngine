@@ -615,6 +615,30 @@ function OnAttackTrigger($player, $mzID) {
             }
         }
     }
+
+    // Jin, Zealous Maverick (5ramr16052): next attack +1 POWER + On Attack wake up — consume and apply
+    if($obj !== null && in_array("5ramr16052", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "5ramr16052_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["5ramr16052"]));
+        WakeupCard($player, $mzID);
+    }
+
+    // Guandu, Theater of War (95ynk6lmnf): whenever you declare an attack with an ally
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY")) {
+        $field = &GetField($player);
+        for($gi = 0; $gi < count($field); ++$gi) {
+            if(!$field[$gi]->removed && $field[$gi]->CardID === "95ynk6lmnf" && !HasNoAbilities($field[$gi])) {
+                AddCounters($player, "myField-" . $gi, "battle", 1);
+                AddGlobalEffects($player, "GUANDU_ATTACK_TRIGGER");
+                $guanduCount = GlobalEffectCount($player, "GUANDU_ATTACK_TRIGGER");
+                if($guanduCount == 3) {
+                    DrawIntoMemory($player, 1);
+                }
+                Glimpse($player, 1);
+                break;
+            }
+        }
+    }
 }
 
 /**
@@ -1414,6 +1438,20 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(in_array("BARRIER_PREVENT_DAMAGE", $targetObj->TurnEffects)) {
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));
         return; // Damage fully prevented
+    }
+
+    // Nascent Barrier (6bc3ogf0o8): prevent up to N damage to champion (encoded as NASCENT_BARRIER_N)
+    if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        foreach($targetObj->TurnEffects as $te) {
+            if(strpos($te, "NASCENT_BARRIER_") === 0) {
+                $preventAmount = intval(substr($te, strlen("NASCENT_BARRIER_")));
+                $prevented = min($preventAmount, $amount);
+                $amount -= $prevented;
+                $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== $te));
+                break;
+            }
+        }
+        if($amount <= 0) return;
     }
 
     // Storm of Thorns (39i1f0ht2t): prevent 1 damage to units you control this turn;
