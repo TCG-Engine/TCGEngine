@@ -34,6 +34,7 @@ $Imbue_Cards["vw2ifz1nr5"] = 3; // Andronika (WIND)
 $Imbue_Cards["4a87hk0bkh"] = 3; // Splashing Spearguard (WATER)
 $Imbue_Cards["disqw3d0o5"] = 4; // Captain Archer (WIND)
 $Imbue_Cards["ep3ajxiyd3"] = 2; // Squallbind Pounce (WIND)
+$Imbue_Cards["flzvpkc0ni"] = 2; // Moontide Illusionist (WATER)
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -613,6 +614,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     // Rebounding Gust (9e0z7hb9id): costs 2 less while targeting an attacking ally (approximated: during combat)
     if($obj->CardID === "9e0z7hb9id" && IsCombatActive()) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Enervating Decay (jh9s424gjr): [Class Bonus][Level 5+] costs 2 less
+    if($obj->CardID === "jh9s424gjr" && IsClassBonusActive($player, ["CLERIC"]) && PlayerLevel($player) >= 5) {
         $reserveCost = max(0, $reserveCost - 2);
     }
 
@@ -3082,6 +3088,12 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "i59eamoov0": // Baihua, Tranquil Lotus: each opponent recovers 1
+                    if(!HasNoAbilities($field[$i])) {
+                        $opponent = ($turnPlayer == 1) ? 2 : 1;
+                        RecoverChampion($opponent, 1);
+                    }
+                    break;
                 default: break;
             }
         }
@@ -3424,6 +3436,15 @@ function EndPhase() {
                 }
             }
             break;
+        }
+    }
+
+    // Direwolf (jev2kkxuq2): At beginning of your end phase, sacrifice Direwolf
+    $field = &GetField($turnPlayer);
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "jev2kkxuq2" && !HasNoAbilities($field[$i])) {
+            AllyDestroyed($turnPlayer, "myField-" . $i);
+            DecisionQueueController::CleanupRemovedCards();
         }
     }
 
@@ -3946,6 +3967,19 @@ function ObjectCurrentPower($obj) {
                         $power += 2;
                     }
                 }
+            }
+            break;
+        case "fw8yvhf3mz": // Ma Chao, Lupine Huntress: [CB][Level 2+] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["TAMER"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 1;
+            }
+            break;
+        case "hbt487eux7": // Maiden of Primal Virtue: +1 POWER per phantasia you control
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $phantasiaCount = count(ZoneSearch($zone, ["PHANTASIA"]));
+                $power += $phantasiaCount;
             }
             break;
         default: break;
@@ -4704,6 +4738,14 @@ function ObjectCurrentHP($obj) {
                 }
             }
             break;
+        case "hbt487eux7": // Maiden of Primal Virtue: +1 LIFE per phantasia you control
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $phantasiaCount = count(ZoneSearch($zone, ["PHANTASIA"]));
+                $cardLife += $phantasiaCount;
+            }
+            break;
         default: break;
     }
     // Exalted Dorumegian Throne (p4lpnvx7mn): allies get +1 LIFE
@@ -4871,6 +4913,14 @@ function ObjectCurrentHP($obj) {
     // Stand Fast (ao1cfkhbp6): +1 LIFE until beginning of next turn
     if(in_array("ao1cfkhbp6", $obj->TurnEffects)) {
         $cardLife += 1;
+    }
+    // Sage Protection (fqsa372jii): +1 LIFE until end of turn
+    if(in_array("fqsa372jii", $obj->TurnEffects)) {
+        $cardLife += 1;
+    }
+    // Genbu's Command (jjwp945rlb): +3 LIFE until end of turn
+    if(in_array("jjwp945rlb", $obj->TurnEffects)) {
+        $cardLife += 3;
     }
     return $cardLife;
 }
@@ -6669,6 +6719,12 @@ $shiftingCurrentsTransitions["NORTH->WEST"]["1i2luu7dft"] = function($player, $m
     AddTurnEffect($mzID, "1i2luu7dft");
 };
 
+// Solar Providence (gnj9hi5ult): S→N: deal 3 damage to target champion you don't control
+$shiftingCurrentsTransitions["SOUTH->NORTH"]["gnj9hi5ult"] = function($player, $mzID) {
+    $opponent = ($player == 1) ? 2 : 1;
+    DealChampionDamage($opponent, 3);
+};
+
 // --- Shifting Currents Custom DQ Handlers ---
 
 $customDQHandlers["GemOfSearingFlameDamage"] = function($player, $params, $lastDecision) {
@@ -6742,6 +6798,40 @@ function QueueShiftingCurrentsChoice($player, $mode = "any", $optional = true) {
     $handler = ($mode === "adjacent") ? "ChangeShiftingCurrentsAdjacentChoice" : "ChangeShiftingCurrentsChoice";
     DecisionQueueController::AddDecision($player, "CUSTOM", $handler, 1);
 }
+
+// Sage Protection (fqsa372jii): recursive choose up to 3 allies for +1 LIFE
+function SageProtectionChoose($player, $count) {
+    if($count >= 3) return;
+    $allies = ZoneSearch("myField", ["ALLY"]);
+    $allies = FilterSpellshroudTargets($allies);
+    if(empty($allies)) return;
+    $allyStr = implode("&", $allies);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $allyStr, 1, tooltip:"Choose_ally_for_+1_LIFE_(" . ($count + 1) . "/3)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SageProtectionApply|$count", 1);
+}
+
+$customDQHandlers["SageProtectionApply"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    AddTurnEffect($lastDecision, "fqsa372jii");
+    $count = intval($params[0]) + 1;
+    if($count < 3) {
+        SageProtectionChoose($player, $count);
+    }
+};
+
+$customDQHandlers["MaChaoBanish"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    MZMove($player, $lastDecision, "theirBanish");
+};
+
+$customDQHandlers["SolarProvidenceDiscard"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    MZMove($player, $lastDecision, "myGraveyard");
+};
+
+$customDQHandlers["SolarProvidenceSCChoice"] = function($player, $params, $lastDecision) {
+    QueueShiftingCurrentsChoice($player, "any", true);
+};
 
 /**
  * Strategem of Myriad Ice (id0ybub247): recursive banish loop.
@@ -7551,6 +7641,8 @@ function HasVigor($obj) {
     }
     // Brash Defender (i1sh9r9rda): [Level 1+] Vigor — HasKeyword_Vigor uses null PlayerID for level check
     if($obj->CardID === "i1sh9r9rda" && PlayerLevel($obj->Controller) >= 1) return true;
+    // Ma Chao, Lupine Huntress (fw8yvhf3mz): [CB][Level 2+] Vigor
+    if($obj->CardID === "fw8yvhf3mz" && IsClassBonusActive($obj->Controller, ["TAMER"]) && PlayerLevel($obj->Controller) >= 2) return true;
     return false;
 }
 

@@ -263,6 +263,10 @@ function GetValidAttackTargets($attackerMZ) {
             if(!HasNoAbilities($obj) && HasKeyword_Intercept($obj) && !in_array("NO_INTERCEPT", $obj->TurnEffects)) {
                 $interceptTargets[] = $mzID;
             }
+            // INTERCEPT_EOT TurnEffect: dynamically granted intercept until end of turn (e.g. Felicitous Flock tokens)
+            if(!HasNoAbilities($obj) && in_array("INTERCEPT_EOT", $obj->TurnEffects) && !in_array("NO_INTERCEPT", $obj->TurnEffects)) {
+                if(!in_array($mzID, $interceptTargets)) $interceptTargets[] = $mzID;
+            }
             // Awakened Deacon (c9p4lpnvx7): intercept while controlling 2+ phantasias
             if(!HasNoAbilities($obj) && $obj->CardID === "c9p4lpnvx7") {
                 global $playerID;
