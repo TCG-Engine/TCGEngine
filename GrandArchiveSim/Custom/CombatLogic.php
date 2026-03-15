@@ -1776,6 +1776,21 @@ function OnDealDamage($player, $source, $target, $amount) {
             }
         }
     }
+    // Weaken Resistance (bb3oeup7oq): next Spell source damage to this unit +LV
+    if($amount > 0) {
+        $srcObjWR = GetZoneObject($source);
+        if($srcObjWR !== null && PropertyContains(CardSubtypes($srcObjWR->CardID), "SPELL")) {
+            foreach($targetObj->TurnEffects as $wrIdx => $wrEffect) {
+                if(strpos($wrEffect, "WEAKEN_RES_") === 0) {
+                    $wrBonus = intval(substr($wrEffect, 11));
+                    $amount += $wrBonus;
+                    unset($targetObj->TurnEffects[$wrIdx]);
+                    $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                    break;
+                }
+            }
+        }
+    }
     $targetObj->Damage += $amount;
 
     // Foster tracking: mark that this unit received damage and remove fostered state
@@ -1837,6 +1852,21 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
             if(GlobalEffectCount($srcCtrl, "PRIMA_MATERIA_BOOST") > 0) {
                 $amount += 3;
                 RemoveGlobalEffect($srcCtrl, "PRIMA_MATERIA_BOOST");
+            }
+        }
+    }
+    // Weaken Resistance (bb3oeup7oq): next Spell source damage to this unit +LV
+    if($amount > 0) {
+        $srcObjWR2 = GetZoneObject($source);
+        if($srcObjWR2 !== null && PropertyContains(CardSubtypes($srcObjWR2->CardID), "SPELL")) {
+            foreach($targetObj->TurnEffects as $wrIdx => $wrEffect) {
+                if(strpos($wrEffect, "WEAKEN_RES_") === 0) {
+                    $wrBonus = intval(substr($wrEffect, 11));
+                    $amount += $wrBonus;
+                    unset($targetObj->TurnEffects[$wrIdx]);
+                    $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                    break;
+                }
             }
         }
     }

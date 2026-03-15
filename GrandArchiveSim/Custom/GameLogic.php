@@ -3196,6 +3196,15 @@ function ObjectCurrentPower($obj) {
                     $power += 2;
                 }
                 break;
+            case "bhhdb7x044": // Tricky Chimps: [CB] On Enter +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "b65hiv400w": // Ash Filcher: [CB] On Attack banish fire from GY +2 POWER
+                $power += 2;
+                break;
+            case "az2b8nfh95": // Primal Whip: [CB][Lv2+] On Attack +1 POWER to non-Human ally
+                $power += 1;
+                break;
             default: break;
         }
     }
@@ -5137,8 +5146,13 @@ $cbFastActivationCards = [
     "jozihslnhz" => ["ASSASSIN"], // Sinister Mindreaver
 ];
 
+// Cards with unconditional Fast Activation (no class bonus required)
+$unconditionalFastCards = [
+    "aljx2ru1w3" => true, // Flashfire Horse
+];
+
 function GetPlayableFastCards($player) {
-    global $cbFastActivationCards;
+    global $cbFastActivationCards, $unconditionalFastCards;
     $hand = &GetHand($player);
     $fastCards = [];
     for($i = 0; $i < count($hand); $i++) {
@@ -5148,6 +5162,8 @@ function GetPlayableFastCards($player) {
         if($speed === true) {
             $fastCards[] = "myHand-" . $i;
         } elseif(isset($cbFastActivationCards[$obj->CardID]) && IsClassBonusActive($player, $cbFastActivationCards[$obj->CardID])) {
+            $fastCards[] = "myHand-" . $i;
+        } elseif(isset($unconditionalFastCards[$obj->CardID])) {
             $fastCards[] = "myHand-" . $i;
         }
     }
@@ -5947,6 +5963,21 @@ function BecomeDistant($player, $mzID) {
         if(count($deck) >= 2) {
             DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_top_2_cards_of_deck_into_graveyard?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "ImperialScoutMill", 1);
+        }
+    }
+    // Liu Bei, Oathkeeper (a53rqmuqxf): whenever another unit you control becomes distant,
+    // Liu Bei becomes distant.
+    if($obj === null || $obj->CardID !== "a53rqmuqxf") {
+        global $playerID;
+        $zone = $player == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fi => $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "a53rqmuqxf" && !HasNoAbilities($fObj)) {
+                $liuBeiMZ = $zone . "-" . $fi;
+                if(!in_array("DISTANT", $fObj->TurnEffects)) {
+                    AddTurnEffect($liuBeiMZ, "DISTANT");
+                }
+            }
         }
     }
 }
@@ -9094,6 +9125,113 @@ $customDQHandlers["ImperialScoutMill"] = function($player, $parts, $lastDecision
             MZMove($player, $deck[0], "myGraveyard");
         }
     }
+};
+
+// ============================================================================
+// Ash Filcher (b65hiv400w): [CB] On Attack — banish fire from GY for +2 POWER
+// ============================================================================
+$customDQHandlers["AshFilcherBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    // Find Ash Filcher on the field and add POWER TurnEffect
+    $field = GetZone("myField");
+    foreach($field as $fi => $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "b65hiv400w") {
+            AddTurnEffect("myField-" . $fi, "b65hiv400w");
+            break;
+        }
+    }
+};
+
+// ============================================================================
+// Primal Whip (az2b8nfh95): [CB][Lv2+] On Attack — up to 2 non-Human allies +1 POWER
+// ============================================================================
+$customDQHandlers["PrimalWhipBuff"] = function($player, $parts, $lastDecision) {
+    $iteration = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "az2b8nfh95");
+    if($iteration >= 2) return;
+    // Offer second choice from remaining non-Human allies
+    $nonHumans = [];
+    $field = GetZone("myField");
+    foreach($field as $idx => $fObj) {
+        if($fObj->removed) continue;
+        if(!PropertyContains(EffectiveCardType($fObj), "ALLY")) continue;
+        if(PropertyContains(EffectiveCardSubtypes($fObj), "HUMAN")) continue;
+        $mz = "myField-" . $idx;
+        if($mz === $lastDecision) continue;
+        $nonHumans[] = $mz;
+    }
+    if(empty($nonHumans)) return;
+    $choices = implode("&", $nonHumans);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1, tooltip:"Choose_another_non-Human_ally_for_+1_POWER");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PrimalWhipBuff|2", 1);
+};
+
+// ============================================================================
+// Orb of Regret (BY0E8si926): shuffle up to 3 cards from hand into deck, draw that many
+// ============================================================================
+$customDQHandlers["OrbOfRegretShuffle"] = function($player, $parts, $lastDecision) {
+    $iteration = intval($parts[0]);
+    $count = intval(DecisionQueueController::GetVariable("OrbOfRegretCount"));
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        // Done choosing — shuffle deck and draw the number shuffled in
+        if($count > 0) {
+            ShuffleZone("myDeck");
+            Draw($player, $count);
+        }
+        return;
+    }
+    // Move chosen card from hand to deck (bottom)
+    MZMove($player, $lastDecision, "myDeck");
+    $count++;
+    DecisionQueueController::StoreVariable("OrbOfRegretCount", strval($count));
+    if($iteration >= 3) {
+        // Reached max — shuffle and draw
+        ShuffleZone("myDeck");
+        Draw($player, $count);
+        return;
+    }
+    // Offer another choice
+    $hand = ZoneSearch("myHand");
+    if(empty($hand)) {
+        // No cards left in hand — shuffle and draw
+        ShuffleZone("myDeck");
+        Draw($player, $count);
+        return;
+    }
+    $handStr = implode("&", $hand);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Shuffle_another_card_into_deck?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "OrbOfRegretShuffle|" . ($iteration + 1), 1);
+};
+
+// ============================================================================
+// Creative Shock (BqDw4Mei4C): draw 2 discard 1, CB fire → deal 2 to unit
+// ============================================================================
+$customDQHandlers["CreativeShockDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    // Check element before discarding
+    $obj = GetZoneObject($lastDecision);
+    $isFire = ($obj !== null && CardElement($obj->CardID) === "FIRE");
+    DoDiscardCard($player, $lastDecision);
+    if(!IsClassBonusActive($player, ["MAGE"])) return;
+    if(!$isFire) return;
+    // Offer to deal 2 damage to a unit
+    $targets = array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+    $targetStr = implode("&", $targets);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Deal_2_damage_to_a_unit?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CreativeShockDamage", 1);
+};
+
+$customDQHandlers["CreativeShockDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    DealDamage($player, $mzID, $lastDecision, 2);
 };
 
 // ============================================================================
