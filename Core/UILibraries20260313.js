@@ -1774,6 +1774,19 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         console.error('MZSplitAssignUI.js not loaded - ShowMZSplitAssignUI function not found');
       }
       break;
+    } else if (entry && entry.Type === 'ICONCHOICE' && !entry.removed) {
+      // ICONCHOICE: Compass-rose directional choice (Shifting Currents)
+      // Param format: "OPT1&OPT2|CURRENT|CARDID"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a direction';
+
+      if (typeof ShowIconChoiceUI === 'function') {
+        ShowIconChoiceUI(entry.Param, tooltip, i, function(selectedOption, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedOption));
+        });
+      } else {
+        console.error('IconChoiceUI.js not loaded - ShowIconChoiceUI function not found');
+      }
+      break;
     }
   }
 };

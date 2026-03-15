@@ -1526,6 +1526,15 @@ function OnDealDamage($player, $source, $target, $amount) {
         if($amount <= 0) return;
     }
 
+    // Conduit of Seasons (nm77bnz4cc): prevent 2 damage while SC faces West
+    if($amount > 0 && $targetObj->CardID === "nm77bnz4cc" && !HasNoAbilities($targetObj)) {
+        $targetController = $targetObj->Controller ?? $player;
+        if(GetShiftingCurrents($targetController) === "WEST") {
+            $amount -= 2;
+            if($amount <= 0) return;
+        }
+    }
+
     // Barrier Servant: prevent next damage if tagged with BARRIER_PREVENT_DAMAGE (one-time)
     if(in_array("BARRIER_PREVENT_DAMAGE", $targetObj->TurnEffects)) {
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));

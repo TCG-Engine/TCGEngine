@@ -307,6 +307,18 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Strategem of Myriad Ice (id0ybub247): conditional efficiency when SC faces East
+    if($obj->CardID === "id0ybub247" && GetShiftingCurrents($player) === "EAST") {
+        $myField = GetZone("myField");
+        foreach($myField as $fieldObj) {
+            if(PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
+                $champLevel = ObjectCurrentLevel($fieldObj);
+                $reserveCost = max(0, $reserveCost - $champLevel);
+                break;
+            }
+        }
+    }
+
     // Channeling Stone (EBWWwvSxr3): global effect reduces next card cost by 2
     if(GlobalEffectCount($player, "EBWWwvSxr3") > 0) {
         $reserveCost = max(0, $reserveCost - 2);
@@ -1242,6 +1254,12 @@ function OnCardActivated($player, $mzCard) {
                     DecisionQueueController::AddDecision($player, "CUSTOM", "RazorgaleCallingDamage", 1);
                 }
                 break;
+            case "9f0nsj62l6": // Apprentice Aeromancer: [CB] whenever you activate a wind Spell, +1 POWER until EOT
+                if($activatedElement === "WIND" && PropertyContains($subtypes, "SPELL")
+                    && !HasNoAbilities($field[$fi]) && IsClassBonusActive($player, ["CLERIC", "MAGE"])) {
+                    AddTurnEffect("myField-" . $fi, "9f0nsj62l6");
+                }
+                break;
         }
     }
 
@@ -1275,6 +1293,13 @@ function OnCardActivated($player, $mzCard) {
                 break;
             }
         }
+    }
+
+    // Kongming, Fel Eidolon (7x2v4tdop1): Inherited — whenever you activate a Spell card,
+    // may change SC to an adjacent direction.
+    if(PropertyContains($subtypes, "SPELL") && HasShiftingCurrents($player)
+        && ChampionHasInLineage($player, "7x2v4tdop1")) {
+        QueueShiftingCurrentsChoice($player, "adjacent", true);
     }
 
     // After an attack card enters intent and its abilities resolve, declare the champion attack
@@ -2666,6 +2691,32 @@ function RecollectionPhase() {
         RemoveGlobalEffect($turnPlayer, "BATHE_IN_LIGHT_RECOVER");
     }
 
+    // Planar Abyss (qexcwmx2ug): destroy all non-champion objects,
+    // then if SC South, deal 10 to each champion opponent controls
+    if(GlobalEffectCount($turnPlayer, "PLANAR_ABYSS_PENDING") > 0) {
+        RemoveGlobalEffect($turnPlayer, "PLANAR_ABYSS_PENDING");
+        // Destroy all non-champion objects on both fields
+        for($p = 1; $p <= 2; ++$p) {
+            $field = &GetField($p);
+            for($fi = count($field) - 1; $fi >= 0; --$fi) {
+                if($field[$fi]->removed) continue;
+                if(!PropertyContains(EffectiveCardType($field[$fi]), "CHAMPION")) {
+                    $ref = ($p == $turnPlayer ? "myField-" : "theirField-") . $fi;
+                    AllyDestroyed($turnPlayer, $ref);
+                }
+            }
+        }
+        DecisionQueueController::CleanupRemovedCards();
+        // If SC faces South, deal 10 to each champion opponent controls
+        if(GetShiftingCurrents($turnPlayer) === "SOUTH") {
+            $opponent = ($turnPlayer == 1) ? 2 : 1;
+            $oppChampions = ZoneSearch("theirField", ["CHAMPION"]);
+            foreach($oppChampions as $champMZ) {
+                DealChampionDamage($opponent, 10);
+            }
+        }
+    }
+
     // Suffocating Miasma (coxpnjvt9y): at the beginning of each opponent's recollection phase,
     // that player puts a debuff counter on an ally they control. If they don't, deal 2 unpreventable.
     $nonTurnPlayer = ($turnPlayer == 1) ? 2 : 1;
@@ -2952,6 +3003,12 @@ function EndPhase() {
             }
             break;
         }
+    }
+
+    // Shifting Currents Mastery: [Kongming Bonus] At beginning of end phase,
+    // may change direction to a different direction of your choice.
+    if(HasShiftingCurrents($turnPlayer) && IsKongmingBonus($turnPlayer)) {
+        QueueShiftingCurrentsChoice($turnPlayer, "any", true);
     }
 
     $field = &GetField($turnPlayer);
@@ -3369,6 +3426,23 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "384b3yjlhu": // Axis Gale Scholar: +2 POWER while facing North
+            if(GetShiftingCurrents($obj->Controller) === "NORTH") {
+                $power += 2;
+            }
+            break;
+        case "4kpotk5hvr": // Wushan Sentinel: +3 POWER while facing West and attacking a champion
+            if(GetShiftingCurrents($obj->Controller) === "WEST") {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                if($combatTarget != "-" && $combatTarget != "" && $combatAttacker !== null && $obj->GetMzID() === $combatAttacker) {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+                        $power += 3;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -3725,6 +3799,15 @@ function ObjectCurrentPower($obj) {
             case "az2b8nfh95": // Primal Whip: [CB][Lv2+] On Attack +1 POWER to non-Human ally
                 $power += 1;
                 break;
+            case "oh5n2sjk0u": // Tailwind's Blessing: allies get +1 POWER until EOT
+                $power += 1;
+                break;
+            case "jgyx38zpl0-east": // Bagua East: allies get +2 POWER until EOT
+                $power += 2;
+                break;
+            case "aKgdkLSBza": // Wilderness Harpist: +1 level (actually power) from Melody/Harmony activation
+                $power += 1;
+                break;
             default: break;
         }
     }
@@ -3813,10 +3896,29 @@ function ObjectCurrentLevel($obj) {
             case "9g44vm5kt3": // Empowering Tincture sacrifice: +2 level until end of turn
                 $cardLevel += 2;
                 break;
+            case "a01pyxwo25": // Kongming, Ascetic Vice: Empower 3 (+3 level until end of turn)
+                $cardLevel += 3;
+                break;
+            case "pmx99jrukm": // Ruinous Pillars of Qidao: Empower 2 (+2 level until end of turn)
+                $cardLevel += 2;
+                break;
+            case "9f0nsj62l6": // Apprentice Aeromancer: Empower 2 (+2 level until end of turn)
+                $cardLevel += 2;
+                break;
+            case "zeig1e49wb": // Solar Pinnacle: Empower 2 (+2 level until end of turn)
+                $cardLevel += 2;
+                break;
+            case "n06isycm60": // Pupil of Sacred Flames: Empower 2 (+2 level until end of turn)
+                $cardLevel += 2;
+                break;
             default:
                 // Erupting Rhapsody (dBAdWMoPEz): +1 level per banished card, encoded as "dBAdWMoPEz-N"
                 if(strpos($effectID, "dBAdWMoPEz-") === 0) {
                     $cardLevel += intval(substr($effectID, strlen("dBAdWMoPEz-")));
+                }
+                // Channel Manifold Desire (kywpjf1b4k): Empower X+2, encoded as "kywpjf1b4k-N"
+                if(strpos($effectID, "kywpjf1b4k-") === 0) {
+                    $cardLevel += intval(substr($effectID, strlen("kywpjf1b4k-")));
                 }
                 break;
         }
@@ -3994,6 +4096,20 @@ function ObjectCurrentHP($obj) {
                     break;
                 }
             }
+        }
+        // Axis Gale Scholar (384b3yjlhu): while facing South, allies you control get +1 LIFE
+        if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "384b3yjlhu" && !HasNoAbilities($fieldObj)
+                    && GetShiftingCurrents($obj->Controller) === "SOUTH") {
+                    $cardLife += 1;
+                    break;
+                }
+            }
+        }
+        // Seaguard Bulwark (acmde97dbu): while facing East, +2 LIFE
+        if($obj->CardID === "acmde97dbu" && GetShiftingCurrents($obj->Controller) === "EAST") {
+            $cardLife += 2;
         }
     }
     // Fractured Crown (suo6gb0op3): [Class Bonus] champion gets +2 LIFE per unique ally card in GY
@@ -5194,6 +5310,30 @@ $doesGlobalEffectApply["9g44vm5kt3"] = function($obj) { // Empowering Tincture s
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
+$doesGlobalEffectApply["a01pyxwo25"] = function($obj) { // Kongming L2 Empower 3: champion +3 level until end of turn
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["pmx99jrukm"] = function($obj) { // Ruinous Pillars Empower 2: champion +2 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["9f0nsj62l6"] = function($obj) { // Apprentice Aeromancer Empower 2: champion +2 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["zeig1e49wb"] = function($obj) { // Solar Pinnacle Empower 2: champion +2 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["n06isycm60"] = function($obj) { // Pupil of Sacred Flames Empower 2: champion +2 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["jgyx38zpl0-east"] = function($obj) { // Bagua East: allies +2 POWER until end of turn
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+
 $doesGlobalEffectApply["BREWED_POTION"] = function($obj) { // Flag only — tracks if a potion was brewed this turn
     return false; // No visual effect on cards
 };
@@ -5303,6 +5443,15 @@ $untilBeginTurnEffects["BATHE_IN_LIGHT_RECOVER"] = true;
 
 // Sudden Snow (dxAEI20h8F): flag only — allies enter rested this turn
 $doesGlobalEffectApply["SUDDEN_SNOW_RESTED"] = function($obj) { return false; };
+
+// Tailwind's Blessing (oh5n2sjk0u): allies you control get +1 POWER until EOT
+$doesGlobalEffectApply["oh5n2sjk0u"] = function($obj) {
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+
+// Planar Abyss (qexcwmx2ug): flag only — delayed destroy-all at next recollection
+$doesGlobalEffectApply["PLANAR_ABYSS_PENDING"] = function($obj) { return false; };
+$untilBeginTurnEffects["PLANAR_ABYSS_PENDING"] = true;
 
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
@@ -5551,6 +5700,343 @@ function ChampionHasInLineage($player, $cardID) {
     return in_array($cardID, $lineage);
 }
 
+// --- Shifting Currents Mastery ---
+
+/**
+ * Check if a player's champion is Kongming (any level).
+ */
+function IsKongmingBonus($player) {
+    return ChampionHasInLineage($player, "346vgwz3y4")  // Kongming, Wayward Maven
+        || ChampionHasInLineage($player, "a01pyxwo25")  // Kongming, Ascetic Vice
+        || ChampionHasInLineage($player, "7x2v4tdop1"); // Kongming, Fel Eidolon
+}
+
+/**
+ * Check if a player currently has the Shifting Currents mastery active.
+ */
+function HasShiftingCurrents($player) {
+    $mastery = &GetMastery($player);
+    return !empty($mastery) && $mastery[0]->CardID === "qh5mpkyl60";
+}
+
+/**
+ * Get the current Shifting Currents direction for a player.
+ * Returns "NORTH", "SOUTH", "EAST", "WEST", or "NONE" if no mastery.
+ */
+function GetShiftingCurrents($player) {
+    $mastery = &GetMastery($player);
+    if(empty($mastery) || $mastery[0]->CardID !== "qh5mpkyl60") return "NONE";
+    return $mastery[0]->Direction;
+}
+
+/**
+ * Adjacency check for Shifting Currents directions.
+ * North/South are adjacent to East/West, but not to each other.
+ */
+function IsAdjacentDirection($from, $to) {
+    $adjacency = [
+        "NORTH" => ["EAST", "WEST"],
+        "SOUTH" => ["EAST", "WEST"],
+        "EAST" => ["NORTH", "SOUTH"],
+        "WEST" => ["NORTH", "SOUTH"],
+    ];
+    return isset($adjacency[$from]) && in_array($to, $adjacency[$from]);
+}
+
+/**
+ * Get all valid adjacent directions from a given direction.
+ */
+function GetAdjacentDirections($direction) {
+    $adjacency = [
+        "NORTH" => ["EAST", "WEST"],
+        "SOUTH" => ["EAST", "WEST"],
+        "EAST" => ["NORTH", "SOUTH"],
+        "WEST" => ["NORTH", "SOUTH"],
+    ];
+    return $adjacency[$direction] ?? [];
+}
+
+/**
+ * Grant a player the Shifting Currents mastery, initialized to NORTH.
+ * Replaces any existing mastery.
+ */
+function GainShiftingCurrents($player) {
+    $mastery = &GetMastery($player);
+    // Clear any existing mastery
+    while(count($mastery) > 0) array_splice($mastery, 0, 1);
+    // Add the Shifting Currents mastery card with NORTH direction
+    $obj = AddMastery($player, CardID:"qh5mpkyl60", Direction:"NORTH");
+    return $obj;
+}
+
+/**
+ * Central function: change a player's Shifting Currents direction and fire transition callbacks.
+ * All direction changes MUST go through this function to ensure transition triggers fire.
+ */
+function ChangeShiftingCurrents($player, $newDirection) {
+    global $shiftingCurrentsTransitions;
+    $mastery = &GetMastery($player);
+    if(empty($mastery) || $mastery[0]->CardID !== "qh5mpkyl60") return;
+    $oldDirection = $mastery[0]->Direction;
+    if($oldDirection === $newDirection) return;
+    $mastery[0]->Direction = $newDirection;
+
+    // Fire transition callbacks for cards on this player's field
+    $transitionKey = $oldDirection . "->" . $newDirection;
+    if(!isset($shiftingCurrentsTransitions[$transitionKey])) return;
+
+    $field = &GetField($player);
+    foreach($shiftingCurrentsTransitions[$transitionKey] as $cardID => $callback) {
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i]->removed) continue;
+            if($field[$i]->CardID === $cardID && !HasNoAbilities($field[$i])) {
+                $callback($player, "myField-" . $i);
+            }
+        }
+    }
+
+    // Also check inherited effects on the champion's lineage
+    if(isset($shiftingCurrentsTransitions["INHERITED:" . $transitionKey])) {
+        foreach($shiftingCurrentsTransitions["INHERITED:" . $transitionKey] as $cardID => $callback) {
+            if(ChampionHasInLineage($player, $cardID)) {
+                $callback($player, null);
+            }
+        }
+    }
+}
+
+// --- Shifting Currents Transition Registry ---
+// Keyed by "FROM->TO" direction string. Each entry maps cardID => callback($player, $mzID).
+// "INHERITED:FROM->TO" entries check champion lineage instead of field presence.
+$shiftingCurrentsTransitions = [];
+
+// Kongming, Ascetic Vice (a01pyxwo25): Inherited — N→S: draw a card
+$shiftingCurrentsTransitions["INHERITED:NORTH->SOUTH"]["a01pyxwo25"] = function($player, $mzID) {
+    Draw($player, 1);
+};
+
+// Hydroguard Retainer (0qm7n87o4s): N→W: draw a card
+$shiftingCurrentsTransitions["NORTH->WEST"]["0qm7n87o4s"] = function($player, $mzID) {
+    Draw($player, 1);
+};
+
+// Tailwind's Blessing (oh5n2sjk0u): N→W: allies you control get +1 POWER until EOT
+$shiftingCurrentsTransitions["NORTH->WEST"]["oh5n2sjk0u"] = function($player, $mzID) {
+    AddGlobalEffects($player, "oh5n2sjk0u");
+};
+
+// Gem of Searing Flame (v1jaidvvz2): N→W: deal 2 damage to target champion
+$shiftingCurrentsTransitions["NORTH->WEST"]["v1jaidvvz2"] = function($player, $mzID) {
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+        tooltip:"Deal_2_to_your_champion?_(No=opponent)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GemOfSearingFlameDamage", 1);
+};
+
+// Wuji of Lingering Fate (9cef7aknvn): W→E: may sacrifice CARDNAME, if you do, target player mills 3
+$shiftingCurrentsTransitions["WEST->EAST"]["9cef7aknvn"] = function($player, $mzID) {
+    DecisionQueueController::StoreVariable("WujiMZ", $mzID);
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+        tooltip:"Sacrifice_Wuji_to_mill_3?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "WujiSacrifice", 1);
+};
+
+// Ruinous Pillars of Qidao (pmx99jrukm): W→E: sacrifice CARDNAME, destroy target non-champion object opponent controls
+$shiftingCurrentsTransitions["WEST->EAST"]["pmx99jrukm"] = function($player, $mzID) {
+    // Mandatory sacrifice + destroy
+    MZMove($player, $mzID, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+    // Target non-champion object opponent controls
+    $theirField = GetZone("theirField");
+    $targets = [];
+    for($i = 0; $i < count($theirField); ++$i) {
+        if(!$theirField[$i]->removed && !PropertyContains(EffectiveCardType($theirField[$i]), "CHAMPION")) {
+            $targets[] = "theirField-" . $i;
+        }
+    }
+    if(!empty($targets)) {
+        $choices = implode("&", $targets);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1, "Destroy_target_non-champion_object");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "RuinousPillarsDestroy", 1);
+    }
+};
+
+// Pupil of Sacred Flames (n06isycm60): On Death + East → draw + change direction
+// (This is an OnDeath trigger, not a transition trigger. Handled in AllyDestroyed.)
+
+// --- Shifting Currents Custom DQ Handlers ---
+
+$customDQHandlers["GemOfSearingFlameDamage"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "YES") {
+        DealChampionDamage($player, 2);
+    } else {
+        $opponent = ($player == 1) ? 2 : 1;
+        DealChampionDamage($opponent, 2);
+    }
+};
+
+$customDQHandlers["WujiSacrifice"] = function($player, $params, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mzID = DecisionQueueController::GetVariable("WujiMZ");
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return;
+    MZMove($player, $mzID, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+    // Target player mills 3
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+        tooltip:"Mill_yourself?_(No=mill_opponent)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "WujiMill", 1);
+};
+
+$customDQHandlers["WujiMill"] = function($player, $params, $lastDecision) {
+    $target = ($lastDecision === "YES") ? $player : (($player == 1) ? 2 : 1);
+    $deck = &GetDeck($target);
+    for($i = 0; $i < 3 && count($deck) > 0; ++$i) {
+        MZMove($target, ($target == $player ? "myDeck" : "theirDeck") . "-0", ($target == $player ? "myGraveyard" : "theirGraveyard"));
+    }
+};
+
+$customDQHandlers["RuinousPillarsDestroy"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    AllyDestroyed($player, $lastDecision);
+};
+
+$customDQHandlers["ChangeShiftingCurrentsChoice"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    ChangeShiftingCurrents($player, $lastDecision);
+};
+
+$customDQHandlers["ChangeShiftingCurrentsAdjacentChoice"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    $current = GetShiftingCurrents($player);
+    if(IsAdjacentDirection($current, $lastDecision)) {
+        ChangeShiftingCurrents($player, $lastDecision);
+    }
+};
+
+// Helper: queue an ICONCHOICE decision for the player to choose a new SC direction.
+// $mode = "any" (any different direction) or "adjacent" (only adjacent directions).
+// $optional = true for MayChoose (can skip), false for mandatory.
+function QueueShiftingCurrentsChoice($player, $mode = "any", $optional = true) {
+    $current = GetShiftingCurrents($player);
+    if($current === "NONE") return;
+    $allDirs = ["NORTH", "SOUTH", "EAST", "WEST"];
+    if($mode === "adjacent") {
+        $options = GetAdjacentDirections($current);
+    } else {
+        $options = array_values(array_diff($allDirs, [$current]));
+    }
+    if(empty($options)) return;
+    $param = implode("&", $options) . "|" . $current . "|qh5mpkyl60";
+    $tooltip = "Choose_a_new_Shifting_Currents_direction";
+    if($optional) {
+        DecisionQueueController::AddDecision($player, "ICONCHOICE", $param, 1, $tooltip);
+    } else {
+        DecisionQueueController::AddDecision($player, "ICONCHOICE", $param, 1, $tooltip);
+    }
+    $handler = ($mode === "adjacent") ? "ChangeShiftingCurrentsAdjacentChoice" : "ChangeShiftingCurrentsChoice";
+    DecisionQueueController::AddDecision($player, "CUSTOM", $handler, 1);
+}
+
+/**
+ * Strategem of Myriad Ice (id0ybub247): recursive banish loop.
+ * Each iteration: find floating memory cards in graveyard, MayChoose one,
+ * banish it and deal 3 damage to target unit opponent controls, then repeat.
+ */
+function StrategemBanishLoop($player, $sourceMZ) {
+    $floatingGrave = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
+    if(empty($floatingGrave)) return;
+    $targetStr = implode("&", $floatingGrave);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1,
+        "Banish_a_floating_memory_card_from_graveyard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StrategemBanish|" . $sourceMZ, 1);
+}
+
+$customDQHandlers["StrategemBanish"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "PASS") return;
+    $sourceMZ = $params[0] ?? "";
+    // Banish chosen card
+    MZMove($player, $lastDecision, "myBanish");
+    NicoOnFloatingMemoryBanished($player);
+    // Deal 3 damage to target unit opponent controls
+    $enemies = array_merge(
+        ZoneSearch("theirField", ["ALLY"]),
+        ZoneSearch("theirField", ["CHAMPION"])
+    );
+    $enemies = FilterSpellshroudTargets($enemies);
+    if(!empty($enemies)) {
+        $choices = implode("&", $enemies);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1,
+            "Deal_3_damage_to_target_unit");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "StrategemDealDamage|" . $sourceMZ, 1);
+    }
+    // Continue loop
+    StrategemBanishLoop($player, $sourceMZ);
+};
+
+$customDQHandlers["StrategemDealDamage"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    $sourceMZ = $params[0] ?? "";
+    DealDamage($player, $sourceMZ, $lastDecision, 3);
+};
+
+// Channel Manifold Desire (kywpjf1b4k): process banished preserved card
+$customDQHandlers["ChannelManifoldBanish"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    // Get the reserve cost of the chosen card before banishing
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    $reserveCost = CardCost_reserve($obj->CardID);
+    // Banish the preserved card from material deck
+    MZMove($player, $lastDecision, "myBanish");
+    // Empower X+2 (X = reserve cost of banished card)
+    $empowerAmount = $reserveCost + 2;
+    // Encode the empower amount in the effect ID
+    $champions = ZoneSearch("myField", ["CHAMPION"]);
+    if(!empty($champions)) {
+        AddTurnEffect($champions[0], "kywpjf1b4k-" . $empowerAmount);
+    }
+    // If SC faces North, may put a preserved card from material deck into hand
+    if(GetShiftingCurrents($player) === "NORTH") {
+        global $Preserve_Cards;
+        $material = GetZone("myMaterial");
+        $preserved = [];
+        for($i = 0; $i < count($material); $i++) {
+            if(isset($Preserve_Cards[$material[$i]->CardID])) {
+                $preserved[] = "myMaterial-" . $i;
+            }
+        }
+        if(!empty($preserved)) {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $preserved), 1,
+                "Return_a_preserved_card_to_hand?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ChannelManifoldReturn", 1);
+        }
+    }
+};
+
+$customDQHandlers["ChannelManifoldReturn"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myHand");
+};
+
+// Bagua of Cardinal Fate (jgyx38zpl0): North — put a buff counter on chosen ally
+$customDQHandlers["BaguaNorthBuff"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+// Bagua of Cardinal Fate (jgyx38zpl0): South — return chosen ally to hand
+$customDQHandlers["BaguaSouthReturn"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    MZMove($player, $lastDecision, "myHand");
+};
+
+// Solar Pinnacle (zeig1e49wb): deal 2 damage to chosen unit
+$customDQHandlers["SolarPinnacleDamage"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-") return;
+    $sourceMZ = $params[0] ?? "";
+    DealDamage($player, $sourceMZ, $lastDecision, 2);
+};
+
 function OnExhaustCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
     $obj->Status = 1; // Exhaust the card
@@ -5717,6 +6203,9 @@ function GetPlayableFastCards($player) {
         } elseif(isset($cbFastActivationCards[$obj->CardID]) && IsClassBonusActive($player, $cbFastActivationCards[$obj->CardID])) {
             $fastCards[] = "myHand-" . $i;
         } elseif(isset($unconditionalFastCards[$obj->CardID])) {
+            $fastCards[] = "myHand-" . $i;
+        } elseif($obj->CardID === "zeig1e49wb" && GetShiftingCurrents($player) === "NORTH") {
+            // Solar Pinnacle: Fast Activation while SC faces North
             $fastCards[] = "myHand-" . $i;
         }
     }

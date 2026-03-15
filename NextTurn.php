@@ -6,6 +6,7 @@
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
     <script src="./Core/MZModalUI.js"></script>
+    <script src="./Core/IconChoiceUI.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
 
     <style>
