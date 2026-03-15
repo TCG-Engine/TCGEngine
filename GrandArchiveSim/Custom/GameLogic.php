@@ -1273,12 +1273,12 @@ function OnCardActivated($player, $mzCard) {
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "ACTION")) {
         // Frost Shard (jnsl7ddcgw): banish on resolve when activated from graveyard
-        global $gyActivatedCardID;
+        global $gyActivatedCardID, $Preserve_Cards;
         if(isset($gyActivatedCardID) && $gyActivatedCardID === $obj->CardID) {
             $obj = MZMove($player, $mzCard, "myBanish");
             $gyActivatedCardID = null;
         // Special case: Preserve cards go to Material zone
-        } else if($obj->CardID == "2Ojrn7buPe") { // Tera Sight - Preserve
+        } else if(isset($Preserve_Cards[$obj->CardID])) {
             $obj = MZMove($player, $mzCard, "myMaterial");
         } else {
             $obj = MZMove($player, $mzCard, "myGraveyard");
@@ -1367,7 +1367,7 @@ function OnCardActivated($player, $mzCard) {
             case "9f0nsj62l6": // Apprentice Aeromancer: [CB] whenever you activate a wind Spell, +1 POWER until EOT
                 if($activatedElement === "WIND" && PropertyContains($subtypes, "SPELL")
                     && !HasNoAbilities($field[$fi]) && IsClassBonusActive($player, ["CLERIC", "MAGE"])) {
-                    AddTurnEffect("myField-" . $fi, "9f0nsj62l6");
+                    AddTurnEffect("myField-" . $fi, "9f0nsj62l6-POWER");
                 }
                 break;
             case "aws20fsihd": // Fervent Lancer: whenever you activate an exia element card, may banish it as it resolves
@@ -1497,6 +1497,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "5pw07bh5wf": // Fractal of Sparks — REST
         case "si9ux3ak6o": // Razor Broadhead — REST
         case "mvfcd0ukk6": // Molten Arrow — REST
+        case "szeb8zzj86": // Fractal of Mana — REST
+        case "sq0ou8vas3": // Tome of Sorcery — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -1594,6 +1596,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         case "uhuy4xippo": // Fractal of Snow: sacrifice self to graveyard
         case "5fnmnpavo4": // Fractal of Polar Depths: sacrifice self to graveyard
+        case "to1pmvo54d": // Mnemonic Charm: sacrifice self to graveyard
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -1716,6 +1719,21 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     }
     // Fractal of Snow (uhuy4xippo): needs class bonus
     if($cardID === "uhuy4xippo" && !IsClassBonusActive($player, explode(",", CardClasses("uhuy4xippo")))) return;
+    // Fractal of Mana (szeb8zzj86): [CB] REST — must be awake + class bonus
+    if($cardID === "szeb8zzj86") {
+        if($sourceObject->Status != 2) return;
+        if(!IsClassBonusActive($player, ["CLERIC", "MAGE"])) return;
+    }
+    // Tome of Sorcery (sq0ou8vas3): REST — must be awake
+    if($cardID === "sq0ou8vas3" && $sourceObject->Status != 2) return;
+    // Mnemonic Charm (to1pmvo54d): [CB] Sacrifice — needs class bonus
+    if($cardID === "to1pmvo54d" && !IsClassBonusActive($player, ["CLERIC", "MAGE"])) return;
+    // Cloudstone Orb (ygqehvpblj): [CB] (3) — needs class bonus + 3 cards in hand
+    if($cardID === "ygqehvpblj") {
+        if(!IsClassBonusActive($player, ["MAGE"])) return;
+        $hand = &GetHand($player);
+        if(count($hand) < 3) return;
+    }
     // Oasis Trading Post (uy4xippor7): must be awake
     if($cardID === "uy4xippor7" && $sourceObject->Status != 2) return;
     // Obelisk of Armaments (wk0pw0y6is): must be awake
@@ -3950,6 +3968,9 @@ function ObjectCurrentPower($obj) {
             case "lpy7ie4v8n": // Sword Saint of Everflame: +2 POWER until end of turn
                 $power += 2;
                 break;
+            case "9f0nsj62l6-POWER": // Apprentice Aeromancer: [CB] wind spell trigger +1 POWER until EOT
+                $power += 1;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -4156,7 +4177,26 @@ function ObjectCurrentLevel($obj) {
             case "n06isycm60": // Pupil of Sacred Flames: Empower 2 (+2 level until end of turn)
                 $cardLevel += 2;
                 break;
+            case "szeb8zzj86": // Fractal of Mana: Empower 1 (+1 level until end of turn)
+                $cardLevel += 1;
+                break;
+            case "sq0ou8vas3": // Tome of Sorcery: Empower 1 (+1 level until end of turn)
+                $cardLevel += 1;
+                break;
+            case "to1pmvo54d": // Mnemonic Charm: Empower 2 (+2 level until end of turn)
+                $cardLevel += 2;
+                break;
+            case "qb6zhphtw6": // Rainweaver Mage: Empower 4 (+4 level until end of turn)
+                $cardLevel += 4;
+                break;
+            case "zmoegdo111": // Sempiternal Sage: Empower 3 (+3 level until end of turn)
+                $cardLevel += 3;
+                break;
             default:
+                // Cloudstone Orb (ygqehvpblj): Empower X, encoded as "ygqehvpblj-N"
+                if(strpos($effectID, "ygqehvpblj-") === 0) {
+                    $cardLevel += intval(substr($effectID, strlen("ygqehvpblj-")));
+                }
                 // Erupting Rhapsody (dBAdWMoPEz): +1 level per banished card, encoded as "dBAdWMoPEz-N"
                 if(strpos($effectID, "dBAdWMoPEz-") === 0) {
                     $cardLevel += intval(substr($effectID, strlen("dBAdWMoPEz-")));
@@ -5592,6 +5632,26 @@ $doesGlobalEffectApply["n06isycm60"] = function($obj) { // Pupil of Sacred Flame
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
+$doesGlobalEffectApply["szeb8zzj86"] = function($obj) { // Fractal of Mana Empower 1: champion +1 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["sq0ou8vas3"] = function($obj) { // Tome of Sorcery Empower 1: champion +1 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["to1pmvo54d"] = function($obj) { // Mnemonic Charm Empower 2: champion +2 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["qb6zhphtw6"] = function($obj) { // Rainweaver Mage Empower 4: champion +4 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["zmoegdo111"] = function($obj) { // Sempiternal Sage Empower 3: champion +3 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
 $doesGlobalEffectApply["jgyx38zpl0-east"] = function($obj) { // Bagua East: allies +2 POWER until end of turn
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
@@ -5930,6 +5990,31 @@ function RecoverChampion($player, $amount=1) {
         }
     }
     return null;
+}
+
+function Empower($player, $amount, $sourceID) {
+    AddGlobalEffects($player, $sourceID);
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $i => $obj) {
+        if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+            AddTurnEffect($zone . "-" . $i, "EMPOWERED");
+            break;
+        }
+    }
+}
+
+function IsEmpowered($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $obj) {
+        if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+            return in_array("EMPOWERED", $obj->TurnEffects ?? []);
+        }
+    }
+    return false;
 }
 
 /**
