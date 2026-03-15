@@ -175,6 +175,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($allyTargets)) return; // No valid Link target — block activation
     }
 
+    // Weapon Link pre-check: Sheath of Faceted Lapis (0cnn1eh85y) requires a Warrior weapon on field
+    $hasWeaponLink = ($sourceObject->CardID === "0cnn1eh85y");
+    if($hasWeaponLink) {
+        $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["WARRIOR"]);
+        if(empty($weaponTargets)) return; // No valid Warrior weapon — block activation
+    }
+
     // Peaceful Reunion: can only activate if you have not declared an attack this turn
     if($sourceObject->CardID === "wr42i6eifn" && OnAttackCallCount($player) > 0) {
         SetFlashMessage("Peaceful Reunion can only be activated if you haven't declared an attack this turn.");
@@ -320,6 +327,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         RemoveGlobalEffect($player, "rxxwQT054x_COST");
     }
 
+    // Exia Sight (1fy8l4pxs9): [Damage 20+] next card costs 1 less
+    if(GlobalEffectCount($player, "1fy8l4pxs9_COST") > 0) {
+        $reserveCost = max(0, $reserveCost - 1);
+        RemoveGlobalEffect($player, "1fy8l4pxs9_COST");
+    }
+
     // Summon Sentinels (5tlzsmw3rr): [Class Bonus] costs 1 less for each domain you control
     if($obj->CardID === "5tlzsmw3rr" && IsClassBonusActive($player, ["GUARDIAN"])) {
         $domainCount = count(ZoneSearch("myField", ["DOMAIN"]));
@@ -397,6 +410,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($obj->CardID === "jwsl7dedg6" && IsClassBonusActive($player, ["GUARDIAN"])) {
         $tokenCount = count(ZoneSearch("myField", ["TOKEN"]));
         $reserveCost = max(0, $reserveCost - $tokenCount);
+    }
+
+    // Glow Forth (27jlb9h1a5): costs 1 less for each Animal you control
+    if($obj->CardID === "27jlb9h1a5") {
+        $animalCount = count(ZoneSearch("myField", cardSubtypes: ["ANIMAL"]));
+        $reserveCost = max(0, $reserveCost - $animalCount);
     }
 
     // Blade of Creation (iqs2hipwsc): [Class Bonus] costs 1 less per token object you control
@@ -550,6 +569,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 2);
     }
 
+    // Thunderclap (0xm513tj3j): [Level 3+] costs 2 less
+    if($obj->CardID === "0xm513tj3j" && PlayerLevel($player) >= 3) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
     // Bolster Ranks (n0esog2898): [Class Bonus] costs 1 less
     if($obj->CardID === "n0esog2898") {
         if(IsClassBonusActive($player, ["GUARDIAN"])) {
@@ -563,6 +587,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $allyChoices = implode("&", $allyTargets);
         DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyChoices, 100, tooltip:"Choose_ally_to_link");
         DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareAllyLinkTarget", 100);
+    }
+
+    // Weapon Link: prompt the player to choose a target Warrior weapon
+    if($hasWeaponLink) {
+        $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["WARRIOR"]);
+        $weaponChoices = implode("&", $weaponTargets);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $weaponChoices, 100, tooltip:"Choose_weapon_to_link");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareWeaponLinkTarget", 100);
     }
 
     //1.3 Declaring Costs — Prepare keyword: optional removal of preparation counters
@@ -972,6 +1004,33 @@ function OnCardActivated($player, $mzCard) {
                 return;
             }
         }
+        // Weapon Link fizzle check: validate the weapon link target
+        if($obj->CardID === "0cnn1eh85y") {
+            $wlTargetMZ = DecisionQueueController::GetVariable("weaponLinkTargetMZ");
+            $wlTargetCardID = DecisionQueueController::GetVariable("weaponLinkTargetCardID");
+            $wlTargetObj = (!empty($wlTargetMZ) && $wlTargetMZ !== "-") ? GetZoneObject($wlTargetMZ) : null;
+            $wlTargetValid = ($wlTargetObj !== null && !$wlTargetObj->removed
+                && $wlTargetObj->CardID === $wlTargetCardID
+                && PropertyContains(CardType($wlTargetObj->CardID), "WEAPON"));
+            if(!$wlTargetValid && !empty($wlTargetCardID)) {
+                $field = GetZone("myField");
+                $wlTargetValid = false;
+                for($fi = 0; $fi < count($field); $fi++) {
+                    if(!$field[$fi]->removed && $field[$fi]->CardID === $wlTargetCardID
+                        && PropertyContains(CardType($field[$fi]->CardID), "WEAPON")) {
+                        DecisionQueueController::StoreVariable("weaponLinkTargetMZ", "myField-" . $fi);
+                        $wlTargetValid = true;
+                        break;
+                    }
+                }
+            }
+            if(!$wlTargetValid) {
+                $obj = MZMove($player, $mzCard, "myGraveyard");
+                DecisionQueueController::StoreVariable("weaponLinkTargetMZ", "");
+                DecisionQueueController::CleanupRemovedCards();
+                return;
+            }
+        }
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "DOMAIN")) {
@@ -1066,6 +1125,13 @@ function OnCardActivated($player, $mzCard) {
                     DecisionQueueController::StoreVariable("MusicboxFieldIdx", strval($fi));
                     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Banish_via_Clockwork_Musicbox?");
                     DecisionQueueController::AddDecision($player, "CUSTOM", "MusicboxBanish", 1);
+                }
+                break;
+            case "1m48260b7b": // Razorgale Calling: whenever you activate a wind element card, deal 1 damage to target champion
+                if($activatedElement === "WIND" && !HasNoAbilities($field[$fi])) {
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                        tooltip:"Target_your_champion?_(No=opponent)");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "RazorgaleCallingDamage", 1);
                 }
                 break;
         }
@@ -1804,6 +1870,16 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             $phantasiaMZ = "myField-" . (count($field) - 1);
             CreateAllyLink($player, $phantasiaMZ, $linkTargetMZ);
             DecisionQueueController::StoreVariable("linkTargetMZ", ""); // Clear after use
+        }
+    }
+
+    // Weapon Link: if the entering card has Weapon Link, establish the link
+    if($added->CardID === "0cnn1eh85y") {
+        $weaponLinkTargetMZ = DecisionQueueController::GetVariable("weaponLinkTargetMZ");
+        if(!empty($weaponLinkTargetMZ) && $weaponLinkTargetMZ !== "-") {
+            $phantasiaMZ = "myField-" . (count($field) - 1);
+            CreateWeaponLink($player, $phantasiaMZ, $weaponLinkTargetMZ);
+            DecisionQueueController::StoreVariable("weaponLinkTargetMZ", "");
         }
     }
 
@@ -2583,6 +2659,11 @@ function ObjectCurrentPower($obj) {
         case "2tsn0ye3ae": // Allied Warpriestess: [Class Bonus] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["CLERIC", "GUARDIAN"])) $power += 1;
             break;
+        case "1a49w5gmf7": // Intricate Longbow: [CB][Lv2+] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["RANGER"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 1;
+            }
+            break;
         case "WUAOMTZ7P2": // Intrepid Highwayman: +3 POWER while retaliating
             if(DecisionQueueController::GetVariable("CombatRetaliator") !== null) {
                 $power += 3;
@@ -2936,6 +3017,9 @@ function ObjectCurrentPower($obj) {
             case "bscxwjbqjd": // Sharpen Blade: target Dagger +2 POWER until end of turn
                 $power += 2;
                 break;
+            case "0k0p6n5nr7": // Scorching Strafe: target ally +2 POWER until end of turn
+                $power += 2;
+                break;
             case "lwabipl6gt_POWER": // Calamity Cannon: first Gun attack +10 POWER
                 $power += 10;
                 break;
@@ -3010,6 +3094,11 @@ function ObjectCurrentPower($obj) {
                 break;
             case "eanbrfnrow": // Blast Shield: [CB] linked ally gets +2 POWER
                 if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                    $power += 2;
+                }
+                break;
+            case "0cnn1eh85y": // Sheath of Faceted Lapis: [CB][Lv2+] linked weapon gets +2 POWER
+                if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
                     $power += 2;
                 }
                 break;
@@ -4667,6 +4756,9 @@ function ClassBonusActivateCostReduction($cardID) {
         'nvx7mnu1xh' => 2, // Attune with Flames: [Class Bonus] costs 2 less
         '6fxxgmuesd' => 2, // Icebound Slam: [Class Bonus] costs 2 less
         '05qzzadf9q' => 2, // Hailstorm Guard: [Class Bonus] costs 2 less
+        '0k0p6n5nr7' => 2, // Scorching Strafe: [Class Bonus] costs 2 less
+        '16hrusesqi' => 2, // Invigoration: [Class Bonus] costs 2 less
+        '1m48260b7b' => 2, // Razorgale Calling: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -6037,6 +6129,28 @@ function CreateAllyLink($player, $phantasiaMZ, $allyMZ) {
 }
 
 /**
+ * Create a link between a Phantasia card (with Weapon Link keyword) and a weapon.
+ * @param int    $player       The acting player.
+ * @param string $phantasiaMZ  The mzID of the Phantasia.
+ * @param string $weaponMZ     The mzID of the weapon to link to.
+ */
+function CreateWeaponLink($player, $phantasiaMZ, $weaponMZ) {
+    $phantasiaObj = &GetZoneObject($phantasiaMZ);
+    $weaponObj = &GetZoneObject($weaponMZ);
+    if($phantasiaObj === null || $weaponObj === null) return;
+
+    if(!is_array($weaponObj->Subcards)) $weaponObj->Subcards = [];
+    if(!in_array($phantasiaObj->CardID, $weaponObj->Subcards)) {
+        array_push($weaponObj->Subcards, $phantasiaObj->CardID);
+    }
+
+    if(!is_array($phantasiaObj->Counters)) {
+        $phantasiaObj->Counters = [];
+    }
+    $phantasiaObj->Counters['linkedToWeapon'] = $weaponObj->CardID;
+}
+
+/**
  * Find all Phantasia field cards linked to a given ally object.
  * The ally's Subcards contains the Phantasia's CardID; the Phantasia's
  * Counters->linkedToAlly points back to the ally's CardID.
@@ -6055,7 +6169,8 @@ function GetLinkedCards($obj) {
             if($fObj->removed) continue;
             if($fObj->CardID !== $subcardCardID) continue;
             // Confirm it's actually linked (has the reverse pointer)
-            if(!is_array($fObj->Counters) || !isset($fObj->Counters['linkedToAlly'])) continue;
+            if(!is_array($fObj->Counters)) continue;
+            if(!isset($fObj->Counters['linkedToAlly']) && !isset($fObj->Counters['linkedToWeapon'])) continue;
             $linked[] = $fObj;
         }
     }
@@ -6081,28 +6196,31 @@ function CheckAndBreakLinks($player, $departingMZ) {
     $zoneRef = ($controller == $playerID) ? "myField" : "theirField";
     $field = GetZone($zoneRef);
 
-    // Case 1: Departing card is a Phantasia — remove it from the linked ally's Subcards
-    if(is_array($obj->Counters) && isset($obj->Counters['linkedToAlly'])) {
-        $allyCardID = $obj->Counters['linkedToAlly'];
-        foreach($field as $idx => $fObj) {
-            if($fObj->removed) continue;
-            if($fObj->CardID !== $allyCardID) continue;
-            if(!is_array($fObj->Subcards)) continue;
-            $fObj->Subcards = array_values(array_filter($fObj->Subcards, fn($id) => $id !== $obj->CardID));
-            break;
+    // Case 1: Departing card is a Phantasia — remove it from the linked ally/weapon's Subcards
+    if(is_array($obj->Counters) && (isset($obj->Counters['linkedToAlly']) || isset($obj->Counters['linkedToWeapon']))) {
+        $hostCardID = $obj->Counters['linkedToAlly'] ?? $obj->Counters['linkedToWeapon'] ?? null;
+        if($hostCardID !== null) {
+            foreach($field as $idx => $fObj) {
+                if($fObj->removed) continue;
+                if($fObj->CardID !== $hostCardID) continue;
+                if(!is_array($fObj->Subcards)) continue;
+                $fObj->Subcards = array_values(array_filter($fObj->Subcards, fn($id) => $id !== $obj->CardID));
+                break;
+            }
         }
         return;
     }
 
-    // Case 2: Departing card is an ally with linked Phantasias
+    // Case 2: Departing card is an ally/weapon with linked Phantasias
     if(!is_array($obj->Subcards) || empty($obj->Subcards)) return;
 
     $toSacrifice = [];
     foreach($field as $idx => $fObj) {
         if($fObj->removed) continue;
         if(!in_array($fObj->CardID, $obj->Subcards)) continue;
-        if(!is_array($fObj->Counters) || !isset($fObj->Counters['linkedToAlly'])) continue;
-        // This is a linked Phantasia — its link is broken when the ally leaves
+        if(!is_array($fObj->Counters)) continue;
+        if(!isset($fObj->Counters['linkedToAlly']) && !isset($fObj->Counters['linkedToWeapon'])) continue;
+        // This is a linked Phantasia — its link is broken when the host leaves
         $toSacrifice[] = $idx;
     }
 
@@ -6778,6 +6896,61 @@ $customDQHandlers["DeclareAllyLinkTarget"] = function($player, $parts, $lastDeci
     DecisionQueueController::StoreVariable("linkTargetMZ", $lastDecision);
     DecisionQueueController::StoreVariable("linkTargetCardID", $targetObj !== null ? $targetObj->CardID : "");
 };
+
+/**
+ * Custom DQ handler: DeclareWeaponLinkTarget — stores the chosen weapon mzID
+ * and CardID as DQ variables for Weapon Link resolution.
+ */
+$customDQHandlers["DeclareWeaponLinkTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) {
+        DecisionQueueController::StoreVariable("weaponLinkTargetMZ", "");
+        DecisionQueueController::StoreVariable("weaponLinkTargetCardID", "");
+        return;
+    }
+    $targetObj = GetZoneObject($lastDecision);
+    DecisionQueueController::StoreVariable("weaponLinkTargetMZ", $lastDecision);
+    DecisionQueueController::StoreVariable("weaponLinkTargetCardID", $targetObj !== null ? $targetObj->CardID : "");
+};
+
+/**
+ * Custom DQ handler: RazorgaleCallingDamage — deal 1 damage to target champion.
+ * YES = your champion, NO = opponent's champion.
+ */
+$customDQHandlers["RazorgaleCallingDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        DealChampionDamage($player, 1);
+    } else {
+        $opponent = ($player == 1) ? 2 : 1;
+        DealChampionDamage($opponent, 1);
+    }
+};
+
+/**
+ * Seal the Past helper: banish up to 3 preserved cards from a player's material deck.
+ * @param int    $player     The acting player.
+ * @param string $targetSelf "YES" to target self, "NO" for opponent.
+ */
+function SealThePastBanish($player, $targetSelf) {
+    global $Preserve_Cards, $playerID;
+    $isMyself = ($targetSelf === "YES");
+    $matRef = $isMyself ? "myMaterial" : "theirMaterial";
+    $banishRef = $isMyself ? "myBanish" : "theirBanish";
+    $material = GetZone($matRef);
+    $preserved = [];
+    for($i = 0; $i < count($material); $i++) {
+        if(isset($Preserve_Cards[$material[$i]->CardID])) {
+            $preserved[] = $matRef . "-" . $i;
+        }
+    }
+    if(empty($preserved)) return;
+    $banishCount = min(3, count($preserved));
+    // Sort in reverse order to avoid index shifting issues
+    $preserved = array_reverse($preserved);
+    $toBanish = array_slice($preserved, 0, $banishCount);
+    foreach($toBanish as $mz) {
+        MZMove($player, $mz, $banishRef);
+    }
+}
 
 // ============================================================================
 // Domain Card Type — Recollection Upkeep, Passive Effects, and Helpers
