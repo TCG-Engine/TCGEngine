@@ -470,6 +470,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 1);
     }
 
+    // Mend Flesh (ju2d98w3j0): [Damage 25+] costs 2 less
+    if($obj->CardID === "ju2d98w3j0") {
+        $champ = ZoneSearch("myField", ["CHAMPION"]);
+        if(!empty($champ)) {
+            $champObj = GetZoneObject($champ[0]);
+            if($champObj !== null && $champObj->Damage >= 25) {
+                $reserveCost = max(0, $reserveCost - 2);
+            }
+        }
+    }
+
     // Viridian Protective Trinket (s3572j3oda): during your turn, opponent's water element cards cost 2 more
     $opponent = ($player == 1) ? 2 : 1;
     $turnPlayer = &GetTurnPlayer();
@@ -1998,6 +2009,29 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Fraternal Garrison (ln926ymxdc): [Jin Bonus] when another ally enters, +1 POWER until end of turn
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        for($fg = 0; $fg < count($field); ++$fg) {
+            if(!$field[$fg]->removed && $field[$fg]->CardID === "ln926ymxdc"
+                && !HasNoAbilities($field[$fg])
+                && $fg !== (count($field) - 1)) {
+                // Check Jin Bonus: champion must be named "Jin"
+                $isJin = false;
+                foreach($field as $fObj) {
+                    if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+                        if(strpos(CardName($fObj->CardID), "Jin") === 0) {
+                            $isJin = true;
+                        }
+                        break;
+                    }
+                }
+                if($isJin) {
+                    AddTurnEffect("myField-" . $fg, "ln926ymxdc");
+                }
+            }
+        }
+    }
+
     // Crystalline Mirror (9agwj4f15j): whenever a phantasia enters the field under your control, glimpse 1
     if(PropertyContains(CardType($added->CardID), "PHANTASIA")) {
         for($cm = 0; $cm < count($field); ++$cm) {
@@ -2106,6 +2140,105 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
 $customDQHandlers["AirshipCaptainDamage"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
     DealDamage($player, "t9hreqhj1t", $lastDecision, 2);
+};
+
+// Shining Marchador (lnl94ijbi1): pay (2) then put buff counter on target ally
+function ShiningMarchadorPay($player) {
+    $hand = ZoneSearch("myHand");
+    if(count($hand) < 2) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $hand), 1, tooltip: "Choose_card_to_pay_(1/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ShiningMarchadorReserve1", 1);
+}
+$customDQHandlers["ShiningMarchadorReserve1"] = function($player, $parts, $lastDecision) {
+    MZMove($player, $lastDecision, "myMemory");
+    $hand = ZoneSearch("myHand");
+    if(empty($hand)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $hand), 1, tooltip: "Choose_card_to_pay_(2/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ShiningMarchadorReserve2", 1);
+};
+$customDQHandlers["ShiningMarchadorReserve2"] = function($player, $parts, $lastDecision) {
+    MZMove($player, $lastDecision, "myMemory");
+    $allies = ZoneSearch("myField", ["ALLY"]);
+    if(empty($allies)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 1, tooltip: "Choose_ally_for_buff_counter");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ShiningMarchadorBuff", 1);
+};
+$customDQHandlers["ShiningMarchadorBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+// Brisk Windtrotter (mala1jaff7): [Level 2+] second buff counter
+function BriskWindtrotterLevel2Buff($player) {
+    if(PlayerLevel($player) < 2) return;
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    $allies = ZoneSearch("myField", ["ALLY"]);
+    $others = array_values(array_filter($allies, fn($a) => $a !== $mzID));
+    if(empty($others)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $others), 1, tooltip: "Choose_another_ally_for_buff_counter_(Level_2+)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "BriskWindtrotterBuff2", 1);
+}
+$customDQHandlers["BriskWindtrotterBuff2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+// Scorchfire Assassin (o4h8cfo21a): remove prep counters for +2 POWER each
+function ScorchfireAssassinRemovePrep($player, $maxRemove) {
+    if($maxRemove <= 0) return;
+    $champMZ = DecisionQueueController::GetVariable("ScorchfireChampMZ");
+    if(empty($champMZ)) return;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null) return;
+    $prepCount = GetCounterCount($champObj, "preparation");
+    if($prepCount <= 0) return;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+        tooltip: "Remove_a_preparation_counter_for_+2_POWER?");
+    DecisionQueueController::AddDecision($player, "CUSTOM",
+        "ScorchfireRemovePrep|" . $champMZ . "|" . ($maxRemove - 1), 1);
+}
+$customDQHandlers["ScorchfireRemovePrep"] = function($player, $params, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $champMZ = $params[0];
+    $remaining = intval($params[1]);
+    RemoveCounters($player, $champMZ, "preparation", 1);
+    // Add +2 POWER TurnEffect to the attacker
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    if($attackerMZ !== null) {
+        AddTurnEffect($attackerMZ, "o4h8cfo21a");
+    }
+    if($remaining > 0) {
+        $champObj = GetZoneObject($champMZ);
+        if($champObj !== null && GetCounterCount($champObj, "preparation") > 0) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                tooltip: "Remove_another_preparation_counter_for_+2_POWER?");
+            DecisionQueueController::AddDecision($player, "CUSTOM",
+                "ScorchfireRemovePrep|" . $champMZ . "|" . ($remaining - 1), 1);
+        }
+    }
+};
+
+// Nature's Appeal (oj0oh7pjoq): choose card for material then put rest on bottom
+function NaturesAppealMaterialAndBottom($player) {
+    $remaining = ZoneSearch("myTempZone");
+    if(empty($remaining)) return;
+    if(count($remaining) == 1) {
+        // Only one card left, it goes to material deck preserved
+        MZMove($player, $remaining[0], "myMaterial");
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $remaining), 1,
+        tooltip: "Choose_card_for_material_deck_(preserved)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "NaturesAppealMaterial", 1);
+}
+$customDQHandlers["NaturesAppealMaterial"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myMaterial");
+    // Put rest on bottom of deck
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $r) {
+        MZMove($player, $r, "myDeck");
+    }
 };
 
 function RecollectionPhase() {
@@ -3010,6 +3143,15 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
             }
             break;
+        case "lve1my3486": // Sword Saint of Eventide: [Class Bonus] +1 POWER while 4+ water cards in graveyard
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                global $playerID;
+                $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
+                if(count(ZoneSearch($gravZone, cardElements: ["WATER"])) >= 4) {
+                    $power += 1;
+                }
+            }
+            break;
         case "59ueoujs9f": // Flamewing Fowl: [Class Bonus] +1 POWER while attacking a champion
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
                 $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
@@ -3241,6 +3383,12 @@ function ObjectCurrentPower($obj) {
                 break;
             case "qzzadf9q1v-2": // Powercell: +1 POWER until end of turn (stacks to +2)
                 $power += 1;
+                break;
+            case "ln926ymxdc": // Fraternal Garrison: +1 POWER until end of turn (from ally entering)
+                $power += 1;
+                break;
+            case "o4h8cfo21a": // Scorchfire Assassin: +2 POWER per prep counter removed
+                $power += 2;
                 break;
             case "3bxtj3te9i": // Combat Training: +2 POWER (or +3 if unique) until end of turn
                 if(PropertyContains(EffectiveCardType($obj), "UNIQUE")) {
