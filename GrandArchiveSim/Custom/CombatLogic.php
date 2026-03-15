@@ -715,6 +715,31 @@ function OnHitTrigger($player, $attackerMZ) {
             }
         }
     }
+
+    // Relic of Dancing Embers (i8g5013x9j): Whenever a fire element ally you control
+    // deals combat damage to a champion while CARDNAME is awake, may sacrifice to deal 3.
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "ALLY")
+       && EffectiveCardElement($attackerObj) === "FIRE") {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
+                $defenderPlayer = ($player == 1) ? 2 : 1;
+                $myField = GetZone("myField");
+                foreach($myField as $fi => $fObj) {
+                    if(!$fObj->removed && $fObj->CardID === "i8g5013x9j" && !HasNoAbilities($fObj)
+                       && $fObj->Status == 2) { // Must be awake
+                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                            tooltip:"Sacrifice_Relic_of_Dancing_Embers_to_deal_3_damage?");
+                        DecisionQueueController::AddDecision($player, "CUSTOM",
+                            "RelicDancingEmbers|" . $fi . "|" . $defenderPlayer, 1);
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -830,6 +855,16 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
                 $intentZone[$newIdx]->Controller = $player;
             }
             $weaponObj->Subcards = []; // Gun is now unloaded
+        }
+        // Bow weapons: move loaded arrow from weapon's Subcards into intent
+        if($weaponObj !== null && PropertyContains(CardSubtypes($weaponObj->CardID), "BOW") && is_array($weaponObj->Subcards) && !empty($weaponObj->Subcards)) {
+            foreach($weaponObj->Subcards as $arrowCardID) {
+                MZAddZone($player, "myIntent", $arrowCardID);
+                $intentZone = &GetZone("myIntent");
+                $newIdx = count($intentZone) - 1;
+                $intentZone[$newIdx]->Controller = $player;
+            }
+            $weaponObj->Subcards = []; // Bow is now unloaded
         }
 
         // Tideholder Claymore (5iqigcom2r): additional cost to attack — pay (10) reduced by (1) per water GY card

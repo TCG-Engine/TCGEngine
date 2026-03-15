@@ -551,6 +551,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost += 1;
     }
 
+    // Keep of the Golden Sashes (gjhv2etytr): first card opponents activate each turn costs 1 more
+    if($player !== $turnPlayer) {
+        // This is the opponent activating — check if turn player controls Keep
+        global $playerID;
+        $keepZone = ($turnPlayer == $playerID) ? "myField" : "theirField";
+        $keepField = GetZone($keepZone);
+        foreach($keepField as $kObj) {
+            if(!$kObj->removed && $kObj->CardID === "gjhv2etytr" && !HasNoAbilities($kObj)) {
+                if(CardActivatedCallCount($player) == 0) {
+                    $reserveCost += 1;
+                }
+                break;
+            }
+        }
+    }
+
     // Calamity Cannon (lwabipl6gt): [Polkhawk Bonus] costs 3 less
     if($obj->CardID === "lwabipl6gt") {
         $myField = GetZone("myField");
@@ -1833,6 +1849,21 @@ function WakeUpPhase() {
                     $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["FROZEN_BY_SNOW_FAIRY"]));
                 }
             }
+            // FROZEN_BY_TORPID: persistent rest while opponent controls Torpid Fractal (h9u9584zpn)
+            if(in_array("FROZEN_BY_TORPID", $field[$i]->TurnEffects)) {
+                $oppHasTorpid = false;
+                foreach($opponentField as $opp) {
+                    if(!$opp->removed && $opp->CardID === "h9u9584zpn" && !HasNoAbilities($opp)) {
+                        $oppHasTorpid = true;
+                        break;
+                    }
+                }
+                if($oppHasTorpid) {
+                    continue; // Still frozen — don't wake
+                } else {
+                    $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["FROZEN_BY_TORPID"]));
+                }
+            }
             // SPELLSHROUD_NEXT_TURN / STEALTH_NEXT_TURN: expire at beginning of controller's next turn
             if(in_array("SPELLSHROUD_NEXT_TURN", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["SPELLSHROUD_NEXT_TURN"]));
@@ -2597,6 +2628,16 @@ function EndPhase() {
         }
     }
 
+    // Promising Recruit (h57rcfw46q): [Level 2+] At beginning of end phase, put buff counter on CARDNAME
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "h57rcfw46q" && !HasNoAbilities($field[$i])) {
+            if(PlayerLevel($turnPlayer) >= 2) {
+                AddCounters($turnPlayer, "myField-" . $i, "buff", 1);
+            }
+        }
+    }
+
     $field = &GetField($turnPlayer);
     for($i=count($field)-1; $i>=0; --$i) {
         if(HasVigor($field[$i])) {
@@ -2752,6 +2793,11 @@ function ObjectCurrentPower($obj) {
             break;
         case "1a49w5gmf7": // Intricate Longbow: [CB][Lv2+] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["RANGER"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 1;
+            }
+            break;
+        case "h7iz4xkbq1": // Crescent Glaive: [CB][Lv2+] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
                 $power += 1;
             }
             break;
@@ -3028,6 +3074,23 @@ function ObjectCurrentPower($obj) {
                 }
             }
         }
+        // Halocline Scout (jntoa4h8re): [CB] Other allies get +1 POWER while attacking rested units
+        if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
+            $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+            if($combatTarget != "-" && $combatTarget != "" && $combatTarget !== null) {
+                $targetObj = GetZoneObject($combatTarget);
+                if($targetObj !== null && isset($targetObj->Status) && $targetObj->Status == 1) {
+                    foreach($field as $fieldObj) {
+                        if(!$fieldObj->removed && $fieldObj->CardID === "jntoa4h8re" && !HasNoAbilities($fieldObj)
+                           && $obj->CardID !== "jntoa4h8re"
+                           && IsClassBonusActive($obj->Controller, ["ASSASSIN", "WARRIOR"])) {
+                            $power += 1;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
     foreach($cardCurrentEffects as $effectID) {
@@ -3202,6 +3265,10 @@ function ObjectCurrentPower($obj) {
                 // Infusion of Crescent Jade (91jnc6v71t): +X POWER to target Polearm weapon
                 if(strpos($effectID, "91jnc6v71t-") === 0) {
                     $power += intval(substr($effectID, strlen("91jnc6v71t-")));
+                }
+                // Fiery Swing (ijkyboiopv): +X POWER from banished fire graveyard cards
+                if(strpos($effectID, "ijkyboiopv-") === 0) {
+                    $power += intval(substr($effectID, strlen("ijkyboiopv-")));
                 }
                 break;
         }
@@ -3633,6 +3700,9 @@ function ObjectCurrentHP($obj) {
                 break;
             case "75uhspxqme": // Cavalier Rescue: +3 LIFE until end of turn
                 $cardLife += 3;
+                break;
+            case "ic1ahsmwd0": // Lumbering Steed: +1 LIFE until end of turn
+                $cardLife += 1;
                 break;
             default: break;
         }
@@ -4640,6 +4710,7 @@ $doesGlobalEffectApply["FREYDIS_PERMANENT_DISTANT"] = function($obj) {
 $persistentTurnEffects = [];
 $persistentTurnEffects["SKIP_WAKEUP"] = true;
 $persistentTurnEffects["FROZEN_BY_SNOW_FAIRY"] = true;
+$persistentTurnEffects["FROZEN_BY_TORPID"] = true;
 $persistentTurnEffects["SPELLSHROUD_NEXT_TURN"] = true;
 // Calamity Cannon (lwabipl6gt): champion gets +10 POWER on first Gun attack during next turn
 $persistentTurnEffects["CALAMITY_CANNON"] = true;
@@ -7364,6 +7435,24 @@ function DomainRecollectionUpkeep($player) {
                     }
                 }
                 break;
+            case "gjhv2etytr": // Keep of the Golden Sashes: banish 2 from GY or sacrifice
+                {
+                    global $playerID;
+                    $gravZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+                    $gyCards = GetZone($gravZone);
+                    $gyMZs = [];
+                    for($gi = 0; $gi < count($gyCards); ++$gi) {
+                        if(!$gyCards[$gi]->removed) $gyMZs[] = $gravZone . "-" . $gi;
+                    }
+                    if(count($gyMZs) >= 2) {
+                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Banish_2_cards_from_graveyard?_(Keep_of_the_Golden_Sashes)");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "KeepGoldenSashesUpkeep|" . $i, 1);
+                    } else {
+                        DoSacrificeFighter($player, "myField-" . $i);
+                        DecisionQueueController::CleanupRemovedCards();
+                    }
+                }
+                break;
         }
     }
 }
@@ -8309,6 +8398,36 @@ function GetUnloadedGuns($player) {
 }
 
 /**
+ * Get mzIDs of unloaded Bow weapons the player controls.
+ */
+function GetUnloadedBows($player) {
+    $bows = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["BOW"]);
+    $unloaded = [];
+    foreach($bows as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj !== null && !IsGunLoaded($obj)) {
+            $unloaded[] = $mzID;
+        }
+    }
+    return $unloaded;
+}
+
+/**
+ * Load an arrow into a bow weapon.
+ * The arrow is removed from the field (its CardID is stored in the bow's Subcards).
+ */
+function LoadArrowIntoBow($player, $arrowMZ, $bowMZ) {
+    $arrowObj = GetZoneObject($arrowMZ);
+    $bowObj = &GetZoneObject($bowMZ);
+    if($arrowObj === null || $bowObj === null) return;
+    $arrowCardID = $arrowObj->CardID;
+    if(!is_array($bowObj->Subcards)) $bowObj->Subcards = [];
+    $bowObj->Subcards[] = $arrowCardID;
+    $arrowObj->removed = true;
+    DecisionQueueController::CleanupRemovedCards();
+}
+
+/**
  * Diana, Cursebreaker: materialize N Bullet cards from material deck sequentially.
  * Queues MZCHOOSE + MATERIALIZE for each bullet.
  */
@@ -8545,6 +8664,207 @@ $customDQHandlers["LoadBullet"] = function($player, $parts, $lastDecision) {
     $bulletMZ = $parts[0];
     if($lastDecision === "-" || $lastDecision === "") return;
     LoadBulletIntoGun($player, $bulletMZ, $lastDecision);
+};
+
+// --- LoadArrow: custom DQ handler for loading an arrow into a bow ---
+$customDQHandlers["LoadArrow"] = function($player, $parts, $lastDecision) {
+    // $parts[0] = mzID of the arrow on the field
+    // $lastDecision = mzID of the chosen unloaded bow
+    $arrowMZ = $parts[0];
+    if($lastDecision === "-" || $lastDecision === "") return;
+    LoadArrowIntoBow($player, $arrowMZ, $lastDecision);
+};
+
+// --- Keep of the Golden Sashes (gjhv2etytr): upkeep — banish 2 from GY or sacrifice ---
+$customDQHandlers["KeepGoldenSashesUpkeep"] = function($player, $parts, $lastDecision) {
+    // $parts[0] = field index of the Keep
+    $fieldIdx = intval($parts[0]);
+    if($lastDecision === "YES") {
+        // Player chose to banish 2 cards from graveyard
+        global $playerID;
+        $gravZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+        $gyCards = GetZone($gravZone);
+        $gyMZs = [];
+        for($gi = 0; $gi < count($gyCards); ++$gi) {
+            if(!$gyCards[$gi]->removed) $gyMZs[] = $gravZone . "-" . $gi;
+        }
+        if(count($gyMZs) >= 2) {
+            $gyStr = implode("&", $gyMZs);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, "Choose_first_card_to_banish_(Keep)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "KeepGoldenSashesBanish1|" . $fieldIdx, 1);
+        }
+    } else {
+        // Player declined — sacrifice the Keep
+        DoSacrificeFighter($player, "myField-" . $fieldIdx);
+        DecisionQueueController::CleanupRemovedCards();
+    }
+};
+
+$customDQHandlers["KeepGoldenSashesBanish1"] = function($player, $parts, $lastDecision) {
+    $fieldIdx = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myBanish");
+    global $playerID;
+    $gravZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+    $gyCards = GetZone($gravZone);
+    $gyMZs = [];
+    for($gi = 0; $gi < count($gyCards); ++$gi) {
+        if(!$gyCards[$gi]->removed) $gyMZs[] = $gravZone . "-" . $gi;
+    }
+    if(!empty($gyMZs)) {
+        $gyStr = implode("&", $gyMZs);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, "Choose_second_card_to_banish_(Keep)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "KeepGoldenSashesBanish2", 1);
+    }
+};
+
+$customDQHandlers["KeepGoldenSashesBanish2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myBanish");
+};
+
+// --- Relic of Dancing Embers (i8g5013x9j): sacrifice to deal 3 damage (after fire ally hit champion) ---
+$customDQHandlers["RelicDancingEmbers"] = function($player, $parts, $lastDecision) {
+    // $parts[0] = field index of Relic
+    // $parts[1] = defender player number
+    if($lastDecision !== "YES") return;
+    $relicIdx = intval($parts[0]);
+    $defenderPlayer = intval($parts[1]);
+    $field = &GetField($player);
+    if(isset($field[$relicIdx]) && !$field[$relicIdx]->removed && $field[$relicIdx]->CardID === "i8g5013x9j") {
+        DoSacrificeFighter($player, "myField-" . $relicIdx);
+        DecisionQueueController::CleanupRemovedCards();
+        DealChampionDamage($defenderPlayer, 3);
+    }
+};
+
+// --- Soothing Disillusion (geq18a4f2h): choose mode handler ---
+$customDQHandlers["SoothingDisillusionMode"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        // Mode 1: Destroy target phantasia
+        $phantasias = array_merge(
+            ZoneSearch("myField", ["PHANTASIA"]),
+            ZoneSearch("theirField", ["PHANTASIA"])
+        );
+        $phantasias = FilterSpellshroudTargets($phantasias);
+        if(!empty($phantasias)) {
+            $pStr = implode("&", $phantasias);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $pStr, 1, "Choose_phantasia_to_destroy");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SoothingDisillusionDestroy", 1);
+        }
+    } else {
+        // Mode 2: Put buff counter on target Animal or Beast ally
+        $allies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+        $theirAllies = ZoneSearch("theirField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+        $targets = array_merge($allies, $theirAllies);
+        $targets = FilterSpellshroudTargets($targets);
+        if(!empty($targets)) {
+            $tStr = implode("&", $targets);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $tStr, 1, "Choose_Animal/Beast_ally_for_buff_counter");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SoothingDisillusionBuff", 1);
+        }
+    }
+};
+
+$customDQHandlers["SoothingDisillusionDestroy"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DoAllyDestroyed($player, $lastDecision);
+};
+
+$customDQHandlers["SoothingDisillusionBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+// --- Cone of Frost (i7sbjy86ep): step-based handler for level-conditional damage ---
+$customDQHandlers["ConeOfFrostStep"] = function($player, $parts, $lastDecision) {    // $parts[0] = step (1, 2, or 3), $parts[1] = source mzID
+    $step = intval($parts[0]);
+    $sourceMZ = $parts[1];
+    $level = PlayerLevel($player);
+
+    if($step == 1) {
+        // Step 1: present first target choice (Level 1+)
+        $targets = array_merge(
+            ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+            ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+        );
+        $targets = FilterSpellshroudTargets($targets);
+        if(!empty($targets)) {
+            $tStr = implode("&", $targets);
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $tStr, 1, "Deal_2_damage_to_target_(Cone_of_Frost_1)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|2|" . $sourceMZ, 1);
+        }
+    } elseif($step == 2) {
+        // Process first target choice
+        if($lastDecision !== "-" && $lastDecision !== "") {
+            DealDamage($player, $sourceMZ, $lastDecision, 2);
+        }
+        // Step 2: present second target choice (Level 3+)
+        if($level >= 3) {
+            $targets = array_merge(
+                ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+                ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+            );
+            $targets = FilterSpellshroudTargets($targets);
+            if(!empty($targets)) {
+                $tStr = implode("&", $targets);
+                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $tStr, 1, "Deal_2_damage_to_target_(Cone_of_Frost_2)");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|3|" . $sourceMZ, 1);
+            }
+        }
+    } elseif($step == 3) {
+        // Process second target choice
+        if($lastDecision !== "-" && $lastDecision !== "") {
+            DealDamage($player, $sourceMZ, $lastDecision, 2);
+        }
+        // Step 3: present third target choice (Level 5+)
+        if($level >= 5) {
+            $targets = array_merge(
+                ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+                ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+            );
+            $targets = FilterSpellshroudTargets($targets);
+            if(!empty($targets)) {
+                $tStr = implode("&", $targets);
+                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $tStr, 1, "Deal_2_damage_to_target_(Cone_of_Frost_3)");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ConeOfFrostStep|4|" . $sourceMZ, 1);
+            }
+        }
+    } elseif($step == 4) {
+        // Process third target choice
+        if($lastDecision !== "-" && $lastDecision !== "") {
+            DealDamage($player, $sourceMZ, $lastDecision, 2);
+        }
+    }
+};
+
+// --- Fiery Swing (ijkyboiopv): recursive banish handler ---
+$customDQHandlers["FierySwingBanish"] = function($player, $parts, $lastDecision) {
+    // $parts[0] = source mzID, $parts[1] = count banished so far
+    $sourceMZ = $parts[0];
+    $count = intval($parts[1]);
+
+    // Process previous choice
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        MZMove($player, $lastDecision, "myBanish");
+        $count++;
+    }
+
+    // Check if we can banish more (max 6)
+    if($count < 6) {
+        $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+        if(!empty($fireGY)) {
+            $fireStr = implode("&", $fireGY);
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, "Banish_fire_card_from_GY?_(" . $count . "/6_banished)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "FierySwingBanish|" . $sourceMZ . "|" . $count, 1);
+            return;
+        }
+    }
+
+    // Done banishing — apply power bonus
+    if($count > 0) {
+        AddTurnEffect($sourceMZ, "ijkyboiopv-" . $count);
+    }
 };
 
 // --- Force Load: step 1 — store bullet choice, then choose gun ---
