@@ -51,25 +51,6 @@ These items all have the FATESTONE subtype and most include a `[Guo Jia Bonus]` 
 
 ---
 
-### 6. Distant & Ranged Support
-
-Cards that grant, require, or synergize with the **distant** status or the **ranged N** keyword. Distant is already implemented; these cards extend the package with new entry points and interactions.
-
-| Card | ID | Type | Notable Mechanic |
-|------|----|------|-----------------|
-| Hidden Longbowman | `bx4k3akqx7` | Ally Ranger | Ranged 2; has **stealth** as long as it is distant — stealth must dynamically check distant status rather than a static TurnEffect |
-| Seaside Rangefinder | `5qyee9vkp8` | Ally Ranger | Ranged 2; Class + Element Bonus: (2) banish from gy → make target unit distant |
-| Horse Archer | `k6d4367ixj` | Ally Ranger | Class Bonus Ranged 2; Equestrian: Ranged 3 while you control a Horse ally (stacks with base Ranged 2) |
-| Protective Helm | `l2ipxnctse` | Regalia Accessory | Unit Link; prevent 1 damage to linked unit from any distant source |
-| Tinderflare Pivot | `s3bqtjayfn` | Skill | Kindle 2; make target Ranger unit distant and gain Ranged 1 until EOT |
-| Squallbind Pounce | `ep3ajxiyd3` | Reaction Skill | Imbue 2 (need 2+ wind reveals); make Ranger unit distant; if imbued, also suppress attacking ally |
-| Sleety Retreat | `j9fkuzgg9i` | Reaction Skill | *(See Deluge cluster)* |
-| Baidi, Oathsworn Palace | `43rtqovkti` | Domain | *(See Siegeable Domains cluster)* |
-
-*`Horse Archer`'s Ranged 3 is conditional on controlling a Horse ally (Equestrian keyword — confirm if keyword is already registered). `Protective Helm` uses the existing Unit Link system; damage prevention from a distant source requires flagging the source's distant status at time of damage.*
-
----
-
 ### 7. Kindle — Fire Graveyard Payment
 
 Cards using or granting **Kindle N** (banish up to N fire element cards from graveyard as you activate; each one pays 1 cost).

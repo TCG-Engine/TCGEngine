@@ -163,6 +163,30 @@ function ActionMap($actionCard)
                         }
                     }
                 }
+                // Seaside Rangefinder (5qyee9vkp8): [CB:Ranger][EB] (2), banish from GY → target unit becomes distant
+                if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "5qyee9vkp8") {
+                    if(IsClassBonusActive($playerID, ["RANGER"]) && IsElementBonusActive($playerID, "5qyee9vkp8")) {
+                        $hand = &GetHand($playerID);
+                        if(count($hand) >= 2) {
+                            $units = array_merge(
+                                ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+                                ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+                            );
+                            $units = FilterSpellshroudTargets($units);
+                            if(!empty($units)) {
+                                MZMove($playerID, $actionCard, "myBanish");
+                                DecisionQueueController::CleanupRemovedCards();
+                                DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                                DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                                DecisionQueueController::AddDecision($playerID, "CUSTOM", "EffectStackOpportunity", 100);
+                                $targetStr = implode("&", $units);
+                                DecisionQueueController::AddDecision($playerID, "MZCHOOSE", $targetStr, 1, tooltip:"Target_unit_becomes_distant");
+                                DecisionQueueController::AddDecision($playerID, "CUSTOM", "SeasideRangefinderGY_Apply", 1);
+                                return "PLAY";
+                            }
+                        }
+                    }
+                }
                 // Molten Arrow (mvfcd0ukk6): Banish 3 other fire GY cards → load from GY into unloaded Bow
                 if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "mvfcd0ukk6") {
                     $fireGY = [];
@@ -10809,6 +10833,13 @@ $customDQHandlers["HeatwaveGeneratorBuff"] = function($player, $parts, $lastDeci
 $customDQHandlers["SwordSaintGY_Apply"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         AddTurnEffect($lastDecision, "lpy7ie4v8n");
+    }
+};
+
+// Seaside Rangefinder (5qyee9vkp8): GY activation → target unit becomes distant
+$customDQHandlers["SeasideRangefinderGY_Apply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        BecomeDistant($player, $lastDecision);
     }
 };
 
