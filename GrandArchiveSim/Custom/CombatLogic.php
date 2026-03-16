@@ -1698,6 +1698,16 @@ function OnDealDamage($player, $source, $target, $amount) {
         if($amount <= 0) return;
     }
 
+    // Shangxiang, Fierce Princess (s2tzwv1uw3): if imbued, prevent 2 damage from non-norm sources
+    if($amount > 0 && $targetObj->CardID === "s2tzwv1uw3" && !HasNoAbilities($targetObj)
+       && in_array("IMBUED", $targetObj->TurnEffects)) {
+        $sourceObj = GetZoneObject($source);
+        if($sourceObj !== null && EffectiveCardElement($sourceObj) !== "NORM") {
+            $amount -= 2;
+            if($amount <= 0) return;
+        }
+    }
+
     // Conduit of Seasons (nm77bnz4cc): prevent 2 damage while SC faces West
     if($amount > 0 && $targetObj->CardID === "nm77bnz4cc" && !HasNoAbilities($targetObj)) {
         $targetController = $targetObj->Controller ?? $player;
@@ -2205,13 +2215,19 @@ function OnDealDamage($player, $source, $target, $amount) {
 
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
-        // If we're in combat context, record that a kill occurred from combat damage.
-        // This is checked by combat handlers to fire OnKillTrigger BEFORE OnHitTrigger.
-        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
-        if($combatAttacker !== null) {
-            SetCombatKillOccurred();
+        // Wrathful Slime (wjaq7t8vbf): immortality while it has 6+ buff counters
+        if($targetObj->CardID === "wjaq7t8vbf" && !HasNoAbilities($targetObj)
+           && GetCounterCount($targetObj, "buff") >= 6) {
+            $targetObj->Damage = $currentHp - 1;
+        } else {
+            // If we're in combat context, record that a kill occurred from combat damage.
+            // This is checked by combat handlers to fire OnKillTrigger BEFORE OnHitTrigger.
+            $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+            if($combatAttacker !== null) {
+                SetCombatKillOccurred();
+            }
+            AllyDestroyed($player, $target);
         }
-        AllyDestroyed($player, $target);
     }
 }
 
@@ -2301,12 +2317,18 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
 
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
-        // If we're in combat context, record that a kill occurred from combat damage.
-        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
-        if($combatAttacker !== null) {
-            SetCombatKillOccurred();
+        // Wrathful Slime (wjaq7t8vbf): immortality while it has 6+ buff counters
+        if($targetObj->CardID === "wjaq7t8vbf" && !HasNoAbilities($targetObj)
+           && GetCounterCount($targetObj, "buff") >= 6) {
+            $targetObj->Damage = $currentHp - 1;
+        } else {
+            // If we're in combat context, record that a kill occurred from combat damage.
+            $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+            if($combatAttacker !== null) {
+                SetCombatKillOccurred();
+            }
+            AllyDestroyed($player, $target);
         }
-        AllyDestroyed($player, $target);
     }
 }
 

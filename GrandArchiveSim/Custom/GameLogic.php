@@ -36,6 +36,7 @@ $Imbue_Cards["disqw3d0o5"] = 4; // Captain Archer (WIND)
 $Imbue_Cards["ep3ajxiyd3"] = 2; // Squallbind Pounce (WIND)
 $Imbue_Cards["flzvpkc0ni"] = 2; // Moontide Illusionist (WATER)
 $Imbue_Cards["myvztzk3v8"] = 3; // Razorblade Execution (WIND)
+$Imbue_Cards["s2tzwv1uw3"] = 3; // Shangxiang, Fierce Princess (NORM)
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -549,6 +550,25 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Sidestep (voy5ttkk39): [Level 2+] costs 1 less
     if($obj->CardID === "voy5ttkk39" && PlayerLevel($player) >= 2) {
         $reserveCost = max(0, $reserveCost - 1);
+    }
+
+    // Cinder Geyser (stiyh3pmk3): [Class Bonus] costs 2 less if opponent has 4+ cards in memory
+    if($obj->CardID === "stiyh3pmk3" && IsClassBonusActive($player, ["CLERIC"])) {
+        $oppMemory = ZoneSearch("theirMemory");
+        if(count($oppMemory) >= 4) {
+            $reserveCost = max(0, $reserveCost - 2);
+        }
+    }
+
+    // Rescue the Heir (t0240ykvj0): [Level 1+] costs 1 less if you control a unique ally
+    if($obj->CardID === "t0240ykvj0" && PlayerLevel($player) >= 1) {
+        $myField = GetZone("myField");
+        foreach($myField as $fObj) {
+            if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "ALLY") && PropertyContains(EffectiveCardType($fObj), "UNIQUE")) {
+                $reserveCost = max(0, $reserveCost - 1);
+                break;
+            }
+        }
     }
 
     // Mend Flesh (ju2d98w3j0): [Damage 25+] costs 2 less
@@ -3163,6 +3183,18 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "w822tmc0yc": // Zhang Liao, Bloodmonger: [CB] if champion has 0 damage, deal 20 unpreventable + draw 3
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["CLERIC", "WARRIOR"])) {
+                        $champMZ = FindChampionMZ($turnPlayer);
+                        if($champMZ !== null) {
+                            $champObj = GetZoneObject($champMZ);
+                            if($champObj !== null && $champObj->Damage === 0) {
+                                DealUnpreventableDamage($turnPlayer, $champMZ, $champMZ, 20);
+                                Draw($turnPlayer, 3);
+                            }
+                        }
+                    }
+                    break;
                 default: break;
             }
         }
@@ -4188,6 +4220,16 @@ function ObjectCurrentPower($obj) {
                 }
             }
         }
+        // Wingpeak Patriarch (wov58exji1): Other Bird objects you control get +1 POWER
+        if(PropertyContains(EffectiveCardSubtypes($obj), "BIRD")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "wov58exji1" && !HasNoAbilities($fieldObj)
+                   && $obj->CardID !== "wov58exji1") {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
     }
     // General at Arms (9m72c8x9oh): [CB] Polearm attack cards get +2 POWER
     if(PropertyContains(EffectiveCardType($obj), "ATTACK") && PropertyContains(CardSubtypes($obj->CardID), "POLEARM")) {
@@ -4536,6 +4578,10 @@ function ObjectCurrentPower($obj) {
     // Windpiercer (hreqhj1trn): On Attack reveal — if wind element, +2 POWER
     if(in_array("hreqhj1trn-power", $obj->TurnEffects)) {
         $power += 2;
+    }
+    // Usurp the Winds (ulzrh3pmxq): +1 POWER until end of turn
+    if(in_array("ulzrh3pmxq", $obj->TurnEffects)) {
+        $power += 1;
     }
     // Ranged N: while this unit is distant, its attacks get +N POWER
     if(IsDistant($obj)) {
@@ -5020,6 +5066,14 @@ function ObjectCurrentHP($obj) {
     }
     // Genbu's Command (jjwp945rlb): +3 LIFE until end of turn
     if(in_array("jjwp945rlb", $obj->TurnEffects)) {
+        $cardLife += 3;
+    }
+    // Usurp the Winds (ulzrh3pmxq): +1 LIFE until end of turn
+    if(in_array("ulzrh3pmxq_LIFE", $obj->TurnEffects)) {
+        $cardLife += 1;
+    }
+    // Lively Chorale (x1c9ob6jva): +3 LIFE until end of turn
+    if(in_array("x1c9ob6jva", $obj->TurnEffects)) {
         $cardLife += 3;
     }
     return $cardLife;
@@ -6872,6 +6926,15 @@ $customDQHandlers["ChangeShiftingCurrentsAdjacentChoice"] = function($player, $p
     $current = GetShiftingCurrents($player);
     if(IsAdjacentDirection($current, $lastDecision)) {
         ChangeShiftingCurrents($player, $lastDecision);
+    }
+};
+
+$customDQHandlers["UsurpTheWindsDirectionDraw"] = function($player, $params, $lastDecision) {
+    // Usurp the Winds Kongming Bonus: if direction changed from West to South, draw a card
+    $oldDir = DecisionQueueController::GetVariable("UsurpOldDir");
+    $newDir = GetShiftingCurrents($player);
+    if($oldDir === "WEST" && $newDir === "SOUTH") {
+        Draw($player, 1);
     }
 };
 
