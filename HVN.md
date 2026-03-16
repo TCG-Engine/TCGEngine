@@ -97,22 +97,6 @@ Cards from the arcane element that can have their element requirement bypassed w
 
 ---
 
-### 10. Siegeable Domains
-
-Domains with the Siegeable subtype can be attacked and track HP via **durability** counters. Also included is a spell that can explicitly target Siegeable domains.
-
-| Card | ID | Type | Effect Summary |
-|------|----|------|----------------|
-| Baidi, Oathsworn Palace | `43rtqovkti` | Domain Wind | Siegeable Castle; Ranger units you control have Ranged 1 |
-| Jianye, Dawn's Keep | `4ms1r3hjxp` | Domain Fire | Kindle 6; Class Bonus: fire element allies' On Death: if your influence is 6 or less, draw a card |
-| Chibi, Battle of Red Cliffs | `881gacexpv` | Domain Norm | Siegeable River; players can't declare attacks with allies without paying 1 per attack declaration |
-| Xuchang, Frozen Citadel | `xpb20rar4k` | Domain Water | Siegeable Castle; at beginning of each opponent's recollection phase: may banish a floating-memory card from their gy — if they don't, their next card activated this turn costs 2 more |
-| Demolition | `7iak6hyh6b` | Spell Fire | Class Bonus costs 1 less; deal 3 damage to target unit **or** Siegeable domain |
-
-*`Demolition` is the only damage spell that can target a domain structure — requires the targeting filter to include Siegeable domains as valid targets. `Chibi`'s ally-attack tax fires per attack declaration, requiring a pre-declaration payment gate. `Jianye`'s On-Death trigger fires for each fire ally and needs to count influence at that moment.*
-
----
-
 ### 11. Negate / Counter Package
 
 Cards that hard-counter activations or suppress On Enter triggers.
@@ -133,43 +117,6 @@ Cards without strong mechanical dependency on other unimplemented cards.
 
 ---
 
-### Easy
-
-Straightforward effects using established patterns.
-
-| Card | ID | Effect Summary |
-|------|----|----------------|
-| Disenchant | `zd83net7x0` | Destroy target phantasia |
-| Sword Saint of Eveswind | `a7lr70xglo` | Class Bonus On Enter: if entered from a banishment, put 2 buff counters on it |
-| Beguiling Bandit | `jyrqgyj9vn` | Players can't attack it without paying 1; Class Bonus + L2+: +1 power |
-| Wingpeak Patriarch | `wov58exji1` | Other Bird objects you control get +1 power (field-presence passive) |
-| Coronation Ceremony | `y4PZCiE26a` | Reaction; target unit gains spellshroud until EOT; costs 2 less when targeting a unique ally |
-
----
-
-### Medium
-
-Multiple triggers, conditional passives, novel resource interactions, Brew cost substitution, or moderate zone-state checks.
-
-| Card | ID | Effect Summary |
-|------|----|----------------|
-| Bloodshroud Temper | `6vzr7yc6vi` | Target weapon gains omnishroud until EOT; Damage 20+ bonus: also put 2 durability counters on that weapon |
-| Sunglory Sentinel | `a3v1ybmvpb` | Class Bonus Foster; while fostered and attacking a champion, gets +2 power |
-| Scorching Imperilment | `aj7pz79wsp` | Phantasia; at beginning of each player's end phase, that player may discard a card — if they do, draw a card (symmetric per-player EOT trigger) |
-| Immaterial Dissolution | `55d9w9uuvq` | L2+ costs 1 less; destroy up to 3 target non-regalia token objects whose combined reserve cost is 4 or less |
-| Nullifying Mirror | `pol1nz0j1n` | REST: cards in target opponent's memory become norm element until EOT — requires element override on in-memory cards |
-| Censer of Restful Peace | `0nlhgqpckq` | Global passive regalia: all cards in both graveyards lose all abilities — requires ability suppression for graveyard objects |
-| Invigorating Concoction | `nsjukk5zk4` | Brew (One Flower + One Herb); Hindered; REST + Sacrifice: put 2 buff counters on target ally + draw |
-| Explosive Concoction | `yorsltrnu3` | Brew (One Leaf + One Herb); Hindered; REST + Sacrifice: deal 4 damage to target champion + draw |
-| Sword Saint's Vow | `r44lyrzo6o` | Regalia Weapon 0/—; +1 power per durability counter; Class Bonus: whenever you activate a Craft action, add 2 durability; On Hit: remove 1 durability |
-| Shangxiang, Fierce Princess | `s2tzwv1uw3` | Unique Ally 2/3; Imbue 3; while imbued, prevent 2 damage from non-norm sources |
-| Shattering Discharge | `uutqo9hm33` | Arcane Reaction; Class Bonus: put charge counter on this when banished from memory; activatable from banishment with a charge counter; deal 2 unpreventable damage to champion + banish this |
-| Maiden of Shrouded Fog | `wum3f33kay` | Phantasia Ally 2/2; Class Bonus Spellshroud; whenever you activate a card from your memory, put a buff counter on target phantasia ally you control |
-| Lu Xun, Pyre Strategist | `xllhbjr20n` | Unique Ally 0/3; Kindle 3; On Enter: enlighten counter on champion; Class Bonus: whenever enlighten counters are removed from your champion, may rest Lu Xun + empower 3 |
-
-*`Invigorating Concoction` / `Explosive Concoction` require the **Brew** mechanic: alternate cost by sacrificing specified subtype tokens (Flower, Herb, Leaf). Confirm whether Brew is already implemented from prior sets. `Nullifying Mirror` needs runtime element overrides on memory-zone objects, similar to the Nullifying Lantern graveyard override pattern. `Censer of Restful Peace`'s "graveyard cards lose all abilities" affects On Death triggers and floating-memory abilities.*
-
----
 
 ### Hard
 

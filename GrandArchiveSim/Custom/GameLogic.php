@@ -52,6 +52,7 @@ $additionalActivationCosts["P9Y1Q5cQ0F"] = [
 // Only active when Class Bonus is met.
 $Kindle_Cards = [];
 $Kindle_Cards["1ym2py8u7q"] = 3; // Glowering Conflagration (FIRE)
+$Kindle_Cards["xllhbjr20n"] = 3; // Lu Xun, Pyre Strategist (FIRE) - Kindle 3
 
 // --- Lineage Release Abilities Registry ---
 // Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
@@ -231,6 +232,19 @@ function ActionMap($actionCard)
                     }
                 }
             }
+            // Shattering Discharge (uutqo9hm33): activate from banishment if it has a charge counter
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && $bObj->CardID === "uutqo9hm33"
+                    && GetCounterCount($bObj, "charge") > 0) {
+                    RemoveCounters($playerID, $actionCard, "charge", 1);
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             break;
         default: break;
     }
@@ -343,6 +357,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     }
 
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
+    // Track the source zone so "whenever you activate from memory" triggers can check it in OnCardActivated.
+    DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
 
@@ -1493,6 +1509,26 @@ function OnCardReserved($player, $mzCard) {
     $obj = MZMove($player, $mzCard, "myMemory");
 }
 
+/**
+ * Hook fired by MZMove whenever a card moves from any memory zone to banishment.
+ * Called after the card has arrived in banishment.
+ * @param int    $player    The nominal player (1 or 2).
+ * @param string $cardID    The card ID that was moved.
+ * @param object $newObj    The new banishment zone object.
+ */
+function OnBanishedFromMemory($player, $cardID, $newObj) {
+    // Shattering Discharge (uutqo9hm33): [CB] whenever banished from memory, put a charge counter on it in banishment.
+    if($cardID === "uutqo9hm33" && IsClassBonusActive($player, ["MAGE"])) {
+        $banish = GetBanish($player);
+        for($i = count($banish) - 1; $i >= 0; --$i) {
+            if(!$banish[$i]->removed && $banish[$i]->CardID === "uutqo9hm33") {
+                AddCounters($player, "myBanish-" . $i, "charge", 1);
+                break;
+            }
+        }
+    }
+}
+
 $customDQHandlers["CardActivated"] = function($player, $parts, $lastDecision) {
     CardActivated($player, $parts[0]);
 };
@@ -1700,6 +1736,26 @@ function OnCardActivated($player, $mzCard) {
                     DecisionQueueController::AddDecision($player, "CUSTOM", "FerventLancerBanish", 1);
                 }
                 break;
+            case "r44lyrzo6o": // Sword Saint's Vow: [CB] whenever you activate a Craft action, add 2 durability
+                if(PropertyContains($cardType, "ACTION") && PropertyContains($subtypes, "CRAFT")
+                    && !HasNoAbilities($field[$fi]) && IsClassBonusActive($player, ["WARRIOR"])) {
+                    AddCounters($player, "myField-" . $fi, "durability", 2);
+                }
+                break;
+            case "wum3f33kay": // Maiden of Shrouded Fog: [CB] whenever you activate from memory, buff a phantasia ally
+                if(!HasNoAbilities($field[$fi]) && IsClassBonusActive($player, ["CLERIC"])) {
+                    $sourceZone = DecisionQueueController::GetVariable("activationSourceZone");
+                    if($sourceZone === "myMemory") {
+                        $phantasias = ZoneSearch("myField", ["PHANTASIA"]);
+                        if(!empty($phantasias)) {
+                            $choices = implode("&", $phantasias);
+                            DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1,
+                                tooltip:"Choose_phantasia_ally_to_buff_(Maiden_of_Shrouded_Fog)");
+                            DecisionQueueController::AddDecision($player, "CUSTOM", "MaidenShroudedFogBuff|" . $fi, 1);
+                        }
+                    }
+                }
+                break;
         }
     }
 
@@ -1845,6 +1901,10 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "m6c8xy4cje": // Misteye Archer — REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
+        case "pol1nz0j1n": // Nullifying Mirror — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -3057,6 +3117,107 @@ $customDQHandlers["HulaoGateUpkeep"] = function($player, $parts, $lastDecision) 
     }
 };
 
+// Immaterial Dissolution (55d9w9uuvq): accumulate up to 3 chosen non-regalia tokens (total cost <= 4)
+// then destroy them all. Each call processes one MZMAYCHOOSE resolution.
+$customDQHandlers["ImmaterialDissolveSelect"] = function($player, $parts, $lastDecision) {
+    global $customDQHandlers;
+    $count = intval(DecisionQueueController::GetVariable("dissolveCount"));
+    $cost = intval(DecisionQueueController::GetVariable("dissolveCost"));
+    $targets = DecisionQueueController::GetVariable("dissolveTargets");
+
+    // Player passed (no selection) or we've hit 3
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS" || $count >= 3) {
+        // Destroy all accumulated targets
+        if(!empty($targets)) {
+            foreach(explode(",", $targets) as $mz) {
+                $mz = trim($mz);
+                if($mz === "") continue;
+                $dObj = GetZoneObject($mz);
+                if($dObj !== null && !$dObj->removed) {
+                    OnLeaveField($player, $mz);
+                    MZMove($player, $mz, "myGraveyard");
+                }
+            }
+            DecisionQueueController::CleanupRemovedCards();
+        }
+        return;
+    }
+
+    // Validate chosen target
+    $chosenObj = GetZoneObject($lastDecision);
+    if($chosenObj === null || $chosenObj->removed) return;
+    $cardCost = intval(CardCost_reserve($chosenObj->CardID));
+    $newCost = $cost + $cardCost;
+    if($newCost > 4) {
+        // Over budget — stop, destroy what we have
+        if(!empty($targets)) {
+            foreach(explode(",", $targets) as $mz) {
+                $mz = trim($mz);
+                if($mz === "") continue;
+                $dObj = GetZoneObject($mz);
+                if($dObj !== null && !$dObj->removed) {
+                    OnLeaveField($player, $mz);
+                    MZMove($player, $mz, "myGraveyard");
+                }
+            }
+            DecisionQueueController::CleanupRemovedCards();
+        }
+        return;
+    }
+
+    // Accept this target
+    $count++;
+    $newTargets = empty($targets) ? $lastDecision : ($targets . "," . $lastDecision);
+    DecisionQueueController::StoreVariable("dissolveCost", strval($newCost));
+    DecisionQueueController::StoreVariable("dissolveCount", strval($count));
+    DecisionQueueController::StoreVariable("dissolveTargets", $newTargets);
+
+    if($count < 3) {
+        // Offer another choice — rebuild remaining token list excluding already-chosen
+        $chosenArr = explode(",", $newTargets);
+        $tokens = [];
+        foreach(["myField", "theirField"] as $zone) {
+            $field = GetZone($zone);
+            foreach($field as $i => $obj) {
+                if($obj->removed) continue;
+                $mz = $zone . "-" . $i;
+                if(in_array($mz, $chosenArr)) continue;
+                $ct = EffectiveCardType($obj);
+                if(!PropertyContains($ct, "REGALIA") && IsToken($obj->CardID)) {
+                    $tokens[] = $mz;
+                }
+            }
+        }
+        $tokens = FilterSpellshroudTargets($tokens);
+        if(!empty($tokens)) {
+            $remaining = 4 - $newCost;
+            $affordable = array_filter($tokens, function($mz) use ($remaining) {
+                $o = GetZoneObject($mz);
+                return $o !== null && intval(CardCost_reserve($o->CardID)) <= $remaining;
+            });
+            if(!empty($affordable)) {
+                $targetStr = implode("&", $affordable);
+                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1,
+                    "Destroy_another_token?_(cost_remaining:" . $remaining . ")");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ImmaterialDissolveSelect", 1);
+                return;
+            }
+        }
+    }
+
+    // Done selecting — destroy all accumulated targets
+    foreach(explode(",", $newTargets) as $mz) {
+        $mz = trim($mz);
+        if($mz === "") continue;
+        $dObj = GetZoneObject($mz);
+        if($dObj !== null && !$dObj->removed) {
+            OnLeaveField($player, $mz);
+            MZMove($player, $mz, "myGraveyard");
+        }
+    }
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 // Shining Marchador (lnl94ijbi1): pay (2) then put buff counter on target ally
 function ShiningMarchadorPay($player) {
     $hand = ZoneSearch("myHand");
@@ -3102,6 +3263,27 @@ $customDQHandlers["BriskWindtrotterBuff2"] = function($player, $parts, $lastDeci
 $customDQHandlers["JinFateDefiantBuff"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     AddTurnEffect($lastDecision, "zd8l14052j");
+};
+
+// Maiden of Shrouded Fog (wum3f33kay): [CB] whenever you activate from memory, buff a chosen phantasia ally
+$customDQHandlers["MaidenShroudedFogBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+// Lu Xun, Pyre Strategist (xllhbjr20n): [CB] whenever enlighten removed from champion, may rest Lu Xun to empower 3
+$customDQHandlers["LuXunRestEmpower"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $fi = intval(DecisionQueueController::GetVariable("LuXunFieldIdx"));
+    global $playerID;
+    $zone = ($player == $playerID) ? "myField" : "theirField";
+    $mzLuXun = $zone . "-" . $fi;
+    $luXunObj = GetZoneObject($mzLuXun);
+    if($luXunObj === null || $luXunObj->removed || $luXunObj->CardID !== "xllhbjr20n") return;
+    // Rest Lu Xun
+    ExhaustCard($player, $mzLuXun);
+    // Empower 3: champion gets +3 level until end of turn
+    Empower($player, 3, "xllhbjr20n");
 };
 
 // Fang of Dragon's Breath (iebo5fu381): Jin Bonus REST ability — deal 2 damage to chosen unit
@@ -4129,6 +4311,9 @@ function ObjectCurrentPower($obj) {
                 $power += intdiv($durability, 3);
             }
             break;
+        case "r44lyrzo6o": // Sword Saint's Vow: +1 POWER per durability counter
+            $power += GetCounterCount($obj, "durability");
+            break;
         case "W1g0hNzXAC": // Invigorated Slash: +2 POWER while champion leveled up this turn
             if(GlobalEffectCount($obj->Controller, "LEVELED_UP_THIS_TURN") > 0) {
                 $power += 2;
@@ -5116,6 +5301,9 @@ function ObjectCurrentLevel($obj) {
                 $cardLevel += 4;
                 break;
             case "zmoegdo111": // Sempiternal Sage: Empower 3 (+3 level until end of turn)
+                $cardLevel += 3;
+                break;
+            case "xllhbjr20n": // Lu Xun, Pyre Strategist: Empower 3 (+3 level until end of turn)
                 $cardLevel += 3;
                 break;
             default:
@@ -6760,6 +6948,10 @@ $doesGlobalEffectApply["zmoegdo111"] = function($obj) { // Sempiternal Sage Empo
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
+$doesGlobalEffectApply["xllhbjr20n"] = function($obj) { // Lu Xun, Pyre Strategist Empower 3: champion +3 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
 $doesGlobalEffectApply["jgyx38zpl0-east"] = function($obj) { // Bagua East: allies +2 POWER until end of turn
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
@@ -8140,6 +8332,8 @@ $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecisio
 };
 
 function HasFloatingMemory($obj) {
+    // Censer of Restful Peace (0nlhgqpckq): cards in graveyards lose all abilities (including floating memory)
+    if(ZoneContainsCardID("myField", "0nlhgqpckq") || ZoneContainsCardID("theirField", "0nlhgqpckq")) return false;
     if(HasKeyword_FloatingMemory($obj)) return true;
     // Intrepid Highwayman (WUAOMTZ7P2): [Class Bonus] Floating Memory
     if($obj->CardID === "WUAOMTZ7P2" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
@@ -8209,7 +8403,20 @@ function IsBrackishLutistOnField() {
 function HasNoAbilities($obj) {
     if(isset($obj->TurnEffects) && in_array("NO_ABILITIES", $obj->TurnEffects)) return true;
     if(isset($obj->Counters['_overrides']['NO_ABILITIES']) && $obj->Counters['_overrides']['NO_ABILITIES']) return true;
+    // Censer of Restful Peace (0nlhgqpckq): cards in graveyards lose all abilities
+    if(isset($obj->Location) && $obj->Location === 'Graveyard') {
+        if(ZoneContainsCardID("myField", "0nlhgqpckq") || ZoneContainsCardID("theirField", "0nlhgqpckq")) {
+            return true;
+        }
+    }
     return false;
+}
+
+/**
+ * Check if a card ID represents a token (has TOKEN in its type).
+ */
+function IsToken($cardID) {
+    return PropertyContains(CardType($cardID), "TOKEN");
 }
 
 /**
@@ -8229,6 +8436,21 @@ function EffectiveCardElement($obj) {
     if(isset($obj->Location) && $obj->Location === 'Graveyard') {
         if(ZoneContainsCardID("myField", "urKxcUjz9a") || ZoneContainsCardID("theirField", "urKxcUjz9a")) {
             return "NORM";
+        }
+    }
+    // Zone override: cards in memory become NORM while opponent controls Nullifying Mirror (pol1nz0j1n)
+    if(isset($obj->Location) && $obj->Location === 'Memory') {
+        global $playerID;
+        $controller = $obj->Controller ?? 0;
+        $opponentZone = ($controller == $playerID) ? "theirField" : "myField";
+        if(ZoneContainsCardID($opponentZone, "pol1nz0j1n")) {
+            // Check the mirror is not exhausted and has no abilities suppressed
+            $mirrorField = GetZone($opponentZone);
+            foreach($mirrorField as $mfObj) {
+                if(!$mfObj->removed && $mfObj->CardID === "pol1nz0j1n" && !HasNoAbilities($mfObj)) {
+                    return "NORM";
+                }
+            }
         }
     }
     return CardElement($obj->CardID);
@@ -8623,6 +8845,8 @@ function HasSpellshroud($obj) {
     if(in_array("INNERVATE_SPELLSHROUD", $effects)) return true;
     // Rippleback Terrapin (srkomr8ght): [CB] Spellshroud
     if($obj->CardID === "srkomr8ght" && IsClassBonusActive($obj->Controller, ["TAMER"])) return true;
+    // Maiden of Shrouded Fog (wum3f33kay): [CB] Spellshroud
+    if($obj->CardID === "wum3f33kay" && IsClassBonusActive($obj->Controller, ["CLERIC"])) return true;
     // Twilight Slime (62u1231c0z): [CB] champion and other Slime objects you control have spellshroud
     if($obj->CardID !== "62u1231c0z") {
         $isChampOrSlime = PropertyContains(EffectiveCardType($obj), "CHAMPION")
@@ -9594,6 +9818,31 @@ function RemoveCounters($player, $mzCard, $counterType, $amount = 1) {
     $obj->Counters[$counterType] = max(0, intval($obj->Counters[$counterType]) - $amount);
     if($obj->Counters[$counterType] <= 0) {
         unset($obj->Counters[$counterType]);
+    }
+    // Lu Xun, Pyre Strategist (xllhbjr20n): [CB] whenever enlighten counters are removed from champion,
+    // you may rest Lu Xun to empower 3.
+    if($counterType === "enlighten" && $amount > 0) {
+        $mzObj = GetZoneObject($mzCard);
+        if($mzObj !== null && PropertyContains(EffectiveCardType($mzObj), "CHAMPION")) {
+            // Check if Lu Xun is on the field for this player with CB active
+            $field = GetZone("myField");
+            $controller = $mzObj->Controller ?? $player;
+            global $playerID;
+            $fieldZone = ($controller == $playerID) ? "myField" : "theirField";
+            $fieldArr = GetZone($fieldZone);
+            for($fi = 0; $fi < count($fieldArr); ++$fi) {
+                if(!$fieldArr[$fi]->removed && $fieldArr[$fi]->CardID === "xllhbjr20n"
+                    && !HasNoAbilities($fieldArr[$fi])
+                    && IsClassBonusActive($controller, ["MAGE"])
+                    && $fieldArr[$fi]->Status == 2) { // must be ready (can be rested)
+                    DecisionQueueController::StoreVariable("LuXunFieldIdx", strval($fi));
+                    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
+                        tooltip:"Rest_Lu_Xun_to_empower_3?");
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LuXunRestEmpower", 1);
+                    break;
+                }
+            }
+        }
     }
 }
 
