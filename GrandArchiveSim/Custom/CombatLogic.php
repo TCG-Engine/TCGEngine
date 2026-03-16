@@ -208,6 +208,18 @@ function GetValidAttackTargets($attackerMZ) {
     }
 
     $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
+
+    // Siegeable domains are valid attack targets (not units, but can be attacked)
+    $oppField = GetZone("theirField");
+    foreach($oppField as $oi => $oObj) {
+        if(!$oObj->removed && IsSiegeable($oObj)) {
+            $siegeMZ = "theirField-" . $oi;
+            if(!in_array($siegeMZ, $opponents)) {
+                $opponents[] = $siegeMZ;
+            }
+        }
+    }
+
     if(empty($opponents)) return $opponents;
 
     // Stealth: filter out units with Stealth unless the attacker has True Sight
@@ -508,6 +520,25 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
+    // Chibi, Battle of Red Cliffs (881gacexpv): players can't declare attacks with allies
+    // unless they pay (1) for each attack declaration. Check both players' fields.
+    $chibiActive = false;
+    if(PropertyContains($cardType, "ALLY")) {
+        foreach(array_merge(GetField(1), GetField(2)) as $cObj) {
+            if(!$cObj->removed && $cObj->CardID === "881gacexpv" && !HasNoAbilities($cObj)) {
+                $chibiActive = true;
+                break;
+            }
+        }
+        if($chibiActive) {
+            $hand = GetZone("myHand");
+            if(count($hand) < 1) {
+                SetFlashMessage("Must pay (1) to attack with allies (Chibi, Battle of Red Cliffs). Not enough cards in hand.");
+                return false;
+            }
+        }
+    }
+
     // Step 2.c (pre-check) -- Must have at least one valid target, unless attacker has Cleave
     // Cleave can come from the attacking unit itself OR from an attack card already in intent
     $hasCleave = AttackerHasCleave($actionCard, $turnPlayer);
@@ -524,6 +555,11 @@ function BeginCombatPhase($actionCard) {
 
     // Plea for Peace (ir99sx6q3p): pay (1) reserve for each attack declaration
     if($pleaActive) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
+
+    // Chibi, Battle of Red Cliffs (881gacexpv): pay (1) reserve for ally attack declaration
+    if($chibiActive) {
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
     }
 
@@ -1346,6 +1382,17 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
 
     $opponents = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
 
+    // Cleave includes siegeable domains in the set of defending objects
+    $oppField = GetZone("theirField");
+    foreach($oppField as $oi => $oObj) {
+        if(!$oObj->removed && IsSiegeable($oObj)) {
+            $siegeMZ = "theirField-" . $oi;
+            if(!in_array($siegeMZ, $opponents)) {
+                $opponents[] = $siegeMZ;
+            }
+        }
+    }
+
     // Stealth: filter out units with Stealth unless the attacker has True Sight
     $hasTrueSight = AttackerHasTrueSight($attackerMZ, $attackerPlayer);
     if(!$hasTrueSight) {
@@ -1626,6 +1673,23 @@ $customDQHandlers["MechanicalHareBanish2"] = function($player, $parts, $lastDeci
  */
 function OnDealDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
+
+    // Siegeable domains: damage removes durability counters instead of adding Damage.
+    // Destroyed when durability reaches 0. On Hit still triggers via the combat flow.
+    if(IsSiegeable($targetObj)) {
+        if($amount > 0) {
+            $targetController = $targetObj->Controller ?? $player;
+            $currentDurability = GetCounterCount($targetObj, "durability");
+            $toRemove = min($amount, $currentDurability);
+            if($toRemove > 0) {
+                RemoveCounters($targetController, $target, "durability", $toRemove);
+            }
+            if(GetCounterCount($targetObj, "durability") <= 0) {
+                AllyDestroyed($targetController, $target);
+            }
+        }
+        return;
+    }
 
     // Potion Infusion: Frostbite — next water damage to this unit +4
     $sourceObj = GetZoneObject($source);
@@ -2237,6 +2301,23 @@ function OnDealDamage($player, $source, $target, $amount) {
  */
 function DealUnpreventableDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
+
+    // Siegeable domains: same handling as OnDealDamage (unpreventable doesn't change the mechanic)
+    if(IsSiegeable($targetObj)) {
+        if($amount > 0) {
+            $targetController = $targetObj->Controller ?? $player;
+            $currentDurability = GetCounterCount($targetObj, "durability");
+            $toRemove = min($amount, $currentDurability);
+            if($toRemove > 0) {
+                RemoveCounters($targetController, $target, "durability", $toRemove);
+            }
+            if(GetCounterCount($targetObj, "durability") <= 0) {
+                AllyDestroyed($targetController, $target);
+            }
+        }
+        return;
+    }
+
     // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage
     if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {
         $amount += 1;

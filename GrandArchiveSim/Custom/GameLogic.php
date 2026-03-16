@@ -659,6 +659,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Xuchang, Frozen Citadel (xpb20rar4k): next card activated costs 2 more (one-shot)
+    if(GlobalEffectCount($player, "XUCHANG_COST_INCREASE") > 0) {
+        $reserveCost += 2;
+        RemoveGlobalEffect($player, "XUCHANG_COST_INCREASE");
+    }
+
     // Ceasing Edict (4f3bi5lohu): costs 2 less while Shifting Currents face South
     if($obj->CardID === "4f3bi5lohu" && GetShiftingCurrents($player) === "SOUTH") {
         $reserveCost = max(0, $reserveCost - 2);
@@ -2749,6 +2755,14 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Siegeable domains enter with durability counters equal to their printed durability stat
+    if(IsSiegeable($added)) {
+        $durability = CardDurability($added->CardID);
+        if($durability !== null && $durability > 0) {
+            AddCounters($player, "myField-" . (count($field) - 1), "durability", $durability);
+        }
+    }
+
     // Ally Link: if the entering card has Ally Link, establish the link via Subcards
     global $AllyLink_Cards;
     if(isset($AllyLink_Cards[$added->CardID])) {
@@ -2950,6 +2964,17 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
 $customDQHandlers["AirshipCaptainDamage"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
     DealDamage($player, "t9hreqhj1t", $lastDecision, 2);
+};
+
+// Xuchang, Frozen Citadel (xpb20rar4k): opponent chose whether to banish a floating-memory GY card
+$customDQHandlers["XuchangFrozenCitadel"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") {
+        // Didn't banish — next card activated this turn costs 2 more
+        AddGlobalEffects($player, "XUCHANG_COST_INCREASE");
+    } else {
+        // Banished the chosen card
+        MZMove($player, $lastDecision, "myBanish");
+    }
 };
 
 // Inner Court Schemer (spijrps4ny): On Attack — remove preparation counter for +2 POWER
@@ -3555,6 +3580,24 @@ function RecollectionPhase() {
                 if($champMZ !== null) {
                     DealUnpreventableDamage($turnPlayer, $champMZ, $champMZ, 2);
                 }
+            }
+            break;
+        }
+    }
+
+    // Xuchang, Frozen Citadel (xpb20rar4k): at the beginning of each opponent's recollection phase,
+    // that player may banish a card with floating memory from their graveyard. If they don't,
+    // the next card they activate this turn costs 2 more.
+    foreach($nonTurnField as $xcObj) {
+        if(!$xcObj->removed && $xcObj->CardID === "xpb20rar4k" && !HasNoAbilities($xcObj)) {
+            $floatingGY = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
+            if(!empty($floatingGY)) {
+                $floatingStr = implode("&", $floatingGY);
+                DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $floatingStr, 1, "Banish_floating-memory_card_or_next_activation_costs_2_more_(Xuchang)");
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "XuchangFrozenCitadel", 1);
+            } else {
+                // No floating memory cards to banish — apply cost increase
+                AddGlobalEffects($turnPlayer, "XUCHANG_COST_INCREASE");
             }
             break;
         }
@@ -5344,7 +5387,7 @@ function ObjectCurrentHP($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fieldObj) {
-            if(!$fieldObj->removed && $fieldObj->CardID === "suo6gb0op3") {
+            if($fieldObj != null && !$fieldObj->removed && $fieldObj->CardID === "suo6gb0op3") {
                 if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
                     $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
                     $gyAllies = ZoneSearch($gravZone, ["ALLY"]);
@@ -8519,6 +8562,11 @@ function HasStealth($obj) {
     return false;
 }
 
+// Siegeable: domain subtype that allows being attacked. Damage removes durability counters.
+function IsSiegeable($obj) {
+    return PropertyContains(CardSubtypes($obj->CardID), "SIEGEABLE");
+}
+
 function HasTrueSight($obj) {
     if(HasNoAbilities($obj)) return false;
     if(HasKeyword_TrueSight($obj)) return true;
@@ -9015,6 +9063,11 @@ function GetRangedValue($obj) {
             switch($fieldObj->CardID) {
                 case "44vm5kt3q2": // Battlefield Spotter: [Level 2+] Other units get Ranged 1
                     if($fieldObj->GetMzID() !== $selfMzID && PlayerLevel($obj->Controller) >= 2) {
+                        $ranged += 1;
+                    }
+                    break;
+                case "43rtqovkti": // Baidi, Oathsworn Palace: Ranger units you control have Ranged 1
+                    if(PropertyContains(EffectiveCardClasses($obj), "RANGER")) {
                         $ranged += 1;
                     }
                     break;
