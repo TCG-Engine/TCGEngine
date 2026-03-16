@@ -1204,6 +1204,20 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         return;
     }
 
+    // Flip attacker/target mzIDs to the defender's perspective up-front.
+    // CombatAttacker/CombatTarget are stored from the attacker's perspective, but this
+    // handler runs with $playerID = defenderPlayer (swapped by ResolveOpportunityWindow),
+    // so GetZoneObject() must use the flipped names to reach the correct objects.
+    $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
+    $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
+
+    $oObj = GetZoneObject($defenderMZ_fromDefender);
+    if(IsSiegeable($oObj)) {
+        // Siegeables can't retaliate, skip retaliation and go to cleanup
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        return;
+    }
+
     // Check if any intent card has NO_RETALIATE (e.g. Seeking Shot [Class Bonus])
     $attackerIntentCards = GetIntentCards($attackerPlayer);
     foreach($attackerIntentCards as $iMZ) {
@@ -1215,7 +1229,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     }
 
     // Xiao Qiao, Cinderkeeper (3hgldrogit): [Class Bonus] attacks can't be retaliated
-    $attackerObj = GetZoneObject($attackerMZ);
+    $attackerObj = GetZoneObject($attackerMZ_fromDefender);
     if($attackerObj !== null && $attackerObj->CardID === "3hgldrogit" && !HasNoAbilities($attackerObj)
         && IsClassBonusActive($attackerPlayer, ["ASSASSIN", "TAMER"])) {
         DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
@@ -1224,7 +1238,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
 
     // Sun Jian, Wolvesbane (b23a85z88j): attacks can't be retaliated while attacking a Beast unit
     if($attackerObj !== null && $attackerObj->CardID === "b23a85z88j" && !HasNoAbilities($attackerObj)) {
-        $targetObj = GetZoneObject($targetMZ);
+        $targetObj = GetZoneObject($defenderMZ_fromDefender);
         if($targetObj !== null && PropertyContains(CardSubtypes($targetObj->CardID), "BEAST")) {
             DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
             return;
@@ -1237,9 +1251,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         return;
     }
 
-    // Flip to defender's perspective
-    $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
-    $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
+    // (perspective flip already computed above)
 
     // Build the list of valid retaliators: the actual defender plus any unit that
     // can retaliate while not defending (e.g. Lurking Assailant).
