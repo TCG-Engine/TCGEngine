@@ -1774,6 +1774,19 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         console.error('MZSplitAssignUI.js not loaded - ShowMZSplitAssignUI function not found');
       }
       break;
+    } else if (entry && entry.Type === 'NUMBERCHOOSE' && !entry.removed) {
+      // NUMBERCHOOSE: Numeric stepper/slider choice
+      // Param format: "min|max"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a number';
+
+      if (typeof ShowNumberChooseUI === 'function') {
+        ShowNumberChooseUI(entry.Param, tooltip, i, function(selectedNumber, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedNumber));
+        });
+      } else {
+        console.error('NumberChooseUI.js not loaded - ShowNumberChooseUI function not found');
+      }
+      break;
     } else if (entry && entry.Type === 'ICONCHOICE' && !entry.removed) {
       // ICONCHOICE: Compass-rose directional choice (Shifting Currents)
       // Param format: "OPT1&OPT2|CURRENT|CARDID"
@@ -1834,6 +1847,10 @@ function ClearSelectionMode() {
   // Also hide the MZModal UI if it exists
   if (typeof HideMZModalUI === 'function') {
     HideMZModalUI();
+  }
+  // Also hide the NumberChoose UI if it exists
+  if (typeof HideNumberChooseUI === 'function') {
+    HideNumberChooseUI();
   }
 }
 

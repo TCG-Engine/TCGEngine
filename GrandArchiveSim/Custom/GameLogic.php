@@ -46,6 +46,13 @@ $additionalActivationCosts["P9Y1Q5cQ0F"] = [
     'extraReserve' => 2,
 ];
 
+// --- Kindle Cards Registry ---
+// Maps cardID => kindle N value. Kindle N: "You may banish up to N fire element cards
+// from your graveyard as you activate this card. Each one pays for (1) of this card's cost."
+// Only active when Class Bonus is met.
+$Kindle_Cards = [];
+$Kindle_Cards["1ym2py8u7q"] = 3; // Glowering Conflagration (FIRE)
+
 // --- Lineage Release Abilities Registry ---
 // Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
 // When a card with a Lineage Release entry is in the champion's inner lineage (subcards),
@@ -1174,8 +1181,34 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
-        // Imbue: snapshot memory before reserve payment so we can count element-matching additions
-        global $Imbue_Cards;
+        // Kindle: check if card has Kindle N and class bonus is active
+        global $Kindle_Cards;
+        $hasKindle = isset($Kindle_Cards[$obj->CardID]) && !$ignoreCost && $reserveCost > 0
+            && IsClassBonusActive($player, CardClasses($obj->CardID));
+        if($hasKindle) {
+            $kindleN = $Kindle_Cards[$obj->CardID];
+            $fireGY = [];
+            $gy = GetZone("myGraveyard");
+            for($gi = 0; $gi < count($gy); ++$gi) {
+                if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE") {
+                    $fireGY[] = "myGraveyard-" . $gi;
+                }
+            }
+            $maxKindle = min($kindleN, count($fireGY), $reserveCost);
+            if($maxKindle > 0) {
+                DecisionQueueController::StoreVariable("kindleMax", "$maxKindle");
+                DecisionQueueController::StoreVariable("kindleBanished", "0");
+                DecisionQueueController::StoreVariable("kindleReserveCost", "$reserveCost");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "KindleChoose", 100);
+                // KindleChoose will handle queuing remaining ReserveCard + EffectStackOpportunity
+            } else {
+                $hasKindle = false; // No valid fire GY cards to kindle
+            }
+        }
+
+        if(!$hasKindle) {
+            // Imbue: snapshot memory before reserve payment so we can count element-matching additions
+            global $Imbue_Cards;
         $hasImbue = isset($Imbue_Cards[$obj->CardID]);
         if($hasImbue) {
             $memoryBefore = count(GetZone("myMemory"));
@@ -1202,6 +1235,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
         //1.9 Activation — grant Opportunity to the opponent before resolving
         DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        } // end if(!$hasKindle)
     }
     // When $hasAdditionalCost is true, the DeclareAdditionalCost handler takes over
     // queuing reserve payments and EffectStackOpportunity after the player answers.
@@ -1259,6 +1293,61 @@ $customDQHandlers["CheckImbue"] = function($player, $parts, $lastDecision) {
         }
     }
     DecisionQueueController::StoreVariable("isImbued", $elementMatches >= $threshold ? "YES" : "NO");
+};
+
+// --- Kindle DQ Handlers ---
+// KindleChoose: Present fire GY cards for optional banish. Repeats up to kindleMax times.
+$customDQHandlers["KindleChoose"] = function($player, $parts, $lastDecision) {
+    $maxKindle = intval(DecisionQueueController::GetVariable("kindleMax"));
+    $banished = intval(DecisionQueueController::GetVariable("kindleBanished"));
+    $reserveCost = intval(DecisionQueueController::GetVariable("kindleReserveCost"));
+
+    $remaining = $maxKindle - $banished;
+    $fireGY = [];
+    if($remaining > 0) {
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if(!$gy[$gi]->removed && CardElement($gy[$gi]->CardID) === "FIRE") {
+                $fireGY[] = "myGraveyard-" . $gi;
+            }
+        }
+    }
+
+    if($remaining > 0 && !empty($fireGY) && $reserveCost - $banished > 0) {
+        $kindleLeft = $remaining;
+        $tooltip = "Kindle:_banish_fire_card_from_GY_to_reduce_cost?_(" . $kindleLeft . "_remaining)";
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $fireGY), 100, tooltip:$tooltip);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "KindleProcess", 100, "", 1);
+    } else {
+        // Done kindling — queue remaining reserve costs + opportunity
+        $remainingReserve = max(0, $reserveCost - $banished);
+        for($i = 0; $i < $remainingReserve; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+    }
+};
+
+// KindleProcess: Handle the player's response from KindleChoose.
+$customDQHandlers["KindleProcess"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        // Player chose a fire GY card to banish
+        MZMove($player, $lastDecision, "myBanish");
+        $banished = intval(DecisionQueueController::GetVariable("kindleBanished")) + 1;
+        DecisionQueueController::StoreVariable("kindleBanished", "$banished");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "KindleChoose", 100);
+    } else {
+        // Player passed — done kindling, queue remaining reserves
+        $reserveCost = intval(DecisionQueueController::GetVariable("kindleReserveCost"));
+        $banished = intval(DecisionQueueController::GetVariable("kindleBanished"));
+        $remainingReserve = max(0, $reserveCost - $banished);
+        for($i = 0; $i < $remainingReserve; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+    }
 };
 
 // Break Apart (4ns2jbt4hq): DQ handler for the YESNO choice of whether to target a regalia
@@ -1896,6 +1985,27 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "g31dg6zl3j": // Sigil of Budding Embers: REST + banish self
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "lzfkc8ntn4": // Windspire Crest
+            if($abilityIndex == 0) {
+                // Ability 0: REST + remove 2 glimmer from champion
+                $sourceObj = &GetZoneObject($mzCard);
+                $sourceObj->Status = 1;
+                $wcChampMZ = FindChampionMZ($player);
+                if($wcChampMZ !== null) {
+                    RemoveCounters($player, $wcChampMZ, "glimmer", 2);
+                }
+            } else if($abilityIndex == 1) {
+                // Ability 1: banish self
+                MZMove($player, $mzCard, "myBanish");
+                DecisionQueueController::CleanupRemovedCards();
+            }
+            break;
     }
 }
 
@@ -2137,6 +2247,18 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "yorsltrnu3") {
         if($sourceObject->Status != 2) return;
         if(HasOpportunity($player)) return;
+    }
+    // Sigil of Budding Embers (g31dg6zl3j): [Diao Chan Bonus] — requires DC bonus + champion glimmer
+    if($cardID === "g31dg6zl3j") {
+        if(!IsDiaoChanBonus($player)) return;
+        $champObj = GetPlayerChampion($player);
+        if($champObj === null || GetCounterCount($champObj, "glimmer") <= 0) return;
+    }
+    // Windspire Crest (lzfkc8ntn4): ability 0 requires DC bonus + 2+ glimmer
+    if($cardID === "lzfkc8ntn4" && intval($abilityIndex) == 0) {
+        if(!IsDiaoChanBonus($player)) return;
+        $champObj = GetPlayerChampion($player);
+        if($champObj === null || GetCounterCount($champObj, "glimmer") < 2) return;
     }
     
     // Ability index is now passed directly from the frontend button click
@@ -2492,6 +2614,9 @@ function OnEnter($player, $mzID) {
     $obj = GetZoneObject($mzID);
     $CardID = $obj->CardID;
     DecisionQueueController::CleanupRemovedCards();
+    // Re-store mzID after cleanup: CleanupRemovedCards reindexes the field so the
+    // stored index may differ from the card's actual current position.
+    DecisionQueueController::StoreVariable("mzID", $obj->GetMzID());
     if(HasNoAbilities($obj)) return;
     if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
 }
@@ -3253,6 +3378,15 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "prbwzihwyh": // Firebloom Flourish: [CB] deal 1 damage to target champion
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, CardClasses("prbwzihwyh"))) {
+                        $allChamps = array_merge(ZoneSearch("myField", ["CHAMPION"]), ZoneSearch("theirField", ["CHAMPION"]));
+                        if(!empty($allChamps)) {
+                            DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $allChamps), 1, "Firebloom:_Deal_1_damage_to_champion");
+                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "FirebloomRecollation", 1);
+                        }
+                    }
+                    break;
                 default: break;
             }
         }
@@ -3668,6 +3802,44 @@ function EndPhase() {
                 }
             }
             break;
+        }
+    }
+
+    // Diao Chan, Dreaming Wish (pknaxnn0xo): Inherited — at the beginning of your end phase,
+    // if glimmer counters < phantasia count, put the difference as glimmer counters
+    if(ChampionHasInLineage($turnPlayer, "pknaxnn0xo")) {
+        $champObj = GetPlayerChampion($turnPlayer);
+        if($champObj !== null && !HasNoAbilities($champObj)) {
+            $champMZ = FindChampionMZ($turnPlayer);
+            $tpField = &GetField($turnPlayer);
+            $phantasiaCount = 0;
+            foreach($tpField as $pObj) {
+                if(!$pObj->removed && PropertyContains(EffectiveCardType($pObj), "PHANTASIA") && $pObj->Controller == $turnPlayer) {
+                    $phantasiaCount++;
+                }
+            }
+            $glimmerCount = GetCounterCount($champObj, "glimmer");
+            if($phantasiaCount > $glimmerCount) {
+                AddCounters($turnPlayer, $champMZ, "glimmer", $phantasiaCount - $glimmerCount);
+            }
+        }
+    }
+
+    // Firebloom Flourish (prbwzihwyh): [Diao Chan Bonus] At the beginning of your end phase,
+    // if your influence is four or less, draw a card into your memory and put a glimmer counter on your champion
+    if(IsDiaoChanBonus($turnPlayer)) {
+        $tpField2 = &GetField($turnPlayer);
+        for($fbi = 0; $fbi < count($tpField2); ++$fbi) {
+            if(!$tpField2[$fbi]->removed && $tpField2[$fbi]->CardID === "prbwzihwyh" && !HasNoAbilities($tpField2[$fbi])) {
+                $influence = count(GetMemory($turnPlayer));
+                if($influence <= 4) {
+                    DrawIntoMemory($turnPlayer, 1);
+                    $fbChampMZ = FindChampionMZ($turnPlayer);
+                    if($fbChampMZ !== null) {
+                        AddCounters($turnPlayer, $fbChampMZ, "glimmer", 1);
+                    }
+                }
+            }
         }
     }
 
@@ -5890,6 +6062,16 @@ $customDQHandlers["WindriderMageBounce"] = function($player, $parts, $lastDecisi
     }
 };
 
+$customDQHandlers["FirebloomRecollation"] = function($player, $parts, $lastDecision) {
+    // $lastDecision is the chosen champion mzID
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        $champObj = &GetZoneObject($lastDecision);
+        if($champObj !== null && !$champObj->removed) {
+            $champObj->Damage += 1;
+        }
+    }
+};
+
 $customDQHandlers["MorganSoulGuideRecollection"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "YES") {
         Glimpse($player, 1);
@@ -6052,6 +6234,13 @@ function CardHasAbility($obj) {
                 break;
             }
         }
+    }
+
+    // Sigil of Budding Embers (g31dg6zl3j): requires Diao Chan Bonus + champion has glimmer
+    if($obj->CardID === "g31dg6zl3j") {
+        if(!IsDiaoChanBonus($obj->Controller)) return 0;
+        $champObj = GetPlayerChampion($obj->Controller);
+        if($champObj === null || GetCounterCount($champObj, "glimmer") <= 0) return 0;
     }
 
     return 1;
@@ -6812,6 +7001,68 @@ function ChampionHasInLineage($player, $cardID) {
     return in_array($cardID, $lineage);
 }
 
+/**
+ * Get the champion object reference for a player.
+ * @param int $player The player number
+ * @return object|null The champion field object, or null if not found.
+ */
+function GetPlayerChampion($player) {
+    $field = &GetField($player);
+    foreach($field as &$obj) {
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
+            return $obj;
+        }
+    }
+    return null;
+}
+
+/**
+ * Attempt a Diao Chan glimmer cast from memory. Called when a player selects a
+ * myMemory card during an opportunity window. Returns true if handled, false otherwise.
+ *
+ * Flow: REST champion → remove glimmer counters → move spell to hand → ActivateCard(ignoreCost=true)
+ *
+ * @param int    $player  The player attempting the glimmer cast
+ * @param string $memoryMZ The mzID of the memory card (e.g. "myMemory-2")
+ * @return bool  True if glimmer cast was performed
+ */
+function TryGlimmerCast($player, $memoryMZ) {
+    $parts = explode("-", $memoryMZ);
+    if($parts[0] !== "myMemory") return false;
+
+    // Verify Diao Chan inherited ability is available
+    if(!ChampionHasInLineage($player, "00xbh8oc00")) return false;
+
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return false;
+    $champObj = &GetZoneObject($champMZ);
+    if($champObj->Status != 2 || HasNoAbilities($champObj)) return false;
+
+    $memObj = GetZoneObject($memoryMZ);
+    if($memObj === null || $memObj->removed) return false;
+
+    $spellCost = intval(CardCost_reserve($memObj->CardID));
+    $glimmerCount = GetCounterCount($champObj, "glimmer");
+    if($spellCost > $glimmerCount) return false;
+
+    // REST the champion
+    $champObj->Status = 1;
+
+    // Remove glimmer counters to pay the cost
+    RemoveCounters($player, $champMZ, "glimmer", $spellCost);
+
+    // Track that this card was activated from memory
+    DecisionQueueController::StoreVariable("activationSourceZone", "myMemory");
+
+    // Move spell from memory to hand, then activate with ignoreCost=true
+    MZMove($player, $memoryMZ, "myHand");
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    ActivateCard($player, "myHand-" . $handIdx, true);
+
+    return true;
+}
+
 // --- Shifting Currents Mastery ---
 
 /**
@@ -7394,6 +7645,31 @@ function GetPlayableFastCards($player) {
             }
         }
     }
+
+    // Diao Chan inherited ability: include eligible Reaction Spells from memory
+    // Only when it's the opponent's turn, champion is awake, and has glimmer
+    $turnPlayer = GetTurnPlayer();
+    if($player != $turnPlayer && ChampionHasInLineage($player, "00xbh8oc00")) {
+        $champObj = GetPlayerChampion($player);
+        if($champObj !== null && $champObj->Status == 2 && !HasNoAbilities($champObj)) {
+            $glimmerCount = GetCounterCount($champObj, "glimmer");
+            if($glimmerCount > 0) {
+                $memory = &GetMemory($player);
+                for($mi = 0; $mi < count($memory); ++$mi) {
+                    if(isset($memory[$mi]->removed) && $memory[$mi]->removed) continue;
+                    $memCardID = $memory[$mi]->CardID;
+                    if(PropertyContains(CardSubtypes($memCardID), "REACTION")
+                        && PropertyContains(CardSubtypes($memCardID), "SPELL")) {
+                        $spellCost = intval(CardCost_reserve($memCardID));
+                        if($spellCost <= $glimmerCount) {
+                            $fastCards[] = "myMemory-" . $mi;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     return $fastCards;
 }
 
@@ -7455,7 +7731,9 @@ $customDQHandlers["EffectStackActiveResponse"] = function($player, $parts, $last
         }
     } else {
         // Active player played a fast card — they keep priority
-        ActivateCard($player, $lastDecision, false);
+        if(!TryGlimmerCast($player, $lastDecision)) {
+            ActivateCard($player, $lastDecision, false);
+        }
     }
 };
 
@@ -7468,7 +7746,9 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
         ResolveTopOfEffectStack();
     } else {
         // Opponent played a fast card — they get priority
-        ActivateCard($player, $lastDecision, false);
+        if(!TryGlimmerCast($player, $lastDecision)) {
+            ActivateCard($player, $lastDecision, false);
+        }
     }
 };
 
@@ -7528,11 +7808,16 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
 function ResolveTopOfEffectStack() {
     $effectStack = &GetEffectStack();
     DecisionQueueController::CleanupRemovedCards();
-    $effectStack = &GetEffectStack();
     if(empty($effectStack)) return;
 
     $topIndex = count($effectStack) - 1;
     $topObj = $effectStack[$topIndex];
+    if($topObj == null) {
+        $topIndex = $topIndex - 1;
+        if($topIndex < 0) return;
+        $topObj = $effectStack[$topIndex];
+        if($topObj == null) return;
+    }
     $cardOwner = $topObj->Controller;
     $topMZ = "EffectStack-" . $topIndex;
 
@@ -7648,7 +7933,9 @@ $customDQHandlers["OpportunityWindowFirstResponse"] = function($player, $parts, 
         }
     } else {
         // Player played a fast card — they keep priority
-        ActivateCard($player, $lastDecision, false);
+        if(!TryGlimmerCast($player, $lastDecision)) {
+            ActivateCard($player, $lastDecision, false);
+        }
         // ActivateCard → DoActivateCard → EffectStack → EffectStackOpportunity
         // After stack empties, PostResolutionCheck re-grants this window
     }
@@ -7663,7 +7950,9 @@ $customDQHandlers["OpportunityWindowSecondResponse"] = function($player, $parts,
         ResolveOpportunityWindow();
     } else {
         // Player played a fast card — they keep priority
-        ActivateCard($player, $lastDecision, false);
+        if(!TryGlimmerCast($player, $lastDecision)) {
+            ActivateCard($player, $lastDecision, false);
+        }
         // After stack empties, PostResolutionCheck re-grants this window
     }
 };
@@ -8979,6 +9268,10 @@ function GetDurabilityCounterCount($obj) {
 
 function GetRefinementCounterCount($obj) {
     return GetCounterCount($obj, "refinement");
+}
+
+function GetGlimmerCounterCount($obj) {
+    return GetCounterCount($obj, "glimmer");
 }
 
 /**

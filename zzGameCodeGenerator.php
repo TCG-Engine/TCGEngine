@@ -2526,6 +2526,10 @@ function BuildAddDecisionCall($await, $cardId, $indent = '') {
     // Modal: Param = min|max|label1&label2&label3, tooltip in 5th arg
     $tooltip = isset($await['modalTooltip']) ? $await['modalTooltip'] : '';
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['modalMin'] . " . \"|\" . " . $await['modalMax'] . " . \"|\" . \"" . $await['modalOptions'] . "\", 1, \"" . $tooltip . "\");\n";
+  } else if (isset($await['isNumberChoose']) && $await['isNumberChoose']) {
+    // NumberChoose: Param = min|max, tooltip in 5th arg
+    $tooltip = isset($await['numberTooltip']) ? $await['numberTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"NUMBERCHOOSE\", " . $await['numberMin'] . " . \"|\" . " . $await['numberMax'] . ", 1, \"" . $tooltip . "\");\n";
   } else {
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", \"" . $await['params'] . "\", 1);\n";
   }
@@ -2555,13 +2559,18 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
         // Modal($min, $max, "label1&label2&label3", "tooltip")
         $modalArgs = ParseAwaitArgs($rawParams);
         $params = $rawParams; // store raw for reference
+      } else if (strtolower($methodName) === 'numberchoose') {
+        // NumberChoose($min, $max, "tooltip")
+        $numberArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
       } else {
         $params = trim($rawParams, '"\'');
       }
       
       $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
       $isModal = strtolower($methodName) === 'modal';
-      $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isModal ? 'MZMODAL' : strtoupper($methodName)));
+      $isNumberChoose = strtolower($methodName) === 'numberchoose';
+      $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : strtoupper($methodName))));
       $awaitEntry = [
         'lineIndex' => $i,
         'returnVar' => $matches[1],  // e.g., $cardToDeploy
@@ -2571,6 +2580,7 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
         'isRearrange' => strtolower($methodName) === 'rearrange',
         'isSplitAssign' => $isSplitAssign,
         'isModal' => $isModal,
+        'isNumberChoose' => $isNumberChoose,
         'isVoidFunction' => false
       ];
       if ($isSplitAssign && isset($splitArgs)) {
@@ -2583,6 +2593,11 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
         $awaitEntry['modalMax'] = trim($modalArgs[1]);
         $awaitEntry['modalOptions'] = trim($modalArgs[2], '"\'');
         $awaitEntry['modalTooltip'] = isset($modalArgs[3]) ? trim(trim($modalArgs[3]), '"\'') : '';
+      }
+      if ($isNumberChoose && isset($numberArgs)) {
+        $awaitEntry['numberMin'] = trim($numberArgs[0]);
+        $awaitEntry['numberMax'] = trim($numberArgs[1]);
+        $awaitEntry['numberTooltip'] = isset($numberArgs[2]) ? trim(trim($numberArgs[2]), '"\'') : '';
       }
       $awaits[] = $awaitEntry;
     }
