@@ -672,6 +672,36 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Coronation Ceremony (y4PZCiE26a): costs 2 less if it targets a unique ally
+    $hasCoronationCost = false;
+    if($obj->CardID === "y4PZCiE26a") {
+        $allUnits = array_merge(
+            ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+            ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+        );
+        $allUnits = FilterSpellshroudTargets($allUnits);
+        $uniqueAllyCount = 0;
+        $nonUniqueCount = 0;
+        foreach($allUnits as $uMZ) {
+            $uObj = GetZoneObject($uMZ);
+            if(PropertyContains(EffectiveCardType($uObj), "ALLY") && PropertyContains(EffectiveCardType($uObj), "UNIQUE")) {
+                $uniqueAllyCount++;
+            } else {
+                $nonUniqueCount++;
+            }
+        }
+        if($uniqueAllyCount > 0 && $nonUniqueCount == 0) {
+            $reserveCost = max(0, $reserveCost - 2);
+            DecisionQueueController::StoreVariable("coronationTargetUnique", "YES");
+        } else if($uniqueAllyCount > 0 && $nonUniqueCount > 0) {
+            $hasCoronationCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Target_a_unique_ally?_(costs_2_less)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "CoronationCeremonyChoice|$reserveCost", 100);
+        } else {
+            DecisionQueueController::StoreVariable("coronationTargetUnique", "NO");
+        }
+    }
+
     // Wayfinder's Map (porhlq2kkv): domain cards cost 1 less
     if(PropertyContains($cardType, "DOMAIN")) {
         $myField = GetZone("myField");
@@ -1140,7 +1170,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1238,6 +1268,22 @@ $customDQHandlers["BreakApartCostChoice"] = function($player, $parts, $lastDecis
     $totalCost = $baseReserve;
     if($lastDecision === "YES") {
         $totalCost += 2;
+    }
+    DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+    for($i = 0; $i < $totalCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+// Coronation Ceremony (y4PZCiE26a): YesNo cost choice handler
+$customDQHandlers["CoronationCeremonyChoice"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    DecisionQueueController::StoreVariable("coronationTargetUnique", $lastDecision);
+    $totalCost = $baseReserve;
+    if($lastDecision === "YES") {
+        $totalCost = max(0, $totalCost - 2);
     }
     DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
     for($i = 0; $i < $totalCost; ++$i) {
@@ -1679,6 +1725,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "yorsltrnu3": // Explosive Concoction — REST + sacrifice self
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            ProcessPotionInfusionTriggers($player, $mzCard);
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "9cy4wipw4k": // Tabula of Salvage — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
@@ -2077,6 +2130,11 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     }
     // Invigorating Concoction (nsjukk5zk4): REST, Sacrifice — must be awake + slow speed
     if($cardID === "nsjukk5zk4") {
+        if($sourceObject->Status != 2) return;
+        if(HasOpportunity($player)) return;
+    }
+    // Explosive Concoction (yorsltrnu3): REST, Sacrifice — must be awake + slow speed
+    if($cardID === "yorsltrnu3") {
         if($sourceObject->Status != 2) return;
         if(HasOpportunity($player)) return;
     }
@@ -3573,6 +3631,46 @@ function EndPhase() {
         QueueShiftingCurrentsChoice($turnPlayer, "any", true);
     }
 
+    // Whirlwind Reaper (x7yc0ije4d): At beginning of end phase, may remove a
+    // preparation counter from champion to wake Whirlwind Reaper.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "x7yc0ije4d" && !HasNoAbilities($field[$i])) {
+            // Check if champion has any prep counters
+            $champHasPrep = false;
+            foreach($field as $champObj) {
+                if(!$champObj->removed && PropertyContains(EffectiveCardType($champObj), "CHAMPION")) {
+                    if(GetPrepCounterCount($champObj) >= 1) {
+                        $champHasPrep = true;
+                    }
+                    break;
+                }
+            }
+            if($champHasPrep) {
+                DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1,
+                    tooltip:"Remove_a_preparation_counter_to_wake_Whirlwind_Reaper?");
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WhirlwindReaperWakeup|" . $i, 1);
+            }
+            break;
+        }
+    }
+
+    // Ashwick Cremator (xwtkzqxfab): [CB] At beginning of end phase, if no cards in hand,
+    // deal 2 damage to each champion.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "xwtkzqxfab" && !HasNoAbilities($field[$i])) {
+            if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
+                $hand = &GetHand($turnPlayer);
+                if(count($hand) == 0) {
+                    DealChampionDamage(1, 2);
+                    DealChampionDamage(2, 2);
+                }
+            }
+            break;
+        }
+    }
+
     $field = &GetField($turnPlayer);
     for($i=count($field)-1; $i>=0; --$i) {
         if(HasVigor($field[$i])) {
@@ -4088,6 +4186,9 @@ function ObjectCurrentPower($obj) {
                 $power += $phantasiaCount;
             }
             break;
+        case "xrbffkghwt": // Ritai Berserker: +1 POWER while Shifting Currents face North
+            if(GetShiftingCurrents($obj->Controller) === "NORTH") $power += 1;
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -4448,6 +4549,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "mvgmaalpko": // Flamelash Beastmaster: [CB] +3 POWER until end of turn
                 $power += 3;
+                break;
+            case "xgi39z49tu": // Pluming Crescendo: Animals get +1 POWER until end of turn
+                $power += 1;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -5048,6 +5152,9 @@ function ObjectCurrentHP($obj) {
                 break;
             case "90i1prp63s": // Evanescent Winds: Phantasia allies get +2 LIFE until end of turn
                 $cardLife += 2;
+                break;
+            case "ysj63dw50a": // Convalescing Mare: Other allies get +1 LIFE until end of turn
+                $cardLife += 1;
                 break;
             default: break;
         }
@@ -6416,6 +6523,16 @@ $doesGlobalEffectApply["SUDDEN_SNOW_RESTED"] = function($obj) { return false; };
 // Tailwind's Blessing (oh5n2sjk0u): allies you control get +1 POWER until EOT
 $doesGlobalEffectApply["oh5n2sjk0u"] = function($obj) {
     return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+
+// Pluming Crescendo (xgi39z49tu): Animals you control get +1 POWER until EOT
+$doesGlobalEffectApply["xgi39z49tu"] = function($obj) {
+    return PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL");
+};
+
+// Convalescing Mare (ysj63dw50a): Other allies you control get +1 LIFE until EOT
+$doesGlobalEffectApply["ysj63dw50a"] = function($obj) {
+    return PropertyContains(EffectiveCardType($obj), "ALLY") && $obj->CardID !== "ysj63dw50a";
 };
 
 // Planar Abyss (qexcwmx2ug): flag only — delayed destroy-all at next recollection
@@ -7806,6 +7923,17 @@ function HasVigor($obj) {
     if($obj->CardID === "i1sh9r9rda" && PlayerLevel($obj->Controller) >= 1) return true;
     // Ma Chao, Lupine Huntress (fw8yvhf3mz): [CB][Level 2+] Vigor
     if($obj->CardID === "fw8yvhf3mz" && IsClassBonusActive($obj->Controller, ["TAMER"]) && PlayerLevel($obj->Controller) >= 2) return true;
+    // Rilewind Sentinel (y1utsihaxv): while fostered, allies you control have vigor
+    if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "y1utsihaxv" && !HasNoAbilities($fObj) && IsFostered($fObj)) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -8220,6 +8348,7 @@ function HasFoster($obj) {
         "1x97n2jnlt" => ["GUARDIAN"], // Guardian Scout
         "a3v1ybmvpb" => ["GUARDIAN"], // Sunglory Sentinel
         "3kwkn38b7v" => ["GUARDIAN"], // Tidebreaker Sentinel
+        "y1utsihaxv" => ["GUARDIAN"], // Rilewind Sentinel
     ];
     if(isset($fosterCBCards[$obj->CardID])) {
         return IsClassBonusActive($obj->Controller, $fosterCBCards[$obj->CardID]);
@@ -11871,6 +12000,25 @@ $customDQHandlers["OverlordEndPhase"] = function($player, $parts, $lastDecision)
     $fieldIdx = intval($parts[0]);
     AddCounters($player, "myField-" . $fieldIdx, "buff", 1);
     Draw($player, 1);
+};
+
+// Whirlwind Reaper (x7yc0ije4d): YesNo handler for end phase wake-up
+$customDQHandlers["WhirlwindReaperWakeup"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $fieldIdx = intval($parts[0]);
+    // Remove 1 preparation counter from champion
+    $field = &GetField($player);
+    foreach($field as $fi => $fObj) {
+        if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+            RemoveCounters($player, "myField-" . $fi, "preparation", 1);
+            break;
+        }
+    }
+    // Wake up Whirlwind Reaper
+    $reaperObj = &$field[$fieldIdx];
+    if(!$reaperObj->removed) {
+        $reaperObj->Status = 2;
+    }
 };
 
 // ============================================================================
