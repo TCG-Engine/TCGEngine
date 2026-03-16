@@ -69,20 +69,6 @@ Cards using or granting **Kindle N** (banish up to N fire element cards from gra
 
 ---
 
-### 8. Shifting Currents (Kongming)
-
-Kongming's mechanic tracks a compass direction (North / East / South / West) on the Shifting Currents zone artifact. Cards check or respond to the current facing.
-
-| Card | ID | Type | Effect Summary |
-|------|----|------|----------------|
-| Kongming, Erudite Strategist | `0i139x5eub` | L2 Champion | On Enter: banish top card while facing each of the 4 compass directions; until beginning of next turn may play each banished card while Shifting Currents faces that direction |
-| Bagua of Vital Demise | `imdj3c7oh0` | Spell | Shifting Currents faces West: may activate from material deck; deal 4 to target unit; if faces East: return to material deck preserved |
-| Dynasty Chancellor | `do1blsupu0` | Ally | On Enter if Shifting Currents faces North: mill 2 *(also in Deluge cluster)* |
-
-*Kongming's On Enter creates four paired (direction → banished card) associations. The "may play" window for each card is conditional on the compass current matching that card's direction at activation time. This multi-slot deferred play window spanning until the next turn is the primary complexity.*
-
----
-
 ### 9. Arcane Shenju Interactions
 
 Cards from the arcane element that can have their element requirement bypassed while you control an arcane element Shenju ally.

@@ -245,6 +245,35 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
+            // Kongming, Erudite Strategist (0i139x5eub): may play banished card if SC faces matching direction
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && is_array($bObj->TurnEffects)) {
+                    foreach(["NORTH", "EAST", "SOUTH", "WEST"] as $d) {
+                        if(in_array("KONGMING_" . $d, $bObj->TurnEffects) && GetShiftingCurrents($playerID) === $d) {
+                            $handObj = MZMove($playerID, $actionCard, "myHand");
+                            $hand = &GetHand($playerID);
+                            $handIdx = count($hand) - 1;
+                            ActivateCard($playerID, "myHand-" . $handIdx, false);
+                            return "PLAY";
+                        }
+                    }
+                }
+            }
+            break;
+        case "myMaterial":
+            // Bagua of Vital Demise (imdj3c7oh0): may activate from material deck when SC faces West
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "imdj3c7oh0"
+                    && GetShiftingCurrents($playerID) === "WEST") {
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             break;
         default: break;
     }
@@ -1628,6 +1657,9 @@ function OnCardActivated($player, $mzCard) {
         } else if(HasFloatingMemory($obj) && IsBrackishLutistOnField()) {
             // Brackish Lutist (1clswn3ba2): floating memory → banish instead of graveyard
             $obj = MZMove($player, $mzCard, "myBanish");
+        } else if($obj->CardID === "imdj3c7oh0" && GetShiftingCurrents($player) === "EAST") {
+            // Bagua of Vital Demise: if SC faces East, return to material deck preserved
+            $obj = MZMove($player, $mzCard, "myMaterial");
         } else {
             $obj = MZMove($player, $mzCard, "myGraveyard");
         }
@@ -3367,6 +3399,16 @@ function RecollectionPhase() {
     // Process domain upkeep checks that trigger "at the beginning of your recollection phase".
     // Must run BEFORE memory is returned to hand, since the checks reveal memory cards.
     DomainRecollectionUpkeep($turnPlayer);
+
+    // Kongming, Erudite Strategist (0i139x5eub): clear "may play until beginning of next turn" tags from banished cards
+    $kongmingBanish = &GetBanish($turnPlayer);
+    for($bi = 0; $bi < count($kongmingBanish); ++$bi) {
+        if($kongmingBanish[$bi]->removed || !is_array($kongmingBanish[$bi]->TurnEffects)) continue;
+        $kongmingBanish[$bi]->TurnEffects = array_values(array_filter(
+            $kongmingBanish[$bi]->TurnEffects,
+            fn($e) => !in_array($e, ["KONGMING_NORTH", "KONGMING_EAST", "KONGMING_SOUTH", "KONGMING_WEST"])
+        ));
+    }
 
     // Peaceful Reunion: clear attack-prevention at the beginning of the caster's next turn
     if(GlobalEffectCount($turnPlayer, "wr42i6eifn") > 0) {
