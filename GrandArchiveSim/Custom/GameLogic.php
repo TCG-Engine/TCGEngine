@@ -910,6 +910,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::StoreVariable("manaResonanceReservePaid", strval($reserveCost));
     }
 
+    // Disciple of the Waves (m9sfzj5d1i): Deluge 3 — costs 1 less
+    if($obj->CardID === "m9sfzj5d1i" && DelugeAmount($player) >= 3) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
+    // Sleety Retreat (j9fkuzgg9i): Deluge 4 — costs 2 less
+    if($obj->CardID === "j9fkuzgg9i" && DelugeAmount($player) >= 4) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
     // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
     if($hasAllyLink) {
         $allyTargets = ZoneSearch("myField", ["ALLY"]);
@@ -4574,6 +4584,18 @@ function ObjectCurrentPower($obj) {
             foreach($field as $fieldObj) {
                 if(!$fieldObj->removed && $fieldObj->CardID === "wov58exji1" && !HasNoAbilities($fieldObj)
                    && $obj->CardID !== "wov58exji1") {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
+        // Dian Wei, Valorant Fury (h42l1w67ry): [CB] Deluge 6 — other Human allies get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "HUMAN")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "h42l1w67ry" && !HasNoAbilities($fieldObj)
+                   && $obj->CardID !== "h42l1w67ry"
+                   && IsClassBonusActive($obj->Controller, ["WARRIOR"])
+                   && DelugeAmount($obj->Controller) >= 6) {
                     $power += 1;
                     break;
                 }
@@ -10320,6 +10342,28 @@ $customDQHandlers["RightOfRealmChoice"] = function($player, $parts, $lastDecisio
 };
 
 /**
+ * Count the number of water element cards in a player's graveyard.
+ * Centralized for future modifier support (e.g. "your deluge counts as having one more").
+ */
+function DelugeAmount($player) {
+    global $playerID;
+    $gravZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+    return count(ZoneSearch($gravZone, cardElements: ["WATER"]));
+}
+
+function SleeyRetreatCheckDefending($player, $target) {
+    if(!IsUnitDefending($target)) return;
+    $opponent = ($player == 1) ? 2 : 1;
+    $oppHand = ZoneSearch("theirHand");
+    if(count($oppHand) >= 2) {
+        DecisionQueueController::AddDecision($opponent, "YESNO", "-", 1, tooltip:"Pay_2_to_prevent_combat_from_ending?");
+        DecisionQueueController::AddDecision($opponent, "CUSTOM", "SleeyRetreatPayment", 1);
+    } else {
+        EndCombat($player);
+    }
+}
+
+/**
  * Mill N cards from a player's deck (move top N cards from deck to graveyard).
  * @param int    $player   The acting player (perspective for zone names)
  * @param string $deckRef  "myDeck" or "theirDeck"
@@ -10677,6 +10721,15 @@ $customDQHandlers["FrigidBashPayment"] = function($player, $parts, $lastDecision
     } else {
         // Player declined — target doesn't wake up during next wake up phase
         AddTurnEffect($targetMZ, "SKIP_WAKEUP");
+    }
+};
+
+$customDQHandlers["SleeyRetreatPayment"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        ReserveCard($player);
+        ReserveCard($player);
+    } else {
+        EndCombat($player);
     }
 };
 

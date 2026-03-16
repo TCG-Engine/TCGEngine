@@ -8,23 +8,6 @@
 
 Cards that share a core mechanic and should ideally be implemented together.
 
-### 2. Diao Chan — Wither & Flowerbud Ecosystem
-
-**Wither counters** tax objects their controller controls: at the start of each main phase, each object with wither counters must be paid off (1 reserve per counter) or sacrificed. Diao Chan L3 generates **Flowerbud tokens** (already implemented: `yn78t73w1p`) when opponents' non-token objects are destroyed. **Acerbica** (`7ax4ywyv19`) and **Flowerbud** (`yn78t73w1p`) tokens are already implemented. **Nightshade** and **Washuru** are new Phantasia tokens summoned by this lineage.
-
-| Card | ID | Type | Effect Summary |
-|------|----|------|----------------|
-| Diao Chan, Idyll Corsage | `d7l6i5thdy` | L3 Champion | On Enter: put a wither counter on any number of chosen non-champion objects; whenever opponent's non-token object is destroyed, banish it and that opponent summons a Flowerbud token |
-| Withering Grasp | `wftz07gc85` | Spell | Put 1 wither counter on target non-champion object; Diao Chan Bonus: draw into memory |
-| Aphotic Ruin | `g9g8lun4ol` | Spell | Diao Chan Bonus Efficiency; put 4 wither counters on target non-champion object |
-| Enthralling Chime | `mhc5a9jpi6` | Regalia Accessory | Diao Chan Bonus — (3) banish: as a Spell, gain control of target ally with 3+ wither counters |
-| Captivating Opulence | `tnl3qr42vp` | Unique Phantasia | On Enter: draw into memory; Diao Chan Bonus: activated abilities of opponents' regalias cost 2 more |
-| Bloom: Autumn's Fall | `pebu7agtcd` | Spell | Class Bonus: each opponent sacrifices all Flowerbuds; for each, that opponent summons your choice of Acerbica or Washuru token; Element Bonus: discard from hand to empower 2 + draw |
-| Nightshade | `rzk3mjblse` | Token Phantasia | At beginning of your recollection phase: put a wither counter on a non-champion non-token object you control |
-| Washuru | `k5iv040vcq` | Token Phantasia | At beginning of your recollection phase: banish a card from your graveyard |
-
-*`Enthralling Chime`'s control theft targets only allies currently bearing 3+ wither counters — requires a filtered MZChoose. `Diao Chan, Idyll Corsage`'s replacement trigger intercepts any non-token destruction event from opponents.*
-
 ---
 
 ### 3. Guo Jia Lineage — Quest Counters
@@ -65,25 +48,6 @@ These items all have the FATESTONE subtype and most include a `[Guo Jia Bonus]` 
 | Winds of Destiny | `nhk5d19n82` | Spell | May rest two Fatestones instead of paying cost; suppress target ally, item, or weapon |
 
 *`Pelagic Fatestone`'s transform-on-memory-banish triggers during payment — requires a hook in the floating memory banish logic. `Beseeched Fatestone`'s cost reduction counts materializations this turn, requiring a per-turn materialize counter. `Fatestone of Balance` watches the opponent's current memory count mid-activation.*
-
----
-
-### 5. Deluge — Water Graveyard Count
-
-The `Deluge N` keyword checks whether you have N or more water element cards in your graveyard. Effects range from cost reductions to On-Death triggers to conditional On-Enter bonuses.
-
-| Card | ID | Type | Deluge Threshold & Effect |
-|------|----|------|-----------------------------|
-| Disciple of the Waves | `m9sfzj5d1i` | Ally Mage | Deluge 3: costs 1 less |
-| Waterlogged Ranger | `3w5wskifp2` | Ally Ranger | Ranged 2; Deluge 3 On Enter: becomes distant |
-| Mistsworn Magister | `rqjnvhf26m` | Ally Mage | Class Bonus Intercept; Deluge 3 On Death: put 2 enlighten counters on champion |
-| Dynasty Chancellor | `do1blsupu0` | Ally Mage | Intercept; On Enter if Shifting Currents faces North: mill 2; Deluge 3 On Death: draw |
-| Conniving Plans | `2b2w1ydw5z` | Skill | Mill 2; Deluge 4: put preparation counter on champion + draw into memory |
-| Sleety Retreat | `j9fkuzgg9i` | Reaction Skill | Deluge 4: costs 2 less; make target Ranger unit distant; if that unit was defending, end the combat phase unless opponent pays 2 |
-| Dian Wei, Valorant Fury | `h42l1w67ry` | Unique Ally Warrior | Class Bonus On Enter: mill X (X = human allies you control); Deluge 6: other human allies get +1 power |
-| Drowned Exorcist | `qe1pkerbi3` | Ally Cleric | L2+ On Enter: each player banishes all non-water cards from their gy; Deluge 8 On Death: draw 2 |
-
-*`Sleety Retreat`'s combat-end option ("end the combat phase unless opponent pays 2") is a conditional early-end-combat trigger requiring interaction with the combat resolution flow.*
 
 ---
 
