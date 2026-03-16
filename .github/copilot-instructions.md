@@ -146,6 +146,7 @@ So in the ability code, you have access to:
   - `$var = await $player.MZChoose("zone-0&zone-1")` — mandatory card choice
   - `$var = await $player.MZMayChoose("zone-0&zone-1")` — optional card choice
   - `$var = await $player.YesNo("prompt")` — yes/no choice
+  - `$var = await $player.NumberChoose(min, max, "prompt")` — choose a number in a range
   - `$var = await $player.MZSplitAssign($targets, $amount, "prompt")` — split-assign a pool across targets. Returns comma-separated `mzID:amount` pairs (e.g. `"myField-0:3,myField-1:2"`). `$targets` is an `&`-delimited mzID string, `$amount` is the total pool to assign.
   - `await FunctionName($player, $args)` — call a function that queues decisions
   - await does not currently support being inside loops or conditionals, but you can queue custom functions that themselves queue decisions to achieve multi-step flows.

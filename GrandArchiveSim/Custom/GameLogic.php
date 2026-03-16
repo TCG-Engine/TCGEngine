@@ -1766,6 +1766,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "xfpk9xycwz": // Alkahest — banish self
         case "sz1ty7vq6z": // Fan of Insight — banish self
         case "nrvth9vyz1": // Everflame Staff — banish self
+        case "mhc5a9jpi6": // Enthralling Chime — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -2165,6 +2166,25 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "sz1ty7vq6z") {
         if(empty(ZoneSearch("myMemory"))) return;
     }
+    // Enthralling Chime (mhc5a9jpi6): [Diao Chan Bonus] (3), Banish: gain control of ally with 3+ wither
+    if($cardID === "mhc5a9jpi6") {
+        if(!IsDiaoChanBonus($player)) return;
+        $hand = &GetHand($player);
+        if(count($hand) < 3) return;
+        // Must have a valid target: an ally with 3+ wither counters
+        $witherAllies = [];
+        foreach(["myField", "theirField"] as $zn) {
+            $allies = ZoneSearch($zn, ["ALLY"]);
+            foreach($allies as $aMZ) {
+                $aObj = GetZoneObject($aMZ);
+                if($aObj !== null && GetCounterCount($aObj, "wither") >= 3) {
+                    $witherAllies[] = $aMZ;
+                }
+            }
+        }
+        $witherAllies = FilterSpellshroudTargets($witherAllies);
+        if(empty($witherAllies)) return;
+    }
     // Prima Materia (vt9y597fqr): REST - must be awake
     if($cardID === "vt9y597fqr") {
         if($sourceObject->Status != 2) return;
@@ -2387,6 +2407,21 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         }
     }
     if(!$isDynamic) {
+        // Captivating Opulence (tnl3qr42vp): [Diao Chan Bonus] opponents' regalia activated abilities cost (2) more
+        if(PropertyContains(CardType($cardID), "REGALIA")) {
+            $opponent = ($player == 1) ? 2 : 1;
+            global $playerID;
+            $oppField = $opponent == $playerID ? "myField" : "theirField";
+            $oppZone = GetZone($oppField);
+            foreach($oppZone as $coObj) {
+                if(!$coObj->removed && $coObj->CardID === "tnl3qr42vp" && !HasNoAbilities($coObj) && IsDiaoChanBonus($opponent)) {
+                    for($ri = 0; $ri < 2; $ri++) {
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+                    }
+                    break;
+                }
+            }
+        }
         $customDQHandlers["AbilityActivated"]($player, [$cardID, $selectedAbilityIndex], null);
     }
 
@@ -2513,6 +2548,27 @@ function DoAllyDestroyed($player, $mzCard) {
                 }
                 break;
             }
+        }
+    }
+    // Diao Chan, Idyll Corsage (d7l6i5thdy): whenever a non-token object an opponent controls
+    // is destroyed, you may banish it. If you do, that opponent summons a Flowerbud token.
+    if(!PropertyContains(CardType($obj->CardID), "TOKEN")) {
+        $dcPlayer = ($controller == 1) ? 2 : 1; // Diao Chan's player is the opponent of the destroyed card's controller
+        global $playerID;
+        $dcField = $dcPlayer == $playerID ? "myField" : "theirField";
+        $field = GetZone($dcField);
+        $hasDC = false;
+        foreach($field as $dcObj) {
+            if(!$dcObj->removed && $dcObj->CardID === "d7l6i5thdy" && !HasNoAbilities($dcObj) && $dcObj->Controller == $dcPlayer) {
+                $hasDC = true;
+                break;
+            }
+        }
+        if($hasDC) {
+            // Find the destroyed card in its current destination (GY/banish/material) and offer to banish it
+            DecisionQueueController::AddDecision($dcPlayer, "YESNO", "-", 1,
+                tooltip:"Banish_destroyed_object_and_give_opponent_a_Flowerbud?");
+            DecisionQueueController::AddDecision($dcPlayer, "CUSTOM", "DiaoChanIdyllBanish|" . $obj->CardID . "|" . $controller, 1);
         }
     }
 }
@@ -3366,6 +3422,22 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "rzk3mjblse": // Nightshade: put a wither counter on target non-champion non-token object you control
+                    if(!HasNoAbilities($field[$i])) {
+                        $validTargets = [];
+                        for($j = 0; $j < count($field); ++$j) {
+                            if($field[$j]->removed) continue;
+                            $ct = CardType($field[$j]->CardID);
+                            if(PropertyContains($ct, "CHAMPION") || PropertyContains($ct, "TOKEN")) continue;
+                            $validTargets[] = "myField-" . $j;
+                        }
+                        if(!empty($validTargets)) {
+                            DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $validTargets), 1,
+                                tooltip:"Put_wither_counter_on_your_non-token_object_(Nightshade)");
+                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "NightshadeWither", 1);
+                        }
+                    }
+                    break;
                 case "w822tmc0yc": // Zhang Liao, Bloodmonger: [CB] if champion has 0 damage, deal 20 unpreventable + draw 3
                     if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["CLERIC", "WARRIOR"])) {
                         $champMZ = FindChampionMZ($turnPlayer);
@@ -3483,8 +3555,12 @@ function DrawPhase() {
 }
 
 function MainPhase() {
-    // Main phase - player can play cards and activate abilities
     SetFlashMessage("Main Phase");
+    // --- Wither Upkeep ---
+    // At the beginning of a player's main phase, if they control objects with wither counters,
+    // for each such object, they sacrifice it unless they pay (1) per wither counter, then remove wither counters.
+    $turnPlayer = &GetTurnPlayer();
+    WitherUpkeep($turnPlayer);
 }
 
 /**
@@ -9274,6 +9350,10 @@ function GetGlimmerCounterCount($obj) {
     return GetCounterCount($obj, "glimmer");
 }
 
+function GetWitherCounterCount($obj) {
+    return GetCounterCount($obj, "wither");
+}
+
 /**
  * Virtual property callback: returns a JSON-encoded array of dynamic activated abilities
  * currently available on this card based on game state (e.g. counter thresholds).
@@ -10848,6 +10928,11 @@ $customDQHandlers["AlkahestAgeCounter"] = function($player, $parts, $lastDecisio
 $customDQHandlers["WashuruBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
     MZMove($player, $lastDecision, "myBanish");
+};
+
+$customDQHandlers["NightshadeWither"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "wither", 1);
 };
 
 // --- Misteye Archer (m6c8xy4cje): finish look — put water to GY, become distant, prevent 2 ---
@@ -13053,6 +13138,158 @@ $customDQHandlers["ScorchingImperilmentDiscard"] = function($player, $params, $l
     if($lastDecision === "-" || $lastDecision === "") return;
     DoDiscardCard($player, $lastDecision);
     Draw($player, 1);
+};
+
+// ============================================================================
+// Wither Upkeep — at start of main phase, each object with wither counters:
+// controller sacrifices it unless they pay (1) per wither counter, then remove.
+// ============================================================================
+function WitherUpkeep($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    for($i = 0; $i < count($field); $i++) {
+        if($field[$i]->removed) continue;
+        $witherCount = GetCounterCount($field[$i], "wither");
+        if($witherCount <= 0) continue;
+        // Skip champions (wither only affects non-champion objects per rules)
+        if(PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) continue;
+        $handCount = count(GetZone("myHand"));
+        $mz = $zone . "-" . $i;
+        if($handCount >= $witherCount) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                tooltip:"Pay_" . $witherCount . "_to_keep_withered_object?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "WitherUpkeepProcess|" . $mz . "|" . $witherCount, 1);
+        } else {
+            // Can't afford — auto-sacrifice
+            DoSacrificeFighter($player, $mz);
+            DecisionQueueController::CleanupRemovedCards();
+        }
+    }
+}
+
+$customDQHandlers["WitherUpkeepProcess"] = function($player, $params, $lastDecision) {
+    $mz = $params[0];
+    $witherCount = intval($params[1]);
+    if($lastDecision === "YES") {
+        // Pay reserve cost (hand→memory) for each wither counter
+        for($i = 0; $i < $witherCount; $i++) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        // After payment, remove wither counters
+        DecisionQueueController::AddDecision($player, "CUSTOM", "WitherUpkeepClear|" . $mz, 1);
+    } else {
+        // Sacrifice the object
+        $obj = GetZoneObject($mz);
+        if($obj !== null && !$obj->removed) {
+            DoSacrificeFighter($player, $mz);
+            DecisionQueueController::CleanupRemovedCards();
+        }
+    }
+};
+
+$customDQHandlers["WitherUpkeepClear"] = function($player, $params, $lastDecision) {
+    $mz = $params[0];
+    $obj = GetZoneObject($mz);
+    if($obj !== null && !$obj->removed) {
+        ClearCounters($player, $mz, "wither");
+    }
+};
+
+// ============================================================================
+// Diao Chan, Idyll Corsage (d7l6i5thdy): banish destroyed opponent's non-token
+// object and summon a Flowerbud token for that opponent
+// ============================================================================
+$customDQHandlers["DiaoChanIdyllBanish"] = function($player, $params, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $cardID = $params[0];
+    $destroyedController = intval($params[1]);
+    global $playerID;
+    // Find the card in the opponent's graveyard (most common destination) and banish it
+    $oppGY = $destroyedController == $playerID ? "myGraveyard" : "theirGraveyard";
+    $oppBanish = $destroyedController == $playerID ? "myBanish" : "theirBanish";
+    $gy = GetZone($oppGY);
+    $found = false;
+    for($i = count($gy) - 1; $i >= 0; $i--) {
+        if($gy[$i]->CardID === $cardID) {
+            MZMove($player, $oppGY . "-" . $i, $oppBanish);
+            $found = true;
+            break;
+        }
+    }
+    if(!$found) {
+        // Check material deck (renewable cards go there)
+        $oppMat = $destroyedController == $playerID ? "myMaterial" : "theirMaterial";
+        $mat = GetZone($oppMat);
+        for($i = count($mat) - 1; $i >= 0; $i--) {
+            if($mat[$i]->CardID === $cardID) {
+                MZMove($player, $oppMat . "-" . $i, $oppBanish);
+                $found = true;
+                break;
+            }
+        }
+    }
+    // Summon a Flowerbud token for the opponent (the destroyed card's controller)
+    MZAddZone($destroyedController, "myField", "yn78t73w1p"); // Flowerbud token
+};
+
+// ============================================================================
+// Diao Chan, Idyll Corsage (d7l6i5thdy): On Enter — choose any amount of
+// non-champion objects loop: add wither counter, repeat until pass
+// ============================================================================
+$customDQHandlers["DiaoChanIdyllWitherLoop"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "wither", 1);
+    // Offer to choose another (exclude already-chosen — filter still-valid targets)
+    $allObjects = array_merge(
+        ZoneSearch("myField", ["ALLY", "REGALIA"]),
+        ZoneSearch("myField", cardSubtypes: ["WEAPON"]),
+        ZoneSearch("theirField", ["ALLY", "REGALIA"]),
+        ZoneSearch("theirField", cardSubtypes: ["WEAPON"])
+    );
+    $allObjects = array_filter($allObjects, function($mz) {
+        $obj = GetZoneObject($mz);
+        return $obj !== null && !PropertyContains(EffectiveCardType($obj), "CHAMPION");
+    });
+    $allObjects = array_values($allObjects);
+    if(empty($allObjects)) return;
+    $choices = implode("&", $allObjects);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1,
+        tooltip:"Choose_another_object_to_put_wither_counter_on");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DiaoChanIdyllWitherLoop", 1);
+};
+
+// ============================================================================
+// Enthralling Chime (mhc5a9jpi6): gain control of target ally with 3+ wither
+// ============================================================================
+$customDQHandlers["EnthrallingChimeGainControl"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $obj = &GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    $obj->Controller = $player;
+};
+
+// ============================================================================
+// Bloom: Autumn's Fall (pebu7agtcd): choose Acerbica or Washuru for each
+// sacrificed Flowerbud, then summon for the opponent
+// ============================================================================
+function BloomAutumnChooseTokens($player, $opponent, $remaining) {
+    if($remaining <= 0) return;
+    // YESNO: "Summon_Acerbica?" — YES = Acerbica, NO = Washuru
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+        tooltip:"Summon_Acerbica_for_opponent?_(NO=Washuru)_(" . $remaining . "_remaining)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "BloomAutumnToken|" . $opponent . "|" . $remaining, 1);
+}
+
+$customDQHandlers["BloomAutumnToken"] = function($player, $params, $lastDecision) {
+    $opponent = intval($params[0]);
+    $remaining = intval($params[1]);
+    if($lastDecision === "YES") {
+        MZAddZone($opponent, "myField", "7ax4ywyv19"); // Acerbica
+    } else {
+        MZAddZone($opponent, "myField", "k5iv040vcq"); // Washuru
+    }
+    BloomAutumnChooseTokens($player, $opponent, $remaining - 1);
 };
 
 // ============================================================================
