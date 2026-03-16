@@ -19,6 +19,7 @@ $brewCosts["14m4c8ljye"] = [["type"=>"CARD","cardID"=>"bd7ozuj68m"], ["type"=>"S
 $brewCosts["df9q1vk8ao"] = [["type"=>"SUBTYPE","subtype"=>"FLOWER"], ["type"=>"HERB"]]; // Molten Cinder: One Flower, One Herb
 $brewCosts["y5ttkat9hr"] = [["type"=>"CARD","cardID"=>"69iq4d5vet"]]; // Aqua Vitae: One Springleaf
 $brewCosts["7kr1haizu8"] = [["type"=>"SUBTYPE","subtype"=>"ROOT"], ["type"=>"HERB"]]; // Forgetful Concoction: One Root, One Herb
+$brewCosts["nsjukk5zk4"] = [["type"=>"SUBTYPE","subtype"=>"FLOWER"], ["type"=>"HERB"]]; // Invigorating Concoction: One Flower, One Herb
 
 // --- Gather (Grand Archive keyword): summon a random herb token ---
 

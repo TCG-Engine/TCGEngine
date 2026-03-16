@@ -35,6 +35,7 @@ $Imbue_Cards["4a87hk0bkh"] = 3; // Splashing Spearguard (WATER)
 $Imbue_Cards["disqw3d0o5"] = 4; // Captain Archer (WIND)
 $Imbue_Cards["ep3ajxiyd3"] = 2; // Squallbind Pounce (WIND)
 $Imbue_Cards["flzvpkc0ni"] = 2; // Moontide Illusionist (WATER)
+$Imbue_Cards["myvztzk3v8"] = 3; // Razorblade Execution (WIND)
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -1614,6 +1615,17 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "m6c8xy4cje": // Misteye Archer — REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
+        case "nsjukk5zk4": // Invigorating Concoction — REST + sacrifice self
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            ProcessPotionInfusionTriggers($player, $mzCard);
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "9cy4wipw4k": // Tabula of Salvage — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
@@ -2004,6 +2016,17 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     }
     // Alkahest (xfpk9xycwz): [Level 4+] Banish self — destroy target item/weapon
     if($cardID === "xfpk9xycwz" && PlayerLevel($player) < 4) return;
+    // Misteye Archer (m6c8xy4cje): (3), REST — must be awake + needs 3 cards in hand for reserve
+    if($cardID === "m6c8xy4cje") {
+        if($sourceObject->Status != 2) return;
+        $hand = &GetHand($player);
+        if(count($hand) < 3) return;
+    }
+    // Invigorating Concoction (nsjukk5zk4): REST, Sacrifice — must be awake + slow speed
+    if($cardID === "nsjukk5zk4") {
+        if($sourceObject->Status != 2) return;
+        if(HasOpportunity($player)) return;
+    }
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -3094,6 +3117,19 @@ function RecollectionPhase() {
                         RecoverChampion($opponent, 1);
                     }
                     break;
+                case "k5iv040vcq": // Washuru: banish a card from your graveyard
+                    if(!HasNoAbilities($field[$i])) {
+                        $gyCards = ZoneSearch("myGraveyard");
+                        if(!empty($gyCards)) {
+                            if(count($gyCards) == 1) {
+                                MZMove($turnPlayer, $gyCards[0], "myBanish");
+                            } else {
+                                DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $gyCards), 1, tooltip:"Banish_a_card_from_graveyard_(Washuru)");
+                                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WashuruBanish", 1);
+                            }
+                        }
+                    }
+                    break;
                 default: break;
             }
         }
@@ -3518,6 +3554,11 @@ function ObjectCurrentPower($obj) {
             break;
         case "csMiEObm2l": // Strapping Conscript: [Class Bonus][Level 2+] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 1;
+            }
+            break;
+        case "jyrqgyj9vn": // Beguiling Bandit: [CB][Level 2+] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["ASSASSIN", "WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
                 $power += 1;
             }
             break;
@@ -4072,6 +4113,16 @@ function ObjectCurrentPower($obj) {
                 }
             }
         }
+        // Sun Ce, Weaponsmaster (lvxsgng1a1): [CB] Warrior weapons you control get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "WEAPON")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "lvxsgng1a1" && !HasNoAbilities($fieldObj)
+                   && IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
         // Lumen Borealis (3ejd9yj9rl): [CB] Animal allies you control get +1 POWER
         if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL")) {
             foreach($field as $fieldObj) {
@@ -4309,6 +4360,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "1i2luu7dft": // Wulin Lancer: +2 POWER from Shifting Currents N→W transition
                 $power += 2;
+                break;
+            case "mvgmaalpko": // Flamelash Beastmaster: [CB] +3 POWER until end of turn
+                $power += 3;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -8177,6 +8231,22 @@ function DahliaLookFinish($player, $answer) {
     }
 }
 
+/**
+ * Misteye Archer (m6c8xy4cje): look at top card of deck.
+ * If water, offer to put into GY — if yes, become distant + prevent next 2 damage.
+ */
+function MisteyeArcherLook($player, $mzID) {
+    $tempCards = ZoneSearch("myTempZone");
+    if(empty($tempCards)) return;
+    $topCard = GetZoneObject($tempCards[count($tempCards) - 1]);
+    if($topCard !== null && CardElement($topCard->CardID) === "WATER") {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_water_card_into_graveyard?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "MisteyeArcherFinish|" . $mzID, 1);
+    } else {
+        PutTempZoneOnTopOfDeck($player);
+    }
+}
+
 // Static Ranged values: cardID => [value, classBonusRequired, classes]
 // Class Bonus entries require the champion's class to match for Ranged to apply.
 $rangedCardValues = [
@@ -9549,6 +9619,24 @@ function DomainRecollectionUpkeep($player) {
                     }
                 }
                 break;
+            case "kmuuqzfvg8": // Changban, Heroic Impasse: sacrifice if no unique ally on field
+                {
+                    global $playerID;
+                    $zone = $player == $playerID ? "myField" : "theirField";
+                    $hasUniqueAlly = false;
+                    $fieldArr = GetZone($zone);
+                    foreach($fieldArr as $fObj) {
+                        if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "ALLY") && PropertyContains(EffectiveCardType($fObj), "UNIQUE")) {
+                            $hasUniqueAlly = true;
+                            break;
+                        }
+                    }
+                    if(!$hasUniqueAlly) {
+                        DoSacrificeFighter($player, "myField-" . $i);
+                        DecisionQueueController::CleanupRemovedCards();
+                    }
+                }
+                break;
         }
     }
 }
@@ -10223,6 +10311,27 @@ $customDQHandlers["MeteorStrikeDestroy"] = function($player, $parts, $lastDecisi
 $customDQHandlers["AlkahestAgeCounter"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
     AddCounters($player, $lastDecision, "age", 1);
+};
+
+// --- Washuru (k5iv040vcq): banish chosen graveyard card ---
+$customDQHandlers["WashuruBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myBanish");
+};
+
+// --- Misteye Archer (m6c8xy4cje): finish look — put water to GY, become distant, prevent 2 ---
+$customDQHandlers["MisteyeArcherFinish"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0];
+    if($lastDecision === "YES") {
+        $tempCards = ZoneSearch("myTempZone");
+        if(!empty($tempCards)) {
+            MZMove($player, $tempCards[count($tempCards) - 1], "myGraveyard");
+        }
+        BecomeDistant($player, $mzID);
+        AddTurnEffect($mzID, "PREVENT_ALL_2");
+    } else {
+        PutTempZoneOnTopOfDeck($player);
+    }
 };
 
 // --- Swooping Talons (rj52215upu) helpers ---

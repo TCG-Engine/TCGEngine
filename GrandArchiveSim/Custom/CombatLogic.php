@@ -299,6 +299,23 @@ function GetValidAttackTargets($attackerMZ) {
         }
     }
 
+    // Beguiling Bandit (jyrqgyj9vn): can't be attacked unless attacker pays (1)
+    // Filter out BB if attacker has no available reserve sources
+    $reservableSources = count(GetZone("myHand"));
+    $myFieldCards = GetZone("myField");
+    foreach($myFieldCards as $fObj) {
+        if(!$fObj->removed && isset($fObj->Status) && $fObj->Status == 2 && HasReservable($fObj)) {
+            $reservableSources++;
+        }
+    }
+    if($reservableSources == 0) {
+        $opponents = array_values(array_filter($opponents, function($mzID) {
+            $obj = GetZoneObject($mzID);
+            return $obj === null || $obj->CardID !== "jyrqgyj9vn" || HasNoAbilities($obj);
+        }));
+        if(empty($opponents)) return $opponents;
+    }
+
     return $opponents;
 }
 
@@ -1003,6 +1020,12 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
     DecisionQueueController::StoreVariable("CombatIsCleave", "0");
 
+    // Beguiling Bandit (jyrqgyj9vn): attacker must pay (1) to attack it
+    $bbTargetObj = GetZoneObject($lastDecision);
+    if($bbTargetObj !== null && $bbTargetObj->CardID === "jyrqgyj9vn" && !HasNoAbilities($bbTargetObj)) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+    }
+
     // Grant Opportunity window before damage step (turn player gets priority first)
     $turnPlayer = GetTurnPlayer();
     GrantOpportunityWindow($turnPlayer, "CombatDealDamage", $player);
@@ -1178,6 +1201,19 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
                 }
             }
             if($hasMantleOnField && !in_array($mzID, $retaliatorOptions)) {
+                $retaliatorOptions[] = $mzID;
+            }
+        }
+        // Changban, Heroic Impasse (kmuuqzfvg8): allies with buff counters have Ambush
+        if(PropertyContains(EffectiveCardType($fieldObj), "ALLY") && GetCounterCount($fieldObj, "buff") > 0) {
+            $hasChangbanOnField = false;
+            foreach($defenderField as $mi => $chObj) {
+                if(!$chObj->removed && $chObj->CardID === "kmuuqzfvg8" && !HasNoAbilities($chObj)) {
+                    $hasChangbanOnField = true;
+                    break;
+                }
+            }
+            if($hasChangbanOnField && !in_array($mzID, $retaliatorOptions)) {
                 $retaliatorOptions[] = $mzID;
             }
         }
@@ -1693,6 +1729,14 @@ function OnDealDamage($player, $source, $target, $amount) {
                         MZMove($smController, $linkedMZ, ($smController == $playerID) ? "myBanish" : "theirBanish");
                         DecisionQueueController::CleanupRemovedCards();
                         Draw($smController, 1);
+                    }
+                    break;
+                case "l2ipxnctse": // Protective Helm: prevent 1 damage from distant source
+                    {
+                        $phSourceObj = GetZoneObject($source);
+                        if($phSourceObj !== null && IsDistant($phSourceObj)) {
+                            $amount -= 1;
+                        }
                     }
                     break;
             }
