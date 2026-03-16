@@ -826,6 +826,35 @@ function OnHitTrigger($player, $attackerMZ) {
             }
         }
     }
+
+    // Innocuous Disposer (pd2aigr677): [Class Bonus] On Ally Hit:
+    // If the hit ally is a Human, you may remove a preparation counter from your champion.
+    // If you do, destroy the hit ally.
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj !== null && $attackerObj->CardID === "pd2aigr677" && !HasNoAbilities($attackerObj)
+       && IsClassBonusActive($player, ["ASSASSIN"])) {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")
+               && PropertyContains(EffectiveCardSubtypes($hitObj), "HUMAN")) {
+                // Check if champion has prep counters
+                $myField = GetZone("myField");
+                foreach($myField as $fi => $fObj) {
+                    if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+                        if(GetPrepCounterCount($fObj) >= 1) {
+                            DecisionQueueController::StoreVariable("InnocuousDisposerTarget", $hitTarget);
+                            DecisionQueueController::StoreVariable("InnocuousDisposerChampMZ", "myField-" . $fi);
+                            DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                                tooltip:"Remove_prep_counter_to_destroy_hit_Human_ally?");
+                            DecisionQueueController::AddDecision($player, "CUSTOM", "InnocuousDisposerOnHit", 1);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -1166,6 +1195,12 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         }
     }
 
+    // Blazing Bowman (qry41lw9n0): attacks can't be retaliated
+    if($attackerObj !== null && $attackerObj->CardID === "qry41lw9n0" && !HasNoAbilities($attackerObj)) {
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        return;
+    }
+
     // Flip to defender's perspective
     $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
@@ -1217,6 +1252,22 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
                 $retaliatorOptions[] = $mzID;
             }
         }
+    }
+    // Innocuous Disposer (pd2aigr677): attacks can't be retaliated by Human allies
+    if($attackerObj !== null && $attackerObj->CardID === "pd2aigr677" && !HasNoAbilities($attackerObj)) {
+        $retaliatorOptions = array_filter($retaliatorOptions, function($mzID) {
+            $obj = GetZoneObject($mzID);
+            if($obj === null) return true;
+            if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "HUMAN")) {
+                return false; // filter out Human allies
+            }
+            return true;
+        });
+        $retaliatorOptions = array_values($retaliatorOptions);
+    }
+    if(empty($retaliatorOptions)) {
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        return;
     }
     $retaliatorOptionStr = implode("&", $retaliatorOptions);
 
@@ -1410,6 +1461,26 @@ $customDQHandlers["TristanOnAllyHit"] = function($player, $parts, $lastDecision)
     if(GetPrepCounterCount($champObj) < 3) return;
     RemoveCounters($player, $champMZ, "preparation", 3);
     $hitTarget = DecisionQueueController::GetVariable("TristanHitTarget");
+    if($hitTarget !== null) {
+        $targetObj = GetZoneObject($hitTarget);
+        if($targetObj !== null && !$targetObj->removed) {
+            DoAllyDestroyed($player, $hitTarget);
+        }
+    }
+};
+
+/**
+ * Handler: Innocuous Disposer (pd2aigr677) [CB] On Ally Hit: remove prep counter to destroy Human ally.
+ */
+$customDQHandlers["InnocuousDisposerOnHit"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $champMZ = DecisionQueueController::GetVariable("InnocuousDisposerChampMZ");
+    if($champMZ === null) return;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null || $champObj->removed) return;
+    if(GetPrepCounterCount($champObj) < 1) return;
+    RemoveCounters($player, $champMZ, "preparation", 1);
+    $hitTarget = DecisionQueueController::GetVariable("InnocuousDisposerTarget");
     if($hitTarget !== null) {
         $targetObj = GetZoneObject($hitTarget);
         if($targetObj !== null && !$targetObj->removed) {

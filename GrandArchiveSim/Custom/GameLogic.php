@@ -820,6 +820,39 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Modulating Cadence (p5p0azskw4): [CB] costs 1 less for each Animal ally you control
+    if($obj->CardID === "p5p0azskw4" && IsClassBonusActive($player, ["TAMER"])) {
+        $animalCount = count(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL"]));
+        $reserveCost = max(0, $reserveCost - $animalCount);
+    }
+
+    // Maiden of Glimmer's Dusk (qa4ke7txh0): [CB] costs 1 less per phantasia you control, up to 2
+    if($obj->CardID === "qa4ke7txh0" && IsClassBonusActive($player, ["CLERIC"])) {
+        $phantasiaCount = min(2, count(ZoneSearch("myField", ["PHANTASIA"])));
+        $reserveCost = max(0, $reserveCost - $phantasiaCount);
+    }
+
+    // Mana Resonance (qp65vbdw7c): [CB] costs X less, where X is highest reserve cost among
+    // Spell cards your opponents control on the effects stack
+    if($obj->CardID === "qp65vbdw7c" && IsClassBonusActive($player, ["CLERIC"])) {
+        $es = GetZone("EffectStack");
+        $highestCost = 0;
+        foreach($es as $esObj) {
+            if($esObj->removed) continue;
+            if($esObj->Controller == $player) continue; // only opponent's spells
+            if(PropertyContains(CardSubtypes($esObj->CardID), "SPELL")) {
+                $cost = intval(CardReserveCost($esObj->CardID));
+                if($cost > $highestCost) $highestCost = $cost;
+            }
+        }
+        $reserveCost = max(0, $reserveCost - $highestCost);
+    }
+
+    // Mana Resonance: store final reserve cost for ability resolution
+    if($obj->CardID === "qp65vbdw7c") {
+        DecisionQueueController::StoreVariable("manaResonanceReservePaid", strval($reserveCost));
+    }
+
     // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
     if($hasAllyLink) {
         $allyTargets = ZoneSearch("myField", ["ALLY"]);
@@ -4133,6 +4166,16 @@ function ObjectCurrentPower($obj) {
                 }
             }
         }
+        // Courtside Beastkeeper (o6gy3kq2lc): [CB] Beast allies you control get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "BEAST")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "o6gy3kq2lc" && !HasNoAbilities($fieldObj)
+                   && IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
         // Direwolf Alpha (5n874ubgai): [CB][Level 2+] Other Wolf objects get +1 POWER
         if(PropertyContains(EffectiveCardSubtypes($obj), "WOLF")) {
             foreach($field as $fieldObj) {
@@ -4461,6 +4504,9 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
                 break;
             case "yrm3xibmoz": // Stolid Vanguard: Equestrian On Enter +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "qry41lw9n0": // Blazing Bowman: On Enter banish fire from GY +2 POWER
                 $power += 2;
                 break;
             default: break;
@@ -11807,6 +11853,55 @@ $customDQHandlers["KindlingFlareSacHerb"] = function($player, $parts, $lastDecis
 $customDQHandlers["MoltenCinderTarget"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
     DealDamage($player, "df9q1vk8ao", $lastDecision, 3);
+};
+
+// ============================================================================
+// Arcane Blast (pn9gQjV3Rb): deal 11 damage to chosen champion
+// ============================================================================
+$customDQHandlers["ArcaneBlastTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DealDamage($player, "pn9gQjV3Rb", $lastDecision, 11);
+};
+
+// ============================================================================
+// Caretaker Horse (r5uyjq37zh): chosen ally becomes fostered
+// ============================================================================
+$customDQHandlers["CaretakerHorseFoster"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    BecomeFostered($player, $lastDecision);
+    OnFoster($player, $lastDecision);
+};
+
+// ============================================================================
+// Blazing Bowman (qry41lw9n0): banish fire card from GY for +2 POWER
+// ============================================================================
+$customDQHandlers["BlazingBowmanBanish"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0];
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    AddTurnEffect($mzID, "qry41lw9n0");
+};
+
+// ============================================================================
+// Modulating Cadence (p5p0azskw4): reveal Harmony/Melody from TempZone, rest to bottom
+// ============================================================================
+$customDQHandlers["ModulatingCadenceReveal"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        Reveal($player, revealedMZ: $lastDecision);
+        MZMove($player, $lastDecision, "myHand");
+    }
+    // Put remaining TempZone cards on bottom of deck
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
+    }
+};
+$customDQHandlers["ModulatingCadenceBottom"] = function($player, $parts, $lastDecision) {
+    // Put all TempZone cards on bottom of deck
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
+    }
 };
 
 // ============================================================================

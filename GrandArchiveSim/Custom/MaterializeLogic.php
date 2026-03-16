@@ -178,6 +178,26 @@ function DoMaterialize($player, $mzCard) {
                 break;
             }
         }
+
+        // Ravenous Pyre (pjdsfqbgit): Whenever a champion you don't control levels up, deal 2 damage to it.
+        $opponent = ($player == 1) ? 2 : 1;
+        $oppField = &GetField($opponent);
+        for($rp = 0; $rp < count($oppField); ++$rp) {
+            if(!$oppField[$rp]->removed && $oppField[$rp]->CardID === "pjdsfqbgit" && !HasNoAbilities($oppField[$rp])) {
+                // Find the champion that just leveled up (the player's champion)
+                $champField = &GetField($player);
+                for($ci = 0; $ci < count($champField); ++$ci) {
+                    if(!$champField[$ci]->removed && PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")
+                       && $champField[$ci]->Controller == $player) {
+                        global $playerID;
+                        $champMZ = ($player == $playerID) ? "myField-" . $ci : "theirField-" . $ci;
+                        DealDamage($opponent, "pjdsfqbgit", $champMZ, 2);
+                        break;
+                    }
+                }
+                break; // Only one Ravenous Pyre triggers
+            }
+        }
     } else {
         MZMove($player, $mzCard, "myField");
     }
