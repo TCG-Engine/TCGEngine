@@ -149,8 +149,21 @@ So in the ability code, you have access to:
   - `$var = await $player.NumberChoose(min, max, "prompt")` — choose a number in a range
   - `$var = await $player.MZSplitAssign($targets, $amount, "prompt")` — split-assign a pool across targets. Returns comma-separated `mzID:amount` pairs (e.g. `"myField-0:3,myField-1:2"`). `$targets` is an `&`-delimited mzID string, `$amount` is the total pool to assign.
   - `await FunctionName($player, $args)` — call a function that queues decisions
-  - await does not currently support being inside loops or conditionals, but you can queue custom functions that themselves queue decisions to achieve multi-step flows.
-  - await does not support function calls as parameters, so if you need to implode a ZoneSearch it'll need to be done on a separate line.
+
+**Critical await constraints:**
+The code generator splits your ability code at each `await` line. Pre-await code goes into the main ability function; post-await code goes into a custom DQ handler. **Braces, variables, and scope do NOT carry across the split.** This means:
+  - **NO await inside conditionals or loops.** Ever. Use early `return` statements to flatten control flow so `await` is always at top level.
+  - **NO variables used after await** that were computed before it. The generator cannot propagate them across function boundaries. Recompute any needed values after the await (in the handler section).
+  - **NO function calls as await parameters.** Pre-compute into a variable: `$str = implode("&", $arr);` then `await $player.MZChoose($str)`.
+  - **NO tooltip parameter as second arg to MZChoose/MZMayChoose.** The await syntax does not support `await $player.MZChoose($targetStr, "tooltip")` — the generator produces broken PHP. Omit it: just `await $player.MZChoose($targetStr)`.
+
+**Correct pattern:** Early returns + pre-computed variables + top-level await
+```php
+if(empty($targets)) return;                  // Early return instead of nested if
+$targetStr = implode("&", $targets);         // Pre-compute before await
+$chosen = await $player.MZChoose($targetStr); // await at top level
+// After await, use $chosen and $mzID (auto-retrieved), but recompute other values
+```
 
 ### Step 6: Save via MCP
 Call `save_card_abilities` with the card ID, macro name, and ability code. The MCP server saves to the database AND automatically runs the code generator, so `GeneratedMacroCode.php` is updated.

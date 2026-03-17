@@ -891,6 +891,19 @@ function OnHitTrigger($player, $attackerMZ) {
             }
         }
     }
+
+    // Exploit Vulnerability (hy83sghwfi): granted On Ally Hit — if attacking ally has
+    // EXPLOIT_VULNERABILITY_ON_HIT TurnEffect & hit target is an ally, destroy the hit ally.
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj !== null && in_array("EXPLOIT_VULNERABILITY_ON_HIT", $attackerObj->TurnEffects)) {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
+                AllyDestroyed($player, $hitTarget);
+            }
+        }
+    }
 }
 
 /**
@@ -1720,6 +1733,13 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Enfeebled Dagger (idpdon8f0h): [CB] source unit deals that much damage minus 3
+    $sourceObj2 = GetZoneObject($source);
+    if($sourceObj2 !== null && in_array("ENFEEBLED_DAGGER_REDUCE", $sourceObj2->TurnEffects)) {
+        $amount = max(0, $amount - 3);
+        if($amount <= 0) return;
+    }
+
     // Varuck, Smoldering Spire (IyM7IBCQeb): "Damage dealt by fire element sources you
     // control can't be prevented." If the source is fire element and the source's controller
     // has Varuck on the field, bypass all prevention effects → use DealUnpreventableDamage path.
@@ -2355,6 +2375,13 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
             }
         }
         return;
+    }
+
+    // Enfeebled Dagger (idpdon8f0h): [CB] source unit deals that much damage minus 3
+    $sourceObjED = GetZoneObject($source);
+    if($sourceObjED !== null && in_array("ENFEEBLED_DAGGER_REDUCE", $sourceObjED->TurnEffects)) {
+        $amount = max(0, $amount - 3);
+        if($amount <= 0) return;
     }
 
     // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage

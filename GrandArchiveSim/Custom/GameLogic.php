@@ -54,6 +54,7 @@ $Kindle_Cards = [];
 $Kindle_Cards["1ym2py8u7q"] = 3; // Glowering Conflagration (FIRE)
 $Kindle_Cards["xllhbjr20n"] = 3; // Lu Xun, Pyre Strategist (FIRE) - Kindle 3
 $Kindle_Cards["0s6solta0h"] = 4; // Rapid Combustion (FIRE) - Kindle 4
+$Kindle_Cards["hd0sxpu7cp"] = 3; // Intensified Pyre (FIRE) - Kindle 3
 
 // --- Lineage Release Abilities Registry ---
 // Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
@@ -767,6 +768,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(GlobalEffectCount($player, "XUCHANG_COST_INCREASE") > 0) {
         $reserveCost += 2;
         RemoveGlobalEffect($player, "XUCHANG_COST_INCREASE");
+    }
+
+    // Consumption Ring (g8q7imka92): non-ally cards opponents activate cost (4) more until end of turn
+    if(!PropertyContains($cardType, "ALLY")) {
+        $opponent = ($player == 1) ? 2 : 1;
+        if(GlobalEffectCount($opponent, "CONSUMPTION_RING_COST") > 0) {
+            $reserveCost += 4;
+        }
     }
 
     // Ceasing Edict (4f3bi5lohu): costs 2 less while Shifting Currents face South
@@ -2011,6 +2020,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "sz1ty7vq6z": // Fan of Insight — banish self
         case "nrvth9vyz1": // Everflame Staff — banish self
         case "mhc5a9jpi6": // Enthralling Chime — banish self
+        case "g8q7imka92": // Consumption Ring — banish self
+        case "idpdon8f0h": // Enfeebled Dagger — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -2527,6 +2538,12 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         if(!IsDiaoChanBonus($player)) return;
         $champObj = GetPlayerChampion($player);
         if($champObj === null || GetCounterCount($champObj, "glimmer") < 2) return;
+    }
+    // Consumption Ring (g8q7imka92): only during an opponent's recollection phase
+    if($cardID === "g8q7imka92") {
+        if(HasOpportunity($player)) return;
+        $turnPlayer = GetTurnPlayer();
+        if($turnPlayer == $player) return; // Must be opponent's turn
     }
     
     // Ability index is now passed directly from the frontend button click
@@ -7650,6 +7667,12 @@ $doesGlobalEffectApply["ysj63dw50a"] = function($obj) {
 $doesGlobalEffectApply["PLANAR_ABYSS_PENDING"] = function($obj) { return false; };
 $untilBeginTurnEffects["PLANAR_ABYSS_PENDING"] = true;
 
+// Fiery Interference (gt2zqtgs42): flag only — controller can't recover until end of turn
+$doesGlobalEffectApply["CANT_RECOVER"] = function($obj) { return false; };
+
+// Consumption Ring (g8q7imka92): flag only — non-ally cards opponents activate cost (4) more
+$doesGlobalEffectApply["CONSUMPTION_RING_COST"] = function($obj) { return false; };
+
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
@@ -7860,6 +7883,11 @@ function DealChampionDamage($player, $amount=1) {
 
 function RecoverChampion($player, $amount=1) {
     global $playerID;
+
+    // Fiery Interference (gt2zqtgs42): controller can't recover until end of turn
+    if(GlobalEffectCount($player, "CANT_RECOVER") > 0) {
+        return null;
+    }
 
     // Morgan, Soul Guide (ka5av43ehj): [Level 2+] opponents can't recover
     $opponent = ($player == 1) ? 2 : 1;
@@ -9737,6 +9765,12 @@ function BecomeDistant($player, $mzID) {
                     AddTurnEffect($liuBeiMZ, "DISTANT");
                 }
             }
+        }
+    }
+    // Renascent Sharpshooter (gbnvtkm7rf): [Class Bonus] Whenever this becomes distant, draw a card into memory
+    if($obj !== null && $obj->CardID === "gbnvtkm7rf" && !HasNoAbilities($obj)) {
+        if(IsClassBonusActive($player, ["RANGER"])) {
+            DrawIntoMemory($player, 1);
         }
     }
 }
@@ -13613,6 +13647,82 @@ $customDQHandlers["AshFilcherBanish"] = function($player, $parts, $lastDecision)
             AddTurnEffect("myField-" . $fi, "b65hiv400w");
             break;
         }
+    }
+};
+
+// Scavenging Raccoon (fdt8ptrz1b): banish up to N cards from a single graveyard
+function ScavengingRaccoonBanish($player, $gyRef, $remaining) {
+    if($remaining <= 0) return;
+    $gyCards = ZoneSearch($gyRef);
+    if(empty($gyCards)) return;
+    $gyStr = implode("&", $gyCards);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $gyStr, 1,
+        tooltip:"Banish_a_card_from_graveyard?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ScavengingRaccoonBanish|$gyRef|$remaining", 1);
+}
+$customDQHandlers["ScavengingRaccoonBanish"] = function($player, $parts, $lastDecision) {
+    $gyRef = $parts[0];
+    $remaining = intval($parts[1]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    $remaining--;
+    if($remaining > 0) {
+        ScavengingRaccoonBanish($player, $gyRef, $remaining);
+    }
+};
+
+// Lure the Abyss (gqh3mw478q): Reveal top 4, Specters to GY, rest to bottom
+function LureTheAbyssExecute($player) {
+    $deck = &GetDeck($player);
+    if(empty($deck)) return;
+    $count = min(4, count($deck));
+    // Move top N cards to TempZone for reveal
+    for($i = 0; $i < $count; $i++) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    // Now separate Specters from non-Specters
+    $tempCards = ZoneSearch("myTempZone");
+    foreach($tempCards as $tMZ) {
+        $tObj = GetZoneObject($tMZ);
+        if($tObj !== null && PropertyContains(CardSubtypes($tObj->CardID), "SPECTER")) {
+            MZMove($player, $tMZ, "myGraveyard");
+        }
+    }
+    // Put remaining cards on bottom of deck
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rMZ) {
+        MZMove($player, $rMZ, "myDeck");
+    }
+}
+
+// Noble Dissolution (iullthfLXc): destroy up to N phantasias iteratively
+function NobleDissolutionDestroy($player, $remaining) {
+    if($remaining <= 0) return;
+    $phantasias = array_merge(
+        ZoneSearch("myField", ["PHANTASIA"]),
+        ZoneSearch("theirField", ["PHANTASIA"])
+    );
+    $phantasias = FilterSpellshroudTargets($phantasias);
+    if(empty($phantasias)) return;
+    $targetStr = implode("&", $phantasias);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1,
+        tooltip:"Destroy_target_phantasia");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "NobleDissolutionDestroy|$remaining", 1);
+}
+$customDQHandlers["NobleDissolutionDestroy"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    $owner = $obj->Owner;
+    OnLeaveField($player, $lastDecision);
+    $gravZone = ($player == $owner) ? "myGraveyard" : "theirGraveyard";
+    $gravZone = EphemeralRedirectDest($obj, $gravZone, $player);
+    MZMove($player, $lastDecision, $gravZone);
+    DecisionQueueController::CleanupRemovedCards();
+    $remaining--;
+    if($remaining > 0) {
+        NobleDissolutionDestroy($player, $remaining);
     }
 };
 
