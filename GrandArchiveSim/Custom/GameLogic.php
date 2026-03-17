@@ -2845,6 +2845,9 @@ function DoAllyDestroyed($player, $mzCard) {
             $dest = $player == $controller ? "myBanish" : "theirBanish";
         }
     }
+    if(DecisionQueueController::GetVariable("CombatTarget") == $mzCard) {
+        DecisionQueueController::StoreVariable("CombatTarget", null);
+    }
     MZMove($player, $mzCard, $dest);
     if(!$suppressed && isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
         $allyDestroyedAbilities[$obj->CardID . ":0"]($controller);
