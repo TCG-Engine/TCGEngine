@@ -208,6 +208,35 @@ function ActionMap($actionCard)
                     }
                 }
             }
+            // Generic Ephemerate: activate card from graveyard by paying ephemerate cost
+            $gyObj = GetZoneObject($actionCard);
+            if($gyObj !== null && !$gyObj->removed && CanPayEphemerate($playerID, $gyObj->CardID)) {
+                global $ephemerateCards;
+                $config = $ephemerateCards[$gyObj->CardID];
+                $cost = GetEphemerateCost($playerID, $gyObj->CardID);
+                // Move from graveyard to hand, then activate
+                $handObj = MZMove($playerID, $actionCard, "myHand");
+                $hand = &GetHand($playerID);
+                $handIdx = count($hand) - 1;
+                DecisionQueueController::StoreVariable("wasEphemerated", "YES");
+                // Handle extra costs before normal DoActivateCard flow
+                if(isset($config['extraCostHandler']) && $config['extraCostHandler'] === 'EphemerateBanishFloating') {
+                    DecisionQueueController::StoreVariable("ephemerateCostOverride", "$cost");
+                    DecisionQueueController::StoreVariable("ephemerateHandMZ", "myHand-" . $handIdx);
+                    $floatingGY = [];
+                    $gy = GetZone("myGraveyard");
+                    for($gi = 0; $gi < count($gy); ++$gi) {
+                        if(!$gy[$gi]->removed && HasFloatingMemory($gy[$gi])) {
+                            $floatingGY[] = "myGraveyard-" . $gi;
+                        }
+                    }
+                    DecisionQueueController::AddDecision($playerID, "MZCHOOSE", implode("&", $floatingGY), 1, tooltip:"Banish_a_card_with_floating_memory");
+                    DecisionQueueController::AddDecision($playerID, "CUSTOM", "EphemerateBanishFloatingProcess", 1);
+                } else {
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                }
+                return "PLAY";
+            }
             break;
         case "myBanish":
             // Naia, Diviner of Fortunes (jdmthh88rx): activate spell from banishment
@@ -420,6 +449,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     //1.7 Calculating Reserve Cost
     $reserveCost = CardCost_reserve($obj->CardID);
 
+    // Ephemerate: override reserve cost with ephemerate cost
+    $wasEphemerated = DecisionQueueController::GetVariable("wasEphemerated");
+    if($wasEphemerated === "YES") {
+        $reserveCost = GetEphemerateCost($player, $obj->CardID);
+    }
+
     // Ghostsight Glass (cc0jmpmman): activated ability costs (3) reserve
     if($obj->CardID === "cc0jmpmman") $reserveCost = 3;
 
@@ -490,6 +525,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($obj->CardID === "5tlzsmw3rr" && IsClassBonusActive($player, ["GUARDIAN"])) {
         $domainCount = count(ZoneSearch("myField", ["DOMAIN"]));
         $reserveCost = max(0, $reserveCost - $domainCount);
+    }
+
+    // Spectral Diffusion (lathqgiqgi): costs 1 less for each ephemeral object you control (up to 2)
+    if($obj->CardID === "lathqgiqgi") {
+        $ephCount = min(2, CountEphemeralObjects($player));
+        $reserveCost = max(0, $reserveCost - $ephCount);
     }
 
     // Deflecting Edge (g7uDOmUf2u): costs 1 less if you control a Sword weapon
@@ -1348,6 +1389,40 @@ $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard_Process", 99);
 };
 
+// Ephemerate extra cost: banish a card with floating memory from graveyard, then activate
+$customDQHandlers["EphemerateBanishFloatingProcess"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || empty($lastDecision)) return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $handMZ = DecisionQueueController::GetVariable("ephemerateHandMZ");
+    // Re-locate the card in hand (index may have shifted)
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    ActivateCard($player, "myHand-" . $handIdx, false);
+};
+
+// Shackled Theurgist (vkqzk1jik7): On Death DQ handlers
+$customDQHandlers["ShackledTheurgistChoice"] = function($player, $params, $lastDecision) {
+    $controller = intval($params[0]);
+    $controllerFieldZone = $params[1];
+    $oppFieldZone = $params[2];
+    if($lastDecision === "YES") {
+        $allies = ZoneSearch($oppFieldZone, ["ALLY"]);
+        if(!empty($allies)) {
+            $allyStr = implode("&", $allies);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyStr, 1, tooltip:"Choose_an_ally_to_sacrifice");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ShackledTheurgistSacrifice", 1);
+        }
+    } else {
+        ShackledTheurgistReturn($controller, $controllerFieldZone);
+    }
+};
+
+$customDQHandlers["ShackledTheurgistSacrifice"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoAllyDestroyed($player, $lastDecision);
+};
+
 $customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "PASS") return;
     // Determine if the chosen card is from the field (reservable) or hand
@@ -1647,9 +1722,13 @@ function OnCardActivated($player, $mzCard) {
         $obj = MZMove($player, $mzCard, "myField");
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "ACTION")) {
+        // Ephemerate: ephemeral actions are banished on resolve
+        $wasEphemerationAction = DecisionQueueController::GetVariable("wasEphemerated");
         // Frost Shard (jnsl7ddcgw): banish on resolve when activated from graveyard
         global $gyActivatedCardID, $Preserve_Cards;
-        if(isset($gyActivatedCardID) && $gyActivatedCardID === $obj->CardID) {
+        if($wasEphemerationAction === "YES") {
+            $obj = MZMove($player, $mzCard, "myBanish");
+        } else if(isset($gyActivatedCardID) && $gyActivatedCardID === $obj->CardID) {
             $obj = MZMove($player, $mzCard, "myBanish");
             $gyActivatedCardID = null;
         // Special case: Preserve cards go to Material zone
@@ -1675,6 +1754,19 @@ function OnCardActivated($player, $mzCard) {
             $intentIdx = count($intentZone) - 1;
             AddTurnEffect("myIntent-" . $intentIdx, "PREPARED");
         }
+    }
+    // Ephemerate: tag field objects as ephemeral when activated via Ephemerate
+    $wasEph = DecisionQueueController::GetVariable("wasEphemerated");
+    if($wasEph === "YES" && !PropertyContains($cardType, "ACTION") && !PropertyContains($cardType, "ATTACK")) {
+        $field = &GetField($player);
+        $fieldIdx = count($field) - 1;
+        if($fieldIdx >= 0 && !$field[$fieldIdx]->removed) {
+            MakeEphemeral("myField-" . $fieldIdx);
+        }
+    }
+    // Clear ephemerate flag so it doesn't leak into subsequent activations
+    if($wasEph === "YES") {
+        DecisionQueueController::StoreVariable("wasEphemerated", "NO");
     }
     DecisionQueueController::CleanupRemovedCards();
     if(isset($cardActivatedAbilities[$obj->CardID . ":0"])) {
@@ -4761,6 +4853,22 @@ function ObjectCurrentPower($obj) {
         case "xrbffkghwt": // Ritai Berserker: +1 POWER while Shifting Currents face North
             if(GetShiftingCurrents($obj->Controller) === "NORTH") $power += 1;
             break;
+        case "vkqzk1jik7": // Shackled Theurgist: +4 POWER while ephemeral
+            if(IsEphemeral($obj)) $power += 4;
+            break;
+        case "lgl8pux7v9": // Ghost Hunter: +3 POWER while attacking an ephemeral ally
+            {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                if($combatTarget != "-" && $combatTarget != "" && $combatTarget !== null
+                    && $combatAttacker !== null && $obj->GetMzID() === $combatAttacker) {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY") && IsEphemeral($targetObj)) {
+                        $power += 3;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -4910,6 +5018,27 @@ function ObjectCurrentPower($obj) {
                    && $obj->CardID !== "h42l1w67ry"
                    && IsClassBonusActive($obj->Controller, ["WARRIOR"])
                    && DelugeAmount($obj->Controller) >= 6) {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
+        // Sunken Battle Priest (sm68d3we64): [CB] Other ephemeral allies you control get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && IsEphemeral($obj)) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "sm68d3we64" && !HasNoAbilities($fieldObj)
+                   && $obj->CardID !== "sm68d3we64"
+                   && IsClassBonusActive($obj->Controller, ["CLERIC", "WARRIOR"])) {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
+        // Blighted Jewel (hbpu4fo8oo): Each ephemeral ally you control gets +1 POWER as long as it entered this turn
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && IsEphemeral($obj)
+           && in_array("ENTERED_THIS_TURN", $obj->TurnEffects)) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "hbpu4fo8oo" && !HasNoAbilities($fieldObj)) {
                     $power += 1;
                     break;
                 }
@@ -5135,6 +5264,9 @@ function ObjectCurrentPower($obj) {
                 $power += 3;
                 break;
             case "xgi39z49tu": // Pluming Crescendo: Animals get +1 POWER until end of turn
+                $power += 1;
+                break;
+            case "y5koddlyv8_POWER": // Undying Dreams: +1 POWER until end of turn
                 $power += 1;
                 break;
             default:
@@ -5769,6 +5901,14 @@ function ObjectCurrentHP($obj) {
     // Lively Chorale (x1c9ob6jva): +3 LIFE until end of turn
     if(in_array("x1c9ob6jva", $obj->TurnEffects)) {
         $cardLife += 3;
+    }
+    // Shackled Theurgist (vkqzk1jik7): +2 LIFE until end of turn (from On Death return)
+    if(in_array("vkqzk1jik7_LIFE", $obj->TurnEffects)) {
+        $cardLife += 2;
+    }
+    // Undying Dreams (y5koddlyv8): +1 LIFE until end of turn
+    if(in_array("y5koddlyv8_LIFE", $obj->TurnEffects)) {
+        $cardLife += 1;
     }
     return $cardLife;
 }
@@ -6967,6 +7107,86 @@ function EphemeralRedirectDest($obj, $defaultDest, $player) {
         return $player == $controller ? "myBanish" : "theirBanish";
     }
     return $defaultDest;
+}
+
+/**
+ * Return Shackled Theurgist from graveyard/banish to the field with +2 LIFE and ephemeral.
+ */
+function ShackledTheurgistReturn($player, $fieldZone) {
+    global $playerID;
+    $gyZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+    $bnZone = $player == $playerID ? "myBanish" : "theirBanish";
+    foreach([$gyZone, $bnZone] as $zone) {
+        $contents = GetZone($zone);
+        for($i = count($contents) - 1; $i >= 0; $i--) {
+            if(!$contents[$i]->removed && $contents[$i]->CardID === "vkqzk1jik7") {
+                MZMove($player, $zone . "-" . $i, $fieldZone);
+                $field = &GetField($player);
+                $newIdx = count($field) - 1;
+                $newMZ = $fieldZone . "-" . $newIdx;
+                AddTurnEffect($newMZ, "vkqzk1jik7_LIFE");
+                MakeEphemeral($newMZ);
+                return;
+            }
+        }
+    }
+}
+
+// --- Ephemerate registry ---
+// Maps cardID => config for cards with the Ephemerate keyword.
+// 'cost' = reserve cost for ephemerate activation
+// 'costModifier' = optional callback($player) returning int cost reduction
+// 'extraCostHandler' = optional string name of DQ handler for non-reserve extra costs
+$ephemerateCards = [];
+$ephemerateCards["4vjkezn49t"] = ['cost' => 4]; // Vengeful Paramour
+$ephemerateCards["sm68d3we64"] = ['cost' => 3, 'extraCostHandler' => 'EphemerateBanishFloating']; // Sunken Battle Priest
+$ephemerateCards["v0gu8efq08"] = ['cost' => 6, 'costModifier' => function($player) {
+    return CountEphemeralObjects($player) > 0 ? 3 : 0;
+}]; // Lingering Banshee
+
+function GetEphemerateCost($player, $cardID) {
+    global $ephemerateCards;
+    if(!isset($ephemerateCards[$cardID])) return -1;
+    $config = $ephemerateCards[$cardID];
+    $cost = $config['cost'];
+    if(isset($config['costModifier'])) {
+        $cost = max(0, $cost - $config['costModifier']($player));
+    }
+    return $cost;
+}
+
+function CanPayEphemerate($player, $cardID) {
+    global $ephemerateCards, $playerID;
+    if(!isset($ephemerateCards[$cardID])) return false;
+    $config = $ephemerateCards[$cardID];
+    $cost = GetEphemerateCost($player, $cardID);
+    $hand = &GetHand($player);
+    $available = count($hand);
+    // Add reservable field cards
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $fObj) {
+        if(!$fObj->removed && isset($fObj->Status) && $fObj->Status == 2 && HasReservable($fObj)) {
+            $available++;
+        }
+    }
+    if($available < $cost) return false;
+    // Check extra cost feasibility
+    if(isset($config['extraCostHandler'])) {
+        if($config['extraCostHandler'] === 'EphemerateBanishFloating') {
+            $gravZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+            $gy = GetZone($gravZone);
+            $hasFloating = false;
+            foreach($gy as $gObj) {
+                if(!$gObj->removed && HasFloatingMemory($gObj)) {
+                    $hasFloating = true;
+                    break;
+                }
+            }
+            if(!$hasFloating) return false;
+        }
+    }
+    return true;
 }
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
