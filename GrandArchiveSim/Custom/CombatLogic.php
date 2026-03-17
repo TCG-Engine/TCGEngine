@@ -1085,6 +1085,14 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
     DecisionQueueController::StoreVariable("CombatIsCleave", "0");
 
+    // Track that the champion was attacked this turn (for Servant's Obligation)
+    $wasAttackedObj = GetZoneObject($lastDecision);
+    if($wasAttackedObj !== null && PropertyContains(EffectiveCardType($wasAttackedObj), "CHAMPION")) {
+        if(!in_array("WAS_ATTACKED", $wasAttackedObj->TurnEffects)) {
+            AddTurnEffect($lastDecision, "WAS_ATTACKED");
+        }
+    }
+
     // Beguiling Bandit (jyrqgyj9vn): attacker must pay (1) to attack it
     $bbTargetObj = GetZoneObject($lastDecision);
     if($bbTargetObj !== null && $bbTargetObj->CardID === "jyrqgyj9vn" && !HasNoAbilities($bbTargetObj)) {
@@ -1772,6 +1780,14 @@ function OnDealDamage($player, $source, $target, $amount) {
     if($amount > 0 && $targetObj->CardID === "gveirpdm44" && !HasNoAbilities($targetObj)) {
         $amount -= 3;
         if($amount <= 0) return;
+    }
+
+    // Froglet Footman (fbvt9rdhkj): prevent 1 damage while it has a buff counter
+    if($amount > 0 && $targetObj->CardID === "fbvt9rdhkj" && !HasNoAbilities($targetObj)) {
+        if(GetCounterCount($targetObj, "buff") > 0) {
+            $amount -= 1;
+            if($amount <= 0) return;
+        }
     }
 
     // Shangxiang, Fierce Princess (s2tzwv1uw3): if imbued, prevent 2 damage from non-norm sources

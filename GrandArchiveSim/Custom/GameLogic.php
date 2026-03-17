@@ -74,6 +74,23 @@ $lineageReleaseAbilities["zq9ox7u6wz"] = [ // Spirit of Serene Water
     'name' => 'LR: Recover 6',
     'effect' => function($player) { RecoverChampion($player, 6); }
 ];
+$lineageReleaseAbilities["daip7s9ztd"] = [ // Alice, Golden Queen
+    'name' => 'LR: Shield Chessman allies',
+    'effect' => function($player) {
+        global $playerID;
+        $zone = $player == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        for($i = 0; $i < count($field); $i++) {
+            $obj = $field[$i];
+            if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "ALLY")
+                && PropertyContains(EffectiveCardSubtypes($obj), "CHESSMAN")
+                && isset($obj->Status) && $obj->Status == 2) {
+                AddTurnEffect($zone . "-" . $i, "PREVENT_ALL_3");
+            }
+        }
+    }
+];
+
 $lineageReleaseAbilities["e3z4pyx8bd"] = [ // Diana, Keen Huntress
     'name' => 'LR: Materialize Gun',
     'effect' => function($player) {
@@ -2804,6 +2821,23 @@ function DoAllyDestroyed($player, $mzCard) {
             DecisionQueueController::AddDecision($dcPlayer, "CUSTOM", "DiaoChanIdyllBanish|" . $obj->CardID . "|" . $controller, 1);
         }
     }
+    // Death Essence Amulet (ddag7ue0k7): whenever an ally you control dies while it's not your turn,
+    // you may banish Death Essence Amulet to look at opponent's hand or memory and discard a card.
+    {
+        $turnPlayer = GetTurnPlayer();
+        if($turnPlayer != $controller) {
+            global $playerID;
+            $controllerField = $controller == $playerID ? "myField" : "theirField";
+            $deaField = GetZone($controllerField);
+            for($dei = 0; $dei < count($deaField); ++$dei) {
+                if(!$deaField[$dei]->removed && $deaField[$dei]->CardID === "ddag7ue0k7" && !HasNoAbilities($deaField[$dei])) {
+                    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, tooltip:"Banish_Death_Essence_Amulet?");
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "DeathEssenceAmuletBanish|$dei", 1);
+                    break;
+                }
+            }
+        }
+    }
 }
 
 function WakeUpPhase() {
@@ -3156,6 +3190,20 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     if(in_array("VENGEFUL_GUST_PENALTY", $added->TurnEffects)) {
         $added->TurnEffects = array_values(array_diff($added->TurnEffects, ["VENGEFUL_GUST_PENALTY"]));
         DealChampionDamage($player, 4);
+    }
+
+    // Mad Tea Party (eaxvvj7hz3): whenever an ally enters the field, controller recovers 1
+    if(PropertyContains(CardType($added->CardID), "ALLY")
+        || (PropertyContains(CardType($added->CardID), "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY"))) {
+        for($mtpP = 1; $mtpP <= 2; ++$mtpP) {
+            $mtpField = &GetField($mtpP);
+            foreach($mtpField as $mtpObj) {
+                if(!$mtpObj->removed && $mtpObj->CardID === "eaxvvj7hz3" && !HasNoAbilities($mtpObj)) {
+                    RecoverChampion($mtpP, 1);
+                    break;
+                }
+            }
+        }
     }
 
     Enter($player, $field[count($field)-1]->GetMzID());
@@ -3981,9 +4029,16 @@ function MainPhase() {
  * @param int    $player  The acting player.
  * @param string $mzCard  The mzID of the ally to suppress (e.g. "theirField-2").
  */
-function SuppressAlly($player, $mzCard) {
+function SuppressAlly($player, $mzCard, $skipReplacementCheck = false) {
     $obj = GetZoneObject($mzCard);
     if($obj === null) return;
+    // Poisonous Breezecap (e3ldc3r8j7): if would be suppressed, may sacrifice instead
+    if(!$skipReplacementCheck && $obj->CardID === "e3ldc3r8j7" && !HasNoAbilities($obj)) {
+        $controller = $obj->Controller;
+        DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, tooltip:"Sacrifice_Poisonous_Breezecap_instead_of_suppressing?");
+        DecisionQueueController::AddDecision($controller, "CUSTOM", "PoisonousBreezecapSuppressReplace|" . $mzCard, 1);
+        return;
+    }
     $owner = $obj->Owner;
     OnLeaveField($player, $mzCard);
     // Move to the owner's banishment zone
@@ -4470,6 +4525,30 @@ function ObjectCurrentPower($obj) {
                 $targetObj = GetZoneObject($combatTarget);
                 if($targetObj !== null && HasStealth($targetObj)) {
                     $power += 1;
+                }
+            }
+            break;
+        case "eyvxonorcs": // Deadly Opportunist: +3 POWER while attacking a rested ally
+            $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+            if($combatTarget != "-" && $combatTarget != "") {
+                $targetObj = GetZoneObject($combatTarget);
+                if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY")
+                    && isset($targetObj->Status) && $targetObj->Status == 1) {
+                    $power += 3;
+                }
+            }
+            break;
+        case "zcvq77mdgd": // Sword of Shadows: [CB] +1 POWER; -1 while opponent controls stealth ally
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $power += 1;
+                global $playerID;
+                $oppZone = $obj->Controller == $playerID ? "theirField" : "myField";
+                $oppField = GetZone($oppZone);
+                foreach($oppField as $oppObj) {
+                    if(!$oppObj->removed && PropertyContains(EffectiveCardType($oppObj), "ALLY") && HasStealth($oppObj)) {
+                        $power -= 1;
+                        break;
+                    }
                 }
             }
             break;
@@ -5403,6 +5482,17 @@ function ObjectCurrentPower($obj) {
             }
         }
     }
+    // Alice, Golden Queen (daip7s9ztd) — Inherited Effect:
+    // Chessman Command attack cards get +1 POWER.
+    if(PropertyContains(EffectiveCardType($obj), "ATTACK")) {
+        $controller = $obj->Controller ?? null;
+        if($controller !== null && $controller > 0 && ChampionHasInLineage($controller, "daip7s9ztd")) {
+            $subtypes = CardSubtypes($obj->CardID);
+            if(PropertyContains($subtypes, "CHESSMAN") && PropertyContains($subtypes, "COMMAND")) {
+                $power += 1;
+            }
+        }
+    }
     // Into the Fray (tu9agwj4f1): +N POWER until end of turn (N encoded in TurnEffect)
     foreach($obj->TurnEffects as $te) {
         if(strpos($te, "tu9agwj4f1-") === 0) {
@@ -5556,6 +5646,19 @@ function ObjectCurrentLevel($obj) {
             foreach($acerbicaField as $aObj) {
                 if(!$aObj->removed && $aObj->CardID === "7ax4ywyv19" && !HasNoAbilities($aObj)) {
                     $cardLevel -= 1;
+                }
+            }
+        }
+        // Tome of Ignorance (dz4qd82liq): [CB] opponents' champions get -1 level
+        {
+            global $playerID;
+            $oppZone = $obj->Controller == $playerID ? "theirField" : "myField";
+            $tomeField = GetZone($oppZone);
+            foreach($tomeField as $tObj) {
+                if(!$tObj->removed && $tObj->CardID === "dz4qd82liq" && !HasNoAbilities($tObj)) {
+                    if(IsClassBonusActive($tObj->Controller, ["MAGE"])) {
+                        $cardLevel -= 1;
+                    }
                 }
             }
         }
@@ -8827,6 +8930,8 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "v5ppxyu1jm" && IsClassBonusActive($obj->Controller, ["GUARDIAN", "WARRIOR"])) return true;
     // Shu Frontliner (uhaao91ee1): [Class Bonus] Floating Memory
     if($obj->CardID === "uhaao91ee1" && IsClassBonusActive($obj->Controller, ["WARRIOR"])) return true;
+    // Deadly Opportunist (eyvxonorcs): [Class Bonus] Floating Memory
+    if($obj->CardID === "eyvxonorcs" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
     if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
         for($p = 1; $p <= 2; $p++) {
@@ -9484,6 +9589,21 @@ function HasTaunt($obj) {
     if($obj->CardID === "z07nau5sw9") {
         if(IsClassBonusActive($obj->Controller, ["GUARDIAN"]) && PlayerLevel($obj->Controller) >= 2) {
             return true;
+        }
+    }
+    // Servant's Obligation (f4wqesifxk): [Ciel Bonus] champion has taunt while not attacked this turn
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && !in_array("WAS_ATTACKED", $obj->TurnEffects)) {
+        $controller = $obj->Controller;
+        global $playerID;
+        $zone = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $soObj) {
+            if(!$soObj->removed && $soObj->CardID === "f4wqesifxk" && !HasNoAbilities($soObj)) {
+                if(strpos(CardName($obj->CardID), "Ciel") === 0) {
+                    return true;
+                }
+                break;
+            }
         }
     }
     // Ritai Guard (jbc30d18ys): [CB] Equestrian — Taunt while you control a Horse ally
@@ -14378,5 +14498,75 @@ function SylphEnvelopmentExecute($player, $target) {
         }
     }
 }
+
+// ============================================================================
+// Death Essence Amulet (ddag7ue0k7) — DQ handlers
+// ============================================================================
+$customDQHandlers["DeathEssenceAmuletBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    global $playerID;
+    $idx = intval($parts[0]);
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $obj = GetZoneObject($zone . "-" . $idx);
+    if($obj === null || $obj->CardID !== "ddag7ue0k7") return;
+    OnLeaveField($player, $zone . "-" . $idx);
+    MZMove($player, $zone . "-" . $idx, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    // Choose hand or memory
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Look_at_opponent's_hand?_(No_=_memory)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DeathEssenceAmuletChooseZone", 1);
+};
+
+$customDQHandlers["DeathEssenceAmuletChooseZone"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $opponent = ($player == 1) ? 2 : 1;
+    if($lastDecision === "YES") {
+        $opZone = $opponent == $playerID ? "myHand" : "theirHand";
+    } else {
+        $opZone = $opponent == $playerID ? "myMemory" : "theirMemory";
+    }
+    $cards = ZoneSearch($opZone);
+    if(empty($cards)) return;
+    $cardStr = implode("&", $cards);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $cardStr, 1, "Choose_a_card_to_discard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DeathEssenceAmuletDiscard", 1);
+};
+
+$customDQHandlers["DeathEssenceAmuletDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    global $playerID;
+    $opponent = ($player == 1) ? 2 : 1;
+    $destGrav = $opponent == $playerID ? "myGraveyard" : "theirGraveyard";
+    MZMove($opponent, $lastDecision, $destGrav);
+};
+
+// ============================================================================
+// Poisonous Breezecap (e3ldc3r8j7) — suppress replacement DQ handler
+// ============================================================================
+$customDQHandlers["PoisonousBreezecapSuppressReplace"] = function($player, $parts, $lastDecision) {
+    $mzCard = $parts[0];
+    if($lastDecision === "YES") {
+        // Sacrifice instead: move to graveyard
+        $obj = GetZoneObject($mzCard);
+        if($obj === null) return;
+        $controller = $obj->Controller;
+        OnLeaveField($controller, $mzCard);
+        MZMove($controller, $mzCard, "myGraveyard");
+        DecisionQueueController::CleanupRemovedCards();
+        // Each opponent banishes a card at random from their memory
+        $opponent = ($controller == 1) ? 2 : 1;
+        global $playerID;
+        $opMemZone = $opponent == $playerID ? "myMemory" : "theirMemory";
+        $opBanishZone = $opponent == $playerID ? "myBanish" : "theirBanish";
+        $memCards = ZoneSearch($opMemZone);
+        if(!empty($memCards)) {
+            $randomIdx = array_rand($memCards);
+            MZMove($opponent, $memCards[$randomIdx], $opBanishZone);
+        }
+    } else {
+        // Proceed with normal suppress
+        SuppressAlly($player, $mzCard, skipReplacementCheck: true);
+    }
+};
 
 ?>
