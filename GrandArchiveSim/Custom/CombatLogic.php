@@ -520,6 +520,16 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
+    // Suited Trickery (uxhmucm8si): champions must pay (2) for each attack declaration.
+    $suitedTrickeryActive = (GlobalEffectCount($turnPlayer, "uxhmucm8si") > 0 || GlobalEffectCount($prOpp, "uxhmucm8si") > 0);
+    if($suitedTrickeryActive && PropertyContains($cardType, "CHAMPION")) {
+        $hand = GetZone("myHand");
+        if(count($hand) < 2) {
+            SetFlashMessage("Must pay (2) to attack with a champion (Suited Trickery). Not enough cards in hand.");
+            return false;
+        }
+    }
+
     // Chibi, Battle of Red Cliffs (881gacexpv): players can't declare attacks with allies
     // unless they pay (1) for each attack declaration. Check both players' fields.
     $chibiActive = false;
@@ -555,6 +565,12 @@ function BeginCombatPhase($actionCard) {
 
     // Plea for Peace (ir99sx6q3p): pay (1) reserve for each attack declaration
     if($pleaActive) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
+
+    // Suited Trickery (uxhmucm8si): pay (2) reserve for champion attack declaration
+    if($suitedTrickeryActive && PropertyContains($cardType, "CHAMPION")) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
     }
 
@@ -2278,6 +2294,25 @@ function OnDealDamage($player, $source, $target, $amount) {
             }
         }
     }
+
+    // Sovereign Sanctuary (w6OqqsfEso): prevent 2 damage to any unit you control
+    if($amount > 0) {
+        $isUnitCheck = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
+        if($isUnitCheck) {
+            $targetController = $targetObj->Controller ?? $player;
+            global $playerID;
+            $ctrlFieldZone = ($targetController == $playerID) ? "myField" : "theirField";
+            $ctrlField = GetZone($ctrlFieldZone);
+            foreach($ctrlField as $ssObj) {
+                if(!$ssObj->removed && $ssObj->CardID === "w6OqqsfEso" && !HasNoAbilities($ssObj)) {
+                    $amount = max(0, $amount - 2);
+                    break;
+                }
+            }
+            if($amount <= 0) return;
+        }
+    }
+
     $targetObj->Damage += $amount;
 
     // Foster tracking: mark that this unit received damage and remove fostered state

@@ -534,6 +534,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Expeditious Opening (w1wgpeifd0): consume fast-activation effect when any ally is activated
+    if(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
+        RemoveGlobalEffect($player, "w1wgpeifd0");
+    }
+
     // Command the Hunt (rxxwQT054x): global effect reduces next card cost by 2 if no attacks this turn  
     if(GlobalEffectCount($player, "rxxwQT054x_COST") > 0) {
         $reserveCost = max(0, $reserveCost - 2);
@@ -3712,6 +3717,11 @@ function RecollectionPhase() {
         RemoveGlobalEffect($turnPlayer, "ir99sx6q3p");
     }
 
+    // Suited Trickery: clear champion attack tax at the beginning of the caster's next turn
+    if(GlobalEffectCount($turnPlayer, "uxhmucm8si") > 0) {
+        RemoveGlobalEffect($turnPlayer, "uxhmucm8si");
+    }
+
     // Fatal Timepiece (6gvnta6qse): at the beginning of each player's recollection phase,
     // if that player did not materialize a card this turn → deal 2 unpreventable to their champion.
     $hasTimepiece = false;
@@ -4032,6 +4042,13 @@ function RecollectionPhase() {
                             DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $allChamps), 1, "Firebloom:_Deal_1_damage_to_champion");
                             DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "FirebloomRecollation", 1);
                         }
+                    }
+                    break;
+                case "w6OqqsfEso": // Sovereign Sanctuary: sacrifice self and draw into memory
+                    if(!HasNoAbilities($field[$i])) {
+                        MZMove($turnPlayer, "myField-" . $i, "myGraveyard");
+                        DecisionQueueController::CleanupRemovedCards();
+                        DrawIntoMemory($turnPlayer, 1);
                     }
                     break;
                 default: break;
@@ -4674,6 +4691,20 @@ function ObjectCurrentPower($obj) {
                 if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY")
                     && isset($targetObj->Status) && $targetObj->Status == 1) {
                     $power += 3;
+                }
+            }
+            break;
+        case "vjdbqgku4z": // Horned Knight: +1 POWER while attacking an ally
+            {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $combatAttacker !== ""
+                    && $combatTarget !== null && $combatTarget !== "-" && $combatTarget !== ""
+                    && $obj->GetMzID() === $combatAttacker) {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY")) {
+                        $power += 1;
+                    }
                 }
             }
             break;
@@ -5656,6 +5687,17 @@ function ObjectCurrentPower($obj) {
     if(in_array("ulzrh3pmxq", $obj->TurnEffects)) {
         $power += 1;
     }
+    // Flamebreak Chorus (yky280mtts): +2 POWER until end of turn
+    if(in_array("yky280mtts_POWER", $obj->TurnEffects)) {
+        $power += 2;
+    }
+    // Flamebreak Chorus (yky280mtts): +LV POWER if was defending
+    foreach($obj->TurnEffects as $te) {
+        if(strpos($te, "yky280mtts_LV_") === 0) {
+            $power += intval(substr($te, strlen("yky280mtts_LV_")));
+            break;
+        }
+    }
     // Ranged N: while this unit is distant, its attacks get +N POWER
     if(IsDistant($obj)) {
         $rangedValue = GetRangedValue($obj);
@@ -6063,6 +6105,9 @@ function ObjectCurrentHP($obj) {
             if($lineageCardID === "8tuhuy4xip") { // Load Soul: -2 LIFE
                 $cardLife -= 2;
             }
+            if($lineageCardID === "up6fw61vf1") { // Malevolent Vow: -2 LIFE
+                $cardLife -= 2;
+            }
             // Curse cards with Inherited Effect: -2 LIFE
             if($lineageCardID === "oqk2c7wklz" // Shadecursed Hunter
             || $lineageCardID === "vdxi74wa4x" // Violet Haze
@@ -6318,6 +6363,7 @@ $starcallingCards = [];
 $starcallingCards["zuj68m69iq"] = 0; // Astra Sight: Starcalling (0)
 $starcallingCards["4d5vettczb"] = 2; // Cometfall: Starcalling (2)
 $starcallingCards["dwavcoxpnj"] = 3; // Meteor Strike: Starcalling (3)
+$starcallingCards["xmtjrvfpuc"] = 1; // Stellaria Shower: Starcalling (1)
 
 /**
  * Get the effective starcalling cost for a card during a glimpse.
@@ -6409,6 +6455,11 @@ function Glimpse($player, $amount) {
 }
 
 function DoDiscardCard($player, $mzCard) {
+    // Purging Tempest (yuo7dbge3b): cards that would enter this player's GY are banished instead
+    if(GlobalEffectCount($player, "yuo7dbge3b") > 0) {
+        MZMove($player, $mzCard, "myBanish");
+        return;
+    }
     // Brackish Lutist (1clswn3ba2): floating memory cards go to banish instead of graveyard
     $discObj = GetZoneObject($mzCard);
     if($discObj !== null && HasFloatingMemory($discObj) && IsBrackishLutistOnField()) {
@@ -7749,6 +7800,16 @@ $doesGlobalEffectApply["i0a5uhjxhk"] = function($obj) { //Blightroot: champion g
 $foreverEffects["ir99sx6q3p"] = true;
 $doesGlobalEffectApply["ir99sx6q3p"] = function($obj) { return false; };
 
+// Suited Trickery (uxhmucm8si): flag only — champion attack tax handled in BeginCombatPhase
+$foreverEffects["uxhmucm8si"] = true;
+$doesGlobalEffectApply["uxhmucm8si"] = function($obj) { return false; };
+
+// Expeditious Opening (w1wgpeifd0): flag only — fast ally activation handled in GetPlayableFastCards
+$doesGlobalEffectApply["w1wgpeifd0"] = function($obj) { return false; };
+
+// Purging Tempest (yuo7dbge3b): flag only — GY redirect handled in DoDiscardCard/MillCards
+$doesGlobalEffectApply["yuo7dbge3b"] = function($obj) { return false; };
+
 // Conjure Downpour (r0zadf9q1w): flag only — power reduction handled in ObjectCurrentPower
 $effectAppliesToBoth["r0zadf9q1w"] = true;
 $doesGlobalEffectApply["r0zadf9q1w"] = function($obj) { return false; };
@@ -8733,6 +8794,7 @@ $cbFastActivationCards = [
     "2bbmoqk2c7" => ["GUARDIAN"], // Rose, Eternal Paragon
     "f0ht2tsn0y" => ["GUARDIAN"], // Astarte, Celestial Dawn
     "jozihslnhz" => ["ASSASSIN"], // Sinister Mindreaver
+    "yky280mtts" => ["TAMER"], // Flamebreak Chorus
 ];
 
 // Cards with unconditional Fast Activation (no class bonus required)
@@ -8766,6 +8828,9 @@ function GetPlayableFastCards($player) {
                     break;
                 }
             }
+        } elseif(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
+            // Expeditious Opening: next ally activated this turn gets fast activation
+            $fastCards[] = "myHand-" . $i;
         }
     }
 
@@ -9128,6 +9193,8 @@ function HasFloatingMemory($obj) {
             }
         }
     }
+    // Dredging Streams (wmt0x5zado): [Level 2+] Floating Memory
+    if($obj->CardID === "wmt0x5zado" && PlayerLevel($obj->Controller) >= 2) return true;
     return false;
 }
 
@@ -10586,6 +10653,21 @@ function AddCounters($player, $mzCard, $counterType, $amount = 1) {
     $obj = &GetZoneObject($mzCard);
     if(!isset($obj->Counters) || !is_array($obj->Counters)) $obj->Counters = [];
 
+    // Chateau de Coeurs (vxc8u5zz08): buff counters can't be placed on opponent's objects
+    if($counterType === "buff") {
+        $objController = $obj->Controller ?? $player;
+        for($cp = 1; $cp <= 2; $cp++) {
+            $cpField = GetField($cp);
+            foreach($cpField as $cpObj) {
+                if(!$cpObj->removed && $cpObj->CardID === "vxc8u5zz08"
+                   && !HasNoAbilities($cpObj) && $cpObj->Controller == $cp
+                   && $objController != $cp) {
+                    return; // Buff counter blocked by Chateau de Coeurs
+                }
+            }
+        }
+    }
+
     // Winbless Forecaster (dm44nt1lyk): if enlighten counters are being put on a champion,
     // and the controller has a Winbless Forecaster on field, add +1
     if($counterType === "enlighten" && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
@@ -11524,7 +11606,15 @@ function MillCards($player, $deckRef, $gyRef, $amount) {
     $n = min($amount, count($deck));
     // Always move index 0 (top of deck) — after each move the next card becomes index 0
     for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "$deckRef-0", $gyRef);
+        // Purging Tempest (yuo7dbge3b): redirect GY destination to banish
+        $effectiveDest = $gyRef;
+        if(strpos($gyRef, "Graveyard") !== false) {
+            $gyOwner = (strpos($gyRef, "my") === 0) ? $player : (($player == 1) ? 2 : 1);
+            if(GlobalEffectCount($gyOwner, "yuo7dbge3b") > 0) {
+                $effectiveDest = (strpos($gyRef, "my") === 0) ? "myBanish" : "theirBanish";
+            }
+        }
+        MZMove($player, "$deckRef-0", $effectiveDest);
     }
 }
 
@@ -15003,6 +15093,92 @@ $customDQHandlers["RafalesSlashSummon"] = function($player, $parts, $lastDecisio
     MZAddZone($player, "myField", "L67r0GlRHR");
     $field = &GetField($player);
     $field[count($field) - 1]->Status = 1;
+};
+
+// ============================================================================
+// Malevolent Vow (up6fw61vf1): discard up to 3 cards, recover 3+3X, put on lineage
+// ============================================================================
+function MalevolentVowFinish($player) {
+    $count = intval(DecisionQueueController::GetVariable("malevolentVowDiscardCount") ?? "0");
+    RecoverChampion($player, 3 + 3 * $count);
+    $gy = GetZone("myGraveyard");
+    for($gi = count($gy) - 1; $gi >= 0; --$gi) {
+        if(!$gy[$gi]->removed && $gy[$gi]->CardID === "up6fw61vf1") {
+            MZRemove($player, "myGraveyard-" . $gi);
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        }
+    }
+    AddToChampionLineage($player, "up6fw61vf1");
+}
+
+$customDQHandlers["MalevolentVow1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DoDiscardCard($player, $lastDecision);
+        DecisionQueueController::CleanupRemovedCards();
+        $count = intval(DecisionQueueController::GetVariable("malevolentVowDiscardCount") ?? "0") + 1;
+        DecisionQueueController::StoreVariable("malevolentVowDiscardCount", strval($count));
+        $hand = ZoneSearch("myHand");
+        if(!empty($hand)) {
+            $handStr = implode("&", $hand);
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Malevolent_Vow_2/3)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow2", 1);
+            return;
+        }
+    }
+    MalevolentVowFinish($player);
+};
+
+$customDQHandlers["MalevolentVow2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DoDiscardCard($player, $lastDecision);
+        DecisionQueueController::CleanupRemovedCards();
+        $count = intval(DecisionQueueController::GetVariable("malevolentVowDiscardCount") ?? "0") + 1;
+        DecisionQueueController::StoreVariable("malevolentVowDiscardCount", strval($count));
+        $hand = ZoneSearch("myHand");
+        if(!empty($hand)) {
+            $handStr = implode("&", $hand);
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Malevolent_Vow_3/3)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "MalevolentVow3", 1);
+            return;
+        }
+    }
+    MalevolentVowFinish($player);
+};
+
+$customDQHandlers["MalevolentVow3"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DoDiscardCard($player, $lastDecision);
+        DecisionQueueController::CleanupRemovedCards();
+        $count = intval(DecisionQueueController::GetVariable("malevolentVowDiscardCount") ?? "0") + 1;
+        DecisionQueueController::StoreVariable("malevolentVowDiscardCount", strval($count));
+    }
+    MalevolentVowFinish($player);
+};
+
+// ============================================================================
+// Rile the Abyss (ye7f7o5yut): draw 1; discard up to 2 Specter cards; draw 1 per discard
+// ============================================================================
+$customDQHandlers["RileTheAbyss1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DoDiscardCard($player, $lastDecision);
+        DecisionQueueController::CleanupRemovedCards();
+        Draw($player, 1);
+        $specters = ZoneSearch("myHand", cardSubtypes: ["SPECTER"]);
+        if(!empty($specters)) {
+            $specterStr = implode("&", $specters);
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $specterStr, 1, tooltip:"Discard_another_Specter_(Rile_the_Abyss)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "RileTheAbyss2", 1);
+        }
+    }
+};
+
+$customDQHandlers["RileTheAbyss2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DoDiscardCard($player, $lastDecision);
+        DecisionQueueController::CleanupRemovedCards();
+        Draw($player, 1);
+    }
 };
 
 ?>
