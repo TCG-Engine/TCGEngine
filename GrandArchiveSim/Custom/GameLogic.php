@@ -37,6 +37,7 @@ $Imbue_Cards["ep3ajxiyd3"] = 2; // Squallbind Pounce (WIND)
 $Imbue_Cards["flzvpkc0ni"] = 2; // Moontide Illusionist (WATER)
 $Imbue_Cards["myvztzk3v8"] = 3; // Razorblade Execution (WIND)
 $Imbue_Cards["s2tzwv1uw3"] = 3; // Shangxiang, Fierce Princess (NORM)
+$Imbue_Cards["lflzwiiewz"] = 2; // Cataleptic Constellation (ASTRA)
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -1330,7 +1331,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost) {
+    //1.3 Declaring Costs — Resolute Stand (o6gb0op3nq): [Level 2+] may activate without paying reserve (skip next draw phase)
+    $hasResoluteStandFree = false;
+    if($obj->CardID === "o6gb0op3nq" && PlayerLevel($player) >= 2 && !$ignoreCost && $reserveCost > 0) {
+        $hasResoluteStandFree = true;
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Activate_without_paying_reserve_(skip_next_draw_phase)?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ResoluteStandFreeCost|" . $reserveCost, 100);
+    }
+
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1617,6 +1626,62 @@ $customDQHandlers["InterventionRestCost"] = function($player, $parts, $lastDecis
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+/**
+ * DQ handler: Resolute Stand (o6gb0op3nq) — if YES, skip reserve payment and mark skip-next-draw.
+ * Parts: [baseReserve].
+ */
+$customDQHandlers["ResoluteStandFreeCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "YES") {
+        // Free activation — skip reserve, but mark next draw phase to be skipped
+        AddGlobalEffects($player, "SKIP_NEXT_DRAW");
+        // Queue no ReserveCard calls — free
+    } else {
+        // Pay normal cost
+        for($i = 0; $i < $baseReserve; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+/**
+ * DQ handler: Recurring Invocation (iyhlctxcrq) level-up trigger — if YES, pay (1) and banish to Empower 2.
+ * Parts: [mzGY].
+ */
+$customDQHandlers["RecurringInvocationLevelUp"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mzGY = $parts[0];
+    // Pay (1) reserve
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RecurringInvocationLevelUpBanish|$mzGY", 1);
+};
+
+/**
+ * DQ handler: after paying (1), banish Recurring Invocation from GY and Empower 2.
+ * Parts: [mzGY].
+ */
+$customDQHandlers["RecurringInvocationLevelUpBanish"] = function($player, $parts, $lastDecision) {
+    $mzGY = $parts[0];
+    global $playerID;
+    $banishZone = ($player == $playerID) ? "myBanish" : "theirBanish";
+    MZMove($player, $mzGY, $banishZone);
+    Empower($player, 2, "iyhlctxcrq");
+};
+
+/**
+ * DQ handler: Devoted Martyr (p16w5j93mk) level-up trigger — if YES, banish from GY to Recover 2.
+ * Parts: [mzGY].
+ */
+$customDQHandlers["DevotedMartyrLevelUp"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mzGY = $parts[0];
+    global $playerID;
+    $banishZone = ($player == $playerID) ? "myBanish" : "theirBanish";
+    MZMove($player, $mzGY, $banishZone);
+    RecoverChampion($player, 2);
 };
 
 /**
@@ -4027,6 +4092,11 @@ function DrawPhase() {
     $currentTurn = &GetTurnNumber();
     if($currentTurn == 1) return;//Don't draw on first turn
     $turnPlayer = &GetTurnPlayer();
+    // Resolute Stand (o6gb0op3nq): skip this draw phase if effect is active
+    if(GlobalEffectCount($turnPlayer, "SKIP_NEXT_DRAW") > 0) {
+        RemoveGlobalEffect($turnPlayer, "SKIP_NEXT_DRAW");
+        return;
+    }
     Draw($turnPlayer, amount: 1);
 }
 
@@ -5526,6 +5596,10 @@ function ObjectCurrentPower($obj) {
     if(in_array("hreqhj1trn-power", $obj->TurnEffects)) {
         $power += 2;
     }
+    // Peppered Chef (lcy0lw1veb): On Enter sacrifice ally → +2 POWER until end of turn
+    if(in_array("lcy0lw1veb", $obj->TurnEffects)) {
+        $power += 2;
+    }
     // Usurp the Winds (ulzrh3pmxq): +1 POWER until end of turn
     if(in_array("ulzrh3pmxq", $obj->TurnEffects)) {
         $power += 1;
@@ -6022,6 +6096,10 @@ function ObjectCurrentHP($obj) {
                 break;
             default: break;
         }
+    }
+    // Longtail Grovesward (jn4mwv930y): [Level 1+] +1 LIFE
+    if($obj->CardID === "jn4mwv930y" && PlayerLevel($obj->Controller) >= 1) {
+        $cardLife += 1;
     }
     // Keeper of the Wild (9krp8brw64): +2 LIFE until end of turn
     if(in_array("9krp8brw64", $obj->TurnEffects)) {
@@ -7673,6 +7751,13 @@ $doesGlobalEffectApply["CANT_RECOVER"] = function($obj) { return false; };
 // Consumption Ring (g8q7imka92): flag only — non-ally cards opponents activate cost (4) more
 $doesGlobalEffectApply["CONSUMPTION_RING_COST"] = function($obj) { return false; };
 
+// Duplicitous Replication (owq8s5fefw): flag only — next regalia opponent materializes, summon token copy
+$doesGlobalEffectApply["owq8s5fefw"] = function($obj) { return false; };
+
+// Resolute Stand (o6gb0op3nq): flag only — skip next draw phase
+$doesGlobalEffectApply["SKIP_NEXT_DRAW"] = function($obj) { return false; };
+$foreverEffects["SKIP_NEXT_DRAW"] = true;
+
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
@@ -8442,6 +8527,20 @@ function OnRestCard($player, $mzCard) {
 
 function OnWakeupCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
+    // Cataleptic Constellation (lflzwiiewz): can't wake up while controller controls it
+    if(isset($obj->Counters['_catcon_controller'])) {
+        $lockerPlayer = $obj->Counters['_catcon_controller'];
+        global $playerID;
+        $lockerZone = ($lockerPlayer == $playerID) ? "myField" : "theirField";
+        $lockerField = GetZone($lockerZone);
+        foreach($lockerField as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "lflzwiiewz") {
+                return; // Can't wake up — Cataleptic Constellation still on field
+            }
+        }
+        // Cataleptic Constellation no longer on field — clear the lock
+        unset($obj->Counters['_catcon_controller']);
+    }
     $obj->Status = 2; // Wake up the card
 }
 
@@ -10129,6 +10228,13 @@ function CardMemoryCost($obj) {
     // Inert Sword (2s08hssegf): additional cost to materialize, pay (2)
     if($obj->CardID === "2s08hssegf") {
         $cost += 2;
+    }
+    // Necklace of Foresight (lq2kkvoqk1): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "lq2kkvoqk1") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
+            $cost = max(0, $cost - 1);
+        }
     }
     return $cost;
 }

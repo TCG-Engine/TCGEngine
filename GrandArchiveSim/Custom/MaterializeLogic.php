@@ -216,8 +216,54 @@ function DoMaterialize($player, $mzCard) {
                 }
             }
         }
+
+        // Recurring Invocation (iyhlctxcrq): [CB MAGE] whenever your champion levels up,
+        // may banish from GY and pay (1) → Empower 2
+        if(IsClassBonusActive($player, ["MAGE"])) {
+            global $playerID;
+            $gyZone = ($player == $playerID) ? "myGraveyard" : "theirGraveyard";
+            $gy = &GetZone($gyZone);
+            for($ri = count($gy) - 1; $ri >= 0; --$ri) {
+                if(!$gy[$ri]->removed && $gy[$ri]->CardID === "iyhlctxcrq") {
+                    $riMZ = $gyZone . "-" . $ri;
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                        tooltip:"Banish_Recurring_Invocation_and_pay_(1)_to_Empower_2?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM",
+                        "RecurringInvocationLevelUp|$riMZ", 1);
+                    break;
+                }
+            }
+        }
+
+        // Devoted Martyr (p16w5j93mk): [CB CLERIC] whenever your champion levels up,
+        // may banish from GY → Recover 2
+        if(IsClassBonusActive($player, ["CLERIC"])) {
+            global $playerID;
+            $gyZone = ($player == $playerID) ? "myGraveyard" : "theirGraveyard";
+            $gy = &GetZone($gyZone);
+            for($dmi = count($gy) - 1; $dmi >= 0; --$dmi) {
+                if(!$gy[$dmi]->removed && $gy[$dmi]->CardID === "p16w5j93mk") {
+                    $dmMZ = $gyZone . "-" . $dmi;
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                        tooltip:"Banish_Devoted_Martyr_from_graveyard_to_Recover_2?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM",
+                        "DevotedMartyrLevelUp|$dmMZ", 1);
+                    break;
+                }
+            }
+        }
     } else {
         MZMove($player, $mzCard, "myField");
+    }
+
+    // Duplicitous Replication (owq8s5fefw): if the opponent has this effect active and
+    // the card that just entered the field is REGALIA, summon a token copy on the opponent's field.
+    $opponent = ($player == 1) ? 2 : 1;
+    if(GlobalEffectCount($opponent, "owq8s5fefw") > 0) {
+        if(PropertyContains(CardType($sourceId), "REGALIA")) {
+            RemoveGlobalEffect($opponent, "owq8s5fefw");
+            MZAddZone($opponent, "myField", $sourceId);
+        }
     }
 
     // --- Domain Upkeep: "Whenever you materialize a card, sacrifice [domain]" ---
