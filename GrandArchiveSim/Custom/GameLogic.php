@@ -2741,7 +2741,7 @@ function DoAllyDestroyed($player, $mzCard) {
     {
         global $playerID;
         $controllerField = $controller == $playerID ? "myField" : "theirField";
-        $field = &GetZone($controllerField);
+        $field = GetZone($controllerField);
         for($mi = 0; $mi < count($field); ++$mi) {
             if(!$field[$mi]->removed && $field[$mi]->CardID === "9xycwz9gv4" && !HasNoAbilities($field[$mi])) {
                 AddCounters($controller, $controllerField . "-" . $mi, "prize", 1);
