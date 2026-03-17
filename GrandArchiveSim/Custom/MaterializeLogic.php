@@ -198,6 +198,24 @@ function DoMaterialize($player, $mzCard) {
                 break; // Only one Ravenous Pyre triggers
             }
         }
+
+        // Liminal Guide (0xayo7mk1w): whenever your champion levels up, return from GY to field as ephemeral + draw
+        {
+            global $playerID;
+            $gyZone = ($player == $playerID) ? "myGraveyard" : "theirGraveyard";
+            $gy = &GetZone($gyZone);
+            for($lgi = count($gy) - 1; $lgi >= 0; --$lgi) {
+                if(!$gy[$lgi]->removed && $gy[$lgi]->CardID === "0xayo7mk1w") {
+                    $lgMZ = $gyZone . "-" . $lgi;
+                    $newObj = MZMove($player, $lgMZ, "myField");
+                    if($newObj !== null) {
+                        MakeEphemeral($newObj->GetMzID());
+                        Draw($player, 1);
+                    }
+                    break; // Only one Liminal Guide triggers per level-up
+                }
+            }
+        }
     } else {
         MZMove($player, $mzCard, "myField");
     }

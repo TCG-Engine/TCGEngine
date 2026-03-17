@@ -1809,6 +1809,17 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Fleeting Guard (2la6uk1qvl): prevent X damage where X = caster's ephemeral object count + 1
+    foreach($targetObj->TurnEffects as $te) {
+        if(strpos($te, "FLEETING_GUARD_") === 0) {
+            $caster = intval(substr($te, strlen("FLEETING_GUARD_")));
+            $prevention = CountEphemeralObjects($caster) + 1;
+            $amount -= $prevention;
+            if($amount <= 0) return;
+            break;
+        }
+    }
+
     // Nascent Barrier (6bc3ogf0o8): prevent up to N damage to champion (encoded as NASCENT_BARRIER_N)
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         // Water Barrier (xWJND68I8X): prevent all but 1 of next damage to champion

@@ -53,6 +53,7 @@ $additionalActivationCosts["P9Y1Q5cQ0F"] = [
 $Kindle_Cards = [];
 $Kindle_Cards["1ym2py8u7q"] = 3; // Glowering Conflagration (FIRE)
 $Kindle_Cards["xllhbjr20n"] = 3; // Lu Xun, Pyre Strategist (FIRE) - Kindle 3
+$Kindle_Cards["0s6solta0h"] = 4; // Rapid Combustion (FIRE) - Kindle 4
 
 // --- Lineage Release Abilities Registry ---
 // Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
@@ -2586,10 +2587,12 @@ function DoAllyDestroyed($player, $mzCard) {
     $xiaoQiaoBanish = in_array("HIT_BY_3hgldrogit", $obj->TurnEffects);
     // Fireworks Display (sx6q3p6i0i): banish instead of graveyard
     $fireworksBanish = GlobalEffectCount($controller, "FIREWORKS_BANISH") > 0;
-    if(IsRenewable($obj->CardID) && !$fireworksBanish && !$xiaoQiaoBanish) {
+    // Ephemeral: object is banished instead of leaving the field
+    $isEphemeral = IsEphemeral($obj);
+    if(IsRenewable($obj->CardID) && !$fireworksBanish && !$xiaoQiaoBanish && !$isEphemeral) {
         // Renewable: goes to material deck instead of graveyard/banish
         $dest = $player == $controller ? "myMaterial" : "theirMaterial";
-    } else if($fireworksBanish || $xiaoQiaoBanish) {
+    } else if($fireworksBanish || $xiaoQiaoBanish || $isEphemeral) {
         $dest = $player == $controller ? "myBanish" : "theirBanish";
     } else {
         $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
@@ -3103,6 +3106,7 @@ $customDQHandlers["MysticPurifierDestroy"] = function($player, $parts, $lastDeci
     $owner = $obj->Owner;
     OnLeaveField($player, $lastDecision);
     $gravZone = ($player == $owner) ? "myGraveyard" : "theirGraveyard";
+    $gravZone = EphemeralRedirectDest($obj, $gravZone, $player);
     MZMove($player, $lastDecision, $gravZone);
     DecisionQueueController::CleanupRemovedCards();
 };
@@ -4118,6 +4122,17 @@ function EndPhase() {
         }
     }
 
+    // SACRIFICE_NEXT_END_PHASE: sacrifice cards tagged by Incinerated Templar etc.
+    // Skip if card also has ENTERED_THIS_TURN (it just entered; sacrifice on the NEXT end phase).
+    $field = &GetField($turnPlayer);
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if(!$field[$i]->removed && in_array("SACRIFICE_NEXT_END_PHASE", $field[$i]->TurnEffects)
+            && !in_array("ENTERED_THIS_TURN", $field[$i]->TurnEffects)) {
+            AllyDestroyed($turnPlayer, "myField-" . $i);
+            DecisionQueueController::CleanupRemovedCards();
+        }
+    }
+
     // Scorching Imperilment (aj7pz79wsp): At beginning of each player's end phase,
     // that player may discard a card. If they do, they draw a card.
     $hasImperilment = false;
@@ -4294,6 +4309,11 @@ function ObjectCurrentPower($obj) {
             break;
         case "jF1VuIR7a6": // Warrior's Longsword: [Class Bonus] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $power += 1;
+            }
+            break;
+        case "2s08hssegf": // Inert Sword: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
                 $power += 1;
             }
             break;
@@ -6023,6 +6043,45 @@ function DoSacrificeFighter($player, $mzCard) {
     }
 }
 
+// Fight for the Crown (1lij42a9sh): each player sacrifices an ally.
+// Uses explicit DQ handlers to correctly handle conditional branching and zone perspective.
+// "myField-X" mzIDs are used for the opponent's queue so that when they process with their
+// own $playerID, GetZoneObject("myField-X") correctly refers to their own field.
+function FightForCrown_Start($player) {
+    $myAllies = ZoneSearch("myField", ["ALLY"]);
+    if(!empty($myAllies)) {
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $myAllies), 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FightForCrown_SacActivator", 1);
+    } else {
+        FightForCrown_QueueOpponent($player);
+    }
+}
+function FightForCrown_QueueOpponent($activatingPlayer) {
+    $opponent = ($activatingPlayer == 1) ? 2 : 1;
+    $opField = GetField($opponent);
+    $opAllies = [];
+    for($i = 0; $i < count($opField); ++$i) {
+        if(!$opField[$i]->removed && PropertyContains(EffectiveCardType($opField[$i]), "ALLY")) {
+            $opAllies[] = "myField-" . $i; // use myField from the opponent's perspective
+        }
+    }
+    if(!empty($opAllies)) {
+        DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $opAllies), 1);
+        DecisionQueueController::AddDecision($opponent, "CUSTOM", "FightForCrown_SacOpponent", 1);
+    }
+}
+
+$customDQHandlers["FightForCrown_SacActivator"] = function($player, $parts, $lastDecision) {
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    FightForCrown_QueueOpponent($player);
+};
+$customDQHandlers["FightForCrown_SacOpponent"] = function($player, $parts, $lastDecision) {
+    // $player is the opponent (their queue ran this handler)
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
     if ($lastResult && $lastResult !== "-") {
         $target = &GetZoneObject($lastResult);
@@ -6034,8 +6093,10 @@ $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
 
 $customDQHandlers["Bounce"] = function($player, $param, $lastResult) {
     if ($lastResult && $lastResult !== "-") {
+        $obj = GetZoneObject($lastResult);
         OnLeaveField($player, $lastResult);
-        MZMove($player, $lastResult, "myHand");
+        $dest = EphemeralRedirectDest($obj, "myHand", $player);
+        MZMove($player, $lastResult, $dest);
     }
 };
 
@@ -6297,6 +6358,51 @@ $customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
     }
 
     // Put "Bottom" pile cards at the back of the deck (in order)
+    $bottomCards = $piles["Bottom"];
+    foreach($bottomCards as $cardID) {
+        $obj = $popCard($cardID);
+        if($obj !== null) array_push($zone, $obj);
+    }
+};
+
+// Necklace of Hindsight (21g6ldxwrv): apply rearrange result to the opponent's deck
+$customDQHandlers["NecklaceHindsightApply"] = function($player, $parts, $lastDecision) {
+    $opponent = ($player == 1) ? 2 : 1;
+    $zone = &GetDeck($opponent);
+    $n = intval(DecisionQueueController::GetVariable("glimpseCount"));
+
+    $piles = ["Top" => [], "Bottom" => []];
+    $pileStrings = explode(";", $lastDecision);
+    foreach($pileStrings as $pileStr) {
+        $eqPos = strpos($pileStr, "=");
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        $pidList = ($cardsStr !== "") ? explode(",", $cardsStr) : [];
+        $piles[$pileName] = $pidList;
+    }
+
+    $removedCards = [];
+    for($i = 0; $i < $n; ++$i) {
+        if(count($zone) > 0) {
+            $removedCards[] = array_shift($zone);
+        }
+    }
+
+    $cardMap = [];
+    foreach($removedCards as $cardObj) {
+        $cardMap[$cardObj->CardID][] = $cardObj;
+    }
+    $popCard = function($cardID) use (&$cardMap) {
+        if(!isset($cardMap[$cardID]) || count($cardMap[$cardID]) === 0) return null;
+        return array_shift($cardMap[$cardID]);
+    };
+
+    $topCards = $piles["Top"];
+    for($i = count($topCards) - 1; $i >= 0; --$i) {
+        $obj = $popCard($topCards[$i]);
+        if($obj !== null) array_unshift($zone, $obj);
+    }
     $bottomCards = $piles["Bottom"];
     foreach($bottomCards as $cardID) {
         $obj = $popCard($cardID);
@@ -6833,6 +6939,36 @@ function AddTurnEffect($mzCard, $effectID) {
     }
 }
 
+// --- Ephemeral helpers ---
+function MakeEphemeral($mzCard) {
+    AddTurnEffect($mzCard, "EPHEMERAL");
+}
+
+function IsEphemeral($obj) {
+    return $obj !== null && in_array("EPHEMERAL", $obj->TurnEffects);
+}
+
+function CountEphemeralObjects($player) {
+    $field = &GetField($player);
+    $count = 0;
+    foreach($field as $obj) {
+        if(!$obj->removed && IsEphemeral($obj)) $count++;
+    }
+    return $count;
+}
+
+/**
+ * Redirect a leave-field destination to banishment if the object is ephemeral.
+ * Call this whenever moving a field object to a non-banish zone (graveyard, hand, deck).
+ */
+function EphemeralRedirectDest($obj, $defaultDest, $player) {
+    if(IsEphemeral($obj) && strpos($defaultDest, "Banish") === false) {
+        $controller = $obj->Controller ?? $player;
+        return $player == $controller ? "myBanish" : "theirBanish";
+    }
+    return $defaultDest;
+}
+
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
@@ -6873,6 +7009,8 @@ $persistentTurnEffects["IMBUED"] = true;
 $persistentTurnEffects["INGRESS_SANGUINE"] = true; // Ingress of Sanguine Ire: +3 POWER on first attack next turn
 $persistentTurnEffects["CANT_ATTACK_NEXT_TURN"] = true; // Bring Down the Mighty: ally can't attack until beginning of caster's next turn
 $persistentTurnEffects["ao1cfkhbp6"] = true; // Stand Fast: +1 LIFE until beginning of next turn
+$persistentTurnEffects["EPHEMERAL"] = true; // Ephemeral: object is banished instead of leaving the field
+$persistentTurnEffects["SACRIFICE_NEXT_END_PHASE"] = true; // Incinerated Templar: sacrifice at beginning of next end phase
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -9513,6 +9651,10 @@ function CardMemoryCost($obj) {
             $cost = max(0, $cost - 1);
         }
     }
+    // Inert Sword (2s08hssegf): additional cost to materialize, pay (2)
+    if($obj->CardID === "2s08hssegf") {
+        $cost += 2;
+    }
     return $cost;
 }
 
@@ -11414,6 +11556,7 @@ $customDQHandlers["SwoopingTalons_DestroyItem"] = function($player, $parts, $las
     if($targetObj === null) return;
     OnLeaveField($player, $lastDecision);
     $dest = $player == $targetObj->Controller ? "myGraveyard" : "theirGraveyard";
+    $dest = EphemeralRedirectDest($targetObj, $dest, $player);
     MZMove($player, $lastDecision, $dest);
     DecisionQueueController::CleanupRemovedCards();
 };
@@ -12304,6 +12447,23 @@ function SupplyDroneMaterialize($player) {
     if(empty($bulletMZs)) return;
     // The player materializes a 0-cost Bullet (pays memory cost which is 0)
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $bulletMZs), 1, "Materialize_a_0-cost_Bullet");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+}
+
+// Mad Hatter, Morose Heritor (2nc48s3oqh): materialize a Ranger regalia from material deck
+function MadHatterMaterialize($player) {
+    $materialZone = GetZone("myMaterial");
+    $regalias = [];
+    for($i = 0; $i < count($materialZone); ++$i) {
+        $obj = $materialZone[$i];
+        if(!$obj->removed && PropertyContains(CardType($obj->CardID), "REGALIA")
+           && PropertyContains(CardClasses($obj->CardID), "RANGER")) {
+            $regalias[] = "myMaterial-" . $i;
+        }
+    }
+    if(empty($regalias)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $regalias), 1,
+        tooltip:"Choose_a_Ranger_regalia_to_materialize");
     DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
 }
 
