@@ -366,6 +366,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         return;
     }
 
+    // Lurid Dreaming (ps8unuy20m): only during an opponent's end phase
+    if($sourceObject->CardID === "ps8unuy20m") {
+        if(GetCurrentPhase() !== "END") return;
+        if(GetTurnPlayer() == $player) return;
+    }
+
     // Smash with Obelisk (2kkvoqk1l7): mandatory sacrifice of a domain you control
     if($sourceObject->CardID === "2kkvoqk1l7") {
         $domains = ZoneSearch("myField", ["DOMAIN"]);
@@ -1849,7 +1855,7 @@ function OnCardActivated($player, $mzCard) {
     // Ephemerate: tag field objects as ephemeral when activated via Ephemerate
     $wasEph = DecisionQueueController::GetVariable("wasEphemerated");
     if($wasEph === "YES" && !PropertyContains($cardType, "ACTION") && !PropertyContains($cardType, "ATTACK")) {
-        $field = &GetField($player);
+        $field = GetField($player);
         $fieldIdx = count($field) - 1;
         if($fieldIdx >= 0 && !$field[$fieldIdx]->removed) {
             MakeEphemeral("myField-" . $fieldIdx);
@@ -1865,7 +1871,7 @@ function OnCardActivated($player, $mzCard) {
     }
 
     // "Whenever you activate" triggers — check field for listening cards
-    $field = &GetField($player);
+    $field = GetField($player);
     $subtypes = CardSubtypes($obj->CardID);
     $activatedElement = CardElement($obj->CardID);
     for($fi = 0; $fi < count($field); ++$fi) {
@@ -1884,7 +1890,7 @@ function OnCardActivated($player, $mzCard) {
             case "f28y5rn0dt": // Sly Songstress: whenever you activate a Harmony or Melody, may discard→draw
                 if((PropertyContains($subtypes, "HARMONY") || PropertyContains($subtypes, "MELODY"))
                     && !HasNoAbilities($field[$fi])) {
-                    $hand = &GetHand($player);
+                    $hand = GetHand($player);
                     if(count($hand) > 0) {
                         DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Discard_a_card_to_draw_a_card?(Sly_Songstress)");
                         DecisionQueueController::AddDecision($player, "CUSTOM", "SlySongstressDiscard|" . $fi, 1);
@@ -1987,7 +1993,7 @@ function OnCardActivated($player, $mzCard) {
         if(ChampionHasInLineage($player, "zdIhSL5RhK") && GlobalEffectCount($player, "RAI_ARCHMAGE_TRIGGERED") == 0) {
             AddGlobalEffects($player, "RAI_ARCHMAGE_TRIGGERED");
             // Find champion and add enlighten counter
-            $champField = &GetField($player);
+            $champField = GetField($player);
             for($ci = 0; $ci < count($champField); ++$ci) {
                 if(!$champField[$ci]->removed && PropertyContains(CardType($champField[$ci]->CardID), "CHAMPION") && $champField[$ci]->Controller == $player) {
                     AddCounters($player, "myField-" . $ci, "enlighten", 1);
@@ -2001,7 +2007,7 @@ function OnCardActivated($player, $mzCard) {
     // Animal/Beast allies you control get +2 LIFE until end of turn.
     if(PropertyContains($cardType, "ATTACK")) {
         $opponent = ($player == 1) ? 2 : 1;
-        $oppField = &GetField($opponent);
+        $oppField = GetField($opponent);
         for($ofi = 0; $ofi < count($oppField); ++$ofi) {
             if(!$oppField[$ofi]->removed && $oppField[$ofi]->CardID === "akb1k0zi5h") {
                 // Check if the attack card has cleave
@@ -2257,7 +2263,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             }
             break;
         case "oy34bro89w": // Cunning Broker: remove 2 prep counters from champion
-            $pField = &GetField($player);
+            $pField = GetField($player);
             for($ci = 0; $ci < count($pField); ++$ci) {
                 if(!$pField[$ci]->removed && PropertyContains(EffectiveCardType($pField[$ci]), "CHAMPION")) {
                     RemoveCounters($player, "myField-" . $ci, "preparation", 2);
@@ -2610,6 +2616,45 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         $turnPlayer = GetTurnPlayer();
         if($turnPlayer == $player) return; // Must be opponent's turn
     }
+
+    // Chamber of Reflections (pbtudivyzb): must be awake and have a valid domain in deck
+    if($cardID === "pbtudivyzb") {
+        if($sourceObject->Status != 2) return;
+        $deck = ZoneSearch("myDeck", ["DOMAIN"]);
+        $valid = false;
+        foreach($deck as $dMZ) {
+            $dObj = GetZoneObject($dMZ);
+            if($dObj === null) continue;
+            if(intval(CardCost_reserve($dObj->CardID)) > 3) continue;
+            $element = CardElement($dObj->CardID);
+            if($element !== "NORM" && $element !== "FIRE" && $element !== "WATER" && $element !== "WIND") continue;
+            if(PropertyContains(CardSubtypes($dObj->CardID), "DISTORTION")) continue;
+            $valid = true;
+            break;
+        }
+        if(!$valid) return;
+    }
+
+    // Ranger Strides (pvxb5hrfsu): needs a Ranger unit target
+    if($cardID === "pvxb5hrfsu") {
+        $targets = array_merge(
+            ZoneSearch("myField", ["ALLY"]),
+            ZoneSearch("myField", ["CHAMPION"])
+        );
+        $targets = array_values(array_filter($targets, function($mz) {
+            $obj = GetZoneObject($mz);
+            return $obj !== null && PropertyContains(EffectiveCardClasses($obj), "RANGER");
+        }));
+        $targets = FilterSpellshroudTargets($targets);
+        if(empty($targets)) return;
+    }
+
+    // Beastbond Claws (qmj9q5gmsp): needs an Animal or Beast ally target
+    if($cardID === "qmj9q5gmsp") {
+        $targets = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+        $targets = FilterSpellshroudTargets($targets);
+        if(empty($targets)) return;
+    }
     
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
@@ -2927,10 +2972,10 @@ function WakeUpPhase() {
     SetFlashMessage("Wake Up Phase");
     $turnPlayer = &GetTurnPlayer();
     $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
-    $field = &GetField($turnPlayer);
+    $field = GetField($turnPlayer);
 
     // Check if opponent controls Snow Fairy (4s0c9XgLg7)
-    $opponentField = &GetField($otherPlayer);
+    $opponentField = GetField($otherPlayer);
     $opponentHasSnowFairy = false;
     foreach($opponentField as $opp) {
         if(!$opp->removed && $opp->CardID === "4s0c9XgLg7") {
@@ -2941,6 +2986,10 @@ function WakeUpPhase() {
 
     for($i = 0; $i < count($field); ++$i) {
         if(!$field[$i]->removed) {
+            // Briar, Schwartz King (r1zd9ys1qc): can't wake up
+            if($field[$i]->CardID === "r1zd9ys1qc") {
+                continue;
+            }
             // SKIP_WAKEUP: one-time skip — consume the effect and don't wake
             if(in_array("SKIP_WAKEUP", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["SKIP_WAKEUP"]));
@@ -3224,7 +3273,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     if(PropertyContains($enteredCardType, "ALLY") || (PropertyContains($enteredCardType, "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY"))) {
         // Check both players' fields for Krustallan Ruins
         for($kp = 1; $kp <= 2; ++$kp) {
-            $kField = &GetField($kp);
+            $kField = GetField($kp);
             $hasRuins = false;
             foreach($kField as $kObj) {
                 if(!$kObj->removed && $kObj->CardID === "fei7chsbal" && !HasNoAbilities($kObj)) {
@@ -3234,7 +3283,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             }
             if($hasRuins) {
                 // Check if player has cards in hand to pay (1)
-                $hand = &GetHand($player);
+                $hand = GetHand($player);
                 if(count($hand) > 0) {
                     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Pay_(1)_to_keep_ally_awake?_(Krustallan_Ruins)");
                     DecisionQueueController::AddDecision($player, "CUSTOM", "KrustallanRuinsPayOrRest|" . (count($field) - 1), 1);
@@ -3278,7 +3327,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     if(PropertyContains(CardType($added->CardID), "ALLY")
         || (PropertyContains(CardType($added->CardID), "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY"))) {
         for($mtpP = 1; $mtpP <= 2; ++$mtpP) {
-            $mtpField = &GetField($mtpP);
+            $mtpField = GetField($mtpP);
             foreach($mtpField as $mtpObj) {
                 if(!$mtpObj->removed && $mtpObj->CardID === "eaxvvj7hz3" && !HasNoAbilities($mtpObj)) {
                     RecoverChampion($mtpP, 1);
@@ -6064,6 +6113,9 @@ function ObjectCurrentHP($obj) {
             case "nIKhHFa0rK_HP": // Cry for Help class bonus: +1 LIFE until end of turn
                 $cardLife += 1;
                 break;
+            case "qmj9q5gmsp_LIFE": // Beastbond Claws: +2 LIFE until end of turn
+                $cardLife += 2;
+                break;
             case "x7u6wzh973": // Frostbinder Apostle: -4 LIFE until end of turn
                 $cardLife -= 4;
                 break;
@@ -8527,6 +8579,9 @@ function OnRestCard($player, $mzCard) {
 
 function OnWakeupCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
+    if($obj !== null && $obj->CardID === "r1zd9ys1qc") {
+        return;
+    }
     // Cataleptic Constellation (lflzwiiewz): can't wake up while controller controls it
     if(isset($obj->Counters['_catcon_controller'])) {
         $lockerPlayer = $obj->Counters['_catcon_controller'];
@@ -13383,11 +13438,15 @@ function NicoOnFloatingMemoryBanished($player) {
     global $playerID;
     $zone = ($player == $playerID) ? "myField" : "theirField";
     $field = &GetField($player);
+    $champion = GetPlayerChampion($player);
+    $champMZ = $champion !== null ? $champion->GetMzID() : null;
     foreach($field as $fi => $fObj) {
         if($fObj->removed) continue;
         if($fObj->CardID === "5bbae3z4py" && !HasNoAbilities($fObj)) {
             AddCounters($player, "$zone-$fi", "lash", 1);
-            return;
+        }
+        if($fObj->CardID === "ukurlcbgzi" && !HasNoAbilities($fObj) && $champMZ !== null) {
+            DealUnpreventableDamage($player, "$zone-$fi", $champMZ, 2);
         }
     }
 }
@@ -14783,6 +14842,164 @@ $customDQHandlers["PoisonousBreezecapSuppressReplace"] = function($player, $part
         // Proceed with normal suppress
         SuppressAlly($player, $mzCard, skipReplacementCheck: true);
     }
+};
+
+function CountReserveSources($player) {
+    global $playerID;
+    $available = count(GetHand($player));
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $fObj) {
+        if($fObj->removed) continue;
+        if(isset($fObj->Status) && $fObj->Status == 2 && HasReservable($fObj)) {
+            ++$available;
+        }
+    }
+    return $available;
+}
+
+function ViridescentAetherstreakTargets($player) {
+    $targets = array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    return FilterSpellshroudTargets($targets);
+}
+
+function ViridescentAetherstreakAetherwings($player) {
+    $weapons = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["AETHERWING"]);
+    $unloaded = [];
+    foreach($weapons as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj !== null && !IsGunLoaded($obj)) {
+            $unloaded[] = $mz;
+        }
+    }
+    return $unloaded;
+}
+
+function ViridescentAetherstreakFinalize($player) {
+    $target = DecisionQueueController::GetVariable("VAE_target");
+    if($target !== null && $target !== "" && $target !== "-") {
+        BecomeDistant($player, $target);
+    }
+    if(DecisionQueueController::GetVariable("VAE_prevent") === "YES") {
+        $units = array_merge(
+            ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+            ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+        );
+        foreach($units as $mz) {
+            $obj = GetZoneObject($mz);
+            if($obj !== null && IsDistant($obj)) {
+                AddTurnEffect($mz, "PREVENT_ALL_2");
+            }
+        }
+    }
+}
+
+function ViridescentAetherstreakAskModeB($player) {
+    $chosen = intval(DecisionQueueController::GetVariable("VAE_count"));
+    if($chosen >= 2) {
+        ViridescentAetherstreakFinalize($player);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Choose_mode:_prevent_next_2_damage_to_each_distant_unit");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ViridescentAetherstreakModeB", 1);
+}
+
+function ViridescentAetherstreakAskModeC($player) {
+    $chosen = intval(DecisionQueueController::GetVariable("VAE_count"));
+    if($chosen >= 2) {
+        ViridescentAetherstreakFinalize($player);
+        return;
+    }
+    $weapons = ViridescentAetherstreakAetherwings($player);
+    if(empty($weapons)) {
+        ViridescentAetherstreakFinalize($player);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Choose_mode:_load_into_an_Aetherwing_weapon");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ViridescentAetherstreakModeC", 1);
+}
+
+function ViridescentAetherstreakStart($player, $mzID) {
+    DecisionQueueController::StoreVariable("VAE_source", $mzID);
+    DecisionQueueController::StoreVariable("VAE_count", "0");
+    DecisionQueueController::StoreVariable("VAE_target", "-");
+    DecisionQueueController::StoreVariable("VAE_prevent", "NO");
+    $targets = ViridescentAetherstreakTargets($player);
+    if(!empty($targets)) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Choose_mode:_up_to_one_target_unit_becomes_distant");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ViridescentAetherstreakModeA", 1);
+    } else {
+        ViridescentAetherstreakAskModeB($player);
+    }
+}
+
+$customDQHandlers["ViridescentAetherstreakModeA"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        DecisionQueueController::StoreVariable("VAE_count", strval(intval(DecisionQueueController::GetVariable("VAE_count")) + 1));
+        $targets = ViridescentAetherstreakTargets($player);
+        if(!empty($targets)) {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Choose_up_to_one_target_unit");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ViridescentAetherstreakTargetA", 1);
+            return;
+        }
+    }
+    ViridescentAetherstreakAskModeB($player);
+};
+
+$customDQHandlers["ViridescentAetherstreakTargetA"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DecisionQueueController::StoreVariable("VAE_target", $lastDecision);
+    }
+    ViridescentAetherstreakAskModeB($player);
+};
+
+$customDQHandlers["ViridescentAetherstreakModeB"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        DecisionQueueController::StoreVariable("VAE_prevent", "YES");
+        DecisionQueueController::StoreVariable("VAE_count", strval(intval(DecisionQueueController::GetVariable("VAE_count")) + 1));
+    }
+    ViridescentAetherstreakAskModeC($player);
+};
+
+$customDQHandlers["ViridescentAetherstreakModeC"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") {
+        ViridescentAetherstreakFinalize($player);
+        return;
+    }
+    $weapons = ViridescentAetherstreakAetherwings($player);
+    if(empty($weapons)) {
+        ViridescentAetherstreakFinalize($player);
+        return;
+    }
+    DecisionQueueController::StoreVariable("VAE_count", strval(intval(DecisionQueueController::GetVariable("VAE_count")) + 1));
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $weapons), 1, tooltip:"Choose_Aetherwing_weapon_to_load");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ViridescentAetherstreakLoad", 1);
+};
+
+$customDQHandlers["ViridescentAetherstreakLoad"] = function($player, $parts, $lastDecision) {
+    $sourceMZ = DecisionQueueController::GetVariable("VAE_source");
+    if($lastDecision !== "-" && $lastDecision !== "" && $sourceMZ !== null && $sourceMZ !== "") {
+        LoadArrowIntoBow($player, $sourceMZ, $lastDecision);
+    }
+    ViridescentAetherstreakFinalize($player);
+};
+
+$customDQHandlers["RafalesSlashPayment"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    if(CountReserveSources($player) < 3) return;
+    for($i = 0; $i < 3; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RafalesSlashSummon", 1);
+};
+
+$customDQHandlers["RafalesSlashSummon"] = function($player, $parts, $lastDecision) {
+    MZAddZone($player, "myField", "L67r0GlRHR");
+    $field = &GetField($player);
+    $field[count($field) - 1]->Status = 1;
 };
 
 ?>
