@@ -2912,7 +2912,15 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
 
     // Track that this card entered the field this turn (for Tempest Downfall etc.)
     $added->TurnEffects[] = "ENTERED_THIS_TURN";
-    
+
+    // Ephemerate: mark the entering card as ephemeral before Enter triggers fire,
+    // so that enter abilities (e.g. Vengeful Paramour) can see IsEphemeral() == true.
+    $wasEph = DecisionQueueController::GetVariable("wasEphemerated");
+    $addedCardType = CardType($added->CardID);
+    if($wasEph === "YES" && !PropertyContains($addedCardType, "ACTION") && !PropertyContains($addedCardType, "ATTACK")) {
+        MakeEphemeral("myField-" . (count($field) - 1));
+    }
+
     // Hindered keyword: this object enters the field rested
     if(HasHindered($added)) {
         $added->Status = 1;
