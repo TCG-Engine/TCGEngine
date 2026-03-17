@@ -1881,6 +1881,12 @@ function OnCardActivated($player, $mzCard) {
                     }
                 }
                 break;
+            case "84e2rfex54": // Quadrille's Gryphon: whenever you activate a Melody or Harmony, put a buff counter
+                if((PropertyContains($subtypes, "MELODY") || PropertyContains($subtypes, "HARMONY"))
+                    && !HasNoAbilities($field[$fi])) {
+                    AddCounters($player, "myField-" . $fi, "buff", 1);
+                }
+                break;
         }
     }
 
@@ -5403,6 +5409,12 @@ function ObjectCurrentPower($obj) {
             $power += intval(substr($te, strlen("tu9agwj4f1-")));
         }
     }
+    // Lawsur, the Carpenter (aenquoed10): +X POWER from Enter (X = Specter allies)
+    foreach($obj->TurnEffects as $te) {
+        if(strpos($te, "aenquoed10-POWER_") === 0) {
+            $power += intval(substr($te, strlen("aenquoed10-POWER_")));
+        }
+    }
     // Windpiercer (hreqhj1trn): On Attack reveal — if wind element, +2 POWER
     if(in_array("hreqhj1trn-power", $obj->TurnEffects)) {
         $power += 2;
@@ -5634,7 +5646,12 @@ function ObjectCurrentLevel($obj) {
 
 function ObjectCurrentHP($obj) {
     $cardLife = CardLife($obj->CardID);
-    if($cardLife === null || $cardLife < 0) return 0; // No life stat — buff counters do not generate one
+    // Humpty Dumpty (aou4be9z82): when becomes ally, base life = 0 + buff counters
+    if(($cardLife === null || $cardLife < 0) && in_array("HUMPTY_ALLY", $obj->TurnEffects ?? [])) {
+        $cardLife = 0;
+    } elseif($cardLife === null || $cardLife < 0) {
+        return 0; // No life stat — buff counters do not generate one
+    }
     // Buff counter modifier: +1 life per buff counter (applied before other modifiers)
     $cardLife += GetCounterCount($obj, "buff");
     switch($obj->CardID) { //Self hp modifiers
@@ -6085,6 +6102,12 @@ function GetStarcallingCost($player, $cardID) {
  * @param int $amount Number of cards to glimpse.
  */
 function Glimpse($player, $amount) {
+    // Cosmic Alignment (b2buhbediq): next glimpse this turn draws that many instead
+    if(GlobalEffectCount($player, "COSMIC_ALIGNMENT") > 0) {
+        RemoveGlobalEffect($player, "COSMIC_ALIGNMENT");
+        Draw($player, $amount);
+        return;
+    }
     $zone = &GetDeck($player);
     $n = min($amount, count($zone));
     if($n == 0) return;
@@ -7499,6 +7522,9 @@ $doesGlobalEffectApply["COLLAPSING_TRAP"] = function($obj) { return false; };
 $doesGlobalEffectApply["BATHE_IN_LIGHT_RECOVER"] = function($obj) { return false; };
 $untilBeginTurnEffects["BATHE_IN_LIGHT_RECOVER"] = true;
 
+// Cosmic Alignment (b2buhbediq): flag only — next glimpse becomes draw
+$doesGlobalEffectApply["COSMIC_ALIGNMENT"] = function($obj) { return false; };
+
 // Sudden Snow (dxAEI20h8F): flag only — allies enter rested this turn
 $doesGlobalEffectApply["SUDDEN_SNOW_RESTED"] = function($obj) { return false; };
 
@@ -7678,6 +7704,22 @@ function DealChampionDamage($player, $amount=1) {
                 $prevented = min(4, $amount);
                 $amount -= $prevented;
                 $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "yj2rJBREH8"));
+            }
+            // PREVENT_NONCOMBAT_N: prevent up to N non-combat damage (Safeguard Paragon, etc.)
+            foreach($obj->TurnEffects as $pncIdx => $pncEffect) {
+                if(strpos($pncEffect, "PREVENT_NONCOMBAT_") === 0) {
+                    $pncBudget = intval(substr($pncEffect, 18));
+                    $pncPrevented = min($pncBudget, $amount);
+                    $amount -= $pncPrevented;
+                    $pncRemaining = $pncBudget - $pncPrevented;
+                    if($pncRemaining <= 0) {
+                        unset($obj->TurnEffects[$pncIdx]);
+                        $obj->TurnEffects = array_values($obj->TurnEffects);
+                    } else {
+                        $obj->TurnEffects[$pncIdx] = "PREVENT_NONCOMBAT_" . $pncRemaining;
+                    }
+                    break;
+                }
             }
             // Nascent Barrier (6bc3ogf0o8): prevent up to N damage (encoded as NASCENT_BARRIER_N)
             foreach($obj->TurnEffects as $te) {
@@ -8903,6 +8945,14 @@ function EffectiveCardType($obj) {
     if(isset($obj->Counters['_overrides']['type'])) {
         return $obj->Counters['_overrides']['type'];
     }
+    // Humpty Dumpty (aou4be9z82): becomes ally in addition to its other types until EOT
+    if(in_array("HUMPTY_ALLY", $obj->TurnEffects ?? [])) {
+        $base = CardType($obj->CardID);
+        if(!PropertyContains($base, "ALLY")) {
+            return $base . ",ALLY";
+        }
+        return $base;
+    }
     return CardType($obj->CardID);
 }
 
@@ -9142,6 +9192,21 @@ function GetRetortValue($obj) {
 
 function HasStealth($obj) {
     if(HasNoAbilities($obj)) return false;
+    // Expose Darkness (991ovfr8o0): loses stealth until end of turn
+    if(in_array("LOSE_STEALTH", $obj->TurnEffects)) return false;
+    // Lawsur, the Carpenter (aenquoed10): Specter allies have stealth while awake
+    if(PropertyContains(EffectiveCardSubtypes($obj), "SPECTER")
+        && PropertyContains(EffectiveCardType($obj), "ALLY")
+        && isset($obj->Status) && $obj->Status == 2) {
+        global $playerID;
+        $lawsurZone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $lawsurField = GetZone($lawsurZone);
+        foreach($lawsurField as $lfObj) {
+            if(!$lfObj->removed && $lfObj->CardID === "aenquoed10" && !HasNoAbilities($lfObj)) {
+                return true;
+            }
+        }
+    }
     // Lurking Assailant (uq2r6v374c): stealth as long as it's awake
     if($obj->CardID === "uq2r6v374c") {
         return isset($obj->Status) && $obj->Status == 2;
@@ -14207,6 +14272,91 @@ $customDQHandlers["StabilizingCapacitancePick"] = function($player, $params, $la
 // ============================================================================
 // Sylph's Envelopment (c7d7xdy3y9): banish ally, return to field rested, buff if phantasia
 // ============================================================================
+// ============================================================================
+// Scorched Conquest (HPDawzCDdr): destroy up to three target domains
+// ============================================================================
+function ScorchedConquestStep($player, $remaining) {
+    if($remaining <= 0) return;
+    $domains = array_merge(
+        ZoneSearch("myField", ["DOMAIN"]),
+        ZoneSearch("theirField", ["DOMAIN"])
+    );
+    if(empty($domains)) return;
+    $targetStr = implode("&", $domains);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Destroy_a_domain?_(" . $remaining . "_remaining)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ScorchedConquestDestroy|" . $remaining, 1);
+}
+
+$customDQHandlers["ScorchedConquestDestroy"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "") return;
+    // Destroy the chosen domain (move to its owner's graveyard)
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    global $playerID;
+    $destGrave = ($obj->Controller ?? $player) == $playerID ? "myGraveyard" : "theirGraveyard";
+    MZMove($player, $lastDecision, $destGrave);
+    ScorchedConquestStep($player, $remaining - 1);
+};
+
+// ============================================================================
+// Regal Inquisition (KVbuQJyWsU): look at opponent hand+memory, discard any, replace from deck
+// ============================================================================
+function RegalInquisitionStep($player) {
+    global $playerID;
+    $opponent = ($player == 1) ? 2 : 1;
+    $handZone = $opponent == $playerID ? "myHand" : "theirHand";
+    $memoryZone = $opponent == $playerID ? "myMemory" : "theirMemory";
+    $choices = [];
+    $hand = GetZone($handZone);
+    for($i = 0; $i < count($hand); ++$i) {
+        if(!$hand[$i]->removed) $choices[] = $handZone . "-" . $i;
+    }
+    $memory = GetZone($memoryZone);
+    for($i = 0; $i < count($memory); ++$i) {
+        if(!$memory[$i]->removed) $choices[] = $memoryZone . "-" . $i;
+    }
+    if(empty($choices)) return;
+    $targetStr = implode("&", $choices);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_from_opponent_hand/memory?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RegalInquisitionDiscard", 1);
+}
+
+$customDQHandlers["RegalInquisitionDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    global $playerID;
+    $opponent = ($player == 1) ? 2 : 1;
+    $gravZone = $opponent == $playerID ? "myGraveyard" : "theirGraveyard";
+    $deckZone = $opponent == $playerID ? "myDeck" : "theirDeck";
+    $handZone = $opponent == $playerID ? "myHand" : "theirHand";
+    // Discard the chosen card to opponent's graveyard
+    MZMove($opponent, $lastDecision, $gravZone);
+    // Opponent reveals top of deck and puts into hand
+    $deck = GetZone($deckZone);
+    if(!empty($deck)) {
+        Reveal($opponent, $deckZone . "-0");
+        MZMove($opponent, $deckZone . "-0", $handZone);
+    }
+    // Continue choosing
+    RegalInquisitionStep($player);
+};
+
+// ============================================================================
+// Manaflare Barrage (a8mmiv2ptn): may load into Aetherwing weapon
+// ============================================================================
+function ManaflareBarrageLoad($player, $mzID) {
+    $weapons = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["AETHERWING"]);
+    $unloaded = [];
+    foreach($weapons as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj !== null && !IsGunLoaded($obj)) $unloaded[] = $mz;
+    }
+    if(empty($unloaded)) return;
+    $bowStr = implode("&", $unloaded);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $bowStr, 1, tooltip:"Load_Manaflare_Barrage_into_Aetherwing?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LoadArrow|" . $mzID, 1);
+}
+
 function SylphEnvelopmentExecute($player, $target) {
     $obj = GetZoneObject($target);
     if($obj === null) return;
