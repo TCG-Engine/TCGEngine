@@ -2,6 +2,7 @@
 
 include './Core/NetworkingLibraries.php';
 include './Core/HTTPLibraries.php';
+include './Core/CoreZoneModifiers.php';
 
 $gameName = $_GET["gameName"];
 if (!IsGameNameValid($gameName)) {
@@ -19,6 +20,7 @@ include './Core/UILibraries.php';
 include './' . $folderPath . '/GamestateParser.php';
 include './' . $folderPath . '/ZoneAccessors.php';
 include './' . $folderPath . '/ZoneClasses.php';
+include './' . $folderPath . '/GeneratedCode/GeneratedCardDictionaries.php';
 ob_end_clean();
 
 session_start();
@@ -34,6 +36,7 @@ switch ($popupType) {
     for($i=0; $i<count($arr); ++$i) {
       if($i > 0) $popup .= "<|>";
       $obj = $arr[$i];
+      ComputeVirtualProperties($obj);
       $popup .= ClientRenderedCard($obj->CardID, cardJSON: json_encode($obj));
     }
     echo($popup);

@@ -6980,6 +6980,34 @@ function CanActExhausted($obj) {
     return false;
 }
 
+// Virtual property: returns highlight metadata for a graveyard card that can be activated via Ephemerate.
+// Returns a gold glow if the current player can pay the ephemerate cost for this card, false otherwise.
+function EphemerateMeta($obj) {
+    global $playerID;
+    $currentPhase = GetCurrentPhase();
+    if ($currentPhase !== "MAIN") {
+        return json_encode(['highlight' => false]);
+    }
+    $turnPlayer = GetTurnPlayer();
+    if ($playerID != $turnPlayer) {
+        return json_encode(['highlight' => false]);
+    }
+    // Check if decision queue is empty
+    $decisionQueue = &GetDecisionQueue($turnPlayer);
+    if (count($decisionQueue) > 0) {
+        return json_encode(['highlight' => false]);
+    }
+    global $ephemerateCards;
+    if (!isset($ephemerateCards[$obj->CardID])) {
+        return json_encode(['highlight' => false]);
+    }
+    if (!CanPayEphemerate($playerID, $obj->CardID)) {
+        return json_encode(['highlight' => false]);
+    }
+    // Gold glow to distinguish Ephemerate from normal hand playability
+    return json_encode(['color' => 'rgba(255, 200, 0, 0.95)']);
+}
+
 function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null) {
     global $playerID;
     // $forPlayer: when specified and different from $playerID, flip the zone name so we

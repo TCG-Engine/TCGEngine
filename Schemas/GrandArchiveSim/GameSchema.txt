@@ -37,7 +37,10 @@ Banish - CardID:string, TurnEffects:array[string]
 Index: TurnEffects
 Display: Visibility=Public, Mode=Single, Bottom=230px, Right=10px
 Graveyard - CardID:string
+Virtual: EphemerateMeta=EphemerateMeta()
+Highlight: EphemerateMeta
 Display: Visibility=Public, Mode=Single, Bottom=10px, Right=10px
+Click: FSM()
 GlobalEffects - CardID:string
 Display: Visibility=None, Mode=None
 Hand - CardID:string
