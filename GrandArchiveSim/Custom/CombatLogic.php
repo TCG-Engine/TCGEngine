@@ -255,6 +255,10 @@ function GetValidAttackTargets($attackerMZ) {
     if(!$bypassIntercept && $attacker !== null && (in_array("5v598k3m1w", $attacker->TurnEffects) || in_array("5v598k3m1w-SHENJU", $attacker->TurnEffects))) {
         $bypassIntercept = true;
     }
+    // Guided Starlight (b0iz7wm7ow): champion's next attack is unblockable unless opponent pays (3)
+    if(!$bypassIntercept && $attacker !== null && in_array("b0iz7wm7ow_UNBLOCKABLE", $attacker->TurnEffects)) {
+        $bypassIntercept = true;
+    }
     // Strike from the Mist (DHn9J7gX6g): CB if prepared, can't be intercepted
     if(!$bypassIntercept) {
         $intentCards = GetIntentCards($player);
@@ -549,6 +553,18 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
+    // Torch Marshal (izgiu216l2): additional cost (2) to declare attack with this ally
+    $torchMarshalCost = 0;
+    if($obj->CardID === "izgiu216l2" && !HasNoAbilities($obj)) {
+        $torchMarshalCost = 2;
+        $neededHand = $torchMarshalCost + ($chibiActive ? 1 : 0);
+        $hand = GetZone("myHand");
+        if(count($hand) < $neededHand) {
+            SetFlashMessage("Must pay (2) to attack with Torch Marshal. Not enough cards in hand.");
+            return false;
+        }
+    }
+
     // Step 2.c (pre-check) -- Must have at least one valid target, unless attacker has Cleave
     // Cleave can come from the attacking unit itself OR from an attack card already in intent
     $hasCleave = AttackerHasCleave($actionCard, $turnPlayer);
@@ -576,6 +592,12 @@ function BeginCombatPhase($actionCard) {
 
     // Chibi, Battle of Red Cliffs (881gacexpv): pay (1) reserve for ally attack declaration
     if($chibiActive) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
+
+    // Torch Marshal (izgiu216l2): additional cost to declare attack — pay (2)
+    if($obj->CardID === "izgiu216l2" && !HasNoAbilities($obj)) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
     }
 
@@ -847,6 +869,15 @@ function OnHitTrigger($player, $attackerMZ) {
                     }
                 }
             }
+        }
+    }
+
+    // Pleiades (rsps1qnzfl): intent cards with rsps1qnzfl-ONHIT TurnEffect
+    // summon an Astral Shard token for each one on hit
+    foreach($intentCards as $iMZ) {
+        $pObj = GetZoneObject($iMZ);
+        if($pObj !== null && in_array("rsps1qnzfl-ONHIT", $pObj->TurnEffects ?? [])) {
+            MZAddZone($player, "myField", "eP07Xxscuq");
         }
     }
 
@@ -1128,6 +1159,15 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
 
     // Fire On Attack triggers (may grant effects like critical)
     OnAttack($player, $attackerMZ);
+
+    // Guided Starlight (b0iz7wm7ow): consume unblockable after attack declaration
+    $gsObj = &GetZoneObject($attackerMZ);
+    if($gsObj !== null) {
+        $gsKey = array_search("b0iz7wm7ow_UNBLOCKABLE", $gsObj->TurnEffects);
+        if($gsKey !== false) {
+            array_splice($gsObj->TurnEffects, $gsKey, 1);
+        }
+    }
 
     // Surveillance Stone (kk46Whz7CJ): opponent may banish it to draw on the attacker's 3rd attack
     if(OnAttackCallCount($player) === 3) {

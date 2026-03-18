@@ -736,6 +736,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Coy Bouclier (vo1qr9bkme): [Level 2+] costs 2 less
+    if($obj->CardID === "vo1qr9bkme" && PlayerLevel($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
     // Viridian Protective Trinket (s3572j3oda): during your turn, opponent's water element cards cost 2 more
     $opponent = ($player == 1) ? 2 : 1;
     $turnPlayer = &GetTurnPlayer();
@@ -5201,6 +5206,12 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "pc3zpkw43o": // Vigil Rempart: [CB] +2 POWER
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) $power += 2;
+            break;
+        case "izgiu216l2": // Torch Marshal: [CB] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) $power += 1;
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -5648,6 +5659,10 @@ function ObjectCurrentPower($obj) {
     if($combatAttacker !== null && $combatAttacker != "-" && $combatAttacker != "" && $obj->GetMzID() === $combatAttacker) {
         if($obj !== null && in_array("n0wpbhigka", $obj->TurnEffects)) {
                 $power -= 3;
+        }
+        // Dissuading Aether (bx25s7kiln): target unit's attacks get -3 POWER
+        if($obj !== null && in_array("bx25s7kiln-debuff", $obj->TurnEffects)) {
+            $power -= 3;
         }
     }
     // Conjure Downpour (r0zadf9q1w): whenever a unit attacks, that attack gets -2 POWER
@@ -6325,6 +6340,10 @@ function ObjectCurrentHP($obj) {
     if(in_array("wd7nuab7f3-LIFE", $obj->TurnEffects)) {
         $cardLife += 2;
     }
+    // Drown in Aether (gnfbp3g8iw): -3 LIFE until end of turn
+    if(in_array("gnfbp3g8iw-debuff", $obj->TurnEffects)) {
+        $cardLife -= 3;
+    }
     return $cardLife;
 }
 
@@ -6483,10 +6502,48 @@ function GetStarcallingCost($player, $cardID) {
     return $cost;
 }
 
+// Aethercalling: cards with [Element Bonus] Aethercalling
+$aethercallingCards = [
+    "nypwwnirjk" => true, // Constellation's Blessing (ASTRA)
+    "b0iz7wm7ow" => true, // Guided Starlight (ASTRA)
+    "xwwkxq0vp3" => true, // Sidereal Spellshot (ASTRA)
+    "gamylrj1fc" => true, // (WIND)
+];
+
+/**
+ * Check if a card has Aethercalling during a glimpse.
+ * Requires: player controls an Aetherwing weapon.
+ * Sources: innate [EB] Aethercalling, global effect (gwWociEfxb).
+ */
+function HasAethercalling($player, $cardID) {
+    global $aethercallingCards;
+    // Innate [EB] Aethercalling
+    if(isset($aethercallingCards[$cardID]) && IsElementBonusActive($player, $cardID)) {
+        return true;
+    }
+    // ud8s2Kjuyr: [Diana Bonus][EB] Aethercalling
+    if($cardID === "ud8s2Kjuyr" && IsElementBonusActive($player, $cardID)) {
+        $champ = ZoneSearch("myField", ["CHAMPION"]);
+        if(!empty($champ)) {
+            $champObj = GetZoneObject($champ[0]);
+            if($champObj !== null && strpos(CardName($champObj->CardID), "Diana") === 0) {
+                return true;
+            }
+        }
+    }
+    // gwWociEfxb global effect: Aethercharge cards have aethercalling
+    if(GlobalEffectCount($player, "gwWociEfxb_AETHERCALLING") > 0
+       && PropertyContains(CardSubtypes($cardID), "AETHERCHARGE")) {
+        return true;
+    }
+    return false;
+}
+
 /**
  * Glimpse N: show the top N cards of the player's deck and let them choose
  * which cards go back to the top vs. the bottom, in any order.
  * If any glimpsed card has Starcalling, offer the player a chance to starcall first.
+ * If any glimpsed card has Aethercalling, offer to load into Aetherwing.
  * Queues an MZREARRANGE decision followed by a GlimpseApply custom handler.
  *
  * @param int $player The acting player.
@@ -6524,7 +6581,20 @@ function Glimpse($player, $amount) {
         }
     }
 
-    if(!empty($starcallCandidateIndices)) {
+    // Check for aethercalling candidates among glimpsed cards
+    $aethercallCandidateIndices = [];
+    $wings = GetAetherwingWeapons($player);
+    if(!empty($wings)) {
+        for($i = 0; $i < $n; ++$i) {
+            if(HasAethercalling($player, $cardIDs[$i])) {
+                $aethercallCandidateIndices[] = $i;
+            }
+        }
+    }
+    DecisionQueueController::StoreVariable("aethercallCandidates",
+        !empty($aethercallCandidateIndices) ? implode(",", $aethercallCandidateIndices) : "");
+
+    if(!empty($starcallCandidateIndices) || !empty($aethercallCandidateIndices)) {
         // Move top N cards to myTempZone so the popup can display them face-up
         // (always use myDeck-0 since each MZMove shifts remaining deck cards down)
         for($i = 0; $i < $n; ++$i) {
@@ -6533,12 +6603,20 @@ function Glimpse($player, $amount) {
         // Store card IDs and tempzone flag for handlers
         DecisionQueueController::StoreVariable("glimpseCardIDs", implode(",", $cardIDs));
         DecisionQueueController::StoreVariable("glimpsedToTempZone", "1");
-        // Offer starcalling choice using tempzone refs (face-up cards in popup)
-        $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $starcallCandidateIndices));
-        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Starcall_a_card?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingOffer", 1);
+
+        if(!empty($starcallCandidateIndices)) {
+            // Offer starcalling choice using tempzone refs (face-up cards in popup)
+            $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $starcallCandidateIndices));
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Starcall_a_card?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingOffer", 1);
+        } else {
+            // Only aethercalling candidates — offer to load into Aetherwing
+            $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $aethercallCandidateIndices));
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Load_into_Aetherwing?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "AethercallingOffer", 1);
+        }
     } else {
-        // No starcalling candidates — cards stay in deck, proceed with normal glimpse
+        // No starcalling or aethercalling candidates — cards stay in deck, proceed with normal glimpse
         DecisionQueueController::StoreVariable("glimpsedToTempZone", "0");
         $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
         DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
@@ -6989,7 +7067,24 @@ $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision)
     $cardIDs = explode(",", $cardIDsStr);
 
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
-        // Player declined starcalling — cards are in tempzone; GlimpseApply will recover them
+        // Player declined starcalling — check for aethercalling candidates before rearranging
+        $aethercallStr = DecisionQueueController::GetVariable("aethercallCandidates");
+        if(!empty($aethercallStr)) {
+            $aethercallIndices = array_map('intval', explode(",", $aethercallStr));
+            // Filter to indices that are still valid (cards still in tempzone)
+            $validIndices = [];
+            foreach($aethercallIndices as $idx) {
+                $tObj = GetZoneObject("myTempZone-" . $idx);
+                if($tObj !== null && !$tObj->removed) $validIndices[] = $idx;
+            }
+            if(!empty($validIndices)) {
+                $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $validIndices));
+                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Load_into_Aetherwing?");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "AethercallingOffer", 1);
+                return;
+            }
+        }
+        // No aethercalling — cards are in tempzone; GlimpseApply will recover them
         $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
         DecisionQueueController::StoreVariable("glimpsedToTempZone", "1"); // ensure flag is set
         DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
@@ -7108,6 +7203,82 @@ $customDQHandlers["StargazersPortentCopy"] = function($player, $parts, $lastDeci
         DecisionQueueController::StoreVariable("wasStarcalled", "YES");
         DecisionQueueController::StoreVariable("mzID", "COPY");
         $cardActivatedAbilities[$abilityKey]($player);
+    }
+};
+
+/**
+ * Aethercalling offer handler: player either chose a card to load into Aetherwing or passed.
+ * If chosen, load the card into an Aetherwing weapon, then rearrange remaining glimpsed cards.
+ * If passed, fall back to normal Glimpse rearrange.
+ */
+$customDQHandlers["AethercallingOffer"] = function($player, $parts, $lastDecision) {
+    $n = intval(DecisionQueueController::GetVariable("glimpseCount"));
+    $cardIDsStr = DecisionQueueController::GetVariable("glimpseCardIDs");
+    $cardIDs = explode(",", $cardIDsStr);
+
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        // Declined — proceed to rearrange all tempzone cards
+        $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
+        DecisionQueueController::StoreVariable("glimpsedToTempZone", "1");
+        DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
+        return;
+    }
+
+    // Accepted — load chosen card into Aetherwing
+    $tmpParts = explode("-", $lastDecision);
+    $chosenTempIndex = intval($tmpParts[1]);
+    $chosenCardID = $cardIDs[$chosenTempIndex];
+
+    // Remove chosen card from tempzone
+    $tempObj = GetZoneObject($lastDecision);
+    if($tempObj !== null) {
+        $tempObj->removed = true;
+        DecisionQueueController::CleanupRemovedCards();
+    }
+
+    // Update cardIDs for rearrange (remove loaded card)
+    array_splice($cardIDs, $chosenTempIndex, 1);
+    $newN = $n - 1;
+    DecisionQueueController::StoreVariable("glimpseCount", strval($newN));
+    DecisionQueueController::StoreVariable("glimpseCardIDs", implode(",", $cardIDs));
+
+    // Load into Aetherwing weapon
+    $wings = GetAetherwingWeapons($player);
+    if(!empty($wings)) {
+        if(count($wings) === 1) {
+            $wingObj = &GetZoneObject($wings[0]);
+            if($wingObj !== null) {
+                if(!is_array($wingObj->Subcards)) $wingObj->Subcards = [];
+                $wingObj->Subcards[] = $chosenCardID;
+            }
+        } else {
+            DecisionQueueController::StoreVariable("AethercallCardID", $chosenCardID);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $wings), 1, "Choose_Aetherwing_weapon");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "AethercallingLoadSelect", 1);
+        }
+    }
+
+    // Rearrange remaining cards
+    if(!empty($cardIDs)) {
+        $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
+        DecisionQueueController::StoreVariable("glimpsedToTempZone", "1");
+        DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
+    }
+};
+
+/**
+ * Aethercalling weapon select handler: player chose which Aetherwing to load into.
+ */
+$customDQHandlers["AethercallingLoadSelect"] = function($player, $parts, $lastDecision) {
+    $chosenCardID = DecisionQueueController::GetVariable("AethercallCardID");
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $wingObj = &GetZoneObject($lastDecision);
+        if($wingObj !== null) {
+            if(!is_array($wingObj->Subcards)) $wingObj->Subcards = [];
+            $wingObj->Subcards[] = $chosenCardID;
+        }
     }
 };
 
@@ -9765,6 +9936,8 @@ function HasTrueSight($obj) {
             }
         }
     }
+    // Seeker's Aetherwing (bf7yzaqes4): [CB] True Sight
+    if($obj->CardID === "bf7yzaqes4" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     return false;
 }
 
@@ -9815,6 +9988,8 @@ function HasSpellshroud($obj) {
             }
         }
     }
+    // Seeker's Aetherwing (bf7yzaqes4): [CB] Spellshroud
+    if($obj->CardID === "bf7yzaqes4" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     return false;
 }
 
@@ -9964,6 +10139,16 @@ function HasTaunt($obj) {
     if($obj->CardID === "3kwkn38b7v" && IsFostered($obj)) {
         if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
             return true;
+        }
+    }
+    // Coy Bouclier (vo1qr9bkme): [CB] Taunt while you control another ally
+    if($obj->CardID === "vo1qr9bkme" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $allies = ZoneSearch($zone, ["ALLY"]);
+        foreach($allies as $aMZ) {
+            $aObj = GetZoneObject($aMZ);
+            if($aObj !== null && $aObj->CardID !== "vo1qr9bkme") return true;
         }
     }
     return false;
