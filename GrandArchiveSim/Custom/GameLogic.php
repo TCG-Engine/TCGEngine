@@ -56,6 +56,20 @@ $Kindle_Cards["1ym2py8u7q"] = 3; // Glowering Conflagration (FIRE)
 $Kindle_Cards["xllhbjr20n"] = 3; // Lu Xun, Pyre Strategist (FIRE) - Kindle 3
 $Kindle_Cards["0s6solta0h"] = 4; // Rapid Combustion (FIRE) - Kindle 4
 $Kindle_Cards["hd0sxpu7cp"] = 3; // Intensified Pyre (FIRE) - Kindle 3
+$Kindle_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts (FIRE) - Kindle 6
+
+// --- Cardistry Cards Registry ---
+// Maps cardID => base reserve cost for the Cardistry activated ability.
+// Cardistry (N): costs (1) less per Suited object with different reserve costs. Activate only once.
+$Cardistry_Cards = [];
+$Cardistry_Cards["rufki4o41y"] = 2; // Two of Hearts
+$Cardistry_Cards["e8ygl32jef"] = 2; // Two of Spades
+$Cardistry_Cards["o09csnorqv"] = 3; // Three of Spades
+$Cardistry_Cards["8bolq2y5qp"] = 4; // Four of Spades
+$Cardistry_Cards["xgax8bbjqj"] = 4; // Four of Hearts
+$Cardistry_Cards["i9hf5lhl5f"] = 5; // Five of Spades
+$Cardistry_Cards["idq4ih00rq"] = 5; // Five of Hearts
+$Cardistry_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts
 
 // --- Lineage Release Abilities Registry ---
 // Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
@@ -376,6 +390,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($sourceObject->CardID === "2kkvoqk1l7") {
         $domains = ZoneSearch("myField", ["DOMAIN"]);
         if(empty($domains)) return; // No domains to sacrifice — block activation
+    }
+
+    // Command Chessman pre-check: COMMAND subtype attack needs a Chessman ally on field
+    if(PropertyContains(CardSubtypes($sourceObject->CardID), "COMMAND")) {
+        $chessmanAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
+        if(empty($chessmanAllies)) return; // No Chessman ally to command — block activation
     }
 
     // Primordial Ritual (4mcnqsm3n9): mandatory sacrifice of an ally you control
@@ -1372,7 +1392,27 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ResoluteStandFreeCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree) {
+    //1.3 Declaring Costs — Verita, Queen of Hearts (4qc47amgpp): may banish 3+ Suited ally GY cards with total cost >= 10
+    $hasVeritaAltCost = false;
+    if($obj->CardID === "4qc47amgpp" && !$ignoreCost && $reserveCost > 0) {
+        $suitedGY = [];
+        $suitedGYTotal = 0;
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if(!$gy[$gi]->removed && PropertyContains(CardType($gy[$gi]->CardID), "ALLY")
+               && PropertyContains(CardSubtypes($gy[$gi]->CardID), "SUITED")) {
+                $suitedGY[] = "myGraveyard-" . $gi;
+                $suitedGYTotal += intval(CardCost_reserve($gy[$gi]->CardID));
+            }
+        }
+        if(count($suitedGY) >= 3 && $suitedGYTotal >= 10) {
+            $hasVeritaAltCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Banish_3+_Suited_allies_from_GY_(total_cost_10)_instead_of_reserve?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "VeritaAltCostChoice|" . $reserveCost, 100);
+        }
+    }
+
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1440,6 +1480,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // normal reserve + EffectStackOpportunity.
     // When $hasScryAltCost is true, ScryTheStarsAltCost handler queues banish or
     // normal reserve + EffectStackOpportunity.
+    // When $hasVeritaAltCost is true, VeritaAltCostChoice handler queues iterative
+    // GY banish or normal reserve + EffectStackOpportunity.
 }
 
 $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
@@ -1678,6 +1720,74 @@ $customDQHandlers["ResoluteStandFreeCost"] = function($player, $parts, $lastDeci
         }
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+// Verita (4qc47amgpp): Alt cost — YESNO choice handler
+$customDQHandlers["VeritaAltCostChoice"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "YES") {
+        // Start iterative GY banish — track count and running cost total
+        DecisionQueueController::StoreVariable("veritaBanishCount", "0");
+        DecisionQueueController::StoreVariable("veritaBanishTotal", "0");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "VeritaAltCostPick", 100);
+    } else {
+        // Normal reserve payment
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        for($i = 0; $i < $baseReserve; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+    }
+};
+
+// Verita (4qc47amgpp): Alt cost — iterative Suited ally GY pick
+$customDQHandlers["VeritaAltCostPick"] = function($player, $parts, $lastDecision) {
+    $count = intval(DecisionQueueController::GetVariable("veritaBanishCount"));
+    $total = intval(DecisionQueueController::GetVariable("veritaBanishTotal"));
+
+    // Check if conditions met (3+ cards, total >= 10)
+    if($count >= 3 && $total >= 10) {
+        // Alt cost fully paid — skip reserve, proceed
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+
+    // Build available Suited ally GY list
+    $suitedGY = [];
+    $gy = GetZone("myGraveyard");
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if(!$gy[$gi]->removed && PropertyContains(CardType($gy[$gi]->CardID), "ALLY")
+           && PropertyContains(CardSubtypes($gy[$gi]->CardID), "SUITED")) {
+            $suitedGY[] = "myGraveyard-" . $gi;
+        }
+    }
+
+    if(empty($suitedGY)) return; // Should not happen if pre-check was correct
+
+    $remaining = 10 - $total;
+    $needed = max(0, 3 - $count);
+    $tooltip = "Banish_Suited_ally_from_GY_(need_" . $needed . "_more_cards,_" . $remaining . "_more_cost)";
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $suitedGY), 100, tooltip:$tooltip);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "VeritaAltCostProcess", 100);
+};
+
+// Verita (4qc47amgpp): Alt cost — process each picked card
+$customDQHandlers["VeritaAltCostProcess"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    $cardCost = intval(CardCost_reserve($obj->CardID));
+    MZMove($player, $lastDecision, "myBanish");
+
+    $count = intval(DecisionQueueController::GetVariable("veritaBanishCount")) + 1;
+    $total = intval(DecisionQueueController::GetVariable("veritaBanishTotal")) + $cardCost;
+    DecisionQueueController::StoreVariable("veritaBanishCount", "$count");
+    DecisionQueueController::StoreVariable("veritaBanishTotal", "$total");
+
+    // Continue picking
+    DecisionQueueController::AddDecision($player, "CUSTOM", "VeritaAltCostPick", 100);
 };
 
 /**
@@ -2092,9 +2202,14 @@ function OnCardActivated($player, $mzCard) {
         }
     }
 
-    // After an attack card enters intent and its abilities resolve, declare the champion attack
+    // After an attack card enters intent and its abilities resolve, declare the attack
     if(PropertyContains($cardType, "ATTACK")) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareChampionAttack", 100);
+        // Command Chessman: a Chessman ally performs the attack instead of champion
+        if(PropertyContains($subtypes, "COMMAND")) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "CommandChessmanChooseAttacker", 100);
+        } else {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareChampionAttack", 100);
+        }
     }
 }
 
@@ -2722,12 +2837,34 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         if(empty($targets)) return;
     }
     
+    // Lucenia's Reign (zrvvwz3ww9): (2), discard Chessman Command — needs Command in hand + Chessman ally on field
+    if($cardID === "zrvvwz3ww9") {
+        $hand = GetZone("myHand");
+        $hasCommand = false;
+        for($hi = 0; $hi < count($hand); ++$hi) {
+            if($hand[$hi]->removed) continue;
+            if(PropertyContains(CardSubtypes($hand[$hi]->CardID), "CHESSMAN")
+               && PropertyContains(CardSubtypes($hand[$hi]->CardID), "COMMAND")) {
+                $hasCommand = true;
+                break;
+            }
+        }
+        if(!$hasCommand) return;
+        if(empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]))) return;
+    }
+
+    // Cardistry: block activation if already used (per-card, per-game)
+    global $Cardistry_Cards;
+    $isCardistry = isset($Cardistry_Cards[$cardID]);
+    if($isCardistry && isset($sourceObject->Counters['cardistry_used'])) return;
+
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
     // Exhaust the unit as the REST cost — only for static abilities, not dynamic ones (which have their own costs)
+    // Cardistry abilities do NOT rest the card (no REST in their cost)
     $cardType = CardType($cardID);
     $staticAbilityCount = CardActivateAbilityCount($cardID);
-    if($selectedAbilityIndex < $staticAbilityCount && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
+    if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;
     }
 
@@ -2888,6 +3025,11 @@ function OnLeaveField($player, $mzID) {
 function DoAllyDestroyed($player, $mzCard) {
     global $allyDestroyedAbilities;
     $obj = GetZoneObject($mzCard);
+    // Immortality: ally survives instead of being destroyed, remove all damage
+    if(HasImmortality($obj)) {
+        $obj->Damage = 0;
+        return;
+    }
     $controller = $obj->Controller;
     $suppressed = HasNoAbilities($obj);
     OnLeaveField($player, $mzCard);
@@ -3129,6 +3271,11 @@ function WakeUpPhase() {
         if(!$oppField[$i]->removed && in_array("CANT_ATTACK_NEXT_TURN", $oppField[$i]->TurnEffects)) {
             $oppField[$i]->TurnEffects = array_values(array_diff($oppField[$i]->TurnEffects, ["CANT_ATTACK_NEXT_TURN"]));
         }
+    }
+    // Verita (4qc47amgpp) On Death: convert PENDING global effect to active (expires at end of this turn)
+    if(GlobalEffectCount($turnPlayer, "VERITA_POWER_PENDING") > 0) {
+        while(RemoveGlobalEffect($turnPlayer, "VERITA_POWER_PENDING")) {}
+        AddGlobalEffects($turnPlayer, "VERITA_POWER");
     }
 }
 
@@ -5619,6 +5766,12 @@ function ObjectCurrentPower($obj) {
             case "y5koddlyv8_POWER": // Undying Dreams: +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "VERITA_POWER_PENDING": // Verita On Death: Suited allies get +1 POWER (pending conversion)
+                $power += 1;
+                break;
+            case "VERITA_POWER": // Verita On Death: Suited allies get +1 POWER (active, expires end of turn)
+                $power += 1;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -5813,6 +5966,14 @@ function ObjectCurrentPower($obj) {
     // Retort N: while this card is retaliating, it gets +N POWER
     if(DecisionQueueController::GetVariable("CombatRetaliator") !== null && HasRetort($obj)) {
         $power += GetRetortValue($obj);
+    }
+    // Two of Hearts (rufki4o41y): Cardistry +2 POWER until end of turn
+    if(in_array("rufki4o41y", $obj->TurnEffects)) {
+        $power += 2;
+    }
+    // Five of Spades (i9hf5lhl5f): Cardistry +5 POWER until end of turn
+    if(in_array("i9hf5lhl5f", $obj->TurnEffects)) {
+        $power += 5;
     }
     return $power;
 }
@@ -6301,6 +6462,12 @@ function ObjectCurrentHP($obj) {
             case "ysj63dw50a": // Convalescing Mare: Other allies get +1 LIFE until end of turn
                 $cardLife += 1;
                 break;
+            case "v0yuddp71s": // Castling Boon: allies get +1 LIFE until end of turn
+                $cardLife += 1;
+                break;
+            case "v0yuddp71s-ROOK": // Castling Boon (Rook): allies get +3 LIFE until end of turn
+                $cardLife += 3;
+                break;
             default: break;
         }
     }
@@ -6347,6 +6514,14 @@ function ObjectCurrentHP($obj) {
     // Drown in Aether (gnfbp3g8iw): -3 LIFE until end of turn
     if(in_array("gnfbp3g8iw-debuff", $obj->TurnEffects)) {
         $cardLife -= 3;
+    }
+    // Three of Spades (o09csnorqv): Cardistry +2 LIFE until end of turn
+    if(in_array("o09csnorqv", $obj->TurnEffects)) {
+        $cardLife += 2;
+    }
+    // Lucenia's Reign (zrvvwz3ww9): target Chessman ally +1 LIFE until end of turn
+    if(in_array("zrvvwz3ww9_LIFE", $obj->TurnEffects)) {
+        $cardLife += 1;
     }
     return $cardLife;
 }
@@ -7835,11 +8010,28 @@ $effectAppliesToBoth["GMBF3HVRKG"] = true;
 $foreverEffects["wr42i6eifn"] = true;
 // Freydis permanent distant: Ranger units are always distant for the rest of the game
 $foreverEffects["FREYDIS_PERMANENT_DISTANT"] = true;
+// Verita (4qc47amgpp) On Death: Suited allies get +1 POWER until end of next turn
+// PENDING survives end-of-turn cleanup; converted to VERITA_POWER in WakeUpPhase
+$foreverEffects["VERITA_POWER_PENDING"] = true;
 // Don't display this effect on field cards — it's a global attack-prevention flag
 $doesGlobalEffectApply["wr42i6eifn"] = function($obj) { return false; };
 // Freydis permanent distant: apply to Ranger units only
 $doesGlobalEffectApply["FREYDIS_PERMANENT_DISTANT"] = function($obj) {
     return PropertyContains(EffectiveCardClasses($obj), "RANGER");
+};
+// Verita On Death: +1 POWER to Suited allies (both PENDING and ACTIVE phases)
+$doesGlobalEffectApply["VERITA_POWER_PENDING"] = function($obj) {
+    return PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SUITED");
+};
+$doesGlobalEffectApply["VERITA_POWER"] = function($obj) {
+    return PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SUITED");
+};
+// Castling Boon (v0yuddp71s): allies get +1/+3 LIFE until end of turn
+$doesGlobalEffectApply["v0yuddp71s"] = function($obj) {
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+$doesGlobalEffectApply["v0yuddp71s-ROOK"] = function($obj) {
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
 // Persistent per-card TurnEffects that survive ExpireEffects across turns.
@@ -9888,6 +10080,19 @@ function HasStealth($obj) {
     }
     // Hidden Longbowman (bx4k3akqx7): stealth while distant
     if($obj->CardID === "bx4k3akqx7" && IsDistant($obj)) return true;
+    // Noire, Ace of Spades (wbjc9t8ycp): stealth while you control another Suited ally
+    if($obj->CardID === "wbjc9t8ycp") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj !== $obj
+                && PropertyContains(EffectiveCardType($fObj), "ALLY")
+                && PropertyContains(EffectiveCardSubtypes($fObj), "SUITED")) {
+                return true;
+            }
+        }
+    }
     if(HasKeyword_Stealth($obj)) return true;
     // STEALTH: granted stealth until end of turn (e.g. Vanish from Sight, Sidestep)
     if(in_array("STEALTH", $obj->TurnEffects)) return true;
@@ -10799,6 +11004,52 @@ function CheckAndBreakLinks($player, $departingMZ) {
     foreach($toSacrifice as $idx) {
         DoSacrificeFighter($controller, $zoneRef . "-" . $idx);
     }
+}
+
+// =============================================================================
+// Cardistry & Suited Helpers
+// =============================================================================
+
+/**
+ * Count distinct reserve costs among Suited objects a player controls on the field.
+ * Used to compute Cardistry cost reduction: ability costs (1) less per distinct cost.
+ * @param int $player The player whose field to check.
+ * @return int Number of distinct reserve costs among their Suited objects.
+ */
+function GetCardistryDiscount($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $distinctCosts = [];
+    foreach($field as $obj) {
+        if($obj->removed) continue;
+        if(!PropertyContains(EffectiveCardSubtypes($obj), "SUITED")) continue;
+        $cost = CardCost_reserve($obj->CardID);
+        if($cost !== null) $distinctCosts[$cost] = true;
+    }
+    return count($distinctCosts);
+}
+
+/**
+ * Check if an ally has immortality (death prevention).
+ * Currently granted by Verita, Queen of Hearts (4qc47amgpp) to other Suited allies.
+ * @param object $obj A field zone object.
+ * @return bool
+ */
+function HasImmortality($obj) {
+    if(HasNoAbilities($obj)) return false;
+    if(!PropertyContains(EffectiveCardSubtypes($obj), "SUITED")) return false;
+    if(!PropertyContains(EffectiveCardType($obj), "ALLY")) return false;
+    global $playerID;
+    $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "4qc47amgpp" && !HasNoAbilities($fObj)
+            && $fObj !== $obj && $fObj->Controller == $obj->Controller) {
+            return true;
+        }
+    }
+    return false;
 }
 
 // =============================================================================

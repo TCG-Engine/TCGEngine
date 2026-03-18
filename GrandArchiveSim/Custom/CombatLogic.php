@@ -453,6 +453,33 @@ $customDQHandlers["DeclareChampionAttack"] = function($player, $parts, $lastDeci
     DeclareChampionAttack($player);
 };
 
+// Command Chessman: player chooses a Chessman ally to perform the attack
+$customDQHandlers["CommandChessmanChooseAttacker"] = function($player, $parts, $lastDecision) {
+    $chessmanAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
+    // Filter to awake Chessman allies only
+    $awakeChessman = [];
+    foreach($chessmanAllies as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj !== null && !$obj->removed && $obj->Status == 2) {
+            $awakeChessman[] = $mz;
+        }
+    }
+    if(empty($awakeChessman)) {
+        SetFlashMessage("No awake Chessman ally to perform the attack.");
+        ClearIntent($player);
+        return;
+    }
+    $allyStr = implode("&", $awakeChessman);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyStr, 100, "Choose_Chessman_ally_to_attack");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CommandChessmanAttack", 100);
+};
+
+// Command Chessman: perform the attack with the chosen ally
+$customDQHandlers["CommandChessmanAttack"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    BeginCombatPhase($lastDecision);
+};
+
 // --- attack declaration (from field click) -------------------------------------
 
 /**
@@ -2470,6 +2497,8 @@ function OnDealDamage($player, $source, $target, $amount) {
             $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
             if($combatAttacker !== null) {
                 SetCombatKillOccurred();
+                // Store the killed card's ID so OnKill abilities can reference it
+                DecisionQueueController::StoreVariable("CombatKilledCardID", $targetObj->CardID);
             }
             AllyDestroyed($player, $target);
         }
@@ -2595,6 +2624,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
             $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
             if($combatAttacker !== null) {
                 SetCombatKillOccurred();
+                DecisionQueueController::StoreVariable("CombatKilledCardID", $targetObj->CardID);
             }
             AllyDestroyed($player, $target);
         }
