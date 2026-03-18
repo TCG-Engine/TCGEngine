@@ -336,7 +336,7 @@
     const width = cardSize; // concat folder uses 1:1 ratio
     
     return `
-      <div class="mzrearrange-card" data-card-id="${cardId}" draggable="true">
+      <div class="mzrearrange-card" data-card-id="${cardId}" draggable="true" onmouseover="ShowCardDetail(event, this)" onmouseout="HideCardDetail()">
         <div class="mzrearrange-card-order">${order}</div>
         <img 
           src="${imgSrc}" 
@@ -812,6 +812,8 @@
     }
     // Cleanup global helper
     delete window._mzrearrangeSetupCardDragListeners;
+    // Hide any card detail that may still be showing
+    if (typeof HideCardDetail === 'function') HideCardDetail();
   }
 
   // Export functions to global scope
