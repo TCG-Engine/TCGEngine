@@ -844,6 +844,29 @@ function OnAttackTrigger($player, $mzID) {
             }
         }
     }
+
+    // Servile Possessions mastery (0d93t7bfwc): [Ciel Bonus] champion attack bonus based on omen count
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")
+            && HasServilePossessionsMastery($player) && IsCielBonusActive($player)) {
+        $omenCount = GetOmenCount($player);
+        if($omenCount >= 1) {
+            // Apply power bonus to attack cards in intent
+            $intentCards = GetIntentCards($player);
+            $bonusPower = 0;
+            if($omenCount >= 5) $bonusPower = 3;
+            else if($omenCount >= 3) $bonusPower = 2;
+            else $bonusPower = 1;
+            foreach($intentCards as $iMZ) {
+                AddTurnEffect($iMZ, "SERVILE_POSSESSIONS_POWER_" . $bonusPower);
+            }
+            // Also apply to champion for direct attacks without intent
+            AddTurnEffect($mzID, "SERVILE_POSSESSIONS_POWER_" . $bonusPower);
+            // 5+ omens: draw a card into memory
+            if($omenCount >= 5) {
+                DrawIntoMemory($player, 1);
+            }
+        }
+    }
 }
 
 /**
