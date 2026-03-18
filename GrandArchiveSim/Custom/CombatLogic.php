@@ -1344,7 +1344,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
 
     if($attackerMZ === null || $targetMZ === null) {
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
     }
 
@@ -1358,7 +1358,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     $oObj = GetZoneObject($defenderMZ_fromDefender);
     if(IsSiegeable($oObj)) {
         // Siegeables can't retaliate, skip retaliation and go to cleanup
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
     }
 
@@ -1367,7 +1367,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     foreach($attackerIntentCards as $iMZ) {
         $iObj = GetZoneObject($iMZ);
         if($iObj !== null && in_array("NO_RETALIATE", $iObj->TurnEffects)) {
-            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
             return;
         }
     }
@@ -1376,7 +1376,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     $attackerObj = GetZoneObject($attackerMZ_fromDefender);
     if($attackerObj !== null && $attackerObj->CardID === "3hgldrogit" && !HasNoAbilities($attackerObj)
         && IsClassBonusActive($attackerPlayer, ["ASSASSIN", "TAMER"])) {
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
     }
 
@@ -1384,14 +1384,14 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     if($attackerObj !== null && $attackerObj->CardID === "b23a85z88j" && !HasNoAbilities($attackerObj)) {
         $targetObj = GetZoneObject($defenderMZ_fromDefender);
         if($targetObj !== null && PropertyContains(CardSubtypes($targetObj->CardID), "BEAST")) {
-            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
             return;
         }
     }
 
     // Blazing Bowman (qry41lw9n0): attacks can't be retaliated
     if($attackerObj !== null && $attackerObj->CardID === "qry41lw9n0" && !HasNoAbilities($attackerObj)) {
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
     }
 
@@ -1458,7 +1458,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         $retaliatorOptions = array_values($retaliatorOptions);
     }
     if(empty($retaliatorOptions)) {
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
     }
     $retaliatorOptionStr = implode("&", $retaliatorOptions);
@@ -1468,7 +1468,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender, 100);
 
     // Cleanup on defender's queue after retaliation (block 200)
-    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
 };
 
 /**
@@ -1590,7 +1590,7 @@ $customDQHandlers["CleaveProceedToRetaliation"] = function($player, $parts, $las
     $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
 
     if($attackerMZ === null) {
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
     }
 
@@ -1605,7 +1605,7 @@ $customDQHandlers["CleaveProceedToRetaliation"] = function($player, $parts, $las
     }
 
     // Cleanup on defender's queue after all retaliation decisions (block 200)
-    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200);
+    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
 };
 
 /**
