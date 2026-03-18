@@ -45,6 +45,16 @@
           $scrollbarBg = "#6BBF59";
           $scrollbarAccent = "#5AAD4D";
           $textColor = "#ffffff";      // White text for contrast
+        } else if ($folderPath === "GrandArchiveSim") {
+          // Grand Archive: Prismatic Ethereal — deep navy + soft gold
+          $primaryBg = "#0d1b2a";      // Midnight blue (Material/Memory void)
+          $secondaryBg = "#1a2f4a";    // Deeper navy
+          $borderColor = "#c9a84c";    // Soft gold (Archive / high-rarity)
+          $borderWidth = "2px";
+          $accentBg = "#1d3a5e";       // Steel blue accent
+          $scrollbarBg = "#0d1b2a";
+          $scrollbarAccent = "#c9a84c"; // Gold scrollbar thumb
+          $textColor = "#f0e6c8";      // Warm off-white / parchment
         } else {
           // Default grey theme
           $primaryBg = "#1e1e1e";      // Dark grey
@@ -125,7 +135,7 @@
 
         .myStuff {
           background-color: <?php echo $primaryBg; ?>;
-          border: <?php echo $borderWidth; ?> solid <?php echo ($folderPath === "GudnakSim" ? "transparent" : "#5a5a5a"); ?>;
+          border: <?php echo $borderWidth; ?> solid <?php echo ($folderPath === "GudnakSim" ? "transparent" : ($folderPath === "GrandArchiveSim" ? $borderColor : "#5a5a5a")); ?>;
           border-radius: 8px;
           font-family: 'Roboto', sans-serif; /* Modern font */
           color: <?php echo $textColor; ?>;

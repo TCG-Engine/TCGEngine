@@ -11,7 +11,7 @@ var showDetailTimeout;
 function ShowCardDetail(e, that) {
   clearTimeout(showDetailTimeout);//In case there was another card waiting to show detail
   var folderPath = document.getElementById("folderPath").value;
-  var timeOut = folderPath == "GudnakSim" ? 350 : 1;
+  var timeOut = folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" ? 350 : 1;
   showDetailTimeout = setTimeout(function() {
     if (e.target.hasAttribute("data-subcard-id")) {
       var subCardID = e.target.getAttribute("data-subcard-id");
