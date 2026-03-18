@@ -2002,6 +2002,7 @@ function IsSelectableCard(zone, cardArr, index) {
 function HideMZChoosePopup() {
   let existing = document.getElementById('mzchoose-popup');
   if (existing) existing.remove();
+  if (typeof HideCardDetail === 'function') HideCardDetail();
 }
 
 // Show a popup for selecting cards from Single mode zones
@@ -2087,13 +2088,15 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
     cardWrapper.style.borderRadius = '8px';
 
     // Add hover effect
-    cardWrapper.onmouseenter = function() {
+    cardWrapper.onmouseenter = function(e) {
       cardWrapper.style.transform = 'scale(1.05)';
       cardWrapper.style.boxShadow = '0 0 20px rgba(100,250,0,0.6)';
+      if (typeof ShowCardDetail === 'function') ShowCardDetail(e, cardWrapper);
     };
     cardWrapper.onmouseleave = function() {
       cardWrapper.style.transform = 'scale(1)';
       cardWrapper.style.boxShadow = 'none';
+      if (typeof HideCardDetail === 'function') HideCardDetail();
     };
 
     // Create card image container using the Card() function
