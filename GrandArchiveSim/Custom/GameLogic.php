@@ -4630,6 +4630,10 @@ function EndPhase() {
         if(in_array("ATTUNE_FLAMES_BUFF", $field[$i]->TurnEffects)) {
             $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["ATTUNE_FLAMES_BUFF"]));
         }
+        // DISTANT: expires at end of the controller's turn (not at end of every turn)
+        if(in_array("DISTANT", $field[$i]->TurnEffects)) {
+            $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["DISTANT"]));
+        }
     }
 
     ExpireEffects(isEndTurn:true);
@@ -7845,6 +7849,7 @@ $persistentTurnEffects["CALAMITY_CANNON"] = true;
 $persistentTurnEffects["STEALTH_NEXT_TURN"] = true;
 $persistentTurnEffects["NO_UPKEEP"] = true;
 $persistentTurnEffects["ATTUNE_FLAMES_BUFF"] = true;
+$persistentTurnEffects["DISTANT"] = true; // Cleared at end of controller's turn (not every turn) in EndPhase
 $persistentTurnEffects["BLAZING_CHARGE_NEXT_TURN"] = true;
 $persistentTurnEffects["TAUNT_NEXT_TURN"] = true;
 $persistentTurnEffects["VIGOR_NEXT_TURN"] = true;

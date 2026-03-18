@@ -108,6 +108,7 @@ function DoMaterialize($player, $mzCard) {
         $existingChampionCardID = null;
         $existingDamage = 0;
         $existingCounters = [];
+        $existingTurnEffects = [];
 
         for($i = 0; $i < count($field); ++$i) {
             if(!$field[$i]->removed && PropertyContains(CardType($field[$i]->CardID), "CHAMPION") && $field[$i]->Controller == $player) {
@@ -116,6 +117,7 @@ function DoMaterialize($player, $mzCard) {
                 $existingSubcards = is_array($field[$i]->Subcards) ? $field[$i]->Subcards : [];
                 $existingDamage = $field[$i]->Damage;
                 $existingCounters = is_array($field[$i]->Counters) ? $field[$i]->Counters : [];
+                $existingTurnEffects = is_array($field[$i]->TurnEffects) ? $field[$i]->TurnEffects : [];
                 break;
             }
         }
@@ -142,6 +144,19 @@ function DoMaterialize($player, $mzCard) {
             $field[$existingChampionIdx]->removed = true;
         }
 
+        // Pre-populate TurnEffects onto the incoming card BEFORE MZMove so that
+        // OnEnter fires with the correct effects already present (e.g. IsDistant
+        // in Diana's Enter ability reads TurnEffects during the MZMove call).
+        if(!empty($existingTurnEffects)) {
+            $incomingObj = &GetZoneObject($mzCard);
+            if($incomingObj !== null) {
+                $incomingObj->TurnEffects = array_values(array_unique(array_merge(
+                    is_array($incomingObj->TurnEffects) ? $incomingObj->TurnEffects : [],
+                    $existingTurnEffects
+                )));
+            }
+        }
+
         // Move new champion to field
         $newObj = MZMove($player, $mzCard, "myField");
 
@@ -162,6 +177,7 @@ function DoMaterialize($player, $mzCard) {
                 }
             }
         }
+        // TurnEffects already transferred above (pre-MZMove) so OnEnter sees them.
 
         // Track that a champion leveled up this turn (for Invigorated Slash etc.)
         AddGlobalEffects($player, "LEVELED_UP_THIS_TURN");
