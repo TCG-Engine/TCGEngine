@@ -354,20 +354,25 @@ function FlipZonePerspective($mzID) {
  * Send all attack cards from intent zone to graveyard after combat resolves.
  */
 function ClearIntent($player) {
-    global $Renewable_Cards;
+    global $Renewable_Cards, $playerID;
     $intentCards = GetIntentCards($player);
     // Work backwards so index removal doesn't shift remaining cards
     for($i = count($intentCards) - 1; $i >= 0; --$i) {
         $iObj = GetZoneObject($intentCards[$i]);
+        $intentCard = $intentCards[$i];
+        $zone = "myGraveyard";
         if($iObj !== null && in_array("CURSE_TO_LINEAGE", $iObj->TurnEffects)) {
             // Card was put into champion's lineage by OnHit — banish the physical copy
-            MZMove($player, $intentCards[$i], "myBanish");
+            $zone = "myBanish";
         } else if($iObj !== null && isset($Renewable_Cards[$iObj->CardID])) {
             // Renewable: goes to material deck instead of graveyard
-            MZMove($player, $intentCards[$i], "myMaterial");
-        } else {
-            MZMove($player, $intentCards[$i], "myGraveyard");
+            $zone = "myMaterial";
         }
+        if($player != $playerID) {
+            $intentCard = FlipZonePerspective($intentCards[$i]);
+            $zone = FlipZonePerspective($zone);
+        }
+        MZMove($player, $intentCard, $zone);
     }
 }
 
