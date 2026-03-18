@@ -827,6 +827,29 @@ function OnHitTrigger($player, $attackerMZ) {
         }
     }
 
+    // Mana's Cascade (xywyzv14iv): On Champion Hit — opponent banishes random memory
+    $attackerObjHit = GetZoneObject($attackerMZ);
+    if($attackerObjHit !== null && in_array("xywyzv14iv_ON_HIT", $attackerObjHit->TurnEffects ?? [])) {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
+                $opponent = ($player == 1) ? 2 : 1;
+                $oppMemory = GetZone("theirMemory");
+                if(!empty($oppMemory)) {
+                    $validIndices = [];
+                    for($mi = 0; $mi < count($oppMemory); ++$mi) {
+                        if(!$oppMemory[$mi]->removed) $validIndices[] = $mi;
+                    }
+                    if(!empty($validIndices)) {
+                        $randIdx = $validIndices[array_rand($validIndices)];
+                        MZMove($player, "theirMemory-" . $randIdx, "theirBanish");
+                    }
+                }
+            }
+        }
+    }
+
     // Tristan, Grim Stalker (K5luT8aRzc): On Ally Hit passive —
     // when any ally you control hits an enemy ally, you may remove 3 prep counters to destroy the hit ally.
     $attackerObj = GetZoneObject($attackerMZ);
@@ -1045,6 +1068,16 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
                 $intentZone[$newIdx]->Controller = $player;
             }
             $weaponObj->Subcards = []; // Bow is now unloaded
+        }
+        // Aetherwing weapons: move loaded Aethercharge cards from weapon's Subcards into intent
+        if($weaponObj !== null && PropertyContains(CardSubtypes($weaponObj->CardID), "AETHERWING") && is_array($weaponObj->Subcards) && !empty($weaponObj->Subcards)) {
+            foreach($weaponObj->Subcards as $aetherCardID) {
+                MZAddZone($player, "myIntent", $aetherCardID);
+                $intentZone = &GetZone("myIntent");
+                $newIdx = count($intentZone) - 1;
+                $intentZone[$newIdx]->Controller = $player;
+            }
+            $weaponObj->Subcards = [];
         }
 
         // Tideholder Claymore (5iqigcom2r): additional cost to attack — pay (10) reduced by (1) per water GY card
@@ -1797,6 +1830,20 @@ function OnDealDamage($player, $source, $target, $amount) {
             $intentObj = GetZoneObject($intentMZ);
             if($intentObj !== null && $intentObj->CardID === "wewvlfkfp7"
                && in_array("wewvlfkfp7_UNPREVENTABLE", $intentObj->TurnEffects ?? [])) {
+                DealUnpreventableDamage($player, $source, $target, $amount);
+                return;
+            }
+        }
+    }
+
+    // Piercing Aetherfuel (vo5q7letxz): champion's next Aetherwing attack is unpreventable
+    if($isCombatContext) {
+        $sourceObj = GetZoneObject($source);
+        if($sourceObj !== null && in_array("PIERCING_AETHERFUEL", $sourceObj->TurnEffects ?? [])) {
+            // Verify this is an Aetherwing attack (Aethercharge cards in intent)
+            if(CountAetherchargesInIntent($player) > 0) {
+                // Consume the effect (next attack only)
+                $sourceObj->TurnEffects = array_values(array_diff($sourceObj->TurnEffects, ["PIERCING_AETHERFUEL"]));
                 DealUnpreventableDamage($player, $source, $target, $amount);
                 return;
             }

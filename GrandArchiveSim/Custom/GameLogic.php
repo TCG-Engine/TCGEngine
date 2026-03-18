@@ -945,6 +945,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Veteran Aerotheurge (fta5isdgrk): The first Aethercharge card you activate each turn costs 1 less
+    if(PropertyContains(CardSubtypes($obj->CardID), "AETHERCHARGE") && AetherchargeActivatedCount($player) == 0) {
+        $myField = GetZone("myField");
+        foreach($myField as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "fta5isdgrk" && !HasNoAbilities($fObj)) {
+                $reserveCost = max(0, $reserveCost - 1);
+                break;
+            }
+        }
+    }
+
     // Cavalier Rescue (75uhspxqme): Equestrian — costs 2 less if you control a Horse ally
     if($obj->CardID === "75uhspxqme") {
         if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]))) {
@@ -2029,6 +2040,27 @@ function OnCardActivated($player, $mzCard) {
     if(PropertyContains($subtypes, "SPELL") && HasShiftingCurrents($player)
         && ChampionHasInLineage($player, "7x2v4tdop1")) {
         QueueShiftingCurrentsChoice($player, "adjacent", true);
+    }
+
+    // Aethercharge activation tracking
+    if(PropertyContains($subtypes, "AETHERCHARGE")) {
+        IncrementAetherchargeCount($player);
+        $aethCount = AetherchargeActivatedCount($player);
+
+        // Dyadic Fletcher (hohkep3vi9): [CB] Whenever you activate an Aethercharge card
+        // for the second time each turn, Dyadic Fletcher becomes distant.
+        if($aethCount == 2) {
+            $myField = GetField($player);
+            for($dfi = 0; $dfi < count($myField); ++$dfi) {
+                if(!$myField[$dfi]->removed && $myField[$dfi]->CardID === "hohkep3vi9"
+                   && !HasNoAbilities($myField[$dfi])
+                   && IsClassBonusActive($player, ["RANGER"])) {
+                    global $playerID;
+                    $dMZ = ($player == $playerID ? "myField" : "theirField") . "-" . $dfi;
+                    BecomeDistant($player, $dMZ);
+                }
+            }
+        }
     }
 
     // After an attack card enters intent and its abilities resolve, declare the champion attack
@@ -5698,6 +5730,22 @@ function ObjectCurrentPower($obj) {
             break;
         }
     }
+    // Legion's Wingspan (iuixf9rdmu): +1 POWER per application
+    foreach($obj->TurnEffects as $te) {
+        if($te === "iuixf9rdmu_POWER") $power += 1;
+    }
+    // Salamander's Breath (mob9nu6lal): +1 POWER per fire card banished
+    foreach($obj->TurnEffects as $te) {
+        if($te === "mob9nu6lal_POWER") $power += 1;
+    }
+    // Mana's Cascade (xywyzv14iv): +1 POWER
+    if(in_array("xywyzv14iv_POWER", $obj->TurnEffects)) {
+        $power += 1;
+    }
+    // Aether's Embrace (wd7nuab7f3): +2 POWER
+    if(in_array("wd7nuab7f3-POWER", $obj->TurnEffects)) {
+        $power += 2;
+    }
     // Ranged N: while this unit is distant, its attacks get +N POWER
     if(IsDistant($obj)) {
         $rangedValue = GetRangedValue($obj);
@@ -6232,6 +6280,10 @@ function ObjectCurrentHP($obj) {
     // Undying Dreams (y5koddlyv8): +1 LIFE until end of turn
     if(in_array("y5koddlyv8_LIFE", $obj->TurnEffects)) {
         $cardLife += 1;
+    }
+    // Aether's Embrace (wd7nuab7f3): +2 LIFE
+    if(in_array("wd7nuab7f3-LIFE", $obj->TurnEffects)) {
+        $cardLife += 2;
     }
     return $cardLife;
 }
@@ -9195,6 +9247,8 @@ function HasFloatingMemory($obj) {
     }
     // Dredging Streams (wmt0x5zado): [Level 2+] Floating Memory
     if($obj->CardID === "wmt0x5zado" && PlayerLevel($obj->Controller) >= 2) return true;
+    // Weaving Manastream (wi4f59furp): [Class Bonus] Floating Memory
+    if($obj->CardID === "wi4f59furp" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     return false;
 }
 
@@ -14827,6 +14881,434 @@ $customDQHandlers["RegalInquisitionDiscard"] = function($player, $parts, $lastDe
     }
     // Continue choosing
     RegalInquisitionStep($player);
+};
+
+// ============================================================================
+// Aetherwing Loading Infrastructure
+// ============================================================================
+
+/**
+ * Get mzIDs of Aetherwing weapons the player controls on the field.
+ * Unlike Guns/Bows, Aetherwings can hold multiple loaded cards, so we return ALL of them.
+ */
+function GetAetherwingWeapons($player) {
+    return ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["AETHERWING"]);
+}
+
+/**
+ * Alias used by generated code. Returns Aetherwing weapons (all, not filtered by loaded).
+ */
+function GetUnloadedAetherwings($player) {
+    return GetAetherwingWeapons($player);
+}
+
+/**
+ * Load a card from its current zone into an Aetherwing weapon's Subcards.
+ * The source card is removed from its zone; its CardID is stored in the weapon's Subcards array.
+ */
+function LoadIntoAetherwing($player, $sourceMZ, $wingMZ) {
+    $sourceObj = GetZoneObject($sourceMZ);
+    $wingObj = &GetZoneObject($wingMZ);
+    if($sourceObj === null || $wingObj === null) return;
+    if(!is_array($wingObj->Subcards)) $wingObj->Subcards = [];
+    $wingObj->Subcards[] = $sourceObj->CardID;
+    $sourceObj->removed = true;
+    DecisionQueueController::CleanupRemovedCards();
+}
+
+/**
+ * "You may load [cardID] into an Aetherwing weapon you control."
+ * Finds the most recent copy of $cardID in the player's graveyard and offers an optional load.
+ */
+function MayLoadIntoAetherwing($player, $cardID) {
+    $wings = GetAetherwingWeapons($player);
+    if(empty($wings)) return;
+    $gy = GetZone("myGraveyard");
+    $sourceMZ = null;
+    for($i = count($gy) - 1; $i >= 0; --$i) {
+        if(!$gy[$i]->removed && $gy[$i]->CardID === $cardID) {
+            $sourceMZ = "myGraveyard-" . $i;
+            break;
+        }
+    }
+    if($sourceMZ === null) return;
+    if(count($wings) === 1) {
+        DecisionQueueController::StoreVariable("MLAE_sourceMZ", $sourceMZ);
+        DecisionQueueController::StoreVariable("MLAE_wingMZ", $wings[0]);
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Load_into_Aetherwing_weapon?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "MayLoadAetherwingConfirm", 1);
+        return;
+    }
+    DecisionQueueController::StoreVariable("MLAE_sourceMZ", $sourceMZ);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $wings), 1, tooltip:"Load_into_Aetherwing_weapon?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LoadAetherwingSelect", 1);
+}
+
+/**
+ * Load a card from graveyard into an Aetherwing weapon (mandatory, no may).
+ * Used when loading is not optional.
+ */
+function LoadCardIntoAetherwingFromGY($player, $cardID) {
+    $wings = GetAetherwingWeapons($player);
+    if(empty($wings)) return;
+    $gy = GetZone("myGraveyard");
+    $sourceMZ = null;
+    for($i = count($gy) - 1; $i >= 0; --$i) {
+        if(!$gy[$i]->removed && $gy[$i]->CardID === $cardID) {
+            $sourceMZ = "myGraveyard-" . $i;
+            break;
+        }
+    }
+    if($sourceMZ === null) return;
+    if(count($wings) === 1) {
+        LoadIntoAetherwing($player, $sourceMZ, $wings[0]);
+        return;
+    }
+    DecisionQueueController::StoreVariable("MLAE_sourceMZ", $sourceMZ);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $wings), 1, tooltip:"Choose_Aetherwing_weapon");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LoadAetherwingSelect", 1);
+}
+
+$customDQHandlers["LoadAetherwingSelect"] = function($player, $parts, $lastDecision) {
+    $sourceMZ = DecisionQueueController::GetVariable("MLAE_sourceMZ");
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS"
+       && $sourceMZ !== null && $sourceMZ !== "") {
+        LoadIntoAetherwing($player, $sourceMZ, $lastDecision);
+    }
+};
+
+$customDQHandlers["MayLoadAetherwingConfirm"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $sourceMZ = DecisionQueueController::GetVariable("MLAE_sourceMZ");
+    $wingMZ = DecisionQueueController::GetVariable("MLAE_wingMZ");
+    if($sourceMZ !== null && $wingMZ !== null) {
+        LoadIntoAetherwing($player, $sourceMZ, $wingMZ);
+    }
+};
+
+/**
+ * Count Aethercharge cards currently in the intent zone.
+ */
+function CountAetherchargesInIntent($player) {
+    $count = 0;
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj !== null && PropertyContains(CardSubtypes($obj->CardID), "AETHERCHARGE")) {
+            $count++;
+        }
+    }
+    return $count;
+}
+
+/**
+ * Check if the player's champion is Diana (any level).
+ */
+function IsDianaBonus($player) {
+    return ChampionHasInLineage($player, "m7f6r8f3y8")   // Diana, Aether Dilettante (L1)
+        || ChampionHasInLineage($player, "wiztyu6o24")    // Diana, Judgment's Arrow (L2)
+        || ChampionHasInLineage($player, "7ozuj68m69")    // Diana, Deadly Duelist
+        || ChampionHasInLineage($player, "o0qtb31x97")    // Diana, Cursebreaker
+        || ChampionHasInLineage($player, "e3z4pyx8bd");   // Diana, Keen Huntress
+}
+
+/**
+ * Track Aethercharge activation count per player per turn.
+ */
+function AetherchargeActivatedCount($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    return $_ti["AetherchargeActivated"][$player] ?? 0;
+}
+
+function IncrementAetherchargeCount($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    $_ti["AetherchargeActivated"][$player] = ($_ti["AetherchargeActivated"][$player] ?? 0) + 1;
+    SetMacroTurnIndex(json_encode($_ti));
+}
+
+// ============================================================================
+// Diana L2 (wiztyu6o24): Enter — load up to 2 Aethercharge from hand/memory
+// into Aetherwing, draw into memory per card loaded
+// ============================================================================
+function DianaL2LoadSequence($player) {
+    $wings = GetAetherwingWeapons($player);
+    if(empty($wings)) return;
+    // Gather Aethercharge from hand + memory
+    $targets = [];
+    $hand = GetZone("myHand");
+    for($i = 0; $i < count($hand); ++$i) {
+        if($hand[$i]->removed) continue;
+        if(PropertyContains(CardSubtypes($hand[$i]->CardID), "AETHERCHARGE")) {
+            $targets[] = "myHand-" . $i;
+        }
+    }
+    $mem = GetZone("myMemory");
+    for($i = 0; $i < count($mem); ++$i) {
+        if($mem[$i]->removed) continue;
+        if(PropertyContains(CardSubtypes($mem[$i]->CardID), "AETHERCHARGE")) {
+            $targets[] = "myMemory-" . $i;
+        }
+    }
+    if(empty($targets)) return;
+    if(count($wings) === 1) {
+        DecisionQueueController::StoreVariable("DianaL2Wing", $wings[0]);
+        DecisionQueueController::StoreVariable("DianaL2Loaded", "0");
+        $targetStr = implode("&", $targets);
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Load_Aethercharge_into_Aetherwing");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DianaL2LoadChoice|1", 1);
+    } else {
+        // Choose weapon first
+        DecisionQueueController::StoreVariable("DianaL2Loaded", "0");
+        $wingStr = implode("&", $wings);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $wingStr, 1, tooltip:"Choose_Aetherwing_weapon");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DianaL2WeaponChosen", 1);
+    }
+}
+
+$customDQHandlers["DianaL2WeaponChosen"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DecisionQueueController::StoreVariable("DianaL2Wing", $lastDecision);
+    // Now offer Aethercharge from hand/memory
+    $targets = [];
+    $hand = GetZone("myHand");
+    for($i = 0; $i < count($hand); ++$i) {
+        if($hand[$i]->removed) continue;
+        if(PropertyContains(CardSubtypes($hand[$i]->CardID), "AETHERCHARGE")) {
+            $targets[] = "myHand-" . $i;
+        }
+    }
+    $mem = GetZone("myMemory");
+    for($i = 0; $i < count($mem); ++$i) {
+        if($mem[$i]->removed) continue;
+        if(PropertyContains(CardSubtypes($mem[$i]->CardID), "AETHERCHARGE")) {
+            $targets[] = "myMemory-" . $i;
+        }
+    }
+    if(empty($targets)) return;
+    $targetStr = implode("&", $targets);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Load_Aethercharge_into_Aetherwing");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DianaL2LoadChoice|1", 1);
+};
+
+$customDQHandlers["DianaL2LoadChoice"] = function($player, $parts, $lastDecision) {
+    $round = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        // Done loading — draw into memory for each card loaded
+        $loaded = intval(DecisionQueueController::GetVariable("DianaL2Loaded") ?? "0");
+        if($loaded > 0) DrawIntoMemory($player, $loaded);
+        return;
+    }
+    $wingMZ = DecisionQueueController::GetVariable("DianaL2Wing");
+    if($wingMZ === null) return;
+    LoadIntoAetherwing($player, $lastDecision, $wingMZ);
+    $loaded = intval(DecisionQueueController::GetVariable("DianaL2Loaded") ?? "0") + 1;
+    DecisionQueueController::StoreVariable("DianaL2Loaded", strval($loaded));
+    if($round >= 2) {
+        // Max 2 loads reached — draw into memory
+        DrawIntoMemory($player, $loaded);
+        return;
+    }
+    // Offer second load
+    $targets = [];
+    $hand = GetZone("myHand");
+    for($i = 0; $i < count($hand); ++$i) {
+        if($hand[$i]->removed) continue;
+        if(PropertyContains(CardSubtypes($hand[$i]->CardID), "AETHERCHARGE")) {
+            $targets[] = "myHand-" . $i;
+        }
+    }
+    $mem = GetZone("myMemory");
+    for($i = 0; $i < count($mem); ++$i) {
+        if($mem[$i]->removed) continue;
+        if(PropertyContains(CardSubtypes($mem[$i]->CardID), "AETHERCHARGE")) {
+            $targets[] = "myMemory-" . $i;
+        }
+    }
+    if(empty($targets)) {
+        DrawIntoMemory($player, $loaded);
+        return;
+    }
+    $targetStr = implode("&", $targets);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Load_another_Aethercharge");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DianaL2LoadChoice|2", 1);
+};
+
+// ============================================================================
+// Alacritous Huntress (7i24g0nbxz): Enter — reveal Aethercharge from hand,
+// discard or load into Aetherwing, draw 1
+// ============================================================================
+function AlacritousHuntressResolve($player, $chosenMZ) {
+    $wings = GetAetherwingWeapons($player);
+    if(empty($wings)) {
+        // No Aetherwings — must discard
+        MZMove($player, $chosenMZ, "myGraveyard");
+        Draw($player, 1);
+        return;
+    }
+    DecisionQueueController::StoreVariable("AH_chosenMZ", $chosenMZ);
+    DecisionQueueController::AddDecision($player, "YESNO", "Load_into_Aetherwing?", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AlacritousLoadOrDiscard", 1);
+}
+
+$customDQHandlers["AlacritousLoadOrDiscard"] = function($player, $parts, $lastDecision) {
+    $chosenMZ = DecisionQueueController::GetVariable("AH_chosenMZ");
+    if($chosenMZ === null || $chosenMZ === "") return;
+    if($lastDecision === "YES") {
+        $wings = GetAetherwingWeapons($player);
+        if(!empty($wings)) {
+            if(count($wings) === 1) {
+                LoadIntoAetherwing($player, $chosenMZ, $wings[0]);
+            } else {
+                DecisionQueueController::StoreVariable("MLAE_sourceMZ", $chosenMZ);
+                $wingStr = implode("&", $wings);
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", $wingStr, 1, tooltip:"Choose_Aetherwing_weapon");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "LoadAetherwingSelect", 1);
+            }
+        } else {
+            MZMove($player, $chosenMZ, "myGraveyard");
+        }
+    } else {
+        MZMove($player, $chosenMZ, "myGraveyard");
+    }
+    Draw($player, 1);
+};
+
+// ============================================================================
+// Blazing Cindercharge (e48axaql3n): CB load self + up to 2 fire Aethercharge
+// ============================================================================
+function BlazeLoadIntoAetherwing($player) {
+    $wings = GetAetherwingWeapons($player);
+    if(empty($wings)) return;
+    // Find self (Blazing Cindercharge) in GY
+    $gy = GetZone("myGraveyard");
+    $selfMZ = null;
+    for($i = count($gy) - 1; $i >= 0; --$i) {
+        if(!$gy[$i]->removed && $gy[$i]->CardID === "e48axaql3n") {
+            $selfMZ = "myGraveyard-" . $i;
+            break;
+        }
+    }
+    if($selfMZ === null) return;
+    if(count($wings) === 1) {
+        LoadIntoAetherwing($player, $selfMZ, $wings[0]);
+        DecisionQueueController::StoreVariable("BlazeWing", $wings[0]);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BlazeContinueFireLoads|2", 1);
+    } else {
+        DecisionQueueController::StoreVariable("BlazeSourceMZ", $selfMZ);
+        $wingStr = implode("&", $wings);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $wingStr, 1, tooltip:"Choose_Aetherwing_weapon");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BlazeWeaponChosen|2", 1);
+    }
+}
+
+$customDQHandlers["BlazeWeaponChosen"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $remaining = intval($parts[0]);
+    $selfMZ = DecisionQueueController::GetVariable("BlazeSourceMZ");
+    if($selfMZ !== null) {
+        LoadIntoAetherwing($player, $selfMZ, $lastDecision);
+    }
+    DecisionQueueController::StoreVariable("BlazeWing", $lastDecision);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "BlazeContinueFireLoads|" . $remaining, 1);
+};
+
+$customDQHandlers["BlazeContinueFireLoads"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    if($remaining <= 0) return;
+    $wingMZ = DecisionQueueController::GetVariable("BlazeWing");
+    if($wingMZ === null || $wingMZ === "") return;
+    $wingObj = GetZoneObject($wingMZ);
+    if($wingObj === null) return;
+    // Find fire Aethercharge in GY
+    $gy = GetZone("myGraveyard");
+    $fireAC = [];
+    foreach($gy as $i => $obj) {
+        if($obj->removed) continue;
+        if(CardElement($obj->CardID) !== "FIRE") continue;
+        $subtypes = CardSubtypes($obj->CardID);
+        if(!in_array("AETHERCHARGE", $subtypes)) continue;
+        $fireAC[] = "myGraveyard-" . $i;
+    }
+    if(empty($fireAC)) return;
+    $targetStr = implode("&", $fireAC);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Load_fire_Aethercharge_into_Aetherwing");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "BlazeFireLoadChoice|" . ($remaining - 1), 1);
+};
+
+$customDQHandlers["BlazeFireLoadChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $remaining = intval($parts[0]);
+    $wingMZ = DecisionQueueController::GetVariable("BlazeWing");
+    if($wingMZ === null) return;
+    LoadIntoAetherwing($player, $lastDecision, $wingMZ);
+    if($remaining > 0) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BlazeContinueFireLoads|" . $remaining, 1);
+    }
+};
+
+// ============================================================================
+// Legion's Wingspan (iuixf9rdmu): [Diana Bonus] On Attack — for each wind
+// element card in intent, choose an ally you control → +1 power
+// ============================================================================
+function LegionsWingspanBuffLoop($player, $count) {
+    if($count <= 0) return;
+    $allies = ZoneSearch("myField", ["ALLY"]);
+    if(empty($allies)) return;
+    $allyStr = implode("&", $allies);
+    DecisionQueueController::StoreVariable("LWB_remaining", strval($count));
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyStr, 1, tooltip:"Choose_ally_for_+1_power");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LegionsWingspanBuff", 1);
+}
+
+$customDQHandlers["LegionsWingspanBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "iuixf9rdmu_POWER");
+    $remaining = intval(DecisionQueueController::GetVariable("LWB_remaining")) - 1;
+    if($remaining > 0) {
+        LegionsWingspanBuffLoop($player, $remaining);
+    }
+};
+
+// ============================================================================
+// Salamander's Breath (mob9nu6lal): [Diana Bonus] On Attack — may banish up to
+// X fire from GY (X = Aethercharge in intent). +1 power per card banished.
+// ============================================================================
+function SalamandersBreathBanishLoop($player, $maxBanish, $banishedSoFar) {
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(empty($fireGY) || $maxBanish <= 0) {
+        if($banishedSoFar > 0) {
+            $champMZ = FindChampionMZ($player);
+            if($champMZ !== null) {
+                for($i = 0; $i < $banishedSoFar; ++$i) {
+                    AddTurnEffect($champMZ, "mob9nu6lal_POWER");
+                }
+            }
+        }
+        return;
+    }
+    DecisionQueueController::StoreVariable("SB_maxRemaining", strval($maxBanish));
+    DecisionQueueController::StoreVariable("SB_banished", strval($banishedSoFar));
+    $fireStr = implode("&", $fireGY);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, tooltip:"Banish_fire_card_for_+1_power");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SalamandersBanish", 1);
+}
+
+$customDQHandlers["SalamandersBanish"] = function($player, $parts, $lastDecision) {
+    $maxRemaining = intval(DecisionQueueController::GetVariable("SB_maxRemaining"));
+    $banished = intval(DecisionQueueController::GetVariable("SB_banished"));
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        if($banished > 0) {
+            $champMZ = FindChampionMZ($player);
+            if($champMZ !== null) {
+                for($i = 0; $i < $banished; ++$i) AddTurnEffect($champMZ, "mob9nu6lal_POWER");
+            }
+        }
+        return;
+    }
+    MZMove($player, $lastDecision, "myBanish");
+    $banished++;
+    $maxRemaining--;
+    SalamandersBreathBanishLoop($player, $maxRemaining, $banished);
 };
 
 // ============================================================================
