@@ -7489,14 +7489,13 @@ function CardHasAbility($obj) {
     return 1;
 }
 
+// Internal tracking effects that are backend-only and should never render in the UI
+$backendOnlyTurnEffects = ["DAMAGED_SINCE_LAST_TURN", "ENTERED_THIS_TURN", "WAS_ATTACKED", "CHAMP_DMG_BY_P1"];
+
 function CardCurrentEffects($obj) {
     global $doesGlobalEffectApply, $effectAppliesToBoth,$playerID;
-    //Start with this object's effects
+    //Start with this object's effects (all of them, unfiltered — used by game logic)
     $effects = $obj->TurnEffects;
-    //Filter out internal effects that shouldn't display in UI
-    $effects = array_filter($effects, function($effectID) {
-        return $effectID !== "DAMAGED_SINCE_LAST_TURN" && $effectID !== "ENTERED_THIS_TURN";
-    });
     //Now add global effects
     if($obj->Controller != -1) {
         $controllerEffects = $obj->Controller == $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
@@ -7512,6 +7511,16 @@ function CardCurrentEffects($obj) {
             }
         }
     }
+    return implode(",", $effects);
+}
+
+function CardDisplayEffects($obj) {
+    global $backendOnlyTurnEffects;
+    // Same as CardCurrentEffects but strips backend-only tracking effects before returning
+    $raw = CardCurrentEffects($obj);
+    if($raw === "") return "";
+    $effects = explode(",", $raw);
+    $effects = array_values(array_filter($effects, fn($e) => !in_array($e, $backendOnlyTurnEffects)));
     return implode(",", $effects);
 }
 

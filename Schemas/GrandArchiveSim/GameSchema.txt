@@ -53,6 +53,7 @@ Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentHP=ObjectCurrentHPDisplay()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: CurrentLevel=ObjectCurrentLevelDisplay()
 Virtual: BuffCounterCount=GetBuffCounterCount()
 Virtual: EnlightenCounterCount=GetEnlightenCounterCount()
@@ -66,7 +67,7 @@ Index: TurnEffects
 Display: Visibility=Public, Mode=All, Top=110px, Right=120px
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Overlay: Status=1:exhausted
-Counters: CurrentEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
+Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
@@ -83,10 +84,11 @@ Click: FSM()
 Intent - CardID:string, Controller:number, TurnEffects:array[string]
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: DisplayEffects=CardDisplayEffects()
 Index: TurnEffects
 Display: Visibility=Public, Mode=All, Bottom=190px, Right=120px
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
-Counters: CurrentEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
+Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Memory - CardID:string
 Display: Visibility=Public, Mode=Single, Bottom=70px, Left=28%
 Material - CardID:string
