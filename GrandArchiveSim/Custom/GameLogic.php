@@ -3012,10 +3012,22 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
 }
 
 function OnLeaveField($player, $mzID) {
-    global $leaveFieldAbilities;
+    global $leaveFieldAbilities, $Renewable_Cards;
     $obj = GetZoneObject($mzID);
     if($obj === null) return;
     $controller = $obj->Controller;
+    // Weapons leaving the field: any loaded cards (Subcards) must go to the graveyard
+    // as independent cards. Rule: "Cards Loaded into an object will still be Loaded as
+    // long as that object remains on the field." Once it leaves, loaded cards are released.
+    // Renewable ammo goes to the material zone instead of the graveyard.
+    if(PropertyContains(EffectiveCardType($obj), "WEAPON")
+       && is_array($obj->Subcards) && !empty($obj->Subcards)) {
+        foreach($obj->Subcards as $loadedCardID) {
+            $dest = isset($Renewable_Cards[$loadedCardID]) ? "myMaterial" : "myGraveyard";
+            MZAddZone($controller, $dest, $loadedCardID);
+        }
+        $obj->Subcards = [];
+    }
     // Check and break any Link connections involving the departing card
     CheckAndBreakLinks($player, $mzID);
     DecisionQueueController::CleanupRemovedCards();

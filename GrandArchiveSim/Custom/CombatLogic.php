@@ -75,7 +75,9 @@ function GetIntentCards($player) {
     $zoneArr = &GetZone($zone);
     $results = [];
     for($i = 0; $i < count($zoneArr); ++$i) {
-        $results[] = $zone . "-" . $i;
+        if(!$zoneArr[$i]->removed) {
+            $results[] = $zone . "-" . $i;
+        }
     }
     return $results;
 }
@@ -1692,17 +1694,21 @@ $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     // $parts[0] = attacker player ID (when cleanup is on the defender's queue)
     $attackerPlayer = !empty($parts[0]) ? intval($parts[0]) : $player;
 
-    global $playerID;
-    $savedPlayerID = $playerID;
-    $playerID = $attackerPlayer;
-    ClearIntent($attackerPlayer);
-    $playerID = $savedPlayerID;
-
+    // Per rules, End of Combat Step ordering:
+    //   1. Attacking and defending objects are removed from combat.
+    //   2. Any cards in the intent are placed into the graveyard.
+    // So clear combat state variables first, then clear the intent.
     DecisionQueueController::ClearVariable("CombatAttacker");
     DecisionQueueController::ClearVariable("CombatTarget");
     DecisionQueueController::ClearVariable("CombatAttackerPlayer");
     DecisionQueueController::ClearVariable("CombatIsCleave");
     DecisionQueueController::ClearVariable("CombatWeapon");
+
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $attackerPlayer;
+    ClearIntent($attackerPlayer);
+    $playerID = $savedPlayerID;
 };
 
 // --- critical resolution -------------------------------------------------------
