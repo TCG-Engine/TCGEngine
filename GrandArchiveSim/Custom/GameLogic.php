@@ -6968,13 +6968,13 @@ $customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
         // Top pile: add to deck front (reverse iterate preserves original order)
         $topCards = $piles["Top"];
         for($i = count($topCards) - 1; $i >= 0; --$i) {
-            $src = $popTCard($topCards[$i]);
-            AddDeckTop($player, $topCards[$i], $src);
+            $newObj = new Deck($topCards[$i], 'Deck', $player);
+            array_unshift($zone, $newObj);
         }
         // Bottom pile: add to deck back
         foreach($piles["Bottom"] as $cid) {
-            $src = $popTCard($cid);
-            AddDeck($player, $cid, $src);
+            $newObj = new Deck($cid, 'Deck', $player);
+            $zone[] = $newObj;
         }
         return;
     }
