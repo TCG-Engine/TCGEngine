@@ -563,6 +563,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - $ephCount);
     }
 
+    // Ghastly Corrosion (40xhntos3d): costs 1 less for each ephemeral object you control (up to 2)
+    if($obj->CardID === "40xhntos3d") {
+        $ephCount = min(2, CountEphemeralObjects($player));
+        $reserveCost = max(0, $reserveCost - $ephCount);
+    }
+
     // Deflecting Edge (g7uDOmUf2u): costs 1 less if you control a Sword weapon
     if($obj->CardID === "g7uDOmUf2u") {
         if(!empty(ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["SWORD"]))) {
@@ -1703,6 +1709,24 @@ $customDQHandlers["DevotedMartyrLevelUp"] = function($player, $parts, $lastDecis
     global $playerID;
     $banishZone = ($player == $playerID) ? "myBanish" : "theirBanish";
     MZMove($player, $mzGY, $banishZone);
+    RecoverChampion($player, 2);
+};
+
+/**
+ * DQ handler: Suspicious Concoction (5tphi6xl26) level-up trigger — if YES, banish from field to draw into memory + recover 2.
+ * Parts: [mzField].
+ */
+$customDQHandlers["SuspiciousConcoctionLevelUp"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mzField = $parts[0];
+    $obj = GetZoneObject($mzField);
+    if($obj === null || $obj->removed || $obj->CardID !== "5tphi6xl26") return;
+    OnLeaveField($player, $mzField);
+    global $playerID;
+    $banishZone = ($player == $playerID) ? "myBanish" : "theirBanish";
+    MZMove($player, $mzField, $banishZone);
+    DecisionQueueController::CleanupRemovedCards();
+    DrawIntoMemory($player, 1);
     RecoverChampion($player, 2);
 };
 
@@ -4548,6 +4572,14 @@ function EndPhase() {
 
     // Diao Chan, Dreaming Wish (pknaxnn0xo): Inherited — at the beginning of your end phase,
     // if glimmer counters < phantasia count, put the difference as glimmer counters
+
+    // Nocturnal Blossom (39srnovht1): At the beginning of your end phase, recover 1.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "39srnovht1" && !HasNoAbilities($field[$i])) {
+            RecoverChampion($turnPlayer, 1);
+        }
+    }
     if(ChampionHasInLineage($turnPlayer, "pknaxnn0xo")) {
         $champObj = GetPlayerChampion($turnPlayer);
         if($champObj !== null && !HasNoAbilities($champObj)) {
@@ -4630,6 +4662,11 @@ function ObjectCurrentPower($obj) {
             break;
         case "csMiEObm2l": // Strapping Conscript: [Class Bonus][Level 2+] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 1;
+            }
+            break;
+        case "3ppahdhe7g": // Resonant Aether: [Level 2+] +1 POWER
+            if(PlayerLevel($obj->Controller) >= 2) {
                 $power += 1;
             }
             break;
@@ -5556,6 +5593,9 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
                 break;
             case "mvgmaalpko": // Flamelash Beastmaster: [CB] +3 POWER until end of turn
+                $power += 3;
+                break;
+            case "6g7x7tja9h_ATTACK_POWER": // Trivariate Dream: [CB] +3 POWER with exactly 3 Aethercharge in intent
                 $power += 3;
                 break;
             case "xgi39z49tu": // Pluming Crescendo: Animals get +1 POWER until end of turn
@@ -12269,6 +12309,86 @@ $customDQHandlers["MeteorStrikeDestroy"] = function($player, $parts, $lastDecisi
     $dest = $player == $targetObj->Controller ? "myGraveyard" : "theirGraveyard";
     MZMove($player, $lastDecision, $dest);
     DecisionQueueController::CleanupRemovedCards();
+};
+
+// --- Exorcism (4n6dd4f01r): sacrifice each ephemeral object unless controller pays (1) ---
+function ExorcismProcess($player) {
+    // Collect all ephemeral objects from both fields
+    $targets = [];
+    for($p = 1; $p <= 2; ++$p) {
+        $field = &GetField($p);
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && IsEphemeral($field[$i]) && !PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) {
+                global $playerID;
+                $mzRef = ($p == $playerID) ? "myField-" . $i : "theirField-" . $i;
+                $targets[] = $p . "|" . $mzRef;
+            }
+        }
+    }
+    if(empty($targets)) return;
+    $encoded = implode(",", $targets);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $encoded, 1);
+}
+
+$customDQHandlers["ExorcismNext"] = function($player, $parts, $lastDecision) {
+    $encoded = $parts[0];
+    $targets = explode(",", $encoded);
+    if(empty($targets)) return;
+    $current = array_shift($targets);
+    $pair = explode("|", $current);
+    $controller = intval($pair[0]);
+    $mzRef = $pair[1];
+    $obj = GetZoneObject($mzRef);
+    if($obj === null || $obj->removed) {
+        // Object already gone, skip to next
+        if(!empty($targets)) {
+            $remaining = implode(",", $targets);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
+        }
+        return;
+    }
+    // Check if controller has cards in hand to pay (1)
+    $hand = &GetHand($controller);
+    $remaining = implode(",", $targets);
+    if(count($hand) > 0) {
+        DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
+            tooltip:"Pay_(1)_to_keep_" . CardName($obj->CardID) . "?_(Exorcism)");
+        DecisionQueueController::AddDecision($controller, "CUSTOM", "ExorcismPayOrSacrifice|" . $mzRef . "|" . $remaining, 1);
+    } else {
+        // Can't pay, sacrifice immediately
+        DoSacrificeFighter($controller, $mzRef);
+        DecisionQueueController::CleanupRemovedCards();
+        if(!empty($targets)) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
+        }
+    }
+};
+
+$customDQHandlers["ExorcismPayOrSacrifice"] = function($player, $parts, $lastDecision) {
+    $mzRef = $parts[0];
+    $remaining = $parts[1] ?? "";
+    $obj = GetZoneObject($mzRef);
+    if($obj === null || $obj->removed) {
+        if($remaining !== "") {
+            // Determine original activating player from the remaining targets 
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
+        }
+        return;
+    }
+    if($lastDecision === "YES") {
+        // Pay (1) — move a card from hand to memory
+        $hand = &GetHand($player);
+        if(count($hand) > 0) {
+            MZMove($player, "myHand-0", "myMemory");
+        }
+    } else {
+        // Sacrifice the ephemeral object
+        DoSacrificeFighter($player, $mzRef);
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    if($remaining !== "") {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ExorcismNext|" . $remaining, 1);
+    }
 };
 
 // --- Alkahest (xfpk9xycwz): choose Potion for age counter ---

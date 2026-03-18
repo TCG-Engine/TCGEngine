@@ -120,6 +120,20 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
+        // Snow White, Weiss Queen (5u5m8xblmd): [Level 1+] If a rested champion you
+        // don't control would level up, return that card to its owner's material deck instead.
+        if($existingChampionIdx >= 0 && $field[$existingChampionIdx]->Status == 1) {
+            $swOpponent = ($player == 1) ? 2 : 1;
+            $swField = &GetField($swOpponent);
+            foreach($swField as &$swObj) {
+                if(!$swObj->removed && $swObj->CardID === "5u5m8xblmd" && !HasNoAbilities($swObj)
+                   && PlayerLevel($swOpponent) >= 1) {
+                    MZMove($player, $mzCard, "myMaterial");
+                    return;
+                }
+            }
+        }
+
         // Build new lineage: old champion's CardID prepended to its subcards
         $newSubcards = [];
         if($existingChampionCardID !== null) {
@@ -248,6 +262,24 @@ function DoMaterialize($player, $mzCard) {
                         tooltip:"Banish_Devoted_Martyr_from_graveyard_to_Recover_2?");
                     DecisionQueueController::AddDecision($player, "CUSTOM",
                         "DevotedMartyrLevelUp|$dmMZ", 1);
+                    break;
+                }
+            }
+        }
+
+        // Suspicious Concoction (5tphi6xl26): whenever your champion levels up,
+        // you may banish Suspicious Concoction. If you do, draw a card into memory and recover 2.
+        {
+            global $playerID;
+            $fZone = ($player == $playerID) ? "myField" : "theirField";
+            $field = GetZone($fZone);
+            for($sci = 0; $sci < count($field); ++$sci) {
+                if(!$field[$sci]->removed && $field[$sci]->CardID === "5tphi6xl26" && !HasNoAbilities($field[$sci])) {
+                    $scMZ = $fZone . "-" . $sci;
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                        tooltip:"Banish_Suspicious_Concoction_to_draw_into_memory_and_recover_2?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM",
+                        "SuspiciousConcoctionLevelUp|$scMZ", 1);
                     break;
                 }
             }
