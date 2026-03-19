@@ -692,7 +692,22 @@ function BeginCombatPhase($actionCard) {
  */
 function ChooseAttackTarget($player, $attackerMZ) {
     $validTargets = GetValidAttackTargets($attackerMZ);
+    if(empty($validTargets)) return;
     $targetList = implode("&", $validTargets);
+
+    // Tweedledum, Rattled Dancer (UmZpK4rt2M): opponent chooses the attack target
+    $atkObj = GetZoneObject($attackerMZ);
+    if($atkObj !== null && $atkObj->CardID === "UmZpK4rt2M" && !HasNoAbilities($atkObj)) {
+        $opponent = ($player == 1) ? 2 : 1;
+        // Flip targets to opponent perspective so MZCHOOSE highlights the right cards
+        $flipped = [];
+        foreach($validTargets as $t) $flipped[] = FlipZonePerspective($t);
+        $flippedList = implode("&", $flipped);
+        DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $flippedList, 100, "Tweedledum:_choose_attack_target");
+        DecisionQueueController::AddDecision($opponent, "CUSTOM", "TweedledumTargetChosen|" . $attackerMZ . "|" . $player, 100);
+        return;
+    }
+
     DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetList, 100, "Choose_attack_target");
     DecisionQueueController::AddDecision($player, "CUSTOM", "AttackTargetChosen|" . $attackerMZ, 100);
 }
@@ -861,6 +876,15 @@ function OnAttackTrigger($player, $mzID) {
                     tooltip:"Choose_Horse_or_Human_ally_for_+1_POWER_(Jin_Fate_Defiant)");
                 DecisionQueueController::AddDecision($player, "CUSTOM", "JinFateDefiantBuff", 1);
             }
+        }
+    }
+
+    // Righteous Retribution (TO9qqKHakv): champion's first attack gets +X POWER from stored prevention
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        $retPower = (is_array($obj->Counters) && isset($obj->Counters['retribution_power'])) ? intval($obj->Counters['retribution_power']) : 0;
+        if($retPower > 0) {
+            AddTurnEffect($mzID, "TO9qqKHakv-" . $retPower);
+            unset($obj->Counters['retribution_power']);
         }
     }
 
@@ -2052,6 +2076,25 @@ function OnDealDamage($player, $source, $target, $amount) {
                 $prevented = min($preventAmount, $amount);
                 $amount -= $prevented;
                 $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== $te));
+                break;
+            }
+        }
+        // Calming Breeze (XgJ72Ot13P): if 3 or less damage, prevent it entirely
+        if($amount > 0 && $amount <= 3 && in_array("CALMING_BREEZE", $targetObj->TurnEffects)) {
+            $amount = 0;
+        }
+        // Righteous Retribution (TO9qqKHakv): prevent up to 5 of next damage, store prevented for power boost
+        foreach($targetObj->TurnEffects as $rrIdx => $rrEffect) {
+            if(strpos($rrEffect, "RIGHTEOUS_RETRIBUTION_") === 0) {
+                $rrBudget = intval(substr($rrEffect, strlen("RIGHTEOUS_RETRIBUTION_")));
+                $rrPrevented = min($rrBudget, $amount);
+                $amount -= $rrPrevented;
+                unset($targetObj->TurnEffects[$rrIdx]);
+                $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                if($rrPrevented > 0) {
+                    if(!is_array($targetObj->Counters)) $targetObj->Counters = [];
+                    $targetObj->Counters['retribution_power'] = $rrPrevented;
+                }
                 break;
             }
         }

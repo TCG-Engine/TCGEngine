@@ -4522,6 +4522,12 @@ function RecollectionPhase() {
                         DrawIntoMemory($turnPlayer, 1);
                     }
                     break;
+                case "WWlknyTxGA": // Wavekeeper's Bond: [Level 3+] may sacrifice to draw into memory
+                    if(!HasNoAbilities($field[$i]) && PlayerLevel($turnPlayer) >= 3) {
+                        DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Sacrifice_Wavekeeper's_Bond_to_draw_into_memory?");
+                        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WavekeepersBondSacrifice|$i", 1);
+                    }
+                    break;
                 default: break;
             }
         }
@@ -5694,6 +5700,47 @@ function ObjectCurrentPower($obj) {
         case "OjOcXBiO0b": // Tyrannical Denigration: [CB] +4 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) $power += 4;
             break;
+        case "bsuO8TVe7p": // Siege Mauler: +2 POWER while attacking a domain
+            {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $combatAttacker !== ""
+                    && $combatTarget !== null && $combatTarget !== "-" && $combatTarget !== ""
+                    && $obj->GetMzID() === $combatAttacker) {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && IsSiegeable($targetObj)) {
+                        $power += 2;
+                    }
+                }
+            }
+            break;
+        case "dJlNMQ5rWP": // Golden Knight: [Alice Bonus] +1 POWER while attacking unit with intercept or taunt
+            {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $combatAttacker !== ""
+                    && $combatTarget !== null && $combatTarget !== "-" && $combatTarget !== ""
+                    && $obj->GetMzID() === $combatAttacker
+                    && ChampionHasInLineage($obj->Controller, "daip7s9ztd")) {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && (HasKeyword_Intercept($targetObj) || HasTaunt($targetObj))) {
+                        $power += 1;
+                    }
+                }
+            }
+            break;
+        case "deO56qXfbP": // Off With Her Head: +3 POWER while attacker is attacking a unique ally
+            {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY")
+                        && PropertyContains(EffectiveCardType($targetObj), "UNIQUE")) {
+                        $power += 3;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -6315,6 +6362,15 @@ function ObjectCurrentPower($obj) {
     // Five of Spades (i9hf5lhl5f): Cardistry +5 POWER until end of turn
     if(in_array("i9hf5lhl5f", $obj->TurnEffects)) {
         $power += 5;
+    }
+    // Righteous Retribution (TO9qqKHakv): cross-turn power boost — champion's first attack gets +X POWER
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        foreach($obj->TurnEffects as $te) {
+            if(strpos($te, "TO9qqKHakv-") === 0) {
+                $power += intval(substr($te, strlen("TO9qqKHakv-")));
+                break;
+            }
+        }
     }
     return $power;
 }
@@ -7084,6 +7140,15 @@ function Glimpse($player, $amount) {
         RemoveGlobalEffect($player, "COSMIC_ALIGNMENT");
         Draw($player, $amount);
         return;
+    }
+    // Myopic Lens (dZ30oXwi3l): next glimpse this turn becomes glimpse 2 instead
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) {
+        $champObj = GetZoneObject($champMZ);
+        if($champObj !== null && in_array("MYOPIC_LENS", $champObj->TurnEffects)) {
+            $champObj->TurnEffects = array_values(array_filter($champObj->TurnEffects, fn($e) => $e !== "MYOPIC_LENS"));
+            $amount = 2;
+        }
     }
     $zone = &GetDeck($player);
     $n = min($amount, count($zone));
@@ -8420,6 +8485,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'aj7pz79wsp' => 2, // Scorching Imperilment: [Class Bonus] costs 2 less
         '6Rb25k7OjY' => 2, // Tempestuous Conviction: [Class Bonus] costs 2 less
         'QvQhg1EOBR' => 2, // Sacred Engulfment: [Class Bonus] costs 2 less
+        'TO9qqKHakv' => 2, // Righteous Retribution: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -8460,6 +8526,25 @@ function DealChampionDamage($player, $amount=1) {
                     $prevented = min($preventAmount, $amount);
                     $amount -= $prevented;
                     $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== $te));
+                    break;
+                }
+            }
+            // Calming Breeze (XgJ72Ot13P): if 3 or less damage, prevent it entirely
+            if($amount > 0 && $amount <= 3 && in_array("CALMING_BREEZE", $obj->TurnEffects)) {
+                $amount = 0;
+            }
+            // Righteous Retribution (TO9qqKHakv): prevent up to 5 of next damage, store prevented for power boost
+            foreach($obj->TurnEffects as $rrIdx => $rrEffect) {
+                if(strpos($rrEffect, "RIGHTEOUS_RETRIBUTION_") === 0) {
+                    $rrBudget = intval(substr($rrEffect, strlen("RIGHTEOUS_RETRIBUTION_")));
+                    $rrPrevented = min($rrBudget, $amount);
+                    $amount -= $rrPrevented;
+                    unset($obj->TurnEffects[$rrIdx]);
+                    $obj->TurnEffects = array_values($obj->TurnEffects);
+                    if($rrPrevented > 0) {
+                        if(!is_array($obj->Counters)) $obj->Counters = [];
+                        $obj->Counters['retribution_power'] = $rrPrevented;
+                    }
                     break;
                 }
             }
@@ -9428,6 +9513,10 @@ function HasStealth($obj) {
     if($obj->CardID === "f28y5rn0dt") {
         if(IsClassBonusActive($obj->Controller, ["TAMER"])) return true;
     }
+    // Tweedledum, Rattled Dancer (UmZpK4rt2M): [Class Bonus] Stealth
+    if($obj->CardID === "UmZpK4rt2M") {
+        if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
+    }
     // Blackmarket Broker (hHVf5xyjob): CB stealth while champion has 3+ prep counters
     if($obj->CardID === "hHVf5xyjob") {
         if(IsClassBonusActive($obj->Controller, CardClasses("hHVf5xyjob"))) {
@@ -9874,6 +9963,23 @@ function BecomeDistant($player, $mzID) {
     if($obj !== null && $obj->CardID === "gbnvtkm7rf" && !HasNoAbilities($obj)) {
         if(IsClassBonusActive($player, ["RANGER"])) {
             DrawIntoMemory($player, 1);
+        }
+    }
+    // Whisperwind Compass (UXqhPZEq0X): [Class Bonus] Whenever a Ranger ally you control becomes distant,
+    // if that ally has no buff counters, put a buff counter on it.
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY")
+        && PropertyContains(EffectiveCardSubtypes($obj), "RANGER")) {
+        global $playerID;
+        $compassZone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $compassField = GetZone($compassZone);
+        foreach($compassField as $ci => $cObj) {
+            if(!$cObj->removed && $cObj->CardID === "UXqhPZEq0X" && !HasNoAbilities($cObj)
+                && IsClassBonusActive($obj->Controller, ["RANGER"])) {
+                if(GetCounterCount($obj, "buff") == 0) {
+                    AddCounters($obj->Controller, $mzID, "buff", 1);
+                }
+                break;
+            }
         }
     }
 }

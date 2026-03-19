@@ -300,6 +300,19 @@ function DoMaterialize($player, $mzCard) {
                 }
             }
         }
+
+        // Wavekeeper's Bond (WWlknyTxGA): whenever your champion levels up, recover 2
+        {
+            global $playerID;
+            $fZone = ($player == $playerID) ? "myField" : "theirField";
+            $field = GetZone($fZone);
+            for($wbi = 0; $wbi < count($field); ++$wbi) {
+                if(!$field[$wbi]->removed && $field[$wbi]->CardID === "WWlknyTxGA" && !HasNoAbilities($field[$wbi])) {
+                    RecoverChampion($player, 2);
+                    break;
+                }
+            }
+        }
     } else {
         MZMove($player, $mzCard, "myField");
     }

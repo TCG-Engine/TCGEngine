@@ -5540,5 +5540,74 @@ $customDQHandlers["MirrorboundInfluenceMove"] = function($player, $parts, $lastD
     MirrorboundInfluenceDiscard($player, $remaining);
 };
 
+// --- Wavekeeper's Bond (WWlknyTxGA): [Level 3+] may sacrifice to draw into memory at end phase ---
+$customDQHandlers["WavekeepersBondSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $fieldIdx = intval($parts[0]);
+    $field = &GetField($player);
+    if(isset($field[$fieldIdx]) && !$field[$fieldIdx]->removed && $field[$fieldIdx]->CardID === "WWlknyTxGA") {
+        DoSacrificeFighter($player, "myField-" . $fieldIdx);
+        DrawIntoMemory($player, 1);
+    }
+};
+
+// --- Squallsnare (cQZgiYS0w4): second target selection + suppress both ---
+function SquallsnareContinue($player, $firstMZ) {
+    DecisionQueueController::StoreVariable("squallsnare_first", $firstMZ);
+    $firstObj = GetZoneObject($firstMZ);
+    if($firstObj === null) return;
+    $firstCost = intval(CardCost_reserve($firstObj->CardID));
+    $allAllies = array_merge(
+        ZoneSearch("myField", ["ALLY"]),
+        ZoneSearch("theirField", ["ALLY"])
+    );
+    $allAllies = FilterSpellshroudTargets($allAllies);
+    $remaining = [];
+    foreach($allAllies as $mz) {
+        if($mz === $firstMZ) continue;
+        $o = GetZoneObject($mz);
+        if($o !== null && intval(CardCost_reserve($o->CardID)) === $firstCost) {
+            $remaining[] = $mz;
+        }
+    }
+    if(empty($remaining)) return;
+    $remStr = implode("&", $remaining);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $remStr, 1, tooltip:"Squallsnare:_suppress_second_ally_with_cost_$firstCost");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SquallsnareFinish", 1);
+}
+
+$customDQHandlers["SquallsnareFinish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $firstMZ = DecisionQueueController::GetVariable("squallsnare_first");
+    $secondMZ = $lastDecision;
+    // Suppress in reverse index order if same zone to avoid reindexing issues
+    $firstParts = explode("-", $firstMZ);
+    $secondParts = explode("-", $secondMZ);
+    if($firstParts[0] === $secondParts[0] && intval($firstParts[1]) < intval($secondParts[1])) {
+        SuppressAlly($player, $secondMZ);
+        SuppressAlly($player, $firstMZ);
+    } else {
+        SuppressAlly($player, $firstMZ);
+        SuppressAlly($player, $secondMZ);
+    }
+};
+
+// --- Tweedledum, Rattled Dancer (UmZpK4rt2M): opponent chose the target defender ---
+$customDQHandlers["TweedledumTargetChosen"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = $parts[0];
+    $attackerPlayer = intval($parts[1]);
+    if($lastDecision === "-" || $lastDecision === "") {
+        ClearIntent($attackerPlayer);
+        DecisionQueueController::ClearVariable("CombatAttacker");
+        DecisionQueueController::ClearVariable("CombatWeapon");
+        return;
+    }
+    // The opponent chose from their perspective (myField-X). Flip to attacker's perspective.
+    $targetMZ = FlipZonePerspective($lastDecision);
+    // Forward to AttackTargetChosen handler with the attacker's player
+    global $customDQHandlers;
+    $customDQHandlers["AttackTargetChosen"]($attackerPlayer, [$attackerMZ], $targetMZ);
+};
+
 
 ?>
