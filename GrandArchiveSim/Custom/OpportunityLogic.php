@@ -72,6 +72,9 @@ function GetPlayableFastCards($player) {
         } elseif(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
             // Expeditious Opening: next ally activated this turn gets fast activation
             $fastCards[] = "myHand-" . $i;
+        } elseif($obj->CardID === "B1EbF6jcYF" && IsAliceBonusActive($player)) {
+            // Golden Gambit: [Alice Bonus] Fast Activation
+            $fastCards[] = "myHand-" . $i;
         }
     }
 

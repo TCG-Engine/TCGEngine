@@ -264,6 +264,10 @@ function GetValidAttackTargets($attackerMZ) {
     if(!$bypassIntercept && $attacker !== null && in_array("b0iz7wm7ow_UNBLOCKABLE", $attacker->TurnEffects)) {
         $bypassIntercept = true;
     }
+    // Generic unblockable TurnEffect (e.g. Weiss Knight gaining unblockable from Chessman Command activation)
+    if(!$bypassIntercept && $attacker !== null && in_array("UNBLOCKABLE", $attacker->TurnEffects)) {
+        $bypassIntercept = true;
+    }
     // Strike from the Mist (DHn9J7gX6g): CB if prepared, can't be intercepted
     if(!$bypassIntercept) {
         $intentCards = GetIntentCards($player);
@@ -2035,6 +2039,28 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Queen Piece (m69XrVkaVh): [Alice Bonus] prevent all damage while you control a Chessman Pawn ally
+    if($amount > 0 && $targetObj->CardID === "m69XrVkaVh" && !HasNoAbilities($targetObj)) {
+        $targetController = $targetObj->Controller ?? $player;
+        if(IsAliceBonusActive($targetController)) {
+            global $playerID;
+            $pawnZone = $targetController == $playerID ? "myField" : "theirField";
+            $pawnAllies = ZoneSearch($pawnZone, ["ALLY"], cardSubtypes: ["PAWN", "CHESSMAN"]);
+            // Filter to only Chessman Pawn allies (both subtypes)
+            $hasPawn = false;
+            foreach($pawnAllies as $pMZ) {
+                $pObj = GetZoneObject($pMZ);
+                if($pObj !== null && PropertyContains(EffectiveCardSubtypes($pObj), "CHESSMAN")
+                    && PropertyContains(EffectiveCardSubtypes($pObj), "PAWN")
+                    && $pObj->GetMzID() !== $target) {
+                    $hasPawn = true;
+                    break;
+                }
+            }
+            if($hasPawn) return; // All damage prevented
+        }
+    }
+
     // Shangxiang, Fierce Princess (s2tzwv1uw3): if imbued, prevent 2 damage from non-norm sources
     if($amount > 0 && $targetObj->CardID === "s2tzwv1uw3" && !HasNoAbilities($targetObj)
        && in_array("IMBUED", $targetObj->TurnEffects)) {
@@ -2058,6 +2084,38 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(in_array("BARRIER_PREVENT_DAMAGE", $targetObj->TurnEffects)) {
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));
         return; // Damage fully prevented
+    }
+
+    // Veiled Gambit (hxdfyA0eP1): prevent next 4 damage until EOT
+    foreach($targetObj->TurnEffects as $te) {
+        if(strpos($te, "VEILED_GAMBIT_") === 0) {
+            $preventAmount = intval(substr($te, strlen("VEILED_GAMBIT_")));
+            $prevented = min($preventAmount, $amount);
+            $amount -= $prevented;
+            $remaining = $preventAmount - $prevented;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== $te));
+            if($remaining > 0) {
+                $targetObj->TurnEffects[] = "VEILED_GAMBIT_" . $remaining;
+            }
+            if($amount <= 0) return;
+            break;
+        }
+    }
+
+    // Alice Lineage Release (daip7s9ztd): prevent next 3 damage to each awake Chessman ally this turn
+    foreach($targetObj->TurnEffects as $te) {
+        if(strpos($te, "ALICE_LR_PREVENT_") === 0) {
+            $preventAmount = intval(substr($te, strlen("ALICE_LR_PREVENT_")));
+            $prevented = min($preventAmount, $amount);
+            $amount -= $prevented;
+            $remaining = $preventAmount - $prevented;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== $te));
+            if($remaining > 0) {
+                $targetObj->TurnEffects[] = "ALICE_LR_PREVENT_" . $remaining;
+            }
+            if($amount <= 0) return;
+            break;
+        }
     }
 
     // Pang Tong, Young Phoenix (0mz09ojy0t): prevent all but 3 damage when hand count == memory count

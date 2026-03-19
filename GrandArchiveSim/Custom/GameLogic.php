@@ -508,6 +508,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(count($mat) < 2) return;
     }
 
+    // Chessman sacrifice cards: need at least one Chessman ally on field
+    $chessmanSacReq = ["B1EbF6jcYF", "NGAy4rNwUo", "fgBpQZe0js", "hxdfyA0eP1"];
+    if(in_array($sourceObject->CardID, $chessmanSacReq)) {
+        if(empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]))) return;
+    }
+
+    // Sacrifice Play (1jmQ9XSLph): Command Chessman — needs a Chessman ally to command
+    // (the sacrifice itself is optional "up to two", so no pre-check needed for sacrifice)
+
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     // Track the source zone so "whenever you activate from memory" triggers can check it in OnCardActivated.
     DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
@@ -1191,6 +1200,20 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 2);
     }
 
+    // Hunt, Weiss King (Y6PZntlVDl): [Alice Bonus] costs 2 less per Pawn ally (up to 2 Pawns)
+    if($obj->CardID === "Y6PZntlVDl" && IsAliceBonusActive($player)) {
+        $pawnAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["PAWN"]);
+        $pawnDiscount = min(2, count($pawnAllies)) * 2;
+        $reserveCost = max(0, $reserveCost - $pawnDiscount);
+    }
+
+    // Briar's Spindle (9ooAGDhBj7): global effect — next Chessman card costs 2 less
+    if(GlobalEffectCount($player, "9ooAGDhBj7_COST") > 0
+        && PropertyContains(CardSubtypes($obj->CardID), "CHESSMAN")) {
+        $reserveCost = max(0, $reserveCost - 2);
+        RemoveGlobalEffect($player, "9ooAGDhBj7_COST");
+    }
+
     // 1.5 Declaring Targets — Ally Link: prompt the player to choose a target ally
     if($hasAllyLink) {
         $allyTargets = ZoneSearch("myField", ["ALLY"]);
@@ -1349,6 +1372,37 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $fireStr = implode("&", $fireCards);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $fireStr, 100, tooltip:"Discard_a_fire_element_card");
             DecisionQueueController::AddDecision($player, "CUSTOM", "FiretunedAutomatonDiscard", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Chessman ally sacrifice (Golden Gambit, Queen's Gambit, Freezing Gambit, Veiled Gambit)
+    $chessmanSacCards = ["B1EbF6jcYF", "NGAy4rNwUo", "fgBpQZe0js", "hxdfyA0eP1"];
+    if(in_array($obj->CardID, $chessmanSacCards)) {
+        $chessmanAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
+        if(!empty($chessmanAllies)) {
+            $sacStr = implode("&", $chessmanAllies);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $sacStr, 100, tooltip:"Sacrifice_a_Chessman_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ChessmanSacrifice|" . $obj->CardID, 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Sacrifice Play (1jmQ9XSLph): sacrifice up to two awake Chessman allies
+    if($obj->CardID === "1jmQ9XSLph") {
+        $awakeChessman = [];
+        $myField = GetZone("myField");
+        for($fi = 0; $fi < count($myField); ++$fi) {
+            if(!$myField[$fi]->removed && PropertyContains(EffectiveCardType($myField[$fi]), "ALLY")
+               && PropertyContains(EffectiveCardSubtypes($myField[$fi]), "CHESSMAN")
+               && isset($myField[$fi]->Status) && $myField[$fi]->Status == 2) {
+                $awakeChessman[] = "myField-" . $fi;
+            }
+        }
+        if(!empty($awakeChessman)) {
+            $sacStr = implode("&", $awakeChessman);
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $sacStr, 100, tooltip:"Sacrifice_an_awake_Chessman_ally?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SacrificePlayCost1", 100);
+        } else {
+            DecisionQueueController::StoreVariable("sacrificePlayCount", "0");
         }
     }
 
@@ -2406,6 +2460,28 @@ function OnCardActivated($player, $mzCard) {
                     AddTurnEffect("myField-" . $fi, "nZFkDcvpaY_POWER");
                 }
                 break;
+            case "IBXLKkBUe1": // Weiss Knight: whenever you activate a Chessman Command card, gain unblockable until EOT
+                if(PropertyContains($subtypes, "COMMAND") && PropertyContains($subtypes, "CHESSMAN")
+                    && !HasNoAbilities($field[$fi])) {
+                    AddTurnEffect("myField-" . $fi, "UNBLOCKABLE");
+                }
+                break;
+            case "W0WfIEDs3n": // Field of Ranks and Files: first Chessman Command each of your turns → +2 POWER to intent card
+                if(PropertyContains($subtypes, "COMMAND") && PropertyContains($subtypes, "CHESSMAN")
+                    && !HasNoAbilities($field[$fi])
+                    && $player === $turnPlayer
+                    && GlobalEffectCount($player, "W0WfIEDs3n_CMD") == 0) {
+                    AddGlobalEffects($player, "W0WfIEDs3n_CMD");
+                    // Add +2 POWER to the attack card on the effect stack
+                    $es = GetZone("EffectStack");
+                    for($esi = count($es) - 1; $esi >= 0; --$esi) {
+                        if(!$es[$esi]->removed && $es[$esi]->CardID === $obj->CardID) {
+                            AddTurnEffect("EffectStack-" . $esi, "W0WfIEDs3n-CMD");
+                            break;
+                        }
+                    }
+                }
+                break;
         }
     }
 
@@ -2830,6 +2906,29 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "9ooAGDhBj7": // Briar's Spindle
+            if($abilityIndex == 0) {
+                // Ability 0: Banish self (wake Chessman allies — effect queued by ability body)
+                MZMove($player, $mzCard, "myBanish");
+                DecisionQueueController::CleanupRemovedCards();
+            } else if($abilityIndex == 1) {
+                // Ability 1: REST (next Chessman -2 cost)
+                $sourceObj = &GetZoneObject($mzCard);
+                $sourceObj->Status = 1;
+            }
+            break;
+        case "JwgigfOaG8": // Lagomorph Piece: (3) reserve + banish (reserve queued by ability body)
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "K5qIbjeqQd": // Dropped Band: banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "cMixAGt8zv": // Gustmark Gauge: (2) reserve + REST (reserve queued by ability body)
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
     }
 }
 
@@ -3215,6 +3314,62 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         }
         if(!$hasCommand) return;
         if(empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]))) return;
+    }
+
+    // Alice, Whim's Monarch (9K4etFOi4M): REST — must be awake + no Pawn ally on field
+    if($cardID === "9K4etFOi4M") {
+        if($sourceObject->Status != 2) return;
+        $pawnAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["PAWN"]);
+        if(!empty($pawnAllies)) return; // Already control a Pawn
+    }
+    // Briar's Spindle (9ooAGDhBj7): ability 0 = banish (opponent's turn only); ability 1 = REST (awake + King)
+    if($cardID === "9ooAGDhBj7") {
+        if($abilityIndex == 0) {
+            $turnPlayer = GetTurnPlayer();
+            if($turnPlayer == $player) return; // Only during opponent's turn
+        } else if($abilityIndex == 1) {
+            if($sourceObject->Status != 2) return;
+            $kings = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN", "KING"]);
+            if(empty($kings)) return;
+        }
+    }
+    // Lagomorph Piece (JwgigfOaG8): (3) + banish — needs 3 cards in hand + Chessman Command in GY
+    if($cardID === "JwgigfOaG8") {
+        $hand = &GetHand($player);
+        $handCount = count(array_filter($hand, fn($c) => !isset($c->removed) || !$c->removed));
+        if($handCount < 3) return;
+        $commandGY = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if(!$gy[$gi]->removed && PropertyContains(CardSubtypes($gy[$gi]->CardID), "CHESSMAN")
+               && PropertyContains(CardSubtypes($gy[$gi]->CardID), "COMMAND")) {
+                $commandGY[] = "myGraveyard-" . $gi;
+            }
+        }
+        if(empty($commandGY)) return;
+    }
+    // Hunt, Weiss King (Y6PZntlVDl): REST — awake + at least one mode not yet chosen
+    if($cardID === "Y6PZntlVDl") {
+        if($sourceObject->Status != 2) return;
+        $m1 = GetCounterCount($sourceObject, "hunt_bishop") > 0;
+        $m2 = GetCounterCount($sourceObject, "hunt_knight") > 0;
+        $m3 = GetCounterCount($sourceObject, "hunt_rook") > 0;
+        if($m1 && $m2 && $m3) return; // All modes used
+        // Check at least one mode has valid targets
+        global $playerID;
+        $zone = $player == $playerID ? "myField" : "theirField";
+        $hasValid = false;
+        if(!$m1 && !empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "BISHOP"]))) $hasValid = true;
+        if(!$m2 && !empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "KNIGHT"]))) $hasValid = true;
+        if(!$m3 && !empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "ROOK"]))) $hasValid = true;
+        if(!$hasValid) return;
+    }
+    // Gustmark Gauge (cMixAGt8zv): (2), REST — must be awake + 2 cards in hand
+    if($cardID === "cMixAGt8zv") {
+        if($sourceObject->Status != 2) return;
+        $hand = &GetHand($player);
+        $handCount = count(array_filter($hand, fn($c) => !isset($c->removed) || !$c->removed));
+        if($handCount < 2) return;
     }
 
     // Cardistry: block activation if already used (per-card, per-game)
@@ -5910,6 +6065,77 @@ function ObjectCurrentPower($obj) {
                 $power += count($allies);
             }
             break;
+        case "IBXLKkBUe1": // Weiss Knight: Commanded Will 1
+        case "bGmutHfgMl": // Rowland, Schwartz Knight: Commanded Will 1
+            {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $obj->GetMzID() === $combatAttacker) {
+                    $intentCards = GetIntentCards($obj->Controller);
+                    foreach($intentCards as $iMZ) {
+                        $iObj = GetZoneObject($iMZ);
+                        if($iObj !== null && PropertyContains(CardSubtypes($iObj->CardID), "COMMAND")) {
+                            $power += 1;
+                            break;
+                        }
+                    }
+                }
+            }
+            break;
+        case "Rpr6yCQKU6": // Pawn Piece: [Alice Bonus] Commanded Will 1
+            if(IsAliceBonusActive($obj->Controller)) {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $obj->GetMzID() === $combatAttacker) {
+                    $intentCards = GetIntentCards($obj->Controller);
+                    foreach($intentCards as $iMZ) {
+                        $iObj = GetZoneObject($iMZ);
+                        if($iObj !== null && PropertyContains(CardSubtypes($iObj->CardID), "COMMAND")) {
+                            $power += 1;
+                            break;
+                        }
+                    }
+                }
+            }
+            break;
+        case "m69XrVkaVh": // Queen Piece: [Alice Bonus] Commanded Will 6
+            if(IsAliceBonusActive($obj->Controller)) {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $obj->GetMzID() === $combatAttacker) {
+                    $intentCards = GetIntentCards($obj->Controller);
+                    foreach($intentCards as $iMZ) {
+                        $iObj = GetZoneObject($iMZ);
+                        if($iObj !== null && PropertyContains(CardSubtypes($iObj->CardID), "COMMAND")) {
+                            $power += 6;
+                            break;
+                        }
+                    }
+                }
+            }
+            break;
+        case "Dgtim99eB5": // Weiss Bishop: [Alice Bonus] +1 POWER while attacking unit with odd life stat
+            if(IsAliceBonusActive($obj->Controller)) {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $obj->GetMzID() === $combatAttacker
+                    && $combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null) {
+                        $targetLife = CardLife($targetObj->CardID);
+                        if($targetLife !== null && $targetLife > 0 && $targetLife % 2 != 0) {
+                            $power += 1;
+                        }
+                    }
+                }
+            }
+            break;
+        case "1jmQ9XSLph": // Sacrifice Play: +2 POWER per ally sacrificed (stored as counter)
+            {
+                $sacCount = 0;
+                if(is_array($obj->Counters) && isset($obj->Counters['sacPlayCount'])) {
+                    $sacCount = intval($obj->Counters['sacPlayCount']);
+                }
+                $power += $sacCount * 2;
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -6080,6 +6306,17 @@ function ObjectCurrentPower($obj) {
            && in_array("ENTERED_THIS_TURN", $obj->TurnEffects)) {
             foreach($field as $fieldObj) {
                 if(!$fieldObj->removed && $fieldObj->CardID === "hbpu4fo8oo" && !HasNoAbilities($fieldObj)) {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
+        // Gustmark Gauge (cMixAGt8zv): [Level 2+] while rested, Chessman allies you control get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "CHESSMAN")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "cMixAGt8zv" && !HasNoAbilities($fieldObj)
+                   && isset($fieldObj->Status) && $fieldObj->Status == 1
+                   && PlayerLevel($obj->Controller) >= 2) {
                     $power += 1;
                     break;
                 }
@@ -6327,6 +6564,18 @@ function ObjectCurrentPower($obj) {
                 break;
             case "nZFkDcvpaY_POWER": // Memorite Blade: +1 POWER from spell activation this turn
                 $power += 1;
+                break;
+            case "W0WfIEDs3n": // Field of Ranks and Files: first Chessman ally enter +2 POWER until EOT
+                $power += 2;
+                break;
+            case "W0WfIEDs3n-CMD": // Field of Ranks and Files: first Chessman Command +2 POWER
+                $power += 2;
+                break;
+            case "NGAy4rNwUo": // Queen's Gambit: [Alice Bonus] Chessman ally On Enter +1 POWER until EOT
+                $power += 1;
+                break;
+            case "fgBpQZe0js-debuff": // Freezing Gambit: target unit's attacks get -3 POWER until EOT
+                $power -= 3;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -6918,6 +7167,16 @@ function ObjectCurrentHP($obj) {
                 }
             }
         }
+        // Gustmark Gauge (cMixAGt8zv): while awake, Chessman allies you control get +1 LIFE
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "CHESSMAN")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "cMixAGt8zv" && !HasNoAbilities($fieldObj)
+                   && isset($fieldObj->Status) && $fieldObj->Status == 2) {
+                    $cardLife += 1;
+                    break;
+                }
+            }
+        }
     }
     // Fractured Crown (suo6gb0op3): [Class Bonus] champion gets +2 LIFE per unique ally card in GY
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
@@ -7100,6 +7359,10 @@ function ObjectCurrentHP($obj) {
     // Lucenia's Reign (zrvvwz3ww9): target Chessman ally +1 LIFE until end of turn
     if(in_array("zrvvwz3ww9_LIFE", $obj->TurnEffects)) {
         $cardLife += 1;
+    }
+    // Hunt, Weiss King (Y6PZntlVDl): Rook option — target Chessman Rook +2 LIFE until end of turn
+    if(in_array("Y6PZntlVDl_LIFE", $obj->TurnEffects)) {
+        $cardLife += 2;
     }
     return $cardLife;
 }
@@ -8936,6 +9199,59 @@ function IsDiaoChanBonus($player) {
         || ChampionHasInLineage($player, "d7l6i5thdy"); // Diao Chan L3
 }
 
+// --- Alice Chessman Helpers ---
+
+function IsAliceBonusActive($player) {
+    return ChampionHasInLineage($player, "daip7s9ztd")  // Alice, Golden Queen (L1)
+        || ChampionHasInLineage($player, "9K4etFOi4M"); // Alice, Whim's Monarch (L2)
+}
+
+function SummonPawnPieceToken($player, $count = 1) {
+    global $playerID;
+    for($i = 0; $i < $count; ++$i) {
+        MZAddZone($player, "myField", "Rpr6yCQKU6");
+        $zone = $player == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        $newIdx = count($field) - 1;
+        OnChessmanAllyEntered($player, $zone . "-" . $newIdx);
+    }
+}
+
+function SummonQueenPieceToken($player) {
+    global $playerID;
+    MZAddZone($player, "myField", "m69XrVkaVh");
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $newIdx = count($field) - 1;
+    OnChessmanAllyEntered($player, $zone . "-" . $newIdx);
+}
+
+function OnChessmanAllyEntered($player, $mzID) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    // Field of Ranks and Files (W0WfIEDs3n): first Chessman ally enter each of your turns → +2 POWER until EOT
+    $turnPlayer = &GetTurnPlayer();
+    if($player === $turnPlayer && GlobalEffectCount($player, "W0WfIEDs3n_ALLY") == 0) {
+        foreach($field as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID === "W0WfIEDs3n") {
+                AddGlobalEffects($player, "W0WfIEDs3n_ALLY");
+                AddTurnEffect($mzID, "W0WfIEDs3n");
+                break;
+            }
+        }
+    }
+    // Queen's Gambit (NGAy4rNwUo): [Alice Bonus] Chessman allies "On Enter: +1 POWER until EOT"
+    if(IsAliceBonusActive($player)) {
+        foreach($field as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID === "NGAy4rNwUo" && !HasNoAbilities($fieldObj)) {
+                AddTurnEffect($mzID, "NGAy4rNwUo");
+                break;
+            }
+        }
+    }
+}
+
 /**
  * Check if a player currently has the Shifting Currents mastery active.
  */
@@ -9741,6 +10057,19 @@ function HasStealth($obj) {
     }
     // Hidden Longbowman (bx4k3akqx7): stealth while distant
     if($obj->CardID === "bx4k3akqx7" && IsDistant($obj)) return true;
+    // Weiss Bishop (Dgtim99eB5): stealth while you control one or more Pawn allies
+    if($obj->CardID === "Dgtim99eB5") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj !== $obj
+                && PropertyContains(EffectiveCardType($fObj), "ALLY")
+                && PropertyContains(EffectiveCardSubtypes($fObj), "PAWN")) {
+                return true;
+            }
+        }
+    }
     // Noire, Ace of Spades (wbjc9t8ycp): stealth while you control another Suited ally
     if($obj->CardID === "wbjc9t8ycp") {
         global $playerID;
@@ -10035,6 +10364,19 @@ function HasTaunt($obj) {
     if($obj->CardID === "8mrn8at13c" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Rivulet Adjutant (y547d3iixm): [Class Bonus] Taunt
     if($obj->CardID === "y547d3iixm" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
+    // Golden Pawn (Lewf9sfv9m): Taunt while you control another Chessman unit
+    if($obj->CardID === "Lewf9sfv9m") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj !== $obj
+                && (PropertyContains(EffectiveCardType($fObj), "ALLY") || PropertyContains(EffectiveCardType($fObj), "CHAMPION"))
+                && PropertyContains(EffectiveCardSubtypes($fObj), "CHESSMAN")) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 

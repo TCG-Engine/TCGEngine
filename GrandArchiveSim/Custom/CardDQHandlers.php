@@ -5893,4 +5893,194 @@ function PutCardFromGYIntoDeckAt($player, $cardID, $position) {
     array_splice($deck, $pos, 0, [$newObj]);
 }
 
+// --- Chessman Sacrifice DQ handlers ---
+
+// ChessmanSacrifice: sacrifice the chosen Chessman ally. Param: parts[0] = activating card ID.
+$customDQHandlers["ChessmanSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $activatingCardID = $parts[0] ?? "";
+    $sacObj = GetZoneObject($lastDecision);
+    $sacrificedCardID = $sacObj !== null ? $sacObj->CardID : "";
+    // Store sacrificed info for Queen's Gambit (NGAy4rNwUo) Enter ability
+    DecisionQueueController::StoreVariable("chessmanSacrificeCardID", $sacrificedCardID);
+    $isQueen = $sacObj !== null && PropertyContains(EffectiveCardSubtypes($sacObj), "QUEEN");
+    DecisionQueueController::StoreVariable("chessmanSacrificeWasQueen", $isQueen ? "YES" : "NO");
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+// SacrificePlayCost1: first sacrifice for Sacrifice Play (1jmQ9XSLph).
+$customDQHandlers["SacrificePlayCost1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        DecisionQueueController::StoreVariable("sacrificePlayCount", "0");
+        return;
+    }
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    // Offer second sacrifice
+    $awakeChessman = [];
+    $myField = GetZone("myField");
+    for($fi = 0; $fi < count($myField); ++$fi) {
+        if(!$myField[$fi]->removed && PropertyContains(EffectiveCardType($myField[$fi]), "ALLY")
+           && PropertyContains(EffectiveCardSubtypes($myField[$fi]), "CHESSMAN")
+           && isset($myField[$fi]->Status) && $myField[$fi]->Status == 2) {
+            $awakeChessman[] = "myField-" . $fi;
+        }
+    }
+    if(!empty($awakeChessman)) {
+        $sacStr = implode("&", $awakeChessman);
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $sacStr, 100, tooltip:"Sacrifice_a_second_awake_Chessman_ally?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SacrificePlayCost2", 100);
+    } else {
+        DecisionQueueController::StoreVariable("sacrificePlayCount", "1");
+    }
+};
+
+// SacrificePlayCost2: second sacrifice for Sacrifice Play.
+$customDQHandlers["SacrificePlayCost2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        DecisionQueueController::StoreVariable("sacrificePlayCount", "1");
+        return;
+    }
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    DecisionQueueController::StoreVariable("sacrificePlayCount", "2");
+};
+
+// BriarSpindleWakeup: wake each Chessman ally you control (ability 0 effect).
+$customDQHandlers["BriarSpindleWakeup"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && PropertyContains(EffectiveCardType($field[$i]), "ALLY")
+           && PropertyContains(EffectiveCardSubtypes($field[$i]), "CHESSMAN")
+           && isset($field[$i]->Status) && $field[$i]->Status == 1) {
+            WakeupCard($player, $zone . "-" . $i);
+        }
+    }
+};
+
+// HuntChooseMode: player chose YES/NO for a Hunt mode offer. parts: [huntMZ, modeName, remainingModes]
+$customDQHandlers["HuntChooseMode"] = function($player, $parts, $lastDecision) {
+    $huntMZ = $parts[0] ?? "";
+    $modeName = $parts[1] ?? "";
+    $remainingModes = $parts[2] ?? "";
+
+    if($lastDecision === "YES") {
+        // Execute chosen mode
+        $huntObj = &GetZoneObject($huntMZ);
+        if($huntObj === null) return;
+        global $playerID;
+        $zone = $player == $playerID ? "myField" : "theirField";
+
+        if($modeName === "BISHOP") {
+            AddCounters($player, $huntMZ, "hunt_bishop", 1);
+            Draw($player, amount: 1);
+        } elseif($modeName === "KNIGHT") {
+            AddCounters($player, $huntMZ, "hunt_knight", 1);
+            $knights = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "KNIGHT"]);
+            if(!empty($knights)) {
+                if(count($knights) === 1) {
+                    AddCounters($player, $knights[0], "buff", 1);
+                } else {
+                    $knightStr = implode("&", $knights);
+                    DecisionQueueController::AddDecision($player, "MZCHOOSE", $knightStr, 1, tooltip:"Put_a_buff_counter_on_a_Knight");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "HuntKnightBuff", 1);
+                }
+            }
+        } elseif($modeName === "ROOK") {
+            AddCounters($player, $huntMZ, "hunt_rook", 1);
+            $rooks = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "ROOK"]);
+            if(!empty($rooks)) {
+                if(count($rooks) === 1) {
+                    $rookMZ = $rooks[0];
+                    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                    if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
+                        DecisionQueueController::StoreVariable("CombatTarget", $rookMZ);
+                    }
+                    AddTurnEffect($rookMZ, "Y6PZntlVDl_LIFE");
+                } else {
+                    $rookStr = implode("&", $rooks);
+                    DecisionQueueController::AddDecision($player, "MZCHOOSE", $rookStr, 1, tooltip:"Redirect_attack_to_Rook");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "HuntRookRedirect", 1);
+                }
+            }
+        }
+    } else {
+        // Skip this mode, offer next one
+        if(empty($remainingModes)) return;
+        $modes = explode(",", $remainingModes);
+        $nextMode = array_shift($modes);
+        $nextRemaining = implode(",", $modes);
+        $tooltips = [
+            "BISHOP" => "Bishop_mode:_draw_a_card?",
+            "KNIGHT" => "Knight_mode:_put_buff_counter?",
+            "ROOK" => "Rook_mode:_redirect_attack_+2_LIFE?"
+        ];
+        $tooltip = $tooltips[$nextMode] ?? "Choose_Hunt_mode?";
+        if(empty($modes)) {
+            // Last mode — auto-execute
+            DecisionQueueController::AddDecision($player, "PASSPARAMETER", "YES", 1);
+        } else {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltip);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "HuntChooseMode|$huntMZ|$nextMode|$nextRemaining", 1);
+    }
+};
+
+// HuntKnightBuff: put a buff counter on the chosen Knight ally.
+$customDQHandlers["HuntKnightBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+// HuntRookRedirect: redirect attack to chosen Rook and give +2 LIFE.
+$customDQHandlers["HuntRookRedirect"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
+        DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
+    }
+    AddTurnEffect($lastDecision, "Y6PZntlVDl_LIFE");
+};
+
+// LagomorphPieceReturn: return a chosen Chessman Command card from GY to memory.
+$customDQHandlers["LagomorphPieceReturn"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myMemory");
+};
+
+// PawnToQueenSacrifice: on-hit sacrifice of Pawn/Golden Pawn to summon Queen Piece.
+$customDQHandlers["PawnToQueenSacrifice"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = $parts[0] ?? "";
+    if($lastDecision !== "YES") return;
+    $obj = GetZoneObject($attackerMZ);
+    if($obj === null || $obj->removed) return;
+    DoSacrificeFighter($player, $attackerMZ);
+    DecisionQueueController::CleanupRemovedCards();
+    SummonQueenPieceToken($player);
+};
+
+// WindfallCheckBanish: opponent banishes chosen GY card, then re-queues if more needed.
+// parts[0] = remaining count after this banish.
+$customDQHandlers["WindfallCheckBanish"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0] ?? 0);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    if($remaining <= 0) return;
+    global $playerID;
+    $oppGYZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+    $oppGY = GetZone($oppGYZone);
+    $validGY = [];
+    for($i = 0; $i < count($oppGY); ++$i) {
+        if(!$oppGY[$i]->removed) $validGY[] = $oppGYZone . "-" . $i;
+    }
+    if(empty($validGY)) return;
+    $gyStr = implode("&", $validGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_graveyard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "WindfallCheckBanish|" . ($remaining - 1), 1);
+};
+
 ?>
