@@ -5225,5 +5225,148 @@ $customDQHandlers["RileTheAbyss2"] = function($player, $parts, $lastDecision) {
     }
 };
 
+// ============================================================================
+// Imperious Galebind (2goaqn7ImP): suppress up to 3 target allies, items, or weapons
+// ============================================================================
+function ImperiousGalebindLoop($player, $remaining) {
+    if($remaining <= 0) return;
+    $targets = array_merge(
+        ZoneSearch("myField", ["ALLY"]),
+        ZoneSearch("theirField", ["ALLY"]),
+        ZoneSearch("myField", ["ITEM", "REGALIA"]),
+        ZoneSearch("theirField", ["ITEM", "REGALIA"]),
+        ZoneSearch("myField", ["WEAPON"]),
+        ZoneSearch("theirField", ["WEAPON"])
+    );
+    $targets = FilterSpellshroudTargets($targets);
+    $targets = array_unique($targets);
+    if(empty($targets)) return;
+    $targetStr = implode("&", $targets);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Suppress_a_target_(" . $remaining . "_remaining)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ImperiousGalebind|" . $remaining, 1);
+}
+
+$customDQHandlers["ImperiousGalebind"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
+    SuppressAlly($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    ImperiousGalebindLoop($player, $remaining - 1);
+};
+
+// ============================================================================
+// Bandersnatch, Frumious Foe (4yqL9xtzVi): activated ability — sacrifice ally for +2 POWER + cleave
+// ============================================================================
+$customDQHandlers["BandersnatchSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
+    $mzID = $parts[0]; // mzID of Bandersnatch
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    // Re-locate Bandersnatch after sacrifice (indices may have shifted)
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    for($i = 0; $i < count($field); $i++) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "4yqL9xtzVi") {
+            $newMZ = $zone . "-" . $i;
+            AddTurnEffect($newMZ, "4yqL9xtzVi_POWER");
+            AddTurnEffect($newMZ, "4yqL9xtzVi_CLEAVE");
+            break;
+        }
+    }
+};
+
+// ============================================================================
+// Ethereal Absorption (4zEOAaLdap): additional cost — return a regalia to material deck
+// ============================================================================
+$customDQHandlers["EtherealAbsorptionCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myMaterial");
+    Draw($player, 1);
+    AddPrepCounter($player, 2);
+};
+
+// ============================================================================
+// Twisted Verdict (ANrnYgZNgq): opponent looks at top 5, chooses 2 for your memory
+// ============================================================================
+function TwistedVerdictStart($player) {
+    $deck = &GetDeck($player);
+    if(empty($deck)) return;
+    $count = min(5, count($deck));
+    // Move top N cards to TempZone
+    for($i = 0; $i < $count; $i++) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    $opponent = ($player == 1) ? 2 : 1;
+    TwistedVerdictChoose($player, $opponent, 2);
+}
+
+function TwistedVerdictChoose($owner, $opponent, $remaining) {
+    if($remaining <= 0) {
+        TwistedVerdictFinish($owner);
+        return;
+    }
+    global $playerID;
+    $tempRef = ($owner == $playerID) ? "myTempZone" : "theirTempZone";
+    $tempCards = ZoneSearch($tempRef);
+    if(empty($tempCards)) return;
+    $targetStr = implode("&", $tempCards);
+    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $targetStr, 1, tooltip:"Choose_card_for_opponent's_memory_(" . $remaining . "_remaining)");
+    DecisionQueueController::AddDecision($opponent, "CUSTOM", "TwistedVerdictPick|" . $owner . "|" . $remaining, 1);
+}
+
+function TwistedVerdictFinish($owner) {
+    global $playerID;
+    $tempRef = ($owner == $playerID) ? "myTempZone" : "theirTempZone";
+    $deckRef = ($owner == $playerID) ? "myDeck" : "theirDeck";
+    // Put remaining cards on bottom of deck in any order (random for sim)
+    $remaining = ZoneSearch($tempRef);
+    foreach($remaining as $mz) {
+        MZMove($playerID, $mz, $deckRef);
+    }
+}
+
+$customDQHandlers["TwistedVerdictPick"] = function($player, $parts, $lastDecision) {
+    $owner = intval($parts[0]);
+    $remaining = intval($parts[1]);
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) {
+        TwistedVerdictFinish($owner);
+        return;
+    }
+    global $playerID;
+    $memRef = ($owner == $playerID) ? "myMemory" : "theirMemory";
+    MZMove($playerID, $lastDecision, $memRef);
+    TwistedVerdictChoose($owner, $player, $remaining - 1);
+};
+
+// ============================================================================
+// Conjuring Fluorescence (Erpyb3AGgp): materialize a regalia from material deck
+// ============================================================================
+function ConjuringFluorescenceMaterialize($player) {
+    $materialZone = GetZone("myMaterial");
+    $regalias = [];
+    for($i = 0; $i < count($materialZone); $i++) {
+        $obj = $materialZone[$i];
+        if(!$obj->removed && PropertyContains(CardType($obj->CardID), "REGALIA")) {
+            $regalias[] = "myMaterial-" . $i;
+        }
+    }
+    if(empty($regalias)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $regalias), 1,
+        tooltip:"Choose_a_regalia_to_materialize");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+}
+
+// ============================================================================
+// Buffeting Hurricane (CjL1WPvWHw): deal 2 damage to chosen champion on suppress
+// ============================================================================
+$customDQHandlers["BuffetingHurricaneDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
+    DealDamage($player, null, $lastDecision, 2);
+};
+
 
 ?>

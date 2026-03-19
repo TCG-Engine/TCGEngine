@@ -4649,6 +4649,26 @@ function SuppressAlly($player, $mzCard, $skipReplacementCheck = false) {
             }
         }
     }
+    // Buffeting Hurricane (CjL1WPvWHw): [CB] whenever you suppress an object, deal 2 to target champion
+    global $playerID;
+    $bhField = &GetField($player);
+    $bhZone = $player == $playerID ? "myField" : "theirField";
+    for($bhi = 0; $bhi < count($bhField); $bhi++) {
+        if(!$bhField[$bhi]->removed && $bhField[$bhi]->CardID === "CjL1WPvWHw" && !HasNoAbilities($bhField[$bhi])
+            && IsClassBonusActive($player, ["CLERIC"])) {
+            $champTargets = array_merge(
+                ZoneSearch("myField", ["CHAMPION"]),
+                ZoneSearch("theirField", ["CHAMPION"])
+            );
+            $champTargets = FilterSpellshroudTargets($champTargets);
+            if(!empty($champTargets)) {
+                $targetStr = implode("&", $champTargets);
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Buffeting_Hurricane:_deal_2_to_champion");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "BuffetingHurricaneDamage", 1);
+            }
+            break; // Only one Buffeting Hurricane triggers
+        }
+    }
 }
 
 function BeforeEndPhase() {
@@ -5037,6 +5057,8 @@ function ObjectCurrentPower($obj) {
     if($power === null || $power < 0) $power = 0;
     // Buff counter modifier: +1 power per buff counter (applied before other modifiers)
     $power += GetCounterCount($obj, "buff");
+    // Tweedledee, Contrarian Poet (EwUKdNL4bk): -3 POWER per hit (indefinite)
+    $power -= GetCounterCount($obj, "power_loss");
     switch($obj->CardID) { //Self power modifiers
         case "HWFWO0TB8l"://Tempest Silverback
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
@@ -6028,6 +6050,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "VERITA_POWER": // Verita On Death: Suited allies get +1 POWER (active, expires end of turn)
                 $power += 1;
+                break;
+            case "4yqL9xtzVi_POWER": // Bandersnatch, Frumious Foe: +2 POWER until end of turn
+                $power += 2;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -8333,6 +8358,7 @@ function ClassBonusActivateCostReduction($cardID) {
         '6ilt42sehq' => 1, // Slipstream Vault: [Class Bonus] costs 1 less (if targets unique ally)
         'rzsr6aw4hz' => 2, // Burst Asunder: [Class Bonus] costs 2 less
         'aj7pz79wsp' => 2, // Scorching Imperilment: [Class Bonus] costs 2 less
+        '6Rb25k7OjY' => 2, // Tempestuous Conviction: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }

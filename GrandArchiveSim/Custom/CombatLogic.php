@@ -161,6 +161,9 @@ function AttackerHasCleave($attackerMZ, $player) {
     // Bestial Frenzy (HsaWNAsmAQ): cleave via turn effect
     if(!HasNoAbilities($attacker) && ObjectHasEffect($attacker, "HsaWNAsmAQ_CLEAVE")) return true;
 
+    // Bandersnatch, Frumious Foe (4yqL9xtzVi): cleave via activated ability turn effect
+    if(!HasNoAbilities($attacker) && ObjectHasEffect($attacker, "4yqL9xtzVi_CLEAVE")) return true;
+
     // Hemorrhaging Rend (xiazfnm292): [Damage 20+] Cleave — check if intent has this card and champion has 20+ damage
     foreach($intentCards as $intentMZ) {
         $intentObj = &GetZoneObject($intentMZ);
