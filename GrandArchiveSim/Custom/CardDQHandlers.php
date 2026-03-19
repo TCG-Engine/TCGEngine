@@ -5756,4 +5756,141 @@ $customDQHandlers["EqExchangeBanish2"] = function($player, $parts, $lastDecision
 };
 
 
+// ============================================================================
+// Ignition Draw (RhSPMn8Lix): look at top 6, banish up to 2 Aethercharge,
+// put remainder on bottom in any order, activate banished this turn
+// ============================================================================
+function IgnitionDrawStart($player) {
+    $deck = &GetDeck($player);
+    $n = min(6, count($deck));
+    if($n == 0) return;
+    for($i = 0; $i < $n; $i++) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    DecisionQueueController::StoreVariable("IgnitionDraw_BanishCount", "0");
+    DecisionQueueController::StoreVariable("IgnitionDraw_TotalRevealed", strval($n));
+    IgnitionDrawChooseStep($player);
+}
+
+function IgnitionDrawChooseStep($player) {
+    $count = intval(DecisionQueueController::GetVariable("IgnitionDraw_BanishCount") ?? "0");
+    if($count >= 2) {
+        IgnitionDrawRearrange($player);
+        return;
+    }
+    $tempZone = GetZone("myTempZone");
+    $aethercharges = [];
+    for($i = 0; $i < count($tempZone); $i++) {
+        if(!$tempZone[$i]->removed && PropertyContains(CardSubtypes($tempZone[$i]->CardID), "AETHERCHARGE")) {
+            $aethercharges[] = "myTempZone-" . $i;
+        }
+    }
+    if(empty($aethercharges)) {
+        IgnitionDrawRearrange($player);
+        return;
+    }
+    $targetStr = implode("&", $aethercharges);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, "Banish_an_Aethercharge_card?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "IgnitionDrawBanishChoice", 1);
+}
+
+$customDQHandlers["IgnitionDrawBanishChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        IgnitionDrawRearrange($player);
+        return;
+    }
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) { IgnitionDrawRearrange($player); return; }
+    $banishedMZ = MZMove($player, $lastDecision, "myBanish");
+    // Tag banished card so it can be activated from banishment this turn
+    $banish = GetZone("myBanish");
+    for($bi = count($banish) - 1; $bi >= 0; $bi--) {
+        if(!$banish[$bi]->removed && $banish[$bi]->CardID === $obj->CardID) {
+            if(!is_array($banish[$bi]->Counters)) $banish[$bi]->Counters = [];
+            $banish[$bi]->Counters['_ignitionDraw'] = 1;
+            break;
+        }
+    }
+    $count = intval(DecisionQueueController::GetVariable("IgnitionDraw_BanishCount") ?? "0");
+    DecisionQueueController::StoreVariable("IgnitionDraw_BanishCount", strval($count + 1));
+    IgnitionDrawChooseStep($player);
+};
+
+function IgnitionDrawRearrange($player) {
+    $tempZone = GetZone("myTempZone");
+    $remaining = [];
+    for($i = 0; $i < count($tempZone); $i++) {
+        if(!$tempZone[$i]->removed) {
+            $remaining[] = $tempZone[$i]->CardID;
+        }
+    }
+    if(empty($remaining)) return;
+    $param = "Top=;Bottom=" . implode(",", $remaining);
+    DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Put_remaining_on_bottom_of_deck_in_any_order");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "IgnitionDrawRearrangeApply", 1);
+}
+
+$customDQHandlers["IgnitionDrawRearrangeApply"] = function($player, $parts, $lastDecision) {
+    $deck = &GetDeck($player);
+    $tempZone = &GetTempZone($player);
+
+    // Parse the MZREARRANGE result
+    $piles = ["Top" => [], "Bottom" => []];
+    foreach(explode(";", $lastDecision) as $pileStr) {
+        $eqPos = strpos($pileStr, "=");
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        if(isset($piles[$pileName])) {
+            $piles[$pileName] = ($cardsStr !== "") ? explode(",", $cardsStr) : [];
+        }
+    }
+
+    // Remove all remaining tempzone objects
+    foreach($tempZone as $obj) {
+        if(!$obj->removed) $obj->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+
+    // All cards go to bottom of deck (Bottom pile first, then any accidentally placed in Top)
+    $allCards = array_merge($piles["Bottom"], $piles["Top"]);
+    foreach($allCards as $cid) {
+        $newObj = new Deck($cid, 'Deck', $player);
+        $deck[] = $newObj;
+    }
+};
+
+// ============================================================================
+// PutCardFromGYIntoDeckAt: move a card from graveyard into deck at a given position
+// ============================================================================
+/**
+ * Find the first copy of $cardID in the player's graveyard and insert it
+ * into their deck at the given 0-based position.
+ * Position 0 = top, position 3 = fourth from top, etc.
+ * If the deck is shorter than $position, the card goes to the bottom.
+ */
+function PutCardFromGYIntoDeckAt($player, $cardID, $position) {
+    global $playerID;
+    $gyZone = ($player == $playerID) ? "myGraveyard" : "theirGraveyard";
+    $gy = GetZone($gyZone);
+    $foundMZ = null;
+    for($i = 0; $i < count($gy); $i++) {
+        if(!$gy[$i]->removed && $gy[$i]->CardID === $cardID) {
+            $foundMZ = $gyZone . "-" . $i;
+            break;
+        }
+    }
+    if($foundMZ === null) return;
+    // Remove from graveyard
+    $obj = GetZoneObject($foundMZ);
+    if($obj === null) return;
+    $obj->Remove();
+    DecisionQueueController::CleanupRemovedCards();
+    // Insert into deck at position
+    $deck = &GetDeck($player);
+    $newObj = new Deck($cardID, 'Deck', $player);
+    $pos = min($position, count($deck));
+    array_splice($deck, $pos, 0, [$newObj]);
+}
+
 ?>

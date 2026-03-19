@@ -346,6 +346,18 @@ function ActionMap($actionCard)
                     }
                 }
             }
+            // Ignition Draw (RhSPMn8Lix): activate Aethercharge from banishment this turn
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_ignitionDraw'])) {
+                    unset($bObj->Counters['_ignitionDraw']);
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             break;
         case "myMaterial":
             // Bagua of Vital Demise (imdj3c7oh0): may activate from material deck when SC faces West
@@ -605,6 +617,24 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(GlobalEffectCount($player, "1fy8l4pxs9_COST") > 0) {
         $reserveCost = max(0, $reserveCost - 1);
         RemoveGlobalEffect($player, "1fy8l4pxs9_COST");
+    }
+
+    // Ignition Draw (RhSPMn8Lix): if champion is distant, costs 2 less
+    if($obj->CardID === "RhSPMn8Lix") {
+        $champMZ = FindChampionMZ($player);
+        if($champMZ !== null) {
+            $champObj = GetZoneObject($champMZ);
+            if($champObj !== null && IsDistant($champObj)) {
+                $reserveCost = max(0, $reserveCost - 2);
+            }
+        }
+    }
+
+    // Mistral Ranger (lClyP34mj6): [CB] costs 1 less if Aethercharge activated this turn
+    if($obj->CardID === "lClyP34mj6" && IsClassBonusActive($player, ["RANGER"])) {
+        if(AetherchargeActivatedCount($player) > 0) {
+            $reserveCost = max(0, $reserveCost - 1);
+        }
     }
 
     // Enveloping Soulmist (kYG1EDltdI): [CB] champion awake → costs 2 less
@@ -5872,6 +5902,14 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "payjps7DkB": // Fellowship's Gale: +1 POWER per ally you control
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $allies = ZoneSearch($zone, ["ALLY"]);
+                $power += count($allies);
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -7194,6 +7232,7 @@ $starcallingCards["zuj68m69iq"] = 0; // Astra Sight: Starcalling (0)
 $starcallingCards["4d5vettczb"] = 2; // Cometfall: Starcalling (2)
 $starcallingCards["dwavcoxpnj"] = 3; // Meteor Strike: Starcalling (3)
 $starcallingCards["xmtjrvfpuc"] = 1; // Stellaria Shower: Starcalling (1)
+$starcallingCards["dWgPzoEbIE"] = 0; // Cosmic Focus: Starcalling (0)
 
 /**
  * Get the effective starcalling cost for a card during a glimpse.
@@ -7295,6 +7334,11 @@ function Glimpse($player, $amount) {
     $zone = &GetDeck($player);
     $n = min($amount, count($zone));
     if($n == 0) return;
+
+    // Starstrung Reading (gwWociEfxb): consume one aethercalling charge per glimpse
+    if(GlobalEffectCount($player, "gwWociEfxb_AETHERCALLING") > 0) {
+        RemoveGlobalEffect($player, "gwWociEfxb_AETHERCALLING");
+    }
 
     // Collect the top N card IDs
     $cardIDs = [];
@@ -8146,6 +8190,7 @@ $foreverEffects["OBSEQUIOUS_BLOW_COST"] = true;
 // PENDING survives end-of-turn cleanup; converted to VERITA_POWER in WakeUpPhase
 $foreverEffects["VERITA_POWER_PENDING"] = true;
 // Don't display this effect on field cards — it's a global attack-prevention flag
+$doesGlobalEffectApply["gwWociEfxb_AETHERCALLING"] = function($obj) { return false; }; // Starstrung Reading: counter only, not a field effect
 $doesGlobalEffectApply["wr42i6eifn"] = function($obj) { return false; };
 // Freydis permanent distant: apply to Ranger units only
 $doesGlobalEffectApply["FREYDIS_PERMANENT_DISTANT"] = function($obj) {
