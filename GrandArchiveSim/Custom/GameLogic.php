@@ -409,6 +409,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(GetTurnPlayer() == $player) return;
     }
 
+    // Unmoored Call (etobC7HEHw): only during an opponent's recollection phase
+    if($sourceObject->CardID === "etobC7HEHw") {
+        if(HasOpportunity($player)) return;
+        $turnPlayer = GetTurnPlayer();
+        if($turnPlayer == $player) return;
+    }
+
     // Smash with Obelisk (2kkvoqk1l7): mandatory sacrifice of a domain you control
     if($sourceObject->CardID === "2kkvoqk1l7") {
         $domains = ZoneSearch("myField", ["DOMAIN"]);
@@ -598,6 +605,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(GlobalEffectCount($player, "1fy8l4pxs9_COST") > 0) {
         $reserveCost = max(0, $reserveCost - 1);
         RemoveGlobalEffect($player, "1fy8l4pxs9_COST");
+    }
+
+    // Enveloping Soulmist (kYG1EDltdI): [CB] champion awake → costs 2 less
+    if($obj->CardID === "kYG1EDltdI" && IsClassBonusActive($player, ["ASSASSIN"])) {
+        $champObj = GetPlayerChampion($player);
+        if($champObj !== null && isset($champObj->Status) && $champObj->Status == 2) {
+            $reserveCost = max(0, $reserveCost - 2);
+        }
     }
 
     // Summon Sentinels (5tlzsmw3rr): [Class Bonus] costs 1 less for each domain you control
@@ -2355,6 +2370,12 @@ function OnCardActivated($player, $mzCard) {
                     AddCounters($player, "myField-" . $fi, "buff", 1);
                 }
                 break;
+            case "nZFkDcvpaY": // Memorite Blade: whenever you activate a Spell, +1 POWER (once per turn)
+                if(PropertyContains($subtypes, "SPELL") && !HasNoAbilities($field[$fi])
+                    && !in_array("nZFkDcvpaY_POWER", $field[$fi]->TurnEffects)) {
+                    AddTurnEffect("myField-" . $fi, "nZFkDcvpaY_POWER");
+                }
+                break;
         }
     }
 
@@ -2742,6 +2763,43 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::CleanupRemovedCards();
             }
             break;
+        case "jetWcli3ZL": // Balmshot Nurse — REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
+        case "lcCGyyNGuM": // Wool Brook — REST + remove refinement counter
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            RemoveCounters($player, $mzCard, "refinement", 1);
+            break;
+        case "qFwqqT0XWo": // Ducal Seal — banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "qM9yzxQbfF": // Orbiting Cosmos — banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "ex6AXz6IhB": // Vacuous Call — sacrifice self + discard an ally card
+            {
+                // Sacrifice self
+                DoSacrificeFighter($player, $mzCard);
+                DecisionQueueController::CleanupRemovedCards();
+                // Discard an ally card from hand
+                $allyHand = [];
+                $hand = GetZone("myHand");
+                for($hi = 0; $hi < count($hand); ++$hi) {
+                    if(!$hand[$hi]->removed && PropertyContains(CardType($hand[$hi]->CardID), "ALLY")) {
+                        $allyHand[] = "myHand-" . $hi;
+                    }
+                }
+                if(!empty($allyHand)) {
+                    $choices = implode("&", $allyHand);
+                    DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1, "Discard_an_ally_card");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "VacuousCallDiscardAlly", 1);
+                }
+            }
+            break;
     }
 }
 
@@ -3002,6 +3060,48 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         if($sourceObject->Status != 2) return;
         $hand = &GetHand($player);
         if(count($hand) < 3) return;
+    }
+    // Balmshot Nurse (jetWcli3ZL): REST — must be awake + must be distant
+    if($cardID === "jetWcli3ZL") {
+        if($sourceObject->Status != 2) return;
+        if(!IsDistant($sourceObject)) return;
+    }
+    // Wool Brook (lcCGyyNGuM): (6), REST, Remove refinement counter — must be awake + have refinement + 6 cards in hand
+    if($cardID === "lcCGyyNGuM") {
+        if($sourceObject->Status != 2) return;
+        if(GetCounterCount($sourceObject, "refinement") < 1) return;
+        $hand = &GetHand($player);
+        if(count($hand) < 6) return;
+    }
+    // Ducal Seal (qFwqqT0XWo): Banish — only during opponent's recollection phase
+    if($cardID === "qFwqqT0XWo") {
+        if(HasOpportunity($player)) return;
+        $turnPlayer = GetTurnPlayer();
+        if($turnPlayer == $player) return;
+    }
+    // Orbiting Cosmos (qM9yzxQbfF): (3), Banish — needs 3 cards in hand
+    if($cardID === "qM9yzxQbfF") {
+        $hand = &GetHand($player);
+        if(count($hand) < 3) return;
+    }
+    // Vacuous Call (ex6AXz6IhB): [Ciel Bonus] (2), Discard ally, Sacrifice — needs Ciel bonus + 2 cards in hand + ally in hand
+    if($cardID === "ex6AXz6IhB") {
+        if(!IsCielBonusActive($player)) return;
+        $hand = GetZone("myHand");
+        $allyInHand = false;
+        $nonAllyCount = 0;
+        for($hi = 0; $hi < count($hand); ++$hi) {
+            if($hand[$hi]->removed) continue;
+            if(PropertyContains(CardType($hand[$hi]->CardID), "ALLY")) {
+                $allyInHand = true;
+            } else {
+                $nonAllyCount++;
+            }
+        }
+        if(!$allyInHand) return;
+        // Need 2 cards for reserve + 1 ally to discard (ally can overlap with reserve)
+        $totalHand = count(array_filter($hand, fn($h) => !$h->removed));
+        if($totalHand < 3) return; // minimum: 2 reserve + 1 ally discard
     }
     // Invigorating Concoction (nsjukk5zk4): REST, Sacrifice — must be awake + slow speed
     if($cardID === "nsjukk5zk4") {
@@ -3593,6 +3693,11 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Wool Brook (lcCGyyNGuM): enters with refinement counter
+    if($added->CardID === "lcCGyyNGuM") {
+        AddCounters($player, "myField-" . (count($field) - 1), "refinement", 1);
+    }
+
     // Ally Link: if the entering card has Ally Link, establish the link via Subcards
     global $AllyLink_Cards;
     if(isset($AllyLink_Cards[$added->CardID])) {
@@ -3725,6 +3830,18 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             if(GlobalEffectCount($bnp, "BRUSQUE_NEIGE_RESTED") > 0) {
                 $added->Status = 1;
                 break;
+            }
+        }
+    }
+
+    // Unmoored Call (etobC7HEHw): objects with chosen reserve cost enter rested
+    for($ucp = 1; $ucp <= 2; ++$ucp) {
+        for($ucn = 0; $ucn <= 15; ++$ucn) {
+            if(GlobalEffectCount($ucp, "UNMOORED_CALL_" . $ucn) > 0) {
+                $addedCost = CardCost_reserve($added->CardID);
+                if($addedCost == $ucn) {
+                    $added->Status = 1;
+                }
             }
         }
     }
@@ -5252,6 +5369,20 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "iCgcAFU458": // Golden Rook: +1 POWER while attacking unit with even life stat
+            {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $combatAttacker !== ""
+                    && $combatTarget !== null && $combatTarget !== "-" && $combatTarget !== ""
+                    && $obj->GetMzID() === $combatAttacker) {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && CardLife($targetObj->CardID) % 2 === 0) {
+                        $power += 1;
+                    }
+                }
+            }
+            break;
         case "zcvq77mdgd": // Sword of Shadows: [CB] +1 POWER; -1 while opponent controls stealth ally
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
                 $power += 1;
@@ -6155,6 +6286,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "4yqL9xtzVi_POWER": // Bandersnatch, Frumious Foe: +2 POWER until end of turn
                 $power += 2;
+                break;
+            case "nZFkDcvpaY_POWER": // Memorite Blade: +1 POWER from spell activation this turn
+                $power += 1;
                 break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
@@ -7135,6 +7269,14 @@ function HasAethercalling($player, $cardID) {
  * @param int $amount Number of cards to glimpse.
  */
 function Glimpse($player, $amount) {
+    // Orbiting Cosmos (qM9yzxQbfF): if you would glimpse X, glimpse X+1 instead
+    $field = GetField($player);
+    foreach($field as $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "qM9yzxQbfF" && !HasNoAbilities($fObj)) {
+            $amount += 1;
+            break;
+        }
+    }
     // Cosmic Alignment (b2buhbediq): next glimpse this turn draws that many instead
     if(GlobalEffectCount($player, "COSMIC_ALIGNMENT") > 0) {
         RemoveGlobalEffect($player, "COSMIC_ALIGNMENT");
@@ -8029,6 +8171,14 @@ $doesGlobalEffectApply["tqy0rwvxgs"] = function($obj) {
 };
 // Eminent Lethargy (GGRtLQgaYU): global attack tax — no visual card effect needed
 $doesGlobalEffectApply["GGRtLQgaYU"] = function($obj) { return false; };
+
+// Ducal Seal (qFwqqT0XWo): global attack tax (3) — no visual card effect needed
+$doesGlobalEffectApply["DUCAL_SEAL_ATTACK_TAX"] = function($obj) { return false; };
+
+// Unmoored Call (etobC7HEHw): objects with chosen reserve cost enter rested — no visual card effect
+for($ucIdx = 0; $ucIdx <= 15; ++$ucIdx) {
+    $doesGlobalEffectApply["UNMOORED_CALL_" . $ucIdx] = function($obj) { return false; };
+}
 
 // Persistent per-card TurnEffects that survive ExpireEffects across turns.
 // SKIP_WAKEUP: consumed by WakeUpPhase (one-time skip).
@@ -9980,6 +10130,13 @@ function BecomeDistant($player, $mzID) {
                 }
                 break;
             }
+        }
+    }
+    // Alizarin Longbowman (inQV2nZfdJ): [CB] Whenever this becomes distant, may have each player draw a card
+    if($obj !== null && $obj->CardID === "inQV2nZfdJ" && !HasNoAbilities($obj)) {
+        if(IsClassBonusActive($player, ["RANGER"])) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Each_player_draws_a_card?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "AlizarinLongbowmanDraw", 1);
         }
     }
 }

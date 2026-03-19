@@ -581,6 +581,17 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
+    // Ducal Seal (qFwqqT0XWo): players must pay (3) for each attack declaration.
+    $ducalActive = (GlobalEffectCount($turnPlayer, "DUCAL_SEAL_ATTACK_TAX") > 0 || GlobalEffectCount($prOpp, "DUCAL_SEAL_ATTACK_TAX") > 0);
+    if($ducalActive) {
+        $hand = GetZone("myHand");
+        $neededTotal = 3 + ($pleaActive ? 1 : 0) + ($lethActive ? 2 : 0);
+        if(count($hand) < $neededTotal) {
+            SetFlashMessage("Must pay (3) to attack (Ducal Seal). Not enough cards in hand.");
+            return false;
+        }
+    }
+
     // Chibi, Battle of Red Cliffs (881gacexpv): players can't declare attacks with allies
     // unless they pay (1) for each attack declaration. Check both players' fields.
     $chibiActive = false;
@@ -646,6 +657,13 @@ function BeginCombatPhase($actionCard) {
     if($lethActive) {
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
+
+    // Ducal Seal (qFwqqT0XWo): pay (3) reserve for each attack declaration
+    if($ducalActive) {
+        for($ds = 0; $ds < 3; ++$ds) {
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        }
     }
 
     // Torch Marshal (izgiu216l2): additional cost to declare attack — pay (2)

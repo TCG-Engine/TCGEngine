@@ -5609,5 +5609,151 @@ $customDQHandlers["TweedledumTargetChosen"] = function($player, $parts, $lastDec
     $customDQHandlers["AttackTargetChosen"]($attackerPlayer, [$attackerMZ], $targetMZ);
 };
 
+// --- Alizarin Longbowman (inQV2nZfdJ): BecomeDistant — each player draws ---
+$customDQHandlers["AlizarinLongbowmanDraw"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        Draw($player, 1);
+        $opp = ($player == 1) ? 2 : 1;
+        Draw($opp, 1);
+    }
+};
+
+// --- Vacuous Call (ex6AXz6IhB): discard ally card from hand as cost ---
+$customDQHandlers["VacuousCallDiscardAlly"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "") {
+        DoDiscardCard($player, $lastDecision);
+    }
+};
+
+// --- Equivalent Exchange (qvB66hupGQ): optional banish 2 ally cards from single GY ---
+$customDQHandlers["EquivalentExchangeGYBanish"] = function($player, $parts, $lastDecision) {
+    // Check both GYs for 2+ ally cards
+    $myAllyGY = [];
+    $gy = GetZone("myGraveyard");
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if($gy[$gi]->removed) continue;
+        if(PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) {
+            $myAllyGY[] = "myGraveyard-" . $gi;
+        }
+    }
+    $theirAllyGY = [];
+    $tgy = GetZone("theirGraveyard");
+    for($gi = 0; $gi < count($tgy); ++$gi) {
+        if($tgy[$gi]->removed) continue;
+        if(PropertyContains(CardType($tgy[$gi]->CardID), "ALLY")) {
+            $theirAllyGY[] = "theirGraveyard-" . $gi;
+        }
+    }
+    $myValid = count($myAllyGY) >= 2;
+    $theirValid = count($theirAllyGY) >= 2;
+    if(!$myValid && !$theirValid) return;
+
+    if($myValid && $theirValid) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Banish_allies_from_your_graveyard?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EqExchangePickGY", 1);
+    } else if($myValid) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Banish_2_allies_from_your_graveyard?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EqExchangeConfirmMy", 1);
+    } else {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Banish_2_allies_from_opponent's_graveyard?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EqExchangeConfirmTheir", 1);
+    }
+};
+
+$customDQHandlers["EqExchangePickGY"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        // Banish from my GY
+        $myAllyGY = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if($gy[$gi]->removed) continue;
+            if(PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) {
+                $myAllyGY[] = "myGraveyard-" . $gi;
+            }
+        }
+        $str = implode("&", $myAllyGY);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $str, 1, "Banish_first_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EqExchangeBanish1|my", 1);
+    } else {
+        // Banish from their GY
+        $theirAllyGY = [];
+        $tgy = GetZone("theirGraveyard");
+        for($gi = 0; $gi < count($tgy); ++$gi) {
+            if($tgy[$gi]->removed) continue;
+            if(PropertyContains(CardType($tgy[$gi]->CardID), "ALLY")) {
+                $theirAllyGY[] = "theirGraveyard-" . $gi;
+            }
+        }
+        $str = implode("&", $theirAllyGY);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $str, 1, "Banish_first_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EqExchangeBanish1|their", 1);
+    }
+};
+
+$customDQHandlers["EqExchangeConfirmMy"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $myAllyGY = [];
+    $gy = GetZone("myGraveyard");
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if($gy[$gi]->removed) continue;
+        if(PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) {
+            $myAllyGY[] = "myGraveyard-" . $gi;
+        }
+    }
+    $str = implode("&", $myAllyGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $str, 1, "Banish_first_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EqExchangeBanish1|my", 1);
+};
+
+$customDQHandlers["EqExchangeConfirmTheir"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $theirAllyGY = [];
+    $tgy = GetZone("theirGraveyard");
+    for($gi = 0; $gi < count($tgy); ++$gi) {
+        if($tgy[$gi]->removed) continue;
+        if(PropertyContains(CardType($tgy[$gi]->CardID), "ALLY")) {
+            $theirAllyGY[] = "theirGraveyard-" . $gi;
+        }
+    }
+    $str = implode("&", $theirAllyGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $str, 1, "Banish_first_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EqExchangeBanish1|their", 1);
+};
+
+$customDQHandlers["EqExchangeBanish1"] = function($player, $parts, $lastDecision) {
+    $gyPrefix = $parts[0]; // "my" or "their"
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    // Offer second ally from same GY
+    $zone = $gyPrefix === "my" ? "myGraveyard" : "theirGraveyard";
+    $allyGY = [];
+    $gy = GetZone($zone);
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if($gy[$gi]->removed) continue;
+        if(PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) {
+            $allyGY[] = $zone . "-" . $gi;
+        }
+    }
+    if(empty($allyGY)) return;
+    $str = implode("&", $allyGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $str, 1, "Banish_second_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EqExchangeBanish2", 1);
+};
+
+$customDQHandlers["EqExchangeBanish2"] = function($player, $parts, $lastDecision) {
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    // Wake token + buff counter
+    $tokenIdx = intval(DecisionQueueController::GetVariable("eqExchangeTokenIdx"));
+    $field = &GetField($player);
+    if(isset($field[$tokenIdx]) && !$field[$tokenIdx]->removed && $field[$tokenIdx]->CardID === "duzpl7mqXl") {
+        global $playerID;
+        $tokenZone = $player == $playerID ? "myField" : "theirField";
+        $tokenMZ = $tokenZone . "-" . $tokenIdx;
+        WakeupCard($player, $tokenMZ);
+        AddCounters($player, $tokenMZ, "buff", 1);
+    }
+};
+
 
 ?>
