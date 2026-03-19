@@ -571,6 +571,16 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
+    // Eminent Lethargy (GGRtLQgaYU): players must pay (2) for each attack declaration.
+    $lethActive = (GlobalEffectCount($turnPlayer, "GGRtLQgaYU") > 0 || GlobalEffectCount($prOpp, "GGRtLQgaYU") > 0);
+    if($lethActive) {
+        $hand = GetZone("myHand");
+        if(count($hand) < 2) {
+            SetFlashMessage("Must pay (2) to attack (Eminent Lethargy). Not enough cards in hand.");
+            return false;
+        }
+    }
+
     // Chibi, Battle of Red Cliffs (881gacexpv): players can't declare attacks with allies
     // unless they pay (1) for each attack declaration. Check both players' fields.
     $chibiActive = false;
@@ -629,6 +639,12 @@ function BeginCombatPhase($actionCard) {
 
     // Chibi, Battle of Red Cliffs (881gacexpv): pay (1) reserve for ally attack declaration
     if($chibiActive) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
+
+    // Eminent Lethargy (GGRtLQgaYU): pay (2) reserve for each attack declaration
+    if($lethActive) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
     }
 

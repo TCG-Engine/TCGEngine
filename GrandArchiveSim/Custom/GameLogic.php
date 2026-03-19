@@ -59,6 +59,7 @@ $Kindle_Cards["xllhbjr20n"] = 3; // Lu Xun, Pyre Strategist (FIRE) - Kindle 3
 $Kindle_Cards["0s6solta0h"] = 4; // Rapid Combustion (FIRE) - Kindle 4
 $Kindle_Cards["hd0sxpu7cp"] = 3; // Intensified Pyre (FIRE) - Kindle 3
 $Kindle_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts (FIRE) - Kindle 6
+$Kindle_Cards["OjOcXBiO0b"] = 7; // Tyrannical Denigration (EXALTED) - Kindle 7
 
 // --- Cardistry Cards Registry ---
 // Maps cardID => base reserve cost for the Cardistry activated ability.
@@ -136,6 +137,14 @@ $lineageReleaseAbilities["o69ogocemo"] = [ // Ciel, Omenbringer
         $omenStr = implode("&", $omens);
         DecisionQueueController::AddDecision($player, "MZCHOOSE", $omenStr, 1, "Choose_an_omen_to_activate");
         DecisionQueueController::AddDecision($player, "CUSTOM", "CielOmenbringerLR", 1);
+    }
+];
+
+$lineageReleaseAbilities["FUCJA8IAMi"] = [ // Spirit of Purity
+    'name' => 'LR: Banish from graveyards',
+    'effect' => function($player) {
+        // Each player banishes two cards from their graveyard
+        SpiritOfPurityBanishLoop($player, $player, 2);
     }
 ];
 
@@ -472,6 +481,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($sourceObject->CardID === "r73opcqtzs") {
         $opp = ($player == 1) ? 2 : 1;
         if(CountCursesInLineage($player) + CountCursesInLineage($opp) == 0) return;
+    }
+
+    // Obscured Offering (S3ODMQ0V0o): additional cost — banish 2 from material deck
+    if($sourceObject->CardID === "S3ODMQ0V0o") {
+        $mat = ZoneSearch("myMaterial");
+        if(count($mat) < 2) return;
     }
 
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
@@ -1233,6 +1248,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $allyChoices = implode("&", $allies);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyChoices, 100, tooltip:"Sacrifice_an_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "PrimordialRitualSacrifice", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Obscured Offering (S3ODMQ0V0o): banish 2 from material deck
+    if($obj->CardID === "S3ODMQ0V0o") {
+        $mat = ZoneSearch("myMaterial");
+        if(count($mat) >= 2) {
+            $matStr = implode("&", $mat);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $matStr, 100, tooltip:"Banish_from_material_(1_of_2)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ObscuredOfferingBanishMat|1", 100);
         }
     }
 
@@ -2465,6 +2490,9 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "mhc5a9jpi6": // Enthralling Chime — banish self
         case "g8q7imka92": // Consumption Ring — banish self
         case "idpdon8f0h": // Enfeebled Dagger — banish self
+        case "K15jWbHAMY": // Teardrop Diadem — banish self
+        case "LeyUk5auEP": // Purifying Thurible — banish self
+        case "T3cx65VM3D": // Enfeebling Orb — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -2771,6 +2799,11 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     }
     // Fractal of Snow (uhuy4xippo): needs class bonus
     if($cardID === "uhuy4xippo" && !IsClassBonusActive($player, explode(",", CardClasses("uhuy4xippo")))) return;
+    // Gemini Starbearer (NyPQW7hkAq): REST — must be awake + have Astral Shards on field
+    if($cardID === "NyPQW7hkAq") {
+        if($sourceObject->Status != 2) return;
+        if(empty(ZoneSearch("myField", cardSubtypes: ["SHARD"]))) return;
+    }
     // Fractal of Mana (szeb8zzj86): [CB] REST — must be awake + class bonus
     if($cardID === "szeb8zzj86") {
         if($sourceObject->Status != 2) return;
@@ -4155,6 +4188,11 @@ function RecollectionPhase() {
         RemoveGlobalEffect($turnPlayer, "uxhmucm8si");
     }
 
+    // Eminent Lethargy: clear attack tax at the beginning of the caster's next turn
+    if(GlobalEffectCount($turnPlayer, "GGRtLQgaYU") > 0) {
+        RemoveGlobalEffect($turnPlayer, "GGRtLQgaYU");
+    }
+
     // Fatal Timepiece (6gvnta6qse): at the beginning of each player's recollection phase,
     // if that player did not materialize a card this turn → deal 2 unpreventable to their champion.
     $hasTimepiece = false;
@@ -5027,6 +5065,20 @@ function EndPhase() {
         }
     }
 
+    // Mirrorbound Covenant (PKnOTdQJJ1): each player's max influence is 7.
+    // Check both fields for the Unique/Phantasia; if present, enforce cap on turn player.
+    $hasMirrorbound = false;
+    foreach(array_merge(GetField(1), GetField(2)) as $mbObj) {
+        if(!$mbObj->removed && $mbObj->CardID === "PKnOTdQJJ1") { $hasMirrorbound = true; break; }
+    }
+    if($hasMirrorbound) {
+        $tpInfluence = GetInfluence($turnPlayer);
+        if($tpInfluence > 7) {
+            $excess = $tpInfluence - 7;
+            MirrorboundInfluenceDiscard($turnPlayer, $excess);
+        }
+    }
+
     $field = &GetField($turnPlayer);
     for($i=count($field)-1; $i>=0; --$i) {
         if(HasVigor($field[$i])) {
@@ -5638,6 +5690,9 @@ function ObjectCurrentPower($obj) {
             break;
         case "L67r0GlRHR": // Vacuous Servant: [Ciel Bonus] +1 POWER per attack omen
             if(IsCielBonusActive($obj->Controller)) $power += GetOmenCountByType($obj->Controller, "ATTACK");
+            break;
+        case "OjOcXBiO0b": // Tyrannical Denigration: [CB] +4 POWER
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) $power += 4;
             break;
         default: break;
     }
@@ -7907,6 +7962,8 @@ $doesGlobalEffectApply["v0yuddp71s-ROOK"] = function($obj) {
 $doesGlobalEffectApply["tqy0rwvxgs"] = function($obj) {
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
+// Eminent Lethargy (GGRtLQgaYU): global attack tax — no visual card effect needed
+$doesGlobalEffectApply["GGRtLQgaYU"] = function($obj) { return false; };
 
 // Persistent per-card TurnEffects that survive ExpireEffects across turns.
 // SKIP_WAKEUP: consumed by WakeUpPhase (one-time skip).
@@ -8147,6 +8204,9 @@ $doesGlobalEffectApply["ir99sx6q3p"] = function($obj) { return false; };
 $foreverEffects["uxhmucm8si"] = true;
 $doesGlobalEffectApply["uxhmucm8si"] = function($obj) { return false; };
 
+// Eminent Lethargy (GGRtLQgaYU): flag only — attack tax handled in BeginCombatPhase
+$foreverEffects["GGRtLQgaYU"] = true;
+
 // Expeditious Opening (w1wgpeifd0): flag only — fast ally activation handled in GetPlayableFastCards
 $doesGlobalEffectApply["w1wgpeifd0"] = function($obj) { return false; };
 
@@ -8359,6 +8419,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'rzsr6aw4hz' => 2, // Burst Asunder: [Class Bonus] costs 2 less
         'aj7pz79wsp' => 2, // Scorching Imperilment: [Class Bonus] costs 2 less
         '6Rb25k7OjY' => 2, // Tempestuous Conviction: [Class Bonus] costs 2 less
+        'QvQhg1EOBR' => 2, // Sacred Engulfment: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -8973,6 +9034,8 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "wi4f59furp" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     // Mire Reparation (7imoz7vrlr): [Class Bonus] Floating Memory
     if($obj->CardID === "7imoz7vrlr" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
+    // Spark Link (PUgqk3lxq6): [Level 1+] Floating Memory
+    if($obj->CardID === "PUgqk3lxq6" && PlayerLevel($obj->Controller) >= 1) return true;
     return false;
 }
 

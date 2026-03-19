@@ -5368,5 +5368,177 @@ $customDQHandlers["BuffetingHurricaneDamage"] = function($player, $parts, $lastD
     DealDamage($player, null, $lastDecision, 2);
 };
 
+// ============================================================================
+// Spirit of Purity (FUCJA8IAMi): Lineage Release — each player banishes 2 from GY
+// ============================================================================
+function SpiritOfPurityBanishLoop($player, $targetPlayer, $remaining) {
+    if($remaining <= 0) {
+        // After the activating player finishes, do the opponent
+        $opponent = ($player == 1) ? 2 : 1;
+        if($targetPlayer === $player) {
+            SpiritOfPurityBanishLoop($player, $opponent, 2);
+        }
+        return;
+    }
+    global $playerID;
+    $gravZone = $targetPlayer == $playerID ? "myGraveyard" : "theirGraveyard";
+    $gy = ZoneSearch($gravZone);
+    if(empty($gy)) {
+        if($targetPlayer === $player) {
+            $opponent = ($player == 1) ? 2 : 1;
+            SpiritOfPurityBanishLoop($player, $opponent, 2);
+        }
+        return;
+    }
+    $gyStr = implode("&", $gy);
+    DecisionQueueController::AddDecision($targetPlayer, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_graveyard_($remaining_remaining)");
+    DecisionQueueController::AddDecision($targetPlayer, "CUSTOM", "SpiritOfPurityBanish|$player|$targetPlayer|$remaining", 1);
+}
+
+$customDQHandlers["SpiritOfPurityBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, str_contains($lastDecision, "my") ? "myBanish" : "theirBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $activatingPlayer = intval($parts[0]);
+    $targetPlayer = intval($parts[1]);
+    $remaining = intval($parts[2]) - 1;
+    SpiritOfPurityBanishLoop($activatingPlayer, $targetPlayer, $remaining);
+};
+
+// ============================================================================
+// Purifying Thurible (LeyUk5auEP): (X), Banish — opponent banishes X from GY
+// ============================================================================
+$customDQHandlers["PurifyingThuriblePay"] = function($player, $parts, $lastDecision) {
+    $x = intval($lastDecision);
+    if($x <= 0) return;
+    // Queue X ReserveCard payments
+    for($i = 0; $i < $x; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PurifyingThuribleEffect|$x", 100);
+};
+
+$customDQHandlers["PurifyingThuribleEffect"] = function($player, $parts, $lastDecision) {
+    $x = intval($parts[0]);
+    if($x >= 3) {
+        DrawIntoMemory($player, 1);
+    }
+    $opponent = ($player == 1) ? 2 : 1;
+    PurifyingThuribleBanishLoop($player, $opponent, $x);
+};
+
+function PurifyingThuribleBanishLoop($activator, $opponent, $remaining) {
+    if($remaining <= 0) return;
+    global $playerID;
+    $gravZone = $opponent == $playerID ? "myGraveyard" : "theirGraveyard";
+    $gy = ZoneSearch($gravZone);
+    if(empty($gy)) return;
+    $gyStr = implode("&", $gy);
+    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_your_graveyard_($remaining_remaining)");
+    DecisionQueueController::AddDecision($opponent, "CUSTOM", "PurifyingThuribleBanish|$activator|$remaining", 1);
+}
+
+$customDQHandlers["PurifyingThuribleBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    global $playerID;
+    $banishZone = (strpos($lastDecision, "my") === 0) ? "myBanish" : "theirBanish";
+    MZMove($player, $lastDecision, $banishZone);
+    DecisionQueueController::CleanupRemovedCards();
+    $activator = intval($parts[0]);
+    $remaining = intval($parts[1]) - 1;
+    PurifyingThuribleBanishLoop($activator, $player, $remaining);
+};
+
+// ============================================================================
+// Sacred Engulfment (QvQhg1EOBR): banish fire from GY, then empower 4+X
+// ============================================================================
+function SacredEngulfmentBanishLoop($player, $banishedCount) {
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(empty($fireGY)) {
+        Empower($player, 4 + $banishedCount, "QvQhg1EOBR");
+        return;
+    }
+    $fireStr = implode("&", $fireGY);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $fireStr, 1, tooltip:"Banish_a_fire_card_from_GY?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SacredEngulfmentProcess|$banishedCount", 1);
+}
+
+$customDQHandlers["SacredEngulfmentProcess"] = function($player, $parts, $lastDecision) {
+    $banishedCount = intval($parts[0]);
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) {
+        Empower($player, 4 + $banishedCount, "QvQhg1EOBR");
+        return;
+    }
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    SacredEngulfmentBanishLoop($player, $banishedCount + 1);
+};
+
+// ============================================================================
+// Enfeebling Orb (T3cx65VM3D): opponent puts 2 cards from hand into memory
+// ============================================================================
+function EnfeebleOrbChooseStep($player, $opponent, $remaining) {
+    if($remaining <= 0) return;
+    global $playerID;
+    $handZone = $opponent == $playerID ? "myHand" : "theirHand";
+    $hand = ZoneSearch($handZone);
+    if(empty($hand)) return;
+    $handStr = implode("&", $hand);
+    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $handStr, 1, tooltip:"Put_a_card_from_hand_into_memory_($remaining_remaining)");
+    DecisionQueueController::AddDecision($opponent, "CUSTOM", "EnfeebleOrbMove|$player|$remaining", 1);
+}
+
+$customDQHandlers["EnfeebleOrbMove"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $memZone = (strpos($lastDecision, "my") === 0) ? "myMemory" : "theirMemory";
+    MZMove($player, $lastDecision, $memZone);
+    DecisionQueueController::CleanupRemovedCards();
+    $activator = intval($parts[0]);
+    $remaining = intval($parts[1]) - 1;
+    $opponent = $player;
+    EnfeebleOrbChooseStep($activator, $opponent, $remaining);
+};
+
+// ============================================================================
+// Obscured Offering (S3ODMQ0V0o): banish 2 from material deck as additional cost
+// ============================================================================
+$customDQHandlers["ObscuredOfferingBanishMat"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $step = intval($parts[0]);
+    if($step < 2) {
+        $mat = ZoneSearch("myMaterial");
+        if(!empty($mat)) {
+            $matStr = implode("&", $mat);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $matStr, 100, tooltip:"Banish_from_material_(2_of_2)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ObscuredOfferingBanishMat|2", 100);
+        }
+    }
+};
+
+// ============================================================================
+// Mirrorbound Covenant (PKnOTdQJJ1): influence cap discard loop
+// ============================================================================
+function MirrorboundInfluenceDiscard($player, $excess) {
+    if($excess <= 0) return;
+    global $playerID;
+    $handZone = $player == $playerID ? "myHand" : "theirHand";
+    $hand = ZoneSearch($handZone);
+    if(empty($hand)) return;
+    $handStr = implode("&", $hand);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $handStr, 1, tooltip:"Put_a_card_into_memory_(influence_cap_7,_$excess_remaining)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MirrorboundInfluenceMove|$excess", 1);
+}
+
+$customDQHandlers["MirrorboundInfluenceMove"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $memZone = (strpos($lastDecision, "my") === 0) ? "myMemory" : "theirMemory";
+    MZMove($player, $lastDecision, $memZone);
+    DecisionQueueController::CleanupRemovedCards();
+    $remaining = intval($parts[0]) - 1;
+    MirrorboundInfluenceDiscard($player, $remaining);
+};
+
 
 ?>
