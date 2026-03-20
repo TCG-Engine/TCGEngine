@@ -3867,6 +3867,54 @@ $customDQHandlers["PurificationCurse2"] = function($player, $parts, $lastDecisio
 };
 
 // ============================================================================
+// Reverse Affliction (1bxh5xz2uz): banish a Curse from your champion's lineage,
+// put an omen counter on it
+// ============================================================================
+function ReverseAfflictionSetup($player) {
+    $curses = GetCursesInLineage($player);
+    if(empty($curses)) return;
+    $tempZone = &GetTempZone($player);
+    while(count($tempZone) > 0) array_pop($tempZone);
+    foreach($curses as $curse) {
+        MZAddZone($player, "myTempZone", $curse['cardID']);
+    }
+    $tempMZs = [];
+    for($i = 0; $i < count($curses); ++$i) {
+        $tempMZs[] = "myTempZone-" . $i;
+    }
+    $options = implode("&", $tempMZs);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $options, 1, tooltip:"Banish_a_Curse_from_lineage");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReverseAfflictionPick", 1);
+}
+
+$customDQHandlers["ReverseAfflictionPick"] = function($player, $parts, $lastDecision) {
+    $tempZone = &GetTempZone($player);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        while(count($tempZone) > 0) array_pop($tempZone);
+        return;
+    }
+    $chosenObj = GetZoneObject($lastDecision);
+    $chosenCardID = $chosenObj->CardID;
+    MZRemove($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    // Remove from champion lineage and banish
+    RemoveFromChampionLineage($player, $chosenCardID, "myBanish");
+    // Put omen counter on the banished card
+    global $playerID;
+    $banish = GetBanish($player);
+    $prefix = ($player == $playerID) ? "myBanish" : "theirBanish";
+    for($i = count($banish) - 1; $i >= 0; --$i) {
+        if(!$banish[$i]->removed && $banish[$i]->CardID === $chosenCardID) {
+            PutOmenCounter($player, $prefix . "-" . $i);
+            break;
+        }
+    }
+    // Clean up remaining TempZone
+    $tempZone = &GetTempZone($player);
+    while(count($tempZone) > 0) array_pop($tempZone);
+};
+
+// ============================================================================
 // Bertha, Spry Howitzer (ki6fxxgmue): look at top 5, may activate Ranger action
 // ============================================================================
 function BerthaLookFinish($player) {

@@ -3414,6 +3414,15 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "0ejcyuvuxn": // Corhazi Arsonist: remove 1 prep counter from champion
+            $pField = GetField($player);
+            for($ci = 0; $ci < count($pField); ++$ci) {
+                if(!$pField[$ci]->removed && PropertyContains(EffectiveCardType($pField[$ci]), "CHAMPION")) {
+                    RemoveCounters($player, "myField-" . $ci, "preparation", 1);
+                    break;
+                }
+            }
+            break;
         // Bullets: REST + choose unloaded Gun (load is handled by ability body)
         case "0iqmyn2rz3": // Vanishing Shot
         case "9htu9agwj4": // Mindbreak Bullet
@@ -4193,14 +4202,16 @@ function DoAllyDestroyed($player, $mzCard) {
     OnLeaveField($player, $mzCard);
     // Xiao Qiao, Cinderkeeper (3hgldrogit): if unit was hit by Xiao Qiao this turn, banish instead
     $xiaoQiaoBanish = in_array("HIT_BY_3hgldrogit", $obj->TurnEffects);
+    // Corhazi Arsonist (0ejcyuvuxn): if hit by Corhazi Arsonist this turn, banish instead
+    $corhaziArsonistBanish = in_array("HIT_BY_0ejcyuvuxn", $obj->TurnEffects);
     // Fireworks Display (sx6q3p6i0i): banish instead of graveyard
     $fireworksBanish = GlobalEffectCount($controller, "FIREWORKS_BANISH") > 0;
     // Ephemeral: object is banished instead of leaving the field
     $isEphemeral = IsEphemeral($obj);
-    if(IsRenewable($obj->CardID) && !$fireworksBanish && !$xiaoQiaoBanish && !$isEphemeral) {
+    if(IsRenewable($obj->CardID) && !$fireworksBanish && !$xiaoQiaoBanish && !$corhaziArsonistBanish && !$isEphemeral) {
         // Renewable: goes to material deck instead of graveyard/banish
         $dest = $player == $controller ? "myMaterial" : "theirMaterial";
-    } else if($fireworksBanish || $xiaoQiaoBanish || $isEphemeral) {
+    } else if($fireworksBanish || $xiaoQiaoBanish || $corhaziArsonistBanish || $isEphemeral) {
         $dest = $player == $controller ? "myBanish" : "theirBanish";
     } else {
         $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
@@ -8881,6 +8892,17 @@ function CardHasAbility($obj) {
         }
     }
 
+    // Corhazi Arsonist (0ejcyuvuxn): requires 1+ prep counter on champion
+    if($obj->CardID === "0ejcyuvuxn") {
+        $pField = &GetField($obj->Controller);
+        foreach($pField as $fCard) {
+            if(!$fCard->removed && PropertyContains(EffectiveCardType($fCard), "CHAMPION")) {
+                if(GetCounterCount($fCard, "preparation") < 1) return 0;
+                break;
+            }
+        }
+    }
+
     // Sigil of Budding Embers (g31dg6zl3j): requires Diao Chan Bonus + champion has glimmer
     if($obj->CardID === "g31dg6zl3j") {
         if(!IsDiaoChanBonus($obj->Controller)) return 0;
@@ -9183,6 +9205,7 @@ function ShackledTheurgistReturn($player, $fieldZone) {
 // 'costModifier' = optional callback($player) returning int cost reduction
 // 'extraCostHandler' = optional string name of DQ handler for non-reserve extra costs
 $ephemerateCards = [];
+$ephemerateCards["0r7j97g2zh"] = ['cost' => 2]; // Evercurrent Raider
 $ephemerateCards["4vjkezn49t"] = ['cost' => 4]; // Vengeful Paramour
 $ephemerateCards["sm68d3we64"] = ['cost' => 3, 'extraCostHandler' => 'EphemerateBanishFloating']; // Sunken Battle Priest
 $ephemerateCards["v0gu8efq08"] = ['cost' => 6, 'costModifier' => function($player) {

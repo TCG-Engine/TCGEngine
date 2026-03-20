@@ -1502,6 +1502,10 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         if($fieldObj->CardID === "jozihslnhz" && !HasNoAbilities($fieldObj)) {
             $retaliatorOptions[] = $mzID;
         }
+        // Guan Yu, Prime Exemplar (0oyxjld8jh): Ambush
+        if($fieldObj->CardID === "0oyxjld8jh" && !HasNoAbilities($fieldObj)) {
+            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
+        }
         // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
         // (may retaliate while not defending)
         if(!HasNoAbilities($fieldObj)
