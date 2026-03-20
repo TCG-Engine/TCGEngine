@@ -2146,6 +2146,29 @@ function OnDealDamage($player, $source, $target, $amount) {
             $amount = 1;
             $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "WATER_BARRIER"));
         }
+        // Return to the Depths [Ciel Bonus] (fNlJ0MaxiI): prevent all but 1; if 3+ prevented, may banish GY with omen
+        if(in_array("RETURN_TO_DEPTHS_CIEL", $targetObj->TurnEffects) && $amount > 1) {
+            $prevented = $amount - 1;
+            $amount = 1;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "RETURN_TO_DEPTHS_CIEL"));
+            if($prevented >= 3) {
+                $targetPlayer = $targetObj->Controller;
+                global $playerID;
+                $gravZone = $targetPlayer == $playerID ? "myGraveyard" : "theirGraveyard";
+                $gy = GetZone($gravZone);
+                $gyTargets = [];
+                for($gi = 0; $gi < count($gy); ++$gi) {
+                    if(!$gy[$gi]->removed) {
+                        $gyTargets[] = $gravZone . "-" . $gi;
+                    }
+                }
+                if(!empty($gyTargets)) {
+                    $gyStr = implode("&", $gyTargets);
+                    DecisionQueueController::AddDecision($targetPlayer, "MZMAYCHOOSE", $gyStr, 1, tooltip:"Banish_from_GY_with_omen_counter?_(Return_to_the_Depths)");
+                    DecisionQueueController::AddDecision($targetPlayer, "CUSTOM", "ReturnToDepthsOmen", 1);
+                }
+            }
+        }
         foreach($targetObj->TurnEffects as $te) {
             if(strpos($te, "NASCENT_BARRIER_") === 0) {
                 $preventAmount = intval(substr($te, strlen("NASCENT_BARRIER_")));

@@ -40,6 +40,9 @@ $Imbue_Cards["flzvpkc0ni"] = 2; // Moontide Illusionist (WATER)
 $Imbue_Cards["myvztzk3v8"] = 3; // Razorblade Execution (WIND)
 $Imbue_Cards["s2tzwv1uw3"] = 3; // Shangxiang, Fierce Princess (NORM)
 $Imbue_Cards["lflzwiiewz"] = 2; // Cataleptic Constellation (ASTRA)
+$Imbue_Cards["EPy8OUmPxa"] = 2; // Stardust Oracle (ASTRA) - Imbue 2
+$Imbue_Cards["Byx6iokcT4"] = 3; // Topsy Decree (NORM) - Imbue 3
+$Imbue_Cards["jH3ZOavGPR"] = 2; // Crystalvein Awakening (WIND) - Imbue 2
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -61,6 +64,7 @@ $Kindle_Cards["hd0sxpu7cp"] = 3; // Intensified Pyre (FIRE) - Kindle 3
 $Kindle_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts (FIRE) - Kindle 6
 $Kindle_Cards["OjOcXBiO0b"] = 7; // Tyrannical Denigration (EXALTED) - Kindle 7
 $Kindle_Cards["p7FWS3DA4a"] = 2; // Molten Echo (FIRE) - Kindle 2
+$Kindle_Cards["nduIoPhZr1"] = 7; // Seven of Hearts (FIRE) - Kindle 7
 
 // --- Cardistry Cards Registry ---
 // Maps cardID => base reserve cost for the Cardistry activated ability.
@@ -74,6 +78,8 @@ $Cardistry_Cards["xgax8bbjqj"] = 4; // Four of Hearts
 $Cardistry_Cards["i9hf5lhl5f"] = 5; // Five of Spades
 $Cardistry_Cards["idq4ih00rq"] = 5; // Five of Hearts
 $Cardistry_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts
+$Cardistry_Cards["DKoSnhjX18"] = 7; // Chance, Seven of Spades
+$Cardistry_Cards["nduIoPhZr1"] = 7; // Seven of Hearts
 
 // --- Lineage Release Abilities Registry ---
 // Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
@@ -339,6 +345,22 @@ function ActionMap($actionCard)
                         $handStr = implode("&", $handCards);
                         DecisionQueueController::AddDecision($playerID, "MZCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Ephemerate_cost)");
                         DecisionQueueController::AddDecision($playerID, "CUSTOM", "EphemerateDiscardProcess", 1);
+                    }
+                } else if(isset($config['extraCostHandler']) && $config['extraCostHandler'] === 'EphemerateBanishOtherGY') {
+                    DecisionQueueController::StoreVariable("ephemerateCostOverride", "$cost");
+                    DecisionQueueController::StoreVariable("ephemerateHandMZ", "myHand-" . $handIdx);
+                    // Must banish another card from graveyard
+                    $gy = GetZone("myGraveyard");
+                    $otherGY = [];
+                    for($gi = 0; $gi < count($gy); ++$gi) {
+                        if(!$gy[$gi]->removed) {
+                            $otherGY[] = "myGraveyard-" . $gi;
+                        }
+                    }
+                    if(!empty($otherGY)) {
+                        $gyStr = implode("&", $otherGY);
+                        DecisionQueueController::AddDecision($playerID, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_GY_(Ephemerate_cost)");
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "EphemerateBanishOtherGYProcess", 1);
                     }
                 } else {
                     ActivateCard($playerID, "myHand-" . $handIdx, false);
@@ -1144,7 +1166,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     // Debilitating Grasp (wbsmks4etk) Inherited Effect:
     // "The first card you activate each turn costs 1 more to activate."
-    if(ChampionHasInLineage($player, "wbsmks4etk") && CardActivatedCallCount($player) == 0) {
+    if(!AreCurseLineageAbilitiesSuppressed($player) && ChampionHasInLineage($player, "wbsmks4etk") && CardActivatedCallCount($player) == 0) {
         $reserveCost += 1;
     }
 
@@ -1613,6 +1635,21 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($obj->CardID === "oye74ibwo8" && IsCielBonusActive($player)) {
         $reserveCost = max(0, $reserveCost - 2);
     }
+    // Inverted Pyroslash (X5XONoPY6Z): [Ciel Bonus] costs 2 less per fire omen, up to 2
+    if($obj->CardID === "X5XONoPY6Z" && IsCielBonusActive($player)) {
+        $fireOmenDiscount = 2 * min(2, GetOmenCountByElement($player, "FIRE"));
+        $reserveCost = max(0, $reserveCost - $fireOmenDiscount);
+    }
+    // Harrow the Saved (mLoz5CAeSU): [Alice Bonus] costs 3 less if curse in lineage
+    if($obj->CardID === "mLoz5CAeSU" && IsAliceBonusActive($player)) {
+        if(CountCursesInLineage($player) > 0) {
+            $reserveCost = max(0, $reserveCost - 3);
+        }
+    }
+    // Chance, Seven of Spades (DKoSnhjX18): [Level 1+] costs 3 less
+    if($obj->CardID === "DKoSnhjX18" && PlayerLevel($player) >= 1) {
+        $reserveCost = max(0, $reserveCost - 3);
+    }
     // Flowing Oubli (vcxw3yh2t4): [Level 1+] costs 1 less
     if($obj->CardID === "vcxw3yh2t4" && PlayerLevel($player) >= 1) {
         $reserveCost = max(0, $reserveCost - 1);
@@ -1849,6 +1886,222 @@ $customDQHandlers["EphemerateDiscardProcess"] = function($player, $parts, $lastD
     $hand = &GetHand($player);
     $handIdx = count($hand) - 1;
     ActivateCard($player, "myHand-" . $handIdx, false);
+};
+
+// Ephemerate extra cost: banish another card from graveyard, then activate (Maledictum Vitae)
+$customDQHandlers["EphemerateBanishOtherGYProcess"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || empty($lastDecision)) return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    ActivateCard($player, "myHand-" . $handIdx, false);
+};
+
+// Return to the Depths [Ciel Bonus]: banish GY card with omen counter
+$customDQHandlers["ReturnToDepthsOmen"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "PASS" || empty($lastDecision)) return;
+    BanishWithOmenCounter($player, $lastDecision);
+};
+
+// --- Topsy Decree mode choice ---
+// TopsyDecreeChoose: offer YESNO for each mode. $remaining = modes left to choose, $chosen = already-chosen mode letters.
+function TopsyDecreeChoose($player, $remaining, $chosen) {
+    if($remaining <= 0) return;
+    $modes = [];
+    if(strpos($chosen, "A") === false) $modes[] = "A";
+    if(strpos($chosen, "B") === false) $modes[] = "B";
+    if(strpos($chosen, "C") === false) $modes[] = "C";
+    if(empty($modes)) return;
+    $firstMode = array_shift($modes);
+    $modeRemaining = implode(",", $modes);
+    $tooltips = [
+        "A" => "Spellshroud_champion?",
+        "B" => "Opponent_discards?",
+        "C" => "Banish_from_GY?"
+    ];
+    $tooltip = $tooltips[$firstMode] ?? "Choose_mode?";
+    if(empty($modes) || $remaining === 1) {
+        // Only one option or one choice remaining — auto-execute
+        DecisionQueueController::AddDecision($player, "PASSPARAMETER", "YES", 1);
+    } else {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltip);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeMode|$remaining|$chosen|$firstMode|$modeRemaining", 1);
+}
+
+$customDQHandlers["TopsyDecreeMode"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0] ?? 0);
+    $chosen = $parts[1] ?? "";
+    $currentMode = $parts[2] ?? "";
+    $modeRemaining = $parts[3] ?? "";
+
+    if($lastDecision === "YES") {
+        // Execute the mode
+        $chosen .= $currentMode;
+        $remaining--;
+        global $playerID;
+        if($currentMode === "A") {
+            // Champion gains spellshroud until end of turn
+            $zone = $player == $playerID ? "myField" : "theirField";
+            $field = GetZone($zone);
+            foreach($field as $fObj) {
+                if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+                    AddTurnEffect($fObj->GetMzID(), "SPELLSHROUD");
+                    break;
+                }
+            }
+        } elseif($currentMode === "B") {
+            // Up to one target opponent discards from hand or memory
+            $oppPlayer = ($player == 1) ? 2 : 1;
+            $oppHand = &GetHand($oppPlayer);
+            $oppMemory = &GetMemory($oppPlayer);
+            $oppZone = $oppPlayer == $playerID ? "myHand" : "theirHand";
+            $oppMemZone = $oppPlayer == $playerID ? "myMemory" : "theirMemory";
+            $targets = [];
+            for($i = 0; $i < count($oppHand); ++$i) {
+                if(!$oppHand[$i]->removed) $targets[] = $oppZone . "-" . $i;
+            }
+            for($i = 0; $i < count($oppMemory); ++$i) {
+                if(!$oppMemory[$i]->removed) $targets[] = $oppMemZone . "-" . $i;
+            }
+            if(!empty($targets)) {
+                $targetStr = implode("&", $targets);
+                DecisionQueueController::AddDecision($oppPlayer, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_(Topsy_Decree)");
+                DecisionQueueController::AddDecision($oppPlayer, "CUSTOM", "TopsyDecreeDiscard", 1);
+            }
+        } elseif($currentMode === "C") {
+            // Choose up to 2 from a single graveyard and banish them
+            $myGY = GetZone("myGraveyard");
+            $theirGY = GetZone("theirGraveyard");
+            $targets = [];
+            for($gi = 0; $gi < count($myGY); ++$gi) {
+                if(!$myGY[$gi]->removed) $targets[] = "myGraveyard-" . $gi;
+            }
+            for($gi = 0; $gi < count($theirGY); ++$gi) {
+                if(!$theirGY[$gi]->removed) $targets[] = "theirGraveyard-" . $gi;
+            }
+            if(!empty($targets)) {
+                DecisionQueueController::StoreVariable("topsyBanishCount", "0");
+                $targetStr = implode("&", $targets);
+                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Banish_card_from_GY_(1_of_2)");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeBanish", 1);
+            }
+        }
+        // Continue with remaining choices
+        if($remaining > 0) {
+            TopsyDecreeChoose($player, $remaining, $chosen);
+        }
+    } else {
+        // Skip this mode, offer next
+        if(empty($modeRemaining)) return;
+        $modes = explode(",", $modeRemaining);
+        $nextMode = array_shift($modes);
+        $nextRemaining = implode(",", $modes);
+        $tooltips = [
+            "A" => "Spellshroud_champion?",
+            "B" => "Opponent_discards?",
+            "C" => "Banish_from_GY?"
+        ];
+        $tooltip = $tooltips[$nextMode] ?? "Choose_mode?";
+        if(empty($modes) || $remaining === 1) {
+            DecisionQueueController::AddDecision($player, "PASSPARAMETER", "YES", 1);
+        } else {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltip);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeMode|$remaining|$chosen|$nextMode|$nextRemaining", 1);
+    }
+};
+
+$customDQHandlers["TopsyDecreeDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "PASS" || empty($lastDecision)) return;
+    MZMove($player, $lastDecision, "myGraveyard");
+};
+
+$customDQHandlers["TopsyDecreeBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "PASS" || empty($lastDecision)) return;
+    // Determine which GY was chosen so the second pick must be from the same
+    $chosenGY = (strpos($lastDecision, "myGraveyard") === 0) ? "myGraveyard" : "theirGraveyard";
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    $banishCount = intval(DecisionQueueController::GetVariable("topsyBanishCount")) + 1;
+    if($banishCount < 2) {
+        // Offer second banish from the SAME graveyard
+        $gy = GetZone($chosenGY);
+        $targets = [];
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if(!$gy[$gi]->removed) $targets[] = $chosenGY . "-" . $gi;
+        }
+        if(!empty($targets)) {
+            DecisionQueueController::StoreVariable("topsyBanishCount", "$banishCount");
+            $targetStr = implode("&", $targets);
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Banish_card_from_GY_(2_of_2)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeBanish", 1);
+        }
+    }
+};
+
+// --- Perilous Mend: recursive Curse selection ---
+// PerilousMendChooseCurse: offer MZMayChoose for Curse in hand/memory, recursive
+function PerilousMendChooseCurse($player, $count) {
+    global $playerID;
+    $handZone = $player == $playerID ? "myHand" : "theirHand";
+    $memZone = $player == $playerID ? "myMemory" : "theirMemory";
+    $hand = &GetHand($player);
+    $memory = &GetMemory($player);
+    $curseTargets = [];
+    for($i = 0; $i < count($hand); ++$i) {
+        if(!$hand[$i]->removed && PropertyContains(CardSubtypes($hand[$i]->CardID), "CURSE")) {
+            $curseTargets[] = $handZone . "-" . $i;
+        }
+    }
+    for($i = 0; $i < count($memory); ++$i) {
+        if(!$memory[$i]->removed && PropertyContains(CardSubtypes($memory[$i]->CardID), "CURSE")) {
+            $curseTargets[] = $memZone . "-" . $i;
+        }
+    }
+    if(empty($curseTargets)) {
+        // No more curses available — finalize: recover 3*count, draw if distant
+        PerilousMendFinalize($player, $count);
+        return;
+    }
+    DecisionQueueController::StoreVariable("perilousMendCount", "$count");
+    $targetStr = implode("&", $curseTargets);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Put_Curse_on_lineage?_(Perilous_Mend)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PerilousMendChooseCurse", 1);
+}
+
+function PerilousMendFinalize($player, $count) {
+    if($count > 0) {
+        RecoverChampion($player, 3 * $count);
+    }
+    // If champion is distant, draw a card
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $fObj) {
+        if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+            if(IsDistant($fObj)) {
+                Draw($player, amount: 1);
+            }
+            break;
+        }
+    }
+}
+
+$customDQHandlers["PerilousMendChooseCurse"] = function($player, $parts, $lastDecision) {
+    $count = intval(DecisionQueueController::GetVariable("perilousMendCount"));
+    if($lastDecision === "-" || $lastDecision === "PASS" || empty($lastDecision)) {
+        // Done choosing — finalize
+        PerilousMendFinalize($player, $count);
+        return;
+    }
+    // Move chosen curse to bottom of champion's lineage
+    AddToChampionLineage($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    $count++;
+    // Recurse for more
+    PerilousMendChooseCurse($player, $count);
 };
 
 // Rosewinged Hollow (6S1LLrBfBU): GY activation → haunt counter + optional +2 POWER to Specter ally
@@ -2764,6 +3017,22 @@ function OnCardActivated($player, $mzCard) {
                     }
                 }
                 break;
+        }
+    }
+
+    // Alice, Phantom Monarch (emqOANitoD) — Inherited Effect:
+    // Whenever you play an advanced element card while no Curse in Alice's lineage, deal 7 unpreventable to Alice.
+    if(ChampionHasInLineage($player, "emqOANitoD")) {
+        $cardElement = CardElement($obj->CardID);
+        $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM"];
+        if(in_array($cardElement, $advancedElements) && CountCursesInLineage($player) === 0) {
+            $champField = &GetField($player);
+            for($ci = 0; $ci < count($champField); ++$ci) {
+                if(!$champField[$ci]->removed && PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
+                    $champField[$ci]->Damage += 7;
+                    break;
+                }
+            }
         }
     }
 
@@ -5511,6 +5780,17 @@ function EndPhase() {
         }
     }
 
+    // Stardust Oracle (EPy8OUmPxa): [Class Bonus] At beginning of end phase, summon Astral Shard token
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "EPy8OUmPxa" && !HasNoAbilities($field[$i])) {
+            if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
+                MZAddZone($turnPlayer, "myField", "eP07Xxscuq");
+            }
+            break;
+        }
+    }
+
     // Overlord Mk III (sl7ddcgw05): At beginning of end phase, may banish an
     // Automaton from GY → put a buff counter on CARDNAME and draw a card.
     $field = &GetField($turnPlayer);
@@ -6713,6 +6993,16 @@ function ObjectCurrentPower($obj) {
                 }
             }
         }
+        // Chance, Seven of Spades (DKoSnhjX18): Cardistry — other Suited allies get +1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SUITED")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "DKoSnhjX18" && !HasNoAbilities($fieldObj)
+                   && $fieldObj !== $obj && in_array("DKoSnhjX18", $fieldObj->TurnEffects)) {
+                    $power += 1;
+                    break;
+                }
+            }
+        }
     }
     // General at Arms (9m72c8x9oh): [CB] Polearm attack cards get +2 POWER
     if(PropertyContains(EffectiveCardType($obj), "ATTACK") && PropertyContains(CardSubtypes($obj->CardID), "POLEARM")) {
@@ -7612,7 +7902,9 @@ function ObjectCurrentHP($obj) {
     }
     // Inherited Effects: check champion lineage for curse effects
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && is_array($obj->Subcards)) {
+        $curseSuppressed = AreCurseLineageAbilitiesSuppressed($obj->Controller);
         foreach($obj->Subcards as $lineageCardID) {
+            if($curseSuppressed && PropertyContains(CardSubtypes($lineageCardID), "CURSE")) continue;
             if($lineageCardID === "8tuhuy4xip") { // Load Soul: -2 LIFE
                 $cardLife -= 2;
             }
@@ -8815,6 +9107,11 @@ $ephemerateCards["XK3NiQ5MdR"] = ['cost' => 1]; // Remnant of Will
 $ephemerateCards["YFCfIOwNQ5"] = ['cost' => 2]; // Singeing Leap
 $ephemerateCards["p7FWS3DA4a"] = ['cost' => 2]; // Molten Echo
 $ephemerateCards["Dtr3jPRAFJ"] = ['cost' => 6]; // Spectral Haunting
+$ephemerateCards["24I0xn0OQ1"] = ['cost' => 2, 'extraCostHandler' => 'EphemerateBanishOtherGY',
+    'condition' => function($player) {
+        return IsAliceBonusActive($player) && IsElementBonusActive($player, "24I0xn0OQ1");
+    }
+]; // Maledictum Vitae
 
 function GetEphemerateCost($player, $cardID) {
     global $ephemerateCards;
@@ -8832,7 +9129,9 @@ function CanPayEphemerate($player, $cardID) {
     if(!isset($ephemerateCards[$cardID])) return false;
     // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
     if(IsPhantasmagoriaGYSuppressed($player, $cardID)) return false;
+    // Condition check (e.g. Alice Bonus + Element Bonus for Maledictum Vitae)
     $config = $ephemerateCards[$cardID];
+    if(isset($config['condition']) && !$config['condition']($player)) return false;
     $cost = GetEphemerateCost($player, $cardID);
     $hand = &GetHand($player);
     $available = count($hand);
@@ -8863,6 +9162,16 @@ function CanPayEphemerate($player, $cardID) {
             // Need at least 1 extra card in hand (beyond those needed for reserve cost)
             // The card is moved to hand first, so hand count includes it
             if($available < $cost + 1) return false;
+        }
+        if($config['extraCostHandler'] === 'EphemerateBanishOtherGY') {
+            // Need at least 1 other card in graveyard (besides the ephemerated card itself)
+            $gravZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+            $gy = GetZone($gravZone);
+            $otherGYCount = 0;
+            foreach($gy as $gObj) {
+                if(!$gObj->removed && $gObj->CardID !== $cardID) $otherGYCount++;
+            }
+            if($otherGYCount < 1) return false;
         }
     }
     return true;
@@ -8899,6 +9208,10 @@ $doesGlobalEffectApply["v0yuddp71s"] = function($obj) {
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 $doesGlobalEffectApply["v0yuddp71s-ROOK"] = function($obj) {
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+// Embrace Noir (pw9b6IJWEr): allies gain stealth until end of turn
+$doesGlobalEffectApply["pw9b6IJWEr"] = function($obj) {
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 // Favorable Omens (tqy0rwvxgs): allies get +1 LIFE for each wind omen you have
@@ -9549,6 +9862,23 @@ function ChampionHasInLineage($player, $cardID) {
 }
 
 /**
+ * Diana, Haunt Reminiscence (qp2r93Bgpj): [CB] Curse cards in your champion's lineage lose all abilities.
+ * Returns true if curse lineage abilities should be suppressed for this player.
+ */
+function AreCurseLineageAbilitiesSuppressed($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "qp2r93Bgpj" && !HasNoAbilities($fObj)
+            && IsClassBonusActive($player, ["RANGER"])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
  * Get the champion object reference for a player.
  * @param int $player The player number
  * @return object|null The champion field object, or null if not found.
@@ -9636,7 +9966,8 @@ function IsDiaoChanBonus($player) {
 function IsAliceBonusActive($player) {
     return ChampionHasInLineage($player, "daip7s9ztd")  // Alice, Golden Queen (L1)
         || ChampionHasInLineage($player, "9K4etFOi4M") // Alice, Whim's Monarch (L2)
-        || ChampionHasInLineage($player, "GiQxfpKTUC"); // Alice, Distorted Queen (L1)
+        || ChampionHasInLineage($player, "GiQxfpKTUC") // Alice, Distorted Queen (L1)
+        || ChampionHasInLineage($player, "emqOANitoD"); // Alice, Phantom Monarch (L2)
 }
 
 function SummonPawnPieceToken($player, $count = 1) {
@@ -10434,6 +10765,18 @@ function HasVigor($obj) {
             if($oObj->CardID === "5tz8bwcoel") return true;
         }
     }
+    // Chance, Seven of Spades (DKoSnhjX18): Cardistry — other Suited allies have vigor
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SUITED")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "DKoSnhjX18" && !HasNoAbilities($fObj)
+               && $fObj !== $obj && in_array("DKoSnhjX18", $fObj->TurnEffects)) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -10492,6 +10835,8 @@ function HasRetort($obj) {
             }
         }
     }
+    // Sworn Windhand (9ewgUjy34b): always has Retort (value is 2+omen count)
+    if($obj->CardID === "9ewgUjy34b") return true;
     // TurnEffect-based Retort (e.g. granted by spells/abilities until end of turn)
     foreach($obj->TurnEffects as $te) {
         if(strpos($te, "RETORT_") === 0) return true;
@@ -10518,6 +10863,8 @@ function GetRetortValue($obj) {
             }
         }
     }
+    // Sworn Windhand (9ewgUjy34b): Retort 2+X where X = omen count
+    if($obj->CardID === "9ewgUjy34b") return 2 + GetOmenCount($obj->Controller);
     // TurnEffect-based Retort — value encoded as "RETORT_N"
     $maxTE = 0;
     foreach($obj->TurnEffects as $te) {
@@ -10594,6 +10941,20 @@ function HasStealth($obj) {
     }
     // Hidden Longbowman (bx4k3akqx7): stealth while distant
     if($obj->CardID === "bx4k3akqx7" && IsDistant($obj)) return true;
+    // Stardust Oracle (EPy8OUmPxa): stealth while imbued
+    if($obj->CardID === "EPy8OUmPxa" && in_array("IMBUED", $obj->TurnEffects)) return true;
+    // Folded Shadows (HL4Q3UBoH8): [Ciel Bonus] champion has stealth while total omen cost >= 33
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        global $playerID;
+        $fsZone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $fsField = GetZone($fsZone);
+        foreach($fsField as $fsObj) {
+            if(!$fsObj->removed && $fsObj->CardID === "HL4Q3UBoH8" && !HasNoAbilities($fsObj)
+                && IsCielBonusActive($obj->Controller) && GetTotalOmenCost($obj->Controller) >= 33) {
+                return true;
+            }
+        }
+    }
     // Weiss Bishop (Dgtim99eB5): stealth while you control one or more Pawn allies
     if($obj->CardID === "Dgtim99eB5") {
         global $playerID;
@@ -10649,6 +11010,8 @@ function HasStealth($obj) {
             case "INNERVATE_STEALTH": // Innervate Agility: units gain stealth until EOT
                 return true;
             case "xxoo7dl5j4_STEALTH": // Parcenet, Royal Maid: target ally gains stealth until EOT
+                return true;
+            case "pw9b6IJWEr": // Embrace Noir: allies gain stealth until end of turn
                 return true;
         }
     }
@@ -10738,6 +11101,18 @@ function HasSpellshroud($obj) {
     }
     // Seeker's Aetherwing (bf7yzaqes4): [CB] Spellshroud
     if($obj->CardID === "bf7yzaqes4" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
+    // Folded Shadows (HL4Q3UBoH8): [Ciel Bonus] champion has spellshroud while total omen cost >= 33
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        global $playerID;
+        $fsZone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $fsField = GetZone($fsZone);
+        foreach($fsField as $fsObj) {
+            if(!$fsObj->removed && $fsObj->CardID === "HL4Q3UBoH8" && !HasNoAbilities($fsObj)
+                && IsCielBonusActive($obj->Controller) && GetTotalOmenCost($obj->Controller) >= 33) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -10920,6 +11295,8 @@ function HasTaunt($obj) {
     if($obj->CardID === "mz1dJZExOk") {
         if(GetSheenCount($obj->Controller) >= 8) return true;
     }
+    // Sworn Windhand (9ewgUjy34b): [Class Bonus] Taunt
+    if($obj->CardID === "9ewgUjy34b" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     return false;
 }
 
@@ -11216,6 +11593,11 @@ function GetRangedValue($obj) {
         case "fta5isdgrk": // Veteran Aerotheurge: CB adds +2 Ranged (stacking with base 2)
             if(IsClassBonusActive($obj->Controller, ["RANGER"])) {
                 $ranged += 2;
+            }
+            break;
+        case "qp2r93Bgpj": // Diana, Haunt Reminiscence: [CB] Ranged 3+3*curses in lineage
+            if(IsClassBonusActive($obj->Controller, ["RANGER"])) {
+                $ranged += 3 + 3 * CountCursesInLineage($obj->Controller);
             }
             break;
     }

@@ -2262,6 +2262,7 @@ function CountCursesInLineage($player) {
  * Called from DoDrawCard when the 2nd card is drawn.
  */
 function CreepingTormentDrawTrigger($player) {
+    if(AreCurseLineageAbilitiesSuppressed($player)) return;
     if(!ChampionHasInLineage($player, "zrplywc08c")) return;
     $champions = ZoneSearch("myField", ["CHAMPION"]);
     if(empty($champions)) return;
