@@ -60,6 +60,7 @@ $Kindle_Cards["0s6solta0h"] = 4; // Rapid Combustion (FIRE) - Kindle 4
 $Kindle_Cards["hd0sxpu7cp"] = 3; // Intensified Pyre (FIRE) - Kindle 3
 $Kindle_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts (FIRE) - Kindle 6
 $Kindle_Cards["OjOcXBiO0b"] = 7; // Tyrannical Denigration (EXALTED) - Kindle 7
+$Kindle_Cards["p7FWS3DA4a"] = 2; // Molten Echo (FIRE) - Kindle 2
 
 // --- Cardistry Cards Registry ---
 // Maps cardID => base reserve cost for the Cardistry activated ability.
@@ -148,6 +149,15 @@ $lineageReleaseAbilities["FUCJA8IAMi"] = [ // Spirit of Purity
     }
 ];
 
+$lineageReleaseAbilities["GiQxfpKTUC"] = [ // Alice, Distorted Queen
+    'name' => 'LR: Recover 2+X',
+    'effect' => function($player) {
+        $lineage = GetChampionLineage($player);
+        $x = max(0, count($lineage) - 1); // subcards only (exclude current card)
+        RecoverChampion($player, 2 + $x);
+    }
+];
+
 //TODO: Add this to a schema
 function ActionMap($actionCard)
 {
@@ -180,6 +190,32 @@ function ActionMap($actionCard)
             }
             break;
         case "myGraveyard":
+            // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $gyObj = GetZoneObject($actionCard);
+                if($gyObj !== null && !$gyObj->removed && IsPhantasmagoriaGYSuppressed($playerID, $gyObj->CardID)) {
+                    break;
+                }
+            }
+            // Rosewinged Hollow (6S1LLrBfBU): [Alice Bonus][Element Bonus] (2), Banish from GY → haunt counter + optional +2 POWER
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $gyObj = GetZoneObject($actionCard);
+                if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "6S1LLrBfBU") {
+                    if(IsAliceBonusActive($playerID) && IsElementBonusActive($playerID, "6S1LLrBfBU")
+                        && HasPhantasmagoria($playerID)) {
+                        $hand = &GetHand($playerID);
+                        if(count($hand) >= 2) {
+                            MZMove($playerID, $actionCard, "myBanish");
+                            DecisionQueueController::CleanupRemovedCards();
+                            DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                            DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                            DecisionQueueController::AddDecision($playerID, "CUSTOM", "EffectStackOpportunity", 100);
+                            DecisionQueueController::AddDecision($playerID, "CUSTOM", "RosewingedHollowGY_Apply", 1);
+                            return "PLAY";
+                        }
+                    }
+                }
+            }
             // Frost Shard (jnsl7ddcgw): [CB] activate from GY if leveled up this turn, banish on resolve
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $gyObj = GetZoneObject($actionCard);
@@ -288,6 +324,22 @@ function ActionMap($actionCard)
                     }
                     DecisionQueueController::AddDecision($playerID, "MZCHOOSE", implode("&", $floatingGY), 1, tooltip:"Banish_a_card_with_floating_memory");
                     DecisionQueueController::AddDecision($playerID, "CUSTOM", "EphemerateBanishFloatingProcess", 1);
+                } else if(isset($config['extraCostHandler']) && $config['extraCostHandler'] === 'EphemerateDiscard') {
+                    DecisionQueueController::StoreVariable("ephemerateCostOverride", "$cost");
+                    DecisionQueueController::StoreVariable("ephemerateHandMZ", "myHand-" . $handIdx);
+                    // Must discard a card from hand (the ephemerated card is already in hand)
+                    $hand = &GetHand($playerID);
+                    $handCards = [];
+                    for($hi = 0; $hi < count($hand); ++$hi) {
+                        if(!$hand[$hi]->removed && $hi !== $handIdx) {
+                            $handCards[] = "myHand-" . $hi;
+                        }
+                    }
+                    if(!empty($handCards)) {
+                        $handStr = implode("&", $handCards);
+                        DecisionQueueController::AddDecision($playerID, "MZCHOOSE", $handStr, 1, tooltip:"Discard_a_card_(Ephemerate_cost)");
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "EphemerateDiscardProcess", 1);
+                    }
                 } else {
                     ActivateCard($playerID, "myHand-" . $handIdx, false);
                 }
@@ -500,6 +552,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($sourceObject->CardID === "r73opcqtzs") {
         $opp = ($player == 1) ? 2 : 1;
         if(CountCursesInLineage($player) + CountCursesInLineage($opp) == 0) return;
+    }
+
+    // Grave Gateau (FQigf17dCr): [REST], Sacrifice — needs at least one Specter ally on field
+    if($sourceObject->CardID === "FQigf17dCr") {
+        $specterAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SPECTER"]);
+        if(empty($specterAllies)) return;
     }
 
     // Glassgale Flock (KRNYwHCOVM): [Merlin Bonus][Sheen 6+] activated ability guard
@@ -755,6 +813,24 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $oppAllies = ZoneSearch("theirField", ["ALLY"]);
         if(count($oppAllies) >= 3) {
             $reserveCost = max(0, $reserveCost - 3);
+        }
+    }
+
+    // Overflow the Barrow (OiyjVzW7Av): costs 2 less if no cards in graveyard
+    if($obj->CardID === "OiyjVzW7Av") {
+        $gy = GetZone("myGraveyard");
+        $hasCards = false;
+        foreach($gy as $gObj) { if(!$gObj->removed) { $hasCards = true; break; } }
+        if(!$hasCards) {
+            $reserveCost = max(0, $reserveCost - 2);
+        }
+    }
+
+    // Spectral Haunting (Dtr3jPRAFJ): [Alice Bonus] costs 4 less if targeting a Specter
+    if($obj->CardID === "Dtr3jPRAFJ" && IsAliceBonusActive($player)) {
+        $specterGY = ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["SPECTER"]);
+        if(!empty($specterGY)) {
+            $reserveCost = max(0, $reserveCost - 4);
         }
     }
 
@@ -1763,6 +1839,59 @@ $customDQHandlers["EphemerateBanishFloatingProcess"] = function($player, $parts,
     $hand = &GetHand($player);
     $handIdx = count($hand) - 1;
     ActivateCard($player, "myHand-" . $handIdx, false);
+};
+
+// Ephemerate extra cost: discard a card from hand, then activate (Treacle, Drowned Mouse)
+$customDQHandlers["EphemerateDiscardProcess"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || empty($lastDecision)) return;
+    MZMove($player, $lastDecision, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    ActivateCard($player, "myHand-" . $handIdx, false);
+};
+
+// Rosewinged Hollow (6S1LLrBfBU): GY activation → haunt counter + optional +2 POWER to Specter ally
+$customDQHandlers["RosewingedHollowGY_Apply"] = function($player, $parts, $lastDecision) {
+    AddHauntToMastery($player, 1);
+    if(GetHauntCount($player) >= 6) {
+        global $playerID;
+        $zone = $player == $playerID ? "myField" : "theirField";
+        $specterAllies = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["SPECTER"]);
+        if(!empty($specterAllies)) {
+            $targetStr = implode("&", $specterAllies);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Choose_Specter_ally_to_get_+2_POWER");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "RosewingedHollowGY_Buff", 1);
+        }
+    }
+};
+
+$customDQHandlers["RosewingedHollowGY_Buff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        AddTurnEffect($lastDecision, "6S1LLrBfBU");
+    }
+};
+
+// Phantasmagoria (D3rexaXCBo): End phase — put all GY on bottom of deck, then mill X = haunt counters
+$customDQHandlers["PhantasmagoriaEndPhase"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    // Put all graveyard cards on bottom of deck
+    $gy = &GetGraveyard($player);
+    $deck = &GetDeck($player);
+    for($i = count($gy) - 1; $i >= 0; --$i) {
+        if(!$gy[$i]->removed) {
+            array_push($deck, $gy[$i]);
+            $gy[$i]->removed = true;
+        }
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    // Mill X where X is haunt counters
+    $hauntCount = GetHauntCount($player);
+    for($i = 0; $i < $hauntCount; ++$i) {
+        $deck = &GetDeck($player);
+        if(empty($deck)) break;
+        MZMove($player, "myDeck-0", "myGraveyard");
+    }
 };
 
 // Shackled Theurgist (vkqzk1jik7): On Death DQ handlers
@@ -3862,6 +3991,12 @@ function DoAllyDestroyed($player, $mzCard) {
             }
         }
     }
+    // Phantasmagoria: [Alice Bonus] whenever a Specter ally you control dies, put a haunt counter
+    if(PropertyContains(EffectiveCardSubtypes($obj), "SPECTER") && PropertyContains(EffectiveCardType($obj), "ALLY")) {
+        if(IsAliceBonusActive($controller) && HasPhantasmagoria($controller)) {
+            AddHauntToMastery($controller, 1);
+        }
+    }
 }
 
 function WakeUpPhase() {
@@ -5068,6 +5203,22 @@ function RecollectionPhase() {
         }
     }
     
+    // --- Treacle, Drowned Mouse (6emPe9OEUn): [Alice Bonus] At beginning of recollection phase,
+    // recover X where X is the amount of Specter allies you control.
+    if(IsAliceBonusActive($turnPlayer)) {
+        $field = &GetField($turnPlayer);
+        for($ti = 0; $ti < count($field); ++$ti) {
+            if(!$field[$ti]->removed && $field[$ti]->CardID === "6emPe9OEUn" && !HasNoAbilities($field[$ti])) {
+                global $playerID;
+                $tZone = $turnPlayer == $playerID ? "myField" : "theirField";
+                $specterAllies = ZoneSearch($tZone, ["ALLY"], cardSubtypes: ["SPECTER"]);
+                $x = count($specterAllies);
+                if($x > 0) RecoverChampion($turnPlayer, $x);
+                break;
+            }
+        }
+    }
+
     // --- Celestial Calling: check for banished cards tagged for free activation ---
     CelestialCallingRecollectionCheck($turnPlayer);
 
@@ -5574,6 +5725,19 @@ function EndPhase() {
         }
     }
 
+    // Phantasmagoria (D3rexaXCBo): [Alice Bonus] At beginning of end phase, may put all GY cards
+    // on bottom of deck, then mill X where X is haunt counters.
+    if(HasPhantasmagoria($turnPlayer) && IsAliceBonusActive($turnPlayer)) {
+        $gy = &GetGraveyard($turnPlayer);
+        $hasGYCards = false;
+        foreach($gy as $g) { if(!$g->removed) { $hasGYCards = true; break; } }
+        if($hasGYCards && GetHauntCount($turnPlayer) > 0) {
+            DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1,
+                tooltip:"Put_all_graveyard_cards_on_bottom_of_deck,_then_mill_X_(haunt_counters)?");
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "PhantasmagoriaEndPhase", 1);
+        }
+    }
+
     // Merlin L3 (2TCyILvBYa): [Sheen 24+] At beginning of end phase, look at opp memory,
     // banish a card from it. Until end of opponent's next turn, they may activate that card.
     if(GetSheenCount($turnPlayer) >= 24) {
@@ -5641,6 +5805,9 @@ function ObjectCurrentPower($obj) {
     // Tweedledee, Contrarian Poet (EwUKdNL4bk): -3 POWER per hit (indefinite)
     $power -= GetCounterCount($obj, "power_loss");
     switch($obj->CardID) { //Self power modifiers
+        case "XFWU8KTVW9": // Ghastly Slime: +2 POWER while ephemeral
+            if(IsEphemeral($obj)) $power += 2;
+            break;
         case "fdnlbJm3hr": // Memorite Obelith: +1 POWER per sheen counter (cap 5)
             $power += min(5, GetCounterCount($obj, "sheen"));
             break;
@@ -6757,6 +6924,9 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
                 break;
             case "lpy7ie4v8n": // Sword Saint of Everflame: +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "6S1LLrBfBU": // Rosewinged Hollow: +2 POWER until end of turn
                 $power += 2;
                 break;
             case "9f0nsj62l6-POWER": // Apprentice Aeromancer: [CB] wind spell trigger +1 POWER until EOT
@@ -8637,6 +8807,14 @@ $ephemerateCards["sm68d3we64"] = ['cost' => 3, 'extraCostHandler' => 'Ephemerate
 $ephemerateCards["v0gu8efq08"] = ['cost' => 6, 'costModifier' => function($player) {
     return CountEphemeralObjects($player) > 0 ? 3 : 0;
 }]; // Lingering Banshee
+$ephemerateCards["6emPe9OEUn"] = ['cost' => 2, 'extraCostHandler' => 'EphemerateDiscard']; // Treacle, Drowned Mouse
+$ephemerateCards["FQigf17dCr"] = ['cost' => 1]; // Grave Gateau
+$ephemerateCards["ULHGVVpQoH"] = ['cost' => 5]; // Indissoluble Fractal
+$ephemerateCards["XFWU8KTVW9"] = ['cost' => 2]; // Ghastly Slime
+$ephemerateCards["XK3NiQ5MdR"] = ['cost' => 1]; // Remnant of Will
+$ephemerateCards["YFCfIOwNQ5"] = ['cost' => 2]; // Singeing Leap
+$ephemerateCards["p7FWS3DA4a"] = ['cost' => 2]; // Molten Echo
+$ephemerateCards["Dtr3jPRAFJ"] = ['cost' => 6]; // Spectral Haunting
 
 function GetEphemerateCost($player, $cardID) {
     global $ephemerateCards;
@@ -8652,6 +8830,8 @@ function GetEphemerateCost($player, $cardID) {
 function CanPayEphemerate($player, $cardID) {
     global $ephemerateCards, $playerID;
     if(!isset($ephemerateCards[$cardID])) return false;
+    // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
+    if(IsPhantasmagoriaGYSuppressed($player, $cardID)) return false;
     $config = $ephemerateCards[$cardID];
     $cost = GetEphemerateCost($player, $cardID);
     $hand = &GetHand($player);
@@ -8678,6 +8858,11 @@ function CanPayEphemerate($player, $cardID) {
                 }
             }
             if(!$hasFloating) return false;
+        }
+        if($config['extraCostHandler'] === 'EphemerateDiscard') {
+            // Need at least 1 extra card in hand (beyond those needed for reserve cost)
+            // The card is moved to hand first, so hand count includes it
+            if($available < $cost + 1) return false;
         }
     }
     return true;
@@ -9450,7 +9635,8 @@ function IsDiaoChanBonus($player) {
 
 function IsAliceBonusActive($player) {
     return ChampionHasInLineage($player, "daip7s9ztd")  // Alice, Golden Queen (L1)
-        || ChampionHasInLineage($player, "9K4etFOi4M"); // Alice, Whim's Monarch (L2)
+        || ChampionHasInLineage($player, "9K4etFOi4M") // Alice, Whim's Monarch (L2)
+        || ChampionHasInLineage($player, "GiQxfpKTUC"); // Alice, Distorted Queen (L1)
 }
 
 function SummonPawnPieceToken($player, $count = 1) {
@@ -9606,6 +9792,48 @@ function RemoveSheenFromMastery($player, $amount) {
     $mastery[0]->Counters["sheen"] = $current - $removed;
     if($mastery[0]->Counters["sheen"] <= 0) unset($mastery[0]->Counters["sheen"]);
     return $removed;
+}
+
+// --- Phantasmagoria Mastery (D3rexaXCBo) ---
+
+function HasPhantasmagoria($player) {
+    $mastery = &GetMastery($player);
+    return !empty($mastery) && $mastery[0]->CardID === "D3rexaXCBo";
+}
+
+function GainPhantasmagoria($player) {
+    $mastery = &GetMastery($player);
+    while(count($mastery) > 0) array_splice($mastery, 0, 1);
+    return AddMastery($player, CardID:"D3rexaXCBo", Direction:"NONE", Counters:[]);
+}
+
+function GetHauntCount($player) {
+    $mastery = &GetMastery($player);
+    if(empty($mastery) || $mastery[0]->CardID !== "D3rexaXCBo") return 0;
+    return GetCounterCount($mastery[0], "haunt");
+}
+
+function AddHauntToMastery($player, $amount) {
+    if($amount <= 0) return;
+    $mastery = &GetMastery($player);
+    if(empty($mastery) || $mastery[0]->CardID !== "D3rexaXCBo") return;
+    if(!isset($mastery[0]->Counters) || !is_array($mastery[0]->Counters)) $mastery[0]->Counters = [];
+    if(!isset($mastery[0]->Counters["haunt"])) $mastery[0]->Counters["haunt"] = 0;
+    $mastery[0]->Counters["haunt"] += $amount;
+}
+
+function GetHauntCounterCount($obj) {
+    return GetCounterCount($obj, "haunt");
+}
+
+/**
+ * Phantasmagoria: Non-Specter cards in your graveyard lose all abilities.
+ * Returns true if the card's GY abilities should be suppressed.
+ */
+function IsPhantasmagoriaGYSuppressed($player, $cardID) {
+    if(!HasPhantasmagoria($player)) return false;
+    if(PropertyContains(CardSubtypes($cardID), "SPECTER")) return false;
+    return true;
 }
 
 /**
@@ -9903,6 +10131,8 @@ function EndCombat($player) {
 function HasFloatingMemory($obj) {
     // Censer of Restful Peace (0nlhgqpckq): cards in graveyards lose all abilities (including floating memory)
     if(ZoneContainsCardID("myField", "0nlhgqpckq") || ZoneContainsCardID("theirField", "0nlhgqpckq")) return false;
+    // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
+    if(isset($obj->Controller) && IsPhantasmagoriaGYSuppressed($obj->Controller, $obj->CardID)) return false;
     if(HasKeyword_FloatingMemory($obj)) return true;
     // Intrepid Highwayman (WUAOMTZ7P2): [Class Bonus] Floating Memory
     if($obj->CardID === "WUAOMTZ7P2" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
@@ -10391,6 +10621,8 @@ function HasStealth($obj) {
         }
     }
     if(HasKeyword_Stealth($obj)) return true;
+    // Treacle, Drowned Mouse (6emPe9OEUn): stealth while ephemeral
+    if($obj->CardID === "6emPe9OEUn" && IsEphemeral($obj)) return true;
     // STEALTH: granted stealth until end of turn (e.g. Vanish from Sight, Sidestep)
     if(in_array("STEALTH", $obj->TurnEffects)) return true;
     // STEALTH_NEXT_TURN: persistent stealth until beginning of controller's next turn (e.g. Zander)
