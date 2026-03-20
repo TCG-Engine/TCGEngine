@@ -63,6 +63,7 @@ Virtual: PrepCounterCount=GetPrepCounterCount()
 Virtual: DurabilityCounterCount=GetDurabilityCounterCount()
 Virtual: GlimmerCounterCount=GetGlimmerCounterCount()
 Virtual: WitherCounterCount=GetWitherCounterCount()
+Virtual: SheenCounterCount=GetSheenCounterCount()
 Virtual: DynamicAbilities=GetDynamicAbilities()
 Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
@@ -80,6 +81,7 @@ Counters: PrepCounterCount=Badge(Color=Silver,Position=Center,ShowZero=false)
 Counters: DurabilityCounterCount=Badge(Color=Brown,Position=TopRight,ShowZero=false)
 Counters: GlimmerCounterCount=Badge(Color=Magenta,Position=Center,ShowZero=false)
 Counters: WitherCounterCount=Badge(Color=DarkGreen,Position=Center,ShowZero=false)
+Counters: SheenCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
 AfterAdd: FieldAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()
@@ -102,9 +104,11 @@ Highlight: SelectionMetadata
 Health - Value:number=0
 Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
 Widgets: Value=-1&+1,CustomInput=Pass
-Mastery - CardID:string, Direction:string=NONE
+Mastery - CardID:string, Direction:string=NONE, Counters:json
+Virtual: SheenCounterCount=GetSheenCounterCount()
 Display: Visibility=Public, Mode=All, Top=10px, Right=250px
 Overlay: Direction=NORTH:sc_north,Direction=SOUTH:sc_south,Direction=EAST:sc_east,Direction=WEST:sc_west
+Counters: SheenCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string

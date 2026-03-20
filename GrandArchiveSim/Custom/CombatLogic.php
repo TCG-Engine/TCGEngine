@@ -2300,6 +2300,32 @@ function OnDealDamage($player, $source, $target, $amount) {
         if($amount <= 0) return;
     }
 
+    // Crystallized Anthem (XfAJlQt9hH): prevent up to 2 damage to each unit this turn,
+    // and when damage is prevented this way, put 2 sheen on caster's Fractured Memories.
+    if($amount > 0) {
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "CRYSTALLIZED_ANTHEM_") === 0) {
+                $budget = intval(substr($effect, strlen("CRYSTALLIZED_ANTHEM_")));
+                $prevented = min($budget, $amount);
+                $amount -= $prevented;
+                $remaining = $budget - $prevented;
+                if($remaining <= 0) {
+                    unset($targetObj->TurnEffects[$idx]);
+                    $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                } else {
+                    $targetObj->TurnEffects[$idx] = "CRYSTALLIZED_ANTHEM_" . $remaining;
+                }
+                if($prevented > 0) {
+                    // Put 2 sheen on the caster's Fractured Memories
+                    $casterPlayer = $targetObj->Controller ?? $player;
+                    AddSheenToMastery($casterPlayer, 2);
+                }
+                break;
+            }
+        }
+        if($amount <= 0) return;
+    }
+
     // PREVENT_NONCOMBAT_N: prevent up to N non-combat damage this turn (Dodge Roll)
     $isCombat = DecisionQueueController::GetVariable("CombatAttacker") !== null;
     if(!$isCombat && $amount > 0) {

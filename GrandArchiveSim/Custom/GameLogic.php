@@ -502,6 +502,46 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(CountCursesInLineage($player) + CountCursesInLineage($opp) == 0) return;
     }
 
+    // Glassgale Flock (KRNYwHCOVM): [Merlin Bonus][Sheen 6+] activated ability guard
+    if($sourceObject->CardID === "KRNYwHCOVM") {
+        if(!IsMerlinBonusActive($player) || GetSheenCount($player) < 6) return;
+        // Also check: must not already control a Memorite Shardwing
+        $field = &GetField($player);
+        $hasShardwing = false;
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && $field[$i]->CardID === "LxF5riNjnL") {
+                $hasShardwing = true;
+                break;
+            }
+        }
+        if($hasShardwing) return;
+    }
+
+    // Merlin L2 (dPP9I4nVn0): activate only once (per game)
+    if($sourceObject->CardID === "dPP9I4nVn0") {
+        if(isset($sourceObject->Counters['merlin_l2_used'])) return;
+    }
+
+    // Dichroic Scorch (TlhsnnRhGK): mandatory discard of a fire element card
+    if($sourceObject->CardID === "TlhsnnRhGK") {
+        $hand = GetZone("myHand");
+        $hasFireDiscard = false;
+        foreach($hand as $hi => $hObj) {
+            if(!$hObj->removed && "myHand-" . $hi !== $mzCard && CardElement($hObj->CardID) === "FIRE") {
+                $hasFireDiscard = true;
+                break;
+            }
+        }
+        if(!$hasFireDiscard) return;
+    }
+
+    // Facet Together (XmsEbk19Iu): only during an opponent's turn + must control Memorite objects
+    if($sourceObject->CardID === "XmsEbk19Iu") {
+        if(GetTurnPlayer() == $player) return;
+        $memorites = ZoneSearch("myField", cardSubtypes: ["MEMORITE"]);
+        if(empty($memorites)) return;
+    }
+
     // Obscured Offering (S3ODMQ0V0o): additional cost — banish 2 from material deck
     if($sourceObject->CardID === "S3ODMQ0V0o") {
         $mat = ZoneSearch("myMaterial");
@@ -896,6 +936,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         RemoveGlobalEffect($player, "XUCHANG_COST_INCREASE");
     }
 
+    // Burnished Obelith (mz1dJZExOk): next card controller activates costs 2 more (one-shot)
+    if(GlobalEffectCount($player, "mz1dJZExOk_COST") > 0) {
+        $reserveCost += 2;
+        RemoveGlobalEffect($player, "mz1dJZExOk_COST");
+    }
+
     // Consumption Ring (g8q7imka92): non-ally cards opponents activate cost (4) more until end of turn
     if(!PropertyContains($cardType, "ALLY")) {
         $opponent = ($player == 1) ? 2 : 1;
@@ -907,6 +953,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Ceasing Edict (4f3bi5lohu): costs 2 less while Shifting Currents face South
     if($obj->CardID === "4f3bi5lohu" && GetShiftingCurrents($player) === "SOUTH") {
         $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Crackling Incineration (14bepZKPlK): [Sheen 6+] costs 2 less to activate
+    if($obj->CardID === "14bepZKPlK" && GetSheenCount($player) >= 6) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Merlin L2 (dPP9I4nVn0): activated ability costs X less (X = sheen count on Fractured Memories)
+    if($obj->CardID === "dPP9I4nVn0") {
+        $sheenDiscount = GetSheenCount($player);
+        if($sheenDiscount > 0) {
+            $reserveCost = max(0, $reserveCost - $sheenDiscount);
+        }
     }
 
     // Rebounding Gust (9e0z7hb9id): costs 2 less while targeting an attacking ally (approximated: during combat)
@@ -1372,6 +1431,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $fireStr = implode("&", $fireCards);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $fireStr, 100, tooltip:"Discard_a_fire_element_card");
             DecisionQueueController::AddDecision($player, "CUSTOM", "FiretunedAutomatonDiscard", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Dichroic Scorch (TlhsnnRhGK): mandatory discard fire element card
+    if($obj->CardID === "TlhsnnRhGK") {
+        $fireCards = [];
+        $hand = GetZone("myHand");
+        foreach($hand as $hi => $hObj) {
+            if(!$hObj->removed && CardElement($hObj->CardID) === "FIRE") {
+                $fireCards[] = "myHand-" . $hi;
+            }
+        }
+        if(!empty($fireCards)) {
+            $fireStr = implode("&", $fireCards);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $fireStr, 100, tooltip:"Discard_a_fire_element_card_(Dichroic_Scorch)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DichroicScorchDiscard", 100);
         }
     }
 
@@ -2039,6 +2114,84 @@ $customDQHandlers["DeclarePrepareCost"] = function($player, $parts, $lastDecisio
     } else {
         DecisionQueueController::StoreVariable("wasPrepared", "NO");
     }
+};
+
+// Crackling Incineration: controller puts a sheen counter on a unit they control
+$customDQHandlers["CracklingIncinerationSheen"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "sheen", 1);
+};
+
+// Merlin L1: summon Memorite Blade after paying (2)
+$customDQHandlers["MerlinL1SummonBlade"] = function($player, $parts, $lastDecision) {
+    SummonMemorite($player, "nZFkDcvpaY");
+};
+
+// Merlin L1 Inherited: opponent chooses a unit they control to put a sheen counter on
+$customDQHandlers["MerlinInheritedSheen"] = function($player, $parts, $lastDecision) {
+    // $player here is the opponent (recollecting player) — parts[0] is the count of sheen to place
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $sheenCount = isset($parts[0]) ? intval($parts[0]) : 1;
+    AddCounters($player, $lastDecision, "sheen", $sheenCount);
+};
+
+// Merlin L3: banish a card from opponent's memory and let them activate it until end of next turn
+$customDQHandlers["MerlinL3BanishMemory"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $opponent = intval($parts[0]);
+    global $playerID;
+    $oppBanish = $opponent == $playerID ? "myBanish" : "theirBanish";
+    $banishedObj = MZMove($player, $lastDecision, $oppBanish);
+    if($banishedObj !== null) {
+        // Tag the banished card so it can be activated until end of opponent's next turn
+        if(!is_array($banishedObj->TurnEffects)) $banishedObj->TurnEffects = [];
+        $banishedObj->TurnEffects[] = "MERLIN_L3_ACTIVATE";
+    }
+};
+
+// Dichroic Scorch: discard handler (additional cost)
+$customDQHandlers["DichroicScorchDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoDiscardCard($player, $lastDecision);
+};
+
+$customDQHandlers["FacetTogetherSacrifice"] = function($player, $parts, $lastDecision) {
+    $count = intval(DecisionQueueController::GetVariable("FacetTogetherCount"));
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        // Sacrifice chosen Memorite
+        MZMove($player, $lastDecision, "myGraveyard");
+        $count++;
+        DecisionQueueController::StoreVariable("FacetTogetherCount", strval($count));
+        // Check for more Memorites
+        $remaining = ZoneSearch("myField", cardSubtypes: ["MEMORITE"]);
+        if(!empty($remaining)) {
+            $remStr = implode("&", $remaining);
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $remStr, 1, tooltip:"Sacrifice_another_Memorite?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "FacetTogetherSacrifice", 1);
+            return;
+        }
+    }
+    // Done sacrificing — if count > 0, target a weapon for +X POWER
+    if($count <= 0) return;
+    global $playerID;
+    $myZone = $player == $playerID ? "myField" : "theirField";
+    $weapons = ZoneSearch($myZone, ["WEAPON"]);
+    if(empty($weapons)) {
+        // No weapon target, but still put sheen on mastery
+        AddSheenToMastery($player, $count);
+        return;
+    }
+    DecisionQueueController::StoreVariable("FacetTogetherCount", strval($count));
+    $wepStr = implode("&", $weapons);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $wepStr, 1, tooltip:"Target_weapon_for_+POWER");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FacetTogetherApply", 1);
+};
+
+$customDQHandlers["FacetTogetherApply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $count = intval(DecisionQueueController::GetVariable("FacetTogetherCount"));
+    AddTurnEffect($lastDecision, "FACET_POWER_" . $count);
+    AddSheenToMastery($player, $count);
 };
 
 function OnCardReserved($player, $mzCard) {
@@ -4930,6 +5083,40 @@ function RecollectionPhase() {
     }
 
     $memory = &GetMemory($turnPlayer);
+
+    // Crystallized Anthem (XfAJlQt9hH): at beginning of your next recollection,
+    // Memorite objects you control get +1 POWER per 6 sheen until end of turn.
+    if(GlobalEffectCount($turnPlayer, "CRYSTALLIZED_ANTHEM_RECOLLECTION") > 0) {
+        RemoveGlobalEffect($turnPlayer, "CRYSTALLIZED_ANTHEM_RECOLLECTION");
+        $sheenCount = GetSheenCount($turnPlayer);
+        $bonus = intval(floor($sheenCount / 6));
+        if($bonus > 0) {
+            global $playerID;
+            $myZone = $turnPlayer == $playerID ? "myField" : "theirField";
+            $memorites = ZoneSearch($myZone, cardSubtypes: ["MEMORITE"]);
+            foreach($memorites as $memMZ) {
+                AddTurnEffect($memMZ, "CRYSTALLIZED_ANTHEM_POWER_" . $bonus);
+            }
+        }
+    }
+
+    // Merlin L1 Inherited Effect: Whenever an opponent recollects 3+ cards,
+    // for every 3 cards recollected, they put a sheen counter on a unit they control.
+    $opponent = ($turnPlayer == 1) ? 2 : 1;
+    if(IsMerlinBonusActive($opponent) && count($memory) >= 3) {
+        $sheenSets = intval(floor(count($memory) / 3));
+        global $playerID;
+        $oppZone = $turnPlayer == $playerID ? "myField" : "theirField";
+        $oppUnits = ZoneSearch($oppZone, ["ALLY", "CHAMPION"]);
+        if(!empty($oppUnits)) {
+            for($s = 0; $s < $sheenSets; ++$s) {
+                $unitStr = implode("&", $oppUnits);
+                DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", $unitStr, 1, tooltip:"Put_a_sheen_counter_on_a_unit_you_control_(Merlin_Inherited)");
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MerlinInheritedSheen|1", 1);
+            }
+        }
+    }
+
     for($i=count($memory)-1; $i>=0; --$i) {
         MZMove($turnPlayer, "myMemory-" . $i, "myHand");
     }
@@ -5387,6 +5574,33 @@ function EndPhase() {
         }
     }
 
+    // Merlin L3 (2TCyILvBYa): [Sheen 24+] At beginning of end phase, look at opp memory,
+    // banish a card from it. Until end of opponent's next turn, they may activate that card.
+    if(GetSheenCount($turnPlayer) >= 24) {
+        // Check if champion IS Merlin L3
+        $field = &GetField($turnPlayer);
+        for($mli = 0; $mli < count($field); ++$mli) {
+            if(!$field[$mli]->removed && $field[$mli]->CardID === "2TCyILvBYa" && !HasNoAbilities($field[$mli])) {
+                $opponent = ($turnPlayer == 1) ? 2 : 1;
+                global $playerID;
+                $oppMemZone = $opponent == $playerID ? "myMemory" : "theirMemory";
+                $oppMem = GetZone($oppMemZone);
+                $memCards = [];
+                for($mi = 0; $mi < count($oppMem); ++$mi) {
+                    if(!$oppMem[$mi]->removed) {
+                        $memCards[] = $oppMemZone . "-" . $mi;
+                    }
+                }
+                if(!empty($memCards)) {
+                    $memStr = implode("&", $memCards);
+                    DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", $memStr, 1, tooltip:"Banish_a_card_from_opponent's_memory_(Merlin_L3)");
+                    DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MerlinL3BanishMemory|" . $opponent, 1);
+                }
+                break;
+            }
+        }
+    }
+
     $field = &GetField($turnPlayer);
     for($i=count($field)-1; $i>=0; --$i) {
         if(HasVigor($field[$i])) {
@@ -5395,6 +5609,13 @@ function EndPhase() {
         // Attune with Flames (nvx7mnu1xh): clear ATTUNE_FLAMES_BUFF at end of controller's turn
         if(in_array("ATTUNE_FLAMES_BUFF", $field[$i]->TurnEffects)) {
             $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["ATTUNE_FLAMES_BUFF"]));
+        }
+        // Facet Together (XmsEbk19Iu): clear FACET_POWER_* at end of controller's turn
+        foreach($field[$i]->TurnEffects as $te) {
+            if(strpos($te, "FACET_POWER_") === 0) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, [$te]));
+                break;
+            }
         }
         // DISTANT: expires at end of the controller's turn (not at end of every turn)
         if(in_array("DISTANT", $field[$i]->TurnEffects)) {
@@ -5420,6 +5641,9 @@ function ObjectCurrentPower($obj) {
     // Tweedledee, Contrarian Poet (EwUKdNL4bk): -3 POWER per hit (indefinite)
     $power -= GetCounterCount($obj, "power_loss");
     switch($obj->CardID) { //Self power modifiers
+        case "fdnlbJm3hr": // Memorite Obelith: +1 POWER per sheen counter (cap 5)
+            $power += min(5, GetCounterCount($obj, "sheen"));
+            break;
         case "HWFWO0TB8l"://Tempest Silverback
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
                 $power += 2;
@@ -6732,6 +6956,18 @@ function ObjectCurrentPower($obj) {
     if(in_array("hreqhj1trn-power", $obj->TurnEffects)) {
         $power += 2;
     }
+    // Facet Together (XmsEbk19Iu): +X POWER until end of your next turn
+    foreach($obj->TurnEffects as $te) {
+        if(strpos($te, "FACET_POWER_") === 0) {
+            $power += intval(substr($te, strlen("FACET_POWER_")));
+        }
+    }
+    // Crystallized Anthem (XfAJlQt9hH): +X POWER for Memorite objects at recollection
+    foreach($obj->TurnEffects as $te) {
+        if(strpos($te, "CRYSTALLIZED_ANTHEM_POWER_") === 0) {
+            $power += intval(substr($te, strlen("CRYSTALLIZED_ANTHEM_POWER_")));
+        }
+    }
     // Peppered Chef (lcy0lw1veb): On Enter sacrifice ally → +2 POWER until end of turn
     if(in_array("lcy0lw1veb", $obj->TurnEffects)) {
         $power += 2;
@@ -7029,6 +7265,9 @@ function ObjectCurrentHP($obj) {
     // Buff counter modifier: +1 life per buff counter (applied before other modifiers)
     $cardLife += GetCounterCount($obj, "buff");
     switch($obj->CardID) { //Self hp modifiers
+        case "fdnlbJm3hr": // Memorite Obelith: +1 LIFE per sheen counter (cap 5)
+            $cardLife += min(5, GetCounterCount($obj, "sheen"));
+            break;
         case "HWFWO0TB8l"://Tempest Silverback
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
                 $cardLife += 2;
@@ -8316,6 +8555,10 @@ function ExpireEffects($isEndTurn=true) {
             if(strpos($effect, "PZM9uvCFai-") === 0) {
                 $newEffects[] = $effect;
             }
+            // Facet Together (XmsEbk19Iu): +X POWER until end of your next turn
+            if(strpos($effect, "FACET_POWER_") === 0) {
+                $newEffects[] = $effect;
+            }
         }
         $fieldObj->TurnEffects = $newEffects;
     }
@@ -8799,6 +9042,10 @@ $doesGlobalEffectApply["owq8s5fefw"] = function($obj) { return false; };
 // Resolute Stand (o6gb0op3nq): flag only — skip next draw phase
 $doesGlobalEffectApply["SKIP_NEXT_DRAW"] = function($obj) { return false; };
 $foreverEffects["SKIP_NEXT_DRAW"] = true;
+
+// Crystallized Anthem (XfAJlQt9hH): delayed recollection trigger
+$doesGlobalEffectApply["CRYSTALLIZED_ANTHEM_RECOLLECTION"] = function($obj) { return false; };
+$foreverEffects["CRYSTALLIZED_ANTHEM_RECOLLECTION"] = true;
 
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
@@ -9320,6 +9567,66 @@ function GainServilePossessions($player) {
 function HasServilePossessionsMastery($player) {
     $mastery = &GetMastery($player);
     return !empty($mastery) && $mastery[0]->CardID === "0d93t7bfwc";
+}
+
+// --- Fractured Memories Mastery (UAJGQFbXjs) ---
+
+function HasFracturedMemories($player) {
+    $mastery = &GetMastery($player);
+    return !empty($mastery) && $mastery[0]->CardID === "UAJGQFbXjs";
+}
+
+function GainFracturedMemories($player) {
+    $mastery = &GetMastery($player);
+    while(count($mastery) > 0) array_splice($mastery, 0, 1);
+    return AddMastery($player, CardID:"UAJGQFbXjs", Direction:"NONE", Counters:[]);
+}
+
+function GetSheenCount($player) {
+    $mastery = &GetMastery($player);
+    if(empty($mastery) || $mastery[0]->CardID !== "UAJGQFbXjs") return 0;
+    return GetCounterCount($mastery[0], "sheen");
+}
+
+function AddSheenToMastery($player, $amount) {
+    if($amount <= 0) return;
+    $mastery = &GetMastery($player);
+    if(empty($mastery) || $mastery[0]->CardID !== "UAJGQFbXjs") return;
+    if(!isset($mastery[0]->Counters) || !is_array($mastery[0]->Counters)) $mastery[0]->Counters = [];
+    if(!isset($mastery[0]->Counters["sheen"])) $mastery[0]->Counters["sheen"] = 0;
+    $mastery[0]->Counters["sheen"] += $amount;
+}
+
+function RemoveSheenFromMastery($player, $amount) {
+    if($amount <= 0) return 0;
+    $mastery = &GetMastery($player);
+    if(empty($mastery) || $mastery[0]->CardID !== "UAJGQFbXjs") return 0;
+    $current = GetCounterCount($mastery[0], "sheen");
+    $removed = min($amount, $current);
+    $mastery[0]->Counters["sheen"] = $current - $removed;
+    if($mastery[0]->Counters["sheen"] <= 0) unset($mastery[0]->Counters["sheen"]);
+    return $removed;
+}
+
+/**
+ * Virtual property callback for Mastery zone: sheen counter display badge.
+ */
+function GetSheenCounterCount($obj) {
+    return GetCounterCount($obj, "sheen");
+}
+
+// --- Merlin Bonus ---
+
+function IsMerlinBonusActive($player) {
+    return ChampionHasInLineage($player, "6R8XmWoKLn")  // Merlin, Memorite Vassal (L1)
+        || ChampionHasInLineage($player, "dPP9I4nVn0")  // Merlin, Amethyst's Glow (L2)
+        || ChampionHasInLineage($player, "2TCyILvBYa"); // Merlin, Brilliant Vestige (L3)
+}
+
+// --- Memorite token summoning ---
+
+function SummonMemorite($player, $cardID) {
+    MZAddZone($player, "myField", $cardID);
 }
 
 /**
@@ -10376,6 +10683,10 @@ function HasTaunt($obj) {
                 return true;
             }
         }
+    }
+    // Burnished Obelith (mz1dJZExOk): [Sheen 8+] Taunt
+    if($obj->CardID === "mz1dJZExOk") {
+        if(GetSheenCount($obj->Controller) >= 8) return true;
     }
     return false;
 }
