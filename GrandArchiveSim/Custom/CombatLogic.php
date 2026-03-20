@@ -2118,6 +2118,14 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Golden Bishop (s4oelWMRJE): prevent next 2 damage to target Chessman unit this turn
+    if(in_array("GOLDEN_BISHOP_PREVENT_2", $targetObj->TurnEffects)) {
+        $prevented = min(2, $amount);
+        $amount -= $prevented;
+        $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "GOLDEN_BISHOP_PREVENT_2"));
+        if($amount <= 0) return;
+    }
+
     // Pang Tong, Young Phoenix (0mz09ojy0t): prevent all but 3 damage when hand count == memory count
     if($targetObj->CardID === "0mz09ojy0t" && !HasNoAbilities($targetObj) && $amount > 3) {
         $ptController = $targetObj->Controller ?? $player;

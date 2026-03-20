@@ -6084,4 +6084,55 @@ $customDQHandlers["WindfallCheckBanish"] = function($player, $parts, $lastDecisi
     DecisionQueueController::AddDecision($player, "CUSTOM", "WindfallCheckBanish|" . ($remaining - 1), 1);
 };
 
+// UnmakeDualitySacrifice: sacrifice the chosen divine relic regalia (declaring cost for Unmake Duality)
+$customDQHandlers["UnmakeDualitySacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+// CleansingReunionBanish: banish the chosen card from opponent's graveyard, chain remaining
+$customDQHandlers["CleansingReunionBanish"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0] ?? 0);
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    if($remaining <= 0) return;
+    global $playerID;
+    $gyZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+    $gy = GetZone($gyZone);
+    $gyCards = [];
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if(!$gy[$gi]->removed) $gyCards[] = $gyZone . "-" . $gi;
+    }
+    if(empty($gyCards)) return;
+    $gyStr = implode("&", $gyCards);
+    $total = $remaining + (intval($parts[0] ?? 0) - $remaining) + 1; // approximate for tooltip
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_graveyard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CleansingReunionBanish|" . ($remaining - 1), 1);
+};
+
+// MirroredConfrontationReveal: if YES, draw into memory and recover 2
+$customDQHandlers["MirroredConfrontationReveal"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    DrawIntoMemory($player, 1);
+    RecoverChampion($player, 2);
+};
+
+// FracturingSlashMove: move 1 sheen counter from chosen unit to defender
+$customDQHandlers["FracturingSlashMove"] = function($player, $parts, $lastDecision) {
+    $defenderMZ = $parts[0] ?? null;
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    if($defenderMZ === null) return;
+    $sourceObj = GetZoneObject($lastDecision);
+    if($sourceObj === null || GetCounterCount($sourceObj, "sheen") < 1) return;
+    $defObj = GetZoneObject($defenderMZ);
+    if($defObj === null) return;
+    RemoveCounters($player, $lastDecision, "sheen", 1);
+    AddCounters($defObj->Controller ?? $player, $defenderMZ, "sheen", 1);
+};
+
 ?>

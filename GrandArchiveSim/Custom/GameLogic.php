@@ -43,6 +43,7 @@ $Imbue_Cards["lflzwiiewz"] = 2; // Cataleptic Constellation (ASTRA)
 $Imbue_Cards["EPy8OUmPxa"] = 2; // Stardust Oracle (ASTRA) - Imbue 2
 $Imbue_Cards["Byx6iokcT4"] = 3; // Topsy Decree (NORM) - Imbue 3
 $Imbue_Cards["jH3ZOavGPR"] = 2; // Crystalvein Awakening (WIND) - Imbue 2
+$Imbue_Cards["xpnjvt9y59"] = 2; // Cleansing Reunion (WIND) - Imbue 2
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -65,6 +66,7 @@ $Kindle_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts (FIRE) - Kindle 6
 $Kindle_Cards["OjOcXBiO0b"] = 7; // Tyrannical Denigration (EXALTED) - Kindle 7
 $Kindle_Cards["p7FWS3DA4a"] = 2; // Molten Echo (FIRE) - Kindle 2
 $Kindle_Cards["nduIoPhZr1"] = 7; // Seven of Hearts (FIRE) - Kindle 7
+$Kindle_Cards["vrK16VZ2zU"] = 2; // Burning Aethercharge (FIRE) - Kindle 2
 
 // --- Cardistry Cards Registry ---
 // Maps cardID => base reserve cost for the Cardistry activated ability.
@@ -637,6 +639,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Sacrifice Play (1jmQ9XSLph): Command Chessman — needs a Chessman ally to command
     // (the sacrifice itself is optional "up to two", so no pre-check needed for sacrifice)
 
+    // Unmake Duality (uWLKGJz1GY): needs a regalia with divine relic on the field to sacrifice
+    if($sourceObject->CardID === "uWLKGJz1GY") {
+        $divineRelicIDs = ["df594Qoszn","TL19V7lU6A","cxyky280mt","fjne9ri261","7ddcgw05qz",
+                           "DNbIpzVgde","by8145w2u2","fln04uv297","h23qu7d6so","2gv7DC0KID"];
+        $hasDivineRelic = false;
+        $myField = GetZone("myField");
+        foreach($myField as $fObj) {
+            if(!$fObj->removed && PropertyContains(CardType($fObj->CardID), "REGALIA")
+               && in_array($fObj->CardID, $divineRelicIDs)) {
+                $hasDivineRelic = true;
+                break;
+            }
+        }
+        if(!$hasDivineRelic) return;
+    }
+
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     // Track the source zone so "whenever you activate from memory" triggers can check it in OnCardActivated.
     DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
@@ -1063,6 +1081,24 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $sheenDiscount = GetSheenCount($player);
         if($sheenDiscount > 0) {
             $reserveCost = max(0, $reserveCost - $sheenDiscount);
+        }
+    }
+
+    // Flickering Afterglow (tng0Gpe9mI): [Merlin Bonus] costs 1 less per sheen counter on Fractured Memories
+    if($obj->CardID === "tng0Gpe9mI" && IsMerlinBonusActive($player)) {
+        $sheenDiscount = GetSheenCount($player);
+        if($sheenDiscount > 0) {
+            $reserveCost = max(0, $reserveCost - $sheenDiscount);
+        }
+    }
+
+    // Castling (tFOpmUdi2W): costs 2 less if you control a Chessman Rook, 2 less if Chessman King
+    if($obj->CardID === "tFOpmUdi2W") {
+        if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN", "ROOK"]))) {
+            $reserveCost = max(0, $reserveCost - 2);
+        }
+        if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN", "KING"]))) {
+            $reserveCost = max(0, $reserveCost - 2);
         }
     }
 
@@ -1556,6 +1592,30 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $sacStr = implode("&", $chessmanAllies);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $sacStr, 100, tooltip:"Sacrifice_a_Chessman_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "ChessmanSacrifice|" . $obj->CardID, 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Unmake Duality (uWLKGJz1GY): sacrifice a regalia with divine relic
+    if($obj->CardID === "uWLKGJz1GY") {
+        $divineRelicIDs = ["df594Qoszn","TL19V7lU6A","cxyky280mt","fjne9ri261","7ddcgw05qz",
+                           "DNbIpzVgde","by8145w2u2","fln04uv297","h23qu7d6so","2gv7DC0KID"];
+        $divineRelics = [];
+        $myField = GetZone("myField");
+        for($fi = 0; $fi < count($myField); ++$fi) {
+            if(!$myField[$fi]->removed && PropertyContains(CardType($myField[$fi]->CardID), "REGALIA")
+               && in_array($myField[$fi]->CardID, $divineRelicIDs)) {
+                $divineRelics[] = "myField-" . $fi;
+            }
+        }
+        if(!empty($divineRelics)) {
+            if(count($divineRelics) == 1) {
+                DecisionQueueController::StoreVariable("unmakeDualitySacrifice", $divineRelics[0]);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "UnmakeDualitySacrifice", 100);
+            } else {
+                $sacStr = implode("&", $divineRelics);
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", $sacStr, 100, tooltip:"Sacrifice_a_divine_relic_regalia");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "UnmakeDualitySacrifice", 100);
+            }
         }
     }
 
@@ -3918,6 +3978,20 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Gustmark Gauge (cMixAGt8zv): (2), REST — must be awake + 2 cards in hand
     if($cardID === "cMixAGt8zv") {
         if($sourceObject->Status != 2) return;
+        $hand = &GetHand($player);
+        $handCount = count(array_filter($hand, fn($c) => !isset($c->removed) || !$c->removed));
+        if($handCount < 2) return;
+    }
+    // Golden Bishop (s4oelWMRJE): Remove charge counter — needs at least 1 charge counter
+    if($cardID === "s4oelWMRJE") {
+        if(GetCounterCount($sourceObject, "charge") < 1) return;
+    }
+    // Chamberlain Toad (vgu1C2Lw6e): [CB] (2) — only during opponent's recollection phase
+    if($cardID === "vgu1C2Lw6e") {
+        if(!IsClassBonusActive($player, ["TAMER"])) return;
+        if(HasOpportunity($player)) return;
+        $turnPlayer = GetTurnPlayer();
+        if($turnPlayer == $player) return;
         $hand = &GetHand($player);
         $handCount = count(array_filter($hand, fn($c) => !isset($c->removed) || !$c->removed));
         if($handCount < 2) return;
@@ -7876,6 +7950,17 @@ function ObjectCurrentHP($obj) {
                 }
             }
         }
+        // Plage aux Homards (s25QNTvfem): [Deluge 4] Animal/Beast allies you control get +1 LIFE
+        if(PropertyContains(EffectiveCardType($obj), "ALLY")
+           && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"))) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "s25QNTvfem" && !HasNoAbilities($fieldObj)
+                   && DelugeAmount($fieldObj->Controller) >= 4) {
+                    $cardLife += 1;
+                    break;
+                }
+            }
+        }
     }
     // Fractured Crown (suo6gb0op3): [Class Bonus] champion gets +2 LIFE per unique ally card in GY
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
@@ -8063,6 +8148,10 @@ function ObjectCurrentHP($obj) {
     }
     // Hunt, Weiss King (Y6PZntlVDl): Rook option — target Chessman Rook +2 LIFE until end of turn
     if(in_array("Y6PZntlVDl_LIFE", $obj->TurnEffects)) {
+        $cardLife += 2;
+    }
+    // Castling (tFOpmUdi2W): target Chessman ally +2 LIFE until end of turn
+    if(in_array("tFOpmUdi2W_HP", $obj->TurnEffects)) {
         $cardLife += 2;
     }
     return $cardLife;
@@ -9796,6 +9885,17 @@ function RecoverChampion($player, $amount=1) {
 
     $zone = $player == $playerID ? "myField" : "theirField";
     $zoneArr = &GetZone($zone);
+
+    // Infernal Vessel (vgWgu1DUYv): if any player controls it, reduce recover amount by 3
+    $allField = array_merge(GetZone("myField"), GetZone("theirField"));
+    foreach($allField as $ivObj) {
+        if(!$ivObj->removed && $ivObj->CardID === "vgWgu1DUYv" && !HasNoAbilities($ivObj)) {
+            $amount = max(0, $amount - 3);
+            break;
+        }
+    }
+    if($amount <= 0) return null;
+
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = &$zoneArr[$i];
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
@@ -10879,6 +10979,8 @@ function HasStealth($obj) {
     if(HasNoAbilities($obj)) return false;
     // Expose Darkness (991ovfr8o0): loses stealth until end of turn
     if(in_array("LOSE_STEALTH", $obj->TurnEffects)) return false;
+    // Reveal the Hidden (rHccTUUWou): can't gain stealth until end of turn
+    if(in_array("CANT_GAIN_STEALTH", $obj->TurnEffects)) return false;
     // Lawsur, the Carpenter (aenquoed10): Specter allies have stealth while awake
     if(PropertyContains(EffectiveCardSubtypes($obj), "SPECTER")
         && PropertyContains(EffectiveCardType($obj), "ALLY")
