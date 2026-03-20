@@ -59,6 +59,17 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         if($remaining > 1) return; // Not the last card — block materialize
     }
 
+    // Nico, Rapture's Embrace (29lqrve8fz): can only level up into another "Nico" champion
+    if(PropertyContains(CardType($materializeCard->CardID), "CHAMPION")) {
+        $field = &GetField($player);
+        foreach($field as &$fObj) {
+            if(!$fObj->removed && $fObj->CardID === "29lqrve8fz" && $fObj->Controller == $player) {
+                if(strpos(CardName($materializeCard->CardID), "Nico") !== 0) return;
+                break;
+            }
+        }
+    }
+
     $memoryCost = $ignoreCost ? 0 : CardMemoryCost($materializeCard);
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);

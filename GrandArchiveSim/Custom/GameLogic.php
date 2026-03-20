@@ -6892,6 +6892,20 @@ function ObjectCurrentPower($obj) {
                 $power += $sacCount * 2;
             }
             break;
+        case "1t3dvor61i": // Lamentation's Toll: [Level 2+] +X POWER where X = highest power among omens
+            if(PlayerLevel($obj->Controller) >= 2) {
+                $omens = GetOmens($obj->Controller);
+                $maxPower = 0;
+                foreach($omens as $omenObj) {
+                    $op = CardPower($omenObj->CardID);
+                    if($op !== null && $op > $maxPower) $maxPower = $op;
+                }
+                $power += $maxPower;
+            }
+            break;
+        case "29xxoo7dl5": // Arondight, Azure Blade: +2 POWER per refinement counter
+            $power += GetCounterCount($obj, "refinement") * 2;
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -12900,5 +12914,311 @@ function Delevel($player) {
     }
     return false;
 }
+
+// ============================================================================
+// Gather Slimes (1dfhbt3yna): Reveal top 5, recover X (slime count),
+// put a Slime ally into hand, rest to bottom
+// ============================================================================
+function GatherSlimesStart($player) {
+    $deck = &GetDeck($player);
+    $n = min(5, count($deck));
+    if($n == 0) return;
+    // Move top N to TempZone
+    for($i = 0; $i < $n; ++$i) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    // Count slime allies among revealed cards
+    $tempCards = ZoneSearch("myTempZone");
+    $slimeCount = 0;
+    $slimeAllyMZs = [];
+    foreach($tempCards as $tMZ) {
+        $tObj = GetZoneObject($tMZ);
+        if($tObj !== null && PropertyContains(CardSubtypes($tObj->CardID), "SLIME")
+            && PropertyContains(CardType($tObj->CardID), "ALLY")) {
+            $slimeCount++;
+            $slimeAllyMZs[] = $tMZ;
+        }
+    }
+    // Recover X
+    if($slimeCount > 0) RecoverChampion($player, $slimeCount);
+    // Pick a slime ally to put into hand (mandatory if any exist)
+    if(!empty($slimeAllyMZs)) {
+        if(count($slimeAllyMZs) === 1) {
+            MZMove($player, $slimeAllyMZs[0], "myHand");
+            GatherSlimesCleanup($player);
+        } else {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $slimeAllyMZs), 1, tooltip:"Choose_Slime_ally_for_hand");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "GatherSlimesPick", 1);
+        }
+    } else {
+        GatherSlimesCleanup($player);
+    }
+}
+
+function GatherSlimesCleanup($player) {
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
+    }
+}
+
+$customDQHandlers["GatherSlimesPick"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myHand");
+    }
+    GatherSlimesCleanup($player);
+};
+
+// ============================================================================
+// Evasive Maneuvers (1n3gygojwk): prevent next 2 damage, Ranger becomes distant
+// ============================================================================
+function EvasiveManeuversResolve($player, $targetMZ) {
+    $obj = &GetZoneObject($targetMZ);
+    if($obj === null) return;
+    // Add prevent-next-2-damage turn effect
+    $obj->TurnEffects[] = "EVASIVE_MANEUVERS_2";
+    // If target is a Ranger, make it distant
+    if(PropertyContains(CardClasses($obj->CardID), "RANGER")) {
+        BecomeDistant($player, $targetMZ);
+    }
+}
+
+// ============================================================================
+// Recruitment Officer (1x97n2jnlt): On Foster — look top 5, may reveal ally to hand
+// ============================================================================
+function RecruitmentOfficerOnFoster($player) {
+    $deck = &GetDeck($player);
+    $n = min(5, count($deck));
+    if($n == 0) return;
+    for($i = 0; $i < $n; ++$i) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    $allies = ZoneSearch("myTempZone", ["ALLY"]);
+    if(!empty($allies)) {
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $allies), 1, tooltip:"Reveal_an_ally_and_put_into_hand?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "RecruitmentOfficerPick", 1);
+    } else {
+        RecruitmentOfficerCleanup($player);
+    }
+}
+
+function RecruitmentOfficerCleanup($player) {
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
+    }
+}
+
+$customDQHandlers["RecruitmentOfficerPick"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myHand");
+    }
+    RecruitmentOfficerCleanup($player);
+};
+
+// ============================================================================
+// Straight Flare (28bjn8g50v): Deal X damage where X = distinct costs among
+// Suited objects you control + 1
+// ============================================================================
+function StraightFlareResolve($player, $sourceMZ) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $distinctCosts = [];
+    foreach($field as $fObj) {
+        if(!$fObj->removed && PropertyContains(EffectiveCardSubtypes($fObj), "SUITED")) {
+            $cost = CardCost_reserve($fObj->CardID);
+            if($cost === null) $cost = 0;
+            $distinctCosts[$cost] = true;
+        }
+    }
+    $x = count($distinctCosts) + 1;
+    // Target a unit
+    $allUnits = array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    $allUnits = FilterSpellshroudTargets($allUnits);
+    if(empty($allUnits)) return;
+    DecisionQueueController::StoreVariable("StraightFlareDmg", strval($x));
+    DecisionQueueController::StoreVariable("StraightFlareSource", $sourceMZ);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allUnits), 1, tooltip:"Deal_" . $x . "_damage_to_target_unit");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StraightFlareTarget", 1);
+}
+
+$customDQHandlers["StraightFlareTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $dmg = intval(DecisionQueueController::GetVariable("StraightFlareDmg"));
+    $source = DecisionQueueController::GetVariable("StraightFlareSource");
+    DealDamage($player, $source, $lastDecision, $dmg);
+};
+
+// ============================================================================
+// Potion Infusion: Growth (2898b1w1mv): Rest target Potion, put LV age counters
+// ============================================================================
+function PotionInfusionGrowthResolve($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $potions = [];
+    for($i = 0; $i < count($field); ++$i) {
+        $obj = $field[$i];
+        if(!$obj->removed && PropertyContains(CardSubtypes($obj->CardID), "POTION")
+            && PropertyContains(CardType($obj->CardID), "ITEM")
+            && isset($obj->Status) && $obj->Status == 2) {
+            $potions[] = $zone . "-" . $i;
+        }
+    }
+    if(empty($potions)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $potions), 1, tooltip:"Rest_target_Potion_for_LV_age_counters");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PotionInfusionGrowthTarget", 1);
+}
+
+$customDQHandlers["PotionInfusionGrowthTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = &GetZoneObject($lastDecision);
+    if($obj === null) return;
+    $obj->Status = 1; // Rest
+    $lv = PlayerLevel($player);
+    if($lv > 0) AddCounters($player, $lastDecision, "age", $lv);
+};
+
+// ============================================================================
+// Nico, Rapture's Embrace (29lqrve8fz): On Enter — if water in lineage,
+// look top 2, one to graveyard, one to bottom
+// ============================================================================
+function NicoRapturesEmbraceEnter($player) {
+    // Check for "another water element card" in lineage (subcards only, not Nico itself)
+    $field = &GetField($player);
+    $hasWater = false;
+    foreach($field as $obj) {
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
+            $subcards = is_array($obj->Subcards) ? $obj->Subcards : [];
+            foreach($subcards as $scID) {
+                if(CardElement($scID) === "WATER") {
+                    $hasWater = true;
+                    break 2;
+                }
+            }
+            break;
+        }
+    }
+    if(!$hasWater) return;
+    $deck = &GetDeck($player);
+    $n = min(2, count($deck));
+    if($n == 0) return;
+    for($i = 0; $i < $n; ++$i) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    $tempCards = ZoneSearch("myTempZone");
+    if(count($tempCards) <= 1) {
+        // Only one card — it goes to graveyard
+        if(!empty($tempCards)) MZMove($player, $tempCards[0], "myGraveyard");
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $tempCards), 1, tooltip:"Put_into_graveyard_(other_goes_to_bottom)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "NicoRapturesEmbracePick", 1);
+}
+
+$customDQHandlers["NicoRapturesEmbracePick"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myGraveyard");
+    }
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
+    }
+};
+
+// ============================================================================
+// Arondight, Azure Blade (29xxoo7dl5): [CB] On Enter — may banish floating
+// memory cards from GY, put refinement counter per card banished
+// ============================================================================
+function ArondightAzureBladeEnter($player, $arondightMZ) {
+    if(!IsClassBonusActive($player, ["WARRIOR"])) return;
+    ArondightBanishLoop($player, $arondightMZ, 0);
+}
+
+function ArondightBanishLoop($player, $arondightMZ, $banishedSoFar) {
+    $gy = GetZone("myGraveyard");
+    $floatingMZ = [];
+    for($i = 0; $i < count($gy); ++$i) {
+        if(!$gy[$i]->removed && HasFloatingMemory($gy[$i])) {
+            $floatingMZ[] = "myGraveyard-" . $i;
+        }
+    }
+    if(empty($floatingMZ)) {
+        // Done — add refinement counters
+        if($banishedSoFar > 0) AddCounters($player, $arondightMZ, "refinement", $banishedSoFar);
+        return;
+    }
+    DecisionQueueController::StoreVariable("ArondightMZ", $arondightMZ);
+    DecisionQueueController::StoreVariable("ArondightBanished", strval($banishedSoFar));
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $floatingMZ), 1, tooltip:"Banish_floating_memory_card_from_GY?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ArondightBanishChoice", 1);
+}
+
+$customDQHandlers["ArondightBanishChoice"] = function($player, $parts, $lastDecision) {
+    $arondightMZ = DecisionQueueController::GetVariable("ArondightMZ");
+    $banished = intval(DecisionQueueController::GetVariable("ArondightBanished"));
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        if($banished > 0) AddCounters($player, $arondightMZ, "refinement", $banished);
+        return;
+    }
+    MZMove($player, $lastDecision, "myBanish");
+    $banished++;
+    ArondightBanishLoop($player, $arondightMZ, $banished);
+};
+
+// ============================================================================
+// Aethercloak Sentinel (1mvv1f83ls): [CB] On Enter — may load Aethercharge
+// from GY or hand into Aetherwing weapon; if from hand, draw a card
+// ============================================================================
+function AethercloakSentinelEnter($player) {
+    $wings = GetAetherwingWeapons($player);
+    if(empty($wings)) return;
+    // Gather Aethercharge from GY + hand
+    $targets = [];
+    $gy = GetZone("myGraveyard");
+    for($i = 0; $i < count($gy); ++$i) {
+        if(!$gy[$i]->removed && PropertyContains(CardSubtypes($gy[$i]->CardID), "AETHERCHARGE")) {
+            $targets[] = "myGraveyard-" . $i;
+        }
+    }
+    $hand = GetZone("myHand");
+    for($i = 0; $i < count($hand); ++$i) {
+        if(!$hand[$i]->removed && PropertyContains(CardSubtypes($hand[$i]->CardID), "AETHERCHARGE")) {
+            $targets[] = "myHand-" . $i;
+        }
+    }
+    if(empty($targets)) return;
+    if(count($wings) === 1) {
+        DecisionQueueController::StoreVariable("AethercloakWing", $wings[0]);
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Load_Aethercharge_into_Aetherwing?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "AethercloakSentinelLoad", 1);
+    } else {
+        DecisionQueueController::StoreVariable("AethercloakTargets", implode("&", $targets));
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $wings), 1, tooltip:"Choose_Aetherwing_weapon");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "AethercloakSentinelWeapon", 1);
+    }
+}
+
+$customDQHandlers["AethercloakSentinelWeapon"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DecisionQueueController::StoreVariable("AethercloakWing", $lastDecision);
+    $targetStr = DecisionQueueController::GetVariable("AethercloakTargets");
+    if(empty($targetStr)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Load_Aethercharge_into_Aetherwing?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AethercloakSentinelLoad", 1);
+};
+
+$customDQHandlers["AethercloakSentinelLoad"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $wingMZ = DecisionQueueController::GetVariable("AethercloakWing");
+    if($wingMZ === null) return;
+    $fromHand = (strpos($lastDecision, "myHand-") === 0);
+    LoadIntoAetherwing($player, $lastDecision, $wingMZ);
+    if($fromHand) Draw($player, 1);
+};
 
 ?>

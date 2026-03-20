@@ -2106,6 +2106,22 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Evasive Maneuvers (1n3gygojwk): prevent next 2 damage to target unit this turn
+    foreach($targetObj->TurnEffects as $te) {
+        if(strpos($te, "EVASIVE_MANEUVERS_") === 0) {
+            $preventAmount = intval(substr($te, strlen("EVASIVE_MANEUVERS_")));
+            $prevented = min($preventAmount, $amount);
+            $amount -= $prevented;
+            $remaining = $preventAmount - $prevented;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== $te));
+            if($remaining > 0) {
+                $targetObj->TurnEffects[] = "EVASIVE_MANEUVERS_" . $remaining;
+            }
+            if($amount <= 0) return;
+            break;
+        }
+    }
+
     // Alice Lineage Release (daip7s9ztd): prevent next 3 damage to each awake Chessman ally this turn
     foreach($targetObj->TurnEffects as $te) {
         if(strpos($te, "ALICE_LR_PREVENT_") === 0) {
