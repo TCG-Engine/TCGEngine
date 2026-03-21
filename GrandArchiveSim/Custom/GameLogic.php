@@ -528,6 +528,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($allies)) return; // No allies to sacrifice — block activation
     }
 
+    // Nature's Insight (3bS1Y9OQrF): needs at least one card in memory to target
+    if($sourceObject->CardID === "3bS1Y9OQrF") {
+        if(empty(ZoneSearch("myMemory"))) return; // No memory card to choose — block activation
+    }
+
+    // Decompose (3JWk1jxX5u): mandatory sacrifice of an ally as additional cost
+    if($sourceObject->CardID === "3JWk1jxX5u") {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(empty($allies)) return; // No allies to sacrifice — block activation
+    }
+
     // Turbo Charge (cnqsm3n9yv): mandatory sacrifice of a Powercell
     // Atmos Armor Type-Hermes (dlx7mdk0xh): mandatory sacrifice of a Powercell
     if($sourceObject->CardID === "cnqsm3n9yv" || $sourceObject->CardID === "dlx7mdk0xh") {
@@ -697,6 +708,9 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     // Ghostsight Glass (cc0jmpmman): activated ability costs (3) reserve
     if($obj->CardID === "cc0jmpmman") $reserveCost = 3;
+
+    // Unstable Fractal (2o82fwl22v): [Class Bonus] ability costs (3) reserve
+    if($obj->CardID === "2o82fwl22v") $reserveCost = 3;
 
     // Class Bonus: reduce cost if champion's class matches card's class
     $classBonusDiscount = ClassBonusActivateCostReduction($obj->CardID);
@@ -1529,6 +1543,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $allyChoices = implode("&", $allies);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyChoices, 100, tooltip:"Sacrifice_an_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "PrimordialRitualSacrifice", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Decompose (3JWk1jxX5u): mandatory sacrifice of an ally; stores life stat for effect
+    if($obj->CardID === "3JWk1jxX5u") {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($allies)) {
+            $allyChoices = implode("&", $allies);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyChoices, 100, tooltip:"Sacrifice_an_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "Decompose_Sacrifice", 100);
         }
     }
 
@@ -3294,7 +3318,19 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "2bzajcZZRD": // Map of Hidden Passage — REST + Banish self
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "x7mnu1xhs5": // Fractal of Creation — sacrifice self
+            DoSacrificeFighter($player, $mzCard);
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "2o82fwl22v": // Unstable Fractal — REST + sacrifice self (+ pay 3 handled by framework)
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
             DoSacrificeFighter($player, $mzCard);
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -3433,6 +3469,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "ao8bki6fxx": // Steel Slug
         case "dcgw05q66h": // Purified Shot
         case "hreqhj1trn": // Windpiercer
+        case "3qu7d6sopo": // Incendiary Shot
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1; // REST
             break;
@@ -3675,7 +3712,8 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Bullets (REST: Load into unloaded Gun): must be awake + unloaded Gun exists
     if($cardID === "0iqmyn2rz3" || $cardID === "9htu9agwj4" || $cardID === "r7ch2bbmoq"
        || $cardID === "ii17fzcyfr" || $cardID === "f8urrqtjot" || $cardID === "ywc08c9htu"
-       || $cardID === "ao8bki6fxx" || $cardID === "dcgw05q66h" || $cardID === "hreqhj1trn") {
+       || $cardID === "ao8bki6fxx" || $cardID === "dcgw05q66h" || $cardID === "hreqhj1trn"
+       || $cardID === "3qu7d6sopo") {
         if($sourceObject->Status != 2) return;
         if(empty(GetUnloadedGuns($player))) return;
     }
@@ -3920,6 +3958,32 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         if(empty($targets)) return;
     }
     
+    // Map of Hidden Passage (2bzajcZZRD): [REST], Banish self — must be awake
+    if($cardID === "2bzajcZZRD") {
+        if($sourceObject->Status != 2) return;
+    }
+
+    // Unstable Fractal (2o82fwl22v): [Class Bonus] (3), REST, Sacrifice — must be awake, class bonus, have valid targets
+    if($cardID === "2o82fwl22v") {        if($sourceObject->Status != 2) return;
+        if(!IsClassBonusActive($player, ["CLERIC"])) return;
+        $hand = &GetHand($player);
+        if(count($hand) < 3) return;
+        $allItems = array_merge(
+            ZoneSearch("myField", ["ITEM", "REGALIA"]),
+            ZoneSearch("theirField", ["ITEM", "REGALIA"])
+        );
+        $hasTarget = false;
+        foreach($allItems as $mzI) {
+            $iObj = GetZoneObject($mzI);
+            if($iObj === null) continue;
+            if(CardCost_memory($iObj->CardID) == 0 || CardCost_reserve($iObj->CardID) <= 5) {
+                $hasTarget = true;
+                break;
+            }
+        }
+        if(!$hasTarget) return;
+    }
+
     // Lucenia's Reign (zrvvwz3ww9): (2), discard Chessman Command — needs Command in hand + Chessman ally on field
     if($cardID === "zrvvwz3ww9") {
         $hand = GetZone("myHand");
@@ -4501,6 +4565,10 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     }
     // Artificer's Opus (G5E0PIUd0W): enters the field rested (card text, not keyword)
     if($added->CardID == "G5E0PIUd0W") {
+        $added->Status = 1;
+    }
+    // Map of Hidden Passage (2bzajcZZRD): enters the field rested (card text)
+    if($added->CardID == "2bzajcZZRD") {
         $added->Status = 1;
     }
     
@@ -7470,6 +7538,11 @@ function ObjectCurrentPower($obj) {
             case "qry41lw9n0": // Blazing Bowman: On Enter banish fire from GY +2 POWER
                 $power += 2;
                 break;
+            case "3jg01o26b4": // Slice and Dice: copy from additional attack gets +3 POWER
+                if(in_array("3jg01o26b4-COPY_POWER", $obj->TurnEffects)) {
+                    $power += 3;
+                }
+                break;
             default: break;
         }
     }
@@ -8171,6 +8244,10 @@ function ObjectCurrentHP($obj) {
     if(in_array("zrvvwz3ww9_LIFE", $obj->TurnEffects)) {
         $cardLife += 1;
     }
+    // Rose, Eternal Paragon (2bbmoqk2c7): +1 LIFE until end of turn (from On Enter redirection)
+    if(in_array("2bbmoqk2c7-LIFE", $obj->TurnEffects)) {
+        $cardLife += 1;
+    }
     // Hunt, Weiss King (Y6PZntlVDl): Rook option — target Chessman Rook +2 LIFE until end of turn
     if(in_array("Y6PZntlVDl_LIFE", $obj->TurnEffects)) {
         $cardLife += 2;
@@ -8467,7 +8544,7 @@ function Glimpse($player, $amount) {
             $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $starcallCandidateIndices));
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Starcall_a_card?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingOffer", 1);
-        } else {
+        } else if(!empty($aethercallCandidateIndices)) {
             // Only aethercalling candidates — offer to load into Aetherwing
             $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $aethercallCandidateIndices));
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Load_into_Aetherwing?");
@@ -9815,6 +9892,7 @@ function ClassBonusActivateCostReduction($cardID) {
         '6Rb25k7OjY' => 2, // Tempestuous Conviction: [Class Bonus] costs 2 less
         'QvQhg1EOBR' => 2, // Sacred Engulfment: [Class Bonus] costs 2 less
         'TO9qqKHakv' => 2, // Righteous Retribution: [Class Bonus] costs 2 less
+        '3bS1Y9OQrF' => 2, // Nature's Insight: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -9887,6 +9965,22 @@ function DealChampionDamage($player, $amount=1) {
                 $amount += 1;
             }
             $obj->Damage += $amount;
+            // Assassin's Mantle (3tcs0axa03): if damage was dealt, offer banish to prevent 1 + add prep counter
+            if($amount > 0) {
+                $mantleZone = $player == $playerID ? "myField" : "theirField";
+                $mantleArr = GetZone($mantleZone);
+                for($ami = 0; $ami < count($mantleArr); ++$ami) {
+                    $mantleObj = $mantleArr[$ami];
+                    if(!isset($mantleObj->removed) || !$mantleObj->removed) {
+                        if($mantleObj->CardID === "3tcs0axa03" && !HasNoAbilities($mantleObj)) {
+                            $mantleMZ = $mantleZone . "-" . $ami;
+                            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Banish_Assassin_Mantle_prevent_1_damage?");
+                            DecisionQueueController::AddDecision($player, "CUSTOM", "AssassinsMantlePrevent|" . $mantleMZ, 1);
+                            break;
+                        }
+                    }
+                }
+            }
             // Magebane Lash (oh300z2sns): Nico Bonus — whenever Nico takes non-combat damage, recover 2
             if($amount > 0 && $obj->CardID === "5bbae3z4py") {
                 MagebaneNicoBonusCheck($player);
@@ -13219,6 +13313,42 @@ $customDQHandlers["AethercloakSentinelLoad"] = function($player, $parts, $lastDe
     $fromHand = (strpos($lastDecision, "myHand-") === 0);
     LoadIntoAetherwing($player, $lastDecision, $wingMZ);
     if($fromHand) Draw($player, 1);
+};
+
+// ============================================================================
+// Rose, Eternal Paragon (2bbmoqk2c7): redirect attack target to self, +1 LIFE
+// ============================================================================
+$customDQHandlers["RoseRedirectAttack"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $roseMZ = DecisionQueueController::GetVariable("RoseEnterMZ");
+    if($roseMZ === null || $roseMZ === "-" || $roseMZ === "") return;
+    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
+        DecisionQueueController::StoreVariable("CombatTarget", $roseMZ);
+    }
+    AddTurnEffect($roseMZ, "2bbmoqk2c7-LIFE");
+};
+
+// Decompose (3JWk1jxX5u): sacrifice the chosen ally and store its life stat for Gather
+$customDQHandlers["Decompose_Sacrifice"] = function($player, $parts, $lastDecision) {
+    if(!$lastDecision || $lastDecision === "-") return;
+    $allyObj = GetZoneObject($lastDecision);
+    $life = ($allyObj !== null) ? max(1, intval(CardLife($allyObj->CardID))) : 1;
+    DecisionQueueController::StoreVariable("decomposeSacrificeLife", strval($life));
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+// Assassin's Mantle (3tcs0axa03): banish the Mantle to recover 1 damage and add a prep counter
+$customDQHandlers["AssassinsMantlePrevent"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mantleMZ = $parts[0];
+    $mantleObj = GetZoneObject($mantleMZ);
+    if($mantleObj === null || (isset($mantleObj->removed) && $mantleObj->removed)) return;
+    MZMove($player, $mantleMZ, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    RecoverChampion($player, 1);
+    AddPrepCounter($player, 1);
 };
 
 ?>

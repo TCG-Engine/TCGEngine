@@ -246,6 +246,13 @@ function GetValidAttackTargets($attackerMZ) {
     if($attacker !== null && $attacker->CardID === "gveirpdm44" && !HasNoAbilities($attacker)) {
         $bypassIntercept = true;
     }
+    // Map of Hidden Passage (2bzajcZZRD): while its effect is active, units with stealth can't be intercepted
+    if(!$bypassIntercept && $attacker !== null && HasStealth($attacker)) {
+        $attackerGlobalEffectsZone = ($player === $GLOBALS['playerID']) ? "myGlobalEffects" : "theirGlobalEffects";
+        if(ZoneContainsCardID($attackerGlobalEffectsZone, "2bzajcZZRD_STEALTH_FREE")) {
+            $bypassIntercept = true;
+        }
+    }
 
     // Check for Intercept -- units with Intercept must be targeted first
     // Port Smuggler (uCIEMgGjWe): CB attacks can't be intercepted
@@ -337,6 +344,16 @@ function GetValidAttackTargets($attackerMZ) {
         $opponents = array_values(array_filter($opponents, function($mzID) {
             $obj = GetZoneObject($mzID);
             return $obj === null || $obj->CardID !== "jyrqgyj9vn" || HasNoAbilities($obj);
+        }));
+        if(empty($opponents)) return $opponents;
+    }
+
+    // Hailfinch (3XV4QlQXfy): can't be attacked unless attacker pays (2)
+    // Filter out Hailfinch if attacker has fewer than 2 reserve sources
+    if($reservableSources < 2) {
+        $opponents = array_values(array_filter($opponents, function($mzID) {
+            $obj = GetZoneObject($mzID);
+            return $obj === null || $obj->CardID !== "3XV4QlQXfy" || HasNoAbilities($obj);
         }));
         if(empty($opponents)) return $opponents;
     }
@@ -1320,6 +1337,13 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     // Beguiling Bandit (jyrqgyj9vn): attacker must pay (1) to attack it
     $bbTargetObj = GetZoneObject($lastDecision);
     if($bbTargetObj !== null && $bbTargetObj->CardID === "jyrqgyj9vn" && !HasNoAbilities($bbTargetObj)) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+    }
+
+    // Hailfinch (3XV4QlQXfy): attacker must pay (2) to attack it
+    $hfTargetObj = GetZoneObject($lastDecision);
+    if($hfTargetObj !== null && $hfTargetObj->CardID === "3XV4QlQXfy" && !HasNoAbilities($hfTargetObj)) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
     }
 
@@ -2924,6 +2948,41 @@ $customDQHandlers["MechanizedSmasherReveal"] = function($player, $parts, $lastDe
     if($lastDecision !== "-" && $lastDecision !== "") {
         DoRevealCard($player, $lastDecision);
     }
+};
+
+// Slice and Dice (3jg01o26b4): execute the additional attack
+// Runs at block 250 (after first combat's retaliation/cleanup flow completes on player 1's queue).
+// Removes the stale CombatCleanup from the opponent's queue, adds a +3 POWER copy of Slice and Dice
+// to the attacker's intent, restores combat state, and queues target selection for the second attack.
+$customDQHandlers["SliceAndDiceNewAttack"] = function($player, $parts, $lastDecision) {
+    $attackerMZ = $parts[0];
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj === null || (isset($attackerObj->removed) && $attackerObj->removed)) return;
+
+    // Remove the stale CombatCleanup from the opponent's queue to prevent double-cleanup
+    $opponent = ($player == 1) ? 2 : 1;
+    $opponentQueue = &GetDecisionQueue($opponent);
+    for($qi = 0; $qi < count($opponentQueue); $qi++) {
+        if(strpos($opponentQueue[$qi]->Param, "CombatCleanup") === 0) {
+            array_splice($opponentQueue, $qi, 1);
+            break;
+        }
+    }
+
+    // Add the Slice and Dice copy to intent WITHOUT PREPARED, WITH +3 POWER
+    MZAddZone($player, "myIntent", "3jg01o26b4");
+    $intentArr = GetZone("myIntent");
+    $newIntentIdx = count($intentArr) - 1;
+    AddTurnEffect("myIntent-" . $newIntentIdx, "3jg01o26b4-COPY_POWER");
+
+    // Restore combat variables for the new attack
+    DecisionQueueController::StoreVariable("CombatAttacker", $attackerMZ);
+    DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
+    DecisionQueueController::StoreVariable("CombatIsCleave", "0");
+    DecisionQueueController::StoreVariable("CombatWeapon", "-");
+
+    // Queue target selection for the second attack
+    ChooseAttackTarget($player, $attackerMZ);
 };
 
 ?>
