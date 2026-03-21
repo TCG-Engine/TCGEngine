@@ -8532,8 +8532,8 @@ function Glimpse($player, $amount) {
     if(!empty($starcallCandidateIndices) || !empty($aethercallCandidateIndices)) {
         // Move top N cards to myTempZone so the popup can display them face-up
         // (always use myDeck-0 since each MZMove shifts remaining deck cards down)
-        for($i = 0; $i < $n; ++$i) {
-            MZMove($player, "myDeck-0", "myTempZone");
+        for($i = $n-1; $i >= 0; --$i) {
+            MZMove($player, "myDeck-" . $i, "myTempZone");
         }
         // Store card IDs and tempzone flag for handlers
         DecisionQueueController::StoreVariable("glimpseCardIDs", implode(",", $cardIDs));

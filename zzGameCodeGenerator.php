@@ -688,6 +688,11 @@ fwrite($handler, "  ];\r\n");
 fwrite($handler, "}\r\n\r\n");
 
 fwrite($handler, "function MZMove(\$player, \$mzIndex, \$toZone) {\r\n");
+fwrite($handler, "  global \$playerID;\r\n");
+fwrite($handler, "  if(\$player != \$playerID) {\r\n");
+fwrite($handler, "    \$mzIndex = FlipZonePerspective(\$mzIndex);\r\n");
+fwrite($handler, "    \$toZone = FlipZonePerspective(\$toZone);\r\n");
+fwrite($handler, "  }\r\n");
 fwrite($handler, "  \$removed = GetZoneObject(\$mzIndex);\r\n");
 fwrite($handler, "  if(\$removed->removed) return null;\r\n");
 fwrite($handler, "  \$removed->Remove();\r\n");
