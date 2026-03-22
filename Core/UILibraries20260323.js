@@ -2319,7 +2319,7 @@ function MobileDeckEditorLayout() {
 
   var toggleRow = document.createElement('div');
   toggleRow.id = 'mobileDeckToggleRow';
-  toggleRow.style.cssText = 'display:flex;justify-content:flex-end;align-items:center;padding:4px 8px;gap:6px;border-top:1px solid #3f3f3f;background:#121212;';
+  toggleRow.style.cssText = 'position:fixed;left:8px;right:8px;bottom:10px;z-index:1200;display:flex;justify-content:flex-end;align-items:center;padding:6px 8px;gap:6px;border:1px solid #3f3f3f;border-radius:8px;background:rgba(18,18,18,0.92);backdrop-filter:blur(2px);box-sizing:border-box;opacity:1;transform:translateY(0);transition:opacity 0.25s ease, transform 0.25s ease;';
 
   var toggleButton = document.createElement('button');
   toggleButton.id = 'mobileDeckToggleButton';
@@ -2345,14 +2345,60 @@ function MobileDeckEditorLayout() {
     }
   };
 
+  var showMobileToggleRow = function() {
+    toggleRow.style.opacity = '1';
+    toggleRow.style.transform = 'translateY(0)';
+    toggleRow.style.pointerEvents = 'auto';
+    if (window.mobileDeckToggleAutoHideTimer) clearTimeout(window.mobileDeckToggleAutoHideTimer);
+    window.mobileDeckToggleAutoHideTimer = setTimeout(function() {
+      toggleRow.style.opacity = '0';
+      toggleRow.style.transform = 'translateY(10px)';
+      toggleRow.style.pointerEvents = 'none';
+    }, 3000);
+  };
+
+  var registerMobileToggleActivityEvents = function() {
+    var activityHandler = function() { showMobileToggleRow(); };
+
+    if (topArea._mobileToggleActivityHandler) {
+      topArea.removeEventListener('scroll', topArea._mobileToggleActivityHandler);
+      topArea.removeEventListener('touchmove', topArea._mobileToggleActivityHandler);
+    }
+    topArea._mobileToggleActivityHandler = activityHandler;
+    topArea.addEventListener('scroll', activityHandler, { passive: true });
+    topArea.addEventListener('touchmove', activityHandler, { passive: true });
+
+    if (cardPaneWrapper._mobileToggleActivityHandler) {
+      cardPaneWrapper.removeEventListener('scroll', cardPaneWrapper._mobileToggleActivityHandler);
+      cardPaneWrapper.removeEventListener('touchmove', cardPaneWrapper._mobileToggleActivityHandler);
+    }
+    cardPaneWrapper._mobileToggleActivityHandler = activityHandler;
+    cardPaneWrapper.addEventListener('scroll', activityHandler, { passive: true });
+    cardPaneWrapper.addEventListener('touchmove', activityHandler, { passive: true });
+
+    if (window._mobileToggleWindowActivityHandler) {
+      window.removeEventListener('scroll', window._mobileToggleWindowActivityHandler);
+      window.removeEventListener('touchmove', window._mobileToggleWindowActivityHandler);
+    }
+    window._mobileToggleWindowActivityHandler = activityHandler;
+    window.addEventListener('scroll', activityHandler, { passive: true });
+    window.addEventListener('touchmove', activityHandler, { passive: true });
+  };
+
   toggleButton.onclick = function() {
     window.mobileCardBrowserHidden = !window.mobileCardBrowserHidden;
     SetCookieValue(mobileCardBrowserCookieName, window.mobileCardBrowserHidden ? '1' : '0', 365);
     applyMobileCardBrowserVisibility();
+    showMobileToggleRow();
   };
+
+  toggleRow.onmouseenter = function() { showMobileToggleRow(); };
+  toggleRow.ontouchstart = function() { showMobileToggleRow(); };
 
   applyMobileCardBrowserVisibility();
   toggleRow.appendChild(toggleButton);
+  registerMobileToggleActivityEvents();
+  showMobileToggleRow();
 
   myStuff.appendChild(topArea);
   myStuff.appendChild(toggleRow);
