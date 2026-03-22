@@ -1,7 +1,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="./Core/UILibraries20260323.js"></script>
+    <script src="./Core/UILibraries20260324.js"></script>
     <script src="./Core/CounterRendering.js"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>

@@ -2354,7 +2354,7 @@ function MobileDeckEditorLayout() {
       toggleRow.style.opacity = '0';
       toggleRow.style.transform = 'translateY(10px)';
       toggleRow.style.pointerEvents = 'none';
-    }, 3000);
+    }, 1500);
   };
 
   var registerMobileToggleActivityEvents = function() {
