@@ -2218,6 +2218,21 @@ function UpdateTurnPlayerMiasma() {
     if (console && console.error) console.error('UpdateTurnPlayerMiasma error', e);
   }
 }
+function GetCookieValue(cookieName) {
+  var nameEQ = cookieName + '=';
+  var cookies = document.cookie.split(';');
+  for (var i = 0; i < cookies.length; ++i) {
+    var c = cookies[i];
+    while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+    if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+  }
+  return null;
+}
+
+function SetCookieValue(cookieName, cookieValue, maxAgeDays) {
+  var maxAgeSeconds = Math.max(1, parseInt(maxAgeDays, 10) || 1) * 24 * 60 * 60;
+  document.cookie = cookieName + '=' + encodeURIComponent(cookieValue) + '; max-age=' + maxAgeSeconds + '; path=/; SameSite=Lax';
+}
 
 // ---- Mobile Deck Editor Layout ----
 // Reorganizes #myStuff into a vertical layout for screens ≤1000px:
@@ -2286,6 +2301,13 @@ function MobileDeckEditorLayout() {
   // Card pane: fixed height at bottom
   cardPaneWrapper.style.cssText = 'position:relative;left:0;top:0;bottom:0;right:0;width:100%;height:50vh;min-height:250px;flex-shrink:0;border-top:2px solid #444;box-sizing:border-box;overflow-y:auto;';
 
+  var mobileCardBrowserCookieName = 'swu_mobile_card_browser_hidden';
+  // Keep user preference across rerenders while toggling the card browser pane.
+  if (typeof window.mobileCardBrowserHidden === 'undefined') {
+    var cookieVal = GetCookieValue(mobileCardBrowserCookieName);
+    window.mobileCardBrowserHidden = cookieVal === '1';
+  }
+
   // Detach card pane from myStuff (all other wrappers already moved to topArea)
   if (cardPaneWrapper.parentNode === myStuff) myStuff.removeChild(cardPaneWrapper);
 
@@ -2295,7 +2317,45 @@ function MobileDeckEditorLayout() {
   myStuff.style.flexDirection  = 'column';
   myStuff.style.overflow       = 'hidden';
 
+  var toggleRow = document.createElement('div');
+  toggleRow.id = 'mobileDeckToggleRow';
+  toggleRow.style.cssText = 'display:flex;justify-content:flex-end;align-items:center;padding:4px 8px;gap:6px;border-top:1px solid #3f3f3f;background:#121212;';
+
+  var toggleButton = document.createElement('button');
+  toggleButton.id = 'mobileDeckToggleButton';
+  toggleButton.style.cssText = 'padding:6px 10px;font-size:12px;font-weight:600;letter-spacing:0.02em;background:#1d4ed8;color:#ffffff;border:1px solid #60a5fa;border-radius:6px;cursor:pointer;';
+  toggleButton.onmouseover = function() { toggleButton.style.background = '#1e40af'; };
+  toggleButton.onmouseout = function() { toggleButton.style.background = '#1d4ed8'; };
+
+  var applyMobileCardBrowserVisibility = function() {
+    var isHidden = window.mobileCardBrowserHidden === true;
+    toggleButton.textContent = isHidden ? 'Show Card Browser' : 'Hide Card Browser';
+    toggleButton.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+
+    if (isHidden) {
+      cardPaneWrapper.style.display = 'none';
+      topArea.style.flex = '1 1 auto';
+    }
+    else {
+      cardPaneWrapper.style.display = 'block';
+      cardPaneWrapper.style.height = '50vh';
+      cardPaneWrapper.style.minHeight = '250px';
+      cardPaneWrapper.style.flex = '0 0 auto';
+      topArea.style.flex = '1 1 auto';
+    }
+  };
+
+  toggleButton.onclick = function() {
+    window.mobileCardBrowserHidden = !window.mobileCardBrowserHidden;
+    SetCookieValue(mobileCardBrowserCookieName, window.mobileCardBrowserHidden ? '1' : '0', 365);
+    applyMobileCardBrowserVisibility();
+  };
+
+  applyMobileCardBrowserVisibility();
+  toggleRow.appendChild(toggleButton);
+
   myStuff.appendChild(topArea);
+  myStuff.appendChild(toggleRow);
   myStuff.appendChild(cardPaneWrapper);
 }
 
