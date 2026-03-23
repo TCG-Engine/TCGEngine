@@ -315,7 +315,7 @@ while(!feof($handler)) {
         if ($current !== "") {
           $widgetsArr[] = trim($current);
         }
-        
+
         for($i=0; $i<count($widgetsArr); ++$i) {
           if($widgetsArr[$i] == "None") continue;
           $widgetArr = explode("=", $widgetsArr[$i], 2);
@@ -323,7 +323,7 @@ while(!feof($handler)) {
           $widgetObj->LinkedProperty = $widgetArr[0];
           $widgetObj->Position = "Center"; // Default position
           $widgetObj->Condition = null; // No condition by default
-          
+
           $fullActionSpec = $widgetArr[1];
           // Parse parameters: Position:BottomLeft, Condition:Status=2, etc.
           if (preg_match('/\(([^)]+)\)/', $fullActionSpec, $matches)) {
@@ -344,7 +344,7 @@ while(!feof($handler)) {
             }
             $fullActionSpec = preg_replace('/\([^)]*\)/', '', $fullActionSpec); // Remove params from spec
           }
-          
+
           $actionArr = explode("&", $fullActionSpec);
           $widgetObj->Actions = [];
           for($j=0; $j<count($actionArr); ++$j) {
@@ -773,9 +773,9 @@ for($i=0; $i<count($macros); ++$i) {
       $paramParts = explode('|', $param);
       $source = $paramParts[0];
       $tooltip = isset($paramParts[1]) ? $paramParts[1] : "Choose a card";
-      
+
       fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_Choice\"] = function(\$player, \$param, \$lastResult) {\r\n");
-      
+
       // If macro has parameters, parse them from $param which is pipe-delimited
       if (!empty($macro->Parameters)) {
         //fwrite($handler, "  \$params = explode('|', \$param);\r\n");
@@ -798,7 +798,7 @@ for($i=0; $i<count($macros); ++$i) {
         fwrite($handler, "  \$source = \"" . $source . "\";\r\n");
         fwrite($handler, "  \$tooltip = \"" . $tooltip . "\";\r\n");
       }
-      
+
       fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"MZCHOOSE\", \$source, 1, \$tooltip);\r\n");
       fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_AfterChoice\", 99);\r\n");
       fwrite($handler, "};\r\n\r\n");
@@ -1031,14 +1031,14 @@ if($hasAnyIndexedProperties) {
   fwrite($handler, "  global \$objectDataIndices;\r\n");
   fwrite($handler, "  return isset(\$objectDataIndices[\$mzID][\$propertyName][\$value]) && \$objectDataIndices[\$mzID][\$propertyName][\$value] > 0;\r\n");
   fwrite($handler, "}\r\n\r\n");
-  
+
   // GetIndexedValueCount - get the count of a specific value in a property for an mzID
   fwrite($handler, "// Get the count of a specific value in an indexed property\r\n");
   fwrite($handler, "function GetIndexedValueCount(\$mzID, \$propertyName, \$value) {\r\n");
   fwrite($handler, "  global \$objectDataIndices;\r\n");
   fwrite($handler, "  return isset(\$objectDataIndices[\$mzID][\$propertyName][\$value]) ? \$objectDataIndices[\$mzID][\$propertyName][\$value] : 0;\r\n");
   fwrite($handler, "}\r\n\r\n");
-  
+
   // GetAllIndexedValues - get all unique values for a property of an mzID
   fwrite($handler, "// Get all unique values in an indexed property for an object\r\n");
   fwrite($handler, "function GetAllIndexedValues(\$mzID, \$propertyName) {\r\n");
@@ -1046,7 +1046,7 @@ if($hasAnyIndexedProperties) {
   fwrite($handler, "  if(!isset(\$objectDataIndices[\$mzID][\$propertyName])) return [];\r\n");
   fwrite($handler, "  return array_keys(\$objectDataIndices[\$mzID][\$propertyName]);\r\n");
   fwrite($handler, "}\r\n\r\n");
-  
+
   // FindObjectsWithIndexedValue - find all mzIDs that have a specific value in a property
   fwrite($handler, "// Find all objects that have a specific value in an indexed property\r\n");
   fwrite($handler, "function FindObjectsWithIndexedValue(\$propertyName, \$value) {\r\n");
@@ -1125,7 +1125,7 @@ for($i=0; $i<count($zones); ++$i) {
   }
   fwrite($handler, "    return \$rv;\r\n");
   fwrite($handler, "  }\r\n");
-  
+
   // Generate indexed property methods if this zone has any
   if($hasIndexedProperties) {
     // GetMzID function — use Controller if the zone has it, otherwise fall back to PlayerID
@@ -1139,13 +1139,13 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "    \$prefix = \$playerID == " . $ownerExpr . " ? \"my\" : \"their\";\r\n");
     fwrite($handler, "    return \$prefix . \$this->Location . \"-\" . \$this->mzIndex;\r\n");
     fwrite($handler, "  }\r\n");
-    
+
     // For each indexed property that is an array, generate Add/Remove methods
     for($j=0; $j<count($zone->Properties); ++$j) {
       $property = $zone->Properties[$j];
       if(in_array($property->Name, $zone->IndexedProperties) && $property->Type == "array") {
         $propName = $property->Name;
-        
+
         // Add method
         fwrite($handler, "  function Add" . $propName . "(\$value) {\r\n");
         fwrite($handler, "    global \$objectDataIndices;\r\n");
@@ -1156,7 +1156,7 @@ for($i=0; $i<count($zones); ++$i) {
         fwrite($handler, "    if(!isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value])) \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] = 0;\r\n");
         fwrite($handler, "    \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]++;\r\n");
         fwrite($handler, "  }\r\n");
-        
+
         // Remove method
         fwrite($handler, "  function Remove" . $propName . "(\$value) {\r\n");
         fwrite($handler, "    global \$objectDataIndices;\r\n");
@@ -1172,21 +1172,21 @@ for($i=0; $i<count($zones); ++$i) {
         fwrite($handler, "      }\r\n");
         fwrite($handler, "    }\r\n");
         fwrite($handler, "  }\r\n");
-        
+
         // Has method
         fwrite($handler, "  function Has" . $propName . "(\$value) {\r\n");
         fwrite($handler, "    global \$objectDataIndices;\r\n");
         fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
         fwrite($handler, "    return isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]) && \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] > 0;\r\n");
         fwrite($handler, "  }\r\n");
-        
+
         // Get count method
         fwrite($handler, "  function Get" . $propName . "Count(\$value) {\r\n");
         fwrite($handler, "    global \$objectDataIndices;\r\n");
         fwrite($handler, "    \$mzID = \$this->GetMzID();\r\n");
         fwrite($handler, "    return isset(\$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value]) ? \$objectDataIndices[\$mzID][\"" . $propName . "\"][\$value] : 0;\r\n");
         fwrite($handler, "  }\r\n");
-        
+
         // Clear method
         fwrite($handler, "  function Clear" . $propName . "() {\r\n");
         fwrite($handler, "    global \$objectDataIndices;\r\n");
@@ -1198,7 +1198,7 @@ for($i=0; $i<count($zones); ++$i) {
         fwrite($handler, "  }\r\n");
       }
     }
-    
+
     // BuildIndex method to rebuild indices from current array state
     fwrite($handler, "  function BuildIndex() {\r\n");
     fwrite($handler, "    global \$objectDataIndices;\r\n");
@@ -1216,7 +1216,7 @@ for($i=0; $i<count($zones); ++$i) {
       }
     }
     fwrite($handler, "  }\r\n");
-    
+
     // ClearIndex method to clear this object's entries from the index
     fwrite($handler, "  function ClearIndex() {\r\n");
     fwrite($handler, "    global \$objectDataIndices;\r\n");
@@ -1234,7 +1234,7 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "    // No indexed properties\r\n");
     fwrite($handler, "  }\r\n");
   }
-  
+
   //Remove function
   fwrite($handler, "  function Remove(\$trigger=\"\") {\r\n");
   fwrite($handler, "    \$this->removed = true;\r\n");
@@ -1270,7 +1270,7 @@ for($i=0; $i<count($zones); ++$i) {
     if($versionsModule != null) {
       $separator = $isNewModule ? "," : ";";
       $versionZones = explode($separator, $versionsModule->Parameters ?? $versionsModule->Zones ?? "");
-      
+
       // Build lookup map for Value mode zones
       $valueZones = [];
       $globalZones = [];
@@ -1282,7 +1282,7 @@ for($i=0; $i<count($zones); ++$i) {
           $globalZones[$zones[$k]->Name] = true;
         }
       }
-      
+
       fwrite($handler, "  static function GetSerializedZones() {\r\n");
       fwrite($handler, "    \$rv = \"\";\r\n");
       for($j=0; $j<count($versionZones); ++$j) {
@@ -1291,10 +1291,10 @@ for($i=0; $i<count($zones); ++$i) {
         $checkZoneName = $baseZoneName;
         if(str_starts_with($checkZoneName, "my")) $checkZoneName = substr($checkZoneName, 2);
         elseif(str_starts_with($checkZoneName, "their")) $checkZoneName = substr($checkZoneName, 5);
-        
+
         $isValueZone = isset($valueZones[$checkZoneName]);
         $isGlobalZone = isset($globalZones[$checkZoneName]);
-        
+
         if($isValueZone) {
           $globalName = $isGlobalZone ? "g" . $checkZoneName : $baseZoneName;
           // Value zones are single objects, not arrays
@@ -1397,7 +1397,7 @@ if($versionsModule != null) {
       $globalZones[$zones[$k]->Name] = true;
     }
   }
-  
+
   fwrite($handler, "function LoadVersion(\$playerID, \$versionNum = -1) {\r\n");
   fwrite($handler, "  \$versions = &GetVersions(\$playerID);\r\n");
   fwrite($handler, "  if(\$versionNum == -1) \$versionNum = count(\$versions) - 1;\r\n");
@@ -1411,15 +1411,15 @@ if($versionsModule != null) {
     $className = $baseZoneName;
     if(str_starts_with($className, "my")) $className = substr($className, 2);
     elseif(str_starts_with($className, "their")) $className = substr($className, 5);
-    
+
     $isValueZone = isset($valueZones[$className]);
     $isGlobalZone = isset($globalZones[$className]);
-    
+
     fwrite($handler, "  if(count(\$zones) > " . $i . ") {\r\n");
     if($isValueZone) {
       // Value zones are single objects, not arrays
       fwrite($handler, "    \$data = str_replace(\"<v2>\", \" \", \$zones[" . $i . "]);\r\n");
-      
+
       if($isGlobalZone) {
         fwrite($handler, "  global \$g" . $className . ";\r\n");
         fwrite($handler, "  \$g" . $className . " = \$data;\r\n");
@@ -1503,7 +1503,8 @@ if($assetVisibilityModule != NULL) {
   fwrite($handler, "include_once '../Assets/patreon-php-master/src/PatreonLibraries.php';\r\n");
   fwrite($handler, "include_once '../Assets/patreon-php-master/src/PatreonDictionary.php';\r\n");
   fwrite($handler, "\$assetData = LoadAssetData(" . $assetVisibilityModule->AssetType . ", \$gameName);\r\n");
-  fwrite($handler, "if(\$assetData[\"assetVisibility\"] == 0 || \$assetData[\"assetVisibility\"] > 1000) {\r\n");
+  fwrite($handler, "\$requiresLogin = \$assetData[\"assetVisibility\"] == 0 || (\$assetData[\"assetVisibility\"] > 1000 && \$assetData[\"assetVisibility\"] != 99999999);\r\n");
+  fwrite($handler, "if(\$requiresLogin) {\r\n");
   fwrite($handler, "  if (!IsUserLoggedIn()) {\r\n");
   fwrite($handler, "    if (isset(\$_COOKIE[\"rememberMeToken\"])) {\r\n");
   fwrite($handler, "      loginFromCookie();\r\n");
@@ -1737,7 +1738,7 @@ function AddGetNextTurnForPlayer($player) {
     $scope = strtolower(isset($zone->Scope) ? $zone->Scope : 'Player');
     // Skip global zones for player 2, they were already output for player 1
     if ($scope == 'global' && $player > 1) continue;
-    
+
     $zoneName = ($scope == 'global') ? "g" . $zone->Name : "p" . $player . $zone->Name;
     echo($zoneName . "<BR>");
     if($i > 0 || $player > 1) $getNextTurn .= "echo(\"<~>\");\r\n";
@@ -1914,44 +1915,44 @@ function AddNextTurn() {
 function GeneratedGlobalZoneElement($zone, $index, &$setData) {
   global $rootPath;
   $rv = "";
-  
+
   // Build style dynamically based on playerID to support mirroring for player 2
   $baseStyle = "position: fixed; z-index:30;";
   $staticStyles = "";
-  
+
   $onclick = "onclick=\\\"ZoneClickHandler(\\\'" . $zone->Name . "\\\');\\\"";
   $onscroll = $zone->DisplayMode == "Panel" ? "onscroll=\\\"ZoneScrollHandler(\\\'" . $zone->Name . "\\\');\\\"" : "";
-  
+
   // Static properties (not mirrored)
   if($zone->Width > -1) $staticStyles .= " width:" . $zone->Width . ";";
   if($zone->DisplayMode != "Pane") $staticStyles .= " overflow-y:auto;";
-  
+
   // Check what positioning properties are defined
   $hasLeft = $zone->Left > -1;
   $hasRight = $zone->Right > -1;
   $hasTop = $zone->Top > -1;
   $hasBottom = $zone->Bottom > -1;
-  
+
   if($zone->DisplayMode == "Pane") {
     $rv .= "echo(\"globalCardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
   } else {
     // Build dynamic style with conditional mirroring for player 2
     $rv .= "echo(\"var globalStyle_" . $zone->Name . " = '" . $baseStyle . $staticStyles . "' + (playerID == 1 ? '";
-    
+
     // Player 1 styles
     if($hasLeft) $rv .= " left:" . $zone->Left . ";";
     if($hasRight) $rv .= " right:" . $zone->Right . ";";
     if($hasTop) $rv .= " top:" . $zone->Top . ";";
     if($hasBottom) $rv .= " bottom:" . $zone->Bottom . ";";
-    
+
     $rv .= "' : '";
-    
+
     // Player 2 styles (mirrored - left↔right, top↔bottom)
     if($hasLeft) $rv .= " right:" . $zone->Left . ";";
     if($hasRight) $rv .= " left:" . $zone->Right . ";";
     if($hasTop) $rv .= " bottom:" . $zone->Top . ";";
     if($hasBottom) $rv .= " top:" . $zone->Bottom . ";";
-    
+
     $rv .= "');\");\r\n";
     $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
   }
@@ -2387,7 +2388,7 @@ function GetModule($type) {
 /**
  * Generate code to retrieve macro parameters from DecisionQueueVariables
  * This allows ability code to access the parameters that were passed when invoking the macro
- * 
+ *
  * @param array $macroParams Array of parameter names from the macro definition
  * @return string PHP code to retrieve all macro parameters
  */
@@ -2404,7 +2405,7 @@ function GenerateMacroParamRetrievalCode($macroParams) {
 
 /**
  * Generate code to retrieve macro parameters with indentation (for continuation handlers)
- * 
+ *
  * @param array $macroParams Array of parameter names from the macro definition
  * @param string $indent Indentation to prepend to each line
  * @return string PHP code to retrieve all macro parameters
@@ -2422,14 +2423,14 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
 
 /**
  * Transform await syntax in ability code to DecisionQueue calls with variable storage
- * 
+ *
  * Supported patterns:
  *   Pattern 1: $var = await $player.ChoiceType(params)
  *     Becomes: AddDecision + continuation handler with variable storage
- *   
+ *
  *   Pattern 2: await FunctionName($player, args)
  *     Becomes: FunctionName call + continuation handler (for functions that queue decisions)
- * 
+ *
  * Supported choice types (Pattern 1):
  *   - MZChoose: Mandatory card choice from zones
  *   - MZMayChoose: Optional card choice (client shows Pass button)
@@ -2437,27 +2438,27 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
  *   - Rearrange: Rearrange cards with zones and starting cards (semicolon-delimited)
  *   - MZSplitAssign: Split-assign a pool of N across multiple targets
  *   - Custom types: Any name is converted to uppercase (e.g., CustomChoice -> CUSTOMCHOICE)
- * 
+ *
  * Example transformation (Pattern 1 - choice):
  *   INPUT:
  *     $unit1 = await $player.MZChoose("BG1&BG2");
  *     $unit2 = await $player.MZMayChoose("BG1&BG2");  // Optional choice
  *     if ($unit2 !== "PASS") SwapPosition($unit1, $unit2);
- * 
+ *
  *   OUTPUT (main handler):
  *     DecisionQueueController::AddDecision($player, "MZCHOOSE", "BG1&BG2", 1);
  *     DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-1", 1);
- * 
+ *
  * Example transformation (Pattern 2 - void function):
  *   INPUT:
  *     $hunter = await $player.MZChoose($hunters);
  *     await DoPlayFighter($player, $hunter);
  *     echo("Fighter deployed!");
- * 
+ *
  *   OUTPUT (main handler):
  *     DecisionQueueController::AddDecision($player, "MZCHOOSE", $hunters, 1);
  *     DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-1", 1);
- * 
+ *
  *   OUTPUT (continuation handler):
  *     $customDQHandlers["CARDID-1"] = function($player, $parts, $lastDecision) {
  *       DecisionQueueController::StoreVariable("hunter", $lastDecision);
@@ -2543,7 +2544,7 @@ function BuildAddDecisionCall($await, $cardId, $indent = '') {
 function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = []) {
   $lines = explode("\n", $code);
   $awaits = [];
-  
+
   // First pass: find all await statements
   for ($i = 0; $i < count($lines); $i++) {
     $line = $lines[$i];
@@ -2551,7 +2552,7 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
     if (preg_match('/(\$\w+)\s*=\s*await\s+(\$\w+)\.(\w+)\((.*)\)\s*;?\s*$/', $line, $matches)) {
       $rawParams = trim($matches[4]);
       $methodName = $matches[3];
-      
+
       // For Rearrange and MZSplitAssign, keep the parameter exactly as-is (with string concatenation)
       // For other methods, trim quotes
       if (strtolower($methodName) === 'rearrange') {
@@ -2571,7 +2572,7 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
       } else {
         $params = trim($rawParams, '"\'');
       }
-      
+
       $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
       $isModal = strtolower($methodName) === 'modal';
       $isNumberChoose = strtolower($methodName) === 'numberchoose';
@@ -2611,14 +2612,14 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
     else if (preg_match('/^\s*await\s+(\w+)\s*\((.+)\)\s*;?\s*$/', $line, $matches)) {
       $functionName = $matches[1];
       $functionArgs = trim($matches[2]);
-      
+
       // Try to extract $player from the arguments (first argument is typically player)
       // This handles cases like DoPlayFighter($player, $card)
       $playerVar = '$player'; // Default
       if (preg_match('/^\s*(\$\w+)/', $functionArgs, $playerMatch)) {
         $playerVar = $playerMatch[1];
       }
-      
+
       $awaits[] = [
         'lineIndex' => $i,
         'returnVar' => null,  // No return variable for void await
@@ -2629,13 +2630,13 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
       ];
     }
   }
-  
+
   // If no awaits found, return original code with macro param retrieval prepended
   if (count($awaits) == 0) {
     $paramRetrievalCode = GenerateMacroParamRetrievalCode($macroParams);
     return $paramRetrievalCode . $code;
   }
-  
+
   // Generate main handler code (up to first await)
   $transformedCode = "";
   // Add macro parameter retrieval at the start
@@ -2643,7 +2644,7 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
   for ($i = 0; $i < $awaits[0]['lineIndex']; $i++) {
     $transformedCode .= $lines[$i] . "\n";
   }
-  
+
   // Add first decision (or call function for void await)
   $firstAwait = $awaits[0];
   if (isset($firstAwait['isVoidFunction']) && $firstAwait['isVoidFunction']) {
@@ -2654,23 +2655,23 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
     $transformedCode .= BuildAddDecisionCall($firstAwait, $cardId);
     $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
   }
-  
+
   // Generate continuation handlers for each await
   for ($awaitIndex = 0; $awaitIndex < count($awaits); $awaitIndex++) {
     $currentAwait = $awaits[$awaitIndex];
     $handlerName = $cardId . "-" . ($awaitIndex + 1);
-    
+
     $handlerCode = "";
-    
+
     // Retrieve macro parameters first (they persist across continuations)
     $handlerCode .= GenerateMacroParamRetrievalCodeIndented($macroParams);
-    
+
     // For non-void awaits: store the current variable (from $lastDecision)
     if (!isset($currentAwait['isVoidFunction']) || !$currentAwait['isVoidFunction']) {
       $varName = substr($currentAwait['returnVar'], 1); // Remove $ prefix
       $handlerCode .= "  DecisionQueueController::StoreVariable(\"" . $varName . "\", \$lastDecision);\n";
     }
-    
+
     // Retrieve all previously stored variables that might be referenced in the code block
     for ($j = 0; $j < $awaitIndex; $j++) {
       $prevAwait = $awaits[$j];
@@ -2680,16 +2681,16 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
         $handlerCode .= "  " . $prevAwait['returnVar'] . " = DecisionQueueController::GetVariable(\"" . $prevVarName . "\");\n";
       }
     }
-    
+
     // For non-void awaits: assign the current result from $lastDecision to the awaited variable
     if (!isset($currentAwait['isVoidFunction']) || !$currentAwait['isVoidFunction']) {
       $handlerCode .= "  " . $currentAwait['returnVar'] . " = \$lastDecision;\n";
     }
-    
+
     // Get the code between this await and the next await (or end of code)
     $startLine = $currentAwait['lineIndex'] + 1;
     $endLine = ($awaitIndex + 1 < count($awaits)) ? $awaits[$awaitIndex + 1]['lineIndex'] : count($lines);
-    
+
     // Add the code between awaits
     for ($i = $startLine; $i < $endLine; $i++) {
       // Skip the next await line itself if we're not at the last await
@@ -2698,7 +2699,7 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
       }
       $handlerCode .= "  " . $lines[$i] . "\n";
     }
-    
+
     // If there's another await after this one, queue it
     if ($awaitIndex + 1 < count($awaits)) {
       $nextAwait = $awaits[$awaitIndex + 1];
@@ -2711,43 +2712,43 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
         $handlerCode .= "  DecisionQueueController::AddDecision(" . $nextAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-" . ($awaitIndex + 2) . "\", 1);\n";
       }
     }
-    
+
     // Store handler for generation
     $continuationHandlers[$handlerName] = [
       'code' => $handlerCode,
       'comment' => $abilityName
     ];
   }
-  
+
   return rtrim($transformedCode);
 }
 
 function GenerateMacroCode() {
   global $rootName;
-  
+
   try {
     $conn = GetLocalMySQLConnection();
     $cardAbilityDB = new CardAbilityDB($conn);
-    
+
     $rootPath = "./" . $rootName;
     $directory = $rootPath . "/GeneratedCode";
-    
+
     if (!is_dir($directory)) {
       mkdir($directory, 0755, true);
     }
-    
+
     $filename = $directory . "/GeneratedMacroCode.php";
     $handler = fopen($filename, "w");
-    
+
     fwrite($handler, "<?php\r\n");
     fwrite($handler, "// AUTO-GENERATED FILE: Macro implementations from CardEditor database\r\n");
     fwrite($handler, "// DO NOT EDIT MANUALLY - changes will be overwritten when generator runs\r\n");
     fwrite($handler, "// Last generated: " . date("Y-m-d H:i:s") . "\r\n\r\n");
-    
+
     // Get all macros defined in the schema
     $schemaFile = "./Schemas/" . $rootName . "/GameSchema.txt";
     $macrosByName = [];
-    
+
     if (file_exists($schemaFile)) {
       $lines = file($schemaFile, FILE_IGNORE_NEW_LINES);
       foreach ($lines as $line) {
@@ -2768,7 +2769,7 @@ function GenerateMacroCode() {
         }
       }
     }
-    
+
     // Group abilities by macro name
     $abilitiesByMacro = [];
     foreach ($macrosByName as $macroName => $params) {
@@ -2777,81 +2778,81 @@ function GenerateMacroCode() {
         $abilitiesByMacro[$macroName] = $abilities;
       }
     }
-    
+
     // Generate card-specific macro implementations
     if (count($abilitiesByMacro) > 0) {
       fwrite($handler, "// Card-specific macro implementations\r\n");
       fwrite($handler, "// Each macro has an array where card IDs are keys (or CardID:Index for multiple abilities)\r\n\r\n");
-      
+
       $allContinuationHandlers = []; // Store all continuation handlers for output later
-      
+
       // Track ability index per card for macros that support multiple abilities
       $abilityIndexByCard = [];
-      
+
       foreach ($abilitiesByMacro as $macroName => $abilities) {
         // Convert macro name to valid variable name (e.g., "card-play" -> "cardPlayAbilities")
         $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
-        
+
         // Get the macro parameters from the schema
         $macroParams = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : [];
-        
+
         // Reset per-macro so each macro's first ability is :0 (abilities arrays are looked up as cardID:0)
         $abilityIndexByCard = [];
-        
+
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
           $name = $ability['ability_name'] ?? $cardId;
-          
+
           // Track ability index for this card
           if (!isset($abilityIndexByCard[$cardId])) {
             $abilityIndexByCard[$cardId] = 0;
           }
           $abilityIndex = $abilityIndexByCard[$cardId];
           $abilityIndexByCard[$cardId]++;
-          
+
           // Use CardID:Index as the key for abilities (supports multiple per card)
           $abilityKey = $cardId . ":" . $abilityIndex;
-          
+
           // Transform code to handle await syntax (pass macro params for variable retrieval).
           // Use abilityKey:macroName as handlerPrefix so continuation handler names are unique
           // even when the same card has abilities for multiple macros (e.g. OnAttack + Reveal).
           $continuationHandlers = [];
           $handlerPrefix = $abilityKey . ":" . $macroName;
           $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams);
-          
+
           // Merge continuation handlers into global collection
           $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);
-          
+
           fwrite($handler, "\$" . $varName . "[\"" . $abilityKey . "\"] = function(\$player) { //" . $name . "\r\n");
           fwrite($handler, "  " . str_replace("\n", "\n  ", trim($transformedCode)) . "\r\n");
           fwrite($handler, "};\r\n");
         }
-        
+
         fwrite($handler, "\r\n");
       }
-      
+
       // Generate continuation handlers (from await transformations)
       if (count($allContinuationHandlers) > 0) {
         fwrite($handler, "// Continuation handlers for await syntax\r\n");
         fwrite($handler, "// These handlers are called after player makes a choice in an ability\r\n\r\n");
-        
+
         foreach ($allContinuationHandlers as $handlerName => $handlerData) {
           fwrite($handler, "\$customDQHandlers[\"" . $handlerName . "\"] = function(\$player, \$parts, \$lastDecision) { //" . $handlerData['comment'] . "\r\n");
           fwrite($handler, $handlerData['code']);
           fwrite($handler, "};\r\n\r\n");
         }
       }
-      
+
       // Generate macro count data and functions
       fwrite($handler, "// Global macro count arrays - stores how many of each macro each card has\r\n");
       fwrite($handler, "// These are built once at file load time for optimal performance\r\n\r\n");
-      
+
       foreach ($abilitiesByMacro as $macroName => $abilities) {
         // Generate PHP function
         $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
         $varName = "\$" . $functionName . "Data";
-        
+
         // Build associative array of card ID => count
         $countArray = [];
         foreach ($abilities as $ability) {
@@ -2861,40 +2862,40 @@ function GenerateMacroCode() {
           }
           $countArray[$cardId]++;
         }
-        
+
         // Emit global array
         fwrite($handler, $varName . " = [\r\n");
         foreach ($countArray as $cardId => $count) {
           fwrite($handler, "  \"" . addslashes($cardId) . "\" => " . intval($count) . ",\r\n");
         }
         fwrite($handler, "];\r\n\r\n");
-        
+
         // Emit lookup function
         fwrite($handler, "function " . $functionName . "(\$cardId) {\r\n");
         fwrite($handler, "  global \$" . $functionName . "Data;\r\n");
         fwrite($handler, "  return isset(\$" . $functionName . "Data[\$cardId]) ? \$" . $functionName . "Data[\$cardId] : 0;\r\n");
         fwrite($handler, "}\r\n\r\n");
-        
+
         // Generate ability names array for this macro (e.g., CardActivateAbilityNames)
         $namesVarName = "\$" . $functionName . "NamesData";
         $abilityIndexByCard = [];
-        
+
         fwrite($handler, $namesVarName . " = [\r\n");
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $name = $ability['ability_name'] ?? $cardId;
-          
+
           if (!isset($abilityIndexByCard[$cardId])) {
             $abilityIndexByCard[$cardId] = 0;
           }
           $abilityIndex = $abilityIndexByCard[$cardId];
           $abilityIndexByCard[$cardId]++;
-          
+
           $abilityKey = $cardId . ":" . $abilityIndex;
           fwrite($handler, "  \"" . addslashes($abilityKey) . "\" => \"" . addslashes($name) . "\",\r\n");
         }
         fwrite($handler, "];\r\n\r\n");
-        
+
         // Emit ability names lookup function
         $namesFunction = $functionName . "Names";
         fwrite($handler, "function " . $namesFunction . "(\$cardId, \$abilityIndex = null) {\r\n");
@@ -2914,22 +2915,22 @@ function GenerateMacroCode() {
         fwrite($handler, "  return \$names;\r\n");
         fwrite($handler, "}\r\n\r\n");
       }
-      
+
     } else {
       fwrite($handler, "// No custom macro implementations found in database\r\n");
       fwrite($handler, "// This file will be populated as abilities are added through CardEditor\r\n\r\n");
     }
-    
+
     fwrite($handler, "?>");
     fclose($handler);
-    
+
     // Generate JavaScript macro count functions
     GenerateMacroCountJS($rootName, $abilitiesByMacro);
-    
+
     mysqli_close($conn);
-    
+
     echo("Generated macro code file: $filename<BR>");
-    
+
   } catch (Exception $e) {
     echo("Note: Could not generate macro code file: " . $e->getMessage() . "<BR>");
   }
@@ -2943,27 +2944,27 @@ function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
   try {
     $rootPath = "./" . $rootName;
     $directory = $rootPath . "/GeneratedCode";
-    
+
     if (!is_dir($directory)) {
       mkdir($directory, 0755, true);
     }
-    
+
     $filename = $directory . "/GeneratedMacroCount.js";
     $handler = fopen($filename, "w");
-    
+
     fwrite($handler, "// AUTO-GENERATED FILE: Macro count functions\r\n");
     fwrite($handler, "// DO NOT EDIT MANUALLY - changes will be overwritten when generator runs\r\n");
     fwrite($handler, "// Last generated: " . date("Y-m-d H:i:s") . "\r\n\r\n");
-    
+
     if (count($abilitiesByMacro) > 0) {
       fwrite($handler, "// Global macro count objects - stores how many of each macro each card has\r\n");
       fwrite($handler, "// These are built once at file load time for optimal performance\r\n\r\n");
-      
+
       foreach ($abilitiesByMacro as $macroName => $abilities) {
         // Generate JavaScript function
         $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
         $varName = $functionName . "Data";
-        
+
         // Build associative array of card ID => count
         $countArray = [];
         foreach ($abilities as $ability) {
@@ -2973,39 +2974,39 @@ function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
           }
           $countArray[$cardId]++;
         }
-        
+
         // Emit global object
         fwrite($handler, "const " . $varName . " = {\r\n");
         foreach ($countArray as $cardId => $count) {
           fwrite($handler, "  \"" . addslashes($cardId) . "\": " . intval($count) . ",\r\n");
         }
         fwrite($handler, "};\r\n\r\n");
-        
+
         // Emit lookup function
         fwrite($handler, "function " . $functionName . "(cardId) {\r\n");
         fwrite($handler, "  return " . $varName . "[cardId] !== undefined ? " . $varName . "[cardId] : 0;\r\n");
         fwrite($handler, "}\r\n\r\n");
-        
+
         // Generate ability names data for this macro
         $namesVarName = $functionName . "NamesData";
         $abilityIndexByCard = [];
-        
+
         fwrite($handler, "const " . $namesVarName . " = {\r\n");
         foreach ($abilities as $ability) {
           $abCardId = $ability['card_id'];
           $name = $ability['ability_name'] ?? $abCardId;
-          
+
           if (!isset($abilityIndexByCard[$abCardId])) {
             $abilityIndexByCard[$abCardId] = 0;
           }
           $abilityIndex = $abilityIndexByCard[$abCardId];
           $abilityIndexByCard[$abCardId]++;
-          
+
           $abilityKey = $abCardId . ":" . $abilityIndex;
           fwrite($handler, "  \"" . addslashes($abilityKey) . "\": \"" . addslashes($name) . "\",\r\n");
         }
         fwrite($handler, "};\r\n\r\n");
-        
+
         // Emit ability names lookup function
         $namesFunction = $functionName . "Names";
         fwrite($handler, "function " . $namesFunction . "(cardId, abilityIndex) {\r\n");
@@ -3025,15 +3026,15 @@ function GenerateMacroCountJS($rootName, $abilitiesByMacro) {
         fwrite($handler, "  return names;\r\n");
         fwrite($handler, "}\r\n\r\n");
       }
-      
+
     } else {
       fwrite($handler, "// No custom macro implementations found in database\r\n");
       fwrite($handler, "// This file will be populated as abilities are added through CardEditor\r\n\r\n");
     }
-    
+
     fclose($handler);
     echo("Generated JavaScript macro count file: $filename<BR>");
-    
+
   } catch (Exception $e) {
     echo("Note: Could not generate JavaScript macro count file: " . $e->getMessage() . "<BR>");
   }
