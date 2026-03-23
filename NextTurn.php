@@ -252,8 +252,26 @@
     </head>
 
     <script>
-      var cardSize = window.innerWidth <= 1000 ? 110 : window.innerWidth / 16;
-      //Note: 96 = Card Size
+      function CalculateCardSize() {
+        if (window.innerWidth <= 1000) {
+          var viewportWidth = (window.visualViewport && window.visualViewport.width) ? window.visualViewport.width : window.innerWidth;
+          var mobileColumns = 4;
+          var rowPadding = 24; // account for wrapper padding and edge spacing
+          var perCardHorizontalSpacing = 4; // two 1px margins + buffer for layout rounding
+          var calculatedSize = Math.floor((viewportWidth - rowPadding - (mobileColumns * perCardHorizontalSpacing)) / mobileColumns);
+          return Math.max(64, Math.min(80, calculatedSize));
+        }
+        return window.innerWidth / 16;
+      }
+
+      var cardSize = CalculateCardSize();
+      window.cardSize = cardSize;
+
+      window.addEventListener('resize', function() {
+        window.cardSize = CalculateCardSize();
+      });
+
+      // Note: 96 is the historical default card size.
 
     </script>
 
