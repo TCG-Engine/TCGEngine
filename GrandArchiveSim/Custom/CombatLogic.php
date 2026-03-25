@@ -1011,6 +1011,21 @@ function OnHitTrigger($player, $attackerMZ) {
         }
     }
 
+    // Vanitas, Dominus Rex (3vkxrw9462): On Champion Hit — opponent's materializations cost 1 more
+    // until beginning of your next turn
+    $attackerObjVanitas = GetZoneObject($attackerMZ);
+    if($attackerObjVanitas !== null && $attackerObjVanitas->CardID === "3vkxrw9462"
+       && !HasNoAbilities($attackerObjVanitas)
+       && PropertyContains(EffectiveCardType($attackerObjVanitas), "CHAMPION")) {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
+                AddGlobalEffects($player, "3vkxrw9462");
+            }
+        }
+    }
+
     // Pleiades (rsps1qnzfl): intent cards with rsps1qnzfl-ONHIT TurnEffect
     // summon an Astral Shard token for each one on hit
     foreach($intentCards as $iMZ) {

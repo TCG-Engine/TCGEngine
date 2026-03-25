@@ -67,6 +67,7 @@ $Kindle_Cards["OjOcXBiO0b"] = 7; // Tyrannical Denigration (EXALTED) - Kindle 7
 $Kindle_Cards["p7FWS3DA4a"] = 2; // Molten Echo (FIRE) - Kindle 2
 $Kindle_Cards["nduIoPhZr1"] = 7; // Seven of Hearts (FIRE) - Kindle 7
 $Kindle_Cards["vrK16VZ2zU"] = 2; // Burning Aethercharge (FIRE) - Kindle 2
+$Kindle_Cards["4ms1r3hjxp"] = 6; // Jianye, Dawn's Keep (FIRE) - Kindle 6
 
 // --- Cardistry Cards Registry ---
 // Maps cardID => base reserve cost for the Cardistry activated ability.
@@ -1412,6 +1413,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $pawnAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["PAWN"]);
         $pawnDiscount = min(2, count($pawnAllies)) * 2;
         $reserveCost = max(0, $reserveCost - $pawnDiscount);
+    }
+
+    // Frostlorn Caress (4tqbok1g9w): [Diao Chan Bonus] costs 3 less to activate
+    if($obj->CardID === "4tqbok1g9w" && IsDiaoChanBonus($player)) {
+        $reserveCost = max(0, $reserveCost - 3);
     }
 
     // Briar's Spindle (9ooAGDhBj7): global effect — next Chessman card costs 2 less
@@ -3255,6 +3261,9 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "K15jWbHAMY": // Teardrop Diadem — banish self
         case "LeyUk5auEP": // Purifying Thurible — banish self
         case "T3cx65VM3D": // Enfeebling Orb — banish self
+        case "473gyf0w3v": // Duxal Proclamation — banish self
+        case "4864k12no2": // Scepter of Fascination — banish self
+        case "4dys05p49w": // Gem of Sorority — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -3270,6 +3279,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "mvfcd0ukk6": // Molten Arrow — REST
         case "szeb8zzj86": // Fractal of Mana — REST
         case "sq0ou8vas3": // Tome of Sorcery — REST
+        case "4moumzcx9z": // Staff of Blossoming Will — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -3755,6 +3765,22 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Fan of Insight (sz1ty7vq6z): Banish — needs cards in memory
     if($cardID === "sz1ty7vq6z") {
         if(empty(ZoneSearch("myMemory"))) return;
+    }
+    // Duxal Proclamation (473gyf0w3v): Banish — activate only if each opponent controls no allies
+    if($cardID === "473gyf0w3v") {
+        if(!empty(ZoneSearch("theirField", ["ALLY"]))) return;
+    }
+    // Scepter of Fascination (4864k12no2): [Diao Chan Bonus] Banish
+    if($cardID === "4864k12no2") {
+        if(!IsDiaoChanBonus($player)) return;
+    }
+    // Gem of Sorority (4dys05p49w): Banish — no special condition
+    // Staff of Blossoming Will (4moumzcx9z): [Diao Chan Bonus] (1), REST — must be awake + DC bonus + 1 card in hand
+    if($cardID === "4moumzcx9z") {
+        if(!IsDiaoChanBonus($player)) return;
+        if($sourceObject->Status != 2) return;
+        $hand = &GetHand($player);
+        if(count($hand) < 1) return;
     }
     // Enthralling Chime (mhc5a9jpi6): [Diao Chan Bonus] (3), Banish: gain control of ally with 3+ wither
     if($cardID === "mhc5a9jpi6") {
@@ -4350,6 +4376,21 @@ function DoAllyDestroyed($player, $mzCard) {
         foreach($field as $harvesterObj) {
             if(!$harvesterObj->removed && $harvesterObj->CardID === "ttkat9hreq" && !HasNoAbilities($harvesterObj)) {
                 MZAddZone($controller, "myField", "qzzadf9q1v"); // Powercell token
+                break;
+            }
+        }
+    }
+    // Jianye, Dawn's Keep (4ms1r3hjxp): [CB] Fire element allies have On Death: if influence <= 6, draw a card
+    if(CardElement($obj->CardID) === "FIRE" && PropertyContains(EffectiveCardType($obj), "ALLY") && !$suppressed) {
+        global $playerID;
+        $controllerField = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($controllerField);
+        foreach($field as $jianyeObj) {
+            if(!$jianyeObj->removed && $jianyeObj->CardID === "4ms1r3hjxp" && !HasNoAbilities($jianyeObj)
+                && IsClassBonusActive($controller, ["TAMER", "WARRIOR"])) {
+                if(GetInfluence($controller) <= 6) {
+                    Draw($controller, 1);
+                }
                 break;
             }
         }
@@ -6528,6 +6569,9 @@ function ObjectCurrentPower($obj) {
         case "z4pyx8bd7o": // Young Peacekeeper: +1 POWER while fostered
             if(IsFostered($obj)) $power += 1;
             break;
+        case "46neis2lho": // Imperial Panzer: [CB] +1 POWER while fostered
+            if(IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) $power += 1;
+            break;
         case "oh300z2sns": // Magebane Lash: +1 POWER per lash counter on champion
             {
                 $controller = $obj->Controller;
@@ -7428,6 +7472,12 @@ function ObjectCurrentPower($obj) {
             case "fgBpQZe0js-debuff": // Freezing Gambit: target unit's attacks get -3 POWER until EOT
                 $power -= 3;
                 break;
+            case "473gyf0w3v": // Duxal Proclamation: allies get +1 POWER until end of turn
+                $power += 1;
+                break;
+            case "4hnf1yyx1q": // Grim Foreboding: Phantasia allies get +1 POWER until end of turn
+                $power += 1;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -7937,6 +7987,9 @@ function ObjectCurrentHP($obj) {
             break;
         case "z4pyx8bd7o": // Young Peacekeeper: +1 LIFE while fostered
             if(IsFostered($obj)) $cardLife += 1;
+            break;
+        case "46neis2lho": // Imperial Panzer: [CB] +2 LIFE while fostered
+            if(IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) $cardLife += 2;
             break;
         case "3kwkn38b7v": // Tidebreaker Sentinel: [CB] +2 LIFE while fostered
             if(IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
@@ -9001,6 +9054,24 @@ function CardHasAbility($obj) {
         if($champObj === null || GetCounterCount($champObj, "glimmer") <= 0) return 0;
     }
 
+    // Duxal Proclamation (473gyf0w3v): activate only if each opponent controls no allies
+    if($obj->CardID === "473gyf0w3v") {
+        if(!empty(ZoneSearch("theirField", ["ALLY"]))) return 0;
+    }
+
+    // Scepter of Fascination (4864k12no2): [Diao Chan Bonus] banish
+    if($obj->CardID === "4864k12no2") {
+        if(!IsDiaoChanBonus($obj->Controller)) return 0;
+    }
+
+    // Staff of Blossoming Will (4moumzcx9z): [Diao Chan Bonus] (1), REST
+    if($obj->CardID === "4moumzcx9z") {
+        if(!IsDiaoChanBonus($obj->Controller)) return 0;
+        if($obj->Status != 2) return 0;
+        $hand = &GetHand($obj->Controller);
+        if(count($hand) < 1) return 0;
+    }
+
     return 1;
 }
 
@@ -9381,6 +9452,8 @@ function CanPayEphemerate($player, $cardID) {
 }
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
+// Vanitas, Dominus Rex (3vkxrw9462): On Champion Hit — opponent materializations cost 1 more
+$untilBeginTurnEffects["3vkxrw9462"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 // Peaceful Reunion: never auto-expire (cleared manually at caster's RecollectionPhase)
@@ -9655,6 +9728,14 @@ $doesGlobalEffectApply["huqj5bbae3"] = function($obj) { //Winds of Retribution: 
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
+$doesGlobalEffectApply["473gyf0w3v"] = function($obj) { //Duxal Proclamation: allies get +1 POWER
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+
+$doesGlobalEffectApply["4hnf1yyx1q"] = function($obj) { //Grim Foreboding: Phantasia allies get +1 POWER
+    return PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardType($obj), "PHANTASIA");
+};
+
 $doesGlobalEffectApply["i1f0ht2tsn"] = function($obj) { //Strategic Warfare: allies get +1 POWER
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
@@ -9893,6 +9974,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'QvQhg1EOBR' => 2, // Sacred Engulfment: [Class Bonus] costs 2 less
         'TO9qqKHakv' => 2, // Righteous Retribution: [Class Bonus] costs 2 less
         '3bS1Y9OQrF' => 2, // Nature's Insight: [Class Bonus] costs 2 less
+        '44eld1c5ac' => 2, // Surging Undertow: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
@@ -10949,6 +11031,8 @@ function HasVigor($obj) {
     }
     // Awakened Frostguard (mnu1xhs5jw): vigor while fostered
     if($obj->CardID === "mnu1xhs5jw" && IsFostered($obj)) return true;
+    // Imperial Panzer (46neis2lho): [CB] vigor while fostered
+    if($obj->CardID === "46neis2lho" && IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Zhang Fei, Spirited Steel (qxnv0jqeym): [CB] Vigor
     if($obj->CardID === "qxnv0jqeym" && IsClassBonusActive($obj->Controller, ["WARRIOR"])) return true;
     // Dilu, Auspicious Charger (du4eaktghh): vigor while you control a wind unique Human ally
@@ -12046,6 +12130,18 @@ function CardMemoryCost($obj) {
         $turnPlayer = &GetTurnPlayer();
         if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
             $cost = max(0, $cost - 1);
+        }
+    }
+    // Vanitas, Dominus Rex (3vkxrw9462): On Champion Hit effect — opponent's materializations cost 1 more
+    $turnPlayer = &GetTurnPlayer();
+    $opponent = ($turnPlayer == 1) ? 2 : 1;
+    global $playerID;
+    $oppEffectsZone = ($opponent == $playerID) ? "myGlobalEffects" : "theirGlobalEffects";
+    $oppEffects = GetZone($oppEffectsZone);
+    foreach($oppEffects as $eObj) {
+        if($eObj->CardID === "3vkxrw9462") {
+            $cost += 1;
+            break;
         }
     }
     return $cost;

@@ -338,6 +338,20 @@ function DoMaterialize($player, $mzCard) {
         }
     }
 
+    // Excalibur, Cursed Sword (4sm14RaEkg): whenever you materialize a card, deal 2 damage to your champion
+    {
+        global $playerID;
+        $fZone = ($player == $playerID) ? "myField" : "theirField";
+        $field = GetZone($fZone);
+        foreach($field as $excObj) {
+            if(!$excObj->removed && $excObj->CardID === "4sm14RaEkg" && !HasNoAbilities($excObj)
+                && $excObj->Controller == $player) {
+                DealChampionDamage($player, 2);
+                break;
+            }
+        }
+    }
+
     // --- Domain Upkeep: "Whenever you materialize a card, sacrifice [domain]" ---
     // After any materialize, check if the player controls domains with materialize-sacrifice upkeep.
     // Domains tagged with NO_UPKEEP (via Right of Realm) skip this trigger.
