@@ -71,6 +71,17 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     }
 
     $memoryCost = $ignoreCost ? 0 : CardMemoryCost($materializeCard);
+
+    // Dragon's Dawn (9f92917r84): additional cost to materialize — banish 3 fire from graveyard
+    if($materializeCard->CardID === "9f92917r84" && !$ignoreCost) {
+        $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+        if(count($fireGY) < 3) return; // Can't pay cost
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1,
+            tooltip:"Banish_fire_card_from_graveyard_(1/3)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DragonsDawnBanish|" . $lastDecision . "|1|" . $memoryCost, 1);
+        return;
+    }
+
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
         $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
@@ -82,6 +93,37 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     }
     //Then materialize the card
     Materialize($player, $lastDecision);
+};
+
+// Dragon's Dawn (9f92917r84): sequential banish of fire cards from graveyard as materialize cost
+$customDQHandlers["DragonsDawnBanish"] = function($player, $parts, $lastDecision) {
+    // $parts[0] = mzCard (Dragon's Dawn in material deck), $parts[1] = current banish# (1-3), $parts[2] = memoryCost
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "myBanish");
+    $mzCard = $parts[0];
+    $count = intval($parts[1]);
+    $memoryCost = intval($parts[2]);
+    if($count < 3) {
+        $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+        $remaining = 3 - $count;
+        if(count($fireGY) < $remaining) return; // Can't pay remaining cost
+        $next = $count + 1;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1,
+            tooltip:"Banish_fire_card_from_graveyard_(" . $next . "/3)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DragonsDawnBanish|" . $mzCard . "|" . $next . "|" . $memoryCost, 1);
+    } else {
+        // All 3 banished — handle memory cost then materialize
+        if($memoryCost > 0) {
+            DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
+            $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
+            if($floatingIndices != "") {
+                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+            }
+            DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+        }
+        Materialize($player, $mzCard);
+    }
 };
 
 $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
@@ -145,6 +187,13 @@ function DoMaterialize($player, $mzCard) {
                     return;
                 }
             }
+        }
+
+        // Nameless Champion (0794z3ffck): This champion can't level up.
+        if($existingChampionIdx >= 0 && $existingChampionCardID === "0794z3ffck"
+           && !HasNoAbilities($field[$existingChampionIdx])) {
+            MZMove($player, $mzCard, "myMaterial");
+            return;
         }
 
         // Build new lineage: old champion's CardID prepended to its subcards

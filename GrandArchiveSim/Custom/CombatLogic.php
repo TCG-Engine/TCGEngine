@@ -1035,6 +1035,22 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         }
     }
 
+    // Dragon's Dawn (9f92917r84): On Champion Hit — draw a card
+    $ddWeaponMZ = GetCombatWeapon();
+    if($ddWeaponMZ !== null) {
+        $ddObj = GetZoneObject($ddWeaponMZ);
+        if($ddObj !== null && $ddObj->CardID === "9f92917r84"
+            && in_array("9f92917r84-ONCHIT_DRAW", $ddObj->TurnEffects ?? [])) {
+            $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+            if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+                $hitObj = GetZoneObject($hitTarget);
+                if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
+                    Draw($player, 1);
+                }
+            }
+        }
+    }
+
     // Tristan, Grim Stalker (K5luT8aRzc): On Ally Hit passive —
     // when any ally you control hits an enemy ally, you may remove 3 prep counters to destroy the hit ally.
     $attackerObj = GetZoneObject($attackerMZ);
@@ -1589,6 +1605,28 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         return;
     }
 
+    // Carnwennan, Shrouded Edge (Au8eN2Jtuu): [CB] attacks using this weapon can't be retaliated
+    $combatWeaponMZ = GetCombatWeapon();
+    if($combatWeaponMZ !== null) {
+        $weaponObj = GetZoneObject($combatWeaponMZ);
+        if($weaponObj !== null && $weaponObj->CardID === "Au8eN2Jtuu" && !HasNoAbilities($weaponObj)
+            && IsClassBonusActive($attackerPlayer, ["ASSASSIN"])) {
+            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
+            return;
+        }
+    }
+
+    // Devastating Blow (At1UNRG7F0): [CB][Level 3+] can't be retaliated
+    foreach($attackerIntentCards as $iMZ2) {
+        $iObj2 = GetZoneObject($iMZ2);
+        if($iObj2 !== null && $iObj2->CardID === "At1UNRG7F0"
+            && IsClassBonusActive($attackerPlayer, ["GUARDIAN", "WARRIOR"])
+            && PlayerLevel($attackerPlayer) >= 3) {
+            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
+            return;
+        }
+    }
+
     // (perspective flip already computed above)
 
     // Build the list of valid retaliators: the actual defender plus any unit that
@@ -2132,6 +2170,19 @@ function OnDealDamage($player, $source, $target, $amount) {
         if($sourceObj !== null && in_array("5v598k3m1w-SHENJU", $sourceObj->TurnEffects)) {
             DealUnpreventableDamage($player, $source, $target, $amount);
             return;
+        }
+    }
+
+    // Penetrator Round (97n2jnltv5): [CB][Level 2+] combat damage is unpreventable
+    if($isCombatContext) {
+        $intentCards2 = GetIntentCards($player);
+        foreach($intentCards2 as $intentMZ2) {
+            $intentObj2 = GetZoneObject($intentMZ2);
+            if($intentObj2 !== null && $intentObj2->CardID === "97n2jnltv5"
+               && in_array("97n2jnltv5_UNPREVENTABLE", $intentObj2->TurnEffects ?? [])) {
+                DealUnpreventableDamage($player, $source, $target, $amount);
+                return;
+            }
         }
     }
 

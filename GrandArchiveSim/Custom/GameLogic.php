@@ -623,6 +623,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(isset($sourceObject->Counters['merlin_l2_used'])) return;
     }
 
+    // Nameless Champion (0794z3ffck): activate only once (per game)
+    if($sourceObject->CardID === "0794z3ffck") {
+        if(isset($sourceObject->Counters['0794z3ffck_used'])) return;
+    }
+
     // Dichroic Scorch (TlhsnnRhGK): mandatory discard of a fire element card
     if($sourceObject->CardID === "TlhsnnRhGK") {
         $hand = GetZone("myHand");
@@ -5597,6 +5602,15 @@ function RecollectionPhase() {
                         DealChampionDamage($turnPlayer, 2);
                     }
                     break;
+                case "0z2snsdwmx": // Scale of Souls: [CB] Balance — if hand == memory count, recover 2
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["CLERIC"])) {
+                        $hand = &GetHand($turnPlayer);
+                        $mem = &GetMemory($turnPlayer);
+                        if(count($hand) == count($mem)) {
+                            RecoverChampion($turnPlayer, 2);
+                        }
+                    }
+                    break;
                 case "3zb9p4lgdl": // Fractal of Rain: if imbued, target player mills 1
                     if(!HasNoAbilities($field[$i]) && in_array("IMBUED", $field[$i]->TurnEffects)) {
                         $champions = array_merge(ZoneSearch("myField", ["CHAMPION"]), ZoneSearch("theirField", ["CHAMPION"]));
@@ -7239,6 +7253,16 @@ function ObjectCurrentPower($obj) {
         case "6ihv6hbvye": // Grande Aiguille: [Ciel Bonus] +1 POWER if 2+ ally omens
             if(IsCielBonusActive($obj->Controller) && GetOmenCountByType($obj->Controller, "ALLY") >= 2) $power += 1;
             break;
+        case "At1UNRG7F0": // Devastating Blow: [CB][Level 3+] +4 POWER
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN", "WARRIOR"]) && PlayerLevel($obj->Controller) >= 3) {
+                $power += 4;
+            }
+            break;
+        case "9f92917r84": // Dragon's Dawn: On Attack +2 POWER when fire card discarded
+            if(in_array("9f92917r84-POWER", $obj->TurnEffects ?? [])) {
+                $power += 2;
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -8056,6 +8080,10 @@ function ObjectCurrentLevel($obj) {
                 if(strpos($effectID, "DISCORDIA_PLUS_") === 0) {
                     $cardLevel += intval(substr($effectID, strlen("DISCORDIA_PLUS_")));
                 }
+                // Power Overwhelming (AnEPyfFfHj): +N level per enlighten counter removed
+                if(strpos($effectID, "AnEPyfFfHj-") === 0) {
+                    $cardLevel += intval(substr($effectID, strlen("AnEPyfFfHj-")));
+                }
                 break;
         }
     }
@@ -8308,6 +8336,11 @@ function ObjectCurrentHP($obj) {
             break;
         case "L67r0GlRHR": // Vacuous Servant: [Ciel Bonus] +1 LIFE per ally omen
             if(IsCielBonusActive($obj->Controller)) $cardLife += GetOmenCountByType($obj->Controller, "ALLY");
+            break;
+        case "9ggfiy38t2": // Baby Blue Slime: [Class Bonus] +1 LIFE
+            if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
+                $cardLife += 1;
+            }
             break;
         default: break;
     }
