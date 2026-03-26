@@ -446,6 +446,95 @@ $customDQHandlers["BrusqueNeigeSacrifice"] = function($player, $parts, $lastDeci
     }
 };
 
+// Awaken Ombre (OVoHxVwodU): pay X+X additional reserve (variable X chosen via NUMBERCHOOSE)
+$customDQHandlers["AwakenOmbreCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    $x = intval($lastDecision);
+    DecisionQueueController::StoreVariable("awakenOmbreX", strval($x));
+    DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+    $totalCost = $baseReserve + (2 * $x);
+    for($i = 0; $i < $totalCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+// Awaken Ombre (OVoHxVwodU): put up to X ally omens onto field rested, wake if matching element
+function AwakenOmbre_Start($player) {
+    $x = intval(DecisionQueueController::GetVariable("awakenOmbreX"));
+    if($x <= 0) return;
+    $allyOmenMZs = GetOmenMZIDs($player);
+    // Filter to ally omens only
+    $validOmens = [];
+    foreach($allyOmenMZs as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj !== null && !$obj->removed && PropertyContains(CardType($obj->CardID), "ALLY")) {
+            $validOmens[] = $mz;
+        }
+    }
+    if(empty($validOmens)) return;
+    DecisionQueueController::StoreVariable("awakenOmbreRemaining", strval($x));
+    $omenStr = implode("&", $validOmens);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $omenStr, 1, tooltip:"Put_an_ally_omen_onto_the_field?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AwakenOmbrePick", 1);
+}
+
+function AwakenOmbre_GetChampionElements($player) {
+    $field = &GetField($player);
+    $elements = [];
+    foreach($field as $obj) {
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
+            $el = EffectiveCardElement($obj);
+            if($el !== null && $el !== "NORM") $elements[] = $el;
+            break;
+        }
+    }
+    return $elements;
+}
+
+$customDQHandlers["AwakenOmbrePick"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === null) return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    $cardElement = CardElement($obj->CardID);
+    // Move from banishment to field rested
+    MZMove($player, $lastDecision, "myField");
+    // Find the newly placed card on field (last entry with matching CardID)
+    $field = GetZone("myField");
+    $newMZ = null;
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === $obj->CardID) {
+            $newMZ = "myField-" . $i;
+            $field[$i]->Status = 1; // Rested
+            break;
+        }
+    }
+    // Wake if non-norm element matches champion element
+    if($newMZ !== null && $cardElement !== null && $cardElement !== "NORM") {
+        $champElements = AwakenOmbre_GetChampionElements($player);
+        if(in_array($cardElement, $champElements)) {
+            WakeupCard($player, $newMZ);
+        }
+    }
+    $remaining = intval(DecisionQueueController::GetVariable("awakenOmbreRemaining")) - 1;
+    if($remaining <= 0) return;
+    DecisionQueueController::StoreVariable("awakenOmbreRemaining", strval($remaining));
+    // Get fresh list of remaining ally omens
+    $allyOmenMZs = GetOmenMZIDs($player);
+    $validOmens = [];
+    foreach($allyOmenMZs as $mz) {
+        $oObj = GetZoneObject($mz);
+        if($oObj !== null && !$oObj->removed && PropertyContains(CardType($oObj->CardID), "ALLY")) {
+            $validOmens[] = $mz;
+        }
+    }
+    if(empty($validOmens)) return;
+    $omenStr = implode("&", $validOmens);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $omenStr, 1, tooltip:"Put_an_ally_omen_onto_the_field?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AwakenOmbrePick", 1);
+};
+
 /**
  * Custom DQ handler: DeclareAllyLinkTarget — stores the chosen ally mzID
  * and CardID as DQ variables for Ally Link resolution.
@@ -572,6 +661,80 @@ $customDQHandlers["FightForCrown_SacOpponent"] = function($player, $parts, $last
     // $player is the opponent (their queue ran this handler)
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
+};
+
+// --- Overlapping Visages (PYAnl70edq): each player sacrifices an ally ---
+// If at least one non-Distortion ally AND one Distortion ally were sacrificed, summon Lost Being (duzpl7mqXl)
+function OverlappingVisages_Start($player) {
+    DecisionQueueController::StoreVariable("OV_HasDistortion", "0");
+    DecisionQueueController::StoreVariable("OV_HasNonDistortion", "0");
+    $myAllies = ZoneSearch("myField", ["ALLY"]);
+    if(!empty($myAllies)) {
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $myAllies), 1, tooltip:"Sacrifice_an_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "OV_SacActivator", 1);
+    } else {
+        OverlappingVisages_QueueOpponent($player);
+    }
+}
+function OverlappingVisages_QueueOpponent($activatingPlayer) {
+    $opponent = ($activatingPlayer == 1) ? 2 : 1;
+    $opField = GetField($opponent);
+    $opAllies = [];
+    for($i = 0; $i < count($opField); ++$i) {
+        if(!$opField[$i]->removed && PropertyContains(EffectiveCardType($opField[$i]), "ALLY")) {
+            $opAllies[] = "myField-" . $i;
+        }
+    }
+    if(!empty($opAllies)) {
+        DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $opAllies), 1, tooltip:"Sacrifice_an_ally");
+        DecisionQueueController::AddDecision($opponent, "CUSTOM", "OV_SacOpponent|$activatingPlayer", 1);
+    } else {
+        OverlappingVisages_Finish($activatingPlayer);
+    }
+}
+function OverlappingVisages_Finish($activatingPlayer) {
+    $hasD = DecisionQueueController::GetVariable("OV_HasDistortion") === "1";
+    $hasND = DecisionQueueController::GetVariable("OV_HasNonDistortion") === "1";
+    if($hasD && $hasND) {
+        SummonMemorite($activatingPlayer, "duzpl7mqXl");
+    }
+}
+
+$customDQHandlers["OV_SacActivator"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") {
+        OverlappingVisages_QueueOpponent($player);
+        return;
+    }
+    $obj = GetZoneObject($lastDecision);
+    if($obj !== null) {
+        if(PropertyContains(EffectiveCardSubtypes($obj), "DISTORTION")) {
+            DecisionQueueController::StoreVariable("OV_HasDistortion", "1");
+        } else {
+            DecisionQueueController::StoreVariable("OV_HasNonDistortion", "1");
+        }
+    }
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    OverlappingVisages_QueueOpponent($player);
+};
+
+$customDQHandlers["OV_SacOpponent"] = function($player, $parts, $lastDecision) {
+    $activatingPlayer = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "") {
+        OverlappingVisages_Finish($activatingPlayer);
+        return;
+    }
+    $obj = GetZoneObject($lastDecision);
+    if($obj !== null) {
+        if(PropertyContains(EffectiveCardSubtypes($obj), "DISTORTION")) {
+            DecisionQueueController::StoreVariable("OV_HasDistortion", "1");
+        } else {
+            DecisionQueueController::StoreVariable("OV_HasNonDistortion", "1");
+        }
+    }
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    OverlappingVisages_Finish($activatingPlayer);
 };
 
 $customDQHandlers["Ready"] = function($player, $param, $lastResult) {
@@ -1766,6 +1929,16 @@ $customDQHandlers["SmashingForceDestroy"] = function($player, $parts, $lastDecis
     OnLeaveField($player, $lastDecision);
     $dest = $player == $targetObj->Controller ? "myGraveyard" : "theirGraveyard";
     MZMove($player, $lastDecision, $dest);
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+// --- Converge Reflections (TBVLLRPiwP): sacrifice the chosen non-token item/weapon (additional cost) ---
+$customDQHandlers["ConvergeReflectionsSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myGraveyard");
     DecisionQueueController::CleanupRemovedCards();
 };
 

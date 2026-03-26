@@ -1204,6 +1204,39 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
             }
         }
     }
+
+    // Vorpal Sword (PIcB5KuuMd): [Merlin Bonus] On Ally Hit — may remove prep counter, wake attacker, once/turn
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "ALLY")) {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
+                $myField = GetZone("myField");
+                foreach($myField as $fi => $fObj) {
+                    if(!$fObj->removed && $fObj->CardID === "PIcB5KuuMd" && !HasNoAbilities($fObj)) {
+                        if(IsMerlinBonusActive($player) && !in_array("PIcB5KuuMd_USED", $fObj->TurnEffects)) {
+                            // Check champion has prep counter
+                            foreach($myField as $ci => $cObj) {
+                                if(!$cObj->removed && PropertyContains(EffectiveCardType($cObj), "CHAMPION")) {
+                                    if(GetPrepCounterCount($cObj) >= 1) {
+                                        DecisionQueueController::StoreVariable("VorpalSwordMZ", "myField-" . $fi);
+                                        DecisionQueueController::StoreVariable("VorpalSwordChampMZ", "myField-" . $ci);
+                                        DecisionQueueController::StoreVariable("VorpalSwordAttackerMZ", $attackerMZ);
+                                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                                            tooltip:"Remove_prep_counter_to_wake_attacker?");
+                                        DecisionQueueController::AddDecision($player, "CUSTOM", "VorpalSwordOnAllyHit", 1);
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -1726,6 +1759,28 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         });
         $retaliatorOptions = array_values($retaliatorOptions);
     }
+    // Vorpal Sword (PIcB5KuuMd): Specter allies can't retaliate while Vorpal Sword is on attacker's field
+    {
+        $attackerField = GetField($attackerPlayer);
+        $hasVorpal = false;
+        foreach($attackerField as $vObj) {
+            if(!$vObj->removed && $vObj->CardID === "PIcB5KuuMd" && !HasNoAbilities($vObj)) {
+                $hasVorpal = true;
+                break;
+            }
+        }
+        if($hasVorpal) {
+            $retaliatorOptions = array_filter($retaliatorOptions, function($mzID) {
+                $obj = GetZoneObject($mzID);
+                if($obj === null) return true;
+                if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SPECTER")) {
+                    return false;
+                }
+                return true;
+            });
+            $retaliatorOptions = array_values($retaliatorOptions);
+        }
+    }
     if(empty($retaliatorOptions)) {
         DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
@@ -1959,6 +2014,23 @@ $customDQHandlers["InnocuousDisposerOnHit"] = function($player, $parts, $lastDec
             DoAllyDestroyed($player, $hitTarget);
         }
     }
+};
+
+// PIcB5KuuMd — Vorpal Sword: [Merlin Bonus] On ally hit, remove prep from champion and wake attacker (1/turn)
+$customDQHandlers["VorpalSwordOnAllyHit"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $vorpalMZ = DecisionQueueController::GetVariable("VorpalSwordMZ");
+    $champMZ = DecisionQueueController::GetVariable("VorpalSwordChampMZ");
+    $attackerMZ = DecisionQueueController::GetVariable("VorpalSwordAttackerMZ");
+    if($vorpalMZ === null || $champMZ === null || $attackerMZ === null) return;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null || $champObj->removed) return;
+    if(GetPrepCounterCount($champObj) < 1) return;
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj === null || $attackerObj->removed) return;
+    RemoveCounters($player, $champMZ, "preparation", 1);
+    AddTurnEffect($vorpalMZ, "PIcB5KuuMd_USED");
+    WakeupCard($player, $attackerMZ);
 };
 
 /**
@@ -2567,6 +2639,35 @@ function OnDealDamage($player, $source, $target, $amount) {
                     // Put 2 sheen on the caster's Fractured Memories
                     $casterPlayer = $targetObj->Controller ?? $player;
                     AddSheenToMastery($casterPlayer, 2);
+                }
+                break;
+            }
+        }
+        if($amount <= 0) return;
+    }
+
+    // Radiant Repudiation (RO2CcBrILQ): prevent up to N damage to this neos unit,
+    // and when damage is prevented this way, deal 2 damage to stored target.
+    if($amount > 0) {
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "RADIANT_REPUDIATION_") === 0) {
+                $budget = intval(substr($effect, strlen("RADIANT_REPUDIATION_")));
+                $prevented = min($budget, $amount);
+                $amount -= $prevented;
+                $remaining = $budget - $prevented;
+                if($remaining <= 0) {
+                    unset($targetObj->TurnEffects[$idx]);
+                    $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                } else {
+                    $targetObj->TurnEffects[$idx] = "RADIANT_REPUDIATION_" . $remaining;
+                }
+                if($prevented > 0 && isset($targetObj->Counters['_radiantTarget'])) {
+                    $rtMZ = $targetObj->Counters['_radiantTarget'];
+                    $rtObj = GetZoneObject($rtMZ);
+                    if($rtObj !== null && !$rtObj->removed) {
+                        $rtPlayer = $rtObj->Controller ?? $player;
+                        DealDamage($rtPlayer, $target, $rtMZ, 2);
+                    }
                 }
                 break;
             }

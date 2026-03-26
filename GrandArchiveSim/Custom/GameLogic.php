@@ -478,6 +478,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     
     $sourceObject = &GetZoneObject($mzCard);
 
+    // Invoke Dominance (PLljzdiMmq): can't activate non-ally cards this turn
+    if(GlobalEffectCount($player, "PLljzdiMmq_NO_NONALLY") > 0) {
+        $cardType = CardType($sourceObject->CardID);
+        if(!PropertyContains($cardType, "ALLY")) {
+            return;
+        }
+    }
+
     // 1.5 Ally Link pre-check: if the card has Ally Link, there must be at least
     // one ally on the field to link to. If not, the activation is illegal.
     global $AllyLink_Cards;
@@ -585,6 +593,32 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(count($powercells) < 4) return;
     }
 
+    // Converge Reflections (TBVLLRPiwP): sacrifice a non-token item/weapon + needs valid target
+    if($sourceObject->CardID === "TBVLLRPiwP") {
+        $myItemsWeapons = array_merge(
+            ZoneSearch("myField", ["ITEM", "REGALIA"]),
+            ZoneSearch("myField", ["WEAPON"])
+        );
+        $sacTargets = array_filter($myItemsWeapons, fn($mz) => !IsToken(GetZoneObject($mz)->CardID));
+        if(empty($sacTargets)) return;
+        $allItemsWeapons = array_merge(
+            ZoneSearch("myField", ["ITEM", "REGALIA"]),
+            ZoneSearch("theirField", ["ITEM", "REGALIA"]),
+            ZoneSearch("myField", ["WEAPON"]),
+            ZoneSearch("theirField", ["WEAPON"])
+        );
+        $hasTarget = false;
+        foreach($allItemsWeapons as $mzI) {
+            $iObj = GetZoneObject($mzI);
+            if($iObj === null) continue;
+            if(CardCost_memory($iObj->CardID) == 0 || intval(CardCost_reserve($iObj->CardID)) <= 4) {
+                $hasTarget = true;
+                break;
+            }
+        }
+        if(!$hasTarget) return;
+    }
+
     // Ravishing Finale (jlgx72rfgv): mandatory banish 2 floating memory from GY
     if($sourceObject->CardID === "jlgx72rfgv") {
         $floatingGY = [];
@@ -601,6 +635,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($sourceObject->CardID === "dcgw05qzza") {
         $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
         if(empty($herbs)) return;
+    }
+
+    // Awaken Ombre (OVoHxVwodU): [Ciel Bonus] needs ally omens and enough hand to pay
+    if($sourceObject->CardID === "OVoHxVwodU") {
+        if(!IsCielBonusActive($player)) return;
+        $allyOmenCount = GetOmenCountByType($player, "ALLY");
+        if($allyOmenCount < 1) return;
     }
 
     // Firetuned Automaton (lzjmwuir99): mandatory discard of a fire element card
@@ -626,6 +667,30 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($sourceObject->CardID === "FQigf17dCr") {
         $specterAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SPECTER"]);
         if(empty($specterAllies)) return;
+    }
+
+    // Endura, Scepter of Ignition (SGsDKB9CN5): needs champion with enlighten counter
+    if($sourceObject->CardID === "SGsDKB9CN5") {
+        $field = &GetField($player);
+        $hasEnlighten = false;
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) {
+                if(GetCounterCount($field[$i], "enlighten") > 0) $hasEnlighten = true;
+                break;
+            }
+        }
+        if(!$hasEnlighten) return;
+    }
+
+    // Merlin, Surreal Figment (P8RBSywC30): [Element Bonus][Sheen 24+] sacrifice ability
+    if($sourceObject->CardID === "P8RBSywC30") {
+        if(!IsElementBonusActive($player, "P8RBSywC30") || GetSheenCount($player) < 24) return;
+    }
+
+    // Vorpal Sword (PIcB5KuuMd): [Merlin Bonus] REST, banish from material deck
+    if($sourceObject->CardID === "PIcB5KuuMd") {
+        if(!IsMerlinBonusActive($player)) return;
+        if(empty(ZoneSearch("myMaterial"))) return;
     }
 
     // Glassgale Flock (KRNYwHCOVM): [Merlin Bonus][Sheen 6+] activated ability guard
@@ -1175,6 +1240,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Protect Her At All Costs (OzNHncAfFJ): [Merlin Bonus] costs 2 less
+    if($obj->CardID === "OzNHncAfFJ" && IsMerlinBonusActive($player)) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
     // Castling (tFOpmUdi2W): costs 2 less if you control a Chessman Rook, 2 less if Chessman King
     if($obj->CardID === "tFOpmUdi2W") {
         if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN", "ROOK"]))) {
@@ -1670,6 +1740,24 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Converge Reflections (TBVLLRPiwP): sacrifice a non-token item or weapon
+    if($obj->CardID === "TBVLLRPiwP") {
+        $myItemsWeapons = array_merge(
+            ZoneSearch("myField", ["ITEM", "REGALIA"]),
+            ZoneSearch("myField", ["WEAPON"])
+        );
+        $sacTargets = [];
+        foreach($myItemsWeapons as $mz) {
+            $sObj = GetZoneObject($mz);
+            if($sObj !== null && !IsToken($sObj->CardID)) $sacTargets[] = $mz;
+        }
+        if(!empty($sacTargets)) {
+            $sacStr = implode("&", $sacTargets);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $sacStr, 100, tooltip:"Sacrifice_a_non-token_item_or_weapon");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ConvergeReflectionsSacrifice", 100);
+        }
+    }
+
     //1.3 Declaring Costs — Firetuned Automaton (lzjmwuir99): mandatory discard of a fire element card
     if($obj->CardID === "lzjmwuir99") {
         $fireCards = [];
@@ -1957,7 +2045,21 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost) {
+    //1.3 Declaring Costs — Awaken Ombre (OVoHxVwodU): pay X+X additional reserve
+    $hasAwakenOmbreCost = false;
+    if($obj->CardID === "OVoHxVwodU" && !$ignoreCost) {
+        $allyOmenCount = GetOmenCountByType($player, "ALLY");
+        $handCount = count(GetZone("myHand"));
+        // maxX limited by ally omens and available hand cards after base cost: floor((hand - base) / 2)
+        $maxX = min($allyOmenCount, max(0, intdiv($handCount - $reserveCost, 2)));
+        if($maxX > 0) {
+            $hasAwakenOmbreCost = true;
+            DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "1-" . $maxX, 100, tooltip:"Choose_X_(pay_2X_additional_reserve)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "AwakenOmbreCost|" . $reserveCost, 100);
+        }
+    }
+
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasAwakenOmbreCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -6654,6 +6756,34 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
             }
             break;
+        case "Q2ugqVm04E": // Curved Dagger: [CB] +1 POWER while attacking an ally
+            if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY")) {
+                        $power += 1;
+                    }
+                }
+            }
+            break;
+        case "NfbZ0nouSQ": // Lorraine, Crux Knight: attacks get +1 POWER per regalia weapon in banishment
+            {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $combatAttacker !== ""
+                    && $obj->GetMzID() === $combatAttacker) {
+                    global $playerID;
+                    $banishZone = $obj->Controller == $playerID ? "myBanish" : "theirBanish";
+                    $banishWeapons = ZoneSearch($banishZone, ["WEAPON"]);
+                    foreach($banishWeapons as $bwMZ) {
+                        $bwObj = GetZoneObject($bwMZ);
+                        if($bwObj !== null && PropertyContains(CardType($bwObj->CardID), "REGALIA")) {
+                            $power += 1;
+                        }
+                    }
+                }
+            }
+            break;
         case "dpu9pHGX48": // Sword of Adversity: [Class Bonus] +1 POWER while no allies
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
                 global $playerID;
@@ -7962,6 +8092,10 @@ function ObjectCurrentPower($obj) {
             $power += intval(substr($te, strlen("tu9agwj4f1-")));
         }
     }
+    // Throne Sentinel (RP37sLrsxr): +1 POWER until end of turn (token allies)
+    if(in_array("RP37sLrsxr", $obj->TurnEffects)) {
+        $power += 1;
+    }
     // Lawsur, the Carpenter (aenquoed10): +X POWER from Enter (X = Specter allies)
     foreach($obj->TurnEffects as $te) {
         if(strpos($te, "aenquoed10-POWER_") === 0) {
@@ -8143,6 +8277,9 @@ function ObjectCurrentLevel($obj) {
                 $cardLevel += 3;
                 break;
             case "xllhbjr20n": // Lu Xun, Pyre Strategist: Empower 3 (+3 level until end of turn)
+                $cardLevel += 3;
+                break;
+            case "PLljzdiMmq": // Invoke Dominance: +3 level until end of turn
                 $cardLevel += 3;
                 break;
             default:
@@ -10249,6 +10386,9 @@ $untilBeginTurnEffects["PLANAR_ABYSS_PENDING"] = true;
 
 // Fiery Interference (gt2zqtgs42): flag only — controller can't recover until end of turn
 $doesGlobalEffectApply["CANT_RECOVER"] = function($obj) { return false; };
+
+// Invoke Dominance (PLljzdiMmq): flag only — can't activate non-ally cards this turn
+$doesGlobalEffectApply["PLljzdiMmq_NO_NONALLY"] = function($obj) { return false; };
 
 // Tasershot (4x7e22tk3i): flag only — level-up deal 4 unpreventable
 $doesGlobalEffectApply["4x7e22tk3i"] = function($obj) { return false; };
