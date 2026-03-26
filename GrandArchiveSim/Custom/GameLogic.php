@@ -977,6 +977,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 2);
     }
 
+    // Equanimity's Ashes (dZJBqul1Em): [Level 3+] costs 3 less to activate
+    if($obj->CardID === "dZJBqul1Em" && PlayerLevel($player) >= 3) {
+        $reserveCost = max(0, $reserveCost - 3);
+    }
+
+    // Season's End (ddggqvxw8f): [Diao Chan Bonus] costs 1 less per object with a wither counter on the field
+    if($obj->CardID === "ddggqvxw8f" && IsDiaoChanBonus($player)) {
+        $witheredObjects = 0;
+        foreach(array_merge(GetField(1), GetField(2)) as $wObj) {
+            if(!$wObj->removed && GetCounterCount($wObj, "wither") > 0) {
+                ++$witheredObjects;
+            }
+        }
+        $reserveCost = max(0, $reserveCost - $witheredObjects);
+    }
+
     // Fortified Mana Shield (5lh23qu7d6): [CB] costs 2 less if a unit with taunt exists on the field
     if($obj->CardID === "5lh23qu7d6" && IsClassBonusActive($player, ["GUARDIAN"])) {
         $hasTauntUnit = false;
@@ -2112,6 +2128,18 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+        //1.3 Declaring Costs — Refabrication (cri23mf3vs): may sacrifice two tokens rather than pay reserve
+        $hasRefabricationAltCost = false;
+        if($obj->CardID === "cri23mf3vs" && !$ignoreCost && $reserveCost > 0) {
+            $tokens = ZoneSearch("myField", ["TOKEN"]);
+            if(count($tokens) >= 2) {
+                $hasRefabricationAltCost = true;
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Sacrifice_2_tokens_instead_of_paying_reserve?");
+                DecisionQueueController::AddDecision($player, "CUSTOM",
+                    "RefabricationAltCostChoice|" . $reserveCost, 100);
+            }
+        }
+
     //1.3 Declaring Costs — Awaken Ombre (OVoHxVwodU): pay X+X additional reserve
     $hasAwakenOmbreCost = false;
     if($obj->CardID === "OVoHxVwodU" && !$ignoreCost) {
@@ -2145,7 +2173,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -4951,7 +4979,7 @@ function DoAllyDestroyed($player, $mzCard) {
     // you may banish Death Essence Amulet to look at opponent's hand or memory and discard a card.
     {
         $turnPlayer = GetTurnPlayer();
-        if($turnPlayer != $controller) {
+        if($turnPlayer != $controller && PropertyContains(EffectiveCardType($obj), "ALLY")) {
             global $playerID;
             $controllerField = $controller == $playerID ? "myField" : "theirField";
             $deaField = GetZone($controllerField);
@@ -5863,6 +5891,91 @@ $customDQHandlers["NaturesAppealMaterial"] = function($player, $parts, $lastDeci
     }
 };
 
+// Refabrication (cri23mf3vs): optional alternate activation cost (sacrifice two tokens)
+$customDQHandlers["RefabricationAltCostChoice"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0]);
+    if($lastDecision !== "YES") {
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        for($i = 0; $i < $reserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+
+    $tokens = ZoneSearch("myField", ["TOKEN"]);
+    if(count($tokens) < 2) {
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        for($i = 0; $i < $reserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+
+    DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $tokens), 100, tooltip:"Sacrifice_token_(1_of_2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RefabricationAltCostSac1", 100);
+};
+
+$customDQHandlers["RefabricationAltCostSac1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+
+    $tokens = ZoneSearch("myField", ["TOKEN"]);
+    if(empty($tokens)) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $tokens), 100, tooltip:"Sacrifice_token_(2_of_2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RefabricationAltCostSac2", 100);
+};
+
+$customDQHandlers["RefabricationAltCostSac2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+// Fractal of Refreshment (cxqf8rr452): reveal up to three water memory cards,
+// put them on the bottom of the deck, then draw that many cards into memory.
+$customDQHandlers["FractalRefreshPick"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    $selectedCount = intval(DecisionQueueController::GetVariable("fractalRefreshCount"));
+
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $chosenObj = GetZoneObject($lastDecision);
+        if($chosenObj !== null && !$chosenObj->removed && CardElement($chosenObj->CardID) === "WATER") {
+            MZMove($player, $lastDecision, "myDeck");
+            ++$selectedCount;
+            DecisionQueueController::StoreVariable("fractalRefreshCount", strval($selectedCount));
+        }
+        --$remaining;
+    } else {
+        $remaining = 0;
+    }
+
+    if($remaining <= 0) {
+        if($selectedCount > 0) {
+            DrawIntoMemory($player, $selectedCount);
+        }
+        return;
+    }
+
+    $waterMemory = ZoneSearch("myMemory", cardElements: ["WATER"]);
+    if(empty($waterMemory)) {
+        if($selectedCount > 0) {
+            DrawIntoMemory($player, $selectedCount);
+        }
+        return;
+    }
+
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $waterMemory), 1, tooltip:"Reveal_and_bottom_a_water_card?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FractalRefreshPick|" . $remaining, 1);
+};
+
 function RecollectionPhase() {
     // Recollection phase
     SetFlashMessage("Recollection Phase");
@@ -5993,6 +6106,28 @@ function RecollectionPhase() {
                 case "ao8bls6g7x": // Healing Aura: recover 1 at beginning of recollection phase
                     if(!HasNoAbilities($field[$i])) {
                         RecoverChampion($turnPlayer, 1);
+                    }
+                    break;
+                case "ci00l7pqcx": // Berserker Plate: deal 3 unpreventable to your champion, then draw a card
+                    if(!HasNoAbilities($field[$i])) {
+                        for($ci = 0; $ci < count($field); ++$ci) {
+                            if(!$field[$ci]->removed && PropertyContains(EffectiveCardType($field[$ci]), "CHAMPION")) {
+                                $field[$ci]->Damage += 3;
+                                break;
+                            }
+                        }
+                        Draw($turnPlayer, 1);
+                    }
+                    break;
+                case "dIEAN4J4YS": // Arcanist's Prism: wheel memory into deck bottom, then draw that many cards
+                    if(!HasNoAbilities($field[$i])) {
+                        $memoryCount = count(GetZone("myMemory"));
+                        for($mi = $memoryCount - 1; $mi >= 0; --$mi) {
+                            MZMove($turnPlayer, "myMemory-" . $mi, "myDeck");
+                        }
+                        if($memoryCount > 0) {
+                            Draw($turnPlayer, $memoryCount);
+                        }
                     }
                     break;
                 case "c7wklzjmwu": // Palatial Concourse: glimpse 1 at beginning of recollection phase
@@ -7698,6 +7833,9 @@ function ObjectCurrentPower($obj) {
         case "L67r0GlRHR": // Vacuous Servant: [Ciel Bonus] +1 POWER per attack omen
             if(IsCielBonusActive($obj->Controller)) $power += GetOmenCountByType($obj->Controller, "ATTACK");
             break;
+        case "cworak5y4y": // Whimsy's Warden: +2 POWER while you have two or more omens
+            if(GetOmenCount($obj->Controller) >= 2) $power += 2;
+            break;
         case "OjOcXBiO0b": // Tyrannical Denigration: [CB] +4 POWER
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) $power += 4;
             break;
@@ -8212,6 +8350,9 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
                 break;
             case "bscxwjbqjd": // Sharpen Blade: target Dagger +2 POWER until end of turn
+                $power += 2;
+                break;
+            case "clgolelsra": // Bellona's Runestone: target weapon gets +2 POWER until end of turn
                 $power += 2;
                 break;
             case "0k0p6n5nr7": // Scorching Strafe: target ally +2 POWER until end of turn
@@ -9093,6 +9234,20 @@ function ObjectCurrentHP($obj) {
                         }
                     }
                     $cardLife += $uniqueCount * 2;
+                }
+                break;
+            }
+        }
+    }
+    // Berserker Plate (ci00l7pqcx): [Class Bonus] your champion gets +7 LIFE
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fieldObj) {
+            if($fieldObj != null && !$fieldObj->removed && $fieldObj->CardID === "ci00l7pqcx" && !HasNoAbilities($fieldObj)) {
+                if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                    $cardLife += 7;
                 }
                 break;
             }
