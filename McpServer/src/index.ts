@@ -277,6 +277,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  console.error("Fatal error starting MCP server:", err);
+  process.stderr.write(`Fatal error starting MCP server: ${String(err)}\n`);
   process.exit(1);
 });

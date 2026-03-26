@@ -12,6 +12,10 @@ const ENGINE_ROOT = path.resolve(__dirname, "..", "..");
 
 const execFileAsync = promisify(execFile);
 
+function logToStderr(message: string): void {
+  process.stderr.write(`${message}\n`);
+}
+
 // ---------------------------------------------------------------------------
 // Card dictionary cache — parsed from GeneratedCardDictionaries_*.js files
 // ---------------------------------------------------------------------------
@@ -373,7 +377,7 @@ export async function saveCardAbilities(
     try {
       await runCodeGenerator(root);
     } catch (err: any) {
-      console.error(`Warning: Code generator failed for ${root}: ${err.message}`);
+      logToStderr(`Warning: Code generator failed for ${root}: ${err.message}`);
       // Don't throw - we want to return success even if generator has issues
       // but log the error for debugging
     }
@@ -414,10 +418,8 @@ async function runCodeGenerator(root: string): Promise<void> {
     }
     
     if (stderr && !stderr.includes("Deprecated")) {
-      console.warn(`Code generator stderr for ${root}: ${stderr}`);
+      logToStderr(`Code generator stderr for ${root}: ${stderr}`);
     }
-    
-    console.log(`Code generator completed successfully for ${root}`);
   } catch (err: any) {
     throw new Error(`Failed to run code generator for ${root}: ${err.message}`);
   }
