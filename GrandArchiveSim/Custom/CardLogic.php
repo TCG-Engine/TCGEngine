@@ -103,5 +103,69 @@ function DoStoneSeekerDraw($player, $amount=1) {
     }
 }
 
+// Spirit Blade: Dispersion (7Rsid05Cf6): Remove durability counters from Sword weapons,
+// banish them, split damage equal to total counters among chosen units.
+function SpiritBladeDispersion($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $swords = [];
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        if(PropertyContains(EffectiveCardType($field[$i]), "WEAPON")
+            && PropertyContains(EffectiveCardSubtypes($field[$i]), "SWORD")
+            && GetCounterCount($field[$i], "durability") > 0) {
+            $swords[] = $zone . "-" . $i;
+        }
+    }
+    if(empty($swords)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $swords), 1,
+        tooltip:"Choose_Sword_weapon_to_remove_durability_counters_(Spirit_Blade:_Dispersion)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SpiritBladeChooseSword|0", 1);
+}
+
+// Pole-armed Steed (7j79KANWEP): [Jin Bonus] On Enter: Materialize a Polearm regalia from material deck.
+function PoleArmedSteedEnter($player) {
+    global $playerID;
+    // Check Jin Bonus: champion name starts with "Jin"
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $isJin = false;
+    foreach($field as $fObj) {
+        if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+            if(strpos(CardName($fObj->CardID), "Jin") === 0) $isJin = true;
+            break;
+        }
+    }
+    if(!$isJin) return;
+    $matZone = $player == $playerID ? "myMaterial" : "theirMaterial";
+    $material = GetZone($matZone);
+    $polearms = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed) continue;
+        if(PropertyContains(CardType($material[$i]->CardID), "REGALIA")
+            && PropertyContains(CardSubtypes($material[$i]->CardID), "POLEARM")) {
+            $polearms[] = $matZone . "-" . $i;
+        }
+    }
+    if(empty($polearms)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $polearms), 1,
+        tooltip:"Materialize_a_Polearm_regalia_(Pole-armed_Steed)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE|NOCOST", 1);
+}
+
+// Seep Into the Mind (7mHiO4YySz): Target opponent puts 3 sheen counters on a unit they control.
+// [Merlin Bonus][Sheen 6+] Look at that opponent's memory and discard a card from it.
+function SeepIntoTheMind($player) {
+    $opponent = ($player == 1) ? 2 : 1;
+    $oppUnits = array_merge(
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    if(empty($oppUnits)) return;
+    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $oppUnits), 1,
+        tooltip:"Put_3_sheen_counters_on_a_unit_you_control_(Seep_Into_the_Mind)");
+    DecisionQueueController::AddDecision($opponent, "CUSTOM", "SeepIntoTheMindSheen|$player", 1);
+}
+
 ?>
 

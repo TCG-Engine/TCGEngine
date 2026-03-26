@@ -2135,6 +2135,13 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Floodward Sergeant (64xGWbG9Xf): prevent damage once per turn
+    if($amount > 0 && $targetObj->CardID === "64xGWbG9Xf" && !HasNoAbilities($targetObj)
+        && !in_array("64xGWbG9Xf", $targetObj->TurnEffects)) {
+        $targetObj->TurnEffects[] = "64xGWbG9Xf";
+        return; // All damage prevented
+    }
+
     // Barrier Servant: prevent next damage if tagged with BARRIER_PREVENT_DAMAGE (one-time)
     if(in_array("BARRIER_PREVENT_DAMAGE", $targetObj->TurnEffects)) {
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));

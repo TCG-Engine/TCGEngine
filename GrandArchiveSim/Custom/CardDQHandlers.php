@@ -6216,4 +6216,124 @@ $customDQHandlers["FracturingSlashMove"] = function($player, $parts, $lastDecisi
     AddCounters($defObj->Controller ?? $player, $defenderMZ, "sheen", 1);
 };
 
+// WeaponsmithDurability: put a durability counter on the chosen weapon
+$customDQHandlers["WeaponsmithDurability"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "durability", 1);
+};
+
+// ShrivelingVinesWither: put 2 wither counters on chosen opponent object
+$customDQHandlers["ShrivelingVinesWither"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "wither", 2);
+};
+
+// Spirit Blade: Dispersion — choose Sword weapons to strip durability + banish
+$customDQHandlers["SpiritBladeChooseSword"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $totalDurability = intval($parts[0] ?? 0);
+
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        // Player done choosing — proceed to split damage
+        if($totalDurability > 0) {
+            $allUnits = array_merge(
+                ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+                ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+            );
+            $allUnits = FilterSpellshroudTargets($allUnits);
+            if(!empty($allUnits)) {
+                $targetStr = implode("&", $allUnits);
+                DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", "$targetStr|$totalDurability|Split_damage_(Spirit_Blade:_Dispersion)", 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "SpiritBladeSplitDamage", 1);
+            }
+        }
+        return;
+    }
+
+    // Process chosen sword: remove durability counters, banish it
+    $swordObj = GetZoneObject($lastDecision);
+    if($swordObj !== null) {
+        $durCount = GetCounterCount($swordObj, "durability");
+        $totalDurability += $durCount;
+        RemoveCounters($player, $lastDecision, "durability", $durCount);
+        MZMove($player, $lastDecision, "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+    }
+
+    // Offer more swords
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $swords = [];
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        if(PropertyContains(EffectiveCardType($field[$i]), "WEAPON")
+            && PropertyContains(EffectiveCardSubtypes($field[$i]), "SWORD")
+            && GetCounterCount($field[$i], "durability") > 0) {
+            $swords[] = $zone . "-" . $i;
+        }
+    }
+    if(!empty($swords)) {
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $swords), 1,
+            tooltip:"Choose_another_Sword_weapon_(Spirit_Blade:_Dispersion)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SpiritBladeChooseSword|$totalDurability", 1);
+    } else {
+        // No more swords — proceed to split damage
+        if($totalDurability > 0) {
+            $allUnits = array_merge(
+                ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+                ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+            );
+            $allUnits = FilterSpellshroudTargets($allUnits);
+            if(!empty($allUnits)) {
+                $targetStr = implode("&", $allUnits);
+                DecisionQueueController::AddDecision($player, "MZSPLITASSIGN", "$targetStr|$totalDurability|Split_damage_(Spirit_Blade:_Dispersion)", 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "SpiritBladeSplitDamage", 1);
+            }
+        }
+    }
+};
+
+// Spirit Blade: Dispersion — process split damage result
+$customDQHandlers["SpiritBladeSplitDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    // Use the spell's mzID as the source (it's in graveyard now after activation)
+    ProcessSplitDamage($player, "7Rsid05Cf6", $lastDecision);
+};
+
+// Seep Into the Mind — opponent adds 3 sheen counters to chosen unit
+$customDQHandlers["SeepIntoTheMindSheen"] = function($player, $parts, $lastDecision) {
+    $caster = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "sheen", 3);
+    // [Merlin Bonus][Sheen 6+] Look at opponent's memory and discard a card
+    if(IsMerlinBonusActive($caster) && GetSheenCount($caster) >= 6) {
+        $oppMemory = ZoneSearch("theirMemory");
+        if(!empty($oppMemory)) {
+            DecisionQueueController::AddDecision($caster, "MZCHOOSE", implode("&", $oppMemory), 1,
+                tooltip:"Discard_a_card_from_opponent's_memory_(Seep_Into_the_Mind)");
+            DecisionQueueController::AddDecision($caster, "CUSTOM", "SeepIntoTheMindDiscard", 1);
+        }
+    }
+};
+
+// Seep Into the Mind — discard chosen card from memory
+$customDQHandlers["SeepIntoTheMindDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    MZMove($player, $lastDecision, "theirGraveyard");
+};
+
+// Etherealys' Promise — banish to draw a card
+$customDQHandlers["EtherealysPromiseBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $idx = intval($parts[0]);
+    global $playerID;
+    $fieldZone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($fieldZone);
+    if(isset($field[$idx]) && !$field[$idx]->removed && $field[$idx]->CardID === "7n0bv1sqgb") {
+        MZMove($player, $fieldZone . "-" . $idx, "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+        Draw($player, 1);
+    }
+};
+
 ?>

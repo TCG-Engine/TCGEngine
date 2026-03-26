@@ -547,6 +547,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($powercells)) return;
     }
 
+    // Band of Burning Verdict (7mmve2l328): [CB:TAMER] needs Animal/Beast ally
+    if($sourceObject->CardID === "7mmve2l328") {
+        if(!IsClassBonusActive($player, ["TAMER"])) return;
+        $allies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+        if(empty($allies)) return;
+    }
+
     // Overlord Mk III (sl7ddcgw05): mandatory sacrifice of 4 Powercells
     if($sourceObject->CardID === "sl7ddcgw05") {
         $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
@@ -2396,7 +2403,20 @@ $customDQHandlers["KindleChoose"] = function($player, $parts, $lastDecision) {
 $customDQHandlers["KindleProcess"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
         // Player chose a fire GY card to banish
+        $kindledObj = GetZoneObject($lastDecision);
+        $kindledCardID = $kindledObj !== null ? $kindledObj->CardID : null;
         MZMove($player, $lastDecision, "myBanish");
+        // March Hare, Mottled Host (7w4v1hgl3e): [Element Bonus] if banished from GY
+        // to pay reserve cost, put it onto the field instead.
+        if($kindledCardID === "7w4v1hgl3e" && IsElementBonusActive($player, "7w4v1hgl3e")) {
+            $banishZone = GetZone("myBanish");
+            for($mhi = count($banishZone) - 1; $mhi >= 0; --$mhi) {
+                if(!$banishZone[$mhi]->removed && $banishZone[$mhi]->CardID === "7w4v1hgl3e") {
+                    MZMove($player, "myBanish-" . $mhi, "myField");
+                    break;
+                }
+            }
+        }
         $banished = intval(DecisionQueueController::GetVariable("kindleBanished")) + 1;
         DecisionQueueController::StoreVariable("kindleBanished", "$banished");
         DecisionQueueController::AddDecision($player, "CUSTOM", "KindleChoose", 100);
@@ -3198,6 +3218,14 @@ function OnCardActivated($player, $mzCard) {
                             break;
                         }
                     }
+                }
+                break;
+            case "6SXL09rEzS": // Conduit of the Mad Mage: whenever you activate a Mage Spell action, wake up + +1 POWER until EOT
+                if(PropertyContains($cardType, "ACTION") && PropertyContains($subtypes, "SPELL")
+                    && PropertyContains(CardClasses($obj->CardID), "MAGE")
+                    && !HasNoAbilities($field[$fi])) {
+                    WakeupCard($player, "myField-" . $fi);
+                    AddTurnEffect("myField-" . $fi, "6SXL09rEzS-POWER");
                 }
                 break;
         }
@@ -4550,6 +4578,23 @@ function DoAllyDestroyed($player, $mzCard) {
             AddHauntToMastery($controller, 1);
         }
     }
+    // Etherealys' Promise (7n0bv1sqgb): whenever an ally you control dies,
+    // put a refinement counter on it. If 3+, may banish to draw.
+    {
+        global $playerID;
+        $controllerField = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($controllerField);
+        for($epi = 0; $epi < count($field); ++$epi) {
+            if(!$field[$epi]->removed && $field[$epi]->CardID === "7n0bv1sqgb" && !HasNoAbilities($field[$epi])) {
+                AddCounters($controller, $controllerField . "-" . $epi, "refinement", 1);
+                if(GetCounterCount($field[$epi], "refinement") >= 3) {
+                    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
+                        tooltip:"Banish_Etherealys'_Promise_to_draw_a_card?");
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "EtherealysPromiseBanish|$epi", 1);
+                }
+            }
+        }
+    }
 }
 
 function WakeUpPhase() {
@@ -5684,6 +5729,24 @@ function RecollectionPhase() {
                         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WavekeepersBondSacrifice|$i", 1);
                     }
                     break;
+                case "6gN5KjqRW5": // Weaponsmith: [CB] put durability counter on target weapon you control
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["WARRIOR"])) {
+                        $weapons = [];
+                        for($w = 0; $w < count($field); ++$w) {
+                            if($field[$w]->removed) continue;
+                            if(PropertyContains(EffectiveCardType($field[$w]), "WEAPON")) {
+                                $weapons[] = "myField-" . $w;
+                            }
+                        }
+                        if(count($weapons) == 1) {
+                            AddCounters($turnPlayer, $weapons[0], "durability", 1);
+                        } elseif(count($weapons) > 1) {
+                            DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $weapons), 1,
+                                tooltip:"Put_durability_counter_on_weapon_(Weaponsmith)");
+                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponsmithDurability", 1);
+                        }
+                    }
+                    break;
                 default: break;
             }
         }
@@ -6164,6 +6227,40 @@ function EndPhase() {
         if(!$field[$i]->removed && $field[$i]->CardID === "jev2kkxuq2" && !HasNoAbilities($field[$i])) {
             AllyDestroyed($turnPlayer, "myField-" . $i);
             DecisionQueueController::CleanupRemovedCards();
+        }
+    }
+
+    // Conduit of the Mad Mage (6SXL09rEzS): At beginning of your end phase, sacrifice CARDNAME
+    $field = &GetField($turnPlayer);
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "6SXL09rEzS" && !HasNoAbilities($field[$i])) {
+            AllyDestroyed($turnPlayer, "myField-" . $i);
+            DecisionQueueController::CleanupRemovedCards();
+        }
+    }
+
+    // Shriveling Vines (6gt6zkly69): At beginning of your end phase, put 2 wither counters
+    // on target non-champion non-token object you don't control.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "6gt6zkly69" && !HasNoAbilities($field[$i])) {
+            $opponentField = GetZone("theirField");
+            $validTargets = [];
+            for($j = 0; $j < count($opponentField); ++$j) {
+                if($opponentField[$j]->removed) continue;
+                $ct = EffectiveCardType($opponentField[$j]);
+                if(PropertyContains($ct, "CHAMPION") || PropertyContains($ct, "TOKEN")) continue;
+                $validTargets[] = "theirField-" . $j;
+            }
+            if(!empty($validTargets)) {
+                if(count($validTargets) == 1) {
+                    AddCounters($turnPlayer, $validTargets[0], "wither", 2);
+                } else {
+                    DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $validTargets), 1,
+                        tooltip:"Put_2_wither_counters_on_opponent_object_(Shriveling_Vines)");
+                    DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ShrivelingVinesWither", 1);
+                }
+            }
         }
     }
 
@@ -7121,6 +7218,9 @@ function ObjectCurrentPower($obj) {
         case "29xxoo7dl5": // Arondight, Azure Blade: +2 POWER per refinement counter
             $power += GetCounterCount($obj, "refinement") * 2;
             break;
+        case "6ihv6hbvye": // Grande Aiguille: [Ciel Bonus] +1 POWER if 2+ ally omens
+            if(IsCielBonusActive($obj->Controller) && GetOmenCountByType($obj->Controller, "ALLY") >= 2) $power += 1;
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -7791,6 +7891,14 @@ function ObjectCurrentPower($obj) {
     // Shadow's Twin (5vettczb14): +2 POWER when loaded
     if(in_array("5vettczb14_POWER", $obj->TurnEffects)) {
         $power += 2;
+    }
+    // Conduit of the Mad Mage (6SXL09rEzS): +1 POWER per Mage Spell activation this turn
+    foreach($obj->TurnEffects as $te) {
+        if($te === "6SXL09rEzS-POWER") $power += 1;
+    }
+    // Band of Burning Verdict (7mmve2l328): +1 POWER until end of turn
+    if(in_array("7mmve2l328", $obj->TurnEffects)) {
+        $power += 1;
     }
     // Ranged N: while this unit is distant, its attacks get +N POWER
     if(IsDistant($obj)) {
@@ -10111,6 +10219,7 @@ function ClassBonusActivateCostReduction($cardID) {
         'TO9qqKHakv' => 2, // Righteous Retribution: [Class Bonus] costs 2 less
         '3bS1Y9OQrF' => 2, // Nature's Insight: [Class Bonus] costs 2 less
         '44eld1c5ac' => 2, // Surging Undertow: [Class Bonus] costs 2 less
+        '6gt6zkly69' => 2, // Shriveling Vines: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
