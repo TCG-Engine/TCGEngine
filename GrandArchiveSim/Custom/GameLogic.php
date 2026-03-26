@@ -43,6 +43,7 @@ $Imbue_Cards["lflzwiiewz"] = 2; // Cataleptic Constellation (ASTRA)
 $Imbue_Cards["EPy8OUmPxa"] = 2; // Stardust Oracle (ASTRA) - Imbue 2
 $Imbue_Cards["Byx6iokcT4"] = 3; // Topsy Decree (NORM) - Imbue 3
 $Imbue_Cards["jH3ZOavGPR"] = 2; // Crystalvein Awakening (WIND) - Imbue 2
+$Imbue_Cards["a3pmmloejo"] = 2; // Blessed Clergy (WIND) - Imbue 2
 $Imbue_Cards["xpnjvt9y59"] = 2; // Cleansing Reunion (WIND) - Imbue 2
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
@@ -477,6 +478,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     }
     
     $sourceObject = &GetZoneObject($mzCard);
+
+    // Blessed Clergy (a3pmmloejo): restrict to 2 card plays during next turn
+    if(GlobalEffectCount($player, "a3pmmloejo-restrict") > 0) {
+        if(CardActivatedCallCount($player) >= 2) {
+            return; // Already played 2 cards this turn
+        }
+    }
 
     // Invoke Dominance (PLljzdiMmq): can't activate non-ally cards this turn
     if(GlobalEffectCount($player, "PLljzdiMmq_NO_NONALLY") > 0) {
@@ -2557,6 +2565,53 @@ $customDQHandlers["CheckImbue"] = function($player, $parts, $lastDecision) {
         }
     }
     DecisionQueueController::StoreVariable("isImbued", $elementMatches >= $threshold ? "YES" : "NO");
+};
+
+// --- Slate Whetstone (a8a0v4njrt) Handler ---
+$customDQHandlers["SlateWhetstoneBuffTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $targetObj = GetZoneObject($lastDecision);
+        if($targetObj !== null) {
+            AddTurnEffect($lastDecision, "a8a0v4njrt");
+        }
+    }
+    Draw($player, 1);
+};
+
+// --- Return to the Archive (aIbBhTilEN) Handler ---
+$customDQHandlers["ReturnToArchiveProcess"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        // Player chose a regalia to sacrifice
+        MZMove($player, $lastDecision, "myGraveyard");
+        RecoverChampion($player, 2);
+        Draw($player, 1);
+    }
+};
+
+// --- Scathing Seminary (aL5pGBcr7i) Handler ---
+$customDQHandlers["ScathingSeminaryDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null) return;
+    
+    // Get the source: Scathing Seminary
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    
+    // Deal 2 unpreventable damage to target unit
+    DealUnpreventableDamage($player, $mzID, $lastDecision, 2);
+};
+
+// --- Ritai Stablemaster (ba0tqvwlp1) Handler ---
+$customDQHandlers["RitaiStablemasterProcess"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        // No cards discarded
+        return;
+    }
+    
+    // Player chose a fire card to discard
+    MZMove($player, $lastDecision, "myGraveyard");
+    DrawIntoMemory($player, 1);
 };
 
 // --- Kindle DQ Handlers ---
@@ -6059,7 +6114,7 @@ function RecollectionPhase() {
     // Magnificent Banquet (TQoTD8eGQH): if preserved in material deck, recover 1 at recollection
     {
         global $playerID;
-        $matDeckZone = $turnPlayer == $playerID ? "myMaterialDeck" : "theirMaterialDeck";
+        $matDeckZone = $turnPlayer == $playerID ? "myMaterial" : "theirMaterial";
         $matDeck = GetZone($matDeckZone);
         for($mbi = 0; $mbi < count($matDeck); ++$mbi) {
             if(!$matDeck[$mbi]->removed && $matDeck[$mbi]->CardID === "TQoTD8eGQH") {
@@ -8102,6 +8157,9 @@ function ObjectCurrentPower($obj) {
             case "CgyJxpEgzk-POWER3": // Spirit Blade: Infusion: +3 POWER until end of turn
                 $power += 3;
                 break;
+            case "a8a0v4njrt": // Slate Whetstone: +1 POWER until end of turn
+                $power += 1;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -8973,6 +9031,11 @@ function ObjectCurrentHP($obj) {
                 break;
             case "tqy0rwvxgs": // Favorable Omens: allies get +1 LIFE per wind omen
                 $cardLife += 1;
+                break;
+            case "acmde97dbu": // Formidable Youxia: +2 LIFE while Shifting Currents faces East
+                if(GetShiftingCurrents($obj->Controller) === "EAST") {
+                    $cardLife += 2;
+                }
                 break;
             default: break;
         }
