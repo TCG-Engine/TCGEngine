@@ -4918,6 +4918,18 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Polkhawk, Boisterous Riot (8eyeqhc37y): next Ranger ally enters distant
+    if(PropertyContains(CardType($added->CardID), "ALLY")
+       && PropertyContains(EffectiveCardClasses($added), "RANGER")) {
+        for($pkp = 1; $pkp <= 2; ++$pkp) {
+            if(GlobalEffectCount($pkp, "POLKHAWK_NEXT_RANGER_DISTANT") > 0) {
+                BecomeDistant($added);
+                RemoveGlobalEffect($pkp, "POLKHAWK_NEXT_RANGER_DISTANT");
+                break;
+            }
+        }
+    }
+
     // Unmoored Call (etobC7HEHw): objects with chosen reserve cost enter rested
     for($ucp = 1; $ucp <= 2; ++$ucp) {
         for($ucn = 0; $ucn <= 15; ++$ucn) {
@@ -6686,6 +6698,12 @@ function ObjectCurrentPower($obj) {
         case "2tsn0ye3ae": // Allied Warpriestess: [Class Bonus] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["CLERIC", "GUARDIAN"])) $power += 1;
             break;
+        case "8kmoi0a5uh": // Bulwark Sword: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) $power += 1;
+            break;
+        case "8n4zw4gq5w": // Sable Remnant: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) $power += 1;
+            break;
         case "1a49w5gmf7": // Intricate Longbow: [CB][Lv2+] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["RANGER"]) && PlayerLevel($obj->Controller) >= 2) {
                 $power += 1;
@@ -7748,6 +7766,9 @@ function ObjectCurrentPower($obj) {
             case "80mttsvbgl": // Mark of Fervor: linked ally gets +1 POWER
                 $power += 1;
                 break;
+            case "8asbierp5k": // Beastsoul Visage: linked ally gets +2 POWER
+                $power += 2;
+                break;
             case "c8ljyevpmu": // Alliance Gearshield: [Class Bonus] +2 POWER while retaliating
                 if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])
                     && DecisionQueueController::GetVariable("CombatRetaliator") !== null) {
@@ -8150,6 +8171,15 @@ function ObjectCurrentLevel($obj) {
                 case "yDARN8eV6B": // Tome of Knowledge: [Class Bonus] champion gets +1 level
                     if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
                         $cardLevel += 1;
+                    }
+                    break;
+                case "8c9htu9agw": // Prototype Staff: [Class Bonus][Memory 4+] champion gets +1 level
+                    if(IsClassBonusActive($obj->Controller, ["CLERIC"])) {
+                        global $playerID;
+                        $memZone = $obj->Controller == $playerID ? "myMemory" : "theirMemory";
+                        if(count(GetZone($memZone)) >= 4) {
+                            $cardLevel += 1;
+                        }
                     }
                     break;
                 case "j5iQQPd2m5": // Crystal of Argus: [Class Bonus] +1 level per 3 enlighten counters on champion
@@ -9720,6 +9750,10 @@ $doesGlobalEffectApply["VERITA_POWER"] = function($obj) {
 $doesGlobalEffectApply["v0yuddp71s"] = function($obj) {
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
+// Shardwing Searchlight (8bRp3n2IAn): Memorite objects gain On Hit sheen
+$doesGlobalEffectApply["SHARDWING_SEARCHLIGHT_ONHIT"] = function($obj) {
+    return PropertyContains(EffectiveCardSubtypes($obj), "MEMORITE");
+};
 $doesGlobalEffectApply["v0yuddp71s-ROOK"] = function($obj) {
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
@@ -11187,7 +11221,16 @@ function EffectiveCardSubtypes($obj) {
     if(isset($obj->Counters['_overrides']['subtypes'])) {
         return $obj->Counters['_overrides']['subtypes'];
     }
-    return CardSubtypes($obj->CardID);
+    // Ally Link: Beastsoul Visage (8asbierp5k) linked ally becomes a Beast
+    $subtypes = CardSubtypes($obj->CardID);
+    $linkedCards = GetLinkedCards($obj);
+    foreach($linkedCards as $linkedObj) {
+        if($linkedObj->CardID === "8asbierp5k" && !PropertyContains($subtypes, "BEAST")) {
+            $subtypes = $subtypes ? $subtypes . ",BEAST" : "BEAST";
+            break;
+        }
+    }
+    return $subtypes;
 }
 
 /**
@@ -12237,6 +12280,16 @@ function FilterSpellshroudTargets($mzIDs) {
 function PrideAmount($obj) {
     if(HasNoAbilities($obj)) return 0;
     $prideValue = GetKeyword_Pride_Value($obj);
+    // Ally Link: Beastsoul Visage (8asbierp5k) grants pride 3 to linked ally
+    if($prideValue === null) {
+        $linkedCards = GetLinkedCards($obj);
+        foreach($linkedCards as $linkedObj) {
+            if($linkedObj->CardID === "8asbierp5k") {
+                $prideValue = 3;
+                break;
+            }
+        }
+    }
     if($prideValue === null) return 0;
     // Cell Handler (pk9xycwz9g): target loses pride until end of turn
     if(in_array("pk9xycwz9g", $obj->TurnEffects)) return 0;
@@ -13528,6 +13581,36 @@ $customDQHandlers["PotionInfusionGrowthTarget"] = function($player, $parts, $las
     $obj->Status = 1; // Rest
     $lv = PlayerLevel($player);
     if($lv > 0) AddCounters($player, $lastDecision, "age", $lv);
+};
+
+// ============================================================================
+// Potion Infusion: Blaze (8bki6fxxgm): Rest target Potion, gain
+// "On Sacrifice: Deal 4 damage to target attacking ally" until end of turn
+// ============================================================================
+function PotionInfusionBlazeResolve($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $potions = [];
+    for($i = 0; $i < count($field); ++$i) {
+        $obj = $field[$i];
+        if(!$obj->removed && PropertyContains(CardSubtypes($obj->CardID), "POTION")
+            && PropertyContains(CardType($obj->CardID), "ITEM")
+            && isset($obj->Status) && $obj->Status == 2) {
+            $potions[] = $zone . "-" . $i;
+        }
+    }
+    if(empty($potions)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $potions), 1, tooltip:"Rest_target_Potion_(Blaze_infusion)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PotionInfusionBlazeTarget", 1);
+}
+
+$customDQHandlers["PotionInfusionBlazeTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = &GetZoneObject($lastDecision);
+    if($obj === null) return;
+    $obj->Status = 1; // Rest
+    AddTurnEffect($lastDecision, "INFUSION_BLAZE");
 };
 
 // ============================================================================

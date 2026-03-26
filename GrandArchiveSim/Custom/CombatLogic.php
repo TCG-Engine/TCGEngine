@@ -1129,6 +1129,21 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         }
     }
 
+    // Shardwing Searchlight (8bRp3n2IAn): Memorite objects with SHARDWING_SEARCHLIGHT_ONHIT
+    // On Hit: put a sheen counter on the hit object
+    $swAttacker = GetZoneObject($attackerMZ);
+    if($swAttacker !== null && !HasNoAbilities($swAttacker)
+       && PropertyContains(EffectiveCardSubtypes($swAttacker), "MEMORITE")
+       && in_array("SHARDWING_SEARCHLIGHT_ONHIT", CardCurrentEffects($swAttacker))) {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed) {
+                AddCounters($player, $hitTarget, "sheen", 1);
+            }
+        }
+    }
+
     // Shadow's Twin (5vettczb14): [CB] On Hit abilities trigger an additional time
     if(!$isExtraRepeat) {
         $weaponMZST = GetCombatWeapon();
@@ -1293,6 +1308,13 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
             }
         }
 
+        // Bulwark Sword (8kmoi0a5uh): additional cost to attack — pay (2)
+        if($weaponObj !== null && $weaponObj->CardID === "8kmoi0a5uh") {
+            for($bsc = 0; $bsc < 2; ++$bsc) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+            }
+        }
+
         // Mechanized Smasher (qsm3n9yvn1): additional cost to attack — reveal 4 wind cards from memory
         if($weaponObj !== null && $weaponObj->CardID === "qsm3n9yvn1") {
             $windMem = ZoneSearch("myMemory", cardElements: ["WIND"]);
@@ -1361,6 +1383,27 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         }
     }
 
+    // Atmos Shield (80yu75k0hl): whenever another neos unit you control is targeted
+    // for an attack, you may change the target to Atmos Shield
+    $asTargetObj = GetZoneObject($lastDecision);
+    if($asTargetObj !== null && EffectiveCardElement($asTargetObj) === "NEOS"
+       && $asTargetObj->CardID !== "80yu75k0hl") {
+        $defPlayer = ($player == 1) ? 2 : 1;
+        $defField = GetField($defPlayer);
+        global $playerID;
+        $prefix = ($defPlayer == $playerID) ? "myField" : "theirField";
+        foreach($defField as $dfIdx => $dfObj) {
+            if(!$dfObj->removed && $dfObj->CardID === "80yu75k0hl" && !HasNoAbilities($dfObj)) {
+                $shieldMZ = $prefix . "-" . $dfIdx;
+                DecisionQueueController::AddDecision($defPlayer, "YESNO", "-", 98,
+                    tooltip:"Redirect_attack_to_Atmos_Shield?");
+                DecisionQueueController::AddDecision($defPlayer, "CUSTOM",
+                    "AtmosShieldRedirect|" . $shieldMZ, 98);
+                break;
+            }
+        }
+    }
+
     // Beguiling Bandit (jyrqgyj9vn): attacker must pay (1) to attack it
     $bbTargetObj = GetZoneObject($lastDecision);
     if($bbTargetObj !== null && $bbTargetObj->CardID === "jyrqgyj9vn" && !HasNoAbilities($bbTargetObj)) {
@@ -1377,6 +1420,18 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     // Grant Opportunity window before damage step (turn player gets priority first)
     $turnPlayer = GetTurnPlayer();
     GrantOpportunityWindow($turnPlayer, "CombatDealDamage", $player);
+};
+
+/**
+ * Atmos Shield (80yu75k0hl): redirect attack to Atmos Shield.
+ * $parts[0] = shield mzID (in $playerID perspective).
+ */
+$customDQHandlers["AtmosShieldRedirect"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $shieldMZ = $parts[0];
+    $shieldObj = GetZoneObject($shieldMZ);
+    if($shieldObj === null || $shieldObj->removed) return;
+    DecisionQueueController::StoreVariable("CombatTarget", $shieldMZ);
 };
 
 /**

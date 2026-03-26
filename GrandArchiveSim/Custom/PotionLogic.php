@@ -362,6 +362,16 @@ function ProcessPotionInfusionTriggers($player, $potionMZ) {
             case "ENHANCE_POTENCY": // Enhance Potency — copy the next sacrifice ability
                 DecisionQueueController::StoreVariable("enhancePotency", "YES");
                 break;
+            case "INFUSION_BLAZE": // Potion Infusion: Blaze — deal 4 to target attacking ally
+                $atkMZ = DecisionQueueController::GetVariable("CombatAttacker");
+                if($atkMZ !== null && $atkMZ !== "-" && $atkMZ !== "") {
+                    $atkObj = GetZoneObject($atkMZ);
+                    if($atkObj !== null && !$atkObj->removed
+                       && PropertyContains(EffectiveCardType($atkObj), "ALLY")) {
+                        DealDamage($player, $potionMZ, $atkMZ, 4);
+                    }
+                }
+                break;
         }
     }
 }
