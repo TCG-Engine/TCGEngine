@@ -587,6 +587,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($allies)) return; // No allies to sacrifice — block activation
     }
 
+    // Furnace Drone (cbNF64gCsS): mandatory banish 3 fire element and/or Automaton cards from graveyard
+    if($sourceObject->CardID === "cbNF64gCsS") {
+        $eligible = 0;
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if($gy[$gi]->removed) continue;
+            if(CardElement($gy[$gi]->CardID) === "FIRE" || PropertyContains(CardSubtypes($gy[$gi]->CardID), "AUTOMATON")) {
+                ++$eligible;
+            }
+        }
+        if($eligible < 3) return;
+    }
+
     // Turbo Charge (cnqsm3n9yv): mandatory sacrifice of a Powercell
     // Atmos Armor Type-Hermes (dlx7mdk0xh): mandatory sacrifice of a Powercell
     if($sourceObject->CardID === "cnqsm3n9yv" || $sourceObject->CardID === "dlx7mdk0xh") {
@@ -1261,6 +1274,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
         if($hasUniqueWarrior) {
             $reserveCost = max(0, $reserveCost - 2);
+        }
+    }
+
+    // Flamewreath Call (c8wwslgbvr): [Class Bonus] costs 3 less if you control a Beast ally
+    if($obj->CardID === "c8wwslgbvr" && IsClassBonusActive($player, ["TAMER"])) {
+        if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]))) {
+            $reserveCost = max(0, $reserveCost - 3);
         }
     }
 
@@ -2106,7 +2126,26 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasAwakenOmbreCost) {
+    //1.3 Declaring Costs — Furnace Drone (cbNF64gCsS): mandatory banish 3 fire and/or Automaton cards from graveyard
+    $hasFurnaceDroneCost = false;
+    if($obj->CardID === "cbNF64gCsS" && !$ignoreCost) {
+        $eligible = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if($gy[$gi]->removed) continue;
+            if(CardElement($gy[$gi]->CardID) === "FIRE" || PropertyContains(CardSubtypes($gy[$gi]->CardID), "AUTOMATON")) {
+                $eligible[] = "myGraveyard-" . $gi;
+            }
+        }
+        if(count($eligible) >= 3) {
+            $hasFurnaceDroneCost = true;
+            DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 100, tooltip:"Banish_a_fire_or_Automaton_card_(1_of_3)");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "FurnaceDroneCostBanish|3|" . $reserveCost, 100);
+        }
+    }
+
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2733,6 +2772,42 @@ $customDQHandlers["DeclareAdditionalCost"] = function($player, $parts, $lastDeci
     }
 
     for($i = 0; $i < $totalCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+/**
+ * DQ handler: Furnace Drone (cbNF64gCsS) mandatory activation cost.
+ * Banish 3 fire element and/or Automaton cards from your graveyard, then pay reserve.
+ * Parts: [remainingCount, reserveCost].
+ */
+$customDQHandlers["FurnaceDroneCostBanish"] = function($player, $parts, $lastDecision) {
+    $remainingBefore = intval($parts[0]);
+    $reserveCost = intval($parts[1]);
+    if($lastDecision === "-" || $lastDecision === "") return;
+
+    MZMove($player, $lastDecision, "myBanish");
+
+    $remaining = $remainingBefore - 1;
+    if($remaining > 0) {
+        $eligible = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if($gy[$gi]->removed) continue;
+            if(CardElement($gy[$gi]->CardID) === "FIRE" || PropertyContains(CardSubtypes($gy[$gi]->CardID), "AUTOMATON")) {
+                $eligible[] = "myGraveyard-" . $gi;
+            }
+        }
+        if(count($eligible) < $remaining) return;
+        $pickNumber = 4 - $remaining;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 100, tooltip:"Banish_a_fire_or_Automaton_card_(" . $pickNumber . "_of_3)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FurnaceDroneCostBanish|" . $remaining . "|" . $reserveCost, 100);
+        return;
+    }
+
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    for($i = 0; $i < $reserveCost; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
@@ -5163,6 +5238,43 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Forest Cake (bjx6yo7mm5): [Class Bonus] whenever an Animal or Beast ally enters,
+    // you may sacrifice Forest Cake. If you do, put a buff counter on that ally.
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        $subtypes = CardSubtypes($added->CardID);
+        if(PropertyContains($subtypes, "ANIMAL") || PropertyContains($subtypes, "BEAST")) {
+            $enteredMZ = "myField-" . (count($field) - 1);
+            for($fc = 0; $fc < count($field); ++$fc) {
+                if(!$field[$fc]->removed && $field[$fc]->CardID === "bjx6yo7mm5"
+                    && !HasNoAbilities($field[$fc])
+                    && IsClassBonusActive($player, ["TAMER"])) {
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Sacrifice_Forest_Cake_to_put_buff_counter_on_entered_ally?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ForestCakeEnterTrigger|myField-" . $fc . "|" . $enteredMZ, 1);
+                }
+            }
+        }
+    }
+
+    // Meadowbloom Dryad (cVRIUJdTW5): [Class Bonus] whenever this or another ally enters,
+    // put a buff counter on target ally.
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        $allyTargets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+        if(!empty($allyTargets)) {
+            for($md = 0; $md < count($field); ++$md) {
+                if(!$field[$md]->removed && $field[$md]->CardID === "cVRIUJdTW5"
+                    && !HasNoAbilities($field[$md])
+                    && IsClassBonusActive($player, ["TAMER"])) {
+                    if(count($allyTargets) === 1) {
+                        AddCounters($player, $allyTargets[0], "buff", 1);
+                    } else {
+                        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allyTargets), 1, tooltip:"Choose_target_ally_for_buff_counter_(Meadowbloom_Dryad)");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "MeadowbloomDryadEnter", 1);
+                    }
+                }
+            }
+        }
+    }
+
     // Fraternal Garrison (ln926ymxdc): [Jin Bonus] when another ally enters, +1 POWER until end of turn
     if(PropertyContains(CardType($added->CardID), "ALLY")) {
         for($fg = 0; $fg < count($field); ++$fg) {
@@ -5369,6 +5481,53 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
 $customDQHandlers["AirshipCaptainDamage"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
     DealDamage($player, "t9hreqhj1t", $lastDecision, 2);
+};
+
+// Forest Cake (bjx6yo7mm5): resolve class bonus enter trigger
+$customDQHandlers["ForestCakeEnterTrigger"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $forestMZ = $parts[0] ?? "";
+    $enteredMZ = $parts[1] ?? "";
+    if($forestMZ === "" || $enteredMZ === "") return;
+
+    $forestObj = GetZoneObject($forestMZ);
+    if($forestObj === null || $forestObj->removed || $forestObj->CardID !== "bjx6yo7mm5") return;
+    AllyDestroyed($player, $forestMZ);
+    DecisionQueueController::CleanupRemovedCards();
+
+    $enteredObj = GetZoneObject($enteredMZ);
+    if($enteredObj === null || $enteredObj->removed) return;
+    AddCounters($player, $enteredMZ, "buff", 1);
+};
+
+// Meadowbloom Dryad (cVRIUJdTW5): choose target ally and put a buff counter
+$customDQHandlers["MeadowbloomDryadEnter"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+// Flamewreath Call (c8wwslgbvr): first optional ally target
+$customDQHandlers["FlamewreathCallFirstTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $sourceMZ = DecisionQueueController::GetVariable("flamewreathSource");
+    if(empty($sourceMZ)) $sourceMZ = "c8wwslgbvr";
+
+    DealDamage($player, $sourceMZ, $lastDecision, 3);
+
+    $allies = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+    $remaining = array_values(array_filter($allies, fn($mz) => $mz !== $lastDecision));
+    if(empty($remaining)) return;
+
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $remaining), 1, tooltip:"Deal_3_damage_to_target_ally_(2/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FlamewreathCallSecondTarget", 1);
+};
+
+// Flamewreath Call (c8wwslgbvr): second optional ally target
+$customDQHandlers["FlamewreathCallSecondTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $sourceMZ = DecisionQueueController::GetVariable("flamewreathSource");
+    if(empty($sourceMZ)) $sourceMZ = "c8wwslgbvr";
+    DealDamage($player, $sourceMZ, $lastDecision, 3);
 };
 
 // Xuchang, Frozen Citadel (xpb20rar4k): opponent chose whether to banish a floating-memory GY card
@@ -6683,6 +6842,19 @@ function EndPhase() {
             && !in_array("ENTERED_THIS_TURN", $field[$i]->TurnEffects)) {
             AllyDestroyed($turnPlayer, "myField-" . $i);
             DecisionQueueController::CleanupRemovedCards();
+        }
+    }
+
+    // Arcane Disposition (blq7qXGvWH): at the beginning of the next end phase, discard your hand.
+    for($adp = 1; $adp <= 2; ++$adp) {
+        if(GlobalEffectCount($adp, "blq7qXGvWH_DISCARD_NEXT_END") > 0) {
+            $hand = &GetHand($adp);
+            for($hi = count($hand) - 1; $hi >= 0; --$hi) {
+                if(!$hand[$hi]->removed) {
+                    DoDiscardCard($adp, "myHand-" . $hi);
+                }
+            }
+            while(RemoveGlobalEffect($adp, "blq7qXGvWH_DISCARD_NEXT_END")) {}
         }
     }
 
@@ -10672,6 +10844,10 @@ $foreverEffects["SKIP_NEXT_DRAW"] = true;
 // Crystallized Anthem (XfAJlQt9hH): delayed recollection trigger
 $doesGlobalEffectApply["CRYSTALLIZED_ANTHEM_RECOLLECTION"] = function($obj) { return false; };
 $foreverEffects["CRYSTALLIZED_ANTHEM_RECOLLECTION"] = true;
+
+// Arcane Disposition (blq7qXGvWH): delayed discard at next end phase
+$doesGlobalEffectApply["blq7qXGvWH_DISCARD_NEXT_END"] = function($obj) { return false; };
+$foreverEffects["blq7qXGvWH_DISCARD_NEXT_END"] = true;
 
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
