@@ -68,6 +68,7 @@ $Kindle_Cards["p7FWS3DA4a"] = 2; // Molten Echo (FIRE) - Kindle 2
 $Kindle_Cards["nduIoPhZr1"] = 7; // Seven of Hearts (FIRE) - Kindle 7
 $Kindle_Cards["vrK16VZ2zU"] = 2; // Burning Aethercharge (FIRE) - Kindle 2
 $Kindle_Cards["4ms1r3hjxp"] = 6; // Jianye, Dawn's Keep (FIRE) - Kindle 6
+$Kindle_Cards["FnTT1G4OQg"] = 4; // Restoring Embers (FIRE) - Kindle 4
 
 // --- Cardistry Cards Registry ---
 // Maps cardID => base reserve cost for the Cardistry activated ability.
@@ -435,6 +436,18 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
+            // Recursive Confidant (KfC8fwcF2T): activate tagged Warrior attack from banishment
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_recursiveConfidant'])) {
+                    unset($bObj->Counters['_recursiveConfidant']);
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             break;
         case "myMaterial":
             // Bagua of Vital Demise (imdj3c7oh0): may activate from material deck when SC faces West
@@ -511,10 +524,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($domains)) return; // No domains to sacrifice — block activation
     }
 
-    // Command Chessman pre-check: COMMAND subtype attack needs a Chessman ally on field
+    // Shield Fragmentation (CHU96qWwaS): mandatory sacrifice of a Shield item
+    if($sourceObject->CardID === "CHU96qWwaS") {
+        $shields = ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]);
+        if(empty($shields)) return; // No Shield to sacrifice — block activation
+    }
+
+    // Command pre-check: COMMAND subtype attack needs a matching ally on field
     if(PropertyContains(CardSubtypes($sourceObject->CardID), "COMMAND")) {
-        $chessmanAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
-        if(empty($chessmanAllies)) return; // No Chessman ally to command — block activation
+        if(PropertyContains(CardSubtypes($sourceObject->CardID), "CHESSMAN")) {
+            $commandAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
+        } else if(PropertyContains(CardSubtypes($sourceObject->CardID), "AUTOMATON")) {
+            $commandAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
+        } else {
+            $commandAllies = [];
+        }
+        if(empty($commandAllies)) return; // No ally to command — block activation
     }
 
     // Primordial Ritual (4mcnqsm3n9): mandatory sacrifice of an ally you control
@@ -983,6 +1008,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $oppGY = ZoneSearch("theirGraveyard");
         if(count($oppGY) >= 4) {
             $reserveCost = max(0, $reserveCost - 1);
+        }
+    }
+
+    // Dorumegian Foundry (CzwVavXMQU): [Class Bonus] costs 2 less per domain (up to 3)
+    if($obj->CardID === "CzwVavXMQU" && IsClassBonusActive($player, ["GUARDIAN"])) {
+        $domainCount = min(3, count(ZoneSearch("myField", ["DOMAIN"])));
+        $reserveCost = max(0, $reserveCost - $domainCount * 2);
+    }
+
+    // Spirit Blade: Infusion (CgyJxpEgzk): costs 2 less if champion dealt combat damage this turn
+    if($obj->CardID === "CgyJxpEgzk") {
+        if(GlobalEffectCount($player, "CHAMP_DEALT_COMBAT_DMG") > 0) {
+            $reserveCost = max(0, $reserveCost - 2);
         }
     }
 
@@ -1517,6 +1555,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $domainChoices = implode("&", $domains);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $domainChoices, 100, tooltip:"Sacrifice_a_domain");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SmashWithObeliskSacrifice", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Shield Fragmentation (CHU96qWwaS): mandatory sacrifice of a Shield item
+    if($obj->CardID === "CHU96qWwaS") {
+        $shields = ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]);
+        if(!empty($shields)) {
+            $shieldChoices = implode("&", $shields);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $shieldChoices, 100, tooltip:"Sacrifice_a_Shield");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ShieldFragmentSacrifice", 100);
         }
     }
 
@@ -3390,6 +3438,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "473gyf0w3v": // Duxal Proclamation — banish self
         case "4864k12no2": // Scepter of Fascination — banish self
         case "4dys05p49w": // Gem of Sorority — banish self
+        case "IC3OU6vCnF": // Mana Limiter — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -3406,6 +3455,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "szeb8zzj86": // Fractal of Mana — REST
         case "sq0ou8vas3": // Tome of Sorcery — REST
         case "4moumzcx9z": // Staff of Blossoming Will — REST
+        case "E09lX95cb9": // Ticket to the Afterlife — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -4248,8 +4298,20 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($isDynamic) {
         global $lineageReleaseAbilities;
         $dynIndex = $staticAbilityCount;
-        // Enlighten check
-        if(PropertyContains($cardType, "CHAMPION") && GetCounterCount($sourceObject, "enlighten") >= 3) {
+        // Enlighten check (blocked by Mana Limiter IC3OU6vCnF)
+        $manaLimiterBlocks = false;
+        if(PropertyContains($cardType, "CHAMPION")) {
+            global $playerID;
+            $limiterZone = ($player == $playerID) ? "myField" : "theirField";
+            $limiterField = GetZone($limiterZone);
+            foreach($limiterField as $lObj) {
+                if(!$lObj->removed && $lObj->CardID === "IC3OU6vCnF") {
+                    $manaLimiterBlocks = true;
+                    break;
+                }
+            }
+        }
+        if(!$manaLimiterBlocks && PropertyContains($cardType, "CHAMPION") && GetCounterCount($sourceObject, "enlighten") >= 3) {
             if($selectedAbilityIndex == $dynIndex) {
                 RemoveCounters($player, $mzCard, "enlighten", 3);
                 Draw($player, 1);
@@ -5920,6 +5982,27 @@ function RecollectionPhase() {
                 DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", $unitStr, 1, tooltip:"Put_a_sheen_counter_on_a_unit_you_control_(Merlin_Inherited)");
                 DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MerlinInheritedSheen|1", 1);
             }
+        }
+    }
+
+    // Spark Fairy (FWnxKjSeB1): objects tagged with _sparkFairy deal 1 unpreventable damage to controller's champion
+    $tpField = GetZone("myField");
+    for($sfi = 0; $sfi < count($tpField); ++$sfi) {
+        if($tpField[$sfi]->removed) continue;
+        if(!isset($tpField[$sfi]->Counters['_sparkFairy'])) continue;
+        $sfController = $tpField[$sfi]->Counters['_sparkFairy'];
+        global $playerID;
+        $sfZone = ($sfController == $playerID) ? "myField" : "theirField";
+        $sfField = GetZone($sfZone);
+        $sfExists = false;
+        foreach($sfField as $sfObj) {
+            if(!$sfObj->removed && $sfObj->CardID === "FWnxKjSeB1" && !HasNoAbilities($sfObj)) {
+                $sfExists = true;
+                break;
+            }
+        }
+        if($sfExists) {
+            DealChampionDamage($turnPlayer, 1);
         }
     }
 
@@ -7723,6 +7806,9 @@ function ObjectCurrentPower($obj) {
             case "4hnf1yyx1q": // Grim Foreboding: Phantasia allies get +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "CgyJxpEgzk-POWER3": // Spirit Blade: Infusion: +3 POWER until end of turn
+                $power += 3;
+                break;
             default:
                 // Imperious Highlander: dynamic +X POWER until end of turn (effect ID: 659ytyj2s3-X)
                 if(strpos($effectID, "659ytyj2s3-") === 0) {
@@ -8405,6 +8491,16 @@ function ObjectCurrentHP($obj) {
             foreach($field as $fieldObj) {
                 if(!$fieldObj->removed && $fieldObj->CardID === "s25QNTvfem" && !HasNoAbilities($fieldObj)
                    && DelugeAmount($fieldObj->Controller) >= 4) {
+                    $cardLife += 1;
+                    break;
+                }
+            }
+        }
+        // Silvie, Loved by All (GKEpAulogu): Animal/Beast allies get +1 LIFE
+        if(PropertyContains(EffectiveCardType($obj), "ALLY")
+           && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"))) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "GKEpAulogu" && !HasNoAbilities($fieldObj)) {
                     $cardLife += 1;
                     break;
                 }
@@ -9370,6 +9466,21 @@ function CardHasAbility($obj) {
         if(count($hand) < 1) return 0;
     }
 
+    // Mana Limiter (IC3OU6vCnF): requires champion has 6+ enlighten counters
+    if($obj->CardID === "IC3OU6vCnF") {
+        $champObj = GetPlayerChampion($obj->Controller);
+        if($champObj === null || GetCounterCount($champObj, "enlighten") < 6) return 0;
+    }
+
+    // Ticket to the Afterlife (E09lX95cb9): [Alice Bonus] + Specter in graveyard + REST
+    if($obj->CardID === "E09lX95cb9") {
+        if(!IsAliceBonusActive($obj->Controller)) return 0;
+        if($obj->Status != 2) return 0;
+        global $playerID;
+        $gyZone = ($obj->Controller == $playerID) ? "myGraveyard" : "theirGraveyard";
+        if(empty(ZoneSearch($gyZone, cardSubtypes: ["SPECTER"]))) return 0;
+    }
+
     return 1;
 }
 
@@ -9693,6 +9804,18 @@ function GetEphemerateCost($player, $cardID) {
     if(isset($config['costModifier'])) {
         $cost = max(0, $cost - $config['costModifier']($player));
     }
+    // Ticket to the Afterlife (E09lX95cb9): Specter cards from graveyard cost 1 less
+    if(PropertyContains(CardSubtypes($cardID), "SPECTER")) {
+        global $playerID;
+        $ticketZone = ($player == $playerID) ? "myField" : "theirField";
+        $ticketField = GetZone($ticketZone);
+        foreach($ticketField as $tObj) {
+            if(!$tObj->removed && $tObj->CardID === "E09lX95cb9" && !HasNoAbilities($tObj)) {
+                $cost = max(0, $cost - 1);
+                break;
+            }
+        }
+    }
     return $cost;
 }
 
@@ -9892,6 +10015,10 @@ $doesGlobalEffectApply["vcZSHNHvKX"] = function($obj) { //Spirit Blade: Ghost St
 };
 
 $doesGlobalEffectApply["LEVELED_UP_THIS_TURN"] = function($obj) { //Flag only — no visual effect on cards
+    return false;
+};
+
+$doesGlobalEffectApply["CHAMP_DEALT_COMBAT_DMG"] = function($obj) { //Flag only — tracks champion combat damage this turn
     return false;
 };
 
@@ -12927,7 +13054,20 @@ function GetDynamicAbilities($obj) {
     $staticCount = CardActivateAbilityCount($obj->CardID);
     $nextIndex = $staticCount;
     // Enlighten: champion may remove 3 enlighten counters to draw a card
-    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && GetCounterCount($obj, "enlighten") >= 3) {
+    // Mana Limiter (IC3OU6vCnF): blocks enlighten counter removal for costs
+    $manaLimiterBlocks = false;
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        global $playerID;
+        $limiterZone = ($obj->Controller == $playerID) ? "myField" : "theirField";
+        $limiterField = GetZone($limiterZone);
+        foreach($limiterField as $lObj) {
+            if(!$lObj->removed && $lObj->CardID === "IC3OU6vCnF") {
+                $manaLimiterBlocks = true;
+                break;
+            }
+        }
+    }
+    if(!$manaLimiterBlocks && PropertyContains(EffectiveCardType($obj), "CHAMPION") && GetCounterCount($obj, "enlighten") >= 3) {
         $abilities[] = ["name" => "Enlighten", "index" => $nextIndex];
         $nextIndex++;
     }

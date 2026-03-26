@@ -307,6 +307,24 @@ function GetValidAttackTargets($attackerMZ) {
                     if(!in_array($mzID, $interceptTargets)) $interceptTargets[] = $mzID;
                 }
             }
+            // Silvie, Loved by All (GKEpAulogu): Animal/Beast allies have intercept
+            if(!HasNoAbilities($obj) && PropertyContains(EffectiveCardType($obj), "ALLY")
+               && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"))
+               && !in_array("NO_INTERCEPT", $obj->TurnEffects)) {
+                global $playerID;
+                $silvieZone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $silvieField = GetZone($silvieZone);
+                $silvieFound = false;
+                foreach($silvieField as $sObj) {
+                    if(!$sObj->removed && $sObj->CardID === "GKEpAulogu" && !HasNoAbilities($sObj)) {
+                        $silvieFound = true;
+                        break;
+                    }
+                }
+                if($silvieFound && !in_array($mzID, $interceptTargets)) {
+                    $interceptTargets[] = $mzID;
+                }
+            }
         }
         // If any opposing unit has Intercept, only those may be targeted
         if(!empty($interceptTargets)) {
@@ -1041,6 +1059,21 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         $ddObj = GetZoneObject($ddWeaponMZ);
         if($ddObj !== null && $ddObj->CardID === "9f92917r84"
             && in_array("9f92917r84-ONCHIT_DRAW", $ddObj->TurnEffects ?? [])) {
+            $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+            if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+                $hitObj = GetZoneObject($hitTarget);
+                if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
+                    Draw($player, 1);
+                }
+            }
+        }
+    }
+
+    // Spirit Blade: Infusion (CgyJxpEgzk): On Champion Hit — draw a card
+    $sbiWeaponMZ = GetCombatWeapon();
+    if($sbiWeaponMZ !== null) {
+        $sbiObj = GetZoneObject($sbiWeaponMZ);
+        if($sbiObj !== null && in_array("CgyJxpEgzk-ONCHIT_DRAW", $sbiObj->TurnEffects ?? [])) {
             $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
             if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
                 $hitObj = GetZoneObject($hitTarget);
@@ -3061,6 +3094,10 @@ function TrackChampionCombatDamage($player, $targetMZ) {
     $tag = "CHAMP_DMG_BY_P" . $player;
     if(!in_array($tag, $targetObj->TurnEffects)) {
         $targetObj->TurnEffects[] = $tag;
+    }
+    // Set global flag for cards that check "champion dealt combat damage this turn"
+    if(GlobalEffectCount($player, "CHAMP_DEALT_COMBAT_DMG") === 0) {
+        AddGlobalEffects($player, "CHAMP_DEALT_COMBAT_DMG");
     }
 }
 

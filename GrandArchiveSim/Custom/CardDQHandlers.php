@@ -1482,6 +1482,33 @@ $customDQHandlers["SmashWithObeliskSacrifice"] = function($player, $parts, $last
     DecisionQueueController::StoreVariable("smashObeliskBonus", strval($cost));
 };
 
+// Shield Fragmentation (CHU96qWwaS): sacrifice a Shield item as additional cost
+$customDQHandlers["ShieldFragmentSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+// Prismatic Edge (FxYwR2azTt): deal 3 damage to chosen unit (fire element effect)
+$customDQHandlers["PrismaticEdgeFire"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $sourceMZ = $parts[0];
+    DealDamage($player, $sourceMZ, $lastDecision, 3);
+};
+
+// Harness Mana (G2XFRE8rFX): iteratively put cards from hand into memory
+$customDQHandlers["HarnessManaLoop"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myMemory");
+    $hand = ZoneSearch("myHand");
+    if(!empty($hand)) {
+        $handStr = implode("&", $hand);
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $handStr, 1, tooltip:"Put_a_card_into_memory");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "HarnessManaLoop", 1);
+    }
+};
+
 $customDQHandlers["FiretunedAutomatonDiscard"] = function($player, $parts, $lastDecision) {
     if($lastDecision == "-" || $lastDecision == "" || $lastDecision == "PASS") return;
     DoDiscardCard($player, $lastDecision);
