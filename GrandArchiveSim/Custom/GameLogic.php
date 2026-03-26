@@ -642,6 +642,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(count($mat) < 2) return;
     }
 
+    // Dusklight Communion (5upufyoz23): additional cost — banish an astra/umbra from material deck
+    if($sourceObject->CardID === "5upufyoz23") {
+        $mat = ZoneSearch("myMaterial", cardElements: ["ASTRA", "UMBRA"]);
+        if(empty($mat)) return;
+    }
+
     // Chessman sacrifice cards: need at least one Chessman ally on field
     $chessmanSacReq = ["B1EbF6jcYF", "NGAy4rNwUo", "fgBpQZe0js", "hxdfyA0eP1"];
     if(in_array($sourceObject->CardID, $chessmanSacReq)) {
@@ -840,6 +846,18 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Celestial Calling (izm6h38lrj): [Class Bonus] costs 2 less
     if($obj->CardID === "izm6h38lrj" && IsClassBonusActive($player, ["CLERIC"])) {
         $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Fortified Mana Shield (5lh23qu7d6): [CB] costs 2 less if a unit with taunt exists on the field
+    if($obj->CardID === "5lh23qu7d6" && IsClassBonusActive($player, ["GUARDIAN"])) {
+        $hasTauntUnit = false;
+        foreach(array_merge(GetField(1), GetField(2)) as $fObj) {
+            if(!$fObj->removed && (PropertyContains(EffectiveCardType($fObj), "ALLY") || PropertyContains(EffectiveCardType($fObj), "CHAMPION")) && HasTaunt($fObj)) {
+                $hasTauntUnit = true;
+                break;
+            }
+        }
+        if($hasTauntUnit) $reserveCost = max(0, $reserveCost - 2);
     }
 
     // Winds of Retribution (huqj5bbae3): [Class Bonus][Level 2+] costs 2 less
@@ -1539,6 +1557,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $matStr = implode("&", $mat);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $matStr, 100, tooltip:"Banish_from_material_(1_of_2)");
             DecisionQueueController::AddDecision($player, "CUSTOM", "ObscuredOfferingBanishMat|1", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Dusklight Communion (5upufyoz23): banish astra/umbra from material deck
+    if($obj->CardID === "5upufyoz23") {
+        $mat = ZoneSearch("myMaterial", cardElements: ["ASTRA", "UMBRA"]);
+        if(!empty($mat)) {
+            $matStr = implode("&", $mat);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $matStr, 100, tooltip:"Banish_an_astra_or_umbra_card_from_material_deck");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DusklightCommunionCost", 100);
         }
     }
 
@@ -2264,11 +2292,49 @@ $customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecisi
     // Determine if the chosen card is from the field (reservable) or hand
     if(strpos($lastDecision, "myField-") === 0) {
         // Reservable card on field: rest/exhaust it to pay for 1 reserve cost
+        $restedObj = GetZoneObject($lastDecision);
         ExhaustCard($player, $lastDecision);
+
+        // Wildheart Lyre (50pcescfpw): [CB] whenever rested to pay for Harmony/Melody reserve,
+        // put a buff counter on an Animal or Beast ally you control
+        if($restedObj !== null && $restedObj->CardID === "50pcescfpw" && !HasNoAbilities($restedObj)
+            && IsClassBonusActive($player, ["TAMER"])) {
+            // Check if the card being activated is Harmony or Melody
+            $es = GetZone("EffectStack");
+            $isHarmonyMelody = false;
+            for($esi = count($es) - 1; $esi >= 0; --$esi) {
+                if(!$es[$esi]->removed) {
+                    $esSubtypes = CardSubtypes($es[$esi]->CardID);
+                    if(PropertyContains($esSubtypes, "HARMONY") || PropertyContains($esSubtypes, "MELODY")) {
+                        $isHarmonyMelody = true;
+                    }
+                    break;
+                }
+            }
+            if($isHarmonyMelody) {
+                $animalBeast = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+                if(!empty($animalBeast)) {
+                    if(count($animalBeast) == 1) {
+                        AddCounters($player, $animalBeast[0], "buff", 1);
+                    } else {
+                        $choices = implode("&", $animalBeast);
+                        DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1,
+                            tooltip:"Choose_Animal/Beast_ally_for_buff_counter_(Wildheart_Lyre)");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "WildheartLyreBuff", 1);
+                    }
+                }
+            }
+        }
     } else {
         // Hand card: move to memory as normal
         OnCardReserved($player, $lastDecision);
     }
+};
+
+// Wildheart Lyre (50pcescfpw): DQ handler for choosing Animal/Beast ally to buff
+$customDQHandlers["WildheartLyreBuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddCounters($player, $lastDecision, "buff", 1);
 };
 
 /**
@@ -2965,6 +3031,20 @@ function OnCardActivated($player, $mzCard) {
         $cardActivatedAbilities[$obj->CardID . ":0"]($player);
     }
 
+    // Insignia of the Corhazi (52u81v4c0z): [CB] whenever you activate a prepared card while influence ≤ 6, draw into memory
+    $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
+    if($wasPrepared === "YES" && GetInfluence($player) <= 6) {
+        $field = GetField($player);
+        for($ici = 0; $ici < count($field); ++$ici) {
+            if(!$field[$ici]->removed && $field[$ici]->CardID === "52u81v4c0z"
+                && !HasNoAbilities($field[$ici])
+                && IsClassBonusActive($player, ["ASSASSIN"])) {
+                DrawIntoMemory($player, 1);
+                break;
+            }
+        }
+    }
+
     // "Whenever you activate" triggers — check field for listening cards
     $field = GetField($player);
     $subtypes = CardSubtypes($obj->CardID);
@@ -3045,6 +3125,13 @@ function OnCardActivated($player, $mzCard) {
                     AddTurnEffect("myField-" . $fi, "9f0nsj62l6-POWER");
                 }
                 break;
+            case "5av43ehjdu": // Ventus, Staff of Zephyrs: whenever you activate a wind Mage Spell, put a refinement counter
+                if($activatedElement === "WIND" && PropertyContains($subtypes, "SPELL")
+                    && PropertyContains(CardClasses($obj->CardID), "MAGE")
+                    && !HasNoAbilities($field[$fi])) {
+                    AddCounters($player, "myField-" . $fi, "refinement", 1);
+                }
+                break;
             case "aws20fsihd": // Fervent Lancer: whenever you activate an exia element card, may banish it as it resolves
                 if($activatedElement === "EXIA" && !HasNoAbilities($field[$fi])) {
                     DecisionQueueController::StoreVariable("FerventLancerIdx", strval($fi));
@@ -3077,6 +3164,12 @@ function OnCardActivated($player, $mzCard) {
                 if((PropertyContains($subtypes, "MELODY") || PropertyContains($subtypes, "HARMONY"))
                     && !HasNoAbilities($field[$fi])) {
                     AddCounters($player, "myField-" . $fi, "buff", 1);
+                }
+                break;
+            case "5LoOprBJay": // Discordia, Harp of Malice: whenever you activate a Harmony or Melody, put a music counter
+                if((PropertyContains($subtypes, "HARMONY") || PropertyContains($subtypes, "MELODY"))
+                    && !HasNoAbilities($field[$fi])) {
+                    AddCounters($player, "myField-" . $fi, "music", 1);
                 }
                 break;
             case "nZFkDcvpaY": // Memorite Blade: whenever you activate a Spell, +1 POWER (once per turn)
@@ -3480,6 +3573,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "dcgw05q66h": // Purified Shot
         case "hreqhj1trn": // Windpiercer
         case "3qu7d6sopo": // Incendiary Shot
+        case "4x7e22tk3i": // Tasershot
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1; // REST
             break;
@@ -3723,7 +3817,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "0iqmyn2rz3" || $cardID === "9htu9agwj4" || $cardID === "r7ch2bbmoq"
        || $cardID === "ii17fzcyfr" || $cardID === "f8urrqtjot" || $cardID === "ywc08c9htu"
        || $cardID === "ao8bki6fxx" || $cardID === "dcgw05q66h" || $cardID === "hreqhj1trn"
-       || $cardID === "3qu7d6sopo") {
+       || $cardID === "3qu7d6sopo" || $cardID === "4x7e22tk3i") {
         if($sourceObject->Status != 2) return;
         if(empty(GetUnloadedGuns($player))) return;
     }
@@ -4678,6 +4772,15 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         $subtypes = CardSubtypes($added->CardID);
         if(PropertyContains($subtypes, "ANIMAL")) {
             if(GlobalEffectCount($player, "f05n4ulo84") > 0) {
+                AddCounters($player, "myField-" . (count($field) - 1), "buff", 1);
+            }
+        }
+    }
+
+    // Key Slime Pudding (4wuq20gvcg): Slime allies entering get additional buff counter
+    if(PropertyContains(CardType($added->CardID), "ALLY") || (PropertyContains(CardType($added->CardID), "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY"))) {
+        if(PropertyContains(CardSubtypes($added->CardID), "SLIME")) {
+            if(GlobalEffectCount($player, "4wuq20gvcg") > 0) {
                 AddCounters($player, "myField-" . (count($field) - 1), "buff", 1);
             }
         }
@@ -7685,6 +7788,10 @@ function ObjectCurrentPower($obj) {
     if(in_array("wd7nuab7f3-POWER", $obj->TurnEffects)) {
         $power += 2;
     }
+    // Shadow's Twin (5vettczb14): +2 POWER when loaded
+    if(in_array("5vettczb14_POWER", $obj->TurnEffects)) {
+        $power += 2;
+    }
     // Ranged N: while this unit is distant, its attacks get +N POWER
     if(IsDistant($obj)) {
         $rangedValue = GetRangedValue($obj);
@@ -7812,6 +7919,14 @@ function ObjectCurrentLevel($obj) {
                 if(strpos($effectID, "kywpjf1b4k-") === 0) {
                     $cardLevel += intval(substr($effectID, strlen("kywpjf1b4k-")));
                 }
+                // Discordia, Harp of Malice (5LoOprBJay): -X level to target champion
+                if(strpos($effectID, "DISCORDIA_MINUS_") === 0) {
+                    $cardLevel -= intval(substr($effectID, strlen("DISCORDIA_MINUS_")));
+                }
+                // Discordia, Harp of Malice (5LoOprBJay): +X level to own champion
+                if(strpos($effectID, "DISCORDIA_PLUS_") === 0) {
+                    $cardLevel += intval(substr($effectID, strlen("DISCORDIA_PLUS_")));
+                }
                 break;
         }
     }
@@ -7835,6 +7950,18 @@ function ObjectCurrentLevel($obj) {
             foreach($acerbicaField as $aObj) {
                 if(!$aObj->removed && $aObj->CardID === "7ax4ywyv19" && !HasNoAbilities($aObj)) {
                     $cardLevel -= 1;
+                }
+            }
+        }
+        // Dusklight Communion (5upufyoz23): "Champions get -1 level" when umbra mode active
+        {
+            $allFields = [GetZone("myField"), GetZone("theirField")];
+            foreach($allFields as $dcField) {
+                foreach($dcField as $dcObj) {
+                    if(!$dcObj->removed && $dcObj->CardID === "5upufyoz23" && !HasNoAbilities($dcObj)
+                       && GetCounterCount($dcObj, "umbra_mode") > 0) {
+                        $cardLevel -= 1;
+                    }
                 }
             }
         }
@@ -9454,6 +9581,8 @@ function CanPayEphemerate($player, $cardID) {
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 // Vanitas, Dominus Rex (3vkxrw9462): On Champion Hit — opponent materializations cost 1 more
 $untilBeginTurnEffects["3vkxrw9462"] = true;
+// Tasershot (4x7e22tk3i): On Champion Hit — level-up triggers 4 unpreventable damage
+$untilBeginTurnEffects["4x7e22tk3i"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
 // Peaceful Reunion: never auto-expire (cleared manually at caster's RecollectionPhase)
@@ -9596,6 +9725,10 @@ $doesGlobalEffectApply["RAI_ARCHMAGE_TRIGGERED"] = function($obj) { //Flag only 
 };
 
 $doesGlobalEffectApply["RfPP8h16Wv"] = function($obj) { //Flag only — next Animal/Beast ally gets buff counter, no visual effect
+    return false;
+};
+
+$doesGlobalEffectApply["4wuq20gvcg"] = function($obj) { // Key Slime Pudding: flag only — Slime allies enter with buff counter
     return false;
 };
 
@@ -9814,6 +9947,9 @@ $untilBeginTurnEffects["PLANAR_ABYSS_PENDING"] = true;
 
 // Fiery Interference (gt2zqtgs42): flag only — controller can't recover until end of turn
 $doesGlobalEffectApply["CANT_RECOVER"] = function($obj) { return false; };
+
+// Tasershot (4x7e22tk3i): flag only — level-up deal 4 unpreventable
+$doesGlobalEffectApply["4x7e22tk3i"] = function($obj) { return false; };
 
 // Consumption Ring (g8q7imka92): flag only — non-ally cards opponents activate cost (4) more
 $doesGlobalEffectApply["CONSUMPTION_RING_COST"] = function($obj) { return false; };
@@ -11614,6 +11750,18 @@ function HasTaunt($obj) {
     }
     // Sworn Windhand (9ewgUjy34b): [Class Bonus] Taunt
     if($obj->CardID === "9ewgUjy34b" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
+    // Baby Silver Slime (62lVDTOToR): has taunt while you control another Slime ally
+    if($obj->CardID === "62lVDTOToR") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj !== $obj && PropertyContains(CardSubtypes($fObj->CardID), "SLIME")
+                && PropertyContains(EffectiveCardType($fObj), "ALLY")) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 

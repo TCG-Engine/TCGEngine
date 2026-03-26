@@ -324,6 +324,38 @@ function DoMaterialize($player, $mzCard) {
                 }
             }
         }
+
+        // Quiet Refraction (4vZN8JlY2k): whenever your champion levels up, put 2 sheen counters on Fractured Memories
+        {
+            global $playerID;
+            $fZone = ($player == $playerID) ? "myField" : "theirField";
+            $field = GetZone($fZone);
+            for($qri = 0; $qri < count($field); ++$qri) {
+                if(!$field[$qri]->removed && $field[$qri]->CardID === "4vZN8JlY2k" && !HasNoAbilities($field[$qri])) {
+                    AddSheenToMastery($player, 2);
+                    break;
+                }
+            }
+        }
+
+        // Tasershot (4x7e22tk3i): [CB] On Champion Hit — whenever the hit champion levels up,
+        // deal 4 unpreventable damage to them (until beginning of attacker's next turn).
+        {
+            $opponent = ($player == 1) ? 2 : 1;
+            if(GlobalEffectCount($opponent, "4x7e22tk3i") > 0) {
+                global $playerID;
+                $champZone = ($player == $playerID) ? "myField" : "theirField";
+                $champField = GetZone($champZone);
+                for($tsi = 0; $tsi < count($champField); ++$tsi) {
+                    if(!$champField[$tsi]->removed && PropertyContains(EffectiveCardType($champField[$tsi]), "CHAMPION")
+                       && $champField[$tsi]->Controller == $player) {
+                        $champMZ = $champZone . "-" . $tsi;
+                        DealUnpreventableDamage($opponent, "4x7e22tk3i", $champMZ, 4);
+                        break;
+                    }
+                }
+            }
+        }
     } else {
         MZMove($player, $mzCard, "myField");
     }

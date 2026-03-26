@@ -959,7 +959,7 @@ function OnAttackTrigger($player, $mzID) {
  * @param int    $player     The attacking player
  * @param string $attackerMZ The attacker's mzID
  */
-function OnHitTrigger($player, $attackerMZ) {
+function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     global $onHitAbilities;
     if(!isset($onHitAbilities) || !is_array($onHitAbilities)) return;
 
@@ -1125,6 +1125,18 @@ function OnHitTrigger($player, $attackerMZ) {
             $hitObj = GetZoneObject($hitTarget);
             if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
                 AllyDestroyed($player, $hitTarget);
+            }
+        }
+    }
+
+    // Shadow's Twin (5vettczb14): [CB] On Hit abilities trigger an additional time
+    if(!$isExtraRepeat) {
+        $weaponMZST = GetCombatWeapon();
+        if($weaponMZST !== null) {
+            $stObj = GetZoneObject($weaponMZST);
+            if($stObj !== null && $stObj->CardID === "5vettczb14" && !HasNoAbilities($stObj)
+               && IsClassBonusActive($player, ["RANGER"])) {
+                OnHitTrigger($player, $attackerMZ, true);
             }
         }
     }

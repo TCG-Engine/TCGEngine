@@ -2240,6 +2240,19 @@ function LoadBulletIntoGun($player, $bulletMZ, $gunMZ) {
             }
         }
     }
+
+    // Shadow's Twin (5vettczb14): Whenever becomes loaded, +2 POWER until end of turn
+    if($gunObj->CardID === "5vettczb14" && !HasNoAbilities($gunObj)) {
+        global $playerID;
+        $gunZone = ($player == $playerID) ? "myField" : "theirField";
+        $gunField = GetZone($gunZone);
+        for($sti = 0; $sti < count($gunField); ++$sti) {
+            if(!$gunField[$sti]->removed && $gunField[$sti]->CardID === "5vettczb14") {
+                AddTurnEffect($gunZone . "-" . $sti, "5vettczb14_POWER");
+                break;
+            }
+        }
+    }
 }
 
 /**
@@ -5564,6 +5577,26 @@ $customDQHandlers["ObscuredOfferingBanishMat"] = function($player, $parts, $last
             DecisionQueueController::AddDecision($player, "CUSTOM", "ObscuredOfferingBanishMat|2", 100);
         }
     }
+};
+
+// ============================================================================
+// Dusklight Communion (5upufyoz23): banish astra/umbra from material deck, store element
+// ============================================================================
+$customDQHandlers["DusklightCommunionCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    $element = CardElement($obj->CardID);
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    DecisionQueueController::StoreVariable("dusklightBanishedElement", $element);
+};
+
+$customDQHandlers["DusklightCommunionDestroy"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    AllyDestroyed($player, $lastDecision);
 };
 
 // ============================================================================
