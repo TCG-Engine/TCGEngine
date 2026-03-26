@@ -6619,4 +6619,152 @@ $customDQHandlers["EtherealysPromiseBanish"] = function($player, $parts, $lastDe
     }
 };
 
+function SinistreStabCommitToLineage($player, $targetPlayer) {
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $iMZ) {
+        $iObj = GetZoneObject($iMZ);
+        if($iObj === null || $iObj->CardID !== "e1xj8mqr2o") continue;
+        if(!in_array("CURSE_TO_LINEAGE", $iObj->TurnEffects ?? [])) {
+            $iObj->TurnEffects[] = "CURSE_TO_LINEAGE";
+        }
+        AddToChampionLineage($targetPlayer, "e1xj8mqr2o");
+        break;
+    }
+}
+
+function SinistreStabOnHit($player) {
+    if(GetOmenCount($player) < 5) {
+        SinistreStabCommitToLineage($player, $player);
+        return;
+    }
+    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($hitTarget === null || $hitTarget === "" || $hitTarget === "-") return;
+    $hitObj = GetZoneObject($hitTarget);
+    if($hitObj === null || !PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+        tooltip:"Put_Sinistre_Stab_on_hit_champion's_lineage?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SinistreStabChoice", 1);
+}
+
+$customDQHandlers["SinistreStabChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($hitTarget === null || $hitTarget === "" || $hitTarget === "-") return;
+    $hitObj = GetZoneObject($hitTarget);
+    if($hitObj === null || !PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
+    SinistreStabCommitToLineage($player, $hitObj->Controller);
+};
+
+function EventideLurePutRestOnBottom($player) {
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
+    }
+}
+
+function EventideLureEnter($player) {
+    $deck = GetDeck($player);
+    $lookCount = min(5, count($deck));
+    if($lookCount <= 0) return;
+    for($i = 0; $i < $lookCount; ++$i) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    $candidates = ZoneSearch("myTempZone", ["PHANTASIA"]);
+    if(empty($candidates)) {
+        EventideLurePutRestOnBottom($player);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $candidates), 1,
+        tooltip:"Reveal_a_phantasia_card_to_put_into_memory?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EventideLureReveal", 1);
+}
+
+$customDQHandlers["EventideLureReveal"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        Reveal($player, $lastDecision);
+        MZMove($player, $lastDecision, "myMemory");
+    }
+    EventideLurePutRestOnBottom($player);
+};
+
+function LustrousSlimeApplyReveals($player, $mzID) {
+    $revealCount = intval(DecisionQueueController::GetVariable("LustrousSlimeRevealCount"));
+    if($revealCount > 0) {
+        AddCounters($player, $mzID, "buff", $revealCount);
+    }
+}
+
+function LustrousSlimeRevealLoop($player, $mzID) {
+    $chosenRaw = DecisionQueueController::GetVariable("LustrousSlimeChosen");
+    $chosen = $chosenRaw === null || $chosenRaw === "" ? [] : explode("|", $chosenRaw);
+    $targets = [];
+    $memory = GetZone("myMemory");
+    for($i = 0; $i < count($memory); ++$i) {
+        if($memory[$i]->removed) continue;
+        $memMZ = "myMemory-" . $i;
+        if(in_array($memMZ, $chosen)) continue;
+        if(PropertyContains(CardSubtypes($memory[$i]->CardID), "SLIME")) {
+            $targets[] = $memMZ;
+        }
+    }
+    if(empty($targets)) {
+        LustrousSlimeApplyReveals($player, $mzID);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1,
+        tooltip:"Reveal_a_Slime_card_from_memory?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LustrousSlimeReveal|$mzID", 1);
+}
+
+function LustrousSlimeEnter($player) {
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    DecisionQueueController::StoreVariable("LustrousSlimeRevealCount", "0");
+    DecisionQueueController::StoreVariable("LustrousSlimeChosen", "");
+    LustrousSlimeRevealLoop($player, $mzID);
+}
+
+$customDQHandlers["LustrousSlimeReveal"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0];
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        LustrousSlimeApplyReveals($player, $mzID);
+        return;
+    }
+    Reveal($player, $lastDecision);
+    $chosenRaw = DecisionQueueController::GetVariable("LustrousSlimeChosen");
+    $chosen = $chosenRaw === null || $chosenRaw === "" ? [] : explode("|", $chosenRaw);
+    $chosen[] = $lastDecision;
+    DecisionQueueController::StoreVariable("LustrousSlimeChosen", implode("|", $chosen));
+    $revealCount = intval(DecisionQueueController::GetVariable("LustrousSlimeRevealCount"));
+    DecisionQueueController::StoreVariable("LustrousSlimeRevealCount", strval($revealCount + 1));
+    LustrousSlimeRevealLoop($player, $mzID);
+};
+
+$customDQHandlers["GlimmerEssenceAmuletChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    global $playerID;
+    $fieldZone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($fieldZone);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "dy4urpjbjm") continue;
+        OnLeaveField($player, $fieldZone . "-" . $i);
+        MZMove($player, $fieldZone . "-" . $i, "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+        Draw($player, 1);
+        break;
+    }
+};
+
+$customDQHandlers["FortifyingAromaTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "buff", 2);
+};
+
+$customDQHandlers["GalvanizingGaleTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "f00cEmu6Ql");
+    if(IsEmpowered($player)) {
+        DrawIntoMemory($player, 1);
+    }
+};
+
 ?>

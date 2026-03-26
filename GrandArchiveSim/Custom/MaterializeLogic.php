@@ -374,6 +374,20 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
+        // Scepter of Lumina (e5o3cm9lbe): whenever your champion levels up, deal 4 damage to target champion you don't control
+        {
+            global $playerID;
+            $fZone = ($player == $playerID) ? "myField" : "theirField";
+            $field = GetZone($fZone);
+            for($sli = 0; $sli < count($field); ++$sli) {
+                if(!$field[$sli]->removed && $field[$sli]->CardID === "e5o3cm9lbe" && !HasNoAbilities($field[$sli])) {
+                    $opponent = ($player == 1) ? 2 : 1;
+                    DealChampionDamage($opponent, 4);
+                    break;
+                }
+            }
+        }
+
         // Quiet Refraction (4vZN8JlY2k): whenever your champion levels up, put 2 sheen counters on Fractured Memories
         {
             global $playerID;

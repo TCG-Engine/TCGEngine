@@ -899,6 +899,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Slime Nexus (emoydelro8): next Slime ally card costs 3 less this turn
+    if(GlobalEffectCount($player, "emoydelro8") > 0) {
+        if(PropertyContains(CardType($obj->CardID), "ALLY") && PropertyContains(CardSubtypes($obj->CardID), "SLIME")) {
+            $reserveCost = max(0, $reserveCost - 3);
+            RemoveGlobalEffect($player, "emoydelro8");
+        }
+    }
+
     // Expeditious Opening (w1wgpeifd0): consume fast-activation effect when any ally is activated
     if(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
         RemoveGlobalEffect($player, "w1wgpeifd0");
@@ -1083,6 +1091,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($obj->CardID === "27jlb9h1a5") {
         $animalCount = count(ZoneSearch("myField", cardSubtypes: ["ANIMAL"]));
         $reserveCost = max(0, $reserveCost - $animalCount);
+    }
+
+    // Fortifying Aroma (doo4sk9q9e): costs 1 less to activate for each Herb you control
+    if($obj->CardID === "doo4sk9q9e") {
+        $reserveCost = max(0, $reserveCost - count(ZoneSearch("myField", cardSubtypes: ["HERB"])));
     }
 
     // Blade of Creation (iqs2hipwsc): [Class Bonus] costs 1 less per token object you control
@@ -1586,6 +1599,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($obj->CardID === "qa4ke7txh0" && IsClassBonusActive($player, ["CLERIC"])) {
         $phantasiaCount = min(2, count(ZoneSearch("myField", ["PHANTASIA"])));
         $reserveCost = max(0, $reserveCost - $phantasiaCount);
+    }
+
+    // Soutirer Vortex (du4df43ci2): 3+ omens with different reserve costs -> costs 3 less
+    if($obj->CardID === "du4df43ci2" && GetOmenDistinctCostCount($player) >= 3) {
+        $reserveCost = max(0, $reserveCost - 3);
     }
 
     // Mana Resonance (qp65vbdw7c): [CB] costs X less, where X is highest reserve cost among
@@ -3585,6 +3603,27 @@ function OnCardActivated($player, $mzCard) {
 
     // Alice, Phantom Monarch (emqOANitoD) — Inherited Effect:
     // Whenever you play an advanced element card while no Curse in Alice's lineage, deal 7 unpreventable to Alice.
+    // Soutirer Vortex (du4df43ci2): your omens trigger on matching reserve costs opponents activate
+    $opponent = ($player == 1) ? 2 : 1;
+    $oppField = GetField($opponent);
+    foreach($oppField as $vortexObj) {
+        if($vortexObj->removed || $vortexObj->CardID !== "du4df43ci2" || HasNoAbilities($vortexObj)) continue;
+        $matchingOmens = 0;
+        $activatedReserveCost = intval(CardCost_reserve($obj->CardID));
+        foreach(GetOmens($opponent) as $omenMZ) {
+            $omenObj = GetZoneObject($omenMZ);
+            if($omenObj === null || $omenObj->removed) continue;
+            if(intval(CardCost_reserve($omenObj->CardID)) === $activatedReserveCost) {
+                ++$matchingOmens;
+            }
+        }
+        for($i = 0; $i < $matchingOmens; ++$i) {
+            RecoverChampion($opponent, 1);
+            DealChampionDamage($player, 1);
+        }
+        break;
+    }
+
     if(ChampionHasInLineage($player, "emqOANitoD")) {
         $cardElement = CardElement($obj->CardID);
         $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM"];
@@ -4335,6 +4374,8 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     }
     // Spirit Shard (3p5iqigcom): [Level 3+] sacrifice self: draw a card
     if($cardID === "3p5iqigcom" && PlayerLevel($player) < 3) return;
+    // Scepter of Lumina (e5o3cm9lbe): [Level 3+] activated ability only
+    if($cardID === "e5o3cm9lbe" && PlayerLevel($player) < 3) return;
     // Portside Pirate (6p3p5iqigc): [CB] need floating memory card in graveyard
     if($cardID === "6p3p5iqigc") {
         if(!IsClassBonusActive($player, ["ASSASSIN"])) return;
@@ -4831,6 +4872,9 @@ function DoAllyDestroyed($player, $mzCard) {
     }
     $controller = $obj->Controller;
     $suppressed = HasNoAbilities($obj);
+    if($obj->CardID === "ejvddohjdu") {
+        DecisionQueueController::StoreVariable("LustrousSlimeBuffCount", strval(GetCounterCount($obj, "buff")));
+    }
     OnLeaveField($player, $mzCard);
     // Xiao Qiao, Cinderkeeper (3hgldrogit): if unit was hit by Xiao Qiao this turn, banish instead
     $xiaoQiaoBanish = in_array("HIT_BY_3hgldrogit", $obj->TurnEffects);
@@ -4860,6 +4904,23 @@ function DoAllyDestroyed($player, $mzCard) {
     MZMove($player, $mzCard, $dest);
     if(!$suppressed && isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
         $allyDestroyedAbilities[$obj->CardID . ":0"]($controller);
+    }
+    // Glimmer Essence Amulet (dy4urpjbjm): if a phantasia you control is destroyed on an opponent's turn,
+    // you may banish each Amulet you control to draw a card.
+    if(PropertyContains(CardType($obj->CardID), "PHANTASIA")) {
+        $turnPlayer = GetTurnPlayer();
+        if($turnPlayer != $controller) {
+            global $playerID;
+            $controllerField = $controller == $playerID ? "myField" : "theirField";
+            $field = GetZone($controllerField);
+            for($gi = 0; $gi < count($field); ++$gi) {
+                if(!$field[$gi]->removed && $field[$gi]->CardID === "dy4urpjbjm" && !HasNoAbilities($field[$gi])) {
+                    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
+                        tooltip:"Banish_Glimmer_Essence_Amulet_to_draw_a_card?");
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "GlimmerEssenceAmuletChoice|$gi", 1);
+                }
+            }
+        }
     }
     // Synthetic Core (w0y6isxy5l): whenever a non-token Automaton ally you control dies,
     // you may banish Synthetic Core to return that ally to your memory.
@@ -8343,6 +8404,9 @@ function ObjectCurrentPower($obj) {
             case "dfchplzf6m_POWER": // Ingress of Sanguine Ire: +3 POWER on first attack
                 $power += 3;
                 break;
+            case "f00cEmu6Ql_POWER": // Galvanizing Gale: +3 POWER on the next attack this turn
+                $power += 3;
+                break;
             case "ATTUNE_FLAMES_BUFF": // Attune with Flames: +5 POWER until end of next turn
                 $power += 5;
                 break;
@@ -9270,6 +9334,9 @@ function ObjectCurrentHP($obj) {
             || $lineageCardID === "6g7xgwve1d" // Demon's Aim
             ) {
                 $cardLife -= 2;
+            }
+            if($lineageCardID === "e1xj8mqr2o") { // Sinistre Stab: -3 LIFE
+                $cardLife -= 3;
             }
         }
     }

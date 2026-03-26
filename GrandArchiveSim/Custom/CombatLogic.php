@@ -865,6 +865,12 @@ function OnAttackTrigger($player, $mzID) {
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["vnta6qsesw"]));
     }
 
+    // Galvanizing Gale (f00cEmu6Ql): target ally's next attack this turn gets +3 POWER
+    if($obj !== null && in_array("f00cEmu6Ql", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "f00cEmu6Ql_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["f00cEmu6Ql"]));
+    }
+
     // Diana, Cursebreaker (o0qtb31x97): "On Attack: Wake up Diana" granted turn effect
     if($obj !== null && in_array("CURSEBREAKER_ON_ATTACK", $obj->TurnEffects)) {
         WakeupCard($player, $mzID);
@@ -2242,6 +2248,10 @@ function OnDealDamage($player, $source, $target, $amount) {
         $sourceElement = CardElement($sourceObj->CardID);
         if($sourceElement === "FIRE") {
             $sourceController = $sourceObj->Controller ?? $player;
+            if(GlobalEffectCount($sourceController, "ecZsQQAYJJ") > 0) {
+                DealUnpreventableDamage($player, $source, $target, $amount);
+                return;
+            }
             $scField = &GetField($sourceController);
             foreach($scField as $scObj) {
                 if(!$scObj->removed && $scObj->CardID === "IyM7IBCQeb") {
