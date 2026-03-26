@@ -449,6 +449,17 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
+            // Ashen Riffle (fjpimrl974): activate tagged Suited non-action cards from banishment
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_ashenRiffle'])) {
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             break;
         case "myMaterial":
             // Bagua of Vital Demise (imdj3c7oh0): may activate from material deck when SC faces West
@@ -598,6 +609,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             }
         }
         if($eligible < 3) return;
+    }
+
+    // Slime King (f0ymeslfpw): mandatory banish 3 Slime allies with different elements from graveyard
+    if($sourceObject->CardID === "f0ymeslfpw") {
+        $distinctElements = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if($gy[$gi]->removed) continue;
+            if(!PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) continue;
+            if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SLIME")) continue;
+            $distinctElements[CardElement($gy[$gi]->CardID)] = true;
+        }
+        if(count($distinctElements) < 3) return;
     }
 
     // Turbo Charge (cnqsm3n9yv): mandatory sacrifice of a Powercell
@@ -1761,6 +1785,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "RavishingFinaleBanish1|$reserveCost", 100);
     }
 
+    //1.3 Declaring Costs — Slime King (f0ymeslfpw): banish 3 Slime allies with different elements from GY
+    $hasSlimeKingCost = false;
+    if($obj->CardID === "f0ymeslfpw") {
+        $hasSlimeKingCost = true;
+        $eligible = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if($gy[$gi]->removed) continue;
+            if(!PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) continue;
+            if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SLIME")) continue;
+            $eligible[] = "myGraveyard-" . $gi;
+        }
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 100, tooltip:"Banish_a_Slime_ally_with_a_new_element_(1_of_3)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeKingCostBanish|3|$reserveCost|", 100);
+    }
+
     //1.3 Declaring Costs — Primordial Ritual (4mcnqsm3n9): mandatory sacrifice of an ally
     if($obj->CardID === "4mcnqsm3n9") {
         $allies = ZoneSearch("myField", ["ALLY"]);
@@ -2191,7 +2231,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasSlimeKingCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2824,6 +2864,55 @@ $customDQHandlers["DeclareAdditionalCost"] = function($player, $parts, $lastDeci
 };
 
 /**
+ * DQ handler: Slime King (f0ymeslfpw) mandatory activation cost.
+ * Banish 3 Slime allies with different elements from your graveyard, then pay reserve.
+ * Parts: [remainingCount, reserveCost, usedElementsCSV].
+ */
+$customDQHandlers["SlimeKingCostBanish"] = function($player, $parts, $lastDecision) {
+    $remainingBefore = intval($parts[0]);
+    $reserveCost = intval($parts[1]);
+    $usedElements = empty($parts[2]) ? [] : array_filter(explode(",", $parts[2]));
+    if($lastDecision === "-" || $lastDecision === "") return;
+
+    $chosenObj = GetZoneObject($lastDecision);
+    if($chosenObj === null) return;
+    $chosenElement = CardElement($chosenObj->CardID);
+    if(in_array($chosenElement, $usedElements)) return;
+
+    $banishedObj = MZMove($player, $lastDecision, "myBanish");
+    if($banishedObj !== null) {
+        if(!is_array($banishedObj->Counters)) $banishedObj->Counters = [];
+        $banishedObj->Counters['_slimeKing'] = 1;
+    }
+
+    $usedElements[] = $chosenElement;
+    $remaining = $remainingBefore - 1;
+    if($remaining > 0) {
+        $eligible = [];
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if($gy[$gi]->removed) continue;
+            if(!PropertyContains(CardType($gy[$gi]->CardID), "ALLY")) continue;
+            if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SLIME")) continue;
+            $element = CardElement($gy[$gi]->CardID);
+            if(in_array($element, $usedElements)) continue;
+            $eligible[] = "myGraveyard-" . $gi;
+        }
+        if(count($eligible) < $remaining) return;
+        $pickNumber = 4 - $remaining;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 100, tooltip:"Banish_a_Slime_ally_with_a_new_element_(" . $pickNumber . "_of_3)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeKingCostBanish|" . $remaining . "|" . $reserveCost . "|" . implode(",", $usedElements), 100);
+        return;
+    }
+
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+/**
  * DQ handler: Furnace Drone (cbNF64gCsS) mandatory activation cost.
  * Banish 3 fire element and/or Automaton cards from your graveyard, then pay reserve.
  * Parts: [remainingCount, reserveCost].
@@ -3291,15 +3380,15 @@ function OnCardActivated($player, $mzCard) {
     $obj = GetZoneObject($mzCard);
     $cardType = CardType($obj->CardID);
     if(PropertyContains($cardType, "ALLY")) {
-        $obj = MZMove($player, $mzCard, "myField");
+        $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "WEAPON")) {
         // Weapons enter the field like allies (main-deck weapons with reserve cost)
-        $obj = MZMove($player, $mzCard, "myField");
+        $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "REGALIA")) {
         // Regalia enter the field like allies (main-deck regalia with reserve cost)
-        $obj = MZMove($player, $mzCard, "myField");
+        $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "PHANTASIA")) {
         // Ally Link fizzle check: validate the link target is still legal at resolution time
@@ -3359,15 +3448,15 @@ function OnCardActivated($player, $mzCard) {
                 return;
             }
         }
-        $obj = MZMove($player, $mzCard, "myField");
+        $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "DOMAIN")) {
         // Domains enter the field like allies/regalia — they are objects that persist
-        $obj = MZMove($player, $mzCard, "myField");
+        $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     } else if(PropertyContains($cardType, "ITEM")) {
         // Items (e.g. Potions, Accessories) enter the field as persistent objects
-        $obj = MZMove($player, $mzCard, "myField");
+        $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "ACTION")) {
         // Ephemerate: ephemeral actions are banished on resolve
@@ -3775,6 +3864,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "g8q7imka92": // Consumption Ring — banish self
         case "idpdon8f0h": // Enfeebled Dagger — banish self
         case "K15jWbHAMY": // Teardrop Diadem — banish self
+        case "fm894uc4ij": // Manxome Armoire — banish self
         case "LeyUk5auEP": // Purifying Thurible — banish self
         case "T3cx65VM3D": // Enfeebling Orb — banish self
         case "473gyf0w3v": // Duxal Proclamation — banish self
@@ -4862,6 +4952,17 @@ function OnLeaveField($player, $mzID) {
     if(!HasNoAbilities($obj) && isset($leaveFieldAbilities[$obj->CardID . ":0"])) $leaveFieldAbilities[$obj->CardID . ":0"]($controller);
 }
 
+function MoveEffectStackCardToField($player, $mzCard) {
+    $stackObj = GetZoneObject($mzCard);
+    $cardID = $stackObj !== null ? $stackObj->CardID : "";
+    DecisionQueueController::StoreVariable("EffectStackEnterCardID", $cardID);
+    DecisionQueueController::StoreVariable("EffectStackEnterController", strval($player));
+    $obj = MZMove($player, $mzCard, "myField");
+    DecisionQueueController::StoreVariable("EffectStackEnterCardID", "");
+    DecisionQueueController::StoreVariable("EffectStackEnterController", "");
+    return $obj;
+}
+
 function DoAllyDestroyed($player, $mzCard) {
     global $allyDestroyedAbilities;
     $obj = GetZoneObject($mzCard);
@@ -5196,6 +5297,24 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     $added = $field[count($field)-1];
     $added->Controller = $player;
     if($added->Owner == 0) $added->Owner = $player;
+
+    $effectStackEnterCardID = DecisionQueueController::GetVariable("EffectStackEnterCardID");
+    $effectStackEnterController = intval(DecisionQueueController::GetVariable("EffectStackEnterController") ?? "0");
+    $cameFromEffectStack = ($effectStackEnterCardID === $added->CardID && $effectStackEnterController === $player);
+
+    // Astarte, Celestial Dawn (f0ht2tsn0y): if an opponent's object would enter the field
+    // from anywhere except the effect stack, banish it instead.
+    if(!$cameFromEffectStack) {
+        $opponent = $player == 1 ? 2 : 1;
+        $oppField = GetField($opponent);
+        foreach($oppField as $oppObj) {
+            if(!$oppObj->removed && $oppObj->CardID === "f0ht2tsn0y" && !HasNoAbilities($oppObj)) {
+                MZMove($player, "myField-" . (count($field) - 1), "myBanish");
+                DecisionQueueController::CleanupRemovedCards();
+                return;
+            }
+        }
+    }
 
     // Track that this card entered the field this turn (for Tempest Downfall etc.)
     $added->TurnEffects[] = "ENTERED_THIS_TURN";
@@ -7291,6 +7410,11 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
             }
             break;
+        case "fvnvknj4dd": // Steel Halberd: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                $power += 1;
+            }
+            break;
         case "jyrqgyj9vn": // Beguiling Bandit: [CB][Level 2+] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["ASSASSIN", "WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
                 $power += 1;
@@ -8419,6 +8543,9 @@ function ObjectCurrentPower($obj) {
             case "clgolelsra": // Bellona's Runestone: target weapon gets +2 POWER until end of turn
                 $power += 2;
                 break;
+            case "frzrplywc0": // Prototype Pistol: [Class Bonus] On Enter +1 POWER until end of turn
+                $power += 1;
+                break;
             case "0k0p6n5nr7": // Scorching Strafe: target ally +2 POWER until end of turn
                 $power += 2;
                 break;
@@ -9074,6 +9201,18 @@ function ObjectCurrentLevel($obj) {
                     break;
                 default: break;
             }
+        }
+    }
+    if($obj->CardID === "g92bHLtTNl") { // Rai, Storm Seer
+        global $playerID;
+        $banishZone = $obj->Controller == $playerID ? "myBanish" : "theirBanish";
+        $banish = GetZone($banishZone);
+        foreach($banish as $bObj) {
+            if($bObj->removed) continue;
+            if(CardElement($bObj->CardID) !== "ARCANE") continue;
+            if(!PropertyContains(CardClasses($bObj->CardID), "MAGE")) continue;
+            if(!PropertyContains(CardSubtypes($bObj->CardID), "SPELL")) continue;
+            ++$cardLevel;
         }
     }
     return $cardLevel;
@@ -12056,6 +12195,8 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "7imoz7vrlr" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Spark Link (PUgqk3lxq6): [Level 1+] Floating Memory
     if($obj->CardID === "PUgqk3lxq6" && PlayerLevel($obj->Controller) >= 1) return true;
+    // Art of War (fjne9ri261): Divine Relic
+    if($obj->CardID === "fjne9ri261") return true;
     return false;
 }
 
@@ -13803,6 +13944,80 @@ function BanishWithOmenCounter($player, $mzCard) {
             PutOmenCounter($player, $prefix . "-" . $i);
             break;
         }
+    }
+}
+
+function SlimeKingLeaveStart($player) {
+    $choices = [];
+    $banish = GetZone("myBanish");
+    for($bi = 0; $bi < count($banish); ++$bi) {
+        if($banish[$bi]->removed) continue;
+        if(isset($banish[$bi]->Counters['_slimeKing'])) {
+            $choices[] = "myBanish-" . $bi;
+        }
+    }
+    if(empty($choices)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Put_a_banished_Slime_ally_onto_the_field?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeKingLeaveChoose", 1);
+}
+
+$customDQHandlers["SlimeKingLeaveChoose"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myField");
+    SlimeKingLeaveStart($player);
+};
+
+function AshenRiffleStart($player) {
+    $deck = &GetDeck($player);
+    $n = min(4, count($deck));
+    if($n == 0) return;
+    for($i = 0; $i < $n; ++$i) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    AshenRiffleChoose($player, 2);
+}
+
+function AshenRiffleChoose($player, $remainingChoices) {
+    if($remainingChoices <= 0) {
+        AshenRiffleCleanup($player);
+        return;
+    }
+    $eligible = [];
+    $tempCards = ZoneSearch("myTempZone");
+    foreach($tempCards as $tMZ) {
+        $tObj = GetZoneObject($tMZ);
+        if($tObj === null) continue;
+        if(!PropertyContains(CardSubtypes($tObj->CardID), "SUITED")) continue;
+        if(PropertyContains(CardType($tObj->CardID), "ACTION")) continue;
+        $eligible[] = $tMZ;
+    }
+    if(empty($eligible)) {
+        AshenRiffleCleanup($player);
+        return;
+    }
+    $pickNumber = 3 - $remainingChoices;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $eligible), 1, tooltip:"Banish_a_Suited_non-action_card?_(" . $pickNumber . "_of_2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AshenRiffleChoose|" . $remainingChoices, 1);
+}
+
+$customDQHandlers["AshenRiffleChoose"] = function($player, $parts, $lastDecision) {
+    $remainingChoices = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        AshenRiffleCleanup($player);
+        return;
+    }
+    $banishedObj = MZMove($player, $lastDecision, "myBanish");
+    if($banishedObj !== null) {
+        if(!is_array($banishedObj->Counters)) $banishedObj->Counters = [];
+        $banishedObj->Counters['_ashenRiffle'] = 1;
+    }
+    AshenRiffleChoose($player, $remainingChoices - 1);
+};
+
+function AshenRiffleCleanup($player) {
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
     }
 }
 

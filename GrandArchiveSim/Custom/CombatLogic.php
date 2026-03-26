@@ -51,6 +51,11 @@ function GetAvailableWeapons($player) {
                 $hand = &GetHand($player);
                 if(count($hand) < 2) continue;
             }
+            // Oathbreaker's Justice (f5ooozsikp): additional cost to attack — pay (3)
+            if($obj->CardID === "f5ooozsikp") {
+                $hand = &GetHand($player);
+                if(count($hand) < 3) continue;
+            }
             $available[] = $mzID;
         }
     }
@@ -661,6 +666,15 @@ function BeginCombatPhase($actionCard) {
     // unless they pay (1) for each attack declaration. Check both players' fields.
     $chibiActive = false;
     if(PropertyContains($cardType, "ALLY")) {
+        // Art of War (fjne9ri261): allies that entered this turn can't declare attacks
+        if(in_array("ENTERED_THIS_TURN", $obj->TurnEffects)) {
+            foreach(array_merge(GetField(1), GetField(2)) as $awObj) {
+                if(!$awObj->removed && $awObj->CardID === "fjne9ri261" && !HasNoAbilities($awObj)) {
+                    SetFlashMessage("Allies that entered this turn can't declare attacks (Art of War).");
+                    return false;
+                }
+            }
+        }
         foreach(array_merge(GetField(1), GetField(2)) as $cObj) {
             if(!$cObj->removed && $cObj->CardID === "881gacexpv" && !HasNoAbilities($cObj)) {
                 $chibiActive = true;
@@ -1418,6 +1432,13 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
         // Defender's Maul (chnppup4iz): additional cost to attack — pay (2)
         if($weaponObj !== null && $weaponObj->CardID === "chnppup4iz") {
             for($dmc = 0; $dmc < 2; ++$dmc) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+            }
+        }
+
+        // Oathbreaker's Justice (f5ooozsikp): additional cost to attack — pay (3)
+        if($weaponObj !== null && $weaponObj->CardID === "f5ooozsikp") {
+            for($ojc = 0; $ojc < 3; ++$ojc) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
             }
         }
