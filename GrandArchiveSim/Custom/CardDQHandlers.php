@@ -2338,6 +2338,7 @@ $Renewable_Cards = [
     "ywc08c9htu" => true, // Cascading Round
     "ao8bki6fxx" => true, // Steel Slug
     "hreqhj1trn" => true, // Windpiercer
+    "XgzTexcCSA" => true, // Punishing Cartridge
 ];
 
 /**
@@ -2653,6 +2654,88 @@ $customDQHandlers["LoadArrow"] = function($player, $parts, $lastDecision) {
     $arrowMZ = $parts[0];
     if($lastDecision === "-" || $lastDecision === "") return;
     LoadArrowIntoBow($player, $arrowMZ, $lastDecision);
+};
+
+// --- Undeniable Truth (UaUfw7yFTW): sacrifice ally, draw 1, add prep counter ---
+$customDQHandlers["UndeniableTruthSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DoSacrificeFighter($player, $lastDecision);
+    Draw($player, 1);
+    AddPrepCounter($player, 1);
+};
+
+// --- Shattered Hope (XOevViFTB3): Glimpse 1, Draw 1, add global sheen effect ---
+// (Handled in macro code via AddGlobalEffects)
+
+// --- Hua Xiong (TvugEkGGVd): REST + discard Polearm attack, then prevent 2 damage to target unit ---
+// (The protect prevention is handled by the macro code via AddTurnEffect)
+
+// --- Huang Zhong (XikXt8WyNp): Make Rangers distant, return self to memory ---
+$customDQHandlers["HuangZhongDistant"] = function($player, $parts, $lastDecision) {
+    // $parts[0] = mzID of Huang Zhong
+    $mzID = $parts[0];
+    global $playerID;
+    $player = GetController($mzID);
+    // Make all Ranger units on field distant
+    $rangerAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["RANGER"]);
+    foreach($rangerAllies as $rangerMZ) {
+        BecomeDistant($player, $rangerMZ);
+    }
+    // Return Huang Zhong to memory
+    MZMove($player, $mzID, "myMemory");
+};
+
+// --- Hua Xiong (TvugEkGGVd): Discard Polearm attack card ---
+$customDQHandlers["HuaXiongDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DoDiscardCard($player, $lastDecision);
+};
+
+// --- Punishing Cartridge (XgzTexcCSA): Choose discard modes ---
+function PunishingCartridgeChooseMode($player, $mzID, $modeCount) {
+    if($modeCount <= 0) return;
+    $modes = [];
+    $modes[] = "Change_target_of_attack";
+    $modes[] = "Grant_On_Champion_Hit_ability";
+    // For simplicity, use a YESNO for the first mode, then queue the second
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Choose_first_mode:_Change_attack_target?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PunishingCartridgeMode1|$mzID|$modeCount", 1);
+}
+
+$customDQHandlers["PunishingCartridgeMode1"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0];
+    $modeCount = intval($parts[1]);
+    if($lastDecision === "YES") {
+        // Apply "change target" mode if needed (happens via combat mechanics)
+    }
+    $modeCount--;
+    if($modeCount > 0) {
+        PunishingCartridgeChooseMode($player, $mzID, $modeCount);
+    }
+    // On Champion Hit granting: add global effect or TurnEffect to the weapon
+    // (Usually handled by bullet On Hit mechanics)
+};
+
+// --- Zander, Blinding Steel (UAF6Nr7GUE): Opponent puts hand card into memory (iterative) ---
+function ZanderBlindingSteelStep($player, $opponent, $remaining) {
+    if($remaining <= 0) return;
+    global $playerID;
+    $handZone = $opponent == $playerID ? "myHand" : "theirHand";
+    $hand = ZoneSearch($handZone);
+    if(empty($hand)) return;
+    $handStr = implode("&", $hand);
+    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $handStr, 1, tooltip:"Put_card_from_hand_into_memory_($remaining_remaining)");
+    DecisionQueueController::AddDecision($opponent, "CUSTOM", "ZanderBlindingSteelMemory|$remaining", 1);
+}
+
+$customDQHandlers["ZanderBlindingSteelMemory"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $memZone = (strpos($lastDecision, "my") === 0) ? "myMemory" : "theirMemory";
+    MZMove($player, $lastDecision, $memZone);
+    DecisionQueueController::CleanupRemovedCards();
+    $remaining = intval($parts[0]) - 1;
+    $opponent = $player;
+    ZanderBlindingSteelStep(-1, $opponent, $remaining); // $turnPlayer is not used here, pass dummy
 };
 
 // --- Keep of the Golden Sashes (gjhv2etytr): upkeep — banish 2 from GY or sacrifice ---

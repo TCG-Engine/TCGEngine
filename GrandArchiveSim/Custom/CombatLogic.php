@@ -529,6 +529,32 @@ $customDQHandlers["CommandChessmanAttack"] = function($player, $parts, $lastDeci
     BeginCombatPhase($lastDecision);
 };
 
+// Command Automaton: player chooses an Automaton ally to perform the attack
+$customDQHandlers["CommandAutomatonChooseAttacker"] = function($player, $parts, $lastDecision) {
+    $automatonAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["AUTOMATON"]);
+    $awakeAutomaton = [];
+    foreach($automatonAllies as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj !== null && !$obj->removed && $obj->Status == 2) {
+            $awakeAutomaton[] = $mz;
+        }
+    }
+    if(empty($awakeAutomaton)) {
+        SetFlashMessage("No awake Automaton ally to perform the attack.");
+        ClearIntent($player);
+        return;
+    }
+    $allyStr = implode("&", $awakeAutomaton);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyStr, 100, "Choose_Automaton_ally_to_attack");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CommandAutomatonAttack", 100);
+};
+
+// Command Automaton: perform the attack with the chosen ally
+$customDQHandlers["CommandAutomatonAttack"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    BeginCombatPhase($lastDecision);
+};
+
 // --- attack declaration (from field click) -------------------------------------
 
 /**
@@ -2434,6 +2460,14 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($amount <= 0) return;
             break;
         }
+    }
+
+    // Hua Xiong, Insurgent's Fang (TvugEkGGVd): prevent next 2 damage to target unit this turn
+    if(in_array("HUA_XIONG_PREVENT_2", $targetObj->TurnEffects)) {
+        $prevented = min(2, $amount);
+        $amount -= $prevented;
+        $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "HUA_XIONG_PREVENT_2"));
+        if($amount <= 0) return;
     }
 
     // Nascent Barrier (6bc3ogf0o8): prevent up to N damage to champion (encoded as NASCENT_BARRIER_N)

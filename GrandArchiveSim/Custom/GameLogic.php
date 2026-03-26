@@ -573,6 +573,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($allies)) return; // No allies to sacrifice — block activation
     }
 
+    // Undeniable Truth (UaUfw7yFTW): mandatory sacrifice of an ally as additional cost
+    if($sourceObject->CardID === "UaUfw7yFTW") {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(empty($allies)) return; // No allies to sacrifice — block activation
+    }
+
     // Turbo Charge (cnqsm3n9yv): mandatory sacrifice of a Powercell
     // Atmos Armor Type-Hermes (dlx7mdk0xh): mandatory sacrifice of a Powercell
     if($sourceObject->CardID === "cnqsm3n9yv" || $sourceObject->CardID === "dlx7mdk0xh") {
@@ -1232,6 +1238,29 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Leading Charge (WWnmb1Hjdo): [CB] costs 2 less if you control a unique Warrior ally
+    if($obj->CardID === "WWnmb1Hjdo" && IsClassBonusActive($player, CardClasses("WWnmb1Hjdo"))) {
+        global $playerID;
+        $lcZone = $player == $playerID ? "myField" : "theirField";
+        $hasUniqueWarrior = false;
+        foreach(GetZone($lcZone) as $lcObj) {
+            if(!$lcObj->removed && PropertyContains(EffectiveCardType($lcObj), "ALLY")
+                && PropertyContains(EffectiveCardType($lcObj), "UNIQUE")
+                && PropertyContains(EffectiveCardClasses($lcObj), "WARRIOR")) {
+                $hasUniqueWarrior = true;
+                break;
+            }
+        }
+        if($hasUniqueWarrior) {
+            $reserveCost = max(0, $reserveCost - 2);
+        }
+    }
+
+    // Shattered Hope (XOevViFTB3): [Merlin Bonus] costs 1 less to activate
+    if($obj->CardID === "XOevViFTB3" && IsMerlinBonusActive($player)) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
     // Flickering Afterglow (tng0Gpe9mI): [Merlin Bonus] costs 1 less per sheen counter on Fractured Memories
     if($obj->CardID === "tng0Gpe9mI" && IsMerlinBonusActive($player)) {
         $sheenDiscount = GetSheenCount($player);
@@ -1717,6 +1746,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $allyChoices = implode("&", $allies);
             DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyChoices, 100, tooltip:"Sacrifice_an_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "Decompose_Sacrifice", 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Undeniable Truth (UaUfw7yFTW): mandatory sacrifice of an ally
+    if($obj->CardID === "UaUfw7yFTW") {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($allies)) {
+            $allyChoices = implode("&", $allies);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $allyChoices, 100, tooltip:"Sacrifice_an_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "UndeniableTruthSacrifice", 100);
         }
     }
 
@@ -3464,9 +3503,13 @@ function OnCardActivated($player, $mzCard) {
 
     // After an attack card enters intent and its abilities resolve, declare the attack
     if(PropertyContains($cardType, "ATTACK")) {
-        // Command Chessman: a Chessman ally performs the attack instead of champion
+        // Command: an ally performs the attack instead of champion
         if(PropertyContains($subtypes, "COMMAND")) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "CommandChessmanChooseAttacker", 100);
+            if(PropertyContains($subtypes, "AUTOMATON")) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "CommandAutomatonChooseAttacker", 100);
+            } else {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "CommandChessmanChooseAttacker", 100);
+            }
         } else {
             DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareChampionAttack", 100);
         }
@@ -3759,6 +3802,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "hreqhj1trn": // Windpiercer
         case "3qu7d6sopo": // Incendiary Shot
         case "4x7e22tk3i": // Tasershot
+        case "XgzTexcCSA": // Punishing Cartridge
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1; // REST
             break;
@@ -3774,6 +3818,24 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "3p5iqigcom": // Spirit Shard: sacrifice self
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "TvugEkGGVd": // Hua Xiong: REST + discard a Polearm attack card
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1; // REST
+            $hxHand = GetZone("myHand");
+            $polearmCards = [];
+            for($hx = 0; $hx < count($hxHand); ++$hx) {
+                if(!$hxHand[$hx]->removed
+                    && PropertyContains(CardType($hxHand[$hx]->CardID), "ATTACK")
+                    && PropertyContains(CardSubtypes($hxHand[$hx]->CardID), "POLEARM")) {
+                    $polearmCards[] = "myHand-" . $hx;
+                }
+            }
+            if(!empty($polearmCards)) {
+                $plStr = implode("&", $polearmCards);
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", $plStr, 1, "Discard_a_Polearm_attack_card");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "HuaXiongDiscard", 1);
+            }
             break;
         case "9krp8brw64": // Keeper of the Wild: sacrifice self
             DoSacrificeFighter($player, $mzCard);
@@ -4002,7 +4064,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "0iqmyn2rz3" || $cardID === "9htu9agwj4" || $cardID === "r7ch2bbmoq"
        || $cardID === "ii17fzcyfr" || $cardID === "f8urrqtjot" || $cardID === "ywc08c9htu"
        || $cardID === "ao8bki6fxx" || $cardID === "dcgw05q66h" || $cardID === "hreqhj1trn"
-       || $cardID === "3qu7d6sopo" || $cardID === "4x7e22tk3i") {
+       || $cardID === "3qu7d6sopo" || $cardID === "4x7e22tk3i" || $cardID === "XgzTexcCSA") {
         if($sourceObject->Status != 2) return;
         if(empty(GetUnloadedGuns($player))) return;
     }
@@ -4157,6 +4219,37 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "jetWcli3ZL") {
         if($sourceObject->Status != 2) return;
         if(!IsDistant($sourceObject)) return;
+    }
+    // Hua Xiong (TvugEkGGVd): [Jin Bonus] REST + discard Polearm attack — must be awake, Jin champion, Polearm in hand
+    if($cardID === "TvugEkGGVd") {
+        if($sourceObject->Status != 2) return;
+        global $playerID;
+        $hxField = GetZone($player == $playerID ? "myField" : "theirField");
+        $isJin = false;
+        foreach($hxField as $hxObj) {
+            if(!$hxObj->removed && PropertyContains(EffectiveCardType($hxObj), "CHAMPION")) {
+                if(strpos(CardName($hxObj->CardID), "Jin") === 0) $isJin = true;
+                break;
+            }
+        }
+        if(!$isJin) return;
+        $hxHand = GetZone("myHand");
+        $hasPolearm = false;
+        foreach($hxHand as $hObj) {
+            if(!$hObj->removed && PropertyContains(CardType($hObj->CardID), "ATTACK")
+                && PropertyContains(CardSubtypes($hObj->CardID), "POLEARM")) {
+                $hasPolearm = true;
+                break;
+            }
+        }
+        if(!$hasPolearm) return;
+    }
+    // Huang Zhong (XikXt8WyNp): [CB] (3)/(1 if distant), Return to memory — needs CB + cards in hand for reserve
+    if($cardID === "XikXt8WyNp") {
+        if(!IsClassBonusActive($player, CardClasses("XikXt8WyNp"))) return;
+        $hzCost = IsDistant($sourceObject) ? 1 : 3;
+        $hand = &GetHand($player);
+        if(count($hand) < $hzCost) return;
     }
     // Wool Brook (lcCGyyNGuM): (6), REST, Remove refinement counter — must be awake + have refinement + 6 cards in hand
     if($cardID === "lcCGyyNGuM") {
@@ -5056,6 +5149,27 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Lunete, Frostbinder Priest (TqCo3xlf93): allies your opponent controls enter the field rested
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        $opponent = ($player == 1) ? 2 : 1;
+        global $playerID;
+        $oppLuneteZone = $opponent == $playerID ? "myField" : "theirField";
+        $oppField = GetZone($oppLuneteZone);
+        foreach($oppField as $lnObj) {
+            if(!$lnObj->removed && $lnObj->CardID === "TqCo3xlf93" && !HasNoAbilities($lnObj)) {
+                $added->Status = 1;
+                break;
+            }
+        }
+    }
+
+    // Shattered Hope (XOevViFTB3): allies that enter under your control get sheen counter
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        if(GlobalEffectCount($player, "SHATTERED_HOPE_SHEEN") > 0) {
+            AddCounters($player, "myField-" . (count($field) - 1), "sheen", 1);
+        }
+    }
+
     // Collapsing Trap (v2214upufo): next time allies enter the field this turn, they enter rested
     if(PropertyContains(CardType($added->CardID), "ALLY") || (PropertyContains(CardType($added->CardID), "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY"))) {
         for($ctp = 1; $ctp <= 2; ++$ctp) {
@@ -5939,6 +6053,37 @@ function RecollectionPhase() {
                     break;
                 default: break;
             }
+        }
+    }
+
+    // Magnificent Banquet (TQoTD8eGQH): if preserved in material deck, recover 1 at recollection
+    {
+        global $playerID;
+        $matDeckZone = $turnPlayer == $playerID ? "myMaterialDeck" : "theirMaterialDeck";
+        $matDeck = GetZone($matDeckZone);
+        for($mbi = 0; $mbi < count($matDeck); ++$mbi) {
+            if(!$matDeck[$mbi]->removed && $matDeck[$mbi]->CardID === "TQoTD8eGQH") {
+                RecoverChampion($turnPlayer, 1);
+                break; // Only one Magnificent Banquet trigger per recollection
+            }
+        }
+    }
+
+    // Zander, Blinding Steel (UAF6Nr7GUE): at beginning of your recollection, reveal memory,
+    // for each luxem card, opponent puts a card from hand into memory
+    if(ChampionHasInLineage($turnPlayer, "UAF6Nr7GUE")) {
+        global $playerID;
+        $memZone = $turnPlayer == $playerID ? "myMemory" : "theirMemory";
+        $mem = GetZone($memZone);
+        $luxemCount = 0;
+        foreach($mem as $mObj) {
+            if(!$mObj->removed && CardElement($mObj->CardID) === "LUXEM") {
+                $luxemCount++;
+            }
+        }
+        if($luxemCount > 0) {
+            $opponent = ($turnPlayer == 1) ? 2 : 1;
+            ZanderBlindingSteelStep($turnPlayer, $opponent, $luxemCount);
         }
     }
 
@@ -7476,6 +7621,24 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
             }
             break;
+        case "XsxmnGZxKz": // Spirit Blade: Terminus: +1 POWER per 4 sheen counters on Fractured Memories
+            {
+                $sheenCount = GetSheenCount($obj->Controller);
+                $power += intdiv($sheenCount, 4);
+            }
+            break;
+        case "Y34Imzlr0n": // Shardforged Blade: [Merlin Bonus] +2 POWER while attacking an ally with sheen counter
+            if(IsMerlinBonusActive($obj->Controller)) {
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget != "-" && $combatTarget != "") {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY")
+                        && GetCounterCount($targetObj, "sheen") > 0) {
+                        $power += 2;
+                    }
+                }
+            }
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -8086,6 +8249,35 @@ function ObjectCurrentPower($obj) {
             }
         }
     }
+    // Hua Xiong, Insurgent's Fang (TvugEkGGVd): [Jin Bonus] Polearm attacks in intent get +2 POWER
+    if(PropertyContains(EffectiveCardType($obj), "ATTACK")
+        && PropertyContains(CardSubtypes($obj->CardID), "POLEARM")) {
+        $controller = $obj->Controller ?? null;
+        if($controller !== null && $controller > 0) {
+            global $playerID;
+            $hxZone = $controller == $playerID ? "myField" : "theirField";
+            $hxField = GetZone($hxZone);
+            $hasHuaXiong = false;
+            foreach($hxField as $hxObj) {
+                if(!$hxObj->removed && $hxObj->CardID === "TvugEkGGVd" && !HasNoAbilities($hxObj)) {
+                    $hasHuaXiong = true;
+                    break;
+                }
+            }
+            if($hasHuaXiong) {
+                $isJin = false;
+                foreach($hxField as $hxCObj) {
+                    if(!$hxCObj->removed && PropertyContains(EffectiveCardType($hxCObj), "CHAMPION")) {
+                        if(strpos(CardName($hxCObj->CardID), "Jin") === 0) $isJin = true;
+                        break;
+                    }
+                }
+                if($isJin) {
+                    $power += 2;
+                }
+            }
+        }
+    }
     // Into the Fray (tu9agwj4f1): +N POWER until end of turn (N encoded in TurnEffect)
     foreach($obj->TurnEffects as $te) {
         if(strpos($te, "tu9agwj4f1-") === 0) {
@@ -8563,6 +8755,15 @@ function ObjectCurrentHP($obj) {
         case "9ggfiy38t2": // Baby Blue Slime: [Class Bonus] +1 LIFE
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
                 $cardLife += 1;
+            }
+            break;
+        case "TqCo3xlf93": // Lunete, Frostbinder Priest: [Balance] +3 LIFE
+            {
+                $memory = &GetMemory($obj->Controller);
+                $hand = &GetHand($obj->Controller);
+                if(count($memory) == count($hand)) {
+                    $cardLife += 3;
+                }
             }
             break;
         default: break;
@@ -10047,6 +10248,8 @@ $doesGlobalEffectApply["v0yuddp71s"] = function($obj) {
 $doesGlobalEffectApply["SHARDWING_SEARCHLIGHT_ONHIT"] = function($obj) {
     return PropertyContains(EffectiveCardSubtypes($obj), "MEMORITE");
 };
+// Shattered Hope (XOevViFTB3): allies enter with sheen (counter applied in FieldAfterAdd, not a field effect)
+$doesGlobalEffectApply["SHATTERED_HOPE_SHEEN"] = function($obj) { return false; };
 $doesGlobalEffectApply["v0yuddp71s-ROOK"] = function($obj) {
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
