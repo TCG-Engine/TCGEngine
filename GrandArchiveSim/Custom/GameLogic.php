@@ -9661,6 +9661,25 @@ function CardDisplayEffects($obj) {
     return implode(",", $effects);
 }
 
+function SelectionMetadataMzID($obj) {
+    global $playerID;
+    if(!isset($obj->Location) || !isset($obj->PlayerID) || !isset($obj->mzIndex)) {
+        return null;
+    }
+    $prefix = $playerID == $obj->PlayerID ? "my" : "their";
+    return $prefix . $obj->Location . "-" . $obj->mzIndex;
+}
+
+function CanActivateCardForSelection($player, $obj) {
+    if(!function_exists("CanActivateCard")) return true;
+    $mzID = SelectionMetadataMzID($obj);
+    if($mzID === null) return true;
+    $existingFlash = GetFlashMessage();
+    $canActivate = CanActivateCard($player, $mzID, false);
+    SetFlashMessage($existingFlash);
+    return $canActivate;
+}
+
 function SelectionMetadata($obj) {
     global $playerID;
     $currentPhase = GetCurrentPhase();
@@ -9673,7 +9692,8 @@ function SelectionMetadata($obj) {
     
     // Check if decision queue is empty
     $decisionQueue = &GetDecisionQueue($turnPlayer);
-    if (count($decisionQueue) > 0) {
+    $theirDecisionQueue = &GetDecisionQueue($turnPlayer == 1 ? 2 : 1);
+    if (count($decisionQueue) > 0 || count($theirDecisionQueue) > 0) {
         return json_encode(['highlight' => false]);
     }
     
@@ -9688,7 +9708,10 @@ function SelectionMetadata($obj) {
             return json_encode(['highlight' => false]);
         }
     }
-    
+    //Return red color if there's an activation restriction
+    if(!CanActivateCardForSelection($turnPlayer, $obj)) {
+        return json_encode(['color' => 'rgba(255, 64, 64, 0.95)']);
+    }
     // Return bright vibrant lime green highlight for valid selectable cards
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
 }
