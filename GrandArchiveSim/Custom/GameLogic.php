@@ -526,12 +526,6 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($weaponTargets)) return; // No valid weapon — block activation
     }
 
-    // Peaceful Reunion: can only activate if you have not declared an attack this turn
-    if($sourceObject->CardID === "wr42i6eifn" && OnAttackCallCount($player) > 0) {
-        SetFlashMessage("Peaceful Reunion can only be activated if you haven't declared an attack this turn.");
-        return;
-    }
-
     // Lurid Dreaming (ps8unuy20m): only during an opponent's end phase
     if($sourceObject->CardID === "ps8unuy20m") {
         if(GetCurrentPhase() !== "END") return;
