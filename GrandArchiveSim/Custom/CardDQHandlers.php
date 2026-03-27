@@ -3436,6 +3436,66 @@ $customDQHandlers["LoadedThoughtsMill"] = function($player, $parts, $lastDecisio
     MZMove($player, "myDeck-0", "myGraveyard");
 };
 
+$customDQHandlers["NefariousTimepieceChoose"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $timepieceMZ = DecisionQueueController::GetVariable("NefariousTimepieceMZ");
+    if(empty($timepieceMZ)) return;
+    $timepieceObj = GetZoneObject($timepieceMZ);
+    $chosenObj = GetZoneObject($lastDecision);
+    if($timepieceObj === null || $chosenObj === null) return;
+    $effects = $timepieceObj->TurnEffects ?? [];
+    $timepieceObj->TurnEffects = array_values(array_filter($effects, function($effect) {
+        return strpos($effect, "h1njd7z5j3-") !== 0;
+    }));
+    AddTurnEffect($timepieceMZ, "h1njd7z5j3-" . $chosenObj->CardID);
+};
+
+$customDQHandlers["EchoicGuardTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null) return;
+    AddTurnEffect($lastDecision, "PREVENT_ALL_2");
+    $reserveCost = intval(CardCost_reserve($targetObj->CardID) ?? 0);
+    if($reserveCost <= 0) {
+        MZAddZone($player, "myField", $targetObj->CardID);
+        return;
+    }
+    if(CountReserveSources($player) < $reserveCost) return;
+    DecisionQueueController::StoreVariable("EchoicGuardCopyCardID", $targetObj->CardID);
+    DecisionQueueController::StoreVariable("EchoicGuardCopyCost", strval($reserveCost));
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Pay_" . $reserveCost . "_to_summon_a_token_copy?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EchoicGuardPay", 1);
+};
+
+$customDQHandlers["EchoicGuardPay"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $reserveCost = intval(DecisionQueueController::GetVariable("EchoicGuardCopyCost") ?? "0");
+    for($i = 0; $i < $reserveCost; ++$i) ReserveCard($player);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EchoicGuardCopy", 105);
+};
+
+$customDQHandlers["EchoicGuardCopy"] = function($player, $parts, $lastDecision) {
+    $cardID = DecisionQueueController::GetVariable("EchoicGuardCopyCardID");
+    if(!empty($cardID)) MZAddZone($player, "myField", $cardID);
+};
+
+$customDQHandlers["ShiftingMiragePay"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        ReserveCard($player);
+        ReserveCard($player);
+        return;
+    }
+    $champMZ = DecisionQueueController::GetVariable("ShiftingMirageChampion");
+    if(!empty($champMZ)) AddTurnEffect($champMZ, "STEALTH");
+};
+
+$customDQHandlers["BlastshotPumpChoose"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $damage = intval(DecisionQueueController::GetVariable("BlastshotPumpDamage") ?? "0");
+    $source = DecisionQueueController::GetVariable("BlastshotPumpSource");
+    if($damage > 0) DealDamage($player, $source, $lastDecision, $damage);
+};
+
 /**
  * Fire whenever a floating memory card is banished from the player's graveyard.
  * If Nico (5bbae3z4py) is on that player's field and has abilities, add a lash counter.

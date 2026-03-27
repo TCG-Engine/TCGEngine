@@ -297,38 +297,8 @@ function GetValidAttackTargets($attackerMZ) {
         $interceptTargets = [];
         foreach($opponents as $mzID) {
             $obj = &GetZoneObject($mzID);
-            if(!HasNoAbilities($obj) && HasKeyword_Intercept($obj) && !in_array("NO_INTERCEPT", $obj->TurnEffects)) {
+            if(HasIntercept($obj)) {
                 $interceptTargets[] = $mzID;
-            }
-            // INTERCEPT_EOT TurnEffect: dynamically granted intercept until end of turn (e.g. Felicitous Flock tokens)
-            if(!HasNoAbilities($obj) && in_array("INTERCEPT_EOT", $obj->TurnEffects) && !in_array("NO_INTERCEPT", $obj->TurnEffects)) {
-                if(!in_array($mzID, $interceptTargets)) $interceptTargets[] = $mzID;
-            }
-            // Awakened Deacon (c9p4lpnvx7): intercept while controlling 2+ phantasias
-            if(!HasNoAbilities($obj) && $obj->CardID === "c9p4lpnvx7") {
-                global $playerID;
-                $deaconField = $obj->Controller == $playerID ? "myField" : "theirField";
-                if(count(ZoneSearch($deaconField, ["PHANTASIA"])) >= 2) {
-                    if(!in_array($mzID, $interceptTargets)) $interceptTargets[] = $mzID;
-                }
-            }
-            // Silvie, Loved by All (GKEpAulogu): Animal/Beast allies have intercept
-            if(!HasNoAbilities($obj) && PropertyContains(EffectiveCardType($obj), "ALLY")
-               && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"))
-               && !in_array("NO_INTERCEPT", $obj->TurnEffects)) {
-                global $playerID;
-                $silvieZone = $obj->Controller == $playerID ? "myField" : "theirField";
-                $silvieField = GetZone($silvieZone);
-                $silvieFound = false;
-                foreach($silvieField as $sObj) {
-                    if(!$sObj->removed && $sObj->CardID === "GKEpAulogu" && !HasNoAbilities($sObj)) {
-                        $silvieFound = true;
-                        break;
-                    }
-                }
-                if($silvieFound && !in_array($mzID, $interceptTargets)) {
-                    $interceptTargets[] = $mzID;
-                }
             }
         }
         // If any opposing unit has Intercept, only those may be targeted
@@ -1627,6 +1597,7 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
             } else {
                 // Defender can't pay — damage automatically doubled
                 ResetCombatKill();
+                DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower * 2));
                 DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
                 // Track champion combat damage for Ominous Shadow
                 if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
@@ -1637,6 +1608,7 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
         } else {
             // No critical — deal normal damage
             ResetCombatKill();
+            DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower));
             DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower);
             // Track champion combat damage for Ominous Shadow
             if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
@@ -2140,6 +2112,7 @@ $customDQHandlers["CriticalResolve"] = function($player, $parts, $lastDecision) 
         // Defender refuses: deal doubled damage
         // mzIDs are in defender's perspective; GetZoneObject will interpret them with defender's $playerID
         ResetCombatKill();
+        DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower * 2));
         DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
         // Track champion combat damage for Ominous Shadow
         $critAttacker = GetZoneObject($attackerMZ);
@@ -2163,6 +2136,7 @@ $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecisio
     $attackerPlayer = ($player == 1) ? 2 : 1;
     // Keep mzIDs in defender's perspective; GetZoneObject interprets them with defender's $playerID
     ResetCombatKill();
+    DecisionQueueController::StoreVariable("CombatDamageAmount", strval($amount));
     DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
     // Track champion combat damage for Ominous Shadow
     $finishAttacker = GetZoneObject($attackerMZ);

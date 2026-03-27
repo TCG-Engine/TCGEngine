@@ -1188,8 +1188,23 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 1);
     }
 
+    // Echoic Guard (gn1b2sbrq9): [Class Bonus] costs 1 less to activate
+    if($obj->CardID === "gn1b2sbrq9" && IsClassBonusActive($player, ["GUARDIAN"])) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
     // Sidestep (voy5ttkk39): [Level 2+] costs 1 less
     if($obj->CardID === "voy5ttkk39" && PlayerLevel($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
+    // Shifting Mirage (hmjr33ijq6): [Class Bonus] costs 1 less to activate
+    if($obj->CardID === "hmjr33ijq6" && IsClassBonusActive($player, ["ASSASSIN"])) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
+    // Slimeshield (hcpetipurz): [Class Bonus][Level 2+] costs 1 less to activate
+    if($obj->CardID === "hcpetipurz" && IsClassBonusActive($player, ["TAMER"]) && PlayerLevel($player) >= 2) {
         $reserveCost = max(0, $reserveCost - 1);
     }
 
@@ -8509,6 +8524,9 @@ function ObjectCurrentLevel($obj) {
             case "xllhbjr20n": // Lu Xun, Pyre Strategist: Empower 3 (+3 level until end of turn)
                 $cardLevel += 3;
                 break;
+            case "gyk90s0hst": // Gossamer Staff: Empower 1
+                $cardLevel += 1;
+                break;
             case "PLljzdiMmq": // Invoke Dominance: +3 level until end of turn
                 $cardLevel += 3;
                 break;
@@ -8967,6 +8985,9 @@ function ObjectCurrentHP($obj) {
                 $cardLife += 1;
                 break;
             case "c8ljyevpmu": // Alliance Gearshield: linked ally gets +1 LIFE
+                $cardLife += 1;
+                break;
+            case "i1j4gvwbjo": // Protector's Plate: linked ally gets +1 LIFE
                 $cardLife += 1;
                 break;
             case "t3q2svd53z": // Aqueous Armor: [Class Bonus] linked ally gets +2 LIFE
@@ -10499,6 +10520,10 @@ $doesGlobalEffectApply["zmoegdo111"] = function($obj) { // Sempiternal Sage Empo
 };
 
 $doesGlobalEffectApply["xllhbjr20n"] = function($obj) { // Lu Xun, Pyre Strategist Empower 3: champion +3 level
+    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
+};
+
+$doesGlobalEffectApply["gyk90s0hst"] = function($obj) { // Gossamer Staff: champion +1 level
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
@@ -12209,6 +12234,30 @@ function IsSiegeable($obj) {
     return PropertyContains(CardSubtypes($obj->CardID), "SIEGEABLE");
 }
 
+function HasIntercept($obj) {
+    if($obj === null || HasNoAbilities($obj)) return false;
+    if(in_array("NO_INTERCEPT", $obj->TurnEffects ?? [])) return false;
+    if(HasKeyword_Intercept($obj)) return true;
+    if(in_array("INTERCEPT_EOT", $obj->TurnEffects ?? [])) return true;
+    if($obj->CardID === "c9p4lpnvx7") {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        if(count(ZoneSearch($zone, ["PHANTASIA"])) >= 2) return true;
+    }
+    if(PropertyContains(EffectiveCardType($obj), "ALLY")
+       && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"))) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        foreach(GetZone($zone) as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "GKEpAulogu" && !HasNoAbilities($fObj)) return true;
+        }
+    }
+    foreach(GetLinkedCards($obj) as $linkedObj) {
+        if($linkedObj->CardID === "i1j4gvwbjo") return true;
+    }
+    return false;
+}
+
 function HasTrueSight($obj) {
     if(HasNoAbilities($obj)) return false;
     if(HasKeyword_TrueSight($obj)) return true;
@@ -13035,7 +13084,81 @@ function CardMemoryCost($obj) {
             break;
         }
     }
+    // Nefarious Timepiece (h1njd7z5j3): chosen regalia costs 1 more to play/materialize
+    if(PropertyContains(CardType($obj->CardID), "REGALIA")) {
+        foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "h1njd7z5j3" || HasNoAbilities($fieldObj)) continue;
+            foreach($fieldObj->TurnEffects ?? [] as $effect) {
+                if(strpos($effect, "h1njd7z5j3-") !== 0) continue;
+                if($obj->CardID === substr($effect, strlen("h1njd7z5j3-"))) {
+                    $cost += 1;
+                    break 2;
+                }
+            }
+        }
+    }
     return $cost;
+}
+
+function NefariousTimepieceEnter($player, $timepieceMZ) {
+    $choices = [];
+    $seen = [];
+    foreach(["myMaterial", "myBanish", "myGraveyard", "myField"] as $zoneName) {
+        foreach(ZoneSearch($zoneName, ["REGALIA"]) as $mz) {
+            $obj = GetZoneObject($mz);
+            if($obj === null || isset($seen[$obj->CardID])) continue;
+            $seen[$obj->CardID] = true;
+            $choices[] = $mz;
+        }
+    }
+    if(empty($choices)) return;
+    DecisionQueueController::StoreVariable("NefariousTimepieceMZ", $timepieceMZ);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, tooltip:"Choose_a_regalia_card_name");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "NefariousTimepieceChoose", 1);
+}
+
+function EchoicGuardResolve($player) {
+    $allies = FilterSpellshroudTargets(ZoneSearch("myField", ["ALLY"]));
+    if(empty($allies)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 1, tooltip:"Choose_target_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EchoicGuardTarget", 1);
+}
+
+function ShiftingMirageResolve($player) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) {
+        $opponent = ($player == 1) ? 2 : 1;
+        if(count(GetHand($opponent)) >= 2) {
+            DecisionQueueController::StoreVariable("ShiftingMirageChampion", $champMZ);
+            DecisionQueueController::AddDecision($opponent, "YESNO", "-", 1, tooltip:"Pay_2_to_prevent_stealth?");
+            DecisionQueueController::AddDecision($opponent, "CUSTOM", "ShiftingMiragePay", 1);
+        } else {
+            AddTurnEffect($champMZ, "STEALTH");
+        }
+    }
+    if(IsTristanBonus($player)) MZAddZone($player, "myField", "gveirpdm44");
+}
+
+function BlastshotPumpOnHit($player) {
+    $weaponMZ = GetCombatWeapon();
+    $weaponObj = ($weaponMZ !== null && $weaponMZ !== "-") ? GetZoneObject($weaponMZ) : null;
+    if($weaponObj === null || $weaponObj->CardID !== "gmnmp5af09" || HasNoAbilities($weaponObj)) return;
+    if(!IsClassBonusActive($player, ["RANGER"])) return;
+    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+    $targetObj = $combatTarget ? GetZoneObject($combatTarget) : null;
+    if($targetObj === null) return;
+    $targetType = EffectiveCardType($targetObj);
+    if(!PropertyContains($targetType, "ALLY") && !PropertyContains($targetType, "CHAMPION")) return;
+    $targets = [];
+    foreach(FilterSpellshroudTargets(ZoneSearch("theirField", ["ALLY", "CHAMPION"])) as $mz) {
+        if($mz !== $combatTarget) $targets[] = $mz;
+    }
+    $damage = intval(DecisionQueueController::GetVariable("CombatDamageAmount") ?? "0");
+    if($damage <= 0 || empty($targets)) return;
+    DecisionQueueController::StoreVariable("BlastshotPumpDamage", strval($damage));
+    DecisionQueueController::StoreVariable("BlastshotPumpSource", $weaponMZ);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_additional_unit_for_Blastshot_Pump");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "BlastshotPumpChoose", 1);
 }
 
 function IsHarmonizeActive($player) {
