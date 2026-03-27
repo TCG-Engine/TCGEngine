@@ -12,6 +12,22 @@ const ENGINE_ROOT = path.resolve(__dirname, "..", "..");
 
 const execFileAsync = promisify(execFile);
 
+let prereqColumnChecked = false;
+
+async function ensurePrereqColumn(connOrPool: any): Promise<void> {
+  if (prereqColumnChecked) return;
+
+  const [rows] = await connOrPool.query(
+    "SHOW COLUMNS FROM card_abilities LIKE 'prereq_code'"
+  );
+  if (Array.isArray(rows) && rows.length === 0) {
+    await connOrPool.query(
+      "ALTER TABLE card_abilities ADD COLUMN prereq_code LONGTEXT NULL AFTER ability_code"
+    );
+  }
+  prereqColumnChecked = true;
+}
+
 function logToStderr(message: string): void {
   process.stderr.write(`${message}\n`);
 }
@@ -248,13 +264,15 @@ export async function getCardAbilities(
     id: number;
     macroName: string;
     abilityCode: string;
+    prereqCode: string | null;
     abilityName: string | null;
     isImplemented: boolean;
   }[];
 }> {
   const pool = getPool();
+  await ensurePrereqColumn(pool);
   const [rows] = await pool.query<mysql.RowDataPacket[]>(
-    `SELECT id, macro_name, ability_code, ability_name, is_implemented
+    `SELECT id, macro_name, ability_code, prereq_code, ability_name, is_implemented
      FROM card_abilities
      WHERE root_name = ? AND card_id = ?
      ORDER BY created_at ASC`,
@@ -268,6 +286,7 @@ export async function getCardAbilities(
       id: r.id,
       macroName: r.macro_name,
       abilityCode: r.ability_code,
+      prereqCode: r.prereq_code,
       abilityName: r.ability_name,
       isImplemented: Boolean(r.is_implemented),
     })),
@@ -281,6 +300,7 @@ export interface SaveAbilityInput {
   id?: number | null;
   macroName: string;
   abilityCode: string;
+  prereqCode?: string | null;
   abilityName?: string | null;
   isImplemented?: boolean;
 }
@@ -301,9 +321,11 @@ export async function saveCardAbilities(
 }> {
   const { root, cardId, abilities, cardImplemented = false } = params;
   const pool = getPool();
+  await ensurePrereqColumn(pool);
   const conn = await pool.getConnection();
 
   try {
+    await ensurePrereqColumn(conn);
     await conn.beginTransaction();
 
     // Get existing abilities
@@ -326,22 +348,23 @@ export async function saveCardAbilities(
 
       const isImpl = ability.isImplemented ? 1 : 0;
       const abilityName = ability.abilityName ?? null;
+      const prereqCode = ability.prereqCode ?? null;
 
       if (ability.id) {
         // Update existing
         await conn.query(
           `UPDATE card_abilities
-           SET macro_name = ?, ability_code = ?, ability_name = ?, is_implemented = ?
+           SET macro_name = ?, ability_code = ?, prereq_code = ?, ability_name = ?, is_implemented = ?
            WHERE id = ? AND root_name = ? AND card_id = ?`,
-          [ability.macroName, ability.abilityCode, abilityName, isImpl, ability.id, root, cardId]
+          [ability.macroName, ability.abilityCode, prereqCode, abilityName, isImpl, ability.id, root, cardId]
         );
         savedIds.add(ability.id);
       } else {
         // Insert new
         const [result] = await conn.query<mysql.ResultSetHeader>(
-          `INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, ability_name, is_implemented)
-           VALUES (?, ?, ?, ?, ?, ?)`,
-          [root, cardId, ability.macroName, ability.abilityCode, abilityName, isImpl]
+          `INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, prereq_code, ability_name, is_implemented)
+           VALUES (?, ?, ?, ?, ?, ?, ?)`,
+          [root, cardId, ability.macroName, ability.abilityCode, prereqCode, abilityName, isImpl]
         );
         savedIds.add(result.insertId);
       }
@@ -351,8 +374,8 @@ export async function saveCardAbilities(
     // If card is marked as implemented but has no abilities, create a marker
     if (cardImplemented && abilities.length === 0) {
       const [result] = await conn.query<mysql.ResultSetHeader>(
-        `INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, ability_name, is_implemented)
-         VALUES (?, ?, '', '', '[Card Implemented]', 1)`,
+        `INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, prereq_code, ability_name, is_implemented)
+         VALUES (?, ?, '', '', NULL, '[Card Implemented]', 1)`,
         [root, cardId]
       );
       savedIds.add(result.insertId);
@@ -637,7 +660,14 @@ export function getZoneSchema(root: string): {
     click?: string;
     afterAdd?: string;
   }[];
-  macros: { name: string; params: string[]; choiceFunction?: string }[];
+  macros: {
+    name: string;
+    params: string[];
+    choiceFunction?: string;
+    prereqFunction?: string;
+    sourceParam?: string;
+    selectedIndexParam?: string;
+  }[];
 } {
   const schemaPath = path.join(ENGINE_ROOT, "Schemas", root, "GameSchema.txt");
   if (!fs.existsSync(schemaPath)) return { root, zones: [], macros: [] };
@@ -657,12 +687,18 @@ export function getZoneSchema(root: string): {
     if (trimmed.startsWith("Macro:")) {
       const nameMatch = trimmed.match(/Name=(\w+)(?:\(([^)]*)\))?/);
       const choiceMatch = trimmed.match(/ChoiceFunction=(\w+)/);
+      const prereqMatch = trimmed.match(/PrereqFunction=(\w+)/);
+      const sourceParamMatch = trimmed.match(/SourceParam=(\w+)/);
+      const selectedIndexMatch = trimmed.match(/SelectedIndexParam=(\w+)/);
       if (nameMatch) {
         const params = nameMatch[2] ? nameMatch[2].split(",").map(p => p.trim()) : [];
         macros.push({
           name: nameMatch[1],
           params,
           choiceFunction: choiceMatch ? choiceMatch[1] : undefined,
+          prereqFunction: prereqMatch ? prereqMatch[1] : undefined,
+          sourceParam: sourceParamMatch ? sourceParamMatch[1] : undefined,
+          selectedIndexParam: selectedIndexMatch ? selectedIndexMatch[1] : undefined,
         });
       }
       continue;

@@ -158,7 +158,7 @@ while(!feof($handler)) {
         for($i=0; $i<count($macroArr); ++$i) {
           $macroArr[$i] = trim($macroArr[$i]);
           if($macroArr[$i] == "") continue;
-          $parameterArr = explode("=", $macroArr[$i]);
+          $parameterArr = explode("=", $macroArr[$i], 2);
           $varName = ucwords($parameterArr[0]);
           $macro->$varName = $parameterArr[1];
           if ($varName == 'Name') {
@@ -887,6 +887,13 @@ for($i=0; $i<count($macros); ++$i) {
       foreach ($macro->Parameters as $param) {
         fwrite($handler, "  DecisionQueueController::StoreVariable(\"" . $param . "\", \$" . $param . ");\r\n");
       }
+      if(isset($macro->SourceParam) && in_array($macro->SourceParam, $macro->Parameters)) {
+        fwrite($handler, "  // Store the source card ID when a prerequisite helper needs card-scoped lookup\r\n");
+        fwrite($handler, "  \$_sourceObj = GetZoneObject(\$" . $macro->SourceParam . ");\r\n");
+        fwrite($handler, "  if (\$_sourceObj !== null && isset(\$_sourceObj->CardID)) {\r\n");
+        fwrite($handler, "    DecisionQueueController::StoreVariable(\"" . $macro->SourceParam . "CardID\", \$_sourceObj->CardID);\r\n");
+        fwrite($handler, "  }\r\n");
+      }
       // If mzID is a parameter, look up the card ID and increment the turn index
       if (in_array('mzID', $macro->Parameters)) {
         fwrite($handler, "  // Track this macro invocation in the persistent turn index (keyed by card ID)\r\n");
@@ -900,6 +907,13 @@ for($i=0; $i<count($macros); ++$i) {
       }
     } else {
       $cfArgs = '$player';
+    }
+    if(isset($macro->PrereqFunction)) {
+      $prereqArgs = '$player';
+      if (!empty($macro->Parameters)) {
+        $prereqArgs .= ', ' . implode(', ', array_map(fn($p) => '$' . $p, $macro->Parameters));
+      }
+      fwrite($handler, "  if(function_exists(\"" . $macro->PrereqFunction . "\") && !" . $macro->PrereqFunction . "(" . $prereqArgs . ")) return null;\r\n");
     }
     fwrite($handler, "  \$result = " . $cfName . "(" . $cfArgs . ");\r\n");
     fwrite($handler, "  global \$systemDQHandlers;\r\n");
@@ -2764,7 +2778,19 @@ function GenerateMacroCode() {
                 $params[] = trim($param);
               }
             }
-            $macrosByName[$macroName] = $params;
+            $meta = [
+              'params' => $params,
+            ];
+            if (preg_match('/PrereqFunction=(\w+)/', $line, $prereqMatches)) {
+              $meta['prereqFunction'] = trim($prereqMatches[1]);
+            }
+            if (preg_match('/SourceParam=(\w+)/', $line, $sourceMatches)) {
+              $meta['sourceParam'] = trim($sourceMatches[1]);
+            }
+            if (preg_match('/SelectedIndexParam=(\w+)/', $line, $indexMatches)) {
+              $meta['selectedIndexParam'] = trim($indexMatches[1]);
+            }
+            $macrosByName[$macroName] = $meta;
           }
         }
       }
@@ -2772,7 +2798,7 @@ function GenerateMacroCode() {
 
     // Group abilities by macro name
     $abilitiesByMacro = [];
-    foreach ($macrosByName as $macroName => $params) {
+    foreach ($macrosByName as $macroName => $meta) {
       $abilities = $cardAbilityDB->getAbilitiesByMacro($rootName, $macroName);
       if (count($abilities) > 0) {
         $abilitiesByMacro[$macroName] = $abilities;
@@ -2792,9 +2818,11 @@ function GenerateMacroCode() {
       foreach ($abilitiesByMacro as $macroName => $abilities) {
         // Convert macro name to valid variable name (e.g., "card-play" -> "cardPlayAbilities")
         $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
+        $prereqVarName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
 
         // Get the macro parameters from the schema
-        $macroParams = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : [];
+        $macroMeta = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : ['params' => []];
+        $macroParams = $macroMeta['params'] ?? [];
 
         // Reset per-macro so each macro's first ability is :0 (abilities arrays are looked up as cardID:0)
         $abilityIndexByCard = [];
@@ -2802,6 +2830,7 @@ function GenerateMacroCode() {
         foreach ($abilities as $ability) {
           $cardId = $ability['card_id'];
           $code = $ability['ability_code'];
+          $prereqCode = $ability['prereq_code'] ?? '';
           $name = $ability['ability_name'] ?? $cardId;
 
           // Track ability index for this card
@@ -2827,6 +2856,15 @@ function GenerateMacroCode() {
           fwrite($handler, "\$" . $varName . "[\"" . $abilityKey . "\"] = function(\$player) { //" . $name . "\r\n");
           fwrite($handler, "  " . str_replace("\n", "\n  ", trim($transformedCode)) . "\r\n");
           fwrite($handler, "};\r\n");
+          if(trim($prereqCode) !== '') {
+            $prereqSignature = '$player';
+            if (!empty($macroParams)) {
+              $prereqSignature .= ', $' . implode(', $', $macroParams);
+            }
+            fwrite($handler, "\$" . $prereqVarName . "[\"" . $abilityKey . "\"] = function(" . $prereqSignature . ") { //" . $name . " prereq\r\n");
+            fwrite($handler, "  " . str_replace("\n", "\n  ", trim($prereqCode)) . "\r\n");
+            fwrite($handler, "};\r\n");
+          }
         }
 
         fwrite($handler, "\r\n");
@@ -2850,6 +2888,8 @@ function GenerateMacroCode() {
 
       foreach ($abilitiesByMacro as $macroName => $abilities) {
         // Generate PHP function
+        $macroMeta = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : ['params' => []];
+        $macroParams = $macroMeta['params'] ?? [];
         $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
         $varName = "\$" . $functionName . "Data";
 
@@ -2914,6 +2954,49 @@ function GenerateMacroCode() {
         fwrite($handler, "  }\r\n");
         fwrite($handler, "  return \$names;\r\n");
         fwrite($handler, "}\r\n\r\n");
+
+        if (!empty($macroMeta['prereqFunction'])) {
+          $prereqVarName = "\$" . lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
+          $prereqFunction = $macroMeta['prereqFunction'];
+          $sourceParam = $macroMeta['sourceParam'] ?? null;
+          $selectedIndexParam = $macroMeta['selectedIndexParam'] ?? null;
+          $signatureParams = ['$player'];
+          foreach ($macroParams as $param) {
+            $signatureParams[] = '$' . $param;
+          }
+          fwrite($handler, "function " . $prereqFunction . "(" . implode(", ", $signatureParams) . ") {\r\n");
+          fwrite($handler, "  global " . $prereqVarName . ";\r\n");
+          if ($sourceParam !== null) {
+            fwrite($handler, "  \$_sourceObj = GetZoneObject(\$" . $sourceParam . ");\r\n");
+            fwrite($handler, "  if (\$_sourceObj === null || !isset(\$_sourceObj->CardID)) return false;\r\n");
+            fwrite($handler, "  \$_sourceCardID = \$_sourceObj->CardID;\r\n");
+          } else {
+            fwrite($handler, "  return true;\r\n");
+          }
+          if ($selectedIndexParam !== null) {
+            fwrite($handler, "  \$_abilityKey = \$_sourceCardID . \":\" . intval(\$" . $selectedIndexParam . ");\r\n");
+            fwrite($handler, "  if (!isset(" . $prereqVarName . "[\$_abilityKey])) return true;\r\n");
+            $invokeArgs = ['$player'];
+            foreach ($macroParams as $param) {
+              $invokeArgs[] = '$' . $param;
+            }
+            fwrite($handler, "  return " . $prereqVarName . "[\$_abilityKey](" . implode(", ", $invokeArgs) . ");\r\n");
+          } else {
+            fwrite($handler, "  \$count = " . $functionName . "(\$_sourceCardID);\r\n");
+            fwrite($handler, "  if (\$count <= 0) return true;\r\n");
+            fwrite($handler, "  for (\$i = 0; \$i < \$count; ++\$i) {\r\n");
+            fwrite($handler, "    \$_abilityKey = \$_sourceCardID . \":\" . \$i;\r\n");
+            fwrite($handler, "    if (!isset(" . $prereqVarName . "[\$_abilityKey])) return true;\r\n");
+            $invokeArgs = ['$player'];
+            foreach ($macroParams as $param) {
+              $invokeArgs[] = '$' . $param;
+            }
+            fwrite($handler, "    if (" . $prereqVarName . "[\$_abilityKey](" . implode(", ", $invokeArgs) . ")) return true;\r\n");
+            fwrite($handler, "  }\r\n");
+            fwrite($handler, "  return false;\r\n");
+          }
+          fwrite($handler, "}\r\n\r\n");
+        }
       }
 
     } else {

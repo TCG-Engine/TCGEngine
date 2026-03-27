@@ -4237,8 +4237,6 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($cardID === "9agwj4f15j") {
         if(!IsClassBonusActive($player, explode(",", CardClasses("9agwj4f15j"))) || count(ZoneSearch("myField", ["PHANTASIA"])) < 3) return;
     }
-    // Resplendent Kite Shield (a5uhjxhkur): needs refinement counter
-    if($cardID === "a5uhjxhkur" && GetCounterCount($sourceObject, "refinement") < 1) return;
     // Confidant's Oath (nlufjh84vm): REST + remove 2 refinement — must be awake + 2+ refinement
     if($cardID === "nlufjh84vm") {
         if($sourceObject->Status != 2) return;

@@ -14,7 +14,7 @@ Macro: Name=ActivateCard(mzID,ignoreCost); ChoiceFunction=DoActivateCard; Action
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=AllyDestroyed(mzID); ChoiceFunction=DoAllyDestroyed; Action={}
 Macro: Name=LeaveField(mzID); ChoiceFunction=OnLeaveField; Action={}
-Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; Action={}
+Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=Materialize(mzID); ChoiceFunction=DoMaterialize; Action={}
 Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}

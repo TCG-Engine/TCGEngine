@@ -97,7 +97,7 @@ server.tool(
 // ---------------------------------------------------------------------------
 server.tool(
   "get_card_abilities",
-  "Read all abilities (macro implementations / code) currently saved for a specific card. Returns the macro name, PHP code body, optional ability name, and implementation status for each ability on the card.",
+  "Read all abilities (macro implementations / code) currently saved for a specific card. Returns the macro name, PHP code body, optional prerequisite code, optional ability name, and implementation status for each ability on the card.",
   {
     root: z.string().describe("The root/game name"),
     cardId: z.string().describe("The card ID to load abilities for"),
@@ -128,6 +128,7 @@ server.tool(
           id: z.number().nullable().optional().describe("Existing ability ID (from get_card_abilities) to update. Omit or null for new abilities."),
           macroName: z.string().describe("The macro this ability hooks into (e.g. 'Enter', 'PlayCard')"),
           abilityCode: z.string().describe("The PHP code body for this ability"),
+          prereqCode: z.string().nullable().optional().describe("Optional PHP code body that returns whether this macro ability can run in the current context."),
           abilityName: z.string().nullable().optional().describe("Optional human-readable name for this ability"),
           isImplemented: z.boolean().optional().describe("Whether this ability is considered implemented (default: false)"),
         })

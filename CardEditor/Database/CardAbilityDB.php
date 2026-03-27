@@ -8,14 +8,27 @@ class CardAbilityDB {
     public function __construct($conn) {
         $this->conn = $conn;
     }
+
+    private function ensurePrereqColumn() {
+        static $checked = false;
+        if ($checked) return;
+
+        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'prereq_code'");
+        if ($result && mysqli_num_rows($result) === 0) {
+            mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN prereq_code LONGTEXT NULL AFTER ability_code");
+        }
+        if ($result) mysqli_free_result($result);
+        $checked = true;
+    }
     
     /**
      * Load all abilities for a specific card
      */
     public function loadCardAbilities($rootName, $cardId) {
         try {
+            $this->ensurePrereqColumn();
             $stmt = mysqli_prepare($this->conn, "
-                SELECT id, macro_name, ability_code, ability_name, is_implemented, created_at, updated_at
+                SELECT id, macro_name, ability_code, prereq_code, ability_name, is_implemented, created_at, updated_at
                 FROM card_abilities
                 WHERE root_name = ? AND card_id = ?
                 ORDER BY created_at ASC
@@ -39,15 +52,16 @@ class CardAbilityDB {
      * Save a single ability (insert or update)
      * If $id is null, creates new record. Otherwise updates existing.
      */
-    public function saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $abilityName = null, $isImplemented = 0) {
+    public function saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $prereqCode = null, $abilityName = null, $isImplemented = 0) {
         try {
+            $this->ensurePrereqColumn();
             if ($id === null) {
                 // Insert new
                 $stmt = mysqli_prepare($this->conn, "
-                    INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, ability_name, is_implemented)
-                    VALUES (?, ?, ?, ?, ?, ?)
+                    INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, prereq_code, ability_name, is_implemented)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)
                 ");
-                mysqli_stmt_bind_param($stmt, "sssssi", $rootName, $cardId, $macroName, $abilityCode, $abilityName, $isImplemented);
+                mysqli_stmt_bind_param($stmt, "ssssssi", $rootName, $cardId, $macroName, $abilityCode, $prereqCode, $abilityName, $isImplemented);
                 if (mysqli_stmt_execute($stmt)) {
                     $newId = mysqli_insert_id($this->conn);
                     mysqli_stmt_close($stmt);
@@ -59,10 +73,10 @@ class CardAbilityDB {
                 // Update existing
                 $stmt = mysqli_prepare($this->conn, "
                     UPDATE card_abilities
-                    SET macro_name = ?, ability_code = ?, ability_name = ?, is_implemented = ?
+                    SET macro_name = ?, ability_code = ?, prereq_code = ?, ability_name = ?, is_implemented = ?
                     WHERE id = ? AND root_name = ? AND card_id = ?
                 ");
-                mysqli_stmt_bind_param($stmt, "ssssiss", $macroName, $abilityCode, $abilityName, $isImplemented, $id, $rootName, $cardId);
+                mysqli_stmt_bind_param($stmt, "ssssiiss", $macroName, $abilityCode, $prereqCode, $abilityName, $isImplemented, $id, $rootName, $cardId);
                 $result = mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
                 return $result ? $id : false;
@@ -98,8 +112,9 @@ class CardAbilityDB {
      */
     public function getAbilitiesByMacro($rootName, $macroName) {
         try {
+            $this->ensurePrereqColumn();
             $stmt = mysqli_prepare($this->conn, "
-                SELECT card_id, ability_code, ability_name
+                SELECT card_id, ability_code, prereq_code, ability_name
                 FROM card_abilities
                 WHERE root_name = ? AND macro_name = ?
                 ORDER BY card_id ASC

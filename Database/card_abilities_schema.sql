@@ -8,6 +8,7 @@ CREATE TABLE `card_abilities` (
   `card_id` varchar(32) NOT NULL COMMENT 'Card identifier (e.g., OGN-004)',
   `macro_name` varchar(128) NOT NULL COMMENT 'Name of the macro this ability implements',
   `ability_code` longtext NOT NULL COMMENT 'PHP/code body for the ability implementation',
+  `prereq_code` longtext NULL COMMENT 'Optional PHP/code body returning whether this macro ability can run',
   `ability_name` varchar(128) NULL COMMENT 'Optional human-readable name for the ability',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),

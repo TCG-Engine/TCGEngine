@@ -13,6 +13,7 @@ class AbilityEditor {
             id: a.id || null,
             macroName: a.macro_name,
             abilityCode: a.ability_code,
+            prereqCode: a.prereq_code || '',
             abilityName: a.ability_name,
             isImplemented: a.is_implemented ? true : false
         }));
@@ -136,6 +137,16 @@ class AbilityEditor {
                     placeholder="// Enter the function body for this ability&#10;// Available parameters will depend on the macro"
                     onchange="window.abilityEditor.updateAbility(${index}, 'abilityCode', this.value)"
                 >${ability.abilityCode || ''}</textarea>
+
+                <label style="font-size: 12px; color: #858585; text-transform: uppercase; font-weight: 600; margin-top: 12px; display: block;">
+                    Prerequisite Code (Optional)
+                </label>
+                <textarea 
+                    class="code-editor"
+                    style="height: 110px;"
+                    placeholder="// Return true to allow the macro ability to run&#10;// Return false to block it"
+                    onchange="window.abilityEditor.updateAbility(${index}, 'prereqCode', this.value)"
+                >${ability.prereqCode || ''}</textarea>
             </div>
         `;
     }
@@ -155,6 +166,7 @@ class AbilityEditor {
             id: null,
             macroName: '',
             abilityCode: '',
+            prereqCode: '',
             abilityName: '',
             isImplemented: false
         });
@@ -217,6 +229,7 @@ class AbilityEditor {
                     id: a.id,
                     macroName: a.macro_name,
                     abilityCode: a.ability_code,
+                    prereqCode: a.prereq_code || '',
                     abilityName: a.ability_name,
                     isImplemented: a.is_implemented ? true : false
                 }));

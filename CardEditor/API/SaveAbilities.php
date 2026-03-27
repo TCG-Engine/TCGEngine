@@ -54,6 +54,7 @@ try {
             $id = $ability['id'] ?? null;
             $macroName = $ability['macroName'] ?? null;
             $abilityCode = $ability['abilityCode'] ?? null;
+            $prereqCode = $ability['prereqCode'] ?? null;
             $abilityName = $ability['abilityName'] ?? null;
             $isImplemented = $ability['isImplemented'] ?? 0;
             
@@ -61,7 +62,7 @@ try {
                 throw new Exception("Ability missing macroName or abilityCode");
             }
             
-            $savedId = $db->saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $abilityName, $isImplemented);
+            $savedId = $db->saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $prereqCode, $abilityName, $isImplemented);
             if (!$savedId) {
                 throw new Exception("Failed to save ability");
             }
@@ -73,7 +74,7 @@ try {
         // If card is marked as implemented but has no abilities, create a marker ability
         if ($cardImplemented && count($abilities) === 0) {
             // Create a marker ability to indicate card is implemented (no macro, no code, just the flag)
-            $markerId = $db->saveAbility(null, $rootName, $cardId, '', '', '[Card Implemented]', 1);
+            $markerId = $db->saveAbility(null, $rootName, $cardId, '', '', null, '[Card Implemented]', 1);
             if ($markerId) {
                 $savedIds[] = $markerId;
             }
