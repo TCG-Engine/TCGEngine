@@ -899,6 +899,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 1);
     }
 
+    // Gloamspire Prowler (igpck2z4rs): costs 3 less with 2+ Curse cards in lineage
+    if($obj->CardID === "igpck2z4rs" && CountCursesInLineage($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 3);
+    }
+
     // Echoic Guard (gn1b2sbrq9): [Class Bonus] costs 1 less to activate
     if($obj->CardID === "gn1b2sbrq9" && IsClassBonusActive($player, ["GUARDIAN"])) {
         $reserveCost = max(0, $reserveCost - 1);
@@ -6760,7 +6765,7 @@ function ObjectCurrentPower($obj) {
                     && $combatTarget !== null && $combatTarget !== "-" && $combatTarget !== ""
                     && $obj->GetMzID() === $combatAttacker) {
                     $targetObj = GetZoneObject($combatTarget);
-                    if($targetObj !== null && CardLife($targetObj->CardID) % 2 === 0) {
+                    if($targetObj !== null && ObjectCurrentHP($targetObj) % 2 === 0) {
                         $power += 1;
                     }
                 }
@@ -8676,6 +8681,7 @@ function ObjectCurrentHP($obj) {
             if($lineageCardID === "oqk2c7wklz" // Shadecursed Hunter
             || $lineageCardID === "vdxi74wa4x" // Violet Haze
             || $lineageCardID === "6g7xgwve1d" // Demon's Aim
+            || $lineageCardID === "igpck2z4rs" // Gloamspire Prowler
             ) {
                 $cardLife -= 2;
             }
@@ -10385,6 +10391,7 @@ $doesGlobalEffectApply["FORETOLD_BLOOM"] = function($obj) { return false; };
 
 // Agility N: flag only — triggered ability at beginning of end phase, returns N cards from memory
 $doesGlobalEffectApply["AGILITY_3"] = function($obj) { return false; };
+$doesGlobalEffectApply["isxy5lh23q"] = function($obj) { return false; }; // Flash Grenade: prevention handled in CombatLogic
 
 // Collapsing Trap (v2214upufo): flag only — next allies enter rested, handled in FieldAfterAdd
 $doesGlobalEffectApply["COLLAPSING_TRAP"] = function($obj) { return false; };
@@ -11117,6 +11124,154 @@ function IsMerlinBonusActive($player) {
 function SummonMemorite($player, $cardID) {
     MZAddZone($player, "myField", $cardID);
 }
+
+function ApplyCrystallineRealityMode($player, $mode) {
+    switch($mode) {
+        case 0:
+            SummonMemorite($player, "nZFkDcvpaY");
+            break;
+        case 1:
+            $champMZ = FindChampionMZ($player);
+            if($champMZ !== null) {
+                AddTurnEffect($champMZ, "TRUE_SIGHT");
+            }
+            break;
+        case 2:
+            DrawIntoMemory($player, 1);
+            break;
+    }
+}
+
+function CrystallineRealityAskMode($player, $mode) {
+    $chosen = intval(DecisionQueueController::GetVariable("CrystallineRealityChosen"));
+    $needed = intval(DecisionQueueController::GetVariable("CrystallineRealityNeeded"));
+    if($chosen >= $needed || $mode >= 3) return;
+
+    $remainingModes = 3 - $mode;
+    if($chosen + $remainingModes <= $needed) {
+        for($applyMode = $mode; $applyMode < 3; ++$applyMode) {
+            ApplyCrystallineRealityMode($player, $applyMode);
+        }
+        DecisionQueueController::StoreVariable("CrystallineRealityChosen", strval($needed));
+        return;
+    }
+
+    $tooltips = [
+        "Choose_Crystalline_Reality_mode:_Summon_a_Memorite_Blade?",
+        "Choose_Crystalline_Reality_mode:_Champion_gains_true_sight?",
+        "Choose_Crystalline_Reality_mode:_Draw_a_card_into_memory?"
+    ];
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltips[$mode]);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CrystallineRealityMode|" . $mode, 1);
+}
+
+function CrystallineRealityStart($player) {
+    if(IsMerlinBonusActive($player)) {
+        AddPrepCounter($player, 1);
+    }
+    $needed = DecisionQueueController::GetVariable("wasPrepared") === "YES" ? 2 : 1;
+    DecisionQueueController::StoreVariable("CrystallineRealityChosen", "0");
+    DecisionQueueController::StoreVariable("CrystallineRealityNeeded", strval($needed));
+    CrystallineRealityAskMode($player, 0);
+}
+
+$customDQHandlers["CrystallineRealityMode"] = function($player, $parts, $lastDecision) {
+    $mode = isset($parts[0]) ? intval($parts[0]) : 0;
+    $chosen = intval(DecisionQueueController::GetVariable("CrystallineRealityChosen"));
+    if($lastDecision === "YES") {
+        ApplyCrystallineRealityMode($player, $mode);
+        ++$chosen;
+        DecisionQueueController::StoreVariable("CrystallineRealityChosen", strval($chosen));
+    }
+    CrystallineRealityAskMode($player, $mode + 1);
+};
+
+function SlimesBlessingAskTarget($player) {
+    $chosenRaw = DecisionQueueController::GetVariable("SlimesBlessingChosen");
+    $chosen = $chosenRaw === null || $chosenRaw === "" ? [] : explode("|", $chosenRaw);
+    if(count($chosen) >= 3) return;
+
+    $units = array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    $units = FilterSpellshroudTargets($units);
+    $available = array_values(array_diff($units, $chosen));
+    if(empty($available)) return;
+
+    $pickNumber = count($chosen) + 1;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $available), 1,
+        tooltip:"Choose_up_to_three_units_(" . $pickNumber . "_of_3)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SlimesBlessingChoose", 1);
+}
+
+function SlimesBlessingResolve($player) {
+    $chosenRaw = DecisionQueueController::GetVariable("SlimesBlessingChosen");
+    if($chosenRaw === null || $chosenRaw === "") return;
+    $chosen = explode("|", $chosenRaw);
+    foreach($chosen as $targetMZ) {
+        $targetObj = GetZoneObject($targetMZ);
+        if($targetObj === null || $targetObj->removed) continue;
+        if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+            AddCounters($player, $targetMZ, "level", 1);
+        }
+        if(PropertyContains(EffectiveCardType($targetObj), "ALLY")
+            && PropertyContains(EffectiveCardSubtypes($targetObj), "SLIME")) {
+            AddCounters($player, $targetMZ, "buff", 1);
+        }
+    }
+}
+
+function SlimesBlessingStart($player) {
+    DecisionQueueController::StoreVariable("SlimesBlessingChosen", "");
+    SlimesBlessingAskTarget($player);
+}
+
+$customDQHandlers["SlimesBlessingChoose"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        SlimesBlessingResolve($player);
+        return;
+    }
+
+    $chosenRaw = DecisionQueueController::GetVariable("SlimesBlessingChosen");
+    $chosen = $chosenRaw === null || $chosenRaw === "" ? [] : explode("|", $chosenRaw);
+    if(!in_array($lastDecision, $chosen)) {
+        $chosen[] = $lastDecision;
+        DecisionQueueController::StoreVariable("SlimesBlessingChosen", implode("|", $chosen));
+    }
+
+    if(count($chosen) >= 3) {
+        SlimesBlessingResolve($player);
+        return;
+    }
+    SlimesBlessingAskTarget($player);
+};
+
+function CompanionFatestoneEnter($player, $mzID) {
+    $choices = [$mzID];
+    $field = GetZone("myField");
+    foreach($field as $fi => $fieldObj) {
+        if($fieldObj->removed) continue;
+        if(!PropertyContains(EffectiveCardType($fieldObj), "ALLY")) continue;
+        if(!PropertyContains(EffectiveCardSubtypes($fieldObj), "FATEBOUND")) continue;
+        $targetMZ = "myField-" . $fi;
+        if(!in_array($targetMZ, $choices)) {
+            $choices[] = $targetMZ;
+        }
+    }
+    if(count($choices) === 1) {
+        AddCounters($player, $mzID, "buff", 1);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1,
+        tooltip:"Put_a_buff_counter_on_Companion_Fatestone_or_a_Fatebound_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CompanionFatestoneEnter", 1);
+}
+
+$customDQHandlers["CompanionFatestoneEnter"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
 
 /**
  * Central function: change a player's Shifting Currents direction and fire transition callbacks.

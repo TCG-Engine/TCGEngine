@@ -1741,6 +1741,10 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         if($fieldObj->CardID === "0oyxjld8jh" && !HasNoAbilities($fieldObj)) {
             if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
         }
+        // Cloaked Executioner (itwys9kf4r): Ambush
+        if($fieldObj->CardID === "itwys9kf4r" && !HasNoAbilities($fieldObj)) {
+            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
+        }
         // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
         // (may retaliate while not defending)
         if(!HasNoAbilities($fieldObj)
@@ -2714,8 +2718,26 @@ function OnDealDamage($player, $source, $target, $amount) {
         if($amount <= 0) return;
     }
 
+    // Flash Grenade (isxy5lh23q): prevent 3 damage to each distant unit you control this turn
+    if($amount > 0) {
+        $targetController = $targetObj->Controller ?? $player;
+        $targetType = EffectiveCardType($targetObj);
+        if((PropertyContains($targetType, "ALLY") || PropertyContains($targetType, "CHAMPION"))
+            && IsDistant($targetObj)) {
+            $prevented = min($amount, 3 * GlobalEffectCount($targetController, "isxy5lh23q"));
+            $amount -= $prevented;
+        }
+        if($amount <= 0) return;
+    }
+
     // PREVENT_NONCOMBAT_N: prevent up to N non-combat damage this turn (Dodge Roll)
     $isCombat = DecisionQueueController::GetVariable("CombatAttacker") !== null;
+    if(!$isCombat && $amount > 0 && $targetObj->CardID === "ifmmvbm26h" && !HasNoAbilities($targetObj)) {
+        if(IsClassBonusActive($targetObj->Controller ?? $player, ["CLERIC", "WARRIOR"])) {
+            $amount = max(0, $amount - 2);
+        }
+        if($amount <= 0) return;
+    }
     if(!$isCombat && $amount > 0) {
         foreach($targetObj->TurnEffects as $idx => $effect) {
             if(strpos($effect, "PREVENT_NONCOMBAT_") === 0) {
