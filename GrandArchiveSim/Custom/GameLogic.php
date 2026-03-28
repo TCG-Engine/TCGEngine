@@ -904,6 +904,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 3);
     }
 
+    // Accursed Strength (j3fkza233s): [Diana Bonus] costs 1 less to activate
+    if($obj->CardID === "j3fkza233s" && IsClassBonusActive($player, ["RANGER"])) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
     // Echoic Guard (gn1b2sbrq9): [Class Bonus] costs 1 less to activate
     if($obj->CardID === "gn1b2sbrq9" && IsClassBonusActive($player, ["GUARDIAN"])) {
         $reserveCost = max(0, $reserveCost - 1);
@@ -4256,6 +4261,21 @@ function DoAllyDestroyed($player, $mzCard) {
             }
         }
     }
+    // Siphoning Fractal (j43qiwqjt0): whenever an ally dies, deal 1 to the opposing champion and recover 1
+    {
+        global $playerID;
+        for($fractPlayer = 1; $fractPlayer <= 2; ++$fractPlayer) {
+            $fractFieldName = $fractPlayer == $playerID ? "myField" : "theirField";
+            $fractField = GetZone($fractFieldName);
+            foreach($fractField as $fractObj) {
+                if(!$fractObj->removed && $fractObj->CardID === "j43qiwqjt0" && !HasNoAbilities($fractObj)) {
+                    $opponent = $fractPlayer == 1 ? 2 : 1;
+                    DealChampionDamage($opponent, 1);
+                    RecoverChampion($fractPlayer, 1);
+                }
+            }
+        }
+    }
     // Claude, Fated Visionary (52215upufy): Automaton allies you control have "On Death: Glimpse 3"
     if(PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON") && !PropertyContains(EffectiveCardType($obj), "TOKEN") && !$suppressed) {
         global $playerID;
@@ -5493,6 +5513,11 @@ function RecollectionPhase() {
                 case "ao8bls6g7x": // Healing Aura: recover 1 at beginning of recollection phase
                     if(!HasNoAbilities($field[$i])) {
                         RecoverChampion($turnPlayer, 1);
+                    }
+                    break;
+                case "jlAc0wWlDZ": // Eager Page: if you haven't materialized this turn, put a buff counter on it
+                    if(!HasNoAbilities($field[$i]) && MaterializeCallCount($turnPlayer) === 0) {
+                        AddCounters($turnPlayer, "myField-" . $i, "buff", 1);
                     }
                     break;
                 case "ci00l7pqcx": // Berserker Plate: deal 3 unpreventable to your champion, then draw a card
@@ -7674,6 +7699,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "GRkBQ1Uvir_POWER": // Ignited Stab: if prepared, +2 POWER until end of turn
                 $power += 2;
+                break;
+            case "japulzj7gv_POWER": // Fauna Friend: target ally gets +1 POWER until end of turn
+                $power += 1;
                 break;
             case "qufoIF014c_POWER": // Gleaming Cut: revealed luxem card from memory, +2 POWER
                 $power += 2;
@@ -9861,6 +9889,10 @@ function ExpireEffects($isEndTurn=true) {
     $fieldZone = $isEndTurn ? "myField" : "theirField";
     $fieldArr = &GetZone($fieldZone);
     foreach($fieldArr as &$fieldObj) {
+        if(!$fieldObj->removed && PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")
+            && isset($fieldObj->Counters["_champDamageThisTurn"])) {
+            unset($fieldObj->Counters["_champDamageThisTurn"]);
+        }
         $newEffects = [];
         foreach($fieldObj->TurnEffects as $effect) {
             if(isset($persistentTurnEffects[$effect])) {
@@ -10671,6 +10703,7 @@ function DealChampionDamage($player, $amount=1) {
                 $amount += 1;
             }
             $obj->Damage += $amount;
+            TrackChampionDamageThisTurn($obj, $amount);
             // Assassin's Mantle (3tcs0axa03): if damage was dealt, offer banish to prevent 1 + add prep counter
             if($amount > 0) {
                 $mantleZone = $player == $playerID ? "myField" : "theirField";
@@ -11818,6 +11851,17 @@ function HasVigor($obj) {
     if($obj->CardID === "46neis2lho" && IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Zhang Fei, Spirited Steel (qxnv0jqeym): [CB] Vigor
     if($obj->CardID === "qxnv0jqeym" && IsClassBonusActive($obj->Controller, ["WARRIOR"])) return true;
+    // Slime Totem (jwanjcy453): Slime allies you control have vigor
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SLIME")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "jwanjcy453" && !HasNoAbilities($fObj)) {
+                return true;
+            }
+        }
+    }
     // Dilu, Auspicious Charger (du4eaktghh): vigor while you control a wind unique Human ally
     if($obj->CardID === "du4eaktghh") {
         global $playerID;
@@ -13414,6 +13458,65 @@ function GetOmenCountByElement($player, $element) {
 
 function GetInfluence($player) {
     return count(GetHand($player)) + count(GetMemory($player));
+}
+
+function CountNonHumanAlliesInGraveyard($player) {
+    $graveyard = GetGraveyard($player);
+    $count = 0;
+    foreach($graveyard as $obj) {
+        if($obj->removed) continue;
+        if(!PropertyContains(CardType($obj->CardID), "ALLY")) continue;
+        if(PropertyContains(CardSubtypes($obj->CardID), "HUMAN")) continue;
+        ++$count;
+    }
+    return $count;
+}
+
+function HasOmenWithReserveCost($player, $reserveCost) {
+    $omens = GetOmens($player);
+    foreach($omens as $obj) {
+        if(intval(CardCost_reserve($obj->CardID)) === intval($reserveCost)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function HighestFireAllyPower($player) {
+    $allies = ZoneSearch("myField", ["ALLY"], cardElements: ["FIRE"]);
+    $highest = 0;
+    foreach($allies as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj === null || $obj->removed) continue;
+        $highest = max($highest, ObjectCurrentPower($obj));
+    }
+    return $highest;
+}
+
+function TrackChampionDamageThisTurn(&$champObj, $amount) {
+    if($champObj === null || $amount <= 0) return;
+    if(!isset($champObj->Counters) || !is_array($champObj->Counters)) $champObj->Counters = [];
+    $current = intval($champObj->Counters["_champDamageThisTurn"] ?? 0);
+    $champObj->Counters["_champDamageThisTurn"] = $current + intval($amount);
+}
+
+function GetChampionDamageTakenThisTurn($player) {
+    $champion = GetPlayerChampion($player);
+    if($champion === null) return 0;
+    return intval($champion->Counters["_champDamageThisTurn"] ?? 0);
+}
+
+function GetOppressivePresenceAttackTax($player) {
+    $highestTax = 0;
+    for($p = 1; $p <= 2; ++$p) {
+        $globalEffects = GetGlobalEffects($p);
+        foreach($globalEffects as $obj) {
+            if($obj->removed) continue;
+            if(strpos($obj->CardID, "j9hjjvkyyr_") !== 0) continue;
+            $highestTax = max($highestTax, intval(substr($obj->CardID, strlen("j9hjjvkyyr_"))));
+        }
+    }
+    return $highestTax;
 }
 
 function PutOmenCounter($player, $mzCard) {

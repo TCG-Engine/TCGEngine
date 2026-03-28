@@ -280,6 +280,18 @@ function GetValidAttackTargets($attackerMZ) {
     if(!$bypassIntercept && $attacker !== null && in_array("UNBLOCKABLE", $attacker->TurnEffects)) {
         $bypassIntercept = true;
     }
+    // Find the Lost (jTBNAEedbg): if prepared, it has unblockable
+    if(!$bypassIntercept) {
+        $intentCards = GetIntentCards($player);
+        foreach($intentCards as $intentMZ) {
+            $intentObj = &GetZoneObject($intentMZ);
+            if($intentObj !== null && $intentObj->CardID === "jTBNAEedbg"
+                && in_array("PREPARED", $intentObj->TurnEffects)) {
+                $bypassIntercept = true;
+                break;
+            }
+        }
+    }
     // Strike from the Mist (DHn9J7gX6g): CB if prepared, can't be intercepted
     if(!$bypassIntercept) {
         $intentCards = GetIntentCards($player);
@@ -621,6 +633,20 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
+    // Oppressive Presence (j9hjjvkyyr): allies can't attack unless they pay (X), where X is the
+    // highest POWER among fire allies the caster controlled when the effect resolved.
+    $oppressivePresenceTax = 0;
+    if(PropertyContains($cardType, "ALLY")) {
+        $oppressivePresenceTax = GetOppressivePresenceAttackTax($turnPlayer);
+        if($oppressivePresenceTax > 0) {
+            $hand = GetZone("myHand");
+            if(count($hand) < $oppressivePresenceTax) {
+                SetFlashMessage("Must pay (" . $oppressivePresenceTax . ") to attack with allies (Oppressive Presence). Not enough cards in hand.");
+                return false;
+            }
+        }
+    }
+
     // Ducal Seal (qFwqqT0XWo): players must pay (3) for each attack declaration.
     $ducalActive = (GlobalEffectCount($turnPlayer, "DUCAL_SEAL_ATTACK_TAX") > 0 || GlobalEffectCount($prOpp, "DUCAL_SEAL_ATTACK_TAX") > 0);
     if($ducalActive) {
@@ -699,6 +725,11 @@ function BeginCombatPhase($actionCard) {
 
     // Chibi, Battle of Red Cliffs (881gacexpv): pay (1) reserve for ally attack declaration
     if($chibiActive) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
+
+    // Oppressive Presence (j9hjjvkyyr): pay (X) reserve for ally attack declaration
+    for($op = 0; $op < $oppressivePresenceTax; ++$op) {
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
     }
 
@@ -3036,6 +3067,9 @@ function OnDealDamage($player, $source, $target, $amount) {
     }
 
     $targetObj->Damage += $amount;
+    if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        TrackChampionDamageThisTurn($targetObj, $amount);
+    }
 
     // Foster tracking: mark that this unit received damage and remove fostered state
     if(!in_array("DAMAGED_SINCE_LAST_TURN", $targetObj->TurnEffects)) {
@@ -3179,6 +3213,9 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         }
     }
     $targetObj->Damage += $amount;
+    if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        TrackChampionDamageThisTurn($targetObj, $amount);
+    }
 
     // Foster tracking: mark that this unit received damage and remove fostered state
     if(!in_array("DAMAGED_SINCE_LAST_TURN", $targetObj->TurnEffects)) {
