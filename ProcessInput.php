@@ -44,7 +44,7 @@ include "./" . $folderPath . "/ZoneAccessors.php";
 include "./" . $folderPath . "/ZoneClasses.php";
 
 if(GetEditAuth() == "AssetOwner") {
-  
+
   //Quit if user is not logged in
   if(!IsUserLoggedIn()) {
     if (isset($_COOKIE["rememberMeToken"])) {
@@ -183,12 +183,12 @@ switch($mode) {
   case 10003://Version Changed
     $version = $cardID;
     $versions = &GetZone("myVersions");
-    if($version == "current") { 
+    if($version == "current") {
       //Do nothing, we should already be on current
     }
     else if($version == "new") {
-      $zones = Versions::GetSerializedZones();
-      AddVersions($playerID, $zones);
+      $versionName = $_GET["versionName"] ?? "";
+      SaveVersion($playerID, $versionName);
     } else {
       //Switch to a different version
       if($folderPath == "SoulMastersDB") {

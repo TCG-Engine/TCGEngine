@@ -1531,8 +1531,278 @@
         }, 400);
       }
 
-      function OnVersionChanged(newVersion) {
-        SubmitInput("10003", "&cardID=" + newVersion, true);
+      function OnVersionChanged(newVersion, versionName) {
+        var extra = (versionName ? '&versionName=' + encodeURIComponent(versionName) : '');
+        SubmitInput("10003", "&cardID=" + newVersion + extra);
+      }
+
+      function showNewVersionPrompt() {
+        closeVersionDropdown();
+        // Compute placeholder: max DisplayNumber across current versions + 1
+        var nextNum = 0;
+        var menu = document.getElementById('versionDropdownMenu');
+        if (menu) {
+          var rows = menu.querySelectorAll('[data-vnum]');
+          rows.forEach(function(r) {
+            var n = parseInt(r.getAttribute('data-vnum'), 10);
+            if (!isNaN(n) && n >= nextNum) nextNum = n + 1;
+          });
+        }
+        var placeholder = 'Version ' + nextNum;
+
+        // Build modal overlay
+        var overlay = document.createElement('div');
+        overlay.id = 'newVersionOverlay';
+        overlay.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:10000;display:flex;align-items:center;justify-content:center;';
+
+        var box = document.createElement('div');
+        box.style.cssText = 'background:#2a2a2a;border:1px solid #555;border-radius:8px;padding:20px 24px;min-width:280px;color:#fff;font-family:inherit;';
+
+        var title = document.createElement('div');
+        title.textContent = 'Save New Version';
+        title.style.cssText = 'font-size:15px;font-weight:bold;margin-bottom:12px;';
+        box.appendChild(title);
+
+        var input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = placeholder;
+        input.maxLength = 60;
+        input.style.cssText = 'width:100%;box-sizing:border-box;padding:6px 8px;background:#1a1a1a;border:1px solid #666;border-radius:4px;color:#fff;font-size:13px;margin-bottom:14px;';
+        box.appendChild(input);
+
+        var btnRow = document.createElement('div');
+        btnRow.style.cssText = 'display:flex;gap:8px;justify-content:flex-end;';
+
+        var cancelBtn = document.createElement('button');
+        cancelBtn.textContent = 'Cancel';
+        cancelBtn.style.cssText = 'background:#444;color:#fff;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;font-size:13px;';
+        cancelBtn.onclick = function() { document.body.removeChild(overlay); };
+
+        var okBtn = document.createElement('button');
+        okBtn.textContent = 'Save';
+        okBtn.style.cssText = 'background:#1a73e8;color:#fff;border:none;padding:5px 14px;border-radius:4px;cursor:pointer;font-size:13px;';
+        okBtn.onclick = function() {
+          var name = input.value.trim() || placeholder;
+          document.body.removeChild(overlay);
+          setVersionDisplay('current', 'Current Version');
+          OnVersionChanged('new', name);
+        };
+
+        btnRow.appendChild(cancelBtn);
+        btnRow.appendChild(okBtn);
+        box.appendChild(btnRow);
+        overlay.appendChild(box);
+        document.body.appendChild(overlay);
+
+        // Close on backdrop click
+        overlay.addEventListener('click', function(e) { if (e.target === overlay) { document.body.removeChild(overlay); } });
+        // Submit on Enter
+        input.addEventListener('keydown', function(e) { if (e.key === 'Enter') okBtn.click(); });
+        setTimeout(function() { input.focus(); }, 50);
+      }
+
+      function toggleVersionDropdown() {
+        var menu = document.getElementById('versionDropdownMenu');
+        if (!menu) return;
+        closeVisibilityDropdown();
+        menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
+      }
+
+      function closeVersionDropdown() {
+        var menu = document.getElementById('versionDropdownMenu');
+        if (menu) menu.style.display = 'none';
+      }
+
+      var _visdropListenerAdded = false;
+      function toggleVisibilityDropdown() {
+        var menu = document.getElementById('visibilityDropdownMenu');
+        if (!menu) return;
+        closeVersionDropdown();
+        if (!_visdropListenerAdded) {
+          _visdropListenerAdded = true;
+          document.addEventListener('click', function(e) {
+            var w = document.getElementById('visibilityDropdownWrapper');
+            if (w && !w.contains(e.target)) closeVisibilityDropdown();
+          });
+        }
+        menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
+      }
+
+      function closeVisibilityDropdown() {
+        var menu = document.getElementById('visibilityDropdownMenu');
+        if (menu) menu.style.display = 'none';
+      }
+
+      function selectVisibility(value, label, gameName) {
+        closeVisibilityDropdown();
+        var lbl = document.getElementById('visibilityDropdownLabel');
+        if (lbl) lbl.textContent = label;
+        UpdateAssetVisibility(value, gameName || '', 1);
+      }
+
+      function setVersionDisplay(value, label) {
+        var labelEl = document.getElementById('versionDropdownLabel');
+        if (labelEl) labelEl.textContent = label;
+        var trigger = document.getElementById('versionDropdownTrigger');
+        if (trigger) trigger.setAttribute('data-label', label);
+      }
+
+      function selectVersion(value, label) {
+        closeVersionDropdown();
+        setVersionDisplay(value, label);
+        OnVersionChanged(value);
+      }
+
+      function showDeleteVersionConfirm(arrayIndex, displayNum) {
+        var existing = document.getElementById('vdrop-delete-modal');
+        if (existing) existing.remove();
+
+        var overlay = document.createElement('div');
+        overlay.id = 'vdrop-delete-modal';
+        overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.6);z-index:10000;display:flex;align-items:center;justify-content:center;';
+
+        var modal = document.createElement('div');
+        modal.style.cssText = 'background:#1a1a2e;border:1px solid #555;border-radius:10px;padding:28px 24px;text-align:center;max-width:340px;width:90%;box-shadow:0 0 24px rgba(0,0,0,0.8);font-family:inherit;';
+
+        var msg = document.createElement('div');
+        msg.style.cssText = 'color:#fff;font-size:15px;margin-bottom:20px;line-height:1.5;';
+        msg.textContent = 'Delete Version ' + displayNum + '? This cannot be undone.';
+        modal.appendChild(msg);
+
+        var btnRow = document.createElement('div');
+        btnRow.style.cssText = 'display:flex;gap:12px;justify-content:center;';
+
+        var btnYes = document.createElement('button');
+        btnYes.textContent = 'Delete';
+        btnYes.style.cssText = 'background:#c0392b;color:#fff;border:none;padding:8px 22px;border-radius:6px;font-size:14px;cursor:pointer;';
+        btnYes.onclick = function() {
+          overlay.remove();
+          var gameName = document.getElementById('gameName') ? document.getElementById('gameName').value : '';
+          var folderPath = document.getElementById('folderPath') ? document.getElementById('folderPath').value : 'SWUDeck';
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', '/TCGEngine/' + folderPath + '/DeleteVersion.php?deckID=' + encodeURIComponent(gameName) + '&playerID=1&versionIndex=' + arrayIndex, true);
+          xhr.send();
+        };
+
+        var btnNo = document.createElement('button');
+        btnNo.textContent = 'Cancel';
+        btnNo.style.cssText = 'background:#444;color:#fff;border:none;padding:8px 22px;border-radius:6px;font-size:14px;cursor:pointer;';
+        btnNo.onclick = function() { overlay.remove(); };
+
+        btnRow.appendChild(btnYes);
+        btnRow.appendChild(btnNo);
+        modal.appendChild(btnRow);
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+      }
+
+      var _vdropListenerAdded = false;
+
+      function UpdateVersionDropdown(versionsData) {
+        var wrapper = document.getElementById('versionDropdownWrapper');
+        if (!wrapper) return;
+
+        if (!_vdropListenerAdded) {
+          _vdropListenerAdded = true;
+          document.addEventListener('click', function(e) {
+            var w = document.getElementById('versionDropdownWrapper');
+            if (w && !w.contains(e.target)) closeVersionDropdown();
+          });
+        }
+
+        var trimmed = versionsData ? versionsData.trim() : '';
+        var entries = trimmed.length === 0 ? [] : trimmed.split('<|>');
+
+        // Parse display numbers and names from each entry JSON
+        var versions = [];
+        for (var i = 0; i < entries.length; i++) {
+          var entry = entries[i];
+          var displayNum = i;
+          var versionName = '';
+          var s1 = entry.indexOf(' ');
+          var s2 = s1 >= 0 ? entry.indexOf(' ', s1 + 1) : -1;
+          if (s2 >= 0) {
+            try {
+              var obj = JSON.parse(entry.substring(s2 + 1));
+              if (obj && typeof obj.DisplayNumber !== 'undefined') displayNum = obj.DisplayNumber;
+              if (obj && typeof obj.VersionName === 'string' && obj.VersionName.length > 0) versionName = obj.VersionName.replace(/_/g, ' ');
+            } catch(e) {}
+          }
+          versions.push({ arrayIndex: i, displayNum: displayNum, versionName: versionName });
+        }
+
+        var savedLabel = document.getElementById('versionDropdownLabel') ? document.getElementById('versionDropdownLabel').textContent : 'Current Version';
+
+        var menu = document.getElementById('versionDropdownMenu');
+        if (!menu) return;
+        menu.innerHTML = '';
+
+        var optStyle = 'padding:7px 12px;cursor:pointer;font-size:13px;color:#fff;white-space:nowrap;';
+
+        var divCurrent = document.createElement('div');
+        divCurrent.style.cssText = optStyle;
+        divCurrent.textContent = 'Current Version';
+        divCurrent.onmouseover = function() { this.style.background = '#3a3a3a'; };
+        divCurrent.onmouseout = function() { this.style.background = ''; };
+        divCurrent.onclick = function() { selectVersion('current', 'Current Version'); };
+        menu.appendChild(divCurrent);
+
+        for (var j = 0; j < versions.length; j++) {
+          (function(v) {
+            var row = document.createElement('div');
+            row.style.cssText = optStyle + 'display:flex;justify-content:space-between;align-items:center;';
+            row.setAttribute('data-vnum', String(v.displayNum));
+            row.onmouseover = function() { this.style.background = '#3a3a3a'; };
+            row.onmouseout = function() { this.style.background = ''; };
+
+            var label = v.versionName || ('Version ' + v.displayNum);
+            var lbl = document.createElement('span');
+            lbl.style.cssText = 'flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;';
+            lbl.textContent = label;
+            row.appendChild(lbl);
+
+            var btnWrap = document.createElement('span');
+            btnWrap.style.cssText = 'display:inline-flex;align-items:center;gap:16px;flex-shrink:0;margin-left:8px;';
+
+            var loadBadge = document.createElement('span');
+            loadBadge.title = 'Load ' + label;
+            loadBadge.style.cssText = 'padding:1px 5px;border-radius:3px;background:#1a73e8;color:#fff;font-size:9px;cursor:pointer;line-height:14px;white-space:nowrap;';
+            loadBadge.textContent = 'Load';
+            loadBadge.onclick = function(e) {
+              e.stopPropagation();
+              selectVersion(String(v.arrayIndex), label);
+            };
+
+            var delBadge = document.createElement('span');
+            delBadge.title = 'Delete Version ' + v.displayNum;
+            delBadge.style.cssText = 'width:15px;height:15px;border-radius:50%;background:#c0392b;color:#fff;font-size:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;';
+            delBadge.textContent = '\u2715';
+            delBadge.onclick = function(e) {
+              e.stopPropagation();
+              closeVersionDropdown();
+              showDeleteVersionConfirm(v.arrayIndex, v.displayNum);
+            };
+
+            btnWrap.appendChild(loadBadge);
+            btnWrap.appendChild(delBadge);
+            row.appendChild(btnWrap);
+            menu.appendChild(row);
+          })(versions[j]);
+        }
+
+        var divNew = document.createElement('div');
+        divNew.style.cssText = optStyle + 'color:#aaf;';
+        divNew.textContent = '+ New Version';
+        divNew.onmouseover = function() { this.style.background = '#3a3a3a'; };
+        divNew.onmouseout = function() { this.style.background = ''; };
+        divNew.onclick = function() { showNewVersionPrompt(); };
+        menu.appendChild(divNew);
+
+        // If the currently displayed version was deleted, reset to Current
+        if (savedLabel !== 'Current Version' && savedLabel !== '+ New Version') {
+          var stillExists = versions.some(function(v) { return (v.versionName || ('Version ' + v.displayNum)) === savedLabel; });
+          if (!stillExists) setVersionDisplay('current', 'Current Version');
+        }
       }
 
 // Show a YES/NO popup for a decision queue entry

@@ -7,6 +7,8 @@
   include_once './GeneratedCode/GeneratedCardDictionaries.php';
   include_once '../Core/HTTPLibraries.php';
 
+  include_once '../Core/NetworkingLibraries.php';
+
   include_once '../Database/ConnectionManager.php';
   include_once '../AccountFiles/AccountDatabaseAPI.php';
   include_once '../AccountFiles/AccountSessionAPI.php';
@@ -19,8 +21,9 @@
   $gameName = TryGet("deckID", "");
   $assetSource = TryGet("source", null);
   $assetSourceID = TryGet("sourceID", "");
+  $playerID = TryGet("playerID", null);
 
-  if($gameName == "" || $assetSource == null || $assetSourceID == "") {
+  if($gameName == "" || $assetSource == null || $assetSourceID == "" || $playerID == null) {
     header("location: ../SharedUI/ErrorPage.php?error=MissingParameters");
     exit();
   }
@@ -55,6 +58,9 @@
 
   ParseGamestate();
 
+  // Save a version snapshot before overwriting with the refreshed deck
+  SaveVersion($playerID);
+
   // Clear existing deck data
   $p1Leader = [];
   $p1Base = [];
@@ -85,6 +91,8 @@
     }
   }
 
+  ++$updateNumber;
   WriteGamestate();
+  GamestateUpdated($gameName);
 
 ?>

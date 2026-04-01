@@ -1,7 +1,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <script src="./Core/UILibraries20260324.js"></script>
+    <script src="./Core/UILibraries20260401.js"></script>
     <script src="./Core/CounterRendering.js"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
@@ -525,6 +525,9 @@
         var playerID = <?php echo($playerID); ?>;
         <?php include "./" . $folderPath . "/NextTurnRender.php"; ?>
         UpdateTurnPlayerMiasma();
+        if (typeof UpdateVersionDropdown === 'function' && typeof window.myVersionsData !== 'undefined') {
+          UpdateVersionDropdown(window.myVersionsData);
+        }
       }
 
     </script>

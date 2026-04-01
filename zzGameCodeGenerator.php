@@ -1095,8 +1095,13 @@ for($i=0; $i<count($zones); ++$i) {
   fwrite($handler, "  public \$Location;\r\n");
   fwrite($handler, "  public \$PlayerID;\r\n");
   fwrite($handler, "  public \$mzIndex;\r\n"); // Add mzIndex property for all classes
-  fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0, \$mzIndex = -1) {\r\n");
-  fwrite($handler, "    \$arr = explode(\" \", \$line);\r\n");
+  if($zoneName == "Versions") {
+    fwrite($handler, "  public \$DisplayNumber;\r\n");
+    fwrite($handler, "  public \$VersionName;\r\n");
+  }
+  if($zoneName != "Versions") {
+    fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0, \$mzIndex = -1) {\r\n");
+    fwrite($handler, "    \$arr = explode(\" \", \$line);\r\n");
   for($j=0; $j<count($zone->Properties); ++$j) {
     $property = $zone->Properties[$j];
     $propertyName = $property->Name;
@@ -1139,6 +1144,36 @@ for($i=0; $i<count($zones); ++$i) {
   }
   fwrite($handler, "    return \$rv;\r\n");
   fwrite($handler, "  }\r\n");
+  } else {
+    // Versions: custom constructor parses "N:data" prefix to preserve DisplayNumber across deletes
+    fwrite($handler, "  function __construct(\$line, \$location = \"\", \$playerID = 0, \$mzIndex = -1) {\r\n");
+    fwrite($handler, "    \$rawLine = trim(\$line);\r\n");
+    fwrite($handler, "    if(preg_match('/^(\\\\d+):(.+)/', \$rawLine, \$m)) {\r\n");
+    fwrite($handler, "      \$this->DisplayNumber = intval(\$m[1]);\r\n");
+    fwrite($handler, "      \$rest = \$m[2];\r\n");
+    fwrite($handler, "      if(strpos(\$rest, '<vname>') !== false) {\r\n");
+    fwrite($handler, "        \$vnameParts = explode('<vname>', \$rest, 2);\r\n");
+    fwrite($handler, "        \$this->VersionName = \$vnameParts[0];\r\n");
+    fwrite($handler, "        \$this->Version = \$vnameParts[1];\r\n");
+    fwrite($handler, "      } else {\r\n");
+    fwrite($handler, "        \$this->VersionName = '';\r\n");
+    fwrite($handler, "        \$this->Version = \$rest;\r\n");
+    fwrite($handler, "      }\r\n");
+    fwrite($handler, "    } else {\r\n");
+    fwrite($handler, "      \$this->DisplayNumber = (\$mzIndex >= 0 ? \$mzIndex : 0);\r\n");
+    fwrite($handler, "      \$this->VersionName = '';\r\n");
+    fwrite($handler, "      \$this->Version = \$rawLine;\r\n");
+    fwrite($handler, "    }\r\n");
+    fwrite($handler, "    \$this->Location = \$location;\r\n");
+    fwrite($handler, "    \$this->PlayerID = \$playerID;\r\n");
+    fwrite($handler, "    \$this->mzIndex = \$mzIndex;\r\n");
+    fwrite($handler, "  }\r\n");
+    // Versions: Serialize with DisplayNumber prefix and optional VersionName so number/name persists
+    fwrite($handler, "  function Serialize(\$delimiter = \" \") {\r\n");
+    fwrite($handler, "    \$namePrefix = (strlen(\$this->VersionName) > 0 ? \$this->VersionName . '<vname>' : '');\r\n");
+    fwrite($handler, "    return \$this->DisplayNumber . ':' . \$namePrefix . \$this->Version;\r\n");
+    fwrite($handler, "  }\r\n");
+  }
 
   // Generate indexed property methods if this zone has any
   if($hasIndexedProperties) {
@@ -1399,7 +1434,15 @@ fwrite($handler, "}\r\n\r\n");
 
 //Load version function
 $versionsModule = GetModule("Versions");
+$isNewVersionsModule = true;
+if($versionsModule == null) {
+  $versionsModule = GetModuleOfType("Versions");
+  $isNewVersionsModule = false;
+}
 if($versionsModule != null) {
+  $separator = $isNewVersionsModule ? "," : ";";
+  $versionZones = explode($separator, $versionsModule->Parameters ?? $versionsModule->Zones ?? "");
+
   // Build lookup map for Value mode zones
   $valueZones = [];
   $globalZones = [];
@@ -1419,7 +1462,6 @@ if($versionsModule != null) {
   fwrite($handler, "  \$versionNum = intval(\$versionNum);\r\n");
   fwrite($handler, "  \$copyFrom = \$versions[\$versionNum];\r\n");
   fwrite($handler, "  \$zones = explode(\"<v0>\", \$copyFrom->Version);\r\n");
-  $versionZones = explode(",", $versionsModule->Parameters);
   for($i=0; $i<count($versionZones); ++$i) {
     $baseZoneName = $versionZones[$i];
     $className = $baseZoneName;
@@ -1470,9 +1512,15 @@ if($versionsModule != null) {
   fwrite($handler, "}\r\n\r\n");
 
   //Save version function
-  fwrite($handler, "function SaveVersion(\$playerID) {\r\n");
+  fwrite($handler, "function SaveVersion(\$playerID, \$name = \"\") {\r\n");
   fwrite($handler, "  \$zones = Versions::GetSerializedZones();\r\n");
-  fwrite($handler, "  AddVersions(\$playerID, \$zones);\r\n");
+  fwrite($handler, "  \$existingVersions = &GetVersions(\$playerID);\r\n");
+  fwrite($handler, "  \$nextNum = 0;\r\n");
+  fwrite($handler, "  foreach(\$existingVersions as \$v) {\r\n");
+  fwrite($handler, "    if(isset(\$v->DisplayNumber) && \$v->DisplayNumber >= \$nextNum) \$nextNum = \$v->DisplayNumber + 1;\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  \$namePrefix = (strlen(\$name) > 0 ? \$name . '<vname>' : '');\r\n");
+  fwrite($handler, "  AddVersions(\$playerID, \$nextNum . ':' . \$namePrefix . \$zones);\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
 
@@ -2330,28 +2378,54 @@ function WriteInitialLayout() {
             fwrite($handler, "\$visibility = \$assetData['assetVisibility'];\r\n");
             fwrite($handler, "\$patreonId = GetUserPatreonID();\r\n");
             fwrite($handler, "\$userData = LoadUserDataFromId(LoggedInUser());\r\n");
-            fwrite($handler, "echo(\"<select id='assetVisibilityDropdown' style='background-color: #333; color: #fff; border: none; border-radius: 5px; font-size: 14px;' onchange=\\\"UpdateAssetVisibility(this.value, \$gameName, $headerElement->AssetType)\\\">\");\r\n");
-            fwrite($handler, "echo(\"  <option value='private'\" . (\$visibility == 0 ? \" selected\" : \"\") . \">Private</option>\");\r\n");
-            fwrite($handler, "if(isset(\$userData['teamID'])) echo(\"  <option value='team'\" . (\$visibility == (1000 + \$userData['teamID']) ? \" selected\" : \"\") . \">Team</option>\");\r\n");
-            fwrite($handler, "if(\$patreonId != \"\") echo(\"  <option value='\$patreonId'\" . (\$visibility == \$patreonId ? \" selected\" : \"\") . \">Patreon</option>\");\r\n");
-            fwrite($handler, "echo(\"  <option value='link only'\" . (\$visibility == 1 ? \" selected\" : \"\") . \">Link Only</option>\");\r\n");
-            fwrite($handler, "echo(\"  <option value='public'\" . (\$visibility == 2 ? \" selected\" : \"\") . \">Public</option>\");\r\n");
-            fwrite($handler, "echo(\"</select>\");\r\n");
+            fwrite($handler, "\$_visLabel = 'Private';\r\n");
+            fwrite($handler, "if(\$visibility == 2) \$_visLabel = 'Public';\r\n");
+            fwrite($handler, "else if(\$visibility == 1) \$_visLabel = 'Link Only';\r\n");
+            fwrite($handler, "else if(\$patreonId != \"\" && \$visibility == \$patreonId) \$_visLabel = 'Patreon';\r\n");
+            fwrite($handler, "else if(isset(\$userData['teamID']) && \$visibility == (1000 + \$userData['teamID'])) \$_visLabel = 'Team';\r\n");
+            fwrite($handler, "echo(\"<div id='visibilityDropdownWrapper' style='position:relative; display:inline-block;'>\");\r\n");
+            fwrite($handler, "echo(\"  <button id='visibilityDropdownTrigger' onclick='toggleVisibilityDropdown()' onmouseover=\\\"this.style.backgroundColor='#444';\\\" onmouseout=\\\"this.style.backgroundColor='#333';\\\" style='background-color:#333;color:#fff;border:none;padding:3px;margin:0;border-radius:5px;font-size:14px;cursor:pointer;'><span style='vertical-align:middle;' id='visibilityDropdownLabel'>{\$_visLabel}</span> <span style='vertical-align:middle;font-size:10px;opacity:0.7;'>&#9660;</span></button>\");\r\n");
+            fwrite($handler, "echo(\"  <div id='visibilityDropdownMenu' style='display:none;position:absolute;top:100%;left:0;z-index:9999;background:#2a2a2a;border:1px solid #555;border-radius:5px;min-width:140px;box-shadow:0 4px 12px rgba(0,0,0,0.6);overflow:hidden;'>\");\r\n");
+            fwrite($handler, "\$_visOptions = [['value' => 'private', 'label' => 'Private']];\r\n");
+            fwrite($handler, "if(isset(\$userData['teamID'])) \$_visOptions[] = ['value' => 'team', 'label' => 'Team'];\r\n");
+            fwrite($handler, "if(\$patreonId != \"\") \$_visOptions[] = ['value' => \$patreonId, 'label' => 'Patreon'];\r\n");
+            fwrite($handler, "\$_visOptions[] = ['value' => 'link only', 'label' => 'Link Only'];\r\n");
+            fwrite($handler, "\$_visOptions[] = ['value' => 'public', 'label' => 'Public'];\r\n");
+            fwrite($handler, "foreach(\$_visOptions as \$_opt) {\r\n");
+            fwrite($handler, "  \$_active = (\$_opt['label'] === \$_visLabel) ? 'color:#fff;font-weight:bold;' : 'color:#fff;';\r\n");
+            fwrite($handler, "  echo(\"    <div onclick='selectVisibility(\\\"\" . \$_opt['value'] . \"\\\",\\\"\" . \$_opt['label'] . \"\\\",\\\"\$gameName\\\")' style='padding:7px 12px;cursor:pointer;font-size:13px;\" . \$_active . \"white-space:nowrap;' onmouseover='this.style.background=\\\"#3a3a3a\\\"' onmouseout='this.style.background=\\\"\\\"'>\" . \$_opt['label'] . \"</div>\");\r\n");
+            fwrite($handler, "}\r\n");
+            fwrite($handler, "echo(\"  </div>\");\r\n");
+            fwrite($handler, "echo(\"</div>\");\r\n");
             break;
           case "Versions":
-            fwrite($handler, "echo(\"<select id='versionDropdown' style='background-color: #333; color: #fff; border: none; border-radius: 5px; font-size: 14px;' onchange=\\\"OnVersionChanged(this.value)\\\">\");\r\n");
-            fwrite($handler, "echo(\"  <option value='current' selected >Current Version</option>\");\r\n");
-            //Print out all the other versions here
+            fwrite($handler, "echo(\"<div id='versionDropdownWrapper' style='position:relative; display:inline-block;'>\");\r\n");
+            fwrite($handler, "echo(\"  <button id='versionDropdownTrigger' data-label='Current Version' onclick='toggleVersionDropdown()' onmouseover=\\\"this.style.backgroundColor='#444';\\\" onmouseout=\\\"this.style.backgroundColor='#333';\\\" style='background-color:#333;color:#fff;border:none;padding:3px;margin:0;border-radius:5px;font-size:14px;cursor:pointer;'><span style='vertical-align:middle;' id='versionDropdownLabel'>Current Version</span> <span style='vertical-align:middle;font-size:10px;opacity:0.7;'>&#9660;</span></button>\");\r\n");
+            fwrite($handler, "echo(\"  <div id='versionDropdownMenu' style='display:none;position:absolute;top:100%;left:0;z-index:9999;background:#2a2a2a;border:1px solid #555;border-radius:5px;min-width:180px;box-shadow:0 4px 12px rgba(0,0,0,0.6);overflow:hidden;'>\");\r\n");
+            fwrite($handler, "echo(\"    <div onclick='selectVersion(\\\"current\\\",\\\"Current Version\\\")' style='padding:7px 12px;cursor:pointer;font-size:13px;color:#fff;white-space:nowrap;' onmouseover='this.style.background=\\\"#3a3a3a\\\"' onmouseout='this.style.background=\\\"\\\"'>Current Version</div>\");\r\n");
             fwrite($handler, "\$versions = &GetVersions(\$playerID);\r\n");
             fwrite($handler, "for(\$i=0; \$i<count(\$versions); ++\$i) {\r\n");
-            fwrite($handler, "  echo(\"  <option value='\" . \$i . \"'>Version \" . \$i . \"</option>\");\r\n");
+            fwrite($handler, "  \$dispNum = isset(\$versions[\$i]->DisplayNumber) ? \$versions[\$i]->DisplayNumber : \$i;\r\n");
+            fwrite($handler, "  \$dispLabel = (isset(\$versions[\$i]->VersionName) && strlen(\$versions[\$i]->VersionName) > 0) ? htmlspecialchars(\$versions[\$i]->VersionName, ENT_QUOTES) : ('Version ' . \$dispNum);\r\n");
+            fwrite($handler, "  echo(\"    <div data-vnum='\$dispNum' style='padding:7px 12px;cursor:default;font-size:13px;color:#fff;display:flex;justify-content:space-between;align-items:center;' onmouseover='this.style.background=\\\"#3a3a3a\\\"' onmouseout='this.style.background=\\\"\\\"'><span style='flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;'>\$dispLabel</span><span style='display:inline-flex;align-items:center;gap:16px;flex-shrink:0;margin-left:8px;'><span onclick='event.stopPropagation();selectVersion(\\\"\$i\\\",\\\"\$dispLabel\\\")' title='Load \$dispLabel' style='padding:1px 5px;border-radius:3px;background:#1a73e8;color:#fff;font-size:9px;cursor:pointer;line-height:14px;white-space:nowrap;'>Load</span><span onclick='event.stopPropagation();closeVersionDropdown();showDeleteVersionConfirm(\$i,\$dispNum)' title='Delete Version \$dispNum' style='width:15px;height:15px;border-radius:50%;background:#c0392b;color:#fff;font-size:9px;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;line-height:1;'>&#10005;</span></span></div>\");\r\n");
             fwrite($handler, "}\r\n");
-            fwrite($handler, "echo(\"  <option value='new'>New Version</option>\");\r\n");
-            fwrite($handler, "echo(\"</select>\");\r\n");
+            fwrite($handler, "echo(\"    <div onclick='showNewVersionPrompt()' style='padding:7px 12px;cursor:pointer;font-size:13px;color:#aaf;white-space:nowrap;' onmouseover='this.style.background=\\\"#3a3a3a\\\"' onmouseout='this.style.background=\\\"\\\"'>+ New Version</div>\");\r\n");
+            fwrite($handler, "echo(\"  </div>\");\r\n");
+            fwrite($handler, "echo(\"</div>\");\r\n");
             break;
           default: break;
         }
         fwrite($handler, "echo(\"</div>\");\r\n");
+        if($headerElement->Module == "Versions" && file_exists($rootPath . "/RefreshImport.php")) {
+          $folderName = basename($rootPath);
+          fwrite($handler, "if(isset(\$assetData) && !is_null(\$assetData['assetSource']) && !is_null(\$assetData['assetSourceID'])) {\r\n");
+          fwrite($handler, "  \$_refreshSource = intval(\$assetData['assetSource']);\r\n");
+          fwrite($handler, "  \$_refreshSourceID = htmlspecialchars(\$assetData['assetSourceID'], ENT_QUOTES);\r\n");
+          fwrite($handler, "  \$_refreshGame = htmlspecialchars(\$gameName, ENT_QUOTES);\r\n");
+          fwrite($handler, "  echo(\"<button style='background-color: #333; color: #fff; border: none; padding: 3px; margin: 5px; border-radius: 5px; font-size: 14px; cursor: pointer;' onmouseover=\\\"this.style.backgroundColor='#444';\\\" onmouseout=\\\"this.style.backgroundColor='#333';\\\" onclick=\\\"RefreshDeckFromSource('{\$_refreshGame}', {\$_refreshSource}, '{\$_refreshSourceID}', event)\\\"><span style='vertical-align: middle;'>Refresh</span></button>\");\r\n");
+          fwrite($handler, "  echo(\"<script>function RefreshDeckFromSource(deckID,src,srcID,event){var btn=event.currentTarget;btn.disabled=true;btn.style.opacity='0.5';var xhr=new XMLHttpRequest();xhr.open('GET','/TCGEngine/$folderName/RefreshImport.php?deckID='+encodeURIComponent(deckID)+'&source='+src+'&sourceID='+encodeURIComponent(srcID)+'&playerID=1',true);xhr.onreadystatechange=function(){if(xhr.readyState===4){btn.disabled=false;btn.style.opacity='1';if(xhr.status===200){setVersionDisplay('current','Current Version');var f=document.createElement('div');f.textContent='Deck refreshed!';f.style.cssText='position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#1a73e8;color:#fff;padding:8px 18px;border-radius:6px;font-size:14px;z-index:9999;pointer-events:none;';document.body.appendChild(f);setTimeout(function(){if(f.parentNode)f.parentNode.removeChild(f);},1800);}}}; xhr.send();}</script>\");\r\n");
+          fwrite($handler, "}\r\n");
+        }
       } else {
         $target = $headerElement->Target == "blank" ? " target='_blank'" : "";
         fwrite($handler, "echo(\"<button style='background-color: #333; color: #fff; border: none; padding: 3px; margin: 5px; border-radius: 5px; font-size: 14px; cursor: pointer;' onmouseover=\\\"this.style.backgroundColor='#444';\\\" onmouseout=\\\"this.style.backgroundColor='#333';\\\" onclick=\\\"window.open('" . $headerElement->Link . "', '" . ($headerElement->Target == "blank" ? "_blank" : "_self") . "')\\\"$target>\");\r\n");
