@@ -280,7 +280,7 @@ function LoadDecks() {
 
     function RefreshDeck(deckID, assetSource, assetSourceID, event) {
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "../SWUDeck/RefreshImport.php?deckID=" + deckID + "&source=" + assetSource + "&sourceID=" + assetSourceID + "&playerID=1", true);
+      xhr.open("GET", "/TCGEngine/SWUDeck/RefreshImport.php?deckID=" + deckID + "&source=" + assetSource + "&sourceID=" + assetSourceID + "&playerID=1", true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           showFlashMessage("Deck refreshed successfully!", event);

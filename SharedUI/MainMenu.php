@@ -209,9 +209,9 @@ function LoadDecks() {
 
   function GetDecksByUserID($userID) {
     $conn = GetLocalMySQLConnection();
-    $sql = "SELECT * FROM ownership 
-            WHERE assetType = 1 
-            AND (assetOwner = ? 
+    $sql = "SELECT * FROM ownership
+            WHERE assetType = 1
+            AND (assetOwner = ?
                  OR assetVisibility = (1000 + COALESCE((SELECT teamID FROM users WHERE usersId = ?), 0)))";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $userID, $userID);
@@ -280,7 +280,7 @@ function LoadDecks() {
 
     function RefreshDeck(deckID, assetSource, assetSourceID, event) {
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "../SWUDeck/RefreshImport.php?deckID=" + deckID + "&source=" + assetSource + "&sourceID=" + assetSourceID, true);
+      xhr.open("GET", "/TCGEngine/SWUDeck/RefreshImport.php?deckID=" + deckID + "&source=" + assetSource + "&sourceID=" + assetSourceID + "&playerID=1", true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           showFlashMessage("Deck refreshed successfully!", event);
@@ -328,7 +328,7 @@ function LoadDecks() {
         CopyDeckJSON(deckID, event);
         document.body.removeChild(optionsMenu);
       };
-      
+
       var copyImageBtn = document.createElement("button");
       copyImageBtn.innerText = "Copy Image";
       copyImageBtn.onclick = function(e) {
@@ -523,7 +523,7 @@ function LoadDecks() {
         } else {
           tr[i].style.display = "none";
         }
-      }       
+      }
     }
   }
 
@@ -616,9 +616,9 @@ function LoadDecks() {
       <div class="decks-section tabs" style="width: 100%; margin: 0 auto;">
         <!-- Card Search for mobile (above deck list) -->
         <div class="card-search-mobile">
-          <input type="text" id="cardSearchInputMobile" placeholder="Search cards..." 
-                 style="width: 100%; padding: 10px; background-color: #002249; color: white; 
-                        border: 1px solid #2a4b8d; border-radius: 4px; cursor: pointer;" 
+          <input type="text" id="cardSearchInputMobile" placeholder="Search cards..."
+                 style="width: 100%; padding: 10px; background-color: #002249; color: white;
+                        border: 1px solid #2a4b8d; border-radius: 4px; cursor: pointer;"
                  readonly onclick="openCardSearch()">
         </div>
         <!-- ...tab buttons and deck list content... -->
@@ -654,8 +654,8 @@ function LoadDecks() {
           <div class="tab-content-container">
             <div id="tab-decks" class="tab-content" style="display: block;">
               <div>
-                <input type="text" id="deckSearchInput" placeholder="Search your decks..." 
-                      style="width: 100%; padding: 10px; background-color: #002249; color: white; 
+                <input type="text" id="deckSearchInput" placeholder="Search your decks..."
+                      style="width: 100%; padding: 10px; background-color: #002249; color: white;
                             border: 1px solid #2a4b8d; border-radius: 4px;"
                       onkeyup="filterDecks()">
               </div>
@@ -725,9 +725,9 @@ function LoadDecks() {
       <div class="login container bg-black" style="margin-bottom: 20px;">
         <div class="search-container">
           <h3 style="margin-top: 0;">Card Search</h3>
-          <input type="text" id="cardSearchInput" placeholder="Search cards..." 
-                 style="width: 100%; padding: 10px; background-color: #002249; color: white; 
-                        border: 1px solid #2a4b8d; border-radius: 4px; cursor: pointer;" 
+          <input type="text" id="cardSearchInput" placeholder="Search cards..."
+                 style="width: 100%; padding: 10px; background-color: #002249; color: white;
+                        border: 1px solid #2a4b8d; border-radius: 4px; cursor: pointer;"
                  readonly onclick="openCardSearch()">
         </div>
       </div>
@@ -761,7 +761,7 @@ function LoadDecks() {
   function createDeck() {
     window.location.href = "../SWUDeck/CreateDeck.php";
   }
-  
+
   function importDeck() {
     var popup = document.createElement("div");
     popup.id = "importDeckPopup";
@@ -819,60 +819,60 @@ function LoadDecks() {
     const popup = document.getElementById("cardSearchPopup");
     const overlay = document.getElementById("cardSearchOverlay");
     const content = document.getElementById("cardSearchContent");
-    
+
     // Show the popup container first
     popup.style.display = "block";
-    
+
     // Set iframe source
     document.getElementById("cardSearchFrame").src = "https://swustats.net/TCGEngine/NextTurn.php?gameName=1&playerID=1&folderPath=SWUCardList";
 
     // Force a reflow to ensure transitions work
     void popup.offsetWidth;
-    
+
     // Start the animations
     overlay.style.opacity = "1";
     content.style.opacity = "1";
     content.style.transform = "translate(-50%, -50%) scale(1)";
-    
+
     // Prevent background scrolling
     document.body.style.overflow = "hidden";
-    
+
     // Add escape key listener
     document.addEventListener('keydown', handleEscKey);
-    
+
     // Add touch event listener for mobile
     content.addEventListener('touchend', function(e) {
       e.stopPropagation();
     }, false);
   }
-  
+
   function closeCardSearch() {
     const overlay = document.getElementById("cardSearchOverlay");
     const content = document.getElementById("cardSearchContent");
     const popup = document.getElementById("cardSearchPopup");
-    
+
     // Start the closing animations
     overlay.style.opacity = "0";
     content.style.opacity = "0";
     content.style.transform = "translate(-50%, -50%) scale(0.5)";
-    
+
     // Wait for animations to complete before hiding
     setTimeout(() => {
       popup.style.display = "none";
       document.getElementById("cardSearchFrame").src = "";
       document.body.style.overflow = "auto"; // Restore scrolling
     }, 50); // Match the transition duration (50ms)
-    
+
     // Remove escape key listener
     document.removeEventListener('keydown', handleEscKey);
   }
-  
+
   function handleEscKey(e) {
     if (e.key === "Escape") {
       closeCardSearch();
     }
   }
-  
+
   // Add additional touch event handler for the search input
   document.addEventListener('DOMContentLoaded', function() {
     const cardSearchInput = document.getElementById('cardSearchInput');
