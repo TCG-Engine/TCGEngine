@@ -1,6 +1,6 @@
 
 window.customFilter = true;
-window.legalFilter = false;
+window.legalFilter = true;
 
 var legalSets = ["JTL", "LOF", "SEC", "IBH", "LAW"];
 

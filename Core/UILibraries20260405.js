@@ -1313,7 +1313,9 @@
         var fullName = prefix + zoneName;
         var filterText = window.filterText ? window.filterText : "";//TODO: Separate filter text for each zone
         var customFilterStatus = window.customFilter ? window.customFilter : false;
-        var legalFilterStatus = window.legalFilter ? window.legalFilter : false;
+        var storedLegalFilter = localStorage.getItem('swuLegalFilter');
+        var legalFilterStatus = storedLegalFilter !== null ? storedLegalFilter === 'true' : true;
+        window.legalFilter = legalFilterStatus;
         var scrollPosition = window[fullName + "ScrollPosition"] || 0;
         var html = "<div style='display: flex; flex-direction: column; width:100%; overflow-y: auto;'>";
         html += `<div style='position: relative; width: 100%; box-sizing: border-box;'>`;
@@ -1373,6 +1375,7 @@
         window.customFilter = customFilterCheckbox ? customFilterCheckbox.checked : false;
         const legalFilterCheckbox = document.getElementById('legalFilterCheckbox');
         window.legalFilter = legalFilterCheckbox ? legalFilterCheckbox.checked : false;
+        localStorage.setItem('swuLegalFilter', window.legalFilter);
         RenderPane(prefix, zoneName, window[paneVar]);
         if(source == "textFilter") {
           const filterTextElement2 = document.getElementById(`${fullName}FilterText`);
@@ -2538,7 +2541,7 @@ function MobileDeckEditorLayout() {
   // Scrollable top section
   var topArea = document.createElement('div');
   topArea.id = 'mobileTopArea';
-  topArea.style.cssText = 'flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;width:100%;box-sizing:border-box;';
+  topArea.style.cssText = 'flex:1;overflow-y:auto;overflow-x:hidden;min-height:0;width:100%;box-sizing:border-box;padding-bottom:80px;';
 
   // Leader + Base side-by-side row
   var leaderBaseRow = document.createElement('div');

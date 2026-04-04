@@ -13,7 +13,7 @@ AssetReflection: SWUDeck
 Initialization: Initialize.php
 ServerInclude: /Custom/DeckValidation.php
 ServerInclude: /Custom/CustomInput.php
-ClientInclude: /TCGEngine/SWUDeck/Custom/Filters1.js
+ClientInclude: /TCGEngine/SWUDeck/Custom/Filters2.js
 ClientInclude: /TCGEngine/SWUDeck/Custom/ClientActions.js
 Leader - CardID:string
 Display: Visibility=Self, Mode=All, Left=40%, Top=10px, Split=None
