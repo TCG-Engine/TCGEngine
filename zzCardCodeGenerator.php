@@ -348,18 +348,19 @@ if($rootName == "SWUDeck") {
   fwrite($handler, "}\r\n\r\n");
 
   fwrite($handler, "function Cardswudb(cardID) {\r\n");
+  fwrite($handler, "  var _cost = String(Cardcost(cardID) ?? 0).padStart(3, '0');\r\n");
   fwrite($handler, "  switch (Cardtype(cardID)) {\r\n");
   fwrite($handler, "    case \"Unit\":\r\n");
   fwrite($handler, "      if(Cardarena(cardID) === \"Ground\") {\r\n");
-  fwrite($handler, "        return \"a\" + Cardcost(cardID) + Cardtitle(cardID);\r\n");
+  fwrite($handler, "        return \"a\" + _cost + Cardtitle(cardID);\r\n");
   fwrite($handler, "      } else if (Cardarena(cardID) === \"Space\") {\r\n");
-  fwrite($handler, "        return \"b\" + Cardcost(cardID) + Cardtitle(cardID);\r\n");
+  fwrite($handler, "        return \"b\" + _cost + Cardtitle(cardID);\r\n");
   fwrite($handler, "      }\r\n");
   fwrite($handler, "      break;\r\n");
   fwrite($handler, "    case \"Event\":\r\n");
-  fwrite($handler, "      return \"c\" + Cardcost(cardID) + Cardtitle(cardID);\r\n");
+  fwrite($handler, "      return \"c\" + _cost + Cardtitle(cardID);\r\n");
   fwrite($handler, "    case \"Upgrade\":\r\n");
-  fwrite($handler, "      return \"d\" + Cardcost(cardID) + Cardtitle(cardID);\r\n");
+  fwrite($handler, "      return \"d\" + _cost + Cardtitle(cardID);\r\n");
   fwrite($handler, "    default: return \"zzz\";\r\n");
   fwrite($handler, "  };\r\n");
   fwrite($handler, "}\r\n\r\n");
