@@ -1,5 +1,20 @@
 
 window.customFilter = true;
+window.legalFilter = false;
+
+var legalSets = ["JTL", "LOF", "SEC", "IBH", "LAW"];
+
+function InLegalFilter(cardID) {
+  var cardSet = Cardset(cardID);
+  if(cardSet && legalSets.includes(cardSet)) return false;
+  var reprints = cardReprintSets[cardID];
+  if(reprints) {
+    for(var i = 0; i < reprints.length; i++) {
+      if(legalSets.includes(reprints[i])) return false;
+    }
+  }
+  return true;
+}
 
 function InAspectFilter(cardID) {
   if(!window.myLeaderData || !window.myBaseData) {

@@ -468,6 +468,7 @@
                 if(ShouldFilterWithOr(cardArr[0], filter)) continue;
               }
               if(filterFunction != null && window.customFilter && filterFunction(cardArr[0])) continue;
+              if(typeof window.InLegalFilter === 'function' && window.legalFilter && window.InLegalFilter(cardArr[0])) continue;
               if(linkedSubcardCardIDs[cardArr[0]]) continue; // skip cards rendered inline as subcards
               if(mode == "Tile") {
                 var cardObject = {
@@ -1312,6 +1313,7 @@
         var fullName = prefix + zoneName;
         var filterText = window.filterText ? window.filterText : "";//TODO: Separate filter text for each zone
         var customFilterStatus = window.customFilter ? window.customFilter : false;
+        var legalFilterStatus = window.legalFilter ? window.legalFilter : false;
         var scrollPosition = window[fullName + "ScrollPosition"] || 0;
         var html = "<div style='display: flex; flex-direction: column; width:100%; overflow-y: auto;'>";
         html += `<div style='position: relative; width: 100%; box-sizing: border-box;'>`;
@@ -1339,7 +1341,13 @@
         if(hasCustomFilter) {
           html += `<div style='display: flex; align-items: center; margin-left: 10px;'>
           <input type='checkbox' id='customFilterCheckbox' onchange='PaneFilterCards("${prefix}", "${zoneName}", event, "check");' ${customFilterStatus ? 'checked' : ''}>
-          <label for='customFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter</label>
+          <label for='customFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter Aspect</label>
+              </div>`;
+        }
+        if(typeof window.InLegalFilter === 'function') {
+          html += `<div style='display: flex; align-items: center; margin-left: 10px;'>
+          <input type='checkbox' id='legalFilterCheckbox' onchange='PaneFilterCards("${prefix}", "${zoneName}", event, "check");' ${legalFilterStatus ? 'checked' : ''}>
+          <label for='legalFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter Legal</label>
               </div>`;
         }
         html += `</div>`;
@@ -1363,6 +1371,8 @@
         window.filterText = filterTextElement.value; // TODO: Separate filter text for each zone
         const customFilterCheckbox = document.getElementById('customFilterCheckbox');
         window.customFilter = customFilterCheckbox ? customFilterCheckbox.checked : false;
+        const legalFilterCheckbox = document.getElementById('legalFilterCheckbox');
+        window.legalFilter = legalFilterCheckbox ? legalFilterCheckbox.checked : false;
         RenderPane(prefix, zoneName, window[paneVar]);
         if(source == "textFilter") {
           const filterTextElement2 = document.getElementById(`${fullName}FilterText`);
