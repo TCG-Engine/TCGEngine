@@ -20,10 +20,22 @@ if($error !== "") {
   exit();
 }
 
+$startTime = microtime(true);
+ob_implicit_flush(true);
+function logLine($msg) {
+  global $startTime;
+  $elapsed = round(microtime(true) - $startTime, 2);
+  $mem = round(memory_get_usage(true) / 1048576, 1);
+  echo "[{$elapsed}s | {$mem}MB] " . $msg . "<BR>\n";
+  if(ob_get_level() > 0) ob_flush();
+  flush();
+}
+
 $rootName = TryGET("rootName", "");
 
 // Optional override for card database path (useful when multiple roots share card data)
 $cardDBOverride = TryGET("CardDBOverride", "");
+logLine("=== Generator starting: rootName=" . $rootName . " | PHP " . PHP_VERSION . " | memory_limit=" . ini_get('memory_limit') . " | max_exec_time=" . ini_get('max_execution_time') . "s ===");
 
 $schemaFile = "./Schemas/" . $rootName . "/ImportSchema.txt";
 $handler = fopen($schemaFile, "r");
@@ -58,7 +70,9 @@ $reprintMap = [];
 $count = 0;
 $currentPage = 1;
 $hasMoreData = true;
+$totalSkipped = 0;
 
+logLine("=== Phase 1: Fetching card data from API ===");
 while($hasMoreData) {
   $curl = curl_init();
   $headers = array(
@@ -66,18 +80,25 @@ while($hasMoreData) {
   );
   curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
   $urlWithParams = $jsonUrl . ($paginationUrlParameter != "" ? "&" . $paginationUrlParameter . "=" . $currentPage : "");
-  echo("Fetching data from: " . $urlWithParams . "<BR>");
+  logLine("Fetching page " . $currentPage . ": " . $urlWithParams);
   curl_setopt($curl, CURLOPT_URL, $urlWithParams);
   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  $curlStart = microtime(true);
   $apiData = curl_exec($curl);
+  $curlMs = round((microtime(true) - $curlStart) * 1000);
   curl_close($curl);
 
   // Remove BOM if present
   if (substr($apiData, 0, 3) === "\xEF\xBB\xBF") {
       $apiData = substr($apiData, 3);
   }
+  $responseBytes = strlen($apiData);
   $response = json_decode($apiData);
-  echo($response ? "Response received successfully.<BR>" : "Failed to decode JSON response.<BR>");
+  if(!$response) {
+    logLine("ERROR: Failed to decode JSON on page " . $currentPage . " (" . $curlMs . "ms, " . round($responseBytes/1024, 1) . "KB). Aborting.");
+    break;
+  }
+  logLine("Page " . $currentPage . " fetched in " . $curlMs . "ms (" . round($responseBytes/1024, 1) . "KB)");
 
   if($cardArrayJson == "") {
     $cardArrayJson = "Data";
@@ -85,7 +106,9 @@ while($hasMoreData) {
     $response = new stdClass();
     $response->$cardArrayJson = $responseCopy;
   }
-  echo(count($response->$cardArrayJson) . " cards on page " . $currentPage . "<BR>");
+  $pageCardCount = count($response->$cardArrayJson);
+  $pageSkipped = 0;
+  logLine("Parsing " . $pageCardCount . " raw records from page " . $currentPage);
 
   for ($i = 0; $i < count($response->$cardArrayJson); ++$i)
   {
@@ -107,6 +130,7 @@ while($hasMoreData) {
       $setCode = $card->expansion->data->attributes->code ?? "Unknown";
       $validSets = ["SOR", "SHD", "TWI", "JTL", "LOF", "IBH", "SEC", "LAW"];
       if(!in_array($setCode, $validSets)) {
+        $pageSkipped++; $totalSkipped++;
         continue;
       }
 
@@ -118,6 +142,7 @@ while($hasMoreData) {
 
       $definedType = $card->type->data->attributes->name;
       if($definedType == "Token Unit" || $definedType == "Token Upgrade" || $definedType == "Force Token") {
+        $pageSkipped++; $totalSkipped++;
         continue;
       }
     } else if($rootName == "RBDeck") {
@@ -149,12 +174,15 @@ while($hasMoreData) {
     ++$count;
   }
   if($paginationUrlParameter != "") {
-    echo("Parsed " . $count . " cards on page " . $currentPage . "<BR>");
+    if($rootName == "SWUDeck") {
+      $pageCount = $response->meta->pagination->pageCount;
+    }
+    $pageLabel = isset($pageCount) ? $currentPage . "/" . $pageCount : (string)$currentPage;
+    logLine("Page " . $pageLabel . " done: " . ($pageCardCount - $pageSkipped) . " accepted, " . $pageSkipped . " skipped (running totals: " . $count . " accepted, " . $totalSkipped . " skipped)");
     $currentPage++;
 
     // Check for more data based on response metadata
     if($rootName == "SWUDeck") {
-      $pageCount = $response->meta->pagination->pageCount;
       $hasMoreData = $currentPage <= $pageCount;
     } else if($paginationResponseMetadata != "") {
       // Navigate to the metadata field in the response
@@ -167,7 +195,8 @@ while($hasMoreData) {
   }
 }
 
-echo("Parsed " . $count . " cards<BR>");
+logLine("=== Phase 1 complete: " . $count . " cards accepted, " . $totalSkipped . " skipped across " . ($currentPage - 1) . " pages ===");
+logLine("=== Phase 2: Building property arrays for " . count($properties) . " properties ===");
 
 $associativeArrays = [];
 foreach ($properties as $property) {
@@ -204,7 +233,7 @@ for ($i = 0; $i < count($cardArray); ++$i) {
 $keywordData = [];
 $keywordTypes = []; // 'boolean' or 'value'
 if(!empty($keywordsFile) && file_exists($keywordsFile)) {
-  echo("Processing keywords from: " . $keywordsFile . "<BR>");
+  logLine("=== Phase 3: Processing keywords from: " . $keywordsFile . " ===");
   $keywordsJson = file_get_contents($keywordsFile);
   $keywordsData = json_decode($keywordsJson, true);
 
@@ -247,9 +276,10 @@ if(!empty($keywordsFile) && file_exists($keywordsFile)) {
     }
   }
 
-  echo("Processed " . count($keywordTypes) . " unique keywords<BR>");
+  logLine("Processed " . count($keywordTypes) . " unique keywords");
 }
 
+logLine("=== Phase 4: Initializing card abilities database ===");
 // Populate card abilities database with card IDs from this root
 // Only inserts cards that don't already have entries (preserves existing custom code)
 // Uses CardDBOverride if provided, otherwise uses rootName for the database root
@@ -273,16 +303,15 @@ try {
   }
 
   mysqli_close($conn);
-  echo("Card abilities database initialized for $databaseRoot. " . count($allCardIds) . " total cards available for editing.<BR>");
+  logLine("Card abilities database initialized for $databaseRoot. " . count($allCardIds) . " total cards available for editing.");
 
 } catch (Exception $e) {
-  echo("Note: Could not initialize card abilities database: " . $e->getMessage() . "<BR>");
+  logLine("WARNING: Could not initialize card abilities database: " . $e->getMessage());
 }
 
 $directory = "./" . $rootName . "/GeneratedCode";
 if(!is_dir($directory)) mkdir($directory, 777, true);
-
-$generateFilename = $directory . "/GeneratedCardDictionaries.php";
+logLine("=== Phase 5: Writing GeneratedCardDictionaries.php ===");$generateFilename = $directory . "/GeneratedCardDictionaries.php";
 $handler = fopen($generateFilename, "w");
 fwrite($handler, "<?php\r\n");
 foreach ($properties as $property) {
@@ -321,6 +350,7 @@ fwrite($handler, "  return " . var_export($allCardIds, true) . ";\r\n");
 fwrite($handler, "}\r\n\r\n");
 fwrite($handler, "?>");
 fclose($handler);
+logLine("PHP file written: " . basename($generateFilename) . " (" . round(filesize($generateFilename)/1024, 1) . "KB)");
 
 $fileSuffix = date("YmdHis");
 $generateFilename = $directory . "/GeneratedCardDictionaries_$fileSuffix.js";
@@ -331,6 +361,7 @@ foreach ($oldFiles as $oldFile) {
   }
 }
 $handler = fopen($generateFilename, "w");
+logLine("=== Phase 6: Writing " . basename($generateFilename) . " ===");
 foreach ($properties as $property) {
   fwrite($handler, "var " . $property . "Data = " . json_encode($associativeArrays[$property]) . ";\r\n");
   fwrite($handler, "function Card" . $property . "(cardID) {\r\n");
@@ -393,7 +424,7 @@ if($rootName == "SWUDeck" && file_exists("./$rootName/Overrides.php")) {
   }
 }
 fwrite($handler, "var cardReprintSets = " . json_encode($reprintSetsMap) . ";\r\n");
-//Add should filter function
+logLine("Reprint map: " . count($reprintSetsMap) . " canonical cards have reprints");
 fwrite($handler, "function ShouldFilter(cardID,filter) {\r\n");
 fwrite($handler, "  var filterArr = filter.match(/(?:[^\\s\"]+|\"[^\"]*\")+/g) || [];\r\n");
 fwrite($handler, "  for(var i=0; i<filterArr.length; ++i) {\r\n");
@@ -490,6 +521,8 @@ for ($i = 0; $i < count($properties); ++$i) {
 }
 fwrite($handler, "];\r\n\r\n");
 fclose($handler);
+logLine("JS file written: " . basename($generateFilename) . " (" . round(filesize($generateFilename)/1024, 1) . "KB)");
+logLine("=== Generator complete! Total time: " . round(microtime(true) - $startTime, 2) . "s ===");
 
 function GetResponseMetadata($response, $metadataPath)
 {
