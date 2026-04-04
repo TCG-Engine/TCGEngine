@@ -372,6 +372,26 @@ if(($rootName == "SWUDeck" || $rootName == "SoulMastersDB") && file_exists("./" 
 }
 $allSetsJson = json_encode($allSetsOrdered, JSON_FORCE_OBJECT);
 fwrite($handler, "var allSetsData = " . $allSetsJson . ";\r\n");
+// Build reprint set map: canonicalUUID => [reprintSetCode, ...] for ordered set filtering
+$reprintSetsMap = [];
+if($rootName == "SWUDeck" && file_exists("./$rootName/Overrides.php")) {
+  $overridesContent = file_get_contents("./$rootName/Overrides.php");
+  $overrideMatches = [];
+  preg_match_all('/case "([A-Z0-9]+_[0-9]+)":\s*return "([A-Z0-9]+_[0-9]+)"/', $overridesContent, $overrideMatches);
+  for($oi = 0; $oi < count($overrideMatches[1]); $oi++) {
+    $reprintSetNNN = $overrideMatches[1][$oi];
+    $canonicalSetNNN = $overrideMatches[2][$oi];
+    $reprintSetCode = explode("_", $reprintSetNNN)[0];
+    if(!isset($allSetsOrdered[$reprintSetCode])) continue; // Skip promos/non-premier sets
+    $canonicalUUID = $associativeArrays["uuidLookup"][$canonicalSetNNN] ?? null;
+    if($canonicalUUID === null) continue;
+    if(!isset($reprintSetsMap[$canonicalUUID])) $reprintSetsMap[$canonicalUUID] = [];
+    if(!in_array($reprintSetCode, $reprintSetsMap[$canonicalUUID])) {
+      $reprintSetsMap[$canonicalUUID][] = $reprintSetCode;
+    }
+  }
+}
+fwrite($handler, "var cardReprintSets = " . json_encode($reprintSetsMap) . ";\r\n");
 //Add should filter function
 fwrite($handler, "function ShouldFilter(cardID,filter) {\r\n");
 fwrite($handler, "  var filterArr = filter.match(/(?:[^\\s\"]+|\"[^\"]*\")+/g) || [];\r\n");
@@ -416,10 +436,14 @@ for ($i = 0; $i < count($properties); ++$i) {
       fwrite($handler, "          var cardOrder = allSetsData[propertyValue.toUpperCase()];\r\n");
       fwrite($handler, "          if(targetOrder === undefined || cardOrder === undefined) {\r\n");
       fwrite($handler, "            if(!propertyValue.toLowerCase().includes(thisValue.toLowerCase())) return true;\r\n");
-      fwrite($handler, "          } else if(operand == '>' && cardOrder <= targetOrder) return true;\r\n");
-      fwrite($handler, "          else if(operand == '<' && cardOrder >= targetOrder) return true;\r\n");
-      fwrite($handler, "          else if(operand == '>=' && cardOrder < targetOrder) return true;\r\n");
-      fwrite($handler, "          else if(operand == '<=' && cardOrder > targetOrder) return true;\r\n");
+      fwrite($handler, "          } else {\r\n");
+      fwrite($handler, "            var _reprints = cardReprintSets[cardID];\r\n");
+      fwrite($handler, "            if(_reprints) { for(var _ri=0; _ri<_reprints.length; _ri++) { var _ro=allSetsData[_reprints[_ri]]; if(_ro!==undefined) { if((operand=='>' || operand=='>=') && _ro>cardOrder) cardOrder=_ro; if((operand=='<' || operand=='<=') && _ro<cardOrder) cardOrder=_ro; } } }\r\n");
+      fwrite($handler, "            if(operand == '>' && cardOrder <= targetOrder) return true;\r\n");
+      fwrite($handler, "            else if(operand == '<' && cardOrder >= targetOrder) return true;\r\n");
+      fwrite($handler, "            else if(operand == '>=' && cardOrder < targetOrder) return true;\r\n");
+      fwrite($handler, "            else if(operand == '<=' && cardOrder > targetOrder) return true;\r\n");
+      fwrite($handler, "          }\r\n");
       fwrite($handler, "        }\r\n");
     } else {
       fwrite($handler, "        var propertyValue = Card" . $property . "(cardID);\r\n");
