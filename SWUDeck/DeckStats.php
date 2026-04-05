@@ -90,7 +90,26 @@
     $result = $stmt->get_result();
 
   // Matchup stats table
-  $baseColorMap = ['Green' => '#4caf50', 'Blue' => '#2196f3', 'Red' => '#f44336', 'Yellow' => '#ffc107', 'Colorless' => '#9e9e9e'];
+  // aspect name → [letter, hex color]
+  $aspectDotMap = [
+    'Aggression' => ['R', '#f44336'],
+    'Vigilance'  => ['B', '#2196f3'],
+    'Command'    => ['G', '#4caf50'],
+    'Cunning'    => ['Y', '#ffc107'],
+    'Villainy'   => ['K', '#212121'],
+    'Heroism'    => ['W', '#e0e0e0'],
+  ];
+  // base color stored in DB → [letter, hex color]
+  $baseColorDotMap = [
+    'Green'     => ['G', '#4caf50'],
+    'Blue'      => ['B', '#2196f3'],
+    'Red'       => ['R', '#f44336'],
+    'Yellow'    => ['Y', '#ffc107'],
+    'Colorless' => ['C', '#9e9e9e'],
+  ];
+  $makeDot = function($hex, $letter) {
+    return "<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:" . $hex . ";margin-right:2px;vertical-align:middle;'></span>" . $letter;
+  };
   $matchupStats = "<br><strong>Matchup Stats:</strong><br>";
   $matchupStats .= "<table id='matchupStatsTable' class='statsTable display' cellspacing='0' width='100%'><thead>";
   $matchupStats .= "<tr><th>Leader/Base</th><th>Wins</th><th>Losses</th><th>Win Rate</th><th>Games</th></tr>";
@@ -100,12 +119,28 @@
       $totalPlays = (int)$row["total"];
       $totalLosses = $totalPlays - $totalWins;
       $totalWinRate = ($totalPlays > 0) ? ($totalWins / $totalPlays) * 100 : 0;
-      $dotColor = $baseColorMap[$row["baseColor"]] ?? '#888';
-      $leaderLabel = htmlspecialchars(CardTitle($row["leaderID"]) . ", " . CardSubtitle($row["leaderID"]), ENT_QUOTES, 'UTF-8');
-      $colorDot = "<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:" . $dotColor . ";margin-right:5px;vertical-align:middle;'></span>";
-      $colorLabel = htmlspecialchars($row["baseColor"], ENT_QUOTES, 'UTF-8');
+      // Leader aspect dots
+      $leaderAspectStr = CardAspect($row["leaderID"]) ?? '';
+      $leaderDots = '';
+      if($leaderAspectStr !== '') {
+        foreach(explode(',', $leaderAspectStr) as $asp) {
+          $asp = trim($asp);
+          if(isset($aspectDotMap[$asp])) {
+            [$letter, $hex] = $aspectDotMap[$asp];
+            $leaderDots .= $makeDot($hex, $letter);
+          }
+        }
+      }
+      // Base color dot
+      $baseColor = $row["baseColor"];
+      [$baseLetter, $baseHex] = $baseColorDotMap[$baseColor] ?? ['?', '#888'];
+      $baseDot = $makeDot($baseHex, $baseLetter);
+      $leaderName = htmlspecialchars(CardTitle($row["leaderID"]) . ", " . CardSubtitle($row["leaderID"]), ENT_QUOTES, 'UTF-8');
+      $baseLabel = htmlspecialchars($baseColor, ENT_QUOTES, 'UTF-8');
+      $leaderCell = $leaderName . ($leaderDots !== '' ? " (" . $leaderDots . ")" : '')
+                  . " / " . $baseLabel . " (" . $baseDot . ")";
       $matchupStats .= "<tr>";
-      $matchupStats .= "<td>" . $leaderLabel . "/" . $colorDot . $colorLabel . "</td>";
+      $matchupStats .= "<td>" . $leaderCell . "</td>";
       $matchupStats .= "<td>" . $totalWins . "</td>";
       $matchupStats .= "<td>" . $totalLosses . "</td>";
       $matchupStats .= "<td>" . number_format($totalWinRate, 2) . "%</td>";
