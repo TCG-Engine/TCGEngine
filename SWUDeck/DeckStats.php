@@ -32,94 +32,87 @@
 <?php
     // Get the stats source from URL parameter, defaulting to 'all'
     $statsSource = isset($_GET["source"]) ? $_GET["source"] : "all";
-    
+
     $conn = GetLocalMySQLConnection();
-    
+
     // Query for deckstats table with source filter
     if ($statsSource === "all") {
-      $stmt = $conn->prepare("SELECT SUM(numWins) as numWins, SUM(numPlays) as numPlays, 
-        SUM(turnsInWins) as turnsInWins, SUM(totalTurns) as totalTurns, 
-        SUM(cardsResourcedInWins) as cardsResourcedInWins, SUM(totalCardsResourced) as totalCardsResourced, 
-        SUM(remainingHealthInWins) as remainingHealthInWins, SUM(winsGoingFirst) as winsGoingFirst, 
-        SUM(winsGoingSecond) as winsGoingSecond, SUM(playsGoingFirst) as playsGoingFirst 
+      $stmt = $conn->prepare("SELECT SUM(numWins) as numWins, SUM(numPlays) as numPlays,
+        SUM(turnsInWins) as turnsInWins, SUM(totalTurns) as totalTurns,
+        SUM(cardsResourcedInWins) as cardsResourcedInWins, SUM(totalCardsResourced) as totalCardsResourced,
+        SUM(remainingHealthInWins) as remainingHealthInWins, SUM(winsGoingFirst) as winsGoingFirst,
+        SUM(winsGoingSecond) as winsGoingSecond, SUM(playsGoingFirst) as playsGoingFirst
         FROM deckstats WHERE deckID = ?");
       $stmt->bind_param("i", $gameName);
     } else {
       $sourceVal = ($statsSource === "owner") ? 1 : 0;
-      $stmt = $conn->prepare("SELECT SUM(numWins) as numWins, SUM(numPlays) as numPlays, 
-        SUM(turnsInWins) as turnsInWins, SUM(totalTurns) as totalTurns, 
-        SUM(cardsResourcedInWins) as cardsResourcedInWins, SUM(totalCardsResourced) as totalCardsResourced, 
-        SUM(remainingHealthInWins) as remainingHealthInWins, SUM(winsGoingFirst) as winsGoingFirst, 
-        SUM(winsGoingSecond) as winsGoingSecond, SUM(playsGoingFirst) as playsGoingFirst 
+      $stmt = $conn->prepare("SELECT SUM(numWins) as numWins, SUM(numPlays) as numPlays,
+        SUM(turnsInWins) as turnsInWins, SUM(totalTurns) as totalTurns,
+        SUM(cardsResourcedInWins) as cardsResourcedInWins, SUM(totalCardsResourced) as totalCardsResourced,
+        SUM(remainingHealthInWins) as remainingHealthInWins, SUM(winsGoingFirst) as winsGoingFirst,
+        SUM(winsGoingSecond) as winsGoingSecond, SUM(playsGoingFirst) as playsGoingFirst
         FROM deckstats WHERE deckID = ? AND source = ?");
       $stmt->bind_param("ii", $gameName, $sourceVal);
     }
-    
+
     $stmt->execute();
     $result = $stmt->get_result();
     $deckStats = $result->fetch_assoc();
     $hasDeckStats = $deckStats != null && $deckStats["numPlays"] > 0;
 
     $stmt->close();
-    
+
     // Query for opponentdeckstats table with source filter
-    if ($statsSource === "all") {
-      $stmt = $conn->prepare("SELECT * FROM opponentdeckstats WHERE deckID = ?");
-      $stmt->bind_param("i", $gameName);
+    // Pivot color columns into rows so each leader+base combo gets its own row
+    $colors = ['Green', 'Blue', 'Red', 'Yellow', 'Colorless'];
+    $unionParts = [];
+    foreach($colors as $color) {
+      $winCol = "winsVs" . $color;
+      $totalCol = "totalVs" . $color;
+      if($statsSource === "all") {
+        $unionParts[] = "SELECT leaderID, '$color' AS baseColor, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? GROUP BY leaderID HAVING total > 0";
+      } else {
+        $unionParts[] = "SELECT leaderID, '$color' AS baseColor, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? AND source = ? GROUP BY leaderID HAVING total > 0";
+      }
+    }
+    $unionSql = implode(" UNION ALL ", $unionParts) . " ORDER BY total DESC";
+    $stmt = $conn->prepare($unionSql);
+    if($statsSource === "all") {
+      $ids = array_fill(0, count($colors), $gameName);
+      $stmt->bind_param(str_repeat("i", count($colors)), ...$ids);
     } else {
       $sourceVal = ($statsSource === "owner") ? 1 : 0;
-      $stmt = $conn->prepare("SELECT * FROM opponentdeckstats WHERE deckID = ? AND source = ?");
-      $stmt->bind_param("ii", $gameName, $sourceVal);
+      $args = [];
+      foreach($colors as $_) { $args[] = $gameName; $args[] = $sourceVal; }
+      $stmt->bind_param(str_repeat("ii", count($colors)), ...$args);
     }
-    
     $stmt->execute();
     $result = $stmt->get_result();
-    // For matchup stats, we need to aggregate if looking at all sources
-    if ($statsSource === "all") {
-      // Close the previous query and create a new one that aggregates the data
-      $stmt->close();
-      $stmt = $conn->prepare("SELECT leaderID,
-        SUM(winsVsGreen) as winsVsGreen, SUM(winsVsBlue) as winsVsBlue, 
-        SUM(winsVsRed) as winsVsRed, SUM(winsVsYellow) as winsVsYellow,
-        SUM(totalVsGreen) as totalVsGreen, SUM(totalVsBlue) as totalVsBlue, 
-        SUM(totalVsRed) as totalVsRed, SUM(totalVsYellow) as totalVsYellow
-        FROM opponentdeckstats WHERE deckID = ? GROUP BY leaderID");
-      $stmt->bind_param("i", $gameName);
-      $stmt->execute();
-      $result = $stmt->get_result();
-    }
-    
-  // Matchup stats table (use DataTables-friendly markup and id)
+
+  // Matchup stats table
+  $baseColorMap = ['Green' => '#4caf50', 'Blue' => '#2196f3', 'Red' => '#f44336', 'Yellow' => '#ffc107', 'Colorless' => '#9e9e9e'];
   $matchupStats = "<br><strong>Matchup Stats:</strong><br>";
   $matchupStats .= "<table id='matchupStatsTable' class='statsTable display' cellspacing='0' width='100%'><thead>";
-  $matchupStats .= "<tr><th rowspan='2'>Leader</th><th rowspan='2'>Wins</th><th rowspan='2'>Losses</th><th rowspan='2'>Win Rate</th><th colspan='2'>Green</th><th colspan='2'>Blue</th><th colspan='2'>Red</th><th colspan='2'>Yellow</th></tr>";
-  $matchupStats .= "<tr><th>Win%</th><th>Played</th><th>Win%</th><th>Played</th><th>Win%</th><th>Played</th><th>Win%</th><th>Played</th></tr>";
+  $matchupStats .= "<tr><th>Leader/Base</th><th>Wins</th><th>Losses</th><th>Win Rate</th><th>Games</th></tr>";
   $matchupStats .= "</thead><tbody>";
     while ($row = $result->fetch_assoc()) {
-      $totalPlays = $row["totalVsGreen"] + $row["totalVsBlue"] + $row["totalVsRed"] + $row["totalVsYellow"];
-      $totalWins = $row["winsVsGreen"] + $row["winsVsBlue"] + $row["winsVsRed"] + $row["winsVsYellow"];
+      $totalWins = (int)$row["wins"];
+      $totalPlays = (int)$row["total"];
       $totalLosses = $totalPlays - $totalWins;
       $totalWinRate = ($totalPlays > 0) ? ($totalWins / $totalPlays) * 100 : 0;
-      $winRateVsGreen = ($row["totalVsGreen"] > 0) ? ($row["winsVsGreen"] / $row["totalVsGreen"]) * 100 : 0;
-      $winRateVsBlue = ($row["totalVsBlue"] > 0) ? ($row["winsVsBlue"] / $row["totalVsBlue"]) * 100 : 0;
-      $winRateVsRed = ($row["totalVsRed"] > 0) ? ($row["winsVsRed"] / $row["totalVsRed"]) * 100 : 0;
-      $winRateVsYellow = ($row["totalVsYellow"] > 0) ? ($row["winsVsYellow"] / $row["totalVsYellow"]) * 100 : 0;
+      $dotColor = $baseColorMap[$row["baseColor"]] ?? '#888';
+      $leaderLabel = htmlspecialchars(CardTitle($row["leaderID"]) . ", " . CardSubtitle($row["leaderID"]), ENT_QUOTES, 'UTF-8');
+      $colorDot = "<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background:" . $dotColor . ";margin-right:5px;vertical-align:middle;'></span>";
+      $colorLabel = htmlspecialchars($row["baseColor"], ENT_QUOTES, 'UTF-8');
       $matchupStats .= "<tr>";
-      $matchupStats .= "<td>" . htmlspecialchars(CardTitle($row["leaderID"]) . ", " . CardSubtitle($row["leaderID"]), ENT_QUOTES, 'UTF-8') . "</td>";
+      $matchupStats .= "<td>" . $leaderLabel . "/" . $colorDot . $colorLabel . "</td>";
       $matchupStats .= "<td>" . $totalWins . "</td>";
       $matchupStats .= "<td>" . $totalLosses . "</td>";
       $matchupStats .= "<td>" . number_format($totalWinRate, 2) . "%</td>";
-      $matchupStats .= "<td>" . ($row["totalVsGreen"] > 0 ? number_format($winRateVsGreen, 2) . "%" : "-") . "</td>";
-      $matchupStats .= "<td>" . $row["totalVsGreen"] . "</td>";
-      $matchupStats .= "<td>" . ($row["totalVsBlue"] > 0 ? number_format($winRateVsBlue, 2) . "%" : "-") . "</td>";
-      $matchupStats .= "<td>" . $row["totalVsBlue"] . "</td>";
-      $matchupStats .= "<td>" . ($row["totalVsRed"] > 0 ? number_format($winRateVsRed, 2) . "%" : "-") . "</td>";
-      $matchupStats .= "<td>" . $row["totalVsRed"] . "</td>";
-      $matchupStats .= "<td>" . ($row["totalVsYellow"] > 0 ? number_format($winRateVsYellow, 2) . "%" : "-") . "</td>";
-      $matchupStats .= "<td>" . $row["totalVsYellow"] . "</td>";
+      $matchupStats .= "<td>" . $totalPlays . "</td>";
       $matchupStats .= "</tr>";
     }
-   
+
   $matchupStats .= "</tbody></table>";
 
     $stmt->close();    $deckStatsOutput = "";
@@ -191,48 +184,48 @@
     $allSideBoard = &GetSideBoard(1);
     //Card stats
     if ($statsSource === "all") {
-      $stmt = $conn->prepare("SELECT cardID, 
-        SUM(timesIncluded) as timesIncluded, 
-        SUM(timesIncludedInWins) as timesIncludedInWins, 
-        SUM(timesDrawn) as timesDrawn, 
-        SUM(timesDrawnInWins) as timesDrawnInWins, 
-        SUM(timesPlayed) as timesPlayed, 
-        SUM(timesPlayedInWins) as timesPlayedInWins, 
-        SUM(timesResourced) as timesResourced, 
-        SUM(timesResourcedInWins) as timesResourcedInWins, 
-        SUM(timesDiscarded) as timesDiscarded, 
-        SUM(timesDiscardedInWins) as timesDiscardedInWins 
+      $stmt = $conn->prepare("SELECT cardID,
+        SUM(timesIncluded) as timesIncluded,
+        SUM(timesIncludedInWins) as timesIncludedInWins,
+        SUM(timesDrawn) as timesDrawn,
+        SUM(timesDrawnInWins) as timesDrawnInWins,
+        SUM(timesPlayed) as timesPlayed,
+        SUM(timesPlayedInWins) as timesPlayedInWins,
+        SUM(timesResourced) as timesResourced,
+        SUM(timesResourcedInWins) as timesResourcedInWins,
+        SUM(timesDiscarded) as timesDiscarded,
+        SUM(timesDiscardedInWins) as timesDiscardedInWins
         FROM carddeckstats WHERE deckID = ? GROUP BY cardID");
       $stmt->bind_param("i", $gameName);
     } else {
       $sourceVal = ($statsSource === "owner") ? 1 : 0;
-      $stmt = $conn->prepare("SELECT cardID, 
-        SUM(timesIncluded) as timesIncluded, 
-        SUM(timesIncludedInWins) as timesIncludedInWins, 
-        SUM(timesDrawn) as timesDrawn, 
-        SUM(timesDrawnInWins) as timesDrawnInWins, 
-        SUM(timesPlayed) as timesPlayed, 
-        SUM(timesPlayedInWins) as timesPlayedInWins, 
-        SUM(timesResourced) as timesResourced, 
-        SUM(timesResourcedInWins) as timesResourcedInWins, 
-        SUM(timesDiscarded) as timesDiscarded, 
-        SUM(timesDiscardedInWins) as timesDiscardedInWins 
+      $stmt = $conn->prepare("SELECT cardID,
+        SUM(timesIncluded) as timesIncluded,
+        SUM(timesIncludedInWins) as timesIncludedInWins,
+        SUM(timesDrawn) as timesDrawn,
+        SUM(timesDrawnInWins) as timesDrawnInWins,
+        SUM(timesPlayed) as timesPlayed,
+        SUM(timesPlayedInWins) as timesPlayedInWins,
+        SUM(timesResourced) as timesResourced,
+        SUM(timesResourcedInWins) as timesResourcedInWins,
+        SUM(timesDiscarded) as timesDiscarded,
+        SUM(timesDiscardedInWins) as timesDiscardedInWins
         FROM carddeckstats WHERE deckID = ? AND source = ? GROUP BY cardID");
       $stmt->bind_param("ii", $gameName, $sourceVal);
     }
     $stmt->execute();
     $result = $stmt->get_result();
-    
+
     // Create arrays to store main deck and sideboard card stats
     $mainDeckCardStats = [];
     $sideboardCardStats = [];
-    
+
     // Get all card IDs in main deck
     $mainDeckCardIDs = [];
     foreach ($allMainDeck as $card) {
       $mainDeckCardIDs[] = $card->CardID;
     }
-    
+
     // Separate card stats into main deck and sideboard
     while ($row = $result->fetch_assoc()) {
       if (in_array($row["cardID"], $mainDeckCardIDs)) {
@@ -241,14 +234,14 @@
         $sideboardCardStats[] = $row;
       }
     }
-    
+
     // Table header
     $tableHeader = "<tr><th>Card Name</th><th>Times Included</th><th>Times Included In Wins</th><th>Times Drawn</th><th>Times Drawn In Wins</th><th>Times Played</th><th>Times Played In Wins</th><th>Times Resourced</th><th>Times Resourced In Wins</th><th>Times Discarded</th><th>Times Discarded In Wins</th></tr>";
-    
+
   // Main deck stats table (use an id so we can initialize DataTables like CardMetaStats)
   $cardStatsTable = "<br><strong>Main Deck Stats:</strong><br>";
   $cardStatsTable .= "<table id='deckMainStatsTable' class='statsTable display' cellspacing='0' width='100%'><thead>" . $tableHeader . "</thead><tbody>";
-    
+
     foreach ($mainDeckCardStats as $row) {
       $cardStatsTable .= "<tr>";
       $cardStatsTable .= "<td>" . htmlspecialchars(CardTitle($row["cardID"]), ENT_QUOTES, 'UTF-8') . " (" . CardSet($row["cardID"]) . ")</td>";
@@ -264,14 +257,14 @@
       $cardStatsTable .= "<td>" . $row["timesDiscardedInWins"] . "</td>";
       $cardStatsTable .= "</tr>";
     }
-    
+
   $cardStatsTable .= "</tbody></table>";
-    
+
     // Sideboard stats table (only if there are sideboard cards with stats)
     if (!empty($sideboardCardStats)) {
       $cardStatsTable .= "<br><strong>Sideboard Stats:</strong><br>";
   $cardStatsTable .= "<table id='deckSideStatsTable' class='statsTable display' cellspacing='0' width='100%'><thead>" . $tableHeader . "</thead><tbody>";
-      
+
       foreach ($sideboardCardStats as $row) {
         $cardStatsTable .= "<tr>";
         $cardStatsTable .= "<td>" . htmlspecialchars(CardTitle($row["cardID"]), ENT_QUOTES, 'UTF-8') . " (" . CardSet($row["cardID"]) . ")</td>";
@@ -287,7 +280,7 @@
         $cardStatsTable .= "<td>" . $row["timesDiscardedInWins"] . "</td>";
         $cardStatsTable .= "</tr>";
       }
-      
+
   $cardStatsTable .= "</tbody></table>";
     }
     $deckStatsOutput .= $cardStatsTable . $matchupStats . "</div>";
@@ -427,14 +420,7 @@
             // Initialize matchup stats table
             if (document.getElementById('matchupStatsTable')) {
               try { if ($.fn.dataTable.isDataTable('#matchupStatsTable')) { $('#matchupStatsTable').DataTable().destroy(); } } catch(e){}
-              // compute number of columns by summing the colSpan of the first header row (handles grouped headers)
-              var matchupThCount = 0;
-              var firstHeaderRow = document.querySelectorAll('#matchupStatsTable thead tr')[0];
-              if (firstHeaderRow) {
-                firstHeaderRow.querySelectorAll('th').forEach(function(th) { matchupThCount += (th.colSpan || 1); });
-              }
-              var matchupCols = (new Array(matchupThCount)).fill(null);
-              $('#matchupStatsTable').DataTable({ "order": [], "paging": false, "info": false, "searching": false, "columns": matchupCols });
+              $('#matchupStatsTable').DataTable({ "order": [[4, 'desc']], "paging": false, "info": false, "searching": false });
             }
         } catch(e) { console.error('Error initializing DataTables on DeckStats:', e); }
       });
@@ -524,7 +510,7 @@
       var playerType = firstPlayerRadio.checked ? 'firstPlayer' : 'secondPlayer';
       var rounds = document.getElementById('rounds').value;
       var winnerHealth = document.getElementById('winnerHealth').value;
-      
+
       var mainDeckStats = {};
       var sideBoardStats = {};
 
@@ -538,7 +524,7 @@
       <?php foreach ($allSideBoard as $card):
         if (in_array($card->CardID, $uniqueMainDeckCards)) {
           continue;
-        } 
+        }
       ?>
         sideBoardStats['<?php echo $card->CardID; ?>'] = {
           played: document.getElementById('played_<?php echo $card->CardID; ?>').value,
@@ -635,14 +621,14 @@
       document.querySelectorAll('.selector-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-      
+
       // Find the clicked button and add active class
       document.querySelector('.selector-btn[onclick*="' + source + '"]').classList.add('active');
-      
+
       // Add a subtle fade effect before loading new data
       document.querySelector('.myStuff').style.opacity = '0.5';
       document.querySelector('.myStuff').style.transition = 'opacity 0.3s';
-      
+
       // Update source and redirect after short delay for animation
       window.statsSource = source;
       setTimeout(function() {
@@ -699,7 +685,7 @@
     /* slightly reduce table cell font for denser display */
     font-size: 12px;
   }
-  
+
   /* Ensure table cells don't get too narrow */
   .statsTable th:first-child, .statsTable td:first-child {
     min-width: 120px;
@@ -715,7 +701,7 @@
   .statsTable tr:nth-child(even) td {
     background-color: #3a3a3a;
   }
-  
+
   /* Stats Source Selector Styling */
   .stats-source-selector {
     /* Default selector styling (kept for backward compatibility). Compact variant removes heavy background. */
@@ -726,7 +712,7 @@
   }
 
   /* Button styles are loaded from SharedUI/css/buttons.css */
-  
+
   .selector-buttons {
     display: flex;
     justify-content: center;
@@ -740,7 +726,7 @@
     justify-content: flex-start;
     gap: 6px;
   }
-  
+
   .selector-btn {
     background-color: transparent;
     border: 1px solid rgba(255,255,255,0.06);
@@ -755,42 +741,42 @@
     min-width: 64px;
     font-size: 12px;
   }
-  
+
   .selector-btn:hover {
     background-color: rgba(255,255,255,0.03);
     transform: translateY(-2px);
   }
-  
+
   .selector-btn.active {
     background-color: #5a76a0;
     color: white;
     border-color: #7a96c0;
   }
-  
+
   .selector-icon {
     margin-right: 6px;
     font-style: normal;
   }
-  
+
   .all-icon {
     color: #ffcc33;
   }
-  
+
   .owner-icon {
     color: #66cc66;
   }
-  
+
   .community-icon {
     color: #6699ff;
   }
-  
+
   @media (max-width: 768px) {
     .selector-buttons {
       flex-direction: column;
       align-items: flex-start;
       gap: 6px;
     }
-    
+
     .selector-btn {
       width: auto;
       max-width: none;
