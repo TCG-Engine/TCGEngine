@@ -1232,7 +1232,7 @@
       function ShowFilterBarHelp() {
         let helpText = "Use the filter bar to quickly find cards. Text properties can use ':' or '=' to search for cards where that property contains that text. Numeric properties can use '=', '<', '>', '>=', or '<='. You can filter by the following properties:\n\n";
         propertyLookup.forEach(property => {
-          helpText += `- ${property.Name} (${property.Type})\n`;
+          helpText += `- "${property.Name}" (${property.Type})${property.Alias ? ` | alias: "${property.Alias}"` : ''}\n`;
         });
         let modalOverlay = document.createElement('div');
         modalOverlay.style.position = 'fixed';

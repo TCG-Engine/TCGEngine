@@ -69,6 +69,15 @@ for($i=0; $i<count($properties); ++$i) {
 
 $cacheFile = "./$rootName/GeneratedCode/cardArrayCache.json";
 
+if($rootName == "SWUDeck") {
+  $validSets = [
+    "SOR", "SHD", "TWI", // blank rotation
+    "JTL", "LOF", "IBH", "SEC", // rotation A
+    "LAW", // rotation B
+    "TS26" // supplemental
+  ];
+}
+
 $cardArray = [];
 $duplicateMap = [];
 $reprintMap = [];
@@ -143,12 +152,6 @@ if(!$withPreview && file_exists($cacheFile)) {
       $card = $card->attributes;
       $cardID = $card->cardUid;
       $setCode = $card->expansion->data->attributes->code ?? "Unknown";
-      $validSets = [
-        "SOR", "SHD", "TWI", // blank rotation
-        "JTL", "LOF", "IBH", "SEC", // rotation A
-        "LAW", // rotation B
-        "TS26" // supplemental
-      ];
       if(!in_array($setCode, $validSets)) {
         $pageSkipped++; $totalSkipped++;
         continue;
@@ -535,10 +538,20 @@ fwrite($handler, "  }\r\n");
 fwrite($handler, "  return false;\r\n");
 fwrite($handler, "}\r\n\r\n");
 //Add a JSON client lookup dictionary for properties
+// Build reverse alias map: property name (lowercase) => shortest alias
+$reverseAliasMap = [];
+if($rootName == "SWUDeck") {
+  $aliasMap = ["t" => "text", "p" => "power", "tr" => "trait", "up" => "upgradepower", "uhp" => "upgradehp", "r" => "rarity", "a" => "arena", "is" => "type"];
+  foreach($aliasMap as $alias => $prop) {
+    if(!isset($reverseAliasMap[$prop])) $reverseAliasMap[$prop] = $alias;
+    else if(strlen($alias) < strlen($reverseAliasMap[$prop])) $reverseAliasMap[$prop] = $alias;
+  }
+}
 fwrite($handler, "var propertyLookup = [\r\n");
 for ($i = 0; $i < count($properties); ++$i) {
   $property = $properties[$i];
-  fwrite($handler, "  { \"Name\": \"" . $property . "\", \"Type\": \"" . $propertyTypes[$i] . "\" }");
+  $alias = isset($reverseAliasMap[strtolower($property)]) ? $reverseAliasMap[strtolower($property)] : "";
+  fwrite($handler, "  { \"Name\": \"" . $property . "\", \"Type\": \"" . $propertyTypes[$i] . "\", \"Alias\": \"" . $alias . "\" }");
   if($i < count($properties) - 1) fwrite($handler, ",");
   fwrite($handler, "\r\n");
 }
