@@ -35,6 +35,9 @@ $rootName = TryGET("rootName", "");
 
 // Optional override for card database path (useful when multiple roots share card data)
 $cardDBOverride = TryGET("CardDBOverride", "");
+// When withPreview=1, fetch fresh data from the external API (use when previewing new cards).
+// Default (withPreview omitted) skips the API and rebuilds dictionaries from the saved cache.
+$withPreview = (TryGET("withPreview", "") === "1" || TryGET("withPreview", "") === "true");
 logLine("=== Generator starting: rootName=" . $rootName . " | PHP " . PHP_VERSION . " | memory_limit=" . ini_get('memory_limit') . " | max_exec_time=" . ini_get('max_execution_time') . "s ===");
 
 $schemaFile = "./Schemas/" . $rootName . "/ImportSchema.txt";
@@ -64,16 +67,28 @@ for($i=0; $i<count($properties); ++$i) {
   $propertyTypes[$i] = count($propertyArr) > 1 ? trim($propertyArr[1]) : "string";//Default to string
 }
 
+$cacheFile = "./$rootName/GeneratedCode/cardArrayCache.json";
+
 $cardArray = [];
 $duplicateMap = [];
 $reprintMap = [];
 $count = 0;
-$currentPage = 1;
-$hasMoreData = true;
-$totalSkipped = 0;
 
-logLine("=== Phase 1: Fetching card data from API ===");
-while($hasMoreData) {
+if(!$withPreview && file_exists($cacheFile)) {
+  logLine("=== Phase 1: Loading card array from cache (use withPreview=1 to fetch from API) ===");
+  $cacheData = json_decode(file_get_contents($cacheFile), false);
+  $cardArray = $cacheData->cardArray;
+  $reprintMap = (array)($cacheData->reprintMap);
+  $count = count($cardArray);
+  logLine("=== Phase 1 complete: loaded " . $count . " cards from cache ===");
+} else {
+  if(!$withPreview) logLine("WARNING: No cache found at $cacheFile — falling back to live fetch. Run with withPreview=1 to populate the cache.");
+  $currentPage = 1;
+  $hasMoreData = true;
+  $totalSkipped = 0;
+
+  logLine("=== Phase 1: Fetching card data from API ===");
+  while($hasMoreData) {
   $curl = curl_init();
   $headers = array(
     "Content-Type: application/json",
@@ -129,7 +144,7 @@ while($hasMoreData) {
       $cardID = $card->cardUid;
       $setCode = $card->expansion->data->attributes->code ?? "Unknown";
       $validSets = [
-        "SOR", "SHD", "TWI",// blank rotation
+        "SOR", "SHD", "TWI", // blank rotation
         "JTL", "LOF", "IBH", "SEC", // rotation A
         "LAW", // rotation B
         "TS26" // supplemental
@@ -200,7 +215,10 @@ while($hasMoreData) {
   }
 }
 
-logLine("=== Phase 1 complete: " . $count . " cards accepted, " . $totalSkipped . " skipped across " . ($currentPage - 1) . " pages ===");
+  $cacheJson = json_encode(['cardArray' => $cardArray, 'reprintMap' => $reprintMap]);
+  file_put_contents($cacheFile, $cacheJson);
+  logLine("=== Phase 1 complete: " . $count . " cards accepted, " . $totalSkipped . " skipped across " . ($currentPage - 1) . " pages — cache saved (" . round(strlen($cacheJson)/1024, 1) . "KB) ===");
+}
 logLine("=== Phase 2: Building property arrays for " . count($properties) . " properties ===");
 
 $associativeArrays = [];
@@ -455,7 +473,7 @@ fwrite($handler, "      thisValue = thisValue.slice(1, -1);\r\n");
 fwrite($handler, "    }\r\n");
 fwrite($handler, "    if(thisValue == \"\") continue;\r\n");
 if($rootName == "SWUDeck") {
-  fwrite($handler, "    var _filterAliases = {t:\"text\",p:\"power\",tr:\"trait\",up:\"upgradepower\",uhp:\"upgradehp\",r:\"rarity\",a:\"arena\"};\r\n");
+  fwrite($handler, "    var _filterAliases = {t:\"text\",p:\"power\",tr:\"trait\",up:\"upgradepower\",uhp:\"upgradehp\",r:\"rarity\",a:\"arena\",is:\"type\"};\r\n");
   fwrite($handler, "    if(_filterAliases[thisFilter]) thisFilter = _filterAliases[thisFilter];\r\n");
 }
 fwrite($handler, "    switch(thisFilter) {\r\n");
