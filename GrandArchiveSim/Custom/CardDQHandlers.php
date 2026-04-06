@@ -3489,6 +3489,27 @@ $customDQHandlers["ShiftingMiragePay"] = function($player, $parts, $lastDecision
     if(!empty($champMZ)) AddTurnEffect($champMZ, "STEALTH");
 };
 
+$customDQHandlers["GloamspireHeadhunterPay"] = function($player, $parts, $lastDecision) {
+    $target = DecisionQueueController::GetVariable("GloamspireHeadhunterTarget");
+    if($lastDecision === "YES") {
+        if(count(GetHand($player)) < 3) {
+            if(!empty($target)) {
+                DoAllyDestroyed($player, $target);
+                DecisionQueueController::CleanupRemovedCards();
+            }
+            return;
+        }
+        ReserveCard($player);
+        ReserveCard($player);
+        ReserveCard($player);
+        return;
+    }
+    if(!empty($target)) {
+        DoAllyDestroyed($player, $target);
+        DecisionQueueController::CleanupRemovedCards();
+    }
+};
+
 $customDQHandlers["BlastshotPumpChoose"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $damage = intval(DecisionQueueController::GetVariable("BlastshotPumpDamage") ?? "0");

@@ -1041,6 +1041,30 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(GlobalEffectCount($opponent, "CRYSTALLIZED_DESTINY_COST") > 0) {
         $reserveCost += 2;
     }
+    // Jianyu, Fate's Premonition (qv0vn6tuow): chosen card name costs 2+X more to activate,
+    // where X is the amount of phantasias Jianyu's controller controls.
+    foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $fieldObj) {
+        if($fieldObj->removed || $fieldObj->CardID !== "qv0vn6tuow" || HasNoAbilities($fieldObj)) continue;
+        foreach($fieldObj->TurnEffects ?? [] as $effect) {
+            if(strpos($effect, "qv0vn6tuow-") !== 0) continue;
+            if($obj->CardID !== substr($effect, strlen("qv0vn6tuow-"))) continue;
+            global $playerID;
+            $fieldZone = $fieldObj->Controller == $playerID ? "myField" : "theirField";
+            $reserveCost += 2 + count(ZoneSearch($fieldZone, ["PHANTASIA"]));
+            break 2;
+        }
+    }
+    // Kingdom's Divide (qy34r8gffr): chosen card name costs 2 more to activate until beginning of caster's next turn.
+    foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $fieldObj) {
+        if($fieldObj->removed || !PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) continue;
+        foreach($fieldObj->TurnEffects ?? [] as $effect) {
+            if(strpos($effect, "qy34r8gffr-") !== 0) continue;
+            if($obj->CardID === substr($effect, strlen("qy34r8gffr-"))) {
+                $reserveCost += 2;
+                break 2;
+            }
+        }
+    }
 
     // Ceasing Edict (4f3bi5lohu): costs 2 less while Shifting Currents face South
     if($obj->CardID === "4f3bi5lohu" && GetShiftingCurrents($player) === "SOUTH") {
@@ -1049,6 +1073,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     // Crystallized Destiny (l36wwe3d5c): costs 2 less while you control 2+ Fatestone/Fatebound objects
     if($obj->CardID === "l36wwe3d5c" && CountFatestoneOrFateboundObjects($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+    // Vainglory Retribution (qtzsekkjn3): [Vanitas Bonus] [Level 2+] costs 2 less.
+    if($obj->CardID === "qtzsekkjn3" && IsVanitasBonusActive($player) && PlayerLevel($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+    // Jianyu, Fate's Premonition (qv0vn6tuow): [Class Bonus] costs 2 less.
+    if($obj->CardID === "qv0vn6tuow" && IsClassBonusActive($player, ["CLERIC"])) {
         $reserveCost = max(0, $reserveCost - 2);
     }
 
@@ -3661,6 +3693,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "mgesApvmwS": // Prismspire Scepter — banish self
         case "mnz5kgifhd": // Sanguine Goblet — banish self
         case "me0xxw0plq": // Refracted Twilight — banish self
+        case "qqq8j5fxym": // Shard of Empowerment — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -3678,8 +3711,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "sq0ou8vas3": // Tome of Sorcery — REST
         case "4moumzcx9z": // Staff of Blossoming Will — REST
         case "E09lX95cb9": // Ticket to the Afterlife — REST
+        case "qj5bbae3z4": // Cosmic Astroscope — REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
+            break;
+        case "r1o0qtb31x": // Worn Gearblade — REST, remove a durability counter
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            RemoveCounters($player, $mzCard, "durability", 1);
             break;
         case "vt9y597fqr": // Prima Materia — REST
             $sourceObj = &GetZoneObject($mzCard);
@@ -4342,6 +4381,18 @@ function DoAllyDestroyed($player, $mzCard) {
             }
         }
     }
+    // Worn Gearblade (r1o0qtb31x): whenever an Automaton ally you control dies, put a durability counter on it.
+    if(PropertyContains(CardSubtypes($obj->CardID), "AUTOMATON")) {
+        global $playerID;
+        $controllerField = $controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($controllerField);
+        for($wi = 0; $wi < count($field); ++$wi) {
+            if(!$field[$wi]->removed && $field[$wi]->CardID === "r1o0qtb31x" && !HasNoAbilities($field[$wi])) {
+                AddCounters($controller, $controllerField . "-" . $wi, "durability", 1);
+                break;
+            }
+        }
+    }
     // Carter, Synthetic Reaper (1wl8ao8bls): whenever an ally dies, the champion recovers 1
     {
         global $playerID;
@@ -4591,6 +4642,11 @@ function WakeUpPhase() {
             if(in_array("INGRESS_SANGUINE", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["INGRESS_SANGUINE"]));
                 $field[$i]->TurnEffects[] = "INGRESS_ACTIVE";
+            }
+            // Vainglory Retribution (qtzsekkjn3): next-turn weaponless attack buff becomes active.
+            if(in_array("VAINGLORY_NEXT_TURN", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["VAINGLORY_NEXT_TURN"]));
+                $field[$i]->TurnEffects[] = "VAINGLORY_ACTIVE";
             }
             // TAUNT_NEXT_TURN / VIGOR_NEXT_TURN: expire at beginning of controller's next turn
             if(in_array("TAUNT_NEXT_TURN", $field[$i]->TurnEffects)) {
@@ -5562,6 +5618,17 @@ function RecollectionPhase() {
     if(GlobalEffectCount($turnPlayer, "GGRtLQgaYU") > 0) {
         RemoveGlobalEffect($turnPlayer, "GGRtLQgaYU");
     }
+    // Kingdom's Divide (qy34r8gffr): clear chosen-name activation tax at beginning of caster's next turn.
+    $champMZ = FindChampionMZ($turnPlayer);
+    if($champMZ !== null) {
+        $champObj = GetZoneObject($champMZ);
+        if($champObj !== null && is_array($champObj->TurnEffects)) {
+            $champObj->TurnEffects = array_values(array_filter(
+                $champObj->TurnEffects,
+                fn($e) => strpos($e, "qy34r8gffr-") !== 0
+            ));
+        }
+    }
 
     // Fatal Timepiece (6gvnta6qse): at the beginning of each player's recollection phase,
     // if that player did not materialize a card this turn → deal 2 unpreventable to their champion.
@@ -5685,6 +5752,15 @@ function RecollectionPhase() {
                 case "c7wklzjmwu": // Palatial Concourse: glimpse 1 at beginning of recollection phase
                     if(!HasNoAbilities($field[$i])) {
                         Glimpse($turnPlayer, 1);
+                    }
+                    break;
+                case "qktid6zlyt": // Kaleidoscope Barrette: empower X, then preserve top card if X >= 4
+                    if(!HasNoAbilities($field[$i])) {
+                        $phantasiaCount = count(ZoneSearch("myField", ["PHANTASIA"]));
+                        Empower($turnPlayer, $phantasiaCount, "qktid6zlyt");
+                        if($phantasiaCount >= 4) {
+                            PutTopDeckCardIntoMaterialPreserved($turnPlayer);
+                        }
                     }
                     break;
                 case "fzcyfrzrpl": // Heatwave Generator: target ally gets +1 POWER until end of turn
@@ -8341,11 +8417,18 @@ function ObjectCurrentPower($obj) {
     if(in_array("i9hf5lhl5f", $obj->TurnEffects)) {
         $power += 5;
     }
+    if(in_array("r7oifozaog", $obj->TurnEffects)) {
+        $power += 1;
+    }
     // Righteous Retribution (TO9qqKHakv): cross-turn power boost — champion's first attack gets +X POWER
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         foreach($obj->TurnEffects as $te) {
             if(strpos($te, "TO9qqKHakv-") === 0) {
                 $power += intval(substr($te, strlen("TO9qqKHakv-")));
+                break;
+            }
+            if(strpos($te, "qtzsekkjn3-") === 0) {
+                $power += intval(substr($te, strlen("qtzsekkjn3-")));
                 break;
             }
         }
@@ -9265,13 +9348,25 @@ function HasAethercalling($player, $cardID) {
  * @param int $player The acting player.
  * @param int $amount Number of cards to glimpse.
  */
-function Glimpse($player, $amount) {
+function Glimpse($player, $amount, $allowAstroscope = true) {
     // Orbiting Cosmos (qM9yzxQbfF): if you would glimpse X, glimpse X+1 instead
     $field = GetField($player);
     foreach($field as $fObj) {
         if(!$fObj->removed && $fObj->CardID === "qM9yzxQbfF" && !HasNoAbilities($fObj)) {
             $amount += 1;
             break;
+        }
+    }
+    // Cosmic Astroscope (qj5bbae3z4): if an opponent would glimpse, you may have that player glimpse 3 instead.
+    if($allowAstroscope) {
+        $opponent = ($player == 1) ? 2 : 1;
+        $opponentField = GetField($opponent);
+        foreach($opponentField as $fObj) {
+            if($fObj->removed || $fObj->CardID !== "qj5bbae3z4" || HasNoAbilities($fObj)) continue;
+            if(!IsClassBonusActive($opponent, ["CLERIC"])) continue;
+            DecisionQueueController::AddDecision($opponent, "YESNO", "-", 1, tooltip:"Have_that_player_glimpse_3_instead?");
+            DecisionQueueController::AddDecision($opponent, "CUSTOM", "CosmicAstroscopeGlimpse|" . $player . "|" . $amount, 1);
+            return;
         }
     }
     // Cosmic Alignment (b2buhbediq): next glimpse this turn draws that many instead
@@ -9540,6 +9635,13 @@ $customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
         $obj = $popCard($cardID);
         if($obj !== null) array_push($zone, $obj);
     }
+};
+
+$customDQHandlers["CosmicAstroscopeGlimpse"] = function($player, $parts, $lastDecision) {
+    $targetPlayer = intval($parts[0] ?? 0);
+    $originalAmount = intval($parts[1] ?? 0);
+    if($targetPlayer < 1) return;
+    Glimpse($targetPlayer, $lastDecision === "YES" ? 3 : $originalAmount, false);
 };
 
 /**
@@ -10086,6 +10188,10 @@ function ExpireEffects($isEndTurn=true) {
             if(strpos($effect, "FACET_POWER_") === 0) {
                 $newEffects[] = $effect;
             }
+            // Jianyu and Kingdom's Divide store chosen names as prefixed TurnEffects.
+            if(strpos($effect, "qv0vn6tuow-") === 0 || strpos($effect, "qy34r8gffr-") === 0) {
+                $newEffects[] = $effect;
+            }
         }
         $fieldObj->TurnEffects = $newEffects;
     }
@@ -10341,6 +10447,7 @@ $persistentTurnEffects["FREEZING_ROUND_RETURN"] = true;
 $persistentTurnEffects["FOSTERED"] = true;
 $persistentTurnEffects["DAMAGED_SINCE_LAST_TURN"] = true;
 $persistentTurnEffects["IMBUED"] = true;
+$persistentTurnEffects["VAINGLORY_NEXT_TURN"] = true;
 $persistentTurnEffects["INGRESS_SANGUINE"] = true; // Ingress of Sanguine Ire: +3 POWER on first attack next turn
 $persistentTurnEffects["CANT_ATTACK_NEXT_TURN"] = true; // Bring Down the Mighty: ally can't attack until beginning of caster's next turn
 $persistentTurnEffects["ao1cfkhbp6"] = true; // Stand Fast: +1 LIFE until beginning of next turn
@@ -11217,6 +11324,12 @@ function IsDiaoChanBonus($player) {
     return ChampionHasInLineage($player, "00xbh8oc00")  // Diao Chan L1
         || ChampionHasInLineage($player, "pknaxnn0xo")  // Diao Chan L2
         || ChampionHasInLineage($player, "d7l6i5thdy"); // Diao Chan L3
+}
+
+function IsVanitasBonusActive($player) {
+    return ChampionHasInLineage($player, "x8bd7ozuj6")  // Vanitas, Obliviate Schemer
+        || ChampionHasInLineage($player, "8m69iq4d5v")  // Vanitas, Convergent Ruin
+        || ChampionHasInLineage($player, "3vkxrw9462"); // Vanitas, Dominus Rex
 }
 
 // --- Alice Chessman Helpers ---
@@ -14444,6 +14557,19 @@ function SealThePastBanish($player, $targetSelf) {
     foreach($toBanish as $mz) {
         MZMove($player, $mz, $banishRef);
     }
+}
+
+function PutTopDeckCardIntoMaterialPreserved($player) {
+    global $playerID, $Preserve_Cards;
+    $deckRef = $player == $playerID ? "myDeck" : "theirDeck";
+    $matRef = $player == $playerID ? "myMaterial" : "theirMaterial";
+    $deck = GetZone($deckRef);
+    if(empty($deck)) return;
+    $cardID = $deck[0]->CardID;
+    SetFlashMessage("REVEAL:" . $cardID);
+    MZMove($player, $deckRef . "-0", $matRef);
+    if(!isset($Preserve_Cards)) $Preserve_Cards = [];
+    $Preserve_Cards[$cardID] = true;
 }
 
 // ============================================================================

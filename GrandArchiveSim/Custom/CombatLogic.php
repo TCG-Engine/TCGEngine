@@ -942,6 +942,19 @@ function OnAttackTrigger($player, $mzID) {
         AddTurnEffect($mzID, "dfchplzf6m_POWER");
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["INGRESS_ACTIVE"]));
     }
+    // Vainglory Retribution (qtzsekkjn3): first attack without a weapon during your next turn gets +X POWER.
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION") && in_array("VAINGLORY_ACTIVE", $obj->TurnEffects)) {
+        if(GetCombatWeapon() === null) {
+            $bonus = intval($obj->Counters["vainglory_power"] ?? 0);
+            $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["VAINGLORY_ACTIVE"]));
+            if(is_array($obj->Counters) && isset($obj->Counters["vainglory_power"])) {
+                unset($obj->Counters["vainglory_power"]);
+            }
+            if($bonus > 0) {
+                AddTurnEffect($mzID, "qtzsekkjn3-" . $bonus);
+            }
+        }
+    }
 
     // Guandu, Theater of War (95ynk6lmnf): whenever you declare an attack with an ally
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY")) {
@@ -2597,6 +2610,23 @@ function OnDealDamage($player, $source, $target, $amount) {
                 break;
             }
         }
+        foreach($targetObj->TurnEffects as $vrIdx => $vrEffect) {
+            if(strpos($vrEffect, "VAINGLORY_RETRIBUTION_") !== 0) continue;
+            $vrBudget = intval(substr($vrEffect, strlen("VAINGLORY_RETRIBUTION_")));
+            if($amount > $vrBudget) break;
+            $vrPrevented = $amount;
+            $amount = 0;
+            unset($targetObj->TurnEffects[$vrIdx]);
+            $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+            if($vrPrevented > 0) {
+                if(!is_array($targetObj->Counters)) $targetObj->Counters = [];
+                $targetObj->Counters["vainglory_power"] = intval($targetObj->Counters["vainglory_power"] ?? 0) + $vrPrevented;
+                if(!in_array("VAINGLORY_NEXT_TURN", $targetObj->TurnEffects)) {
+                    $targetObj->TurnEffects[] = "VAINGLORY_NEXT_TURN";
+                }
+            }
+            break;
+        }
         if($amount <= 0) return;
     }
 
@@ -3417,5 +3447,22 @@ $customDQHandlers["SliceAndDiceNewAttack"] = function($player, $parts, $lastDeci
     // Queue target selection for the second attack
     ChooseAttackTarget($player, $attackerMZ);
 };
+
+function GloamspireHeadhunterOnHit($player) {
+    if(!IsClassBonusActive($player, ["ASSASSIN"])) return;
+    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($hitTarget === null || $hitTarget === "-" || $hitTarget === "") return;
+    $targetObj = GetZoneObject($hitTarget);
+    if($targetObj === null || $targetObj->removed || !PropertyContains(EffectiveCardType($targetObj), "ALLY")) return;
+    $targetController = $targetObj->Controller;
+    if(count(GetHand($targetController)) >= 3) {
+        DecisionQueueController::StoreVariable("GloamspireHeadhunterTarget", $hitTarget);
+        DecisionQueueController::AddDecision($targetController, "YESNO", "-", 1, tooltip:"Pay_3_to_save_the_hit_ally?");
+        DecisionQueueController::AddDecision($targetController, "CUSTOM", "GloamspireHeadhunterPay", 1);
+        return;
+    }
+    DoAllyDestroyed($targetController, $hitTarget);
+    DecisionQueueController::CleanupRemovedCards();
+}
 
 ?>
