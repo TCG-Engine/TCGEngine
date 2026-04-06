@@ -3510,6 +3510,136 @@ $customDQHandlers["GloamspireHeadhunterPay"] = function($player, $parts, $lastDe
     }
 };
 
+function RipplesOfAtrophyResolve($player) {
+    $allObjects = array_merge(
+        ZoneSearch("myField", ["ALLY", "REGALIA"]),
+        ZoneSearch("myField", cardSubtypes: ["WEAPON"]),
+        ZoneSearch("theirField", ["ALLY", "REGALIA"]),
+        ZoneSearch("theirField", cardSubtypes: ["WEAPON"])
+    );
+    $allObjects = FilterSpellshroudTargets($allObjects);
+    $allObjects = array_values(array_filter($allObjects, function($mz) {
+        $obj = GetZoneObject($mz);
+        return $obj !== null && !PropertyContains(EffectiveCardType($obj), "CHAMPION");
+    }));
+    if(empty($allObjects)) return;
+    DecisionQueueController::StoreVariable("RipplesOfAtrophyChosen", "");
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $allObjects), 1,
+        tooltip:"Choose_object_to_put_two_wither_counters_on");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RipplesOfAtrophyLoop", 1);
+}
+
+$customDQHandlers["RipplesOfAtrophyLoop"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "wither", 2);
+    $chosenRaw = DecisionQueueController::GetVariable("RipplesOfAtrophyChosen");
+    $chosen = $chosenRaw === null || $chosenRaw === "" ? [] : explode("|", $chosenRaw);
+    $chosen[] = $lastDecision;
+    DecisionQueueController::StoreVariable("RipplesOfAtrophyChosen", implode("|", $chosen));
+    $allObjects = array_merge(
+        ZoneSearch("myField", ["ALLY", "REGALIA"]),
+        ZoneSearch("myField", cardSubtypes: ["WEAPON"]),
+        ZoneSearch("theirField", ["ALLY", "REGALIA"]),
+        ZoneSearch("theirField", cardSubtypes: ["WEAPON"])
+    );
+    $allObjects = FilterSpellshroudTargets($allObjects);
+    $allObjects = array_values(array_filter($allObjects, function($mz) use ($chosen) {
+        $obj = GetZoneObject($mz);
+        if($obj === null || PropertyContains(EffectiveCardType($obj), "CHAMPION")) return false;
+        return !in_array($mz, $chosen);
+    }));
+    if(empty($allObjects)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $allObjects), 1,
+        tooltip:"Choose_another_object_to_put_two_wither_counters_on");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RipplesOfAtrophyLoop", 1);
+};
+
+function GalestreamInsightPutRestOnBottom($player) {
+    $remaining = ZoneSearch("myTempZone");
+    foreach($remaining as $rmz) {
+        MZMove($player, $rmz, "myDeck");
+    }
+}
+
+function GalestreamInsightResolve($player) {
+    $deck = GetDeck($player);
+    $lookCount = min(6, count($deck));
+    if($lookCount <= 0) return;
+    for($i = 0; $i < $lookCount; ++$i) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    $candidates = ZoneSearch("myTempZone", cardSubtypes: ["SPELL"]);
+    if(empty($candidates)) {
+        GalestreamInsightPutRestOnBottom($player);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $candidates), 1,
+        tooltip:"Reveal_a_Spell_card_to_put_into_memory?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GalestreamInsightReveal", 1);
+}
+
+$customDQHandlers["GalestreamInsightReveal"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        Reveal($player, $lastDecision);
+        MZMove($player, $lastDecision, "myMemory");
+    }
+    GalestreamInsightPutRestOnBottom($player);
+};
+
+function DusksoulStoneActivated($player) {
+    $myGY = ZoneSearch("myGraveyard");
+    $theirGY = ZoneSearch("theirGraveyard");
+    if(empty($myGY) && empty($theirGY)) return;
+    $targets = array_merge($myGY, $theirGY);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1,
+        tooltip:"Choose_a_card_to_banish_(1_of_up_to_2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DusksoulStoneBanishStart", 1);
+}
+
+$customDQHandlers["DusksoulStoneBanishStart"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $gyRef = strpos($lastDecision, "theirGraveyard-") === 0 ? "theirGraveyard" : "myGraveyard";
+    MZMove($player, $lastDecision, "myBanish");
+    $remaining = ZoneSearch($gyRef);
+    if(empty($remaining)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $remaining), 1,
+        tooltip:"Choose_another_card_to_banish_from_the_same_graveyard?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DusksoulStoneBanishFinish", 1);
+};
+
+$customDQHandlers["DusksoulStoneBanishFinish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+};
+
+function StandBeforeTheQueenResolve($player) {
+    $targets = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
+    $targets = array_merge($targets, ZoneSearch("myField", ["ALLY", "CHAMPION"]));
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1,
+        tooltip:"Choose_target_unit");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StandBeforeTheQueenTarget", 1);
+}
+
+$customDQHandlers["StandBeforeTheQueenTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "STAND_BEFORE_THE_QUEEN_2");
+    if(GetSheenCount($player) >= 8) {
+        AddTurnEffect($lastDecision, "STAND_BEFORE_THE_QUEEN_STEALTH");
+    }
+};
+
+$customDQHandlers["StandBeforeTheQueenPay"] = function($player, $parts, $lastDecision) {
+    $target = DecisionQueueController::GetVariable("StandBeforeTheQueenTarget");
+    if($lastDecision === "YES") {
+        ReserveCard($player);
+        ReserveCard($player);
+        return;
+    }
+    if(!empty($target)) AddTurnEffect($target, "STEALTH");
+};
+
 $customDQHandlers["BlastshotPumpChoose"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $damage = intval(DecisionQueueController::GetVariable("BlastshotPumpDamage") ?? "0");

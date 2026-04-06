@@ -36,6 +36,7 @@ $cbFastActivationCards = [
     "f0ht2tsn0y" => ["GUARDIAN"], // Astarte, Celestial Dawn
     "jozihslnhz" => ["ASSASSIN"], // Sinister Mindreaver
     "yky280mtts" => ["TAMER"], // Flamebreak Chorus
+    "uPn9SZdqrr" => ["GUARDIAN"], // Gustguard Bastion
 ];
 
 // Cards with unconditional Fast Activation (no class bonus required)

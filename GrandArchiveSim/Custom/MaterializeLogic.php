@@ -82,6 +82,20 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         return;
     }
 
+    // Dusksoul Stone (u25fuv184p): additional cost to materialize — banish 2 ally cards from a single graveyard
+    if($materializeCard->CardID === "u25fuv184p" && !$ignoreCost) {
+        $eligible = [];
+        $myAllies = ZoneSearch("myGraveyard", ["ALLY"]);
+        $theirAllies = ZoneSearch("theirGraveyard", ["ALLY"]);
+        if(count($myAllies) >= 2) $eligible = array_merge($eligible, $myAllies);
+        if(count($theirAllies) >= 2) $eligible = array_merge($eligible, $theirAllies);
+        if(empty($eligible)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 1,
+            tooltip:"Banish_ally_card_from_a_single_graveyard_(1/2)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DusksoulStoneMaterializeCost|" . $lastDecision . "|" . $memoryCost, 1);
+        return;
+    }
+
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
         $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
@@ -124,6 +138,36 @@ $customDQHandlers["DragonsDawnBanish"] = function($player, $parts, $lastDecision
         }
         Materialize($player, $mzCard);
     }
+};
+
+$customDQHandlers["DusksoulStoneMaterializeCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzCard = $parts[0];
+    $memoryCost = intval($parts[1]);
+    $gyRef = strpos($lastDecision, "theirGraveyard-") === 0 ? "theirGraveyard" : "myGraveyard";
+    MZMove($player, $lastDecision, "myBanish");
+    $remaining = ZoneSearch($gyRef, ["ALLY"]);
+    if(empty($remaining)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $remaining), 1,
+        tooltip:"Banish_ally_card_from_the_same_graveyard_(2/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DusksoulStoneMaterializeCostFinish|" . $mzCard . "|" . $memoryCost, 1);
+};
+
+$customDQHandlers["DusksoulStoneMaterializeCostFinish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzCard = $parts[0];
+    $memoryCost = intval($parts[1]);
+    MZMove($player, $lastDecision, "myBanish");
+    if($memoryCost > 0) {
+        DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
+        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
+        if($floatingIndices != "") {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+    }
+    Materialize($player, $mzCard);
 };
 
 $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {

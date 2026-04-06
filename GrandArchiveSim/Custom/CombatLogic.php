@@ -3196,6 +3196,56 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // The Majestic Spirit (tsvbgl6ffq): another crux element unit you control prevents half, rounded up
+    if($amount > 0
+        && $targetObj->Controller !== null
+        && (PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION"))
+        && EffectiveCardElement($targetObj) === "CRUX") {
+        $targetMZ = $targetObj->GetMzID();
+        $targetController = $targetObj->Controller;
+        $field = GetField($targetController);
+        foreach($field as $idx => $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "tsvbgl6ffq" || HasNoAbilities($fieldObj)) continue;
+            $majesticMZ = ($targetController == 1 ? "myField-" : "theirField-") . $idx;
+            if($majesticMZ === $targetMZ) continue;
+            $amount = intdiv($amount, 2);
+            if($amount <= 0) return;
+        }
+    }
+
+    // Stand Before the Queen (v9SJgS6z40): prevent next 2 damage; first prevented this way may grant stealth
+    if($amount > 0) {
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "STAND_BEFORE_THE_QUEEN_") !== 0) continue;
+            $budget = intval(substr($effect, strlen("STAND_BEFORE_THE_QUEEN_")));
+            $prevented = min($budget, $amount);
+            $amount -= $prevented;
+            $remaining = $budget - $prevented;
+            if($remaining <= 0) {
+                unset($targetObj->TurnEffects[$idx]);
+                $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+            } else {
+                $targetObj->TurnEffects[$idx] = "STAND_BEFORE_THE_QUEEN_" . $remaining;
+            }
+            if($prevented > 0 && in_array("STAND_BEFORE_THE_QUEEN_STEALTH", $targetObj->TurnEffects)) {
+                $targetObj->TurnEffects = array_values(array_filter(
+                    $targetObj->TurnEffects,
+                    fn($e) => $e !== "STAND_BEFORE_THE_QUEEN_STEALTH"
+                ));
+                $opponent = (($targetObj->Controller ?? $player) == 1) ? 2 : 1;
+                if(count(GetHand($opponent)) >= 2) {
+                    DecisionQueueController::StoreVariable("StandBeforeTheQueenTarget", $targetObj->GetMzID());
+                    DecisionQueueController::AddDecision($opponent, "YESNO", "-", 1, tooltip:"Pay_2_to_prevent_stealth?");
+                    DecisionQueueController::AddDecision($opponent, "CUSTOM", "StandBeforeTheQueenPay", 1);
+                } else {
+                    AddTurnEffect($targetObj->GetMzID(), "STEALTH");
+                }
+            }
+            if($amount <= 0) return;
+            break;
+        }
+    }
+
     $targetObj->Damage += $amount;
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);

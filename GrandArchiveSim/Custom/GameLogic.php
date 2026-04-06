@@ -798,6 +798,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // Galestream Insight (usa6qyq3ka): [Memory 4+] costs 1 less to activate
+    if($obj->CardID === "usa6qyq3ka" && count(GetMemory($player)) >= 4) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+
     // Rally the Peasants (q1uwq8sdbz): [Class Bonus] costs 3 less if opponent controls 3+ allies
     if($obj->CardID === "q1uwq8sdbz" && IsClassBonusActive($player, ["WARRIOR"])) {
         $oppAllies = ZoneSearch("theirField", ["ALLY"]);
@@ -813,6 +818,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         foreach($gy as $gObj) { if(!$gObj->removed) { $hasCards = true; break; } }
         if(!$hasCards) {
             $reserveCost = max(0, $reserveCost - 2);
+        }
+    }
+
+    // Vanguard's Reversal (vghJqNdG8F): [Class Bonus] costs 3 less while your champion has taunt
+    if($obj->CardID === "vghJqNdG8F" && IsClassBonusActive($player, ["GUARDIAN"])) {
+        $champObj = GetPlayerChampion($player);
+        if($champObj !== null && HasTaunt($champObj)) {
+            $reserveCost = max(0, $reserveCost - 3);
         }
     }
 
@@ -6281,6 +6294,18 @@ function RecollectionPhase() {
         }
     }
 
+    // Haunting Demise (v0buu5y0ub): inherited recollection damage
+    if(ChampionHasInLineage($turnPlayer, "v0buu5y0ub") && !AreCurseLineageAbilitiesSuppressed($turnPlayer)) {
+        $champZone = $turnPlayer == $playerID ? "myField" : "theirField";
+        $champField = GetZone($champZone);
+        for($ci = 0; $ci < count($champField); ++$ci) {
+            if(PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
+                DealUnpreventableDamage($turnPlayer, $champZone . "-" . $ci, $champZone . "-" . $ci, 1);
+                break;
+            }
+        }
+    }
+
     // Hidden Enclave (1vk8ao8bki): at the beginning of each player's recollection phase,
     // that player puts the top card of their deck into their graveyard.
     foreach(array_merge(GetField(1), GetField(2)) as $heObj) {
@@ -7365,6 +7390,9 @@ function ObjectCurrentPower($obj) {
                 $memory = &GetMemory($obj->Controller);
                 if(count($memory) >= 4) $power += 1;
             }
+            break;
+        case "tu7jvjf2gh": // Sablier Guard: +1 POWER per distinct omen reserve cost
+            $power += GetOmenDistinctCostCount($obj->Controller);
             break;
         case "s5jwsl7ded": // Blazing Charge: [Class Bonus] +2 POWER
             if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
@@ -9093,6 +9121,9 @@ function ObjectCurrentHP($obj) {
                 }
             }
             break;
+        case "tu7jvjf2gh": // Sablier Guard: +1 LIFE per distinct omen reserve cost
+            $cardLife += GetOmenDistinctCostCount($obj->Controller);
+            break;
         default: break;
     }
     // Exalted Dorumegian Throne (p4lpnvx7mn): allies get +1 LIFE
@@ -10564,6 +10595,9 @@ $ephemerateCards["24I0xn0OQ1"] = ['cost' => 2, 'extraCostHandler' => 'Ephemerate
         return IsAliceBonusActive($player) && IsElementBonusActive($player, "24I0xn0OQ1");
     }
 ]; // Maledictum Vitae
+$ephemerateCards["vA5ZmzZL9I"] = ['cost' => 2, 'condition' => function($player) {
+    return IsAliceBonusActive($player);
+}]; // Drown in Sorrow
 $ephemerateCards["tizLamFGPS"] = ['cost' => 3, 'condition' => function($player) {
     return IsMerlinBonusActive($player) && GetSheenCount($player) >= 6;
 }]; // Luster's Shroud
@@ -13051,6 +13085,28 @@ function HasSpellshroud($obj) {
         foreach($fsField as $fsObj) {
             if(!$fsObj->removed && $fsObj->CardID === "HL4Q3UBoH8" && !HasNoAbilities($fsObj)
                 && IsCielBonusActive($obj->Controller) && GetTotalOmenCost($obj->Controller) >= 33) {
+                return true;
+            }
+        }
+    }
+    // The Majestic Spirit (tsvbgl6ffq): champions you control have spellshroud
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        global $playerID;
+        $msZone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $msField = GetZone($msZone);
+        foreach($msField as $msObj) {
+            if(!$msObj->removed && $msObj->CardID === "tsvbgl6ffq" && !HasNoAbilities($msObj)) {
+                return true;
+            }
+        }
+    }
+    // Dusksoul Stone (u25fuv184p): phantasias you control have spellshroud
+    if(PropertyContains(EffectiveCardType($obj), "PHANTASIA")) {
+        global $playerID;
+        $dsZone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $dsField = GetZone($dsZone);
+        foreach($dsField as $dsObj) {
+            if(!$dsObj->removed && $dsObj->CardID === "u25fuv184p" && !HasNoAbilities($dsObj)) {
                 return true;
             }
         }
