@@ -104,6 +104,26 @@ $conn->begin_transaction();
 try {
 
     // ---- 1. deckstats -------------------------------------------------------
+    // Merge into existing community rows via self-join UPDATE
+    $affected = runQuery($conn, "
+        UPDATE deckstats AS comm
+        JOIN deckstats AS owner
+            ON owner.deckID = comm.deckID AND owner.version = comm.version AND owner.source = 1
+        SET comm.numWins               = comm.numWins               + owner.numWins,
+            comm.numPlays              = comm.numPlays              + owner.numPlays,
+            comm.playsGoingFirst       = comm.playsGoingFirst       + owner.playsGoingFirst,
+            comm.turnsInWins           = comm.turnsInWins           + owner.turnsInWins,
+            comm.totalTurns            = comm.totalTurns            + owner.totalTurns,
+            comm.cardsResourcedInWins  = comm.cardsResourcedInWins  + owner.cardsResourcedInWins,
+            comm.totalCardsResourced   = comm.totalCardsResourced   + owner.totalCardsResourced,
+            comm.remainingHealthInWins = comm.remainingHealthInWins + owner.remainingHealthInWins,
+            comm.winsGoingFirst        = comm.winsGoingFirst        + owner.winsGoingFirst,
+            comm.winsGoingSecond       = comm.winsGoingSecond       + owner.winsGoingSecond
+        WHERE comm.deckID = ? AND comm.source = 0
+    ", [$deckID], "i");
+    echo "deckstats — merged into existing community rows: $affected\n";
+
+    // Insert community rows for versions that have no community entry yet
     $affected = runQuery($conn, "
         INSERT INTO deckstats
             (deckID, version, source,
@@ -111,36 +131,41 @@ try {
              turnsInWins, totalTurns,
              cardsResourcedInWins, totalCardsResourced,
              remainingHealthInWins, winsGoingFirst, winsGoingSecond)
-        SELECT
-            src.deckID, src.version, 0,
-            src.numWins, src.numPlays, src.playsGoingFirst,
-            src.turnsInWins, src.totalTurns,
-            src.cardsResourcedInWins, src.totalCardsResourced,
-            src.remainingHealthInWins, src.winsGoingFirst, src.winsGoingSecond
-        FROM (SELECT deckID, version,
-                     numWins, numPlays, playsGoingFirst,
-                     turnsInWins, totalTurns,
-                     cardsResourcedInWins, totalCardsResourced,
-                     remainingHealthInWins, winsGoingFirst, winsGoingSecond
-              FROM deckstats WHERE deckID = ? AND source = 1) AS src
-        ON DUPLICATE KEY UPDATE
-            numWins               = numWins               + VALUES(numWins),
-            numPlays              = numPlays              + VALUES(numPlays),
-            playsGoingFirst       = playsGoingFirst       + VALUES(playsGoingFirst),
-            turnsInWins           = turnsInWins           + VALUES(turnsInWins),
-            totalTurns            = totalTurns            + VALUES(totalTurns),
-            cardsResourcedInWins  = cardsResourcedInWins  + VALUES(cardsResourcedInWins),
-            totalCardsResourced   = totalCardsResourced   + VALUES(totalCardsResourced),
-            remainingHealthInWins = remainingHealthInWins + VALUES(remainingHealthInWins),
-            winsGoingFirst        = winsGoingFirst        + VALUES(winsGoingFirst),
-            winsGoingSecond       = winsGoingSecond       + VALUES(winsGoingSecond)
+        SELECT s.deckID, s.version, 0,
+               s.numWins, s.numPlays, s.playsGoingFirst,
+               s.turnsInWins, s.totalTurns,
+               s.cardsResourcedInWins, s.totalCardsResourced,
+               s.remainingHealthInWins, s.winsGoingFirst, s.winsGoingSecond
+        FROM deckstats s
+        LEFT JOIN deckstats c ON c.deckID = s.deckID AND c.version = s.version AND c.source = 0
+        WHERE s.deckID = ? AND s.source = 1 AND c.deckID IS NULL
     ", [$deckID], "i");
-    echo "deckstats — upserted: $affected rows affected\n";
+    echo "deckstats — inserted new community rows: $affected\n";
 
     $affected = runQuery($conn, "DELETE FROM deckstats WHERE deckID = ? AND source = 1", [$deckID], "i");
     echo "deckstats — deleted (source=1): $affected rows\n\n";
 
     // ---- 2. carddeckstats ---------------------------------------------------
+    // Merge into existing community rows
+    $affected = runQuery($conn, "
+        UPDATE carddeckstats AS comm
+        JOIN carddeckstats AS owner
+            ON owner.deckID = comm.deckID AND owner.cardID = comm.cardID AND owner.version = comm.version AND owner.source = 1
+        SET comm.timesIncluded        = comm.timesIncluded        + owner.timesIncluded,
+            comm.timesIncludedInWins  = comm.timesIncludedInWins  + owner.timesIncludedInWins,
+            comm.timesPlayed          = comm.timesPlayed          + owner.timesPlayed,
+            comm.timesPlayedInWins    = comm.timesPlayedInWins    + owner.timesPlayedInWins,
+            comm.timesResourced       = comm.timesResourced       + owner.timesResourced,
+            comm.timesResourcedInWins = comm.timesResourcedInWins + owner.timesResourcedInWins,
+            comm.timesDiscarded       = comm.timesDiscarded       + owner.timesDiscarded,
+            comm.timesDiscardedInWins = comm.timesDiscardedInWins + owner.timesDiscardedInWins,
+            comm.timesDrawn           = comm.timesDrawn           + owner.timesDrawn,
+            comm.timesDrawnInWins     = comm.timesDrawnInWins     + owner.timesDrawnInWins
+        WHERE comm.deckID = ? AND comm.source = 0
+    ", [$deckID], "i");
+    echo "carddeckstats — merged into existing community rows: $affected\n";
+
+    // Insert community rows for card+version combos that have no community entry yet
     $affected = runQuery($conn, "
         INSERT INTO carddeckstats
             (deckID, cardID, version, source,
@@ -149,38 +174,43 @@ try {
              timesResourced,  timesResourcedInWins,
              timesDiscarded,  timesDiscardedInWins,
              timesDrawn,      timesDrawnInWins)
-        SELECT
-            src.deckID, src.cardID, src.version, 0,
-            src.timesIncluded,   src.timesIncludedInWins,
-            src.timesPlayed,     src.timesPlayedInWins,
-            src.timesResourced,  src.timesResourcedInWins,
-            src.timesDiscarded,  src.timesDiscardedInWins,
-            src.timesDrawn,      src.timesDrawnInWins
-        FROM (SELECT deckID, cardID, version,
-                     timesIncluded,   timesIncludedInWins,
-                     timesPlayed,     timesPlayedInWins,
-                     timesResourced,  timesResourcedInWins,
-                     timesDiscarded,  timesDiscardedInWins,
-                     timesDrawn,      timesDrawnInWins
-              FROM carddeckstats WHERE deckID = ? AND source = 1) AS src
-        ON DUPLICATE KEY UPDATE
-            timesIncluded        = timesIncluded        + VALUES(timesIncluded),
-            timesIncludedInWins  = timesIncludedInWins  + VALUES(timesIncludedInWins),
-            timesPlayed          = timesPlayed          + VALUES(timesPlayed),
-            timesPlayedInWins    = timesPlayedInWins    + VALUES(timesPlayedInWins),
-            timesResourced       = timesResourced       + VALUES(timesResourced),
-            timesResourcedInWins = timesResourcedInWins + VALUES(timesResourcedInWins),
-            timesDiscarded       = timesDiscarded       + VALUES(timesDiscarded),
-            timesDiscardedInWins = timesDiscardedInWins + VALUES(timesDiscardedInWins),
-            timesDrawn           = timesDrawn           + VALUES(timesDrawn),
-            timesDrawnInWins     = timesDrawnInWins     + VALUES(timesDrawnInWins)
+        SELECT s.deckID, s.cardID, s.version, 0,
+               s.timesIncluded,   s.timesIncludedInWins,
+               s.timesPlayed,     s.timesPlayedInWins,
+               s.timesResourced,  s.timesResourcedInWins,
+               s.timesDiscarded,  s.timesDiscardedInWins,
+               s.timesDrawn,      s.timesDrawnInWins
+        FROM carddeckstats s
+        LEFT JOIN carddeckstats c
+            ON c.deckID = s.deckID AND c.cardID = s.cardID AND c.version = s.version AND c.source = 0
+        WHERE s.deckID = ? AND s.source = 1 AND c.deckID IS NULL
     ", [$deckID], "i");
-    echo "carddeckstats — upserted: $affected rows affected\n";
+    echo "carddeckstats — inserted new community rows: $affected\n";
 
     $affected = runQuery($conn, "DELETE FROM carddeckstats WHERE deckID = ? AND source = 1", [$deckID], "i");
     echo "carddeckstats — deleted (source=1): $affected rows\n\n";
 
     // ---- 3. opponentdeckstats -----------------------------------------------
+    // Merge into existing community rows
+    $affected = runQuery($conn, "
+        UPDATE opponentdeckstats AS comm
+        JOIN opponentdeckstats AS owner
+            ON owner.deckID = comm.deckID AND owner.leaderID = comm.leaderID AND owner.version = comm.version AND owner.source = 1
+        SET comm.winsVsGreen      = comm.winsVsGreen      + owner.winsVsGreen,
+            comm.totalVsGreen     = comm.totalVsGreen     + owner.totalVsGreen,
+            comm.winsVsBlue       = comm.winsVsBlue       + owner.winsVsBlue,
+            comm.totalVsBlue      = comm.totalVsBlue      + owner.totalVsBlue,
+            comm.winsVsRed        = comm.winsVsRed        + owner.winsVsRed,
+            comm.totalVsRed       = comm.totalVsRed       + owner.totalVsRed,
+            comm.winsVsYellow     = comm.winsVsYellow     + owner.winsVsYellow,
+            comm.totalVsYellow    = comm.totalVsYellow    + owner.totalVsYellow,
+            comm.winsVsColorless  = comm.winsVsColorless  + owner.winsVsColorless,
+            comm.totalVsColorless = comm.totalVsColorless + owner.totalVsColorless
+        WHERE comm.deckID = ? AND comm.source = 0
+    ", [$deckID], "i");
+    echo "opponentdeckstats — merged into existing community rows: $affected\n";
+
+    // Insert community rows for leader+version combos that have no community entry yet
     $affected = runQuery($conn, "
         INSERT INTO opponentdeckstats
             (deckID, leaderID, version, source,
@@ -189,33 +219,18 @@ try {
              winsVsRed,       totalVsRed,
              winsVsYellow,    totalVsYellow,
              winsVsColorless, totalVsColorless)
-        SELECT
-            src.deckID, src.leaderID, src.version, 0,
-            src.winsVsGreen,     src.totalVsGreen,
-            src.winsVsBlue,      src.totalVsBlue,
-            src.winsVsRed,       src.totalVsRed,
-            src.winsVsYellow,    src.totalVsYellow,
-            src.winsVsColorless, src.totalVsColorless
-        FROM (SELECT deckID, leaderID, version,
-                     winsVsGreen,     totalVsGreen,
-                     winsVsBlue,      totalVsBlue,
-                     winsVsRed,       totalVsRed,
-                     winsVsYellow,    totalVsYellow,
-                     winsVsColorless, totalVsColorless
-              FROM opponentdeckstats WHERE deckID = ? AND source = 1) AS src
-        ON DUPLICATE KEY UPDATE
-            winsVsGreen      = winsVsGreen      + VALUES(winsVsGreen),
-            totalVsGreen     = totalVsGreen     + VALUES(totalVsGreen),
-            winsVsBlue       = winsVsBlue       + VALUES(winsVsBlue),
-            totalVsBlue      = totalVsBlue      + VALUES(totalVsBlue),
-            winsVsRed        = winsVsRed        + VALUES(winsVsRed),
-            totalVsRed       = totalVsRed       + VALUES(totalVsRed),
-            winsVsYellow     = winsVsYellow     + VALUES(winsVsYellow),
-            totalVsYellow    = totalVsYellow    + VALUES(totalVsYellow),
-            winsVsColorless  = winsVsColorless  + VALUES(winsVsColorless),
-            totalVsColorless = totalVsColorless + VALUES(totalVsColorless)
+        SELECT s.deckID, s.leaderID, s.version, 0,
+               s.winsVsGreen,     s.totalVsGreen,
+               s.winsVsBlue,      s.totalVsBlue,
+               s.winsVsRed,       s.totalVsRed,
+               s.winsVsYellow,    s.totalVsYellow,
+               s.winsVsColorless, s.totalVsColorless
+        FROM opponentdeckstats s
+        LEFT JOIN opponentdeckstats c
+            ON c.deckID = s.deckID AND c.leaderID = s.leaderID AND c.version = s.version AND c.source = 0
+        WHERE s.deckID = ? AND s.source = 1 AND c.deckID IS NULL
     ", [$deckID], "i");
-    echo "opponentdeckstats — upserted: $affected rows affected\n";
+    echo "opponentdeckstats — inserted new community rows: $affected\n";
 
     $affected = runQuery($conn, "DELETE FROM opponentdeckstats WHERE deckID = ? AND source = 1", [$deckID], "i");
     echo "opponentdeckstats — deleted (source=1): $affected rows\n\n";
