@@ -112,13 +112,17 @@ try {
              cardsResourcedInWins, totalCardsResourced,
              remainingHealthInWins, winsGoingFirst, winsGoingSecond)
         SELECT
-            deckID, version, 0,
-            numWins, numPlays, playsGoingFirst,
-            turnsInWins, totalTurns,
-            cardsResourcedInWins, totalCardsResourced,
-            remainingHealthInWins, winsGoingFirst, winsGoingSecond
-        FROM deckstats
-        WHERE deckID = ? AND source = 1
+            src.deckID, src.version, 0,
+            src.numWins, src.numPlays, src.playsGoingFirst,
+            src.turnsInWins, src.totalTurns,
+            src.cardsResourcedInWins, src.totalCardsResourced,
+            src.remainingHealthInWins, src.winsGoingFirst, src.winsGoingSecond
+        FROM (SELECT deckID, version,
+                     numWins, numPlays, playsGoingFirst,
+                     turnsInWins, totalTurns,
+                     cardsResourcedInWins, totalCardsResourced,
+                     remainingHealthInWins, winsGoingFirst, winsGoingSecond
+              FROM deckstats WHERE deckID = ? AND source = 1) AS src
         ON DUPLICATE KEY UPDATE
             numWins               = numWins               + VALUES(numWins),
             numPlays              = numPlays              + VALUES(numPlays),
@@ -146,14 +150,19 @@ try {
              timesDiscarded,  timesDiscardedInWins,
              timesDrawn,      timesDrawnInWins)
         SELECT
-            deckID, cardID, version, 0,
-            timesIncluded,   timesIncludedInWins,
-            timesPlayed,     timesPlayedInWins,
-            timesResourced,  timesResourcedInWins,
-            timesDiscarded,  timesDiscardedInWins,
-            timesDrawn,      timesDrawnInWins
-        FROM carddeckstats
-        WHERE deckID = ? AND source = 1
+            src.deckID, src.cardID, src.version, 0,
+            src.timesIncluded,   src.timesIncludedInWins,
+            src.timesPlayed,     src.timesPlayedInWins,
+            src.timesResourced,  src.timesResourcedInWins,
+            src.timesDiscarded,  src.timesDiscardedInWins,
+            src.timesDrawn,      src.timesDrawnInWins
+        FROM (SELECT deckID, cardID, version,
+                     timesIncluded,   timesIncludedInWins,
+                     timesPlayed,     timesPlayedInWins,
+                     timesResourced,  timesResourcedInWins,
+                     timesDiscarded,  timesDiscardedInWins,
+                     timesDrawn,      timesDrawnInWins
+              FROM carddeckstats WHERE deckID = ? AND source = 1) AS src
         ON DUPLICATE KEY UPDATE
             timesIncluded        = timesIncluded        + VALUES(timesIncluded),
             timesIncludedInWins  = timesIncludedInWins  + VALUES(timesIncludedInWins),
@@ -181,14 +190,19 @@ try {
              winsVsYellow,    totalVsYellow,
              winsVsColorless, totalVsColorless)
         SELECT
-            deckID, leaderID, version, 0,
-            winsVsGreen,     totalVsGreen,
-            winsVsBlue,      totalVsBlue,
-            winsVsRed,       totalVsRed,
-            winsVsYellow,    totalVsYellow,
-            winsVsColorless, totalVsColorless
-        FROM opponentdeckstats
-        WHERE deckID = ? AND source = 1
+            src.deckID, src.leaderID, src.version, 0,
+            src.winsVsGreen,     src.totalVsGreen,
+            src.winsVsBlue,      src.totalVsBlue,
+            src.winsVsRed,       src.totalVsRed,
+            src.winsVsYellow,    src.totalVsYellow,
+            src.winsVsColorless, src.totalVsColorless
+        FROM (SELECT deckID, leaderID, version,
+                     winsVsGreen,     totalVsGreen,
+                     winsVsBlue,      totalVsBlue,
+                     winsVsRed,       totalVsRed,
+                     winsVsYellow,    totalVsYellow,
+                     winsVsColorless, totalVsColorless
+              FROM opponentdeckstats WHERE deckID = ? AND source = 1) AS src
         ON DUPLICATE KEY UPDATE
             winsVsGreen      = winsVsGreen      + VALUES(winsVsGreen),
             totalVsGreen     = totalVsGreen     + VALUES(totalVsGreen),
