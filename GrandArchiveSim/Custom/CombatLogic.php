@@ -1068,6 +1068,10 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
             $onHitAbilities[$weaponObj->CardID . ":0"]($player);
         }
     }
+    // Shadeblood Coating (nd8dy77ikm): granted On Hit — put a preparation counter on your champion.
+    if($obj !== null && in_array("nd8dy77ikm_ONHIT", $obj->TurnEffects ?? [])) {
+        AddPrepCounter($player, 1);
+    }
 
     // Mana's Cascade (xywyzv14iv): On Champion Hit — opponent banishes random memory
     $attackerObjHit = GetZoneObject($attackerMZ);
@@ -2996,6 +3000,13 @@ function OnDealDamage($player, $source, $target, $amount) {
             return; // Non-combat damage prevented
         }
     }
+    // Ethereal Slime (n06zlhihka): [Level 5+] prevent all non-combat damage.
+    if($targetObj->CardID === "n06zlhihka" && !$isCombat && !HasNoAbilities($targetObj)) {
+        $targetController = $targetObj->Controller ?? $player;
+        if(PlayerLevel($targetController) >= 5) {
+            return;
+        }
+    }
 
     if (!$isCombat && $amount > 0 && $targetObj->CardID !== "5k1vt1cn1t") {
         $targetController = $targetObj->Controller ?? $player;
@@ -3041,6 +3052,10 @@ function OnDealDamage($player, $source, $target, $amount) {
 
     // Bubble Mage class bonus: if target has the amplify effect, it takes +1 damage
     if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {
+        $amount += 1;
+    }
+    // Relentless Outburst (oobp8g4cpe): target champion takes +1 damage this turn.
+    if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION") && in_array("oobp8g4cpe", $targetObj->TurnEffects ?? [])) {
         $amount += 1;
     }
     // Blazing Charge (s5jwsl7ded): if target is champion with BLAZING_CHARGE_NEXT_TURN, +1 damage
@@ -3096,6 +3111,7 @@ function OnDealDamage($player, $source, $target, $amount) {
     $targetObj->Damage += $amount;
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
+        TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);
     }
 
     // Foster tracking: mark that this unit received damage and remove fostered state
@@ -3208,6 +3224,10 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     if(ObjectHasEffect($targetObj, "0n0DM1T9gz")) {
         $amount += 1;
     }
+    // Relentless Outburst (oobp8g4cpe): target champion takes +1 damage this turn.
+    if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION") && in_array("oobp8g4cpe", $targetObj->TurnEffects ?? [])) {
+        $amount += 1;
+    }
     // Blazing Charge (s5jwsl7ded): if target is champion with BLAZING_CHARGE_NEXT_TURN, +1 damage
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION") && in_array("BLAZING_CHARGE_NEXT_TURN", $targetObj->TurnEffects)) {
         $amount += 1;
@@ -3242,6 +3262,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     $targetObj->Damage += $amount;
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
+        TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);
     }
 
     // Foster tracking: mark that this unit received damage and remove fostered state
