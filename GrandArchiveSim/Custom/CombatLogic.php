@@ -56,6 +56,10 @@ function GetAvailableWeapons($player) {
                 $hand = &GetHand($player);
                 if(count($hand) < 3) continue;
             }
+            if($obj->CardID === "pyx8bd7ozu") {
+                $hand = &GetHand($player);
+                if(count($hand) < 2) continue;
+            }
             $available[] = $mzID;
         }
     }
@@ -1472,6 +1476,11 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
         }
 
         // Mechanized Smasher (qsm3n9yvn1): additional cost to attack — reveal 4 wind cards from memory
+        if($weaponObj !== null && $weaponObj->CardID === "pyx8bd7ozu") {
+            for($abc = 0; $abc < 2; ++$abc) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+            }
+        }
         if($weaponObj !== null && $weaponObj->CardID === "qsm3n9yvn1") {
             $windMem = ZoneSearch("myMemory", cardElements: ["WIND"]);
             if(count($windMem) >= 4) {

@@ -75,6 +75,9 @@ function GetPlayableFastCards($player) {
         } elseif($obj->CardID === "B1EbF6jcYF" && IsAliceBonusActive($player)) {
             // Golden Gambit: [Alice Bonus] Fast Activation
             $fastCards[] = "myHand-" . $i;
+        } elseif($obj->CardID === "pvzvqx16w4" && GetChampionDamageTakenThisTurn($player) >= 35) {
+            // Annihilation: [Damage 35+] Fast Activation
+            $fastCards[] = "myHand-" . $i;
         }
     }
 

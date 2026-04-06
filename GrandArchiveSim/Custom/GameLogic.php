@@ -583,6 +583,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Unstable Fractal (2o82fwl22v): [Class Bonus] ability costs (3) reserve
     if($obj->CardID === "2o82fwl22v") $reserveCost = 3;
 
+    // Leporine Masque (pgysz2zfji): activated ability costs (X) less where X is your omen count
+    if($obj->CardID === "pgysz2zfji") {
+        $reserveCost = max(0, $reserveCost - GetOmenCount($player));
+    }
+
     // Class Bonus: reduce cost if champion's class matches card's class
     $classBonusDiscount = ClassBonusActivateCostReduction($obj->CardID);
     if($classBonusDiscount > 0 && IsClassBonusActive($player, explode(",", CardClasses($obj->CardID)))) {
@@ -3600,6 +3605,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
     switch($cardID) {
         case "nd8dy77ikm": // Shadeblood Coating â€” banish self
         case "nxm05jkjxg": // Rousing Rattle Drum â€” banish self
+        case "pgysz2zfji": // Leporine Masque - banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -4005,6 +4011,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "cMixAGt8zv": // Gustmark Gauge: (2) reserve + REST (reserve queued by ability body)
+        case "pv4n1n3gyg": // Cleric Robes - REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -7053,6 +7060,13 @@ function ObjectCurrentPower($obj) {
                 $power += $tokenCount;
             }
             break;
+        case "pyx8bd7ozu": // Archon Broadsword: [Class Bonus] +1 POWER per token you control
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $power += count(ZoneSearch($zone, ["TOKEN"]));
+            }
+            break;
         case "m4c8ljyevp": // Academy Attendant: [Class Bonus][Memory 4+] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["CLERIC"])) {
                 $memory = &GetMemory($obj->Controller);
@@ -7915,6 +7929,12 @@ function ObjectCurrentPower($obj) {
                 break;
             case "1wl8ao8bls": // Carter, Synthetic Reaper: sacrificed ally On Enter -> +2 POWER until end of turn
                 $power += 2;
+                break;
+            case "p00ghqhcpb-2": // Chill to the Bone: -2 POWER until end of turn
+                $power -= 2;
+                break;
+            case "p00ghqhcpb-4": // Chill to the Bone: -4 POWER until end of turn
+                $power -= 4;
                 break;
             case "bscxwjbqjd": // Sharpen Blade: target Dagger +2 POWER until end of turn
                 $power += 2;
@@ -8962,11 +8982,21 @@ function ObjectCurrentHP($obj) {
                     $cardLife += 2;
                 }
                 break;
+            case "p00ghqhcpb-2": // Chill to the Bone: -2 LIFE until end of turn
+                $cardLife -= 2;
+                break;
+            case "p00ghqhcpb-4": // Chill to the Bone: -4 LIFE until end of turn
+                $cardLife -= 4;
+                break;
             default: break;
         }
     }
     // Longtail Grovesward (jn4mwv930y): [Level 1+] +1 LIFE
     if($obj->CardID === "jn4mwv930y" && PlayerLevel($obj->Controller) >= 1) {
+        $cardLife += 1;
+    }
+    // Imperial Sentry (plywc08c9h): [Level 2+] +1 LIFE
+    if($obj->CardID === "plywc08c9h" && PlayerLevel($obj->Controller) >= 2) {
         $cardLife += 1;
     }
     // Keeper of the Wild (9krp8brw64): +2 LIFE until end of turn
@@ -10904,6 +10934,86 @@ function DealChampionDamage($player, $amount=1) {
         }
     }
     return null;
+}
+
+function DealChampionDamageAmount($player, $amount=1) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return 0;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null) return 0;
+    $beforeDamage = intval($champObj->Damage);
+    DealChampionDamage($player, $amount);
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null) return 0;
+    return max(0, intval($champObj->Damage) - $beforeDamage);
+}
+
+function ChillToTheBoneResolve($player) {
+    global $playerID;
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    if($attackerMZ === null || $attackerMZ === "-" || $attackerMZ === "") return;
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj === null || $attackerObj->removed || !PropertyContains(EffectiveCardType($attackerObj), "ALLY")) return;
+    $targets = FilterSpellshroudTargets([$attackerMZ]);
+    if(empty($targets)) return;
+    $fieldZone = $player == $playerID ? "myField" : "theirField";
+    $phantasiaCount = count(ZoneSearch($fieldZone, ["PHANTASIA"]));
+    AddTurnEffect($attackerMZ, $phantasiaCount >= 2 ? "p00ghqhcpb-4" : "p00ghqhcpb-2");
+}
+
+function PossessedReapingOnKill($player) {
+    global $playerID;
+    $killedCardID = DecisionQueueController::GetVariable("CombatKilledCardID");
+    if($killedCardID === null || $killedCardID === "-" || $killedCardID === "") return;
+    if(!PropertyContains(CardType($killedCardID), "ALLY")) return;
+
+    $opponentGraveyard = $player == $playerID ? "theirGraveyard" : "myGraveyard";
+    $ownGraveyard = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+    $graveyardCandidates = [];
+    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+    $targetObj = $combatTarget !== null ? GetZoneObject($combatTarget) : null;
+    if($targetObj !== null && !$targetObj->removed) {
+        $graveyardCandidates[] = $targetObj->Owner == $playerID ? "myGraveyard" : "theirGraveyard";
+    }
+    $graveyardCandidates[] = $opponentGraveyard;
+    $graveyardCandidates[] = $ownGraveyard;
+    $graveyardCandidates = array_values(array_unique($graveyardCandidates));
+
+    $graveyardMZ = null;
+    foreach($graveyardCandidates as $graveyardZone) {
+        $graveyard = GetZone($graveyardZone);
+        for($i = count($graveyard) - 1; $i >= 0; --$i) {
+            if(!$graveyard[$i]->removed && $graveyard[$i]->CardID === $killedCardID) {
+                $graveyardMZ = $graveyardZone . "-" . $i;
+                break 2;
+            }
+        }
+    }
+    if($graveyardMZ === null) return;
+
+    $newObj = MZMove($player, $graveyardMZ, "myField");
+    if($newObj === null) return;
+    $newObj->Controller = $player;
+    $newObj->Status = 1;
+    $subtypes = EffectiveCardSubtypes($newObj);
+    if(!PropertyContains($subtypes, "SPIRIT")) {
+        ApplyPersistentOverride($newObj->GetMzID(), ["subtypes" => $subtypes . ",SPIRIT"]);
+    }
+}
+
+function AnnihilationResolve($player, $amount) {
+    $amount = max(0, min(7, intval($amount)));
+    $damageDealt = DealChampionDamageAmount($player, $amount);
+
+    $targets = array_merge(ZoneSearch("myField"), ZoneSearch("theirField"));
+    foreach($targets as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj === null || $obj->removed || PropertyContains(EffectiveCardType($obj), "CHAMPION")) continue;
+        if(intval(CardCost_reserve($obj->CardID)) === $damageDealt) {
+            DoAllyDestroyed($player, $mzID);
+        }
+    }
+    DecisionQueueController::CleanupRemovedCards();
 }
 
 function RecoverChampion($player, $amount=1) {
