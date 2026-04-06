@@ -647,6 +647,18 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
+    $yudiAttackTax = 0;
+    if(EffectiveCardElement($obj) !== "TERA") {
+        $yudiAttackTax = GetYudiAttackTax();
+        if($yudiAttackTax > 0) {
+            $hand = GetZone("myHand");
+            if(count($hand) < $yudiAttackTax) {
+                SetFlashMessage("Must pay (" . $yudiAttackTax . ") to attack with a non-tera unit (Yudi, Gossamer Jade).");
+                return false;
+            }
+        }
+    }
+
     // Ducal Seal (qFwqqT0XWo): players must pay (3) for each attack declaration.
     $ducalActive = (GlobalEffectCount($turnPlayer, "DUCAL_SEAL_ATTACK_TAX") > 0 || GlobalEffectCount($prOpp, "DUCAL_SEAL_ATTACK_TAX") > 0);
     if($ducalActive) {
@@ -730,6 +742,10 @@ function BeginCombatPhase($actionCard) {
 
     // Oppressive Presence (j9hjjvkyyr): pay (X) reserve for ally attack declaration
     for($op = 0; $op < $oppressivePresenceTax; ++$op) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
+
+    for($yt = 0; $yt < $yudiAttackTax; ++$yt) {
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
     }
 
@@ -2631,6 +2647,15 @@ function OnDealDamage($player, $source, $target, $amount) {
                         Draw($smController, 1);
                     }
                     break;
+                case "labt8hvoww": // Shield of Parvati: prevent 2 and sacrifice
+                    {
+                        $amount -= min(2, $amount);
+                        $shieldController = $linkedObj->Controller;
+                        $linkedMZ = $linkedObj->GetMzID();
+                        MZMove($shieldController, $linkedMZ, ($shieldController == $playerID) ? "myGraveyard" : "theirGraveyard");
+                        DecisionQueueController::CleanupRemovedCards();
+                    }
+                    break;
                 case "l2ipxnctse": // Protective Helm: prevent 1 damage from distant source
                     {
                         $phSourceObj = GetZoneObject($source);
@@ -2851,6 +2876,8 @@ function OnDealDamage($player, $source, $target, $amount) {
             AddCounters($targetObj->Controller, $target, "enlighten", $prevented);
             return;
         }
+        $amount = ApplyCrystallizedDestinyPrevention($target, $amount);
+        if($amount <= 0) return;
         // PREVENT_CHAMP_MILL: prevent all of next damage to champion; mill X where X = amount prevented (Hailstorm Guard)
         if(in_array("PREVENT_CHAMP_MILL", $targetObj->TurnEffects)) {
             $prevented = $amount;

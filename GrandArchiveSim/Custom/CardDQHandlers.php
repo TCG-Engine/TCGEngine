@@ -6827,4 +6827,33 @@ $customDQHandlers["GalvanizingGaleTarget"] = function($player, $parts, $lastDeci
     }
 };
 
+$customDQHandlers["TaijiCrystalStrategemsRest"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mzID = DecisionQueueController::GetVariable("TaijiCrystalStrategemsMZ");
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->Status != 2) return;
+    RestCard($player, $mzID);
+    $opponent = ($player == 1) ? 2 : 1;
+    DealChampionDamage($opponent, 3);
+};
+
+function LungeOfEvokingWindsChoose($player, $remaining) {
+    if($remaining <= 0) return;
+    $windCards = ZoneSearch("myMemory", cardElements: ["WIND"]);
+    if(empty($windCards)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $windCards), 1,
+        tooltip:"Reveal_a_wind_card_from_memory_to_return_to_hand?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LungeOfEvokingWindsChoose|" . $remaining, 1);
+}
+
+$customDQHandlers["LungeOfEvokingWindsChoose"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoRevealCard($player, $lastDecision);
+    MZMove($player, $lastDecision, "myHand");
+    $remaining = intval($parts[0]) - 1;
+    if($remaining > 0) {
+        LungeOfEvokingWindsChoose($player, $remaining);
+    }
+};
+
 ?>

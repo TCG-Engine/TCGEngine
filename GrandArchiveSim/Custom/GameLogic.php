@@ -1029,9 +1029,18 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $reserveCost += 4;
         }
     }
+    $opponent = ($player == 1) ? 2 : 1;
+    if(GlobalEffectCount($opponent, "CRYSTALLIZED_DESTINY_COST") > 0) {
+        $reserveCost += 2;
+    }
 
     // Ceasing Edict (4f3bi5lohu): costs 2 less while Shifting Currents face South
     if($obj->CardID === "4f3bi5lohu" && GetShiftingCurrents($player) === "SOUTH") {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Crystallized Destiny (l36wwe3d5c): costs 2 less while you control 2+ Fatestone/Fatebound objects
+    if($obj->CardID === "l36wwe3d5c" && CountFatestoneOrFateboundObjects($player) >= 2) {
         $reserveCost = max(0, $reserveCost - 2);
     }
 
@@ -4803,6 +4812,15 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        for($ebp = 1; $ebp <= 2; ++$ebp) {
+            if(GlobalEffectCount($ebp, "k1l75tlzsm_RESTED") > 0) {
+                $added->Status = 1;
+                break;
+            }
+        }
+    }
+
     // Polkhawk, Boisterous Riot (8eyeqhc37y): next Ranger ally enters distant
     if(PropertyContains(CardType($added->CardID), "ALLY")
        && PropertyContains(EffectiveCardClasses($added), "RANGER")) {
@@ -6795,6 +6813,9 @@ function ObjectCurrentPower($obj) {
                     }
                 }
             }
+            break;
+        case "l83tuzrl2a": // Lily, Marine Castellan: On Attack if attacking even-life unit, +1 POWER
+            $power += 1;
             break;
         case "zcvq77mdgd": // Sword of Shadows: [CB] +1 POWER; -1 while opponent controls stealth ally
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
@@ -10631,8 +10652,22 @@ function ClassBonusActivateCostReduction($cardID) {
         '3bS1Y9OQrF' => 2, // Nature's Insight: [Class Bonus] costs 2 less
         '44eld1c5ac' => 2, // Surging Undertow: [Class Bonus] costs 2 less
         '6gt6zkly69' => 2, // Shriveling Vines: [Class Bonus] costs 2 less
+        'kvoqk1l75t' => 2, // Heavy Swing: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
+}
+
+function ApplyCrystallizedDestinyPrevention($championMZ, $amount) {
+    $champion = GetZoneObject($championMZ);
+    if($champion === null || !in_array("CRYSTALLIZED_DESTINY", $champion->TurnEffects ?? [])) {
+        return $amount;
+    }
+    $champion->TurnEffects = array_values(array_filter($champion->TurnEffects, fn($e) => $e !== "CRYSTALLIZED_DESTINY"));
+    if($amount >= 7) {
+        $opponent = ($champion->Controller == 1) ? 2 : 1;
+        AddGlobalEffects($opponent, "CRYSTALLIZED_DESTINY_COST");
+    }
+    return 0;
 }
 
 function DealChampionDamage($player, $amount=1) {
@@ -10692,6 +10727,10 @@ function DealChampionDamage($player, $amount=1) {
                     }
                     break;
                 }
+            }
+            $amount = ApplyCrystallizedDestinyPrevention($zone . "-" . $i, $amount);
+            if($amount <= 0) {
+                return $obj;
             }
             // Water Barrier (xWJND68I8X): prevent all but 1 of next damage to champion
             if(in_array("WATER_BARRIER", $obj->TurnEffects) && $amount > 1) {
@@ -10785,6 +10824,12 @@ function Empower($player, $amount, $sourceID) {
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
             AddTurnEffect($zone . "-" . $i, "EMPOWERED");
             break;
+        }
+    }
+    foreach($field as $i => $obj) {
+        if($obj->removed || $obj->CardID !== "l94wp7qjwb" || HasNoAbilities($obj)) continue;
+        if($amount > GetCounterCount($obj, "root")) {
+            AddCounters($player, $zone . "-" . $i, "root", 1);
         }
     }
 }
@@ -11306,6 +11351,18 @@ $customDQHandlers["CompanionFatestoneEnter"] = function($player, $parts, $lastDe
     AddCounters($player, $lastDecision, "buff", 1);
 };
 
+function CountFatestoneOrFateboundObjects($player) {
+    $count = 0;
+    foreach(GetField($player) as $obj) {
+        if($obj->removed) continue;
+        $subtypes = EffectiveCardSubtypes($obj);
+        if(PropertyContains($subtypes, "FATESTONE") || PropertyContains($subtypes, "FATEBOUND")) {
+            ++$count;
+        }
+    }
+    return $count;
+}
+
 /**
  * Central function: change a player's Shifting Currents direction and fire transition callbacks.
  * All direction changes MUST go through this function to ensure transition triggers fire.
@@ -11409,6 +11466,14 @@ $shiftingCurrentsTransitions["NORTH->WEST"]["1i2luu7dft"] = function($player, $m
 $shiftingCurrentsTransitions["SOUTH->NORTH"]["gnj9hi5ult"] = function($player, $mzID) {
     $opponent = ($player == 1) ? 2 : 1;
     DealChampionDamage($opponent, 3);
+};
+
+$shiftingCurrentsTransitions["SOUTH->EAST"]["l17uc67eaq"] = function($player, $mzID) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->Status != 2) return;
+    DecisionQueueController::StoreVariable("TaijiCrystalStrategemsMZ", $mzID);
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Rest_Taiji_of_Crystal_Strategems?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TaijiCrystalStrategemsRest", 1);
 };
 
 // Helper: queue an ICONCHOICE decision for the player to choose a new SC direction.
@@ -13517,6 +13582,18 @@ function GetOppressivePresenceAttackTax($player) {
         }
     }
     return $highestTax;
+}
+
+function GetYudiAttackTax() {
+    $tax = 0;
+    for($p = 1; $p <= 2; ++$p) {
+        foreach(GetField($p) as $obj) {
+            if($obj->removed || $obj->CardID !== "l94wp7qjwb" || HasNoAbilities($obj)) continue;
+            if(!IsClassBonusActive($obj->Controller, ["CLERIC", "MAGE"])) continue;
+            $tax += GetCounterCount($obj, "root");
+        }
+    }
+    return $tax;
 }
 
 function PutOmenCounter($player, $mzCard) {
