@@ -196,6 +196,13 @@ function DoMaterialize($player, $mzCard) {
             return;
         }
 
+        // Ignis Deus (rxdon8uwza): for the rest of the game, non-Spirit champions you control can't level up.
+        if($existingChampionIdx >= 0 && GlobalEffectCount($player, "IGNIS_DEUS_LOCK") > 0
+           && !PropertyContains(EffectiveCardClasses($field[$existingChampionIdx]), "SPIRIT")) {
+            MZMove($player, $mzCard, "myMaterial");
+            return;
+        }
+
         // Build new lineage: old champion's CardID prepended to its subcards
         $newSubcards = [];
         if($existingChampionCardID !== null) {

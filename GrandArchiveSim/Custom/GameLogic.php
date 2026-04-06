@@ -2024,7 +2024,21 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasSlimeKingCost) {
+    // 1.3 Declaring Costs — Devotion's Price (ri955ygd5v): mandatory discard two cards
+    $hasDevotionsPriceCost = false;
+    if($obj->CardID === "ri955ygd5v" && !$ignoreCost) {
+        $handChoices = ZoneSearch("myHand");
+        if(count($handChoices) < 2) {
+            SetFlashMessage("Devotion's Price requires two cards to discard.");
+            return;
+        }
+        $hasDevotionsPriceCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $handChoices), 100, tooltip:"Discard_a_card_(1_of_2)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DevotionsPriceDiscard1|" . $reserveCost, 100);
+    }
+
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasSlimeKingCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -3148,6 +3162,39 @@ $customDQHandlers["PristineScourgeDiscard2"] = function($player, $parts, $lastDe
     MZMove($player, $lastDecision, "theirGraveyard");
 };
 
+$customDQHandlers["DevotionsPriceDiscard1"] = function($player, $parts, $lastDecision) {
+    if(empty($parts)) return;
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $reserveCost = intval($parts[0]);
+    DoDiscardCard($player, $lastDecision);
+    $remainingHand = ZoneSearch("myHand");
+    if(empty($remainingHand)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $remainingHand), 1, tooltip:"Discard_a_card_(2_of_2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DevotionsPriceDiscard2|" . $reserveCost, 1);
+};
+
+$customDQHandlers["DevotionsPriceDiscard2"] = function($player, $parts, $lastDecision) {
+    if(empty($parts)) return;
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $reserveCost = intval($parts[0]);
+    DoDiscardCard($player, $lastDecision);
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 1);
+};
+
+$customDQHandlers["VeilarasPromiseBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES" || empty($parts)) return;
+    $mzID = $parts[0];
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->CardID !== "rcwr60wa5b") return;
+    OnLeaveField($player, $mzID);
+    MZMove($player, $mzID, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    Draw($player, 1);
+};
+
 // Lacuna's Grasp (w7annwvl5q): On Attack pay X reserve for +X POWER
 function LacunasGraspOnAttack($player) {
     if(!IsCielBonusActive($player)) return;
@@ -3490,6 +3537,17 @@ function OnCardActivated($player, $mzCard) {
                     && !HasNoAbilities($field[$fi])) {
                     WakeupCard($player, "myField-" . $fi);
                     AddTurnEffect("myField-" . $fi, "6SXL09rEzS-POWER");
+                }
+                break;
+            case "rcwr60wa5b": // Veilara's Promise: whenever you activate a Spell card, refine; at 3+, may banish to draw
+                if(PropertyContains($subtypes, "SPELL") && !HasNoAbilities($field[$fi])) {
+                    $promiseMZ = "myField-" . $fi;
+                    AddCounters($player, $promiseMZ, "refinement", 1);
+                    $promiseObj = GetZoneObject($promiseMZ);
+                    if($promiseObj !== null && GetCounterCount($promiseObj, "refinement") >= 3) {
+                        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Banish_Veilara's_Promise_to_draw_a_card?");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "VeilarasPromiseBanish|" . $promiseMZ, 1);
+                    }
                 }
                 break;
         }
@@ -5702,6 +5760,16 @@ function RecollectionPhase() {
                 case "CvvgJR4fNa": // Patient Rogue: gets +3 POWER until end of turn
                     AddTurnEffect("myField-" . $i, "CvvgJR4fNa");
                     break;
+                case "rz1bqry41l": // Merlin, Kingslayer: add a level counter; even total -> draw and attacks +2
+                    if(!HasNoAbilities($field[$i])) {
+                        AddCounters($turnPlayer, "myField-" . $i, "level", 1);
+                        $merlinObj = GetZoneObject("myField-" . $i);
+                        if($merlinObj !== null && GetCounterCount($merlinObj, "level") % 2 === 0) {
+                            Draw($turnPlayer, 1);
+                            AddTurnEffect("myField-" . $i, "rz1bqry41l");
+                        }
+                    }
+                    break;
                 case "P7hHZBVScB": // Orb of Glitter: glimpse 1 during recollection
                     Glimpse($turnPlayer, 1);
                     break;
@@ -5725,6 +5793,11 @@ function RecollectionPhase() {
                 case "jlAc0wWlDZ": // Eager Page: if you haven't materialized this turn, put a buff counter on it
                     if(!HasNoAbilities($field[$i]) && MaterializeCallCount($turnPlayer) === 0) {
                         AddCounters($turnPlayer, "myField-" . $i, "buff", 1);
+                    }
+                    break;
+                case "s7a4tm04ll": // Sage's Urn: add an age counter up to four
+                    if(!HasNoAbilities($field[$i]) && GetCounterCount($field[$i], "age") < 4) {
+                        AddCounters($turnPlayer, "myField-" . $i, "age", 1);
                     }
                     break;
                 case "ci00l7pqcx": // Berserker Plate: deal 3 unpreventable to your champion, then draw a card
@@ -7627,9 +7700,17 @@ function ObjectCurrentPower($obj) {
         case "6ihv6hbvye": // Grande Aiguille: [Ciel Bonus] +1 POWER if 2+ ally omens
             if(IsCielBonusActive($obj->Controller) && GetOmenCountByType($obj->Controller, "ALLY") >= 2) $power += 1;
             break;
+        case "s4b2mkh1xm": // Grande Sonnerie: [Ciel Bonus] +2 POWER while total omen reserve cost is 10+
+            if(IsCielBonusActive($obj->Controller) && GetTotalOmenCost($obj->Controller) >= 10) $power += 2;
+            break;
         case "At1UNRG7F0": // Devastating Blow: [CB][Level 3+] +4 POWER
             if(IsClassBonusActive($obj->Controller, ["GUARDIAN", "WARRIOR"]) && PlayerLevel($obj->Controller) >= 3) {
                 $power += 4;
+            }
+            break;
+        case "s4vxfy51ec": // Limitless Slime: [Class Bonus][Level 2+] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["TAMER"]) && PlayerLevel($obj->Controller) >= 2) {
+                $power += 1;
             }
             break;
         case "9f92917r84": // Dragon's Dawn: On Attack +2 POWER when fire card discarded
@@ -8187,6 +8268,20 @@ function ObjectCurrentPower($obj) {
             }
         }
     }
+    // Merlin, Kingslayer (rz1bqry41l): if champion has rz1bqry41l TurnEffect,
+    // all attack cards get +2 POWER until end of turn.
+    if(PropertyContains(EffectiveCardType($obj), "ATTACK")) {
+        $controller = $obj->Controller ?? null;
+        if($controller !== null && $controller > 0) {
+            $field = GetField($controller);
+            foreach($field as $fieldObj) {
+                if(PropertyContains(EffectiveCardType($fieldObj), "CHAMPION") && in_array("rz1bqry41l", $fieldObj->TurnEffects)) {
+                    $power += 2;
+                    break;
+                }
+            }
+        }
+    }
     // Wand of Frost (n0wpbhigka): if the attacking unit has n0wpbhigka TurnEffect,
     // attacks from that unit get -3 POWER until end of turn.
     $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
@@ -8540,6 +8635,14 @@ function ObjectCurrentLevel($obj) {
                 if(strpos($effectID, "kywpjf1b4k-") === 0) {
                     $cardLevel += intval(substr($effectID, strlen("kywpjf1b4k-")));
                 }
+                // Sage's Urn: Empower X, encoded as "s7a4tm04ll-N"
+                if(strpos($effectID, "s7a4tm04ll-") === 0) {
+                    $cardLevel += intval(substr($effectID, strlen("s7a4tm04ll-")));
+                }
+                // Ebbing Tide: Empower X, encoded as "s7pmqsl3jw-N"
+                if(strpos($effectID, "s7pmqsl3jw-") === 0) {
+                    $cardLevel += intval(substr($effectID, strlen("s7pmqsl3jw-")));
+                }
                 // Discordia, Harp of Malice (5LoOprBJay): -X level to target champion
                 if(strpos($effectID, "DISCORDIA_MINUS_") === 0) {
                     $cardLevel -= intval(substr($effectID, strlen("DISCORDIA_MINUS_")));
@@ -8742,6 +8845,11 @@ function ObjectCurrentHP($obj) {
             break;
         case "w9n0wpbhig": // Lancelot, Goliath of Aesa: [Class Bonus][Level 2+] +2 LIFE
             if(IsClassBonusActive($obj->Controller, ["GUARDIAN", "WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
+                $cardLife += 2;
+            }
+            break;
+        case "s4vxfy51ec": // Limitless Slime: [Class Bonus][Level 2+] +2 LIFE
+            if(IsClassBonusActive($obj->Controller, ["TAMER"]) && PlayerLevel($obj->Controller) >= 2) {
                 $cardLife += 2;
             }
             break;
@@ -9171,6 +9279,9 @@ function DoDrawCard($player, $amount=1) {
     $zone = &GetDeck($player);
     $hand = &GetHand($player);
     for($i=0; $i<$amount; ++$i) {
+        if(GlobalEffectCount($player, "ri955ygd5v_NO_DRAW") > 0) {
+            return;
+        }
         // Tithe Proclamation (q8sdbzr5zs): draw cap of 3 per player per turn (not on first turn)
         $currentTurn = &GetTurnNumber();
         if($currentTurn > 1) {
@@ -9259,6 +9370,9 @@ function DrawIntoMemory($player, $amount=1) {
     $zone = &GetDeck($player);
     $memory = &GetMemory($player);
     for($i=0; $i<$amount; ++$i) {
+        if(GlobalEffectCount($player, "ri955ygd5v_NO_DRAW") > 0) {
+            return;
+        }
         if(count($zone) == 0) return;
         $card = array_shift($zone);
         array_push($memory, $card);
@@ -10279,6 +10393,11 @@ $ephemerateCards["XK3NiQ5MdR"] = ['cost' => 1]; // Remnant of Will
 $ephemerateCards["YFCfIOwNQ5"] = ['cost' => 2]; // Singeing Leap
 $ephemerateCards["p7FWS3DA4a"] = ['cost' => 2]; // Molten Echo
 $ephemerateCards["Dtr3jPRAFJ"] = ['cost' => 6]; // Spectral Haunting
+$ephemerateCards["s9ICPMYPNx"] = ['cost' => 5, 'extraCostHandler' => 'EphemerateDiscard',
+    'condition' => function($player) {
+        return IsAliceBonusActive($player);
+    }
+]; // Bill, Chimney Sweep
 $ephemerateCards["24I0xn0OQ1"] = ['cost' => 2, 'extraCostHandler' => 'EphemerateBanishOtherGY',
     'condition' => function($player) {
         return IsAliceBonusActive($player) && IsElementBonusActive($player, "24I0xn0OQ1");
@@ -10372,6 +10491,8 @@ $effectAppliesToBoth["GMBF3HVRKG"] = true;
 $foreverEffects["wr42i6eifn"] = true;
 // Freydis permanent distant: Ranger units are always distant for the rest of the game
 $foreverEffects["FREYDIS_PERMANENT_DISTANT"] = true;
+// Ignis Deus: for the rest of the game, non-Spirit champions you control can't level up
+$foreverEffects["IGNIS_DEUS_LOCK"] = true;
 // Obsequious Blow (macqlgvqo3): first card opponent activates costs +2
 $foreverEffects["OBSEQUIOUS_BLOW_COST"] = true;
 // Verita (4qc47amgpp) On Death: Suited allies get +1 POWER until end of next turn
@@ -12100,6 +12221,8 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "7imoz7vrlr" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Spark Link (PUgqk3lxq6): [Level 1+] Floating Memory
     if($obj->CardID === "PUgqk3lxq6" && PlayerLevel($obj->Controller) >= 1) return true;
+    // Limitless Slime (s4vxfy51ec): [Class Bonus] [Level 1+] Floating Memory
+    if($obj->CardID === "s4vxfy51ec" && IsClassBonusActive($obj->Controller, ["TAMER"]) && PlayerLevel($obj->Controller) >= 1) return true;
     // Art of War (fjne9ri261): Divine Relic
     if($obj->CardID === "fjne9ri261") return true;
     return false;
