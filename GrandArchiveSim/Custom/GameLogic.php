@@ -946,6 +946,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 3);
     }
 
+    // Curse Amplification (x9z2k2a5ig): [Diana Bonus] costs 3 less to activate
+    if($obj->CardID === "x9z2k2a5ig" && IsDianaBonus($player)) {
+        $reserveCost = max(0, $reserveCost - 3);
+    }
+
     // Accursed Strength (j3fkza233s): [Diana Bonus] costs 1 less to activate
     if($obj->CardID === "j3fkza233s" && IsClassBonusActive($player, ["RANGER"])) {
         $reserveCost = max(0, $reserveCost - 1);
@@ -1099,6 +1104,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             if($obj->CardID === substr($effect, strlen("qy34r8gffr-"))) {
                 $reserveCost += 2;
                 break 2;
+            }
+        }
+    }
+
+    // Enrage (wcfvrfw35s): [Damage 20+] costs 2 less
+    if($obj->CardID === "wcfvrfw35s") {
+        $champ = ZoneSearch("myField", ["CHAMPION"]);
+        if(!empty($champ)) {
+            $champObj = GetZoneObject($champ[0]);
+            if($champObj !== null && $champObj->Damage >= 20) {
+                $reserveCost = max(0, $reserveCost - 2);
             }
         }
     }
@@ -1297,6 +1313,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // "The first card you activate each turn costs 1 more to activate."
     if(!AreCurseLineageAbilitiesSuppressed($player) && ChampionHasInLineage($player, "wbsmks4etk") && CardActivatedCallCount($player) == 0) {
         $reserveCost += 1;
+    }
+
+    // Waited Accord (xF9phlSAkE): the first advanced element card each player activates each
+    // turn costs 2 more for each active Waited Accord on the field.
+    if(IsAdvancedElementCard($obj->CardID) && AdvancedElementActivatedCount($player) == 0) {
+        foreach(array_merge(GetField(1), GetField(2)) as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "xF9phlSAkE" || HasNoAbilities($fieldObj)) continue;
+            if(intval($fieldObj->Counters["waitedAccordActive"] ?? 0) > 0) {
+                $reserveCost += 2;
+            }
+        }
     }
 
     // Keep of the Golden Sashes (gjhv2etytr): first card opponents activate each turn costs 1 more
@@ -1501,6 +1528,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Frostlorn Caress (4tqbok1g9w): [Diao Chan Bonus] costs 3 less to activate
     if($obj->CardID === "4tqbok1g9w" && IsDiaoChanBonus($player)) {
         $reserveCost = max(0, $reserveCost - 3);
+    }
+
+    // Frostnip Pirouette (x79cuuw5vo): [Diao Chan Bonus] costs 2 less to activate
+    if($obj->CardID === "x79cuuw5vo" && IsDiaoChanBonus($player)) {
+        $reserveCost = max(0, $reserveCost - 2);
     }
 
     // Briar's Spindle (9ooAGDhBj7): global effect — next Chessman card costs 2 less
@@ -3502,6 +3534,30 @@ function OnCardActivated($player, $mzCard) {
         $cardActivatedAbilities[$obj->CardID . ":0"]($player);
     }
 
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) {
+        if(PropertyContains($cardType, "ACTION")) {
+            AddTurnEffect($champMZ, "vz4kc558yx-ACTION_ACTIVATED");
+            $champObj = GetZoneObject($champMZ);
+            if($champObj !== null && in_array("vz4kc558yx-ACTION_PENDING", $champObj->TurnEffects ?? [])) {
+                $champObj->TurnEffects = array_values(array_filter(
+                    $champObj->TurnEffects,
+                    fn($e) => $e !== "vz4kc558yx-ACTION_PENDING"
+                ));
+            }
+        }
+        if(PropertyContains($cardType, "ALLY")) {
+            AddTurnEffect($champMZ, "vz4kc558yx-ALLY_ACTIVATED");
+            $champObj = GetZoneObject($champMZ);
+            if($champObj !== null && in_array("vz4kc558yx-ALLY_PENDING", $champObj->TurnEffects ?? [])) {
+                $champObj->TurnEffects = array_values(array_filter(
+                    $champObj->TurnEffects,
+                    fn($e) => $e !== "vz4kc558yx-ALLY_PENDING"
+                ));
+            }
+        }
+    }
+
     // Insignia of the Corhazi (52u81v4c0z): [CB] whenever you activate a prepared card while influence ≤ 6, draw into memory
     $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
     if($wasPrepared === "YES" && GetInfluence($player) <= 6) {
@@ -3717,9 +3773,7 @@ function OnCardActivated($player, $mzCard) {
     }
 
     if(ChampionHasInLineage($player, "emqOANitoD")) {
-        $cardElement = CardElement($obj->CardID);
-        $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM"];
-        if(in_array($cardElement, $advancedElements) && CountCursesInLineage($player) === 0) {
+        if(IsAdvancedElementCard($obj->CardID) && CountCursesInLineage($player) === 0) {
             $champField = &GetField($player);
             for($ci = 0; $ci < count($champField); ++$ci) {
                 if(!$champField[$ci]->removed && PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
@@ -3728,6 +3782,10 @@ function OnCardActivated($player, $mzCard) {
                 }
             }
         }
+    }
+
+    if(IsAdvancedElementCard($obj->CardID)) {
+        IncrementAdvancedElementActivatedCount($player);
     }
 
     // Rai, Archmage (zdIhSL5RhK) — Inherited Effect:
@@ -3892,6 +3950,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "mnz5kgifhd": // Sanguine Goblet — banish self
         case "me0xxw0plq": // Refracted Twilight — banish self
         case "qqq8j5fxym": // Shard of Empowerment — banish self
+        case "xl3tzqhlt1": // Hairpin of Transience — banish self
+        case "xnrw8qq1uw": // Tariff Ring — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -4014,6 +4074,20 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::StoreVariable("ageCounters", strval($age));
             }
             ProcessPotionInfusionTriggers($player, $mzCard);
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "wtHBZAdTSv": // Nether Dodobird: sacrifice self — store ephemeral state
+        case "xF9phlSAkE": // Waited Accord: sacrifice self
+            {
+                $sourceObj = GetZoneObject($mzCard);
+                if($cardID === "wtHBZAdTSv") {
+                    DecisionQueueController::StoreVariable(
+                        "NetherDodobirdWasEphemeral",
+                        ($sourceObj !== null && IsEphemeral($sourceObj)) ? "YES" : "NO"
+                    );
+                }
+            }
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -5804,6 +5878,19 @@ function RecollectionPhase() {
     // Must run BEFORE memory is returned to hand, since the checks reveal memory cards.
     DomainRecollectionUpkeep($turnPlayer);
 
+    // Incandescent Reliquary (wsycqp2l90): if you have the least influence, draw a card.
+    $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
+    $turnInfluence = GetInfluence($turnPlayer);
+    $otherInfluence = GetInfluence($otherPlayer);
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "wsycqp2l90" && !HasNoAbilities($field[$i])) {
+            if($turnInfluence <= $otherInfluence) {
+                Draw($turnPlayer, 1);
+            }
+        }
+    }
+
     // Kongming, Erudite Strategist (0i139x5eub): clear "may play until beginning of next turn" tags from banished cards
     $kongmingBanish = &GetBanish($turnPlayer);
     for($bi = 0; $bi < count($kongmingBanish); ++$bi) {
@@ -6306,6 +6393,16 @@ function RecollectionPhase() {
         }
     }
 
+    // Curse Amplification (x9z2k2a5ig): curse cards in lineage gain recollection damage.
+    if(GlobalEffectCount($turnPlayer, "x9z2k2a5ig") > 0 && !AreCurseLineageAbilitiesSuppressed($turnPlayer)) {
+        $champions = ZoneSearch($turnPlayer == $playerID ? "myField" : "theirField", ["CHAMPION"]);
+        if(!empty($champions)) {
+            foreach(GetCursesInLineage($turnPlayer) as $curse) {
+                DealUnpreventableDamage($turnPlayer, $champions[0], $champions[0], 1);
+            }
+        }
+    }
+
     // Hidden Enclave (1vk8ao8bki): at the beginning of each player's recollection phase,
     // that player puts the top card of their deck into their graveyard.
     foreach(array_merge(GetField(1), GetField(2)) as $heObj) {
@@ -6715,6 +6812,28 @@ function EndPhase() {
         }
     }
 
+    // Devious Welcome (vz4kc558yx): next end phase discard if chosen type wasn't activated.
+    $champMZ = FindChampionMZ($turnPlayer);
+    if($champMZ !== null) {
+        $champObj = GetZoneObject($champMZ);
+        if($champObj !== null) {
+            if(in_array("vz4kc558yx-ACTION_PENDING", $champObj->TurnEffects ?? [])) {
+                DiscardRandomFromHandAndMemory($turnPlayer);
+                $champObj->TurnEffects = array_values(array_filter(
+                    $champObj->TurnEffects,
+                    fn($e) => $e !== "vz4kc558yx-ACTION_PENDING"
+                ));
+            }
+            if(in_array("vz4kc558yx-ALLY_PENDING", $champObj->TurnEffects ?? [])) {
+                DiscardRandomFromHandAndMemory($turnPlayer);
+                $champObj->TurnEffects = array_values(array_filter(
+                    $champObj->TurnEffects,
+                    fn($e) => $e !== "vz4kc558yx-ALLY_PENDING"
+                ));
+            }
+        }
+    }
+
     // Stardust Oracle (EPy8OUmPxa): [Class Bonus] At beginning of end phase, summon Astral Shard token
     $field = &GetField($turnPlayer);
     for($i = 0; $i < count($field); ++$i) {
@@ -7093,6 +7212,17 @@ function ObjectCurrentPower($obj) {
             $zone = $obj->Controller == $playerID ? "myField" : "theirField";
             if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["BEAST"]))) {
                 $power += 1;
+            }
+            break;
+        case "vw2ifz1nr5": // Andronika, Eternal Herald: +1 POWER while imbued
+            if(in_array("IMBUED", $obj->TurnEffects ?? [])) {
+                $power += 1;
+            }
+            break;
+        case "y1tyo32voa": // Shuang Ji of Sacrifice: +1 POWER per five damage on your champion
+            $champion = GetPlayerChampion($obj->Controller);
+            if($champion !== null) {
+                $power += intdiv(intval($champion->Damage ?? 0), 5);
             }
             break;
         case "csMiEObm2l": // Strapping Conscript: [Class Bonus][Level 2+] +1 POWER
@@ -8244,6 +8374,12 @@ function ObjectCurrentPower($obj) {
             case "vnta6qsesw_POWER": // Take Aim: +2 POWER on next attack
                 $power += 2;
                 break;
+            case "wXsHpcrH3P_POWER": // Herd of the Hearth: Animal/Beast allies get +1 POWER
+                $power += 1;
+                break;
+            case "w7g91ru45w_POWER": // Trump Set: redirected ally gets +3 POWER
+                $power += 3;
+                break;
             case "5ramr16052_POWER": // Jin, Zealous Maverick: +1 POWER on next attack
                 $power += 1;
                 break;
@@ -8422,6 +8558,10 @@ function ObjectCurrentPower($obj) {
                 // Lacuna's Grasp (w7annwvl5q): +X POWER from paying X reserve on attack
                 if(strpos($effectID, "w7annwvl5q-") === 0) {
                     $power += intval(substr($effectID, strlen("w7annwvl5q-")));
+                }
+                // Enrage (wcfvrfw35s): next attack gets +X POWER
+                if(strpos($effectID, "wcfvrfw35s_POWER_") === 0) {
+                    $power += intval(substr($effectID, strlen("wcfvrfw35s_POWER_")));
                 }
                 break;
         }
@@ -9020,6 +9160,11 @@ function ObjectCurrentHP($obj) {
                 $cardLife += 1;
             }
             break;
+        case "vw2ifz1nr5": // Andronika, Eternal Herald: +1 LIFE while imbued
+            if(in_array("IMBUED", $obj->TurnEffects ?? [])) {
+                $cardLife += 1;
+            }
+            break;
         case "csMiEObm2l": // Strapping Conscript: [Class Bonus][Level 2+] +1 LIFE
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"]) && PlayerLevel($obj->Controller) >= 2) {
                 $cardLife += 1;
@@ -9407,6 +9552,10 @@ function ObjectCurrentHP($obj) {
     if(in_array("y5koddlyv8_LIFE", $obj->TurnEffects)) {
         $cardLife += 1;
     }
+    // Trump Set (w7g91ru45w): redirected ally gets +3 LIFE
+    if(in_array("w7g91ru45w_LIFE", $obj->TurnEffects ?? [])) {
+        $cardLife += 3;
+    }
     // Aether's Embrace (wd7nuab7f3): +2 LIFE
     if(in_array("wd7nuab7f3-LIFE", $obj->TurnEffects)) {
         $cardLife += 2;
@@ -9602,6 +9751,22 @@ function GetStarcallingCost($player, $cardID) {
         $cost = 0;
     }
     return $cost;
+}
+
+function IsAdvancedElementCard($cardID) {
+    $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA"];
+    return in_array(CardElement($cardID), $advancedElements);
+}
+
+function AdvancedElementActivatedCount($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    return $_ti["AdvancedElementActivated"][$player] ?? 0;
+}
+
+function IncrementAdvancedElementActivatedCount($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    $_ti["AdvancedElementActivated"][$player] = ($_ti["AdvancedElementActivated"][$player] ?? 0) + 1;
+    SetMacroTurnIndex(json_encode($_ti));
 }
 
 // Aethercalling: cards with [Element Bonus] Aethercalling
@@ -11092,6 +11257,10 @@ $foreverEffects["CRYSTALLIZED_ANTHEM_RECOLLECTION"] = true;
 $doesGlobalEffectApply["blq7qXGvWH_DISCARD_NEXT_END"] = function($obj) { return false; };
 $foreverEffects["blq7qXGvWH_DISCARD_NEXT_END"] = true;
 
+// Curse Amplification (x9z2k2a5ig): permanent curse-lineage damage grant
+$doesGlobalEffectApply["x9z2k2a5ig"] = function($obj) { return false; };
+$foreverEffects["x9z2k2a5ig"] = true;
+
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
@@ -12426,6 +12595,8 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "PUgqk3lxq6" && PlayerLevel($obj->Controller) >= 1) return true;
     // Limitless Slime (s4vxfy51ec): [Class Bonus] [Level 1+] Floating Memory
     if($obj->CardID === "s4vxfy51ec" && IsClassBonusActive($obj->Controller, ["TAMER"]) && PlayerLevel($obj->Controller) >= 1) return true;
+    // Undercurrent Vantage (xicxo661ly): [Class Bonus] Floating Memory
+    if($obj->CardID === "xicxo661ly" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     // Art of War (fjne9ri261): Divine Relic
     if($obj->CardID === "fjne9ri261") return true;
     return false;
@@ -12644,6 +12815,8 @@ function HasVigor($obj) {
     if(in_array("VIGOR_NEXT_TURN", $obj->TurnEffects)) return true;
     // Uther, Illustrious King (5h8asbierp): always has Vigor
     if($obj->CardID === "5h8asbierp") return true;
+    // Andronika, Eternal Herald (vw2ifz1nr5): has vigor while imbued
+    if($obj->CardID === "vw2ifz1nr5" && in_array("IMBUED", $obj->TurnEffects ?? [])) return true;
     // Command the Hunt (rxxwQT054x): allies gain vigor via global effect
     if(ObjectHasEffect($obj, "rxxwQT054x_VIGOR")) return true;
     // Ally Link: Mark of Fervor (80mttsvbgl): linked ally has vigor
@@ -13683,6 +13856,16 @@ function PrideAmount($obj) {
             }
         }
     }
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(CardType($obj->CardID), "UNIQUE")) {
+        foreach(GetField(1) as $fObj) {
+            if($fObj->removed || $fObj->CardID !== "x8o84m37ti" || HasNoAbilities($fObj)) continue;
+            if($obj->Controller !== $fObj->Controller) $prideValue = max($prideValue ?? 0, 2);
+        }
+        foreach(GetField(2) as $fObj) {
+            if($fObj->removed || $fObj->CardID !== "x8o84m37ti" || HasNoAbilities($fObj)) continue;
+            if($obj->Controller !== $fObj->Controller) $prideValue = max($prideValue ?? 0, 2);
+        }
+    }
     if($prideValue === null) return 0;
     // Cell Handler (pk9xycwz9g): target loses pride until end of turn
     if(in_array("pk9xycwz9g", $obj->TurnEffects)) return 0;
@@ -13800,6 +13983,13 @@ function CardMemoryCost($obj) {
     if($obj->CardID === "0yetaebjlw") {
         $turnPlayer = &GetTurnPlayer();
         if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
+            $cost = max(0, $cost - 1);
+        }
+    }
+    // Incandescent Reliquary (wsycqp2l90): [Class Bonus] costs 1 less to materialize
+    if($obj->CardID === "wsycqp2l90") {
+        $turnPlayer = &GetTurnPlayer();
+        if(IsClassBonusActive($turnPlayer, ["CLERIC", "TAMER"])) {
             $cost = max(0, $cost - 1);
         }
     }
@@ -14289,6 +14479,25 @@ function GetOmenCountByElement($player, $element) {
 
 function GetInfluence($player) {
     return count(GetHand($player)) + count(GetMemory($player));
+}
+
+function DiscardRandomFromHandAndMemory($player) {
+    $targets = [];
+    $hand = GetHand($player);
+    for($i = 0; $i < count($hand); ++$i) {
+        if(!$hand[$i]->removed) {
+            $targets[] = "myHand-" . $i;
+        }
+    }
+    $memory = GetMemory($player);
+    for($i = 0; $i < count($memory); ++$i) {
+        if(!$memory[$i]->removed) {
+            $targets[] = "myMemory-" . $i;
+        }
+    }
+    if(empty($targets)) return;
+    $chosen = $targets[array_rand($targets)];
+    DoDiscardCard($player, $chosen);
 }
 
 function CountNonHumanAlliesInGraveyard($player) {
@@ -15546,6 +15755,15 @@ $customDQHandlers["RoseRedirectAttack"] = function($player, $parts, $lastDecisio
         DecisionQueueController::StoreVariable("CombatTarget", $roseMZ);
     }
     AddTurnEffect($roseMZ, "2bbmoqk2c7-LIFE");
+};
+
+$customDQHandlers["TrumpSetRedirect"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $allyObj = GetZoneObject($lastDecision);
+    if($allyObj === null || $allyObj->removed) return;
+    DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
+    AddTurnEffect($lastDecision, "w7g91ru45w_POWER");
+    AddTurnEffect($lastDecision, "w7g91ru45w_LIFE");
 };
 
 // Decompose (3JWk1jxX5u): sacrifice the chosen ally and store its life stat for Gather

@@ -669,6 +669,15 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
+    $tariffRingTax = 2 * (GlobalEffectCount($turnPlayer, "xnrw8qq1uw") + GlobalEffectCount($prOpp, "xnrw8qq1uw"));
+    if($tariffRingTax > 0) {
+        $hand = GetZone("myHand");
+        if(count($hand) < $tariffRingTax) {
+            SetFlashMessage("Must pay (" . $tariffRingTax . ") to declare an attack (Tariff Ring). Not enough cards in hand.");
+            return false;
+        }
+    }
+
     // Ducal Seal (qFwqqT0XWo): players must pay (3) for each attack declaration.
     $ducalActive = (GlobalEffectCount($turnPlayer, "DUCAL_SEAL_ATTACK_TAX") > 0 || GlobalEffectCount($prOpp, "DUCAL_SEAL_ATTACK_TAX") > 0);
     if($ducalActive) {
@@ -756,6 +765,10 @@ function BeginCombatPhase($actionCard) {
     }
 
     for($yt = 0; $yt < $yudiAttackTax; ++$yt) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
+
+    for($tr = 0; $tr < $tariffRingTax; ++$tr) {
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
     }
 
@@ -912,9 +925,39 @@ function OnAttackTrigger($player, $mzID) {
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["f00cEmu6Ql"]));
     }
 
+    // Enrage (wcfvrfw35s): champion's next attack this turn gets +X POWER
+    foreach($obj->TurnEffects ?? [] as $te) {
+        if(strpos($te, "wcfvrfw35s_NEXT_") === 0) {
+            $bonus = intval(substr($te, strlen("wcfvrfw35s_NEXT_")));
+            if($bonus > 0) {
+                AddTurnEffect($mzID, "wcfvrfw35s_POWER_" . $bonus);
+            }
+            $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== $te));
+            break;
+        }
+    }
+
     // Diana, Cursebreaker (o0qtb31x97): "On Attack: Wake up Diana" granted turn effect
     if($obj !== null && in_array("CURSEBREAKER_ON_ATTACK", $obj->TurnEffects)) {
         WakeupCard($player, $mzID);
+    }
+
+    // Herd of the Hearth (wXsHpcrH3P): Horse allies gain "On Attack: Draw a card, then discard a card" this turn.
+    if($obj !== null && in_array("wXsHpcrH3P_ONATTACK", $obj->TurnEffects ?? [])) {
+        Draw($player, 1);
+        $hand = GetHand($player);
+        if(count($hand) > 0) {
+            $targets = [];
+            for($hi = 0; $hi < count($hand); ++$hi) {
+                if(!$hand[$hi]->removed) {
+                    $targets[] = "myHand-" . $hi;
+                }
+            }
+            if(!empty($targets)) {
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Discard_a_card");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "HerdOfTheHearthDiscard", 1);
+            }
+        }
     }
 
     // Mechanical Hare (j3q2svdv3z): 2+ buff counters → "On Attack: Banish up to two target cards in a single graveyard"
@@ -1418,6 +1461,11 @@ function OnKillTrigger($player, $attackerMZ) {
         Draw($player, amount: 1);
     }
 }
+
+$customDQHandlers["HerdOfTheHearthDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoDiscardCard($player, $lastDecision);
+};
 
 // --- DQ handlers ---------------------------------------------------------------
 
