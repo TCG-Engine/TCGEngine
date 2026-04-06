@@ -133,6 +133,13 @@ function LoadDecks() {
       $thisDeck .= "<button title='Copy Link' onclick='event.stopPropagation(); showCopyOptions(\"" . $deck["assetIdentifier"] . "\", event)'>";
       $thisDeck .= "<img src='../Assets/Icons/clipboard-check.svg' width='16' height='16' alt='Copy Link' style='filter:invert(100%);' />";
       $thisDeck .= "</button>";
+      if (CheckLoggedInUserMod() === '') {
+        $thisDeck .= "<button title='Export Card Text JSON' onclick='event.stopPropagation(); ShowCardTextJSON(\"" . $deck["assetIdentifier"] . "\")'>";
+        $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-braces' viewBox='0 0 16 16'>
+    <path d='M2.114 8.063V7.9c1.005-.102 1.497-.615 1.497-1.6V4.503c0-1.094.39-1.538 1.354-1.538h.273V2h-.376C3.25 2 2.49 2.759 2.49 4.352v1.524c0 1.094-.376 1.456-1.49 1.456v1.299c1.114 0 1.49.362 1.49 1.456v1.524c0 1.593.759 2.352 2.372 2.352h.376v-.964h-.273c-.964 0-1.354-.444-1.354-1.538V9.663c0-.984-.492-1.497-1.497-1.6M13.886 7.9v.163c-1.005.103-1.497.616-1.497 1.6v1.798c0 1.094-.39 1.538-1.354 1.538h-.273v.964h.376c1.613 0 2.372-.759 2.372-2.352v-1.524c0-1.094.376-1.456 1.49-1.456V7.332c-1.114 0-1.49-.362-1.49-1.456V4.352C13.51 2.759 12.75 2 11.138 2h-.376v.964h.273c.964 0 1.354.444 1.354 1.538V6.3c0 .984.492 1.497 1.497 1.6'/>
+    </svg>";
+        $thisDeck .= "</button>";
+      }
       if (!is_null($deck["assetSource"]) && !is_null($deck["assetSourceID"])) {
       $thisDeck .= "<button title='Refresh' onclick='event.stopPropagation(); RefreshDeck(\"" . $deck["assetIdentifier"] . "\", " . $deck["assetSource"] . ", \"" . $deck["assetSourceID"] . "\", event)'>";
       $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-clockwise' viewBox='0 0 16 16'>
@@ -605,6 +612,84 @@ function LoadDecks() {
       window.removeEventListener('scroll', removeMenuOnScroll, true);
     }
     window.addEventListener('scroll', removeMenuOnScroll, true);
+  }
+
+  async function ShowCardTextJSON(deckID) {
+    // Show loading state
+    var modal = document.createElement('div');
+    modal.id = 'cardTextJsonModal';
+    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:5000;display:flex;align-items:center;justify-content:center;';
+    modal.innerHTML = '<div style="background:#001833;border:1px solid #2a4b8d;border-radius:8px;padding:20px;width:min(680px,92vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 0 30px rgba(0,60,120,0.6);">' +
+      '<div style="color:#aac8ff;font-size:16px;text-align:center;padding:20px;">Loading card text...</div>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeCardTextJsonModal();
+    });
+    document.addEventListener('keydown', function escHandler(e) {
+      if (e.key === 'Escape') { closeCardTextJsonModal(); document.removeEventListener('keydown', escHandler); }
+    });
+
+    try {
+      var resp = await fetch('../SWUDeck/GetCardTextJSON.php?deckID=' + encodeURIComponent(deckID));
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      var data = await resp.json();
+      if (data.error) throw new Error(data.error);
+
+      var jsonText = JSON.stringify(data, null, 2);
+
+      var inner = document.querySelector('#cardTextJsonModal > div');
+      inner.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">' +
+          '<span style="color:#aac8ff;font-size:15px;font-weight:bold;">' + data.length + ' unique card(s)</span>' +
+          '<div style="display:flex;gap:8px;">' +
+            '<button onclick="copyCardTextJson()" style="background:#1a4a8a;color:#fff;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:13px;" onmouseover="this.style.background=\'#2a5aaa\'" onmouseout="this.style.background=\'#1a4a8a\'">Copy</button>' +
+            '<button onclick="downloadCardTextJson()" style="background:#1a4a8a;color:#fff;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:13px;" onmouseover="this.style.background=\'#2a5aaa\'" onmouseout="this.style.background=\'#1a4a8a\'">Download</button>' +
+            '<button onclick="closeCardTextJsonModal()" style="background:#5a1a1a;color:#fff;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:13px;" onmouseover="this.style.background=\'#7a2a2a\'" onmouseout="this.style.background=\'#5a1a1a\'">Close</button>' +
+          '</div>' +
+        '</div>' +
+        '<textarea id="cardTextJsonContent" readonly style="flex:1;width:100%;box-sizing:border-box;background:#000c1a;color:#cce0ff;border:1px solid #2a4b8d;border-radius:4px;padding:10px;font-family:monospace;font-size:12px;resize:none;min-height:400px;outline:none;">' +
+          jsonText.replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+        '</textarea>';
+      inner.style.cssText = 'background:#001833;border:1px solid #2a4b8d;border-radius:8px;padding:20px;width:min(680px,92vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 0 30px rgba(0,60,120,0.6);';
+
+      // Store for copy/download
+      window._cardTextJsonData = jsonText;
+      window._cardTextJsonDeckID = deckID;
+    } catch (err) {
+      var inner = document.querySelector('#cardTextJsonModal > div');
+      inner.innerHTML = '<div style="color:#ff8888;text-align:center;padding:20px;">Error: ' + err.message + '</div>' +
+        '<div style="text-align:center;margin-top:10px;"><button onclick="closeCardTextJsonModal()" style="background:#5a1a1a;color:#fff;border:none;padding:5px 14px;border-radius:5px;cursor:pointer;">Close</button></div>';
+    }
+  }
+
+  function closeCardTextJsonModal() {
+    var m = document.getElementById('cardTextJsonModal');
+    if (m) m.parentNode.removeChild(m);
+  }
+
+  function copyCardTextJson() {
+    var ta = document.getElementById('cardTextJsonContent');
+    if (!ta) return;
+    navigator.clipboard.writeText(window._cardTextJsonData || ta.value).then(function() {
+      showFlashMessage('Card text JSON copied!', null);
+    }).catch(function() {
+      ta.select();
+      document.execCommand('copy');
+      showFlashMessage('Card text JSON copied!', null);
+    });
+  }
+
+  function downloadCardTextJson() {
+    var text = window._cardTextJsonData || '';
+    var blob = new Blob([text], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'deck-' + (window._cardTextJsonDeckID || 'cards') + '-text.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 100);
   }
 </script>
 
