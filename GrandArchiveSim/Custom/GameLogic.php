@@ -45,6 +45,7 @@ $Imbue_Cards["Byx6iokcT4"] = 3; // Topsy Decree (NORM) - Imbue 3
 $Imbue_Cards["jH3ZOavGPR"] = 2; // Crystalvein Awakening (WIND) - Imbue 2
 $Imbue_Cards["a3pmmloejo"] = 2; // Blessed Clergy (WIND) - Imbue 2
 $Imbue_Cards["xpnjvt9y59"] = 2; // Cleansing Reunion (WIND) - Imbue 2
+$Imbue_Cards["taug52u81v"] = 2; // Eternal Magistrate (WIND) - Imbue 2
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -83,6 +84,7 @@ $Cardistry_Cards["xgax8bbjqj"] = 4; // Four of Hearts
 $Cardistry_Cards["i9hf5lhl5f"] = 5; // Five of Spades
 $Cardistry_Cards["idq4ih00rq"] = 5; // Five of Hearts
 $Cardistry_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts
+$Cardistry_Cards["tdRR5lQHMN"] = 6; // Six of Spades
 $Cardistry_Cards["DKoSnhjX18"] = 7; // Chance, Seven of Spades
 $Cardistry_Cards["nduIoPhZr1"] = 7; // Seven of Hearts
 
@@ -437,6 +439,22 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
+            // Desperate Cavalier (slmer06rku): tagged banished cards may be activated for 2 self-damage.
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_desperateCavalier'])) {
+                    unset($bObj->Counters['_desperateCavalier']);
+                    MZMove($playerID, $actionCard, "myHand");
+                    $champMZ = FindChampionMZ($playerID);
+                    if($champMZ !== null) {
+                        DealUnpreventableDamage($playerID, $actionCard, $champMZ, 2);
+                    }
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             // Recursive Confidant (KfC8fwcF2T): activate tagged Warrior attack from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -650,6 +668,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Expeditious Opening (w1wgpeifd0): consume fast-activation effect when any ally is activated
     if(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
         RemoveGlobalEffect($player, "w1wgpeifd0");
+    }
+    // Bombastic Sprint (t4owmcva0f): consume fast-activation effect on the next Ranger action.
+    if(GlobalEffectCount($player, "t4owmcva0f") > 0
+        && PropertyContains(CardType($obj->CardID), "ACTION")
+        && PropertyContains(CardClasses($obj->CardID), "RANGER")) {
+        RemoveGlobalEffect($player, "t4owmcva0f");
     }
 
     // Command the Hunt (rxxwQT054x): global effect reduces next card cost by 2 if no attacks this turn  
@@ -1816,6 +1840,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Dominating Strike (svd53zc9p4): [Vanitas Bonus] may reveal 3 wind from memory instead of reserve
+    $hasDominatingStrikeAltCost = false;
+    if($obj->CardID === "svd53zc9p4" && IsVanitasBonusActive($player)) {
+        $windMemory = ZoneSearch("myMemory", cardElements: ["WIND"]);
+        if(count($windMemory) >= 3 && $reserveCost > 0) {
+            $hasDominatingStrikeAltCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Reveal_3_wind_cards_from_memory_instead_of_paying_reserve?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DominatingStrikeAltCost|" . $reserveCost, 100);
+        }
+    }
+
     // --- Omen-based cost reductions ---
     // Butler's Augury (5u5ic64930): [Ciel Bonus] costs 1 less per omen, up to 2
     if($obj->CardID === "5u5ic64930" && IsCielBonusActive($player)) {
@@ -2038,7 +2073,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "DevotionsPriceDiscard1|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasSlimeKingCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasSlimeKingCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2110,6 +2145,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
         } // end if(!$hasKindle)
     }
+    // When $hasDominatingStrikeAltCost is true, the DominatingStrikeAltCost handler
+    // takes over queuing reveal/no-reserve or normal reserve + EffectStackOpportunity.
     // When $hasAdditionalCost is true, the DeclareAdditionalCost handler takes over
     // queuing reserve payments and EffectStackOpportunity after the player answers.
     // When $hasSongOfFrostAltCost is true, SongOfFrostAltCost handler queues its own
@@ -2135,6 +2172,25 @@ $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
     $tooltip = "Choose_a_card_to_pay_reserve_cost";
     DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 1, $tooltip);
     DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard_Process", 99);
+};
+
+$customDQHandlers["DominatingStrikeAltCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "YES") {
+        $windMemory = ZoneSearch("myMemory", cardElements: ["WIND"]);
+        $revealed = 0;
+        foreach($windMemory as $mz) {
+            Reveal($player, $mz);
+            ++$revealed;
+            if($revealed >= 3) break;
+        }
+    } else {
+        for($i = 0; $i < $baseReserve; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
 // Ephemerate extra cost: banish a card with floating memory from graveyard, then activate
@@ -2509,6 +2565,77 @@ $customDQHandlers["CheckImbue"] = function($player, $parts, $lastDecision) {
         }
     }
     DecisionQueueController::StoreVariable("isImbued", $elementMatches >= $threshold ? "YES" : "NO");
+};
+
+function StonescaleBandEnter($player) {
+    $choices = array_merge(ZoneSearch("myHand", ["ALLY"]), ZoneSearch("myMemory", ["ALLY"]));
+    if(empty($choices)) return;
+    DecisionQueueController::StoreVariable("StonescaleBandDiscardCount", "0");
+    $targetStr = implode("&", $choices);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_an_ally_card?_(1_of_3)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StonescaleBandDiscard", 1);
+}
+
+$customDQHandlers["StonescaleBandDiscard"] = function($player, $parts, $lastDecision) {
+    $count = intval(DecisionQueueController::GetVariable("StonescaleBandDiscardCount"));
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        if($count > 0) Draw($player, $count);
+        return;
+    }
+    MZMove($player, $lastDecision, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+    ++$count;
+    DecisionQueueController::StoreVariable("StonescaleBandDiscardCount", strval($count));
+    if($count >= 3) {
+        Draw($player, $count);
+        return;
+    }
+    $choices = array_merge(ZoneSearch("myHand", ["ALLY"]), ZoneSearch("myMemory", ["ALLY"]));
+    if(empty($choices)) {
+        Draw($player, $count);
+        return;
+    }
+    $targetStr = implode("&", $choices);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_an_ally_card?_(" . ($count + 1) . "_of_3)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StonescaleBandDiscard", 1);
+};
+
+function RendingFlamesOnAttack($player, $mzID) {
+    if(!IsClassBonusActive($player, ["ASSASSIN", "WARRIOR"])) return;
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(count($fireGY) < 3) return;
+    DecisionQueueController::StoreVariable("RendingFlamesSource", $mzID);
+    DecisionQueueController::StoreVariable("RendingFlamesCount", "0");
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Banish_3_fire_cards_from_your_graveyard_for_double_damage?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RendingFlamesConfirm", 1);
+}
+
+$customDQHandlers["RendingFlamesConfirm"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(count($fireGY) < 3) return;
+    $targetStr = implode("&", $fireGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Banish_a_fire_card_(1_of_3)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RendingFlamesProcess", 1);
+};
+
+$customDQHandlers["RendingFlamesProcess"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $count = intval(DecisionQueueController::GetVariable("RendingFlamesCount"));
+    $source = DecisionQueueController::GetVariable("RendingFlamesSource");
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    ++$count;
+    DecisionQueueController::StoreVariable("RendingFlamesCount", strval($count));
+    if($count >= 3) {
+        AddTurnEffect($source, "soO3hjaVfN_DOUBLE");
+        return;
+    }
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(count($fireGY) < (3 - $count)) return;
+    $targetStr = implode("&", $fireGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Banish_a_fire_card_(" . ($count + 1) . "_of_3)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RendingFlamesProcess", 1);
 };
 
 // --- Slate Whetstone (a8a0v4njrt) Handler ---
@@ -4112,6 +4239,21 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
+        case "sphwpjsznn": // Stonescale Band: (2), REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            break;
+        case "sqGcyYocLW": // Bairui: sacrifice self
+            DoSacrificeFighter($player, $mzCard);
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "tJAIMX3C4R": // Misty Whispertail: sacrifice self
+            DecisionQueueController::StoreVariable("mistyWhispertailWasEphemeral", IsEphemeral($mzCard) ? "YES" : "NO");
+            DoSacrificeFighter($player, $mzCard);
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "m31WVJ9F04": // Clarent, Sword of Peace — remove a durability counter
             RemoveCounters($player, $mzCard, "durability", 1);
             break;
@@ -4146,7 +4288,9 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             }
         }
     }
-    if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
+    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R"]);
+    if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
+        && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;
     }
 
@@ -8759,6 +8903,16 @@ function ObjectCurrentLevel($obj) {
                     }
                     $appliedPassives[$fID] = true;
                     break;
+                case "t203gysyp8": // Cowl of the Wild: +1 level while you control a non-Human Tamer ally
+                    foreach($field as $allyObj) {
+                        if($allyObj->removed || !PropertyContains(EffectiveCardType($allyObj), "ALLY")) continue;
+                        if(!PropertyContains(EffectiveCardClasses($allyObj), "TAMER")) continue;
+                        if(PropertyContains(EffectiveCardSubtypes($allyObj), "HUMAN")) continue;
+                        $cardLevel += 1;
+                        break;
+                    }
+                    $appliedPassives[$fID] = true;
+                    break;
                 default: break;
             }
         }
@@ -9232,6 +9386,10 @@ function ObjectCurrentHP($obj) {
     }
     // Three of Spades (o09csnorqv): Cardistry +2 LIFE until end of turn
     if(in_array("o09csnorqv", $obj->TurnEffects)) {
+        $cardLife += 2;
+    }
+    // Six of Spades (tdRR5lQHMN): Cardistry +2 LIFE until end of turn
+    if(in_array("tdRR5lQHMN", $obj->TurnEffects)) {
         $cardLife += 2;
     }
     // Lucenia's Reign (zrvvwz3ww9): target Chessman ally +1 LIFE until end of turn
@@ -10392,6 +10550,9 @@ $ephemerateCards["XFWU8KTVW9"] = ['cost' => 2]; // Ghastly Slime
 $ephemerateCards["XK3NiQ5MdR"] = ['cost' => 1]; // Remnant of Will
 $ephemerateCards["YFCfIOwNQ5"] = ['cost' => 2]; // Singeing Leap
 $ephemerateCards["p7FWS3DA4a"] = ['cost' => 2]; // Molten Echo
+$ephemerateCards["t2lW0Q5KJS"] = ['cost' => 2, 'condition' => function($player) {
+    return IsMerlinBonusActive($player) && (GetSheenCount($player) >= 10 || PlayerLevel($player) >= 5);
+}]; // Flared Iridescence
 $ephemerateCards["Dtr3jPRAFJ"] = ['cost' => 6]; // Spectral Haunting
 $ephemerateCards["s9ICPMYPNx"] = ['cost' => 5, 'extraCostHandler' => 'EphemerateDiscard',
     'condition' => function($player) {
@@ -10403,6 +10564,9 @@ $ephemerateCards["24I0xn0OQ1"] = ['cost' => 2, 'extraCostHandler' => 'Ephemerate
         return IsAliceBonusActive($player) && IsElementBonusActive($player, "24I0xn0OQ1");
     }
 ]; // Maledictum Vitae
+$ephemerateCards["tizLamFGPS"] = ['cost' => 3, 'condition' => function($player) {
+    return IsMerlinBonusActive($player) && GetSheenCount($player) >= 6;
+}]; // Luster's Shroud
 
 function GetEphemerateCost($player, $cardID) {
     global $ephemerateCards;
@@ -11451,6 +11615,11 @@ function IsVanitasBonusActive($player) {
     return ChampionHasInLineage($player, "x8bd7ozuj6")  // Vanitas, Obliviate Schemer
         || ChampionHasInLineage($player, "8m69iq4d5v")  // Vanitas, Convergent Ruin
         || ChampionHasInLineage($player, "3vkxrw9462"); // Vanitas, Dominus Rex
+}
+
+function IsPolkhawkBonusActive($player) {
+    return ChampionHasInLineage($player, "ryvfq3huqj")  // Polkhawk, Bombastic Shot
+        || ChampionHasInLineage($player, "8eyeqhc37y"); // Polkhawk, Boisterous Riot
 }
 
 // --- Alice Chessman Helpers ---

@@ -28,6 +28,12 @@
 function GetAvailableWeapons($player) {
     $weapons = ZoneSearch("myField", ["WEAPON"]);
     $intentCards = GetIntentCards($player);
+    foreach($intentCards as $intentMZ) {
+        $intentObj = &GetZoneObject($intentMZ);
+        if($intentObj != null && !$intentObj->removed && $intentObj->CardID === "svd53zc9p4") {
+            return [];
+        }
+    }
     $available = [];
     foreach($weapons as $mzID) {
         $obj = &GetZoneObject($mzID);
@@ -1636,6 +1642,15 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
     }
 
     $totalPower = GetTotalAttackPower($attacker, $attackerPlayer);
+    $attackerIntent = GetIntentCards($attackerPlayer);
+    foreach($attackerIntent as $intentMZ) {
+        $intentObj = GetZoneObject($intentMZ);
+        if($intentObj !== null && !$intentObj->removed && $intentObj->CardID === "soO3hjaVfN"
+            && in_array("soO3hjaVfN_DOUBLE", $intentObj->TurnEffects ?? [])) {
+            $totalPower *= 2;
+            break;
+        }
+    }
 
     // Weapon durability loss: occurs in the damage step regardless of how much damage is dealt.
     // (Per rules: durability is still removed if damage = 0, but NOT if the damage step is skipped.)
@@ -2454,6 +2469,24 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Bairui, Resplendent Barrier (sqGcyYocLW): protect your champion up to three times.
+    if($amount > 0 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        $targetController = $targetObj->Controller ?? $player;
+        global $playerID;
+        $zone = $targetController == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fi => $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "sqGcyYocLW" || HasNoAbilities($fieldObj)) continue;
+            if(GetCounterCount($fieldObj, "charge") > 2) continue;
+            $prevented = min(2, $amount);
+            if($prevented <= 0) break;
+            $amount -= $prevented;
+            AddCounters($targetController, $zone . "-" . $fi, "charge", 1);
+            if($amount <= 0) return;
+            break;
+        }
+    }
+
     // Floodward Sergeant (64xGWbG9Xf): prevent damage once per turn
     if($amount > 0 && $targetObj->CardID === "64xGWbG9Xf" && !HasNoAbilities($targetObj)
         && !in_array("64xGWbG9Xf", $targetObj->TurnEffects)) {
@@ -2493,6 +2526,22 @@ function OnDealDamage($player, $source, $target, $amount) {
             $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== $te));
             if($remaining > 0) {
                 $targetObj->TurnEffects[] = "EVASIVE_MANEUVERS_" . $remaining;
+            }
+            if($amount <= 0) return;
+            break;
+        }
+    }
+
+    // Luster's Shroud (tizLamFGPS): prevent the next 3 damage to target unit this turn.
+    foreach($targetObj->TurnEffects as $te) {
+        if(strpos($te, "tizLamFGPS_") === 0) {
+            $preventAmount = intval(substr($te, strlen("tizLamFGPS_")));
+            $prevented = min($preventAmount, $amount);
+            $amount -= $prevented;
+            $remaining = $preventAmount - $prevented;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== $te));
+            if($remaining > 0) {
+                $targetObj->TurnEffects[] = "tizLamFGPS_" . $remaining;
             }
             if($amount <= 0) return;
             break;

@@ -72,6 +72,11 @@ function GetPlayableFastCards($player) {
         } elseif(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
             // Expeditious Opening: next ally activated this turn gets fast activation
             $fastCards[] = "myHand-" . $i;
+        } elseif(GlobalEffectCount($player, "t4owmcva0f") > 0
+            && PropertyContains(CardType($obj->CardID), "ACTION")
+            && PropertyContains(CardClasses($obj->CardID), "RANGER")) {
+            // Bombastic Sprint: next Ranger action activated this turn gets fast activation
+            $fastCards[] = "myHand-" . $i;
         } elseif($obj->CardID === "B1EbF6jcYF" && IsAliceBonusActive($player)) {
             // Golden Gambit: [Alice Bonus] Fast Activation
             $fastCards[] = "myHand-" . $i;
