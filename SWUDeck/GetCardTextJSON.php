@@ -50,11 +50,23 @@ foreach ($allCards as $card) {
         $fullName .= ' | ' . $subtitle;
     }
 
-    $result[] = [
+    $type   = CardType($cardID);
+    $entry  = [
         "card"     => $setCode,
         "fullName" => $fullName,
+        "type"     => $type,
         "cardText" => CardText($cardID),
     ];
+
+    if ($type === "Unit") {
+        $entry["power"] = CardPower($cardID);
+        $entry["hp"]    = CardHp($cardID);
+    } elseif ($type === "Upgrade") {
+        $entry["upgradePower"] = CardUpgradePower($cardID);
+        $entry["upgradeHp"]    = CardUpgradeHp($cardID);
+    }
+
+    $result[] = $entry;
 }
 
 header('Content-Type: application/json');
