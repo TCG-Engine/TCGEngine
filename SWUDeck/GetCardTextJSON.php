@@ -26,22 +26,9 @@ require_once "../SWUDeck/ZoneAccessors.php";
 $gameName = $deckID;
 ParseGamestate("../SWUDeck/");
 
-$result = [];
-$seen = [];
-
-$leader    = &GetLeader(1);
-$base      = &GetBase(1);
-$mainDeck  = &GetMainDeck(1);
-
-$allCards = array_merge((array)$leader, (array)$base, (array)$mainDeck);
-
-foreach ($allCards as $card) {
-    $cardID = $card->CardID;
-    if (isset($seen[$cardID])) continue;
-    $seen[$cardID] = true;
-
+function buildCardEntry($cardID) {
     $setCode = CardIDLookup($cardID);
-    if ($setCode === null) continue;
+    if ($setCode === null) return null;
 
     $title    = CardTitle($cardID);
     $subtitle = CardSubtitle($cardID);
@@ -50,8 +37,8 @@ foreach ($allCards as $card) {
         $fullName .= ' | ' . $subtitle;
     }
 
-    $type   = CardType($cardID);
-    $entry  = [
+    $type  = CardType($cardID);
+    $entry = [
         "card"     => $setCode,
         "fullName" => $fullName,
         "type"     => $type,
@@ -66,8 +53,50 @@ foreach ($allCards as $card) {
         $entry["upgradeHp"]    = CardUpgradeHp($cardID);
     }
 
-    $result[] = $entry;
+    return $entry;
 }
+
+$leader    = &GetLeader(1);
+$base      = &GetBase(1);
+$mainDeck  = &GetMainDeck(1);
+$sideboard = &GetSideboard(1);
+
+$leaderAndBase = [];
+$mainBoard     = [];
+$sideBoard     = [];
+
+$seen = [];
+foreach (array_merge((array)$leader, (array)$base) as $card) {
+    $cardID = $card->CardID;
+    if (isset($seen[$cardID])) continue;
+    $seen[$cardID] = true;
+    $entry = buildCardEntry($cardID);
+    if ($entry !== null) $leaderAndBase[] = $entry;
+}
+
+$seen = [];
+foreach ((array)$mainDeck as $card) {
+    $cardID = $card->CardID;
+    if (isset($seen[$cardID])) continue;
+    $seen[$cardID] = true;
+    $entry = buildCardEntry($cardID);
+    if ($entry !== null) $mainBoard[] = $entry;
+}
+
+$seen = [];
+foreach ((array)$sideboard as $card) {
+    $cardID = $card->CardID;
+    if (isset($seen[$cardID])) continue;
+    $seen[$cardID] = true;
+    $entry = buildCardEntry($cardID);
+    if ($entry !== null) $sideBoard[] = $entry;
+}
+
+$result = [
+    "leaderAndBase" => $leaderAndBase,
+    "mainBoard"     => $mainBoard,
+    "sideBoard"     => $sideBoard,
+];
 
 header('Content-Type: application/json');
 echo json_encode($result, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
