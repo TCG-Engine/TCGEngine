@@ -55,7 +55,7 @@ function RunnerCompareFinalSnapshot($fixtureDir, $rootName, $gameName, $updateSn
 
   $expected = file_get_contents($expectedPath);
   if (RegressionNormalizeNewlines($expected) !== RegressionNormalizeNewlines($actual)) {
-    return [false, 'Final snapshot mismatch.'];
+    return [false, RegressionFormatSnapshotDiff($expected, $actual)];
   }
   return [true, ''];
 }

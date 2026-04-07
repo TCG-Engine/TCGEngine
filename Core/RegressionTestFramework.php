@@ -14,6 +14,64 @@ function RegressionNormalizeNewlines($text) {
   return implode("\n", $lines);
 }
 
+function RegressionDiffNormalizedTexts($expectedText, $actualText, $contextLines = 2) {
+  $expectedLines = explode("\n", RegressionNormalizeNewlines($expectedText));
+  $actualLines = explode("\n", RegressionNormalizeNewlines($actualText));
+
+  $maxLines = max(count($expectedLines), count($actualLines));
+  for ($index = 0; $index < $maxLines; ++$index) {
+    $expectedLine = $expectedLines[$index] ?? null;
+    $actualLine = $actualLines[$index] ?? null;
+    if ($expectedLine === $actualLine) continue;
+
+    $start = max(0, $index - $contextLines);
+    $end = min($maxLines - 1, $index + $contextLines);
+    $context = [];
+    for ($lineIndex = $start; $lineIndex <= $end; ++$lineIndex) {
+      $marker = $lineIndex === $index ? '>' : ' ';
+      $context[] = [
+        'marker' => $marker,
+        'lineNumber' => $lineIndex + 1,
+        'expected' => $expectedLines[$lineIndex] ?? '<missing>',
+        'actual' => $actualLines[$lineIndex] ?? '<missing>',
+      ];
+    }
+
+    return [
+      'lineNumber' => $index + 1,
+      'expected' => $expectedLine ?? '<missing>',
+      'actual' => $actualLine ?? '<missing>',
+      'expectedLineCount' => count($expectedLines),
+      'actualLineCount' => count($actualLines),
+      'context' => $context,
+    ];
+  }
+
+  return null;
+}
+
+function RegressionFormatSnapshotDiff($expectedText, $actualText, $contextLines = 2) {
+  $diff = RegressionDiffNormalizedTexts($expectedText, $actualText, $contextLines);
+  if ($diff === null) return 'Snapshots match.';
+
+  $lines = [];
+  $lines[] = "Final snapshot mismatch at line {$diff['lineNumber']} (expected {$diff['expectedLineCount']} lines, actual {$diff['actualLineCount']} lines).";
+  $lines[] = "Expected: {$diff['expected']}";
+  $lines[] = "Actual:   {$diff['actual']}";
+  $lines[] = 'Context:';
+  foreach ($diff['context'] as $row) {
+    $lines[] = sprintf(
+      "%s L%-4d expected: %s | actual: %s",
+      $row['marker'],
+      $row['lineNumber'],
+      $row['expected'],
+      $row['actual']
+    );
+  }
+
+  return implode("\n", $lines);
+}
+
 function RegressionNormalizeAction($action) {
   return [
     'playerID' => intval($action['playerID'] ?? 0),
