@@ -476,7 +476,7 @@ fwrite($handler, "      thisValue = thisValue.slice(1, -1);\r\n");
 fwrite($handler, "    }\r\n");
 fwrite($handler, "    if(thisValue == \"\") continue;\r\n");
 if($rootName == "SWUDeck") {
-  fwrite($handler, "    var _filterAliases = {t:\"text\",p:\"power\",tr:\"trait\",up:\"upgradepower\",uhp:\"upgradehp\",r:\"rarity\",a:\"arena\",is:\"type\"};\r\n");
+  fwrite($handler, "    var _filterAliases = {t:\"text\",p:\"power\",tr:\"trait\",up:\"upgradepower\",uhp:\"upgradehp\",r:\"rarity\",a:\"arena\",is:\"type\",unq:\"unique\"};\r\n");
   fwrite($handler, "    if(_filterAliases[thisFilter]) thisFilter = _filterAliases[thisFilter];\r\n");
 }
 fwrite($handler, "    switch(thisFilter) {\r\n");
@@ -514,6 +514,10 @@ for ($i = 0; $i < count($properties); ++$i) {
     fwrite($handler, "        else if(operand == '<' && Card" . $property . "(cardID) >= parseInt(thisValue)) return true;\r\n");
     fwrite($handler, "        else if(operand == '>=' && Card" . $property . "(cardID) < parseInt(thisValue)) return true;\r\n");
     fwrite($handler, "        else if(operand == '<=' && Card" . $property . "(cardID) > parseInt(thisValue)) return true;\r\n");
+  } else if($propertyTypes[$i] == "boolean") {
+    fwrite($handler, "        var _bv = Card" . $property . "(cardID);\r\n");
+    fwrite($handler, "        var _want = (thisValue === '1' || thisValue.toLowerCase() === 'true');\r\n");
+    fwrite($handler, "        if(_want ? !_bv : !!_bv) return true;\r\n");
   }
   fwrite($handler, "        break;\r\n");
 }
@@ -541,11 +545,13 @@ fwrite($handler, "}\r\n\r\n");
 // Build reverse alias map: property name (lowercase) => shortest alias
 $reverseAliasMap = [];
 if($rootName == "SWUDeck") {
-  $aliasMap = ["t" => "text", "p" => "power", "tr" => "trait", "up" => "upgradepower", "uhp" => "upgradehp", "r" => "rarity", "a" => "arena", "is" => "type"];
+  $aliasMap = ["t" => "text", "p" => "power", "tr" => "trait", "up" => "upgradepower", "uhp" => "upgradehp", "r" => "rarity", "a" => "arena", "is" => "type", "unq" => "unique"];
   foreach($aliasMap as $alias => $prop) {
     if(!isset($reverseAliasMap[$prop])) $reverseAliasMap[$prop] = $alias;
     else if(strlen($alias) < strlen($reverseAliasMap[$prop])) $reverseAliasMap[$prop] = $alias;
   }
+  // c is a special-case handler (character map), not a simple string alias — document for display only
+  $reverseAliasMap["aspect"] = "c";
 }
 fwrite($handler, "var propertyLookup = [\r\n");
 for ($i = 0; $i < count($properties); ++$i) {
