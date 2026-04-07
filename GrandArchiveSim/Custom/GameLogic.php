@@ -13771,108 +13771,13 @@ function CardMemoryCost($obj) {
         if($fieldObj->removed || HasNoAbilities($fieldObj)) continue;
         $cost += EvaluateMemoryCostModifier($fieldObj->CardID, $turnPlayer, $obj, $cost, $fieldObj);
     }
-    // Academy Guide (kk39i1f0ht): Champion cards you materialize cost 1 less
-    if(PropertyContains(CardType($obj->CardID), "CHAMPION")) {
-        foreach($field as $fieldObj) {
-            if(!$fieldObj->removed && $fieldObj->CardID === "kk39i1f0ht" && !HasNoAbilities($fieldObj)) {
-                $cost = max(0, $cost - 1);
-                break;
-            }
-        }
-    }
-    // Forgelight Scepter (smw3rrii17): [Class Bonus] costs 1 less to materialize
-    if($obj->CardID === "smw3rrii17") {
-        $turnPlayer = &GetTurnPlayer();
-        if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
-            $cost = max(0, $cost - 1);
-        }
-    }
-    // Navigation Compass (sw2ugmnmp5): [Class Bonus] costs 1 less to materialize
-    if($obj->CardID === "sw2ugmnmp5") {
-        $turnPlayer = &GetTurnPlayer();
-        if(IsClassBonusActive($turnPlayer, ["RANGER"])) {
-            $cost = max(0, $cost - 1);
-        }
-    }
-    // Aegis of Dawn (abipl6gt7l): [Class Bonus] costs 1 less to materialize
-    if($obj->CardID === "abipl6gt7l") {
-        $turnPlayer = &GetTurnPlayer();
-        if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
-            $cost = max(0, $cost - 1);
-        }
-    }
-    // Lunar Conduit (0yetaebjlw): [Class Bonus] costs 1 less to materialize
-    if($obj->CardID === "0yetaebjlw") {
-        $turnPlayer = &GetTurnPlayer();
-        if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
-            $cost = max(0, $cost - 1);
-        }
-    }
-    // Incandescent Reliquary (wsycqp2l90): [Class Bonus] costs 1 less to materialize
-    if($obj->CardID === "wsycqp2l90") {
-        $turnPlayer = &GetTurnPlayer();
-        if(IsClassBonusActive($turnPlayer, ["CLERIC", "TAMER"])) {
-            $cost = max(0, $cost - 1);
-        }
-    }
-    // Winbless Kiteshield (uoy5ttkat9): [Class Bonus] costs 1 less to materialize
-    if($obj->CardID === "uoy5ttkat9") {
-        $turnPlayer = &GetTurnPlayer();
-        if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
-            $cost = max(0, $cost - 1);
-        }
-    }
-    // Tideholder Claymore (5iqigcom2r): [Class Bonus] costs 1 less to materialize
-    if($obj->CardID === "5iqigcom2r") {
-        $turnPlayer = &GetTurnPlayer();
-        if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
-            $cost = max(0, $cost - 1);
-        }
-    }
-    // Mechanized Smasher (qsm3n9yvn1): [Class Bonus] costs 1 less to materialize
-    if($obj->CardID === "qsm3n9yvn1") {
-        $turnPlayer = &GetTurnPlayer();
-        if(IsClassBonusActive($turnPlayer, ["GUARDIAN"])) {
-            $cost = max(0, $cost - 1);
-        }
-    }
-    // Inert Sword (2s08hssegf): additional cost to materialize, pay (2)
-    if($obj->CardID === "2s08hssegf") {
-        $cost += 2;
-    }
-    // Necklace of Foresight (lq2kkvoqk1): [Class Bonus] costs 1 less to materialize
-    if($obj->CardID === "lq2kkvoqk1") {
-        $turnPlayer = &GetTurnPlayer();
-        if(IsClassBonusActive($turnPlayer, ["CLERIC"])) {
-            $cost = max(0, $cost - 1);
-        }
-    }
-    // Vanitas, Dominus Rex (3vkxrw9462): On Champion Hit effect — opponent's materializations cost 1 more
-    $turnPlayer = &GetTurnPlayer();
     $opponent = ($turnPlayer == 1) ? 2 : 1;
-    global $playerID;
     $oppEffectsZone = ($opponent == $playerID) ? "myGlobalEffects" : "theirGlobalEffects";
-    $oppEffects = GetZone($oppEffectsZone);
-    foreach($oppEffects as $eObj) {
-        if($eObj->CardID === "3vkxrw9462") {
-            $cost += 1;
-            break;
-        }
+    foreach(GetZone($oppEffectsZone) as $effectObj) {
+        if(!empty($effectObj->removed)) continue;
+        $cost += EvaluateMemoryCostModifier($effectObj->CardID, $turnPlayer, $obj, $cost, $effectObj);
     }
-    // Nefarious Timepiece (h1njd7z5j3): chosen regalia costs 1 more to play/materialize
-    if(PropertyContains(CardType($obj->CardID), "REGALIA")) {
-        foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "h1njd7z5j3" || HasNoAbilities($fieldObj)) continue;
-            foreach($fieldObj->TurnEffects ?? [] as $effect) {
-                if(strpos($effect, "h1njd7z5j3-") !== 0) continue;
-                if($obj->CardID === substr($effect, strlen("h1njd7z5j3-"))) {
-                    $cost += 1;
-                    break 2;
-                }
-            }
-        }
-    }
-    return $cost;
+    return max(0, $cost);
 }
 
 function NefariousTimepieceEnter($player, $timepieceMZ) {
