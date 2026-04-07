@@ -595,16 +595,10 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = GetEphemerateCost($player, $obj->CardID);
     }
 
-    // Ghostsight Glass (cc0jmpmman): activated ability costs (3) reserve
-    if($obj->CardID === "cc0jmpmman") $reserveCost = 3;
-
     // Unstable Fractal (2o82fwl22v): [Class Bonus] ability costs (3) reserve
     if($obj->CardID === "2o82fwl22v") $reserveCost = 3;
 
-    // Leporine Masque (pgysz2zfji): activated ability costs (X) less where X is your omen count
-    if($obj->CardID === "pgysz2zfji") {
-        $reserveCost = max(0, $reserveCost - GetOmenCount($player));
-    }
+    $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
 
     // Class Bonus: reduce cost if champion's class matches card's class
     $classBonusDiscount = ClassBonusActivateCostReduction($obj->CardID);
@@ -643,28 +637,6 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    // Channeling Stone (EBWWwvSxr3): global effect reduces next card cost by 2
-    if(GlobalEffectCount($player, "EBWWwvSxr3") > 0) {
-        $reserveCost = max(0, $reserveCost - 2);
-        RemoveGlobalEffect($player, "EBWWwvSxr3");
-    }
-
-    // Horn of Beastcalling (6e7lRnczfL): global effect reduces next Beast ally cost by 3
-    if(GlobalEffectCount($player, "6e7lRnczfL") > 0) {
-        if(PropertyContains(CardType($obj->CardID), "ALLY") && PropertyContains(CardSubtypes($obj->CardID), "BEAST")) {
-            $reserveCost = max(0, $reserveCost - 3);
-            RemoveGlobalEffect($player, "6e7lRnczfL");
-        }
-    }
-
-    // Slime Nexus (emoydelro8): next Slime ally card costs 3 less this turn
-    if(GlobalEffectCount($player, "emoydelro8") > 0) {
-        if(PropertyContains(CardType($obj->CardID), "ALLY") && PropertyContains(CardSubtypes($obj->CardID), "SLIME")) {
-            $reserveCost = max(0, $reserveCost - 3);
-            RemoveGlobalEffect($player, "emoydelro8");
-        }
-    }
-
     // Expeditious Opening (w1wgpeifd0): consume fast-activation effect when any ally is activated
     if(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
         RemoveGlobalEffect($player, "w1wgpeifd0");
@@ -688,100 +660,6 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         RemoveGlobalEffect($player, "1fy8l4pxs9_COST");
     }
 
-    // Ignition Draw (RhSPMn8Lix): if champion is distant, costs 2 less
-    if($obj->CardID === "RhSPMn8Lix") {
-        $champMZ = FindChampionMZ($player);
-        if($champMZ !== null) {
-            $champObj = GetZoneObject($champMZ);
-            if($champObj !== null && IsDistant($champObj)) {
-                $reserveCost = max(0, $reserveCost - 2);
-            }
-        }
-    }
-
-    // Mistral Ranger (lClyP34mj6): [CB] costs 1 less if Aethercharge activated this turn
-    if($obj->CardID === "lClyP34mj6" && IsClassBonusActive($player, ["RANGER"])) {
-        if(AetherchargeActivatedCount($player) > 0) {
-            $reserveCost = max(0, $reserveCost - 1);
-        }
-    }
-
-    // Enveloping Soulmist (kYG1EDltdI): [CB] champion awake → costs 2 less
-    if($obj->CardID === "kYG1EDltdI" && IsClassBonusActive($player, ["ASSASSIN"])) {
-        $champObj = GetPlayerChampion($player);
-        if($champObj !== null && isset($champObj->Status) && $champObj->Status == 2) {
-            $reserveCost = max(0, $reserveCost - 2);
-        }
-    }
-
-    // Summon Sentinels (5tlzsmw3rr): [Class Bonus] costs 1 less for each domain you control
-    if($obj->CardID === "5tlzsmw3rr" && IsClassBonusActive($player, ["GUARDIAN"])) {
-        $domainCount = count(ZoneSearch("myField", ["DOMAIN"]));
-        $reserveCost = max(0, $reserveCost - $domainCount);
-    }
-
-    // Spectral Diffusion (lathqgiqgi): costs 1 less for each ephemeral object you control (up to 2)
-    if($obj->CardID === "lathqgiqgi") {
-        $ephCount = min(2, CountEphemeralObjects($player));
-        $reserveCost = max(0, $reserveCost - $ephCount);
-    }
-
-    // Ghastly Corrosion (40xhntos3d): costs 1 less for each ephemeral object you control (up to 2)
-    if($obj->CardID === "40xhntos3d") {
-        $ephCount = min(2, CountEphemeralObjects($player));
-        $reserveCost = max(0, $reserveCost - $ephCount);
-    }
-
-    // Deflecting Edge (g7uDOmUf2u): costs 1 less if you control a Sword weapon
-    if($obj->CardID === "g7uDOmUf2u") {
-        if(!empty(ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["SWORD"]))) {
-            $reserveCost = max(0, $reserveCost - 1);
-        }
-    }
-
-    // Meltdown (ht2tsn0ye3): [Level 2+] costs 1 less
-    if($obj->CardID === "ht2tsn0ye3" && PlayerLevel($player) >= 2) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Celestial Calling (izm6h38lrj): [Class Bonus] costs 2 less
-    if($obj->CardID === "izm6h38lrj" && IsClassBonusActive($player, ["CLERIC"])) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Equanimity's Ashes (dZJBqul1Em): [Level 3+] costs 3 less to activate
-    if($obj->CardID === "dZJBqul1Em" && PlayerLevel($player) >= 3) {
-        $reserveCost = max(0, $reserveCost - 3);
-    }
-
-    // Season's End (ddggqvxw8f): [Diao Chan Bonus] costs 1 less per object with a wither counter on the field
-    if($obj->CardID === "ddggqvxw8f" && IsDiaoChanBonus($player)) {
-        $witheredObjects = 0;
-        foreach(array_merge(GetField(1), GetField(2)) as $wObj) {
-            if(!$wObj->removed && GetCounterCount($wObj, "wither") > 0) {
-                ++$witheredObjects;
-            }
-        }
-        $reserveCost = max(0, $reserveCost - $witheredObjects);
-    }
-
-    // Fortified Mana Shield (5lh23qu7d6): [CB] costs 2 less if a unit with taunt exists on the field
-    if($obj->CardID === "5lh23qu7d6" && IsClassBonusActive($player, ["GUARDIAN"])) {
-        $hasTauntUnit = false;
-        foreach(array_merge(GetField(1), GetField(2)) as $fObj) {
-            if(!$fObj->removed && (PropertyContains(EffectiveCardType($fObj), "ALLY") || PropertyContains(EffectiveCardType($fObj), "CHAMPION")) && HasTaunt($fObj)) {
-                $hasTauntUnit = true;
-                break;
-            }
-        }
-        if($hasTauntUnit) $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Winds of Retribution (huqj5bbae3): [Class Bonus][Level 2+] costs 2 less
-    if($obj->CardID === "huqj5bbae3" && IsClassBonusActive($player, ["GUARDIAN"]) && PlayerLevel($player) >= 2) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
     // Astral Seal (e3aebjvwbc): [Class Bonus] costs 3 less if a card in any banishment shares a name with a card on the effect stack
     if($obj->CardID === "e3aebjvwbc" && IsClassBonusActive($player, ["CLERIC"])) {
         $banishCardIDs = [];
@@ -795,37 +673,6 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
                 $reserveCost = max(0, $reserveCost - 3);
                 break;
             }
-        }
-    }
-
-    // Galestream Insight (usa6qyq3ka): [Memory 4+] costs 1 less to activate
-    if($obj->CardID === "usa6qyq3ka" && count(GetMemory($player)) >= 4) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Rally the Peasants (q1uwq8sdbz): [Class Bonus] costs 3 less if opponent controls 3+ allies
-    if($obj->CardID === "q1uwq8sdbz" && IsClassBonusActive($player, ["WARRIOR"])) {
-        $oppAllies = ZoneSearch("theirField", ["ALLY"]);
-        if(count($oppAllies) >= 3) {
-            $reserveCost = max(0, $reserveCost - 3);
-        }
-    }
-
-    // Overflow the Barrow (OiyjVzW7Av): costs 2 less if no cards in graveyard
-    if($obj->CardID === "OiyjVzW7Av") {
-        $gy = GetZone("myGraveyard");
-        $hasCards = false;
-        foreach($gy as $gObj) { if(!$gObj->removed) { $hasCards = true; break; } }
-        if(!$hasCards) {
-            $reserveCost = max(0, $reserveCost - 2);
-        }
-    }
-
-    // Vanguard's Reversal (vghJqNdG8F): [Class Bonus] costs 3 less while your champion has taunt
-    if($obj->CardID === "vghJqNdG8F" && IsClassBonusActive($player, ["GUARDIAN"])) {
-        $champObj = GetPlayerChampion($player);
-        if($champObj !== null && HasTaunt($champObj)) {
-            $reserveCost = max(0, $reserveCost - 3);
         }
     }
 
@@ -936,11 +783,6 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    // Excoriate (ls6g7xgwve): [Level 2+] costs 1 less
-    if($obj->CardID === "ls6g7xgwve" && PlayerLevel($player) >= 2) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
     // Gloamspire Prowler (igpck2z4rs): costs 3 less with 2+ Curse cards in lineage
     if($obj->CardID === "igpck2z4rs" && CountCursesInLineage($player) >= 2) {
         $reserveCost = max(0, $reserveCost - 3);
@@ -956,32 +798,9 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $reserveCost = max(0, $reserveCost - 1);
     }
 
-    // Echoic Guard (gn1b2sbrq9): [Class Bonus] costs 1 less to activate
-    if($obj->CardID === "gn1b2sbrq9" && IsClassBonusActive($player, ["GUARDIAN"])) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
     // Sidestep (voy5ttkk39): [Level 2+] costs 1 less
     if($obj->CardID === "voy5ttkk39" && PlayerLevel($player) >= 2) {
         $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Shifting Mirage (hmjr33ijq6): [Class Bonus] costs 1 less to activate
-    if($obj->CardID === "hmjr33ijq6" && IsClassBonusActive($player, ["ASSASSIN"])) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Slimeshield (hcpetipurz): [Class Bonus][Level 2+] costs 1 less to activate
-    if($obj->CardID === "hcpetipurz" && IsClassBonusActive($player, ["TAMER"]) && PlayerLevel($player) >= 2) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Cinder Geyser (stiyh3pmk3): [Class Bonus] costs 2 less if opponent has 4+ cards in memory
-    if($obj->CardID === "stiyh3pmk3" && IsClassBonusActive($player, ["CLERIC"])) {
-        $oppMemory = ZoneSearch("theirMemory");
-        if(count($oppMemory) >= 4) {
-            $reserveCost = max(0, $reserveCost - 2);
-        }
     }
 
     // Rescue the Heir (t0240ykvj0): [Level 1+] costs 1 less if you control a unique ally
@@ -11283,6 +11102,35 @@ function RemoveGlobalEffect($player, $effectID) {
     return false;
 }
 
+function ParseModifierResult($result) {
+    $parsed = [
+        'delta' => 0,
+        'consume' => false,
+        'applied' => false,
+    ];
+    if(is_array($result)) {
+        $parsed['delta'] = intval($result['delta'] ?? 0);
+        $parsed['consume'] = !empty($result['consume']);
+        $parsed['applied'] = array_key_exists('applied', $result)
+            ? !empty($result['applied'])
+            : ($parsed['delta'] !== 0);
+        return $parsed;
+    }
+    $parsed['delta'] = intval($result);
+    $parsed['applied'] = ($parsed['delta'] !== 0);
+    return $parsed;
+}
+
+function ConsumeModifierSource($sourceObj) {
+    if($sourceObj === null) return false;
+    if(($sourceObj->_sourceZone ?? null) === "GlobalEffects") {
+        $controller = $sourceObj->Controller ?? null;
+        if($controller === null) return false;
+        return RemoveGlobalEffect($controller, $sourceObj->CardID);
+    }
+    return false;
+}
+
 function ObjectHasEffect($obj, $targetEffect) {
     $cardCurrentEffects = explode(",", CardCurrentEffects($obj));
     //First effects that set power to specific value
@@ -13778,6 +13626,37 @@ function CardMemoryCost($obj) {
         $cost += EvaluateMemoryCostModifier($effectObj->CardID, $turnPlayer, $obj, $cost, $effectObj);
     }
     return max(0, $cost);
+}
+
+function ApplyGeneratedReserveLikeCostModifiers($player, $subjectObj, $currentCost, $mode = "reserve") {
+    $evaluators = ["EvaluateReserveCostModifier"];
+    if($mode === "play") $evaluators[] = "EvaluatePlayCostModifier";
+    if($mode === "activate") $evaluators[] = "EvaluateActivationCostModifier";
+
+    foreach($evaluators as $evaluator) {
+        if(!function_exists($evaluator)) continue;
+        $currentCost += $evaluator($subjectObj->CardID, $player, $subjectObj, $currentCost, null);
+
+        foreach([1, 2] as $fieldPlayer) {
+            foreach(GetField($fieldPlayer) as $fieldObj) {
+                if($fieldObj->removed || HasNoAbilities($fieldObj)) continue;
+                $currentCost += $evaluator($fieldObj->CardID, $player, $subjectObj, $currentCost, $fieldObj);
+            }
+        }
+
+        foreach([1, 2] as $effectPlayer) {
+            $globalEffects = GetGlobalEffects($effectPlayer);
+            foreach($globalEffects as $effectObj) {
+                if(!empty($effectObj->removed)) continue;
+                $effectSource = clone $effectObj;
+                $effectSource->Controller = $effectPlayer;
+                $effectSource->_sourceZone = "GlobalEffects";
+                $currentCost += $evaluator($effectObj->CardID, $player, $subjectObj, $currentCost, $effectSource);
+            }
+        }
+    }
+
+    return max(0, $currentCost);
 }
 
 function NefariousTimepieceEnter($player, $timepieceMZ) {

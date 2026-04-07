@@ -3167,7 +3167,10 @@ function GenerateMacroCode() {
         fwrite($handler, "    \$abilityKey = \$abilityCardID . \":\" . \$i;\r\n");
         fwrite($handler, "    if (!isset(" . $varName . "[\$abilityKey])) continue;\r\n");
         fwrite($handler, "    if (isset(" . $prereqVarName . "[\$abilityKey]) && !" . $prereqVarName . "[\$abilityKey](" . implode(", ", $invokeArgs) . ")) continue;\r\n");
-        fwrite($handler, "    \$delta += intval(" . $varName . "[\$abilityKey](" . implode(", ", $invokeArgs) . "));\r\n");
+        fwrite($handler, "    \$_modifierResult = " . $varName . "[\$abilityKey](" . implode(", ", $invokeArgs) . ");\r\n");
+        fwrite($handler, "    \$_parsedModifier = ParseModifierResult(\$_modifierResult);\r\n");
+        fwrite($handler, "    \$delta += \$_parsedModifier['delta'];\r\n");
+        fwrite($handler, "    if (\$_parsedModifier['consume'] && \$_parsedModifier['applied']) ConsumeModifierSource(\$sourceObj);\r\n");
         fwrite($handler, "  }\r\n");
         fwrite($handler, "  return \$delta;\r\n");
         fwrite($handler, "}\r\n\r\n");
