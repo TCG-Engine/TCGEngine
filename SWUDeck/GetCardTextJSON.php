@@ -42,6 +42,7 @@ function buildCardEntry($cardID) {
         "card"     => $setCode,
         "fullName" => $fullName,
         "type"     => $type,
+        "cost"     => CardCost($cardID),
         "cardText" => CardText($cardID),
     ];
 
