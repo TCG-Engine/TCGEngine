@@ -77,6 +77,9 @@ This is the canonical workflow for implementing card abilities. Follow these ste
 - **NEVER manually edit `<RootName>/GeneratedCode/GeneratedMacroCode.php`** — this file is auto-generated from the database. The MCP `save_card_abilities` tool saves to the DB and triggers the code generator automatically. Any manual edits will be overwritten.
 - **NEVER manually edit `<RootName>/GeneratedCode/GeneratedMacroCount.js`** — same reason.
 - Helper functions that don't already exist should be added to the appropriate file in `<RootName>/Custom/` based on theme (e.g. combat helpers in CombatLogic.php, general helpers in GameLogic.php).
+- **Prefer generated prereqs/restrictions over manual runtime guards** — if a card-local play/activation restriction can be expressed as a generated prereq (`CanActivateAbility`, generated macro prereq arrays, schema macro prereq hooks), implement it there first so UI button state, legality checks, and execution stay in sync. Reserve manual guards in `DoActivateCard` / `DoActivatedAbility` for cross-card framework logic or cases the macro layer cannot yet express cleanly.
+- **Prefer generated numerical modifier macros for scalar cost math** — Grand Archive now supports `MemoryCostModifier`, `ReserveCostModifier`, `PlayCostModifier`, and `ActivationCostModifier` schema macros (`MacroType=ValueModifier`). Use these for card-driven +/- cost logic before extending manual switchboards in `GameLogic.php`.
+- **Modifier macro return contract** — modifier abilities may return either an `int` delta or an array like `['delta' => -1, 'consume' => true, 'applied' => true]`. The generated evaluator passes results through `ParseModifierResult(...)`; `consume` removes the source effect only when the modifier actually applied.
 - **Per-card stat modifiers** — continuous effects that raise/lower a single card's POWER, HP, or Level should be implemented by:
   1. Using `AddTurnEffect($mzCard, $effectID)` to tag the card with the effect when the ability resolves.
   2. Adding a `case "$effectID":` to the relevant `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel` switch in `GameLogic.php`.
@@ -121,7 +124,7 @@ Call the MCP `get_helper_functions` tool to discover what helper functions alrea
 - `ZoneContainsCardID($zoneName, $cardID)` — scan a zone for a card ID; used by field-presence passives (e.g. Nullifying Lantern's graveyard-element override in `EffectiveCardElement`).
 
 ### Step 4: Study existing examples
-Call the MCP `get_implemented_examples` tool with the relevant macro name (e.g. "CardActivated", "Enter") to see how similar abilities are coded. This shows you the exact pattern to follow.
+Call the MCP `get_implemented_examples` tool with the relevant macro name (e.g. "CardActivated", "Enter", `ActivationCostModifier`, `MemoryCostModifier`) to see how similar abilities are coded. This shows you the exact pattern to follow.
 
 ### Step 5: Write the ability code
 
@@ -172,6 +175,7 @@ Call `save_card_abilities` with the card ID, macro name, and ability code. The M
 - If using `AddGlobalEffects(...)`, you must manually add a filter in `$doesGlobalEffectApply[$cardID]` if the effect applies conditionally (e.g., only to allies).
 - If adding per-turn stat modifiers via `AddGlobalEffects`, manually add a `case "$cardID":` to `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel` to declare the modifier.
 - If registering custom DQ handlers in the ability code (e.g., to handle multi-step flows), ensure those handlers exist in `Custom/GameLogic.php` (the generator will wrap them but won't invent new handlers).
+- If a card's scalar cost change can be expressed as a generated value modifier, prefer saving a `MemoryCostModifier` / `ReserveCostModifier` / `PlayCostModifier` / `ActivationCostModifier` ability instead of editing manual cost-calculation code in `GameLogic.php`.
 
 ### Multi-Step Ability Patterns (YesNo, Target Selection)
 
@@ -264,4 +268,16 @@ If the card requires a new helper function (like `RecoverChampion`), add it to t
 - Materialize-related → `MaterializeLogic.php`
 - General game logic → `GameLogic.php`
 - Card-specific complex logic → `CardLogic.php`
+
+### Step 8: Prefer Framework Hooks Before Manual Switchboards
+
+Before editing large manual switchboards in `GameLogic.php`, check whether the behavior belongs in one of the generated framework hooks instead:
+- **Restrictions / legality** — generated macro prereqs such as `CanActivateAbility` and other prereq arrays for card-local restrictions.
+- **Scalar cost changes** — `MemoryCostModifier`, `ReserveCostModifier`, `PlayCostModifier`, `ActivationCostModifier`.
+- **One-shot consumable modifiers** — return `['delta' => ..., 'consume' => true]` so the framework can remove the source effect after a successful application.
+
+Manual `GameLogic.php` edits are still appropriate for:
+- Cross-card framework rules that affect many cards at once.
+- Costs that are not simple scalar modifiers, such as `REST`, sacrifice, banish, discard, reveal, or multi-step alternative payment flows.
+- Cases where the current generated macro surface cannot represent the rule without awkward or fragile workarounds.
 

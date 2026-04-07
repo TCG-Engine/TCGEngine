@@ -17,6 +17,8 @@ Use this file as the compact default guidance:
 - Do not manually edit generated files such as `<RootName>/GeneratedCode/GeneratedMacroCode.php`, `GeneratedMacroCount.js`, or generated `GeneratedUI_*.js` outputs unless the task is specifically about the generator.
 - For card implementations, prefer the MCP card editor workflow: inspect card info, inspect schema/helpers/examples, save abilities through MCP, and let the generator update derived macro code.
 - Add new non-generated helper logic under `<RootName>/Custom/` in the most appropriate file instead of patching generated code.
+- Prefer built-in macro prereqs/restrictions before adding manual activation guards in `GameLogic.php`. If a restriction is card-local and expressible as a generated prereq, implement it in the macro/prereq layer so selection, UI, and legality checks stay aligned.
+- Prefer schema/generator-backed numerical modifier macros for scalar cost adjustments. In Grand Archive this includes `MemoryCostModifier`, `ReserveCostModifier`, `PlayCostModifier`, and `ActivationCostModifier`; use the modifier framework before adding one-off cost math to manual switchboards.
 - When working in Grand Archive, use established helpers and effective runtime wrappers such as `EffectiveCardType`, `EffectiveCardSubtypes`, `EffectiveCardClasses`, and `EffectiveCardElement` rather than raw card-dictionary lookups on field objects.
 - For per-turn single-card stat changes, use `AddTurnEffect(...)` plus the corresponding `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel` switch case in `GameLogic.php`.
 - For persistent field-object overrides, use `ApplyPersistentOverride(...)`; for temporary suppression, use `AddTurnEffect($mzCard, 'NO_ABILITIES')`.
