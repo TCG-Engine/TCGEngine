@@ -33,11 +33,11 @@ $forIndividual = false;
     <label for="cardEndWeek">End week</label>
     <div class="select-wrap"><select id="cardEndWeek" class="week-select"></select></div>
   </div>
-  <button id="cardRefreshWeeks" class="week-refresh">Refresh</button>
-  <div class="week-control" style="margin-left:12px;">
+  <div class="week-control" style="margin-right:12px;">
     <label for="minIncludes">Min Includes</label>
     <input type="number" id="minIncludes" min="0" value="0" style="width:70px; height:28px; box-sizing:border-box; padding:0 6px;" />
   </div>
+  <button id="cardRefreshWeeks" class="week-refresh">Refresh</button>
 </div>
 <script>
   (function() {
