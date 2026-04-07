@@ -167,5 +167,184 @@ function SeepIntoTheMind($player) {
     DecisionQueueController::AddDecision($opponent, "CUSTOM", "SeepIntoTheMindSheen|$player", 1);
 }
 
+
+// =============================================================================
+// Foster Keyword
+// =============================================================================
+
+/**
+ * Check whether a field object has the Foster keyword.
+ * Foster: "At the beginning of your recollection phase, if this ally hasn't been
+ * dealt damage since the end of your previous turn, it becomes fostered."
+ */
+function HasFoster($obj) {
+    if(HasNoAbilities($obj)) return false;
+    // Unconditional Foster cards
+    static $fosterCards = [
+        "z4pyx8bd7o" => true, // Young Peacekeeper
+        "kuz07nk45s" => true, // Forgelight Shieldmaiden
+        "bqjdmthh88" => true, // City Protector
+        "22tk3ir1o0" => true, // Peacekeeper Sentinel (alt)
+        "lzsmw3rrii" => true, // Guardian Bulwark
+        "xhi5jnsl7d" => true, // Embershield Keeper
+        "zihslnhzj4" => true, // Cell Generator
+        "8sugly4wif" => true, // Krustallan Patrol
+    ];
+    if(isset($fosterCards[$obj->CardID])) return true;
+    // [Class Bonus] Foster cards
+    static $fosterCBCards = [
+        "mnu1xhs5jw" => ["GUARDIAN"], // Awakened Frostguard
+        "1x97n2jnlt" => ["GUARDIAN"], // Guardian Scout
+        "a3v1ybmvpb" => ["GUARDIAN"], // Sunglory Sentinel
+        "3kwkn38b7v" => ["GUARDIAN"], // Tidebreaker Sentinel
+        "y1utsihaxv" => ["GUARDIAN"], // Rilewind Sentinel
+    ];
+    if(isset($fosterCBCards[$obj->CardID])) {
+        return IsClassBonusActive($obj->Controller, $fosterCBCards[$obj->CardID]);
+    }
+    return false;
+}
+
+/**
+ * Check whether a field object is currently in the fostered state.
+ */
+function IsFostered($obj) {
+    return in_array("FOSTERED", $obj->TurnEffects);
+}
+
+/**
+ * Make an ally become fostered by adding the FOSTERED TurnEffect.
+ * @param int    $player The controller.
+ * @param string $mzID   The mzID of the ally.
+ */
+function BecomeFostered($player, $mzID) {
+    AddTurnEffect($mzID, "FOSTERED");
+}
+
+/**
+ * Dispatch OnFoster triggered abilities for a card that just became fostered.
+ * Called by RecollectionPhase when a Foster ally transitions to fostered state.
+ */
+function OnFosterTrigger($player, $mzID) {
+    global $onFosterAbilities;
+    $obj = GetZoneObject($mzID);
+    if($obj === null) return;
+    $CardID = $obj->CardID;
+    if(HasNoAbilities($obj)) return;
+    if(isset($onFosterAbilities) && isset($onFosterAbilities[$CardID . ":0"])) {
+        $onFosterAbilities[$CardID . ":0"]($player);
+    }
+}
+
+/**
+ * Check whether a field object is currently distant.
+ * Distant: "Units stay distant until the end of their controller's turn."
+ * Sources:
+ *   - TurnEffect "DISTANT" (until end of turn, standard source)
+ *   - Freydis permanent distant: global forever effect makes all Ranger units always distant
+ */
+function IsDistant($obj) {
+    if(HasNoAbilities($obj)) return false;
+    if(in_array("DISTANT", $obj->TurnEffects)) return true;
+    // Freydis permanent distant: Ranger units are always distant for the rest of the game
+    if(GlobalEffectCount($obj->Controller, "FREYDIS_PERMANENT_DISTANT") > 0) {
+        if(PropertyContains(EffectiveCardClasses($obj), "RANGER")) return true;
+    }
+    return false;
+}
+
+/**
+ * Make a unit become distant by adding the DISTANT TurnEffect.
+ * @param int    $player The acting player.
+ * @param string $mzID   The mzID of the unit (e.g. "myField-2").
+ */
+function BecomeDistant($player, $mzID) {
+    AddTurnEffect($mzID, "DISTANT");
+    // Imperial Scout (nrow8iopvc): when this becomes distant, may mill 2
+    $obj = GetZoneObject($mzID);
+    if($obj !== null && $obj->CardID === "nrow8iopvc" && !HasNoAbilities($obj)) {
+        $deck = ZoneSearch("myDeck");
+        if(count($deck) >= 2) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_top_2_cards_of_deck_into_graveyard?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ImperialScoutMill", 1);
+        }
+    }
+    // Liu Bei, Oathkeeper (a53rqmuqxf): whenever another unit you control becomes distant,
+    // Liu Bei becomes distant.
+    if($obj === null || $obj->CardID !== "a53rqmuqxf") {
+        global $playerID;
+        $zone = $player == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fi => $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "a53rqmuqxf" && !HasNoAbilities($fObj)) {
+                $liuBeiMZ = $zone . "-" . $fi;
+                if(!in_array("DISTANT", $fObj->TurnEffects)) {
+                    AddTurnEffect($liuBeiMZ, "DISTANT");
+                }
+            }
+        }
+    }
+    // Renascent Sharpshooter (gbnvtkm7rf): [Class Bonus] Whenever this becomes distant, draw a card into memory
+    if($obj !== null && $obj->CardID === "gbnvtkm7rf" && !HasNoAbilities($obj)) {
+        if(IsClassBonusActive($player, ["RANGER"])) {
+            DrawIntoMemory($player, 1);
+        }
+    }
+    // Whisperwind Compass (UXqhPZEq0X): [Class Bonus] Whenever a Ranger ally you control becomes distant,
+    // if that ally has no buff counters, put a buff counter on it.
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY")
+        && PropertyContains(EffectiveCardSubtypes($obj), "RANGER")) {
+        global $playerID;
+        $compassZone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $compassField = GetZone($compassZone);
+        foreach($compassField as $ci => $cObj) {
+            if(!$cObj->removed && $cObj->CardID === "UXqhPZEq0X" && !HasNoAbilities($cObj)
+                && IsClassBonusActive($obj->Controller, ["RANGER"])) {
+                if(GetCounterCount($obj, "buff") == 0) {
+                    AddCounters($obj->Controller, $mzID, "buff", 1);
+                }
+                break;
+            }
+        }
+    }
+    // Alizarin Longbowman (inQV2nZfdJ): [CB] Whenever this becomes distant, may have each player draw a card
+    if($obj !== null && $obj->CardID === "inQV2nZfdJ" && !HasNoAbilities($obj)) {
+        if(IsClassBonusActive($player, ["RANGER"])) {
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Each_player_draws_a_card?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "AlizarinLongbowmanDraw", 1);
+        }
+    }
+}
+
+/**
+ * Dahlia OnAttack: finish after YesNo — put water card to GY or back on top of deck.
+ */
+function DahliaLookFinish($player, $answer) {
+    if($answer === "YES") {
+        $tempCards = ZoneSearch("myTempZone");
+        if(!empty($tempCards)) {
+            MZMove($player, $tempCards[0], "myGraveyard");
+        }
+    } else {
+        PutTempZoneOnTopOfDeck($player);
+    }
+}
+
+/**
+ * Misteye Archer (m6c8xy4cje): look at top card of deck.
+ * If water, offer to put into GY — if yes, become distant + prevent next 2 damage.
+ */
+function MisteyeArcherLook($player, $mzID) {
+    $tempCards = ZoneSearch("myTempZone");
+    if(empty($tempCards)) return;
+    $topCard = GetZoneObject($tempCards[count($tempCards) - 1]);
+    if($topCard !== null && CardElement($topCard->CardID) === "WATER") {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_water_card_into_graveyard?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "MisteyeArcherFinish|" . $mzID, 1);
+    } else {
+        PutTempZoneOnTopOfDeck($player);
+    }
+}
+
 ?>
 

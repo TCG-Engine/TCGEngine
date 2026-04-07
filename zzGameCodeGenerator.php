@@ -761,6 +761,7 @@ fwrite($handler, "\$systemDQHandlers = [];\r\n");
 global $macros;
 for($i=0; $i<count($macros); ++$i) {
   $macro = $macros[$i];
+  if(isset($macro->MacroType) && $macro->MacroType === "ValueModifier") continue;
   // Generate handlers
   // ChoiceFunction is deterministic and will be called directly from the wrapper; no queued handler is emitted here.
   // Choice handler (if Choice is set)
@@ -2840,35 +2841,69 @@ function GenerateMacroCode() {
     if (file_exists($schemaFile)) {
       $lines = file($schemaFile, FILE_IGNORE_NEW_LINES);
       foreach ($lines as $line) {
-        if (strpos($line, 'Macro:') === 0) {
-          // Extract macro name and parameters from: Macro: Name=MacroName(param1,param2);
-          if (preg_match('/Name=(\w+)(?:\(([^)]*)\))?/', $line, $matches)) {
-            $macroName = trim($matches[1]);
-            // Parse parameter names if present
-            $params = [];
-            if (isset($matches[2]) && $matches[2] !== '') {
-              $paramList = explode(',', $matches[2]);
-              foreach ($paramList as $param) {
-                $params[] = trim($param);
+        if (strpos($line, 'Macro:') !== 0) continue;
+
+        $lineValue = trim(substr($line, strlen('Macro:')));
+        $segments = explode(';', $lineValue);
+        $meta = ['params' => []];
+        $macroName = null;
+
+        foreach ($segments as $segment) {
+          $segment = trim($segment);
+          if ($segment === '') continue;
+          $pair = explode('=', $segment, 2);
+          if (count($pair) !== 2) continue;
+          $key = trim($pair[0]);
+          $value = trim($pair[1]);
+
+          switch ($key) {
+            case 'Name':
+              if (preg_match('/^(\w+)\((.*)\)$/', $value, $matches)) {
+                $macroName = trim($matches[1]);
+                $meta['params'] = $matches[2] === ''
+                  ? []
+                  : array_map('trim', explode(',', $matches[2]));
+              } else {
+                $macroName = $value;
+                $meta['params'] = [];
               }
-            }
-            $meta = [
-              'params' => $params,
-            ];
-            if (preg_match('/PrereqFunction=(\w+)/', $line, $prereqMatches)) {
-              $meta['prereqFunction'] = trim($prereqMatches[1]);
-            }
-            if (preg_match('/SourceParam=(\w+)/', $line, $sourceMatches)) {
-              $meta['sourceParam'] = trim($sourceMatches[1]);
-            }
-            if (preg_match('/SelectedIndexParam=(\w+)/', $line, $indexMatches)) {
-              $meta['selectedIndexParam'] = trim($indexMatches[1]);
-            }
-            $macrosByName[$macroName] = $meta;
+              break;
+            case 'PrereqFunction':
+              $meta['prereqFunction'] = $value;
+              break;
+            case 'SourceParam':
+              $meta['sourceParam'] = $value;
+              break;
+            case 'SelectedIndexParam':
+              $meta['selectedIndexParam'] = $value;
+              break;
+            case 'MacroType':
+              $meta['macroType'] = $value;
+              break;
+            case 'ReturnType':
+              $meta['returnType'] = $value;
+              break;
+            case 'ModifierMode':
+              $meta['modifierMode'] = $value;
+              break;
+            case 'DefaultValue':
+              $meta['defaultValue'] = $value;
+              break;
+            case 'ClampMin':
+              $meta['clampMin'] = $value;
+              break;
           }
+        }
+
+        if ($macroName !== null) {
+          $macrosByName[$macroName] = $meta;
         }
       }
     }
+
+    $modifierMacrosByName = array_filter($macrosByName, function($meta) {
+      return ($meta['macroType'] ?? '') === 'ValueModifier';
+    });
 
     // Group abilities by macro name
     $abilitiesByMacro = [];
@@ -2888,6 +2923,13 @@ function GenerateMacroCode() {
 
       // Track ability index per card for macros that support multiple abilities
       $abilityIndexByCard = [];
+
+      foreach ($modifierMacrosByName as $macroName => $macroMeta) {
+        $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
+        $prereqVarName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
+        fwrite($handler, "\$" . $varName . " = [];\r\n");
+        fwrite($handler, "\$" . $prereqVarName . " = [];\r\n\r\n");
+      }
 
       foreach ($abilitiesByMacro as $macroName => $abilities) {
         // Convert macro name to valid variable name (e.g., "card-play" -> "cardPlayAbilities")
@@ -2917,17 +2959,26 @@ function GenerateMacroCode() {
           // Use CardID:Index as the key for abilities (supports multiple per card)
           $abilityKey = $cardId . ":" . $abilityIndex;
 
-          // Transform code to handle await syntax (pass macro params for variable retrieval).
-          // Use abilityKey:macroName as handlerPrefix so continuation handler names are unique
-          // even when the same card has abilities for multiple macros (e.g. OnAttack + Reveal).
           $continuationHandlers = [];
-          $handlerPrefix = $abilityKey . ":" . $macroName;
-          $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams);
+          if (($macroMeta['macroType'] ?? '') === 'ValueModifier') {
+            $signature = '$player';
+            if (!empty($macroParams)) {
+              $signature .= ', $' . implode(', $', $macroParams);
+            }
+            $transformedCode = trim($code);
+          } else {
+            // Transform code to handle await syntax (pass macro params for variable retrieval).
+            // Use abilityKey:macroName as handlerPrefix so continuation handler names are unique
+            // even when the same card has abilities for multiple macros (e.g. OnAttack + Reveal).
+            $handlerPrefix = $abilityKey . ":" . $macroName;
+            $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams);
 
-          // Merge continuation handlers into global collection
-          $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);
+            // Merge continuation handlers into global collection
+            $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);
+            $signature = '$player';
+          }
 
-          fwrite($handler, "\$" . $varName . "[\"" . $abilityKey . "\"] = function(\$player) { //" . $name . "\r\n");
+          fwrite($handler, "\$" . $varName . "[\"" . $abilityKey . "\"] = function(" . $signature . ") { //" . $name . "\r\n");
           fwrite($handler, "  " . str_replace("\n", "\n  ", trim($transformedCode)) . "\r\n");
           fwrite($handler, "};\r\n");
           if(trim($prereqCode) !== '') {
@@ -3073,9 +3124,74 @@ function GenerateMacroCode() {
         }
       }
 
+      foreach ($modifierMacrosByName as $macroName => $macroMeta) {
+        if (isset($abilitiesByMacro[$macroName])) continue;
+
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $varName = "\$" . $functionName . "Data";
+        $namesVarName = "\$" . $functionName . "NamesData";
+        $namesFunction = $functionName . "Names";
+
+        fwrite($handler, $varName . " = [];\r\n\r\n");
+        fwrite($handler, "function " . $functionName . "(\$cardId) {\r\n");
+        fwrite($handler, "  global \$" . $functionName . "Data;\r\n");
+        fwrite($handler, "  return isset(\$" . $functionName . "Data[\$cardId]) ? \$" . $functionName . "Data[\$cardId] : 0;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+
+        fwrite($handler, $namesVarName . " = [];\r\n\r\n");
+        fwrite($handler, "function " . $namesFunction . "(\$cardId, \$abilityIndex = null) {\r\n");
+        fwrite($handler, "  return \$abilityIndex === null ? [] : \"\";\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+
+      foreach ($modifierMacrosByName as $macroName => $macroMeta) {
+        $varName = "\$" . lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
+        $prereqVarName = "\$" . lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $evaluateFunction = "Evaluate" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName)));
+        $signatureParams = ['$abilityCardID', '$player'];
+        foreach (($macroMeta['params'] ?? []) as $param) {
+          $signatureParams[] = '$' . $param;
+        }
+        $invokeArgs = ['$player'];
+        foreach (($macroMeta['params'] ?? []) as $param) {
+          $invokeArgs[] = '$' . $param;
+        }
+
+        fwrite($handler, "function " . $evaluateFunction . "(" . implode(", ", $signatureParams) . ") {\r\n");
+        fwrite($handler, "  global " . $varName . ", " . $prereqVarName . ";\r\n");
+        fwrite($handler, "  \$count = " . $functionName . "(\$abilityCardID);\r\n");
+        fwrite($handler, "  if (\$count <= 0) return 0;\r\n");
+        fwrite($handler, "  \$delta = 0;\r\n");
+        fwrite($handler, "  for (\$i = 0; \$i < \$count; ++\$i) {\r\n");
+        fwrite($handler, "    \$abilityKey = \$abilityCardID . \":\" . \$i;\r\n");
+        fwrite($handler, "    if (!isset(" . $varName . "[\$abilityKey])) continue;\r\n");
+        fwrite($handler, "    if (isset(" . $prereqVarName . "[\$abilityKey]) && !" . $prereqVarName . "[\$abilityKey](" . implode(", ", $invokeArgs) . ")) continue;\r\n");
+        fwrite($handler, "    \$delta += intval(" . $varName . "[\$abilityKey](" . implode(", ", $invokeArgs) . "));\r\n");
+        fwrite($handler, "  }\r\n");
+        fwrite($handler, "  return \$delta;\r\n");
+        fwrite($handler, "}\r\n\r\n");
+      }
+
     } else {
       fwrite($handler, "// No custom macro implementations found in database\r\n");
       fwrite($handler, "// This file will be populated as abilities are added through CardEditor\r\n\r\n");
+
+      foreach ($modifierMacrosByName as $macroName => $macroMeta) {
+        $varName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Abilities";
+        $prereqVarName = lcfirst(str_replace("-", "", ucwords($macroName, "-"))) . "Prereqs";
+        $functionName = "Card" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName))) . "Count";
+        $evaluateFunction = "Evaluate" . str_replace(" ", "", ucwords(str_replace("-", " ", $macroName)));
+        $signatureParams = ['$abilityCardID', '$player'];
+        foreach (($macroMeta['params'] ?? []) as $param) {
+          $signatureParams[] = '$' . $param;
+        }
+
+        fwrite($handler, "\$" . $varName . " = [];\r\n");
+        fwrite($handler, "\$" . $prereqVarName . " = [];\r\n");
+        fwrite($handler, "function " . $functionName . "(\$cardId) { return 0; }\r\n");
+        fwrite($handler, "function " . $evaluateFunction . "(" . implode(", ", $signatureParams) . ") { return 0; }\r\n\r\n");
+      }
     }
 
     fwrite($handler, "?>");
