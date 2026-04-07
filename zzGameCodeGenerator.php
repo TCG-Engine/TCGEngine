@@ -1384,6 +1384,11 @@ for($i=0; $i<count($serverIncludes); ++$i) {
 fwrite($handler, "function GetAssetReflectionPath() {\r\n");
 fwrite($handler, "  return \"" . ($assetReflection === null ? "" : $assetReflection) . "\";\r\n");
 fwrite($handler, "}\r\n\r\n");
+// Function to control whether regression recording tools should be exposed
+$supportsRegressionRecording = in_array($rootName, ["GrandArchiveSim", "RBSim", "GudnakSim", "SoulMastersSim"], true) ? "true" : "false";
+fwrite($handler, "function SupportsRegressionRecording() {\r\n");
+fwrite($handler, "  return " . $supportsRegressionRecording . ";\r\n");
+fwrite($handler, "}\r\n\r\n");
 //Function to get edit authorization type
 fwrite($handler, "function GetEditAuth() {\r\n");
 fwrite($handler, "  return \"" . $editAuth . "\";\r\n");
@@ -1417,6 +1422,7 @@ for($i=0; $i<count($zones); ++$i) {
 }
 fwrite($handler, "  \$currentPlayer = 1;\r\n");//TODO: Change this to startPlayer (needs to be linked up w/ lobby code)
 fwrite($handler, "  \$updateNumber = 1;\r\n");//TODO: Change this to startPlayer (needs to be linked up w/ lobby code)
+fwrite($handler, "  \$gRandomCounter = 0;\r\n");
 fwrite($handler, "}\r\n\r\n");
 //Write gamestate function
 fwrite($handler, "function WriteGamestate(\$filepath=\"./\") {\r\n");
@@ -1510,11 +1516,18 @@ if($versionsModule != null) {
     }
     fwrite($handler, "  }\r\n");
   }
+  fwrite($handler, "  if(count(\$zones) > " . count($versionZones) . ") {\r\n");
+  fwrite($handler, "    \$data = str_replace(\"<v2>\", \" \", \$zones[" . count($versionZones) . "]);\r\n");
+  fwrite($handler, "  global \$gRandomCounter;\r\n");
+  fwrite($handler, "  \$gRandomCounter = intval(\$data);\r\n");
+  fwrite($handler, "  }\r\n");
   fwrite($handler, "}\r\n\r\n");
 
   //Save version function
   fwrite($handler, "function SaveVersion(\$playerID, \$name = \"\") {\r\n");
   fwrite($handler, "  \$zones = Versions::GetSerializedZones();\r\n");
+  fwrite($handler, "  global \$gRandomCounter;\r\n");
+  fwrite($handler, "  \$zones .= \"<v0>\" . \$gRandomCounter;\r\n");
   fwrite($handler, "  \$existingVersions = &GetVersions(\$playerID);\r\n");
   fwrite($handler, "  \$nextNum = 0;\r\n");
   fwrite($handler, "  foreach(\$existingVersions as \$v) {\r\n");
@@ -1649,7 +1662,7 @@ function GetZoneGlobals($zones) {
 function GetCoreGlobals() {
   global $hasAnyIndexedProperties;
   $coreGlobals = "";
-  $coreGlobals .= "  global \$currentPlayer, \$updateNumber;\r\n";
+  $coreGlobals .= "  global \$currentPlayer, \$updateNumber, \$gRandomCounter;\r\n";
   if($hasAnyIndexedProperties) {
     $coreGlobals .= "  global \$objectDataIndices;\r\n";
   }
@@ -1702,6 +1715,10 @@ function AddReadGamestate() {
       $readGamestate .= AddReadZone($zone, 2);
     }
   }
+  $readGamestate .= "    \$line = fgets(\$handler);\r\n";
+  $readGamestate .= "    if (\$line !== false) {\r\n";
+  $readGamestate .= "      \$gRandomCounter = intval(trim(\$line));\r\n";
+  $readGamestate .= "    }\r\n";
   $readGamestate .= "  }\r\n";
   $readGamestate .= "  fclose(\$handler);\r\n";
   return $readGamestate;
@@ -1776,6 +1793,7 @@ function AddWriteGamestate() {
       }
     }
   }
+  $writeGamestate .= "  fwrite(\$handler, \$gRandomCounter . \"\\r\\n\");\r\n";
   return $writeGamestate;
 }
 

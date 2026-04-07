@@ -185,7 +185,6 @@ $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
 
 $customDQHandlers["FINISHPAYMATERIALIZE"] = function($player, $parts, $lastDecision) {
     $memoryCost = DecisionQueueController::GetVariable("MemoryCost");
-    echo("Finished paying memory cost, remaining cost: " . $memoryCost);
     for($i = 0; $i < $memoryCost; ++$i) {
         MZMove($player, "myMemory-" . $i, "myBanish");//TODO: Make random
     }
@@ -261,8 +260,12 @@ function DoMaterialize($player, $mzCard) {
         if(!empty($existingTurnEffects)) {
             $incomingObj = &GetZoneObject($mzCard);
             if($incomingObj !== null) {
+                $existingIncomingTurnEffects = [];
+                if(isset($incomingObj->TurnEffects) && is_array($incomingObj->TurnEffects)) {
+                    $existingIncomingTurnEffects = $incomingObj->TurnEffects;
+                }
                 $incomingObj->TurnEffects = array_values(array_unique(array_merge(
-                    is_array($incomingObj->TurnEffects) ? $incomingObj->TurnEffects : [],
+                    $existingIncomingTurnEffects,
                     $existingTurnEffects
                 )));
             }

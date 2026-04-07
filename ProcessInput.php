@@ -8,6 +8,7 @@ ob_start();
 @ini_set('max_execution_time', '1');
 
 include_once './Core/CoreZoneModifiers.php';
+include_once './Core/EngineActionRunner.php';
 include_once "./Core/NetworkingLibraries.php";
 include_once "./Core/HTTPLibraries.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
@@ -37,11 +38,8 @@ for ($i = 0; $i < $chkCount; ++$i) {
 }
 $inputText = $_GET["inputText"] ?? "";
 
-//First we need to parse the game state from the file
-include "./" . $folderPath . "/GeneratedCode/GeneratedCardDictionaries.php";
-include "./" . $folderPath . "/GamestateParser.php";
-include "./" . $folderPath . "/ZoneAccessors.php";
-include "./" . $folderPath . "/ZoneClasses.php";
+//First we need to load the root runtime
+EngineLoadRootRuntime($folderPath);
 
 if(GetEditAuth() == "AssetOwner") {
 
@@ -79,188 +77,24 @@ if(GetEditAuth() == "AssetOwner") {
   }
 }
 
+global $gameName;
+$gameName = strval($gameName);
 ParseGamestate("./" . $folderPath . "/");
 
-function CardExists($mzid) {
-  $zone = &GetZone($mzid);
-  $mzArr = explode("-", $mzid);
-  return $mzArr[1] < count($zone);
-}
+$actionResult = EngineExecuteLoadedAction([
+  'playerID' => $playerID,
+  'mode' => $mode,
+  'buttonInput' => $buttonInput,
+  'cardID' => $cardID,
+  'chkInput' => $chkInput,
+  'inputText' => $inputText,
+], $folderPath, $gameName, [
+  'updateCache' => true,
+  'versionName' => $_GET["versionName"] ?? $inputText,
+  'createdBy' => function_exists('LoggedInUser') && IsUserLoggedIn() ? strval(LoggedInUser()) : 'anonymous',
+]);
 
-//Reset flash message at the start of each input processing
-if(function_exists('SetFlashMessage')) SetFlashMessage("");
-
-switch($mode) {
-  case 100://Decision Queue Input
-    $dqController = new DecisionQueueController();
-    $dqController->PopDecision($playerID);
-    $dqController->ExecuteStaticMethods($playerID, $cardID);
-    break;
-  case 10000://Execute Zone Macro
-    $macro = $buttonInput;
-    $zone = &GetZone($inputText);
-    switch($macro) {
-      case "Shuffle":
-        Shuffle($zone);
-        break;
-      default: break;
-    }
-    break;
-  case 10001://Execute card widget
-    $inpArr = explode("!", $cardID);
-    $actionCard = $inpArr[0];
-    $widgetType = $inpArr[1];
-    $action = $inpArr[2];
-    if($widgetType == "CustomInput") {
-      CustomWidgetInput($playerID, $actionCard, $action);
-      break;
-    }
-    switch($action) {
-      case "-1": case "+1":
-        $card = &GetZoneObject($actionCard);
-        if(is_object($card)) $card->$widgetType += intval($action);
-        else $card += intval($action);
-        break;
-      case "Notes":
-        if(!CardExists($actionCard)) break;
-        $noteText = str_replace(' ', '_', $inpArr[3]);
-        $card = GetZoneObject($actionCard);
-        $cardID = $card->CardID;
-        //Search for the card in the CardNotes zone
-        $card = SearchZoneForCard("myCardNotes", $card->CardID, $playerID);
-        if($card != null) {
-          $card->Notes = $noteText;
-        } else {
-          MZAddZone($playerID, "myCardNotes", $cardID);
-          $card = SearchZoneForCard("myCardNotes", $cardID, $playerID);
-          $card->Notes = $noteText;
-        }
-        break;
-      default:
-        $card = &GetZoneObject($actionCard);
-        if(is_object($card)) {
-          if($card->$widgetType == $action) $card->$widgetType = "-";
-          else $card->$widgetType = $action;
-        }
-        else {
-          if($card == $action) $card = "-";
-          else $card = $action;
-        }
-        break;
-    }
-    break;
-  case 10002://Execute click action
-    $inpArr = explode("!", $cardID);
-    $actionCard = $inpArr[0];
-    $action = $inpArr[1];
-    $parameterArr = explode(",", $inpArr[2]);
-    if(!CardExists($actionCard)) break;
-    $card = GetZoneObject($actionCard);
-    switch($action) {
-      case "Move":
-        $card->Remove();
-        $destination = $parameterArr[0];
-        MZAddZone($playerID, $destination, $card->CardID);
-        break;
-      case "Add":
-        $destination = $parameterArr[0];
-        MZAddZone($playerID, $destination, $card->CardID);
-        break;
-      case "Remove":
-        $card->Remove();
-        break;
-      case "Swap":
-        $destination = $parameterArr[0];
-        MZClearZone($playerID, $destination);
-        MZAddZone($playerID, $destination, $card->CardID);
-        break;
-      case "FSM"://Finite State Machine
-        ActionMap($actionCard);
-        break;
-      default: break;
-    }
-    break;
-  case 10003://Version Changed
-    $version = $cardID;
-    $versions = &GetZone("myVersions");
-    if($version == "current") {
-      //Do nothing, we should already be on current
-    }
-    else if($version == "new") {
-      $versionName = $_GET["versionName"] ?? "";
-      SaveVersion($playerID, $versionName);
-    } else {
-      //Switch to a different version
-      if($folderPath == "SoulMastersDB") {
-        SoulMastersSwitchVersion($version);
-        break;
-      }
-      $versionNum = intval($version);
-      $copyFrom = $versions[$versionNum];
-      $zones = explode("<v0>", $copyFrom->Version);
-      if(count($zones) > 0) {
-        $data = explode("<v1>", $zones[0]);
-        if(count($data) > 0) {
-          $zone = &GetZone("myLeader");
-          $zone = [];
-          array_push($zone, new Leader($data[0]));
-        }
-      }
-      if(count($zones) > 1) {
-        $data = explode("<v1>", $zones[1]);
-        if(count($data) > 0) {
-          $zone = &GetZone("myBase");
-          $zone = [];
-          for($i=0; $i<count($data); ++$i) {
-            array_push($zone, new Base($data[$i]));
-          }
-        }
-      }
-      if(count($zones) > 2) {
-        $data = explode("<v1>", $zones[2]);
-        if(count($data) > 0) {
-          $zone = &GetZone("myMainDeck");
-          $zone = [];
-          for($i=0; $i<count($data); ++$i) {
-            array_push($zone, new MainDeck($data[$i]));
-          }
-        }
-      }
-      if(count($zones) > 3) {
-        $data = explode("<v1>", $zones[3]);
-        if(count($data) > 0) {
-          $zone = &GetZone("mySideboard");
-          $zone = [];
-          for($i=0; $i<count($data); ++$i) {
-            if(trim($data[$i]) == "") continue;
-            array_push($zone, new Sideboard($data[$i]));
-          }
-        }
-      }
-    }
-    break;
-  case 10004://Undo last action
-    LoadVersion($playerID);
-    SetFlashMessage("Player " . $playerID . " undid their last action.");
-    break;
-  case 10005://Save snapshot
-    SaveVersion($playerID);
-    break;
-  case 10014://Manual mode drag and drop
-    $inpArr = explode("!", $cardID);
-    $moveCard = $inpArr[0];
-    $destination = $inpArr[1];
-    if(!CardExists($moveCard)) break;
-    $card = GetZoneObject($moveCard);
-    if($card->DragMode() != "Clone") $card->Remove();
-    MZAddZone($playerID, $destination, $card->CardID);
-    break;
-  default: break;
-}
-
-++$updateNumber;
-WriteGamestate("./" . $folderPath . "/");
-GamestateUpdated($gameName);
+if (!empty($actionResult['message'])) echo($actionResult['message']);
 
 exit;
 

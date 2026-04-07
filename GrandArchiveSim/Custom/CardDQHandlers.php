@@ -1123,7 +1123,7 @@ function ForgetfulConcoctionExecute($player) {
     for($i = 0; $i < count($mem); ++$i) {
         if(!$mem[$i]->removed) $indices[] = $i;
     }
-    shuffle($indices);
+    EngineShuffle($indices);
     $toBanish = array_slice($indices, 0, 2);
     // Sort descending so removals don't shift indices
     rsort($toBanish);
@@ -3154,7 +3154,7 @@ function CelestialCallingReveal($player) {
         if($i === $foundIndex) continue;
         $remaining[] = $revealed[$i];
     }
-    shuffle($remaining);
+    EngineShuffle($remaining);
     foreach($remaining as $cardObj) {
         array_push($deck, $cardObj);
     }

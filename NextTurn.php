@@ -197,12 +197,20 @@
     include "./" . $folderPath . "/ZoneAccessors.php";
     include "./" . $folderPath . "/GamestateParser.php";
     include "./Core/UILibraries.php";
+    include_once "./Core/RegressionTestFramework.php";
     include "./Core/Constants.php";
     include_once "./AccountFiles/AccountSessionAPI.php";
     include_once "./Assets/patreon-php-master/src/PatreonDictionary.php";
     include_once "./Assets/patreon-php-master/src/PatreonLibraries.php";
 
     ParseGamestate("./" . $folderPath . "/");
+
+    $showRegressionControls =
+      function_exists('IsUserLoggedIn') &&
+      IsUserLoggedIn() &&
+      function_exists('SupportsRegressionRecording') &&
+      SupportsRegressionRecording();
+    $regressionRecordingActive = $showRegressionControls ? RegressionIsRecordingActive($folderPath, $gameName) : false;
 
     function IsDarkMode() { return false; }
     function IsMuted() { return false; }
@@ -535,6 +543,139 @@
     <?php
     // Display hidden elements and Chat UI
     ?>
+    <?php if ($showRegressionControls): ?>
+    <div id="regressionControls" style="position:fixed; top:16px; right:16px; z-index:12000; background:rgba(7, 18, 30, 0.92); color:#f0e6c8; border:1px solid #c9a84c; border-radius:10px; padding:12px; min-width:220px; box-shadow:0 8px 24px rgba(0,0,0,0.35);">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;">
+        <div style="font-weight:700;">Regression Tools</div>
+        <button
+          type="button"
+          id="regressionToggle"
+          onclick="toggleRegressionControls()"
+          aria-expanded="true"
+          title="Collapse regression tools"
+          style="padding:2px 8px; font-size:14px; line-height:1; cursor:pointer;"
+        >-</button>
+      </div>
+      <div id="regressionControlsBody">
+      <div style="font-size:12px; margin-bottom:10px;">Status: <span id="regressionStatus"><?= $regressionRecordingActive ? 'Recording' : 'Idle'; ?></span></div>
+      <div style="display:flex; flex-direction:column; gap:6px;">
+        <button type="button" onclick="startRegressionRecording()" style="padding:6px 10px;">Start Recording</button>
+        <button type="button" onclick="stopRegressionRecording()" style="padding:6px 10px;">Stop Recording</button>
+        <button type="button" onclick="addRegressionAssertion()" style="padding:6px 10px;">Add Assertion</button>
+        <button type="button" onclick="saveRegressionFixture()" style="padding:6px 10px;">Save Test</button>
+      </div>
+      </div>
+    </div>
+    <script>
+      function applyRegressionControlsCollapsedState(collapsed) {
+        var body = document.getElementById("regressionControlsBody");
+        var toggle = document.getElementById("regressionToggle");
+        var panel = document.getElementById("regressionControls");
+        if (!body || !toggle || !panel) return;
+        body.style.display = collapsed ? "none" : "block";
+        toggle.textContent = collapsed ? "+" : "-";
+        toggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+        toggle.setAttribute("title", collapsed ? "Expand regression tools" : "Collapse regression tools");
+        panel.style.minWidth = collapsed ? "unset" : "220px";
+      }
+
+      function toggleRegressionControls() {
+        var collapsed = localStorage.getItem("regressionControlsCollapsed") === "true";
+        collapsed = !collapsed;
+        localStorage.setItem("regressionControlsCollapsed", collapsed ? "true" : "false");
+        applyRegressionControlsCollapsedState(collapsed);
+      }
+
+      (function initializeRegressionControlsState() {
+        var collapsed = localStorage.getItem("regressionControlsCollapsed") === "true";
+        applyRegressionControlsCollapsedState(collapsed);
+      })();
+
+      function submitRegressionRequest(mode, inputText) {
+        return fetch(
+          "ProcessInput.php?gameName=" + encodeURIComponent(document.getElementById("gameName").value) +
+          "&playerID=" + encodeURIComponent(document.getElementById("playerID").value) +
+          "&authKey=" + encodeURIComponent(document.getElementById("authKey").value) +
+          "&folderPath=" + encodeURIComponent(document.getElementById("folderPath").value) +
+          "&mode=" + encodeURIComponent(mode) +
+          "&inputText=" + encodeURIComponent(inputText || ""),
+          { method: "GET" }
+        ).then(function(response) { return response.text(); });
+      }
+
+      function startRegressionRecording() {
+        submitRegressionRequest(11000, "").then(function(message) {
+          if (message) alert(message);
+          location.reload();
+        });
+      }
+
+      function stopRegressionRecording() {
+        submitRegressionRequest(11001, "").then(function(message) {
+          if (message) alert(message);
+          location.reload();
+        });
+      }
+
+      function addRegressionAssertion() {
+        var type = prompt("Assertion type:\nphase_is\nturn_player_is\nzone_count\ncard_exists\ncard_property_equals\ndecision_queue_empty\nflash_message_contains");
+        if (!type) return;
+        type = type.trim();
+        var payload = { type: type };
+        if (type === "phase_is" || type === "turn_player_is" || type === "flash_message_contains") {
+          var value = prompt("Expected value:");
+          if (value === null) return;
+          payload.value = value;
+        } else if (type === "zone_count") {
+          payload.zone = prompt("Zone name (for example myField):", "myField");
+          if (payload.zone === null) return;
+          payload.value = prompt("Expected count:", "0");
+          if (payload.value === null) return;
+        } else if (type === "card_exists") {
+          payload.zone = prompt("Zone name (for example myField):", "myField");
+          if (payload.zone === null) return;
+          payload.cardID = prompt("Card ID:");
+          if (payload.cardID === null) return;
+        } else if (type === "card_property_equals") {
+          payload.mzId = prompt("MZ ID (for example myField-0):");
+          if (payload.mzId === null) return;
+          payload.property = prompt("Property name (for example Damage):");
+          if (payload.property === null) return;
+          payload.value = prompt("Expected value:");
+          if (payload.value === null) return;
+        } else if (type === "decision_queue_empty") {
+          payload.player = prompt("Player to check (1, 2, or all):", "all");
+          if (payload.player === null) return;
+        } else {
+          alert("Unsupported assertion type.");
+          return;
+        }
+
+        submitRegressionRequest(11002, JSON.stringify(payload)).then(function(message) {
+          if (message) alert(message);
+          location.reload();
+        });
+      }
+
+      function saveRegressionFixture() {
+        var slug = prompt("Fixture slug:", "");
+        if (!slug) return;
+        var name = prompt("Fixture name:", slug);
+        if (name === null) return;
+        var notes = prompt("Notes (optional):", "");
+        if (notes === null) return;
+
+        submitRegressionRequest(11003, JSON.stringify({
+          slug: slug,
+          name: name,
+          notes: notes
+        })).then(function(message) {
+          if (message) alert(message);
+          location.reload();
+        });
+      }
+    </script>
+    <?php endif; ?>
     <div id='popupContainer'></div>
     <div id="cardDetail" style="z-index:100000; display:none; position:fixed;"></div>
     <div id='mainDiv' style='position:fixed; z-index:0; left:0; top:0; width:100%; height:100%;'>

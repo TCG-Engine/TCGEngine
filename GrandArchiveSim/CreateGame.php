@@ -89,7 +89,7 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
                             }
                         }
                     }
-                    Shuffle($gameDeck);
+                    EngineShuffle($gameDeck, true);
                     return;
                 }
             }
@@ -115,7 +115,7 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
         $cardID = $deck[$i];
         array_push($gameDeck, new Deck($cardID));
     }
-    Shuffle($gameDeck);
+    EngineShuffle($gameDeck, true);
 
     $materialDeck = ["LMyKyVC2O9","j6dkdoxyqt","59ipqa91r2","enxi6tshtu","2gv7DC0KID"];
     for($i=0; $i<count($materialDeck); ++$i) {

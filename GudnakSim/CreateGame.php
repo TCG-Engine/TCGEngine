@@ -87,7 +87,7 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
         $cardID = $deck[$i];
         array_push($gameDeck, new Deck($cardID));
     }
-    Shuffle($gameDeck);
+    EngineShuffle($gameDeck, true);
     Draw($playerID, amount: 5);
     // Future: Add handling for other preconstructed decks or deckLink
 }

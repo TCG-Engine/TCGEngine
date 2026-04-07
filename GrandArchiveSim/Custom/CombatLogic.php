@@ -1861,6 +1861,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     $retaliatorOptions = [$defenderMZ_fromDefender];
     $defenderField = GetField($defenderPlayer);
     foreach($defenderField as $i => $fieldObj) {
+        if($fieldObj === null) continue;
         if($fieldObj->removed) continue;
         $mzID = "myField-" . $i; // in defender's perspective
         if($mzID === $defenderMZ_fromDefender) continue; // skip the actual defender
