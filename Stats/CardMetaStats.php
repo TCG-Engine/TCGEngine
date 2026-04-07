@@ -22,7 +22,7 @@ $forIndividual = false;
 <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 <!-- Shared stats table styles -->
 <link rel="stylesheet" href="/TCGEngine/SharedUI/css/statsTables.css">
- 
+
 <?php $cardCurrentWeek = GetWeekSinceRef(); ?>
 <div class="week-controls">
   <div class="week-control">
@@ -34,6 +34,10 @@ $forIndividual = false;
     <div class="select-wrap"><select id="cardEndWeek" class="week-select"></select></div>
   </div>
   <button id="cardRefreshWeeks" class="week-refresh">Refresh</button>
+  <div class="week-control" style="margin-left:12px;">
+    <label for="minIncludes">Min Includes</label>
+    <input type="number" id="minIncludes" min="0" value="0" style="width:70px; height:28px; box-sizing:border-box; padding:0 6px;" />
+  </div>
 </div>
 <script>
   (function() {
@@ -82,6 +86,15 @@ $forIndividual = false;
       var json = typeof data === 'string' ? JSON.parse(data) : data;
       if (!Array.isArray(json) || json.length === 0) {
         document.getElementById('cardMetaStatsBody').innerHTML = '<tr><td colspan="10">No records found for the selected week(s).</td></tr>';
+        return;
+      }
+      var minIncludes = parseInt(document.getElementById('minIncludes').value || '0', 10);
+      if (isNaN(minIncludes) || minIncludes < 0) minIncludes = 0;
+      if (minIncludes > 0) {
+        json = json.filter(function(r) { return (r.timesIncluded || 0) >= minIncludes; });
+      }
+      if (json.length === 0) {
+        document.getElementById('cardMetaStatsBody').innerHTML = '<tr><td colspan="10">No records match the minimum includes filter.</td></tr>';
         return;
       }
       var rows = '';
