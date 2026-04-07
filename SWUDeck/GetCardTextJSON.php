@@ -68,29 +68,35 @@ $sideBoard     = [];
 $seen = [];
 foreach (array_merge((array)$leader, (array)$base) as $card) {
     $cardID = $card->CardID;
-    if (isset($seen[$cardID])) continue;
-    $seen[$cardID] = true;
+    if (isset($seen[$cardID])) { $seen[$cardID]++; continue; }
+    $seen[$cardID] = 1;
     $entry = buildCardEntry($cardID);
     if ($entry !== null) $leaderAndBase[] = $entry;
 }
+foreach ($leaderAndBase as &$entry) { $entry["copies"] = $seen[$entry["card"]] ?? 1; }
+unset($entry);
 
 $seen = [];
 foreach ((array)$mainDeck as $card) {
     $cardID = $card->CardID;
-    if (isset($seen[$cardID])) continue;
-    $seen[$cardID] = true;
+    if (isset($seen[$cardID])) { $seen[$cardID]++; continue; }
+    $seen[$cardID] = 1;
     $entry = buildCardEntry($cardID);
     if ($entry !== null) $mainBoard[] = $entry;
 }
+foreach ($mainBoard as &$entry) { $entry["copies"] = $seen[$entry["card"]] ?? 1; }
+unset($entry);
 
 $seen = [];
 foreach ((array)$sideboard as $card) {
     $cardID = $card->CardID;
-    if (isset($seen[$cardID])) continue;
-    $seen[$cardID] = true;
+    if (isset($seen[$cardID])) { $seen[$cardID]++; continue; }
+    $seen[$cardID] = 1;
     $entry = buildCardEntry($cardID);
     if ($entry !== null) $sideBoard[] = $entry;
 }
+foreach ($sideBoard as &$entry) { $entry["copies"] = $seen[$entry["card"]] ?? 1; }
+unset($entry);
 
 $result = [
     "leaderAndBase" => $leaderAndBase,
