@@ -4,4 +4,4 @@ png
 data
 pagination[page]
 meta->pagination->pageCount
-title,subtitle,cardNumber:number,cost:number,hp:number,power:number,text,unique,upgradeHp:number,upgradePower:number,aspect,trait,arena,type,rarity,set
+title,subtitle,cardNumber:number,cost:number,hp:number,power:number,text,unique:boolean,upgradeHp:number,upgradePower:number,aspect,trait,arena,type,rarity,set

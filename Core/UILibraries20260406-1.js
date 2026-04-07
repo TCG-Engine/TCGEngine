@@ -468,7 +468,7 @@
                 if(ShouldFilterWithOr(cardArr[0], filter)) continue;
               }
               if(filterFunction != null && window.customFilter && filterFunction(cardArr[0])) continue;
-              if(filterFunction != null && typeof window.InLegalFilter === 'function' && window.legalFilter && window.InLegalFilter(cardArr[0])) continue;
+              if(typeof window.InLegalFilter === 'function' && window.legalFilter && window.InLegalFilter(cardArr[0])) continue;
               if(linkedSubcardCardIDs[cardArr[0]]) continue; // skip cards rendered inline as subcards
               if(mode == "Tile") {
                 var cardObject = {
