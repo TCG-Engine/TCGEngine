@@ -11149,7 +11149,7 @@ function PlayerLevel($player) {
     $maxLevel = 0;
     foreach($zoneArr as $index => $obj) {
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
-            $cardLevel = CardLevel($obj->CardID);
+            $cardLevel = ObjectCurrentLevel($obj);
             if($cardLevel > $maxLevel) {
                 $maxLevel = $cardLevel;
             }
