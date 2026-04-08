@@ -8908,6 +8908,15 @@ function ObjectCurrentLevel($obj) {
                     }
                     $appliedPassives[$fID] = true;
                     break;
+                case "8c9htu9agw": // Prototype Staff: [Class Bonus][Memory 4+] champion gets +1 level
+                    if(IsClassBonusActive($obj->Controller, ["CLERIC"])) {
+                        $memory = &GetMemory($obj->Controller);
+                        if(count($memory) >= 4) {
+                            $cardLevel += 1;
+                        }
+                    }
+                    $appliedPassives[$fID] = true;
+                    break;
                 default: break;
             }
         }
@@ -8919,15 +8928,6 @@ function ObjectCurrentLevel($obj) {
                 case "yDARN8eV6B": // Tome of Knowledge: [Class Bonus] champion gets +1 level
                     if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
                         $cardLevel += 1;
-                    }
-                    break;
-                case "8c9htu9agw": // Prototype Staff: [Class Bonus][Memory 4+] champion gets +1 level
-                    if(IsClassBonusActive($obj->Controller, ["CLERIC"])) {
-                        global $playerID;
-                        $memZone = $obj->Controller == $playerID ? "myMemory" : "theirMemory";
-                        if(count(GetZone($memZone)) >= 4) {
-                            $cardLevel += 1;
-                        }
                     }
                     break;
                 case "j5iQQPd2m5": // Crystal of Argus: [Class Bonus] +1 level per 3 enlighten counters on champion
