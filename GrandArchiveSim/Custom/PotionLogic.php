@@ -26,7 +26,8 @@ $brewCosts["yorsltrnu3"] = [["type"=>"SUBTYPE","subtype"=>"LEAF"], ["type"=>"HER
 
 function Gather($player) {
     $herbTokens = ["i0a5uhjxhk", "5joh300z2s", "bd7ozuj68m", "soporhlq2k", "jnltv5klry", "69iq4d5vet"];
-    $randomHerb = $herbTokens[array_rand($herbTokens)];
+    $randomIndex = EngineRandomInt(0, count($herbTokens) - 1);
+    $randomHerb = $herbTokens[$randomIndex];
     MZAddZone($player, "myField", $randomHerb);
     OnGather($player);
 }

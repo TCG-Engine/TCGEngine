@@ -2038,6 +2038,10 @@ $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard_Process", 99);
 };
 
+$customDQHandlers["IngredientPouchGather"] = function($player, $parts, $lastDecision) {
+    Gather($player);
+};
+
 $customDQHandlers["DominatingStrikeAltCost"] = function($player, $parts, $lastDecision) {
     $baseReserve = intval($parts[0]);
     if($lastDecision === "YES") {
@@ -3710,6 +3714,10 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
  */
 function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
     switch($cardID) {
+        case "u7d6soporh": // Ingredient Pouch — (1), REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            break;
         case "nd8dy77ikm": // Shadeblood Coating â€” banish self
         case "nxm05jkjxg": // Rousing Rattle Drum â€” banish self
         case "pgysz2zfji": // Leporine Masque - banish self
