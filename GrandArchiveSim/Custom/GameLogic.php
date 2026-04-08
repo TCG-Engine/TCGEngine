@@ -10238,7 +10238,16 @@ function CardHasAbility($obj) {
 }
 
 // Internal tracking effects that are backend-only and should never render in the UI
-$backendOnlyTurnEffects = ["DAMAGED_SINCE_LAST_TURN", "ENTERED_THIS_TURN", "WAS_ATTACKED", "CHAMP_DMG_BY_P1"];
+$backendOnlyTurnEffects = [
+    "DAMAGED_SINCE_LAST_TURN",
+    "ENTERED_THIS_TURN",
+    "WAS_ATTACKED",
+    "CHAMP_DMG_BY_P1",
+    "vz4kc558yx-ACTION_PENDING",
+    "vz4kc558yx-ALLY_PENDING",
+    "vz4kc558yx-ACTION_ACTIVATED",
+    "vz4kc558yx-ALLY_ACTIVATED",
+];
 
 function CardCurrentEffects($obj) {
     global $doesGlobalEffectApply, $effectAppliesToBoth,$playerID;
