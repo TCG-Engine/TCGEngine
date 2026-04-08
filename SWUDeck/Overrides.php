@@ -108,6 +108,9 @@ function CardIDOverride($cardID) {
     case "LOF_060": return "TWI_058"; //Padawon Starfighter
     case "LOF_162": return "SHD_168"; //Hunting Nexu
     case "LOF_164": return "SOR_164"; //Wampa
+    case "SEC_030": return "SOR_033"; //Death Trooper
+    case "SEC_184": return "SOR_176"; //ISB Agent
+    case "SEC_250": return "SOR_239"; //Rebel Pathfinder
     case "LAW_115": return "SHD_057"; //Rickety Quadjumper
     case "LAW_175": return "JTL_136"; //Prototype TIE Advanced
     case "LAW_253": return "SOR_237"; //Alliance X-Wing
