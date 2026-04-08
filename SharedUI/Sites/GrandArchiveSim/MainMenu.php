@@ -85,7 +85,8 @@ include_once 'Header.php';
       var _lobby_id = "";
 
       function joinQueue() {
-        var preconstructedDeck = document.getElementById('preconstructed-deck').value;
+        var preconstructedDeckDropdown = document.getElementById('preconstructed-deck');
+        var preconstructedDeck = preconstructedDeckDropdown ? preconstructedDeckDropdown.value : '';
         var deckLink = document.getElementById('deck-link').value.trim();
         if (!deckLink && !preconstructedDeck) {
           alert('Please select a preconstructed deck or enter a deck link.');
