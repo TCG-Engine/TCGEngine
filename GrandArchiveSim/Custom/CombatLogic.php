@@ -9,7 +9,7 @@
  *   4. (Optional) The attacking player may choose a weapon to add to the attack (champion only).
  *   5. The attacking player chooses an attack target -- enemy ally or champion (step 2.c).
  *      - Stealth: units with Stealth can't be targeted unless the attacker has True Sight.
- *      - Intercept: if any non-Stealth defender has Intercept, it must be targeted first.
+ *      - Intercept: after a champion is attacked, an awake defender with Intercept may redirect that attack.
  *      - Cleave: if the attacker has Cleave, all eligible enemy units become defenders.
  *   6. Additional costs are paid (step 2.d).
  *   7. Restrictions (e.g. Taunt) are reconciled (step 2.e).
@@ -205,7 +205,7 @@ function AttackerHasCleave($attackerMZ, $player) {
  * Get valid attack targets on the opponent's field.
  * Enforces:
  *   - Stealth: units with Stealth can't be targeted unless the attacker has True Sight.
- *   - Intercept: if any remaining opposing unit has Intercept, only those may be targeted.
+ *   - Taunt: if any remaining opposing awake unit has Taunt, only those may be targeted.
  */
 function GetValidAttackTargets($attackerMZ) {
     global $playerID;
@@ -256,78 +256,7 @@ function GetValidAttackTargets($attackerMZ) {
         if(empty($opponents)) return $opponents;
     }
 
-    // Unblockable: Ominous Shadow bypasses intercept and taunt
-    $bypassIntercept = false;
-    if($attacker !== null && $attacker->CardID === "gveirpdm44" && !HasNoAbilities($attacker)) {
-        $bypassIntercept = true;
-    }
-    // Map of Hidden Passage (2bzajcZZRD): while its effect is active, units with stealth can't be intercepted
-    if(!$bypassIntercept && $attacker !== null && HasStealth($attacker)) {
-        $attackerGlobalEffectsZone = ($player === $GLOBALS['playerID']) ? "myGlobalEffects" : "theirGlobalEffects";
-        if(ZoneContainsCardID($attackerGlobalEffectsZone, "2bzajcZZRD_STEALTH_FREE")) {
-            $bypassIntercept = true;
-        }
-    }
-
-    // Check for Intercept -- units with Intercept must be targeted first
-    // Port Smuggler (uCIEMgGjWe): CB attacks can't be intercepted
-    if(!$bypassIntercept && $attacker !== null && $attacker->CardID === "uCIEMgGjWe" && IsClassBonusActive($player, CardClasses("uCIEMgGjWe"))) {
-        $bypassIntercept = true;
-    }
-    // Demon's Aim (6g7xgwve1d): champion ignores intercept and taunt this turn
-    if(!$bypassIntercept && $attacker !== null && in_array("6g7xgwve1d", $attacker->TurnEffects)) {
-        $bypassIntercept = true;
-    }
-    // Suzaku's Command (5v598k3m1w): target Beast ally can't be intercepted this turn
-    if(!$bypassIntercept && $attacker !== null && (in_array("5v598k3m1w", $attacker->TurnEffects) || in_array("5v598k3m1w-SHENJU", $attacker->TurnEffects))) {
-        $bypassIntercept = true;
-    }
-    // Guided Starlight (b0iz7wm7ow): champion's next attack is unblockable unless opponent pays (3)
-    if(!$bypassIntercept && $attacker !== null && in_array("b0iz7wm7ow_UNBLOCKABLE", $attacker->TurnEffects)) {
-        $bypassIntercept = true;
-    }
-    // Generic unblockable TurnEffect (e.g. Weiss Knight gaining unblockable from Chessman Command activation)
-    if(!$bypassIntercept && $attacker !== null && in_array("UNBLOCKABLE", $attacker->TurnEffects)) {
-        $bypassIntercept = true;
-    }
-    // Find the Lost (jTBNAEedbg): if prepared, it has unblockable
-    if(!$bypassIntercept) {
-        $intentCards = GetIntentCards($player);
-        foreach($intentCards as $intentMZ) {
-            $intentObj = &GetZoneObject($intentMZ);
-            if($intentObj !== null && $intentObj->CardID === "jTBNAEedbg"
-                && in_array("PREPARED", $intentObj->TurnEffects)) {
-                $bypassIntercept = true;
-                break;
-            }
-        }
-    }
-    // Strike from the Mist (DHn9J7gX6g): CB if prepared, can't be intercepted
-    if(!$bypassIntercept) {
-        $intentCards = GetIntentCards($player);
-        foreach($intentCards as $intentMZ) {
-            $intentObj = &GetZoneObject($intentMZ);
-            if($intentObj !== null && $intentObj->CardID === "DHn9J7gX6g"
-                && in_array("PREPARED", $intentObj->TurnEffects)
-                && IsClassBonusActive($player, explode(",", CardClasses("DHn9J7gX6g")))) {
-                $bypassIntercept = true;
-                break;
-            }
-        }
-    }
-    if(!$bypassIntercept) {
-        $interceptTargets = [];
-        foreach($opponents as $mzID) {
-            $obj = &GetZoneObject($mzID);
-            if(HasIntercept($obj)) {
-                $interceptTargets[] = $mzID;
-            }
-        }
-        // If any opposing unit has Intercept, only those may be targeted
-        if(!empty($interceptTargets)) {
-            return $interceptTargets;
-        }
-    }
+    $bypassIntercept = AttackBypassesInterceptAndTaunt($attackerMZ, $player);
 
     // Check for Taunt -- awake units with Taunt must be targeted before other units.
     // Unblockable bypasses Taunt just as it bypasses Intercept (same $bypassIntercept flag).
@@ -374,6 +303,65 @@ function GetValidAttackTargets($attackerMZ) {
     }
 
     return $opponents;
+}
+
+function AttackBypassesInterceptAndTaunt($attackerMZ, $player) {
+    $attacker = &GetZoneObject($attackerMZ);
+
+    if($attacker !== null && $attacker->CardID === "gveirpdm44" && !HasNoAbilities($attacker)) return true;
+    if($attacker !== null && HasStealth($attacker)) {
+        $attackerGlobalEffectsZone = ($player === $GLOBALS['playerID']) ? "myGlobalEffects" : "theirGlobalEffects";
+        if(ZoneContainsCardID($attackerGlobalEffectsZone, "2bzajcZZRD_STEALTH_FREE")) return true;
+    }
+    if($attacker !== null && $attacker->CardID === "uCIEMgGjWe" && IsClassBonusActive($player, CardClasses("uCIEMgGjWe"))) return true;
+    if($attacker !== null && in_array("6g7xgwve1d", $attacker->TurnEffects)) return true;
+    if($attacker !== null && (in_array("5v598k3m1w", $attacker->TurnEffects) || in_array("5v598k3m1w-SHENJU", $attacker->TurnEffects))) return true;
+    if($attacker !== null && in_array("b0iz7wm7ow_UNBLOCKABLE", $attacker->TurnEffects)) return true;
+    if($attacker !== null && in_array("UNBLOCKABLE", $attacker->TurnEffects)) return true;
+
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $intentMZ) {
+        $intentObj = &GetZoneObject($intentMZ);
+        if($intentObj !== null && $intentObj->CardID === "jTBNAEedbg"
+            && in_array("PREPARED", $intentObj->TurnEffects)) {
+            return true;
+        }
+    }
+    foreach($intentCards as $intentMZ) {
+        $intentObj = &GetZoneObject($intentMZ);
+        if($intentObj !== null && $intentObj->CardID === "DHn9J7gX6g"
+            && in_array("PREPARED", $intentObj->TurnEffects)
+            && IsClassBonusActive($player, explode(",", CardClasses("DHn9J7gX6g")))) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function GetAvailableInterceptRedirectTargets($attackerMZ, $targetMZ, $attackerPlayer) {
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || !PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) return [];
+    if(AttackBypassesInterceptAndTaunt($attackerMZ, $attackerPlayer)) return [];
+
+    $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
+    global $playerID;
+    $zone = ($defenderPlayer == $playerID) ? "myField" : "theirField";
+    $interceptTargets = [];
+    foreach(GetZone($zone) as $idx => $obj) {
+        if($obj->removed) continue;
+        if($obj->Status != 2) continue;
+        if(!PropertyContains(EffectiveCardType($obj), "ALLY")) continue;
+        if(PlayerLevel($obj->Controller) < PrideAmount($obj)) continue;
+        if(!HasIntercept($obj)) continue;
+        $interceptTargets[] = $zone . "-" . $idx;
+    }
+    return $interceptTargets;
+}
+
+function ConvertMzToPlayerPerspective($mzID, $targetPlayer) {
+    global $playerID;
+    if($mzID === null || $mzID === "-" || $mzID === "") return $mzID;
+    return ($targetPlayer == $playerID) ? $mzID : FlipZonePerspective($mzID);
 }
 
 /**
@@ -1565,7 +1553,7 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
 
 /**
  * Handler: player chose an attack target.
- * Stores combat state and grants Opportunity before the damage step.
+ * Stores combat state and resolves declaration-time retargeting before combat proceeds.
  */
 $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecision) {
     $attackerMZ = $parts[0];
@@ -1615,43 +1603,49 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         }
     }
 
+    $defPlayer = ($player == 1) ? 2 : 1;
+    $needsDefenderResolution = false;
+
     // Atmos Shield (80yu75k0hl): whenever another neos unit you control is targeted
     // for an attack, you may change the target to Atmos Shield
     $asTargetObj = GetZoneObject($lastDecision);
     if($asTargetObj !== null && EffectiveCardElement($asTargetObj) === "NEOS"
        && $asTargetObj->CardID !== "80yu75k0hl") {
-        $defPlayer = ($player == 1) ? 2 : 1;
         $defField = GetField($defPlayer);
         global $playerID;
         $prefix = ($defPlayer == $playerID) ? "myField" : "theirField";
         foreach($defField as $dfIdx => $dfObj) {
             if(!$dfObj->removed && $dfObj->CardID === "80yu75k0hl" && !HasNoAbilities($dfObj)) {
                 $shieldMZ = $prefix . "-" . $dfIdx;
+                $shieldMZForDefender = ConvertMzToPlayerPerspective($shieldMZ, $defPlayer);
                 DecisionQueueController::AddDecision($defPlayer, "YESNO", "-", 98,
                     tooltip:"Redirect_attack_to_Atmos_Shield?");
                 DecisionQueueController::AddDecision($defPlayer, "CUSTOM",
-                    "AtmosShieldRedirect|" . $shieldMZ, 98);
+                    "AtmosShieldRedirect|" . $shieldMZForDefender, 98);
+                $needsDefenderResolution = true;
                 break;
             }
         }
     }
 
-    // Beguiling Bandit (jyrqgyj9vn): attacker must pay (1) to attack it
-    $bbTargetObj = GetZoneObject($lastDecision);
-    if($bbTargetObj !== null && $bbTargetObj->CardID === "jyrqgyj9vn" && !HasNoAbilities($bbTargetObj)) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+    $interceptTargets = GetAvailableInterceptRedirectTargets($attackerMZ, $lastDecision, $player);
+    if(!empty($interceptTargets)) {
+        $defenderTargets = [];
+        foreach($interceptTargets as $targetMZ) {
+            $defenderTargets[] = ConvertMzToPlayerPerspective($targetMZ, $defPlayer);
+        }
+        DecisionQueueController::AddDecision($defPlayer, "MZMAYCHOOSE", implode("&", $defenderTargets), 98,
+            "Choose_an_interceptor");
+        DecisionQueueController::AddDecision($defPlayer, "CUSTOM", "InterceptTargetChosen", 98);
+        $needsDefenderResolution = true;
     }
 
-    // Hailfinch (3XV4QlQXfy): attacker must pay (2) to attack it
-    $hfTargetObj = GetZoneObject($lastDecision);
-    if($hfTargetObj !== null && $hfTargetObj->CardID === "3XV4QlQXfy" && !HasNoAbilities($hfTargetObj)) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+    if($needsDefenderResolution) {
+        DecisionQueueController::AddDecision($defPlayer, "CUSTOM", "FinalizeAttackDeclaration|" . $player, 99);
+        return;
     }
 
-    // Grant Opportunity window before damage step (turn player gets priority first)
-    $turnPlayer = GetTurnPlayer();
-    GrantOpportunityWindow($turnPlayer, "CombatDealDamage", $player);
+    FinalizeAttackDeclaration($player);
 };
 
 /**
@@ -1660,10 +1654,55 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
  */
 $customDQHandlers["AtmosShieldRedirect"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $shieldMZ = $parts[0];
-    $shieldObj = GetZoneObject($shieldMZ);
+    $shieldMZCurrent = $parts[0];
+    $shieldObj = GetZoneObject($shieldMZCurrent);
     if($shieldObj === null || $shieldObj->removed) return;
-    DecisionQueueController::StoreVariable("CombatTarget", $shieldMZ);
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
+    $shieldMZForAttacker = ConvertMzToPlayerPerspective($shieldMZCurrent, $attackerPlayer);
+    DecisionQueueController::StoreVariable("CombatTarget", $shieldMZForAttacker);
+};
+
+$customDQHandlers["InterceptTargetChosen"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+
+    $interceptObj = GetZoneObject($lastDecision);
+    if($interceptObj === null || $interceptObj->removed) return;
+    if($interceptObj->Status != 2) return;
+    if(!PropertyContains(EffectiveCardType($interceptObj), "ALLY")) return;
+    if(PlayerLevel($interceptObj->Controller) < PrideAmount($interceptObj)) return;
+    if(!HasIntercept($interceptObj)) return;
+
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
+    $interceptMZForAttacker = ConvertMzToPlayerPerspective($lastDecision, $attackerPlayer);
+    DecisionQueueController::StoreVariable("CombatTarget", $interceptMZForAttacker);
+};
+
+function FinalizeAttackDeclaration($attackerPlayer) {
+    $targetMZ = DecisionQueueController::GetVariable("CombatTarget");
+    if($targetMZ === null || $targetMZ === "-" || $targetMZ === "") return;
+
+    // Beguiling Bandit (jyrqgyj9vn): attacker must pay (1) to attack it
+    $bbTargetObj = GetZoneObject($targetMZ);
+    if($bbTargetObj !== null && $bbTargetObj->CardID === "jyrqgyj9vn" && !HasNoAbilities($bbTargetObj)) {
+        DecisionQueueController::AddDecision($attackerPlayer, "CUSTOM", "ReserveCard", 97);
+    }
+
+    // Hailfinch (3XV4QlQXfy): attacker must pay (2) to attack it
+    $hfTargetObj = GetZoneObject($targetMZ);
+    if($hfTargetObj !== null && $hfTargetObj->CardID === "3XV4QlQXfy" && !HasNoAbilities($hfTargetObj)) {
+        DecisionQueueController::AddDecision($attackerPlayer, "CUSTOM", "ReserveCard", 97);
+        DecisionQueueController::AddDecision($attackerPlayer, "CUSTOM", "ReserveCard", 97);
+    }
+
+    // Grant Opportunity window before damage step (turn player gets priority first)
+    $turnPlayer = GetTurnPlayer();
+    GrantOpportunityWindow($turnPlayer, "CombatDealDamage", $attackerPlayer);
+}
+
+$customDQHandlers["FinalizeAttackDeclaration"] = function($player, $parts, $lastDecision) {
+    $attackerPlayer = intval($parts[0] ?? "0");
+    if($attackerPlayer <= 0) return;
+    FinalizeAttackDeclaration($attackerPlayer);
 };
 
 /**
