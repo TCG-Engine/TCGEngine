@@ -31,6 +31,7 @@ include_once 'Header.php';
   <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px;">
     <h2>Create a New Game</h2>
     <div>
+      <!--
       <label for="preconstructed-deck" style="display: block; margin-bottom: 8px; font-weight: 500;">Choose Your Deck:</label>
       <select id="preconstructed-deck" name="preconstructed_deck" required style="
         width: 100%;
@@ -53,6 +54,7 @@ include_once 'Header.php';
       <div style="display: flex; align-items: center; margin: 12px 0; color: #888;">
         <hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;"><span style="margin: 0 10px; font-size: 12px;">OR</span><hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;">
       </div>
+-->
       <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a TCGArchitect deck link:</label>
       <input type="text" id="deck-link" name="deck_link" placeholder="https://app.tcgarchitect.com/deck/..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
       <!--
@@ -73,8 +75,7 @@ include_once 'Header.php';
   <!-- News Section -->
   <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px;">
     <h2>Welcome to Clarent!</h2>
-    <p class="login-message">Clarent is a fan-made online simulator for the Grand Archive expandable card game.</p>
-    <p class="login-message">Build your deck, challenge other players, and master the game. Join our community on Discord for feedback and updates!</p>
+    <p class="login-message">Clarent is a fan-made online simulator for the Grand Archive TCG.</p>
   </div>
 </div>
 
