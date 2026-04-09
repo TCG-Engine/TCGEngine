@@ -97,7 +97,10 @@ function LoadDecks() {
   if(!IsUserLoggedIn()) {
     echo("Log in to view your decks");
     return;
-  }  $decks = GetDecksByUserID(LoggedInUser());
+  }
+  $allowedSorts = ['alpha_asc','alpha_desc','updated_desc','updated_asc','id_asc','id_desc'];
+  $sortBy = isset($_GET['deckSort']) && in_array($_GET['deckSort'], $allowedSorts) ? $_GET['deckSort'] : 'id_desc';
+  $decks = GetDecksByUserID(LoggedInUser(), $sortBy);
   echo("<div class='sciFiScroll' style='overflow-y: auto; max-height: calc(100vh - 380px);'>");
   echo("<table style='width: 100%; border-collapse: collapse;'>");
   $favoriteDecks = "";
@@ -214,12 +217,23 @@ function LoadDecks() {
     echo("</div>");
   }
 
-  function GetDecksByUserID($userID) {
+  function GetDecksByUserID($userID, $sortBy = 'id_desc') {
     $conn = GetLocalMySQLConnection();
-    $sql = "SELECT * FROM ownership
-            WHERE assetType = 1
-            AND (assetOwner = ?
-                 OR assetVisibility = (1000 + COALESCE((SELECT teamID FROM users WHERE usersId = ?), 0)))";
+    $sortOptions = [
+      'alpha_asc'    => "ORDER BY COALESCE(NULLIF(o.assetName,''), CONCAT('Deck #', o.assetIdentifier)) ASC",
+      'alpha_desc'   => "ORDER BY COALESCE(NULLIF(o.assetName,''), CONCAT('Deck #', o.assetIdentifier)) DESC",
+      'updated_desc' => 'ORDER BY lastUpdated DESC',
+      'updated_asc'  => 'ORDER BY lastUpdated ASC',
+      'id_asc'       => 'ORDER BY o.assetIdentifier ASC',
+      'id_desc'      => 'ORDER BY o.assetIdentifier DESC',
+    ];
+    $orderClause = isset($sortOptions[$sortBy]) ? $sortOptions[$sortBy] : $sortOptions['id_desc'];
+    $sql = "SELECT o.*
+            FROM ownership o
+            WHERE o.assetType = 1
+            AND (o.assetOwner = ?
+                 OR o.assetVisibility = (1000 + COALESCE((SELECT teamID FROM users WHERE usersId = ?), 0)))
+            $orderClause";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $userID, $userID);
     $stmt->execute();
@@ -515,6 +529,28 @@ function LoadDecks() {
     xhr.send();
   }
 
+  function applyDeckSort(value) {
+    localStorage.setItem('deckSort', value);
+    var url = new URL(window.location.href);
+    url.searchParams.set('deckSort', value);
+    window.location.href = url.toString();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var urlParam = new URLSearchParams(window.location.search).get('deckSort');
+    var stored = localStorage.getItem('deckSort');
+    var sel = document.getElementById('deckSortSelect');
+    if (!sel) return;
+    // URL param wins (PHP already sorted by it); otherwise restore from localStorage
+    if (urlParam) {
+      sel.value = urlParam;
+    } else if (stored) {
+      sel.value = stored;
+      // re-apply sort so the order matches what localStorage wants
+      applyDeckSort(stored);
+    }
+  });
+
   function filterDecks() {
     var input = document.getElementById("deckSearchInput");
     var filter = input.value.toLowerCase();
@@ -743,6 +779,20 @@ function LoadDecks() {
                       style="width: 100%; padding: 10px; background-color: #002249; color: white;
                             border: 1px solid #2a4b8d; border-radius: 4px;"
                       onkeyup="filterDecks()">
+              </div>
+              <?php
+                $allowedSortKeys = ['id_desc','id_asc','updated_desc','updated_asc','alpha_asc','alpha_desc'];
+                $activeSortKey = isset($_GET['deckSort']) && in_array($_GET['deckSort'], $allowedSortKeys) ? $_GET['deckSort'] : null;
+                $sortLabels = ['id_desc'=>'Date Created (Newest)','id_asc'=>'Date Created (Oldest)','updated_desc'=>'Last Updated (Recent)','updated_asc'=>'Last Updated (Oldest)','alpha_asc'=>'Alphabetical (A&rarr;Z)','alpha_desc'=>'Alphabetical (Z&rarr;A)'];
+              ?>
+              <div style="display:flex; align-items:center; gap:6px; margin:6px 0 4px;">
+                <label for="deckSortSelect" style="font-size:13px; color:#aac; white-space:nowrap;">Sort by:</label>
+                <select id="deckSortSelect" onchange="applyDeckSort(this.value)"
+                  style="flex:1; padding:5px 8px; background:#002249; color:#fff; border:1px solid #2a4b8d; border-radius:4px; font-size:13px;">
+                  <?php foreach($sortLabels as $val => $label): ?>
+                  <option value="<?= $val ?>"<?= ($activeSortKey === $val) ? ' selected' : '' ?>><?= $label ?></option>
+                  <?php endforeach; ?>
+                </select>
               </div>
               <div><?php LoadDecks(); ?></div>
             </div>

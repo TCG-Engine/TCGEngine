@@ -26,12 +26,12 @@ function CardIDOverride($cardID) {
     case "TWI_174": return "SOR_172"; //Open Fire
     case "TWI_226": return "SOR_222"; //Waylay
     case "TWI_254": return "SOR_248"; //Volunteer Soldier
-    case "C24_001": return "SOR_038"; //Count Dooku (Darth Tyranus)
-    case "C24_002": return "SOR_087"; //Darth Vader (Commanding the First Legion)
-    case "C24_003": return "SOR_135"; //Emperor Palpatine (Master of the Dark Side)
-    case "C24_004": return "SHD_141"; //Kylo Ren (Killing the Past)
-    case "C24_005": return "TWI_134"; //Asajj Ventress (Count Dooku's Assassin)
-    case "C24_006": return "TWI_135"; //Darth Maul (Revenge at Last)
+    case "C24_001": return "SOR_038"; //Count Dooku - Darth Tyranus
+    case "C24_002": return "SOR_087"; //Darth Vader - Commanding the First Legion
+    case "C24_003": return "SOR_135"; //Emperor Palpatine - Master of the Dark Side
+    case "C24_004": return "SHD_141"; //Kylo Ren - Killing the Past
+    case "C24_005": return "TWI_134"; //Asajj Ventress - Count Dooku's Assassin
+    case "C24_006": return "TWI_135"; //Darth Maul - Revenge at Last
     case "J24_001": return "SOR_040"; //Avenger
     case "J24_002": return "SOR_145"; //K-2SO
     case "J24_003": return "SHD_037"; //Supreme Leader Snoke
@@ -42,8 +42,8 @@ function CardIDOverride($cardID) {
     case "GG_002": return "SOR_024"; //Echo Base
     case "GG_003": return "SOR_026"; //Catacombs of Cadera
     case "GG_004": return "SHD_026"; //Jabba's Palace
-    case "GG_005": return "SOR_001"; //Experience (Token Upgrade)
-    case "GG_006": return "SOR_002"; //Shield (Token Upgrade)
+    case "GG_005": return "SOR_001"; //Experience Token
+    case "GG_006": return "SOR_002"; //Shield Token
     case "JTL_258": return "SOR_250"; //Corellian Freighter
     case "JTL_113": return "SOR_113"; //Homestead Militia
     case "JTL_167": return "SOR_165"; //Occupier Siege Tank
@@ -102,10 +102,10 @@ function CardIDOverride($cardID) {
     case "P25_054": return "TWI_165"; //Kit Fisto
     case "P25_055": return "SOR_184"; //Fett's Firespray
     case "P25_056": return "TWI_189"; //Unnatural Life
-    case "P25_057": return "SOR_135"; //Emperor Palpatine (Master of the Dark Side)
+    case "P25_057": return "SOR_135"; //Emperor Palpatine - Master of the Dark Side
     case "P25_059": return "SHD_046"; //Rey
     case "LOF_058": return "SOR_061"; //Guardian of the Whills
-    case "LOF_060": return "TWI_058"; //Padawon Starfighter
+    case "LOF_060": return "TWI_058"; //Padawan Starfighter
     case "LOF_162": return "SHD_168"; //Hunting Nexu
     case "LOF_164": return "SOR_164"; //Wampa
     case "SEC_030": return "SOR_033"; //Death Trooper

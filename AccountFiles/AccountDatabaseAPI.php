@@ -279,6 +279,16 @@ function storeRememberMeCookie($conn, $uuid, $cookie)
 	}
 }
 
+function TouchOwnershipLastUpdated($assetID, $assetType = 1) {
+  $conn = GetLocalMySQLConnection();
+  if (!$conn) return;
+  $stmt = $conn->prepare("UPDATE ownership SET lastUpdated = NOW() WHERE assetIdentifier = ? AND assetType = ?");
+  $stmt->bind_param("ii", $assetID, $assetType);
+  $stmt->execute();
+  $stmt->close();
+  $conn->close();
+}
+
 function SetAssetKeyIdentifier($assetType, $assetID, $keyIndicator, $keyValue, $conn=null) {
 	$connWasNull = $conn == null;
     if($conn == null) $conn = GetLocalMySQLConnection();

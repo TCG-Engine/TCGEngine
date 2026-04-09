@@ -97,7 +97,10 @@ function LoadDecks() {
   if(!IsUserLoggedIn()) {
     echo("Log in to view your decks");
     return;
-  }  $decks = GetDecksByUserID(LoggedInUser());
+  }
+  $allowedSorts = ['alpha_asc','alpha_desc','updated_desc','updated_asc','id_asc','id_desc'];
+  $sortBy = isset($_GET['deckSort']) && in_array($_GET['deckSort'], $allowedSorts) ? $_GET['deckSort'] : 'id_desc';
+  $decks = GetDecksByUserID(LoggedInUser(), $sortBy);
   echo("<div class='sciFiScroll' style='overflow-y: auto; max-height: calc(100vh - 380px);'>");
   echo("<table style='width: 100%; border-collapse: collapse;'>");
   $favoriteDecks = "";
@@ -207,12 +210,23 @@ function LoadDecks() {
     echo("</div>");
   }
 
-  function GetDecksByUserID($userID) {
+  function GetDecksByUserID($userID, $sortBy = 'id_desc') {
     $conn = GetLocalMySQLConnection();
-    $sql = "SELECT * FROM ownership
-            WHERE assetType = 1
-            AND (assetOwner = ?
-                 OR assetVisibility = (1000 + COALESCE((SELECT teamID FROM users WHERE usersId = ?), 0)))";
+    $sortOptions = [
+      'alpha_asc'    => "ORDER BY COALESCE(NULLIF(o.assetName,''), CONCAT('Deck #', o.assetIdentifier)) ASC",
+      'alpha_desc'   => "ORDER BY COALESCE(NULLIF(o.assetName,''), CONCAT('Deck #', o.assetIdentifier)) DESC",
+      'updated_desc' => 'ORDER BY lastUpdated DESC',
+      'updated_asc'  => 'ORDER BY lastUpdated ASC',
+      'id_asc'       => 'ORDER BY o.assetIdentifier ASC',
+      'id_desc'      => 'ORDER BY o.assetIdentifier DESC',
+    ];
+    $orderClause = isset($sortOptions[$sortBy]) ? $sortOptions[$sortBy] : $sortOptions['id_desc'];
+    $sql = "SELECT o.*
+            FROM ownership o
+            WHERE o.assetType = 1
+            AND (o.assetOwner = ?
+                 OR o.assetVisibility = (1000 + COALESCE((SELECT teamID FROM users WHERE usersId = ?), 0)))
+            $orderClause";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("ii", $userID, $userID);
     $stmt->execute();
@@ -527,6 +541,27 @@ function LoadDecks() {
     }
   }
 
+  function applyDeckSort(value) {
+    localStorage.setItem('deckSort', value);
+    var url = new URL(window.location.href);
+    url.searchParams.set('deckSort', value);
+    window.location.href = url.toString();
+  }
+
+  // Restore sort select state from URL param (set by PHP) or localStorage
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var sort = params.get('deckSort') || localStorage.getItem('deckSort') || 'id_desc';
+    var sel = document.getElementById('deckSortSelect');
+    if (sel) sel.value = sort;
+    // If localStorage had a value but URL didn't, sync the URL silently
+    if (!params.get('deckSort') && sort !== 'id_desc') {
+      var url = new URL(window.location.href);
+      url.searchParams.set('deckSort', sort);
+      history.replaceState(null, '', url.toString());
+    }
+  })();
+
   // Dropdown for mobile deck actions
   function showDeckDropdown(btn, id, deckID, assetSource, assetSourceID, assetFolder, canRefresh) {
     // Remove any existing dropdown
@@ -658,6 +693,18 @@ function LoadDecks() {
                       style="width: 100%; padding: 10px; background-color: #002249; color: white;
                             border: 1px solid #2a4b8d; border-radius: 4px;"
                       onkeyup="filterDecks()">
+              </div>
+              <div style="display:flex; align-items:center; gap:6px; margin:6px 0 4px;">
+                <label for="deckSortSelect" style="font-size:13px; color:#aac; white-space:nowrap;">Sort by:</label>
+                <select id="deckSortSelect" onchange="applyDeckSort(this.value)"
+                  style="flex:1; padding:5px 8px; background:#002249; color:#fff; border:1px solid #2a4b8d; border-radius:4px; font-size:13px;">
+                  <option value="id_desc">Date Created (Newest)</option>
+                  <option value="id_asc">Date Created (Oldest)</option>
+                  <option value="updated_desc">Last Updated (Recent)</option>
+                  <option value="updated_asc">Last Updated (Oldest)</option>
+                  <option value="alpha_asc">Alphabetical (A→Z)</option>
+                  <option value="alpha_desc">Alphabetical (Z→A)</option>
+                </select>
               </div>
               <div><?php LoadDecks(); ?></div>
             </div>

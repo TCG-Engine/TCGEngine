@@ -94,5 +94,6 @@
   ++$updateNumber;
   WriteGamestate();
   GamestateUpdated($gameName);
+  if (is_numeric($gameName)) TouchOwnershipLastUpdated(intval($gameName));
 
 ?>
