@@ -439,28 +439,44 @@
         CheckReloadNeeded(0);
       }
 
+      var _reloadRequestInFlight = false;
+
+      function QueueReload(lastUpdate) {
+        if (lastUpdate == "NaN") return;
+        window.setTimeout(function() {
+          CheckReloadNeeded(lastUpdate);
+        }, 0);
+      }
+
       function CheckReloadNeeded(lastUpdate) {
+        if (_reloadRequestInFlight) return;
+        _reloadRequestInFlight = true;
         var xmlhttp = new XMLHttpRequest();
         xmlhttp.onreadystatechange = function() {
           if (this.readyState == 4 && this.status == 200) {
-            if (this.responseText == "NaN") {} //Do nothing, game is invalid
-            else if(this.responseText == "KEEPALIVE") {
-              if(_lastUpdate != "NaN") CheckReloadNeeded(_lastUpdate);
-            } else if (this.responseText.split("REMATCH")[0] == "1234") {
+            _reloadRequestInFlight = false;
+            var responseText = (this.responseText || "").trim();
+            if (responseText == "NaN") {} //Do nothing, game is invalid
+            else if(responseText == "" || responseText == "KEEPALIVE") {
+              QueueReload(_lastUpdate);
+            } else if (responseText.split("REMATCH")[0] == "1234") {
               location.replace('GameLobby.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo ($playerID); ?>&authKey=<?php echo ($authKey); ?>');
             } else {
               HideCardDetail();
-              var responseArr = this.responseText.split("<~>");
-              var update = parseInt(responseArr[0]);
-              if (update != "NaN") CheckReloadNeeded(update);
-              else {
+              var responseArr = responseText.split("<~>");
+              var update = parseInt(responseArr[0], 10);
+              if (Number.isNaN(update)) {
                 _lastUpdate = "NaN";
                 return;
               }
-              if(update <= _lastUpdate) return;
+              if(update <= _lastUpdate) {
+                QueueReload(_lastUpdate);
+                return;
+              }
               //An update was received, begin processing it
 
               _lastUpdate = update;
+              QueueReload(update);
               //Handle events; they may need a delay in the card rendering
               //var events = responseArr[1];
               var events = "";//TODO: Fix this
