@@ -58,6 +58,7 @@ Field - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controlle
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentHP=ObjectCurrentHPDisplay()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
+Virtual: CombatTargetIndicator=CombatTargetIndicator()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: CurrentLevel=ObjectCurrentLevelDisplay()

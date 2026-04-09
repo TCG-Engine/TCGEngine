@@ -551,6 +551,10 @@
         if (window.SelectionMode.active && typeof IsSelectableCard === 'function') {
           isSelectable = IsSelectableCard(zone, cardArr, i);
         }
+        var sharedCardData = {};
+        if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
+          try { sharedCardData = JSON.parse(cardArr[2]); } catch (e) {}
+        }
 
         // Check if this card should be highlighted based on HighlightRules
         // Only apply highlighting for the turn player
@@ -563,10 +567,7 @@
 
           if (viewerIsTurnPlayer && typeof HighlightRules !== 'undefined' && HighlightRules[zoneName]) {
             const highlightProperty = HighlightRules[zoneName];
-            var cardData = {};
-            if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
-              try { cardData = JSON.parse(cardArr[2]); } catch (e) {}
-            }
+            var cardData = sharedCardData;
             // Check if the card has the highlight property and it's truthy
             if (cardData.hasOwnProperty(highlightProperty) && cardData[highlightProperty]) {
               let rawValue = cardData[highlightProperty];
@@ -595,6 +596,8 @@
         var id = zone + "-" + i;
         var positionStyle = "relative";
         var className = isSelectable ? "selectable-card" : "";
+        var combatIndicatorClass = (zoneName === "Field" && sharedCardData.CombatTargetIndicator) ? " combat-targeted-card" : "";
+        var combatIndicatorText = (zoneName === "Field" && sharedCardData.CombatTargetIndicator) ? sharedCardData.CombatTargetIndicator : "";
 
         // Build inline styles - combine position and custom color variable
         var inlineStyles = "position:" + positionStyle + "; margin:1px;";
@@ -612,7 +615,7 @@
         }
 
         var styles = " style='" + inlineStyles + "'";
-        var droppable = " class='draggable " + className + "' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'";
+        var droppable = " class='draggable " + className + combatIndicatorClass + "' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'";
         var click = isSelectable
           ? " onclick=\"OnSelectableCardClick('" + zoneName + "', '" + id + "')\""
           : " onclick=\"CardClick(event, '" + zoneName + "', '" + id + "')\"";
@@ -623,10 +626,7 @@
         var overlay = 0;
         try {
           if (typeof OverlayRules !== 'undefined' && OverlayRules[zoneName]) {
-            var cardData = {};
-            if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
-              try { cardData = JSON.parse(cardArr[2]); } catch (e) {}
-            }
+            var cardData = sharedCardData;
             OverlayRules[zoneName].forEach(function(rule) {
               if (cardData.hasOwnProperty(rule.field) && String(cardData[rule.field]) === String(rule.value)) {
                 overlay = 1;
@@ -637,12 +637,17 @@
 
         newHTML += Card(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id);
 
+        try {
+          if (combatIndicatorText) {
+            newHTML += "<div class='combat-target-indicator' aria-label='Attack target'>" + combatIndicatorText + "</div>";
+          }
+        } catch (e) {
+          if (console && console.error) console.error('Combat target indicator render error', e);
+        }
+
         // Render subcards (lineage) as offset images behind the card
         try {
-          var cardDataSub = {};
-          if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
-            try { cardDataSub = JSON.parse(cardArr[2]); } catch (e) {}
-          }
+          var cardDataSub = sharedCardData;
           if (cardDataSub.Subcards && Array.isArray(cardDataSub.Subcards) && cardDataSub.Subcards.length > 0) {
             var subcards = cardDataSub.Subcards;
             for (var si = subcards.length - 1; si >= 0; si--) {
@@ -686,6 +691,30 @@
         span.draggable:hover .widget-buttons {
           visibility: visible !important;
           pointer-events: auto !important;
+        }
+
+        .combat-target-indicator {
+          position: absolute;
+          top: 6px;
+          left: 50%;
+          transform: translateX(-50%);
+          z-index: 12;
+          padding: 3px 8px;
+          border: 1px solid rgba(255, 255, 255, 0.9);
+          border-radius: 999px;
+          background: rgba(170, 22, 22, 0.9);
+          box-shadow: 0 0 0 2px rgba(255, 210, 210, 0.2);
+          color: #fff;
+          font-family: 'Orbitron', sans-serif;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          pointer-events: none;
+          text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        span.draggable.combat-targeted-card > a > img {
+          box-shadow: 0 0 0 2px rgba(255, 84, 84, 0.95), 0 0 18px rgba(255, 84, 84, 0.45);
         }
       `;
       document.head.appendChild(widgetstyle);

@@ -10366,6 +10366,16 @@ function FieldSelectionMetadata($obj) {
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
 }
 
+function CombatTargetIndicator($obj) {
+    if(!isset($obj->Location) || $obj->Location !== "Field") return "";
+    if(!method_exists($obj, "GetMzID")) return "";
+
+    $mzTarget = $obj->GetMzID();
+    if($mzTarget === null || $mzTarget === "" || $mzTarget === "-") return "";
+
+    return IsUnitDefending($mzTarget) ? "TARGET" : "";
+}
+
 function CanActExhausted($obj) {
     
     return false;
