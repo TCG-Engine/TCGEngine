@@ -2,7 +2,7 @@
 
 /* Fonts */
 
-html, body, h1, h2, h3, h4, h5, h6, p, a, b, ul, ol, dl, dd, form, details, blockquote, table, button, input, label, select, textarea {
+html, body, h1, h2, h3, h4, h5, h6, p, a, b, ul, ol, li, dl, dd, form, details, blockquote, table, th, td, button, input, label, select, textarea, small, span, code {
     font-family: barlow;
     color: white;
     margin: 0;
