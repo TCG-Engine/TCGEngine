@@ -101,7 +101,7 @@ Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode
 Memory - CardID:string
 Display: Visibility=Self, Mode=Single, Bottom=10px, Left=10px
 Material - CardID:string
-Display: Visibility=Self, Mode=None
+Display: Visibility=Self, Mode=Single, Top=120px, Left=10px
 TempZone - CardID:string
 Display: Visibility=Self, Mode=None
 Virtual: SelectionMetadata=SelectionMetadata()
@@ -111,7 +111,7 @@ Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
 Widgets: Value=-1&+1,CustomInput=Pass
 Mastery - CardID:string, Direction:string=NONE, Counters:json
 Virtual: SheenCounterCount=GetSheenCounterCount(), HauntCounterCount=GetHauntCounterCount()
-Display: Visibility=Public, Mode=All, Top=120px, Left=10px
+Display: Visibility=Public, Mode=All, Top=120px, Left=120px
 Overlay: Direction=NORTH:sc_north,Direction=SOUTH:sc_south,Direction=EAST:sc_east,Direction=WEST:sc_west
 Counters: SheenCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false), HauntCounterCount=Badge(Color=Purple,Position=TopRight,ShowZero=false)
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
