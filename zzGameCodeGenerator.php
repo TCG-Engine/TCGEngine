@@ -1847,7 +1847,24 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= "  echo(ClientRenderedCard(\"CardBack\", counters:count(\$" . $zoneName . ")));\r\n";
 
       } else if ($zone->Visibility == "Self") {
-        //$getNextTurn .= "echo \"Single Self\";\r\n";
+        if ($scope == 'global') {
+          $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
+        } else {
+          $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
+        }
+        $getNextTurn .= "  if(\$playerID == " . $player . ") {\r\n";
+        $getNextTurn .= "    for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
+        $getNextTurn .= "      if(\$i > 0) echo(\"<|>\");\r\n";
+        $getNextTurn .= "      \$obj = \$arr[\$i];\r\n";
+        if(count($zone->VirtualProperties) > 0) {
+          $getNextTurn .= "      ComputeVirtualProperties(\$obj);\r\n";
+        }
+        $getNextTurn .= "      \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        $getNextTurn .= "      echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        $getNextTurn .= "    }\r\n";
+        $getNextTurn .= "  } else {\r\n";
+        $getNextTurn .= "    if(count(\$arr) > 0) echo(ClientRenderedCard(\"CardBack\", counters:count(\$arr)));\r\n";
+        $getNextTurn .= "  }\r\n";
       }
     } else if($zone->DisplayMode == "All" || $zone->DisplayMode == "Pane" || $zone->DisplayMode == "Tile" || $zone->DisplayMode == "None") {
       if ($scope == 'global') {

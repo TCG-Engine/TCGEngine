@@ -99,7 +99,7 @@ Display: Visibility=Public, Mode=All, Bottom=230px, Left=10px
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Memory - CardID:string
-Display: Visibility=Public, Mode=Single, Bottom=10px, Left=10px
+Display: Visibility=Self, Mode=Single, Bottom=10px, Left=10px
 Material - CardID:string
 Display: Visibility=Self, Mode=None
 TempZone - CardID:string

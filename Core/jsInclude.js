@@ -218,6 +218,16 @@ function ShowZonePopup(cardId) {
   var parts = cardId.split("-");
   var zoneName = parts.length > 1 ? parts[0] : cardId;
   if (zoneName) {
+    var zoneData = GetZoneData(zoneName);
+    if (zoneData) {
+      var isOpponentZone = zoneName.indexOf("their") === 0;
+      var visibility = zoneData.Visibility || "Public";
+      var displayMode = zoneData.DisplayMode || "";
+      var hiddenFromViewer =
+        visibility === "Private" ||
+        (visibility === "Self" && isOpponentZone);
+      if (displayMode === "Single" && hiddenFromViewer) return;
+    }
     TogglePopup(zoneName);
   }
 }
