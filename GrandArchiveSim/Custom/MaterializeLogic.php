@@ -5,6 +5,9 @@
  */
 
 function MaterializePhase() {
+    $currentTurn = intval(GetTurnNumber());
+    if($currentTurn === 1) return;
+
     // Materialize phase
     SetFlashMessage("Materialize Phase");
     MaterializeChoice();

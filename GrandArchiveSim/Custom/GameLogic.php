@@ -182,6 +182,105 @@ function SaveUndoVersion($playerID, $name = "") {
     AddVersions($playerID, '0:' . $namePrefix . $zones);
 }
 
+function GetStartingChampionChoices($player) {
+    $material = GetMaterial($player);
+    $levelZeroChampions = [];
+    $fallbackChampions = [];
+    for($i = 0; $i < count($material); ++$i) {
+        $obj = $material[$i];
+        if($obj->removed || !PropertyContains(CardType($obj->CardID), "CHAMPION")) continue;
+        $mzID = "myMaterial-" . $i;
+        $fallbackChampions[] = $mzID;
+        if(intval(CardLevel($obj->CardID)) === 0) {
+            $levelZeroChampions[] = $mzID;
+        }
+    }
+    return !empty($levelZeroChampions) ? $levelZeroChampions : $fallbackChampions;
+}
+
+function QueuePregameStartingChampionChoice($player, $nextPlayer = null) {
+    $choices = GetStartingChampionChoices($player);
+    if(empty($choices)) return false;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, "Reveal_your_starting_Lv_0_champion");
+    $handlerParam = "PREGAME_CHOOSE_STARTING_CHAMPION";
+    if($nextPlayer !== null) $handlerParam .= "|" . $nextPlayer;
+    DecisionQueueController::AddDecision($player, "CUSTOM", $handlerParam, 1);
+    return true;
+}
+
+function QueuePregameStartingChampionSetup() {
+    $firstPlayer = intval(GetFirstPlayer());
+    $secondPlayer = $firstPlayer == 1 ? 2 : 1;
+    if(FindChampionMZ($firstPlayer) !== null && FindChampionMZ($secondPlayer) !== null) return false;
+    return QueuePregameStartingChampionChoice($firstPlayer, $secondPlayer);
+}
+
+function PlacePregameStartingChampion($player, $mzID) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || !PropertyContains(CardType($obj->CardID), "CHAMPION")) return null;
+
+    DecisionQueueController::StoreVariable("SuppressNextEnter", "YES");
+    $newObj = MZMove($player, $mzID, "myField");
+    if($newObj === null) {
+        DecisionQueueController::ClearVariable("SuppressNextEnter");
+        return null;
+    }
+
+    $newObj->TurnEffects = array_values(array_filter(
+        $newObj->TurnEffects ?? [],
+        fn($effect) => $effect !== "ENTERED_THIS_TURN"
+    ));
+    return $newObj->GetMzID();
+}
+
+$customDQHandlers["PREGAME_CHOOSE_STARTING_CHAMPION"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+
+    $startingChampionMZ = PlacePregameStartingChampion($player, $lastDecision);
+    if($startingChampionMZ === null) return;
+    DecisionQueueController::StoreVariable("PregameStartingChampion" . $player, $startingChampionMZ);
+
+    $nextPlayer = isset($parts[0]) ? intval($parts[0]) : 0;
+    if($nextPlayer > 0) {
+        if(!QueuePregameStartingChampionChoice($nextPlayer)) {
+            $firstPlayer = intval(GetFirstPlayer());
+            $secondPlayer = $firstPlayer == 1 ? 2 : 1;
+            DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "PREGAME_RESOLVE_STARTING_CHAMPION_ENTER|" . $secondPlayer, 250);
+            $firstMzID = DecisionQueueController::GetVariable("PregameStartingChampion" . $firstPlayer);
+            if($firstMzID !== null && $firstMzID !== "") {
+                Enter($firstPlayer, $firstMzID);
+            }
+        }
+        return;
+    }
+
+    $firstPlayer = intval(GetFirstPlayer());
+    $secondPlayer = $firstPlayer == 1 ? 2 : 1;
+    DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "PREGAME_RESOLVE_STARTING_CHAMPION_ENTER|" . $secondPlayer, 250);
+    $firstMzID = DecisionQueueController::GetVariable("PregameStartingChampion" . $firstPlayer);
+    if($firstMzID !== null && $firstMzID !== "") {
+        Enter($firstPlayer, $firstMzID);
+    }
+};
+
+$customDQHandlers["PREGAME_RESOLVE_STARTING_CHAMPION_ENTER"] = function($player, $parts, $lastDecision) {
+    $resolvePlayer = isset($parts[0]) ? intval($parts[0]) : ($player == 1 ? 2 : 1);
+    $storedMzID = DecisionQueueController::GetVariable("PregameStartingChampion" . $resolvePlayer);
+    if($storedMzID === null || $storedMzID === "") {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PREGAME_FINISH_STARTING_CHAMPIONS", 250);
+        return;
+    }
+
+    DecisionQueueController::AddDecision($resolvePlayer, "CUSTOM", "PREGAME_FINISH_STARTING_CHAMPIONS", 250);
+    Enter($resolvePlayer, $storedMzID);
+};
+
+$customDQHandlers["PREGAME_FINISH_STARTING_CHAMPIONS"] = function($player, $parts, $lastDecision) {
+    DecisionQueueController::ClearVariable("PregameStartingChampion1");
+    DecisionQueueController::ClearVariable("PregameStartingChampion2");
+    SetMacroTurnIndex('{}');
+};
+
 //TODO: Add this to a schema
 function ActionMap($actionCard)
 {
@@ -4701,6 +4800,9 @@ function DoAllyDestroyed($player, $mzCard) {
 }
 
 function WakeUpPhase() {
+    $currentTurn = intval(GetTurnNumber());
+    if($currentTurn === 1) return;
+
     // Wake Up phase — ready all cards on the turn player's field
     SetFlashMessage("Wake Up Phase");
     $turnPlayer = &GetTurnPlayer();
@@ -5235,6 +5337,11 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    if(DecisionQueueController::GetVariable("SuppressNextEnter") === "YES") {
+        DecisionQueueController::ClearVariable("SuppressNextEnter");
+        return;
+    }
+
     Enter($player, $field[count($field)-1]->GetMzID());
 }
 
@@ -5710,6 +5817,9 @@ $customDQHandlers["FractalRefreshPick"] = function($player, $parts, $lastDecisio
 };
 
 function RecollectionPhase() {
+    $currentTurn = intval(GetTurnNumber());
+    if($currentTurn === 1) return;
+
     // Recollection phase
     SetFlashMessage("Recollection Phase");
     $turnPlayer = &GetTurnPlayer();
@@ -6418,8 +6528,9 @@ function RecollectionPhase() {
 function DrawPhase() {
     // Draw phase - player draws a card
     $currentTurn = &GetTurnNumber();
-    if($currentTurn == 1) return;//Don't draw on first turn
     $turnPlayer = &GetTurnPlayer();
+    $firstPlayer = &GetFirstPlayer();
+    if($currentTurn == 1 && $turnPlayer == $firstPlayer) return;//Starting player skips first draw phase
     // Resolute Stand (o6gb0op3nq): skip this draw phase if effect is active
     if(GlobalEffectCount($turnPlayer, "SKIP_NEXT_DRAW") > 0) {
         RemoveGlobalEffect($turnPlayer, "SKIP_NEXT_DRAW");
