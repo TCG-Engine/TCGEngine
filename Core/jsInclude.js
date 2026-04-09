@@ -8,11 +8,17 @@ function OnLoadCallback(lastUpdate) {
 
 var showDetailTimeout;
 
+function IsCardDetailSuppressed() {
+  return !!window._suppressCardDetail;
+}
+
 function ShowCardDetail(e, that) {
+  if (IsCardDetailSuppressed()) return;
   clearTimeout(showDetailTimeout);//In case there was another card waiting to show detail
   var folderPath = document.getElementById("folderPath").value;
   var timeOut = folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" ? 350 : 1;
   showDetailTimeout = setTimeout(function() {
+    if (IsCardDetailSuppressed()) return;
     if (e.target.hasAttribute("data-subcard-id")) {
       var subCardID = e.target.getAttribute("data-subcard-id");
       var assetFolder = (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) ? AssetReflectionPath() : folderPath;
@@ -77,8 +83,10 @@ function ShowDetail(e, imgSource) {
 }
 
 function ShowSubcardDetail(e, imgEl) {
+  if (IsCardDetailSuppressed()) return;
   clearTimeout(showDetailTimeout);
   showDetailTimeout = setTimeout(function() {
+    if (IsCardDetailSuppressed()) return;
     var src = imgEl.getAttribute('src') || '';
     // Transform concat URL to WebpImages for the popup
     src = src.replace('/concat/', '/WebpImages/');

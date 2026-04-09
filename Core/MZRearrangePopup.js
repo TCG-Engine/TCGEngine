@@ -531,6 +531,13 @@
     let currentMouseX = 0;
     let currentMouseY = 0;
     let animationFrameId = null;
+
+    function setCardDetailSuppressed(isSuppressed) {
+      window._suppressCardDetail = isSuppressed;
+      if (isSuppressed && typeof HideCardDetail === 'function') {
+        HideCardDetail();
+      }
+    }
     
     /**
      * Setup listeners for cards in a container
@@ -562,6 +569,8 @@
     function handleDragStart(e) {
       draggedCard = e.target.closest('.mzrearrange-card');
       if (!draggedCard) return;
+
+      setCardDetailSuppressed(true);
       
       draggedCard.classList.add('dragging');
       
@@ -641,6 +650,7 @@
       draggedCard = null;
       currentMouseX = 0;
       currentMouseY = 0;
+      setCardDetailSuppressed(false);
     }
     
     // Track mouse position continuously for smooth preview movement
@@ -812,6 +822,7 @@
     }
     // Cleanup global helper
     delete window._mzrearrangeSetupCardDragListeners;
+    window._suppressCardDetail = false;
     // Hide any card detail that may still be showing
     if (typeof HideCardDetail === 'function') HideCardDetail();
   }
