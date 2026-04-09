@@ -545,6 +545,9 @@
       }
 
       function RenderUpdate(responseArr) {
+        if (typeof ClearSelectionMode === 'function') {
+          ClearSelectionMode();
+        }
         var newHTML = "";
         var playerID = <?php echo($playerID); ?>;
         <?php include "./" . $folderPath . "/NextTurnRender.php"; ?>

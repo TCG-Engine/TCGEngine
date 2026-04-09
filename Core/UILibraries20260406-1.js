@@ -2164,6 +2164,11 @@ function ClearSelectionMode() {
   if (typeof HideNumberChooseUI === 'function') {
     HideNumberChooseUI();
   }
+  // Also hide YES/NO and icon choice modals if they exist
+  let yesNoModal = document.getElementById('yesno-decision-modal');
+  if (yesNoModal) yesNoModal.remove();
+  let iconChoiceModal = document.getElementById('iconchoice-modal');
+  if (iconChoiceModal) iconChoiceModal.remove();
 }
 
 function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
