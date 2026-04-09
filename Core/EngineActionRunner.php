@@ -234,7 +234,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
   if ($result['writeGamestate']) {
     ++$updateNumber;
     WriteGamestate('./' . $folderPath . '/');
-    if (is_numeric($gameName) && function_exists('TouchOwnershipLastUpdated')) {
+    if (is_numeric($gameName)
+        && function_exists('TouchOwnershipLastUpdated')
+        && function_exists('GetEditAuth') && GetEditAuth() === 'AssetOwner') {
       TouchOwnershipLastUpdated(intval($gameName));
     }
     if ($result['updateCache']) {
