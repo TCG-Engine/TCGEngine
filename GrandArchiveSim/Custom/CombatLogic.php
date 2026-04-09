@@ -432,9 +432,10 @@ function DeclareChampionAttack($player) {
         return false;
     }
 
-    // First turn restriction
+    // First turn restriction: only the player who took the opening turn is blocked.
     $currentTurn = GetTurnNumber();
-    if($currentTurn <= 1) {
+    $firstPlayer = GetFirstPlayer();
+    if($currentTurn == 1 && $player == $firstPlayer) {
         SetFlashMessage("Cannot attack on the first turn.");
         return false;
     }
@@ -579,9 +580,10 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
-    // Rule 1.h -- Players can't declare attacks on their first turn
+    // Rule 1.h -- Only the player who took the opening turn can't attack on turn 1.
     $currentTurn = GetTurnNumber();
-    if($currentTurn <= 1) {
+    $firstPlayer = GetFirstPlayer();
+    if($currentTurn == 1 && $turnPlayer == $firstPlayer) {
         SetFlashMessage("Cannot attack on the first turn.");
         return false;
     }
