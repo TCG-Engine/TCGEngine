@@ -2,7 +2,7 @@
 include_once './MenuBar.php';
 include_once '../../../AccountFiles/AccountSessionAPI.php';
 include_once '../../../Database/ConnectionManager.php';
-include_once '../../../RBDeck/GeneratedCode/GeneratedCardDictionaries.php';
+include_once '../../../GrandArchiveSim/GeneratedCode/GeneratedCardDictionaries.php';
 
 include_once 'Header.php';
 
