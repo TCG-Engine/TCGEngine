@@ -80,10 +80,12 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
                     foreach ($deckData['cards'] as $card) {
                         $cardID = $card['id'];
                         $quantity = intval($card['pivot']['quantity']);
-                        $deckType = $card['pivot']['deck_type'];
+                        $deckType = strtolower(trim($card['pivot']['deck_type'] ?? 'main'));
                         for ($i = 0; $i < $quantity; ++$i) {
                             if ($deckType === 'material') {
                                 array_push($material, new Material($cardID));
+                            } elseif ($deckType === 'sideboard') {
+                                continue;
                             } else {
                                 array_push($gameDeck, new Deck($cardID));
                             }
