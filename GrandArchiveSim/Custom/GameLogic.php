@@ -2046,15 +2046,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 }
 
 $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
-    // Build MZCHOOSE source: hand cards + ready reservable field cards
-    $source = "myHand";
-    $field = GetZone("myField");
-    foreach($field as $i => $fieldObj) {
-        if($fieldObj->removed) continue;
-        if(isset($fieldObj->Status) && $fieldObj->Status == 2 && HasReservable($fieldObj)) {
-            $source .= "&myField-" . $i;
-        }
-    }
+    $source = GetReservePaymentChoiceSource($player);
     $tooltip = "Choose_a_card_to_pay_reserve_cost";
     DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 1, $tooltip);
     DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard_Process", 99);
@@ -10350,9 +10342,13 @@ function SelectionMetadata($obj) {
             return json_encode(['highlight' => false]);
         }
     }
-    //Return red color if there's an activation restriction
+    // Return red color if there's an activation restriction
     if(!CanActivateCardForSelection($turnPlayer, $obj)) {
         return json_encode(['color' => 'rgba(255, 64, 64, 0.95)']);
+    }
+    // Hand reserve affordability is advisory only; rare cost branches can still make it playable.
+    if(isset($obj->Location) && $obj->Location === "Hand" && !CanAffordActivationReserve($turnPlayer, $obj)) {
+        return json_encode(['color' => 'rgba(255, 170, 0, 0.95)']);
     }
     // Return bright vibrant lime green highlight for valid selectable cards
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
@@ -10658,6 +10654,34 @@ function GetEphemerateCost($player, $cardID) {
     return $cost;
 }
 
+function ReservePaymentSourceZoneName($player, $zoneSuffix) {
+    global $playerID;
+    $prefix = $player == $playerID ? "my" : "their";
+    return $prefix . $zoneSuffix;
+}
+
+function GetReservablePaymentSources($player) {
+    $sources = [];
+    $fieldZone = ReservePaymentSourceZoneName($player, "Field");
+    $field = GetField($player);
+    foreach($field as $i => $fieldObj) {
+        if($fieldObj->removed) continue;
+        if(!isset($fieldObj->Status) || $fieldObj->Status != 2) continue;
+        if(HasReservable($fieldObj)) {
+            $sources[] = $fieldZone . "-" . $i;
+        }
+    }
+    return $sources;
+}
+
+function GetReservePaymentChoiceSource($player, $includeHand = true) {
+    $sources = [];
+    if($includeHand) {
+        $sources[] = ReservePaymentSourceZoneName($player, "Hand");
+    }
+    return implode("&", array_merge($sources, GetReservablePaymentSources($player)));
+}
+
 function CanPayEphemerate($player, $cardID) {
     global $ephemerateCards, $playerID;
     if(!isset($ephemerateCards[$cardID])) return false;
@@ -10667,16 +10691,7 @@ function CanPayEphemerate($player, $cardID) {
     $config = $ephemerateCards[$cardID];
     if(isset($config['condition']) && !$config['condition']($player)) return false;
     $cost = GetEphemerateCost($player, $cardID);
-    $hand = &GetHand($player);
-    $available = count($hand);
-    // Add reservable field cards
-    $zone = $player == $playerID ? "myField" : "theirField";
-    $field = GetZone($zone);
-    foreach($field as $fObj) {
-        if(!$fObj->removed && isset($fObj->Status) && $fObj->Status == 2 && HasReservable($fObj)) {
-            $available++;
-        }
-    }
+    $available = CountAvailableReservePayments($player);
     if($available < $cost) return false;
     // Check extra cost feasibility
     if(isset($config['extraCostHandler'])) {
@@ -10709,6 +10724,47 @@ function CanPayEphemerate($player, $cardID) {
         }
     }
     return true;
+}
+
+function CountAvailableReservePayments($player, $excludedMzID = null) {
+    $available = 0;
+    $hand = GetHand($player);
+    $handZone = ReservePaymentSourceZoneName($player, "Hand");
+    foreach($hand as $i => $handObj) {
+        if(!$handObj->removed) {
+            if($excludedMzID !== null && $excludedMzID === ($handZone . "-" . $i)) continue;
+            ++$available;
+        }
+    }
+    return $available + count(GetReservablePaymentSources($player));
+}
+
+function PreviewActivateReserveCost($player, $obj) {
+    if($obj === null || !isset($obj->CardID)) return 0;
+
+    $reserveCost = CardCost_reserve($obj->CardID);
+
+    // Unstable Fractal (2o82fwl22v): [Class Bonus] ability costs (3) reserve
+    if($obj->CardID === "2o82fwl22v") $reserveCost = 3;
+
+    $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
+
+    // Class Bonus: reduce cost if champion's class matches card's class
+    $classBonusDiscount = ClassBonusActivateCostReduction($obj->CardID);
+    if($classBonusDiscount > 0 && IsClassBonusActive($player, explode(",", CardClasses($obj->CardID)))) {
+        $reserveCost = max(0, $reserveCost - $classBonusDiscount);
+    }
+
+    return max(0, $reserveCost);
+}
+
+function CanAffordActivationReserve($player, $obj) {
+    if($obj === null || !isset($obj->CardID)) return false;
+    $excludedMzID = null;
+    if(isset($obj->Location) && $obj->Location === "Hand" && isset($obj->mzIndex)) {
+        $excludedMzID = SelectionMetadataMzID($obj);
+    }
+    return CountAvailableReservePayments($player, $excludedMzID) >= PreviewActivateReserveCost($player, $obj);
 }
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
