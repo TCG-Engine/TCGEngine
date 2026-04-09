@@ -34,6 +34,7 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
             $actionParts = explode(':', $action);
             $abilityIndex = intval($actionParts[1]);
         }
+        SaveUndoVersion($playerID);
         ActivateAbility($playerID, $actionCard, $abilityIndex);
         break;
       default: break;

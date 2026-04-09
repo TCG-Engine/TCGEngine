@@ -171,6 +171,17 @@ $lineageReleaseAbilities["GiQxfpKTUC"] = [ // Alice, Distorted Queen
     }
 ];
 
+function SaveUndoVersion($playerID, $name = "") {
+    $zones = Versions::GetSerializedZones();
+    global $gRandomCounter;
+    $zones .= "<v0>" . $gRandomCounter;
+
+    MZClearZone($playerID, "myVersions");
+
+    $namePrefix = (strlen($name) > 0 ? $name . '<vname>' : '');
+    AddVersions($playerID, '0:' . $namePrefix . $zones);
+}
+
 //TODO: Add this to a schema
 function ActionMap($actionCard)
 {
@@ -190,6 +201,8 @@ function ActionMap($actionCard)
         case "myHand":
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 // Turn player can play any card during their main phase
+                if(function_exists("CanActivateCard") && !CanActivateCard($playerID, $actionCard, false)) break;
+                SaveUndoVersion($playerID);
                 ActivateCard($playerID, $actionCard, false);
                 return "PLAY";
             }
@@ -203,6 +216,9 @@ function ActionMap($actionCard)
             }
             break;
         case "myGraveyard":
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                SaveUndoVersion($playerID);
+            }
             // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $gyObj = GetZoneObject($actionCard);
@@ -376,6 +392,9 @@ function ActionMap($actionCard)
             }
             break;
         case "myBanish":
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                SaveUndoVersion($playerID);
+            }
             // Naia, Diviner of Fortunes (jdmthh88rx): activate spell from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -480,6 +499,9 @@ function ActionMap($actionCard)
             }
             break;
         case "myMaterial":
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                SaveUndoVersion($playerID);
+            }
             // Bagua of Vital Demise (imdj3c7oh0): may activate from material deck when SC faces West
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
