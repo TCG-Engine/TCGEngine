@@ -19,8 +19,10 @@ include_once __DIR__ . '/CardDQHandlers.php';
 $additionalActivationCosts = [];
 
 // --- Imbue Cards Registry ---
-// Maps cardID => imbue threshold (N). A card becomes imbued when at least N of
-// the cards reserved to pay its cost match the card's element.
+// Supported config forms:
+//   int => default Imbue N (match this card's element identity)
+//   ['threshold' => N, 'matcher' => 'card_element'|'element'|'advanced', 'element' => 'FIRE']
+//   [ <option1>, <option2>, ... ] => multiple Imbue characteristics; player chooses one
 $Imbue_Cards = [];
 $Imbue_Cards["7cx66hjlgx"] = 3; // Verdigris Decree (WIND)
 $Imbue_Cards["ipl6gt7lh9"] = 3; // Cerulean Decree (WATER)
@@ -46,6 +48,99 @@ $Imbue_Cards["jH3ZOavGPR"] = 2; // Crystalvein Awakening (WIND) - Imbue 2
 $Imbue_Cards["a3pmmloejo"] = 2; // Blessed Clergy (WIND) - Imbue 2
 $Imbue_Cards["xpnjvt9y59"] = 2; // Cleansing Reunion (WIND) - Imbue 2
 $Imbue_Cards["taug52u81v"] = 2; // Eternal Magistrate (WIND) - Imbue 2
+
+function NormalizeImbueOption($cardID, $config) {
+    if(is_int($config)) {
+        return [
+            'threshold' => $config,
+            'matcher' => 'card_element',
+            'element' => CardElement($cardID)
+        ];
+    }
+    if(!is_array($config)) return null;
+    $threshold = intval($config['threshold'] ?? 0);
+    if($threshold <= 0) return null;
+    $matcher = $config['matcher'] ?? 'card_element';
+    $element = $config['element'] ?? null;
+    if($matcher === 'card_element') {
+        $element = CardElement($cardID);
+    }
+    return [
+        'threshold' => $threshold,
+        'matcher' => $matcher,
+        'element' => $element
+    ];
+}
+
+function GetCardImbueOptions($player, $cardID) {
+    global $Imbue_Cards;
+    $options = [];
+    if(isset($Imbue_Cards[$cardID])) {
+        $config = $Imbue_Cards[$cardID];
+        $configs = is_array($config) && isset($config[0]) ? $config : [$config];
+        foreach($configs as $rawOption) {
+            $option = NormalizeImbueOption($cardID, $rawOption);
+            if($option !== null) $options[] = $option;
+        }
+    }
+    if(PropertyContains(CardType($cardID), "ALLY") && CardElement($cardID) === "WIND") {
+        $myField = GetZone("myField");
+        foreach($myField as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "lxnq80yu75" && !HasNoAbilities($fObj)) {
+                $options[] = [
+                    'threshold' => 2,
+                    'matcher' => 'card_element',
+                    'element' => CardElement($cardID)
+                ];
+                break;
+            }
+        }
+    }
+
+    // If multiple Imbue instances define the same characteristic, the lowest N wins.
+    $deduped = [];
+    foreach($options as $option) {
+        $key = $option['matcher'] . "|" . ($option['element'] ?? '');
+        if(!isset($deduped[$key]) || $option['threshold'] < $deduped[$key]['threshold']) {
+            $deduped[$key] = $option;
+        }
+    }
+    return array_values($deduped);
+}
+
+function GetPendingImbueCardID() {
+    $effectStack = GetEffectStack();
+    for($i = count($effectStack) - 1; $i >= 0; --$i) {
+        if(!$effectStack[$i]->removed) {
+            return $effectStack[$i]->CardID;
+        }
+    }
+    return null;
+}
+
+function GetChosenImbueOption($player) {
+    $cardID = GetPendingImbueCardID();
+    if($cardID === null || $cardID === "") return null;
+    $imbueOptions = GetCardImbueOptions($player, $cardID);
+    if(empty($imbueOptions)) return null;
+    if(count($imbueOptions) === 1) return $imbueOptions[0];
+
+    $selectedIndex = intval(DecisionQueueController::GetVariable("imbueChoiceIndex") ?? "0");
+    if(!isset($imbueOptions[$selectedIndex])) $selectedIndex = 0;
+    return $imbueOptions[$selectedIndex];
+}
+
+function GetImbueOptionLabel($cardID, $option) {
+    switch($option['matcher']) {
+        case 'advanced':
+            return "Advanced_element_cards";
+        case 'element':
+            return ($option['element'] ?? CardElement($cardID)) . "_element_cards";
+        case 'card_element':
+        default:
+            return CardElement($cardID) . "_element_cards";
+    }
+}
 
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
@@ -2089,45 +2184,39 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
         if(!$hasKindle) {
             // Imbue: snapshot memory before reserve payment so we can count element-matching additions
-            global $Imbue_Cards;
-            $hasImbue = isset($Imbue_Cards[$obj->CardID]);
-            $imbueThreshold = $hasImbue ? $Imbue_Cards[$obj->CardID] : 0;
-            if(!$hasImbue
-                && PropertyContains(CardType($obj->CardID), "ALLY")
-                && CardElement($obj->CardID) === "WIND") {
-                $myField = GetZone("myField");
-                foreach($myField as $fObj) {
-                    if(!$fObj->removed && $fObj->CardID === "lxnq80yu75" && !HasNoAbilities($fObj)) {
-                        $hasImbue = true;
-                        $imbueThreshold = 2;
-                        break;
+            $imbueOptions = GetCardImbueOptions($player, $obj->CardID);
+            $hasImbue = !empty($imbueOptions);
+            if($hasImbue) {
+                $memoryBefore = count(GetMemory($player));
+                DecisionQueueController::StoreVariable("imbueMemoryBefore", "$memoryBefore");
+                DecisionQueueController::ClearVariable("imbueChoiceIndex");
+                DecisionQueueController::StoreVariable("isImbued", "NO");
+            }
+
+            if($hasImbue && !$ignoreCost && $reserveCost > 0) {
+                if(count($imbueOptions) > 1) {
+                    $labels = array_map(fn($option) => GetImbueOptionLabel($obj->CardID, $option), $imbueOptions);
+                    DecisionQueueController::AddDecision($player, "MZMODAL", "1|1|" . implode("&", $labels), 100, "Choose_Imbue_characteristic");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ChooseImbueCharacteristic|" . $reserveCost, 100);
+                } else {
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Reveal_reserved_cards_for_Imbue?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareImbue|" . $reserveCost, 100);
+                }
+            } else {
+                //1.8 Paying Costs
+                if(!$ignoreCost) {
+                    for($i = 0; $i < $reserveCost; ++$i) {
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
                     }
                 }
-            }
-            if($hasImbue) {
-                $memoryBefore = count(GetZone("myMemory"));
-                $imbueElement = CardElement($obj->CardID);
-                DecisionQueueController::StoreVariable("imbueMemoryBefore", "$memoryBefore");
-                DecisionQueueController::StoreVariable("imbueElement", $imbueElement);
-                DecisionQueueController::StoreVariable("imbueThreshold", "$imbueThreshold");
-            }
 
-        //1.8 Paying Costs
-        if(!$ignoreCost) {
-            for($i = 0; $i < $reserveCost; ++$i) {
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                if(!$hasImbue) {
+                    DecisionQueueController::StoreVariable("isImbued", "NO");
+                }
+
+                //1.9 Activation — grant Opportunity to the opponent before resolving
+                DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
             }
-        }
-
-        // Imbue: after reserve payment, evaluate whether the card is imbued
-        if($hasImbue) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "CheckImbue", 100);
-        } else {
-            DecisionQueueController::StoreVariable("isImbued", "NO");
-        }
-
-        //1.9 Activation — grant Opportunity to the opponent before resolving
-        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
         } // end if(!$hasKindle)
     }
     // When $hasDominatingStrikeAltCost is true, the DominatingStrikeAltCost handler
@@ -2149,6 +2238,46 @@ $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
     $tooltip = "Choose_a_card_to_pay_reserve_cost";
     DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 1, $tooltip);
     DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard_Process", 99);
+};
+
+$customDQHandlers["DeclareImbue"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0] ?? 0);
+    $revealReservedCards = $lastDecision === "YES";
+    if($revealReservedCards) {
+        DecisionQueueController::StoreVariable("imbueRevealQueue", "");
+        DecisionQueueController::StoreVariable("imbueReserveRemaining", strval($reserveCost));
+    }
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    if(!$revealReservedCards) {
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        ClearImbueSetupVariables();
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100, "", 1);
+};
+
+$customDQHandlers["ChooseImbueCharacteristic"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0] ?? 0);
+    $cardID = GetPendingImbueCardID();
+    if($cardID === null || $cardID === "") {
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        ClearImbueSetupVariables();
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+    $imbueOptions = GetCardImbueOptions($player, $cardID);
+    if(empty($imbueOptions)) {
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        ClearImbueSetupVariables();
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+    $selectedIndex = intval(explode(",", $lastDecision)[0] ?? 0);
+    if(!isset($imbueOptions[$selectedIndex])) $selectedIndex = 0;
+    DecisionQueueController::StoreVariable("imbueChoiceIndex", strval($selectedIndex));
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Reveal_reserved_cards_for_Imbue?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareImbue|" . $reserveCost, 100);
 };
 
 $customDQHandlers["IngredientPouchGather"] = function($player, $parts, $lastDecision) {
@@ -2212,113 +2341,67 @@ $customDQHandlers["ReturnToDepthsOmen"] = function($player, $parts, $lastDecisio
     BanishWithOmenCounter($player, $lastDecision);
 };
 
-// --- Topsy Decree mode choice ---
-// TopsyDecreeChoose: offer YESNO for each mode. $remaining = modes left to choose, $chosen = already-chosen mode letters.
-function TopsyDecreeChoose($player, $remaining, $chosen) {
-    if($remaining <= 0) return;
-    $modes = [];
-    if(strpos($chosen, "A") === false) $modes[] = "A";
-    if(strpos($chosen, "B") === false) $modes[] = "B";
-    if(strpos($chosen, "C") === false) $modes[] = "C";
-    if(empty($modes)) return;
-    $firstMode = array_shift($modes);
-    $modeRemaining = implode(",", $modes);
-    $tooltips = [
-        "A" => "Spellshroud_champion?",
-        "B" => "Opponent_discards?",
-        "C" => "Banish_from_GY?"
-    ];
-    $tooltip = $tooltips[$firstMode] ?? "Choose_mode?";
-    if(empty($modes) || $remaining === 1) {
-        // Only one option or one choice remaining — auto-execute
-        DecisionQueueController::AddDecision($player, "PASSPARAMETER", "YES", 1);
-    } else {
-        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltip);
-    }
-    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeMode|$remaining|$chosen|$firstMode|$modeRemaining", 1);
-}
+$customDQHandlers["Byx6iokcT4:0:CardActivated-1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DecisionQueueController::StoreVariable("Topsy_choices", $lastDecision);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecree_Process", 1);
+};
 
-$customDQHandlers["TopsyDecreeMode"] = function($player, $parts, $lastDecision) {
-    $remaining = intval($parts[0] ?? 0);
-    $chosen = $parts[1] ?? "";
-    $currentMode = $parts[2] ?? "";
-    $modeRemaining = $parts[3] ?? "";
-
-    if($lastDecision === "YES") {
-        // Execute the mode
-        $chosen .= $currentMode;
-        $remaining--;
-        global $playerID;
-        if($currentMode === "A") {
-            // Champion gains spellshroud until end of turn
-            $zone = $player == $playerID ? "myField" : "theirField";
-            $field = GetZone($zone);
-            foreach($field as $fObj) {
-                if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
-                    AddTurnEffect($fObj->GetMzID(), "SPELLSHROUD");
-                    break;
+$customDQHandlers["TopsyDecree_Process"] = function($player, $parts, $lastDecision) {
+    $choices = DecisionQueueController::GetVariable("Topsy_choices");
+    if($choices === "-" || $choices === "" || $choices === null) return;
+    $modes = explode(",", $choices);
+    foreach($modes as $modeIdx) {
+        $modeIdx = trim($modeIdx);
+        switch($modeIdx) {
+            case "0": // Champion gains spellshroud until end of turn
+                global $playerID;
+                $zone = $player == $playerID ? "myField" : "theirField";
+                $field = GetZone($zone);
+                foreach($field as $fObj) {
+                    if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+                        AddTurnEffect($fObj->GetMzID(), "SPELLSHROUD");
+                        break;
+                    }
                 }
-            }
-        } elseif($currentMode === "B") {
-            // Up to one target opponent discards from hand or memory
-            $oppPlayer = ($player == 1) ? 2 : 1;
-            $oppHand = &GetHand($oppPlayer);
-            $oppMemory = &GetMemory($oppPlayer);
-            $oppZone = $oppPlayer == $playerID ? "myHand" : "theirHand";
-            $oppMemZone = $oppPlayer == $playerID ? "myMemory" : "theirMemory";
-            $targets = [];
-            for($i = 0; $i < count($oppHand); ++$i) {
-                if(!$oppHand[$i]->removed) $targets[] = $oppZone . "-" . $i;
-            }
-            for($i = 0; $i < count($oppMemory); ++$i) {
-                if(!$oppMemory[$i]->removed) $targets[] = $oppMemZone . "-" . $i;
-            }
-            if(!empty($targets)) {
-                $targetStr = implode("&", $targets);
-                DecisionQueueController::AddDecision($oppPlayer, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_(Topsy_Decree)");
-                DecisionQueueController::AddDecision($oppPlayer, "CUSTOM", "TopsyDecreeDiscard", 1);
-            }
-        } elseif($currentMode === "C") {
-            // Choose up to 2 from a single graveyard and banish them
-            $myGY = GetZone("myGraveyard");
-            $theirGY = GetZone("theirGraveyard");
-            $targets = [];
-            for($gi = 0; $gi < count($myGY); ++$gi) {
-                if(!$myGY[$gi]->removed) $targets[] = "myGraveyard-" . $gi;
-            }
-            for($gi = 0; $gi < count($theirGY); ++$gi) {
-                if(!$theirGY[$gi]->removed) $targets[] = "theirGraveyard-" . $gi;
-            }
-            if(!empty($targets)) {
-                DecisionQueueController::StoreVariable("topsyBanishCount", "0");
-                $targetStr = implode("&", $targets);
-                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Banish_card_from_GY_(1_of_2)");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeBanish", 1);
-            }
+                break;
+            case "1": // Up to one target opponent discards a card from hand or memory
+                $oppPlayer = ($player == 1) ? 2 : 1;
+                $oppHand = &GetHand($oppPlayer);
+                $oppMemory = &GetMemory($oppPlayer);
+                $targets = [];
+                for($i = 0; $i < count($oppHand); ++$i) {
+                    if(!$oppHand[$i]->removed) $targets[] = "theirHand-" . $i;
+                }
+                for($i = 0; $i < count($oppMemory); ++$i) {
+                    if(!$oppMemory[$i]->removed) $targets[] = "theirMemory-" . $i;
+                }
+                if(!empty($targets)) {
+                    $targetStr = implode("&", $targets);
+                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_(Topsy_Decree)");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeDiscard", 1);
+                }
+                break;
+            case "2": // Choose up to 2 cards from a single graveyard and banish them
+                $myGY = GetZone("myGraveyard");
+                $theirGY = GetZone("theirGraveyard");
+                $targets = [];
+                for($gi = 0; $gi < count($myGY); ++$gi) {
+                    if(!$myGY[$gi]->removed) $targets[] = "myGraveyard-" . $gi;
+                }
+                for($gi = 0; $gi < count($theirGY); ++$gi) {
+                    if(!$theirGY[$gi]->removed) $targets[] = "theirGraveyard-" . $gi;
+                }
+                if(!empty($targets)) {
+                    DecisionQueueController::StoreVariable("topsyBanishCount", "0");
+                    $targetStr = implode("&", $targets);
+                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Banish_card_from_GY_(1_of_2)");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeBanish", 1);
+                }
+                break;
         }
-        // Continue with remaining choices
-        if($remaining > 0) {
-            TopsyDecreeChoose($player, $remaining, $chosen);
-        }
-    } else {
-        // Skip this mode, offer next
-        if(empty($modeRemaining)) return;
-        $modes = explode(",", $modeRemaining);
-        $nextMode = array_shift($modes);
-        $nextRemaining = implode(",", $modes);
-        $tooltips = [
-            "A" => "Spellshroud_champion?",
-            "B" => "Opponent_discards?",
-            "C" => "Banish_from_GY?"
-        ];
-        $tooltip = $tooltips[$nextMode] ?? "Choose_mode?";
-        if(empty($modes) || $remaining === 1) {
-            DecisionQueueController::AddDecision($player, "PASSPARAMETER", "YES", 1);
-        } else {
-            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltip);
-        }
-        DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeMode|$remaining|$chosen|$nextMode|$nextRemaining", 1);
     }
+    DecisionQueueController::ClearVariable("Topsy_choices");
 };
 
 $customDQHandlers["TopsyDecreeDiscard"] = function($player, $parts, $lastDecision) {
@@ -2517,7 +2600,25 @@ $customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecisi
         }
     } else {
         // Hand card: move to memory as normal
-        OnCardReserved($player, $lastDecision);
+        $newObj = OnCardReserved($player, $lastDecision);
+        if($newObj !== null && DecisionQueueController::GetVariable("imbueRevealQueue") !== null) {
+            $newMzID = "myMemory-" . $newObj->mzIndex;
+            $queued = DecisionQueueController::GetVariable("imbueRevealQueue");
+            if($queued === "" || $queued === null) {
+                DecisionQueueController::StoreVariable("imbueRevealQueue", $newMzID);
+            } else {
+                DecisionQueueController::StoreVariable("imbueRevealQueue", $queued . "|" . $newMzID);
+            }
+        }
+    }
+
+    $imbueRemaining = DecisionQueueController::GetVariable("imbueReserveRemaining");
+    if($imbueRemaining !== null && $imbueRemaining !== "") {
+        $remaining = max(0, intval($imbueRemaining) - 1);
+        DecisionQueueController::StoreVariable("imbueReserveRemaining", strval($remaining));
+        if($remaining === 0) {
+            RevealImbueReserved($player);
+        }
     }
 };
 
@@ -2528,24 +2629,53 @@ $customDQHandlers["WildheartLyreBuff"] = function($player, $parts, $lastDecision
 };
 
 /**
- * DQ handler: after reserve payment completes for an Imbue card, count how many
- * of the newly added memory cards match the card's element. Stores "isImbued"
- * as "YES" or "NO" for ability code to read at resolution time.
+ * Reveal the reserved cards for Imbue, evaluate the chosen Imbue condition,
+ * then store the shared isImbued result and clear the temporary setup vars.
  */
-$customDQHandlers["CheckImbue"] = function($player, $parts, $lastDecision) {
-    $memoryBefore = intval(DecisionQueueController::GetVariable("imbueMemoryBefore"));
-    $element = DecisionQueueController::GetVariable("imbueElement");
-    $threshold = intval(DecisionQueueController::GetVariable("imbueThreshold"));
+function RevealImbueReserved($player) {
+    $selectedOption = GetChosenImbueOption($player);
+    if($selectedOption === null) return;
 
-    $memory = GetZone("myMemory");
-    $elementMatches = 0;
-    // Count element-matching cards among the newly added memory entries
-    for($i = $memoryBefore; $i < count($memory); ++$i) {
-        if(!$memory[$i]->removed && CardElement($memory[$i]->CardID) === $element) {
-            $elementMatches++;
+    $memoryBefore = intval(DecisionQueueController::GetVariable("imbueMemoryBefore"));
+    $threshold = intval($selectedOption['threshold'] ?? 0);
+    $matcher = $selectedOption['matcher'] ?? "card_element";
+    $element = $selectedOption['element'] ?? null;
+
+    $queued = DecisionQueueController::GetVariable("imbueRevealQueue");
+    if($queued !== null && $queued !== "") {
+        foreach(explode("|", $queued) as $mzID) {
+            if($mzID === "") continue;
+            DoRevealCard($player, $mzID);
         }
     }
-    DecisionQueueController::StoreVariable("isImbued", $elementMatches >= $threshold ? "YES" : "NO");
+
+    $memory = GetMemory($player);
+    $elementMatches = 0;
+    $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA"];
+    // Count matching cards among the newly added memory entries for the chosen Imbue characteristic.
+    for($i = $memoryBefore; $i < count($memory); ++$i) {
+        if($memory[$i]->removed) continue;
+        $memoryElement = EffectiveCardElement($memory[$i]);
+        switch($matcher) {
+            case "advanced":
+                if(in_array($memoryElement, $advancedElements)) $elementMatches++;
+                break;
+            case "element":
+            case "card_element":
+                if($memoryElement === $element) $elementMatches++;
+                break;
+            default:
+                $elementMatches++;
+                break;
+        }
+    }
+    $isImbued = $elementMatches >= $threshold ? "YES" : "NO";
+    DecisionQueueController::StoreVariable("isImbued", $isImbued);
+    ClearImbueSetupVariables();
+}
+
+$customDQHandlers["RevealImbueReserved"] = function($player, $parts, $lastDecision) {
+    RevealImbueReserved($player);
 };
 
 function StonescaleBandEnter($player) {
@@ -3139,7 +3269,14 @@ $customDQHandlers["FacetTogetherApply"] = function($player, $parts, $lastDecisio
 };
 
 function OnCardReserved($player, $mzCard) {
-    $obj = MZMove($player, $mzCard, "myMemory");
+    return MZMove($player, $mzCard, "myMemory");
+}
+
+function ClearImbueSetupVariables() {
+    DecisionQueueController::ClearVariable("imbueMemoryBefore");
+    DecisionQueueController::ClearVariable("imbueChoiceIndex");
+    DecisionQueueController::ClearVariable("imbueRevealQueue");
+    DecisionQueueController::ClearVariable("imbueReserveRemaining");
 }
 
 /**

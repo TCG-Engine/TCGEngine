@@ -202,6 +202,7 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
  * Uses high block (200) so it runs after any ability decisions (block 1-100).
  */
 $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecision) {
+    DecisionQueueController::StoreVariable("isImbued", "NO");
     DecisionQueueController::CleanupRemovedCards();
     $effectStack = &GetEffectStack();
 
