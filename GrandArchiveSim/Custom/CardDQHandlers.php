@@ -1,5 +1,101 @@
 <?php
 
+function ProvokeObstinanceStart($player) {
+    DecisionQueueController::StoreVariable("ProvokeObstinanceCount", "0");
+    ProvokeObstinanceChooseNext($player);
+}
+
+function ProvokeObstinanceChooseNext($player) {
+    $chosen = intval(DecisionQueueController::GetVariable("ProvokeObstinanceCount") ?? "0");
+    if($chosen >= 5) return;
+    $objects = ZoneSearch("myField");
+    if(empty($objects)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $objects), 1, "Choose_object_for_spellshroud_and_prevention");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ProvokeObstinanceApply", 1);
+}
+
+$customDQHandlers["ProvokeObstinanceApply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        DecisionQueueController::ClearVariable("ProvokeObstinanceCount");
+        return;
+    }
+    AddTurnEffect($lastDecision, "SPELLSHROUD");
+    $obj = GetZoneObject($lastDecision);
+    if($obj !== null && (PropertyContains(EffectiveCardType($obj), "ALLY") || PropertyContains(EffectiveCardType($obj), "CHAMPION") || PropertyContains(EffectiveCardType($obj), "PHANTASIA"))) {
+        AddTurnEffect($lastDecision, "PREVENT_ALL_2");
+    }
+    $chosen = intval(DecisionQueueController::GetVariable("ProvokeObstinanceCount") ?? "0") + 1;
+    DecisionQueueController::StoreVariable("ProvokeObstinanceCount", strval($chosen));
+    ProvokeObstinanceChooseNext($player);
+};
+
+function DissuadingHaltStart($player) {
+    $units = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION", "PHANTASIA"]), ZoneSearch("theirField", ["ALLY", "CHAMPION", "PHANTASIA"]));
+    $units = FilterSpellshroudTargets($units);
+    if(empty($units)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $units), 1, "Choose_unit_for_-3_attack_power");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DissuadingHaltApply", 1);
+}
+
+$customDQHandlers["DissuadingHaltApply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "y7wbtbasch-debuff");
+};
+
+function StiflingTrapStart($player) {
+    $allies = ZoneSearch("theirField", ["ALLY"]);
+    $allies = FilterSpellshroudTargets($allies);
+    if(empty($allies)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 1, "Choose_ally_for_2_damage");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingTrapApply", 1);
+}
+
+$customDQHandlers["StiflingTrapApply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DealDamage($player, "z5exbwdp7q", $lastDecision, 2);
+    AddTurnEffect($lastDecision, "NO_ABILITIES");
+};
+
+$customDQHandlers["CounterInterferencePowercell"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+    if(empty($powercells)) return;
+    MZMove($player, $powercells[0], "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+    Draw($player, 1);
+};
+
+function SpirelleEnterStart($player) {
+    $units = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION", "PHANTASIA"]), ZoneSearch("theirField", ["ALLY", "CHAMPION", "PHANTASIA"]));
+    $units = FilterSpellshroudTargets($units);
+    if(!empty($units)) {
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $units), 1, "Choose_unit_for_3_damage");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "SpirelleEnterDamage", 1);
+    } else {
+        SpirelleEnterBanishChoice($player);
+    }
+}
+
+$customDQHandlers["SpirelleEnterDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DealDamage($player, "p2n1953som", $lastDecision, 3);
+    }
+    SpirelleEnterBanishChoice($player);
+};
+
+function SpirelleEnterBanishChoice($player) {
+    $cards = array_merge(ZoneSearch("myHand"), ZoneSearch("myMemory"));
+    if(empty($cards)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $cards), 1, "Banish_card_from_hand_or_memory_for_Spirelle");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SpirelleEnterBanish", 1);
+}
+
+$customDQHandlers["SpirelleEnterBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 /**
  * Custom DQ handler: Blazing Throw (iohZMWh5v5) — move the chosen weapon to the graveyard.
  */

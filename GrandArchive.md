@@ -32,19 +32,6 @@ Implementation notes:
 - This is a natural batching point for `On Charge N` and `age` counters.
 - Polaris also crosses into generated-card support because it shuffles generated Cosmic Bolts into deck.
 
-## 3. Negate / tax / activation policing / target redirection
-
-This is the cleanest engine-oriented group after the counter cards: reactions that negate activations, tax activations, retarget effects, or care that something was negated earlier in the turn.
-
-- `Reviewed text`: Annul Spell, Tether in Flames, Frozen Dismissal, Flash Freeze, Tidal Lock, Stifling Trap, Provoke Obstinance, Arisanna, Lucent Arbiter, The Constellatory Spire, Revealing Mesmer, Spirelle, Schwartz Queen.
-- `Likely`: Blossoming Denial, Redirect Flow, Glimmering Refusal, Acquiescing Rejection, Dissuading Halt, Counter Interference, Imperial Accord, Regal Expulsion, Caliburn of Silencing, Overpowering Defense, Poised Occlusion.
-
-Implementation notes:
-
-- Several of these probably converge on the same "negate unless pay X" plumbing.
-- Arisanna and Constellatory Spire also want "a card activation was negated this turn" tracking.
-- Revealing Mesmer is a useful oddball here because it redirects a target to itself instead of straight negation.
-
 ## 4. Copy / impersonation / transform / overwritten identity
 
 These cards likely stress copy effects, persistent overrides, inherited text, or object redefinition.

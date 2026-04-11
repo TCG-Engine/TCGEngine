@@ -16,6 +16,234 @@ function HasOpportunity($player) {
     return false;
 }
 
+function GetEffectStackActivationTargets($player, $filters = []) {
+    $effectStack = GetEffectStack();
+    $targets = [];
+    for($i = 0; $i < count($effectStack); ++$i) {
+        $obj = $effectStack[$i];
+        if($obj === null || $obj->removed) continue;
+        if(isset($filters['excludeController']) && intval($filters['excludeController']) === intval($obj->Controller)) continue;
+        if(isset($filters['controller']) && intval($filters['controller']) !== intval($obj->Controller)) continue;
+        $cardID = $obj->CardID;
+        if(isset($filters['types'])) {
+            $matched = false;
+            foreach($filters['types'] as $type) {
+                if(PropertyContains(CardType($cardID), $type)) {
+                    $matched = true;
+                    break;
+                }
+            }
+            if(!$matched) continue;
+        }
+        if(isset($filters['subtypes'])) {
+            $matched = false;
+            foreach($filters['subtypes'] as $subtype) {
+                if(PropertyContains(CardSubtypes($cardID), $subtype)) {
+                    $matched = true;
+                    break;
+                }
+            }
+            if(!$matched) continue;
+        }
+        if(isset($filters['elements']) && !in_array(CardElement($cardID), $filters['elements'])) continue;
+        if(isset($filters['reserveCost']) && intval(CardCost_reserve($cardID)) !== intval($filters['reserveCost'])) continue;
+        if(isset($filters['sourceZone']) && GetEffectStackSourceZone("EffectStack-" . $i) !== $filters['sourceZone']) continue;
+        $targets[] = "EffectStack-" . $i;
+    }
+    return $targets;
+}
+
+function GetEffectStackSourceZone($mzID) {
+    $parts = explode("-", $mzID);
+    if(count($parts) < 2) return "";
+    $idx = intval($parts[1]);
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    return $_ti["EffectStackSourceZone"][$idx] ?? "";
+}
+
+function TrackEffectStackSourceZone($mzID, $sourceZone) {
+    $parts = explode("-", $mzID);
+    if(count($parts) < 2) return;
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(!isset($_ti["EffectStackSourceZone"])) $_ti["EffectStackSourceZone"] = [];
+    $_ti["EffectStackSourceZone"][intval($parts[1])] = $sourceZone;
+    SetMacroTurnIndex(json_encode($_ti));
+}
+
+function ReconcileEffectStackSourceZones() {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(!isset($_ti["EffectStackSourceZone"]) || !is_array($_ti["EffectStackSourceZone"])) return;
+    $oldSources = $_ti["EffectStackSourceZone"];
+    $effectStack = GetEffectStack();
+    $newSources = [];
+    for($i = 0; $i < count($effectStack); ++$i) {
+        $obj = $effectStack[$i];
+        if($obj === null || $obj->removed) continue;
+        if(isset($oldSources[$i])) $newSources[] = $oldSources[$i];
+    }
+    if(empty($newSources)) unset($_ti["EffectStackSourceZone"]);
+    else $_ti["EffectStackSourceZone"] = $newSources;
+    SetMacroTurnIndex(empty($_ti) ? '{}' : json_encode($_ti));
+}
+
+function TrackCardActivationNegated($player, $cardID) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(!isset($_ti["CardActivationNegated"])) $_ti["CardActivationNegated"] = [];
+    $_ti["CardActivationNegated"][$player] = ($_ti["CardActivationNegated"][$player] ?? 0) + 1;
+    if(!isset($_ti["CardActivationNegatedCards"])) $_ti["CardActivationNegatedCards"] = [];
+    if(!isset($_ti["CardActivationNegatedCards"][$player])) $_ti["CardActivationNegatedCards"][$player] = [];
+    $_ti["CardActivationNegatedCards"][$player][] = $cardID;
+    SetMacroTurnIndex(json_encode($_ti));
+}
+
+function CardActivationNegatedThisTurn($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    return ($_ti["CardActivationNegated"][$player] ?? 0) > 0;
+}
+
+function NegatedActivationDestination($mzID, $mode = "default") {
+    $obj = GetZoneObject($mzID);
+    if($obj === null) return "myGraveyard";
+    if($mode === "banish") return "myBanish";
+    if($mode === "memory") return "myMemory";
+    if(PropertyContains(CardType($obj->CardID), "REGALIA")) return "myBanish";
+    return "myGraveyard";
+}
+
+function NegateCardActivation($player, $targetMZ, $destinationMode = "default") {
+    $target = GetZoneObject($targetMZ);
+    if($target === null || $target->removed) return false;
+    $cardID = $target->CardID;
+    $controller = intval($target->Controller);
+    $dest = NegatedActivationDestination($targetMZ, $destinationMode);
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $controller;
+    MZMove($controller, $targetMZ, $dest);
+    $playerID = $savedPlayerID;
+    ReconcileEffectStackSourceZones();
+    TrackCardActivationNegated($player, $cardID);
+    QueueConstellatorySpireTrigger($player);
+    DecisionQueueController::CleanupRemovedCards();
+    return true;
+}
+
+function QueueNegateActivation($player, $filters = [], $destinationMode = "default", $payAmount = -1, $handler = "NegateActivationResolve") {
+    $targets = GetEffectStackActivationTargets($player, $filters);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "Choose_activation_to_negate");
+    DecisionQueueController::AddDecision($player, "CUSTOM", $handler . "|" . $destinationMode . "|" . intval($payAmount), 1);
+}
+
+$customDQHandlers["NegateActivationResolve"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $destinationMode = $parts[0] ?? "default";
+    $payAmount = intval($parts[1] ?? -1);
+    if($payAmount <= 0) {
+        NegateCardActivation($player, $lastDecision, $destinationMode);
+        return;
+    }
+    $target = GetZoneObject($lastDecision);
+    if($target === null || $target->removed) return;
+    DecisionQueueController::StoreVariable("pendingNegateTarget", $lastDecision);
+    DecisionQueueController::StoreVariable("pendingNegateDestination", $destinationMode);
+    DecisionQueueController::StoreVariable("pendingNegatePayAmount", strval($payAmount));
+    $controller = intval($target->Controller);
+    if(CountAvailableReservePayments($controller) < $payAmount) {
+        NegateCardActivation($player, $lastDecision, $destinationMode);
+        return;
+    }
+    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, "Pay_" . $payAmount . "_to_prevent_negate?");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "NegateActivationPayChoice|" . $player, 1);
+};
+
+$customDQHandlers["NegateActivationPayChoice"] = function($payingPlayer, $parts, $lastDecision) {
+    $negatingPlayer = intval($parts[0] ?? $payingPlayer);
+    $targetMZ = DecisionQueueController::GetVariable("pendingNegateTarget");
+    $destinationMode = DecisionQueueController::GetVariable("pendingNegateDestination") ?? "default";
+    $payAmount = intval(DecisionQueueController::GetVariable("pendingNegatePayAmount") ?? "0");
+    if($lastDecision === "YES" && count(GetHand($payingPlayer)) >= $payAmount) {
+        for($i = 0; $i < $payAmount; ++$i) {
+            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 1);
+        }
+    } else {
+        NegateCardActivation($negatingPlayer, $targetMZ, $destinationMode);
+    }
+    DecisionQueueController::ClearVariable("pendingNegateTarget");
+    DecisionQueueController::ClearVariable("pendingNegateDestination");
+    DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+};
+
+$customDQHandlers["NegateActivationTetherChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $target = GetZoneObject($lastDecision);
+    if($target === null || $target->removed) return;
+    DecisionQueueController::StoreVariable("pendingNegateTarget", $lastDecision);
+    $controller = intval($target->Controller);
+    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, "Take_unpreventable_damage_to_prevent_negate?");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "NegateActivationTetherResolve|" . $player, 1);
+};
+
+$customDQHandlers["NegateActivationTetherResolve"] = function($controller, $parts, $lastDecision) {
+    $negatingPlayer = intval($parts[0] ?? $controller);
+    $targetMZ = DecisionQueueController::GetVariable("pendingNegateTarget");
+    if($lastDecision === "YES") {
+        $champMZ = FindChampionMZ($controller);
+        if($champMZ !== null) DealUnpreventableDamage($negatingPlayer, "215upufyoz", $champMZ, 1 + PlayerLevel($negatingPlayer));
+    } else {
+        NegateCardActivation($negatingPlayer, $targetMZ, "default");
+    }
+    DecisionQueueController::ClearVariable("pendingNegateTarget");
+};
+
+$customDQHandlers["NegateActivationDrawChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $target = GetZoneObject($lastDecision);
+    if($target === null || $target->removed) return;
+    DecisionQueueController::StoreVariable("pendingNegateTarget", $lastDecision);
+    $controller = intval($target->Controller);
+    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, "Let_opponent_draw_two_to_prevent_negate?");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "NegateActivationDrawResolve|" . $player, 1);
+};
+
+$customDQHandlers["NegateActivationDrawResolve"] = function($controller, $parts, $lastDecision) {
+    $negatingPlayer = intval($parts[0] ?? $controller);
+    $targetMZ = DecisionQueueController::GetVariable("pendingNegateTarget");
+    if($lastDecision === "YES") {
+        Draw($negatingPlayer, 2);
+    } else {
+        NegateCardActivation($negatingPlayer, $targetMZ, "banish");
+    }
+    DecisionQueueController::ClearVariable("pendingNegateTarget");
+};
+
+function QueueConstellatorySpireTrigger($player) {
+    $field = GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "yd609g44vm" || HasNoAbilities($field[$i]) || $field[$i]->Status != 2) continue;
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Rest_The_Constellatory_Spire_to_deal_2_damage?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ConstellatorySpireRest|" . $i, 1);
+    }
+}
+
+$customDQHandlers["ConstellatorySpireRest"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $idx = intval($parts[0] ?? -1);
+    $mzID = "myField-" . $idx;
+    $spire = GetZoneObject($mzID);
+    if($spire === null || $spire->removed || $spire->CardID !== "yd609g44vm" || $spire->Status != 2) return;
+    ExhaustCard($player, $mzID);
+    $targets = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION", "PHANTASIA"]), ZoneSearch("theirField", ["ALLY", "CHAMPION", "PHANTASIA"]));
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, "Choose_unit_for_2_damage");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ConstellatorySpireDamage", 1);
+};
+
+$customDQHandlers["ConstellatorySpireDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DealDamage($player, "yd609g44vm", $lastDecision, 2);
+};
+
 // =============================================================================
 // Opportunity / Priority System
 // =============================================================================
@@ -127,6 +355,7 @@ function GetPlayableFastCards($player) {
  */
 $customDQHandlers["EffectStackOpportunity"] = function($player, $parts, $lastDecision) {
     $effectStack = &GetEffectStack();
+    ReconcileEffectStackSourceZones();
     DecisionQueueController::CleanupRemovedCards();
     $effectStack = &GetEffectStack();
     if(empty($effectStack)) return;
@@ -203,6 +432,7 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
  */
 $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::StoreVariable("isImbued", "NO");
+    ReconcileEffectStackSourceZones();
     DecisionQueueController::CleanupRemovedCards();
     $effectStack = &GetEffectStack();
 
@@ -249,6 +479,7 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
  */
 function ResolveTopOfEffectStack() {
     $effectStack = &GetEffectStack();
+    ReconcileEffectStackSourceZones();
     DecisionQueueController::CleanupRemovedCards();
     if(empty($effectStack)) return;
 
@@ -274,6 +505,7 @@ function ResolveTopOfEffectStack() {
     //  - Calls OnCardActivated (moves card, fires abilities)
     //  - Calls ExecuteStaticMethods to process any ability decisions
     CardActivated($cardOwner, $topMZ);
+    ReconcileEffectStackSourceZones();
 
     // Queue PostResolutionCheck to run after all ability interactions (block 200)
     DecisionQueueController::AddDecision($cardOwner, "CUSTOM", "PostResolutionCheck", 200);

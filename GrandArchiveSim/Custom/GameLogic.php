@@ -776,6 +776,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
+    TrackEffectStackSourceZone("EffectStack-" . $obj->mzIndex, DecisionQueueController::GetVariable("activationSourceZone"));
 
     //TODO: 1.2 Checking Elements: Then, the game checks whether the player has the required elements enabled to activate the card. If not, the activation is illegal.
     
@@ -1968,6 +1969,22 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Flowing Oubli (vcxw3yh2t4): [Level 1+] costs 1 less
     if($obj->CardID === "vcxw3yh2t4" && PlayerLevel($player) >= 1) {
         $reserveCost = max(0, $reserveCost - 1);
+    }
+    // Annul Spell (u817uqlk1j): [Level 2+] costs 1 less
+    if($obj->CardID === "u817uqlk1j" && PlayerLevel($player) >= 2) {
+        $reserveCost = max(0, $reserveCost - 1);
+    }
+    // Tidal Lock (c4poa10ezw): costs 2 less with three or more water cards in graveyard
+    if($obj->CardID === "c4poa10ezw" && count(ZoneSearch("myGraveyard", cardElements: ["WATER"])) >= 3) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+    // Blossoming Denial (1nnpbddblx): [Class Bonus] costs 3 less if opponent has five or more memory
+    if($obj->CardID === "1nnpbddblx" && IsClassBonusActive($player, ["CLERIC"]) && count(GetMemory($opponent)) >= 5) {
+        $reserveCost = max(0, $reserveCost - 3);
+    }
+    // Imperial Accord (1S7Q5fqX5u): [Class Bonus] costs 2 less
+    if($obj->CardID === "1S7Q5fqX5u" && IsClassBonusActive($player, ["CLERIC"])) {
+        $reserveCost = max(0, $reserveCost - 2);
     }
     // Next-turn cost increase from Obsequious Blow
     if(GlobalEffectCount($player, "OBSEQUIOUS_BLOW_COST") > 0) {
@@ -8704,6 +8721,10 @@ function ObjectCurrentPower($obj) {
         if($obj !== null && in_array("bx25s7kiln-debuff", $obj->TurnEffects)) {
             $power -= 3;
         }
+        // Dissuading Halt (y7wbtbasch): target unit's attacks get -3 POWER
+        if($obj !== null && in_array("y7wbtbasch-debuff", $obj->TurnEffects)) {
+            $power -= 3;
+        }
     }
     // Conjure Downpour (r0zadf9q1w): whenever a unit attacks, that attack gets -2 POWER
     if($combatAttacker !== null && $combatAttacker != "-" && $combatAttacker != "" && $obj->GetMzID() === $combatAttacker) {
@@ -11640,6 +11661,9 @@ function ClassBonusActivateCostReduction($cardID) {
         '1m48260b7b' => 2, // Razorgale Calling: [Class Bonus] costs 2 less
         '3cmrkv3y16' => 2, // Cyclical Breeze: [Class Bonus] costs 2 less
         '6ilt42sehq' => 1, // Slipstream Vault: [Class Bonus] costs 1 less (if targets unique ally)
+        'w3rrii17fz' => 2, // Flash Freeze: [Class Bonus] costs 2 less
+        'a6h0rcs8sw' => 2, // Redirect Flow: [Class Bonus] costs 2 less
+        'yd609g44vm' => 2, // The Constellatory Spire: [Class Bonus] costs 2 less
         'rzsr6aw4hz' => 2, // Burst Asunder: [Class Bonus] costs 2 less
         'aj7pz79wsp' => 2, // Scorching Imperilment: [Class Bonus] costs 2 less
         '6Rb25k7OjY' => 2, // Tempestuous Conviction: [Class Bonus] costs 2 less
@@ -13461,6 +13485,7 @@ function GetProtectiveFractalPrevention($obj) {
  */
 function HasSpellshroud($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(in_array("NO_SPELLSHROUD", $obj->TurnEffects ?? [])) return false;
     if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($obj)) return true;
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
