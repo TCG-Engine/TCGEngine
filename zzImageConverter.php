@@ -44,7 +44,7 @@ function CheckImage($cardID, $url, $definedType, $isBack = false, $set = "SOR", 
         fclose($fp);
 
         if ($curlError) {
-            echo "Failed to download image for $cardID: $curlError<br>";
+            echo "Failed to download image for $cardID from $url: $curlError<br>";
             if (file_exists($tempName)) unlink($tempName);
             return;
         }

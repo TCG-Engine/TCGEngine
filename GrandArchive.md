@@ -33,20 +33,6 @@ Implementation notes:
 - Clockwork Amalgam and Aetherial Projection are the most important here because they imply "enter as a copy" plus altered text.
 - Tome of Sacred Lightning looks like "enter with abilities of banished regalia," which may want similar override storage to Fracturize-style tech.
 
-## 5. Graveyard / banishment / memory as resource
-
-This group is mostly about moving cards between graveyard, banishment, memory, and field, or paying costs by exiling cards from non-standard zones.
-
-- `Implemented`: Jabberwocky, Calamity's Call, Lost Promises, Lost Providence, Spectral Beacon, Sacramental Rite, Apotheosis Rite, Gaia's Blessing.
-- `Likely`: Diablerie, Devouring Malice, Servile Possessions, Malignant Athame, Materialize the Soul, Expel the Departed, Broken Promises, Obscuring Threads, Fractured Memories, Duality's Convergence, Luminous Quartz, Proto Key Crest, Journey's Beginning, Foraging Fox, Spirit of Slime, Verdant Scepter, Quicksilver Grail, Covenant of Thorns, Proof of Life, Nocturne's Oblivion, Profane Bindings.
-
-Implementation notes:
-
-- This is a strong batch for graveyard filtering, memory banish costs, "activate from memory," and "play a card previously set aside" behavior.
-- Sacramental Rite and Apotheosis Rite also overlap with champion-type modification.
-- New helpers added: `MakeChampionAscendant`/`IsChampionAscendant` in GameLogic.php; `IsChampionBeingAttacked` in CombatLogic.php; `LostPromisesBanishLoop`/`GaiasBlessingBanishLoop` in CardDQHandlers.php; `TryLostPromisesMemory` in OpportunityLogic.php.
-- New ActionMap cases: `case "myDeck":` (Gaia's Blessing field passive); `case "myMaterial":` extended with Lost Providence and Gaia's Blessing.
-
 ## 6. Distortion / Alice / omens / suited / bizarre timing rules
 
 This DTR/PTM-adjacent package looks like a good "special framework" batch because several of these cards care about custom sub-engines rather than simple stat changes.

@@ -1,5 +1,5 @@
 https://api.gatcg.com/cards/search?name=
-https://img.silvie.org/cdn/deck-builder/
+https://api.gatcg.com/cards/images/
 jpg
 data
 page

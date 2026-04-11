@@ -631,7 +631,7 @@ function ExpandNestedCards(&$cardArray, $nestedCardPaths, &$otherOrientationMap,
       $nestedCards = GetNestedImportCards($parentCard, explode(".", $path));
       foreach($nestedCards as $nestedCard) {
         if(!is_object($nestedCard) || !isset($nestedCard->uuid)) continue;
-        $nestedCardId = $nestedCard->uuid;
+        $nestedCardId = ($rootName == "GrandArchiveSim") ? GetGrandArchiveImageId($nestedCard) : $nestedCard->uuid;
         if(!isset($otherOrientationMap[$parentCard->id])) $otherOrientationMap[$parentCard->id] = $nestedCardId;
         if(!isset($otherOrientationMap[$nestedCardId])) $otherOrientationMap[$nestedCardId] = $parentCard->id;
         if(isset($seenCardIds[$nestedCardId])) continue;
@@ -644,10 +644,7 @@ function ExpandNestedCards(&$cardArray, $nestedCardPaths, &$otherOrientationMap,
 
         $thisImageUrl = $imageUrl . $nestedCardId . "." . $imageFormat;
         $squareCards = false;
-        if($rootName == "GrandArchiveSim") {
-          $imageID = GetGrandArchiveImageId($nestedCard);
-          $thisImageUrl = $imageUrl . $imageID . "." . $imageFormat;
-        } else if($rootName == "GudnakSim") {
+        if($rootName == "GudnakSim") {
           $squareCards = true;
         }
         CheckImage($nestedCardId, $thisImageUrl, "", "", rootPath:"./" . $rootName . "/", squareCards:$squareCards);
