@@ -335,6 +335,18 @@ function AttackBypassesInterceptAndTaunt($attackerMZ, $player) {
             return true;
         }
     }
+    foreach($intentCards as $intentMZ) {
+        $intentObj = &GetZoneObject($intentMZ);
+        if($intentObj !== null && $intentObj->CardID === "yguf3aw2ct"
+            && in_array("UNBLOCKABLE", $intentObj->TurnEffects ?? [])) {
+            return true;
+        }
+        if($intentObj !== null && $intentObj->CardID === "o191zv86la"
+            && in_array("PREPARED", $intentObj->TurnEffects ?? [])
+            && IsClassBonusActive($player, ["ASSASSIN"])) {
+            return true;
+        }
+    }
     return false;
 }
 
@@ -591,6 +603,10 @@ function BeginCombatPhase($actionCard) {
     // Bring Down the Mighty (ybds1rkgnp): target ally can't attack until beginning of caster's next turn
     if(in_array("CANT_ATTACK_NEXT_TURN", $obj->TurnEffects)) {
         SetFlashMessage("This unit can't attack (Bring Down the Mighty).");
+        return false;
+    }
+    if(PropertyContains($cardType, "ALLY") && GetCounterCount($obj, "frenzy") > 0) {
+        SetFlashMessage("This ally can't attack while it has a frenzy counter.");
         return false;
     }
 
@@ -1777,7 +1793,7 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
                 DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower * 2));
                 DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
                 // Track champion combat damage for Ominous Shadow
-                if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
+                if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $totalPower * 2);
                 if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
                 OnHitTrigger($attackerPlayer, $attackerMZ);
                 DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
@@ -1788,7 +1804,7 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
             DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower));
             DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower);
             // Track champion combat damage for Ominous Shadow
-            if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
+            if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $totalPower);
             if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
             OnHitTrigger($attackerPlayer, $attackerMZ);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
@@ -1907,6 +1923,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         $mzID = "myField-" . $i; // in defender's perspective
         if($mzID === $defenderMZ_fromDefender) continue; // skip the actual defender
         if($fieldObj->Status != 2) continue; // must be ready (awake)
+        if(GetCounterCount($fieldObj, "frenzy") > 0) continue;
         // Lurking Assailant (uq2r6v374c): [Level 1+] may retaliate while not defending
         if($fieldObj->CardID === "uq2r6v374c") {
             $retaliatorOptions[] = $mzID;
@@ -1921,6 +1938,9 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
         }
         // Cloaked Executioner (itwys9kf4r): Ambush
         if($fieldObj->CardID === "itwys9kf4r" && !HasNoAbilities($fieldObj)) {
+            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
+        }
+        if(in_array("AMBUSH", $fieldObj->TurnEffects ?? [])) {
             if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
         }
         // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
@@ -2298,7 +2318,7 @@ $customDQHandlers["CriticalResolve"] = function($player, $parts, $lastDecision) 
         DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
         // Track champion combat damage for Ominous Shadow
         $critAttacker = GetZoneObject($attackerMZ);
-        if($critAttacker !== null && PropertyContains(EffectiveCardType($critAttacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
+        if($critAttacker !== null && PropertyContains(EffectiveCardType($critAttacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $totalPower * 2);
         if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
         OnHitTrigger($attackerPlayer, $attackerMZ);
     }
@@ -2322,7 +2342,7 @@ $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecisio
     DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
     // Track champion combat damage for Ominous Shadow
     $finishAttacker = GetZoneObject($attackerMZ);
-    if($finishAttacker !== null && PropertyContains(EffectiveCardType($finishAttacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ);
+    if($finishAttacker !== null && PropertyContains(EffectiveCardType($finishAttacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $amount);
     if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
     OnHitTrigger($attackerPlayer, $attackerMZ);
 };
@@ -3340,6 +3360,7 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
         TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);
+        if(LuBuDiaoChanChampionReplacement($player, $target)) return;
     }
 
     // Foster tracking: mark that this unit received damage and remove fostered state
@@ -3491,6 +3512,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
         TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);
+        if(LuBuDiaoChanChampionReplacement($player, $target)) return;
     }
 
     // Foster tracking: mark that this unit received damage and remove fostered state
@@ -3563,7 +3585,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
  * @param int    $player   The player whose champion dealt damage.
  * @param string $targetMZ The mzID of the target that was damaged.
  */
-function TrackChampionCombatDamage($player, $targetMZ) {
+function TrackChampionCombatDamage($player, $targetMZ, $amount = 0) {
     $targetObj = &GetZoneObject($targetMZ);
     if($targetObj === null || $targetObj->removed) return;
     $tag = "CHAMP_DMG_BY_P" . $player;
@@ -3573,6 +3595,14 @@ function TrackChampionCombatDamage($player, $targetMZ) {
     // Set global flag for cards that check "champion dealt combat damage this turn"
     if(GlobalEffectCount($player, "CHAMP_DEALT_COMBAT_DMG") === 0) {
         AddGlobalEffects($player, "CHAMP_DEALT_COMBAT_DMG");
+    }
+    if($amount > 0) {
+        foreach(GetField($player) as $champObj) {
+            if($champObj->removed || !PropertyContains(EffectiveCardType($champObj), "CHAMPION")) continue;
+            if(!isset($champObj->Counters) || !is_array($champObj->Counters)) $champObj->Counters = [];
+            $champObj->Counters["_champCombatDamageDealtThisTurn"] = intval($champObj->Counters["_champCombatDamageDealtThisTurn"] ?? 0) + intval($amount);
+            break;
+        }
     }
 }
 

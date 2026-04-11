@@ -94,18 +94,6 @@ Implementation notes:
 - This is a good batch for load/unload support, alternate attackers, and "unit attacks using weapon" permissions.
 - Poisoned Dagger also overlaps with combat replacement effects because it modifies future damage taken.
 
-## 8. Ally board pumps / tribal combat / combat posture modifiers
-
-These cards look less about novel zones and more about layered combat permissions, tribe checks, stat boosts, and board states.
-
-- `Reviewed text`: Mortal Ambition, Floodward Sergeant, Conduit of the Mad Mage, Arthur, Young Heir, Lu Bu, Indomitable Titan, Da Qiao, Cinderbinder.
-- `Likely`: Strengthen the Bonds, Harbinger of Lightning, Fireblooded Oath, Glorious Presence, Devoted Bloomweaver, Eminent Commander, Pierce the Heavens, Horticounter, Shadowstrike, Kraal, Stonescale Tyrant, Silvie, Slime Sovereign, Spirit of Slime, Foraging Fox, Hector, Praetorian Guard, Moonveil Android.
-
-Implementation notes:
-
-- Expect several "other allies you control get..." passives that belong in `ObjectCurrentPower`, `ObjectCurrentHP`, or bespoke combat checks.
-- Lu Bu is worth isolating early because of the exact-damage replacement clause on the champion.
-
 ## 9. Champion / lineage / level / ascendant / alternate survival rules
 
 These cards either are champions themselves or look like they bend champion rules hard enough that they deserve a dedicated tracking group.

@@ -4429,6 +4429,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $sourceObject = &GetZoneObject($mzCard);
     // Capture cardID now — the card may be moved to banishment as a cost below.
     $cardID = $sourceObject->CardID;
+    if(GetCounterCount($sourceObject, "frenzy") > 0) return;
 
     // Cardistry: block activation if already used (per-card, per-game)
     global $Cardistry_Cards;
@@ -5024,6 +5025,9 @@ function WakeUpPhase() {
             if(in_array("VIGOR_NEXT_TURN", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["VIGOR_NEXT_TURN"]));
             }
+            if(in_array("IMMORTALITY_NEXT_TURN", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["IMMORTALITY_NEXT_TURN"]));
+            }
             // Stand Fast (ao1cfkhbp6): +1 LIFE until beginning of next turn
             if(in_array("ao1cfkhbp6", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["ao1cfkhbp6"]));
@@ -5197,6 +5201,10 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         if(PropertyContains(CardSubtypes($added->CardID), "SLIME")) {
             if(GlobalEffectCount($player, "4wuq20gvcg") > 0) {
                 AddCounters($player, "myField-" . (count($field) - 1), "buff", 1);
+            }
+            if(GlobalEffectCount($player, "mdwbkuhtjm") > 0) {
+                AddCounters($player, "myField-" . (count($field) - 1), "buff", 2);
+                RemoveGlobalEffect($player, "mdwbkuhtjm");
             }
         }
     }
@@ -7021,6 +7029,8 @@ function EndPhase() {
             DecisionQueueController::CleanupRemovedCards();
         }
     }
+
+    FirebloodedOathEndPhase($turnPlayer);
 
     // Shriveling Vines (6gt6zkly69): At beginning of your end phase, put 2 wither counters
     // on target non-champion non-token object you don't control.
@@ -8892,6 +8902,12 @@ function ObjectCurrentPower($obj) {
     foreach($obj->TurnEffects as $te) {
         if($te === "6SXL09rEzS-POWER") $power += 1;
     }
+    if(in_array("yguf3aw2ct_POWER", $obj->TurnEffects ?? [])) $power += 2;
+    foreach($obj->TurnEffects ?? [] as $te) {
+        if(strpos($te, "o191zv86la_POWER_") === 0) {
+            $power += intval(substr($te, strlen("o191zv86la_POWER_")));
+        }
+    }
     // Band of Burning Verdict (7mmve2l328): +1 POWER until end of turn
     if(in_array("7mmve2l328", $obj->TurnEffects)) {
         $power += 1;
@@ -8925,6 +8941,17 @@ function ObjectCurrentPower($obj) {
             }
             if(strpos($te, "qtzsekkjn3-") === 0) {
                 $power += intval(substr($te, strlen("qtzsekkjn3-")));
+                break;
+            }
+        }
+    }
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && $obj->Controller != -1) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        foreach(GetZone($zone) as $fObj) {
+            if($fObj->removed || HasNoAbilities($fObj)) continue;
+            if($fObj->CardID === "GjM8b5fxqj" && $fObj !== $obj && intval($fObj->Status ?? 0) === 1) {
+                $power += 1;
                 break;
             }
         }
@@ -9233,6 +9260,9 @@ function ObjectCurrentHP($obj) {
     }
     // Buff counter modifier: +1 life per buff counter (applied before other modifiers)
     $cardLife += GetCounterCount($obj, "buff");
+    if(in_array("ymuarq5tv0-LIFE", $obj->TurnEffects ?? [])) {
+        $cardLife += 1;
+    }
     switch($obj->CardID) { //Self hp modifiers
         case "fdnlbJm3hr": // Memorite Obelith: +1 LIFE per sheen counter (cap 5)
             $cardLife += min(5, GetCounterCount($obj, "sheen"));
@@ -9906,6 +9936,12 @@ function HasAethercalling($player, $cardID) {
  * @param int $amount Number of cards to glimpse.
  */
 function Glimpse($player, $amount, $allowAstroscope = true) {
+    foreach(GetField($player) as $i => $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "c34iTVRS8h" && !HasNoAbilities($fObj)
+            && IsClassBonusActive($player, ["ASSASSIN", "CLERIC"])) {
+            AddTurnEffect("myField-" . $i, "STEALTH");
+        }
+    }
     // Orbiting Cosmos (qM9yzxQbfF): if you would glimpse X, glimpse X+1 instead
     $field = GetField($player);
     foreach($field as $fObj) {
@@ -11099,6 +11135,7 @@ $persistentTurnEffects["DISTANT"] = true; // Cleared at end of controller's turn
 $persistentTurnEffects["BLAZING_CHARGE_NEXT_TURN"] = true;
 $persistentTurnEffects["TAUNT_NEXT_TURN"] = true;
 $persistentTurnEffects["VIGOR_NEXT_TURN"] = true;
+$persistentTurnEffects["IMMORTALITY_NEXT_TURN"] = true;
 $persistentTurnEffects["FREEZING_ROUND_RETURN"] = true;
 $persistentTurnEffects["FOSTERED"] = true;
 $persistentTurnEffects["DAMAGED_SINCE_LAST_TURN"] = true;
@@ -11169,6 +11206,7 @@ $doesGlobalEffectApply["LEVELED_UP_THIS_TURN"] = function($obj) { //Flag only �
 $doesGlobalEffectApply["CHAMP_DEALT_COMBAT_DMG"] = function($obj) { //Flag only — tracks champion combat damage this turn
     return false;
 };
+$doesGlobalEffectApply["FIREBLOODED_OATH_DELEVEL"] = function($obj) { return false; };
 
 $doesGlobalEffectApply["RAI_ARCHMAGE_TRIGGERED"] = function($obj) { //Flag only — tracks first Mage action this turn for Rai, Archmage inherited effect
     return false;
@@ -14250,6 +14288,7 @@ function GetCardistryDiscount($player) {
 function HasImmortality($obj) {
     if(HasNoAbilities($obj)) return false;
     if(HasGrantedKeyword($obj, 'Immortality')) return true;
+    if(in_array("IMMORTALITY_NEXT_TURN", $obj->TurnEffects ?? [])) return true;
     if(!PropertyContains(EffectiveCardSubtypes($obj), "SUITED")) return false;
     if(!PropertyContains(EffectiveCardType($obj), "ALLY")) return false;
     global $playerID;
@@ -14267,6 +14306,233 @@ function HasImmortality($obj) {
 // =============================================================================
 // Counter System — generic add/remove/query for card-level counters
 // =============================================================================
+
+// Card-specific helper implementations.
+function CountUniqueAllies($player) {
+    $count = 0;
+    foreach(GetField($player) as $obj) {
+        if($obj->removed || HasNoAbilities($obj)) continue;
+        if(!PropertyContains(EffectiveCardType($obj), "ALLY")) continue;
+        if(PropertyContains(EffectiveCardType($obj), "UNIQUE")) ++$count;
+    }
+    return $count;
+}
+
+function CountChampionCombatDamageDealtThisTurn($player) {
+    $champion = GetPlayerChampion($player);
+    if($champion === null) return 0;
+    return intval($champion->Counters["_champCombatDamageDealtThisTurn"] ?? 0);
+}
+
+function MortalAmbitionResolve($player) {
+    $field = &GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || HasNoAbilities($field[$i])) continue;
+        if(!PropertyContains(EffectiveCardType($field[$i]), "ALLY")) continue;
+        $subtypes = EffectiveCardSubtypes($field[$i]);
+        if(!PropertyContains($subtypes, "HUMAN") && !PropertyContains($subtypes, "HORSE")) continue;
+        AddTurnEffect("myField-" . $i, "ymuarq5tv0-LIFE");
+        AddTurnEffect("myField-" . $i, "STEADFAST");
+        AddTurnEffect("myField-" . $i, "AMBUSH");
+    }
+}
+
+function ArthurYoungHeirEnter($player, $mzID) {
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Rest_Arthur_for_immortality_until_your_next_turn?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ArthurYoungHeirEnter|" . $mzID, 1);
+}
+
+$customDQHandlers["ArthurYoungHeirEnter"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mzID = $parts[0] ?? "";
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->CardID !== "GjM8b5fxqj") return;
+    $obj->Status = 1;
+    AddTurnEffect($mzID, "IMMORTALITY_NEXT_TURN");
+};
+
+function StrengthenTheBondsStart($player) {
+    $targets = [];
+    foreach(["myField", "theirField"] as $zone) {
+        foreach(GetZone($zone) as $i => $obj) {
+            if($obj->removed) continue;
+            $subtypes = EffectiveCardSubtypes($obj);
+            if(PropertyContains($subtypes, "FATESTONE") || PropertyContains($subtypes, "FATEBOUND")) {
+                $targets[] = $zone . "-" . $i;
+            }
+        }
+    }
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Put_a_buff_counter_on_up_to_two_Fatestone_or_Fatebound_objects");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StrengthenTheBondsFirst", 1);
+}
+
+$customDQHandlers["StrengthenTheBondsFirst"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+    $targets = [];
+    foreach(["myField", "theirField"] as $zone) {
+        foreach(GetZone($zone) as $i => $obj) {
+            if($obj->removed) continue;
+            $mzID = $zone . "-" . $i;
+            if($mzID === $lastDecision) continue;
+            $subtypes = EffectiveCardSubtypes($obj);
+            if(PropertyContains($subtypes, "FATESTONE") || PropertyContains($subtypes, "FATEBOUND")) {
+                $targets[] = $mzID;
+            }
+        }
+    }
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Put_a_second_buff_counter?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StrengthenTheBondsSecond", 1);
+};
+
+$customDQHandlers["StrengthenTheBondsSecond"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "buff", 1);
+};
+
+function DaQiaoCinderbinderAbility($player) {
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_a_frenzy_counter_on_target_ally?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DaQiaoMode", 1);
+}
+
+$customDQHandlers["DaQiaoMode"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        $targets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+        if(!empty($targets)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_ally_for_frenzy_counter");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DaQiaoFrenzyCounter", 1);
+        }
+        return;
+    }
+    $count = 0;
+    foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $obj) {
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "ALLY") && GetCounterCount($obj, "frenzy") > 0) ++$count;
+    }
+    if($count > 0) Empower($player, $count, "ugl6g5znia");
+};
+
+$customDQHandlers["DaQiaoFrenzyCounter"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "frenzy", 1);
+};
+
+function KraalStonescaleOnAttack($player) {
+    if(!IsClassBonusActive($player, ["TAMER"])) return;
+    PutTopDeckCardIntoMaterialPreserved($player);
+    PutTopDeckCardIntoMaterialPreserved($player);
+}
+
+function LuBuIndomitableTitanOnAttack($player, $mzID) {
+    if(OnAttackCallCount($player) !== 1) return;
+    if(CountAvailableReservePayments($player) < 2) return;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Pay_2_to_wake_up_Lu_Bu?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LuBuIndomitableTitanOnAttack|" . $mzID, 1);
+}
+
+$customDQHandlers["LuBuIndomitableTitanOnAttack"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mzID = $parts[0] ?? "";
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->CardID !== "xyan7zbtxi") return;
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    WakeupCard($player, $mzID);
+};
+
+function FirebloodedOathResolve($player) {
+    LevelUpChampion($player);
+    AddGlobalEffects($player, "FIREBLOODED_OATH_DELEVEL");
+}
+
+function FirebloodedOathEndPhase($player) {
+    if(GlobalEffectCount($player, "FIREBLOODED_OATH_DELEVEL") <= 0) return;
+    while(RemoveGlobalEffect($player, "FIREBLOODED_OATH_DELEVEL")) {}
+    Delevel($player);
+}
+
+function LuBuDiaoChanChampionReplacement($player, $championMZ) {
+    $champObj = GetZoneObject($championMZ);
+    if($champObj === null || $champObj->removed) return false;
+    if(!PropertyContains(EffectiveCardType($champObj), "CHAMPION")) return false;
+    $controller = $champObj->Controller ?? $player;
+    if(!IsDiaoChanBonus($controller)) return false;
+    if(intval($champObj->Damage ?? 0) !== 32 || intval($champObj->Damage ?? 0) < ObjectCurrentHP($champObj)) return false;
+
+    $field = &GetField($controller);
+    $luBuMZ = null;
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "xyan7zbtxi" && !HasNoAbilities($field[$i])) {
+            $luBuMZ = "myField-" . $i;
+            break;
+        }
+    }
+    if($luBuMZ === null) return false;
+
+    MZMove($controller, $championMZ, "myBanish");
+    $luBuObj = GetZoneObject($luBuMZ);
+    if($luBuObj !== null) {
+        ApplyPersistentOverride($luBuMZ, ["type" => "UNIQUE,CHAMPION"]);
+        $luBuObj->Damage = 0;
+    }
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if($field[$i]->removed) continue;
+        $mzID = "myField-" . $i;
+        if($mzID === $luBuMZ) continue;
+        DoAllyDestroyed($controller, $mzID);
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    return true;
+}
+
+function HarbingerOfLightningOnDeath($player) {
+    if(!IsClassBonusActive($player, ["MAGE", "TAMER"])) return;
+    $totalCost = 0;
+    $gy = GetGraveyard($player);
+    for($i = count($gy) - 1; $i >= 0; --$i) {
+        if($gy[$i]->removed || $gy[$i]->CardID !== "1i5z6r7s9k") continue;
+        $totalCost += max(0, intval(CardCost_reserve($gy[$i]->CardID)));
+        MZMove($player, "myGraveyard-" . $i, "myBanish");
+        break;
+    }
+    $memory = GetMemory($player);
+    $memoryTargets = [];
+    for($i = 0; $i < count($memory); ++$i) {
+        if(!$memory[$i]->removed) $memoryTargets[] = "myMemory-" . $i;
+    }
+    if(!empty($memoryTargets)) {
+        $chosen = $memoryTargets[array_rand($memoryTargets)];
+        $memObj = GetZoneObject($chosen);
+        if($memObj !== null) $totalCost += max(0, intval(CardCost_reserve($memObj->CardID)));
+        MZMove($player, $chosen, "myBanish");
+    }
+    if($totalCost > 0) {
+        $opponent = ($player == 1) ? 2 : 1;
+        DealChampionDamage($opponent, $totalCost);
+    }
+}
+
+function ForagingFoxOnEnter($player) {
+    $deck = &GetDeck($player);
+    $lookCount = min(5, count($deck));
+    if($lookCount <= 0) return;
+    $chosenIndex = -1;
+    for($i = 0; $i < $lookCount; ++$i) {
+        if(PropertyContains(CardSubtypes($deck[$i]->CardID), "FATESTONE")) {
+            $chosenIndex = $i;
+            break;
+        }
+    }
+    if($chosenIndex >= 0) {
+        MZMove($player, "myDeck-" . $chosenIndex, "myMemory");
+        --$lookCount;
+    }
+    for($i = 0; $i < $lookCount; ++$i) {
+        $obj = array_shift($deck);
+        if($obj !== null) $deck[] = $obj;
+    }
+}
 
 /**
  * Get the number of a specific counter type on a card object.
