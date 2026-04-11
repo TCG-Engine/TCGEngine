@@ -37,20 +37,22 @@ Implementation notes:
 
 This group is mostly about moving cards between graveyard, banishment, memory, and field, or paying costs by exiling cards from non-standard zones.
 
-- `Reviewed text`: Jabberwocky, Calamity's Call, Lost Promises, Lost Providence, Spectral Beacon, Sacramental Rite, Apotheosis Rite, Gaia's Blessing.
+- `Implemented`: Jabberwocky, Calamity's Call, Lost Promises, Lost Providence, Spectral Beacon, Sacramental Rite, Apotheosis Rite, Gaia's Blessing.
 - `Likely`: Diablerie, Devouring Malice, Servile Possessions, Malignant Athame, Materialize the Soul, Expel the Departed, Broken Promises, Obscuring Threads, Fractured Memories, Duality's Convergence, Luminous Quartz, Proto Key Crest, Journey's Beginning, Foraging Fox, Spirit of Slime, Verdant Scepter, Quicksilver Grail, Covenant of Thorns, Proof of Life, Nocturne's Oblivion, Profane Bindings.
 
 Implementation notes:
 
 - This is a strong batch for graveyard filtering, memory banish costs, "activate from memory," and "play a card previously set aside" behavior.
 - Sacramental Rite and Apotheosis Rite also overlap with champion-type modification.
+- New helpers added: `MakeChampionAscendant`/`IsChampionAscendant` in GameLogic.php; `IsChampionBeingAttacked` in CombatLogic.php; `LostPromisesBanishLoop`/`GaiasBlessingBanishLoop` in CardDQHandlers.php; `TryLostPromisesMemory` in OpportunityLogic.php.
+- New ActionMap cases: `case "myDeck":` (Gaia's Blessing field passive); `case "myMaterial":` extended with Lost Providence and Gaia's Blessing.
 
 ## 6. Distortion / Alice / omens / suited / bizarre timing rules
 
 This DTR/PTM-adjacent package looks like a good "special framework" batch because several of these cards care about custom sub-engines rather than simple stat changes.
 
 - `Reviewed text`: Wonderland's Reign, Three of Hearts, Chronowarp, The Looking Glass, Mary Ann, Maladroit Maid, Nocturne's Oblivion, Nightmare Coil.
-- `Likely`: Lamentation's Toll, Grande Aiguille, Inert Sword, Frostbind, Chained Charge, Beguiling Coup, Profane Bindings, Candlelight Hourglass, Memento Pocketwatch, Diana, Moonpiercer, Radiant Vega, Excalibur, Reflected Edge, Sword of Shadows, Broken Promises, Lost Providence, Jabberwocky, Calamity's Call.
+- `Likely`: Lamentation's Toll, Grande Aiguille, Inert Sword, Frostbind, Chained Charge, Beguiling Coup, Profane Bindings, Candlelight Hourglass, Memento Pocketwatch, Diana, Moonpiercer, Radiant Vega, Excalibur, Reflected Edge, Sword of Shadows, Broken Promises.
 
 Implementation notes:
 
@@ -74,7 +76,8 @@ Implementation notes:
 
 These cards either are champions themselves or look like they bend champion rules hard enough that they deserve a dedicated tracking group.
 
-- `Reviewed text`: Vanitas, Convergent Ruin, Guo Jia, Chosen Disciple, Guo Jia, Blessed Scion, Guo Jia, Heaven's Favored, Arisanna, Lucent Arbiter, Jin, Fate Defiant, Nameless Champion, Prismatic Spirit, Rai, Mana Weaver, Seize Fate, Sacramental Rite, Apotheosis Rite.
+- `Reviewed text`: Vanitas, Convergent Ruin, Guo Jia, Chosen Disciple, Guo Jia, Blessed Scion, Guo Jia, Heaven's Favored, Arisanna, Lucent Arbiter, Jin, Fate Defiant, Nameless Champion, Prismatic Spirit, Rai, Mana Weaver, Seize Fate.
+- `Implemented`: Sacramental Rite, Apotheosis Rite.
 - `Likely`: Vanitas, Dominus Rex, Jin, Undying Resolve, Diana, Moonpiercer, Materialize the Soul, Coronal of Rejuvenation, Prismatic Perseverance, Nameless Champion, Camelot, Impenetrable.
 
 Implementation notes:
@@ -87,8 +90,9 @@ Implementation notes:
 
 These are probably safer to batch separately because they can affect engine assumptions globally.
 
-- `Reviewed text`: Imperial Seal, Nullifying Lantern, Tricastles of Lucenia, Chronowarp, Gaia's Blessing, Prismatic Perseverance.
-- `Likely`: Gate of Alterity, Aetherial Projection, Prismatic Codex, Coronal of Rejuvenation, Lost Providence, The Looking Glass.
+- `Reviewed text`: Imperial Seal, Nullifying Lantern, Tricastles of Lucenia, Chronowarp, Prismatic Perseverance.
+- `Implemented`: Gaia's Blessing.
+- `Likely`: Gate of Alterity, Aetherial Projection, Prismatic Codex, Coronal of Rejuvenation, The Looking Glass.
 
 Implementation notes:
 

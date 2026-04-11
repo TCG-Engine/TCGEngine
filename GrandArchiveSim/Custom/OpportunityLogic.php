@@ -339,6 +339,23 @@ function GetPlayableFastCards($player) {
         }
     }
 
+    // Lost Promises (gN8uFKSip0): [Alice Bonus] while champion is defending,
+    // banish 6 from GY → activate from memory without paying reserve cost
+    if($player != $turnPlayer && IsAliceBonusActive($player) && IsChampionBeingAttacked($player)) {
+        $gy = GetZone("myGraveyard");
+        $gyCount = 0;
+        foreach($gy as $gyObj) { if(!$gyObj->removed) $gyCount++; }
+        if($gyCount >= 6) {
+            $memory = &GetMemory($player);
+            for($mi = 0; $mi < count($memory); ++$mi) {
+                if(isset($memory[$mi]->removed) && $memory[$mi]->removed) continue;
+                if($memory[$mi]->CardID === "gN8uFKSip0") {
+                    $fastCards[] = "myMemory-" . $mi;
+                }
+            }
+        }
+    }
+
     return $fastCards;
 }
 
@@ -346,6 +363,26 @@ function GetPlayableFastCards($player) {
 // After a card enters the EffectStack, the player who activated it gets priority
 // first (they can chain more fast cards), then the opponent. Both must pass for
 // the topmost card to resolve.
+
+/**
+ * Try to activate Lost Promises (gN8uFKSip0) from memory via the banish-6 alternate cost.
+ * Returns true if the activation was initiated (caller should not call ActivateCard after this).
+ * @param int    $player The player trying to use Lost Promises
+ * @param string $mzID   The selected card's mzID (expected "myMemory-N")
+ */
+function TryLostPromisesMemory($player, $mzID) {
+    if(strpos($mzID, "myMemory-") !== 0) return false;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->CardID !== "gN8uFKSip0") return false;
+    if(!IsAliceBonusActive($player)) return false;
+    if(!IsChampionBeingAttacked($player)) return false;
+    $gy = GetZone("myGraveyard");
+    $gyCount = 0;
+    foreach($gy as $gyObj) { if(!$gyObj->removed) $gyCount++; }
+    if($gyCount < 6) return false;
+    LostPromisesBanishLoop($player, 6, $mzID);
+    return true;
+}
 
 /**
  * DQ handler: After a card is placed on the EffectStack and costs are paid,
@@ -401,7 +438,7 @@ $customDQHandlers["EffectStackActiveResponse"] = function($player, $parts, $last
         }
     } else {
         // Active player played a fast card — they keep priority
-        if(!TryGlimmerCast($player, $lastDecision)) {
+        if(!TryLostPromisesMemory($player, $lastDecision) && !TryGlimmerCast($player, $lastDecision)) {
             ActivateCard($player, $lastDecision, false);
         }
     }
@@ -416,7 +453,7 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
         ResolveTopOfEffectStack();
     } else {
         // Opponent played a fast card — they get priority
-        if(!TryGlimmerCast($player, $lastDecision)) {
+        if(!TryLostPromisesMemory($player, $lastDecision) && !TryGlimmerCast($player, $lastDecision)) {
             ActivateCard($player, $lastDecision, false);
         }
     }
@@ -607,7 +644,7 @@ $customDQHandlers["OpportunityWindowFirstResponse"] = function($player, $parts, 
         }
     } else {
         // Player played a fast card — they keep priority
-        if(!TryGlimmerCast($player, $lastDecision)) {
+        if(!TryLostPromisesMemory($player, $lastDecision) && !TryGlimmerCast($player, $lastDecision)) {
             ActivateCard($player, $lastDecision, false);
         }
         // ActivateCard → DoActivateCard → EffectStack → EffectStackOpportunity
@@ -624,7 +661,7 @@ $customDQHandlers["OpportunityWindowSecondResponse"] = function($player, $parts,
         ResolveOpportunityWindow();
     } else {
         // Player played a fast card — they keep priority
-        if(!TryGlimmerCast($player, $lastDecision)) {
+        if(!TryLostPromisesMemory($player, $lastDecision) && !TryGlimmerCast($player, $lastDecision)) {
             ActivateCard($player, $lastDecision, false);
         }
         // After stack empties, PostResolutionCheck re-grants this window

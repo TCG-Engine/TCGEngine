@@ -390,6 +390,27 @@ function FlipZonePerspective($mzID) {
 }
 
 /**
+ * Returns true if $player's champion is the current combat target.
+ * CombatTarget is stored from the attacker's perspective ("theirField-N"),
+ * so we resolve it using the raw field array to be perspective-safe.
+ * @param int $player The player to check (should be the defending/non-attacking player).
+ */
+function IsChampionBeingAttacked($player) {
+    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($combatTarget === null || $combatTarget === "" || $combatTarget === "-") return false;
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? 0);
+    if($attackerPlayer === 0 || $attackerPlayer === $player) return false;
+    // CombatTarget was stored from the attacker's perspective.
+    // "theirField" from the attacker = the defending player's field.
+    $parts = explode("-", $combatTarget);
+    if(count($parts) < 2 || $parts[0] !== "theirField") return false;
+    $fieldIdx = intval($parts[1]);
+    $field = GetField($player);
+    if(!isset($field[$fieldIdx]) || $field[$fieldIdx]->removed) return false;
+    return PropertyContains(EffectiveCardType($field[$fieldIdx]), "CHAMPION");
+}
+
+/**
  * Send all attack cards from intent zone to graveyard after combat resolves.
  */
 function ClearIntent($player) {
@@ -2534,6 +2555,13 @@ function OnDealDamage($player, $source, $target, $amount) {
     if($amount > 0 && $targetObj->CardID === "gveirpdm44" && !HasNoAbilities($targetObj)) {
         $amount -= 3;
         if($amount <= 0) return;
+    }
+
+    // Jabberwocky, Calamity's Call (yicNKtzC3H): prevent all damage while no player controls Vorpal Sword (PIcB5KuuMd)
+    if($amount > 0 && $targetObj->CardID === "yicNKtzC3H" && !HasNoAbilities($targetObj)) {
+        if(!ZoneContainsCardID("myField", "PIcB5KuuMd") && !ZoneContainsCardID("theirField", "PIcB5KuuMd")) {
+            return; // All damage prevented
+        }
     }
 
     // Froglet Footman (fbvt9rdhkj): prevent 1 damage while it has a buff counter

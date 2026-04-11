@@ -6151,7 +6151,92 @@ $customDQHandlers["SacredEngulfmentProcess"] = function($player, $parts, $lastDe
 };
 
 // ============================================================================
-// Enfeebling Orb (T3cx65VM3D): opponent puts 2 cards from hand into memory
+// Lost Promises (gN8uFKSip0): banish 6 from GY loop → activate from memory free
+// ============================================================================
+
+/**
+ * Recursively banish $remaining cards from the player's graveyard.
+ * When $remaining reaches 0, move Lost Promises from memory to hand and activate (ignoreCost=true).
+ * @param int    $player    The defending player
+ * @param int    $remaining How many more GY cards to banish
+ * @param string $memoryMZ  The mzID of Lost Promises in memory (e.g. "myMemory-2")
+ */
+function LostPromisesBanishLoop($player, $remaining, $memoryMZ) {
+    if($remaining <= 0) {
+        LostPromisesActivate($player, $memoryMZ);
+        return;
+    }
+    $gy = ZoneSearch("myGraveyard");
+    if(empty($gy)) {
+        LostPromisesActivate($player, $memoryMZ);
+        return;
+    }
+    $gyStr = implode("&", $gy);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_from_GY_($remaining_remaining)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LostPromisesGYBanish|$remaining|$memoryMZ", 1);
+}
+
+$customDQHandlers["LostPromisesGYBanish"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    $memoryMZ = $parts[1];
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    LostPromisesBanishLoop($player, $remaining - 1, $memoryMZ);
+};
+
+function LostPromisesActivate($player, $memoryMZ) {
+    $memObj = GetZoneObject($memoryMZ);
+    if($memObj === null || $memObj->removed) return;
+    MZMove($player, $memoryMZ, "myHand");
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    ActivateCard($player, "myHand-" . $handIdx, true);
+}
+
+// ============================================================================
+// Gaia's Blessing (ymhDYTPfi1): banish 4 Animal/Beast GY allies → activate from material free
+// ============================================================================
+
+/**
+ * Recursively banish $remaining Animal or Beast ALLY cards from GY.
+ * When done, move Gaia's Blessing from material to hand and activate (ignoreCost=true).
+ * @param int    $player     The activating player
+ * @param int    $remaining  How many more to banish
+ * @param string $materialMZ The mzID of Gaia's Blessing in the material deck
+ */
+function GaiasBlessingBanishLoop($player, $remaining, $materialMZ) {
+    if($remaining <= 0) {
+        $matObj = GetZoneObject($materialMZ);
+        if($matObj === null || $matObj->removed) return;
+        MZMove($player, $materialMZ, "myHand");
+        $hand = &GetHand($player);
+        $handIdx = count($hand) - 1;
+        ActivateCard($player, "myHand-" . $handIdx, true);
+        return;
+    }
+    $animalBeastGY = ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+    if(empty($animalBeastGY)) {
+        GaiasBlessingBanishLoop($player, 0, $materialMZ);
+        return;
+    }
+    $gyStr = implode("&", $animalBeastGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_Animal_or_Beast_ally_($remaining_remaining)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GaiasBlessingGYBanish|$remaining|$materialMZ", 1);
+}
+
+$customDQHandlers["GaiasBlessingGYBanish"] = function($player, $parts, $lastDecision) {
+    $remaining = intval($parts[0]);
+    $materialMZ = $parts[1];
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    GaiasBlessingBanishLoop($player, $remaining - 1, $materialMZ);
+};
+
+
 // ============================================================================
 function EnfeebleOrbChooseStep($player, $opponent, $remaining) {
     if($remaining <= 0) return;

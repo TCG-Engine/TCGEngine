@@ -721,8 +721,65 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
+            // Lost Providence (DNbIpzVgde): may activate from material deck → enters field ephemeral
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "DNbIpzVgde") {
+                    DecisionQueueController::StoreVariable("lostProvidenceFromMaterial", "YES");
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
+            // Gaia's Blessing (ymhDYTPfi1): [Element Bonus] banish 4 Animal/Beast GY allies → activate from material free
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "ymhDYTPfi1"
+                    && IsElementBonusActive($playerID, "ymhDYTPfi1")) {
+                    $animalBeastGY = ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
+                    if(count($animalBeastGY) >= 4) {
+                        SaveUndoVersion($playerID);
+                        GaiasBlessingBanishLoop($playerID, 4, $actionCard);
+                        return "PLAY";
+                    }
+                }
+            }
             break;
-        default: break;
+        case "myDeck":
+            // Gaia's Blessing (ymhDYTPfi1): activate Animal/Beast ally from top of deck while Gaia's Blessing is on field
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $cardArr = explode("-", $actionCard);
+                $deckIdx = intval($cardArr[1] ?? -1);
+                if($deckIdx === 0) {
+                    $deckObj = GetZoneObject($actionCard);
+                    if($deckObj !== null && !$deckObj->removed) {
+                        $gaiaOnField = false;
+                        $myField = GetField($playerID);
+                        foreach($myField as $gfObj) {
+                            if(!$gfObj->removed && $gfObj->CardID === "ymhDYTPfi1" && !HasNoAbilities($gfObj)) {
+                                $gaiaOnField = true;
+                                break;
+                            }
+                        }
+                        if($gaiaOnField) {
+                            $deckCardType = CardType($deckObj->CardID);
+                            $deckCardSubtypes = CardSubtypes($deckObj->CardID);
+                            if(PropertyContains($deckCardType, "ALLY") &&
+                               (PropertyContains($deckCardSubtypes, "ANIMAL") || PropertyContains($deckCardSubtypes, "BEAST"))) {
+                                SaveUndoVersion($playerID);
+                                $handObj = MZMove($playerID, $actionCard, "myHand");
+                                $hand = &GetHand($playerID);
+                                $handIdx = count($hand) - 1;
+                                ActivateCard($playerID, "myHand-" . $handIdx, false);
+                                return "PLAY";
+                            }
+                        }
+                    }
+                }
+            }
+            break;
     }
     return "";
 }
@@ -4066,9 +4123,27 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "xl3tzqhlt1": // Hairpin of Transience — banish self
         case "xnrw8qq1uw": // Tariff Ring — banish self
         case "czvy67nbin": // Prismatic Codex — banish self
+        case "yxk7e8opr6": // Spectral Beacon — banish self
+        case "df594Qoszn": // Apotheosis Rite — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "DNbIpzVgde": { // Lost Providence — REST + banish self
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1; // REST
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        }
+        case "TL19V7lU6A": { // Sacramental Rite — store banished card ID, then banish self
+            $riteObj = &GetZoneObject($mzCard);
+            $sacBanishedID = (is_array($riteObj->Counters) && isset($riteObj->Counters['sacBanishedID']))
+                ? $riteObj->Counters['sacBanishedID'] : "";
+            DecisionQueueController::StoreVariable("sacBanishedCardID", $sacBanishedID);
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        }
         case "41t71u4bzz": { // Polaris, Twinkling Cauldron — REST + store age count + banish self
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1; // REST
@@ -8746,6 +8821,9 @@ function ObjectCurrentPower($obj) {
             case "CgyJxpEgzk-POWER3": // Spirit Blade: Infusion: +3 POWER until end of turn
                 $power += 3;
                 break;
+            case "yicNKtzC3H-POWER_BUFF": // Jabberwocky, Calamity's Call: +2 POWER until end of turn
+                $power += 2;
+                break;
             case "a8a0v4njrt": // Slate Whetstone: +1 POWER until end of turn
                 $power += 1;
                 break;
@@ -12207,6 +12285,27 @@ function IsAliceBonusActive($player) {
         || ChampionHasInLineage($player, "9K4etFOi4M") // Alice, Whim's Monarch (L2)
         || ChampionHasInLineage($player, "GiQxfpKTUC") // Alice, Distorted Queen (L1)
         || ChampionHasInLineage($player, "emqOANitoD"); // Alice, Phantom Monarch (L2)
+}
+
+// Make $player's champion additionally an ASCENDANT type (persistent override).
+function MakeChampionAscendant($player) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return;
+    $champObj = &GetZoneObject($champMZ);
+    if($champObj === null) return;
+    $currentType = EffectiveCardType($champObj);
+    if(!PropertyContains($currentType, "ASCENDANT")) {
+        ApplyPersistentOverride($champMZ, ['type' => $currentType . ",ASCENDANT"]);
+    }
+}
+
+// Returns true if $player's champion has been made an ASCENDANT.
+function IsChampionAscendant($player) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return false;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null) return false;
+    return PropertyContains(EffectiveCardType($champObj), "ASCENDANT");
 }
 
 function SummonPawnPieceToken($player, $count = 1) {
