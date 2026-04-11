@@ -50,8 +50,18 @@ $paginationUrlParameter = trim(fgets($handler));
 $paginationResponseMetadata = trim(fgets($handler));
 $properties = explode(",", fgets($handler));
 $keywordsFile = trim(fgets($handler));
+$importOptions = [];
+while(($line = fgets($handler)) !== false) {
+  $line = trim($line);
+  if($line == "" || substr($line, 0, 1) == "#") continue;
+  $optionParts = explode("=", $line, 2);
+  if(count($optionParts) == 2) {
+    $importOptions[trim($optionParts[0])] = trim($optionParts[1]);
+  }
+}
 $propertyTypes = [];
 fclose($handler);
+$nestedCardPaths = isset($importOptions["nestedCardPaths"]) && $importOptions["nestedCardPaths"] != "" ? array_map("trim", explode(",", $importOptions["nestedCardPaths"])) : [];
 
 $rootPath = "./" . $rootName;
 if(!is_dir($rootPath)) mkdir($rootPath, 0755, true);
@@ -81,6 +91,7 @@ if($rootName == "SWUDeck") {
 $cardArray = [];
 $duplicateMap = [];
 $reprintMap = [];
+$otherOrientationMap = [];
 $count = 0;
 
 if(!$withPreview && file_exists($cacheFile)) {
@@ -221,6 +232,11 @@ if(!$withPreview && file_exists($cacheFile)) {
   $cacheJson = json_encode(['cardArray' => $cardArray, 'reprintMap' => $reprintMap]);
   file_put_contents($cacheFile, $cacheJson);
   logLine("=== Phase 1 complete: " . $count . " cards accepted, " . $totalSkipped . " skipped across " . ($currentPage - 1) . " pages — cache saved (" . round(strlen($cacheJson)/1024, 1) . "KB) ===");
+}
+$nestedCardCount = ExpandNestedCards($cardArray, $nestedCardPaths, $otherOrientationMap, $imageUrl, $imageFormat);
+if($nestedCardCount > 0) {
+  $count += $nestedCardCount;
+  logLine("Expanded " . $nestedCardCount . " nested cards from ImportSchema nestedCardPaths.");
 }
 logLine("=== Phase 2: Building property arrays for " . count($properties) . " properties ===");
 
@@ -371,6 +387,11 @@ if($rootName == "SWUDeck") {
   fwrite($handler, "  return isset(\$data[\$cardID]) ? \$data[\$cardID] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
+fwrite($handler, "  \$otherOrientationData = " . var_export($otherOrientationMap, true) . ";\r\n");
+fwrite($handler, "function CardOtherOrientation(\$cardID) {\r\n");
+fwrite($handler, "  global \$otherOrientationData;\r\n");
+fwrite($handler, "  return isset(\$otherOrientationData[\$cardID]) ? \$otherOrientationData[\$cardID] : null;\r\n");
+fwrite($handler, "}\r\n\r\n");
 fwrite($handler, "function GetAllCardIds() {\r\n");
 fwrite($handler, "  return " . var_export($allCardIds, true) . ";\r\n");
 fwrite($handler, "}\r\n\r\n");
@@ -394,6 +415,10 @@ foreach ($properties as $property) {
   fwrite($handler, "  return " . $property . "Data[cardID] !== undefined ? " . $property . "Data[cardID] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
+fwrite($handler, "var otherOrientationData = " . json_encode($otherOrientationMap) . ";\r\n");
+fwrite($handler, "function CardOtherOrientation(cardID) {\r\n");
+fwrite($handler, "  return otherOrientationData[cardID] !== undefined ? otherOrientationData[cardID] : null;\r\n");
+fwrite($handler, "}\r\n\r\n");
 if($rootName == "SWUDeck") {
   fwrite($handler, "var setNumOffsets = " . json_encode($associativeArrays["setNumOffsets"]) . ";\r\n");
   fwrite($handler, "function Cardsetnum(cardID) {\r\n");
@@ -584,6 +609,110 @@ function GetResponseMetadata($response, $metadataPath)
   }
 
   return $current;
+}
+
+function ExpandNestedCards(&$cardArray, $nestedCardPaths, &$otherOrientationMap, $imageUrl, $imageFormat)
+{
+  global $rootName;
+  if(empty($nestedCardPaths)) return 0;
+
+  $seenCardIds = [];
+  for($i = 0; $i < count($cardArray); ++$i) {
+    if(isset($cardArray[$i]->id)) $seenCardIds[$cardArray[$i]->id] = true;
+  }
+
+  $originalCount = count($cardArray);
+  $added = 0;
+  for($i = 0; $i < $originalCount; ++$i) {
+    $parentCard = $cardArray[$i];
+    if(!isset($parentCard->id)) continue;
+    foreach($nestedCardPaths as $path) {
+      if($path == "") continue;
+      $nestedCards = GetNestedImportCards($parentCard, explode(".", $path));
+      foreach($nestedCards as $nestedCard) {
+        if(!is_object($nestedCard) || !isset($nestedCard->uuid)) continue;
+        $nestedCardId = $nestedCard->uuid;
+        if(!isset($otherOrientationMap[$parentCard->id])) $otherOrientationMap[$parentCard->id] = $nestedCardId;
+        if(!isset($otherOrientationMap[$nestedCardId])) $otherOrientationMap[$nestedCardId] = $parentCard->id;
+        if(isset($seenCardIds[$nestedCardId])) continue;
+
+        $nestedCard->id = $nestedCardId;
+        NormalizeNestedImportCard($nestedCard, $parentCard);
+        $cardArray[] = $nestedCard;
+        $seenCardIds[$nestedCardId] = true;
+        ++$added;
+
+        $thisImageUrl = $imageUrl . $nestedCardId . "." . $imageFormat;
+        $squareCards = false;
+        if($rootName == "GrandArchiveSim") {
+          $imageID = GetGrandArchiveImageId($nestedCard);
+          $thisImageUrl = $imageUrl . $imageID . "." . $imageFormat;
+        } else if($rootName == "GudnakSim") {
+          $squareCards = true;
+        }
+        CheckImage($nestedCardId, $thisImageUrl, "", "", rootPath:"./" . $rootName . "/", squareCards:$squareCards);
+      }
+    }
+  }
+  return $added;
+}
+
+function GetNestedImportCards($node, $pathParts)
+{
+  if(empty($pathParts)) {
+    if(is_array($node)) return $node;
+    return [$node];
+  }
+
+  $part = array_shift($pathParts);
+  $results = [];
+
+  if(is_array($node)) {
+    foreach($node as $item) {
+      $results = array_merge($results, GetNestedImportCards($item, array_merge([$part], $pathParts)));
+    }
+    return $results;
+  }
+
+  if($part == "*") {
+    if(is_object($node)) {
+      foreach(get_object_vars($node) as $value) {
+        $results = array_merge($results, GetNestedImportCards($value, $pathParts));
+      }
+    }
+    return $results;
+  }
+
+  if(is_object($node) && isset($node->$part)) {
+    return GetNestedImportCards($node->$part, $pathParts);
+  }
+
+  return [];
+}
+
+function NormalizeNestedImportCard($card, $parentCard)
+{
+  global $rootName;
+  if($rootName == "GrandArchiveSim") {
+    if(!isset($card->editions)) {
+      if(isset($card->edition)) {
+        $card->editions = [$card->edition];
+      } else if(isset($parentCard->editions)) {
+        $card->editions = $parentCard->editions;
+      }
+    }
+    if(!isset($card->result_editions) && isset($card->editions)) {
+      $card->result_editions = $card->editions;
+    }
+  }
+}
+
+function GetGrandArchiveImageId($card)
+{
+  if(isset($card->edition_id) && $card->edition_id != "") return $card->edition_id;
+  if(isset($card->edition) && isset($card->edition->uuid) && $card->edition->uuid != "") return $card->edition->uuid;
+  if(isset($card->editions) && is_array($card->editions) && count($card->editions) > 0 && isset($card->editions[0]->uuid) && $card->editions[0]->uuid != "") return $card->editions[0]->uuid;
+  return isset($card->id) ? $card->id : $card->uuid;
 }
 
 function GetPropertyValue($card, $property)

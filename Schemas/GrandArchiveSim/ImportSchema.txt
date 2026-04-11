@@ -6,3 +6,4 @@ page
 has_more
 uuid,name,element,type,speed,cost_memory:number,cost_reserve:number,level:number,power:number,life:number,durability:number,classes,subtypes,effect,set
 
+nestedCardPaths=editions.other_orientations
