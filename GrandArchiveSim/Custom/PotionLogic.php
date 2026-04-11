@@ -279,6 +279,18 @@ function BrewFinalizeHerbs($player, $chosenStr) {
             Glimpse($player, 2);
         }
     }
+    // Polaris, Twinkling Cauldron (41t71u4bzz): whenever you sacrifice an Herb → age counter (once per herb)
+    if($herbCount > 0) {
+        $polField = &GetField($player);
+        for($pi = 0; $pi < count($polField); ++$pi) {
+            if(!$polField[$pi]->removed && $polField[$pi]->CardID === "41t71u4bzz" && !HasNoAbilities($polField[$pi])) {
+                for($h = 0; $h < $herbCount; $h++) {
+                    AddCounters($player, "myField-" . $pi, "age", 1);
+                }
+                break;
+            }
+        }
+    }
     DecisionQueueController::CleanupRemovedCards();
     OnBrew($player);
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);

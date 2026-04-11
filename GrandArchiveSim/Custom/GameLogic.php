@@ -708,6 +708,19 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
+            // Polaris, Twinkling Cauldron (41t71u4bzz): [Arisanna Bonus] may activate from material deck
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "41t71u4bzz"
+                    && IsArisannaBonusActive($playerID)) {
+                    DecisionQueueController::StoreVariable("polarisFromMaterial", "YES");
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             break;
         default: break;
     }
@@ -779,7 +792,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     TrackEffectStackSourceZone("EffectStack-" . $obj->mzIndex, DecisionQueueController::GetVariable("activationSourceZone"));
 
     //TODO: 1.2 Checking Elements: Then, the game checks whether the player has the required elements enabled to activate the card. If not, the activation is illegal.
-    
+    // Prismatic Codex (czvy67nbin): "Once this turn, activate a card regardless of elemental alignment" — consume the bypass flag
+    if(GlobalEffectCount($player, "PRISMATIC_CODEX_IGNORE_ELEMENT") > 0) {
+        RemoveGlobalEffect($player, "PRISMATIC_CODEX_IGNORE_ELEMENT");
+        // Element requirement is bypassed for this activation (once consumed, subsequent activations must satisfy element)
+        // NOTE: When element checking (§1.2) is implemented, skip the element check when this flag was set.
+    }
+
     //TODO: 1.3 Declaring Costs: Next, the player declares the intended cost parameters for the card.
 
     //TODO: 1.4 Selecting Modes
@@ -4046,9 +4065,19 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "qqq8j5fxym": // Shard of Empowerment — banish self
         case "xl3tzqhlt1": // Hairpin of Transience — banish self
         case "xnrw8qq1uw": // Tariff Ring — banish self
+        case "czvy67nbin": // Prismatic Codex — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "41t71u4bzz": { // Polaris, Twinkling Cauldron — REST + store age count + banish self
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1; // REST
+            $ageCount = GetCounterCount($sourceObj, "age");
+            DecisionQueueController::StoreVariable("polarisAgeCount", $ageCount);
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        }
         case "d6soporhlq": // Obelisk of Protection — REST
         case "wk0pw0y6is": // Obelisk of Armaments — REST
         case "xy5lh23qu7": // Obelisk of Fabrication — REST
@@ -4628,6 +4657,22 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         }
     }
     if(!$isDynamic) {
+        // Candlelight Hourglass (fhomy86084): On Charge 2 → opponent's ally activated abilities cost (2) more
+        if(PropertyContains(CardType($cardID), "ALLY")) {
+            $opponent = ($player == 1) ? 2 : 1;
+            global $playerID;
+            $oppField = $opponent == $playerID ? "myField" : "theirField";
+            $oppZone = GetZone($oppField);
+            foreach($oppZone as $chlObj) {
+                if(!$chlObj->removed && $chlObj->CardID === "fhomy86084" && !HasNoAbilities($chlObj)
+                    && isset($chlObj->Counters['on_charge_triggered'])) {
+                    for($ri = 0; $ri < 2; $ri++) {
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+                    }
+                    break;
+                }
+            }
+        }
         // Captivating Opulence (tnl3qr42vp): [Diao Chan Bonus] opponents' regalia activated abilities cost (2) more
         if(PropertyContains(CardType($cardID), "REGALIA")) {
             $opponent = ($player == 1) ? 2 : 1;
@@ -6106,6 +6151,49 @@ function RecollectionPhase() {
         }
     }
 
+    // --- On Charge N System ---
+    // "At the beginning of your recollection phase, put a charge counter on each object you control
+    // with an untriggered on charge ability. Trigger the first time N charge counters are on it."
+    $onChargeCards = [
+        "fhomy86084" => 2, // Candlelight Hourglass: On Charge 2
+        "uqICHZa3Wz" => 2, // Biding Cinquedea: [Class Bonus] On Charge 2
+        "f0jbv5n196" => 3, // Memento Pocketwatch: On Charge 3
+    ];
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        $ocCardID = $field[$i]->CardID;
+        if(!isset($onChargeCards[$ocCardID])) continue;
+        if(HasNoAbilities($field[$i])) continue;
+        if(!is_array($field[$i]->Counters)) $field[$i]->Counters = [];
+        if(isset($field[$i]->Counters['on_charge_triggered'])) continue; // Already triggered — no more charge counters
+        $ocThreshold = $onChargeCards[$ocCardID];
+        AddCounters($turnPlayer, "myField-" . $i, "charge", 1);
+        if(GetCounterCount($field[$i], "charge") >= $ocThreshold) {
+            $field[$i]->Counters['on_charge_triggered'] = 1;
+            switch($ocCardID) {
+                case "fhomy86084": // Candlelight Hourglass: On Charge 2 → flag that ally activation tax is active
+                    $field[$i]->Counters['candlelight_active'] = 1;
+                    break;
+                case "uqICHZa3Wz": // Biding Cinquedea: [Class Bonus] → +1 POWER until EOT + preparation counter
+                    if(IsClassBonusActive($turnPlayer, explode(",", CardClasses("uqICHZa3Wz")))) {
+                        AddTurnEffect("myField-" . $i, "uqICHZa3Wz_POWER");
+                        $champMZ = FindChampionMZ($turnPlayer);
+                        if($champMZ !== null) {
+                            AddCounters($turnPlayer, $champMZ, "preparation", 1);
+                        }
+                    }
+                    break;
+                case "f0jbv5n196": // Memento Pocketwatch: On Charge 3 → banish self, draw 1, next attack +3 POWER
+                    MZMove($turnPlayer, "myField-" . $i, "myBanish");
+                    DecisionQueueController::CleanupRemovedCards();
+                    Draw($turnPlayer, 1);
+                    AddGlobalEffects($turnPlayer, "f0jbv5n196_NEXT_ATTACK");
+                    break;
+            }
+        }
+    }
+
     // Trigger recollection phase abilities for cards on the field
     $field = &GetField($turnPlayer);
     for($i = 0; $i < count($field); ++$i) {
@@ -6456,6 +6544,11 @@ function RecollectionPhase() {
                                 tooltip:"Put_durability_counter_on_weapon_(Weaponsmith)");
                             DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponsmithDurability", 1);
                         }
+                    }
+                    break;
+                case "czvy67nbin": // Prismatic Codex: put an age counter at beginning of recollection phase
+                    if(!HasNoAbilities($field[$i])) {
+                        AddCounters($turnPlayer, "myField-" . $i, "age", 1);
                     }
                     break;
                 default: break;
@@ -8499,6 +8592,12 @@ function ObjectCurrentPower($obj) {
             case "5ramr16052_POWER": // Jin, Zealous Maverick: +1 POWER on next attack
                 $power += 1;
                 break;
+            case "uqICHZa3Wz_POWER": // Biding Cinquedea: On Charge 2 [Class Bonus] → +1 POWER until end of turn
+                $power += 1;
+                break;
+            case "f0jbv5n196_POWER": // Memento Pocketwatch: On Charge 3 → next attack +3 POWER
+                $power += 3;
+                break;
             case "dfchplzf6m_POWER": // Ingress of Sanguine Ire: +3 POWER on first attack
                 $power += 3;
                 break;
@@ -10132,6 +10231,19 @@ function DoSacrificeFighter($player, $mzCard) {
     // Foretold Bloom (lnhzj43qiw): whenever you sacrifice an Herb, Glimpse 2
     if($isHerb && GlobalEffectCount($controller, "FORETOLD_BLOOM") > 0) {
         Glimpse($controller, 2);
+    }
+    // Polaris, Twinkling Cauldron (41t71u4bzz): whenever you sacrifice an Herb → age counter
+    if($isHerb) {
+        $polFieldZone = &GetField($controller);
+        for($pi = 0; $pi < count($polFieldZone); ++$pi) {
+            if(!$polFieldZone[$pi]->removed && $polFieldZone[$pi]->CardID === "41t71u4bzz" && !HasNoAbilities($polFieldZone[$pi])) {
+                $polFieldName = (GetTurnPlayer() == $controller) ? "myField" : "theirField";
+                global $playerID;
+                $polFieldName = ($controller == $playerID) ? "myField" : "theirField";
+                AddCounters($controller, $polFieldName . "-" . $pi, "age", 1);
+                break;
+            }
+        }
     }
 }
 
@@ -14630,6 +14742,13 @@ function IsCielBonusActive($player) {
         }
     }
     return false;
+}
+
+function IsArisannaBonusActive($player) {
+    return ChampionHasInLineage($player, "b31x97n2jn")  // Arisanna, Herbalist Prodigy (L1)
+        || ChampionHasInLineage($player, "ltv5klryvf")  // Arisanna, Master Alchemist (L2)
+        || ChampionHasInLineage($player, "q3huqj5bba")  // Arisanna, Astral Zenith (L3)
+        || ChampionHasInLineage($player, "7e22tk3ir1"); // Arisanna, Lucent Arbiter (L3)
 }
 
 function GetOmens($player) {

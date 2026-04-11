@@ -20,17 +20,6 @@ Implementation notes:
 - Expect shared support for `quest`, `buff`, `frenzy`, transform conditions, and "remove counters instead of paying reserve" style costs.
 - This is also a good batch for Fatebound object detection and Shenju subtype payoffs.
 
-## 2. Charge / age / once-threshold objects
-
-These look like "wait until N counters, then unlock" cards. Several probably share trigger infrastructure or helper reuse.
-
-- `Reviewed text`: Memento Pocketwatch, Candlelight Hourglass, Biding Cinquedea, Polaris, Twinkling Cauldron, Prismatic Codex.
-- `Likely`: Temporal Spectrometer, Fated Keepsake, Coronal of Rejuvenation, Luminous Quartz, Proto Key Crest, Journey's Beginning.
-
-Implementation notes:
-
-- This is a natural batching point for `On Charge N` and `age` counters.
-- Polaris also crosses into generated-card support because it shuffles generated Cosmic Bolts into deck.
 
 ## 4. Copy / impersonation / transform / overwritten identity
 

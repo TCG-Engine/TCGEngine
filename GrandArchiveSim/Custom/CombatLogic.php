@@ -992,6 +992,12 @@ function OnAttackTrigger($player, $mzID) {
         WakeupCard($player, $mzID);
     }
 
+    // Memento Pocketwatch (f0jbv5n196): On Charge 3 → next attack gets +3 POWER (consume global effect)
+    if(GlobalEffectCount($player, "f0jbv5n196_NEXT_ATTACK") > 0) {
+        RemoveGlobalEffect($player, "f0jbv5n196_NEXT_ATTACK");
+        AddTurnEffect($mzID, "f0jbv5n196_POWER");
+    }
+
     // Ingress of Sanguine Ire (dfchplzf6m): first attack this turn gets +3 POWER — consume active marker
     if($obj !== null && in_array("INGRESS_ACTIVE", $obj->TurnEffects)) {
         AddTurnEffect($mzID, "dfchplzf6m_POWER");
