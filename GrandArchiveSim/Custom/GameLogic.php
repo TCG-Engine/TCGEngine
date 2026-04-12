@@ -16212,7 +16212,6 @@ function Delevel($player) {
 function TransformCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
     $otherSide = CardOtherOrientation($obj->CardID);
-    echo($mzCard . " transform: " . $obj->CardID . " -> " . ($otherSide ?? "null") . "\n");
     if($otherSide === null) return false;
     $obj->CardID = $otherSide;
     return true;
