@@ -69,6 +69,7 @@ Virtual: DurabilityCounterCount=GetDurabilityCounterCount()
 Virtual: GlimmerCounterCount=GetGlimmerCounterCount()
 Virtual: WitherCounterCount=GetWitherCounterCount()
 Virtual: SheenCounterCount=GetSheenCounterCount()
+Virtual: QuestCounterCount=GetQuestCounterCountForObject()
 Virtual: DynamicAbilities=GetDynamicAbilities()
 Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
@@ -87,6 +88,7 @@ Counters: DurabilityCounterCount=Badge(Color=Brown,Position=TopRight,ShowZero=fa
 Counters: GlimmerCounterCount=Badge(Color=Magenta,Position=Center,ShowZero=false)
 Counters: WitherCounterCount=Badge(Color=DarkGreen,Position=Center,ShowZero=false)
 Counters: SheenCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
+Counters: QuestCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
 AfterAdd: FieldAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()
