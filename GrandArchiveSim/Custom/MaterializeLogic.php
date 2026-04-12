@@ -203,6 +203,18 @@ function DoMaterialize($player, $mzCard) {
     $sourceObject = &GetZoneObject($mzCard);
     $sourceId = $sourceObject->CardID;
 
+    // Obstinate Cragback: opponents can't materialize cards with memory cost 0.
+    if(CardMemoryCost($sourceObject) === 0) {
+        $opponent = ($player == 1) ? 2 : 1;
+        $oppField = &GetField($opponent);
+        foreach($oppField as $oppObj) {
+            if($oppObj->removed || HasNoAbilities($oppObj)) continue;
+            if($oppObj->CardID === "40oe1wf79p" || $oppObj->CardID === "WZKo8sYPxS") {
+                return;
+            }
+        }
+    }
+
     if(PropertyContains(CardType($sourceId), "CHAMPION")) {
         // Champion lineage: find existing champion on the field
         $field = &GetField($player);

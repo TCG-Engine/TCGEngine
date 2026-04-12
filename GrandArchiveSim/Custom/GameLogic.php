@@ -2859,6 +2859,48 @@ $customDQHandlers["WildheartLyreBuff"] = function($player, $parts, $lastDecision
     AddCounters($player, $lastDecision, "buff", 1);
 };
 
+$customDQHandlers["MeteoricSlimeAfterGlimpse"] = function($player, $parts, $lastDecision) {
+    $sourceMZ = $parts[0];
+    $sourceObj = GetZoneObject($sourceMZ);
+    if($sourceObj === null || $sourceObj->removed || $sourceObj->CardID !== "5ybMub985n" || HasNoAbilities($sourceObj)) return;
+
+    $deck = GetDeck($player);
+    $revealCount = min(2, count($deck));
+    if($revealCount <= 0) return;
+
+    $lowestReserve = null;
+    for($i = 0; $i < $revealCount; ++$i) {
+        DoRevealCard($player, "myDeck-" . $i);
+        $cardID = $deck[$i]->CardID;
+        $reserve = intval(CardReserveCost($cardID));
+        if($lowestReserve === null || $reserve < $lowestReserve) $lowestReserve = $reserve;
+    }
+    if($lowestReserve === null || $lowestReserve <= 0) return;
+
+    $targets = array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+
+    DecisionQueueController::StoreVariable("MeteoricSlimeDamage", strval($lowestReserve));
+    DecisionQueueController::StoreVariable("MeteoricSlimeSource", $sourceMZ);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1,
+        tooltip:"Choose_target_unit_for_Meteoric_Slime");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MeteoricSlimeDeal", 1);
+};
+
+$customDQHandlers["MeteoricSlimeDeal"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $damage = intval(DecisionQueueController::GetVariable("MeteoricSlimeDamage"));
+    $sourceMZ = DecisionQueueController::GetVariable("MeteoricSlimeSource");
+    if($damage <= 0 || $sourceMZ === null || $sourceMZ === "") return;
+    DealDamage($player, $sourceMZ, $lastDecision, $damage);
+    DecisionQueueController::ClearVariable("MeteoricSlimeDamage");
+    DecisionQueueController::ClearVariable("MeteoricSlimeSource");
+};
+
 /**
  * Reveal the reserved cards for Imbue, evaluate the chosen Imbue condition,
  * then store the shared isImbued result and clear the temporary setup vars.
@@ -5402,6 +5444,26 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         $added->CardID = "hkurfp66pv";
     }
 
+    // Full Bloom: whenever an opponent summons a Flowerbud token, deal 2 to each champion
+    // that opponent controls and recover 2.
+    if($added->CardID === "yn78t73w1p") {
+        $opponent = ($player == 1) ? 2 : 1;
+        $oppField = GetField($opponent);
+        foreach($oppField as $fbObj) {
+            if($fbObj->removed || $fbObj->CardID !== "5WP1TXJo9E" || HasNoAbilities($fbObj)) continue;
+            if(!IsDiaoChanBonus($opponent)) continue;
+            $sumPlayerField = &GetField($player);
+            for($ci = 0; $ci < count($sumPlayerField); ++$ci) {
+                if($sumPlayerField[$ci]->removed) continue;
+                if(PropertyContains(EffectiveCardType($sumPlayerField[$ci]), "CHAMPION")) {
+                    $sumPlayerField[$ci]->Damage += 2;
+                }
+            }
+            RecoverChampion($opponent, 2);
+            break;
+        }
+    }
+
     // Diablerie: next opposing divine relic regalia enters under Diablerie's controller.
     if(PropertyContains(CardType($added->CardID), "REGALIA") && $added->CardID === "fjne9ri261") {
         $opponent = ($player == 1) ? 2 : 1;
@@ -7356,6 +7418,17 @@ function EndPhase() {
             }
             break;
         }
+    }
+
+    // Meteoric Slime: [CB] beginning of end phase, glimpse 2 then reveal top two and deal X.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "5ybMub985n" || HasNoAbilities($field[$i])) continue;
+        if(!IsClassBonusActive($turnPlayer, ["TAMER"])) continue;
+        $mz = "myField-" . $i;
+        Glimpse($turnPlayer, 2);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MeteoricSlimeAfterGlimpse|" . $mz, 1);
+        break;
     }
 
     // Overlord Mk III (sl7ddcgw05): At beginning of end phase, may banish an
@@ -9401,6 +9474,20 @@ function ObjectCurrentPower($obj) {
     if(in_array("5vettczb14_POWER", $obj->TurnEffects)) {
         $power += 2;
     }
+    // Quietus Blade: [CB] while your material deck is empty, +4 POWER.
+    if($obj->CardID === "4c7XZeezka" && $obj->Controller != -1 && IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+        $material = GetMaterial($obj->Controller);
+        $remaining = 0;
+        foreach($material as $mObj) {
+            if(!$mObj->removed) $remaining++;
+        }
+        if($remaining === 0) $power += 4;
+    }
+    // Floodborne Swing: [CB] Deluge 3 gives +4 POWER.
+    if($obj->CardID === "5wLtoxd4Wc" && $obj->Controller != -1
+        && IsClassBonusActive($obj->Controller, ["WARRIOR"]) && DelugeAmount($obj->Controller) >= 3) {
+        $power += 4;
+    }
     // Conduit of the Mad Mage (6SXL09rEzS): +1 POWER per Mage Spell activation this turn
     foreach($obj->TurnEffects as $te) {
         if($te === "6SXL09rEzS-POWER") $power += 1;
@@ -10945,6 +11032,98 @@ function ScavengeForSubtype($player, $amount, $subtype) {
     EngineShuffle($remainingIDs);
     foreach($remainingIDs as $cardID) {
         MZAddZone($player, $deckZone, $cardID);
+    }
+}
+
+function ScavengeForType($player, $amount, $type) {
+    global $playerID;
+    $deckZone = $player == $playerID ? "myDeck" : "theirDeck";
+    $handZone = $player == $playerID ? "myHand" : "theirHand";
+
+    $deck = GetZone($deckZone);
+    if(empty($deck)) return;
+
+    $revealCount = min(intval($amount), count($deck));
+    $foundIdx = -1;
+    $revealedIDs = [];
+    for($i = 0; $i < $revealCount; ++$i) {
+        if($deck[$i]->removed) continue;
+        $revealedIDs[] = $deck[$i]->CardID;
+        if($foundIdx < 0 && PropertyContains(CardType($deck[$i]->CardID), $type)) {
+            $foundIdx = $i;
+        }
+    }
+    if(!empty($revealedIDs)) {
+        $existing = GetFlashMessage();
+        if(is_string($existing) && strpos($existing, 'REVEAL:') === 0) {
+            SetFlashMessage($existing . '|' . implode('|', $revealedIDs));
+        } else {
+            SetFlashMessage('REVEAL:' . implode('|', $revealedIDs));
+        }
+    }
+
+    if($foundIdx >= 0) {
+        MZMove($player, $deckZone . "-" . $foundIdx, $handZone);
+    }
+
+    $remaining = $revealCount - ($foundIdx >= 0 ? 1 : 0);
+    if($remaining <= 0) return;
+
+    $remainingIDs = [];
+    for($i = 0; $i < $remaining; ++$i) {
+        $deckNow = &GetZone($deckZone);
+        if(empty($deckNow)) break;
+        $remainingIDs[] = $deckNow[0]->CardID;
+        $deckNow[0]->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    if(empty($remainingIDs)) return;
+
+    EngineShuffle($remainingIDs);
+    foreach($remainingIDs as $cardID) {
+        MZAddZone($player, $deckZone, $cardID);
+    }
+}
+
+function TableStraightResolve($player) {
+    $reserveCosts = [];
+
+    $memory = &GetMemory($player);
+    for($i = 0; $i < count($memory); ++$i) {
+        if($memory[$i]->removed) continue;
+        if(!PropertyContains(CardSubtypes($memory[$i]->CardID), "SUITED")) continue;
+        DoRevealCard($player, "myMemory-" . $i);
+        $reserveCosts[] = intval(CardReserveCost($memory[$i]->CardID));
+    }
+
+    $suitedAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SUITED"]);
+    foreach($suitedAllies as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj === null || $obj->removed) continue;
+        $reserveCosts[] = intval(CardReserveCost($obj->CardID));
+    }
+
+    if(empty($reserveCosts)) return;
+    $unique = array_values(array_unique($reserveCosts));
+    sort($unique);
+
+    $longest = 1;
+    $current = 1;
+    for($i = 1; $i < count($unique); ++$i) {
+        if($unique[$i] === $unique[$i - 1] + 1) {
+            $current++;
+        } else {
+            $current = 1;
+        }
+        if($current > $longest) $longest = $current;
+    }
+
+    if($longest >= 7) {
+        Draw($player, 3);
+    } elseif($longest >= 5) {
+        Draw($player, 2);
+    } elseif($longest >= 2) {
+        Draw($player, 1);
     }
 }
 
