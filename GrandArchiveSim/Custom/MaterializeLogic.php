@@ -13,6 +13,8 @@ function MaterializePhase() {
     MaterializeChoice();
     // Eventide Spear (xjkdokzfd9): [CB:Warrior] may also activate from material deck if opponent has 2+ rested units
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "EVENTIDE_MATERIAL_CHECK", 1);
+    // Varuckan Soulknife (9ox7u6wzh9): [Class Bonus][Element Bonus] may activate from material deck by banishing 3 fire from graveyard
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "VARUCKAN_MATERIAL_CHECK", 1);
 }
 
 function MaterializeChoice($ignoreCost = false) {
@@ -46,6 +48,71 @@ $customDQHandlers["EVENTIDE_MATERIAL_CHECK"] = function($player, $parts, $lastDe
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $eventideMZ, 1,
         tooltip: "Activate_Eventide_Spear_from_material_deck?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE|NOCOST", 1);
+};
+
+$customDQHandlers["VARUCKAN_MATERIAL_CHECK"] = function($player, $parts, $lastDecision) {
+    if(!IsClassBonusActive($player, ["ASSASSIN"])) return;
+    if(!IsElementBonusActive($player, "9ox7u6wzh9")) return;
+
+    $material = GetMaterial($player);
+    $varuckanMZ = null;
+    for($i = 0; $i < count($material); ++$i) {
+        if(!$material[$i]->removed && $material[$i]->CardID === "9ox7u6wzh9") {
+            $varuckanMZ = "myMaterial-" . $i;
+            break;
+        }
+    }
+    if($varuckanMZ === null) return;
+
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(count($fireGY) < 3) return;
+
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $varuckanMZ, 1,
+        tooltip: "Banish_3_fire_cards_to_activate_Varuckan_from_material_deck?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "VaruckanMaterialFromDeck", 1);
+};
+
+$customDQHandlers["VaruckanMaterialFromDeck"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $varuckanMZ = $lastDecision;
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(count($fireGY) < 3) return;
+
+    DecisionQueueController::StoreVariable("VaruckanMaterialMZ", $varuckanMZ);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1,
+        tooltip: "Banish_fire_card_from_graveyard_(1/3)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "VaruckanMaterialBanish|1", 1);
+};
+
+$customDQHandlers["VaruckanMaterialBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        DecisionQueueController::ClearVariable("VaruckanMaterialMZ");
+        return;
+    }
+
+    $count = intval($parts[0] ?? "1");
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+
+    if($count >= 3) {
+        $varuckanMZ = DecisionQueueController::GetVariable("VaruckanMaterialMZ");
+        DecisionQueueController::ClearVariable("VaruckanMaterialMZ");
+        if($varuckanMZ === null || $varuckanMZ === "") return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $varuckanMZ, 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE|NOCOST", 1);
+        return;
+    }
+
+    $next = $count + 1;
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(count($fireGY) < (3 - $count)) {
+        DecisionQueueController::ClearVariable("VaruckanMaterialMZ");
+        return;
+    }
+
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1,
+        tooltip: "Banish_fire_card_from_graveyard_(" . $next . "/3)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "VaruckanMaterialBanish|" . $next, 1);
 };
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)

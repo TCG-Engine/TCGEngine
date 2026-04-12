@@ -6694,6 +6694,11 @@ function RecollectionPhase() {
                         $fieldRef[count($fieldRef) - 1]->Status = 1; // Rested
                     }
                     break;
+                case "9Kgr2prI9E": // Slimecall Cyclone: [Class Bonus] summon Baby Slime token
+                    if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["TAMER"])) {
+                        MZAddZone($turnPlayer, "myField", "bdPYKwzWt5");
+                    }
+                    break;
                 case "7dedg616r0": // Freydis, Master Tactician: [CB] put a tactic counter + Glimpse X
                     if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, ["RANGER"])) {
                         AddCounters($turnPlayer, "myField-" . $i, "tactic", 1);
@@ -9884,6 +9889,9 @@ function ObjectCurrentHP($obj) {
     // Fluvial Fatestone (3h93tgm72l): target ally gets +2 LIFE until end of turn
     if(in_array("3h93tgm72l", $obj->TurnEffects ?? [])) {
         $cardLife += 2;
+    }
+    if(in_array("9urNxU7SZw_HP3", $obj->TurnEffects ?? [])) {
+        $cardLife += 3;
     }
     switch($obj->CardID) { //Self hp modifiers
         case "fdnlbJm3hr": // Memorite Obelith: +1 LIFE per sheen counter (cap 5)
@@ -14174,7 +14182,23 @@ function EffectiveCardClasses($obj) {
     if(isset($obj->Counters['_overrides']['classes'])) {
         return $obj->Counters['_overrides']['classes'];
     }
-    return CardClasses($obj->CardID);
+    $classes = CardClasses($obj->CardID);
+
+    // Lesser Boon of Apollo (9hA48XL1xV): your champion is Ranger in addition to its other classes.
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "9hA48XL1xV" || HasNoAbilities($fieldObj)) continue;
+            if(!PropertyContains($classes, "RANGER")) {
+                $classes = $classes === null || $classes === "" ? "RANGER" : $classes . ",RANGER";
+            }
+            break;
+        }
+    }
+
+    return $classes;
 }
 
 /**
