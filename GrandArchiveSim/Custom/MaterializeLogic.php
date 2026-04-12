@@ -406,6 +406,19 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
+        // Lesser Boon of Isis (GlqhpkmflM): when your champion levels up into a
+        // base level 3 champion, draw a card into your memory. Trigger only once.
+        if(intval(CardLevel($sourceId)) === 3) {
+            for($bi = 0; $bi < count($fdField); ++$bi) {
+                if($fdField[$bi]->removed || $fdField[$bi]->CardID !== "GlqhpkmflM" || HasNoAbilities($fdField[$bi])) continue;
+                if(isset($fdField[$bi]->Counters["isis_once"]) && intval($fdField[$bi]->Counters["isis_once"]) > 0) continue;
+                if(!is_array($fdField[$bi]->Counters)) $fdField[$bi]->Counters = [];
+                $fdField[$bi]->Counters["isis_once"] = 1;
+                DrawIntoMemory($player, 1);
+                break;
+            }
+        }
+
         // Tristan, Shadowreaver (4upufooz13) — Tristan Lineage: when she levels up, draw 2 cards
         // The new champion is already on the field; check if the lineage contains Shadowreaver
         $field = &GetField($player);

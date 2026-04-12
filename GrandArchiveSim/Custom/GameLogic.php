@@ -9265,6 +9265,9 @@ function ObjectCurrentPower($obj) {
             case "1i2luu7dft": // Wulin Lancer: +2 POWER from Shifting Currents N→W transition
                 $power += 2;
                 break;
+            case "FwPdj4PkSS": // Venerable Sage: +1 POWER when Shifting Currents change direction
+                $power += 1;
+                break;
             case "mvgmaalpko": // Flamelash Beastmaster: [CB] +3 POWER until end of turn
                 $power += 3;
                 break;
@@ -10407,6 +10410,10 @@ function ObjectCurrentHP($obj) {
     if(in_array("y5koddlyv8_LIFE", $obj->TurnEffects)) {
         $cardLife += 1;
     }
+    // Venerable Sage (FwPdj4PkSS): +1 LIFE when Shifting Currents change direction
+    if(in_array("FwPdj4PkSS", $obj->TurnEffects)) {
+        $cardLife += 1;
+    }
     // Trump Set (w7g91ru45w): redirected ally gets +3 LIFE
     if(in_array("w7g91ru45w_LIFE", $obj->TurnEffects ?? [])) {
         $cardLife += 3;
@@ -11000,6 +11007,14 @@ function DoDiscardCard($player, $mzCard) {
     if(GlobalEffectCount($player, "yuo7dbge3b") > 0) {
         MZMove($player, $mzCard, "myBanish");
         return;
+    }
+    // Sasha, Purifying Acolyte (GRlUlcYRmV): while fostered, cards entering your GY are banished instead
+    $field = GetField($player);
+    foreach($field as $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "GRlUlcYRmV" && !HasNoAbilities($fObj) && IsFostered($fObj)) {
+            MZMove($player, $mzCard, "myBanish");
+            return;
+        }
     }
     // Brackish Lutist (1clswn3ba2): floating memory cards go to banish instead of graveyard
     $discObj = GetZoneObject($mzCard);
@@ -13828,6 +13843,16 @@ function ChangeShiftingCurrents($player, $newDirection) {
             }
         }
     }
+
+    // Venerable Sage (FwPdj4PkSS): [Kongming Bonus] when Shifting Currents change,
+    // CARDNAME gets +1 POWER and +1 LIFE until end of turn.
+    if(IsKongmingBonus($player)) {
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && $field[$i]->CardID === "FwPdj4PkSS" && !HasNoAbilities($field[$i])) {
+                AddTurnEffect("myField-" . $i, "FwPdj4PkSS");
+            }
+        }
+    }
 }
 
 // --- Shifting Currents Transition Registry ---
@@ -14305,6 +14330,16 @@ function EffectiveCardClasses($obj) {
             if($fieldObj->removed || $fieldObj->CardID !== "9hA48XL1xV" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "RANGER")) {
                 $classes = $classes === null || $classes === "" ? "RANGER" : $classes . ",RANGER";
+            }
+            break;
+        }
+
+        // Lesser Boon of Veilara (GHS9GraLDo): your champion is Cleric in addition
+        // to its other classes.
+        foreach($field as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "GHS9GraLDo" || HasNoAbilities($fieldObj)) continue;
+            if(!PropertyContains($classes, "CLERIC")) {
+                $classes = $classes === null || $classes === "" ? "CLERIC" : $classes . ",CLERIC";
             }
             break;
         }
@@ -16979,6 +17014,18 @@ function MillCards($player, $deckRef, $gyRef, $amount) {
             $gyOwner = (strpos($gyRef, "my") === 0) ? $player : (($player == 1) ? 2 : 1);
             if(GlobalEffectCount($gyOwner, "yuo7dbge3b") > 0) {
                 $effectiveDest = (strpos($gyRef, "my") === 0) ? "myBanish" : "theirBanish";
+            }
+
+            // Sasha, Purifying Acolyte (GRlUlcYRmV): while fostered, cards entering that
+            // player's graveyard are banished instead.
+            if($effectiveDest === $gyRef) {
+                $gyOwnerField = GetField($gyOwner);
+                foreach($gyOwnerField as $fObj) {
+                    if(!$fObj->removed && $fObj->CardID === "GRlUlcYRmV" && !HasNoAbilities($fObj) && IsFostered($fObj)) {
+                        $effectiveDest = (strpos($gyRef, "my") === 0) ? "myBanish" : "theirBanish";
+                        break;
+                    }
+                }
             }
         }
         MZMove($player, "$deckRef-0", $effectiveDest);

@@ -1472,7 +1472,19 @@ $customDQHandlers["RightOfRealmChoice"] = function($player, $parts, $lastDecisio
 function DelugeAmount($player) {
     global $playerID;
     $gravZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
-    return count(ZoneSearch($gravZone, cardElements: ["WATER"]));
+    $amount = count(ZoneSearch($gravZone, cardElements: ["WATER"]));
+
+    // Ardus, Floodborne Deacon (EKiMJfgvSI): your deluge abilities/effects have an
+    // additional instance. Approximate this as +1 effective deluge amount while active.
+    $field = GetField($player);
+    foreach($field as $obj) {
+        if(!$obj->removed && $obj->CardID === "EKiMJfgvSI" && !HasNoAbilities($obj)) {
+            $amount += 1;
+            break;
+        }
+    }
+
+    return $amount;
 }
 
 function SleeyRetreatCheckDefending($player, $target) {
