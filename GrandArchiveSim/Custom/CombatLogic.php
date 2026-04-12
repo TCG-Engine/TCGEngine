@@ -2602,6 +2602,50 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Covenant of Thorns (1vt1cn1tzg): if damage would be dealt to your champion,
+    // that damage is dealt to the linked ally instead.
+    if($amount > 0 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        $targetController = $targetObj->Controller ?? $player;
+        global $playerID;
+        $fieldZone = $targetController == $playerID ? "myField" : "theirField";
+        $field = GetZone($fieldZone);
+        foreach($field as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "1vt1cn1tzg" || HasNoAbilities($fieldObj)) continue;
+            $linkedAllyMZ = GetLinkedAllyMZ($targetController, $fieldObj);
+            if($linkedAllyMZ === null) continue;
+            $linkedObj = GetZoneObject($linkedAllyMZ);
+            if($linkedObj === null || $linkedObj->removed || !PropertyContains(EffectiveCardType($linkedObj), "ALLY")) continue;
+            OnDealDamage($targetController, $source, $linkedAllyMZ, $amount);
+            return;
+        }
+    }
+
+    // Deflecting Advantage (40TLLuE6oG): prevent next N damage from sources you don't control,
+    // where N is stored in TurnEffect suffix.
+    if($amount > 0) {
+        foreach($targetObj->TurnEffects as $idx => $effect) {
+            if(strpos($effect, "40TLLuE6oG_") !== 0) continue;
+            $parts = explode("_", $effect);
+            if(count($parts) < 3) continue;
+            $owner = intval($parts[1]);
+            $budget = intval($parts[2]);
+            $sourceObj = GetZoneObject($source);
+            $sourceController = ($sourceObj !== null && !$sourceObj->removed) ? intval($sourceObj->Controller ?? -1) : -1;
+            if($sourceController === $owner) continue;
+            $prevented = min($budget, $amount);
+            $amount -= $prevented;
+            $remaining = $budget - $prevented;
+            if($remaining <= 0) {
+                unset($targetObj->TurnEffects[$idx]);
+                $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+            } else {
+                $targetObj->TurnEffects[$idx] = "40TLLuE6oG_" . $owner . "_" . $remaining;
+            }
+            if($amount <= 0) return;
+            break;
+        }
+    }
+
     // Ominous Shadow (gveirpdm44): prevent 3 of any damage dealt to it
     if($amount > 0 && $targetObj->CardID === "gveirpdm44" && !HasNoAbilities($targetObj)) {
         $amount -= 3;

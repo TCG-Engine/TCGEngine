@@ -176,6 +176,7 @@ $Cardistry_Cards = [];
 $Cardistry_Cards["rufki4o41y"] = 2; // Two of Hearts
 $Cardistry_Cards["e8ygl32jef"] = 2; // Two of Spades
 $Cardistry_Cards["o09csnorqv"] = 3; // Three of Spades
+$Cardistry_Cards["1db8hz4prm"] = 3; // Three of Hearts
 $Cardistry_Cards["8bolq2y5qp"] = 4; // Four of Spades
 $Cardistry_Cards["xgax8bbjqj"] = 4; // Four of Hearts
 $Cardistry_Cards["i9hf5lhl5f"] = 5; // Five of Spades
@@ -846,6 +847,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($allyTargets)) return; // No valid Link target — block activation
     }
 
+    // Nightmare Coil (3fe3c97s71): only while your champion is distant, and only during recollection.
+    if($sourceObject->CardID === "3fe3c97s71") {
+        if(GetCurrentPhase() !== "RECOLLECTION") return;
+        $champMZ = FindChampionMZ($player);
+        if($champMZ === null) return;
+        $champObj = GetZoneObject($champMZ);
+        if($champObj === null || !IsDistant($champObj)) return;
+    }
+
     // Weapon Link pre-check: Sheath of Faceted Lapis (0cnn1eh85y) requires a Warrior weapon on field
     // Fang of Dragon's Breath (iebo5fu381) requires a Polearm weapon on field
     $hasWeaponLink = ($sourceObject->CardID === "0cnn1eh85y" || $sourceObject->CardID === "iebo5fu381");
@@ -874,6 +884,9 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
+    if($obj->CardID === "3fe3c97s71" && IsClassBonusActive($player, ["RANGER"])) {
+        $obj->TurnEffects[] = "CANT_BE_NEGATED";
+    }
     TrackEffectStackSourceZone("EffectStack-" . $obj->mzIndex, DecisionQueueController::GetVariable("activationSourceZone"));
 
     //TODO: 1.2 Checking Elements: Then, the game checks whether the player has the required elements enabled to activate the card. If not, the activation is illegal.
@@ -4142,6 +4155,8 @@ function OnCardActivated($player, $mzCard) {
             }
         }
     }
+
+    TriggerNightmareCoilPunish($player);
 
     // After an attack card enters intent and its abilities resolve, declare the attack
     if(PropertyContains($cardType, "ATTACK")) {
@@ -8555,6 +8570,21 @@ function ObjectCurrentPower($obj) {
                 $power += $maxPower;
             }
             break;
+        case "23ag70F2uz": // Crowdguard's Slash: [CB] +2 POWER if opponent controls three or more units
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                $opponent = ($obj->Controller == 1) ? 2 : 1;
+                if(count(GetFieldUnits($opponent)) >= 3) {
+                    $power += 2;
+                }
+            }
+            break;
+        case "2jgiM0p4dt": // Elyan, Lustre Loyalty: +X POWER for each recover trigger amount this turn
+            foreach($obj->TurnEffects as $effect) {
+                if(strpos($effect, "2jgiM0p4dt_RECOVER_") === 0) {
+                    $power += intval(substr($effect, strlen("2jgiM0p4dt_RECOVER_")));
+                }
+            }
+            break;
         case "29xxoo7dl5": // Arondight, Azure Blade: +2 POWER per refinement counter
             $power += GetCounterCount($obj, "refinement") * 2;
             break;
@@ -10853,8 +10883,124 @@ $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     if(isset($activateAbilityAbilities[$abilityKey])) {
         $activateAbilityAbilities[$abilityKey]($player);
     }
+    TriggerNightmareCoilPunish($player);
     // Enhance Potency: fire any copy after ability decisions (block 1) but before AbilityOpportunity (block 200)
     DecisionQueueController::AddDecision($player, "CUSTOM", "CheckEnhancePotency", 99);
+};
+
+function TriggerNightmareCoilPunish($activatingPlayer) {
+    $opponent = ($activatingPlayer == 1) ? 2 : 1;
+    if(GlobalEffectCount($opponent, "3fe3c97s71") <= 0) return;
+    $champMZ = FindChampionMZ($activatingPlayer);
+    if($champMZ === null) return;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null || $champObj->removed) return;
+    DealUnpreventableDamage($activatingPlayer, $champMZ, $champMZ, 8);
+}
+
+function ScavengeForSubtype($player, $amount, $subtype) {
+    global $playerID;
+    $deckZone = $player == $playerID ? "myDeck" : "theirDeck";
+    $handZone = $player == $playerID ? "myHand" : "theirHand";
+
+    $deck = GetZone($deckZone);
+    if(empty($deck)) return;
+
+    $revealCount = min(intval($amount), count($deck));
+    $foundIdx = -1;
+    $revealedIDs = [];
+    for($i = 0; $i < $revealCount; ++$i) {
+        if($deck[$i]->removed) continue;
+        $revealedIDs[] = $deck[$i]->CardID;
+        if($foundIdx < 0 && PropertyContains(CardSubtypes($deck[$i]->CardID), $subtype)) {
+            $foundIdx = $i;
+        }
+    }
+    if(!empty($revealedIDs)) {
+        $existing = GetFlashMessage();
+        if(is_string($existing) && strpos($existing, 'REVEAL:') === 0) {
+            SetFlashMessage($existing . '|' . implode('|', $revealedIDs));
+        } else {
+            SetFlashMessage('REVEAL:' . implode('|', $revealedIDs));
+        }
+    }
+
+    if($foundIdx >= 0) {
+        MZMove($player, $deckZone . "-" . $foundIdx, $handZone);
+    }
+
+    $remaining = $revealCount - ($foundIdx >= 0 ? 1 : 0);
+    if($remaining <= 0) return;
+
+    $remainingIDs = [];
+    for($i = 0; $i < $remaining; ++$i) {
+        $deckNow = &GetZone($deckZone);
+        if(empty($deckNow)) break;
+        $remainingIDs[] = $deckNow[0]->CardID;
+        $deckNow[0]->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    if(empty($remainingIDs)) return;
+
+    EngineShuffle($remainingIDs);
+    foreach($remainingIDs as $cardID) {
+        MZAddZone($player, $deckZone, $cardID);
+    }
+}
+
+function InfernoSlimeOnDeath($player, $mzID) {
+    if(!IsClassBonusActive($player, ["TAMER"])) return;
+    global $playerID;
+    $graveyardZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+    $fires = ZoneSearch($graveyardZone, cardElements: ["FIRE"]);
+    if(count($fires) < 2) return;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Banish_two_fire_cards_to_deal_4_damage_to_each_champion?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "InfernoSlimeDeathChoice", 1);
+}
+
+$customDQHandlers["InfernoSlimeDeathChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    global $playerID;
+    $graveyardZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+    $fires = ZoneSearch($graveyardZone, cardElements: ["FIRE"]);
+    if(count($fires) < 2) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fires), 1, tooltip:"Choose_first_fire_card_to_banish");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "InfernoSlimeDeathFirst", 1);
+};
+
+$customDQHandlers["InfernoSlimeDeathFirst"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DecisionQueueController::StoreVariable("InfernoSlimeFirst", $lastDecision);
+    global $playerID;
+    $graveyardZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
+    $fires = array_values(array_filter(
+        ZoneSearch($graveyardZone, cardElements: ["FIRE"]),
+        fn($mz) => $mz !== $lastDecision
+    ));
+    if(empty($fires)) {
+        DecisionQueueController::ClearVariable("InfernoSlimeFirst");
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fires), 1, tooltip:"Choose_second_fire_card_to_banish");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "InfernoSlimeDeathSecond", 1);
+};
+
+$customDQHandlers["InfernoSlimeDeathSecond"] = function($player, $parts, $lastDecision) {
+    $first = DecisionQueueController::GetVariable("InfernoSlimeFirst");
+    DecisionQueueController::ClearVariable("InfernoSlimeFirst");
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS" || $first === null || $first === "") return;
+
+    global $playerID;
+    $banishZone = $player == $playerID ? "myBanish" : "theirBanish";
+    $firstObj = GetZoneObject($first);
+    if($firstObj !== null && !$firstObj->removed) MZMove($player, $first, $banishZone);
+    $secondObj = GetZoneObject($lastDecision);
+    if($secondObj !== null && !$secondObj->removed) MZMove($player, $lastDecision, $banishZone);
+
+    $myChamp = FindChampionMZ(1);
+    $theirChamp = FindChampionMZ(2);
+    if($myChamp !== null) DealDamage($player, "2vQVsdHJqI", $myChamp, 4);
+    if($theirChamp !== null) DealDamage($player, "2vQVsdHJqI", $theirChamp, 4);
 };
 
 /**
@@ -11514,6 +11660,10 @@ function ExpireEffects($isEndTurn=true) {
         }
         $newEffects = [];
         foreach($fieldObj->TurnEffects as $effect) {
+            if(strpos($effect, "3iG6h4jAPl_CTRL_") === 0) {
+                $fieldObj->Controller = intval(substr($effect, strlen("3iG6h4jAPl_CTRL_")));
+                continue;
+            }
             if(isset($persistentTurnEffects[$effect])) {
                 $newEffects[] = $effect;
             }
@@ -11619,6 +11769,13 @@ $ephemerateCards["t2lW0Q5KJS"] = ['cost' => 2, 'condition' => function($player) 
     return IsMerlinBonusActive($player) && (GetSheenCount($player) >= 10 || PlayerLevel($player) >= 5);
 }]; // Flared Iridescence
 $ephemerateCards["Dtr3jPRAFJ"] = ['cost' => 6]; // Spectral Haunting
+$ephemerateCards["3zvDCFRaoH"] = ['cost' => 1, 'condition' => function($player) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return false;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null) return false;
+    return intval($champObj->Damage) >= 20;
+}]; // Bloodseeker Magus
 $ephemerateCards["s9ICPMYPNx"] = ['cost' => 5, 'extraCostHandler' => 'EphemerateDiscard',
     'condition' => function($player) {
         return IsAliceBonusActive($player);
@@ -12615,6 +12772,16 @@ function RecoverChampion($player, $amount=1) {
         $obj = &$zoneArr[$i];
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
             $obj->Damage = max(0, $obj->Damage - $amount);
+
+            $field = GetField($player);
+            $fieldZone = $player == $playerID ? "myField" : "theirField";
+            for($fi = 0; $fi < count($field); ++$fi) {
+                if($field[$fi]->removed || $field[$fi]->CardID !== "2jgiM0p4dt" || HasNoAbilities($field[$fi])) continue;
+                if(!IsClassBonusActive($player, ["ASSASSIN"])) continue;
+                AddTurnEffect($fieldZone . "-" . $fi, "2jgiM0p4dt_RECOVER_" . intval($amount));
+                if(intval($amount) >= 4) AddTurnEffect($fieldZone . "-" . $fi, "UNBLOCKABLE");
+            }
+
             return $obj;
         }
     }
@@ -15016,6 +15183,22 @@ function GetLinkedCards($obj) {
     return $linked;
 }
 
+function GetLinkedAllyMZ($player, $phantasiaObj) {
+    if($phantasiaObj === null || $phantasiaObj->removed) return null;
+    if(!is_array($phantasiaObj->Counters) || !isset($phantasiaObj->Counters['linkedToAlly'])) return null;
+    $linkedCardID = $phantasiaObj->Counters['linkedToAlly'];
+    global $playerID;
+    $zoneRef = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zoneRef);
+    foreach($field as $idx => $obj) {
+        if($obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY")) continue;
+        if($obj->CardID !== $linkedCardID) continue;
+        if(!is_array($obj->Subcards) || !in_array($phantasiaObj->CardID, $obj->Subcards)) continue;
+        return $zoneRef . "-" . $idx;
+    }
+    return null;
+}
+
 /**
  * Check if the departing card was involved in any Ally Link relationships and
  * break those links.
@@ -16346,6 +16529,7 @@ function DomainRecollectionUpkeep($player) {
                 break;
         }
     }
+
 }
 
 /**

@@ -22,6 +22,7 @@ function GetEffectStackActivationTargets($player, $filters = []) {
     for($i = 0; $i < count($effectStack); ++$i) {
         $obj = $effectStack[$i];
         if($obj === null || $obj->removed) continue;
+        if(is_array($obj->TurnEffects ?? null) && in_array("CANT_BE_NEGATED", $obj->TurnEffects)) continue;
         if(isset($filters['excludeController']) && intval($filters['excludeController']) === intval($obj->Controller)) continue;
         if(isset($filters['controller']) && intval($filters['controller']) !== intval($obj->Controller)) continue;
         $cardID = $obj->CardID;
