@@ -6943,6 +6943,60 @@ $customDQHandlers["ShrivelingVinesWither"] = function($player, $parts, $lastDeci
     AddCounters($player, $lastDecision, "wither", 2);
 };
 
+$customDQHandlers["AvatarGenbuFatestonePut"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myField");
+};
+
+$customDQHandlers["ProfaneBindingsNegateResolve"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $destinationMode = $parts[0] ?? "banish";
+    if(!NegateCardActivation($player, $lastDecision, $destinationMode)) return;
+
+    $stack = &GetEffectStack();
+    for($i = count($stack) - 1; $i >= 0; --$i) {
+        if($stack[$i]->removed) continue;
+        if($stack[$i]->CardID !== "7h2k6p8fss" || intval($stack[$i]->Controller) !== intval($player)) continue;
+        $stack[$i]->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+        break;
+    }
+    AddToChampionLineage($player, "7h2k6p8fss");
+};
+
+$customDQHandlers["SunderingMoonPreventTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "PREVENT_ALL_1");
+};
+
+$customDQHandlers["FoundPowerDiscard1"] = function($player, $parts, $lastDecision) {
+    $discarded = intval(DecisionQueueController::GetVariable("FoundPowerDiscarded") ?? "0");
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DoDiscardCard($player, $lastDecision);
+        DecisionQueueController::CleanupRemovedCards();
+        $discarded++;
+    }
+    DecisionQueueController::StoreVariable("FoundPowerDiscarded", strval($discarded));
+    $hand = ZoneSearch("myHand");
+    if(empty($hand)) {
+        if($discarded > 0) Draw($player, $discarded);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $hand), 1,
+        tooltip:"Discard_a_card?_(Found_Power_2/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FoundPowerDiscard2", 1);
+};
+
+$customDQHandlers["FoundPowerDiscard2"] = function($player, $parts, $lastDecision) {
+    $discarded = intval(DecisionQueueController::GetVariable("FoundPowerDiscarded") ?? "0");
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        DoDiscardCard($player, $lastDecision);
+        DecisionQueueController::CleanupRemovedCards();
+        $discarded++;
+    }
+    if($discarded > 0) Draw($player, $discarded);
+};
+
 // Spirit Blade: Dispersion — choose Sword weapons to strip durability + banish
 $customDQHandlers["SpiritBladeChooseSword"] = function($player, $parts, $lastDecision) {
     global $playerID;

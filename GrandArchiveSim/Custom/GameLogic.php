@@ -8664,6 +8664,12 @@ function ObjectCurrentPower($obj) {
         case "6ihv6hbvye": // Grande Aiguille: [Ciel Bonus] +1 POWER if 2+ ally omens
             if(IsCielBonusActive($obj->Controller) && GetOmenCountByType($obj->Controller, "ALLY") >= 2) $power += 1;
             break;
+        case "67CIhG8hmG": // Avatar of Genbu: [Guo Jia Bonus][Deluge 12] +2 POWER
+            if(IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) $power += 2;
+            break;
+        case "8677jq0hfm": // Sundering Moon: [Jin Bonus] On Enter can grant +1 POWER until EOT
+            if(in_array("8677jq0hfm-POWER", $obj->TurnEffects ?? [])) $power += 1;
+            break;
         case "s4b2mkh1xm": // Grande Sonnerie: [Ciel Bonus] +2 POWER while total omen reserve cost is 10+
             if(IsCielBonusActive($obj->Controller) && GetTotalOmenCost($obj->Controller) >= 10) $power += 2;
             break;
@@ -9987,6 +9993,9 @@ function ObjectCurrentHP($obj) {
         case "L67r0GlRHR": // Vacuous Servant: [Ciel Bonus] +1 LIFE per ally omen
             if(IsCielBonusActive($obj->Controller)) $cardLife += GetOmenCountByType($obj->Controller, "ALLY");
             break;
+        case "67CIhG8hmG": // Avatar of Genbu: [Guo Jia Bonus][Deluge 12] +2 LIFE
+            if(IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) $cardLife += 2;
+            break;
         case "9ggfiy38t2": // Baby Blue Slime: [Class Bonus] +1 LIFE
             if(IsClassBonusActive($obj->Controller, ["TAMER"])) {
                 $cardLife += 1;
@@ -10141,6 +10150,9 @@ function ObjectCurrentHP($obj) {
             }
             if($lineageCardID === "e1xj8mqr2o") { // Sinistre Stab: -3 LIFE
                 $cardLife -= 3;
+            }
+            if($lineageCardID === "7h2k6p8fss") { // Profane Bindings: -5 LIFE
+                $cardLife -= 5;
             }
         }
     }
@@ -12947,6 +12959,23 @@ function RecoverChampion($player, $amount=1) {
     }
     if($amount <= 0) return null;
 
+    // Transfusive Aura (7qWYuRNoYI): [Damage 20+] recover 2+X instead of X.
+    // Stacking is additive per active copy (+2 each).
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) {
+        $champObj = GetZoneObject($champMZ);
+        if($champObj !== null && intval($champObj->Damage ?? 0) >= 20) {
+            $bonusCopies = 0;
+            $field = &GetField($player);
+            for($i = 0; $i < count($field); ++$i) {
+                if(!$field[$i]->removed && $field[$i]->CardID === "7qWYuRNoYI" && !HasNoAbilities($field[$i])) {
+                    $bonusCopies++;
+                }
+            }
+            if($bonusCopies > 0) $amount += 2 * $bonusCopies;
+        }
+    }
+
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = &$zoneArr[$i];
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
@@ -14210,6 +14239,8 @@ function HasVigor($obj) {
     if(in_array("VIGOR_NEXT_TURN", $obj->TurnEffects)) return true;
     // Uther, Illustrious King (5h8asbierp): always has Vigor
     if($obj->CardID === "5h8asbierp") return true;
+    // Avatar of Genbu (67CIhG8hmG): [Guo Jia Bonus][Deluge 12] has vigor
+    if($obj->CardID === "67CIhG8hmG" && IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) return true;
     // Andronika, Eternal Herald (vw2ifz1nr5): has vigor while imbued
     if($obj->CardID === "vw2ifz1nr5" && in_array("IMBUED", $obj->TurnEffects ?? [])) return true;
     // Command the Hunt (rxxwQT054x): allies gain vigor via global effect
@@ -14556,6 +14587,7 @@ function HasIntercept($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         if(count(ZoneSearch($zone, ["PHANTASIA"])) >= 2) return true;
     }
+    if($obj->CardID === "92mnQJPfR8" && in_array("IMBUED", $obj->TurnEffects ?? [])) return true;
     if(PropertyContains(EffectiveCardType($obj), "ALLY")
        && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"))) {
         global $playerID;
@@ -14765,6 +14797,8 @@ function HasTaunt($obj) {
     if(HasNoAbilities($obj)) return false;
     if(in_array("NO_TAUNT", $obj->TurnEffects)) return false;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
+    // Avatar of Genbu (67CIhG8hmG): [Guo Jia Bonus][Deluge 12] has taunt
+    if($obj->CardID === "67CIhG8hmG" && IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) return true;
     if(HasKeyword_Taunt($obj)) return true;
     if(in_array("TAUNT", $obj->TurnEffects)) return true;
     if(in_array("TAUNT_NEXT_TURN", $obj->TurnEffects)) return true;
@@ -16884,6 +16918,18 @@ function IsGuoJiaBonus($player) {
 }
 
 /**
+ * Check if the given player's champion is a Jin champion (name starts with "Jin").
+ * @param int $player The player to check.
+ * @return bool True if the player's champion is Jin.
+ */
+function IsJinBonus($player) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return false;
+    $champObj = GetZoneObject($champMZ);
+    return strpos(CardName($champObj->CardID), "Jin") === 0;
+}
+
+/**
  * Add quest counters to the player's champion.
  * @param int $player The player whose champion gets quest counters.
  * @param int $amount Number of quest counters to add.
@@ -16936,6 +16982,123 @@ function ThinkDeepMill($player) {
     DecisionQueueController::StoreVariable("thinkDeepRemaining", strval($maxMill));
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_top_card_of_deck_into_graveyard?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "ThinkDeepMillStep", 1);
+}
+
+function AvatarOfGenbuResolve($player) {
+    if(!IsGuoJiaBonus($player)) return;
+    AddQuestCounters($player, 2);
+    $targets = [];
+    foreach(ZoneSearch("myMaterial") as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj !== null && !$obj->removed && $obj->CardID === "6ce5rzrjd9") $targets[] = $mzID;
+    }
+    foreach(ZoneSearch("myBanish") as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj !== null && !$obj->removed && $obj->CardID === "6ce5rzrjd9") $targets[] = $mzID;
+    }
+    if(empty($targets)) return;
+    if(count($targets) === 1) {
+        MZMove($player, $targets[0], "myField");
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1,
+        tooltip:"Put_Fabled_Sapphire_Fatestone_onto_the_field?_(Avatar_of_Genbu)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarGenbuFatestonePut", 1);
+}
+
+function ChimeOfEndlessDreamsRecycle($player) {
+    $gy = &GetGraveyard($player);
+    if(empty($gy)) return;
+    $cardIDs = [];
+    for($i = 0; $i < count($gy); ++$i) {
+        if($gy[$i]->removed) continue;
+        $cardIDs[] = $gy[$i]->CardID;
+        $gy[$i]->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    if(empty($cardIDs)) return;
+    EngineShuffle($cardIDs);
+    foreach($cardIDs as $cardID) {
+        MZAddZone($player, "myDeck", $cardID);
+    }
+}
+
+function LavastormDestroyAllAllies($player) {
+    $targets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+    usort($targets, function($a, $b) {
+        $ai = intval(explode("-", $a)[1] ?? 0);
+        $bi = intval(explode("-", $b)[1] ?? 0);
+        return $bi <=> $ai;
+    });
+    foreach($targets as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj === null || $obj->removed) continue;
+        DoAllyDestroyed($player, $mzID);
+    }
+    DecisionQueueController::CleanupRemovedCards();
+}
+
+function ProfaneBindingsResolve($player) {
+    QueueNegateActivation($player, [], "banish", -1, "ProfaneBindingsNegateResolve");
+}
+
+function SummonRetinueResolve($player) {
+    for($i = 0; $i < 2; ++$i) {
+        MZAddZone($player, "myField", "L67r0GlRHR");
+        $field = &GetField($player);
+        $field[count($field) - 1]->Status = 1;
+    }
+    if(GetOmenCount($player) < 3) return;
+    $field = &GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "L67r0GlRHR") {
+            WakeupCard($player, "myField-" . $i);
+        }
+    }
+}
+
+function SunderingMoonEnterResolve($player) {
+    if(!IsJinBonus($player)) return;
+    $windAllies = ZoneSearch("myField", ["ALLY"], cardElements: ["WIND"]);
+    if(count($windAllies) < 2) return;
+    $mzID = DecisionQueueController::GetVariable("currentMZID");
+    if($mzID === null || $mzID === "") return;
+    AddTurnEffect($mzID, "8677jq0hfm-POWER");
+}
+
+function SunderingMoonPreventResolve($player) {
+    if(!IsJinBonus($player)) return;
+    $targets = ZoneSearch("myField", ["ALLY", "CHAMPION"]);
+    if(empty($targets)) return;
+    if(count($targets) === 1) {
+        AddTurnEffect($targets[0], "PREVENT_ALL_1");
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1,
+        tooltip:"Prevent_the_next_1_damage_to_target_unit_(Sundering_Moon)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SunderingMoonPreventTarget", 1);
+}
+
+function FoundPowerResolve($player) {
+    Empower($player, 3, "8pIXnuI1Df");
+    if(!ZoneContainsCardID("myField", "k5wrAxBbF9")) return;
+    $hand = ZoneSearch("myHand");
+    if(empty($hand)) return;
+    DecisionQueueController::StoreVariable("FoundPowerDiscarded", "0");
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $hand), 1,
+        tooltip:"Discard_a_card?_(Found_Power_1/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FoundPowerDiscard1", 1);
+}
+
+function DynasticWhirlpoolResolve($player) {
+    $opponent = $player == 1 ? 2 : 1;
+    global $playerID;
+    $dest = $opponent == $playerID ? "myGraveyard" : "theirGraveyard";
+    for($i = 0; $i < 15; ++$i) {
+        $deck = &GetDeck($opponent);
+        if(empty($deck)) break;
+        MZMove($opponent, "myDeck-0", $dest);
+    }
 }
 
 $customDQHandlers["CompanionFatestoneTransform"] = function($player, $parts, $lastDecision) {
