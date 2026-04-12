@@ -174,7 +174,11 @@ $customDQHandlers["DusksoulStoneMaterializeCostFinish"] = function($player, $par
 };
 
 $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
+    $banishedObj = GetZoneObject($lastDecision);
+    $banishedCardID = $banishedObj ? $banishedObj->CardID : null;
     MZMove($player, $lastDecision, "myBanish");
+    // Pelagic Fatestone (tqkkyf4ktr): if this card was banished from GY to pay memory cost, put on field transformed
+    if($banishedCardID !== null) PelagicFatestoneOnFloatingBanished($player, $banishedCardID);
     $toPay = $parts[0];
     --$toPay;
     DecisionQueueController::StoreVariable("MemoryCost", $toPay);
@@ -508,6 +512,25 @@ function DoMaterialize($player, $mzCard) {
     // After any materialize, check if the player controls domains with materialize-sacrifice upkeep.
     // Domains tagged with NO_UPKEEP (via Right of Realm) skip this trigger.
     DomainMaterializeSacrifice($player);
+
+    // Craggy Fatestone (h8n1520m2d): [Guo Jia Bonus] whenever opponent materializes a card
+    // with memory cost 0, put a buff counter on Craggy Fatestone
+    {
+        $matMemCost = CardCost_memory($sourceId);
+        if($matMemCost !== null && $matMemCost == 0) {
+            $opponent = ($player == 1) ? 2 : 1;
+            if(IsGuoJiaBonus($opponent)) {
+                global $playerID;
+                $oppZone = $opponent == $playerID ? "myField" : "theirField";
+                $oppField = GetZone($oppZone);
+                for($ci = 0; $ci < count($oppField); ++$ci) {
+                    if(!$oppField[$ci]->removed && $oppField[$ci]->CardID === "h8n1520m2d" && !HasNoAbilities($oppField[$ci])) {
+                        AddCounters($opponent, $oppZone . "-" . $ci, "buff", 1);
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**

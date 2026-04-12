@@ -167,6 +167,7 @@ $Kindle_Cards["nduIoPhZr1"] = 7; // Seven of Hearts (FIRE) - Kindle 7
 $Kindle_Cards["vrK16VZ2zU"] = 2; // Burning Aethercharge (FIRE) - Kindle 2
 $Kindle_Cards["4ms1r3hjxp"] = 6; // Jianye, Dawn's Keep (FIRE) - Kindle 6
 $Kindle_Cards["FnTT1G4OQg"] = 4; // Restoring Embers (FIRE) - Kindle 4
+$Kindle_Cards["znk6g5o8ys"] = 3; // Dazzling Courtesan (FIRE) - Kindle 3
 
 // --- Cardistry Cards Registry ---
 // Maps cardID => base reserve cost for the Cardistry activated ability.
@@ -4109,6 +4110,10 @@ function OnCardActivated($player, $mzCard) {
         }
     }
 
+    // Fatestone of Balance (v4gtq1ibth): [Guo Jia Bonus] whenever opponent activates a card
+    // and they have exactly 3 cards in memory, transform
+    FatestoneOfBalanceOnOpponentActivated($player);
+
     // Kongming, Fel Eidolon (7x2v4tdop1): Inherited — whenever you activate a Spell card,
     // may change SC to an adjacent direction.
     if(PropertyContains($subtypes, "SPELL") && HasShiftingCurrents($player)
@@ -5756,6 +5761,10 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Wildgrowth Fatestone (x2oydmfcre): [Guo Jia Bonus] whenever another wind element card
+    // enters the field under your control, put a buff counter; 6+ may transform
+    WildgrowthFatestoneOnEnterCheck($player, "myField-" . (count($field) - 1));
+
     if(DecisionQueueController::GetVariable("SuppressNextEnter") === "YES") {
         DecisionQueueController::ClearVariable("SuppressNextEnter");
         return;
@@ -6301,6 +6310,10 @@ function RecollectionPhase() {
             ));
         }
     }
+
+    // Submerged Fatestone (zfb0pzm6qp): [Guo Jia Bonus] at recollection phase,
+    // may banish a floating memory from GY to transform
+    SubmergedFatestoneRecollectionTrigger($turnPlayer);
 
     // Fatal Timepiece (6gvnta6qse): at the beginning of each player's recollection phase,
     // if that player did not materialize a card this turn → deal 2 unpreventable to their champion.
@@ -7577,6 +7590,49 @@ function EndPhase() {
                     $memStr = implode("&", $memCards);
                     DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", $memStr, 1, tooltip:"Banish_a_card_from_opponent's_memory_(Merlin_L3)");
                     DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MerlinL3BanishMemory|" . $opponent, 1);
+                }
+                break;
+            }
+        }
+    }
+
+    // Tidefate Brooch (vubaywkr69): at end of turn, put refinement counters equal to
+    // Fatestone/Fatebound count on the field
+    {
+        $tpField = &GetField($turnPlayer);
+        for($ti = 0; $ti < count($tpField); ++$ti) {
+            if(!$tpField[$ti]->removed && $tpField[$ti]->CardID === "vubaywkr69" && !HasNoAbilities($tpField[$ti])) {
+                $fsCount = CountFatestoneOrFateboundObjects($turnPlayer);
+                if($fsCount > 0) {
+                    global $playerID;
+                    $tZone = $turnPlayer == $playerID ? "myField" : "theirField";
+                    AddCounters($turnPlayer, $tZone . "-" . $ti, "refinement", $fsCount);
+                }
+            }
+        }
+    }
+
+    // Huaji of Heaven's Rise (v1iyt8rugx): [Guo Jia Bonus] at end of turn,
+    // if champion is exia element, may pay (3) to transform
+    if(IsGuoJiaBonus($turnPlayer)) {
+        $tpField = &GetField($turnPlayer);
+        for($hi = 0; $hi < count($tpField); ++$hi) {
+            if(!$tpField[$hi]->removed && $tpField[$hi]->CardID === "v1iyt8rugx" && !HasNoAbilities($tpField[$hi])) {
+                // Check if champion is exia element
+                $champObj = null;
+                foreach($tpField as $cObj) {
+                    if(!$cObj->removed && PropertyContains(EffectiveCardType($cObj), "CHAMPION")) {
+                        $champObj = $cObj;
+                        break;
+                    }
+                }
+                if($champObj !== null && EffectiveCardElement($champObj) === "EXIA") {
+                    $hand = &GetHand($turnPlayer);
+                    if(count($hand) >= 3) {
+                        DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1,
+                            tooltip:"Pay_(3)_to_transform_Huaji_of_Heaven's_Rise?");
+                        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "HuajiEndPhaseTransform|" . $hi, 1);
+                    }
                 }
                 break;
             }
@@ -9493,6 +9549,20 @@ function ObjectCurrentLevel($obj) {
                 }
             }
         }
+        // Submerged Fatestone (zfb0pzm6qp): [Guo Jia Bonus] opponent's champions get -1 level
+        {
+            global $playerID;
+            $oppZone = $obj->Controller == $playerID ? "theirField" : "myField";
+            $subField = GetZone($oppZone);
+            foreach($subField as $sObj) {
+                if(!$sObj->removed && $sObj->CardID === "zfb0pzm6qp" && !HasNoAbilities($sObj)) {
+                    if(IsGuoJiaBonus($sObj->Controller)) {
+                        $cardLevel -= 1;
+                    }
+                    break;
+                }
+            }
+        }
         global $playerID;
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
@@ -9621,6 +9691,10 @@ function ObjectCurrentHP($obj) {
     $cardLife += GetCounterCount($obj, "buff");
     if(in_array("ymuarq5tv0-LIFE", $obj->TurnEffects ?? [])) {
         $cardLife += 1;
+    }
+    // Fluvial Fatestone (3h93tgm72l): target ally gets +2 LIFE until end of turn
+    if(in_array("3h93tgm72l", $obj->TurnEffects ?? [])) {
+        $cardLife += 2;
     }
     switch($obj->CardID) { //Self hp modifiers
         case "fdnlbJm3hr": // Memorite Obelith: +1 LIFE per sheen counter (cap 5)
@@ -16134,6 +16208,7 @@ function Delevel($player) {
 function TransformCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
     $otherSide = CardOtherOrientation($obj->CardID);
+    echo($mzCard . " transform: " . $obj->CardID . " -> " . ($otherSide ?? "null") . "\n");
     if($otherSide === null) return false;
     $obj->CardID = $otherSide;
     return true;

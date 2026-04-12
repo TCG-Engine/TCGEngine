@@ -832,8 +832,27 @@ function BeginCombatPhase($actionCard) {
             DecisionQueueController::StoreVariable("CombatWeapon", "-");
         }
     } else {
-        // Allies can't use weapons
-        DecisionQueueController::StoreVariable("CombatWeapon", "-");
+        // Allies can't use weapons normally, but Huaji of Heaven's Rise (v1iyt8rugx)
+        // allows unique Warrior allies to attack using this weapon
+        $huajiWeapon = null;
+        if(PropertyContains(CardSubtypes($obj->CardID), "WARRIOR")
+            && PropertyContains(CardSubtypes($obj->CardID), "UNIQUE")) {
+            $weapons = GetAvailableWeapons($turnPlayer);
+            foreach($weapons as $wMZ) {
+                $wObj = GetZoneObject($wMZ);
+                if($wObj !== null && !$wObj->removed && $wObj->CardID === "v1iyt8rugx" && !HasNoAbilities($wObj)
+                    && IsClassBonusActive($turnPlayer, explode(",", CardClasses("v1iyt8rugx")))) {
+                    $huajiWeapon = $wMZ;
+                    break;
+                }
+            }
+        }
+        if($huajiWeapon !== null) {
+            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $huajiWeapon, 95, "Attack_with_Huaji?");
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponSelected", 95);
+        } else {
+            DecisionQueueController::StoreVariable("CombatWeapon", "-");
+        }
     }
 
     // Step 2.c -- Choose attack target

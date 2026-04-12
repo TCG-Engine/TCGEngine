@@ -7,20 +7,6 @@ I used two confidence levels:
 - `Reviewed text` means I checked the card text directly through the card editor MCP.
 - `Likely` means the grouping is a first-pass placement based on card text sampled from the same cycle, naming, set context, or obvious support pattern and should be re-checked before implementation.
 
-## 1. Quest / Fatestone / Shenju / Fatebound counter engines
-
-This bucket looks like the biggest Heaven's Veil cluster: quest counters on Guo Jia, Fatestone transforms, Fatebound support, Shenju payoffs, and related counter manipulation.
-
-- `Reviewed text`: Fatestone of Progress, Fabled Azurite Fatestone, Clash of Fates, Guo Jia, Chosen Disciple, Guo Jia, Blessed Scion, Guo Jia, Heaven's Favored, Bell of the Chosen, Think Deep, Resonating Fugue, Seiryuu's Command, Winds of Destiny, Searing Truth.
-- `Reviewed text`: Da Qiao, Cinderbinder belongs here as a second counter sub-theme because it introduces and counts frenzy counters on allies.
-- `Likely`: Cyclonic Fatestone, Coiled Fatestone, Fluvial Fatestone, Idle Fatestone, Pelagic Fatestone, Submerged Fatestone, Wildgrowth Fatestone, Fatestone of Balance, Fatestone of Heaven, Fatestone of Revelations, Fatestone of Unrelenting, Beseeched Fatestone, Craggy Fatestone, Lavaplume Fatestone, Tidefate Brooch, Portentous Tanggu, Huaji of Heaven's Rise, Dazzling Courtesan, Revealing Mesmer.
-
-Implementation notes:
-
-- Expect shared support for `quest`, `buff`, `frenzy`, transform conditions, and "remove counters instead of paying reserve" style costs.
-- This is also a good batch for Fatebound object detection and Shenju subtype payoffs.
-
-
 ## 4. Copy / impersonation / transform / overwritten identity
 
 These cards likely stress copy effects, persistent overrides, inherited text, or object redefinition.

@@ -346,5 +346,366 @@ function MisteyeArcherLook($player, $mzID) {
     }
 }
 
+// ============================================================================
+// Coiled Fatestone (ulh4lplwqe) helpers
+// ============================================================================
+
+function CoiledFatestoneEnter($player) {
+    // Discard two cards at random. For each fire element card discarded this way, draw a card.
+    $hand = &GetHand($player);
+    if(count($hand) === 0) return;
+    $fireCount = 0;
+    $discardCount = min(2, count($hand));
+    for($i = 0; $i < $discardCount; ++$i) {
+        $hand = &GetHand($player);
+        if(count($hand) === 0) break;
+        $randIdx = EngineRandomInt(0, count($hand) - 1);
+        $discObj = $hand[$randIdx];
+        $element = CardElement($discObj->CardID);
+        if($element === "FIRE") ++$fireCount;
+        DoDiscardCard($player, "myHand-" . $randIdx);
+    }
+    if($fireCount > 0) {
+        Draw($player, $fireCount);
+    }
+}
+
+function CoiledFatestoneActivated($player, $mzID) {
+    // As a Spell, deal 1 damage to each champion. Put an age counter.
+    // If 3+ age counters, remove all and transform.
+    DealChampionDamage(1, 1);
+    DealChampionDamage(2, 1);
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return;
+    AddCounters($player, $mzID, "age", 1);
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return;
+    $ageCount = GetCounterCount($obj, "age");
+    if($ageCount >= 3) {
+        RemoveCounters($player, $mzID, "age", $ageCount);
+        TransformCard($player, $mzID);
+    }
+}
+
+// ============================================================================
+// Idle Fatestone (qiv63tpshe) helper
+// ============================================================================
+
+function IdleFatestoneActivated($player, $mzID) {
+    // Reveal the top card of your deck. If reserve cost is even, put a buff counter.
+    // Otherwise, transform.
+    $deck = GetDeck($player);
+    if(empty($deck)) return;
+    $topCard = $deck[0];
+    $cardID = $topCard->CardID;
+    // Reveal the top card
+    SetFlashMessage('REVEAL:' . $cardID);
+    $reserveCost = CardCost_reserve($cardID);
+    if($reserveCost === null || $reserveCost < 0) $reserveCost = 0;
+    if($reserveCost % 2 === 0) {
+        // Even: put a buff counter
+        AddCounters($player, $mzID, "buff", 1);
+    } else {
+        // Odd: transform
+        TransformCard($player, $mzID);
+    }
+}
+
+// ============================================================================
+// Fatestone of Heaven (al6pqkmgmz) helpers
+// ============================================================================
+
+function FatestoneOfHeavenEnter($player) {
+    // Destroy target non-champion object with memory cost 1 or less, or reserve cost 5 or less.
+    $targets = [];
+    foreach(["myField", "theirField"] as $z) {
+        $field = GetZone($z);
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i]->removed) continue;
+            if(PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) continue;
+            $memCost = CardCost_memory($field[$i]->CardID);
+            $resCost = CardCost_reserve($field[$i]->CardID);
+            $qualifies = false;
+            if($memCost !== null && $memCost >= 0 && $memCost <= 1) $qualifies = true;
+            if($resCost !== null && $resCost >= 0 && $resCost <= 5) $qualifies = true;
+            if($qualifies) $targets[] = $z . "-" . $i;
+        }
+    }
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1,
+        tooltip:"Destroy_a_non-champion_object");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FatestoneOfHeavenDestroy", 1);
+}
+
+$customDQHandlers["FatestoneOfHeavenDestroy"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    $type = EffectiveCardType($obj);
+    if(PropertyContains($type, "ALLY") || PropertyContains($type, "TOKEN")) {
+        AllyDestroyed($player, $lastDecision);
+    } else {
+        OnLeaveField($player, $lastDecision);
+        $controller = $obj->Controller ?? $player;
+        global $playerID;
+        $dest = $controller == $playerID ? "myGraveyard" : "theirGraveyard";
+        MZMove($player, $lastDecision, $dest);
+    }
+};
+
+function FatestoneOfHeavenActivated($player, $mzID) {
+    // Reveal all cards in your memory. If 3+ luxem element, transform. Once per turn, slow speed.
+    $memory = &GetMemory($player);
+    $revealIDs = [];
+    $luxemCount = 0;
+    foreach($memory as $mObj) {
+        if($mObj->removed) continue;
+        $revealIDs[] = $mObj->CardID;
+        if(CardElement($mObj->CardID) === "LUXEM") ++$luxemCount;
+    }
+    if(!empty($revealIDs)) {
+        SetFlashMessage('REVEAL:' . implode('|', $revealIDs));
+    }
+    if($luxemCount >= 3) {
+        TransformCard($player, $mzID);
+    }
+}
+
+// ============================================================================
+// Fatestone of Unrelenting (o37qtuvlxa) helper
+// ============================================================================
+
+function FatestoneOfUnrelentingActivated($player, $mzID) {
+    // Banish two fire element cards from your graveyard, then transform and wake up.
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(count($fireGY) < 2) return;
+    $fireStr = implode("&", $fireGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $fireStr, 1,
+        tooltip:"Banish_fire_card_from_GY_(1/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FatestoneUnrelentingBanish1|" . $mzID, 1);
+}
+
+$customDQHandlers["FatestoneUnrelentingBanish1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzID = $parts[0];
+    MZMove($player, $lastDecision, "myBanish");
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(empty($fireGY)) return;
+    $fireStr = implode("&", $fireGY);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $fireStr, 1,
+        tooltip:"Banish_fire_card_from_GY_(2/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FatestoneUnrelentingBanish2|" . $mzID, 1);
+};
+
+$customDQHandlers["FatestoneUnrelentingBanish2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzID = $parts[0];
+    MZMove($player, $lastDecision, "myBanish");
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return;
+    TransformCard($player, $mzID);
+    WakeupCard($player, $mzID);
+};
+
+// ============================================================================
+// Lavaplume Fatestone (0w5xyjuczy) helper
+// ============================================================================
+
+function LavaplumeFatestoneEnter($player, $mzID) {
+    // As a Spell, deal X unpreventable damage to target unit,
+    // where X is the amount of other Fatestone/Fatebound objects you control.
+    $otherCount = CountFatestoneOrFateboundObjects($player) - 1;
+    if($otherCount <= 0) return;
+    $targets = array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+    DecisionQueueController::StoreVariable("lavaplumeMzID", $mzID);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1,
+        tooltip:"Deal_unpreventable_damage_to_target_unit");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LavaplumeFatestoneResolve", 1);
+}
+
+$customDQHandlers["LavaplumeFatestoneResolve"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzID = DecisionQueueController::GetVariable("lavaplumeMzID");
+    $dmg = CountFatestoneOrFateboundObjects($player) - 1;
+    if($dmg > 0) {
+        DealUnpreventableDamage($player, $mzID, $lastDecision, $dmg);
+    }
+};
+
+// ============================================================================
+// Tidefate Brooch (vubaywkr69) helper
+// ============================================================================
+
+function TidefateBroochActivated($player, $mzID) {
+    // Banish Tidefate Brooch, put the top ten cards of your deck into your graveyard.
+    OnLeaveField($player, $mzID);
+    MZMove($player, $mzID, "myBanish");
+    $deck = GetDeck($player);
+    $millCount = min(10, count($deck));
+    for($i = 0; $i < $millCount; ++$i) {
+        MZMove($player, "myDeck-0", "myGraveyard");
+    }
+}
+
+// ============================================================================
+// Submerged Fatestone (zfb0pzm6qp) — recollection trigger helper
+// ============================================================================
+
+function SubmergedFatestoneRecollectionTrigger($turnPlayer) {
+    if(!IsGuoJiaBonus($turnPlayer)) return;
+    global $playerID;
+    $zone = $turnPlayer == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "zfb0pzm6qp" && !HasNoAbilities($field[$i])) {
+            $floatingGY = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
+            if(!empty($floatingGY)) {
+                DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $floatingGY), 1,
+                    tooltip:"Banish_floating_memory_from_GY_to_transform_Submerged_Fatestone?");
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "SubmergedFatestoneRecollection|" . $i, 1);
+            }
+            break;
+        }
+    }
+}
+
+$customDQHandlers["SubmergedFatestoneRecollection"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $fieldIdx = intval($parts[0]);
+    // Banish the chosen floating memory card
+    MZMove($player, $lastDecision, "myBanish");
+    NicoOnFloatingMemoryBanished($player);
+    // Transform Submerged Fatestone
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $mzCard = $zone . "-" . $fieldIdx;
+    $obj = GetZoneObject($mzCard);
+    if($obj !== null && !$obj->removed && $obj->CardID === "zfb0pzm6qp") {
+        TransformCard($player, $mzCard);
+    }
+};
+
+// ============================================================================
+// Wildgrowth Fatestone (x2oydmfcre) — enter trigger helper
+// ============================================================================
+
+function WildgrowthFatestoneOnEnterCheck($player, $enteredMZ) {
+    if(!IsGuoJiaBonus($player)) return;
+    $enteredObj = GetZoneObject($enteredMZ);
+    if($enteredObj === null || $enteredObj->removed) return;
+    $enteredElement = CardElement($enteredObj->CardID);
+    if($enteredElement !== "WIND") return;
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = &GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "x2oydmfcre" && !HasNoAbilities($field[$i])) {
+            $wgMZ = $zone . "-" . $i;
+            if($wgMZ === $enteredMZ) continue; // "another" — skip self
+            AddCounters($player, $wgMZ, "buff", 1);
+            $obj = GetZoneObject($wgMZ);
+            if($obj !== null && !$obj->removed && GetCounterCount($obj, "buff") >= 6) {
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                    tooltip:"Transform_Wildgrowth_Fatestone?");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "WildgrowthFatestoneTransform|" . $i, 1);
+            }
+        }
+    }
+}
+
+$customDQHandlers["WildgrowthFatestoneTransform"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $fieldIdx = intval($parts[0]);
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $mzCard = $zone . "-" . $fieldIdx;
+    $obj = GetZoneObject($mzCard);
+    if($obj === null || $obj->removed || $obj->CardID !== "x2oydmfcre") return;
+    TransformCard($player, $mzCard);
+};
+
+// ============================================================================
+// Fatestone of Balance (v4gtq1ibth) — opponent activation trigger
+// ============================================================================
+
+function FatestoneOfBalanceOnOpponentActivated($activatingPlayer) {
+    if(!IsGuoJiaBonus($activatingPlayer)) return; // The owner has Guo Jia, not the activating player
+    // Check if the OPPONENT of the activating player has a Fatestone of Balance
+    $owner = ($activatingPlayer == 1) ? 2 : 1;
+    if(!IsGuoJiaBonus($owner)) return;
+    // Check if activating player has exactly 3 cards in memory
+    $memory = &GetMemory($activatingPlayer);
+    $memCount = 0;
+    foreach($memory as $m) { if(!$m->removed) ++$memCount; }
+    if($memCount !== 3) return;
+    global $playerID;
+    $zone = $owner == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "v4gtq1ibth" && !HasNoAbilities($field[$i])) {
+            $mzCard = $zone . "-" . $i;
+            TransformCard($owner, $mzCard);
+            break;
+        }
+    }
+}
+
+// ============================================================================
+// Huaji of Heaven's Rise (v1iyt8rugx) — end phase transform helper
+// ============================================================================
+
+$customDQHandlers["HuajiEndPhaseTransform"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $fieldIdx = intval($parts[0]);
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $mzCard = $zone . "-" . $fieldIdx;
+    $obj = GetZoneObject($mzCard);
+    if($obj === null || $obj->removed || $obj->CardID !== "v1iyt8rugx") return;
+    // Pay (3): check if player has 3 cards in hand for reserve payment
+    $hand = &GetHand($player);
+    if(count($hand) < 3) return;
+    for($r = 0; $r < 3; ++$r) {
+        $hand = &GetHand($player);
+        if(count($hand) === 0) break;
+        MZMove($player, "myHand-0", "myMemory");
+    }
+    TransformCard($player, $mzCard);
+};
+
+// ============================================================================
+// Pelagic Fatestone (tqkkyf4ktr) — floating memory banish hook
+// ============================================================================
+
+function PelagicFatestoneOnFloatingBanished($player, $banishedCardID) {
+    // [Guo Jia Bonus] Whenever this card is banished from your graveyard to pay for a memory cost,
+    // put it onto the field transformed.
+    if($banishedCardID !== "tqkkyf4ktr") return;
+    if(!IsGuoJiaBonus($player)) return;
+    // Find the card in banishment and move it to field transformed
+    global $playerID;
+    $banishZone = $player == $playerID ? "myBanish" : "theirBanish";
+    $banish = GetZone($banishZone);
+    for($i = count($banish) - 1; $i >= 0; --$i) {
+        if(!$banish[$i]->removed && $banish[$i]->CardID === "tqkkyf4ktr") {
+            $mzBanish = $banishZone . "-" . $i;
+            $newObj = MZMove($player, $mzBanish, "myField");
+            if($newObj !== null) {
+                $fieldArr = &GetField($player);
+                $newIdx = count($fieldArr) - 1;
+                $fieldZone = $player == $playerID ? "myField" : "theirField";
+                TransformCard($player, $fieldZone . "-" . $newIdx);
+            }
+            break;
+        }
+    }
+}
+
+
 ?>
 
