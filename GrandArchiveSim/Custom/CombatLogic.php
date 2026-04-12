@@ -888,6 +888,10 @@ function OnAttackTrigger($player, $mzID) {
     $obj = GetZoneObject($mzID);
     if($obj !== null && !HasNoAbilities($obj) && isset($onAttackAbilities[$obj->CardID . ":0"])) {
         $onAttackAbilities[$obj->CardID . ":0"]($player);
+        // Seiryuu's Command (v9d2242357): DOUBLE_ON_ATTACK — fire on-attack abilities a second time
+        if(in_array("DOUBLE_ON_ATTACK", $obj->TurnEffects ?? [])) {
+            $onAttackAbilities[$obj->CardID . ":0"]($player);
+        }
     }
     // Also dispatch OnAttack for any attack cards currently in the player's intent zone
     $intentCards = GetIntentCards($player);
