@@ -2788,6 +2788,32 @@ $customDQHandlers["UndeniableTruthSacrifice"] = function($player, $parts, $lastD
     AddPrepCounter($player, 1);
 };
 
+$customDQHandlers["ProtectorRaccoonBanishGY"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+$customDQHandlers["ThreeOfDiamondsGraveyard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myGraveyard");
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    $remaining = ZoneSearch("myTempZone");
+    if(empty($remaining)) return;
+    $cardIDs = [];
+    foreach($remaining as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj !== null && !$obj->removed) $cardIDs[] = $obj->CardID;
+    }
+    if(empty($cardIDs)) return;
+    $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
+    DecisionQueueController::StoreVariable("glimpsedToTempZone", "1");
+    DecisionQueueController::StoreVariable("glimpseCount", strval(count($cardIDs)));
+    DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Put_remaining_cards_on_top_in_any_order");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
+};
+
 // --- Shattered Hope (XOevViFTB3): Glimpse 1, Draw 1, add global sheen effect ---
 // (Handled in macro code via AddGlobalEffects)
 

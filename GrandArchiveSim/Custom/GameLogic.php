@@ -177,6 +177,7 @@ $Cardistry_Cards["rufki4o41y"] = 2; // Two of Hearts
 $Cardistry_Cards["e8ygl32jef"] = 2; // Two of Spades
 $Cardistry_Cards["o09csnorqv"] = 3; // Three of Spades
 $Cardistry_Cards["1db8hz4prm"] = 3; // Three of Hearts
+$Cardistry_Cards["IZ2IiPsxe9"] = 3; // Three of Diamonds
 $Cardistry_Cards["8bolq2y5qp"] = 4; // Four of Spades
 $Cardistry_Cards["xgax8bbjqj"] = 4; // Four of Hearts
 $Cardistry_Cards["i9hf5lhl5f"] = 5; // Five of Spades
@@ -6459,6 +6460,14 @@ function RecollectionPhase() {
     // Recollection phase
     SetFlashMessage("Recollection Phase");
     $turnPlayer = &GetTurnPlayer();
+
+    // Golden Checkmate (KbE9R1mi3n): delayed win at the beginning of your next recollection phase.
+    if(GlobalEffectCount($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION") > 0) {
+        global $winner;
+        $winner = $turnPlayer;
+        RemoveGlobalEffect($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION");
+        return;
+    }
     
     // --- Domain Recollection Upkeep ---
     // Process domain upkeep checks that trigger "at the beginning of your recollection phase".
@@ -7943,6 +7952,23 @@ function ObjectCurrentPower($obj) {
         }
     }
     switch($obj->CardID) { //Self power modifiers
+        case "Jr4Ivpcnst": // Shaded Doppelganger: +X where X is highest base power among other allies you control
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $highest = 0;
+                foreach(GetZone($zone) as $fieldObj) {
+                    if($fieldObj->removed || $fieldObj === $obj) continue;
+                    if(!PropertyContains(EffectiveCardType($fieldObj), "ALLY")) continue;
+                    $basePower = CardPower($fieldObj->CardID);
+                    if($basePower !== null && $basePower > $highest) $highest = $basePower;
+                }
+                $power += $highest;
+            }
+            break;
+        case "KFfmJZMdZN": // Floodborne Warrior: Deluge 2 +1 POWER
+            if(DelugeAmount($obj->Controller) >= 2) $power += 1;
+            break;
         case "XFWU8KTVW9": // Ghastly Slime: +2 POWER while ephemeral
             if(IsEphemeral($obj)) $power += 2;
             break;
@@ -9168,6 +9194,12 @@ function ObjectCurrentPower($obj) {
             case "f00cEmu6Ql_POWER": // Galvanizing Gale: +3 POWER on the next attack this turn
                 $power += 3;
                 break;
+            case "KOqdA7G6by_POWER_3": // Luminous Surge: target unit's next attack +3 POWER
+                $power += 3;
+                break;
+            case "KOqdA7G6by_POWER_1": // Luminous Surge reveal bonus: next attack +1 POWER
+                $power += 1;
+                break;
             case "ATTUNE_FLAMES_BUFF": // Attune with Flames: +5 POWER until end of next turn
                 $power += 5;
                 break;
@@ -9997,6 +10029,9 @@ function ObjectCurrentHP($obj) {
         $cardLife += 3;
     }
     switch($obj->CardID) { //Self hp modifiers
+        case "KFfmJZMdZN": // Floodborne Warrior: Deluge 2 +1 LIFE
+            if(DelugeAmount($obj->Controller) >= 2) $cardLife += 1;
+            break;
         case "fdnlbJm3hr": // Memorite Obelith: +1 LIFE per sheen counter (cap 5)
             $cardLife += min(5, GetCounterCount($obj, "sheen"));
             break;
@@ -15659,6 +15694,40 @@ function GetCardistryDiscount($player) {
         if($cost !== null) $distinctCosts[$cost] = true;
     }
     return count($distinctCosts);
+}
+
+function CardistryThreeOfDiamonds($player, $mzID) {
+    $deck = GetDeck($player);
+    $n = min(3, count($deck));
+    if($n <= 0) return;
+    for($i = 0; $i < $n; ++$i) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    $choices = ZoneSearch("myTempZone");
+    if(empty($choices)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, "Choose_card_to_put_into_graveyard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ThreeOfDiamondsGraveyard", 1);
+}
+
+function CountAliceChessmanDiscount($player) {
+    if(!IsAliceBonusActive($player)) return 0;
+    $seen = [];
+    foreach(ZoneSearch("myField", ["ALLY", "CHAMPION"], cardSubtypes: ["CHESSMAN"]) as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj === null || $obj->removed) continue;
+        $subtypes = EffectiveCardSubtypes($obj);
+        foreach(["PAWN", "ROOK", "KNIGHT", "BISHOP", "QUEEN", "KING"] as $piece) {
+            if(PropertyContains($subtypes, $piece)) $seen[$piece] = true;
+        }
+    }
+    return 2 * count($seen);
+}
+
+function HasAgilityThisTurn($player) {
+    for($amount = 1; $amount <= 10; ++$amount) {
+        if(GlobalEffectCount($player, "AGILITY_" . $amount) > 0) return true;
+    }
+    return false;
 }
 
 /**

@@ -1003,6 +1003,16 @@ function OnAttackTrigger($player, $mzID) {
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["f00cEmu6Ql"]));
     }
 
+    // Luminous Surge (KOqdA7G6by): target unit's next attack this turn gets bonus POWER
+    foreach($obj->TurnEffects ?? [] as $te) {
+        if(strpos($te, "KOqdA7G6by_NEXT_") === 0) {
+            $bonus = intval(substr($te, strlen("KOqdA7G6by_NEXT_")));
+            if($bonus > 0) AddTurnEffect($mzID, "KOqdA7G6by_POWER_" . $bonus);
+            $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== $te));
+            break;
+        }
+    }
+
     // Enrage (wcfvrfw35s): champion's next attack this turn gets +X POWER
     foreach($obj->TurnEffects ?? [] as $te) {
         if(strpos($te, "wcfvrfw35s_NEXT_") === 0) {
