@@ -424,7 +424,7 @@ function DoMaterialize($player, $mzCard) {
         $field = &GetField($player);
         for($tli = 0; $tli < count($field); ++$tli) {
             if(!$field[$tli]->removed && PropertyContains(EffectiveCardType($field[$tli]), "CHAMPION") && $field[$tli]->Controller == $player) {
-                if(ChampionHasInLineage($player, "4upufooz13")) {
+                if(ChampionHasInLineage($player, "4upufooz13") || ChampionHasInLineage($player, "KqBosnU7pU")) {
                     Draw($player, amount: 2);
                 }
                 break;

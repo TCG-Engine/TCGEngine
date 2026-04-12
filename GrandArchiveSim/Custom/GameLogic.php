@@ -541,12 +541,23 @@ function ActionMap($actionCard)
                         return "PLAY";
                     }
                 }
+                // Recurring Aethercharge (MG8QoeZBXY): [Class Bonus] (3) load from graveyard into Aetherwing.
+                if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "MG8QoeZBXY") {
+                    if(IsClassBonusActive($playerID, ["RANGER"]) && CountAvailableReservePayments($playerID) >= 3
+                        && !empty(GetAetherwingWeapons($playerID))) {
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 1);
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 1);
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 1);
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "RecurringAetherchargeLoad", 1);
+                        return "PLAY";
+                    }
+                }
             }
             // Generic Ephemerate: activate card from graveyard by paying ephemerate cost
             $gyObj = GetZoneObject($actionCard);
             if($gyObj !== null && !$gyObj->removed && CanPayEphemerate($playerID, $gyObj->CardID)) {
                 global $ephemerateCards;
-                $config = $ephemerateCards[$gyObj->CardID];
+                $config = $ephemerateCards[$gyObj->CardID] ?? [];
                 $cost = GetEphemerateCost($playerID, $gyObj->CardID);
                 // Move from graveyard to hand, then activate
                 $handObj = MZMove($playerID, $actionCard, "myHand");
@@ -4340,6 +4351,19 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "M5LHimBiCn": // Black Ice Spellweaver - sacrifice self
+            DoSacrificeFighter($player, $mzCard);
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "MRiM1fnOWC": // Heirloom of Libra - banish self; second ability also pays (3)
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            if(intval($abilityIndex) === 1) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            }
+            break;
         case "n67ghdh1t6": // Naga's Fang â€” remove a preparation counter from your champion
             $champMZ = FindChampionMZ($player);
             if($champMZ !== null) {
@@ -5525,6 +5549,15 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     $added = $field[count($field)-1];
     $added->Controller = $player;
     if($added->Owner == 0) $added->Owner = $player;
+    // Zinn, Volnia Abbess (N0GEBrywbW): [Arisanna Bonus] Silvershine/Fraysia summons become Volnia.
+    if(($added->CardID === "bd7ozuj68m" || $added->CardID === "soporhlq2k") && IsArisannaBonusActive($player)) {
+        foreach($field as $zinnObj) {
+            if(!$zinnObj->removed && $zinnObj->CardID === "N0GEBrywbW" && !HasNoAbilities($zinnObj)) {
+                $added->CardID = "CjWMdce0Ke";
+                break;
+            }
+        }
+    }
     // Tonoris, Creation's Will (n2jnltv5kl): token summons become Aurousteel Greatswords.
     // This currently auto-replaces instead of prompting for the optional "may" choice.
     if($added->CardID !== "hkurfp66pv" && IsToken($added->CardID) && TonorisCreationsWillActive($player)) {
@@ -5580,6 +5613,19 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
 
     // Track that this card entered the field this turn (for Tempest Downfall etc.)
     $added->TurnEffects[] = "ENTERED_THIS_TURN";
+
+    // Shilowen, Peaceful Beginnings (L9zeix1x4N): ally entry may convert 2 durability to a bulwark counter.
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        for($si = 0; $si < count($field); ++$si) {
+            if($field[$si]->removed || $field[$si]->CardID !== "L9zeix1x4N" || HasNoAbilities($field[$si])) continue;
+            if(GetCounterCount($field[$si], "durability") < 2) continue;
+            DecisionQueueController::StoreVariable("ShilowenSource", "myField-" . $si);
+            DecisionQueueController::StoreVariable("ShilowenTarget", "myField-" . (count($field) - 1));
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Remove_2_durability_to_add_bulwark?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ShilowenBulwark", 1);
+            break;
+        }
+    }
 
     // Ephemerate: mark the entering card as ephemeral before Enter triggers fire,
     // so that enter abilities (e.g. Vengeful Paramour) can see IsEphemeral() == true.
@@ -9137,6 +9183,9 @@ function ObjectCurrentPower($obj) {
             case "ipl6gt7lh9-debuff": // Cerulean Decree: target unit's attacks get -3 POWER until end of turn
                 $power -= 3;
                 break;
+            case "M5LHimBiCn-debuff": // Black Ice Spellweaver: target unit's attacks get -3 POWER until end of turn
+                $power -= 3;
+                break;
             case "lx6xwr42i6": // Windrider Invoker: +3 POWER until end of turn
                 $power += 3;
                 break;
@@ -9760,6 +9809,9 @@ function ObjectCurrentLevel($obj) {
                 break;
             case "pmx99jrukm": // Ruinous Pillars of Qidao: Empower 2 (+2 level until end of turn)
                 $cardLevel += 2;
+                break;
+            case "MRiM1fnOWC-level": // Heirloom of Libra: opposing champion gets -5 level until end of turn
+                $cardLevel -= 5;
                 break;
             case "9f0nsj62l6": // Apprentice Aeromancer: Empower 2 (+2 level until end of turn)
                 $cardLevel += 2;
@@ -10622,6 +10674,119 @@ function DrawIntoMemory($player, $amount=1) {
     }
 }
 
+function PsychopompsGaleResolve($player) {
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Target_yourself?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PsychopompsGaleBanish", 1);
+}
+
+$customDQHandlers["PsychopompsGaleBanish"] = function($player, $parts, $lastDecision) {
+    $graveyard = $lastDecision === "YES" ? "myGraveyard" : "theirGraveyard";
+    $banish = $lastDecision === "YES" ? "myBanish" : "theirBanish";
+    for($i = count(GetZone($graveyard)) - 1; $i >= 0; --$i) {
+        MZMove($player, $graveyard . "-" . $i, $banish);
+    }
+};
+
+function BlackIceSpellweaverResolve($player) {
+    $targets = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"]));
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_unit_for_-3_POWER_attacks");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "BlackIceSpellweaverDebuff", 1);
+}
+
+$customDQHandlers["BlackIceSpellweaverDebuff"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    AddTurnEffect($lastDecision, "M5LHimBiCn-debuff");
+};
+
+function FlourishingQiResolve($player) {
+    $targets = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"]));
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_unit_for_Flourishing_Qi");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FlourishingQiDamage", 1);
+}
+
+$customDQHandlers["FlourishingQiDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $damage = PlayerLevel($player);
+    $sourceMZ = "EffectStack-0";
+    $es = GetZone("EffectStack");
+    for($i = count($es) - 1; $i >= 0; --$i) {
+        if(!$es[$i]->removed && $es[$i]->CardID === "MDu0e3tib8" && $es[$i]->Controller == $player) {
+            $damage += GetCounterCount($es[$i], "charge");
+            $sourceMZ = "EffectStack-" . $i;
+            break;
+        }
+    }
+    DealDamage($player, $sourceMZ, $lastDecision, $damage);
+};
+
+function HeirloomOfLibraChoose($player) {
+    DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "1|2", 1, tooltip:"Choose_1=-5_level_or_2=no_glimpse");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "HeirloomOfLibraChoice", 1);
+}
+
+$customDQHandlers["HeirloomOfLibraChoice"] = function($player, $parts, $lastDecision) {
+    if(intval($lastDecision) === 1) {
+        $opponent = ($player == 1) ? 2 : 1;
+        $champ = FindChampionMZ($opponent);
+        if($champ !== null) AddTurnEffect($champ, "MRiM1fnOWC-level");
+        return;
+    }
+    $opponent = ($player == 1) ? 2 : 1;
+    AddGlobalEffects($opponent, "MRiM1fnOWC-no-glimpse");
+};
+
+function RootsOfTomorrowResolve($player) {
+    PutTopDeckCardIntoMaterialPreserved($player);
+    DrawIntoMemory($player, 1);
+}
+
+function SamaritanReachResolve($player) {
+    $attacker = GetCombatAttackerMZ();
+    if($attacker === null) return;
+    $attackerObj = GetZoneObject($attacker);
+    if($attackerObj === null || $attackerObj->Controller == $player || !PropertyContains(EffectiveCardType($attackerObj), "ALLY")) return;
+    DealDamage($player, "EffectStack-0", $attacker, 3);
+    $target = DecisionQueueController::GetVariable("CombatTarget");
+    if($target === null || $target === "" || $target === "-") return;
+    $targetObj = GetZoneObject($target);
+    if($targetObj !== null && $targetObj->Controller != $player) GainCrowdsFavor($player);
+}
+
+function OtherworldlyPossessionsResolve($player) {
+    $costs = [];
+    foreach(GetField($player) as $obj) {
+        if($obj->removed) continue;
+        $reserveCost = intval(CardCost_reserve($obj->CardID));
+        if($reserveCost >= 0) $costs[$reserveCost] = true;
+    }
+    foreach(GetGraveyard($player) as $obj) {
+        if($obj->removed) continue;
+        $reserveCost = intval(CardCost_reserve($obj->CardID));
+        if($reserveCost >= 0) $costs[$reserveCost] = true;
+    }
+    $champ = FindChampionMZ($player);
+    if($champ !== null && count($costs) > 0) AddCounters($player, $champ, "enlighten", count($costs));
+}
+
+$customDQHandlers["ShilowenBulwark"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $source = DecisionQueueController::GetVariable("ShilowenSource");
+    $target = DecisionQueueController::GetVariable("ShilowenTarget");
+    $sourceObj = GetZoneObject($source);
+    $targetObj = GetZoneObject($target);
+    if($sourceObj === null || $targetObj === null || GetCounterCount($sourceObj, "durability") < 2) return;
+    RemoveCounters($player, $source, "durability", 2);
+    AddCounters($player, $target, "bulwark", 1);
+};
+
+$customDQHandlers["RecurringAetherchargeLoad"] = function($player, $parts, $lastDecision) {
+    LoadCardIntoAetherwingFromGY($player, "MG8QoeZBXY");
+};
+
 function IsTonorisBonusActive($player) {
     return ChampionHasInLineage($player, "zb14m4c8lj")
         || ChampionHasInLineage($player, "yevpmu6gvn")
@@ -10923,6 +11088,7 @@ function HasAethercalling($player, $cardID) {
  * @param int $amount Number of cards to glimpse.
  */
 function Glimpse($player, $amount, $allowAstroscope = true) {
+    if(GlobalEffectCount($player, "MRiM1fnOWC-no-glimpse") > 0) return;
     foreach(GetField($player) as $i => $fObj) {
         if(!$fObj->removed && $fObj->CardID === "c34iTVRS8h" && !HasNoAbilities($fObj)
             && IsClassBonusActive($player, ["ASSASSIN", "CLERIC"])) {
@@ -11917,7 +12083,7 @@ function EphemerateMeta($obj) {
         return json_encode(['highlight' => false]);
     }
     global $ephemerateCards;
-    if (!isset($ephemerateCards[$obj->CardID])) {
+    if (!isset($ephemerateCards[$obj->CardID]) && !MordredFatedEphemerateApplies($playerID, $obj->CardID)) {
         return json_encode(['highlight' => false]);
     }
     if (!CanPayEphemerate($playerID, $obj->CardID)) {
@@ -11925,6 +12091,10 @@ function EphemerateMeta($obj) {
     }
     // Gold glow to distinguish Ephemerate from normal hand playability
     return json_encode(['color' => 'rgba(255, 200, 0, 0.95)']);
+}
+
+function MordredFatedEphemerateApplies($player, $cardID) {
+    return ChampionHasInLineage($player, "KqBosnU7pU") && PropertyContains(CardType($cardID), "ATTACK");
 }
 
 function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null) {
@@ -12144,7 +12314,10 @@ $ephemerateCards["tizLamFGPS"] = ['cost' => 3, 'condition' => function($player) 
 
 function GetEphemerateCost($player, $cardID) {
     global $ephemerateCards;
-    if(!isset($ephemerateCards[$cardID])) return -1;
+    if(!isset($ephemerateCards[$cardID])) {
+        if(MordredFatedEphemerateApplies($player, $cardID)) return max(0, intval(CardCost_reserve($cardID)));
+        return -1;
+    }
     $config = $ephemerateCards[$cardID];
     $cost = $config['cost'];
     if(isset($config['costModifier'])) {
@@ -12195,11 +12368,12 @@ function GetReservePaymentChoiceSource($player, $includeHand = true) {
 
 function CanPayEphemerate($player, $cardID) {
     global $ephemerateCards, $playerID;
-    if(!isset($ephemerateCards[$cardID])) return false;
+    $isMordredFated = MordredFatedEphemerateApplies($player, $cardID);
+    if(!isset($ephemerateCards[$cardID]) && !$isMordredFated) return false;
     // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
     if(IsPhantasmagoriaGYSuppressed($player, $cardID)) return false;
     // Condition check (e.g. Alice Bonus + Element Bonus for Maledictum Vitae)
-    $config = $ephemerateCards[$cardID];
+    $config = $ephemerateCards[$cardID] ?? [];
     if(isset($config['condition']) && !$config['condition']($player)) return false;
     $cost = GetEphemerateCost($player, $cardID);
     $available = CountAvailableReservePayments($player);
@@ -13856,6 +14030,17 @@ function ChangeShiftingCurrents($player, $newDirection) {
     if($oldDirection === $newDirection) return;
     $mastery[0]->Direction = $newDirection;
 
+    // Flourishing Qi (MDu0e3tib8): while its activation is on the stack, any direction -> North adds charge.
+    if($newDirection === "NORTH" && $oldDirection !== "NORTH") {
+        $effectStack = &GetEffectStack();
+        for($fqi = 0; $fqi < count($effectStack); ++$fqi) {
+            if(!$effectStack[$fqi]->removed && $effectStack[$fqi]->CardID === "MDu0e3tib8" && $effectStack[$fqi]->Controller == $player) {
+                AddCounters($player, "EffectStack-" . $fqi, "charge", 4);
+                break;
+            }
+        }
+    }
+
     // Fire transition callbacks for cards on this player's field
     $transitionKey = $oldDirection . "->" . $newDirection;
     if(!isset($shiftingCurrentsTransitions[$transitionKey])) return;
@@ -14149,6 +14334,7 @@ function HasFloatingMemory($obj) {
     // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
     if(isset($obj->Controller) && IsPhantasmagoriaGYSuppressed($obj->Controller, $obj->CardID)) return false;
     if(HasKeyword_FloatingMemory($obj)) return true;
+    if(isset($obj->Controller) && MordredFatedEphemerateApplies($obj->Controller, $obj->CardID)) return true;
     // Intrepid Highwayman (WUAOMTZ7P2): [Class Bonus] Floating Memory
     if($obj->CardID === "WUAOMTZ7P2" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
     // Firetuned Automaton (lzjmwuir99): [Class Bonus] Floating Memory
@@ -14375,6 +14561,16 @@ function EffectiveCardClasses($obj) {
             if($fieldObj->removed || $fieldObj->CardID !== "GHS9GraLDo" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "CLERIC")) {
                 $classes = $classes === null || $classes === "" ? "CLERIC" : $classes . ",CLERIC";
+            }
+            break;
+        }
+
+        // Lesser Boon of Etherealys (NCahvCedfV): your champion is Mage in addition
+        // to its other classes.
+        foreach($field as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "NCahvCedfV" || HasNoAbilities($fieldObj)) continue;
+            if(!PropertyContains($classes, "MAGE")) {
+                $classes = $classes === null || $classes === "" ? "MAGE" : $classes . ",MAGE";
             }
             break;
         }

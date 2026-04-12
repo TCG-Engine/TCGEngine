@@ -1972,7 +1972,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     }
 
     // Blazing Bowman (qry41lw9n0): attacks can't be retaliated
-    if($attackerObj !== null && $attackerObj->CardID === "qry41lw9n0" && !HasNoAbilities($attackerObj)) {
+    if($attackerObj !== null && ($attackerObj->CardID === "qry41lw9n0" || $attackerObj->CardID === "KmM2o1ozGr") && !HasNoAbilities($attackerObj)) {
         DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
     }
@@ -2491,6 +2491,14 @@ $customDQHandlers["MechanicalHareBanish2"] = function($player, $parts, $lastDeci
  */
 function OnDealDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
+
+    // Bulwark counters prevent the next combat damage to that ally.
+    if($amount > 0 && $targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY")
+        && GetCounterCount($targetObj, "bulwark") > 0
+        && DecisionQueueController::GetVariable("CombatAttacker") !== null) {
+        RemoveCounters($targetObj->Controller ?? $player, $target, "bulwark", 1);
+        return;
+    }
 
     // Siegeable domains: damage removes durability counters instead of adding Damage.
     // Destroyed when durability reaches 0. On Hit still triggers via the combat flow.
