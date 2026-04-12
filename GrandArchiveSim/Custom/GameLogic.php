@@ -183,6 +183,7 @@ $Cardistry_Cards["i9hf5lhl5f"] = 5; // Five of Spades
 $Cardistry_Cards["idq4ih00rq"] = 5; // Five of Hearts
 $Cardistry_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts
 $Cardistry_Cards["tdRR5lQHMN"] = 6; // Six of Spades
+$Cardistry_Cards["EIpkYYSP3s"] = 6; // Senaris, Six of Diamonds
 $Cardistry_Cards["DKoSnhjX18"] = 7; // Chance, Seven of Spades
 $Cardistry_Cards["nduIoPhZr1"] = 7; // Seven of Hearts
 $Cardistry_Cards["0mf1ug6yfi"] = 10; // Wonderland's Reign
@@ -2216,6 +2217,26 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs — Edelstein, Queen of Diamonds (AxHzxEHBHZ): may banish 3+ Suited Spell GY cards with total cost >= 10
+    $hasEdelsteinAltCost = false;
+    if($obj->CardID === "AxHzxEHBHZ" && !$ignoreCost && $reserveCost > 0) {
+        $suitedSpellGY = [];
+        $suitedSpellGYTotal = 0;
+        $gy = GetZone("myGraveyard");
+        for($gi = 0; $gi < count($gy); ++$gi) {
+            if($gy[$gi]->removed) continue;
+            if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SUITED")) continue;
+            if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SPELL")) continue;
+            $suitedSpellGY[] = "myGraveyard-" . $gi;
+            $suitedSpellGYTotal += intval(CardCost_reserve($gy[$gi]->CardID));
+        }
+        if(count($suitedSpellGY) >= 3 && $suitedSpellGYTotal >= 10) {
+            $hasEdelsteinAltCost = true;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Banish_3+_Suited_Spell_cards_from_GY_(total_cost_10)_instead_of_reserve?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "EdelsteinAltCostChoice|" . $reserveCost, 100);
+        }
+    }
+
     //1.3 Declaring Costs — Brusque Neige (irt72g89zc): may sacrifice an ally instead of paying reserve
     $hasBrusqueNeigeAltCost = false;
     if($obj->CardID === "irt72g89zc" && !$ignoreCost && $reserveCost > 0) {
@@ -2317,7 +2338,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2394,6 +2415,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasScryAltCost is true, ScryTheStarsAltCost handler queues banish or
     // normal reserve + EffectStackOpportunity.
     // When $hasVeritaAltCost is true, VeritaAltCostChoice handler queues iterative
+    // GY banish or normal reserve + EffectStackOpportunity.
+    // When $hasEdelsteinAltCost is true, EdelsteinAltCostChoice handler queues iterative
     // GY banish or normal reserve + EffectStackOpportunity.
 }
 
@@ -3389,6 +3412,69 @@ $customDQHandlers["VeritaAltCostProcess"] = function($player, $parts, $lastDecis
 
     // Continue picking
     DecisionQueueController::AddDecision($player, "CUSTOM", "VeritaAltCostPick", 100);
+};
+
+// Edelstein (AxHzxEHBHZ): Alt cost — YESNO choice handler
+$customDQHandlers["EdelsteinAltCostChoice"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "YES") {
+        DecisionQueueController::StoreVariable("edelsteinBanishCount", "0");
+        DecisionQueueController::StoreVariable("edelsteinBanishTotal", "0");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EdelsteinAltCostPick", 100);
+    } else {
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        for($i = 0; $i < $baseReserve; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+    }
+};
+
+// Edelstein (AxHzxEHBHZ): Alt cost — iterative Suited Spell GY pick
+$customDQHandlers["EdelsteinAltCostPick"] = function($player, $parts, $lastDecision) {
+    $count = intval(DecisionQueueController::GetVariable("edelsteinBanishCount"));
+    $total = intval(DecisionQueueController::GetVariable("edelsteinBanishTotal"));
+
+    if($count >= 3 && $total >= 10) {
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+
+    $suitedSpellGY = [];
+    $gy = GetZone("myGraveyard");
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if($gy[$gi]->removed) continue;
+        if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SUITED")) continue;
+        if(!PropertyContains(CardSubtypes($gy[$gi]->CardID), "SPELL")) continue;
+        $suitedSpellGY[] = "myGraveyard-" . $gi;
+    }
+
+    if(empty($suitedSpellGY)) return;
+
+    $remaining = 10 - $total;
+    $needed = max(0, 3 - $count);
+    $tooltip = "Banish_Suited_Spell_from_GY_(need_" . $needed . "_more_cards,_" . $remaining . "_more_cost)";
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $suitedSpellGY), 100, tooltip:$tooltip);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EdelsteinAltCostProcess", 100);
+};
+
+// Edelstein (AxHzxEHBHZ): Alt cost — process each picked card
+$customDQHandlers["EdelsteinAltCostProcess"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    $cardCost = intval(CardCost_reserve($obj->CardID));
+    MZMove($player, $lastDecision, "myBanish");
+
+    $count = intval(DecisionQueueController::GetVariable("edelsteinBanishCount")) + 1;
+    $total = intval(DecisionQueueController::GetVariable("edelsteinBanishTotal")) + $cardCost;
+    DecisionQueueController::StoreVariable("edelsteinBanishCount", "$count");
+    DecisionQueueController::StoreVariable("edelsteinBanishTotal", "$total");
+
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EdelsteinAltCostPick", 100);
 };
 
 /**
@@ -7127,7 +7213,15 @@ function RecollectionPhase() {
         }
     }
 
-    for($i=count($memory)-1; $i>=0; --$i) {
+    $recollectReduce = 0;
+    $opponent = ($turnPlayer == 1) ? 2 : 1;
+    $oppField = GetField($opponent);
+    foreach($oppField as $fObj) {
+        if($fObj->removed || $fObj->CardID !== "DNe5dvCNA1" || HasNoAbilities($fObj)) continue;
+        $recollectReduce += GetCounterCount($fObj, "frost");
+    }
+    $recollectCount = max(0, count($memory) - $recollectReduce);
+    for($i=count($memory)-1; $i>=count($memory)-$recollectCount; --$i) {
         MZMove($turnPlayer, "myMemory-" . $i, "myHand");
     }
 }
@@ -7840,6 +7934,12 @@ function ObjectCurrentPower($obj) {
     foreach($obj->TurnEffects ?? [] as $effect) {
         if(strpos($effect, "TONORIS_TOKEN_WEAPON_") === 0) {
             $power += intval(substr($effect, strlen("TONORIS_TOKEN_WEAPON_")));
+        }
+        if($effect === "CyiA6N2geQ") {
+            $power += 1;
+        }
+        if(strpos($effect, "AxHzxEHBHZ_EMPOWER_") === 0) {
+            $power += intval(substr($effect, strlen("AxHzxEHBHZ_EMPOWER_")));
         }
     }
     switch($obj->CardID) { //Self power modifiers
@@ -12365,6 +12465,14 @@ $doesGlobalEffectApply["BREWED_POTION"] = function($obj) { // Flag only — trac
     return false; // No visual effect on cards
 };
 
+$doesGlobalEffectApply["Bt9xeTum94_IGNORE_POTION_ELEMENT"] = function($obj) { // Flag only — non-advanced Potions ignore elemental requirements
+    return false;
+};
+
+$doesGlobalEffectApply["EIpkYYSP3s"] = function($obj) { // Flag only — next suited spell damage +3
+    return false;
+};
+
 $doesGlobalEffectApply["FREEZING_STEEL"] = function($obj) { // Flag only — next items enter rested
     return false;
 };
@@ -13020,6 +13128,10 @@ function Empower($player, $amount, $sourceID) {
         if($amount > GetCounterCount($obj, "root")) {
             AddCounters($player, $zone . "-" . $i, "root", 1);
         }
+    }
+    foreach($field as $i => $obj) {
+        if($obj->removed || $obj->CardID !== "AxHzxEHBHZ" || HasNoAbilities($obj)) continue;
+        AddTurnEffect($zone . "-" . $i, "AxHzxEHBHZ_EMPOWER_" . intval($amount));
     }
 }
 
@@ -16196,6 +16308,48 @@ function OnOmenCounterPlaced($player, $mzCard) {
         }
     }
 }
+
+function HoarfrostHoldEnter($player, $mzID) {
+    DecisionQueueController::StoreVariable("hoarfrostHoldMZ", $mzID);
+    DecisionQueueController::StoreVariable("hoarfrostHoldCount", "0");
+
+    $choices = array_merge(
+        ZoneSearch("myHand", cardSubtypes: ["SUITED", "SPELL"]),
+        ZoneSearch("myMemory", cardSubtypes: ["SUITED", "SPELL"])
+    );
+    if(empty($choices)) return;
+
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Banish_a_Suited_Spell_from_hand_or_memory?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "HoarfrostHoldChoose", 1);
+}
+
+$customDQHandlers["HoarfrostHoldChoose"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        $mzID = DecisionQueueController::GetVariable("hoarfrostHoldMZ");
+        $count = intval(DecisionQueueController::GetVariable("hoarfrostHoldCount"));
+        if($count > 0) {
+            AddCounters($player, $mzID, "frost", $count);
+        }
+        return;
+    }
+
+    MZMove($player, $lastDecision, "myBanish");
+    $count = intval(DecisionQueueController::GetVariable("hoarfrostHoldCount")) + 1;
+    DecisionQueueController::StoreVariable("hoarfrostHoldCount", strval($count));
+
+    $choices = array_merge(
+        ZoneSearch("myHand", cardSubtypes: ["SUITED", "SPELL"]),
+        ZoneSearch("myMemory", cardSubtypes: ["SUITED", "SPELL"])
+    );
+    if(empty($choices)) {
+        $mzID = DecisionQueueController::GetVariable("hoarfrostHoldMZ");
+        AddCounters($player, $mzID, "frost", $count);
+        return;
+    }
+
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Banish_another_Suited_Spell?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "HoarfrostHoldChoose", 1);
+};
 
 /**
  * Virtual property callback: returns a JSON-encoded array of dynamic activated abilities

@@ -184,6 +184,12 @@ function OnBrew($player) {
                 DrawIntoMemory($player, 1);
             }
         }
+        // Essence Crucible (DF5Ffwv7DJ): [Arisanna Bonus] whenever you brew → refinement counter
+        if($field[$i]->CardID === "DF5Ffwv7DJ" && !HasNoAbilities($field[$i])) {
+            if(IsArisannaBonusActive($player)) {
+                AddCounters($player, "myField-" . $i, "refinement", 1);
+            }
+        }
     }
 }
 

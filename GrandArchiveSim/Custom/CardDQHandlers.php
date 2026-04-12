@@ -4650,6 +4650,23 @@ function AddPrepCounter($player, $amount = 1) {
  */
 function GainAgility($player, $amount) {
     AddGlobalEffects($player, "AGILITY_" . $amount);
+
+    if(!IsTristanBonus($player)) return;
+    global $playerID;
+    $zone = ($player == $playerID) ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $hasChasingShadows = false;
+    foreach($field as $obj) {
+        if(!$obj->removed && $obj->CardID === "CyiA6N2geQ" && !HasNoAbilities($obj)) {
+            $hasChasingShadows = true;
+            break;
+        }
+    }
+    if(!$hasChasingShadows) return;
+    foreach($field as $i => $obj) {
+        if($obj->removed || $obj->CardID !== "gveirpdm44") continue;
+        AddTurnEffect($zone . "-" . $i, "CyiA6N2geQ");
+    }
 }
 
 // ============================================================================

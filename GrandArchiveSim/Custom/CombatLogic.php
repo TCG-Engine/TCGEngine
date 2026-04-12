@@ -3417,6 +3417,31 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Spell-source damage amplifiers on units
+    if($amount > 0) {
+        $sourceObjSpell = GetZoneObject($source);
+        $isUnitTarget = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
+        if($sourceObjSpell !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SPELL")) {
+            $sourceController = $sourceObjSpell->Controller ?? $player;
+
+            // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
+            global $playerID;
+            $srcFieldZone = ($sourceController == $playerID) ? "myField" : "theirField";
+            $srcField = GetZone($srcFieldZone);
+            foreach($srcField as $si => $sObj) {
+                if($sObj->removed || $sObj->CardID !== "DF5Ffwv7DJ" || HasNoAbilities($sObj)) continue;
+                $amount += GetCounterCount($sObj, "refinement");
+            }
+
+            // Senaris, Six of Diamonds (EIpkYYSP3s): next three suited spell source damages this turn are +3.
+            if(PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SUITED")
+                && GlobalEffectCount($sourceController, "EIpkYYSP3s") > 0) {
+                $amount += 3;
+                RemoveGlobalEffect($sourceController, "EIpkYYSP3s");
+            }
+        }
+    }
+
     // Sovereign Sanctuary (w6OqqsfEso): prevent 2 damage to any unit you control
     if($amount > 0) {
         $isUnitCheck = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
@@ -3634,6 +3659,31 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
                     $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
                     break;
                 }
+            }
+        }
+    }
+
+    // Spell-source damage amplifiers on units
+    if($amount > 0) {
+        $sourceObjSpell = GetZoneObject($source);
+        $isUnitTarget = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
+        if($sourceObjSpell !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SPELL")) {
+            $sourceController = $sourceObjSpell->Controller ?? $player;
+
+            // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
+            global $playerID;
+            $srcFieldZone = ($sourceController == $playerID) ? "myField" : "theirField";
+            $srcField = GetZone($srcFieldZone);
+            foreach($srcField as $si => $sObj) {
+                if($sObj->removed || $sObj->CardID !== "DF5Ffwv7DJ" || HasNoAbilities($sObj)) continue;
+                $amount += GetCounterCount($sObj, "refinement");
+            }
+
+            // Senaris, Six of Diamonds (EIpkYYSP3s): next three suited spell source damages this turn are +3.
+            if(PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SUITED")
+                && GlobalEffectCount($sourceController, "EIpkYYSP3s") > 0) {
+                $amount += 3;
+                RemoveGlobalEffect($sourceController, "EIpkYYSP3s");
             }
         }
     }
