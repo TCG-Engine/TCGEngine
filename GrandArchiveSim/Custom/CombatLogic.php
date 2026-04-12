@@ -593,8 +593,13 @@ function BeginCombatPhase($actionCard) {
     $obj = &GetZoneObject($actionCard);
     $cardType = EffectiveCardType($obj);
 
-    // Only allies and champions can declare attacks as the attacking unit
-    if(!PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) {
+    // Only allies and champions can declare attacks as the attacking unit.
+    // Exception: Spirit Blade: Ensoul (CQ1bxUyi0Q) allows Sword weapons to attack as allies.
+    $ensoulSwordAttacking = PropertyContains($cardType, "WEAPON")
+        && PropertyContains(CardSubtypes($obj->CardID), "SWORD")
+        && GlobalEffectCount($turnPlayer, "CQ1bxUyi0Q_SWORDS_AS_ALLY") > 0;
+    if(!$ensoulSwordAttacking
+       && !PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) {
         SetFlashMessage("Only allies and champions can declare attacks.");
         return false;
     }
@@ -850,6 +855,24 @@ function BeginCombatPhase($actionCard) {
         if($huajiWeapon !== null) {
             DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $huajiWeapon, 95, "Attack_with_Huaji?");
             DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponSelected", 95);
+        } else if($obj->CardID === "eO5wsjwRyQ" && !HasNoAbilities($obj)
+            && IsClassBonusActive($turnPlayer, ["WARRIOR"])) {
+            // Galahad, Court Knight (eO5wsjwRyQ): [Class Bonus] can attack using Sword weapons
+            $swordWeapons = [];
+            foreach(GetAvailableWeapons($turnPlayer) as $wMZ) {
+                $wObj = GetZoneObject($wMZ);
+                if($wObj !== null && !$wObj->removed
+                   && PropertyContains(CardSubtypes($wObj->CardID), "SWORD")) {
+                    $swordWeapons[] = $wMZ;
+                }
+            }
+            if(!empty($swordWeapons)) {
+                $swordStr = implode("&", $swordWeapons);
+                DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $swordStr, 95, "Attack_with_Sword_weapon?");
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponSelected", 95);
+            } else {
+                DecisionQueueController::StoreVariable("CombatWeapon", "-");
+            }
         } else {
             DecisionQueueController::StoreVariable("CombatWeapon", "-");
         }
@@ -2478,6 +2501,11 @@ function OnDealDamage($player, $source, $target, $amount) {
             $amount += 4;
             $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "FROSTBITE_WATER_VULN"));
         }
+    }
+
+    // Poisoned Dagger (0D6AfZyKXh): [CB] target takes +1 damage until EOT
+    if($amount > 0 && in_array("0D6AfZyKXh-CURSED", $targetObj->TurnEffects)) {
+        $amount += 1;
     }
 
     // Enfeebled Dagger (idpdon8f0h): [CB] source unit deals that much damage minus 3

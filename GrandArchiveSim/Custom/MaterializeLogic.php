@@ -227,6 +227,17 @@ function DoMaterialize($player, $mzCard) {
 
         // Snow White, Weiss Queen (5u5m8xblmd): [Level 1+] If a rested champion you
         // don't control would level up, return that card to its owner's material deck instead.
+        if($existingChampionIdx >= 0 && intval(CardLevel($existingChampionCardID)) === 2) {
+            $fdOpponent = ($player == 1) ? 2 : 1;
+            $fdField = &GetField($fdOpponent);
+            foreach($fdField as $fdObj) {
+                if(!$fdObj->removed && $fdObj->CardID === "1PrDQ1EX0F" && !HasNoAbilities($fdObj)) {
+                    MZMove($player, $mzCard, "myMaterial");
+                    return;
+                }
+            }
+        }
+
         if($existingChampionIdx >= 0 && $field[$existingChampionIdx]->Status == 1) {
             $swOpponent = ($player == 1) ? 2 : 1;
             $swField = &GetField($swOpponent);
@@ -302,6 +313,19 @@ function DoMaterialize($player, $mzCard) {
 
         // Track that a champion leveled up this turn (for Invigorated Slash etc.)
         AddGlobalEffects($player, "LEVELED_UP_THIS_TURN");
+
+        // Frozen Divinity: when your champion levels up into a base level 3 champion,
+        // sacrifice Frozen Divinity and draw a card into memory.
+        $fdField = &GetField($player);
+        for($fdi = count($fdField) - 1; $fdi >= 0; --$fdi) {
+            if(!$fdField[$fdi]->removed && $fdField[$fdi]->CardID === "1PrDQ1EX0F" && !HasNoAbilities($fdField[$fdi])
+                && intval(CardLevel($sourceId)) === 3) {
+                DoSacrificeFighter($player, "myField-" . $fdi);
+                DecisionQueueController::CleanupRemovedCards();
+                DrawIntoMemory($player, 1);
+                break;
+            }
+        }
 
         // Tristan, Shadowreaver (4upufooz13) — Tristan Lineage: when she levels up, draw 2 cards
         // The new champion is already on the field; check if the lineage contains Shadowreaver

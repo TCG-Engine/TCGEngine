@@ -2461,6 +2461,22 @@ function GetUnloadedGuns($player) {
 }
 
 /**
+ * Get mzIDs of unloaded Ranger-class weapons the player controls.
+ */
+function GetUnloadedRangerWeapons($player) {
+    $weapons = ZoneSearch("myField", ["WEAPON"]);
+    $unloaded = [];
+    foreach($weapons as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj !== null && !IsGunLoaded($obj)
+           && PropertyContains(CardClasses($obj->CardID), "RANGER")) {
+            $unloaded[] = $mzID;
+        }
+    }
+    return $unloaded;
+}
+
+/**
  * Get mzIDs of unloaded Bow weapons the player controls.
  */
 function GetUnloadedBows($player) {
@@ -7593,6 +7609,69 @@ $customDQHandlers["AssassinsMantlePrevent"] = function($player, $parts, $lastDec
     DecisionQueueController::CleanupRemovedCards();
     RecoverChampion($player, 1);
     AddPrepCounter($player, 1);
+};
+
+// ============================================================================
+// Spirit Blade: Ensoul (CQ1bxUyi0Q) — iteratively put Sword weapon cards
+// with cost ≤ 1 from banishment or material deck onto the field.
+// ============================================================================
+
+/**
+ * Gather mzIDs of Sword weapon cards cost ≤ 1 in the player's banish + material zones.
+ */
+function EnsoulGetEligibleSwords($player) {
+    $eligible = [];
+    $banish = GetZone("myBanish");
+    for($i = 0; $i < count($banish); ++$i) {
+        $obj = $banish[$i];
+        if($obj->removed) continue;
+        if(!PropertyContains(CardType($obj->CardID), "WEAPON")) continue;
+        if(!PropertyContains(CardSubtypes($obj->CardID), "SWORD")) continue;
+        if(CardCost_reserve($obj->CardID) > 1) continue;
+        $eligible[] = "myBanish-" . $i;
+    }
+    $material = GetZone("myMaterial");
+    for($i = 0; $i < count($material); ++$i) {
+        $obj = $material[$i];
+        if($obj->removed) continue;
+        if(!PropertyContains(CardType($obj->CardID), "WEAPON")) continue;
+        if(!PropertyContains(CardSubtypes($obj->CardID), "SWORD")) continue;
+        if(CardCost_reserve($obj->CardID) > 1) continue;
+        $eligible[] = "myMaterial-" . $i;
+    }
+    return $eligible;
+}
+
+/**
+ * Queue an optional pick of one eligible Sword weapon. If no eligible cards remain, returns.
+ */
+function EnsoulPickNext($player) {
+    $eligible = EnsoulGetEligibleSwords($player);
+    if(empty($eligible)) return;
+    $targetStr = implode("&", $eligible);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Put_Sword_weapon_onto_field?_(Spirit_Blade:_Ensoul)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EnsoulPickHandler", 1);
+}
+
+$customDQHandlers["EnsoulPickHandler"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === null || $lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        return; // Player passed — done selecting
+    }
+    // Move chosen sword to field
+    $newObj = MZMove($player, $lastDecision, "myField");
+    DecisionQueueController::CleanupRemovedCards();
+    if($newObj !== null) {
+        // Tag with SACRIFICE_NEXT_END_PHASE so EndPhase sacrifices it next end phase
+        $field = GetField($player);
+        for($i = count($field) - 1; $i >= 0; --$i) {
+            if(!$field[$i]->removed && $field[$i]->CardID === $newObj->CardID) {
+                AddTurnEffect("myField-" . $i, "SACRIFICE_NEXT_END_PHASE");
+                break;
+            }
+        }
+    }
+    // Continue picking
+    EnsoulPickNext($player);
 };
 
 ?>

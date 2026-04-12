@@ -21,6 +21,7 @@ $brewCosts["y5ttkat9hr"] = [["type"=>"CARD","cardID"=>"69iq4d5vet"]]; // Aqua Vi
 $brewCosts["7kr1haizu8"] = [["type"=>"SUBTYPE","subtype"=>"ROOT"], ["type"=>"HERB"]]; // Forgetful Concoction: One Root, One Herb
 $brewCosts["nsjukk5zk4"] = [["type"=>"SUBTYPE","subtype"=>"FLOWER"], ["type"=>"HERB"]]; // Invigorating Concoction: One Flower, One Herb
 $brewCosts["yorsltrnu3"] = [["type"=>"SUBTYPE","subtype"=>"LEAF"], ["type"=>"HERB"]]; // Explosive Concoction: One Leaf, One Herb
+$brewCosts["0Z1r8GC8a8"] = [["type"=>"HERB","count"=>2]]; // Speed Potion: 2 Herbs
 
 // --- Gather (Grand Archive keyword): summon a random herb token ---
 
