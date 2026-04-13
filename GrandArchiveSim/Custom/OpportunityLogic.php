@@ -293,6 +293,33 @@ $customDQHandlers["NegateActivationDrawResolve"] = function($controller, $parts,
     DecisionQueueController::ClearVariable("pendingNegateTarget");
 };
 
+$customDQHandlers["NegateActivationSuffocatingChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $target = GetZoneObject($lastDecision);
+    if($target === null || $target->removed) return;
+    DecisionQueueController::StoreVariable("pendingNegateTarget", $lastDecision);
+    $controller = intval($target->Controller);
+    $damage = 3 + PlayerLevel($player);
+    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
+        "Have_Suffocating_Ash_deal_" . $damage . "_unpreventable_damage_to_your_champion_to_prevent_negate?");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "NegateActivationSuffocatingResolve|" . $player . "|" . $damage, 1);
+};
+
+$customDQHandlers["NegateActivationSuffocatingResolve"] = function($controller, $parts, $lastDecision) {
+    $negatingPlayer = intval($parts[0] ?? $controller);
+    $damage = intval($parts[1] ?? "0");
+    $targetMZ = DecisionQueueController::GetVariable("pendingNegateTarget");
+    if($lastDecision === "YES") {
+        $champMZ = FindChampionMZ($controller);
+        if($champMZ !== null && $damage > 0) {
+            DealUnpreventableDamage($negatingPlayer, "d6xkecLJ5S", $champMZ, $damage);
+        }
+    } else {
+        NegateCardActivation($negatingPlayer, $targetMZ, "default");
+    }
+    DecisionQueueController::ClearVariable("pendingNegateTarget");
+};
+
 function QueueConstellatorySpireTrigger($player) {
     $field = GetField($player);
     for($i = 0; $i < count($field); ++$i) {

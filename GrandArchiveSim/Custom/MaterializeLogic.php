@@ -174,6 +174,25 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         return;
     }
 
+    // Vernal Talisman (dW5uyngvJW): additional cost to materialize — banish 2 preserved cards from material deck
+    if($materializeCard->CardID === "dW5uyngvJW" && !$ignoreCost) {
+        global $Preserve_Cards;
+        $material = GetZone("myMaterial");
+        $preserved = [];
+        for($i = 0; $i < count($material); ++$i) {
+            if($material[$i]->removed) continue;
+            if(isset($Preserve_Cards[$material[$i]->CardID])) {
+                $preserved[] = "myMaterial-" . $i;
+            }
+        }
+        if(count($preserved) < 2) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $preserved), 1,
+            tooltip:"Banish_preserved_card_from_material_(1/2)");
+        DecisionQueueController::AddDecision($player, "CUSTOM",
+            "VernalTalismanMaterializeCost|" . $lastDecision . "|" . $memoryCost, 1);
+        return;
+    }
+
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
         $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
@@ -232,6 +251,46 @@ $customDQHandlers["DusksoulStoneMaterializeCost"] = function($player, $parts, $l
 };
 
 $customDQHandlers["DusksoulStoneMaterializeCostFinish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzCard = $parts[0];
+    $memoryCost = intval($parts[1]);
+    MZMove($player, $lastDecision, "myBanish");
+    if($memoryCost > 0) {
+        DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
+        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
+        if($floatingIndices != "") {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+    }
+    Materialize($player, $mzCard);
+};
+
+$customDQHandlers["VernalTalismanMaterializeCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzCard = $parts[0];
+    $memoryCost = intval($parts[1]);
+    MZMove($player, $lastDecision, "myBanish");
+
+    global $Preserve_Cards;
+    $material = GetZone("myMaterial");
+    $preserved = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed) continue;
+        if(isset($Preserve_Cards[$material[$i]->CardID])) {
+            $preserved[] = "myMaterial-" . $i;
+        }
+    }
+    if(empty($preserved)) return;
+
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $preserved), 1,
+        tooltip:"Banish_preserved_card_from_material_(2/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM",
+        "VernalTalismanMaterializeCostFinish|" . $mzCard . "|" . $memoryCost, 1);
+};
+
+$customDQHandlers["VernalTalismanMaterializeCostFinish"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $mzCard = $parts[0];
     $memoryCost = intval($parts[1]);

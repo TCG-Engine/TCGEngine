@@ -179,6 +179,15 @@ function AttackerHasCleave($attackerMZ, $player) {
     // Bandersnatch, Frumious Foe (4yqL9xtzVi): cleave via activated ability turn effect
     if(!HasNoAbilities($attacker) && ObjectHasEffect($attacker, "4yqL9xtzVi_CLEAVE")) return true;
 
+    // Heartsong Reclamation (d253WtyIXr): Animal/Beast allies you control gain cleave this turn
+    if(!HasNoAbilities($attacker)
+        && GlobalEffectCount($player, "d253WtyIXr_CLEAVE") > 0
+        && PropertyContains(EffectiveCardType($attacker), "ALLY")
+        && (PropertyContains(EffectiveCardSubtypes($attacker), "ANIMAL")
+            || PropertyContains(EffectiveCardSubtypes($attacker), "BEAST"))) {
+        return true;
+    }
+
     // Hemorrhaging Rend (xiazfnm292): [Damage 20+] Cleave — check if intent has this card and champion has 20+ damage
     foreach($intentCards as $intentMZ) {
         $intentObj = &GetZoneObject($intentMZ);

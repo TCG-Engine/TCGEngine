@@ -52,6 +52,8 @@ $Imbue_Cards["taug52u81v"] = 2; // Eternal Magistrate (WIND) - Imbue 2
 $Imbue_Cards["TYlWgIYsq3"] = 2; // Cauterizing Seraphim (FIRE) - Advanced Imbue 2
 $Imbue_Cards["aKjX6INGkV"] = ['threshold' => 2, 'matcher' => 'advanced']; // Angelic Vanguard - Advanced Imbue 2
 $Imbue_Cards["b9lli2PE7I"] = ['threshold' => 3, 'matcher' => 'advanced']; // Nuriel, Seraphic Paladin - Advanced Imbue 3
+$Imbue_Cards["e5r6eVzpkD"] = ['threshold' => 2, 'matcher' => 'advanced']; // Reverent Seraphim - Advanced Imbue 2
+$Imbue_Cards["eDCnvWoGxf"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['EXIA', 'NEOS']]; // Azrael, Archangel of Materia - Exia & Neos Imbue 3
 
 function NormalizeImbueOption($cardID, $config) {
     if(is_int($config)) {
@@ -191,6 +193,7 @@ $Cardistry_Cards["tdRR5lQHMN"] = 6; // Six of Spades
 $Cardistry_Cards["EIpkYYSP3s"] = 6; // Senaris, Six of Diamonds
 $Cardistry_Cards["DKoSnhjX18"] = 7; // Chance, Seven of Spades
 $Cardistry_Cards["nduIoPhZr1"] = 7; // Seven of Hearts
+$Cardistry_Cards["d43C0Hk6qH"] = 8; // Eight of Spades
 $Cardistry_Cards["0mf1ug6yfi"] = 10; // Wonderland's Reign
 $Cardistry_Cards["NsnBhlVzTV"] = 4; // Four of Diamonds
 
@@ -731,6 +734,18 @@ function ActionMap($actionCard)
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_ashenRiffle'])) {
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
+            // Warrior of the Fae Realm (eRcqucBKhX): activate tagged Sword attacks from banishment
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_warriorFaeRealm'])
+                    && ZoneContainsCardID("myField", "eRcqucBKhX")) {
                     $handObj = MZMove($playerID, $actionCard, "myHand");
                     $hand = &GetHand($playerID);
                     $handIdx = count($hand) - 1;
@@ -1704,6 +1719,21 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // Frostnip Pirouette (x79cuuw5vo): [Diao Chan Bonus] costs 2 less to activate
     if($obj->CardID === "x79cuuw5vo" && IsDiaoChanBonus($player)) {
         $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Suffocating Ash (d6xkecLJ5S): [Class Bonus] costs 2 less to activate
+    if($obj->CardID === "d6xkecLJ5S" && IsClassBonusActive($player, ["CLERIC"])) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Gunsmith's Arsenal (e6mAjsbItw): [Class Bonus] costs 2 less to activate
+    if($obj->CardID === "e6mAjsbItw" && IsClassBonusActive($player, ["RANGER"])) {
+        $reserveCost = max(0, $reserveCost - 2);
+    }
+
+    // Eight of Spades (d43C0Hk6qH): [Level 1+] costs 4 less to activate
+    if($obj->CardID === "d43C0Hk6qH" && PlayerLevel($player) >= 1) {
+        $reserveCost = max(0, $reserveCost - 4);
     }
 
     // Briar's Spindle (9ooAGDhBj7): global effect — next Chessman card costs 2 less
@@ -2964,7 +2994,7 @@ function RevealImbueReserved($player) {
 
     $memory = GetMemory($player);
     $elementMatches = 0;
-    $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA"];
+    $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS"];
     // Count matching cards among the newly added memory entries for the chosen Imbue characteristic.
     for($i = $memoryBefore; $i < count($memory); ++$i) {
         if($memory[$i]->removed) continue;
@@ -2975,7 +3005,11 @@ function RevealImbueReserved($player) {
                 break;
             case "element":
             case "card_element":
-                if($memoryElement === $element) $elementMatches++;
+                if(is_array($element)) {
+                    if(in_array($memoryElement, $element)) $elementMatches++;
+                } else if($memoryElement === $element) {
+                    $elementMatches++;
+                }
                 break;
             default:
                 $elementMatches++;
@@ -4025,6 +4059,16 @@ function OnCardActivated($player, $mzCard) {
     $field = GetField($player);
     $subtypes = CardSubtypes($obj->CardID);
     $activatedElement = CardElement($obj->CardID);
+
+    // Vernal Talisman (dW5uyngvJW): next empowered tera spell this turn -> recover 1
+    if(GlobalEffectCount($player, "dW5uyngvJW_RECOVER") > 0
+        && IsEmpowered($player)
+        && $activatedElement === "TERA"
+        && PropertyContains($subtypes, "SPELL")) {
+        RecoverChampion($player, 1);
+        RemoveGlobalEffect($player, "dW5uyngvJW_RECOVER");
+    }
+
     for($fi = 0; $fi < count($field); ++$fi) {
         if($field[$fi]->removed) continue;
         switch($field[$fi]->CardID) {
@@ -9234,6 +9278,16 @@ function ObjectCurrentPower($obj) {
                 }
             }
         }
+        // Reverent Seraphim (e5r6eVzpkD): as long as it is imbued, other allies get -1 POWER
+        if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
+            foreach($field as $fieldObj) {
+                if(!$fieldObj->removed && $fieldObj->CardID === "e5r6eVzpkD" && !HasNoAbilities($fieldObj)
+                    && $fieldObj !== $obj && in_array("IMBUED", $fieldObj->TurnEffects ?? [])) {
+                    $power -= 1;
+                    break;
+                }
+            }
+        }
     }
     // General at Arms (9m72c8x9oh): [CB] Polearm attack cards get +2 POWER
     if(PropertyContains(EffectiveCardType($obj), "ATTACK") && PropertyContains(CardSubtypes($obj->CardID), "POLEARM")) {
@@ -13696,6 +13750,11 @@ function Empower($player, $amount, $sourceID) {
     foreach($field as $i => $obj) {
         if($obj->removed || $obj->CardID !== "AxHzxEHBHZ" || HasNoAbilities($obj)) continue;
         AddTurnEffect($zone . "-" . $i, "AxHzxEHBHZ_EMPOWER_" . intval($amount));
+    }
+    // Radiant Origin of Mage (dOPqsWYMCQ): whenever you empower, put a training counter on it
+    foreach($field as $i => $obj) {
+        if($obj->removed || $obj->CardID !== "dOPqsWYMCQ" || HasNoAbilities($obj)) continue;
+        AddCounters($player, $zone . "-" . $i, "training", 1);
     }
 }
 
