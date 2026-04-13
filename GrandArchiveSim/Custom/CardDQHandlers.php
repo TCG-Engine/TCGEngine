@@ -4321,6 +4321,56 @@ $customDQHandlers["OrbOfRegretShuffle"] = function($player, $parts, $lastDecisio
 };
 
 // ============================================================================
+// Redirect Orbit (Tst4WbM6O8): shuffle any amount from hand/memory into deck,
+// then draw that many cards into memory.
+// ============================================================================
+function RedirectOrbitChoose($player, $count) {
+    $choices = array_merge(ZoneSearch("myHand"), ZoneSearch("myMemory"));
+    if(empty($choices)) {
+        if($count > 0) {
+            ShuffleZone("myDeck");
+            DrawIntoMemory($player, $count);
+        }
+        return;
+    }
+    $choiceStr = implode("&", $choices);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choiceStr, 1,
+        tooltip:"Shuffle_a_card_from_hand_or_memory_into_deck?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RedirectOrbitStep|" . $count, 1);
+}
+
+$customDQHandlers["RedirectOrbitStep"] = function($player, $parts, $lastDecision) {
+    $count = intval($parts[0] ?? 0);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        if($count > 0) {
+            ShuffleZone("myDeck");
+            DrawIntoMemory($player, $count);
+        }
+        return;
+    }
+    MZMove($player, $lastDecision, "myDeck");
+    RedirectOrbitChoose($player, $count + 1);
+};
+
+// ============================================================================
+// Equinox Hour (UE6g95C1nZ): draw, then target opponent may materialize a card.
+// ============================================================================
+function EquinoxHourResolve($player) {
+    $opponent = ($player == 1) ? 2 : 1;
+    DecisionQueueController::AddDecision($opponent, "YESNO", "-", 1, tooltip:"Materialize_a_card?");
+    DecisionQueueController::AddDecision($opponent, "CUSTOM", "EquinoxHourMayMaterialize", 1);
+}
+
+$customDQHandlers["EquinoxHourMayMaterialize"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $material = GetMaterial($player);
+    $choices = ZoneObjMZIndices($material, "myMaterial");
+    if($choices === "") return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1, tooltip:"Choose_a_card_to_materialize");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+};
+
+// ============================================================================
 // Creative Shock (BqDw4Mei4C): draw 2 discard 1, CB fire → deal 2 to unit
 // ============================================================================
 $customDQHandlers["CreativeShockDiscard"] = function($player, $parts, $lastDecision) {

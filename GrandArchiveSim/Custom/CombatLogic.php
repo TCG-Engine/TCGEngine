@@ -3491,6 +3491,18 @@ function OnDealDamage($player, $source, $target, $amount) {
                 $amount += 3;
                 RemoveGlobalEffect($sourceController, "EIpkYYSP3s");
             }
+
+            // Nipping Kicker (UBB1DWYDeS): next suited spell source damage to this unit is +3.
+            foreach($targetObj->TurnEffects as $nkIdx => $nkEffect) {
+                if(strpos($nkEffect, "UBB1DWYDeS_") !== 0) continue;
+                $nkController = intval(substr($nkEffect, strlen("UBB1DWYDeS_")));
+                if($nkController !== $sourceController) continue;
+                if(!PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SUITED")) continue;
+                $amount += 3;
+                unset($targetObj->TurnEffects[$nkIdx]);
+                $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                break;
+            }
         }
     }
 
@@ -3736,6 +3748,18 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
                 && GlobalEffectCount($sourceController, "EIpkYYSP3s") > 0) {
                 $amount += 3;
                 RemoveGlobalEffect($sourceController, "EIpkYYSP3s");
+            }
+
+            // Nipping Kicker (UBB1DWYDeS): next suited spell source damage to this unit is +3.
+            foreach($targetObj->TurnEffects as $nkIdx => $nkEffect) {
+                if(strpos($nkEffect, "UBB1DWYDeS_") !== 0) continue;
+                $nkController = intval(substr($nkEffect, strlen("UBB1DWYDeS_")));
+                if($nkController !== $sourceController) continue;
+                if(!PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SUITED")) continue;
+                $amount += 3;
+                unset($targetObj->TurnEffects[$nkIdx]);
+                $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
+                break;
             }
         }
     }

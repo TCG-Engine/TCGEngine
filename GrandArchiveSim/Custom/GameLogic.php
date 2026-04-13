@@ -12412,6 +12412,16 @@ function ExpireEffects($isEndTurn=true) {
 function AddTurnEffect($mzCard, $effectID) {
     $obj = &GetZoneObject($mzCard);
     if($obj === null) return;
+    // Cardinal of Divine Rite: Angel cards/objects can't become imbued.
+    if($effectID === "IMBUED" && PropertyContains(EffectiveCardSubtypes($obj), "ANGEL")) {
+        foreach([1, 2] as $p) {
+            foreach(GetField($p) as $fObj) {
+                if(!$fObj->removed && $fObj->CardID === "UilIL2xYxb" && !HasNoAbilities($fObj)) {
+                    return;
+                }
+            }
+        }
+    }
     if(!in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
     }
@@ -12493,6 +12503,12 @@ $ephemerateCards["t2lW0Q5KJS"] = ['cost' => 2, 'condition' => function($player) 
     return IsMerlinBonusActive($player) && (GetSheenCount($player) >= 10 || PlayerLevel($player) >= 5);
 }]; // Flared Iridescence
 $ephemerateCards["Dtr3jPRAFJ"] = ['cost' => 6]; // Spectral Haunting
+$ephemerateCards["U6krXc5283"] = ['cost' => 2]; // Vantage Point
+$ephemerateCards["UtwWXmc0IU"] = ['cost' => 5]; // Haunting Apparition
+$ephemerateCards["V8XBfRpDRJ"] = ['cost' => 2, 'condition' => function($player) {
+    if(!IsClassBonusActive($player, CardClasses("V8XBfRpDRJ"))) return false;
+    return !empty(ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["SWORD"]));
+}]; // Twingale Parry
 $ephemerateCards["3zvDCFRaoH"] = ['cost' => 1, 'condition' => function($player) {
     $champMZ = FindChampionMZ($player);
     if($champMZ === null) return false;
@@ -14816,6 +14832,16 @@ function EffectiveCardClasses($obj) {
             }
             break;
         }
+
+        // Lesser Boon of Pulousa (V6yubXhzYB): your champion is Assassin in addition
+        // to its other classes.
+        foreach($field as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "V6yubXhzYB" || HasNoAbilities($fieldObj)) continue;
+            if(!PropertyContains($classes, "ASSASSIN")) {
+                $classes = $classes === null || $classes === "" ? "ASSASSIN" : $classes . ",ASSASSIN";
+            }
+            break;
+        }
     }
 
     return $classes;
@@ -15182,6 +15208,8 @@ function HasStealth($obj) {
     if(HasKeyword_Stealth($obj)) return true;
     // Treacle, Drowned Mouse (6emPe9OEUn): stealth while ephemeral
     if($obj->CardID === "6emPe9OEUn" && IsEphemeral($obj)) return true;
+    // Haunting Apparition (UtwWXmc0IU): stealth while ephemeral
+    if($obj->CardID === "UtwWXmc0IU" && IsEphemeral($obj)) return true;
     // STEALTH: granted stealth until end of turn (e.g. Vanish from Sight, Sidestep)
     if(in_array("STEALTH", $obj->TurnEffects)) return true;
     // STEALTH_NEXT_TURN: persistent stealth until beginning of controller's next turn (e.g. Zander)
