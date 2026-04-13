@@ -2531,6 +2531,19 @@ function OnDealDamage($player, $source, $target, $amount) {
         $amount += 1;
     }
 
+    // Hexbound Blade (RfQhLQ539Z): Inherited Effect —
+    // If damage would be dealt to this unit by an umbra element source,
+    // that source deals that much damage plus 1 instead.
+    if($amount > 0 && $targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        $targetController = $targetObj->Controller ?? $player;
+        if(ChampionHasInLineage($targetController, "RfQhLQ539Z")) {
+            $hexSourceObj = GetZoneObject($source);
+            if($hexSourceObj !== null && EffectiveCardElement($hexSourceObj) === "UMBRA") {
+                $amount += 1;
+            }
+        }
+    }
+
     // Enfeebled Dagger (idpdon8f0h): [CB] source unit deals that much damage minus 3
     $sourceObj2 = GetZoneObject($source);
     if($sourceObj2 !== null && in_array("ENFEEBLED_DAGGER_REDUCE", $sourceObj2->TurnEffects)) {

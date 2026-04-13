@@ -49,6 +49,7 @@ $Imbue_Cards["jH3ZOavGPR"] = 2; // Crystalvein Awakening (WIND) - Imbue 2
 $Imbue_Cards["a3pmmloejo"] = 2; // Blessed Clergy (WIND) - Imbue 2
 $Imbue_Cards["xpnjvt9y59"] = 2; // Cleansing Reunion (WIND) - Imbue 2
 $Imbue_Cards["taug52u81v"] = 2; // Eternal Magistrate (WIND) - Imbue 2
+$Imbue_Cards["TYlWgIYsq3"] = 2; // Cauterizing Seraphim (FIRE) - Advanced Imbue 2
 
 function NormalizeImbueOption($cardID, $config) {
     if(is_int($config)) {
@@ -9544,6 +9545,9 @@ function ObjectCurrentPower($obj) {
             case "80mttsvbgl": // Mark of Fervor: linked ally gets +1 POWER
                 $power += 1;
                 break;
+            case "RgloaA6YV2": // Message in Shadows: linked ally with stealth gets +2 POWER
+                if(HasStealth($obj)) $power += 2;
+                break;
             case "8asbierp5k": // Beastsoul Visage: linked ally gets +2 POWER
                 $power += 2;
                 break;
@@ -9623,6 +9627,25 @@ function ObjectCurrentPower($obj) {
                 $power += 1;
             }
         }
+    }
+    // Hexbound Blade (RfQhLQ539Z): as long as you have agility, gets +4 POWER.
+    if($obj->CardID === "RfQhLQ539Z" && HasAgilityThisTurn($obj->Controller)) {
+        $power += 4;
+    }
+    // Avatar of Byakko (TjiH4U35bv): [Guo Jia Bonus] base power becomes highest Beast ally base power.
+    if($obj->CardID === "TjiH4U35bv" && IsGuoJiaBonus($obj->Controller)) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        $maxBase = null;
+        foreach($field as $fObj) {
+            if($fObj->removed || !PropertyContains(EffectiveCardType($fObj), "ALLY")) continue;
+            if(!PropertyContains(EffectiveCardSubtypes($fObj), "BEAST")) continue;
+            $bp = CardPower($fObj->CardID);
+            if($bp === null) continue;
+            if($maxBase === null || $bp > $maxBase) $maxBase = $bp;
+        }
+        if($maxBase !== null) $power = intval($maxBase);
     }
     // Hua Xiong, Insurgent's Fang (TvugEkGGVd): [Jin Bonus] Polearm attacks in intent get +2 POWER
     if(PropertyContains(EffectiveCardType($obj), "ATTACK")
@@ -10937,6 +10960,100 @@ function SpeedPotionEnter($player) {
 function SpeedPotionActivated($player) {
     GainAgility($player, 3);
 }
+
+function OvationGuideEnter($player) {
+    $opponent = ($player == 1) ? 2 : 1;
+    $material = GetMaterial($opponent);
+    $champions = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if(!$material[$i]->removed && PropertyContains(CardType($material[$i]->CardID), "CHAMPION")) {
+            $champions[] = "myMaterial-" . $i;
+        }
+    }
+    if(empty($champions)) return;
+    DecisionQueueController::AddDecision($opponent, "YESNO", "-", 1, tooltip:"Materialize_a_champion_from_material_deck?");
+    DecisionQueueController::AddDecision($opponent, "CUSTOM", "OvationGuideMaterializePrompt|" . $player, 1);
+}
+
+$customDQHandlers["OvationGuideMaterializePrompt"] = function($player, $parts, $lastDecision) {
+    $sourcePlayer = intval($parts[0] ?? $player);
+    if($lastDecision !== "YES") return;
+    $material = GetMaterial($player);
+    $champions = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if(!$material[$i]->removed && PropertyContains(CardType($material[$i]->CardID), "CHAMPION")) {
+            $champions[] = "myMaterial-" . $i;
+        }
+    }
+    if(empty($champions)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $champions), 1, tooltip:"Choose_champion_to_materialize");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "OvationGuideMaterialize|" . $sourcePlayer, 1);
+};
+
+$customDQHandlers["OvationGuideMaterialize"] = function($player, $parts, $lastDecision) {
+    $sourcePlayer = intval($parts[0] ?? $player);
+    $chosen = $lastDecision;
+    if($chosen === "" || $chosen === "-" || $chosen === "PASS") return;
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "OvationGuideAfterMaterialize|" . $sourcePlayer . "|" . $chosen, 1);
+};
+
+$customDQHandlers["OvationGuideAfterMaterialize"] = function($player, $parts, $lastDecision) {
+    $sourcePlayer = intval($parts[0] ?? $player);
+    $chosen = $parts[1] ?? "";
+    if($chosen === "") return;
+    $obj = GetZoneObject($chosen);
+    if($obj !== null && !$obj->removed) return;
+    Draw($sourcePlayer, 1);
+    GainCrowdsFavor($sourcePlayer);
+};
+
+function DiviningStreamsResolve($player) {
+    $deck = GetDeck($player);
+    $n = min(3, count($deck));
+    if($n <= 0) return;
+    for($i = 0; $i < $n; ++$i) {
+        MZMove($player, "myDeck-0", "myTempZone");
+    }
+    $choices = ZoneSearch("myTempZone");
+    if(empty($choices)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, tooltip:"Choose_a_card_to_put_into_graveyard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DiviningStreamsGrave", 1);
+}
+
+$customDQHandlers["DiviningStreamsGrave"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "" && $lastDecision !== "-" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myGraveyard");
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    $remaining = ZoneSearch("myTempZone");
+    if(empty($remaining)) return;
+    if(count($remaining) === 1) {
+        MZMove($player, $remaining[0], "myDeck");
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $remaining), 1, tooltip:"Choose_a_card_to_put_on_top_of_your_deck");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DiviningStreamsTop", 1);
+};
+
+$customDQHandlers["DiviningStreamsTop"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "" && $lastDecision !== "-" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myDeck");
+    }
+    $remaining = ZoneSearch("myTempZone");
+    if(empty($remaining)) return;
+    $cardIDs = [];
+    foreach($remaining as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj !== null && !$obj->removed) $cardIDs[] = $obj->CardID;
+    }
+    if(empty($cardIDs)) return;
+    $param = "Top=;Bottom=" . implode(",", $cardIDs);
+    DecisionQueueController::StoreVariable("glimpsedToTempZone", "1");
+    DecisionQueueController::StoreVariable("glimpseCount", strval(count($cardIDs)));
+    DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Put_remaining_card_on_bottom_of_deck");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
+};
 
 function MalignantAthameOnHit($player, $sourceMZ) {
     if(!IsClassBonusActive($player, ["ASSASSIN"])) return;
@@ -14686,6 +14803,16 @@ function EffectiveCardClasses($obj) {
             if($fieldObj->removed || $fieldObj->CardID !== "PXWFkT2DQe" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "WARRIOR")) {
                 $classes = $classes === null || $classes === "" ? "WARRIOR" : $classes . ",WARRIOR";
+            }
+            break;
+        }
+
+        // Lesser Boon of Artemis (TlTFIRAoMr): your champion is Tamer in addition
+        // to its other classes.
+        foreach($field as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "TlTFIRAoMr" || HasNoAbilities($fieldObj)) continue;
+            if(!PropertyContains($classes, "TAMER")) {
+                $classes = $classes === null || $classes === "" ? "TAMER" : $classes . ",TAMER";
             }
             break;
         }
