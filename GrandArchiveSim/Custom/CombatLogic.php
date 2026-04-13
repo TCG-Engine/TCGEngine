@@ -3647,6 +3647,23 @@ function OnDealDamage($player, $source, $target, $amount) {
         MagebaneNicoBonusCheck($targetObj->Controller ?? $player);
     }
 
+    // Fabled Ruby Fatestone: fire sources you control dealing non-combat damage put a quest counter on your champion.
+    if(!$isCombat && $amount > 0) {
+        $rubySourceObj = GetZoneObject($source);
+        if($rubySourceObj !== null && EffectiveCardElement($rubySourceObj) === "FIRE") {
+            $sourceController = $rubySourceObj->Controller ?? $player;
+            global $playerID;
+            $rubyZone = $sourceController == $playerID ? "myField" : "theirField";
+            foreach(GetZone($rubyZone) as $rubyObj) {
+                if(!$rubyObj->removed && $rubyObj->CardID === "mzf5dmpqbc" && !HasNoAbilities($rubyObj)
+                    && IsGuoJiaBonus($sourceController)) {
+                    AddQuestCounters($sourceController, 1);
+                    break;
+                }
+            }
+        }
+    }
+
     // Aegis of Dawn (abipl6gt7l): whenever champion dealt 4+ damage, summon Automaton Drone
     if($amount >= 4 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         AegisOfDawnTrigger($targetObj->Controller ?? $player);

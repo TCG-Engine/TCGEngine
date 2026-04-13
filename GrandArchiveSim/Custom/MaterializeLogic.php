@@ -212,6 +212,14 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     }
 
     if($memoryCost > 0) {
+        if($materializeCard->CardID === "mDN1CI9IEe") {
+            $floating = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
+            if(count($floating) < $memoryCost) return;
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $floating), 1,
+                tooltip:"Banish_floating_memory_for_Sealed_Blade_(1_of_" . $memoryCost . ")");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SealedBladeFloatingCost|" . $lastDecision . "|" . $memoryCost . "|1", 1);
+            return;
+        }
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
         $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
         if($floatingIndices != "") {
@@ -222,6 +230,23 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     }
     //Then materialize the card
     Materialize($player, $lastDecision);
+};
+
+$customDQHandlers["SealedBladeFloatingCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzCard = $parts[0] ?? "";
+    $memoryCost = isset($parts[1]) ? intval($parts[1]) : 0;
+    $paid = isset($parts[2]) ? intval($parts[2]) : 1;
+    MZMove($player, $lastDecision, "myBanish");
+    if($paid >= $memoryCost) {
+        Materialize($player, $mzCard);
+        return;
+    }
+    $floating = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
+    if(empty($floating)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $floating), 1,
+        tooltip:"Banish_floating_memory_for_Sealed_Blade_(" . ($paid + 1) . "_of_" . $memoryCost . ")");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SealedBladeFloatingCost|" . $mzCard . "|" . $memoryCost . "|" . ($paid + 1), 1);
 };
 
 // Dragon's Dawn (9f92917r84): sequential banish of fire cards from graveyard as materialize cost

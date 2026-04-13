@@ -196,6 +196,7 @@ $Cardistry_Cards["nduIoPhZr1"] = 7; // Seven of Hearts
 $Cardistry_Cards["d43C0Hk6qH"] = 8; // Eight of Spades
 $Cardistry_Cards["0mf1ug6yfi"] = 10; // Wonderland's Reign
 $Cardistry_Cards["NsnBhlVzTV"] = 4; // Four of Diamonds
+$Cardistry_Cards["mzwTQzuXZa"] = 2; // Two of Diamonds
 
 // --- Lineage Release Abilities Registry ---
 // Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
@@ -4094,6 +4095,20 @@ function OnCardActivated($player, $mzCard) {
         Empower($player, 1, "hzPvtli28c");
     }
 
+    // Byakko, White Tiger: the first Animal/Beast ally card you activate each turn costs 2 less.
+    if(PropertyContains($cardType, "ALLY")
+        && (PropertyContains($subtypes, "ANIMAL") || PropertyContains($subtypes, "BEAST"))
+        && GlobalEffectCount($player, "BYAKKO_FIRST_BEAST_USED") <= 0) {
+        foreach($field as $byakkoObj) {
+            if($byakkoObj->removed || HasNoAbilities($byakkoObj)) continue;
+            if(($byakkoObj->CardID === "mhilppwfgx" || $byakkoObj->CardID === "kkkcxq93ul")
+                && IsGuoJiaBonus($player)) {
+                AddGlobalEffects($player, "BYAKKO_FIRST_BEAST_USED");
+                break;
+            }
+        }
+    }
+
     for($fi = 0; $fi < count($field); ++$fi) {
         if($field[$fi]->removed) continue;
         switch($field[$fi]->CardID) {
@@ -5303,7 +5318,7 @@ function MoveEffectStackCardToField($player, $mzCard) {
 }
 
 function DoAllyDestroyed($player, $mzCard) {
-    global $allyDestroyedAbilities;
+    global $allyDestroyedAbilities, $customDQHandlers;
     $obj = GetZoneObject($mzCard);
     // Immortality: ally survives instead of being destroyed, remove all damage
     if(HasImmortality($obj)) {
@@ -5341,7 +5356,13 @@ function DoAllyDestroyed($player, $mzCard) {
     if(DecisionQueueController::GetVariable("CombatTarget") == $mzCard) {
         DecisionQueueController::StoreVariable("CombatTarget", null);
     }
+    $animatedPotionDeath = is_array($obj->Counters ?? null) && !empty($obj->Counters["potion_animate"]);
     MZMove($player, $mzCard, $dest);
+    if($animatedPotionDeath && isset($customDQHandlers["AbilityActivated"])) {
+        for($ai = 0; $ai < CardActivateAbilityCount($obj->CardID); ++$ai) {
+            $customDQHandlers["AbilityActivated"]($controller, [$obj->CardID, $ai], null);
+        }
+    }
     if(!$suppressed && isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
         $allyDestroyedAbilities[$obj->CardID . ":0"]($controller);
     }
@@ -6909,6 +6930,13 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "mzf5dmpqbc": // Fabled Ruby Fatestone: deal 1 damage to each champion
+                    if(!HasNoAbilities($field[$i]) && IsGuoJiaBonus($turnPlayer)) {
+                        DealChampionDamage(1, 1);
+                        DealChampionDamage(2, 1);
+                        AddQuestCounters($turnPlayer, 1);
+                    }
+                    break;
                 case "P7hHZBVScB": // Orb of Glitter: glimpse 1 during recollection
                     Glimpse($turnPlayer, 1);
                     break;
@@ -8231,7 +8259,9 @@ function EndPhase() {
 }
 
 function ObjectCurrentPower($obj) {
-    $power = CardPower($obj->CardID);
+    $power = (is_array($obj->Counters ?? null) && isset($obj->Counters["potion_animate_power"]))
+        ? intval($obj->Counters["potion_animate_power"])
+        : CardPower($obj->CardID);
     if($power === null || $power < 0) $power = 0;
     // Buff counter modifier: +1 power per buff counter (applied before other modifiers)
     $power += GetCounterCount($obj, "buff");
@@ -8249,6 +8279,19 @@ function ObjectCurrentPower($obj) {
         }
     }
     switch($obj->CardID) { //Self power modifiers
+        case "mDN1CI9IEe": // Sealed Blade: [Class Bonus] +1 POWER
+            if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) $power += 1;
+            break;
+        case "mt5zs1w6c0": // Mary Ann, Maladroit Maid: +1 POWER per omen with different reserve costs
+            {
+                $seenOmenCosts = [];
+                foreach(GetOmens($obj->Controller) as $omenObj) {
+                    $cost = CardCost_reserve($omenObj->CardID);
+                    if($cost !== null) $seenOmenCosts[$cost] = true;
+                }
+                $power += count($seenOmenCosts);
+            }
+            break;
         case "Jr4Ivpcnst": // Shaded Doppelganger: +X where X is highest base power among other allies you control
             {
                 global $playerID;
@@ -10458,7 +10501,9 @@ function ObjectCurrentLevel($obj) {
 }
 
 function ObjectCurrentHP($obj) {
-    $cardLife = CardLife($obj->CardID);
+    $cardLife = (is_array($obj->Counters ?? null) && isset($obj->Counters["potion_animate_life"]))
+        ? intval($obj->Counters["potion_animate_life"])
+        : CardLife($obj->CardID);
     // Humpty Dumpty (aou4be9z82): when becomes ally, base life = 0 + buff counters
     if(($cardLife === null || $cardLife < 0) && in_array("HUMPTY_ALLY", $obj->TurnEffects ?? [])) {
         $cardLife = 0;
@@ -13772,6 +13817,10 @@ function DealChampionDamage($player, $amount=1) {
             if(in_array("BLAZING_CHARGE_NEXT_TURN", $obj->TurnEffects)) {
                 $amount += 1;
             }
+            if(in_array("PROOF_OF_LIFE_DOUBLE", $obj->TurnEffects ?? [])) {
+                $amount *= 2;
+                $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "PROOF_OF_LIFE_DOUBLE"));
+            }
             $obj->Damage += $amount;
             TrackChampionDamageThisTurn($obj, $amount);
             TriggerSanguineGoblet($obj->Controller, $amount);
@@ -15348,8 +15397,39 @@ function HasGrantedKeyword($obj, $keyword) {
     return in_array($keyword, $obj->Counters['_overrides']['granted_keywords']);
 }
 
+function MaryAnnOmensHaveKeyword($obj, $keyword) {
+    if($obj->CardID !== "mt5zs1w6c0") return false;
+    foreach(GetOmens($obj->Controller) as $omenObj) {
+        switch($keyword) {
+            case "Vigor":
+                if(HasKeyword_Vigor($omenObj)) return true;
+                break;
+            case "Intercept":
+                if(HasKeyword_Intercept($omenObj)) return true;
+                break;
+            case "Steadfast":
+                if(HasKeyword_Steadfast($omenObj)) return true;
+                break;
+            case "Stealth":
+                if(HasKeyword_Stealth($omenObj)) return true;
+                break;
+            case "Spellshroud":
+                if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($omenObj)) return true;
+                break;
+            case "Taunt":
+                if(HasKeyword_Taunt($omenObj)) return true;
+                break;
+            case "TrueSight":
+                if(HasKeyword_TrueSight($omenObj)) return true;
+                break;
+        }
+    }
+    return false;
+}
+
 function HasVigor($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(MaryAnnOmensHaveKeyword($obj, "Vigor")) return true;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     if(HasKeyword_Vigor($obj)) return true;
     // VIGOR_EOT TurnEffect: granted vigor until end of turn (e.g. Assemble the Ancients)
@@ -15461,6 +15541,7 @@ function HasVigor($obj) {
  */
 function HasSteadfast($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(MaryAnnOmensHaveKeyword($obj, "Steadfast")) return true;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     // Generated keyword dictionary (handles Class Bonus conditions automatically)
     if(HasKeyword_Steadfast($obj)) return true;
@@ -15557,6 +15638,7 @@ function GetRetortValue($obj) {
 
 function HasStealth($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(MaryAnnOmensHaveKeyword($obj, "Stealth")) return true;
     // Expose Darkness (991ovfr8o0): loses stealth until end of turn
     if(in_array("LOSE_STEALTH", $obj->TurnEffects)) return false;
     // Reveal the Hidden (rHccTUUWou): can't gain stealth until end of turn
@@ -15715,6 +15797,7 @@ function IsSiegeable($obj) {
 
 function HasIntercept($obj) {
     if($obj === null || HasNoAbilities($obj)) return false;
+    if(MaryAnnOmensHaveKeyword($obj, "Intercept")) return true;
     if(in_array("NO_INTERCEPT", $obj->TurnEffects ?? [])) return false;
     if(HasKeyword_Intercept($obj)) return true;
     if(in_array("INTERCEPT_EOT", $obj->TurnEffects ?? [])) return true;
@@ -15741,6 +15824,7 @@ function HasIntercept($obj) {
 
 function HasTrueSight($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(MaryAnnOmensHaveKeyword($obj, "TrueSight")) return true;
     if(HasKeyword_TrueSight($obj)) return true;
     if(in_array("TRUE_SIGHT", $obj->TurnEffects)) return true;
     if(ObjectHasEffect($obj, "iiZtKTulPg")) return true; // Eye of Argus
@@ -15789,6 +15873,7 @@ function GetProtectiveFractalPrevention($obj) {
  */
 function HasSpellshroud($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(MaryAnnOmensHaveKeyword($obj, "Spellshroud")) return true;
     if(in_array("NO_SPELLSHROUD", $obj->TurnEffects ?? [])) return false;
     if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($obj)) return true;
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
@@ -15934,6 +16019,7 @@ function HasReservable($obj) {
  */
 function HasTaunt($obj) {
     if(HasNoAbilities($obj)) return false;
+    if(MaryAnnOmensHaveKeyword($obj, "Taunt")) return true;
     if(in_array("NO_TAUNT", $obj->TurnEffects)) return false;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     // Avatar of Genbu (67CIhG8hmG): [Guo Jia Bonus][Deluge 12] has taunt
@@ -16334,7 +16420,7 @@ function PrideAmount($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fObj) {
-            if(!$fObj->removed && $fObj->CardID === "kkkcxq93ul" && !HasNoAbilities($fObj)
+            if(!$fObj->removed && ($fObj->CardID === "kkkcxq93ul" || $fObj->CardID === "mhilppwfgx") && !HasNoAbilities($fObj)
                 && IsGuoJiaBonus($obj->Controller)) {
                 return 0;
             }

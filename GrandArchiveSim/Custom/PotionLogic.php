@@ -394,6 +394,13 @@ function ProcessPotionInfusionTriggers($player, $potionMZ) {
                     }
                 }
                 break;
+            case "INFUSION_VOLATILITY":
+                $damage = 4 + EngineRandomInt(1, 6);
+                for($p = 1; $p <= 2; ++$p) {
+                    if($p == $player) continue;
+                    DealChampionDamage($p, $damage);
+                }
+                break;
         }
     }
 }
