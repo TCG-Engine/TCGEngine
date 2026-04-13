@@ -55,6 +55,7 @@ $Imbue_Cards["b9lli2PE7I"] = ['threshold' => 3, 'matcher' => 'advanced']; // Nur
 $Imbue_Cards["e5r6eVzpkD"] = ['threshold' => 2, 'matcher' => 'advanced']; // Reverent Seraphim - Advanced Imbue 2
 $Imbue_Cards["eDCnvWoGxf"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['EXIA', 'NEOS']]; // Azrael, Archangel of Materia - Exia & Neos Imbue 3
 $Imbue_Cards["ozpG6bt7nC"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['ARCANE', 'ASTRA']]; // Raziel, Archangel of Libra - Arcane & Astra Imbue 3
+$Imbue_Cards["suH40WW60W"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['LUXEM', 'UMBRA']]; // Haniel, Archangel of Spectra - Luxem & Umbra Imbue 3
 
 function NormalizeImbueOption($cardID, $config) {
     if(is_int($config)) {
@@ -135,6 +136,18 @@ function GetChosenImbueOption($player) {
     $selectedIndex = intval(DecisionQueueController::GetVariable("imbueChoiceIndex") ?? "0");
     if(!isset($imbueOptions[$selectedIndex])) $selectedIndex = 0;
     return $imbueOptions[$selectedIndex];
+}
+
+function IsFacetLockedName($player, $cardID) {
+    $opponent = ($player == 1) ? 2 : 1;
+    $lockedName = CardName($cardID);
+    $oppField = GetField($opponent);
+    foreach($oppField as $fieldObj) {
+        if($fieldObj->removed || $fieldObj->CardID !== "snXzdCvSHL" || HasNoAbilities($fieldObj)) continue;
+        if(!is_array($fieldObj->Counters)) continue;
+        if(($fieldObj->Counters["facetLockedName"] ?? "") === $lockedName) return true;
+    }
+    return false;
 }
 
 function GetImbueOptionLabel($cardID, $option) {
@@ -858,6 +871,10 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     
     $sourceObject = &GetZoneObject($mzCard);
 
+    if(IsFacetLockedName($player, $sourceObject->CardID)) {
+        return;
+    }
+
     // Blessed Clergy (a3pmmloejo): restrict to 2 card plays during next turn
     if(GlobalEffectCount($player, "a3pmmloejo-restrict") > 0) {
         if(CardActivatedCallCount($player) >= 2) {
@@ -893,10 +910,12 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     // Weapon Link pre-check: Sheath of Faceted Lapis (0cnn1eh85y) requires a Warrior weapon on field
     // Fang of Dragon's Breath (iebo5fu381) requires a Polearm weapon on field
-    $hasWeaponLink = ($sourceObject->CardID === "0cnn1eh85y" || $sourceObject->CardID === "iebo5fu381");
+    $hasWeaponLink = ($sourceObject->CardID === "0cnn1eh85y" || $sourceObject->CardID === "iebo5fu381" || $sourceObject->CardID === "swy2NJ4q6O");
     if($hasWeaponLink) {
         if($sourceObject->CardID === "iebo5fu381") {
             $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["POLEARM"]);
+        } else if($sourceObject->CardID === "swy2NJ4q6O") {
+            $weaponTargets = ZoneSearch("myField", ["REGALIA"]);
         } else {
             $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["WARRIOR"]);
         }
@@ -1775,11 +1794,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($hasWeaponLink) {
         if($sourceObject->CardID === "iebo5fu381") {
             $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["POLEARM"]);
+        } else if($sourceObject->CardID === "swy2NJ4q6O") {
+            $weaponTargets = ZoneSearch("myField", ["REGALIA"]);
         } else {
             $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["WARRIOR"]);
         }
         $weaponChoices = implode("&", $weaponTargets);
-        DecisionQueueController::AddDecision($player, "MZCHOOSE", $weaponChoices, 100, tooltip:"Choose_weapon_to_link");
+        $weaponTooltip = $sourceObject->CardID === "swy2NJ4q6O" ? "Choose_regalia_to_link" : "Choose_weapon_to_link";
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $weaponChoices, 100, tooltip:$weaponTooltip);
         DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareWeaponLinkTarget", 100);
     }
 
@@ -2375,6 +2397,31 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "DevotionsPriceDiscard1|" . $reserveCost, 100);
     }
 
+    // 1.3 Declaring Costs — Broken Promises (re911j7fo4): mandatory sacrifice of a Fatestone item or Fatebound ally
+    $hasBrokenPromisesCost = false;
+    if($obj->CardID === "re911j7fo4" && !$ignoreCost) {
+        $eligible = [];
+        $field = GetZone("myField");
+        for($fi = 0; $fi < count($field); ++$fi) {
+            if($field[$fi]->removed) continue;
+            $fieldType = EffectiveCardType($field[$fi]);
+            $fieldSubtypes = EffectiveCardSubtypes($field[$fi]);
+            $isFatestoneItem = PropertyContains($fieldType, "ITEM") && PropertyContains($fieldSubtypes, "FATESTONE");
+            $isFateboundAlly = PropertyContains($fieldType, "ALLY") && PropertyContains($fieldSubtypes, "FATEBOUND");
+            if($isFatestoneItem || $isFateboundAlly) {
+                $eligible[] = "myField-" . $fi;
+            }
+        }
+        if(empty($eligible)) {
+            SetFlashMessage("Broken Promises requires a Fatestone item or Fatebound ally to sacrifice.");
+            return;
+        }
+        $hasBrokenPromisesCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 100, tooltip:"Sacrifice_a_Fatestone_item_or_Fatebound_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BrokenPromisesCost|" . $reserveCost, 100);
+    }
+
     //1.3 Declaring Costs — Clash of Fates (9rbziyasag): [Guo Jia Bonus] may remove a quest counter instead of reserve
     $hasClashOfFatesAltCost = false;
     if($obj->CardID === "9rbziyasag" && IsGuoJiaBonus($player) && !$ignoreCost && $reserveCost > 0) {
@@ -2405,7 +2452,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2475,6 +2522,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // takes over queuing reveal/no-reserve or normal reserve + EffectStackOpportunity.
     // When $hasAdditionalCost is true, the DeclareAdditionalCost handler takes over
     // queuing reserve payments and EffectStackOpportunity after the player answers.
+    // When $hasBrokenPromisesCost is true, BrokenPromisesCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
     // When $hasSongOfFrostAltCost is true, SongOfFrostAltCost handler queues its own
     // reserve/banish + EffectStackOpportunity.
     // When $hasBrewAltCost is true, DeclareBrew handler queues herb sacrifice or
@@ -2594,6 +2643,28 @@ $customDQHandlers["WindsOfDestinyAltCost"] = function($player, $parts, $lastDeci
         for($i = 0; $i < $baseReserve; ++$i) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
         }
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+$customDQHandlers["BrokenPromisesCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+
+    $fieldType = EffectiveCardType($obj);
+    $fieldSubtypes = EffectiveCardSubtypes($obj);
+    $isFatestoneItem = PropertyContains($fieldType, "ITEM") && PropertyContains($fieldSubtypes, "FATESTONE");
+    $isFateboundAlly = PropertyContains($fieldType, "ALLY") && PropertyContains($fieldSubtypes, "FATEBOUND");
+    if(!$isFatestoneItem && !$isFateboundAlly) return;
+
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    for($i = 0; $i < $baseReserve; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::StoreVariable("isImbued", "NO");
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
@@ -3914,6 +3985,31 @@ function OnCardActivated($player, $mzCard) {
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "REGALIA")) {
+        if($obj->CardID === "swy2NJ4q6O") {
+            $wlTargetMZ = DecisionQueueController::GetVariable("weaponLinkTargetMZ");
+            $wlTargetCardID = DecisionQueueController::GetVariable("weaponLinkTargetCardID");
+            $wlTargetObj = (!empty($wlTargetMZ) && $wlTargetMZ !== "-") ? GetZoneObject($wlTargetMZ) : null;
+            $wlTargetValid = ($wlTargetObj !== null && !$wlTargetObj->removed
+                && $wlTargetObj->CardID === $wlTargetCardID
+                && PropertyContains(CardType($wlTargetObj->CardID), "REGALIA"));
+            if(!$wlTargetValid && !empty($wlTargetCardID)) {
+                $field = GetZone("myField");
+                for($fi = 0; $fi < count($field); ++$fi) {
+                    if(!$field[$fi]->removed && $field[$fi]->CardID === $wlTargetCardID
+                        && PropertyContains(CardType($field[$fi]->CardID), "REGALIA")) {
+                        DecisionQueueController::StoreVariable("weaponLinkTargetMZ", "myField-" . $fi);
+                        $wlTargetValid = true;
+                        break;
+                    }
+                }
+            }
+            if(!$wlTargetValid) {
+                $obj = MZMove($player, $mzCard, "myGraveyard");
+                DecisionQueueController::StoreVariable("weaponLinkTargetMZ", "");
+                DecisionQueueController::CleanupRemovedCards();
+                return;
+            }
+        }
         // Regalia enter the field like allies (main-deck regalia with reserve cost)
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
@@ -4422,6 +4518,10 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
 {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
+
+    if($sourceObject !== null && IsFacetLockedName($player, $sourceObject->CardID)) {
+        return;
+    }
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
@@ -5905,13 +6005,24 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
-    // Weapon Link: if the entering card has Weapon Link, establish the link
-    if($added->CardID === "0cnn1eh85y" || $added->CardID === "iebo5fu381") {
+    // Weapon/Regalia Link: establish the stored link after the card enters the field
+    if($added->CardID === "0cnn1eh85y" || $added->CardID === "iebo5fu381" || $added->CardID === "swy2NJ4q6O") {
         $weaponLinkTargetMZ = DecisionQueueController::GetVariable("weaponLinkTargetMZ");
         if(!empty($weaponLinkTargetMZ) && $weaponLinkTargetMZ !== "-") {
             $phantasiaMZ = "myField-" . (count($field) - 1);
             CreateWeaponLink($player, $phantasiaMZ, $weaponLinkTargetMZ);
             DecisionQueueController::StoreVariable("weaponLinkTargetMZ", "");
+        }
+    }
+
+    // Beacon Knight (sucwQ9or0n): whenever one or more regalia enter the field under your control, buff Beacon Knight
+    if(PropertyContains(CardType($added->CardID), "REGALIA")) {
+        for($bki = 0; $bki < count($field); ++$bki) {
+            if(!$field[$bki]->removed && $field[$bki]->CardID === "sucwQ9or0n"
+                && !HasNoAbilities($field[$bki])
+                && IsClassBonusActive($player, ["WARRIOR"])) {
+                AddCounters($player, "myField-" . $bki, "buff", 1);
+            }
         }
     }
 
@@ -7777,6 +7888,17 @@ function EndPhase() {
                 }
             }
             break; // Only one Mistbound Watcher matters
+        }
+    }
+
+    // Lesser Boon of Shou (rSIXf50oBc): at the beginning of your end phase, put an enlighten counter on your champion
+    $field = &GetField($turnPlayer);
+    $champMZ = FindChampionMZ($turnPlayer);
+    if($champMZ !== null) {
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && $field[$i]->CardID === "rSIXf50oBc" && !HasNoAbilities($field[$i])) {
+                AddCounters($turnPlayer, $champMZ, "enlighten", 1);
+            }
         }
     }
 
@@ -10513,6 +10635,10 @@ function ObjectCurrentLevel($obj) {
                             $cardLevel += 1;
                         }
                     }
+                    $appliedPassives[$fID] = true;
+                    break;
+                case "rAWlj4c4Ws": // Lesser Boon of Fauna: champion gets +1 level for each of up to two Animal/Beast allies
+                    $cardLevel += min(2, count(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"])));
                     $appliedPassives[$fID] = true;
                     break;
                 default: break;
@@ -16769,6 +16895,8 @@ function PrideAmount($obj) {
     }
     // Lavasoul Tiger (zq0dvl1m3z): loses pride until end of turn via TurnEffect
     if($obj->CardID === "zq0dvl1m3z" && in_array("zq0dvl1m3z", $obj->TurnEffects)) return 0;
+    // Apostle of the Woods (sg2ghTKuDt): loses pride until end of turn via TurnEffect
+    if($obj->CardID === "sg2ghTKuDt" && in_array("sg2ghTKuDt", $obj->TurnEffects)) return 0;
     // Red Hare, Unrivaled Stallion (5du8f077ua): loses pride while you control a fire or tera unique Human ally
     if($obj->CardID === "5du8f077ua") {
         global $playerID;
