@@ -122,6 +122,27 @@ function GetTotalAttackPower($attackerObj, $player) {
             }
         }
     }
+
+    // Beguiling Coup (q1b6htzcox): [Element Bonus] if this is one of your omens and
+    // you have no other reserve cost 1 omens, your champion's attacks get +1 POWER.
+    if($attackerObj !== null && PropertyContains(EffectiveCardType($attackerObj), "CHAMPION")) {
+        $banish = GetBanish($player);
+        $reserveOneOmenCount = 0;
+        $hasBeguilingCoupOmen = false;
+        foreach($banish as $bObj) {
+            if($bObj->removed) continue;
+            if(GetCounterCount($bObj, "omen") <= 0) continue;
+            if(intval(CardCost_reserve($bObj->CardID)) !== 1) continue;
+            ++$reserveOneOmenCount;
+            if($bObj->CardID === "q1b6htzcox") {
+                $hasBeguilingCoupOmen = true;
+            }
+        }
+        if($hasBeguilingCoupOmen && $reserveOneOmenCount === 1) {
+            $totalPower += 1;
+        }
+    }
+
     return $totalPower;
 }
 
@@ -1810,6 +1831,7 @@ $customDQHandlers["InterceptTargetChosen"] = function($player, $parts, $lastDeci
 
 function FinalizeAttackDeclaration($attackerPlayer) {
     $targetMZ = DecisionQueueController::GetVariable("CombatTarget");
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
     if($targetMZ === null || $targetMZ === "-" || $targetMZ === "") return;
 
     // Beguiling Bandit (jyrqgyj9vn): attacker must pay (1) to attack it
@@ -1823,6 +1845,16 @@ function FinalizeAttackDeclaration($attackerPlayer) {
     if($hfTargetObj !== null && $hfTargetObj->CardID === "3XV4QlQXfy" && !HasNoAbilities($hfTargetObj)) {
         DecisionQueueController::AddDecision($attackerPlayer, "CUSTOM", "ReserveCard", 97);
         DecisionQueueController::AddDecision($attackerPlayer, "CUSTOM", "ReserveCard", 97);
+    }
+
+    // Blazing Destrier (ptY1FUlbbs): when attacked, deal 2 to attacker and your champion
+    $bdTargetObj = GetZoneObject($targetMZ);
+    if($bdTargetObj !== null && $bdTargetObj->CardID === "ptY1FUlbbs" && !HasNoAbilities($bdTargetObj)) {
+        $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
+        if($attackerMZ !== null && $attackerMZ !== "-" && $attackerMZ !== "") {
+            DealDamage($defenderPlayer, $targetMZ, $attackerMZ, 2);
+        }
+        DealChampionDamage($defenderPlayer, 2);
     }
 
     // Grant Opportunity window before damage step (turn player gets priority first)

@@ -10,12 +10,34 @@ function MaterializePhase() {
 
     // Materialize phase
     SetFlashMessage("Materialize Phase");
+
+    // Orchestrated Seizure (pwscn0esog): prepare one-turn materialize floating access window.
+    while(GlobalEffectCount(GetTurnPlayer(), "pwscn0esog_ACTIVE") > 0) {
+        RemoveGlobalEffect(GetTurnPlayer(), "pwscn0esog_ACTIVE");
+    }
+    if(GlobalEffectCount(GetTurnPlayer(), "pwscn0esog_PENDING") > 0) {
+        while(GlobalEffectCount(GetTurnPlayer(), "pwscn0esog_PENDING") > 0) {
+            RemoveGlobalEffect(GetTurnPlayer(), "pwscn0esog_PENDING");
+        }
+        AddGlobalEffects(GetTurnPlayer(), "pwscn0esog_ACTIVE");
+    }
+
     MaterializeChoice();
     // Eventide Spear (xjkdokzfd9): [CB:Warrior] may also activate from material deck if opponent has 2+ rested units
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "EVENTIDE_MATERIAL_CHECK", 1);
     // Varuckan Soulknife (9ox7u6wzh9): [Class Bonus][Element Bonus] may activate from material deck by banishing 3 fire from graveyard
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "VARUCKAN_MATERIAL_CHECK", 1);
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1);
+}
+
+function GetMaterializeFloatingChoices($player) {
+    $choices = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
+    if(GlobalEffectCount($player, "pwscn0esog_ACTIVE") > 0) {
+        global $playerID;
+        $oppGY = ($player == $playerID) ? "theirGraveyard" : "myGraveyard";
+        $choices = array_merge($choices, ZoneSearch($oppGY, floatingMemoryOnly:true));
+    }
+    return implode("&", $choices);
 }
 
 function MaterializeChoice($ignoreCost = false) {
@@ -469,7 +491,7 @@ $customDQHandlers["ClarentReimaginedMatCostFinish"] = function($player, $parts, 
 function ClarentReimaginedFinalizeMaterialize($player, $mzCard, $memoryCost) {
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
-        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
+        $floatingIndices = GetMaterializeFloatingChoices($player);
         if($floatingIndices != "") {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
             DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
@@ -480,6 +502,7 @@ function ClarentReimaginedFinalizeMaterialize($player, $mzCard, $memoryCost) {
 }
 
 $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $banishedObj = GetZoneObject($lastDecision);
     $banishedCardID = $banishedObj ? $banishedObj->CardID : null;
     MZMove($player, $lastDecision, "myBanish");
@@ -489,9 +512,11 @@ $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
     --$toPay;
     DecisionQueueController::StoreVariable("MemoryCost", $toPay);
     if($toPay > 0) {
-        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
-        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-        DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $toPay, 1);
+        $floatingIndices = GetMaterializeFloatingChoices($player);
+        if($floatingIndices !== "") {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $toPay, 1);
+        }
     }
     return $toPay;
 };
@@ -793,6 +818,22 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
+        // Fractal of Waves (qVtWCAx3zb): when your champion levels up into base level 3,
+        // you may sacrifice it. If you do, draw two cards into memory.
+        if(intval(CardLevel($sourceId)) === 3) {
+            global $playerID;
+            $fZone = ($player == $playerID) ? "myField" : "theirField";
+            $field = GetZone($fZone);
+            for($fwi = 0; $fwi < count($field); ++$fwi) {
+                if($field[$fwi]->removed || $field[$fwi]->CardID !== "qVtWCAx3zb" || HasNoAbilities($field[$fwi])) continue;
+                $fractalMZ = $fZone . "-" . $fwi;
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                    tooltip:"Sacrifice_Fractal_of_Waves_to_draw_2_into_memory?");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "FractalOfWavesLevel3|" . $fractalMZ, 1);
+                break;
+            }
+        }
+
         // Nuriel, Seraphic Paladin (b9lli2PE7I): whenever your champion levels up,
         // if Nuriel is imbued, put a bulwark counter on it.
         {
@@ -905,6 +946,17 @@ function DoMaterialize($player, $mzCard) {
         }
     }
 }
+
+$customDQHandlers["FractalOfWavesLevel3"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $fractalMZ = $parts[0] ?? "";
+    if($fractalMZ === "") return;
+    $obj = GetZoneObject($fractalMZ);
+    if($obj === null || $obj->removed || $obj->CardID !== "qVtWCAx3zb") return;
+    DoSacrificeFighter($player, $fractalMZ);
+    DecisionQueueController::CleanupRemovedCards();
+    DrawIntoMemory($player, 2);
+};
 
 /**
  * Domains with "Whenever you materialize a card, sacrifice [domain name]" upkeep.

@@ -6083,6 +6083,20 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Saprotrophy (qSxEKgmQ0I): [Diao Chan Bonus] objects opponents control enter with an additional wither counter.
+    {
+        $opponent = ($player == 1) ? 2 : 1;
+        global $playerID;
+        $oppZone = $opponent == $playerID ? "myField" : "theirField";
+        $oppField = GetZone($oppZone);
+        foreach($oppField as $oppObj) {
+            if($oppObj->removed || $oppObj->CardID !== "qSxEKgmQ0I" || HasNoAbilities($oppObj)) continue;
+            if(!IsDiaoChanBonus($opponent)) continue;
+            AddCounters($player, "myField-" . (count($field) - 1), "wither", 1);
+            break;
+        }
+    }
+
     // Collapsing Trap (v2214upufo): next time allies enter the field this turn, they enter rested
     if(PropertyContains(CardType($added->CardID), "ALLY") || (PropertyContains(CardType($added->CardID), "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY"))) {
         for($ctp = 1; $ctp <= 2; ++$ctp) {
@@ -6765,6 +6779,21 @@ function RecollectionPhase() {
             $kongmingBanish[$bi]->TurnEffects,
             fn($e) => !in_array($e, ["KONGMING_NORTH", "KONGMING_EAST", "KONGMING_SOUTH", "KONGMING_WEST"])
         ));
+    }
+
+    // Supernova Divination (qhBecpDUO9): [Arisanna Bonus] recollection counter growth.
+    {
+        global $playerID;
+        $fieldZone = ($turnPlayer == $playerID) ? "myField" : "theirField";
+        $turnField = GetZone($fieldZone);
+        for($sdi = 0; $sdi < count($turnField); ++$sdi) {
+            if($turnField[$sdi]->removed || $turnField[$sdi]->CardID !== "qhBecpDUO9" || HasNoAbilities($turnField[$sdi])) continue;
+            if(!IsArisannaBonusActive($turnPlayer)) continue;
+            $sdMZ = $fieldZone . "-" . $sdi;
+            AddCounters($turnPlayer, $sdMZ, "divination", 1);
+            SupernovaDivinationCheck($turnPlayer, $sdMZ);
+            break;
+        }
     }
 
     // Peaceful Reunion: clear attack-prevention at the beginning of the caster's next turn
@@ -12678,6 +12707,21 @@ $customDQHandlers["StarcallingActivate"] = function($player, $parts, $lastDecisi
     // Tag as starcalled so the card's ability code can check
     DecisionQueueController::StoreVariable("wasStarcalled", "YES");
 
+    // Supernova Divination (qhBecpDUO9): [Arisanna Bonus] whenever you starcall a card, add divination counter.
+    {
+        global $playerID;
+        $fieldZone = ($player == $playerID) ? "myField" : "theirField";
+        $field = GetZone($fieldZone);
+        for($sdi = 0; $sdi < count($field); ++$sdi) {
+            if($field[$sdi]->removed || $field[$sdi]->CardID !== "qhBecpDUO9" || HasNoAbilities($field[$sdi])) continue;
+            if(!IsArisannaBonusActive($player)) continue;
+            $sdMZ = $fieldZone . "-" . $sdi;
+            AddCounters($player, $sdMZ, "divination", 1);
+            SupernovaDivinationCheck($player, $sdMZ);
+            break;
+        }
+    }
+
     // Move to effect stack
     $obj = MZMove($player, $actualMZ, "EffectStack");
     $obj->Controller = $player;
@@ -12699,6 +12743,27 @@ $customDQHandlers["StarcallingActivate"] = function($player, $parts, $lastDecisi
         DecisionQueueController::AddDecision($player, "CUSTOM", "StargazersPortentCopy|$chosenCardID", 201);
     }
 };
+
+function SupernovaDivinationCheck($player, $supernovaMZ) {
+    $supernovaObj = GetZoneObject($supernovaMZ);
+    if($supernovaObj === null || $supernovaObj->removed || $supernovaObj->CardID !== "qhBecpDUO9") return;
+    if(GetCounterCount($supernovaObj, "divination") < 10) return;
+
+    DoSacrificeFighter($player, $supernovaMZ);
+    DecisionQueueController::CleanupRemovedCards();
+
+    $opponent = ($player == 1) ? 2 : 1;
+    global $playerID;
+    $oppZone = ($opponent == $playerID) ? "myField" : "theirField";
+    $oppField = GetZone($oppZone);
+    for($i = 0; $i < count($oppField); ++$i) {
+        if($oppField[$i]->removed || $oppField[$i]->Controller != $opponent) continue;
+        if(!PropertyContains(EffectiveCardType($oppField[$i]), "ALLY") && !PropertyContains(EffectiveCardType($oppField[$i]), "CHAMPION")) continue;
+        $targetMZ = $oppZone . "-" . $i;
+        AddTurnEffect($targetMZ, "NO_ABILITIES");
+        DealUnpreventableDamage($player, "qhBecpDUO9", $targetMZ, 25);
+    }
+}
 
 /**
  * Aethercalling offer handler: player either chose a card to load into Aetherwing or passed.
