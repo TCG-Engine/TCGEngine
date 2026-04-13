@@ -193,6 +193,24 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         return;
     }
 
+    // Clarent, Reimagined (kINobk9KQA): [Lorraine Bonus] may banish Clarent, Sword of Peace and up to one other Sword Regalia from material to pay memory.
+    if($materializeCard->CardID === "kINobk9KQA" && !$ignoreCost && $memoryCost > 0 && IsLorraineBonusActive($player)) {
+        $material = GetZone("myMaterial");
+        $hasClarentSword = false;
+        for($i = 0; $i < count($material); ++$i) {
+            if($material[$i]->removed) continue;
+            if($material[$i]->CardID === "m31WVJ9F04") {
+                $hasClarentSword = true;
+                break;
+            }
+        }
+        if($hasClarentSword) {
+            DecisionQueueController::AddDecision($player, "YESNO", "Banish_Clarent,_Sword_of_Peace_from_material_to_pay_1_memory?", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCostStart|" . $lastDecision . "|" . $memoryCost, 1);
+            return;
+        }
+    }
+
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
         $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
@@ -306,6 +324,92 @@ $customDQHandlers["VernalTalismanMaterializeCostFinish"] = function($player, $pa
     }
     Materialize($player, $mzCard);
 };
+
+$customDQHandlers["ClarentReimaginedMatCostStart"] = function($player, $parts, $lastDecision) {
+    $mzCard = $parts[0];
+    $memoryCost = intval($parts[1]);
+    if($lastDecision !== "YES") {
+        ClarentReimaginedFinalizeMaterialize($player, $mzCard, $memoryCost);
+        return;
+    }
+
+    $material = GetZone("myMaterial");
+    $clarents = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed) continue;
+        if($material[$i]->CardID === "m31WVJ9F04") {
+            $clarents[] = "myMaterial-" . $i;
+        }
+    }
+    if(empty($clarents)) {
+        ClarentReimaginedFinalizeMaterialize($player, $mzCard, $memoryCost);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $clarents), 1,
+        tooltip:"Choose_Clarent,_Sword_of_Peace_to_banish");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCostChosen|" . $mzCard . "|" . $memoryCost, 1);
+};
+
+$customDQHandlers["ClarentReimaginedMatCostChosen"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        return;
+    }
+
+    $mzCard = $parts[0];
+    $remainingCost = max(0, intval($parts[1]) - 1);
+    MZMove($player, $lastDecision, "myBanish");
+
+    if($remainingCost <= 0) {
+        ClarentReimaginedFinalizeMaterialize($player, $mzCard, 0);
+        return;
+    }
+
+    $material = GetZone("myMaterial");
+    $otherSwords = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed) continue;
+        $candidateMZ = "myMaterial-" . $i;
+        if($candidateMZ === $mzCard) continue;
+        if($material[$i]->CardID === "m31WVJ9F04") continue;
+        if(!PropertyContains(CardType($material[$i]->CardID), "REGALIA")) continue;
+        if(!PropertyContains(CardSubtypes($material[$i]->CardID), "SWORD")) continue;
+        $otherSwords[] = $candidateMZ;
+    }
+
+    if(empty($otherSwords)) {
+        ClarentReimaginedFinalizeMaterialize($player, $mzCard, $remainingCost);
+        return;
+    }
+
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $otherSwords), 1,
+        tooltip:"Banish_another_Sword_Regalia_to_pay_1_memory?",
+        minAmount:0,
+        maxAmount:1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCostFinish|" . $mzCard . "|" . $remainingCost, 1);
+};
+
+$customDQHandlers["ClarentReimaginedMatCostFinish"] = function($player, $parts, $lastDecision) {
+    $mzCard = $parts[0];
+    $remainingCost = intval($parts[1]);
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myBanish");
+        $remainingCost = max(0, $remainingCost - 1);
+    }
+    ClarentReimaginedFinalizeMaterialize($player, $mzCard, $remainingCost);
+};
+
+function ClarentReimaginedFinalizeMaterialize($player, $mzCard, $memoryCost) {
+    if($memoryCost > 0) {
+        DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
+        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
+        if($floatingIndices != "") {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+    }
+    Materialize($player, $mzCard);
+}
 
 $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
     $banishedObj = GetZoneObject($lastDecision);

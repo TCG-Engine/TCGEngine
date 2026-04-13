@@ -4952,6 +4952,9 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "m31WVJ9F04": // Clarent, Sword of Peace — remove a durability counter
             RemoveCounters($player, $mzCard, "durability", 1);
             break;
+        case "kINobk9KQA": // Clarent, Reimagined — remove a durability counter
+            RemoveCounters($player, $mzCard, "durability", 1);
+            break;
         case "0D6AfZyKXh": { // Poisoned Dagger — REST + banish self
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
@@ -4966,6 +4969,11 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         }
         case "zqw6ms798w": { // Marksman's Charm — banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        }
+        case "lVvU9lpJ3M": { // Diamond Ribbon — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -6833,6 +6841,7 @@ function RecollectionPhase() {
         "uqICHZa3Wz" => 2, // Biding Cinquedea: [Class Bonus] On Charge 2
         "f0jbv5n196" => 3, // Memento Pocketwatch: On Charge 3
         "jaiTSvaLOQ" => 3, // Stellar Cosmos: [Diana Bonus] On Charge 3
+        "k5wrAxBbF9" => 3, // Proto Key Crest: On Charge 3
     ];
     $field = &GetField($turnPlayer);
     for($i = 0; $i < count($field); ++$i) {
@@ -6869,6 +6878,11 @@ function RecollectionPhase() {
                     if(IsDianaBonus($turnPlayer)) {
                         AddGlobalEffects($turnPlayer, "gwWociEfxb_AETHERCALLING");
                     }
+                    break;
+                case "k5wrAxBbF9": // Proto Key Crest: On Charge 3 -> return to material and recover 3
+                    MZMove($turnPlayer, "myField-" . $i, "myMaterial");
+                    DecisionQueueController::CleanupRemovedCards();
+                    RecoverChampion($turnPlayer, 3);
                     break;
             }
         }
@@ -8305,6 +8319,13 @@ function ObjectCurrentPower($obj) {
             global $playerID;
             $zone = $obj->Controller == $playerID ? "myField" : "theirField";
             if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["BEAST"]))) {
+                $power += 1;
+            }
+            break;
+        case "kYJUmd11o1": // Proto Archive Scout: +1 POWER while you control Proto Key Crest
+            global $playerID;
+            $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+            if(ZoneContainsCardID($zone, "k5wrAxBbF9")) {
                 $power += 1;
             }
             break;
@@ -10094,6 +10115,16 @@ function ObjectCurrentPower($obj) {
                 break;
             }
         }
+
+        // Lu Bu, Wrath Incarnate: all allies get -3 POWER.
+        $allField = array_merge(GetZone("myField"), GetZone("theirField"));
+        foreach($allField as $fObj) {
+            if($fObj->removed || HasNoAbilities($fObj)) continue;
+            if($fObj->CardID === "l5izukgdmh" && $fObj !== $obj) {
+                $power -= 3;
+                break;
+            }
+        }
     }
     // Resonating Fugue (optpu3fubb): POWER_LIFE_SWAP — return life value instead of power
     global $_computingPowerLifeSwap;
@@ -10411,6 +10442,18 @@ function ObjectCurrentLevel($obj) {
             ++$cardLevel;
         }
     }
+
+    // Lu Bu, Wrath Incarnate: other champions get -3 level.
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller != -1 && $obj->CardID !== "l5izukgdmh") {
+        $allField = array_merge(GetZone("myField"), GetZone("theirField"));
+        foreach($allField as $fObj) {
+            if($fObj->removed || HasNoAbilities($fObj)) continue;
+            if($fObj->CardID === "l5izukgdmh") {
+                $cardLevel -= 3;
+                break;
+            }
+        }
+    }
     return $cardLevel;
 }
 
@@ -10433,6 +10476,11 @@ function ObjectCurrentHP($obj) {
     }
     if(in_array("9urNxU7SZw_HP3", $obj->TurnEffects ?? [])) {
         $cardLife += 3;
+    }
+    foreach($obj->TurnEffects ?? [] as $te) {
+        if(strpos($te, "k8bwlx70qj_HP_") === 0) {
+            $cardLife += intval(substr($te, strlen("k8bwlx70qj_HP_")));
+        }
     }
     switch($obj->CardID) { //Self hp modifiers
         case "KFfmJZMdZN": // Floodborne Warrior: Deluge 2 +1 LIFE
@@ -13854,6 +13902,9 @@ function RecoverChampion($player, $amount=1) {
                 return null; // Recovery blocked by Morgan
             }
         }
+        if(!$oppObj->removed && $oppObj->CardID === "koyegh1snb" && !HasNoAbilities($oppObj)) {
+            return null; // Recovery blocked by Serpentine Judicator
+        }
     }
 
     $zone = $player == $playerID ? "myField" : "theirField";
@@ -15531,6 +15582,10 @@ function HasStealth($obj) {
     if($obj->CardID === "CvvgJR4fNa") {
         return isset($obj->Status) && $obj->Status == 2 && IsClassBonusActive($obj->Controller, ["ASSASSIN"]);
     }
+    // Proto Archive Scout: stealth while awake
+    if($obj->CardID === "kYJUmd11o1") {
+        return isset($obj->Status) && $obj->Status == 2;
+    }
     // Imperial Spy (l6gt7lh9v2): [Class Bonus] Stealth
     if($obj->CardID === "l6gt7lh9v2") {
         if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
@@ -16273,6 +16328,18 @@ function PrideAmount($obj) {
             }
         }
     }
+    // Byakko, White Tiger: [Guo Jia Bonus] Beast allies you control lose pride.
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "BEAST")) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "kkkcxq93ul" && !HasNoAbilities($fObj)
+                && IsGuoJiaBonus($obj->Controller)) {
+                return 0;
+            }
+        }
+    }
     return $prideValue;
 }
 
@@ -16972,6 +17039,13 @@ function IsArisannaBonusActive($player) {
         || ChampionHasInLineage($player, "ltv5klryvf")  // Arisanna, Master Alchemist (L2)
         || ChampionHasInLineage($player, "q3huqj5bba")  // Arisanna, Astral Zenith (L3)
         || ChampionHasInLineage($player, "7e22tk3ir1"); // Arisanna, Lucent Arbiter (L3)
+}
+
+function IsLorraineBonusActive($player) {
+    return ChampionHasInLineage($player, "r5wbtfpk4w")  // Lorraine, Wandering Warrior (L1)
+        || ChampionHasInLineage($player, "NfbZ0nouSQ")  // Lorraine, Crux Knight (L2)
+        || ChampionHasInLineage($player, "ut8f34skix")  // Lorraine, Blademaster (L3)
+        || ChampionHasInLineage($player, "x4f7z6drbh"); // Lorraine, Luxem Paladin (L3)
 }
 
 function GetOmens($player) {
