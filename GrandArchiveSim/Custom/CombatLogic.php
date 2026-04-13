@@ -2601,6 +2601,10 @@ function OnDealDamage($player, $source, $target, $amount) {
 
     // Overwhelming Swing (aebjvwbciz): [Class Bonus][Level 2+] combat damage is unpreventable
     $isCombatContext = DecisionQueueController::GetVariable("CombatAttacker") !== null;
+    if($isCombatContext && $targetObj !== null && $targetObj->CardID === "peyG8Hfgqt"
+        && !HasNoAbilities($targetObj) && IsClassBonusActive($targetObj->Controller, ["WARRIOR"])) {
+        return;
+    }
     if($isCombatContext) {
         $intentCards = GetIntentCards($player);
         foreach($intentCards as $intentMZ) {

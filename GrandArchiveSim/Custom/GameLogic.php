@@ -54,6 +54,7 @@ $Imbue_Cards["aKjX6INGkV"] = ['threshold' => 2, 'matcher' => 'advanced']; // Ang
 $Imbue_Cards["b9lli2PE7I"] = ['threshold' => 3, 'matcher' => 'advanced']; // Nuriel, Seraphic Paladin - Advanced Imbue 3
 $Imbue_Cards["e5r6eVzpkD"] = ['threshold' => 2, 'matcher' => 'advanced']; // Reverent Seraphim - Advanced Imbue 2
 $Imbue_Cards["eDCnvWoGxf"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['EXIA', 'NEOS']]; // Azrael, Archangel of Materia - Exia & Neos Imbue 3
+$Imbue_Cards["ozpG6bt7nC"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['ARCANE', 'ASTRA']]; // Raziel, Archangel of Libra - Arcane & Astra Imbue 3
 
 function NormalizeImbueOption($cardID, $config) {
     if(is_int($config)) {
@@ -4970,6 +4971,19 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "kINobk9KQA": // Clarent, Reimagined — remove a durability counter
             RemoveCounters($player, $mzCard, "durability", 1);
             break;
+        case "odcgpm3ugw": {
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            RemoveCounters($player, $mzCard, "durability", 2);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            break;
+        }
+        case "peyG8Hfgqt": {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            break;
+        }
         case "0D6AfZyKXh": { // Poisoned Dagger — REST + banish self
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
@@ -7585,6 +7599,9 @@ function SuppressAlly($player, $mzCard, $skipReplacementCheck = false) {
         // Clear any field TurnEffects carried over by the zone copy, then tag as suppressed
         $banishObj->ClearTurnEffects();
         $banishObj->AddTurnEffects("SUPPRESSED");
+        $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+        $_ti["ObjectSuppressedThisTurn"] = true;
+        SetMacroTurnIndex(json_encode($_ti));
     }
     // Fleetfoot Filly (1hrgshgthu): whenever a player suppresses an object, put a buff counter on Fleetfoot Filly
     for($sp = 1; $sp <= 2; ++$sp) {
@@ -10159,6 +10176,18 @@ function ObjectCurrentPower($obj) {
             }
         }
 
+        if(PropertyContains(EffectiveCardSubtypes($obj), "RACCOON") && IsClassBonusActive($obj->Controller, ["TAMER"])) {
+            $opponent = ($obj->Controller == 1) ? 2 : 1;
+            if(count(GetGraveyard($opponent)) === 0) {
+                foreach(GetZone($zone) as $fObj) {
+                    if(!$fObj->removed && $fObj->CardID === "o6tBGQeC33" && !HasNoAbilities($fObj)) {
+                        $power += 1;
+                        break;
+                    }
+                }
+            }
+        }
+
         // Lu Bu, Wrath Incarnate: all allies get -3 POWER.
         $allField = array_merge(GetZone("myField"), GetZone("theirField"));
         foreach($allField as $fObj) {
@@ -10176,6 +10205,19 @@ function ObjectCurrentPower($obj) {
         $swappedValue = ObjectCurrentHP($obj);
         $_computingPowerLifeSwap = false;
         return $swappedValue;
+    }
+    if(GetCounterCount($obj, "bond") > 0 && PropertyContains(EffectiveCardType($obj), "REGALIA") && $obj->Controller != -1) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        foreach(GetZone($zone) as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "pOJ4uRuyMK" && !HasNoAbilities($fObj)) {
+                $power += 2;
+                break;
+            }
+        }
+    }
+    if(in_array("ntnm81369o_ATTACK_POWER", $obj->TurnEffects ?? [])) {
+        $power += 3;
     }
     return $power;
 }
@@ -11343,6 +11385,267 @@ $customDQHandlers["TenderheartGuardDrawMemory"] = function($player, $parts, $las
 
 function SpeedPotionEnter($player) {
     if(DecisionQueueController::GetVariable("wasBrewed") === "YES") Draw($player, 1);
+}
+
+function HuajiAbyssalFallOnAttack($player, $sourceMZ) {
+    $attacker = GetCombatAttackerMZ();
+    if($attacker === null) return;
+    DecisionQueueController::StoreVariable("HuajiSource", $sourceMZ);
+    DecisionQueueController::StoreVariable("HuajiAttacker", $attacker);
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Deal_10_unpreventable_damage_to_attacker_for_+3_POWER?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "HuajiAbyssalFallChoice", 1);
+}
+
+$customDQHandlers["HuajiAbyssalFallChoice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $sourceMZ = DecisionQueueController::GetVariable("HuajiSource");
+    $attacker = DecisionQueueController::GetVariable("HuajiAttacker");
+    if($sourceMZ === null || $attacker === null) return;
+    DealUnpreventableDamage($player, $sourceMZ, $attacker, 10);
+    AddTurnEffect($sourceMZ, "ntnm81369o_ATTACK_POWER");
+};
+
+function AngelicChannelingResolve($player) {
+    DecisionQueueController::StoreVariable("AngelicChannelingCount", "0");
+    AngelicChannelingChoose($player);
+}
+
+function AngelicChannelingChoices($player) {
+    $elements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS"];
+    return array_merge(
+        ZoneSearch("myHand", cardElements: $elements),
+        ZoneSearch("myMemory", cardElements: $elements)
+    );
+}
+
+function AngelicChannelingChoose($player) {
+    $count = intval(DecisionQueueController::GetVariable("AngelicChannelingCount") ?? "0");
+    if($count >= 3) return;
+    $choices = AngelicChannelingChoices($player);
+    if(empty($choices)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Banish_advanced_element_card?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AngelicChannelingBanish", 1);
+}
+
+$customDQHandlers["AngelicChannelingBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $banished = MZMove($player, $lastDecision, "myBanish");
+    if($banished !== null) {
+        if(!is_array($banished->TurnEffects)) $banished->TurnEffects = [];
+        $banished->TurnEffects[] = "ANGELIC_CHANNELING";
+        AddGlobalEffects($player, "ANGELIC_CHANNELING_PENDING");
+        DrawIntoMemory($player, 1);
+    }
+    $count = intval(DecisionQueueController::GetVariable("AngelicChannelingCount") ?? "0") + 1;
+    DecisionQueueController::StoreVariable("AngelicChannelingCount", strval($count));
+    AngelicChannelingChoose($player);
+};
+
+function AngelicChannelingLevel3($player) {
+    if(GlobalEffectCount($player, "ANGELIC_CHANNELING_PENDING") <= 0) return;
+    $banish = &GetBanish($player);
+    $toReturn = [];
+    for($i = count($banish) - 1; $i >= 0; --$i) {
+        if($banish[$i]->removed || !in_array("ANGELIC_CHANNELING", $banish[$i]->TurnEffects ?? [])) continue;
+        $toReturn[] = $banish[$i]->CardID;
+        $banish[$i]->Remove();
+    }
+    if(empty($toReturn)) return;
+    DecisionQueueController::CleanupRemovedCards();
+    $deck = &GetDeck($player);
+    foreach(array_reverse($toReturn) as $cardID) {
+        array_unshift($deck, new Deck($cardID, 'Deck', $player));
+    }
+    RemoveGlobalEffect($player, "ANGELIC_CHANNELING_PENDING");
+}
+
+function LotorTrinketEnter($player) {
+    ScavengeForSubtype($player, 6, "RACCOON");
+}
+
+function SparklingAdornmentResolve($player) {
+    $sources = [];
+    foreach(array_merge(ZoneSearch("myField"), ZoneSearch("theirField")) as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj !== null && GetCounterCount($obj, "sheen") > 0) $sources[] = $mz;
+    }
+    if(empty($sources)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $sources), 1, tooltip:"Choose_object_to_remove_sheen_counters_from");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SparklingAdornmentChooseAmount", 1);
+}
+
+$customDQHandlers["SparklingAdornmentChooseAmount"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null) return;
+    $max = GetCounterCount($obj, "sheen");
+    if($max <= 0) return;
+    DecisionQueueController::StoreVariable("SparklingAdornmentSource", $lastDecision);
+    DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "1-" . $max, 1, tooltip:"Choose_sheen_counters_to_move");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SparklingAdornmentChooseTarget", 1);
+};
+
+$customDQHandlers["SparklingAdornmentChooseTarget"] = function($player, $parts, $lastDecision) {
+    $amount = intval($lastDecision);
+    if($amount <= 0) return;
+    $source = DecisionQueueController::GetVariable("SparklingAdornmentSource");
+    if($source === null || $source === "") return;
+    RemoveCounters($player, $source, "sheen", $amount);
+    DecisionQueueController::StoreVariable("SparklingAdornmentAmount", strval($amount));
+    $targets = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"]));
+    $targets = FilterSpellshroudTargets($targets);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_unit_to_receive_sheen_counters");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SparklingAdornmentApply", 1);
+};
+
+$customDQHandlers["SparklingAdornmentApply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $amount = intval(DecisionQueueController::GetVariable("SparklingAdornmentAmount") ?? "0");
+    if($amount > 0) AddCounters($player, $lastDecision, "sheen", $amount);
+};
+
+function RadiantVegaAbility($player, $sourceMZ) {
+    if(!IsDianaBonus($player)) return;
+    $champ = FindChampionMZ($player);
+    $champObj = $champ !== null ? GetZoneObject($champ) : null;
+    if($champObj === null || !IsDistant($champObj)) return;
+    $sourceObj = GetZoneObject($sourceMZ);
+    $payAmount = 0;
+    if($sourceObj !== null && is_array($sourceObj->Subcards)) {
+        foreach($sourceObj->Subcards as $cardID) {
+            if(PropertyContains(CardSubtypes($cardID), "AETHERCHARGE")) $payAmount++;
+        }
+    }
+    QueueNegateActivation($player, [], "default", $payAmount);
+}
+
+function PotionInfusionSealResolve($player) {
+    $potions = ZoneSearch("myField", cardSubtypes: ["POTION"]);
+    if(empty($potions)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $potions), 1, tooltip:"Rest_target_Potion");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PotionInfusionSealApply", 1);
+}
+
+$customDQHandlers["PotionInfusionSealApply"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->Status != 2) return;
+    ExhaustCard($player, $lastDecision);
+    AddTurnEffect($lastDecision, "INFUSION_SEAL");
+};
+
+function FirebirdTrailblazerOnAttack($player) {
+    if(empty(ZoneSearch("myHand"))) return;
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Discard_a_card_to_draw_a_card?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FirebirdTrailblazerDiscard", 1);
+}
+
+$customDQHandlers["FirebirdTrailblazerDiscard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $hand = ZoneSearch("myHand");
+    if(empty($hand)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $hand), 1, tooltip:"Discard_a_card");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FirebirdTrailblazerDraw", 1);
+};
+
+$customDQHandlers["FirebirdTrailblazerDraw"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoDiscardCard($player, $lastDecision);
+    Draw($player, 1);
+};
+
+function RazielLibraEnter($player) {
+    $isImbued = DecisionQueueController::GetVariable("isImbued") === "YES";
+    if(!$isImbued) {
+        $source = DecisionQueueController::GetVariable("mzID");
+        $obj = $source ? GetZoneObject($source) : null;
+        $isImbued = $obj !== null && in_array("IMBUED", $obj->TurnEffects ?? []);
+    }
+    if(!$isImbued || count(GetMemory($player)) < 2) return;
+    for($i = 0; $i < 2; ++$i) {
+        $memory = GetMemory($player);
+        if(empty($memory)) return;
+        $idx = EngineRandomInt(0, count($memory) - 1);
+        MZMove($player, "myMemory-" . $idx, "myBanish");
+    }
+    Glimpse($player, 3);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RazielLibraDrawMemory", 1);
+}
+
+$customDQHandlers["RazielLibraDrawMemory"] = function($player, $parts, $lastDecision) {
+    DrawIntoMemory($player, 2);
+};
+
+function WhirlwindThreadsResolve($player) {
+    AddQuestCounters($player, 1);
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(empty($_ti["ObjectSuppressedThisTurn"])) return;
+    $gy = GetGraveyard($player);
+    for($i = count($gy) - 1; $i >= 0; --$i) {
+        if(!$gy[$i]->removed && $gy[$i]->CardID === "p7nkdqnzzg") {
+            MZMove($player, "myGraveyard-" . $i, "myMemory");
+            return;
+        }
+    }
+}
+
+function SabelaGossamerPenanceEnter($player) {
+    if(!IsClassBonusActive($player, ["WARRIOR"])) return;
+    $choices = [];
+    foreach(ZoneSearch("myBanish", ["REGALIA"], cardSubtypes: ["SWORD"]) as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj !== null && intval(CardCost_memory($obj->CardID)) <= 1) $choices[] = $mz;
+    }
+    if(empty($choices)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, tooltip:"Choose_Sword_regalia_from_banishment");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SabelaGossamerPenanceReturn", 1);
+}
+
+$customDQHandlers["SabelaGossamerPenanceReturn"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = MZMove($player, $lastDecision, "myField");
+    if($obj === null) return;
+    $field = GetField($player);
+    $mz = "myField-" . (count($field) - 1);
+    AddCounters($player, $mz, "bond", 1);
+};
+
+function SabelaGossamerPenanceLeave($player) {
+    $field = GetField($player);
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if($field[$i]->removed || GetCounterCount($field[$i], "bond") <= 0) continue;
+        if(PropertyContains(EffectiveCardType($field[$i]), "REGALIA")) {
+            DoSacrificeFighter($player, "myField-" . $i);
+        }
+    }
+}
+
+function TemplarEternalAbility($player, $sourceMZ) {
+    if(!IsClassBonusActive($player, ["WARRIOR"])) return;
+    $regalia = ZoneSearch("myField", ["REGALIA"]);
+    if(empty($regalia)) return;
+    DecisionQueueController::StoreVariable("TemplarEternalSource", $sourceMZ);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $regalia), 1, tooltip:"Return_regalia_to_material_deck");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TemplarEternalReturnRegalia", 1);
+}
+
+$customDQHandlers["TemplarEternalReturnRegalia"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $source = DecisionQueueController::GetVariable("TemplarEternalSource");
+    MZMove($player, $lastDecision, "myMaterial");
+    if($source !== null && $source !== "") {
+        AddCounters($player, $source, "buff", 1);
+        AddTurnEffect($source, "SPELLSHROUD");
+    }
+};
+
+function SurpriseRevealResolve($player) {
+    $opponent = ($player == 1) ? 2 : 1;
+    foreach(ZoneSearch("theirHand") as $mz) Reveal($player, $mz);
+    foreach(ZoneSearch("theirMemory") as $mz) Reveal($player, $mz);
+    GainCrowdsFavor($player);
+    if(IsClassBonusActive($player, ["RANGER"])) Draw($player, 1);
 }
 
 function SpeedPotionActivated($player) {
@@ -13118,6 +13421,8 @@ $untilBeginTurnEffects["3vkxrw9462"] = true;
 $untilBeginTurnEffects["4x7e22tk3i"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
+$foreverEffects["ANGELIC_CHANNELING_PENDING"] = true;
+$doesGlobalEffectApply["ANGELIC_CHANNELING_PENDING"] = function($obj) { return false; };
 // Peaceful Reunion: never auto-expire (cleared manually at caster's RecollectionPhase)
 $foreverEffects["wr42i6eifn"] = true;
 // Freydis permanent distant: Ranger units are always distant for the rest of the game

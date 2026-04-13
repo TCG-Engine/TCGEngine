@@ -394,6 +394,9 @@ function ProcessPotionInfusionTriggers($player, $potionMZ) {
                     }
                 }
                 break;
+            case "INFUSION_SEAL":
+                QueueNegateActivation($player, [], "default", 2);
+                break;
             case "INFUSION_VOLATILITY":
                 $damage = 4 + EngineRandomInt(1, 6);
                 for($p = 1; $p <= 2; ++$p) {
