@@ -1267,6 +1267,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $reserveCost += 4;
         }
     }
+    // Optical Control (j4U5Tu76Lz): chosen card type opponents activate costs 4 more
+    foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $ocObj) {
+        if($ocObj->removed || $ocObj->CardID !== "j4U5Tu76Lz" || HasNoAbilities($ocObj)) continue;
+        if($ocObj->Controller == $player) continue;
+        foreach($ocObj->TurnEffects ?? [] as $effect) {
+            if(strpos($effect, "j4U5Tu76Lz-") !== 0) continue;
+            $chosenType = substr($effect, strlen("j4U5Tu76Lz-"));
+            if(PropertyContains($cardType, $chosenType)) {
+                $reserveCost += 4;
+                break;
+            }
+        }
+    }
     $opponent = ($player == 1) ? 2 : 1;
     if(GlobalEffectCount($opponent, "llQe0cg4xJ_COST") > 0) {
         $reserveCost += 1;
@@ -4074,6 +4087,13 @@ function OnCardActivated($player, $mzCard) {
         RemoveGlobalEffect($player, "dW5uyngvJW_RECOVER");
     }
 
+    // Diamond in the Rough (hzPvtli28c): this turn, whenever you activate a Suited Spell, empower 1.
+    if(GlobalEffectCount($player, "hzPvtli28c") > 0
+        && PropertyContains($subtypes, "SPELL")
+        && PropertyContains($subtypes, "SUITED")) {
+        Empower($player, 1, "hzPvtli28c");
+    }
+
     for($fi = 0; $fi < count($field); ++$fi) {
         if($field[$fi]->removed) continue;
         switch($field[$fi]->CardID) {
@@ -6041,6 +6061,17 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Fount Seraphim (k4pjo6lVMO): until beginning of controller's next turn, opponents' allies enter rested
+    if(PropertyContains(CardType($added->CardID), "ALLY")) {
+        for($fsp = 1; $fsp <= 2; ++$fsp) {
+            if($fsp == $player) continue;
+            if(GlobalEffectCount($fsp, "k4pjo6lVMO_RESTED_NEXT_TURN") > 0) {
+                $added->Status = 1;
+                break;
+            }
+        }
+    }
+
     // Brusque Neige (irt72g89zc): allies enter the field rested this turn
     if(PropertyContains(CardType($added->CardID), "ALLY")) {
         for($bnp = 1; $bnp <= 2; ++$bnp) {
@@ -6698,6 +6729,11 @@ function RecollectionPhase() {
         RemoveGlobalEffect($turnPlayer, "wr42i6eifn");
     }
 
+    // Fount Seraphim (k4pjo6lVMO): clear rested-entry lock at beginning of your next turn
+    if(GlobalEffectCount($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN") > 0) {
+        RemoveGlobalEffect($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN");
+    }
+
     // Plea for Peace: clear attack tax at the beginning of the caster's next turn
     if(GlobalEffectCount($turnPlayer, "ir99sx6q3p") > 0) {
         RemoveGlobalEffect($turnPlayer, "ir99sx6q3p");
@@ -6796,6 +6832,7 @@ function RecollectionPhase() {
         "fhomy86084" => 2, // Candlelight Hourglass: On Charge 2
         "uqICHZa3Wz" => 2, // Biding Cinquedea: [Class Bonus] On Charge 2
         "f0jbv5n196" => 3, // Memento Pocketwatch: On Charge 3
+        "jaiTSvaLOQ" => 3, // Stellar Cosmos: [Diana Bonus] On Charge 3
     ];
     $field = &GetField($turnPlayer);
     for($i = 0; $i < count($field); ++$i) {
@@ -6827,6 +6864,11 @@ function RecollectionPhase() {
                     DecisionQueueController::CleanupRemovedCards();
                     Draw($turnPlayer, 1);
                     AddGlobalEffects($turnPlayer, "f0jbv5n196_NEXT_ATTACK");
+                    break;
+                case "jaiTSvaLOQ": // Stellar Cosmos: [Diana Bonus] On Charge 3 -> aethercharge glimpse cards have aethercalling
+                    if(IsDianaBonus($turnPlayer)) {
+                        AddGlobalEffects($turnPlayer, "gwWociEfxb_AETHERCALLING");
+                    }
                     break;
             }
         }
@@ -6917,6 +6959,12 @@ function RecollectionPhase() {
                         if($phantasiaCount >= 4) {
                             PutTopDeckCardIntoMaterialPreserved($turnPlayer);
                         }
+                    }
+                    break;
+                case "j4U5Tu76Lz": // Optical Control: sacrifice this and draw a card
+                    if(!HasNoAbilities($field[$i])) {
+                        DoSacrificeFighter($turnPlayer, "myField-" . $i);
+                        Draw($turnPlayer, 1);
                     }
                     break;
                 case "fzcyfrzrpl": // Heatwave Generator: target ally gets +1 POWER until end of turn
@@ -7525,6 +7573,19 @@ function SuppressAlly($player, $mzCard, $skipReplacementCheck = false) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "BuffetingHurricaneDamage", 1);
             }
             break; // Only one Buffeting Hurricane triggers
+        }
+    }
+
+    // Fabled Emerald Fatestone (jz7odeqku4): [Guo Jia Bonus] whenever you suppress an object, put quest counter
+    if(IsGuoJiaBonus($player)) {
+        $emeraldCount = 0;
+        foreach($bhField as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "jz7odeqku4" && !HasNoAbilities($fObj)) {
+                ++$emeraldCount;
+            }
+        }
+        if($emeraldCount > 0) {
+            AddQuestCounters($player, $emeraldCount);
         }
     }
 }
@@ -8583,6 +8644,9 @@ function ObjectCurrentPower($obj) {
         case "46neis2lho": // Imperial Panzer: [CB] +1 POWER while fostered
             if(IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) $power += 1;
             break;
+        case "ioLmt0S7op": // Sanctified Paladin: +3 POWER while fostered
+            if(IsFostered($obj)) $power += 3;
+            break;
         case "oh300z2sns": // Magebane Lash: +1 POWER per lash counter on champion
             {
                 $controller = $obj->Controller;
@@ -8911,6 +8975,31 @@ function ObjectCurrentPower($obj) {
                     }
                 }
             }
+            break;
+        case "gR3LGjzKPS": // Epochal Conqueror: +3 POWER while attacking a domain
+            {
+                $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatAttacker !== null && $combatAttacker !== "-" && $combatAttacker !== ""
+                    && $combatTarget !== null && $combatTarget !== "-" && $combatTarget !== ""
+                    && $obj->GetMzID() === $combatAttacker) {
+                    $targetObj = GetZoneObject($combatTarget);
+                    if($targetObj !== null && IsSiegeable($targetObj)) {
+                        $power += 3;
+                    }
+                }
+            }
+            break;
+        case "iM3IywF99T": // Excitable Raccoon: +1 POWER while opponent has no cards in graveyard
+            {
+                $opponent = ($obj->Controller == 1) ? 2 : 1;
+                if(count(GetGraveyard($opponent)) === 0) {
+                    $power += 1;
+                }
+            }
+            break;
+        case "gz92tQGwCZ-buff": // Banner Slime activated ability buff
+            $power += 1;
             break;
         case "dJlNMQ5rWP": // Golden Knight: [Alice Bonus] +1 POWER while attacking unit with intercept or taunt
             {
@@ -10411,6 +10500,9 @@ function ObjectCurrentHP($obj) {
                 $cardLife += 2;
             }
             break;
+        case "ioLmt0S7op": // Sanctified Paladin: +3 LIFE while fostered
+            if(IsFostered($obj)) $cardLife += 3;
+            break;
         case "4ilomec3u3": // Sunblessed Gazelle: +X LIFE where X is highest opponent influence
             {
                 global $playerID;
@@ -11794,6 +11886,56 @@ function ScavengeForType($player, $amount, $type) {
         if($deck[$i]->removed) continue;
         $revealedIDs[] = $deck[$i]->CardID;
         if($foundIdx < 0 && PropertyContains(CardType($deck[$i]->CardID), $type)) {
+            $foundIdx = $i;
+        }
+    }
+    if(!empty($revealedIDs)) {
+        $existing = GetFlashMessage();
+        if(is_string($existing) && strpos($existing, 'REVEAL:') === 0) {
+            SetFlashMessage($existing . '|' . implode('|', $revealedIDs));
+        } else {
+            SetFlashMessage('REVEAL:' . implode('|', $revealedIDs));
+        }
+    }
+
+    if($foundIdx >= 0) {
+        MZMove($player, $deckZone . "-" . $foundIdx, $handZone);
+    }
+
+    $remaining = $revealCount - ($foundIdx >= 0 ? 1 : 0);
+    if($remaining <= 0) return;
+
+    $remainingIDs = [];
+    for($i = 0; $i < $remaining; ++$i) {
+        $deckNow = &GetZone($deckZone);
+        if(empty($deckNow)) break;
+        $remainingIDs[] = $deckNow[0]->CardID;
+        $deckNow[0]->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    if(empty($remainingIDs)) return;
+
+    EngineShuffle($remainingIDs);
+    foreach($remainingIDs as $cardID) {
+        MZAddZone($player, $deckZone, $cardID);
+    }
+}
+
+function ScavengeForElement($player, $amount, $element) {
+    global $playerID;
+    $deckZone = $player == $playerID ? "myDeck" : "theirDeck";
+    $handZone = $player == $playerID ? "myHand" : "theirHand";
+
+    $deck = GetZone($deckZone);
+    if(empty($deck)) return;
+
+    $revealCount = min(intval($amount), count($deck));
+    $foundIdx = -1;
+    $revealedIDs = [];
+    for($i = 0; $i < $revealCount; ++$i) {
+        if($deck[$i]->removed) continue;
+        $revealedIDs[] = $deck[$i]->CardID;
+        if($foundIdx < 0 && CardElement($deck[$i]->CardID) === $element) {
             $foundIdx = $i;
         }
     }
@@ -13763,6 +13905,10 @@ function RecoverChampion($player, $amount=1) {
                     if(!IsClassBonusActive($player, ["ASSASSIN"])) continue;
                     AddCounters($player, $fieldZone . "-" . $fi, "refinement", 1);
                 }
+                // Lightveil Agent (jcaLgesx0e): whenever you recover, put a buff counter on it
+                if($field[$fi]->CardID === "jcaLgesx0e") {
+                    AddCounters($player, $fieldZone . "-" . $fi, "buff", 1);
+                }
             }
 
             return $obj;
@@ -15176,6 +15322,8 @@ function HasVigor($obj) {
     }
     // Awakened Frostguard (mnu1xhs5jw): vigor while fostered
     if($obj->CardID === "mnu1xhs5jw" && IsFostered($obj)) return true;
+    // Sanctified Paladin (ioLmt0S7op): vigor while fostered
+    if($obj->CardID === "ioLmt0S7op" && IsFostered($obj)) return true;
     // Imperial Panzer (46neis2lho): [CB] vigor while fostered
     if($obj->CardID === "46neis2lho" && IsFostered($obj) && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Zhang Fei, Spirited Steel (qxnv0jqeym): [CB] Vigor
@@ -15247,6 +15395,11 @@ function HasVigor($obj) {
                 return true;
             }
         }
+    }
+    // Excitable Raccoon (iM3IywF99T): has vigor while opponent has no cards in graveyard
+    if($obj->CardID === "iM3IywF99T") {
+        $opponent = ($obj->Controller == 1) ? 2 : 1;
+        if(count(GetGraveyard($opponent)) === 0) return true;
     }
     return false;
 }
@@ -15459,6 +15612,8 @@ function HasStealth($obj) {
             }
         }
     }
+    // Lightveil Agent (jcaLgesx0e): [Class Bonus] stealth
+    if($obj->CardID === "jcaLgesx0e" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
     if(HasKeyword_Stealth($obj)) return true;
     // Treacle, Drowned Mouse (6emPe9OEUn): stealth while ephemeral
     if($obj->CardID === "6emPe9OEUn" && IsEphemeral($obj)) return true;
@@ -15608,6 +15763,8 @@ function HasSpellshroud($obj) {
     }
     // Seeker's Aetherwing (bf7yzaqes4): [CB] Spellshroud
     if($obj->CardID === "bf7yzaqes4" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
+    // Stellar Cosmos (jaiTSvaLOQ): [Class Bonus] Spellshroud
+    if($obj->CardID === "jaiTSvaLOQ" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     // Folded Shadows (HL4Q3UBoH8): [Ciel Bonus] champion has spellshroud while total omen cost >= 33
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         global $playerID;

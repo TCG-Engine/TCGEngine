@@ -669,6 +669,17 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
+    // Crowd's Favor (gpmJdGYqoC): pay (1) for each attack declaration.
+    // Effect is stored on the current holder; check both players for safety.
+    $crowdFavorActive = (GlobalEffectCount($turnPlayer, "gpmJdGYqoC") > 0 || GlobalEffectCount($prOpp, "gpmJdGYqoC") > 0);
+    if($crowdFavorActive) {
+        $hand = GetZone("myHand");
+        if(count($hand) < 1) {
+            SetFlashMessage("Must pay (1) to attack (Crowd's Favor). Not enough cards in hand.");
+            return false;
+        }
+    }
+
     // Suited Trickery (uxhmucm8si): champions must pay (2) for each attack declaration.
     $suitedTrickeryActive = (GlobalEffectCount($turnPlayer, "uxhmucm8si") > 0 || GlobalEffectCount($prOpp, "uxhmucm8si") > 0);
     if($suitedTrickeryActive && PropertyContains($cardType, "CHAMPION")) {
@@ -728,7 +739,7 @@ function BeginCombatPhase($actionCard) {
     $ducalActive = (GlobalEffectCount($turnPlayer, "DUCAL_SEAL_ATTACK_TAX") > 0 || GlobalEffectCount($prOpp, "DUCAL_SEAL_ATTACK_TAX") > 0);
     if($ducalActive) {
         $hand = GetZone("myHand");
-        $neededTotal = 3 + ($pleaActive ? 1 : 0) + ($lethActive ? 2 : 0);
+        $neededTotal = 3 + ($pleaActive ? 1 : 0) + ($crowdFavorActive ? 1 : 0) + ($lethActive ? 2 : 0);
         if(count($hand) < $neededTotal) {
             SetFlashMessage("Must pay (3) to attack (Ducal Seal). Not enough cards in hand.");
             return false;
@@ -791,6 +802,11 @@ function BeginCombatPhase($actionCard) {
 
     // Plea for Peace (ir99sx6q3p): pay (1) reserve for each attack declaration
     if($pleaActive) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+    }
+
+    // Crowd's Favor (gpmJdGYqoC): pay (1) reserve for each attack declaration
+    if($crowdFavorActive) {
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
     }
 
