@@ -13683,6 +13683,16 @@ function OnChessmanAllyEntered($player, $mzID) {
     }
 }
 
+function SummonCheapSwordToken($player, $count = 1) {
+    global $playerID;
+    for($i = 0; $i < $count; ++$i) {
+        // Summon Cheap Sword token - using generic weapon token
+        MZAddZone($player, "myField", "gfq3j98h8d"); // Placeholder token ID
+        $zone = $player == $playerID ? "myField" : "theirField";
+        OnWeaponEntered($player, $zone . "-" . (count(GetZone($zone)) - 1));
+    }
+}
+
 /**
  * Check if a player currently has the Shifting Currents mastery active.
  */
@@ -14666,6 +14676,16 @@ function EffectiveCardClasses($obj) {
             if($fieldObj->removed || $fieldObj->CardID !== "NCahvCedfV" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "MAGE")) {
                 $classes = $classes === null || $classes === "" ? "MAGE" : $classes . ",MAGE";
+            }
+            break;
+        }
+
+        // Lesser Boon of Odysseus (PXWFkT2DQe): your champion is Warrior in addition
+        // to its other classes.
+        foreach($field as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "PXWFkT2DQe" || HasNoAbilities($fieldObj)) continue;
+            if(!PropertyContains($classes, "WARRIOR")) {
+                $classes = $classes === null || $classes === "" ? "WARRIOR" : $classes . ",WARRIOR";
             }
             break;
         }
