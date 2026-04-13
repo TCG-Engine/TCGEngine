@@ -920,6 +920,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($obj->CardID === "3fe3c97s71" && IsClassBonusActive($player, ["RANGER"])) {
         $obj->TurnEffects[] = "CANT_BE_NEGATED";
     }
+    // Spellward Scepter (f6lxizyuml): next card you activate this turn can't be negated.
+    if(GlobalEffectCount($player, "f6lxizyuml_NEXT_CANT_BE_NEGATED") > 0) {
+        $obj->TurnEffects[] = "CANT_BE_NEGATED";
+        RemoveGlobalEffect($player, "f6lxizyuml_NEXT_CANT_BE_NEGATED");
+    }
     TrackEffectStackSourceZone("EffectStack-" . $obj->mzIndex, DecisionQueueController::GetVariable("activationSourceZone"));
 
     //TODO: 1.2 Checking Elements: Then, the game checks whether the player has the required elements enabled to activate the card. If not, the activation is illegal.
@@ -7680,6 +7685,17 @@ function EndPhase() {
         }
     }
 
+    // Blood Dragon's Pact (g23WBQW2Ro): at beginning of your end phase,
+    // deal 4 unpreventable damage to your champion.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "g23WBQW2Ro" || HasNoAbilities($field[$i])) continue;
+        $champMZ = FindChampionMZ($turnPlayer);
+        if($champMZ !== null) {
+            DealUnpreventableDamage($turnPlayer, "myField-" . $i, $champMZ, 4);
+        }
+    }
+
     // Frozen Divinity: sacrifice at end phase if your champion didn't level up this turn.
     if(GlobalEffectCount($turnPlayer, "LEVELED_UP_THIS_TURN") == 0) {
         $field = &GetField($turnPlayer);
@@ -9132,6 +9148,18 @@ function ObjectCurrentPower($obj) {
                 }
             }
         }
+        // Banner Raccoon (fe3AaA7Qt3): as long as an opponent has no cards in their graveyard,
+        // other Raccoon allies you control get +1 POWER.
+        if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "RACCOON")) {
+            $oppGY = ($obj->Controller == $playerID) ? GetZone("theirGraveyard") : GetZone("myGraveyard");
+            if(count($oppGY) == 0) {
+                foreach($field as $fieldObj) {
+                    if($fieldObj->removed || $fieldObj->CardID !== "fe3AaA7Qt3" || HasNoAbilities($fieldObj)) continue;
+                    if($fieldObj->GetMzID() === $obj->GetMzID()) continue;
+                    $power += 1;
+                }
+            }
+        }
         // Phalanx Captain (rPpLwLPGaL): Other Human allies you control get +1 POWER as long as they're attacking
         if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "HUMAN")) {
             $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
@@ -9366,6 +9394,9 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
                 break;
             case "HsaWNAsmAQ_POWER": // Bestial Frenzy: +1 POWER until end of turn
+                $power += 1;
+                break;
+            case "fPtTKILV7f": // Inspiring Aethercharge: allies get +1 POWER until end of turn
                 $power += 1;
                 break;
             case "GRkBQ1Uvir_POWER": // Ignited Stab: if prepared, +2 POWER until end of turn
@@ -9703,6 +9734,9 @@ function ObjectCurrentPower($obj) {
                 break;
             case "8asbierp5k": // Beastsoul Visage: linked ally gets +2 POWER
                 $power += 2;
+                break;
+            case "g23WBQW2Ro": // Blood Dragon's Pact: linked ally gets +4 POWER
+                $power += 4;
                 break;
             case "c8ljyevpmu": // Alliance Gearshield: [Class Bonus] +2 POWER while retaliating
                 if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])
@@ -10609,6 +10643,9 @@ function ObjectCurrentHP($obj) {
                 if(IsClassBonusActive($linkedObj->Controller, ["GUARDIAN"])) {
                     $cardLife += 2;
                 }
+                break;
+            case "g23WBQW2Ro": // Blood Dragon's Pact: linked ally gets +4 LIFE
+                $cardLife += 4;
                 break;
             default: break;
         }
@@ -13072,6 +13109,10 @@ $doesGlobalEffectApply["jgyx38zpl0-east"] = function($obj) { // Bagua East: alli
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
 
+$doesGlobalEffectApply["fPtTKILV7f"] = function($obj) { // Inspiring Aethercharge: allies +1 POWER until end of turn
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+};
+
 $doesGlobalEffectApply["BREWED_POTION"] = function($obj) { // Flag only — tracks if a potion was brewed this turn
     return false; // No visual effect on cards
 };
@@ -14595,6 +14636,46 @@ function SageProtectionChoose($player, $count) {
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $allyStr, 1, tooltip:"Choose_ally_for_+1_LIFE_(" . ($count + 1) . "/3)");
     DecisionQueueController::AddDecision($player, "CUSTOM", "SageProtectionApply|$count", 1);
 }
+
+function AllowanceRaceChooseHorse($actingPlayer, $remaining) {
+    global $playerID;
+    if($remaining <= 0) return;
+    $zone = $actingPlayer == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $choices = [];
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        if(!PropertyContains(EffectiveCardType($field[$i]), "ALLY")) continue;
+        if(!PropertyContains(EffectiveCardSubtypes($field[$i]), "HORSE")) continue;
+        if(($field[$i]->Status ?? 0) != 2) continue;
+        $choices[] = $zone . "-" . $i;
+    }
+    if(empty($choices)) return;
+    $pickNumber = 3 - $remaining;
+    $targetStr = implode("&", $choices);
+    DecisionQueueController::AddDecision($actingPlayer, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Rest_a_Horse_ally?_(" . $pickNumber . "/2)");
+    DecisionQueueController::AddDecision($actingPlayer, "CUSTOM", "AllowanceRaceRest|" . $actingPlayer . "|" . $remaining, 1);
+}
+
+function AllowanceRaceStart($player) {
+    $opponent = GetOpponent($player);
+    if($opponent !== null) {
+        AllowanceRaceChooseHorse($opponent, 2);
+    }
+    AllowanceRaceChooseHorse($player, 2);
+}
+
+$customDQHandlers["AllowanceRaceRest"] = function($player, $parts, $lastDecision) {
+    $actingPlayer = intval($parts[0] ?? $player);
+    $remaining = intval($parts[1] ?? 0);
+    if($remaining <= 0) return;
+    if($lastDecision !== null && $lastDecision !== "" && $lastDecision !== "-" && $lastDecision !== "PASS") {
+        RestCard($actingPlayer, $lastDecision);
+        Draw($actingPlayer, 1);
+        $remaining -= 1;
+    }
+    AllowanceRaceChooseHorse($actingPlayer, $remaining);
+};
 
 function OnExhaustCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
