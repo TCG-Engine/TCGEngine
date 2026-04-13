@@ -551,6 +551,21 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
+        // Nuriel, Seraphic Paladin (b9lli2PE7I): whenever your champion levels up,
+        // if Nuriel is imbued, put a bulwark counter on it.
+        {
+            global $playerID;
+            $fZone = ($player == $playerID) ? "myField" : "theirField";
+            $field = GetZone($fZone);
+            for($ni = 0; $ni < count($field); ++$ni) {
+                if(!$field[$ni]->removed && $field[$ni]->CardID === "b9lli2PE7I" && !HasNoAbilities($field[$ni])
+                    && in_array("IMBUED", $field[$ni]->TurnEffects ?? [])) {
+                    AddCounters($player, $fZone . "-" . $ni, "bulwark", 1);
+                    break;
+                }
+            }
+        }
+
         // Scepter of Lumina (e5o3cm9lbe): whenever your champion levels up, deal 4 damage to target champion you don't control
         {
             global $playerID;

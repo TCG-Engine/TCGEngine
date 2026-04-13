@@ -50,6 +50,8 @@ $Imbue_Cards["a3pmmloejo"] = 2; // Blessed Clergy (WIND) - Imbue 2
 $Imbue_Cards["xpnjvt9y59"] = 2; // Cleansing Reunion (WIND) - Imbue 2
 $Imbue_Cards["taug52u81v"] = 2; // Eternal Magistrate (WIND) - Imbue 2
 $Imbue_Cards["TYlWgIYsq3"] = 2; // Cauterizing Seraphim (FIRE) - Advanced Imbue 2
+$Imbue_Cards["aKjX6INGkV"] = ['threshold' => 2, 'matcher' => 'advanced']; // Angelic Vanguard - Advanced Imbue 2
+$Imbue_Cards["b9lli2PE7I"] = ['threshold' => 3, 'matcher' => 'advanced']; // Nuriel, Seraphic Paladin - Advanced Imbue 3
 
 function NormalizeImbueOption($cardID, $config) {
     if(is_int($config)) {
@@ -183,6 +185,7 @@ $Cardistry_Cards["8bolq2y5qp"] = 4; // Four of Spades
 $Cardistry_Cards["xgax8bbjqj"] = 4; // Four of Hearts
 $Cardistry_Cards["i9hf5lhl5f"] = 5; // Five of Spades
 $Cardistry_Cards["idq4ih00rq"] = 5; // Five of Hearts
+$Cardistry_Cards["Zq4iWqdjGp"] = 5; // Five of Diamonds
 $Cardistry_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts
 $Cardistry_Cards["tdRR5lQHMN"] = 6; // Six of Spades
 $Cardistry_Cards["EIpkYYSP3s"] = 6; // Senaris, Six of Diamonds
@@ -5093,6 +5096,33 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
                 $dynIndex++;
             }
         }
+        // Bandit, Gaze Leader (Yuj8xCUejq): Raccoon allies gain "[REST]: Banish target card in a graveyard."
+        if(!$handledDynamic && PropertyContains(EffectiveCardType($sourceObject), "ALLY")
+            && PropertyContains(EffectiveCardSubtypes($sourceObject), "RACCOON")
+            && $sourceObject->Status == 2) {
+            global $playerID;
+            $zone = $sourceObject->Controller == $playerID ? "myField" : "theirField";
+            $banditActive = false;
+            foreach(GetZone($zone) as $fObj) {
+                if(!$fObj->removed && $fObj->CardID === "Yuj8xCUejq" && !HasNoAbilities($fObj)) {
+                    $banditActive = true;
+                    break;
+                }
+            }
+            if($banditActive) {
+                $allGY = array_merge(ZoneSearch("myGraveyard"), ZoneSearch("theirGraveyard"));
+                if(!empty($allGY)) {
+                    if($selectedAbilityIndex == $dynIndex) {
+                        $sourceObject->Status = 1;
+                        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allGY), 1,
+                            tooltip:"Banish_target_card_in_a_graveyard");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "ProtectorRaccoonBanishGY", 1);
+                        $handledDynamic = true;
+                    }
+                    $dynIndex++;
+                }
+            }
+        }
     }
     if(!$isDynamic) {
         // Candlelight Hourglass (fhomy86084): On Charge 2 → opponent's ally activated abilities cost (2) more
@@ -6842,6 +6872,21 @@ function RecollectionPhase() {
                 case "ta6qsesw2u": // Tonoris, Genesis Aegis: choose one that hasn't been chosen — summon Obelisk token
                     if(!HasNoAbilities($field[$i])) {
                         TonorisRecollection($turnPlayer, $i);
+                    }
+                    break;
+                case "ZRmjF8O3rf": // Lesser Boon of Time's Passage: draw into memory at recollection (twice)
+                    if(!HasNoAbilities($field[$i])) {
+                        if(!isset($field[$i]->Counters) || !is_array($field[$i]->Counters)) $field[$i]->Counters = [];
+                        $used = intval($field[$i]->Counters["times_passage_uses"] ?? 0);
+                        if($used < 2) {
+                            DrawIntoMemory($turnPlayer, 1);
+                            $field[$i]->Counters["times_passage_uses"] = $used + 1;
+                        }
+                    }
+                    break;
+                case "Zw0T2GmowK": // Greater Boon of Shou: at recollection, glimpse 2
+                    if(!HasNoAbilities($field[$i])) {
+                        Glimpse($turnPlayer, 2);
                     }
                     break;
                 case "h38lrj5221": // Distilled Atrophy: put an age counter
@@ -15042,6 +15087,7 @@ function HasRetort($obj) {
     if(HasNoAbilities($obj)) return false;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     if(HasKeyword_Retort($obj)) return true;
+    if($obj->CardID === "aKjX6INGkV" && in_array("IMBUED", $obj->TurnEffects ?? [])) return true;
     // 0oyxjld8jh (Guan Yu, Prime Exemplar): Retort 2 — missed by parser (comma-separated keyword line)
     if($obj->CardID === "0oyxjld8jh") return true;
     // Jadelight Protector (o18wr3f4ab): allies have Retort 1 while Shifting Currents face South
@@ -15072,6 +15118,7 @@ function GetRetortValue($obj) {
     $val = intval(GetKeyword_Retort_Value($obj));
     if($val > 0) return $val;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return 2;
+    if($obj->CardID === "aKjX6INGkV" && in_array("IMBUED", $obj->TurnEffects ?? [])) return 2;
     if($obj->CardID === "0oyxjld8jh") return 2;
     // Jadelight Protector (o18wr3f4ab): Retort 1 while Shifting Currents face South
     if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
@@ -15254,6 +15301,7 @@ function HasIntercept($obj) {
     if(in_array("NO_INTERCEPT", $obj->TurnEffects ?? [])) return false;
     if(HasKeyword_Intercept($obj)) return true;
     if(in_array("INTERCEPT_EOT", $obj->TurnEffects ?? [])) return true;
+    if($obj->CardID === "aKjX6INGkV" && in_array("IMBUED", $obj->TurnEffects ?? [])) return true;
     if($obj->CardID === "c9p4lpnvx7") {
         global $playerID;
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
@@ -16985,6 +17033,26 @@ function GetDynamicAbilities($obj) {
     if($obj->CardID === "o0qtb31x97" && $obj->Status == 2 && CountCursesInLineage($obj->Controller) >= 4) {
         $abilities[] = ["name" => "Cursebreaker", "index" => $nextIndex];
         $nextIndex++;
+    }
+    // Bandit, Gaze Leader (Yuj8xCUejq): Raccoon allies you control gain [REST] graveyard banish.
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "RACCOON")
+        && $obj->Status == 2) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $banditActive = false;
+        foreach(GetZone($zone) as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "Yuj8xCUejq" && !HasNoAbilities($fObj)) {
+                $banditActive = true;
+                break;
+            }
+        }
+        if($banditActive) {
+            $allGY = array_merge(ZoneSearch("myGraveyard"), ZoneSearch("theirGraveyard"));
+            if(!empty($allGY)) {
+                $abilities[] = ["name" => "REST: Banish graveyard card", "index" => $nextIndex];
+                $nextIndex++;
+            }
+        }
     }
     // Fang of Dragon's Breath (iebo5fu381): [Jin Bonus] linked weapon REST ability — deal 2 damage to a unit
     if(PropertyContains(EffectiveCardType($obj), "WEAPON")) {

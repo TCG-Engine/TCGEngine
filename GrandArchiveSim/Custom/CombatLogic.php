@@ -636,7 +636,7 @@ function BeginCombatPhase($actionCard) {
         return false;
     }
     // Training Dummy (EeFXEYMmF3): can't attack.
-    if($obj->CardID === "EeFXEYMmF3") {
+    if($obj->CardID === "EeFXEYMmF3" || $obj->CardID === "Zxab4Vi0wx") {
         SetFlashMessage("This unit can't attack.");
         return false;
     }
@@ -2684,6 +2684,12 @@ function OnDealDamage($player, $source, $target, $amount) {
 
     // Ominous Shadow (gveirpdm44): prevent 3 of any damage dealt to it
     if($amount > 0 && $targetObj->CardID === "gveirpdm44" && !HasNoAbilities($targetObj)) {
+        $amount -= 3;
+        if($amount <= 0) return;
+    }
+
+    // Simple Slime (Zxab4Vi0wx): prevent 3 of damage that would be dealt to it
+    if($amount > 0 && $targetObj->CardID === "Zxab4Vi0wx" && !HasNoAbilities($targetObj)) {
         $amount -= 3;
         if($amount <= 0) return;
     }
