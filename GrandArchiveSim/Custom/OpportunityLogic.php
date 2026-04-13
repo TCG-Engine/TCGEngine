@@ -136,6 +136,26 @@ function QueueNegateActivation($player, $filters = [], $destinationMode = "defau
     DecisionQueueController::AddDecision($player, "CUSTOM", $handler . "|" . $destinationMode . "|" . intval($payAmount), 1);
 }
 
+function QueueNegateAllActivationsByCard($player, $cardID, $controller, $destinationMode = "default", $payAmount = -1) {
+    $matches = [];
+    $effectStack = GetEffectStack();
+    for($i = 0; $i < count($effectStack); ++$i) {
+        $obj = $effectStack[$i];
+        if($obj === null || $obj->removed) continue;
+        if(is_array($obj->TurnEffects ?? null) && in_array("CANT_BE_NEGATED", $obj->TurnEffects)) continue;
+        if($obj->CardID !== $cardID) continue;
+        if(intval($obj->Controller) !== intval($controller)) continue;
+        $matches[] = "EffectStack-" . $i;
+    }
+    if(empty($matches)) return;
+
+    DecisionQueueController::StoreVariable("NegateByCardTargets", implode(",", $matches));
+    DecisionQueueController::StoreVariable("NegateByCardDestination", $destinationMode);
+    DecisionQueueController::StoreVariable("NegateByCardPay", strval(intval($payAmount)));
+    DecisionQueueController::StoreVariable("NegateByCardPlayer", strval($player));
+    DecisionQueueController::AddDecision($player, "CUSTOM", "NegateByCardContinue|0", 1);
+}
+
 $customDQHandlers["NegateActivationResolve"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $destinationMode = $parts[0] ?? "default";
@@ -156,6 +176,61 @@ $customDQHandlers["NegateActivationResolve"] = function($player, $parts, $lastDe
     }
     DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, "Pay_" . $payAmount . "_to_prevent_negate?");
     DecisionQueueController::AddDecision($controller, "CUSTOM", "NegateActivationPayChoice|" . $player, 1);
+};
+
+$customDQHandlers["NegateByCardContinue"] = function($player, $parts, $lastDecision) {
+    $index = intval($parts[0] ?? 0);
+    $targetsStr = DecisionQueueController::GetVariable("NegateByCardTargets") ?? "";
+    if($targetsStr === "") return;
+    $targets = array_values(array_filter(explode(",", $targetsStr), fn($v) => $v !== ""));
+    if($index >= count($targets)) {
+        DecisionQueueController::ClearVariable("NegateByCardTargets");
+        DecisionQueueController::ClearVariable("NegateByCardDestination");
+        DecisionQueueController::ClearVariable("NegateByCardPay");
+        DecisionQueueController::ClearVariable("NegateByCardPlayer");
+        DecisionQueueController::ClearVariable("NegateByCardCurrentIndex");
+        DecisionQueueController::ClearVariable("NegateByCardCurrentTarget");
+        return;
+    }
+
+    $negatingPlayer = intval(DecisionQueueController::GetVariable("NegateByCardPlayer") ?? $player);
+    $destinationMode = DecisionQueueController::GetVariable("NegateByCardDestination") ?? "default";
+    $payAmount = intval(DecisionQueueController::GetVariable("NegateByCardPay") ?? "-1");
+    $targetMZ = $targets[$index];
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) {
+        DecisionQueueController::AddDecision($negatingPlayer, "CUSTOM", "NegateByCardContinue|" . ($index + 1), 1);
+        return;
+    }
+
+    if($payAmount <= 0 || CountAvailableReservePayments(intval($targetObj->Controller)) < $payAmount) {
+        NegateCardActivation($negatingPlayer, $targetMZ, $destinationMode);
+        DecisionQueueController::AddDecision($negatingPlayer, "CUSTOM", "NegateByCardContinue|" . ($index + 1), 1);
+        return;
+    }
+
+    DecisionQueueController::StoreVariable("NegateByCardCurrentIndex", strval($index));
+    DecisionQueueController::StoreVariable("NegateByCardCurrentTarget", $targetMZ);
+    DecisionQueueController::AddDecision(intval($targetObj->Controller), "YESNO", "-", 1,
+        "Pay_" . $payAmount . "_to_prevent_negate?");
+    DecisionQueueController::AddDecision(intval($targetObj->Controller), "CUSTOM", "NegateByCardPayChoice|" . $negatingPlayer, 1);
+};
+
+$customDQHandlers["NegateByCardPayChoice"] = function($payingPlayer, $parts, $lastDecision) {
+    $negatingPlayer = intval($parts[0] ?? $payingPlayer);
+    $targetMZ = DecisionQueueController::GetVariable("NegateByCardCurrentTarget");
+    $destinationMode = DecisionQueueController::GetVariable("NegateByCardDestination") ?? "default";
+    $payAmount = intval(DecisionQueueController::GetVariable("NegateByCardPay") ?? "0");
+    $currentIndex = intval(DecisionQueueController::GetVariable("NegateByCardCurrentIndex") ?? "0");
+
+    if($lastDecision === "YES" && count(GetHand($payingPlayer)) >= $payAmount) {
+        for($i = 0; $i < $payAmount; ++$i) {
+            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 1);
+        }
+    } else {
+        NegateCardActivation($negatingPlayer, $targetMZ, $destinationMode);
+    }
+    DecisionQueueController::AddDecision($negatingPlayer, "CUSTOM", "NegateByCardContinue|" . ($currentIndex + 1), 1);
 };
 
 $customDQHandlers["NegateActivationPayChoice"] = function($payingPlayer, $parts, $lastDecision) {

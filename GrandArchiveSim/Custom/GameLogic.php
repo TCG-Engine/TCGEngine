@@ -5123,6 +5123,27 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
                 }
             }
         }
+
+        // Cheshire Cat, Impish Grin (cUltOcPo26): has activated abilities of Distortion regalia you control
+        if(!$handledDynamic && $cardID === "cUltOcPo26" && $sourceObject->Status == 2) {
+            global $playerID;
+            $zone = $sourceObject->Controller == $playerID ? "myField" : "theirField";
+            $field = GetZone($zone);
+            foreach($field as $fObj) {
+                if($fObj->removed || HasNoAbilities($fObj)) continue;
+                if(!PropertyContains(EffectiveCardType($fObj), "REGALIA")) continue;
+                if(!PropertyContains(EffectiveCardSubtypes($fObj), "DISTORTION")) continue;
+                $abilityCount = CardActivateAbilityCount($fObj->CardID);
+                for($ai = 0; $ai < $abilityCount; ++$ai) {
+                    if($selectedAbilityIndex == $dynIndex) {
+                        $customDQHandlers["AbilityActivated"]($player, [$fObj->CardID, $ai], null);
+                        $handledDynamic = true;
+                        break 2;
+                    }
+                    $dynIndex++;
+                }
+            }
+        }
     }
     if(!$isDynamic) {
         // Candlelight Hourglass (fhomy86084): On Charge 2 → opponent's ally activated abilities cost (2) more
@@ -8121,6 +8142,39 @@ function ObjectCurrentPower($obj) {
                 $power += 2;
             }
             break;
+        case "bXxU1ZzMpR": // Reliable Cavalier: +3 POWER while you control a Horse ally
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                if(!empty(ZoneSearch($zone, ["ALLY"], cardSubtypes: ["HORSE"]))) {
+                    $power += 3;
+                }
+            }
+            break;
+        case "cUltOcPo26": // Cheshire Cat, Impish Grin: +X POWER where X is total base power of Distortion weapons you control
+            {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $field = GetZone($zone);
+                $bonus = 0;
+                foreach($field as $fObj) {
+                    if($fObj->removed) continue;
+                    if(!PropertyContains(EffectiveCardType($fObj), "WEAPON")) continue;
+                    if(!PropertyContains(EffectiveCardSubtypes($fObj), "DISTORTION")) continue;
+                    $basePower = CardPower($fObj->CardID);
+                    if($basePower !== null && $basePower > 0) $bonus += $basePower;
+                }
+                $power += $bonus;
+            }
+            break;
+        case "clS3E0HrZL": // Rhongomiant, Grove's Spire: [Mordred Bonus] +4 POWER while opponent has influence 8+
+            {
+                $opponent = ($obj->Controller == 1) ? 2 : 1;
+                if(IsMordredBonusActive($obj->Controller) && GetInfluence($opponent) >= 8) {
+                    $power += 4;
+                }
+            }
+            break;
         case "JAs9SmLqUS"://Gildas, Chronicler of Aesal
             $memory = &GetMemory($obj->Controller);
             $hand = &GetHand($obj->Controller);
@@ -10939,6 +10993,11 @@ $customDQHandlers["StiflingGyreFireEnter"] = function($player, $parts, $lastDeci
     }
 };
 
+$customDQHandlers["RhongomiantReturnMemory"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MZMove($player, $lastDecision, "myHand");
+};
+
 $customDQHandlers["RecurringAetherchargeLoad"] = function($player, $parts, $lastDecision) {
     LoadCardIntoAetherwingFromGY($player, "MG8QoeZBXY");
 };
@@ -10948,6 +11007,14 @@ function IsTonorisBonusActive($player) {
         || ChampionHasInLineage($player, "yevpmu6gvn")
         || ChampionHasInLineage($player, "ta6qsesw2u")
         || ChampionHasInLineage($player, "n2jnltv5kl");
+}
+
+function IsMordredBonusActive($player) {
+    $lineage = GetChampionLineage($player);
+    foreach($lineage as $lineageCardID) {
+        if(strpos(CardName($lineageCardID), "Mordred") === 0) return true;
+    }
+    return false;
 }
 
 function GainCrowdsFavor($player) {
@@ -17080,6 +17147,25 @@ function GetDynamicAbilities($obj) {
             }
         }
     }
+    // Cheshire Cat, Impish Grin (cUltOcPo26): has activated abilities of Distortion regalia you control
+    if($obj->CardID === "cUltOcPo26" && $obj->Status == 2) {
+        global $playerID;
+        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $field = GetZone($zone);
+        foreach($field as $fObj) {
+            if($fObj->removed || HasNoAbilities($fObj)) continue;
+            if(!PropertyContains(EffectiveCardType($fObj), "REGALIA")) continue;
+            if(!PropertyContains(EffectiveCardSubtypes($fObj), "DISTORTION")) continue;
+            $abilityCount = CardActivateAbilityCount($fObj->CardID);
+            for($ai = 0; $ai < $abilityCount; ++$ai) {
+                $abilities[] = [
+                    "name" => "Copy: " . CardName($fObj->CardID) . " [" . ($ai + 1) . "]",
+                    "index" => $nextIndex
+                ];
+                $nextIndex++;
+            }
+        }
+    }
     if(empty($abilities)) return "";
     return json_encode($abilities);
 }
@@ -17316,6 +17402,21 @@ function RemoveCounters($player, $mzCard, $counterType, $amount = 1) {
                     break;
                 }
             }
+        }
+    }
+
+    // Rhongomiant, Grove's Spire (clS3E0HrZL): [Mordred Bonus] whenever durability is removed,
+    // you may return a card from memory to hand.
+    if($counterType === "durability" && $amount > 0 && $obj->CardID === "clS3E0HrZL"
+        && !HasNoAbilities($obj) && IsMordredBonusActive($obj->Controller ?? $player)) {
+        $controller = intval($obj->Controller ?? $player);
+        global $playerID;
+        $memoryZone = ($controller == $playerID) ? "myMemory" : "theirMemory";
+        $memoryCards = ZoneSearch($memoryZone);
+        if(!empty($memoryCards)) {
+            DecisionQueueController::AddDecision($controller, "MZMAYCHOOSE", implode("&", $memoryCards), 1,
+                tooltip:"Return_a_card_from_memory_to_hand?_(Rhongomiant)");
+            DecisionQueueController::AddDecision($controller, "CUSTOM", "RhongomiantReturnMemory", 1);
         }
     }
 }

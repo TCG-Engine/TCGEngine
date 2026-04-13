@@ -138,6 +138,14 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
                 break;
             }
         }
+
+        // Flawless Spirit of Mordred (cXEI5vo6iG): can only level up into a "Mordred" champion
+        foreach($field as &$fObj) {
+            if(!$fObj->removed && $fObj->CardID === "cXEI5vo6iG" && $fObj->Controller == $player) {
+                if(strpos(CardName($materializeCard->CardID), "Mordred") !== 0) return;
+                break;
+            }
+        }
     }
 
     $memoryCost = $ignoreCost ? 0 : CardMemoryCost($materializeCard);
