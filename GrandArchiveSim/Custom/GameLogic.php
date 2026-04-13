@@ -188,6 +188,7 @@ $Cardistry_Cards["EIpkYYSP3s"] = 6; // Senaris, Six of Diamonds
 $Cardistry_Cards["DKoSnhjX18"] = 7; // Chance, Seven of Spades
 $Cardistry_Cards["nduIoPhZr1"] = 7; // Seven of Hearts
 $Cardistry_Cards["0mf1ug6yfi"] = 10; // Wonderland's Reign
+$Cardistry_Cards["NsnBhlVzTV"] = 4; // Four of Diamonds
 
 // --- Lineage Release Abilities Registry ---
 // Maps cardID => ['name' => display name, 'effect' => function($player) { ... }]
@@ -4268,6 +4269,21 @@ function OnCardActivated($player, $mzCard) {
     // and they have exactly 3 cards in memory, transform
     FatestoneOfBalanceOnOpponentActivated($player);
 
+    // Alpha Philterbeast (NwK5wge8wy): whenever an opponent activates a card with reserve cost 3+,
+    // put an age counter on it
+    $opponent = ($player == 1) ? 2 : 1;
+    if(intval(CardCost_reserve($obj->CardID)) >= 3) {
+        global $playerID;
+        $oppFieldZone = $opponent == $playerID ? "myField" : "theirField";
+        $oppFieldArr = GetField($opponent);
+        for($ofi = 0; $ofi < count($oppFieldArr); ++$ofi) {
+            if(!$oppFieldArr[$ofi]->removed && $oppFieldArr[$ofi]->CardID === "NwK5wge8wy"
+               && !HasNoAbilities($oppFieldArr[$ofi])) {
+                AddCounters($opponent, $oppFieldZone . "-" . $ofi, "age", 1);
+            }
+        }
+    }
+
     // Kongming, Fel Eidolon (7x2v4tdop1): Inherited — whenever you activate a Spell card,
     // may change SC to an adjacent direction.
     if(PropertyContains($subtypes, "SPELL") && HasShiftingCurrents($player)
@@ -4425,6 +4441,10 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "Nym5Y3JsO5": // Trivial Trinket — banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "DNbIpzVgde": { // Lost Providence — REST + banish self
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1; // REST
@@ -4556,6 +4576,16 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "9g44vm5kt3": // Empowering Tincture: sacrifice self
         case "14m4c8ljye": // Condensed Supernova: sacrifice self
         case "0Z1r8GC8a8": // Speed Potion: sacrifice self
+            ProcessPotionInfusionTriggers($player, $mzCard);
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "O1OU62Zx2Y": // Distilled Water: sacrifice self — store whether it was brewed
+            {
+                $sourceObj = GetZoneObject($mzCard);
+                $wasBrewed = ($sourceObj !== null && is_array($sourceObj->Counters) && isset($sourceObj->Counters['brewed'])) ? "YES" : "NO";
+                DecisionQueueController::StoreVariable("O1OU62Zx2Y_wasBrewed", $wasBrewed);
+            }
             ProcessPotionInfusionTriggers($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
@@ -5541,6 +5571,26 @@ function OnEnter($player, $mzID) {
     // stored index may differ from the card's actual current position.
     DecisionQueueController::StoreVariable("mzID", $obj->GetMzID());
     if(HasNoAbilities($obj)) return;
+    // Stifling Gyre (OADTyAUBZt): if opponent has Stifling Gyre on field naming this CardID,
+    // offer the entering player a choice: pay (4) to proceed with on-enter trigger, or it's negated.
+    if(PropertyContains(EffectiveCardType($obj), "ALLY") && isset($enterAbilities[$CardID . ":0"])) {
+        $gyreOpponent = ($player == 1) ? 2 : 1;
+        global $playerID;
+        $gyreZone = $gyreOpponent == $playerID ? "myField" : "theirField";
+        $gyreField = GetZone($gyreZone);
+        foreach($gyreField as $gyreObj) {
+            if($gyreObj->removed || $gyreObj->CardID !== "OADTyAUBZt" || HasNoAbilities($gyreObj)) continue;
+            $namedID = is_array($gyreObj->Counters) ? ($gyreObj->Counters['namedCardID'] ?? null) : null;
+            if($namedID === $CardID) {
+                DecisionQueueController::StoreVariable("OADTyAUBZt_namedCardID", $CardID);
+                DecisionQueueController::StoreVariable("OADTyAUBZt_enteringPlayer", strval($player));
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                    tooltip:"Pay_(4)_or_on-enter_trigger_is_negated_(Stifling_Gyre)");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyrePayOrNegate", 1);
+                return;
+            }
+        }
+    }
     if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
 }
 
@@ -5614,7 +5664,6 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     // Track that this card entered the field this turn (for Tempest Downfall etc.)
     $added->TurnEffects[] = "ENTERED_THIS_TURN";
 
-    // Shilowen, Peaceful Beginnings (L9zeix1x4N): ally entry may convert 2 durability to a bulwark counter.
     if(PropertyContains(CardType($added->CardID), "ALLY")) {
         for($si = 0; $si < count($field); ++$si) {
             if($field[$si]->removed || $field[$si]->CardID !== "L9zeix1x4N" || HasNoAbilities($field[$si])) continue;
@@ -8883,6 +8932,12 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "NRBO0nVMdl": // Photic Blade: +1 POWER per refinement counter
+            $power += GetCounterCount($obj, "refinement");
+            break;
+        case "NwK5wge8wy": // Alpha Philterbeast: +1 POWER per age counter
+            $power += GetCounterCount($obj, "age");
+            break;
         default: break;
     }
     // Field-presence passives — Banner Knight gives +1 POWER to other allies and weapons
@@ -10132,6 +10187,9 @@ function ObjectCurrentHP($obj) {
                 $cardLife += $tokenCount;
             }
             break;
+        case "NwK5wge8wy": // Alpha Philterbeast: +1 LIFE per age counter
+            $cardLife += GetCounterCount($obj, "age");
+            break;
         case "z4pyx8bd7o": // Young Peacekeeper: +1 LIFE while fostered
             if(IsFostered($obj)) $cardLife += 1;
             break;
@@ -10537,6 +10595,16 @@ function ObjectCurrentHP($obj) {
     if(in_array("tFOpmUdi2W_HP", $obj->TurnEffects)) {
         $cardLife += 2;
     }
+    // Miasmic Fog (OwhKGEMTXm): all allies get -1 LIFE while it's on the field
+    if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
+        $allField = array_merge(GetZone("myField"), GetZone("theirField"));
+        foreach($allField as $fogObj) {
+            if(!$fogObj->removed && $fogObj->CardID === "OwhKGEMTXm" && !HasNoAbilities($fogObj)) {
+                $cardLife -= 1;
+                break; // only subtract once per copy (each copy checked separately)
+            }
+        }
+    }
     // Resonating Fugue (optpu3fubb): POWER_LIFE_SWAP — return power value instead of life
     global $_computingPowerLifeSwap;
     if(!$_computingPowerLifeSwap && in_array("POWER_LIFE_SWAP", $obj->TurnEffects ?? [])) {
@@ -10781,6 +10849,26 @@ $customDQHandlers["ShilowenBulwark"] = function($player, $parts, $lastDecision) 
     if($sourceObj === null || $targetObj === null || GetCounterCount($sourceObj, "durability") < 2) return;
     RemoveCounters($player, $source, "durability", 2);
     AddCounters($player, $target, "bulwark", 1);
+};
+
+$customDQHandlers["StiflingGyrePayOrNegate"] = function($player, $parts, $lastDecision) {
+    global $enterAbilities;
+    $cardID = DecisionQueueController::GetVariable("OADTyAUBZt_namedCardID");
+    $enteringPlayer = intval(DecisionQueueController::GetVariable("OADTyAUBZt_enteringPlayer"));
+    if($lastDecision !== "YES") return;
+    for($i = 0; $i < 4; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyreFireEnter|" . $cardID . "|" . $enteringPlayer, 1);
+};
+
+$customDQHandlers["StiflingGyreFireEnter"] = function($player, $parts, $lastDecision) {
+    global $enterAbilities;
+    $cardID = $parts[0] ?? "";
+    $enteringPlayer = intval($parts[1] ?? $player);
+    if(isset($enterAbilities[$cardID . ":0"])) {
+        $enterAbilities[$cardID . ":0"]($enteringPlayer);
+    }
 };
 
 $customDQHandlers["RecurringAetherchargeLoad"] = function($player, $parts, $lastDecision) {
@@ -13324,10 +13412,17 @@ function RecoverChampion($player, $amount=1) {
             $field = GetField($player);
             $fieldZone = $player == $playerID ? "myField" : "theirField";
             for($fi = 0; $fi < count($field); ++$fi) {
-                if($field[$fi]->removed || $field[$fi]->CardID !== "2jgiM0p4dt" || HasNoAbilities($field[$fi])) continue;
-                if(!IsClassBonusActive($player, ["ASSASSIN"])) continue;
-                AddTurnEffect($fieldZone . "-" . $fi, "2jgiM0p4dt_RECOVER_" . intval($amount));
-                if(intval($amount) >= 4) AddTurnEffect($fieldZone . "-" . $fi, "UNBLOCKABLE");
+                if($field[$fi]->removed || HasNoAbilities($field[$fi])) continue;
+                if($field[$fi]->CardID === "2jgiM0p4dt") {
+                    if(!IsClassBonusActive($player, ["ASSASSIN"])) continue;
+                    AddTurnEffect($fieldZone . "-" . $fi, "2jgiM0p4dt_RECOVER_" . intval($amount));
+                    if(intval($amount) >= 4) AddTurnEffect($fieldZone . "-" . $fi, "UNBLOCKABLE");
+                }
+                // Photic Blade (NRBO0nVMdl): [Class Bonus] whenever you recover, put a refinement counter on it
+                if($field[$fi]->CardID === "NRBO0nVMdl") {
+                    if(!IsClassBonusActive($player, ["ASSASSIN"])) continue;
+                    AddCounters($player, $fieldZone . "-" . $fi, "refinement", 1);
+                }
             }
 
             return $obj;

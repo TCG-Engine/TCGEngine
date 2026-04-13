@@ -22,6 +22,8 @@ $brewCosts["7kr1haizu8"] = [["type"=>"SUBTYPE","subtype"=>"ROOT"], ["type"=>"HER
 $brewCosts["nsjukk5zk4"] = [["type"=>"SUBTYPE","subtype"=>"FLOWER"], ["type"=>"HERB"]]; // Invigorating Concoction: One Flower, One Herb
 $brewCosts["yorsltrnu3"] = [["type"=>"SUBTYPE","subtype"=>"LEAF"], ["type"=>"HERB"]]; // Explosive Concoction: One Leaf, One Herb
 $brewCosts["0Z1r8GC8a8"] = [["type"=>"HERB","count"=>2]]; // Speed Potion: 2 Herbs
+$brewCosts["NwK5wge8wy"] = [["type"=>"HERB","count"=>3]]; // Alpha Philterbeast: 3 Herbs
+$brewCosts["O1OU62Zx2Y"] = [["type"=>"HERB","count"=>1]]; // Distilled Water: 1 Herb
 
 // --- Gather (Grand Archive keyword): summon a random herb token ---
 
