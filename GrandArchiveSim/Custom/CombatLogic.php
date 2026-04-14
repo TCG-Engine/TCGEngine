@@ -3715,6 +3715,7 @@ function OnDealDamage($player, $source, $target, $amount) {
     if($amount >= 4 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         AegisOfDawnTrigger($targetObj->Controller ?? $player);
     }
+    RadiantOriginGuardianTrigger($source, $amount);
 
     // Jin, Undying Resolve (c4yrrtv7o1): Immortality — can't die except during Jin's controller's end phase
     if($amount > 0 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
@@ -3881,6 +3882,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     if(isset($dealDamageAbilities) && isset($dealDamageAbilities[$targetObj->CardID . ":0"])) {
         $dealDamageAbilities[$targetObj->CardID . ":0"]($player);
     }
+    RadiantOriginGuardianTrigger($source, $amount);
 
     // Magebane Lash (oh300z2sns): Nico Bonus — whenever Nico takes non-combat damage, recover 2
     $isNonCombat = DecisionQueueController::GetVariable("CombatAttacker") === null;
@@ -3894,6 +3896,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     if($amount >= 4 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         AegisOfDawnTrigger($targetObj->Controller ?? $player);
     }
+    RadiantOriginGuardianTrigger($source, $amount);
 
     // Jin, Undying Resolve (c4yrrtv7o1): Immortality — can't die except during Jin's controller's end phase
     if($amount > 0 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {

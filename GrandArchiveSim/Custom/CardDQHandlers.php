@@ -3846,6 +3846,21 @@ function AegisOfDawnTrigger($player) {
     }
 }
 
+function RadiantOriginGuardianTrigger($sourceMZ, $amount) {
+    if(intval($amount) < 4) return;
+    $sourceObj = GetZoneObject($sourceMZ);
+    if($sourceObj === null || $sourceObj->removed || HasNoAbilities($sourceObj)) return;
+    if(!PropertyContains(EffectiveCardType($sourceObj), "ALLY") && !PropertyContains(EffectiveCardType($sourceObj), "CHAMPION")) return;
+    $controller = intval($sourceObj->Controller ?? 0);
+    if($controller <= 0) return;
+    $field = &GetField($controller);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "yT32RI6pqt" && !HasNoAbilities($field[$i])) {
+            AddCounters($controller, "myField-" . $i, "training", 1);
+        }
+    }
+}
+
 // --- Backup Charger (9gv4vm4kj3): after reserve payment, summon Powercell rested + draw into memory ---
 $customDQHandlers["BackupChargerEffect"] = function($player, $parts, $lastDecision) {
     MZAddZone($player, "myField", "qzzadf9q1v"); // Powercell token

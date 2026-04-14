@@ -4107,6 +4107,7 @@ function OnCardActivated($player, $mzCard) {
         // Attack cards resolve and enter the champion's intent zone
         $obj = MZMove($player, $mzCard, "myIntent");
         $obj->Controller = $player;
+        IncrementAttackCardActivatedCount($player);
         // Tag with PREPARED TurnEffect if the Prepare cost was paid
         $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
         if($wasPrepared === "YES") {
@@ -5989,6 +5990,10 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     }
     // Map of Hidden Passage (2bzajcZZRD): enters the field rested (card text)
     if($added->CardID == "2bzajcZZRD") {
+        $added->Status = 1;
+    }
+    // Seed of Nature (ybdj1Db9jz): enters the field rested (card text)
+    if($added->CardID == "ybdj1Db9jz") {
         $added->Status = 1;
     }
     
@@ -8579,6 +8584,11 @@ function ObjectCurrentPower($obj) {
                 }
             }
             break;
+        case "y8BNOi4rwD": // Luminescent Slash: [Mordred Bonus] +2 POWER per other attack card activated this turn
+            if(IsMordredBonusActive($obj->Controller)) {
+                $power += max(0, AttackCardActivatedCount($obj->Controller) - 1) * 2;
+            }
+            break;
         case "JAs9SmLqUS"://Gildas, Chronicler of Aesal
             $memory = &GetMemory($obj->Controller);
             $hand = &GetHand($obj->Controller);
@@ -10631,6 +10641,18 @@ function ObjectCurrentLevel($obj) {
                 }
             }
         }
+        // Commanding Sea Titan (y5e4a8a23l): champions you don't control get -1 level
+        {
+            global $playerID;
+            $oppZone = $obj->Controller == $playerID ? "theirField" : "myField";
+            $oppField = GetZone($oppZone);
+            foreach($oppField as $seaObj) {
+                if(!$seaObj->removed && $seaObj->CardID === "y5e4a8a23l" && !HasNoAbilities($seaObj)) {
+                    $cardLevel -= 1;
+                    break;
+                }
+            }
+        }
         global $playerID;
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
@@ -11557,6 +11579,18 @@ function IsMordredBonusActive($player) {
         if(strpos(CardName($lineageCardID), "Mordred") === 0) return true;
     }
     return false;
+}
+
+function AttackCardActivatedCount($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    return intval($_ti["AttackCardActivated"][$player] ?? 0);
+}
+
+function IncrementAttackCardActivatedCount($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(!isset($_ti["AttackCardActivated"])) $_ti["AttackCardActivated"] = [];
+    $_ti["AttackCardActivated"][$player] = intval($_ti["AttackCardActivated"][$player] ?? 0) + 1;
+    SetMacroTurnIndex(json_encode($_ti));
 }
 
 function GainCrowdsFavor($player) {
@@ -13506,6 +13540,7 @@ $ephemerateCards["t2lW0Q5KJS"] = ['cost' => 2, 'condition' => function($player) 
 }]; // Flared Iridescence
 $ephemerateCards["Dtr3jPRAFJ"] = ['cost' => 6]; // Spectral Haunting
 $ephemerateCards["U6krXc5283"] = ['cost' => 2]; // Vantage Point
+$ephemerateCards["xWqduqhMNp"] = ['cost' => 2]; // Reactivate Drone
 $ephemerateCards["UtwWXmc0IU"] = ['cost' => 5]; // Haunting Apparition
 $ephemerateCards["V8XBfRpDRJ"] = ['cost' => 2, 'condition' => function($player) {
     if(!IsClassBonusActive($player, CardClasses("V8XBfRpDRJ"))) return false;
@@ -14452,6 +14487,7 @@ function DealChampionDamage($player, $amount=1, $sourceController = null) {
             if($amount >= 4) {
                 AegisOfDawnTrigger($player);
             }
+            RadiantOriginGuardianTrigger($source, $amount);
             return $obj;
         }
     }
@@ -15400,6 +15436,13 @@ $shiftingCurrentsTransitions = [];
 // Kongming, Ascetic Vice (a01pyxwo25): Inherited — N→S: draw a card
 $shiftingCurrentsTransitions["INHERITED:NORTH->SOUTH"]["a01pyxwo25"] = function($player, $mzID) {
     Draw($player, 1);
+};
+
+// Meiren of Verdancy (y46R5C190v): [Kongming Bonus] E→S recover 4
+$shiftingCurrentsTransitions["EAST->SOUTH"]["y46R5C190v"] = function($player, $mzID) {
+    if(IsKongmingBonus($player)) {
+        RecoverChampion($player, 4);
+    }
 };
 
 // Hydroguard Retainer (0qm7n87o4s): N→W: draw a card
@@ -16550,6 +16593,17 @@ function HasSpellshroud($obj) {
         $msField = GetZone($msZone);
         foreach($msField as $msObj) {
             if(!$msObj->removed && $msObj->CardID === "tsvbgl6ffq" && !HasNoAbilities($msObj)) {
+                return true;
+            }
+        }
+    }
+    // Void's Cloak (wqpsErSeFn): you have spellshroud
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        global $playerID;
+        $vcZone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $vcField = GetZone($vcZone);
+        foreach($vcField as $vcObj) {
+            if(!$vcObj->removed && $vcObj->CardID === "wqpsErSeFn" && !HasNoAbilities($vcObj)) {
                 return true;
             }
         }
