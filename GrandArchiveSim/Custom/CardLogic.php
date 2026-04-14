@@ -314,6 +314,19 @@ function BecomeDistant($player, $mzID) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "AlizarinLongbowmanDraw", 1);
         }
     }
+    // Radiant Origin of Ranger (tp7eVOsAHU): whenever a Ranger unit you control becomes distant,
+    // put a training counter on each copy you control.
+    if($obj !== null && (PropertyContains(EffectiveCardType($obj), "ALLY") || PropertyContains(EffectiveCardType($obj), "CHAMPION"))
+        && PropertyContains(EffectiveCardClasses($obj), "RANGER")) {
+        global $playerID;
+        $trialZone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $trialField = GetZone($trialZone);
+        foreach($trialField as $ti => $tObj) {
+            if(!$tObj->removed && $tObj->CardID === "tp7eVOsAHU" && !HasNoAbilities($tObj)) {
+                AddCounters($obj->Controller, $trialZone . "-" . $ti, "training", 1);
+            }
+        }
+    }
 }
 
 /**

@@ -5780,6 +5780,10 @@ function WakeUpPhase() {
             if(in_array("BLAZING_CHARGE_NEXT_TURN", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["BLAZING_CHARGE_NEXT_TURN"]));
             }
+            // Ionized Asceticism (u2Peefob8w): remove the -10 level marker at the beginning of your next turn
+            if(in_array("u2Peefob8w_MINUS10_NEXT_TURN", $field[$i]->TurnEffects)) {
+                $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["u2Peefob8w_MINUS10_NEXT_TURN"]));
+            }
             // Calamity Cannon: convert persistent marker to active (consumable this turn)
             if(in_array("CALAMITY_CANNON", $field[$i]->TurnEffects)) {
                 $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["CALAMITY_CANNON"]));
@@ -7157,6 +7161,14 @@ function RecollectionPhase() {
                         }
                     }
                     break;
+                case "tzV8YfYdHg": // Alice, Trifle's Royalty: summon a Pawn Piece, then draw if you control 3+ Chessman allies
+                    if(!HasNoAbilities($field[$i])) {
+                        SummonPawnPieceToken($turnPlayer);
+                        if(count(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"])) >= 3) {
+                            DrawIntoMemory($turnPlayer, 1);
+                        }
+                    }
+                    break;
                 case "j4U5Tu76Lz": // Optical Control: sacrifice this and draw a card
                     if(!HasNoAbilities($field[$i])) {
                         DoSacrificeFighter($turnPlayer, "myField-" . $i);
@@ -7179,6 +7191,12 @@ function RecollectionPhase() {
                     }
                     break;
                 case "t3q2svd53z": // Aqueous Armor: mill 1 at beginning of recollection phase
+                    if(!HasNoAbilities($field[$i])) {
+                        MillCards($turnPlayer, "myDeck", "myGraveyard", 1);
+                    }
+                    break;
+                case "lildjctw73": // Slick Torrentrider: mill 1 at beginning of recollection phase
+                case "u4q9qrmpef": // Slick Torrentrider alt print
                     if(!HasNoAbilities($field[$i])) {
                         MillCards($turnPlayer, "myDeck", "myGraveyard", 1);
                     }
@@ -7491,6 +7509,18 @@ function RecollectionPhase() {
 
     // Haunting Demise (v0buu5y0ub): inherited recollection damage
     if(ChampionHasInLineage($turnPlayer, "v0buu5y0ub") && !AreCurseLineageAbilitiesSuppressed($turnPlayer)) {
+        $champZone = $turnPlayer == $playerID ? "myField" : "theirField";
+        $champField = GetZone($champZone);
+        for($ci = 0; $ci < count($champField); ++$ci) {
+            if(PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
+                DealUnpreventableDamage($turnPlayer, $champZone . "-" . $ci, $champZone . "-" . $ci, 1);
+                break;
+            }
+        }
+    }
+
+    // Blight's Ring (u8LjHnH6iC): inherited recollection damage
+    if(ChampionHasInLineage($turnPlayer, "u8LjHnH6iC") && !AreCurseLineageAbilitiesSuppressed($turnPlayer)) {
         $champZone = $turnPlayer == $playerID ? "myField" : "theirField";
         $champField = GetZone($champZone);
         for($ci = 0; $ci < count($champField); ++$ci) {
@@ -8441,6 +8471,9 @@ function ObjectCurrentPower($obj) {
         }
         if($effect === "CyiA6N2geQ") {
             $power += 1;
+        }
+        if($effect === "tZtoAl4ojK_POWER") {
+            $power -= 5;
         }
         if(strpos($effect, "AxHzxEHBHZ_EMPOWER_") === 0) {
             $power += intval(substr($effect, strlen("AxHzxEHBHZ_EMPOWER_")));
@@ -9411,6 +9444,11 @@ function ObjectCurrentPower($obj) {
                         $power += 2;
                     }
                 }
+            }
+            break;
+        case "u1a1s4ys44": // Excalibur, Reflected Edge: [Merlin Bonus] +1 POWER
+            if(IsMerlinBonusActive($obj->Controller)) {
+                $power += 1;
             }
             break;
         case "NRBO0nVMdl": // Photic Blade: +1 POWER per refinement counter
@@ -10434,6 +10472,9 @@ function ObjectCurrentLevel($obj) {
             case "MRiM1fnOWC-level": // Heirloom of Libra: opposing champion gets -5 level until end of turn
                 $cardLevel -= 5;
                 break;
+            case "u2Peefob8w_MINUS10_NEXT_TURN": // Ionized Asceticism: your champion gets -10 level until your next turn
+                $cardLevel -= 10;
+                break;
             case "9f0nsj62l6": // Apprentice Aeromancer: Empower 2 (+2 level until end of turn)
                 $cardLevel += 2;
                 break;
@@ -10718,6 +10759,9 @@ function ObjectCurrentHP($obj) {
     }
     if(in_array("9urNxU7SZw_HP3", $obj->TurnEffects ?? [])) {
         $cardLife += 3;
+    }
+    if(in_array("tZtoAl4ojK_LIFE", $obj->TurnEffects ?? [])) {
+        $cardLife -= 5;
     }
     foreach($obj->TurnEffects ?? [] as $te) {
         if(strpos($te, "k8bwlx70qj_HP_") === 0) {
@@ -13430,6 +13474,7 @@ $ephemerateCards["ULHGVVpQoH"] = ['cost' => 5]; // Indissoluble Fractal
 $ephemerateCards["XFWU8KTVW9"] = ['cost' => 2]; // Ghastly Slime
 $ephemerateCards["XK3NiQ5MdR"] = ['cost' => 1]; // Remnant of Will
 $ephemerateCards["YFCfIOwNQ5"] = ['cost' => 2]; // Singeing Leap
+$ephemerateCards["tZtoAl4ojK"] = ['cost' => 3]; // Visceral Inversion
 $ephemerateCards["p7FWS3DA4a"] = ['cost' => 2]; // Molten Echo
 $ephemerateCards["t2lW0Q5KJS"] = ['cost' => 2, 'condition' => function($player) {
     return IsMerlinBonusActive($player) && (GetSheenCount($player) >= 10 || PlayerLevel($player) >= 5);
