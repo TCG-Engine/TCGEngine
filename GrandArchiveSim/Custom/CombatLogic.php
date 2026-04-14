@@ -1162,6 +1162,18 @@ function OnAttackTrigger($player, $mzID) {
         }
     }
 
+    // Radiant Origin of Tamer (zS0TJ97QSV): whenever you declare an attack with a non-Human ally,
+    // put a training counter on it.
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY")
+        && !PropertyContains(EffectiveCardSubtypes($obj), "HUMAN")) {
+        $field = &GetField($player);
+        for($ri = 0; $ri < count($field); ++$ri) {
+            if(!$field[$ri]->removed && $field[$ri]->CardID === "zS0TJ97QSV" && !HasNoAbilities($field[$ri])) {
+                AddCounters($player, "myField-" . $ri, "training", 1);
+            }
+        }
+    }
+
     // Hulao Gate, Sun's Ascent (snke7lneo4): whenever a unit declares an attack, deal 2 damage to it
     foreach(array_merge(GetField(1), GetField(2)) as $hgObj) {
         if(!$hgObj->removed && $hgObj->CardID === "snke7lneo4" && !HasNoAbilities($hgObj)) {

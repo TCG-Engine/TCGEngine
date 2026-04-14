@@ -87,13 +87,20 @@ function ReconcileEffectStackSourceZones() {
     SetMacroTurnIndex(empty($_ti) ? '{}' : json_encode($_ti));
 }
 
-function TrackCardActivationNegated($player, $cardID) {
+function TrackCardActivationNegated($player, $cardID, $negatedController = null) {
     $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
     if(!isset($_ti["CardActivationNegated"])) $_ti["CardActivationNegated"] = [];
     $_ti["CardActivationNegated"][$player] = ($_ti["CardActivationNegated"][$player] ?? 0) + 1;
     if(!isset($_ti["CardActivationNegatedCards"])) $_ti["CardActivationNegatedCards"] = [];
     if(!isset($_ti["CardActivationNegatedCards"][$player])) $_ti["CardActivationNegatedCards"][$player] = [];
     $_ti["CardActivationNegatedCards"][$player][] = $cardID;
+    if($negatedController !== null) {
+        if(!isset($_ti["ControlledActivationNegated"])) $_ti["ControlledActivationNegated"] = [];
+        $_ti["ControlledActivationNegated"][$negatedController] = ($_ti["ControlledActivationNegated"][$negatedController] ?? 0) + 1;
+        if(!isset($_ti["ControlledActivationNegatedCards"])) $_ti["ControlledActivationNegatedCards"] = [];
+        if(!isset($_ti["ControlledActivationNegatedCards"][$negatedController])) $_ti["ControlledActivationNegatedCards"][$negatedController] = [];
+        $_ti["ControlledActivationNegatedCards"][$negatedController][] = $cardID;
+    }
     SetMacroTurnIndex(json_encode($_ti));
 }
 
@@ -101,6 +108,31 @@ function CardActivationNegatedThisTurn($player) {
     $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
     return ($_ti["CardActivationNegated"][$player] ?? 0) > 0;
 }
+
+function TriggerReversalsPolarity($controller, $cardID) {
+    if(CardElement($cardID) !== "ARCANE") return;
+    $damage = max(0, intval(CardCost_reserve($cardID)));
+    if($damage <= 0) return;
+    $targets = array_merge(
+        ZoneSearch("myField", ["CHAMPION"], forPlayer: $controller),
+        ZoneSearch("theirField", ["CHAMPION"], forPlayer: $controller)
+    );
+    if(empty($targets)) return;
+    $targetStr = implode("&", $targets);
+    $field = &GetField($controller);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "zVdqJRbsk1" || HasNoAbilities($field[$i])) continue;
+        DecisionQueueController::AddDecision($controller, "MZCHOOSE", $targetStr, 1, "Choose_champion_for_Reversal's_Polarity");
+        DecisionQueueController::AddDecision($controller, "CUSTOM", "ReversalsPolarityDamage|" . $damage, 1);
+    }
+}
+
+$customDQHandlers["ReversalsPolarityDamage"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $damage = max(0, intval($parts[0] ?? 0));
+    if($damage <= 0) return;
+    DealDamage($player, "zVdqJRbsk1", $lastDecision, $damage);
+};
 
 function NegatedActivationDestination($mzID, $mode = "default") {
     $obj = GetZoneObject($mzID);
@@ -123,7 +155,8 @@ function NegateCardActivation($player, $targetMZ, $destinationMode = "default") 
     MZMove($controller, $targetMZ, $dest);
     $playerID = $savedPlayerID;
     ReconcileEffectStackSourceZones();
-    TrackCardActivationNegated($player, $cardID);
+    TrackCardActivationNegated($player, $cardID, $controller);
+    TriggerReversalsPolarity($controller, $cardID);
     QueueConstellatorySpireTrigger($player);
     DecisionQueueController::CleanupRemovedCards();
     return true;
@@ -391,6 +424,9 @@ function GetPlayableFastCards($player) {
             $fastCards[] = "myHand-" . $i;
         } elseif($obj->CardID === "zeig1e49wb" && GetShiftingCurrents($player) === "NORTH") {
             // Solar Pinnacle: Fast Activation while SC faces North
+            $fastCards[] = "myHand-" . $i;
+        } elseif($obj->CardID === "yrzexkW5Ej" && GetCurrentPhase() === "RECOLLECTION" && $player != GetTurnPlayer()) {
+            // Sink the Mind: may be activated during an opponent's recollection phase
             $fastCards[] = "myHand-" . $i;
         } elseif($obj->CardID === "0oyxjld8jh") {
             // Guan Yu, Prime Exemplar: Fast Activation if a Human ally you controlled died this turn

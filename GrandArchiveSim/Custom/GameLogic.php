@@ -6253,6 +6253,18 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Synth Disrupter (z1vdxi74wa): Automaton allies enter the field rested this turn.
+    if((PropertyContains(CardType($added->CardID), "ALLY")
+            || (PropertyContains(CardType($added->CardID), "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY")))
+        && PropertyContains(CardSubtypes($added->CardID), "AUTOMATON")) {
+        for($sdp = 1; $sdp <= 2; ++$sdp) {
+            if(GlobalEffectCount($sdp, "z1vdxi74wa_RESTED") > 0) {
+                $added->Status = 1;
+                break;
+            }
+        }
+    }
+
     // Fount Seraphim (k4pjo6lVMO): until beginning of controller's next turn, opponents' allies enter rested
     if(PropertyContains(CardType($added->CardID), "ALLY")) {
         for($fsp = 1; $fsp <= 2; ++$fsp) {
@@ -14695,6 +14707,20 @@ function IsEmpowered($player) {
         }
     }
     return false;
+}
+
+function HandleZoneMoveTriggers($player, $fromZone, $toZone) {
+    if(strpos($fromZone, "Memory") !== false && strpos($toZone, "Hand") !== false) {
+        if(GetTurnPlayer() == $player && GlobalEffectCount($player, "yrzexkW5Ej") > 0) {
+            $deck = &GetDeck($player);
+            foreach($deck as $deckObj) {
+                if(!$deckObj->removed) {
+                    MZMove($player, "myDeck-0", "myGraveyard");
+                    break;
+                }
+            }
+        }
+    }
 }
 
 /**
