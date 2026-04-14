@@ -258,6 +258,25 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         return;
     }
 
+    // Coronal of Rejuvenation (uvgflagxbb): additional cost to materialize — banish 1 preserved card from material deck
+    if($materializeCard->CardID === "uvgflagxbb" && !$ignoreCost) {
+        global $Preserve_Cards;
+        $material = GetZone("myMaterial");
+        $preserved = [];
+        for($i = 0; $i < count($material); ++$i) {
+            if($material[$i]->removed) continue;
+            if(isset($Preserve_Cards[$material[$i]->CardID])) {
+                $preserved[] = "myMaterial-" . $i;
+            }
+        }
+        if(empty($preserved)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $preserved), 1,
+            tooltip:"Banish_preserved_card_from_material_(Coronal)");
+        DecisionQueueController::AddDecision($player, "CUSTOM",
+            "CoronalMaterializeCost|" . $lastDecision . "|" . $memoryCost, 1);
+        return;
+    }
+
     // Clarent, Reimagined (kINobk9KQA): [Lorraine Bonus] may banish Clarent, Sword of Peace and up to one other Sword Regalia from material to pay memory.
     if($materializeCard->CardID === "kINobk9KQA" && !$ignoreCost && $memoryCost > 0 && IsLorraineBonusActive($player)) {
         $material = GetZone("myMaterial");
@@ -406,6 +425,23 @@ $customDQHandlers["VernalTalismanMaterializeCostFinish"] = function($player, $pa
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
         $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
+        if($floatingIndices != "") {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+    }
+    Materialize($player, $mzCard);
+};
+
+$customDQHandlers["CoronalMaterializeCost"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzCard = $parts[0];
+    $memoryCost = intval($parts[1]);
+    MZMove($player, $lastDecision, "myBanish");
+    if($memoryCost > 0) {
+        DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
+        $floatingIndices = GetMaterializeFloatingChoices($player);
         if($floatingIndices != "") {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
             DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);

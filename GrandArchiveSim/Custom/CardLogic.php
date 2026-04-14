@@ -327,7 +327,76 @@ function BecomeDistant($player, $mzID) {
             }
         }
     }
+    // Diana, Moonpiercer (v3vfjtwm7g): when Diana becomes distant, choose negate mode or Glimpse 2.
+    if($obj !== null && $obj->CardID === "v3vfjtwm7g" && !HasNoAbilities($obj)) {
+        DecisionQueueController::StoreVariable("DianaMoonpiercerMZ", $mzID);
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+            tooltip:"Negate_targeting_activations?_(No=Glimpse_2)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DianaMoonpiercerChoice", 1);
+    }
 }
+
+$customDQHandlers["DianaMoonpiercerChoice"] = function($player, $parts, $lastDecision) {
+    $mzID = DecisionQueueController::GetVariable("DianaMoonpiercerMZ") ?? "";
+    if($lastDecision !== "YES") {
+        Glimpse($player, 2);
+        return;
+    }
+
+    $currentTarget = DecisionQueueController::GetVariable("target") ?? "";
+    if($mzID !== "" && $currentTarget === $mzID) {
+        QueueNegateActivation($player, ['excludeController' => $player], "default", 2);
+    }
+
+    if($mzID !== "" && IsUnitDefending($mzID)) {
+        $attackingPlayer = ($player == 1) ? 2 : 1;
+        if(CountAvailableReservePayments($attackingPlayer) < 2) {
+            EndCombat($player);
+            return;
+        }
+        DecisionQueueController::AddDecision($attackingPlayer, "YESNO", "-", 1,
+            tooltip:"Pay_(2)_to_continue_combat?");
+        DecisionQueueController::AddDecision($attackingPlayer, "CUSTOM", "DianaMoonpiercerCombatPay|" . $player, 1);
+    }
+};
+
+$customDQHandlers["DianaMoonpiercerCombatPay"] = function($attackingPlayer, $parts, $lastDecision) {
+    $defendingPlayer = intval($parts[0] ?? (($attackingPlayer == 1) ? 2 : 1));
+    if($lastDecision === "YES" && CountAvailableReservePayments($attackingPlayer) >= 2) {
+        DecisionQueueController::AddDecision($attackingPlayer, "CUSTOM", "ReserveCard", 1);
+        DecisionQueueController::AddDecision($attackingPlayer, "CUSTOM", "ReserveCard", 1);
+        return;
+    }
+    EndCombat($defendingPlayer);
+};
+
+$customDQHandlers["CheetahOfBoundFuryTransform"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mzID = DecisionQueueController::GetVariable("mzID");
+    if($mzID === null || $mzID === "" || $mzID === "-") return;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->CardID !== "vvfwwa13y9") return;
+
+    $owner = intval($obj->Owner ?? $obj->Controller ?? $player);
+    global $playerID;
+    $banishZone = $owner == $playerID ? "myBanish" : "theirBanish";
+    $fieldZone = $owner == $playerID ? "myField" : "theirField";
+
+    MZMove($owner, $mzID, $banishZone);
+    DecisionQueueController::CleanupRemovedCards();
+
+    $banishment = GetZone($banishZone);
+    for($i = count($banishment) - 1; $i >= 0; --$i) {
+        if($banishment[$i]->removed || $banishment[$i]->CardID !== "vvfwwa13y9") continue;
+        $returned = MZMove($owner, $banishZone . "-" . $i, $fieldZone);
+        if($returned !== null) {
+            $fieldArr = GetZone($fieldZone);
+            $newIdx = count($fieldArr) - 1;
+            TransformCard($owner, $fieldZone . "-" . $newIdx);
+        }
+        break;
+    }
+};
 
 /**
  * Dahlia OnAttack: finish after YesNo — put water card to GY or back on top of deck.

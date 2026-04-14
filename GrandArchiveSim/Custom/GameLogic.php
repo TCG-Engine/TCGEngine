@@ -5056,9 +5056,22 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
             break;
+        case "uvgflagxbb": // Coronal of Rejuvenation: REST
+            {
+                $sourceObj = &GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
+            }
+            break;
         case "sqGcyYocLW": // Bairui: sacrifice self
             DoSacrificeFighter($player, $mzCard);
             DecisionQueueController::CleanupRemovedCards();
+            break;
+        case "wCAIuvPOAT": // Verdure of Preservation: pay (3), sacrifice self
+            DoSacrificeFighter($player, $mzCard);
+            DecisionQueueController::CleanupRemovedCards();
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
             break;
         case "tJAIMX3C4R": // Misty Whispertail: sacrifice self
             DecisionQueueController::StoreVariable("mistyWhispertailWasEphemeral", IsEphemeral($mzCard) ? "YES" : "NO");
@@ -5122,6 +5135,8 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     $sourceObject = &GetZoneObject($mzCard);
     // Capture cardID now — the card may be moved to banishment as a cost below.
     $cardID = $sourceObject->CardID;
+    if($cardID === "uvgflagxbb" && HasOpportunity($player)) return; // Coronal of Rejuvenation: slow speed only
+    if($cardID === "wCAIuvPOAT" && CountPreservedCardsInMaterial($player) < 5) return; // Verdure of Preservation
     if(GetCounterCount($sourceObject, "frenzy") > 0) return;
 
     // Cardistry: block activation if already used (per-card, per-game)
@@ -5146,7 +5161,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             }
         }
     }
-    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R"]);
+    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT"]);
     if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
         && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;
@@ -7113,6 +7128,16 @@ function RecollectionPhase() {
                 case "ao8bls6g7x": // Healing Aura: recover 1 at beginning of recollection phase
                     if(!HasNoAbilities($field[$i])) {
                         RecoverChampion($turnPlayer, 1);
+                    }
+                    break;
+                case "vUq1XBaQtU": // Ashfletched Bowman: may banish up to three fire cards for stacked Ranged 3
+                    if(!HasNoAbilities($field[$i])) {
+                        $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+                        if(!empty($fireGY)) {
+                            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $fireGY), 1,
+                                tooltip:"Banish_fire_card_for_Ranged_3?_(1_of_3)");
+                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "AshfletchedBowmanRecollection|myField-" . $i . "|1", 1);
+                        }
                     }
                     break;
                 case "jlAc0wWlDZ": // Eager Page: if you haven't materialized this turn, put a buff counter on it
@@ -14287,13 +14312,48 @@ function ApplyCrystallizedDestinyPrevention($championMZ, $amount) {
     return 0;
 }
 
-function DealChampionDamage($player, $amount=1) {
+function ApplyFatedKeepsakePrevention($player, $amount) {
+    if($amount < 7) return $amount;
+    if(!IsGuoJiaBonus($player)) return $amount;
+    if(CountFatestoneOrFateboundObjects($player) < 3) return $amount;
+    $field = &GetField($player);
+    foreach($field as $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "vi1uyifw6s" && !HasNoAbilities($fObj)) {
+            return min($amount, 6);
+        }
+    }
+    return $amount;
+}
+
+function DealChampionDamage($player, $amount=1, $sourceController = null) {
     global $playerID;
+    if($sourceController === null) {
+        $effectStack = GetEffectStack();
+        for($i = count($effectStack) - 1; $i >= 0; --$i) {
+            if($effectStack[$i] !== null && !$effectStack[$i]->removed) {
+                $sourceController = intval($effectStack[$i]->Controller ?? $player);
+                break;
+            }
+        }
+    }
+    if($sourceController === null) {
+        $sourceMZ = DecisionQueueController::GetVariable("mzID");
+        if($sourceMZ !== null && $sourceMZ !== "" && $sourceMZ !== "-") {
+            $sourceObj = GetZoneObject($sourceMZ);
+            if($sourceObj !== null) {
+                $sourceController = intval($sourceObj->Controller ?? $player);
+            }
+        }
+    }
     $zone = $player == $playerID ? "myField" : "theirField";
     $zoneArr = &GetZone($zone);
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = &$zoneArr[$i];
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+            $amount = ApplyFatedKeepsakePrevention($player, $amount);
+            if($amount <= 0) {
+                return $obj;
+            }
             // Safeguard Amulet: prevent up to 4 non-combat damage (one-time)
             if(in_array("yj2rJBREH8", $obj->TurnEffects)) {
                 $prevented = min(4, $amount);
@@ -14380,6 +14440,9 @@ function DealChampionDamage($player, $amount=1) {
                         }
                     }
                 }
+            }
+            if($amount > 0 && $sourceController !== null && intval($sourceController) !== intval($player)) {
+                TriggerShademistPriestess($player);
             }
             // Magebane Lash (oh300z2sns): Nico Bonus — whenever Nico takes non-combat damage, recover 2
             if($amount > 0 && $obj->CardID === "5bbae3z4py") {
@@ -15267,6 +15330,23 @@ function ChangeShiftingCurrents($player, $newDirection) {
     if($oldDirection === $newDirection) return;
     $mastery[0]->Direction = $newDirection;
 
+    // Verdure of Preservation (wCAIuvPOAT): [Kongming Bonus] preserve when SC moves to the next clockwise direction.
+    $clockwise = [
+        "NORTH" => "EAST",
+        "EAST" => "SOUTH",
+        "SOUTH" => "WEST",
+        "WEST" => "NORTH",
+    ];
+    if(IsKongmingBonus($player) && (($clockwise[$oldDirection] ?? null) === $newDirection)) {
+        $field = &GetField($player);
+        foreach($field as $fObj) {
+            if(!$fObj->removed && $fObj->CardID === "wCAIuvPOAT" && !HasNoAbilities($fObj)) {
+                PutTopDeckCardIntoMaterialPreserved($player);
+                break;
+            }
+        }
+    }
+
     // Flourishing Qi (MDu0e3tib8): while its activation is on the stack, any direction -> North adds charge.
     if($newDirection === "NORTH" && $oldDirection !== "NORTH") {
         $effectStack = &GetEffectStack();
@@ -15972,6 +16052,11 @@ function HasVigor($obj) {
     if(HasNoAbilities($obj)) return false;
     if(MaryAnnOmensHaveKeyword($obj, "Vigor")) return true;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
+    if($obj->CardID === "wAabqFjdM5") {
+        $champMZ = FindChampionMZ($obj->Controller);
+        $champObj = $champMZ !== null ? GetZoneObject($champMZ) : null;
+        if($champObj !== null && intval($champObj->Damage ?? 0) >= 25) return true;
+    }
     if(HasKeyword_Vigor($obj)) return true;
     // VIGOR_EOT TurnEffect: granted vigor until end of turn (e.g. Assemble the Ancients)
     if(in_array("VIGOR_EOT", $obj->TurnEffects)) return true;
@@ -18520,6 +18605,91 @@ function PutTopDeckCardIntoMaterialPreserved($player) {
     $Preserve_Cards[$cardID] = true;
 }
 
+function CountPreservedCardsInMaterial($player) {
+    global $playerID, $Preserve_Cards;
+    if(!isset($Preserve_Cards) || !is_array($Preserve_Cards)) return 0;
+    $matRef = $player == $playerID ? "myMaterial" : "theirMaterial";
+    $material = GetZone($matRef);
+    $count = 0;
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed) continue;
+        if(isset($Preserve_Cards[$material[$i]->CardID])) ++$count;
+    }
+    return $count;
+}
+
+$customDQHandlers["ShademistPriestessRecover"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "YES") {
+        RecoverChampion($player, 1);
+    }
+};
+
+function TriggerShademistPriestess($player) {
+    global $playerID;
+    $fieldZone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($fieldZone);
+    foreach($field as $fObj) {
+        if($fObj->removed || $fObj->CardID !== "w1d0uc5dxZ" || HasNoAbilities($fObj)) continue;
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Recover_1?_(Shademist_Priestess)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ShademistPriestessRecover", 1);
+    }
+}
+
+$customDQHandlers["CoronalOfRejuvenationBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $banished = MZMove($player, $lastDecision, "myBanish");
+    if($banished !== null) {
+        if(!isset($banished->Counters) || !is_array($banished->Counters)) $banished->Counters = [];
+        $banished->Counters['_coronal'] = 1;
+    }
+    $spells = ZoneSearch("myGraveyard", cardSubtypes: ["SPELL"]);
+    if(empty($spells)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $spells), 1,
+        tooltip:"Banish_another_Spell_card?_(Coronal)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CoronalOfRejuvenationBanish", 1);
+};
+
+$customDQHandlers["CoronalOfRejuvenationActivate"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $handObj = MZMove($player, $lastDecision, "myHand");
+    if($handObj === null) return;
+    $hand = &GetHand($player);
+    $handIdx = count($hand) - 1;
+    if($handIdx < 0) return;
+    ActivateCard($player, "myHand-" . $handIdx, false);
+};
+
+$customDQHandlers["AshfletchedBowmanRecollection"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $mzID = $parts[0] ?? "";
+    $pickNumber = intval($parts[1] ?? "1");
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->CardID !== "vUq1XBaQtU") return;
+
+    MZMove($player, $lastDecision, "myBanish");
+    AddTurnEffect($mzID, "RANGED_3");
+
+    if($pickNumber >= 3) return;
+    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
+    if(empty($fireGY)) return;
+    $nextPick = $pickNumber + 1;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $fireGY), 1,
+        tooltip:"Banish_another_fire_card_for_Ranged_3?_(" . $nextPick . "_of_3)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AshfletchedBowmanRecollection|" . $mzID . "|" . $nextPick, 1);
+};
+
+$customDQHandlers["GlacierRemnantsUpkeep"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0] ?? "";
+    $toRemove = intval($lastDecision ?? 0);
+    if($toRemove <= 0) return;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->CardID !== "vftUL7ZjFM") return;
+    $actual = min(2, $toRemove, GetCounterCount($obj, "durability"));
+    if($actual <= 0) return;
+    RemoveCounters($player, $mzID, "durability", $actual);
+    RecoverChampion($player, $actual);
+};
+
 // ============================================================================
 // Domain Card Type — Recollection Upkeep, Passive Effects, and Helpers
 // ============================================================================
@@ -18606,6 +18776,16 @@ function DomainRecollectionUpkeep($player) {
                     } else {
                         DoSacrificeFighter($player, "myField-" . $i);
                         DecisionQueueController::CleanupRemovedCards();
+                    }
+                }
+                break;
+            case "vftUL7ZjFM": // Glacier Remnants: remove up to two durability counters, then recover that much
+                {
+                    $maxRemove = min(2, GetCounterCount($field[$i], "durability"));
+                    if($maxRemove > 0) {
+                        DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "0|" . $maxRemove, 1,
+                            tooltip:"Choose_durability_counters_to_remove_(Glacier_Remnants)");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "GlacierRemnantsUpkeep|myField-" . $i, 1);
                     }
                 }
                 break;

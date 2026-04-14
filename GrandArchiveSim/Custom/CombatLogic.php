@@ -2557,6 +2557,12 @@ function OnDealDamage($player, $source, $target, $amount) {
         return;
     }
 
+    if($amount > 0 && $targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        $targetController = $targetObj->Controller ?? $player;
+        $amount = ApplyFatedKeepsakePrevention($targetController, $amount);
+        if($amount <= 0) return;
+    }
+
     // Siegeable domains: damage removes durability counters instead of adding Damage.
     // Destroyed when durability reaches 0. On Hit still triggers via the combat flow.
     if(IsSiegeable($targetObj)) {
@@ -3645,6 +3651,11 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
         TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);
+        $sourceCtrl = $sourceObj2 !== null ? intval($sourceObj2->Controller ?? $player) : intval($player);
+        $targetCtrl = intval($targetObj->Controller ?? $player);
+        if($sourceCtrl !== $targetCtrl) {
+            TriggerShademistPriestess($targetCtrl);
+        }
         if(LuBuDiaoChanChampionReplacement($player, $target)) return;
     }
 
@@ -3851,6 +3862,11 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
         TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);
+        $sourceCtrl = $sourceObj2 !== null ? intval($sourceObj2->Controller ?? $player) : intval($player);
+        $targetCtrl = intval($targetObj->Controller ?? $player);
+        if($sourceCtrl !== $targetCtrl) {
+            TriggerShademistPriestess($targetCtrl);
+        }
         if(LuBuDiaoChanChampionReplacement($player, $target)) return;
     }
 
