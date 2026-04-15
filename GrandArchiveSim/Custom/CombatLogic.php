@@ -2168,25 +2168,24 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
 };
 
 /**
- * Handler: Grant Opportunity before the retaliation step (shared by single/cleave).
- * Skips the window entirely when no unit can retaliate, going straight to cleanup.
+ * Handler: Advance to the retaliation step (shared by single/cleave).
+ * Skips straight to cleanup when no unit can retaliate; otherwise continues
+ * directly into the retaliation handler without opening another Opportunity window.
  */
 $customDQHandlers["CombatRetaliationOpportunity"] = function($player, $parts, $lastDecision) {
-    $turnPlayer = GetTurnPlayer();
     $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
     $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
     $isCleave = DecisionQueueController::GetVariable("CombatIsCleave") === "1";
+
+    global $playerID;
 
     $canRetaliate = $isCleave
         ? !empty(GetCleaveRetaliatorMZs($defenderPlayer))
         : !empty(GetRetaliatorOptions($attackerPlayer));
 
     if(!$canRetaliate) {
-        // Nothing to retaliate with — skip the Opportunity window and proceed directly to
-        // cleanup. Mirror ResolveOpportunityWindow's pattern: switch $playerID to the
-        // defender's context, queue CombatCleanup, then call ExecuteStaticMethods so
-        // cleanup runs synchronously (exactly as it would have via the normal OW path).
-        global $playerID;
+        // Nothing to retaliate with — skip directly to cleanup. Mirror
+        // ResolveOpportunityWindow's synchronous next-handler handoff.
         $savedPlayerID = $playerID;
         $playerID = $defenderPlayer;
         if(!$isCleave) {
@@ -2202,7 +2201,18 @@ $customDQHandlers["CombatRetaliationOpportunity"] = function($player, $parts, $l
     }
 
     $nextHandler = $isCleave ? "CleaveProceedToRetaliation" : "CombatProceedToRetaliation";
-    GrantOpportunityWindow($turnPlayer, $nextHandler, $defenderPlayer);
+
+    // No extra Opportunity window here. Continue with the same immediate
+    // next-handler dispatch that ResolveOpportunityWindow would perform.
+    ClearOpportunityVariables();
+    $savedPlayerID = $playerID;
+    $playerID = $defenderPlayer;
+
+    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", $nextHandler, 100);
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($defenderPlayer, "-");
+
+    $playerID = $savedPlayerID;
 };
 
 /**
