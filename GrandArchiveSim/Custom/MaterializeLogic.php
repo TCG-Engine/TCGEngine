@@ -305,14 +305,16 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
             return;
         }
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
+        DecisionQueueController::StoreVariable("PendingMatCard", $lastDecision);
         $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
         if($floatingIndices != "") {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
             DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
         }
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+        return; // Materialize() will be called by FINISHPAYMATERIALIZE after cost is paid
     }
-    //Then materialize the card
+    //Then materialize the card (cost is 0, so it resolves immediately)
     Materialize($player, $lastDecision);
 };
 
@@ -563,6 +565,13 @@ $customDQHandlers["FINISHPAYMATERIALIZE"] = function($player, $parts, $lastDecis
         MZMove($player, "myMemory-" . $i, "myBanish");//TODO: Make random
     }
     DecisionQueueController::ClearVariable("MemoryCost");
+    // If the MATERIALIZE handler deferred the Materialize() call (standard cost path),
+    // complete it now so Enter abilities fire only after the memory cost is fully paid.
+    $pendingMatCard = DecisionQueueController::GetVariable("PendingMatCard");
+    if($pendingMatCard !== null && $pendingMatCard !== "") {
+        DecisionQueueController::ClearVariable("PendingMatCard");
+        Materialize($player, $pendingMatCard);
+    }
 };
 
 function DoMaterialize($player, $mzCard) {
