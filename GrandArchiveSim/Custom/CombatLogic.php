@@ -441,6 +441,212 @@ function IsChampionBeingAttacked($player) {
 }
 
 /**
+ * Returns an array of mzID strings (from the defender's perspective: "myField-X")
+ * for all units eligible to retaliate in the current single-target combat.
+ *
+ * Returns null if retaliation is categorically blocked for this attack.
+ * Returns an empty array if no unit qualifies.
+ *
+ * Perspective-safe: uses GetField() and GetIntent() with explicit player indices
+ * instead of relying on the global $playerID for zone resolution.
+ *
+ * @param int $attackerPlayer
+ * @return array|null
+ */
+function GetRetaliatorOptions(int $attackerPlayer): ?array {
+    $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker"); // attacker perspective: myField-X
+    $targetMZ   = DecisionQueueController::GetVariable("CombatTarget");   // attacker perspective: theirField-X
+    if($attackerMZ === null || $targetMZ === null) return null;
+
+    $attackerIdx = intval(explode("-", $attackerMZ, 2)[1] ?? 0);
+    // CombatTarget is "theirField-X" from attacker perspective → defender's field at index X
+    $targetIdx   = intval(explode("-", $targetMZ, 2)[1] ?? 0);
+
+    $attackerField = GetField($attackerPlayer);
+    $defenderField = GetField($defenderPlayer);
+
+    $targetObj   = $defenderField[$targetIdx] ?? null;
+    $attackerObj = $attackerField[$attackerIdx] ?? null;
+
+    if($targetObj === null || $targetObj->removed) return null;
+
+    // Siegeables can't retaliate
+    if(IsSiegeable($targetObj)) return null;
+
+    // Intent zone — absolute access, no $playerID dependency
+    $attackerIntentZone = GetIntent($attackerPlayer);
+
+    // Check if any intent card has NO_RETALIATE (e.g. Seeking Shot [Class Bonus])
+    foreach($attackerIntentZone as $iObj) {
+        if($iObj === null || $iObj->removed) continue;
+        if(in_array("NO_RETALIATE", $iObj->TurnEffects ?? [])) return null;
+    }
+
+    // Xiao Qiao, Cinderkeeper (3hgldrogit): [Class Bonus] attacks can't be retaliated
+    if($attackerObj !== null && $attackerObj->CardID === "3hgldrogit" && !HasNoAbilities($attackerObj)
+        && IsClassBonusActive($attackerPlayer, ["ASSASSIN", "TAMER"])) {
+        return null;
+    }
+
+    // Sun Jian, Wolvesbane (b23a85z88j): attacks can't be retaliated while attacking a Beast unit
+    if($attackerObj !== null && $attackerObj->CardID === "b23a85z88j" && !HasNoAbilities($attackerObj)) {
+        if(PropertyContains(CardSubtypes($targetObj->CardID), "BEAST")) return null;
+    }
+
+    // Blazing Bowman (qry41lw9n0, KmM2o1ozGr): attacks can't be retaliated
+    if($attackerObj !== null && ($attackerObj->CardID === "qry41lw9n0" || $attackerObj->CardID === "KmM2o1ozGr")
+        && !HasNoAbilities($attackerObj)) {
+        return null;
+    }
+
+    // Carnwennan, Shrouded Edge (Au8eN2Jtuu): [CB] attacks using this weapon can't be retaliated.
+    // GetCombatWeapon() stores the mzID from the attacker's perspective ("myField-X"),
+    // so we resolve it via GetField($attackerPlayer) to stay perspective-safe.
+    $combatWeaponMZ = GetCombatWeapon();
+    if($combatWeaponMZ !== null) {
+        $weaponIdx = intval(explode("-", $combatWeaponMZ, 2)[1] ?? 0);
+        $weaponObj = $attackerField[$weaponIdx] ?? null;
+        if($weaponObj !== null && $weaponObj->CardID === "Au8eN2Jtuu" && !HasNoAbilities($weaponObj)
+            && IsClassBonusActive($attackerPlayer, ["ASSASSIN"])) {
+            return null;
+        }
+    }
+
+    // Devastating Blow (At1UNRG7F0): [CB][Level 3+] can't be retaliated
+    foreach($attackerIntentZone as $iObj2) {
+        if($iObj2 === null || $iObj2->removed) continue;
+        if($iObj2->CardID === "At1UNRG7F0"
+            && IsClassBonusActive($attackerPlayer, ["GUARDIAN", "WARRIOR"])
+            && PlayerLevel($attackerPlayer) >= 3) {
+            return null;
+        }
+    }
+
+    // mzID of the target from the defender's perspective
+    $defenderMZ_fromDefender = "myField-" . $targetIdx;
+
+    // Build the list of valid retaliators.
+    $retaliatorOptions = [];
+
+    // The actual defender can retaliate if ready and has power
+    if($targetObj->Status == 2 && ObjectCurrentPower($targetObj) > 0) {
+        $retaliatorOptions[] = $defenderMZ_fromDefender;
+    }
+
+    foreach($defenderField as $i => $fieldObj) {
+        if($fieldObj === null || $fieldObj->removed) continue;
+        $mzID = "myField-" . $i; // defender's perspective
+        if($mzID === $defenderMZ_fromDefender) continue; // actual defender already handled above
+        if($fieldObj->Status != 2) continue;
+        if(ObjectCurrentPower($fieldObj) <= 0) continue;
+        if(GetCounterCount($fieldObj, "frenzy") > 0) continue;
+        // Lurking Assailant (uq2r6v374c): [Level 1+] may retaliate while not defending
+        if($fieldObj->CardID === "uq2r6v374c") {
+            $retaliatorOptions[] = $mzID;
+            continue;
+        }
+        // Sinister Mindreaver (jozihslnhz): Ambush
+        if($fieldObj->CardID === "jozihslnhz" && !HasNoAbilities($fieldObj)) {
+            $retaliatorOptions[] = $mzID;
+            continue;
+        }
+        // Guan Yu, Prime Exemplar (0oyxjld8jh): Ambush
+        if($fieldObj->CardID === "0oyxjld8jh" && !HasNoAbilities($fieldObj)) {
+            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
+        }
+        // Cloaked Executioner (itwys9kf4r): Ambush
+        if($fieldObj->CardID === "itwys9kf4r" && !HasNoAbilities($fieldObj)) {
+            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
+        }
+        if(in_array("AMBUSH", $fieldObj->TurnEffects ?? [])) {
+            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
+        }
+        // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
+        if(!HasNoAbilities($fieldObj)
+            && PropertyContains(EffectiveCardType($fieldObj), "PHANTASIA")
+            && EffectiveCardElement($fieldObj) === "UMBRA") {
+            $hasMantleOnField = false;
+            foreach($defenderField as $mantleObj) {
+                if(!$mantleObj->removed && $mantleObj->CardID === "fooz13xfpk" && !HasNoAbilities($mantleObj)) {
+                    $hasMantleOnField = true;
+                    break;
+                }
+            }
+            if($hasMantleOnField && !in_array($mzID, $retaliatorOptions)) {
+                $retaliatorOptions[] = $mzID;
+            }
+        }
+        // Changban, Heroic Impasse (kmuuqzfvg8): allies with buff counters have Ambush
+        if(PropertyContains(EffectiveCardType($fieldObj), "ALLY") && GetCounterCount($fieldObj, "buff") > 0) {
+            $hasChangbanOnField = false;
+            foreach($defenderField as $chObj) {
+                if(!$chObj->removed && $chObj->CardID === "kmuuqzfvg8" && !HasNoAbilities($chObj)) {
+                    $hasChangbanOnField = true;
+                    break;
+                }
+            }
+            if($hasChangbanOnField && !in_array($mzID, $retaliatorOptions)) {
+                $retaliatorOptions[] = $mzID;
+            }
+        }
+    }
+
+    // Innocuous Disposer (pd2aigr677): attacks can't be retaliated by Human allies
+    if($attackerObj !== null && $attackerObj->CardID === "pd2aigr677" && !HasNoAbilities($attackerObj)) {
+        $retaliatorOptions = array_values(array_filter($retaliatorOptions, function($mzID) use ($defenderField) {
+            $idx = intval(explode("-", $mzID, 2)[1] ?? 0);
+            $obj = $defenderField[$idx] ?? null;
+            if($obj === null) return true;
+            return !(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "HUMAN"));
+        }));
+    }
+
+    // Vorpal Sword (PIcB5KuuMd): Specter allies can't retaliate while Vorpal Sword is on attacker's field
+    $hasVorpal = false;
+    foreach($attackerField as $vObj) {
+        if($vObj === null || $vObj->removed) continue;
+        if($vObj->CardID === "PIcB5KuuMd" && !HasNoAbilities($vObj)) {
+            $hasVorpal = true;
+            break;
+        }
+    }
+    if($hasVorpal) {
+        $retaliatorOptions = array_values(array_filter($retaliatorOptions, function($mzID) use ($defenderField) {
+            $idx = intval(explode("-", $mzID, 2)[1] ?? 0);
+            $obj = $defenderField[$idx] ?? null;
+            if($obj === null) return true;
+            return !(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SPECTER"));
+        }));
+    }
+
+    return $retaliatorOptions;
+}
+
+/**
+ * Returns an array of mzID strings (from the defender's perspective: "myField-X")
+ * for all surviving ALLY/CHAMPION units in the defender's field that are eligible
+ * to retaliate after a cleave attack.
+ *
+ * Perspective-safe: uses GetField() with an explicit player index.
+ *
+ * @param int $defenderPlayer
+ * @return array
+ */
+function GetCleaveRetaliatorMZs(int $defenderPlayer): array {
+    $retaliators = [];
+    foreach(GetField($defenderPlayer) as $i => $fieldObj) {
+        if($fieldObj === null || $fieldObj->removed) continue;
+        if($fieldObj->Status != 2) continue;
+        $type = EffectiveCardType($fieldObj);
+        if(!PropertyContains($type, "ALLY") && !PropertyContains($type, "CHAMPION")) continue;
+        if(ObjectCurrentPower($fieldObj) <= 0) continue;
+        $retaliators[] = "myField-" . $i; // defender's perspective
+    }
+    return $retaliators;
+}
+
+/**
  * Send all attack cards from intent zone to graveyard after combat resolves.
  */
 function ClearIntent($player) {
@@ -1974,12 +2180,33 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
 
 /**
  * Handler: Grant Opportunity before the retaliation step (shared by single/cleave).
+ * Skips the window entirely when no unit can retaliate, going straight to cleanup.
  */
 $customDQHandlers["CombatRetaliationOpportunity"] = function($player, $parts, $lastDecision) {
     $turnPlayer = GetTurnPlayer();
     $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
     $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
     $isCleave = DecisionQueueController::GetVariable("CombatIsCleave") === "1";
+
+    $canRetaliate = $isCleave
+        ? !empty(GetCleaveRetaliatorMZs($defenderPlayer))
+        : !empty(GetRetaliatorOptions($attackerPlayer));
+
+    if(!$canRetaliate) {
+        // Nothing to retaliate with — skip the Opportunity window and proceed directly to
+        // cleanup. Mirror ResolveOpportunityWindow's pattern: switch $playerID to the
+        // defender's context, queue CombatCleanup, then call ExecuteStaticMethods so
+        // cleanup runs synchronously (exactly as it would have via the normal OW path).
+        global $playerID;
+        $savedPlayerID = $playerID;
+        $playerID = $defenderPlayer;
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
+        $dqController = new DecisionQueueController();
+        $dqController->ExecuteStaticMethods($defenderPlayer, "-");
+        $playerID = $savedPlayerID;
+        return;
+    }
+
     $nextHandler = $isCleave ? "CleaveProceedToRetaliation" : "CombatProceedToRetaliation";
     GrantOpportunityWindow($turnPlayer, $nextHandler, $defenderPlayer);
 };
@@ -1989,186 +2216,20 @@ $customDQHandlers["CombatRetaliationOpportunity"] = function($player, $parts, $l
  * $playerID is the defender (swapped by ResolveOpportunityWindow).
  */
 $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $lastDecision) {
-    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
-    $targetMZ   = DecisionQueueController::GetVariable("CombatTarget");
     $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
     $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
 
-    if($attackerMZ === null || $targetMZ === null) {
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
-        return;
-    }
-
-    // Flip attacker/target mzIDs to the defender's perspective up-front.
-    // CombatAttacker/CombatTarget are stored from the attacker's perspective, but this
-    // handler runs with $playerID = defenderPlayer (swapped by ResolveOpportunityWindow),
-    // so GetZoneObject() must use the flipped names to reach the correct objects.
-    $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
-    $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
-
-    $oObj = GetZoneObject($defenderMZ_fromDefender);
-    if(IsSiegeable($oObj)) {
-        // Siegeables can't retaliate, skip retaliation and go to cleanup
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
-        return;
-    }
-
-    // Check if any intent card has NO_RETALIATE (e.g. Seeking Shot [Class Bonus])
-    $attackerIntentCards = GetIntentCards($attackerPlayer);
-    foreach($attackerIntentCards as $iMZ) {
-        $iObj = GetZoneObject($iMZ);
-        if($iObj !== null && in_array("NO_RETALIATE", $iObj->TurnEffects)) {
-            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
-            return;
-        }
-    }
-
-    // Xiao Qiao, Cinderkeeper (3hgldrogit): [Class Bonus] attacks can't be retaliated
-    $attackerObj = GetZoneObject($attackerMZ_fromDefender);
-    if($attackerObj !== null && $attackerObj->CardID === "3hgldrogit" && !HasNoAbilities($attackerObj)
-        && IsClassBonusActive($attackerPlayer, ["ASSASSIN", "TAMER"])) {
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
-        return;
-    }
-
-    // Sun Jian, Wolvesbane (b23a85z88j): attacks can't be retaliated while attacking a Beast unit
-    if($attackerObj !== null && $attackerObj->CardID === "b23a85z88j" && !HasNoAbilities($attackerObj)) {
-        $targetObj = GetZoneObject($defenderMZ_fromDefender);
-        if($targetObj !== null && PropertyContains(CardSubtypes($targetObj->CardID), "BEAST")) {
-            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
-            return;
-        }
-    }
-
-    // Blazing Bowman (qry41lw9n0): attacks can't be retaliated
-    if($attackerObj !== null && ($attackerObj->CardID === "qry41lw9n0" || $attackerObj->CardID === "KmM2o1ozGr") && !HasNoAbilities($attackerObj)) {
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
-        return;
-    }
-
-    // Carnwennan, Shrouded Edge (Au8eN2Jtuu): [CB] attacks using this weapon can't be retaliated
-    $combatWeaponMZ = GetCombatWeapon();
-    if($combatWeaponMZ !== null) {
-        $weaponObj = GetZoneObject($combatWeaponMZ);
-        if($weaponObj !== null && $weaponObj->CardID === "Au8eN2Jtuu" && !HasNoAbilities($weaponObj)
-            && IsClassBonusActive($attackerPlayer, ["ASSASSIN"])) {
-            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
-            return;
-        }
-    }
-
-    // Devastating Blow (At1UNRG7F0): [CB][Level 3+] can't be retaliated
-    foreach($attackerIntentCards as $iMZ2) {
-        $iObj2 = GetZoneObject($iMZ2);
-        if($iObj2 !== null && $iObj2->CardID === "At1UNRG7F0"
-            && IsClassBonusActive($attackerPlayer, ["GUARDIAN", "WARRIOR"])
-            && PlayerLevel($attackerPlayer) >= 3) {
-            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
-            return;
-        }
-    }
-
-    // (perspective flip already computed above)
-
-    // Build the list of valid retaliators: the actual defender plus any unit that
-    // can retaliate while not defending (e.g. Lurking Assailant).
-    $retaliatorOptions = [$defenderMZ_fromDefender];
-    $defenderField = GetField($defenderPlayer);
-    foreach($defenderField as $i => $fieldObj) {
-        if($fieldObj === null) continue;
-        if($fieldObj->removed) continue;
-        $mzID = "myField-" . $i; // in defender's perspective
-        if($mzID === $defenderMZ_fromDefender) continue; // skip the actual defender
-        if($fieldObj->Status != 2) continue; // must be ready (awake)
-        if(GetCounterCount($fieldObj, "frenzy") > 0) continue;
-        // Lurking Assailant (uq2r6v374c): [Level 1+] may retaliate while not defending
-        if($fieldObj->CardID === "uq2r6v374c") {
-            $retaliatorOptions[] = $mzID;
-        }
-        // Sinister Mindreaver (jozihslnhz): Ambush — may retaliate while not defending
-        if($fieldObj->CardID === "jozihslnhz" && !HasNoAbilities($fieldObj)) {
-            $retaliatorOptions[] = $mzID;
-        }
-        // Guan Yu, Prime Exemplar (0oyxjld8jh): Ambush
-        if($fieldObj->CardID === "0oyxjld8jh" && !HasNoAbilities($fieldObj)) {
-            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
-        }
-        // Cloaked Executioner (itwys9kf4r): Ambush
-        if($fieldObj->CardID === "itwys9kf4r" && !HasNoAbilities($fieldObj)) {
-            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
-        }
-        if(in_array("AMBUSH", $fieldObj->TurnEffects ?? [])) {
-            if(!in_array($mzID, $retaliatorOptions)) $retaliatorOptions[] = $mzID;
-        }
-        // Gloamspire Mantle (fooz13xfpk): Umbra element Phantasia allies have Ambush
-        // (may retaliate while not defending)
-        if(!HasNoAbilities($fieldObj)
-            && PropertyContains(EffectiveCardType($fieldObj), "PHANTASIA")
-            && EffectiveCardElement($fieldObj) === "UMBRA") {
-            // Check if the defender controls Gloamspire Mantle on their field
-            $hasMantleOnField = false;
-            foreach($defenderField as $mi => $mantleObj) {
-                if(!$mantleObj->removed && $mantleObj->CardID === "fooz13xfpk" && !HasNoAbilities($mantleObj)) {
-                    $hasMantleOnField = true;
-                    break;
-                }
-            }
-            if($hasMantleOnField && !in_array($mzID, $retaliatorOptions)) {
-                $retaliatorOptions[] = $mzID;
-            }
-        }
-        // Changban, Heroic Impasse (kmuuqzfvg8): allies with buff counters have Ambush
-        if(PropertyContains(EffectiveCardType($fieldObj), "ALLY") && GetCounterCount($fieldObj, "buff") > 0) {
-            $hasChangbanOnField = false;
-            foreach($defenderField as $mi => $chObj) {
-                if(!$chObj->removed && $chObj->CardID === "kmuuqzfvg8" && !HasNoAbilities($chObj)) {
-                    $hasChangbanOnField = true;
-                    break;
-                }
-            }
-            if($hasChangbanOnField && !in_array($mzID, $retaliatorOptions)) {
-                $retaliatorOptions[] = $mzID;
-            }
-        }
-    }
-    // Innocuous Disposer (pd2aigr677): attacks can't be retaliated by Human allies
-    if($attackerObj !== null && $attackerObj->CardID === "pd2aigr677" && !HasNoAbilities($attackerObj)) {
-        $retaliatorOptions = array_filter($retaliatorOptions, function($mzID) {
-            $obj = GetZoneObject($mzID);
-            if($obj === null) return true;
-            if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "HUMAN")) {
-                return false; // filter out Human allies
-            }
-            return true;
-        });
-        $retaliatorOptions = array_values($retaliatorOptions);
-    }
-    // Vorpal Sword (PIcB5KuuMd): Specter allies can't retaliate while Vorpal Sword is on attacker's field
-    {
-        $attackerField = GetField($attackerPlayer);
-        $hasVorpal = false;
-        foreach($attackerField as $vObj) {
-            if(!$vObj->removed && $vObj->CardID === "PIcB5KuuMd" && !HasNoAbilities($vObj)) {
-                $hasVorpal = true;
-                break;
-            }
-        }
-        if($hasVorpal) {
-            $retaliatorOptions = array_filter($retaliatorOptions, function($mzID) {
-                $obj = GetZoneObject($mzID);
-                if($obj === null) return true;
-                if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SPECTER")) {
-                    return false;
-                }
-                return true;
-            });
-            $retaliatorOptions = array_values($retaliatorOptions);
-        }
-    }
+    // GetRetaliatorOptions covers all block conditions and builds the eligible list.
+    $retaliatorOptions = GetRetaliatorOptions($attackerPlayer);
     if(empty($retaliatorOptions)) {
         DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
     }
+
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    $targetMZ   = DecisionQueueController::GetVariable("CombatTarget");
+    $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
+    $defenderMZ_fromDefender = FlipZonePerspective($targetMZ);
     $retaliatorOptionStr = implode("&", $retaliatorOptions);
 
     // Retaliation step: let the defending player choose whether to retaliate
@@ -2304,10 +2365,11 @@ $customDQHandlers["CleaveProceedToRetaliation"] = function($player, $parts, $las
 
     $attackerMZ_fromDefender = FlipZonePerspective($attackerMZ);
 
-    // Each surviving defender may retaliate independently
-    // ($playerID = defender, so myField = defender's field)
-    $survivingOpponents = ZoneSearch("myField", ["ALLY", "CHAMPION"]);
-    foreach($survivingOpponents as $survivorMZ) {
+    // Offer retaliation to each eligible surviving defender independently.
+    // GetCleaveRetaliatorMZs was already called in CombatRetaliationOpportunity to confirm
+    // at least one unit qualifies, but we re-evaluate here in case state changed during
+    // the opportunity window.
+    foreach(GetCleaveRetaliatorMZs($defenderPlayer) as $survivorMZ) {
         DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $survivorMZ, 100, "Retaliate_with_" . $survivorMZ . "?");
         DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender, 100);
     }
@@ -2336,11 +2398,11 @@ $customDQHandlers["Retaliate"] = function($player, $parts, $lastDecision) {
     $defenderPower = ObjectCurrentPower($defender);
     DecisionQueueController::ClearVariable("CombatRetaliator");
     if($defenderPower > 0 && $defender->Damage < ObjectCurrentHP($defender)) {
-        DealDamage($player, $lastDecision, $attackerMZ, $defenderPower);
-        // Rest the retaliator after dealing retaliation damage, unless it has Steadfast
+        // Rest the retaliator as the cost to retaliate (before dealing damage), unless it has Steadfast
         if(!HasSteadfast($defender)) {
             OnRestCard($player, $lastDecision);
         }
+        DealDamage($player, $lastDecision, $attackerMZ, $defenderPower);
     }
 };
 

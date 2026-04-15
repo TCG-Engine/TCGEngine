@@ -1,5 +1,5 @@
 1
-1380
+1457
 50
 0w5bp5nuae
 bx25s7kiln
@@ -195,3 +195,4 @@ Player 1 undid their last action.
 {"mzID":"EffectStack-0","amount":1,"ignoreCost":false,"activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","target":"myField-0","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","MLAE_sourceMZ":"myGraveyard-1","MLAE_wingMZ":"myField-2"}
 0
 {"MaterializeCalls":{"1":3,"2":1},"Materialize":{"1":{"tafqldAGRF":1,"m7f6r8f3y8":1,"3n5x9fbkn0":1},"2":{"tafqldAGRF":1}},"EnterCalls":{"1":4,"2":2},"Enter":{"1":{"tafqldAGRF":1,"eifnz0fgm3":1,"m7f6r8f3y8":1,"3n5x9fbkn0":1},"2":{"tafqldAGRF":1,"4e1gqwah01":1}},"DrawCalls":{"1":3,"2":1},"Draw":{"1":9,"2":7},"ActivateCardCalls":{"1":3,"2":1},"ActivateCard":{"1":{"eifnz0fgm3":1,"sesw2ugmnm":1,"7l9th23niu":1},"2":{"4e1gqwah01":1}},"CardActivatedCalls":{"1":3,"2":1},"CardActivated":{"1":{"eifnz0fgm3":1,"sesw2ugmnm":1,"7l9th23niu":1},"2":{"4e1gqwah01":1}},"AetherchargeActivated":{"1":1}}
+0
