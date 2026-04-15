@@ -717,6 +717,18 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
+            // Mordred, Burnished Avenger (OWCdWq3mXY): activate tagged attack card from banishment this turn
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_mordredBurnished'])) {
+                    unset($bObj->Counters['_mordredBurnished']);
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             // Desperate Cavalier (slmer06rku): tagged banished cards may be activated for 2 self-damage.
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -1538,6 +1550,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // "The first card you activate each turn costs 1 more to activate."
     if(!AreCurseLineageAbilitiesSuppressed($player) && ChampionHasInLineage($player, "wbsmks4etk") && CardActivatedCallCount($player) == 0) {
         $reserveCost += 1;
+    }
+
+    // Mordred, Burnished Avenger (OWCdWq3mXY) Inherited Effect [Mordred Bonus]:
+    // "As long as Mordred has leveled up this turn, the first attack card you activate costs 2 less."
+    if(ChampionHasInLineage($player, "OWCdWq3mXY")
+        && GlobalEffectCount($player, "LEVELED_UP_THIS_TURN") > 0
+        && AttackCardActivatedCount($player) === 0
+        && PropertyContains(CardType($obj->CardID), "ATTACK")) {
+        $reserveCost = max(0, $reserveCost - 2);
     }
 
     // Waited Accord (xF9phlSAkE): the first advanced element card each player activates each

@@ -41,6 +41,7 @@ Banish - CardID:string, TurnEffects:array[string], Counters:json
 Index: TurnEffects
 Virtual: OmenCounterCount=GetOmenCounterCount()
 Display: Visibility=Public, Mode=Single, Bottom=230px, Right=10px
+Click: FSM()
 Counters: OmenCounterCount=Badge(Color=Purple,Position=Center,ShowZero=false)
 Graveyard - CardID:string
 Virtual: EphemerateMeta=EphemerateMeta()
