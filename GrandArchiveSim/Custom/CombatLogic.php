@@ -2011,7 +2011,7 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     }
 
     if($needsDefenderResolution) {
-        DecisionQueueController::AddDecision($defPlayer, "CUSTOM", "FinalizeAttackDeclaration|" . $player, 99);
+        DecisionQueueController::AddDecision($defPlayer, "CUSTOM", "FinalizeAttackDeclaration|" . $player, 99, dontSkipOnPass:1);
         return;
     }
 
