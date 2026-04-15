@@ -2151,29 +2151,18 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
                 // Retaliation Opportunity on defender's queue after critical resolves
                 DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatRetaliationOpportunity", 150);
             } else {
-                // Defender can't pay — damage automatically doubled
-                ResetCombatKill();
+                // Defender can't pay — cache doubled damage; applied after retaliation is chosen
                 DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower * 2));
-                DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
-                // Track champion combat damage for Ominous Shadow
-                if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $totalPower * 2);
-                if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
-                OnHitTrigger($attackerPlayer, $attackerMZ);
                 DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
             }
         } else {
-            // No critical — deal normal damage
-            ResetCombatKill();
+            // No critical — cache damage amount; applied after retaliation is chosen
             DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower));
-            DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower);
-            // Track champion combat damage for Ominous Shadow
-            if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $totalPower);
-            if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
-            OnHitTrigger($attackerPlayer, $attackerMZ);
             DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
         }
     } else {
-        // Zero power — no damage, proceed to retaliation
+        // Zero power — clear any stale damage amount and proceed to retaliation
+        DecisionQueueController::StoreVariable("CombatDamageAmount", "0");
         DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
     }
 };
@@ -2200,6 +2189,11 @@ $customDQHandlers["CombatRetaliationOpportunity"] = function($player, $parts, $l
         global $playerID;
         $savedPlayerID = $playerID;
         $playerID = $defenderPlayer;
+        if(!$isCleave) {
+            // For single-target attacks, apply attacker damage now (was deferred until after
+            // retaliation is chosen; there is no retaliation, so apply it before cleanup).
+            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatApplyAttackerDamage", 150);
+        }
         DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         $dqController = new DecisionQueueController();
         $dqController->ExecuteStaticMethods($defenderPlayer, "-");
@@ -2222,6 +2216,7 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     // GetRetaliatorOptions covers all block conditions and builds the eligible list.
     $retaliatorOptions = GetRetaliatorOptions($attackerPlayer);
     if(empty($retaliatorOptions)) {
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatApplyAttackerDamage", 150);
         DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
         return;
     }
@@ -2235,6 +2230,10 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     // Retaliation step: let the defending player choose whether to retaliate
     DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $retaliatorOptionStr, 100, "Retaliate?");
     DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender, 100);
+
+    // Apply attacker damage after retaliation is chosen (block 150, after block-100 Retaliate).
+    // dontSkipOnPass:1 ensures this fires even when the defender passes the retaliation choice.
+    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatApplyAttackerDamage", 150, dontSkipOnPass:1);
 
     // Cleanup on defender's queue after retaliation (block 200)
     DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatCleanup|" . $attackerPlayer, 200, dontSkipOnPass:1);
@@ -2530,16 +2529,8 @@ $customDQHandlers["CriticalResolve"] = function($player, $parts, $lastDecision) 
         DecisionQueueController::AddDecision($player, "CUSTOM",
             "FinishCombatDamage|" . $attackerMZ . "|" . $targetMZ . "|" . $totalPower, 50);
     } else {
-        // Defender refuses: deal doubled damage
-        // mzIDs are in defender's perspective; GetZoneObject will interpret them with defender's $playerID
-        ResetCombatKill();
+        // Defender refuses: cache doubled damage; applied after retaliation is chosen
         DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower * 2));
-        DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $totalPower * 2);
-        // Track champion combat damage for Ominous Shadow
-        $critAttacker = GetZoneObject($attackerMZ);
-        if($critAttacker !== null && PropertyContains(EffectiveCardType($critAttacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $totalPower * 2);
-        if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
-        OnHitTrigger($attackerPlayer, $attackerMZ);
     }
 };
 
@@ -2551,19 +2542,42 @@ $customDQHandlers["CriticalResolve"] = function($player, $parts, $lastDecision) 
  * $parts[2] = damage amount
  */
 $customDQHandlers["FinishCombatDamage"] = function($player, $parts, $lastDecision) {
-    $attackerMZ = $parts[0];   // from defender's perspective: theirField-X
-    $targetMZ = $parts[1];     // from defender's perspective: myField-X
-    $amount = intval($parts[2]);
-    $attackerPlayer = ($player == 1) ? 2 : 1;
-    // Keep mzIDs in defender's perspective; GetZoneObject interprets them with defender's $playerID
-    ResetCombatKill();
-    DecisionQueueController::StoreVariable("CombatDamageAmount", strval($amount));
-    DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
-    // Track champion combat damage for Ominous Shadow
-    $finishAttacker = GetZoneObject($attackerMZ);
-    if($finishAttacker !== null && PropertyContains(EffectiveCardType($finishAttacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $amount);
-    if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
-    OnHitTrigger($attackerPlayer, $attackerMZ);
+    // Cache the combat damage amount; it will be applied after retaliation is chosen.
+    DecisionQueueController::StoreVariable("CombatDamageAmount", strval(intval($parts[2])));
+};
+
+/**
+ * Handler: Apply cached attacker combat damage after retaliation has been chosen.
+ * Runs in the DEFENDER's player context; temporarily switches to the attacker's context
+ * so that GetZoneObject, OnHitTrigger, OnKillTrigger, and TrackChampionCombatDamage all
+ * resolve zone perspective correctly (matching the original CombatDealDamage behaviour).
+ */
+$customDQHandlers["CombatApplyAttackerDamage"] = function($player, $parts, $lastDecision) {
+    $amount = intval(DecisionQueueController::GetVariable("CombatDamageAmount") ?? "0");
+    if($amount <= 0) return;
+
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer"));
+    // CombatAttacker / CombatTarget are stored in the attacker's perspective.
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    $targetMZ   = DecisionQueueController::GetVariable("CombatTarget");
+    if($attackerMZ === null || $targetMZ === null) return;
+
+    // Temporarily switch to the attacker's perspective so all GetZoneObject lookups
+    // (including those inside OnDealDamage, OnHitTrigger, OnKillTrigger) work correctly.
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $attackerPlayer;
+
+    $attacker = GetZoneObject($attackerMZ); // myField-X in attacker context = attacker's unit
+    if($attacker !== null) {
+        ResetCombatKill();
+        DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
+        if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $amount);
+        if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
+        OnHitTrigger($attackerPlayer, $attackerMZ);
+    }
+
+    $playerID = $savedPlayerID;
 };
 
 // --- damage resolution ---------------------------------------------------------
