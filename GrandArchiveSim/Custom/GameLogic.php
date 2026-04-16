@@ -4652,6 +4652,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "QCUld5Xidm": // Dummy Trainer — (3), banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            break;
         case "Nym5Y3JsO5": // Trivial Trinket — banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
