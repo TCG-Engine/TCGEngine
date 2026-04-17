@@ -13532,6 +13532,36 @@ function EphemeralRedirectDest($obj, $defaultDest, $player) {
     return $defaultDest;
 }
 
+// ============================================================================
+// Regalia zone-replacement hooks (called by generated AddGraveyard / AddHand /
+// AddDeck / AddMemory via the schema AddReplacement directive).
+//
+// Rule 1: If a Regalia would be put into a graveyard from anywhere → banish.
+// Rule 2: If a Regalia would be sent to the hand, main deck, or memory → material deck.
+//
+// Each function returns the new zone object on redirect, or null to allow normal placement.
+// ============================================================================
+
+function GraveyardAddReplacement($player, $CardID, $sourceObject) {
+    if(!PropertyContains(CardType($CardID), "REGALIA")) return null;
+    return AddBanish($player, $CardID, sourceObject: $sourceObject);
+}
+
+function HandAddReplacement($player, $CardID, $sourceObject) {
+    if(!PropertyContains(CardType($CardID), "REGALIA")) return null;
+    return AddMaterial($player, $CardID, sourceObject: $sourceObject);
+}
+
+function DeckAddReplacement($player, $CardID, $sourceObject) {
+    if(!PropertyContains(CardType($CardID), "REGALIA")) return null;
+    return AddMaterial($player, $CardID, sourceObject: $sourceObject);
+}
+
+function MemoryAddReplacement($player, $CardID, $sourceObject) {
+    if(!PropertyContains(CardType($CardID), "REGALIA")) return null;
+    return AddMaterial($player, $CardID, sourceObject: $sourceObject);
+}
+
 /**
  * Return Shackled Theurgist from graveyard/banish to the field with +2 LIFE and ephemeral.
  */

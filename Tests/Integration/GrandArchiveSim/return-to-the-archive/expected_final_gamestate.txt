@@ -102,16 +102,16 @@ eRcqucBKhX
 7wX0tZmhYb
 y8BNOi4rwD
 RfML5wAB1y
-1
+2
 cxqf8rr452 - -
+yj2rJBREH8 ENTERED_THIS_TURN -
 2
 W1g0hNzXAC - eyJfd2FycmlvckZhZVJlYWxtIjp0cnVlfQ==
 ixIY36Ck37 - -
-4
+3
 6ffqsuo6gb
 1k2jb8mau1
 aIbBhTilEN
-yj2rJBREH8
 3
 rpOaAjgtue
 eRcqucBKhX
@@ -119,7 +119,7 @@ eRcqucBKhX
 0
 0
 2
-cxqf8rr452
+el7cwdzin7
 rp5k1vt1cn
 5
 rpOaAjgtue
@@ -137,7 +137,7 @@ OWCdWq3mXY 1 2 0 2 - eyJfY2hhbXBDb21iYXREYW1hZ2VEZWFsdFRoaXNUdXJuIjoyfQ== WyJjWE
 0
 2
 el7cwdzin7
-el7cwdzin7
+cxqf8rr452
 0
 9
 9gv4vm4kj3

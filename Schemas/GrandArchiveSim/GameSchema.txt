@@ -35,6 +35,7 @@ Macro: Name=OnHit(mzID); ChoiceFunction=OnHitTrigger; Action={}
 Macro: Name=OnKill(mzID); ChoiceFunction=OnKillTrigger; Action={}
 Macro: Name=OnFoster(mzID); ChoiceFunction=OnFosterTrigger; Action={}
 Deck - CardID:string
+AddReplacement: DeckAddReplacement
 Display: Visibility=Private, Mode=Single, Bottom=120px, Right=10px
 Macros: Shuffle
 Banish - CardID:string, TurnEffects:array[string], Counters:json
@@ -44,6 +45,7 @@ Display: Visibility=Public, Mode=Single, Bottom=230px, Right=10px
 Click: FSM()
 Counters: OmenCounterCount=Badge(Color=Purple,Position=Center,ShowZero=false)
 Graveyard - CardID:string
+AddReplacement: GraveyardAddReplacement
 Virtual: EphemerateMeta=EphemerateMeta()
 Highlight: EphemerateMeta
 Display: Visibility=Public, Mode=Single, Bottom=10px, Right=10px
@@ -51,6 +53,7 @@ Click: FSM()
 GlobalEffects - CardID:string
 Display: Visibility=None, Mode=None
 Hand - CardID:string
+AddReplacement: HandAddReplacement
 Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
 Click: FSM()
 Virtual: SelectionMetadata=SelectionMetadata()
@@ -103,6 +106,7 @@ Display: Visibility=Public, Mode=All, Bottom=230px, Left=10px
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Memory - CardID:string
+AddReplacement: MemoryAddReplacement
 Display: Visibility=Self, Mode=Single, Bottom=10px, Left=10px
 Material - CardID:string
 Display: Visibility=Self, Mode=Single, Top=120px, Left=10px
