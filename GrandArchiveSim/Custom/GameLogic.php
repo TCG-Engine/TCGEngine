@@ -385,7 +385,11 @@ $customDQHandlers["PREGAME_CHOOSE_STARTING_CHAMPION"] = function($player, $parts
             DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "PREGAME_RESOLVE_STARTING_CHAMPION_ENTER|" . $secondPlayer, 250);
             $firstMzID = DecisionQueueController::GetVariable("PregameStartingChampion" . $firstPlayer);
             if($firstMzID !== null && $firstMzID !== "") {
+                global $playerID;
+                $savedPlayerID = $playerID;
+                $playerID = $firstPlayer;
                 Enter($firstPlayer, $firstMzID);
+                $playerID = $savedPlayerID;
             }
         }
         return;
@@ -396,7 +400,11 @@ $customDQHandlers["PREGAME_CHOOSE_STARTING_CHAMPION"] = function($player, $parts
     DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "PREGAME_RESOLVE_STARTING_CHAMPION_ENTER|" . $secondPlayer, 250);
     $firstMzID = DecisionQueueController::GetVariable("PregameStartingChampion" . $firstPlayer);
     if($firstMzID !== null && $firstMzID !== "") {
+        global $playerID;
+        $savedPlayerID = $playerID;
+        $playerID = $firstPlayer;
         Enter($firstPlayer, $firstMzID);
+        $playerID = $savedPlayerID;
     }
 };
 
@@ -409,7 +417,11 @@ $customDQHandlers["PREGAME_RESOLVE_STARTING_CHAMPION_ENTER"] = function($player,
     }
 
     DecisionQueueController::AddDecision($resolvePlayer, "CUSTOM", "PREGAME_FINISH_STARTING_CHAMPIONS", 250);
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $resolvePlayer;
     Enter($resolvePlayer, $storedMzID);
+    $playerID = $savedPlayerID;
 };
 
 $customDQHandlers["PREGAME_FINISH_STARTING_CHAMPIONS"] = function($player, $parts, $lastDecision) {
