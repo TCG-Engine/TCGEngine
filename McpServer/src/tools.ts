@@ -757,6 +757,15 @@ interface ScenarioPlaceholder {
   defaultValue?: string;
 }
 
+interface ScenarioMutation {
+  zone: string;
+  operation?: 'set' | 'addCard';
+  index?: number;
+  property?: string;
+  perspectivePlayer?: number;
+  value: string;
+}
+
 interface ScenarioTemplate {
   id: string;
   name: string;
@@ -764,6 +773,7 @@ interface ScenarioTemplate {
   category: string;
   description?: string;
   baseFixtureSlug: string;
+  baseMutations?: ScenarioMutation[];
   placeholders: Record<string, ScenarioPlaceholder>;
   initialActions?: any[];
   initialAssertions?: any[];
@@ -901,7 +911,7 @@ export function listScenarioTemplates(root: string): {
 
 export async function newTestFromScenario(root: string, templateId: string, parameters: Record<string, string>): Promise<any> {
   const template = readScenarioTemplate(root, templateId);
-  const mutations = Object.entries(template.placeholders || {}).map(([key, placeholder]) => {
+  const placeholderMutations: ScenarioMutation[] = Object.entries(template.placeholders || {}).map(([key, placeholder]) => {
     const value = parameters[key] ?? placeholder.defaultValue;
     if (!value) {
       throw new Error(`Missing required scenario parameter: ${key}`);
@@ -915,6 +925,7 @@ export async function newTestFromScenario(root: string, templateId: string, para
       value,
     };
   });
+  const mutations: ScenarioMutation[] = [...(template.baseMutations ?? []), ...placeholderMutations];
 
   const scenarioSpec = {
     baseFixtureSlug: template.baseFixtureSlug,
@@ -956,11 +967,28 @@ export async function newTestFromScenario(root: string, templateId: string, para
     draftGameName,
     parameters,
   };
+  const seededActions = (template.initialActions ?? []).map((action) => normalizeDraftAction(action));
   fs.writeFileSync(path.join(fixtureDir, 'meta.json'), JSON.stringify(meta, null, 2));
   fs.writeFileSync(path.join(fixtureDir, 'initial_gamestate.txt'), String(compileResult.gamestateText));
-  fs.writeFileSync(path.join(fixtureDir, 'actions.json'), JSON.stringify(template.initialActions ?? [], null, 2));
+  fs.writeFileSync(path.join(fixtureDir, 'actions.json'), JSON.stringify(seededActions, null, 2));
   fs.writeFileSync(path.join(fixtureDir, 'assertions.json'), JSON.stringify(template.initialAssertions ?? [], null, 2));
-  fs.writeFileSync(path.join(fixtureDir, 'expected_final_gamestate.txt'), String(compileResult.gamestateText));
+
+  for (const action of seededActions) {
+    const applyResult = await runBridgeCommand('apply-engine-action', {
+      root,
+      gameName: draftGameName,
+      action: Buffer.from(JSON.stringify(action), 'utf-8').toString('base64'),
+    });
+    if (applyResult.success === false) {
+      throw new Error(applyResult.message || `Template initial action failed for ${templateId}`);
+    }
+  }
+
+  const currentGamestatePath = path.join(gameDir, 'Gamestate.txt');
+  const currentGamestateText = fs.existsSync(currentGamestatePath)
+    ? fs.readFileSync(currentGamestatePath, 'utf-8')
+    : String(compileResult.gamestateText);
+  fs.writeFileSync(path.join(fixtureDir, 'expected_final_gamestate.txt'), currentGamestateText);
 
   const legalActions = await enumerateLegalActions(root, draftGameName);
   return {

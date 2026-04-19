@@ -1,0 +1,41 @@
+{
+  "id": "play-from-hand/rich-main-phase-card",
+  "name": "Play From Hand - Rich Main Phase",
+  "root": "GrandArchiveSim",
+  "category": "play-from-hand",
+  "description": "Curated main-phase starting point with reserve-supporting field objects and an optional opponent ally target.",
+  "baseFixtureSlug": "return-to-the-archive",
+  "baseMutations": [
+    {
+      "zone": "myField",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "cxqf8rr452"
+    },
+    {
+      "zone": "myField",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "rp5k1vt1cn"
+    }
+  ],
+  "placeholders": {
+    "handCard": {
+      "description": "Card ID to place into player one's hand at myHand-2 before the draft test starts.",
+      "zone": "myHand",
+      "index": 2,
+      "property": "CardID",
+      "operation": "set",
+      "perspectivePlayer": 1
+    },
+    "opponentFieldCard": {
+      "description": "Optional opponent field card to append as a targetable ally or unit.",
+      "zone": "theirField",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "defaultValue": "eRcqucBKhX"
+    }
+  },
+  "initialActions": [],
+  "initialAssertions": []
+}

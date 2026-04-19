@@ -1,0 +1,83 @@
+{
+  "id": "reaction-to-damage/incoming-damage-reaction-card",
+  "name": "Reaction To Incoming Damage - Basic Card",
+  "root": "GrandArchiveSim",
+  "category": "reaction-to-damage",
+  "description": "Curated reaction-window starting point that begins in a real Play_a_fast_card? combat-response window with incoming champion damage already pending.",
+  "baseFixtureSlug": "attack-spirit-no-retaliate-option",
+  "baseMutations": [
+    {
+      "zone": "theirHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "4d5vettczb"
+    },
+    {
+      "zone": "theirHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "4d5vettczb"
+    },
+    {
+      "zone": "theirHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "4d5vettczb"
+    },
+    {
+      "zone": "theirHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "4d5vettczb"
+    },
+    {
+      "zone": "theirHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "4d5vettczb"
+    },
+    {
+      "zone": "theirHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "4d5vettczb"
+    }
+  ],
+  "placeholders": {
+    "reactionCard": {
+      "description": "Reaction or fast card to place into the defending player's hand at theirHand-0 for the current response window.",
+      "zone": "theirHand",
+      "index": 0,
+      "property": "CardID",
+      "operation": "set",
+      "perspectivePlayer": 1
+    }
+  },
+  "initialActions": [
+    {
+      "playerID": 1,
+      "mode": 10002,
+      "buttonInput": "",
+      "cardID": "myField-4!FSM!",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "theirField-0",
+      "chkInput": [],
+      "inputText": ""
+    },
+    {
+      "playerID": 1,
+      "mode": 100,
+      "buttonInput": "",
+      "cardID": "PASS",
+      "chkInput": [],
+      "inputText": ""
+    }
+  ],
+  "initialAssertions": []
+}

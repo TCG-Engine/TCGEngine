@@ -1,0 +1,28 @@
+{
+  "id": "play-from-hand/two-hand-cards",
+  "name": "Play From Hand - Two Hand Cards",
+  "root": "GrandArchiveSim",
+  "category": "play-from-hand",
+  "description": "Proof-of-concept editable scenario that starts from a known fixture and swaps two cards in player one's hand so a regression can validate a short in-turn sequence of hand plays.",
+  "baseFixtureSlug": "return-to-the-archive",
+  "placeholders": {
+    "handCard": {
+      "description": "Card ID to place into player one's hand at myHand-2 before the draft test starts.",
+      "zone": "myHand",
+      "index": 2,
+      "property": "CardID",
+      "operation": "set",
+      "perspectivePlayer": 1
+    },
+    "secondHandCard": {
+      "description": "Card ID to place into player one's hand at myHand-3 before the draft test starts.",
+      "zone": "myHand",
+      "index": 3,
+      "property": "CardID",
+      "operation": "set",
+      "perspectivePlayer": 1
+    }
+  },
+  "initialActions": [],
+  "initialAssertions": []
+}

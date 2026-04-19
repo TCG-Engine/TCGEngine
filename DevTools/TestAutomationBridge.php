@@ -300,6 +300,28 @@ function BridgeEnumerateHandPlayActions($player) {
   return $actions;
 }
 
+function BridgeCountActiveZoneObjects($zoneName) {
+  $zone = GetZone($zoneName);
+  if (!is_array($zone)) return 0;
+  $count = 0;
+  foreach ($zone as $zoneObject) {
+    if (is_object($zoneObject) && empty($zoneObject->removed)) ++$count;
+  }
+  return $count;
+}
+
+function BridgeGetOpportunityState() {
+  $pendingHandler = DecisionQueueController::GetVariable('PendingOpportunityHandler');
+  $pendingFirstPlayer = DecisionQueueController::GetVariable('PendingOpportunityFirstPlayer');
+  $pendingNextPlayer = DecisionQueueController::GetVariable('PendingOpportunityNextPlayer');
+  return [
+    'pendingOpportunityHandler' => ($pendingHandler === null || $pendingHandler === '') ? '' : strval($pendingHandler),
+    'pendingOpportunityFirstPlayer' => ($pendingFirstPlayer === null || $pendingFirstPlayer === '') ? null : intval($pendingFirstPlayer),
+    'pendingOpportunityNextPlayer' => ($pendingNextPlayer === null || $pendingNextPlayer === '') ? null : intval($pendingNextPlayer),
+    'effectStackCount' => BridgeCountActiveZoneObjects('EffectStack'),
+  ];
+}
+
 function BridgeEnumerateLegalActions($root, $gameName) {
   BridgeLoadRuntimeGame($root, $gameName);
   $dqController = new DecisionQueueController();
@@ -320,15 +342,30 @@ function BridgeEnumerateLegalActions($root, $gameName) {
 
   $turnPlayer = intval(GetTurnPlayer());
   $phase = strval(GetCurrentPhase());
+  $opportunityState = BridgeGetOpportunityState();
   if ($phase !== 'MAIN') {
-    return ['success' => true, 'kind' => 'phase-unsupported', 'phase' => $phase, 'actions' => []];
+    return [
+      'success' => true,
+      'kind' => 'phase-unsupported',
+      'phase' => $phase,
+      'opportunityState' => $opportunityState,
+      'actions' => [],
+    ];
+  }
+
+  $kind = 'main-phase-hand-play';
+  if ($opportunityState['effectStackCount'] > 0) {
+    $kind = 'effect-stack-response';
+  } else if ($opportunityState['pendingOpportunityHandler'] !== '') {
+    $kind = 'opportunity-window-hand-play';
   }
 
   return [
     'success' => true,
-    'kind' => 'main-phase-hand-play',
+    'kind' => $kind,
     'playerID' => $turnPlayer,
     'phase' => $phase,
+    'opportunityState' => $opportunityState,
     'actions' => BridgeEnumerateHandPlayActions($turnPlayer),
   ];
 }

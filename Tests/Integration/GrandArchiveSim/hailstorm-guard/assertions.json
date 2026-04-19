@@ -1,0 +1,36 @@
+[
+	{
+		"step": 14,
+		"type": "zone_count",
+		"viewerPlayerID": 2,
+		"zone": "myGraveyard",
+		"value": 2
+	},
+	{
+		"step": 14,
+		"type": "zone_count",
+		"viewerPlayerID": 2,
+		"zone": "myDeck",
+		"value": 52
+	},
+	{
+		"step": 14,
+		"type": "zone_count",
+		"viewerPlayerID": 1,
+		"zone": "myGraveyard",
+		"value": 2
+	},
+	{
+		"step": 14,
+		"type": "zone_count",
+		"viewerPlayerID": 1,
+		"zone": "myDeck",
+		"value": 49
+	},
+	{
+		"step": 14,
+		"type": "decision_queue_empty",
+		"viewerPlayerID": 1,
+		"player": "all"
+	}
+]

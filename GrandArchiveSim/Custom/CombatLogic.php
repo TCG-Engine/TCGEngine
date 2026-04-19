@@ -3438,7 +3438,10 @@ function OnDealDamage($player, $source, $target, $amount) {
             $amount = 0;
             $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "PREVENT_CHAMP_MILL"));
             if($prevented > 0) {
-                MillCards($targetObj->Controller, "myDeck", "myGraveyard", $prevented);
+                global $playerID;
+                $deckRef = intval($targetObj->Controller) === intval($playerID) ? "myDeck" : "theirDeck";
+                $graveyardRef = intval($targetObj->Controller) === intval($playerID) ? "myGraveyard" : "theirGraveyard";
+                MillCards($playerID, $deckRef, $graveyardRef, $prevented);
             }
             return;
         }

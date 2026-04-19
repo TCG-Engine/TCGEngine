@@ -1,0 +1,13 @@
+{
+  "name": "hailstorm-guard",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-04-19T19:39:41+02:00",
+  "createdBy": "mcp-manual",
+  "sourceTemplate": "reaction-to-damage/incoming-damage-reaction-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "reactionCard": "05qzzadf9q"
+  },
+  "savedAt": "2026-04-19T17:41:47.583Z"
+}
