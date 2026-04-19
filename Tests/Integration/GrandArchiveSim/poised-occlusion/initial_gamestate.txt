@@ -1,5 +1,5 @@
 1
-1676
+1665
 45
 sesw2ugmnm
 vfq3huqj5b
@@ -46,7 +46,8 @@ zuj68m69iq
 vfq3huqj5b
 ra9950o14t
 rWhFC8XBaH
-45
+46
+7l9th23niu
 4e1gqwah01
 gnfbp3g8iw
 nypwwnirjk
@@ -99,18 +100,21 @@ rWhFC8XBaH - -
 Z9TCpaMJTc ENTERED_THIS_TURN -
 1
 sesw2ugmnm
-1
-w64layznmh
 0
 0
-6
+0
+10
+gnfbp3g8iw
+xwwkxq0vp3
+bx25s7kiln
 0w5bp5nuae
 wr42i6eifn
 nypwwnirjk
 vfq3huqj5b
+ao8bls6g7x
 gnfbp3g8iw
 vfq3huqj5b
-9
+12
 ra9950o14t
 gnfbp3g8iw
 xwwkxq0vp3
@@ -120,6 +124,9 @@ gnfbp3g8iw
 vfq3huqj5b
 xicxo661ly
 bx25s7kiln
+w64layznmh
+0w5bp5nuae
+ra9950o14t
 8
 eifnz0fgm3 2 1 0 1 - - -
 m7f6r8f3y8 2 1 0 1 - - WyJ0YWZxbGRBR1JGIl0=
@@ -130,20 +137,13 @@ Z9TCpaMJTc 2 1 0 1 - - -
 4e1gqwah01 2 1 0 1 - - -
 drnxdiltx3 2 1 0 1 ENTERED_THIS_TURN - -
 3
-tafqldAGRF 2 2 0 2 DISTANT~vz4kc558yx-ACTION_ACTIVATED - -
+m7f6r8f3y8 2 2 0 2 - - WyJ0YWZxbGRBR1JGIl0=
 4e1gqwah01 2 2 0 2 - - -
 fbs9qzo3f6 2 2 0 2 - - -
 0
 0
-4
-gnfbp3g8iw
-xwwkxq0vp3
-bx25s7kiln
-ao8bls6g7x
-3
-0w5bp5nuae
-ra9950o14t
-7l9th23niu
+0
+0
 6
 wiztyu6o24
 v3vfjtwm7g
@@ -178,8 +178,8 @@ rsps1qnzfl
 1
 MAIN
 
-
-{"mzID":"EffectStack-1","amount":1,"ignoreCost":false,"activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","target":"myField-0","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"1","MLAE_sourceMZ":"myGraveyard-1","MLAE_wingMZ":"myField-2","mzIDCardID":"w64layznmh","glimpseCardIDs":"zuj68m69iq,xwwkxq0vp3,eifnz0fgm3,gnfbp3g8iw","abilityIndex":0,"chosen":"theirField-1","EffectStackEnterCardID":"","EffectStackEnterController":""}
+Player 1 undid their last action.
+{"mzID":"myField-7","amount":1,"ignoreCost":false,"activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","target":"myField-0","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"1","MLAE_sourceMZ":"myGraveyard-1","MLAE_wingMZ":"myField-2","mzIDCardID":"Z9TCpaMJTc","glimpseCardIDs":"zuj68m69iq,xwwkxq0vp3,eifnz0fgm3,gnfbp3g8iw","abilityIndex":0,"chosen":"theirField-1","EffectStackEnterCardID":"","EffectStackEnterController":""}
 0
-{"MaterializeCalls":{"1":6,"2":3},"Materialize":{"1":{"tafqldAGRF":1,"m7f6r8f3y8":1,"3n5x9fbkn0":1,"xnrw8qq1uw":1,"Z9TCpaMJTc":1,"drnxdiltx3":1},"2":{"tafqldAGRF":1,"fbs9qzo3f6":1,"Z9TCpaMJTc":1}},"EnterCalls":{"1":8,"2":4},"Enter":{"1":{"tafqldAGRF":1,"eifnz0fgm3":1,"m7f6r8f3y8":1,"3n5x9fbkn0":1,"xnrw8qq1uw":1,"Z9TCpaMJTc":1,"4e1gqwah01":1,"drnxdiltx3":1},"2":{"tafqldAGRF":1,"4e1gqwah01":1,"fbs9qzo3f6":1,"Z9TCpaMJTc":1}},"DrawCalls":{"1":8,"2":7},"Draw":{"1":14,"2":13},"ActivateCardCalls":{"1":7,"2":3},"ActivateCard":{"1":{"eifnz0fgm3":1,"sesw2ugmnm":1,"7l9th23niu":1,"b0iz7wm7ow":1,"bx25s7kiln":1,"4e1gqwah01":1,"ao8bls6g7x":1},"2":{"4e1gqwah01":1,"rWhFC8XBaH":1,"w64layznmh":1}},"CardActivatedCalls":{"1":6,"2":3},"CardActivated":{"1":{"eifnz0fgm3":1,"sesw2ugmnm":1,"7l9th23niu":1,"b0iz7wm7ow":1,"bx25s7kiln":1,"4e1gqwah01":1},"2":{"4e1gqwah01":1,"rWhFC8XBaH":1,"w64layznmh":1}},"AetherchargeActivated":{"1":3},"ActivateAbilityCalls":{"1":6,"2":1},"ActivateAbility":{"1":{"xnrw8qq1uw":6},"2":{"Z9TCpaMJTc":1}},"AdvancedElementActivated":{"1":1,"2":1},"CardActivationNegated":{"2":1},"CardActivationNegatedCards":{"2":["ao8bls6g7x"]},"ControlledActivationNegated":{"1":1},"ControlledActivationNegatedCards":{"1":["ao8bls6g7x"]}}
+{"MaterializeCalls":{"1":6,"2":3},"Materialize":{"1":{"tafqldAGRF":1,"m7f6r8f3y8":1,"3n5x9fbkn0":1,"xnrw8qq1uw":1,"Z9TCpaMJTc":1,"drnxdiltx3":1},"2":{"tafqldAGRF":1,"fbs9qzo3f6":1,"Z9TCpaMJTc":1}},"EnterCalls":{"1":8,"2":4},"Enter":{"1":{"tafqldAGRF":1,"eifnz0fgm3":1,"m7f6r8f3y8":1,"3n5x9fbkn0":1,"xnrw8qq1uw":1,"Z9TCpaMJTc":1,"4e1gqwah01":1,"drnxdiltx3":1},"2":{"tafqldAGRF":1,"4e1gqwah01":1,"fbs9qzo3f6":1,"Z9TCpaMJTc":1}},"DrawCalls":{"1":8,"2":7},"Draw":{"1":14,"2":13},"ActivateCardCalls":{"1":6,"2":2},"ActivateCard":{"1":{"eifnz0fgm3":1,"sesw2ugmnm":1,"7l9th23niu":1,"b0iz7wm7ow":1,"bx25s7kiln":1,"4e1gqwah01":1},"2":{"4e1gqwah01":1,"rWhFC8XBaH":1}},"CardActivatedCalls":{"1":6,"2":2},"CardActivated":{"1":{"eifnz0fgm3":1,"sesw2ugmnm":1,"7l9th23niu":1,"b0iz7wm7ow":1,"bx25s7kiln":1,"4e1gqwah01":1},"2":{"4e1gqwah01":1,"rWhFC8XBaH":1}},"AetherchargeActivated":{"1":3},"ActivateAbilityCalls":{"1":6,"2":1},"ActivateAbility":{"1":{"xnrw8qq1uw":6},"2":{"Z9TCpaMJTc":1}},"AdvancedElementActivated":{"1":1}}
 0
