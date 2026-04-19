@@ -14,6 +14,13 @@ import {
   getHelperFunctions,
   getImplementedExamples,
   getZoneSchema,
+  listScenarioTemplates,
+  newTestFromScenario,
+  runTest,
+  saveTest,
+  enumerateLegalActions,
+  applyEngineAction,
+  getGameSnapshot,
 } from "./tools.js";
 import { closePool } from "./db.js";
 
@@ -252,6 +259,162 @@ server.tool(
   async (params) => {
     try {
       const result = getZoneSchema(params.root);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: list_scenario_templates
+// ---------------------------------------------------------------------------
+server.tool(
+  "list_scenario_templates",
+  "List available editable scenario templates for a root. Use this to discover proof-of-concept test setups before generating a new test.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+  },
+  { readOnlyHint: true, destructiveHint: false },
+  async (params) => {
+    try {
+      const result = listScenarioTemplates(params.root);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: new_test_from_scenario
+// ---------------------------------------------------------------------------
+server.tool(
+  "new_test_from_scenario",
+  "Create a draft integration test fixture and live draft game from an editable scenario template. For the first proof of concept, parameters mainly fill placeholders like the card in hand.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    templateId: z.string().describe("Scenario template ID, for example 'play-from-hand/basic-hand-card'"),
+    parameters: z.record(z.string(), z.string()).describe("Placeholder values and optional metadata like name or slug."),
+  },
+  { destructiveHint: true },
+  async (params) => {
+    try {
+      const result = await newTestFromScenario(params.root, params.templateId, params.parameters as Record<string, string>);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: run_test
+// ---------------------------------------------------------------------------
+server.tool(
+  "run_test",
+  "Run a saved integration test fixture through the existing CLI runner.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    slug: z.string().describe("Fixture slug under Tests/Integration/<root>/"),
+  },
+  { destructiveHint: false },
+  async (params) => {
+    try {
+      const result = await runTest(params.root, params.slug);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], isError: !result.success };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: save_test
+// ---------------------------------------------------------------------------
+server.tool(
+  "save_test",
+  "Finalize a draft test by snapshotting the current draft game's gamestate as expected_final_gamestate.txt.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    slug: z.string().describe("Fixture slug under Tests/Integration/<root>/"),
+  },
+  { destructiveHint: true },
+  async (params) => {
+    try {
+      const result = saveTest(params.root, params.slug);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: enumerate_legal_actions
+// ---------------------------------------------------------------------------
+server.tool(
+  "enumerate_legal_actions",
+  "Enumerate legal next actions for a live draft game. The proof of concept supports play-from-hand main-phase actions and a narrow subset of decision queue choices.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    gameName: z.string().describe("Live draft game name under <root>/Games/"),
+  },
+  { readOnlyHint: true, destructiveHint: false },
+  async (params) => {
+    try {
+      const result = await enumerateLegalActions(params.root, params.gameName);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: apply_engine_action
+// ---------------------------------------------------------------------------
+server.tool(
+  "apply_engine_action",
+  "Apply a single engine action to a live draft game.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    gameName: z.string().describe("Live draft game name under <root>/Games/"),
+    action: z.object({
+      playerID: z.number().int(),
+      mode: z.number().int(),
+      buttonInput: z.string().optional(),
+      cardID: z.string().optional(),
+      chkInput: z.array(z.string()).optional(),
+      inputText: z.string().optional(),
+    }).describe("Normalized engine action to apply to the live draft game."),
+  },
+  { destructiveHint: true },
+  async (params) => {
+    try {
+      const result = await applyEngineAction(params.root, params.gameName, params.action);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], isError: result.success === false };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: get_game_snapshot
+// ---------------------------------------------------------------------------
+server.tool(
+  "get_game_snapshot",
+  "Read the current state of a live draft game. Use view='summary' for a compact state summary or view='full' for the raw gamestate text.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    gameName: z.string().describe("Live draft game name under <root>/Games/"),
+    view: z.string().optional().describe("Either 'summary' or 'full'. Defaults to 'summary'."),
+  },
+  { readOnlyHint: true, destructiveHint: false },
+  async (params) => {
+    try {
+      const result = await getGameSnapshot(params.root, params.gameName, params.view);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err: any) {
       return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };

@@ -211,6 +211,7 @@
       function_exists('SupportsRegressionRecording') &&
       SupportsRegressionRecording();
     $regressionRecordingActive = $showRegressionControls ? RegressionIsRecordingActive($folderPath, $gameName) : false;
+    $regressionFixtureOptions = $showRegressionControls ? RegressionListFixtureOptions($folderPath) : [];
 
     function IsDarkMode() { return false; }
     function IsMuted() { return false; }
@@ -577,6 +578,18 @@
       </div>
       <div id="regressionControlsBody">
       <div style="font-size:12px; margin-bottom:10px;">Status: <span id="regressionStatus"><?= $regressionRecordingActive ? 'Recording' : 'Idle'; ?></span></div>
+      <?php if (!empty($regressionFixtureOptions)): ?>
+      <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
+        <label for="regressionFixtureSelect" style="font-size:12px;">Fixture</label>
+        <select id="regressionFixtureSelect" style="padding:6px 8px; max-width:260px;">
+          <?php foreach ($regressionFixtureOptions as $fixtureOption): ?>
+          <option value="<?= htmlspecialchars($fixtureOption['slug'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($fixtureOption['name'], ENT_QUOTES, 'UTF-8'); ?></option>
+          <?php endforeach; ?>
+        </select>
+        <button type="button" onclick="loadRegressionFixtureInitialState()" style="padding:6px 10px;">Load Initial State</button>
+        <button type="button" onclick="replayRegressionFixture()" style="padding:6px 10px;">Replay Fixture Actions</button>
+      </div>
+      <?php endif; ?>
       <div style="display:flex; flex-direction:column; gap:6px;">
         <button type="button" onclick="startRegressionRecording()" style="padding:6px 10px;">Start Recording</button>
         <button type="button" onclick="stopRegressionRecording()" style="padding:6px 10px;">Stop Recording</button>
@@ -619,7 +632,11 @@
           "&mode=" + encodeURIComponent(mode) +
           "&inputText=" + encodeURIComponent(inputText || ""),
           { method: "GET" }
-        ).then(function(response) { return response.text(); });
+        ).then(function(response) {
+          return response.text().then(function(message) {
+            return (message || "").trim();
+          });
+        });
       }
 
       function startRegressionRecording() {
@@ -692,6 +709,27 @@
           if (message) alert(message);
           location.reload();
         });
+      }
+
+      function submitRegressionFixtureLoad(replayActions) {
+        var select = document.getElementById("regressionFixtureSelect");
+        if (!select || !select.value) {
+          alert("Select a fixture first.");
+          return;
+        }
+
+        submitRegressionRequest(11004, JSON.stringify({ slug: select.value, replayActions: replayActions })).then(function(message) {
+          if (message) alert(message);
+          location.reload();
+        });
+      }
+
+      function loadRegressionFixtureInitialState() {
+        submitRegressionFixtureLoad(false);
+      }
+
+      function replayRegressionFixture() {
+        submitRegressionFixtureLoad(true);
       }
     </script>
     <?php endif; ?>

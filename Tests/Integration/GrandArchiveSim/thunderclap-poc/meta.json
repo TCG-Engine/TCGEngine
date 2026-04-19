@@ -1,0 +1,16 @@
+{
+  "draft": false,
+  "sourceTemplate": "play-from-hand/hand-card-vs-opponent-ally",
+  "name": "Thunderclap POC",
+  "createdBy": "copilot",
+  "rootName": "GrandArchiveSim",
+  "draftGameName": "103",
+  "createdAt": "2026-04-19T16:45:50.0418712Z",
+  "parameters": {
+    "slug": "thunderclap-poc",
+    "name": "Thunderclap POC",
+    "opponentFieldCard": "eRcqucBKhX",
+    "handCard": "0xm513tj3j"
+  },
+  "savedAt": "2026-04-19T16:47:25.988Z"
+}

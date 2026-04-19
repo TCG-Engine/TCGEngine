@@ -336,6 +336,81 @@ function RegressionListFixtures($rootName) {
   return $fixtures;
 }
 
+function RegressionListFixtureOptions($rootName) {
+  $options = [];
+  foreach (RegressionListFixtures($rootName) as $slug) {
+    $meta = [];
+    $metaPath = RegressionFixtureDir($rootName, $slug) . DIRECTORY_SEPARATOR . 'meta.json';
+    if (is_file($metaPath)) {
+      $decoded = json_decode(file_get_contents($metaPath), true);
+      if (is_array($decoded)) $meta = $decoded;
+    }
+    $options[] = [
+      'slug' => $slug,
+      'name' => trim(strval($meta['name'] ?? '')) !== '' ? strval($meta['name']) : $slug,
+    ];
+  }
+  return $options;
+}
+
+function RegressionReplayFixture($rootName, $gameName, $slug, $replayActions = false) {
+  $slug = RegressionSanitizeSlug($slug);
+  if ($slug === '') {
+    return ['success' => false, 'message' => 'Fixture slug cannot be empty.'];
+  }
+
+  $fixtureDir = RegressionFixtureDir($rootName, $slug);
+  if (!is_dir($fixtureDir)) {
+    return ['success' => false, 'message' => 'Fixture directory was not found.'];
+  }
+
+  $initialPath = $fixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt';
+  if (!is_file($initialPath)) {
+    return ['success' => false, 'message' => 'Fixture initial_gamestate.txt is missing.'];
+  }
+
+  $gameStatePath = RegressionCurrentGamestatePath($rootName, $gameName);
+  if ($gameStatePath === '') {
+    return ['success' => false, 'message' => 'Unable to resolve the current game state path.'];
+  }
+
+  copy($initialPath, $gameStatePath);
+
+  if (function_exists('ParseGamestate')) {
+    ParseGamestate('./' . $rootName . '/');
+  }
+
+  $actions = RegressionLoadActionsForFixture($fixtureDir);
+  if ($replayActions) {
+    foreach ($actions as $stepIndex => $action) {
+      $result = EngineExecuteLoadedAction($action, $rootName, $gameName, [
+        'updateCache' => false,
+        'disableRecording' => true,
+      ]);
+      if (empty($result['success'])) {
+        return [
+          'success' => false,
+          'message' => 'Fixture replay failed at step ' . ($stepIndex + 1) . ': ' . ($result['message'] ?: 'engine action failed'),
+        ];
+      }
+    }
+  }
+
+  if (function_exists('GamestateUpdated')) {
+    GamestateUpdated($gameName);
+  }
+  if (function_exists('SetFlashMessage')) {
+    SetFlashMessage(($replayActions ? 'Replayed' : 'Loaded initial state for') . ' regression fixture ' . $slug . '.');
+  }
+
+  return [
+    'success' => true,
+    'message' => ($replayActions ? 'Replayed' : 'Loaded initial state for') . ' regression fixture ' . $slug . ' into game ' . $gameName . '.',
+    'actionCount' => count($actions),
+    'replayActions' => $replayActions,
+  ];
+}
+
 function RegressionAssertionMatchesStep($assertion, $step) {
   return intval($assertion['step'] ?? -1) === intval($step);
 }

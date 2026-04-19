@@ -747,5 +747,301 @@ export function getZoneSchema(root: string): {
   return { root, zones, macros };
 }
 
+interface ScenarioPlaceholder {
+  description: string;
+  zone: string;
+  operation?: 'set' | 'addCard';
+  index?: number;
+  property?: string;
+  perspectivePlayer?: number;
+  defaultValue?: string;
+}
+
+interface ScenarioTemplate {
+  id: string;
+  name: string;
+  root: string;
+  category: string;
+  description?: string;
+  baseFixtureSlug: string;
+  placeholders: Record<string, ScenarioPlaceholder>;
+  initialActions?: any[];
+  initialAssertions?: any[];
+}
+
+const PROOF_OF_CONCEPT_GAME_NAME = '103';
+
+function scenarioTemplatesRoot(root: string): string {
+  return path.join(ENGINE_ROOT, 'Tests', 'ScenarioTemplates', root);
+}
+
+function scenarioTemplatePath(root: string, templateId: string): string {
+  const baseRoot = path.resolve(scenarioTemplatesRoot(root));
+  const target = path.resolve(baseRoot, `${templateId}.json`);
+  if (!target.startsWith(baseRoot)) {
+    throw new Error(`Template path escapes scenario template root: ${templateId}`);
+  }
+  return target;
+}
+
+function collectScenarioTemplateFiles(currentDir: string): string[] {
+  if (!fs.existsSync(currentDir)) return [];
+  const files: string[] = [];
+  for (const entry of fs.readdirSync(currentDir, { withFileTypes: true })) {
+    const fullPath = path.join(currentDir, entry.name);
+    if (entry.isDirectory()) files.push(...collectScenarioTemplateFiles(fullPath));
+    else if (entry.isFile() && entry.name.endsWith('.json')) files.push(fullPath);
+  }
+  return files;
+}
+
+function readScenarioTemplate(root: string, templateId: string): ScenarioTemplate {
+  const templatePath = scenarioTemplatePath(root, templateId);
+  if (!fs.existsSync(templatePath)) {
+    throw new Error(`Scenario template not found: ${templateId}`);
+  }
+  const parsed = JSON.parse(fs.readFileSync(templatePath, 'utf-8'));
+  return parsed as ScenarioTemplate;
+}
+
+function normalizeDraftAction(action: any) {
+  return {
+    playerID: Number(action.playerID ?? 0),
+    mode: Number(action.mode ?? 0),
+    buttonInput: String(action.buttonInput ?? ''),
+    cardID: String(action.cardID ?? ''),
+    chkInput: Array.isArray(action.chkInput) ? action.chkInput.map((value: any) => String(value)) : [],
+    inputText: String(action.inputText ?? ''),
+  };
+}
+
+function integrationFixtureDir(root: string, slug: string): string {
+  return path.join(ENGINE_ROOT, 'Tests', 'Integration', root, slug);
+}
+
+function draftGameDir(root: string, gameName: string): string {
+  return path.join(ENGINE_ROOT, root, 'Games', gameName);
+}
+
+function gameMetaPath(root: string, gameName: string): string {
+  return path.join(draftGameDir(root, gameName), 'RegressionDraftMeta.json');
+}
+
+function writeGameDraftMeta(root: string, gameName: string, meta: any): void {
+  fs.writeFileSync(gameMetaPath(root, gameName), JSON.stringify(meta, null, 2));
+}
+
+function readGameDraftMeta(root: string, gameName: string): any | null {
+  const metaPath = gameMetaPath(root, gameName);
+  if (!fs.existsSync(metaPath)) return null;
+  const parsed = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+  return parsed && typeof parsed === 'object' ? parsed : null;
+}
+
+function testAutomationBridgePath(): string {
+  return path.join(ENGINE_ROOT, 'DevTools', 'TestAutomationBridge.php');
+}
+
+async function runBridgeCommand(command: string, params: Record<string, string>): Promise<any> {
+  const args = [testAutomationBridgePath(), `--command=${command}`];
+  for (const [key, value] of Object.entries(params)) {
+    args.push(`--${key}=${value}`);
+  }
+  try {
+    const { stdout } = await execFileAsync('php', args, {
+      cwd: ENGINE_ROOT,
+      maxBuffer: 10 * 1024 * 1024,
+    });
+    return JSON.parse(stdout);
+  } catch (err: any) {
+    const stdout = err?.stdout ? String(err.stdout) : '';
+    if (stdout.trim().startsWith('{')) {
+      try {
+        return JSON.parse(stdout);
+      } catch {
+        // Fall through to generic error below.
+      }
+    }
+    throw new Error(`Bridge command failed: ${command}: ${err.message}`);
+  }
+}
+
+function sanitizeDraftSlug(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9\-]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+export function listScenarioTemplates(root: string): {
+  root: string;
+  templates: { templateId: string; name: string; category: string; description?: string; placeholders: string[] }[];
+} {
+  const templateRoot = scenarioTemplatesRoot(root);
+  const rootResolved = path.resolve(templateRoot);
+  const templates = collectScenarioTemplateFiles(templateRoot)
+    .map((filePath) => {
+      const parsed = JSON.parse(fs.readFileSync(filePath, 'utf-8')) as ScenarioTemplate;
+      const relativePath = path.relative(rootResolved, filePath).replace(/\\/g, '/');
+      const templateId = relativePath.replace(/\.json$/, '');
+      return {
+        templateId,
+        name: parsed.name,
+        category: parsed.category,
+        description: parsed.description,
+        placeholders: Object.keys(parsed.placeholders || {}),
+      };
+    })
+    .sort((left, right) => left.templateId.localeCompare(right.templateId));
+
+  return { root, templates };
+}
+
+export async function newTestFromScenario(root: string, templateId: string, parameters: Record<string, string>): Promise<any> {
+  const template = readScenarioTemplate(root, templateId);
+  const mutations = Object.entries(template.placeholders || {}).map(([key, placeholder]) => {
+    const value = parameters[key] ?? placeholder.defaultValue;
+    if (!value) {
+      throw new Error(`Missing required scenario parameter: ${key}`);
+    }
+    return {
+      zone: placeholder.zone,
+      index: placeholder.index,
+      property: placeholder.property,
+      operation: placeholder.operation,
+      perspectivePlayer: placeholder.perspectivePlayer,
+      value,
+    };
+  });
+
+  const scenarioSpec = {
+    baseFixtureSlug: template.baseFixtureSlug,
+    mutations,
+  };
+  const compileResult = await runBridgeCommand('compile-scenario', {
+    root,
+    spec: Buffer.from(JSON.stringify(scenarioSpec), 'utf-8').toString('base64'),
+  });
+  if (!compileResult.success) {
+    throw new Error(compileResult.message || 'Scenario compilation failed.');
+  }
+
+  const explicitSlug = parameters.slug ? sanitizeDraftSlug(parameters.slug) : '';
+  const fallbackSlug = sanitizeDraftSlug(`${template.category}-${path.basename(templateId)}-${Date.now()}`);
+  const slug = explicitSlug || fallbackSlug;
+  const fixtureDir = integrationFixtureDir(root, slug);
+  fs.mkdirSync(fixtureDir, { recursive: true });
+
+  const draftGameName = PROOF_OF_CONCEPT_GAME_NAME;
+  const gameDir = draftGameDir(root, draftGameName);
+  fs.mkdirSync(gameDir, { recursive: true });
+  fs.writeFileSync(path.join(gameDir, 'Gamestate.txt'), String(compileResult.gamestateText));
+  writeGameDraftMeta(root, draftGameName, {
+    root,
+    slug,
+    templateId,
+    loadedAt: new Date().toISOString(),
+    parameters,
+  });
+
+  const meta = {
+    name: parameters.name || slug,
+    rootName: root,
+    createdAt: new Date().toISOString(),
+    createdBy: 'mcp',
+    sourceTemplate: templateId,
+    draft: true,
+    draftGameName,
+    parameters,
+  };
+  fs.writeFileSync(path.join(fixtureDir, 'meta.json'), JSON.stringify(meta, null, 2));
+  fs.writeFileSync(path.join(fixtureDir, 'initial_gamestate.txt'), String(compileResult.gamestateText));
+  fs.writeFileSync(path.join(fixtureDir, 'actions.json'), JSON.stringify(template.initialActions ?? [], null, 2));
+  fs.writeFileSync(path.join(fixtureDir, 'assertions.json'), JSON.stringify(template.initialAssertions ?? [], null, 2));
+  fs.writeFileSync(path.join(fixtureDir, 'expected_final_gamestate.txt'), String(compileResult.gamestateText));
+
+  const legalActions = await enumerateLegalActions(root, draftGameName);
+  return {
+    success: true,
+    root,
+    slug,
+    draftGameName,
+    templateId,
+    legalActions,
+  };
+}
+
+export async function runTest(root: string, slug: string): Promise<any> {
+  try {
+    const { stdout, stderr } = await execFileAsync('php', [path.join(ENGINE_ROOT, 'DevTools', 'RunIntegrationTests.php'), `--root=${root}`, `--test=${slug}`], {
+      cwd: ENGINE_ROOT,
+      maxBuffer: 10 * 1024 * 1024,
+    });
+    return { success: true, output: stdout.trim(), stderr: stderr.trim() };
+  } catch (err: any) {
+    return {
+      success: false,
+      output: String(err?.stdout ?? '').trim(),
+      stderr: String(err?.stderr ?? '').trim(),
+      message: err.message,
+    };
+  }
+}
+
+function appendActionToFixture(root: string, slug: string, action: any): { success: boolean; slug: string; actionCount: number } {
+  const actionsPath = path.join(integrationFixtureDir(root, slug), 'actions.json');
+  const current = fs.existsSync(actionsPath) ? JSON.parse(fs.readFileSync(actionsPath, 'utf-8')) : [];
+  const actions = Array.isArray(current) ? current : [];
+  actions.push(normalizeDraftAction(action));
+  fs.writeFileSync(actionsPath, JSON.stringify(actions, null, 2));
+  return { success: true, slug, actionCount: actions.length };
+}
+
+export function saveTest(root: string, slug: string): { success: boolean; slug: string; expectedFinalSnapshotPath: string } {
+  const fixtureDir = integrationFixtureDir(root, slug);
+  const metaPath = path.join(fixtureDir, 'meta.json');
+  if (!fs.existsSync(metaPath)) throw new Error(`Fixture meta not found for slug: ${slug}`);
+  const meta = JSON.parse(fs.readFileSync(metaPath, 'utf-8'));
+  const draftGameName = meta.draftGameName;
+  if (!draftGameName) throw new Error(`Fixture ${slug} does not have a draftGameName in meta.json`);
+
+  const gamestatePath = path.join(draftGameDir(root, draftGameName), 'Gamestate.txt');
+  if (!fs.existsSync(gamestatePath)) throw new Error(`Draft game Gamestate.txt not found for ${draftGameName}`);
+  const expectedPath = path.join(fixtureDir, 'expected_final_gamestate.txt');
+  fs.writeFileSync(expectedPath, fs.readFileSync(gamestatePath, 'utf-8'));
+  meta.draft = false;
+  meta.savedAt = new Date().toISOString();
+  fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2));
+  return { success: true, slug, expectedFinalSnapshotPath: expectedPath };
+}
+
+export async function enumerateLegalActions(root: string, gameName: string): Promise<any> {
+  return runBridgeCommand('enumerate-legal-actions', { root, gameName });
+}
+
+export async function applyEngineAction(root: string, gameName: string, action: any): Promise<any> {
+  const normalizedAction = normalizeDraftAction(action);
+  const result = await runBridgeCommand('apply-engine-action', {
+    root,
+    gameName,
+    action: Buffer.from(JSON.stringify(normalizedAction), 'utf-8').toString('base64'),
+  });
+  const gameMeta = readGameDraftMeta(root, gameName);
+  if (gameMeta && gameMeta.slug) {
+    appendActionToFixture(root, String(gameMeta.slug), normalizedAction);
+    result.testActionRecorded = true;
+    result.slug = String(gameMeta.slug);
+  } else {
+    result.testActionRecorded = false;
+  }
+  return result;
+}
+
+export async function getGameSnapshot(root: string, gameName: string, view?: string): Promise<any> {
+  return runBridgeCommand('get-game-snapshot', { root, gameName, view: view || 'summary' });
+}
+
 // mysql2 type import for RowDataPacket / ResultSetHeader
 import type * as mysql from "mysql2/promise";

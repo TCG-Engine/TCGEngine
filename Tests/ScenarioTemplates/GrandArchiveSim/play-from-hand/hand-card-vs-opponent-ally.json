@@ -1,0 +1,27 @@
+{
+  "id": "play-from-hand/hand-card-vs-opponent-ally",
+  "name": "Play From Hand - Against Opponent Ally",
+  "root": "GrandArchiveSim",
+  "category": "play-from-hand",
+  "description": "Proof-of-concept editable scenario that starts from a known fixture, swaps a hand card for player one, and appends a targetable ally to the opponent's field.",
+  "baseFixtureSlug": "return-to-the-archive",
+  "placeholders": {
+    "handCard": {
+      "description": "Card ID to place into player one's hand at myHand-2 before the draft test starts.",
+      "zone": "myHand",
+      "index": 2,
+      "property": "CardID",
+      "operation": "set",
+      "perspectivePlayer": 1
+    },
+    "opponentFieldCard": {
+      "description": "Card ID to append to the opponent's field as a valid target for the test card.",
+      "zone": "theirField",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "defaultValue": "eRcqucBKhX"
+    }
+  },
+  "initialActions": [],
+  "initialAssertions": []
+}
