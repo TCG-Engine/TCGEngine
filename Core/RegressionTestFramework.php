@@ -103,6 +103,10 @@ function RegressionRecordingInitialStatePath($rootName, $gameName) {
   return RegressionRecordingDir($rootName, $gameName) . DIRECTORY_SEPARATOR . 'initial_gamestate.txt';
 }
 
+function RegressionReplayStatePath($rootName, $gameName) {
+  return RegressionRepoRoot() . DIRECTORY_SEPARATOR . $rootName . DIRECTORY_SEPARATOR . 'Games' . DIRECTORY_SEPARATOR . $gameName . DIRECTORY_SEPARATOR . 'RegressionReplayState.json';
+}
+
 function RegressionEnsureDir($path) {
   if (!is_dir($path)) {
     mkdir($path, 0777, true);
@@ -144,6 +148,30 @@ function RegressionWriteRecording($rootName, $gameName, $recording) {
   );
 }
 
+function RegressionReadReplayState($rootName, $gameName) {
+  $path = RegressionReplayStatePath($rootName, $gameName);
+  if (!is_file($path)) return null;
+  $json = file_get_contents($path);
+  $data = json_decode($json, true);
+  return is_array($data) ? $data : null;
+}
+
+function RegressionWriteReplayState($rootName, $gameName, $state) {
+  $gameDir = dirname(RegressionReplayStatePath($rootName, $gameName));
+  RegressionEnsureDir($gameDir);
+  file_put_contents(
+    RegressionReplayStatePath($rootName, $gameName),
+    json_encode($state, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+  );
+}
+
+function RegressionClearReplayState($rootName, $gameName) {
+  $path = RegressionReplayStatePath($rootName, $gameName);
+  if (is_file($path)) {
+    @unlink($path);
+  }
+}
+
 function RegressionSanitizeSlug($slug) {
   $slug = strtolower(trim($slug));
   $slug = preg_replace('/[^a-z0-9\-]+/', '-', $slug);
@@ -155,6 +183,8 @@ function RegressionStartRecording($rootName, $gameName, $viewerPlayerID, $create
   if (RegressionIsRecordingActive($rootName, $gameName)) {
     return ['success' => false, 'message' => 'A regression recording is already active for this game.'];
   }
+
+  RegressionClearReplayState($rootName, $gameName);
 
   $initialGamestate = RegressionCurrentGamestateText($rootName, $gameName);
   if ($initialGamestate === '') {
@@ -353,7 +383,41 @@ function RegressionListFixtureOptions($rootName) {
   return $options;
 }
 
-function RegressionReplayFixture($rootName, $gameName, $slug, $replayActions = false) {
+function RegressionFixtureExpectedFinalPath($rootName, $slug) {
+  return RegressionFixtureDir($rootName, $slug) . DIRECTORY_SEPARATOR . 'expected_final_gamestate.txt';
+}
+
+function RegressionReplayStateMatchesExpectedFinal($rootName, $gameName, $slug) {
+  $expectedPath = RegressionFixtureExpectedFinalPath($rootName, $slug);
+  if (!is_file($expectedPath)) return null;
+  $expected = file_get_contents($expectedPath);
+  $actual = RegressionCurrentGamestateText($rootName, $gameName);
+  return RegressionNormalizeNewlines($expected) === RegressionNormalizeNewlines($actual);
+}
+
+function RegressionBuildReplayState($rootName, $gameName, $slug, $actions, $nextActionIndex, $lastOperation, $lastMessage = '') {
+  $actionCount = count($actions);
+  $matchesExpectedFinal = RegressionReplayStateMatchesExpectedFinal($rootName, $gameName, $slug);
+  return [
+    'slug' => $slug,
+    'actionCount' => $actionCount,
+    'nextActionIndex' => max(0, min(intval($nextActionIndex), $actionCount)),
+    'completed' => intval($nextActionIndex) >= $actionCount,
+    'lastOperation' => strval($lastOperation),
+    'lastMessage' => strval($lastMessage),
+    'updatedAt' => date('c'),
+    'currentGamestateHash' => RegressionCurrentGamestateHash($rootName, $gameName),
+    'matchesExpectedFinal' => $matchesExpectedFinal,
+  ];
+}
+
+function RegressionPersistReplayState($rootName, $gameName, $slug, $actions, $nextActionIndex, $lastOperation, $lastMessage = '') {
+  $state = RegressionBuildReplayState($rootName, $gameName, $slug, $actions, $nextActionIndex, $lastOperation, $lastMessage);
+  RegressionWriteReplayState($rootName, $gameName, $state);
+  return $state;
+}
+
+function RegressionLoadFixtureIntoCurrentGame($rootName, $gameName, $slug) {
   $slug = RegressionSanitizeSlug($slug);
   if ($slug === '') {
     return ['success' => false, 'message' => 'Fixture slug cannot be empty.'];
@@ -380,34 +444,161 @@ function RegressionReplayFixture($rootName, $gameName, $slug, $replayActions = f
     ParseGamestate('./' . $rootName . '/');
   }
 
-  $actions = RegressionLoadActionsForFixture($fixtureDir);
+  return [
+    'success' => true,
+    'slug' => $slug,
+    'fixtureDir' => $fixtureDir,
+    'actions' => RegressionLoadActionsForFixture($fixtureDir),
+  ];
+}
+
+function RegressionReplayFixture($rootName, $gameName, $slug, $replayActions = false) {
+  $loadResult = RegressionLoadFixtureIntoCurrentGame($rootName, $gameName, $slug);
+  if (empty($loadResult['success'])) {
+    return $loadResult;
+  }
+
+  $slug = $loadResult['slug'];
+  $actions = $loadResult['actions'];
+  $lastMessage = ($replayActions ? 'Replayed' : 'Loaded initial state for') . ' regression fixture ' . $slug . '.';
+  $replayState = RegressionPersistReplayState(
+    $rootName,
+    $gameName,
+    $slug,
+    $actions,
+    0,
+    'load_initial',
+    $lastMessage
+  );
+
   if ($replayActions) {
     foreach ($actions as $stepIndex => $action) {
-      $result = EngineExecuteLoadedAction($action, $rootName, $gameName, [
+      $result = EngineRunAction($action, $rootName, $gameName, [
         'updateCache' => false,
         'disableRecording' => true,
       ]);
       if (empty($result['success'])) {
+        RegressionPersistReplayState(
+          $rootName,
+          $gameName,
+          $slug,
+          $actions,
+          $stepIndex,
+          'replay_failed',
+          'Fixture replay failed at step ' . ($stepIndex + 1) . ': ' . ($result['message'] ?: 'engine action failed')
+        );
         return [
           'success' => false,
           'message' => 'Fixture replay failed at step ' . ($stepIndex + 1) . ': ' . ($result['message'] ?: 'engine action failed'),
         ];
       }
     }
+
+    $lastMessage = 'Replayed regression fixture ' . $slug . ' (' . count($actions) . ' actions).';
+    $replayState = RegressionPersistReplayState(
+      $rootName,
+      $gameName,
+      $slug,
+      $actions,
+      count($actions),
+      'replay_all',
+      $lastMessage
+    );
   }
 
   if (function_exists('GamestateUpdated')) {
     GamestateUpdated($gameName);
   }
   if (function_exists('SetFlashMessage')) {
-    SetFlashMessage(($replayActions ? 'Replayed' : 'Loaded initial state for') . ' regression fixture ' . $slug . '.');
+    SetFlashMessage($lastMessage);
   }
 
   return [
     'success' => true,
-    'message' => ($replayActions ? 'Replayed' : 'Loaded initial state for') . ' regression fixture ' . $slug . ' into game ' . $gameName . '.',
+    'message' => $lastMessage . ' Loaded into game ' . $gameName . '.',
     'actionCount' => count($actions),
     'replayActions' => $replayActions,
+    'replayState' => $replayState,
+  ];
+}
+
+function RegressionReplayFixtureNextAction($rootName, $gameName, $slug = '') {
+  $slug = RegressionSanitizeSlug($slug);
+  $state = RegressionReadReplayState($rootName, $gameName);
+
+  if ($slug === '' && is_array($state)) {
+    $slug = RegressionSanitizeSlug(strval($state['slug'] ?? ''));
+  }
+  if ($slug === '') {
+    return ['success' => false, 'message' => 'Fixture slug cannot be empty.'];
+  }
+
+  $shouldReloadInitialState = !is_array($state) || strval($state['slug'] ?? '') !== $slug;
+  if ($shouldReloadInitialState) {
+    $loadResult = RegressionLoadFixtureIntoCurrentGame($rootName, $gameName, $slug);
+    if (empty($loadResult['success'])) {
+      return $loadResult;
+    }
+    $actions = $loadResult['actions'];
+    $state = RegressionPersistReplayState(
+      $rootName,
+      $gameName,
+      $slug,
+      $actions,
+      0,
+      'load_initial',
+      'Loaded initial state for regression fixture ' . $slug . '.'
+    );
+  } else {
+    $actions = RegressionLoadActionsForFixture(RegressionFixtureDir($rootName, $slug));
+  }
+
+  $nextActionIndex = intval($state['nextActionIndex'] ?? 0);
+  if ($nextActionIndex >= count($actions)) {
+    $message = 'Regression fixture ' . $slug . ' is already at the final action (' . count($actions) . '/' . count($actions) . ').';
+    $state = RegressionPersistReplayState($rootName, $gameName, $slug, $actions, count($actions), 'step_complete', $message);
+    if (function_exists('SetFlashMessage')) {
+      SetFlashMessage($message);
+    }
+    if (function_exists('GamestateUpdated')) {
+      GamestateUpdated($gameName);
+    }
+    return [
+      'success' => true,
+      'message' => $message,
+      'actionCount' => count($actions),
+      'nextActionIndex' => count($actions),
+      'replayState' => $state,
+    ];
+  }
+
+  $result = EngineRunAction($actions[$nextActionIndex], $rootName, $gameName, [
+    'updateCache' => false,
+    'disableRecording' => true,
+  ]);
+  if (empty($result['success'])) {
+    $message = 'Fixture replay failed at step ' . ($nextActionIndex + 1) . ': ' . ($result['message'] ?: 'engine action failed');
+    RegressionPersistReplayState($rootName, $gameName, $slug, $actions, $nextActionIndex, 'step_failed', $message);
+    return ['success' => false, 'message' => $message];
+  }
+
+  $newNextActionIndex = $nextActionIndex + 1;
+  $message = 'Replayed action ' . $newNextActionIndex . ' of ' . count($actions) . ' for regression fixture ' . $slug . '.';
+  $state = RegressionPersistReplayState($rootName, $gameName, $slug, $actions, $newNextActionIndex, 'step', $message);
+
+  if (function_exists('GamestateUpdated')) {
+    GamestateUpdated($gameName);
+  }
+  if (function_exists('SetFlashMessage')) {
+    SetFlashMessage($message);
+  }
+
+  return [
+    'success' => true,
+    'message' => $message,
+    'actionCount' => count($actions),
+    'nextActionIndex' => $newNextActionIndex,
+    'replayState' => $state,
   ];
 }
 

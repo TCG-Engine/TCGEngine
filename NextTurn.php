@@ -212,6 +212,8 @@
       SupportsRegressionRecording();
     $regressionRecordingActive = $showRegressionControls ? RegressionIsRecordingActive($folderPath, $gameName) : false;
     $regressionFixtureOptions = $showRegressionControls ? RegressionListFixtureOptions($folderPath) : [];
+    $regressionReplayState = $showRegressionControls ? RegressionReadReplayState($folderPath, $gameName) : null;
+    $selectedRegressionFixtureSlug = is_array($regressionReplayState) ? strval($regressionReplayState['slug'] ?? '') : '';
 
     function IsDarkMode() { return false; }
     function IsMuted() { return false; }
@@ -581,13 +583,15 @@
       <?php if (!empty($regressionFixtureOptions)): ?>
       <div style="display:flex; flex-direction:column; gap:6px; margin-bottom:10px;">
         <label for="regressionFixtureSelect" style="font-size:12px;">Fixture</label>
-        <select id="regressionFixtureSelect" style="padding:6px 8px; max-width:260px;">
+        <select id="regressionFixtureSelect" style="padding:6px 8px; max-width:260px;" onchange="persistRegressionFixtureSelection()">
           <?php foreach ($regressionFixtureOptions as $fixtureOption): ?>
-          <option value="<?= htmlspecialchars($fixtureOption['slug'], ENT_QUOTES, 'UTF-8'); ?>"><?= htmlspecialchars($fixtureOption['name'], ENT_QUOTES, 'UTF-8'); ?></option>
+          <option value="<?= htmlspecialchars($fixtureOption['slug'], ENT_QUOTES, 'UTF-8'); ?>"<?= $selectedRegressionFixtureSlug === $fixtureOption['slug'] ? ' selected' : ''; ?>><?= htmlspecialchars($fixtureOption['name'], ENT_QUOTES, 'UTF-8'); ?></option>
           <?php endforeach; ?>
         </select>
         <button type="button" onclick="loadRegressionFixtureInitialState()" style="padding:6px 10px;">Load Initial State</button>
         <button type="button" onclick="replayRegressionFixture()" style="padding:6px 10px;">Replay Fixture Actions</button>
+        <button type="button" id="replayRegressionNextButton" onclick="replayRegressionFixtureNextAction()" style="padding:6px 10px;">Replay Next Action</button>
+        <div id="regressionReplaySummary" style="font-size:12px; line-height:1.35; white-space:pre-line; opacity:0.92;"></div>
       </div>
       <?php endif; ?>
       <div style="display:flex; flex-direction:column; gap:6px;">
@@ -621,6 +625,81 @@
       (function initializeRegressionControlsState() {
         var collapsed = localStorage.getItem("regressionControlsCollapsed") === "true";
         applyRegressionControlsCollapsedState(collapsed);
+      })();
+
+      var regressionReplayState = <?= json_encode($regressionReplayState, JSON_UNESCAPED_SLASHES); ?>;
+
+      function regressionSelectionStorageKey() {
+        var folderPathInput = document.getElementById("folderPath");
+        var gameNameInput = document.getElementById("gameName");
+        return "regressionFixtureSelection:" +
+          (folderPathInput ? folderPathInput.value : "") + ":" +
+          (gameNameInput ? gameNameInput.value : "");
+      }
+
+      function persistRegressionFixtureSelection() {
+        var select = document.getElementById("regressionFixtureSelect");
+        if (!select || !select.value) return;
+        localStorage.setItem(regressionSelectionStorageKey(), select.value);
+        refreshRegressionReplaySummary();
+      }
+
+      function restoreRegressionFixtureSelection() {
+        var select = document.getElementById("regressionFixtureSelect");
+        if (!select || !select.options.length) return;
+
+        var preferred = regressionReplayState && regressionReplayState.slug ? regressionReplayState.slug : localStorage.getItem(regressionSelectionStorageKey());
+        if (!preferred) return;
+
+        for (var index = 0; index < select.options.length; ++index) {
+          if (select.options[index].value === preferred) {
+            select.value = preferred;
+            break;
+          }
+        }
+      }
+
+      function refreshRegressionReplaySummary() {
+        var summary = document.getElementById("regressionReplaySummary");
+        var button = document.getElementById("replayRegressionNextButton");
+        var select = document.getElementById("regressionFixtureSelect");
+        if (!summary) return;
+
+        if (!regressionReplayState || !regressionReplayState.slug) {
+          summary.textContent = "Replay state: idle";
+          if (button) button.disabled = false;
+          return;
+        }
+
+        var selectedSlug = select ? select.value : "";
+        var isCurrentSelection = selectedSlug === regressionReplayState.slug;
+        var lines = [];
+        lines.push("Replay fixture: " + regressionReplayState.slug);
+        lines.push("Progress: " + regressionReplayState.nextActionIndex + " / " + regressionReplayState.actionCount + " actions");
+
+        if (regressionReplayState.matchesExpectedFinal === true) {
+          lines.push("Snapshot: matches expected final");
+        } else if (regressionReplayState.matchesExpectedFinal === false) {
+          lines.push("Snapshot: differs from expected final");
+        }
+
+        if (regressionReplayState.lastMessage) {
+          lines.push(regressionReplayState.lastMessage);
+        }
+
+        if (!isCurrentSelection && selectedSlug) {
+          lines.push("Selected fixture differs from loaded replay state.");
+        }
+
+        summary.textContent = lines.join("\n");
+        if (button) {
+          button.disabled = isCurrentSelection && regressionReplayState.nextActionIndex >= regressionReplayState.actionCount;
+        }
+      }
+
+      (function initializeRegressionFixtureSelection() {
+        restoreRegressionFixtureSelection();
+        refreshRegressionReplaySummary();
       })();
 
       function submitRegressionRequest(mode, inputText) {
@@ -718,8 +797,9 @@
           return;
         }
 
+        persistRegressionFixtureSelection();
+
         submitRegressionRequest(11004, JSON.stringify({ slug: select.value, replayActions: replayActions })).then(function(message) {
-          if (message) alert(message);
           location.reload();
         });
       }
@@ -730,6 +810,20 @@
 
       function replayRegressionFixture() {
         submitRegressionFixtureLoad(true);
+      }
+
+      function replayRegressionFixtureNextAction() {
+        var select = document.getElementById("regressionFixtureSelect");
+        if (!select || !select.value) {
+          alert("Select a fixture first.");
+          return;
+        }
+
+        persistRegressionFixtureSelection();
+
+        submitRegressionRequest(11005, JSON.stringify({ slug: select.value })).then(function(message) {
+          location.reload();
+        });
       }
     </script>
     <?php endif; ?>

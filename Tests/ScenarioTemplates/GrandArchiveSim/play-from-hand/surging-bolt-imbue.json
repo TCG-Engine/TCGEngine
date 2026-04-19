@@ -1,0 +1,37 @@
+{
+  "id": "play-from-hand/surging-bolt-imbue",
+  "name": "Play From Hand - Surging Bolt Imbue",
+  "root": "GrandArchiveSim",
+  "category": "play-from-hand",
+  "description": "Minimal main-phase setup that places Surging Bolt and three additional fire cards in hand so the draft can exercise the card's Imbue payment path against a champion target.",
+  "baseFixtureSlug": "return-to-the-archive",
+  "baseMutations": [
+    {
+      "zone": "myHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "08kkz07nau"
+    },
+    {
+      "zone": "myHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "08kkz07nau"
+    },
+    {
+      "zone": "myHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "08kkz07nau"
+    },
+    {
+      "zone": "myHand",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "value": "08kkz07nau"
+    }
+  ],
+  "placeholders": {},
+  "initialActions": [],
+  "initialAssertions": []
+}
