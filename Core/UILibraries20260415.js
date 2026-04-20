@@ -2051,23 +2051,46 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       };
       var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Select a card from an allowed zone.';
 
-      // Categorize specs into inline (All mode or any zone match) vs popup (Single mode specific cards)
-      const inlineSpecs = [];
-      const popupCards = [];
+      const categorizedSpecs = CategorizeMZChooseSpecs(parsedSpecs);
+      const inlineSpecs = categorizedSpecs.inlineSpecs;
+      const popupCards = categorizedSpecs.popupCards;
 
-      for (const spec of parsedSpecs) {
-        const zoneData = GetZoneData(spec.zone);
-        const displayMode = zoneData && zoneData.DisplayMode ? zoneData.DisplayMode : 'All';
 
-        if (spec.isSpecificCard && (displayMode === 'Single' || displayMode === 'None')) {
-          // Specific card from a Single mode zone - needs popup
-          popupCards.push(spec);
-        } else {
-          // Zone selection or specific card from All mode zone - inline selectable
-          inlineSpecs.push(spec);
-        }
+function CategorizeMZChooseSpecs(parsedSpecs) {
+  const inlineSpecs = [];
+  const popupCards = [];
+
+  for (const spec of parsedSpecs) {
+    const zoneData = GetZoneData(spec.zone);
+    const displayMode = zoneData && zoneData.DisplayMode ? zoneData.DisplayMode : 'All';
+
+    if (spec.isSpecificCard && (displayMode === 'Single' || displayMode === 'None')) {
+      popupCards.push(spec);
+    } else {
+      inlineSpecs.push(spec);
+    }
+  }
+
+  if (popupCards.length > 0) {
+    const remainingInlineSpecs = [];
+    for (const spec of inlineSpecs) {
+      if (spec.isSpecificCard) {
+        popupCards.push(spec);
+      } else {
+        remainingInlineSpecs.push(spec);
       }
+    }
+    return {
+      inlineSpecs: remainingInlineSpecs,
+      popupCards: popupCards,
+    };
+  }
 
+  return {
+    inlineSpecs: inlineSpecs,
+    popupCards: popupCards,
+  };
+}
       // Store categorized specs for rendering
       window.SelectionMode.inlineSpecs = inlineSpecs;
       window.SelectionMode.popupCards = popupCards;
