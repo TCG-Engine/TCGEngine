@@ -1100,13 +1100,14 @@ export async function testGameAddToZone(root: string, gameName: string, zone: st
   return result;
 }
 
-export async function testGameAddCounters(root: string, gameName: string, mzID: string, counterType: string, amount: number): Promise<any> {
+export async function testGameAddCounters(root: string, gameName: string, mzID: string, counterType: string, amount: number, perspectivePlayer?: number): Promise<any> {
   const result = await runBridgeCommand('add-counters', {
     root,
     gameName,
     mzID,
     counterType,
     amount: String(amount),
+    perspectivePlayer: String(perspectivePlayer || 1),
   });
   const syncResult = syncDraftFixtureInitialState(root, gameName);
   result.fixtureInitialStateUpdated = !!syncResult.success;

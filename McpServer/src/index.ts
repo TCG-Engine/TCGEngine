@@ -460,11 +460,12 @@ server.tool(
     mzID: z.string().describe("MZID of the object to edit, such as 'myMastery-0' or 'theirField-1'."),
     counterType: z.string().describe("Counter type key, such as 'sheen'."),
     amount: z.number().int().describe("Counter delta to apply. Positive adds, negative removes."),
+    perspectivePlayer: z.number().int().optional().describe("Player perspective used to resolve 'my' and 'their' in the mzID. Defaults to 1."),
   },
   { destructiveHint: true },
   async (params) => {
     try {
-      const result = await testGameAddCounters(params.root, params.gameName, params.mzID, params.counterType, params.amount);
+      const result = await testGameAddCounters(params.root, params.gameName, params.mzID, params.counterType, params.amount, params.perspectivePlayer);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], isError: result.success === false };
     } catch (err: any) {
       return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };

@@ -213,37 +213,41 @@ function BridgeAddToZone($root, $gameName, $zoneName, $cardID, $perspectivePlaye
   }
 }
 
-function BridgeAddCounters($root, $gameName, $mzID, $counterType, $amount) {
+function BridgeAddCounters($root, $gameName, $mzID, $counterType, $amount, $perspectivePlayer = 1) {
   BridgeLoadRuntimeGame($root, $gameName);
   $mzID = strval($mzID);
   $counterType = strval($counterType);
   $amount = intval($amount);
+  $perspectivePlayer = intval($perspectivePlayer);
   if ($counterType === '') BridgeFail('Counter type is required.');
   if ($amount === 0) BridgeFail('Counter amount cannot be zero.');
 
-  $zoneObject = &GetZoneObject($mzID);
-  if (!is_object($zoneObject)) BridgeFail('Invalid mzID for counter edit.', ['mzID' => $mzID]);
-  if (!property_exists($zoneObject, 'Counters')) BridgeFail('Zone object does not support counters.', ['mzID' => $mzID]);
-  if (!is_array($zoneObject->Counters)) $zoneObject->Counters = [];
+  return BridgeWithPlayerPerspective($perspectivePlayer, function() use ($root, $gameName, $mzID, $counterType, $amount, $perspectivePlayer) {
+    $zoneObject = &GetZoneObject($mzID);
+    if (!is_object($zoneObject)) BridgeFail('Invalid mzID for counter edit.', ['mzID' => $mzID, 'perspectivePlayer' => $perspectivePlayer]);
+    if (!property_exists($zoneObject, 'Counters')) BridgeFail('Zone object does not support counters.', ['mzID' => $mzID, 'perspectivePlayer' => $perspectivePlayer]);
+    if (!is_array($zoneObject->Counters)) $zoneObject->Counters = [];
 
-  $current = intval($zoneObject->Counters[$counterType] ?? 0);
-  $newValue = $current + $amount;
-  if ($newValue <= 0) {
-    unset($zoneObject->Counters[$counterType]);
-    $newValue = 0;
-  } else {
-    $zoneObject->Counters[$counterType] = $newValue;
-  }
+    $current = intval($zoneObject->Counters[$counterType] ?? 0);
+    $newValue = $current + $amount;
+    if ($newValue <= 0) {
+      unset($zoneObject->Counters[$counterType]);
+      $newValue = 0;
+    } else {
+      $zoneObject->Counters[$counterType] = $newValue;
+    }
 
-  WriteGamestate('./' . $root . '/');
-  return [
-    'success' => true,
-    'gameName' => $gameName,
-    'mzID' => $mzID,
-    'counterType' => $counterType,
-    'counterValue' => $newValue,
-    'gamestateHash' => RegressionCurrentGamestateHash($root, $gameName),
-  ];
+    WriteGamestate('./' . $root . '/');
+    return [
+      'success' => true,
+      'gameName' => $gameName,
+      'mzID' => $mzID,
+      'counterType' => $counterType,
+      'counterValue' => $newValue,
+      'perspectivePlayer' => $perspectivePlayer,
+      'gamestateHash' => RegressionCurrentGamestateHash($root, $gameName),
+    ];
+  });
 }
 
 function BridgeActivePlayer() {
@@ -618,7 +622,8 @@ switch ($command) {
       $args['gameName'] ?? '',
       strval($args['mzID'] ?? ''),
       strval($args['counterType'] ?? ''),
-      intval($args['amount'] ?? 0)
+      intval($args['amount'] ?? 0),
+      intval($args['perspectivePlayer'] ?? 1)
     ));
     break;
   case 'enumerate-legal-actions':
