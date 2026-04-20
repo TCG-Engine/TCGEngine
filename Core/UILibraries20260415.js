@@ -905,58 +905,72 @@
       const style = document.createElement('style');
       style.innerHTML = `
         .widget-button {
-          background-color: #333; /* Dark Grey */
-          border: none;
-          color: white;
-          padding: 2px 3px; /* Added padding */
-          min-width:14px;
+          background: linear-gradient(180deg, rgba(58, 58, 58, 0.96) 0%, rgba(28, 28, 28, 0.98) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.14);
+          color: #f6f3eb;
+          padding: 4px 8px;
+          min-width: 20px;
           text-align: center;
           text-decoration: none;
           display: inline-block;
-          font-size: 14px;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.02em;
           margin: 0px 0px;
-          transition-duration: 0.4s;
+          transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease, color 0.16s ease;
           cursor: pointer;
-          border-radius: 3px;
+          border-radius: 999px;
+          box-shadow: 0 2px 7px rgba(0, 0, 0, 0.28);
         }
 
         .widget-button:hover {
-          background-color: white;
-          color: black;
-          border: 2px solid #333;
+          background: linear-gradient(180deg, rgba(255, 248, 236, 0.98) 0%, rgba(230, 224, 212, 0.98) 100%);
+          color: #171717;
+          border-color: rgba(255, 255, 255, 0.9);
+          box-shadow: 0 0 0 1px rgba(255, 248, 236, 0.55), 0 8px 18px rgba(0, 0, 0, 0.35);
+          transform: translateY(-1px);
         }
 
         .widget-button-disabled {
-          background-color: #6b6b6b;
-          color: rgba(255, 255, 255, 0.72);
+          background: linear-gradient(180deg, rgba(74, 44, 44, 0.95) 0%, rgba(52, 22, 22, 0.98) 100%);
+          border-color: rgba(255, 110, 110, 0.22);
+          color: rgba(255, 232, 232, 0.78);
           cursor: not-allowed;
-          opacity: 0.8;
+          opacity: 0.92;
+          box-shadow: 0 2px 8px rgba(24, 0, 0, 0.32);
         }
 
         .widget-button-disabled:hover {
-          background-color: #6b6b6b;
-          color: rgba(255, 255, 255, 0.72);
-          border: none;
+          background: linear-gradient(180deg, rgba(100, 34, 34, 0.98) 0%, rgba(74, 18, 18, 1) 100%);
+          color: #fff0f0;
+          border-color: rgba(255, 120, 120, 0.9);
+          box-shadow: 0 0 0 1px rgba(255, 120, 120, 0.38), 0 0 12px rgba(255, 72, 72, 0.42), 0 0 24px rgba(255, 42, 42, 0.22);
+          transform: translateY(-1px);
         }
 
         .widget-button-selected {
-          background-color: #ccc; /* Light Grey */
-          border: none;
-          color: black;
-          padding: 2px 4px; /* Added padding */
-          min-width:14px;
+          background: linear-gradient(180deg, rgba(214, 205, 192, 0.98) 0%, rgba(182, 170, 154, 0.98) 100%);
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          color: #141414;
+          padding: 4px 8px;
+          min-width: 20px;
           text-align: center;
           text-decoration: none;
           display: inline-block;
-          font-size: 14px;
+          font-size: 12px;
+          font-weight: 600;
+          letter-spacing: 0.02em;
           margin: 0px 0px;
-          transition-duration: 0.4s;
+          transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
           cursor: pointer;
-          border-radius: 3px;
+          border-radius: 999px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
         }        .widget-button-selected:hover {
-          background-color: white;
-          color: black;
-          border: 2px solid #ccc;
+          background: linear-gradient(180deg, rgba(255, 247, 233, 0.98) 0%, rgba(227, 220, 208, 0.98) 100%);
+          color: #101010;
+          border-color: rgba(255, 255, 255, 0.9);
+          box-shadow: 0 0 0 1px rgba(255, 248, 236, 0.5), 0 8px 18px rgba(0, 0, 0, 0.3);
+          transform: translateY(-1px);
         }
       `;
       document.head.appendChild(style);
