@@ -1,0 +1,13 @@
+{
+  "name": "craggy-fatestone-opponent-materialize-buff",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-04-20T18:03:17.471Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/rich-main-phase-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "handCard": "h8n1520m2d"
+  },
+  "savedAt": "2026-04-20T18:09:28.517Z"
+}
