@@ -543,7 +543,15 @@ for($i=0; $i<count($zones); ++$i) {
   $parametersNoDefaults = "";
   for($j=0; $j<count($zone->Properties); ++$j) {
     $property = $zone->Properties[$j];
-    $parameters .= ", \$" . $property->Name . "=" . $property->DefaultValue;
+    $defaultValue = $property->DefaultValue;
+    $propertyType = strtolower($property->Type);
+    $isQuotedString = strlen($defaultValue) >= 2 &&
+      (($defaultValue[0] === '"' && substr($defaultValue, -1) === '"') || ($defaultValue[0] === "'" && substr($defaultValue, -1) === "'"));
+    $isScalarLiteral = is_numeric($defaultValue) || in_array(strtolower($defaultValue), ["true", "false", "null"], true);
+    if(!$isQuotedString && !$isScalarLiteral && !in_array($propertyType, ["int", "number", "float", "array", "json"], true)) {
+      $defaultValue = '"' . addslashes($defaultValue) . '"';
+    }
+    $parameters .= ", \$" . $property->Name . "=" . $defaultValue;
     $parametersNoDefaults .= ", \$" . $property->Name;
   }
   // For global zones, don't include $player parameter

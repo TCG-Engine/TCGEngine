@@ -1,0 +1,13 @@
+{
+  "name": "mote-sear",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-04-20T14:47:09.680Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/rich-main-phase-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "handCard": "0G32Pp5atK"
+  },
+  "savedAt": "2026-04-20T14:59:38.709Z"
+}

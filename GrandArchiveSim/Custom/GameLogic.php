@@ -3220,6 +3220,16 @@ $customDQHandlers["RendingFlamesProcess"] = function($player, $parts, $lastDecis
     DecisionQueueController::AddDecision($player, "CUSTOM", "RendingFlamesProcess", 1);
 };
 
+$customDQHandlers["MoteSearOptionalSheen"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $source = $parts[0] ?? "";
+    $target = $parts[1] ?? "";
+    if($source === "" || $target === "") return;
+    if(!HasFracturedMemories($player) || GetSheenCount($player) < 2) return;
+    RemoveSheenFromMastery($player, 2);
+    DealDamage($player, $source, $target, 2);
+};
+
 // --- Slate Whetstone (a8a0v4njrt) Handler ---
 $customDQHandlers["SlateWhetstoneBuffTarget"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {

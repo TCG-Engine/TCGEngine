@@ -759,11 +759,11 @@ interface ScenarioPlaceholder {
 
 interface ScenarioMutation {
   zone: string;
-  operation?: 'set' | 'addCard';
+  operation?: 'set' | 'addCard' | 'clearZone' | 'setProperties';
   index?: number;
   property?: string;
   perspectivePlayer?: number;
-  value: string;
+  value: any;
 }
 
 interface ScenarioTemplate {
@@ -851,6 +851,26 @@ function readGameDraftMeta(root: string, gameName: string): any | null {
 function testAutomationBridgePath(): string {
   return path.join(ENGINE_ROOT, 'DevTools', 'TestAutomationBridge.php');
 }
+
+  function syncDraftFixtureInitialState(root: string, gameName: string): { success: boolean; slug?: string; initialSnapshotPath?: string } {
+    const gameMeta = readGameDraftMeta(root, gameName);
+    if (!gameMeta || !gameMeta.slug) return { success: false };
+
+    const slug = String(gameMeta.slug);
+    const fixtureDir = integrationFixtureDir(root, slug);
+    const gamestatePath = path.join(draftGameDir(root, gameName), 'Gamestate.txt');
+    if (!fs.existsSync(gamestatePath)) {
+      throw new Error(`Draft game Gamestate.txt not found for ${gameName}`);
+    }
+
+    const gamestateText = fs.readFileSync(gamestatePath, 'utf-8');
+    const initialPath = path.join(fixtureDir, 'initial_gamestate.txt');
+    const expectedPath = path.join(fixtureDir, 'expected_final_gamestate.txt');
+    fs.writeFileSync(initialPath, gamestateText);
+    fs.writeFileSync(expectedPath, gamestateText);
+
+    return { success: true, slug, initialSnapshotPath: initialPath };
+  }
 
 async function runBridgeCommand(command: string, params: Record<string, string>): Promise<any> {
   const args = [testAutomationBridgePath(), `--command=${command}`];
@@ -969,7 +989,6 @@ export async function newTestFromScenario(root: string, templateId: string, para
   };
   const seededActions = (template.initialActions ?? []).map((action) => normalizeDraftAction(action));
   fs.writeFileSync(path.join(fixtureDir, 'meta.json'), JSON.stringify(meta, null, 2));
-  fs.writeFileSync(path.join(fixtureDir, 'initial_gamestate.txt'), String(compileResult.gamestateText));
   fs.writeFileSync(path.join(fixtureDir, 'actions.json'), JSON.stringify(seededActions, null, 2));
   fs.writeFileSync(path.join(fixtureDir, 'assertions.json'), JSON.stringify(template.initialAssertions ?? [], null, 2));
 
@@ -984,11 +1003,7 @@ export async function newTestFromScenario(root: string, templateId: string, para
     }
   }
 
-  const currentGamestatePath = path.join(gameDir, 'Gamestate.txt');
-  const currentGamestateText = fs.existsSync(currentGamestatePath)
-    ? fs.readFileSync(currentGamestatePath, 'utf-8')
-    : String(compileResult.gamestateText);
-  fs.writeFileSync(path.join(fixtureDir, 'expected_final_gamestate.txt'), currentGamestateText);
+  syncDraftFixtureInitialState(root, draftGameName);
 
   const legalActions = await enumerateLegalActions(root, draftGameName);
   return {
@@ -1069,6 +1084,34 @@ export async function applyEngineAction(root: string, gameName: string, action: 
 
 export async function getGameSnapshot(root: string, gameName: string, view?: string): Promise<any> {
   return runBridgeCommand('get-game-snapshot', { root, gameName, view: view || 'summary' });
+}
+
+export async function testGameAddToZone(root: string, gameName: string, zone: string, cardID: string, perspectivePlayer?: number): Promise<any> {
+  const result = await runBridgeCommand('add-to-zone', {
+    root,
+    gameName,
+    zone,
+    cardID,
+    perspectivePlayer: String(perspectivePlayer || 1),
+  });
+  const syncResult = syncDraftFixtureInitialState(root, gameName);
+  result.fixtureInitialStateUpdated = !!syncResult.success;
+  if (syncResult.slug) result.slug = syncResult.slug;
+  return result;
+}
+
+export async function testGameAddCounters(root: string, gameName: string, mzID: string, counterType: string, amount: number): Promise<any> {
+  const result = await runBridgeCommand('add-counters', {
+    root,
+    gameName,
+    mzID,
+    counterType,
+    amount: String(amount),
+  });
+  const syncResult = syncDraftFixtureInitialState(root, gameName);
+  result.fixtureInitialStateUpdated = !!syncResult.success;
+  if (syncResult.slug) result.slug = syncResult.slug;
+  return result;
 }
 
 // mysql2 type import for RowDataPacket / ResultSetHeader

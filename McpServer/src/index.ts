@@ -21,6 +21,8 @@ import {
   enumerateLegalActions,
   applyEngineAction,
   getGameSnapshot,
+  testGameAddToZone,
+  testGameAddCounters,
 } from "./tools.js";
 import { closePool } from "./db.js";
 
@@ -416,6 +418,54 @@ server.tool(
     try {
       const result = await getGameSnapshot(params.root, params.gameName, params.view);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: test_game_add_to_zone
+// ---------------------------------------------------------------------------
+server.tool(
+  "test_game_add_to_zone",
+  "Add a card to a zone in the live draft test game and sync the fixture's initial gamestate to that edited state.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    gameName: z.string().describe("Live draft game name under <root>/Games/"),
+    zone: z.string().describe("Perspective-aware zone name such as 'myHand', 'theirField', or 'myMastery'."),
+    cardID: z.string().describe("Card ID to add to the zone."),
+    perspectivePlayer: z.number().int().optional().describe("Player perspective to interpret my/their zones. Defaults to 1."),
+  },
+  { destructiveHint: true },
+  async (params) => {
+    try {
+      const result = await testGameAddToZone(params.root, params.gameName, params.zone, params.cardID, params.perspectivePlayer);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], isError: result.success === false };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: test_game_add_counters
+// ---------------------------------------------------------------------------
+server.tool(
+  "test_game_add_counters",
+  "Add or remove counters on a live draft game object and sync the fixture's initial gamestate to that edited state.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    gameName: z.string().describe("Live draft game name under <root>/Games/"),
+    mzID: z.string().describe("MZID of the object to edit, such as 'myMastery-0' or 'theirField-1'."),
+    counterType: z.string().describe("Counter type key, such as 'sheen'."),
+    amount: z.number().int().describe("Counter delta to apply. Positive adds, negative removes."),
+  },
+  { destructiveHint: true },
+  async (params) => {
+    try {
+      const result = await testGameAddCounters(params.root, params.gameName, params.mzID, params.counterType, params.amount);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], isError: result.success === false };
     } catch (err: any) {
       return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
     }

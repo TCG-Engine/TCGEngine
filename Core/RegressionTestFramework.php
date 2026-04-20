@@ -239,6 +239,7 @@ function RegressionBuildAssertionFromInput($viewerPlayerID, $payload) {
   ];
 
   switch ($type) {
+    case 'current_player_is':
     case 'phase_is':
     case 'turn_player_is':
     case 'flash_message_contains':
@@ -625,6 +626,10 @@ function RegressionEvaluateAssertion($assertion) {
   $type = $assertion['type'] ?? '';
 
   switch ($type) {
+    case 'current_player_is':
+      $actual = intval($GLOBALS['currentPlayer'] ?? 0);
+      $expected = intval($assertion['value'] ?? 0);
+      return [$actual === $expected, "Expected active player {$expected}, got {$actual}."];
     case 'phase_is':
       $actual = strval(GetCurrentPhase());
       $expected = strval($assertion['value'] ?? '');

@@ -51,6 +51,41 @@ function BridgeParseTemplateSpec($specBase64) {
   return $spec;
 }
 
+function BridgeMutationPlayer($perspectivePlayer) {
+  return $perspectivePlayer > 0 ? $perspectivePlayer : intval($GLOBALS['playerID'] ?? 1);
+}
+
+function BridgeApplyPropertiesToZoneEntry($zoneEntry, $properties) {
+  if (!is_object($zoneEntry) || !is_array($properties)) return;
+
+  if (method_exists($zoneEntry, 'ClearIndex')) {
+    $zoneEntry->ClearIndex();
+  }
+
+  foreach ($properties as $property => $value) {
+    if ($property === 'CardID' || $property === 'cardID') continue;
+    $zoneEntry->$property = $value;
+  }
+
+  if (method_exists($zoneEntry, 'BuildIndex')) {
+    $zoneEntry->BuildIndex();
+  }
+}
+
+function BridgeExtractAddCardSpec($mutation, $value) {
+  $cardID = is_array($value) ? strval($value['CardID'] ?? $value['cardID'] ?? '') : strval($value ?? '');
+  $properties = is_array($mutation['properties'] ?? null) ? $mutation['properties'] : [];
+
+  if (is_array($value)) {
+    foreach ($value as $property => $propertyValue) {
+      if ($property === 'CardID' || $property === 'cardID') continue;
+      $properties[$property] = $propertyValue;
+    }
+  }
+
+  return [$cardID, $properties];
+}
+
 function BridgeApplyScenarioMutations($spec) {
   $mutations = $spec['mutations'] ?? [];
   foreach ($mutations as $mutation) {
@@ -69,8 +104,18 @@ function BridgeApplyScenarioMutations($spec) {
       $GLOBALS['playerID'] = $perspectivePlayer;
     }
 
-    if ($operation === 'addCard') {
-      $newObj = MZAddZone($perspectivePlayer > 0 ? $perspectivePlayer : intval($GLOBALS['playerID'] ?? 1), $zoneName, strval($value));
+    $mutationPlayer = BridgeMutationPlayer($perspectivePlayer);
+
+    if ($operation === 'clearZone') {
+      MZClearZone($mutationPlayer, $zoneName);
+    } else if ($operation === 'addCard') {
+      [$cardID, $properties] = BridgeExtractAddCardSpec($mutation, $value);
+      if ($cardID === '') {
+        if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
+        BridgeFail('Scenario addCard mutation is missing a CardID.', $mutation);
+      }
+
+      $newObj = MZAddZone($mutationPlayer, $zoneName, $cardID);
       if ($newObj === null) {
         if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
         BridgeFail('Scenario addCard mutation could not create zone object.', $mutation);
@@ -86,6 +131,19 @@ function BridgeApplyScenarioMutations($spec) {
         if (!is_array($newObj->Counters)) $newObj->Counters = [];
         if (!is_array($newObj->Subcards)) $newObj->Subcards = [];
       }
+
+      BridgeApplyPropertiesToZoneEntry($newObj, $properties);
+    } else if ($operation === 'setProperties') {
+      if ($index < 0) {
+        if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
+        BridgeFail('Scenario setProperties mutation is missing a valid index.', $mutation);
+      }
+      $zone = &GetZone($zoneName);
+      if (!is_array($zone) || !isset($zone[$index])) {
+        if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
+        BridgeFail('Scenario mutation points to an invalid zone entry.', $mutation);
+      }
+      BridgeApplyPropertiesToZoneEntry($zone[$index], is_array($mutation['properties'] ?? null) ? $mutation['properties'] : []);
     } else {
       if ($index < 0 || $property === '') {
         if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
@@ -111,6 +169,123 @@ function BridgeDecisionTooltip($decision) {
   $tooltip = strval($decision->Tooltip ?? '');
   if ($tooltip === '' || $tooltip === '-') return '';
   return str_replace('_', ' ', $tooltip);
+}
+
+function BridgeBuildMzId($zoneName, $index, $perspectivePlayer) {
+  if ($index < 0) return '';
+  $prefix = str_starts_with($zoneName, 'their') ? 'their' : 'my';
+  if (!preg_match('/^(my|their)(.+)$/', $zoneName, $matches)) {
+    return $zoneName . '-' . $index;
+  }
+  return $prefix . $matches[2] . '-' . $index;
+}
+
+function BridgeAddToZone($root, $gameName, $zoneName, $cardID, $perspectivePlayer = 1) {
+  BridgeLoadRuntimeGame($root, $gameName);
+  $originalPlayerID = $GLOBALS['playerID'] ?? null;
+  $GLOBALS['playerID'] = intval($perspectivePlayer);
+  try {
+    $newObj = MZAddZone(intval($perspectivePlayer), $zoneName, $cardID);
+    if ($newObj === null) BridgeFail('Could not add card to zone.', compact('zoneName', 'cardID', 'perspectivePlayer'));
+
+    if (preg_match('/Field$/', $zoneName)) {
+      $controller = ($zoneName === 'theirField') ? ($perspectivePlayer == 1 ? 2 : 1) : $perspectivePlayer;
+      if (!isset($newObj->Status) || $newObj->Status === '-') $newObj->Status = 2;
+      if (!isset($newObj->Owner) || $newObj->Owner === '-') $newObj->Owner = $controller;
+      if (!isset($newObj->Controller) || $newObj->Controller === '-') $newObj->Controller = $controller;
+      if (!isset($newObj->Damage) || $newObj->Damage === '-') $newObj->Damage = 0;
+      if (!is_array($newObj->TurnEffects)) $newObj->TurnEffects = [];
+      if (!is_array($newObj->Counters)) $newObj->Counters = [];
+      if (!is_array($newObj->Subcards)) $newObj->Subcards = [];
+    }
+
+    WriteGamestate('./' . $root . '/');
+    return [
+      'success' => true,
+      'gameName' => $gameName,
+      'zone' => $zoneName,
+      'cardID' => $cardID,
+      'mzID' => BridgeBuildMzId($zoneName, intval($newObj->mzIndex ?? -1), intval($perspectivePlayer)),
+      'gamestateHash' => RegressionCurrentGamestateHash($root, $gameName),
+    ];
+  } finally {
+    if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
+  }
+}
+
+function BridgeAddCounters($root, $gameName, $mzID, $counterType, $amount) {
+  BridgeLoadRuntimeGame($root, $gameName);
+  $mzID = strval($mzID);
+  $counterType = strval($counterType);
+  $amount = intval($amount);
+  if ($counterType === '') BridgeFail('Counter type is required.');
+  if ($amount === 0) BridgeFail('Counter amount cannot be zero.');
+
+  $zoneObject = &GetZoneObject($mzID);
+  if (!is_object($zoneObject)) BridgeFail('Invalid mzID for counter edit.', ['mzID' => $mzID]);
+  if (!property_exists($zoneObject, 'Counters')) BridgeFail('Zone object does not support counters.', ['mzID' => $mzID]);
+  if (!is_array($zoneObject->Counters)) $zoneObject->Counters = [];
+
+  $current = intval($zoneObject->Counters[$counterType] ?? 0);
+  $newValue = $current + $amount;
+  if ($newValue <= 0) {
+    unset($zoneObject->Counters[$counterType]);
+    $newValue = 0;
+  } else {
+    $zoneObject->Counters[$counterType] = $newValue;
+  }
+
+  WriteGamestate('./' . $root . '/');
+  return [
+    'success' => true,
+    'gameName' => $gameName,
+    'mzID' => $mzID,
+    'counterType' => $counterType,
+    'counterValue' => $newValue,
+    'gamestateHash' => RegressionCurrentGamestateHash($root, $gameName),
+  ];
+}
+
+function BridgeActivePlayer() {
+  return intval($GLOBALS['currentPlayer'] ?? 0);
+}
+
+function BridgeMasterySummary($playerID) {
+  $zone = GetMastery($playerID);
+  $summary = [];
+  if (!is_array($zone)) return $summary;
+  foreach ($zone as $obj) {
+    if (!is_object($obj)) continue;
+    if (method_exists($obj, 'Removed') && $obj->Removed()) continue;
+    $summary[] = [
+      'cardID' => strval($obj->CardID ?? ''),
+      'direction' => strval($obj->Direction ?? ''),
+      'counters' => is_array($obj->Counters ?? null) ? $obj->Counters : [],
+    ];
+  }
+  return $summary;
+}
+
+function BridgeDecisionQueueSummary($playerID) {
+  $queue = GetDecisionQueue($playerID);
+  $summary = [
+    'count' => 0,
+    'next' => null,
+  ];
+  if (!is_array($queue)) return $summary;
+  foreach ($queue as $decision) {
+    if (!is_object($decision)) continue;
+    if (method_exists($decision, 'Removed') && $decision->Removed()) continue;
+    $summary['count']++;
+    if ($summary['next'] === null) {
+      $summary['next'] = [
+        'type' => strval($decision->Type ?? ''),
+        'tooltip' => BridgeDecisionTooltip($decision),
+        'param' => strval($decision->Param ?? ''),
+      ];
+    }
+  }
+  return $summary;
 }
 
 function BridgeCompileScenario($root, $spec) {
@@ -385,6 +560,7 @@ function BridgeSnapshot($root, $gameName, $view) {
   $payload = [
     'success' => true,
     'view' => $view,
+    'activePlayer' => BridgeActivePlayer(),
     'phase' => strval(GetCurrentPhase()),
     'turnPlayer' => intval(GetTurnPlayer()),
     'flashMessage' => function_exists('GetFlashMessage') ? strval(GetFlashMessage()) : '',
@@ -397,6 +573,16 @@ function BridgeSnapshot($root, $gameName, $view) {
       'theirHandCount' => is_array(GetZone('theirHand')) ? count(GetZone('theirHand')) : 0,
       'myFieldCount' => is_array(GetZone('myField')) ? count(GetZone('myField')) : 0,
       'theirFieldCount' => is_array(GetZone('theirField')) ? count(GetZone('theirField')) : 0,
+    ];
+    $payload['players'] = [
+      'player1' => [
+        'mastery' => BridgeMasterySummary(1),
+        'decisionQueue' => BridgeDecisionQueueSummary(1),
+      ],
+      'player2' => [
+        'mastery' => BridgeMasterySummary(2),
+        'decisionQueue' => BridgeDecisionQueueSummary(2),
+      ],
     ];
   } else {
     $payload['gamestateText'] = RegressionCurrentGamestateText($root, $gameName);
@@ -416,6 +602,24 @@ switch ($command) {
   case 'compile-scenario':
     $spec = BridgeParseTemplateSpec($args['spec'] ?? '');
     BridgeOut(['success' => true, 'gamestateText' => BridgeCompileScenario($root, $spec)]);
+    break;
+  case 'add-to-zone':
+    BridgeOut(BridgeAddToZone(
+      $root,
+      $args['gameName'] ?? '',
+      strval($args['zone'] ?? ''),
+      strval($args['cardID'] ?? ''),
+      intval($args['perspectivePlayer'] ?? 1)
+    ));
+    break;
+  case 'add-counters':
+    BridgeOut(BridgeAddCounters(
+      $root,
+      $args['gameName'] ?? '',
+      strval($args['mzID'] ?? ''),
+      strval($args['counterType'] ?? ''),
+      intval($args['amount'] ?? 0)
+    ));
     break;
   case 'enumerate-legal-actions':
     BridgeOut(BridgeEnumerateLegalActions($root, $args['gameName'] ?? ''));
