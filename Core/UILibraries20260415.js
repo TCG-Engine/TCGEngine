@@ -720,6 +720,12 @@
       document.head.appendChild(widgetstyle);
 
       function createWidgetButtons(zoneName, cardId, cardJSON="-", currentValue="") {
+        const escapeHtmlAttr = (value) => String(value ?? '')
+          .replace(/&/g, '&amp;')
+          .replace(/"/g, '&quot;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;');
+        const formatTooltipText = (value) => String(value ?? '').replace(/_/g, ' ');
         let cardData = {};
         if (cardJSON && cardJSON !== "-" && cardJSON.trim() !== "") {
           try {
@@ -772,9 +778,16 @@
                 const abilityCount = CardActivateAbilityCount(cardData.CardID);
                 // Read server-computed dynamic abilities (generic — no game-specific logic here)
                 let dynamicAbilities = [];
+                let activateAbilityStates = [];
                 if (cardData.DynamicAbilities && cardData.DynamicAbilities !== '' && cardData.DynamicAbilities !== '[]') {
                   try { dynamicAbilities = JSON.parse(cardData.DynamicAbilities); } catch(e) {}
                 }
+                if (cardData.ActivateAbilityButtonStates && cardData.ActivateAbilityButtonStates !== '' && cardData.ActivateAbilityButtonStates !== '[]') {
+                  try { activateAbilityStates = JSON.parse(cardData.ActivateAbilityButtonStates); } catch(e) {}
+                }
+                const staticAbilityStates = new Map(
+                  activateAbilityStates.map((entry) => [Number(entry.index), entry])
+                );
                 if (abilityCount >= 1 || dynamicAbilities.length > 0) {
                   // Generate button(s) for each static ability
                   const abilityNames = typeof CardActivateAbilityCountNames === 'function'
@@ -783,7 +796,14 @@
                   for (let i = 0; i < abilityCount; i++) {
                     const abilityName = abilityNames[i] || `Ability ${i + 1}`;
                     const actionWithIndex = `Activate:${i}`;
-                    const buttonHtml = `&nbsp;<button class="widget-button" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${actionWithIndex}')" title="${abilityName}">${abilityName}</button>`;
+                    const abilityState = staticAbilityStates.get(i);
+                    const isEnabled = !abilityState || abilityState.enabled !== false;
+                    const buttonTitle = escapeHtmlAttr(formatTooltipText((abilityState && abilityState.tooltip) ? abilityState.tooltip : abilityName));
+                    const buttonClass = isEnabled ? 'widget-button' : 'widget-button widget-button-disabled';
+                    const buttonAction = isEnabled
+                      ? `handleWidgetAction(event, '${cardId}', '${widgetType}', '${actionWithIndex}')`
+                      : 'event.preventDefault(); event.stopPropagation(); return false;';
+                    const buttonHtml = `&nbsp;<button class="${buttonClass}" onclick="${buttonAction}" title="${buttonTitle}" aria-disabled="${isEnabled ? 'false' : 'true'}">${abilityName}</button>`;
                     switch(position) {
                       case 'topright': topRightButtons += buttonHtml; break;
                       case 'topleft': topLeftButtons += buttonHtml; break;
@@ -795,7 +815,7 @@
                   // Generate button(s) for each server-provided dynamic ability
                   for (const dynAbility of dynamicAbilities) {
                     const dynAction = `Activate:${dynAbility.index}`;
-                    const dynButtonHtml = `&nbsp;<button class="widget-button" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${dynAction}')" title="${dynAbility.name}">${dynAbility.name}</button>`;
+                    const dynButtonHtml = `&nbsp;<button class="widget-button" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${dynAction}')" title="${escapeHtmlAttr(formatTooltipText(dynAbility.name))}">${dynAbility.name}</button>`;
                     switch(position) {
                       case 'topright': topRightButtons += dynButtonHtml; break;
                       case 'topleft': topLeftButtons += dynButtonHtml; break;
@@ -904,6 +924,19 @@
           background-color: white;
           color: black;
           border: 2px solid #333;
+        }
+
+        .widget-button-disabled {
+          background-color: #6b6b6b;
+          color: rgba(255, 255, 255, 0.72);
+          cursor: not-allowed;
+          opacity: 0.8;
+        }
+
+        .widget-button-disabled:hover {
+          background-color: #6b6b6b;
+          color: rgba(255, 255, 255, 0.72);
+          border: none;
         }
 
         .widget-button-selected {

@@ -13215,6 +13215,37 @@ function CardHasAbility($obj) {
     return 1;
 }
 
+function GetActivateAbilityButtonStates($obj) {
+    if(HasNoAbilities($obj)) return "";
+
+    $staticCount = CardActivateAbilityCount($obj->CardID);
+    if($staticCount <= 0) return "";
+
+    $mzID = SelectionMetadataMzID($obj);
+    if($mzID === null) return "";
+
+    $turnPlayer = &GetTurnPlayer();
+    $states = [];
+    $existingFlash = GetFlashMessage();
+
+    for($abilityIndex = 0; $abilityIndex < $staticCount; ++$abilityIndex) {
+        $enabled = false;
+        if($turnPlayer == $obj->Controller) {
+            $enabled = function_exists("CanActivateAbility") ? CanActivateAbility($turnPlayer, $mzID, $abilityIndex) : true;
+            SetFlashMessage($existingFlash);
+        }
+
+        $states[] = [
+            "index" => $abilityIndex,
+            "enabled" => $enabled,
+            "tooltip" => $enabled ? "" : "You do not meet the prerequisite to activate this ability."
+        ];
+    }
+
+    SetFlashMessage($existingFlash);
+    return json_encode($states);
+}
+
 // Internal tracking effects that are backend-only and should never render in the UI
 $backendOnlyTurnEffects = [
     "DAMAGED_SINCE_LAST_TURN",
