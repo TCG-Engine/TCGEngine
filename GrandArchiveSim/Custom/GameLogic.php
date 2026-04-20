@@ -957,6 +957,10 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
         if(empty($commandAllies)) return; // No ally to command — block activation
     }
+
+    if(!CanPlayerUseCardElement($player, $sourceObject->CardID, true, true)) {
+        return;
+    }
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     // Track the source zone so "whenever you activate from memory" triggers can check it in OnCardActivated.
     DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
@@ -971,14 +975,6 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         RemoveGlobalEffect($player, "f6lxizyuml_NEXT_CANT_BE_NEGATED");
     }
     TrackEffectStackSourceZone("EffectStack-" . $obj->mzIndex, DecisionQueueController::GetVariable("activationSourceZone"));
-
-    //TODO: 1.2 Checking Elements: Then, the game checks whether the player has the required elements enabled to activate the card. If not, the activation is illegal.
-    // Prismatic Codex (czvy67nbin): "Once this turn, activate a card regardless of elemental alignment" — consume the bypass flag
-    if(GlobalEffectCount($player, "PRISMATIC_CODEX_IGNORE_ELEMENT") > 0) {
-        RemoveGlobalEffect($player, "PRISMATIC_CODEX_IGNORE_ELEMENT");
-        // Element requirement is bypassed for this activation (once consumed, subsequent activations must satisfy element)
-        // NOTE: When element checking (§1.2) is implemented, skip the element check when this flag was set.
-    }
 
     //TODO: 1.3 Declaring Costs: Next, the player declares the intended cost parameters for the card.
 
@@ -13277,6 +13273,10 @@ function CanActivateCardForSelection($player, $obj) {
     $mzID = SelectionMetadataMzID($obj);
     if($mzID === null) return true;
     $existingFlash = GetFlashMessage();
+    if(!CanPlayerUseCardElement($player, $obj->CardID, false, false)) {
+        SetFlashMessage($existingFlash);
+        return false;
+    }
     $canActivate = CanActivateCard($player, $mzID, false);
     SetFlashMessage($existingFlash);
     return $canActivate;
@@ -14830,6 +14830,67 @@ function GetChampionLineage($player) {
 function ChampionHasInLineage($player, $cardID) {
     $lineage = GetChampionLineage($player);
     return in_array($cardID, $lineage);
+}
+
+function IsBasicElementName($element) {
+    return in_array($element, ["WATER", "FIRE", "WIND"]);
+}
+
+function IsAdvancedElementName($element) {
+    return in_array($element, ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA"]);
+}
+
+function GetPlayerEnabledElements($player) {
+    $enabled = ["NORM" => true];
+    foreach(GetChampionLineage($player) as $lineageCardID) {
+        $lineageElement = CardElement($lineageCardID);
+        if($lineageElement === null || $lineageElement === "" || $lineageElement === "NORM") continue;
+        $enabled[$lineageElement] = true;
+    }
+
+    $hasOtherAdvanced = false;
+    foreach(array_keys($enabled) as $enabledElement) {
+        if($enabledElement !== "EXALTED" && IsAdvancedElementName($enabledElement)) {
+            $hasOtherAdvanced = true;
+            break;
+        }
+    }
+    if($hasOtherAdvanced) {
+        $enabled["EXALTED"] = true;
+    }
+
+    return array_keys($enabled);
+}
+
+function IsPlayerElementEnabled($player, $element) {
+    if($element === null || $element === "" || $element === "NORM") return true;
+    return in_array($element, GetPlayerEnabledElements($player));
+}
+
+function GetElementRestrictionMessage($element) {
+    if($element === null || $element === "" || $element === "NORM") return "";
+    return "Element not enabled: " . $element;
+}
+
+function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setFlash = true) {
+    $cardElement = CardElement($cardID);
+    if($cardElement === null || $cardElement === "" || $cardElement === "NORM") return true;
+
+    if(IsPlayerElementEnabled($player, $cardElement)) {
+        return true;
+    }
+
+    if(GlobalEffectCount($player, "PRISMATIC_CODEX_IGNORE_ELEMENT") > 0) {
+        if($consumeBypass) {
+            RemoveGlobalEffect($player, "PRISMATIC_CODEX_IGNORE_ELEMENT");
+        }
+        return true;
+    }
+
+    if($setFlash) {
+        SetFlashMessage(GetElementRestrictionMessage($cardElement));
+    }
+    return false;
 }
 
 /**

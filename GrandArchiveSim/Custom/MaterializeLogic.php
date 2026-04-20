@@ -40,10 +40,20 @@ function GetMaterializeFloatingChoices($player) {
     return implode("&", $choices);
 }
 
+function GetLegalMaterializeChoices($player) {
+    $material = GetMaterial($player);
+    $choices = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed) continue;
+        if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) continue;
+        $choices[] = "myMaterial-" . $i;
+    }
+    return $choices;
+}
+
 function MaterializeChoice($ignoreCost = false) {
     $turnPlayer = GetTurnPlayer();
-    $material = &GetMaterial($turnPlayer);
-    DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", ZoneObjMZIndices($material, "myMaterial"), 1);
+    DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", GetLegalMaterializeChoices($turnPlayer)), 1);
     $handlerParam = $ignoreCost ? "MATERIALIZE|NOCOST" : "MATERIALIZE";
     DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", $handlerParam, 1);
 }
@@ -55,6 +65,7 @@ $customDQHandlers["EVENTIDE_MATERIAL_CHECK"] = function($player, $parts, $lastDe
     $eventideMZ = null;
     for($i = 0; $i < count($material); ++$i) {
         if(!$material[$i]->removed && $material[$i]->CardID === "xjkdokzfd9") {
+            if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) return;
             $eventideMZ = "myMaterial-" . $i;
             break;
         }
@@ -81,6 +92,7 @@ $customDQHandlers["VARUCKAN_MATERIAL_CHECK"] = function($player, $parts, $lastDe
     $varuckanMZ = null;
     for($i = 0; $i < count($material); ++$i) {
         if(!$material[$i]->removed && $material[$i]->CardID === "9ox7u6wzh9") {
+            if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) return;
             $varuckanMZ = "myMaterial-" . $i;
             break;
         }
@@ -145,6 +157,7 @@ $customDQHandlers["FRAMEWORK_SIDEARM_MATERIAL_CHECK"] = function($player, $parts
     $sidearmMZ = null;
     for($i = 0; $i < count($material); ++$i) {
         if(!$material[$i]->removed && $material[$i]->CardID === "p4lgdlx7md") {
+            if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) return;
             $sidearmMZ = "myMaterial-" . $i;
             break;
         }
@@ -182,9 +195,12 @@ $customDQHandlers["ActivateFrameworkSidearmFromHand"] = function($player, $parts
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $ignoreCost = isset($parts[0]) && $parts[0] === "NOCOST";
     //First pay memory cost (unless cost is being ignored)
     $materializeCard = &GetZoneObject($lastDecision);
+    if($materializeCard === null || $materializeCard->removed) return;
+    if(!CanPlayerUseCardElement($player, $materializeCard->CardID)) return;
 
     // The Elysian Astrolabe (4nmxqsm4o9): can only materialize if it's the last card in material deck
     if($materializeCard->CardID === "4nmxqsm4o9") {
