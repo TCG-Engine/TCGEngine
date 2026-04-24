@@ -720,8 +720,7 @@ function ActionMap($actionCard)
             // Ignition Draw (RhSPMn8Lix): activate Aethercharge from banishment this turn
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
-                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_ignitionDraw'])) {
-                    unset($bObj->Counters['_ignitionDraw']);
+                if($bObj !== null && !$bObj->removed && in_array('_ignitionDraw', $bObj->TurnEffects ?? [])) {
                     $handObj = MZMove($playerID, $actionCard, "myHand");
                     $hand = &GetHand($playerID);
                     $handIdx = count($hand) - 1;
@@ -732,8 +731,7 @@ function ActionMap($actionCard)
             // Mordred, Burnished Avenger (OWCdWq3mXY): activate tagged attack card from banishment this turn
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
-                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_mordredBurnished'])) {
-                    unset($bObj->Counters['_mordredBurnished']);
+                if($bObj !== null && !$bObj->removed && in_array('_mordredBurnished', $bObj->TurnEffects ?? [])) {
                     $handObj = MZMove($playerID, $actionCard, "myHand");
                     $hand = &GetHand($playerID);
                     $handIdx = count($hand) - 1;
@@ -744,8 +742,7 @@ function ActionMap($actionCard)
             // Desperate Cavalier (slmer06rku): tagged banished cards may be activated for 2 self-damage.
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
-                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_desperateCavalier'])) {
-                    unset($bObj->Counters['_desperateCavalier']);
+                if($bObj !== null && !$bObj->removed && in_array('_desperateCavalier', $bObj->TurnEffects ?? [])) {
                     MZMove($playerID, $actionCard, "myHand");
                     $champMZ = FindChampionMZ($playerID);
                     if($champMZ !== null) {
@@ -760,8 +757,7 @@ function ActionMap($actionCard)
             // Recursive Confidant (KfC8fwcF2T): activate tagged Warrior attack from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
-                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_recursiveConfidant'])) {
-                    unset($bObj->Counters['_recursiveConfidant']);
+                if($bObj !== null && !$bObj->removed && in_array('_recursiveConfidant', $bObj->TurnEffects ?? [])) {
                     $handObj = MZMove($playerID, $actionCard, "myHand");
                     $hand = &GetHand($playerID);
                     $handIdx = count($hand) - 1;
@@ -772,7 +768,7 @@ function ActionMap($actionCard)
             // Ashen Riffle (fjpimrl974): activate tagged Suited non-action cards from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
-                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_ashenRiffle'])) {
+                if($bObj !== null && !$bObj->removed && in_array('_ashenRiffle', $bObj->TurnEffects ?? [])) {
                     $handObj = MZMove($playerID, $actionCard, "myHand");
                     $hand = &GetHand($playerID);
                     $handIdx = count($hand) - 1;
@@ -783,7 +779,7 @@ function ActionMap($actionCard)
             // Warrior of the Fae Realm (eRcqucBKhX): activate tagged Sword attacks from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
-                if($bObj !== null && !$bObj->removed && isset($bObj->Counters['_warriorFaeRealm'])
+                if($bObj !== null && !$bObj->removed && in_array('_warriorFaeRealm', $bObj->TurnEffects ?? [])
                     && ZoneContainsCardID("myField", "eRcqucBKhX")) {
                     $handObj = MZMove($playerID, $actionCard, "myHand");
                     $hand = &GetHand($playerID);
@@ -13332,7 +13328,7 @@ function SelectionMetadata($obj) {
     
     // Only highlight cards belonging to the turn player
     $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
-    if ($owner !== $turnPlayer) {
+    if ($owner === null || intval($owner) !== intval($turnPlayer)) {
         return json_encode(['highlight' => false]);
     }
     
@@ -13428,6 +13424,88 @@ function EphemerateMeta($obj) {
 
 function MordredFatedEphemerateApplies($player, $cardID) {
     return ChampionHasInLineage($player, "KqBosnU7pU") && PropertyContains(CardType($cardID), "ATTACK");
+}
+
+// Virtual property: returns highlight metadata for banish cards that can be activated via specific mechanics.
+// Each check mirrors the exact FSM condition in the myBanish case of CardClick/FSM.
+function BanishSelectionMetadata($obj) {
+    $turnPlayer = GetTurnPlayer();
+
+    // Only highlight cards belonging to the turn player
+    $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
+    if ($owner !== $turnPlayer) {
+        return json_encode(['highlight' => false]);
+    }
+
+    // Check if both decision queues are empty
+    $decisionQueue = &GetDecisionQueue($turnPlayer);
+    $theirDecisionQueue = &GetDecisionQueue($turnPlayer == 1 ? 2 : 1);
+    if (count($decisionQueue) > 0 || count($theirDecisionQueue) > 0) {
+        return json_encode(['highlight' => false]);
+    }
+
+    $currentPhase = GetCurrentPhase();
+    $turnEffects = $obj->TurnEffects ?? [];
+
+    // Naia, Diviner of Fortunes (jdmthh88rx): spell tagged NAIA_BANISHED + Naia still on field
+    if ($currentPhase === "MAIN" && in_array("NAIA_BANISHED", $turnEffects)) {
+        foreach(GetZone("myField") as $fObj) {
+            if (!$fObj->removed && $fObj->CardID === "jdmthh88rx" && !HasNoAbilities($fObj)) {
+                return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+            }
+        }
+    }
+
+    // Shattering Discharge (uutqo9hm33): self + has a charge counter
+    if ($currentPhase === "MAIN" && $obj->CardID === "uutqo9hm33" && GetCounterCount($obj, "charge") > 0) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Seiryuu, Azure Dragon (tf5f2n38g0): tagged SEIRYUU_BANISHED (no phase restriction — triggers during attack)
+    if (in_array("SEIRYUU_BANISHED", $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Kongming, Erudite Strategist (0i139x5eub): tagged KONGMING_<DIR> + SC faces that direction
+    if ($currentPhase === "MAIN") {
+        foreach(["NORTH", "EAST", "SOUTH", "WEST"] as $d) {
+            if (in_array("KONGMING_" . $d, $turnEffects) && GetShiftingCurrents($turnPlayer) === $d) {
+                return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+            }
+        }
+    }
+
+    // Ignition Draw (RhSPMn8Lix): tagged _ignitionDraw turn effect
+    if ($currentPhase === "MAIN" && in_array('_ignitionDraw', $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Mordred, Burnished Avenger (OWCdWq3mXY): tagged _mordredBurnished turn effect
+    if ($currentPhase === "MAIN" && in_array('_mordredBurnished', $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Desperate Cavalier (slmer06rku): tagged _desperateCavalier turn effect
+    if ($currentPhase === "MAIN" && in_array('_desperateCavalier', $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Recursive Confidant (KfC8fwcF2T): tagged _recursiveConfidant turn effect
+    if ($currentPhase === "MAIN" && in_array('_recursiveConfidant', $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Ashen Riffle (fjpimrl974): tagged _ashenRiffle turn effect
+    if ($currentPhase === "MAIN" && in_array('_ashenRiffle', $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Warrior of the Fae Realm (eRcqucBKhX): tagged _warriorFaeRealm turn effect + Warrior still on field
+    if ($currentPhase === "MAIN" && in_array('_warriorFaeRealm', $turnEffects) && ZoneContainsCardID("myField", "eRcqucBKhX")) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    return json_encode(['highlight' => false]);
 }
 
 function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null) {
@@ -13535,6 +13613,17 @@ function ExpireEffects($isEndTurn=true) {
         $fieldObj->TurnEffects = $newEffects;
     }
     unset($fieldObj);
+
+    // Clear all TurnEffects from the expiring player's banish zone.
+    // All banish TurnEffects are turn-scoped tags (NAIA_BANISHED, SEIRYUU_BANISHED, _mordredBurnished, etc.)
+    $banishZone = $isEndTurn ? "myBanish" : "theirBanish";
+    $banishArr = &GetZone($banishZone);
+    foreach($banishArr as &$banishObj) {
+        if(!$banishObj->removed) {
+            $banishObj->TurnEffects = [];
+        }
+    }
+    unset($banishObj);
 }
 
 function AddTurnEffect($mzCard, $effectID) {
@@ -18282,8 +18371,7 @@ $customDQHandlers["AshenRiffleChoose"] = function($player, $parts, $lastDecision
     }
     $banishedObj = MZMove($player, $lastDecision, "myBanish");
     if($banishedObj !== null) {
-        if(!is_array($banishedObj->Counters)) $banishedObj->Counters = [];
-        $banishedObj->Counters['_ashenRiffle'] = 1;
+        $banishedObj->AddTurnEffects('_ashenRiffle');
     }
     AshenRiffleChoose($player, $remainingChoices - 1);
 };

@@ -6723,8 +6723,7 @@ $customDQHandlers["IgnitionDrawBanishChoice"] = function($player, $parts, $lastD
     $banish = GetZone("myBanish");
     for($bi = count($banish) - 1; $bi >= 0; $bi--) {
         if(!$banish[$bi]->removed && $banish[$bi]->CardID === $obj->CardID) {
-            if(!is_array($banish[$bi]->Counters)) $banish[$bi]->Counters = [];
-            $banish[$bi]->Counters['_ignitionDraw'] = 1;
+            $banish[$bi]->AddTurnEffects('_ignitionDraw');
             break;
         }
     }

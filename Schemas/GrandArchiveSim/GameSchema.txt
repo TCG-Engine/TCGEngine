@@ -40,7 +40,8 @@ Display: Visibility=Private, Mode=Single, Bottom=120px, Right=10px
 Macros: Shuffle
 Banish - CardID:string, TurnEffects:array[string], Counters:json
 Index: TurnEffects
-Virtual: OmenCounterCount=GetOmenCounterCount()
+Virtual: OmenCounterCount=GetOmenCounterCount(), BanishSelectionMetadata=BanishSelectionMetadata()
+Highlight: BanishSelectionMetadata
 Display: Visibility=Public, Mode=Single, Bottom=230px, Right=10px
 Click: FSM()
 Counters: OmenCounterCount=Badge(Color=Purple,Position=Center,ShowZero=false)

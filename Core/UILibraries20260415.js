@@ -339,6 +339,53 @@
         return true; // All OR-groups filtered the card: hide it
       }
 
+      function IsViewerTurnPlayer() {
+        const turnVal = typeof window.TurnPlayerData !== 'undefined' ? parseInt(window.TurnPlayerData) : NaN;
+        const viewerVal = (document.getElementById('playerID') && document.getElementById('playerID').value) ? parseInt(document.getElementById('playerID').value) : NaN;
+        return !isNaN(turnVal) && !isNaN(viewerVal) && viewerVal === turnVal;
+      }
+
+      function GetHighlightMetadataForCard(zoneName, cardData) {
+        try {
+          if (!IsViewerTurnPlayer()) return null;
+          if (typeof HighlightRules === 'undefined' || !HighlightRules[zoneName]) return null;
+          const highlightProperty = HighlightRules[zoneName];
+          if (!cardData || !cardData.hasOwnProperty(highlightProperty) || !cardData[highlightProperty]) return null;
+
+          let rawValue = cardData[highlightProperty];
+          if (typeof rawValue === 'string') {
+            try {
+              rawValue = JSON.parse(rawValue);
+            } catch (e) {
+              return null;
+            }
+          }
+
+          if (rawValue && typeof rawValue === 'object' && rawValue.color) {
+            return rawValue;
+          }
+        } catch (e) {
+          if (console && console.error) console.error('GetHighlightMetadataForCard error', e);
+        }
+        return null;
+      }
+
+      function GetSingleDisplayHighlightMetadata(zoneName, zoneArr) {
+        if (!zoneArr || zoneArr.length === 0) return null;
+        for (var zi = 0; zi < zoneArr.length; ++zi) {
+          var zoneCardArr = zoneArr[zi].split(" ");
+          if (zoneCardArr.length < 3 || !zoneCardArr[2] || zoneCardArr[2] === '-') continue;
+          try {
+            var zoneCardData = JSON.parse(zoneCardArr[2]);
+            var highlightMetadata = GetHighlightMetadataForCard(zoneName, zoneCardData);
+            if (highlightMetadata) return highlightMetadata;
+          } catch (e) {
+            // Ignore malformed card JSON and continue scanning other cards in the zone.
+          }
+        }
+        return null;
+      }
+
       //Note: 96 = Card Size
       function PopulateZone(zone, zoneData, size = 96, folder = "concat", row = 1, mode = 'All', filter="") {
           // Skip rendering if zone visibility is None
@@ -377,7 +424,10 @@
                 heatmapColorMap = heatmapProperty && heatmapFunctionMap[heatmapProperty] ? heatmapFunctionMap[heatmapProperty].ColorMap : "";
               }
             }
-            newHTML += createCardHTML(zone, zoneName, folder, size, cardArr, displayIndex, heatmapFunction, heatmapColorMap);
+
+            // For single-display zones, surface playability when any card in that zone is highlighted.
+            var singleDisplayHighlightMetadata = GetSingleDisplayHighlightMetadata(zoneName, zoneArr);
+            newHTML += createCardHTML(zone, zoneName, folder, size, cardArr, displayIndex, heatmapFunction, heatmapColorMap, singleDisplayHighlightMetadata);
             newHTML += "</span>";
             return newHTML;
           }
@@ -546,7 +596,7 @@
         }
       }
 
-      function createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction = "", heatmapColorMap = "") {
+      function createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction = "", heatmapColorMap = "", forcedHighlightMetadata = null) {
         let isSelectable = false;
         if (window.SelectionMode.active && typeof IsSelectableCard === 'function') {
           isSelectable = IsSelectableCard(zone, cardArr, i);
@@ -556,40 +606,12 @@
           try { sharedCardData = JSON.parse(cardArr[2]); } catch (e) {}
         }
 
-        // Check if this card should be highlighted based on HighlightRules
-        // Only apply highlighting for the turn player
-        let highlightMetadata = null;
-        try {
-          // Check if viewer is the turn player
-          const turnVal = typeof window.TurnPlayerData !== 'undefined' ? parseInt(window.TurnPlayerData) : NaN;
-          const viewerVal = (document.getElementById('playerID') && document.getElementById('playerID').value) ? parseInt(document.getElementById('playerID').value) : NaN;
-          const viewerIsTurnPlayer = !isNaN(turnVal) && !isNaN(viewerVal) && viewerVal === turnVal;
-
-          if (viewerIsTurnPlayer && typeof HighlightRules !== 'undefined' && HighlightRules[zoneName]) {
-            const highlightProperty = HighlightRules[zoneName];
-            var cardData = sharedCardData;
-            // Check if the card has the highlight property and it's truthy
-            if (cardData.hasOwnProperty(highlightProperty) && cardData[highlightProperty]) {
-              let rawValue = cardData[highlightProperty];
-              // If the value is a string (nested JSON), parse it
-              if (typeof rawValue === 'string') {
-                try {
-                  rawValue = JSON.parse(rawValue);
-                } catch (e) {
-                  // If parsing fails, skip highlighting
-                  rawValue = null;
-                }
-              }
-
-              // Check if we have valid highlight metadata with a color property
-              if (rawValue && typeof rawValue === 'object' && rawValue.color) {
-                highlightMetadata = rawValue;
-                isSelectable = true;
-              }
-            }
-          }
-        } catch (e) {
-          if (console && console.error) console.error('Highlight check error', e);
+        let highlightMetadata = forcedHighlightMetadata;
+        if (!highlightMetadata) {
+          highlightMetadata = GetHighlightMetadataForCard(zoneName, sharedCardData);
+        }
+        if (highlightMetadata) {
+          isSelectable = true;
         }
 
         var newHTML = "";
