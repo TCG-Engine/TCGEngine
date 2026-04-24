@@ -7,9 +7,9 @@
  * - Refresh token exchange for new access token
  */
 
-include_once '../../../Core/HTTPLibraries.php';
-include_once '../../../Database/ConnectionManager.php';
-include_once './OAuthServer.php';
+include_once __DIR__ . '/../../Core/HTTPLibraries.php';
+include_once __DIR__ . '/../../Database/ConnectionManager.php';
+include_once __DIR__ . '/OAuthServer.php';
 
 // Initialize the OAuth server
 $server = new OAuthServer();
