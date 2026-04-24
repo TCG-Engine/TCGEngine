@@ -1620,6 +1620,206 @@
         }, 400);
       }
 
+      function initBugReportButton() {
+        if (window.__bugReportButtonInitialized) return;
+        if (!document.getElementById('gameName') || !document.getElementById('folderPath') || !document.getElementById('playerID')) return;
+        if (document.getElementById('folderPath').value !== 'GrandArchiveSim') return;
+
+        window.__bugReportButtonInitialized = true;
+
+        const button = document.createElement('button');
+        button.id = 'bug-report-button';
+        button.textContent = 'Report Bug';
+        button.style.position = 'fixed';
+        button.style.right = '20px';
+        button.style.bottom = '20px';
+        button.style.zIndex = '2600';
+        button.style.padding = '10px 16px';
+        button.style.borderRadius = '999px';
+        button.style.border = '1px solid #a83232';
+        button.style.background = 'rgba(13, 27, 42, 0.94)';
+        button.style.color = '#fff';
+        button.style.fontFamily = "'Orbitron', sans-serif";
+        button.style.cursor = 'pointer';
+        button.style.boxShadow = '0 0 15px rgba(168, 50, 50, 0.45)';
+        button.onclick = openBugReportModal;
+        document.body.appendChild(button);
+      }
+
+      function openBugReportModal() {
+        if (document.getElementById('bugReportOverlay')) return;
+
+        const modalOverlay = document.createElement('div');
+        modalOverlay.id = 'bugReportOverlay';
+        modalOverlay.style.position = 'fixed';
+        modalOverlay.style.inset = '0';
+        modalOverlay.style.backgroundColor = 'rgba(0, 0, 0, 0.6)';
+        modalOverlay.style.display = 'flex';
+        modalOverlay.style.alignItems = 'center';
+        modalOverlay.style.justifyContent = 'center';
+        modalOverlay.style.zIndex = '3001';
+
+        const modalContainer = document.createElement('div');
+        modalContainer.style.backgroundColor = '#0D1B2A';
+        modalContainer.style.padding = '20px';
+        modalContainer.style.borderRadius = '8px';
+        modalContainer.style.position = 'relative';
+        modalContainer.style.boxShadow = '0 0 18px 6px rgba(168, 50, 50, 0.35)';
+        modalContainer.style.width = 'min(520px, calc(100vw - 32px))';
+
+        const caption = document.createElement('div');
+        caption.textContent = 'Report a Bug';
+        caption.style.fontSize = '18px';
+        caption.style.fontWeight = 'bold';
+        caption.style.marginBottom = '10px';
+        caption.style.color = '#FFFFFF';
+        caption.style.fontFamily = "'Orbitron', sans-serif";
+        caption.style.letterSpacing = '1px';
+
+        const helper = document.createElement('div');
+        helper.textContent = 'Your description will be sent with a server-side snapshot of the current game state.';
+        helper.style.color = '#c8d5e6';
+        helper.style.fontSize = '13px';
+        helper.style.marginBottom = '12px';
+
+        const closeButton = document.createElement('button');
+        closeButton.textContent = 'X';
+        closeButton.style.position = 'absolute';
+        closeButton.style.top = '6px';
+        closeButton.style.right = '8px';
+        closeButton.style.background = 'transparent';
+        closeButton.style.border = 'none';
+        closeButton.style.fontSize = '16px';
+        closeButton.style.cursor = 'pointer';
+        closeButton.style.fontFamily = "'Orbitron', sans-serif";
+        closeButton.style.color = '#FFFFFF';
+
+        const textEntry = document.createElement('textarea');
+        textEntry.id = 'bugReportDescription';
+        textEntry.style.width = '100%';
+        textEntry.style.height = '180px';
+        textEntry.style.backgroundColor = '#1b2d42';
+        textEntry.style.color = '#FFFFFF';
+        textEntry.style.border = '1px solid #375a7f';
+        textEntry.style.borderRadius = '4px';
+        textEntry.style.padding = '10px';
+        textEntry.style.boxSizing = 'border-box';
+        textEntry.placeholder = 'Describe what happened, what you expected, and any steps that seem important.';
+
+        const statusText = document.createElement('div');
+        statusText.id = 'bugReportStatus';
+        statusText.style.color = '#c8d5e6';
+        statusText.style.fontSize = '12px';
+        statusText.style.marginTop = '10px';
+        statusText.style.minHeight = '18px';
+
+        const buttonRow = document.createElement('div');
+        buttonRow.style.display = 'flex';
+        buttonRow.style.justifyContent = 'flex-end';
+        buttonRow.style.gap = '10px';
+        buttonRow.style.marginTop = '14px';
+
+        const cancelButton = document.createElement('button');
+        cancelButton.textContent = 'Cancel';
+        cancelButton.style.padding = '10px 16px';
+        cancelButton.style.background = '#334e68';
+        cancelButton.style.color = '#fff';
+        cancelButton.style.border = 'none';
+        cancelButton.style.borderRadius = '6px';
+        cancelButton.style.cursor = 'pointer';
+        cancelButton.onclick = function() {
+          if (modalOverlay.parentNode) modalOverlay.parentNode.removeChild(modalOverlay);
+        };
+
+        const submitButton = document.createElement('button');
+        submitButton.id = 'submitBugReportButton';
+        submitButton.textContent = 'Submit Report';
+        submitButton.style.padding = '10px 18px';
+        submitButton.style.background = '#a83232';
+        submitButton.style.color = '#fff';
+        submitButton.style.border = 'none';
+        submitButton.style.borderRadius = '6px';
+        submitButton.style.cursor = 'pointer';
+        submitButton.onclick = submitBugReport;
+
+        closeButton.onclick = cancelButton.onclick;
+
+        modalOverlay.addEventListener('click', function(e) {
+          if (e.target === modalOverlay) cancelButton.onclick();
+        });
+
+        buttonRow.appendChild(cancelButton);
+        buttonRow.appendChild(submitButton);
+
+        modalContainer.appendChild(caption);
+        modalContainer.appendChild(helper);
+        modalContainer.appendChild(closeButton);
+        modalContainer.appendChild(textEntry);
+        modalContainer.appendChild(statusText);
+        modalContainer.appendChild(buttonRow);
+        modalOverlay.appendChild(modalContainer);
+        document.body.appendChild(modalOverlay);
+        textEntry.focus();
+      }
+
+      async function submitBugReport() {
+        const textEntry = document.getElementById('bugReportDescription');
+        const statusText = document.getElementById('bugReportStatus');
+        const submitButton = document.getElementById('submitBugReportButton');
+        if (!textEntry || !statusText || !submitButton) return;
+
+        const description = textEntry.value.trim();
+        if (!description) {
+          statusText.textContent = 'Please enter a description before submitting.';
+          statusText.style.color = '#ffb4b4';
+          return;
+        }
+
+        statusText.textContent = 'Submitting bug report...';
+        statusText.style.color = '#c8d5e6';
+        submitButton.disabled = true;
+        submitButton.textContent = 'Submitting...';
+
+        try {
+          const payload = {
+            description: description,
+            gameName: document.getElementById('gameName') ? document.getElementById('gameName').value : '',
+            playerID: document.getElementById('playerID') ? document.getElementById('playerID').value : '',
+            authKey: document.getElementById('authKey') ? document.getElementById('authKey').value : '',
+            folderPath: document.getElementById('folderPath') ? document.getElementById('folderPath').value : ''
+          };
+
+          const response = await fetch('./APIs/SubmitBugReport.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          const responseText = await response.text();
+          let data = null;
+          try {
+            data = JSON.parse(responseText);
+          } catch (parseError) {
+            const snippet = responseText.trim().slice(0, 240);
+            throw new Error(snippet || 'The server returned an empty response.');
+          }
+
+          if (!response.ok || !data.success) {
+            throw new Error(data.error || 'Unable to submit the bug report.');
+          }
+
+          const overlay = document.getElementById('bugReportOverlay');
+          if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+          showFlashMessage('Bug report submitted. A current gamestate snapshot was attached.' , 6000);
+        } catch (e) {
+          statusText.textContent = e.message;
+          statusText.style.color = '#ffb4b4';
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = 'Submit Report';
+        }
+      }
+
       function OnVersionChanged(newVersion, versionName) {
         var extra = (versionName ? '&versionName=' + encodeURIComponent(versionName) : '');
         SubmitInput("10003", "&cardID=" + newVersion + extra);
@@ -2620,6 +2820,9 @@ function SetCookieValue(cookieName, cookieValue, maxAgeDays) {
   var maxAgeSeconds = Math.max(1, parseInt(maxAgeDays, 10) || 1) * 24 * 60 * 60;
   document.cookie = cookieName + '=' + encodeURIComponent(cookieValue) + '; max-age=' + maxAgeSeconds + '; path=/; SameSite=Lax';
 }
+
+setTimeout(initBugReportButton, 0);
+window.addEventListener('load', initBugReportButton);
 
 // ---- Mobile Deck Editor Layout ----
 // Reorganizes #myStuff into a vertical layout for screens ≤1000px:

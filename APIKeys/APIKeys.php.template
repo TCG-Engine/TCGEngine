@@ -21,6 +21,9 @@ $patreonClientSecret = "op://$APP_ENV/Patreon/credential";
 $petranakiAPIKey = "";
 $karabastAPIKey = "";
 
+$bugReportApiKey = "";
+$bugReportApiUrl = "https://soulmastersdb.net/TCGEngine-Discord/APIs/BugReportAPI.php";
+
 $isProduction = false;
 
 const OPENAI_API_KEY = "";
