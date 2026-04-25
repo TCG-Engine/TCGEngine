@@ -13,6 +13,7 @@ const ENGINE_ROOT = path.resolve(__dirname, "..", "..");
 const execFileAsync = promisify(execFile);
 
 let prereqColumnChecked = false;
+let testCardLinksTableChecked = false;
 
 async function ensurePrereqColumn(connOrPool: any): Promise<void> {
   if (prereqColumnChecked) return;
@@ -26,6 +27,22 @@ async function ensurePrereqColumn(connOrPool: any): Promise<void> {
     );
   }
   prereqColumnChecked = true;
+}
+
+async function ensureTestCardLinksTable(): Promise<void> {
+  if (testCardLinksTableChecked) return;
+  const pool = getPool();
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS test_card_links (
+      id INT AUTO_INCREMENT PRIMARY KEY,
+      root_name VARCHAR(100) NOT NULL,
+      test_slug VARCHAR(255) NOT NULL,
+      card_id VARCHAR(100) NOT NULL,
+      UNIQUE KEY uq_test_card (root_name, test_slug, card_id),
+      KEY idx_root_card (root_name, card_id)
+    )
+  `);
+  testCardLinksTableChecked = true;
 }
 
 function logToStderr(message: string): void {
@@ -200,6 +217,21 @@ export async function listCards(params: ListCardsParams): Promise<{
     [...queryParams, limit, offset]
   );
 
+  // Fetch test counts for the returned cards
+  await ensureTestCardLinksTable();
+  const returnedCardIds = (rows as any[]).map((r) => r.card_id as string);
+  let testCountMap = new Map<string, number>();
+  if (returnedCardIds.length > 0) {
+    const placeholders2 = returnedCardIds.map(() => '?').join(',');
+    const [testCountRows] = await pool.query<mysql.RowDataPacket[]>(
+      `SELECT card_id, COUNT(*) AS test_count FROM test_card_links WHERE root_name = ? AND card_id IN (${placeholders2}) GROUP BY card_id`,
+      [root, ...returnedCardIds]
+    );
+    for (const r of testCountRows as any[]) {
+      testCountMap.set(r.card_id, Number(r.test_count));
+    }
+  }
+
   return {
     root,
     cards: (rows as any[]).map((r) => {
@@ -207,6 +239,7 @@ export async function listCards(params: ListCardsParams): Promise<{
       const entry: any = {
         cardId,
         isImplemented: Boolean(r.isImplemented),
+        testCount: testCountMap.get(cardId) ?? 0,
       };
       // Include name and set from dictionaries if available
       if (dicts) {
@@ -932,7 +965,7 @@ export function listScenarioTemplates(root: string): {
   return { root, templates };
 }
 
-export async function newTestFromScenario(root: string, templateId: string, parameters: Record<string, string>): Promise<any> {
+export async function newTestFromScenario(root: string, templateId: string, parameters: Record<string, string>, testedCards?: string[]): Promise<any> {
   const template = readScenarioTemplate(root, templateId);
   const placeholderMutations: ScenarioMutation[] = Object.entries(template.placeholders || {}).map(([key, placeholder]) => {
     const value = parameters[key] ?? placeholder.defaultValue;
@@ -989,6 +1022,7 @@ export async function newTestFromScenario(root: string, templateId: string, para
     draft: true,
     draftGameName,
     parameters,
+    testedCards: testedCards ?? [],
   };
   const seededActions = (template.initialActions ?? []).map((action) => normalizeDraftAction(action));
   fs.writeFileSync(path.join(fixtureDir, 'meta.json'), JSON.stringify(meta, null, 2));
@@ -1045,7 +1079,7 @@ function appendActionToFixture(root: string, slug: string, action: any): { succe
   return { success: true, slug, actionCount: actions.length };
 }
 
-export function saveTest(root: string, slug: string): { success: boolean; slug: string; expectedFinalSnapshotPath: string } {
+export async function saveTest(root: string, slug: string, testedCards?: string[]): Promise<{ success: boolean; slug: string; expectedFinalSnapshotPath: string }> {
   const fixtureDir = integrationFixtureDir(root, slug);
   const metaPath = path.join(fixtureDir, 'meta.json');
   if (!fs.existsSync(metaPath)) throw new Error(`Fixture meta not found for slug: ${slug}`);
@@ -1059,7 +1093,38 @@ export function saveTest(root: string, slug: string): { success: boolean; slug: 
   fs.writeFileSync(expectedPath, fs.readFileSync(gamestatePath, 'utf-8'));
   meta.draft = false;
   meta.savedAt = new Date().toISOString();
+
+  // Resolve which cards this test covers (explicit param wins, otherwise use stored meta)
+  const cards: string[] = testedCards ?? (Array.isArray(meta.testedCards) ? meta.testedCards : []);
+  if (testedCards !== undefined) {
+    meta.testedCards = testedCards;
+  }
+
   fs.writeFileSync(metaPath, JSON.stringify(meta, null, 2));
+
+  // Update the test_card_links table so test counts stay accurate
+  if (cards.length > 0) {
+    await ensureTestCardLinksTable();
+    const pool = getPool();
+    const conn = await pool.getConnection();
+    try {
+      await conn.beginTransaction();
+      await conn.query('DELETE FROM test_card_links WHERE root_name = ? AND test_slug = ?', [root, slug]);
+      for (const cardId of cards) {
+        await conn.query(
+          'INSERT INTO test_card_links (root_name, test_slug, card_id) VALUES (?, ?, ?)',
+          [root, slug, cardId]
+        );
+      }
+      await conn.commit();
+    } catch (err) {
+      await conn.rollback();
+      throw err;
+    } finally {
+      conn.release();
+    }
+  }
+
   return { success: true, slug, expectedFinalSnapshotPath: expectedPath };
 }
 

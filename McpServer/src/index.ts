@@ -303,11 +303,12 @@ server.tool(
     root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
     templateId: z.string().describe("Scenario template ID, for example 'play-from-hand/basic-hand-card'"),
     parameters: z.record(z.string(), z.string()).describe("Placeholder values and optional metadata like name or slug."),
+    testedCards: z.array(z.string()).optional().describe("List of card IDs that this test exercises. Stored in meta.json and used to compute the per-card test count when save_test is called."),
   },
   { destructiveHint: true },
   async (params) => {
     try {
-      const result = await newTestFromScenario(params.root, params.templateId, params.parameters as Record<string, string>);
+      const result = await newTestFromScenario(params.root, params.templateId, params.parameters as Record<string, string>, params.testedCards);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err: any) {
       return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
@@ -341,15 +342,16 @@ server.tool(
 // ---------------------------------------------------------------------------
 server.tool(
   "save_test",
-  "Finalize a draft test by snapshotting the current draft game's gamestate as expected_final_gamestate.txt.",
+  "Finalize a draft test by snapshotting the current draft game's gamestate as expected_final_gamestate.txt. Optionally provide testedCards to record which cards this test exercises — this updates the per-card test count in the database.",
   {
     root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
     slug: z.string().describe("Fixture slug under Tests/Integration/<root>/"),
+    testedCards: z.array(z.string()).optional().describe("List of card IDs that this test exercises. Updates the per-card test count in the database. If omitted, uses the testedCards list already stored in meta.json (e.g. set when the test was created via new_test_from_scenario)."),
   },
   { destructiveHint: true },
   async (params) => {
     try {
-      const result = saveTest(params.root, params.slug);
+      const result = await saveTest(params.root, params.slug, params.testedCards);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err: any) {
       return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };

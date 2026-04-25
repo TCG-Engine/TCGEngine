@@ -43,6 +43,16 @@ try {
         exit;
     }
     
+    // Ensure test_card_links table exists (created by MCP server, but guard here too)
+    mysqli_query($conn, "CREATE TABLE IF NOT EXISTS test_card_links (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        root_name VARCHAR(100) NOT NULL,
+        test_slug VARCHAR(255) NOT NULL,
+        card_id VARCHAR(100) NOT NULL,
+        UNIQUE KEY uq_test_card (root_name, test_slug, card_id),
+        KEY idx_root_card (root_name, card_id)
+    )");
+
     // Now load cards for each root from the database
     $roots = [];
     foreach ($databaseRoots as $rootName) {
@@ -70,20 +80,40 @@ try {
         if (!$cardsStmt) {
             throw new Exception("Prepare cards query failed: " . mysqli_error($conn));
         }
-        
+
+        // Load test counts for this root BEFORE executing the cards statement
+        // (mysqli doesn't allow two open result sets on the same connection)
+        $testCounts = [];
+        $tcStmt = mysqli_prepare($conn, "
+            SELECT card_id, COUNT(*) as test_count
+            FROM test_card_links
+            WHERE root_name = ?
+            GROUP BY card_id
+        ");
+        if ($tcStmt) {
+            mysqli_stmt_bind_param($tcStmt, "s", $rootName);
+            mysqli_stmt_execute($tcStmt);
+            $tcResult = mysqli_stmt_get_result($tcStmt);
+            while ($tcRow = mysqli_fetch_assoc($tcResult)) {
+                $testCounts[$tcRow['card_id']] = (int)$tcRow['test_count'];
+            }
+            mysqli_stmt_close($tcStmt);
+        }
+
         mysqli_stmt_bind_param($cardsStmt, "s", $rootName);
         if (!mysqli_stmt_execute($cardsStmt)) {
             throw new Exception("Execute cards query failed: " . mysqli_stmt_error($cardsStmt));
         }
-        
+
         $cardsResult = mysqli_stmt_get_result($cardsStmt);
         $cards = [];
         while ($cardRow = mysqli_fetch_assoc($cardsResult)) {
             $cardId = $cardRow['card_id'];
-            // Store both the card ID and its implementation status
+            // Store card ID, implementation status, and test count
             $cards[$cardId] = [
                 'cardId' => $cardId,
-                'isImplemented' => (bool)$cardRow['isImplemented']
+                'isImplemented' => (bool)$cardRow['isImplemented'],
+                'testCount' => $testCounts[$cardId] ?? 0
             ];
         }
         mysqli_stmt_close($cardsStmt);

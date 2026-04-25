@@ -408,6 +408,34 @@
             color: #007acc;
         }
 
+        .test-count-badge {
+            display: inline-block;
+            background: #2d6a4f;
+            color: #6fcf97;
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 5px;
+            border-radius: 8px;
+            margin-left: 5px;
+            vertical-align: middle;
+            line-height: 14px;
+        }
+
+        .test-count-badge.zero {
+            background: #3a3a3a;
+            color: #666666;
+        }
+
+        .card-item.active .test-count-badge {
+            background: #1b4332;
+            color: #95d5b2;
+        }
+
+        .card-item.active .test-count-badge.zero {
+            background: #2a2a2a;
+            color: #555555;
+        }
+
         .filter-section {
             padding: 6px 15px;
             background: #2d2d30;
@@ -687,9 +715,13 @@
                 const cardData = cards[cardId];
                 const displayName = typeof cardData === 'object' ? cardData.cardId : cardData;
                 const isImplemented = typeof cardData === 'object' ? cardData.isImplemented : false;
+                const testCount = typeof cardData === 'object' ? (cardData.testCount || 0) : 0;
                 const statusBadge = isImplemented ? ' ✓' : '';
+                const testBadgeClass = testCount === 0 ? 'test-count-badge zero' : 'test-count-badge';
+                const testBadgeLabel = testCount === 1 ? '1 test' : `${testCount} tests`;
+                const testBadge = `<span class="${testBadgeClass}">${testBadgeLabel}</span>`;
                 cardItem.innerHTML = `
-                    <div class="card-item-id">${displayName}${statusBadge}</div>
+                    <div class="card-item-id">${displayName}${statusBadge}${testBadge}</div>
                 `;
                 cardItem.onclick = () => onCardSelected(selectedRoot, cardId, cardItem);
                 cardList.appendChild(cardItem);
