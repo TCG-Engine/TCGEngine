@@ -15076,6 +15076,7 @@ function IsToken($cardID) {
  * @return string|null The effective element string (e.g. "FIRE", "NORM").
  */
 function EffectiveCardElement($obj) {
+    if($obj === null) return null;
     // Persistent override (e.g. Fracturize transforms element)
     if(isset($obj->Counters['_overrides']['element'])) {
         return $obj->Counters['_overrides']['element'];
@@ -15116,6 +15117,7 @@ function EffectiveCardElement($obj) {
  * @return string|null The effective type string (e.g. "ALLY", "PHANTASIA").
  */
 function EffectiveCardType($obj) {
+    if($obj === null) return null;
     if(isset($obj->Counters['_overrides']['type'])) {
         return $obj->Counters['_overrides']['type'];
     }
@@ -15138,6 +15140,7 @@ function EffectiveCardType($obj) {
  * @return string|null The effective subtypes (comma-separated, e.g. "CLERIC,FRACTAL").
  */
 function EffectiveCardSubtypes($obj) {
+    if($obj === null) return null;
     if(isset($obj->Counters['_overrides']['subtypes'])) {
         return $obj->Counters['_overrides']['subtypes'];
     }
@@ -15145,10 +15148,9 @@ function EffectiveCardSubtypes($obj) {
     $subtypes = CardSubtypes($obj->CardID);
     $linkedCards = GetLinkedCards($obj);
     foreach($linkedCards as $linkedObj) {
-        if($linkedObj->CardID === "8asbierp5k" && !PropertyContains($subtypes, "BEAST")) {
-            $subtypes = $subtypes ? $subtypes . ",BEAST" : "BEAST";
-            break;
-        }
+        if($linkedObj === null || $linkedObj->CardID !== "8asbierp5k" || !PropertyContains($subtypes, "BEAST")) continue;
+        $subtypes = $subtypes ? $subtypes . ",BEAST" : "BEAST";
+        break;
     }
     return $subtypes;
 }
@@ -15161,6 +15163,7 @@ function EffectiveCardSubtypes($obj) {
  * @return string|null The effective classes (comma-separated, e.g. "CLERIC").
  */
 function EffectiveCardClasses($obj) {
+    if($obj === null) return null;
     if(isset($obj->Counters['_overrides']['classes'])) {
         return $obj->Counters['_overrides']['classes'];
     }
@@ -15172,7 +15175,7 @@ function EffectiveCardClasses($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "9hA48XL1xV" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "9hA48XL1xV" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "RANGER")) {
                 $classes = $classes === null || $classes === "" ? "RANGER" : $classes . ",RANGER";
             }
@@ -15182,7 +15185,7 @@ function EffectiveCardClasses($obj) {
         // Lesser Boon of Veilara (GHS9GraLDo): your champion is Cleric in addition
         // to its other classes.
         foreach($field as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "GHS9GraLDo" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "GHS9GraLDo" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "CLERIC")) {
                 $classes = $classes === null || $classes === "" ? "CLERIC" : $classes . ",CLERIC";
             }
@@ -15192,7 +15195,7 @@ function EffectiveCardClasses($obj) {
         // Lesser Boon of Etherealys (NCahvCedfV): your champion is Mage in addition
         // to its other classes.
         foreach($field as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "NCahvCedfV" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "NCahvCedfV" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "MAGE")) {
                 $classes = $classes === null || $classes === "" ? "MAGE" : $classes . ",MAGE";
             }
@@ -15202,7 +15205,7 @@ function EffectiveCardClasses($obj) {
         // Lesser Boon of Odysseus (PXWFkT2DQe): your champion is Warrior in addition
         // to its other classes.
         foreach($field as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "PXWFkT2DQe" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "PXWFkT2DQe" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "WARRIOR")) {
                 $classes = $classes === null || $classes === "" ? "WARRIOR" : $classes . ",WARRIOR";
             }
@@ -15212,7 +15215,7 @@ function EffectiveCardClasses($obj) {
         // Lesser Boon of Artemis (TlTFIRAoMr): your champion is Tamer in addition
         // to its other classes.
         foreach($field as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "TlTFIRAoMr" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "TlTFIRAoMr" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "TAMER")) {
                 $classes = $classes === null || $classes === "" ? "TAMER" : $classes . ",TAMER";
             }
@@ -15222,7 +15225,7 @@ function EffectiveCardClasses($obj) {
         // Lesser Boon of Pulousa (V6yubXhzYB): your champion is Assassin in addition
         // to its other classes.
         foreach($field as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "V6yubXhzYB" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "V6yubXhzYB" || HasNoAbilities($fieldObj)) continue;
             if(!PropertyContains($classes, "ASSASSIN")) {
                 $classes = $classes === null || $classes === "" ? "ASSASSIN" : $classes . ",ASSASSIN";
             }
