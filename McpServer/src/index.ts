@@ -127,7 +127,7 @@ server.tool(
 // ---------------------------------------------------------------------------
 server.tool(
   "save_card_abilities",
-  "Save or update abilities for a card. Provide the full set of abilities — any previously saved abilities not included will be deleted. Each ability needs a macroName (from get_macros) and abilityCode (PHP function body). Include the 'id' field for existing abilities to update them rather than creating duplicates.",
+  "Save or update abilities for a card. By default (overwrite=false) only updates/inserts the provided abilities without deleting others — safe for adding a single new ability. Set overwrite=true to replace ALL abilities for the card (any previously saved abilities not included will be deleted). Each ability needs a macroName (from get_macros) and abilityCode (PHP function body). Include the 'id' field for existing abilities to update them rather than creating duplicates.",
   {
     root: z.string().describe("The root/game name"),
     cardId: z.string().describe("The card ID to save abilities for"),
@@ -142,11 +142,15 @@ server.tool(
           isImplemented: z.boolean().optional().describe("Whether this ability is considered implemented (default: false)"),
         })
       )
-      .describe("Array of abilities to save. Send all abilities for the card — omitted ones will be deleted."),
+      .describe("Array of abilities to save."),
     cardImplemented: z
       .boolean()
       .optional()
       .describe("Mark the card as implemented even with no abilities (e.g. vanilla cards with no effects). Default: false."),
+    overwrite: z
+      .boolean()
+      .optional()
+      .describe("When true, delete any existing abilities for this card that are NOT included in the abilities array. When false (default), only update/insert the provided abilities and leave others untouched."),
   },
   { destructiveHint: true },
   async (params) => {
@@ -156,6 +160,7 @@ server.tool(
         cardId: params.cardId,
         abilities: params.abilities,
         cardImplemented: params.cardImplemented,
+        overwrite: params.overwrite,
       });
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
     } catch (err: any) {

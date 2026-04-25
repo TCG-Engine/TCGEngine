@@ -310,6 +310,7 @@ export interface SaveCardAbilitiesParams {
   cardId: string;
   abilities: SaveAbilityInput[];
   cardImplemented?: boolean;
+  overwrite?: boolean;
 }
 
 export async function saveCardAbilities(
@@ -319,7 +320,7 @@ export async function saveCardAbilities(
   savedCount: number;
   deletedCount: number;
 }> {
-  const { root, cardId, abilities, cardImplemented = false } = params;
+  const { root, cardId, abilities, cardImplemented = false, overwrite = false } = params;
   const pool = getPool();
   await ensurePrereqColumn(pool);
   const conn = await pool.getConnection();
@@ -381,15 +382,17 @@ export async function saveCardAbilities(
       savedIds.add(result.insertId);
     }
 
-    // Delete removed abilities
+    // Delete removed abilities (only when overwrite=true)
     let deletedCount = 0;
-    for (const existingId of existingIds) {
-      if (!savedIds.has(existingId)) {
-        await conn.query(
-          `DELETE FROM card_abilities WHERE id = ? AND root_name = ? AND card_id = ?`,
-          [existingId, root, cardId]
-        );
-        deletedCount++;
+    if (overwrite) {
+      for (const existingId of existingIds) {
+        if (!savedIds.has(existingId)) {
+          await conn.query(
+            `DELETE FROM card_abilities WHERE id = ? AND root_name = ? AND card_id = ?`,
+            [existingId, root, cardId]
+          );
+          deletedCount++;
+        }
       }
     }
 
