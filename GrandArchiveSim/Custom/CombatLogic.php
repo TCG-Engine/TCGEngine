@@ -2978,6 +2978,22 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    // Diffusive Block (o7eanl1gxr): prevent next 2 damage to target unit this turn
+    foreach($targetObj->TurnEffects as $te) {
+        if(strpos($te, "DIFFUSIVE_BLOCK_") === 0) {
+            $preventAmount = intval(substr($te, strlen("DIFFUSIVE_BLOCK_")));
+            $prevented = min($preventAmount, $amount);
+            $amount -= $prevented;
+            $remaining = $preventAmount - $prevented;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== $te));
+            if($remaining > 0) {
+                $targetObj->TurnEffects[] = "DIFFUSIVE_BLOCK_" . $remaining;
+            }
+            if($amount <= 0) return;
+            break;
+        }
+    }
+
     // Imperial Countermeasure (HRPSt74B7g): prevent next 4 damage to target unit this turn.
     foreach($targetObj->TurnEffects as $te) {
         if(strpos($te, "IMPERIAL_COUNTERMEASURE_") === 0) {

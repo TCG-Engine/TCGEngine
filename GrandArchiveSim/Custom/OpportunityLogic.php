@@ -353,6 +353,96 @@ $customDQHandlers["NegateActivationSuffocatingResolve"] = function($controller, 
     DecisionQueueController::ClearVariable("pendingNegateTarget");
 };
 
+// Blossoming Denial (1nnpbddblx): optional negate unless pays (3), then summon 2 Flowerbud tokens + [L5+] Recover X phantasias
+$customDQHandlers["BlossomingDenialNegate"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $target = GetZoneObject($lastDecision);
+    if($target === null || $target->removed) return;
+    DecisionQueueController::StoreVariable("pendingNegateTarget", $lastDecision);
+    DecisionQueueController::StoreVariable("pendingNegateDestination", "default");
+    DecisionQueueController::StoreVariable("pendingNegatePayAmount", "3");
+    $controller = intval($target->Controller);
+    if(CountAvailableReservePayments($controller) < 3) {
+        NegateCardActivation($player, $lastDecision, "default");
+        return;
+    }
+    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, "Pay_3_to_prevent_negate?");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "NegateActivationPayChoice|" . $player, 1);
+};
+
+$customDQHandlers["BlossomingDenialFinal"] = function($player, $parts, $lastDecision) {
+    $opponent = ($player == 1) ? 2 : 1;
+    // Each opponent summons two Flowerbud tokens
+    MZAddZone($opponent, "myField", "yn78t73w1p");
+    MZAddZone($opponent, "myField", "yn78t73w1p");
+    // [Level 5+] Recover X where X = phantasias on field
+    if(PlayerLevel($player) >= 5) {
+        $phantasiaCount = count(ZoneSearch("myField", ["PHANTASIA"])) + count(ZoneSearch("theirField", ["PHANTASIA"]));
+        if($phantasiaCount > 0) RecoverChampion($player, $phantasiaCount);
+    }
+};
+
+// Imperial Accord (1S7Q5fqX5u): negate advanced element unless pays (6), may banish negated card
+$customDQHandlers["ImperialAccordNegate"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $target = GetZoneObject($lastDecision);
+    if($target === null || $target->removed) return;
+    $cardID = $target->CardID;
+    DecisionQueueController::StoreVariable("imperialAccordCardID", $cardID);
+    $controller = intval($target->Controller);
+    if(CountAvailableReservePayments($controller) < 6) {
+        NegateCardActivation($player, $lastDecision, "default");
+        return;
+    }
+    DecisionQueueController::StoreVariable("pendingNegateTarget", $lastDecision);
+    DecisionQueueController::StoreVariable("pendingNegateDestination", "default");
+    DecisionQueueController::StoreVariable("pendingNegatePayAmount", "6");
+    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, "Pay_6_to_prevent_negate?");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "ImperialAccordPayChoice|" . $player, 1);
+};
+
+$customDQHandlers["ImperialAccordPayChoice"] = function($payingPlayer, $parts, $lastDecision) {
+    $negatingPlayer = intval($parts[0] ?? $payingPlayer);
+    $targetMZ = DecisionQueueController::GetVariable("pendingNegateTarget");
+    $payAmount = intval(DecisionQueueController::GetVariable("pendingNegatePayAmount") ?? "0");
+    if($lastDecision === "YES" && count(GetHand($payingPlayer)) >= $payAmount) {
+        // Controller paid — negate doesn't happen; clear stored card ID
+        DecisionQueueController::ClearVariable("imperialAccordCardID");
+        for($i = 0; $i < $payAmount; ++$i) {
+            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 1);
+        }
+    } else {
+        // Controller didn't pay — negate fires
+        NegateCardActivation($negatingPlayer, $targetMZ, "default");
+    }
+    DecisionQueueController::ClearVariable("pendingNegateTarget");
+    DecisionQueueController::ClearVariable("pendingNegateDestination");
+    DecisionQueueController::ClearVariable("pendingNegatePayAmount");
+};
+
+$customDQHandlers["ImperialAccordMayBanish"] = function($player, $parts, $lastDecision) {
+    $cardID = DecisionQueueController::GetVariable("imperialAccordCardID");
+    DecisionQueueController::ClearVariable("imperialAccordCardID");
+    if(empty($cardID)) return;
+    // Find card in opponent's graveyard
+    $gy = GetZone("theirGraveyard");
+    for($i = count($gy) - 1; $i >= 0; --$i) {
+        if(!$gy[$i]->removed && $gy[$i]->CardID === $cardID) {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", "theirGraveyard-" . $i, 1, tooltip:"Banish_negated_card?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ImperialAccordBanish", 1);
+            return;
+        }
+    }
+};
+
+$customDQHandlers["ImperialAccordBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    MZMove(intval($obj->Controller), $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 function QueueConstellatorySpireTrigger($player) {
     $field = GetField($player);
     for($i = 0; $i < count($field); ++$i) {

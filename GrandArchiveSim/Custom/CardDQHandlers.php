@@ -7224,6 +7224,66 @@ $customDQHandlers["EtherealysPromiseBanish"] = function($player, $parts, $lastDe
     }
 };
 
+// ============================================================================
+// Castling (tFOpmUdi2W): up to 2 Chessman allies gain SS, taunt, +2 LIFE
+// ============================================================================
+$customDQHandlers["CastlingFirstTarget"] = function($player, $parts, $lastDecision) {
+    $first = $lastDecision;
+    if($first !== "-" && $first !== "" && $first !== "PASS") {
+        AddTurnEffect($first, "SPELLSHROUD_NEXT_TURN");
+        AddTurnEffect($first, "TAUNT_NEXT_TURN");
+        AddTurnEffect($first, "tFOpmUdi2W_HP");
+    }
+    // Offer second target (excluding first)
+    $chessmen = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
+    if(!empty($first) && $first !== "-" && $first !== "PASS") {
+        $chessmen = array_values(array_filter($chessmen, fn($mz) => $mz !== $first));
+    }
+    if(empty($chessmen)) return;
+    $str = implode("&", $chessmen);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $str, 1, tooltip:"Choose_second_Chessman_ally");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CastlingSecondTarget", 1);
+};
+
+$customDQHandlers["CastlingSecondTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddTurnEffect($lastDecision, "SPELLSHROUD_NEXT_TURN");
+    AddTurnEffect($lastDecision, "TAUNT_NEXT_TURN");
+    AddTurnEffect($lastDecision, "tFOpmUdi2W_HP");
+};
+
+// ============================================================================
+// Crackling Incineration (14bepZKPlK): destroy target item/weapon with mem0 or res<=4,
+// then its controller puts a sheen counter on a unit they control.
+// ============================================================================
+$customDQHandlers["CracklingIncinerationDestroy"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null) return;
+    $controller = $targetObj->Controller ?? $player;
+    OnLeaveField($player, $lastDecision);
+    $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
+    MZMove($player, $lastDecision, $dest);
+    DecisionQueueController::CleanupRemovedCards();
+    // Controller puts a sheen counter on a unit they control
+    global $playerID;
+    $controllerZone = $controller == $playerID ? "myField" : "theirField";
+    $units = ZoneSearch($controllerZone, ["ALLY", "CHAMPION"]);
+    if(empty($units)) return;
+    if(count($units) === 1) {
+        AddCounters($player, $units[0], "sheen", 1);
+        return;
+    }
+    $str = implode("&", $units);
+    DecisionQueueController::AddDecision($controller, "MZCHOOSE", $str, 1, tooltip:"Put_a_sheen_counter_on_a_unit_you_control");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "CracklingIncinerationSheen", 1);
+};
+
+$customDQHandlers["CracklingIncinerationSheen"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    AddCounters($player, $lastDecision, "sheen", 1);
+};
+
 function SinistreStabCommitToLineage($player, $targetPlayer) {
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $iMZ) {

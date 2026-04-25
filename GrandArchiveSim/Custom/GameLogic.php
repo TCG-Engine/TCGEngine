@@ -7214,6 +7214,15 @@ function EndPhase() {
         }
     }
 
+    // BANISH_NEXT_END_PHASE: banish cards tagged at the beginning of the next end phase (e.g. Arcane Elemental)
+    $field = &GetField($turnPlayer);
+    for($i = count($field) - 1; $i >= 0; --$i) {
+        if(!$field[$i]->removed && in_array("BANISH_NEXT_END_PHASE", $field[$i]->TurnEffects)) {
+            MZMove($turnPlayer, "myField-" . $i, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+        }
+    }
+
     // Arcane Disposition (blq7qXGvWH): at the beginning of the next end phase, discard your hand.
     for($adp = 1; $adp <= 2; ++$adp) {
         if(GlobalEffectCount($adp, "blq7qXGvWH_DISCARD_NEXT_END") > 0) {
@@ -12945,6 +12954,7 @@ $persistentTurnEffects["CANT_ATTACK_NEXT_TURN"] = true; // Bring Down the Mighty
 $persistentTurnEffects["ao1cfkhbp6"] = true; // Stand Fast: +1 LIFE until beginning of next turn
 $persistentTurnEffects["EPHEMERAL"] = true; // Ephemeral: object is banished instead of leaving the field
 $persistentTurnEffects["SACRIFICE_NEXT_END_PHASE"] = true; // Incinerated Templar: sacrifice at beginning of next end phase
+$persistentTurnEffects["BANISH_NEXT_END_PHASE"] = true; // Arcane Elemental: banish self at beginning of next end phase
 
 $doesGlobalEffectApply["9GWxrTMfBz"] = function($obj) { //Cram Session
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -14963,6 +14973,8 @@ function HasFloatingMemory($obj) {
     if($obj->CardID === "uhaao91ee1" && IsClassBonusActive($obj->Controller, ["WARRIOR"])) return true;
     // Deadly Opportunist (eyvxonorcs): [Class Bonus] Floating Memory
     if($obj->CardID === "eyvxonorcs" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
+    // Diffusive Block (o7eanl1gxr): [Class Bonus] Floating Memory
+    if($obj->CardID === "o7eanl1gxr" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
     // Martial Guard (nsdwmxz1vd): [Class Bonus][Level 2+] Floating Memory
     if($obj->CardID === "nsdwmxz1vd" && IsClassBonusActive($obj->Controller, ["GUARDIAN"]) && PlayerLevel($obj->Controller) >= 2) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
@@ -18569,11 +18581,6 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         $reserveCost = max(0, $reserveCost - $classBonusDiscount);
     }
 
-    // Arcane Elemental (wFH1kBLrWh): [Mage CB] costs 1 less per arcane card in banishment
-    if($cardID === "wFH1kBLrWh" && IsClassBonusActive($player, ["MAGE"])) {
-        $reserveCost = max(0, $reserveCost - count(ZoneSearch("myBanish", cardElements: ["ARCANE"])));
-    }
-
     // Efficiency: reduce cost by champion's current level
     if(isset($Efficiency_Cards[$cardID])) {
         foreach(GetZone("myField") as $fieldObj) {
@@ -18606,145 +18613,11 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         if(!$dryRun) RemoveGlobalEffect($player, "1fy8l4pxs9_COST");
     }
 
-    // Astral Seal (e3aebjvwbc): [Cleric CB] costs 3 less if banishment shares a name with effect stack
-    if($cardID === "e3aebjvwbc" && IsClassBonusActive($player, ["CLERIC"])) {
-        $banishIDs = [];
-        foreach(array_merge(GetZone("myBanish"), GetZone("theirBanish")) as $bObj) {
-            $banishIDs[$bObj->CardID] = true;
-        }
-        foreach(GetZone("EffectStack") as $esObj) {
-            if($esObj->removed) continue;
-            if(isset($banishIDs[$esObj->CardID])) { $reserveCost = max(0, $reserveCost - 3); break; }
-        }
-    }
-
-    // Spectral Haunting (Dtr3jPRAFJ): [Alice Bonus] costs 4 less if targeting a Specter in GY
-    if($cardID === "Dtr3jPRAFJ" && IsAliceBonusActive($player)) {
-        if(!empty(ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["SPECTER"]))) {
-            $reserveCost = max(0, $reserveCost - 4);
-        }
-    }
-
     // Steady Verse Harmony Discount: next Harmony card costs 1 less (one-shot)
     if(GlobalEffectCount($player, "STEADY_VERSE_HARMONY_DISCOUNT") > 0
         && PropertyContains(CardSubtypes($cardID), "HARMONY")) {
         $reserveCost = max(0, $reserveCost - 1);
         if(!$dryRun) RemoveGlobalEffect($player, "STEADY_VERSE_HARMONY_DISCOUNT");
-    }
-
-    // Incarnate Majesty (7dl5j4lx6x): costs 1 less per regalia weapon in banishment
-    if($cardID === "7dl5j4lx6x") {
-        $regaliaCount = 0;
-        foreach(ZoneSearch("myBanish", ["WEAPON"]) as $bwMZ) {
-            $bwObj = GetZoneObject($bwMZ);
-            if(PropertyContains(CardType($bwObj->CardID), "REGALIA")) $regaliaCount++;
-        }
-        $reserveCost = max(0, $reserveCost - $regaliaCount);
-    }
-
-    // Neos Elemental (jwsl7dedg6): [Guardian CB] costs 1 less per token you control
-    if($cardID === "jwsl7dedg6" && IsClassBonusActive($player, ["GUARDIAN"])) {
-        $reserveCost = max(0, $reserveCost - count(ZoneSearch("myField", ["TOKEN"])));
-    }
-
-    // Glow Forth (27jlb9h1a5): costs 1 less per Animal you control
-    if($cardID === "27jlb9h1a5") {
-        $reserveCost = max(0, $reserveCost - count(ZoneSearch("myField", cardSubtypes: ["ANIMAL"])));
-    }
-
-    // Fortifying Aroma (doo4sk9q9e): costs 1 less per Herb you control
-    if($cardID === "doo4sk9q9e") {
-        $reserveCost = max(0, $reserveCost - count(ZoneSearch("myField", cardSubtypes: ["HERB"])));
-    }
-
-    // Blade of Creation (iqs2hipwsc): [Guardian CB] costs 1 less per token you control
-    if($cardID === "iqs2hipwsc" && IsClassBonusActive($player, ["GUARDIAN"])) {
-        $reserveCost = max(0, $reserveCost - count(ZoneSearch("myField", ["TOKEN"])));
-    }
-
-    // Frigid Bash (k2c7wklzjm): costs 2 less if you control a Shield item
-    if($cardID === "k2c7wklzjm" && !empty(ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]))) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Phalanx Captain (rPpLwLPGaL): [Warrior CB] costs 1 less per Human ally you control
-    if($cardID === "rPpLwLPGaL" && IsClassBonusActive($player, ["WARRIOR"])) {
-        $reserveCost = max(0, $reserveCost - count(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HUMAN"])));
-    }
-
-    // Diffusive Block (o7eanl1gxr): costs 1 less if you control a Shield item
-    if($cardID === "o7eanl1gxr" && !empty(ZoneSearch("myField", ["ITEM"], cardSubtypes: ["SHIELD"]))) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Seasprite Diver (mxqsm4o98v): costs 1 less if opponent has 4+ cards in graveyard
-    if($cardID === "mxqsm4o98v" && count(ZoneSearch("theirGraveyard")) >= 4) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Dorumegian Foundry (CzwVavXMQU): [Guardian CB] costs 2 less per domain (up to 3)
-    if($cardID === "CzwVavXMQU" && IsClassBonusActive($player, ["GUARDIAN"])) {
-        $reserveCost = max(0, $reserveCost - min(3, count(ZoneSearch("myField", ["DOMAIN"]))) * 2);
-    }
-
-    // Spirit Blade: Infusion (CgyJxpEgzk): costs 2 less if champion dealt combat damage this turn
-    if($cardID === "CgyJxpEgzk" && GlobalEffectCount($player, "CHAMP_DEALT_COMBAT_DMG") > 0) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Tempest Downfall (4etkr73opc): [Mage CB] costs 3 less if an ally was suppressed this turn
-    if($cardID === "4etkr73opc" && IsClassBonusActive($player, ["MAGE"])) {
-        foreach(array_merge(GetZone("myBanish"), GetZone("theirBanish")) as $bObj) {
-            if(!$bObj->removed && in_array("SUPPRESSED", $bObj->TurnEffects)) {
-                $reserveCost = max(0, $reserveCost - 3);
-                break;
-            }
-        }
-    }
-
-    // Gloamspire Prowler (igpck2z4rs): costs 3 less with 2+ Curse cards in lineage
-    if($cardID === "igpck2z4rs" && CountCursesInLineage($player) >= 2) {
-        $reserveCost = max(0, $reserveCost - 3);
-    }
-
-    // Curse Amplification (x9z2k2a5ig): [Diana Bonus] costs 3 less
-    if($cardID === "x9z2k2a5ig" && IsDianaBonus($player)) {
-        $reserveCost = max(0, $reserveCost - 3);
-    }
-
-    // Accursed Strength (j3fkza233s): [Ranger CB] costs 1 less
-    if($cardID === "j3fkza233s" && IsClassBonusActive($player, ["RANGER"])) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Sidestep (voy5ttkk39): [Level 2+] costs 1 less
-    if($cardID === "voy5ttkk39" && PlayerLevel($player) >= 2) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Rescue the Heir (t0240ykvj0): [Level 1+] costs 1 less if you control a unique ally
-    if($cardID === "t0240ykvj0" && PlayerLevel($player) >= 1) {
-        foreach(GetZone("myField") as $fObj) {
-            if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "ALLY")
-                && PropertyContains(EffectiveCardType($fObj), "UNIQUE")) {
-                $reserveCost = max(0, $reserveCost - 1);
-                break;
-            }
-        }
-    }
-
-    // Mend Flesh (ju2d98w3j0): [Damage 25+] costs 2 less
-    if($cardID === "ju2d98w3j0") {
-        $champ = ZoneSearch("myField", ["CHAMPION"]);
-        if(!empty($champ)) {
-            $champObj = GetZoneObject($champ[0]);
-            if($champObj !== null && $champObj->Damage >= 25) $reserveCost = max(0, $reserveCost - 2);
-        }
-    }
-
-    // Coy Bouclier (vo1qr9bkme): [Level 2+] costs 2 less
-    if($cardID === "vo1qr9bkme" && PlayerLevel($player) >= 2) {
-        $reserveCost = max(0, $reserveCost - 2);
     }
 
     // Viridian Protective Trinket (s3572j3oda): during opponent's turn, water cards cost 2 more
@@ -18830,99 +18703,6 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         }
     }
 
-    // Enrage (wcfvrfw35s): [Damage 20+] costs 2 less
-    if($cardID === "wcfvrfw35s") {
-        $champ = ZoneSearch("myField", ["CHAMPION"]);
-        if(!empty($champ)) {
-            $champObj = GetZoneObject($champ[0]);
-            if($champObj !== null && $champObj->Damage >= 20) $reserveCost = max(0, $reserveCost - 2);
-        }
-    }
-
-    // Ceasing Edict (4f3bi5lohu): [South SC] costs 2 less
-    if($cardID === "4f3bi5lohu" && GetShiftingCurrents($player) === "SOUTH") {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Crystallized Destiny (l36wwe3d5c): [2+ Fatestone/Fatebound] costs 2 less
-    if($cardID === "l36wwe3d5c" && CountFatestoneOrFateboundObjects($player) >= 2) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Vainglory Retribution (qtzsekkjn3): [Vanitas Bonus][Level 2+] costs 2 less
-    if($cardID === "qtzsekkjn3" && IsVanitasBonusActive($player) && PlayerLevel($player) >= 2) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Jianyu (qv0vn6tuow): [Cleric CB] costs 2 less
-    if($cardID === "qv0vn6tuow" && IsClassBonusActive($player, ["CLERIC"])) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Crackling Incineration (14bepZKPlK): [Sheen 6+] costs 2 less
-    if($cardID === "14bepZKPlK" && GetSheenCount($player) >= 6) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Merlin L2 (dPP9I4nVn0): costs X less (X = sheen count)
-    if($cardID === "dPP9I4nVn0") {
-        $sheen = GetSheenCount($player);
-        if($sheen > 0) $reserveCost = max(0, $reserveCost - $sheen);
-    }
-
-    // Leading Charge (WWnmb1Hjdo): [CB] costs 2 less if you control a unique Warrior ally
-    if($cardID === "WWnmb1Hjdo" && IsClassBonusActive($player, CardClasses("WWnmb1Hjdo"))) {
-        $lcZone = $player == $playerID ? "myField" : "theirField";
-        foreach(GetZone($lcZone) as $lcObj) {
-            if(!$lcObj->removed && PropertyContains(EffectiveCardType($lcObj), "ALLY")
-                && PropertyContains(EffectiveCardType($lcObj), "UNIQUE")
-                && PropertyContains(EffectiveCardClasses($lcObj), "WARRIOR")) {
-                $reserveCost = max(0, $reserveCost - 2);
-                break;
-            }
-        }
-    }
-
-    // Flamewreath Call (c8wwslgbvr): [Tamer CB] costs 3 less if you control a Beast ally
-    if($cardID === "c8wwslgbvr" && IsClassBonusActive($player, ["TAMER"])
-        && !empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["BEAST"]))) {
-        $reserveCost = max(0, $reserveCost - 3);
-    }
-
-    // Shattered Hope (XOevViFTB3): [Merlin Bonus] costs 1 less
-    if($cardID === "XOevViFTB3" && IsMerlinBonusActive($player)) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Flickering Afterglow (tng0Gpe9mI): [Merlin Bonus] costs X less (X = sheen count)
-    if($cardID === "tng0Gpe9mI" && IsMerlinBonusActive($player)) {
-        $sheen = GetSheenCount($player);
-        if($sheen > 0) $reserveCost = max(0, $reserveCost - $sheen);
-    }
-
-    // Protect Her At All Costs (OzNHncAfFJ): [Merlin Bonus] costs 2 less
-    if($cardID === "OzNHncAfFJ" && IsMerlinBonusActive($player)) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Castling (tFOpmUdi2W): 2 less per Chessman Rook, 2 less per Chessman King
-    if($cardID === "tFOpmUdi2W") {
-        if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN", "ROOK"])))
-            $reserveCost = max(0, $reserveCost - 2);
-        if(!empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN", "KING"])))
-            $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Rebounding Gust (9e0z7hb9id): costs 2 less during combat
-    if($cardID === "9e0z7hb9id" && IsCombatActive()) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Enervating Decay (jh9s424gjr): [Cleric CB][Level 5+] costs 2 less
-    if($cardID === "jh9s424gjr" && IsClassBonusActive($player, ["CLERIC"]) && PlayerLevel($player) >= 5) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
     // Break Apart (4ns2jbt4hq): costs 2 more only when ALL valid targets are regalias
     if($cardID === "4ns2jbt4hq") {
         $bpTargets = array_merge(
@@ -18954,29 +18734,19 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         if($ccUnique > 0 && $ccNonUnique == 0) $reserveCost = max(0, $reserveCost - 2);
     }
 
-    // Wayfinder's Map (porhlq2kkv): domain cards cost 1 less
-    if(PropertyContains($cardType, "DOMAIN")) {
-        foreach(GetZone("myField") as $fObj) {
-            if(!$fObj->removed && $fObj->CardID === "porhlq2kkv") {
-                $reserveCost = max(0, $reserveCost - 1); break;
-            }
-        }
-    }
-
-    // Polkhawk, Bombastic Shot (ryvfq3huqj): Ranger Reaction cards cost 1 less
-    if(PropertyContains(CardSubtypes($cardID), "REACTION") && PropertyContains(CardClasses($cardID), "RANGER")) {
-        foreach(GetZone("myField") as $fObj) {
-            if(!$fObj->removed && $fObj->CardID === "ryvfq3huqj" && !HasNoAbilities($fObj)) {
-                $reserveCost = max(0, $reserveCost - 1); break;
-            }
-        }
-    }
-
     // Gearstride Gloves (lcb6jhxctx): next Reaction card costs 1 less (one-shot)
     if(GlobalEffectCount($player, "lcb6jhxctx_REACTION_DISCOUNT") > 0
         && PropertyContains(CardSubtypes($cardID), "REACTION")) {
         $reserveCost = max(0, $reserveCost - 1);
         if(!$dryRun) RemoveGlobalEffect($player, "lcb6jhxctx_REACTION_DISCOUNT");
+    }
+
+    // Paired Minds, Kindred Souls (7qjnqww067): next Horse ally costs 2 less (one-shot)
+    if(GlobalEffectCount($player, "7qjnqww067") > 0
+        && PropertyContains(CardType($cardID), "ALLY")
+        && PropertyContains(CardSubtypes($cardID), "HORSE")) {
+        $reserveCost = max(0, $reserveCost - 2);
+        if(!$dryRun) RemoveGlobalEffect($player, "7qjnqww067");
     }
 
     // Umbral Tithe (2snsdwmxz1): costs 1 less per Curse in any champion's lineage
@@ -19025,209 +18795,6 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
                 break;
             }
         }
-    }
-
-    // Geldus, Terror of Dorumegia (n9yvn1uoy5): [Level 3+] costs 2 less
-    if($cardID === "n9yvn1uoy5" && PlayerLevel($player) >= 3) $reserveCost = max(0, $reserveCost - 2);
-
-    // Thunderclap (0xm513tj3j): [Level 3+] costs 2 less
-    if($cardID === "0xm513tj3j" && PlayerLevel($player) >= 3) $reserveCost = max(0, $reserveCost - 2);
-
-    // Bolster Ranks (n0esog2898): [Guardian CB] costs 1 less
-    if($cardID === "n0esog2898" && IsClassBonusActive($player, ["GUARDIAN"])) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Veteran Aerotheurge (fta5isdgrk): first Aethercharge card each turn costs 1 less
-    if(PropertyContains(CardSubtypes($cardID), "AETHERCHARGE") && AetherchargeActivatedCount($player) == 0) {
-        foreach(GetZone("myField") as $fObj) {
-            if(!$fObj->removed && $fObj->CardID === "fta5isdgrk" && !HasNoAbilities($fObj)) {
-                $reserveCost = max(0, $reserveCost - 1); break;
-            }
-        }
-    }
-
-    // Cavalier Rescue (75uhspxqme): costs 2 less if you control a Horse ally
-    if($cardID === "75uhspxqme" && !empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]))) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Determined Spearman (c8z5ntioqs): costs 1 less while you control a Horse ally
-    if($cardID === "c8z5ntioqs" && !empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]))) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Shu Frontliner (uhaao91ee1): costs 1 less while you control a Horse ally
-    if($cardID === "uhaao91ee1" && !empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]))) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Cao Cao, Aspirant of Chaos (d5og6z31q9): costs 3 less while you control a Horse ally
-    if($cardID === "d5og6z31q9" && !empty(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["HORSE"]))) {
-        $reserveCost = max(0, $reserveCost - 3);
-    }
-
-    // Hire Mercenaries (8swok9u930): costs 1 less if opponent controls 1+ allies
-    if($cardID === "8swok9u930" && !empty(ZoneSearch("theirField", ["ALLY"]))) {
-        $reserveCost = max(0, $reserveCost - 1);
-    }
-
-    // Lost Wisdom (8codb9zatv): [Cleric/Mage CB] costs 2 less if you control a unique ally
-    if($cardID === "8codb9zatv" && IsClassBonusActive($player, ["CLERIC", "MAGE"])) {
-        foreach(GetZone("myField") as $fObj) {
-            if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "ALLY")
-                && PropertyContains(EffectiveCardType($fObj), "UNIQUE")) {
-                $reserveCost = max(0, $reserveCost - 2); break;
-            }
-        }
-    }
-
-    // Paired Minds, Kindred Souls (7qjnqww067): next Horse ally costs 2 less (one-shot)
-    if(GlobalEffectCount($player, "7qjnqww067") > 0
-        && PropertyContains(CardType($cardID), "ALLY")
-        && PropertyContains(CardSubtypes($cardID), "HORSE")) {
-        $reserveCost = max(0, $reserveCost - 2);
-        if(!$dryRun) RemoveGlobalEffect($player, "7qjnqww067");
-    }
-
-    // Crimson Prescience (0dsdojl6l3): [Warrior CB][Damage 25+] costs 1 less
-    if($cardID === "0dsdojl6l3" && IsClassBonusActive($player, ["WARRIOR"])) {
-        $champ = ZoneSearch("myField", ["CHAMPION"]);
-        if(!empty($champ)) {
-            $champObj = GetZoneObject($champ[0]);
-            if($champObj !== null && $champObj->Damage >= 25) $reserveCost = max(0, $reserveCost - 1);
-        }
-    }
-
-    // Guan Yu, Prime Exemplar (0oyxjld8jh): costs 2 less if a Human ally you controlled died this turn
-    if($cardID === "0oyxjld8jh") {
-        foreach(AllyDestroyedTurnCards($player) as $deadID => $cnt) {
-            if(PropertyContains(CardSubtypes($deadID), "HUMAN")) {
-                $reserveCost = max(0, $reserveCost - 2); break;
-            }
-        }
-    }
-
-    // Acolyte of Cultivation (nsowyyn6jt): [Cleric/Mage CB] costs 3 less if a Spell was activated this turn
-    if($cardID === "nsowyyn6jt" && IsClassBonusActive($player, ["CLERIC", "MAGE"])) {
-        foreach(CardActivatedTurnCards($player) as $actID => $cnt) {
-            if(PropertyContains(CardSubtypes($actID), "SPELL")) {
-                $reserveCost = max(0, $reserveCost - 3); break;
-            }
-        }
-    }
-
-    // Modulating Cadence (p5p0azskw4): [Tamer CB] costs 1 less per Animal ally you control
-    if($cardID === "p5p0azskw4" && IsClassBonusActive($player, ["TAMER"])) {
-        $reserveCost = max(0, $reserveCost - count(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ANIMAL"])));
-    }
-
-    // Maiden of Glimmer's Dusk (qa4ke7txh0): [Cleric CB] costs 1 less per phantasia you control (up to 2)
-    if($cardID === "qa4ke7txh0" && IsClassBonusActive($player, ["CLERIC"])) {
-        $reserveCost = max(0, $reserveCost - min(2, count(ZoneSearch("myField", ["PHANTASIA"]))));
-    }
-
-    // Soutirer Vortex (du4df43ci2): 3+ omens with different reserve costs → costs 3 less
-    if($cardID === "du4df43ci2" && GetOmenDistinctCostCount($player) >= 3) {
-        $reserveCost = max(0, $reserveCost - 3);
-    }
-
-    // Mana Resonance (qp65vbdw7c): [Cleric CB] costs X less (highest opp spell cost on stack)
-    if($cardID === "qp65vbdw7c" && IsClassBonusActive($player, ["CLERIC"])) {
-        $highestCost = 0;
-        foreach(GetZone("EffectStack") as $esObj) {
-            if($esObj->removed || $esObj->Controller == $player) continue;
-            if(PropertyContains(CardSubtypes($esObj->CardID), "SPELL")) {
-                $cost = intval(CardReserveCost($esObj->CardID));
-                if($cost > $highestCost) $highestCost = $cost;
-            }
-        }
-        $reserveCost = max(0, $reserveCost - $highestCost);
-    }
-
-    // Disciple of the Waves (m9sfzj5d1i): [Deluge 3] costs 1 less
-    if($cardID === "m9sfzj5d1i" && DelugeAmount($player) >= 3) $reserveCost = max(0, $reserveCost - 1);
-
-    // Sleety Retreat (j9fkuzgg9i): [Deluge 4] costs 2 less
-    if($cardID === "j9fkuzgg9i" && DelugeAmount($player) >= 4) $reserveCost = max(0, $reserveCost - 2);
-
-    // Hunt, Weiss King (Y6PZntlVDl): [Alice Bonus] costs 2 less per Pawn ally (up to 2)
-    if($cardID === "Y6PZntlVDl" && IsAliceBonusActive($player)) {
-        $reserveCost = max(0, $reserveCost - min(2, count(ZoneSearch("myField", ["ALLY"], cardSubtypes: ["PAWN"]))) * 2);
-    }
-
-    // Frostlorn Caress (4tqbok1g9w): [Diao Chan Bonus] costs 3 less
-    if($cardID === "4tqbok1g9w" && IsDiaoChanBonus($player)) $reserveCost = max(0, $reserveCost - 3);
-
-    // Frostnip Pirouette (x79cuuw5vo): [Diao Chan Bonus] costs 2 less
-    if($cardID === "x79cuuw5vo" && IsDiaoChanBonus($player)) $reserveCost = max(0, $reserveCost - 2);
-
-    // Suffocating Ash (d6xkecLJ5S): [Cleric CB] costs 2 less
-    if($cardID === "d6xkecLJ5S" && IsClassBonusActive($player, ["CLERIC"])) $reserveCost = max(0, $reserveCost - 2);
-
-    // Gunsmith's Arsenal (e6mAjsbItw): [Ranger CB] costs 2 less
-    if($cardID === "e6mAjsbItw" && IsClassBonusActive($player, ["RANGER"])) $reserveCost = max(0, $reserveCost - 2);
-
-    // Eight of Spades (d43C0Hk6qH): [Level 1+] costs 4 less
-    if($cardID === "d43C0Hk6qH" && PlayerLevel($player) >= 1) $reserveCost = max(0, $reserveCost - 4);
-
-    // Briar's Spindle (9ooAGDhBj7): next Chessman card costs 2 less (one-shot)
-    if(GlobalEffectCount($player, "9ooAGDhBj7_COST") > 0 && PropertyContains(CardSubtypes($cardID), "CHESSMAN")) {
-        $reserveCost = max(0, $reserveCost - 2);
-        if(!$dryRun) RemoveGlobalEffect($player, "9ooAGDhBj7_COST");
-    }
-
-    // Butler's Augury (5u5ic64930): [Ciel Bonus] costs 1 less per omen (up to 2)
-    if($cardID === "5u5ic64930" && IsCielBonusActive($player)) {
-        $reserveCost = max(0, $reserveCost - min(2, GetOmenCount($player)));
-    }
-
-    // Pristine Scourge (kugriwszxr): [Ciel Bonus] costs 1 less per omen (up to 2)
-    if($cardID === "kugriwszxr" && IsCielBonusActive($player)) {
-        $reserveCost = max(0, $reserveCost - min(2, GetOmenCount($player)));
-    }
-
-    // Obsequious Blow (macqlgvqo3): [Ciel Bonus] costs 1 less per omen
-    if($cardID === "macqlgvqo3" && IsCielBonusActive($player)) {
-        $reserveCost = max(0, $reserveCost - GetOmenCount($player));
-    }
-
-    // Baleful Oblation (oye74ibwo8): [Ciel Bonus] costs 2 less
-    if($cardID === "oye74ibwo8" && IsCielBonusActive($player)) $reserveCost = max(0, $reserveCost - 2);
-
-    // Inverted Pyroslash (X5XONoPY6Z): [Ciel Bonus] costs 2 less per fire omen (up to 2)
-    if($cardID === "X5XONoPY6Z" && IsCielBonusActive($player)) {
-        $reserveCost = max(0, $reserveCost - 2 * min(2, GetOmenCountByElement($player, "FIRE")));
-    }
-
-    // Harrow the Saved (mLoz5CAeSU): [Alice Bonus] costs 3 less if curse in lineage
-    if($cardID === "mLoz5CAeSU" && IsAliceBonusActive($player) && CountCursesInLineage($player) > 0) {
-        $reserveCost = max(0, $reserveCost - 3);
-    }
-
-    // Chance, Seven of Spades (DKoSnhjX18): [Level 1+] costs 3 less
-    if($cardID === "DKoSnhjX18" && PlayerLevel($player) >= 1) $reserveCost = max(0, $reserveCost - 3);
-
-    // Flowing Oubli (vcxw3yh2t4): [Level 1+] costs 1 less
-    if($cardID === "vcxw3yh2t4" && PlayerLevel($player) >= 1) $reserveCost = max(0, $reserveCost - 1);
-
-    // Annul Spell (u817uqlk1j): [Level 2+] costs 1 less
-    if($cardID === "u817uqlk1j" && PlayerLevel($player) >= 2) $reserveCost = max(0, $reserveCost - 1);
-
-    // Tidal Lock (c4poa10ezw): costs 2 less with 3+ water cards in graveyard
-    if($cardID === "c4poa10ezw" && count(ZoneSearch("myGraveyard", cardElements: ["WATER"])) >= 3) {
-        $reserveCost = max(0, $reserveCost - 2);
-    }
-
-    // Blossoming Denial (1nnpbddblx): [Cleric CB] costs 3 less if opponent has 5+ memory
-    if($cardID === "1nnpbddblx" && IsClassBonusActive($player, ["CLERIC"])
-        && count(GetMemory($opponent)) >= 5) {
-        $reserveCost = max(0, $reserveCost - 3);
-    }
-
-    // Imperial Accord (1S7Q5fqX5u): [Cleric CB] costs 2 less
-    if($cardID === "1S7Q5fqX5u" && IsClassBonusActive($player, ["CLERIC"])) {
-        $reserveCost = max(0, $reserveCost - 2);
     }
 
     // Obsequious Blow next-turn cost increase (one-shot)
