@@ -57,9 +57,10 @@ Hand - CardID:string
 AddReplacement: HandAddReplacement
 Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
 Click: FSM()
-Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: SelectionMetadata=SelectionMetadata(), HandCardCostDifference=HandCardCostDifference()
 Highlight: SelectionMetadata
 Index: CardID
+Counters: HandCardCostDifference=Badge(Color=White,Position=TopLeft,ShowNegative=false)
 Field - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentHP=ObjectCurrentHPDisplay()

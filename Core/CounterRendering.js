@@ -283,6 +283,82 @@ function hideCardIdsBadgePopup(badgeEl) {
   }, 100);
 }
 
+var NAMED_COLORS_RGB = {
+  black: { r: 0, g: 0, b: 0 },
+  white: { r: 255, g: 255, b: 255 },
+  red: { r: 255, g: 0, b: 0 },
+  green: { r: 0, g: 128, b: 0 },
+  blue: { r: 0, g: 0, b: 255 },
+  orange: { r: 255, g: 165, b: 0 },
+  purple: { r: 128, g: 0, b: 128 },
+  gold: { r: 255, g: 215, b: 0 },
+  cyan: { r: 0, g: 255, b: 255 },
+  silver: { r: 192, g: 192, b: 192 },
+  brown: { r: 165, g: 42, b: 42 },
+  magenta: { r: 255, g: 0, b: 255 },
+  darkgreen: { r: 0, g: 100, b: 0 },
+  teal: { r: 0, g: 128, b: 128 },
+  gray: { r: 128, g: 128, b: 128 },
+  grey: { r: 128, g: 128, b: 128 },
+  yellow: { r: 255, g: 255, b: 0 },
+  pink: { r: 255, g: 192, b: 203 },
+  lime: { r: 0, g: 255, b: 0 },
+  navy: { r: 0, g: 0, b: 128 }
+};
+
+function parseCssColorToRgb(color) {
+  if (!color || typeof color !== 'string') return null;
+  var s = color.trim().toLowerCase();
+
+  if (NAMED_COLORS_RGB[s]) {
+    return NAMED_COLORS_RGB[s];
+  }
+
+  // Hex: #rgb or #rrggbb
+  var hexMatch = s.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+  if (hexMatch) {
+    var hex = hexMatch[1];
+    if (hex.length === 3) {
+      return {
+        r: parseInt(hex[0] + hex[0], 16),
+        g: parseInt(hex[1] + hex[1], 16),
+        b: parseInt(hex[2] + hex[2], 16)
+      };
+    }
+    return {
+      r: parseInt(hex.slice(0, 2), 16),
+      g: parseInt(hex.slice(2, 4), 16),
+      b: parseInt(hex.slice(4, 6), 16)
+    };
+  }
+
+  // rgb()/rgba()
+  var rgbMatch = s.match(/^rgba?\(([^)]+)\)$/i);
+  if (rgbMatch) {
+    var parts = rgbMatch[1].split(',').map(function(p) { return p.trim(); });
+    if (parts.length >= 3) {
+      var r = parseFloat(parts[0]);
+      var g = parseFloat(parts[1]);
+      var b = parseFloat(parts[2]);
+      if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
+        return { r: Math.max(0, Math.min(255, r)), g: Math.max(0, Math.min(255, g)), b: Math.max(0, Math.min(255, b)) };
+      }
+    }
+  }
+
+  // Unsupported/unknown format
+  return null;
+}
+
+function getReadableTextColor(backgroundColor) {
+  var rgb = parseCssColorToRgb(backgroundColor);
+  if (!rgb) return '#fff';
+
+  // Perceived luminance heuristic for contrast-aware text color.
+  var luminance = (0.299 * rgb.r) + (0.587 * rgb.g) + (0.114 * rgb.b);
+  return luminance >= 186 ? '#000' : '#fff';
+}
+
 // ==================== Main Counter Rendering Function ====================
 
 /**
@@ -354,7 +430,7 @@ function CreateCountersHTML(zoneName, cardArr, id) {
       // Determine visual style
       var sizePx = 22;
       var bg = params.Color ? params.Color : 'red';
-      var textColor = '#fff';
+      var textColor = params.TextColor ? params.TextColor : getReadableTextColor(bg);
       var posStyle = 'top:6px; right:6px;';
       var pos = params.Position ? params.Position.toLowerCase() : 'topright';
       switch(pos) {
