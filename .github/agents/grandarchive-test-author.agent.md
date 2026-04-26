@@ -104,6 +104,21 @@ Pass the champion's **card ID** string. Use the table below to pick one that mat
 
 If the champion you need isn't listed, use `get_card_info` to look it up by card ID, or `list_cards` to search by name.
 
+### `mastery` parameter — common mastery cards
+
+Pass the mastery card ID directly. The framework places it in `myMastery` (or `theirMastery` in the reaction-to-damage template). Omit to start with no mastery.
+
+| Mastery Card | Card ID | Key Mechanic |
+|---|---|---|
+| Shifting Currents | `qh5mpkyl60` | Kongming Bonus: Direction (NORTH/SOUTH/EAST/WEST) controls column targeting. After adding via template, use `test_game_add_counters` or snapshot/notes to set Direction if needed. |
+| Servile Possessions | `0d93t7bfwc` | Ciel Bonus: champion attack grows with omen counter count on the mastery. |
+| Fractured Memories | `UAJGQFbXjs` | Tracks sheen and haunt counters; checked by `HasFracturedMemoriesMastery`. |
+| Phantasmagoria | `D3rexaXCBo` | Alice Bonus: haunt counters on mastery. Used for end-phase GY-to-deck / mill effects. |
+
+> **Shifting Currents Direction:** After placing the card via the `mastery` placeholder, set its direction by adding the `Direction` property through a `test_game_add_counters` call isn't applicable (Direction is not a counter). Instead, note that Direction defaults to `NONE` on template setup; the Shifting Currents ability logic that sets the direction runs at runtime during Kongming's draw/end-phase triggers. For tests specifically needing a pre-set direction, use `test_game_add_to_zone` with `myMastery` after `new_test_from_scenario` as an alternative, then verify via `get_game_snapshot`.
+
+---
+
 ## Output Format
 
 Return:

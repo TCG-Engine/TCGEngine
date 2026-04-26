@@ -20,6 +20,13 @@
       "operation": "setElementSpirit",
       "perspectivePlayer": 1,
       "defaultValue": null
+    },
+    "mastery": {
+      "description": "Card ID to add to player one's mastery zone. Omit to start with no mastery.",
+      "zone": "myMastery",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "defaultValue": null
     }
   },
   "initialActions": [],

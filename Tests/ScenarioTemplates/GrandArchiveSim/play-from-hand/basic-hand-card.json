@@ -26,6 +26,13 @@
       "index": 2,
       "property": "CardID",
       "perspectivePlayer": 1
+    },
+    "mastery": {
+      "description": "Card ID to add to player one's mastery zone. Omit to start with no mastery.",
+      "zone": "myMastery",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "defaultValue": null
     }
   },
   "initialActions": [],

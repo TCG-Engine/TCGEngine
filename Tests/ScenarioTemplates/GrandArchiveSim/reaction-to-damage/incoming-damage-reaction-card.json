@@ -65,6 +65,13 @@
       "property": "CardID",
       "operation": "set",
       "perspectivePlayer": 1
+    },
+    "mastery": {
+      "description": "Card ID to add to the defending player's mastery zone. Omit to start with no mastery.",
+      "zone": "theirMastery",
+      "operation": "addCard",
+      "perspectivePlayer": 1,
+      "defaultValue": null
     }
   },
   "initialActions": [
