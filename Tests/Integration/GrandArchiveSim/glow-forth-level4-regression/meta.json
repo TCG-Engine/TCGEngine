@@ -1,0 +1,19 @@
+{
+  "name": "glow-forth-level4-regression",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-04-26T15:03:08.669Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/basic-hand-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "name": "glow-forth-level4-regression",
+    "slug": "glow-forth-level4-regression",
+    "champion": "enxi6tshtu",
+    "handCard": "27jlb9h1a5"
+  },
+  "testedCards": [
+    "27jlb9h1a5"
+  ],
+  "savedAt": "2026-04-26T15:04:18.802Z"
+}
