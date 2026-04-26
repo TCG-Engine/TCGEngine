@@ -33,11 +33,16 @@
   ],
   "placeholders": {
     "champion": {
-      "description": "Card ID to use as player one's champion on the field (replaces myField-0). Omit to keep the default fixture champion.",
+      "description": "Card ID to replace the champion on the field. Replaces whichever CHAMPION card is currently on myField. Omit to keep the default fixture champion.",
       "zone": "myField",
-      "index": 0,
-      "property": "CardID",
-      "operation": "set",
+      "operation": "replaceChampion",
+      "perspectivePlayer": 1,
+      "defaultValue": null
+    },
+    "element": {
+      "description": "Spirit element for the champion lineage: fire, water, or wind. Replaces the champion's spirit subcard. Omit to keep the default fixture spirit.",
+      "zone": "myField",
+      "operation": "setElementSpirit",
       "perspectivePlayer": 1,
       "defaultValue": null
     }

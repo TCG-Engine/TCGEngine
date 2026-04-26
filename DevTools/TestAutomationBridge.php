@@ -144,6 +144,60 @@ function BridgeApplyScenarioMutations($spec) {
         BridgeFail('Scenario mutation points to an invalid zone entry.', $mutation);
       }
       BridgeApplyPropertiesToZoneEntry($zone[$index], is_array($mutation['properties'] ?? null) ? $mutation['properties'] : []);
+    } else if ($operation === 'replaceChampion') {
+      // Find the first CHAMPION card in the zone and replace its CardID.
+      $zone = &GetZone($zoneName);
+      if (!is_array($zone)) {
+        if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
+        BridgeFail('replaceChampion: zone not found.', $mutation);
+      }
+      $found = false;
+      foreach ($zone as &$champObj) {
+        if (!is_object($champObj) || !empty($champObj->removed)) continue;
+        if (PropertyContains(CardType($champObj->CardID), 'CHAMPION')) {
+          if (method_exists($champObj, 'ClearIndex')) $champObj->ClearIndex();
+          $champObj->CardID = strval($value);
+          if (method_exists($champObj, 'BuildIndex')) $champObj->BuildIndex();
+          $found = true;
+          break;
+        }
+      }
+      unset($champObj);
+      if (!$found) {
+        if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
+        BridgeFail('replaceChampion: no CHAMPION found in zone.', $mutation);
+      }
+    } else if ($operation === 'setElementSpirit') {
+      // Find the champion in the zone and set its Subcards to the spirit for the given element.
+      $spiritMap = [
+        'FIRE'  => 'da2ha4dk88', // Spirit of Serene Fire
+        'WATER' => 'zq9ox7u6wz', // Spirit of Serene Water
+        'WIND'  => 'h973fdt8pt', // Spirit of Serene Wind
+      ];
+      $elementKey = strtoupper(strval($value));
+      if (!isset($spiritMap[$elementKey])) {
+        if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
+        BridgeFail('setElementSpirit: unknown element. Valid: fire, water, wind.', ['element' => $value]);
+      }
+      $zone = &GetZone($zoneName);
+      if (!is_array($zone)) {
+        if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
+        BridgeFail('setElementSpirit: zone not found.', $mutation);
+      }
+      $found = false;
+      foreach ($zone as &$champObj) {
+        if (!is_object($champObj) || !empty($champObj->removed)) continue;
+        if (PropertyContains(CardType($champObj->CardID), 'CHAMPION')) {
+          $champObj->Subcards = [$spiritMap[$elementKey]];
+          $found = true;
+          break;
+        }
+      }
+      unset($champObj);
+      if (!$found) {
+        if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
+        BridgeFail('setElementSpirit: no CHAMPION found in zone.', $mutation);
+      }
     } else {
       if ($index < 0 || $property === '') {
         if ($originalPlayerID !== null) $GLOBALS['playerID'] = $originalPlayerID;
