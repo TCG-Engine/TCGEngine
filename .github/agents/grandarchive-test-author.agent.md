@@ -48,6 +48,43 @@ You specialize in authoring GrandArchiveSim regression tests through the curated
 10. Save the test snapshot when the draft reaches the intended end state. The test should be a hyphenated version of the card name.
 11. Run the test and report the result.
 
+---
+
+## Grand Archive — Test Scenario Quick Reference
+
+When calling `new_test_from_scenario`, the following ready-to-use values should be passed directly — **do not search the codebase for these IDs**.
+
+### `element` parameter
+Pass the element name as a plain string. The framework maps it to the correct spirit card automatically.
+
+| Value to pass | Spirit placed in lineage |
+|---|---|
+| `fire` | Spirit of Serene Fire (`da2ha4dk88`) |
+| `water` | Spirit of Serene Water (`zq9ox7u6wz`) |
+| `wind` | Spirit of Serene Wind (`h973fdt8pt`) |
+
+Omit `element` entirely to keep the fixture's default spirit (`tafqldAGRF` — a generic WATER spirit).
+
+### `champion` parameter
+Pass the champion's **card ID** string. Use the table below to pick one that matches the class bonus required by the card under test, or omit to keep the default Diao Chan (Cleric).
+
+| Champion | Card ID | Class | Level |
+|---|---|---|---|
+| Diao Chan, Enchantress | `00xbh8oc00` | Cleric | 1 |
+| Diao Chan, Dreaming Wish | `pknaxnn0xo` | Cleric | 2 |
+| Diao Chan, Idyll Corsage | `d7l6i5thdy` | Cleric | 3 |
+| Arisanna, Herbalist Prodigy | `b31x97n2jn` | Cleric | 1 |
+| Lorraine, Wandering Warrior | `DpHDGaX2Pn` | Warrior | 1 |
+| Jin, Fate Defiant | `zd8l14052j` | Warrior | 1 |
+| Tristan, Underhanded | `bjlwabipl6` | Assassin | 1 |
+| Silvie, Slime Sovereign | `mdwbkuhtjm` | Tamer | 3 |
+| Mordred, Burnished Avenger | `OWCdWq3mXY` | Warrior | 1 |
+| Mordred, Fated Luminary | `KqBosnU7pU` | Warrior | 3 |
+| Alice, Distorted Queen | `GiQxfpKTUC` | Cleric | 1 |
+| Merlin, Kingslayer | `rz1bqry41l` | Mage/Warrior | 3 |
+
+If the champion you need isn't listed, use `get_card_info` to look it up by card ID, or `list_cards` to search by name.
+
 ## Output Format
 
 Return:
