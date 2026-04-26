@@ -9,6 +9,7 @@
 //1 Counters = number of counters
 function ClientRenderedCard($cardNumber, $counters = 0, $cardJSON = "-")
 {
+  if($cardJSON === "null") $cardJSON = "-";
   $cardJSON = str_replace(' ', '_', $cardJSON);
   $rv = $cardNumber . " " . $counters . " " . $cardJSON;
   return $rv;

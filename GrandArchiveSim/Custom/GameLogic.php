@@ -9385,7 +9385,7 @@ function ObjectCurrentPower($obj) {
         global $playerID;
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         foreach(GetZone($zone) as $fObj) {
-            if($fObj->removed || HasNoAbilities($fObj)) continue;
+            if($fObj == null || $fObj->removed || HasNoAbilities($fObj)) continue;
             if($fObj->CardID === "GjM8b5fxqj" && $fObj !== $obj && intval($fObj->Status ?? 0) === 1) {
                 $power += 1;
                 break;
@@ -9407,7 +9407,7 @@ function ObjectCurrentPower($obj) {
         // Lu Bu, Wrath Incarnate: all allies get -3 POWER.
         $allField = array_merge(GetZone("myField"), GetZone("theirField"));
         foreach($allField as $fObj) {
-            if($fObj->removed || HasNoAbilities($fObj)) continue;
+            if($fObj == null || $fObj->removed || HasNoAbilities($fObj)) continue;
             if($fObj->CardID === "l5izukgdmh" && $fObj !== $obj) {
                 $power -= 3;
                 break;
@@ -9952,7 +9952,7 @@ function ObjectCurrentHP($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fieldObj) {
-            if(!$fieldObj->removed && $fieldObj->CardID === "p4lpnvx7mn") {
+            if($fieldObj != null && !$fieldObj->removed && $fieldObj->CardID === "p4lpnvx7mn") {
                 $cardLife += 1;
                 break;
             }
@@ -9970,7 +9970,7 @@ function ObjectCurrentHP($obj) {
         // Axis Gale Scholar (384b3yjlhu): while facing South, allies you control get +1 LIFE
         if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "384b3yjlhu" && !HasNoAbilities($fieldObj)
+                if($fieldObj != null && !$fieldObj->removed && $fieldObj->CardID === "384b3yjlhu" && !HasNoAbilities($fieldObj)
                     && GetShiftingCurrents($obj->Controller) === "SOUTH") {
                     $cardLife += 1;
                     break;
@@ -10277,7 +10277,7 @@ function ObjectCurrentHP($obj) {
     if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
         $allField = array_merge(GetZone("myField"), GetZone("theirField"));
         foreach($allField as $fogObj) {
-            if(!$fogObj->removed && $fogObj->CardID === "OwhKGEMTXm" && !HasNoAbilities($fogObj)) {
+            if($fogObj != null && !$fogObj->removed && $fogObj->CardID === "OwhKGEMTXm" && !HasNoAbilities($fogObj)) {
                 $cardLife -= 1;
                 break; // only subtract once per copy (each copy checked separately)
             }
@@ -14920,6 +14920,8 @@ function EndCombat($player) {
     $turnPlayer = GetTurnPlayer();
     ClearIntent($turnPlayer);
     DecisionQueueController::ClearVariable("CombatAttacker");
+    DecisionQueueController::ClearVariable("CombatTarget");
+    DecisionQueueController::ClearVariable("CombatWeapon");
 
     // Pop remaining combat decisions (AttackTargetChosen, CleaveAttack,
     // Retaliate, CombatCleanup) from both players' queues.

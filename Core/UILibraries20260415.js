@@ -597,6 +597,8 @@
       }
 
       function createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction = "", heatmapColorMap = "", forcedHighlightMetadata = null) {
+        // Null/removed card placeholder — nothing to render
+        if (cardArr[0] === "-" && (cardArr.length <= 2 || !cardArr[2] || cardArr[2] === "-")) return "";
         let isSelectable = false;
         if (window.SelectionMode.active && typeof IsSelectableCard === 'function') {
           isSelectable = IsSelectableCard(zone, cardArr, i);
