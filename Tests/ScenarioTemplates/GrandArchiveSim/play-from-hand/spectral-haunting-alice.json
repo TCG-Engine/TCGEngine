@@ -1,0 +1,12 @@
+{
+  "id": "play-from-hand/spectral-haunting-alice",
+  "name": "Play From Hand - Spectral Haunting Alice",
+  "root": "GrandArchiveSim",
+  "category": "play-from-hand",
+  "description": "Alice/Umbra setup for Spectral Haunting with a Specter ally already in the graveyard to validate the Alice cost reduction and ephemeral return.",
+  "baseFixtureSlug": "play-from-hand-rich-main-phase-card-1777211560707",
+  "baseMutations": [],
+  "placeholders": {},
+  "initialActions": [],
+  "initialAssertions": []
+}
