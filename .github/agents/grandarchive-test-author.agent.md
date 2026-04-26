@@ -45,7 +45,7 @@ You specialize in authoring GrandArchiveSim regression tests through the curated
 7. Verify the mutated setup with `get_game_snapshot(view='summary')` before recording any actions.
 8. Enumerate and apply legal actions one step at a time, using the returned tooltip text to interpret reserve payments, priority windows, or target-selection prompts.
 9. Continue until the requested card interaction has fully resolved and the game returns to a stable, reviewable state.
-10. Save the test snapshot when the draft reaches the intended end state.
+10. Save the test snapshot when the draft reaches the intended end state. The test should be a hyphenated version of the card name.
 11. Run the test and report the result.
 
 ## Output Format

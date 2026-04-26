@@ -7497,6 +7497,9 @@ function ObjectCurrentPower($obj) {
         if(strpos($effect, "AxHzxEHBHZ_EMPOWER_") === 0) {
             $power += intval(substr($effect, strlen("AxHzxEHBHZ_EMPOWER_")));
         }
+        if(strpos($effect, "wcfvrfw35s_NEXT_") === 0) {
+            $power += intval(substr($effect, strlen("wcfvrfw35s_NEXT_")));
+        }
     }
     switch($obj->CardID) { //Self power modifiers
         case "mDN1CI9IEe": // Sealed Blade: [Class Bonus] +1 POWER

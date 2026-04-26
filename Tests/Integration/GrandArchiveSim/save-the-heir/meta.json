@@ -1,0 +1,17 @@
+{
+  "name": "save-the-heir",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-04-26T17:55:29.155Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/basic-hand-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "champion": "t0240clv10-0",
+    "handCard": "t0240ykvj0"
+  },
+  "testedCards": [
+    "t0240ykvj0"
+  ],
+  "savedAt": "2026-04-26T17:56:06.239Z"
+}
