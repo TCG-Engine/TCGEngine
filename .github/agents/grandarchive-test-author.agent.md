@@ -54,7 +54,7 @@ You specialize in authoring GrandArchiveSim regression tests through the curated
 
 When calling `new_test_from_scenario`, the following ready-to-use values should be passed directly — **do not search the codebase for these IDs**.
 
-### `element` parameter
+### `element` parameter — basic elements only (FIRE / WATER / WIND)
 Pass the element name as a plain string. The framework maps it to the correct spirit card automatically.
 
 | Value to pass | Spirit placed in lineage |
@@ -65,23 +65,42 @@ Pass the element name as a plain string. The framework maps it to the correct sp
 
 Omit `element` entirely to keep the fixture's default spirit (`tafqldAGRF` — a generic WATER spirit).
 
-### `champion` parameter
-Pass the champion's **card ID** string. Use the table below to pick one that matches the class bonus required by the card under test, or omit to keep the default Diao Chan (Cleric).
+> **Advanced elements (EXIA, CRUX, ASTRA, LUXEM, UMBRA, TERA, NEOS, ARCANE) cannot be set via the `element` parameter** — no spirit card exists for them. For these elements, the element comes from the champion card itself. To enable an advanced element, set the `champion` parameter to a champion whose card already carries that element. Do NOT attempt to call `setElementSpirit` or add a spirit via `test_game_add_to_zone` for advanced elements — it will not work.
 
-| Champion | Card ID | Class | Level |
-|---|---|---|---|
-| Diao Chan, Enchantress | `00xbh8oc00` | Cleric | 1 |
-| Diao Chan, Dreaming Wish | `pknaxnn0xo` | Cleric | 2 |
-| Diao Chan, Idyll Corsage | `d7l6i5thdy` | Cleric | 3 |
-| Arisanna, Herbalist Prodigy | `b31x97n2jn` | Cleric | 1 |
-| Lorraine, Wandering Warrior | `DpHDGaX2Pn` | Warrior | 1 |
-| Jin, Fate Defiant | `zd8l14052j` | Warrior | 1 |
-| Tristan, Underhanded | `bjlwabipl6` | Assassin | 1 |
-| Silvie, Slime Sovereign | `mdwbkuhtjm` | Tamer | 3 |
-| Mordred, Burnished Avenger | `OWCdWq3mXY` | Warrior | 1 |
-| Mordred, Fated Luminary | `KqBosnU7pU` | Warrior | 3 |
-| Alice, Distorted Queen | `GiQxfpKTUC` | Cleric | 1 |
-| Merlin, Kingslayer | `rz1bqry41l` | Mage/Warrior | 3 |
+### `champion` parameter
+Pass the champion's **card ID** string. Use the table below to pick one that matches the class bonus and element required by the card under test, or omit to keep the default Diao Chan (Cleric, WATER).
+
+**Champions for basic elements (FIRE / WATER / WIND)**
+
+| Champion | Card ID | Class | Level | Element |
+|---|---|---|---|---|
+| Diao Chan, Enchantress | `00xbh8oc00` | Cleric | 1 | WATER |
+| Diao Chan, Dreaming Wish | `pknaxnn0xo` | Cleric | 2 | WATER |
+| Diao Chan, Idyll Corsage | `d7l6i5thdy` | Cleric | 3 | WATER |
+| Arisanna, Herbalist Prodigy | `b31x97n2jn` | Cleric | 1 | WATER |
+| Lorraine, Wandering Warrior | `DpHDGaX2Pn` | Warrior | 1 | WIND |
+| Jin, Fate Defiant | `zd8l14052j` | Warrior | 1 | FIRE |
+| Tristan, Underhanded | `bjlwabipl6` | Assassin | 1 | FIRE |
+| Mordred, Burnished Avenger | `OWCdWq3mXY` | Warrior | 1 | FIRE |
+| Mordred, Fated Luminary | `KqBosnU7pU` | Warrior | 3 | FIRE |
+| Alice, Distorted Queen | `GiQxfpKTUC` | Cleric | 1 | WATER |
+
+**Champions for advanced elements — set `champion` to these IDs; do NOT use the `element` param**
+
+| Champion | Card ID | Class | Level | Element |
+|---|---|---|---|---|
+| Jin, Undying Resolve | `c4yrrtv7o1` | Warrior | — | EXIA |
+| Merlin, Kingslayer | `rz1bqry41l` | Mage/Warrior | 3 | CRUX |
+| Lorraine, Crux Knight | `NfbZ0nouSQ` | Warrior | — | CRUX |
+| Arisanna, Astral Zenith | `q3huqj5bba` | Cleric | — | ASTRA |
+| Arisanna, Lucent Arbiter | `7e22tk3ir1` | Cleric | — | ASTRA |
+| Mordred, Aurelian Regent | `XPl2UAO9se` | Warrior | — | LUXEM |
+| Guo Jia, Heaven's Favored | `enxi6tshtu` | — | — | LUXEM |
+| Alice, Phantom Monarch | `emqOANitoD` | Cleric | — | UMBRA |
+| Tristan, Shadowdancer | `he6kd7hocc` | Assassin | — | UMBRA |
+| Silvie, Slime Sovereign | `mdwbkuhtjm` | Tamer | 3 | TERA |
+| Tonoris, Creation's Will | `n2jnltv5kl` | — | — | NEOS |
+| Rai, Storm Seer | `g92bHLtTNl` | Mage | — | ARCANE |
 
 If the champion you need isn't listed, use `get_card_info` to look it up by card ID, or `list_cards` to search by name.
 
