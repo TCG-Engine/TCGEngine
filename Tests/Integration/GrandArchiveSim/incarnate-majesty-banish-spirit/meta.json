@@ -1,0 +1,17 @@
+{
+  "name": "incarnate-majesty-banish-spirit",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-04-26T14:40:13.265Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/rich-main-phase-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "champion": "rz1bqry41l",
+    "handCard": "7dl5j4lx6x"
+  },
+  "testedCards": [
+    "7dl5j4lx6x"
+  ],
+  "savedAt": "2026-04-26T14:41:20.883Z"
+}

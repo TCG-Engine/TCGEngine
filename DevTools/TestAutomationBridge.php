@@ -539,13 +539,16 @@ function BridgeEnumerateLegalActions($root, $gameName) {
     $kind = 'opportunity-window-hand-play';
   }
 
+  $handActions = BridgeEnumerateHandPlayActions($turnPlayer);
+  $passAction = ['playerID' => $turnPlayer, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''];
+
   return [
     'success' => true,
     'kind' => $kind,
     'playerID' => $turnPlayer,
     'phase' => $phase,
     'opportunityState' => $opportunityState,
-    'actions' => BridgeEnumerateHandPlayActions($turnPlayer),
+    'actions' => array_merge($handActions, [$passAction]),
   ];
 }
 
