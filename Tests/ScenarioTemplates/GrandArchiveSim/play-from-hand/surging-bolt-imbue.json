@@ -31,7 +31,17 @@
       "value": "08kkz07nau"
     }
   ],
-  "placeholders": {},
+  "placeholders": {
+    "champion": {
+      "description": "Card ID to use as player one's champion on the field (replaces myField-0). Omit to keep the default fixture champion.",
+      "zone": "myField",
+      "index": 0,
+      "property": "CardID",
+      "operation": "set",
+      "perspectivePlayer": 1,
+      "defaultValue": null
+    }
+  },
   "initialActions": [],
   "initialAssertions": []
 }

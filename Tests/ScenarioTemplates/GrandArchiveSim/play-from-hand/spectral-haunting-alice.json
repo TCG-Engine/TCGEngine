@@ -6,7 +6,17 @@
   "description": "Alice/Umbra setup for Spectral Haunting with a Specter ally already in the graveyard to validate the Alice cost reduction and ephemeral return.",
   "baseFixtureSlug": "play-from-hand-rich-main-phase-card-1777211560707",
   "baseMutations": [],
-  "placeholders": {},
+  "placeholders": {
+    "champion": {
+      "description": "Card ID to use as player one's champion on the field (replaces myField-0). Omit to keep the default fixture champion.",
+      "zone": "myField",
+      "index": 0,
+      "property": "CardID",
+      "operation": "set",
+      "perspectivePlayer": 1,
+      "defaultValue": null
+    }
+  },
   "initialActions": [],
   "initialAssertions": []
 }

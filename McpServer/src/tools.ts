@@ -790,7 +790,7 @@ interface ScenarioPlaceholder {
   index?: number;
   property?: string;
   perspectivePlayer?: number;
-  defaultValue?: string;
+  defaultValue?: string | null;
 }
 
 interface ScenarioMutation {
@@ -967,19 +967,23 @@ export function listScenarioTemplates(root: string): {
 
 export async function newTestFromScenario(root: string, templateId: string, parameters: Record<string, string>, testedCards?: string[]): Promise<any> {
   const template = readScenarioTemplate(root, templateId);
-  const placeholderMutations: ScenarioMutation[] = Object.entries(template.placeholders || {}).map(([key, placeholder]) => {
+  const placeholderMutations: ScenarioMutation[] = Object.entries(template.placeholders || {}).flatMap(([key, placeholder]) => {
     const value = parameters[key] ?? placeholder.defaultValue;
-    if (!value) {
+    if (value === null || value === undefined || value === '') {
+      if (placeholder.defaultValue === null || placeholder.defaultValue === undefined || placeholder.defaultValue === '') {
+        // Explicitly optional placeholder — skip when no value supplied
+        return [];
+      }
       throw new Error(`Missing required scenario parameter: ${key}`);
     }
-    return {
+    return [{
       zone: placeholder.zone,
       index: placeholder.index,
       property: placeholder.property,
       operation: placeholder.operation,
       perspectivePlayer: placeholder.perspectivePlayer,
       value,
-    };
+    }];
   });
   const mutations: ScenarioMutation[] = [...(template.baseMutations ?? []), ...placeholderMutations];
 

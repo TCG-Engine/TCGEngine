@@ -44,6 +44,15 @@
     }
   ],
   "placeholders": {
+    "champion": {
+      "description": "Card ID to use as player one's champion on the field (replaces myField-0). Omit to keep the default fixture champion.",
+      "zone": "myField",
+      "index": 0,
+      "property": "CardID",
+      "operation": "set",
+      "perspectivePlayer": 1,
+      "defaultValue": null
+    },
     "reactionCard": {
       "description": "Reaction or fast card to place into the defending player's hand at theirHand-0 for the current response window.",
       "zone": "theirHand",
