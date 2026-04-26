@@ -599,6 +599,10 @@
         <button type="button" onclick="stopRegressionRecording()" style="padding:6px 10px;">Stop Recording</button>
         <button type="button" onclick="addRegressionAssertion()" style="padding:6px 10px;">Add Assertion</button>
         <button type="button" onclick="saveRegressionFixture()" style="padding:6px 10px;">Save Test</button>
+        <div style="display:flex; gap:4px; align-items:center; margin-top:4px;">
+          <input type="text" id="regressionCardIdInput" placeholder="Card ID" style="flex:1; padding:5px 7px; font-size:12px; min-width:0;" />
+          <button type="button" onclick="linkCardToFixture()" style="padding:5px 8px; white-space:nowrap;">Link Card</button>
+        </div>
       </div>
       </div>
     </div>
@@ -823,6 +827,24 @@
 
         submitRegressionRequest(11005, JSON.stringify({ slug: select.value })).then(function(message) {
           location.reload();
+        });
+      }
+
+      function linkCardToFixture() {
+        var select = document.getElementById("regressionFixtureSelect");
+        var input = document.getElementById("regressionCardIdInput");
+        if (!select || !select.value) {
+          alert("Select a fixture first.");
+          return;
+        }
+        var cardId = input ? input.value.trim() : "";
+        if (!cardId) {
+          alert("Enter a card ID to link.");
+          return;
+        }
+        submitRegressionRequest(11006, JSON.stringify({ slug: select.value, cardId: cardId })).then(function(message) {
+          if (message) alert(message);
+          if (input) input.value = "";
         });
       }
     </script>

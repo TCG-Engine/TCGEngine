@@ -264,7 +264,41 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       $result['updateCache'] = false;
       $result['recordAction'] = false;
       break;
-    default:
+    case 11006:
+      $payload = json_decode($inputText, true);
+      if (!is_array($payload) || empty($payload['slug']) || empty($payload['cardId'])) {
+        $result['success'] = false;
+        $result['message'] = 'Link card payload must be valid JSON with slug and cardId fields.';
+      } else {
+        $linkSlug = RegressionSanitizeSlug(strval($payload['slug']));
+        $linkCardId = strval($payload['cardId']);
+        $conn = GetLocalMySQLConnection();
+        mysqli_query($conn, "CREATE TABLE IF NOT EXISTS test_card_links (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            root_name VARCHAR(100) NOT NULL,
+            test_slug VARCHAR(255) NOT NULL,
+            card_id VARCHAR(100) NOT NULL,
+            UNIQUE KEY uq_test_card (root_name, test_slug, card_id),
+            KEY idx_root_card (root_name, card_id)
+        )");
+        $linkStmt = mysqli_prepare($conn, "INSERT IGNORE INTO test_card_links (root_name, test_slug, card_id) VALUES (?, ?, ?)");
+        if ($linkStmt) {
+          mysqli_stmt_bind_param($linkStmt, "sss", $folderPath, $linkSlug, $linkCardId);
+          $linkOk = mysqli_stmt_execute($linkStmt);
+          mysqli_stmt_close($linkStmt);
+          $result['success'] = $linkOk;
+          $result['message'] = $linkOk
+            ? "Linked card $linkCardId to fixture $linkSlug."
+            : 'Failed to link card: ' . mysqli_error($conn);
+        } else {
+          $result['success'] = false;
+          $result['message'] = 'Prepare failed: ' . mysqli_error($conn);
+        }
+        mysqli_close($conn);
+      }
+      $result['writeGamestate'] = false;
+      $result['updateCache'] = false;
+      $result['recordAction'] = false;
       break;
   }
 
