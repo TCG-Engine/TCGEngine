@@ -1,0 +1,17 @@
+{
+  "name": "enrage",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-04-26T19:54:51.069Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/basic-hand-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "champion": "c4yrrtv7o1",
+    "handCard": "wcfvrfw35s"
+  },
+  "testedCards": [
+    "wcfvrfw35s"
+  ],
+  "savedAt": "2026-04-26T19:56:03.925Z"
+}
