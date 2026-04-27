@@ -1655,8 +1655,8 @@
         button.id = 'bug-report-button';
         button.textContent = 'Report Bug';
         button.style.position = 'fixed';
-        button.style.right = '20px';
-        button.style.bottom = '20px';
+        button.style.right = '110px';
+        button.style.bottom = '8px';
         button.style.zIndex = '2600';
         button.style.padding = '10px 16px';
         button.style.borderRadius = '999px';
