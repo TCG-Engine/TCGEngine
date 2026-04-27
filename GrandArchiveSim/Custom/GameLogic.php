@@ -1373,6 +1373,20 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "BrokenPromisesCost|" . $reserveCost, 100);
     }
 
+    // 1.3 Declaring Costs — Primordial Ritual (4mcnqsm3n9): mandatory sacrifice of an ally
+    $hasPrimordialRitualCost = false;
+    if($obj->CardID === "4mcnqsm3n9" && !$ignoreCost) {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(empty($allies)) {
+            SetFlashMessage("Primordial Ritual requires an ally to sacrifice.");
+            return;
+        }
+        $hasPrimordialRitualCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 100, tooltip:"Sacrifice_an_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PrimordialRitualCost|" . $reserveCost, 100);
+    }
+
     //1.3 Declaring Costs — Clash of Fates (9rbziyasag): [Guo Jia Bonus] may remove a quest counter instead of reserve
     $hasClashOfFatesAltCost = false;
     if($obj->CardID === "9rbziyasag" && IsGuoJiaBonus($player) && !$ignoreCost && $reserveCost > 0) {
@@ -1403,7 +1417,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1474,6 +1488,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasAdditionalCost is true, the DeclareAdditionalCost handler takes over
     // queuing reserve payments and EffectStackOpportunity after the player answers.
     // When $hasBrokenPromisesCost is true, BrokenPromisesCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
+    // When $hasPrimordialRitualCost is true, PrimordialRitualCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasSongOfFrostAltCost is true, SongOfFrostAltCost handler queues its own
     // reserve/banish + EffectStackOpportunity.
@@ -1611,6 +1627,23 @@ $customDQHandlers["BrokenPromisesCost"] = function($player, $parts, $lastDecisio
     $isFatestoneItem = PropertyContains($fieldType, "ITEM") && PropertyContains($fieldSubtypes, "FATESTONE");
     $isFateboundAlly = PropertyContains($fieldType, "ALLY") && PropertyContains($fieldSubtypes, "FATEBOUND");
     if(!$isFatestoneItem && !$isFateboundAlly) return;
+
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    for($i = 0; $i < $baseReserve; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+$customDQHandlers["PrimordialRitualCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    if(!PropertyContains(EffectiveCardType($obj), "ALLY")) return;
 
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
@@ -18175,8 +18208,8 @@ function DomainRevealMemoryUpkeep($player, $fieldIndex, $allowedElements, $domai
 function MillCards($player, $deckRef, $gyRef, $amount) {
     $deck = GetZone($deckRef);
     $n = min($amount, count($deck));
-    // Always move index 0 (top of deck) — after each move the next card becomes index 0
-    for($i = 0; $i < $n; ++$i) {
+    // Always mill in reverse order because cards stick around in their zone until cleaned up for last known information
+    for($i = $n-1; $i >= 0; --$i) {
         // Purging Tempest (yuo7dbge3b): redirect GY destination to banish
         $effectiveDest = $gyRef;
         if(strpos($gyRef, "Graveyard") !== false) {
@@ -18197,7 +18230,7 @@ function MillCards($player, $deckRef, $gyRef, $amount) {
                 }
             }
         }
-        MZMove($player, "$deckRef-0", $effectiveDest);
+        MZMove($player, "$deckRef-" . $i, $effectiveDest);
     }
 }
 
