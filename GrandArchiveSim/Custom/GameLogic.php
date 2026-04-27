@@ -13929,7 +13929,7 @@ function IsBasicElementName($element) {
 }
 
 function IsAdvancedElementName($element) {
-    return in_array($element, ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA"]);
+    return in_array($element, ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS"]);
 }
 
 function GetPlayerEnabledElements($player) {
@@ -13964,11 +13964,43 @@ function GetElementRestrictionMessage($element) {
     return "Element not enabled: " . $element;
 }
 
+function ChampionNameRoot($cardID) {
+    $name = CardName($cardID);
+    if($name === null || $name === "") return "";
+    $commaPos = strpos($name, ",");
+    if($commaPos === false) return strtolower(trim($name));
+    return strtolower(trim(substr($name, 0, $commaPos)));
+}
+
+function CanAdvancedChampionIgnoreElementRequirement($player, $cardID) {
+    if(!PropertyContains(CardType($cardID), "CHAMPION")) return false;
+    $cardElement = CardElement($cardID);
+    if(!IsAdvancedElementName($cardElement)) return false;
+
+    $targetLevel = intval(CardLevel($cardID));
+    if($targetLevel <= 0) return false;
+
+    $champObj = GetPlayerChampion($player);
+    if($champObj === null || $champObj->removed) return false;
+
+    $currentLevel = intval(CardLevel($champObj->CardID));
+    if($currentLevel !== ($targetLevel - 1)) return false;
+
+    // Advanced element champions can level up off the previous base-level form.
+    if(IsAdvancedElementName(CardElement($champObj->CardID))) return false;
+
+    return ChampionNameRoot($champObj->CardID) === ChampionNameRoot($cardID);
+}
+
 function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setFlash = true) {
     $cardElement = CardElement($cardID);
     if($cardElement === null || $cardElement === "" || $cardElement === "NORM") return true;
 
     if(IsPlayerElementEnabled($player, $cardElement)) {
+        return true;
+    }
+
+    if(CanAdvancedChampionIgnoreElementRequirement($player, $cardID)) {
         return true;
     }
 
