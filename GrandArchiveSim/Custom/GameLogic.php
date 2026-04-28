@@ -4974,10 +4974,12 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             }
         }
     }
-    // Tonoris, Creation's Will (n2jnltv5kl): token summons become Aurousteel Greatswords.
-    // This currently auto-replaces instead of prompting for the optional "may" choice.
+    // Tonoris, Creation's Will (n2jnltv5kl): token summons may become Aurousteel Greatswords.
     if($added->CardID !== "hkurfp66pv" && IsToken($added->CardID) && TonorisCreationsWillActive($player)) {
-        $added->CardID = "hkurfp66pv";
+        $tonorisChoicePlayer = $added->Controller;
+        DecisionQueueController::AddDecision($tonorisChoicePlayer, "YESNO", "-", 1,
+            tooltip:"Replace_this_token_with_Aurousteel_Greatsword?");
+        DecisionQueueController::AddDecision($tonorisChoicePlayer, "CUSTOM", "TonorisCreationsWillReplace|" . $added->GetMzID(), 1);
     }
 
     // Full Bloom: whenever an opponent summons a Flowerbud token, deal 2 to each champion
@@ -10661,6 +10663,18 @@ $customDQHandlers["StiflingGyreFireEnter"] = function($player, $parts, $lastDeci
     if(isset($enterAbilities[$cardID . ":0"])) {
         $enterAbilities[$cardID . ":0"]($enteringPlayer);
     }
+};
+
+$customDQHandlers["TonorisCreationsWillReplace"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $mzCard = $parts[0] ?? "";
+    if($mzCard === "") return;
+    $obj = GetZoneObject($mzCard);
+    if($obj === null || $obj->removed) return;
+    if($obj->CardID === "hkurfp66pv") return;
+    if(!IsToken($obj->CardID)) return;
+    if(!TonorisCreationsWillActive($obj->Controller)) return;
+    $obj->CardID = "hkurfp66pv";
 };
 
 $customDQHandlers["RhongomiantReturnMemory"] = function($player, $parts, $lastDecision) {
