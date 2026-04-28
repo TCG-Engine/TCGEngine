@@ -1,0 +1,19 @@
+{
+  "name": "inverted-pyroslash-ciel-discount",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-04-28T20:13:48.635Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/basic-hand-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "champion": "nn48ne8a05",
+    "element": "fire",
+    "handCard": "X5XONoPY6Z",
+    "slug": "inverted-pyroslash-ciel-discount"
+  },
+  "testedCards": [
+    "X5XONoPY6Z"
+  ],
+  "savedAt": "2026-04-28T20:15:30.819Z"
+}
