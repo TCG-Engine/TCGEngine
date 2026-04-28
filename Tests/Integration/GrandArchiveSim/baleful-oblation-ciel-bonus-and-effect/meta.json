@@ -1,0 +1,19 @@
+{
+  "name": "baleful-oblation-ciel-bonus-and-effect",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-04-28T19:41:41.877Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/rich-main-phase-card",
+  "draft": false,
+  "draftGameName": "103",
+  "parameters": {
+    "champion": "zhh43i1eaa",
+    "handCard": "oye74ibwo8",
+    "opponentFieldCard": "c3C6PjX0Vt",
+    "slug": "baleful-oblation-ciel-bonus-and-effect"
+  },
+  "testedCards": [
+    "oye74ibwo8"
+  ],
+  "savedAt": "2026-04-28T19:44:11.306Z"
+}
