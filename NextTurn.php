@@ -555,6 +555,19 @@
         var playerID = <?php echo($playerID); ?>;
         <?php include "./" . $folderPath . "/NextTurnRender.php"; ?>
         UpdateTurnPlayerMiasma();
+        // Game-over detection: check for GAMEOVER_WINNER set by server-side TriggerGameOver()
+        if (!window._gameOverShown && window.DecisionQueueVariablesData) {
+          try {
+            var _goVars = JSON.parse(window.DecisionQueueVariablesData);
+            if (_goVars && _goVars.GAMEOVER_WINNER) {
+              var _goWinner = parseInt(_goVars.GAMEOVER_WINNER, 10);
+              if (_goWinner > 0 && typeof ShowGameOver === 'function') {
+                window._gameOverShown = true;
+                ShowGameOver(playerID === _goWinner);
+              }
+            }
+          } catch (e) {}
+        }
         if (typeof UpdateVersionDropdown === 'function' && typeof window.myVersionsData !== 'undefined') {
           UpdateVersionDropdown(window.myVersionsData);
         }

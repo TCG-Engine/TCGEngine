@@ -4448,6 +4448,17 @@ function MoveEffectStackCardToField($player, $mzCard) {
     return $obj;
 }
 
+/**
+ * Signal the end of the game. The loser's opponent becomes the winner.
+ * Stores GAMEOVER_WINNER in DQ variables so the client can show the
+ * "You Won / You Lost" overlay on the next turn update.
+ * @param int $loserPlayer  The player who lost (1 or 2).
+ */
+function TriggerGameOver($loserPlayer) {
+    $winner = ($loserPlayer == 1) ? 2 : 1;
+    DecisionQueueController::StoreVariable("GAMEOVER_WINNER", strval($winner));
+}
+
 function DoAllyDestroyed($player, $mzCard) {
     global $allyDestroyedAbilities, $customDQHandlers;
     $obj = GetZoneObject($mzCard);
@@ -4487,8 +4498,13 @@ function DoAllyDestroyed($player, $mzCard) {
     if(DecisionQueueController::GetVariable("CombatTarget") == $mzCard) {
         DecisionQueueController::StoreVariable("CombatTarget", null);
     }
+    $isChampion = PropertyContains(EffectiveCardType($obj), "CHAMPION");
     $animatedPotionDeath = is_array($obj->Counters ?? null) && !empty($obj->Counters["potion_animate"]);
     MZMove($player, $mzCard, $dest);
+    // Champion destruction triggers game over for that champion's controller
+    if ($isChampion) {
+        TriggerGameOver($controller);
+    }
     if($animatedPotionDeath && isset($customDQHandlers["AbilityActivated"])) {
         for($ai = 0; $ai < CardActivateAbilityCount($obj->CardID); ++$ai) {
             $customDQHandlers["AbilityActivated"]($controller, [$obj->CardID, $ai], null);

@@ -2829,6 +2829,45 @@ function UpdateTurnPlayerMiasma() {
     if (console && console.error) console.error('UpdateTurnPlayerMiasma error', e);
   }
 }
+/**
+ * Show the full-screen game-over overlay.
+ * @param {boolean} didWin  true = "You Won", false = "You Lost"
+ * @param {string}  [menuUrl]  Optional explicit URL for the "Return to Menu" button.
+ *   If omitted, derived from window.rootPath (e.g. "./GrandArchiveSim" → "./SharedUI/Sites/GrandArchiveSim/MainMenu.php").
+ */
+function ShowGameOver(didWin, menuUrl) {
+  if (document.getElementById('game-over-overlay')) return; // already shown
+
+  var overlay = document.createElement('div');
+  overlay.id = 'game-over-overlay';
+
+  var title = document.createElement('div');
+  title.id = 'game-over-title';
+  title.textContent = didWin ? 'You Won!' : 'You Lost';
+
+  var btn = document.createElement('button');
+  btn.id = 'game-over-menu-btn';
+  btn.textContent = 'Return to Menu';
+
+  var url = menuUrl;
+  if (!url && window.rootPath) {
+    // window.rootPath is like './GrandArchiveSim'; derive shared-site menu path
+    var rootName = window.rootPath.replace(/^(\.\/|\/)/, '');
+    url = './SharedUI/Sites/' + rootName + '/MainMenu.php';
+  }
+  if (!url) url = './MainMenu.php';
+
+  btn.addEventListener('click', function () { window.location.href = url; });
+
+  overlay.appendChild(title);
+  overlay.appendChild(btn);
+  document.body.appendChild(overlay);
+
+  overlay.classList.add(didWin ? 'won' : 'lost');
+  void overlay.offsetWidth; // force reflow so the entering animation fires
+  overlay.classList.add('active');
+}
+
 function GetCookieValue(cookieName) {
   var nameEQ = cookieName + '=';
   var cookies = document.cookie.split(';');

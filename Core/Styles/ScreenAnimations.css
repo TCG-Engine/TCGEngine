@@ -58,3 +58,89 @@
   50% { transform: translateX(6%); }
   100% { transform: translateX(-6%); }
 }
+
+/* ====================================
+   Game Over Overlay
+   ==================================== */
+
+#game-over-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+#game-over-overlay.active {
+  display: flex;
+  animation: gameOverBackdropIn 0.5s ease-out forwards;
+}
+
+@keyframes gameOverBackdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+#game-over-title {
+  font-family: Georgia, serif;
+  font-size: clamp(56px, 10vw, 112px);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  line-height: 1;
+  text-align: center;
+  animation: gameOverTitlePop 0.8s cubic-bezier(0.22, 1.6, 0.5, 1) 0.2s both;
+}
+
+#game-over-overlay.won #game-over-title {
+  color: #ffd700;
+  text-shadow:
+    0 0 30px rgba(255, 220, 60, 0.90),
+    0 0 80px rgba(255, 190, 0, 0.50),
+    0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+#game-over-overlay.lost #game-over-title {
+  color: #cc2222;
+  text-shadow:
+    0 0 30px rgba(200, 30, 30, 0.80),
+    0 0 70px rgba(160, 0, 0, 0.40),
+    0 4px 12px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes gameOverTitlePop {
+  from { opacity: 0; transform: scale(0.3) translateY(20px); }
+  to   { opacity: 1; transform: scale(1)   translateY(0); }
+}
+
+#game-over-menu-btn {
+  margin-top: 52px;
+  padding: 14px 44px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.10);
+  color: rgba(255, 255, 255, 0.90);
+  border: 2px solid rgba(255, 255, 255, 0.28);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  animation: gameOverBtnSlideUp 0.6s ease-out 0.9s both;
+}
+
+#game-over-menu-btn:hover {
+  background: rgba(255, 255, 255, 0.20);
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: scale(1.05);
+}
+
+@keyframes gameOverBtnSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
