@@ -1,0 +1,42 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-2!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGraveyard-0",
+        "chkInput": [],
+        "inputText": ""
+    }
+]
