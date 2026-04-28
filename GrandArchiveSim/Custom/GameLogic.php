@@ -3605,25 +3605,15 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
  * @param string $cardID  The card's dictionary ID
  */
 function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
+    global $Cardistry_Cards;
+    if(isset($Cardistry_Cards[$cardID])) {
+        $baseCost = intval($Cardistry_Cards[$cardID]);
+        $reserveCost = max(0, $baseCost - GetCardistryDiscount($player));
+        for($ri = 0; $ri < $reserveCost; ++$ri) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 101);
+        }
+    }
     switch($cardID) {
-        case "d43C0Hk6qH": { // Eight of Spades — Cardistry reserve payment
-            global $Cardistry_Cards;
-            $baseCost = intval($Cardistry_Cards[$cardID] ?? CardCost_reserve($cardID));
-            $reserveCost = max(0, $baseCost - GetCardistryDiscount($player));
-            for($ri = 0; $ri < $reserveCost; ++$ri) {
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
-            }
-            break;
-        }
-        case "DKoSnhjX18": { // Seven of Spades — Cardistry reserve payment
-            global $Cardistry_Cards;
-            $baseCost = intval($Cardistry_Cards[$cardID] ?? CardCost_reserve($cardID));
-            $reserveCost = max(0, $baseCost - GetCardistryDiscount($player));
-            for($ri = 0; $ri < $reserveCost; ++$ri) {
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
-            }
-            break;
-        }
         case "u7d6soporh": // Ingredient Pouch — (1), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
@@ -4484,10 +4474,12 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
                 }
             }
         }
-        $customDQHandlers["AbilityActivated"]($player, [$cardID, $selectedAbilityIndex], null);
+        // Queue AbilityActivated at block=101 so it fires AFTER costs (block 100/101).
+        DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityActivated|$cardID|$selectedAbilityIndex", 101);
     }
     if($refractedTwilightCopies > 0) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "RefractedTwilightCopy|" . $cardID . "|" . $selectedAbilityIndex . "|" . $refractedTwilightCopies, 99);
+        // block=102: run after the main AbilityActivated (101) but before AbilityOpportunity (200).
+        DecisionQueueController::AddDecision($player, "CUSTOM", "RefractedTwilightCopy|" . $cardID . "|" . $selectedAbilityIndex . "|" . $refractedTwilightCopies, 102);
     }
 
     // Queue Opportunity for the opponent to respond after the ability resolves.
