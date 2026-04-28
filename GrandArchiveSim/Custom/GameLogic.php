@@ -3615,6 +3615,15 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             }
             break;
         }
+        case "DKoSnhjX18": { // Seven of Spades — Cardistry reserve payment
+            global $Cardistry_Cards;
+            $baseCost = intval($Cardistry_Cards[$cardID] ?? CardCost_reserve($cardID));
+            $reserveCost = max(0, $baseCost - GetCardistryDiscount($player));
+            for($ri = 0; $ri < $reserveCost; ++$ri) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
+        }
         case "u7d6soporh": // Ingredient Pouch — (1), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
