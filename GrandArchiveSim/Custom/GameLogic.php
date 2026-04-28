@@ -645,9 +645,9 @@ function ActionMap($actionCard)
                 if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "MG8QoeZBXY") {
                     if(IsClassBonusActive($playerID, ["RANGER"]) && CountAvailableReservePayments($playerID) >= 3
                         && !empty(GetAetherwingWeapons($playerID))) {
-                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 1);
-                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 1);
-                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 1);
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
                         DecisionQueueController::AddDecision($playerID, "CUSTOM", "RecurringAetherchargeLoad", 1);
                         return "PLAY";
                     }
@@ -2686,7 +2686,7 @@ $customDQHandlers["RecurringInvocationLevelUp"] = function($player, $parts, $las
     if($lastDecision !== "YES") return;
     $mzGY = $parts[0];
     // Pay (1) reserve
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     DecisionQueueController::AddDecision($player, "CUSTOM", "RecurringInvocationLevelUpBanish|$mzGY", 1);
 };
 
@@ -2984,7 +2984,7 @@ $customDQHandlers["DevotionsPriceDiscard2"] = function($player, $parts, $lastDec
     $reserveCost = intval($parts[0]);
     DoDiscardCard($player, $lastDecision);
     for($i = 0; $i < $reserveCost; ++$i) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 1);
 };
@@ -3015,7 +3015,7 @@ $customDQHandlers["LacunasGraspPay"] = function($player, $parts, $lastDecision) 
     $x = intval($lastDecision);
     if($x <= 0) return;
     for($r = 0; $r < $x; ++$r) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "LacunasGraspBuff|" . $x, 1);
 };
@@ -3606,6 +3606,15 @@ function CardPlayedEffects($player, $card, $cardPlayed) {
  */
 function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
     switch($cardID) {
+        case "d43C0Hk6qH": { // Eight of Spades — Cardistry reserve payment
+            global $Cardistry_Cards;
+            $baseCost = intval($Cardistry_Cards[$cardID] ?? CardCost_reserve($cardID));
+            $reserveCost = max(0, $baseCost - GetCardistryDiscount($player));
+            for($ri = 0; $ri < $reserveCost; ++$ri) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
+        }
         case "u7d6soporh": // Ingredient Pouch — (1), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
@@ -3624,9 +3633,9 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             if(intval($abilityIndex) === 1) {
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
             break;
         case "n67ghdh1t6": // Naga's Fang â€” remove a preparation counter from your champion
@@ -3887,7 +3896,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             if($abilityIndex == 1) {
                 for($i = 0; $i < 3; ++$i) {
-                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
                 }
             }
             break;
@@ -4120,8 +4129,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "sphwpjsznn": // Stonescale Band: (2), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
         case "uvgflagxbb": // Coronal of Rejuvenation: REST
             {
@@ -4136,9 +4145,9 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "wCAIuvPOAT": // Verdure of Preservation: pay (3), sacrifice self
             DoSacrificeFighter($player, $mzCard);
             DecisionQueueController::CleanupRemovedCards();
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
         case "tJAIMX3C4R": // Misty Whispertail: sacrifice self
             DecisionQueueController::StoreVariable("mistyWhispertailWasEphemeral", IsEphemeral($mzCard) ? "YES" : "NO");
@@ -4155,13 +4164,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             RemoveCounters($player, $mzCard, "durability", 2);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
         }
         case "peyG8Hfgqt": {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
         }
         case "0D6AfZyKXh": { // Poisoned Dagger — REST + banish self
@@ -4174,7 +4183,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "782mm2tq5l": { // Amorphous Missile — REST + (1) reserve
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
         }
         case "zqw6ms798w": { // Marksman's Charm — banish self
@@ -4190,8 +4199,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "yfid3xuxax": { // Winged Talaria — banish self + (2) reserve
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
         }
     }
@@ -4213,6 +4222,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
 
     // Ability index is now passed directly from the frontend button click
     $selectedAbilityIndex = intval($abilityIndex);
+
     // Exhaust the unit as the REST cost — only for static abilities, not dynamic ones (which have their own costs)
     // Cardistry abilities do NOT rest the card (no REST in their cost)
     $cardType = CardType($cardID);
@@ -4444,7 +4454,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
                 if(!$chlObj->removed && $chlObj->CardID === "fhomy86084" && !HasNoAbilities($chlObj)
                     && isset($chlObj->Counters['on_charge_triggered'])) {
                     for($ri = 0; $ri < 2; $ri++) {
-                        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
                     }
                     break;
                 }
@@ -4459,7 +4469,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             foreach($oppZone as $coObj) {
                 if(!$coObj->removed && $coObj->CardID === "tnl3qr42vp" && !HasNoAbilities($coObj) && IsDiaoChanBonus($opponent)) {
                     for($ri = 0; $ri < 2; $ri++) {
-                        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
                     }
                     break;
                 }
@@ -5576,7 +5586,7 @@ $customDQHandlers["InnerCourtSchemerRemovePrep"] = function($player, $parts, $la
 function MysticPurifierExecute($player, $answer) {
     if($answer !== "YES") return;
     for($i = 0; $i < 2; ++$i) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     $phantasias = array_merge(
         ZoneSearch("myField", ["PHANTASIA"]),
@@ -10651,7 +10661,7 @@ $customDQHandlers["StiflingGyrePayOrNegate"] = function($player, $parts, $lastDe
     $enteringPlayer = intval(DecisionQueueController::GetVariable("OADTyAUBZt_enteringPlayer"));
     if($lastDecision !== "YES") return;
     for($i = 0; $i < 4; ++$i) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyreFireEnter|" . $cardID . "|" . $enteringPlayer, 1);
 };
@@ -17010,8 +17020,8 @@ $customDQHandlers["LuBuIndomitableTitanOnAttack"] = function($player, $parts, $l
     $mzID = $parts[0] ?? "";
     $obj = GetZoneObject($mzID);
     if($obj === null || $obj->removed || $obj->CardID !== "xyan7zbtxi") return;
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     WakeupCard($player, $mzID);
 };
 

@@ -258,7 +258,7 @@ $customDQHandlers["NegateByCardPayChoice"] = function($payingPlayer, $parts, $la
 
     if($lastDecision === "YES" && count(GetHand($payingPlayer)) >= $payAmount) {
         for($i = 0; $i < $payAmount; ++$i) {
-            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 100);
         }
     } else {
         NegateCardActivation($negatingPlayer, $targetMZ, $destinationMode);
@@ -273,7 +273,7 @@ $customDQHandlers["NegateActivationPayChoice"] = function($payingPlayer, $parts,
     $payAmount = intval(DecisionQueueController::GetVariable("pendingNegatePayAmount") ?? "0");
     if($lastDecision === "YES" && count(GetHand($payingPlayer)) >= $payAmount) {
         for($i = 0; $i < $payAmount; ++$i) {
-            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 100);
         }
     } else {
         NegateCardActivation($negatingPlayer, $targetMZ, $destinationMode);
@@ -409,7 +409,7 @@ $customDQHandlers["ImperialAccordPayChoice"] = function($payingPlayer, $parts, $
         // Controller paid — negate doesn't happen; clear stored card ID
         DecisionQueueController::ClearVariable("imperialAccordCardID");
         for($i = 0; $i < $payAmount; ++$i) {
-            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 1);
+            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 100);
         }
     } else {
         // Controller didn't pay — negate fires

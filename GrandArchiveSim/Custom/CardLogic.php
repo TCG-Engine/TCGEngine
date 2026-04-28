@@ -363,8 +363,8 @@ $customDQHandlers["DianaMoonpiercerChoice"] = function($player, $parts, $lastDec
 $customDQHandlers["DianaMoonpiercerCombatPay"] = function($attackingPlayer, $parts, $lastDecision) {
     $defendingPlayer = intval($parts[0] ?? (($attackingPlayer == 1) ? 2 : 1));
     if($lastDecision === "YES" && CountAvailableReservePayments($attackingPlayer) >= 2) {
-        DecisionQueueController::AddDecision($attackingPlayer, "CUSTOM", "ReserveCard", 1);
-        DecisionQueueController::AddDecision($attackingPlayer, "CUSTOM", "ReserveCard", 1);
+        DecisionQueueController::AddDecision($attackingPlayer, "CUSTOM", "ReserveCard", 100);
+        DecisionQueueController::AddDecision($attackingPlayer, "CUSTOM", "ReserveCard", 100);
         return;
     }
     EndCombat($defendingPlayer);

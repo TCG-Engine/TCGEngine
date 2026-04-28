@@ -5940,7 +5940,7 @@ $customDQHandlers["RafalesSlashPayment"] = function($player, $parts, $lastDecisi
     if($lastDecision !== "YES") return;
     if(CountReserveSources($player) < 3) return;
     for($i = 0; $i < 3; ++$i) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "RafalesSlashSummon", 1);
 };

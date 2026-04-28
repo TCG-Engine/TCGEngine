@@ -170,7 +170,7 @@ $customDQHandlers["FRAMEWORK_SIDEARM_MATERIAL_CHECK"] = function($player, $parts
 $customDQHandlers["FrameworkSidearmMaterialActivate"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     for($i = 0; $i < 3; ++$i) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "FrameworkSidearmAfterPay|" . $lastDecision, 1);
 };
