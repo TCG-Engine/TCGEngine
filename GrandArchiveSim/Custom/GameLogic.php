@@ -352,6 +352,62 @@ function QueuePregameStartingChampionSetup() {
     return QueuePregameStartingChampionChoice($firstPlayer, $secondPlayer);
 }
 
+function GetPregameStartingFieldMaterialChoices($player) {
+    $material = GetMaterial($player);
+    $choices = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed) continue;
+        switch($material[$i]->CardID) {
+            case "fln04uv297": // The Looking Glass
+                $choices[] = "myMaterial-" . $i;
+                break;
+        }
+    }
+    return $choices;
+}
+
+function PlacePregameStartingFieldMaterial($player, $mzID) {
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) {
+        $playerID = $savedPlayerID;
+        return null;
+    }
+
+    switch($obj->CardID) {
+        case "fln04uv297": // The Looking Glass
+            break;
+        default:
+            $playerID = $savedPlayerID;
+            return null;
+    }
+
+    DecisionQueueController::StoreVariable("SuppressNextEnter", "YES");
+    $newObj = MZMove($player, $mzID, "myField");
+    if($newObj === null) {
+        DecisionQueueController::ClearVariable("SuppressNextEnter");
+        $playerID = $savedPlayerID;
+        return null;
+    }
+
+    $newObj->TurnEffects = array_values(array_filter(
+        $newObj->TurnEffects ?? [],
+        fn($effect) => $effect !== "ENTERED_THIS_TURN"
+    ));
+    $playerID = $savedPlayerID;
+    return $newObj->GetMzID();
+}
+
+function ResolvePregameStartingFieldMaterials($player) {
+    $choices = GetPregameStartingFieldMaterialChoices($player);
+    foreach($choices as $mzID) {
+        PlacePregameStartingFieldMaterial($player, $mzID);
+    }
+}
+
 function PlacePregameStartingChampion($player, $mzID) {
     $obj = GetZoneObject($mzID);
     if($obj === null || $obj->removed || !PropertyContains(CardType($obj->CardID), "CHAMPION")) return null;
@@ -412,16 +468,25 @@ $customDQHandlers["PREGAME_RESOLVE_STARTING_CHAMPION_ENTER"] = function($player,
     $resolvePlayer = isset($parts[0]) ? intval($parts[0]) : ($player == 1 ? 2 : 1);
     $storedMzID = DecisionQueueController::GetVariable("PregameStartingChampion" . $resolvePlayer);
     if($storedMzID === null || $storedMzID === "") {
+        $firstPlayer = intval(GetFirstPlayer());
+        $secondPlayer = $firstPlayer == 1 ? 2 : 1;
+        ResolvePregameStartingFieldMaterials($firstPlayer);
+        ResolvePregameStartingFieldMaterials($secondPlayer);
         DecisionQueueController::AddDecision($player, "CUSTOM", "PREGAME_FINISH_STARTING_CHAMPIONS", 250);
         return;
     }
 
-    DecisionQueueController::AddDecision($resolvePlayer, "CUSTOM", "PREGAME_FINISH_STARTING_CHAMPIONS", 250);
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $resolvePlayer;
     Enter($resolvePlayer, $storedMzID);
     $playerID = $savedPlayerID;
+
+    $firstPlayer = intval(GetFirstPlayer());
+    $secondPlayer = $firstPlayer == 1 ? 2 : 1;
+    ResolvePregameStartingFieldMaterials($firstPlayer);
+    ResolvePregameStartingFieldMaterials($secondPlayer);
+    DecisionQueueController::AddDecision($resolvePlayer, "CUSTOM", "PREGAME_FINISH_STARTING_CHAMPIONS", 250);
 };
 
 $customDQHandlers["PREGAME_FINISH_STARTING_CHAMPIONS"] = function($player, $parts, $lastDecision) {
@@ -14008,9 +14073,27 @@ function CanAdvancedChampionIgnoreElementRequirement($player, $cardID) {
     return ChampionNameRoot($champObj->CardID) === ChampionNameRoot($cardID);
 }
 
+function CanLookingGlassIgnoreElementRequirement($player, $cardID) {
+    if(!PropertyContains(CardSubtypes($cardID), "DISTORTION")) return false;
+
+    $field = &GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        if($field[$i]->CardID !== "fln04uv297") continue;
+        if(HasNoAbilities($field[$i])) continue;
+        return true;
+    }
+
+    return false;
+}
+
 function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setFlash = true) {
     $cardElement = CardElement($cardID);
     if($cardElement === null || $cardElement === "" || $cardElement === "NORM") return true;
+
+    if(CanLookingGlassIgnoreElementRequirement($player, $cardID)) {
+        return true;
+    }
 
     if(IsPlayerElementEnabled($player, $cardElement)) {
         return true;
