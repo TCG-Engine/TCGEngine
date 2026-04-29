@@ -202,6 +202,9 @@ if(!$withPreview && file_exists($cacheFile)) {
       $squareCards = true;
     } else if($rootName == "GrandArchiveSim") {
       $thisImageUrl = $imageUrl . $cardID . "." . $imageFormat;
+      if($cardID == "bEXmm4rKOs") { // Grand Archive promo card with unique image
+        $thisImageUrl = $imageUrl . "hJb7hcK4Fd" . "." . $imageFormat;
+      }
     }
     CheckImage($cardID, $thisImageUrl, "", "", rootPath:"./" . $rootName . "/", squareCards:$squareCards);
 
