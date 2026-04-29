@@ -55,8 +55,18 @@ include_once 'Header.php';
         <hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;"><span style="margin: 0 10px; font-size: 12px;">OR</span><hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;">
       </div>
 -->
-      <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a TCGArchitect deck link:</label>
-      <input type="text" id="deck-link" name="deck_link" placeholder="https://app.tcgarchitect.com/deck/..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+      <div style="display: flex; gap: 0; margin-bottom: 10px; border-bottom: 2px solid rgba(100,100,100,0.4);">
+        <button id="tab-link" onclick="switchDeckTab('link')" style="flex: 1; padding: 8px; background: rgba(52,152,219,0.25); color: white; border: none; border-bottom: 2px solid #3498db; cursor: pointer; font-size: 13px; font-weight: 600;">TCGArchitect Link</button>
+        <button id="tab-text" onclick="switchDeckTab('text')" style="flex: 1; padding: 8px; background: rgba(40,40,40,0.7); color: #aaa; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px;">Free Text</button>
+      </div>
+      <div id="deck-input-link">
+        <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a TCGArchitect deck link:</label>
+        <input type="text" id="deck-link" name="deck_link" placeholder="https://app.tcgarchitect.com/deck/..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+      </div>
+      <div id="deck-input-text" style="display: none;">
+        <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from fractalofin.site):</label>
+        <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Material Deck&#10;1 Lorraine, Wandering Warrior&#10;&#10;# Main Deck&#10;4 Fireball&#10;..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
+      </div>
       <!--
       <label for="game-name">Game Name:</label>
       <input type="text" id="game-name" name="game_name" required>
@@ -84,12 +94,38 @@ include_once 'Header.php';
   var rootName = "GrandArchiveSim";
       var _lobby_id = "";
 
+      function switchDeckTab(tab) {
+        var isLink = tab === 'link';
+        document.getElementById('deck-input-link').style.display = isLink ? '' : 'none';
+        document.getElementById('deck-input-text').style.display = isLink ? 'none' : '';
+        document.getElementById('tab-link').style.background = isLink ? 'rgba(52,152,219,0.25)' : 'rgba(40,40,40,0.7)';
+        document.getElementById('tab-link').style.color = isLink ? 'white' : '#aaa';
+        document.getElementById('tab-link').style.borderBottom = isLink ? '2px solid #3498db' : '2px solid transparent';
+        document.getElementById('tab-text').style.background = isLink ? 'rgba(40,40,40,0.7)' : 'rgba(52,152,219,0.25)';
+        document.getElementById('tab-text').style.color = isLink ? '#aaa' : 'white';
+        document.getElementById('tab-text').style.borderBottom = isLink ? '2px solid transparent' : '2px solid #3498db';
+        try { localStorage.setItem('ga_deck_tab', tab); } catch(e) {}
+      }
+
+      (function() {
+        var saved = '';
+        try { saved = localStorage.getItem('ga_deck_tab') || ''; } catch(e) {}
+        if (saved === 'text') switchDeckTab('text');
+      })();
+
       function joinQueue() {
         var preconstructedDeckDropdown = document.getElementById('preconstructed-deck');
         var preconstructedDeck = preconstructedDeckDropdown ? preconstructedDeckDropdown.value : '';
-        var deckLink = document.getElementById('deck-link').value.trim();
+        var deckLinkEl = document.getElementById('deck-link');
+        var deckTextEl = document.getElementById('deck-text');
+        var deckLink = '';
+        if (deckTextEl && deckTextEl.closest('#deck-input-text') && document.getElementById('deck-input-text').style.display !== 'none') {
+          deckLink = deckTextEl.value.trim();
+        } else if (deckLinkEl) {
+          deckLink = deckLinkEl.value.trim();
+        }
         if (!deckLink && !preconstructedDeck) {
-          alert('Please select a preconstructed deck or enter a deck link.');
+          alert('Please enter a deck link or paste a deck list.');
           return;
         }
         var gameName = 'Quick Match'; // Default game name since input is commented out

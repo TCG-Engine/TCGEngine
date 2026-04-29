@@ -6,6 +6,7 @@ include_once __DIR__ . '/ZoneClasses.php';
 include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/TurnController.php';
 include_once __DIR__ . '/Custom/GameLogic.php';
+include_once __DIR__ . '/Custom/DeckTextParser.php';
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 include_once __DIR__ . '/../APIKeys/APIKeys.php';
@@ -58,6 +59,21 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
     $material = &GetMaterial($playerID);
 
     if (!empty($deckLink)) {
+        // Free-text deck list (contains newlines)
+        if (strpos($deckLink, "\n") !== false) {
+            $parsed = ParseFreeTextDeck($deckLink);
+            foreach ($parsed['material'] as $cardID) {
+                array_push($material, new Material($cardID));
+            }
+            foreach ($parsed['mainDeck'] as $cardID) {
+                array_push($gameDeck, new Deck($cardID));
+            }
+            if (!empty($parsed['unresolved'])) {
+                error_log("Free-text deck import: unresolved cards for player $playerID: " . implode(', ', $parsed['unresolved']));
+            }
+            EngineShuffle($gameDeck, true);
+            return;
+        }
         // Extract UUID from a full URL or bare UUID string
         if (preg_match('/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i', $deckLink, $matches)) {
             $uuid = $matches[1];
