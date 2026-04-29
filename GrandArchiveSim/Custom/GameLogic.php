@@ -50,6 +50,7 @@ $Imbue_Cards["a3pmmloejo"] = 2; // Blessed Clergy (WIND) - Imbue 2
 $Imbue_Cards["xpnjvt9y59"] = 2; // Cleansing Reunion (WIND) - Imbue 2
 $Imbue_Cards["taug52u81v"] = 2; // Eternal Magistrate (WIND) - Imbue 2
 $Imbue_Cards["TYlWgIYsq3"] = 2; // Cauterizing Seraphim (FIRE) - Advanced Imbue 2
+$Imbue_Cards["92mnQJPfR8"] = ['threshold' => 1, 'matcher' => 'advanced']; // Angel Attendant (NORM) - Advanced Imbue 1
 $Imbue_Cards["aKjX6INGkV"] = ['threshold' => 2, 'matcher' => 'advanced']; // Angelic Vanguard - Advanced Imbue 2
 $Imbue_Cards["b9lli2PE7I"] = ['threshold' => 3, 'matcher' => 'advanced']; // Nuriel, Seraphic Paladin - Advanced Imbue 3
 $Imbue_Cards["e5r6eVzpkD"] = ['threshold' => 2, 'matcher' => 'advanced']; // Reverent Seraphim - Advanced Imbue 2
