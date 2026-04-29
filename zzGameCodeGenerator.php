@@ -2047,7 +2047,8 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
 
   // Static properties (not mirrored)
   if($zone->Width > -1) $staticStyles .= " width:" . $zone->Width . ";";
-  if($zone->DisplayMode != "Pane") $staticStyles .= " overflow-y:auto;";
+  $hasRotations = isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0;
+  if($zone->DisplayMode != "Pane") $staticStyles .= $hasRotations ? " overflow-y:visible;" : " overflow-y:auto;";
 
   // Check what positioning properties are defined
   $hasLeft = $zone->Left > -1;
@@ -2093,7 +2094,8 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
   if($zone->Top > -1) $style .= ($prefix == "my" ? " top:" : " bottom:") . $zone->Top . ";";
   if($zone->Bottom > -1) $style .= ($prefix == "my" ? " bottom:" : " top:") . $zone->Bottom . ";";
   if($zone->Width > -1) $style .= " width:" . $zone->Width . ";";
-  if($zone->DisplayMode != "Pane") $style .= " overflow-y:auto;";
+  $hasRotations = isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0;
+  if($zone->DisplayMode != "Pane") $style .= $hasRotations ? " overflow-y:visible;" : " overflow-y:auto;";
   if($zone->DisplayMode == "Pane") $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
   else {
     $rv .= "echo(\"" . $prefix . "Static += '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
