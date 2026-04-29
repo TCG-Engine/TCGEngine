@@ -1855,7 +1855,8 @@ $customDQHandlers["TopsyDecreeBanish"] = function($player, $parts, $lastDecision
     if($lastDecision === "-" || $lastDecision === "PASS" || empty($lastDecision)) return;
     // Determine which GY was chosen so the second pick must be from the same
     $chosenGY = (strpos($lastDecision, "myGraveyard") === 0) ? "myGraveyard" : "theirGraveyard";
-    MZMove($player, $lastDecision, "myBanish");
+    $destBanish = ($chosenGY === "myGraveyard") ? "myBanish" : "theirBanish";
+    MZMove($player, $lastDecision, $destBanish);
     DecisionQueueController::CleanupRemovedCards();
     $banishCount = intval(DecisionQueueController::GetVariable("topsyBanishCount")) + 1;
     if($banishCount < 2) {
