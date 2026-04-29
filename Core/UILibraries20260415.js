@@ -638,14 +638,6 @@
           }
         }
 
-        var styles = " style='" + inlineStyles + "'";
-        var droppable = " class='draggable " + className + combatIndicatorClass + "' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'";
-        var click = isSelectable
-          ? " onclick=\"OnSelectableCardClick('" + zoneName + "', '" + id + "')\""
-          : " onclick=\"CardClick(event, '" + zoneName + "', '" + id + "')\"";
-        if (id != "-") newHTML += "<span id='" + id + "' " + styles + droppable + click + ">";
-        else newHTML += "<span " + styles + droppable + click + ">";
-
         // Determine overlay parameter for Card()
         var overlay = 0;
         try {
@@ -658,6 +650,26 @@
             });
           }
         } catch (e) {}
+
+        // Determine rotation from RotationRules
+        try {
+          if (typeof RotationRules !== 'undefined' && RotationRules[zoneName]) {
+            var cardData = sharedCardData;
+            RotationRules[zoneName].forEach(function(rule) {
+              if (cardData.hasOwnProperty(rule.field) && String(cardData[rule.field]) === String(rule.value)) {
+                inlineStyles += " transform: rotate(" + rule.degrees + "deg); transform-origin: center center;";
+              }
+            });
+          }
+        } catch (e) {}
+
+        var styles = " style='" + inlineStyles + "'";
+        var droppable = " class='draggable " + className + combatIndicatorClass + "' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'";
+        var click = isSelectable
+          ? " onclick=\"OnSelectableCardClick('" + zoneName + "', '" + id + "')\""
+          : " onclick=\"CardClick(event, '" + zoneName + "', '" + id + "')\"";
+        if (id != "-") newHTML += "<span id='" + id + "' " + styles + droppable + click + ">";
+        else newHTML += "<span " + styles + droppable + click + ">";
 
         newHTML += Card(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id);
 

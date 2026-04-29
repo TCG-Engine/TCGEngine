@@ -83,6 +83,7 @@ Index: TurnEffects
 Display: Visibility=Public, Mode=All, Top=110px, Right=120px
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Overlay: Status=1:exhausted
+Rotation: Status=1:9
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)

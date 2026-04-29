@@ -77,6 +77,21 @@ while(!feof($handler)) {
           }
         }
         break;
+      case "Rotation":
+        // Rotation: Status=1:30
+        if (!isset($zoneObj->Rotations)) $zoneObj->Rotations = [];
+        $rotationParts = explode(":", $lineValue);
+        if (count($rotationParts) == 2) {
+          $cond = trim($rotationParts[0]); // e.g. Status=1
+          $degrees = trim($rotationParts[1]); // e.g. 30
+          $condParts = explode("=", $cond);
+          if (count($condParts) == 2) {
+            $field = trim($condParts[0]);
+            $value = trim($condParts[1]);
+            $zoneObj->Rotations[] = ["field" => $field, "value" => $value, "degrees" => (int)$degrees];
+          }
+        }
+        break;
       case "Counters":
         // Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)
         if (!isset($zoneObj->Counters)) $zoneObj->Counters = [];
@@ -2188,6 +2203,16 @@ function AddGeneratedUI() {
     }
   }
   $rv .= "const OverlayRules = " . json_encode($overlayRules) . ";\r\n";
+
+  // Emit rotation rules as a JS object
+  $rotationRules = [];
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    if (isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0) {
+      $rotationRules[$zone->Name] = $zone->Rotations;
+    }
+  }
+  $rv .= "const RotationRules = " . json_encode($rotationRules) . ";\r\n";
 
   // Emit counter rules as a JS object
   $counterRules = [];
