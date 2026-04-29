@@ -10813,6 +10813,7 @@ function AngelicChannelingChoices($player) {
 function AngelicChannelingChoose($player) {
     $count = intval(DecisionQueueController::GetVariable("AngelicChannelingCount") ?? "0");
     if($count >= 3) return;
+    DecisionQueueController::CleanupRemovedCards();
     $choices = AngelicChannelingChoices($player);
     if(empty($choices)) return;
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Banish_advanced_element_card?");
