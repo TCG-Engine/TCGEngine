@@ -14078,10 +14078,8 @@ function ChampionNameRoot($cardID) {
     return strtolower(trim(substr($name, 0, $commaPos)));
 }
 
-function CanAdvancedChampionIgnoreElementRequirement($player, $cardID) {
+function CanMaterializeChampion($player, $cardID) {
     if(!PropertyContains(CardType($cardID), "CHAMPION")) return false;
-    $cardElement = CardElement($cardID);
-    if(!IsAdvancedElementName($cardElement)) return false;
 
     $targetLevel = intval(CardLevel($cardID));
     if($targetLevel <= 0) return false;
@@ -14091,11 +14089,7 @@ function CanAdvancedChampionIgnoreElementRequirement($player, $cardID) {
 
     $currentLevel = intval(CardLevel($champObj->CardID));
     if($currentLevel !== ($targetLevel - 1)) return false;
-
-    // Advanced element champions can level up off the previous base-level form.
-    if(IsAdvancedElementName(CardElement($champObj->CardID))) return false;
-
-    return ChampionNameRoot($champObj->CardID) === ChampionNameRoot($cardID);
+    return true;
 }
 
 function CanLookingGlassIgnoreElementRequirement($player, $cardID) {
@@ -14124,7 +14118,7 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
         return true;
     }
 
-    if(CanAdvancedChampionIgnoreElementRequirement($player, $cardID)) {
+    if(CanMaterializeChampion($player, $cardID)) {
         return true;
     }
 
