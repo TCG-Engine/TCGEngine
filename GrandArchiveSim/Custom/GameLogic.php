@@ -1453,6 +1453,20 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "PrimordialRitualCost|" . $reserveCost, 100);
     }
 
+    // 1.3 Declaring Costs — Undeniable Truth (UaUfw7yFTW): mandatory sacrifice of an ally
+    $hasUndeniableTruthCost = false;
+    if($obj->CardID === "UaUfw7yFTW" && !$ignoreCost) {
+        $allies = ZoneSearch("myField", ["ALLY"]);
+        if(empty($allies)) {
+            SetFlashMessage("Undeniable Truth requires an ally to sacrifice.");
+            return;
+        }
+        $hasUndeniableTruthCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 100, tooltip:"Sacrifice_an_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "UndeniableTruthCost|" . $reserveCost, 100);
+    }
+
     //1.3 Declaring Costs — Clash of Fates (9rbziyasag): [Guo Jia Bonus] may remove a quest counter instead of reserve
     $hasClashOfFatesAltCost = false;
     if($obj->CardID === "9rbziyasag" && IsGuoJiaBonus($player) && !$ignoreCost && $reserveCost > 0) {
@@ -1483,7 +1497,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1556,6 +1570,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasBrokenPromisesCost is true, BrokenPromisesCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasPrimordialRitualCost is true, PrimordialRitualCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
+    // When $hasUndeniableTruthCost is true, UndeniableTruthCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasSongOfFrostAltCost is true, SongOfFrostAltCost handler queues its own
     // reserve/banish + EffectStackOpportunity.
@@ -1704,6 +1720,23 @@ $customDQHandlers["BrokenPromisesCost"] = function($player, $parts, $lastDecisio
 };
 
 $customDQHandlers["PrimordialRitualCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    if(!PropertyContains(EffectiveCardType($obj), "ALLY")) return;
+
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    for($i = 0; $i < $baseReserve; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+$customDQHandlers["UndeniableTruthCost"] = function($player, $parts, $lastDecision) {
     $baseReserve = intval($parts[0]);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
 
