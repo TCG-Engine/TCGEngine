@@ -4191,6 +4191,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         }
         case "lVvU9lpJ3M": { // Diamond Ribbon — banish self
+            $cost = 4 - GetCardistryDiscount($player);
+            for($i=0; $i<$cost; ++$i) DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
