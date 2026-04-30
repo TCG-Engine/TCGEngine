@@ -1,19 +1,21 @@
 {
-  "name": "butlers-augury",
-  "rootName": "GrandArchiveSim",
-  "createdAt": "2026-04-28T17:22:47.924Z",
-  "createdBy": "mcp",
-  "sourceTemplate": "play-from-hand/basic-hand-card",
-  "draft": false,
-  "draftGameName": "103",
-  "parameters": {
-    "handCard": "5u5ic64930",
-    "element": "FIRE",
-    "champion": "o69ogocemo",
-    "mastery": "NONE"
-  },
-  "testedCards": [
-    "5u5ic64930"
-  ],
-  "savedAt": "2026-04-28T17:23:54.263Z"
+    "name": "butlers-augury",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-04-28T17:22:47.924Z",
+    "createdBy": "mcp",
+    "sourceTemplate": "play-from-hand/basic-hand-card",
+    "draft": false,
+    "draftGameName": "103",
+    "parameters": {
+        "handCard": "5u5ic64930",
+        "element": "FIRE",
+        "champion": "o69ogocemo",
+        "mastery": "NONE"
+    },
+    "testedCards": [
+        "5u5ic64930"
+    ],
+    "savedAt": "2026-04-28T17:23:54.263Z",
+    "lastRecordedAt": "2026-04-30T04:48:26+02:00",
+    "lastRecordedBy": "5"
 }

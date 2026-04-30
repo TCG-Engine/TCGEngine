@@ -612,6 +612,7 @@
         <button type="button" onclick="stopRegressionRecording()" style="padding:6px 10px;">Stop Recording</button>
         <button type="button" onclick="addRegressionAssertion()" style="padding:6px 10px;">Add Assertion</button>
         <button type="button" onclick="saveRegressionFixture()" style="padding:6px 10px;">Save Test</button>
+        <button type="button" onclick="rerecordRegressionFixture()" style="padding:6px 10px;">Re-record Selected</button>
         <div style="display:flex; gap:4px; align-items:center; margin-top:4px;">
           <input type="text" id="regressionCardIdInput" placeholder="Card ID" style="flex:1; padding:5px 7px; font-size:12px; min-width:0;" />
           <button type="button" onclick="linkCardToFixture()" style="padding:5px 8px; white-space:nowrap;">Link Card</button>
@@ -736,15 +737,13 @@
       }
 
       function startRegressionRecording() {
-        submitRegressionRequest(11000, "").then(function(message) {
-          if (message) alert(message);
+        submitRegressionRequest(11000, "").then(function() {
           location.reload();
         });
       }
 
       function stopRegressionRecording() {
-        submitRegressionRequest(11001, "").then(function(message) {
-          if (message) alert(message);
+        submitRegressionRequest(11001, "").then(function() {
           location.reload();
         });
       }
@@ -802,6 +801,25 @@
           name: name,
           notes: notes
         })).then(function(message) {
+          if (message) alert(message);
+          location.reload();
+        });
+      }
+
+      function rerecordRegressionFixture() {
+        var select = document.getElementById("regressionFixtureSelect");
+        if (!select || !select.value) {
+          alert("Select an existing fixture first.");
+          return;
+        }
+
+        var confirmed = confirm(
+          "Re-record fixture '" + select.value + "'? This will overwrite its initial state, actions, assertions, and expected final snapshot while preserving its existing metadata."
+        );
+        if (!confirmed) return;
+
+        persistRegressionFixtureSelection();
+        submitRegressionRequest(11007, JSON.stringify({ slug: select.value })).then(function(message) {
           if (message) alert(message);
           location.reload();
         });

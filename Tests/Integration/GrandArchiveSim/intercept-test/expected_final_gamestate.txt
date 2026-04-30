@@ -1,5 +1,5 @@
 1
-158
+159
 46
 xWJND68I8X
 cyfrzrplyw
@@ -131,13 +131,12 @@ jnltv5klry 2 1 0 1 - - -
 u7d6soporh 1 1 0 1 - - -
 soporhlq2k 2 1 0 1 - - -
 5joh300z2s 2 1 0 1 - - -
-6
+5
 m4c8ljyevp 1 2 0 2 - - -
 b31x97n2jn 2 2 0 2 - - WyJ0YWZxbGRBR1JGIl0=
 soporhlq2k 2 2 0 2 - - -
 bd7ozuj68m 2 2 0 2 - - -
 bae3z4pyx8 2 2 0 2 - - -
-u7d6soporh 2 2 0 2 ENTERED_THIS_TURN - -
 0
 0
 3
@@ -155,10 +154,11 @@ lq2kkvoqk1
 0z2snsdwmx
 z1vdxi74wa
 qj5bbae3z4
-9
+10
 ltv5klryvf
 q3huqj5bba
 pv4n1n3gyg
+u7d6soporh
 1XegCUjBnY
 lq2kkvoqk1
 8c9htu9agw
@@ -184,5 +184,5 @@ MAIN
 
 {"mzID":"theirField-6","amount":2,"ignoreCost":false,"mzIDCardID":"urfp66pv4n","activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","target":"theirField-6","abilityIndex":0,"potionCardID":"bae3z4pyx8","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","CombatDamageAmount":"2","source":"myField-0","CombatKilledCardID":"urfp66pv4n"}
 0
-{"MaterializeCalls":{"1":3,"2":3},"Materialize":{"1":{"tafqldAGRF":1,"b31x97n2jn":1,"u7d6soporh":1},"2":{"tafqldAGRF":1,"b31x97n2jn":1,"u7d6soporh":1}},"EnterCalls":{"1":9,"2":7},"Enter":{"1":{"tafqldAGRF":1,"bae3z4pyx8":1,"b31x97n2jn":1,"69iq4d5vet":1,"jnltv5klry":1,"u7d6soporh":1,"soporhlq2k":1,"5joh300z2s":1,"urfp66pv4n":1},"2":{"tafqldAGRF":1,"m4c8ljyevp":1,"b31x97n2jn":1,"soporhlq2k":1,"bd7ozuj68m":1,"bae3z4pyx8":1,"u7d6soporh":1}},"DrawCalls":{"1":5,"2":4},"Draw":{"1":13,"2":10},"ActivateCardCalls":{"1":3,"2":2},"ActivateCard":{"1":{"bae3z4pyx8":1,"300z2snsdw":1,"urfp66pv4n":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"CardActivatedCalls":{"1":3,"2":2},"CardActivated":{"1":{"bae3z4pyx8":1,"300z2snsdw":1,"urfp66pv4n":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"ExhaustCardCalls":{"1":1},"ExhaustCard":{"1":{"bae3z4pyx8":1}},"ActivateAbilityCalls":{"1":3},"ActivateAbility":{"1":{"bae3z4pyx8":1,"u7d6soporh":2}},"RestCardCalls":{"2":1},"RestCard":{"2":{"m4c8ljyevp":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"m4c8ljyevp":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"urfp66pv4n":1}}}
+{"MaterializeCalls":{"1":3,"2":2},"Materialize":{"1":{"tafqldAGRF":1,"b31x97n2jn":1,"u7d6soporh":1},"2":{"tafqldAGRF":1,"b31x97n2jn":1}},"EnterCalls":{"1":9,"2":6},"Enter":{"1":{"tafqldAGRF":1,"bae3z4pyx8":1,"b31x97n2jn":1,"69iq4d5vet":1,"jnltv5klry":1,"u7d6soporh":1,"soporhlq2k":1,"5joh300z2s":1,"urfp66pv4n":1},"2":{"tafqldAGRF":1,"m4c8ljyevp":1,"b31x97n2jn":1,"soporhlq2k":1,"bd7ozuj68m":1,"bae3z4pyx8":1}},"DrawCalls":{"1":5,"2":4},"Draw":{"1":13,"2":10},"ActivateCardCalls":{"1":3,"2":2},"ActivateCard":{"1":{"bae3z4pyx8":1,"300z2snsdw":1,"urfp66pv4n":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"CardActivatedCalls":{"1":3,"2":2},"CardActivated":{"1":{"bae3z4pyx8":1,"300z2snsdw":1,"urfp66pv4n":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"ExhaustCardCalls":{"1":1},"ExhaustCard":{"1":{"bae3z4pyx8":1}},"ActivateAbilityCalls":{"1":3},"ActivateAbility":{"1":{"bae3z4pyx8":1,"u7d6soporh":2}},"RestCardCalls":{"2":1},"RestCard":{"2":{"m4c8ljyevp":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"m4c8ljyevp":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"urfp66pv4n":1}}}
 0

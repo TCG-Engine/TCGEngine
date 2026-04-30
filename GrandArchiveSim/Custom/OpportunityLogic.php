@@ -10,14 +10,20 @@
  *  - Combat is active (between attack declaration and cleanup)
  */
 function HasOpportunity($player) {
-    $effectStack = &GetEffectStack();
-    if(!empty($effectStack)) return true;
+    if(!empty(GetLiveEffectStackEntries())) return true;
     if(IsCombatActive()) return true;
     return false;
 }
 
-function GetEffectStackActivationTargets($player, $filters = []) {
+function GetLiveEffectStackEntries() {
     $effectStack = GetEffectStack();
+    return array_values(array_filter($effectStack, function($obj) {
+        return $obj !== null && !(isset($obj->removed) && $obj->removed);
+    }));
+}
+
+function GetEffectStackActivationTargets($player, $filters = []) {
+    $effectStack = GetLiveEffectStackEntries();
     $targets = [];
     for($i = 0; $i < count($effectStack); ++$i) {
         $obj = $effectStack[$i];
@@ -498,6 +504,107 @@ $unconditionalFastCards = [
     "aljx2ru1w3" => true, // Flashfire Horse
 ];
 
+function EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label = "") {
+    $cleanLabel = trim(str_replace(["@", "&", ":"], ["", "_", "-"], $label));
+    return $mzID . "@Activate-" . intval($abilityIndex) . ($cleanLabel !== "" ? "@" . $cleanLabel : "");
+}
+
+function DecodeOpportunityAbilityChoice($selection) {
+    if(!is_string($selection) || $selection === "") return null;
+    $parts = explode("@", $selection);
+    if(count($parts) < 2) return null;
+    $mzID = $parts[0];
+    $payload = $parts[1] ?? "";
+    if(strpos($payload, "Activate-") !== 0) return null;
+    return [
+        'mzID' => $mzID,
+        'abilityIndex' => intval(substr($payload, strlen("Activate-")))
+    ];
+}
+
+function GetPlayableFastAbilities($player) {
+    global $playerID;
+    global $Cardistry_Cards;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+
+    $field = &GetField($player);
+    $choices = [];
+    $existingFlash = function_exists("GetFlashMessage") ? GetFlashMessage() : "";
+
+    foreach($field as $i => $obj) {
+        if($obj == null) continue;
+        if($obj->removed || HasNoAbilities($obj)) continue;
+        if($obj->CardID === "uvgflagxbb" && HasOpportunity($player)) continue;
+        if($obj->CardID === "wCAIuvPOAT" && CountPreservedCardsInMaterial($player) < 5) continue;
+        if(GetCounterCount($obj, "frenzy") > 0) continue;
+        if(isset($Cardistry_Cards[$obj->CardID]) && isset($obj->Counters['cardistry_used'])) continue;
+
+        $mzID = "myField-" . $i;
+        $staticAbilityCount = CardActivateAbilityCount($obj->CardID);
+        $staticAbilityNames = function_exists("CardActivateAbilityCountNames")
+            ? CardActivateAbilityCountNames($obj->CardID)
+            : [];
+
+        for($abilityIndex = 0; $abilityIndex < $staticAbilityCount; ++$abilityIndex) {
+            $canActivate = function_exists("CanActivateAbility")
+                ? CanActivateAbility($player, $mzID, $abilityIndex)
+                : true;
+            if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
+            if(!$canActivate) continue;
+
+            $label = $staticAbilityNames[$abilityIndex] ?? ("Ability_" . ($abilityIndex + 1));
+            $choices[] = EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label);
+        }
+
+        $dynamicAbilitiesRaw = GetDynamicAbilities($obj);
+        if($dynamicAbilitiesRaw === "" || $dynamicAbilitiesRaw === "[]") continue;
+
+        $dynamicAbilities = json_decode($dynamicAbilitiesRaw, true);
+        if(!is_array($dynamicAbilities)) continue;
+
+        foreach($dynamicAbilities as $dynamicAbility) {
+            $abilityIndex = intval($dynamicAbility['index'] ?? -1);
+            if($abilityIndex < 0) continue;
+
+            $canActivate = function_exists("CanActivateAbility")
+                ? CanActivateAbility($player, $mzID, $abilityIndex)
+                : true;
+            if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
+            if(!$canActivate) continue;
+
+            $label = str_replace(" ", "_", $dynamicAbility['name'] ?? ("Ability_" . ($abilityIndex + 1)));
+            $choices[] = EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label);
+        }
+    }
+
+    if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
+    $playerID = $savedPlayerID;
+    return $choices;
+}
+
+function GetPlayableOpportunityChoices($player) {
+    $choices = GetPlayableFastCards($player);
+    $abilityChoices = GetPlayableFastAbilities($player);
+    if(!empty($abilityChoices)) $choices = array_merge($choices, $abilityChoices);
+    return $choices;
+}
+
+function ResolveOpportunitySelection($player, $selection) {
+    $abilityChoice = DecodeOpportunityAbilityChoice($selection);
+    if($abilityChoice !== null) {
+        ActivateAbility($player, $abilityChoice['mzID'], $abilityChoice['abilityIndex']);
+        return true;
+    }
+
+    if(TryLostPromisesMemory($player, $selection) || TryGlimmerCast($player, $selection)) {
+        return true;
+    }
+
+    ActivateCard($player, $selection, false);
+    return true;
+}
+
 function GetPlayableFastCards($player) {
     global $cbFastActivationCards, $unconditionalFastCards;
     $hand = &GetHand($player);
@@ -620,26 +727,25 @@ function TryLostPromisesMemory($player, $mzID) {
  * $player = the player who just placed a card on the EffectStack.
  */
 $customDQHandlers["EffectStackOpportunity"] = function($player, $parts, $lastDecision) {
-    $effectStack = &GetEffectStack();
     ReconcileEffectStackSourceZones();
     DecisionQueueController::CleanupRemovedCards();
-    $effectStack = &GetEffectStack();
+    $effectStack = GetLiveEffectStackEntries();
     if(empty($effectStack)) return;
 
     $otherPlayer = ($player == 1) ? 2 : 1;
 
     // Active player gets priority first (per rules: they can chain)
-    $fastCards = GetPlayableFastCards($player);
+    $fastCards = GetPlayableOpportunityChoices($player);
     if(!empty($fastCards)) {
         $cardList = implode("&", $fastCards);
-        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
         DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackActiveResponse|$otherPlayer", 100, "", 1);
     } else {
         // Active player can't respond, check opponent
-        $fastCards2 = GetPlayableFastCards($otherPlayer);
+        $fastCards2 = GetPlayableOpportunityChoices($otherPlayer);
         if(!empty($fastCards2)) {
             $cardList = implode("&", $fastCards2);
-            DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+            DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
             DecisionQueueController::AddDecision($otherPlayer, "CUSTOM", "EffectStackOpponentResponse", 100, "", 1);
         } else {
             // Neither can respond, auto-resolve
@@ -656,20 +762,18 @@ $customDQHandlers["EffectStackActiveResponse"] = function($player, $parts, $last
     $otherPlayer = intval($parts[0]);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         // Active player passed, check opponent
-        $fastCards = GetPlayableFastCards($otherPlayer);
+        $fastCards = GetPlayableOpportunityChoices($otherPlayer);
         if(!empty($fastCards)) {
             $cardList = implode("&", $fastCards);
-            DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+            DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
             DecisionQueueController::AddDecision($otherPlayer, "CUSTOM", "EffectStackOpponentResponse", 100, "", 1);
         } else {
             // Both passed (opponent has no cards), resolve
             ResolveTopOfEffectStack();
         }
     } else {
-        // Active player played a fast card — they keep priority
-        if(!TryLostPromisesMemory($player, $lastDecision) && !TryGlimmerCast($player, $lastDecision)) {
-            ActivateCard($player, $lastDecision, false);
-        }
+        // Active player took a fast action — they keep priority
+        ResolveOpportunitySelection($player, $lastDecision);
     }
 };
 
@@ -681,10 +785,8 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
         // Both players passed, resolve top of stack
         ResolveTopOfEffectStack();
     } else {
-        // Opponent played a fast card — they get priority
-        if(!TryLostPromisesMemory($player, $lastDecision) && !TryGlimmerCast($player, $lastDecision)) {
-            ActivateCard($player, $lastDecision, false);
-        }
+        // Opponent took a fast action — they get priority
+        ResolveOpportunitySelection($player, $lastDecision);
     }
 };
 
@@ -700,29 +802,43 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
     DecisionQueueController::StoreVariable("isImbued", "NO");
     ReconcileEffectStackSourceZones();
     DecisionQueueController::CleanupRemovedCards();
-    $effectStack = &GetEffectStack();
+    $effectStack = GetLiveEffectStackEntries();
 
     if(!empty($effectStack)) {
         // More cards to resolve — turn player gets priority first (per rules)
         $turnPlayer = GetTurnPlayer();
         $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
 
-        $fastCards = GetPlayableFastCards($turnPlayer);
+        $fastCards = GetPlayableOpportunityChoices($turnPlayer);
         if(!empty($fastCards)) {
             $cardList = implode("&", $fastCards);
-            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
             DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "EffectStackActiveResponse|$otherPlayer", 100, "", 1);
         } else {
-            $fastCards2 = GetPlayableFastCards($otherPlayer);
+            $fastCards2 = GetPlayableOpportunityChoices($otherPlayer);
             if(!empty($fastCards2)) {
                 $cardList = implode("&", $fastCards2);
-                DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+                DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
                 DecisionQueueController::AddDecision($otherPlayer, "CUSTOM", "EffectStackOpponentResponse", 100, "", 1);
             } else {
                 ResolveTopOfEffectStack();
             }
         }
     } else {
+        $consumedOuterWindow = DecisionQueueController::GetVariable("ConsumedOuterOpportunityWindow");
+        if($consumedOuterWindow === "YES") {
+            $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
+            DecisionQueueController::ClearVariable("ConsumedOuterOpportunityWindow");
+            if(IsCombatOpportunityContinuation($pendingHandler)) {
+                $firstPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? GetTurnPlayer());
+                $nextPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityNextPlayer") ?? GetTurnPlayer());
+                GrantOpportunityWindow($firstPlayer, $pendingHandler, $nextPlayer);
+                return;
+            }
+            ClearOpportunityVariables();
+            return;
+        }
+
         // Stack is empty — check for a pending Opportunity window (combat/ability)
         $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
         if($pendingHandler !== null && $pendingHandler !== "") {
@@ -744,9 +860,9 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
  * remaining EffectStack entries.
  */
 function ResolveTopOfEffectStack() {
-    $effectStack = &GetEffectStack();
     ReconcileEffectStackSourceZones();
     DecisionQueueController::CleanupRemovedCards();
+    $effectStack = GetLiveEffectStackEntries();
     if(empty($effectStack)) return;
 
     $topIndex = count($effectStack) - 1;
@@ -809,17 +925,17 @@ function GrantOpportunityWindow($firstPlayer, $nextHandler, $nextPlayer = null) 
     DecisionQueueController::StoreVariable("PendingOpportunityFirstPlayer", strval($firstPlayer));
 
     // Check first player's fast cards
-    $fastCards1 = GetPlayableFastCards($firstPlayer);
+    $fastCards1 = GetPlayableOpportunityChoices($firstPlayer);
     if(!empty($fastCards1)) {
         $cardList = implode("&", $fastCards1);
-        DecisionQueueController::AddDecision($firstPlayer, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+        DecisionQueueController::AddDecision($firstPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
         DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "OpportunityWindowFirstResponse", 100, "", 1);
     } else {
         // First player can't act, try second
-        $fastCards2 = GetPlayableFastCards($secondPlayer);
+        $fastCards2 = GetPlayableOpportunityChoices($secondPlayer);
         if(!empty($fastCards2)) {
             $cardList = implode("&", $fastCards2);
-            DecisionQueueController::AddDecision($secondPlayer, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+            DecisionQueueController::AddDecision($secondPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
             DecisionQueueController::AddDecision($secondPlayer, "CUSTOM", "OpportunityWindowSecondResponse", 100, "", 1);
         } else {
             // Neither can act, resolve immediately
@@ -855,6 +971,10 @@ function ClearOpportunityVariables() {
     DecisionQueueController::ClearVariable("PendingOpportunityFirstPlayer");
 }
 
+function IsCombatOpportunityContinuation($handler) {
+    return in_array($handler, ["CombatDealDamage", "CleaveDealDamage"], true);
+}
+
 /**
  * First player in an Opportunity window responded.
  */
@@ -862,22 +982,24 @@ $customDQHandlers["OpportunityWindowFirstResponse"] = function($player, $parts, 
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         // First player passed, check second player
         $secondPlayer = ($player == 1) ? 2 : 1;
-        $fastCards = GetPlayableFastCards($secondPlayer);
+        $fastCards = GetPlayableOpportunityChoices($secondPlayer);
         if(!empty($fastCards)) {
             $cardList = implode("&", $fastCards);
-            DecisionQueueController::AddDecision($secondPlayer, "MZMAYCHOOSE", $cardList, 100, "Play_a_fast_card?");
+            DecisionQueueController::AddDecision($secondPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
             DecisionQueueController::AddDecision($secondPlayer, "CUSTOM", "OpportunityWindowSecondResponse", 100, "", 1);
         } else {
             // Both passed (second has no cards), resolve
             ResolveOpportunityWindow();
         }
     } else {
-        // Player played a fast card — they keep priority
-        if(!TryLostPromisesMemory($player, $lastDecision) && !TryGlimmerCast($player, $lastDecision)) {
-            ActivateCard($player, $lastDecision, false);
+        // Taking a fast action consumes this outer window. The action's own
+        // effect-stack / ability-response flow will provide any follow-up priority.
+        DecisionQueueController::StoreVariable("ConsumedOuterOpportunityWindow", "YES");
+        $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
+        if(!IsCombatOpportunityContinuation($pendingHandler)) {
+            ClearOpportunityVariables();
         }
-        // ActivateCard → DoActivateCard → EffectStack → EffectStackOpportunity
-        // After stack empties, PostResolutionCheck re-grants this window
+        ResolveOpportunitySelection($player, $lastDecision);
     }
 };
 
@@ -889,12 +1011,28 @@ $customDQHandlers["OpportunityWindowSecondResponse"] = function($player, $parts,
         // Both players passed, resolve
         ResolveOpportunityWindow();
     } else {
-        // Player played a fast card — they keep priority
-        if(!TryLostPromisesMemory($player, $lastDecision) && !TryGlimmerCast($player, $lastDecision)) {
-            ActivateCard($player, $lastDecision, false);
+        // Taking a fast action consumes this outer window. The action's own
+        // effect-stack / ability-response flow will provide any follow-up priority.
+        DecisionQueueController::StoreVariable("ConsumedOuterOpportunityWindow", "YES");
+        $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
+        if(!IsCombatOpportunityContinuation($pendingHandler)) {
+            ClearOpportunityVariables();
         }
-        // After stack empties, PostResolutionCheck re-grants this window
+        ResolveOpportunitySelection($player, $lastDecision);
     }
+};
+
+$customDQHandlers["AbilityOpportunityResume"] = function($player, $parts, $lastDecision) {
+    $resumeHandler = DecisionQueueController::GetVariable("AbilityResumePendingHandler");
+    $resumeNextPlayer = intval(DecisionQueueController::GetVariable("AbilityResumePendingNextPlayer") ?? "0");
+    $resumeFirstPlayer = intval(DecisionQueueController::GetVariable("AbilityResumePendingFirstPlayer") ?? "0");
+
+    DecisionQueueController::ClearVariable("AbilityResumePendingHandler");
+    DecisionQueueController::ClearVariable("AbilityResumePendingNextPlayer");
+    DecisionQueueController::ClearVariable("AbilityResumePendingFirstPlayer");
+
+    if($resumeHandler === null || $resumeHandler === "" || $resumeFirstPlayer <= 0) return;
+    GrantOpportunityWindow($resumeFirstPlayer, $resumeHandler, $resumeNextPlayer > 0 ? $resumeNextPlayer : $resumeFirstPlayer);
 };
 
 /**
@@ -911,6 +1049,40 @@ $customDQHandlers["NoOp"] = function($player, $parts, $lastDecision) {
  * After both pass, game simply continues (NoOp).
  */
 $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecision) {
+    ReconcileEffectStackSourceZones();
+    DecisionQueueController::CleanupRemovedCards();
+    $effectStack = GetLiveEffectStackEntries();
+    if(!empty($effectStack)) {
+        // An activated ability can resolve while another effect is still on the
+        // stack. In that case resume the normal stack-priority flow.
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+
+    $consumedOuterWindow = DecisionQueueController::GetVariable("ConsumedOuterOpportunityWindow");
+    if($consumedOuterWindow === "YES") {
+        // A fast action chosen from an outer normal opportunity window should
+        // use only its own stack-response flow. Suppress any intermediate
+        // ability-granted window until PostResolutionCheck clears the flag.
+        return;
+    }
+
+    $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
+    if($pendingHandler !== null && $pendingHandler !== "") {
+        DecisionQueueController::StoreVariable("AbilityResumePendingHandler", $pendingHandler);
+        DecisionQueueController::StoreVariable(
+            "AbilityResumePendingNextPlayer",
+            strval(intval(DecisionQueueController::GetVariable("PendingOpportunityNextPlayer") ?? $player))
+        );
+        DecisionQueueController::StoreVariable(
+            "AbilityResumePendingFirstPlayer",
+            strval(intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? $player))
+        );
+        ClearOpportunityVariables();
+        GrantOpportunityWindow($player, "AbilityOpportunityResume", $player);
+        return;
+    }
+
     GrantOpportunityWindow($player, "NoOp", $player);
 };
 

@@ -1,14 +1,16 @@
 {
-  "name": "surging-bolt-imbue",
-  "rootName": "GrandArchiveSim",
-  "createdAt": "2026-04-19T18:14:50.093Z",
-  "createdBy": "mcp",
-  "sourceTemplate": "play-from-hand/surging-bolt-imbue",
-  "draft": false,
-  "draftGameName": "103",
-  "parameters": {
-    "slug": "surging-bolt-imbue",
-    "name": "surging-bolt-imbue"
-  },
-  "savedAt": "2026-04-19T18:16:28.887Z"
+    "name": "surging-bolt-imbue",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-04-19T18:14:50.093Z",
+    "createdBy": "mcp",
+    "sourceTemplate": "play-from-hand/surging-bolt-imbue",
+    "draft": false,
+    "draftGameName": "103",
+    "parameters": {
+        "slug": "surging-bolt-imbue",
+        "name": "surging-bolt-imbue"
+    },
+    "savedAt": "2026-04-19T18:16:28.887Z",
+    "lastRecordedAt": "2026-04-30T15:25:42+02:00",
+    "lastRecordedBy": "5"
 }

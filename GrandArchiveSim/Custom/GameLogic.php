@@ -17638,6 +17638,7 @@ $customDQHandlers["HoarfrostHoldChoose"] = function($player, $parts, $lastDecisi
  * @return string JSON array, or empty string.
  */
 function GetDynamicAbilities($obj) {
+    if($obj == null) return "";
     if(HasNoAbilities($obj)) return "";
     global $lineageReleaseAbilities;
     $abilities = [];
@@ -17651,7 +17652,8 @@ function GetDynamicAbilities($obj) {
         $limiterZone = ($obj->Controller == $playerID) ? "myField" : "theirField";
         $limiterField = GetZone($limiterZone);
         foreach($limiterField as $lObj) {
-            if(!$lObj->removed && $lObj->CardID === "IC3OU6vCnF") {
+            if($lObj == null || $lObj->removed) continue;
+            if($lObj->CardID === "IC3OU6vCnF") {
                 $manaLimiterBlocks = true;
                 break;
             }
@@ -17699,7 +17701,8 @@ function GetDynamicAbilities($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $banditActive = false;
         foreach(GetZone($zone) as $fObj) {
-            if(!$fObj->removed && $fObj->CardID === "Yuj8xCUejq" && !HasNoAbilities($fObj)) {
+            if($fObj == null || $fObj->removed) continue;
+            if($fObj->CardID === "Yuj8xCUejq" && !HasNoAbilities($fObj)) {
                 $banditActive = true;
                 break;
             }
@@ -17724,7 +17727,8 @@ function GetDynamicAbilities($obj) {
                     $controllerField = GetZone($zone);
                     $isJin = false;
                     foreach($controllerField as $fObj) {
-                        if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+                        if($fObj == null || $fObj->removed) continue;
+                        if(PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
                             if(strpos(CardName($fObj->CardID), "Jin") === 0) $isJin = true;
                             break;
                         }
@@ -17744,7 +17748,7 @@ function GetDynamicAbilities($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fObj) {
-            if($fObj->removed || HasNoAbilities($fObj)) continue;
+            if($fObj == null || $fObj->removed || HasNoAbilities($fObj)) continue;
             if(!PropertyContains(EffectiveCardType($fObj), "REGALIA")) continue;
             if(!PropertyContains(EffectiveCardSubtypes($fObj), "DISTORTION")) continue;
             $abilityCount = CardActivateAbilityCount($fObj->CardID);

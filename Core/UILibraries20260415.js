@@ -579,8 +579,18 @@
         try {
           // If selection mode is active, call the selection callback (used for decision queue selections)
           if (window.SelectionMode && window.SelectionMode.active) {
+            let submittedCardId = cardId;
+            const specs = window.SelectionMode.inlineSpecs || window.SelectionMode.allowedZones || [];
+            const match = /^(.+)-(\d+)$/.exec(cardId || '');
+            if (match) {
+              const cardIndex = parseInt(match[2], 10);
+              const matchingSpec = specs.find(spec => spec && spec.isSpecificCard && spec.zone === zoneName && spec.specificIndex === cardIndex);
+              if (matchingSpec && matchingSpec.originalSpec) {
+                submittedCardId = matchingSpec.originalSpec;
+              }
+            }
             if (typeof window.SelectionMode.callback === 'function') {
-              window.SelectionMode.callback(zoneName, cardId, window.SelectionMode.decisionIndex);
+              window.SelectionMode.callback(zoneName, submittedCardId, window.SelectionMode.decisionIndex);
             }
             // Clear selection UI/state after making a selection
             ClearSelectionMode();
@@ -1164,6 +1174,16 @@
 
       function handleWidgetAction(event, cardId, widgetType, action) {
         event.stopPropagation(); // Prevent the click event from bubbling up
+        if (window.SelectionMode && window.SelectionMode.active && action && action.startsWith('Activate:')) {
+          const specs = window.SelectionMode.allowedZones || [];
+          const encodedAction = action.replace(':', '-');
+          const matchingSpec = specs.find(spec => spec && spec.originalSpec && spec.originalSpec.startsWith(cardId + '@') && spec.actionPayload === encodedAction);
+          if (matchingSpec && typeof window.SelectionMode.callback === 'function') {
+            window.SelectionMode.callback(cardId.split('-').slice(0, -1).join('-'), matchingSpec.originalSpec, window.SelectionMode.decisionIndex);
+            ClearSelectionMode();
+            return;
+          }
+        }
         // Implement the action handling logic here
         if(action == "Notes") {
           DisplayTextPopup(cardId, widgetType, action);
@@ -2248,7 +2268,11 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       //   - Filters: "myHand:CardType=Spell" (zone with filter)
       const parsedSpecs = (entry.Param || '').split('&').map(s => s.trim()).filter(Boolean).map(spec => {
         const parts = spec.split(':');
-        const zoneOrCard = parts[0].trim();
+        const rawZoneOrCard = parts[0].trim();
+        const encodedParts = rawZoneOrCard.split('@');
+        const zoneOrCard = encodedParts[0].trim();
+        const actionPayload = encodedParts.length > 1 ? encodedParts[1].trim() : '';
+        const selectionLabel = encodedParts.length > 2 ? encodedParts.slice(2).join('@').trim() : '';
         const filters = [];
         if (parts.length > 1) {
           const filtString = parts.slice(1).join(':');
@@ -2272,11 +2296,20 @@ function CheckAndShowDecisionQueue(decisionQueue) {
             specificIndex: parseInt(cardMatch[2], 10),
             filters: filters,
             isSpecificCard: true,
-            originalSpec: zoneOrCard
+            originalSpec: spec,
+            actionPayload: actionPayload,
+            selectionLabel: selectionLabel
           };
         } else {
           // Zone reference (any card in zone)
-          return { zone: zoneOrCard, filters: filters, isSpecificCard: false };
+          return {
+            zone: zoneOrCard,
+            filters: filters,
+            isSpecificCard: false,
+            originalSpec: spec,
+            actionPayload: actionPayload,
+            selectionLabel: selectionLabel
+          };
         }
       });
 
@@ -2297,6 +2330,11 @@ function CategorizeMZChooseSpecs(parsedSpecs) {
   const popupCards = [];
 
   for (const spec of parsedSpecs) {
+    if (spec && spec.actionPayload) {
+      inlineSpecs.push(spec);
+      continue;
+    }
+
     const zoneData = GetZoneData(spec.zone);
     const displayMode = zoneData && zoneData.DisplayMode ? zoneData.DisplayMode : 'All';
 
@@ -2555,6 +2593,7 @@ function IsSelectableCard(zone, cardArr, index) {
     for (let si = 0; si < specs.length; ++si) {
       const spec = specs[si];
       if (!spec || !spec.zone) continue;
+      if (spec.actionPayload) continue;
       if (spec.zone !== zone) continue;
 
       // If this is a specific card reference, check the index matches exactly
@@ -2754,8 +2793,8 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
     zoneLabel.style.padding = '4px 6px';
     zoneLabel.style.textAlign = 'center';
     zoneLabel.style.borderRadius = '0 0 6px 6px';
-    // Extract readable zone name (remove my/their prefix for cleaner display)
-    let displayZoneName = spec.zone.replace(/^(my|their)/, '');
+    // Prefer an explicit action label when present; otherwise show the source zone.
+    let displayZoneName = spec.selectionLabel ? spec.selectionLabel.replace(/_/g, ' ') : spec.zone.replace(/^(my|their)/, '');
     zoneLabel.textContent = displayZoneName;
     cardWrapper.appendChild(zoneLabel);
 

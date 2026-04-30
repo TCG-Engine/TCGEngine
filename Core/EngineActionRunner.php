@@ -227,6 +227,24 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       $result['updateCache'] = false;
       $result['recordAction'] = false;
       break;
+    case 11007:
+      $payload = json_decode($inputText, true);
+      if (!is_array($payload)) {
+        $result['success'] = false;
+        $result['message'] = 'Fixture re-record payload must be valid JSON.';
+      } else {
+        $recordingResult = RegressionRerecordFixture(
+          $folderPath,
+          $gameName,
+          strval($payload['slug'] ?? '')
+        );
+        $result['success'] = $recordingResult['success'];
+        $result['message'] = $recordingResult['message'];
+      }
+      $result['writeGamestate'] = false;
+      $result['updateCache'] = false;
+      $result['recordAction'] = false;
+      break;
     case 11004:
       $payload = json_decode($inputText, true);
       if (!is_array($payload)) {

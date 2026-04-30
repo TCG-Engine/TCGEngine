@@ -1,13 +1,15 @@
 {
-  "name": "spalling-cleanse",
-  "rootName": "GrandArchiveSim",
-  "createdAt": "2026-04-20T15:20:28.308Z",
-  "createdBy": "mcp",
-  "sourceTemplate": "play-from-hand/basic-hand-card",
-  "draft": false,
-  "draftGameName": "103",
-  "parameters": {
-    "handCard": "t3Yb097xpJ"
-  },
-  "savedAt": "2026-04-20T15:33:22.458Z"
+    "name": "spalling-cleanse",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-04-20T15:20:28.308Z",
+    "createdBy": "mcp",
+    "sourceTemplate": "play-from-hand/basic-hand-card",
+    "draft": false,
+    "draftGameName": "103",
+    "parameters": {
+        "handCard": "t3Yb097xpJ"
+    },
+    "savedAt": "2026-04-20T15:33:22.458Z",
+    "lastRecordedAt": "2026-04-30T15:35:29+02:00",
+    "lastRecordedBy": "5"
 }

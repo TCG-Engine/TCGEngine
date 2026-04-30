@@ -123,6 +123,15 @@ function RegressionCurrentGamestateText($rootName, $gameName) {
   return file_get_contents($path);
 }
 
+function RegressionFlushCurrentGamestate($rootName) {
+  if (function_exists('DoGamestateUpdate')) {
+    DoGamestateUpdate();
+  }
+  if (function_exists('WriteGamestate')) {
+    WriteGamestate('./' . $rootName . '/');
+  }
+}
+
 function RegressionCurrentGamestateHash($rootName, $gameName) {
   return hash('sha256', RegressionNormalizeNewlines(RegressionCurrentGamestateText($rootName, $gameName)));
 }
@@ -304,6 +313,8 @@ function RegressionSaveFixture($rootName, $gameName, $slug, $name = '', $notes =
     return ['success' => false, 'message' => 'Fixture slug cannot be empty.'];
   }
 
+  RegressionFlushCurrentGamestate($rootName);
+
   $fixtureDir = RegressionFixtureDir($rootName, $slug);
   RegressionEnsureDir($fixtureDir);
 
@@ -337,6 +348,66 @@ function RegressionSaveFixture($rootName, $gameName, $slug, $name = '', $notes =
   );
 
   return ['success' => true, 'message' => 'Saved regression fixture to ' . $fixtureDir . '.'];
+}
+
+function RegressionRerecordFixture($rootName, $gameName, $slug) {
+  $recording = RegressionReadRecording($rootName, $gameName);
+  if ($recording === null) {
+    return ['success' => false, 'message' => 'No regression recording exists for this game.'];
+  }
+  if (!empty($recording['active'])) {
+    return ['success' => false, 'message' => 'Stop the recording before re-recording the fixture.'];
+  }
+
+  $slug = RegressionSanitizeSlug($slug);
+  if ($slug === '') {
+    return ['success' => false, 'message' => 'Fixture slug cannot be empty.'];
+  }
+
+  RegressionFlushCurrentGamestate($rootName);
+
+  $fixtureDir = RegressionFixtureDir($rootName, $slug);
+  if (!is_dir($fixtureDir)) {
+    return ['success' => false, 'message' => 'Fixture does not exist: ' . $slug . '.'];
+  }
+
+  $metaPath = $fixtureDir . DIRECTORY_SEPARATOR . 'meta.json';
+  if (!is_file($metaPath)) {
+    return ['success' => false, 'message' => 'Fixture meta.json is missing for ' . $slug . '.'];
+  }
+
+  $meta = json_decode(file_get_contents($metaPath), true);
+  if (!is_array($meta)) {
+    return ['success' => false, 'message' => 'Fixture meta.json is not valid JSON for ' . $slug . '.'];
+  }
+
+  $initialPath = RegressionRecordingInitialStatePath($rootName, $gameName);
+  if (!is_file($initialPath)) {
+    return ['success' => false, 'message' => 'Recording initial gamestate is missing.'];
+  }
+
+  $meta['lastRecordedAt'] = date('c');
+  $meta['lastRecordedBy'] = $recording['createdBy'] ?? ($meta['lastRecordedBy'] ?? 'anonymous');
+
+  file_put_contents(
+    $metaPath,
+    json_encode($meta, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+  );
+  copy($initialPath, $fixtureDir . DIRECTORY_SEPARATOR . 'initial_gamestate.txt');
+  file_put_contents(
+    $fixtureDir . DIRECTORY_SEPARATOR . 'actions.json',
+    json_encode($recording['actions'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+  );
+  file_put_contents(
+    $fixtureDir . DIRECTORY_SEPARATOR . 'assertions.json',
+    json_encode($recording['assertions'], JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)
+  );
+  file_put_contents(
+    $fixtureDir . DIRECTORY_SEPARATOR . 'expected_final_gamestate.txt',
+    RegressionCurrentGamestateText($rootName, $gameName)
+  );
+
+  return ['success' => true, 'message' => 'Re-recorded regression fixture at ' . $fixtureDir . '.'];
 }
 
 function RegressionLoadAssertionsForFixture($fixtureDir) {
