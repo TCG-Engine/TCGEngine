@@ -1061,10 +1061,18 @@ $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecisio
 
     $consumedOuterWindow = DecisionQueueController::GetVariable("ConsumedOuterOpportunityWindow");
     if($consumedOuterWindow === "YES") {
-        // A fast action chosen from an outer normal opportunity window should
-        // use only its own stack-response flow. Suppress any intermediate
-        // ability-granted window until PostResolutionCheck clears the flag.
-        return;
+        $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
+        if($pendingHandler === null || $pendingHandler === "" || !IsCombatOpportunityContinuation($pendingHandler)) {
+            // A fast action chosen from an outer normal opportunity window should
+            // use only its own stack-response flow. Suppress any intermediate
+            // ability-granted window until PostResolutionCheck clears the flag.
+            return;
+        }
+        // Combat continuation windows are not always resumed by PostResolutionCheck
+        // (for example, field activated abilities that never enter the EffectStack).
+        // Clear the consumed flag and continue into the normal pending-handler
+        // resume path below so Opportunity is re-granted correctly.
+        DecisionQueueController::ClearVariable("ConsumedOuterOpportunityWindow");
     }
 
     $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
