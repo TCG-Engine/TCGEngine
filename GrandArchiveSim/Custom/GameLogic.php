@@ -3734,6 +3734,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "QCUld5Xidm": // Dummy Trainer — (3), banish self
+        case "mb3iqw3kc6": // Portentous Tanggu — (3), banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
