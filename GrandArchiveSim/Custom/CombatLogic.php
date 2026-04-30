@@ -3818,21 +3818,10 @@ function OnDealDamage($player, $source, $target, $amount) {
         MagebaneNicoBonusCheck($targetObj->Controller ?? $player);
     }
 
-    // Fabled Ruby Fatestone: fire sources you control dealing non-combat damage put a quest counter on your champion.
+    // Fabled Ruby Fatestone (mzf5dmpqbc): [Guo Jia Bonus]
+    $rubyTargetIsUnit = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
     if(!$isCombat && $amount > 0) {
-        $rubySourceObj = GetZoneObject($source);
-        if($rubySourceObj !== null && EffectiveCardElement($rubySourceObj) === "FIRE") {
-            $sourceController = $rubySourceObj->Controller ?? $player;
-            global $playerID;
-            $rubyZone = $sourceController == $playerID ? "myField" : "theirField";
-            foreach(GetZone($rubyZone) as $rubyObj) {
-                if(!$rubyObj->removed && $rubyObj->CardID === "mzf5dmpqbc" && !HasNoAbilities($rubyObj)
-                    && IsGuoJiaBonus($sourceController)) {
-                    AddQuestCounters($sourceController, 1);
-                    break;
-                }
-            }
-        }
+        CheckRubyFatestoneQuestCounter($source, $rubyTargetIsUnit, $player);
     }
 
     // Aegis of Dawn (abipl6gt7l): whenever champion dealt 4+ damage, summon Automaton Drone
@@ -4014,6 +4003,12 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
             && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")
             && $targetObj->CardID === "5bbae3z4py") {
         MagebaneNicoBonusCheck($targetObj->Controller ?? $player);
+    }
+
+    // Fabled Ruby Fatestone (mzf5dmpqbc): [Guo Jia Bonus]
+    $rubyDUPTargetIsUnit = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
+    if($isNonCombat && $amount > 0) {
+        CheckRubyFatestoneQuestCounter($source, $rubyDUPTargetIsUnit, $player);
     }
 
     // Aegis of Dawn (abipl6gt7l): whenever champion dealt 4+ damage, summon Automaton Drone

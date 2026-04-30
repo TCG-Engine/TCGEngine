@@ -682,10 +682,10 @@ for($i=0; $i<count($zones); ++$i) {
     }
   }
 }
-$mzGetObject .= "    default: return null;\r\n";
+$mzGetObject .= "    default: \$_null = null; return \$_null;\r\n";
 $mzGetObject .= "  }\r\n";
 $mzGetObject .= "}\r\n\r\n";
-$mzGetZone .= "    default: return null;\r\n";
+$mzGetZone .= "    default: \$_null = null; return \$_null;\r\n";
 $mzGetZone .= "  }\r\n";
 $mzGetZone .= "}\r\n\r\n";
 fwrite($handler, $mzGetObject);

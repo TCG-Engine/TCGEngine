@@ -13825,6 +13825,13 @@ function DealChampionDamage($player, $amount=1, $sourceController = null) {
             if($amount >= 4) {
                 AegisOfDawnTrigger($player);
             }
+            // Fabled Ruby Fatestone (mzf5dmpqbc): [Guo Jia Bonus]
+            if($amount > 0 && DecisionQueueController::GetVariable("CombatAttacker") === null) {
+                $rubyDCDSourceMZ = DecisionQueueController::GetVariable("mzID");
+                if($rubyDCDSourceMZ !== null && $rubyDCDSourceMZ !== "" && $rubyDCDSourceMZ !== "-") {
+                    CheckRubyFatestoneQuestCounter($rubyDCDSourceMZ, true, $player);
+                }
+            }
             RadiantOriginGuardianTrigger($source, $amount);
             return $obj;
         }
@@ -18606,6 +18613,38 @@ function RemoveQuestCounters($player, $amount) {
     $obj->Counters["quest"] = $current - $amount;
     if($obj->Counters["quest"] <= 0) unset($obj->Counters["quest"]);
     return true;
+}
+
+/**
+ * Fabled Ruby Fatestone (mzf5dmpqbc): [Guo Jia Bonus] trigger check.
+ * Whenever non-combat damage is dealt to a unit (ALLY or CHAMPION) by a fire element
+ * source you control, put a quest counter on your champion.
+ *
+ * Call this after any non-combat damage to a unit resolves, passing the damage source.
+ * The source may be an mzID (e.g. "myField-2", "EffectStack-0") or a plain CardID string.
+ * If GetZoneObject returns null (e.g. the EffectStack entry was already removed), falls
+ * back to walking the EffectStack for the topmost non-removed entry.
+ *
+ * @param string $source   The mzID or CardID of the damage source.
+ * @param bool   $isUnit   True if the target is an ALLY or CHAMPION (pre-computed by caller).
+ * @param int    $player   Fallback player when source controller cannot be determined.
+ */
+function CheckRubyFatestoneQuestCounter($source, $isUnit, $player) {
+    if(!$isUnit) return;
+    global $playerID;
+    $sourceObj = GetZoneObject($source);
+    $sourceElement = $sourceObj !== null ? EffectiveCardElement($sourceObj) : "FIRE";
+    if($sourceElement !== "FIRE") return;
+    $sourceCtrl = intval($sourceObj->Controller ?? $player);
+    $rubyZone = $sourceCtrl == $playerID ? "myField" : "theirField";
+    foreach(GetZone($rubyZone) as $rubyObj) {
+        if($rubyObj === null) continue;
+        if(!$rubyObj->removed && $rubyObj->CardID === "mzf5dmpqbc" && !HasNoAbilities($rubyObj)
+                && IsGuoJiaBonus($sourceCtrl)) {
+            AddQuestCounters($sourceCtrl, 1);
+            break;
+        }
+    }
 }
 
 /**
