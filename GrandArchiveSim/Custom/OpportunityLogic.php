@@ -505,7 +505,7 @@ $unconditionalFastCards = [
 ];
 
 function EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label = "") {
-    $cleanLabel = trim(str_replace(["@", "&", ":"], ["", "_", "-"], $label));
+    $cleanLabel = trim(preg_replace('/\s+/', '_', str_replace(["@", "&", ":"], ["", "_", "-"], $label)));
     return $mzID . "@Activate-" . intval($abilityIndex) . ($cleanLabel !== "" ? "@" . $cleanLabel : "");
 }
 
@@ -528,53 +528,58 @@ function GetPlayableFastAbilities($player) {
     $savedPlayerID = $playerID;
     $playerID = $player;
 
-    $field = &GetField($player);
     $choices = [];
     $existingFlash = function_exists("GetFlashMessage") ? GetFlashMessage() : "";
+    $abilityZones = [
+        "myField" => GetField($player),
+        "myIntent" => GetIntent($player),
+    ];
 
-    foreach($field as $i => $obj) {
-        if($obj == null) continue;
-        if($obj->removed || HasNoAbilities($obj)) continue;
-        if($obj->CardID === "uvgflagxbb" && HasOpportunity($player)) continue;
-        if($obj->CardID === "wCAIuvPOAT" && CountPreservedCardsInMaterial($player) < 5) continue;
-        if(GetCounterCount($obj, "frenzy") > 0) continue;
-        if(isset($Cardistry_Cards[$obj->CardID]) && isset($obj->Counters['cardistry_used'])) continue;
+    foreach($abilityZones as $zonePrefix => $zone) {
+        foreach($zone as $i => $obj) {
+            if($obj == null) continue;
+            if($obj->removed || HasNoAbilities($obj)) continue;
+            if($obj->CardID === "uvgflagxbb" && HasOpportunity($player)) continue;
+            if($obj->CardID === "wCAIuvPOAT" && CountPreservedCardsInMaterial($player) < 5) continue;
+            if(GetCounterCount($obj, "frenzy") > 0) continue;
+            if(isset($Cardistry_Cards[$obj->CardID]) && isset($obj->Counters['cardistry_used'])) continue;
 
-        $mzID = "myField-" . $i;
-        $staticAbilityCount = CardActivateAbilityCount($obj->CardID);
-        $staticAbilityNames = function_exists("CardActivateAbilityCountNames")
-            ? CardActivateAbilityCountNames($obj->CardID)
-            : [];
+            $mzID = $zonePrefix . "-" . $i;
+            $staticAbilityCount = CardActivateAbilityCount($obj->CardID);
+            $staticAbilityNames = function_exists("CardActivateAbilityCountNames")
+                ? CardActivateAbilityCountNames($obj->CardID)
+                : [];
 
-        for($abilityIndex = 0; $abilityIndex < $staticAbilityCount; ++$abilityIndex) {
-            $canActivate = function_exists("CanActivateAbility")
-                ? CanActivateAbility($player, $mzID, $abilityIndex)
-                : true;
-            if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
-            if(!$canActivate) continue;
+            for($abilityIndex = 0; $abilityIndex < $staticAbilityCount; ++$abilityIndex) {
+                $canActivate = function_exists("CanActivateAbility")
+                    ? CanActivateAbility($player, $mzID, $abilityIndex)
+                    : true;
+                if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
+                if(!$canActivate) continue;
 
-            $label = $staticAbilityNames[$abilityIndex] ?? ("Ability_" . ($abilityIndex + 1));
-            $choices[] = EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label);
-        }
+                $label = $staticAbilityNames[$abilityIndex] ?? ("Ability_" . ($abilityIndex + 1));
+                $choices[] = EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label);
+            }
 
-        $dynamicAbilitiesRaw = GetDynamicAbilities($obj);
-        if($dynamicAbilitiesRaw === "" || $dynamicAbilitiesRaw === "[]") continue;
+            $dynamicAbilitiesRaw = GetDynamicAbilities($obj);
+            if($dynamicAbilitiesRaw === "" || $dynamicAbilitiesRaw === "[]") continue;
 
-        $dynamicAbilities = json_decode($dynamicAbilitiesRaw, true);
-        if(!is_array($dynamicAbilities)) continue;
+            $dynamicAbilities = json_decode($dynamicAbilitiesRaw, true);
+            if(!is_array($dynamicAbilities)) continue;
 
-        foreach($dynamicAbilities as $dynamicAbility) {
-            $abilityIndex = intval($dynamicAbility['index'] ?? -1);
-            if($abilityIndex < 0) continue;
+            foreach($dynamicAbilities as $dynamicAbility) {
+                $abilityIndex = intval($dynamicAbility['index'] ?? -1);
+                if($abilityIndex < 0) continue;
 
-            $canActivate = function_exists("CanActivateAbility")
-                ? CanActivateAbility($player, $mzID, $abilityIndex)
-                : true;
-            if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
-            if(!$canActivate) continue;
+                $canActivate = function_exists("CanActivateAbility")
+                    ? CanActivateAbility($player, $mzID, $abilityIndex)
+                    : true;
+                if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
+                if(!$canActivate) continue;
 
-            $label = str_replace(" ", "_", $dynamicAbility['name'] ?? ("Ability_" . ($abilityIndex + 1)));
-            $choices[] = EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label);
+                $label = str_replace(" ", "_", $dynamicAbility['name'] ?? ("Ability_" . ($abilityIndex + 1)));
+                $choices[] = EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label);
+            }
         }
     }
 

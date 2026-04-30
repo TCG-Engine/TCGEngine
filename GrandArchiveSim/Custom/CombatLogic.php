@@ -154,6 +154,7 @@ function GetTotalAttackPower($attackerObj, $player) {
  *   - Weapons used in the attack
  */
 function AttackerHasTrueSight($attackerMZ, $player) {
+    if(!is_string($attackerMZ) || $attackerMZ === "" || $attackerMZ === "-") return false;
     // Check the attacking unit
     $attacker = &GetZoneObject($attackerMZ);
     if(HasTrueSight($attacker)) return true;
@@ -183,8 +184,10 @@ function AttackerHasTrueSight($attackerMZ, $player) {
  *   - Weapons used in the attack
  */
 function AttackerHasCleave($attackerMZ, $player) {
+    if(!is_string($attackerMZ) || $attackerMZ === "" || $attackerMZ === "-") return false;
     // Check the attacking unit
     $attacker = &GetZoneObject($attackerMZ);
+    if($attacker === null) return false;
     if(!HasNoAbilities($attacker) && HasKeyword_Cleave($attacker)) return true;
 
     // Check attack cards in intent
@@ -238,6 +241,7 @@ function AttackerHasCleave($attackerMZ, $player) {
  *   - Taunt: if any remaining opposing awake unit has Taunt, only those may be targeted.
  */
 function GetValidAttackTargets($attackerMZ) {
+    if(!is_string($attackerMZ) || $attackerMZ === "" || $attackerMZ === "-") return [];
     global $playerID;
     $player = (strpos($attackerMZ, "my") === 0) ? $playerID : (($playerID == 1) ? 2 : 1);
 
@@ -1955,7 +1959,7 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         $ssOwner = ($player == 1) ? 2 : 1;
         $ssField = GetField($ssOwner);
         for($ssi = count($ssField) - 1; $ssi >= 0; $ssi--) {
-            if(!$ssField[$ssi]->removed && $ssField[$ssi]->CardID === "kk46Whz7CJ") {
+            if($ssField[$ssi] !== null && !$ssField[$ssi]->removed && $ssField[$ssi]->CardID === "kk46Whz7CJ") {
                 DecisionQueueController::AddDecision($ssOwner, "YESNO", "-", 51, tooltip:"Banish_Surveillance_Stone_to_draw?");
                 DecisionQueueController::AddDecision($ssOwner, "CUSTOM", "SurveillanceStone", 51);
                 break;
@@ -1988,7 +1992,7 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         global $playerID;
         $prefix = ($defPlayer == $playerID) ? "myField" : "theirField";
         foreach($defField as $dfIdx => $dfObj) {
-            if(!$dfObj->removed && $dfObj->CardID === "80yu75k0hl" && !HasNoAbilities($dfObj)) {
+            if($dfObj !== null && !$dfObj->removed && $dfObj->CardID === "80yu75k0hl" && !HasNoAbilities($dfObj)) {
                 $shieldMZ = $prefix . "-" . $dfIdx;
                 $shieldMZForDefender = ConvertMzToPlayerPerspective($shieldMZ, $defPlayer);
                 DecisionQueueController::AddDecision($defPlayer, "YESNO", "-", 98,
@@ -2266,7 +2270,7 @@ $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
         $ssOwner = ($player == 1) ? 2 : 1;
         $ssField = GetField($ssOwner);
         for($ssi = count($ssField) - 1; $ssi >= 0; $ssi--) {
-            if(!$ssField[$ssi]->removed && $ssField[$ssi]->CardID === "kk46Whz7CJ") {
+            if($ssField[$ssi] !== null && !$ssField[$ssi]->removed && $ssField[$ssi]->CardID === "kk46Whz7CJ") {
                 DecisionQueueController::AddDecision($ssOwner, "YESNO", "-", 51, tooltip:"Banish_Surveillance_Stone_to_draw?");
                 DecisionQueueController::AddDecision($ssOwner, "CUSTOM", "SurveillanceStone", 51);
                 break;
@@ -2425,7 +2429,7 @@ $customDQHandlers["SurveillanceStone"] = function($player, $parts, $lastDecision
     if($lastDecision !== "YES") return;
     $ssField = GetField($player);
     for($ssi = count($ssField) - 1; $ssi >= 0; $ssi--) {
-        if(!$ssField[$ssi]->removed && $ssField[$ssi]->CardID === "kk46Whz7CJ") {
+        if($ssField[$ssi] !== null && !$ssField[$ssi]->removed && $ssField[$ssi]->CardID === "kk46Whz7CJ") {
             MZMove($player, "myField-" . $ssi, "myBanish");
             Draw($player, amount: 1);
             break;

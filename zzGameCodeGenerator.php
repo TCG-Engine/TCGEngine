@@ -1785,6 +1785,17 @@ function AddWriteGamestate() {
   $writeGamestate .= "  global \$gameName;\r\n";
   $writeGamestate .= "  \$filename = \$filepath . \"Games/\$gameName/Gamestate.txt\";\r\n";
   $writeGamestate .= "  \$handler = fopen(\$filename, \"w\");\r\n";
+  $writeGamestate .= "  \$writeZone = function(\$zone) use (\$handler) {\r\n";
+  $writeGamestate .= "    \$zoneText = \"\";\r\n";
+  $writeGamestate .= "    \$count = 0;\r\n";
+  $writeGamestate .= "    foreach(\$zone as \$obj) {\r\n";
+  $writeGamestate .= "      if(\$obj == null || \$obj->Removed()) continue;\r\n";
+  $writeGamestate .= "      ++\$count;\r\n";
+  $writeGamestate .= "      \$zoneText .= trim(\$obj->Serialize()) . \"\\r\\n\";\r\n";
+  $writeGamestate .= "    }\r\n";
+  $writeGamestate .= "    fwrite(\$handler, \$count . \"\\r\\n\");\r\n";
+  $writeGamestate .= "    fwrite(\$handler, \$zoneText);\r\n";
+  $writeGamestate .= "  };\r\n";
   //First write global data
   $writeGamestate .= "  fwrite(\$handler, \$currentPlayer . \"\\r\\n\");\r\n";
   $writeGamestate .= "  fwrite(\$handler, \$updateNumber . \"\\r\\n\");\r\n";
@@ -1797,15 +1808,7 @@ function AddWriteGamestate() {
       if ($zone->DisplayMode == 'Value') {
         $writeGamestate .= "  fwrite(\$handler, \$g" . $zoneName . " . \"\\r\\n\");\r\n";
       } else {
-        $writeGamestate .= "  \$zoneText = \"\";\r\n";
-        $writeGamestate .= "  \$count = 0;\r\n";
-        $writeGamestate .= "  for(\$i=0; \$i<count(\$g" . $zoneName . "); ++\$i) {\r\n";
-        $writeGamestate .= "    if(\$g" . $zoneName . "[\$i] == null || \$g" . $zoneName . "[\$i]->Removed()) continue;\r\n";
-        $writeGamestate .= "    ++\$count;\r\n";
-        $writeGamestate .= "    \$zoneText .= trim(\$g" . $zoneName . "[\$i]->Serialize()) . \"\\r\\n\";\r\n";
-        $writeGamestate .= "  }\r\n";
-        $writeGamestate .= "  fwrite(\$handler, \$count . \"\\r\\n\");\r\n";
-        $writeGamestate .= "  fwrite(\$handler, \$zoneText);\r\n";
+        $writeGamestate .= "  \$writeZone(\$g" . $zoneName . ");\r\n";
       }
     } else {
       if ($zone->DisplayMode == 'Value') {
@@ -1823,15 +1826,7 @@ function AddWriteGamestate() {
 
 function AddWriteZone($zoneName, $player) {
   $rv = "";
-  $rv .= "  \$zoneText = \"\";\r\n";
-  $rv .= "  \$count = 0;\r\n";
-  $rv .= "  for(\$i=0; \$i<count(\$p" . $player . $zoneName . "); ++\$i) {\r\n";
-  $rv .= "    if(\$p" . $player . $zoneName . "[\$i] == null || \$p" . $player . $zoneName . "[\$i]->Removed()) continue;\r\n";
-  $rv .= "    ++\$count;\r\n";
-  $rv .= "    \$zoneText .= trim(\$p" . $player . $zoneName . "[\$i]->Serialize()) . \"\\r\\n\";\r\n";
-  $rv .= "  }\r\n";
-  $rv .= "  fwrite(\$handler, \$count . \"\\r\\n\");\r\n";
-  $rv .= "  fwrite(\$handler, \$zoneText);\r\n";
+  $rv .= "  \$writeZone(\$p" . $player . $zoneName . ");\r\n";
   return $rv;
 }
 

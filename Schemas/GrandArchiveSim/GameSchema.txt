@@ -104,8 +104,12 @@ Intent - CardID:string, Controller:number, TurnEffects:array[string]
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: DisplayEffects=CardDisplayEffects()
+Virtual: DynamicAbilities=GetDynamicAbilities()
+Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
 Display: Visibility=Public, Mode=All, Bottom=230px, Left=10px
+Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Click: FSM()
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Memory - CardID:string

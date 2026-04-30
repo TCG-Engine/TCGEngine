@@ -4245,6 +4245,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
 function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
+    if($sourceObject === null || (isset($sourceObject->removed) && $sourceObject->removed)) return;
     // Capture cardID now — the card may be moved to banishment as a cost below.
     $cardID = $sourceObject->CardID;
     if($cardID === "uvgflagxbb" && HasOpportunity($player)) return; // Coronal of Rejuvenation: slow speed only
@@ -9776,6 +9777,7 @@ function ObjectCurrentLevel($obj) {
             $oppZone = $obj->Controller == $playerID ? "theirField" : "myField";
             $tomeField = GetZone($oppZone);
             foreach($tomeField as $tObj) {
+                    if($tObj === null) continue;
                 if(!$tObj->removed && $tObj->CardID === "dz4qd82liq" && !HasNoAbilities($tObj)) {
                     if(IsClassBonusActive($tObj->Controller, ["MAGE"])) {
                         $cardLevel -= 1;
@@ -9789,6 +9791,7 @@ function ObjectCurrentLevel($obj) {
             $oppZone = $obj->Controller == $playerID ? "theirField" : "myField";
             $subField = GetZone($oppZone);
             foreach($subField as $sObj) {
+                    if($sObj === null) continue;
                 if(!$sObj->removed && $sObj->CardID === "zfb0pzm6qp" && !HasNoAbilities($sObj)) {
                     if(IsGuoJiaBonus($sObj->Controller)) {
                         $cardLevel -= 1;
@@ -9803,6 +9806,7 @@ function ObjectCurrentLevel($obj) {
             $oppZone = $obj->Controller == $playerID ? "theirField" : "myField";
             $oppField = GetZone($oppZone);
             foreach($oppField as $seaObj) {
+                    if($seaObj === null) continue;
                 if(!$seaObj->removed && $seaObj->CardID === "y5e4a8a23l" && !HasNoAbilities($seaObj)) {
                     $cardLevel -= 1;
                     break;
@@ -9814,6 +9818,7 @@ function ObjectCurrentLevel($obj) {
         $field = GetZone($zone);
         $appliedPassives = [];
         foreach($field as $fieldObj) {
+                if($fieldObj === null || $fieldObj->removed) continue;
             $fID = $fieldObj->CardID;
             if(isset($appliedPassives[$fID])) continue;
             switch($fID) {
@@ -9864,6 +9869,7 @@ function ObjectCurrentLevel($obj) {
                     break;
                 case "t203gysyp8": // Cowl of the Wild: +1 level while you control a non-Human Tamer ally
                     foreach($field as $allyObj) {
+                            if($allyObj === null) continue;
                         if($allyObj->removed || !PropertyContains(EffectiveCardType($allyObj), "ALLY")) continue;
                         if(!PropertyContains(EffectiveCardClasses($allyObj), "TAMER")) continue;
                         if(PropertyContains(EffectiveCardSubtypes($allyObj), "HUMAN")) continue;
@@ -9891,6 +9897,7 @@ function ObjectCurrentLevel($obj) {
         // Material zone passives — items that grant level while materialized
         $matZone = GetMaterial($obj->Controller);
         foreach($matZone as $matObj) {
+                if($matObj === null) continue;
             if($matObj->removed) continue;
             switch($matObj->CardID) {
                 case "yDARN8eV6B": // Tome of Knowledge: [Class Bonus] champion gets +1 level
@@ -9902,6 +9909,7 @@ function ObjectCurrentLevel($obj) {
                     if(IsClassBonusActive($obj->Controller, ["MAGE"])) {
                         $champField = GetZone($zone);
                         foreach($champField as $cObj) {
+                                if($cObj === null || $cObj->removed) continue;
                             if(PropertyContains(CardType($cObj->CardID), "CHAMPION")) {
                                 $enlighten = GetCounterCount($cObj, "enlighten");
                                 $cardLevel += intdiv($enlighten, 3);
@@ -9931,6 +9939,7 @@ function ObjectCurrentLevel($obj) {
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller != -1 && $obj->CardID !== "l5izukgdmh") {
         $allField = array_merge(GetZone("myField"), GetZone("theirField"));
         foreach($allField as $fObj) {
+                if($fObj === null) continue;
             if($fObj->removed || HasNoAbilities($fObj)) continue;
             if($fObj->CardID === "l5izukgdmh") {
                 $cardLevel -= 3;
@@ -12253,13 +12262,15 @@ function CardHasAbility($obj) {
     global $debugMode;
     if(HasNoAbilities($obj)) return 0;
     $hasDynamic = GetDynamicAbilities($obj) !== "";
+    $isIntentObject = isset($obj->Location) && $obj->Location === "Intent";
     if($debugMode) {
         return (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic) ? 1 : 0;
     }
     $turnPlayer = &GetTurnPlayer();
     $hasAbility = (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic);
     if(!$hasAbility) return 0;
-    if($obj->Status != 2 || $turnPlayer != $obj->Controller) return 0;
+    if($turnPlayer != $obj->Controller) return 0;
+    if(!$isIntentObject && $obj->Status != 2) return 0;
 
     // Cunning Broker (oy34bro89w): requires 2+ prep counters on champion
     if($obj->CardID === "oy34bro89w") {
@@ -14036,6 +14047,12 @@ function HandleZoneMoveTriggers($player, $fromZone, $toZone) {
             }
         }
     }
+}
+
+function GetOpponent($player) {
+    if($player == 1) return 2;
+    if($player == 2) return 1;
+    return null;
 }
 
 /**
@@ -15945,6 +15962,7 @@ function HasIntercept($obj) {
 }
 
 function HasTrueSight($obj) {
+    if($obj === null) return false;
     if(HasNoAbilities($obj)) return false;
     if(MaryAnnOmensHaveKeyword($obj, "TrueSight")) return true;
     if(HasKeyword_TrueSight($obj)) return true;
@@ -16597,7 +16615,7 @@ function ApplyGeneratedReserveLikeCostModifiers($player, $subjectObj, $currentCo
 
         foreach([1, 2] as $fieldPlayer) {
             foreach(GetField($fieldPlayer) as $fieldObj) {
-                if($fieldObj->removed || HasNoAbilities($fieldObj)) continue;
+                if($fieldObj === null || $fieldObj->removed || HasNoAbilities($fieldObj)) continue;
                 $currentCost += $evaluator($fieldObj->CardID, $player, $subjectObj, $currentCost, $fieldObj);
             }
         }
@@ -18817,7 +18835,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     // Efficiency: reduce cost by champion's current level
     if(isset($Efficiency_Cards[$cardID])) {
         foreach(GetZone("myField") as $fieldObj) {
-            if(PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
+            if($fieldObj !== null && PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
                 $reserveCost = max(0, $reserveCost - ObjectCurrentLevel($fieldObj));
                 break;
             }
@@ -18827,7 +18845,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     // Strategem of Myriad Ice (id0ybub247): conditional efficiency when SC faces East
     if($cardID === "id0ybub247" && GetShiftingCurrents($player) === "EAST") {
         foreach(GetZone("myField") as $fieldObj) {
-            if(PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
+            if($fieldObj !== null && PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
                 $reserveCost = max(0, $reserveCost - ObjectCurrentLevel($fieldObj));
                 break;
             }
@@ -18857,7 +18875,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     if($player !== $turnPlayer) {
         $oppFieldZone = ($turnPlayer == $playerID) ? "myField" : "theirField";
         foreach(GetZone($oppFieldZone) as $oppObj) {
-            if(!$oppObj->removed && $oppObj->CardID === "s3572j3oda") {
+            if($oppObj !== null && !$oppObj->removed && $oppObj->CardID === "s3572j3oda") {
                 if(CardElement($cardID) === "WATER") $reserveCost += 2;
                 break;
             }
@@ -18866,7 +18884,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
 
     // Nia, Mistveiled Scout (PZM9uvCFai): named card costs 1 more
     foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $niaObj) {
-        if($niaObj->removed || $niaObj->CardID !== "PZM9uvCFai") continue;
+        if($niaObj === null || $niaObj->removed || $niaObj->CardID !== "PZM9uvCFai") continue;
         foreach($niaObj->TurnEffects as $niaTe) {
             if(strpos($niaTe, "PZM9uvCFai-") === 0
                 && $cardID === substr($niaTe, strlen("PZM9uvCFai-"))) {
@@ -18879,7 +18897,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     // Dawn of Ashes (4coy34bro8): non-norm element cards cost 1 more
     if(CardElement($cardID) !== "NORM") {
         foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $fObj) {
-            if(!$fObj->removed && $fObj->CardID === "4coy34bro8") { $reserveCost += 1; break; }
+            if($fObj !== null && !$fObj->removed && $fObj->CardID === "4coy34bro8") { $reserveCost += 1; break; }
         }
     }
 
@@ -18902,7 +18920,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
 
     // Optical Control (j4U5Tu76Lz): chosen card type opponents activate costs 4 more
     foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $ocObj) {
-        if($ocObj->removed || $ocObj->CardID !== "j4U5Tu76Lz" || HasNoAbilities($ocObj)) continue;
+        if($ocObj === null || $ocObj->removed || $ocObj->CardID !== "j4U5Tu76Lz" || HasNoAbilities($ocObj)) continue;
         if($ocObj->Controller == $player) continue;
         foreach($ocObj->TurnEffects ?? [] as $effect) {
             if(strpos($effect, "j4U5Tu76Lz-") !== 0) continue;
@@ -18917,7 +18935,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
 
     // Jianyu, Fate's Premonition (qv0vn6tuow): chosen card name costs 2+X more
     foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $fieldObj) {
-        if($fieldObj->removed || $fieldObj->CardID !== "qv0vn6tuow" || HasNoAbilities($fieldObj)) continue;
+        if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "qv0vn6tuow" || HasNoAbilities($fieldObj)) continue;
         foreach($fieldObj->TurnEffects ?? [] as $effect) {
             if(strpos($effect, "qv0vn6tuow-") !== 0) continue;
             if($cardID !== substr($effect, strlen("qv0vn6tuow-"))) continue;
@@ -18929,7 +18947,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
 
     // Kingdom's Divide (qy34r8gffr): chosen card name costs 2 more
     foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $fieldObj) {
-        if($fieldObj->removed || !PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) continue;
+        if($fieldObj === null || $fieldObj->removed || !PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) continue;
         foreach($fieldObj->TurnEffects ?? [] as $effect) {
             if(strpos($effect, "qy34r8gffr-") !== 0) continue;
             if($cardID === substr($effect, strlen("qy34r8gffr-"))) { $reserveCost += 2; break 2; }
@@ -19004,7 +19022,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     // Waited Accord (xF9phlSAkE): first advanced element card each turn costs 2 more per active copy
     if(IsAdvancedElementCard($cardID) && AdvancedElementActivatedCount($player) == 0) {
         foreach(array_merge(GetField(1), GetField(2)) as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "xF9phlSAkE" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "xF9phlSAkE" || HasNoAbilities($fieldObj)) continue;
             if(intval($fieldObj->Counters["waitedAccordActive"] ?? 0) > 0) $reserveCost += 2;
         }
     }
@@ -19013,7 +19031,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     if($player !== $turnPlayer) {
         $keepZone = ($turnPlayer == $playerID) ? "myField" : "theirField";
         foreach(GetZone($keepZone) as $kObj) {
-            if(!$kObj->removed && $kObj->CardID === "gjhv2etytr" && !HasNoAbilities($kObj)) {
+            if($kObj !== null && !$kObj->removed && $kObj->CardID === "gjhv2etytr" && !HasNoAbilities($kObj)) {
                 if(CardActivatedCallCount($player) == 0) $reserveCost += 1;
                 break;
             }
@@ -19023,7 +19041,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     // Calamity Cannon (lwabipl6gt): [Polkhawk Bonus] costs 3 less
     if($cardID === "lwabipl6gt") {
         foreach(GetZone("myField") as $fObj) {
-            if(!$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
+            if($fObj !== null && !$fObj->removed && PropertyContains(EffectiveCardType($fObj), "CHAMPION")) {
                 if(in_array($fObj->CardID, ["ryvfq3huqj", "8eyeqhc37y"])) $reserveCost = max(0, $reserveCost - 3);
                 break;
             }

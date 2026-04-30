@@ -1,0 +1,190 @@
+1
+380
+38
+7K9pWqEc20
+UaUfw7yFTW
+Byx6iokcT4
+iD8qbpA8z5
+kvoqk1l75t
+0rKmarZ8QN
+sbalegbscx
+0rKmarZ8QN
+q1b6htzcox
+kvoqk1l75t
+BqDw4Mei4C
+At1UNRG7F0
+o3M5ZWSL6E
+sbalegbscx
+cnqsm3n9yv
+UaUfw7yFTW
+o3M5ZWSL6E
+DsiRzt0trX
+em6eEh9q8y
+o3M5ZWSL6E
+At1UNRG7F0
+f15joh300z
+1wl8ao8bls
+eifnz0fgm3
+em6eEh9q8y
+o3M5ZWSL6E
+BqDw4Mei4C
+Pr48kXnasw
+7JjxD8xRVq
+Pr48kXnasw
+0xayo7mk1w
+0rKmarZ8QN
+0rKmarZ8QN
+q1b6htzcox
+0xayo7mk1w
+q1b6htzcox
+em6eEh9q8y
+iD8qbpA8z5
+42
+eifnz0fgm3
+1wl8ao8bls
+1wl8ao8bls
+DsiRzt0trX
+em6eEh9q8y
+cnqsm3n9yv
+BqDw4Mei4C
+Pr48kXnasw
+1db8hz4prm
+em6eEh9q8y
+7JjxD8xRVq
+sbalegbscx
+0rKmarZ8QN
+eifnz0fgm3
+7K9pWqEc20
+At1UNRG7F0
+0xayo7mk1w
+0rKmarZ8QN
+o3M5ZWSL6E
+iD8qbpA8z5
+0rKmarZ8QN
+kvoqk1l75t
+f15joh300z
+DsiRzt0trX
+Pr48kXnasw
+0rKmarZ8QN
+7JjxD8xRVq
+BqDw4Mei4C
+Byx6iokcT4
+7K9pWqEc20
+o3M5ZWSL6E
+f15joh300z
+1db8hz4prm
+DsiRzt0trX
+o3M5ZWSL6E
+iD8qbpA8z5
+eifnz0fgm3
+BqDw4Mei4C
+0xayo7mk1w
+em6eEh9q8y
+BqDw4Mei4C
+At1UNRG7F0
+7
+eifnz0fgm3 - -
+BqDw4Mei4C - eyJvbWVuIjoxfQ==
+UaUfw7yFTW - eyJvbWVuIjoxfQ==
+iD8qbpA8z5 - eyJvbWVuIjoxfQ==
+eifnz0fgm3 - -
+em6eEh9q8y - -
+kvoqk1l75t - eyJvbWVuIjoxfQ==
+10
+q1b6htzcox - -
+q1b6htzcox - -
+o3M5ZWSL6E - -
+At1UNRG7F0 - eyJvbWVuIjoxfQ==
+9gv4vm4kj3 - -
+iD8qbpA8z5 - eyJvbWVuIjoxfQ==
+eifnz0fgm3 - -
+UaUfw7yFTW - -
+Pr48kXnasw - -
+q1b6htzcox SERVILE_POSSESSIONS_POWER_2 eyJvbWVuIjoxfQ==
+6
+1db8hz4prm
+7JjxD8xRVq
+Pr48kXnasw
+iD8qbpA8z5
+BqDw4Mei4C
+eifnz0fgm3
+4
+UaUfw7yFTW
+UaUfw7yFTW
+iD8qbpA8z5
+kvoqk1l75t
+0
+4
+ANGELIC_CHANNELING_PENDING
+ANGELIC_CHANNELING_PENDING
+LEVELED_UP_THIS_TURN
+CHAMP_DEALT_COMBAT_DMG
+2
+7K9pWqEc20
+At1UNRG7F0
+2
+0xayo7mk1w
+kvoqk1l75t
+7
+DsiRzt0trX 1 1 0 1 - - -
+9gv4vm4kj3 2 1 0 1 - - -
+0xayo7mk1w 1 1 0 1 - - -
+fm894uc4ij 2 1 0 1 - - -
+1db8hz4prm 1 1 0 1 - eyJjYXJkaXN0cnlfdXNlZCI6MX0= -
+o69ogocemo 1 1 14 1 WAS_ATTACKED~DAMAGED_SINCE_LAST_TURN~CHAMP_DMG_BY_P2 eyJwcmVwYXJhdGlvbiI6MSwiX2NoYW1wQ29tYmF0RGFtYWdlRGVhbHRUaGlzVHVybiI6OCwiX2NoYW1wRGFtYWdlVGhpc1R1cm4iOjd9 WyJubjQ4bmU4YTA1IiwiTE15S3lWQzJPOSJd
+0xayo7mk1w 1 1 0 1 EPHEMERAL - -
+4
+qzzadf9q1v 2 2 0 2 - - -
+fm894uc4ij 2 2 0 2 ENTERED_THIS_TURN - -
+em6eEh9q8y 2 2 0 2 ENTERED_THIS_TURN - -
+zhh43i1eaa 1 2 18 2 vz4kc558yx-ALLY_ACTIVATED~ENTERED_THIS_TURN eyJfY2hhbXBDb21iYXREYW1hZ2VEZWFsdFRoaXNUdXJuIjoxNH0= WyJvNjlvZ29jZW1vIiwibm40OG5lOGEwNSIsIkxNeUt5VkMyTzkiXQ==
+0
+0
+4
+f15joh300z
+Byx6iokcT4
+DsiRzt0trX
+1wl8ao8bls
+3
+sbalegbscx
+Byx6iokcT4
+0xayo7mk1w
+7
+zhh43i1eaa
+UiohpiTtgs
+yj2rJBREH8
+xnrw8qq1uw
+DNbIpzVgde
+1keruycrwi
+s4b2mkh1xm
+6
+UiohpiTtgs
+yj2rJBREH8
+xnrw8qq1uw
+DNbIpzVgde
+1keruycrwi
+s4b2mkh1xm
+0
+0
+0
+0
+1
+0d93t7bfwc NONE -
+1
+0d93t7bfwc NONE -
+0
+0
+1
+0:1<v0>MAIN<v0>5<v0><v0>f15joh300z<v1>Byx6iokcT4<v1>DsiRzt0trX<v1>kvoqk1l75t<v1>1wl8ao8bls<v1>7K9pWqEc20<v1>At1UNRG7F0<v0><v0>1db8hz4prm<v1>7JjxD8xRVq<v1>Pr48kXnasw<v1>iD8qbpA8z5<v1>BqDw4Mei4C<v1>eifnz0fgm3<v0>7K9pWqEc20<v1>UaUfw7yFTW<v1>Byx6iokcT4<v1>iD8qbpA8z5<v1>kvoqk1l75t<v1>0rKmarZ8QN<v1>sbalegbscx<v1>0rKmarZ8QN<v1>q1b6htzcox<v1>kvoqk1l75t<v1>BqDw4Mei4C<v1>At1UNRG7F0<v1>o3M5ZWSL6E<v1>sbalegbscx<v1>cnqsm3n9yv<v1>UaUfw7yFTW<v1>o3M5ZWSL6E<v1>DsiRzt0trX<v1>em6eEh9q8y<v1>o3M5ZWSL6E<v1>At1UNRG7F0<v1>f15joh300z<v1>1wl8ao8bls<v1>eifnz0fgm3<v1>em6eEh9q8y<v1>o3M5ZWSL6E<v1>BqDw4Mei4C<v1>Pr48kXnasw<v1>7JjxD8xRVq<v1>Pr48kXnasw<v1>0xayo7mk1w<v1>0rKmarZ8QN<v1>0rKmarZ8QN<v1>q1b6htzcox<v1>0xayo7mk1w<v1>q1b6htzcox<v1>em6eEh9q8y<v1>iD8qbpA8z5<v0><v0>0<v0>0d93t7bfwc<v2>NONE<v2>-<v0>LEVELED_UP_THIS_TURN<v0>zhh43i1eaa<v1>UiohpiTtgs<v1>yj2rJBREH8<v1>xnrw8qq1uw<v1>DNbIpzVgde<v1>1keruycrwi<v1>s4b2mkh1xm<v0>DsiRzt0trX<v2>1<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v1>9gv4vm4kj3<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v1>0xayo7mk1w<v2>1<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v1>fm894uc4ij<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v1>1db8hz4prm<v2>1<v2>1<v2>0<v2>1<v2>-<v2>eyJjYXJkaXN0cnlfdXNlZCI6MX0=<v2>-<v1>o69ogocemo<v2>2<v2>1<v2>7<v2>1<v2>ENTERED_THIS_TURN<v2>eyJwcmVwYXJhdGlvbiI6MX0=<v2>WyJubjQ4bmU4YTA1IiwiTE15S3lWQzJPOSJd<v1>0xayo7mk1w<v2>1<v2>1<v2>0<v2>1<v2>ENTERED_THIS_TURN~EPHEMERAL<v2>-<v2>-<v0><v0><v0>eifnz0fgm3<v2>-<v2>-<v1>BqDw4Mei4C<v2>-<v2>eyJvbWVuIjoxfQ==<v1>UaUfw7yFTW<v2>-<v2>eyJvbWVuIjoxfQ==<v1>iD8qbpA8z5<v2>-<v2>eyJvbWVuIjoxfQ==<v1>eifnz0fgm3<v2>-<v2>-<v1>em6eEh9q8y<v2>-<v2>-<v0>0xayo7mk1w<v0><v0>UaUfw7yFTW<v1>UaUfw7yFTW<v1>iD8qbpA8z5<v0>em6eEh9q8y<v1>eifnz0fgm3<v1>1wl8ao8bls<v1>1wl8ao8bls<v1>DsiRzt0trX<v1>em6eEh9q8y<v1>cnqsm3n9yv<v1>BqDw4Mei4C<v1>Pr48kXnasw<v1>1db8hz4prm<v1>em6eEh9q8y<v1>7JjxD8xRVq<v1>sbalegbscx<v1>0rKmarZ8QN<v1>eifnz0fgm3<v1>7K9pWqEc20<v1>At1UNRG7F0<v1>0xayo7mk1w<v1>0rKmarZ8QN<v1>o3M5ZWSL6E<v1>iD8qbpA8z5<v1>0rKmarZ8QN<v1>kvoqk1l75t<v1>f15joh300z<v1>DsiRzt0trX<v1>Pr48kXnasw<v1>0rKmarZ8QN<v1>7JjxD8xRVq<v1>BqDw4Mei4C<v1>Byx6iokcT4<v1>7K9pWqEc20<v1>o3M5ZWSL6E<v1>f15joh300z<v1>1db8hz4prm<v1>DsiRzt0trX<v1>o3M5ZWSL6E<v1>iD8qbpA8z5<v1>eifnz0fgm3<v1>BqDw4Mei4C<v1>0xayo7mk1w<v1>em6eEh9q8y<v1>BqDw4Mei4C<v1>At1UNRG7F0<v0><v0>0<v0>0d93t7bfwc<v2>NONE<v2>-<v0>ANGELIC_CHANNELING_PENDING<v1>ANGELIC_CHANNELING_PENDING<v0>zhh43i1eaa<v1>UiohpiTtgs<v1>fm894uc4ij<v1>yj2rJBREH8<v1>xnrw8qq1uw<v1>DNbIpzVgde<v1>1keruycrwi<v1>s4b2mkh1xm<v0>qzzadf9q1v<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v1>o69ogocemo<v2>1<v2>2<v2>10<v2>2<v2>WAS_ATTACKED~DAMAGED_SINCE_LAST_TURN<v2>eyJfY2hhbXBDb21iYXREYW1hZ2VEZWFsdFRoaXNUdXJuIjo3LCJfY2hhbXBEYW1hZ2VUaGlzVHVybiI6NH0=<v2>WyJubjQ4bmU4YTA1IiwiTE15S3lWQzJPOSJd<v0><v0>q1b6htzcox<v1>sbalegbscx<v1>Pr48kXnasw<v1>kvoqk1l75t<v1>Byx6iokcT4<v1>0xayo7mk1w<v0>q1b6htzcox<v2>-<v2>-<v1>q1b6htzcox<v2>-<v2>-<v1>o3M5ZWSL6E<v2>-<v2>-<v1>At1UNRG7F0<v2>-<v2>eyJvbWVuIjoxfQ==<v1>9gv4vm4kj3<v2>-<v2>-<v1>iD8qbpA8z5<v2>-<v2>eyJvbWVuIjoxfQ==<v1>eifnz0fgm3<v2>-<v2>-<v1>UaUfw7yFTW<v2>-<v2>-<v1>kvoqk1l75t<v2>-<v2>eyJvbWVuIjoxfQ==<v0>{"mzID":"myField-2","amount":1,"ignoreCost":false,"mzIDCardID":"iD8qbpA8z5","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"AngelicChannelingCount":"2","CombatDamageAmount":"1","source":"myField-2","target":"theirField-1","CombatKilledCardID":"iD8qbpA8z5","doDiscard":"YES"}<v0><v0>{"ActivateCardCalls":{"1":6,"2":6},"ActivateCard":{"1":{"1db8hz4prm":2,"DsiRzt0trX":1,"iD8qbpA8z5":1,"UaUfw7yFTW":1,"0xayo7mk1w":1},"2":{"o3M5ZWSL6E":1,"eifnz0fgm3":1,"iD8qbpA8z5":2,"At1UNRG7F0":1,"kvoqk1l75t":1}},"CardActivatedCalls":{"1":6,"2":6},"CardActivated":{"1":{"1db8hz4prm":2,"DsiRzt0trX":1,"iD8qbpA8z5":1,"UaUfw7yFTW":1,"0xayo7mk1w":1},"2":{"o3M5ZWSL6E":1,"eifnz0fgm3":1,"iD8qbpA8z5":2,"At1UNRG7F0":1,"kvoqk1l75t":1}},"EnterCalls":{"1":10,"2":7},"Enter":{"1":{"1db8hz4prm":2,"nn48ne8a05":1,"DsiRzt0trX":1,"iD8qbpA8z5":1,"9gv4vm4kj3":1,"0xayo7mk1w":2,"fm894uc4ij":1,"o69ogocemo":1},"2":{"eifnz0fgm3":1,"nn48ne8a05":1,"iD8qbpA8z5":2,"9gv4vm4kj3":1,"qzzadf9q1v":1,"o69ogocemo":1}},"ActivateAbilityCalls":{"1":2,"2":1},"ActivateAbility":{"1":{"1db8hz4prm":2},"2":{"9gv4vm4kj3":1}},"DrawCalls":{"1":13,"2":6},"Draw":{"1":13,"2":6},"MaterializeCalls":{"1":4,"2":3},"Materialize":{"1":{"nn48ne8a05":1,"9gv4vm4kj3":1,"fm894uc4ij":1,"o69ogocemo":1},"2":{"nn48ne8a05":1,"9gv4vm4kj3":1,"o69ogocemo":1}},"RestCardCalls":{"1":11,"2":2},"RestCard":{"1":{"1db8hz4prm":3,"DsiRzt0trX":4,"0xayo7mk1w":4},"2":{"nn48ne8a05":1,"o69ogocemo":1}},"OnAttackCalls":{"1":11,"2":2},"OnAttack":{"1":{"1db8hz4prm":3,"DsiRzt0trX":4,"0xayo7mk1w":4},"2":{"nn48ne8a05":1,"o69ogocemo":1}},"DealDamageCalls":{"1":11,"2":2},"AllyDestroyedCalls":{"1":3,"2":1},"AllyDestroyed":{"1":{"eifnz0fgm3":1,"iD8qbpA8z5":2},"2":{"1db8hz4prm":1}},"AttackCardActivated":{"2":2},"ReserveCardCalls":{"2":3}}<v0>0
+1
+0:2<v0>MAIN<v0>5<v0><v0>0xayo7mk1w<v1>0xayo7mk1w<v1>kvoqk1l75t<v1>q1b6htzcox<v0><v0>UaUfw7yFTW<v1>UaUfw7yFTW<v1>iD8qbpA8z5<v0>eifnz0fgm3<v1>1wl8ao8bls<v1>1wl8ao8bls<v1>DsiRzt0trX<v1>em6eEh9q8y<v1>cnqsm3n9yv<v1>BqDw4Mei4C<v1>Pr48kXnasw<v1>1db8hz4prm<v1>em6eEh9q8y<v1>7JjxD8xRVq<v1>sbalegbscx<v1>0rKmarZ8QN<v1>eifnz0fgm3<v1>7K9pWqEc20<v1>At1UNRG7F0<v1>0xayo7mk1w<v1>0rKmarZ8QN<v1>o3M5ZWSL6E<v1>iD8qbpA8z5<v1>0rKmarZ8QN<v1>kvoqk1l75t<v1>f15joh300z<v1>DsiRzt0trX<v1>Pr48kXnasw<v1>0rKmarZ8QN<v1>7JjxD8xRVq<v1>BqDw4Mei4C<v1>Byx6iokcT4<v1>7K9pWqEc20<v1>o3M5ZWSL6E<v1>f15joh300z<v1>1db8hz4prm<v1>DsiRzt0trX<v1>o3M5ZWSL6E<v1>iD8qbpA8z5<v1>eifnz0fgm3<v1>BqDw4Mei4C<v1>0xayo7mk1w<v1>em6eEh9q8y<v1>BqDw4Mei4C<v1>At1UNRG7F0<v0><v0>0<v0>0d93t7bfwc<v2>NONE<v2>-<v0>ANGELIC_CHANNELING_PENDING<v1>ANGELIC_CHANNELING_PENDING<v1>LEVELED_UP_THIS_TURN<v0>UiohpiTtgs<v1>yj2rJBREH8<v1>xnrw8qq1uw<v1>DNbIpzVgde<v1>1keruycrwi<v1>s4b2mkh1xm<v0>qzzadf9q1v<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v1>fm894uc4ij<v2>2<v2>2<v2>0<v2>2<v2>ENTERED_THIS_TURN<v2>-<v2>-<v1>em6eEh9q8y<v2>2<v2>2<v2>0<v2>2<v2>ENTERED_THIS_TURN<v2>-<v2>-<v1>zhh43i1eaa<v2>2<v2>2<v2>18<v2>2<v2>vz4kc558yx-ALLY_ACTIVATED~ENTERED_THIS_TURN<v2>eyJfY2hhbXBDb21iYXREYW1hZ2VEZWFsdFRoaXNUdXJuIjo3fQ==<v2>WyJvNjlvZ29jZW1vIiwibm40OG5lOGEwNSIsIkxNeUt5VkMyTzkiXQ==<v0><v0>sbalegbscx<v1>Byx6iokcT4<v0>q1b6htzcox<v2>-<v2>-<v1>q1b6htzcox<v2>-<v2>-<v1>o3M5ZWSL6E<v2>-<v2>-<v1>At1UNRG7F0<v2>-<v2>eyJvbWVuIjoxfQ==<v1>9gv4vm4kj3<v2>-<v2>-<v1>iD8qbpA8z5<v2>-<v2>eyJvbWVuIjoxfQ==<v1>eifnz0fgm3<v2>-<v2>-<v1>UaUfw7yFTW<v2>-<v2>-<v1>kvoqk1l75t<v2>-<v2>eyJvbWVuIjoxfQ==<v1>Pr48kXnasw<v2>-<v2>-<v0>7K9pWqEc20<v1>At1UNRG7F0<v0><v0>1db8hz4prm<v1>7JjxD8xRVq<v1>Pr48kXnasw<v1>iD8qbpA8z5<v1>BqDw4Mei4C<v1>eifnz0fgm3<v0>7K9pWqEc20<v1>UaUfw7yFTW<v1>Byx6iokcT4<v1>iD8qbpA8z5<v1>kvoqk1l75t<v1>0rKmarZ8QN<v1>sbalegbscx<v1>0rKmarZ8QN<v1>q1b6htzcox<v1>kvoqk1l75t<v1>BqDw4Mei4C<v1>At1UNRG7F0<v1>o3M5ZWSL6E<v1>sbalegbscx<v1>cnqsm3n9yv<v1>UaUfw7yFTW<v1>o3M5ZWSL6E<v1>DsiRzt0trX<v1>em6eEh9q8y<v1>o3M5ZWSL6E<v1>At1UNRG7F0<v1>f15joh300z<v1>1wl8ao8bls<v1>eifnz0fgm3<v1>em6eEh9q8y<v1>o3M5ZWSL6E<v1>BqDw4Mei4C<v1>Pr48kXnasw<v1>7JjxD8xRVq<v1>Pr48kXnasw<v1>0xayo7mk1w<v1>0rKmarZ8QN<v1>0rKmarZ8QN<v1>q1b6htzcox<v1>0xayo7mk1w<v1>q1b6htzcox<v1>em6eEh9q8y<v1>iD8qbpA8z5<v0><v0>0<v0>0d93t7bfwc<v2>NONE<v2>-<v0><v0>zhh43i1eaa<v1>UiohpiTtgs<v1>yj2rJBREH8<v1>xnrw8qq1uw<v1>DNbIpzVgde<v1>1keruycrwi<v1>s4b2mkh1xm<v0>DsiRzt0trX<v2>1<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v1>9gv4vm4kj3<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v1>0xayo7mk1w<v2>1<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v1>fm894uc4ij<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v1>1db8hz4prm<v2>1<v2>1<v2>0<v2>1<v2>-<v2>eyJjYXJkaXN0cnlfdXNlZCI6MX0=<v2>-<v1>o69ogocemo<v2>1<v2>1<v2>7<v2>1<v2>-<v2>eyJwcmVwYXJhdGlvbiI6MSwiX2NoYW1wQ29tYmF0RGFtYWdlRGVhbHRUaGlzVHVybiI6OH0=<v2>WyJubjQ4bmU4YTA1IiwiTE15S3lWQzJPOSJd<v1>0xayo7mk1w<v2>1<v2>1<v2>0<v2>1<v2>EPHEMERAL<v2>-<v2>-<v0><v0>f15joh300z<v1>Byx6iokcT4<v1>DsiRzt0trX<v1>1wl8ao8bls<v0>eifnz0fgm3<v2>-<v2>-<v1>BqDw4Mei4C<v2>-<v2>eyJvbWVuIjoxfQ==<v1>UaUfw7yFTW<v2>-<v2>eyJvbWVuIjoxfQ==<v1>iD8qbpA8z5<v2>-<v2>eyJvbWVuIjoxfQ==<v1>eifnz0fgm3<v2>-<v2>-<v1>em6eEh9q8y<v2>-<v2>-<v1>kvoqk1l75t<v2>-<v2>eyJvbWVuIjoxfQ==<v0>{"mzID":"myField-3","amount":1,"ignoreCost":false,"mzIDCardID":"em6eEh9q8y","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"AngelicChannelingCount":"2","CombatDamageAmount":"8","source":"myField-5","target":"theirField-1","CombatKilledCardID":"iD8qbpA8z5","doDiscard":"YES","doIt":"YES"}<v0><v0>{"ActivateCardCalls":{"1":7,"2":7},"ActivateCard":{"1":{"1db8hz4prm":2,"DsiRzt0trX":1,"iD8qbpA8z5":1,"UaUfw7yFTW":1,"0xayo7mk1w":1,"kvoqk1l75t":1},"2":{"o3M5ZWSL6E":1,"eifnz0fgm3":1,"iD8qbpA8z5":2,"At1UNRG7F0":1,"kvoqk1l75t":1,"em6eEh9q8y":1}},"CardActivatedCalls":{"1":7,"2":7},"CardActivated":{"1":{"1db8hz4prm":2,"DsiRzt0trX":1,"iD8qbpA8z5":1,"UaUfw7yFTW":1,"0xayo7mk1w":1,"kvoqk1l75t":1},"2":{"o3M5ZWSL6E":1,"eifnz0fgm3":1,"iD8qbpA8z5":2,"At1UNRG7F0":1,"kvoqk1l75t":1,"em6eEh9q8y":1}},"EnterCalls":{"1":10,"2":10},"Enter":{"1":{"1db8hz4prm":2,"nn48ne8a05":1,"DsiRzt0trX":1,"iD8qbpA8z5":1,"9gv4vm4kj3":1,"0xayo7mk1w":2,"fm894uc4ij":1,"o69ogocemo":1},"2":{"eifnz0fgm3":1,"nn48ne8a05":1,"iD8qbpA8z5":2,"9gv4vm4kj3":1,"qzzadf9q1v":1,"o69ogocemo":1,"fm894uc4ij":1,"em6eEh9q8y":1,"zhh43i1eaa":1}},"ActivateAbilityCalls":{"1":2,"2":1},"ActivateAbility":{"1":{"1db8hz4prm":2},"2":{"9gv4vm4kj3":1}},"DrawCalls":{"1":13,"2":7},"Draw":{"1":13,"2":7},"MaterializeCalls":{"1":4,"2":5},"Materialize":{"1":{"nn48ne8a05":1,"9gv4vm4kj3":1,"fm894uc4ij":1,"o69ogocemo":1},"2":{"nn48ne8a05":1,"9gv4vm4kj3":1,"o69ogocemo":1,"fm894uc4ij":1,"zhh43i1eaa":1}},"RestCardCalls":{"1":12,"2":2},"RestCard":{"1":{"1db8hz4prm":3,"DsiRzt0trX":4,"0xayo7mk1w":4,"o69ogocemo":1},"2":{"nn48ne8a05":1,"o69ogocemo":1}},"OnAttackCalls":{"1":12,"2":2},"OnAttack":{"1":{"1db8hz4prm":3,"DsiRzt0trX":4,"0xayo7mk1w":4,"o69ogocemo":1},"2":{"nn48ne8a05":1,"o69ogocemo":1}},"DealDamageCalls":{"1":12,"2":2},"AllyDestroyedCalls":{"1":3,"2":1},"AllyDestroyed":{"1":{"eifnz0fgm3":1,"iD8qbpA8z5":2},"2":{"1db8hz4prm":1}},"AttackCardActivated":{"2":2,"1":1},"ReserveCardCalls":{"2":3}}<v0>0
+5
+1
+2
+MAIN
+
+
+{"mzID":"myIntent-0","amount":7,"ignoreCost":false,"mzIDCardID":"q1b6htzcox","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"AngelicChannelingCount":"2","CombatDamageAmount":"7","source":"myField-3","target":"theirField-5","CombatKilledCardID":"iD8qbpA8z5","doDiscard":"YES","doIt":"YES","chosen":"myBanish-8"}
+0
+{"ActivateCardCalls":{"1":7,"2":8},"ActivateCard":{"1":{"1db8hz4prm":2,"DsiRzt0trX":1,"iD8qbpA8z5":1,"UaUfw7yFTW":1,"0xayo7mk1w":1,"kvoqk1l75t":1},"2":{"o3M5ZWSL6E":1,"eifnz0fgm3":1,"iD8qbpA8z5":2,"At1UNRG7F0":1,"kvoqk1l75t":1,"em6eEh9q8y":1,"q1b6htzcox":1}},"CardActivatedCalls":{"1":7,"2":8},"CardActivated":{"1":{"1db8hz4prm":2,"DsiRzt0trX":1,"iD8qbpA8z5":1,"UaUfw7yFTW":1,"0xayo7mk1w":1,"kvoqk1l75t":1},"2":{"o3M5ZWSL6E":1,"eifnz0fgm3":1,"iD8qbpA8z5":2,"At1UNRG7F0":1,"kvoqk1l75t":1,"em6eEh9q8y":1,"q1b6htzcox":1}},"EnterCalls":{"1":10,"2":10},"Enter":{"1":{"1db8hz4prm":2,"nn48ne8a05":1,"DsiRzt0trX":1,"iD8qbpA8z5":1,"9gv4vm4kj3":1,"0xayo7mk1w":2,"fm894uc4ij":1,"o69ogocemo":1},"2":{"eifnz0fgm3":1,"nn48ne8a05":1,"iD8qbpA8z5":2,"9gv4vm4kj3":1,"qzzadf9q1v":1,"o69ogocemo":1,"fm894uc4ij":1,"em6eEh9q8y":1,"zhh43i1eaa":1}},"ActivateAbilityCalls":{"1":2,"2":2},"ActivateAbility":{"1":{"1db8hz4prm":2},"2":{"9gv4vm4kj3":1,"q1b6htzcox":1}},"DrawCalls":{"1":13,"2":7},"Draw":{"1":13,"2":7},"MaterializeCalls":{"1":4,"2":5},"Materialize":{"1":{"nn48ne8a05":1,"9gv4vm4kj3":1,"fm894uc4ij":1,"o69ogocemo":1},"2":{"nn48ne8a05":1,"9gv4vm4kj3":1,"o69ogocemo":1,"fm894uc4ij":1,"zhh43i1eaa":1}},"RestCardCalls":{"1":12,"2":3},"RestCard":{"1":{"1db8hz4prm":3,"DsiRzt0trX":4,"0xayo7mk1w":4,"o69ogocemo":1},"2":{"nn48ne8a05":1,"o69ogocemo":1,"zhh43i1eaa":1}},"OnAttackCalls":{"1":12,"2":3},"OnAttack":{"1":{"1db8hz4prm":3,"DsiRzt0trX":4,"0xayo7mk1w":4,"o69ogocemo":1},"2":{"nn48ne8a05":1,"o69ogocemo":1,"zhh43i1eaa":1}},"DealDamageCalls":{"1":12,"2":3},"AllyDestroyedCalls":{"1":3,"2":1},"AllyDestroyed":{"1":{"eifnz0fgm3":1,"iD8qbpA8z5":2},"2":{"1db8hz4prm":1}},"AttackCardActivated":{"2":3,"1":1},"ReserveCardCalls":{"2":3},"AdvancedElementActivated":{"2":1}}
+0
