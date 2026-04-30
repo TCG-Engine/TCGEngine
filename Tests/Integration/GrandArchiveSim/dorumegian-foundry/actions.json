@@ -11,7 +11,7 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "myHand-0",
+        "cardID": "myHand-1",
         "chkInput": [],
         "inputText": ""
     },
@@ -20,6 +20,14 @@
         "mode": 100,
         "buttonInput": "",
         "cardID": "myHand-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
         "chkInput": [],
         "inputText": ""
     },

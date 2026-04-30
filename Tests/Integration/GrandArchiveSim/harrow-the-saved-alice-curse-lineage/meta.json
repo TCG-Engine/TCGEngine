@@ -1,20 +1,22 @@
 {
-  "name": "harrow-the-saved-alice-curse-lineage",
-  "rootName": "GrandArchiveSim",
-  "createdAt": "2026-04-28T20:35:22.869Z",
-  "createdBy": "mcp",
-  "sourceTemplate": "play-from-hand/basic-hand-card",
-  "draft": false,
-  "draftGameName": "103",
-  "parameters": {
-    "champion": "daip7s9ztd",
-    "element": "wind",
-    "handCard": "mLoz5CAeSU",
-    "mastery": "D3rexaXCBo",
-    "slug": "harrow-the-saved-alice-curse-lineage"
-  },
-  "testedCards": [
-    "mLoz5CAeSU"
-  ],
-  "savedAt": "2026-04-28T20:50:09.671Z"
+    "name": "harrow-the-saved-alice-curse-lineage",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-04-28T20:35:22.869Z",
+    "createdBy": "mcp",
+    "sourceTemplate": "play-from-hand/basic-hand-card",
+    "draft": false,
+    "draftGameName": "103",
+    "parameters": {
+        "champion": "daip7s9ztd",
+        "element": "wind",
+        "handCard": "mLoz5CAeSU",
+        "mastery": "D3rexaXCBo",
+        "slug": "harrow-the-saved-alice-curse-lineage"
+    },
+    "testedCards": [
+        "mLoz5CAeSU"
+    ],
+    "savedAt": "2026-04-28T20:50:09.671Z",
+    "lastRecordedAt": "2026-04-30T17:12:31+02:00",
+    "lastRecordedBy": "5"
 }

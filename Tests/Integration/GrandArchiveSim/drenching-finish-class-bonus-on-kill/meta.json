@@ -1,16 +1,18 @@
 {
-  "name": "Drenching Finish Class Bonus On Kill",
-  "rootName": "GrandArchiveSim",
-  "createdAt": "2026-04-20T17:15:16.716Z",
-  "createdBy": "mcp",
-  "sourceTemplate": "play-from-hand/hand-card-vs-opponent-ally",
-  "draft": false,
-  "draftGameName": "103",
-  "parameters": {
-    "slug": "drenching-finish-class-bonus-on-kill",
     "name": "Drenching Finish Class Bonus On Kill",
-    "handCard": "en3DD836cp",
-    "opponentFieldCard": "cworak5y4y"
-  },
-  "savedAt": "2026-04-20T17:33:01.443Z"
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-04-20T17:15:16.716Z",
+    "createdBy": "mcp",
+    "sourceTemplate": "play-from-hand/hand-card-vs-opponent-ally",
+    "draft": false,
+    "draftGameName": "103",
+    "parameters": {
+        "slug": "drenching-finish-class-bonus-on-kill",
+        "name": "Drenching Finish Class Bonus On Kill",
+        "handCard": "en3DD836cp",
+        "opponentFieldCard": "cworak5y4y"
+    },
+    "savedAt": "2026-04-20T17:33:01.443Z",
+    "lastRecordedAt": "2026-04-30T16:49:44+02:00",
+    "lastRecordedBy": "5"
 }

@@ -1,20 +1,22 @@
 {
-  "name": "flamewreath-call",
-  "rootName": "GrandArchiveSim",
-  "createdAt": "2026-04-26T23:38:03.069Z",
-  "createdBy": "mcp",
-  "sourceTemplate": "play-from-hand/hand-card-vs-opponent-ally",
-  "draft": false,
-  "draftGameName": "103",
-  "parameters": {
-    "champion": "nllCALIXDT",
-    "element": "fire",
-    "handCard": "c8wwslgbvr",
-    "opponentFieldCard": "1Sl4Gq2OuV",
-    "slug": "flamewreath-call"
-  },
-  "testedCards": [
-    "c8wwslgbvr"
-  ],
-  "savedAt": "2026-04-26T23:38:45.650Z"
+    "name": "flamewreath-call",
+    "rootName": "GrandArchiveSim",
+    "createdAt": "2026-04-26T23:38:03.069Z",
+    "createdBy": "mcp",
+    "sourceTemplate": "play-from-hand/hand-card-vs-opponent-ally",
+    "draft": false,
+    "draftGameName": "103",
+    "parameters": {
+        "champion": "nllCALIXDT",
+        "element": "fire",
+        "handCard": "c8wwslgbvr",
+        "opponentFieldCard": "1Sl4Gq2OuV",
+        "slug": "flamewreath-call"
+    },
+    "testedCards": [
+        "c8wwslgbvr"
+    ],
+    "savedAt": "2026-04-26T23:38:45.650Z",
+    "lastRecordedAt": "2026-04-30T16:51:21+02:00",
+    "lastRecordedBy": "5"
 }
