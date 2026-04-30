@@ -13110,6 +13110,9 @@ $doesGlobalEffectApply["GGRtLQgaYU"] = function($obj) { return false; };
 // Ducal Seal (qFwqqT0XWo): global attack tax (3) — no visual card effect needed
 $doesGlobalEffectApply["DUCAL_SEAL_ATTACK_TAX"] = function($obj) { return false; };
 
+// Silvie, Slime Sovereign (mdwbkuhtjm): next Slime cost discount — no visual field effect needed
+$doesGlobalEffectApply["mdwbkuhtjm"] = function($obj) { return false; };
+
 // Unmoored Call (etobC7HEHw): objects with chosen reserve cost enter rested — no visual card effect
 for($ucIdx = 0; $ucIdx <= 15; ++$ucIdx) {
     $doesGlobalEffectApply["UNMOORED_CALL_" . $ucIdx] = function($obj) { return false; };
@@ -14189,6 +14192,14 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
         if($consumeBypass) {
             RemoveGlobalEffect($player, "PRISMATIC_CODEX_IGNORE_ELEMENT");
         }
+        return true;
+    }
+
+    // Silvie, Slime Sovereign (mdwbkuhtjm): ignore element requirements for advanced element Slime ally cards
+    if(IsAdvancedElementCard($cardID)
+       && PropertyContains(CardSubtypes($cardID), "SLIME")
+       && PropertyContains(CardType($cardID), "ALLY")
+       && ChampionHasInLineage($player, "mdwbkuhtjm")) {
         return true;
     }
 
