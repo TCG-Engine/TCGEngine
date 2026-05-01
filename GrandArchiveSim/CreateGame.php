@@ -75,11 +75,15 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
             return;
         }
 
-        // ShoutAtYourDecks import (supports both /decks/<uuid> and /api/<uuid> links)
-        if (stripos($deckLink, 'shoutatyourdecks.com') !== false) {
+        // Shout-like import (ShoutAtYourDecks and DungeonGUI)
+        if (stripos($deckLink, 'shoutatyourdecks.com') !== false || stripos($deckLink, 'dungeongui.de') !== false) {
             if (preg_match('/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i', $deckLink, $matches)) {
                 $uuid = $matches[1];
                 $apiUrl = "https://shoutatyourdecks.com/api/" . $uuid;
+                if (stripos($deckLink, 'dungeongui.de') !== false) {
+                    // DungeonGUI serves the same deck payload format from /deckbuilder/json/<uuid>.
+                    $apiUrl = "https://dungeongui.de/deckbuilder/json/" . $uuid;
+                }
                 $ch = curl_init($apiUrl);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 curl_setopt($ch, CURLOPT_TIMEOUT, 10);
@@ -91,10 +95,10 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
                 $apiResponse = curl_exec($ch);
                 $curlError = curl_error($ch);
                 curl_close($ch);
-                if ($curlError) error_log("ShoutAtYourDecks API curl error: " . $curlError);
+                if ($curlError) error_log("Shout-like deck API curl error: " . $curlError);
                 if ($apiResponse !== false) {
                     $deckData = json_decode($apiResponse, true);
-                    // Some ShoutAtYourDecks responses are JSON strings containing JSON; decode twice when needed.
+                    // Some responses are JSON strings containing JSON; decode twice when needed.
                     if (is_string($deckData)) {
                         $deckData = json_decode($deckData, true);
                     }
@@ -118,7 +122,7 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
                         EngineShuffle($gameDeck, true);
                         return;
                     } else {
-                        error_log("ShoutAtYourDecks API parse error: missing cards payload for UUID " . $uuid);
+                        error_log("Shout-like deck API parse error: missing cards payload for UUID " . $uuid);
                     }
                 }
             }

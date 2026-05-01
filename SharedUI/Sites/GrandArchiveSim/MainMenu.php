@@ -63,7 +63,7 @@ include_once 'Header.php';
         <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a deck link:</label>
         <input type="text" id="deck-link" name="deck_link" placeholder="https://shoutatyourdecks.com/decks/..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
         <div style="margin-top: 8px; color: #b9b9b9; font-size: 12px; line-height: 1.35;">
-          Supported deck links: Shout At Your Decks, TCGArchitect
+          Supported deck links: Shout At Your Decks, DungeonGUI, TCGArchitect
         </div>
       </div>
       <div id="deck-input-text" style="display: none;">
