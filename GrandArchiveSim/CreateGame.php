@@ -74,6 +74,56 @@ function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
             EngineShuffle($gameDeck, true);
             return;
         }
+
+        // ShoutAtYourDecks import (supports both /decks/<uuid> and /api/<uuid> links)
+        if (stripos($deckLink, 'shoutatyourdecks.com') !== false) {
+            if (preg_match('/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i', $deckLink, $matches)) {
+                $uuid = $matches[1];
+                $apiUrl = "https://shoutatyourdecks.com/api/" . $uuid;
+                $ch = curl_init($apiUrl);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                    'Accept: application/json'
+                ]);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+                $apiResponse = curl_exec($ch);
+                $curlError = curl_error($ch);
+                curl_close($ch);
+                if ($curlError) error_log("ShoutAtYourDecks API curl error: " . $curlError);
+                if ($apiResponse !== false) {
+                    $deckData = json_decode($apiResponse, true);
+                    // Some ShoutAtYourDecks responses are JSON strings containing JSON; decode twice when needed.
+                    if (is_string($deckData)) {
+                        $deckData = json_decode($deckData, true);
+                    }
+                    if ($deckData && isset($deckData['cards'])) {
+                        foreach (($deckData['cards']['material'] ?? []) as $card) {
+                            $cardID = $card['uuid'] ?? '';
+                            $quantity = intval($card['quantity'] ?? 0);
+                            if ($cardID === '' || $quantity <= 0) continue;
+                            for ($i = 0; $i < $quantity; ++$i) {
+                                array_push($material, new Material($cardID));
+                            }
+                        }
+                        foreach (($deckData['cards']['main'] ?? []) as $card) {
+                            $cardID = $card['uuid'] ?? '';
+                            $quantity = intval($card['quantity'] ?? 0);
+                            if ($cardID === '' || $quantity <= 0) continue;
+                            for ($i = 0; $i < $quantity; ++$i) {
+                                array_push($gameDeck, new Deck($cardID));
+                            }
+                        }
+                        EngineShuffle($gameDeck, true);
+                        return;
+                    } else {
+                        error_log("ShoutAtYourDecks API parse error: missing cards payload for UUID " . $uuid);
+                    }
+                }
+            }
+        }
+
         // Extract UUID from a full URL or bare UUID string
         if (preg_match('/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i', $deckLink, $matches)) {
             $uuid = $matches[1];

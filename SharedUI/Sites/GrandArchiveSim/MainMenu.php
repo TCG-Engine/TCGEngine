@@ -56,12 +56,15 @@ include_once 'Header.php';
       </div>
 -->
       <div style="display: flex; gap: 0; margin-bottom: 10px; border-bottom: 2px solid rgba(100,100,100,0.4);">
-        <button id="tab-link" onclick="switchDeckTab('link')" style="flex: 1; padding: 8px; background: rgba(52,152,219,0.25); color: white; border: none; border-bottom: 2px solid #3498db; cursor: pointer; font-size: 13px; font-weight: 600;">TCGArchitect Link</button>
+        <button id="tab-link" onclick="switchDeckTab('link')" style="flex: 1; padding: 8px; background: rgba(52,152,219,0.25); color: white; border: none; border-bottom: 2px solid #3498db; cursor: pointer; font-size: 13px; font-weight: 600;">Deck Link</button>
         <button id="tab-text" onclick="switchDeckTab('text')" style="flex: 1; padding: 8px; background: rgba(40,40,40,0.7); color: #aaa; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px;">Free Text</button>
       </div>
       <div id="deck-input-link">
-        <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a TCGArchitect deck link:</label>
-        <input type="text" id="deck-link" name="deck_link" placeholder="https://app.tcgarchitect.com/deck/..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a deck link:</label>
+        <input type="text" id="deck-link" name="deck_link" placeholder="https://shoutatyourdecks.com/decks/..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        <div style="margin-top: 8px; color: #b9b9b9; font-size: 12px; line-height: 1.35;">
+          Supported deck links: Shout At Your Decks, TCGArchitect
+        </div>
       </div>
       <div id="deck-input-text" style="display: none;">
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from fractalofin.site):</label>
