@@ -55,6 +55,7 @@ $isMobile = IsMobile();
       <ul>
           <?php
             echo '<li><a target="_blank" href="https://discord.gg/b9nfNyVFpM" title="Clarent Development Server"><img src="/TCGEngine/Assets/Images/icons/discord.svg"></img></a></li>';
+            echo '<li><a target="_blank" href="https://github.com/TCG-Engine/TCGEngine"><img src="../Assets/Images/icons/github.svg"></img></a></li>';
           ?>
       </ul>
     </div>
