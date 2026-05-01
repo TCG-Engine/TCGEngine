@@ -268,6 +268,38 @@
           display: none;
      }
 
+     /* Better zero state for memory than raw zone-name text. */
+     #myMemorySlot.ga-memory-empty,
+     #theirMemorySlot.ga-memory-empty {
+          box-sizing: border-box;
+          border: 1px solid rgba(244, 236, 219, 0.24);
+          border-radius: 14px;
+          background:
+               linear-gradient(180deg, rgba(244, 236, 219, 0.08), rgba(255, 255, 255, 0.02)),
+               linear-gradient(160deg, rgba(19, 32, 43, 0.72), rgba(19, 32, 43, 0.56));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 10px 26px rgba(7, 14, 20, 0.20);
+     }
+
+     #myMemorySlot.ga-memory-empty::before,
+     #theirMemorySlot.ga-memory-empty::before {
+          content: attr(data-label) " (0)";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          color: rgba(244, 236, 219, 0.82);
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          font: 700 11px/1 var(--ga-font-label);
+          white-space: nowrap;
+          pointer-events: none;
+     }
+
+     #myMemorySlot.ga-memory-empty #myMemory > span,
+     #theirMemorySlot.ga-memory-empty #theirMemory > span {
+          display: none;
+     }
+
      .ga-pile {
           width: 92px;
           min-height: 122px;
@@ -345,7 +377,6 @@
      }
 
      #myMemorySlot,
-     #theirMemorySlot,
      #myGraveyardSlot,
      #theirGraveyardSlot,
      #myDeckSlot,
@@ -353,6 +384,11 @@
      #myBanishSlot,
      #theirBanishSlot {
           width: 96px;
+     }
+
+     #myMemorySlot,
+     #theirMemorySlot {
+          width: 128px;
      }
 
      #myDeckSlot,
@@ -426,6 +462,11 @@
           .ga-token-bank {
                width: 78px;
                min-height: 104px;
+          }
+
+          #myMemorySlot,
+          #theirMemorySlot {
+               width: 78px;
           }
 
           .ga-stat {
@@ -573,7 +614,7 @@
 
 <!-- theirMemorySlot: mirrors my memory in the top half -->
 <div id="theirMemorySlot" class="ga-zone ga-pile"
-           data-label="Opponent Memory"
+           data-label="Memory"
            style="top:22px; left:24px;">
 </div>
 
@@ -606,6 +647,7 @@
 <script>
 (function() {
      var AUTO_HIDE_IDS = ['myIntentSlot', 'theirIntentSlot', 'EffectStackSlot', 'myMasterySlot', 'theirMasterySlot'];
+     var MEMORY_EMPTY_IDS = ['myMemorySlot', 'theirMemorySlot'];
 
      function hasCards(slot) {
           // PopulateZone renders card items as spans with id like "zoneName-0"
@@ -616,6 +658,10 @@
           slot.style.display = hasCards(slot) ? '' : 'none';
      }
 
+     function refreshMemoryEmptyState(slot) {
+          slot.classList.toggle('ga-memory-empty', !hasCards(slot));
+     }
+
      function watchSlot(id) {
           var el = document.getElementById(id);
           if (!el) return;
@@ -624,13 +670,23 @@
                .observe(el, { childList: true, subtree: true });
      }
 
+     function watchMemorySlot(id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          refreshMemoryEmptyState(el);
+          new MutationObserver(function() { refreshMemoryEmptyState(el); })
+               .observe(el, { childList: true, subtree: true });
+     }
+
      // Run once DOM is ready (GameLayout.php is included after DOMContentLoaded equivalent)
      if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function() {
                AUTO_HIDE_IDS.forEach(watchSlot);
+               MEMORY_EMPTY_IDS.forEach(watchMemorySlot);
           });
      } else {
           AUTO_HIDE_IDS.forEach(watchSlot);
+          MEMORY_EMPTY_IDS.forEach(watchMemorySlot);
      }
 })();
 </script>
