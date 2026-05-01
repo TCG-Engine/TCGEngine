@@ -76,6 +76,7 @@
       $lobby->maxPlayers = 2;
       $lobby->ready = false;
       $lobby->id = $lobbyId;
+      $lobby->rootName = $rootName;
       $newPlayer = new Player(1, $deckLink, $preconstructedDeck);
       $lobby->players = array($newPlayer);
 
