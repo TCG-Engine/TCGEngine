@@ -28,6 +28,8 @@ function MaterializePhase() {
     // Varuckan Soulknife (9ox7u6wzh9): [Class Bonus][Element Bonus] may activate from material deck by banishing 3 fire from graveyard
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "VARUCKAN_MATERIAL_CHECK", 1);
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1);
+    // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] activate from material deck while controlling 2+ domains
+    DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "RECIPROCITY_MATERIAL_CHECK", 1);
 }
 
 function GetMaterializeFloatingChoices($player) {
@@ -191,6 +193,25 @@ $customDQHandlers["FrameworkSidearmAfterPay"] = function($player, $parts, $lastD
 $customDQHandlers["ActivateFrameworkSidearmFromHand"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     ActivateCard($player, $lastDecision, true);
+};
+
+// Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] activate from material deck while controlling 2+ domains
+$customDQHandlers["RECIPROCITY_MATERIAL_CHECK"] = function($player, $parts, $lastDecision) {
+    if(!IsTonorisBonusActive($player)) return;
+    if(CountDomainsControlled($player) < 2) return;
+    $material = GetMaterial($player);
+    $reciprocityMZ = null;
+    for($i = 0; $i < count($material); ++$i) {
+        if(!$material[$i]->removed && $material[$i]->CardID === "mSOHJGjrIu") {
+            if(!CanPlayerUseCardElement($player, "mSOHJGjrIu", false, false)) return;
+            $reciprocityMZ = "myMaterial-" . $i;
+            break;
+        }
+    }
+    if($reciprocityMZ === null) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $reciprocityMZ, 1,
+        tooltip:"Activate_Reciprocity_from_material_deck?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
 };
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)

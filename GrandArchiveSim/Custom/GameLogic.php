@@ -1505,7 +1505,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost) {
+    // 1.3 Declaring Costs — Avatar of Suzaku (jjGLZKfRn5): [Guo Jia Bonus] may remove up to 2 quest counters toward reserve cost
+    $hasAvatarSuzakuQuestCost = false;
+    if($obj->CardID === "jjGLZKfRn5" && IsGuoJiaBonus($player) && !$ignoreCost && $reserveCost > 0 && GetQuestCounterCount($player) >= 1) {
+        $maxRemove = min(2, GetQuestCounterCount($player), $reserveCost);
+        $hasAvatarSuzakuQuestCost = true;
+        DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "0|" . $maxRemove, 100, tooltip:"Remove_quest_counters_toward_reserve_(0-" . $maxRemove . ")?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
+    }
+
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost) {
         // No additional cost — store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1672,6 +1681,21 @@ $customDQHandlers["ClashOfFatesAltCost"] = function($player, $parts, $lastDecisi
         for($i = 0; $i < $baseReserve; ++$i) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
         }
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+// Avatar of Suzaku (jjGLZKfRn5): [Guo Jia Bonus] remove 0-2 quest counters, each pays 1 reserve
+$customDQHandlers["AvatarSuzakuQuestCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    $toRemove = intval($lastDecision);
+    if($toRemove > 0) {
+        RemoveQuestCounters($player, $toRemove);
+    }
+    $remaining = max(0, $baseReserve - $toRemove);
+    for($i = 0; $i < $remaining; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::StoreVariable("isImbued", "NO");
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
@@ -3436,6 +3460,26 @@ function OnCardActivated($player, $mzCard) {
                 if(PropertyContains($subtypes, "SPELL") && !HasNoAbilities($field[$fi])
                     && !in_array("nZFkDcvpaY_POWER", $field[$fi]->TurnEffects)) {
                     AddTurnEffect("myField-" . $fi, "nZFkDcvpaY_POWER");
+                }
+                break;
+            case "bEXmm4rKOs": // Duchess's Thornes: whenever you activate a cardistry ability of an ally, that ally gets +1 POWER and true sight until EOT
+                global $Cardistry_Cards;
+                if(!HasNoAbilities($field[$fi])
+                    && isset($Cardistry_Cards[$obj->CardID])
+                    && PropertyContains(EffectiveCardType($obj), "ALLY")) {
+                    // Find the ally on the field and buff it
+                    $fi2 = null;
+                    $f2 = GetField($player);
+                    for($k = 0; $k < count($f2); ++$k) {
+                        if(!$f2[$k]->removed && $f2[$k]->CardID === $obj->CardID) {
+                            $fi2 = $k;
+                            break;
+                        }
+                    }
+                    if($fi2 !== null) {
+                        AddTurnEffect("myField-" . $fi2, "bEXmm4rKOs_CARDISTRY_POWER");
+                        AddTurnEffect("myField-" . $fi2, "TRUE_SIGHT");
+                    }
                 }
                 break;
             case "IBXLKkBUe1": // Weiss Knight: whenever you activate a Chessman Command card, gain unblockable until EOT
@@ -9191,6 +9235,9 @@ function ObjectCurrentPower($obj) {
             case "nZFkDcvpaY_POWER": // Memorite Blade: +1 POWER from spell activation this turn
                 $power += 1;
                 break;
+            case "bEXmm4rKOs_CARDISTRY_POWER": // Duchess's Thornes: +1 POWER when cardistry activated this turn
+                $power += 1;
+                break;
             case "W0WfIEDs3n": // Field of Ranks and Files: first Chessman ally enter +2 POWER until EOT
                 $power += 2;
                 break;
@@ -13527,6 +13574,10 @@ $foreverEffects["blq7qXGvWH_DISCARD_NEXT_END"] = true;
 $doesGlobalEffectApply["x9z2k2a5ig"] = function($obj) { return false; };
 $foreverEffects["x9z2k2a5ig"] = true;
 
+// Legendary Saddle (AXE6sCzjZU): permanent flag — ignore element req for non-advanced Horse cards
+$doesGlobalEffectApply["AXE6sCzjZU_IGNORE_HORSE_ELEMENT"] = function($obj) { return false; };
+$foreverEffects["AXE6sCzjZU_IGNORE_HORSE_ELEMENT"] = true;
+
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
     $count = 0;
@@ -14158,6 +14209,11 @@ function GetPlayerEnabledElements($player) {
         $enabled["EXALTED"] = true;
     }
 
+    // Imperial Seal (by8145w2u2): banish ability enables all basic elements until end of turn
+    if(GlobalEffectCount($player, "by8145w2u2_FIRE") > 0) $enabled["FIRE"] = true;
+    if(GlobalEffectCount($player, "by8145w2u2_WATER") > 0) $enabled["WATER"] = true;
+    if(GlobalEffectCount($player, "by8145w2u2_WIND") > 0) $enabled["WIND"] = true;
+
     return array_keys($enabled);
 }
 
@@ -14235,6 +14291,14 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
        && PropertyContains(CardSubtypes($cardID), "SLIME")
        && PropertyContains(CardType($cardID), "ALLY")
        && ChampionHasInLineage($player, "mdwbkuhtjm")) {
+        return true;
+    }
+
+    // Legendary Saddle (AXE6sCzjZU): ignore element req for non-advanced element Horse ally cards
+    if(GlobalEffectCount($player, "AXE6sCzjZU_IGNORE_HORSE_ELEMENT") > 0
+       && PropertyContains(CardSubtypes($cardID), "HORSE")
+       && PropertyContains(CardType($cardID), "ALLY")
+       && !IsAdvancedElementCard($cardID)) {
         return true;
     }
 
@@ -18289,6 +18353,11 @@ function DomainRecollectionUpkeep($player) {
         if($field[$i]->removed) continue;
         // Right of Realm exemption: domains tagged NO_UPKEEP skip recollection upkeep
         if(in_array("NO_UPKEEP", $field[$i]->TurnEffects)) continue;
+        // Reciprocity, Dorumegia's Call (mSOHJGjrIu): negate one upkeep trigger via counter
+        if(GetCounterCount($field[$i], "reciprocity_negate") > 0) {
+            RemoveCounters($player, "myField-" . $i, "reciprocity_negate", 1);
+            continue;
+        }
         switch($field[$i]->CardID) {
             case "4coy34bro8": // Dawn of Ashes
                 DomainRevealMemoryUpkeep($player, $i, ["NORM"], "4coy34bro8");
