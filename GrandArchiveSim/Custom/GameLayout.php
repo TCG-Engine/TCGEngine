@@ -316,7 +316,7 @@
      }
 
      .ga-hand {
-          width: min(42vw, 760px);
+          width: min(50vw, 900px);
           min-height: 118px;
      }
 
@@ -415,7 +415,7 @@
           }
 
           .ga-hand {
-               width: min(48vw, 640px);
+               width: min(56vw, 760px);
           }
 
           .ga-field {
@@ -480,7 +480,7 @@
           }
 
           .ga-hand {
-               width: calc(100vw - 190px);
+               width: calc(100vw - 100px);
                min-height: 112px;
           }
 
