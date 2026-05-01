@@ -19,7 +19,7 @@ $isMobile = IsMobile();
 
 <head>
   <meta charset="utf-8">
-  <title>Gudnak Simulator</title>
+  <title>Grand Archive Simulator</title>
   <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/icons/gudnakIcon.png">
   <link rel="stylesheet" href="./css/ClarentMenuStyles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
