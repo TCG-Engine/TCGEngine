@@ -51,6 +51,7 @@ $modules = [];
 $macros = [];
 $hasFlashMessage = false;
 $hasAnyIndexedProperties = false;
+$customLayoutFile = null;
 
 $zoneObj = null;
 while(!feof($handler)) {
@@ -136,6 +137,9 @@ while(!feof($handler)) {
         break;
       case "AssetReflection":
         $assetReflection = trim($lineValue);
+        break;
+      case "Layout":
+        $customLayoutFile = trim($lineValue);
         break;
       case "Header":
         $headerElement = new StdClass();
@@ -234,6 +238,9 @@ while(!feof($handler)) {
               break;
             case "Width":
               $zoneObj->Width = $propertyArr[1];
+              break;
+            case "BindTo":
+              $zoneObj->BindTo = $propertyArr[1];
               break;
           }
         }
@@ -451,6 +458,7 @@ while(!feof($handler)) {
         $zoneObj->Top = -1;
         $zoneObj->Bottom = -1;
         $zoneObj->Width = -1;
+        $zoneObj->BindTo = null;
         $zoneObj->Macros = [];
         $zoneObj->Widgets = [];
         $zoneObj->ClickActions = [];
@@ -2033,46 +2041,48 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
   global $rootPath;
   $rv = "";
 
-  // Build style dynamically based on playerID to support mirroring for player 2
-  $baseStyle = "position: fixed; z-index:30;";
-  $staticStyles = "";
-
   $onclick = "onclick=\\\"ZoneClickHandler(\\\'" . $zone->Name . "\\\');\\\"";
   $onscroll = $zone->DisplayMode == "Panel" ? "onscroll=\\\"ZoneScrollHandler(\\\'" . $zone->Name . "\\\');\\\"" : "";
-
-  // Static properties (not mirrored)
-  if($zone->Width > -1) $staticStyles .= " width:" . $zone->Width . ";";
   $hasRotations = isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0;
-  if($zone->DisplayMode != "Pane") $staticStyles .= $hasRotations ? " overflow-y:visible;" : " overflow-y:auto;";
+  $overflowStyle = ($zone->DisplayMode != "Pane") ? ($hasRotations ? " overflow-y:visible;" : " overflow-y:auto;") : "";
 
-  // Check what positioning properties are defined
-  $hasLeft = $zone->Left > -1;
-  $hasRight = $zone->Right > -1;
-  $hasTop = $zone->Top > -1;
-  $hasBottom = $zone->Bottom > -1;
-
-  if($zone->DisplayMode == "Pane") {
-    $rv .= "echo(\"globalCardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+  if (!empty($zone->BindTo)) {
+    // BindTo mode: render global zone into an existing DOM element identified by {BindTo}
+    if ($zone->DisplayMode == "Pane") {
+      $rv .= "echo(\"globalCardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+    } else {
+      $wrapperStyle = $overflowStyle;
+      if ($zone->Width > -1) $wrapperStyle .= " width:" . $zone->Width . ";";
+      $rv .= "echo(\"var _btg_" . $zone->Name . " = document.getElementById('" . $zone->BindTo . "'); if(_btg_" . $zone->Name . ") { _btg_" . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $zone->Name . "'); }; _btg_" . $zone->Name . ".innerHTML = '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
+    }
   } else {
-    // Build dynamic style with conditional mirroring for player 2
-    $rv .= "echo(\"var globalStyle_" . $zone->Name . " = '" . $baseStyle . $staticStyles . "' + (playerID == 1 ? '";
+    // Legacy positional mode
+    $baseStyle = "position: fixed; z-index:30;";
+    $staticStyles = "";
+    if($zone->Width > -1) $staticStyles .= " width:" . $zone->Width . ";";
+    $staticStyles .= $overflowStyle;
+    $hasLeft = $zone->Left > -1;
+    $hasRight = $zone->Right > -1;
+    $hasTop = $zone->Top > -1;
+    $hasBottom = $zone->Bottom > -1;
 
-    // Player 1 styles
-    if($hasLeft) $rv .= " left:" . $zone->Left . ";";
-    if($hasRight) $rv .= " right:" . $zone->Right . ";";
-    if($hasTop) $rv .= " top:" . $zone->Top . ";";
-    if($hasBottom) $rv .= " bottom:" . $zone->Bottom . ";";
-
-    $rv .= "' : '";
-
-    // Player 2 styles (mirrored - left↔right, top↔bottom)
-    if($hasLeft) $rv .= " right:" . $zone->Left . ";";
-    if($hasRight) $rv .= " left:" . $zone->Right . ";";
-    if($hasTop) $rv .= " bottom:" . $zone->Top . ";";
-    if($hasBottom) $rv .= " top:" . $zone->Bottom . ";";
-
-    $rv .= "');\");\r\n";
-    $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+    if($zone->DisplayMode == "Pane") {
+      $rv .= "echo(\"globalCardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+    } else {
+      // Build dynamic style with conditional mirroring for player 2
+      $rv .= "echo(\"var globalStyle_" . $zone->Name . " = '" . $baseStyle . $staticStyles . "' + (playerID == 1 ? '";
+      if($hasLeft) $rv .= " left:" . $zone->Left . ";";
+      if($hasRight) $rv .= " right:" . $zone->Right . ";";
+      if($hasTop) $rv .= " top:" . $zone->Top . ";";
+      if($hasBottom) $rv .= " bottom:" . $zone->Bottom . ";";
+      $rv .= "' : '";
+      if($hasLeft) $rv .= " right:" . $zone->Left . ";";
+      if($hasRight) $rv .= " left:" . $zone->Right . ";";
+      if($hasTop) $rv .= " bottom:" . $zone->Top . ";";
+      if($hasBottom) $rv .= " top:" . $zone->Bottom . ";";
+      $rv .= "');\");\r\n";
+      $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+    }
   }
   if($zone->Visibility == "Private") return "";
   return $rv;
@@ -2090,11 +2100,25 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
   if($zone->Bottom > -1) $style .= ($prefix == "my" ? " bottom:" : " top:") . $zone->Bottom . ";";
   if($zone->Width > -1) $style .= " width:" . $zone->Width . ";";
   $hasRotations = isset($zone->Rotations) && is_array($zone->Rotations) && count($zone->Rotations) > 0;
-  if($zone->DisplayMode != "Pane") $style .= $hasRotations ? " overflow-y:visible;" : " overflow-y:auto;";
-  if($zone->DisplayMode == "Pane") $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
-  else {
-    $rv .= "echo(\"" . $prefix . "Static += '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
-    $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
+  $overflowStyle = ($zone->DisplayMode != "Pane") ? ($hasRotations ? " overflow-y:visible;" : " overflow-y:auto;") : "";
+  if($zone->DisplayMode != "Pane") $style .= $overflowStyle;
+  if (!empty($zone->BindTo)) {
+    // BindTo mode: render zone into an existing DOM element identified by {prefix}{BindTo}
+    $bindToID = $prefix . $zone->BindTo;
+    $wrapperStyle = $overflowStyle;
+    if ($zone->Width > -1) $wrapperStyle .= " width:" . $zone->Width . ";";
+    if ($zone->DisplayMode == "Pane") {
+      $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+    } else {
+      $rv .= "echo(\"var _bt_" . $prefix . $zone->Name . " = document.getElementById('" . $bindToID . "'); if(_bt_" . $prefix . $zone->Name . ") { _bt_" . $prefix . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $prefix . $zone->Name . "'); }; _bt_" . $prefix . $zone->Name . ".innerHTML = '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
+      $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
+    }
+  } else {
+    if($zone->DisplayMode == "Pane") $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
+    else {
+      $rv .= "echo(\"" . $prefix . "Static += '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+      $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
+    }
   }
   if($zone->DisplayMode == "None") return "";
   return $rv;
@@ -2414,7 +2438,7 @@ function AddGeneratedUI() {
 }
 
 function WriteInitialLayout() {
-  global $zones, $rootPath, $headerElements, $initializeScript, $clientIncludes, $pageBackground;
+  global $zones, $rootPath, $headerElements, $initializeScript, $clientIncludes, $pageBackground, $customLayoutFile;
   $shouldSplitScreen = true;
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -2512,6 +2536,9 @@ function WriteInitialLayout() {
     fwrite($handler, "echo(\"<div class='myStuffWrapper' style='position:relative; z-index:10; left:0; top:0; width:100%; height:100%;'><div class='stuffParent'><div id='myStuff' class='stuff myStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\r\n<div id='theirStuff' style='display:none;' class='theirStuff'></div>\");\r\n");
   }
   fwrite($handler, "echo(\"<div id='globalStuff' style='position:fixed; top:0; left:0; width:100%; height:100%; z-index:30; pointer-events:none;'></div>\");\r\n");
+  if (!is_null($customLayoutFile)) {
+    fwrite($handler, "include_once __DIR__ . '/" . ltrim($customLayoutFile, '/') . "';\r\n");
+  }
   fwrite($handler, "echo(\"</div>\");\r\n");
   fwrite($handler, "echo(\"</div>\");\r\n");
   fwrite($handler, "?>");

@@ -2,6 +2,7 @@ GrandArchiveSim
 Polling
 None
 None
+Layout: /Custom/GameLayout.php
 ServerInclude: /Custom/CustomInput.php
 ServerInclude: /Custom/GameLogic.php
 ServerInclude: /TurnController.php
@@ -36,26 +37,26 @@ Macro: Name=OnKill(mzID); ChoiceFunction=OnKillTrigger; Action={}
 Macro: Name=OnFoster(mzID); ChoiceFunction=OnFosterTrigger; Action={}
 Deck - CardID:string
 AddReplacement: DeckAddReplacement
-Display: Visibility=Private, Mode=Single, Bottom=120px, Right=10px
+Display: Visibility=Private, Mode=Single, BindTo=DeckSlot
 Macros: Shuffle
 Banish - CardID:string, TurnEffects:array[string], Counters:json
 Index: TurnEffects
 Virtual: OmenCounterCount=GetOmenCounterCount(), BanishSelectionMetadata=BanishSelectionMetadata()
 Highlight: BanishSelectionMetadata
-Display: Visibility=Public, Mode=Single, Bottom=230px, Right=10px
+Display: Visibility=Public, Mode=Single, BindTo=BanishSlot
 Click: FSM()
 Counters: OmenCounterCount=Badge(Color=Purple,Position=Center,ShowZero=false)
 Graveyard - CardID:string
 AddReplacement: GraveyardAddReplacement
 Virtual: EphemerateMeta=EphemerateMeta()
 Highlight: EphemerateMeta
-Display: Visibility=Public, Mode=Single, Bottom=10px, Right=10px
+Display: Visibility=Public, Mode=Single, BindTo=GraveyardSlot
 Click: FSM()
 GlobalEffects - CardID:string
 Display: Visibility=None, Mode=None
 Hand - CardID:string
 AddReplacement: HandAddReplacement
-Display: Visibility=Self, Mode=All, Bottom=10px, Left=28%
+Display: Visibility=Self, Mode=All, BindTo=HandSlot
 Click: FSM()
 Virtual: SelectionMetadata=SelectionMetadata(), HandCardCostDifference=HandCardCostDifference()
 Highlight: SelectionMetadata
@@ -80,7 +81,7 @@ Virtual: QuestCounterCount=GetQuestCounterCountForObject()
 Virtual: DynamicAbilities=GetDynamicAbilities()
 Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
-Display: Visibility=Public, Mode=All, Top=110px, Right=120px
+Display: Visibility=Public, Mode=All, BindTo=FieldSlot
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
@@ -107,26 +108,26 @@ Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: DynamicAbilities=GetDynamicAbilities()
 Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
-Display: Visibility=Public, Mode=All, Bottom=230px, Left=10px
+Display: Visibility=Public, Mode=All, BindTo=IntentSlot
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Click: FSM()
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Memory - CardID:string
 AddReplacement: MemoryAddReplacement
-Display: Visibility=Self, Mode=Single, Bottom=10px, Left=10px
+Display: Visibility=Self, Mode=Single, BindTo=MemorySlot
 Material - CardID:string
-Display: Visibility=Self, Mode=Single, Top=120px, Left=10px
+Display: Visibility=Self, Mode=Single, BindTo=MaterialSlot
 TempZone - CardID:string
 Display: Visibility=Self, Mode=None
 Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
 Health - Value:number=0
-Display: Visibility=Public, Mode=Value, Top=10px, Right=130px
+Display: Visibility=Public, Mode=Value, BindTo=HealthSlot
 Widgets: Value=-1&+1,CustomInput=Pass
 Mastery - CardID:string, Direction:string=NONE, Counters:json
 Virtual: SheenCounterCount=GetSheenCounterCount(), HauntCounterCount=GetHauntCounterCount()
-Display: Visibility=Public, Mode=All, Top=120px, Left=120px
+Display: Visibility=Public, Mode=All, BindTo=MasterySlot
 Overlay: Direction=NORTH:sc_north,Direction=SOUTH:sc_south,Direction=EAST:sc_east,Direction=WEST:sc_west
 Counters: SheenCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false), HauntCounterCount=Badge(Color=Purple,Position=TopRight,ShowZero=false)
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
@@ -148,7 +149,7 @@ Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 DecisionQueueVariables - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 EffectStack - CardID:string, Controller:number
-Display: Visibility=Public, Mode=Single, Scope=Global, Top=45%, Left=130px
+Display: Visibility=Public, Mode=Single, Scope=Global, BindTo=EffectStackSlot
 Sort: Reverse=true
 MacroTurnIndex - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
