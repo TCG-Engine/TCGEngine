@@ -44,8 +44,8 @@ $isMobile = IsMobile();
           echo "<li><a href='./Profile.php' class='NavBarItem'>Profile</a></li>";
           echo "<li><a href='../AccountFiles/LogoutUser.php' class='NavBarItem'>Log Out</a></li>";
         } else {
-          echo "<li><a href='/TCGEngine/SharedUI/Signup.php' class='NavBarItem'>Sign Up</a></li>";
-          echo "<li><a href='/TCGEngine/SharedUI/LoginPage.php' class='NavBarItem'>Log In</a></li>";
+          //echo "<li><a href='/TCGEngine/SharedUI/Signup.php' class='NavBarItem'>Sign Up</a></li>";
+          //echo "<li><a href='/TCGEngine/SharedUI/LoginPage.php' class='NavBarItem'>Log In</a></li>";
         }
         ?>
       </ul>

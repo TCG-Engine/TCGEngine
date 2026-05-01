@@ -1355,6 +1355,21 @@ function OnAttackTrigger($player, $mzID) {
         }
     }
 
+    // Vanitas, Convergent Ruin (8m69iq4d5v): next attack without a weapon this turn gets +N POWER
+    // (N accumulates by 1 for each Spell activated while Vanitas is on the field)
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        foreach($obj->TurnEffects ?? [] as $vte) {
+            if(strpos($vte, "8m69iq4d5v_SPELL_") === 0) {
+                if(GetCombatWeapon() === null) {
+                    $bonus = intval(substr($vte, strlen("8m69iq4d5v_SPELL_")));
+                    $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== $vte));
+                    if($bonus > 0) AddTurnEffect($mzID, "8m69iq4d5v_SPELL_POWER_" . $bonus);
+                }
+                break;
+            }
+        }
+    }
+
     // Guandu, Theater of War (95ynk6lmnf): whenever you declare an attack with an ally
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "ALLY")) {
         $field = &GetField($player);
@@ -1538,6 +1553,21 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
             $hitObj = GetZoneObject($hitTarget);
             if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
                 AddGlobalEffects($player, "3vkxrw9462");
+            }
+        }
+    }
+
+    // Vanitas, Convergent Ruin (8m69iq4d5v): On Champion Hit, if 7+ damage dealt —
+    // opponent's materializations cost 1 more until beginning of your next turn
+    if($attackerObjVanitas !== null && $attackerObjVanitas->CardID === "8m69iq4d5v"
+       && !HasNoAbilities($attackerObjVanitas)
+       && PropertyContains(EffectiveCardType($attackerObjVanitas), "CHAMPION")) {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        $hitDamage = intval(DecisionQueueController::GetVariable("CombatDamageAmount") ?? "0");
+        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "" && $hitDamage >= 7) {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
+                AddGlobalEffects($player, "8m69iq4d5v");
             }
         }
     }

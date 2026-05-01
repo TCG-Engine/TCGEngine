@@ -647,6 +647,9 @@ function GetPlayableFastCards($player) {
             && PropertyContains(CardClasses($obj->CardID), "RANGER")) {
             // Bombastic Sprint: next Ranger action activated this turn gets fast activation
             $fastCards[] = "myHand-" . $i;
+        } elseif(GlobalEffectCount($player, "6yW2zOwWmU") > 0) {
+            // Accelerate: next card you activate this turn gets fast activation
+            $fastCards[] = "myHand-" . $i;
         } elseif($obj->CardID === "B1EbF6jcYF" && IsAliceBonusActive($player)) {
             // Golden Gambit: [Alice Bonus] Fast Activation
             $fastCards[] = "myHand-" . $i;

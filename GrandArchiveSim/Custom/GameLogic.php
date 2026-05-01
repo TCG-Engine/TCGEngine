@@ -1089,6 +1089,14 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     }
 
+    // Accelerate (6yW2zOwWmU): consume fast-activation effect when any card is activated.
+
+    if(GlobalEffectCount($player, "6yW2zOwWmU") > 0) {
+
+        RemoveGlobalEffect($player, "6yW2zOwWmU");
+
+    }
+
 
 
     // Break Apart (4ns2jbt4hq): interactive cost choice for mixed regalia/non-regalia targets.
@@ -3469,6 +3477,20 @@ function OnCardActivated($player, $mzCard) {
                         DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Banish_Veilara's_Promise_to_draw_a_card?");
                         DecisionQueueController::AddDecision($player, "CUSTOM", "VeilarasPromiseBanish|" . $promiseMZ, 1);
                     }
+                }
+                break;
+            case "8m69iq4d5v": // Vanitas, Convergent Ruin: whenever you activate a Spell card,
+                // CARDNAME's next attack without a weapon this turn gets +1 POWER (stacks per spell)
+                if(PropertyContains($subtypes, "SPELL") && !HasNoAbilities($field[$fi])) {
+                    $currentBonus = 0;
+                    foreach($field[$fi]->TurnEffects as $vte) {
+                        if(strpos($vte, "8m69iq4d5v_SPELL_") === 0) {
+                            $currentBonus = intval(substr($vte, strlen("8m69iq4d5v_SPELL_")));
+                            $field[$fi]->TurnEffects = array_values(array_diff($field[$fi]->TurnEffects, [$vte]));
+                            break;
+                        }
+                    }
+                    $field[$fi]->TurnEffects[] = "8m69iq4d5v_SPELL_" . ($currentBonus + 1);
                 }
                 break;
         }
@@ -7666,6 +7688,10 @@ function ObjectCurrentPower($obj) {
         if(strpos($effect, "wcfvrfw35s_NEXT_") === 0) {
             $power += intval(substr($effect, strlen("wcfvrfw35s_NEXT_")));
         }
+        // Vanitas, Convergent Ruin (8m69iq4d5v): pending spell-based attack bonus (preview)
+        if(strpos($effect, "8m69iq4d5v_SPELL_") === 0) {
+            $power += intval(substr($effect, strlen("8m69iq4d5v_SPELL_")));
+        }
     }
     switch($obj->CardID) { //Self power modifiers
         case "mDN1CI9IEe": // Sealed Blade: [Class Bonus] +1 POWER
@@ -9220,6 +9246,10 @@ function ObjectCurrentPower($obj) {
                 // Enrage (wcfvrfw35s): next attack gets +X POWER
                 if(strpos($effectID, "wcfvrfw35s_POWER_") === 0) {
                     $power += intval(substr($effectID, strlen("wcfvrfw35s_POWER_")));
+                }
+                // Vanitas, Convergent Ruin (8m69iq4d5v): next weaponless attack this turn gets +X POWER
+                if(strpos($effectID, "8m69iq4d5v_SPELL_POWER_") === 0) {
+                    $power += intval(substr($effectID, strlen("8m69iq4d5v_SPELL_POWER_")));
                 }
                 break;
         }
@@ -13052,6 +13082,8 @@ function CanAffordActivationReserve($player, $obj) {
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;
 // Vanitas, Dominus Rex (3vkxrw9462): On Champion Hit — opponent materializations cost 1 more
 $untilBeginTurnEffects["3vkxrw9462"] = true;
+// Vanitas, Convergent Ruin (8m69iq4d5v): On Champion Hit (7+ damage) — opponent materializations cost 1 more
+$untilBeginTurnEffects["8m69iq4d5v"] = true;
 // Tasershot (4x7e22tk3i): On Champion Hit — level-up triggers 4 unpreventable damage
 $untilBeginTurnEffects["4x7e22tk3i"] = true;
 $foreverEffects["GMBTMNTM"] = true;
@@ -13403,6 +13435,9 @@ $foreverEffects["GGRtLQgaYU"] = true;
 
 // Expeditious Opening (w1wgpeifd0): flag only — fast ally activation handled in GetPlayableFastCards
 $doesGlobalEffectApply["w1wgpeifd0"] = function($obj) { return false; };
+
+// Accelerate (6yW2zOwWmU): flag only — fast activation handled in GetPlayableFastCards
+$doesGlobalEffectApply["6yW2zOwWmU"] = function($obj) { return false; };
 
 // Purging Tempest (yuo7dbge3b): flag only — GY redirect handled in DoDiscardCard/MillCards
 $doesGlobalEffectApply["yuo7dbge3b"] = function($obj) { return false; };
