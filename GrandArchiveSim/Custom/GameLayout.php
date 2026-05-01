@@ -9,116 +9,628 @@
 //   Global zones:        {BindTo}  (no prefix)
 ?>
 <style>
-  .ga-zone { position: fixed; z-index: 30; pointer-events: auto; }
+     :root {
+          --ga-ink: #13202b;
+          --ga-ink-soft: rgba(19, 32, 43, 0.72);
+          --ga-brass: #c89b46;
+          --ga-brass-soft: rgba(200, 155, 70, 0.26);
+          --ga-ivory: #f4ecdb;
+          --ga-teal: #2d6f73;
+          --ga-wine: #8a514f;
+          --ga-shadow: 0 18px 50px rgba(7, 14, 20, 0.28);
+          --ga-font-ui: "Aptos", "Segoe UI Variable Display", "Trebuchet MS", sans-serif;
+          --ga-font-label: "Bahnschrift", "Aptos Display", "Franklin Gothic Medium", sans-serif;
+     }
+
+     .ga-board-art,
+     .ga-board-glow,
+     .ga-board-axis,
+     .ga-board-rune {
+          position: fixed;
+          inset: 0;
+          pointer-events: none;
+     }
+
+     .ga-board-art {
+          z-index: 11;
+          background:
+               radial-gradient(circle at 18% 20%, rgba(45, 111, 115, 0.18), transparent 24%),
+               radial-gradient(circle at 82% 78%, rgba(138, 81, 79, 0.16), transparent 26%),
+               linear-gradient(180deg, rgba(244, 236, 219, 0.08), rgba(19, 32, 43, 0));
+          mix-blend-mode: screen;
+     }
+
+     .ga-board-glow {
+          z-index: 12;
+          background:
+               radial-gradient(circle at 50% 50%, rgba(200, 155, 70, 0.11), transparent 26%),
+               radial-gradient(circle at 50% 16%, rgba(244, 236, 219, 0.1), transparent 18%),
+               radial-gradient(circle at 50% 84%, rgba(244, 236, 219, 0.1), transparent 18%);
+     }
+
+     .ga-board-axis {
+          z-index: 13;
+     }
+
+     .ga-board-axis::before,
+     .ga-board-axis::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          width: min(900px, calc(100vw - 120px));
+          border-radius: 999px;
+     }
+
+     .ga-board-axis::before {
+          top: calc(50% - 2px);
+          height: 4px;
+          background: linear-gradient(90deg, transparent, var(--ga-brass-soft), rgba(244, 236, 219, 0.45), var(--ga-brass-soft), transparent);
+          box-shadow: 0 0 25px rgba(200, 155, 70, 0.24);
+     }
+
+     .ga-board-axis::after {
+          top: calc(50% - 24px);
+          height: 48px;
+          border: 1px solid rgba(244, 236, 219, 0.14);
+          background: linear-gradient(90deg, transparent, rgba(244, 236, 219, 0.07), transparent);
+     }
+
+     .ga-board-rune {
+          z-index: 14;
+     }
+
+     .ga-board-rune::before,
+     .ga-board-rune::after {
+          content: "";
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%) rotate(45deg);
+          width: 120px;
+          height: 120px;
+          border: 1px solid rgba(200, 155, 70, 0.25);
+          background: linear-gradient(135deg, rgba(244, 236, 219, 0.08), rgba(45, 111, 115, 0.04));
+          box-shadow: inset 0 0 30px rgba(244, 236, 219, 0.05);
+     }
+
+     .ga-board-rune::before {
+          top: calc(50% - 60px);
+     }
+
+     .ga-board-rune::after {
+          top: calc(50% - 60px);
+          width: 72px;
+          height: 72px;
+          border-color: rgba(244, 236, 219, 0.25);
+          background: transparent;
+     }
+
+     .ga-side-banner {
+          position: fixed;
+          left: 50%;
+          transform: translateX(-50%);
+          width: min(420px, calc(100vw - 88px));
+          height: 42px;
+          z-index: 15;
+          pointer-events: none;
+          border: 1px solid rgba(244, 236, 219, 0.14);
+          border-radius: 999px;
+          box-shadow: 0 10px 30px rgba(7, 14, 20, 0.22);
+          overflow: hidden;
+     }
+
+     .ga-side-banner::before {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background:
+               linear-gradient(90deg, rgba(19, 32, 43, 0.9), rgba(19, 32, 43, 0.72) 38%, rgba(19, 32, 43, 0.58)),
+               linear-gradient(135deg, rgba(244, 236, 219, 0.09), transparent 45%),
+               repeating-linear-gradient(90deg, transparent 0 22px, rgba(244, 236, 219, 0.03) 22px 23px);
+     }
+
+     .ga-side-banner::after {
+          content: attr(data-label);
+          position: absolute;
+          left: 22px;
+          top: 13px;
+          color: rgba(244, 236, 219, 0.92);
+          text-transform: uppercase;
+          letter-spacing: 0.22em;
+          font: 700 10px/1 var(--ga-font-label);
+     }
+
+     .ga-side-banner-top {
+          top: 16px;
+     }
+
+     .ga-side-banner-top::before {
+          background:
+               linear-gradient(90deg, rgba(45, 111, 115, 0.42), rgba(19, 32, 43, 0.82) 32%, rgba(19, 32, 43, 0.72)),
+               linear-gradient(135deg, rgba(244, 236, 219, 0.09), transparent 45%),
+               repeating-linear-gradient(90deg, transparent 0 22px, rgba(244, 236, 219, 0.03) 22px 23px);
+     }
+
+     .ga-side-banner-bottom {
+          bottom: 16px;
+     }
+
+     .ga-side-banner-bottom::before {
+          background:
+               linear-gradient(90deg, rgba(138, 81, 79, 0.35), rgba(19, 32, 43, 0.82) 32%, rgba(19, 32, 43, 0.72)),
+               linear-gradient(135deg, rgba(244, 236, 219, 0.09), transparent 45%),
+               repeating-linear-gradient(90deg, transparent 0 22px, rgba(244, 236, 219, 0.03) 22px 23px);
+     }
+
+     .ga-zone {
+          position: fixed;
+          z-index: 30;
+          pointer-events: auto;
+     }
+
+     /* Glass panel — applied only to Hand, Intent, Effect Stack */
+     .ga-glass {
+          border: 1px solid rgba(244, 236, 219, 0.16);
+          border-radius: 26px;
+          background:
+               linear-gradient(180deg, rgba(244, 236, 219, 0.13), rgba(255, 255, 255, 0.02)),
+               linear-gradient(160deg, rgba(19, 32, 43, 0.72), rgba(19, 32, 43, 0.52));
+          box-shadow: 0 20px 52px rgba(7, 14, 20, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.13);
+          backdrop-filter: blur(14px) saturate(140%);
+          -webkit-backdrop-filter: blur(14px) saturate(140%);
+          padding: 30px 14px 12px;
+          transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+     }
+
+     .ga-glass::before {
+          content: attr(data-label);
+          position: absolute;
+          top: 10px;
+          left: 14px;
+          right: 14px;
+          color: rgba(244, 236, 219, 0.82);
+          text-transform: uppercase;
+          letter-spacing: 0.24em;
+          font: 700 11px/1 var(--ga-font-label);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          pointer-events: none;
+     }
+
+     .ga-glass::after {
+          content: "";
+          position: absolute;
+          left: 14px;
+          right: 14px;
+          top: 24px;
+          height: 1px;
+          background: linear-gradient(90deg, var(--ga-brass-soft), rgba(244, 236, 219, 0.05));
+          pointer-events: none;
+     }
+
+     .ga-glass:hover {
+          transform: translateY(-3px);
+          border-color: rgba(200, 155, 70, 0.38);
+          box-shadow: 0 26px 58px rgba(7, 14, 20, 0.36), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+     }
+
+     /* Hand slots: no label/divider, tight padding, flush to screen edge */
+     #myHandSlot.ga-glass,
+     #theirHandSlot.ga-glass {
+          padding: 6px 8px;
+     }
+
+     #myHandSlot.ga-glass {
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+     }
+
+     #theirHandSlot.ga-glass {
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+     }
+
+     #myHandSlot.ga-glass::before,
+     #theirHandSlot.ga-glass::before,
+     #myHandSlot.ga-glass::after,
+     #theirHandSlot.ga-glass::after {
+          display: none;
+     }
+
+     .ga-zone > [id$="Wrapper"] {
+          position: relative;
+          z-index: 1;
+     }
+
+     /* Pile wrappers don't need visible scrollbars in this layout. */
+     #myDeckWrapper,
+     #theirDeckWrapper,
+     #myBanishWrapper,
+     #theirBanishWrapper,
+     #myGraveyardWrapper,
+     #theirGraveyardWrapper,
+     #myMemoryWrapper,
+     #theirMemoryWrapper {
+          overflow: hidden !important;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+     }
+
+     #myDeckWrapper::-webkit-scrollbar,
+     #theirDeckWrapper::-webkit-scrollbar,
+     #myBanishWrapper::-webkit-scrollbar,
+     #theirBanishWrapper::-webkit-scrollbar,
+     #myGraveyardWrapper::-webkit-scrollbar,
+     #theirGraveyardWrapper::-webkit-scrollbar,
+     #myMemoryWrapper::-webkit-scrollbar,
+     #theirMemoryWrapper::-webkit-scrollbar {
+          display: none;
+     }
+
+     .ga-pile {
+          width: 92px;
+          min-height: 122px;
+     }
+
+     .ga-stat {
+          width: 132px;
+          min-height: 82px;
+     }
+
+     .ga-token-bank {
+          width: 128px;
+          min-height: 126px;
+     }
+
+     .ga-hand {
+          width: min(42vw, 760px);
+          min-height: 118px;
+     }
+
+     .ga-field {
+          width: min(54vw, 980px);
+          min-height: 154px;
+     }
+
+     .ga-intent {
+          width: min(15vw, 210px);
+          min-height: 112px;
+     }
+
+     .ga-stack {
+          width: min(18vw, 240px);
+          min-height: 86px;
+     }
+
+     #myHandSlot,
+     #theirHandSlot {
+          left: 50%;
+          transform: translateX(-50%);
+     }
+
+     #myFieldSlot,
+     #theirFieldSlot {
+          left: 50%;
+          right: auto;
+          transform: translateX(-50%);
+     }
+
+     #EffectStackSlot {
+          left: 50%;
+          transform: translateX(-50%);
+     }
+
+          /* Both intent slots share the same center-left position near the midline.
+             They auto-hide via JS when empty so they can safely overlap. */
+          #myIntentSlot,
+          #theirIntentSlot {
+               top: calc(50% - 56px);
+               left: calc(50% - 280px);
+          }
+
+     #myHealthSlot,
+     #theirHealthSlot {
+          right: 148px;
+     }
+
+     #myMasterySlot,
+     #theirMasterySlot {
+          left: 166px;
+     }
+
+     #myMaterialSlot,
+     #theirMaterialSlot {
+          left: 24px;
+     }
+
+     #myMemorySlot,
+     #theirMemorySlot,
+     #myGraveyardSlot,
+     #theirGraveyardSlot,
+     #myDeckSlot,
+     #theirDeckSlot,
+     #myBanishSlot,
+     #theirBanishSlot {
+          width: 96px;
+     }
+
+     #myDeckSlot,
+     #theirDeckSlot,
+     #myBanishSlot,
+     #theirBanishSlot,
+     #myGraveyardSlot,
+     #theirGraveyardSlot {
+          right: 24px;
+          left: auto;
+     }
+
+     #myMemorySlot,
+     #theirMemorySlot,
+     #myMaterialSlot,
+     #theirMaterialSlot {
+          left: 24px;
+          right: auto;
+     }
+
+     @media (max-width: 1200px) {
+          .ga-side-banner {
+               width: min(360px, calc(100vw - 32px));
+          }
+
+          .ga-hand {
+               width: min(48vw, 640px);
+          }
+
+          .ga-field {
+               width: min(62vw, 760px);
+          }
+
+          .ga-intent {
+               width: min(18vw, 184px);
+          }
+     }
+
+     @media (max-width: 900px) {
+          .ga-glass {
+               padding: 26px 10px 10px;
+               border-radius: 18px;
+          }
+
+          .ga-glass::before {
+               top: 9px;
+               left: 10px;
+               right: 10px;
+               letter-spacing: 0.18em;
+               font-size: 10px;
+          }
+
+          .ga-glass::after {
+               left: 10px;
+               right: 10px;
+               top: 22px;
+          }
+
+          .ga-side-banner {
+               height: 34px;
+          }
+
+          .ga-side-banner::after {
+               top: 11px;
+               left: 16px;
+               letter-spacing: 0.16em;
+               font-size: 9px;
+          }
+
+          .ga-pile,
+          .ga-token-bank {
+               width: 78px;
+               min-height: 104px;
+          }
+
+          .ga-stat {
+               width: 108px;
+               min-height: 68px;
+          }
+
+          .ga-intent {
+               width: 140px;
+               min-height: 104px;
+          }
+
+          .ga-hand {
+               width: calc(100vw - 190px);
+               min-height: 112px;
+          }
+
+          .ga-field {
+               width: calc(100vw - 84px);
+               min-height: 142px;
+          }
+
+          #myMemorySlot,
+          #theirMemorySlot,
+          #myMaterialSlot,
+          #theirMaterialSlot {
+               left: 10px;
+               right: auto;
+          }
+
+          #myGraveyardSlot,
+          #theirGraveyardSlot,
+          #myDeckSlot,
+          #theirDeckSlot,
+          #myBanishSlot,
+          #theirBanishSlot {
+               right: 10px;
+               left: auto;
+          }
+     }
 </style>
+
+<div class="ga-board-art"></div>
+<div class="ga-board-glow"></div>
+<div class="ga-board-axis"></div>
+<div class="ga-board-rune"></div>
 
 <!-- =================== MY ZONES (bottom half) =================== -->
 
 <!-- myDeckSlot: bottom-right corner -->
-<div id="myDeckSlot" class="ga-zone"
-     style="bottom:120px; right:10px;">
+<div id="myDeckSlot" class="ga-zone ga-pile"
+           data-label="Deck"
+           style="bottom:124px; right:24px;">
 </div>
 
 <!-- myBanishSlot: above deck -->
-<div id="myBanishSlot" class="ga-zone"
-     style="bottom:230px; right:10px;">
+<div id="myBanishSlot" class="ga-zone ga-pile"
+           data-label="Banish"
+           style="bottom:226px; right:24px;">
 </div>
 
 <!-- myGraveyardSlot: bottom-right -->
-<div id="myGraveyardSlot" class="ga-zone"
-     style="bottom:10px; right:10px;">
+<div id="myGraveyardSlot" class="ga-zone ga-pile"
+           data-label="Graveyard"
+           style="bottom:22px; right:24px;">
 </div>
 
 <!-- myHandSlot: bottom-center -->
-<div id="myHandSlot" class="ga-zone"
-     style="bottom:10px; left:28%;">
+<div id="myHandSlot" class="ga-zone ga-glass ga-hand"
+           data-label=""
+           style="bottom:0;">
 </div>
 
 <!-- myFieldSlot: upper-right of bottom half -->
-<div id="myFieldSlot" class="ga-zone"
-     style="top:calc(50% + 110px); right:120px; overflow-y:visible;">
+<div id="myFieldSlot" class="ga-zone ga-field"
+           data-label="Field"
+           style="top:calc(50% + 40px); overflow-y:visible;">
 </div>
 
 <!-- myIntentSlot: bottom-left stack area -->
-<div id="myIntentSlot" class="ga-zone"
-     style="bottom:230px; left:10px;">
+<div id="myIntentSlot" class="ga-zone ga-glass ga-intent"
+           data-label="Intent">
 </div>
 
 <!-- myMemorySlot: bottom-left corner -->
-<div id="myMemorySlot" class="ga-zone"
-     style="bottom:10px; left:10px;">
+<div id="myMemorySlot" class="ga-zone ga-pile"
+           data-label="Memory"
+           style="bottom:22px; left:24px;">
 </div>
 
 <!-- myMaterialSlot: upper-left of bottom half -->
-<div id="myMaterialSlot" class="ga-zone"
-     style="top:calc(50% + 120px); left:10px;">
+<div id="myMaterialSlot" class="ga-zone ga-token-bank"
+           data-label="Material"
+           style="bottom:154px; left:24px;">
 </div>
 
 <!-- myHealthSlot: top-right of bottom half -->
-<div id="myHealthSlot" class="ga-zone"
-     style="top:calc(50% + 10px); right:130px;">
+<div id="myHealthSlot" class="ga-zone ga-stat"
+           data-label="Health"
+           style="top:calc(50% + 30px); right:148px;">
 </div>
 
 <!-- myMasterySlot: upper-left of bottom half (offset from material) -->
-<div id="myMasterySlot" class="ga-zone"
-     style="top:calc(50% + 120px); left:120px;">
+<div id="myMasterySlot" class="ga-zone ga-token-bank"
+           data-label="Mastery"
+           style="top:calc(50% + 128px); left:166px;">
 </div>
 
 <!-- =================== THEIR ZONES (top half) =================== -->
 
 <!-- theirDeckSlot: mirrors my deck position in the top half -->
-<div id="theirDeckSlot" class="ga-zone"
-     style="top:120px; right:10px;">
+<div id="theirDeckSlot" class="ga-zone ga-pile"
+           data-label="Opponent Deck"
+           style="top:124px; right:24px;">
 </div>
 
 <!-- theirBanishSlot: mirrors my banish position in the top half -->
-<div id="theirBanishSlot" class="ga-zone"
-     style="top:230px; right:10px;">
+<div id="theirBanishSlot" class="ga-zone ga-pile"
+           data-label="Opponent Banish"
+           style="top:226px; right:24px;">
 </div>
 
 <!-- theirGraveyardSlot: mirrors my graveyard in the top half -->
-<div id="theirGraveyardSlot" class="ga-zone"
-     style="top:10px; right:10px;">
+<div id="theirGraveyardSlot" class="ga-zone ga-pile"
+           data-label="Opponent Graveyard"
+           style="top:22px; right:24px;">
 </div>
 
 <!-- theirHandSlot: mirrors my hand in the top half -->
-<div id="theirHandSlot" class="ga-zone"
-     style="top:10px; left:28%;">
+<div id="theirHandSlot" class="ga-zone ga-glass ga-hand"
+           data-label=""
+           style="top:0;">
 </div>
 
 <!-- theirFieldSlot: mirrors my field in the top half -->
-<div id="theirFieldSlot" class="ga-zone"
-     style="top:110px; right:120px; overflow-y:visible;">
+<div id="theirFieldSlot" class="ga-zone ga-field"
+           data-label="Opponent Field"
+           style="top:calc(50% - 40px - 154px); overflow-y:visible;">
 </div>
 
 <!-- theirIntentSlot: mirrors my intent in the top half -->
-<div id="theirIntentSlot" class="ga-zone"
-     style="top:230px; left:10px;">
+<div id="theirIntentSlot" class="ga-zone ga-glass ga-intent"
+           data-label="Intent">
 </div>
 
 <!-- theirMemorySlot: mirrors my memory in the top half -->
-<div id="theirMemorySlot" class="ga-zone"
-     style="top:10px; left:10px;">
+<div id="theirMemorySlot" class="ga-zone ga-pile"
+           data-label="Opponent Memory"
+           style="top:22px; left:24px;">
 </div>
 
 <!-- theirMaterialSlot: mirrors my material in the top half -->
-<div id="theirMaterialSlot" class="ga-zone"
-     style="top:120px; left:10px;">
+<div id="theirMaterialSlot" class="ga-zone ga-token-bank"
+           data-label="Opponent Material"
+           style="top:154px; left:24px;">
 </div>
 
 <!-- theirHealthSlot: mirrors my health in the top half -->
-<div id="theirHealthSlot" class="ga-zone"
-     style="top:10px; right:130px;">
+<div id="theirHealthSlot" class="ga-zone ga-stat"
+           data-label="Opponent Health"
+           style="top:30px; right:148px;">
 </div>
 
 <!-- theirMasterySlot: mirrors my mastery in the top half -->
-<div id="theirMasterySlot" class="ga-zone"
-     style="top:120px; left:120px;">
+<div id="theirMasterySlot" class="ga-zone ga-token-bank"
+           data-label="Opponent Mastery"
+           style="top:124px; left:166px;">
 </div>
 
 <!-- =================== GLOBAL ZONES =================== -->
 
 <!-- EffectStackSlot: center of screen (effect queue display) -->
-<div id="EffectStackSlot" class="ga-zone"
-     style="top:45%; left:130px;">
+<div id="EffectStackSlot" class="ga-zone ga-glass ga-stack"
+           data-label="Effect Stack"
+           style="top:calc(50% - 43px);">
 </div>
+
+<script>
+(function() {
+     var AUTO_HIDE_IDS = ['myIntentSlot', 'theirIntentSlot', 'EffectStackSlot', 'myMasterySlot', 'theirMasterySlot'];
+
+     function hasCards(slot) {
+          // PopulateZone renders card items as spans with id like "zoneName-0"
+          return slot.querySelector('[id$="-0"]') !== null;
+     }
+
+     function refreshVisibility(slot) {
+          slot.style.display = hasCards(slot) ? '' : 'none';
+     }
+
+     function watchSlot(id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          el.style.display = 'none'; // start hidden
+          new MutationObserver(function() { refreshVisibility(el); })
+               .observe(el, { childList: true, subtree: true });
+     }
+
+     // Run once DOM is ready (GameLayout.php is included after DOMContentLoaded equivalent)
+     if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function() {
+               AUTO_HIDE_IDS.forEach(watchSlot);
+          });
+     } else {
+          AUTO_HIDE_IDS.forEach(watchSlot);
+     }
+})();
+</script>
