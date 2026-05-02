@@ -19155,6 +19155,14 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         if(!$dryRun) RemoveGlobalEffect($player, "7qjnqww067");
     }
 
+    // Slime Calling (dc8P58gmjR): Slime ally chosen via Slime Calling costs 1 less (one-shot per use)
+    if(GlobalEffectCount($player, "dc8P58gmjR_SLIME_DISCOUNT") > 0
+        && PropertyContains(CardType($cardID), "ALLY")
+        && PropertyContains(CardSubtypes($cardID), "SLIME")) {
+        $reserveCost = max(0, $reserveCost - 1);
+        if(!$dryRun) RemoveGlobalEffect($player, "dc8P58gmjR_SLIME_DISCOUNT");
+    }
+
     // Umbral Tithe (2snsdwmxz1): costs 1 less per Curse in any champion's lineage
     if($cardID === "2snsdwmxz1") {
         $reserveCost = max(0, $reserveCost - CountCursesInLineage($player) - CountCursesInLineage($opponent));
@@ -19231,5 +19239,127 @@ function HandCardCostDifference($obj) {
     // Return -1 (hidden by ShowNegative=false) when there is no change.
     return ($currentCost !== $baseCost) ? $currentCost : -1;
 }
+
+// ============================================================================
+// Slime Calling (dc8P58gmjR): multi-step flow helpers and DQ handlers
+// ============================================================================
+
+/**
+ * Scan myTempZone for remaining Slime ally cards and offer the player an optional
+ * pick. If none remain, proceeds directly to the rearrange step.
+ *
+ * @param int $player     The acting player.
+ * @param int $pickNumber 1 or 2 — used only for the tooltip.
+ */
+function SlimeCallingChooseSlime($player, $pickNumber) {
+    $tempZone = GetZone("myTempZone");
+    $slimeCandidates = [];
+    for($i = 0; $i < count($tempZone); ++$i) {
+        if(!$tempZone[$i]->removed) {
+            $cid = $tempZone[$i]->CardID;
+            if(PropertyContains(CardType($cid), "ALLY") && PropertyContains(CardSubtypes($cid), "SLIME")) {
+                $slimeCandidates[] = "myTempZone-" . $i;
+            }
+        }
+    }
+    if(empty($slimeCandidates)) {
+        SlimeCallingRearrange($player);
+        return;
+    }
+    $targetStr = implode("&", $slimeCandidates);
+    $tooltip = "Choose_a_Slime_ally_to_activate_(pick_" . $pickNumber . ")";
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:$tooltip);
+    $nextHandler = ($pickNumber === 1) ? "SlimeCallingActivate1" : "SlimeCallingActivate2";
+    DecisionQueueController::AddDecision($player, "CUSTOM", $nextHandler, 1);
+}
+
+/**
+ * Queue an MZREARRANGE for any remaining cards in myTempZone, putting them all
+ * to the bottom of the deck in any order.
+ *
+ * @param int $player The acting player.
+ */
+function SlimeCallingRearrange($player) {
+    $tempZone = GetZone("myTempZone");
+    $remaining = [];
+    for($i = 0; $i < count($tempZone); ++$i) {
+        if(!$tempZone[$i]->removed) {
+            $remaining[] = $tempZone[$i]->CardID;
+        }
+    }
+    if(empty($remaining)) return;
+    $param = "Top=;Bottom=" . implode(",", $remaining);
+    DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1,
+        tooltip:"Put_remaining_cards_on_the_bottom_of_your_deck_in_any_order");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeCallingRearrangeApply", 1);
+}
+
+/**
+ * Process the MZREARRANGE result: remove remaining temp-zone objects and push all
+ * cards (regardless of which pile the player put them in) to the bottom of the deck.
+ */
+$customDQHandlers["SlimeCallingRearrangeApply"] = function($player, $parts, $lastDecision) {
+    $deck = &GetDeck($player);
+    $tempZone = &GetTempZone($player);
+
+    $piles = ["Top" => [], "Bottom" => []];
+    foreach(explode(";", $lastDecision) as $pileStr) {
+        $eqPos = strpos($pileStr, "=");
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        if(isset($piles[$pileName])) {
+            $piles[$pileName] = ($cardsStr !== "") ? explode(",", $cardsStr) : [];
+        }
+    }
+
+    // Remove all remaining temp-zone objects
+    foreach($tempZone as $obj) {
+        if(!$obj->removed) $obj->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+
+    // All cards go to the bottom (Top pile cards too — the card says "put on bottom in any order")
+    foreach(array_merge($piles["Bottom"], $piles["Top"]) as $cid) {
+        $deck[] = new Deck($cid, 'Deck', $player);
+    }
+};
+
+/**
+ * DQ handler: process the player's first optional Slime ally choice.
+ * If a card was chosen, applies the -1 discount and activates it; then queues
+ * the second optional pick.
+ */
+$customDQHandlers["SlimeCallingActivate1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $obj = GetZoneObject($lastDecision);
+        if($obj !== null && !$obj->removed) {
+            AddGlobalEffects($player, "dc8P58gmjR_SLIME_DISCOUNT");
+            MZMove($player, $lastDecision, "myHand");
+            $hand = GetHand($player);
+            DoActivateCard($player, "myHand-" . (count($hand) - 1));
+        }
+    }
+    // Queue second pick after the first activation's decisions are processed
+    SlimeCallingChooseSlime($player, 2);
+};
+
+/**
+ * DQ handler: process the player's second optional Slime ally choice.
+ * If a card was chosen, applies the -1 discount and activates it; then queues
+ * the rearrange step for remaining cards.
+ */
+$customDQHandlers["SlimeCallingActivate2"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $obj = GetZoneObject($lastDecision);
+        if($obj !== null && !$obj->removed) {
+            AddGlobalEffects($player, "dc8P58gmjR_SLIME_DISCOUNT");
+            MZMove($player, $lastDecision, "myHand");
+            $hand = GetHand($player);
+            DoActivateCard($player, "myHand-" . (count($hand) - 1));
+        }
+    }
+    SlimeCallingRearrange($player);
+};
 
 ?>
