@@ -5601,6 +5601,13 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    // Chessman ally enter hooks (Field of Ranks and Files / Queen's Gambit).
+    if((PropertyContains(CardType($added->CardID), "ALLY")
+            || (PropertyContains(CardType($added->CardID), "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY")))
+        && PropertyContains(CardSubtypes($added->CardID), "CHESSMAN")) {
+        OnChessmanAllyEntered($player, "myField-" . (count($field) - 1));
+    }
+
     // Wildgrowth Fatestone (x2oydmfcre): [Guo Jia Bonus] whenever another wind element card
     // enters the field under your control, put a buff counter; 6+ may transform
     WildgrowthFatestoneOnEnterCheck($player, "myField-" . (count($field) - 1));
@@ -13172,6 +13179,9 @@ $doesGlobalEffectApply["SHARDWING_SEARCHLIGHT_ONHIT"] = function($obj) {
 };
 // Shattered Hope (XOevViFTB3): allies enter with sheen (counter applied in FieldAfterAdd, not a field effect)
 $doesGlobalEffectApply["SHATTERED_HOPE_SHEEN"] = function($obj) { return false; };
+// Field of Ranks and Files (W0WfIEDs3n): once-per-turn tracking flags, not visual card effects
+$doesGlobalEffectApply["W0WfIEDs3n_ALLY"] = function($obj) { return false; };
+$doesGlobalEffectApply["W0WfIEDs3n_CMD"] = function($obj) { return false; };
 $doesGlobalEffectApply["v0yuddp71s-ROOK"] = function($obj) {
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
@@ -14457,23 +14467,13 @@ function IsChampionAscendant($player) {
 }
 
 function SummonPawnPieceToken($player, $count = 1) {
-    global $playerID;
     for($i = 0; $i < $count; ++$i) {
         MZAddZone($player, "myField", "Rpr6yCQKU6");
-        $zone = $player == $playerID ? "myField" : "theirField";
-        $field = GetZone($zone);
-        $newIdx = count($field) - 1;
-        OnChessmanAllyEntered($player, $zone . "-" . $newIdx);
     }
 }
 
 function SummonQueenPieceToken($player) {
-    global $playerID;
     MZAddZone($player, "myField", "m69XrVkaVh");
-    $zone = $player == $playerID ? "myField" : "theirField";
-    $field = GetZone($zone);
-    $newIdx = count($field) - 1;
-    OnChessmanAllyEntered($player, $zone . "-" . $newIdx);
 }
 
 function OnChessmanAllyEntered($player, $mzID) {
@@ -14484,7 +14484,7 @@ function OnChessmanAllyEntered($player, $mzID) {
     $turnPlayer = &GetTurnPlayer();
     if($player === $turnPlayer && GlobalEffectCount($player, "W0WfIEDs3n_ALLY") == 0) {
         foreach($field as $fieldObj) {
-            if(!$fieldObj->removed && $fieldObj->CardID === "W0WfIEDs3n") {
+            if(!$fieldObj->removed && $fieldObj->CardID === "W0WfIEDs3n" && !HasNoAbilities($fieldObj)) {
                 AddGlobalEffects($player, "W0WfIEDs3n_ALLY");
                 AddTurnEffect($mzID, "W0WfIEDs3n");
                 break;
