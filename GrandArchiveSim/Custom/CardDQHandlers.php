@@ -330,8 +330,7 @@ $customDQHandlers["VermilionDecree_ExecB"] = function($player, $parts, $lastDeci
 
 /**
  * Cerulean Decree (ipl6gt7lh9) — WATER
- * Modes: A=-3 POWER on unit attacks, B=Draw into memory
- * NOTE: Negate mode is NOT implemented (engine lacks negate support).
+ * Modes: A=Negate non-attack card activation (pay 2 prevents), B=-3 POWER on unit attacks, C=Draw into memory
  */
 $customDQHandlers["CeruleanDecree_Process"] = function($player, $parts, $lastDecision) {
     $choices = DecisionQueueController::GetVariable("CD_choices");
@@ -340,7 +339,10 @@ $customDQHandlers["CeruleanDecree_Process"] = function($player, $parts, $lastDec
     foreach($modes as $modeIdx) {
         $modeIdx = trim($modeIdx);
         switch($modeIdx) {
-            case "0": // Target unit's attacks get -3 POWER until end of turn
+            case "0": // Negate target non-attack card activation unless controller pays (2)
+                QueueNegateActivation($player, [], "default", 2);
+                break;
+            case "1": // Target unit's attacks get -3 POWER until end of turn
                 $units = array_merge(
                     ZoneSearch("myField", ["ALLY", "CHAMPION", "PHANTASIA"]),
                     ZoneSearch("theirField", ["ALLY", "CHAMPION", "PHANTASIA"])
@@ -352,7 +354,7 @@ $customDQHandlers["CeruleanDecree_Process"] = function($player, $parts, $lastDec
                     DecisionQueueController::AddDecision($player, "CUSTOM", "CeruleanDecree_ExecA", 1);
                 }
                 break;
-            case "1": // Draw a card into your memory
+            case "2": // Draw a card into your memory
                 DrawIntoMemory($player, 1);
                 break;
         }
