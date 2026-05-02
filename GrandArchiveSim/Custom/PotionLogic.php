@@ -175,10 +175,12 @@ function OnBrew($player) {
 
     // Imperial Alchemist (ve1d47o7ea): whenever you brew a Potion → buff counter
     $field = &GetField($player);
+    global $playerID;
+    $fieldZone = ($player == $playerID) ? "myField" : "theirField";
     for($i = 0; $i < count($field); ++$i) {
         if($field[$i]->removed) continue;
         if($field[$i]->CardID === "ve1d47o7ea" && !HasNoAbilities($field[$i])) {
-            AddCounters($player, "myField-" . $i, "buff", 1);
+            AddCounters($player, $fieldZone . "-" . $i, "buff", 1);
         }
         // Astromech Attendant (mloejozihs): [CB] whenever you brew → draw into memory
         if($field[$i]->CardID === "mloejozihs" && !HasNoAbilities($field[$i])) {
@@ -189,7 +191,7 @@ function OnBrew($player) {
         // Essence Crucible (DF5Ffwv7DJ): [Arisanna Bonus] whenever you brew → refinement counter
         if($field[$i]->CardID === "DF5Ffwv7DJ" && !HasNoAbilities($field[$i])) {
             if(IsArisannaBonusActive($player)) {
-                AddCounters($player, "myField-" . $i, "refinement", 1);
+                AddCounters($player, $fieldZone . "-" . $i, "refinement", 1);
             }
         }
     }
