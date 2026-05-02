@@ -14302,6 +14302,13 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
         return true;
     }
 
+    // Spirit of Chess (AYe0neu31W): inherited effect — ignore element req for non-advanced element Chessman cards
+    if(PropertyContains(CardSubtypes($cardID), "CHESSMAN")
+       && !IsAdvancedElementCard($cardID)
+       && ChampionHasInLineage($player, "AYe0neu31W")) {
+        return true;
+    }
+
     if($setFlash) {
         SetFlashMessage(GetElementRestrictionMessage($cardElement));
     }
