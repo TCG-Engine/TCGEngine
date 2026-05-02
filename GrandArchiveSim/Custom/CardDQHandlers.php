@@ -665,15 +665,14 @@ $customDQHandlers["DeclareWeaponLinkTarget"] = function($player, $parts, $lastDe
 
 /**
  * Custom DQ handler: RazorgaleCallingDamage — deal 1 damage to target champion.
- * YES = your champion, NO = opponent's champion.
+ * $lastDecision = chosen champion mzID.
  */
 $customDQHandlers["RazorgaleCallingDamage"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "YES") {
-        DealChampionDamage($player, 1);
-    } else {
-        $opponent = ($player == 1) ? 2 : 1;
-        DealChampionDamage($opponent, 1);
-    }
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null || $targetObj->removed) return;
+    if(CardType($targetObj->CardID) !== "CHAMPION") return;
+    DealDamage($player, null, $lastDecision, 1);
 };
 
 // Fervent Lancer: may banish the exia card as it resolves

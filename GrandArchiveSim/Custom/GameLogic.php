@@ -3398,9 +3398,15 @@ function OnCardActivated($player, $mzCard) {
                 break;
             case "1m48260b7b": // Razorgale Calling: whenever you activate a wind element card, deal 1 damage to target champion
                 if($activatedElement === "WIND" && !HasNoAbilities($field[$fi])) {
-                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
-                        tooltip:"Target_your_champion?_(No=opponent)");
-                    DecisionQueueController::AddDecision($player, "CUSTOM", "RazorgaleCallingDamage", 1);
+                    $champions = array_merge(
+                        ZoneSearch("myField", ["CHAMPION"]),
+                        ZoneSearch("theirField", ["CHAMPION"])
+                    );
+                    if(!empty($champions)) {
+                        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $champions), 1,
+                            tooltip:"Choose_target_champion_(Razorgale_Calling)");
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "RazorgaleCallingDamage", 1);
+                    }
                 }
                 break;
             case "9f0nsj62l6": // Apprentice Aeromancer: [CB] whenever you activate a wind Spell, +1 POWER until EOT
