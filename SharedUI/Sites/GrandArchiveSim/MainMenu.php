@@ -81,7 +81,12 @@ include_once 'Header.php';
       </select>
     -->
       <br>
-      <button onclick="joinQueue()">Join Queue</button>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button onclick="joinQueue()">Join Queue</button>
+        <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
+        <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
+      </div>
+      <div id="private-invite-notice" style="display: none; margin-top: 10px; color: #9ed9b4; font-size: 13px;"></div>
     </div>
   </div>
   
@@ -95,7 +100,9 @@ include_once 'Header.php';
 <script>
 
   var rootName = "GrandArchiveSim";
-      var _lobby_id = "";
+  var _lobby_id = "";
+  var _privateInviteCode = "";
+  var _waitingEscHandler = null;
 
       function switchDeckTab(tab) {
         var isLink = tab === 'link';
@@ -116,7 +123,25 @@ include_once 'Header.php';
         if (saved === 'text') switchDeckTab('text');
       })();
 
-      function joinQueue() {
+      function initializePrivateInviteFromUrl() {
+        try {
+          var params = new URLSearchParams(window.location.search || '');
+          _privateInviteCode = (params.get('privateInvite') || params.get('invite') || '').trim();
+          if (!_privateInviteCode) return;
+
+          var joinBtn = document.getElementById('join-private-invite-btn');
+          var notice = document.getElementById('private-invite-notice');
+          if (joinBtn) joinBtn.style.display = '';
+          if (notice) {
+            notice.style.display = '';
+            notice.textContent = 'Private invite detected. Choose your deck, then click Join Private Invite.';
+          }
+        } catch (e) {
+          console.error('Failed to parse private invite URL:', e);
+        }
+      }
+
+      function getDeckSubmission() {
         var preconstructedDeckDropdown = document.getElementById('preconstructed-deck');
         var preconstructedDeck = preconstructedDeckDropdown ? preconstructedDeckDropdown.value : '';
         var deckLinkEl = document.getElementById('deck-link');
@@ -129,10 +154,51 @@ include_once 'Header.php';
         }
         if (!deckLink && !preconstructedDeck) {
           alert('Please enter a deck link or paste a deck list.');
+          return null;
+        }
+        var gameType = 'casual'; // Default game type since select is commented out
+
+        return {
+          preconstructedDeck: preconstructedDeck,
+          deckLink: deckLink,
+          gameType: gameType
+        };
+      }
+
+      function buildPrivateInviteLink(inviteCode) {
+        var url = new URL(window.location.href);
+        url.searchParams.set('privateInvite', inviteCode);
+        return url.toString();
+      }
+
+      function joinQueue() {
+        submitQueueJoin({
+          waitingMessage: 'Waiting for opponent... (Esc to cancel)'
+        });
+      }
+
+      function createPrivateGame() {
+        submitQueueJoin({
+          createPrivate: true,
+          waitingMessage: 'Waiting for invited opponent... (Esc to cancel)'
+        });
+      }
+
+      function joinPrivateInvite() {
+        if (!_privateInviteCode) {
+          alert('No private invite code found in this link.');
           return;
         }
-        var gameName = 'Quick Match'; // Default game name since input is commented out
-        var gameType = 'casual'; // Default game type since select is commented out
+        submitQueueJoin({
+          privateInviteCode: _privateInviteCode,
+          waitingMessage: 'Waiting for host to start... (Esc to cancel)'
+        });
+      }
+
+      function submitQueueJoin(options) {
+        options = options || {};
+        var submission = getDeckSubmission();
+        if (!submission) return;
 
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '../../../APIs/Lobbies/JoinQueue.php', true);
@@ -141,30 +207,83 @@ include_once 'Header.php';
         xhr.onload = function() {
           if (xhr.status >= 200 && xhr.status < 300) {
             console.log('Successfully joined queue:', xhr.responseText);
-            var response = JSON.parse(xhr.responseText);
+            var response;
+            try {
+              response = JSON.parse(xhr.responseText);
+            } catch (e) {
+              alert('Unexpected server response while joining queue.');
+              return;
+            }
+            if (!response.success) {
+              alert(response.message || 'Unable to join queue.');
+              return;
+            }
             if(response.ready) {
               DisplayMatchFoundPopup(response.playerID, response.gameName);
             } else {
               _lobby_id = response.lobbyID;
-              DisplayWaitingPopup("Waiting for opponent... (Esc to cancel)", response.playerID, response.authKey);
+              var inviteLink = '';
+              if (response.inviteCode) {
+                inviteLink = buildPrivateInviteLink(response.inviteCode);
+              }
+              DisplayWaitingPopup(options.waitingMessage || 'Waiting for opponent... (Esc to cancel)', response.playerID, response.authKey, inviteLink);
               // Start polling for lobby updates
               pollLobbyUpdates(response.playerID, response.authKey);
             }
           } else {
             console.error('Error joining queue:', xhr.statusText);
+            alert('Failed to join queue. Please try again.');
           }
         };
 
         xhr.onerror = function() {
           console.error('Error joining queue:', xhr.statusText);
+          alert('Failed to join queue. Please try again.');
         };
 
-        var params = 'deckLink=' + encodeURIComponent(deckLink) + '&game_type=' + encodeURIComponent(gameType);
-        params += '&preconstructedDeck=' + encodeURIComponent(preconstructedDeck);
+        var params = 'deckLink=' + encodeURIComponent(submission.deckLink) + '&game_type=' + encodeURIComponent(submission.gameType);
+        params += '&preconstructedDeck=' + encodeURIComponent(submission.preconstructedDeck);
         params += "&rootName=" + encodeURIComponent(rootName);
+        if (options.createPrivate) {
+          params += '&createPrivate=1';
+        }
+        if (options.privateInviteCode) {
+          params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);
+        }
         xhr.send(params);
       }
-      function DisplayWaitingPopup(message, playerID, authKey) {
+
+      function copyTextToClipboard(text) {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          return navigator.clipboard.writeText(text);
+        }
+        return new Promise(function(resolve, reject) {
+          try {
+            var tempInput = document.createElement('textarea');
+            tempInput.value = text;
+            tempInput.style.position = 'fixed';
+            tempInput.style.opacity = '0';
+            document.body.appendChild(tempInput);
+            tempInput.focus();
+            tempInput.select();
+            var ok = document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            if (ok) resolve();
+            else reject(new Error('copy_failed'));
+          } catch (err) {
+            reject(err);
+          }
+        });
+      }
+
+      function DisplayWaitingPopup(message, playerID, authKey, inviteLink) {
+        var existingWaitingPopup = document.getElementById('waiting-popup');
+        if (existingWaitingPopup) existingWaitingPopup.remove();
+        if (_waitingEscHandler) {
+          document.removeEventListener('keydown', _waitingEscHandler);
+          _waitingEscHandler = null;
+        }
+
         var waitingPopup = document.createElement('div');
         waitingPopup.id = 'waiting-popup';
         waitingPopup.style.position = 'fixed';
@@ -206,13 +325,55 @@ include_once 'Header.php';
 
         waitingPopup.appendChild(animation);
         waitingPopup.appendChild(messageElement);
+
+        if (inviteLink) {
+          var inviteHint = document.createElement('p');
+          inviteHint.textContent = 'Share this invite link with your opponent:';
+          inviteHint.style.color = '#d8d8d8';
+          inviteHint.style.marginTop = '14px';
+          inviteHint.style.marginBottom = '8px';
+          inviteHint.style.fontSize = '14px';
+          waitingPopup.appendChild(inviteHint);
+
+          var linkPreview = document.createElement('div');
+          linkPreview.textContent = inviteLink;
+          linkPreview.style.maxWidth = '680px';
+          linkPreview.style.wordBreak = 'break-all';
+          linkPreview.style.color = '#9ed9b4';
+          linkPreview.style.fontSize = '12px';
+          linkPreview.style.marginBottom = '10px';
+          linkPreview.style.padding = '8px 10px';
+          linkPreview.style.border = '1px solid rgba(255,255,255,0.15)';
+          linkPreview.style.borderRadius = '6px';
+          linkPreview.style.backgroundColor = 'rgba(0,0,0,0.28)';
+          waitingPopup.appendChild(linkPreview);
+
+          var copyButton = document.createElement('button');
+          copyButton.textContent = 'Copy Invite Link';
+          copyButton.style.backgroundColor = '#2d8a57';
+          copyButton.onclick = function() {
+            copyTextToClipboard(inviteLink)
+              .then(function() {
+                copyButton.textContent = 'Copied!';
+                setTimeout(function() {
+                  copyButton.textContent = 'Copy Invite Link';
+                }, 1200);
+              })
+              .catch(function() {
+                alert('Unable to copy automatically. Please copy the invite link manually.');
+              });
+          };
+          waitingPopup.appendChild(copyButton);
+        }
+
         document.body.appendChild(waitingPopup);
 
         // Add event listener for Escape key
-        document.addEventListener('keydown', function handleEscapeKey(event) {
+        _waitingEscHandler = function handleEscapeKey(event) {
           if (event.key === 'Escape') {
             document.body.removeChild(waitingPopup);
-            document.removeEventListener('keydown', handleEscapeKey);
+            document.removeEventListener('keydown', _waitingEscHandler);
+            _waitingEscHandler = null;
 
             // Send a message to the server to cancel the queue
             var xhr = new XMLHttpRequest();
@@ -234,7 +395,8 @@ include_once 'Header.php';
             var params = 'rootName=' + encodeURIComponent(rootName) + '&playerID=' + encodeURIComponent(playerID) + '&lobbyID=' + encodeURIComponent(_lobby_id) + '&authKey=' + encodeURIComponent(authKey);
             xhr.send(params);
             }
-        });
+        };
+        document.addEventListener('keydown', _waitingEscHandler);
       }
 
       function DisplayMatchFoundPopup(playerID, gameName) {
@@ -361,15 +523,15 @@ include_once 'Header.php';
 
       function refreshOpenGames() {
         console.log('Refreshing open games');
+        var openGamesList = document.getElementById('open-games-list');
+        var gameCountElement = document.getElementById('active-game-count');
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../../APIs/Lobbies/GetLobbies.php', true);
+        xhr.open('GET', '../../../APIs/Lobbies/GetLobbies.php?rootName=' + encodeURIComponent(rootName), true);
         xhr.responseType = 'json';
 
         xhr.onload = function() {
           if (xhr.status >= 200 && xhr.status < 300) {
           var data = xhr.response;
-          var openGamesList = document.getElementById('open-games-list');
-          var gameCountElement = document.getElementById('active-game-count');
           
           if (data.data && Array.isArray(data.data)) {
             gameCountElement.textContent = data.data.length;
@@ -391,7 +553,6 @@ include_once 'Header.php';
           }
           } else {
           console.error('Error fetching open games:', xhr.statusText);
-          var openGamesList = document.getElementById('open-games-list');
           gameCountElement.textContent = '0';
           openGamesList.innerHTML = '<p style="color: #999;">Failed to load open games.</p>';
           }
@@ -399,8 +560,6 @@ include_once 'Header.php';
 
         xhr.onerror = function() {
           console.error('Error fetching open games:', xhr.statusText);
-          var openGamesList = document.getElementById('open-games-list');
-          var gameCountElement = document.getElementById('active-game-count');
           gameCountElement.textContent = '0';
           openGamesList.innerHTML = '<p style="color: #999;">Failed to load open games.</p>';
         };
@@ -419,6 +578,10 @@ include_once 'Header.php';
               // Close waiting popup and show match found popup
               var waitingPopup = document.getElementById('waiting-popup');
               if (waitingPopup) waitingPopup.remove();
+              if (_waitingEscHandler) {
+                document.removeEventListener('keydown', _waitingEscHandler);
+                _waitingEscHandler = null;
+              }
               DisplayMatchFoundPopup(response.playerID, response.gameName);
             } else {
               // Continue polling if the lobby is not ready
@@ -443,6 +606,10 @@ include_once 'Header.php';
                      '&authKey=' + encodeURIComponent(authKey);
         xhr.send(params);
       }
+
+      document.addEventListener('DOMContentLoaded', function() {
+        initializePrivateInviteFromUrl();
+      });
     </script>
 
 <?php

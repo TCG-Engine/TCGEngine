@@ -8,6 +8,7 @@
   $response->message = "Successfully fetched lobbies.";
 
   $rootName = isset($_GET['rootName']) ? $_GET['rootName'] : null;
+  $includePrivate = isset($_GET['includePrivate']) && ($_GET['includePrivate'] === '1' || strtolower($_GET['includePrivate']) === 'true');
   $response->data = [];
   $cacheInfo = apcu_cache_info();
 
@@ -25,12 +26,16 @@
         if (!isset($lobby->rootName) || $lobby->rootName !== $rootName) continue;
       }
 
+      $isPrivate = isset($lobby->isPrivate) ? boolval($lobby->isPrivate) : false;
+      if ($isPrivate && !$includePrivate) continue;
+
       $response->data[] = [
         'id' => $lobby->id,
         'gameName' => isset($lobby->gameName) ? $lobby->gameName : null,
         'numPlayers' => intval($lobby->numPlayers),
         'maxPlayers' => intval($lobby->maxPlayers),
         'ready' => boolval($lobby->ready),
+        'isPrivate' => $isPrivate,
         'rootName' => isset($lobby->rootName) ? $lobby->rootName : null,
       ];
     }
