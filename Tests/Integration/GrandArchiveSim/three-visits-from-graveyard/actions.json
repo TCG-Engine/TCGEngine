@@ -1,0 +1,50 @@
+[
+    {
+        "playerID": 2,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myGraveyard-5!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "Top=Yuj8xCUejq;Bottom=0Z1r8GC8a8",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirField-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirField-0",
+        "chkInput": [],
+        "inputText": ""
+    }
+]

@@ -562,6 +562,18 @@ function ActionMap($actionCard)
             // Frost Shard (jnsl7ddcgw): [CB] activate from GY if leveled up this turn, banish on resolve
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $gyObj = GetZoneObject($actionCard);
+                // Three Visits (w7o3agvvnc): [CB] activate from GY, banish on resolve
+                if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "w7o3agvvnc") {
+                    if(IsClassBonusActive($playerID, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($playerID)) {
+                        MZMove($playerID, $actionCard, "myHand");
+                        $hand = &GetHand($playerID);
+                        $handIdx = count($hand) - 1;
+                            DecisionQueueController::StoreVariable("threeVisitsActivationSource", "GY");
+                        ActivateCard($playerID, "myHand-" . $handIdx, false);
+                            DecisionQueueController::ClearVariable("threeVisitsActivationSource");
+                        return "PLAY";
+                    }
+                }
                 if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "jnsl7ddcgw") {
                     if(IsClassBonusActive($playerID, ["MAGE"]) &&
                        GlobalEffectCount($playerID, "LEVELED_UP_THIS_TURN") > 0) {
@@ -746,6 +758,18 @@ function ActionMap($actionCard)
             // Shattering Discharge (uutqo9hm33): activate from banishment if it has a charge counter
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
+                // Three Visits (w7o3agvvnc): [CB] activate from banishment, put on bottom on resolve
+                if($bObj !== null && !$bObj->removed && $bObj->CardID === "w7o3agvvnc") {
+                    if(IsClassBonusActive($playerID, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($playerID)) {
+                        MZMove($playerID, $actionCard, "myHand");
+                        $hand = &GetHand($playerID);
+                        $handIdx = count($hand) - 1;
+                            DecisionQueueController::StoreVariable("threeVisitsActivationSource", "BANISH");
+                        ActivateCard($playerID, "myHand-" . $handIdx, false);
+                            DecisionQueueController::ClearVariable("threeVisitsActivationSource");
+                        return "PLAY";
+                    }
+                }
                 if($bObj !== null && !$bObj->removed && $bObj->CardID === "uutqo9hm33"
                     && GetCounterCount($bObj, "charge") > 0) {
                     RemoveCounters($playerID, $actionCard, "charge", 1);
@@ -1023,11 +1047,27 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if(!CanPlayerUseCardElement($player, $sourceObject->CardID, true, true)) {
         return;
     }
+
+    // Three Visits (w7o3agvvnc): mandatory additional cost — rest your champion.
+    if($sourceObject->CardID === "w7o3agvvnc" && !$ignoreCost && !CanPayRestChampionCost($player)) {
+        return;
+    }
+
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     // Track the source zone so "whenever you activate from memory" triggers can check it in OnCardActivated.
     DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
+    $threeVisitsSource = DecisionQueueController::GetVariable("threeVisitsActivationSource");
+    if($obj->CardID === "w7o3agvvnc") {
+        if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) $obj->TurnEffects = [];
+        if($threeVisitsSource === "GY" && !in_array("THREE_VISITS_FROM_GY", $obj->TurnEffects)) {
+            $obj->TurnEffects[] = "THREE_VISITS_FROM_GY";
+        } else if($threeVisitsSource === "BANISH" && !in_array("THREE_VISITS_FROM_BANISH", $obj->TurnEffects)) {
+            $obj->TurnEffects[] = "THREE_VISITS_FROM_BANISH";
+        }
+    }
+    DecisionQueueController::ClearVariable("threeVisitsActivationSource");
     if($obj->CardID === "3fe3c97s71" && IsClassBonusActive($player, ["RANGER"])) {
         $obj->TurnEffects[] = "CANT_BE_NEGATED";
     }
@@ -1037,6 +1077,21 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         RemoveGlobalEffect($player, "f6lxizyuml_NEXT_CANT_BE_NEGATED");
     }
     TrackEffectStackSourceZone("EffectStack-" . $obj->mzIndex, DecisionQueueController::GetVariable("activationSourceZone"));
+    if($obj->CardID === "w7o3agvvnc") {
+        if($threeVisitsSource === "GY") {
+            TrackEffectStackSourceZone("EffectStack-" . $obj->mzIndex, "myGraveyard");
+        } else if($threeVisitsSource === "BANISH") {
+            TrackEffectStackSourceZone("EffectStack-" . $obj->mzIndex, "myBanish");
+        }
+    }
+
+    // Three Visits (w7o3agvvnc): pay mandatory additional cost by resting champion.
+    if($obj->CardID === "w7o3agvvnc" && !$ignoreCost) {
+        $champMZ = FindChampionMZ($player);
+        if($champMZ !== null) {
+            ExhaustCard($player, $champMZ);
+        }
+    }
 
     //TODO: 1.3 Declaring Costs: Next, the player declares the intended cost parameters for the card.
 
@@ -3210,9 +3265,18 @@ function OnCardActivated($player, $mzCard) {
     }  else if(PropertyContains($cardType, "ACTION")) {
         // Ephemerate: ephemeral actions are banished on resolve
         $wasEphemerationAction = DecisionQueueController::GetVariable("wasEphemerated");
+        $effectStackSourceZone = GetEffectStackSourceZone($mzCard);
         // Frost Shard (jnsl7ddcgw): banish on resolve when activated from graveyard
         global $gyActivatedCardID, $Preserve_Cards;
         if($wasEphemerationAction === "YES") {
+            $obj = MZMove($player, $mzCard, "myBanish");
+        } else if($obj->CardID === "w7o3agvvnc" && $effectStackSourceZone === "myBanish") {
+            $obj = MZMove($player, $mzCard, "myDeck");
+        } else if($obj->CardID === "w7o3agvvnc" && $effectStackSourceZone === "myGraveyard") {
+            $obj = MZMove($player, $mzCard, "myBanish");
+        } else if($obj->CardID === "w7o3agvvnc" && in_array("THREE_VISITS_FROM_BANISH", $obj->TurnEffects ?? [])) {
+            $obj = MZMove($player, $mzCard, "myDeck");
+        } else if($obj->CardID === "w7o3agvvnc" && in_array("THREE_VISITS_FROM_GY", $obj->TurnEffects ?? [])) {
             $obj = MZMove($player, $mzCard, "myBanish");
         } else if(isset($gyActivatedCardID) && $gyActivatedCardID === $obj->CardID) {
             $obj = MZMove($player, $mzCard, "myBanish");
@@ -12628,6 +12692,12 @@ function EphemerateMeta($obj) {
     if (count($decisionQueue) > 0) {
         return json_encode(['highlight' => false]);
     }
+
+    // Three Visits (w7o3agvvnc): [Class Bonus] activate from graveyard while champion can be rested
+    if ($obj->CardID === "w7o3agvvnc" && IsClassBonusActive($turnPlayer, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($turnPlayer)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
     global $ephemerateCards;
     if (!isset($ephemerateCards[$obj->CardID]) && !MordredFatedEphemerateApplies($playerID, $obj->CardID)) {
         return json_encode(['highlight' => false]);
@@ -12675,6 +12745,12 @@ function BanishSelectionMetadata($obj) {
 
     // Shattering Discharge (uutqo9hm33): self + has a charge counter
     if ($currentPhase === "MAIN" && $obj->CardID === "uutqo9hm33" && GetCounterCount($obj, "charge") > 0) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Three Visits (w7o3agvvnc): [Class Bonus] activate from banishment while champion can be rested.
+    if ($currentPhase === "MAIN" && $obj->CardID === "w7o3agvvnc"
+        && IsClassBonusActive($turnPlayer, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($turnPlayer)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
@@ -14361,6 +14437,14 @@ function GetPlayerChampion($player) {
         }
     }
     return null;
+}
+
+function CanPayRestChampionCost($player) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return false;
+    $champObj = GetZoneObject($champMZ);
+    if($champObj === null || $champObj->removed) return false;
+    return isset($champObj->Status) && intval($champObj->Status) === 2;
 }
 
 /**
