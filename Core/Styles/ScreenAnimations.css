@@ -5,58 +5,125 @@
   pointer-events: none;
   z-index: 9998;
   display: none; /* toggled by JS */
-  overflow: hidden;
 }
 
-#turn-miasma-overlay::before {
-  /* soft moving gradient band around edges (less transparent) */
+#turn-miasma-message {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: min(92vw, 840px);
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.72);
+  border: 1px solid rgba(231, 210, 156, 0.55);
+  color: #f4ead0;
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(12px, 1.7vw, 15px);
+  line-height: 1.25;
+  text-align: center;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.65);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+.turn-edge-glyph {
+  position: absolute;
+  top: 50%;
+  width: 26px;
+  height: 440px;
+  transform: translateY(-50%);
+  transition: filter 180ms ease, opacity 180ms ease;
+}
+
+#turn-edge-glyph-left {
+  left: 0;
+}
+
+#turn-edge-glyph-right {
+  right: 0;
+}
+
+.turn-edge-glyph::before,
+.turn-edge-glyph::after {
   content: '';
   position: absolute;
-  inset: 0;
-  border-radius: 0;
-  /* stronger stops: increase alpha so the effect is more visible */
-  background: radial-gradient(closest-side at 10% 10%, rgba(120,120,120,0.10), rgba(0,0,0,0) 30%),
-              radial-gradient(closest-side at 90% 90%, rgba(120,120,120,0.10), rgba(0,0,0,0) 30%),
-              linear-gradient(90deg, rgba(200,200,200,0.06), rgba(200,200,200,0.12) 50%, rgba(200,200,200,0.06));
-  filter: blur(8px) saturate(0.7) brightness(0.93);
-  mix-blend-mode: normal;
-  transform: translateZ(0);
-  animation: miasmaShift 5.5s linear infinite;
+  left: 50%;
+  width: 3px;
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background: rgba(192, 192, 192, 0.28);
+  box-shadow: 0 0 6px rgba(140, 140, 140, 0.2);
+  transition: background 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
 }
 
-@keyframes miasmaShift {
-  0% { transform: translateX(-4%); opacity: 1; }
-  50% { transform: translateX(4%); opacity: 0.88; }
-  100% { transform: translateX(-4%); opacity: 1; }
+.turn-edge-glyph::before {
+  top: 8px;
+  height: calc(50% - 18px);
 }
 
-/* Additional pseudo-layer to create a cloudy / foggy texture */
-#turn-miasma-overlay::after {
-  content: '';
+.turn-edge-glyph::after {
+  top: calc(50% + 10px);
+  height: calc(50% - 18px);
+}
+
+.turn-edge-core {
   position: absolute;
-  /* extend slightly beyond edges so blur looks natural */
-  inset: -12%;
-  pointer-events: none;
-  z-index: 9999;
-  /* denser layered soft cloud blobs to emulate fog (more blobs, varied sizes/alphas) */
-  background:
-    radial-gradient(28% 18% at 8% 18%, rgba(255,255,255,0.12), rgba(255,255,255,0) 36%),
-    radial-gradient(22% 14% at 22% 30%, rgba(250,250,250,0.10), rgba(255,255,255,0) 36%),
-    radial-gradient(30% 20% at 40% 12%, rgba(245,245,245,0.09), rgba(255,255,255,0) 38%),
-    radial-gradient(40% 28% at 60% 72%, rgba(245,245,245,0.11), rgba(255,255,255,0) 40%),
-    radial-gradient(36% 26% at 78% 82%, rgba(250,250,250,0.10), rgba(255,255,255,0) 42%),
-    radial-gradient(50% 35% at 50% 50%, rgba(250,250,250,0.08), rgba(255,255,255,0) 45%);
-  filter: blur(28px) saturate(0.6) contrast(0.95);
-  opacity: 0.96;
-  transform: translateX(-6%);
-  animation: cloudDrift 28s linear infinite;
-  mix-blend-mode: normal;
+  left: 50%;
+  top: 50%;
+  width: 14px;
+  height: 14px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(216, 216, 216, 0.55);
+  background: rgba(170, 170, 170, 0.26);
+  box-shadow: 0 0 8px rgba(130, 130, 130, 0.26);
+  transition: background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
-@keyframes cloudDrift {
-  0% { transform: translateX(-6%); }
-  50% { transform: translateX(6%); }
-  100% { transform: translateX(-6%); }
+#turn-miasma-overlay.my-turn .turn-edge-glyph::after {
+  background: rgba(64, 214, 110, 0.92);
+  box-shadow: 0 0 12px rgba(64, 214, 110, 0.74), 0 0 24px rgba(64, 214, 110, 0.4);
+}
+
+#turn-miasma-overlay.my-turn .turn-edge-core {
+  border-color: rgba(112, 237, 148, 0.96);
+  background: rgba(64, 214, 110, 0.92);
+  box-shadow: 0 0 12px rgba(64, 214, 110, 0.74), 0 0 26px rgba(64, 214, 110, 0.48);
+}
+
+#turn-miasma-overlay.their-turn .turn-edge-glyph::before {
+  background: rgba(222, 72, 72, 0.92);
+  box-shadow: 0 0 12px rgba(222, 72, 72, 0.72), 0 0 24px rgba(222, 72, 72, 0.42);
+}
+
+#turn-miasma-overlay.their-turn .turn-edge-core {
+  border-color: rgba(237, 122, 122, 0.96);
+  background: rgba(222, 72, 72, 0.9);
+  box-shadow: 0 0 12px rgba(222, 72, 72, 0.72), 0 0 26px rgba(222, 72, 72, 0.48);
+}
+
+#turn-miasma-overlay.my-turn .turn-edge-core,
+#turn-miasma-overlay.their-turn .turn-edge-core,
+#turn-miasma-overlay.my-turn .turn-edge-glyph::before,
+#turn-miasma-overlay.my-turn .turn-edge-glyph::after,
+#turn-miasma-overlay.their-turn .turn-edge-glyph::before,
+#turn-miasma-overlay.their-turn .turn-edge-glyph::after {
+  animation: turnEdgePulse 1.6s ease-in-out infinite;
+}
+
+@keyframes turnEdgePulse {
+  0% {
+    opacity: 0.82;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.82;
+  }
 }
 
 /* ====================================

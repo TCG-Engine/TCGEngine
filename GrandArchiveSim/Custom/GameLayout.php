@@ -22,6 +22,11 @@
           --ga-font-label: "Bahnschrift", "Aptos Display", "Franklin Gothic Medium", sans-serif;
      }
 
+     /* Override shared NextTurn.php styling: remove the gold frame around my play area for GA. */
+     #myStuff {
+          border: 0 !important;
+     }
+
      .ga-board-art,
      .ga-board-glow,
      .ga-board-axis,
@@ -753,6 +758,16 @@
 
 <script>
 (function() {
+     // App-level turn indicator config hook (consumed by Core/UILibraries20260415.js).
+     // This keeps ownership/wording customizable per app layout.
+     window.TurnIndicatorSettings = {
+          showWaitingMessage: true,
+          waitingMessageBuilder: function(ctx) {
+               if (!ctx || typeof ctx.defaultBuilder !== 'function') return null;
+               return ctx.defaultBuilder();
+          }
+     };
+
      var AUTO_HIDE_IDS = ['myIntentSlot', 'theirIntentSlot', 'EffectStackSlot', 'myMasterySlot', 'theirMasterySlot'];
      var EMPTY_STATE_SLOTS = [
           { id: 'myMemorySlot',      cls: 'ga-memory-empty' },

@@ -2860,14 +2860,131 @@ function _ensureTurnMiasmaOverlay() {
   if (!el) {
     el = document.createElement('div');
     el.id = 'turn-miasma-overlay';
+
+    const leftGlyph = document.createElement('div');
+    leftGlyph.id = 'turn-edge-glyph-left';
+    leftGlyph.className = 'turn-edge-glyph';
+    leftGlyph.setAttribute('data-side', 'left');
+    const leftCore = document.createElement('div');
+    leftCore.className = 'turn-edge-core';
+    leftGlyph.appendChild(leftCore);
+
+    const rightGlyph = document.createElement('div');
+    rightGlyph.id = 'turn-edge-glyph-right';
+    rightGlyph.className = 'turn-edge-glyph';
+    rightGlyph.setAttribute('data-side', 'right');
+    const rightCore = document.createElement('div');
+    rightCore.className = 'turn-edge-core';
+    rightGlyph.appendChild(rightCore);
+
+    const text = document.createElement('div');
+    text.id = 'turn-miasma-message';
+
+    el.appendChild(leftGlyph);
+    el.appendChild(rightGlyph);
+    el.appendChild(text);
     document.body.appendChild(el);
   }
   return el;
 }
 
+function _setTurnOverlayState(overlay, state) {
+  if (!overlay) return;
+  overlay.classList.remove('my-turn', 'their-turn', 'spectator-turn');
+  overlay.classList.add(state);
+}
+
+function _getTurnIndicatorSettings() {
+  const defaults = {
+    showWaitingMessage: true,
+    waitingMessageBuilder: null
+  };
+
+  if (!window.TurnIndicatorSettings || typeof window.TurnIndicatorSettings !== 'object') {
+    return defaults;
+  }
+
+  const merged = {
+    showWaitingMessage: defaults.showWaitingMessage,
+    waitingMessageBuilder: defaults.waitingMessageBuilder
+  };
+
+  if (typeof window.TurnIndicatorSettings.showWaitingMessage === 'boolean') {
+    merged.showWaitingMessage = window.TurnIndicatorSettings.showWaitingMessage;
+  }
+
+  if (typeof window.TurnIndicatorSettings.waitingMessageBuilder === 'function') {
+    merged.waitingMessageBuilder = window.TurnIndicatorSettings.waitingMessageBuilder;
+  }
+
+  return merged;
+}
+
+function _firstPendingDecisionFromRaw(rawQueue) {
+  let queue = rawQueue;
+  if (typeof queue === 'string') {
+    queue = ParseDecisionQueue(queue);
+  }
+  if (!Array.isArray(queue)) return null;
+  for (let i = 0; i < queue.length; ++i) {
+    const entry = queue[i];
+    if (entry && !entry.removed) return entry;
+  }
+  return null;
+}
+
+function _describeDecisionType(type) {
+  switch ((type || '').toUpperCase()) {
+    case 'YESNO': return 'make a yes/no choice';
+    case 'MZCHOOSE': return 'choose a card';
+    case 'MZMAYCHOOSE': return 'choose a card (or pass)';
+    case 'MZREARRANGE': return 'rearrange cards';
+    case 'MZMODAL': return 'choose an option';
+    case 'MZSPLITASSIGN': return 'assign values';
+    case 'NUMBERCHOOSE': return 'choose a number';
+    case 'ICONCHOICE': return 'choose a direction';
+    default: return 'take an action';
+  }
+}
+
+function _buildOpponentWaitingMessage() {
+  const settings = _getTurnIndicatorSettings();
+  if (typeof settings.waitingMessageBuilder === 'function') {
+    const customText = settings.waitingMessageBuilder({
+      theirDecisionQueueData: window.theirDecisionQueueData,
+      defaultBuilder: function() {
+        const pendingDecision = _firstPendingDecisionFromRaw(window.theirDecisionQueueData);
+        if (!pendingDecision) return 'Waiting for the other player...';
+        const tip = (pendingDecision.Tooltip && pendingDecision.Tooltip !== '-')
+          ? pendingDecision.Tooltip.replace(/_/g, ' ').trim()
+          : '';
+        const defaultAction = tip || _describeDecisionType(pendingDecision.Type);
+        const normalizedAction = defaultAction.replace(/[.\s]+$/g, '');
+        return 'Waiting for the other player to ' + normalizedAction + '...';
+      }
+    });
+    if (typeof customText === 'string' && customText.trim() !== '') {
+      return customText;
+    }
+  }
+
+  const pending = _firstPendingDecisionFromRaw(window.theirDecisionQueueData);
+  if (!pending) return 'Waiting for the other player...';
+
+  const tooltip = (pending.Tooltip && pending.Tooltip !== '-')
+    ? pending.Tooltip.replace(/_/g, ' ').trim()
+    : '';
+  const action = tooltip || _describeDecisionType(pending.Type);
+  const normalized = action.replace(/[.\s]+$/g, '');
+
+  return 'Waiting for the other player to ' + normalized + '...';
+}
+
 function UpdateTurnPlayerMiasma() {
   try {
     const overlay = _ensureTurnMiasmaOverlay();
+    const messageEl = document.getElementById('turn-miasma-message');
+    const settings = _getTurnIndicatorSettings();
     const turnVal = typeof window.TurnPlayerData !== 'undefined' ? parseInt(window.TurnPlayerData) : NaN;
     const viewerVal = (document.getElementById('playerID') && document.getElementById('playerID').value) ? parseInt(document.getElementById('playerID').value) : NaN;
 
@@ -2880,12 +2997,29 @@ function UpdateTurnPlayerMiasma() {
     // If viewer value available, only show miasma when viewer is NOT the turn player
     if (!isNaN(viewerVal)) {
       const viewerIsTurn = viewerVal === turnVal;
-      overlay.style.display = viewerIsTurn ? 'none' : 'block';
+      _setTurnOverlayState(overlay, viewerIsTurn ? 'my-turn' : 'their-turn');
+      overlay.style.display = 'flex';
+      if (messageEl) {
+        const shouldShowMessage = settings.showWaitingMessage && !viewerIsTurn;
+        messageEl.style.display = shouldShowMessage ? 'inline-flex' : 'none';
+      }
+      if (!viewerIsTurn && messageEl) {
+        messageEl.textContent = _buildOpponentWaitingMessage();
+      }
       return;
     }
 
     // For spectators (no viewerVal) show overlay by default when turnVal exists
-    overlay.style.display = 'block';
+    _setTurnOverlayState(overlay, 'spectator-turn');
+    overlay.style.display = 'flex';
+    if (messageEl) {
+      if (settings.showWaitingMessage) {
+        messageEl.style.display = 'inline-flex';
+        messageEl.textContent = _buildOpponentWaitingMessage();
+      } else {
+        messageEl.style.display = 'none';
+      }
+    }
   } catch (e) {
     if (console && console.error) console.error('UpdateTurnPlayerMiasma error', e);
   }
