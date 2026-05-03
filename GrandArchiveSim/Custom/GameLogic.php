@@ -3785,6 +3785,17 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         }
     }
     switch($cardID) {
+        case "G8pN8Hackq": // Aella, Zephyr's Hand — (3), first activation each turn costs (3) less
+            if(intval($abilityIndex) === 0) {
+                $reserveCost = 3;
+                if(ActivateAbilityTurnCount($player, $cardID) <= 1) {
+                    $reserveCost = max(0, $reserveCost - 3);
+                }
+                for($ri = 0; $ri < $reserveCost; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
         case "u7d6soporh": // Ingredient Pouch — (1), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
