@@ -8829,6 +8829,7 @@ function ObjectCurrentPower($obj) {
         // Exalted Dorumegian Throne (p4lpnvx7mn): allies get +1 POWER
         if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
             foreach($field as $fieldObj) {
+                if($fieldObj === null) continue;
                 if(!$fieldObj->removed && $fieldObj->CardID === "p4lpnvx7mn") {
                     $power += 1;
                     break;
@@ -8965,6 +8966,7 @@ function ObjectCurrentPower($obj) {
         // Dian Wei, Valorant Fury (h42l1w67ry): [CB] Deluge 6 — other Human allies get +1 POWER
         if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "HUMAN")) {
             foreach($field as $fieldObj) {
+                if($fieldObj === null) continue;
                 if(!$fieldObj->removed && $fieldObj->CardID === "h42l1w67ry" && !HasNoAbilities($fieldObj)
                    && $obj->CardID !== "h42l1w67ry"
                    && IsClassBonusActive($obj->Controller, ["WARRIOR"])
@@ -9019,6 +9021,7 @@ function ObjectCurrentPower($obj) {
         // Reverent Seraphim (e5r6eVzpkD): as long as it is imbued, other allies get -1 POWER
         if(PropertyContains(EffectiveCardType($obj), "ALLY")) {
             foreach($field as $fieldObj) {
+                if($fieldObj === null) continue;
                 if(!$fieldObj->removed && $fieldObj->CardID === "e5r6eVzpkD" && !HasNoAbilities($fieldObj)
                     && $fieldObj !== $obj && in_array("IMBUED", $fieldObj->TurnEffects ?? [])) {
                     $power -= 1;
