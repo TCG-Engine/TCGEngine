@@ -14375,8 +14375,15 @@ function CanMaterializeChampion($player, $cardID) {
     return true;
 }
 
+function IsDistortionCard($cardID) {
+    if(PropertyContains(CardSubtypes($cardID), "DISTORTION")) return true;
+    if(PropertyContains(CardType($cardID), "DISTORTION")) return true;
+    if(PropertyContains(CardClasses($cardID), "DISTORTION")) return true;
+    return false;
+}
+
 function CanLookingGlassIgnoreElementRequirement($player, $cardID) {
-    if(!PropertyContains(CardSubtypes($cardID), "DISTORTION")) return false;
+    if(!IsDistortionCard($cardID)) return false;
 
     $field = &GetField($player);
     for($i = 0; $i < count($field); ++$i) {
