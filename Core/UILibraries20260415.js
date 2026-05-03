@@ -443,10 +443,15 @@
             var buttons = createWidgetButtons(zoneName, id);
             newHTML += "<span style='margin: 1px;'>" + zoneName + " Count: " + zoneData + " " + buttons.middleButtons + "</span>";
           } else if(mode == 'Value') {
-            newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneName + ": " + zoneData + "</span>";
             var id = zone + "-0";
             var buttons = createWidgetButtons(zoneName, id);
-            newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;'>" + buttons.middleButtons + "</div>";
+            if(zone == 'myHealth' || zone == 'theirHealth') {
+              // Keep the zone widget (pass) without rendering "Health: X" text.
+              newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;'>" + buttons.middleButtons + "</div>";
+            } else {
+              newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneName + ": " + zoneData + "</span>";
+              newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;'>" + buttons.middleButtons + "</div>";
+            }
           } else if(mode == 'Radio') {
             newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneName + ":</span>";
             var id = zone + "-0";

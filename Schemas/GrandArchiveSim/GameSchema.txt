@@ -126,7 +126,7 @@ Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
 Health - Value:number=0
 Display: Visibility=Public, Mode=Value, BindTo=HealthSlot
-Widgets: Value=-1&+1,CustomInput=Pass
+Widgets: CustomInput=Pass
 Mastery - CardID:string, Direction:string=NONE, Counters:json
 Virtual: SheenCounterCount=GetSheenCounterCount(), HauntCounterCount=GetHauntCounterCount()
 Display: Visibility=Public, Mode=All, BindTo=MasterySlot

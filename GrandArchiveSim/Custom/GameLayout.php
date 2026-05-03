@@ -300,6 +300,106 @@
           display: none;
      }
 
+     /* Zero state for material slot — slightly smaller than full token-bank */
+     #myMaterialSlot.ga-material-empty,
+     #theirMaterialSlot.ga-material-empty {
+          box-sizing: border-box;
+          width: 96px;
+          min-height: 110px;
+          border: 1px solid rgba(244, 236, 219, 0.24);
+          border-radius: 14px;
+          background:
+               linear-gradient(180deg, rgba(244, 236, 219, 0.08), rgba(255, 255, 255, 0.02)),
+               linear-gradient(160deg, rgba(19, 32, 43, 0.72), rgba(19, 32, 43, 0.56));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 10px 26px rgba(7, 14, 20, 0.20);
+     }
+
+     #myMaterialSlot.ga-material-empty::before,
+     #theirMaterialSlot.ga-material-empty::before {
+          content: attr(data-label) " (0)";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          color: rgba(244, 236, 219, 0.82);
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          font: 700 11px/1 var(--ga-font-label);
+          white-space: nowrap;
+          pointer-events: none;
+     }
+
+     #myMaterialSlot.ga-material-empty #myMaterial > span,
+     #theirMaterialSlot.ga-material-empty #theirMaterial > span {
+          display: none;
+     }
+
+     /* Zero state for banish slot */
+     #myBanishSlot.ga-banish-empty,
+     #theirBanishSlot.ga-banish-empty {
+          box-sizing: border-box;
+          min-height: 96px;
+          border: 1px solid rgba(244, 236, 219, 0.24);
+          border-radius: 14px;
+          background:
+               linear-gradient(180deg, rgba(244, 236, 219, 0.08), rgba(255, 255, 255, 0.02)),
+               linear-gradient(160deg, rgba(19, 32, 43, 0.72), rgba(19, 32, 43, 0.56));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 10px 26px rgba(7, 14, 20, 0.20);
+     }
+
+     #myBanishSlot.ga-banish-empty::before,
+     #theirBanishSlot.ga-banish-empty::before {
+          content: attr(data-label) " (0)";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          color: rgba(244, 236, 219, 0.82);
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          font: 700 11px/1 var(--ga-font-label);
+          white-space: nowrap;
+          pointer-events: none;
+     }
+
+     #myBanishSlot.ga-banish-empty #myBanish > span,
+     #theirBanishSlot.ga-banish-empty #theirBanish > span {
+          display: none;
+     }
+
+     /* Zero state for graveyard slot */
+     #myGraveyardSlot.ga-graveyard-empty,
+     #theirGraveyardSlot.ga-graveyard-empty {
+          box-sizing: border-box;
+          min-height: 96px;
+          border: 1px solid rgba(244, 236, 219, 0.24);
+          border-radius: 14px;
+          background:
+               linear-gradient(180deg, rgba(244, 236, 219, 0.08), rgba(255, 255, 255, 0.02)),
+               linear-gradient(160deg, rgba(19, 32, 43, 0.72), rgba(19, 32, 43, 0.56));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10), 0 10px 26px rgba(7, 14, 20, 0.20);
+     }
+
+     #myGraveyardSlot.ga-graveyard-empty::before,
+     #theirGraveyardSlot.ga-graveyard-empty::before {
+          content: attr(data-label) " (0)";
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          color: rgba(244, 236, 219, 0.82);
+          text-transform: uppercase;
+          letter-spacing: 0.12em;
+          font: 700 11px/1 var(--ga-font-label);
+          white-space: nowrap;
+          pointer-events: none;
+     }
+
+     #myGraveyardSlot.ga-graveyard-empty #myGraveyard > span,
+     #theirGraveyardSlot.ga-graveyard-empty #theirGraveyard > span {
+          display: none;
+     }
+
      .ga-pile {
           width: 92px;
           min-height: 122px;
@@ -316,7 +416,7 @@
      }
 
      .ga-hand {
-          width: min(50vw, 900px);
+          width: min(58vw, 1040px);
           min-height: 118px;
      }
 
@@ -415,7 +515,7 @@
           }
 
           .ga-hand {
-               width: min(56vw, 760px);
+               width: min(64vw, 900px);
           }
 
           .ga-field {
@@ -464,6 +564,13 @@
                min-height: 104px;
           }
 
+          #myBanishSlot.ga-banish-empty,
+          #theirBanishSlot.ga-banish-empty,
+          #myGraveyardSlot.ga-graveyard-empty,
+          #theirGraveyardSlot.ga-graveyard-empty {
+               min-height: 78px;
+          }
+
           #myMemorySlot,
           #theirMemorySlot {
                width: 78px;
@@ -480,7 +587,7 @@
           }
 
           .ga-hand {
-               width: calc(100vw - 100px);
+               width: calc(100vw - 72px);
                min-height: 112px;
           }
 
@@ -579,19 +686,19 @@
 
 <!-- theirDeckSlot: mirrors my deck position in the top half -->
 <div id="theirDeckSlot" class="ga-zone ga-pile"
-           data-label="Opponent Deck"
+           data-label="Deck"
            style="top:124px; right:24px;">
 </div>
 
 <!-- theirBanishSlot: mirrors my banish position in the top half -->
 <div id="theirBanishSlot" class="ga-zone ga-pile"
-           data-label="Opponent Banish"
+           data-label="Banish"
            style="top:226px; right:24px;">
 </div>
 
 <!-- theirGraveyardSlot: mirrors my graveyard in the top half -->
 <div id="theirGraveyardSlot" class="ga-zone ga-pile"
-           data-label="Opponent Graveyard"
+           data-label="Graveyard"
            style="top:22px; right:24px;">
 </div>
 
@@ -603,7 +710,7 @@
 
 <!-- theirFieldSlot: mirrors my field in the top half -->
 <div id="theirFieldSlot" class="ga-zone ga-field"
-           data-label="Opponent Field"
+           data-label="Field"
            style="top:calc(50% - 40px - 154px); overflow-y:visible;">
 </div>
 
@@ -620,19 +727,19 @@
 
 <!-- theirMaterialSlot: mirrors my material in the top half -->
 <div id="theirMaterialSlot" class="ga-zone ga-token-bank"
-           data-label="Opponent Material"
+           data-label="Material"
            style="top:154px; left:24px;">
 </div>
 
 <!-- theirHealthSlot: mirrors my health in the top half -->
 <div id="theirHealthSlot" class="ga-zone ga-stat"
-           data-label="Opponent Health"
-           style="top:30px; right:148px;">
+           data-label="Health"
+           style="top:30px; right:148px; display:none;">
 </div>
 
 <!-- theirMasterySlot: mirrors my mastery in the top half -->
 <div id="theirMasterySlot" class="ga-zone ga-token-bank"
-           data-label="Opponent Mastery"
+           data-label="Mastery"
            style="top:124px; left:166px;">
 </div>
 
@@ -647,7 +754,16 @@
 <script>
 (function() {
      var AUTO_HIDE_IDS = ['myIntentSlot', 'theirIntentSlot', 'EffectStackSlot', 'myMasterySlot', 'theirMasterySlot'];
-     var MEMORY_EMPTY_IDS = ['myMemorySlot', 'theirMemorySlot'];
+     var EMPTY_STATE_SLOTS = [
+          { id: 'myMemorySlot',      cls: 'ga-memory-empty' },
+          { id: 'theirMemorySlot',   cls: 'ga-memory-empty' },
+          { id: 'myMaterialSlot',    cls: 'ga-material-empty' },
+          { id: 'theirMaterialSlot', cls: 'ga-material-empty' },
+          { id: 'myBanishSlot',      cls: 'ga-banish-empty' },
+          { id: 'theirBanishSlot',   cls: 'ga-banish-empty' },
+          { id: 'myGraveyardSlot',   cls: 'ga-graveyard-empty' },
+          { id: 'theirGraveyardSlot',cls: 'ga-graveyard-empty' },
+     ];
 
      function hasCards(slot) {
           // PopulateZone renders card items as spans with id like "zoneName-0"
@@ -658,8 +774,8 @@
           slot.style.display = hasCards(slot) ? '' : 'none';
      }
 
-     function refreshMemoryEmptyState(slot) {
-          slot.classList.toggle('ga-memory-empty', !hasCards(slot));
+     function refreshEmptyState(slot, cls) {
+          slot.classList.toggle(cls, !hasCards(slot));
      }
 
      function watchSlot(id) {
@@ -670,11 +786,11 @@
                .observe(el, { childList: true, subtree: true });
      }
 
-     function watchMemorySlot(id) {
+     function watchEmptyStateSlot(id, cls) {
           var el = document.getElementById(id);
           if (!el) return;
-          refreshMemoryEmptyState(el);
-          new MutationObserver(function() { refreshMemoryEmptyState(el); })
+          refreshEmptyState(el, cls);
+          new MutationObserver(function() { refreshEmptyState(el, cls); })
                .observe(el, { childList: true, subtree: true });
      }
 
@@ -682,11 +798,11 @@
      if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function() {
                AUTO_HIDE_IDS.forEach(watchSlot);
-               MEMORY_EMPTY_IDS.forEach(watchMemorySlot);
+               EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
           });
      } else {
           AUTO_HIDE_IDS.forEach(watchSlot);
-          MEMORY_EMPTY_IDS.forEach(watchMemorySlot);
+          EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
      }
 })();
 </script>
