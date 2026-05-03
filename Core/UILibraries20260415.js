@@ -199,6 +199,10 @@
         else return "#EDEDED";
       }
 
+      function IsDragDropEnabled() {
+        return window.rootPath != './GrandArchiveSim';
+      }
+
       // Function to handle drag start event
       function dragStart(e) {
           // Set the drag's data and styling
@@ -394,7 +398,7 @@
             return "";
           }
           zoneData = zoneData.trim();
-          var dragProps = mode != "Panel" ? "ondragover='dragOver(event)' ondrop='drop(event)' " : "";
+          var dragProps = (mode != "Panel" && IsDragDropEnabled()) ? "ondragover='dragOver(event)' ondrop='drop(event)' " : "";
           var newHTML = "<span id='" + zone + "' " + dragProps + "style='display: flex; flex-wrap: wrap; justify-content: center;'>";
           var zoneArr = (zoneData.length == 0 ? [] : zoneData.split("<|>"));
           var zoneName = zone.replace("my", "").replace("their", "");
@@ -674,7 +678,8 @@
         } catch (e) {}
 
         var styles = " style='" + inlineStyles + "'";
-        var droppable = " class='draggable " + className + combatIndicatorClass + "' draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'";
+        var dragAttributes = IsDragDropEnabled() ? " draggable='true' ondragstart='dragStart(event)' ondragend='dragEnd(event)'" : "";
+        var droppable = " class='draggable " + className + combatIndicatorClass + "'" + dragAttributes;
         var click = isSelectable
           ? " onclick=\"OnSelectableCardClick('" + zoneName + "', '" + id + "')\""
           : " onclick=\"CardClick(event, '" + zoneName + "', '" + id + "')\"";
