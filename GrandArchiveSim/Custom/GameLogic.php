@@ -8816,7 +8816,7 @@ function ObjectCurrentPower($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fieldObj) {
-            if($fieldObj->CardID === "IAkuSSnzYB") { // Banner Knight: [Class Bonus][Level 2+] Other allies and weapons get +1 POWER
+            if($fieldObj !== null && $fieldObj->CardID === "IAkuSSnzYB") { // Banner Knight: [Class Bonus][Level 2+] Other allies and weapons get +1 POWER
                 if($obj->CardID !== "IAkuSSnzYB" &&
                    (PropertyContains(EffectiveCardType($obj), "ALLY") || PropertyContains(EffectiveCardType($obj), "WEAPON")) &&
                    IsClassBonusActive($obj->Controller, ["WARRIOR"]) &&
@@ -9920,6 +9920,7 @@ function ObjectCurrentLevel($obj) {
             $zone = $obj->Controller == $playerID ? "myField" : "theirField";
             $acerbicaField = GetZone($zone);
             foreach($acerbicaField as $aObj) {
+                if($aObj === null) continue;
                 if(!$aObj->removed && $aObj->CardID === "7ax4ywyv19" && !HasNoAbilities($aObj)) {
                     $cardLevel -= 1;
                 }
@@ -9930,6 +9931,7 @@ function ObjectCurrentLevel($obj) {
             $allFields = [GetZone("myField"), GetZone("theirField")];
             foreach($allFields as $dcField) {
                 foreach($dcField as $dcObj) {
+                    if($dcObj === null) continue;
                     if(!$dcObj->removed && $dcObj->CardID === "5upufyoz23" && !HasNoAbilities($dcObj)
                        && GetCounterCount($dcObj, "umbra_mode") > 0) {
                         $cardLevel -= 1;
@@ -14427,6 +14429,7 @@ function AreCurseLineageAbilitiesSuppressed($player) {
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zone);
     foreach($field as $fObj) {
+        if($fObj === null) continue;
         if(!$fObj->removed && $fObj->CardID === "qp2r93Bgpj" && !HasNoAbilities($fObj)
             && IsClassBonusActive($player, ["RANGER"])) {
             return true;
@@ -17001,6 +17004,7 @@ function GetLinkedCards($obj) {
     foreach($obj->Subcards as $subcardCardID) {
         if(empty($subcardCardID)) continue;
         foreach($field as $fObj) {
+            if($fObj === null) continue;
             if($fObj->removed) continue;
             if($fObj->CardID !== $subcardCardID) continue;
             // Confirm it's actually linked (has the reverse pointer)
@@ -17020,6 +17024,7 @@ function GetLinkedAllyMZ($player, $phantasiaObj) {
     $zoneRef = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zoneRef);
     foreach($field as $idx => $obj) {
+        if($obj === null) continue;
         if($obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY")) continue;
         if($obj->CardID !== $linkedCardID) continue;
         if(!is_array($obj->Subcards) || !in_array($phantasiaObj->CardID, $obj->Subcards)) continue;
