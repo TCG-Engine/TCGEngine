@@ -382,6 +382,9 @@ while(!feof($handler)) {
       case "AddReplacement":
         $zoneObj->AddReplacement = trim($lineValue);
         break;
+      case "BeforeAdd":
+        $zoneObj->BeforeAdd = trim($lineValue);
+        break;
       case "AfterAdd":
         $zoneObj->AfterAdd = trim($lineValue);
         break;
@@ -469,6 +472,7 @@ while(!feof($handler)) {
         $zoneObj->AddValidation = "";
         $zoneObj->Scope = "Player";
         $zoneObj->AddReplacement = null;
+        $zoneObj->BeforeAdd = null;
         $zoneObj->AfterAdd = null;
         $zoneObj->VirtualProperties = [];
         $zoneObj->IndexedProperties = [];
@@ -598,6 +602,13 @@ for($i=0; $i<count($zones); ++$i) {
       fwrite($handler, "  \$replaceResult = " . $zone->AddReplacement . "(\$player" . $parametersNoDefaults . ", \$sourceObject);\r\n");
     }
     fwrite($handler, "  if(\$replaceResult) return \$replaceResult;\r\n");
+  }
+  if ($zone->BeforeAdd != null) {
+    if (strtolower($scope) == 'global') {
+      fwrite($handler, "  if(!" . $zone->BeforeAdd . "(" . ltrim($parametersNoDefaults, ',') . ", \$sourceObject)) return null;\r\n");
+    } else {
+      fwrite($handler, "  if(!" . $zone->BeforeAdd . "(\$player" . $parametersNoDefaults . ", \$sourceObject)) return null;\r\n");
+    }
   }
   if ($isValueOnly) {
     // For Value zones, set the global variable directly

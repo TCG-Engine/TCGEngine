@@ -37,9 +37,11 @@ Macro: Name=OnKill(mzID); ChoiceFunction=OnKillTrigger; Action={}
 Macro: Name=OnFoster(mzID); ChoiceFunction=OnFosterTrigger; Action={}
 Deck - CardID:string
 AddReplacement: DeckAddReplacement
+BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Private, Mode=Single, BindTo=DeckSlot
 Macros: Shuffle
 Banish - CardID:string, TurnEffects:array[string], Counters:json
+BeforeAdd: TokenCeaseBeforeAdd
 Index: TurnEffects
 Virtual: OmenCounterCount=GetOmenCounterCount(), BanishSelectionMetadata=BanishSelectionMetadata()
 Highlight: BanishSelectionMetadata
@@ -48,14 +50,17 @@ Click: FSM()
 Counters: OmenCounterCount=Badge(Color=Purple,Position=Center,ShowZero=false)
 Graveyard - CardID:string
 AddReplacement: GraveyardAddReplacement
+BeforeAdd: TokenCeaseBeforeAdd
 Virtual: EphemerateMeta=EphemerateMeta()
 Highlight: EphemerateMeta
 Display: Visibility=Public, Mode=Single, BindTo=GraveyardSlot
 Click: FSM()
 GlobalEffects - CardID:string
+BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=None, Mode=None
 Hand - CardID:string
 AddReplacement: HandAddReplacement
+BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=All, BindTo=HandSlot
 Click: FSM()
 Virtual: SelectionMetadata=SelectionMetadata(), HandCardCostDifference=HandCardCostDifference()
@@ -104,6 +109,7 @@ AfterAdd: FieldAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()
 Intent - CardID:string, Controller:number, TurnEffects:array[string]
+BeforeAdd: TokenCeaseBeforeAdd
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: DisplayEffects=CardDisplayEffects()
@@ -117,10 +123,13 @@ Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Memory - CardID:string
 AddReplacement: MemoryAddReplacement
+BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=Single, BindTo=MemorySlot
 Material - CardID:string
+BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=Single, BindTo=MaterialSlot
 TempZone - CardID:string
+BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=None
 Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
@@ -128,6 +137,7 @@ Health - Value:number=0
 Display: Visibility=Public, Mode=Value, BindTo=HealthSlot
 Widgets: CustomInput=Pass
 Mastery - CardID:string, Direction:string=NONE, Counters:json
+BeforeAdd: TokenCeaseBeforeAdd
 Virtual: SheenCounterCount=GetSheenCounterCount(), HauntCounterCount=GetHauntCounterCount()
 Display: Visibility=Public, Mode=All, BindTo=MasterySlot
 Overlay: Direction=NORTH:sc_north,Direction=SOUTH:sc_south,Direction=EAST:sc_east,Direction=WEST:sc_west
@@ -151,6 +161,7 @@ Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 DecisionQueueVariables - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 EffectStack - CardID:string, Controller:number
+BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Public, Mode=Single, Scope=Global, BindTo=EffectStackSlot
 Sort: Reverse=true
 MacroTurnIndex - Value:string

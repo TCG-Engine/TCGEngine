@@ -13014,6 +13014,24 @@ function MemoryAddReplacement($player, $CardID, $sourceObject) {
 }
 
 /**
+ * Generic schema BeforeAdd hook for non-field zones.
+ * Returns false to cancel adding token objects so they cease to exist.
+ */
+function TokenCeaseBeforeAdd(...$args) {
+    if(count($args) < 2) return true;
+
+    // Player-scoped zones pass ($player, $CardID, ...$sourceObject).
+    // Global zones pass ($CardID, ...$sourceObject).
+    $candidate = $args[0];
+    if(is_numeric($candidate) && isset($args[1])) {
+        $candidate = $args[1];
+    }
+
+    if(!is_string($candidate) || $candidate === "-") return true;
+    return !PropertyContains(CardType($candidate), "TOKEN");
+}
+
+/**
  * Return Shackled Theurgist from graveyard/banish to the field with +2 LIFE and ephemeral.
  */
 function ShackledTheurgistReturn($player, $fieldZone) {
