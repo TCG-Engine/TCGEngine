@@ -1490,7 +1490,11 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     global $onHitAbilities;
     if(!isset($onHitAbilities) || !is_array($onHitAbilities)) return;
 
+    // Preserve prior macro context and set source mzID per dispatched On Hit ability.
+    $prevMzID = DecisionQueueController::GetVariable("mzID");
+
     // Dispatch On Hit for the attacker itself
+    DecisionQueueController::StoreVariable("mzID", $attackerMZ);
     $obj = GetZoneObject($attackerMZ);
     if($obj !== null && !HasNoAbilities($obj) && isset($onHitAbilities[$obj->CardID . ":0"])) {
         $onHitAbilities[$obj->CardID . ":0"]($player);
@@ -1499,6 +1503,7 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     // Dispatch On Hit for attack cards in intent
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $iMZ) {
+        DecisionQueueController::StoreVariable("mzID", $iMZ);
         $iObj = GetZoneObject($iMZ);
         if($iObj === null) continue;
         if(isset($onHitAbilities[$iObj->CardID . ":0"])) {
@@ -1509,11 +1514,16 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     // Dispatch On Hit for combat weapon
     $weaponMZ = GetCombatWeapon();
     if($weaponMZ !== null) {
+        DecisionQueueController::StoreVariable("mzID", $weaponMZ);
         $weaponObj = GetZoneObject($weaponMZ);
         if($weaponObj !== null && isset($onHitAbilities[$weaponObj->CardID . ":0"])) {
             $onHitAbilities[$weaponObj->CardID . ":0"]($player);
         }
     }
+
+    if($prevMzID === null || $prevMzID === "") DecisionQueueController::ClearVariable("mzID");
+    else DecisionQueueController::StoreVariable("mzID", $prevMzID);
+
     // Shadeblood Coating (nd8dy77ikm): granted On Hit — put a preparation counter on your champion.
     if($obj !== null && in_array("nd8dy77ikm_ONHIT", $obj->TurnEffects ?? [])) {
         AddPrepCounter($player, 1);
