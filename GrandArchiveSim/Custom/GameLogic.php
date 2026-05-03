@@ -151,6 +151,17 @@ function IsFacetLockedName($player, $cardID) {
     return false;
 }
 
+function IsDreamFairyLockedCardID($player, $cardID) {
+    $opponent = ($player == 1) ? 2 : 1;
+    $oppField = GetField($opponent);
+    foreach($oppField as $fieldObj) {
+        if($fieldObj->removed || $fieldObj->CardID !== "UVAb8CmjtL" || HasNoAbilities($fieldObj)) continue;
+        if(!is_array($fieldObj->Counters)) continue;
+        if(($fieldObj->Counters["dreamFairyLockedCardID"] ?? "") === $cardID) return true;
+    }
+    return false;
+}
+
 function GetImbueOptionLabel($cardID, $option) {
     switch($option['matcher']) {
         case 'advanced':
@@ -982,6 +993,9 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $sourceObject = &GetZoneObject($mzCard);
 
     if(IsFacetLockedName($player, $sourceObject->CardID)) {
+        return;
+    }
+    if(IsDreamFairyLockedCardID($player, $sourceObject->CardID)) {
         return;
     }
 
@@ -3751,6 +3765,9 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
     $sourceObject = &GetZoneObject($mzCard);
 
     if($sourceObject !== null && IsFacetLockedName($player, $sourceObject->CardID)) {
+        return;
+    }
+    if($sourceObject !== null && IsDreamFairyLockedCardID($player, $sourceObject->CardID)) {
         return;
     }
 
