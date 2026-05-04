@@ -507,6 +507,19 @@ $customDQHandlers["PREGAME_FINISH_STARTING_CHAMPIONS"] = function($player, $part
     SetMacroTurnIndex('{}');
 };
 
+function IsFirstTurnAttackLocked($player) {
+    $currentTurn = intval(GetTurnNumber());
+    $firstPlayer = intval(GetFirstPlayer());
+    return $currentTurn === 1 && intval($player) === $firstPlayer;
+}
+
+function CanActivateAttackCardNow($player, $cardID, $setFlash = true) {
+    if(!PropertyContains(CardType($cardID), "ATTACK")) return true;
+    if(!IsFirstTurnAttackLocked($player)) return true;
+    if($setFlash) SetFlashMessage("Cannot attack on the first turn.");
+    return false;
+}
+
 //TODO: Add this to a schema
 function ActionMap($actionCard)
 {
@@ -526,6 +539,8 @@ function ActionMap($actionCard)
         case "myHand":
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 // Turn player can play any card during their main phase
+                $handObj = GetZoneObject($actionCard);
+                if($handObj !== null && !CanActivateAttackCardNow($playerID, $handObj->CardID, true)) break;
                 if(function_exists("CanActivateCard") && !CanActivateCard($playerID, $actionCard, false)) break;
                 SaveUndoVersion($playerID);
                 ActivateCard($playerID, $actionCard, false);
@@ -992,11 +1007,20 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     
     $sourceObject = &GetZoneObject($mzCard);
 
+    if($sourceObject === null || (isset($sourceObject->removed) && $sourceObject->removed)) {
+        return;
+    }
+
     if(IsFacetLockedName($player, $sourceObject->CardID)) {
         return;
     }
     if(IsDreamFairyLockedCardID($player, $sourceObject->CardID)) {
         SetFlashMessage("Dream Fairy is preventing that card from being played.");
+        return;
+    }
+
+    // Attack cards cannot be activated by the opening player on turn 1.
+    if(!CanActivateAttackCardNow($player, $sourceObject->CardID, true)) {
         return;
     }
 
@@ -12616,6 +12640,10 @@ function CanActivateCardForSelection($player, $obj) {
     $mzID = SelectionMetadataMzID($obj);
     if($mzID === null) return true;
     $existingFlash = GetFlashMessage();
+    if(!CanActivateAttackCardNow($player, $obj->CardID, false)) {
+        SetFlashMessage($existingFlash);
+        return false;
+    }
     if(!CanPlayerUseCardElement($player, $obj->CardID, false, false)) {
         SetFlashMessage($existingFlash);
         return false;
