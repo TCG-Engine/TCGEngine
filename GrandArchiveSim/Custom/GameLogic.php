@@ -14849,6 +14849,15 @@ function GetSheenCounterCount($obj) {
     return GetCounterCount($obj, "sheen");
 }
 
+/**
+ * Virtual property callback for Mastery zone: Servile Possessions tracks owner's omen count in banishment.
+ */
+function GetServilePossessionsBanishCount($obj) {
+    if(!isset($obj->CardID) || $obj->CardID !== "0d93t7bfwc") return 0;
+    if(!isset($obj->PlayerID)) return 0;
+    return GetOmenCount($obj->PlayerID);
+}
+
 // --- Merlin Bonus ---
 
 function IsMerlinBonusActive($player) {
