@@ -1785,7 +1785,7 @@
         reporterEntry.style.borderRadius = '4px';
         reporterEntry.style.padding = '10px';
         reporterEntry.style.boxSizing = 'border-box';
-        reporterEntry.placeholder = 'Discord ID (optional)';
+        reporterEntry.placeholder = 'Discord Name (optional)';
 
         const statusText = document.createElement('div');
         statusText.id = 'bugReportStatus';
