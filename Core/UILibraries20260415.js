@@ -170,6 +170,8 @@
 
 
       function Hotkeys(event) {
+        // Ignore gameplay hotkeys while the bug report modal is open.
+        if (document.getElementById('bugReportOverlay')) return;
         //if (event.keyCode === 32) { if(document.getElementById("passConfirm").innerText == "false" || confirm("Do you want to skip arsenal?")) SubmitInput(99, ""); } //Space = pass
         if(window.rootPath == './RBSim' || window.rootPath == './GudnakSim' || window.rootPath == './GrandArchiveSim') {
           if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
