@@ -255,6 +255,10 @@
      #theirBanishWrapper,
      #myGraveyardWrapper,
      #theirGraveyardWrapper,
+     #myMaterialWrapper,
+     #theirMaterialWrapper,
+     #myMasteryWrapper,
+     #theirMasteryWrapper,
      #myMemoryWrapper,
      #theirMemoryWrapper {
           overflow: hidden !important;
@@ -268,6 +272,10 @@
      #theirBanishWrapper::-webkit-scrollbar,
      #myGraveyardWrapper::-webkit-scrollbar,
      #theirGraveyardWrapper::-webkit-scrollbar,
+     #myMaterialWrapper::-webkit-scrollbar,
+     #theirMaterialWrapper::-webkit-scrollbar,
+     #myMasteryWrapper::-webkit-scrollbar,
+     #theirMasteryWrapper::-webkit-scrollbar,
      #myMemoryWrapper::-webkit-scrollbar,
      #theirMemoryWrapper::-webkit-scrollbar {
           display: none;
@@ -310,7 +318,7 @@
      #theirMaterialSlot.ga-material-empty {
           box-sizing: border-box;
           width: 96px;
-          min-height: 110px;
+          min-height: 96px;
           border: 1px solid rgba(244, 236, 219, 0.24);
           border-radius: 14px;
           background:
@@ -407,7 +415,7 @@
 
      .ga-pile {
           width: 92px;
-          min-height: 122px;
+          min-height: 96px;
      }
 
      .ga-stat {
@@ -418,6 +426,14 @@
      .ga-token-bank {
           width: 128px;
           min-height: 126px;
+     }
+
+     #myMaterialSlot,
+     #theirMaterialSlot,
+     #myMasterySlot,
+     #theirMasterySlot {
+          width: 96px;
+          min-height: 96px;
      }
 
      .ga-hand {
@@ -471,13 +487,10 @@
           right: 148px;
      }
 
+     #myMaterialSlot,
+     #theirMaterialSlot,
      #myMasterySlot,
      #theirMasterySlot {
-          left: 166px;
-     }
-
-     #myMaterialSlot,
-     #theirMaterialSlot {
           left: 24px;
      }
 
@@ -493,7 +506,7 @@
 
      #myMemorySlot,
      #theirMemorySlot {
-          width: 128px;
+          width: 96px;
      }
 
      #myDeckSlot,
@@ -574,11 +587,6 @@
           #myGraveyardSlot.ga-graveyard-empty,
           #theirGraveyardSlot.ga-graveyard-empty {
                min-height: 78px;
-          }
-
-          #myMemorySlot,
-          #theirMemorySlot {
-               width: 78px;
           }
 
           .ga-stat {
@@ -664,19 +672,19 @@
 <!-- myDeckSlot: bottom-right corner -->
 <div id="myDeckSlot" class="ga-zone ga-pile"
            data-label="Deck"
-           style="bottom:124px; right:24px;">
+           style="bottom:126px; right:30px;">
 </div>
 
 <!-- myBanishSlot: above deck -->
 <div id="myBanishSlot" class="ga-zone ga-pile"
            data-label="Banish"
-           style="bottom:226px; right:24px;">
+           style="bottom:232px; right:30px;">
 </div>
 
 <!-- myGraveyardSlot: bottom-right -->
 <div id="myGraveyardSlot" class="ga-zone ga-pile"
            data-label="Graveyard"
-           style="bottom:22px; right:24px;">
+           style="bottom:20px; right:30px;">
 </div>
 
 <!-- myHandSlot: bottom-center -->
@@ -699,13 +707,13 @@
 <!-- myMemorySlot: bottom-left corner -->
 <div id="myMemorySlot" class="ga-zone ga-pile"
            data-label="Memory"
-           style="bottom:22px; left:24px;">
+           style="bottom:20px; left:30px;">
 </div>
 
-<!-- myMaterialSlot: upper-left of bottom half -->
+<!-- myMaterialSlot: mirrors my deck on the left -->
 <div id="myMaterialSlot" class="ga-zone ga-token-bank"
            data-label="Material"
-           style="bottom:154px; left:24px;">
+           style="bottom:126px; left:30px;">
 </div>
 
 <!-- myHealthSlot: top-right of bottom half -->
@@ -714,10 +722,10 @@
            style="top:calc(50% + 30px); right:148px;">
 </div>
 
-<!-- myMasterySlot: upper-left of bottom half (offset from material) -->
+<!-- myMasterySlot: mirrors my banish on the left -->
 <div id="myMasterySlot" class="ga-zone ga-token-bank"
            data-label="Mastery"
-           style="top:calc(50% + 128px); left:166px;">
+           style="bottom:232px; left:30px;">
 </div>
 
 <!-- =================== THEIR ZONES (top half) =================== -->
@@ -725,19 +733,19 @@
 <!-- theirDeckSlot: mirrors my deck position in the top half -->
 <div id="theirDeckSlot" class="ga-zone ga-pile"
            data-label="Deck"
-           style="top:124px; right:24px;">
+           style="top:126px; right:30px;">
 </div>
 
 <!-- theirBanishSlot: mirrors my banish position in the top half -->
 <div id="theirBanishSlot" class="ga-zone ga-pile"
            data-label="Banish"
-           style="top:226px; right:24px;">
+           style="top:232px; right:30px;">
 </div>
 
 <!-- theirGraveyardSlot: mirrors my graveyard in the top half -->
 <div id="theirGraveyardSlot" class="ga-zone ga-pile"
            data-label="Graveyard"
-           style="top:22px; right:24px;">
+           style="top:20px; right:30px;">
 </div>
 
 <!-- theirHandSlot: mirrors my hand in the top half -->
@@ -760,13 +768,13 @@
 <!-- theirMemorySlot: mirrors my memory in the top half -->
 <div id="theirMemorySlot" class="ga-zone ga-pile"
            data-label="Memory"
-           style="top:22px; left:24px;">
+           style="top:20px; left:30px;">
 </div>
 
-<!-- theirMaterialSlot: mirrors my material in the top half -->
+<!-- theirMaterialSlot: mirrors their deck on the left -->
 <div id="theirMaterialSlot" class="ga-zone ga-token-bank"
            data-label="Material"
-           style="top:154px; left:24px;">
+           style="top:126px; left:30px;">
 </div>
 
 <!-- theirHealthSlot: mirrors my health in the top half -->
@@ -775,10 +783,10 @@
            style="top:30px; right:148px; display:none;">
 </div>
 
-<!-- theirMasterySlot: mirrors my mastery in the top half -->
+<!-- theirMasterySlot: mirrors their banish on the left -->
 <div id="theirMasterySlot" class="ga-zone ga-token-bank"
            data-label="Mastery"
-           style="top:124px; left:166px;">
+           style="top:232px; left:30px;">
 </div>
 
 <!-- =================== GLOBAL ZONES =================== -->
