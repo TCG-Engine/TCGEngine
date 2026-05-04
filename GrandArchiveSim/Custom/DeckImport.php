@@ -40,6 +40,39 @@ function GrandArchiveResolveDeckInput($deckLink) {
         ];
     }
 
+    // Sleeved.gg import.
+    if (stripos($deckLink, 'sleeved.gg') !== false) {
+        $sleevedInfo = ExtractSleevedDeckInfo($deckLink);
+        if (!$sleevedInfo['success']) {
+            return [
+                'success' => false,
+                'message' => 'Deck link appears malformed. Please provide a valid Sleeved deck URL.',
+                'material' => [],
+                'mainDeck' => [],
+                'unresolved' => []
+            ];
+        }
+
+        $apiUrl = 'https://api.sleeved.gg/v1/decks/' . rawurlencode($sleevedInfo['deckId']) . '?format=json';
+        if ($sleevedInfo['token'] !== '') {
+            $apiUrl .= '&token=' . rawurlencode($sleevedInfo['token']);
+        }
+
+        $deckData = GrandArchiveFetchDeckJson($apiUrl, ['Accept: application/json']);
+        $normalized = GrandArchiveNormalizeSleevedDeck($deckData);
+        if (!$normalized['success']) {
+            return [
+                'success' => false,
+                'message' => 'Could not load that Sleeved deck. The deck may be private, deleted, or unavailable.',
+                'material' => [],
+                'mainDeck' => [],
+                'unresolved' => []
+            ];
+        }
+
+        return $normalized;
+    }
+
     // Free-text deck input.
     if (strpos($deckLink, "\n") !== false || strpos($deckLink, "\r") !== false) {
         $parsed = ParseFreeTextDeck($deckLink);
@@ -260,4 +293,186 @@ function GrandArchiveNormalizeTCGArchitectDeck($deckData) {
         'mainDeck' => $mainDeck,
         'unresolved' => []
     ];
+}
+
+function ExtractSleevedDeckInfo($deckLink) {
+    $deckLink = trim((string)$deckLink);
+    $parsed = parse_url($deckLink);
+    if (!is_array($parsed)) {
+        return ['success' => false, 'deckId' => '', 'token' => ''];
+    }
+
+    $host = strtolower((string)($parsed['host'] ?? ''));
+    if ($host === '' || strpos($host, 'sleeved.gg') === false) {
+        return ['success' => false, 'deckId' => '', 'token' => ''];
+    }
+
+    $path = (string)($parsed['path'] ?? '');
+    $deckId = '';
+    if (preg_match('#/decks/([^/?]+)#i', $path, $matches)) {
+        $deckId = urldecode($matches[1]);
+    }
+    if ($deckId === '') {
+        return ['success' => false, 'deckId' => '', 'token' => ''];
+    }
+
+    $token = '';
+    if (isset($parsed['query'])) {
+        parse_str($parsed['query'], $query);
+        $token = trim((string)($query['token'] ?? ''));
+    }
+
+    return [
+        'success' => true,
+        'deckId' => $deckId,
+        'token' => $token,
+    ];
+}
+
+function GrandArchiveNormalizeSleevedDeck($deckData) {
+    if (!is_array($deckData) || !isset($deckData['data']) || !is_array($deckData['data'])) {
+        return [
+            'success' => false,
+            'message' => '',
+            'material' => [],
+            'mainDeck' => [],
+            'unresolved' => []
+        ];
+    }
+
+    $cards = $deckData['data']['cards'] ?? null;
+    if (!is_array($cards)) {
+        return [
+            'success' => false,
+            'message' => '',
+            'material' => [],
+            'mainDeck' => [],
+            'unresolved' => []
+        ];
+    }
+
+    $material = [];
+    $mainDeck = [];
+    $unresolved = [];
+
+    foreach ($cards as $card) {
+        if (!is_array($card)) continue;
+
+        $quantity = intval($card['quantity'] ?? 0);
+        if ($quantity <= 0) continue;
+
+        $resolvedCardID = ResolveSleevedCardID($card);
+        if ($resolvedCardID === null) {
+            $rawName = trim((string)($card['name'] ?? ($card['cardId'] ?? 'unknown')));
+            if ($rawName !== '' && !in_array($rawName, $unresolved)) {
+                $unresolved[] = $rawName;
+            }
+            continue;
+        }
+
+        $zone = strtolower(trim((string)($card['zoneId'] ?? 'main')));
+        for ($i = 0; $i < $quantity; ++$i) {
+            if ($zone === 'material') {
+                $material[] = $resolvedCardID;
+            }
+            else if ($zone === 'sideboard' || $zone === 'references') {
+                continue;
+            }
+            else {
+                $mainDeck[] = $resolvedCardID;
+            }
+        }
+    }
+
+    if (count($material) + count($mainDeck) <= 0) {
+        return [
+            'success' => false,
+            'message' => '',
+            'material' => [],
+            'mainDeck' => [],
+            'unresolved' => $unresolved
+        ];
+    }
+
+    return [
+        'success' => true,
+        'message' => '',
+        'material' => $material,
+        'mainDeck' => $mainDeck,
+        'unresolved' => $unresolved
+    ];
+}
+
+function ResolveSleevedCardID($card) {
+    $rawCardID = trim((string)($card['cardId'] ?? ''));
+    if ($rawCardID !== '') {
+        if (IsGrandArchiveCardID($rawCardID)) {
+            return $rawCardID;
+        }
+
+        $bySlug = CardSlugToID($rawCardID);
+        if ($bySlug !== null) {
+            return $bySlug;
+        }
+    }
+
+    $rawName = trim((string)($card['name'] ?? ''));
+    if ($rawName !== '') {
+        $byName = CardNameToID($rawName);
+        if ($byName !== null) {
+            return $byName;
+        }
+
+        $byNameSlug = CardSlugToID($rawName);
+        if ($byNameSlug !== null) {
+            return $byNameSlug;
+        }
+    }
+
+    return null;
+}
+
+function IsGrandArchiveCardID($cardID) {
+    global $nameData;
+    return is_array($nameData) && isset($nameData[$cardID]);
+}
+
+function CardSlugToID($input) {
+    $slug = NormalizeCardSlug($input);
+    if ($slug === '') return null;
+
+    static $index = null;
+    if ($index === null) {
+        $index = BuildCardSlugToIDIndex();
+    }
+
+    return $index[$slug] ?? null;
+}
+
+function BuildCardSlugToIDIndex() {
+    global $nameData;
+    $index = [];
+
+    if (!is_array($nameData)) {
+        return $index;
+    }
+
+    foreach ($nameData as $cardID => $name) {
+        $slug = NormalizeCardSlug((string)$name);
+        if ($slug !== '' && !isset($index[$slug])) {
+            $index[$slug] = $cardID;
+        }
+    }
+
+    return $index;
+}
+
+function NormalizeCardSlug($value) {
+    $value = strtolower(trim((string)$value));
+    if ($value === '') return '';
+
+    $value = str_replace('&', ' and ', $value);
+    $value = preg_replace('/[^a-z0-9]+/', '-', $value);
+    $value = preg_replace('/-+/', '-', $value);
+    return trim($value, '-');
 }
