@@ -996,6 +996,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         return;
     }
     if(IsDreamFairyLockedCardID($player, $sourceObject->CardID)) {
+        SetFlashMessage("Dream Fairy is preventing that card from being played.");
         return;
     }
 
@@ -3768,6 +3769,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false)
         return;
     }
     if($sourceObject !== null && IsDreamFairyLockedCardID($player, $sourceObject->CardID)) {
+        SetFlashMessage("Dream Fairy is preventing that card from being played.");
         return;
     }
 
