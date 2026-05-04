@@ -619,6 +619,39 @@
                left: auto;
           }
      }
+
+     /* GA override: taper turn-edge markers toward screen top/bottom. */
+     #turn-miasma-overlay .turn-edge-glyph {
+          width: 34px;
+          height: min(64vh, 520px);
+     }
+
+     #turn-miasma-overlay .turn-edge-glyph::before,
+     #turn-miasma-overlay .turn-edge-glyph::after {
+          width: 10px;
+          transform: translateX(-50%);
+          border-radius: 0;
+     }
+
+     #turn-miasma-overlay .turn-edge-glyph::before {
+          clip-path: polygon(50% 0, 100% 100%, 0 100%);
+     }
+
+     #turn-miasma-overlay .turn-edge-glyph::after {
+          clip-path: polygon(0 0, 100% 0, 50% 100%);
+     }
+
+     @media (max-width: 900px) {
+          #turn-miasma-overlay .turn-edge-glyph {
+               width: 26px;
+               height: min(56vh, 400px);
+          }
+
+          #turn-miasma-overlay .turn-edge-glyph::before,
+          #turn-miasma-overlay .turn-edge-glyph::after {
+               width: 8px;
+          }
+     }
 </style>
 
 <div class="ga-board-art"></div>
