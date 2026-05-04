@@ -45,6 +45,7 @@ $description = SubmitBugReportTrim($body['description'] ?? '', 4000);
 $gameName = SubmitBugReportTrim($body['gameName'] ?? '', 32);
 $folderPath = SubmitBugReportTrim($body['folderPath'] ?? '', 100);
 $authKey = SubmitBugReportTrim($body['authKey'] ?? '', 128);
+$reporter = SubmitBugReportTrim($body['reporter'] ?? '', 64);
 $playerID = isset($body['playerID']) ? intval($body['playerID']) : 0;
 
 if ($description === '') {
@@ -87,6 +88,17 @@ if (($playerID === 1 || $playerID === 2) && $authKey === '') {
   }
 }
 
+if ($reporter !== '' && preg_match('/^[A-Za-z0-9_\.-]{2,64}$/', $reporter) !== 1) {
+  SubmitBugReportRespond(400, ['error' => 'Invalid Discord ID format.']);
+}
+
+if ($reporter === '') {
+  CheckSession();
+  if (isset($_SESSION['discordID'])) {
+    $reporter = SubmitBugReportTrim(strval($_SESSION['discordID']), 64);
+  }
+}
+
 if ($playerID === 1 && isset($GLOBALS['p1Key']) && $authKey !== strval($GLOBALS['p1Key'])) {
   SubmitBugReportRespond(403, ['error' => 'Invalid auth key for player 1.']);
 }
@@ -108,8 +120,9 @@ $payload = [
   'operation' => 'create',
   'origin' => 'engine-ui',
   'discord_channel_id' => '',
-  'discord_user_id' => '',
+  'discord_user_id' => $reporter,
   'discord_username' => $loggedInUserName ?: 'TCGEngine Player',
+  'reporter' => $reporter,
   'reporter_account_id' => $loggedInUserID,
   'reporter_account_name' => $loggedInUserName,
   'root_name' => $folderPath,

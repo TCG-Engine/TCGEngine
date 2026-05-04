@@ -1772,6 +1772,21 @@
         textEntry.style.boxSizing = 'border-box';
         textEntry.placeholder = 'Describe what happened, what you expected, and any steps that seem important.';
 
+        const reporterEntry = document.createElement('input');
+        reporterEntry.id = 'bugReportReporter';
+        reporterEntry.type = 'text';
+        reporterEntry.maxLength = 64;
+        reporterEntry.autocomplete = 'off';
+        reporterEntry.style.width = '100%';
+        reporterEntry.style.marginTop = '10px';
+        reporterEntry.style.backgroundColor = '#1b2d42';
+        reporterEntry.style.color = '#FFFFFF';
+        reporterEntry.style.border = '1px solid #375a7f';
+        reporterEntry.style.borderRadius = '4px';
+        reporterEntry.style.padding = '10px';
+        reporterEntry.style.boxSizing = 'border-box';
+        reporterEntry.placeholder = 'Discord ID (optional)';
+
         const statusText = document.createElement('div');
         statusText.id = 'bugReportStatus';
         statusText.style.color = '#c8d5e6';
@@ -1821,6 +1836,7 @@
         modalContainer.appendChild(helper);
         modalContainer.appendChild(closeButton);
         modalContainer.appendChild(textEntry);
+        modalContainer.appendChild(reporterEntry);
         modalContainer.appendChild(statusText);
         modalContainer.appendChild(buttonRow);
         modalOverlay.appendChild(modalContainer);
@@ -1830,6 +1846,7 @@
 
       async function submitBugReport() {
         const textEntry = document.getElementById('bugReportDescription');
+        const reporterEntry = document.getElementById('bugReportReporter');
         const statusText = document.getElementById('bugReportStatus');
         const submitButton = document.getElementById('submitBugReportButton');
         if (!textEntry || !statusText || !submitButton) return;
@@ -1852,7 +1869,8 @@
             gameName: document.getElementById('gameName') ? document.getElementById('gameName').value : '',
             playerID: document.getElementById('playerID') ? document.getElementById('playerID').value : '',
             authKey: document.getElementById('authKey') ? document.getElementById('authKey').value : '',
-            folderPath: document.getElementById('folderPath') ? document.getElementById('folderPath').value : ''
+            folderPath: document.getElementById('folderPath') ? document.getElementById('folderPath').value : '',
+            reporter: reporterEntry ? reporterEntry.value.trim() : ''
           };
 
           const response = await fetch('./APIs/SubmitBugReport.php', {
