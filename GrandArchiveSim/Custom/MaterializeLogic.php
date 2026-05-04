@@ -251,6 +251,16 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     }
 
     $memoryCost = $ignoreCost ? 0 : CardMemoryCost($materializeCard);
+    $extraReserveCost = 0;
+
+    // Inert Sword (2s08hssegf): "pay (2)" is reserve payment, not memory payment.
+    // The generated modifier currently contributes +2 to materialize memory cost,
+    // so convert that portion into reserve cost here.
+    if($materializeCard->CardID === "2s08hssegf" && !$ignoreCost) {
+        $extraReserveCost = 2;
+        $memoryCost = max(0, $memoryCost - 2);
+        if(CountAvailableReservePayments($player) < $extraReserveCost) return;
+    }
 
     // Dragon's Dawn (9f92917r84): additional cost to materialize — banish 3 fire from graveyard
     if($materializeCard->CardID === "9f92917r84" && !$ignoreCost) {
@@ -332,7 +342,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         }
     }
 
-    if($memoryCost > 0) {
+    if($memoryCost > 0 || $extraReserveCost > 0) {
         if($materializeCard->CardID === "mDN1CI9IEe") {
             $floating = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
             if(count($floating) < $memoryCost) return;
@@ -341,12 +351,29 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
             DecisionQueueController::AddDecision($player, "CUSTOM", "SealedBladeFloatingCost|" . $lastDecision . "|" . $memoryCost . "|1", 1);
             return;
         }
+        $floatingIndices = "";
+        if($memoryCost > 0) {
+            $memoryCount = 0;
+            $memoryZone = GetMemory($player);
+            foreach($memoryZone as $memoryObj) {
+                if(!$memoryObj->removed) ++$memoryCount;
+            }
+            $floatingIndices = GetMaterializeFloatingChoices($player);
+            $floatingCount = $floatingIndices === "" ? 0 : count(explode("&", $floatingIndices));
+            if($memoryCount + $floatingCount < $memoryCost) return;
+        }
+
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
         DecisionQueueController::StoreVariable("PendingMatCard", $lastDecision);
-        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
-        if($floatingIndices != "") {
-            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+        for($i = 0; $i < $extraReserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+
+        if($memoryCost > 0) {
+            if($floatingIndices != "") {
+                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+            }
         }
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
         return; // Materialize() will be called by FINISHPAYMATERIALIZE after cost is paid
