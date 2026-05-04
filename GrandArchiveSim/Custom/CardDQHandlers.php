@@ -6246,6 +6246,14 @@ function PurifyingThuribleBanishLoop($activator, $opponent, $remaining) {
     $gravZone = $opponent == $playerID ? "myGraveyard" : "theirGraveyard";
     $gy = ZoneSearch($gravZone);
     if(empty($gy)) return;
+    // Convert zone IDs to the opponent's own perspective (my↔their swap)
+    if($opponent != $playerID) {
+        $gy = array_map(function($mz) {
+            if(strpos($mz, "their") === 0) return "my" . substr($mz, 5);
+            if(strpos($mz, "my") === 0) return "their" . substr($mz, 2);
+            return $mz;
+        }, $gy);
+    }
     $gyStr = implode("&", $gy);
     DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_your_graveyard_($remaining_remaining)");
     DecisionQueueController::AddDecision($opponent, "CUSTOM", "PurifyingThuribleBanish|$activator|$remaining", 1);
