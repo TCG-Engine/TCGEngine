@@ -86,6 +86,7 @@ include_once 'Header.php';
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
       </div>
+      <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
       <div id="private-invite-notice" style="display: none; margin-top: 10px; color: #9ed9b4; font-size: 13px;"></div>
     </div>
   </div>
@@ -186,7 +187,7 @@ include_once 'Header.php';
 
       function joinPrivateInvite() {
         if (!_privateInviteCode) {
-          alert('No private invite code found in this link.');
+          showQueueInlineError('No private invite code found in this link.');
           return;
         }
         submitQueueJoin({
@@ -197,6 +198,7 @@ include_once 'Header.php';
 
       function submitQueueJoin(options) {
         options = options || {};
+        clearQueueInlineError();
         var submission = getDeckSubmission();
         if (!submission) return;
 
@@ -211,13 +213,16 @@ include_once 'Header.php';
             try {
               response = JSON.parse(xhr.responseText);
             } catch (e) {
-              alert('Unexpected server response while joining queue.');
+              var raw = (xhr.responseText || '').trim();
+              var preview = raw.length > 240 ? raw.slice(0, 240) + '...' : raw;
+              showQueueInlineError('Unexpected server response while joining queue. ' + preview);
               return;
             }
             if (!response.success) {
-              alert(response.message || 'Unable to join queue.');
+              showQueueInlineError(response.message || 'Unable to join queue.');
               return;
             }
+            clearQueueInlineError();
             if(response.ready) {
               DisplayMatchFoundPopup(response.playerID, response.gameName);
             } else {
@@ -232,13 +237,13 @@ include_once 'Header.php';
             }
           } else {
             console.error('Error joining queue:', xhr.statusText);
-            alert('Failed to join queue. Please try again.');
+            showQueueInlineError('Failed to join queue. Please try again.');
           }
         };
 
         xhr.onerror = function() {
           console.error('Error joining queue:', xhr.statusText);
-          alert('Failed to join queue. Please try again.');
+          showQueueInlineError('Failed to join queue. Please try again.');
         };
 
         var params = 'deckLink=' + encodeURIComponent(submission.deckLink) + '&game_type=' + encodeURIComponent(submission.gameType);
@@ -251,6 +256,23 @@ include_once 'Header.php';
           params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);
         }
         xhr.send(params);
+      }
+
+      function showQueueInlineError(message) {
+        var el = document.getElementById('queue-inline-error');
+        if (!el) {
+          alert(message);
+          return;
+        }
+        el.textContent = message || 'Unable to join queue.';
+        el.style.display = '';
+      }
+
+      function clearQueueInlineError() {
+        var el = document.getElementById('queue-inline-error');
+        if (!el) return;
+        el.textContent = '';
+        el.style.display = 'none';
       }
 
       function copyTextToClipboard(text) {

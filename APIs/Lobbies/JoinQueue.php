@@ -15,6 +15,13 @@
   }
   $rootName = $_POST['rootName'];
 
+  if($rootName === 'GrandArchiveSim') {
+    $grandArchiveDeckImportPath = __DIR__ . '/../../GrandArchiveSim/Custom/DeckImport.php';
+    if(is_file($grandArchiveDeckImportPath)) {
+      include_once $grandArchiveDeckImportPath;
+    }
+  }
+
   $deckLink = isset($_POST['deckLink']) ? $_POST['deckLink'] : '';
   $preconstructedDeck = isset($_POST['preconstructedDeck']) ? $_POST['preconstructedDeck'] : '';
   $createPrivate = isset($_POST['createPrivate']) && ($_POST['createPrivate'] === '1' || strtolower($_POST['createPrivate']) === 'true');
@@ -24,6 +31,15 @@
   if(empty($deckLink) && empty($preconstructedDeck)) {
     $response->success = false;
     $response->message = "Either deck link or preconstructed deck is required.";
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
+  }
+
+  $deckValidation = ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck);
+  if(!$deckValidation['success']) {
+    $response->success = false;
+    $response->message = $deckValidation['message'];
     header('Content-Type: application/json');
     echo json_encode($response);
     exit;
@@ -179,5 +195,45 @@
 
   header('Content-Type: application/json');
   echo json_encode($response);
+
+  function ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck) {
+    if($rootName === 'GrandArchiveSim') {
+      if(!function_exists('GrandArchiveValidateDeckForQueue')) {
+        return [
+          'success' => false,
+          'message' => 'Deck validation is temporarily unavailable.'
+        ];
+      }
+
+      try {
+        return GrandArchiveValidateDeckForQueue($deckLink, $preconstructedDeck);
+      } catch (Throwable $e) {
+        error_log('GrandArchive queue deck validation failed: ' . $e->getMessage());
+        return [
+          'success' => false,
+          'message' => 'Could not validate deck input. Please try again.'
+        ];
+      }
+    }
+
+    if(!empty($preconstructedDeck)) {
+      return [
+        'success' => true,
+        'message' => ''
+      ];
+    }
+
+    if(trim($deckLink) === '') {
+      return [
+        'success' => false,
+        'message' => 'Either deck link or preconstructed deck is required.'
+      ];
+    }
+
+    return [
+      'success' => true,
+      'message' => ''
+    ];
+  }
 
 ?>

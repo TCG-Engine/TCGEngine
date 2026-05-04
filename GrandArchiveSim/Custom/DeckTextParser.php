@@ -9,6 +9,9 @@ function GetNameToIDIndex() {
     static $index = null;
     if ($index !== null) return $index;
     $index = [];
+    if (!is_array($nameData)) {
+        return $index;
+    }
     foreach ($nameData as $id => $name) {
         $key = strtolower(trim($name));
         if (!isset($index[$key])) {

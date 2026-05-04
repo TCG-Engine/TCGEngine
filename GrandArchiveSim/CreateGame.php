@@ -6,7 +6,7 @@ include_once __DIR__ . '/ZoneClasses.php';
 include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/TurnController.php';
 include_once __DIR__ . '/Custom/GameLogic.php';
-include_once __DIR__ . '/Custom/DeckTextParser.php';
+include_once __DIR__ . '/Custom/DeckImport.php';
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 include_once __DIR__ . '/../APIKeys/APIKeys.php';
@@ -52,121 +52,28 @@ $lobby->gameName = $gameName;
 //TODO: Handle $gameName = ""
 
 function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
-    global $tcgArchitectAPIKey;
     // For now, ignore deckLink and use the preconstructed deck
     // When preconstructedDeck is "Refractory" or empty, use the default deck
     $gameDeck = &GetDeck($playerID);
     $material = &GetMaterial($playerID);
 
     if (!empty($deckLink)) {
-        // Free-text deck list (contains newlines)
-        if (strpos($deckLink, "\n") !== false) {
-            $parsed = ParseFreeTextDeck($deckLink);
-            foreach ($parsed['material'] as $cardID) {
+        $resolved = GrandArchiveResolveDeckInput($deckLink);
+        if ($resolved['success']) {
+            foreach ($resolved['material'] as $cardID) {
                 array_push($material, new Material($cardID));
             }
-            foreach ($parsed['mainDeck'] as $cardID) {
+            foreach ($resolved['mainDeck'] as $cardID) {
                 array_push($gameDeck, new Deck($cardID));
             }
-            if (!empty($parsed['unresolved'])) {
-                error_log("Free-text deck import: unresolved cards for player $playerID: " . implode(', ', $parsed['unresolved']));
+            if (!empty($resolved['unresolved'])) {
+                error_log("Free-text deck import: unresolved cards for player $playerID: " . implode(', ', $resolved['unresolved']));
             }
             EngineShuffle($gameDeck, true);
             return;
         }
 
-        // Shout-like import (ShoutAtYourDecks and DungeonGUI)
-        if (stripos($deckLink, 'shoutatyourdecks.com') !== false || stripos($deckLink, 'dungeongui.de') !== false) {
-            if (preg_match('/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i', $deckLink, $matches)) {
-                $uuid = $matches[1];
-                $apiUrl = "https://shoutatyourdecks.com/api/" . $uuid;
-                if (stripos($deckLink, 'dungeongui.de') !== false) {
-                    // DungeonGUI serves the same deck payload format from /deckbuilder/json/<uuid>.
-                    $apiUrl = "https://dungeongui.de/deckbuilder/json/" . $uuid;
-                }
-                $ch = curl_init($apiUrl);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                    'Accept: application/json'
-                ]);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-                $apiResponse = curl_exec($ch);
-                $curlError = curl_error($ch);
-                curl_close($ch);
-                if ($curlError) error_log("Shout-like deck API curl error: " . $curlError);
-                if ($apiResponse !== false) {
-                    $deckData = json_decode($apiResponse, true);
-                    // Some responses are JSON strings containing JSON; decode twice when needed.
-                    if (is_string($deckData)) {
-                        $deckData = json_decode($deckData, true);
-                    }
-                    if ($deckData && isset($deckData['cards'])) {
-                        foreach (($deckData['cards']['material'] ?? []) as $card) {
-                            $cardID = $card['uuid'] ?? '';
-                            $quantity = intval($card['quantity'] ?? 0);
-                            if ($cardID === '' || $quantity <= 0) continue;
-                            for ($i = 0; $i < $quantity; ++$i) {
-                                array_push($material, new Material($cardID));
-                            }
-                        }
-                        foreach (($deckData['cards']['main'] ?? []) as $card) {
-                            $cardID = $card['uuid'] ?? '';
-                            $quantity = intval($card['quantity'] ?? 0);
-                            if ($cardID === '' || $quantity <= 0) continue;
-                            for ($i = 0; $i < $quantity; ++$i) {
-                                array_push($gameDeck, new Deck($cardID));
-                            }
-                        }
-                        EngineShuffle($gameDeck, true);
-                        return;
-                    } else {
-                        error_log("Shout-like deck API parse error: missing cards payload for UUID " . $uuid);
-                    }
-                }
-            }
-        }
-
-        // Extract UUID from a full URL or bare UUID string
-        if (preg_match('/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/i', $deckLink, $matches)) {
-            $uuid = $matches[1];
-            $apiUrl = "https://api.tcgarchitect.com/api/decks/" . $uuid;
-            $ch = curl_init($apiUrl);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_TIMEOUT, 10);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Accept: application/json',
-                'x-api-key: '. $tcgArchitectAPIKey
-            ]);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-            $apiResponse = curl_exec($ch);
-            $curlError = curl_error($ch);
-            curl_close($ch);
-            if ($curlError) error_log("TCGArchitect API curl error: " . $curlError);
-            if ($apiResponse !== false) {
-                $deckData = json_decode($apiResponse, true);
-                if ($deckData && isset($deckData['cards'])) {
-                    foreach ($deckData['cards'] as $card) {
-                        $cardID = $card['id'];
-                        $quantity = intval($card['pivot']['quantity']);
-                        $deckType = strtolower(trim($card['pivot']['deck_type'] ?? 'main'));
-                        for ($i = 0; $i < $quantity; ++$i) {
-                            if ($deckType === 'material') {
-                                array_push($material, new Material($cardID));
-                            } elseif ($deckType === 'sideboard') {
-                                continue;
-                            } else {
-                                array_push($gameDeck, new Deck($cardID));
-                            }
-                        }
-                    }
-                    EngineShuffle($gameDeck, true);
-                    return;
-                }
-            }
-        }
+        error_log("Deck import failed for player $playerID: " . $resolved['message']);
     }
 
     /*
