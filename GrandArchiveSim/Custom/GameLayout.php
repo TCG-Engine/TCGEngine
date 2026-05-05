@@ -810,6 +810,7 @@
      // This keeps ownership/wording customizable per app layout.
      window.TurnIndicatorSettings = {
           showWaitingMessage: true,
+              messageAnchorId: 'myHandSlot',
           waitingMessageBuilder: function(ctx) {
                if (!ctx || typeof ctx.defaultBuilder !== 'function') return null;
                return ctx.defaultBuilder();

@@ -2917,7 +2917,8 @@ function _setTurnOverlayState(overlay, state) {
 function _getTurnIndicatorSettings() {
   const defaults = {
     showWaitingMessage: true,
-    waitingMessageBuilder: null
+    waitingMessageBuilder: null,
+    messageAnchorId: null
   };
 
   if (!window.TurnIndicatorSettings || typeof window.TurnIndicatorSettings !== 'object') {
@@ -2926,7 +2927,8 @@ function _getTurnIndicatorSettings() {
 
   const merged = {
     showWaitingMessage: defaults.showWaitingMessage,
-    waitingMessageBuilder: defaults.waitingMessageBuilder
+    waitingMessageBuilder: defaults.waitingMessageBuilder,
+    messageAnchorId: defaults.messageAnchorId
   };
 
   if (typeof window.TurnIndicatorSettings.showWaitingMessage === 'boolean') {
@@ -2935,6 +2937,10 @@ function _getTurnIndicatorSettings() {
 
   if (typeof window.TurnIndicatorSettings.waitingMessageBuilder === 'function') {
     merged.waitingMessageBuilder = window.TurnIndicatorSettings.waitingMessageBuilder;
+  }
+
+  if (typeof window.TurnIndicatorSettings.messageAnchorId === 'string') {
+    merged.messageAnchorId = window.TurnIndicatorSettings.messageAnchorId;
   }
 
   return merged;
@@ -2974,13 +2980,13 @@ function _buildOpponentWaitingMessage() {
       theirDecisionQueueData: window.theirDecisionQueueData,
       defaultBuilder: function() {
         const pendingDecision = _firstPendingDecisionFromRaw(window.theirDecisionQueueData);
-        if (!pendingDecision) return 'Waiting for the other player...';
+        if (!pendingDecision) return 'Waiting for the other player';
         const tip = (pendingDecision.Tooltip && pendingDecision.Tooltip !== '-')
           ? pendingDecision.Tooltip.replace(/_/g, ' ').trim()
           : '';
         const defaultAction = tip || _describeDecisionType(pendingDecision.Type);
         const normalizedAction = defaultAction.replace(/[.\s]+$/g, '');
-        return 'Waiting for the other player to ' + normalizedAction + '...';
+        return 'Waiting for the other player to ' + normalizedAction;
       }
     });
     if (typeof customText === 'string' && customText.trim() !== '') {
@@ -3014,6 +3020,23 @@ function _shouldShowOpponentWaitingMessage(viewerIsTurn) {
   return !viewerIsTurn;
 }
 
+function _positionMessageNearAnchor(messageEl, anchorId) {
+  if (!messageEl) return;
+
+  // Start from the default top placement so we never leave conflicting
+  // top+bottom constraints active from a previous frame.
+  messageEl.style.top = '12px';
+  messageEl.style.bottom = '';
+
+  if (!anchorId) return;
+  const anchor = document.getElementById(anchorId);
+  if (!anchor) return;
+  const rect = anchor.getBoundingClientRect();
+  const gap = window.innerHeight - rect.top;
+  messageEl.style.top = 'auto';
+  messageEl.style.bottom = (gap + 8) + 'px';
+}
+
 function UpdateTurnPlayerMiasma() {
   try {
     const overlay = _ensureTurnMiasmaOverlay();
@@ -3040,6 +3063,7 @@ function UpdateTurnPlayerMiasma() {
       if (messageEl) {
         messageEl.style.display = shouldShowMessage ? 'inline-flex' : 'none';
         if (shouldShowMessage) {
+          _positionMessageNearAnchor(messageEl, settings.messageAnchorId);
           messageEl.textContent = _buildOpponentWaitingMessage();
         }
       }
@@ -3052,6 +3076,7 @@ function UpdateTurnPlayerMiasma() {
     if (messageEl) {
       if (settings.showWaitingMessage) {
         messageEl.style.display = 'inline-flex';
+        _positionMessageNearAnchor(messageEl, settings.messageAnchorId);
         messageEl.textContent = _buildOpponentWaitingMessage();
       } else {
         messageEl.style.display = 'none';
