@@ -3000,6 +3000,20 @@ function _buildOpponentWaitingMessage() {
   return 'Waiting for the other player to ' + normalized + '...';
 }
 
+function _shouldShowOpponentWaitingMessage(viewerIsTurn) {
+  // The server sends opponent DQ entries as "CardBack 0 -" (no JSON), so
+  // _firstPendingDecisionFromRaw can't parse them. Check for any entries instead.
+  const raw = window.theirDecisionQueueData;
+  const theirHasDecisions = raw && typeof raw === 'string' && raw.trim().length > 0;
+  if (theirHasDecisions) return true;
+
+  const myPending = _firstPendingDecisionFromRaw(window.myDecisionQueueData);
+  if (myPending) return false;
+
+  // If no one has a pending decision queue item, priority defaults to turn player.
+  return !viewerIsTurn;
+}
+
 function UpdateTurnPlayerMiasma() {
   try {
     const overlay = _ensureTurnMiasmaOverlay();
@@ -3014,17 +3028,20 @@ function UpdateTurnPlayerMiasma() {
       return;
     }
 
-    // If viewer value available, only show miasma when viewer is NOT the turn player
+    // If viewer value available, derive state from who is actually deciding
     if (!isNaN(viewerVal)) {
       const viewerIsTurn = viewerVal === turnVal;
-      _setTurnOverlayState(overlay, viewerIsTurn ? 'my-turn' : 'their-turn');
+      const shouldShowMessage = settings.showWaitingMessage && _shouldShowOpponentWaitingMessage(viewerIsTurn);
+      // Use 'their-turn' CSS state whenever we're waiting for the opponent (covers the case
+      // where it's technically the viewer's turn but the opponent has a pending decision).
+      const overlayState = (!viewerIsTurn || shouldShowMessage) ? 'their-turn' : 'my-turn';
+      _setTurnOverlayState(overlay, overlayState);
       overlay.style.display = 'flex';
       if (messageEl) {
-        const shouldShowMessage = settings.showWaitingMessage && !viewerIsTurn;
         messageEl.style.display = shouldShowMessage ? 'inline-flex' : 'none';
-      }
-      if (!viewerIsTurn && messageEl) {
-        messageEl.textContent = _buildOpponentWaitingMessage();
+        if (shouldShowMessage) {
+          messageEl.textContent = _buildOpponentWaitingMessage();
+        }
       }
       return;
     }
