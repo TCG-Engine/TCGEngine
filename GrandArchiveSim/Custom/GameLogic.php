@@ -10831,6 +10831,18 @@ function DrawIntoMemory($player, $amount=1) {
     }
 }
 
+    function QueueDrawIntoMemoryAfterGlimpse($player, $amount=1) {
+        $amount = intval($amount);
+        if($amount <= 0) return;
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DrawIntoMemoryAfterGlimpse|" . $amount, 1);
+    }
+
+    $customDQHandlers["DrawIntoMemoryAfterGlimpse"] = function($player, $parts, $lastDecision) {
+        $amount = intval($parts[0] ?? 0);
+        if($amount <= 0) return;
+        DrawIntoMemory($player, $amount);
+    };
+
 function PsychopompsGaleResolve($player) {
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Target_yourself?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "PsychopompsGaleBanish", 1);
