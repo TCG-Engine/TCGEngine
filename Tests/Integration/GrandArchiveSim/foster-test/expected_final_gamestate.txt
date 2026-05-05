@@ -1,5 +1,5 @@
 1
-19
+20
 52
 5tlzsmw3rr
 5lh23qu7d6
@@ -107,25 +107,24 @@ v5klryvfq3
 nsdwmxz1vd
 huqj5bbae3
 eifnz0fgm3
-1
-1x97n2jnlt - -
 0
 0
 0
-1
-LEVELED_UP_THIS_TURN
 0
-6
+0
+0
+7
 kvoqk1l75t
 4n1n3gygoj
 moi0a5uhjx
 2kkvoqk1l7
 plywc08c9h
 5lh23qu7d6
+1x97n2jnlt
 0
 3
+pNiyaGlIe7 2 1 0 1 - - -
 22tk3ir1o0 2 1 0 1 FOSTERED - -
-zb14m4c8lj 2 1 0 1 ENTERED_THIS_TURN~TAUNT_NEXT_TURN - WyJwTml5YUdsSWU3Il0=
 mu6gvnta6q 2 1 0 1 ENTERED_THIS_TURN - -
 3
 pNiyaGlIe7 2 2 0 2 - - -
@@ -140,7 +139,8 @@ z4pyx8bd7o
 z4pyx8bd7o
 huqj5bbae3
 kvoqk1l75t
-10
+11
+zb14m4c8lj
 yevpmu6gvn
 ta6qsesw2u
 8kmoi0a5uh
@@ -181,5 +181,5 @@ MAIN
 Main Phase
 {"mzID":"myField-2","amount":1,"ignoreCost":false,"mzIDCardID":"lzsmw3rrii","activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":""}
 0
-{"MaterializeCalls":{"1":2,"2":1},"Materialize":{"1":{"pNiyaGlIe7":1,"zb14m4c8lj":1},"2":{"pNiyaGlIe7":1}},"EnterCalls":{"1":4,"2":3},"Enter":{"1":{"pNiyaGlIe7":1,"22tk3ir1o0":1,"zb14m4c8lj":1,"mu6gvnta6q":1},"2":{"pNiyaGlIe7":1,"1x97n2jnlt":1,"lzsmw3rrii":1}},"DrawCalls":{"1":2,"2":1},"Draw":{"1":8,"2":7},"ActivateCardCalls":{"1":1,"2":2},"ActivateCard":{"1":{"22tk3ir1o0":1},"2":{"1x97n2jnlt":1,"lzsmw3rrii":1}},"CardActivatedCalls":{"1":1,"2":2},"CardActivated":{"1":{"22tk3ir1o0":1},"2":{"1x97n2jnlt":1,"lzsmw3rrii":1}},"OnFosterCalls":{"1":1},"OnFoster":{"1":{"22tk3ir1o0":1}}}
+{"MaterializeCalls":{"1":1,"2":1},"Materialize":{"1":{"pNiyaGlIe7":1},"2":{"pNiyaGlIe7":1}},"EnterCalls":{"1":3,"2":3},"Enter":{"1":{"pNiyaGlIe7":1,"22tk3ir1o0":1,"mu6gvnta6q":1},"2":{"pNiyaGlIe7":1,"1x97n2jnlt":1,"lzsmw3rrii":1}},"DrawCalls":{"1":2,"2":1},"Draw":{"1":8,"2":7},"ActivateCardCalls":{"1":1,"2":2},"ActivateCard":{"1":{"22tk3ir1o0":1},"2":{"1x97n2jnlt":1,"lzsmw3rrii":1}},"CardActivatedCalls":{"1":1,"2":2},"CardActivated":{"1":{"22tk3ir1o0":1},"2":{"1x97n2jnlt":1,"lzsmw3rrii":1}},"OnFosterCalls":{"1":1},"OnFoster":{"1":{"22tk3ir1o0":1}}}
 0

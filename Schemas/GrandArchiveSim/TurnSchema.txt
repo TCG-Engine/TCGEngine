@@ -2,6 +2,8 @@ DecisionQueue: Enabled
 WakeUp; WU; WakeUpPhase
 AUTO -> MAT
 Materialize; MAT; MaterializePhase
+AUTO -> BREC
+BeforeRecollection; BREC; BeforeRecollectionPhase
 AUTO -> REC
 Recollection; REC; RecollectionPhase
 AUTO -> DRAW

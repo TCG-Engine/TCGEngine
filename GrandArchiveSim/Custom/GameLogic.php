@@ -6215,6 +6215,15 @@ $customDQHandlers["FractalRefreshPick"] = function($player, $parts, $lastDecisio
     DecisionQueueController::AddDecision($player, "CUSTOM", "FractalRefreshPick|" . $remaining, 1);
 };
 
+function BeforeRecollectionPhase() {
+    $currentTurn = intval(GetTurnNumber());
+    if($currentTurn === 1) return;
+
+    $turnPlayer = &GetTurnPlayer();
+    // Grand Archive rules: Opportunity arises at the beginning of the Recollection phase.
+    GrantOpportunityWindow($turnPlayer, "NoOp");
+}
+
 function RecollectionPhase() {
     $currentTurn = intval(GetTurnNumber());
     if($currentTurn === 1) return;
