@@ -19121,17 +19121,6 @@ function FoundPowerResolve($player) {
     DecisionQueueController::AddDecision($player, "CUSTOM", "FoundPowerDiscard1", 1);
 }
 
-function DynasticWhirlpoolResolve($player) {
-    $opponent = $player == 1 ? 2 : 1;
-    global $playerID;
-    $dest = $opponent == $playerID ? "myGraveyard" : "theirGraveyard";
-    for($i = 0; $i < 15; ++$i) {
-        $deck = &GetDeck($opponent);
-        if(empty($deck)) break;
-        MZMove($opponent, "myDeck-0", $dest);
-    }
-}
-
 $customDQHandlers["CompanionFatestoneTransform"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
     $fieldIdx = intval($parts[0]);
