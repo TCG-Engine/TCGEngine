@@ -12743,7 +12743,8 @@ function FieldSelectionMetadata($obj) {
     // Check if decision queue is empty
     $turnPlayer = &GetTurnPlayer();
     $decisionQueue = &GetDecisionQueue($turnPlayer);
-    if (count($decisionQueue) > 0) {
+    $theirDecisionQueue = &GetDecisionQueue($turnPlayer == 1 ? 2 : 1);
+    if (count($decisionQueue) > 0 || count($theirDecisionQueue) > 0) {
         return json_encode(['highlight' => false]);
     }
 
