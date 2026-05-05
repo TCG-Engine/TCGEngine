@@ -12953,6 +12953,10 @@ function ExpireEffects($isEndTurn=true) {
             && isset($fieldObj->Counters["_champDamageThisTurn"])) {
             unset($fieldObj->Counters["_champDamageThisTurn"]);
         }
+        // Clear damage from all allies at end of turn (champions retain their damage)
+        if(!$fieldObj->removed && PropertyContains(EffectiveCardType($fieldObj), "ALLY")) {
+            $fieldObj->Damage = 0;
+        }
         $newEffects = [];
         foreach($fieldObj->TurnEffects as $effect) {
             if(strpos($effect, "3iG6h4jAPl_CTRL_") === 0) {
