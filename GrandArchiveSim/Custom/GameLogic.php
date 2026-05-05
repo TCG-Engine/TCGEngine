@@ -3501,7 +3501,7 @@ function OnCardActivated($player, $mzCard) {
                 }
                 break;
             case "1m48260b7b": // Razorgale Calling: whenever you activate a wind element card, deal 1 damage to target champion
-                if($activatedElement === "WIND" && !HasNoAbilities($field[$fi])) {
+                if($activatedElement === "WIND" && $field[$fi] !== $obj && !HasNoAbilities($field[$fi])) {
                     $champions = array_merge(
                         ZoneSearch("myField", ["CHAMPION"]),
                         ZoneSearch("theirField", ["CHAMPION"])
