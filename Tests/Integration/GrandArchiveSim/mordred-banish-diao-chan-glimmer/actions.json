@@ -72,14 +72,6 @@
         "inputText": ""
     },
     {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
         "playerID": 2,
         "mode": 100,
         "buttonInput": "",
@@ -91,20 +83,12 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "theirField-1",
+        "cardID": "theirField-0",
         "chkInput": [],
         "inputText": ""
     },
     {
         "playerID": 2,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
         "mode": 100,
         "buttonInput": "",
         "cardID": "PASS",

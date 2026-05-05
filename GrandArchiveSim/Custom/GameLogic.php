@@ -6220,6 +6220,9 @@ function BeforeRecollectionPhase() {
     if($currentTurn === 1) return;
 
     $turnPlayer = &GetTurnPlayer();
+    global $playerID;
+    // Ensure my/their zone references resolve from the active turn player's perspective.
+    $playerID = $turnPlayer;
     // Grand Archive rules: Opportunity arises at the beginning of the Recollection phase.
     GrantOpportunityWindow($turnPlayer, "NoOp");
 }
@@ -6231,6 +6234,9 @@ function RecollectionPhase() {
     // Recollection phase
     SetFlashMessage("Recollection Phase");
     $turnPlayer = &GetTurnPlayer();
+    global $playerID;
+    // Defensive reset in case a prior opportunity/stack branch changed perspective.
+    $playerID = $turnPlayer;
 
     // Golden Checkmate (KbE9R1mi3n): delayed win at the beginning of your next recollection phase.
     if(GlobalEffectCount($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION") > 0) {
@@ -7097,8 +7103,11 @@ function RecollectionPhase() {
         $recollectReduce += GetCounterCount($fObj, "frost");
     }
     $recollectCount = max(0, count($memory) - $recollectReduce);
+    global $playerID;
+    $recollectFromPrefix = ($turnPlayer == $playerID) ? "myMemory-" : "theirMemory-";
+    $recollectToZone = ($turnPlayer == $playerID) ? "myHand" : "theirHand";
     for($i=count($memory)-1; $i>=count($memory)-$recollectCount; --$i) {
-        MZMove($turnPlayer, "myMemory-" . $i, "myHand");
+        MZMove($turnPlayer, $recollectFromPrefix . $i, $recollectToZone);
     }
 }
 
