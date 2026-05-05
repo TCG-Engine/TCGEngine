@@ -7201,6 +7201,12 @@ function SuppressAlly($player, $mzCard, $skipReplacementCheck = false) {
     }
 }
 
+function BeforeEndOpportunityPhase() {
+    $turnPlayer = &GetTurnPlayer();
+    // Grand Archive rules: Opportunity arises at the beginning of the End phase.
+    GrantOpportunityWindow($turnPlayer, "NoOp");
+}
+
 function BeforeEndPhase() {
     global $playerID;
 

@@ -13,6 +13,8 @@ Main; MAIN; MainPhase
 AUTO -> MAIN
 PASS -> BEND
 BeforeEnd; BEND; BeforeEndPhase
+AUTO -> BEOP
+BeforeEndOpportunity; BEOP; BeforeEndOpportunityPhase
 AUTO -> END
 End; END; EndPhase
 AUTO -> WU
