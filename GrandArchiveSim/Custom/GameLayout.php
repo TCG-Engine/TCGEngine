@@ -243,6 +243,13 @@
           display: none;
      }
 
+     /* Hide the fallback zone-name text that PopulateZone renders when the zone is empty.
+        Empty-state spans have no id; real card spans do (e.g. myHand-0). */
+     #myHand > span:not([id]),
+     #theirHand > span:not([id]) {
+          display: none;
+     }
+
      .ga-zone > [id$="Wrapper"] {
           position: relative;
           z-index: 1;
