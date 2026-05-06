@@ -45,7 +45,10 @@ $description = SubmitBugReportTrim($body['description'] ?? '', 4000);
 $gameName = SubmitBugReportTrim($body['gameName'] ?? '', 32);
 $folderPath = SubmitBugReportTrim($body['folderPath'] ?? '', 100);
 $authKey = SubmitBugReportTrim($body['authKey'] ?? '', 128);
-$reporter = SubmitBugReportTrim($body['reporter'] ?? '', 64);
+$reporter = SubmitBugReportTrim(
+  $body['reporter'] ?? $body['discordID'] ?? $body['discordId'] ?? $body['discord_user_id'] ?? '',
+  64
+);
 $playerID = isset($body['playerID']) ? intval($body['playerID']) : 0;
 
 if ($description === '') {
@@ -115,13 +118,14 @@ if ($gamestateText === '') {
 $gamestateHash = RegressionCurrentGamestateHash($folderPath, $gameName);
 $loggedInUserID = function_exists('IsUserLoggedIn') && IsUserLoggedIn() ? strval(LoggedInUser()) : null;
 $loggedInUserName = function_exists('IsUserLoggedIn') && IsUserLoggedIn() ? strval(LoggedInUserName()) : null;
+$reporterDisplayName = $reporter !== '' ? $reporter : ($loggedInUserName ?: 'TCGEngine Player');
 
 $payload = [
   'operation' => 'create',
   'origin' => 'engine-ui',
   'discord_channel_id' => '',
   'discord_user_id' => $reporter,
-  'discord_username' => $loggedInUserName ?: 'TCGEngine Player',
+  'discord_username' => $reporterDisplayName,
   'reporter' => $reporter,
   'reporter_account_id' => $loggedInUserID,
   'reporter_account_name' => $loggedInUserName,
