@@ -3812,6 +3812,13 @@ function OnDealDamage($player, $source, $target, $amount) {
     }
 
     $targetObj->Damage += $amount;
+    
+    // Queue damage animation for the target card
+    if($amount > 0) {
+        $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
+        QueueDamageAnimation($absoluteTarget, $amount, 500, true);
+    }
+    
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
         TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);
@@ -4013,6 +4020,13 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         }
     }
     $targetObj->Damage += $amount;
+    
+    // Queue damage animation for the target card
+    if($amount > 0) {
+        $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
+        QueueDamageAnimation($absoluteTarget, $amount, 500, true);
+    }
+    
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
         TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);

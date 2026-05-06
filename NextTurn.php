@@ -451,6 +451,121 @@
         }, 0);
       }
 
+      function ParseFrameAnimations(responseArr) {
+        if (!Array.isArray(responseArr) || responseArr.length < 2) return [];
+        var raw = responseArr[responseArr.length - 1];
+        if (!raw) return [];
+        var trimmed = String(raw).trim();
+        if (trimmed === "") return [];
+        if (trimmed.charAt(0) !== "[" && trimmed.charAt(0) !== "{") return [];
+        try {
+          var parsed = JSON.parse(trimmed);
+          if (Array.isArray(parsed)) return parsed;
+          if (parsed && Array.isArray(parsed.animations)) return parsed.animations;
+        } catch (e) {}
+        return [];
+      }
+
+      function NormalizeAnimationTarget(target, perspectivePlayerID) {
+        if (!target) return "";
+        var mzid = "";
+        if (typeof target === "string") mzid = target;
+        else if (typeof target === "object") mzid = target.value || target.mzID || "";
+        mzid = String(mzid || "").trim();
+        if (mzid === "") return "";
+
+        if (mzid.indexOf("p1") === 0 || mzid.indexOf("p2") === 0) {
+          var isP1 = mzid.indexOf("p1") === 0;
+          var convertedPrefix = (isP1 && perspectivePlayerID === 1) || (!isP1 && perspectivePlayerID === 2) ? "my" : "their";
+          mzid = convertedPrefix + mzid.substring(2);
+        }
+
+        return mzid;
+      }
+
+      function ResolveAnimationTargetElement(animation, perspectivePlayerID) {
+        if (!animation) return null;
+        var target = animation.target || animation.mzID || "";
+        if (target === "P1BASE" || target === "P2BASE") {
+          return document.getElementById(target);
+        }
+        var mzid = NormalizeAnimationTarget(target, perspectivePlayerID);
+        if (!mzid) return null;
+        var byID = document.getElementById(mzid);
+        if (byID) return byID;
+        return document.querySelector("[data-mzid='" + mzid + "']");
+      }
+
+      function ApplySingleFrameAnimation(animation, perspectivePlayerID) {
+        var element = ResolveAnimationTargetElement(animation, perspectivePlayerID);
+        if (!element) return 0;
+
+        var durationMs = parseInt(animation.durationMs || 0, 10);
+        if (Number.isNaN(durationMs) || durationMs < 0) durationMs = 0;
+        var delayMs = parseInt(animation.delayMs || 0, 10);
+        if (Number.isNaN(delayMs) || delayMs < 0) delayMs = 0;
+        var easing = animation.easing || "ease";
+        var totalMs = durationMs + delayMs;
+
+        var type = String(animation.type || "").toUpperCase();
+        if (type === "DAMAGE") {
+          var amount = animation.amount != null ? animation.amount : "";
+          element.innerHTML += "<div class='dmg-animation dmg-animation-a'><div class='dmg-animation-a-inner'></div></div>";
+          element.innerHTML += "<div class='dmg-animation-a-label'><div class='dmg-animation-a-label-inner'>-" + amount + "</div></div>";
+          if (totalMs < 500) totalMs = 500;
+        } else if (type === "RESTORE") {
+          var restoreAmount = animation.amount != null ? animation.amount : "";
+          element.innerHTML += "<div class='dmg-animation' style='position:absolute; text-align:center; font-size:36px; top: 0px; left:-2px; width:100%; height: calc(100% - 8px); padding: 0 2px; border-radius:12px; background-color:rgba(95,167,219,0.5); z-index:1000;'><div style='padding: 25px 0; width:100%; height:100%:'></div></div>";
+          element.innerHTML += "<div style='position:absolute; text-align:center; animation-name: move; animation-duration: 0.6s; font-size:34px; font-weight: 600; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.60); top:0px; left:0px; width:100%; height:100%; background-color:rgba(0,0,0,0); z-index:1000;'><div style='padding: 25px 0; width:100%; height:100%:'>+" + restoreAmount + "</div></div>";
+          if (totalMs < 500) totalMs = 500;
+        } else if (type === "EXHAUST") {
+          var exhaustAnimation = [
+            { transform: "rotate(0deg) scale(1)" },
+            { transform: "rotate(5deg) scale(1)" },
+          ];
+          var exhaustTiming = { duration: 60, iterations: 1 };
+          element.animate(exhaustAnimation, exhaustTiming);
+          element.innerHTML += "<div style='position:absolute; text-align:center; font-size:36px; top: 0px; left:-2px; width:100%; height: calc(100% - 16px); padding: 0 2px; border-radius:12px; background-color:rgba(0,0,0,0.5);'><div style='width:100%; height:100%:'></div></div>";
+          element.className += " exhausted";
+          if (totalMs < 60) totalMs = 60;
+        } else {
+          var animationName = animation.name || (animation.params && animation.params.animationName) || "";
+          var cssClass = animation.className || (animation.params && animation.params.className) || "";
+          if (cssClass) {
+            element.classList.add(cssClass);
+            if (totalMs > 0) {
+              window.setTimeout(function() { element.classList.remove(cssClass); }, totalMs);
+            }
+          }
+          if (animationName) {
+            if (durationMs <= 0) durationMs = 300;
+            totalMs = durationMs + delayMs;
+            element.style.animation = animationName + " " + durationMs + "ms " + easing + " " + delayMs + "ms 1";
+            window.setTimeout(function() { element.style.animation = ""; }, totalMs);
+          }
+        }
+
+        return totalMs;
+      }
+
+      function PlayFrameAnimations(animations, perspectivePlayerID) {
+        if (!Array.isArray(animations) || animations.length === 0) return 0;
+
+        var popup = document.getElementById("CHOOSEMULTIZONE");
+        if (!popup) popup = document.getElementById("MAYCHOOSEMULTIZONE");
+        if (popup) popup.style.display = "none";
+
+        var blockingDelayMs = 0;
+        for (var i = 0; i < animations.length; ++i) {
+          var animation = animations[i];
+          var thisDuration = ApplySingleFrameAnimation(animation, perspectivePlayerID);
+          var isBlocking = animation && animation.blocking !== false;
+          if (isBlocking && thisDuration > blockingDelayMs) blockingDelayMs = thisDuration;
+        }
+
+        return blockingDelayMs;
+      }
+
       function CheckReloadNeeded(lastUpdate) {
         if (_reloadRequestInFlight) return;
         _reloadRequestInFlight = true;
@@ -480,62 +595,11 @@
 
               _lastUpdate = update;
               QueueReload(update);
-              //Handle events; they may need a delay in the card rendering
-              //var events = responseArr[1];
-              var events = "";//TODO: Fix this
-              var eventsArr = events.split("~");
-              if(<?php echo(AreAnimationsDisabled($playerID) ? 'true' : 'false');?>) eventsArr = [];
-              if(eventsArr.length > 0) {
-                var popup = document.getElementById("CHOOSEMULTIZONE");
-                if(!popup) popup = document.getElementById("MAYCHOOSEMULTIZONE");
-                if(popup) popup.style.display = "none";
-                var timeoutAmount = 0;
-                for(var i=0; i<eventsArr.length; i+=2) {
-                  var eventType = eventsArr[i];//DAMAGE
-                  if(eventType == "DAMAGE") {
-                    var eventArr = eventsArr[i+1].split("!");
-                    //Now do the animation
-                    if(eventArr[0] == "P1BASE" || eventArr[0] == "P2BASE") var element = document.getElementById(eventArr[0]);
-                    else var element = document.getElementById("unique-" + eventArr[0]);
-                    if(!!element) {
-                      if(timeoutAmount < 500) timeoutAmount = 500;
-                      element.innerHTML += "<div class='dmg-animation dmg-animation-a'><div class='dmg-animation-a-inner'></div></div>";
-                      element.innerHTML += "<div class='dmg-animation-a-label'><div class='dmg-animation-a-label-inner'>-" + eventArr[1] + "</div></div>";
-                    }
-                  } else if(eventType == "RESTORE") {
-                    var eventArr = eventsArr[i+1].split("!");
-                    //Now do the animation
-                    if(eventArr[0] == "P1BASE" || eventArr[0] == "P2BASE") var element = document.getElementById(eventArr[0]);
-                    else var element = document.getElementById("unique-" + eventArr[0]);
-                    if(!!element) {
-                      if(timeoutAmount < 500) timeoutAmount = 500;
-                      element.innerHTML += "<div class='dmg-animation' style='position:absolute; text-align:center; font-size:36px; top: 0px; left:-2px; width:100%; height: calc(100% - 8px); padding: 0 2px; border-radius:12px; background-color:rgba(95,167,219,0.5); z-index:1000;'><div style='padding: 25px 0; width:100%; height:100%:'></div></div>";
-                      element.innerHTML += "<div style='position:absolute; text-align:center; animation-name: move; animation-duration: 0.6s; font-size:34px; font-weight: 600; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.60); top:0px; left:0px; width:100%; height:100%; background-color:rgba(0,0,0,0); z-index:1000;'><div style='padding: 25px 0; width:100%; height:100%:'>+" + eventArr[1] + "</div></div>";
-                    }
-                  } else if(eventType == "EXHAUST") {
-                    var eventArr = eventsArr[i+1].split("!");
-                    //Now do the animation
-                    if(eventArr[0] == "P1BASE" || eventArr[0] == "P2BASE") var element = document.getElementById(eventArr[0]);
-                    else var element = document.getElementById("unique-" + eventArr[0]);
-                    const timing = {
-                        duration: 60,
-                        iterations: 1,
-                      };
-                      const exhaustAnimation = [
-                      { transform: "rotate(0deg) scale(1)" },
-                      { transform: "rotate(5deg) scale(1)" },
-                    ];
-                    if(!!element) {
-                      if(timeoutAmount < 60) timeoutAmount = 60;
-                      element.animate(exhaustAnimation,timing);
-                      element.innerHTML += "<div style='position:absolute; text-align:center; font-size:36px; top: 0px; left:-2px; width:100%; height: calc(100% - 16px); padding: 0 2px; border-radius:12px; background-color:rgba(0,0,0,0.5);'><div style='width:100%; height:100%:'></div></div>";
-                      element.className += "exhausted";
-                    }
-                  }
-                }
-                if(timeoutAmount > 0) setTimeout(RenderUpdate, timeoutAmount, responseArr);
-                else RenderUpdate(responseArr);
-              }
+              var frameAnimations = ParseFrameAnimations(responseArr);
+              if(<?php echo(AreAnimationsDisabled($playerID) ? 'true' : 'false');?>) frameAnimations = [];
+              var timeoutAmount = PlayFrameAnimations(frameAnimations, <?php echo($playerID); ?>);
+              if(timeoutAmount > 0) setTimeout(RenderUpdate, timeoutAmount, responseArr);
+              else RenderUpdate(responseArr);
             }
           }
         };

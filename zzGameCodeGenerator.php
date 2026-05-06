@@ -1657,6 +1657,10 @@ if($assetVisibilityModule != NULL) {
 }
 fwrite($handler, AddGetNextTurnForPlayer(1) . "\r\n");
 fwrite($handler, AddGetNextTurnForPlayer(2) . "\r\n");
+fwrite($handler, "echo(\"<~>\");\r\n");
+fwrite($handler, "\$frameAnimations = GetCachePiece(\$gameName, 15);\r\n");
+fwrite($handler, "if(\$frameAnimations == \"\") \$frameAnimations = \"[]\";\r\n");
+fwrite($handler, "echo(\$frameAnimations);\r\n");
 
 fwrite($handler, "?>");
 fclose($handler);

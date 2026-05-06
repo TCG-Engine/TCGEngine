@@ -185,6 +185,76 @@
   to   { opacity: 1; transform: scale(1)   translateY(0); }
 }
 
+/* Damage animation styles */
+.dmg-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(255, 100, 100, 0.8), rgba(200, 50, 50, 0.6));
+  pointer-events: none;
+  z-index: 1000;
+  animation: damageFlash 500ms ease-out forwards;
+}
+
+.dmg-animation-a {
+  animation: damageFlash 500ms ease-out forwards;
+}
+
+.dmg-animation-a-inner {
+  width: 100%;
+  height: 100%;
+}
+
+.dmg-animation-a-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1001;
+}
+
+.dmg-animation-a-label-inner {
+  display: inline-block;
+  font-size: 32px;
+  font-weight: 900;
+  color: #ff4444;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 0 0 8px rgba(255, 50, 50, 0.6);
+  font-family: 'Arial Black', sans-serif;
+  animation: damagePop 500ms cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+@keyframes damageFlash {
+  0% {
+    opacity: 1;
+    filter: brightness(1.5);
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    filter: brightness(1);
+  }
+}
+
+@keyframes damagePop {
+  0% {
+    opacity: 1;
+    transform: scale(0.5) translateY(0);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.2) translateY(-30px);
+  }
+}
+
 #game-over-menu-btn {
   margin-top: 52px;
   padding: 14px 44px;

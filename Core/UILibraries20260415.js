@@ -690,7 +690,7 @@
         var click = isSelectable
           ? " onclick=\"OnSelectableCardClick('" + zoneName + "', '" + id + "')\""
           : " onclick=\"CardClick(event, '" + zoneName + "', '" + id + "')\"";
-        if (id != "-") newHTML += "<span id='" + id + "' " + styles + droppable + click + ">";
+        if (id != "-") newHTML += "<span id='" + id + "' data-mzid='" + id + "' " + styles + droppable + click + ">";
         else newHTML += "<span " + styles + droppable + click + ">";
 
         newHTML += Card(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id);

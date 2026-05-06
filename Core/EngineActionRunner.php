@@ -2,6 +2,70 @@
 
 include_once __DIR__ . '/RegressionTestFramework.php';
 
+function ConvertMzIDToAbsolute($mzID, $playerPerspective) {
+  if (!$mzID || strpos($mzID, "-") === false) return $mzID;
+  
+  list($zone, $index) = explode("-", $mzID, 2);
+  
+  // Already absolute (p1 or p2 format)
+  if (strpos($zone, "p1") === 0 || strpos($zone, "p2") === 0) {
+    return $mzID;
+  }
+  
+  // Relative perspective - convert to absolute
+  if (strpos($zone, "their") === 0) {
+    // "their" zone belongs to the opponent
+    $opponentPlayer = ($playerPerspective == 1) ? 2 : 1;
+    $zone = str_replace("their", "p" . $opponentPlayer, $zone);
+  } else if (strpos($zone, "my") === 0) {
+    // "my" zone belongs to the current player
+    $zone = str_replace("my", "p" . $playerPerspective, $zone);
+  }
+  
+  return $zone . "-" . $index;
+}
+
+function QueueFrameAnimation($animation) {
+  global $frameAnimations;
+  if (!isset($frameAnimations) || !is_array($frameAnimations)) {
+    $frameAnimations = [];
+  }
+  if (!is_array($animation)) return;
+  if (!isset($animation['target']) || $animation['target'] === '') return;
+
+  if (!isset($animation['durationMs'])) $animation['durationMs'] = 0;
+  if (!isset($animation['blocking'])) $animation['blocking'] = true;
+  $frameAnimations[] = $animation;
+}
+
+function QueueCardAnimation($targetMzID, $name, $durationMs = 400, $blocking = true, $params = []) {
+  QueueFrameAnimation([
+    'type' => 'css',
+    'target' => strval($targetMzID),
+    'name' => strval($name),
+    'durationMs' => intval($durationMs),
+    'blocking' => $blocking ? true : false,
+    'params' => is_array($params) ? $params : [],
+  ]);
+}
+
+function QueueDamageAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true) {
+  QueueFrameAnimation([
+    'type' => 'DAMAGE',
+    'target' => strval($targetMzID),
+    'amount' => intval($amount),
+    'durationMs' => intval($durationMs),
+    'blocking' => $blocking ? true : false,
+  ]);
+}
+
+function SetFrameAnimationCache($gameName, $animations) {
+  if (!is_array($animations)) $animations = [];
+  $encoded = json_encode($animations);
+  if ($encoded === false) $encoded = '[]';
+  SetCachePiece($gameName, 15, $encoded);
+}
+
 function EngineLoadRootRuntime($folderPath) {
   $repoRoot = RegressionRepoRoot();
   $localVarNames = array_keys(get_defined_vars());
@@ -40,7 +104,7 @@ function EngineActionCardExists($mzid) {
 }
 
 function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = []) {
-  global $updateNumber, $playerID;
+  global $updateNumber, $playerID, $frameAnimations;
 
   $action = EngineNormalizeActionPayload($action);
   $playerID = $action['playerID'];
@@ -57,6 +121,11 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     'updateCache' => $options['updateCache'] ?? true,
     'recordAction' => !($options['disableRecording'] ?? false),
   ];
+
+  $frameAnimations = [];
+  if ($result['updateCache']) {
+    SetFrameAnimationCache($gameName, []);
+  }
 
   if (function_exists('SetFlashMessage')) SetFlashMessage('');
 
@@ -329,6 +398,7 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       TouchOwnershipLastUpdated(intval($gameName));
     }
     if ($result['updateCache']) {
+      SetFrameAnimationCache($gameName, $frameAnimations);
       GamestateUpdated($gameName);
     }
     if ($result['recordAction'] && RegressionIsRecordingActive($folderPath, $gameName)) {

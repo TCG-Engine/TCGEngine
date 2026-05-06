@@ -14108,6 +14108,13 @@ function DealChampionDamage($player, $amount=1, $sourceController = null) {
                 $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "PROOF_OF_LIFE_DOUBLE"));
             }
             $obj->Damage += $amount;
+            
+            // Queue damage animation for the champion
+            if($amount > 0) {
+                $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
+                QueueDamageAnimation($absoluteTarget, $amount, 500, true);
+            }
+            
             TrackChampionDamageThisTurn($obj, $amount);
             TriggerSanguineGoblet($obj->Controller, $amount);
             // Assassin's Mantle (3tcs0axa03): if damage was dealt, offer banish to prevent 1 + add prep counter
