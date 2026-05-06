@@ -10,6 +10,9 @@
   $rootName = isset($_GET['rootName']) ? $_GET['rootName'] : null;
   $includePrivate = isset($_GET['includePrivate']) && ($_GET['includePrivate'] === '1' || strtolower($_GET['includePrivate']) === 'true');
   $response->data = [];
+  $response->totalCount = 0;
+  $response->publicCount = 0;
+  $response->privateCount = 0;
   $cacheInfo = apcu_cache_info();
 
   if (is_array($cacheInfo) && isset($cacheInfo['cache_list']) && is_array($cacheInfo['cache_list'])) {
@@ -27,6 +30,12 @@
       }
 
       $isPrivate = isset($lobby->isPrivate) ? boolval($lobby->isPrivate) : false;
+      ++$response->totalCount;
+      if ($isPrivate) {
+        ++$response->privateCount;
+      } else {
+        ++$response->publicCount;
+      }
       if ($isPrivate && !$includePrivate) continue;
 
       $response->data[] = [

@@ -556,7 +556,8 @@ include_once 'Header.php';
           var data = xhr.response;
           
           if (data.data && Array.isArray(data.data)) {
-            gameCountElement.textContent = data.data.length;
+            var totalCount = (typeof data.totalCount === 'number') ? data.totalCount : data.data.length;
+            gameCountElement.textContent = totalCount;
             if (data.data.length === 0) {
               openGamesList.innerHTML = '<p style="color: #999;">No active games. Create one to get started!</p>';
             } else {
