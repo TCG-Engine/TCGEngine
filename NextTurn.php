@@ -515,8 +515,8 @@
           if (totalMs < 500) totalMs = 500;
         } else if (type === "RESTORE") {
           var restoreAmount = animation.amount != null ? animation.amount : "";
-          element.innerHTML += "<div class='dmg-animation' style='position:absolute; text-align:center; font-size:36px; top: 0px; left:-2px; width:100%; height: calc(100% - 8px); padding: 0 2px; border-radius:12px; background-color:rgba(95,167,219,0.5); z-index:1000;'><div style='padding: 25px 0; width:100%; height:100%:'></div></div>";
-          element.innerHTML += "<div style='position:absolute; text-align:center; animation-name: move; animation-duration: 0.6s; font-size:34px; font-weight: 600; text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.60); top:0px; left:0px; width:100%; height:100%; background-color:rgba(0,0,0,0); z-index:1000;'><div style='padding: 25px 0; width:100%; height:100%:'>+" + restoreAmount + "</div></div>";
+          element.innerHTML += "<div class='restore-animation restore-animation-a'><div class='restore-animation-a-inner'></div></div>";
+          element.innerHTML += "<div class='restore-animation-a-label'><div class='restore-animation-a-label-inner'>+" + restoreAmount + "</div></div>";
           if (totalMs < 500) totalMs = 500;
         } else if (type === "EXHAUST") {
           var exhaustAnimation = [

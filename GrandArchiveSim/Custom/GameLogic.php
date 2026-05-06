@@ -14293,7 +14293,14 @@ function RecoverChampion($player, $amount=1) {
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = &$zoneArr[$i];
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+            $actualRecovered = $obj->Damage - max(0, $obj->Damage - $amount);
             $obj->Damage = max(0, $obj->Damage - $amount);
+
+            // Queue restore animation for the champion
+            if($actualRecovered > 0) {
+                $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
+                QueueRestoreAnimation($absoluteTarget, $actualRecovered, 500, true);
+            }
 
             $field = GetField($player);
             $fieldZone = $player == $playerID ? "myField" : "theirField";

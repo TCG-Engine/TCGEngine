@@ -59,6 +59,16 @@ function QueueDamageAnimation($targetMzID, $amount, $durationMs = 500, $blocking
   ]);
 }
 
+function QueueRestoreAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true) {
+  QueueFrameAnimation([
+    'type' => 'RESTORE',
+    'target' => strval($targetMzID),
+    'amount' => intval($amount),
+    'durationMs' => intval($durationMs),
+    'blocking' => $blocking ? true : false,
+  ]);
+}
+
 function SetFrameAnimationCache($gameName, $animations) {
   if (!is_array($animations)) $animations = [];
   $encoded = json_encode($animations);
