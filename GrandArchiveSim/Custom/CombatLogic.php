@@ -1187,7 +1187,10 @@ function ChooseAttackTarget($player, $attackerMZ) {
  */
 function OnAttackTrigger($player, $mzID) {
     global $onAttackAbilities;
+    // Preserve prior macro context and set source mzID per dispatched On Attack ability.
+    $prevMzID = DecisionQueueController::GetVariable("mzID");
     // Dispatch OnAttack for the attacker itself (ally or champion attacking directly)
+    DecisionQueueController::StoreVariable("mzID", $mzID);
     $obj = GetZoneObject($mzID);
     if($obj !== null && !HasNoAbilities($obj) && isset($onAttackAbilities[$obj->CardID . ":0"])) {
         $onAttackAbilities[$obj->CardID . ":0"]($player);
@@ -1199,6 +1202,7 @@ function OnAttackTrigger($player, $mzID) {
     // Also dispatch OnAttack for any attack cards currently in the player's intent zone
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $iMZ) {
+        DecisionQueueController::StoreVariable("mzID", $iMZ);
         $iObj = GetZoneObject($iMZ);
         if($iObj === null) continue;
         if(isset($onAttackAbilities[$iObj->CardID . ":0"])) {
@@ -1209,12 +1213,15 @@ function OnAttackTrigger($player, $mzID) {
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         $weaponMZ = GetCombatWeapon();
         if($weaponMZ !== null) {
+            DecisionQueueController::StoreVariable("mzID", $weaponMZ);
             $weaponObj = GetZoneObject($weaponMZ);
             if($weaponObj !== null && isset($onAttackAbilities[$weaponObj->CardID . ":0"])) {
                 $onAttackAbilities[$weaponObj->CardID . ":0"]($player);
             }
         }
     }
+    if($prevMzID === null || $prevMzID === "") DecisionQueueController::ClearVariable("mzID");
+    else DecisionQueueController::StoreVariable("mzID", $prevMzID);
     // Majestic Spirit's Crest (Tx6iJQNSA6): TurnEffect on champion — when champion attacks, draw 1
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         if(in_array("Tx6iJQNSA6", $obj->TurnEffects)) {
