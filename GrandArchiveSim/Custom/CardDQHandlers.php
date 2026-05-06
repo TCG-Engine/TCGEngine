@@ -4855,6 +4855,53 @@ $customDQHandlers["GloamspireMantleSummon"] = function($player, $parts, $lastDec
 // Extricating Touch (4a8hl5dben) — choose player → hand/memory → pick card → discard
 // ============================================================================
 
+function ClearMyTempZoneCards($player) {
+    $tempZone = &GetTempZone($player);
+    while(count($tempZone) > 0) array_pop($tempZone);
+}
+
+function StageHiddenMZChoicesToTemp($player, $sourceMZs, $mapVarName) {
+    ClearMyTempZoneCards($player);
+    $indexToSource = [];
+    $tempChoices = [];
+    $tempIndex = 0;
+    foreach($sourceMZs as $sourceMZ) {
+        $obj = GetZoneObject($sourceMZ);
+        if($obj === null || $obj->removed) continue;
+        MZAddZone($player, "myTempZone", $obj->CardID);
+        $tempChoices[] = "myTempZone-" . $tempIndex;
+        $indexToSource[strval($tempIndex)] = $sourceMZ;
+        ++$tempIndex;
+    }
+    if(empty($tempChoices)) {
+        DecisionQueueController::StoreVariable($mapVarName, "");
+        return [];
+    }
+    DecisionQueueController::StoreVariable($mapVarName, json_encode($indexToSource));
+    return $tempChoices;
+}
+
+function ResolveTempChoiceToSourceMZ($tempChoiceMZ, $mapVarName) {
+    if($tempChoiceMZ === "" || $tempChoiceMZ === "-" || $tempChoiceMZ === "PASS") return null;
+    $parts = explode("-", $tempChoiceMZ);
+    if(count($parts) < 2) return null;
+    $tempIndex = strval(intval($parts[1]));
+    $raw = DecisionQueueController::GetVariable($mapVarName);
+    if($raw === null || $raw === "") return null;
+    $map = json_decode($raw, true);
+    if(!is_array($map) || !isset($map[$tempIndex])) return null;
+    return $map[$tempIndex];
+}
+
+function DiscardMappedSourceMZ($ownerPlayer, $sourceMZ) {
+    if($sourceMZ === null || $sourceMZ === "") return;
+    $sourceObj = GetZoneObject($sourceMZ);
+    $resolvedOwner = ($sourceObj !== null && isset($sourceObj->PlayerID) && intval($sourceObj->PlayerID) > 0)
+        ? intval($sourceObj->PlayerID)
+        : $ownerPlayer;
+    DoDiscardCard($resolvedOwner, $sourceMZ);
+}
+
 $customDQHandlers["ExtricatingTouchZoneChoice"] = function($player, $parts, $lastDecision) {
     // $lastDecision = chosen champion mzID (the target player)
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
@@ -4869,35 +4916,35 @@ $customDQHandlers["ExtricatingTouchZoneChoice"] = function($player, $parts, $las
 $customDQHandlers["ExtricatingTouchReveal"] = function($player, $parts, $lastDecision) {
     $targetPlayer = intval(DecisionQueueController::GetVariable("extricatingTarget"));
     global $playerID;
+    $sourceMZs = [];
     if($lastDecision === "YES") {
         // Reveal hand
         $handZone = $targetPlayer == $playerID ? "myHand" : "theirHand";
         $hand = GetZone($handZone);
-        $handMZs = [];
         for($i = 0; $i < count($hand); ++$i) {
-            if(!$hand[$i]->removed) $handMZs[] = $handZone . "-" . $i;
+            if(!$hand[$i]->removed) $sourceMZs[] = $handZone . "-" . $i;
         }
-        if(empty($handMZs)) return;
-        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $handMZs), 1, tooltip:"Choose_card_to_discard");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ExtricatingTouchDiscard", 1);
     } else {
         // Reveal memory
         $memZone = $targetPlayer == $playerID ? "myMemory" : "theirMemory";
         $mem = GetZone($memZone);
-        $memMZs = [];
         for($i = 0; $i < count($mem); ++$i) {
-            if(!$mem[$i]->removed) $memMZs[] = $memZone . "-" . $i;
+            if(!$mem[$i]->removed) $sourceMZs[] = $memZone . "-" . $i;
         }
-        if(empty($memMZs)) return;
-        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $memMZs), 1, tooltip:"Choose_card_to_discard");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ExtricatingTouchDiscard", 1);
     }
+    $tempChoices = StageHiddenMZChoicesToTemp($player, $sourceMZs, "extricatingTempMap");
+    if(empty($tempChoices)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $tempChoices), 1, tooltip:"Choose_card_to_discard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ExtricatingTouchDiscard", 1);
 };
 
 $customDQHandlers["ExtricatingTouchDiscard"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $sourceMZ = ResolveTempChoiceToSourceMZ($lastDecision, "extricatingTempMap");
+    ClearMyTempZoneCards($player);
+    DecisionQueueController::StoreVariable("extricatingTempMap", "");
+    if($sourceMZ === null || $sourceMZ === "") return;
     $targetPlayer = intval(DecisionQueueController::GetVariable("extricatingTarget"));
-    DoDiscardCard($targetPlayer, $lastDecision);
+    DiscardMappedSourceMZ($targetPlayer, $sourceMZ);
 };
 
 // ============================================================================
@@ -5221,18 +5268,33 @@ $customDQHandlers["ScorchedConquestDestroy"] = function($player, $parts, $lastDe
 // ============================================================================
 function RegalInquisitionStep($player) {
     global $playerID;
+    $existingMapRaw = DecisionQueueController::GetVariable("regalInquisitionTempMap");
+    if($existingMapRaw !== null && $existingMapRaw !== "") {
+        $existingMap = json_decode($existingMapRaw, true);
+        if(is_array($existingMap) && !empty($existingMap)) {
+            $choices = [];
+            foreach($existingMap as $sourceMZ) $choices[] = $sourceMZ;
+            $tempChoices = StageHiddenMZChoicesToTemp($player, $choices, "regalInquisitionTempMap");
+            if(empty($tempChoices)) return;
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $tempChoices), 1, tooltip:"Discard_a_card_from_opponent_hand/memory?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "RegalInquisitionDiscard", 1);
+            return;
+        }
+    }
+
     $opponent = ($player == 1) ? 2 : 1;
     $handZone = $opponent == $playerID ? "myHand" : "theirHand";
     $memoryZone = $opponent == $playerID ? "myMemory" : "theirMemory";
-    $choices = [];
+    $sourceMZs = [];
     $hand = GetZone($handZone);
     for($i = 0; $i < count($hand); ++$i) {
-        if(!$hand[$i]->removed) $choices[] = $handZone . "-" . $i;
+        if(!$hand[$i]->removed) $sourceMZs[] = $handZone . "-" . $i;
     }
     $memory = GetZone($memoryZone);
     for($i = 0; $i < count($memory); ++$i) {
-        if(!$memory[$i]->removed) $choices[] = $memoryZone . "-" . $i;
+        if(!$memory[$i]->removed) $sourceMZs[] = $memoryZone . "-" . $i;
     }
+    $choices = StageHiddenMZChoicesToTemp($player, $sourceMZs, "regalInquisitionTempMap");
     if(empty($choices)) return;
     $targetStr = implode("&", $choices);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_from_opponent_hand/memory?");
@@ -5240,22 +5302,56 @@ function RegalInquisitionStep($player) {
 }
 
 $customDQHandlers["RegalInquisitionDiscard"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") return;
+    $rawMap = DecisionQueueController::GetVariable("regalInquisitionTempMap");
+    $map = ($rawMap === null || $rawMap === "") ? [] : json_decode($rawMap, true);
+    if(!is_array($map)) $map = [];
+
+    $sourceMZ = ResolveTempChoiceToSourceMZ($lastDecision, "regalInquisitionTempMap");
+    ClearMyTempZoneCards($player);
+    if($sourceMZ === null || $sourceMZ === "") {
+        DecisionQueueController::StoreVariable("regalInquisitionTempMap", "");
+        return;
+    }
+
+    // Remove the selected temp index entry from the active snapshot map.
+    $tempParts = explode("-", $lastDecision);
+    $selectedTempIdx = (count($tempParts) >= 2) ? strval(intval($tempParts[1])) : null;
+    if($selectedTempIdx !== null && isset($map[$selectedTempIdx])) {
+        unset($map[$selectedTempIdx]);
+    }
+
     global $playerID;
-    $opponent = ($player == 1) ? 2 : 1;
-    $gravZone = $opponent == $playerID ? "myGraveyard" : "theirGraveyard";
-    $deckZone = $opponent == $playerID ? "myDeck" : "theirDeck";
-    $handZone = $opponent == $playerID ? "myHand" : "theirHand";
-    // Discard the chosen card to opponent's graveyard
-    MZMove($opponent, $lastDecision, $gravZone);
+    $sourceObj = GetZoneObject($sourceMZ);
+    $targetPlayer = ($sourceObj !== null && isset($sourceObj->PlayerID) && intval($sourceObj->PlayerID) > 0)
+        ? intval($sourceObj->PlayerID)
+        : (($player == 1) ? 2 : 1);
+    $deckZone = $targetPlayer == $playerID ? "myDeck" : "theirDeck";
+    $handZone = $targetPlayer == $playerID ? "myHand" : "theirHand";
+
+    // Discard the chosen card with proper owner-perspective handling.
+    DiscardMappedSourceMZ($targetPlayer, $sourceMZ);
+
+    // Keep original mz indices; hidden zones can retain removed holes until cleanup.
+    $remainingSources = [];
+    foreach($map as $remainingSourceMZ) {
+        $remainingSources[] = $remainingSourceMZ;
+    }
+
     // Opponent reveals top of deck and puts into hand
     $deck = GetZone($deckZone);
     if(!empty($deck)) {
-        Reveal($opponent, $deckZone . "-0");
-        MZMove($opponent, $deckZone . "-0", $handZone);
+        Reveal($targetPlayer, $deckZone . "-0");
+        MZMove($player, $deckZone . "-0", $handZone);
     }
-    // Continue choosing
-    RegalInquisitionStep($player);
+
+    // Continue choosing from the original snapshot only (do not add newly drawn cards).
+    $tempChoices = StageHiddenMZChoicesToTemp($player, $remainingSources, "regalInquisitionTempMap");
+    if(empty($tempChoices)) {
+        DecisionQueueController::StoreVariable("regalInquisitionTempMap", "");
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $tempChoices), 1, tooltip:"Discard_a_card_from_opponent_hand/memory?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "RegalInquisitionDiscard", 1);
 };
 
 // ============================================================================
@@ -5750,7 +5846,8 @@ $customDQHandlers["DeathEssenceAmuletChooseZone"] = function($player, $parts, $l
     } else {
         $opZone = $opponent == $playerID ? "myMemory" : "theirMemory";
     }
-    $cards = ZoneSearch($opZone);
+    $sourceMZs = ZoneSearch($opZone);
+    $cards = StageHiddenMZChoicesToTemp($player, $sourceMZs, "deathEssenceTempMap");
     if(empty($cards)) return;
     $cardStr = implode("&", $cards);
     DecisionQueueController::AddDecision($player, "MZCHOOSE", $cardStr, 1, "Choose_a_card_to_discard");
@@ -5758,11 +5855,12 @@ $customDQHandlers["DeathEssenceAmuletChooseZone"] = function($player, $parts, $l
 };
 
 $customDQHandlers["DeathEssenceAmuletDiscard"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") return;
-    global $playerID;
+    $sourceMZ = ResolveTempChoiceToSourceMZ($lastDecision, "deathEssenceTempMap");
+    ClearMyTempZoneCards($player);
+    DecisionQueueController::StoreVariable("deathEssenceTempMap", "");
+    if($sourceMZ === null || $sourceMZ === "") return;
     $opponent = ($player == 1) ? 2 : 1;
-    $destGrav = $opponent == $playerID ? "myGraveyard" : "theirGraveyard";
-    MZMove($opponent, $lastDecision, $destGrav);
+    DiscardMappedSourceMZ($opponent, $sourceMZ);
 };
 
 // ============================================================================

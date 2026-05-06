@@ -11787,25 +11787,32 @@ function Glimpse($player, $amount, $allowAstroscope = true) {
 }
 
 function DoDiscardCard($player, $mzCard) {
+    global $playerID;
+    $discObj = GetZoneObject($mzCard);
+    $discardPlayer = ($discObj !== null && isset($discObj->PlayerID) && intval($discObj->PlayerID) > 0)
+        ? intval($discObj->PlayerID)
+        : $player;
+    $banishZone = ($discardPlayer == $playerID) ? "myBanish" : "theirBanish";
+    $graveyardZone = ($discardPlayer == $playerID) ? "myGraveyard" : "theirGraveyard";
+
     // Purging Tempest (yuo7dbge3b): cards that would enter this player's GY are banished instead
-    if(GlobalEffectCount($player, "yuo7dbge3b") > 0) {
-        MZMove($player, $mzCard, "myBanish");
+    if(GlobalEffectCount($discardPlayer, "yuo7dbge3b") > 0) {
+        MZMove($playerID, $mzCard, $banishZone);
         return;
     }
     // Sasha, Purifying Acolyte (GRlUlcYRmV): while fostered, cards entering your GY are banished instead
-    $field = GetField($player);
+    $field = GetField($discardPlayer);
     foreach($field as $fObj) {
         if(!$fObj->removed && $fObj->CardID === "GRlUlcYRmV" && !HasNoAbilities($fObj) && IsFostered($fObj)) {
-            MZMove($player, $mzCard, "myBanish");
+            MZMove($playerID, $mzCard, $banishZone);
             return;
         }
     }
     // Brackish Lutist (1clswn3ba2): floating memory cards go to banish instead of graveyard
-    $discObj = GetZoneObject($mzCard);
     if($discObj !== null && HasFloatingMemory($discObj) && IsBrackishLutistOnField()) {
-        MZMove($player, $mzCard, "myBanish");
+        MZMove($playerID, $mzCard, $banishZone);
     } else {
-        MZMove($player, $mzCard, "myGraveyard");
+        MZMove($playerID, $mzCard, $graveyardZone);
     }
 }
 
