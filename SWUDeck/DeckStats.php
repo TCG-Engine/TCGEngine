@@ -194,8 +194,8 @@
       $deckStatsOutput .= "<strong>Average cards resourced:</strong> " . number_format($averageCardsResourced, 2) . "<br>";
       //Damage stats
       $deckStatsOutput .= "<br>";
-      $averageBaseDamageInWins = ($deckStats["numWins"] > 0) ? ($deckStats["remainingHealthInWins"] / $deckStats["numWins"]) : 0;
-      $deckStatsOutput .= "<strong>Average base damage in wins:</strong> " . number_format($averageBaseDamageInWins, 2) . "<br>";
+      $averageRemainingHealthInWins = ($deckStats["numWins"] > 0) ? ($deckStats["remainingHealthInWins"] / $deckStats["numWins"]) : 0;
+      $deckStatsOutput .= "<strong>Average remaining HP in wins:</strong> " . number_format($averageRemainingHealthInWins, 2) . "<br>";
       //First player stats
       $deckStatsOutput .= "<br>";
       $winsGoingFirstPercentage = ($deckStats["numWins"] > 0) ? ($deckStats["winsGoingFirst"] / $deckStats["numWins"]) * 100 : 0;
