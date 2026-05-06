@@ -947,33 +947,54 @@
     <div id='popupContainer'></div>
     <div id="cardDetail" style="z-index:100000; display:none; position:fixed;"></div>
     <div id='mainDiv' style='position:fixed; z-index:0; left:0; top:0; width:100%; height:100%;'>
-    <!--
-    <div id='chatbox' style='z-index:40; position:fixed; bottom:20px; right:18px; display:flex;'>
-        <?php if ($playerID != 3 && !IsChatMuted()): ?>
-            <input id='chatText'
-                  style='background: black; color: white; font-size:16px; font-family:barlow; margin-left: 8px; height: 32px; border: 1px solid #454545; border-radius: 5px 0 0 5px;'
-                  type='text'
-                  name='chatText'
-                  value=''
-                  autocomplete='off'
-                  onkeypress='ChatKey(event)'>
-            <button style='border: 1px solid #454545; border-radius: 0 5px 5px 0; width:55px; height:32px; color: white; margin: 0 0 0 -1px; padding: 0 5px; font-size:16px; font-weight:600; box-shadow: none;'
-                    onclick='SubmitChat()'>Chat
-            </button>
-            <button title='Disable Chat'
-                    <?= ProcessInputLink($playerID, 26, $SET_MuteChat . "-1", fullRefresh:true); ?>
-                    style='border: 1px solid #454545; color: #1a1a1a; padding: 0; box-shadow: none;'>
-                <img style='height:16px; width:16px; float:left; margin: 7px;' src='./Images/disable.png' />
-            </button>
-        <?php else: ?>
-            <button title='Re-enable Chat'
-                    <?= ProcessInputLink($playerID, 26, $SET_MuteChat . "-0", fullRefresh:true); ?>
-                    style='border: 1px solid #454545; width: 100%; padding: 0 0 4px 0; height: 32px; font: inherit; box-shadow: none;'>
-                ⌨️ Re-enable Chat
-            </button>
-        <?php endif; ?>
+
+    <div id='chatWidget' style='z-index:40; position:fixed; bottom:20px; left:140px; display:flex; flex-direction:column; align-items:flex-start; width:280px;'>
+        <div id='chatExpanded' style='display:none; flex-direction:column; width:100%;'>
+            <div id='chatLog'
+                 style='background:rgba(0,0,0,0.82); border:1px solid #555; border-bottom:none; border-radius:5px 5px 0 0; color:white;
+                        font-family:barlow,sans-serif; height:160px; overflow-y:auto; padding:4px 6px;'></div>
+            <?php if ($playerID != 3 && !IsChatMuted()): ?>
+            <div style='display:flex;'>
+                <input id='chatText'
+                      style='flex:1; background:#111; color:white; font-size:14px; font-family:barlow,sans-serif;
+                             height:30px; border:1px solid #555; border-radius:0; padding:0 6px; outline:none;'
+                      type='text'
+                      name='chatText'
+                      value=''
+                      autocomplete='off'
+                      onkeypress='ChatKey(event)'>
+                <button style='border:1px solid #555; border-left:none; border-radius:0 0 5px 0; width:50px; height:30px;
+                               background:#333; color:white; margin:0; padding:0; font-size:13px; font-weight:600; box-shadow:none; cursor:pointer;'
+                        onclick='SubmitChat()'>Send
+                </button>
+            </div>
+            <?php endif; ?>
+        </div>
+        <button id='chatToggleBtn'
+                onclick='_ToggleChat()'
+                style='border:1px solid #555; border-radius:5px; background:#222; color:white; height:28px; padding:0 12px;
+                       font-size:13px; font-weight:600; box-shadow:none; cursor:pointer; margin-top:2px;'>
+            &#128172; Chat
+        </button>
     </div>
-        -->
+    <script>
+    function _ToggleChat() {
+        var exp = document.getElementById('chatExpanded');
+        var btn = document.getElementById('chatToggleBtn');
+        var open = exp.style.display === 'flex';
+        exp.style.display = open ? 'none' : 'flex';
+        exp.style.flexDirection = 'column';
+        btn.style.borderRadius = open ? '5px' : '0 0 5px 5px';
+        if (!open) {
+            btn.innerHTML = '&#128172; Chat';
+            var log = document.getElementById('chatLog');
+            if (log) log.scrollTop = log.scrollHeight;
+            var inp = document.getElementById('chatText');
+            if (inp) inp.focus();
+        }
+    }
+    StartChatPoll();
+    </script>
 
     <?php include "./" . $folderPath . "/InitialLayout.php"; ?>
     </div>

@@ -123,21 +123,73 @@ function ChatKey(event) {
 
 function SubmitChat() {
   var chatBox = document.getElementById("chatText");
-  if (chatBox.value == "") return;
+  var text = chatBox.value.trim();
+  if (text === "") return;
+  chatBox.value = "";
   var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-    }
-  };
-  var ajaxLink =
-    "SubmitChat.php?gameName=" + document.getElementById("gameName").value;
-  ajaxLink +=
-    "&playerID=" + document.getElementById("playerID").value +
-    "&chatText=" + encodeURI(chatBox.value) +
-    "&authKey=" + document.getElementById("authKey").value;
+  var ajaxLink = "SubmitChat.php?gameName=" + encodeURIComponent(document.getElementById("gameName").value);
+  ajaxLink += "&playerID=" + encodeURIComponent(document.getElementById("playerID").value);
+  ajaxLink += "&authKey="  + encodeURIComponent(document.getElementById("authKey").value);
+  ajaxLink += "&folderPath=" + encodeURIComponent(document.getElementById("folderPath").value);
+  ajaxLink += "&chatText="  + encodeURIComponent(text);
   xmlhttp.open("GET", ajaxLink, true);
   xmlhttp.send();
-  chatBox.value = "";
+}
+
+var _lastChatID = 0;
+var _chatPollTimer = null;
+var _chatSeenIds = {};
+
+function StartChatPoll() {
+  if (_chatPollTimer !== null) return;
+  _chatPollTimer = setInterval(function() {
+    var gameName = document.getElementById("gameName");
+    if (!gameName) return;
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        try {
+          var msgs = JSON.parse(this.responseText);
+          if (Array.isArray(msgs) && msgs.length > 0) {
+            for (var i = 0; i < msgs.length; ++i) {
+              var m = msgs[i];
+              if (!_chatSeenIds[m.id]) {
+                _chatSeenIds[m.id] = true;
+                _AppendChatMessage(m);
+              }
+              if (m.id > _lastChatID) _lastChatID = m.id;
+            }
+          }
+        } catch(e) {}
+      }
+    };
+    xmlhttp.open("GET", "GetChat.php?gameName=" + encodeURIComponent(gameName.value) + "&lastChatID=" + _lastChatID, true);
+    xmlhttp.send();
+  }, 1500);
+}
+
+function _AppendChatMessage(msg) {
+  var log = document.getElementById("chatLog");
+  if (!log) return;
+  var div = document.createElement("div");
+  div.className = "chatMsg chatMsg-p" + msg.playerID;
+  div.style.cssText = "padding:2px 4px; word-break:break-word; font-size:13px;";
+  var label = document.createElement("span");
+  label.style.cssText = "font-weight:700; margin-right:4px;";
+  label.textContent = "P" + msg.playerID + ":";
+  var body = document.createElement("span");
+  body.textContent = msg.text;
+  div.appendChild(label);
+  div.appendChild(body);
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  // Show unread dot on toggle button when panel is collapsed
+  var expanded = document.getElementById("chatExpanded");
+  var btn = document.getElementById("chatToggleBtn");
+  if (btn && expanded && expanded.style.display !== 'flex') {
+    btn.textContent = '';
+    btn.innerHTML = '&#128172; Chat <span style="background:#e33;color:white;border-radius:50%;width:8px;height:8px;display:inline-block;vertical-align:middle;margin-left:4px;"></span>';
+  }
 }
 
 function AddCardToHand() {
