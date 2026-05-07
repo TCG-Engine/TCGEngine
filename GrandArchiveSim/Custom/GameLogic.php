@@ -3890,6 +3890,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 RemoveCounters($player, $champMZ, "preparation", 1);
             }
             break;
+        case "9gv4vm4kj3": // Backup Charger - (3), banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            break;
         // --- Always banish self ---
         case "iiZtKTulPg": // Eye of Argus
         case "usb5FgKvZX": // Sharpening Stone
@@ -3914,7 +3921,6 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "af098kmoi0": // Orb of Hubris â€” banish self
         case "fp66pv4n1n": // Rusted Warshield â€” banish self
         case "porhlq2kkv": // Wayfinder's Map â€” banish self
-        case "9gv4vm4kj3": // Backup Charger â€” banish self
         case "9xycwz9gv4": // Memento Mori â€” banish self
         case "uqrptjej4m": // Tonic of Remembrance â€” banish self
         case "xfpk9xycwz": // Alkahest â€” banish self
@@ -4733,9 +4739,14 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "RefractedTwilightCopy|" . $cardID . "|" . $selectedAbilityIndex . "|" . $refractedTwilightCopies, 102);
     }
 
-    // Queue Opportunity for the opponent to respond after the ability resolves.
-    // Block 200 ensures it runs after all ability decisions (block 1-100).
-    DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityOpportunity", 200);
+    // Queue Opportunity after ability resolution.
+    // For static abilities, this is queued by AbilityActivated after the ability body
+    // fully runs. This avoids nested macro execution (e.g., Enter) from consuming
+    // AbilityOpportunity mid-resolution.
+    // For dynamic abilities (which do not queue AbilityActivated), queue it here.
+    if($isDynamic) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityOpportunity", 200);
+    }
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
@@ -11920,6 +11931,9 @@ $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     TriggerNightmareCoilPunish($player);
     // Enhance Potency: fire any copy after ability decisions (block 1) but before AbilityOpportunity (block 200)
     DecisionQueueController::AddDecision($player, "CUSTOM", "CheckEnhancePotency", 99);
+    // Static activated abilities queue Opportunity here (after full ability body resolution)
+    // to prevent nested macro execution from opening the response window too early.
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityOpportunity", 200);
 };
 
 function TriggerNightmareCoilPunish($activatingPlayer) {

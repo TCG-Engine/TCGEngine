@@ -6,6 +6,7 @@
 class DecisionQueueController {
     private $numPlayers = 2;
     private static $debugMode = false;
+    private static $executeDepth = 0;
 
     public function __construct() {
 
@@ -46,54 +47,64 @@ class DecisionQueueController {
     }
 
     function ExecuteStaticMethods($player, $lastDecision = null) {
-        while($decision = $this->NextDecision($player)) {
-            if(self::$debugMode) echo("Processing decision for player " . $player . ": " . $decision->Type . " " . $decision->Param . " Last decision: " . $lastDecision . "<BR>");
-            $this->PopDecision($player);
-            switch($decision->Type) {
-                case "PASSPARAMETER":
-                    $lastDecision = $decision->Param;
-                    break;
-                case "MZMOVE":
-                    if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
-                    $resolvedParam = str_replace("{<-}", $lastDecision, $decision->Param);
-                    $parts = explode("->", $resolvedParam);
-                    $source = $parts[0];
-                    $destination = explode("-", $parts[1])[0];
-                    MZMove($player, $source, $destination);
-                    break;
-                case "CUSTOM":
-                    if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
-                    global $customDQHandlers;
-                    $parts = explode("|", $decision->Param);
-                    $handlerName = array_shift($parts);
-                    $customDQHandlers[$handlerName]($player, $parts, $lastDecision);
-                    break;
-                case "SYSTEM":
-                    if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
-                    global $systemDQHandlers;
-                    $parts = explode("|", $decision->Param);
-                    $handlerName = array_shift($parts);
-                    $systemDQHandlers[$handlerName]($player, $parts, $lastDecision);
-                    break;
-                default:
-                    // Not static, return
-                    if($decision->Type == "MZCHOOSE") { //We need to validate every decision type separately
-                        // Use the new counting method that handles both zones and specific cards
-                        $numChoices = $this->MZCountChoices($decision->Param);
-                        if($numChoices === 0) {
-                            // No valid choices, auto-PASS
-                            $lastDecision = "PASS";
-                            break;
+        self::$executeDepth++;
+        $shouldAutoAdvance = true;
+        try {
+            while($decision = $this->NextDecision($player)) {
+                if(self::$debugMode) echo("Processing decision for player " . $player . ": " . $decision->Type . " " . $decision->Param . " Last decision: " . $lastDecision . "<BR>");
+                $this->PopDecision($player);
+                switch($decision->Type) {
+                    case "PASSPARAMETER":
+                        $lastDecision = $decision->Param;
+                        break;
+                    case "MZMOVE":
+                        if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
+                        $resolvedParam = str_replace("{<-}", $lastDecision, $decision->Param);
+                        $parts = explode("->", $resolvedParam);
+                        $source = $parts[0];
+                        $destination = explode("-", $parts[1])[0];
+                        MZMove($player, $source, $destination);
+                        break;
+                    case "CUSTOM":
+                        if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
+                        global $customDQHandlers;
+                        $parts = explode("|", $decision->Param);
+                        $handlerName = array_shift($parts);
+                        $customDQHandlers[$handlerName]($player, $parts, $lastDecision);
+                        break;
+                    case "SYSTEM":
+                        if($lastDecision == "PASS" && !$decision->DontSkipOnPass) break;
+                        global $systemDQHandlers;
+                        $parts = explode("|", $decision->Param);
+                        $handlerName = array_shift($parts);
+                        $systemDQHandlers[$handlerName]($player, $parts, $lastDecision);
+                        break;
+                    default:
+                        // Not static, return
+                        if($decision->Type == "MZCHOOSE") { //We need to validate every decision type separately
+                            // Use the new counting method that handles both zones and specific cards
+                            $numChoices = $this->MZCountChoices($decision->Param);
+                            if($numChoices === 0) {
+                                // No valid choices, auto-PASS
+                                $lastDecision = "PASS";
+                                break;
+                            }
                         }
-                    }
-                    // Put it back at the front
-                    $playerQueue = &GetDecisionQueue($player);
-                    array_unshift($playerQueue, $decision);
-                    if(self::$debugMode) echo("Re-adding decision to player " . $player . " queue: " . $decision->Type . " " . $decision->Param . "<BR>");
-                    return;
+                        // Put it back at the front
+                        $playerQueue = &GetDecisionQueue($player);
+                        array_unshift($playerQueue, $decision);
+                        if(self::$debugMode) echo("Re-adding decision to player " . $player . " queue: " . $decision->Type . " " . $decision->Param . "<BR>");
+                        $shouldAutoAdvance = false;
+                        return;
+                }
+            }
+        } finally {
+            self::$executeDepth--;
+            // Only the outermost execution frame may auto-advance phases.
+            if($shouldAutoAdvance && self::$executeDepth === 0) {
+                AutoAdvance();
             }
         }
-        AutoAdvance();
     }
 
     // Add a decision to a player's queue
@@ -101,8 +112,8 @@ class DecisionQueueController {
         $tooltip = str_replace(' ', '_', $tooltip);
         $playerQueue = &GetDecisionQueue($player);
         $insertIndex = 0;
-        for($i = 0; $i < count($playerQueue); $i++){
-            if($playerQueue[$i]->Block > $block){
+        for($i = 0; $i < count($playerQueue); $i++) {
+            if($playerQueue[$i]->Block > $block) {
                 break;
             }
             $insertIndex = $i + 1;
