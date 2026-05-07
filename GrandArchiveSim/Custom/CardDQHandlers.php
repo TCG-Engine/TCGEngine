@@ -6190,6 +6190,25 @@ $customDQHandlers["BandersnatchSacrifice"] = function($player, $parts, $lastDeci
 // ============================================================================
 // Ethereal Absorption (4zEOAaLdap): additional cost — return a regalia to material deck
 // ============================================================================
+// ============================================================================
+// Mantle of the Abyss (1ubrwubSQN): sacrifice a Specter ally to activate from material deck
+// ============================================================================
+$customDQHandlers["MantleAbyssSacrifice"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    // Re-find Mantle of the Abyss in material deck by CardID (indices may shift after cleanup)
+    $material = GetMaterial($player);
+    $mantleMZ = null;
+    for($i = 0; $i < count($material); $i++) {
+        if(!$material[$i]->removed && $material[$i]->CardID === "1ubrwubSQN") {
+            $mantleMZ = "myMaterial-" . $i;
+            break;
+        }
+    }
+    if($mantleMZ === null) return;
+    DoMaterialize($player, $mantleMZ);
+};
 $customDQHandlers["EtherealAbsorptionCost"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
     $obj = GetZoneObject($lastDecision);

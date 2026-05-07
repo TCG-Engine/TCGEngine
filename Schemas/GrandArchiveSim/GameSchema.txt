@@ -127,7 +127,10 @@ BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=Single, BindTo=MemorySlot
 Material - CardID:string
 BeforeAdd: TokenCeaseBeforeAdd
+Virtual: MaterialSelectionMetadata=MaterialSelectionMetadata()
+Highlight: MaterialSelectionMetadata
 Display: Visibility=Self, Mode=Single, BindTo=MaterialSlot
+Click: FSM()
 TempZone - CardID:string
 BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=None
