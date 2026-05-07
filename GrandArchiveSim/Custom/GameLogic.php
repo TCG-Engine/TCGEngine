@@ -14239,7 +14239,10 @@ function DealChampionDamage($player, $amount=1, $sourceController = null) {
                     CheckRubyFatestoneQuestCounter($rubyDCDSourceMZ, true, $player);
                 }
             }
-            RadiantOriginGuardianTrigger($source, $amount);
+            $rogSourceMZ = DecisionQueueController::GetVariable("mzID");
+            if($rogSourceMZ !== null && $rogSourceMZ !== "" && $rogSourceMZ !== "-") {
+                RadiantOriginGuardianTrigger($rogSourceMZ, $amount);
+            }
             return $obj;
         }
     }
