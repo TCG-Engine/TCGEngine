@@ -91,12 +91,132 @@ include_once 'Header.php';
     </div>
   </div>
   
-  <!-- News Section -->
-  <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px;">
-    <h2>Welcome to Clarent!</h2>
-    <p class="login-message">Clarent is a fan-made online simulator for the Grand Archive TCG.</p>
+  <!-- Tips & Info Section -->
+  <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px; display: flex; flex-direction: column; gap: 16px;">
+    <h2 style="margin: 0 0 4px 0;">Welcome to Clarent!</h2>
+    <p class="login-message" style="margin: 0; color: #ccc; font-size: 14px;">Clarent is a fan-made online simulator for the Grand Archive TCG.</p>
+
+    <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 0;">
+
+    <!-- Did you know? -->
+    <div id="did-you-know-box" style="
+      background: linear-gradient(135deg, rgba(52,152,219,0.15) 0%, rgba(30,30,50,0.4) 100%);
+      border: 1px solid rgba(52,152,219,0.35);
+      border-radius: 8px;
+      padding: 14px 16px;
+      position: relative;
+    ">
+      <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+        <span style="font-size: 18px;">💡</span>
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #3498db;">Did you know?</span>
+      </div>
+      <p id="did-you-know-text" style="margin: 0; font-size: 14px; color: #e8e8e8; line-height: 1.55;"></p>
+      <button onclick="cycleDidYouKnow()" title="Next tip" style="
+        position: absolute; top: 10px; right: 10px;
+        background: none; border: none; cursor: pointer;
+        color: #3498db; font-size: 16px; padding: 2px 6px; border-radius: 4px;
+        transition: background 0.2s;
+      " onmouseover="this.style.background='rgba(52,152,219,0.15)'" onmouseout="this.style.background='none'">→</button>
+    </div>
+
+    <!-- Quick-reference hotkeys -->
+    <div>
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 8px;">Quick Reference</div>
+      <div style="display: flex; flex-direction: column; gap: 6px;" id="hotkey-list"></div>
+    </div>
   </div>
 </div>
+
+<style>
+  .row-wrapper > .card {
+    flex: 1 1 0 !important;
+    min-width: 0;
+  }
+  .hotkey-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #ccc; }
+  .hotkey-badge {
+    display: inline-block; min-width: 28px; text-align: center;
+    padding: 2px 7px; border-radius: 5px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+    font-family: monospace; font-size: 13px; font-weight: 700; color: #fff;
+    flex-shrink: 0;
+  }
+  #did-you-know-box {
+    transition: opacity 0.25s;
+    min-height: 140px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  #did-you-know-text {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-height: 66px;
+    max-height: 66px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 4px;
+    white-space: normal !important;
+    overflow-wrap: anywhere !important;
+    word-break: break-word !important;
+  }
+</style>
+
+<script>
+  var _didYouKnowTips = [
+    { key: 'u', label: 'Undo your most recent action' },
+    { text: 'Hover a card on the field to see its full text' },
+    { text: 'You can paste a deck link directly from Shout At Your Decks, sleeved.gg, DungeonGUI, or TCGArchitect.' },
+    { text: 'Private games generate a shareable invite link — send it to your opponent and they can join instantly.' },
+    { text: 'The queue matches you with the first available opponent. No need to refresh — it polls automatically.' },
+    { key: 'Esc', label: 'Cancel matchmaking while waiting for an opponent' },
+  ];
+  var _dykIndex = 0;
+
+  var _hotkeyList = [
+    { key: 'u',   label: 'Undo most recent action' },
+    { key: 'Esc', label: 'Cancel matchmaking' },
+  ];
+
+  function renderDidYouKnow() {
+    var tip = _didYouKnowTips[_dykIndex];
+    var el = document.getElementById('did-you-know-text');
+    if (!el) return;
+    var box = document.getElementById('did-you-know-box');
+    box.style.opacity = '0';
+    setTimeout(function() {
+      if (tip.key) {
+        el.innerHTML = 'Press <span class="hotkey-badge">' + tip.key + '</span> to <strong>' + tip.label + '</strong>.';
+      } else {
+        el.textContent = tip.text;
+      }
+      box.style.opacity = '1';
+    }, 200);
+  }
+
+  function cycleDidYouKnow() {
+    _dykIndex = (_dykIndex + 1) % _didYouKnowTips.length;
+    renderDidYouKnow();
+  }
+
+  function renderHotkeyList() {
+    var container = document.getElementById('hotkey-list');
+    if (!container) return;
+    var html = '';
+    _hotkeyList.forEach(function(h) {
+      html += '<div class="hotkey-row"><span class="hotkey-badge">' + h.key + '</span><span>' + h.label + '</span></div>';
+    });
+    container.innerHTML = html;
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    renderDidYouKnow();
+    renderHotkeyList();
+    // Rotate tips every 8 seconds
+    setInterval(cycleDidYouKnow, 8000);
+  });
+</script>
 
 <script>
 
