@@ -15889,7 +15889,9 @@ function EffectiveCardClasses($obj) {
     // Lesser Boon of Apollo (9hA48XL1xV): your champion is Ranger in addition to its other classes.
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         global $playerID;
-        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+        $controller = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
+        if($controller === null) return $classes;
+        $zone = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fieldObj) {
             if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "9hA48XL1xV" || HasNoAbilities($fieldObj)) continue;
