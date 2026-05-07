@@ -3884,6 +3884,10 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
             break;
+        case "pvxb5hrfsu": // Ranger's Strides
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "n67ghdh1t6": // Naga's Fang Ã¢â‚¬â€ remove a preparation counter from your champion
             $champMZ = FindChampionMZ($player);
             if($champMZ !== null) {
@@ -12997,7 +13001,7 @@ function BanishSelectionMetadata($obj) {
     return json_encode(['highlight' => false]);
 }
 
-function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null) {
+function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null, $cardClasses=null) {
     global $playerID;
     // $forPlayer: when specified and different from $playerID, flip the zone name so we
     // search the zone that corresponds to "my..." from $forPlayer's perspective. Results
@@ -13017,9 +13021,12 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
         $cardTypes_arr = $cardTypeStr ? explode(",", $cardTypeStr) : [];
         $cardSubtypesStr = EffectiveCardSubtypes($obj);
         $cardSubtypes_arr = $cardSubtypesStr ? explode(",", $cardSubtypesStr) : [];
+          $cardClassesStr = EffectiveCardClasses($obj);
+          $cardClasses_arr = $cardClassesStr ? explode(",", $cardClassesStr) : [];
         if(($cardTypes === null || count(array_intersect($cardTypes_arr, (array)$cardTypes)) > 0) &&
            ($cardElements === null || in_array(EffectiveCardElement($obj), (array)$cardElements)) &&
            ($cardSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$cardSubtypes)) > 0) &&
+              ($cardClasses === null || count(array_intersect($cardClasses_arr, (array)$cardClasses)) > 0) &&
            ($excludeSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$excludeSubtypes)) === 0) &&
            (!$floatingMemoryOnly || HasFloatingMemory($obj))) {
             $mzID = $searchZone . "-" . $i;
