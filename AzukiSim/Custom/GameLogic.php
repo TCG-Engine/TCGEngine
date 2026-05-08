@@ -5,6 +5,143 @@ $customDQHandlers = [];
 
 // --- Helper Functions ---
 
+function GardenAfterAdd($player, $CardID, $Status, $Owner, $Damage, $Controller, $TurnEffects, $Counters, $Subcards) {
+    // Generated ZoneAccessors invokes this hook after adding to Garden.
+    // Keep as a no-op hook until Azuki-specific on-enter/garden bookkeeping is needed.
+}
+
+function GetAzukiCardMap() {
+    static $cardMap = null;
+    if($cardMap !== null) {
+        return $cardMap;
+    }
+
+    $cardMap = [];
+    $cachePath = __DIR__ . '/../GeneratedCode/cardArrayCache.json';
+    if(!file_exists($cachePath)) {
+        return $cardMap;
+    }
+
+    $raw = file_get_contents($cachePath);
+    if($raw === false || $raw === '') {
+        return $cardMap;
+    }
+
+    $decoded = json_decode($raw, true);
+    if(!is_array($decoded) || !isset($decoded['cardArray']) || !is_array($decoded['cardArray'])) {
+        return $cardMap;
+    }
+
+    foreach($decoded['cardArray'] as $card) {
+        if(!is_array($card) || !isset($card['id'])) continue;
+        $cardMap[$card['id']] = $card;
+    }
+
+    return $cardMap;
+}
+
+function GetAzukiCardData($cardID) {
+    if(!is_string($cardID) || $cardID === '') return null;
+    $map = GetAzukiCardMap();
+    return $map[$cardID] ?? null;
+}
+
+function CardAttack($cardID) {
+    $card = GetAzukiCardData($cardID);
+    if($card === null || !isset($card['attack']) || $card['attack'] === null) return 0;
+    return intval($card['attack']);
+}
+
+function CardCost($cardID) {
+    $card = GetAzukiCardData($cardID);
+    if($card === null || !isset($card['ikzCost']) || $card['ikzCost'] === null) return 0;
+    return max(0, intval($card['ikzCost']));
+}
+
+function CardHasKeyword($cardID, $keyword) {
+    $card = GetAzukiCardData($cardID);
+    if($card === null || !isset($card['abilities']) || !is_array($card['abilities'])) return false;
+
+    foreach($card['abilities'] as $ability) {
+        if(!is_string($ability)) continue;
+        if(strcasecmp($ability, $keyword) === 0) return true;
+    }
+    return false;
+}
+
+function CanPayIKZCost($player, $cost) {
+    $cost = max(0, intval($cost));
+    $ikz = intval(GetIKZ($player));
+    $token = intval(GetIKZToken($player));
+    return ($ikz + $token) >= $cost;
+}
+
+function PayIKZCost($player, $cost) {
+    $cost = max(0, intval($cost));
+    if($cost === 0) return true;
+    if(!CanPayIKZCost($player, $cost)) return false;
+
+    $ikz = &GetIKZ($player);
+    $token = &GetIKZToken($player);
+
+    $fromIKZ = min(intval($ikz), $cost);
+    $ikz = intval($ikz) - $fromIKZ;
+    $remaining = $cost - $fromIKZ;
+
+    if($remaining > 0) {
+        $token = max(0, intval($token) - $remaining);
+    }
+
+    return true;
+}
+
+function FindReplaceableIndex($zone) {
+    if(!is_array($zone)) return -1;
+    for($i = 0; $i < count($zone); ++$i) {
+        if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+        // Prefer replacing non-Godmode entities, but allow Godmode as a fallback.
+        if(!CardHasKeyword($zone[$i]->CardID ?? '', 'Godmode')) return $i;
+    }
+    for($i = 0; $i < count($zone); ++$i) {
+        if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+        return $i;
+    }
+    return -1;
+}
+
+function ChooseEntityPlayZone($player) {
+    $garden = &GetGarden($player);
+    $alley = &GetAlley($player);
+    $gardenCount = count($garden);
+    $alleyCount = count($alley);
+
+    // Default to Garden when both rows are available.
+    if($gardenCount < 5) return 'myGarden';
+    if($alleyCount < 5) return 'myAlley';
+
+    // Both rows are full; default replacement lane to Garden.
+    return 'myGarden';
+}
+
+function ResolveOnPlay($player, $mzID, $playZone) {
+    global $customDQHandlers;
+    $obj = &GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return;
+
+    $cardID = $obj->CardID ?? '';
+    $params = [$mzID, $playZone, $cardID];
+    if(isset($customDQHandlers['ON_PLAY']) && is_callable($customDQHandlers['ON_PLAY'])) {
+        $customDQHandlers['ON_PLAY']($player, $params, null);
+    }
+}
+
+function ResolveSpellOnPlay($player, $cardID) {
+    global $customDQHandlers;
+    if(isset($customDQHandlers['ON_SPELL_PLAY']) && is_callable($customDQHandlers['ON_SPELL_PLAY'])) {
+        $customDQHandlers['ON_SPELL_PLAY']($player, [$cardID], null);
+    }
+}
+
 function DealDamageToLeader($player, $amount) {
     if($amount <= 0) return;
     $leaderZone = &GetLeader($player);
@@ -168,21 +305,44 @@ function SelectionMetadata($obj) {
 }
 
 function CardType($cardID) {
+    $card = GetAzukiCardData($cardID);
+    if($card !== null && isset($card['category']) && is_string($card['category'])) {
+        $category = strtoupper(trim($card['category']));
+        switch($category) {
+            case 'ENTITY': return 'ENTITY';
+            case 'SPELL': return 'SPELL';
+            case 'WEAPON': return 'WEAPON';
+            case 'LEADER': return 'LEADER';
+            case 'GATE': return 'GATE';
+            case 'IKZ': return 'IKZ';
+            default: break;
+        }
+    }
+
     if(!is_string($cardID)) return '';
     if(strpos($cardID, '_L_L_') !== false) return 'LEADER';
     if(strpos($cardID, '_G_G_') !== false) return 'GATE';
-    return 'CARD';
+    return 'ENTITY';
 }
 
 function CardHealth($cardID) {
+    $card = GetAzukiCardData($cardID);
+    if($card !== null && isset($card['health']) && $card['health'] !== null) {
+        return intval($card['health']);
+    }
     return CardType($cardID) === 'LEADER' ? 20 : 0;
 }
 
 function CardPower($cardID) {
-    return 0;
+    return CardAttack($cardID);
 }
 
 function CardElement($cardID) {
+    $card = GetAzukiCardData($cardID);
+    if($card !== null && isset($card['element']) && is_string($card['element'])) {
+        return $card['element'];
+    }
+
     if(!is_string($cardID) || $cardID === '') return '';
     $parts = explode('_', $cardID);
     if(count($parts) < 3) return '';
@@ -264,9 +424,122 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         return '';
     }
 
-    MZMove($player, $mzCard, 'myDiscard');
+    $cardID = $sourceObject->CardID ?? '';
+    if($cardID === '') {
+        return '';
+    }
+
+    $cardType = CardType($cardID);
+    $cardCost = CardCost($cardID);
+    if(!$ignoreCost) {
+        if(!CanPayIKZCost($player, $cardCost)) {
+            SetFlashMessage('Not enough IKZ to play this card.');
+            return '';
+        }
+        if(!PayIKZCost($player, $cardCost)) {
+            return '';
+        }
+    }
+
+    if($cardType === 'ENTITY') {
+        $destination = ChooseEntityPlayZone($player);
+
+        if($destination === 'myGarden') {
+            $garden = &GetGarden($player);
+            if(count($garden) >= 5) {
+                $replaceIndex = FindReplaceableIndex($garden);
+                if($replaceIndex >= 0) {
+                    MZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
+                    DecisionQueueController::CleanupRemovedCards();
+                }
+            }
+        } else {
+            $alley = &GetAlley($player);
+            if(count($alley) >= 5) {
+                $replaceIndex = FindReplaceableIndex($alley);
+                if($replaceIndex >= 0) {
+                    MZMove($player, 'myAlley-' . $replaceIndex, 'myDiscard');
+                    DecisionQueueController::CleanupRemovedCards();
+                }
+            }
+        }
+
+        MZMove($player, $mzCard, $destination);
+        DecisionQueueController::CleanupRemovedCards();
+
+        $placedZone = ($destination === 'myGarden') ? GetGarden($player) : GetAlley($player);
+        $placedIndex = count($placedZone) - 1;
+        if($placedIndex >= 0) {
+            $newMZ = $destination . '-' . $placedIndex;
+            $newObj = &GetZoneObject($newMZ);
+            if($newObj !== null && !(isset($newObj->removed) && $newObj->removed)) {
+                if($destination === 'myGarden') {
+                    if(!isset($newObj->TurnEffects) || !is_array($newObj->TurnEffects)) {
+                        $newObj->TurnEffects = [];
+                    }
+                    if(!in_array('COOLDOWN', $newObj->TurnEffects)) {
+                        $newObj->TurnEffects[] = 'COOLDOWN';
+                    }
+                }
+
+                Enter($player, $newMZ);
+                ResolveOnPlay($player, $newMZ, $destination);
+            }
+        }
+    } else if($cardType === 'SPELL') {
+        $stack = &GetEffectStack();
+        $beforeCount = count($stack);
+        MZMove($player, $mzCard, 'EffectStack');
+        DecisionQueueController::CleanupRemovedCards();
+
+        $stack = &GetEffectStack();
+        $stackIndex = count($stack) - 1;
+        if($stackIndex >= $beforeCount) {
+            $stackMZ = 'EffectStack-' . $stackIndex;
+            ResolveSpellOnPlay($player, $cardID);
+            MZMove($player, $stackMZ, 'myDiscard');
+        }
+    } else {
+        // Weapon and unsupported card types: pay cost, then send to discard for now.
+        MZMove($player, $mzCard, 'myDiscard');
+    }
+
     DecisionQueueController::CleanupRemovedCards();
     return 'PLAY';
+}
+
+function DoDrawCard($player, $amount) {
+    $amount = max(0, intval($amount));
+    $deck = &GetDeck($player);
+    $hand = &GetHand($player);
+
+    for($i = 0; $i < $amount; ++$i) {
+        if(empty($deck)) break;
+        $card = array_shift($deck);
+        array_push($hand, $card);
+    }
+
+    return 'DRAW';
+}
+
+function OnEnter($player, $mzID) {
+    global $customDQHandlers;
+    if(isset($customDQHandlers['ON_ENTER']) && is_callable($customDQHandlers['ON_ENTER'])) {
+        $obj = GetZoneObject($mzID);
+        $cardID = ($obj !== null && isset($obj->CardID)) ? $obj->CardID : '';
+        $customDQHandlers['ON_ENTER']($player, [$mzID, $cardID], null);
+    }
+    return 'ENTER';
+}
+
+function OnCardActivated($player, $mzID) {
+    global $customDQHandlers;
+    if(isset($customDQHandlers['ON_CARD_ACTIVATED']) && is_callable($customDQHandlers['ON_CARD_ACTIVATED'])) {
+        $obj = GetZoneObject($mzID);
+        $cardID = ($obj !== null && isset($obj->CardID)) ? $obj->CardID : '';
+        $customDQHandlers['ON_CARD_ACTIVATED']($player, [$mzID, $cardID], null);
+    }
+    return 'CARD_ACTIVATED';
 }
 
 function DoAttack($player, $mzCard, $targetMZ) {
