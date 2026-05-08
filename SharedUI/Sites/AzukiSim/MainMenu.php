@@ -31,55 +31,7 @@ include_once 'Header.php';
   <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px;">
     <h2>Create a New Game</h2>
     <div>
-      <!--
-      <label for="preconstructed-deck" style="display: block; margin-bottom: 8px; font-weight: 500;">Choose Your Deck:</label>
-      <select id="preconstructed-deck" name="preconstructed_deck" required style="
-        width: 100%;
-        padding: 10px 15px;
-        background-color: rgba(40, 40, 40, 0.95);
-        color: white;
-        border: 2px solid rgba(100, 100, 100, 0.5);
-        border-radius: 8px;
-        font-size: 14px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        outline: none;
-      " onmouseover="this.style.borderColor='rgba(52, 152, 219, 0.8)'; this.style.backgroundColor='rgba(50, 50, 50, 0.95)';" onmouseout="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.backgroundColor='rgba(40, 40, 40, 0.95)';" onfocus="this.style.borderColor='#3498db'; this.style.boxShadow='0 0 8px rgba(52, 152, 219, 0.4)';" onblur="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.boxShadow='none';">
-        <option value="" disabled selected style="color: #999;">Select a preconstructed deck...</option>
-        <option value="Refractory">Refractory</option>
-        <option value="Gloaming">Gloaming</option>
-        <option value="Shardsworn">Shardsworn</option>
-        <option value="Delguon">Delguon</option>
-      </select>
-      <div style="display: flex; align-items: center; margin: 12px 0; color: #888;">
-        <hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;"><span style="margin: 0 10px; font-size: 12px;">OR</span><hr style="flex-grow: 1; border-color: #555; border-top-width: 1px;">
-      </div>
--->
-      <div style="display: flex; gap: 0; margin-bottom: 10px; border-bottom: 2px solid rgba(100,100,100,0.4);">
-        <button id="tab-link" onclick="switchDeckTab('link')" style="flex: 1; padding: 8px; background: rgba(52,152,219,0.25); color: white; border: none; border-bottom: 2px solid #3498db; cursor: pointer; font-size: 13px; font-weight: 600;">Deck Link</button>
-        <button id="tab-text" onclick="switchDeckTab('text')" style="flex: 1; padding: 8px; background: rgba(40,40,40,0.7); color: #aaa; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px;">Free Text</button>
-      </div>
-      <div id="deck-input-link">
-        <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a deck link:</label>
-        <input type="text" id="deck-link" name="deck_link" placeholder="https://shoutatyourdecks.com/decks/..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
-        <div style="margin-top: 8px; color: #b9b9b9; font-size: 12px; line-height: 1.35;">
-          Supported deck links: Shout At Your Decks, sleeved.gg, DungeonGUI, TCGArchitect
-        </div>
-      </div>
-      <div id="deck-input-text" style="display: none;">
-        <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from fractalofin.site):</label>
-        <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Material Deck&#10;1 Lorraine, Wandering Warrior&#10;&#10;# Main Deck&#10;4 Fireball&#10;..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
-      </div>
-      <!--
-      <label for="game-name">Game Name:</label>
-      <input type="text" id="game-name" name="game_name" required>
-      <br>
-      <label for="game-type">Game Type:</label>
-      <select id="game-type" name="game_type">
-      <option value="casual">Casual</option>
-      <option value="ranked">Ranked</option>
-      </select>
-    -->
+      <p style="color: #ccc; margin: 0 0 12px 0; font-size: 14px;">Testing with the <strong>Raizan Starter Deck</strong></p>
       <br>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="joinQueue()">Join Queue</button>
@@ -93,8 +45,8 @@ include_once 'Header.php';
   
   <!-- Tips & Info Section -->
   <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px; display: flex; flex-direction: column; gap: 16px;">
-    <h2 style="margin: 0 0 4px 0;">Welcome to Clarent!</h2>
-    <p class="login-message" style="margin: 0; color: #ccc; font-size: 14px;">Clarent is a fan-made online simulator for the Grand Archive TCG.</p>
+    <h2 style="margin: 0 0 4px 0;">Welcome to Azuki TCG Simulator!</h2>
+    <p class="login-message" style="margin: 0; color: #ccc; font-size: 14px;">A fan-made online simulator for the Azuki TCG.</p>
 
     <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 0;">
 
@@ -167,7 +119,7 @@ include_once 'Header.php';
   var _didYouKnowTips = [
     { key: 'u', label: 'Undo your most recent action' },
     { text: 'Hover a card on the field to see its full text' },
-    { text: 'You can paste a deck link directly from Shout At Your Decks, sleeved.gg, DungeonGUI, or TCGArchitect.' },
+    { text: 'Both players start with the Raizan starter deck.' },
     { text: 'Private games generate a shareable invite link — send it to your opponent and they can join instantly.' },
     { text: 'The queue matches you with the first available opponent. No need to refresh — it polls automatically.' },
     { key: 'Esc', label: 'Cancel matchmaking while waiting for an opponent' },
@@ -263,25 +215,11 @@ include_once 'Header.php';
       }
 
       function getDeckSubmission() {
-        var preconstructedDeckDropdown = document.getElementById('preconstructed-deck');
-        var preconstructedDeck = preconstructedDeckDropdown ? preconstructedDeckDropdown.value : '';
-        var deckLinkEl = document.getElementById('deck-link');
-        var deckTextEl = document.getElementById('deck-text');
-        var deckLink = '';
-        if (deckTextEl && deckTextEl.closest('#deck-input-text') && document.getElementById('deck-input-text').style.display !== 'none') {
-          deckLink = deckTextEl.value.trim();
-        } else if (deckLinkEl) {
-          deckLink = deckLinkEl.value.trim();
-        }
-        if (!deckLink && !preconstructedDeck) {
-          alert('Please enter a deck link or paste a deck list.');
-          return null;
-        }
-        var gameType = 'casual'; // Default game type since select is commented out
-
+        // AzukiSim uses the Raizan starter deck
+        var gameType = 'casual';
         return {
-          preconstructedDeck: preconstructedDeck,
-          deckLink: deckLink,
+          preconstructedDeck: 'Raizan',
+          deckLink: '',
           gameType: gameType
         };
       }

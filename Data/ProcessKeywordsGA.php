@@ -3,9 +3,27 @@
 // Increase max execution time to 1 hour (3600 seconds)
 set_time_limit(3600);
 
-include_once __DIR__ . '/../GrandArchiveSim/GeneratedCode/GeneratedCardDictionaries.php';
+// Determine which root to process
+$rootName = isset($_GET['rootName']) ? $_GET['rootName'] : "GrandArchiveSim";
 
-$rootName = "GrandArchiveSim";
+// Handle AzukiSim - it doesn't use the keyword framework yet
+if ($rootName === 'AzukiSim') {
+    $outputFile = __DIR__ . "/../AzukiSim/GeneratedCode/GeneratedKeywordCode.php";
+    $phpCode = "<?php\n\n";
+    $phpCode .= "// Generated Keyword Code for AzukiSim\n";
+    $phpCode .= "// Generated on: " . date('Y-m-d H:i:s') . "\n";
+    $phpCode .= "// AzukiSim does not use the keyword framework\n\n";
+    $phpCode .= "// Placeholder arrays for future keyword support\n";
+    $phpCode .= "\$Preserve_Cards = [];\n";
+    $phpCode .= "\$Levy_Cards = [];\n";
+    $phpCode .= "\n?>\n";
+    
+    file_put_contents($outputFile, $phpCode);
+    echo "<BR><BR><strong>Minimal keyword stub generated for AzukiSim: $outputFile</strong><BR>";
+    exit;
+}
+
+include_once __DIR__ . '/../GrandArchiveSim/GeneratedCode/GeneratedCardDictionaries.php';
 
 // ===== REPORT MODE =====
 $reportMode = false; // Set to true to see detailed processing output
