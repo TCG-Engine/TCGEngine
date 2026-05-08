@@ -73,15 +73,15 @@ $lobby->gameName = $gameName;
 
 function LoadPlayer($playerID, $preconstructedDeck = 'Raizan') {
     $deck = &GetDeck($playerID);
-    $leader = &GetLeader($playerID);
+    $garden = &GetGarden($playerID);
     $gate = &GetGate($playerID);
 
     // For AzukiSim, only Raizan starter deck is currently supported
     $deckName = 'Raizan';
 
-    // Raizan (Leader)
-    $leaderCard = new Leader('S1-STT01-001_Raizan_L_L_die');
-    array_push($leader, $leaderCard);
+    // Raizan (Leader) starts in the Garden.
+    $leaderCard = new Garden('S1-STT01-001_Raizan_L_L_die');
+    array_push($garden, $leaderCard);
 
     // Surge Gate
     $gateCard = new Gate('S1-STT01-002_Surge-Gate_G_G_die');

@@ -142,6 +142,207 @@ function GainIKZ($player, $amount) {
     $ikz = min(10, $ikz + $amount); // IKZ capped at 10
 }
 
+function SelectionMetadata($obj) {
+    $currentPhase = GetCurrentPhase();
+    $turnPlayer = &GetTurnPlayer();
+
+    // Azuki selections are only surfaced during the turn player's main phase.
+    if($currentPhase !== "MAIN") {
+        return json_encode(['highlight' => false]);
+    }
+
+    // Suppress baseline highlights while either player has queued decisions.
+    $myQueue = &GetDecisionQueue($turnPlayer);
+    $theirQueue = &GetDecisionQueue($turnPlayer == 1 ? 2 : 1);
+    if(count($myQueue) > 0 || count($theirQueue) > 0) {
+        return json_encode(['highlight' => false]);
+    }
+
+    // Hand/temp-zone highlights are only for the active player's own cards.
+    $owner = isset($obj->Controller) ? intval($obj->Controller) : (isset($obj->PlayerID) ? intval($obj->PlayerID) : null);
+    if($owner === null || $owner !== intval($turnPlayer)) {
+        return json_encode(['highlight' => false]);
+    }
+
+    return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+}
+
+function CardType($cardID) {
+    if(!is_string($cardID)) return '';
+    if(strpos($cardID, '_L_L_') !== false) return 'LEADER';
+    if(strpos($cardID, '_G_G_') !== false) return 'GATE';
+    return 'CARD';
+}
+
+function CardHealth($cardID) {
+    return CardType($cardID) === 'LEADER' ? 20 : 0;
+}
+
+function CardPower($cardID) {
+    return 0;
+}
+
+function CardElement($cardID) {
+    if(!is_string($cardID) || $cardID === '') return '';
+    $parts = explode('_', $cardID);
+    if(count($parts) < 3) return '';
+    $element = $parts[count($parts) - 3] ?? '';
+    return ($element === 'die' || $element === 'Die') ? '' : $element;
+}
+
+function CardSubtypes($cardID) {
+    return '';
+}
+
+function CardClasses($cardID) {
+    return '';
+}
+
+function ObjectCurrentPowerDisplay($obj) {
+    return 0;
+}
+
+function ObjectCurrentHPDisplay($obj) {
+    $baseHP = 0;
+    if(isset($obj->CardID)) {
+        $baseHP = CardHealth($obj->CardID);
+    }
+    $damage = isset($obj->Damage) ? intval($obj->Damage) : 0;
+    return max(0, $baseHP - $damage);
+}
+
+function FieldSelectionMetadata($obj) {
+    $currentPhase = GetCurrentPhase();
+    if($currentPhase !== 'MAIN') {
+        return json_encode(['highlight' => false]);
+    }
+
+    $turnPlayer = &GetTurnPlayer();
+    $myQueue = &GetDecisionQueue($turnPlayer);
+    $theirQueue = &GetDecisionQueue($turnPlayer == 1 ? 2 : 1);
+    if(count($myQueue) > 0 || count($theirQueue) > 0) {
+        return json_encode(['highlight' => false]);
+    }
+
+    $owner = isset($obj->Controller) ? intval($obj->Controller) : (isset($obj->PlayerID) ? intval($obj->PlayerID) : null);
+    if($owner === null || $owner !== intval($turnPlayer)) {
+        return json_encode(['highlight' => false]);
+    }
+
+    return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+}
+
+function CombatTargetIndicator($obj) {
+    return '';
+}
+
+function CardCurrentEffects($obj) {
+    if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return '';
+    return implode(',', array_values($obj->TurnEffects));
+}
+
+function CardDisplayEffects($obj) {
+    return CardCurrentEffects($obj);
+}
+
+function CardHasAbility($obj) {
+    return 0;
+}
+
+function CanAttack($player, $mzID, $targetMZ) {
+    return false;
+}
+
+function DoPlayCard($player, $mzCard, $ignoreCost = false) {
+    $sourceObject = &GetZoneObject($mzCard);
+    if($sourceObject === null || (isset($sourceObject->removed) && $sourceObject->removed)) {
+        return '';
+    }
+
+    $zoneName = isset($sourceObject->Location) ? $sourceObject->Location : '';
+    if($zoneName !== 'Hand') {
+        return '';
+    }
+
+    MZMove($player, $mzCard, 'myDiscard');
+    DecisionQueueController::CleanupRemovedCards();
+    return 'PLAY';
+}
+
+function DoAttack($player, $mzCard, $targetMZ) {
+    return '';
+}
+
+function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
+    return '';
+}
+
+function DoUseGate($player, $gateMZ, $entityMZ) {
+    $gateObj = &GetZoneObject($gateMZ);
+    if($gateObj === null || (isset($gateObj->removed) && $gateObj->removed)) {
+        return '';
+    }
+
+    if(!CanUseGate($player)) {
+        return '';
+    }
+
+    if(!isset($gateObj->Status)) {
+        $gateObj->Status = 2;
+    }
+    $gateObj->Status = 1;
+    if(!isset($gateObj->TurnEffects) || !is_array($gateObj->TurnEffects)) {
+        $gateObj->TurnEffects = [];
+    }
+    if(!in_array('GATE_USED_THIS_TURN', $gateObj->TurnEffects)) {
+        $gateObj->TurnEffects[] = 'GATE_USED_THIS_TURN';
+    }
+
+    if(is_string($entityMZ) && $entityMZ !== '') {
+        $entityObj = &GetZoneObject($entityMZ);
+        if($entityObj !== null && !(isset($entityObj->removed) && $entityObj->removed)) {
+            if(isset($entityObj->Location) && $entityObj->Location === 'Alley') {
+                MZMove($player, $entityMZ, 'myGarden');
+            }
+        }
+    }
+
+    return 'GATE';
+}
+
+function CanActivateAbility($player, $mzID, $abilityIndex) {
+    return false;
+}
+
+function ActionMap($actionCard) {
+    global $playerID;
+
+    $turnPlayer = &GetTurnPlayer();
+    $currentPhase = GetCurrentPhase();
+
+    if(!is_string($actionCard) || $actionCard === '') {
+        return '';
+    }
+
+    $cardArr = explode('-', $actionCard);
+    $cardZone = $cardArr[0] ?? '';
+
+    // Ignore FSM clicks while decisions are pending; the UI can surface them again after the queue clears.
+    $dqController = new DecisionQueueController();
+    if(!$dqController->AllQueuesEmpty()) {
+        return '';
+    }
+
+    if($cardZone === 'myHand' && $currentPhase === 'MAIN' && intval($playerID) === intval($turnPlayer)) {
+        if(function_exists('PlayCard')) {
+            PlayCard($playerID, $actionCard);
+            return 'PLAY';
+        }
+    }
+
+    return '';
+}
+
 // --- Phase Handlers ---
 
 function OnStartOfTurn($player) {

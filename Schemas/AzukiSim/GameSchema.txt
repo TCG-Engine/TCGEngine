@@ -9,7 +9,7 @@ ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: AzukiSim
-Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myLeader,myGarden,myAlley,myGate,myLeaderHealth,myIKZ,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirLeader,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZ,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZ,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZ,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex
 Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=AttackWith(mzID,targetMZ); ChoiceFunction=DoAttack; PrereqFunction=CanAttack; SourceParam=mzID; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
@@ -39,24 +39,6 @@ Virtual: SelectionMetadata=SelectionMetadata()
 Highlight: SelectionMetadata
 GlobalEffects - CardID:string
 Display: Visibility=None, Mode=None
-Leader - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json
-Virtual: CurrentPower=ObjectCurrentPowerDisplay()
-Virtual: CurrentHP=ObjectCurrentHPDisplay()
-Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
-Virtual: CombatTargetIndicator=CombatTargetIndicator()
-Virtual: CurrentEffects=CardCurrentEffects()
-Virtual: DisplayEffects=CardDisplayEffects()
-Virtual: HasAbility=CardHasAbility()
-Index: TurnEffects
-Display: Visibility=Public, Mode=All, BindTo=LeaderSlot
-Overlay: Status=1:exhausted
-Rotation: Status=1:9
-Counters: Damage=Badge(Color=Red,Position=TopRight,ShowZero=false)
-Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
-Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
-Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
-Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
-Click: FSM()
 Garden - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentHP=ObjectCurrentHPDisplay()

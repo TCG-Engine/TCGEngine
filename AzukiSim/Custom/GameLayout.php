@@ -136,20 +136,6 @@
     }
 
     /* Leader slot positioning */
-    #myLeaderSlot,
-    #theirLeaderSlot {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    #myLeaderSlot {
-        bottom: 20px;
-    }
-
-    #theirLeaderSlot {
-        top: 20px;
-    }
-
     /* Garden (Front Row) positioning */
     #myGardenSlot,
     #theirGardenSlot {
@@ -291,16 +277,23 @@
     #theirHand > span:not([id]) {
         display: none;
     }
+
+    #myGarden > span:not([id]),
+    #theirGarden > span:not([id]),
+    #myAlley > span:not([id]),
+    #theirAlley > span:not([id]),
+    #myDiscard > span:not([id]),
+    #theirDiscard > span:not([id]),
+    #myDeck > span:not([id]),
+    #theirDeck > span:not([id]) {
+        display: none;
+    }
 </style>
 
 <!-- Background layers -->
 <div class="azuki-board-bg"></div>
 
 <!-- =================== MY ZONES (bottom half) =================== -->
-
-<div id="myLeaderSlot" class="azuki-zone azuki-leader" data-label="Leader"
-    style="width:148px; min-height:180px;">
-</div>
 
 <div id="myGardenSlot" class="azuki-zone azuki-field" data-label="Garden (Front)">
 </div>
@@ -328,10 +321,6 @@
 </div>
 
 <!-- =================== THEIR ZONES (top half) =================== -->
-
-<div id="theirLeaderSlot" class="azuki-zone azuki-leader" data-label="Leader"
-    style="width:148px; min-height:180px;">
-</div>
 
 <div id="theirGardenSlot" class="azuki-zone azuki-field" data-label="Garden (Front)">
 </div>
