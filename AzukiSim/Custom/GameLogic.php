@@ -123,25 +123,6 @@ function ChooseEntityPlayZone($player) {
     return 'myGarden';
 }
 
-function ResolveOnPlay($player, $mzID, $playZone) {
-    global $customDQHandlers;
-    $obj = &GetZoneObject($mzID);
-    if($obj === null || (isset($obj->removed) && $obj->removed)) return;
-
-    $cardID = $obj->CardID ?? '';
-    $params = [$mzID, $playZone, $cardID];
-    if(isset($customDQHandlers['ON_PLAY']) && is_callable($customDQHandlers['ON_PLAY'])) {
-        $customDQHandlers['ON_PLAY']($player, $params, null);
-    }
-}
-
-function ResolveSpellOnPlay($player, $cardID) {
-    global $customDQHandlers;
-    if(isset($customDQHandlers['ON_SPELL_PLAY']) && is_callable($customDQHandlers['ON_SPELL_PLAY'])) {
-        $customDQHandlers['ON_SPELL_PLAY']($player, [$cardID], null);
-    }
-}
-
 function DealDamageToLeader($player, $amount) {
     if($amount <= 0) return;
     $leaderZone = &GetLeader($player);
@@ -483,7 +464,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
                 }
 
                 Enter($player, $newMZ);
-                ResolveOnPlay($player, $newMZ, $destination);
+                OnPlay($player, $newMZ);
             }
         }
     } else if($cardType === 'SPELL') {
@@ -496,7 +477,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         $stackIndex = count($stack) - 1;
         if($stackIndex >= $beforeCount) {
             $stackMZ = 'EffectStack-' . $stackIndex;
-            ResolveSpellOnPlay($player, $cardID);
+            OnPlay($player, $stackMZ);
             MZMove($player, $stackMZ, 'myDiscard');
         }
     } else {
@@ -540,6 +521,53 @@ function OnCardActivated($player, $mzID) {
         $customDQHandlers['ON_CARD_ACTIVATED']($player, [$mzID, $cardID], null);
     }
     return 'CARD_ACTIVATED';
+}
+
+function OnPlayCard($player, $mzID) {
+    global $onPlayAbilities;
+    if(!isset($onPlayAbilities) || !is_array($onPlayAbilities)) {
+        return 'ON_PLAY';
+    }
+
+    $obj = GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) {
+        return 'ON_PLAY';
+    }
+
+    $cardID = $obj->CardID ?? '';
+    if($cardID === '') {
+        return 'ON_PLAY';
+    }
+
+    $normalizedCardID = $cardID;
+    $abilityCount = 0;
+    if(function_exists('CardOnPlayCount')) {
+        $abilityCount = max(
+            intval(CardOnPlayCount($cardID)),
+            intval(CardOnPlayCount($normalizedCardID))
+        );
+    }
+
+    if($abilityCount <= 0) {
+        if(isset($onPlayAbilities[$cardID . ':0'])) {
+            $onPlayAbilities[$cardID . ':0']($player);
+        } else if(isset($onPlayAbilities[$normalizedCardID . ':0'])) {
+            $onPlayAbilities[$normalizedCardID . ':0']($player);
+        }
+        return 'ON_PLAY';
+    }
+
+    for($i = 0; $i < $abilityCount; ++$i) {
+        $fullKey = $cardID . ':' . $i;
+        $normalizedKey = $normalizedCardID . ':' . $i;
+        if(isset($onPlayAbilities[$fullKey])) {
+            $onPlayAbilities[$fullKey]($player);
+        } else if(isset($onPlayAbilities[$normalizedKey])) {
+            $onPlayAbilities[$normalizedKey]($player);
+        }
+    }
+
+    return 'ON_PLAY';
 }
 
 function DoAttack($player, $mzCard, $targetMZ) {
