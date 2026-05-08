@@ -422,6 +422,8 @@ function CreateCountersHTML(zoneName, cardArr, id) {
       } else {
         // normalize numeric strings for default mode
         if (!isNaN(value)) displayValue = Number(value);
+        // Many schemas use -1 as an internal sentinel default; hide it unless negatives are explicitly requested.
+        if (displayValue === -1 && params.ShowNegative === undefined) continue;
         // Handle ShowZero
         if (params.ShowZero !== undefined && String(params.ShowZero).toLowerCase() === 'false' && Number(displayValue) === 0) continue;
         if (params.ShowNegative !== undefined && String(params.ShowNegative).toLowerCase() === 'false' && Number(displayValue) < 0) continue;

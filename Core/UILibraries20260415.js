@@ -152,6 +152,11 @@
         return rv;
       }
 
+      // Preserve the HTML card renderer before dictionary scripts define their own Card(cardID).
+      if (typeof window !== 'undefined' && typeof window.RenderCardHTML !== 'function') {
+        window.RenderCardHTML = Card;
+      }
+
       function getOverlayColorHigherIsBetter(value) {
         if (value < 0.2) return "rgba(255, 0, 0, .7)"; // Very red
         if (value > 0.8) return "rgba(0, 255, 0, .7)"; // Very green
@@ -173,7 +178,7 @@
         // Ignore gameplay hotkeys while the bug report modal is open.
         if (document.getElementById('bugReportOverlay')) return;
         //if (event.keyCode === 32) { if(document.getElementById("passConfirm").innerText == "false" || confirm("Do you want to skip arsenal?")) SubmitInput(99, ""); } //Space = pass
-        if(window.rootPath == './RBSim' || window.rootPath == './GudnakSim' || window.rootPath == './GrandArchiveSim') {
+        if(window.rootPath == './RBSim' || window.rootPath == './GudnakSim' || window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') {
           if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
           if (event.keyCode === 85) SubmitInput(10004, ""); //U = Undo
         }
@@ -693,7 +698,8 @@
         if (id != "-") newHTML += "<span id='" + id + "' data-mzid='" + id + "' " + styles + droppable + click + ">";
         else newHTML += "<span " + styles + droppable + click + ">";
 
-        newHTML += Card(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id);
+        var renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
+        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id);
 
         try {
           if (combatIndicatorText) {
@@ -2798,7 +2804,8 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
     // Use the Card() function to generate the card HTML
     // Card(cardNumber, folder, maxHeight, action, showHover, overlay, borderColor, counters, ...)
     const folder = rootPath + '/concat';
-    const cardHTML = Card(cardNumber, folder, cardSize, 0, 0, 0, 0, counters);
+    const renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
+    const cardHTML = renderCardFn(cardNumber, folder, cardSize, 0, 0, 0, 0, counters);
     cardImgContainer.innerHTML = cardHTML;
 
     // Style the generated image
