@@ -16,7 +16,7 @@ function ShowCardDetail(e, that) {
   if (IsCardDetailSuppressed()) return;
   clearTimeout(showDetailTimeout);//In case there was another card waiting to show detail
   var folderPath = document.getElementById("folderPath").value;
-  var timeOut = folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" ? 350 : 1;
+  var timeOut = folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" ? 100 : 1;
   showDetailTimeout = setTimeout(function() {
     if (IsCardDetailSuppressed()) return;
     if (e.target.hasAttribute("data-subcard-id")) {
