@@ -1,0 +1,7 @@
+https://tcg.azuki.com/api/cards
+https://static-content.azuki.com/tcg/card_art/
+jpg
+cards
+
+id,cardId,name,image,ikzCost:number,attack:number,health:number,gatePower:number,element,category,rarity,subtypes,cardText,errata,set
+

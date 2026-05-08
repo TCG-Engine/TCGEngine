@@ -1,0 +1,147 @@
+/* CLARENT MENU STYLES - Override and extend the shared menuStyles.css with Grand Archive branding */
+
+/* Import the shared styles first */
+@import url('/TCGEngine/SharedUI/css/menuStyles.css');
+
+/* GRAND ARCHIVE-SPECIFIC OVERRIDES */
+
+/* Background */
+body {
+    background-color: #081321;
+    background-image: url('/TCGEngine/Assets/Images/ClarentBackground.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* HEADER - Grand Archive Banner Blocks */
+
+/* Use Grand Archive banner art for the header blocks */
+.block-1 { 
+    background-image: url('/TCGEngine/Assets/Images/Banner-Athena.png');
+    background-position: center 0px;
+}
+
+.block-2 { 
+    background-image: url('/TCGEngine/Assets/Images/Banner-Keshi.png');
+    background-position: center 0px;
+}
+
+.block-3 { 
+    background-image: url('/TCGEngine/Assets/Images/Banner-Ragnar.png');
+    background-position: center 0px;
+}
+
+.block-4 { 
+    background-image: url('/TCGEngine/Assets/Images/Banner-Satin.png');
+    background-position: center 0px;
+}
+
+/* ACCENT COLORS - Grand Archive theme */
+
+/* Cards and containers with Grand Archive's navy-and-gold palette */
+.card, .container {
+    background: rgba(10, 22, 38, 0.86);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(201, 168, 76, 0.28);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+/* Buttons - Grand Archive styled */
+button, .GameLobby_Button, .create-game-button, .ServerChecker_Button, .JoinGame_Button, .spectate-button {
+    background: linear-gradient(135deg, #203b5d 0%, #11233a 100%);
+    border: 1px solid rgba(201, 168, 76, 0.45);
+    color: #f4ead1;
+    transition: 150ms ease-in-out;
+}
+
+button:hover, .GameLobby_Button:hover, .create-game-button:hover, .ServerChecker_Button:hover, .JoinGame_Button:hover, .spectate-button:hover {
+    background: linear-gradient(135deg, #2b4f7c 0%, #17304e 100%);
+    border-color: rgba(201, 168, 76, 0.7);
+    transform: scale(1.05);
+    box-shadow: 0 0 18px rgba(201, 168, 76, 0.2);
+}
+
+/* Input Fields */
+input, select, textarea {
+    background: rgba(12, 24, 40, 0.76);
+    border: 1px solid rgba(201, 168, 76, 0.32);
+    color: #f4ead1;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: rgba(201, 168, 76, 0.72);
+    outline: none;
+    box-shadow: 0 0 12px rgba(201, 168, 76, 0.18);
+}
+
+/* Text colors - Grand Archive palette */
+p, label {
+    color: #efe2c3;
+}
+
+p a {
+    color: #d6b86d;
+}
+
+p a:hover {
+    color: #f4e2a4;
+}
+
+/* Heading colors */
+h1, h2, h3, h4, h5, h6 {
+    color: #f6edd5;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Info boxes */
+.info-box {
+    background: rgba(16, 31, 48, 0.72);
+    border: 1px solid rgba(201, 168, 76, 0.22);
+}
+
+/* Game browser styling */
+.game-browser .game-item {
+    background: rgba(10, 22, 38, 0.55);
+    border: 1px solid rgba(201, 168, 76, 0.16);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Accent highlights for active elements */
+.nav-bar-user, .nav-bar-links {
+    background-color: rgba(8, 19, 33, 0.78);
+    border: 1px solid rgba(201, 168, 76, 0.22);
+}
+
+/* Links styling */
+a {
+    color: #d6b86d;
+    transition: color 150ms ease-in-out;
+}
+
+a:hover {
+    color: #f4e2a4;
+}
+
+/* Scrollbar styling for Grand Archive theme */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(8, 19, 33, 0.6);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(201, 168, 76, 0.45);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(201, 168, 76, 0.65);
+}

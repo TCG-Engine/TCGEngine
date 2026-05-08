@@ -187,6 +187,8 @@ if(!$withPreview && file_exists($cacheFile)) {
       $cardID = $card->number;
     } else if($rootName == "GrandArchiveSim") {
       $cardID = $card->uuid;
+    } else if($rootName == "AzukiSim") {
+      $cardID = $card->id;
     }
     $card->id = $cardID;
     $cardArray[] = $card;
@@ -195,6 +197,8 @@ if(!$withPreview && file_exists($cacheFile)) {
     $squareCards = false;
     if($rootName == "SWUDeck") {
       $thisImageUrl = $card->artFront->data->attributes->formats->card->url;
+    } else if($rootName == "AzukiSim") {
+      $thisImageUrl = $card->image;
     } else if($rootName == "SoulMastersDB" || $rootName == "SoulMastersSim") {
       $thisImageUrl = $imageUrl . $cardID . "-CYMK.jpg";
     } else if($rootName == "GudnakSim") {
