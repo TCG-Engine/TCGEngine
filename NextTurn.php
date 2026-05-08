@@ -580,7 +580,6 @@
             } else if (responseText.split("REMATCH")[0] == "1234") {
               location.replace('GameLobby.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo ($playerID); ?>&authKey=<?php echo ($authKey); ?>');
             } else {
-              HideCardDetail();
               var responseArr = responseText.split("<~>");
               var update = parseInt(responseArr[0], 10);
               if (Number.isNaN(update)) {
