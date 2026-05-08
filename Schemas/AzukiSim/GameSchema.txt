@@ -1,0 +1,138 @@
+AzukiSim
+Polling
+None
+None
+Layout: /Custom/GameLayout.php
+ServerInclude: /Custom/CustomInput.php
+ServerInclude: /Custom/GameLogic.php
+ServerInclude: /TurnController.php
+ServerInclude: /GeneratedCode/GeneratedMacroCode.php
+ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
+AssetReflection: AzukiSim
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myLeader,myGarden,myAlley,myGate,myLeaderHealth,myIKZ,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirLeader,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZ,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex
+Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Action={}
+Macro: Name=AttackWith(mzID,targetMZ); ChoiceFunction=DoAttack; PrereqFunction=CanAttack; SourceParam=mzID; Action={}
+Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
+Macro: Name=UseGate(gateMZ,entityMZ); ChoiceFunction=DoUseGate; PrereqFunction=CanUseGate; SourceParam=gateMZ; Action={}
+Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
+Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
+Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Action={}
+Macro: Name=DiscardCard(mzID); ChoiceFunction=DoDiscardCard; Action={}
+Macro: Name=CardActivated(mzID); ChoiceFunction=OnCardActivated; Action={}
+Macro: Name=ExhaustCard(mzID); ChoiceFunction=OnExhaustCard; Action={}
+Macro: Name=WakeupCard(mzID); ChoiceFunction=OnWakeupCard; Action={}
+Deck - CardID:string
+Display: Visibility=Private, Mode=Single, BindTo=DeckSlot
+Macros: Shuffle
+Discard - CardID:string
+Display: Visibility=Public, Mode=Single, BindTo=DiscardSlot
+Click: FSM()
+Hand - CardID:string
+Display: Visibility=Self, Mode=All, BindTo=HandSlot
+Click: FSM()
+Virtual: SelectionMetadata=SelectionMetadata()
+Highlight: SelectionMetadata
+Index: CardID
+TempZone - CardID:string
+Display: Visibility=Self, Mode=None
+Virtual: SelectionMetadata=SelectionMetadata()
+Highlight: SelectionMetadata
+GlobalEffects - CardID:string
+Display: Visibility=None, Mode=None
+Leader - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json
+Virtual: CurrentPower=ObjectCurrentPowerDisplay()
+Virtual: CurrentHP=ObjectCurrentHPDisplay()
+Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
+Virtual: CombatTargetIndicator=CombatTargetIndicator()
+Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: DisplayEffects=CardDisplayEffects()
+Virtual: HasAbility=CardHasAbility()
+Index: TurnEffects
+Display: Visibility=Public, Mode=All, BindTo=LeaderSlot
+Overlay: Status=1:exhausted
+Rotation: Status=1:9
+Counters: Damage=Badge(Color=Red,Position=TopRight,ShowZero=false)
+Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
+Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
+Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
+Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Click: FSM()
+Garden - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json
+Virtual: CurrentPower=ObjectCurrentPowerDisplay()
+Virtual: CurrentHP=ObjectCurrentHPDisplay()
+Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
+Virtual: CombatTargetIndicator=CombatTargetIndicator()
+Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: DisplayEffects=CardDisplayEffects()
+Virtual: HasAbility=CardHasAbility()
+Index: TurnEffects
+Display: Visibility=Public, Mode=All, BindTo=GardenSlot
+Overlay: Status=1:exhausted
+Rotation: Status=1:9
+Counters: Damage=Badge(Color=Red,Position=TopRight,ShowZero=false)
+Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
+Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
+Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
+Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+AfterAdd: GardenAfterAdd
+Click: FSM()
+Alley - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json
+Virtual: CurrentPower=ObjectCurrentPowerDisplay()
+Virtual: CurrentHP=ObjectCurrentHPDisplay()
+Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
+Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: DisplayEffects=CardDisplayEffects()
+Virtual: HasAbility=CardHasAbility()
+Index: TurnEffects
+Display: Visibility=Public, Mode=All, BindTo=AlleySlot
+Overlay: Status=1:exhausted
+Rotation: Status=1:9
+Counters: Damage=Badge(Color=Red,Position=TopRight,ShowZero=false)
+Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
+Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
+Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
+Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Click: FSM()
+Gate - CardID:string, Status:number=2, Owner:number, Controller:number, TurnEffects:array[string], Counters:json
+Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: DisplayEffects=CardDisplayEffects()
+Virtual: HasAbility=CardHasAbility()
+Index: TurnEffects
+Display: Visibility=Public, Mode=All, BindTo=GateSlot
+Overlay: Status=1:exhausted
+Rotation: Status=1:9
+Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
+Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Click: FSM()
+LeaderHealth - Value:number=0
+Display: Visibility=Public, Mode=Value, BindTo=LeaderHealthSlot
+Widgets: CustomInput=Pass
+IKZ - Value:number=0
+Display: Visibility=Public, Mode=Value, BindTo=IKZSlot
+Widgets: CustomInput=Pass
+IKZToken - Value:number=0
+Display: Visibility=Public, Mode=Value, BindTo=IKZTokenSlot
+Widgets: CustomInput=Pass
+DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
+Display: Visibility=Self, Mode=All, Display=None
+Versions - Version:string
+Display: Visibility=None, Mode=All, Display=None
+TurnNumber - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FirstPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+TurnPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+CurrentPhase - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+PhaseParameters - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+FlashMessage - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+DecisionQueueVariables - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+EffectStack - CardID:string, Controller:number
+Display: Visibility=Public, Mode=Single, Scope=Global, BindTo=EffectStackSlot
+Sort: Reverse=true
+MacroTurnIndex - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
