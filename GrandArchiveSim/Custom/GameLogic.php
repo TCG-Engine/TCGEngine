@@ -10868,6 +10868,26 @@ function DrawIntoMemory($player, $amount=1) {
     }
 }
 
+function QueueDrawAfterGlimpse($player, $amount=1) {
+    $amount = intval($amount);
+    if($amount <= 0) return;
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DrawAfterGlimpse|" . $amount, 1, dontSkipOnPass:true);
+}
+
+$customDQHandlers["DrawAfterGlimpse"] = function($player, $parts, $lastDecision) {
+    $amount = intval($parts[0] ?? 0);
+    if($amount <= 0) return;
+    Draw($player, $amount);
+};
+
+function QueueSummonSpiritShardAfterGlimpse($player) {
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SummonSpiritShardAfterGlimpse", 1, dontSkipOnPass:true);
+}
+
+$customDQHandlers["SummonSpiritShardAfterGlimpse"] = function($player, $parts, $lastDecision) {
+    MZAddZone($player, "myField", "3p5iqigcom");
+};
+
     function QueueDrawIntoMemoryAfterGlimpse($player, $amount=1) {
         $amount = intval($amount);
         if($amount <= 0) return;
