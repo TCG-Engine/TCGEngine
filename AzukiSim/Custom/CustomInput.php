@@ -6,9 +6,14 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
     $index = isset($cardArr[1]) ? $cardArr[1] : "";
 
     switch ($zone) {
+        case "myLeaderHealth":
+        case "myIKZToken":
         case "myLeaderHealthSlot":
-            // Pass button — end turn
-            HandlePassButton($playerID);
+        case "myIKZTokenSlot":
+            if (strcasecmp($action, "Pass") === 0) {
+                // Pass button — end turn
+                HandlePassButton($playerID);
+            }
             break;
 
         case "myGarden":
@@ -73,9 +78,8 @@ function HandleAttackSetup($playerID, $attackerMZ) {
     $opponent = ($playerID === 1) ? 2 : 1;
     $targets = [];
 
-    // Add opponent's leader as target
-    $leaderZone = &GetLeader($opponent);
-    if(!empty($leaderZone)) {
+    // Add opponent's leader as target if still alive.
+    if(intval(GetLeaderHealth($opponent)) > 0) {
         $targets[] = "theirLeader-0";
     }
 
@@ -113,7 +117,8 @@ function ExecuteAttack($player, $attackerMZ, $targetMZ) {
     if($attackerZone === "myGarden") {
         $field = &GetGarden($player);
     } else if($attackerZone === "myLeader") {
-        $field = &GetLeader($player);
+        // Leader objects live in Garden for AzukiSim.
+        $field = &GetGarden($player);
     } else {
         return;
     }
@@ -124,33 +129,36 @@ function ExecuteAttack($player, $attackerMZ, $targetMZ) {
 
     // Get target stats
     $opponent = ($player === 1) ? 2 : 1;
-    if($targetZone === "theirLeader") {
-        $targetField = &GetLeader($opponent);
-    } else if($targetZone === "theirGarden") {
+    if($targetZone === "theirGarden") {
         $targetField = &GetGarden($opponent);
     } else {
-        return;
+        $targetField = null;
     }
 
-    if($targetIndex < 0 || $targetIndex >= count($targetField) || $targetField[$targetIndex]->removed) return;
-    $target = &$targetField[$targetIndex];
-    $targetHealth = intval(CardHealth($target->CardID) ?? 0);
-    $targetAttack = intval(CardAttack($target->CardID) ?? 0);
+    if($targetZone === "theirLeader") {
+        $target = null;
+        $targetHealth = intval(GetLeaderHealth($opponent));
+        $targetAttack = LeaderAttack($opponent);
+    } else {
+        if(!is_array($targetField) || $targetIndex < 0 || $targetIndex >= count($targetField) || $targetField[$targetIndex]->removed) return;
+        $target = &$targetField[$targetIndex];
+        $targetHealth = intval(CardHealth($target->CardID) ?? 0);
+        $targetAttack = intval(CardAttack($target->CardID) ?? 0);
+    }
 
     // Exhaust attacker
     ExhaustEntity($player, $attackerMZ);
 
     // Resolve damage simultaneously
-    if($attackerAttack > 0) {
+    if($attackerAttack > 0 && $targetZone !== "theirLeader") {
         $target->Damage = ($target->Damage ?? 0) + $attackerAttack;
+    } else if($attackerAttack > 0 && $targetZone === "theirLeader") {
+        DealDamageToLeader($opponent, $attackerAttack);
     }
 
-    if($targetAttack > 0 && $targetZone !== "theirLeader") {
-        // Entities take damage that resets at end of turn
+    if($targetAttack > 0) {
+        // Entities take combat damage that resets at end of turn.
         $attacker->Damage = ($attacker->Damage ?? 0) + $targetAttack;
-    } else if($targetAttack > 0 && $targetZone === "theirLeader") {
-        // Leader takes permanent damage
-        DealDamageToLeader($player, $targetAttack);
     }
 
     // Check if target (entity) is destroyed

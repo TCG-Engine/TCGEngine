@@ -58,6 +58,33 @@ function CardCost($cardID) {
     return max(0, intval($card['ikzCost']));
 }
 
+function FindLeaderIndexInGarden($player) {
+    $garden = &GetGarden($player);
+    for($i = 0; $i < count($garden); ++$i) {
+        if(isset($garden[$i]->removed) && $garden[$i]->removed) continue;
+        if(CardType($garden[$i]->CardID ?? '') === 'LEADER') return $i;
+    }
+    return -1;
+}
+
+function LeaderMaxHealth($player) {
+    $garden = &GetGarden($player);
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex >= 0 && $leaderIndex < count($garden)) {
+        return max(1, intval(CardHealth($garden[$leaderIndex]->CardID ?? '')));
+    }
+    return 20;
+}
+
+function LeaderAttack($player) {
+    $garden = &GetGarden($player);
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex >= 0 && $leaderIndex < count($garden)) {
+        return max(0, intval(CardAttack($garden[$leaderIndex]->CardID ?? '')));
+    }
+    return 0;
+}
+
 function CardHasKeyword($cardID, $keyword) {
     $card = GetAzukiCardData($cardID);
     if($card === null || !isset($card['abilities']) || !is_array($card['abilities'])) return false;
@@ -125,27 +152,15 @@ function ChooseEntityPlayZone($player) {
 
 function DealDamageToLeader($player, $amount) {
     if($amount <= 0) return;
-    $leaderZone = &GetLeader($player);
-    if(empty($leaderZone)) return;
-    $leader = &$leaderZone[0];
-    $leader->Damage += $amount;
-    $maxHealth = intval(CardHealth($leader->CardID) ?? 0);
-    if($maxHealth > 0 && $leader->Damage >= $maxHealth) {
-        // Player loses the game
-        $gameWon = true; // Simplified — framework will handle formal win check
-    }
+    $leaderHealth = &GetLeaderHealth($player);
+    $leaderHealth = max(0, intval($leaderHealth) - intval($amount));
 }
 
 function HealLeader($player, $amount) {
     if($amount <= 0) return;
-    $leaderZone = &GetLeader($player);
-    if(empty($leaderZone)) return;
-    $leader = &$leaderZone[0];
-    $maxHealth = intval(CardHealth($leader->CardID) ?? 0);
-    $leader->Damage = max(0, $leader->Damage - $amount);
-    if($maxHealth > 0 && $leader->Damage < 0) {
-        $leader->Damage = 0; // No overheal
-    }
+    $leaderHealth = &GetLeaderHealth($player);
+    $maxHealth = LeaderMaxHealth($player);
+    $leaderHealth = min($maxHealth, intval($leaderHealth) + intval($amount));
 }
 
 function CanUseGate($player) {
@@ -240,7 +255,6 @@ function ResetEntityDamage($player, $zone) {
 function WakeAllCards($player) {
     $garden = &GetGarden($player);
     $alley = &GetAlley($player);
-    $leader = &GetLeader($player);
 
     foreach($garden as &$entity) {
         if(!$entity->removed) $entity->Status = 2; // Ready all entities
@@ -248,10 +262,6 @@ function WakeAllCards($player) {
 
     foreach($alley as &$entity) {
         if(!$entity->removed) $entity->Status = 2; // Ready all entities
-    }
-
-    foreach($leader as &$ldr) {
-        if(!$ldr->removed) $ldr->Status = 2; // Ready leader
     }
 }
 
@@ -658,8 +668,8 @@ function OnStartOfTurn($player) {
     // 3. Draw 1 card (except player 1 on turn 1)
     $turnNumber = GetTurnNumber();
     if(!($player === 1 && $turnNumber === 1)) {
-        // Queue draw decision
-        DecisionQueueController::AddDecision($player, "CUSTOM", "DRAW|1", 1);
+        // Resolve draw immediately so SOT can auto-advance into MAIN.
+        DoDrawCard($player, 1);
     }
 
     // 4. Resolve SOT effects (to be queued by card abilities)
@@ -687,7 +697,6 @@ function OnEndOfTurn($player) {
 function ExpireTurnEffects($player) {
     $garden = &GetGarden($player);
     $alley = &GetAlley($player);
-    $leader = &GetLeader($player);
     $gate = &GetGate($player);
 
     foreach($garden as &$entity) {
@@ -699,12 +708,6 @@ function ExpireTurnEffects($player) {
     foreach($alley as &$entity) {
         if(!$entity->removed && isset($entity->TurnEffects)) {
             $entity->TurnEffects = []; // Clear turn effects
-        }
-    }
-
-    foreach($leader as &$ldr) {
-        if(!$ldr->removed && isset($ldr->TurnEffects)) {
-            $ldr->TurnEffects = []; // Clear turn effects
         }
     }
 
@@ -734,4 +737,23 @@ $customDQHandlers["PORTAL_FROM_ALLEY"] = function($player, $params, $lastDecisio
     UseGate($player, $entityMZ);
 };
 
-?>
+// --- Phase Handler Wrappers for TurnController ---
+function StartOfTurnPhase() {
+    $player = GetTurnPlayer();
+    OnStartOfTurn($player);
+}
+
+function MainPhase() {
+    // Main phase is player-driven; no auto actions needed here yet.
+    // Could add auto-triggers or forced actions if needed in future.
+}
+
+function EndOfTurnPhase() {
+    $player = GetTurnPlayer();
+    OnEndOfTurn($player);
+    // Switch turn player and increment turn number
+    $turnPlayer = &GetTurnPlayer();
+    $turnNumber = &GetTurnNumber();
+    $turnPlayer = ($turnPlayer == 1) ? 2 : 1;
+    $turnNumber++;
+}
