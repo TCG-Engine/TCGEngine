@@ -39,6 +39,74 @@ function GetAttachedWeaponIDs($obj) {
     return $weapons;
 }
 
+function GetSubcardTurnEffects($obj, $subcardIndex) {
+    if(!is_object($obj) || intval($subcardIndex) < 0) return [];
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) return [];
+
+    $map = $obj->Counters['_subcardTurnEffects'] ?? null;
+    if(!is_array($map)) return [];
+
+    $key = strval(intval($subcardIndex));
+    $effects = $map[$key] ?? null;
+    return is_array($effects) ? $effects : [];
+}
+
+function AddSubcardTurnEffect(&$obj, $subcardIndex, $effectID) {
+    if(!is_object($obj) || intval($subcardIndex) < 0 || !is_string($effectID) || $effectID === '') return;
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) {
+        $obj->Counters = [];
+    }
+    if(!isset($obj->Counters['_subcardTurnEffects']) || !is_array($obj->Counters['_subcardTurnEffects'])) {
+        $obj->Counters['_subcardTurnEffects'] = [];
+    }
+
+    $key = strval(intval($subcardIndex));
+    if(!isset($obj->Counters['_subcardTurnEffects'][$key]) || !is_array($obj->Counters['_subcardTurnEffects'][$key])) {
+        $obj->Counters['_subcardTurnEffects'][$key] = [];
+    }
+
+    $obj->Counters['_subcardTurnEffects'][$key][] = $effectID;
+}
+
+function CountWeaponSubcardTurnEffects($obj, $weaponCardID, $effectID) {
+    if(!is_object($obj) || !isset($obj->Subcards) || !is_array($obj->Subcards)) return 0;
+
+    $count = 0;
+    for($i = 0; $i < count($obj->Subcards); ++$i) {
+        $subcardID = $obj->Subcards[$i] ?? '';
+        if(!is_string($subcardID) || $subcardID !== $weaponCardID) continue;
+        $effects = GetSubcardTurnEffects($obj, $i);
+        foreach($effects as $effect) {
+            if($effect === $effectID) ++$count;
+        }
+    }
+    return $count;
+}
+
+function AddSubcardTurnEffectByCardID(&$obj, $weaponCardID, $effectID) {
+    if(!is_object($obj) || !isset($obj->Subcards) || !is_array($obj->Subcards)) return false;
+
+    for($i = count($obj->Subcards) - 1; $i >= 0; --$i) {
+        $subcardID = $obj->Subcards[$i] ?? '';
+        if(!is_string($subcardID) || $subcardID !== $weaponCardID) continue;
+        AddSubcardTurnEffect($obj, $i, $effectID);
+        return true;
+    }
+
+    return false;
+}
+
+function ApplyBlackJadeDaggerOnPlayBonus($player) {
+    $targetKey = 'P' . intval($player) . '_BlackJadeDaggerTargetMZ';
+    $targetMZ = DecisionQueueController::GetVariable($targetKey);
+    if(!is_string($targetMZ) || $targetMZ === '') return;
+
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+
+    AddSubcardTurnEffectByCardID($targetObj, 'S1-STT01-013_Black-Jade-Dagger_W_C_die', 'BLACK_JADE_DAGGER_BONUS');
+}
+
 function HasEquippedWeapon($obj) {
     return !empty(GetAttachedWeaponIDs($obj));
 }
@@ -49,6 +117,12 @@ function EquippedWeaponAttackBonus($obj) {
     foreach($weaponIDs as $weaponID) {
         $bonus += max(0, intval(CardAttack($weaponID)));
     }
+
+    // Black Jade Dagger can grant an additional +1 attack when its On Play cost is paid.
+    $blackJadeDaggerID = 'S1-STT01-013_Black-Jade-Dagger_W_C_die';
+    $blackJadeBoostEffect = 'BLACK_JADE_DAGGER_BONUS';
+    $bonus += CountWeaponSubcardTurnEffects($obj, $blackJadeDaggerID, $blackJadeBoostEffect);
+
     return $bonus;
 }
 
@@ -144,6 +218,11 @@ function ResolveWeaponPlayFromHand($player, $mzCard, $targetMZ) {
     $targetObj = &GetZoneObject($targetMZ);
     if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
     AttachWeaponCardIDToTarget($targetObj, $weaponCardID);
+
+    if($weaponCardID === 'S1-STT01-013_Black-Jade-Dagger_W_C_die') {
+        $targetKey = 'P' . intval($player) . '_BlackJadeDaggerTargetMZ';
+        DecisionQueueController::StoreVariable($targetKey, $targetMZ);
+    }
 }
 
 function DiscardAllEquippedWeapons($player) {
