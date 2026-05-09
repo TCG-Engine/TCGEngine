@@ -54,12 +54,10 @@ for ($p = 1; $p <= 2; ++$p) {
 
 // Set up starting resources
 // Player 1 gets 1 IKZ (player 2 draws on their first turn)
-$player1IKZ = &GetIKZ(1);
-$player1IKZ = 1;
+GainIKZ(1, 1);
 
 // Player 2 gets 1 IKZ + 1 one-use token
-$player2IKZ = &GetIKZ(2);
-$player2IKZ = 1;
+GainIKZ(2, 1);
 $player2Token = &GetIKZToken(2);
 $player2Token = 1;
 

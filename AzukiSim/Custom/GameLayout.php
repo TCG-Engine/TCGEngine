@@ -111,60 +111,136 @@
         min-height: 180px;
     }
 
-    /* IKZ display — resource pool counter */
-    #myIKZSlot,
-    #theirIKZSlot {
-        border: 1px solid rgba(212, 175, 55, 0.28);
-        border-radius: 8px;
-        background:
-            linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(255, 255, 255, 0.02)),
-            linear-gradient(160deg, rgba(26, 31, 58, 0.88), rgba(26, 31, 58, 0.80));
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-        width: 104px;
-        min-height: 56px;
-        padding: 6px 8px;
-        box-sizing: border-box;
-        text-align: center;
-        overflow: hidden;
+    /* IKZ Area display — simple vertical stack with wrapping */
+    #myIKZArea {
+        width: 280px !important;
+        max-width: 280px !important;
+        height: 340px !important;
+        min-height: auto !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
+        display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        gap: 0 !important;
+        align-content: flex-start !important;
+        justify-content: flex-end !important;
+        overflow: visible !important;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
     }
 
-    #myIKZSlot::before,
-    #theirIKZSlot::before {
-        content: "IKZ";
-        display: block;
-        color: rgba(212, 175, 55, 0.82);
-        font: 700 10px/1 var(--azuki-font-label);
-        text-transform: uppercase;
-        letter-spacing: 0.16em;
-        margin-bottom: 3px;
-    }
-    #myIKZSlot #myIKZ,
-    #theirIKZSlot #theirIKZ {
-        font: 700 28px/1 var(--azuki-font-ui);
-        color: rgba(32, 180, 168, 0.92);
+    #theirIKZArea {
+        width: 280px !important;
+        max-width: 280px !important;
+        height: 340px !important;
+        min-height: auto !important;
+        padding: 0 !important;
+        box-sizing: border-box !important;
         display: flex !important;
+        flex-direction: column !important;
+        flex-wrap: wrap !important;
+        gap: 0 !important;
+        align-content: flex-start !important;
+        overflow: visible !important;
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        justify-content: flex-start !important;
+    }
+
+    #myIKZAreaSlot::before,
+    #theirIKZAreaSlot::before {
+        display: none;
+    }
+
+    #myIKZArea > *,
+    #theirIKZArea > * {
+        width: 140px !important;
+        height: auto !important;
+        min-height: auto !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        background: none !important;
+        border: none !important;
+        display: block !important;
+        font: inherit;
+        color: inherit;
+        box-shadow: none !important;
+        flex-shrink: 0;
+        position: relative !important;
+    }
+
+    /* my cards: justify-content flex-end pushes stack to bottom, negative margin creates overlap going up */
+    #myIKZArea > * {
+        margin: 0 0 -55px 0 !important;
+    }
+
+    #myIKZArea > *:last-child {
+        margin-bottom: 0 !important;
+    }
+
+    /* their cards grow downward: negative margin on top */
+    #theirIKZArea > * {
+        margin: -55px 0 0 0 !important;
+    }
+
+    #theirIKZArea > *:first-child {
+        margin-top: 0 !important;
+    }
+
+    /* Tapped IKZ (Status=1) card styling */
+    #myIKZArea > *[class*="exhausted"],
+    #theirIKZArea > *[class*="exhausted"] {
+        transform: rotate(9deg);
+        opacity: 0.65;
+    }
+
+    /* IKZ Token display — glowing orb */
+    #myIKZTokenSlot,
+    #theirIKZTokenSlot {
+        width: 48px;
+        height: 48px;
+        min-height: 48px;
+        padding: 0;
+        border: none;
+        background: none;
+        box-shadow: none;
+        display: flex;
         align-items: center;
         justify-content: center;
-        line-height: 1;
-        min-height: 28px;
+        border-radius: 50%;
+        position: relative;
+        overflow: visible;
     }
 
-    #myIKZWrapper,
-    #theirIKZWrapper {
-        overflow: hidden !important;
-        display: flex;
-        justify-content: center;
+    #myIKZTokenSlot > *:not(:last-child),
+    #theirIKZTokenSlot > *:not(:last-child) {
+        display: none;
     }
 
-    #myIKZ > span,
-    #theirIKZ > span {
+    #myIKZTokenSlot::after,
+    #theirIKZTokenSlot::after {
+        content: "";
+        position: absolute;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(32, 180, 168, 0.9), rgba(20, 140, 130, 0.5));
+        box-shadow: 0 0 20px rgba(32, 180, 168, 0.8), inset 0 1px 3px rgba(255, 255, 255, 0.3);
+        border: 2px solid rgba(32, 180, 168, 0.9);
+        z-index: 1;
+    }
+
+    #myIKZTokenSlot > span,
+    #theirIKZTokenSlot > span {
+        font: 700 20px/1 var(--azuki-font-ui);
+        color: rgba(255, 255, 255, 0.95);
         margin: 0 !important;
-        padding-right: 0 !important;
-    }
-
-    #myIKZ > div,
-    #theirIKZ > div {
-        display: none !important;
+        padding: 0 !important;
+        position: relative;
+        z-index: 2;
     }
 
     /* Leader slot positioning */
@@ -198,20 +274,20 @@
         top: 404px;
     }
 
-    /* Gate positioning (left side) */
+    /* Gate positioning (right side) - top of stack */
     #myGateSlot,
     #theirGateSlot {
-        left: 24px;
+        right: 24px;
         width: 100px;
         min-height: 140px;
     }
 
     #myGateSlot {
-        bottom: 20px;
+        bottom: calc(92px + 12px + 92px + 12px);
     }
 
     #theirGateSlot {
-        top: 20px;
+        top: calc(20px + 92px + 12px + 104px + 12px);
     }
 
     /* Health and IKZ resource pools */
@@ -230,20 +306,33 @@
         top: calc(50% - 120px);
     }
 
-    #myIKZSlot,
-    #theirIKZSlot {
-        right: 24px;
+    #myIKZAreaSlot,
+    #theirIKZAreaSlot {
+        left: 24px;
     }
 
-    #myIKZSlot {
-        bottom: calc(20px + 92px + 12px + 92px + 12px);
+    #myIKZAreaSlot {
+        bottom: calc(20px + 48px + 12px + 16px);
     }
 
-    #theirIKZSlot {
-        top: calc(20px + 92px + 12px + 92px + 12px);
+    #theirIKZAreaSlot {
+        top: calc(20px + 48px + 12px + 16px);
     }
 
-    /* Discard pile (bottom-right / top-right) */
+    #myIKZTokenSlot,
+    #theirIKZTokenSlot {
+        left: 24px;
+    }
+
+    #myIKZTokenSlot {
+        bottom: 20px;
+    }
+
+    #theirIKZTokenSlot {
+        top: 20px;
+    }
+
+    /* Discard pile (bottom-right / top-right) - bottom of stack */
     #myDiscardSlot,
     #theirDiscardSlot {
         right: 24px;
@@ -272,11 +361,15 @@
         top: calc(20px + 92px + 12px);
     }
 
-    /* TempZone hidden */
+    /* TempZone and IKZPile hidden */
     #myTempZoneSlot,
     #theirTempZoneSlot,
     #myGlobalEffectsSlot,
-    #theirGlobalEffectsSlot {
+    #theirGlobalEffectsSlot,
+    #myIKZPileWrapper,
+    #theirIKZPileWrapper,
+    #myIKZTokenWrapper,
+    #theirIKZTokenWrapper {
         display: none !important;
     }
 
@@ -314,8 +407,6 @@
     #theirGarden > span:not([id]),
     #myAlley > span:not([id]),
     #theirAlley > span:not([id]),
-    #myIKZ > span:not([id]),
-    #theirIKZ > span:not([id]),
     #myDiscard > span:not([id]),
     #theirDiscard > span:not([id]),
     #myDeck > span:not([id]),
@@ -335,14 +426,16 @@
 <div id="myAlleySlot" class="azuki-zone azuki-field" data-label="Alley (Back)">
 </div>
 
-<div id="myGateSlot" class="azuki-zone" data-label="Gate"
-    style="left:24px; bottom:20px; width:100px; min-height:140px;">
+<div id="myGateSlot" class="azuki-zone" data-label="Gate">
 </div>
 
 <div id="myLeaderHealthSlot" class="azuki-zone azuki-stat" data-label="Health">
 </div>
 
-<div id="myIKZSlot" class="azuki-zone" data-label="">
+<div id="myIKZAreaSlot" class="azuki-zone" data-label="">
+</div>
+
+<div id="myIKZTokenSlot" class="azuki-zone" data-label="IKZ Token">
 </div>
 
 <div id="myDiscardSlot" class="azuki-zone azuki-pile" data-label="Discard">
@@ -362,14 +455,16 @@
 <div id="theirAlleySlot" class="azuki-zone azuki-field" data-label="Alley (Back)">
 </div>
 
-<div id="theirGateSlot" class="azuki-zone" data-label="Gate"
-    style="left:24px; top:20px; width:100px; min-height:140px;">
+<div id="theirGateSlot" class="azuki-zone" data-label="Gate">
 </div>
 
 <div id="theirLeaderHealthSlot" class="azuki-zone azuki-stat" data-label="Health">
 </div>
 
-<div id="theirIKZSlot" class="azuki-zone" data-label="">
+<div id="theirIKZAreaSlot" class="azuki-zone" data-label="">
+</div>
+
+<div id="theirIKZTokenSlot" class="azuki-zone" data-label="IKZ Token">
 </div>
 
 <div id="theirDiscardSlot" class="azuki-zone azuki-pile" data-label="Discard">

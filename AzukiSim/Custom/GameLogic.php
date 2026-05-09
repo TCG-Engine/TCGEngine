@@ -141,9 +141,26 @@ function CountActiveEntities($zone, $ignoreLeaders = true) {
 
 function CanPayIKZCost($player, $cost) {
     $cost = max(0, intval($cost));
-    $ikz = intval(GetIKZ($player));
-    $token = intval(GetIKZToken($player));
-    return ($ikz + $token) >= $cost;
+    if($cost === 0) return true;
+    
+    $ikzArea = GetIKZArea($player);
+    $ikzToken = intval(GetIKZToken($player));
+    
+    // Count untapped IKZ in the area
+    $availableIKZ = 0;
+    if(is_array($ikzArea)) {
+        foreach($ikzArea as $ikz) {
+            if(!isset($ikz->removed) || !$ikz->removed) {
+                // IKZ is untapped (Status=2) or tapped (Status=1), both count as available
+                // (A tapped IKZ could have been tapped earlier this turn)
+                if(!isset($ikz->Status) || $ikz->Status == 2) {
+                    $availableIKZ++;
+                }
+            }
+        }
+    }
+    
+    return ($availableIKZ + $ikzToken) >= $cost;
 }
 
 function PayIKZCost($player, $cost) {
@@ -151,18 +168,48 @@ function PayIKZCost($player, $cost) {
     if($cost === 0) return true;
     if(!CanPayIKZCost($player, $cost)) return false;
 
-    $ikz = &GetIKZ($player);
-    $token = &GetIKZToken($player);
+    $ikzArea = &GetIKZArea($player);
+    $ikzToken = &GetIKZToken($player);
 
-    $fromIKZ = min(intval($ikz), $cost);
-    $ikz = intval($ikz) - $fromIKZ;
-    $remaining = $cost - $fromIKZ;
-
-    if($remaining > 0) {
-        $token = max(0, intval($token) - $remaining);
+    $remaining = $cost;
+    
+    // First, tap untapped IKZ in the area
+    if(is_array($ikzArea)) {
+        foreach($ikzArea as &$ikz) {
+            if($remaining <= 0) break;
+            if(isset($ikz->removed) && $ikz->removed) continue;
+            if(!isset($ikz->Status)) $ikz->Status = 2;
+            
+            // Only tap if currently untapped
+            if($ikz->Status == 2) {
+                $ikz->Status = 1; // Tap it
+                $remaining--;
+            }
+        }
     }
 
-    return true;
+    // If still need to pay, use the token
+    if($remaining > 0) {
+        $token = intval($ikzToken);
+        $fromToken = min($token, $remaining);
+        $ikzToken = max(0, $token - $fromToken);
+        $remaining -= $fromToken;
+    }
+
+    return $remaining <= 0;
+}
+
+function CountAvailableIKZ($player) {
+    $ikzArea = GetIKZArea($player);
+    $count = 0;
+    if(is_array($ikzArea)) {
+        foreach($ikzArea as $ikz) {
+            if((!isset($ikz->removed) || !$ikz->removed) && (!isset($ikz->Status) || $ikz->Status == 2)) {
+                $count++;
+            }
+        }
+    }
+    return $count + intval(GetIKZToken($player));
 }
 
 function FindReplaceableIndex($zone) {
@@ -314,8 +361,90 @@ function WakeAllCards($player) {
 }
 
 function GainIKZ($player, $amount) {
-    $ikz = &GetIKZ($player);
-    $ikz = min(10, $ikz + $amount); // IKZ capped at 10
+    $ikzArea = &GetIKZArea($player);
+    $ikzPile = &GetIKZPile($player);
+    
+    if(!is_array($ikzArea)) $ikzArea = [];
+    if(!is_array($ikzPile)) $ikzPile = [];
+    
+    // Count current IKZ in area
+    $currentCount = 0;
+    foreach($ikzArea as $ikz) {
+        if(!isset($ikz->removed) || !$ikz->removed) {
+            $currentCount++;
+        }
+    }
+    
+    // Don't exceed maximum of 10 in the area
+    $canGain = max(0, 10 - $currentCount);
+    $toAdd = min($amount, $canGain);
+    $toOverflow = $amount - $toAdd;
+    
+    // Add IKZ to area (untapped, Status=2)
+    for($i = 0; $i < $toAdd; ++$i) {
+        $ikz = new IKZArea("IKZ-001_IKZ!_IKZ_die 2");
+        $ikzArea[] = $ikz;
+    }
+    
+    // Overflow goes to pile (also untapped)
+    for($i = 0; $i < $toOverflow; ++$i) {
+        $ikz = new IKZPile("IKZ-001_IKZ!_IKZ_die 2");
+        $ikzPile[] = $ikz;
+    }
+}
+
+function UntapAllIKZ($player) {
+    $ikzArea = &GetIKZArea($player);
+    $ikzPile = &GetIKZPile($player);
+    
+    if(is_array($ikzArea)) {
+        foreach($ikzArea as &$ikz) {
+            if(!isset($ikz->removed) || !$ikz->removed) {
+                $ikz->Status = 2; // Untap
+            }
+        }
+    }
+    
+    if(is_array($ikzPile)) {
+        foreach($ikzPile as &$ikz) {
+            if(!isset($ikz->removed) || !$ikz->removed) {
+                $ikz->Status = 2; // Untap
+            }
+        }
+    }
+}
+
+function PromoteIKZFromPile($player) {
+    $ikzArea = &GetIKZArea($player);
+    $ikzPile = &GetIKZPile($player);
+    
+    if(!is_array($ikzArea)) $ikzArea = [];
+    if(!is_array($ikzPile)) $ikzPile = [];
+    
+    // Count current IKZ in area
+    $currentCount = 0;
+    foreach($ikzArea as $ikz) {
+        if(!isset($ikz->removed) || !$ikz->removed) {
+            $currentCount++;
+        }
+    }
+    
+    // Move IKZ from pile to area up to the maximum of 10
+    $canAdd = max(0, 10 - $currentCount);
+    $moved = 0;
+    
+    foreach($ikzPile as &$ikz) {
+        if($moved >= $canAdd) break;
+        if(isset($ikz->removed) && $ikz->removed) continue;
+        
+        // Convert to IKZArea and add to area
+        $newIKZ = new IKZArea($ikz->Status . "");
+        $ikzArea[] = $newIKZ;
+        
+        // Mark as removed from pile
+        $ikz->removed = true;
+        $moved++;
+    }
 }
 
 function ResolveObjectOwner($obj) {
@@ -906,20 +1035,24 @@ function ActionMap($actionCard) {
 function OnStartOfTurn($player) {
     global $gCurrentPhase;
 
-    // 1. Untap all cards
+    // 1. Untap all cards (field and IKZ)
     WakeAllCards($player);
+    UntapAllIKZ($player);
 
-    // 2. Gain 1 IKZ (max 10)
+    // 2. Promote IKZ from pile to area if there's room
+    PromoteIKZFromPile($player);
+    
+    // 3. Gain 1 IKZ (up to a maximum of 10 in area)
     GainIKZ($player, 1);
 
-    // 3. Draw 1 card (except player 1 on turn 1)
+    // 4. Draw 1 card (except player 1 on turn 1)
     $turnNumber = GetTurnNumber();
     if(!($player === 1 && $turnNumber === 1)) {
         // Resolve draw immediately so SOT can auto-advance into MAIN.
         DoDrawCard($player, 1);
     }
 
-    // 4. Resolve SOT effects (to be queued by card abilities)
+    // 5. Resolve SOT effects (to be queued by card abilities)
 }
 
 function OnEndOfTurn($player) {

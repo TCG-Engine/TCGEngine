@@ -9,7 +9,7 @@ ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: AzukiSim
-Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZ,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZ,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZArea,myIKZPile,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZArea,theirIKZPile,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex
 Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=OnPlay(mzID); ChoiceFunction=OnPlayCard; Action={}
 Macro: Name=AttackWith(mzID,targetMZ); ChoiceFunction=DoAttack; PrereqFunction=CanAttack; SourceParam=mzID; Action={}
@@ -94,8 +94,14 @@ Click: FSM()
 LeaderHealth - Value:number=0
 Display: Visibility=Public, Mode=Value, BindTo=LeaderHealthSlot
 Widgets: CustomInput=Pass
-IKZ - Value:number=0
-Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=IKZSlot
+IKZArea - CardID:string, Status:number=2
+Display: Visibility=Public, Mode=All, BindTo=IKZAreaSlot
+Overlay: Status=1:exhausted
+Rotation: Status=1:9
+IKZPile - CardID:string, Status:number=2
+Display: Visibility=None, Mode=All
+Overlay: Status=1:exhausted
+Rotation: Status=1:9
 IKZToken - Value:number=0
 Display: Visibility=Public, Mode=Value, BindTo=IKZTokenSlot
 Widgets: CustomInput=Pass
