@@ -243,10 +243,23 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
     OnPlay($player, $newMZ);
 }
 
+function QueueLeaderDamageAnimation($player, $amount) {
+    if(intval($amount) <= 0) return;
+
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex >= 0) {
+        QueueDamageAnimation('p' . $player . 'Garden-' . $leaderIndex, intval($amount), 500, true);
+        return;
+    }
+
+    QueueDamageAnimation(intval($player) === 1 ? 'P1BASE' : 'P2BASE', intval($amount), 500, true);
+}
+
 function DealDamageToLeader($player, $amount) {
     if($amount <= 0) return;
     $leaderHealth = &GetLeaderHealth($player);
     $leaderHealth = max(0, intval($leaderHealth) - intval($amount));
+    QueueLeaderDamageAnimation($player, $amount);
 }
 
 function HealLeader($player, $amount) {
@@ -821,6 +834,7 @@ function DoAttack($player, $mzCard, $targetMZ) {
             $theirGarden = &GetGarden($opponent);
             if(isset($theirGarden[$targetIndex]) && !(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed)) {
                 $theirGarden[$targetIndex]->Damage = intval($theirGarden[$targetIndex]->Damage ?? 0) + $attackerAttack;
+                QueueDamageAnimation('p' . $opponent . 'Garden-' . $targetIndex, $attackerAttack, 500, true);
             }
         }
     }
@@ -829,6 +843,7 @@ function DoAttack($player, $mzCard, $targetMZ) {
         $myGarden = &GetGarden($player);
         if(isset($myGarden[$attackerIndex]) && !(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed)) {
             $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $defenderAttack;
+            QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $defenderAttack, 500, true);
         }
     }
 
