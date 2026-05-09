@@ -244,22 +244,7 @@
     }
 
     /* Leader slot positioning */
-    /* Garden (Front Row) positioning */
-    #myGardenSlot,
-    #theirGardenSlot {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
-    #myGardenSlot {
-        bottom: 212px;
-    }
-
-    #theirGardenSlot {
-        top: 212px;
-    }
-
-    /* Alley (Back Row) positioning */
+    /* Alley (Back Row) positioning - immediately above hand */
     #myAlleySlot,
     #theirAlleySlot {
         left: 50%;
@@ -267,11 +252,26 @@
     }
 
     #myAlleySlot {
-        bottom: 404px;
+        bottom: 124px;
     }
 
     #theirAlleySlot {
-        top: 404px;
+        top: 124px;
+    }
+
+    /* Garden (Front Row) positioning - above Alley */
+    #myGardenSlot,
+    #theirGardenSlot {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    #myGardenSlot {
+        bottom: 284px;
+    }
+
+    #theirGardenSlot {
+        top: 284px;
     }
 
     /* Gate positioning (right side) - top of stack */

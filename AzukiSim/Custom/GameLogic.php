@@ -228,18 +228,60 @@ function FindReplaceableIndex($zone) {
     return -1;
 }
 
-function ChooseEntityPlayZone($player) {
-    $garden = &GetGarden($player);
-    $alley = &GetAlley($player);
-    $gardenCount = CountActiveEntities($garden, true);
-    $alleyCount = CountActiveEntities($alley, true);
+function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
+    if($destination !== 'myGarden' && $destination !== 'myAlley') {
+        return;
+    }
 
-    // Default to Garden when both rows are available.
-    if($gardenCount < 5) return 'myGarden';
-    if($alleyCount < 5) return 'myAlley';
+    if($destination === 'myGarden') {
+        $garden = &GetGarden($player);
+        if(CountActiveEntities($garden, true) >= 5) {
+            $replaceIndex = FindReplaceableIndex($garden);
+            if($replaceIndex >= 0) {
+                MZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
+                DecisionQueueController::CleanupRemovedCards();
+            }
+        }
+    }
+    else {
+        $alley = &GetAlley($player);
+        if(CountActiveEntities($alley, true) >= 5) {
+            $replaceIndex = FindReplaceableIndex($alley);
+            if($replaceIndex >= 0) {
+                MZMove($player, 'myAlley-' . $replaceIndex, 'myDiscard');
+                DecisionQueueController::CleanupRemovedCards();
+            }
+        }
+    }
 
-    // Both rows are full; default replacement lane to Garden.
-    return 'myGarden';
+    MZMove($player, $mzCard, $destination);
+    DecisionQueueController::CleanupRemovedCards();
+
+    $placedZone = ($destination === 'myGarden') ? GetGarden($player) : GetAlley($player);
+    $placedIndex = count($placedZone) - 1;
+    if($placedIndex < 0) {
+        return;
+    }
+
+    $newMZ = $destination . '-' . $placedIndex;
+    $newObj = &GetZoneObject($newMZ);
+    if($newObj === null || (isset($newObj->removed) && $newObj->removed)) {
+        return;
+    }
+
+    NormalizeFieldOwnership($newObj, $player);
+
+    if($destination === 'myGarden') {
+        if(!isset($newObj->TurnEffects) || !is_array($newObj->TurnEffects)) {
+            $newObj->TurnEffects = [];
+        }
+        if(!in_array('COOLDOWN', $newObj->TurnEffects)) {
+            $newObj->TurnEffects[] = 'COOLDOWN';
+        }
+    }
+
+    Enter($player, $newMZ);
+    OnPlay($player, $newMZ);
 }
 
 function DealDamageToLeader($player, $amount) {
@@ -688,52 +730,9 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
     }
 
     if($cardType === 'ENTITY') {
-        $destination = ChooseEntityPlayZone($player);
-
-        if($destination === 'myGarden') {
-            $garden = &GetGarden($player);
-            if(CountActiveEntities($garden, true) >= 5) {
-                $replaceIndex = FindReplaceableIndex($garden);
-                if($replaceIndex >= 0) {
-                    MZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
-                    DecisionQueueController::CleanupRemovedCards();
-                }
-            }
-        } else {
-            $alley = &GetAlley($player);
-            if(CountActiveEntities($alley, true) >= 5) {
-                $replaceIndex = FindReplaceableIndex($alley);
-                if($replaceIndex >= 0) {
-                    MZMove($player, 'myAlley-' . $replaceIndex, 'myDiscard');
-                    DecisionQueueController::CleanupRemovedCards();
-                }
-            }
-        }
-
-        MZMove($player, $mzCard, $destination);
-        DecisionQueueController::CleanupRemovedCards();
-
-        $placedZone = ($destination === 'myGarden') ? GetGarden($player) : GetAlley($player);
-        $placedIndex = count($placedZone) - 1;
-        if($placedIndex >= 0) {
-            $newMZ = $destination . '-' . $placedIndex;
-            $newObj = &GetZoneObject($newMZ);
-            if($newObj !== null && !(isset($newObj->removed) && $newObj->removed)) {
-                NormalizeFieldOwnership($newObj, $player);
-
-                if($destination === 'myGarden') {
-                    if(!isset($newObj->TurnEffects) || !is_array($newObj->TurnEffects)) {
-                        $newObj->TurnEffects = [];
-                    }
-                    if(!in_array('COOLDOWN', $newObj->TurnEffects)) {
-                        $newObj->TurnEffects[] = 'COOLDOWN';
-                    }
-                }
-
-                Enter($player, $newMZ);
-                OnPlay($player, $newMZ);
-            }
-        }
+        DecisionQueueController::AddDecision($player, 'CHOOSEZONE', 'myGarden&myAlley', 1, 'Choose_lane_for_entity');
+        DecisionQueueController::AddDecision($player, 'CUSTOM', 'PLAY_ENTITY_DEST|' . $mzCard, 1);
+        return 'PLAY';
     } else if($cardType === 'SPELL') {
         $stack = &GetEffectStack();
         $beforeCount = count($stack);
@@ -1123,6 +1122,21 @@ $customDQHandlers["RESOLVE_ATTACK"] = function($player, $params, $lastDecision) 
     $chosenTarget = is_string($lastDecision) ? $lastDecision : '';
     if($attackerMZ === '' || $chosenTarget === '' || strtoupper($chosenTarget) === 'PASS') return;
     AttackWith($player, $attackerMZ, $chosenTarget);
+};
+
+$customDQHandlers["PLAY_ENTITY_DEST"] = function($player, $params, $lastDecision) {
+    $mzCard = isset($params[0]) ? $params[0] : '';
+    if(!is_string($mzCard) || $mzCard === '') return;
+
+    $sourceObject = &GetZoneObject($mzCard);
+    if($sourceObject === null || (isset($sourceObject->removed) && $sourceObject->removed)) return;
+    if(($sourceObject->Location ?? '') !== 'Hand') return;
+
+    $destination = is_string($lastDecision) ? $lastDecision : '';
+    if($destination !== 'myGarden' && $destination !== 'myAlley') {
+        return;
+    }
+    ResolveEntityPlayFromHand($player, $mzCard, $destination);
 };
 
 // --- Phase Handler Wrappers for TurnController ---

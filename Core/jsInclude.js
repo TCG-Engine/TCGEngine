@@ -198,6 +198,24 @@ function AddCardToHand() {
 }
 
 function ZoneClickHandler(zone) {
+  if (window.SelectionMode && window.SelectionMode.active && window.SelectionMode.mode === 'CHOOSEZONE') {
+    var allowedZoneSpecs = window.SelectionMode.allowedDecisionZones || [];
+    for (var zi = 0; zi < allowedZoneSpecs.length; ++zi) {
+      var spec = allowedZoneSpecs[zi];
+      if (!spec || !spec.zone) continue;
+      if (spec.zone !== zone) continue;
+
+      var submittedValue = spec.submittedValue || zone;
+      if (typeof window.SelectionMode.callback === 'function') {
+        window.SelectionMode.callback(zone, submittedValue, window.SelectionMode.decisionIndex);
+      }
+      if (typeof ClearSelectionMode === 'function') {
+        ClearSelectionMode();
+      }
+      return;
+    }
+  }
+
   var zoneData = GetZoneData(zone);
   switch(zoneData.DisplayMode) {
     case "All":

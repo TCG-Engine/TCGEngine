@@ -2285,6 +2285,125 @@ function ParseDecisionQueue(raw) {
   return result;
 }
 
+function ParseChooseZoneSpecs(rawParam) {
+  return (rawParam || '')
+    .split('&')
+    .map(s => s.trim())
+    .filter(Boolean)
+    .map(spec => {
+      const encodedParts = spec.split('@');
+      const zoneName = (encodedParts[0] || '').trim();
+      const actionPayload = encodedParts.length > 1 ? encodedParts[1].trim() : '';
+      const selectionLabel = encodedParts.length > 2 ? encodedParts.slice(2).join('@').trim() : '';
+      return {
+        zone: zoneName,
+        submittedValue: actionPayload || zoneName,
+        selectionLabel: selectionLabel,
+        originalSpec: spec
+      };
+    })
+    .filter(spec => !!spec.zone);
+}
+
+function ResolveChooseZoneElement(zoneName) {
+  return (
+    document.getElementById(zoneName + 'Slot') ||
+    document.getElementById(zoneName + 'Wrapper') ||
+    document.getElementById(zoneName)
+  );
+}
+
+function EnsureChooseZoneSelectionStyles() {
+  if (document.getElementById('choosezone-selection-styles')) return;
+
+  const style = document.createElement('style');
+  style.id = 'choosezone-selection-styles';
+  style.textContent = `
+    @keyframes chooseZoneGlowPulse {
+      0% {
+        box-shadow: 0 0 0 1px rgba(60, 255, 196, 0.45), 0 0 12px rgba(60, 255, 196, 0.18), inset 0 0 0 1px rgba(179, 255, 232, 0.15);
+      }
+      50% {
+        box-shadow: 0 0 0 2px rgba(95, 255, 206, 0.85), 0 0 28px rgba(60, 255, 196, 0.40), inset 0 0 0 1px rgba(214, 255, 242, 0.30);
+      }
+      100% {
+        box-shadow: 0 0 0 1px rgba(60, 255, 196, 0.45), 0 0 12px rgba(60, 255, 196, 0.18), inset 0 0 0 1px rgba(179, 255, 232, 0.15);
+      }
+    }
+
+    .choosezone-selectable {
+      outline: 2px solid rgba(96, 255, 208, 0.88) !important;
+      outline-offset: 3px !important;
+      border-radius: 12px !important;
+      cursor: pointer !important;
+      animation: chooseZoneGlowPulse 1300ms ease-in-out infinite;
+      transition: transform 120ms ease, outline-color 120ms ease;
+      position: relative;
+      z-index: 6;
+    }
+
+    .choosezone-selectable:hover {
+      transform: translateY(-1px);
+      outline-color: rgba(170, 255, 228, 0.98) !important;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+function EnableChooseZoneSelection(zoneSpecs, tooltip, decisionIndex) {
+  if (!window.SelectionMode) return;
+  EnsureChooseZoneSelectionStyles();
+
+  window.SelectionMode.active = true;
+  window.SelectionMode.mode = 'CHOOSEZONE';
+  window.SelectionMode.allowedDecisionZones = zoneSpecs;
+  window.SelectionMode.decisionIndex = decisionIndex;
+  window.SelectionMode.mayPass = false;
+  window.SelectionMode.zoneBindings = [];
+  window.SelectionMode.callback = function(zoneName, submittedValue, selectedDecisionIndex) {
+    SubmitInput('DECISION', '&decisionIndex=' + selectedDecisionIndex + '&cardID=' + encodeURIComponent(submittedValue));
+  };
+
+  const msg = tooltip || 'Choose a zone';
+  ShowSelectionMessage(msg, false, decisionIndex);
+
+  zoneSpecs.forEach(spec => {
+    const el = ResolveChooseZoneElement(spec.zone);
+    if (!el) return;
+
+    const binding = {
+      el: el,
+      zone: spec.zone,
+      submittedValue: spec.submittedValue,
+      hadChooseZoneClass: el.classList.contains('choosezone-selectable'),
+      prevOutline: el.style.outline,
+      prevOutlineOffset: el.style.outlineOffset,
+      prevBoxShadow: el.style.boxShadow,
+      prevCursor: el.style.cursor,
+      prevTransition: el.style.transition,
+      prevBorderRadius: el.style.borderRadius,
+      prevTransform: el.style.transform,
+      handler: null,
+    };
+
+    el.classList.add('choosezone-selectable');
+
+    binding.handler = function(ev) {
+      if (!window.SelectionMode || !window.SelectionMode.active || window.SelectionMode.mode !== 'CHOOSEZONE') return;
+      ev.preventDefault();
+      ev.stopPropagation();
+      if (typeof window.SelectionMode.callback === 'function') {
+        window.SelectionMode.callback(binding.zone, binding.submittedValue, window.SelectionMode.decisionIndex);
+      }
+      ClearSelectionMode();
+    };
+
+    // Capture so empty-area and nested-card clicks both resolve the zone choice.
+    el.addEventListener('click', binding.handler, true);
+    window.SelectionMode.zoneBindings.push(binding);
+  });
+}
+
 // Call this after game state update to check for pending YESNO decisions
 function CheckAndShowDecisionQueue(decisionQueue) {
   // Accept raw string or array
@@ -2298,6 +2417,14 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       ShowYesNoDecisionPopup(entry, function(result) {
         SubmitInput('DECISION', '&decisionIndex=' + i + '&cardID=' + result);
       });
+      break;
+    } else if (entry && entry.Type === 'CHOOSEZONE' && !entry.removed) {
+      const tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a zone';
+      const zoneSpecs = ParseChooseZoneSpecs(entry.Param);
+      if (zoneSpecs.length === 0) {
+        continue;
+      }
+      EnableChooseZoneSelection(zoneSpecs, tooltip, i);
       break;
     } else if (entry && (entry.Type === 'MZCHOOSE' || entry.Type === 'MZMAYCHOOSE') && !entry.removed) {
       // Set up selection mode
@@ -2509,24 +2636,48 @@ window.SelectionMode = {
   active: false,
   mode: '', // e.g., '100' for decision queue
   allowedZones: [],
+  allowedDecisionZones: [],
   inlineSpecs: [],    // Specs for inline selection (All mode zones/cards)
   popupCards: [],     // Specs for popup selection (Single mode zone specific cards)
+  zoneBindings: [],
   callback: null,
   decisionIndex: null,
   mayPass: false
 };
 
 function ClearSelectionMode() {
+  const previousSelection = window.SelectionMode || null;
   window.SelectionMode = {
     active: false,
     mode: '',
     allowedZones: [],
+    allowedDecisionZones: [],
     inlineSpecs: [],
     popupCards: [],
+    zoneBindings: [],
     callback: null,
     decisionIndex: null,
     mayPass: false
   };
+  // Remove choose-zone click bindings and restore zone visuals.
+  if (previousSelection && previousSelection.zoneBindings && Array.isArray(previousSelection.zoneBindings)) {
+    previousSelection.zoneBindings.forEach(binding => {
+      if (!binding || !binding.el) return;
+      if (binding.handler) {
+        binding.el.removeEventListener('click', binding.handler, true);
+      }
+      binding.el.style.outline = binding.prevOutline || '';
+      binding.el.style.outlineOffset = binding.prevOutlineOffset || '';
+      binding.el.style.boxShadow = binding.prevBoxShadow || '';
+      binding.el.style.cursor = binding.prevCursor || '';
+      binding.el.style.transition = binding.prevTransition || '';
+      binding.el.style.borderRadius = binding.prevBorderRadius || '';
+      binding.el.style.transform = binding.prevTransform || '';
+      if (!binding.hadChooseZoneClass) {
+        binding.el.classList.remove('choosezone-selectable');
+      }
+    });
+  }
   // Remove selectable highlight from all cards
   document.querySelectorAll('.selectable-card').forEach(el => {
     el.classList.remove('selectable-card');
@@ -2977,6 +3128,7 @@ function _firstPendingDecisionFromRaw(rawQueue) {
 function _describeDecisionType(type) {
   switch ((type || '').toUpperCase()) {
     case 'YESNO': return 'make a yes/no choice';
+    case 'CHOOSEZONE': return 'choose a zone';
     case 'MZCHOOSE': return 'choose a card';
     case 'MZMAYCHOOSE': return 'choose a card (or pass)';
     case 'MZREARRANGE': return 'rearrange cards';
