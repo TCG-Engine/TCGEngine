@@ -41,52 +41,11 @@ function GateAfterAdd($player, $CardID, $Status, $Owner, $Controller, $TurnEffec
     NormalizeFieldOwnership($gate[$idx], $player);
 }
 
-function GetAzukiCardMap() {
-    static $cardMap = null;
-    if($cardMap !== null) {
-        return $cardMap;
-    }
-
-    $cardMap = [];
-    $cachePath = __DIR__ . '/../GeneratedCode/cardArrayCache.json';
-    if(!file_exists($cachePath)) {
-        return $cardMap;
-    }
-
-    $raw = file_get_contents($cachePath);
-    if($raw === false || $raw === '') {
-        return $cardMap;
-    }
-
-    $decoded = json_decode($raw, true);
-    if(!is_array($decoded) || !isset($decoded['cardArray']) || !is_array($decoded['cardArray'])) {
-        return $cardMap;
-    }
-
-    foreach($decoded['cardArray'] as $card) {
-        if(!is_array($card) || !isset($card['id'])) continue;
-        $cardMap[$card['id']] = $card;
-    }
-
-    return $cardMap;
-}
-
-function GetAzukiCardData($cardID) {
-    if(!is_string($cardID) || $cardID === '') return null;
-    $map = GetAzukiCardMap();
-    return $map[$cardID] ?? null;
-}
-
-function CardAttack($cardID) {
-    $card = GetAzukiCardData($cardID);
-    if($card === null || !isset($card['attack']) || $card['attack'] === null) return 0;
-    return intval($card['attack']);
-}
+// CardAttack(), CardHealth(), CardElement(), CardSubtypes() are provided by GeneratedCardDictionaries.php
 
 function CardCost($cardID) {
-    $card = GetAzukiCardData($cardID);
-    if($card === null || !isset($card['ikzCost']) || $card['ikzCost'] === null) return 0;
-    return max(0, intval($card['ikzCost']));
+    $cost = CardIkzCost($cardID);
+    return $cost !== null && $cost >= 0 ? intval($cost) : 0;
 }
 
 function FindLeaderIndexInGarden($player) {
@@ -102,7 +61,9 @@ function LeaderMaxHealth($player) {
     $garden = &GetGarden($player);
     $leaderIndex = FindLeaderIndexInGarden($player);
     if($leaderIndex >= 0 && $leaderIndex < count($garden)) {
-        return max(1, intval(CardHealth($garden[$leaderIndex]->CardID ?? '')));
+        $h = CardHealth($garden[$leaderIndex]->CardID ?? '');
+        if($h === null || $h < 0) $h = 20; // default for leaders without health data in the API
+        return max(1, intval($h));
     }
     return 20;
 }
@@ -117,12 +78,10 @@ function LeaderAttack($player) {
 }
 
 function CardHasKeyword($cardID, $keyword) {
-    $card = GetAzukiCardData($cardID);
-    if($card === null || !isset($card['abilities']) || !is_array($card['abilities'])) return false;
-
-    foreach($card['abilities'] as $ability) {
-        if(!is_string($ability)) continue;
-        if(strcasecmp($ability, $keyword) === 0) return true;
+    $abilities = CardAbilities($cardID);
+    if(!is_array($abilities)) return false;
+    foreach($abilities as $ability) {
+        if(is_string($ability) && strcasecmp($ability, $keyword) === 0) return true;
     }
     return false;
 }
@@ -536,53 +495,30 @@ function SelectionMetadata($obj) {
 }
 
 function CardType($cardID) {
-    $card = GetAzukiCardData($cardID);
-    if($card !== null && isset($card['category']) && is_string($card['category'])) {
-        $category = strtoupper(trim($card['category']));
-        switch($category) {
+    $category = CardCategory($cardID);
+    if(is_string($category) && $category !== '') {
+        switch(strtoupper(trim($category))) {
             case 'ENTITY': return 'ENTITY';
             case 'SPELL': return 'SPELL';
             case 'WEAPON': return 'WEAPON';
             case 'LEADER': return 'LEADER';
             case 'GATE': return 'GATE';
             case 'IKZ': return 'IKZ';
-            default: break;
         }
     }
-
+    // Fallback: infer from card ID naming convention
     if(!is_string($cardID)) return '';
     if(strpos($cardID, '_L_L_') !== false) return 'LEADER';
     if(strpos($cardID, '_G_G_') !== false) return 'GATE';
     return 'ENTITY';
 }
 
-function CardHealth($cardID) {
-    $card = GetAzukiCardData($cardID);
-    if($card !== null && isset($card['health']) && $card['health'] !== null) {
-        return intval($card['health']);
-    }
-    return CardType($cardID) === 'LEADER' ? 20 : 0;
-}
+// CardHealth($cardID) is provided by GeneratedCardDictionaries.php
+// CardElement($cardID) is provided by GeneratedCardDictionaries.php
+// CardSubtypes($cardID) is provided by GeneratedCardDictionaries.php
 
 function CardPower($cardID) {
     return CardAttack($cardID);
-}
-
-function CardElement($cardID) {
-    $card = GetAzukiCardData($cardID);
-    if($card !== null && isset($card['element']) && is_string($card['element'])) {
-        return $card['element'];
-    }
-
-    if(!is_string($cardID) || $cardID === '') return '';
-    $parts = explode('_', $cardID);
-    if(count($parts) < 3) return '';
-    $element = $parts[count($parts) - 3] ?? '';
-    return ($element === 'die' || $element === 'Die') ? '' : $element;
-}
-
-function CardSubtypes($cardID) {
-    return '';
 }
 
 function CardClasses($cardID) {

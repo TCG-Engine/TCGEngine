@@ -804,6 +804,19 @@ function GetPropertyValue($card, $property)
           return isset($card->$property) ? str_replace("\n", "<br>", $card->$property) : "";
         default: return isset($card->$property) ? $card->$property : "";
       }
+    case "AzukiSim":
+      switch($property) {
+        case "ikzCost":
+        case "attack":
+        case "health":
+        case "gatePower":
+          return isset($card->$property) && $card->$property !== null ? intval($card->$property) : -1;
+        case "abilities":
+        case "subtypes":
+        case "set":
+          return isset($card->$property) && is_array($card->$property) ? $card->$property : [];
+        default: return isset($card->$property) ? $card->$property : "";
+      }
     default: return isset($card->$property) ? $card->$property : "";
   }
 }
