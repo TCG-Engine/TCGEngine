@@ -2387,6 +2387,14 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
     $criticalAmount = GetCriticalAmount($attacker, $attackerPlayer);
     $effectivePower = ($criticalAmount > 0) ? $totalPower * 2 : $totalPower;
 
+    // Resolve defenders from highest field index to lowest so lethal removals
+    // don't shift later targets and cause skipped damage.
+    usort($opponents, function($a, $b) {
+        $aIdx = intval(substr($a, strrpos($a, "-") + 1));
+        $bIdx = intval(substr($b, strrpos($b, "-") + 1));
+        return $bIdx <=> $aIdx;
+    });
+
     $hitDealt = false;
     ResetCombatKill();
     foreach($opponents as $defenderMZ) {
