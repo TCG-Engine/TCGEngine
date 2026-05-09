@@ -17,6 +17,149 @@ function NormalizeFieldOwnership($obj, $player) {
     }
 }
 
+function IsFieldZoneName($zoneName) {
+    return $zoneName === 'myGarden' || $zoneName === 'theirGarden' || $zoneName === 'myAlley' || $zoneName === 'theirAlley';
+}
+
+function ResolveOwnerFromPerspectiveZone($player, $zoneName) {
+    if(!is_string($zoneName) || $zoneName === '') return intval($player);
+    if(strpos($zoneName, 'their') === 0) return intval($player) === 1 ? 2 : 1;
+    return intval($player);
+}
+
+function GetAttachedWeaponIDs($obj) {
+    if(!is_object($obj) || !isset($obj->Subcards) || !is_array($obj->Subcards)) return [];
+
+    $weapons = [];
+    foreach($obj->Subcards as $subcardID) {
+        if(!is_string($subcardID) || $subcardID === '') continue;
+        if(CardType($subcardID) !== 'WEAPON') continue;
+        $weapons[] = $subcardID;
+    }
+    return $weapons;
+}
+
+function HasEquippedWeapon($obj) {
+    return !empty(GetAttachedWeaponIDs($obj));
+}
+
+function EquippedWeaponAttackBonus($obj) {
+    $bonus = 0;
+    $weaponIDs = GetAttachedWeaponIDs($obj);
+    foreach($weaponIDs as $weaponID) {
+        $bonus += max(0, intval(CardAttack($weaponID)));
+    }
+    return $bonus;
+}
+
+function DiscardEquippedWeaponsFromObject($owner, $obj) {
+    if(!is_object($obj)) return;
+    if(!isset($obj->Subcards) || !is_array($obj->Subcards)) return;
+
+    $remaining = [];
+    foreach($obj->Subcards as $subcardID) {
+        if(!is_string($subcardID) || $subcardID === '') continue;
+        if(CardType($subcardID) === 'WEAPON') {
+            AddDiscard($owner, CardID:$subcardID);
+            continue;
+        }
+        $remaining[] = $subcardID;
+    }
+    $obj->Subcards = $remaining;
+}
+
+function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
+    if(!is_string($mzIndex) || $mzIndex === '') return;
+    if(!is_string($toZone) || $toZone === '') return;
+
+    $parts = explode('-', $mzIndex);
+    $sourceZone = $parts[0] ?? '';
+    if(!IsFieldZoneName($sourceZone)) return;
+    if(IsFieldZoneName($toZone)) return;
+
+    $obj = &GetZoneObject($mzIndex);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return;
+
+    $owner = ResolveObjectOwner($obj);
+    if($owner === null || intval($owner) <= 0) {
+        $owner = ResolveOwnerFromPerspectiveZone($player, $sourceZone);
+    }
+
+    DiscardEquippedWeaponsFromObject(intval($owner), $obj);
+}
+
+function SafeMZMove($player, $mzIndex, $toZone) {
+    HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone);
+    return MZMove($player, $mzIndex, $toZone);
+}
+
+function ResolveWeaponEquipTargets($player) {
+    $targets = [];
+    $garden = &GetGarden($player);
+    for($i = 0; $i < count($garden); ++$i) {
+        if(isset($garden[$i]->removed) && $garden[$i]->removed) continue;
+        $targets[] = 'myGarden-' . $i;
+    }
+    return $targets;
+}
+
+function AttachWeaponCardIDToTarget($targetObj, $weaponCardID) {
+    if(!is_object($targetObj) || !is_string($weaponCardID) || $weaponCardID === '') return;
+    if(!isset($targetObj->Subcards) || !is_array($targetObj->Subcards)) {
+        $targetObj->Subcards = [];
+    }
+    $targetObj->Subcards[] = $weaponCardID;
+}
+
+function ResolveWeaponPlayFromHand($player, $mzCard, $targetMZ) {
+    $sourceObj = &GetZoneObject($mzCard);
+    if($sourceObj === null || (isset($sourceObj->removed) && $sourceObj->removed)) return;
+    if(($sourceObj->Location ?? '') !== 'Hand') return;
+
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+    if(($targetObj->Location ?? '') !== 'Garden') return;
+
+    $weaponCardID = $sourceObj->CardID ?? '';
+    if($weaponCardID === '' || CardType($weaponCardID) !== 'WEAPON') return;
+
+    $stack = &GetEffectStack();
+    $beforeCount = count($stack);
+    SafeMZMove($player, $mzCard, 'EffectStack');
+    DecisionQueueController::CleanupRemovedCards();
+
+    $stack = &GetEffectStack();
+    $stackIndex = count($stack) - 1;
+    if($stackIndex >= $beforeCount) {
+        $stackMZ = 'EffectStack-' . $stackIndex;
+        OnPlay($player, $stackMZ);
+
+        $stackObj = &GetZoneObject($stackMZ);
+        if($stackObj !== null && !(isset($stackObj->removed) && $stackObj->removed)) {
+            $stackObj->Remove();
+        }
+        DecisionQueueController::CleanupRemovedCards();
+    }
+
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+    AttachWeaponCardIDToTarget($targetObj, $weaponCardID);
+}
+
+function DiscardAllEquippedWeapons($player) {
+    $garden = &GetGarden($player);
+    foreach($garden as &$obj) {
+        if(isset($obj->removed) && $obj->removed) continue;
+        DiscardEquippedWeaponsFromObject($player, $obj);
+    }
+
+    $alley = &GetAlley($player);
+    foreach($alley as &$obj) {
+        if(isset($obj->removed) && $obj->removed) continue;
+        DiscardEquippedWeaponsFromObject($player, $obj);
+    }
+}
+
 function GardenAfterAdd($player, $CardID, $Status, $Owner, $Damage, $Controller, $TurnEffects, $Counters, $Subcards) {
     $garden = &GetGarden($player);
     if(empty($garden)) return;
@@ -72,7 +215,9 @@ function LeaderAttack($player) {
     $garden = &GetGarden($player);
     $leaderIndex = FindLeaderIndexInGarden($player);
     if($leaderIndex >= 0 && $leaderIndex < count($garden)) {
-        return max(0, intval(CardAttack($garden[$leaderIndex]->CardID ?? '')));
+        $leaderObj = $garden[$leaderIndex];
+        $baseAttack = max(0, intval(CardAttack($leaderObj->CardID ?? '')));
+        return $baseAttack + EquippedWeaponAttackBonus($leaderObj);
     }
     return 0;
 }
@@ -197,7 +342,7 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
         if(CountActiveEntities($garden, true) >= 5) {
             $replaceIndex = FindReplaceableIndex($garden);
             if($replaceIndex >= 0) {
-                MZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
+                SafeMZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
                 DecisionQueueController::CleanupRemovedCards();
             }
         }
@@ -207,13 +352,13 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
         if(CountActiveEntities($alley, true) >= 5) {
             $replaceIndex = FindReplaceableIndex($alley);
             if($replaceIndex >= 0) {
-                MZMove($player, 'myAlley-' . $replaceIndex, 'myDiscard');
+                SafeMZMove($player, 'myAlley-' . $replaceIndex, 'myDiscard');
                 DecisionQueueController::CleanupRemovedCards();
             }
         }
     }
 
-    MZMove($player, $mzCard, $destination);
+    SafeMZMove($player, $mzCard, $destination);
     DecisionQueueController::CleanupRemovedCards();
 
     $placedZone = ($destination === 'myGarden') ? GetGarden($player) : GetAlley($player);
@@ -337,8 +482,9 @@ function CanAttackWith($player, $mzID) {
 
     $entity = &$garden[$index];
 
-    // Leaders do not attack unless weapon logic is implemented.
-    if(CardType($entity->CardID ?? '') === 'LEADER') return false;
+    if(CardType($entity->CardID ?? '') === 'LEADER' && !HasEquippedWeapon($entity)) {
+        return false;
+    }
 
     // Cannot attack if tapped or has cooldown
     if($entity->Status == 1) return false; // Tapped
@@ -539,7 +685,9 @@ function CardClasses($cardID) {
 }
 
 function ObjectCurrentPowerDisplay($obj) {
-    return 0;
+    if(!is_object($obj) || !isset($obj->CardID)) return 0;
+    $base = max(0, intval(CardAttack($obj->CardID)));
+    return $base + EquippedWeaponAttackBonus($obj);
 }
 
 function ObjectCurrentHPDisplay($obj) {
@@ -668,6 +816,15 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
 
     $cardType = CardType($cardID);
     $cardCost = CardCost($cardID);
+
+    if($cardType === 'WEAPON') {
+        $targets = ResolveWeaponEquipTargets($player);
+        if(empty($targets)) {
+            SetFlashMessage('No valid Garden target to equip this weapon.');
+            return '';
+        }
+    }
+
     if(!$ignoreCost) {
         if(!CanPayIKZCost($player, $cardCost)) {
             SetFlashMessage('Not enough IKZ to play this card.');
@@ -682,10 +839,19 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, 'CHOOSEZONE', 'myGarden&myAlley', 1, 'Choose_lane_for_entity');
         DecisionQueueController::AddDecision($player, 'CUSTOM', 'PLAY_ENTITY_DEST|' . $mzCard, 1);
         return 'PLAY';
+    } else if($cardType === 'WEAPON') {
+        $targets = ResolveWeaponEquipTargets($player);
+        if(empty($targets)) {
+            return '';
+        }
+        $targetStr = implode('&', $targets);
+        DecisionQueueController::AddDecision($player, 'MZCHOOSE', $targetStr, 1, 'Select_Garden_target_to_equip');
+        DecisionQueueController::AddDecision($player, 'CUSTOM', 'PLAY_WEAPON_TARGET|' . $mzCard, 1);
+        return 'PLAY';
     } else if($cardType === 'SPELL') {
         $stack = &GetEffectStack();
         $beforeCount = count($stack);
-        MZMove($player, $mzCard, 'EffectStack');
+        SafeMZMove($player, $mzCard, 'EffectStack');
         DecisionQueueController::CleanupRemovedCards();
 
         $stack = &GetEffectStack();
@@ -693,11 +859,11 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         if($stackIndex >= $beforeCount) {
             $stackMZ = 'EffectStack-' . $stackIndex;
             OnPlay($player, $stackMZ);
-            MZMove($player, $stackMZ, 'myDiscard');
+            SafeMZMove($player, $stackMZ, 'myDiscard');
         }
     } else {
         // Weapon and unsupported card types: pay cost, then send to discard for now.
-        MZMove($player, $mzCard, 'myDiscard');
+        SafeMZMove($player, $mzCard, 'myDiscard');
     }
 
     DecisionQueueController::CleanupRemovedCards();
@@ -799,7 +965,8 @@ function DoAttack($player, $mzCard, $targetMZ) {
     if(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed) return '';
 
     $attackerObj = &$myGarden[$attackerIndex];
-    $attackerAttack = max(0, intval(CardAttack($attackerObj->CardID ?? '')));
+    $attackerAttack = max(0, intval(CardAttack($attackerObj->CardID ?? ''))) + EquippedWeaponAttackBonus($attackerObj);
+    $attackerIsLeader = (CardType($attackerObj->CardID ?? '') === 'LEADER');
 
     $defenderAttack = 0;
     $defenderHealth = 0;
@@ -840,10 +1007,14 @@ function DoAttack($player, $mzCard, $targetMZ) {
     }
 
     if($defenderAttack > 0) {
-        $myGarden = &GetGarden($player);
-        if(isset($myGarden[$attackerIndex]) && !(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed)) {
-            $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $defenderAttack;
-            QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $defenderAttack, 500, true);
+        if($attackerIsLeader) {
+            DealDamageToLeader($player, $defenderAttack);
+        } else {
+            $myGarden = &GetGarden($player);
+            if(isset($myGarden[$attackerIndex]) && !(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed)) {
+                $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $defenderAttack;
+                QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $defenderAttack, 500, true);
+            }
         }
     }
 
@@ -853,7 +1024,7 @@ function DoAttack($player, $mzCard, $targetMZ) {
         if(isset($theirGarden[$targetIndex]) && !(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed)) {
             $targetDamage = intval($theirGarden[$targetIndex]->Damage ?? 0);
             if($defenderHealth > 0 && $targetDamage >= $defenderHealth) {
-                MZMove($player, 'theirGarden-' . $targetIndex, 'theirDiscard');
+                SafeMZMove($player, 'theirGarden-' . $targetIndex, 'theirDiscard');
             }
         }
     }
@@ -863,7 +1034,7 @@ function DoAttack($player, $mzCard, $targetMZ) {
         $attackerHealth = max(0, intval(CardHealth($myGarden[$attackerIndex]->CardID ?? '')));
         $attackerDamage = intval($myGarden[$attackerIndex]->Damage ?? 0);
         if($attackerHealth > 0 && CardType($myGarden[$attackerIndex]->CardID ?? '') !== 'LEADER' && $attackerDamage >= $attackerHealth) {
-            MZMove($player, 'myGarden-' . $attackerIndex, 'myDiscard');
+            SafeMZMove($player, 'myGarden-' . $attackerIndex, 'myDiscard');
         }
     }
 
@@ -903,12 +1074,12 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
             if(CountActiveEntities($garden, true) >= 5) {
                 $replaceIndex = FindReplaceableIndex($garden);
                 if($replaceIndex >= 0) {
-                    MZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
+                    SafeMZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
                     DecisionQueueController::CleanupRemovedCards();
                 }
             }
 
-            MZMove($player, $entityMZ, 'myGarden');
+            SafeMZMove($player, $entityMZ, 'myGarden');
             DecisionQueueController::CleanupRemovedCards();
 
             $garden = &GetGarden($player);
@@ -1006,6 +1177,10 @@ function OnStartOfTurn($player) {
 }
 
 function OnEndOfTurn($player) {
+    // 0. Weapons are temporary and are discarded from all equipped cards.
+    DiscardAllEquippedWeapons($player);
+    DiscardAllEquippedWeapons($player == 1 ? 2 : 1);
+
     // 1. Reset entity damage
     ResetEntityDamage($player, "myGarden");
     ResetEntityDamage($player, "myAlley");
@@ -1088,6 +1263,20 @@ $customDQHandlers["PLAY_ENTITY_DEST"] = function($player, $params, $lastDecision
         return;
     }
     ResolveEntityPlayFromHand($player, $mzCard, $destination);
+};
+
+$customDQHandlers["PLAY_WEAPON_TARGET"] = function($player, $params, $lastDecision) {
+    $mzCard = isset($params[0]) ? $params[0] : '';
+    if(!is_string($mzCard) || $mzCard === '') return;
+
+    $targetMZ = is_string($lastDecision) ? $lastDecision : '';
+    if($targetMZ === '' || strtoupper($targetMZ) === 'PASS') return;
+
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+    if(($targetObj->Location ?? '') !== 'Garden') return;
+
+    ResolveWeaponPlayFromHand($player, $mzCard, $targetMZ);
 };
 
 // --- Phase Handler Wrappers for TurnController ---
