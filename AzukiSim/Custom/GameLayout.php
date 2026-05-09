@@ -249,6 +249,8 @@
     #theirAlleySlot {
         left: 50%;
         transform: translateX(-50%);
+        min-height: 92px !important;
+        z-index: 35;
     }
 
     #myAlleySlot {
@@ -264,14 +266,16 @@
     #theirGardenSlot {
         left: 50%;
         transform: translateX(-50%);
+        min-height: 76px !important;
+        z-index: 35;
     }
 
     #myGardenSlot {
-        bottom: 284px;
+        bottom: 232px;
     }
 
     #theirGardenSlot {
-        top: 284px;
+        top: 232px;
     }
 
     /* Gate positioning (right side) - top of stack */
