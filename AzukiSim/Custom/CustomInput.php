@@ -116,23 +116,16 @@ function HandleAttackSetup($playerID, $attackerMZ) {
 }
 
 function HandleGateUsage($playerID) {
-    if(!CanUseGate($playerID)) {
+    if(!CanUseGateRuntime($playerID)) {
         SetFlashMessage("Gate cannot be used. (Already used this turn or tapped)");
         return;
     }
 
-    // Get entities in alley that can be portaled
-    $alley = &GetAlley($playerID);
-    $portalCandidates = [];
-
-    for($i = 0; $i < count($alley); ++$i) {
-        if(!$alley[$i]->removed) {
-            $portalCandidates[] = "myAlley-" . $i;
-        }
-    }
+    // Only untapped Alley entities can be portaled.
+    $portalCandidates = GetPortalCandidates($playerID);
 
     if(empty($portalCandidates)) {
-        SetFlashMessage("No entities in Alley to portal.");
+        SetFlashMessage("No untapped entities in Alley to portal.");
         return;
     }
 

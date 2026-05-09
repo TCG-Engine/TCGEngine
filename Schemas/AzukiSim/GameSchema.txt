@@ -14,7 +14,7 @@ Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=OnPlay(mzID); ChoiceFunction=OnPlayCard; Action={}
 Macro: Name=AttackWith(mzID,targetMZ); ChoiceFunction=DoAttack; PrereqFunction=CanAttack; SourceParam=mzID; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
-Macro: Name=UseGate(gateMZ,entityMZ); ChoiceFunction=DoUseGate; PrereqFunction=CanUseGate; SourceParam=gateMZ; Action={}
+Macro: Name=UseGate(gateMZ,entityMZ); ChoiceFunction=DoUseGate; SourceParam=gateMZ; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Action={}

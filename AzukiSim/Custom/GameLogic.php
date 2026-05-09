@@ -225,6 +225,46 @@ function ResolveWeaponPlayFromHand($player, $mzCard, $targetMZ) {
     }
 }
 
+function ResolveWeaponPlayFromDiscard($player, $weaponMZ, $targetMZ) {
+    $sourceObj = &GetZoneObject($weaponMZ);
+    if($sourceObj === null || (isset($sourceObj->removed) && $sourceObj->removed)) return;
+    if(($sourceObj->Location ?? '') !== 'Discard') return;
+
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+    if(($targetObj->Location ?? '') !== 'Garden') return;
+
+    $weaponCardID = $sourceObj->CardID ?? '';
+    if($weaponCardID === '' || CardType($weaponCardID) !== 'WEAPON') return;
+
+    $stack = &GetEffectStack();
+    $beforeCount = count($stack);
+    SafeMZMove($player, $weaponMZ, 'EffectStack');
+    DecisionQueueController::CleanupRemovedCards();
+
+    $stack = &GetEffectStack();
+    $stackIndex = count($stack) - 1;
+    if($stackIndex >= $beforeCount) {
+        $stackMZ = 'EffectStack-' . $stackIndex;
+        OnPlay($player, $stackMZ);
+
+        $stackObj = &GetZoneObject($stackMZ);
+        if($stackObj !== null && !(isset($stackObj->removed) && $stackObj->removed)) {
+            $stackObj->Remove();
+        }
+        DecisionQueueController::CleanupRemovedCards();
+    }
+
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+    AttachWeaponCardIDToTarget($targetObj, $weaponCardID);
+
+    if($weaponCardID === 'S1-STT01-013_Black-Jade-Dagger_W_C_die') {
+        $targetKey = 'P' . intval($player) . '_BlackJadeDaggerTargetMZ';
+        DecisionQueueController::StoreVariable($targetKey, $targetMZ);
+    }
+}
+
 function DiscardAllEquippedWeapons($player) {
     $garden = &GetGarden($player);
     foreach($garden as &$obj) {
@@ -493,7 +533,22 @@ function HealLeader($player, $amount) {
     $leaderHealth = min($maxHealth, intval($leaderHealth) + intval($amount));
 }
 
-function CanUseGate($player, $gateMZ = null, $entityMZ = null) {
+function GetPortalCandidates($player) {
+    $alley = &GetAlley($player);
+    $candidates = [];
+
+    for($i = 0; $i < count($alley); ++$i) {
+        $obj = &$alley[$i];
+        if(isset($obj->removed) && $obj->removed) continue;
+        $status = intval($obj->Status ?? 2);
+        if($status == 1) continue; // must be untapped
+        $candidates[] = 'myAlley-' . $i;
+    }
+
+    return $candidates;
+}
+
+function CanUseGateRuntime($player, $gateMZ = null, $entityMZ = null) {
     $gateZone = &GetGate($player);
     if(empty($gateZone)) return false;
     $gate = &$gateZone[0];
@@ -505,6 +560,14 @@ function CanUseGate($player, $gateMZ = null, $entityMZ = null) {
     if(isset($gate->TurnEffects) && in_array("GATE_USED_THIS_TURN", $gate->TurnEffects)) {
         return false;
     }
+
+    $candidates = GetPortalCandidates($player);
+    if(empty($candidates)) return false;
+
+    if(is_string($entityMZ) && $entityMZ !== '') {
+        return in_array($entityMZ, $candidates);
+    }
+
     return true;
 }
 
@@ -834,13 +897,9 @@ function CardHasAbility($obj) {
         if(CanAttackWith($turnPlayer, $mzID)) return 1;
     }
 
-    // Gate surfaces Activate when it is usable and an alley unit exists to portal.
-    if($location === 'Gate' && $mzIndex >= 0 && CanUseGate($turnPlayer, 'myGate-' . $mzIndex, '')) {
-        $alley = &GetAlley($turnPlayer);
-        for($i = 0; $i < count($alley); ++$i) {
-            if(isset($alley[$i]->removed) && $alley[$i]->removed) continue;
-            return 1;
-        }
+    // Gate surfaces Activate when it is usable and an untapped Alley unit exists to portal.
+    if($location === 'Gate' && $mzIndex >= 0 && CanUseGateRuntime($turnPlayer, 'myGate-' . $mzIndex, '')) {
+        if(!empty(GetPortalCandidates($turnPlayer))) return 1;
     }
 
     return 0;
@@ -1030,6 +1089,53 @@ function OnPlayCard($player, $mzID) {
     return 'ON_PLAY';
 }
 
+function OnUseGateCard($player, $gateMZ) {
+    global $useGateAbilities;
+    if(!isset($useGateAbilities) || !is_array($useGateAbilities)) {
+        return 'USE_GATE';
+    }
+
+    $obj = GetZoneObject($gateMZ);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) {
+        return 'USE_GATE';
+    }
+
+    $cardID = $obj->CardID ?? '';
+    if($cardID === '') {
+        return 'USE_GATE';
+    }
+
+    $normalizedCardID = $cardID;
+    $abilityCount = 0;
+    if(function_exists('CardUseGateCount')) {
+        $abilityCount = max(
+            intval(CardUseGateCount($cardID)),
+            intval(CardUseGateCount($normalizedCardID))
+        );
+    }
+
+    if($abilityCount <= 0) {
+        if(isset($useGateAbilities[$cardID . ':0'])) {
+            $useGateAbilities[$cardID . ':0']($player);
+        } else if(isset($useGateAbilities[$normalizedCardID . ':0'])) {
+            $useGateAbilities[$normalizedCardID . ':0']($player);
+        }
+        return 'USE_GATE';
+    }
+
+    for($i = 0; $i < $abilityCount; ++$i) {
+        $fullKey = $cardID . ':' . $i;
+        $normalizedKey = $normalizedCardID . ':' . $i;
+        if(isset($useGateAbilities[$fullKey])) {
+            $useGateAbilities[$fullKey]($player);
+        } else if(isset($useGateAbilities[$normalizedKey])) {
+            $useGateAbilities[$normalizedKey]($player);
+        }
+    }
+
+    return 'USE_GATE';
+}
+
 function DoAttack($player, $mzCard, $targetMZ) {
     if(!CanAttack($player, $mzCard, $targetMZ)) return '';
 
@@ -1131,7 +1237,7 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
         return '';
     }
 
-    if(!CanUseGate($player)) {
+    if(!CanUseGateRuntime($player, $gateMZ, $entityMZ)) {
         return '';
     }
 
@@ -1146,9 +1252,10 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
         $gateObj->TurnEffects[] = 'GATE_USED_THIS_TURN';
     }
 
+    $portalSucceeded = false;
     if(is_string($entityMZ) && $entityMZ !== '') {
         $entityObj = &GetZoneObject($entityMZ);
-        if($entityObj !== null && !(isset($entityObj->removed) && $entityObj->removed) && isset($entityObj->Location) && $entityObj->Location === 'Alley') {
+        if($entityObj !== null && !(isset($entityObj->removed) && $entityObj->removed) && isset($entityObj->Location) && $entityObj->Location === 'Alley' && intval($entityObj->Status ?? 2) !== 1) {
             $garden = &GetGarden($player);
             if(CountActiveEntities($garden, true) >= 5) {
                 $replaceIndex = FindReplaceableIndex($garden);
@@ -1175,7 +1282,13 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
                     }
                 }
             }
+
+            $portalSucceeded = true;
         }
+    }
+
+    if($portalSucceeded) {
+        OnUseGateCard($player, $gateMZ);
     }
 
     return 'GATE';
