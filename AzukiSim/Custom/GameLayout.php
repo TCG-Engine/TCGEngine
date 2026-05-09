@@ -176,11 +176,11 @@
     }
 
     #myGardenSlot {
-        bottom: calc(20px + 180px + 12px);
+        bottom: 212px;
     }
 
     #theirGardenSlot {
-        top: calc(20px + 180px + 12px);
+        top: 212px;
     }
 
     /* Alley (Back Row) positioning */
@@ -191,11 +191,11 @@
     }
 
     #myAlleySlot {
-        bottom: calc(20px + 180px + 12px + 148px + 12px);
+        bottom: 404px;
     }
 
     #theirAlleySlot {
-        top: calc(20px + 180px + 12px + 148px + 12px);
+        top: 404px;
     }
 
     /* Gate positioning (left side) */

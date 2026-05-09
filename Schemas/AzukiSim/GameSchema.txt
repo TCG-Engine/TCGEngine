@@ -49,6 +49,7 @@ Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
+Highlight: FieldSelectionMetadata
 Display: Visibility=Public, Mode=All, BindTo=GardenSlot
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
@@ -67,6 +68,7 @@ Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
+Highlight: FieldSelectionMetadata
 Display: Visibility=Public, Mode=All, BindTo=AlleySlot
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
@@ -75,6 +77,7 @@ Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowZero=false)
 Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+AfterAdd: AlleyAfterAdd
 Click: FSM()
 Gate - CardID:string, Status:number=2, Owner:number, Controller:number, TurnEffects:array[string], Counters:json
 Virtual: CurrentEffects=CardCurrentEffects()
@@ -86,6 +89,7 @@ Overlay: Status=1:exhausted
 Rotation: Status=1:9
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+AfterAdd: GateAfterAdd
 Click: FSM()
 LeaderHealth - Value:number=0
 Display: Visibility=Public, Mode=Value, BindTo=LeaderHealthSlot

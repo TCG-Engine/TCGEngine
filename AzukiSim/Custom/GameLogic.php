@@ -5,9 +5,40 @@ $customDQHandlers = [];
 
 // --- Helper Functions ---
 
+function NormalizeFieldOwnership($obj, $player) {
+    if(!is_object($obj)) return;
+
+    if(!isset($obj->Owner) || intval($obj->Owner) <= 0) {
+        $obj->Owner = intval($player);
+    }
+
+    if(!isset($obj->Controller) || intval($obj->Controller) <= 0) {
+        $obj->Controller = intval($player);
+    }
+}
+
 function GardenAfterAdd($player, $CardID, $Status, $Owner, $Damage, $Controller, $TurnEffects, $Counters, $Subcards) {
-    // Generated ZoneAccessors invokes this hook after adding to Garden.
-    // Keep as a no-op hook until Azuki-specific on-enter/garden bookkeeping is needed.
+    $garden = &GetGarden($player);
+    if(empty($garden)) return;
+    $idx = count($garden) - 1;
+    if($idx < 0 || !isset($garden[$idx])) return;
+    NormalizeFieldOwnership($garden[$idx], $player);
+}
+
+function AlleyAfterAdd($player, $CardID, $Status, $Owner, $Damage, $Controller, $TurnEffects, $Counters, $Subcards) {
+    $alley = &GetAlley($player);
+    if(empty($alley)) return;
+    $idx = count($alley) - 1;
+    if($idx < 0 || !isset($alley[$idx])) return;
+    NormalizeFieldOwnership($alley[$idx], $player);
+}
+
+function GateAfterAdd($player, $CardID, $Status, $Owner, $Controller, $TurnEffects, $Counters) {
+    $gate = &GetGate($player);
+    if(empty($gate)) return;
+    $idx = count($gate) - 1;
+    if($idx < 0 || !isset($gate[$idx])) return;
+    NormalizeFieldOwnership($gate[$idx], $player);
 }
 
 function GetAzukiCardMap() {
@@ -96,6 +127,18 @@ function CardHasKeyword($cardID, $keyword) {
     return false;
 }
 
+function CountActiveEntities($zone, $ignoreLeaders = true) {
+    if(!is_array($zone)) return 0;
+    $count = 0;
+    for($i = 0; $i < count($zone); ++$i) {
+        if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+        $cardID = $zone[$i]->CardID ?? '';
+        if($ignoreLeaders && CardType($cardID) === 'LEADER') continue;
+        ++$count;
+    }
+    return $count;
+}
+
 function CanPayIKZCost($player, $cost) {
     $cost = max(0, intval($cost));
     $ikz = intval(GetIKZ($player));
@@ -126,11 +169,13 @@ function FindReplaceableIndex($zone) {
     if(!is_array($zone)) return -1;
     for($i = 0; $i < count($zone); ++$i) {
         if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+        if(CardType($zone[$i]->CardID ?? '') === 'LEADER') continue;
         // Prefer replacing non-Godmode entities, but allow Godmode as a fallback.
         if(!CardHasKeyword($zone[$i]->CardID ?? '', 'Godmode')) return $i;
     }
     for($i = 0; $i < count($zone); ++$i) {
         if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+        if(CardType($zone[$i]->CardID ?? '') === 'LEADER') continue;
         return $i;
     }
     return -1;
@@ -139,8 +184,8 @@ function FindReplaceableIndex($zone) {
 function ChooseEntityPlayZone($player) {
     $garden = &GetGarden($player);
     $alley = &GetAlley($player);
-    $gardenCount = count($garden);
-    $alleyCount = count($alley);
+    $gardenCount = CountActiveEntities($garden, true);
+    $alleyCount = CountActiveEntities($alley, true);
 
     // Default to Garden when both rows are available.
     if($gardenCount < 5) return 'myGarden';
@@ -163,7 +208,7 @@ function HealLeader($player, $amount) {
     $leaderHealth = min($maxHealth, intval($leaderHealth) + intval($amount));
 }
 
-function CanUseGate($player) {
+function CanUseGate($player, $gateMZ = null, $entityMZ = null) {
     $gateZone = &GetGate($player);
     if(empty($gateZone)) return false;
     $gate = &$gateZone[0];
@@ -231,6 +276,9 @@ function CanAttackWith($player, $mzID) {
 
     $entity = &$garden[$index];
 
+    // Leaders do not attack unless weapon logic is implemented.
+    if(CardType($entity->CardID ?? '') === 'LEADER') return false;
+
     // Cannot attack if tapped or has cooldown
     if($entity->Status == 1) return false; // Tapped
     if(HasCooldown($entity)) return false;
@@ -270,6 +318,27 @@ function GainIKZ($player, $amount) {
     $ikz = min(10, $ikz + $amount); // IKZ capped at 10
 }
 
+function ResolveObjectOwner($obj) {
+    if(!is_object($obj)) return null;
+
+    if(isset($obj->Controller)) {
+        $controller = intval($obj->Controller);
+        if($controller > 0) return $controller;
+    }
+
+    if(isset($obj->PlayerID)) {
+        $playerID = intval($obj->PlayerID);
+        if($playerID > 0) return $playerID;
+    }
+
+    if(isset($obj->Owner)) {
+        $owner = intval($obj->Owner);
+        if($owner > 0) return $owner;
+    }
+
+    return null;
+}
+
 function SelectionMetadata($obj) {
     $currentPhase = GetCurrentPhase();
     $turnPlayer = &GetTurnPlayer();
@@ -287,7 +356,7 @@ function SelectionMetadata($obj) {
     }
 
     // Hand/temp-zone highlights are only for the active player's own cards.
-    $owner = isset($obj->Controller) ? intval($obj->Controller) : (isset($obj->PlayerID) ? intval($obj->PlayerID) : null);
+    $owner = ResolveObjectOwner($obj);
     if($owner === null || $owner !== intval($turnPlayer)) {
         return json_encode(['highlight' => false]);
     }
@@ -375,7 +444,7 @@ function FieldSelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
 
-    $owner = isset($obj->Controller) ? intval($obj->Controller) : (isset($obj->PlayerID) ? intval($obj->PlayerID) : null);
+    $owner = ResolveObjectOwner($obj);
     if($owner === null || $owner !== intval($turnPlayer)) {
         return json_encode(['highlight' => false]);
     }
@@ -397,11 +466,68 @@ function CardDisplayEffects($obj) {
 }
 
 function CardHasAbility($obj) {
+    if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return 0;
+
+    if(GetCurrentPhase() !== 'MAIN') return 0;
+
+    $turnPlayer = &GetTurnPlayer();
+    $owner = ResolveObjectOwner($obj);
+    if($owner === null || intval($owner) !== intval($turnPlayer)) return 0;
+
+    $myQueue = &GetDecisionQueue($turnPlayer);
+    $theirQueue = &GetDecisionQueue($turnPlayer == 1 ? 2 : 1);
+    if(count($myQueue) > 0 || count($theirQueue) > 0) return 0;
+
+    $location = isset($obj->Location) ? $obj->Location : '';
+    $mzIndex = intval($obj->mzIndex ?? -1);
+
+    // Garden cards surface Activate when they can currently declare an attack.
+    if($location === 'Garden' && $mzIndex >= 0) {
+        $mzID = 'myGarden-' . $mzIndex;
+        if(CanAttackWith($turnPlayer, $mzID)) return 1;
+    }
+
+    // Gate surfaces Activate when it is usable and an alley unit exists to portal.
+    if($location === 'Gate' && $mzIndex >= 0 && CanUseGate($turnPlayer, 'myGate-' . $mzIndex, '')) {
+        $alley = &GetAlley($turnPlayer);
+        for($i = 0; $i < count($alley); ++$i) {
+            if(isset($alley[$i]->removed) && $alley[$i]->removed) continue;
+            return 1;
+        }
+    }
+
     return 0;
 }
 
+function IsAttackTargetLegal($player, $targetMZ) {
+    if(!is_string($targetMZ) || $targetMZ === '') return false;
+
+    $opponent = ($player == 1) ? 2 : 1;
+    $parts = explode('-', $targetMZ);
+    $zone = $parts[0] ?? '';
+    $index = intval($parts[1] ?? -1);
+
+    if($zone !== 'theirGarden') return false;
+
+    $garden = &GetGarden($opponent);
+    if($index < 0 || $index >= count($garden)) return false;
+    if(isset($garden[$index]->removed) && $garden[$index]->removed) return false;
+
+    $cardID = $garden[$index]->CardID ?? '';
+    if(CardType($cardID) === 'LEADER') {
+        // Leader is always targetable while alive
+        return intval(GetLeaderHealth($opponent)) > 0;
+    }
+
+    // Garden entities are attackable only while tapped.
+    return intval($garden[$index]->Status ?? 2) == 1;
+}
+
 function CanAttack($player, $mzID, $targetMZ) {
-    return false;
+    if(intval(GetTurnPlayer()) !== intval($player)) return false;
+    if(GetCurrentPhase() !== 'MAIN') return false;
+    if(!CanAttackWith($player, $mzID)) return false;
+    return IsAttackTargetLegal($player, $targetMZ);
 }
 
 function DoPlayCard($player, $mzCard, $ignoreCost = false) {
@@ -437,7 +563,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
 
         if($destination === 'myGarden') {
             $garden = &GetGarden($player);
-            if(count($garden) >= 5) {
+            if(CountActiveEntities($garden, true) >= 5) {
                 $replaceIndex = FindReplaceableIndex($garden);
                 if($replaceIndex >= 0) {
                     MZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
@@ -446,7 +572,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
             }
         } else {
             $alley = &GetAlley($player);
-            if(count($alley) >= 5) {
+            if(CountActiveEntities($alley, true) >= 5) {
                 $replaceIndex = FindReplaceableIndex($alley);
                 if($replaceIndex >= 0) {
                     MZMove($player, 'myAlley-' . $replaceIndex, 'myDiscard');
@@ -464,6 +590,8 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
             $newMZ = $destination . '-' . $placedIndex;
             $newObj = &GetZoneObject($newMZ);
             if($newObj !== null && !(isset($newObj->removed) && $newObj->removed)) {
+                NormalizeFieldOwnership($newObj, $player);
+
                 if($destination === 'myGarden') {
                     if(!isset($newObj->TurnEffects) || !is_array($newObj->TurnEffects)) {
                         $newObj->TurnEffects = [];
@@ -581,7 +709,87 @@ function OnPlayCard($player, $mzID) {
 }
 
 function DoAttack($player, $mzCard, $targetMZ) {
-    return '';
+    if(!CanAttack($player, $mzCard, $targetMZ)) return '';
+
+    $opponent = ($player == 1) ? 2 : 1;
+    $attackerParts = explode('-', $mzCard);
+    $attackerZone = $attackerParts[0] ?? '';
+    $attackerIndex = intval($attackerParts[1] ?? -1);
+
+    if($attackerZone !== 'myGarden') return '';
+    $myGarden = &GetGarden($player);
+    if($attackerIndex < 0 || $attackerIndex >= count($myGarden)) return '';
+    if(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed) return '';
+
+    $attackerObj = &$myGarden[$attackerIndex];
+    $attackerAttack = max(0, intval(CardAttack($attackerObj->CardID ?? '')));
+
+    $defenderAttack = 0;
+    $defenderHealth = 0;
+    $targetIsLeader = false;
+    $targetParts = explode('-', $targetMZ);
+    $targetZone = $targetParts[0] ?? '';
+    $targetIndex = intval($targetParts[1] ?? -1);
+
+    if($targetZone !== 'theirGarden') return '';
+    $theirGarden = &GetGarden($opponent);
+    if($targetIndex < 0 || $targetIndex >= count($theirGarden)) return '';
+    if(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed) return '';
+    $targetCardID = $theirGarden[$targetIndex]->CardID ?? '';
+
+    if(CardType($targetCardID) === 'LEADER') {
+        $targetIsLeader = true;
+        $defenderAttack = max(0, LeaderAttack($opponent));
+        $defenderHealth = max(0, intval(GetLeaderHealth($opponent)));
+    } else {
+        $targetObj = &$theirGarden[$targetIndex];
+        $defenderAttack = max(0, intval(CardAttack($targetObj->CardID ?? '')));
+        $defenderHealth = max(0, intval(CardHealth($targetObj->CardID ?? '')));
+    }
+
+    ExhaustEntity($player, $mzCard);
+
+    // Simultaneous combat damage
+    if($attackerAttack > 0) {
+        if($targetIsLeader) {
+            DealDamageToLeader($opponent, $attackerAttack);
+        } else {
+            $theirGarden = &GetGarden($opponent);
+            if(isset($theirGarden[$targetIndex]) && !(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed)) {
+                $theirGarden[$targetIndex]->Damage = intval($theirGarden[$targetIndex]->Damage ?? 0) + $attackerAttack;
+            }
+        }
+    }
+
+    if($defenderAttack > 0) {
+        $myGarden = &GetGarden($player);
+        if(isset($myGarden[$attackerIndex]) && !(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed)) {
+            $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $defenderAttack;
+        }
+    }
+
+    // Destroy non-leader entities that reached 0 health after simultaneous damage.
+    if(!$targetIsLeader) {
+        $theirGarden = &GetGarden($opponent);
+        if(isset($theirGarden[$targetIndex]) && !(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed)) {
+            $targetDamage = intval($theirGarden[$targetIndex]->Damage ?? 0);
+            if($defenderHealth > 0 && $targetDamage >= $defenderHealth) {
+                MZMove($player, 'theirGarden-' . $targetIndex, 'theirDiscard');
+            }
+        }
+    }
+
+    $myGarden = &GetGarden($player);
+    if(isset($myGarden[$attackerIndex]) && !(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed)) {
+        $attackerHealth = max(0, intval(CardHealth($myGarden[$attackerIndex]->CardID ?? '')));
+        $attackerDamage = intval($myGarden[$attackerIndex]->Damage ?? 0);
+        if($attackerHealth > 0 && CardType($myGarden[$attackerIndex]->CardID ?? '') !== 'LEADER' && $attackerDamage >= $attackerHealth) {
+            MZMove($player, 'myGarden-' . $attackerIndex, 'myDiscard');
+        }
+    }
+
+    DecisionQueueController::CleanupRemovedCards();
+    return 'ATTACK';
 }
 
 function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
@@ -611,9 +819,32 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
 
     if(is_string($entityMZ) && $entityMZ !== '') {
         $entityObj = &GetZoneObject($entityMZ);
-        if($entityObj !== null && !(isset($entityObj->removed) && $entityObj->removed)) {
-            if(isset($entityObj->Location) && $entityObj->Location === 'Alley') {
-                MZMove($player, $entityMZ, 'myGarden');
+        if($entityObj !== null && !(isset($entityObj->removed) && $entityObj->removed) && isset($entityObj->Location) && $entityObj->Location === 'Alley') {
+            $garden = &GetGarden($player);
+            if(CountActiveEntities($garden, true) >= 5) {
+                $replaceIndex = FindReplaceableIndex($garden);
+                if($replaceIndex >= 0) {
+                    MZMove($player, 'myGarden-' . $replaceIndex, 'myDiscard');
+                    DecisionQueueController::CleanupRemovedCards();
+                }
+            }
+
+            MZMove($player, $entityMZ, 'myGarden');
+            DecisionQueueController::CleanupRemovedCards();
+
+            $garden = &GetGarden($player);
+            $addedIndex = count($garden) - 1;
+            if($addedIndex >= 0) {
+                $addedObj = &$garden[$addedIndex];
+                if($addedObj !== null && !(isset($addedObj->removed) && $addedObj->removed)) {
+                    NormalizeFieldOwnership($addedObj, $player);
+                    if(!isset($addedObj->TurnEffects) || !is_array($addedObj->TurnEffects)) {
+                        $addedObj->TurnEffects = [];
+                    }
+                    if(!in_array('COOLDOWN', $addedObj->TurnEffects)) {
+                        $addedObj->TurnEffects[] = 'COOLDOWN';
+                    }
+                }
             }
         }
     }
@@ -648,6 +879,22 @@ function ActionMap($actionCard) {
         if(function_exists('PlayCard')) {
             PlayCard($playerID, $actionCard);
             return 'PLAY';
+        }
+    }
+
+    // Fallback: allow direct card click on Garden cards to initiate attack setup.
+    if($cardZone === 'myGarden' && $currentPhase === 'MAIN' && intval($playerID) === intval($turnPlayer)) {
+        if(function_exists('HandleAttackSetup')) {
+            HandleAttackSetup($playerID, $actionCard);
+            return 'ATTACK_SETUP';
+        }
+    }
+
+    // Fallback: allow direct gate click to start portal flow.
+    if($cardZone === 'myGate' && $currentPhase === 'MAIN' && intval($playerID) === intval($turnPlayer)) {
+        if(function_exists('HandleGateUsage')) {
+            HandleGateUsage($playerID);
+            return 'GATE_SETUP';
         }
     }
 
@@ -732,9 +979,17 @@ $customDQHandlers["DRAW"] = function($player, $params, $lastDecision) {
 };
 
 $customDQHandlers["PORTAL_FROM_ALLEY"] = function($player, $params, $lastDecision) {
-    // Move entity from Alley to Garden via Gate
-    $entityMZ = isset($params[0]) ? $params[0] : "";
-    UseGate($player, $entityMZ);
+    $gateMZ = isset($params[0]) && $params[0] !== '' ? $params[0] : 'myGate-0';
+    $entityMZ = isset($params[1]) && $params[1] !== '' ? $params[1] : $lastDecision;
+    if(!is_string($entityMZ) || $entityMZ === '' || strtoupper($entityMZ) === 'PASS') return;
+    UseGate($player, $gateMZ, $entityMZ);
+};
+
+$customDQHandlers["RESOLVE_ATTACK"] = function($player, $params, $lastDecision) {
+    $attackerMZ = isset($params[0]) ? $params[0] : '';
+    $chosenTarget = is_string($lastDecision) ? $lastDecision : '';
+    if($attackerMZ === '' || $chosenTarget === '' || strtoupper($chosenTarget) === 'PASS') return;
+    AttackWith($player, $attackerMZ, $chosenTarget);
 };
 
 // --- Phase Handler Wrappers for TurnController ---

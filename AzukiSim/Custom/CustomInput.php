@@ -20,20 +20,21 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         case "myAlley":
         case "myLeader":
             // Entity/Leader ability activation
-            if (strpos($action, ':') !== false) {
+            if (stripos($action, "Activate") === 0 && strpos($action, ':') !== false) {
                 $actionParts = explode(':', $action);
                 $abilityIndex = intval($actionParts[1] ?? 0);
                 SaveUndoVersion($playerID);
                 ActivateAbility($playerID, $actionCard, $abilityIndex);
-            } else if ($action === "Attack") {
-                // Attack action — will prompt for target
+            } else if ($action === "Attack" || $action === "Activate") {
+                // Default field activation path: attack setup in Garden.
                 HandleAttackSetup($playerID, $actionCard);
             }
             break;
 
+        case "myGate":
         case "myGateSlot":
             // Gate activation — portal from Alley to Garden
-            if ($action === "UseGate") {
+            if ($action === "UseGate" || $action === "Activate") {
                 HandleGateUsage($playerID);
             }
             break;
@@ -78,9 +79,17 @@ function HandleAttackSetup($playerID, $attackerMZ) {
     $opponent = ($playerID === 1) ? 2 : 1;
     $targets = [];
 
+    $attackerParts = explode('-', $attackerMZ);
+    $attackerZone = $attackerParts[0] ?? '';
+    if($attackerZone !== 'myGarden') {
+        SetFlashMessage("Only Garden units can attack.");
+        return;
+    }
+
     // Add opponent's leader as target if still alive.
-    if(intval(GetLeaderHealth($opponent)) > 0) {
-        $targets[] = "theirLeader-0";
+    $leaderIdx = FindLeaderIndexInGarden($opponent);
+    if($leaderIdx >= 0 && intval(GetLeaderHealth($opponent)) > 0) {
+        $targets[] = "theirGarden-" . $leaderIdx;
     }
 
     // Add tapped entities from opponent's garden
@@ -94,7 +103,9 @@ function HandleAttackSetup($playerID, $attackerMZ) {
 
     if(empty($targets)) {
         // No valid targets — auto-attack leader
-        ExecuteAttack($playerID, $attackerMZ, "theirLeader-0");
+        $leaderIdx2 = FindLeaderIndexInGarden($opponent);
+        $fallbackTarget = ($leaderIdx2 >= 0) ? "theirGarden-" . $leaderIdx2 : "";
+        if($fallbackTarget !== "") AttackWith($playerID, $attackerMZ, $fallbackTarget);
         return;
     }
 
@@ -102,72 +113,6 @@ function HandleAttackSetup($playerID, $attackerMZ) {
     $targetStr = implode("&", $targets);
     DecisionQueueController::AddDecision($playerID, "MZCHOOSE", $targetStr, 1, "Select_attack_target");
     DecisionQueueController::AddDecision($playerID, "CUSTOM", "RESOLVE_ATTACK|" . $attackerMZ, 1);
-}
-
-function ExecuteAttack($player, $attackerMZ, $targetMZ) {
-    $attackerParts = explode("-", $attackerMZ);
-    $attackerZone = $attackerParts[0];
-    $attackerIndex = intval($attackerParts[1] ?? -1);
-
-    $targetParts = explode("-", $targetMZ);
-    $targetZone = $targetParts[0];
-    $targetIndex = intval($targetParts[1] ?? -1);
-
-    // Get attacker stats
-    if($attackerZone === "myGarden") {
-        $field = &GetGarden($player);
-    } else if($attackerZone === "myLeader") {
-        // Leader objects live in Garden for AzukiSim.
-        $field = &GetGarden($player);
-    } else {
-        return;
-    }
-
-    if($attackerIndex < 0 || $attackerIndex >= count($field) || $field[$attackerIndex]->removed) return;
-    $attacker = &$field[$attackerIndex];
-    $attackerAttack = intval(CardAttack($attacker->CardID) ?? 0);
-
-    // Get target stats
-    $opponent = ($player === 1) ? 2 : 1;
-    if($targetZone === "theirGarden") {
-        $targetField = &GetGarden($opponent);
-    } else {
-        $targetField = null;
-    }
-
-    if($targetZone === "theirLeader") {
-        $target = null;
-        $targetHealth = intval(GetLeaderHealth($opponent));
-        $targetAttack = LeaderAttack($opponent);
-    } else {
-        if(!is_array($targetField) || $targetIndex < 0 || $targetIndex >= count($targetField) || $targetField[$targetIndex]->removed) return;
-        $target = &$targetField[$targetIndex];
-        $targetHealth = intval(CardHealth($target->CardID) ?? 0);
-        $targetAttack = intval(CardAttack($target->CardID) ?? 0);
-    }
-
-    // Exhaust attacker
-    ExhaustEntity($player, $attackerMZ);
-
-    // Resolve damage simultaneously
-    if($attackerAttack > 0 && $targetZone !== "theirLeader") {
-        $target->Damage = ($target->Damage ?? 0) + $attackerAttack;
-    } else if($attackerAttack > 0 && $targetZone === "theirLeader") {
-        DealDamageToLeader($opponent, $attackerAttack);
-    }
-
-    if($targetAttack > 0) {
-        // Entities take combat damage that resets at end of turn.
-        $attacker->Damage = ($attacker->Damage ?? 0) + $targetAttack;
-    }
-
-    // Check if target (entity) is destroyed
-    if($targetZone !== "theirLeader" && $target->Damage >= $targetHealth) {
-        // Send destroyed entity to opponent's discard
-        $target->removed = true;
-        $discardZone = &GetDiscard($opponent);
-        array_push($discardZone, $target);
-    }
 }
 
 function HandleGateUsage($playerID) {
@@ -191,57 +136,18 @@ function HandleGateUsage($playerID) {
         return;
     }
 
+    $gateMZ = "myGate-0";
+
     if(count($portalCandidates) === 1) {
         // Auto-select if only one option
-        ExecuteGatePortal($playerID, $portalCandidates[0]);
+        UseGate($playerID, $gateMZ, $portalCandidates[0]);
         return;
     }
 
     // Queue entity selection
     $entityStr = implode("&", $portalCandidates);
     DecisionQueueController::AddDecision($playerID, "MZCHOOSE", $entityStr, 1, "Select_entity_to_portal");
-    DecisionQueueController::AddDecision($playerID, "CUSTOM", "PORTAL_FROM_ALLEY", 1);
-}
-
-function ExecuteGatePortal($player, $entityMZ) {
-    $alley = &GetAlley($player);
-    $garden = &GetGarden($player);
-    $gate = &GetGate($player);
-    $entityParts = explode("-", $entityMZ);
-    $entityIndex = intval($entityParts[1] ?? -1);
-
-    if($entityIndex < 0 || $entityIndex >= count($alley) || $alley[$entityIndex]->removed) return;
-
-    $entity = &$alley[$entityIndex];
-
-    // Check if Garden is full (max 5 entities)
-    if(count($garden) >= 5) {
-        // Garden is full — must replace an entity
-        SetFlashMessage("Garden is full. Must select an entity to replace.");
-        // Queue replacement selection here
-        return;
-    }
-
-    // Move from Alley to Garden
-    $entity->removed = true;
-    $newEntity = clone $entity;
-    $newEntity->removed = false;
-    array_push($garden, $newEntity);
-
-    // Add Cooldown effect to the portaled entity
-    if(!isset($newEntity->TurnEffects)) $newEntity->TurnEffects = [];
-    if(!in_array("COOLDOWN", $newEntity->TurnEffects)) {
-        $newEntity->TurnEffects[] = "COOLDOWN";
-    }
-
-    // Mark Gate as tapped and used this turn
-    if(!empty($gate)) {
-        $gate[0]->Status = 1;
-        if(!isset($gate[0]->TurnEffects)) $gate[0]->TurnEffects = [];
-        if(!in_array("GATE_USED_THIS_TURN", $gate[0]->TurnEffects)) {
-            $gate[0]->TurnEffects[] = "GATE_USED_THIS_TURN";
-        }
-    }
+    DecisionQueueController::AddDecision($playerID, "CUSTOM", "PORTAL_FROM_ALLEY|" . $gateMZ, 1);
 }
 
 ?>
