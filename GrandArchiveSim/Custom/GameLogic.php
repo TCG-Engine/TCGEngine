@@ -2402,6 +2402,15 @@ $customDQHandlers["RendingFlamesProcess"] = function($player, $parts, $lastDecis
     ++$count;
     DecisionQueueController::StoreVariable("RendingFlamesCount", strval($count));
     if($count >= 3) {
+        $intentCards = GetIntentCards($player);
+        foreach($intentCards as $intentMZ) {
+            $intentObj = GetZoneObject($intentMZ);
+            if($intentObj !== null && !$intentObj->removed && $intentObj->CardID === "soO3hjaVfN") {
+                AddTurnEffect($intentMZ, "soO3hjaVfN_DOUBLE");
+                return;
+            }
+        }
+        // Fallback for unexpected states where the intent card is missing.
         AddTurnEffect($source, "soO3hjaVfN_DOUBLE");
         return;
     }
