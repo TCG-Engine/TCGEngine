@@ -452,8 +452,16 @@
           } else if(mode == 'Value') {
             var id = zone + "-0";
             var buttons = createWidgetButtons(zoneName, id);
+            var zoneMetadata = GetZoneData(zoneName);
+            var valueDisplayParam = (zoneMetadata && zoneMetadata.DisplayParameters && zoneMetadata.DisplayParameters.length > 0)
+              ? String(zoneMetadata.DisplayParameters[0])
+              : "";
+            var valueOnlyDisplay = valueDisplayParam.toLowerCase() === 'valueonly' || valueDisplayParam.toLowerCase() === 'nolabel';
             if(zone == 'myHealth' || zone == 'theirHealth') {
               // Keep the zone widget (pass) without rendering "Health: X" text.
+              newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;'>" + buttons.middleButtons + "</div>";
+            } else if(valueOnlyDisplay) {
+              newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneData + "</span>";
               newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;'>" + buttons.middleButtons + "</div>";
             } else {
               newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneName + ": " + zoneData + "</span>";

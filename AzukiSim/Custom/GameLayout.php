@@ -3,6 +3,13 @@
 // Included from InitialLayout.php after the main split-screen structure.
 ?>
 <style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+
     :root {
         --azuki-navy: #1a1f3a;
         --azuki-gold: #d4af37;
@@ -79,8 +86,9 @@
     }
 
     .azuki-pile {
-        width: 88px;
+        width: 104px;
         min-height: 92px;
+        overflow-x: hidden;
     }
 
     .azuki-stat {
@@ -112,10 +120,12 @@
             linear-gradient(135deg, rgba(212, 175, 55, 0.08), rgba(255, 255, 255, 0.02)),
             linear-gradient(160deg, rgba(26, 31, 58, 0.88), rgba(26, 31, 58, 0.80));
         box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
-        width: 72px;
-        min-height: 72px;
-        padding: 12px;
+        width: 104px;
+        min-height: 56px;
+        padding: 6px 8px;
+        box-sizing: border-box;
         text-align: center;
+        overflow: hidden;
     }
 
     #myIKZSlot::before,
@@ -126,13 +136,35 @@
         font: 700 10px/1 var(--azuki-font-label);
         text-transform: uppercase;
         letter-spacing: 0.16em;
-        margin-bottom: 8px;
+        margin-bottom: 3px;
     }
-
     #myIKZSlot #myIKZ,
     #theirIKZSlot #theirIKZ {
         font: 700 28px/1 var(--azuki-font-ui);
         color: rgba(32, 180, 168, 0.92);
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        min-height: 28px;
+    }
+
+    #myIKZWrapper,
+    #theirIKZWrapper {
+        overflow: hidden !important;
+        display: flex;
+        justify-content: center;
+    }
+
+    #myIKZ > span,
+    #theirIKZ > span {
+        margin: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    #myIKZ > div,
+    #theirIKZ > div {
+        display: none !important;
     }
 
     /* Leader slot positioning */
@@ -166,10 +198,10 @@
         top: calc(20px + 180px + 12px + 148px + 12px);
     }
 
-    /* Gate positioning (side near leader health) */
+    /* Gate positioning (left side) */
     #myGateSlot,
     #theirGateSlot {
-        right: 24px;
+        left: 24px;
         width: 100px;
         min-height: 140px;
     }
@@ -187,15 +219,15 @@
     #theirLeaderHealthSlot {
         width: 120px;
         min-height: 76px;
-        right: 24px;
+        right: 132px;
     }
 
     #myLeaderHealthSlot {
-        bottom: calc(20px + 72px + 12px);
+        bottom: calc(50% - 120px);
     }
 
     #theirLeaderHealthSlot {
-        top: calc(20px + 72px + 12px);
+        top: calc(50% - 120px);
     }
 
     #myIKZSlot,
@@ -204,17 +236,17 @@
     }
 
     #myIKZSlot {
-        bottom: calc(20px + 72px + 12px + 76px + 12px);
+        bottom: calc(20px + 92px + 12px + 92px + 12px);
     }
 
     #theirIKZSlot {
-        top: calc(20px + 72px + 12px + 76px + 12px);
+        top: calc(20px + 92px + 12px + 92px + 12px);
     }
 
-    /* Discard pile (bottom-left) */
+    /* Discard pile (bottom-right / top-right) */
     #myDiscardSlot,
     #theirDiscardSlot {
-        left: 24px;
+        right: 24px;
     }
 
     #myDiscardSlot {
@@ -225,19 +257,19 @@
         top: 20px;
     }
 
-    /* Deck and other zones (bottom-right/top-right) */
+    /* Deck directly above/below discard */
     #myDeckSlot,
     #theirDeckSlot {
         right: 24px;
-        width: 88px;
+        width: 104px;
     }
 
     #myDeckSlot {
-        bottom: calc(20px + 72px + 12px + 76px + 12px + 72px + 12px);
+        bottom: calc(20px + 92px + 12px);
     }
 
     #theirDeckSlot {
-        top: calc(20px + 72px + 12px + 76px + 12px + 72px + 12px);
+        top: calc(20px + 92px + 12px);
     }
 
     /* TempZone hidden */
@@ -282,6 +314,8 @@
     #theirGarden > span:not([id]),
     #myAlley > span:not([id]),
     #theirAlley > span:not([id]),
+    #myIKZ > span:not([id]),
+    #theirIKZ > span:not([id]),
     #myDiscard > span:not([id]),
     #theirDiscard > span:not([id]),
     #myDeck > span:not([id]),
@@ -302,7 +336,7 @@
 </div>
 
 <div id="myGateSlot" class="azuki-zone" data-label="Gate"
-    style="right:24px; bottom:20px; width:100px; min-height:140px;">
+    style="left:24px; bottom:20px; width:100px; min-height:140px;">
 </div>
 
 <div id="myLeaderHealthSlot" class="azuki-zone azuki-stat" data-label="Health">
@@ -329,7 +363,7 @@
 </div>
 
 <div id="theirGateSlot" class="azuki-zone" data-label="Gate"
-    style="right:24px; top:20px; width:100px; min-height:140px;">
+    style="left:24px; top:20px; width:100px; min-height:140px;">
 </div>
 
 <div id="theirLeaderHealthSlot" class="azuki-zone azuki-stat" data-label="Health">
