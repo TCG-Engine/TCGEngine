@@ -50,7 +50,6 @@ function BeginAttackResponseWindow($attackerPlayer, $attackerMZ, $targetMZ) {
     DecisionQueueController::StoreVariable('PendingAttackAttackerPlayer', strval(intval($attackerPlayer)));
     DecisionQueueController::StoreVariable('PendingAttackAttackerMZ', $attackerMZ);
     DecisionQueueController::StoreVariable('PendingAttackTargetMZ', $targetMZ);
-    SetFlashMessage('Response window: defending player may play [Response] spells, then Pass to resolve combat.');
     return true;
 }
 
@@ -896,6 +895,11 @@ function SelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
 
+    // During a response window only cards with the [Response] timing tag are playable.
+    if(HasPendingAttackResponse() && !CardHasTimingTag($obj->CardID, 'Response')) {
+        return json_encode(['highlight' => false]);
+    }
+
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
 }
 
@@ -1435,10 +1439,6 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
     }
 
     return 'GATE';
-}
-
-function CanActivateAbility($player, $mzID, $abilityIndex) {
-    return false;
 }
 
 function ActionMap($actionCard) {

@@ -356,9 +356,32 @@
         return !isNaN(turnVal) && !isNaN(viewerVal) && viewerVal === turnVal;
       }
 
+      // Returns true if the viewer is the active player — either the turn player during normal
+      // main phase, or the designated responder during an attack response window.
+      function IsViewerActivePlayer() {
+        if (IsViewerTurnPlayer()) return true;
+        try {
+          const raw = window.DecisionQueueVariablesData;
+          if (!raw || typeof raw !== 'string') return false;
+          const vars = JSON.parse(raw);
+          if (!vars || typeof vars !== 'object') return false;
+          const attackerMZ = vars.PendingAttackAttackerMZ || '';
+          const targetMZ   = vars.PendingAttackTargetMZ   || '';
+          if (attackerMZ === '' || targetMZ === '') return false;
+          // Active response window — viewer is active if they are the responder (not the attacker).
+          const attackerPlayer = parseInt(vars.PendingAttackAttackerPlayer, 10);
+          if (isNaN(attackerPlayer)) return false;
+          const responderPlayer = attackerPlayer === 1 ? 2 : 1;
+          const viewerVal = document.getElementById('playerID')?.value;
+          return parseInt(viewerVal, 10) === responderPlayer;
+        } catch (e) {
+          return false;
+        }
+      }
+
       function GetHighlightMetadataForCard(zoneName, cardData) {
         try {
-          if (!IsViewerTurnPlayer()) return null;
+          if (!IsViewerActivePlayer()) return null;
           if (typeof HighlightRules === 'undefined' || !HighlightRules[zoneName]) return null;
           const highlightProperty = HighlightRules[zoneName];
           if (!cardData || !cardData.hasOwnProperty(highlightProperty) || !cardData[highlightProperty]) return null;

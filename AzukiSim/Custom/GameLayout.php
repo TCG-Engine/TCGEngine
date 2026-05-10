@@ -417,10 +417,90 @@
     #theirDeck > span:not([id]) {
         display: none;
     }
+
+    #azukiResponseOpportunity {
+        position: fixed;
+        bottom: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 12000;
+        display: none;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(212, 175, 55, 0.65);
+        background: linear-gradient(180deg, rgba(19, 31, 52, 0.98), rgba(14, 23, 39, 0.98));
+        color: #f3e8d0;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        pointer-events: auto;
+        max-width: min(92vw, 560px);
+    }
+
+    #azukiResponseOpportunity .azuki-opportunity-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.25;
+    }
+
+    #azukiResponseOpportunity .azuki-opportunity-title {
+        font: 700 12px/1 var(--azuki-font-label);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(212, 175, 55, 0.98);
+    }
+
+    #azukiResponseOpportunity .azuki-opportunity-subtitle {
+        font: 600 13px/1.35 var(--azuki-font-ui);
+        color: rgba(232, 220, 200, 0.95);
+    }
+
+    #azukiResponsePassBtn {
+        border: 1px solid rgba(212, 175, 55, 0.7);
+        border-radius: 9px;
+        background: linear-gradient(180deg, rgba(212, 175, 55, 0.28), rgba(212, 175, 55, 0.14));
+        color: #f3e8d0;
+        font: 700 12px/1 var(--azuki-font-label);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        padding: 8px 14px;
+        cursor: pointer;
+    }
+
+    #azukiResponsePassBtn:hover {
+        background: linear-gradient(180deg, rgba(212, 175, 55, 0.4), rgba(212, 175, 55, 0.2));
+    }
+
+    @media (max-width: 1000px) {
+        #azukiResponseOpportunity {
+            bottom: 110px;
+            width: calc(100vw - 20px);
+            justify-content: space-between;
+            gap: 8px;
+            padding: 9px 10px;
+        }
+
+        #azukiResponseOpportunity .azuki-opportunity-subtitle {
+            font-size: 12px;
+        }
+
+        #azukiResponsePassBtn {
+            padding: 7px 10px;
+            font-size: 11px;
+        }
+    }
 </style>
 
 <!-- Background layers -->
 <div class="azuki-board-bg"></div>
+
+<div id="azukiResponseOpportunity" aria-live="polite" aria-label="Response opportunity">
+    <div class="azuki-opportunity-text">
+        <span class="azuki-opportunity-title">Response Opportunity</span>
+        <span id="azukiResponseOpportunityText" class="azuki-opportunity-subtitle">You may play a [Response] spell.</span>
+    </div>
+    <button id="azukiResponsePassBtn" type="button" onclick="AzukiResponsePass()">Pass</button>
+</div>
 
 <!-- =================== MY ZONES (bottom half) =================== -->
 
@@ -479,3 +559,66 @@
 
 <div id="theirHandSlot" class="azuki-zone azuki-glass azuki-hand" data-label="">
 </div>
+
+<script>
+(function() {
+    function getViewerPlayer() {
+        var el = document.getElementById('playerID');
+        if(el && el.value !== '') return parseInt(el.value, 10);
+        if(typeof window.currentPlayerIndex !== 'undefined') return parseInt(window.currentPlayerIndex, 10);
+        return 0;
+    }
+
+    function parseDecisionVars() {
+        var raw = window.DecisionQueueVariablesData;
+        if(!raw || typeof raw !== 'string') return {};
+        try {
+            var parsed = JSON.parse(raw);
+            return (parsed && typeof parsed === 'object') ? parsed : {};
+        } catch (e) {
+            return {};
+        }
+    }
+
+    function responseState() {
+        var vars = parseDecisionVars();
+        var attackerMZ = typeof vars.PendingAttackAttackerMZ === 'string' ? vars.PendingAttackAttackerMZ : '';
+        var targetMZ = typeof vars.PendingAttackTargetMZ === 'string' ? vars.PendingAttackTargetMZ : '';
+        var attacker = parseInt(vars.PendingAttackAttackerPlayer, 10);
+        if(isNaN(attacker) || (attacker !== 1 && attacker !== 2)) {
+            attacker = parseInt(window.TurnPlayerData, 10);
+        }
+        var responder = attacker === 1 ? 2 : (attacker === 2 ? 1 : 0);
+        return {
+            active: attackerMZ !== '' && targetMZ !== '',
+            responder: responder
+        };
+    }
+
+    window.AzukiResponsePass = function() {
+        SubmitInput('10001', '&cardID=' + encodeURIComponent('myLeaderHealthSlot!CustomInput!Pass'));
+    };
+
+    window.UpdateAzukiResponseOpportunity = function() {
+        var panel = document.getElementById('azukiResponseOpportunity');
+        var subtitle = document.getElementById('azukiResponseOpportunityText');
+        var passBtn = document.getElementById('azukiResponsePassBtn');
+        if(!panel || !subtitle || !passBtn) return;
+
+        var state = responseState();
+        if(!state.active) {
+            panel.style.display = 'none';
+            return;
+        }
+
+        var viewer = getViewerPlayer();
+        var isResponder = viewer > 0 && viewer === state.responder;
+
+        subtitle.textContent = isResponder
+            ? 'Play a [Response] spell or pass to resolve the attack.'
+            : 'Waiting for defending player responses.';
+        passBtn.style.display = isResponder ? 'inline-flex' : 'none';
+        panel.style.display = 'flex';
+    };
+})();
+</script>
