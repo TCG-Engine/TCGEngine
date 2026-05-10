@@ -23,7 +23,9 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
             if (stripos($action, "Activate") === 0 && strpos($action, ':') !== false) {
                 $actionParts = explode(':', $action);
                 $abilityIndex = intval($actionParts[1] ?? 0);
-                SaveUndoVersion($playerID);
+                if(function_exists('SaveUndoVersion')) {
+                    SaveUndoVersion($playerID);
+                }
                 ActivateAbility($playerID, $actionCard, $abilityIndex);
             } else if ($action === "Attack" || $action === "Activate") {
                 // Default field activation path: attack setup in Garden.
@@ -95,7 +97,7 @@ function HandleAttackSetup($playerID, $attackerMZ) {
 
     // Add opponent's leader as target if still alive.
     $leaderIdx = FindLeaderIndexInGarden($opponent);
-    if($leaderIdx >= 0 && intval(GetLeaderHealth($opponent)) > 0) {
+    if($leaderIdx >= 0 && LeaderCurrentHealth($opponent) > 0) {
         $targets[] = "theirGarden-" . $leaderIdx;
     }
 

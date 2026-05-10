@@ -433,6 +433,30 @@ function LeaderAttack($player) {
     return 0;
 }
 
+function LeaderCurrentHealth($player) {
+    $garden = &GetGarden($player);
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex < 0 || $leaderIndex >= count($garden)) return 0;
+
+    $leaderObj = &$garden[$leaderIndex];
+    if($leaderObj === null || (isset($leaderObj->removed) && $leaderObj->removed)) return 0;
+
+    $maxHealth = LeaderMaxHealth($player);
+    $damage = intval($leaderObj->Damage ?? 0);
+    return max(0, $maxHealth - $damage);
+}
+
+function TriggerGameOver($loserPlayer) {
+    $loserPlayer = intval($loserPlayer);
+    if($loserPlayer !== 1 && $loserPlayer !== 2) return;
+
+    $existingWinner = DecisionQueueController::GetVariable('GAMEOVER_WINNER');
+    if(is_string($existingWinner) && $existingWinner !== '') return;
+
+    $winner = ($loserPlayer === 1) ? 2 : 1;
+    DecisionQueueController::StoreVariable('GAMEOVER_WINNER', strval($winner));
+}
+
 function CardHasKeyword($cardID, $keyword) {
     $abilities = CardAbilities($cardID);
     if(!is_array($abilities)) return false;
@@ -612,17 +636,39 @@ function QueueLeaderDamageAnimation($player, $amount) {
 }
 
 function DealDamageToLeader($player, $amount) {
+    $amount = max(0, intval($amount));
     if($amount <= 0) return;
-    $leaderHealth = &GetLeaderHealth($player);
-    $leaderHealth = max(0, intval($leaderHealth) - intval($amount));
+
+    $garden = &GetGarden($player);
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex < 0 || $leaderIndex >= count($garden)) return;
+
+    $leaderObj = &$garden[$leaderIndex];
+    if($leaderObj === null || (isset($leaderObj->removed) && $leaderObj->removed)) return;
+
+    $leaderObj->Damage = intval($leaderObj->Damage ?? 0) + $amount;
     QueueLeaderDamageAnimation($player, $amount);
+
+    if(LeaderCurrentHealth($player) <= 0) {
+        TriggerGameOver($player);
+    }
 }
 
 function HealLeader($player, $amount) {
+    $amount = max(0, intval($amount));
     if($amount <= 0) return;
-    $leaderHealth = &GetLeaderHealth($player);
+
+    $garden = &GetGarden($player);
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex < 0 || $leaderIndex >= count($garden)) return;
+
+    $leaderObj = &$garden[$leaderIndex];
+    if($leaderObj === null || (isset($leaderObj->removed) && $leaderObj->removed)) return;
+
     $maxHealth = LeaderMaxHealth($player);
-    $leaderHealth = min($maxHealth, intval($leaderHealth) + intval($amount));
+    $currentDamage = max(0, intval($leaderObj->Damage ?? 0));
+    $newDamage = max(0, $currentDamage - $amount);
+    $leaderObj->Damage = min($maxHealth, $newDamage);
 }
 
 function DealDamageToGardenTarget($player, $targetMZ, $amount) {
@@ -753,9 +799,12 @@ function CanAttackWith($player, $mzID) {
         return false;
     }
 
-    // Cannot attack if tapped or has cooldown
+    // Cannot attack if tapped
     if($entity->Status == 1) return false; // Tapped
-    if(HasCooldown($entity)) return false;
+    if(HasCooldown($entity)) {
+        $hasCharge = isset($entity->TurnEffects) && is_array($entity->TurnEffects) && in_array('CHARGE', $entity->TurnEffects, true);
+        if(!$hasCharge) return false;
+    }
 
     return true;
 }
@@ -1078,6 +1127,16 @@ function CardHasAbility($obj) {
     if($location === 'Garden' && $mzIndex >= 0) {
         $mzID = 'myGarden-' . $mzIndex;
         if(CanAttackWith($turnPlayer, $mzID)) return 1;
+
+        $cardID = $obj->CardID ?? '';
+        if($cardID !== '' && function_exists('CardActivateAbilityCount')) {
+            $abilityCount = intval(CardActivateAbilityCount($cardID));
+            for($abilityIndex = 0; $abilityIndex < $abilityCount; ++$abilityIndex) {
+                if(!function_exists('CanActivateAbility') || CanActivateAbility($turnPlayer, $mzID, $abilityIndex)) {
+                    return 1;
+                }
+            }
+        }
     }
 
     // Gate surfaces Activate when it is usable and an untapped Alley unit exists to portal.
@@ -1105,7 +1164,7 @@ function IsAttackTargetLegal($player, $targetMZ) {
     $cardID = $garden[$index]->CardID ?? '';
     if(CardType($cardID) === 'LEADER') {
         // Leader is always targetable while alive
-        return intval(GetLeaderHealth($opponent)) > 0;
+        return LeaderCurrentHealth($opponent) > 0;
     }
 
     // Garden entities are attackable only while tapped.
@@ -1363,7 +1422,7 @@ function DoAttack($player, $mzCard, $targetMZ) {
     if(CardType($targetCardID) === 'LEADER') {
         $targetIsLeader = true;
         $defenderAttack = max(0, LeaderAttack($opponent));
-        $defenderHealth = max(0, intval(GetLeaderHealth($opponent)));
+        $defenderHealth = max(0, LeaderCurrentHealth($opponent));
     } else {
         $targetObj = &$theirGarden[$targetIndex];
         $defenderAttack = max(0, intval(CardAttack($targetObj->CardID ?? '')));
@@ -1422,6 +1481,25 @@ function DoAttack($player, $mzCard, $targetMZ) {
 }
 
 function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
+    global $activateAbilityAbilities;
+
+    $obj = GetZoneObject($mzCard);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return '';
+
+    $cardID = $obj->CardID ?? '';
+    if(!is_string($cardID) || $cardID === '') return '';
+
+    $abilityIndex = max(0, intval($abilityIndex));
+    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    for($i = 0; $i < count($cardIDCandidates); ++$i) {
+        $abilityKey = $cardIDCandidates[$i] . ':' . $abilityIndex;
+        if(isset($activateAbilityAbilities[$abilityKey]) && is_callable($activateAbilityAbilities[$abilityKey])) {
+            $activateAbilityAbilities[$abilityKey]($player);
+            CardActivated($player, $mzCard);
+            return 'ACTIVATE_ABILITY';
+        }
+    }
+
     return '';
 }
 
@@ -1671,6 +1749,29 @@ $customDQHandlers["PLAY_WEAPON_TARGET"] = function($player, $params, $lastDecisi
     if(($targetObj->Location ?? '') !== 'Garden') return;
 
     ResolveWeaponPlayFromHand($player, $mzCard, $targetMZ);
+};
+
+$customDQHandlers['RaizanActivate:Grant-Charge'] = function($player, $params, $lastDecision) {
+    $targetMZ = is_string($lastDecision) ? $lastDecision : '';
+    if($targetMZ === '' || $targetMZ === '-' || strtoupper($targetMZ) === 'PASS') return;
+
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+
+    if(!CanPayIKZCost($player, 1)) {
+        SetFlashMessage('Not enough IKZ available. You need 1 IKZ to activate this ability.');
+        return;
+    }
+
+    if(!isset($targetObj->TurnEffects) || !is_array($targetObj->TurnEffects)) {
+        $targetObj->TurnEffects = [];
+    }
+
+    if(!in_array('CHARGE', $targetObj->TurnEffects, true)) {
+        $targetObj->TurnEffects[] = 'CHARGE';
+    }
+
+    PayIKZCost($player, 1);
 };
 
 // --- Phase Handler Wrappers for TurnController ---

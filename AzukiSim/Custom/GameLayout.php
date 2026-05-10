@@ -310,6 +310,10 @@
         top: calc(50% - 120px);
     }
 
+    #theirLeaderHealthSlot {
+        display: none;
+    }
+
     #myIKZAreaSlot,
     #theirIKZAreaSlot {
         left: 24px;
@@ -513,7 +517,7 @@
 <div id="myGateSlot" class="azuki-zone" data-label="Gate">
 </div>
 
-<div id="myLeaderHealthSlot" class="azuki-zone azuki-stat" data-label="Health">
+<div id="myLeaderHealthSlot" class="azuki-zone azuki-stat" data-label="Pass">
 </div>
 
 <div id="myIKZAreaSlot" class="azuki-zone" data-label="">
@@ -542,7 +546,7 @@
 <div id="theirGateSlot" class="azuki-zone" data-label="Gate">
 </div>
 
-<div id="theirLeaderHealthSlot" class="azuki-zone azuki-stat" data-label="Health">
+<div id="theirLeaderHealthSlot" class="azuki-zone azuki-stat" data-label="">
 </div>
 
 <div id="theirIKZAreaSlot" class="azuki-zone" data-label="">
@@ -620,5 +624,39 @@
         passBtn.style.display = isResponder ? 'inline-flex' : 'none';
         panel.style.display = 'flex';
     };
+
+    function installResponseWatcher() {
+        var initial = window.DecisionQueueVariablesData;
+        var currentValue = (typeof initial === 'undefined') ? '' : initial;
+
+        try {
+            var existing = Object.getOwnPropertyDescriptor(window, 'DecisionQueueVariablesData');
+            if(!existing || existing.configurable) {
+                Object.defineProperty(window, 'DecisionQueueVariablesData', {
+                    configurable: true,
+                    enumerable: true,
+                    get: function() {
+                        return currentValue;
+                    },
+                    set: function(nextValue) {
+                        currentValue = nextValue;
+                        if(typeof window.UpdateAzukiResponseOpportunity === 'function') {
+                            window.UpdateAzukiResponseOpportunity();
+                        }
+                    }
+                });
+            }
+        } catch (e) {
+            // If property interception is unavailable, fallback polling keeps the panel in sync.
+            setInterval(function() {
+                if(typeof window.UpdateAzukiResponseOpportunity === 'function') {
+                    window.UpdateAzukiResponseOpportunity();
+                }
+            }, 200);
+        }
+    }
+
+    installResponseWatcher();
+    window.UpdateAzukiResponseOpportunity();
 })();
 </script>

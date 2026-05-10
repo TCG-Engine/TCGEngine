@@ -155,9 +155,10 @@ function LoadPlayer($playerID, $preconstructedDeck = 'Raizan') {
     }
     EngineShuffle($deck, true);
 
-    // Set leader health to 20
+    // Leader health is tracked via the leader card's Damage in Garden.
+    // Keep LeaderHealth zone as a pass-button display value.
     $leaderHealth = &GetLeaderHealth($playerID);
-    $leaderHealth = 20;
+    $leaderHealth = 'PASS';
 }
 
 ?>
