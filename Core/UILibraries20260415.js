@@ -677,8 +677,8 @@
         var id = zone + "-" + i;
         var positionStyle = "relative";
         var className = isSelectable ? "selectable-card" : "";
-        var combatIndicatorClass = (zoneName === "Field" && sharedCardData.CombatTargetIndicator) ? " combat-targeted-card" : "";
-        var combatIndicatorText = (zoneName === "Field" && sharedCardData.CombatTargetIndicator) ? sharedCardData.CombatTargetIndicator : "";
+        var combatIndicatorText = sharedCardData.CombatTargetIndicator ? String(sharedCardData.CombatTargetIndicator) : "";
+        var combatIndicatorClass = combatIndicatorText ? " combat-targeted-card" : "";
 
         // Build inline styles - combine position and custom color variable
         var inlineStyles = "position:" + positionStyle + "; margin:1px;";

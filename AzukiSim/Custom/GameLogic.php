@@ -27,6 +27,29 @@ function ResolveOwnerFromPerspectiveZone($player, $zoneName) {
     return intval($player);
 }
 
+function ParsePerspectiveMzID($perspectivePlayer, $mzID) {
+    if(!is_string($mzID) || $mzID === '') return null;
+
+    $parts = explode('-', $mzID);
+    $zoneToken = $parts[0] ?? '';
+    $index = intval($parts[1] ?? -1);
+    if($zoneToken === '' || $index < 0) return null;
+
+    $locationToken = $zoneToken;
+    if(strpos($zoneToken, 'my') === 0) {
+        $locationToken = substr($zoneToken, 2);
+    } elseif(strpos($zoneToken, 'their') === 0) {
+        $locationToken = substr($zoneToken, 5);
+    }
+    if(!is_string($locationToken) || $locationToken === '') return null;
+
+    return [
+        'owner' => ResolveOwnerFromPerspectiveZone($perspectivePlayer, $zoneToken),
+        'location' => $locationToken,
+        'index' => $index
+    ];
+}
+
 function HasPendingAttackResponse() {
     $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
     $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
@@ -993,6 +1016,35 @@ function FieldSelectionMetadata($obj) {
 }
 
 function CombatTargetIndicator($obj) {
+    if(!is_object($obj) || !isset($obj->Location)) return '';
+    if(!HasPendingAttackResponse()) return '';
+    if(!isset($obj->mzIndex)) return '';
+    $objOwner = ResolveObjectOwner($obj);
+    if($objOwner === null) return '';
+    $objLocation = strval($obj->Location);
+    $objIndex = intval($obj->mzIndex);
+    if($objLocation === '' || $objIndex < 0) return '';
+
+    $attackerPlayer = GetPendingAttackAttackerPlayer();
+    if($attackerPlayer !== 1 && $attackerPlayer !== 2) return '';
+
+    $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
+    $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
+    $attackerAbs = ParsePerspectiveMzID($attackerPlayer, $attackerMZ);
+    $targetAbs = ParsePerspectiveMzID($attackerPlayer, $targetMZ);
+
+    if(is_array($attackerAbs)
+        && intval($attackerAbs['owner']) === intval($objOwner)
+        && strcasecmp(strval($attackerAbs['location']), $objLocation) === 0
+        && intval($attackerAbs['index']) === $objIndex) {
+        return 'ATTACKER';
+    }
+    if(is_array($targetAbs)
+        && intval($targetAbs['owner']) === intval($objOwner)
+        && strcasecmp(strval($targetAbs['location']), $objLocation) === 0
+        && intval($targetAbs['index']) === $objIndex) {
+        return 'TARGET';
+    }
     return '';
 }
 
