@@ -1629,8 +1629,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
         // Kindle: check if card has Kindle N and class bonus is active
         global $Kindle_Cards;
-        $hasKindle = isset($Kindle_Cards[$obj->CardID]) && !$ignoreCost && $reserveCost > 0
-            && IsClassBonusActive($player, CardClasses($obj->CardID));
+        $hasKindle = isset($Kindle_Cards[$obj->CardID]) && !$ignoreCost && $reserveCost > 0;
         if($hasKindle) {
             $kindleN = $Kindle_Cards[$obj->CardID];
             $fireGY = [];
@@ -2505,10 +2504,10 @@ $customDQHandlers["KindleChoose"] = function($player, $parts, $lastDecision) {
         // Done kindling â€” queue remaining reserve costs + opportunity
         $remainingReserve = max(0, $reserveCost - $banished);
         for($i = 0; $i < $remainingReserve; ++$i) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100, "", 1);
         }
         DecisionQueueController::StoreVariable("isImbued", "NO");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100, "", 1);
     }
 };
 
@@ -2538,6 +2537,8 @@ $customDQHandlers["KindleProcess"] = function($player, $parts, $lastDecision) {
         $reserveCost = intval(DecisionQueueController::GetVariable("kindleReserveCost"));
         $banished = intval(DecisionQueueController::GetVariable("kindleBanished"));
         $remainingReserve = max(0, $reserveCost - $banished);
+        // ReserveCard enqueues SYSTEM decisions; clear PASS so those decisions execute.
+        DecisionQueueController::AddDecision($player, "PASSPARAMETER", "-", 100);
         for($i = 0; $i < $remainingReserve; ++$i) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
         }
