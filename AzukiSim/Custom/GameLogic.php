@@ -91,10 +91,14 @@ function ResolveAttackAfterResponses($responderPlayer) {
 
     $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
     $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
-    ClearAttackResponseWindow();
-
     if(!is_string($attackerMZ) || $attackerMZ === '' || !is_string($targetMZ) || $targetMZ === '') return false;
-    AttackWith($attackerPlayer, $attackerMZ, $targetMZ);
+
+    $attackResult = DoAttack($attackerPlayer, $attackerMZ, $targetMZ);
+    if(!is_string($attackResult) || $attackResult === '') return false;
+
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($attackerPlayer, "-");
+    ClearAttackResponseWindow();
     return true;
 }
 
@@ -203,11 +207,45 @@ function HasEquippedWeapon($obj) {
     return !empty(GetAttachedWeaponIDs($obj));
 }
 
-function EquippedWeaponAttackBonus($obj) {
+function CountCardsOfTypeInDiscard($player, $cardType) {
+    if(!is_string($cardType) || $cardType === '') return 0;
+
+    $discard = &GetDiscard($player);
+    $count = 0;
+    for($i = 0; $i < count($discard); ++$i) {
+        if(isset($discard[$i]->removed) && $discard[$i]->removed) continue;
+        if(CardType($discard[$i]->CardID ?? '') !== $cardType) continue;
+        ++$count;
+    }
+
+    return $count;
+}
+
+function CardHasSubtype($cardID, $subtype) {
+    if(!is_string($cardID) || $cardID === '' || !is_string($subtype) || $subtype === '') return false;
+    $subtypes = CardSubtypes($cardID);
+    if(!is_array($subtypes)) return false;
+    foreach($subtypes as $candidate) {
+        if(is_string($candidate) && strcasecmp($candidate, $subtype) === 0) return true;
+    }
+    return false;
+}
+
+function EquippedWeaponAttackBonus($obj, $ownerPlayer = null) {
     $bonus = 0;
     $weaponIDs = GetAttachedWeaponIDs($obj);
     foreach($weaponIDs as $weaponID) {
         $bonus += max(0, intval(CardAttack($weaponID)));
+    }
+
+    // Tenraku grants +1 additional attack when its controller has 15+ cards in discard.
+    $tenrakuID = 'S1-STT01-015_Tenraku_W_UC_die';
+    if($ownerPlayer !== null && intval($ownerPlayer) > 0 && CountCardsOfTypeInDiscard(intval($ownerPlayer), 'WEAPON') >= 15) {
+        $tenrakuCount = 0;
+        foreach($weaponIDs as $weaponID) {
+            if($weaponID === $tenrakuID) ++$tenrakuCount;
+        }
+        $bonus += $tenrakuCount;
     }
 
     // Black Jade Dagger can grant an additional +1 attack when its On Play cost is paid.
@@ -216,6 +254,63 @@ function EquippedWeaponAttackBonus($obj) {
     $bonus += CountWeaponSubcardTurnEffects($obj, $blackJadeDaggerID, $blackJadeBoostEffect);
 
     return $bonus;
+}
+
+function EntityCardAttackBonus($player, $obj) {
+    if(!is_object($obj)) return 0;
+
+    $cardID = $obj->CardID ?? '';
+    if(!is_string($cardID) || $cardID === '') return 0;
+
+    $bonus = 0;
+
+    // Black Jade Crewleader gets +1 attack while equipped with a weapon.
+    if($cardID === 'S1-STT01-008_Black-Jade-Crewleader_E_UC_die' && HasEquippedWeapon($obj)) {
+        $bonus += 1;
+    }
+
+    // Mastersmith Yamada gets +2 attack with 6+ weapons in discard.
+    if($cardID === 'S1-STT01-009_Mastersmith-Yamada_E_UC_die' && CountCardsOfTypeInDiscard($player, 'WEAPON') >= 6) {
+        $bonus += 2;
+    }
+
+    return $bonus;
+}
+
+function ResolveEntityAttackValue($player, $obj) {
+    if(!is_object($obj)) return 0;
+    $base = max(0, intval(CardAttack($obj->CardID ?? '')));
+    return $base + EquippedWeaponAttackBonus($obj, $player) + EntityCardAttackBonus($player, $obj);
+}
+
+function TriggerEquippedWeaponOnAttack($player, $attackerMZ) {
+    $attackerObj = &GetZoneObject($attackerMZ);
+    if($attackerObj === null || (isset($attackerObj->removed) && $attackerObj->removed)) return;
+    if(!isset($attackerObj->Subcards) || !is_array($attackerObj->Subcards)) return;
+
+    $opponent = ($player == 1) ? 2 : 1;
+    $hasRaizanSubtype = CardHasSubtype($attackerObj->CardID ?? '', 'Raizan');
+
+    foreach($attackerObj->Subcards as $weaponID) {
+        if(!is_string($weaponID) || $weaponID === '') continue;
+
+        if($weaponID === 'S1-STT01-012_Lightning-Shuriken_W_C_die') {
+            $deck = &GetDeck($player);
+            if(!empty($deck)) {
+                $milled = array_shift($deck);
+                AddDiscard($player, CardID:$milled->CardID);
+            }
+        }
+
+        if($weaponID === 'S1-STT01-016_Ikazuchi_W_SR_die' && $hasRaizanSubtype) {
+            $theirGarden = &GetGarden($opponent);
+            for($i = count($theirGarden) - 1; $i >= 0; --$i) {
+                if(isset($theirGarden[$i]->removed) && $theirGarden[$i]->removed) continue;
+                if(CardType($theirGarden[$i]->CardID ?? '') === 'LEADER') continue;
+                DealDamageToGardenTarget($player, 'theirGarden-' . $i, 1);
+            }
+        }
+    }
 }
 
 function DiscardEquippedWeaponsFromObject($owner, $obj) {
@@ -802,7 +897,8 @@ function CanAttackWith($player, $mzID) {
     // Cannot attack if tapped
     if($entity->Status == 1) return false; // Tapped
     if(HasCooldown($entity)) {
-        $hasCharge = isset($entity->TurnEffects) && is_array($entity->TurnEffects) && in_array('CHARGE', $entity->TurnEffects, true);
+        $hasCharge = CardHasKeyword($entity->CardID ?? '', 'Charge')
+            || (isset($entity->TurnEffects) && is_array($entity->TurnEffects) && in_array('CHARGE', $entity->TurnEffects, true));
         if(!$hasCharge) return false;
     }
 
@@ -1036,8 +1132,9 @@ function CardClasses($cardID) {
 
 function ObjectCurrentPowerDisplay($obj) {
     if(!is_object($obj) || !isset($obj->CardID)) return 0;
-    $base = max(0, intval(CardAttack($obj->CardID)));
-    return $base + EquippedWeaponAttackBonus($obj);
+    $owner = ResolveObjectOwner($obj);
+    if($owner === null || intval($owner) <= 0) $owner = GetTurnPlayer();
+    return ResolveEntityAttackValue(intval($owner), $obj);
 }
 
 function ObjectCurrentHPDisplay($obj) {
@@ -1136,10 +1233,10 @@ function CardHasAbility($obj) {
         if(CanAttackWith($turnPlayer, $mzID)) return 1;
 
         $cardID = $obj->CardID ?? '';
-        if($cardID !== '' && function_exists('CardActivateAbilityCount')) {
+        if($cardID !== '') {
             $abilityCount = intval(CardActivateAbilityCount($cardID));
             for($abilityIndex = 0; $abilityIndex < $abilityCount; ++$abilityIndex) {
-                if(!function_exists('CanActivateAbility') || CanActivateAbility($turnPlayer, $mzID, $abilityIndex)) {
+                if(CanActivateAbility($turnPlayer, $mzID, $abilityIndex)) {
                     return 1;
                 }
             }
@@ -1151,7 +1248,38 @@ function CardHasAbility($obj) {
         if(!empty(GetPortalCandidates($turnPlayer))) return 1;
     }
 
+    // Alley cards can expose Activate abilities (e.g. Alpine Prowler sacrifice ability).
+    if($location === 'Alley' && $mzIndex >= 0) {
+        $cardID = $obj->CardID ?? '';
+        if($cardID !== '') {
+            $abilityCount = intval(CardActivateAbilityCount($cardID));
+            for($abilityIndex = 0; $abilityIndex < $abilityCount; ++$abilityIndex) {
+                if(CanActivateAbility($turnPlayer, 'myAlley-' . $mzIndex, $abilityIndex)) {
+                    return 1;
+                }
+            }
+        }
+    }
+
     return 0;
+}
+
+function CanActivateAbilityRuntime($player, $mzID, $abilityIndex = 0) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
+
+    $cardID = $obj->CardID ?? '';
+    $location = $obj->Location ?? '';
+
+    // Alpine Prowler: [In Alley Only Ability][Main]
+    if($cardID === 'S1-STT01-005_Alpine-Prowler_E_C_die') {
+        if($location !== 'Alley') return false;
+        if(GetCurrentPhase() !== 'MAIN') return false;
+        if(HasPendingAttackResponse()) return false;
+        return intval($player) === intval(GetTurnPlayer());
+    }
+
+    return true;
 }
 
 function IsAttackTargetLegal($player, $targetMZ) {
@@ -1178,7 +1306,7 @@ function IsAttackTargetLegal($player, $targetMZ) {
     return intval($garden[$index]->Status ?? 2) == 1;
 }
 
-function CanAttack($player, $mzID, $targetMZ) {
+function CanAttackRuntime($player, $mzID, $targetMZ) {
     if(intval(GetTurnPlayer()) !== intval($player)) return false;
     if(GetCurrentPhase() !== 'MAIN') return false;
     if(!CanAttackWith($player, $mzID)) return false;
@@ -1396,49 +1524,105 @@ function OnUseGateCard($player, $gateMZ) {
     return 'USE_GATE';
 }
 
-function DoAttack($player, $mzCard, $targetMZ) {
-    if(!CanAttack($player, $mzCard, $targetMZ)) return '';
+function OnAttackWithCard($player, $mzID, $targetMZ) {
+    global $attackWithAbilities;
+    if(!isset($attackWithAbilities) || !is_array($attackWithAbilities)) {
+        return 'ATTACK_WITH';
+    }
 
+    $obj = GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) {
+        return 'ATTACK_WITH';
+    }
+
+    $cardID = $obj->CardID ?? '';
+    if($cardID === '') {
+        return 'ATTACK_WITH';
+    }
+
+    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $abilityCount = 0;
+    if(function_exists('CardAttackWithCount')) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $abilityCount = max($abilityCount, intval(CardAttackWithCount($cardIDCandidates[$i])));
+        }
+    }
+
+    if($abilityCount <= 0) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $key = $cardIDCandidates[$i] . ':0';
+            if(isset($attackWithAbilities[$key])) {
+                $attackWithAbilities[$key]($player);
+                break;
+            }
+        }
+        return 'ATTACK_WITH';
+    }
+
+    for($i = 0; $i < $abilityCount; ++$i) {
+        for($j = 0; $j < count($cardIDCandidates); ++$j) {
+            $key = $cardIDCandidates[$j] . ':' . $i;
+            if(isset($attackWithAbilities[$key])) {
+                $attackWithAbilities[$key]($player);
+                break;
+            }
+        }
+    }
+
+    return 'ATTACK_WITH';
+}
+
+function ResolveAttackCombat($player, $mzCard, $targetMZ) {
     $opponent = ($player == 1) ? 2 : 1;
     $attackerParts = explode('-', $mzCard);
     $attackerZone = $attackerParts[0] ?? '';
     $attackerIndex = intval($attackerParts[1] ?? -1);
 
-    if($attackerZone !== 'myGarden') return '';
+    if($attackerZone !== 'myGarden') {
+        DecisionQueueController::CleanupRemovedCards();
+        return 'ATTACK';
+    }
+
     $myGarden = &GetGarden($player);
-    if($attackerIndex < 0 || $attackerIndex >= count($myGarden)) return '';
-    if(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed) return '';
+    if($attackerIndex < 0 || $attackerIndex >= count($myGarden)
+        || (isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed)) {
+        DecisionQueueController::CleanupRemovedCards();
+        return 'ATTACK';
+    }
 
     $attackerObj = &$myGarden[$attackerIndex];
-    $attackerAttack = max(0, intval(CardAttack($attackerObj->CardID ?? ''))) + EquippedWeaponAttackBonus($attackerObj);
+    $attackerAttack = ResolveEntityAttackValue($player, $attackerObj);
     $attackerIsLeader = (CardType($attackerObj->CardID ?? '') === 'LEADER');
+
+    $targetParts = explode('-', $targetMZ);
+    $targetZone = $targetParts[0] ?? '';
+    $targetIndex = intval($targetParts[1] ?? -1);
+    if($targetZone !== 'theirGarden') {
+        DecisionQueueController::CleanupRemovedCards();
+        return 'ATTACK';
+    }
+
+    $theirGarden = &GetGarden($opponent);
+    if($targetIndex < 0 || $targetIndex >= count($theirGarden)
+        || (isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed)) {
+        DecisionQueueController::CleanupRemovedCards();
+        return 'ATTACK';
+    }
 
     $defenderAttack = 0;
     $defenderHealth = 0;
     $targetIsLeader = false;
-    $targetParts = explode('-', $targetMZ);
-    $targetZone = $targetParts[0] ?? '';
-    $targetIndex = intval($targetParts[1] ?? -1);
-
-    if($targetZone !== 'theirGarden') return '';
-    $theirGarden = &GetGarden($opponent);
-    if($targetIndex < 0 || $targetIndex >= count($theirGarden)) return '';
-    if(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed) return '';
     $targetCardID = $theirGarden[$targetIndex]->CardID ?? '';
-
     if(CardType($targetCardID) === 'LEADER') {
         $targetIsLeader = true;
         $defenderAttack = max(0, LeaderAttack($opponent));
         $defenderHealth = max(0, LeaderCurrentHealth($opponent));
     } else {
         $targetObj = &$theirGarden[$targetIndex];
-        $defenderAttack = max(0, intval(CardAttack($targetObj->CardID ?? '')));
+        $defenderAttack = ResolveEntityAttackValue($opponent, $targetObj);
         $defenderHealth = max(0, intval(CardHealth($targetObj->CardID ?? '')));
     }
 
-    ExhaustEntity($player, $mzCard);
-
-    // Simultaneous combat damage
     if($attackerAttack > 0) {
         if($targetIsLeader) {
             DealDamageToLeader($opponent, $attackerAttack);
@@ -1463,7 +1647,6 @@ function DoAttack($player, $mzCard, $targetMZ) {
         }
     }
 
-    // Destroy non-leader entities that reached 0 health after simultaneous damage.
     if(!$targetIsLeader) {
         $theirGarden = &GetGarden($opponent);
         if(isset($theirGarden[$targetIndex]) && !(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed)) {
@@ -1484,6 +1667,33 @@ function DoAttack($player, $mzCard, $targetMZ) {
     }
 
     DecisionQueueController::CleanupRemovedCards();
+    return 'ATTACK';
+}
+
+function DoAttack($player, $mzCard, $targetMZ) {
+    $isPendingResolution = false;
+    if(HasPendingAttackResponse()) {
+        $pendingAttackerPlayer = GetPendingAttackAttackerPlayer();
+        $pendingAttackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
+        $pendingTargetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
+        $isPendingResolution = intval($pendingAttackerPlayer) === intval($player)
+            && is_string($pendingAttackerMZ) && $pendingAttackerMZ === $mzCard
+            && is_string($pendingTargetMZ) && $pendingTargetMZ === $targetMZ;
+    }
+
+    if(!$isPendingResolution && !CanAttackRuntime($player, $mzCard, $targetMZ)) return '';
+
+    $attackerParts = explode('-', $mzCard);
+    $attackerZone = $attackerParts[0] ?? '';
+    $attackerIndex = intval($attackerParts[1] ?? -1);
+
+    if($attackerZone !== 'myGarden') return '';
+    $myGarden = &GetGarden($player);
+    if($attackerIndex < 0 || $attackerIndex >= count($myGarden)) return '';
+    if(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed) return '';
+
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'RESOLVE_ATTACK_COMBAT|' . $mzCard . '|' . $targetMZ, 1);
+
     return 'ATTACK';
 }
 
@@ -1726,7 +1936,27 @@ $customDQHandlers["RESOLVE_ATTACK"] = function($player, $params, $lastDecision) 
     $attackerMZ = isset($params[0]) ? $params[0] : '';
     $chosenTarget = is_string($lastDecision) ? $lastDecision : '';
     if($attackerMZ === '' || $chosenTarget === '' || strtoupper($chosenTarget) === 'PASS') return;
-    BeginAttackResponseWindow($player, $attackerMZ, $chosenTarget);
+    if(!CanAttackRuntime($player, $attackerMZ, $chosenTarget)) return;
+    ExhaustEntity($player, $attackerMZ);
+    TriggerEquippedWeaponOnAttack($player, $attackerMZ);
+    OnAttackWithCard($player, $attackerMZ, $chosenTarget);
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'BEGIN_ATTACK_RESPONSE|' . $attackerMZ . '|' . $chosenTarget, 1);
+};
+
+$customDQHandlers["BEGIN_ATTACK_RESPONSE"] = function($player, $params, $lastDecision) {
+    $attackerMZ = isset($params[0]) ? $params[0] : '';
+    $targetMZ = isset($params[1]) ? $params[1] : '';
+    if(!is_string($attackerMZ) || $attackerMZ === '') return;
+    if(!is_string($targetMZ) || $targetMZ === '') return;
+    BeginAttackResponseWindow($player, $attackerMZ, $targetMZ);
+};
+
+$customDQHandlers["RESOLVE_ATTACK_COMBAT"] = function($player, $params, $lastDecision) {
+    $attackerMZ = isset($params[0]) ? $params[0] : '';
+    $targetMZ = isset($params[1]) ? $params[1] : '';
+    if(!is_string($attackerMZ) || $attackerMZ === '') return;
+    if(!is_string($targetMZ) || $targetMZ === '') return;
+    ResolveAttackCombat($player, $attackerMZ, $targetMZ);
 };
 
 $customDQHandlers["PLAY_ENTITY_DEST"] = function($player, $params, $lastDecision) {
@@ -1800,4 +2030,17 @@ function EndOfTurnPhase() {
     $turnNumber = &GetTurnNumber();
     $turnPlayer = ($turnPlayer == 1) ? 2 : 1;
     $turnNumber++;
+}
+
+/**
+ * Flip a zone mzID between player perspectives.
+ * e.g. "myField-2" becomes "theirField-2" and vice versa.
+ */
+function FlipZonePerspective($mzID) {
+    if(strpos($mzID, "my") === 0) {
+        return "their" . substr($mzID, 2);
+    } else if(strpos($mzID, "their") === 0) {
+        return "my" . substr($mzID, 5);
+    }
+    return $mzID; // global zones like EffectStack don't flip
 }

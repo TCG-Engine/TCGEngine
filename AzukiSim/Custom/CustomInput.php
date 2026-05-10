@@ -1,5 +1,11 @@
 <?php
 
+function MaybeSaveUndoVersion($playerID) {
+    if(function_exists('SaveUndoVersion')) {
+        SaveUndoVersion($playerID);
+    }
+}
+
 function CustomWidgetInput($playerID, $actionCard, $action) {
     $cardArr = explode("-", $actionCard);
     $zone = $cardArr[0];
@@ -23,13 +29,23 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
             if (stripos($action, "Activate") === 0 && strpos($action, ':') !== false) {
                 $actionParts = explode(':', $action);
                 $abilityIndex = intval($actionParts[1] ?? 0);
-                if(function_exists('SaveUndoVersion')) {
-                    SaveUndoVersion($playerID);
-                }
+                MaybeSaveUndoVersion($playerID);
                 ActivateAbility($playerID, $actionCard, $abilityIndex);
-            } else if ($action === "Attack" || $action === "Activate") {
+            } else if ($action === "Attack") {
                 // Default field activation path: attack setup in Garden.
                 HandleAttackSetup($playerID, $actionCard);
+            } else if ($action === "Activate") {
+                if($zone === "myGarden") {
+                    if(CanActivateAbilityRuntime($playerID, $actionCard, 0) && CanActivateAbility($playerID, $actionCard, 0)) {
+                        MaybeSaveUndoVersion($playerID);
+                        ActivateAbility($playerID, $actionCard, 0);
+                    } else {
+                        HandleAttackSetup($playerID, $actionCard);
+                    }
+                } else {
+                    MaybeSaveUndoVersion($playerID);
+                    ActivateAbility($playerID, $actionCard, 0);
+                }
             }
             break;
 
@@ -47,8 +63,13 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
 }
 
 function HandlePassButton($playerID) {
-    if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) {
-        if(!function_exists('ResolveAttackAfterResponses') || !ResolveAttackAfterResponses($playerID)) {
+    if(HasPendingAttackResponse()) {
+        $resolverPlayer = intval($playerID);
+        $expectedResponder = intval(GetPendingAttackResponderPlayer());
+        if($expectedResponder === 1 || $expectedResponder === 2) {
+            $resolverPlayer = $expectedResponder;
+        }
+        if(!ResolveAttackAfterResponses($resolverPlayer)) {
             SetFlashMessage('Only the defending player can pass to resolve this attack response window.');
         }
         return;
@@ -114,7 +135,13 @@ function HandleAttackSetup($playerID, $attackerMZ) {
         // No valid targets — auto-attack leader
         $leaderIdx2 = FindLeaderIndexInGarden($opponent);
         $fallbackTarget = ($leaderIdx2 >= 0) ? "theirGarden-" . $leaderIdx2 : "";
-        if($fallbackTarget !== "") AttackWith($playerID, $attackerMZ, $fallbackTarget);
+        if($fallbackTarget !== "") {
+            if(!CanAttackRuntime($playerID, $attackerMZ, $fallbackTarget)) return;
+            ExhaustEntity($playerID, $attackerMZ);
+            TriggerEquippedWeaponOnAttack($playerID, $attackerMZ);
+            OnAttackWithCard($playerID, $attackerMZ, $fallbackTarget);
+            DecisionQueueController::AddDecision($playerID, "CUSTOM", "BEGIN_ATTACK_RESPONSE|" . $attackerMZ . "|" . $fallbackTarget, 1);
+        }
         return;
     }
 
