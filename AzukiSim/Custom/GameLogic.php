@@ -27,6 +27,76 @@ function ResolveOwnerFromPerspectiveZone($player, $zoneName) {
     return intval($player);
 }
 
+function HasPendingAttackResponse() {
+    $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
+    $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
+    return is_string($attackerMZ) && $attackerMZ !== '' && is_string($targetMZ) && $targetMZ !== '';
+}
+
+function GetPendingAttackAttackerPlayer() {
+    $raw = DecisionQueueController::GetVariable('PendingAttackAttackerPlayer');
+    $player = intval($raw);
+    return ($player === 1 || $player === 2) ? $player : 0;
+}
+
+function GetPendingAttackResponderPlayer() {
+    $attacker = GetPendingAttackAttackerPlayer();
+    if($attacker !== 1 && $attacker !== 2) return 0;
+    return $attacker === 1 ? 2 : 1;
+}
+
+function BeginAttackResponseWindow($attackerPlayer, $attackerMZ, $targetMZ) {
+    if(!is_string($attackerMZ) || $attackerMZ === '' || !is_string($targetMZ) || $targetMZ === '') return false;
+    DecisionQueueController::StoreVariable('PendingAttackAttackerPlayer', strval(intval($attackerPlayer)));
+    DecisionQueueController::StoreVariable('PendingAttackAttackerMZ', $attackerMZ);
+    DecisionQueueController::StoreVariable('PendingAttackTargetMZ', $targetMZ);
+    SetFlashMessage('Response window: defending player may play [Response] spells, then Pass to resolve combat.');
+    return true;
+}
+
+function ClearAttackResponseWindow() {
+    DecisionQueueController::StoreVariable('PendingAttackAttackerPlayer', '');
+    DecisionQueueController::StoreVariable('PendingAttackAttackerMZ', '');
+    DecisionQueueController::StoreVariable('PendingAttackTargetMZ', '');
+}
+
+function ResolveAttackAfterResponses($responderPlayer) {
+    if(!HasPendingAttackResponse()) return false;
+
+    $attackerPlayer = GetPendingAttackAttackerPlayer();
+    $expectedResponder = GetPendingAttackResponderPlayer();
+    if($attackerPlayer === 0 || intval($responderPlayer) !== $expectedResponder) return false;
+
+    $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
+    $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
+    ClearAttackResponseWindow();
+
+    if(!is_string($attackerMZ) || $attackerMZ === '' || !is_string($targetMZ) || $targetMZ === '') return false;
+    AttackWith($attackerPlayer, $attackerMZ, $targetMZ);
+    return true;
+}
+
+function GetMacroCardIDCandidates($cardID) {
+    $candidates = [];
+    if(!is_string($cardID) || $cardID === '') return $candidates;
+
+    $candidates[] = $cardID;
+
+    // Some generated macro keys omit only the trailing variant token (e.g. "..._die" -> "..._").
+    $trimmedTrailingToken = preg_replace('/[^_]*$/', '', $cardID);
+    if(is_string($trimmedTrailingToken) && $trimmedTrailingToken !== '' && !in_array($trimmedTrailingToken, $candidates, true)) {
+        $candidates[] = $trimmedTrailingToken;
+    }
+
+    // Also accept keys without the common "_die" suffix.
+    $trimmedDieSuffix = preg_replace('/_die$/i', '', $cardID);
+    if(is_string($trimmedDieSuffix) && $trimmedDieSuffix !== '' && !in_array($trimmedDieSuffix, $candidates, true)) {
+        $candidates[] = $trimmedDieSuffix;
+    }
+
+    return $candidates;
+}
+
 function GetAttachedWeaponIDs($obj) {
     if(!is_object($obj) || !isset($obj->Subcards) || !is_array($obj->Subcards)) return [];
 
@@ -533,6 +603,39 @@ function HealLeader($player, $amount) {
     $leaderHealth = min($maxHealth, intval($leaderHealth) + intval($amount));
 }
 
+function DealDamageToGardenTarget($player, $targetMZ, $amount) {
+    $amount = max(0, intval($amount));
+    if($amount <= 0) return;
+    if(!is_string($targetMZ) || $targetMZ === '') return;
+
+    $parts = explode('-', $targetMZ);
+    $zone = $parts[0] ?? '';
+    $index = intval($parts[1] ?? -1);
+    if($zone !== 'myGarden' && $zone !== 'theirGarden') return;
+
+    $targetPlayer = ($zone === 'myGarden') ? intval($player) : (intval($player) === 1 ? 2 : 1);
+    $garden = &GetGarden($targetPlayer);
+
+    if($index < 0 || $index >= count($garden)) return;
+    if(isset($garden[$index]->removed) && $garden[$index]->removed) return;
+
+    $targetCardID = $garden[$index]->CardID ?? '';
+    if(CardType($targetCardID) === 'LEADER') {
+        DealDamageToLeader($targetPlayer, $amount);
+        return;
+    }
+
+    $garden[$index]->Damage = intval($garden[$index]->Damage ?? 0) + $amount;
+    QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true);
+
+    $targetHealth = intval(CardHealth($targetCardID));
+    $targetDamage = intval($garden[$index]->Damage ?? 0);
+    if($targetHealth > 0 && $targetDamage >= $targetHealth) {
+        SafeMZMove($player, $zone . '-' . $index, ($zone === 'myGarden' ? 'myDiscard' : 'theirDiscard'));
+        DecisionQueueController::CleanupRemovedCards();
+    }
+}
+
 function GetPortalCandidates($player) {
     $alley = &GetAlley($player);
     $candidates = [];
@@ -786,9 +889,10 @@ function SelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
 
-    // Hand/temp-zone highlights are only for the active player's own cards.
+    // Hand/temp-zone highlights are for the currently acting player.
     $owner = ResolveObjectOwner($obj);
-    if($owner === null || $owner !== intval($turnPlayer)) {
+    $actingPlayer = HasPendingAttackResponse() ? GetPendingAttackResponderPlayer() : intval($turnPlayer);
+    if($owner === null || $owner !== intval($actingPlayer)) {
         return json_encode(['highlight' => false]);
     }
 
@@ -812,6 +916,27 @@ function CardType($cardID) {
     if(strpos($cardID, '_L_L_') !== false) return 'LEADER';
     if(strpos($cardID, '_G_G_') !== false) return 'GATE';
     return 'ENTITY';
+}
+
+function CardHasTimingTag($cardID, $tagName) {
+    if(!is_string($cardID) || $cardID === '' || !is_string($tagName) || $tagName === '') return false;
+    $text = CardCardText($cardID);
+    if(!is_string($text) || $text === '') return false;
+    return stripos($text, '[' . $tagName . ']') !== false;
+}
+
+function CanPlaySpellByTiming($player, $cardID) {
+    $isResponseWindow = HasPendingAttackResponse();
+    $hasMainTiming = CardHasTimingTag($cardID, 'Main');
+    $hasResponseTiming = CardHasTimingTag($cardID, 'Response');
+
+    if($isResponseWindow) {
+        if(intval($player) !== GetPendingAttackResponderPlayer()) return false;
+        return $hasResponseTiming;
+    }
+
+    if($hasResponseTiming && !$hasMainTiming) return false;
+    return true;
 }
 
 // CardHealth($cardID) is provided by GeneratedCardDictionaries.php
@@ -855,7 +980,8 @@ function FieldSelectionMetadata($obj) {
     }
 
     $owner = ResolveObjectOwner($obj);
-    if($owner === null || $owner !== intval($turnPlayer)) {
+    $actingPlayer = HasPendingAttackResponse() ? GetPendingAttackResponderPlayer() : intval($turnPlayer);
+    if($owner === null || $owner !== intval($actingPlayer)) {
         return json_encode(['highlight' => false]);
     }
 
@@ -879,6 +1005,7 @@ function CardHasAbility($obj) {
     if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return 0;
 
     if(GetCurrentPhase() !== 'MAIN') return 0;
+    if(HasPendingAttackResponse()) return 0;
 
     $turnPlayer = &GetTurnPlayer();
     $owner = ResolveObjectOwner($obj);
@@ -954,6 +1081,15 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
 
     $cardType = CardType($cardID);
     $cardCost = CardCost($cardID);
+
+    if($cardType === 'SPELL' && !CanPlaySpellByTiming($player, $cardID)) {
+        if(HasPendingAttackResponse()) {
+            SetFlashMessage('Only [Response] spells can be played by the defending player during this response window.');
+        } else {
+            SetFlashMessage('This spell cannot be played during the main phase.');
+        }
+        return '';
+    }
 
     if($cardType === 'WEAPON') {
         $targets = ResolveWeaponEquipTargets($player);
@@ -1058,31 +1194,32 @@ function OnPlayCard($player, $mzID) {
         return 'ON_PLAY';
     }
 
-    $normalizedCardID = $cardID;
+    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
     $abilityCount = 0;
     if(function_exists('CardOnPlayCount')) {
-        $abilityCount = max(
-            intval(CardOnPlayCount($cardID)),
-            intval(CardOnPlayCount($normalizedCardID))
-        );
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $abilityCount = max($abilityCount, intval(CardOnPlayCount($cardIDCandidates[$i])));
+        }
     }
 
     if($abilityCount <= 0) {
-        if(isset($onPlayAbilities[$cardID . ':0'])) {
-            $onPlayAbilities[$cardID . ':0']($player);
-        } else if(isset($onPlayAbilities[$normalizedCardID . ':0'])) {
-            $onPlayAbilities[$normalizedCardID . ':0']($player);
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $key = $cardIDCandidates[$i] . ':0';
+            if(isset($onPlayAbilities[$key])) {
+                $onPlayAbilities[$key]($player);
+                break;
+            }
         }
         return 'ON_PLAY';
     }
 
     for($i = 0; $i < $abilityCount; ++$i) {
-        $fullKey = $cardID . ':' . $i;
-        $normalizedKey = $normalizedCardID . ':' . $i;
-        if(isset($onPlayAbilities[$fullKey])) {
-            $onPlayAbilities[$fullKey]($player);
-        } else if(isset($onPlayAbilities[$normalizedKey])) {
-            $onPlayAbilities[$normalizedKey]($player);
+        for($j = 0; $j < count($cardIDCandidates); ++$j) {
+            $key = $cardIDCandidates[$j] . ':' . $i;
+            if(isset($onPlayAbilities[$key])) {
+                $onPlayAbilities[$key]($player);
+                break;
+            }
         }
     }
 
@@ -1105,31 +1242,32 @@ function OnUseGateCard($player, $gateMZ) {
         return 'USE_GATE';
     }
 
-    $normalizedCardID = $cardID;
+    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
     $abilityCount = 0;
     if(function_exists('CardUseGateCount')) {
-        $abilityCount = max(
-            intval(CardUseGateCount($cardID)),
-            intval(CardUseGateCount($normalizedCardID))
-        );
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $abilityCount = max($abilityCount, intval(CardUseGateCount($cardIDCandidates[$i])));
+        }
     }
 
     if($abilityCount <= 0) {
-        if(isset($useGateAbilities[$cardID . ':0'])) {
-            $useGateAbilities[$cardID . ':0']($player);
-        } else if(isset($useGateAbilities[$normalizedCardID . ':0'])) {
-            $useGateAbilities[$normalizedCardID . ':0']($player);
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $key = $cardIDCandidates[$i] . ':0';
+            if(isset($useGateAbilities[$key])) {
+                $useGateAbilities[$key]($player);
+                break;
+            }
         }
         return 'USE_GATE';
     }
 
     for($i = 0; $i < $abilityCount; ++$i) {
-        $fullKey = $cardID . ':' . $i;
-        $normalizedKey = $normalizedCardID . ':' . $i;
-        if(isset($useGateAbilities[$fullKey])) {
-            $useGateAbilities[$fullKey]($player);
-        } else if(isset($useGateAbilities[$normalizedKey])) {
-            $useGateAbilities[$normalizedKey]($player);
+        for($j = 0; $j < count($cardIDCandidates); ++$j) {
+            $key = $cardIDCandidates[$j] . ':' . $i;
+            if(isset($useGateAbilities[$key])) {
+                $useGateAbilities[$key]($player);
+                break;
+            }
         }
     }
 
@@ -1256,6 +1394,11 @@ function DoUseGate($player, $gateMZ, $entityMZ) {
     if(is_string($entityMZ) && $entityMZ !== '') {
         $entityObj = &GetZoneObject($entityMZ);
         if($entityObj !== null && !(isset($entityObj->removed) && $entityObj->removed) && isset($entityObj->Location) && $entityObj->Location === 'Alley' && intval($entityObj->Status ?? 2) !== 1) {
+            $entityCardID = $entityObj->CardID ?? '';
+            if($entityCardID !== '') {
+                DecisionQueueController::StoreVariable('entityMZCardID', $entityCardID);
+            }
+
             $garden = &GetGarden($player);
             if(CountActiveEntities($garden, true) >= 5) {
                 $replaceIndex = FindReplaceableIndex($garden);
@@ -1317,7 +1460,14 @@ function ActionMap($actionCard) {
         return '';
     }
 
-    if($cardZone === 'myHand' && $currentPhase === 'MAIN' && intval($playerID) === intval($turnPlayer)) {
+    if($cardZone === 'myHand' && $currentPhase === 'MAIN' && HasPendingAttackResponse() && intval($playerID) === GetPendingAttackResponderPlayer()) {
+        if(function_exists('PlayCard')) {
+            PlayCard($playerID, $actionCard);
+            return 'PLAY_RESPONSE';
+        }
+    }
+
+    if($cardZone === 'myHand' && $currentPhase === 'MAIN' && !HasPendingAttackResponse() && intval($playerID) === intval($turnPlayer)) {
         if(function_exists('PlayCard')) {
             PlayCard($playerID, $actionCard);
             return 'PLAY';
@@ -1325,7 +1475,7 @@ function ActionMap($actionCard) {
     }
 
     // Fallback: allow direct card click on Garden cards to initiate attack setup.
-    if($cardZone === 'myGarden' && $currentPhase === 'MAIN' && intval($playerID) === intval($turnPlayer)) {
+    if($cardZone === 'myGarden' && $currentPhase === 'MAIN' && !HasPendingAttackResponse() && intval($playerID) === intval($turnPlayer)) {
         if(function_exists('HandleAttackSetup')) {
             HandleAttackSetup($playerID, $actionCard);
             return 'ATTACK_SETUP';
@@ -1333,7 +1483,7 @@ function ActionMap($actionCard) {
     }
 
     // Fallback: allow direct gate click to start portal flow.
-    if($cardZone === 'myGate' && $currentPhase === 'MAIN' && intval($playerID) === intval($turnPlayer)) {
+    if($cardZone === 'myGate' && $currentPhase === 'MAIN' && !HasPendingAttackResponse() && intval($playerID) === intval($turnPlayer)) {
         if(function_exists('HandleGateUsage')) {
             HandleGateUsage($playerID);
             return 'GATE_SETUP';
@@ -1439,7 +1589,7 @@ $customDQHandlers["RESOLVE_ATTACK"] = function($player, $params, $lastDecision) 
     $attackerMZ = isset($params[0]) ? $params[0] : '';
     $chosenTarget = is_string($lastDecision) ? $lastDecision : '';
     if($attackerMZ === '' || $chosenTarget === '' || strtoupper($chosenTarget) === 'PASS') return;
-    AttackWith($player, $attackerMZ, $chosenTarget);
+    BeginAttackResponseWindow($player, $attackerMZ, $chosenTarget);
 };
 
 $customDQHandlers["PLAY_ENTITY_DEST"] = function($player, $params, $lastDecision) {

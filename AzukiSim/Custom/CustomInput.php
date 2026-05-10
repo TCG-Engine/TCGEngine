@@ -45,6 +45,13 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
 }
 
 function HandlePassButton($playerID) {
+    if(function_exists('HasPendingAttackResponse') && HasPendingAttackResponse()) {
+        if(!function_exists('ResolveAttackAfterResponses') || !ResolveAttackAfterResponses($playerID)) {
+            SetFlashMessage('Only the defending player can pass to resolve this attack response window.');
+        }
+        return;
+    }
+
     // Check if we can pass (no pending decisions or effects)
     $effectStack = &GetEffectStack();
     DecisionQueueController::CleanupRemovedCards();
