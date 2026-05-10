@@ -818,6 +818,8 @@ function ResetEntityDamage($player, $zone) {
 
     foreach($field as &$entity) {
         if(!$entity->removed && isset($entity->Damage)) {
+            // Skip LEADER cards: leader damage is permanent
+            if(CardType($entity->CardID ?? '') === 'LEADER') continue;
             $entity->Damage = 0; // Reset entity damage at end of turn
         }
     }
@@ -826,6 +828,7 @@ function ResetEntityDamage($player, $zone) {
 function WakeAllCards($player) {
     $garden = &GetGarden($player);
     $alley = &GetAlley($player);
+    $gate = &GetGate($player);
 
     foreach($garden as &$entity) {
         if(!$entity->removed) $entity->Status = 2; // Ready all entities
@@ -833,6 +836,10 @@ function WakeAllCards($player) {
 
     foreach($alley as &$entity) {
         if(!$entity->removed) $entity->Status = 2; // Ready all entities
+    }
+
+    foreach($gate as &$entity) {
+        if(!$entity->removed) $entity->Status = 2; // Ready gate cards
     }
 }
 
