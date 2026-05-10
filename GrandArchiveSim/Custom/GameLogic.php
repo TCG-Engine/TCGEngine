@@ -7541,8 +7541,8 @@ function EndPhase() {
     // At the beginning of your end phase, you may banish a card from your graveyard or hand
     // and put an omen counter on it.
     if(ChampionHasInLineage($turnPlayer, "nn48ne8a05")) {
-        $graveCards = ZoneSearch("myGraveyard");
-        $handCards = ZoneSearch("myHand");
+        $graveCards = ZoneSearch("myGraveyard", forPlayer: $turnPlayer);
+        $handCards = ZoneSearch("myHand", forPlayer: $turnPlayer);
         $banishTargets = array_merge($graveCards, $handCards);
         if(!empty($banishTargets)) {
             $targetStr = implode("&", $banishTargets);
