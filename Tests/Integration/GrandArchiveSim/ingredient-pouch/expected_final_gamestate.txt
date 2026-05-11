@@ -1,5 +1,5 @@
 1
-140
+145
 45
 cyfrzrplyw
 F9POfB5Nah
@@ -133,7 +133,7 @@ jnltv5klry 2 1 0 1 - - -
 u7d6soporh 1 1 0 1 - - -
 soporhlq2k 2 1 0 1 - - -
 5joh300z2s 2 1 0 1 - - -
-69iq4d5vet 2 1 0 1 ENTERED_THIS_TURN - -
+soporhlq2k 2 1 0 1 ENTERED_THIS_TURN - -
 5
 m4c8ljyevp 2 2 0 2 - - -
 b31x97n2jn 2 2 0 2 - - WyJ0YWZxbGRBR1JGIl0=
@@ -185,5 +185,5 @@ MAIN
 
 {"mzID":"myField-6","amount":1,"ignoreCost":false,"mzIDCardID":"u7d6soporh","activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","target":"myField-0","abilityIndex":0,"potionCardID":"bae3z4pyx8","glimpseCount":"3","aethercallCandidates":"","glimpsedToTempZone":"0"}
 0
-{"MaterializeCalls":{"1":3,"2":2},"Materialize":{"1":{"tafqldAGRF":1,"b31x97n2jn":1,"u7d6soporh":1},"2":{"tafqldAGRF":1,"b31x97n2jn":1}},"EnterCalls":{"1":9,"2":6},"Enter":{"1":{"tafqldAGRF":1,"bae3z4pyx8":1,"b31x97n2jn":1,"69iq4d5vet":2,"jnltv5klry":1,"u7d6soporh":1,"soporhlq2k":1,"5joh300z2s":1},"2":{"tafqldAGRF":1,"m4c8ljyevp":1,"b31x97n2jn":1,"soporhlq2k":1,"bd7ozuj68m":1,"bae3z4pyx8":1}},"DrawCalls":{"1":6,"2":4},"Draw":{"1":14,"2":10},"ActivateCardCalls":{"1":2,"2":2},"ActivateCard":{"1":{"bae3z4pyx8":1,"300z2snsdw":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"CardActivatedCalls":{"1":2,"2":2},"CardActivated":{"1":{"bae3z4pyx8":1,"300z2snsdw":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"ExhaustCardCalls":{"1":1},"ExhaustCard":{"1":{"bae3z4pyx8":1}},"ActivateAbilityCalls":{"1":4},"ActivateAbility":{"1":{"bae3z4pyx8":1,"u7d6soporh":3}}}
+{"MaterializeCalls":{"1":3,"2":2},"Materialize":{"1":{"tafqldAGRF":1,"b31x97n2jn":1,"u7d6soporh":1},"2":{"tafqldAGRF":1,"b31x97n2jn":1}},"EnterCalls":{"1":9,"2":6},"Enter":{"1":{"tafqldAGRF":1,"bae3z4pyx8":1,"b31x97n2jn":1,"69iq4d5vet":1,"jnltv5klry":1,"u7d6soporh":1,"soporhlq2k":2,"5joh300z2s":1},"2":{"tafqldAGRF":1,"m4c8ljyevp":1,"b31x97n2jn":1,"soporhlq2k":1,"bd7ozuj68m":1,"bae3z4pyx8":1}},"DrawCalls":{"1":6,"2":4},"Draw":{"1":14,"2":10},"ActivateCardCalls":{"1":2,"2":2},"ActivateCard":{"1":{"bae3z4pyx8":1,"300z2snsdw":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"CardActivatedCalls":{"1":2,"2":2},"CardActivated":{"1":{"bae3z4pyx8":1,"300z2snsdw":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"ExhaustCardCalls":{"1":1},"ExhaustCard":{"1":{"bae3z4pyx8":1}},"ActivateAbilityCalls":{"1":4},"ActivateAbility":{"1":{"bae3z4pyx8":1,"u7d6soporh":3}}}
 1

@@ -1140,6 +1140,7 @@ for($i=0; $i<count($zones); ++$i) {
   fwrite($handler, "  public \$Location;\r\n");
   fwrite($handler, "  public \$PlayerID;\r\n");
   fwrite($handler, "  public \$mzIndex;\r\n"); // Add mzIndex property for all classes
+  fwrite($handler, "  public \$_sourceZone = null;\r\n"); // Tracks source zone during MZMove without dynamic properties
   if($zoneName == "Versions") {
     fwrite($handler, "  public \$DisplayNumber;\r\n");
     fwrite($handler, "  public \$VersionName;\r\n");
