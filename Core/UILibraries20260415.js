@@ -177,6 +177,13 @@
       function Hotkeys(event) {
         // Ignore gameplay hotkeys while the bug report modal is open.
         if (document.getElementById('bugReportOverlay')) return;
+        
+        // Ignore hotkeys while typing in input/textarea fields (like chat)
+        var activeElement = document.activeElement;
+        if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+          return;
+        }
+        
         //if (event.keyCode === 32) { if(document.getElementById("passConfirm").innerText == "false" || confirm("Do you want to skip arsenal?")) SubmitInput(99, ""); } //Space = pass
         if(window.rootPath == './RBSim' || window.rootPath == './GudnakSim' || window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') {
           if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
