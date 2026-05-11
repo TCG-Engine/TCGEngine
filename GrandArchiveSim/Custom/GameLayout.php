@@ -29,8 +29,7 @@
 
      .ga-board-art,
      .ga-board-glow,
-     .ga-board-axis,
-     .ga-board-rune {
+     .ga-board-axis {
           position: fixed;
           inset: 0;
           pointer-events: none;
@@ -79,35 +78,6 @@
           height: 48px;
           border: 1px solid rgba(244, 236, 219, 0.14);
           background: linear-gradient(90deg, transparent, rgba(244, 236, 219, 0.07), transparent);
-     }
-
-     .ga-board-rune {
-          z-index: 14;
-     }
-
-     .ga-board-rune::before,
-     .ga-board-rune::after {
-          content: "";
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%) rotate(45deg);
-          width: 120px;
-          height: 120px;
-          border: 1px solid rgba(200, 155, 70, 0.25);
-          background: linear-gradient(135deg, rgba(244, 236, 219, 0.08), rgba(45, 111, 115, 0.04));
-          box-shadow: inset 0 0 30px rgba(244, 236, 219, 0.05);
-     }
-
-     .ga-board-rune::before {
-          top: calc(50% - 60px);
-     }
-
-     .ga-board-rune::after {
-          top: calc(50% - 60px);
-          width: 72px;
-          height: 72px;
-          border-color: rgba(244, 236, 219, 0.25);
-          background: transparent;
      }
 
      .ga-side-banner {
@@ -734,7 +704,6 @@
 <div class="ga-board-art"></div>
 <div class="ga-board-glow"></div>
 <div class="ga-board-axis"></div>
-<div class="ga-board-rune"></div>
 <div id="gaPhaseTrack" class="ga-phase-track" aria-live="polite" aria-label="Turn phases">
      <span class="ga-phase-step" data-phase-step="WU">Wake Up</span>
      <span class="ga-phase-step" data-phase-step="MAT">Materialize</span>
