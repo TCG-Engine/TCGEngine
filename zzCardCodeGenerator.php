@@ -784,6 +784,11 @@ function GetPropertyValue($card, $property)
       }
     case "GrandArchiveSim":
       switch($property) {
+        case "element":
+          if(isset($card->elements) && is_array($card->elements) && count($card->elements) > 0) {
+            return implode(",", $card->elements);
+          }
+          return isset($card->element) ? $card->element : "";
         case "type":
           return isset($card->types) && is_array($card->types) ? implode(",", $card->types) : "";
         case "classes":

@@ -93,7 +93,7 @@ function GetCardImbueOptions($player, $cardID) {
             if($option !== null) $options[] = $option;
         }
     }
-    if(PropertyContains(CardType($cardID), "ALLY") && CardElement($cardID) === "WIND") {
+    if(PropertyContains(CardType($cardID), "ALLY") && PropertyContains(CardElement($cardID), "WIND")) {
         $myField = GetZone("myField");
         foreach($myField as $fObj) {
             if(!$fObj->removed && $fObj->CardID === "lxnq80yu75" && !HasNoAbilities($fObj)) {
@@ -110,7 +110,13 @@ function GetCardImbueOptions($player, $cardID) {
     // If multiple Imbue instances define the same characteristic, the lowest N wins.
     $deduped = [];
     foreach($options as $option) {
-        $key = $option['matcher'] . "|" . ($option['element'] ?? '');
+        $keyElement = $option['element'] ?? '';
+        if(is_array($keyElement)) {
+            $elementParts = $keyElement;
+            sort($elementParts);
+            $keyElement = implode(",", $elementParts);
+        }
+        $key = $option['matcher'] . "|" . $keyElement;
         if(!isset($deduped[$key]) || $option['threshold'] < $deduped[$key]['threshold']) {
             $deduped[$key] = $option;
         }
@@ -168,10 +174,14 @@ function GetImbueOptionLabel($cardID, $option) {
         case 'advanced':
             return "Advanced_element_cards";
         case 'element':
-            return ($option['element'] ?? CardElement($cardID)) . "_element_cards";
+            $labelElement = $option['element'] ?? CardElement($cardID);
+            if(is_array($labelElement)) {
+                return implode("_or_", $labelElement) . "_element_cards";
+            }
+            return $labelElement . "_element_cards";
         case 'card_element':
         default:
-            return CardElement($cardID) . "_element_cards";
+            return "Card_element_cards";
     }
 }
 
@@ -2310,19 +2320,32 @@ function RevealImbueReserved($player) {
     $memory = GetMemory($player);
     $elementMatches = 0;
     $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS"];
+    if($matcher === "card_element" && !is_array($element) && $element !== null) {
+        $element = array_values(array_filter(array_map('trim', explode(',', $element)), fn($part) => $part !== ""));
+    }
     // Count matching cards among the newly added memory entries for the chosen Imbue characteristic.
     for($i = $memoryBefore; $i < count($memory); ++$i) {
         if($memory[$i]->removed) continue;
         $memoryElement = EffectiveCardElement($memory[$i]);
         switch($matcher) {
             case "advanced":
-                if(in_array($memoryElement, $advancedElements)) $elementMatches++;
+                foreach($advancedElements as $advancedElement) {
+                    if(PropertyContains($memoryElement, $advancedElement)) {
+                        $elementMatches++;
+                        break;
+                    }
+                }
                 break;
             case "element":
             case "card_element":
                 if(is_array($element)) {
-                    if(in_array($memoryElement, $element)) $elementMatches++;
-                } else if($memoryElement === $element) {
+                    foreach($element as $elementChoice) {
+                        if(PropertyContains($memoryElement, $elementChoice)) {
+                            $elementMatches++;
+                            break;
+                        }
+                    }
+                } else if(PropertyContains($memoryElement, $element)) {
                     $elementMatches++;
                 }
                 break;
@@ -11522,7 +11545,6 @@ $customDQHandlers["MalignantAthameSwap"] = function($player, $parts, $lastDecisi
     }
     if(count(GetMemory($opponent)) >= 4 && $target !== "") DealUnpreventableDamage($player, $sourceMZ, $target, 2);
 };
-
 function HiddenSecretsResolve($player) {
     $allies = FilterSpellshroudTargets(ZoneSearch("myField", ["ALLY"]));
     if(CountDomainsControlled($player) > 0) {
@@ -11675,7 +11697,10 @@ function GetStarcallingCost($player, $cardID) {
 
 function IsAdvancedElementCard($cardID) {
     $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA"];
-    return in_array(CardElement($cardID), $advancedElements);
+    foreach($advancedElements as $advancedElement) {
+        if(PropertyContains(CardElement($cardID), $advancedElement)) return true;
+    }
+    return false;
 }
 
 function AdvancedElementActivatedCount($player) {
@@ -14554,12 +14579,30 @@ function IsAdvancedElementName($element) {
     return in_array($element, ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS"]);
 }
 
+function GetCardElements($cardID) {
+    $elementProperty = CardElement($cardID);
+    if($elementProperty === null || $elementProperty === "") return [];
+    $elements = array_values(array_filter(array_map('trim', explode(',', $elementProperty)), fn($part) => $part !== ""));
+    return empty($elements) ? ["NORM"] : $elements;
+}
+
+function IsNormOnlyElementProperty($elementProperty) {
+    if($elementProperty === null || $elementProperty === "") return true;
+    $elements = array_values(array_filter(array_map('trim', explode(',', $elementProperty)), fn($part) => $part !== ""));
+    if(empty($elements)) return true;
+    foreach($elements as $element) {
+        if($element !== "NORM") return false;
+    }
+    return true;
+}
+
 function GetPlayerEnabledElements($player) {
     $enabled = ["NORM" => true];
     foreach(GetChampionLineage($player) as $lineageCardID) {
-        $lineageElement = CardElement($lineageCardID);
-        if($lineageElement === null || $lineageElement === "" || $lineageElement === "NORM") continue;
-        $enabled[$lineageElement] = true;
+        foreach(GetCardElements($lineageCardID) as $lineageElement) {
+            if($lineageElement === "NORM") continue;
+            $enabled[$lineageElement] = true;
+        }
     }
 
     $hasOtherAdvanced = false;
@@ -14582,12 +14625,16 @@ function GetPlayerEnabledElements($player) {
 }
 
 function IsPlayerElementEnabled($player, $element) {
-    if($element === null || $element === "" || $element === "NORM") return true;
-    return in_array($element, GetPlayerEnabledElements($player));
+    if(IsNormOnlyElementProperty($element)) return true;
+    $enabledElements = GetPlayerEnabledElements($player);
+    foreach(array_values(array_filter(array_map('trim', explode(',', $element)), fn($part) => $part !== "")) as $elementPart) {
+        if(in_array($elementPart, $enabledElements)) return true;
+    }
+    return false;
 }
 
 function GetElementRestrictionMessage($element) {
-    if($element === null || $element === "" || $element === "NORM") return "";
+    if(IsNormOnlyElementProperty($element)) return "";
     return "Element not enabled: " . $element;
 }
 
