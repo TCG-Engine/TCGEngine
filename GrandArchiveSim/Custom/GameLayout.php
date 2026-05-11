@@ -473,6 +473,29 @@
           min-height: 154px;
      }
 
+     /* Field lanes: keep one horizontal row and scroll sideways when crowded.
+        Scrolling lives on wrappers so card/subcard vertical overflow remains visible. */
+     #myFieldWrapper,
+     #theirFieldWrapper {
+          overflow-x: auto !important;
+          overflow-y: visible !important;
+          scrollbar-width: thin;
+          -webkit-overflow-scrolling: touch;
+     }
+
+     #myField,
+     #theirField {
+          flex-wrap: nowrap !important;
+          justify-content: flex-start !important;
+          overflow: visible !important;
+          min-width: 100%;
+     }
+
+     #myField > span,
+     #theirField > span {
+          flex: 0 0 auto;
+     }
+
      .ga-intent {
           width: min(15vw, 210px);
           min-height: 112px;
