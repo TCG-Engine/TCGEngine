@@ -167,6 +167,56 @@
                repeating-linear-gradient(90deg, transparent 0 22px, rgba(244, 236, 219, 0.03) 22px 23px);
      }
 
+     .ga-phase-track {
+          position: fixed;
+          left: 50%;
+          top: calc(50% + 7px);
+          transform: translateX(-50%);
+          z-index: 16;
+          pointer-events: none;
+          width: min(900px, calc(100vw - 120px));
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          color: rgba(244, 236, 219, 0.62);
+          text-transform: uppercase;
+          letter-spacing: 0.14em;
+          font: 700 10px/1 var(--ga-font-label);
+          text-shadow: 0 1px 8px rgba(7, 14, 20, 0.55);
+     }
+
+     .ga-phase-step {
+          position: relative;
+          padding: 0 2px;
+          white-space: nowrap;
+          opacity: 0.82;
+          transition: color 140ms ease, opacity 140ms ease, text-shadow 140ms ease;
+     }
+
+     .ga-phase-step::before {
+          content: "";
+          position: absolute;
+          left: -7px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 3px;
+          height: 3px;
+          border-radius: 50%;
+          background: rgba(244, 236, 219, 0.38);
+          box-shadow: 0 0 8px rgba(244, 236, 219, 0.30);
+     }
+
+     .ga-phase-step:first-child::before {
+          display: none;
+     }
+
+     .ga-phase-step.is-active {
+          color: rgba(252, 238, 171, 0.98);
+          opacity: 1;
+          text-shadow: 0 0 16px rgba(252, 221, 120, 0.68), 0 0 26px rgba(200, 155, 70, 0.52);
+     }
+
      .ga-zone {
           position: fixed;
           z-index: 30;
@@ -558,6 +608,18 @@
                border-radius: 18px;
           }
 
+          .ga-phase-track {
+               top: calc(50% + 6px);
+               width: min(760px, calc(100vw - 44px));
+               gap: 8px;
+               font-size: 10px;
+               letter-spacing: 0.11em;
+          }
+
+          .ga-phase-step::before {
+               left: -6px;
+          }
+
           .ga-glass::before {
                top: 9px;
                left: 10px;
@@ -673,6 +735,14 @@
 <div class="ga-board-glow"></div>
 <div class="ga-board-axis"></div>
 <div class="ga-board-rune"></div>
+<div id="gaPhaseTrack" class="ga-phase-track" aria-live="polite" aria-label="Turn phases">
+     <span class="ga-phase-step" data-phase-step="WU">Wake Up</span>
+     <span class="ga-phase-step" data-phase-step="MAT">Materialize</span>
+     <span class="ga-phase-step" data-phase-step="RECOLLECTION">Recollect</span>
+     <span class="ga-phase-step" data-phase-step="DRAW">Draw</span>
+     <span class="ga-phase-step" data-phase-step="MAIN">Main</span>
+     <span class="ga-phase-step" data-phase-step="END">End</span>
+</div>
 
 <!-- =================== MY ZONES (bottom half) =================== -->
 
@@ -829,6 +899,42 @@
           { id: 'theirGraveyardSlot',cls: 'ga-graveyard-empty' },
      ];
 
+     var PHASE_ALIASES = {
+          WU: 'WU',
+          WAKEUP: 'WU',
+          MAT: 'MAT',
+          MATERIALIZE: 'MAT',
+          BREC: 'RECOLLECTION',
+          REC: 'RECOLLECTION',
+          RECOLLECTION: 'RECOLLECTION',
+          DRAW: 'DRAW',
+          MAIN: 'MAIN',
+          BEND: 'END',
+          BEOP: 'END',
+          END: 'END'
+     };
+
+     function normalizePhaseStep(rawPhase) {
+          var value = (rawPhase || '').toString().trim();
+          if (value === '' || value === '-') return '';
+          var key = value.toUpperCase();
+          return PHASE_ALIASES[key] || '';
+     }
+
+     function updatePhaseTrack() {
+          var track = document.getElementById('gaPhaseTrack');
+          if (!track) return;
+          var raw = (typeof window.CurrentPhaseData === 'string') ? window.CurrentPhaseData : '';
+          var normalized = normalizePhaseStep(raw);
+          track.setAttribute('data-raw-phase', raw || '-');
+          var steps = track.querySelectorAll('[data-phase-step]');
+          for (var i = 0; i < steps.length; ++i) {
+               var step = steps[i];
+               var isActive = step.getAttribute('data-phase-step') === normalized;
+               step.classList.toggle('is-active', isActive);
+          }
+     }
+
      function hasCards(slot) {
           // PopulateZone renders card items as spans with id like "zoneName-0"
           return slot.querySelector('[id$="-0"]') !== null;
@@ -858,15 +964,25 @@
                .observe(el, { childList: true, subtree: true });
      }
 
+     function watchPhaseData() {
+          updatePhaseTrack();
+          var globalStuff = document.getElementById('globalStuff');
+          if (!globalStuff) return;
+          new MutationObserver(function() { updatePhaseTrack(); })
+               .observe(globalStuff, { childList: true, subtree: true });
+     }
+
      // Run once DOM is ready (GameLayout.php is included after DOMContentLoaded equivalent)
      if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function() {
                AUTO_HIDE_IDS.forEach(watchSlot);
                EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
+               watchPhaseData();
           });
      } else {
           AUTO_HIDE_IDS.forEach(watchSlot);
           EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
+          watchPhaseData();
      }
 })();
 </script>
