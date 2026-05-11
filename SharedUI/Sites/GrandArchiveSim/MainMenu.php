@@ -166,6 +166,7 @@ include_once 'Header.php';
 <script>
   var _didYouKnowTips = [
     { key: 'u', label: 'Undo your most recent action' },
+    { key: 'Space', label: 'Pass an optional decision when available' },
     { text: 'Hover a card on the field to see its full text' },
     { text: 'You can paste a deck link directly from Shout At Your Decks, sleeved.gg, DungeonGUI, or TCGArchitect.' },
     { text: 'Private games generate a shareable invite link — send it to your opponent and they can join instantly.' },
@@ -176,6 +177,7 @@ include_once 'Header.php';
 
   var _hotkeyList = [
     { key: 'u',   label: 'Undo most recent action' },
+    { key: 'Space', label: 'Pass optional decision (when available)' },
     { key: 'Esc', label: 'Cancel matchmaking' },
   ];
 

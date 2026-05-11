@@ -189,9 +189,27 @@
           if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
           if (event.keyCode === 85) SubmitInput(10004, ""); //U = Undo
         }
+        if ((window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') && event.keyCode === 32) {
+          if (TryPassCurrentDecision()) {
+            event.preventDefault();
+            return;
+          }
+        }
         //if (event.keyCode === 104) SubmitInput(3, "&cardID=0"); //H = hero ability
         //if (event.keyCode === 109) TogglePopup("menuPopup"); //M = open menu
         //TODO: Add schema file to define hotkeys
+      }
+
+      function TryPassCurrentDecision() {
+        if (!window.SelectionMode || !window.SelectionMode.active) return false;
+        if (window.SelectionMode.mode !== '100') return false;
+        if (!window.SelectionMode.mayPass) return false;
+        var decisionIndex = window.SelectionMode.decisionIndex;
+        if (decisionIndex === null || decisionIndex === undefined || decisionIndex === '') return false;
+
+        SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=PASS');
+        if (typeof ClearSelectionMode === 'function') ClearSelectionMode();
+        return true;
       }
 
       function ProcessInputLink(player, mode, input, event = 'onmousedown', fullRefresh = false) {
