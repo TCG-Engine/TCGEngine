@@ -3887,6 +3887,24 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "g99PIuhU0O": // Gildas, Faesworn Monarch â€” (2), reduced by (2) while you control another Fairy ally
+            if(intval($abilityIndex) === 0) {
+                $reserveCost = 2;
+                $hasOtherFairyAlly = false;
+                foreach(GetField($player) as $fObj) {
+                    if($fObj->removed) continue;
+                    if($fObj->GetMzID() === $mzCard) continue;
+                    if(!PropertyContains(EffectiveCardType($fObj), "ALLY")) continue;
+                    if(!PropertyContains(EffectiveCardSubtypes($fObj), "FAIRY")) continue;
+                    $hasOtherFairyAlly = true;
+                    break;
+                }
+                if($hasOtherFairyAlly) $reserveCost = max(0, $reserveCost - 2);
+                for($ri = 0; $ri < $reserveCost; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
         case "u7d6soporh": // Ingredient Pouch â€” (1), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
