@@ -6,6 +6,11 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
     $index = $cardArr[1];
     switch ($zone) {
       case "myHealth"://Pass button
+        // Only the turn player can pass
+        if(GetTurnPlayer() !== $playerID) {
+            SetFlashMessage("Only the turn player can pass.");
+            break;
+        }
         // Don't end turn if EffectStack has cards or DQs are pending
         $effectStack = &GetEffectStack();
         DecisionQueueController::CleanupRemovedCards();
