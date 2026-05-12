@@ -1714,11 +1714,45 @@ function DoDrawCard($player, $amount) {
 }
 
 function OnEnter($player, $mzID) {
-    global $customDQHandlers;
-    if(isset($customDQHandlers['ON_ENTER']) && is_callable($customDQHandlers['ON_ENTER'])) {
-        $obj = GetZoneObject($mzID);
-        $cardID = ($obj !== null && isset($obj->CardID)) ? $obj->CardID : '';
-        $customDQHandlers['ON_ENTER']($player, [$mzID, $cardID], null);
+    global $enterAbilities, $customDQHandlers;
+
+    $obj = GetZoneObject($mzID);
+    if($obj !== null && !(isset($obj->removed) && $obj->removed)) {
+        $cardID = $obj->CardID ?? '';
+        if($cardID !== '' && isset($enterAbilities) && is_array($enterAbilities)) {
+            $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+            $abilityCount = 0;
+            if(function_exists('CardEnterCount')) {
+                for($i = 0; $i < count($cardIDCandidates); ++$i) {
+                    $abilityCount = max($abilityCount, intval(CardEnterCount($cardIDCandidates[$i])));
+                }
+            }
+
+            if($abilityCount <= 0) {
+                for($i = 0; $i < count($cardIDCandidates); ++$i) {
+                    $key = $cardIDCandidates[$i] . ':0';
+                    if(isset($enterAbilities[$key])) {
+                        $enterAbilities[$key]($player);
+                        break;
+                    }
+                }
+            }
+            else {
+                for($i = 0; $i < $abilityCount; ++$i) {
+                    for($j = 0; $j < count($cardIDCandidates); ++$j) {
+                        $key = $cardIDCandidates[$j] . ':' . $i;
+                        if(isset($enterAbilities[$key])) {
+                            $enterAbilities[$key]($player);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if(isset($customDQHandlers['ON_ENTER']) && is_callable($customDQHandlers['ON_ENTER'])) {
+            $customDQHandlers['ON_ENTER']($player, [$mzID, $cardID], null);
+        }
     }
     return 'ENTER';
 }
