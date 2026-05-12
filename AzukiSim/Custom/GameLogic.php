@@ -27,6 +27,12 @@ function ResolveOwnerFromPerspectiveZone($player, $zoneName) {
     return intval($player);
 }
 
+function SaveActionSnapshot($player) {
+    $player = intval($player);
+    if($player !== 1 && $player !== 2) return;
+    SaveVersion($player);
+}
+
 function ParsePerspectiveMzID($perspectivePlayer, $mzID) {
     if(!is_string($mzID) || $mzID === '') return null;
 
@@ -1588,6 +1594,8 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         return '';
     }
 
+    SaveActionSnapshot($player);
+
     $cardType = CardType($cardID);
     $cardCost = CardCost($cardID);
 
@@ -1961,6 +1969,10 @@ function DoAttack($player, $mzCard, $targetMZ) {
     if($attackerIndex < 0 || $attackerIndex >= count($myGarden)) return '';
     if(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed) return '';
 
+    if(!$isPendingResolution) {
+        SaveActionSnapshot($player);
+    }
+
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'RESOLVE_ATTACK_COMBAT|' . $mzCard . '|' . $targetMZ, 1);
 
     return 'ATTACK';
@@ -1980,6 +1992,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     for($i = 0; $i < count($cardIDCandidates); ++$i) {
         $abilityKey = $cardIDCandidates[$i] . ':' . $abilityIndex;
         if(isset($activateAbilityAbilities[$abilityKey]) && is_callable($activateAbilityAbilities[$abilityKey])) {
+            SaveActionSnapshot($player);
             $activateAbilityAbilities[$abilityKey]($player);
             CardActivated($player, $mzCard);
             return 'ACTIVATE_ABILITY';

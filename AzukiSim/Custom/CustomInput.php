@@ -1,9 +1,7 @@
 <?php
 
 function MaybeSaveUndoVersion($playerID) {
-    if(function_exists('SaveUndoVersion')) {
-        SaveUndoVersion($playerID);
-    }
+    SaveVersion($playerID);
 }
 
 function CustomWidgetInput($playerID, $actionCard, $action) {
@@ -29,21 +27,20 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
             if (stripos($action, "Activate") === 0 && strpos($action, ':') !== false) {
                 $actionParts = explode(':', $action);
                 $abilityIndex = intval($actionParts[1] ?? 0);
-                MaybeSaveUndoVersion($playerID);
                 ActivateAbility($playerID, $actionCard, $abilityIndex);
             } else if ($action === "Attack") {
                 // Default field activation path: attack setup in Garden.
+                MaybeSaveUndoVersion($playerID);
                 HandleAttackSetup($playerID, $actionCard);
             } else if ($action === "Activate") {
                 if($zone === "myGarden") {
                     if(CanActivateAbilityRuntime($playerID, $actionCard, 0) && CanActivateAbility($playerID, $actionCard, 0)) {
-                        MaybeSaveUndoVersion($playerID);
                         ActivateAbility($playerID, $actionCard, 0);
                     } else {
+                        MaybeSaveUndoVersion($playerID);
                         HandleAttackSetup($playerID, $actionCard);
                     }
                 } else {
-                    MaybeSaveUndoVersion($playerID);
                     ActivateAbility($playerID, $actionCard, 0);
                 }
             }
