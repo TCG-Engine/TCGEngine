@@ -231,6 +231,34 @@ function CardHasSubtype($cardID, $subtype) {
     return false;
 }
 
+function HasTurnEffect($obj, $effectID) {
+    if(!is_object($obj) || !is_string($effectID) || $effectID === '') return false;
+    if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return false;
+    return in_array($effectID, $obj->TurnEffects, true);
+}
+
+function AddUniqueTurnEffect(&$obj, $effectID) {
+    if(!is_object($obj) || !is_string($effectID) || $effectID === '') return;
+    if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) {
+        $obj->TurnEffects = [];
+    }
+    if(!in_array($effectID, $obj->TurnEffects, true)) {
+        $obj->TurnEffects[] = $effectID;
+    }
+}
+
+function ParseAttackModifierEffects($obj) {
+    if(!is_object($obj) || !isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return 0;
+    $delta = 0;
+    foreach($obj->TurnEffects as $effectID) {
+        if(!is_string($effectID)) continue;
+        if(strpos($effectID, 'ATK_MOD:') !== 0) continue;
+        $amount = intval(substr($effectID, strlen('ATK_MOD:')));
+        $delta += $amount;
+    }
+    return $delta;
+}
+
 function EquippedWeaponAttackBonus($obj, $ownerPlayer = null) {
     $bonus = 0;
     $weaponIDs = GetAttachedWeaponIDs($obj);
@@ -274,13 +302,23 @@ function EntityCardAttackBonus($player, $obj) {
         $bonus += 2;
     }
 
+    if($cardID === 'S1-STT02-012_Young-Shao_E_UC_die') {
+        $myGarden = &GetGarden($player);
+        $opp = intval($player) === 1 ? 2 : 1;
+        $theirGarden = &GetGarden($opp);
+        if(CountActiveEntities($myGarden, true) >= CountActiveEntities($theirGarden, true) + 2) {
+            $bonus += 1;
+        }
+    }
+
     return $bonus;
 }
 
 function ResolveEntityAttackValue($player, $obj) {
     if(!is_object($obj)) return 0;
     $base = max(0, intval(CardAttack($obj->CardID ?? '')));
-    return $base + EquippedWeaponAttackBonus($obj, $player) + EntityCardAttackBonus($player, $obj);
+    $value = $base + EquippedWeaponAttackBonus($obj, $player) + EntityCardAttackBonus($player, $obj) + ParseAttackModifierEffects($obj);
+    return max(0, $value);
 }
 
 function TriggerEquippedWeaponOnAttack($player, $attackerMZ) {
@@ -350,8 +388,42 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
 }
 
 function SafeMZMove($player, $mzIndex, $toZone) {
+    $shouldCheckSelis = false;
+    $movingToOwner = 0;
+    $movingCardIsEntity = false;
+    if(is_string($mzIndex) && is_string($toZone) && ($toZone === 'myHand' || $toZone === 'theirHand')) {
+        $obj = GetZoneObject($mzIndex);
+        if($obj !== null && !(isset($obj->removed) && $obj->removed)) {
+            $location = strval($obj->Location ?? '');
+            if($location === 'Garden' || $location === 'Alley') {
+                $movingCardIsEntity = (CardType($obj->CardID ?? '') === 'ENTITY');
+                $movingToOwner = ResolveObjectOwner($obj);
+                if(intval($movingToOwner) > 0 && $movingCardIsEntity) {
+                    $shouldCheckSelis = true;
+                }
+            }
+        }
+    }
+
     HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone);
-    return MZMove($player, $mzIndex, $toZone);
+    $result = MZMove($player, $mzIndex, $toZone);
+
+    if($shouldCheckSelis) {
+        for($selisOwner = 1; $selisOwner <= 2; ++$selisOwner) {
+            $garden = &GetGarden($selisOwner);
+            for($i = 0; $i < count($garden); ++$i) {
+                $selis = &$garden[$i];
+                if($selis === null || (isset($selis->removed) && $selis->removed)) continue;
+                if(($selis->CardID ?? '') !== 'S1-STT02-010_Selis-of-the-Shore_E_R_die') continue;
+                if(intval($selis->Status ?? 2) === 1) continue;
+                $selis->Status = 1;
+                DoDrawCard($selisOwner, 1);
+                break;
+            }
+        }
+    }
+
+    return $result;
 }
 
 function ResolveWeaponEquipTargets($player) {
@@ -716,6 +788,9 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
 
     Enter($player, $newMZ);
     OnPlay($player, $newMZ);
+
+    $entityPlays = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_EntitiesPlayedThisTurn'));
+    DecisionQueueController::StoreVariable('P' . intval($player) . '_EntitiesPlayedThisTurn', strval($entityPlays + 1));
 }
 
 function QueueLeaderDamageAnimation($player, $amount) {
@@ -787,6 +862,11 @@ function DealDamageToGardenTarget($player, $targetMZ, $amount) {
         DealDamageToLeader($targetPlayer, $amount);
         return;
     }
+
+    if(HasTurnEffect($garden[$index], 'FROZEN')) return;
+    if(HasTurnEffect($garden[$index], 'EFFECT_DAMAGE_IMMUNE')) return;
+    if($targetCardID === 'S1-STT02-006_Foamback-Crab_E_C_die') return;
+    if($targetCardID === 'S1-STT02-008_Serene-Fist-Misaki_E_UC_die') return;
 
     $garden[$index]->Damage = intval($garden[$index]->Damage ?? 0) + $amount;
     QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true);
@@ -896,6 +976,7 @@ function CanAttackWith($player, $mzID) {
 
     // Cannot attack if tapped
     if($entity->Status == 1) return false; // Tapped
+    if(HasTurnEffect($entity, 'FROZEN')) return false;
     if(HasCooldown($entity)) {
         $hasCharge = CardHasKeyword($entity->CardID ?? '', 'Charge')
             || (isset($entity->TurnEffects) && is_array($entity->TurnEffects) && in_array('CHARGE', $entity->TurnEffects, true));
@@ -1142,6 +1223,16 @@ function ObjectCurrentHPDisplay($obj) {
     if(isset($obj->CardID)) {
         $baseHP = CardHealth($obj->CardID);
     }
+    if(is_object($obj) && ($obj->CardID ?? '') === 'S1-STT02-012_Young-Shao_E_UC_die') {
+        $owner = ResolveObjectOwner($obj);
+        if($owner === null || intval($owner) <= 0) $owner = GetTurnPlayer();
+        $myGarden = &GetGarden(intval($owner));
+        $opp = intval($owner) === 1 ? 2 : 1;
+        $theirGarden = &GetGarden($opp);
+        if(CountActiveEntities($myGarden, true) >= CountActiveEntities($theirGarden, true) + 2) {
+            $baseHP += 1;
+        }
+    }
     $damage = isset($obj->Damage) ? intval($obj->Damage) : 0;
     return max(0, $baseHP - $damage);
 }
@@ -1215,6 +1306,7 @@ function CardHasAbility($obj) {
 
     if(GetCurrentPhase() !== 'MAIN') return 0;
     if(HasPendingAttackResponse()) return 0;
+    if(HasTurnEffect($obj, 'FROZEN')) return 0;
 
     $turnPlayer = &GetTurnPlayer();
     $owner = ResolveObjectOwner($obj);
@@ -1270,6 +1362,7 @@ function CanActivateAbilityRuntime($player, $mzID, $abilityIndex = 0) {
 
     $cardID = $obj->CardID ?? '';
     $location = $obj->Location ?? '';
+    if(HasTurnEffect($obj, 'FROZEN')) return false;
 
     // Alpine Prowler: [In Alley Only Ability][Main]
     if($cardID === 'S1-STT01-005_Alpine-Prowler_E_C_die') {
@@ -1629,8 +1722,11 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         } else {
             $theirGarden = &GetGarden($opponent);
             if(isset($theirGarden[$targetIndex]) && !(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed)) {
-                $theirGarden[$targetIndex]->Damage = intval($theirGarden[$targetIndex]->Damage ?? 0) + $attackerAttack;
-                QueueDamageAnimation('p' . $opponent . 'Garden-' . $targetIndex, $attackerAttack, 500, true);
+                $targetCard = $theirGarden[$targetIndex]->CardID ?? '';
+                if(!HasTurnEffect($theirGarden[$targetIndex], 'FROZEN')) {
+                    $theirGarden[$targetIndex]->Damage = intval($theirGarden[$targetIndex]->Damage ?? 0) + $attackerAttack;
+                    QueueDamageAnimation('p' . $opponent . 'Garden-' . $targetIndex, $attackerAttack, 500, true);
+                }
             }
         }
     }
@@ -1641,8 +1737,10 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         } else {
             $myGarden = &GetGarden($player);
             if(isset($myGarden[$attackerIndex]) && !(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed)) {
-                $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $defenderAttack;
-                QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $defenderAttack, 500, true);
+                if(!HasTurnEffect($myGarden[$attackerIndex], 'FROZEN')) {
+                    $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $defenderAttack;
+                    QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $defenderAttack, 500, true);
+                }
             }
         }
     }
@@ -1843,6 +1941,7 @@ function ActionMap($actionCard) {
 // --- Phase Handlers ---
 
 function OnStartOfTurn($player) {
+    DecisionQueueController::StoreVariable('P' . intval($player) . '_EntitiesPlayedThisTurn', '0');
     global $gCurrentPhase;
 
     // 1. Untap all cards (field and IKZ)

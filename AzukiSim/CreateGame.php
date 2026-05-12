@@ -69,85 +69,73 @@ WriteGamestate(__DIR__ . "/");
 
 $lobby->gameName = $gameName;
 
+function GetPreconstructedDeckConfig($deckName) {
+    $normalized = is_string($deckName) ? trim(strtolower($deckName)) : '';
+    if($normalized === 'shao') {
+        return [
+            'name' => 'Shao',
+            'leader' => 'S1-STT02-001_Shao_L_L_die',
+            'gate' => 'S1-STT02-002_Hydromancy-Gate_G_G_die',
+            'deckList' => [
+                'S1-STT02-003_Hayabusa-Itto_E_C_die','S1-STT02-003_Hayabusa-Itto_E_C_die','S1-STT02-003_Hayabusa-Itto_E_C_die','S1-STT02-003_Hayabusa-Itto_E_C_die',
+                'S1-STT02-004_Rei_E_C_die','S1-STT02-004_Rei_E_C_die','S1-STT02-004_Rei_E_C_die','S1-STT02-004_Rei_E_C_die',
+                'S1-STT02-005_Hayabusa-Saburo_E_UC_die','S1-STT02-005_Hayabusa-Saburo_E_UC_die','S1-STT02-005_Hayabusa-Saburo_E_UC_die',
+                'S1-STT02-006_Foamback-Crab_E_C_die','S1-STT02-006_Foamback-Crab_E_C_die','S1-STT02-006_Foamback-Crab_E_C_die','S1-STT02-006_Foamback-Crab_E_C_die',
+                'S1-STT02-007_Benzai-the-Merchant_E_C_die','S1-STT02-007_Benzai-the-Merchant_E_C_die','S1-STT02-007_Benzai-the-Merchant_E_C_die','S1-STT02-007_Benzai-the-Merchant_E_C_die',
+                'S1-STT02-008_Serene-Fist-Misaki_E_UC_die','S1-STT02-008_Serene-Fist-Misaki_E_UC_die','S1-STT02-008_Serene-Fist-Misaki_E_UC_die',
+                'S1-STT02-009_Aya_E_C_die','S1-STT02-009_Aya_E_C_die','S1-STT02-009_Aya_E_C_die','S1-STT02-009_Aya_E_C_die',
+                'S1-STT02-010_Selis-of-the-Shore_E_R_die','S1-STT02-010_Selis-of-the-Shore_E_R_die',
+                'S1-STT02-011_Bubblemancer_E_C_die','S1-STT02-011_Bubblemancer_E_C_die','S1-STT02-011_Bubblemancer_E_C_die','S1-STT02-011_Bubblemancer_E_C_die',
+                'S1-STT02-012_Young-Shao_E_UC_die','S1-STT02-012_Young-Shao_E_UC_die','S1-STT02-012_Young-Shao_E_UC_die',
+                'S1-STT02-013_Mizuki_E_SR_die','S1-STT02-013_Mizuki_E_SR_die','S1-STT02-013_Mizuki_E_SR_die',
+                'S1-STT02-014_Chilling-Water_S_C_die','S1-STT02-014_Chilling-Water_S_C_die','S1-STT02-014_Chilling-Water_S_C_die','S1-STT02-014_Chilling-Water_S_C_die',
+                'S1-STT02-015_Commune-with-Water_S_UC_die','S1-STT02-015_Commune-with-Water_S_UC_die','S1-STT02-015_Commune-with-Water_S_UC_die',
+                'S1-STT02-016_Water-Orb_S_R_die','S1-STT02-016_Water-Orb_S_R_die',
+                'S1-STT02-017_Shaos-Perseverance_S_SR_die','S1-STT02-017_Shaos-Perseverance_S_SR_die','S1-STT02-017_Shaos-Perseverance_S_SR_die',
+            ],
+        ];
+    }
+
+    return [
+        'name' => 'Raizan',
+        'leader' => 'S1-STT01-001_Raizan_L_L_die',
+        'gate' => 'S1-STT01-002_Surge-Gate_G_G_die',
+        'deckList' => [
+            'S1-STT01-007_Alley-Guy_E_C_die','S1-STT01-007_Alley-Guy_E_C_die','S1-STT01-007_Alley-Guy_E_C_die','S1-STT01-007_Alley-Guy_E_C_die',
+            'S1-STT01-005_Alpine-Prowler_E_C_die','S1-STT01-005_Alpine-Prowler_E_C_die','S1-STT01-005_Alpine-Prowler_E_C_die','S1-STT01-005_Alpine-Prowler_E_C_die',
+            'S1-STT01-008_Black-Jade-Crewleader_E_UC_die','S1-STT01-008_Black-Jade-Crewleader_E_UC_die','S1-STT01-008_Black-Jade-Crewleader_E_UC_die','S1-STT01-008_Black-Jade-Crewleader_E_UC_die',
+            'S1-STT01-013_Black-Jade-Dagger_W_C_die','S1-STT01-013_Black-Jade-Dagger_W_C_die','S1-STT01-013_Black-Jade-Dagger_W_C_die','S1-STT01-013_Black-Jade-Dagger_W_C_die',
+            'S1-STT01-004_Black-Jade-Recruit_E_C_die','S1-STT01-004_Black-Jade-Recruit_E_C_die','S1-STT01-004_Black-Jade-Recruit_E_C_die','S1-STT01-004_Black-Jade-Recruit_E_C_die',
+            'S1-STT01-003_Crate-Rat-Kurobo_E_C_die','S1-STT01-003_Crate-Rat-Kurobo_E_C_die','S1-STT01-003_Crate-Rat-Kurobo_E_C_die','S1-STT01-003_Crate-Rat-Kurobo_E_C_die',
+            'S1-STT01-016_Ikazuchi_W_SR_die','S1-STT01-016_Ikazuchi_W_SR_die','S1-STT01-016_Ikazuchi_W_SR_die',
+            'S1-STT01-010_Indra_E_R_die','S1-STT01-010_Indra_E_R_die','S1-STT01-010_Indra_E_R_die',
+            'S1-STT01-017_Lightning-Orb_S_UC_die','S1-STT01-017_Lightning-Orb_S_UC_die','S1-STT01-017_Lightning-Orb_S_UC_die',
+            'S1-STT01-012_Lightning-Shuriken_W_C_die','S1-STT01-012_Lightning-Shuriken_W_C_die','S1-STT01-012_Lightning-Shuriken_W_C_die',
+            'S1-STT01-009_Mastersmith-Yamada_E_UC_die','S1-STT01-009_Mastersmith-Yamada_E_UC_die','S1-STT01-009_Mastersmith-Yamada_E_UC_die',
+            'S1-STT01-006_Silver-Current-Haruhi_E_R_die','S1-STT01-006_Silver-Current-Haruhi_E_R_die',
+            'S1-STT01-015_Tenraku_W_UC_die','S1-STT01-015_Tenraku_W_UC_die','S1-STT01-015_Tenraku_W_UC_die',
+            'S1-STT01-014_Tenshin_W_C_die','S1-STT01-014_Tenshin_W_C_die',
+        ],
+    ];
+}
+
 function LoadPlayer($playerID, $preconstructedDeck = 'Raizan') {
     $deck = &GetDeck($playerID);
     $garden = &GetGarden($playerID);
     $gate = &GetGate($playerID);
 
-    // For AzukiSim, only Raizan starter deck is currently supported
-    $deckName = 'Raizan';
+    $deckConfig = GetPreconstructedDeckConfig($preconstructedDeck);
+    $deckName = $deckConfig['name'];
 
     // Raizan (Leader) starts in the Garden.
-    $leaderCard = new Garden('S1-STT01-001_Raizan_L_L_die');
+    $leaderCard = new Garden($deckConfig['leader']);
     array_push($garden, $leaderCard);
 
     // Surge Gate
-    $gateCard = new Gate('S1-STT01-002_Surge-Gate_G_G_die');
+    $gateCard = new Gate($deckConfig['gate']);
     array_push($gate, $gateCard);
 
-    // Main deck - Raizan starter deck (50 cards)
-    $deckList = [
-        // 4x Alley Guy
-        'S1-STT01-007_Alley-Guy_E_C_die',
-        'S1-STT01-007_Alley-Guy_E_C_die',
-        'S1-STT01-007_Alley-Guy_E_C_die',
-        'S1-STT01-007_Alley-Guy_E_C_die',
-        // 4x Alpine Prowler
-        'S1-STT01-005_Alpine-Prowler_E_C_die',
-        'S1-STT01-005_Alpine-Prowler_E_C_die',
-        'S1-STT01-005_Alpine-Prowler_E_C_die',
-        'S1-STT01-005_Alpine-Prowler_E_C_die',
-        // 4x Black Jade Crewleader
-        'S1-STT01-008_Black-Jade-Crewleader_E_UC_die',
-        'S1-STT01-008_Black-Jade-Crewleader_E_UC_die',
-        'S1-STT01-008_Black-Jade-Crewleader_E_UC_die',
-        'S1-STT01-008_Black-Jade-Crewleader_E_UC_die',
-        // 4x Black Jade Dagger
-        'S1-STT01-013_Black-Jade-Dagger_W_C_die',
-        'S1-STT01-013_Black-Jade-Dagger_W_C_die',
-        'S1-STT01-013_Black-Jade-Dagger_W_C_die',
-        'S1-STT01-013_Black-Jade-Dagger_W_C_die',
-        // 4x Black Jade Recruit
-        'S1-STT01-004_Black-Jade-Recruit_E_C_die',
-        'S1-STT01-004_Black-Jade-Recruit_E_C_die',
-        'S1-STT01-004_Black-Jade-Recruit_E_C_die',
-        'S1-STT01-004_Black-Jade-Recruit_E_C_die',
-        // 4x Crate Rat Kurobo
-        'S1-STT01-003_Crate-Rat-Kurobo_E_C_die',
-        'S1-STT01-003_Crate-Rat-Kurobo_E_C_die',
-        'S1-STT01-003_Crate-Rat-Kurobo_E_C_die',
-        'S1-STT01-003_Crate-Rat-Kurobo_E_C_die',
-        // 3x Ikazuchi
-        'S1-STT01-016_Ikazuchi_W_SR_die',
-        'S1-STT01-016_Ikazuchi_W_SR_die',
-        'S1-STT01-016_Ikazuchi_W_SR_die',
-        // 3x Indra
-        'S1-STT01-010_Indra_E_R_die',
-        'S1-STT01-010_Indra_E_R_die',
-        'S1-STT01-010_Indra_E_R_die',
-        // 3x Lightning Orb
-        'S1-STT01-017_Lightning-Orb_S_UC_die',
-        'S1-STT01-017_Lightning-Orb_S_UC_die',
-        'S1-STT01-017_Lightning-Orb_S_UC_die',
-        // 3x Lightning Shuriken
-        'S1-STT01-012_Lightning-Shuriken_W_C_die',
-        'S1-STT01-012_Lightning-Shuriken_W_C_die',
-        'S1-STT01-012_Lightning-Shuriken_W_C_die',
-        // 3x Mastersmith Yamada
-        'S1-STT01-009_Mastersmith-Yamada_E_UC_die',
-        'S1-STT01-009_Mastersmith-Yamada_E_UC_die',
-        'S1-STT01-009_Mastersmith-Yamada_E_UC_die',
-        // 2x Silver Current Haruhi
-        'S1-STT01-006_Silver-Current-Haruhi_E_R_die',
-        'S1-STT01-006_Silver-Current-Haruhi_E_R_die',
-        // 3x Tenraku
-        'S1-STT01-015_Tenraku_W_UC_die',
-        'S1-STT01-015_Tenraku_W_UC_die',
-        'S1-STT01-015_Tenraku_W_UC_die',
-        // 2x Tenshin
-        'S1-STT01-014_Tenshin_W_C_die',
-        'S1-STT01-014_Tenshin_W_C_die',
-    ];
+    $deckList = $deckConfig['deckList'];
 
     for($i = 0; $i < count($deckList); ++$i) {
         $cardID = $deckList[$i];

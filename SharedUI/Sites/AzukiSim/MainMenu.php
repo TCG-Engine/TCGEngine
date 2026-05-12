@@ -31,7 +31,11 @@ include_once 'Header.php';
   <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px;">
     <h2>Create a New Game</h2>
     <div>
-      <p style="color: #ccc; margin: 0 0 12px 0; font-size: 14px;">Testing with the <strong>Raizan Starter Deck</strong></p>
+      <p style="color: #ccc; margin: 0 0 8px 0; font-size: 14px;">Choose your starter deck:</p>
+      <select id="starter-deck-select" style="margin-bottom: 12px; min-width: 220px;">
+        <option value="Raizan">Raizan Starter Deck</option>
+        <option value="Shao">Shao Starter Deck</option>
+      </select>
       <br>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="joinQueue()">Join Queue</button>
@@ -119,7 +123,7 @@ include_once 'Header.php';
   var _didYouKnowTips = [
     { key: 'u', label: 'Undo your most recent action' },
     { text: 'Hover a card on the field to see its full text' },
-    { text: 'Both players start with the Raizan starter deck.' },
+    { text: 'You can queue with either the Raizan or Shao starter deck.' },
     { text: 'Private games generate a shareable invite link — send it to your opponent and they can join instantly.' },
     { text: 'The queue matches you with the first available opponent. No need to refresh — it polls automatically.' },
     { key: 'Esc', label: 'Cancel matchmaking while waiting for an opponent' },
@@ -215,10 +219,15 @@ include_once 'Header.php';
       }
 
       function getDeckSubmission() {
-        // AzukiSim uses the Raizan starter deck
+        var starterDeck = 'Raizan';
+        var starterSelect = document.getElementById('starter-deck-select');
+        if (starterSelect && starterSelect.value) {
+          starterDeck = starterSelect.value;
+        }
+
         var gameType = 'casual';
         return {
-          preconstructedDeck: 'Raizan',
+          preconstructedDeck: starterDeck,
           deckLink: '',
           gameType: gameType
         };
