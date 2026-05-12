@@ -867,7 +867,7 @@
 
 <!-- EffectStackSlot: center of screen (effect queue display) -->
 <div id="EffectStackSlot" class="ga-zone ga-glass ga-stack"
-           data-label="Effect Stack"
+           data-label="Effect Stack ('U' to undo)"
            style="top:calc(50% - 43px);">
 </div>
 
