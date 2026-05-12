@@ -6209,6 +6209,33 @@ $customDQHandlers["MantleAbyssSacrifice"] = function($player, $parts, $lastDecis
     if($mantleMZ === null) return;
     DoMaterialize($player, $mantleMZ);
 };
+$customDQHandlers["TomeSacredLightningFromMaterial"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    $copiedCardID = $obj->CardID;
+
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+
+    $tomeMZ = $parts[0] ?? "";
+    $tomeObj = $tomeMZ !== "" ? GetZoneObject($tomeMZ) : null;
+    if($tomeObj === null || $tomeObj->removed || $tomeObj->CardID !== "MyUTeqUJ0H") {
+        $material = GetMaterial($player);
+        $tomeMZ = null;
+        for($i = 0; $i < count($material); $i++) {
+            if(!$material[$i]->removed && $material[$i]->CardID === "MyUTeqUJ0H") {
+                $tomeMZ = "myMaterial-" . $i;
+                break;
+            }
+        }
+    }
+
+    if($tomeMZ === null || $tomeMZ === "") return;
+    DecisionQueueController::StoreVariable("tomeSacredLightningCopiedCardID", $copiedCardID);
+    DoMaterialize($player, $tomeMZ);
+};
 $customDQHandlers["EtherealAbsorptionCost"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
     $obj = GetZoneObject($lastDecision);

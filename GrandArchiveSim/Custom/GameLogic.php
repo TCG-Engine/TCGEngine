@@ -945,16 +945,27 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
-            // Lost Providence (DNbIpzVgde): may activate from material deck â†’ enters field ephemeral
+            // Lost Providence (DNbIpzVgde): may activate from material deck -> enters field ephemeral
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
                 if($mObj !== null && !$mObj->removed && $mObj->CardID === "DNbIpzVgde") {
                     DecisionQueueController::StoreVariable("lostProvidenceFromMaterial", "YES");
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    DoMaterialize($playerID, $actionCard);
                     return "PLAY";
+                }
+            }
+            // Tome of Sacred Lightning (MyUTeqUJ0H): [Element Bonus] banish a Book regalia to activate from material deck
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "MyUTeqUJ0H"
+                    && IsElementBonusActive($playerID, "MyUTeqUJ0H")) {
+                    $bookRegalia = ZoneSearch("myField", ["REGALIA"], cardSubtypes: ["BOOK"]);
+                    if(!empty($bookRegalia)) {
+                        $targetStr = implode("&", $bookRegalia);
+                        DecisionQueueController::AddDecision($playerID, "MZCHOOSE", $targetStr, 1, tooltip:"Banish_a_Book_regalia_you_control");
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "TomeSacredLightningFromMaterial|$actionCard", 1);
+                        return "PLAY";
+                    }
                 }
             }
             // Gaia's Blessing (ymhDYTPfi1): [Element Bonus] banish 4 Animal/Beast GY allies â†’ activate from material free
@@ -4058,6 +4069,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "4moumzcx9z": // Staff of Blossoming Will â€” REST
         case "E09lX95cb9": // Ticket to the Afterlife â€” REST
         case "qj5bbae3z4": // Cosmic Astroscope â€” REST
+        case "MyUTeqUJ0H": // Tome of Sacred Lightning â€” REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
@@ -4753,6 +4765,29 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
                 }
             }
         }
+
+        // Tome of Sacred Lightning (MyUTeqUJ0H): copy activated abilities of the remembered Book regalia.
+        if(!$handledDynamic && $cardID === "MyUTeqUJ0H" && $sourceObject->Status == 2) {
+            global $activateAbilityPrereqs;
+            $copiedCardID = GetTomeCopiedCardID($sourceObject);
+            if(!empty($copiedCardID) && $copiedCardID !== "MyUTeqUJ0H") {
+                $copiedCount = CardActivateAbilityCount($copiedCardID);
+                for($ai = 0; $ai < $copiedCount; ++$ai) {
+                    $abilityKey = $copiedCardID . ":" . $ai;
+                    if(isset($activateAbilityPrereqs[$abilityKey]) && !$activateAbilityPrereqs[$abilityKey]($player, $mzCard, $ai)) {
+                        continue;
+                    }
+                    if($selectedAbilityIndex == $dynIndex) {
+                        ActivatedAbilityCost($player, $mzCard, $copiedCardID, $ai);
+                        // Queue copied ability at block=101 so any queued costs at block=100 resolve first.
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityActivated|$copiedCardID|$ai", 101);
+                        $handledDynamic = true;
+                        break;
+                    }
+                    $dynIndex++;
+                }
+            }
+        }
     }
     if(!$isDynamic) {
         // Candlelight Hourglass (fhomy86084): On Charge 2 â†’ opponent's ally activated abilities cost (2) more
@@ -5286,6 +5321,14 @@ function OnEnter($player, $mzID) {
         }
     }
     if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
+
+    // Tome of Sacred Lightning (MyUTeqUJ0H): also execute the copied card's Enter ability.
+    if($CardID === "MyUTeqUJ0H") {
+        $copiedCardID = GetTomeCopiedCardID($obj);
+        if(!empty($copiedCardID) && isset($enterAbilities[$copiedCardID . ":0"])) {
+            $enterAbilities[$copiedCardID . ":0"]($player);
+        }
+    }
 }
 
 function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $Controller="-", $TurnEffects="-", $Counters="-", $Subcards="-") {
@@ -5380,8 +5423,23 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         MakeEphemeral("myField-" . (count($field) - 1));
     }
 
+    // Tome of Sacred Lightning (MyUTeqUJ0H): if activated from material via Book banish,
+    // remember which card was copied so Tome can use its activated abilities.
+    if($added->CardID === "MyUTeqUJ0H") {
+        $copiedCardID = DecisionQueueController::GetVariable("tomeSacredLightningCopiedCardID");
+        if(!empty($copiedCardID)) {
+            if(!isset($added->Counters) || !is_array($added->Counters)) $added->Counters = [];
+            $added->Counters['_tomeCopiedCardID'] = $copiedCardID;
+            DecisionQueueController::StoreVariable("tomeSacredLightningCopiedCardID", "");
+        }
+    }
+
     // Hindered keyword: this object enters the field rested
     if(HasHindered($added)) {
+        $added->Status = 1;
+    }
+    // Lost Providence (DNbIpzVgde): explicit fallback for Hindered enter-rested behavior.
+    if($added->CardID === "DNbIpzVgde") {
         $added->Status = 1;
     }
     // Crusader of Aesa (2Q60hBYO3i): enters the field rested (card text, not keyword)
@@ -12975,7 +13033,15 @@ function MaterialSelectionMetadata($obj) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
-    // Gaia's Blessing (ymhDYTPfi1): [Element Bonus] 4+ Animal/Beast GY allies â†’ activate from material free
+    // Tome of Sacred Lightning (MyUTeqUJ0H): [Element Bonus] + you control a Book regalia
+    if ($obj->CardID === "MyUTeqUJ0H" && IsElementBonusActive($turnPlayer, "MyUTeqUJ0H")) {
+        $bookRegalia = ZoneSearch("myField", ["REGALIA"], cardSubtypes: ["BOOK"]);
+        if (!empty($bookRegalia)) {
+            return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+        }
+    }
+
+    // Gaia's Blessing (ymhDYTPfi1): [Element Bonus] 4+ Animal/Beast GY allies -> activate from material free
     if ($obj->CardID === "ymhDYTPfi1" && IsElementBonusActive($turnPlayer, "ymhDYTPfi1")) {
         $animalBeastGY = ZoneSearch("myGraveyard", ["ALLY"], cardSubtypes: ["ANIMAL", "BEAST"]);
         if (count($animalBeastGY) >= 4) {
@@ -18352,8 +18418,38 @@ function GetDynamicAbilities($obj) {
             }
         }
     }
+    // Tome of Sacred Lightning (MyUTeqUJ0H): enters with activated abilities of the copied Book regalia.
+    if($obj->CardID === "MyUTeqUJ0H" && $obj->Status == 2) {
+        $copiedCardID = GetTomeCopiedCardID($obj);
+        if(!empty($copiedCardID) && $copiedCardID !== "MyUTeqUJ0H") {
+            global $activateAbilityPrereqs;
+            $copiedCount = CardActivateAbilityCount($copiedCardID);
+            $copiedMZ = $obj->GetMzID();
+            $copiedNames = function_exists("CardActivateAbilityCountNames")
+                ? CardActivateAbilityCountNames($copiedCardID)
+                : [];
+            for($ai = 0; $ai < $copiedCount; ++$ai) {
+                $abilityKey = $copiedCardID . ":" . $ai;
+                if(isset($activateAbilityPrereqs[$abilityKey]) && !$activateAbilityPrereqs[$abilityKey]($obj->Controller, $copiedMZ, $ai)) {
+                    continue;
+                }
+                $label = $copiedNames[$ai] ?? ("Ability " . ($ai + 1));
+                $abilities[] = [
+                    "name" => "Copied: " . CardName($copiedCardID) . " - " . $label,
+                    "index" => $nextIndex
+                ];
+                $nextIndex++;
+            }
+        }
+    }
     if(empty($abilities)) return "";
     return json_encode($abilities);
+}
+
+function GetTomeCopiedCardID($obj) {
+    if($obj == null || !isset($obj->Counters) || !is_array($obj->Counters)) return "";
+    $copied = $obj->Counters['_tomeCopiedCardID'] ?? "";
+    return is_string($copied) ? $copied : "";
 }
 
 $customDQHandlers["GearstrideAcademyUpkeep"] = function($player, $parts, $lastDecision) {
