@@ -50,10 +50,62 @@ function ParsePerspectiveMzID($perspectivePlayer, $mzID) {
     ];
 }
 
+function PendingAttackRefExistsInExpectedZone($attackerPlayer, $pendingMZ, $expectedOwner, $expectedLocation) {
+    $abs = ParsePerspectiveMzID($attackerPlayer, $pendingMZ);
+    if(!is_array($abs)) return false;
+
+    $owner = intval($abs['owner'] ?? 0);
+    $location = strval($abs['location'] ?? '');
+    $index = intval($abs['index'] ?? -1);
+
+    if($owner !== intval($expectedOwner)) return false;
+    if(strcasecmp($location, strval($expectedLocation)) !== 0) return false;
+    if($index < 0) return false;
+
+    if(strcasecmp($location, 'Garden') === 0) {
+        $zone = &GetGarden($owner);
+    } else if(strcasecmp($location, 'Alley') === 0) {
+        $zone = &GetAlley($owner);
+    } else {
+        return false;
+    }
+
+    if($index >= count($zone)) return false;
+    if(isset($zone[$index]->removed) && $zone[$index]->removed) return false;
+
+    return true;
+}
+
+function IsPendingAttackStateValid() {
+    $attackerPlayer = GetPendingAttackAttackerPlayer();
+    if($attackerPlayer !== 1 && $attackerPlayer !== 2) return false;
+
+    $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
+    $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
+    if(!is_string($attackerMZ) || $attackerMZ === '') return false;
+    if(!is_string($targetMZ) || $targetMZ === '') return false;
+
+    $defenderPlayer = ($attackerPlayer === 1) ? 2 : 1;
+
+    // Pending attacks must keep the same attacker in Garden and a live Garden target.
+    if(!PendingAttackRefExistsInExpectedZone($attackerPlayer, $attackerMZ, $attackerPlayer, 'Garden')) return false;
+    if(!PendingAttackRefExistsInExpectedZone($attackerPlayer, $targetMZ, $defenderPlayer, 'Garden')) return false;
+
+    return true;
+}
+
 function HasPendingAttackResponse() {
     $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
     $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
-    return is_string($attackerMZ) && $attackerMZ !== '' && is_string($targetMZ) && $targetMZ !== '';
+    $hasRawPending = is_string($attackerMZ) && $attackerMZ !== '' && is_string($targetMZ) && $targetMZ !== '';
+    if(!$hasRawPending) return false;
+
+    if(!IsPendingAttackStateValid()) {
+        ClearAttackResponseWindow();
+        return false;
+    }
+
+    return true;
 }
 
 function GetPendingAttackAttackerPlayer() {
@@ -93,8 +145,16 @@ function ResolveAttackAfterResponses($responderPlayer) {
     $targetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
     if(!is_string($attackerMZ) || $attackerMZ === '' || !is_string($targetMZ) || $targetMZ === '') return false;
 
+    if(!IsPendingAttackStateValid()) {
+        ClearAttackResponseWindow();
+        return true;
+    }
+
     $attackResult = DoAttack($attackerPlayer, $attackerMZ, $targetMZ);
-    if(!is_string($attackResult) || $attackResult === '') return false;
+    if(!is_string($attackResult) || $attackResult === '') {
+        ClearAttackResponseWindow();
+        return true;
+    }
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($attackerPlayer, "-");
