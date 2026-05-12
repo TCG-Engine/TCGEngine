@@ -42,6 +42,7 @@ Display: Visibility=Private, Mode=Single, BindTo=DeckSlot
 Macros: Shuffle
 Banish - CardID:string, TurnEffects:array[string], Counters:json
 BeforeAdd: TokenCeaseBeforeAdd
+AfterAdd: BanishAfterAdd
 Index: TurnEffects
 Virtual: OmenCounterCount=GetOmenCounterCount(), BanishSelectionMetadata=BanishSelectionMetadata()
 Highlight: BanishSelectionMetadata

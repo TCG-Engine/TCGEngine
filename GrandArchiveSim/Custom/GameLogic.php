@@ -3066,7 +3066,21 @@ function ClearImbueSetupVariables() {
  * @param string $cardID    The card ID that was moved.
  * @param object $newObj    The new banishment zone object.
  */
+function BanishAfterAdd($player, $CardID="-", $TurnEffects="-", $Counters="-") {
+    $banish = &GetBanish($player);
+    if(empty($banish)) return;
+    $added = $banish[count($banish)-1];
+    // Call OnBanishedFromMemory hook if this card came from memory
+    if(isset($added->_sourceZone)) {
+        $sourceZone = $added->_sourceZone;
+        if($sourceZone === "myMemory" || $sourceZone === "theirMemory") {
+            OnBanishedFromMemory($player, $CardID, $added);
+        }
+    }
+}
+
 function OnBanishedFromMemory($player, $cardID, $newObj) {
+    global $playerID;
     // Shattering Discharge (uutqo9hm33): [CB] whenever banished from memory, put a charge counter on it in banishment.
     if($cardID === "uutqo9hm33" && IsClassBonusActive($player, ["MAGE"])) {
         $banish = GetBanish($player);
@@ -3075,6 +3089,16 @@ function OnBanishedFromMemory($player, $cardID, $newObj) {
                 AddCounters($player, "myBanish-" . $i, "charge", 1);
                 break;
             }
+        }
+    }
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $fObj) {
+        if(!$fObj->removed && $fObj->CardID === "6ce5rzrjd9" && !HasNoAbilities($fObj)) {
+            if(IsGuoJiaBonus($player)) {
+                AddQuestCounters($player, 1);
+            }
+            break;
         }
     }
 }
@@ -19473,27 +19497,7 @@ $customDQHandlers["FabledAzuriteFatestoneEndPhase"] = function($player, $parts, 
     $randIdx = EngineRandomInt(0, count($memory) - 1);
     MZMove($player, "myMemory-" . $randIdx, "myBanish");
     Draw($player, 1);
-    // Trigger the "whenever you banish a card from your memory" quest counter ability
-    OnBanishFromMemory($player);
 };
-
-/**
- * Hook called whenever a player banishes a card from their memory.
- * Fabled Azurite Fatestone (6ce5rzrjd9): [Guo Jia Bonus] put a quest counter on your champion.
- */
-function OnBanishFromMemory($player) {
-    global $playerID;
-    $zone = $player == $playerID ? "myField" : "theirField";
-    $field = GetZone($zone);
-    foreach($field as $fObj) {
-        if(!$fObj->removed && $fObj->CardID === "6ce5rzrjd9" && !HasNoAbilities($fObj)) {
-            if(IsGuoJiaBonus($player)) {
-                AddQuestCounters($player, 1);
-            }
-            break;
-        }
-    }
-}
 
 /**
  * Computes the effective reserve cost for $obj as if $player were activating it.
