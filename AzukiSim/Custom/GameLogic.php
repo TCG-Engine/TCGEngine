@@ -1365,12 +1365,17 @@ function CardHasAbility($obj) {
     if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return 0;
 
     if(GetCurrentPhase() !== 'MAIN') return 0;
-    if(HasPendingAttackResponse()) return 0;
     if(HasTurnEffect($obj, 'FROZEN')) return 0;
 
     $turnPlayer = &GetTurnPlayer();
+    $isResponseWindow = HasPendingAttackResponse();
+    $actingPlayer = $isResponseWindow ? GetPendingAttackResponderPlayer() : intval($turnPlayer);
+
+    $cardID = $obj->CardID ?? '';
+    if($isResponseWindow && !CardHasTimingTag($cardID, 'Response')) return 0;
+
     $owner = ResolveObjectOwner($obj);
-    if($owner === null || intval($owner) !== intval($turnPlayer)) return 0;
+    if($owner === null || intval($owner) !== intval($actingPlayer)) return 0;
 
     $myQueue = &GetDecisionQueue($turnPlayer);
     $theirQueue = &GetDecisionQueue($turnPlayer == 1 ? 2 : 1);
@@ -1382,13 +1387,12 @@ function CardHasAbility($obj) {
     // Garden cards surface Activate when they can currently declare an attack.
     if($location === 'Garden' && $mzIndex >= 0) {
         $mzID = 'myGarden-' . $mzIndex;
-        if(CanAttackWith($turnPlayer, $mzID)) return 1;
+        if(!$isResponseWindow && CanAttackWith($actingPlayer, $mzID)) return 1;
 
-        $cardID = $obj->CardID ?? '';
         if($cardID !== '') {
             $abilityCount = intval(CardActivateAbilityCount($cardID));
             for($abilityIndex = 0; $abilityIndex < $abilityCount; ++$abilityIndex) {
-                if(CanActivateAbility($turnPlayer, $mzID, $abilityIndex)) {
+                if(CanActivateAbilityRuntime($actingPlayer, $mzID, $abilityIndex) && CanActivateAbility($actingPlayer, $mzID, $abilityIndex)) {
                     return 1;
                 }
             }
@@ -1396,17 +1400,16 @@ function CardHasAbility($obj) {
     }
 
     // Gate surfaces Activate when it is usable and an untapped Alley unit exists to portal.
-    if($location === 'Gate' && $mzIndex >= 0 && CanUseGateRuntime($turnPlayer, 'myGate-' . $mzIndex, '')) {
-        if(!empty(GetPortalCandidates($turnPlayer))) return 1;
+    if(!$isResponseWindow && $location === 'Gate' && $mzIndex >= 0 && CanUseGateRuntime($actingPlayer, 'myGate-' . $mzIndex, '')) {
+        if(!empty(GetPortalCandidates($actingPlayer))) return 1;
     }
 
     // Alley cards can expose Activate abilities (e.g. Alpine Prowler sacrifice ability).
     if($location === 'Alley' && $mzIndex >= 0) {
-        $cardID = $obj->CardID ?? '';
         if($cardID !== '') {
             $abilityCount = intval(CardActivateAbilityCount($cardID));
             for($abilityIndex = 0; $abilityIndex < $abilityCount; ++$abilityIndex) {
-                if(CanActivateAbility($turnPlayer, 'myAlley-' . $mzIndex, $abilityIndex)) {
+                if(CanActivateAbilityRuntime($actingPlayer, 'myAlley-' . $mzIndex, $abilityIndex) && CanActivateAbility($actingPlayer, 'myAlley-' . $mzIndex, $abilityIndex)) {
                     return 1;
                 }
             }
