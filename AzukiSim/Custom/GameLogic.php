@@ -2,6 +2,8 @@
 
 $debugMode = true;
 $customDQHandlers = [];
+$untilBeginTurnEffects = [];
+$untilBeginTurnEffects['STONEHAVEN_DEFENDER'] = true;
 
 // --- Helper Functions ---
 
@@ -168,6 +170,40 @@ function ResolveAttackAfterResponses($responderPlayer) {
     return true;
 }
 
+function TryRedirectPendingAttack($responderPlayer, $candidateMZ) {
+    if(!HasPendingAttackResponse()) return false;
+    if(!is_string($candidateMZ) || $candidateMZ === '') return false;
+
+    $expectedResponder = GetPendingAttackResponderPlayer();
+    if(intval($responderPlayer) !== intval($expectedResponder)) return false;
+
+    $parts = explode('-', $candidateMZ);
+    $zone = $parts[0] ?? '';
+    $index = intval($parts[1] ?? -1);
+    if($zone !== 'myGarden' || $index < 0) return false;
+
+    $garden = &GetGarden(intval($responderPlayer));
+    if($index >= count($garden)) return false;
+    if(isset($garden[$index]->removed) && $garden[$index]->removed) return false;
+
+    $candidateObj = &$garden[$index];
+    if(CardType($candidateObj->CardID ?? '') !== 'ENTITY') return false;
+    if(intval($candidateObj->Status ?? 2) !== 2) return false; // must be untapped so it can tap to redirect
+    if(!IsDefenderEntity($candidateObj)) return false;
+
+    $attackerPlayer = GetPendingAttackAttackerPlayer();
+    if($attackerPlayer !== 1 && $attackerPlayer !== 2) return false;
+
+    // Pending target is stored from attacker's perspective.
+    $redirectTarget = FlipZonePerspective($candidateMZ);
+    if(!is_string($redirectTarget) || $redirectTarget === '') return false;
+
+    $candidateObj->Status = 1; // tap as redirect cost
+    DecisionQueueController::StoreVariable('PendingAttackTargetMZ', $redirectTarget);
+    SetFlashMessage('Attack redirected to defending entity.');
+    return true;
+}
+
 function GetMacroCardIDCandidates($cardID) {
     $candidates = [];
     if(!is_string($cardID) || $cardID === '') return $candidates;
@@ -311,6 +347,7 @@ function IsDefenderEntity($obj) {
     if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return false;
     $cardID = $obj->CardID ?? '';
     if(CardType($cardID) !== 'ENTITY') return false;
+    if(HasTurnEffect($obj, 'STONEHAVEN_DEFENDER')) return true;
     if(HasTurnEffect($obj, 'DEFENDER')) return true;
     if($cardID === 'S1-STT03-004_Sloth-Scarecrow_E_C_die') return true;
     if($cardID === 'S1-STT03-009_Warding-Totem_E_UC_die') return true;
@@ -2083,6 +2120,13 @@ function ActionMap($actionCard) {
     $cardArr = explode('-', $actionCard);
     $cardZone = $cardArr[0] ?? '';
 
+    if($cardZone === 'myGarden' && $currentPhase === 'MAIN' && HasPendingAttackResponse() && intval($playerID) === GetPendingAttackResponderPlayer()) {
+        if(TryRedirectPendingAttack($playerID, $actionCard)) {
+            return 'REDIRECT_ATTACK';
+        }
+        return '';
+    }
+
     // Ignore FSM clicks while decisions are pending; the UI can surface them again after the queue clears.
     $dqController = new DecisionQueueController();
     if(!$dqController->AllQueuesEmpty()) {
@@ -2127,6 +2171,7 @@ function ActionMap($actionCard) {
 function OnStartOfTurn($player) {
     DecisionQueueController::StoreVariable('P' . intval($player) . '_EntitiesPlayedThisTurn', '0');
     DecisionQueueController::StoreVariable('P' . intval($player) . '_BobuWardActive', '0');
+    ExpireTurnEffects($player, false);
     global $gCurrentPhase;
 
     // 1. Untap all cards (field and IKZ)
@@ -2172,26 +2217,39 @@ function OnEndOfTurn($player) {
     }
 }
 
-function ExpireTurnEffects($player) {
+function ExpireTurnEffects($player, $isEndTurn = true) {
+    global $untilBeginTurnEffects;
     $garden = &GetGarden($player);
     $alley = &GetAlley($player);
     $gate = &GetGate($player);
 
     foreach($garden as &$entity) {
         if(!$entity->removed && isset($entity->TurnEffects)) {
-            $entity->TurnEffects = []; // Clear turn effects
+            $newEffects = [];
+            foreach($entity->TurnEffects as $effect) {
+                if($isEndTurn && isset($untilBeginTurnEffects[$effect])) $newEffects[] = $effect;
+            }
+            $entity->TurnEffects = $newEffects;
         }
     }
 
     foreach($alley as &$entity) {
         if(!$entity->removed && isset($entity->TurnEffects)) {
-            $entity->TurnEffects = []; // Clear turn effects
+            $newEffects = [];
+            foreach($entity->TurnEffects as $effect) {
+                if($isEndTurn && isset($untilBeginTurnEffects[$effect])) $newEffects[] = $effect;
+            }
+            $entity->TurnEffects = $newEffects;
         }
     }
 
     foreach($gate as &$g) {
         if(!$g->removed && isset($g->TurnEffects)) {
-            $g->TurnEffects = []; // Clear turn effects
+            $newEffects = [];
+            foreach($g->TurnEffects as $effect) {
+                if($isEndTurn && isset($untilBeginTurnEffects[$effect])) $newEffects[] = $effect;
+            }
+            $g->TurnEffects = $newEffects;
         }
     }
 }
