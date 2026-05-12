@@ -349,6 +349,7 @@ function IsDefenderEntity($obj) {
     if(CardType($cardID) !== 'ENTITY') return false;
     if(HasTurnEffect($obj, 'STONEHAVEN_DEFENDER')) return true;
     if(HasTurnEffect($obj, 'DEFENDER')) return true;
+    if(CardHasKeyword($cardID, 'Defender')) return true;
     if($cardID === 'S1-STT03-004_Sloth-Scarecrow_E_C_die') return true;
     if($cardID === 'S1-STT03-009_Warding-Totem_E_UC_die') return true;
     return false;
