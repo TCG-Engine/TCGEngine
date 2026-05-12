@@ -983,6 +983,9 @@ function ResolveEntityPlayFromHand($player, $mzCard, $destination) {
     }
 
     Enter($player, $newMZ);
+    if($destination === 'myGarden') {
+        EnterGarden($player, $newMZ);
+    }
     OnPlay($player, $newMZ);
 
     $entityPlays = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_EntitiesPlayedThisTurn'));
@@ -1719,6 +1722,7 @@ function OnEnter($player, $mzID) {
     $obj = GetZoneObject($mzID);
     if($obj !== null && !(isset($obj->removed) && $obj->removed)) {
         $cardID = $obj->CardID ?? '';
+        $location = strval($obj->Location ?? '');
         if($cardID !== '' && isset($enterAbilities) && is_array($enterAbilities)) {
             $cardIDCandidates = GetMacroCardIDCandidates($cardID);
             $abilityCount = 0;
@@ -1755,6 +1759,57 @@ function OnEnter($player, $mzID) {
         }
     }
     return 'ENTER';
+}
+
+function OnEnterGarden($player, $mzID) {
+    global $enterGardenAbilities, $customDQHandlers;
+
+    $obj = GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) {
+        return 'ENTER_GARDEN';
+    }
+
+    if(($obj->Location ?? '') !== 'Garden') {
+        return 'ENTER_GARDEN';
+    }
+
+    $cardID = $obj->CardID ?? '';
+    if($cardID !== '' && isset($enterGardenAbilities) && is_array($enterGardenAbilities)) {
+        $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+        $abilityCount = 0;
+        if(function_exists('CardEnterGardenCount')) {
+            for($i = 0; $i < count($cardIDCandidates); ++$i) {
+                $abilityCount = max($abilityCount, intval(CardEnterGardenCount($cardIDCandidates[$i])));
+            }
+        }
+
+        if($abilityCount <= 0) {
+            for($i = 0; $i < count($cardIDCandidates); ++$i) {
+                $key = $cardIDCandidates[$i] . ':0';
+                if(isset($enterGardenAbilities[$key])) {
+                    $enterGardenAbilities[$key]($player);
+                    break;
+                }
+            }
+        }
+        else {
+            for($i = 0; $i < $abilityCount; ++$i) {
+                for($j = 0; $j < count($cardIDCandidates); ++$j) {
+                    $key = $cardIDCandidates[$j] . ':' . $i;
+                    if(isset($enterGardenAbilities[$key])) {
+                        $enterGardenAbilities[$key]($player);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    if(isset($customDQHandlers['ON_ENTER_GARDEN']) && is_callable($customDQHandlers['ON_ENTER_GARDEN'])) {
+        $customDQHandlers['ON_ENTER_GARDEN']($player, [$mzID, $cardID], null);
+    }
+
+    return 'ENTER_GARDEN';
 }
 
 function OnCardActivated($player, $mzID) {

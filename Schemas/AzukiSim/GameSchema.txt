@@ -17,6 +17,7 @@ Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbilit
 Macro: Name=UseGate(gateMZ,entityMZ); ChoiceFunction=DoUseGate; SourceParam=gateMZ; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
+Macro: Name=EnterGarden(mzID); ChoiceFunction=OnEnterGarden; Action={}
 Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Action={}
 Macro: Name=DiscardCard(mzID); ChoiceFunction=DoDiscardCard; Action={}
 Macro: Name=CardActivated(mzID); ChoiceFunction=OnCardActivated; Action={}
