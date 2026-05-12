@@ -297,6 +297,27 @@ function HasTurnEffect($obj, $effectID) {
     return in_array($effectID, $obj->TurnEffects, true);
 }
 
+function IsCardEarthEntity($cardID) {
+    return CardType($cardID) === 'ENTITY' && CardElement($cardID) === 'Earth';
+}
+
+function IsDefenderEntity($obj) {
+    if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return false;
+    $cardID = $obj->CardID ?? '';
+    if(CardType($cardID) !== 'ENTITY') return false;
+    if(HasTurnEffect($obj, 'DEFENDER')) return true;
+    if($cardID === 'S1-STT03-004_Sloth-Scarecrow_E_C_die') return true;
+    if($cardID === 'S1-STT03-009_Warding-Totem_E_UC_die') return true;
+    return false;
+}
+
+function IsTauntEntity($obj) {
+    if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return false;
+    $cardID = $obj->CardID ?? '';
+    return $cardID === 'S1-STT03-013_Stone-Masked-Ancient_E_SR_die'
+        || $cardID === 'S1-STT03-013A_Stone-Masked-Ancient_E_SR_die';
+}
+
 function AddUniqueTurnEffect(&$obj, $effectID) {
     if(!is_object($obj) || !is_string($effectID) || $effectID === '') return;
     if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) {
@@ -444,7 +465,54 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
         $owner = ResolveOwnerFromPerspectiveZone($player, $sourceZone);
     }
 
+    $cardID = $obj->CardID ?? '';
+
     DiscardEquippedWeaponsFromObject(intval($owner), $obj);
+
+    if($toZone !== 'myDiscard' && $toZone !== 'theirDiscard') return;
+
+    if(IsCardEarthEntity($cardID)) {
+        $bobuWardVar = 'P' . intval($owner) . '_BobuWardActive';
+        if(DecisionQueueController::GetVariable($bobuWardVar) === '1') {
+            DecisionQueueController::StoreVariable($bobuWardVar, '0');
+            DecisionQueueController::AddDecision(intval($owner), 'YESNO', '-', 1, 'Bobu:_Heal_1_to_your_leader?');
+            DecisionQueueController::AddDecision(intval($owner), 'CUSTOM', 'BOBU_WARD_HEAL', 1);
+        }
+    }
+
+    if($cardID === 'S1-STT03-005_Wobbly-Cabbage-Cart_E_C_die') {
+        $opponent = intval($owner) === 1 ? 2 : 1;
+        $theirGarden = &GetGarden($opponent);
+        $targets = [];
+        for($i = 0; $i < count($theirGarden); ++$i) {
+            if(isset($theirGarden[$i]->removed) && $theirGarden[$i]->removed) continue;
+            $candidateID = $theirGarden[$i]->CardID ?? '';
+            if(CardType($candidateID) !== 'ENTITY') continue;
+            $currentHP = max(0, intval(CardHealth($candidateID)) - intval($theirGarden[$i]->Damage ?? 0));
+            if($currentHP > 1) continue;
+            $targets[] = 'theirGarden-' . $i;
+        }
+        if(!empty($targets)) {
+            $targetStr = implode('&', $targets);
+            DecisionQueueController::AddDecision(intval($owner), 'MZMAYCHOOSE', $targetStr, 1);
+            DecisionQueueController::AddDecision(intval($owner), 'CUSTOM', 'WOBBLY_CART_DESTROY', 1);
+        }
+    }
+
+    if($cardID === 'S1-STT03-006_Cactus-Farmer_E_UC_die') {
+        DoDrawCard(intval($owner), 1);
+        $hand = &GetHand(intval($owner));
+        $discardOptions = [];
+        for($i = 0; $i < count($hand); ++$i) {
+            if(isset($hand[$i]->removed) && $hand[$i]->removed) continue;
+            $discardOptions[] = 'myHand-' . $i;
+        }
+        if(!empty($discardOptions)) {
+            $discardStr = implode('&', $discardOptions);
+            DecisionQueueController::AddDecision(intval($owner), 'MZCHOOSE', $discardStr, 1);
+            DecisionQueueController::AddDecision(intval($owner), 'CUSTOM', 'CACTUS_FARMER_DISCARD', 1);
+        }
+    }
 }
 
 function SafeMZMove($player, $mzIndex, $toZone) {
@@ -726,6 +794,16 @@ function CanPayIKZCost($player, $cost) {
         }
     }
     
+    $garden = GetGarden($player);
+    if(is_array($garden)) {
+        foreach($garden as $entity) {
+            if(isset($entity->removed) && $entity->removed) continue;
+            if(intval($entity->Status ?? 2) !== 2) continue;
+            if(($entity->CardID ?? '') !== 'S1-STT03-007_Koyama-Farm-Caretaker_E_R_die') continue;
+            $availableIKZ++;
+        }
+    }
+
     return ($availableIKZ + $ikzToken) >= $cost;
 }
 
@@ -749,6 +827,20 @@ function PayIKZCost($player, $cost) {
             // Only tap if currently untapped
             if($ikz->Status == 2) {
                 $ikz->Status = 1; // Tap it
+                $remaining--;
+            }
+        }
+    }
+
+    if($remaining > 0) {
+        $garden = &GetGarden($player);
+        if(is_array($garden)) {
+            foreach($garden as &$entity) {
+                if($remaining <= 0) break;
+                if(isset($entity->removed) && $entity->removed) continue;
+                if(intval($entity->Status ?? 2) !== 2) continue;
+                if(($entity->CardID ?? '') !== 'S1-STT03-007_Koyama-Farm-Caretaker_E_R_die') continue;
+                $entity->Status = 1;
                 $remaining--;
             }
         }
@@ -1037,6 +1129,7 @@ function CanAttackWith($player, $mzID) {
     // Cannot attack if tapped
     if($entity->Status == 1) return false; // Tapped
     if(HasTurnEffect($entity, 'FROZEN')) return false;
+    if(HasTurnEffect($entity, 'ROOTED')) return false;
     if(HasCooldown($entity)) {
         $hasCharge = CardHasKeyword($entity->CardID ?? '', 'Charge')
             || (isset($entity->TurnEffects) && is_array($entity->TurnEffects) && in_array('CHARGE', $entity->TurnEffects, true));
@@ -1453,13 +1546,23 @@ function IsAttackTargetLegal($player, $targetMZ) {
     if(isset($garden[$index]->removed) && $garden[$index]->removed) return false;
 
     $cardID = $garden[$index]->CardID ?? '';
+    $guardTargets = [];
+    for($i = 0; $i < count($garden); ++$i) {
+        if(isset($garden[$i]->removed) && $garden[$i]->removed) continue;
+        if(intval($garden[$i]->Status ?? 2) !== 1) continue;
+        if(IsDefenderEntity($garden[$i]) || IsTauntEntity($garden[$i])) {
+            $guardTargets[] = $i;
+        }
+    }
+
     if(CardType($cardID) === 'LEADER') {
-        // Leader is always targetable while alive
+        if(!empty($guardTargets)) return false;
         return LeaderCurrentHealth($opponent) > 0;
     }
 
-    // Garden entities are attackable only while tapped.
-    return intval($garden[$index]->Status ?? 2) == 1;
+    if(intval($garden[$index]->Status ?? 2) != 1) return false;
+    if(!empty($guardTargets)) return in_array($index, $guardTargets, true);
+    return true;
 }
 
 function CanAttackRuntime($player, $mzID, $targetMZ) {
@@ -1813,6 +1916,11 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         if(isset($theirGarden[$targetIndex]) && !(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed)) {
             $targetDamage = intval($theirGarden[$targetIndex]->Damage ?? 0);
             if($defenderHealth > 0 && $targetDamage >= $defenderHealth) {
+                $attackerCardID = $attackerObj->CardID ?? '';
+                if($attackerCardID === 'S1-STT03-010_Shroommancer_E_C_die' && !HasTurnEffect($attackerObj, 'SHROOMMANCER_USED')) {
+                    HealLeader($player, 1);
+                    AddUniqueTurnEffect($attackerObj, 'SHROOMMANCER_USED');
+                }
                 SafeMZMove($player, 'theirGarden-' . $targetIndex, 'theirDiscard');
             }
         }
@@ -2005,6 +2113,7 @@ function ActionMap($actionCard) {
 
 function OnStartOfTurn($player) {
     DecisionQueueController::StoreVariable('P' . intval($player) . '_EntitiesPlayedThisTurn', '0');
+    DecisionQueueController::StoreVariable('P' . intval($player) . '_BobuWardActive', '0');
     global $gCurrentPhase;
 
     // 1. Untap all cards (field and IKZ)
@@ -2085,6 +2194,49 @@ $customDQHandlers["DRAW"] = function($player, $params, $lastDecision) {
         $card = array_shift($deck);
         array_push($hand, $card);
     }
+};
+
+$customDQHandlers["BOBU_WARD_HEAL"] = function($player, $params, $lastDecision) {
+    if($lastDecision !== 'YES') return;
+    HealLeader(intval($player), 1);
+};
+
+$customDQHandlers["WOBBLY_CART_DESTROY"] = function($player, $params, $lastDecision) {
+    $chosen = $lastDecision;
+    if(!is_string($chosen) || $chosen === '' || $chosen === '-') return;
+    SafeMZMove(intval($player), $chosen, 'theirDiscard');
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+$customDQHandlers["CACTUS_FARMER_DISCARD"] = function($player, $params, $lastDecision) {
+    $chosen = $lastDecision;
+    if(!is_string($chosen) || $chosen === '' || $chosen === '-') return;
+    MZMove(intval($player), $chosen, 'myDiscard');
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+$customDQHandlers["S1-STT03-017_Sprout-of-Fortune_S_C_die:0:OnPlay-1"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === 'YES') {
+        DoDrawCard(intval($player), 1);
+        return;
+    }
+
+    $ikzArea = &GetIKZArea($player);
+    $ikzPile = &GetIKZPile($player);
+    if(is_array($ikzArea) && is_array($ikzPile) && !empty($ikzPile)) {
+        $areaCount = 0;
+        for($i = 0; $i < count($ikzArea); ++$i) {
+            if(isset($ikzArea[$i]->removed) && $ikzArea[$i]->removed) continue;
+            ++$areaCount;
+        }
+        if($areaCount < 10) {
+            $ikz = array_shift($ikzPile);
+            if($ikz !== null) {
+                $ikzArea[] = new IKZArea('1');
+            }
+        }
+    }
+    HealLeader(intval($player), 1);
 };
 
 $customDQHandlers["PORTAL_FROM_ALLEY"] = function($player, $params, $lastDecision) {

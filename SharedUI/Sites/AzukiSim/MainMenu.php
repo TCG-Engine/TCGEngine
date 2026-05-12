@@ -35,6 +35,7 @@ include_once 'Header.php';
       <select id="starter-deck-select" style="margin-bottom: 12px; min-width: 220px;">
         <option value="Raizan">Raizan Starter Deck</option>
         <option value="Shao">Shao Starter Deck</option>
+        <option value="Bobu">Bobu Starter Deck</option>
       </select>
       <br>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
@@ -123,7 +124,7 @@ include_once 'Header.php';
   var _didYouKnowTips = [
     { key: 'u', label: 'Undo your most recent action' },
     { text: 'Hover a card on the field to see its full text' },
-    { text: 'You can queue with either the Raizan or Shao starter deck.' },
+    { text: 'You can queue with the Raizan, Shao, or Bobu starter deck.' },
     { text: 'Private games generate a shareable invite link — send it to your opponent and they can join instantly.' },
     { text: 'The queue matches you with the first available opponent. No need to refresh — it polls automatically.' },
     { key: 'Esc', label: 'Cancel matchmaking while waiting for an opponent' },

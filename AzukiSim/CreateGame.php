@@ -71,6 +71,31 @@ $lobby->gameName = $gameName;
 
 function GetPreconstructedDeckConfig($deckName) {
     $normalized = is_string($deckName) ? trim(strtolower($deckName)) : '';
+    if($normalized === 'bobu') {
+        return [
+            'name' => 'Bobu',
+            'leader' => 'S1-STT03-001_Bobu_L_L_die',
+            'gate' => 'S1-STT03-002_Stonehaven-Gate_G_G_die',
+            'deckList' => [
+                'S1-STT03-003_Koyama-Farm-Potter_E_C_die',
+                'S1-STT03-004_Sloth-Scarecrow_E_C_die',
+                'S1-STT03-005_Wobbly-Cabbage-Cart_E_C_die',
+                'S1-STT03-006_Cactus-Farmer_E_UC_die',
+                'S1-STT03-007_Koyama-Farm-Caretaker_E_R_die',
+                'S1-STT03-008_Midnight-Courier_E_C_die',
+                'S1-STT03-009_Warding-Totem_E_UC_die',
+                'S1-STT03-010_Shroommancer_E_C_die',
+                'S1-STT03-011_Koyama-Farm-Plowman_E_C_die',
+                'S1-STT03-012_Miharu-of-the-White-Bloom_E_SR_die',
+                'S1-STT03-013_Stone-Masked-Ancient_E_SR_die',
+                'S1-STT03-014_Sandcoil-Python_E_UC_die',
+                'S1-STT03-015_Jar-of-Beans_S_UC_die',
+                'S1-STT03-016_Quicksand_S_R_die',
+                'S1-STT03-017_Sprout-of-Fortune_S_C_die',
+            ],
+        ];
+    }
+
     if($normalized === 'shao') {
         return [
             'name' => 'Shao',
