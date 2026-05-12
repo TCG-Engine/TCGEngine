@@ -2288,7 +2288,8 @@ $customDQHandlers["CACTUS_FARMER_DISCARD"] = function($player, $params, $lastDec
 };
 
 $customDQHandlers["S1-STT03-017_Sprout-of-Fortune_S_C_die:0:OnPlay-1"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === 'YES') {
+    $selectedIndex = intval(explode(',', strval($lastDecision))[0] ?? 0);
+    if($selectedIndex === 0) {
         DoDrawCard(intval($player), 1);
         return;
     }
