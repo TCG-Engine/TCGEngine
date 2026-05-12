@@ -474,11 +474,16 @@
      }
 
      /* Field lanes: keep one horizontal row and scroll sideways when crowded.
-        Scrolling lives on wrappers so card/subcard vertical overflow remains visible. */
+        Use y=hidden here because browsers treat y=visible as auto when x is scrollable,
+        which creates a vertical scrollbar for rotated (exhausted) cards. */
      #myFieldWrapper,
      #theirFieldWrapper {
           overflow-x: auto !important;
-          overflow-y: visible !important;
+          overflow-y: hidden !important;
+          padding-top: 14px;
+          padding-bottom: 14px;
+          margin-top: -14px;
+          margin-bottom: -14px;
           scrollbar-width: thin;
           -webkit-overflow-scrolling: touch;
      }
