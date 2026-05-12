@@ -55,6 +55,11 @@ function GetLegalMaterializeChoices($player) {
     return $choices;
 }
 
+function AutoUndoMaterializeCostFailure($player, $message = "Cannot pay costs for the selected material card. Action undone.") {
+    LoadVersion($player);
+    SetFlashMessage($message);
+}
+
 function MaterializeChoice($ignoreCost = false) {
     $turnPlayer = GetTurnPlayer();
     DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", GetLegalMaterializeChoices($turnPlayer)), 1);
@@ -261,13 +266,19 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     if($materializeCard->CardID === "2s08hssegf" && !$ignoreCost) {
         $extraReserveCost = 2;
         $memoryCost = max(0, $memoryCost - 2);
-        if(CountAvailableReservePayments($player) < $extraReserveCost) return;
+        if(CountAvailableReservePayments($player) < $extraReserveCost) {
+            AutoUndoMaterializeCostFailure($player);
+            return;
+        }
     }
 
     // Dragon's Dawn (9f92917r84): additional cost to materialize — banish 3 fire from graveyard
     if($materializeCard->CardID === "9f92917r84" && !$ignoreCost) {
         $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
-        if(count($fireGY) < 3) return; // Can't pay cost
+        if(count($fireGY) < 3) {
+            AutoUndoMaterializeCostFailure($player);
+            return;
+        }
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1,
             tooltip:"Banish_fire_card_from_graveyard_(1/3)");
         DecisionQueueController::AddDecision($player, "CUSTOM", "DragonsDawnBanish|" . $lastDecision . "|1|" . $memoryCost, 1);
@@ -281,7 +292,10 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         $theirAllies = ZoneSearch("theirGraveyard", ["ALLY"]);
         if(count($myAllies) >= 2) $eligible = array_merge($eligible, $myAllies);
         if(count($theirAllies) >= 2) $eligible = array_merge($eligible, $theirAllies);
-        if(empty($eligible)) return;
+        if(empty($eligible)) {
+            AutoUndoMaterializeCostFailure($player);
+            return;
+        }
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 1,
             tooltip:"Banish_ally_card_from_a_single_graveyard_(1/2)");
         DecisionQueueController::AddDecision($player, "CUSTOM", "DusksoulStoneMaterializeCost|" . $lastDecision . "|" . $memoryCost, 1);
@@ -299,7 +313,10 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
                 $preserved[] = "myMaterial-" . $i;
             }
         }
-        if(count($preserved) < 2) return;
+        if(count($preserved) < 2) {
+            AutoUndoMaterializeCostFailure($player);
+            return;
+        }
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $preserved), 1,
             tooltip:"Banish_preserved_card_from_material_(1/2)");
         DecisionQueueController::AddDecision($player, "CUSTOM",
@@ -318,7 +335,10 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
                 $preserved[] = "myMaterial-" . $i;
             }
         }
-        if(empty($preserved)) return;
+        if(empty($preserved)) {
+            AutoUndoMaterializeCostFailure($player);
+            return;
+        }
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $preserved), 1,
             tooltip:"Banish_preserved_card_from_material_(Coronal)");
         DecisionQueueController::AddDecision($player, "CUSTOM",
@@ -362,7 +382,10 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
             }
             $floatingIndices = GetMaterializeFloatingChoices($player);
             $floatingCount = $floatingIndices === "" ? 0 : count(explode("&", $floatingIndices));
-            if($memoryCount + $floatingCount < $memoryCost) return;
+            if($memoryCount + $floatingCount < $memoryCost) {
+                AutoUndoMaterializeCostFailure($player);
+                return;
+            }
         }
 
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
