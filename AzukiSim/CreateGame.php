@@ -121,6 +121,31 @@ function GetPreconstructedDeckConfig($deckName) {
         ];
     }
 
+    if($normalized === 'zero') {
+        return [
+            'name' => 'Zero',
+            'leader' => 'S1-STT04-001_Zero_L_L_die',
+            'gate' => 'S1-STT04-002_Ragefire-Gate_G_G_die',
+            'deckList' => [
+                'S1-STT04-003_Cinderwake-Seer_E_UC_die',
+                'S1-STT04-004_Fanatic-Kindler_E_C_die',
+                'S1-STT04-005_Ruby_E_C_die',
+                'S1-STT04-006_Wolf-Cub_E_C_die',
+                'S1-STT04-007_Enraged-Howler_E_C_die',
+                'S1-STT04-008_Lady-Emberheart_E_UC_die',
+                'S1-STT04-009_Cinderwake-Ritualist_E_R_die',
+                'S1-STT04-010_Reckless-Tinkerer_E_C_die',
+                'S1-STT04-011_Scorchland-Raven_E_C_die',
+                'S1-STT04-012_Spiteful-Raider_E_UC_die',
+                'S1-STT04-013_Kurai-the-Volcano_E_SR_die',
+                'S1-STT04-014_Scorchveil-Shinobi-Suzuka_E_SR_die',
+                'S1-STT04-015_Detonation-Pact_S_C_die',
+                'S1-STT04-016_Collateral-Burst_S_UC_die',
+                'S1-STT04-017_Wrath-of-Sinder_S_R_die',
+            ],
+        ];
+    }
+
     return [
         'name' => 'Raizan',
         'leader' => 'S1-STT01-001_Raizan_L_L_die',

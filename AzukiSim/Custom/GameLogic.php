@@ -1040,6 +1040,79 @@ function HealLeader($player, $amount) {
     $leaderObj->Damage = min($maxHealth, $newDamage);
 }
 
+function TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect = false) {
+    $amount = max(0, intval($amount));
+    if($amount <= 0) return;
+    if(!is_string($targetMZ) || $targetMZ === '') return;
+
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+
+    $targetCardID = $targetObj->CardID ?? '';
+    if(!is_string($targetCardID) || $targetCardID === '') return;
+
+    // Enraged Howler: once/turn when this takes damage, +1 attack this turn.
+    if($targetCardID === 'S1-STT04-007_Enraged-Howler_E_C_die') {
+        if(!HasTurnEffect($targetObj, 'STT04_HOWLER_USED')) {
+            AddUniqueTurnEffect($targetObj, 'STT04_HOWLER_USED');
+            AddUniqueTurnEffect($targetObj, 'ATK_MOD:1');
+        }
+    }
+
+    // Spiteful Raider: once/turn when this takes damage, deal 1 to a leader or entity.
+    if($targetCardID === 'S1-STT04-012_Spiteful-Raider_E_UC_die') {
+        if(!HasTurnEffect($targetObj, 'STT04_RAIDER_USED')) {
+            AddUniqueTurnEffect($targetObj, 'STT04_RAIDER_USED');
+            $opponent = ($player == 1) ? 2 : 1;
+            DealDamageToLeader($opponent, 1);
+        }
+    }
+
+    // Cinderwake Ritualist: once/turn when damaged by card effects, reflect that damage (max 2).
+    if($targetCardID === 'S1-STT04-009_Cinderwake-Ritualist_E_R_die' && $isCardEffect) {
+        if(!HasTurnEffect($targetObj, 'STT04_RITUALIST_USED')) {
+            AddUniqueTurnEffect($targetObj, 'STT04_RITUALIST_USED');
+            $reflect = min(2, $amount);
+            if($reflect > 0) {
+                $targetParts = explode('-', $targetMZ);
+                $targetZone = $targetParts[0] ?? '';
+                $targetIndex = intval($targetParts[1] ?? -1);
+                $opponent = ($player == 1) ? 2 : 1;
+                $theirGarden = &GetGarden($opponent);
+                $picked = '';
+                for($i = 0; $i < count($theirGarden); ++$i) {
+                    if(isset($theirGarden[$i]->removed) && $theirGarden[$i]->removed) continue;
+                    $candidateID = $theirGarden[$i]->CardID ?? '';
+                    if($targetZone === 'theirGarden' && $i === $targetIndex) continue;
+                    if(CardType($candidateID) !== 'ENTITY') continue;
+                    $picked = 'theirGarden-' . $i;
+                    break;
+                }
+                if($picked !== '') {
+                    DealDamageToGardenTarget($player, $picked, $reflect);
+                } else {
+                    DealDamageToLeader($opponent, $reflect);
+                }
+            }
+        }
+    }
+}
+
+function TriggerKuraiUntapFromEnemyGardenDestroy($actingPlayer, $destroyedOwner, $destroyedCardID) {
+    if(CardType($destroyedCardID) !== 'ENTITY') return;
+    $opponentOfActing = ($actingPlayer == 1) ? 2 : 1;
+    if(intval($destroyedOwner) !== intval($opponentOfActing)) return;
+
+    $myGarden = &GetGarden($actingPlayer);
+    for($i = 0; $i < count($myGarden); ++$i) {
+        if(isset($myGarden[$i]->removed) && $myGarden[$i]->removed) continue;
+        if(($myGarden[$i]->CardID ?? '') !== 'S1-STT04-013_Kurai-the-Volcano_E_SR_die') continue;
+        if(HasTurnEffect($myGarden[$i], 'STT04_KURAI_USED')) continue;
+        AddUniqueTurnEffect($myGarden[$i], 'STT04_KURAI_USED');
+        $myGarden[$i]->Status = 2;
+    }
+}
+
 function DealDamageToGardenTarget($player, $targetMZ, $amount) {
     $amount = max(0, intval($amount));
     if($amount <= 0) return;
@@ -1069,11 +1142,51 @@ function DealDamageToGardenTarget($player, $targetMZ, $amount) {
 
     $garden[$index]->Damage = intval($garden[$index]->Damage ?? 0) + $amount;
     QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true);
+    TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, true);
 
     $targetHealth = intval(CardHealth($targetCardID));
     $targetDamage = intval($garden[$index]->Damage ?? 0);
     if($targetHealth > 0 && $targetDamage >= $targetHealth) {
+        TriggerKuraiUntapFromEnemyGardenDestroy($player, $targetPlayer, $targetCardID);
         SafeMZMove($player, $zone . '-' . $index, ($zone === 'myGarden' ? 'myDiscard' : 'theirDiscard'));
+        DecisionQueueController::CleanupRemovedCards();
+    }
+}
+
+function DealDamageToEntityTarget($player, $targetMZ, $amount, $isCardEffect = true) {
+    $amount = max(0, intval($amount));
+    if($amount <= 0) return;
+    if(!is_string($targetMZ) || $targetMZ === '') return;
+
+    $parts = explode('-', $targetMZ);
+    $zone = $parts[0] ?? '';
+    $index = intval($parts[1] ?? -1);
+
+    if($zone === 'myGarden' || $zone === 'theirGarden') {
+        DealDamageToGardenTarget($player, $targetMZ, $amount);
+        return;
+    }
+
+    if($zone !== 'myAlley' && $zone !== 'theirAlley') return;
+
+    $targetPlayer = ($zone === 'myAlley') ? intval($player) : (intval($player) === 1 ? 2 : 1);
+    $alley = &GetAlley($targetPlayer);
+    if($index < 0 || $index >= count($alley)) return;
+    if(isset($alley[$index]->removed) && $alley[$index]->removed) return;
+
+    $targetCardID = $alley[$index]->CardID ?? '';
+    if(HasTurnEffect($alley[$index], 'FROZEN')) return;
+    if(HasTurnEffect($alley[$index], 'EFFECT_DAMAGE_IMMUNE')) return;
+
+    $alley[$index]->Damage = intval($alley[$index]->Damage ?? 0) + $amount;
+    QueueDamageAnimation('p' . $targetPlayer . 'Alley-' . $index, $amount, 500, true);
+    TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
+
+    $targetHealth = intval(CardHealth($targetCardID));
+    $targetDamage = intval($alley[$index]->Damage ?? 0);
+    if($targetHealth > 0 && $targetDamage >= $targetHealth) {
+        TriggerKuraiUntapFromEnemyGardenDestroy($player, $targetPlayer, $targetCardID);
+        SafeMZMove($player, $zone . '-' . $index, ($zone === 'myAlley' ? 'myDiscard' : 'theirDiscard'));
         DecisionQueueController::CleanupRemovedCards();
     }
 }
@@ -2027,6 +2140,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                 if(!HasTurnEffect($theirGarden[$targetIndex], 'FROZEN')) {
                     $theirGarden[$targetIndex]->Damage = intval($theirGarden[$targetIndex]->Damage ?? 0) + $attackerAttack;
                     QueueDamageAnimation('p' . $opponent . 'Garden-' . $targetIndex, $attackerAttack, 500, true);
+                    TriggerZeroStarterDamageReactions($player, 'theirGarden-' . $targetIndex, $attackerAttack, false);
                 }
             }
         }
@@ -2041,6 +2155,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                 if(!HasTurnEffect($myGarden[$attackerIndex], 'FROZEN')) {
                     $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $defenderAttack;
                     QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $defenderAttack, 500, true);
+                    TriggerZeroStarterDamageReactions($opponent, 'myGarden-' . $attackerIndex, $defenderAttack, false);
                 }
             }
         }
@@ -2056,6 +2171,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                     HealLeader($player, 1);
                     AddUniqueTurnEffect($attackerObj, 'SHROOMMANCER_USED');
                 }
+                TriggerKuraiUntapFromEnemyGardenDestroy($player, $opponent, $theirGarden[$targetIndex]->CardID ?? '');
                 SafeMZMove($player, 'theirGarden-' . $targetIndex, 'theirDiscard');
             }
         }
@@ -2066,6 +2182,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         $attackerHealth = max(0, intval(CardHealth($myGarden[$attackerIndex]->CardID ?? '')));
         $attackerDamage = intval($myGarden[$attackerIndex]->Damage ?? 0);
         if($attackerHealth > 0 && CardType($myGarden[$attackerIndex]->CardID ?? '') !== 'LEADER' && $attackerDamage >= $attackerHealth) {
+            TriggerKuraiUntapFromEnemyGardenDestroy($opponent, $player, $myGarden[$attackerIndex]->CardID ?? '');
             SafeMZMove($player, 'myGarden-' . $attackerIndex, 'myDiscard');
         }
     }
@@ -2281,7 +2398,20 @@ function OnStartOfTurn($player) {
         DoDrawCard($player, 1);
     }
 
-    // 5. Resolve SOT effects (to be queued by card abilities)
+    // 5. Resolve SOT effects.
+    $myGarden = &GetGarden($player);
+    for($i = count($myGarden) - 1; $i >= 0; --$i) {
+        if(isset($myGarden[$i]->removed) && $myGarden[$i]->removed) continue;
+        if(($myGarden[$i]->CardID ?? '') !== 'S1-STT04-003_Cinderwake-Seer_E_UC_die') continue;
+        DealDamageToGardenTarget($player, 'myGarden-' . $i, 1);
+    }
+    $opponent = ($player == 1) ? 2 : 1;
+    $theirGarden = &GetGarden($opponent);
+    for($i = count($theirGarden) - 1; $i >= 0; --$i) {
+        if(isset($theirGarden[$i]->removed) && $theirGarden[$i]->removed) continue;
+        if(($theirGarden[$i]->CardID ?? '') !== 'S1-STT04-003_Cinderwake-Seer_E_UC_die') continue;
+        DealDamageToGardenTarget($player, 'theirGarden-' . $i, 1);
+    }
 }
 
 function OnEndOfTurn($player) {
