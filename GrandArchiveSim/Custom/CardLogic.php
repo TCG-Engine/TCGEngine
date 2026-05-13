@@ -158,11 +158,19 @@ function PoleArmedSteedEnter($player) {
 // [Merlin Bonus][Sheen 6+] Look at that opponent's memory and discard a card from it.
 function SeepIntoTheMind($player) {
     $opponent = ($player == 1) ? 2 : 1;
-    $oppUnits = array_merge(
-        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
-    );
+    $oppUnits = ZoneSearch("theirField", ["ALLY", "CHAMPION"]);
+    
     if(empty($oppUnits)) return;
-    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $oppUnits), 1,
+    
+    // Convert to opponent's perspective: theirField-X becomes myField-X from opponent's POV
+    $targetIndices = [];
+    foreach($oppUnits as $mzID) {
+        if (preg_match('/theirField-(\d+)/', $mzID, $matches)) {
+            $targetIndices[] = "myField-" . $matches[1];
+        }
+    }
+    
+    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", implode("&", $targetIndices), 1,
         tooltip:"Put_3_sheen_counters_on_a_unit_you_control_(Seep_Into_the_Mind)");
     DecisionQueueController::AddDecision($opponent, "CUSTOM", "SeepIntoTheMindSheen|$player", 1);
 }
