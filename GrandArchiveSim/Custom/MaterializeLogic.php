@@ -30,8 +30,6 @@ function MaterializePhase() {
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1);
     // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] activate from material deck while controlling 2+ domains
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "RECIPROCITY_MATERIAL_CHECK", 1);
-
-    SaveUndoVersion(GetTurnPlayer(), "Materialize Phase Start");
 }
 
 function GetMaterializeFloatingChoices($player) {
