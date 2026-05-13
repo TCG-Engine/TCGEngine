@@ -110,6 +110,62 @@ services:
     ports:
       - "6483:6379"
 
+  azukisim-web-server:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: always
+    volumes:
+      - "./:/var/www/html/TCGEngine:Z"
+    command: bash "/var/www/html/TCGEngine/docker-entrypoint.sh"
+    ports:
+      - "3300:80"
+    depends_on:
+      - azukisim-redis
+      - azukisim-mysql-server
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_SERVER_NAME: "azukisim-mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "azukisim"
+      MYSQL_DATABASE_NAME: "azukisim"
+      REDIS_HOST: "azukisim-app_redis"
+      REDIS_ENABLED: true
+      DOMAIN: "${DOMAIN:-localhost}"
+      STAGE: "${STAGE:-prod}"
+    user: "${DOCKER_USER}"
+
+  azukisim-mysql-server:
+    image: mysql:latest
+    restart: always
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_SERVER_NAME: "azukisim-mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "azukisim"
+    volumes:
+      - ./Database:/docker-entrypoint-initdb.d
+      - azukisim-mysql-data:/var/lib/mysql
+
+  azukisim-phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: azukisim-mysql-server
+      PMA_USER: root
+      PMA_PASSWORD: "secret"
+    ports:
+      - "5103:80"
+
+  azukisim-redis:
+    image: redis:7.0
+    container_name: azukisim_app_redis
+    ports:
+      - "6484:6379"
+
 volumes:
   swustats-mysql-data:
   grandarchivesim-mysql-data:
+  azukisim-mysql-data:
