@@ -43,16 +43,28 @@ while (true) {
         $response->gameName = $lobby->gameName;
       }
 
-      // Identify the player based on playerID and authKey
+      // Authenticate the player: verify the authKey matches the Player entry in the lobby.
+      // The caller already knows their playerID (they sent it); we just need to confirm
+      // the authKey is correct, then echo the playerID back directly.
+      $authenticated = false;
       if (isset($lobby->players) && is_array($lobby->players)) {
         foreach ($lobby->players as $player) {
-          if ($player->getPlayerID() == $playerID && $player->getAuthKey() == $authKey) {
-            $response->playerID = $player->getPlayerID();
-            $response->authKey = $player->getAuthKey();
+          if (($player instanceof Player) && $player->getPlayerID() == $playerID && $player->getAuthKey() == $authKey) {
+            $authenticated = true;
             break;
           }
         }
       }
+
+      if (!$authenticated) {
+        $response->success = false;
+        $response->message = "Authentication failed.";
+        header('Content-Type: application/json');
+        echo json_encode($response);
+        exit;
+      }
+
+      $response->playerID = $playerID;
 
       header('Content-Type: application/json');
       echo json_encode($response);
