@@ -48,6 +48,8 @@ function GetLegalMaterializeChoices($player) {
     for($i = 0; $i < count($material); ++$i) {
         if($material[$i]->removed) continue;
         if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) continue;
+        if(PropertyContains(CardType($material[$i]->CardID), "CHAMPION")
+            && !CanMaterializeChampion($player, $material[$i]->CardID)) continue;
         $choices[] = "myMaterial-" . $i;
     }
     return $choices;
@@ -697,6 +699,14 @@ function DoMaterialize($player, $mzCard) {
                 $existingCounters = is_array($field[$i]->Counters) ? $field[$i]->Counters : [];
                 $existingTurnEffects = is_array($field[$i]->TurnEffects) ? $field[$i]->TurnEffects : [];
                 break;
+            }
+        }
+
+        $targetLevel = intval(CardLevel($sourceId));
+        if($existingChampionCardID !== null) {
+            $currentLevel = intval(CardLevel($existingChampionCardID));
+            if($targetLevel !== ($currentLevel + 1)) {
+                return;
             }
         }
 
