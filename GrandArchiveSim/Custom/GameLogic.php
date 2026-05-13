@@ -14732,12 +14732,42 @@ function GetPlayerEnabledElements($player) {
     return array_keys($enabled);
 }
 
+//Deprecated: use CanPlayerMeetCardElementRequirements instead for checking if a player can use a card with the given element property
 function IsPlayerElementEnabled($player, $element) {
     if(IsNormOnlyElementProperty($element)) return true;
     $enabledElements = GetPlayerEnabledElements($player);
     foreach(array_values(array_filter(array_map('trim', explode(',', $element)), fn($part) => $part !== "")) as $elementPart) {
         if(in_array($elementPart, $enabledElements)) return true;
     }
+    return false;
+}
+
+function CanPlayerMeetCardElementRequirements($player, $elementProperty) {
+    if(IsNormOnlyElementProperty($elementProperty)) return true;
+
+    $requiredElements = array_values(array_filter(array_map('trim', explode(',', $elementProperty)), fn($part) => $part !== ""));
+    if(empty($requiredElements)) return true;
+
+    $enabledLookup = array_fill_keys(GetPlayerEnabledElements($player), true);
+
+    // Exalted must always be enabled when a card has the Exalted element.
+    if(in_array("EXALTED", $requiredElements, true) && !isset($enabledLookup["EXALTED"])) {
+        return false;
+    }
+
+    // Preserve existing behavior for non-Exalted requirements: any non-NORM listed element is sufficient.
+    $otherRequirements = [];
+    foreach($requiredElements as $requiredElement) {
+        if($requiredElement === "NORM" || $requiredElement === "EXALTED") continue;
+        $otherRequirements[] = $requiredElement;
+    }
+
+    if(empty($otherRequirements)) return true;
+
+    foreach($otherRequirements as $requiredElement) {
+        if(isset($enabledLookup[$requiredElement])) return true;
+    }
+
     return false;
 }
 
@@ -14797,7 +14827,7 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
         return true;
     }
 
-    if(IsPlayerElementEnabled($player, $cardElement)) {
+    if(CanPlayerMeetCardElementRequirements($player, $cardElement)) {
         return true;
     }
 
