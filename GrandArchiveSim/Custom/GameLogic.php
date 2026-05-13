@@ -772,7 +772,7 @@ function ActionMap($actionCard)
             // Naia, Diviner of Fortunes (jdmthh88rx): activate spell from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
-                if($bObj !== null && !$bObj->removed && in_array("NAIA_BANISHED", $bObj->TurnEffects)) {
+                if($bObj !== null && !$bObj->removed && in_array("NAIA_BANISHED", $bObj->TurnEffects ?? [])) {
                     // Check if Naia is still on the field
                     $naiaOnField = false;
                     $field = GetZone("myField");
@@ -9088,7 +9088,7 @@ function ObjectCurrentPower($obj) {
         // Atmos Armor Type-Hermes (dlx7mdk0xh): [Level 1+] Other Automaton allies get +1 POWER
         if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON")) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "dlx7mdk0xh" && !HasNoAbilities($fieldObj)
+                if($fieldObj && !$fieldObj->removed && $fieldObj->CardID === "dlx7mdk0xh" && !HasNoAbilities($fieldObj)
                    && $obj->CardID !== "dlx7mdk0xh"
                    && PlayerLevel($obj->Controller) >= 1) {
                     $power += 1;
@@ -12835,7 +12835,7 @@ $backendOnlyTurnEffects = [
 function CardCurrentEffects($obj) {
     global $doesGlobalEffectApply, $effectAppliesToBoth,$playerID;
     //Start with this object's effects (all of them, unfiltered â€” used by game logic)
-    $effects = $obj->TurnEffects;
+    $effects = (isset($obj->TurnEffects) && is_array($obj->TurnEffects)) ? $obj->TurnEffects : [];
     //Now add global effects
     if($obj->Controller != -1) {
         $controllerEffects = $obj->Controller == $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
@@ -13500,7 +13500,7 @@ function GetReservablePaymentSources($player) {
     $fieldZone = ReservePaymentSourceZoneName($player, "Field");
     $field = GetField($player);
     foreach($field as $i => $fieldObj) {
-        if($fieldObj->removed) continue;
+        if(!$fieldObj || $fieldObj->removed) continue;
         if(!isset($fieldObj->Status) || $fieldObj->Status != 2) continue;
         if(HasReservable($fieldObj)) {
             $sources[] = $fieldZone . "-" . $i;
@@ -16825,7 +16825,7 @@ function HasReservable($obj) {
         $zone = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fieldObj) {
-            if(!$fieldObj->removed && $fieldObj->CardID === "4mwrg35j36" && !HasNoAbilities($fieldObj)
+            if($fieldObj && !$fieldObj->removed && $fieldObj->CardID === "4mwrg35j36" && !HasNoAbilities($fieldObj)
                 && IsClassBonusActive($controller, ["GUARDIAN"])) {
                 return true;
             }

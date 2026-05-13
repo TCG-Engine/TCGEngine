@@ -619,43 +619,70 @@ function GetPlayableFastCards($player) {
         if(isset($obj->removed) && $obj->removed) continue;
         $speed = CardSpeed($obj->CardID);
         if($speed === true) {
-            $fastCards[] = "myHand-" . $i;
+            // Check if player can afford the reserve cost
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif(isset($cbFastActivationCards[$obj->CardID]) && IsClassBonusActive($player, $cbFastActivationCards[$obj->CardID])) {
-            $fastCards[] = "myHand-" . $i;
+            // Check if player can afford the reserve cost
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif(isset($unconditionalFastCards[$obj->CardID])) {
-            $fastCards[] = "myHand-" . $i;
+            // Check if player can afford the reserve cost
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif($obj->CardID === "zeig1e49wb" && GetShiftingCurrents($player) === "NORTH") {
             // Solar Pinnacle: Fast Activation while SC faces North
-            $fastCards[] = "myHand-" . $i;
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif($obj->CardID === "yrzexkW5Ej" && GetCurrentPhase() === "RECOLLECTION" && $player != GetTurnPlayer()) {
             // Sink the Mind: may be activated during an opponent's recollection phase
-            $fastCards[] = "myHand-" . $i;
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif($obj->CardID === "0oyxjld8jh") {
             // Guan Yu, Prime Exemplar: Fast Activation if a Human ally you controlled died this turn
             $deadAllies = AllyDestroyedTurnCards($player);
+            $hasHumanDeath = false;
             foreach($deadAllies as $deadCardID => $deadCount) {
                 if(PropertyContains(CardSubtypes($deadCardID), "HUMAN")) {
-                    $fastCards[] = "myHand-" . $i;
+                    $hasHumanDeath = true;
                     break;
                 }
             }
+            if($hasHumanDeath && CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
             // Expeditious Opening: next ally activated this turn gets fast activation
-            $fastCards[] = "myHand-" . $i;
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif(GlobalEffectCount($player, "t4owmcva0f") > 0
             && PropertyContains(CardType($obj->CardID), "ACTION")
             && PropertyContains(CardClasses($obj->CardID), "RANGER")) {
             // Bombastic Sprint: next Ranger action activated this turn gets fast activation
-            $fastCards[] = "myHand-" . $i;
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif(GlobalEffectCount($player, "6yW2zOwWmU") > 0) {
             // Accelerate: next card you activate this turn gets fast activation
-            $fastCards[] = "myHand-" . $i;
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif($obj->CardID === "B1EbF6jcYF" && IsAliceBonusActive($player)) {
             // Golden Gambit: [Alice Bonus] Fast Activation
-            $fastCards[] = "myHand-" . $i;
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         } elseif($obj->CardID === "pvzvqx16w4" && GetChampionDamageTakenThisTurn($player) >= 35) {
             // Annihilation: [Damage 35+] Fast Activation
-            $fastCards[] = "myHand-" . $i;
+            if(CanAffordActivationReserve($player, $obj)) {
+                $fastCards[] = "myHand-" . $i;
+            }
         }
     }
 

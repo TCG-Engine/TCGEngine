@@ -1878,6 +1878,7 @@ function AddGetNextTurnForPlayer($player) {
         // For Single Public zones, return ALL cards so they can be accessed from window data
         // (needed for MZCHOOSE decision queue and other client-side operations)
         $getNextTurn .= "  for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
+        $getNextTurn .= "    if(!isset(\$arr[\$i])) continue;\r\n";
         $getNextTurn .= "    if(\$i > 0) echo(\"<|>\");\r\n";
         $getNextTurn .= "    \$obj = \$arr[\$i];\r\n";
         if(count($zone->VirtualProperties) > 0) {
@@ -1898,6 +1899,7 @@ function AddGetNextTurnForPlayer($player) {
         }
         $getNextTurn .= "  if(\$playerID == " . $player . ") {\r\n";
         $getNextTurn .= "    for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
+        $getNextTurn .= "      if(!isset(\$arr[\$i])) continue;\r\n";
         $getNextTurn .= "      if(\$i > 0) echo(\"<|>\");\r\n";
         $getNextTurn .= "      \$obj = \$arr[\$i];\r\n";
         if(count($zone->VirtualProperties) > 0) {
@@ -1917,6 +1919,7 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
       }
       $getNextTurn .= "  for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
+      $getNextTurn .= "    if(!isset(\$arr[\$i])) continue;\r\n";
       $getNextTurn .= "    if(\$i > 0) echo(\"<|>\");\r\n";
       $getNextTurn .= "    \$obj = \$arr[\$i];\r\n";
       if(count($zone->VirtualProperties) > 0) {
