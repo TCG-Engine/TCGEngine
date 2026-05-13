@@ -1130,7 +1130,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     // Track the source zone so "whenever you activate from memory" triggers can check it in OnCardActivated.
-    DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
+    $activationSourceOverride = DecisionQueueController::GetVariable("activationSourceZoneOverride");
+    if($activationSourceOverride !== null && $activationSourceOverride !== "") {
+        DecisionQueueController::StoreVariable("activationSourceZone", $activationSourceOverride);
+        DecisionQueueController::ClearVariable("activationSourceZoneOverride");
+    } else {
+        DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
+    }
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->Controller = $player;
     $threeVisitsSource = DecisionQueueController::GetVariable("threeVisitsActivationSource");
@@ -14947,8 +14953,8 @@ function TryGlimmerCast($player, $memoryMZ) {
     // Remove glimmer counters to pay the cost
     RemoveCounters($player, $champMZ, "glimmer", $spellCost);
 
-    // Track that this card was activated from memory
-    DecisionQueueController::StoreVariable("activationSourceZone", "myMemory");
+    // Force ActivateCard to keep memory as the logical activation source even after moving to hand.
+    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myMemory");
 
     // Move spell from memory to hand, then activate with ignoreCost=true
     MZMove($player, $memoryMZ, "myHand");
