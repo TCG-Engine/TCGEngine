@@ -168,7 +168,7 @@ DecisionQueueVariables - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 EffectStack - CardID:string, Controller:number
 BeforeAdd: TokenCeaseBeforeAdd
-Display: Visibility=Public, Mode=Single, Scope=Global, BindTo=EffectStackSlot
+Display: Visibility=Public, Mode=All, Scope=Global, BindTo=EffectStackSlot
 Sort: Reverse=true
 MacroTurnIndex - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
