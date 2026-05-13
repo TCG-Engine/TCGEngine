@@ -16628,6 +16628,7 @@ function HasStealth($obj) {
 
 // Siegeable: domain subtype that allows being attacked. Damage removes durability counters.
 function IsSiegeable($obj) {
+    if($obj === null) return false;
     return PropertyContains(CardSubtypes($obj->CardID), "SIEGEABLE");
 }
 

@@ -2701,6 +2701,7 @@ $customDQHandlers["MechanicalHareBanish2"] = function($player, $parts, $lastDeci
  */
 function OnDealDamage($player, $source, $target, $amount) {
     $targetObj = &GetZoneObject($target);
+    if($targetObj === null) return; // Target no longer on the field (e.g. stale mzID after redirect)
 
     // Bulwark counters prevent the next combat damage to that ally.
     if($amount > 0 && $targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "ALLY")
@@ -2736,14 +2737,14 @@ function OnDealDamage($player, $source, $target, $amount) {
     // Potion Infusion: Frostbite — next water damage to this unit +4
     $sourceObj = GetZoneObject($source);
     if($sourceObj !== null && CardElement($sourceObj->CardID) === "WATER") {
-        if(in_array("FROSTBITE_WATER_VULN", $targetObj->TurnEffects)) {
+        if(in_array("FROSTBITE_WATER_VULN", $targetObj->TurnEffects ?? [])) {
             $amount += 4;
             $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "FROSTBITE_WATER_VULN"));
         }
     }
 
     // Poisoned Dagger (0D6AfZyKXh): [CB] target takes +1 damage until EOT
-    if($amount > 0 && in_array("0D6AfZyKXh-CURSED", $targetObj->TurnEffects)) {
+    if($amount > 0 && in_array("0D6AfZyKXh-CURSED", $targetObj->TurnEffects ?? [])) {
         $amount += 1;
     }
 
