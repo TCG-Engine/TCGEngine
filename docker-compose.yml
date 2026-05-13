@@ -1,6 +1,6 @@
 version: "3.7"
 services:
-  web-server:
+  swustats-web-server:
     build:
       dockerfile: Dockerfile
       context: .
@@ -11,43 +11,105 @@ services:
     ports:
       - "3100:80"
     depends_on:
-      - redis
-      - mysql-server
+      - swustats-redis
+      - swustats-mysql-server
     environment:
       PHP_FPM_CLEAR_ENV: "no"
       MYSQL_ROOT_PASSWORD: "secret"
-      MYSQL_SERVER_NAME: "mysql-server"
+      MYSQL_SERVER_NAME: "swustats-mysql-server"
       MYSQL_SERVER_USER_NAME: "root"
-      REDIS_HOST: "app_redis"
+      MYSQL_DATABASE: "swudeck"
+      MYSQL_DATABASE_NAME: "swudeck"
+      REDIS_HOST: "swustats-app_redis"
       REDIS_ENABLED: true
       DOMAIN: "${DOMAIN:-localhost}"
       STAGE: "${STAGE:-prod}"
     user: "${DOCKER_USER}"
 
-  mysql-server:
+  swustats-mysql-server:
     image: mysql:latest
     restart: always
     environment:
       PHP_FPM_CLEAR_ENV: "no"
       MYSQL_ROOT_PASSWORD: "secret"
-      MYSQL_SERVER_NAME: "mysql-server"
+      MYSQL_SERVER_NAME: "swustats-mysql-server"
       MYSQL_SERVER_USER_NAME: "root"
-      MYSQL_DATABASE: "swuonline"
+      MYSQL_DATABASE: "swudeck"
     volumes:
       - ./Database:/docker-entrypoint-initdb.d
-  phpmyadmin:
+      - swustats-mysql-data:/var/lib/mysql
+
+  swustats-phpmyadmin:
     image: phpmyadmin:latest
     restart: always
     environment:
-      PMA_HOST: mysql-server
+      PMA_HOST: swustats-mysql-server
       PMA_USER: root
       PMA_PASSWORD: "secret"
     ports:
       - "5101:80"
-  redis:
+
+  swustats-redis:
     image: redis:7.0
     container_name: swustats_app_redis
     ports:
       - "6482:6379"
+
+  grandarchivesim-web-server:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: always
+    volumes:
+      - "./:/var/www/html/TCGEngine:Z"
+    command: bash "/var/www/html/TCGEngine/docker-entrypoint.sh"
+    ports:
+      - "3200:80"
+    depends_on:
+      - grandarchivesim-redis
+      - grandarchivesim-mysql-server
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_SERVER_NAME: "grandarchivesim-mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "grandarchivesim"
+      MYSQL_DATABASE_NAME: "grandarchivesim"
+      REDIS_HOST: "grandarchivesim-app_redis"
+      REDIS_ENABLED: true
+      DOMAIN: "${DOMAIN:-localhost}"
+      STAGE: "${STAGE:-prod}"
+    user: "${DOCKER_USER}"
+
+  grandarchivesim-mysql-server:
+    image: mysql:latest
+    restart: always
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_SERVER_NAME: "grandarchivesim-mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "grandarchivesim"
+    volumes:
+      - ./Database:/docker-entrypoint-initdb.d
+      - grandarchivesim-mysql-data:/var/lib/mysql
+
+  grandarchivesim-phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: grandarchivesim-mysql-server
+      PMA_USER: root
+      PMA_PASSWORD: "secret"
+    ports:
+      - "5102:80"
+
+  grandarchivesim-redis:
+    image: redis:7.0
+    container_name: grandarchivesim_app_redis
+    ports:
+      - "6483:6379"
+
 volumes:
-  mysql-data:
+  swustats-mysql-data:
+  grandarchivesim-mysql-data:
