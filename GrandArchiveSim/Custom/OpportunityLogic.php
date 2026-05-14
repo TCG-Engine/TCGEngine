@@ -1007,7 +1007,7 @@ function ClearOpportunityVariables() {
 }
 
 function IsCombatOpportunityContinuation($handler) {
-    return in_array($handler, ["CombatDealDamage", "CleaveDealDamage"], true);
+    return in_array($handler, ["CombatDealDamage", "CleaveDealDamage", "NoOp"], true);
 }
 
 /**
