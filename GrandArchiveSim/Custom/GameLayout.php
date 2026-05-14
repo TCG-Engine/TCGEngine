@@ -507,7 +507,7 @@
      }
 
      .ga-stack {
-          width: min(18vw, 240px);
+          width: clamp(320px, 34vw, 560px);
           min-height: 86px;
      }
 
@@ -527,6 +527,38 @@
      #EffectStackSlot {
           left: 50%;
           transform: translateX(-50%);
+          max-width: calc(100vw - 32px);
+     }
+
+     #EffectStackSlot[data-draggable="true"] {
+          cursor: grab;
+     }
+
+     #EffectStackSlot[data-dragging="true"] {
+          cursor: grabbing;
+          user-select: none;
+     }
+
+     #EffectStackSlot.is-custom-position {
+          transform: none !important;
+     }
+
+     #EffectStackWrapper {
+          overflow-x: auto !important;
+          overflow-y: auto !important;
+          max-height: min(36vh, 280px);
+          scrollbar-width: thin;
+          -webkit-overflow-scrolling: touch;
+     }
+
+     #EffectStack {
+          flex-wrap: nowrap !important;
+          justify-content: flex-start !important;
+          min-width: 100%;
+     }
+
+     #EffectStack > span {
+          flex: 0 0 auto;
      }
 
           /* Both intent slots share the same center-left position near the midline.
@@ -598,6 +630,10 @@
           .ga-intent {
                width: min(18vw, 184px);
           }
+
+          .ga-stack {
+               width: clamp(280px, 40vw, 500px);
+          }
      }
 
      @media (max-width: 900px) {
@@ -664,6 +700,15 @@
           .ga-intent {
                width: 140px;
                min-height: 104px;
+          }
+
+          .ga-stack {
+               width: calc(100vw - 84px);
+               min-height: 104px;
+          }
+
+          #EffectStackWrapper {
+               max-height: min(34vh, 240px);
           }
 
           .ga-hand {
@@ -969,17 +1014,141 @@
                .observe(globalStuff, { childList: true, subtree: true });
      }
 
+     function setupEffectStackDrag() {
+          var slot = document.getElementById('EffectStackSlot');
+          if (!slot) return;
+
+          var positionStorageKey = 'ga-effect-stack-position-v1';
+          var dragState = null;
+          slot.setAttribute('data-draggable', 'true');
+
+          function clamp(value, min, max) {
+               return Math.min(max, Math.max(min, value));
+          }
+
+          function applyPosition(left, top) {
+               var rect = slot.getBoundingClientRect();
+               var maxLeft = Math.max(8, window.innerWidth - rect.width - 8);
+               var maxTop = Math.max(8, window.innerHeight - rect.height - 8);
+               var boundedLeft = clamp(left, 8, maxLeft);
+               var boundedTop = clamp(top, 8, maxTop);
+               slot.classList.add('is-custom-position');
+               slot.style.left = boundedLeft + 'px';
+               slot.style.top = boundedTop + 'px';
+               slot.style.right = 'auto';
+               slot.style.bottom = 'auto';
+          }
+
+          function savePosition() {
+               var left = parseFloat(slot.style.left);
+               var top = parseFloat(slot.style.top);
+               if (!Number.isFinite(left) || !Number.isFinite(top)) return;
+               try {
+                    localStorage.setItem(positionStorageKey, JSON.stringify({ left: left, top: top }));
+               } catch (e) {
+                    // Ignore storage failures (private mode, blocked storage, etc.)
+               }
+          }
+
+          function loadPosition() {
+               var raw = null;
+               try {
+                    raw = localStorage.getItem(positionStorageKey);
+               } catch (e) {
+                    return;
+               }
+               if (!raw) return;
+               try {
+                    var parsed = JSON.parse(raw);
+                    if (!parsed || !Number.isFinite(parsed.left) || !Number.isFinite(parsed.top)) return;
+                    applyPosition(parsed.left, parsed.top);
+               } catch (e) {
+                    // Ignore malformed saved state.
+               }
+          }
+
+          function finishDrag() {
+               if (!dragState) return;
+               dragState = null;
+               slot.removeAttribute('data-dragging');
+               savePosition();
+          }
+
+          function beginDrag(clientX, clientY, button) {
+               if (button !== 0) return false;
+               var rect = slot.getBoundingClientRect();
+               var yInSlot = clientY - rect.top;
+               // Drag from the label band only so card interaction remains easy.
+               if (yInSlot > 28) return false;
+               dragState = {
+                    startX: clientX,
+                    startY: clientY,
+                    startLeft: rect.left,
+                    startTop: rect.top
+               };
+               slot.setAttribute('data-dragging', 'true');
+               slot.classList.add('is-custom-position');
+               return true;
+          }
+
+          function moveDrag(clientX, clientY) {
+               if (!dragState) return;
+               var nextLeft = dragState.startLeft + (clientX - dragState.startX);
+               var nextTop = dragState.startTop + (clientY - dragState.startY);
+               applyPosition(nextLeft, nextTop);
+          }
+
+          slot.addEventListener('mousedown', function(ev) {
+               if (beginDrag(ev.clientX, ev.clientY, ev.button)) ev.preventDefault();
+          });
+
+          window.addEventListener('mousemove', function(ev) {
+               moveDrag(ev.clientX, ev.clientY);
+          });
+
+          window.addEventListener('mouseup', finishDrag);
+
+          slot.addEventListener('touchstart', function(ev) {
+               if (!ev.touches || ev.touches.length === 0) return;
+               var touch = ev.touches[0];
+               if (beginDrag(touch.clientX, touch.clientY, 0)) ev.preventDefault();
+          }, { passive: false });
+
+          window.addEventListener('touchmove', function(ev) {
+               if (!dragState || !ev.touches || ev.touches.length === 0) return;
+               var touch = ev.touches[0];
+               moveDrag(touch.clientX, touch.clientY);
+               ev.preventDefault();
+          }, { passive: false });
+
+          window.addEventListener('touchend', finishDrag);
+          window.addEventListener('touchcancel', finishDrag);
+
+          window.addEventListener('resize', function() {
+               if (!slot.classList.contains('is-custom-position')) return;
+               var left = parseFloat(slot.style.left);
+               var top = parseFloat(slot.style.top);
+               if (!Number.isFinite(left) || !Number.isFinite(top)) return;
+               applyPosition(left, top);
+               savePosition();
+          });
+
+          loadPosition();
+     }
+
      // Run once DOM is ready (GameLayout.php is included after DOMContentLoaded equivalent)
      if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function() {
                AUTO_HIDE_IDS.forEach(watchSlot);
                EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
                watchPhaseData();
+               setupEffectStackDrag();
           });
      } else {
           AUTO_HIDE_IDS.forEach(watchSlot);
           EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
           watchPhaseData();
+          setupEffectStackDrag();
      }
 })();
 </script>
