@@ -13603,9 +13603,6 @@ function PreviewActivateReserveCost($player, $obj) {
 
     $reserveCost = CardCost_reserve($obj->CardID);
 
-    // Unstable Fractal (2o82fwl22v): [Class Bonus] ability costs (3) reserve
-    if($obj->CardID === "2o82fwl22v") $reserveCost = 3;
-
     $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
 
     // Class Bonus: reduce cost if champion's class matches card's class
@@ -19573,9 +19570,6 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     if($wasEphemerated === "YES") {
         $reserveCost = GetEphemerateCost($player, $cardID);
     }
-
-    // Unstable Fractal (2o82fwl22v): [Class Bonus] ability costs (3) reserve
-    if($cardID === "2o82fwl22v") $reserveCost = 3;
 
     $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
 
