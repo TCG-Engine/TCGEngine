@@ -502,6 +502,7 @@ $cbFastActivationCards = [
 // Cards with unconditional Fast Activation (no class bonus required)
 $unconditionalFastCards = [
     "aljx2ru1w3" => true, // Flashfire Horse
+    "JeyOuhr3sj" => true, // Protector Raccoon
 ];
 
 function EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label = "") {
