@@ -6399,227 +6399,7 @@ function BeforeRecollectionPhase() {
     global $playerID;
     // Ensure my/their zone references resolve from the active turn player's perspective.
     $playerID = $turnPlayer;
-    // Grand Archive rules: Opportunity arises at the beginning of the Recollection phase.
-    GrantOpportunityWindow($turnPlayer, "NoOp");
-}
 
-function RecollectionPhase() {
-    $currentTurn = intval(GetTurnNumber());
-    if($currentTurn === 1) return;
-
-    // Recollection phase
-    SetFlashMessage("Recollection Phase");
-    $turnPlayer = &GetTurnPlayer();
-    global $playerID;
-    // Defensive reset in case a prior opportunity/stack branch changed perspective.
-    $playerID = $turnPlayer;
-
-    // Golden Checkmate (KbE9R1mi3n): delayed win at the beginning of your next recollection phase.
-    if(GlobalEffectCount($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION") > 0) {
-        global $winner;
-        $winner = $turnPlayer;
-        RemoveGlobalEffect($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION");
-        return;
-    }
-    
-    // --- Domain Recollection Upkeep ---
-    // Process domain upkeep checks that trigger "at the beginning of your recollection phase".
-    // Must run BEFORE memory is returned to hand, since the checks reveal memory cards.
-    DomainRecollectionUpkeep($turnPlayer);
-
-    // Incandescent Reliquary (wsycqp2l90): if you have the least influence, draw a card.
-    $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
-    $turnInfluence = GetInfluence($turnPlayer);
-    $otherInfluence = GetInfluence($otherPlayer);
-    $field = &GetField($turnPlayer);
-    for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed && $field[$i]->CardID === "wsycqp2l90" && !HasNoAbilities($field[$i])) {
-            if($turnInfluence <= $otherInfluence) {
-                Draw($turnPlayer, 1);
-            }
-        }
-    }
-
-    // Kongming, Erudite Strategist (0i139x5eub): clear "may play until beginning of next turn" tags from banished cards
-    $kongmingBanish = &GetBanish($turnPlayer);
-    for($bi = 0; $bi < count($kongmingBanish); ++$bi) {
-        if($kongmingBanish[$bi]->removed || !is_array($kongmingBanish[$bi]->TurnEffects)) continue;
-        $kongmingBanish[$bi]->TurnEffects = array_values(array_filter(
-            $kongmingBanish[$bi]->TurnEffects,
-            fn($e) => !in_array($e, ["KONGMING_NORTH", "KONGMING_EAST", "KONGMING_SOUTH", "KONGMING_WEST"])
-        ));
-    }
-
-    // Supernova Divination (qhBecpDUO9): [Arisanna Bonus] recollection counter growth.
-    {
-        global $playerID;
-        $fieldZone = ($turnPlayer == $playerID) ? "myField" : "theirField";
-        $turnField = GetZone($fieldZone);
-        for($sdi = 0; $sdi < count($turnField); ++$sdi) {
-            if($turnField[$sdi]->removed || $turnField[$sdi]->CardID !== "qhBecpDUO9" || HasNoAbilities($turnField[$sdi])) continue;
-            if(!IsArisannaBonusActive($turnPlayer)) continue;
-            $sdMZ = $fieldZone . "-" . $sdi;
-            AddCounters($turnPlayer, $sdMZ, "divination", 1);
-            SupernovaDivinationCheck($turnPlayer, $sdMZ);
-            break;
-        }
-    }
-
-    // Peaceful Reunion: clear attack-prevention at the beginning of the caster's next turn
-    if(GlobalEffectCount($turnPlayer, "wr42i6eifn") > 0) {
-        RemoveGlobalEffect($turnPlayer, "wr42i6eifn");
-    }
-
-    // Fount Seraphim (k4pjo6lVMO): clear rested-entry lock at beginning of your next turn
-    if(GlobalEffectCount($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN") > 0) {
-        RemoveGlobalEffect($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN");
-    }
-
-    // Plea for Peace: clear attack tax at the beginning of the caster's next turn
-    if(GlobalEffectCount($turnPlayer, "ir99sx6q3p") > 0) {
-        RemoveGlobalEffect($turnPlayer, "ir99sx6q3p");
-    }
-
-    // Suited Trickery: clear champion attack tax at the beginning of the caster's next turn
-    if(GlobalEffectCount($turnPlayer, "uxhmucm8si") > 0) {
-        RemoveGlobalEffect($turnPlayer, "uxhmucm8si");
-    }
-
-    // Eminent Lethargy: clear attack tax at the beginning of the caster's next turn
-    if(GlobalEffectCount($turnPlayer, "GGRtLQgaYU") > 0) {
-        RemoveGlobalEffect($turnPlayer, "GGRtLQgaYU");
-    }
-    // Kingdom's Divide (qy34r8gffr): clear chosen-name activation tax at beginning of caster's next turn.
-    $champMZ = FindChampionMZ($turnPlayer);
-    if($champMZ !== null) {
-        $champObj = GetZoneObject($champMZ);
-        if($champObj !== null && is_array($champObj->TurnEffects)) {
-            $champObj->TurnEffects = array_values(array_filter(
-                $champObj->TurnEffects,
-                fn($e) => strpos($e, "qy34r8gffr-") !== 0
-            ));
-        }
-    }
-
-    // Submerged Fatestone (zfb0pzm6qp): [Guo Jia Bonus] at recollection phase,
-    // may banish a floating memory from GY to transform
-    SubmergedFatestoneRecollectionTrigger($turnPlayer);
-
-    // Fatal Timepiece (6gvnta6qse): at the beginning of each player's recollection phase,
-    // if that player did not materialize a card this turn â†’ deal 2 unpreventable to their champion.
-    $hasTimepiece = false;
-    foreach(array_merge(GetField(1), GetField(2)) as $tpObj) {
-        if(!$tpObj->removed && $tpObj->CardID === "6gvnta6qse" && !HasNoAbilities($tpObj)) {
-            $hasTimepiece = true;
-            break;
-        }
-    }
-    if($hasTimepiece && MaterializeCallCount($turnPlayer) === 0) {
-        $champField = &GetField($turnPlayer);
-        for($ci = 0; $ci < count($champField); ++$ci) {
-            if(!$champField[$ci]->removed && PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
-                $champField[$ci]->Damage += 2;
-                break;
-            }
-        }
-    }
-    
-    // --- Foster Processing ---
-    // "At the beginning of your recollection phase, if this ally hasn't been dealt damage
-    // since the end of your previous turn, it becomes fostered."
-    $field = &GetField($turnPlayer);
-    $newlyFostered = [];
-    for($i = 0; $i < count($field); ++$i) {
-        if($field[$i]->removed) continue;
-        if(!HasFoster($field[$i])) continue;
-        $hasDamage = in_array("DAMAGED_SINCE_LAST_TURN", $field[$i]->TurnEffects);
-        if(!$hasDamage) {
-            $wasFostered = IsFostered($field[$i]);
-            BecomeFostered($turnPlayer, "myField-" . $i);
-            if(!$wasFostered) {
-                $newlyFostered[] = $i;
-            }
-        } else {
-            // Ally was damaged â€” remove fostered state if present
-            $field[$i]->TurnEffects = array_values(array_filter($field[$i]->TurnEffects, fn($e) => $e !== "FOSTERED"));
-        }
-    }
-    // Clear DAMAGED_SINCE_LAST_TURN from all field cards (reset for next cycle)
-    for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed) {
-            $field[$i]->TurnEffects = array_values(array_filter($field[$i]->TurnEffects, fn($e) => $e !== "DAMAGED_SINCE_LAST_TURN"));
-        }
-    }
-    // Seasoned Shieldmaster (qsm4o98vn1): whenever an ally becomes fostered â†’ draw into memory
-    if(!empty($newlyFostered)) {
-        for($i = 0; $i < count($field); ++$i) {
-            if(!$field[$i]->removed && $field[$i]->CardID === "qsm4o98vn1" && !HasNoAbilities($field[$i])) {
-                DrawIntoMemory($turnPlayer, count($newlyFostered));
-                break;
-            }
-        }
-    }
-    // Fire OnFoster triggered abilities for newly fostered allies
-    foreach($newlyFostered as $fieldIdx) {
-        if(!$field[$fieldIdx]->removed) {
-            OnFoster($turnPlayer, "myField-" . $fieldIdx);
-        }
-    }
-
-    // --- On Charge N System ---
-    // "At the beginning of your recollection phase, put a charge counter on each object you control
-    // with an untriggered on charge ability. Trigger the first time N charge counters are on it."
-    $onChargeCards = [
-        "fhomy86084" => 2, // Candlelight Hourglass: On Charge 2
-        "uqICHZa3Wz" => 2, // Biding Cinquedea: [Class Bonus] On Charge 2
-        "f0jbv5n196" => 3, // Memento Pocketwatch: On Charge 3
-        "jaiTSvaLOQ" => 3, // Stellar Cosmos: [Diana Bonus] On Charge 3
-        "k5wrAxBbF9" => 3, // Proto Key Crest: On Charge 3
-    ];
-    $field = &GetField($turnPlayer);
-    for($i = 0; $i < count($field); ++$i) {
-        if($field[$i]->removed) continue;
-        $ocCardID = $field[$i]->CardID;
-        if(!isset($onChargeCards[$ocCardID])) continue;
-        if(HasNoAbilities($field[$i])) continue;
-        if(!is_array($field[$i]->Counters)) $field[$i]->Counters = [];
-        if(isset($field[$i]->Counters['on_charge_triggered'])) continue; // Already triggered â€” no more charge counters
-        $ocThreshold = $onChargeCards[$ocCardID];
-        AddCounters($turnPlayer, "myField-" . $i, "charge", 1);
-        if(GetCounterCount($field[$i], "charge") >= $ocThreshold) {
-            $field[$i]->Counters['on_charge_triggered'] = 1;
-            switch($ocCardID) {
-                case "fhomy86084": // Candlelight Hourglass: On Charge 2 â†’ flag that ally activation tax is active
-                    $field[$i]->Counters['candlelight_active'] = 1;
-                    break;
-                case "uqICHZa3Wz": // Biding Cinquedea: [Class Bonus] â†’ +1 POWER until EOT + preparation counter
-                    if(IsClassBonusActive($turnPlayer, explode(",", CardClasses("uqICHZa3Wz")))) {
-                        AddTurnEffect("myField-" . $i, "uqICHZa3Wz_POWER");
-                        $champMZ = FindChampionMZ($turnPlayer);
-                        if($champMZ !== null) {
-                            AddCounters($turnPlayer, $champMZ, "preparation", 1);
-                        }
-                    }
-                    break;
-                case "f0jbv5n196": // Memento Pocketwatch: On Charge 3 â†’ banish self, draw 1, next attack +3 POWER
-                    MZMove($turnPlayer, "myField-" . $i, "myBanish");
-                    DecisionQueueController::CleanupRemovedCards();
-                    Draw($turnPlayer, 1);
-                    AddGlobalEffects($turnPlayer, "f0jbv5n196_NEXT_ATTACK");
-                    break;
-                case "jaiTSvaLOQ": // Stellar Cosmos: [Diana Bonus] On Charge 3 -> aethercharge glimpse cards have aethercalling
-                    if(IsDianaBonus($turnPlayer)) {
-                        AddGlobalEffects($turnPlayer, "gwWociEfxb_AETHERCALLING");
-                    }
-                    break;
-                case "k5wrAxBbF9": // Proto Key Crest: On Charge 3 -> return to material and recover 3
-                    MZMove($turnPlayer, "myField-" . $i, "myMaterial");
-                    DecisionQueueController::CleanupRemovedCards();
-                    RecoverChampion($turnPlayer, 3);
-                    break;
-            }
-        }
-    }
 
     // Trigger recollection phase abilities for cards on the field
     $field = &GetField($turnPlayer);
@@ -7036,6 +6816,228 @@ function RecollectionPhase() {
                     }
                     break;
                 default: break;
+            }
+        }
+    }
+
+    // Grand Archive rules: Opportunity arises at the beginning of the Recollection phase.
+    GrantOpportunityWindow($turnPlayer, "NoOp");
+}
+
+function RecollectionPhase() {
+    $currentTurn = intval(GetTurnNumber());
+    if($currentTurn === 1) return;
+
+    // Recollection phase
+    SetFlashMessage("Recollection Phase");
+    $turnPlayer = &GetTurnPlayer();
+    global $playerID;
+    // Defensive reset in case a prior opportunity/stack branch changed perspective.
+    $playerID = $turnPlayer;
+
+    // Golden Checkmate (KbE9R1mi3n): delayed win at the beginning of your next recollection phase.
+    if(GlobalEffectCount($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION") > 0) {
+        global $winner;
+        $winner = $turnPlayer;
+        RemoveGlobalEffect($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION");
+        return;
+    }
+    
+    // --- Domain Recollection Upkeep ---
+    // Process domain upkeep checks that trigger "at the beginning of your recollection phase".
+    // Must run BEFORE memory is returned to hand, since the checks reveal memory cards.
+    DomainRecollectionUpkeep($turnPlayer);
+
+    // Incandescent Reliquary (wsycqp2l90): if you have the least influence, draw a card.
+    $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
+    $turnInfluence = GetInfluence($turnPlayer);
+    $otherInfluence = GetInfluence($otherPlayer);
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "wsycqp2l90" && !HasNoAbilities($field[$i])) {
+            if($turnInfluence <= $otherInfluence) {
+                Draw($turnPlayer, 1);
+            }
+        }
+    }
+
+    // Kongming, Erudite Strategist (0i139x5eub): clear "may play until beginning of next turn" tags from banished cards
+    $kongmingBanish = &GetBanish($turnPlayer);
+    for($bi = 0; $bi < count($kongmingBanish); ++$bi) {
+        if($kongmingBanish[$bi]->removed || !is_array($kongmingBanish[$bi]->TurnEffects)) continue;
+        $kongmingBanish[$bi]->TurnEffects = array_values(array_filter(
+            $kongmingBanish[$bi]->TurnEffects,
+            fn($e) => !in_array($e, ["KONGMING_NORTH", "KONGMING_EAST", "KONGMING_SOUTH", "KONGMING_WEST"])
+        ));
+    }
+
+    // Supernova Divination (qhBecpDUO9): [Arisanna Bonus] recollection counter growth.
+    {
+        global $playerID;
+        $fieldZone = ($turnPlayer == $playerID) ? "myField" : "theirField";
+        $turnField = GetZone($fieldZone);
+        for($sdi = 0; $sdi < count($turnField); ++$sdi) {
+            if($turnField[$sdi]->removed || $turnField[$sdi]->CardID !== "qhBecpDUO9" || HasNoAbilities($turnField[$sdi])) continue;
+            if(!IsArisannaBonusActive($turnPlayer)) continue;
+            $sdMZ = $fieldZone . "-" . $sdi;
+            AddCounters($turnPlayer, $sdMZ, "divination", 1);
+            SupernovaDivinationCheck($turnPlayer, $sdMZ);
+            break;
+        }
+    }
+
+    // Peaceful Reunion: clear attack-prevention at the beginning of the caster's next turn
+    if(GlobalEffectCount($turnPlayer, "wr42i6eifn") > 0) {
+        RemoveGlobalEffect($turnPlayer, "wr42i6eifn");
+    }
+
+    // Fount Seraphim (k4pjo6lVMO): clear rested-entry lock at beginning of your next turn
+    if(GlobalEffectCount($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN") > 0) {
+        RemoveGlobalEffect($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN");
+    }
+
+    // Plea for Peace: clear attack tax at the beginning of the caster's next turn
+    if(GlobalEffectCount($turnPlayer, "ir99sx6q3p") > 0) {
+        RemoveGlobalEffect($turnPlayer, "ir99sx6q3p");
+    }
+
+    // Suited Trickery: clear champion attack tax at the beginning of the caster's next turn
+    if(GlobalEffectCount($turnPlayer, "uxhmucm8si") > 0) {
+        RemoveGlobalEffect($turnPlayer, "uxhmucm8si");
+    }
+
+    // Eminent Lethargy: clear attack tax at the beginning of the caster's next turn
+    if(GlobalEffectCount($turnPlayer, "GGRtLQgaYU") > 0) {
+        RemoveGlobalEffect($turnPlayer, "GGRtLQgaYU");
+    }
+    // Kingdom's Divide (qy34r8gffr): clear chosen-name activation tax at beginning of caster's next turn.
+    $champMZ = FindChampionMZ($turnPlayer);
+    if($champMZ !== null) {
+        $champObj = GetZoneObject($champMZ);
+        if($champObj !== null && is_array($champObj->TurnEffects)) {
+            $champObj->TurnEffects = array_values(array_filter(
+                $champObj->TurnEffects,
+                fn($e) => strpos($e, "qy34r8gffr-") !== 0
+            ));
+        }
+    }
+
+    // Submerged Fatestone (zfb0pzm6qp): [Guo Jia Bonus] at recollection phase,
+    // may banish a floating memory from GY to transform
+    SubmergedFatestoneRecollectionTrigger($turnPlayer);
+
+    // Fatal Timepiece (6gvnta6qse): at the beginning of each player's recollection phase,
+    // if that player did not materialize a card this turn â†’ deal 2 unpreventable to their champion.
+    $hasTimepiece = false;
+    foreach(array_merge(GetField(1), GetField(2)) as $tpObj) {
+        if(!$tpObj->removed && $tpObj->CardID === "6gvnta6qse" && !HasNoAbilities($tpObj)) {
+            $hasTimepiece = true;
+            break;
+        }
+    }
+    if($hasTimepiece && MaterializeCallCount($turnPlayer) === 0) {
+        $champField = &GetField($turnPlayer);
+        for($ci = 0; $ci < count($champField); ++$ci) {
+            if(!$champField[$ci]->removed && PropertyContains(EffectiveCardType($champField[$ci]), "CHAMPION")) {
+                $champField[$ci]->Damage += 2;
+                break;
+            }
+        }
+    }
+    
+    // --- Foster Processing ---
+    // "At the beginning of your recollection phase, if this ally hasn't been dealt damage
+    // since the end of your previous turn, it becomes fostered."
+    $field = &GetField($turnPlayer);
+    $newlyFostered = [];
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        if(!HasFoster($field[$i])) continue;
+        $hasDamage = in_array("DAMAGED_SINCE_LAST_TURN", $field[$i]->TurnEffects);
+        if(!$hasDamage) {
+            $wasFostered = IsFostered($field[$i]);
+            BecomeFostered($turnPlayer, "myField-" . $i);
+            if(!$wasFostered) {
+                $newlyFostered[] = $i;
+            }
+        } else {
+            // Ally was damaged â€” remove fostered state if present
+            $field[$i]->TurnEffects = array_values(array_filter($field[$i]->TurnEffects, fn($e) => $e !== "FOSTERED"));
+        }
+    }
+    // Clear DAMAGED_SINCE_LAST_TURN from all field cards (reset for next cycle)
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed) {
+            $field[$i]->TurnEffects = array_values(array_filter($field[$i]->TurnEffects, fn($e) => $e !== "DAMAGED_SINCE_LAST_TURN"));
+        }
+    }
+    // Seasoned Shieldmaster (qsm4o98vn1): whenever an ally becomes fostered â†’ draw into memory
+    if(!empty($newlyFostered)) {
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && $field[$i]->CardID === "qsm4o98vn1" && !HasNoAbilities($field[$i])) {
+                DrawIntoMemory($turnPlayer, count($newlyFostered));
+                break;
+            }
+        }
+    }
+    // Fire OnFoster triggered abilities for newly fostered allies
+    foreach($newlyFostered as $fieldIdx) {
+        if(!$field[$fieldIdx]->removed) {
+            OnFoster($turnPlayer, "myField-" . $fieldIdx);
+        }
+    }
+
+    // --- On Charge N System ---
+    // "At the beginning of your recollection phase, put a charge counter on each object you control
+    // with an untriggered on charge ability. Trigger the first time N charge counters are on it."
+    $onChargeCards = [
+        "fhomy86084" => 2, // Candlelight Hourglass: On Charge 2
+        "uqICHZa3Wz" => 2, // Biding Cinquedea: [Class Bonus] On Charge 2
+        "f0jbv5n196" => 3, // Memento Pocketwatch: On Charge 3
+        "jaiTSvaLOQ" => 3, // Stellar Cosmos: [Diana Bonus] On Charge 3
+        "k5wrAxBbF9" => 3, // Proto Key Crest: On Charge 3
+    ];
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        $ocCardID = $field[$i]->CardID;
+        if(!isset($onChargeCards[$ocCardID])) continue;
+        if(HasNoAbilities($field[$i])) continue;
+        if(!is_array($field[$i]->Counters)) $field[$i]->Counters = [];
+        if(isset($field[$i]->Counters['on_charge_triggered'])) continue; // Already triggered â€” no more charge counters
+        $ocThreshold = $onChargeCards[$ocCardID];
+        AddCounters($turnPlayer, "myField-" . $i, "charge", 1);
+        if(GetCounterCount($field[$i], "charge") >= $ocThreshold) {
+            $field[$i]->Counters['on_charge_triggered'] = 1;
+            switch($ocCardID) {
+                case "fhomy86084": // Candlelight Hourglass: On Charge 2 â†’ flag that ally activation tax is active
+                    $field[$i]->Counters['candlelight_active'] = 1;
+                    break;
+                case "uqICHZa3Wz": // Biding Cinquedea: [Class Bonus] â†’ +1 POWER until EOT + preparation counter
+                    if(IsClassBonusActive($turnPlayer, explode(",", CardClasses("uqICHZa3Wz")))) {
+                        AddTurnEffect("myField-" . $i, "uqICHZa3Wz_POWER");
+                        $champMZ = FindChampionMZ($turnPlayer);
+                        if($champMZ !== null) {
+                            AddCounters($turnPlayer, $champMZ, "preparation", 1);
+                        }
+                    }
+                    break;
+                case "f0jbv5n196": // Memento Pocketwatch: On Charge 3 â†’ banish self, draw 1, next attack +3 POWER
+                    MZMove($turnPlayer, "myField-" . $i, "myBanish");
+                    DecisionQueueController::CleanupRemovedCards();
+                    Draw($turnPlayer, 1);
+                    AddGlobalEffects($turnPlayer, "f0jbv5n196_NEXT_ATTACK");
+                    break;
+                case "jaiTSvaLOQ": // Stellar Cosmos: [Diana Bonus] On Charge 3 -> aethercharge glimpse cards have aethercalling
+                    if(IsDianaBonus($turnPlayer)) {
+                        AddGlobalEffects($turnPlayer, "gwWociEfxb_AETHERCALLING");
+                    }
+                    break;
+                case "k5wrAxBbF9": // Proto Key Crest: On Charge 3 -> return to material and recover 3
+                    MZMove($turnPlayer, "myField-" . $i, "myMaterial");
+                    DecisionQueueController::CleanupRemovedCards();
+                    RecoverChampion($turnPlayer, 3);
+                    break;
             }
         }
     }
