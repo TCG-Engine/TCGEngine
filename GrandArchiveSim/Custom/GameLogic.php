@@ -9925,8 +9925,8 @@ function ObjectCurrentPower($obj) {
     if(in_array("7mmve2l328", $obj->TurnEffects)) {
         $power += 1;
     }
-    // Ranged N: while this unit is distant, its attacks get +N POWER
-    if(IsDistant($obj)) {
+    // Ranged N: while this unit is distant, its attacks get +N POWER (only when attacking, i.e., controller is turn player)
+    if(IsDistant($obj) && $obj->Controller == GetTurnPlayer()) {
         $rangedValue = GetRangedValue($obj);
         if($rangedValue > 0) $power += $rangedValue;
     }
