@@ -7561,6 +7561,21 @@ function EndPhase() {
         }
     }
 
+    // Iron Halo, Forcefield Node (8GTa6NS2RG): At the beginning of your end phase,
+    // put a durability counter on CARDNAME for each of up to two tokens you control.
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "8GTa6NS2RG" && !HasNoAbilities($field[$i])) {
+            $tokenCount = count(ZoneSearch("myField", ["TOKEN"], forPlayer: $turnPlayer));
+            $durabilityToAdd = min(2, $tokenCount);
+            if($durabilityToAdd > 0) {
+                global $playerID;
+                $fieldToAdd = ($turnPlayer == $playerID) ? "myField" : "theirField";
+                AddCounters($turnPlayer, $fieldToAdd . "-" . $i, "durability", $durabilityToAdd);
+            }
+        }
+    }
+
     // Blood Dragon's Pact (g23WBQW2Ro): at beginning of your end phase,
     // deal 4 unpreventable damage to your champion.
     $field = &GetField($turnPlayer);
@@ -13192,8 +13207,8 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
         $cardTypes_arr = $cardTypeStr ? explode(",", $cardTypeStr) : [];
         $cardSubtypesStr = EffectiveCardSubtypes($obj);
         $cardSubtypes_arr = $cardSubtypesStr ? explode(",", $cardSubtypesStr) : [];
-          $cardClassesStr = EffectiveCardClasses($obj);
-          $cardClasses_arr = $cardClassesStr ? explode(",", $cardClassesStr) : [];
+        $cardClassesStr = EffectiveCardClasses($obj);
+        $cardClasses_arr = $cardClassesStr ? explode(",", $cardClassesStr) : [];
         if(($cardTypes === null || count(array_intersect($cardTypes_arr, (array)$cardTypes)) > 0) &&
            ($cardElements === null || in_array(EffectiveCardElement($obj), (array)$cardElements)) &&
            ($cardSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$cardSubtypes)) > 0) &&

@@ -2722,6 +2722,14 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(IsSiegeable($targetObj)) {
         if($amount > 0) {
             $targetController = $targetObj->Controller ?? $player;
+            // Iron Halo, Forcefield Node (8GTa6NS2RG): prevent 2 damage to another object you control.
+            // Domains are not Iron Halo itself, so only controller/ability checks are needed here.
+            $targetField = GetField($targetController);
+            foreach($targetField as $fieldObj) {
+                if($fieldObj->removed || $fieldObj->CardID !== "8GTa6NS2RG" || HasNoAbilities($fieldObj)) continue;
+                $amount -= min(2, $amount);
+                if($amount <= 0) return;
+            }
             $currentDurability = GetCounterCount($targetObj, "durability");
             $toRemove = min($amount, $currentDurability);
             if($toRemove > 0) {
@@ -2874,6 +2882,18 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($linkedObj === null || $linkedObj->removed || !PropertyContains(EffectiveCardType($linkedObj), "ALLY")) continue;
             OnDealDamage($targetController, $source, $linkedAllyMZ, $amount);
             return;
+        }
+    }
+
+    // Iron Halo, Forcefield Node (8GTa6NS2RG): prevent 2 damage to another object you control.
+    if($amount > 0) {
+        $targetController = $targetObj->Controller ?? $player;
+        $targetField = GetField($targetController);
+        foreach($targetField as $fieldObj) {
+            if($fieldObj->removed || $fieldObj->CardID !== "8GTa6NS2RG" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === $targetObj) continue; // "another object"
+            $amount -= min(2, $amount);
+            if($amount <= 0) return;
         }
     }
 
