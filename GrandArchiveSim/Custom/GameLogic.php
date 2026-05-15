@@ -16589,6 +16589,8 @@ function HasStealth($obj) {
             }
         }
     }
+    //Cheshire Cat
+    if($obj->CardID === "cUltOcPo26") return true;
     // Hidden Longbowman (bx4k3akqx7): stealth while distant
     if($obj->CardID === "bx4k3akqx7" && IsDistant($obj)) return true;
     // Stardust Oracle (EPy8OUmPxa): stealth while imbued
