@@ -672,7 +672,9 @@ $customDQHandlers["RazorgaleCallingDamage"] = function($player, $parts, $lastDec
     $targetObj = GetZoneObject($lastDecision);
     if($targetObj === null || $targetObj->removed) return;
     if(CardType($targetObj->CardID) !== "CHAMPION") return;
-    DealDamage($player, null, $lastDecision, 1);
+    $sourceMZ = $parts[0] ?? "-";
+    if($sourceMZ === null || $sourceMZ === "") $sourceMZ = "-";
+    DealDamage($player, $sourceMZ, $lastDecision, 1);
 };
 
 // Fervent Lancer: may banish the exia card as it resolves

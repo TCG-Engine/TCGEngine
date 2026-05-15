@@ -3614,9 +3614,10 @@ function OnCardActivated($player, $mzCard) {
                         ZoneSearch("theirField", ["CHAMPION"])
                     );
                     if(!empty($champions)) {
+                        $sourceMZ = "myField-" . $fi;
                         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $champions), 1,
                             tooltip:"Choose_target_champion_(Razorgale_Calling)");
-                        DecisionQueueController::AddDecision($player, "CUSTOM", "RazorgaleCallingDamage", 1);
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "RazorgaleCallingDamage|" . $sourceMZ, 1);
                     }
                 }
                 break;

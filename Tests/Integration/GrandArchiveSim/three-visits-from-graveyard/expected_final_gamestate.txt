@@ -44,6 +44,7 @@ u2Peefob8w
 Pr48kXnasw
 kl4bTg57Cj
 44
+0Z1r8GC8a8
 Yuj8xCUejq
 n8wyfG9hbY
 n8wyfG9hbY
@@ -87,7 +88,6 @@ n8wyfG9hbY
 F2wp1v0Tyk
 1m48260b7b
 O1OU62Zx2Y
-0Z1r8GC8a8
 2
 1leLWsgBkb - -
 9gv4vm4kj3 - -
@@ -95,12 +95,13 @@ O1OU62Zx2Y
 F2wp1v0Tyk - -
 heq49UQGvQ - -
 w7o3agvvnc - -
-5
+6
 Pr48kXnasw
 92mnQJPfR8
 ZSSegCjquB
 1leLWsgBkb
 ZSSegCjquB
+LMyKyVC2O9
 6
 Rgg4dJYxnl
 69iq4d5vet
@@ -128,8 +129,7 @@ Yuj8xCUejq
 OADTyAUBZt
 F2wp1v0Tyk
 XgJ72Ot13P
-3
-LMyKyVC2O9 2 1 11 1 DAMAGED_SINCE_LAST_TURN eyJfY2hhbXBEYW1hZ2VUaGlzVHVybiI6Mn0= -
+2
 qzzadf9q1v 2 1 0 1 - - -
 nn48ne8a05 2 1 1 1 - - -
 5
@@ -181,7 +181,7 @@ LeyUk5auEP
 MAIN
 
 
-{"mzID":"EffectStack-0","amount":1,"ignoreCost":false,"mzIDCardID":"w7o3agvvnc","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"wasBrewed":"YES","brewSteps":"[{\"filter\":\"HERB\",\"tooltip\":\"Sacrifice_an_herb\"},{\"filter\":\"HERB\",\"tooltip\":\"Sacrifice_an_herb\"}]","brewChosen":"myField-0,myField-2","brewStepIndex":"2","source":null,"target":"theirField-0","glimpseCount":"2","aethercallCandidates":"","glimpsedToTempZone":"0"}
+{"mzID":"theirField-0","amount":1,"ignoreCost":false,"mzIDCardID":"w7o3agvvnc","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"wasBrewed":"YES","brewSteps":"[{\"filter\":\"HERB\",\"tooltip\":\"Sacrifice_an_herb\"},{\"filter\":\"HERB\",\"tooltip\":\"Sacrifice_an_herb\"}]","brewChosen":"myField-0,myField-2","brewStepIndex":"2","source":"myField-3","target":"theirField-0","glimpseCount":"2","aethercallCandidates":"","glimpsedToTempZone":"0","GAMEOVER_WINNER":"2"}
 0
-{"ActivateCardCalls":{"1":2,"2":9},"ActivateCard":{"1":{"92mnQJPfR8":1,"Pr48kXnasw":1},"2":{"Rgg4dJYxnl":2,"1m48260b7b":2,"0Z1r8GC8a8":2,"w7o3agvvnc":3}},"CardActivatedCalls":{"1":2,"2":9},"CardActivated":{"1":{"92mnQJPfR8":1,"Pr48kXnasw":1},"2":{"Rgg4dJYxnl":2,"1m48260b7b":2,"0Z1r8GC8a8":2,"w7o3agvvnc":3}},"EnterCalls":{"1":9,"2":12},"Enter":{"1":{"92mnQJPfR8":1,"LMyKyVC2O9":3,"nn48ne8a05":3,"9gv4vm4kj3":1,"qzzadf9q1v":1},"2":{"pNiyaGlIe7":2,"soporhlq2k":1,"69iq4d5vet":3,"b31x97n2jn":1,"1m48260b7b":2,"DF5Ffwv7DJ":1,"0Z1r8GC8a8":2}},"DrawCalls":{"1":6,"2":11},"Draw":{"1":24,"2":23},"MaterializeCalls":{"2":2,"1":1},"Materialize":{"2":{"b31x97n2jn":1,"DF5Ffwv7DJ":1},"1":{"9gv4vm4kj3":1}},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"9gv4vm4kj3":1}},"ReserveCardCalls":{"1":3},"DealDamageCalls":{"2":8},"ExhaustCardCalls":{"2":2},"ExhaustCard":{"2":{"b31x97n2jn":2}}}
+{"ActivateCardCalls":{"1":2,"2":9},"ActivateCard":{"1":{"92mnQJPfR8":1,"Pr48kXnasw":1},"2":{"Rgg4dJYxnl":2,"1m48260b7b":2,"0Z1r8GC8a8":2,"w7o3agvvnc":3}},"CardActivatedCalls":{"1":2,"2":9},"CardActivated":{"1":{"92mnQJPfR8":1,"Pr48kXnasw":1},"2":{"Rgg4dJYxnl":2,"1m48260b7b":2,"0Z1r8GC8a8":2,"w7o3agvvnc":3}},"EnterCalls":{"1":9,"2":12},"Enter":{"1":{"92mnQJPfR8":1,"LMyKyVC2O9":3,"nn48ne8a05":3,"9gv4vm4kj3":1,"qzzadf9q1v":1},"2":{"pNiyaGlIe7":2,"soporhlq2k":1,"69iq4d5vet":3,"b31x97n2jn":1,"1m48260b7b":2,"DF5Ffwv7DJ":1,"0Z1r8GC8a8":2}},"DrawCalls":{"1":6,"2":11},"Draw":{"1":24,"2":23},"MaterializeCalls":{"2":2,"1":1},"Materialize":{"2":{"b31x97n2jn":1,"DF5Ffwv7DJ":1},"1":{"9gv4vm4kj3":1}},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"9gv4vm4kj3":1}},"ReserveCardCalls":{"1":3},"DealDamageCalls":{"2":8},"ExhaustCardCalls":{"2":2},"ExhaustCard":{"2":{"b31x97n2jn":2}},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"LMyKyVC2O9":1}}}
 4

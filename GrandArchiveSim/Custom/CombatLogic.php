@@ -3741,7 +3741,6 @@ function OnDealDamage($player, $source, $target, $amount) {
         $isUnitTarget = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
         if($sourceObjSpell !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SPELL")) {
             $sourceController = $sourceObjSpell->Controller ?? $player;
-
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;
             $srcFieldZone = ($sourceController == $playerID) ? "myField" : "theirField";
