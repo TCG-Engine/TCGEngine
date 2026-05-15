@@ -57,6 +57,7 @@ $Imbue_Cards["e5r6eVzpkD"] = ['threshold' => 2, 'matcher' => 'advanced']; // Rev
 $Imbue_Cards["eDCnvWoGxf"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['EXIA', 'NEOS']]; // Azrael, Archangel of Materia - Exia & Neos Imbue 3
 $Imbue_Cards["ozpG6bt7nC"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['ARCANE', 'ASTRA']]; // Raziel, Archangel of Libra - Arcane & Astra Imbue 3
 $Imbue_Cards["suH40WW60W"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['LUXEM', 'UMBRA']]; // Haniel, Archangel of Spectra - Luxem & Umbra Imbue 3
+$Imbue_Cards["AsDKTmP3kp"] = 3; // Hector, Praetorian Guard (NEOS) - Imbue 3
 $Imbue_Cards["kl4bTg57Cj"] = ['threshold' => 2, 'matcher' => 'advanced']; // Benediction Angel - Advanced Imbue 2
 
 function NormalizeImbueOption($cardID, $config) {
@@ -5458,6 +5459,10 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
 
     // Track that this card entered the field this turn (for Tempest Downfall etc.)
     $added->TurnEffects[] = "ENTERED_THIS_TURN";
+
+    if(DecisionQueueController::GetVariable("isImbued") === "YES" && !empty(GetCardImbueOptions($player, $added->CardID))) {
+        AddTurnEffect("myField-" . (count($field) - 1), "IMBUED");
+    }
 
     if(PropertyContains(CardType($added->CardID), "ALLY")) {
         for($si = 0; $si < count($field); ++$si) {

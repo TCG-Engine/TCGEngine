@@ -134,7 +134,7 @@ LMyKyVC2O9 2 1 0 1 - - -
 fln04uv297 2 1 0 1 - - -
 2
 74wa4x7e22 2 2 0 2 vz4kc558yx-ALLY_ACTIVATED - -
-fz1nr5a3pm 2 2 0 2 ENTERED_THIS_TURN - -
+fz1nr5a3pm 2 2 0 2 ENTERED_THIS_TURN~IMBUED - -
 0
 0
 0
