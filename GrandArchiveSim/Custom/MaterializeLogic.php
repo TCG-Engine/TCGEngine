@@ -757,12 +757,31 @@ function DoMaterialize($player, $mzCard) {
             $field[$existingChampionIdx]->removed = true;
         }
 
-        // Pre-populate TurnEffects onto the incoming card BEFORE MZMove so that
-        // OnEnter fires with the correct effects already present (e.g. IsDistant
-        // in Diana's Enter ability reads TurnEffects during the MZMove call).
-        if(!empty($existingTurnEffects)) {
+        // Pre-populate inherited champion state onto the incoming card BEFORE MZMove.
+        // AddField triggers Enter during MZMove via FieldAfterAdd, so Enter must see
+        // lineage/counters/damage/turn effects already present.
+        if(!empty($newSubcards) || $existingDamage > 0 || !empty($existingCounters) || !empty($existingTurnEffects)) {
             $incomingObj = &GetZoneObject($mzCard);
             if($incomingObj !== null) {
+                if(!empty($newSubcards)) {
+                    $incomingObj->Subcards = $newSubcards;
+                }
+
+                if($existingDamage > 0) {
+                    $incomingObj->Damage = intval($incomingObj->Damage ?? 0) + $existingDamage;
+                }
+
+                if(!isset($incomingObj->Counters) || !is_array($incomingObj->Counters)) {
+                    $incomingObj->Counters = [];
+                }
+                foreach($existingCounters as $counterType => $counterVal) {
+                    if(!isset($incomingObj->Counters[$counterType])) {
+                        $incomingObj->Counters[$counterType] = $counterVal;
+                    } else {
+                        $incomingObj->Counters[$counterType] += $counterVal;
+                    }
+                }
+
                 $existingIncomingTurnEffects = [];
                 if(isset($incomingObj->TurnEffects) && is_array($incomingObj->TurnEffects)) {
                     $existingIncomingTurnEffects = $incomingObj->TurnEffects;
@@ -777,24 +796,7 @@ function DoMaterialize($player, $mzCard) {
         // Move new champion to field
         $newObj = MZMove($player, $mzCard, "myField");
 
-        // Transfer lineage (subcards), damage, and counters from old champion
-        if(!empty($newSubcards)) {
-            $newObj->Subcards = $newSubcards;
-        }
-        if($existingDamage > 0) {
-            $newObj->Damage = $existingDamage;
-        }
-        if(!empty($existingCounters)) {
-            // Merge counters from old champion (e.g. enlighten counters carry over)
-            foreach($existingCounters as $counterType => $counterVal) {
-                if(!isset($newObj->Counters[$counterType])) {
-                    $newObj->Counters[$counterType] = $counterVal;
-                } else {
-                    $newObj->Counters[$counterType] += $counterVal;
-                }
-            }
-        }
-        // TurnEffects already transferred above (pre-MZMove) so OnEnter sees them.
+        // Inherited state has already been transferred pre-MZMove so Enter saw it.
 
         // Track that a champion leveled up this turn (for Invigorated Slash etc.)
         AddGlobalEffects($player, "LEVELED_UP_THIS_TURN");
