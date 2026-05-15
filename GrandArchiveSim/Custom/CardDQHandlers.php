@@ -2269,74 +2269,66 @@ $customDQHandlers["SwoopingTalons_Choice"] = function($player, $parts, $lastDeci
 
 function TonorisRecollection($player, $fieldIndex) {
     $field = &GetField($player);
+    if(!isset($field[$fieldIndex]) || $field[$fieldIndex]->removed) return;
     $obj = $field[$fieldIndex];
     $obelisks = [
-        "wk0pw0y6is" => "Summon_Obelisk_of_Armaments?",
-        "xy5lh23qu7" => "Summon_Obelisk_of_Fabrication?",
-        "d6soporhlq" => "Summon_Obelisk_of_Protection?"
+        "wk0pw0y6is",
+        "xy5lh23qu7",
+        "d6soporhlq"
     ];
     $counters = is_array($obj->Counters) ? $obj->Counters : [];
     $chosen = isset($counters['tonoris_chosen']) ? $counters['tonoris_chosen'] : [];
     $available = [];
-    foreach($obelisks as $id => $tooltip) {
+    foreach($obelisks as $id) {
         if(!in_array($id, $chosen)) {
-            $available[$id] = $tooltip;
+            $available[] = $id;
         }
     }
     if(empty($available)) return;
     if(count($available) == 1) {
-        $obeliskID = array_key_first($available);
+        $obeliskID = $available[0];
         MZAddZone($player, "myField", $obeliskID);
         $chosen[] = $obeliskID;
         if(!is_array($field[$fieldIndex]->Counters)) $field[$fieldIndex]->Counters = [];
         $field[$fieldIndex]->Counters['tonoris_chosen'] = $chosen;
         return;
     }
-    $firstID = array_key_first($available);
-    $firstTooltip = $available[$firstID];
-    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$firstTooltip);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "TonorisChooseObelisk|$fieldIndex|$firstID", 1);
+    ClearMyTempZoneCards($player);
+    foreach($available as $obeliskID) {
+        MZAddZone($player, "myTempZone", $obeliskID);
+    }
+    $tempChoices = ZoneSearch("myTempZone");
+    if(empty($tempChoices)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $tempChoices), 1, tooltip:"Choose_an_Obelisk_to_summon");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TonorisChooseObelisk|$fieldIndex", 1);
 }
 
 $customDQHandlers["TonorisChooseObelisk"] = function($player, $parts, $lastDecision) {
     $fieldIndex = intval($parts[0]);
-    $currentObeliskID = $parts[1];
+    if($lastDecision == "-" || $lastDecision == "") {
+        ClearMyTempZoneCards($player);
+        return;
+    }
     $field = &GetField($player);
-    if(!isset($field[$fieldIndex]) || $field[$fieldIndex]->removed) return;
+    if(!isset($field[$fieldIndex]) || $field[$fieldIndex]->removed) {
+        ClearMyTempZoneCards($player);
+        return;
+    }
+    $chosenObj = GetZoneObject($lastDecision);
+    if($chosenObj === null || $chosenObj->removed) {
+        ClearMyTempZoneCards($player);
+        return;
+    }
+    $obeliskID = $chosenObj->CardID;
+    ClearMyTempZoneCards($player);
     $obj = $field[$fieldIndex];
     $counters = is_array($obj->Counters) ? $obj->Counters : [];
     $chosen = isset($counters['tonoris_chosen']) ? $counters['tonoris_chosen'] : [];
-
-    if($lastDecision === "YES") {
-        MZAddZone($player, "myField", $currentObeliskID);
-        $chosen[] = $currentObeliskID;
-        if(!is_array($field[$fieldIndex]->Counters)) $field[$fieldIndex]->Counters = [];
-        $field[$fieldIndex]->Counters['tonoris_chosen'] = $chosen;
-        return;
-    }
-
-    // Player said NO — move to next available obelisk
-    $obelisks = ["wk0pw0y6is", "xy5lh23qu7", "d6soporhlq"];
-    $tooltips = [
-        "wk0pw0y6is" => "Summon_Obelisk_of_Armaments?",
-        "xy5lh23qu7" => "Summon_Obelisk_of_Fabrication?",
-        "d6soporhlq" => "Summon_Obelisk_of_Protection?"
-    ];
-    $remaining = [];
-    foreach($obelisks as $id) {
-        if(!in_array($id, $chosen) && $id !== $currentObeliskID) {
-            $remaining[] = $id;
-        }
-    }
-    if(count($remaining) == 1) {
-        MZAddZone($player, "myField", $remaining[0]);
-        $chosen[] = $remaining[0];
-        if(!is_array($field[$fieldIndex]->Counters)) $field[$fieldIndex]->Counters = [];
-        $field[$fieldIndex]->Counters['tonoris_chosen'] = $chosen;
-    } elseif(count($remaining) > 1) {
-        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltips[$remaining[0]]);
-        DecisionQueueController::AddDecision($player, "CUSTOM", "TonorisChooseObelisk|$fieldIndex|$remaining[0]", 1);
-    }
+    if(in_array($obeliskID, $chosen)) return;
+    MZAddZone($player, "myField", $obeliskID);
+    $chosen[] = $obeliskID;
+    if(!is_array($field[$fieldIndex]->Counters)) $field[$fieldIndex]->Counters = [];
+    $field[$fieldIndex]->Counters['tonoris_chosen'] = $chosen;
 };
 
 // --- Synthetic Core (w0y6isxy5l): return dying Automaton ally to memory ---
