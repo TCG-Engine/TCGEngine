@@ -3946,6 +3946,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "wk0pw0y6is": //Obelisk of Armaments
+            $baseCost = 5;
+            $domainCount = count(ZoneSearch("myField", ["DOMAIN"]));
+            $abilityCost = max(0, $baseCost - $domainCount);
+            for($i = 0; $i < $abilityCost; ++$i) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
         case "g99PIuhU0O": // Gildas, Faesworn Monarch â€” (2), reduced by (2) while you control another Fairy ally
             if(intval($abilityIndex) === 0) {
                 $reserveCost = 2;
