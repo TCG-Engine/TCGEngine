@@ -2636,6 +2636,7 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
  * Supported choice types (Pattern 1):
  *   - MZChoose: Mandatory card choice from zones
  *   - MZMayChoose: Optional card choice (client shows Pass button)
+ *   - MZMultiChoose: Select min..max cards in one popup and return an ampersand-delimited result
  *   - YesNo: Yes/No choice
  *   - Rearrange: Rearrange cards with zones and starting cards (semicolon-delimited)
  *   - MZSplitAssign: Split-assign a pool of N across multiple targets
@@ -2730,6 +2731,10 @@ function BuildAddDecisionCall($await, $cardId, $indent = '') {
     // MZSplitAssign: Param = amount|targets (dynamic), tooltip in 5th arg
     $tooltip = isset($await['splitTooltip']) ? $await['splitTooltip'] : '';
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", " . $await['splitAmount'] . " . \"|\" . " . $await['splitTargets'] . ", 1, \"" . $tooltip . "\");\n";
+  } else if (isset($await['isMultiChoose']) && $await['isMultiChoose']) {
+    // MZMultiChoose: Param = min|max|targets, tooltip in 5th arg
+    $tooltip = isset($await['multiTooltip']) ? $await['multiTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"MZMULTICHOOSE\", " . $await['multiMin'] . " . \"|\" . " . $await['multiMax'] . " . \"|\" . " . $await['multiTargets'] . ", 1, \"" . $tooltip . "\");\n";
   } else if (isset($await['isModal']) && $await['isModal']) {
     // Modal: Param = min|max|label1&label2&label3, tooltip in 5th arg
     $tooltip = isset($await['modalTooltip']) ? $await['modalTooltip'] : '';
@@ -2763,6 +2768,10 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
         // MZSplitAssign($targets, $amount) or MZSplitAssign($targets, $amount, "tooltip")
         $splitArgs = ParseAwaitArgs($rawParams);
         $params = $rawParams; // store raw for reference
+      } else if (strtolower($methodName) === 'mzmultichoose') {
+        // MZMultiChoose($targets, $min, $max) or MZMultiChoose($targets, $min, $max, "tooltip")
+        $multiArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
       } else if (strtolower($methodName) === 'modal') {
         // Modal($min, $max, "label1&label2&label3", "tooltip")
         $modalArgs = ParseAwaitArgs($rawParams);
@@ -2776,9 +2785,10 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
       }
 
       $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
+      $isMultiChoose = strtolower($methodName) === 'mzmultichoose';
       $isModal = strtolower($methodName) === 'modal';
       $isNumberChoose = strtolower($methodName) === 'numberchoose';
-      $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : strtoupper($methodName))));
+      $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isMultiChoose ? 'MZMULTICHOOSE' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : strtoupper($methodName)))));
       $awaitEntry = [
         'lineIndex' => $i,
         'returnVar' => $matches[1],  // e.g., $cardToDeploy
@@ -2787,6 +2797,7 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
         'params' => $params,
         'isRearrange' => strtolower($methodName) === 'rearrange',
         'isSplitAssign' => $isSplitAssign,
+        'isMultiChoose' => $isMultiChoose,
         'isModal' => $isModal,
         'isNumberChoose' => $isNumberChoose,
         'isVoidFunction' => false
@@ -2795,6 +2806,12 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
         $awaitEntry['splitTargets'] = trim($splitArgs[0]);
         $awaitEntry['splitAmount'] = trim($splitArgs[1]);
         $awaitEntry['splitTooltip'] = isset($splitArgs[2]) ? trim(trim($splitArgs[2]), '"\'') : '';
+      }
+      if ($isMultiChoose && isset($multiArgs)) {
+        $awaitEntry['multiTargets'] = trim($multiArgs[0]);
+        $awaitEntry['multiMin'] = trim($multiArgs[1]);
+        $awaitEntry['multiMax'] = trim($multiArgs[2]);
+        $awaitEntry['multiTooltip'] = isset($multiArgs[3]) ? trim(trim($multiArgs[3]), '"\'') : '';
       }
       if ($isModal && isset($modalArgs)) {
         $awaitEntry['modalMin'] = trim($modalArgs[0]);

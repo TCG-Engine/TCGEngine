@@ -13,7 +13,8 @@ Use this file as the compact default guidance:
 - Treat `.github/copilot-instructions.md` as canonical for await/codegen constraints. In particular:
   - Do not put `await` inside conditionals or loops.
   - Do not rely on pre-`await` locals after an `await`; recompute what you need.
-  - Precompute chooser strings before `await $player.MZChoose(...)` / similar calls.
+  - Precompute chooser strings before `await $player.MZChoose(...)`, `await $player.MZMultiChoose(...)`, or similar calls.
+- Use `await $player.MZMultiChoose($targets, $min, $max, "tooltip")` when one popup should handle selecting several cards from the same candidate set; it returns an `&`-delimited mzID string.
 - Do not manually edit generated files such as `<RootName>/GeneratedCode/GeneratedMacroCode.php`, `GeneratedMacroCount.js`, or generated `GeneratedUI_*.js` outputs unless the task is specifically about the generator.
 - For card implementations, prefer the MCP card editor workflow: inspect card info, inspect schema/helpers/examples, save abilities through MCP, and let the generator update derived macro code.
 - Add new non-generated helper logic under `<RootName>/Custom/` in the most appropriate file instead of patching generated code.

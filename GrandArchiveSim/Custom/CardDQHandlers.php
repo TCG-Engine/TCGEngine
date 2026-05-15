@@ -860,6 +860,46 @@ $customDQHandlers["SpellshieldWindBuff"] = function($player, $param, $lastResult
     }
 };
 
+function VeilingBreezeGetRevealChoices($exclude = []) {
+    $choices = ZoneSearch("myMemory", cardElements: ["WIND"]);
+    if(empty($exclude)) return $choices;
+    return array_values(array_diff($choices, $exclude));
+}
+
+function VeilingBreezeStart($player) {
+    $choices = VeilingBreezeGetRevealChoices();
+    if(empty($choices)) return;
+    DecisionQueueController::AddDecision(
+        $player,
+        "MZMULTICHOOSE",
+        "0|" . count($choices) . "|" . implode("&", $choices),
+        1,
+        tooltip:"Reveal_any_number_of_wind_cards_from_memory"
+    );
+    DecisionQueueController::AddDecision($player, "CUSTOM", "VeilingBreezeChoose", 1);
+}
+
+$customDQHandlers["VeilingBreezeChoose"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === null || $lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+
+    $selected = array_values(array_unique(array_filter(explode("&", $lastDecision), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    if(empty($selected)) return;
+
+    $revealedCount = 0;
+    foreach($selected as $revealedMZ) {
+        if(GetZoneObject($revealedMZ) === null) continue;
+        Reveal($player, $revealedMZ);
+        ++$revealedCount;
+    }
+    if($revealedCount <= 0) return;
+
+    $champMZ = FindChampionMZ($player);
+    if($champMZ === null) return;
+    AddTurnEffect($champMZ, "PREVENT_CHAMP_" . $revealedCount);
+};
+
 // False Step (47o7eanl1g): after paying (2), all allies become distant
 $customDQHandlers["FalseStepDistantAllies"] = function($player, $param, $lastResult) {
     $allies = ZoneSearch("myField", ["ALLY"]);

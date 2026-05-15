@@ -2636,6 +2636,19 @@ function CategorizeMZChooseSpecs(parsedSpecs) {
         console.error('MZModalUI.js not loaded - ShowMZModalUI function not found');
       }
       break;
+    } else if (entry && entry.Type === 'MZMULTICHOOSE' && !entry.removed) {
+      // MZMULTICHOOSE: Choose min..max cards from a set of MZ specs in a single popup.
+      // Param format: "min|max|spec1&spec2&spec3"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose cards';
+
+      if (typeof ShowMZMultiChooseUI === 'function') {
+        ShowMZMultiChooseUI(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
+        });
+      } else {
+        console.error('MZMultiChooseUI.js not loaded - ShowMZMultiChooseUI function not found');
+      }
+      break;
     } else if (entry && entry.Type === 'MZSPLITASSIGN' && !entry.removed) {
       // MZSPLITASSIGN: Split-assign a numeric pool across multiple target cards
       // Param format: "amount|mzID1&mzID2&mzID3"
@@ -2746,6 +2759,9 @@ function ClearSelectionMode() {
   // Also hide the MZModal UI if it exists
   if (typeof HideMZModalUI === 'function') {
     HideMZModalUI();
+  }
+  if (typeof HideMZMultiChooseUI === 'function') {
+    HideMZMultiChooseUI();
   }
   // Also hide the NumberChoose UI if it exists
   if (typeof HideNumberChooseUI === 'function') {
@@ -3181,6 +3197,7 @@ function _describeDecisionType(type) {
     case 'MZMAYCHOOSE': return 'choose a card (or pass)';
     case 'MZREARRANGE': return 'rearrange cards';
     case 'MZMODAL': return 'choose an option';
+    case 'MZMULTICHOOSE': return 'choose multiple cards';
     case 'MZSPLITASSIGN': return 'assign values';
     case 'NUMBERCHOOSE': return 'choose a number';
     case 'ICONCHOICE': return 'choose a direction';

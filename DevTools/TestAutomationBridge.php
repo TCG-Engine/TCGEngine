@@ -465,6 +465,46 @@ function BridgeActionCardMetadata($mzID) {
   return ['resolvedCardID' => strval($zoneObject->CardID)];
 }
 
+function BridgeEnumerateMultiChoiceResults($choices, $min, $max, $limit = 256) {
+  $choices = array_values(array_unique(array_filter($choices, fn($value) => $value !== '')));
+  $count = count($choices);
+  $max = min(max(0, intval($max)), $count);
+  $min = min(max(0, intval($min)), $max);
+
+  $results = [];
+  if ($min === 0) {
+    $results[] = '-';
+  }
+  if ($max === 0) return $results;
+
+  $combo = [];
+  $stopped = false;
+  $builder = null;
+  $builder = function($startIndex, $remaining) use (&$builder, &$choices, &$results, &$combo, &$stopped, $limit) {
+    if ($stopped) return;
+    if ($remaining === 0) {
+      $results[] = implode('&', $combo);
+      if (count($results) >= $limit) $stopped = true;
+      return;
+    }
+
+    $lastIndex = count($choices) - $remaining;
+    for ($index = $startIndex; $index <= $lastIndex; ++$index) {
+      $combo[] = $choices[$index];
+      $builder($index + 1, $remaining - 1);
+      array_pop($combo);
+      if ($stopped) return;
+    }
+  };
+
+  for ($size = max(1, $min); $size <= $max; ++$size) {
+    $builder(0, $size);
+    if ($stopped) break;
+  }
+
+  return $results;
+}
+
 function BridgeWithPlayerPerspective($player, $callback) {
   $originalPlayerID = $GLOBALS['playerID'] ?? null;
   $GLOBALS['playerID'] = intval($player);
@@ -505,6 +545,39 @@ function BridgeEnumerateDecisionActions($decision, $player) {
         }
         if ($decision->Type === 'MZMAYCHOOSE') {
           $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
+      case 'MZMULTICHOOSE':
+        $paramParts = explode('|', strval($decision->Param ?? ''), 3);
+        $min = intval($paramParts[0] ?? 0);
+        $max = intval($paramParts[1] ?? 0);
+        $rawChoices = array_values(array_filter(explode('&', strval($paramParts[2] ?? '')), fn($value) => $value !== ''));
+        $choices = [];
+        foreach ($rawChoices as $rawChoice) {
+          foreach (BridgeExpandDecisionSpecChoices($rawChoice) as $expandedChoice) {
+            $choices[] = $expandedChoice;
+          }
+        }
+        $choices = array_values(array_unique($choices));
+        foreach (BridgeEnumerateMultiChoiceResults($choices, $min, $max) as $choiceSet) {
+          $resolvedCardIDs = [];
+          if ($choiceSet !== '-') {
+            foreach (explode('&', $choiceSet) as $choice) {
+              $metadata = BridgeActionCardMetadata($choice);
+              if (isset($metadata['resolvedCardID'])) {
+                $resolvedCardIDs[] = $metadata['resolvedCardID'];
+              }
+            }
+          }
+          $actions[] = [
+            'playerID' => $player,
+            'mode' => 100,
+            'buttonInput' => '',
+            'cardID' => $choiceSet,
+            'chkInput' => [],
+            'inputText' => '',
+            'resolvedCardIDs' => $resolvedCardIDs,
+          ];
         }
         break;
       default:

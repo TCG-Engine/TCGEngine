@@ -89,6 +89,14 @@ class DecisionQueueController {
                                 $lastDecision = "PASS";
                                 break;
                             }
+                        } else if($decision->Type == "MZMULTICHOOSE") {
+                            $paramParts = explode("|", strval($decision->Param), 3);
+                            $choiceSpecs = count($paramParts) >= 3 ? $paramParts[2] : "";
+                            $numChoices = $this->MZCountChoices($choiceSpecs);
+                            if($numChoices === 0) {
+                                $lastDecision = "-";
+                                break;
+                            }
                         }
                         // Put it back at the front
                         $playerQueue = &GetDecisionQueue($player);

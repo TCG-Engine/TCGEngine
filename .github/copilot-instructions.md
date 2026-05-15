@@ -148,6 +148,7 @@ So in the ability code, you have access to:
 - **Await syntax** for player choices (see Multi-Step Ability Patterns below):
   - `$var = await $player.MZChoose("zone-0&zone-1")` — mandatory card choice
   - `$var = await $player.MZMayChoose("zone-0&zone-1")` — optional card choice
+  - `$var = await $player.MZMultiChoose($targets, $min, $max, "tooltip")` — select between `$min` and `$max` cards in one popup; returns an `&`-delimited mzID string or `"-"`
   - `$var = await $player.YesNo("prompt")` — yes/no choice
   - `$var = await $player.NumberChoose(min, max, "prompt")` — choose a number in a range
   - `$var = await $player.MZSplitAssign($targets, $amount, "prompt")` — split-assign a pool across targets. Returns comma-separated `mzID:amount` pairs (e.g. `"myField-0:3,myField-1:2"`). `$targets` is an `&`-delimited mzID string, `$amount` is the total pool to assign.
@@ -198,6 +199,35 @@ The generator translates `await` statements into queued `DecisionQueueController
 2. A custom DQ handler that processes the player's response
 
 The `lastDecision` parameter in the handler receives the player's choice ("YES"/"NO" for YesNo, or the mzID for card choices).
+
+### MZMultiChoose — Single Popup Multi-Select Pattern
+
+**Decision type:** `MZMULTICHOOSE` — lets the player select a configurable minimum/maximum number of cards in one popup instead of repeating `MZCHOOSE` prompts.
+
+**Await syntax:** `$var = await $player.MZMultiChoose($targets, $min, $max, "tooltip")`
+- `$targets`: `&`-delimited mzID string (for example `"myMemory-0&myMemory-1&myMemory-2"`)
+- `$min`: minimum number of required selections
+- `$max`: maximum number of allowed selections
+- `"tooltip"` (optional): underscore-separated prompt shown in the popup
+
+**Return value:** `&`-delimited selected mzIDs, for example `"myMemory-0&myMemory-2"`. Returns `"-"` when zero selections are allowed and the player confirms none.
+
+**UI behavior:** A single popup shows all candidate cards, highlights selected cards, displays the current selection count, and enforces the configured min/max before confirm.
+
+**Example — reveal any number of wind cards from memory:**
+```php
+$choices = ZoneSearch("myMemory", cardElements: ["WIND"]);
+if(empty($choices)) return;
+$targetStr = implode("&", $choices);
+$selected = await $player.MZMultiChoose($targetStr, 0, count($choices), "Reveal_any_number_of_wind_cards_from_memory");
+if($selected === "-") return;
+foreach(explode("&", $selected) as $chosen) {
+  if($chosen === "") continue;
+  Reveal($chosen);
+}
+```
+
+**When to use vs. repeated `MZCHOOSE`:** Use `MZMultiChoose` when the player should choose several cards from one visible candidate set in a single interaction. Keep repeated `MZCHOOSE` flows for stepwise decisions where each pick changes the next legal set or needs separate processing between picks.
 
 ### MZSplitAssign — Split Damage / Split Pool Pattern
 
