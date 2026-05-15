@@ -954,6 +954,24 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
+            // Shadow's Claw (vm4kj3q2sv): may activate from material deck if champion has 4+ preparation counters
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "vm4kj3q2sv") {
+                    $pField = &GetField($playerID);
+                    $champPrepCount = 0;
+                    foreach($pField as $fCard) {
+                        if(!$fCard->removed && PropertyContains(EffectiveCardType($fCard), "CHAMPION")) {
+                            $champPrepCount = GetCounterCount($fCard, "preparation");
+                            break;
+                        }
+                    }
+                    if($champPrepCount >= 4) {
+                        DoMaterialize($playerID, $actionCard);
+                        return "PLAY";
+                    }
+                }
+            }
             // Tome of Sacred Lightning (MyUTeqUJ0H): [Element Bonus] banish a Book regalia to activate from material deck
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
