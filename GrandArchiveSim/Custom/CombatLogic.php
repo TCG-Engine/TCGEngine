@@ -2723,10 +2723,10 @@ function OnDealDamage($player, $source, $target, $amount) {
         if($amount > 0) {
             $targetController = $targetObj->Controller ?? $player;
             // Iron Halo, Forcefield Node (8GTa6NS2RG): prevent 2 damage to another object you control.
-            // Domains are not Iron Halo itself, so only controller/ability checks are needed here.
             $targetField = GetField($targetController);
             foreach($targetField as $fieldObj) {
                 if($fieldObj->removed || $fieldObj->CardID !== "8GTa6NS2RG" || HasNoAbilities($fieldObj)) continue;
+                if($fieldObj->GetMzID() === $target) continue; // "another object"
                 $amount -= min(2, $amount);
                 if($amount <= 0) return;
             }
@@ -2891,7 +2891,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         $targetField = GetField($targetController);
         foreach($targetField as $fieldObj) {
             if($fieldObj->removed || $fieldObj->CardID !== "8GTa6NS2RG" || HasNoAbilities($fieldObj)) continue;
-            if($fieldObj === $targetObj) continue; // "another object"
+            if($fieldObj->GetMzID() === $target) continue; // "another object"
             $amount -= min(2, $amount);
             if($amount <= 0) return;
         }
