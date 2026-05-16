@@ -2196,21 +2196,21 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
                 DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM",
                     "CriticalResolve|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender . "|" . $totalPower . "|" . $criticalAmount, 100);
                 // Retaliation Opportunity on defender's queue after critical resolves
-                DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatRetaliationOpportunity", 150);
+                DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "CombatRetaliationOpportunity", 150, dontSkipOnPass:1);
             } else {
                 // Defender can't pay — cache doubled damage; applied after retaliation is chosen
                 DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower * 2));
-                DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150, dontSkipOnPass:1);
             }
         } else {
             // No critical — cache damage amount; applied after retaliation is chosen
             DecisionQueueController::StoreVariable("CombatDamageAmount", strval($totalPower));
-            DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150, dontSkipOnPass:1);
         }
     } else {
         // Zero power — clear any stale damage amount and proceed to retaliation
         DecisionQueueController::StoreVariable("CombatDamageAmount", "0");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150, dontSkipOnPass:1);
     }
 };
 
@@ -2409,7 +2409,7 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
     }
 
     // Queue CombatRetaliationOpportunity (shared with single-target)
-    DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CombatRetaliationOpportunity", 150, dontSkipOnPass:1);
 };
 
 /**

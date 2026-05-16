@@ -975,6 +975,10 @@ function GrantOpportunityWindow($firstPlayer, $nextHandler, $nextPlayer = null) 
     if($nextPlayer === null) $nextPlayer = $firstPlayer;
     $secondPlayer = ($firstPlayer == 1) ? 2 : 1;
 
+    if(IsSameOpportunityWindowAlreadyPending($firstPlayer, $nextHandler, $nextPlayer)) {
+        return;
+    }
+
     // Store pending state so PostResolutionCheck can re-grant after EffectStack detour
     DecisionQueueController::StoreVariable("PendingOpportunityHandler", $nextHandler);
     DecisionQueueController::StoreVariable("PendingOpportunityNextPlayer", strval($nextPlayer));
@@ -1014,11 +1018,33 @@ function ResolveOpportunityWindow() {
     $savedPlayerID = $playerID;
     $playerID = $nextPlayer;
 
-    DecisionQueueController::AddDecision($nextPlayer, "CUSTOM", $nextHandler, 100);
+    DecisionQueueController::AddDecision($nextPlayer, "CUSTOM", $nextHandler, 100, dontSkipOnPass:1);
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($nextPlayer, "-");
 
     $playerID = $savedPlayerID;
+}
+
+function HasPendingOpportunityResponseWindow() {
+    for($player = 1; $player <= 2; ++$player) {
+        $queue = GetDecisionQueue($player);
+        for($i = 0; $i < count($queue); ++$i) {
+            $decision = $queue[$i];
+            if($decision === null || $decision->Type !== "CUSTOM") continue;
+            if($decision->Param === "OpportunityWindowFirstResponse" || $decision->Param === "OpportunityWindowSecondResponse") {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+function IsSameOpportunityWindowAlreadyPending($firstPlayer, $nextHandler, $nextPlayer) {
+    if(!HasPendingOpportunityResponseWindow()) return false;
+
+    return DecisionQueueController::GetVariable("PendingOpportunityHandler") === $nextHandler
+        && intval(DecisionQueueController::GetVariable("PendingOpportunityNextPlayer") ?? "0") === intval($nextPlayer)
+        && intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? "0") === intval($firstPlayer);
 }
 
 function ClearOpportunityVariables() {
@@ -1028,7 +1054,7 @@ function ClearOpportunityVariables() {
 }
 
 function IsCombatOpportunityContinuation($handler) {
-    return in_array($handler, ["CombatDealDamage", "CleaveDealDamage", "NoOp"], true);
+    return in_array($handler, ["CombatDealDamage", "CleaveDealDamage", "AbilityOpportunityResume", "NoOp"], true);
 }
 
 /**

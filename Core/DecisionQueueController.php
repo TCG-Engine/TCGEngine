@@ -7,6 +7,7 @@ class DecisionQueueController {
     private $numPlayers = 2;
     private static $debugMode = false;
     private static $executeDepth = 0;
+    private static $executePlayerStack = [];
 
     public function __construct() {
 
@@ -47,7 +48,13 @@ class DecisionQueueController {
     }
 
     function ExecuteStaticMethods($player, $lastDecision = null) {
+        $activePlayer = end(self::$executePlayerStack);
+        if($activePlayer !== false && intval($activePlayer) === intval($player)) {
+            return;
+        }
+
         self::$executeDepth++;
+        self::$executePlayerStack[] = intval($player);
         $shouldAutoAdvance = true;
         try {
             while($decision = $this->NextDecision($player)) {
@@ -107,6 +114,7 @@ class DecisionQueueController {
                 }
             }
         } finally {
+            array_pop(self::$executePlayerStack);
             self::$executeDepth--;
             // Only the outermost execution frame may auto-advance phases.
             if($shouldAutoAdvance && self::$executeDepth === 0) {
