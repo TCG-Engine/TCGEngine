@@ -22,6 +22,23 @@ function GetLiveEffectStackEntries() {
     }));
 }
 
+function ResumeIdleEffectStackIfNeeded() {
+    $dqController = new DecisionQueueController();
+    if(!$dqController->AllQueuesEmpty()) return false;
+
+    $effectStack = GetLiveEffectStackEntries();
+    if(empty($effectStack)) return false;
+
+    $topObj = $effectStack[count($effectStack) - 1] ?? null;
+    $priorityPlayer = $topObj !== null ? intval($topObj->Controller ?? 0) : 0;
+    if($priorityPlayer <= 0) $priorityPlayer = intval(GetTurnPlayer());
+    if($priorityPlayer <= 0) return false;
+
+    DecisionQueueController::AddDecision($priorityPlayer, "CUSTOM", "EffectStackOpportunity", 100);
+    $dqController->ExecuteStaticMethods($priorityPlayer, "-");
+    return true;
+}
+
 function GetEffectStackActivationTargets($player, $filters = []) {
     $effectStack = GetLiveEffectStackEntries();
     $targets = [];
@@ -600,14 +617,17 @@ function ResolveOpportunitySelection($player, $selection) {
     $abilityChoice = DecodeOpportunityAbilityChoice($selection);
     if($abilityChoice !== null) {
         ActivateAbility($player, $abilityChoice['mzID'], $abilityChoice['abilityIndex']);
+        ResumeIdleEffectStackIfNeeded();
         return true;
     }
 
     if(TryLostPromisesMemory($player, $selection) || TryGlimmerCast($player, $selection)) {
+        ResumeIdleEffectStackIfNeeded();
         return true;
     }
 
     ActivateCard($player, $selection, false);
+    ResumeIdleEffectStackIfNeeded();
     return true;
 }
 
