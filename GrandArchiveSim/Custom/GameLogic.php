@@ -882,6 +882,22 @@ function ActionMap($actionCard)
                     return "PLAY";
                 }
             }
+            // Seething Intercession (5Xfg69S1XX): tagged banished cards may be activated for 2 self-damage.
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && in_array('_seethingIntercession', $bObj->TurnEffects ?? [])) {
+                    MZMove($playerID, $actionCard, "myHand");
+                    $champMZ = FindChampionMZ($playerID);
+                    if($champMZ !== null) {
+                        DealUnpreventableDamage($playerID, $actionCard, $champMZ, 2);
+                    }
+                    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myBanish");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             // Recursive Confidant (KfC8fwcF2T): activate tagged Warrior attack from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -1157,6 +1173,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::StoreVariable("activationSourceZone", strtok($mzCard, "-"));
     }
     $obj = MZMove($player, $mzCard, "EffectStack");
+    $obj->_sourceZone = DecisionQueueController::GetVariable("activationSourceZone");
     $obj->Controller = $player;
     $threeVisitsSource = DecisionQueueController::GetVariable("threeVisitsActivationSource");
     if($obj->CardID === "w7o3agvvnc") {
@@ -13201,6 +13218,11 @@ function BanishSelectionMetadata($obj) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
+    // Seething Intercession (5Xfg69S1XX): tagged _seethingIntercession turn effect
+    if ($currentPhase === "MAIN" && in_array('_seethingIntercession', $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
     // Recursive Confidant (KfC8fwcF2T): tagged _recursiveConfidant turn effect
     if ($currentPhase === "MAIN" && in_array('_recursiveConfidant', $turnEffects)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
@@ -13723,6 +13745,9 @@ $doesGlobalEffectApply["DUCAL_SEAL_ATTACK_TAX"] = function($obj) { return false;
 
 // Silvie, Slime Sovereign (mdwbkuhtjm): next Slime cost discount â€” no visual field effect needed
 $doesGlobalEffectApply["mdwbkuhtjm"] = function($obj) { return false; };
+
+// Seething Intercession (5Xfg69S1XX): Jin Bonus cost discount is tracked as a hidden global effect.
+$doesGlobalEffectApply["5Xfg69S1XX"] = function($obj) { return false; };
 
 // Unmoored Call (etobC7HEHw): objects with chosen reserve cost enter rested â€” no visual card effect
 for($ucIdx = 0; $ucIdx <= 15; ++$ucIdx) {
@@ -17365,7 +17390,7 @@ function ApplyGeneratedReserveLikeCostModifiers($player, $subjectObj, $currentCo
                 $currentCost += $evaluator($fieldObj->CardID, $player, $subjectObj, $currentCost, $fieldObj);
             }
         }
-
+        
         foreach([1, 2] as $effectPlayer) {
             $globalEffects = GetGlobalEffects($effectPlayer);
             foreach($globalEffects as $effectObj) {
@@ -19598,7 +19623,6 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     global $playerID, $Efficiency_Cards;
 
     $reserveCost = intval(CardCost_reserve($cardID));
-
     // Ephemerate override
     $wasEphemerated = DecisionQueueController::GetVariable("wasEphemerated");
     if($wasEphemerated === "YES") {
