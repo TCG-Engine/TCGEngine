@@ -2157,16 +2157,6 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
     }
 
     $totalPower = GetTotalAttackPower($attacker, $attackerPlayer);
-    $attackerIntent = GetIntentCards($attackerPlayer);
-    foreach($attackerIntent as $intentMZ) {
-        $intentObj = GetZoneObject($intentMZ);
-        if($intentObj !== null && !$intentObj->removed && $intentObj->CardID === "soO3hjaVfN"
-            && in_array("soO3hjaVfN_DOUBLE", $intentObj->TurnEffects ?? [])) {
-            $totalPower *= 2;
-            break;
-        }
-    }
-
     // Weapon durability loss: occurs in the damage step regardless of how much damage is dealt.
     // (Per rules: durability is still removed if damage = 0, but NOT if the damage step is skipped.)
     $weaponMZ = GetCombatWeapon();
@@ -2636,8 +2626,17 @@ $customDQHandlers["CombatApplyAttackerDamage"] = function($player, $parts, $last
     $attacker = GetZoneObject($attackerMZ); // myField-X in attacker context = attacker's unit
     if($attacker !== null) {
         ResetCombatKill();
+        DecisionQueueController::StoreVariable("CombatTrackedDamageSource", $attackerMZ);
+        DecisionQueueController::StoreVariable("CombatTrackedDamageTarget", $targetMZ);
+        DecisionQueueController::StoreVariable("CombatTrackedDamageAmount", "0");
         DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
-        if(PropertyContains(EffectiveCardType($attacker), "CHAMPION")) TrackChampionCombatDamage($attackerPlayer, $targetMZ, $amount);
+        $dealtAmount = intval(DecisionQueueController::GetVariable("CombatTrackedDamageAmount") ?? "0");
+        DecisionQueueController::ClearVariable("CombatTrackedDamageSource");
+        DecisionQueueController::ClearVariable("CombatTrackedDamageTarget");
+        DecisionQueueController::ClearVariable("CombatTrackedDamageAmount");
+        if(PropertyContains(EffectiveCardType($attacker), "CHAMPION") && $dealtAmount > 0) {
+            TrackChampionCombatDamage($attackerPlayer, $targetMZ, $dealtAmount);
+        }
         if(ConsumeCombatKill()) OnKillTrigger($attackerPlayer, $attackerMZ);
         OnHitTrigger($attackerPlayer, $attackerMZ);
     }
@@ -2646,6 +2645,41 @@ $customDQHandlers["CombatApplyAttackerDamage"] = function($player, $parts, $last
 };
 
 // --- damage resolution ---------------------------------------------------------
+
+function HasRendingFlamesCombatDouble($player, $source) {
+    $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+    $combatAttackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    if($combatAttacker === null || $combatAttacker !== $source || $combatAttackerPlayer !== intval($player)) {
+        return false;
+    }
+
+    $intentCards = GetIntentCards($combatAttackerPlayer);
+    foreach($intentCards as $intentMZ) {
+        $intentObj = GetZoneObject($intentMZ);
+        if($intentObj !== null && !$intentObj->removed && $intentObj->CardID === "soO3hjaVfN"
+            && in_array("soO3hjaVfN_DOUBLE", $intentObj->TurnEffects ?? [])) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+function ApplyCombatDamageReplacements($player, $source, $amount) {
+    if($amount > 0 && HasRendingFlamesCombatDouble($player, $source)) {
+        $amount *= 2;
+    }
+
+    return $amount;
+}
+
+function RecordTrackedCombatDamageAmount($source, $target, $amount) {
+    $trackedSource = DecisionQueueController::GetVariable("CombatTrackedDamageSource");
+    $trackedTarget = DecisionQueueController::GetVariable("CombatTrackedDamageTarget");
+    if($trackedSource === $source && $trackedTarget === $target) {
+        DecisionQueueController::StoreVariable("CombatTrackedDamageAmount", strval(max(0, intval($amount))));
+    }
+}
 
 /**
  * Mechanical Hare (j3q2svdv3z): On Attack with 2+ buff counters — banish up to 2 cards
@@ -3839,6 +3873,9 @@ function OnDealDamage($player, $source, $target, $amount) {
         }
     }
 
+    $amount = ApplyCombatDamageReplacements($player, $source, $amount);
+    if($amount <= 0) return;
+    RecordTrackedCombatDamageAmount($source, $target, $amount);
     $targetObj->Damage += $amount;
     
     // Queue damage animation for the target card
@@ -4047,6 +4084,9 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
             }
         }
     }
+    $amount = ApplyCombatDamageReplacements($player, $source, $amount);
+    if($amount <= 0) return;
+    RecordTrackedCombatDamageAmount($source, $target, $amount);
     $targetObj->Damage += $amount;
     
     // Queue damage animation for the target card
