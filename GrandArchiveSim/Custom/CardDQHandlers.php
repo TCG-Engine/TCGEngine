@@ -6626,22 +6626,37 @@ $customDQHandlers["DusklightCommunionDestroy"] = function($player, $parts, $last
 // ============================================================================
 function MirrorboundInfluenceDiscard($player, $excess) {
     if($excess <= 0) return;
-    global $playerID;
-    $handZone = $player == $playerID ? "myHand" : "theirHand";
-    $hand = ZoneSearch($handZone);
-    if(empty($hand)) return;
-    $handStr = implode("&", $hand);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $handStr, 1, tooltip:"Put_a_card_into_memory_(influence_cap_7,_$excess_remaining)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "MirrorboundInfluenceMove|$excess", 1);
+    $targets = array_merge(
+        ZoneSearch("myHand", forPlayer: $player),
+        ZoneSearch("myMemory", forPlayer: $player)
+    );
+    if(empty($targets)) return;
+    $discardCount = min($excess, count($targets));
+    if($discardCount <= 0) return;
+    $targetStr = implode("&", $targets);
+    DecisionQueueController::AddDecision(
+        $player,
+        "MZMULTICHOOSE",
+        $discardCount . "|" . $discardCount . "|" . $targetStr,
+        1,
+        tooltip:"Discard_{$discardCount}_card(s)_from_hand_or_memory_(influence_cap_7)"
+    );
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MirrorboundInfluenceMove|$discardCount", 1);
 }
 
 $customDQHandlers["MirrorboundInfluenceMove"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $memZone = (strpos($lastDecision, "my") === 0) ? "myMemory" : "theirMemory";
-    MZMove($player, $lastDecision, $memZone);
-    DecisionQueueController::CleanupRemovedCards();
-    $remaining = intval($parts[0]) - 1;
-    MirrorboundInfluenceDiscard($player, $remaining);
+    $required = isset($parts[0]) ? intval($parts[0]) : 0;
+    $selected = array_values(array_unique(array_filter(explode("&", $lastDecision), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    if($required > 0 && count($selected) > $required) {
+        $selected = array_slice($selected, 0, $required);
+    }
+    foreach($selected as $mzID) {
+        if(GetZoneObject($mzID) === null) continue;
+        DoDiscardCard($player, $mzID);
+    }
 };
 
 // --- Wavekeeper's Bond (WWlknyTxGA): [Level 3+] may sacrifice to draw into memory at end phase ---
