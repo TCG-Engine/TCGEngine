@@ -12945,16 +12945,16 @@ function SelectionMetadataMzID($obj) {
     return $prefix . $obj->Location . "-" . $obj->mzIndex;
 }
 
-function CanActivateCardForSelection($player, $obj) {
+function CanActivateCardForSelection($player, $obj, $strict = false) {
     if(!function_exists("CanActivateCard")) return true;
     $mzID = SelectionMetadataMzID($obj);
     if($mzID === null) return true;
     $existingFlash = GetFlashMessage();
-    if(!CanActivateAttackCardNow($player, $obj->CardID, false)) {
+    if(!CanActivateAttackCardNow($player, $obj->CardID, $strict)) {
         SetFlashMessage($existingFlash);
         return false;
     }
-    if(!CanPlayerUseCardElement($player, $obj->CardID, false, false)) {
+    if(!CanPlayerUseCardElement($player, $obj->CardID, $strict, $strict)) {
         SetFlashMessage($existingFlash);
         return false;
     }
@@ -12984,6 +12984,19 @@ function SelectionMetadata($obj) {
     $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
     if ($owner === null || intval($owner) !== intval($turnPlayer)) {
         return json_encode(['highlight' => false]);
+    }
+
+    // During Opportunity windows, highlight only cards that are actually in the
+    // fast-opportunity choice list so UI highlight matches what can be selected.
+    if(function_exists("HasOpportunity") && HasOpportunity($turnPlayer)
+        && function_exists("GetPlayableOpportunityChoices")) {
+        $mzID = SelectionMetadataMzID($obj);
+        if($mzID === null) return json_encode(['highlight' => false]);
+        $opportunityChoices = GetPlayableOpportunityChoices($turnPlayer);
+        if(!in_array($mzID, $opportunityChoices, true)) {
+            return json_encode(['highlight' => false]);
+        }
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
     
     if (isset($obj->Status) && $obj->Status != 2) { // Not ready

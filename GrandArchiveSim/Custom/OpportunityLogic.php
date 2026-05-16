@@ -631,6 +631,26 @@ function ResolveOpportunitySelection($player, $selection) {
     return true;
 }
 
+function CanActivateOpportunityCard($player, $mzID, $obj) {
+    $existingFlash = GetFlashMessage();
+    $opponent = ($player == 1) ? 2 : 1;
+
+    // Corhazi Outlook lockdown: blocks all activations.
+    if(GlobalEffectCount($opponent, "rw8qq1uwq8-lockdown") > 0) {
+        SetFlashMessage($existingFlash);
+        return false;
+    }
+
+    // Reuse the shared selection legality gate to avoid diverging checks.
+    if(function_exists("CanActivateCardForSelection") && !CanActivateCardForSelection($player, $obj, true)) {
+        SetFlashMessage($existingFlash);
+        return false;
+    }
+
+    SetFlashMessage($existingFlash);
+    return true;
+}
+
 function GetPlayableFastCards($player) {
     global $cbFastActivationCards, $unconditionalFastCards;
     $hand = &GetHand($player);
@@ -638,31 +658,33 @@ function GetPlayableFastCards($player) {
     for($i = 0; $i < count($hand); $i++) {
         $obj = $hand[$i];
         if(isset($obj->removed) && $obj->removed) continue;
+        $mzID = "myHand-" . $i;
+        if(!CanActivateOpportunityCard($player, $mzID, $obj)) continue;
         $speed = CardSpeed($obj->CardID);
         if($speed === true) {
             // Check if player can afford the reserve cost
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif(isset($cbFastActivationCards[$obj->CardID]) && IsClassBonusActive($player, $cbFastActivationCards[$obj->CardID])) {
             // Check if player can afford the reserve cost
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif(isset($unconditionalFastCards[$obj->CardID])) {
             // Check if player can afford the reserve cost
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif($obj->CardID === "zeig1e49wb" && GetShiftingCurrents($player) === "NORTH") {
             // Solar Pinnacle: Fast Activation while SC faces North
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif($obj->CardID === "yrzexkW5Ej" && GetCurrentPhase() === "RECOLLECTION" && $player != GetTurnPlayer()) {
             // Sink the Mind: may be activated during an opponent's recollection phase
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif($obj->CardID === "0oyxjld8jh") {
             // Guan Yu, Prime Exemplar: Fast Activation if a Human ally you controlled died this turn
@@ -675,34 +697,34 @@ function GetPlayableFastCards($player) {
                 }
             }
             if($hasHumanDeath && CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif(GlobalEffectCount($player, "w1wgpeifd0") > 0 && PropertyContains(CardType($obj->CardID), "ALLY")) {
             // Expeditious Opening: next ally activated this turn gets fast activation
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif(GlobalEffectCount($player, "t4owmcva0f") > 0
             && PropertyContains(CardType($obj->CardID), "ACTION")
             && PropertyContains(CardClasses($obj->CardID), "RANGER")) {
             // Bombastic Sprint: next Ranger action activated this turn gets fast activation
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif(GlobalEffectCount($player, "6yW2zOwWmU") > 0) {
             // Accelerate: next card you activate this turn gets fast activation
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif($obj->CardID === "B1EbF6jcYF" && IsAliceBonusActive($player)) {
             // Golden Gambit: [Alice Bonus] Fast Activation
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         } elseif($obj->CardID === "pvzvqx16w4" && GetChampionDamageTakenThisTurn($player) >= 35) {
             // Annihilation: [Damage 35+] Fast Activation
             if(CanAffordActivationReserve($player, $obj)) {
-                $fastCards[] = "myHand-" . $i;
+                $fastCards[] = $mzID;
             }
         }
     }
