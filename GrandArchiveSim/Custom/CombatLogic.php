@@ -38,6 +38,8 @@ function GetAvailableWeapons($player) {
     foreach($weapons as $mzID) {
         $obj = &GetZoneObject($mzID);
         if($obj->Status == 2 && GetCounterCount($obj, "durability") > 0) {
+            // Weapons with 0 or less POWER cannot be chosen to attack with.
+            if(ObjectCurrentPower($obj) <= 0) continue;
             // Mechanized Smasher (qsm3n9yvn1): can't be used with attack cards
             if($obj->CardID === "qsm3n9yvn1" && !empty($intentCards)) continue;
             // Mechanized Smasher: requires 4 wind element cards in memory
