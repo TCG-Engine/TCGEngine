@@ -135,6 +135,16 @@ function GetPendingImbueCardID() {
     return null;
 }
 
+function GetPendingImbueMZ() {
+    $effectStack = GetEffectStack();
+    for($i = count($effectStack) - 1; $i >= 0; --$i) {
+        if(!$effectStack[$i]->removed) {
+            return "EffectStack-" . $i;
+        }
+    }
+    return null;
+}
+
 function GetChosenImbueOption($player) {
     $cardID = GetPendingImbueCardID();
     if($cardID === null || $cardID === "") return null;
@@ -2448,6 +2458,13 @@ function RevealImbueReserved($player) {
     }
     $isImbued = $elementMatches >= $threshold ? "YES" : "NO";
     DecisionQueueController::StoreVariable("isImbued", $isImbued);
+    if($isImbued === "YES") {
+        $pendingImbueMZ = GetPendingImbueMZ();
+        if($pendingImbueMZ !== null) {
+            AddTurnEffect($pendingImbueMZ, "IMBUED");
+            TrackEffectStackImbued($pendingImbueMZ, true);
+        }
+    }
     ClearImbueSetupVariables();
 }
 
@@ -13413,6 +13430,7 @@ function ExpireEffects($isEndTurn=true) {
 function AddTurnEffect($mzCard, $effectID) {
     $obj = &GetZoneObject($mzCard);
     if($obj === null) return;
+    if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) $obj->TurnEffects = [];
     // Cardinal of Divine Rite: Angel cards/objects can't become imbued.
     if($effectID === "IMBUED" && PropertyContains(EffectiveCardSubtypes($obj), "ANGEL")) {
         foreach([1, 2] as $p) {

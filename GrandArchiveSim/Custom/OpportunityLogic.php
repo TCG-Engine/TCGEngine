@@ -110,6 +110,40 @@ function ReconcileEffectStackSourceZones() {
     SetMacroTurnIndex(empty($_ti) ? '{}' : json_encode($_ti));
 }
 
+function GetEffectStackImbued($mzID) {
+    $parts = explode("-", $mzID);
+    if(count($parts) < 2) return false;
+    $idx = intval($parts[1]);
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    return !empty($_ti["EffectStackImbued"][$idx]);
+}
+
+function TrackEffectStackImbued($mzID, $isImbued = true) {
+    $parts = explode("-", $mzID);
+    if(count($parts) < 2) return;
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(!isset($_ti["EffectStackImbued"])) $_ti["EffectStackImbued"] = [];
+    $_ti["EffectStackImbued"][intval($parts[1])] = $isImbued ? 1 : 0;
+    SetMacroTurnIndex(json_encode($_ti));
+}
+
+function ReconcileEffectStackImbued() {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(!isset($_ti["EffectStackImbued"]) || !is_array($_ti["EffectStackImbued"])) return;
+    $oldImbued = $_ti["EffectStackImbued"];
+    $effectStack = GetEffectStack();
+    $newImbued = [];
+    for($i = 0; $i < count($effectStack); ++$i) {
+        $obj = $effectStack[$i];
+        if($obj === null || $obj->removed) continue;
+        if(!empty($oldImbued[$i])) $newImbued[] = 1;
+        else $newImbued[] = 0;
+    }
+    if(empty($newImbued)) unset($_ti["EffectStackImbued"]);
+    else $_ti["EffectStackImbued"] = $newImbued;
+    SetMacroTurnIndex(empty($_ti) ? '{}' : json_encode($_ti));
+}
+
 function TrackCardActivationNegated($player, $cardID, $negatedController = null) {
     $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
     if(!isset($_ti["CardActivationNegated"])) $_ti["CardActivationNegated"] = [];
@@ -879,6 +913,7 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
 $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::StoreVariable("isImbued", "NO");
     ReconcileEffectStackSourceZones();
+    ReconcileEffectStackImbued();
     DecisionQueueController::CleanupRemovedCards();
     $effectStack = GetLiveEffectStackEntries();
 
@@ -939,6 +974,7 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
  */
 function ResolveTopOfEffectStack() {
     ReconcileEffectStackSourceZones();
+    ReconcileEffectStackImbued();
     DecisionQueueController::CleanupRemovedCards();
     $effectStack = GetLiveEffectStackEntries();
     if(empty($effectStack)) return;
@@ -953,11 +989,14 @@ function ResolveTopOfEffectStack() {
     }
     $cardOwner = $topObj->Controller;
     $topMZ = "EffectStack-" . $topIndex;
+    $topIsImbued = (is_array($topObj->TurnEffects ?? null) && in_array("IMBUED", $topObj->TurnEffects))
+        || GetEffectStackImbued($topMZ);
 
     // Swap $playerID to the card owner for correct my/their resolution
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $cardOwner;
+    DecisionQueueController::StoreVariable("isImbued", $topIsImbued ? "YES" : "NO");
 
     // Call the generated CardActivated() wrapper, which:
     //  - Stores mzID variable for ability code
