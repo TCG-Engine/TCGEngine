@@ -2926,6 +2926,124 @@ function HideMZChoosePopup() {
   if (typeof HideCardDetail === 'function') HideCardDetail();
 }
 
+function EnableDraggableModal(modal, handle, positionStorageKey) {
+  if (!modal || !handle) return;
+
+  let dragState = null;
+
+  handle.style.cursor = 'grab';
+  handle.style.touchAction = 'none';
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function applyPosition(left, top) {
+    const rect = modal.getBoundingClientRect();
+    const maxLeft = Math.max(8, window.innerWidth - rect.width - 8);
+    const maxTop = Math.max(8, window.innerHeight - rect.height - 8);
+    modal.style.position = 'fixed';
+    modal.style.left = clamp(left, 8, maxLeft) + 'px';
+    modal.style.top = clamp(top, 8, maxTop) + 'px';
+    modal.style.margin = '0';
+  }
+
+  function savePosition() {
+    const left = parseFloat(modal.style.left);
+    const top = parseFloat(modal.style.top);
+    if (!Number.isFinite(left) || !Number.isFinite(top)) return;
+    try {
+      localStorage.setItem(positionStorageKey, JSON.stringify({ left: left, top: top }));
+    } catch (e) {
+      // Ignore storage failures.
+    }
+  }
+
+  function loadPosition() {
+    let raw = null;
+    try {
+      raw = localStorage.getItem(positionStorageKey);
+    } catch (e) {
+      return false;
+    }
+    if (!raw) return false;
+    try {
+      const parsed = JSON.parse(raw);
+      if (!parsed || !Number.isFinite(parsed.left) || !Number.isFinite(parsed.top)) return false;
+      applyPosition(parsed.left, parsed.top);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function finishDrag() {
+    if (!dragState) return;
+    dragState = null;
+    handle.style.cursor = 'grab';
+    savePosition();
+  }
+
+  function beginDrag(clientX, clientY, button, target) {
+    if (button !== 0) return false;
+    if (target && target.closest && target.closest('button')) return false;
+    const rect = modal.getBoundingClientRect();
+    dragState = {
+      startX: clientX,
+      startY: clientY,
+      startLeft: rect.left,
+      startTop: rect.top
+    };
+    handle.style.cursor = 'grabbing';
+    return true;
+  }
+
+  function moveDrag(clientX, clientY) {
+    if (!dragState) return;
+    applyPosition(
+      dragState.startLeft + (clientX - dragState.startX),
+      dragState.startTop + (clientY - dragState.startY)
+    );
+  }
+
+  handle.addEventListener('mousedown', function(ev) {
+    if (beginDrag(ev.clientX, ev.clientY, ev.button, ev.target)) ev.preventDefault();
+  });
+
+  window.addEventListener('mousemove', function(ev) {
+    moveDrag(ev.clientX, ev.clientY);
+  });
+
+  window.addEventListener('mouseup', finishDrag);
+
+  handle.addEventListener('touchstart', function(ev) {
+    if (!ev.touches || ev.touches.length === 0) return;
+    const touch = ev.touches[0];
+    if (beginDrag(touch.clientX, touch.clientY, 0, ev.target)) ev.preventDefault();
+  }, { passive: false });
+
+  window.addEventListener('touchmove', function(ev) {
+    if (!dragState || !ev.touches || ev.touches.length === 0) return;
+    const touch = ev.touches[0];
+    moveDrag(touch.clientX, touch.clientY);
+    ev.preventDefault();
+  }, { passive: false });
+
+  window.addEventListener('touchend', finishDrag);
+  window.addEventListener('touchcancel', finishDrag);
+
+  window.addEventListener('resize', function() {
+    const left = parseFloat(modal.style.left);
+    const top = parseFloat(modal.style.top);
+    if (!Number.isFinite(left) || !Number.isFinite(top)) return;
+    applyPosition(left, top);
+    savePosition();
+  });
+
+  const initialRect = modal.getBoundingClientRect();
+  if (!loadPosition()) applyPosition(initialRect.left, initialRect.top);
+}
+
 // Show a popup for selecting cards from Single mode zones
 // popupCards: array of specs with { zone, specificIndex, originalSpec, ... }
 // Each card will display with a label showing the zone name
@@ -2934,6 +3052,8 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   HideMZChoosePopup();
 
   if (!popupCards || popupCards.length === 0) return;
+
+  const popupTitle = 'Choose Card';
 
   // Create overlay
   let overlay = document.createElement('div');
@@ -2953,13 +3073,78 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
 
   // Create modal container
   let modal = document.createElement('div');
-  modal.style.background = '#0D1B2A';
-  modal.style.padding = '24px';
-  modal.style.borderRadius = '12px';
-  modal.style.boxShadow = '0 0 30px rgba(0,0,0,0.8)';
-  modal.style.maxWidth = '90vw';
+  modal.style.position = 'relative';
+  modal.style.background = 'linear-gradient(180deg, rgba(244, 236, 219, 0.12), rgba(255, 255, 255, 0.02)), linear-gradient(160deg, rgba(13, 27, 42, 0.92), rgba(13, 27, 42, 0.82))';
+  modal.style.border = '1px solid rgba(244, 236, 219, 0.16)';
+  modal.style.borderRadius = '24px';
+  modal.style.boxShadow = '0 20px 52px rgba(7, 14, 20, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.13)';
+  modal.style.backdropFilter = 'blur(14px) saturate(140%)';
+  modal.style.webkitBackdropFilter = 'blur(14px) saturate(140%)';
+  modal.style.maxWidth = 'min(860px, calc(100vw - 24px))';
   modal.style.maxHeight = '80vh';
   modal.style.overflow = 'auto';
+  modal.style.pointerEvents = 'auto';
+
+  let header = document.createElement('div');
+  header.setAttribute('data-drag-handle', 'true');
+  header.style.display = 'flex';
+  header.style.alignItems = 'center';
+  header.style.justifyContent = 'space-between';
+  header.style.gap = '12px';
+  header.style.padding = '12px 14px 10px 14px';
+  header.style.cursor = 'grab';
+  header.style.userSelect = 'none';
+  header.style.touchAction = 'none';
+
+  let headerLabel = document.createElement('div');
+  headerLabel.style.flex = '1';
+  headerLabel.style.minWidth = '0';
+  headerLabel.style.color = 'rgba(244, 236, 219, 0.92)';
+  headerLabel.style.textTransform = 'uppercase';
+  headerLabel.style.letterSpacing = '0.24em';
+  headerLabel.style.fontSize = '11px';
+  headerLabel.style.fontWeight = '700';
+  headerLabel.style.whiteSpace = 'nowrap';
+  headerLabel.style.overflow = 'hidden';
+  headerLabel.style.textOverflow = 'ellipsis';
+  headerLabel.textContent = popupTitle;
+  header.appendChild(headerLabel);
+
+  let controls = document.createElement('div');
+  controls.style.display = 'flex';
+  controls.style.alignItems = 'center';
+  controls.style.gap = '8px';
+
+  let minimizeBtn = document.createElement('button');
+  minimizeBtn.type = 'button';
+  minimizeBtn.textContent = '−';
+  minimizeBtn.title = 'Minimize';
+  minimizeBtn.setAttribute('aria-label', 'Minimize chooser');
+  minimizeBtn.style.width = '28px';
+  minimizeBtn.style.height = '28px';
+  minimizeBtn.style.padding = '0';
+  minimizeBtn.style.borderRadius = '999px';
+  minimizeBtn.style.border = '1px solid rgba(244, 236, 219, 0.18)';
+  minimizeBtn.style.background = 'rgba(244, 236, 219, 0.08)';
+  minimizeBtn.style.color = '#f4ecdb';
+  minimizeBtn.style.fontSize = '18px';
+  minimizeBtn.style.lineHeight = '1';
+  minimizeBtn.style.cursor = 'pointer';
+  minimizeBtn.style.fontFamily = "'Orbitron', sans-serif";
+  controls.appendChild(minimizeBtn);
+  header.appendChild(controls);
+  modal.appendChild(header);
+
+  let headerDivider = document.createElement('div');
+  headerDivider.style.height = '1px';
+  headerDivider.style.margin = '0 14px';
+  headerDivider.style.background = 'linear-gradient(90deg, rgba(200, 155, 70, 0.26), rgba(244, 236, 219, 0.05))';
+  modal.appendChild(headerDivider);
+
+  let body = document.createElement('div');
+  body.style.padding = '16px 18px 18px 18px';
+  body.style.display = 'block';
+  modal.appendChild(body);
 
   // Title/tooltip
   let title = document.createElement('div');
@@ -2967,8 +3152,10 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   title.style.color = '#fff';
   title.style.marginBottom = '20px';
   title.style.textAlign = 'center';
+  title.style.padding = '0 28px';
+  title.style.textWrap = 'balance';
   title.textContent = tooltip;
-  modal.appendChild(title);
+  body.appendChild(title);
 
   // Cards container - horizontal wrap
   let cardsContainer = document.createElement('div');
@@ -3071,7 +3258,7 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
     cardsContainer.appendChild(cardWrapper);
   }
 
-  modal.appendChild(cardsContainer);
+  body.appendChild(cardsContainer);
 
   // Buttons container
   let buttonsContainer = document.createElement('div');
@@ -3100,9 +3287,34 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
     buttonsContainer.appendChild(passBtn);
   }
 
-  modal.appendChild(buttonsContainer);
+  body.appendChild(buttonsContainer);
   overlay.appendChild(modal);
   document.body.appendChild(overlay);
+  EnableDraggableModal(modal, header, 'mzchoose-popup-position-v1');
+
+  let isMinimized = false;
+
+  function setMinimized(nextValue) {
+    isMinimized = !!nextValue;
+    body.style.display = isMinimized ? 'none' : 'block';
+    overlay.style.background = isMinimized ? 'transparent' : 'rgba(0,0,0,0.7)';
+    overlay.style.pointerEvents = isMinimized ? 'none' : 'auto';
+    modal.style.pointerEvents = 'auto';
+    modal.style.maxHeight = isMinimized ? 'none' : '80vh';
+    modal.style.overflow = isMinimized ? 'visible' : 'auto';
+    modal.style.width = isMinimized ? 'min(420px, calc(100vw - 24px))' : '';
+    headerDivider.style.display = isMinimized ? 'none' : 'block';
+    modal.style.borderRadius = isMinimized ? '999px' : '24px';
+    minimizeBtn.textContent = isMinimized ? '+' : '−';
+    minimizeBtn.title = isMinimized ? 'Expand' : 'Minimize';
+    minimizeBtn.setAttribute('aria-label', isMinimized ? 'Expand chooser' : 'Minimize chooser');
+  }
+
+  minimizeBtn.onclick = function(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    setMinimized(!isMinimized);
+  };
 }
 
 function _ensureTurnMiasmaOverlay() {
