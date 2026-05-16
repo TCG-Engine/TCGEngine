@@ -1162,6 +1162,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     if($sourceObject->CardID === "w7o3agvvnc" && !$ignoreCost && !CanPayRestChampionCost($player)) {
         return;
     }
+    if($sourceObject->CardID === "iohZMWh5v5" && !$ignoreCost) {
+        $blazingThrowWeapons = ZoneSearch("myField", ["WEAPON"]);
+        if(empty($blazingThrowWeapons)) {
+            SetFlashMessage("Blazing Throw requires a weapon to sacrifice.");
+            return;
+        }
+    }
 
     //1.1 Announcing Activation: First, the player announces the card they are activating and places it onto the effects stack.
     // Track the source zone so "whenever you activate from memory" triggers can check it in OnCardActivated.
@@ -1646,6 +1653,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allies), 100, tooltip:"Sacrifice_an_ally");
         DecisionQueueController::AddDecision($player, "CUSTOM", "UndeniableTruthCost|" . $reserveCost, 100);
     }
+    // 1.3 Declaring Costs — Blazing Throw (iohZMWh5v5): mandatory sacrifice of a weapon
+    $hasBlazingThrowCost = false;
+    if($obj->CardID === "iohZMWh5v5" && !$ignoreCost) {
+        $weapons = ZoneSearch("myField", ["WEAPON"]);
+        if(empty($weapons)) {
+            SetFlashMessage("Blazing Throw requires a weapon to sacrifice.");
+            return;
+        }
+        $hasBlazingThrowCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $weapons), 100, tooltip:"Sacrifice_a_weapon");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BlazingThrowCost|" . $reserveCost, 100);
+    }
 
     //1.3 Declaring Costs â€” Clash of Fates (9rbziyasag): [Guo Jia Bonus] may remove a quest counter instead of reserve
     $hasClashOfFatesAltCost = false;
@@ -1686,7 +1706,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1760,6 +1780,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasPrimordialRitualCost is true, PrimordialRitualCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasUndeniableTruthCost is true, UndeniableTruthCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
+    // When $hasBlazingThrowCost is true, BlazingThrowCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasSongOfFrostAltCost is true, SongOfFrostAltCost handler queues its own
     // reserve/banish + EffectStackOpportunity.
@@ -1946,6 +1968,23 @@ $customDQHandlers["UndeniableTruthCost"] = function($player, $parts, $lastDecisi
     $obj = GetZoneObject($lastDecision);
     if($obj === null || $obj->removed) return;
     if(!PropertyContains(EffectiveCardType($obj), "ALLY")) return;
+
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    for($i = 0; $i < $baseReserve; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+$customDQHandlers["BlazingThrowCost"] = function($player, $parts, $lastDecision) {
+    $baseReserve = intval($parts[0]);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    if(!PropertyContains(EffectiveCardType($obj), "WEAPON")) return;
 
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
@@ -4213,14 +4252,6 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $sourceObj->Status = 1;
             DoSacrificeFighter($player, $mzCard);
             DecisionQueueController::CleanupRemovedCards();
-            break;
-        case "iohZMWh5v5": // Blazing Throw: sacrifice a weapon as additional cost
-            $weapons = ZoneSearch("myField", ["WEAPON"]);
-            if(!empty($weapons)) {
-                $choices = implode("&", $weapons);
-                DecisionQueueController::AddDecision($player, "MZCHOOSE", $choices, 1);
-                DecisionQueueController::AddDecision($player, "CUSTOM", "BT_SacrificeWeapon", 1);
-            }
             break;
         case "5joh300z2s": // Manaroot: sacrifice self to graveyard
         case "69iq4d5vet": // Springleaf: sacrifice self to graveyard
