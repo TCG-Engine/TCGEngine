@@ -371,10 +371,12 @@
       foreach ($allLeaders as $leader) {
         $leaderID = $leader->CardID;
         $leaderName = htmlspecialchars(CardTitle($leaderID), ENT_QUOTES, 'UTF-8');
-        echo "deckStats += \"<option value='$leaderID'>$leaderName</option>\";";
+        $leaderSet = CardSet($leaderID);
+        $displayName = $leaderName . ($leaderSet ? " ({$leaderSet})" : "");
+        echo "deckStats += \"<option value='$leaderID'>$displayName</option>\";";
       }
       echo "deckStats += \"</select><br><br>\";";
-      echo "deckStats += \"<label for='baseColor' style='display: inline-block; width: 110px; margin-right: 10px;'>Base Color:</label><select id='baseColor'><option value='Green'>Green</option><option value='Blue'>Blue</option><option value='Red'>Red</option><option value='Yellow'>Yellow</option></select><br><br>\";";
+      echo "deckStats += \"<label for='baseColor' style='display: inline-block; width: 110px; margin-right: 10px;'>Base Color:</label><select id='baseColor'><option value='Green'>Green</option><option value='Blue'>Blue</option><option value='Red'>Red</option><option value='Yellow'>Yellow</option><option value='Colorless'>Colorless</option></select><br><br>\";";
       echo "deckStats += \"<input type='radio' id='win' name='statType' value='win'><label for='win' style='margin-right: 10px;'>Win</label>\";";
       echo "deckStats += \"<input type='radio' id='loss' name='statType' value='loss'><label for='loss'>Loss</label><br><br>\";";
       echo "deckStats += \"<input type='radio' id='firstPlayer' name='playerType' value='firstPlayer'><label for='firstPlayer'  style='margin-right: 10px;'>First Player</label>\";";
