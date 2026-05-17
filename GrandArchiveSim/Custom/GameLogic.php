@@ -14220,6 +14220,7 @@ $doesGlobalEffectApply["FREE_STARCALLING"] = function($obj) { return false; };
 $doesGlobalEffectApply["ARISANNA_FREE_STARCALLING"] = function($obj) { return false; };
 $doesGlobalEffectApply["ASTROLABE_FREE_STARCALLING"] = function($obj) { return false; };
 $doesGlobalEffectApply["oz23yfzk96"] = function($obj) { return false; }; // Scry the Stars dynamic starcalling
+$doesGlobalEffectApply["IGNIS_DEUS_LOCK"] = function($obj) { return false; }; // Ignis Deus lock: global level-up restriction only
 
 // Foretold Bloom (lnhzj43qiw): flag only â€” herb-sacrifice glimpse handled in DoSacrificeFighter/BrewFinalizeHerbs
 $doesGlobalEffectApply["FORETOLD_BLOOM"] = function($obj) { return false; };
