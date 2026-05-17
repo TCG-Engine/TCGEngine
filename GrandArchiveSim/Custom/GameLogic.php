@@ -196,6 +196,27 @@ function GetImbueOptionLabel($cardID, $option) {
     }
 }
 
+function IsDivineRelicRegaliaCardID($cardID) {
+    if($cardID === null || $cardID === "") return false;
+    if(!PropertyContains(CardType($cardID), "REGALIA")) return false;
+    return stripos(CardEffect($cardID), "divine relic") !== false;
+}
+
+function GetDivineRelicRegaliaChoices($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $eligible = [];
+    for($fi = 0; $fi < count($field); ++$fi) {
+        if($field[$fi]->removed) continue;
+        $fieldType = EffectiveCardType($field[$fi]);
+        if(!PropertyContains($fieldType, "REGALIA")) continue;
+        if(!IsDivineRelicRegaliaCardID($field[$fi]->CardID)) continue;
+        $eligible[] = $zone . "-" . $fi;
+    }
+    return $eligible;
+}
+
 // Crux Sight (P9Y1Q5cQ0F): "As an additional cost you may pay (2). If you do,
 // banish this card as it resolves and return a crux card from graveyard to hand."
 // No condition â€” always offer when affordable; recovery may fizzle at resolution.
@@ -1611,6 +1632,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "DevotionsPriceDiscard1|" . $reserveCost, 100);
     }
 
+    // 1.3 Declaring Costs â€” Unmake Duality (uWLKGJz1GY): mandatory sacrifice of a divine relic regalia
+    $hasUnmakeDualityCost = false;
+    if($obj->CardID === "uWLKGJz1GY" && !$ignoreCost) {
+        $eligible = GetDivineRelicRegaliaChoices($player);
+        if(empty($eligible)) {
+            SetFlashMessage("Unmake Duality requires a divine relic regalia to sacrifice.");
+            return;
+        }
+        $hasUnmakeDualityCost = true;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 100, tooltip:"Sacrifice_a_divine_relic_regalia");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "UnmakeDualitySacrifice|" . $reserveCost, 100);
+    }
+
     // 1.3 Declaring Costs â€” Broken Promises (re911j7fo4): mandatory sacrifice of a Fatestone item or Fatebound ally
     $hasBrokenPromisesCost = false;
     if($obj->CardID === "re911j7fo4" && !$ignoreCost) {
@@ -1716,7 +1750,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -1785,6 +1819,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // takes over queuing reveal/no-reserve or normal reserve + EffectStackOpportunity.
     // When $hasAdditionalCost is true, the DeclareAdditionalCost handler takes over
     // queuing reserve payments and EffectStackOpportunity after the player answers.
+    // When $hasUnmakeDualityCost is true, UnmakeDualitySacrifice handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
     // When $hasBrokenPromisesCost is true, BrokenPromisesCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasPrimordialRitualCost is true, PrimordialRitualCost handles sacrifice,

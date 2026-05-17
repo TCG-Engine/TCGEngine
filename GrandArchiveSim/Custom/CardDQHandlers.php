@@ -7203,12 +7203,18 @@ $customDQHandlers["WindfallCheckBanish"] = function($player, $parts, $lastDecisi
 
 // UnmakeDualitySacrifice: sacrifice the chosen divine relic regalia (declaring cost for Unmake Duality)
 $customDQHandlers["UnmakeDualitySacrifice"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0] ?? 0);
     if($lastDecision === "-" || $lastDecision === "") return;
     $obj = GetZoneObject($lastDecision);
     if($obj === null) return;
+    if(!IsDivineRelicRegaliaCardID($obj->CardID)) return;
     OnLeaveField($player, $lastDecision);
     MZMove($player, $lastDecision, "myGraveyard");
     DecisionQueueController::CleanupRemovedCards();
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
 // CleansingReunionBanish: banish the chosen card from opponent's graveyard, chain remaining
