@@ -4055,6 +4055,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         }
     }
     switch($cardID) {
+        case "vZH2xr4yq2": // Auspicious Manifestation - (2), Discard this card from your hand
+            if(intval($abilityIndex) === 0) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                MZMove($player, $mzCard, "myGraveyard");
+                DecisionQueueController::CleanupRemovedCards();
+            }
+            break;
         case "G8pN8Hackq": // Aella, Zephyr's Hand â€” (3), first activation each turn costs (3) less
             if(intval($abilityIndex) === 0) {
                 $reserveCost = 3;
@@ -7530,6 +7538,22 @@ function SuppressAlly($player, $mzCard, $skipReplacementCheck = false) {
     }
 }
 
+/**
+ * Suppress an ally and return it transformed at the beginning of the next end phase.
+ */
+function SuppressAllyTransformedNextEnd($player, $mzCard) {
+    $obj = GetZoneObject($mzCard);
+    if($obj === null) return;
+    $owner = $obj->Owner;
+    OnLeaveField($player, $mzCard);
+    $banishZone = ($player == $owner) ? "myBanish" : "theirBanish";
+    $banishObj = MZMove($player, $mzCard, $banishZone);
+    if($banishObj !== null) {
+        $banishObj->ClearTurnEffects();
+        $banishObj->AddTurnEffects("SUPPRESSED_TRANSFORMED");
+    }
+}
+
 function BeforeEndOpportunityPhase() {
     $turnPlayer = &GetTurnPlayer();
     // Grand Archive rules: Opportunity arises at the beginning of the End phase.
@@ -7569,6 +7593,28 @@ function BeforeEndPhase() {
     for($sbi = count($banish) - 1; $sbi >= 0; --$sbi) {
         if(!$banish[$sbi]->removed && in_array("SUPPRESSED", $banish[$sbi]->TurnEffects)) {
             MZMove($playerID, "theirBanish-" . $sbi, "theirField");
+        }
+    }
+
+    // Suppress transformed: return and transform at the beginning of the next end phase.
+    $banish = GetZone("myBanish");
+    for($sbi = count($banish) - 1; $sbi >= 0; --$sbi) {
+        if(!$banish[$sbi]->removed && in_array("SUPPRESSED_TRANSFORMED", $banish[$sbi]->TurnEffects)) {
+            $movedObj = MZMove($playerID, "myBanish-" . $sbi, "myField");
+            if($movedObj !== null) {
+                $field = GetZone("myField");
+                TransformCard($playerID, "myField-" . (count($field) - 1));
+            }
+        }
+    }
+    $banish = GetZone("theirBanish");
+    for($sbi = count($banish) - 1; $sbi >= 0; --$sbi) {
+        if(!$banish[$sbi]->removed && in_array("SUPPRESSED_TRANSFORMED", $banish[$sbi]->TurnEffects)) {
+            $movedObj = MZMove($playerID, "theirBanish-" . $sbi, "theirField");
+            if($movedObj !== null) {
+                $field = GetZone("theirField");
+                TransformCard($playerID, "theirField-" . (count($field) - 1));
+            }
         }
     }
 
@@ -12878,16 +12924,19 @@ function TraitContains($card, $trait) {
 function CardHasAbility($obj) {
     global $debugMode;
     if(HasNoAbilities($obj)) return 0;
-    $hasDynamic = GetDynamicAbilities($obj) !== "";
+    $location = isset($obj->Location) ? $obj->Location : "";
+    $supportsDynamic = ($location === "Field" || $location === "Intent");
+    $hasDynamic = $supportsDynamic ? (GetDynamicAbilities($obj) !== "") : false;
     $isIntentObject = isset($obj->Location) && $obj->Location === "Intent";
+    $controller = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? intval($obj->PlayerID) : null);
     if($debugMode) {
         return (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic) ? 1 : 0;
     }
     $turnPlayer = &GetTurnPlayer();
     $hasAbility = (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic);
     if(!$hasAbility) return 0;
-    if($turnPlayer != $obj->Controller) return 0;
-    if(!$isIntentObject && $obj->Status != 2) return 0;
+    if($controller === null || $turnPlayer != $controller) return 0;
+    if(!$isIntentObject && isset($obj->Status) && $obj->Status != 2) return 0;
 
     // Cunning Broker (oy34bro89w): requires 2+ prep counters on champion
     if($obj->CardID === "oy34bro89w") {
@@ -12964,12 +13013,13 @@ function GetActivateAbilityButtonStates($obj) {
     if($mzID === null) return "";
 
     $turnPlayer = &GetTurnPlayer();
+    $controller = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? intval($obj->PlayerID) : null);
     $states = [];
     $existingFlash = GetFlashMessage();
 
     for($abilityIndex = 0; $abilityIndex < $staticCount; ++$abilityIndex) {
         $enabled = false;
-        if($turnPlayer == $obj->Controller) {
+        if($controller !== null && $turnPlayer == $controller) {
             $enabled = function_exists("CanActivateAbility") ? CanActivateAbility($turnPlayer, $mzID, $abilityIndex) : true;
             SetFlashMessage($existingFlash);
         }

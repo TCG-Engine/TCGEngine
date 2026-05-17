@@ -64,10 +64,11 @@ AddReplacement: HandAddReplacement
 BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=All, BindTo=HandSlot
 Click: FSM()
-Virtual: SelectionMetadata=SelectionMetadata(), HandCardCostDifference=HandCardCostDifference()
+Virtual: SelectionMetadata=SelectionMetadata(), HandCardCostDifference=HandCardCostDifference(), DynamicAbilities=GetDynamicAbilities(), ActivateAbilityButtonStates=GetActivateAbilityButtonStates(), HasAbility=CardHasAbility()
 Highlight: SelectionMetadata
 Index: CardID
 Counters: HandCardCostDifference=Badge(Color=White,Position=TopLeft,ShowNegative=false)
+Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Field - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentHP=ObjectCurrentHPDisplay()
