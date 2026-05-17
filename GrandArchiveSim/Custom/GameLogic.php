@@ -2648,10 +2648,15 @@ $customDQHandlers["RitaiStablemasterProcess"] = function($player, $parts, $lastD
         // No cards discarded
         return;
     }
-    
-    // Player chose a fire card to discard
-    MZMove($player, $lastDecision, "myGraveyard");
-    DrawIntoMemory($player, 1);
+
+    // MZMULTICHOOSE returns "&"-delimited selections; tolerate single-selection fallback too.
+    $chosenCards = explode("&", $lastDecision);
+    for($i = 0; $i < count($chosenCards); ++$i) {
+        $chosen = $chosenCards[$i];
+        if($chosen === "" || $chosen === "-" || $chosen === "PASS") continue;
+        MZMove($player, $chosen, "myGraveyard");
+        DrawIntoMemory($player, 1);
+    }
 };
 
 // --- Kindle DQ Handlers ---
