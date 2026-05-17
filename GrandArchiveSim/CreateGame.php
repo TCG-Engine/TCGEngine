@@ -45,6 +45,7 @@ SetPhaseParameters("-");
 QueuePregameStartingChampionSetup();
 AdvanceAndExecute("PASS");
 AutoAdvanceAndExecute();
+SaveUndoVersion($firstPlayer, "Pregame Starting Champion");
 
 WriteGamestate(__DIR__ . "/");
 

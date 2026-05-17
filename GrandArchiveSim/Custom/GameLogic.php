@@ -363,15 +363,22 @@ $lineageReleaseAbilities["59ipqa91r2"] = [ // Guo Jia, Blessed Scion
     }
 ];
 
-function SaveUndoVersion($playerID, $name = "") {
+function SaveUndoVersion($targetPlayerID, $name = "") {
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $targetPlayer = intval($targetPlayerID);
+    $playerID = $targetPlayer;
+
     $zones = Versions::GetSerializedZones();
     global $gRandomCounter;
     $zones .= "<v0>" . $gRandomCounter;
 
-    MZClearZone($playerID, "myVersions");
+    MZClearZone($targetPlayer, "myVersions");
 
     $namePrefix = (strlen($name) > 0 ? $name . '<vname>' : '');
-    AddVersions($playerID, '0:' . $namePrefix . $zones);
+    AddVersions($targetPlayer, '0:' . $namePrefix . $zones);
+
+    $playerID = $savedPlayerID;
 }
 
 function GetStartingChampionChoices($player) {
@@ -541,7 +548,9 @@ $customDQHandlers["PREGAME_RESOLVE_STARTING_CHAMPION_ENTER"] = function($player,
     $secondPlayer = $firstPlayer == 1 ? 2 : 1;
     ResolvePregameStartingFieldMaterials($firstPlayer);
     ResolvePregameStartingFieldMaterials($secondPlayer);
-    DecisionQueueController::AddDecision($resolvePlayer, "CUSTOM", "PREGAME_FINISH_STARTING_CHAMPIONS", 250);
+    // Queue cleanup on the currently executing queue. If we enqueue this on the
+    // other player, it can strand a static-only decision with no input path.
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PREGAME_FINISH_STARTING_CHAMPIONS", 250);
 };
 
 $customDQHandlers["PREGAME_FINISH_STARTING_CHAMPIONS"] = function($player, $parts, $lastDecision) {
