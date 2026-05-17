@@ -86,6 +86,7 @@ Virtual: WitherCounterCount=GetWitherCounterCount()
 Virtual: SheenCounterCount=GetSheenCounterCount()
 Virtual: QuestCounterCount=GetQuestCounterCountForObject()
 Virtual: DynamicAbilities=GetDynamicAbilities()
+Virtual: ActivateAbilityButtonStates=GetActivateAbilityButtonStates()
 Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
 Display: Visibility=Public, Mode=All, BindTo=FieldSlot
@@ -115,6 +116,7 @@ Virtual: CurrentPower=ObjectCurrentPowerDisplay()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: DynamicAbilities=GetDynamicAbilities()
+Virtual: ActivateAbilityButtonStates=GetActivateAbilityButtonStates()
 Virtual: HasAbility=CardHasAbility()
 Index: TurnEffects
 Display: Visibility=Public, Mode=All, BindTo=IntentSlot

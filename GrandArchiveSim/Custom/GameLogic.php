@@ -4136,7 +4136,6 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "IC3OU6vCnF": // Mana Limiter â€” banish self
         case "lcb6jhxctx": // Gearstride Gloves â€” banish self
         case "llQe0cg4xJ": // Orb of Choking Fumes â€” banish self
-        case "mgesApvmwS": // Prismspire Scepter â€” banish self
         case "mnz5kgifhd": // Sanguine Goblet â€” banish self
         case "me0xxw0plq": // Refracted Twilight â€” banish self
         case "qqq8j5fxym": // Shard of Empowerment â€” banish self
@@ -4150,6 +4149,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         case "QCUld5Xidm": // Dummy Trainer â€” (3), banish self
         case "mb3iqw3kc6": // Portentous Tanggu â€” (3), banish self
+        case "mgesApvmwS": // Prismspire Scepter â€” (3), banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
