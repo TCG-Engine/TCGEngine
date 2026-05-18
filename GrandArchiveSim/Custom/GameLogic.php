@@ -4093,6 +4093,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "qiv63tpshe": // Idle Fatestone - [Guo Jia Bonus] [REST], (2): reveal top card and check parity
+            if(intval($abilityIndex) === 0) {
+                $sourceObj = &GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
         case "vZH2xr4yq2": // Auspicious Manifestation - (2), Discard this card from your hand
             if(intval($abilityIndex) === 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
