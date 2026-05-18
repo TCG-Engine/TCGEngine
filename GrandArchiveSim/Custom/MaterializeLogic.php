@@ -22,7 +22,8 @@ function MaterializePhase() {
         AddGlobalEffects(GetTurnPlayer(), "pwscn0esog_ACTIVE");
     }
 
-    MaterializeChoice();
+
+    $hasMaterial = MaterializeChoice();
     // Eventide Spear (xjkdokzfd9): [CB:Warrior] may also activate from material deck if opponent has 2+ rested units
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "EVENTIDE_MATERIAL_CHECK", 1);
     // Varuckan Soulknife (9ox7u6wzh9): [Class Bonus][Element Bonus] may activate from material deck by banishing 3 fire from graveyard
@@ -30,6 +31,17 @@ function MaterializePhase() {
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1);
     // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] activate from material deck while controlling 2+ domains
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "RECIPROCITY_MATERIAL_CHECK", 1);
+    
+    // If the player has no cards left in material, run the same path as a skipped
+    // materialize callback (lastDecision="-") so phase progression remains consistent.
+    if(!$hasMaterial) {
+        $turnPlayer = GetTurnPlayer();
+        DecisionQueueController::AddDecision($turnPlayer, "PASSPARAMETER", "-", 1);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MATERIALIZE", 1);
+        $dqController = new DecisionQueueController();
+        $dqController->ExecuteStaticMethods($turnPlayer, "-");
+        return;
+    }
 }
 
 function GetMaterializeFloatingChoices($player) {
@@ -62,9 +74,16 @@ function AutoUndoMaterializeCostFailure($player, $message = "Cannot pay costs fo
 
 function MaterializeChoice($ignoreCost = false) {
     $turnPlayer = GetTurnPlayer();
-    DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", GetLegalMaterializeChoices($turnPlayer)), 1);
+    $legalChoices = GetLegalMaterializeChoices($turnPlayer);
     $handlerParam = $ignoreCost ? "MATERIALIZE|NOCOST" : "MATERIALIZE";
+    if(empty($legalChoices)) {
+        DecisionQueueController::AddDecision($turnPlayer, "PASSPARAMETER", "-", 1);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", $handlerParam, 1);
+        return false;
+    }
+    DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $legalChoices), 1);
     DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", $handlerParam, 1);
+    return true;
 }
 
 $customDQHandlers["EVENTIDE_MATERIAL_CHECK"] = function($player, $parts, $lastDecision) {
