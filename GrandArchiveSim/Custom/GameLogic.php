@@ -15176,6 +15176,13 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
         return true;
     }
 
+    // Spirit of Slime (0xp4xq07vv): inherited effect - ignore element req for basic element Slime cards
+    if(PropertyContains(CardSubtypes($cardID), "SLIME")
+       && !IsAdvancedElementCard($cardID)
+       && ChampionHasInLineage($player, "0xp4xq07vv")) {
+        return true;
+    }
+
     if($setFlash) {
         SetFlashMessage(GetElementRestrictionMessage($cardElement));
     }
