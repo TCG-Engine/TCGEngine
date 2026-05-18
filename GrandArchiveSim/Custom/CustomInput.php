@@ -31,6 +31,7 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         break;
       case "myField":
       case "myIntent":
+      case "myHand":
         // Block ability activation while DQs are pending
         $dqChk = new DecisionQueueController();
         if(!$dqChk->AllQueuesEmpty()) break;
