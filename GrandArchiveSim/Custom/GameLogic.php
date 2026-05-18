@@ -4060,6 +4060,39 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         }
     }
     switch($cardID) {
+        case "2sn7hlyrkw": // Fatestone of Progress - [Guo Jia Bonus] (4): Transform
+            if(intval($abilityIndex) === 0) {
+                for($ri = 0; $ri < 4; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
+        case "0w5xyjuczy": // Lavaplume Fatestone - [Guo Jia Bonus] (4): Transform
+            if(intval($abilityIndex) === 0) {
+                for($ri = 0; $ri < 4; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
+        case "l6410a85dn": // Cyclonic Fatestone - [Guo Jia Bonus] (3), [REST]: Transform
+            if(intval($abilityIndex) === 0) {
+                $sourceObj = &GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
+                for($ri = 0; $ri < 3; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
+        case "x7t0vki9gy": // Beseeched Fatestone - [Guo Jia Bonus] (6), [REST]: Transform, costs 2 less per materialize
+            if(intval($abilityIndex) === 0) {
+                $sourceObj = &GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
+                $reserveCost = max(0, 6 - (MaterializeCallCount($player) * 2));
+                for($ri = 0; $ri < $reserveCost; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
         case "vZH2xr4yq2": // Auspicious Manifestation - (2), Discard this card from your hand
             if(intval($abilityIndex) === 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
