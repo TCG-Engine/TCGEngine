@@ -4418,6 +4418,16 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "gnYM2V6TTw": // Soothing Potion: sacrifice self — store whether it was brewed
+            {
+                $sourceObj = GetZoneObject($mzCard);
+                $wasBrewed = ($sourceObj !== null && is_array($sourceObj->Counters) && isset($sourceObj->Counters['brewed'])) ? "YES" : "NO";
+                DecisionQueueController::StoreVariable("gnYM2V6TTw_wasBrewed", $wasBrewed);
+            }
+            ProcessPotionInfusionTriggers($player, $mzCard);
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "O1OU62Zx2Y": // Distilled Water: sacrifice self â€” store whether it was brewed
             {
                 $sourceObj = GetZoneObject($mzCard);
