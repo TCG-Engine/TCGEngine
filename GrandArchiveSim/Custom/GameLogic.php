@@ -4801,7 +4801,9 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     // Exhaust the unit as the REST cost â€” only for static abilities, not dynamic ones (which have their own costs)
     // Cardistry abilities do NOT rest the card (no REST in their cost)
     $cardType = CardType($cardID);
-    $staticAbilityCount = CardActivateAbilityCount($cardID);
+    $activationMacro = DecisionQueueController::GetVariable("activationMacro");
+    $isHandActivatedMacro = ($activationMacro === "HandActivatedAbility");
+    $staticAbilityCount = $isHandActivatedMacro ? CardHandActivatedAbilityCount($cardID) : CardActivateAbilityCount($cardID);
     $refractedTwilightCopies = 0;
     if(PropertyContains(CardSubtypes($cardID), "POTION") && $selectedAbilityIndex < $staticAbilityCount) {
         foreach($sourceObject->TurnEffects as $rtIdx => $rtEffect) {
@@ -5074,7 +5076,8 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             }
         }
         // Queue AbilityActivated at block=101 so it fires AFTER costs (block 100/101).
-        DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityActivated|$cardID|$selectedAbilityIndex", 101);
+        $resolveHandler = $isHandActivatedMacro ? "HandAbilityActivated" : "AbilityActivated";
+        DecisionQueueController::AddDecision($player, "CUSTOM", $resolveHandler . "|$cardID|$selectedAbilityIndex", 101);
     }
     if($refractedTwilightCopies > 0) {
         // block=102: run after the main AbilityActivated (101) but before AbilityOpportunity (200).
@@ -5092,6 +5095,13 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
 
     $dqController = new DecisionQueueController();
     $dqController->ExecuteStaticMethods($player, "-");
+}
+
+function DoHandActivatedAbility($player, $mzCard, $abilityIndex = 0) {
+    DecisionQueueController::StoreVariable("activationMacro", "HandActivatedAbility");
+    $result = DoActivatedAbility($player, $mzCard, $abilityIndex);
+    DecisionQueueController::ClearVariable("activationMacro");
+    return $result;
 }
 
 function OnLeaveField($player, $mzID) {
@@ -12382,6 +12392,19 @@ $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityOpportunity", 200);
 };
 
+$customDQHandlers["HandAbilityActivated"] = function($player, $param, $lastResult) {
+    global $handActivatedAbilityAbilities;
+    $cardID = $param[0];
+    $abilityIndex = isset($param[1]) ? intval($param[1]) : 0;
+    $abilityKey = $cardID . ":" . $abilityIndex;
+    if(isset($handActivatedAbilityAbilities[$abilityKey])) {
+        $handActivatedAbilityAbilities[$abilityKey]($player);
+    }
+    TriggerNightmareCoilPunish($player);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CheckEnhancePotency", 99);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityOpportunity", 200);
+};
+
 function TriggerNightmareCoilPunish($activatingPlayer) {
     $opponent = ($activatingPlayer == 1) ? 2 : 1;
     if(GlobalEffectCount($opponent, "3fe3c97s71") <= 0) return;
@@ -13005,11 +13028,13 @@ function CardHasAbility($obj) {
     $hasDynamic = $supportsDynamic ? (GetDynamicAbilities($obj) !== "") : false;
     $isIntentObject = isset($obj->Location) && $obj->Location === "Intent";
     $controller = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? intval($obj->PlayerID) : null);
+    $isHandObject = ($location === "Hand");
+    $staticCount = $isHandObject ? CardHandActivatedAbilityCount($obj->CardID) : CardActivateAbilityCount($obj->CardID);
     if($debugMode) {
-        return (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic) ? 1 : 0;
+        return ($staticCount > 0 || $hasDynamic) ? 1 : 0;
     }
     $turnPlayer = &GetTurnPlayer();
-    $hasAbility = (CardActivateAbilityCount($obj->CardID) > 0 || $hasDynamic);
+    $hasAbility = ($staticCount > 0 || $hasDynamic);
     if(!$hasAbility) return 0;
     if($controller === null || $turnPlayer != $controller) return 0;
     if(!$isIntentObject && isset($obj->Status) && $obj->Status != 2) return 0;
@@ -13082,7 +13107,9 @@ function CardHasAbility($obj) {
 function GetActivateAbilityButtonStates($obj) {
     if(HasNoAbilities($obj)) return "";
 
-    $staticCount = CardActivateAbilityCount($obj->CardID);
+    $location = isset($obj->Location) ? $obj->Location : "";
+    $isHandObject = ($location === "Hand");
+    $staticCount = $isHandObject ? CardHandActivatedAbilityCount($obj->CardID) : CardActivateAbilityCount($obj->CardID);
     if($staticCount <= 0) return "";
 
     $mzID = SelectionMetadataMzID($obj);
@@ -13096,7 +13123,11 @@ function GetActivateAbilityButtonStates($obj) {
     for($abilityIndex = 0; $abilityIndex < $staticCount; ++$abilityIndex) {
         $enabled = false;
         if($controller !== null && $turnPlayer == $controller) {
-            $enabled = function_exists("CanActivateAbility") ? CanActivateAbility($turnPlayer, $mzID, $abilityIndex) : true;
+            if($isHandObject) {
+                $enabled = function_exists("CanHandActivateAbility") ? CanHandActivateAbility($turnPlayer, $mzID, $abilityIndex) : true;
+            } else {
+                $enabled = function_exists("CanActivateAbility") ? CanActivateAbility($turnPlayer, $mzID, $abilityIndex) : true;
+            }
             SetFlashMessage($existingFlash);
         }
 
@@ -13109,6 +13140,19 @@ function GetActivateAbilityButtonStates($obj) {
 
     SetFlashMessage($existingFlash);
     return json_encode($states);
+}
+
+function GetHandActivateAbilityCountForObject($obj) {
+    if($obj == null || !isset($obj->CardID)) return 0;
+    return function_exists("CardHandActivatedAbilityCount") ? CardHandActivatedAbilityCount($obj->CardID) : 0;
+}
+
+function GetHandActivateAbilityNamesForObject($obj) {
+    if($obj == null || !isset($obj->CardID)) return "[]";
+    if(function_exists("CardHandActivatedAbilityCountNames")) {
+        return json_encode(CardHandActivatedAbilityCountNames($obj->CardID));
+    }
+    return "[]";
 }
 
 // Internal tracking effects that are backend-only and should never render in the UI

@@ -31,7 +31,6 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         break;
       case "myField":
       case "myIntent":
-      case "myHand":
         // Block ability activation while DQs are pending
         $dqChk = new DecisionQueueController();
         if(!$dqChk->AllQueuesEmpty()) break;
@@ -43,6 +42,19 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         }
         SaveUndoVersion($playerID);
         ActivateAbility($playerID, $actionCard, $abilityIndex);
+        break;
+      case "myHand":
+        // Block ability activation while DQs are pending
+        $dqChk = new DecisionQueueController();
+        if(!$dqChk->AllQueuesEmpty()) break;
+        // Parse ability index from action (e.g., "Activate:0", "Activate:1")
+        $abilityIndex = 0;
+        if (strpos($action, ':') !== false) {
+            $actionParts = explode(':', $action);
+            $abilityIndex = intval($actionParts[1]);
+        }
+        SaveUndoVersion($playerID);
+        HandActivatedAbility($playerID, $actionCard, $abilityIndex);
         break;
       default: break;
     }

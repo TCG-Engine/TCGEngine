@@ -895,7 +895,11 @@
 
               // Special handling for Activate button - show ability names
               if (widget.Action === 'Activate' && cardData.CardID && typeof CardActivateAbilityCount === 'function') {
-                const abilityCount = CardActivateAbilityCount(cardData.CardID);
+                const handAbilityCount = (cardData.Location === 'Hand' && typeof CardHandActivatedAbilityCount === 'function')
+                  ? CardHandActivatedAbilityCount(cardData.CardID)
+                  : Number(cardData.HandActivateAbilityCount || 0);
+                const useHandAbilities = cardData.Location === 'Hand' && handAbilityCount > 0;
+                const abilityCount = useHandAbilities ? handAbilityCount : CardActivateAbilityCount(cardData.CardID);
                 // Read server-computed dynamic abilities (generic — no game-specific logic here)
                 let dynamicAbilities = [];
                 let activateAbilityStates = [];
@@ -910,9 +914,20 @@
                 );
                 if (abilityCount >= 1 || dynamicAbilities.length > 0) {
                   // Generate button(s) for each static ability
-                  const abilityNames = typeof CardActivateAbilityCountNames === 'function'
-                    ? CardActivateAbilityCountNames(cardData.CardID)
-                    : [];
+                  let abilityNames = [];
+                  if (useHandAbilities) {
+                    if (typeof CardHandActivatedAbilityCountNames === 'function') {
+                      abilityNames = CardHandActivatedAbilityCountNames(cardData.CardID);
+                    } else if (Array.isArray(cardData.HandActivateAbilityNames)) {
+                      abilityNames = cardData.HandActivateAbilityNames;
+                    } else if (typeof cardData.HandActivateAbilityNames === 'string' && cardData.HandActivateAbilityNames !== '') {
+                      try { abilityNames = JSON.parse(cardData.HandActivateAbilityNames); } catch(e) {}
+                    }
+                  } else {
+                    abilityNames = typeof CardActivateAbilityCountNames === 'function'
+                      ? CardActivateAbilityCountNames(cardData.CardID)
+                      : [];
+                  }
                   for (let i = 0; i < abilityCount; i++) {
                     const abilityName = abilityNames[i] || `Ability ${i + 1}`;
                     const actionWithIndex = `Activate:${i}`;

@@ -16,6 +16,7 @@ Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=AllyDestroyed(mzID); ChoiceFunction=DoAllyDestroyed; Action={}
 Macro: Name=LeaveField(mzID); ChoiceFunction=OnLeaveField; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
+Macro: Name=HandActivatedAbility(mzID,abilityIndex); ChoiceFunction=DoHandActivatedAbility; PrereqFunction=CanHandActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=Materialize(mzID); ChoiceFunction=DoMaterialize; Action={}
 Macro: Name=MemoryCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
@@ -64,7 +65,7 @@ AddReplacement: HandAddReplacement
 BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=All, BindTo=HandSlot
 Click: FSM()
-Virtual: SelectionMetadata=SelectionMetadata(), HandCardCostDifference=HandCardCostDifference(), DynamicAbilities=GetDynamicAbilities(), ActivateAbilityButtonStates=GetActivateAbilityButtonStates(), HasAbility=CardHasAbility()
+Virtual: SelectionMetadata=SelectionMetadata(), HandCardCostDifference=HandCardCostDifference(), DynamicAbilities=GetDynamicAbilities(), ActivateAbilityButtonStates=GetActivateAbilityButtonStates(), HasAbility=CardHasAbility(), HandActivateAbilityCount=GetHandActivateAbilityCountForObject(), HandActivateAbilityNames=GetHandActivateAbilityNamesForObject()
 Highlight: SelectionMetadata
 Index: CardID
 Counters: HandCardCostDifference=Badge(Color=White,Position=TopLeft,ShowNegative=false)
