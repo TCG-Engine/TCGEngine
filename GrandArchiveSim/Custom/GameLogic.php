@@ -11705,7 +11705,15 @@ function RadiantVegaAbility($player, $sourceMZ) {
 }
 
 function PotionInfusionSealResolve($player) {
-    $potions = ZoneSearch("myField", cardSubtypes: ["POTION"]);
+    $candidates = ZoneSearch("myField", cardSubtypes: ["POTION"]);
+    $potions = [];
+    foreach($candidates as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj === null || $obj->removed) continue;
+        if(!PropertyContains(CardType($obj->CardID), "ITEM")) continue;
+        if(!isset($obj->Status) || intval($obj->Status) !== 2) continue;
+        $potions[] = $mz;
+    }
     if(empty($potions)) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $potions), 1, tooltip:"Rest_target_Potion");
     DecisionQueueController::AddDecision($player, "CUSTOM", "PotionInfusionSealApply", 1);
@@ -13116,6 +13124,7 @@ function CardHasAbility($obj) {
 }
 
 function GetActivateAbilityButtonStates($obj) {
+    global $playerID;
     if(HasNoAbilities($obj)) return "";
 
     $location = isset($obj->Location) ? $obj->Location : "";
@@ -13126,18 +13135,18 @@ function GetActivateAbilityButtonStates($obj) {
     $mzID = SelectionMetadataMzID($obj);
     if($mzID === null) return "";
 
-    $turnPlayer = &GetTurnPlayer();
+    $actingPlayer = intval($playerID);
     $controller = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? intval($obj->PlayerID) : null);
     $states = [];
     $existingFlash = GetFlashMessage();
 
     for($abilityIndex = 0; $abilityIndex < $staticCount; ++$abilityIndex) {
         $enabled = false;
-        if($controller !== null && $turnPlayer == $controller) {
+        if($controller !== null && $actingPlayer == $controller) {
             if($isHandObject) {
-                $enabled = function_exists("CanHandActivateAbility") ? CanHandActivateAbility($turnPlayer, $mzID, $abilityIndex) : true;
+                $enabled = function_exists("CanHandActivateAbility") ? CanHandActivateAbility($actingPlayer, $mzID, $abilityIndex) : true;
             } else {
-                $enabled = function_exists("CanActivateAbility") ? CanActivateAbility($turnPlayer, $mzID, $abilityIndex) : true;
+                $enabled = function_exists("CanActivateAbility") ? CanActivateAbility($actingPlayer, $mzID, $abilityIndex) : true;
             }
             SetFlashMessage($existingFlash);
         }
