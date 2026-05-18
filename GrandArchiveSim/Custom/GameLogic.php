@@ -4101,6 +4101,36 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
             break;
+        case "3h93tgm72l": // Fluvial Fatestone - [Guo Jia Bonus] (4), [REST]: mill 2 and transform
+            if(intval($abilityIndex) === 0) {
+                $sourceObj = &GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
+                for($ri = 0; $ri < 4; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
+        case "ulh4lplwqe": // Coiled Fatestone - [Guo Jia Bonus] [REST], (1): deal/champions + age
+            if(intval($abilityIndex) === 0) {
+                $sourceObj = &GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
+        case "o37qtuvlxa": // Fatestone of Unrelenting - [Guo Jia Bonus] [REST], banish two fire from GY
+            if(intval($abilityIndex) === 0) {
+                $sourceObj = &GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
+            }
+            break;
+        case "xd4kv0akqr": // Fatestone of Revelations - [Guo Jia Bonus] (6), costs (LV) less
+            if(intval($abilityIndex) === 0) {
+                $reserveCost = max(0, 6 - PlayerLevel($player));
+                for($ri = 0; $ri < $reserveCost; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
         case "vZH2xr4yq2": // Auspicious Manifestation - (2), Discard this card from your hand
             if(intval($abilityIndex) === 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
