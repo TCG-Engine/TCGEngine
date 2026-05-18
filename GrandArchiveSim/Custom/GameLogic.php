@@ -4380,6 +4380,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "9cy4wipw4k": // Tabula of Salvage â€” banish self
+        case "hLHpI5rHIK": // Bauble of Mending â€” banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
