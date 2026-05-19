@@ -267,11 +267,11 @@
       function CalculateCardSize() {
         if (window.innerWidth <= 1000) {
           var viewportWidth = (window.visualViewport && window.visualViewport.width) ? window.visualViewport.width : window.innerWidth;
-          var mobileColumns = 4;
+          var mobileColumns = 7; // target at least seven cards visible before wrapping
           var rowPadding = 24; // account for wrapper padding and edge spacing
           var perCardHorizontalSpacing = 4; // two 1px margins + buffer for layout rounding
           var calculatedSize = Math.floor((viewportWidth - rowPadding - (mobileColumns * perCardHorizontalSpacing)) / mobileColumns);
-          return Math.max(64, Math.min(80, calculatedSize));
+          return Math.max(36, Math.min(80, calculatedSize));
         }
         return window.innerWidth / 16;
       }

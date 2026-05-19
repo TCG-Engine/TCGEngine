@@ -740,6 +740,293 @@
           }
      }
 
+     @media (max-width: 1024px) {
+          :root {
+               --ga-mobile-topbar-h: 34px;
+               --ga-mobile-gap: 6px;
+               --ga-mobile-hand-h: 74px;
+               --ga-mobile-bank-h: 62px;
+               --ga-mobile-field-h: 84px;
+          }
+
+          /* Top utility row: chat + report bug. */
+          #chatWidget {
+               position: fixed !important;
+               top: 4px !important;
+               left: 8px !important;
+               bottom: auto !important;
+               width: auto !important;
+               z-index: 2700 !important;
+               flex-direction: row !important;
+               align-items: flex-start !important;
+          }
+
+          #chatToggleBtn {
+               margin-top: 0 !important;
+               height: 28px !important;
+          }
+
+          #bug-report-button {
+               position: fixed !important;
+               top: 4px !important;
+               right: 8px !important;
+               bottom: auto !important;
+               z-index: 2700 !important;
+               padding: 6px 12px !important;
+               font-size: 12px !important;
+          }
+
+          /* Explicit stacked board rows (top -> center -> bottom). */
+          #theirHandSlot {
+               top: calc(var(--ga-mobile-topbar-h) + var(--ga-mobile-gap)) !important;
+               bottom: auto !important;
+          }
+
+          #theirDeckSlot,
+          #theirGraveyardSlot,
+          #theirBanishSlot,
+          #theirMaterialSlot,
+          #theirMasterySlot {
+               top: calc(var(--ga-mobile-topbar-h) + var(--ga-mobile-gap) + var(--ga-mobile-hand-h) + var(--ga-mobile-gap)) !important;
+               bottom: auto !important;
+          }
+
+          #theirDeckSlot { left: 4% !important; right: auto !important; }
+          #theirMaterialSlot { left: 23% !important; right: auto !important; }
+          #theirMasterySlot { left: 42% !important; right: auto !important; }
+          #theirBanishSlot { left: 61% !important; right: auto !important; }
+          #theirGraveyardSlot { left: 80% !important; right: auto !important; }
+
+          #theirFieldSlot {
+               top: calc(var(--ga-mobile-topbar-h) + var(--ga-mobile-gap) + var(--ga-mobile-hand-h) + var(--ga-mobile-gap) + var(--ga-mobile-bank-h) + var(--ga-mobile-gap)) !important;
+               bottom: auto !important;
+          }
+
+          #myFieldSlot {
+               top: calc(50% + 24px) !important;
+               bottom: auto !important;
+          }
+
+          #myDeckSlot,
+          #myGraveyardSlot,
+          #myBanishSlot,
+          #myMaterialSlot,
+          #myMasterySlot {
+               top: calc(50% + 24px + var(--ga-mobile-field-h) + var(--ga-mobile-gap)) !important;
+               bottom: auto !important;
+          }
+
+          #myGraveyardSlot { left: 4% !important; right: auto !important; }
+          #myBanishSlot { left: 23% !important; right: auto !important; }
+          #myMasterySlot { left: 42% !important; right: auto !important; }
+          #myMaterialSlot { left: 61% !important; right: auto !important; }
+          #myDeckSlot { left: 80% !important; right: auto !important; }
+
+          #myHandSlot {
+               top: auto !important;
+               bottom: 4px !important;
+          }
+
+          /* Hands should hug cards on mobile (no oversized panel feel). */
+          .ga-hand {
+               width: calc(100vw - 10px) !important;
+               min-height: 0 !important;
+          }
+
+          #myHandSlot.ga-glass,
+          #theirHandSlot.ga-glass {
+               padding: 2px 4px !important;
+          }
+
+          /* Keep phase rail near center as requested. */
+          .ga-phase-track {
+               top: calc(50% + 3px);
+          }
+
+          /* Reduce overlap from low-priority/legacy zones in strict mobile board mode. */
+          #myHealthSlot,
+          #theirHealthSlot,
+          #myIntentSlot,
+          #theirIntentSlot,
+          #myMemorySlot,
+          #theirMemorySlot {
+               display: none !important;
+          }
+
+          #EffectStackSlot {
+               top: calc(50% - 98px) !important;
+          }
+
+          #myFieldWrapper,
+          #theirFieldWrapper {
+               padding-top: 8px;
+               padding-bottom: 8px;
+               margin-top: -8px;
+               margin-bottom: -8px;
+          }
+
+          .ga-board-axis::after,
+          .ga-side-banner,
+          .ga-phase-step::before {
+               display: none;
+          }
+
+          .ga-board-axis::before {
+               width: calc(100vw - 20px);
+               opacity: 0.65;
+          }
+
+          .ga-glass {
+               border-radius: 14px;
+               padding: 22px 8px 8px;
+          }
+
+          .ga-glass::before {
+               font-size: 9px;
+               letter-spacing: 0.13em;
+          }
+
+          .ga-glass::after {
+               top: 19px;
+          }
+
+          .ga-phase-track {
+               top: calc(50% + 3px);
+               width: calc(100vw - 20px);
+               justify-content: space-between;
+               gap: 4px;
+               font-size: 8px;
+               letter-spacing: 0.07em;
+               color: rgba(244, 236, 219, 0.54);
+          }
+
+          .ga-pile {
+               width: 64px;
+               min-height: 80px;
+          }
+
+          .ga-token-bank,
+          #myMaterialSlot,
+          #theirMaterialSlot,
+          #myMasterySlot,
+          #theirMasterySlot {
+               width: 72px;
+               min-height: 80px;
+          }
+
+          .ga-stat {
+               width: 86px;
+               min-height: 54px;
+          }
+
+          .ga-intent {
+               width: 108px;
+               min-height: 72px;
+          }
+
+          .ga-hand {
+               width: calc(100vw - 16px);
+               min-height: 92px;
+          }
+
+          .ga-field {
+               width: calc(100vw - 32px);
+               min-height: 84px;
+          }
+
+          .ga-stack {
+               width: calc(100vw - 24px);
+               min-height: 90px;
+          }
+
+          #EffectStackSlot {
+               top: calc(50% - 60px);
+          }
+
+          #EffectStackWrapper {
+               max-height: min(30vh, 180px);
+          }
+
+          #myFieldSlot {
+               top: calc(50% + 38px) !important;
+          }
+
+          #theirFieldSlot {
+               top: calc(50% - 38px - 84px) !important;
+          }
+
+          #myHealthSlot,
+          #theirHealthSlot {
+               right: 82px;
+          }
+
+          #myIntentSlot,
+          #theirIntentSlot {
+               left: 6px;
+               top: calc(50% - 30px);
+          }
+
+          #myMemorySlot,
+          #theirMemorySlot,
+          #myMaterialSlot,
+          #theirMaterialSlot {
+               left: 4px;
+          }
+
+          #myDeckSlot,
+          #theirDeckSlot,
+          #myBanishSlot,
+          #theirBanishSlot,
+          #myGraveyardSlot,
+          #theirGraveyardSlot {
+               right: 4px;
+          }
+
+          #myBanishSlot.ga-banish-empty,
+          #theirBanishSlot.ga-banish-empty,
+          #myGraveyardSlot.ga-graveyard-empty,
+          #theirGraveyardSlot.ga-graveyard-empty {
+               min-height: 64px;
+          }
+     }
+
+     @media (max-width: 1024px) and (max-height: 500px) {
+          .ga-phase-track {
+               display: none;
+          }
+
+          .ga-hand {
+               min-height: 82px;
+          }
+
+          .ga-field {
+               min-height: 78px;
+          }
+
+          #myFieldSlot {
+               top: calc(50% + 32px) !important;
+          }
+
+          #theirFieldSlot {
+               top: calc(50% - 32px - 78px) !important;
+          }
+
+          #myGraveyardSlot,
+          #theirGraveyardSlot {
+               display: none;
+          }
+     }
+
+     @media (max-width: 760px) {
+          .ga-phase-track {
+               display: none;
+          }
+
+          .ga-board-axis::before {
+               opacity: 0.45;
+          }
+     }
+
      /* GA override: taper turn-edge markers toward screen top/bottom. */
      #turn-miasma-overlay .turn-edge-glyph {
           width: 34px;
