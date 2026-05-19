@@ -18396,6 +18396,10 @@ function GetWitherCounterCount($obj) {
     return GetCounterCount($obj, "wither");
 }
 
+function GetChargeCounterCount($obj) {
+    return GetCounterCount($obj, "charge");
+}
+
 // --- Omen Counter Helpers ---
 
 function GetOmenCounterCount($obj) {
