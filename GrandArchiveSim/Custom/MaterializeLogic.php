@@ -51,6 +51,16 @@ function GetMaterializeFloatingChoices($player) {
         $oppGY = ($player == $playerID) ? "theirGraveyard" : "myGraveyard";
         $choices = array_merge($choices, ZoneSearch($oppGY, floatingMemoryOnly:true));
     }
+    // Art of War (fjne9ri261): while paying memory cost, you may banish it to pay for 1.
+    global $playerID;
+    $myField = ($player == $playerID) ? "myField" : "theirField";
+    $field = GetZone($myField);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        if($field[$i]->CardID !== "fjne9ri261") continue;
+        if(HasNoAbilities($field[$i])) continue;
+        $choices[] = $myField . "-" . $i;
+    }
     return implode("&", $choices);
 }
 
