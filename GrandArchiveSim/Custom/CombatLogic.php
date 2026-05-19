@@ -2366,14 +2366,7 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
         }
     }
 
-    // Stealth: filter out units with Stealth unless the attacker has True Sight
-    $hasTrueSight = AttackerHasTrueSight($attackerMZ, $attackerPlayer);
-    if(!$hasTrueSight) {
-        $opponents = array_values(array_filter($opponents, function($mzID) {
-            $obj = &GetZoneObject($mzID);
-            return !HasStealth($obj);
-        }));
-    }
+    // Cleave does not target, so Stealth does not exempt units from being damaged.
 
     // Cleave critical: doubles all damage (no per-target discard choice)
     $criticalAmount = GetCriticalAmount($attacker, $attackerPlayer);
