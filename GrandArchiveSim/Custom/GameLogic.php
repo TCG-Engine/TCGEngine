@@ -1444,6 +1444,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasRavishingFinaleCost      = false;
     $hasInterventionCost         = false;
     $hasSlimeKingCost            = false;
+    $hasInnervateAgilityCost     = false;
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
     if(isset($additionalActivationCosts[$obj->CardID])) {
@@ -1457,6 +1458,24 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:$prompt);
             DecisionQueueController::AddDecision($player, "CUSTOM",
                 "DeclareAdditionalCost|" . $obj->CardID . "|" . $reserveCost . "|" . $extraReserve, 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Innervate Agility (v43ehjdu50): mandatory delevel + recover 5
+    if($obj->CardID === "v43ehjdu50" && !$ignoreCost) {
+        $canDelevel = false;
+        $field = GetField($player);
+        foreach($field as $fieldObj) {
+            if($fieldObj->removed) continue;
+            if(!PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) continue;
+            if(($fieldObj->Controller ?? 0) != $player) continue;
+            $subcards = is_array($fieldObj->Subcards) ? $fieldObj->Subcards : [];
+            if(!empty($subcards)) $canDelevel = true;
+            break;
+        }
+        if($canDelevel) {
+            $hasInnervateAgilityCost = true;
+            DecisionQueueController::AddDecision($player, "CUSTOM", "InnervateAgilityActivationCost|" . $reserveCost, 100);
         }
     }
 
@@ -1759,7 +1778,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2780,6 +2799,22 @@ $customDQHandlers["DeclareAdditionalCost"] = function($player, $parts, $lastDeci
     }
 
     for($i = 0; $i < $totalCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+/**
+ * DQ handler: Innervate Agility (v43ehjdu50) mandatory activation cost.
+ * Delevel your champion, recover 5, then pay reserve and grant opportunity.
+ * Parts: [reserveCost].
+ */
+$customDQHandlers["InnervateAgilityActivationCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0] ?? 0);
+    if(!Delevel($player)) return;
+    RecoverChampion($player, 5);
+    DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
+    for($i = 0; $i < $reserveCost; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
