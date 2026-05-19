@@ -1445,6 +1445,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasInterventionCost         = false;
     $hasSlimeKingCost            = false;
     $hasInnervateAgilityCost     = false;
+    $hasGoldenGambitCost         = false;
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
     if(isset($additionalActivationCosts[$obj->CardID])) {
@@ -1476,6 +1477,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if($canDelevel) {
             $hasInnervateAgilityCost = true;
             DecisionQueueController::AddDecision($player, "CUSTOM", "InnervateAgilityActivationCost|" . $reserveCost, 100);
+        }
+    }
+
+    //1.3 Declaring Costs — Golden Gambit (B1EbF6jcYF): sacrifice a Chessman ally
+    if($obj->CardID === "B1EbF6jcYF" && !$ignoreCost) {
+        $targets = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["CHESSMAN"]);
+        if(!empty($targets)) {
+            $hasGoldenGambitCost = true;
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_a_Chessman_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "GoldenGambitActivationCost|" . $reserveCost, 100);
         }
     }
 
@@ -1778,7 +1789,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2813,6 +2824,23 @@ $customDQHandlers["InnervateAgilityActivationCost"] = function($player, $parts, 
     $reserveCost = intval($parts[0] ?? 0);
     if(!Delevel($player)) return;
     RecoverChampion($player, 5);
+    DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+/**
+ * DQ handler: Golden Gambit (B1EbF6jcYF) mandatory activation cost.
+ * Sacrifice the chosen Chessman ally, then pay reserve and grant opportunity.
+ * Parts: [reserveCost].
+ */
+$customDQHandlers["GoldenGambitActivationCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0] ?? 0);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
     DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
     for($i = 0; $i < $reserveCost; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
