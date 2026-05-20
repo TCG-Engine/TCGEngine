@@ -11323,6 +11323,8 @@ function DoDrawCard($player, $amount=1) {
             return; // Draw prevented by Mandate of Honor
         }
         if(count($zone) == 0) {
+            // Grand Archive loss condition: attempting to draw from an empty deck.
+            TriggerGameOver($player);
             return;
         }
         $card = array_shift($zone);
@@ -11371,7 +11373,11 @@ function DrawIntoMemory($player, $amount=1) {
         if(GlobalEffectCount($player, "ri955ygd5v_NO_DRAW") > 0) {
             return;
         }
-        if(count($zone) == 0) return;
+        if(count($zone) == 0) {
+            // Grand Archive loss condition: attempting to draw from an empty deck.
+            TriggerGameOver($player);
+            return;
+        }
         $card = array_shift($zone);
         array_push($memory, $card);
     }
