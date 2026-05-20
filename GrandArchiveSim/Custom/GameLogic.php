@@ -11652,40 +11652,36 @@ $customDQHandlers["HuajiAbyssalFallChoice"] = function($player, $parts, $lastDec
 };
 
 function AngelicChannelingResolve($player) {
-    DecisionQueueController::StoreVariable("AngelicChannelingCount", "0");
-    AngelicChannelingChoose($player);
+    DecisionQueueController::CleanupRemovedCards();
+    $choices = AngelicChannelingChoices($player);
+    if(empty($choices)) return;
+    $targetStr = implode("&", $choices);
+    $maxChoices = min(3, count($choices));
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|".$maxChoices."|".$targetStr, 1, "Banish_up_to_three_advanced_element_cards");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AngelicChannelingBanish", 1);
 }
 
 function AngelicChannelingChoices($player) {
-    $elements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS"];
+    $elements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS", "ARCANE"];
     return array_merge(
         ZoneSearch("myHand", cardElements: $elements),
         ZoneSearch("myMemory", cardElements: $elements)
     );
 }
 
-function AngelicChannelingChoose($player) {
-    $count = intval(DecisionQueueController::GetVariable("AngelicChannelingCount") ?? "0");
-    if($count >= 3) return;
-    DecisionQueueController::CleanupRemovedCards();
-    $choices = AngelicChannelingChoices($player);
-    if(empty($choices)) return;
-    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Banish_advanced_element_card?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "AngelicChannelingBanish", 1);
-}
-
 $customDQHandlers["AngelicChannelingBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $banished = MZMove($player, $lastDecision, "myBanish");
-    if($banished !== null) {
+    $chosenCards = explode("&", $lastDecision);
+    for($i = 0; $i < count($chosenCards); ++$i) {
+        $chosen = $chosenCards[$i];
+        if($chosen === "" || $chosen === "-" || $chosen === "PASS") continue;
+        $banished = MZMove($player, $chosen, "myBanish");
+        if($banished === null) continue;
         if(!is_array($banished->TurnEffects)) $banished->TurnEffects = [];
         $banished->TurnEffects[] = "ANGELIC_CHANNELING";
         AddGlobalEffects($player, "ANGELIC_CHANNELING_PENDING");
         DrawIntoMemory($player, 1);
     }
-    $count = intval(DecisionQueueController::GetVariable("AngelicChannelingCount") ?? "0") + 1;
-    DecisionQueueController::StoreVariable("AngelicChannelingCount", strval($count));
-    AngelicChannelingChoose($player);
 };
 
 function AngelicChannelingLevel3($player) {
@@ -12175,7 +12171,7 @@ function GetStarcallingCost($player, $cardID) {
 }
 
 function IsAdvancedElementCard($cardID) {
-    $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA"];
+    $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS", "ARCANE"];
     foreach($advancedElements as $advancedElement) {
         if(PropertyContains(CardElement($cardID), $advancedElement)) return true;
     }
