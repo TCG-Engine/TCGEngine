@@ -153,7 +153,7 @@ Display: Visibility=Public, Mode=All, BindTo=MasterySlot
 Overlay: Direction=NORTH:sc_north,Direction=SOUTH:sc_south,Direction=EAST:sc_east,Direction=WEST:sc_west
 Counters: SheenCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
 Counters: HauntCounterCount=Badge(Color=Purple,Position=TopRight,ShowZero=false)
-Counters: ServilePossessionsBanishCount=Badge(Color=Purple,Position=Center,ShowZero=true)
+Counters: ServilePossessionsBanishCount=Badge(Color=Purple,Position=Center,ShowZero=true,ShowNegative=false)
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string

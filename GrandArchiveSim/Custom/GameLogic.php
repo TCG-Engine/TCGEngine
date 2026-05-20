@@ -15580,9 +15580,16 @@ function HasServilePossessionsMastery($player) {
 
 // --- Fractured Memories Mastery (UAJGQFbXjs) ---
 
-function HasFracturedMemories($player) {
+function GetFracturedMemoriesMasteryObject($player) {
     $mastery = &GetMastery($player);
-    return !empty($mastery) && $mastery[0]->CardID === "UAJGQFbXjs";
+    for($i = 0; $i < count($mastery); ++$i) {
+        if(isset($mastery[$i]->CardID) && $mastery[$i]->CardID === "UAJGQFbXjs") return $mastery[$i];
+    }
+    return null;
+}
+
+function HasFracturedMemories($player) {
+    return GetFracturedMemoriesMasteryObject($player) !== null;
 }
 
 function GainFracturedMemories($player) {
@@ -15592,28 +15599,29 @@ function GainFracturedMemories($player) {
 }
 
 function GetSheenCount($player) {
-    $mastery = &GetMastery($player);
-    if(empty($mastery) || $mastery[0]->CardID !== "UAJGQFbXjs") return 0;
-    return GetCounterCount($mastery[0], "sheen");
+    $masteryObj = GetFracturedMemoriesMasteryObject($player);
+    if($masteryObj === null) return 0;
+    return GetCounterCount($masteryObj, "sheen");
 }
 
 function AddSheenToMastery($player, $amount) {
     if($amount <= 0) return;
-    $mastery = &GetMastery($player);
-    if(empty($mastery) || $mastery[0]->CardID !== "UAJGQFbXjs") return;
-    if(!isset($mastery[0]->Counters) || !is_array($mastery[0]->Counters)) $mastery[0]->Counters = [];
-    if(!isset($mastery[0]->Counters["sheen"])) $mastery[0]->Counters["sheen"] = 0;
-    $mastery[0]->Counters["sheen"] += $amount;
+    $masteryObj = GetFracturedMemoriesMasteryObject($player);
+    if($masteryObj === null) return;
+    global $playerID;
+    $prefix = $player == $playerID ? "my" : "their";
+    $mzID = $prefix . "Mastery-" . $masteryObj->mzIndex;
+    AddCounters($player, $mzID, "sheen", $amount);
 }
 
 function RemoveSheenFromMastery($player, $amount) {
     if($amount <= 0) return 0;
-    $mastery = &GetMastery($player);
-    if(empty($mastery) || $mastery[0]->CardID !== "UAJGQFbXjs") return 0;
-    $current = GetCounterCount($mastery[0], "sheen");
+    $masteryObj = GetFracturedMemoriesMasteryObject($player);
+    if($masteryObj === null) return 0;
+    $current = GetCounterCount($masteryObj, "sheen");
     $removed = min($amount, $current);
-    $mastery[0]->Counters["sheen"] = $current - $removed;
-    if($mastery[0]->Counters["sheen"] <= 0) unset($mastery[0]->Counters["sheen"]);
+    $masteryObj->Counters["sheen"] = $current - $removed;
+    if($masteryObj->Counters["sheen"] <= 0) unset($masteryObj->Counters["sheen"]);
     return $removed;
 }
 
@@ -15670,7 +15678,7 @@ function GetSheenCounterCount($obj) {
  * Virtual property callback for Mastery zone: Servile Possessions tracks owner's omen count in banishment.
  */
 function GetServilePossessionsBanishCount($obj) {
-    if(!isset($obj->CardID) || $obj->CardID !== "0d93t7bfwc") return 0;
+    if(!isset($obj->CardID) || $obj->CardID !== "0d93t7bfwc") return -1;
     if(!isset($obj->PlayerID)) return 0;
     return GetOmenCount($obj->PlayerID);
 }
