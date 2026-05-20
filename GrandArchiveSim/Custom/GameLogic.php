@@ -18803,6 +18803,7 @@ $customDQHandlers["HoarfrostHoldChoose"] = function($player, $parts, $lastDecisi
 function GetDynamicAbilities($obj) {
     if($obj == null) return "";
     if(HasNoAbilities($obj)) return "";
+    if($obj->Location !== "Field" && $obj->Location !== "Intent") return "";
     global $lineageReleaseAbilities;
     $abilities = [];
     $staticCount = CardActivateAbilityCount($obj->CardID);
