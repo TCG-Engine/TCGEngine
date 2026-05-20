@@ -2356,10 +2356,10 @@ $customDQHandlers["PhantasmagoriaEndPhase"] = function($player, $parts, $lastDec
     DecisionQueueController::CleanupRemovedCards();
     // Mill X where X is haunt counters
     $hauntCount = GetHauntCount($player);
-    for($i = 0; $i < $hauntCount; ++$i) {
+    for($i = $hauntCount-1; $i >= 0; --$i) {
         $deck = &GetDeck($player);
-        if(empty($deck)) break;
-        MZMove($player, "myDeck-0", "myGraveyard");
+        if($i >= count($deck)) continue;
+        MZMove($player, "myDeck-" . $i, "myGraveyard");
     }
 };
 
@@ -8388,9 +8388,8 @@ function EndPhase() {
     // on bottom of deck, then mill X where X is haunt counters.
     if(HasPhantasmagoria($turnPlayer) && IsAliceBonusActive($turnPlayer)) {
         $gy = &GetGraveyard($turnPlayer);
-        $hasGYCards = false;
-        foreach($gy as $g) { if(!$g->removed) { $hasGYCards = true; break; } }
-        if($hasGYCards && GetHauntCount($turnPlayer) > 0) {
+        foreach($gy as $g) { if(!$g->removed) { break; } }
+        if(GetHauntCount($turnPlayer) > 0) {
             DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1,
                 tooltip:"Put_all_graveyard_cards_on_bottom_of_deck,_then_mill_X_(haunt_counters)?");
             DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "PhantasmagoriaEndPhase", 1);
