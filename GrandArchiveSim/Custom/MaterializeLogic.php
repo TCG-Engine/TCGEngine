@@ -93,6 +93,11 @@ function MaterializeChoice($ignoreCost = false) {
     }
     DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $legalChoices), 1);
     DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", $handlerParam, 1);
+    // Snapshot after enqueueing the materialize prompt so undo restores with
+    // the pending choice still in the decision queue.
+    // Use turn player identity explicitly so undo ownership is correct even if
+    // perspective/global player tracking still reflects the prior priority pass.
+    SaveUndoVersion($turnPlayer, "Materialize Choice");
     return true;
 }
 
