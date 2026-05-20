@@ -4478,6 +4478,9 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "9g44vm5kt3": // Empowering Tincture: sacrifice self
         case "14m4c8ljye": // Condensed Supernova: sacrifice self
         case "0Z1r8GC8a8": // Speed Potion: sacrifice self
+            if(PropertyContains(CardSubtypes($cardID), "HERB")) {
+                TriggerHerbSacrificeEffects($player, 1);
+            }
             ProcessPotionInfusionTriggers($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
@@ -12437,21 +12440,30 @@ function DoSacrificeFighter($player, $mzCard) {
     $isHerb = $obj !== null && PropertyContains(CardSubtypes($obj->CardID), "HERB");
     $controller = $obj !== null ? $obj->Controller : $player;
     DoAllyDestroyed($player, $mzCard);
+    if($isHerb) TriggerHerbSacrificeEffects($controller, 1);
+}
+
+function TriggerHerbSacrificeEffects($controller, $count = 1) {
+    $count = max(0, intval($count));
+    if($count <= 0) return;
+
     // Foretold Bloom (lnhzj43qiw): whenever you sacrifice an Herb, Glimpse 2
-    if($isHerb && GlobalEffectCount($controller, "FORETOLD_BLOOM") > 0) {
-        Glimpse($controller, 2);
+    if(GlobalEffectCount($controller, "FORETOLD_BLOOM") > 0) {
+        for($i = 0; $i < $count; ++$i) {
+            Glimpse($controller, 2);
+        }
     }
-    // Polaris, Twinkling Cauldron (41t71u4bzz): whenever you sacrifice an Herb â†’ age counter
-    if($isHerb) {
-        $polFieldZone = &GetField($controller);
-        for($pi = 0; $pi < count($polFieldZone); ++$pi) {
-            if(!$polFieldZone[$pi]->removed && $polFieldZone[$pi]->CardID === "41t71u4bzz" && !HasNoAbilities($polFieldZone[$pi])) {
-                $polFieldName = (GetTurnPlayer() == $controller) ? "myField" : "theirField";
-                global $playerID;
-                $polFieldName = ($controller == $playerID) ? "myField" : "theirField";
+
+    // Polaris, Twinkling Cauldron (41t71u4bzz): whenever you sacrifice an Herb -> age counter
+    $polFieldZone = &GetField($controller);
+    global $playerID;
+    $polFieldName = ($controller == $playerID) ? "myField" : "theirField";
+    for($pi = 0; $pi < count($polFieldZone); ++$pi) {
+        if(!$polFieldZone[$pi]->removed && $polFieldZone[$pi]->CardID === "41t71u4bzz" && !HasNoAbilities($polFieldZone[$pi])) {
+            for($i = 0; $i < $count; ++$i) {
                 AddCounters($controller, $polFieldName . "-" . $pi, "age", 1);
-                break;
             }
+            break;
         }
     }
 }
@@ -18414,6 +18426,10 @@ function GetWitherCounterCount($obj) {
 
 function GetChargeCounterCount($obj) {
     return GetCounterCount($obj, "charge");
+}
+
+function GetAgeCounterCount($obj) {
+    return GetCounterCount($obj, "age");
 }
 
 // --- Omen Counter Helpers ---

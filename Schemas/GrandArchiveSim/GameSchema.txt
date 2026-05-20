@@ -87,6 +87,7 @@ Virtual: GlimmerCounterCount=GetGlimmerCounterCount()
 Virtual: WitherCounterCount=GetWitherCounterCount()
 Virtual: ChargeCounterCount=GetChargeCounterCount()
 Virtual: SheenCounterCount=GetSheenCounterCount()
+Virtual: AgeCounterCount=GetAgeCounterCount()
 Virtual: QuestCounterCount=GetQuestCounterCountForObject()
 Virtual: DynamicAbilities=GetDynamicAbilities()
 Virtual: ActivateAbilityButtonStates=GetActivateAbilityButtonStates()
@@ -110,6 +111,7 @@ Counters: GlimmerCounterCount=Badge(Color=Magenta,Position=Center,ShowZero=false
 Counters: WitherCounterCount=Badge(Color=DarkGreen,Position=Center,ShowZero=false)
 Counters: ChargeCounterCount=Badge(Color=Gold,Position=Center,ShowZero=false)
 Counters: SheenCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
+Counters: AgeCounterCount=Badge(Color=Orange,Position=Center,ShowZero=false)
 Counters: QuestCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
 AfterAdd: FieldAfterAdd
 Highlight: FieldSelectionMetadata
