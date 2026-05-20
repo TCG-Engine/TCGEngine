@@ -7947,13 +7947,18 @@ function EndPhase() {
         }
     }
 
-    // Agility 3: return up to three cards from memory to hand at beginning of end phase.
-    if(GlobalEffectCount($turnPlayer, "AGILITY_3") > 0) {
-        for($agi = 0; $agi < 3; ++$agi) {
-            $memory = GetMemory($turnPlayer);
-            if(empty($memory)) break;
-            MZMove($turnPlayer, "myMemory-0", "myHand");
-        }
+    // Agility N: at beginning of end phase, return N cards from memory to hand.
+    $agilityToReturn = 0;
+    foreach(GetGlobalEffects($turnPlayer) as $effectObj) {
+        if(!preg_match('/^AGILITY_(\d+)$/', $effectObj->CardID, $matches)) continue;
+        $agilityToReturn += intval($matches[1]);
+    }
+    global $playerID;
+    $memoryZoneRef = ($turnPlayer == $playerID) ? "myMemory" : "theirMemory";
+    $handZoneRef = ($turnPlayer == $playerID) ? "myHand" : "theirHand";
+    for($agi = $agilityToReturn - 1; $agi >= 0; --$agi) {
+        if($agi >= count(GetMemory($turnPlayer))) continue;
+        MZMove($playerID, $memoryZoneRef . "-" . $agi, $handZoneRef);
     }
 
     // Devious Welcome (vz4kc558yx): next end phase discard if chosen type wasn't activated.
