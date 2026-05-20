@@ -1,5 +1,5 @@
 //Rotate is deprecated
-      function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "") {
+      function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "") {
         if (folder == "crops") {
           cardNumber += "_cropped";
         }
@@ -80,7 +80,28 @@
             var gradientOverlay = heatmapValue == -1 ? "rgba(0, 0, 0, 0.5)" : `linear-gradient(to top, ${overlayColor}, rgba(255, 255, 255, 0))`;
             rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + "style='visibility:visible; width:calc(100% - 2px); height:calc(100% - 2px); top:1px; left:1px; border-radius:6px; position:absolute; background: " + gradientOverlay + "; z-index: 1; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; color: white; text-shadow: 2px 2px 4px black;'>" + (heatmapValue == -1 ? "No Data" : (heatmapValue * 100).toFixed(2) + "%") + "</div>";
         } else {
-          rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + "style='visibility:" + (overlay == 1 ? "visible" : "hidden") + "; width:calc(100% - 4px); height:calc(100% - 4px); top:2px; left:2px; border-radius:10px; position:absolute; background: rgba(0, 0, 0, 0.5); z-index: 1;'></div>";
+          var overlayTypeList = [];
+          if (typeof overlayTypes === "string" && overlayTypes.length > 0) {
+            overlayTypeList = overlayTypes.split("&").filter(function(v) { return v !== ""; });
+          }
+          var hasExhaustedOverlay = overlayTypeList.indexOf("exhausted") !== -1;
+          var hasDistantOverlay = overlayTypeList.indexOf("distant") !== -1;
+          var overlayStyle = "visibility:" + (overlay == 1 ? "visible" : "hidden")
+            + "; width:calc(100% - 4px); height:calc(100% - 4px); top:2px; left:2px; border-radius:10px; position:absolute; z-index: 1;";
+          if (hasExhaustedOverlay) {
+            overlayStyle += " background: rgba(0, 0, 0, 0.5);";
+          } else {
+            overlayStyle += " background: transparent;";
+          }
+          rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + " data-overlay-types='" + overlayTypeList.join(",") + "' style='" + overlayStyle + "'>";
+          if (hasDistantOverlay) {
+            rv += "<div style='position:absolute; left:50%; bottom:6px; transform:translateX(-50%);"
+              + "padding:1px 7px; border-radius:8px; border:1px solid rgba(255,255,255,0.85);"
+              + "background:rgba(15,20,28,0.78); color:#ffffff; font-family:Helvetica,Arial,sans-serif;"
+              + "font-size:10px; letter-spacing:0.8px; font-weight:700; text-transform:uppercase;"
+              + "line-height:1.2; white-space:nowrap; pointer-events:none;'>DISTANT</div>";
+          }
+          rv += "</div>";
         }
 
         var darkMode = false;
@@ -722,13 +743,26 @@
 
         // Determine overlay parameter for Card()
         var overlay = 0;
+        var overlayTypes = [];
         try {
           if (typeof OverlayRules !== 'undefined' && OverlayRules[zoneName]) {
             var cardData = sharedCardData;
             OverlayRules[zoneName].forEach(function(rule) {
-              if (cardData.hasOwnProperty(rule.field) && String(cardData[rule.field]) === String(rule.value)) {
-                overlay = 1;
+              if (!cardData.hasOwnProperty(rule.field)) return;
+              var fieldValue = cardData[rule.field];
+              var matches = false;
+              if (Array.isArray(fieldValue)) {
+                matches = fieldValue.some(function(v) { return String(v) === String(rule.value); });
+              } else {
+                matches = String(fieldValue) === String(rule.value);
               }
+              if (matches) {
+                overlay = 1;
+                if (rule.overlay) overlayTypes.push(String(rule.overlay));
+              }
+            });
+            overlayTypes = overlayTypes.filter(function(type, idx) {
+              return overlayTypes.indexOf(type) === idx;
             });
           }
         } catch (e) {}
@@ -755,7 +789,7 @@
         else newHTML += "<span " + styles + droppable + click + ">";
 
         var renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
-        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id);
+        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id, overlayTypes.join("&"));
 
         try {
           if (combatIndicatorText) {

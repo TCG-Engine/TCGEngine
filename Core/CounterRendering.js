@@ -433,15 +433,16 @@ function CreateCountersHTML(zoneName, cardArr, id) {
       var sizePx = 22;
       var bg = params.Color ? params.Color : 'red';
       var textColor = params.TextColor ? params.TextColor : getReadableTextColor(bg);
-      var posStyle = 'top:6px; right:6px;';
+      var cornerInsetPx = 3;
+      var posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;';
       var pos = params.Position ? params.Position.toLowerCase() : 'topright';
       switch(pos) {
-        case 'topleft': posStyle = 'top:6px; left:6px;'; break;
-        case 'topright': posStyle = 'top:6px; right:6px;'; break;
-        case 'bottomleft': posStyle = 'bottom:6px; left:6px;'; break;
-        case 'bottomright': posStyle = 'bottom:6px; right:6px;'; break;
+        case 'topleft': posStyle = 'top:' + cornerInsetPx + 'px; left:' + cornerInsetPx + 'px;'; break;
+        case 'topright': posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;'; break;
+        case 'bottomleft': posStyle = 'bottom:' + cornerInsetPx + 'px; left:' + cornerInsetPx + 'px;'; break;
+        case 'bottomright': posStyle = 'bottom:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;'; break;
         case 'center': posStyle = 'top:50%; left:50%; transform: translate(-50%, -50%);'; break;
-        default: posStyle = 'top:6px; right:6px;';
+        default: posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;';
       }
       
       if (type.toLowerCase() === 'badge') {
