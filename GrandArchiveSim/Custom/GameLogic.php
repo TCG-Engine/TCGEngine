@@ -1447,6 +1447,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasSlimeKingCost            = false;
     $hasInnervateAgilityCost     = false;
     $hasGoldenGambitCost         = false;
+    $hasArgusReserveAltCost      = false;
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
     if(isset($additionalActivationCosts[$obj->CardID])) {
@@ -1488,6 +1489,26 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $hasGoldenGambitCost = true;
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_a_Chessman_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "GoldenGambitActivationCost|" . $reserveCost, 100);
+        }
+    }
+
+    // 1.3 Declaring Costs — Argus, All-Seeing Giant (4GFKcHg9NU):
+    // While paying reserve cost, you may banish Crystal/Eye of Argus from material (each pays 3).
+    if($obj->CardID === "4GFKcHg9NU" && !$ignoreCost && $reserveCost > 0) {
+        $eligible = [];
+        $material = GetZone("myMaterial");
+        for($mi = 0; $mi < count($material); ++$mi) {
+            if($material[$mi]->removed) continue;
+            $matId = $material[$mi]->CardID;
+            if($matId === "j5iQQPd2m5" || $matId === "iiZtKTulPg") {
+                $eligible[] = "myMaterial-" . $mi;
+            }
+        }
+        if(!empty($eligible)) {
+            $hasArgusReserveAltCost = true;
+            DecisionQueueController::StoreVariable("argusReserveRemaining", strval($reserveCost));
+            DecisionQueueController::StoreVariable("argusReserveCanBanish", strval(count($eligible)));
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ArgusReserveChoice", 100);
         }
     }
 
@@ -1790,7 +1811,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasArgusReserveAltCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2758,6 +2779,72 @@ $customDQHandlers["KindleProcess"] = function($player, $parts, $lastDecision) {
         DecisionQueueController::StoreVariable("isImbued", "NO");
         DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
     }
+};
+
+$customDQHandlers["ArgusReserveChoice"] = function($player, $parts, $lastDecision) {
+    $remaining = intval(DecisionQueueController::GetVariable("argusReserveRemaining") ?? "0");
+    $canBanish = intval(DecisionQueueController::GetVariable("argusReserveCanBanish") ?? "0");
+    if($remaining <= 0 || $canBanish <= 0) {
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::StoreVariable("isImbued", "NO");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        return;
+    }
+
+    $choices = [];
+    $material = GetZone("myMaterial");
+    for($mi = 0; $mi < count($material); ++$mi) {
+        if($material[$mi]->removed) continue;
+        $matId = $material[$mi]->CardID;
+        if($matId === "j5iQQPd2m5" || $matId === "iiZtKTulPg") {
+            $choices[] = "myMaterial-" . $mi;
+        }
+    }
+
+    if(empty($choices)) {
+        $canBanish = 0;
+    } else {
+        $tooltip = "Banish_Crystal/Eye_of_Argus_to_pay_3_reserve?";
+        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $choices), 100, tooltip:$tooltip);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ArgusReserveApply", 100);
+        return;
+    }
+
+    for($i = 0; $i < $remaining; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+$customDQHandlers["ArgusReserveApply"] = function($player, $parts, $lastDecision) {
+    $remaining = intval(DecisionQueueController::GetVariable("argusReserveRemaining") ?? "0");
+    $canBanish = intval(DecisionQueueController::GetVariable("argusReserveCanBanish") ?? "0");
+
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        MZMove($player, $lastDecision, "myBanish");
+        DecisionQueueController::CleanupRemovedCards();
+        $remaining = max(0, $remaining - 3);
+        $canBanish = max(0, $canBanish - 1);
+    } else {
+        $canBanish = 0;
+    }
+
+    DecisionQueueController::StoreVariable("argusReserveRemaining", strval($remaining));
+    DecisionQueueController::StoreVariable("argusReserveCanBanish", strval($canBanish));
+
+    if($remaining > 0 && $canBanish > 0) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ArgusReserveChoice", 100);
+        return;
+    }
+
+    for($i = 0; $i < $remaining; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
 // Break Apart (4ns2jbt4hq): DQ handler for the YESNO choice of whether to target a regalia
@@ -16727,6 +16814,7 @@ function MaryAnnOmensHaveKeyword($obj, $keyword) {
 
 function HasVigor($obj) {
     if(HasNoAbilities($obj)) return false;
+    if($obj->CardID === "4GFKcHg9NU") return true; // Argus, All-Seeing Giant
     if(MaryAnnOmensHaveKeyword($obj, "Vigor")) return true;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     if($obj->CardID === "wAabqFjdM5") {
@@ -17065,6 +17153,10 @@ function HasStealth($obj) {
     if(in_array("STEALTH", $obj->TurnEffects)) return true;
     // STEALTH_NEXT_TURN: persistent stealth until beginning of controller's next turn (e.g. Zander)
     if(in_array("STEALTH_NEXT_TURN", $obj->TurnEffects)) return true;
+    // OMNISHROUD includes stealth + spellshroud.
+    if(in_array("OMNISHROUD", $obj->TurnEffects ?? [])) return true;
+    // Argus, All-Seeing Giant: as long as it's awake, it has omnishroud.
+    if($obj->CardID === "4GFKcHg9NU" && intval($obj->Status ?? 0) === 2) return true;
     // Check for temporary stealth effects granted by other cards
     // Zhang He, Cloak of Night (09axbotwlz): target ally gains stealth for as long as you control Zhang He
     if(is_array($obj->Counters) && isset($obj->Counters['zhangHeStealth']) && $obj->Counters['zhangHeStealth']) {
@@ -17131,6 +17223,7 @@ function HasIntercept($obj) {
 function HasTrueSight($obj) {
     if($obj === null) return false;
     if(HasNoAbilities($obj)) return false;
+    if($obj->CardID === "4GFKcHg9NU") return true; // Argus, All-Seeing Giant
     if(MaryAnnOmensHaveKeyword($obj, "TrueSight")) return true;
     if(HasKeyword_TrueSight($obj)) return true;
     if(in_array("TRUE_SIGHT", $obj->TurnEffects)) return true;
@@ -17185,6 +17278,8 @@ function HasSpellshroud($obj) {
     if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($obj)) return true;
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
+    if(in_array("OMNISHROUD", $obj->TurnEffects ?? [])) return true;
+    if($obj->CardID === "4GFKcHg9NU" && intval($obj->Status ?? 0) === 2) return true;
     // Innervate Agility: units gain spellshroud until EOT via global effect
     $effects = explode(",", CardCurrentEffects($obj));
     if(in_array("INNERVATE_SPELLSHROUD", $effects)) return true;
