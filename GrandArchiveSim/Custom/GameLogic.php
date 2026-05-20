@@ -994,11 +994,12 @@ function ActionMap($actionCard)
                 $mObj = GetZoneObject($actionCard);
                 if($mObj !== null && !$mObj->removed && $mObj->CardID === "41t71u4bzz"
                     && IsArisannaBonusActive($playerID)) {
-                    DecisionQueueController::StoreVariable("polarisFromMaterial", "YES");
-                    $handObj = MZMove($playerID, $actionCard, "myHand");
-                    $hand = &GetHand($playerID);
-                    $handIdx = count($hand) - 1;
-                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    DecisionQueueController::StoreVariable("polarisActivateFromMaterial", "YES");
+                        echo("Action card: " . $actionCard);
+                    DecisionQueueController::AddDecision($playerID, "PASSPARAMETER", $actionCard, 1);
+                    DecisionQueueController::AddDecision($playerID, "CUSTOM", "MATERIALIZE", 1);
+                    $dqController = new DecisionQueueController();
+                    $dqController->ExecuteStaticMethods($playerID, "-");
                     return "PLAY";
                 }
             }

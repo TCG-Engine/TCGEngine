@@ -701,6 +701,11 @@ function DoMaterialize($player, $mzCard) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
     $sourceId = $sourceObject->CardID;
+    $polarisFromMaterial = ($sourceId === "41t71u4bzz"
+        && DecisionQueueController::GetVariable("polarisActivateFromMaterial") === "YES");
+    if($polarisFromMaterial) {
+        DecisionQueueController::ClearVariable("polarisActivateFromMaterial");
+    }
 
     // Obstinate Cragback: opponents can't materialize cards with memory cost 0.
     if(CardMemoryCost($sourceObject) === 0) {
@@ -1073,6 +1078,9 @@ function DoMaterialize($player, $mzCard) {
             }
         }
     } else {
+        if($polarisFromMaterial) {
+            $sourceObject->Status = 1;
+        }
         MZMove($player, $mzCard, "myField");
     }
 
