@@ -573,7 +573,7 @@ function CanActivateAttackCardNow($player, $cardID, $setFlash = true) {
 }
 
 //TODO: Add this to a schema
-function ActionMap($actionCard)
+function ActionMap($actionCard, $allowDuringDecisionQueue = false)
 {
     global $playerID;
     $turnPlayer = &GetTurnPlayer();
@@ -585,7 +585,7 @@ function ActionMap($actionCard)
     // Block all FSM actions while any player has pending DQ decisions
     // (Opportunity windows, ability choices, combat decisions, etc.)
     $dqController = new DecisionQueueController();
-    if(!$dqController->AllQueuesEmpty()) return "";
+    if(!$allowDuringDecisionQueue && !$dqController->AllQueuesEmpty()) return "";
 
     switch ($cardZone) {
         case "myHand":
@@ -13518,6 +13518,17 @@ function CanActExhausted($obj) {
 // Returns a gold glow if the current player can pay the ephemerate cost for this card, false otherwise.
 function EphemerateMeta($obj) {
     global $playerID;
+    if (function_exists("HasOpportunity") && HasOpportunity($playerID)
+        && function_exists("GetPlayableOpportunityChoices")) {
+        $mzID = SelectionMetadataMzID($obj);
+        if ($mzID !== null) {
+            $opportunityChoices = GetPlayableOpportunityChoices($playerID);
+            if (in_array($mzID, $opportunityChoices, true)) {
+                return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+            }
+        }
+    }
+
     $currentPhase = GetCurrentPhase();
     if ($currentPhase !== "MAIN") {
         return json_encode(['highlight' => false]);
@@ -13616,6 +13627,18 @@ function MaterialSelectionMetadata($obj) {
 // Virtual property: returns highlight metadata for banish cards that can be activated via specific mechanics.
 // Each check mirrors the exact FSM condition in the myBanish case of CardClick/FSM.
 function BanishSelectionMetadata($obj) {
+    global $playerID;
+                //return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    if (HasOpportunity($playerID)) {
+        $mzID = SelectionMetadataMzID($obj);
+        if ($mzID !== null) {
+            $opportunityChoices = GetPlayableOpportunityChoices($playerID);
+            if (in_array($mzID, $opportunityChoices, true)) {
+                return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+            }
+        }
+    }
+
     $turnPlayer = GetTurnPlayer();
 
     // Only highlight cards belonging to the turn player

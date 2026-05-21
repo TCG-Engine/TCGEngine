@@ -12,6 +12,40 @@
 function HasOpportunity($player) {
     if(!empty(GetLiveEffectStackEntries())) return true;
     if(IsCombatActive()) return true;
+    if(PlayerHasFastOpportunityDecision($player)) return true;
+
+    $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
+    if($pendingHandler !== null && $pendingHandler !== "") return true;
+
+    return false;
+}
+
+function PlayerHasFastOpportunityDecision($player) {
+    $player = intval($player);
+    $queue = GetDecisionQueue($player);
+    for($i = 0; $i < count($queue); ++$i) {
+        $decision = $queue[$i];
+        if($decision === null || !is_object($decision)) continue;
+        if(isset($decision->removed) && $decision->removed) continue;
+
+        $type = $decision->Type ?? "";
+        $tooltip = $decision->Tooltip ?? "";
+        $param = $decision->Param ?? "";
+
+        if(($type === "MZCHOOSE" || $type === "MZMAYCHOOSE") && $tooltip === "Take_a_fast_action?") {
+            return true;
+        }
+
+        if($type === "CUSTOM") {
+            if($param === "EffectStackOpportunity"
+                || strpos($param, "EffectStackActiveResponse") === 0
+                || $param === "EffectStackOpponentResponse"
+                || $param === "OpportunityWindowFirstResponse"
+                || $param === "OpportunityWindowSecondResponse") {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
@@ -655,6 +689,11 @@ function ResolveOpportunitySelection($player, $selection) {
         return true;
     }
 
+    if(TryResolveOpportunityActionMapSelection($player, $selection)) {
+        ResumeIdleEffectStackIfNeeded();
+        return true;
+    }
+
     if(TryLostPromisesMemory($player, $selection) || TryGlimmerCast($player, $selection)) {
         ResumeIdleEffectStackIfNeeded();
         return true;
@@ -685,8 +724,64 @@ function CanActivateOpportunityCard($player, $mzID, $obj) {
     return true;
 }
 
+function TryResolveOpportunityActionMapSelection($player, $selection) {
+    if(!is_string($selection) || $selection === "") return false;
+    $isZoneSelection = strpos($selection, "myGraveyard-") === 0
+        || strpos($selection, "myBanish-") === 0;
+    if(!$isZoneSelection) return false;
+    if(!function_exists("ActionMap")) return false;
+
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+    $result = ActionMap($selection, true);
+    $playerID = $savedPlayerID;
+    return $result === "PLAY";
+}
+
+function CanUseFastOpportunityGraveyardCard($player, $mzID, $obj) {
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
+    if(CardSpeed($obj->CardID) !== true) return false;
+    if(!CanActivateOpportunityCard($player, $mzID, $obj)) return false;
+    if(function_exists("IsPhantasmagoriaGYSuppressed") && IsPhantasmagoriaGYSuppressed($player, $obj->CardID)) return false;
+
+    if($obj->CardID === "w7o3agvvnc") {
+        return IsClassBonusActive($player, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($player);
+    }
+
+    if($obj->CardID === "MG8QoeZBXY") {
+        return IsClassBonusActive($player, ["RANGER"])
+            && CountAvailableReservePayments($player) >= 3
+            && !empty(GetAetherwingWeapons($player));
+    }
+
+    if(CanPayEphemerate($player, $obj->CardID)) return true;
+    return false;
+}
+
+function CanUseFastOpportunityBanishCard($player, $mzID, $obj) {
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
+    if(CardSpeed($obj->CardID) !== true) return false;
+    if(!CanActivateOpportunityCard($player, $mzID, $obj)) return false;
+    $turnEffects = $obj->TurnEffects ?? [];
+
+    if($obj->CardID === "w7o3agvvnc") {
+        return IsClassBonusActive($player, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($player);
+    }
+
+    if($obj->CardID === "uutqo9hm33" && GetCounterCount($obj, "charge") > 0) return true;
+    if($obj->CardID === "RhSPMn8Lix" && in_array("_ignitionDraw", $turnEffects)) return true;
+    if($obj->CardID === "5Xfg69S1XX" && in_array("_seethingIntercession", $turnEffects)) return true;
+    if($obj->CardID === "fjpimrl974" && in_array("_ashenRiffle", $turnEffects)) return true;
+    return false;
+}
+
 function GetPlayableFastCards($player) {
+    global $playerID;
     global $cbFastActivationCards, $unconditionalFastCards;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+
     $hand = &GetHand($player);
     $fastCards = [];
     for($i = 0; $i < count($hand); $i++) {
@@ -804,6 +899,27 @@ function GetPlayableFastCards($player) {
         }
     }
 
+    $graveyard = GetZone("myGraveyard");
+    for($gi = 0; $gi < count($graveyard); ++$gi) {
+        $gyObj = $graveyard[$gi];
+        if($gyObj === null || (isset($gyObj->removed) && $gyObj->removed)) continue;
+        $mzID = "myGraveyard-" . $gi;
+        if(CanUseFastOpportunityGraveyardCard($player, $mzID, $gyObj)) {
+            $fastCards[] = $mzID;
+        }
+    }
+
+    $banish = GetZone("myBanish");
+    for($bi = 0; $bi < count($banish); ++$bi) {
+        $bObj = $banish[$bi];
+        if($bObj === null || (isset($bObj->removed) && $bObj->removed)) continue;
+        $mzID = "myBanish-" . $bi;
+        if(CanUseFastOpportunityBanishCard($player, $mzID, $bObj)) {
+            $fastCards[] = $mzID;
+        }
+    }
+
+    $playerID = $savedPlayerID;
     return $fastCards;
 }
 
