@@ -17,6 +17,7 @@ import {
   listScenarioTemplates,
   newTestFromScenario,
   runTest,
+  rerecordFailingTests,
   saveTest,
   enumerateLegalActions,
   applyEngineAction,
@@ -330,6 +331,27 @@ server.tool(
   async (params) => {
     try {
       const result = await runTest(params.root, params.slug);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], isError: !result.success };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: rerecord_failing_tests
+// ---------------------------------------------------------------------------
+server.tool(
+  "rerecord_failing_tests",
+  "Run all integration fixtures for a root, re-record snapshots for failing tests, and optionally verify the updated snapshots by re-running those tests.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    verifyAfter: z.boolean().optional().describe("If true (default), re-run each re-recorded test and report any that still fail."),
+  },
+  { destructiveHint: true },
+  async (params) => {
+    try {
+      const result = await rerecordFailingTests(params.root, params.verifyAfter ?? true);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], isError: !result.success };
     } catch (err: any) {
       return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };

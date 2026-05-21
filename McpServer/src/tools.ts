@@ -1074,6 +1074,74 @@ export async function runTest(root: string, slug: string): Promise<any> {
   }
 }
 
+function listIntegrationFixtureSlugs(root: string): string[] {
+  const rootDir = path.join(ENGINE_ROOT, 'Tests', 'Integration', root);
+  if (!fs.existsSync(rootDir)) return [];
+  return fs
+    .readdirSync(rootDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+    .sort((left, right) => left.localeCompare(right));
+}
+
+export async function rerecordFailingTests(root: string, verifyAfter: boolean = true): Promise<{
+  success: boolean;
+  root: string;
+  totalFixtures: number;
+  failuresFound: number;
+  rerecorded: string[];
+  stillFailing: string[];
+}> {
+  const slugs = listIntegrationFixtureSlugs(root);
+  if (slugs.length === 0) {
+    return {
+      success: true,
+      root,
+      totalFixtures: 0,
+      failuresFound: 0,
+      rerecorded: [],
+      stillFailing: [],
+    };
+  }
+
+  const failures: string[] = [];
+  for (const slug of slugs) {
+    const result = await runTest(root, slug);
+    if (!result.success) failures.push(slug);
+  }
+
+  const rerecorded: string[] = [];
+  for (const slug of failures) {
+    try {
+      await execFileAsync(
+        'php',
+        [path.join(ENGINE_ROOT, 'DevTools', 'RunIntegrationTests.php'), `--root=${root}`, `--test=${slug}`, '--update-snapshots'],
+        { cwd: ENGINE_ROOT, maxBuffer: 10 * 1024 * 1024 }
+      );
+      rerecorded.push(slug);
+    } catch {
+      // Keep going so we can return a complete status report.
+    }
+  }
+
+  const stillFailing: string[] = [];
+  if (verifyAfter) {
+    for (const slug of rerecorded) {
+      const verifyResult = await runTest(root, slug);
+      if (!verifyResult.success) stillFailing.push(slug);
+    }
+  }
+
+  return {
+    success: stillFailing.length === 0,
+    root,
+    totalFixtures: slugs.length,
+    failuresFound: failures.length,
+    rerecorded,
+    stillFailing,
+  };
+}
+
 function appendActionToFixture(root: string, slug: string, action: any): { success: boolean; slug: string; actionCount: number } {
   const actionsPath = path.join(integrationFixtureDir(root, slug), 'actions.json');
   const current = fs.existsSync(actionsPath) ? JSON.parse(fs.readFileSync(actionsPath, 'utf-8')) : [];
