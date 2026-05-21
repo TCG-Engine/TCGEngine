@@ -73,8 +73,11 @@ if (empty($fixtures)) {
 }
 
 $failures = 0;
+$passes = 0;
+$executed = 0;
 
 foreach ($fixtures as $slug) {
+  ++$executed;
   $fixtureDir = RegressionFixtureDir($args['root'], $slug);
   if (!is_dir($fixtureDir)) {
     echo "[FAIL] {$slug}: fixture directory not found.\n";
@@ -148,7 +151,10 @@ foreach ($fixtures as $slug) {
     if ($args['test'] !== null) break;
   } else {
     echo "[PASS] {$label}\n";
+    ++$passes;
   }
 }
+
+echo "[SUMMARY] Total: {$executed} | Pass: {$passes} | Fail: {$failures}\n";
 
 exit($failures > 0 ? 1 : 0);
