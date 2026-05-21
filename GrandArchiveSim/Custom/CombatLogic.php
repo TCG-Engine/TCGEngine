@@ -733,6 +733,9 @@ function DeclareChampionAttack($player) {
         }
     }
 
+    // Create an undo point once declaration is validated, right before state changes.
+    SaveUndoVersion($player, "Declare Attack");
+
     // Rest the champion as cost (Grand Archive: "rest" = exhaust)
     RestCard($player, $championMZ);
 
@@ -1029,6 +1032,9 @@ function BeginCombatPhase($actionCard) {
             return false;
         }
     }
+
+    // Create an undo point once declaration is validated, right before state changes.
+    SaveUndoVersion($turnPlayer, "Declare Attack");
 
     // Step 2.a' -- Rest the attacker as a cost to attack
     RestCard($turnPlayer, $actionCard);
