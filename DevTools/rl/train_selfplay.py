@@ -34,7 +34,7 @@ def main() -> None:
     parser.add_argument("--deck-file", required=True)
     parser.add_argument("--episodes", type=int, default=100)
     parser.add_argument("--seed", type=int, default=123)
-    parser.add_argument("--max-steps", type=int, default=400)
+    parser.add_argument("--max-steps", type=int, default=1000)
     parser.add_argument("--max-turns", type=int, default=100)
     parser.add_argument("--max-actions", type=int, default=256)
     parser.add_argument("--learning-rate", type=float, default=0.05)
@@ -148,7 +148,20 @@ def main() -> None:
                     }
                 )
 
-                obs, reward, done, mask, info = env.step(action_index)
+                try:
+                    obs, reward, done, mask, info = env.step(action_index)
+                except Exception as exc:
+                    done = True
+                    reward = 0.0
+                    info = {
+                        "winner": 0,
+                        "isTerminal": False,
+                        "timedOut": True,
+                        "stepCount": len(replay_actions),
+                        "gamestateHash": "",
+                        "legalKind": "engine-error",
+                        "error": str(exc),
+                    }
                 timings = info.get("timingsMs", {})
                 ep_timing["applyMs"] += int(timings.get("apply", 0) or 0)
                 ep_timing["snapshotMs"] += int(timings.get("snapshot", 0) or 0)

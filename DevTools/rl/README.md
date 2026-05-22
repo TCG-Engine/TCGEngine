@@ -20,7 +20,7 @@ Use the same free-text format already supported by `GrandArchiveSim/Custom/DeckT
 ## Train
 
 ```bash
-python DevTools/rl/train_selfplay.py --root GrandArchiveSim --deck-file path/to/deck.txt --episodes 100 --seed 123
+python DevTools/rl/train_selfplay.py --root GrandArchiveSim --deck-file path/to/deck.txt --episodes 100 --seed 123 --max-steps 1000
 ```
 
 Artifacts are written under `DevTools/rl/artifacts/runs/<run_id>/`.
@@ -28,7 +28,7 @@ Artifacts are written under `DevTools/rl/artifacts/runs/<run_id>/`.
 ## Evaluate
 
 ```bash
-python DevTools/rl/eval_selfplay.py --root GrandArchiveSim --deck-file path/to/deck.txt --checkpoint DevTools/rl/artifacts/runs/<run_id>/checkpoints/latest.json --matches 50 --seed 123
+python DevTools/rl/eval_selfplay.py --root GrandArchiveSim --deck-file path/to/deck.txt --checkpoint DevTools/rl/artifacts/runs/<run_id>/checkpoints/latest.json --matches 50 --seed 123 --max-steps 1000
 ```
 
 ## Replay an episode into `Games/<gameName>` for UI debugging

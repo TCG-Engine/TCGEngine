@@ -7,7 +7,7 @@ from bridge_client import BridgeClient
 @dataclass
 class EnvConfig:
     root: str = "GrandArchiveSim"
-    max_steps: int = 400
+    max_steps: int = 1000
     max_turns: int = 100
     per_step_penalty: float = 0.0
 

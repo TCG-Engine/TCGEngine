@@ -668,30 +668,38 @@ function BridgeEnumerateFSMActionsForZone($player, $zoneName) {
     // - MaterialSelectionMetadata mirrors ActionMap myMaterial conditions.
     // - EphemerateMeta captures memory-cast legality (ephemerate/glimmer/opportunity).
     if ($zoneName === 'myMaterial' && function_exists('MaterialSelectionMetadata')) {
-      $metaJson = MaterialSelectionMetadata($obj);
-      $meta = json_decode(strval($metaJson), true);
-      $isHighlighted = false;
-      if (is_array($meta)) {
-        if (isset($meta['highlight'])) {
-          $isHighlighted = boolval($meta['highlight']);
-        } else if (isset($meta['color']) && strval($meta['color']) !== '') {
-          $isHighlighted = true;
+      try {
+        $metaJson = MaterialSelectionMetadata($obj);
+        $meta = json_decode(strval($metaJson), true);
+        $isHighlighted = false;
+        if (is_array($meta)) {
+          if (isset($meta['highlight'])) {
+            $isHighlighted = boolval($meta['highlight']);
+          } else if (isset($meta['color']) && strval($meta['color']) !== '') {
+            $isHighlighted = true;
+          }
         }
+        if (!$isHighlighted) continue;
+      } catch (Throwable $throwable) {
+        continue;
       }
-      if (!$isHighlighted) continue;
     }
     if ($zoneName === 'myMemory' && function_exists('EphemerateMeta')) {
-      $metaJson = EphemerateMeta($obj);
-      $meta = json_decode(strval($metaJson), true);
-      $isHighlighted = false;
-      if (is_array($meta)) {
-        if (isset($meta['highlight'])) {
-          $isHighlighted = boolval($meta['highlight']);
-        } else if (isset($meta['color']) && strval($meta['color']) !== '') {
-          $isHighlighted = true;
+      try {
+        $metaJson = EphemerateMeta($obj);
+        $meta = json_decode(strval($metaJson), true);
+        $isHighlighted = false;
+        if (is_array($meta)) {
+          if (isset($meta['highlight'])) {
+            $isHighlighted = boolval($meta['highlight']);
+          } else if (isset($meta['color']) && strval($meta['color']) !== '') {
+            $isHighlighted = true;
+          }
         }
+        if (!$isHighlighted) continue;
+      } catch (Throwable $throwable) {
+        continue;
       }
-      if (!$isHighlighted) continue;
     }
     $actions[] = array_merge(
       ['playerID' => $player, 'mode' => 10002, 'buttonInput' => '', 'cardID' => $mzId . '!FSM!', 'chkInput' => [], 'inputText' => ''],
@@ -955,9 +963,19 @@ function BridgeApplyEngineAction($root, $gameName, $actionBase64) {
   if ($json === false) BridgeFail('Action payload is not valid base64.');
   $action = json_decode($json, true);
   if (!is_array($action)) BridgeFail('Action payload is not valid JSON.');
-  $result = EngineRunAction($action, $root, $gameName, ['updateCache' => false, 'disableRecording' => true]);
-  $result['gamestateHash'] = RegressionCurrentGamestateHash($root, $gameName);
-  return $result;
+  try {
+    $result = EngineRunAction($action, $root, $gameName, ['updateCache' => false, 'disableRecording' => true]);
+    $result['gamestateHash'] = RegressionCurrentGamestateHash($root, $gameName);
+    return $result;
+  } catch (Throwable $throwable) {
+    return [
+      'success' => false,
+      'message' => 'Engine action failed.',
+      'error' => $throwable->getMessage(),
+      'errorFile' => $throwable->getFile(),
+      'errorLine' => $throwable->getLine(),
+    ];
+  }
 }
 
 function BridgeStepSelfplayGame($root, $gameName, $actionBase64) {
@@ -1294,6 +1312,8 @@ if ($daemon) {
         'success' => false,
         'message' => 'Bridge daemon request failed.',
         'error' => $throwable->getMessage(),
+        'errorFile' => $throwable->getFile(),
+        'errorLine' => $throwable->getLine(),
       ], JSON_UNESCAPED_SLASHES) . PHP_EOL;
     }
     flush();

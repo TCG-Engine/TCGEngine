@@ -70,7 +70,17 @@ class BridgeClient:
     def _run(self, command: str, **kwargs: str) -> Dict[str, Any]:
         if self.use_daemon:
             try:
-                return _DAEMON_SESSION.request(command, self.root, kwargs)
+                response = _DAEMON_SESSION.request(command, self.root, kwargs)
+                if (
+                    isinstance(response, dict)
+                    and response.get("success") is False
+                    and str(response.get("message", "")) == "Bridge daemon request failed."
+                ):
+                    # Recover from daemon-side runtime drift by restarting daemon
+                    # and replaying this request in one-shot mode.
+                    _DAEMON_SESSION.close()
+                    raise RuntimeError("bridge-daemon-request-failed")
+                return response
             except Exception:
                 # Fallback to one-shot subprocess mode for robustness.
                 pass

@@ -36,7 +36,7 @@ def main() -> None:
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--matches", type=int, default=50)
     parser.add_argument("--seed", type=int, default=123)
-    parser.add_argument("--max-steps", type=int, default=400)
+    parser.add_argument("--max-steps", type=int, default=1000)
     parser.add_argument("--max-turns", type=int, default=100)
     args = parser.parse_args()
 
