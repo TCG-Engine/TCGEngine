@@ -1792,6 +1792,28 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
 }
 
 /**
+ * Mark a combat target for "banish instead of dying" replacements that depend on being hit.
+ * This runs before damage is applied so lethal hits still carry the marker into destruction checks.
+ */
+function ApplyPreCombatHitReplacementTags($attackerMZ, $targetMZ) {
+    if($attackerMZ === null || $attackerMZ === "" || $attackerMZ === "-") return;
+    if($targetMZ === null || $targetMZ === "" || $targetMZ === "-") return;
+
+    $attackerObj = GetZoneObject($attackerMZ);
+    $targetObj = GetZoneObject($targetMZ);
+    if($attackerObj === null || $targetObj === null || $targetObj->removed) return;
+    if(!PropertyContains(EffectiveCardType($targetObj), "ALLY")
+        && !PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        return;
+    }
+
+    // Xiao Qiao, Cinderkeeper (3hgldrogit): if a unit hit by it this turn would die, banish instead.
+    if($attackerObj->CardID === "3hgldrogit" && !HasNoAbilities($attackerObj)) {
+        AddTurnEffect($targetMZ, "HIT_BY_3hgldrogit");
+    }
+}
+
+/**
  * Track whether a combat kill occurred during damage resolution.
  * Set to true by OnDealDamage/DealUnpreventableDamage when a unit is killed
  * by combat damage (goes directly from field to graveyard).
@@ -2396,6 +2418,7 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
     ResetCombatKill();
     foreach($opponents as $defenderMZ) {
         if($effectivePower > 0) {
+            ApplyPreCombatHitReplacementTags($attackerMZ, $defenderMZ);
             DealDamage($attackerPlayer, $attackerMZ, $defenderMZ, $effectivePower);
             $hitDealt = true;
         }
@@ -2636,6 +2659,7 @@ $customDQHandlers["CombatApplyAttackerDamage"] = function($player, $parts, $last
         DecisionQueueController::StoreVariable("CombatTrackedDamageSource", $attackerMZ);
         DecisionQueueController::StoreVariable("CombatTrackedDamageTarget", $targetMZ);
         DecisionQueueController::StoreVariable("CombatTrackedDamageAmount", "0");
+        ApplyPreCombatHitReplacementTags($attackerMZ, $targetMZ);
         DealDamage($attackerPlayer, $attackerMZ, $targetMZ, $amount);
         $dealtAmount = intval(DecisionQueueController::GetVariable("CombatTrackedDamageAmount") ?? "0");
         DecisionQueueController::ClearVariable("CombatTrackedDamageSource");
