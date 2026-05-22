@@ -2267,8 +2267,9 @@ $customDQHandlers["SwoopingTalons_Choice"] = function($player, $parts, $lastDeci
 
 // --- Tonoris, Genesis Aegis (ta6qsesw2u): recollection phase Obelisk summon ---
 
-function TonorisRecollection($player, $fieldIndex) {
-    $field = &GetField($player);
+function TonorisRecollection($player, $fieldIndex, $ownerPlayer = null) {
+    if($ownerPlayer === null) $ownerPlayer = $player;
+    $field = &GetField($ownerPlayer);
     if(!isset($field[$fieldIndex]) || $field[$fieldIndex]->removed) return;
     $obj = $field[$fieldIndex];
     $obelisks = [
@@ -2285,47 +2286,49 @@ function TonorisRecollection($player, $fieldIndex) {
         }
     }
     if(empty($available)) return;
-    if(count($available) == 1) {
-        $obeliskID = $available[0];
-        MZAddZone($player, "myField", $obeliskID);
-        $chosen[] = $obeliskID;
-        if(!is_array($field[$fieldIndex]->Counters)) $field[$fieldIndex]->Counters = [];
-        $field[$fieldIndex]->Counters['tonoris_chosen'] = $chosen;
-        return;
-    }
-    ClearMyTempZoneCards($player);
+    ClearMyTempZoneCards($ownerPlayer);
+    $tempZone = &GetTempZone($ownerPlayer);
     foreach($available as $obeliskID) {
-        MZAddZone($player, "myTempZone", $obeliskID);
+        $tempZone[] = new TempZone($obeliskID, $ownerPlayer);
+        //MZAddZone($ownerPlayer, "myTempZone", $obeliskID);
     }
-    $tempChoices = ZoneSearch("myTempZone");
+    $ownerTempChoices = ZoneSearch("myTempZone", forPlayer:$ownerPlayer);
+    if($ownerPlayer == $player) {
+        $tempChoices = $ownerTempChoices;
+    } else {
+        $tempChoices = [];
+        foreach($ownerTempChoices as $mz) $tempChoices[] = FlipZonePerspective($mz);
+    }
     if(empty($tempChoices)) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $tempChoices), 1, tooltip:"Choose_an_Obelisk_to_summon");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "TonorisChooseObelisk|$fieldIndex", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TonorisChooseObelisk|$fieldIndex|$ownerPlayer", 1);
 }
 
 $customDQHandlers["TonorisChooseObelisk"] = function($player, $parts, $lastDecision) {
     $fieldIndex = intval($parts[0]);
+    $ownerPlayer = isset($parts[1]) ? intval($parts[1]) : $player;
     if($lastDecision == "-" || $lastDecision == "") {
-        ClearMyTempZoneCards($player);
+        ClearMyTempZoneCards($ownerPlayer);
         return;
     }
-    $field = &GetField($player);
+    $field = &GetField($ownerPlayer);
     if(!isset($field[$fieldIndex]) || $field[$fieldIndex]->removed) {
-        ClearMyTempZoneCards($player);
+        ClearMyTempZoneCards($ownerPlayer);
         return;
     }
-    $chosenObj = GetZoneObject($lastDecision);
+    $chosenMZ = ($ownerPlayer == $player) ? $lastDecision : FlipZonePerspective($lastDecision);
+    $chosenObj = GetZoneObject($chosenMZ);
     if($chosenObj === null || $chosenObj->removed) {
-        ClearMyTempZoneCards($player);
+        ClearMyTempZoneCards($ownerPlayer);
         return;
     }
     $obeliskID = $chosenObj->CardID;
-    ClearMyTempZoneCards($player);
+    ClearMyTempZoneCards($ownerPlayer);
     $obj = $field[$fieldIndex];
     $counters = is_array($obj->Counters) ? $obj->Counters : [];
     $chosen = isset($counters['tonoris_chosen']) ? $counters['tonoris_chosen'] : [];
     if(in_array($obeliskID, $chosen)) return;
-    MZAddZone($player, "myField", $obeliskID);
+    MZAddZone($ownerPlayer, "myField", $obeliskID);
     $chosen[] = $obeliskID;
     if(!is_array($field[$fieldIndex]->Counters)) $field[$fieldIndex]->Counters = [];
     $field[$fieldIndex]->Counters['tonoris_chosen'] = $chosen;
