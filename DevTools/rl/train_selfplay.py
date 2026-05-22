@@ -63,7 +63,15 @@ def main() -> None:
     frozen_pool: List[TabularMaskedCategoricalPolicy] = []
 
     metrics_csv = run_dir / "metrics.csv"
+    timing_csv = run_dir / "timing_metrics.csv"
+    run_timing = {"applyMs": 0, "snapshotMs": 0, "enumerateMs": 0, "bridgeTotalMs": 0, "steps": 0}
     with metrics_csv.open("w", newline="", encoding="utf-8") as f:
+        tf = timing_csv.open("w", newline="", encoding="utf-8")
+        timing_writer = csv.DictWriter(
+            tf,
+            fieldnames=["episode", "seed", "steps", "applyMs", "snapshotMs", "enumerateMs", "bridgeTotalMs", "bridgeMsPerStep"],
+        )
+        timing_writer.writeheader()
         writer = csv.DictWriter(
             f,
             fieldnames=["episode", "seed", "winner", "reward", "steps", "timedOut", "elapsedMs", "frozenPoolSize"],
@@ -79,6 +87,7 @@ def main() -> None:
             replay_actions: List[Dict] = []
             no_op_action_keys = set()
             start = time.time()
+            ep_timing = {"applyMs": 0, "snapshotMs": 0, "enumerateMs": 0, "bridgeTotalMs": 0}
 
             # Simple opponent pool behavior: when it's player 2's turn, sometimes use a frozen checkpoint policy.
             opponent = random.choice(frozen_pool) if frozen_pool and (ep % 2 == 1) else policy
@@ -140,6 +149,11 @@ def main() -> None:
                 )
 
                 obs, reward, done, mask, info = env.step(action_index)
+                timings = info.get("timingsMs", {})
+                ep_timing["applyMs"] += int(timings.get("apply", 0) or 0)
+                ep_timing["snapshotMs"] += int(timings.get("snapshot", 0) or 0)
+                ep_timing["enumerateMs"] += int(timings.get("enumerate", 0) or 0)
+                ep_timing["bridgeTotalMs"] += int(timings.get("total", 0) or 0)
                 if not bool(info.get("stateChanged", True)) and not done:
                     action = info.get("chosenAction", {})
                     action_mode = int(action.get("mode", -1))
@@ -163,6 +177,26 @@ def main() -> None:
                 }
             )
             f.flush()
+            steps = int(info.get("stepCount", 0) or 0)
+            bridge_ms_per_step = (ep_timing["bridgeTotalMs"] / steps) if steps > 0 else 0.0
+            timing_writer.writerow(
+                {
+                    "episode": ep + 1,
+                    "seed": ep_seed,
+                    "steps": steps,
+                    "applyMs": ep_timing["applyMs"],
+                    "snapshotMs": ep_timing["snapshotMs"],
+                    "enumerateMs": ep_timing["enumerateMs"],
+                    "bridgeTotalMs": ep_timing["bridgeTotalMs"],
+                    "bridgeMsPerStep": f"{bridge_ms_per_step:.3f}",
+                }
+            )
+            tf.flush()
+            run_timing["applyMs"] += ep_timing["applyMs"]
+            run_timing["snapshotMs"] += ep_timing["snapshotMs"]
+            run_timing["enumerateMs"] += ep_timing["enumerateMs"]
+            run_timing["bridgeTotalMs"] += ep_timing["bridgeTotalMs"]
+            run_timing["steps"] += steps
 
             replay_payload = {
                 "episode": ep + 1,
@@ -184,6 +218,8 @@ def main() -> None:
                 if len(frozen_pool) > 5:
                     frozen_pool.pop(0)
 
+        tf.close()
+
     run_config = {
         "root": args.root,
         "deckFile": args.deck_file,
@@ -195,6 +231,14 @@ def main() -> None:
         "learningRate": args.learning_rate,
         "temperature": args.temperature,
         "epsilon": args.epsilon,
+        "timingSummary": {
+            "totalSteps": run_timing["steps"],
+            "applyMs": run_timing["applyMs"],
+            "snapshotMs": run_timing["snapshotMs"],
+            "enumerateMs": run_timing["enumerateMs"],
+            "bridgeTotalMs": run_timing["bridgeTotalMs"],
+            "bridgeMsPerStep": (run_timing["bridgeTotalMs"] / run_timing["steps"]) if run_timing["steps"] > 0 else 0.0,
+        },
     }
     (run_dir / "run_config.json").write_text(json.dumps(run_config, indent=2), encoding="utf-8")
     print(json.dumps({"success": True, "runDir": str(run_dir), "latestCheckpoint": str(ckpt_dir / "latest.json")}, indent=2))

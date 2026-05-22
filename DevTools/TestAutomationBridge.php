@@ -2,8 +2,25 @@
 
 require_once __DIR__ . '/../Core/EngineActionRunner.php';
 
+class BridgeDaemonResponse extends Exception {
+  public $payload;
+  public $bridgeExitCode;
+
+  public function __construct($payload, $bridgeExitCode = 0) {
+    parent::__construct('Bridge daemon response');
+    $this->payload = $payload;
+    $this->bridgeExitCode = $bridgeExitCode;
+  }
+}
+
+$GLOBALS['bridgeDaemonMode'] = false;
+
 function BridgeOut($payload, $exitCode = 0) {
-  echo json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+  if (!empty($GLOBALS['bridgeDaemonMode'])) {
+    throw new BridgeDaemonResponse($payload, $exitCode);
+  }
+  // Keep bridge responses compact for RL throughput.
+  echo json_encode($payload, JSON_UNESCAPED_SLASHES);
   exit($exitCode);
 }
 
@@ -1204,57 +1221,86 @@ function BridgeDecodeDeckTextArg($value) {
 }
 
 $args = BridgeParseArgs($argv);
+function BridgeDispatchCommand($command, $root, $args) {
+  if ($command === '') BridgeFail('Missing --command argument.');
+  if ($root === '') BridgeFail('Missing --root argument.');
+
+  switch ($command) {
+    case 'compile-scenario':
+      $spec = BridgeParseTemplateSpec($args['spec'] ?? '');
+      return ['success' => true, 'gamestateText' => BridgeCompileScenario($root, $spec)];
+    case 'add-to-zone':
+      return BridgeAddToZone(
+        $root,
+        $args['gameName'] ?? '',
+        strval($args['zone'] ?? ''),
+        strval($args['cardID'] ?? ''),
+        intval($args['perspectivePlayer'] ?? 1)
+      );
+    case 'add-counters':
+      return BridgeAddCounters(
+        $root,
+        $args['gameName'] ?? '',
+        strval($args['mzID'] ?? ''),
+        strval($args['counterType'] ?? ''),
+        intval($args['amount'] ?? 0),
+        intval($args['perspectivePlayer'] ?? 1)
+      );
+    case 'enumerate-legal-actions':
+      return BridgeEnumerateLegalActions($root, $args['gameName'] ?? '');
+    case 'apply-engine-action':
+      return BridgeApplyEngineAction($root, $args['gameName'] ?? '', $args['action'] ?? '');
+    case 'step-selfplay-game':
+      return BridgeStepSelfplayGame($root, $args['gameName'] ?? '', $args['action'] ?? '');
+    case 'get-game-snapshot':
+      return BridgeSnapshot($root, $args['gameName'] ?? '', $args['view'] ?? 'summary');
+    case 'start-selfplay-game':
+      return BridgeStartSelfplayGame(
+        $root,
+        strval($args['gameName'] ?? ''),
+        intval($args['seed'] ?? 0),
+        BridgeDecodeDeckTextArg($args['deckTextP1'] ?? ''),
+        BridgeDecodeDeckTextArg($args['deckTextP2'] ?? '')
+      );
+    default:
+      BridgeFail('Unsupported command.', ['command' => $command]);
+  }
+}
+
+$daemon = strval($args['daemon'] ?? '') === '1';
+if ($daemon) {
+  $GLOBALS['bridgeDaemonMode'] = true;
+  while (($line = fgets(STDIN)) !== false) {
+    $line = trim($line);
+    if ($line === '') continue;
+    ob_start();
+    try {
+      $request = json_decode($line, true);
+      if (!is_array($request)) {
+        throw new Exception('Invalid daemon request JSON.');
+      }
+      $command = strval($request['command'] ?? '');
+      $root = strval($request['root'] ?? '');
+      $requestArgs = is_array($request['args'] ?? null) ? $request['args'] : [];
+      $result = BridgeDispatchCommand($command, $root, $requestArgs);
+      ob_end_clean();
+      echo json_encode($result, JSON_UNESCAPED_SLASHES) . PHP_EOL;
+    } catch (BridgeDaemonResponse $response) {
+      ob_end_clean();
+      echo json_encode($response->payload, JSON_UNESCAPED_SLASHES) . PHP_EOL;
+    } catch (Throwable $throwable) {
+      ob_end_clean();
+      echo json_encode([
+        'success' => false,
+        'message' => 'Bridge daemon request failed.',
+        'error' => $throwable->getMessage(),
+      ], JSON_UNESCAPED_SLASHES) . PHP_EOL;
+    }
+    flush();
+  }
+  exit(0);
+}
+
 $command = $args['command'] ?? '';
 $root = $args['root'] ?? '';
-
-if ($command === '') BridgeFail('Missing --command argument.');
-if ($root === '') BridgeFail('Missing --root argument.');
-
-switch ($command) {
-  case 'compile-scenario':
-    $spec = BridgeParseTemplateSpec($args['spec'] ?? '');
-    BridgeOut(['success' => true, 'gamestateText' => BridgeCompileScenario($root, $spec)]);
-    break;
-  case 'add-to-zone':
-    BridgeOut(BridgeAddToZone(
-      $root,
-      $args['gameName'] ?? '',
-      strval($args['zone'] ?? ''),
-      strval($args['cardID'] ?? ''),
-      intval($args['perspectivePlayer'] ?? 1)
-    ));
-    break;
-  case 'add-counters':
-    BridgeOut(BridgeAddCounters(
-      $root,
-      $args['gameName'] ?? '',
-      strval($args['mzID'] ?? ''),
-      strval($args['counterType'] ?? ''),
-      intval($args['amount'] ?? 0),
-      intval($args['perspectivePlayer'] ?? 1)
-    ));
-    break;
-  case 'enumerate-legal-actions':
-    BridgeOut(BridgeEnumerateLegalActions($root, $args['gameName'] ?? ''));
-    break;
-  case 'apply-engine-action':
-    BridgeOut(BridgeApplyEngineAction($root, $args['gameName'] ?? '', $args['action'] ?? ''));
-    break;
-  case 'step-selfplay-game':
-    BridgeOut(BridgeStepSelfplayGame($root, $args['gameName'] ?? '', $args['action'] ?? ''));
-    break;
-  case 'get-game-snapshot':
-    BridgeOut(BridgeSnapshot($root, $args['gameName'] ?? '', $args['view'] ?? 'summary'));
-    break;
-  case 'start-selfplay-game':
-    BridgeOut(BridgeStartSelfplayGame(
-      $root,
-      strval($args['gameName'] ?? ''),
-      intval($args['seed'] ?? 0),
-      BridgeDecodeDeckTextArg($args['deckTextP1'] ?? ''),
-      BridgeDecodeDeckTextArg($args['deckTextP2'] ?? '')
-    ));
-    break;
-  default:
-    BridgeFail('Unsupported command.', ['command' => $command]);
-}
+BridgeOut(BridgeDispatchCommand($command, $root, $args));

@@ -1,6 +1,8 @@
 import base64
 import json
 import subprocess
+import threading
+import atexit
 from pathlib import Path
 from typing import Any, Dict
 
@@ -9,11 +11,70 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 BRIDGE_PATH = REPO_ROOT / "DevTools" / "TestAutomationBridge.php"
 
 
+class _BridgeDaemonSession:
+    def __init__(self) -> None:
+        self._proc: subprocess.Popen[str] | None = None
+        self._lock = threading.Lock()
+
+    def _ensure_started(self) -> None:
+        if self._proc is not None and self._proc.poll() is None:
+            return
+        self._proc = subprocess.Popen(
+            ["php", str(BRIDGE_PATH), "--daemon=1"],
+            cwd=str(REPO_ROOT),
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            text=True,
+            bufsize=1,
+        )
+
+    def close(self) -> None:
+        if self._proc is None:
+            return
+        try:
+            if self._proc.stdin:
+                self._proc.stdin.close()
+        except Exception:
+            pass
+        try:
+            self._proc.terminate()
+        except Exception:
+            pass
+        self._proc = None
+
+    def request(self, command: str, root: str, args: Dict[str, str]) -> Dict[str, Any]:
+        with self._lock:
+            self._ensure_started()
+            assert self._proc is not None
+            assert self._proc.stdin is not None
+            assert self._proc.stdout is not None
+            payload = {"command": command, "root": root, "args": args}
+            self._proc.stdin.write(json.dumps(payload) + "\n")
+            self._proc.stdin.flush()
+            line = self._proc.stdout.readline()
+            if not line:
+                raise RuntimeError("Bridge daemon returned empty response.")
+            return json.loads(line)
+
+
+_DAEMON_SESSION = _BridgeDaemonSession()
+atexit.register(_DAEMON_SESSION.close)
+
+
 class BridgeClient:
-    def __init__(self, root: str = "GrandArchiveSim"):
+    def __init__(self, root: str = "GrandArchiveSim", use_daemon: bool = True):
         self.root = root
+        self.use_daemon = use_daemon
 
     def _run(self, command: str, **kwargs: str) -> Dict[str, Any]:
+        if self.use_daemon:
+            try:
+                return _DAEMON_SESSION.request(command, self.root, kwargs)
+            except Exception:
+                # Fallback to one-shot subprocess mode for robustness.
+                pass
+
         args = ["php", str(BRIDGE_PATH), f"--command={command}", f"--root={self.root}"]
         for key, value in kwargs.items():
             args.append(f"--{key}={value}")
