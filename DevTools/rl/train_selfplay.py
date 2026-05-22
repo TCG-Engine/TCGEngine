@@ -3,6 +3,8 @@ import csv
 import json
 import random
 import time
+from collections import defaultdict
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, List
 
@@ -41,6 +43,7 @@ def main() -> None:
     parser.add_argument("--temperature", type=float, default=1.0)
     parser.add_argument("--epsilon", type=float, default=0.05)
     parser.add_argument("--checkpoint-every", type=int, default=25)
+    parser.add_argument("--log-every", type=int, default=25)
     args = parser.parse_args()
 
     random.seed(args.seed)
@@ -64,14 +67,36 @@ def main() -> None:
 
     metrics_csv = run_dir / "metrics.csv"
     timing_csv = run_dir / "timing_metrics.csv"
+    step_timing_csv = run_dir / "step_timing_metrics.csv"
     run_timing = {"applyMs": 0, "snapshotMs": 0, "enumerateMs": 0, "bridgeTotalMs": 0, "steps": 0}
+    action_timing: Dict[str, Dict[str, float]] = defaultdict(lambda: {"count": 0, "totalMs": 0.0})
+    train_start = time.time()
+    completed_steps = 0
     with metrics_csv.open("w", newline="", encoding="utf-8") as f:
         tf = timing_csv.open("w", newline="", encoding="utf-8")
+        sf = step_timing_csv.open("w", newline="", encoding="utf-8")
         timing_writer = csv.DictWriter(
             tf,
             fieldnames=["episode", "seed", "steps", "applyMs", "snapshotMs", "enumerateMs", "bridgeTotalMs", "bridgeMsPerStep"],
         )
         timing_writer.writeheader()
+        step_timing_writer = csv.DictWriter(
+            sf,
+            fieldnames=[
+                "episode",
+                "seed",
+                "step",
+                "mode",
+                "cardID",
+                "playerID",
+                "roundTripMs",
+                "applyMs",
+                "snapshotMs",
+                "enumerateMs",
+                "bridgeTotalMs",
+            ],
+        )
+        step_timing_writer.writeheader()
         writer = csv.DictWriter(
             f,
             fieldnames=["episode", "seed", "winner", "reward", "steps", "timedOut", "elapsedMs", "frozenPoolSize"],
@@ -163,10 +188,37 @@ def main() -> None:
                         "error": str(exc),
                     }
                 timings = info.get("timingsMs", {})
+                chosen = info.get("chosenAction", {})
+                mode = int(chosen.get("mode", -1))
+                card_id = str(chosen.get("cardID", ""))
+                player_id = int(chosen.get("playerID", 0))
+                round_trip_ms = int(info.get("roundTripMs", 0) or 0)
+                apply_ms = int(timings.get("apply", 0) or 0)
+                snap_ms = int(timings.get("snapshot", 0) or 0)
+                enum_ms = int(timings.get("enumerate", 0) or 0)
+                total_ms = int(timings.get("total", 0) or 0)
                 ep_timing["applyMs"] += int(timings.get("apply", 0) or 0)
                 ep_timing["snapshotMs"] += int(timings.get("snapshot", 0) or 0)
                 ep_timing["enumerateMs"] += int(timings.get("enumerate", 0) or 0)
                 ep_timing["bridgeTotalMs"] += int(timings.get("total", 0) or 0)
+                step_timing_writer.writerow(
+                    {
+                        "episode": ep + 1,
+                        "seed": ep_seed,
+                        "step": info.get("stepCount", 0),
+                        "mode": mode,
+                        "cardID": card_id,
+                        "playerID": player_id,
+                        "roundTripMs": round_trip_ms,
+                        "applyMs": apply_ms,
+                        "snapshotMs": snap_ms,
+                        "enumerateMs": enum_ms,
+                        "bridgeTotalMs": total_ms,
+                    }
+                )
+                key = f"{mode}|{card_id}"
+                action_timing[key]["count"] += 1
+                action_timing[key]["totalMs"] += float(total_ms)
                 if not bool(info.get("stateChanged", True)) and not done:
                     action = info.get("chosenAction", {})
                     action_mode = int(action.get("mode", -1))
@@ -205,6 +257,8 @@ def main() -> None:
                 }
             )
             tf.flush()
+            sf.flush()
+            completed_steps += steps
             run_timing["applyMs"] += ep_timing["applyMs"]
             run_timing["snapshotMs"] += ep_timing["snapshotMs"]
             run_timing["enumerateMs"] += ep_timing["enumerateMs"]
@@ -231,7 +285,26 @@ def main() -> None:
                 if len(frozen_pool) > 5:
                     frozen_pool.pop(0)
 
+            if args.log_every > 0 and (((ep + 1) % args.log_every == 0) or (ep + 1 == args.episodes)):
+                elapsed_s = max(1e-9, time.time() - train_start)
+                eps_done = ep + 1
+                eps_per_s = eps_done / elapsed_s
+                steps_per_s = completed_steps / elapsed_s
+                eps_remaining = max(0, args.episodes - eps_done)
+                eta_s = (eps_remaining / eps_per_s) if eps_per_s > 0 else float("inf")
+                eta_text = "unknown"
+                if eta_s != float("inf"):
+                    eta_dt = datetime.now() + timedelta(seconds=eta_s)
+                    eta_text = eta_dt.strftime("%Y-%m-%d %H:%M:%S")
+                pct = (100.0 * eps_done / args.episodes) if args.episodes > 0 else 100.0
+                print(
+                    f"[progress] ep {eps_done}/{args.episodes} ({pct:.1f}%) | "
+                    f"elapsed {elapsed_s:.1f}s | eps/s {eps_per_s:.3f} | steps/s {steps_per_s:.1f} | "
+                    f"avgSteps/ep {(completed_steps / eps_done):.1f} | ETA {eta_text}"
+                )
+
         tf.close()
+        sf.close()
 
     run_config = {
         "root": args.root,
@@ -252,6 +325,19 @@ def main() -> None:
             "bridgeTotalMs": run_timing["bridgeTotalMs"],
             "bridgeMsPerStep": (run_timing["bridgeTotalMs"] / run_timing["steps"]) if run_timing["steps"] > 0 else 0.0,
         },
+        "topSlowActions": sorted(
+            [
+                {
+                    "actionKey": key,
+                    "count": int(stats["count"]),
+                    "totalMs": round(float(stats["totalMs"]), 3),
+                    "avgMs": round((float(stats["totalMs"]) / float(stats["count"])) if stats["count"] > 0 else 0.0, 3),
+                }
+                for key, stats in action_timing.items()
+            ],
+            key=lambda item: item["totalMs"],
+            reverse=True,
+        )[:25],
     }
     (run_dir / "run_config.json").write_text(json.dumps(run_config, indent=2), encoding="utf-8")
     print(json.dumps({"success": True, "runDir": str(run_dir), "latestCheckpoint": str(ckpt_dir / "latest.json")}, indent=2))

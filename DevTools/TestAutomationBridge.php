@@ -650,6 +650,13 @@ function BridgeEnumerateFSMActionsForZone($player, $zoneName) {
   $zone = GetZone($zoneName);
   if (!is_array($zone)) return $actions;
 
+  $isHighlightedFromMeta = function($metaJson) {
+    $meta = json_decode(strval($metaJson), true);
+    if (!is_array($meta)) return false;
+    if (isset($meta['highlight'])) return boolval($meta['highlight']);
+    return isset($meta['color']) && strval($meta['color']) !== '';
+  };
+
   for ($index = 0; $index < count($zone); ++$index) {
     $obj = $zone[$index];
     if (!is_object($obj) || !empty($obj->removed)) continue;
@@ -664,39 +671,31 @@ function BridgeEnumerateFSMActionsForZone($player, $zoneName) {
     if ($zoneName === 'myHand' && function_exists('CanAffordActivationReserve')) {
       if (!CanAffordActivationReserve($player, $obj)) continue;
     }
+    // First-player turn 1 cannot activate ATTACK cards.
+    if ($zoneName === 'myField' && function_exists('IsFirstTurnAttackLocked') && IsFirstTurnAttackLocked($player)) {
+      if (PropertyContains(EffectiveCardType($obj), 'ATTACK')) continue;
+    }
     // Align RL legal actions with engine/UI legality for tricky zones:
     // - MaterialSelectionMetadata mirrors ActionMap myMaterial conditions.
-    // - EphemerateMeta captures memory-cast legality (ephemerate/glimmer/opportunity).
+    // - EphemerateMeta captures graveyard/memory-cast legality (ephemerate/glimmer/opportunity).
+    // - BanishSelectionMetadata captures banish-cast legality.
     if ($zoneName === 'myMaterial' && function_exists('MaterialSelectionMetadata')) {
       try {
-        $metaJson = MaterialSelectionMetadata($obj);
-        $meta = json_decode(strval($metaJson), true);
-        $isHighlighted = false;
-        if (is_array($meta)) {
-          if (isset($meta['highlight'])) {
-            $isHighlighted = boolval($meta['highlight']);
-          } else if (isset($meta['color']) && strval($meta['color']) !== '') {
-            $isHighlighted = true;
-          }
-        }
-        if (!$isHighlighted) continue;
+        if (!$isHighlightedFromMeta(MaterialSelectionMetadata($obj))) continue;
       } catch (Throwable $throwable) {
         continue;
       }
     }
-    if ($zoneName === 'myMemory' && function_exists('EphemerateMeta')) {
+    if (($zoneName === 'myMemory' || $zoneName === 'myGraveyard') && function_exists('EphemerateMeta')) {
       try {
-        $metaJson = EphemerateMeta($obj);
-        $meta = json_decode(strval($metaJson), true);
-        $isHighlighted = false;
-        if (is_array($meta)) {
-          if (isset($meta['highlight'])) {
-            $isHighlighted = boolval($meta['highlight']);
-          } else if (isset($meta['color']) && strval($meta['color']) !== '') {
-            $isHighlighted = true;
-          }
-        }
-        if (!$isHighlighted) continue;
+        if (!$isHighlightedFromMeta(EphemerateMeta($obj))) continue;
+      } catch (Throwable $throwable) {
+        continue;
+      }
+    }
+    if ($zoneName === 'myBanish' && function_exists('BanishSelectionMetadata')) {
+      try {
+        if (!$isHighlightedFromMeta(BanishSelectionMetadata($obj))) continue;
       } catch (Throwable $throwable) {
         continue;
       }
@@ -727,6 +726,17 @@ function BridgeEnumeratePlayableActions($player) {
     $deduped[] = $action;
   }
   return $deduped;
+}
+
+function BridgeFilterActionsByPlayer($actions, $expectedPlayer) {
+  $filtered = [];
+  foreach ($actions as $action) {
+    if (!is_array($action)) continue;
+    $actionPlayer = intval($action['playerID'] ?? 0);
+    if ($actionPlayer !== intval($expectedPlayer)) continue;
+    $filtered[] = $action;
+  }
+  return $filtered;
 }
 
 function BridgeCountActiveZoneObjects($zoneName) {
@@ -894,6 +904,10 @@ function BridgeEnumerateModalResults($param) {
 
 function BridgeEnumerateLegalActions($root, $gameName) {
   BridgeLoadRuntimeGame($root, $gameName);
+  return BridgeEnumerateLegalActionsLoaded($root, $gameName);
+}
+
+function BridgeEnumerateLegalActionsLoaded($root, $gameName) {
   $dqController = new DecisionQueueController();
   for ($player = 1; $player <= 2; ++$player) {
     $decision = $dqController->NextDecision($player);
@@ -944,6 +958,10 @@ function BridgeEnumerateLegalActions($root, $gameName) {
   if ($canPhasePass) {
     $actions[] = $passAction;
   }
+  // Safety guard: never surface cross-player actions to RL in free-play/FSM
+  // contexts. This prevents stale-perspective loops where turnPlayer=2 but
+  // the legal list still contains player 1 "my*" actions.
+  $actions = BridgeFilterActionsByPlayer($actions, $actingPlayer);
 
   return [
     'success' => true,
@@ -959,10 +977,7 @@ function BridgeEnumerateLegalActions($root, $gameName) {
 }
 
 function BridgeApplyEngineAction($root, $gameName, $actionBase64) {
-  $json = base64_decode($actionBase64, true);
-  if ($json === false) BridgeFail('Action payload is not valid base64.');
-  $action = json_decode($json, true);
-  if (!is_array($action)) BridgeFail('Action payload is not valid JSON.');
+  $action = BridgeDecodeActionPayload($actionBase64);
   try {
     $result = EngineRunAction($action, $root, $gameName, ['updateCache' => false, 'disableRecording' => true]);
     $result['gamestateHash'] = RegressionCurrentGamestateHash($root, $gameName);
@@ -978,13 +993,39 @@ function BridgeApplyEngineAction($root, $gameName, $actionBase64) {
   }
 }
 
+function BridgeDecodeActionPayload($actionBase64) {
+  $json = base64_decode($actionBase64, true);
+  if ($json === false) BridgeFail('Action payload is not valid base64.');
+  $action = json_decode($json, true);
+  if (!is_array($action)) BridgeFail('Action payload is not valid JSON.');
+  return $action;
+}
+
+function BridgeApplyEngineActionLoaded($root, $gameName, $action) {
+  try {
+    $result = EngineExecuteLoadedAction($action, $root, $gameName, ['updateCache' => false, 'disableRecording' => true]);
+    $result['gamestateHash'] = RegressionCurrentGamestateHash($root, $gameName);
+    return $result;
+  } catch (Throwable $throwable) {
+    return [
+      'success' => false,
+      'message' => 'Engine action failed.',
+      'error' => $throwable->getMessage(),
+      'errorFile' => $throwable->getFile(),
+      'errorLine' => $throwable->getLine(),
+    ];
+  }
+}
+
 function BridgeStepSelfplayGame($root, $gameName, $actionBase64) {
+  BridgeLoadRuntimeGame($root, $gameName);
+  $action = BridgeDecodeActionPayload($actionBase64);
   $t0 = microtime(true);
-  $applyResult = BridgeApplyEngineAction($root, $gameName, $actionBase64);
+  $applyResult = BridgeApplyEngineActionLoaded($root, $gameName, $action);
   $t1 = microtime(true);
-  $snapshot = BridgeSnapshot($root, $gameName, 'summary');
+  $snapshot = BridgeSnapshotLoaded($root, $gameName, 'summary');
   $t2 = microtime(true);
-  $legal = BridgeEnumerateLegalActions($root, $gameName);
+  $legal = BridgeEnumerateLegalActionsLoaded($root, $gameName);
   $t3 = microtime(true);
   return [
     'success' => true,
@@ -1002,6 +1043,10 @@ function BridgeStepSelfplayGame($root, $gameName, $actionBase64) {
 
 function BridgeSnapshot($root, $gameName, $view) {
   BridgeLoadRuntimeGame($root, $gameName);
+  return BridgeSnapshotLoaded($root, $gameName, $view);
+}
+
+function BridgeSnapshotLoaded($root, $gameName, $view) {
   $payload = [
     'success' => true,
     'view' => $view,

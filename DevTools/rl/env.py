@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import time
 from typing import Any, Dict, List, Tuple
 
 from bridge_client import BridgeClient
@@ -93,7 +94,9 @@ class GrandArchiveSelfPlayEnv:
         pre_hash = str(self.last_info.get("gamestateHash", ""))
         action = self.last_legal_actions[action_index]
         chosen_action = dict(action)
+        t0 = time.perf_counter()
         step_payload = self.bridge.step_selfplay_game(self.game_name, action)
+        round_trip_ms = int((time.perf_counter() - t0) * 1000)
         if not step_payload.get("success", False):
             raise RuntimeError(f"step-selfplay-game failed: {step_payload}")
         result = step_payload.get("applyResult", {})
@@ -150,6 +153,7 @@ class GrandArchiveSelfPlayEnv:
             "postHash": post_hash,
             "flashMessage": str(snapshot.get("flashMessage", "")),
             "timingsMs": step_payload.get("timingsMs", {}),
+            "roundTripMs": round_trip_ms,
         }
         self.last_info = info
         return obs, reward, done, mask, info
