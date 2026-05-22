@@ -1226,6 +1226,155 @@ export async function getGameSnapshot(root: string, gameName: string, view?: str
   return runBridgeCommand('get-game-snapshot', { root, gameName, view: view || 'summary' });
 }
 
+export async function startSelfplayGame(
+  root: string,
+  gameName: string,
+  seed: number,
+  deckTextP1: string,
+  deckTextP2?: string
+): Promise<any> {
+  const p2 = deckTextP2 && deckTextP2.trim() !== '' ? deckTextP2 : deckTextP1;
+  return runBridgeCommand('start-selfplay-game', {
+    root,
+    gameName,
+    seed: String(seed),
+    deckTextP1: Buffer.from(deckTextP1, 'utf-8').toString('base64'),
+    deckTextP2: Buffer.from(p2, 'utf-8').toString('base64'),
+  });
+}
+
+export async function importRlEpisodeAsDraftFixture(params: {
+  root: string;
+  episodeFile: string;
+  deckTextP1: string;
+  deckTextP2?: string;
+  slug?: string;
+  name?: string;
+  gameName?: string;
+  seedOverride?: number;
+  replaySteps?: number;
+  testedCards?: string[];
+}): Promise<any> {
+  const root = params.root;
+  const episodePath = path.isAbsolute(params.episodeFile)
+    ? params.episodeFile
+    : path.join(ENGINE_ROOT, params.episodeFile);
+  if (!fs.existsSync(episodePath)) {
+    throw new Error(`Episode file not found: ${episodePath}`);
+  }
+
+  const parsed = JSON.parse(fs.readFileSync(episodePath, 'utf-8'));
+  const episodeSeed = Number(parsed?.seed ?? 0);
+  const seed = Number.isFinite(params.seedOverride) && Number(params.seedOverride) > 0
+    ? Number(params.seedOverride)
+    : episodeSeed;
+  if (!seed || seed <= 0) {
+    throw new Error(`Episode seed missing/invalid in ${episodePath}; pass seedOverride.`);
+  }
+
+  const episodeActionsRaw = Array.isArray(parsed?.actions) ? parsed.actions : [];
+  const normalizedActions = episodeActionsRaw.map((entry: any) => normalizeDraftAction(entry?.action ?? entry));
+  const maxSteps = params.replaySteps && params.replaySteps > 0
+    ? Math.min(params.replaySteps, normalizedActions.length)
+    : normalizedActions.length;
+
+  const defaultSlug = sanitizeDraftSlug(`rl-episode-${seed}-${Date.now()}`);
+  const slug = params.slug ? sanitizeDraftSlug(params.slug) : defaultSlug;
+  if (!slug) throw new Error('Invalid slug after sanitization.');
+
+  const fixtureDir = integrationFixtureDir(root, slug);
+  fs.mkdirSync(fixtureDir, { recursive: true });
+
+  const draftGameName = params.gameName && params.gameName.trim() !== ''
+    ? params.gameName.trim()
+    : PROOF_OF_CONCEPT_GAME_NAME;
+
+  const startResult = await startSelfplayGame(
+    root,
+    draftGameName,
+    seed,
+    params.deckTextP1,
+    params.deckTextP2
+  );
+  if (!startResult.success) {
+    throw new Error(startResult.message || 'start_selfplay_game failed while importing RL episode');
+  }
+
+  const gameDir = draftGameDir(root, draftGameName);
+  const gamestatePath = path.join(gameDir, 'Gamestate.txt');
+  if (!fs.existsSync(gamestatePath)) {
+    throw new Error(`Gamestate not found after game bootstrap: ${gamestatePath}`);
+  }
+  const initialGamestate = fs.readFileSync(gamestatePath, 'utf-8');
+
+  const appliedActions: any[] = [];
+  for (let i = 0; i < maxSteps; i++) {
+    const action = normalizedActions[i];
+    const applyResult = await runBridgeCommand('apply-engine-action', {
+      root,
+      gameName: draftGameName,
+      action: Buffer.from(JSON.stringify(action), 'utf-8').toString('base64'),
+    });
+    if (applyResult.success === false) {
+      throw new Error(applyResult.message || `Episode replay action failed at step ${i + 1}`);
+    }
+    appliedActions.push(action);
+  }
+
+  if (!fs.existsSync(gamestatePath)) {
+    throw new Error(`Gamestate missing after replay: ${gamestatePath}`);
+  }
+  const finalGamestate = fs.readFileSync(gamestatePath, 'utf-8');
+
+  const meta = {
+    name: params.name || slug,
+    rootName: root,
+    createdAt: new Date().toISOString(),
+    createdBy: 'mcp',
+    draft: true,
+    draftGameName,
+    testedCards: params.testedCards ?? [],
+    source: {
+      type: 'rl-episode',
+      episodeFile: path.relative(ENGINE_ROOT, episodePath).replace(/\\/g, '/'),
+      seed,
+      replaySteps: maxSteps,
+      totalEpisodeActions: normalizedActions.length,
+    },
+  };
+
+  fs.writeFileSync(path.join(fixtureDir, 'meta.json'), JSON.stringify(meta, null, 2));
+  fs.writeFileSync(path.join(fixtureDir, 'actions.json'), JSON.stringify(appliedActions, null, 2));
+  fs.writeFileSync(path.join(fixtureDir, 'assertions.json'), JSON.stringify([], null, 2));
+  fs.writeFileSync(path.join(fixtureDir, 'initial_gamestate.txt'), initialGamestate);
+  fs.writeFileSync(path.join(fixtureDir, 'expected_final_gamestate.txt'), finalGamestate);
+
+  writeGameDraftMeta(root, draftGameName, {
+    root,
+    slug,
+    templateId: 'rl-episode-import',
+    loadedAt: new Date().toISOString(),
+    source: 'rl-episode',
+    episodeFile: path.relative(ENGINE_ROOT, episodePath).replace(/\\/g, '/'),
+    seed,
+  });
+
+  const legalActions = await enumerateLegalActions(root, draftGameName);
+  const snapshot = await getGameSnapshot(root, draftGameName, 'summary');
+
+  return {
+    success: true,
+    root,
+    slug,
+    draftGameName,
+    seed,
+    stepsApplied: appliedActions.length,
+    fixtureDir,
+    legalActions,
+    snapshot,
+  };
+}
+
 export async function testGameAddToZone(root: string, gameName: string, zone: string, cardID: string, perspectivePlayer?: number): Promise<any> {
   const result = await runBridgeCommand('add-to-zone', {
     root,

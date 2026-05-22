@@ -580,7 +580,47 @@ function BridgeEnumerateDecisionActions($decision, $player) {
           ];
         }
         break;
+      case 'NUMBERCHOOSE':
+        $parts = explode('|', strval($decision->Param ?? ''), 2);
+        $min = intval($parts[0] ?? 0);
+        $max = intval($parts[1] ?? $min);
+        if ($max < $min) {
+          $tmp = $min;
+          $min = $max;
+          $max = $tmp;
+        }
+        for ($n = $min; $n <= $max; ++$n) {
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => strval($n), 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
+      case 'MZSPLITASSIGN':
+        $paramParts = explode('|', strval($decision->Param ?? ''), 2);
+        $amount = max(0, intval($paramParts[0] ?? 0));
+        $rawChoices = array_values(array_filter(explode('&', strval($paramParts[1] ?? '')), fn($value) => $value !== ''));
+        $choices = [];
+        foreach ($rawChoices as $rawChoice) {
+          foreach (BridgeExpandDecisionSpecChoices($rawChoice) as $expandedChoice) {
+            $choices[] = $expandedChoice;
+          }
+        }
+        $choices = array_values(array_unique($choices));
+        foreach (BridgeEnumerateSplitAssignResults($choices, $amount) as $assignmentStr) {
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $assignmentStr, 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
+      case 'MZREARRANGE':
+        foreach (BridgeEnumerateRearrangeResults(strval($decision->Param ?? '')) as $resultStr) {
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $resultStr, 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
+      case 'MZMODAL':
+        foreach (BridgeEnumerateModalResults(strval($decision->Param ?? '')) as $resultStr) {
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $resultStr, 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
       default:
+        // Fallback to allow engine-side pass/skip handlers when a decision type isn't enumerated yet.
+        $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''];
         break;
     }
 
@@ -588,22 +628,80 @@ function BridgeEnumerateDecisionActions($decision, $player) {
   });
 }
 
-function BridgeEnumerateHandPlayActions($player) {
+function BridgeEnumerateFSMActionsForZone($player, $zoneName) {
   $actions = [];
-  $GLOBALS['playerID'] = $player;
-  $hand = GetZone('myHand');
-  if (!is_array($hand)) return $actions;
+  $zone = GetZone($zoneName);
+  if (!is_array($zone)) return $actions;
 
-  for ($index = 0; $index < count($hand); ++$index) {
-    $mzId = 'myHand-' . $index;
-    if (function_exists('CanActivateCard') && !CanActivateCard($player, $mzId, false)) continue;
+  for ($index = 0; $index < count($zone); ++$index) {
+    $obj = $zone[$index];
+    if (!is_object($obj) || !empty($obj->removed)) continue;
+    $mzId = $zoneName . '-' . $index;
+
+    if (function_exists('CanActivateCard')) {
+      if (!CanActivateCard($player, $mzId, false)) continue;
+    }
+    // RL legality tightening: for hand-origin actions, require reserve affordability.
+    // In GA UI this is often shown as yellow (advisory), but for RL we treat unaffordable
+    // hand cards as illegal to avoid repeated dead-end attempts.
+    if ($zoneName === 'myHand' && function_exists('CanAffordActivationReserve')) {
+      if (!CanAffordActivationReserve($player, $obj)) continue;
+    }
+    // Align RL legal actions with engine/UI legality for tricky zones:
+    // - MaterialSelectionMetadata mirrors ActionMap myMaterial conditions.
+    // - EphemerateMeta captures memory-cast legality (ephemerate/glimmer/opportunity).
+    if ($zoneName === 'myMaterial' && function_exists('MaterialSelectionMetadata')) {
+      $metaJson = MaterialSelectionMetadata($obj);
+      $meta = json_decode(strval($metaJson), true);
+      $isHighlighted = false;
+      if (is_array($meta)) {
+        if (isset($meta['highlight'])) {
+          $isHighlighted = boolval($meta['highlight']);
+        } else if (isset($meta['color']) && strval($meta['color']) !== '') {
+          $isHighlighted = true;
+        }
+      }
+      if (!$isHighlighted) continue;
+    }
+    if ($zoneName === 'myMemory' && function_exists('EphemerateMeta')) {
+      $metaJson = EphemerateMeta($obj);
+      $meta = json_decode(strval($metaJson), true);
+      $isHighlighted = false;
+      if (is_array($meta)) {
+        if (isset($meta['highlight'])) {
+          $isHighlighted = boolval($meta['highlight']);
+        } else if (isset($meta['color']) && strval($meta['color']) !== '') {
+          $isHighlighted = true;
+        }
+      }
+      if (!$isHighlighted) continue;
+    }
     $actions[] = array_merge(
       ['playerID' => $player, 'mode' => 10002, 'buttonInput' => '', 'cardID' => $mzId . '!FSM!', 'chkInput' => [], 'inputText' => ''],
       BridgeActionCardMetadata($mzId)
     );
   }
-
   return $actions;
+}
+
+function BridgeEnumeratePlayableActions($player) {
+  $actions = [];
+  $GLOBALS['playerID'] = $player;
+  $zones = ['myHand', 'myField', 'myMemory', 'myMaterial', 'myGraveyard', 'myBanish'];
+  foreach ($zones as $zoneName) {
+    $actions = array_merge($actions, BridgeEnumerateFSMActionsForZone($player, $zoneName));
+  }
+
+  // Dedupe by action payload identity.
+  $seen = [];
+  $deduped = [];
+  foreach ($actions as $action) {
+    $key = ($action['mode'] ?? '') . '|' . ($action['playerID'] ?? '') . '|' . ($action['cardID'] ?? '') . '|' . ($action['buttonInput'] ?? '') . '|' . ($action['inputText'] ?? '');
+    if (isset($seen[$key])) continue;
+    $seen[$key] = true;
+    $deduped[] = $action;
+  }
+  return $deduped;
 }
 
 function BridgeCountActiveZoneObjects($zoneName) {
@@ -628,6 +726,147 @@ function BridgeGetOpportunityState() {
   ];
 }
 
+function BridgeEnumerateSplitAssignResults($choices, $amount) {
+  $choices = array_values(array_filter($choices, fn($c) => is_string($c) && $c !== ''));
+  $amount = max(0, intval($amount));
+  if ($amount === 0 || count($choices) === 0) return ['-'];
+
+  $results = [];
+  $seen = [];
+  $maxResults = 200;
+
+  $emit = function($assignmentMap) use (&$results, &$seen, $choices, $maxResults) {
+    if (count($results) >= $maxResults) return;
+    $parts = [];
+    foreach ($choices as $mzID) {
+      $amt = intval($assignmentMap[$mzID] ?? 0);
+      if ($amt <= 0) continue;
+      $parts[] = $mzID . ':' . $amt;
+    }
+    $str = empty($parts) ? '-' : implode(',', $parts);
+    if (isset($seen[$str])) return;
+    $seen[$str] = true;
+    $results[] = $str;
+  };
+
+  // Always include "all to one target" options.
+  foreach ($choices as $mzID) {
+    $map = [];
+    $map[$mzID] = $amount;
+    $emit($map);
+  }
+
+  // Include a balanced baseline split.
+  $n = count($choices);
+  $base = intdiv($amount, $n);
+  $rem = $amount % $n;
+  $map = [];
+  for ($i = 0; $i < $n; ++$i) {
+    $map[$choices[$i]] = $base + ($i < $rem ? 1 : 0);
+  }
+  $emit($map);
+
+  // Enumerate exact compositions for small pools.
+  if ($amount <= 8 && $n <= 5) {
+    $dist = array_fill(0, $n, 0);
+    $recurse = function($idx, $remaining) use (&$recurse, &$dist, $n, $choices, $emit) {
+      if ($idx === $n - 1) {
+        $dist[$idx] = $remaining;
+        $map = [];
+        for ($i = 0; $i < $n; ++$i) $map[$choices[$i]] = $dist[$i];
+        $emit($map);
+        return;
+      }
+      for ($v = 0; $v <= $remaining; ++$v) {
+        $dist[$idx] = $v;
+        $recurse($idx + 1, $remaining - $v);
+      }
+    };
+    $recurse(0, $amount);
+  }
+
+  return empty($results) ? ['-'] : $results;
+}
+
+function BridgeEnumerateRearrangeResults($param) {
+  $param = strval($param);
+  if ($param === '') return [''];
+  $segments = array_values(array_filter(array_map('trim', explode(';', $param)), fn($s) => $s !== ''));
+  if (empty($segments)) return [''];
+  $piles = [];
+  foreach ($segments as $seg) {
+    $eq = strpos($seg, '=');
+    if ($eq === false) {
+      $piles[] = ['name' => $seg, 'cards' => []];
+      continue;
+    }
+    $name = trim(substr($seg, 0, $eq));
+    $cardsStr = trim(substr($seg, $eq + 1));
+    $cards = $cardsStr === '' ? [] : array_values(array_filter(array_map('trim', explode(',', $cardsStr)), fn($c) => $c !== ''));
+    $piles[] = ['name' => $name, 'cards' => $cards];
+  }
+  if (empty($piles)) return [$param];
+
+  $serialize = function($pileData) {
+    $parts = [];
+    foreach ($pileData as $pile) {
+      $parts[] = $pile['name'] . '=' . implode(',', $pile['cards']);
+    }
+    return implode(';', $parts);
+  };
+
+  $results = [];
+  // deterministic baseline: leave as-is
+  $results[] = $serialize($piles);
+  // alternate: reverse order within each pile
+  $reversed = [];
+  foreach ($piles as $pile) {
+    $cards = $pile['cards'];
+    $reversed[] = ['name' => $pile['name'], 'cards' => array_reverse($cards)];
+  }
+  $results[] = $serialize($reversed);
+  // alternate: move all cards to the first pile in current order
+  $all = [];
+  foreach ($piles as $pile) $all = array_merge($all, $pile['cards']);
+  $allFirst = [];
+  foreach ($piles as $idx => $pile) {
+    $allFirst[] = ['name' => $pile['name'], 'cards' => $idx === 0 ? $all : []];
+  }
+  $results[] = $serialize($allFirst);
+
+  return array_values(array_unique($results));
+}
+
+function BridgeEnumerateModalResults($param) {
+  $parts = explode('|', strval($param), 3);
+  $min = intval($parts[0] ?? 0);
+  $max = intval($parts[1] ?? $min);
+  $labels = [];
+  if (isset($parts[2])) {
+    $labels = array_values(array_filter(array_map('trim', explode('&', $parts[2])), fn($s) => $s !== ''));
+  }
+  if ($max < $min) {
+    $tmp = $min;
+    $min = $max;
+    $max = $tmp;
+  }
+  if (empty($labels)) return ['-'];
+
+  $results = [];
+  $n = count($labels);
+  for ($k = $min; $k <= min($max, $n); ++$k) {
+    if ($k <= 0) {
+      $results[] = '-';
+      continue;
+    }
+    // first-k deterministic selection
+    $results[] = implode('&', array_slice($labels, 0, $k));
+    // last-k deterministic selection
+    $results[] = implode('&', array_slice($labels, $n - $k, $k));
+  }
+  return array_values(array_unique($results));
+}
+
 function BridgeEnumerateLegalActions($root, $gameName) {
   BridgeLoadRuntimeGame($root, $gameName);
   $dqController = new DecisionQueueController();
@@ -647,35 +886,50 @@ function BridgeEnumerateLegalActions($root, $gameName) {
   }
 
   $turnPlayer = intval(GetTurnPlayer());
+  $currentPlayer = BridgeActivePlayer();
   $phase = strval(GetCurrentPhase());
   $opportunityState = BridgeGetOpportunityState();
-  if ($phase !== 'MAIN') {
-    return [
-      'success' => true,
-      'kind' => 'phase-unsupported',
-      'phase' => $phase,
-      'opportunityState' => $opportunityState,
-      'actions' => [],
-    ];
-  }
-
-  $kind = 'main-phase-hand-play';
+  $kind = 'free-play-fsm';
   if ($opportunityState['effectStackCount'] > 0) {
-    $kind = 'effect-stack-response';
+    $kind = 'effect-stack-fsm';
   } else if ($opportunityState['pendingOpportunityHandler'] !== '') {
-    $kind = 'opportunity-window-hand-play';
+    $kind = 'opportunity-window-fsm';
   }
 
-  $handActions = BridgeEnumerateHandPlayActions($turnPlayer);
-  $passAction = ['playerID' => $turnPlayer, 'mode' => 100, 'buttonInput' => '', 'cardID' => 'PASS', 'chkInput' => [], 'inputText' => ''];
+  // In normal free-play/main-phase contexts, ownership should follow turn player.
+  // currentPlayer can be stale across phase transitions and cause wrong-perspective
+  // legal actions (e.g. p2 main showing p1 my* actions).
+  $actingPlayer = $turnPlayer;
+  if ($kind !== 'free-play-fsm') {
+    $actingPlayer = $currentPlayer > 0 ? $currentPlayer : $turnPlayer;
+  }
+  $fsmActions = BridgeEnumeratePlayableActions($actingPlayer);
+  // Real end-turn pass uses the health-zone CustomInput widget path (mode 10001),
+  // not decision mode 100/PASS.
+  $passAction = [
+    'playerID' => $actingPlayer,
+    'mode' => 10001,
+    'buttonInput' => '',
+    'cardID' => 'myHealth-0!CustomInput!PASS',
+    'chkInput' => [],
+    'inputText' => '',
+  ];
+  $canPhasePass = ($phase === 'MAIN' && $actingPlayer === $turnPlayer);
+  $actions = $fsmActions;
+  if ($canPhasePass) {
+    $actions[] = $passAction;
+  }
 
   return [
     'success' => true,
     'kind' => $kind,
-    'playerID' => $turnPlayer,
+    'playerID' => $actingPlayer,
+    'turnPlayer' => $turnPlayer,
+    'currentPlayer' => $currentPlayer,
     'phase' => $phase,
+    'canPhasePass' => $canPhasePass,
     'opportunityState' => $opportunityState,
-    'actions' => array_merge($handActions, [$passAction]),
+    'actions' => $actions,
   ];
 }
 
@@ -689,6 +943,28 @@ function BridgeApplyEngineAction($root, $gameName, $actionBase64) {
   return $result;
 }
 
+function BridgeStepSelfplayGame($root, $gameName, $actionBase64) {
+  $t0 = microtime(true);
+  $applyResult = BridgeApplyEngineAction($root, $gameName, $actionBase64);
+  $t1 = microtime(true);
+  $snapshot = BridgeSnapshot($root, $gameName, 'summary');
+  $t2 = microtime(true);
+  $legal = BridgeEnumerateLegalActions($root, $gameName);
+  $t3 = microtime(true);
+  return [
+    'success' => true,
+    'applyResult' => $applyResult,
+    'snapshot' => $snapshot,
+    'legalActions' => $legal,
+    'timingsMs' => [
+      'apply' => intval(round(($t1 - $t0) * 1000)),
+      'snapshot' => intval(round(($t2 - $t1) * 1000)),
+      'enumerate' => intval(round(($t3 - $t2) * 1000)),
+      'total' => intval(round(($t3 - $t0) * 1000)),
+    ],
+  ];
+}
+
 function BridgeSnapshot($root, $gameName, $view) {
   BridgeLoadRuntimeGame($root, $gameName);
   $payload = [
@@ -697,32 +973,234 @@ function BridgeSnapshot($root, $gameName, $view) {
     'activePlayer' => BridgeActivePlayer(),
     'phase' => strval(GetCurrentPhase()),
     'turnPlayer' => intval(GetTurnPlayer()),
+    'turnNumber' => intval(GetTurnNumber()),
     'flashMessage' => function_exists('GetFlashMessage') ? strval(GetFlashMessage()) : '',
     'gamestateHash' => RegressionCurrentGamestateHash($root, $gameName),
   ];
 
   if ($view === 'summary') {
+    $myChampion = BridgeChampionSummary(1);
+    $theirChampion = BridgeChampionSummary(2);
+    $terminal = BridgeTerminalStateFromDQVariables();
     $payload['zones'] = [
-      'myHandCount' => is_array(GetZone('myHand')) ? count(GetZone('myHand')) : 0,
-      'theirHandCount' => is_array(GetZone('theirHand')) ? count(GetZone('theirHand')) : 0,
-      'myFieldCount' => is_array(GetZone('myField')) ? count(GetZone('myField')) : 0,
-      'theirFieldCount' => is_array(GetZone('theirField')) ? count(GetZone('theirField')) : 0,
+      'myHandCount' => BridgeCountActiveZoneObjects('myHand'),
+      'theirHandCount' => BridgeCountActiveZoneObjects('theirHand'),
+      'myFieldCount' => BridgeCountActiveZoneObjects('myField'),
+      'theirFieldCount' => BridgeCountActiveZoneObjects('theirField'),
+      'myDeckCount' => BridgeCountActiveZoneObjects('myDeck'),
+      'theirDeckCount' => BridgeCountActiveZoneObjects('theirDeck'),
+      'myMemoryCount' => BridgeCountActiveZoneObjects('myMemory'),
+      'theirMemoryCount' => BridgeCountActiveZoneObjects('theirMemory'),
+      'myMaterialCount' => BridgeCountActiveZoneObjects('myMaterial'),
+      'theirMaterialCount' => BridgeCountActiveZoneObjects('theirMaterial'),
     ];
     $payload['players'] = [
       'player1' => [
         'mastery' => BridgeMasterySummary(1),
+        'champion' => $myChampion,
         'decisionQueue' => BridgeDecisionQueueSummary(1),
       ],
       'player2' => [
         'mastery' => BridgeMasterySummary(2),
+        'champion' => $theirChampion,
         'decisionQueue' => BridgeDecisionQueueSummary(2),
       ],
     ];
+    $payload['terminal'] = $terminal;
   } else {
     $payload['gamestateText'] = RegressionCurrentGamestateText($root, $gameName);
   }
 
   return $payload;
+}
+
+function BridgeChampionSummary($playerID) {
+  $zone = GetField($playerID);
+  if (!is_array($zone)) {
+    return [
+      'found' => false,
+      'mzID' => '',
+      'cardID' => '',
+      'baseLife' => 0,
+      'damage' => 0,
+      'remainingLife' => 0,
+    ];
+  }
+
+  for ($i = 0; $i < count($zone); ++$i) {
+    $obj = $zone[$i];
+    if (!is_object($obj) || !empty($obj->removed)) continue;
+    if (!PropertyContains(CardType($obj->CardID), 'CHAMPION')) continue;
+    $baseLife = intval(CardLife($obj->CardID));
+    $damage = intval($obj->Damage ?? 0);
+    return [
+      'found' => true,
+      'mzID' => 'p' . $playerID . 'Field-' . $i,
+      'cardID' => strval($obj->CardID),
+      'baseLife' => $baseLife,
+      'damage' => $damage,
+      'remainingLife' => $baseLife - $damage,
+    ];
+  }
+
+  return [
+    'found' => false,
+    'mzID' => '',
+    'cardID' => '',
+    'baseLife' => 0,
+    'damage' => 0,
+    'remainingLife' => 0,
+  ];
+}
+
+function BridgeTerminalStateFromDQVariables() {
+  $raw = GetDecisionQueueVariables();
+  $vars = json_decode(strval($raw), true);
+  $winner = 0;
+  if (is_array($vars) && isset($vars['GAMEOVER_WINNER'])) {
+    $winner = intval($vars['GAMEOVER_WINNER']);
+  }
+  $isTerminal = $winner === 1 || $winner === 2;
+  return [
+    'isTerminal' => $isTerminal,
+    'winner' => $winner,
+    'reason' => $isTerminal ? 'engine-gameover-variable' : '',
+    'source' => 'DecisionQueueVariables.GAMEOVER_WINNER',
+  ];
+}
+
+function BridgeLoadDeckForPlayer($root, $playerID, $deckText, &$summary) {
+  $deckImportPath = RegressionRepoRoot() . DIRECTORY_SEPARATOR . $root . DIRECTORY_SEPARATOR . 'Custom' . DIRECTORY_SEPARATOR . 'DeckImport.php';
+  if (!is_file($deckImportPath)) {
+    BridgeFail('Deck import helper not found for root.', ['root' => $root, 'path' => $deckImportPath]);
+  }
+  include_once $deckImportPath;
+
+  if (!function_exists('GrandArchiveResolveDeckInput')) {
+    BridgeFail('GrandArchiveResolveDeckInput is not available for this root.', ['root' => $root]);
+  }
+
+  $resolved = GrandArchiveResolveDeckInput($deckText);
+  if (!is_array($resolved) || empty($resolved['success'])) {
+    return [
+      'success' => false,
+      'playerID' => $playerID,
+      'message' => strval($resolved['message'] ?? 'Deck parse failed.'),
+      'materialCount' => 0,
+      'mainDeckCount' => 0,
+      'unresolved' => is_array($resolved['unresolved'] ?? null) ? $resolved['unresolved'] : [],
+    ];
+  }
+
+  $gameDeck = &GetDeck($playerID);
+  $material = &GetMaterial($playerID);
+  $mainCards = is_array($resolved['mainDeck'] ?? null) ? $resolved['mainDeck'] : [];
+  $materialCards = is_array($resolved['material'] ?? null) ? $resolved['material'] : [];
+
+  foreach ($materialCards as $cardID) {
+    $material[] = new Material($cardID);
+  }
+  foreach ($mainCards as $cardID) {
+    $gameDeck[] = new Deck($cardID);
+  }
+
+  // Deterministic shuffle for RL start reproducibility.
+  EngineShuffle($gameDeck, false);
+
+  $playerSummary = [
+    'success' => true,
+    'playerID' => $playerID,
+    'message' => '',
+    'materialCount' => count($materialCards),
+    'mainDeckCount' => count($mainCards),
+    'unresolved' => is_array($resolved['unresolved'] ?? null) ? array_values($resolved['unresolved']) : [],
+  ];
+  $summary[] = $playerSummary;
+  return $playerSummary;
+}
+
+function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckTextP2) {
+  $gameName = trim(strval($gameName));
+  if ($gameName === '') BridgeFail('gameName is required for start-selfplay-game.');
+
+  $deckTextP1 = strval($deckTextP1);
+  $deckTextP2 = strval($deckTextP2);
+  if (trim($deckTextP1) === '') BridgeFail('deckTextP1 is required for start-selfplay-game.');
+  if (trim($deckTextP2) === '') $deckTextP2 = $deckTextP1;
+
+  EngineLoadRootRuntime($root);
+  $GLOBALS['gameName'] = $gameName;
+
+  $gameDir = BridgeDraftGameDir($root, $gameName);
+  RegressionEnsureDir($gameDir);
+
+  InitializeGamestate();
+  SetDeterministicRandomCounter(intval($seed));
+  WriteGamestate('./' . $root . '/');
+  ParseGamestate('./' . $root . '/');
+  SetDeterministicRandomCounter(intval($seed));
+
+  $deckSummary = [];
+  $p1Result = BridgeLoadDeckForPlayer($root, 1, $deckTextP1, $deckSummary);
+  if (empty($p1Result['success'])) {
+    BridgeOut([
+      'success' => false,
+      'message' => 'Player 1 deck parse failed.',
+      'playerResult' => $p1Result,
+      'deckParseSummary' => $deckSummary,
+      'gameName' => $gameName,
+      'seed' => intval($seed),
+    ]);
+  }
+
+  $p2Result = BridgeLoadDeckForPlayer($root, 2, $deckTextP2, $deckSummary);
+  if (empty($p2Result['success'])) {
+    BridgeOut([
+      'success' => false,
+      'message' => 'Player 2 deck parse failed.',
+      'playerResult' => $p2Result,
+      'deckParseSummary' => $deckSummary,
+      'gameName' => $gameName,
+      'seed' => intval($seed),
+    ]);
+  }
+
+  $firstPlayer = &GetFirstPlayer();
+  $firstPlayer = 1;
+  $turnPlayer = &GetTurnPlayer();
+  $turnPlayer = $firstPlayer;
+  $currentTurn = &GetTurnNumber();
+  $currentTurn = 1;
+
+  $currentPhase = &GetCurrentPhase();
+  $currentPhase = 'WU';
+  SetPhaseParameters("-");
+  QueuePregameStartingChampionSetup();
+  AdvanceAndExecute("PASS");
+  AutoAdvanceAndExecute();
+  SaveUndoVersion($firstPlayer, "Pregame Starting Champion");
+
+  WriteGamestate('./' . $root . '/');
+  $legalActions = BridgeEnumerateLegalActions($root, $gameName);
+
+  return [
+    'success' => true,
+    'gameName' => $gameName,
+    'seed' => intval($seed),
+    'deckParseSummary' => $deckSummary,
+    'gamestateHash' => RegressionCurrentGamestateHash($root, $gameName),
+    'snapshot' => BridgeSnapshot($root, $gameName, 'summary'),
+    'legalActions' => $legalActions,
+  ];
+}
+
+function BridgeDecodeDeckTextArg($value) {
+  $raw = strval($value);
+  if ($raw === '') return '';
+  $decoded = base64_decode($raw, true);
+  if ($decoded === false) return $raw;
+  if ($decoded === '') return '';
+  return $decoded;
 }
 
 $args = BridgeParseArgs($argv);
@@ -762,8 +1240,20 @@ switch ($command) {
   case 'apply-engine-action':
     BridgeOut(BridgeApplyEngineAction($root, $args['gameName'] ?? '', $args['action'] ?? ''));
     break;
+  case 'step-selfplay-game':
+    BridgeOut(BridgeStepSelfplayGame($root, $args['gameName'] ?? '', $args['action'] ?? ''));
+    break;
   case 'get-game-snapshot':
     BridgeOut(BridgeSnapshot($root, $args['gameName'] ?? '', $args['view'] ?? 'summary'));
+    break;
+  case 'start-selfplay-game':
+    BridgeOut(BridgeStartSelfplayGame(
+      $root,
+      strval($args['gameName'] ?? ''),
+      intval($args['seed'] ?? 0),
+      BridgeDecodeDeckTextArg($args['deckTextP1'] ?? ''),
+      BridgeDecodeDeckTextArg($args['deckTextP2'] ?? '')
+    ));
     break;
   default:
     BridgeFail('Unsupported command.', ['command' => $command]);

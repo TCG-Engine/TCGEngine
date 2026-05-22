@@ -1,0 +1,204 @@
+import argparse
+import csv
+import json
+import random
+import time
+from pathlib import Path
+from typing import Dict, List
+
+from env import EnvConfig, GrandArchiveSelfPlayEnv
+from policy import TabularMaskedCategoricalPolicy, state_key_from_observation
+
+
+def read_deck_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8")
+
+
+def _candidate_indices(mask: List[int], actions: List[Dict], no_op_keys: set, state_key: str) -> List[int]:
+    legal = [i for i, m in enumerate(mask) if m]
+    if not legal:
+        return []
+
+    # Reject actions known to be no-op for this exact state.
+    filtered = [i for i in legal if f"{state_key}|{int(actions[i].get('mode', -1))}|{str(actions[i].get('cardID', ''))}" not in no_op_keys]
+    if not filtered:
+        filtered = legal
+
+    # Keep all currently legal actions (including PASS) choosable.
+    return filtered
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="GrandArchiveSim deterministic self-play RL MVP trainer")
+    parser.add_argument("--root", default="GrandArchiveSim")
+    parser.add_argument("--deck-file", required=True)
+    parser.add_argument("--episodes", type=int, default=100)
+    parser.add_argument("--seed", type=int, default=123)
+    parser.add_argument("--max-steps", type=int, default=400)
+    parser.add_argument("--max-turns", type=int, default=100)
+    parser.add_argument("--max-actions", type=int, default=256)
+    parser.add_argument("--learning-rate", type=float, default=0.05)
+    parser.add_argument("--temperature", type=float, default=1.0)
+    parser.add_argument("--epsilon", type=float, default=0.05)
+    parser.add_argument("--checkpoint-every", type=int, default=25)
+    args = parser.parse_args()
+
+    random.seed(args.seed)
+    deck_text = read_deck_text(Path(args.deck_file))
+
+    run_id = time.strftime("%Y%m%d-%H%M%S")
+    run_dir = Path(__file__).resolve().parent / "artifacts" / "runs" / run_id
+    ckpt_dir = run_dir / "checkpoints"
+    replay_dir = run_dir / "replays"
+    run_dir.mkdir(parents=True, exist_ok=True)
+    ckpt_dir.mkdir(parents=True, exist_ok=True)
+    replay_dir.mkdir(parents=True, exist_ok=True)
+
+    env = GrandArchiveSelfPlayEnv(
+        EnvConfig(root=args.root, max_steps=args.max_steps, max_turns=args.max_turns, per_step_penalty=0.0)
+    )
+    policy = TabularMaskedCategoricalPolicy(
+        max_actions=args.max_actions, temperature=args.temperature, learning_rate=args.learning_rate
+    )
+    frozen_pool: List[TabularMaskedCategoricalPolicy] = []
+
+    metrics_csv = run_dir / "metrics.csv"
+    with metrics_csv.open("w", newline="", encoding="utf-8") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=["episode", "seed", "winner", "reward", "steps", "timedOut", "elapsedMs", "frozenPoolSize"],
+        )
+        writer.writeheader()
+
+        for ep in range(args.episodes):
+            ep_seed = args.seed + ep
+            game_name = f"rl_train_{ep_seed}"
+            obs, mask, reset_info = env.reset(deck_text=deck_text, seed=ep_seed, game_name=game_name)
+            done = False
+            episode_steps: List[Dict] = []
+            replay_actions: List[Dict] = []
+            no_op_action_keys = set()
+            start = time.time()
+
+            # Simple opponent pool behavior: when it's player 2's turn, sometimes use a frozen checkpoint policy.
+            opponent = random.choice(frozen_pool) if frozen_pool and (ep % 2 == 1) else policy
+
+            while not done:
+                if not any(mask):
+                    done = True
+                    reward = 0.0
+                    info = {
+                        "winner": 0,
+                        "isTerminal": False,
+                        "timedOut": True,
+                        "stepCount": len(replay_actions),
+                        "gamestateHash": "",
+                        "legalKind": "no-legal-actions",
+                    }
+                    break
+                turn_player = int(obs["scalars"].get("turnPlayer", 1))
+                acting_policy = policy if turn_player == 1 else opponent
+                s_key = state_key_from_observation(obs)
+                bounded_mask = list(mask[: args.max_actions])
+                legal_indices = _candidate_indices(
+                    bounded_mask,
+                    env.last_legal_actions,
+                    no_op_action_keys,
+                    s_key,
+                )
+                if not legal_indices:
+                    done = True
+                    reward = 0.0
+                    info = {
+                        "winner": 0,
+                        "isTerminal": False,
+                        "timedOut": True,
+                        "stepCount": len(replay_actions),
+                        "gamestateHash": "",
+                        "legalKind": "no-candidate-actions",
+                    }
+                    break
+                filtered_mask = [1 if i in legal_indices else 0 for i in range(len(bounded_mask))]
+                action_index = acting_policy.select_action(s_key, filtered_mask, epsilon=args.epsilon)
+
+                episode_steps.append(
+                    {
+                        "state_key": s_key,
+                        "action_index": action_index,
+                        "legal_indices": legal_indices,
+                        "turn_player": turn_player,
+                    }
+                )
+                replay_actions.append(
+                    {
+                        "step": len(replay_actions) + 1,
+                        "turnPlayer": turn_player,
+                        "actionIndex": action_index,
+                        "legalCount": len(legal_indices),
+                        "action": dict(env.last_legal_actions[action_index]) if action_index < len(env.last_legal_actions) else {},
+                    }
+                )
+
+                obs, reward, done, mask, info = env.step(action_index)
+                if not bool(info.get("stateChanged", True)) and not done:
+                    action = info.get("chosenAction", {})
+                    action_mode = int(action.get("mode", -1))
+                    action_card = str(action.get("cardID", ""))
+                    no_op_action_keys.add(f"{s_key}|{action_mode}|{action_card}")
+
+            terminal_reward = float(reward)
+            policy.update_episode(episode_steps, terminal_reward)
+            elapsed_ms = int((time.time() - start) * 1000)
+
+            writer.writerow(
+                {
+                    "episode": ep + 1,
+                    "seed": ep_seed,
+                    "winner": info.get("winner", 0),
+                    "reward": terminal_reward,
+                    "steps": info.get("stepCount", 0),
+                    "timedOut": bool(info.get("timedOut", False)),
+                    "elapsedMs": elapsed_ms,
+                    "frozenPoolSize": len(frozen_pool),
+                }
+            )
+            f.flush()
+
+            replay_payload = {
+                "episode": ep + 1,
+                "seed": ep_seed,
+                "gameName": reset_info.get("gameName"),
+                "deckParseSummary": reset_info.get("deckParseSummary", []),
+                "result": info,
+                "actions": replay_actions,
+            }
+            (replay_dir / f"episode_{ep + 1:04d}.json").write_text(
+                json.dumps(replay_payload, indent=2), encoding="utf-8"
+            )
+
+            if (ep + 1) % args.checkpoint_every == 0 or (ep + 1) == args.episodes:
+                ckpt_path = ckpt_dir / f"episode_{ep + 1:04d}.json"
+                policy.save(ckpt_path)
+                policy.save(ckpt_dir / "latest.json")
+                frozen_pool.append(TabularMaskedCategoricalPolicy.load(ckpt_path))
+                if len(frozen_pool) > 5:
+                    frozen_pool.pop(0)
+
+    run_config = {
+        "root": args.root,
+        "deckFile": args.deck_file,
+        "episodes": args.episodes,
+        "seed": args.seed,
+        "maxSteps": args.max_steps,
+        "maxTurns": args.max_turns,
+        "maxActions": args.max_actions,
+        "learningRate": args.learning_rate,
+        "temperature": args.temperature,
+        "epsilon": args.epsilon,
+    }
+    (run_dir / "run_config.json").write_text(json.dumps(run_config, indent=2), encoding="utf-8")
+    print(json.dumps({"success": True, "runDir": str(run_dir), "latestCheckpoint": str(ckpt_dir / "latest.json")}, indent=2))
+
+
+if __name__ == "__main__":
+    main()

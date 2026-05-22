@@ -22,6 +22,8 @@ import {
   enumerateLegalActions,
   applyEngineAction,
   getGameSnapshot,
+  startSelfplayGame,
+  importRlEpisodeAsDraftFixture,
   testGameAddToZone,
   testGameAddCounters,
 } from "./tools.js";
@@ -447,6 +449,65 @@ server.tool(
     try {
       const result = await getGameSnapshot(params.root, params.gameName, params.view);
       return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: test_game_add_to_zone
+// ---------------------------------------------------------------------------
+server.tool(
+  "start_selfplay_game",
+  "Create or reset a deterministic self-play game from free-text deck input for RL workflows. Returns deck parse summary and initial legal actions.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')"),
+    gameName: z.string().describe("Game name under <root>/Games/ to create/reset."),
+    seed: z.number().int().describe("Deterministic RNG seed/counter used for game initialization."),
+    deckTextP1: z.string().describe("Free-text deck list for player 1."),
+    deckTextP2: z.string().optional().describe("Optional free-text deck list for player 2. Defaults to deckTextP1 for mirror matches."),
+  },
+  { destructiveHint: true },
+  async (params) => {
+    try {
+      const result = await startSelfplayGame(
+        params.root,
+        params.gameName,
+        params.seed,
+        params.deckTextP1,
+        params.deckTextP2
+      );
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], isError: result.success === false };
+    } catch (err: any) {
+      return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
+    }
+  }
+);
+
+// ---------------------------------------------------------------------------
+// Tool: import_rl_episode_as_draft_fixture
+// ---------------------------------------------------------------------------
+server.tool(
+  "import_rl_episode_as_draft_fixture",
+  "Import a saved RL replay episode into the regression draft workflow by creating a fixture, loading a draft game, replaying episode actions, and snapshotting initial/final gamestate files.",
+  {
+    root: z.string().describe("The root/game name (e.g. 'GrandArchiveSim')."),
+    episodeFile: z.string().describe("Path to the RL episode JSON replay file."),
+    deckTextP1: z.string().describe("Free-text deck list for player 1 used to bootstrap the game."),
+    deckTextP2: z.string().optional().describe("Optional free-text deck list for player 2. Defaults to deckTextP1."),
+    slug: z.string().optional().describe("Optional fixture slug under Tests/Integration/<root>/."),
+    name: z.string().optional().describe("Optional human-friendly fixture name for meta.json."),
+    gameName: z.string().optional().describe("Optional live draft game name under <root>/Games/. Defaults to proof-of-concept draft game."),
+    seedOverride: z.number().int().optional().describe("Optional deterministic seed override. Defaults to seed stored in episode."),
+    replaySteps: z.number().int().min(0).optional().describe("Optional number of episode actions to replay. 0 or omitted means replay all."),
+    testedCards: z.array(z.string()).optional().describe("Optional list of card IDs this imported fixture exercises."),
+  },
+  { destructiveHint: true },
+  async (params) => {
+    try {
+      const result = await importRlEpisodeAsDraftFixture(params);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], isError: result.success === false };
     } catch (err: any) {
       return { content: [{ type: "text", text: `Error: ${err.message}` }], isError: true };
     }

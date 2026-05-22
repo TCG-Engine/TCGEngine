@@ -1,0 +1,47 @@
+# Material Deck
+
+1 Spirit of Fire
+1 Lorraine, Wandering Warrior
+1 Censer of Restful Peace
+1 Clarent, Reimagined
+1 Clarent, Sword of Peace
+1 Enfeebling Orb
+1 Grand Crusader's Ring
+1 Smoke Bombs
+1 Sword of Seeking
+1 Sword Saint's Vow
+1 Wind Resonance Bauble
+1 Forgelight Blade
+
+# Main Deck
+
+1 Crystallized Destiny
+3 Liminal Guide
+4 Arthur, Young Heir
+3 Blazing Throw
+4 Creative Shock
+3 Dazzling Courtesan
+1 Fiery Interference
+3 Fiery Momentum
+3 Hasty Messenger
+4 Hone by Fire
+2 Intensified Pyre
+3 March Hare, Mottled Host
+4 Red Hare, Unrivaled Stallion
+2 Reduce to Ash
+4 Rending Flames
+2 Smoke Out
+4 Tempered Steel
+2 Three of Hearts
+4 Vermilion Decree
+4 Xiao Qiao, Cinderkeeper
+
+# Sideboard
+
+1 Fire Resonance Bauble
+1 Nullifying Mirror
+1 Water Resonance Bauble
+1 Infernal Vessel
+1 Crystallized Destiny
+1 Fiery Interference
+1 Reduce to Ash
