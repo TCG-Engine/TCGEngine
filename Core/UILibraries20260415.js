@@ -216,6 +216,10 @@
             return;
           }
         }
+        if (window.rootPath == './GrandArchiveSim' && window.GAHandCollapse) {
+          if (event.key === 'ArrowDown') { window.GAHandCollapse.collapse(); event.preventDefault(); return; }
+          if (event.key === 'ArrowUp')   { window.GAHandCollapse.expand();   event.preventDefault(); return; }
+        }
         //if (event.keyCode === 104) SubmitInput(3, "&cardID=0"); //H = hero ability
         //if (event.keyCode === 109) TogglePopup("menuPopup"); //M = open menu
         //TODO: Add schema file to define hotkeys

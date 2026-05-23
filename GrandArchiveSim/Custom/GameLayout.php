@@ -187,6 +187,34 @@
           text-shadow: 0 0 16px rgba(252, 221, 120, 0.68), 0 0 26px rgba(200, 155, 70, 0.52);
      }
 
+     .ga-kb-hints {
+          position: fixed;
+          left: 50%;
+          top: calc(50% - 18px);
+          transform: translateX(-50%);
+          z-index: 16;
+          pointer-events: none;
+          display: flex;
+          align-items: center;
+          gap: 14px;
+          color: rgba(244, 236, 219, 0.32);
+          font: 600 8px/1 var(--ga-font-label);
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          white-space: nowrap;
+     }
+
+     .ga-kb-hints kbd {
+          display: inline-block;
+          background: rgba(244, 236, 219, 0.10);
+          border: 1px solid rgba(244, 236, 219, 0.18);
+          border-radius: 3px;
+          padding: 1px 3px;
+          font: inherit;
+          line-height: 1;
+          margin-right: 2px;
+     }
+
      .ga-zone {
           position: fixed;
           z-index: 30;
@@ -515,6 +543,67 @@
      #theirHandSlot {
           left: 50%;
           transform: translateX(-50%);
+          /* Raise above field zones (z-index 30) so hand cards stay clickable
+             when the hand expands upward and overlaps the field area. */
+          z-index: 36;
+          overflow: visible;
+          transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1), border-color 160ms ease, box-shadow 160ms ease;
+     }
+
+     /* Collapse/expand tab — a small pill that floats at the top edge of myHandSlot. */
+     .ga-hand-collapse-btn {
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translateX(-50%) translateY(-50%);
+          width: 48px;
+          height: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(19, 32, 43, 0.88);
+          border: 1px solid rgba(244, 236, 219, 0.22);
+          border-radius: 99px;
+          cursor: pointer;
+          color: rgba(244, 236, 219, 0.65);
+          font-size: 9px;
+          line-height: 1;
+          padding: 0;
+          pointer-events: auto;
+          z-index: 2;
+          transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
+          user-select: none;
+          -webkit-user-select: none;
+     }
+
+     .ga-hand-collapse-btn:hover {
+          color: rgba(244, 236, 219, 0.96);
+          background: rgba(35, 55, 72, 0.96);
+          border-color: rgba(200, 155, 70, 0.45);
+     }
+
+     /* Collapsed state: slide the hand panel off-screen, leaving only the
+        collapse-button tab visible just above the screen's bottom edge. */
+     #myHandSlot.is-collapsed {
+          transform: translateX(-50%) translateY(calc(100% - 18px));
+     }
+
+     /* Suppress the ga-glass hover lift while collapsed. */
+     #myHandSlot.is-collapsed:hover {
+          transform: translateX(-50%) translateY(calc(100% - 18px)) !important;
+          border-color: rgba(244, 236, 219, 0.16) !important;
+          box-shadow: 0 20px 52px rgba(7, 14, 20, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.13) !important;
+     }
+
+     /* Opponent hand: collapses upward, leaving only the panel edge at screen top. */
+     #theirHandSlot.is-collapsed {
+          transform: translateX(-50%) translateY(calc(-100% + 18px));
+     }
+
+     #theirHandSlot.is-collapsed:hover {
+          transform: translateX(-50%) translateY(calc(-100% + 18px)) !important;
+          border-color: rgba(244, 236, 219, 0.16) !important;
+          box-shadow: 0 20px 52px rgba(7, 14, 20, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.13) !important;
      }
 
      #myFieldSlot,
@@ -1072,6 +1161,13 @@
      <span class="ga-phase-step" data-phase-step="MAIN">Main</span>
      <span class="ga-phase-step" data-phase-step="END">End</span>
 </div>
+<div class="ga-kb-hints" aria-hidden="true">
+     <span><kbd>U</kbd> Undo</span>
+     <span><kbd>S</kbd> Save</span>
+     <span><kbd>Space</kbd> Pass</span>
+     <span><kbd>↓</kbd> Collapse hand</span>
+     <span><kbd>↑</kbd> Expand hand</span>
+</div>
 
 <!-- =================== MY ZONES (bottom half) =================== -->
 
@@ -1423,6 +1519,64 @@
           loadPosition();
      }
 
+     function setupHandCollapse() {
+          var slot = document.getElementById('myHandSlot');
+          var theirSlot = document.getElementById('theirHandSlot');
+          if (!slot) return;
+          var storageKey = 'ga-hand-collapsed-v1';
+          var collapsed = false;
+          try { collapsed = localStorage.getItem(storageKey) === '1'; } catch (e) {}
+
+          function createBtn() {
+               var b = document.createElement('button');
+               b.className = 'ga-hand-collapse-btn';
+               b.setAttribute('type', 'button');
+               b.setAttribute('title', 'Collapse/expand hand');
+               b.textContent = collapsed ? '\u25b2' : '\u25bc';
+               b.setAttribute('aria-label', collapsed ? 'Expand hand' : 'Collapse hand');
+               b.addEventListener('click', function (ev) {
+                    ev.stopPropagation();
+                    setCollapsed(!slot.classList.contains('is-collapsed'));
+               });
+               return b;
+          }
+
+          function ensureButton() {
+               if (!slot.querySelector('.ga-hand-collapse-btn')) {
+                    slot.insertBefore(createBtn(), slot.firstChild);
+               }
+          }
+
+          function setCollapsed(c) {
+               collapsed = c;
+               slot.classList.toggle('is-collapsed', c);
+               if (theirSlot) theirSlot.classList.toggle('is-collapsed', c);
+               var b = slot.querySelector('.ga-hand-collapse-btn');
+               if (b) {
+                    b.textContent = c ? '\u25b2' : '\u25bc';
+                    b.setAttribute('aria-label', c ? 'Expand hand' : 'Collapse hand');
+               }
+               try { localStorage.setItem(storageKey, c ? '1' : '0'); } catch (e) {}
+          }
+
+          window.GAHandCollapse = {
+               toggle:   function() { setCollapsed(!slot.classList.contains('is-collapsed')); },
+               collapse: function() { setCollapsed(true); },
+               expand:   function() { setCollapsed(false); }
+          };
+
+          // NextTurnRender replaces myHandSlot.innerHTML on every poll, which removes
+          // the button. Watch for child-list mutations and re-inject it each time.
+          new MutationObserver(function () { ensureButton(); })
+               .observe(slot, { childList: true });
+
+          ensureButton();
+          if (collapsed) {
+               slot.classList.add('is-collapsed');
+               if (theirSlot) theirSlot.classList.add('is-collapsed');
+          }
+     }
+
      // Run once DOM is ready (GameLayout.php is included after DOMContentLoaded equivalent)
      if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function() {
@@ -1430,12 +1584,14 @@
                EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
                watchPhaseData();
                setupEffectStackDrag();
+               setupHandCollapse();
           });
      } else {
           AUTO_HIDE_IDS.forEach(watchSlot);
           EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
           watchPhaseData();
           setupEffectStackDrag();
+          setupHandCollapse();
      }
 })();
 </script>
