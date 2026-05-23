@@ -3312,7 +3312,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 $sourceType = EffectiveCardType($sourceObj);
                 if(PropertyContains($sourceType, "ALLY") || PropertyContains($sourceType, "CHAMPION")) {
                     $stormOfThornsGuard = true;
-                    OnDealDamage($targetController, $target, $source, 1);
+                    DealDamage($targetController == 1 ? 2 : 1, $target, $source, 1);
                     $stormOfThornsGuard = false;
                 }
             }
