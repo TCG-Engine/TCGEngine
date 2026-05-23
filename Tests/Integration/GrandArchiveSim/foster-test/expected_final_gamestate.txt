@@ -182,5 +182,5 @@ MAIN
 Main Phase
 {"mzID":"myField-2","amount":1,"ignoreCost":false,"mzIDCardID":"lzsmw3rrii","activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":""}
 0
-{"MaterializeCalls":{"1":1,"2":1},"Materialize":{"1":{"pNiyaGlIe7":1},"2":{"pNiyaGlIe7":1}},"EnterCalls":{"1":3,"2":3},"Enter":{"1":{"pNiyaGlIe7":1,"22tk3ir1o0":1,"mu6gvnta6q":1},"2":{"pNiyaGlIe7":1,"1x97n2jnlt":1,"lzsmw3rrii":1}},"DrawCalls":{"1":2,"2":1},"Draw":{"1":8,"2":7},"ActivateCardCalls":{"1":1,"2":2},"ActivateCard":{"1":{"22tk3ir1o0":1},"2":{"1x97n2jnlt":1,"lzsmw3rrii":1}},"CardActivatedCalls":{"1":1,"2":2},"CardActivated":{"1":{"22tk3ir1o0":1},"2":{"1x97n2jnlt":1,"lzsmw3rrii":1}},"OnFosterCalls":{"1":1},"OnFoster":{"1":{"22tk3ir1o0":1}}}
+{"MaterializeCalls":{"2":1},"Materialize":{"2":{"pNiyaGlIe7":1}},"EnterCalls":{"1":3,"2":3},"Enter":{"1":{"pNiyaGlIe7":1,"22tk3ir1o0":1,"mu6gvnta6q":1},"2":{"pNiyaGlIe7":1,"1x97n2jnlt":1,"lzsmw3rrii":1}},"DrawCalls":{"1":2,"2":1},"Draw":{"1":8,"2":7},"ActivateCardCalls":{"1":1,"2":2},"ActivateCard":{"1":{"22tk3ir1o0":1},"2":{"1x97n2jnlt":1,"lzsmw3rrii":1}},"CardActivatedCalls":{"1":1,"2":2},"CardActivated":{"1":{"22tk3ir1o0":1},"2":{"1x97n2jnlt":1,"lzsmw3rrii":1}},"OnFosterCalls":{"1":1},"OnFoster":{"1":{"22tk3ir1o0":1}}}
 0

@@ -5199,7 +5199,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
                     if($selectedAbilityIndex == $dynIndex) {
                         ActivatedAbilityCost($player, $mzCard, $copiedCardID, $ai);
                         // Queue copied ability at block=101 so any queued costs at block=100 resolve first.
-                        DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityActivated|$copiedCardID|$ai", 101);
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityActivated|$copiedCardID|$ai", 101, "", 1);
                         $handledDynamic = true;
                         break;
                     }
@@ -5242,7 +5242,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         }
         // Queue AbilityActivated at block=101 so it fires AFTER costs (block 100/101).
         $resolveHandler = $isHandActivatedMacro ? "HandAbilityActivated" : "AbilityActivated";
-        DecisionQueueController::AddDecision($player, "CUSTOM", $resolveHandler . "|$cardID|$selectedAbilityIndex", 101);
+        DecisionQueueController::AddDecision($player, "CUSTOM", $resolveHandler . "|$cardID|$selectedAbilityIndex", 101, "", 1);
     }
     if($refractedTwilightCopies > 0) {
         // block=102: run after the main AbilityActivated (101) but before AbilityOpportunity (200).
@@ -7235,6 +7235,13 @@ function RecollectionPhase() {
     global $playerID;
     // Defensive reset in case a prior opportunity/stack branch changed perspective.
     $playerID = $turnPlayer;
+
+    // Macro turn-index cleanup: materialize counters are intended to be per-turn.
+    // Reset only the active player's buckets at the beginning of their turn.
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(isset($_ti["Materialize"][$turnPlayer])) unset($_ti["Materialize"][$turnPlayer]);
+    if(isset($_ti["MaterializeCalls"][$turnPlayer])) unset($_ti["MaterializeCalls"][$turnPlayer]);
+    SetMacroTurnIndex(empty($_ti) ? '{}' : json_encode($_ti));
 
     // Golden Checkmate (KbE9R1mi3n): delayed win at the beginning of your next recollection phase.
     if(GlobalEffectCount($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION") > 0) {
