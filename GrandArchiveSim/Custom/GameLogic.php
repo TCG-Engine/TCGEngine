@@ -54,6 +54,7 @@ $Imbue_Cards["92mnQJPfR8"] = ['threshold' => 1, 'matcher' => 'advanced']; // Ang
 $Imbue_Cards["aKjX6INGkV"] = ['threshold' => 2, 'matcher' => 'advanced']; // Angelic Vanguard - Advanced Imbue 2
 $Imbue_Cards["b9lli2PE7I"] = ['threshold' => 3, 'matcher' => 'advanced']; // Nuriel, Seraphic Paladin - Advanced Imbue 3
 $Imbue_Cards["e5r6eVzpkD"] = ['threshold' => 2, 'matcher' => 'advanced']; // Reverent Seraphim - Advanced Imbue 2
+$Imbue_Cards["k4pjo6lVMO"] = ['threshold' => 2, 'matcher' => 'advanced']; // Fount Seraphim - Advanced Imbue 2
 $Imbue_Cards["eDCnvWoGxf"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['EXIA', 'NEOS']]; // Azrael, Archangel of Materia - Exia & Neos Imbue 3
 $Imbue_Cards["ozpG6bt7nC"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['ARCANE', 'ASTRA']]; // Raziel, Archangel of Libra - Arcane & Astra Imbue 3
 $Imbue_Cards["suH40WW60W"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['LUXEM', 'UMBRA']]; // Haniel, Archangel of Spectra - Luxem & Umbra Imbue 3
@@ -10596,6 +10597,10 @@ function ObjectCurrentLevel($obj) {
                 if(strpos($effectID, "s7a4tm04ll-") === 0) {
                     $cardLevel += intval(substr($effectID, strlen("s7a4tm04ll-")));
                 }
+                // Volcanic Crescendo (W3FveBmY0Z): Empower 3+X, encoded on champion as "W3FveBmY0Z-N"
+                if(strpos($effectID, "W3FveBmY0Z-") === 0) {
+                    $cardLevel += intval(substr($effectID, strlen("W3FveBmY0Z-")));
+                }
                 // Ebbing Tide: Empower X, encoded as "s7pmqsl3jw-N"
                 if(strpos($effectID, "s7pmqsl3jw-") === 0) {
                     $cardLevel += intval(substr($effectID, strlen("s7pmqsl3jw-")));
@@ -19225,6 +19230,19 @@ $customDQHandlers["SlimeEruptionDeal"] = function($player, $parts, $lastDecision
     }
     SlimeEruptionDamageStep($player, $remaining - 1);
 };
+
+function VolcanicCrescendoResolve($player) {
+    $count = intval(DecisionQueueController::GetVariable("volcanic_banished_count"));
+    $amount = 3 + $count;
+    Empower($player, $amount, "W3FveBmY0Z_TRIGGER_ONLY");
+    $championMZ = FindChampionMZ($player);
+    if($championMZ !== null) {
+        AddTurnEffect($championMZ, "W3FveBmY0Z-" . $amount);
+    }
+    if($count <= 0 || !IsHarmonizeActive($player)) return;
+    DealChampionDamage(1, $count);
+    DealChampionDamage(2, $count);
+}
 
 $customDQHandlers["RefractedTwilightCopy"] = function($player, $parts, $lastDecision) {
     global $activateAbilityAbilities;
