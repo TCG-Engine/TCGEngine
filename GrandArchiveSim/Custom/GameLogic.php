@@ -8537,6 +8537,9 @@ function ObjectCurrentPower($obj) {
         if($effect === "tZtoAl4ojK_POWER") {
             $power -= 5;
         }
+        if($effect === "l83tuzrl2a") { // Lily, Marine Castellan: On Attack +1 POWER
+            $power += 1;
+        }
         if(strpos($effect, "AxHzxEHBHZ_EMPOWER_") === 0) {
             $power += intval(substr($effect, strlen("AxHzxEHBHZ_EMPOWER_")));
         }
@@ -8821,9 +8824,6 @@ function ObjectCurrentPower($obj) {
                     }
                 }
             }
-            break;
-        case "l83tuzrl2a": // Lily, Marine Castellan: On Attack if attacking even-life unit, +1 POWER
-            $power += 1;
             break;
         case "zcvq77mdgd": // Sword of Shadows: [CB] +1 POWER; -1 while opponent controls stealth ally
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {

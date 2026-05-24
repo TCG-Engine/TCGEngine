@@ -2018,6 +2018,9 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         return;
     }
 
+    // Store selected target before On Attack so declaration-time abilities can inspect CombatTarget.
+    DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
+
     // Fire On Attack triggers (may grant effects like critical)
     OnAttack($player, $attackerMZ);
 
@@ -2044,7 +2047,6 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     }
 
     // Store combat state for the damage and retaliation handlers
-    DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
     DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
     DecisionQueueController::StoreVariable("CombatIsCleave", "0");
 
