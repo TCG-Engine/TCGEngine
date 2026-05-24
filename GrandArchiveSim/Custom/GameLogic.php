@@ -7892,6 +7892,10 @@ function EndPhase() {
     $firstPlayer = &GetFirstPlayer();
     $currentTurn = &GetTurnNumber();
     $turnPlayer = &GetTurnPlayer();
+    global $playerID;
+    $savedPlayerID = $playerID;
+    // Normalize my/their lookups to the active turn player's perspective for end-phase resolution.
+    $playerID = $turnPlayer;
 
     // Clear any remaining intent cards (unused attack cards) to graveyard
     ClearIntent($turnPlayer);
@@ -8501,6 +8505,7 @@ function EndPhase() {
     }
 
     ExpireEffects(isEndTurn:false);
+    $playerID = $savedPlayerID;
 }
 
 function ObjectCurrentPower($obj) {
