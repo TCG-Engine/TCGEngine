@@ -111,7 +111,7 @@ Counters: DurabilityCounterCount=Badge(Color=Brown,Position=TopRight,ShowZero=fa
 Counters: GlimmerCounterCount=Badge(Color=Magenta,Position=Center,ShowZero=false)
 Counters: WitherCounterCount=Badge(Color=DarkGreen,Position=Center,ShowZero=false)
 Counters: ChargeCounterCount=Badge(Color=Gold,Position=Center,ShowZero=false)
-Counters: SheenCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
+Counters: SheenCounterCount=Badge(Color=Pink,Position=Center,ShowZero=false)
 Counters: AgeCounterCount=Badge(Color=Orange,Position=Center,ShowZero=false)
 Counters: QuestCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
 AfterAdd: FieldAfterAdd
@@ -154,7 +154,7 @@ BeforeAdd: TokenCeaseBeforeAdd
 Virtual: SheenCounterCount=GetSheenCounterCount(), HauntCounterCount=GetHauntCounterCount(), ServilePossessionsBanishCount=GetServilePossessionsBanishCount()
 Display: Visibility=Public, Mode=All, BindTo=MasterySlot
 Overlay: Direction=NORTH:sc_north,Direction=SOUTH:sc_south,Direction=EAST:sc_east,Direction=WEST:sc_west
-Counters: SheenCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
+Counters: SheenCounterCount=Badge(Color=Pink,Position=Center,ShowZero=false)
 Counters: HauntCounterCount=Badge(Color=Purple,Position=TopRight,ShowZero=false)
 Counters: ServilePossessionsBanishCount=Badge(Color=Purple,Position=Center,ShowZero=true,ShowNegative=false)
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
