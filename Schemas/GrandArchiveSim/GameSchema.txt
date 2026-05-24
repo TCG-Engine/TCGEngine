@@ -90,6 +90,7 @@ Virtual: SheenCounterCount=GetSheenCounterCount()
 Virtual: AgeCounterCount=GetAgeCounterCount()
 Virtual: QuestCounterCount=GetQuestCounterCountForObject()
 Virtual: StealthOverlay=FieldHasStealth()
+Virtual: SpellshroudOverlay=FieldHasSpellshroud()
 Virtual: DynamicAbilities=GetDynamicAbilities()
 Virtual: ActivateAbilityButtonStates=GetActivateAbilityButtonStates()
 Virtual: HasAbility=CardHasAbility()
@@ -99,6 +100,7 @@ Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Overlay: Status=1:exhausted
 Overlay: TurnEffects=DISTANT:distant
 Overlay: StealthOverlay=1:stealth(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
+Overlay: SpellshroudOverlay=1:spellshroud(Image=Assets/Overlays/spellshroud-overlay.webp,DrawOrder=11)
 Rotation: Status=1:9
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)

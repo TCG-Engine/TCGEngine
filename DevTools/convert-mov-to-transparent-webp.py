@@ -8,8 +8,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
-input_path = r"C:\Users\maxim\Downloads\smoke-overlay-vid.mov"
-output_path = r"C:\Users\maxim\Downloads\smoke-overlay.webp"
+input_path = r"C:\Users\maxim\Downloads\spellshroud-overlay.mov"
+output_path = r"C:\Users\maxim\Downloads\spellshroud-overlay.webp"
 
 TARGET_FPS = 8  # output frames per second
 VALUE_SCALE = 2.0  # scales HSV V per pixel before gamma mapping

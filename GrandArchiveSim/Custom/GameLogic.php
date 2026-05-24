@@ -17232,6 +17232,10 @@ function FieldHasStealth($obj) {
     return HasStealth($obj) ? 1 : 0;
 }
 
+function FieldHasSpellshroud($obj) {
+    return HasSpellshroud($obj) ? 1 : 0;
+}
+
 // Siegeable: domain subtype that allows being attacked. Damage removes durability counters.
 function IsSiegeable($obj) {
     if($obj === null) return false;
@@ -17326,6 +17330,7 @@ function HasSpellshroud($obj) {
     if(in_array("SPELLSHROUD", $obj->TurnEffects)) return true;
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
     if(in_array("OMNISHROUD", $obj->TurnEffects ?? [])) return true;
+    if($obj->CardID === "6ce5rzrjd9") return true;
     if($obj->CardID === "4GFKcHg9NU" && intval($obj->Status ?? 0) === 2) return true;
     // Innervate Agility: units gain spellshroud until EOT via global effect
     $effects = explode(",", CardCurrentEffects($obj));
