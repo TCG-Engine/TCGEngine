@@ -15908,48 +15908,38 @@ function ApplyCrystallineRealityMode($player, $mode) {
     }
 }
 
-function CrystallineRealityAskMode($player, $mode) {
-    $chosen = intval(DecisionQueueController::GetVariable("CrystallineRealityChosen"));
-    $needed = intval(DecisionQueueController::GetVariable("CrystallineRealityNeeded"));
-    if($chosen >= $needed || $mode >= 3) return;
-
-    $remainingModes = 3 - $mode;
-    if($chosen + $remainingModes <= $needed) {
-        for($applyMode = $mode; $applyMode < 3; ++$applyMode) {
-            ApplyCrystallineRealityMode($player, $applyMode);
-        }
-        DecisionQueueController::StoreVariable("CrystallineRealityChosen", strval($needed));
-        return;
-    }
-
-    $tooltips = [
-        "Choose_Crystalline_Reality_mode:_Summon_a_Memorite_Blade?",
-        "Choose_Crystalline_Reality_mode:_Champion_gains_true_sight?",
-        "Choose_Crystalline_Reality_mode:_Draw_a_card_into_memory?"
-    ];
-    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltips[$mode]);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "CrystallineRealityMode|" . $mode, 1);
-}
-
 function CrystallineRealityStart($player) {
-    if(IsMerlinBonusActive($player)) {
-        AddPrepCounter($player, 1);
+    DecisionQueueController::StoreVariable("wasPrepared", "NO");
+    $champMZ = FindChampionMZ($player);
+    $canPrepare = false;
+    if(IsMerlinBonusActive($player) && $champMZ !== null) {
+        $champObj = GetZoneObject($champMZ);
+        if($champObj !== null && GetCounterCount($champObj, "preparation") >= 1) {
+            $canPrepare = true;
+        }
     }
-    $needed = DecisionQueueController::GetVariable("wasPrepared") === "YES" ? 2 : 1;
-    DecisionQueueController::StoreVariable("CrystallineRealityChosen", "0");
-    DecisionQueueController::StoreVariable("CrystallineRealityNeeded", strval($needed));
-    CrystallineRealityAskMode($player, 0);
+    if($canPrepare) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Pay_Prepare_1?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DeclarePrepareCost|" . $champMZ . "|1", 1);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CrystallineRealityQueueModes", 1);
 }
 
-$customDQHandlers["CrystallineRealityMode"] = function($player, $parts, $lastDecision) {
-    $mode = isset($parts[0]) ? intval($parts[0]) : 0;
-    $chosen = intval(DecisionQueueController::GetVariable("CrystallineRealityChosen"));
-    if($lastDecision === "YES") {
-        ApplyCrystallineRealityMode($player, $mode);
-        ++$chosen;
-        DecisionQueueController::StoreVariable("CrystallineRealityChosen", strval($chosen));
+$customDQHandlers["CrystallineRealityQueueModes"] = function($player, $parts, $lastDecision) {
+    $needed = DecisionQueueController::GetVariable("wasPrepared") === "YES" ? 2 : 1;
+    $labels = "A:_Summon_a_Memorite_Blade&B:_Your_champion_gains_true_sight_until_end_of_turn&C:_Draw_a_card_into_your_memory";
+    DecisionQueueController::AddDecision($player, "MZMODAL", $needed . "|" . $needed . "|" . $labels, 1, "Crystalline_Reality");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CrystallineRealityResolveModes", 1);
+};
+
+$customDQHandlers["CrystallineRealityResolveModes"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $modes = explode(",", $lastDecision);
+    foreach($modes as $mode) {
+        $mode = trim($mode);
+        if($mode === "") continue;
+        ApplyCrystallineRealityMode($player, intval($mode));
     }
-    CrystallineRealityAskMode($player, $mode + 1);
 };
 
 function SlimesBlessingAskTarget($player) {
