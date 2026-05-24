@@ -1735,7 +1735,7 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     $swAttacker = GetZoneObject($attackerMZ);
     if($swAttacker !== null && !HasNoAbilities($swAttacker)
        && PropertyContains(EffectiveCardSubtypes($swAttacker), "MEMORITE")
-       && in_array("SHARDWING_SEARCHLIGHT_ONHIT", CardCurrentEffects($swAttacker))) {
+       && PropertyContains(CardCurrentEffects($swAttacker), "SHARDWING_SEARCHLIGHT_ONHIT")) {
         $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
         if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
             $hitObj = GetZoneObject($hitTarget);
