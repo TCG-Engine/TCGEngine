@@ -6166,15 +6166,11 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             }
         }
     }
-
+    
     // Fount Seraphim (k4pjo6lVMO): until beginning of controller's next turn, opponents' allies enter rested
     if(PropertyContains(CardType($added->CardID), "ALLY")) {
-        for($fsp = 1; $fsp <= 2; ++$fsp) {
-            if($fsp == $player) continue;
-            if(GlobalEffectCount($fsp, "k4pjo6lVMO_RESTED_NEXT_TURN") > 0) {
-                $added->Status = 1;
-                break;
-            }
+        if(GlobalEffectCount(($player == 1 ? 2 : 1), "k4pjo6lVMO_RESTED_NEXT_TURN") > 0) {
+            $added->Status = 1;
         }
     }
 
@@ -7298,11 +7294,6 @@ function RecollectionPhase() {
     // Peaceful Reunion: clear attack-prevention at the beginning of the caster's next turn
     if(GlobalEffectCount($turnPlayer, "wr42i6eifn") > 0) {
         RemoveGlobalEffect($turnPlayer, "wr42i6eifn");
-    }
-
-    // Fount Seraphim (k4pjo6lVMO): clear rested-entry lock at beginning of your next turn
-    if(GlobalEffectCount($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN") > 0) {
-        RemoveGlobalEffect($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN");
     }
 
     // Plea for Peace: clear attack tax at the beginning of the caster's next turn
@@ -8501,6 +8492,12 @@ function EndPhase() {
 
     if ($turnPlayer == $firstPlayer) {
         ++$currentTurn;
+    }
+
+    // Fount Seraphim (k4pjo6lVMO): until beginning of controller's next turn,
+    // opponents' allies enter rested. Clear this flag as soon as that turn begins.
+    while(GlobalEffectCount($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN") > 0) {
+        RemoveGlobalEffect($turnPlayer, "k4pjo6lVMO_RESTED_NEXT_TURN");
     }
 
     ExpireEffects(isEndTurn:false);
@@ -14608,6 +14605,9 @@ $doesGlobalEffectApply["PLljzdiMmq_NO_NONALLY"] = function($obj) { return false;
 
 // Tasershot (4x7e22tk3i): flag only â€” level-up deal 4 unpreventable
 $doesGlobalEffectApply["4x7e22tk3i"] = function($obj) { return false; };
+
+$doesGlobalEffectApply["k4pjo6lVMO_RESTED_NEXT_TURN"] = function($obj) { return false; };
+$foreverEffects["k4pjo6lVMO_RESTED_NEXT_TURN"] = true;
 
 // Consumption Ring (g8q7imka92): flag only â€” non-ally cards opponents activate cost (4) more
 $doesGlobalEffectApply["CONSUMPTION_RING_COST"] = function($obj) { return false; };
