@@ -398,6 +398,28 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         }
     }
 
+    // Shardforged Blade (Y34Imzlr0n): you may sacrifice a Memorite object to pay for 1 memory.
+    if($materializeCard->CardID === "Y34Imzlr0n" && !$ignoreCost && $memoryCost > 0) {
+        $memorites = [];
+        global $playerID;
+        $myField = ($player == $playerID) ? "myField" : "theirField";
+        $field = GetZone($myField);
+        for($i = 0; $i < count($field); ++$i) {
+            $fieldObj = $field[$i];
+            if($fieldObj->removed) continue;
+            if($fieldObj->Controller != $player) continue;
+            if(!PropertyContains(EffectiveCardSubtypes($fieldObj), "MEMORITE")) continue;
+            $memorites[] = $myField . "-" . $i;
+        }
+        if(!empty($memorites)) {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $memorites), 1,
+                tooltip:"Sacrifice_a_Memorite_object_to_pay_1_memory?");
+            DecisionQueueController::AddDecision($player, "CUSTOM",
+                "ShardforgedBladeMaterializeCost|" . $lastDecision . "|" . $memoryCost . "|" . $extraReserveCost, 1);
+            return;
+        }
+    }
+
     if($memoryCost > 0 || $extraReserveCost > 0) {
         if($materializeCard->CardID === "mDN1CI9IEe") {
             $floating = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
@@ -439,6 +461,65 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     }
     //Then materialize the card (cost is 0, so it resolves immediately)
     Materialize($player, $lastDecision);
+};
+
+$customDQHandlers["ShardforgedBladeMaterializeCost"] = function($player, $parts, $lastDecision) {
+    $mzCard = $parts[0] ?? "";
+    $memoryCost = intval($parts[1] ?? 0);
+    $extraReserveCost = intval($parts[2] ?? 0);
+    if($mzCard === "") return;
+
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $chosenObj = GetZoneObject($lastDecision);
+        if($chosenObj !== null && !$chosenObj->removed && $chosenObj->Controller == $player
+            && PropertyContains(EffectiveCardSubtypes($chosenObj), "MEMORITE")) {
+            MZMove($player, $lastDecision, "myGraveyard");
+            $memoryCost = max(0, $memoryCost - 1);
+        }
+    }
+
+    if($memoryCost > 0 || $extraReserveCost > 0) {
+        $materializeCard = GetZoneObject($mzCard);
+        if($materializeCard === null || $materializeCard->removed) return;
+
+        if($materializeCard->CardID === "mDN1CI9IEe") {
+            $floating = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
+            if(count($floating) < $memoryCost) return;
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $floating), 1,
+                tooltip:"Banish_floating_memory_for_Sealed_Blade_(1_of_" . $memoryCost . ")");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "SealedBladeFloatingCost|" . $mzCard . "|" . $memoryCost . "|1", 1);
+            return;
+        }
+
+        $floatingIndices = "";
+        if($memoryCost > 0) {
+            $memoryCount = 0;
+            $memoryZone = GetMemory($player);
+            foreach($memoryZone as $memoryObj) {
+                if(!$memoryObj->removed) ++$memoryCount;
+            }
+            $floatingIndices = GetMaterializeFloatingChoices($player);
+            $floatingCount = $floatingIndices === "" ? 0 : count(explode("&", $floatingIndices));
+            if($memoryCount + $floatingCount < $memoryCost) {
+                AutoUndoMaterializeCostFailure($player);
+                return;
+            }
+        }
+
+        DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
+        DecisionQueueController::StoreVariable("PendingMatCard", $mzCard);
+        for($i = 0; $i < $extraReserveCost; ++$i) {
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        }
+        if($memoryCost > 0 && $floatingIndices != "") {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+        }
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+        return;
+    }
+
+    Materialize($player, $mzCard);
 };
 
 $customDQHandlers["SealedBladeFloatingCost"] = function($player, $parts, $lastDecision) {
