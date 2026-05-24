@@ -8124,9 +8124,19 @@ function EndPhase() {
     // At the beginning of your end phase, you may sacrifice two Herbs with the same name to draw a card.
     if(ChampionHasInLineage($turnPlayer, "ltv5klryvf")) {
         $validHerbs = MasterAlchemistGetDuplicateHerbs();
-        if(!empty($validHerbs)) {
-            DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Sacrifice_two_same-name_Herbs_to_draw?_(Inherited:_Arisanna,_Master_Alchemist)");
-            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MasterAlchemistEndPhaseYesNo", 1);
+        $seenByID = [];
+        $choices = [];
+        foreach($validHerbs as $mz) {
+            $obj = GetZoneObject($mz);
+            if($obj === null) continue;
+            if(!isset($seenByID[$obj->CardID])) {
+                $seenByID[$obj->CardID] = true;
+                $choices[] = $mz;
+            }
+        }
+        if(!empty($choices)) {
+            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", implode("&", $choices), 1, tooltip:"Choose_a_same-name_Herb_pair_to_sacrifice_and_draw");
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MasterAlchemistEndPhaseMayChoose", 1);
         }
     }
 

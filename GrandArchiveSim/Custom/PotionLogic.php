@@ -628,7 +628,7 @@ function DistilledAtrophyApplyDirect($player, $targetMZ) {
 
 // --- Arisanna, Master Alchemist (ltv5klryvf): Inherited Effect ---
 // At the beginning of your end phase, you may sacrifice two Herbs with the same name to draw a card.
-// Flow: check done in EndPhase(); if valid herb pairs exist → YESNO → MZCHOOSE → auto-sacrifice partner → Draw.
+// Flow: check done in EndPhase(); if valid herb pairs exist → MZMAYCHOOSE (passable) → auto-sacrifice partner → Draw.
 
 function MasterAlchemistGetDuplicateHerbs() {
     $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
@@ -648,60 +648,20 @@ function MasterAlchemistGetDuplicateHerbs() {
     return array_unique($valid);
 }
 
-$customDQHandlers["MasterAlchemistEndPhaseYesNo"] = function($player, $parts, $lastDecision) {
-    if($lastDecision !== "YES") return;
-    $validHerbs = MasterAlchemistGetDuplicateHerbs();
-    if(empty($validHerbs)) return;
-    // Deduplicate so each name shows once per pair: pick the first mz of each pair
-    $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
-    $seenByID = [];
-    $choices = [];
-    foreach($herbs as $mz) {
-        $obj = GetZoneObject($mz);
-        if($obj === null) continue;
-        if(!in_array($mz, $validHerbs)) continue;
-        // Only show the first occurrence of each duplicate CardID (the player picks "which pair")
-        if(!isset($seenByID[$obj->CardID])) {
-            $seenByID[$obj->CardID] = $mz;
-            $choices[] = $mz;
-        }
-    }
-    if(empty($choices)) return;
-    // If only one pairable name, auto-resolve without prompting
-    if(count($choices) === 1) {
-        // Find both herbs of this id and sacrifice them
-        $cardID = GetZoneObject($choices[0])->CardID;
-        $pair = array_filter($herbs, function($mz) use ($cardID) {
-            $o = GetZoneObject($mz);
-            return $o !== null && $o->CardID === $cardID;
-        });
-        $pair = array_values($pair);
-        // Sort descending by index so removals don't shift earlier indices
-        usort($pair, function($a, $b) {
-            return intval(explode('-', $b)[1]) - intval(explode('-', $a)[1]);
-        });
-        foreach(array_slice($pair, 0, 2) as $herbMZ) {
-            OnLeaveField($player, $herbMZ);
-            MZMove($player, $herbMZ, "myGraveyard");
-        }
-        DecisionQueueController::CleanupRemovedCards();
-        Draw($player, 1);
-        return;
-    }
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, tooltip:"Choose_a_pair_of_same-name_Herbs_to_sacrifice");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "MasterAlchemistHerbSelect", 1);
+$customDQHandlers["MasterAlchemistEndPhaseMayChoose"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MasterAlchemistResolveHerbPairAndDraw($player, $lastDecision);
 };
 
-$customDQHandlers["MasterAlchemistHerbSelect"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $chosenObj = GetZoneObject($lastDecision);
+function MasterAlchemistResolveHerbPairAndDraw($player, $chosenMZ) {
+    $chosenObj = GetZoneObject($chosenMZ);
     if($chosenObj === null) return;
     $targetCardID = $chosenObj->CardID;
     // Find the matching second herb (different mzID, same CardID)
     $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
     $partner = null;
     foreach($herbs as $mz) {
-        if($mz === $lastDecision) continue;
+        if($mz === $chosenMZ) continue;
         $obj = GetZoneObject($mz);
         if($obj !== null && $obj->CardID === $targetCardID) {
             $partner = $mz;
@@ -710,7 +670,7 @@ $customDQHandlers["MasterAlchemistHerbSelect"] = function($player, $parts, $last
     }
     if($partner === null) return; // Pair no longer available (edge case)
     // Sacrifice higher index first to avoid index shifts
-    $first = $lastDecision;
+    $first = $chosenMZ;
     $second = $partner;
     $idxFirst = intval(explode('-', $first)[1]);
     $idxSecond = intval(explode('-', $second)[1]);
@@ -721,6 +681,11 @@ $customDQHandlers["MasterAlchemistHerbSelect"] = function($player, $parts, $last
     MZMove($player, $second, "myGraveyard");
     DecisionQueueController::CleanupRemovedCards();
     Draw($player, 1);
+}
+
+$customDQHandlers["MasterAlchemistHerbSelect"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    MasterAlchemistResolveHerbPairAndDraw($player, $lastDecision);
 };
 
 // --- Wildgrowth Elixir (tjot4nmxqs): puts X buff counters on target ally ---
