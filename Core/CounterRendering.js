@@ -359,6 +359,37 @@ function getReadableTextColor(backgroundColor) {
   return luminance >= 186 ? '#000' : '#fff';
 }
 
+function getCounterClusterOffset(slotIndex, total, spacingPx) {
+  // Formation is centered as a group around (0,0).
+  if (total <= 1) return { x: 0, y: 0 };
+  if (total === 2) {
+    return slotIndex === 0 ? { x: -spacingPx * 0.5, y: 0 } : { x: spacingPx * 0.5, y: 0 };
+  }
+  if (total === 3) {
+    if (slotIndex === 0) return { x: -spacingPx * 0.5, y: -spacingPx * 0.4 };
+    if (slotIndex === 1) return { x: spacingPx * 0.5, y: -spacingPx * 0.4 };
+    return { x: 0, y: spacingPx * 0.5 };
+  }
+  if (total === 4) {
+    if (slotIndex === 0) return { x: -spacingPx * 0.5, y: -spacingPx * 0.5 };
+    if (slotIndex === 1) return { x: spacingPx * 0.5, y: -spacingPx * 0.5 };
+    if (slotIndex === 2) return { x: -spacingPx * 0.5, y: spacingPx * 0.5 };
+    return { x: spacingPx * 0.5, y: spacingPx * 0.5 };
+  }
+  if (total === 5) {
+    if (slotIndex === 0) return { x: -spacingPx * 0.55, y: -spacingPx * 0.55 };
+    if (slotIndex === 1) return { x: spacingPx * 0.55, y: -spacingPx * 0.55 };
+    if (slotIndex === 2) return { x: -spacingPx * 0.55, y: spacingPx * 0.55 };
+    if (slotIndex === 3) return { x: spacingPx * 0.55, y: spacingPx * 0.55 };
+    return { x: 0, y: 0 };
+  }
+
+  // 6+ fallback: centered ring expansion.
+  var angle = (Math.PI * 2 * slotIndex) / total;
+  var radius = spacingPx * (0.6 + Math.floor((total - 1) / 8) * 0.3);
+  return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius };
+}
+
 // ==================== Main Counter Rendering Function ====================
 
 /**
@@ -387,7 +418,8 @@ function CreateCountersHTML(zoneName, cardArr, id) {
       try { cardData = JSON.parse(cardArr[2]); } catch (e) { cardData = {}; }
     }
     var html = "";
-    // container is positioned relative via the card wrapper
+    var renderItems = [];
+    // Pass 1: collect visible counters with normalized rendering metadata.
     for (var r = 0; r < rules.length; ++r) {
       var rule = rules[r];
       var field = rule.field;
@@ -433,22 +465,76 @@ function CreateCountersHTML(zoneName, cardArr, id) {
       var sizePx = 22;
       var bg = params.Color ? params.Color : 'red';
       var textColor = params.TextColor ? params.TextColor : getReadableTextColor(bg);
-      var cornerInsetPx = 3;
-      var posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;';
       var pos = params.Position ? params.Position.toLowerCase() : 'topright';
-      switch(pos) {
-        case 'topleft': posStyle = 'top:' + cornerInsetPx + 'px; left:' + cornerInsetPx + 'px;'; break;
-        case 'topright': posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;'; break;
-        case 'bottomleft': posStyle = 'bottom:' + cornerInsetPx + 'px; left:' + cornerInsetPx + 'px;'; break;
-        case 'bottomright': posStyle = 'bottom:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;'; break;
-        case 'center': posStyle = 'top:50%; left:50%; transform: translate(-50%, -50%);'; break;
-        default: posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;';
+      renderItems.push({
+        r: r,
+        field: field,
+        type: type,
+        params: params,
+        mode: mode,
+        displayValue: displayValue,
+        cardIds: cardIds,
+        sizePx: sizePx,
+        bg: bg,
+        textColor: textColor,
+        pos: pos
+      });
+    }
+
+    // Pass 2: assign centered formation slots per position, then render.
+    var groupedByPos = {};
+    for (var i = 0; i < renderItems.length; ++i) {
+      var itemPos = renderItems[i].pos;
+      if (!groupedByPos[itemPos]) groupedByPos[itemPos] = [];
+      groupedByPos[itemPos].push(renderItems[i]);
+    }
+
+    for (var i2 = 0; i2 < renderItems.length; ++i2) {
+      var item = renderItems[i2];
+      var sizePx = item.sizePx;
+      var bg = item.bg;
+      var textColor = item.textColor;
+      var field = item.field;
+      var displayValue = item.displayValue;
+      var type = item.type;
+      var mode = item.mode;
+      var cardIds = item.cardIds;
+      var params = item.params;
+      var pos = item.pos;
+      var positionGroup = groupedByPos[pos] || [];
+      var positionIndex = positionGroup.indexOf(item);
+      var totalInPosition = positionGroup.length;
+      var spacingPx = sizePx + 4;
+      var cornerInsetPx = 3;
+      var anchorInsetPx = cornerInsetPx + (sizePx * 0.1);
+      var clusterOffset = getCounterClusterOffset(positionIndex, totalInPosition, spacingPx);
+
+      var posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;';
+      switch (pos) {
+        case 'topleft':
+          posStyle = 'top:calc(' + anchorInsetPx + 'px + ' + clusterOffset.y + 'px); left:calc(' + anchorInsetPx + 'px + ' + clusterOffset.x + 'px);';
+          break;
+        case 'topright':
+          posStyle = 'top:calc(' + anchorInsetPx + 'px + ' + clusterOffset.y + 'px); right:calc(' + anchorInsetPx + 'px - ' + clusterOffset.x + 'px);';
+          break;
+        case 'bottomleft':
+          posStyle = 'bottom:calc(' + anchorInsetPx + 'px - ' + clusterOffset.y + 'px); left:calc(' + anchorInsetPx + 'px + ' + clusterOffset.x + 'px);';
+          break;
+        case 'bottomright':
+          posStyle = 'bottom:calc(' + anchorInsetPx + 'px - ' + clusterOffset.y + 'px); right:calc(' + anchorInsetPx + 'px - ' + clusterOffset.x + 'px);';
+          break;
+        case 'center':
+          posStyle = 'top:50%; left:50%; transform: translate(calc(-50% + ' + clusterOffset.x + 'px), calc(-50% + ' + clusterOffset.y + 'px));';
+          break;
+        default:
+          posStyle = 'top:calc(' + anchorInsetPx + 'px + ' + clusterOffset.y + 'px); right:calc(' + anchorInsetPx + 'px - ' + clusterOffset.x + 'px);';
+          break;
       }
-      
+
       if (type.toLowerCase() === 'badge') {
         if (mode === 'cardids' && cardIds.length > 0) {
           // Badge with hover popup for card IDs
-          var uniqueId = id + '-counter-' + field + '-' + r;
+          var uniqueId = id + '-counter-' + field + '-' + item.r;
           var cardIdsJson = JSON.stringify(cardIds).replace(/'/g, "\\'");
           html += "<div data-counter-field='" + field + "' data-counter-mode='cardids' data-card-ids='" + cardIdsJson + "' ";
           html += "class='counter-badge-cardids' ";
