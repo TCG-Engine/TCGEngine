@@ -9,9 +9,12 @@ import numpy as np
 from PIL import Image
 
 input_path = r"C:\Users\maxim\Downloads\smoke-overlay-vid.mov"
-output_path = r"C:\Users\maxim\Downloads\smoke-overlay-vid.webp"
+output_path = r"C:\Users\maxim\Downloads\smoke-overlay.webp"
 
 TARGET_FPS = 8  # output frames per second
+VALUE_SCALE = 2.0  # scales HSV V per pixel before gamma mapping
+ALPHA_GAMMA = 0.4  # lower values push more pixels toward opacity
+ALPHA_SCALE = 1.0  # >1.0 boosts alpha, <1.0 reduces alpha
 
 cap = cv2.VideoCapture(input_path)
 source_fps = cap.get(cv2.CAP_PROP_FPS) or 24
@@ -33,9 +36,14 @@ while True:
         # RGB for color data
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        # HSV Value channel (0=black/transparent, 255=white/opaque) as alpha
+        # HSV Value channel (0=black/transparent, 255=white/opaque) remapped to alpha
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        alpha = hsv[:, :, 2]
+        v = hsv[:, :, 2].astype(np.float32) / 255.0
+        v = np.clip(v * VALUE_SCALE, 0.0, 1.0)
+
+        # Strong high-end compression: bright pixels become less opaque than linear mapping
+        alpha_linear = np.power(v, ALPHA_GAMMA) * 255.0
+        alpha = np.clip(alpha_linear * ALPHA_SCALE, 0, 255).astype(np.uint8)
 
         rgba = np.dstack((rgb, alpha))
         img = Image.fromarray(rgba, "RGBA").resize((450, 450), Image.Resampling.LANCZOS)

@@ -65,16 +65,41 @@ while(!feof($handler)) {
     switch($lineType) {
       case "Overlay":
         // Overlay: Status=1:exhausted
+        // Overlay: TurnEffects=STEALTH:stealth(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
         if (!isset($zoneObj->Overlays)) $zoneObj->Overlays = [];
         $overlayParts = explode(":", $lineValue);
         if (count($overlayParts) == 2) {
           $cond = trim($overlayParts[0]); // e.g. Status=1
-          $overlayName = trim($overlayParts[1]); // e.g. exhausted
+          $overlaySpec = trim($overlayParts[1]); // e.g. exhausted(Image=...,DrawOrder=...)
+          $overlayName = $overlaySpec;
+          $overlayImage = null;
+          $overlayDrawOrder = 0;
+
+          // Parse optional overlay params: Name(Key=Value,...)
+          if (preg_match('/^([^(]+)\((.*)\)$/', $overlaySpec, $overlayMatches)) {
+            $overlayName = trim($overlayMatches[1]);
+            $overlayParamString = trim($overlayMatches[2]);
+            $overlayParamParts = $overlayParamString === '' ? [] : explode(',', $overlayParamString);
+            for ($op = 0; $op < count($overlayParamParts); ++$op) {
+              $param = trim($overlayParamParts[$op]);
+              if ($param === '') continue;
+              $kv = explode('=', $param, 2);
+              if (count($kv) != 2) continue;
+              $paramName = strtolower(trim($kv[0]));
+              $paramValue = trim($kv[1]);
+              if ($paramName === 'image') $overlayImage = $paramValue;
+              else if ($paramName === 'draworder') $overlayDrawOrder = intval($paramValue);
+            }
+          }
+
           $condParts = explode("=", $cond);
           if (count($condParts) == 2) {
             $field = trim($condParts[0]);
             $value = trim($condParts[1]);
-            $zoneObj->Overlays[] = ["field" => $field, "value" => $value, "overlay" => $overlayName];
+            $overlayRule = ["field" => $field, "value" => $value, "overlay" => $overlayName];
+            if ($overlayImage !== null) $overlayRule["image"] = $overlayImage;
+            $overlayRule["drawOrder"] = $overlayDrawOrder;
+            $zoneObj->Overlays[] = $overlayRule;
           }
         }
         break;

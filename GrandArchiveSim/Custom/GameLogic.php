@@ -17068,6 +17068,8 @@ function GetRetortValue($obj) {
 
 function HasStealth($obj) {
     if(HasNoAbilities($obj)) return false;
+    // Memorite Shardwing (LxF5riNjnL): printed Stealth
+    if($obj->CardID === "LxF5riNjnL") return true;
     if(MaryAnnOmensHaveKeyword($obj, "Stealth")) return true;
     // Expose Darkness (991ovfr8o0): loses stealth until end of turn
     if(in_array("LOSE_STEALTH", $obj->TurnEffects)) return false;
@@ -17226,6 +17228,10 @@ function HasStealth($obj) {
     return false;
 }
 
+function FieldHasStealth($obj) {
+    return HasStealth($obj) ? 1 : 0;
+}
+
 // Siegeable: domain subtype that allows being attacked. Damage removes durability counters.
 function IsSiegeable($obj) {
     if($obj === null) return false;
@@ -17262,6 +17268,8 @@ function HasIntercept($obj) {
 function HasTrueSight($obj) {
     if($obj === null) return false;
     if(HasNoAbilities($obj)) return false;
+    // Memorite Shardwing (LxF5riNjnL): printed True Sight
+    if($obj->CardID === "LxF5riNjnL") return true;
     if($obj->CardID === "4GFKcHg9NU") return true; // Argus, All-Seeing Giant
     if(MaryAnnOmensHaveKeyword($obj, "TrueSight")) return true;
     if(HasKeyword_TrueSight($obj)) return true;

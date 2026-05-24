@@ -1,5 +1,5 @@
 //Rotate is deprecated
-      function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "") {
+      function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "", overlayDescriptorsJSON = "") {
         if (folder == "crops") {
           cardNumber += "_cropped";
         }
@@ -81,25 +81,47 @@
             rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + "style='visibility:visible; width:calc(100% - 2px); height:calc(100% - 2px); top:1px; left:1px; border-radius:6px; position:absolute; background: " + gradientOverlay + "; z-index: 1; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; color: white; text-shadow: 2px 2px 4px black;'>" + (heatmapValue == -1 ? "No Data" : (heatmapValue * 100).toFixed(2) + "%") + "</div>";
         } else {
           var overlayTypeList = [];
+          var overlayDescriptors = [];
           if (typeof overlayTypes === "string" && overlayTypes.length > 0) {
             overlayTypeList = overlayTypes.split("&").filter(function(v) { return v !== ""; });
+          }
+          if (typeof overlayDescriptorsJSON === "string" && overlayDescriptorsJSON.length > 0) {
+            try {
+              var parsedOverlayDescriptors = JSON.parse(overlayDescriptorsJSON);
+              if (Array.isArray(parsedOverlayDescriptors)) overlayDescriptors = parsedOverlayDescriptors;
+            } catch (e) {}
           }
           var hasExhaustedOverlay = overlayTypeList.indexOf("exhausted") !== -1;
           var hasDistantOverlay = overlayTypeList.indexOf("distant") !== -1;
           var overlayStyle = "visibility:" + (overlay == 1 ? "visible" : "hidden")
             + "; width:calc(100% - 4px); height:calc(100% - 4px); top:2px; left:2px; border-radius:10px; position:absolute; z-index: 1;";
-          if (hasExhaustedOverlay) {
-            overlayStyle += " background: rgba(0, 0, 0, 0.5);";
-          } else {
-            overlayStyle += " background: transparent;";
-          }
+          overlayStyle += " background: transparent;";
           rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + " data-overlay-types='" + overlayTypeList.join(",") + "' style='" + overlayStyle + "'>";
+          if (hasExhaustedOverlay) {
+            rv += "<div style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; background: rgba(0, 0, 0, 0.5); z-index:0; pointer-events:none;'></div>";
+          }
+          overlayDescriptors.sort(function(a, b) {
+            var aOrder = Number(a && a.drawOrder ? a.drawOrder : 0);
+            var bOrder = Number(b && b.drawOrder ? b.drawOrder : 0);
+            return aOrder - bOrder;
+          });
+          overlayDescriptors.forEach(function(desc) {
+            if (!desc || !desc.image) return;
+            var imagePath = String(desc.image).trim();
+            if (imagePath === "") return;
+            if (!(imagePath.indexOf("./") === 0 || imagePath.indexOf("/") === 0 || /^https?:\/\//i.test(imagePath))) {
+              imagePath = "./" + imagePath;
+            }
+            var layerOrder = Number(desc.drawOrder ? desc.drawOrder : 0);
+            rv += "<div style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; z-index:" + layerOrder + "; pointer-events:none;"
+              + " background-image:url(\"" + imagePath + "\"); background-size:cover; background-position:center; background-repeat:no-repeat;'></div>";
+          });
           if (hasDistantOverlay) {
             rv += "<div style='position:absolute; left:50%; bottom:6px; transform:translateX(-50%);"
               + "padding:1px 7px; border-radius:8px; border:1px solid rgba(255,255,255,0.85);"
               + "background:rgba(15,20,28,0.78); color:#ffffff; font-family:Helvetica,Arial,sans-serif;"
               + "font-size:10px; letter-spacing:0.8px; font-weight:700; text-transform:uppercase;"
-              + "line-height:1.2; white-space:nowrap; pointer-events:none;'>DISTANT</div>";
+              + "line-height:1.2; white-space:nowrap; pointer-events:none; z-index:999;'>DISTANT</div>";
           }
           rv += "</div>";
         }
@@ -748,6 +770,7 @@
         // Determine overlay parameter for Card()
         var overlay = 0;
         var overlayTypes = [];
+        var overlayDescriptors = [];
         try {
           if (typeof OverlayRules !== 'undefined' && OverlayRules[zoneName]) {
             var cardData = sharedCardData;
@@ -763,10 +786,22 @@
               if (matches) {
                 overlay = 1;
                 if (rule.overlay) overlayTypes.push(String(rule.overlay));
+                overlayDescriptors.push({
+                  overlay: rule.overlay ? String(rule.overlay) : "",
+                  image: rule.image ? String(rule.image) : "",
+                  drawOrder: (typeof rule.drawOrder !== "undefined") ? Number(rule.drawOrder) : 0
+                });
               }
             });
             overlayTypes = overlayTypes.filter(function(type, idx) {
               return overlayTypes.indexOf(type) === idx;
+            });
+            overlayDescriptors = overlayDescriptors.filter(function(desc, idx, arr) {
+              return arr.findIndex(function(other) {
+                return other.overlay === desc.overlay
+                  && other.image === desc.image
+                  && Number(other.drawOrder) === Number(desc.drawOrder);
+              }) === idx;
             });
           }
         } catch (e) {}
@@ -793,7 +828,7 @@
         else newHTML += "<span " + styles + droppable + click + ">";
 
         var renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
-        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id, overlayTypes.join("&"));
+        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id, overlayTypes.join("&"), JSON.stringify(overlayDescriptors));
 
         try {
           if (combatIndicatorText) {
