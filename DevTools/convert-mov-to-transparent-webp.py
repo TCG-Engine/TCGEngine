@@ -8,12 +8,12 @@ import cv2
 import numpy as np
 from PIL import Image
 
-input_path = r"C:\Users\maxim\Downloads\spellshroud-overlay.mov"
-output_path = r"C:\Users\maxim\Downloads\spellshroud-overlay.webp"
+input_path = r"C:\Users\maxim\Downloads\spellshroud.mov"
+output_path = r"C:\Users\maxim\Downloads\spellshroud.webp"
 
 TARGET_FPS = 8  # output frames per second
 VALUE_SCALE = 2.0  # scales HSV V per pixel before gamma mapping
-ALPHA_GAMMA = 0.4  # lower values push more pixels toward opacity
+ALPHA_GAMMA = 0.8  # lower values push more pixels toward opacity
 ALPHA_SCALE = 1.0  # >1.0 boosts alpha, <1.0 reduces alpha
 
 cap = cv2.VideoCapture(input_path)
