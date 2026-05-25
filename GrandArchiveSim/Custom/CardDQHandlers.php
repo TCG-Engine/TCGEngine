@@ -5453,6 +5453,34 @@ function MayLoadIntoAetherwing($player, $cardID) {
 }
 
 /**
+ * "You may load [cardID] into an Aetherwing weapon you control."
+ * Finds the most recent copy of $cardID in the player's banishment and offers an optional load.
+ */
+function MayLoadIntoAetherwingFromBanish($player, $cardID) {
+    $wings = GetAetherwingWeapons($player);
+    if(empty($wings)) return;
+    $banish = GetZone("myBanish");
+    $sourceMZ = null;
+    for($i = count($banish) - 1; $i >= 0; --$i) {
+        if(!$banish[$i]->removed && $banish[$i]->CardID === $cardID) {
+            $sourceMZ = "myBanish-" . $i;
+            break;
+        }
+    }
+    if($sourceMZ === null) return;
+    if(count($wings) === 1) {
+        DecisionQueueController::StoreVariable("MLAE_sourceMZ", $sourceMZ);
+        DecisionQueueController::StoreVariable("MLAE_wingMZ", $wings[0]);
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Load_into_Aetherwing_weapon?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "MayLoadAetherwingConfirm", 1);
+        return;
+    }
+    DecisionQueueController::StoreVariable("MLAE_sourceMZ", $sourceMZ);
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $wings), 1, tooltip:"Load_into_Aetherwing_weapon?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LoadAetherwingSelect", 1);
+}
+
+/**
  * Load a card from graveyard into an Aetherwing weapon (mandatory, no may).
  * Used when loading is not optional.
  */

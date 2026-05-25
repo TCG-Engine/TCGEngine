@@ -748,8 +748,11 @@ $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
     $banishedObj = GetZoneObject($lastDecision);
     $banishedCardID = $banishedObj ? $banishedObj->CardID : null;
     MZMove($player, $lastDecision, "myBanish");
-    // Pelagic Fatestone (tqkkyf4ktr): if this card was banished from GY to pay memory cost, put on field transformed
-    if($banishedCardID !== null) PelagicFatestoneOnFloatingBanished($player, $banishedCardID);
+    // Floating-memory banish hooks for cards banished from GY to pay memory.
+    if($banishedCardID !== null) {
+        PelagicFatestoneOnFloatingBanished($player, $banishedCardID);
+        WeavingManastreamOnFloatingBanished($player, $banishedCardID);
+    }
     $toPay = $parts[0];
     --$toPay;
     DecisionQueueController::StoreVariable("MemoryCost", $toPay);

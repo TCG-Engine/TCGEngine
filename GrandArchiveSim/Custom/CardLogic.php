@@ -796,6 +796,15 @@ function PelagicFatestoneOnFloatingBanished($player, $banishedCardID) {
     }
 }
 
+function WeavingManastreamOnFloatingBanished($player, $banishedCardID) {
+    // [Diana Bonus] [Element Bonus] Whenever this card is banished from your graveyard
+    // to pay for a memory cost, you may load it into an Aetherwing weapon you control.
+    if($banishedCardID !== "wi4f59furp") return;
+    if(!IsDianaBonus($player)) return;
+    if(!IsElementBonusActive($player, "wi4f59furp")) return;
+    MayLoadIntoAetherwingFromBanish($player, "wi4f59furp");
+}
+
 
 ?>
 
