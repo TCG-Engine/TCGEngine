@@ -620,9 +620,19 @@
         if (typeof ClearSelectionMode === 'function') {
           ClearSelectionMode();
         }
+        if (typeof window !== 'undefined') {
+          window.__nextCardStatusByMzid = {};
+        }
         var newHTML = "";
         var playerID = <?php echo($playerID); ?>;
         <?php include "./" . $folderPath . "/NextTurnRender.php"; ?>
+        if (typeof window !== 'undefined') {
+          window.__prevCardStatusByMzid = window.__nextCardStatusByMzid || {};
+          window.__cardStatusHistoryReady = true;
+        }
+        if (typeof window !== 'undefined' && typeof window.ApplyExhaustedEnterAnimations === 'function') {
+          window.ApplyExhaustedEnterAnimations();
+        }
         UpdateTurnPlayerMiasma();
         // Game-over detection: check for GAMEOVER_WINNER set by server-side TriggerGameOver()
         if (!window._gameOverShown && window.DecisionQueueVariablesData) {

@@ -98,7 +98,7 @@
           overlayStyle += " background: transparent;";
           rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + " data-overlay-types='" + overlayTypeList.join(",") + "' style='" + overlayStyle + "'>";
           if (hasExhaustedOverlay) {
-            rv += "<div style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; background: rgba(0, 0, 0, 0.5); z-index:0; pointer-events:none;'></div>";
+            rv += "<div class='exhausted-status-overlay-layer' style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; background: rgba(0, 0, 0, 0.5); z-index:0; pointer-events:none;'></div>";
           }
           overlayDescriptors.sort(function(a, b) {
             var aOrder = Number(a && a.drawOrder ? a.drawOrder : 0);
@@ -449,6 +449,54 @@
         } catch (e) {
           return false;
         }
+      }
+
+      function ApplyExhaustedEnterAnimations() {
+        try {
+          var enteringCards = document.querySelectorAll('.exhausted-status-card-enter');
+          if (!enteringCards || enteringCards.length === 0) return;
+
+          // Let layout settle after render, then animate toward the already-rendered final state.
+          requestAnimationFrame(function() {
+            enteringCards.forEach(function(cardEl) {
+              var finalTransform = getComputedStyle(cardEl).transform;
+              var fromTransform = 'rotate(0deg) scale(0.995)';
+              var toTransform = (finalTransform && finalTransform !== 'none') ? finalTransform : 'rotate(5deg) scale(1)';
+
+              cardEl.animate(
+                [
+                  { transform: fromTransform, offset: 0 },
+                  { transform: toTransform, offset: 1 }
+                ],
+                {
+                  duration: 180,
+                  easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+                  fill: 'none'
+                }
+              );
+
+              var overlayLayer = cardEl.querySelector('.exhausted-status-overlay-layer');
+              if (overlayLayer) {
+                overlayLayer.animate(
+                  [
+                    { opacity: 0, offset: 0 },
+                    { opacity: 1, offset: 1 }
+                  ],
+                  {
+                    duration: 170,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                  }
+                );
+              }
+
+              cardEl.classList.remove('exhausted-status-card-enter');
+            });
+          });
+        } catch (e) {}
+      }
+      if (typeof window !== 'undefined') {
+        window.ApplyExhaustedEnterAnimations = ApplyExhaustedEnterAnimations;
       }
 
       function GetHighlightMetadataForCard(zoneName, cardData) {
@@ -823,6 +871,34 @@
             });
           }
         } catch (e) {}
+
+        var shouldAnimateExhaustedTransition = false;
+        try {
+          if (typeof window !== "undefined") {
+            if (!window.__prevCardStatusByMzid) window.__prevCardStatusByMzid = {};
+            if (!window.__nextCardStatusByMzid) window.__nextCardStatusByMzid = {};
+            if (typeof window.__cardStatusHistoryReady === "undefined") window.__cardStatusHistoryReady = false;
+
+            var currentStatus = parseInt(sharedCardData.Status, 10);
+            if (Number.isNaN(currentStatus)) currentStatus = null;
+            var previousStatus = window.__prevCardStatusByMzid[id];
+            window.__nextCardStatusByMzid[id] = currentStatus;
+
+            // Only animate real transitions after initial history has been established.
+            shouldAnimateExhaustedTransition =
+              window.__cardStatusHistoryReady === true &&
+              currentStatus === 1 &&
+              previousStatus !== undefined &&
+              previousStatus !== 1;
+          }
+        } catch (e) {}
+
+        if (overlayTypes.indexOf("exhausted") !== -1) {
+          className += (className ? " " : "") + " exhausted-status-card";
+          if (shouldAnimateExhaustedTransition) {
+            className += " exhausted-status-card-enter";
+          }
+        }
 
         // Determine rotation from RotationRules
         try {
