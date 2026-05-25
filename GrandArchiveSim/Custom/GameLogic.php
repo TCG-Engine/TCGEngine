@@ -15208,6 +15208,7 @@ function RecoverChampion($player, $amount=1) {
 }
 
 function Empower($player, $amount, $sourceID) {
+    if(intval($amount) <= 0) return;
     AddGlobalEffects($player, $sourceID);
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
@@ -15215,6 +15216,7 @@ function Empower($player, $amount, $sourceID) {
     foreach($field as $i => $obj) {
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
             AddTurnEffect($zone . "-" . $i, "EMPOWERED");
+            AddTurnEffect($zone . "-" . $i, "EMPOWER_PLUS_" . intval($amount));
             break;
         }
     }
@@ -15245,6 +15247,22 @@ function IsEmpowered($player) {
         }
     }
     return false;
+}
+
+function PendingEmpowerAmount($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $obj) {
+        if(!PropertyContains(EffectiveCardType($obj), "CHAMPION")) continue;
+        $pending = 0;
+        foreach($obj->TurnEffects ?? [] as $effectID) {
+            if(strpos($effectID, "EMPOWER_PLUS_") !== 0) continue;
+            $pending += intval(substr($effectID, strlen("EMPOWER_PLUS_")));
+        }
+        return $pending;
+    }
+    return 0;
 }
 
 function HandleZoneMoveTriggers($player, $fromZone, $toZone) {
@@ -20228,11 +20246,15 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         $reserveCost = max(0, $reserveCost - $classBonusDiscount);
     }
 
+    $isSpellActivation = PropertyContains(CardSubtypes($cardID), "SPELL");
+    $pendingEmpowerLevel = ($isSpellActivation && IsEmpowered($player)) ? PendingEmpowerAmount($player) : 0;
+
     // Efficiency: reduce cost by champion's current level
     if(isset($Efficiency_Cards[$cardID])) {
         foreach(GetZone("myField") as $fieldObj) {
             if($fieldObj !== null && PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
-                $reserveCost = max(0, $reserveCost - ObjectCurrentLevel($fieldObj));
+                $effectiveLevel = ObjectCurrentLevel($fieldObj) + $pendingEmpowerLevel;
+                $reserveCost = max(0, $reserveCost - $effectiveLevel);
                 break;
             }
         }
@@ -20242,7 +20264,8 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     if($cardID === "id0ybub247" && GetShiftingCurrents($player) === "EAST") {
         foreach(GetZone("myField") as $fieldObj) {
             if($fieldObj !== null && PropertyContains(EffectiveCardType($fieldObj), "CHAMPION")) {
-                $reserveCost = max(0, $reserveCost - ObjectCurrentLevel($fieldObj));
+                $effectiveLevel = ObjectCurrentLevel($fieldObj) + $pendingEmpowerLevel;
+                $reserveCost = max(0, $reserveCost - $effectiveLevel);
                 break;
             }
         }
