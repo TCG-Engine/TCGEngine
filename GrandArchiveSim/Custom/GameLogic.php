@@ -11082,7 +11082,7 @@ function ObjectCurrentHP($obj) {
         if(PropertyContains(EffectiveCardType($obj), "ALLY")
            && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"))) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "s25QNTvfem" && !HasNoAbilities($fieldObj)
+                if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "s25QNTvfem" && !HasNoAbilities($fieldObj)
                    && DelugeAmount($fieldObj->Controller) >= 4) {
                     $cardLife += 1;
                     break;
@@ -11093,7 +11093,7 @@ function ObjectCurrentHP($obj) {
         if(PropertyContains(EffectiveCardType($obj), "ALLY")
            && (PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") || PropertyContains(EffectiveCardSubtypes($obj), "BEAST"))) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "GKEpAulogu" && !HasNoAbilities($fieldObj)) {
+                if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "GKEpAulogu" && !HasNoAbilities($fieldObj)) {
                     $cardLife += 1;
                     break;
                 }
@@ -17172,7 +17172,7 @@ function HasStealth($obj) {
         $fsZone = $obj->Controller == $playerID ? "myField" : "theirField";
         $fsField = GetZone($fsZone);
         foreach($fsField as $fsObj) {
-            if(!$fsObj->removed && $fsObj->CardID === "HL4Q3UBoH8" && !HasNoAbilities($fsObj)
+            if($fsObj !== null && !$fsObj->removed && $fsObj->CardID === "HL4Q3UBoH8" && !HasNoAbilities($fsObj)
                 && IsCielBonusActive($obj->Controller) && GetTotalOmenCost($obj->Controller) >= 33) {
                 return true;
             }
@@ -17352,6 +17352,7 @@ function HasSpellshroud($obj) {
     if(in_array("SPELLSHROUD_NEXT_TURN", $obj->TurnEffects)) return true;
     if(in_array("OMNISHROUD", $obj->TurnEffects ?? [])) return true;
     if($obj->CardID === "6ce5rzrjd9") return true;
+    if($obj->CardID === "tf5f2n38g0") return true;
     if($obj->CardID === "4GFKcHg9NU" && intval($obj->Status ?? 0) === 2) return true;
     // Innervate Agility: units gain spellshroud until EOT via global effect
     $effects = explode(",", CardCurrentEffects($obj));
@@ -17369,7 +17370,7 @@ function HasSpellshroud($obj) {
             $zone = $obj->Controller == $playerID ? "myField" : "theirField";
             $field = GetZone($zone);
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "62u1231c0z" && !HasNoAbilities($fieldObj)
+                if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "62u1231c0z" && !HasNoAbilities($fieldObj)
                     && IsClassBonusActive($obj->Controller, ["TAMER"])) {
                     return true;
                 }
@@ -17386,7 +17387,7 @@ function HasSpellshroud($obj) {
         $fsZone = $obj->Controller == $playerID ? "myField" : "theirField";
         $fsField = GetZone($fsZone);
         foreach($fsField as $fsObj) {
-            if(!$fsObj->removed && $fsObj->CardID === "HL4Q3UBoH8" && !HasNoAbilities($fsObj)
+            if($fsObj !== null && !$fsObj->removed && $fsObj->CardID === "HL4Q3UBoH8" && !HasNoAbilities($fsObj)
                 && IsCielBonusActive($obj->Controller) && GetTotalOmenCost($obj->Controller) >= 33) {
                 return true;
             }
@@ -17398,7 +17399,7 @@ function HasSpellshroud($obj) {
         $msZone = $obj->Controller == $playerID ? "myField" : "theirField";
         $msField = GetZone($msZone);
         foreach($msField as $msObj) {
-            if(!$msObj->removed && $msObj->CardID === "tsvbgl6ffq" && !HasNoAbilities($msObj)) {
+            if($msObj !== null && !$msObj->removed && $msObj->CardID === "tsvbgl6ffq" && !HasNoAbilities($msObj)) {
                 return true;
             }
         }
@@ -17409,7 +17410,7 @@ function HasSpellshroud($obj) {
         $vcZone = $obj->Controller == $playerID ? "myField" : "theirField";
         $vcField = GetZone($vcZone);
         foreach($vcField as $vcObj) {
-            if(!$vcObj->removed && $vcObj->CardID === "wqpsErSeFn" && !HasNoAbilities($vcObj)) {
+            if($vcObj !== null && !$vcObj->removed && $vcObj->CardID === "wqpsErSeFn" && !HasNoAbilities($vcObj)) {
                 return true;
             }
         }
@@ -17420,7 +17421,7 @@ function HasSpellshroud($obj) {
         $dsZone = $obj->Controller == $playerID ? "myField" : "theirField";
         $dsField = GetZone($dsZone);
         foreach($dsField as $dsObj) {
-            if(!$dsObj->removed && $dsObj->CardID === "u25fuv184p" && !HasNoAbilities($dsObj)) {
+            if($dsObj !== null && !$dsObj->removed && $dsObj->CardID === "u25fuv184p" && !HasNoAbilities($dsObj)) {
                 return true;
             }
         }
@@ -17510,6 +17511,7 @@ function HasTaunt($obj) {
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     // Avatar of Genbu (67CIhG8hmG): [Guo Jia Bonus][Deluge 12] has taunt
     if($obj->CardID === "67CIhG8hmG" && IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) return true;
+    if($obj->CardID === "tf5f2n38g0") return true;
     if(HasKeyword_Taunt($obj)) return true;
     if(in_array("TAUNT", $obj->TurnEffects)) return true;
     if(in_array("TAUNT_NEXT_TURN", $obj->TurnEffects)) return true;
