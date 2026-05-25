@@ -9460,7 +9460,13 @@ function ObjectCurrentPower($obj) {
         case "23ag70F2uz": // Crowdguard's Slash: [CB] +2 POWER if opponent controls three or more units
             if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
                 $opponent = ($obj->Controller == 1) ? 2 : 1;
-                if(count(GetFieldUnits($opponent)) >= 3) {
+                $oppUnitCount = 0;
+                foreach(GetField($opponent) as $oppObj) {
+                    if($oppObj->removed) continue;
+                    if(!PropertyContains(EffectiveCardType($oppObj), "ALLY") && !PropertyContains(EffectiveCardType($oppObj), "CHAMPION")) continue;
+                    ++$oppUnitCount;
+                }
+                if($oppUnitCount >= 3) {
                     $power += 2;
                 }
             }
