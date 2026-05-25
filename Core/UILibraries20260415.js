@@ -767,6 +767,23 @@
           }
         }
 
+        function shouldRenderSchemaVisualBySetting(ruleOrParams) {
+          var params = (ruleOrParams && ruleOrParams.params) ? ruleOrParams.params : ruleOrParams;
+          if (!params || typeof params !== 'object') return true;
+          var settingsKey = params.SettingsKey || params.settingsKey;
+          if (!settingsKey || typeof window.TCGSettings === 'undefined') return true;
+          var expectedRaw = params.SettingsValue;
+          if (typeof expectedRaw === 'undefined') expectedRaw = params.settingsValue;
+          if (typeof expectedRaw === 'undefined') expectedRaw = true;
+          var defaultRaw = params.SettingsDefault;
+          if (typeof defaultRaw === 'undefined') defaultRaw = params.settingsDefault;
+          if (typeof defaultRaw === 'undefined') defaultRaw = false;
+          var expectedValue = String(expectedRaw).toLowerCase() === 'true';
+          var defaultValue = String(defaultRaw).toLowerCase() === 'true';
+          var currentValue = !!window.TCGSettings.get(String(settingsKey), { type: 'boolean', defaultValue: defaultValue });
+          return currentValue === expectedValue;
+        }
+
         // Determine overlay parameter for Card()
         var overlay = 0;
         var overlayTypes = [];
@@ -775,6 +792,7 @@
           if (typeof OverlayRules !== 'undefined' && OverlayRules[zoneName]) {
             var cardData = sharedCardData;
             OverlayRules[zoneName].forEach(function(rule) {
+              if (!shouldRenderSchemaVisualBySetting(rule)) return;
               if (!cardData.hasOwnProperty(rule.field)) return;
               var fieldValue = cardData[rule.field];
               var matches = false;

@@ -74,6 +74,7 @@ while(!feof($handler)) {
           $overlayName = $overlaySpec;
           $overlayImage = null;
           $overlayDrawOrder = 0;
+          $overlayExtraParams = [];
 
           // Parse optional overlay params: Name(Key=Value,...)
           if (preg_match('/^([^(]+)\((.*)\)$/', $overlaySpec, $overlayMatches)) {
@@ -86,9 +87,11 @@ while(!feof($handler)) {
               $kv = explode('=', $param, 2);
               if (count($kv) != 2) continue;
               $paramName = strtolower(trim($kv[0]));
+              $paramNameRaw = trim($kv[0]);
               $paramValue = trim($kv[1]);
               if ($paramName === 'image') $overlayImage = $paramValue;
               else if ($paramName === 'draworder') $overlayDrawOrder = intval($paramValue);
+              else $overlayExtraParams[$paramNameRaw] = $paramValue;
             }
           }
 
@@ -99,6 +102,9 @@ while(!feof($handler)) {
             $overlayRule = ["field" => $field, "value" => $value, "overlay" => $overlayName];
             if ($overlayImage !== null) $overlayRule["image"] = $overlayImage;
             $overlayRule["drawOrder"] = $overlayDrawOrder;
+            foreach ($overlayExtraParams as $extraKey => $extraValue) {
+              $overlayRule[$extraKey] = $extraValue;
+            }
             $zoneObj->Overlays[] = $overlayRule;
           }
         }

@@ -124,6 +124,13 @@ include_once 'Header.php';
       <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 8px;">Quick Reference</div>
       <div style="display: flex; flex-direction: column; gap: 6px;" id="hotkey-list"></div>
     </div>
+    <div>
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 8px;">Settings</div>
+      <label for="ga-disable-keyword-indicators" style="display: flex; align-items: center; gap: 8px; color: #ddd; font-size: 13px; cursor: pointer;">
+        <input type="checkbox" id="ga-disable-keyword-indicators">
+        Disable keyword indicators (stealth, spellshroud, true sight)
+      </label>
+    </div>
   </div>
 </div>
 
@@ -213,8 +220,24 @@ include_once 'Header.php';
   }
 
   document.addEventListener('DOMContentLoaded', function() {
+    if (window.TCGSettings) {
+      window.TCGSettings.registerSchema('GrandArchiveSim', {
+        DisableKeywordIndicators: {
+          type: 'boolean',
+          defaultValue: false
+        }
+      });
+    }
+
     renderDidYouKnow();
     renderHotkeyList();
+    var keywordToggle = document.getElementById('ga-disable-keyword-indicators');
+    if (keywordToggle && window.TCGSettings) {
+      keywordToggle.checked = !!window.TCGSettings.get('DisableKeywordIndicators', { rootName: 'GrandArchiveSim', type: 'boolean', defaultValue: false });
+      keywordToggle.addEventListener('change', function() {
+        window.TCGSettings.set('DisableKeywordIndicators', !!keywordToggle.checked, { rootName: 'GrandArchiveSim', type: 'boolean' });
+      });
+    }
     // Rotate tips every 8 seconds
     setInterval(cycleDidYouKnow, 8000);
   });

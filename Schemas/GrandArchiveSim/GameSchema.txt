@@ -100,8 +100,8 @@ Display: Visibility=Public, Mode=All, BindTo=FieldSlot
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Overlay: Status=1:exhausted
 Overlay: TurnEffects=DISTANT:distant
-Overlay: StealthOverlay=1:stealth(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
-Overlay: SpellshroudOverlay=1:spellshroud(Image=Assets/Overlays/spellshroud.webp,DrawOrder=11)
+Overlay: StealthOverlay=1:stealth(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10,SettingsKey=DisableKeywordIndicators,SettingsValue=false,SettingsDefault=false)
+Overlay: SpellshroudOverlay=1:spellshroud(Image=Assets/Overlays/spellshroud.webp,DrawOrder=11,SettingsKey=DisableKeywordIndicators,SettingsValue=false,SettingsDefault=false)
 Rotation: Status=1:9
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)
@@ -119,7 +119,7 @@ Counters: ChargeCounterCount=Badge(Color=Gold,Position=Center,ShowZero=false)
 Counters: SheenCounterCount=Badge(Color=Pink,Position=Center,ShowZero=false)
 Counters: AgeCounterCount=Badge(Color=Orange,Position=Center,ShowZero=false)
 Counters: QuestCounterCount=Badge(Color=Teal,Position=Center,ShowZero=false)
-Counters: TrueSightCounterCount=Image(Path=Assets/Icons/true-sight.webp,Position=Bottom,ShowZero=false,Size=26)
+Counters: TrueSightCounterCount=Image(Path=Assets/Icons/true-sight.webp,Position=Bottom,ShowZero=false,Size=26,SettingsKey=DisableKeywordIndicators,SettingsValue=false,SettingsDefault=false)
 AfterAdd: FieldAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()

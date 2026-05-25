@@ -390,6 +390,23 @@ function getCounterClusterOffset(slotIndex, total, spacingPx) {
   return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius };
 }
 
+function shouldRenderSchemaVisualBySetting(ruleOrParams) {
+  var params = (ruleOrParams && ruleOrParams.params) ? ruleOrParams.params : ruleOrParams;
+  if (!params || typeof params !== 'object') return true;
+  var settingsKey = params.SettingsKey || params.settingsKey;
+  if (!settingsKey || typeof window.TCGSettings === 'undefined') return true;
+  var expectedRaw = params.SettingsValue;
+  if (typeof expectedRaw === 'undefined') expectedRaw = params.settingsValue;
+  if (typeof expectedRaw === 'undefined') expectedRaw = true;
+  var defaultRaw = params.SettingsDefault;
+  if (typeof defaultRaw === 'undefined') defaultRaw = params.settingsDefault;
+  if (typeof defaultRaw === 'undefined') defaultRaw = false;
+  var expectedValue = String(expectedRaw).toLowerCase() === 'true';
+  var defaultValue = String(defaultRaw).toLowerCase() === 'true';
+  var currentValue = !!window.TCGSettings.get(String(settingsKey), { type: 'boolean', defaultValue: defaultValue });
+  return currentValue === expectedValue;
+}
+
 // ==================== Main Counter Rendering Function ====================
 
 /**
@@ -422,6 +439,7 @@ function CreateCountersHTML(zoneName, cardArr, id) {
     // Pass 1: collect visible counters with normalized rendering metadata.
     for (var r = 0; r < rules.length; ++r) {
       var rule = rules[r];
+      if (!shouldRenderSchemaVisualBySetting(rule)) continue;
       var field = rule.field;
       var type = rule.type || "Badge";
       var params = rule.params || {};
