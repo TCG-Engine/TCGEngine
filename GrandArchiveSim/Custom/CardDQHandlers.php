@@ -1166,7 +1166,7 @@ $customDQHandlers["FirebloomRecollation"] = function($player, $parts, $lastDecis
 };
 
 $customDQHandlers["MorganSoulGuideRecollection"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "YES") {
+    if($lastDecision === "0" || $lastDecision === "YES") {
         Glimpse($player, 1);
     } else {
         RecoverChampion($player, 1);

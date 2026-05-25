@@ -6838,7 +6838,7 @@ function BeforeRecollectionPhase() {
                     break;
                 case "ka5av43ehj": // Morgan, Soul Guide: [CB] Glimpse 1 or Recover 1
                     if(!HasNoAbilities($field[$i]) && IsClassBonusActive($turnPlayer, CardClasses("ka5av43ehj"))) {
-                        DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1, tooltip:"Glimpse_1?_(No=Recover_1)");
+                        DecisionQueueController::AddDecision($turnPlayer, "MZMODAL", "1|1|A:_Glimpse_1&B:_Recover_1", 1, tooltip:"Morgan,_Soul_Guide");
                         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MorganSoulGuideRecollection", 1);
                     }
                     break;
