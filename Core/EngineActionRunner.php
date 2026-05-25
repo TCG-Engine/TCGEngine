@@ -59,6 +59,15 @@ function QueueDamageAnimation($targetMzID, $amount, $durationMs = 500, $blocking
   ]);
 }
 
+function QueuePreventedDamageAnimation($targetMzID, $durationMs = 500, $blocking = true) {
+  QueueFrameAnimation([
+    'type' => 'PREVENTED_DAMAGE',
+    'target' => strval($targetMzID),
+    'durationMs' => intval($durationMs),
+    'blocking' => $blocking ? true : false,
+  ]);
+}
+
 function QueueRestoreAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true) {
   QueueFrameAnimation([
     'type' => 'RESTORE',

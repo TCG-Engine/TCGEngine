@@ -515,6 +515,10 @@
           element.innerHTML += "<div class='dmg-animation dmg-animation-a'><div class='dmg-animation-a-inner'></div></div>";
           element.innerHTML += "<div class='dmg-animation-a-label'><div class='dmg-animation-a-label-inner'>-" + amount + "</div></div>";
           if (totalMs < 500) totalMs = 500;
+        } else if (type === "PREVENTED_DAMAGE") {
+          element.innerHTML += "<div class='prevented-dmg-animation prevented-dmg-animation-a'><div class='prevented-dmg-animation-a-inner'></div></div>";
+          element.innerHTML += "<div class='prevented-dmg-animation-a-label'><div class='prevented-dmg-animation-a-label-inner'>-0</div></div>";
+          if (totalMs < 500) totalMs = 500;
         } else if (type === "RESTORE") {
           var restoreAmount = animation.amount != null ? animation.amount : "";
           element.innerHTML += "<div class='restore-animation restore-animation-a'><div class='restore-animation-a-inner'></div></div>";

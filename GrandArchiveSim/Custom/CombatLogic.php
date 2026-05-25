@@ -2766,7 +2766,16 @@ $customDQHandlers["MechanicalHareBanish2"] = function($player, $parts, $lastDeci
  * Apply damage to a target unit. If damage >= HP, destroy it.
  * After applying damage, trigger any DealDamage abilities on the target card.
  */
+function QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $remainingAmount, $targetObj = null) {
+    if(intval($originalAmount) <= 0) return;
+    if(intval($remainingAmount) > 0) return;
+    if($targetObj !== null && isset($targetObj->removed) && $targetObj->removed) return;
+    $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
+    QueuePreventedDamageAnimation($absoluteTarget, 500, true);
+}
+
 function OnDealDamage($player, $source, $target, $amount) {
+    $originalAmount = intval($amount);
     $targetObj = &GetZoneObject($target);
     if($targetObj === null) return; // Target no longer on the field (e.g. stale mzID after redirect)
 
@@ -2781,7 +2790,7 @@ function OnDealDamage($player, $source, $target, $amount) {
     if($amount > 0 && $targetObj !== null && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         $targetController = $targetObj->Controller ?? $player;
         $amount = ApplyFatedKeepsakePrevention($targetController, $amount);
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Siegeable domains: damage removes durability counters instead of adding Damage.
@@ -2795,7 +2804,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 if($fieldObj->removed || $fieldObj->CardID !== "8GTa6NS2RG" || HasNoAbilities($fieldObj)) continue;
                 if($fieldObj->GetMzID() === $target) continue; // "another object"
                 $amount -= min(2, $amount);
-                if($amount <= 0) return;
+                if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             }
             $currentDurability = GetCounterCount($targetObj, "durability");
             $toRemove = min($amount, $currentDurability);
@@ -2842,7 +2851,7 @@ function OnDealDamage($player, $source, $target, $amount) {
     $sourceObj2 = GetZoneObject($source);
     if($sourceObj2 !== null && in_array("ENFEEBLED_DAGGER_REDUCE", $sourceObj2->TurnEffects)) {
         $amount = max(0, $amount - 3);
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Varuck, Smoldering Spire (IyM7IBCQeb): "Damage dealt by fire element sources you
@@ -2962,7 +2971,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($fieldObj->removed || $fieldObj->CardID !== "8GTa6NS2RG" || HasNoAbilities($fieldObj)) continue;
             if($fieldObj->GetMzID() === $target) continue; // "another object"
             $amount -= min(2, $amount);
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
         }
     }
 
@@ -2987,7 +2996,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             } else {
                 $targetObj->TurnEffects[$idx] = "40TLLuE6oG_" . $owner . "_" . $remaining;
             }
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             break;
         }
     }
@@ -2995,19 +3004,19 @@ function OnDealDamage($player, $source, $target, $amount) {
     // Ominous Shadow (gveirpdm44): prevent 3 of any damage dealt to it
     if($amount > 0 && $targetObj->CardID === "gveirpdm44" && !HasNoAbilities($targetObj)) {
         $amount -= 3;
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Simple Slime (Zxab4Vi0wx): prevent 3 of damage that would be dealt to it
     if($amount > 0 && $targetObj->CardID === "Zxab4Vi0wx" && !HasNoAbilities($targetObj)) {
         $amount -= 3;
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Jabberwocky, Calamity's Call (yicNKtzC3H): prevent all damage while no player controls Vorpal Sword (PIcB5KuuMd)
     if($amount > 0 && $targetObj->CardID === "yicNKtzC3H" && !HasNoAbilities($targetObj)) {
         if(!ZoneContainsCardID("myField", "PIcB5KuuMd") && !ZoneContainsCardID("theirField", "PIcB5KuuMd")) {
-            return; // All damage prevented
+            QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; // All damage prevented
         }
     }
 
@@ -3015,7 +3024,7 @@ function OnDealDamage($player, $source, $target, $amount) {
     if($amount > 0 && $targetObj->CardID === "fbvt9rdhkj" && !HasNoAbilities($targetObj)) {
         if(GetCounterCount($targetObj, "buff") > 0) {
             $amount -= 1;
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
         }
     }
 
@@ -3037,7 +3046,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                     break;
                 }
             }
-            if($hasPawn) return; // All damage prevented
+            if($hasPawn) QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; // All damage prevented
         }
     }
 
@@ -3047,7 +3056,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         $sourceObj = GetZoneObject($source);
         if($sourceObj !== null && EffectiveCardElement($sourceObj) !== "NORM") {
             $amount -= 2;
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
         }
     }
 
@@ -3056,7 +3065,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         $targetController = $targetObj->Controller ?? $player;
         if(GetShiftingCurrents($targetController) === "WEST") {
             $amount -= 2;
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
         }
     }
 
@@ -3073,7 +3082,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($prevented <= 0) break;
             $amount -= $prevented;
             AddCounters($targetController, $zone . "-" . $fi, "charge", 1);
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             break;
         }
     }
@@ -3082,13 +3091,13 @@ function OnDealDamage($player, $source, $target, $amount) {
     if($amount > 0 && $targetObj->CardID === "64xGWbG9Xf" && !HasNoAbilities($targetObj)
         && !in_array("64xGWbG9Xf", $targetObj->TurnEffects)) {
         $targetObj->TurnEffects[] = "64xGWbG9Xf";
-        return; // All damage prevented
+        QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; // All damage prevented
     }
 
     // Barrier Servant: prevent next damage if tagged with BARRIER_PREVENT_DAMAGE (one-time)
     if(in_array("BARRIER_PREVENT_DAMAGE", $targetObj->TurnEffects)) {
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "BARRIER_PREVENT_DAMAGE"));
-        return; // Damage fully prevented
+        QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; // Damage fully prevented
     }
 
     // Veiled Gambit (hxdfyA0eP1): prevent next 4 damage until EOT
@@ -3102,7 +3111,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($remaining > 0) {
                 $targetObj->TurnEffects[] = "VEILED_GAMBIT_" . $remaining;
             }
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             break;
         }
     }
@@ -3118,7 +3127,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($remaining > 0) {
                 $targetObj->TurnEffects[] = "EVASIVE_MANEUVERS_" . $remaining;
             }
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             break;
         }
     }
@@ -3134,7 +3143,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($remaining > 0) {
                 $targetObj->TurnEffects[] = "DIFFUSIVE_BLOCK_" . $remaining;
             }
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             break;
         }
     }
@@ -3150,7 +3159,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($remaining > 0) {
                 $targetObj->TurnEffects[] = "IMPERIAL_COUNTERMEASURE_" . $remaining;
             }
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             break;
         }
     }
@@ -3166,7 +3175,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($remaining > 0) {
                 $targetObj->TurnEffects[] = "tizLamFGPS_" . $remaining;
             }
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             break;
         }
     }
@@ -3182,7 +3191,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             if($remaining > 0) {
                 $targetObj->TurnEffects[] = "ALICE_LR_PREVENT_" . $remaining;
             }
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             break;
         }
     }
@@ -3192,7 +3201,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         $prevented = min(2, $amount);
         $amount -= $prevented;
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "GOLDEN_BISHOP_PREVENT_2"));
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Pang Tong, Young Phoenix (0mz09ojy0t): prevent all but 3 damage when hand count == memory count
@@ -3211,7 +3220,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             $caster = intval(substr($te, strlen("FLEETING_GUARD_")));
             $prevention = CountEphemeralObjects($caster) + 1;
             $amount -= $prevention;
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             break;
         }
     }
@@ -3221,7 +3230,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         $prevented = min(2, $amount);
         $amount -= $prevented;
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "HUA_XIONG_PREVENT_2"));
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Nascent Barrier (6bc3ogf0o8): prevent up to N damage to champion (encoded as NASCENT_BARRIER_N)
@@ -3299,7 +3308,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             }
             break;
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Storm of Thorns (39i1f0ht2t): prevent 1 damage to units you control this turn;
@@ -3320,7 +3329,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                     $stormOfThornsGuard = false;
                 }
             }
-            if($amount <= 0) return;
+            if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
         }
     }
 
@@ -3329,7 +3338,7 @@ function OnDealDamage($player, $source, $target, $amount) {
     if($protectivePrevention > 0) {
         $amount -= 1;
         $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "1lw9n0wpbh"));
-        if($amount <= 0) return; // All damage prevented
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; } // All damage prevented
     }
 
     // Linked Shield damage prevention (Unit Link items)
@@ -3381,7 +3390,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                     break;
             }
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Enthralling Visage (ycwz9gv4vm): prevent 2 damage, banish target graveyard card
@@ -3411,7 +3420,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 break;
             }
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // PREVENT_ALL_N: prevent up to N of any damage this turn (Guarded Dissipation)
@@ -3431,7 +3440,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 break;
             }
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Crystallized Anthem (XfAJlQt9hH): prevent up to 2 damage to each unit this turn,
@@ -3457,7 +3466,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 break;
             }
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Radiant Repudiation (RO2CcBrILQ): prevent up to N damage to this neos unit,
@@ -3486,7 +3495,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 break;
             }
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Flash Grenade (isxy5lh23q): prevent 3 damage to each distant unit you control this turn
@@ -3498,7 +3507,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             $prevented = min($amount, 3 * GlobalEffectCount($targetController, "isxy5lh23q"));
             $amount -= $prevented;
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // PREVENT_NONCOMBAT_N: prevent up to N non-combat damage this turn (Dodge Roll)
@@ -3507,7 +3516,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         if(IsClassBonusActive($targetObj->Controller ?? $player, ["CLERIC", "WARRIOR"])) {
             $amount = max(0, $amount - 2);
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
     if(!$isCombat && $amount > 0) {
         foreach($targetObj->TurnEffects as $idx => $effect) {
@@ -3525,7 +3534,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 break;
             }
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // PREVENT_COMBAT_N: prevent up to N combat damage this turn (Deflecting Edge)
@@ -3545,7 +3554,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 break;
             }
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // PREVENT_EXACT_N: prevent damage only if exactly N (Perfect Repulsion), then draw a card
@@ -3563,7 +3572,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 break;
             }
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Champion-only prevention effects
@@ -3592,7 +3601,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             return;
         }
         $amount = ApplyCrystallizedDestinyPrevention($target, $amount);
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
         // PREVENT_CHAMP_MILL: prevent all of next damage to champion; mill X where X = amount prevented (Hailstorm Guard)
         if(in_array("PREVENT_CHAMP_MILL", $targetObj->TurnEffects)) {
             $prevented = $amount;
@@ -3696,14 +3705,14 @@ function OnDealDamage($player, $source, $target, $amount) {
                 break;
             }
         }
-        if($amount <= 0) return;
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
 
     // Intangible Geist (Zu53izIFTX): CB prevent all combat damage
     if($targetObj->CardID === "Zu53izIFTX") {
         $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
         if($combatAttacker !== null && IsClassBonusActive($targetObj->Controller, CardClasses("Zu53izIFTX"))) {
-            return; // Combat damage prevented
+            QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; // Combat damage prevented
         }
     }
 
@@ -3711,7 +3720,7 @@ function OnDealDamage($player, $source, $target, $amount) {
     if($targetObj->CardID === "ka5av43ehj" && !$isCombat) {
         $targetController = $targetObj->Controller ?? $player;
         if(PlayerLevel($targetController) >= 1) {
-            return; // Non-combat damage prevented
+            QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; // Non-combat damage prevented
         }
     }
     // Ethereal Slime (n06zlhihka): [Level 5+] prevent all non-combat damage.
@@ -3759,7 +3768,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                     $amount = max(0, $amount - 3);
                 }
                 $targetObj->TurnEffects[] = "pal7cpvn96";
-                if($amount <= 0) return;
+                if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
             }
         }
     }
@@ -3854,7 +3863,11 @@ function OnDealDamage($player, $source, $target, $amount) {
                     break;
                 }
             }
-            if($amount <= 0) return;
+            if($amount <= 0) {
+                $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
+                QueuePreventedDamageAnimation($absoluteTarget, 500, true);
+                return;
+            }
         }
     }
 
@@ -3871,7 +3884,11 @@ function OnDealDamage($player, $source, $target, $amount) {
             $majesticMZ = ($targetController == 1 ? "myField-" : "theirField-") . $idx;
             if($majesticMZ === $targetMZ) continue;
             $amount = intdiv($amount, 2);
-            if($amount <= 0) return;
+            if($amount <= 0) {
+                $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
+                QueuePreventedDamageAnimation($absoluteTarget, 500, true);
+                return;
+            }
         }
     }
 
@@ -3903,13 +3920,21 @@ function OnDealDamage($player, $source, $target, $amount) {
                     AddTurnEffect($targetObj->GetMzID(), "STEALTH");
                 }
             }
-            if($amount <= 0) return;
+            if($amount <= 0) {
+                $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
+                QueuePreventedDamageAnimation($absoluteTarget, 500, true);
+                return;
+            }
             break;
         }
     }
 
     $amount = ApplyCombatDamageReplacements($player, $source, $amount);
-    if($amount <= 0) return;
+    if($amount <= 0) {
+        $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
+        QueuePreventedDamageAnimation($absoluteTarget, 500, true);
+        return;
+    }
     RecordTrackedCombatDamageAmount($source, $target, $amount);
     $targetObj->Damage += $amount;
     
@@ -4321,3 +4346,4 @@ function GloamspireHeadhunterOnHit($player) {
 }
 
 ?>
+

@@ -13455,6 +13455,7 @@ $backendOnlyTurnEffects = [
     "vz4kc558yx-ALLY_PENDING",
     "vz4kc558yx-ACTION_ACTIVATED",
     "vz4kc558yx-ALLY_ACTIVATED",
+    "HIT_BY_3hgldrogit",
 ];
 
 function CardCurrentEffects($obj) {
@@ -14978,8 +14979,13 @@ function DealChampionDamage($player, $amount=1, $sourceController = null) {
     for($i = 0; $i < count($zoneArr); ++$i) {
         $obj = &$zoneArr[$i];
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+            $incomingAmount = intval($amount);
             $amount = ApplyFatedKeepsakePrevention($player, $amount);
             if($amount <= 0) {
+                if($incomingAmount > 0) {
+                    $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
+                    QueuePreventedDamageAnimation($absoluteTarget, 500, true);
+                }
                 return $obj;
             }
             // Safeguard Amulet: prevent up to 4 non-combat damage (one-time)
@@ -15035,6 +15041,10 @@ function DealChampionDamage($player, $amount=1, $sourceController = null) {
             }
             $amount = ApplyCrystallizedDestinyPrevention($zone . "-" . $i, $amount);
             if($amount <= 0) {
+                if($incomingAmount > 0) {
+                    $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
+                    QueuePreventedDamageAnimation($absoluteTarget, 500, true);
+                }
                 return $obj;
             }
             // Water Barrier (xWJND68I8X): prevent all but 1 of next damage to champion
@@ -15049,6 +15059,13 @@ function DealChampionDamage($player, $amount=1, $sourceController = null) {
             if(in_array("PROOF_OF_LIFE_DOUBLE", $obj->TurnEffects ?? [])) {
                 $amount *= 2;
                 $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "PROOF_OF_LIFE_DOUBLE"));
+            }
+            if($amount <= 0) {
+                if($incomingAmount > 0) {
+                    $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
+                    QueuePreventedDamageAnimation($absoluteTarget, 500, true);
+                }
+                return $obj;
             }
             $obj->Damage += $amount;
             
