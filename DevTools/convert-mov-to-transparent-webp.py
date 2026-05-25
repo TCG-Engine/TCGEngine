@@ -8,13 +8,65 @@ import cv2
 import numpy as np
 from PIL import Image
 
-input_path = r"C:\Users\maxim\Downloads\spellshroud.mov"
-output_path = r"C:\Users\maxim\Downloads\spellshroud.webp"
+input_path = r"C:\Users\maxim\Downloads\true-sight.mov"
+output_path = r"C:\Users\maxim\Downloads\true-sight.webp"
 
 TARGET_FPS = 8  # output frames per second
 VALUE_SCALE = 2.0  # scales HSV V per pixel before gamma mapping
 ALPHA_GAMMA = 0.8  # lower values push more pixels toward opacity
 ALPHA_SCALE = 1.0  # >1.0 boosts alpha, <1.0 reduces alpha
+
+# --- Crop mode ---
+# When True, scans all sampled frames to find the bounding box of all non-black
+# pixels (unioned across every frame), then crops every frame to that box before
+# resizing.  Ideal for icon animations recorded on a black background.
+CROP_MODE = True
+CROP_PADDING = 4        # extra pixels added on every side of the detected bounds
+BLACK_THRESHOLD = 60     # HSV V values (0-255) at or below this count as "black"
+OUTPUT_SIZE = (100, 80)
+
+
+def compute_crop_bounds(raw_frames, threshold, padding):
+    """Return (x0, y0, x1, y1) — the union bbox of all non-black pixels across
+    every frame in raw_frames (list of BGR numpy arrays), expanded by padding."""
+    h, w = raw_frames[0].shape[:2]
+    x0, y0, x1, y1 = w, h, 0, 0
+
+    for bgr in raw_frames:
+        hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
+        v = hsv[:, :, 2]
+        mask = v > threshold
+        rows = np.any(mask, axis=1)
+        cols = np.any(mask, axis=0)
+        if not rows.any():
+            continue  # fully black frame — skip
+        r0, r1 = np.argmax(rows), h - 1 - np.argmax(rows[::-1])
+        c0, c1 = np.argmax(cols), w - 1 - np.argmax(cols[::-1])
+        x0 = min(x0, c0)
+        y0 = min(y0, r0)
+        x1 = max(x1, c1)
+        y1 = max(y1, r1)
+
+    if x1 <= x0 or y1 <= y0:
+        return (0, 0, w, h)  # nothing found — use full frame
+
+    x0 = max(0, x0 - padding)
+    y0 = max(0, y0 - padding)
+    x1 = min(w, x1 + padding + 1)
+    y1 = min(h, y1 + padding + 1)
+    return (x0, y0, x1, y1)
+
+
+def bgr_to_rgba(bgr):
+    """Convert a BGR frame to an RGBA numpy array using the HSV-value alpha mapping."""
+    rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
+    hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
+    v = hsv[:, :, 2].astype(np.float32) / 255.0
+    v = np.clip(v * VALUE_SCALE, 0.0, 1.0)
+    alpha_linear = np.power(v, ALPHA_GAMMA) * 255.0
+    alpha = np.clip(alpha_linear * ALPHA_SCALE, 0, 255).astype(np.uint8)
+    return np.dstack((rgb, alpha))
+
 
 cap = cv2.VideoCapture(input_path)
 source_fps = cap.get(cv2.CAP_PROP_FPS) or 24
@@ -25,37 +77,40 @@ frame_duration_ms = int(keep_every * 1000 / source_fps)
 
 print(f"Source: {source_fps:.2f} fps — keeping every {keep_every} frame(s) → {1000/frame_duration_ms:.1f} fps output ({frame_duration_ms} ms/frame)")
 
-frames = []
+# --- Pass 1: collect sampled raw BGR frames ---
+raw_frames = []
 frame_index = 0
 while True:
     ret, frame = cap.read()
     if not ret:
         break
-
     if frame_index % keep_every == 0:
-        # RGB for color data
-        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-        # HSV Value channel (0=black/transparent, 255=white/opaque) remapped to alpha
-        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-        v = hsv[:, :, 2].astype(np.float32) / 255.0
-        v = np.clip(v * VALUE_SCALE, 0.0, 1.0)
-
-        # Strong high-end compression: bright pixels become less opaque than linear mapping
-        alpha_linear = np.power(v, ALPHA_GAMMA) * 255.0
-        alpha = np.clip(alpha_linear * ALPHA_SCALE, 0, 255).astype(np.uint8)
-
-        rgba = np.dstack((rgb, alpha))
-        img = Image.fromarray(rgba, "RGBA").resize((450, 450), Image.Resampling.LANCZOS)
-        frames.append(img)
-
+        raw_frames.append(frame)
     frame_index += 1
 
 cap.release()
 
-if not frames:
+if not raw_frames:
     print("ERROR: No frames were read from the video.")
 else:
+    # --- Crop mode: compute union bounds across all sampled frames ---
+    crop_box = None
+    if CROP_MODE:
+        crop_box = compute_crop_bounds(raw_frames, BLACK_THRESHOLD, CROP_PADDING)
+        x0, y0, x1, y1 = crop_box
+        print(f"Crop mode: detected bounds ({x0}, {y0}) → ({x1}, {y1})  [{x1-x0}×{y1-y0} px]")
+
+    # --- Pass 2: convert to RGBA, optionally crop, resize ---
+    frames = []
+    for bgr in raw_frames:
+        rgba = bgr_to_rgba(bgr)
+        img = Image.fromarray(rgba, "RGBA")
+        if crop_box is not None:
+            x0, y0, x1, y1 = crop_box
+            img = img.crop((x0, y0, x1, y1))
+        img = img.resize(OUTPUT_SIZE, Image.Resampling.LANCZOS)
+        frames.append(img)
+
     print(f"Writing {len(frames)} frames to {output_path} ...")
     frames[0].save(
         output_path,
