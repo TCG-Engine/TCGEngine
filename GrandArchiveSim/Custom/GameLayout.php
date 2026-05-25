@@ -37,11 +37,14 @@
 
      .ga-board-art {
           z-index: 11;
-          background:
-               radial-gradient(circle at 18% 20%, rgba(45, 111, 115, 0.18), transparent 24%),
-               radial-gradient(circle at 82% 78%, rgba(138, 81, 79, 0.16), transparent 26%),
-               linear-gradient(180deg, rgba(244, 236, 219, 0.08), rgba(19, 32, 43, 0));
-          mix-blend-mode: screen;
+     }
+
+     .ga-board-art.is-dawn-of-ashes {
+          background: url("/TCGEngine/Assets/Boards/dawn-of-ashes.webp") center center / cover no-repeat;
+     }
+
+     .ga-board-art.is-classic-blue {
+          background: linear-gradient(180deg, #3f74aa 0%, #2b5e93 48%, #1e4678 100%);
      }
 
      .ga-board-glow {
@@ -1577,6 +1580,53 @@
           }
      }
 
+     function setupBoardTheme() {
+          var boardArt = document.querySelector('.ga-board-art');
+          if (!boardArt) return;
+
+          var rootName = 'GrandArchiveSim';
+          var settingKey = 'BoardBackgroundTheme';
+          var defaultTheme = 'dawn';
+
+          if (window.TCGSettings && typeof window.TCGSettings.registerSchema === 'function') {
+               window.TCGSettings.registerSchema(rootName, {
+                    BoardBackgroundTheme: { type: 'string', defaultValue: defaultTheme }
+               });
+          }
+
+          function applyTheme(theme) {
+               var normalized = (theme === 'classic') ? 'classic' : 'dawn';
+               boardArt.classList.remove('is-dawn-of-ashes', 'is-classic-blue');
+               boardArt.classList.add(normalized === 'classic' ? 'is-classic-blue' : 'is-dawn-of-ashes');
+               boardArt.setAttribute('data-board-theme', normalized);
+               return normalized;
+          }
+
+          function getStoredTheme() {
+               if (!window.TCGSettings || typeof window.TCGSettings.get !== 'function') return defaultTheme;
+               return window.TCGSettings.get(settingKey, { rootName: rootName, type: 'string', defaultValue: defaultTheme });
+          }
+
+          function setStoredTheme(theme) {
+               if (!window.TCGSettings || typeof window.TCGSettings.set !== 'function') return;
+               window.TCGSettings.set(settingKey, theme, { rootName: rootName, type: 'string' });
+          }
+
+          var activeTheme = applyTheme(getStoredTheme());
+
+          window.GABoardTheme = {
+               get: function() { return activeTheme; },
+               set: function(theme) {
+                    activeTheme = applyTheme(theme);
+                    setStoredTheme(activeTheme);
+                    return activeTheme;
+               },
+               toggle: function() {
+                    return this.set(activeTheme === 'classic' ? 'dawn' : 'classic');
+               }
+          };
+     }
+
      // Run once DOM is ready (GameLayout.php is included after DOMContentLoaded equivalent)
      if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function() {
@@ -1585,6 +1635,7 @@
                watchPhaseData();
                setupEffectStackDrag();
                setupHandCollapse();
+               setupBoardTheme();
           });
      } else {
           AUTO_HIDE_IDS.forEach(watchSlot);
@@ -1592,6 +1643,7 @@
           watchPhaseData();
           setupEffectStackDrag();
           setupHandCollapse();
+          setupBoardTheme();
      }
 })();
 </script>

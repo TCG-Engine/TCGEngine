@@ -130,6 +130,13 @@ include_once 'Header.php';
         <input type="checkbox" id="ga-disable-keyword-indicators">
         Disable keyword indicators (stealth, spellshroud, true sight)
       </label>
+      <label for="ga-board-background-theme" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #ddd; font-size: 13px; margin-top: 10px;">
+        Board background
+        <select id="ga-board-background-theme" style="background: rgba(20,20,28,0.9); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 8px; font-size: 12px;">
+          <option value="dawn">Dawn of Ashes</option>
+          <option value="classic">Classic Blue</option>
+        </select>
+      </label>
     </div>
   </div>
 </div>
@@ -225,6 +232,10 @@ include_once 'Header.php';
         DisableKeywordIndicators: {
           type: 'boolean',
           defaultValue: false
+        },
+        BoardBackgroundTheme: {
+          type: 'string',
+          defaultValue: 'dawn'
         }
       });
     }
@@ -236,6 +247,15 @@ include_once 'Header.php';
       keywordToggle.checked = !!window.TCGSettings.get('DisableKeywordIndicators', { rootName: 'GrandArchiveSim', type: 'boolean', defaultValue: false });
       keywordToggle.addEventListener('change', function() {
         window.TCGSettings.set('DisableKeywordIndicators', !!keywordToggle.checked, { rootName: 'GrandArchiveSim', type: 'boolean' });
+      });
+    }
+    var boardThemeSelect = document.getElementById('ga-board-background-theme');
+    if (boardThemeSelect && window.TCGSettings) {
+      var savedTheme = window.TCGSettings.get('BoardBackgroundTheme', { rootName: 'GrandArchiveSim', type: 'string', defaultValue: 'dawn' });
+      boardThemeSelect.value = (savedTheme === 'classic') ? 'classic' : 'dawn';
+      boardThemeSelect.addEventListener('change', function() {
+        var value = boardThemeSelect.value === 'classic' ? 'classic' : 'dawn';
+        window.TCGSettings.set('BoardBackgroundTheme', value, { rootName: 'GrandArchiveSim', type: 'string' });
       });
     }
     // Rotate tips every 8 seconds
