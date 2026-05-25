@@ -8,18 +8,19 @@ import cv2
 import numpy as np
 from PIL import Image
 
-input_path = r"C:\Users\maxim\Downloads\true-sight.mov"
-output_path = r"C:\Users\maxim\Downloads\true-sight.webp"
+input_path = r"C:\Users\maxim\Downloads\dawn-of-ashes.mov"
+output_path = r"C:\Users\maxim\Downloads\dawn-of-ashes.webp"
 
-TARGET_FPS = 8  # output frames per second
-VALUE_SCALE = 4.0  # scales HSV V per pixel before gamma mapping
+TARGET_FPS = 12  # output frames per second
+BOARD_MODE = True  # When True: skip all transparency/crop/border — just resample FPS and convert to WebP
+VALUE_SCALE = 1.0  # scales HSV V per pixel before gamma mapping
 ALPHA_GAMMA = 0.8  # lower values push more pixels toward opacity
 ALPHA_SCALE = 1.0  # >1.0 boosts alpha, <1.0 reduces alpha
 SATURATION_SCALE = 2.0  # >1.0 boosts color saturation, 1.0 = no change
 
 # --- Border mode ---
 # When True, draws a solid-color outline around the visible content in each frame.
-BORDER_ENABLED = True
+BORDER_ENABLED = False
 BORDER_SIZE = 4           # outline thickness in pixels
 BORDER_COLOR = (0, 0, 0, 255)  # RGBA — black by default
 
@@ -116,25 +117,33 @@ cap.release()
 if not raw_frames:
     print("ERROR: No frames were read from the video.")
 else:
-    # --- Crop mode: compute union bounds across all sampled frames ---
-    crop_box = None
-    if CROP_MODE:
-        crop_box = compute_crop_bounds(raw_frames, BLACK_THRESHOLD, CROP_PADDING)
-        x0, y0, x1, y1 = crop_box
-        print(f"Crop mode: detected bounds ({x0}, {y0}) → ({x1}, {y1})  [{x1-x0}×{y1-y0} px]")
-
-    # --- Pass 2: convert to RGBA, optionally crop, resize ---
-    frames = []
-    for bgr in raw_frames:
-        rgba = bgr_to_rgba(bgr)
-        img = Image.fromarray(rgba, "RGBA")
-        if crop_box is not None:
+    if BOARD_MODE:
+        # --- Board mode: no transparency, cropping, or effects ---
+        frames = []
+        for bgr in raw_frames:
+            rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
+            img = Image.fromarray(rgb, "RGB")
+            frames.append(img)
+    else:
+        # --- Crop mode: compute union bounds across all sampled frames ---
+        crop_box = None
+        if CROP_MODE:
+            crop_box = compute_crop_bounds(raw_frames, BLACK_THRESHOLD, CROP_PADDING)
             x0, y0, x1, y1 = crop_box
-            img = img.crop((x0, y0, x1, y1))
-        img = img.resize(OUTPUT_SIZE, Image.Resampling.LANCZOS)
-        if BORDER_ENABLED:
-            img = add_content_border(img)
-        frames.append(img)
+            print(f"Crop mode: detected bounds ({x0}, {y0}) → ({x1}, {y1})  [{x1-x0}×{y1-y0} px]")
+
+        # --- Pass 2: convert to RGBA, optionally crop, resize ---
+        frames = []
+        for bgr in raw_frames:
+            rgba = bgr_to_rgba(bgr)
+            img = Image.fromarray(rgba, "RGBA")
+            if crop_box is not None:
+                x0, y0, x1, y1 = crop_box
+                img = img.crop((x0, y0, x1, y1))
+            img = img.resize(OUTPUT_SIZE, Image.Resampling.LANCZOS)
+            if BORDER_ENABLED:
+                img = add_content_border(img)
+            frames.append(img)
 
     print(f"Writing {len(frames)} frames to {output_path} ...")
     frames[0].save(

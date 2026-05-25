@@ -12470,23 +12470,29 @@ function Glimpse($player, $amount, $allowAstroscope = true) {
         !empty($aethercallCandidateIndices) ? implode(",", $aethercallCandidateIndices) : "");
 
     if(!empty($starcallCandidateIndices) || !empty($aethercallCandidateIndices)) {
-        // Move top N cards to myTempZone so the popup can display them face-up
-        // (always use myDeck-0 since each MZMove shifts remaining deck cards down)
-        for($i = $n-1; $i >= 0; --$i) {
-            MZMove($player, "myDeck-" . $i, "myTempZone");
+        $tempBaseIndex = count(GetTempZone($player));
+        // Move top N cards to myTempZone so the popup can display them face-up.
+        // Use direct zone ops here (instead of MZMove) so cross-player glimpses
+        // like Cosmic Astroscope don't perspective-flip into the wrong temp zone.
+        for($i = 0; $i < $n; ++$i) {
+            $deckNow = &GetDeck($player);
+            if(empty($deckNow)) break;
+            $topObj = array_shift($deckNow);
+            MZAddZone($player, "myTempZone", $topObj->CardID, $topObj);
         }
         // Store card IDs and tempzone flag for handlers
         DecisionQueueController::StoreVariable("glimpseCardIDs", implode(",", $cardIDs));
         DecisionQueueController::StoreVariable("glimpsedToTempZone", "1");
+        DecisionQueueController::StoreVariable("glimpseTempBaseIndex", strval($tempBaseIndex));
 
         if(!empty($starcallCandidateIndices)) {
             // Offer starcalling choice using tempzone refs (face-up cards in popup)
-            $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $starcallCandidateIndices));
+            $candidateStr = implode("&", array_map(fn($i) => "myTempZone-" . ($tempBaseIndex + $i), $starcallCandidateIndices));
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Starcall_a_card?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingOffer", 1);
         } else if(!empty($aethercallCandidateIndices)) {
             // Only aethercalling candidates â€” offer to load into Aetherwing
-            $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $aethercallCandidateIndices));
+            $candidateStr = implode("&", array_map(fn($i) => "myTempZone-" . ($tempBaseIndex + $i), $aethercallCandidateIndices));
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Load_into_Aetherwing?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "AethercallingOffer", 1);
         }
@@ -13005,6 +13011,7 @@ $customDQHandlers["CosmicAstroscopeGlimpse"] = function($player, $parts, $lastDe
  */
 $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision) {
     $n = intval(DecisionQueueController::GetVariable("glimpseCount"));
+    $tempBaseIndex = intval(DecisionQueueController::GetVariable("glimpseTempBaseIndex"));
     $cardIDsStr = DecisionQueueController::GetVariable("glimpseCardIDs");
     $cardIDs = explode(",", $cardIDsStr);
 
@@ -13016,11 +13023,11 @@ $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision)
             // Filter to indices that are still valid (cards still in tempzone)
             $validIndices = [];
             foreach($aethercallIndices as $idx) {
-                $tObj = GetZoneObject("myTempZone-" . $idx);
+                $tObj = GetZoneObject("myTempZone-" . ($tempBaseIndex + $idx));
                 if($tObj !== null && !$tObj->removed) $validIndices[] = $idx;
             }
             if(!empty($validIndices)) {
-                $candidateStr = implode("&", array_map(fn($i) => "myTempZone-$i", $validIndices));
+                $candidateStr = implode("&", array_map(fn($i) => "myTempZone-" . ($tempBaseIndex + $i), $validIndices));
                 DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Load_into_Aetherwing?");
                 DecisionQueueController::AddDecision($player, "CUSTOM", "AethercallingOffer", 1);
                 return;
@@ -13036,8 +13043,10 @@ $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision)
 
     // Player chose a card to starcall â€” lastDecision is e.g. "myTempZone-2"
     $tmpParts = explode("-", $lastDecision);
-    $chosenTempIndex = intval($tmpParts[1]);
-    $chosenCardID = $cardIDs[$chosenTempIndex];
+    $chosenTempIndex = intval($tmpParts[1]); // absolute tempzone index
+    $chosenRelativeIndex = $chosenTempIndex - $tempBaseIndex;
+    if($chosenRelativeIndex < 0 || $chosenRelativeIndex >= count($cardIDs)) return;
+    $chosenCardID = $cardIDs[$chosenRelativeIndex];
     $starcallingCost = GetStarcallingCost($player, $chosenCardID);
 
     // Consume free starcalling if applicable
@@ -13056,18 +13065,23 @@ $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision)
         }
     }
 
-    // Move chosen card from tempzone to hand
-    MZMove($player, "myTempZone-" . $chosenTempIndex, "myHand");
-    // Move all other tempzone cards to deck BOTTOM (per starcalling rules: others go on bottom)
-    // Do NOT call CleanupRemovedCards yet â€” original indices 0..N-1 remain valid (just some removed)
-    for($i = 0; $i < $n; ++$i) {
-        if($i === $chosenTempIndex) continue;
-        $tempObj = GetZoneObject("myTempZone-" . $i);
-        if($tempObj && !$tempObj->removed) {
-            MZMove($player, "myTempZone-" . $i, "myDeck");
-        }
-    }
+    // Move chosen card from tempzone to hand using direct zone ops so cross-player
+    // glimpse flows (e.g. Astroscope redirect) do not perspective-flip zones.
+    $tempZoneRef = &GetTempZone($player);
+    $chosenTempObj = ($chosenTempIndex >= 0 && $chosenTempIndex < count($tempZoneRef))
+        ? $tempZoneRef[$chosenTempIndex]
+        : null;
+    if($chosenTempObj === null || $chosenTempObj->removed) return;
+    $chosenTempObj->Remove();
+    MZAddZone($player, "myHand", $chosenCardID, $chosenTempObj);
     DecisionQueueController::CleanupRemovedCards();
+    // Remove chosen card from the tracked glimpse list; remaining cards stay in tempzone
+    // and the player still gets to complete the glimpse rearrange for those cards.
+    array_splice($cardIDs, $chosenRelativeIndex, 1);
+    $newN = max(0, $n - 1);
+    DecisionQueueController::StoreVariable("glimpseCount", strval($newN));
+    DecisionQueueController::StoreVariable("glimpseCardIDs", implode(",", $cardIDs));
+    DecisionQueueController::StoreVariable("glimpsedToTempZone", "1");
 
     // Find the chosen card in hand (search from end for most-recently-added)
     $hand = GetZone("myHand");
@@ -13087,6 +13101,11 @@ $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision)
         }
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingActivate|$handMZ|$chosenCardID", 100);
+    if($newN > 0) {
+        $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
+        DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 101, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 101);
+    }
 };
 
 /**
@@ -13175,6 +13194,7 @@ function SupernovaDivinationCheck($player, $supernovaMZ) {
  */
 $customDQHandlers["AethercallingOffer"] = function($player, $parts, $lastDecision) {
     $n = intval(DecisionQueueController::GetVariable("glimpseCount"));
+    $tempBaseIndex = intval(DecisionQueueController::GetVariable("glimpseTempBaseIndex"));
     $cardIDsStr = DecisionQueueController::GetVariable("glimpseCardIDs");
     $cardIDs = explode(",", $cardIDsStr);
 
@@ -13189,18 +13209,22 @@ $customDQHandlers["AethercallingOffer"] = function($player, $parts, $lastDecisio
 
     // Accepted â€” load chosen card into Aetherwing
     $tmpParts = explode("-", $lastDecision);
-    $chosenTempIndex = intval($tmpParts[1]);
-    $chosenCardID = $cardIDs[$chosenTempIndex];
+    $chosenTempIndex = intval($tmpParts[1]); // absolute tempzone index
+    $chosenRelativeIndex = $chosenTempIndex - $tempBaseIndex;
+    if($chosenRelativeIndex < 0 || $chosenRelativeIndex >= count($cardIDs)) return;
+    $chosenCardID = $cardIDs[$chosenRelativeIndex];
 
-    // Remove chosen card from tempzone
-    $tempObj = GetZoneObject($lastDecision);
-    if($tempObj !== null) {
-        $tempObj->removed = true;
-        DecisionQueueController::CleanupRemovedCards();
+    // Remove chosen card from tempzone using direct zone ops so cross-player
+    // glimpse flows do not hit perspective-flipped MZ lookups.
+    $tempZoneRef = &GetTempZone($player);
+    if($chosenTempIndex >= 0 && $chosenTempIndex < count($tempZoneRef)) {
+        $tempObj = $tempZoneRef[$chosenTempIndex];
+        if($tempObj !== null && !$tempObj->removed) $tempObj->Remove();
     }
+    DecisionQueueController::CleanupRemovedCards();
 
     // Update cardIDs for rearrange (remove loaded card)
-    array_splice($cardIDs, $chosenTempIndex, 1);
+    array_splice($cardIDs, $chosenRelativeIndex, 1);
     $newN = $n - 1;
     DecisionQueueController::StoreVariable("glimpseCount", strval($newN));
     DecisionQueueController::StoreVariable("glimpseCardIDs", implode(",", $cardIDs));
