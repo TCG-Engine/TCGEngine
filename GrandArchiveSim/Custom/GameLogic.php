@@ -14741,9 +14741,23 @@ function IsClassBonusActive($player, $classes=null) {
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
     $zoneArr = GetZone($zone);
+    $requiredClasses = null;
+    if($classes !== null) {
+        if(is_array($classes)) {
+            $requiredClasses = [];
+            foreach($classes as $classEntry) {
+                foreach(explode(",", strval($classEntry)) as $classToken) {
+                    $classToken = trim($classToken);
+                    if($classToken !== "") $requiredClasses[] = $classToken;
+                }
+            }
+        } else {
+            $requiredClasses = array_values(array_filter(array_map('trim', explode(",", strval($classes))), function($c) { return $c !== ""; }));
+        }
+    }
     foreach($zoneArr as $index => $obj) {
         $cardClasses = explode(",", EffectiveCardClasses($obj));
-        if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && ($classes === null || count(array_intersect($cardClasses, (array)$classes)) > 0)) {
+        if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && ($requiredClasses === null || count(array_intersect($cardClasses, $requiredClasses)) > 0)) {
             return true;
         }
     }
