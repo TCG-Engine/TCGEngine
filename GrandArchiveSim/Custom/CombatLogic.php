@@ -2803,7 +2803,9 @@ function OnDealDamage($player, $source, $target, $amount) {
                 RemoveCounters($targetController, $target, "durability", $toRemove);
             }
             if(GetCounterCount($targetObj, "durability") <= 0) {
-                AllyDestroyed($targetController, $target);
+                // Keep mzID in the current combat perspective (attacker-context during combat damage),
+                // matching normal lethal resolution paths.
+                AllyDestroyed($player, $target);
             }
         }
         return;
@@ -4028,7 +4030,9 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
                 RemoveCounters($targetController, $target, "durability", $toRemove);
             }
             if(GetCounterCount($targetObj, "durability") <= 0) {
-                AllyDestroyed($targetController, $target);
+                // Keep mzID in the current combat perspective (attacker-context during combat damage),
+                // matching normal lethal resolution paths.
+                AllyDestroyed($player, $target);
             }
         }
         return;
