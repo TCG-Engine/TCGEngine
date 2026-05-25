@@ -12290,6 +12290,7 @@ $starcallingCards["4d5vettczb"] = 2; // Cometfall: Starcalling (2)
 $starcallingCards["dwavcoxpnj"] = 3; // Meteor Strike: Starcalling (3)
 $starcallingCards["xmtjrvfpuc"] = 1; // Stellaria Shower: Starcalling (1)
 $starcallingCards["dWgPzoEbIE"] = 0; // Cosmic Focus: Starcalling (0)
+$starcallingCards["vpmu6gvnta"] = 2; // Cosmic Bolt: Starcalling (2)
 
 /**
  * Get the effective starcalling cost for a card during a glimpse.
@@ -13075,8 +13076,8 @@ $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision)
     $chosenTempObj->Remove();
     MZAddZone($player, "myHand", $chosenCardID, $chosenTempObj);
     DecisionQueueController::CleanupRemovedCards();
-    // Remove chosen card from the tracked glimpse list; remaining cards stay in tempzone
-    // and the player still gets to complete the glimpse rearrange for those cards.
+    // Remove chosen card from the tracked glimpse list; all remaining glimpsed cards
+    // must be put on the bottom of the deck (Starcalling rule).
     array_splice($cardIDs, $chosenRelativeIndex, 1);
     $newN = max(0, $n - 1);
     DecisionQueueController::StoreVariable("glimpseCount", strval($newN));
@@ -13102,9 +13103,39 @@ $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision)
     }
     DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingActivate|$handMZ|$chosenCardID", 100);
     if($newN > 0) {
-        $param = "Top=" . implode(",", $cardIDs) . ";Bottom=";
-        DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 101, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 101);
+        // Let the player choose the order for cards going to bottom only.
+        $param = "Bottom=" . implode(",", $cardIDs);
+        DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 101, "Starcalling:_order_cards_for_bottom");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingBottomApply", 101);
+    }
+};
+
+/**
+ * Process Starcalling remainder reorder: all remaining glimpsed cards go to
+ * the bottom of the deck in chosen order, regardless of pile assignment.
+ */
+$customDQHandlers["StarcallingBottomApply"] = function($player, $parts, $lastDecision) {
+    $deck = &GetDeck($player);
+    $tempZone = &GetTempZone($player);
+
+    $piles = ["Top" => [], "Bottom" => []];
+    foreach(explode(";", $lastDecision) as $pileStr) {
+        $eqPos = strpos($pileStr, "=");
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        if(isset($piles[$pileName])) {
+            $piles[$pileName] = ($cardsStr !== "") ? explode(",", $cardsStr) : [];
+        }
+    }
+
+    foreach($tempZone as $obj) {
+        if(!$obj->removed) $obj->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+
+    foreach(array_merge($piles["Bottom"], $piles["Top"]) as $cid) {
+        $deck[] = new Deck($cid, 'Deck', $player);
     }
 };
 
