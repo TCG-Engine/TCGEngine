@@ -17377,6 +17377,7 @@ function HasSpellshroud($obj) {
     if(in_array("OMNISHROUD", $obj->TurnEffects ?? [])) return true;
     if($obj->CardID === "6ce5rzrjd9") return true;
     if($obj->CardID === "tf5f2n38g0") return true;
+    if($obj->CardID === "cUltOcPo26") return true;
     if($obj->CardID === "4GFKcHg9NU" && intval($obj->Status ?? 0) === 2) return true;
     // Innervate Agility: units gain spellshroud until EOT via global effect
     $effects = explode(",", CardCurrentEffects($obj));
