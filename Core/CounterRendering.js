@@ -507,6 +507,7 @@ function CreateCountersHTML(zoneName, cardArr, id) {
       var spacingPx = sizePx + 4;
       var cornerInsetPx = 3;
       var anchorInsetPx = cornerInsetPx + (sizePx * 0.1);
+      var bottomAnchorInsetPx = anchorInsetPx - 12; // Lower bottom-positioned counters slightly.
       var clusterOffset = getCounterClusterOffset(positionIndex, totalInPosition, spacingPx);
 
       var posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;';
@@ -517,11 +518,19 @@ function CreateCountersHTML(zoneName, cardArr, id) {
         case 'topright':
           posStyle = 'top:calc(' + anchorInsetPx + 'px + ' + clusterOffset.y + 'px); right:calc(' + anchorInsetPx + 'px - ' + clusterOffset.x + 'px);';
           break;
+        case 'top':
+        case 'topcenter':
+          posStyle = 'top:calc(' + anchorInsetPx + 'px + ' + clusterOffset.y + 'px); left:50%; transform: translateX(calc(-50% + ' + clusterOffset.x + 'px));';
+          break;
         case 'bottomleft':
-          posStyle = 'bottom:calc(' + anchorInsetPx + 'px - ' + clusterOffset.y + 'px); left:calc(' + anchorInsetPx + 'px + ' + clusterOffset.x + 'px);';
+          posStyle = 'bottom:calc(' + bottomAnchorInsetPx + 'px - ' + clusterOffset.y + 'px); left:calc(' + anchorInsetPx + 'px + ' + clusterOffset.x + 'px);';
           break;
         case 'bottomright':
-          posStyle = 'bottom:calc(' + anchorInsetPx + 'px - ' + clusterOffset.y + 'px); right:calc(' + anchorInsetPx + 'px - ' + clusterOffset.x + 'px);';
+          posStyle = 'bottom:calc(' + bottomAnchorInsetPx + 'px - ' + clusterOffset.y + 'px); right:calc(' + anchorInsetPx + 'px - ' + clusterOffset.x + 'px);';
+          break;
+        case 'bottom':
+        case 'bottomcenter':
+          posStyle = 'bottom:calc(' + bottomAnchorInsetPx + 'px - ' + clusterOffset.y + 'px); left:50%; transform: translateX(calc(-50% + ' + clusterOffset.x + 'px));';
           break;
         case 'center':
           posStyle = 'top:50%; left:50%; transform: translate(calc(-50% + ' + clusterOffset.x + 'px), calc(-50% + ' + clusterOffset.y + 'px));';
@@ -554,6 +563,17 @@ function CreateCountersHTML(zoneName, cardArr, id) {
           html += "</div>";
         } else {
           // fallback to badge
+          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
+        }
+      } else if (type.toLowerCase() === 'image') {
+        var imagePath = params.Path || params.Image || (params[0] ? params[0] : null);
+        var imageSize = params.Size && !isNaN(params.Size) ? Number(params.Size) : sizePx;
+        if (imagePath) {
+          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + imageSize + "px; height:" + imageSize + "px; pointer-events:none;'>";
+          html += "<img class='counter-image-icon' src='./" + imagePath + "' style='width:" + imageSize + "px; height:" + imageSize + "px; object-fit:contain; filter: drop-shadow(0 0 3px rgba(0,0,0,0.75));'/>";
+          html += "</div>";
+        } else {
+          // fallback to badge when no path is provided
           html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
         }
       } else {

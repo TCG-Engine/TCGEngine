@@ -18623,6 +18623,10 @@ function GetAgeCounterCount($obj) {
     return GetCounterCount($obj, "age");
 }
 
+function GetTrueSightCounterCount($obj) {
+    return HasTrueSight($obj) ? 1 : 0;
+}
+
 // --- Omen Counter Helpers ---
 
 function GetOmenCounterCount($obj) {

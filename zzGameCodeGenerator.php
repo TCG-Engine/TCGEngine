@@ -148,6 +148,13 @@ while(!feof($handler)) {
               }
             }
           }
+          if (strcasecmp($counterType, "Image") == 0) {
+            if (!isset($params["Path"]) && isset($params["Image"])) $params["Path"] = $params["Image"];
+            if (!isset($params["Path"]) && isset($params[0])) $params["Path"] = $params[0];
+            if (isset($params["Path"])) {
+              $params["Path"] = str_replace("\\", "/", trim($params["Path"]));
+            }
+          }
           $zoneObj->Counters[] = ["field" => $field, "type" => $counterType, "params" => $params];
         }
         break;

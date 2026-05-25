@@ -1238,7 +1238,7 @@
           }
 
           /* Image-level border - use custom color variable */
-          .selectable-card img {
+          .selectable-card img:not(.counter-image-icon) {
             border-radius: 6px;
             display: block;
             position: relative;
@@ -1251,7 +1251,7 @@
           }
 
           /* On hover: slightly thicker border and enhanced glow */
-          .selectable-card:hover img {
+          .selectable-card:hover img:not(.counter-image-icon) {
             /* Slightly thicker border */
             border: 2px solid var(--highlight-color);
             /* Enhanced but still subtle glow on hover */

@@ -12,16 +12,23 @@ input_path = r"C:\Users\maxim\Downloads\true-sight.mov"
 output_path = r"C:\Users\maxim\Downloads\true-sight.webp"
 
 TARGET_FPS = 8  # output frames per second
-VALUE_SCALE = 2.0  # scales HSV V per pixel before gamma mapping
+VALUE_SCALE = 4.0  # scales HSV V per pixel before gamma mapping
 ALPHA_GAMMA = 0.8  # lower values push more pixels toward opacity
 ALPHA_SCALE = 1.0  # >1.0 boosts alpha, <1.0 reduces alpha
+SATURATION_SCALE = 2.0  # >1.0 boosts color saturation, 1.0 = no change
+
+# --- Border mode ---
+# When True, draws a solid-color outline around the visible content in each frame.
+BORDER_ENABLED = True
+BORDER_SIZE = 4           # outline thickness in pixels
+BORDER_COLOR = (0, 0, 0, 255)  # RGBA — black by default
 
 # --- Crop mode ---
 # When True, scans all sampled frames to find the bounding box of all non-black
 # pixels (unioned across every frame), then crops every frame to that box before
 # resizing.  Ideal for icon animations recorded on a black background.
 CROP_MODE = True
-CROP_PADDING = 4        # extra pixels added on every side of the detected bounds
+CROP_PADDING = 50        # extra pixels added on every side of the detected bounds
 BLACK_THRESHOLD = 60     # HSV V values (0-255) at or below this count as "black"
 OUTPUT_SIZE = (100, 80)
 
@@ -59,13 +66,29 @@ def compute_crop_bounds(raw_frames, threshold, padding):
 
 def bgr_to_rgba(bgr):
     """Convert a BGR frame to an RGBA numpy array using the HSV-value alpha mapping."""
-    rgb = cv2.cvtColor(bgr, cv2.COLOR_BGR2RGB)
-    hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
-    v = hsv[:, :, 2].astype(np.float32) / 255.0
+    hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV).astype(np.float32)
+    hsv[:, :, 1] = np.clip(hsv[:, :, 1] * SATURATION_SCALE, 0, 255)
+    hsv_boosted = hsv.astype(np.uint8)
+    rgb = cv2.cvtColor(hsv_boosted, cv2.COLOR_HSV2RGB)
+    v = hsv[:, :, 2] / 255.0
     v = np.clip(v * VALUE_SCALE, 0.0, 1.0)
     alpha_linear = np.power(v, ALPHA_GAMMA) * 255.0
     alpha = np.clip(alpha_linear * ALPHA_SCALE, 0, 255).astype(np.uint8)
     return np.dstack((rgb, alpha))
+
+
+def add_content_border(img: Image.Image) -> Image.Image:
+    """Draw a BORDER_COLOR outline of BORDER_SIZE pixels around the opaque
+    content in an RGBA image by dilating the alpha mask."""
+    rgba = np.array(img)
+    alpha = rgba[:, :, 3]
+    kernel = cv2.getStructuringElement(
+        cv2.MORPH_ELLIPSE, (2 * BORDER_SIZE + 1, 2 * BORDER_SIZE + 1)
+    )
+    dilated = cv2.dilate(alpha, kernel)
+    border_mask = (dilated > 0) & (alpha == 0)
+    rgba[border_mask] = BORDER_COLOR
+    return Image.fromarray(rgba, "RGBA")
 
 
 cap = cv2.VideoCapture(input_path)
@@ -109,6 +132,8 @@ else:
             x0, y0, x1, y1 = crop_box
             img = img.crop((x0, y0, x1, y1))
         img = img.resize(OUTPUT_SIZE, Image.Resampling.LANCZOS)
+        if BORDER_ENABLED:
+            img = add_content_border(img)
         frames.append(img)
 
     print(f"Writing {len(frames)} frames to {output_path} ...")
