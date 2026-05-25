@@ -590,6 +590,15 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
 
     switch ($cardZone) {
         case "myHand":
+            if(function_exists("HasOpportunity") && HasOpportunity($playerID)
+                && function_exists("GetPlayableOpportunityChoices")
+                && function_exists("ResolveOpportunitySelection")) {
+                $opportunityChoices = GetPlayableOpportunityChoices($playerID);
+                if(in_array($actionCard, $opportunityChoices, true)) {
+                    ResolveOpportunitySelection($playerID, $actionCard);
+                    return "PLAY";
+                }
+            }
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 // Turn player can play any card during their main phase
                 $handObj = GetZoneObject($actionCard);
@@ -13457,6 +13466,19 @@ function SelectionMetadata($obj) {
     $currentPhase = GetCurrentPhase();
     $turnPlayer = &GetTurnPlayer();
 
+    // During Opportunity windows, highlight only cards that are actually in the
+    // fast-opportunity choice list for the active player perspective.
+    if(function_exists("HasOpportunity") && HasOpportunity($playerID)
+        && function_exists("GetPlayableOpportunityChoices")) {
+        $mzID = SelectionMetadataMzID($obj);
+        if($mzID === null) return json_encode(['highlight' => false]);
+        $opportunityChoices = GetPlayableOpportunityChoices($playerID);
+        if(!in_array($mzID, $opportunityChoices, true)) {
+            return json_encode(['highlight' => false]);
+        }
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
     // Standard main phase check
     if ($currentPhase !== "MAIN") {
         return json_encode(['highlight' => false]);
@@ -13475,19 +13497,6 @@ function SelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
 
-    // During Opportunity windows, highlight only cards that are actually in the
-    // fast-opportunity choice list so UI highlight matches what can be selected.
-    if(function_exists("HasOpportunity") && HasOpportunity($turnPlayer)
-        && function_exists("GetPlayableOpportunityChoices")) {
-        $mzID = SelectionMetadataMzID($obj);
-        if($mzID === null) return json_encode(['highlight' => false]);
-        $opportunityChoices = GetPlayableOpportunityChoices($turnPlayer);
-        if(!in_array($mzID, $opportunityChoices, true)) {
-            return json_encode(['highlight' => false]);
-        }
-        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
-    }
-    
     if (isset($obj->Status) && $obj->Status != 2) { // Not ready
         if(!CanActExhausted($obj)) {
             return json_encode(['highlight' => false]);

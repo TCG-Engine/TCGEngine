@@ -582,6 +582,7 @@ $cbFastActivationCards = [
     "jozihslnhz" => ["ASSASSIN"], // Sinister Mindreaver
     "yky280mtts" => ["TAMER"], // Flamebreak Chorus
     "uPn9SZdqrr" => ["GUARDIAN"], // Gustguard Bastion
+    "Rgg4dJYxnl" => ["CLERIC"], // Tend the Land
 ];
 
 // Cards with unconditional Fast Activation (no class bonus required)
@@ -787,20 +788,24 @@ function GetPlayableFastCards($player) {
     for($i = 0; $i < count($hand); $i++) {
         $obj = $hand[$i];
         if(isset($obj->removed) && $obj->removed) continue;
+        $cardID = strval($obj->CardID ?? "");
+        $cardIDLower = strtolower($cardID);
         $mzID = "myHand-" . $i;
         if(!CanActivateOpportunityCard($player, $mzID, $obj)) continue;
-        $speed = CardSpeed($obj->CardID);
+        $speed = CardSpeed($cardID);
+        $cbFastClasses = $cbFastActivationCards[$cardID] ?? ($cbFastActivationCards[$cardIDLower] ?? null);
+        $isUnconditionalFast = isset($unconditionalFastCards[$cardID]) || isset($unconditionalFastCards[$cardIDLower]);
         if($speed === true) {
             // Check if player can afford the reserve cost
             if(CanAffordActivationReserve($player, $obj)) {
                 $fastCards[] = $mzID;
             }
-        } elseif(isset($cbFastActivationCards[$obj->CardID]) && IsClassBonusActive($player, $cbFastActivationCards[$obj->CardID])) {
+        } elseif($cbFastClasses !== null && IsClassBonusActive($player, $cbFastClasses)) {
             // Check if player can afford the reserve cost
             if(CanAffordActivationReserve($player, $obj)) {
                 $fastCards[] = $mzID;
             }
-        } elseif(isset($unconditionalFastCards[$obj->CardID])) {
+        } elseif($isUnconditionalFast) {
             // Check if player can afford the reserve cost
             if(CanAffordActivationReserve($player, $obj)) {
                 $fastCards[] = $mzID;
