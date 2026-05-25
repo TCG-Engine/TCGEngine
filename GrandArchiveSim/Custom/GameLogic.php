@@ -11797,11 +11797,14 @@ function AngelicChannelingResolve($player) {
 }
 
 function AngelicChannelingChoices($player) {
-    $elements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS", "ARCANE"];
-    return array_merge(
-        ZoneSearch("myHand", cardElements: $elements),
-        ZoneSearch("myMemory", cardElements: $elements)
-    );
+    $choices = [];
+    foreach(array_merge(ZoneSearch("myHand"), ZoneSearch("myMemory")) as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj === null || $obj->removed) continue;
+        if(!IsAdvancedElementCard($obj->CardID)) continue;
+        $choices[] = $mz;
+    }
+    return $choices;
 }
 
 $customDQHandlers["AngelicChannelingBanish"] = function($player, $parts, $lastDecision) {
