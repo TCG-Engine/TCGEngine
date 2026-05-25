@@ -3949,10 +3949,10 @@ function OnCardActivated($player, $mzCard) {
                     AddCounters($player, "myField-" . $fi, "music", 1);
                 }
                 break;
-            case "nZFkDcvpaY": // Memorite Blade: whenever you activate a Spell, +1 POWER (once per turn)
+            case "nZFkDcvpaY": // Memorite Blade: whenever you activate a Spell, +1 POWER (trigger only once)
                 if(PropertyContains($subtypes, "SPELL") && !HasNoAbilities($field[$fi])
-                    && !in_array("nZFkDcvpaY_POWER", $field[$fi]->TurnEffects)) {
-                    AddTurnEffect("myField-" . $fi, "nZFkDcvpaY_POWER");
+                    && !in_array("nZFkDcvpaY", $field[$fi]->TurnEffects)) {
+                    AddTurnEffect("myField-" . $fi, "nZFkDcvpaY");
                 }
                 break;
             case "bEXmm4rKOs": // Duchess's Thornes: whenever you activate a cardistry ability of an ally, that ally gets +1 POWER and true sight until EOT
@@ -10046,7 +10046,7 @@ function ObjectCurrentPower($obj) {
             case "4yqL9xtzVi_POWER": // Bandersnatch, Frumious Foe: +2 POWER until end of turn
                 $power += 2;
                 break;
-            case "nZFkDcvpaY_POWER": // Memorite Blade: +1 POWER from spell activation this turn
+            case "nZFkDcvpaY": // Memorite Blade: +1 POWER from spell activation
                 $power += 1;
                 break;
             case "bEXmm4rKOs_CARDISTRY_POWER": // Duchess's Thornes: +1 POWER when cardistry activated this turn
@@ -14296,6 +14296,7 @@ $persistentTurnEffects["VAINGLORY_NEXT_TURN"] = true;
 $persistentTurnEffects["INGRESS_SANGUINE"] = true; // Ingress of Sanguine Ire: +3 POWER on first attack next turn
 $persistentTurnEffects["CANT_ATTACK_NEXT_TURN"] = true; // Bring Down the Mighty: ally can't attack until beginning of caster's next turn
 $persistentTurnEffects["ao1cfkhbp6"] = true; // Stand Fast: +1 LIFE until beginning of next turn
+$persistentTurnEffects["nZFkDcvpaY"] = true; // Memorite Blade: self +1 POWER buff should persist across turns
 $persistentTurnEffects["EPHEMERAL"] = true; // Ephemeral: object is banished instead of leaving the field
 $persistentTurnEffects["SACRIFICE_NEXT_END_PHASE"] = true; // Incinerated Templar: sacrifice at beginning of next end phase
 $persistentTurnEffects["BANISH_NEXT_END_PHASE"] = true; // Arcane Elemental: banish self at beginning of next end phase
