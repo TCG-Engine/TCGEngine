@@ -52,7 +52,7 @@ $keywords = [
 
 // Grand Archive Conditions
 $conditions = [
-    [ 'name' => "Class Bonus", 'evalFunction' => "IsClassBonusActive(\$player)", 'isVariable' => false ],
+    [ 'name' => "Class Bonus", 'evalFunction' => "IsClassBonusActive(\$player, explode(\",\", CardClasses(\$cardId)))", 'isVariable' => false ],
     [ 'name' => "Level", 'evalFunction' => "PlayerLevel(\$player)", 'isVariable' => true ]
 ];
 

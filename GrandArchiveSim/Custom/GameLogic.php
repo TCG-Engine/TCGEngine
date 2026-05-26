@@ -16620,26 +16620,6 @@ function HasFloatingMemory($obj) {
     if(isset($obj->Controller) && IsPhantasmagoriaGYSuppressed($obj->Controller, $obj->CardID)) return false;
     if(HasKeyword_FloatingMemory($obj)) return true;
     if(isset($obj->Controller) && MordredFatedEphemerateApplies($obj->Controller, $obj->CardID)) return true;
-    // Intrepid Highwayman (WUAOMTZ7P2): [Class Bonus] Floating Memory
-    if($obj->CardID === "WUAOMTZ7P2" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
-    // Firetuned Automaton (lzjmwuir99): [Class Bonus] Floating Memory
-    if($obj->CardID === "lzjmwuir99" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
-    // Freezing Round (r7ch2bbmoq): [Class Bonus] Floating Memory
-    if($obj->CardID === "r7ch2bbmoq" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
-    // Cell Converter (eqhj1trn0y): [Class Bonus] Floating Memory
-    if($obj->CardID === "eqhj1trn0y" && IsClassBonusActive($obj->Controller, ["CLERIC"])) return true;
-    // Relic of Sunken Past (dqqwey9xys): [Class Bonus] Floating Memory
-    if($obj->CardID === "dqqwey9xys" && IsClassBonusActive($obj->Controller, ["TAMER"])) return true;
-    // Nanyue Portsman (v5ppxyu1jm): [Class Bonus] Floating Memory
-    if($obj->CardID === "v5ppxyu1jm" && IsClassBonusActive($obj->Controller, ["GUARDIAN", "WARRIOR"])) return true;
-    // Shu Frontliner (uhaao91ee1): [Class Bonus] Floating Memory
-    if($obj->CardID === "uhaao91ee1" && IsClassBonusActive($obj->Controller, ["WARRIOR"])) return true;
-    // Deadly Opportunist (eyvxonorcs): [Class Bonus] Floating Memory
-    if($obj->CardID === "eyvxonorcs" && IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
-    // Diffusive Block (o7eanl1gxr): [Class Bonus] Floating Memory
-    if($obj->CardID === "o7eanl1gxr" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
-    // Martial Guard (nsdwmxz1vd): [Class Bonus][Level 2+] Floating Memory
-    if($obj->CardID === "nsdwmxz1vd" && IsClassBonusActive($obj->Controller, ["GUARDIAN"]) && PlayerLevel($obj->Controller) >= 2) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
     if(PropertyContains(CardType($obj->CardID), "ATTACK")) {
         for($p = 1; $p <= 2; $p++) {
@@ -16651,18 +16631,6 @@ function HasFloatingMemory($obj) {
             }
         }
     }
-    // Dredging Streams (wmt0x5zado): [Level 2+] Floating Memory
-    if($obj->CardID === "wmt0x5zado" && PlayerLevel($obj->Controller) >= 2) return true;
-    // Weaving Manastream (wi4f59furp): [Class Bonus] Floating Memory
-    if($obj->CardID === "wi4f59furp" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
-    // Mire Reparation (7imoz7vrlr): [Class Bonus] Floating Memory
-    if($obj->CardID === "7imoz7vrlr" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
-    // Spark Link (PUgqk3lxq6): [Level 1+] Floating Memory
-    if($obj->CardID === "PUgqk3lxq6" && PlayerLevel($obj->Controller) >= 1) return true;
-    // Limitless Slime (s4vxfy51ec): [Class Bonus] [Level 1+] Floating Memory
-    if($obj->CardID === "s4vxfy51ec" && IsClassBonusActive($obj->Controller, ["TAMER"]) && PlayerLevel($obj->Controller) >= 1) return true;
-    // Undercurrent Vantage (xicxo661ly): [Class Bonus] Floating Memory
-    if($obj->CardID === "xicxo661ly" && IsClassBonusActive($obj->Controller, ["RANGER"])) return true;
     // Diablerie (0plqbtjuxz): [Vanitas Bonus] Floating Memory
     if($obj->CardID === "0plqbtjuxz" && IsVanitasBonusActive($obj->Controller)) return true;
     // Art of War (fjne9ri261): Divine Relic
