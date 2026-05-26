@@ -12490,12 +12490,14 @@ function Glimpse($player, $amount, $allowAstroscope = true) {
             // Offer starcalling choice using tempzone refs (face-up cards in popup)
             $candidateStr = implode("&", array_map(fn($i) => "myTempZone-" . ($tempBaseIndex + $i), $starcallCandidateIndices));
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Starcall_a_card?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingOffer", 1);
+            // Must run even if player passes/auto-passes so glimpse flow continues.
+            DecisionQueueController::AddDecision($player, "CUSTOM", "StarcallingOffer", 1, "", 1);
         } else if(!empty($aethercallCandidateIndices)) {
             // Only aethercalling candidates â€” offer to load into Aetherwing
             $candidateStr = implode("&", array_map(fn($i) => "myTempZone-" . ($tempBaseIndex + $i), $aethercallCandidateIndices));
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Load_into_Aetherwing?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "AethercallingOffer", 1);
+            // Must run even if player passes/auto-passes so glimpse flow continues.
+            DecisionQueueController::AddDecision($player, "CUSTOM", "AethercallingOffer", 1, "", 1);
         }
     } else {
         // No starcalling or aethercalling candidates â€” cards stay in deck, proceed with normal glimpse
@@ -13030,7 +13032,8 @@ $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision)
             if(!empty($validIndices)) {
                 $candidateStr = implode("&", array_map(fn($i) => "myTempZone-" . ($tempBaseIndex + $i), $validIndices));
                 DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $candidateStr, 1, "Load_into_Aetherwing?");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "AethercallingOffer", 1);
+                // Must run even if player passes/auto-passes so glimpse flow continues.
+                DecisionQueueController::AddDecision($player, "CUSTOM", "AethercallingOffer", 1, "", 1);
                 return;
             }
         }
