@@ -11387,7 +11387,8 @@ function ObjectCurrentHP($obj) {
 function ObjectCurrentPowerDisplay($obj) {
     $cardPower = CardPower($obj->CardID);
     $currentCardPower = ObjectCurrentPower($obj);
-    return $cardPower == $currentCardPower ? 0 : $currentCardPower;
+    if($cardPower == -1 && $currentCardPower == 0) return -1;
+    return $cardPower == $currentCardPower ? -1 : $currentCardPower;
 }
 
 function ObjectCurrentHPDisplay($obj) {
