@@ -39,6 +39,7 @@ $turnPlayer = $firstPlayer;
 $currentTurn = &GetTurnNumber();
 $currentTurn = 1;
 
+SetFlashMessage('');
 $currentPhase = &GetCurrentPhase();
 $currentPhase = 'WU';
 SetPhaseParameters("-");
