@@ -12311,6 +12311,8 @@ function GetStarcallingCost($player, $cardID) {
         if($cost < 0) $cost = 0;
     }
     if($cost < 0) return -1;
+    // Starcalling still requires the card's element requirements to be usable.
+    if(!CanPlayerUseCardElement($player, $cardID, false, false)) return -1;
     // Free starcalling: Arisanna L3 or Elysian Astrolabe global effect
     if(GlobalEffectCount($player, "FREE_STARCALLING") > 0) {
         $cost = 0;
