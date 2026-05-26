@@ -18712,10 +18712,15 @@ function IsArisannaBonusActive($player) {
 }
 
 function IsLorraineBonusActive($player) {
-    return ChampionHasInLineage($player, "r5wbtfpk4w")  // Lorraine, Wandering Warrior (L1)
-        || ChampionHasInLineage($player, "NfbZ0nouSQ")  // Lorraine, Crux Knight (L2)
-        || ChampionHasInLineage($player, "ut8f34skix")  // Lorraine, Blademaster (L3)
-        || ChampionHasInLineage($player, "x4f7z6drbh"); // Lorraine, Luxem Paladin (L3)
+    // Include both current and legacy IDs so Lorraine bonus remains stable across set/code migrations.
+    return ChampionHasInLineage($player, "DpHDGaX2Pn")  // Lorraine, Wandering Warrior (current)
+        || ChampionHasInLineage($player, "NfbZ0nouSQ")  // Lorraine, Crux Knight
+        || ChampionHasInLineage($player, "TJTeWcZnsQ")  // Lorraine, Blademaster (current)
+        || ChampionHasInLineage($player, "81gvGHkuVb")  // Lorraine, Ascendant Wings
+        || ChampionHasInLineage($player, "n2TKqNaODR")  // Lorraine, Spirit Ruler
+        || ChampionHasInLineage($player, "r5wbtfpk4w")  // Lorraine, Wandering Warrior (legacy)
+        || ChampionHasInLineage($player, "ut8f34skix")  // Lorraine, Blademaster (legacy)
+        || ChampionHasInLineage($player, "x4f7z6drbh"); // Lorraine, Luxem Paladin (legacy)
 }
 
 function GetOmens($player) {

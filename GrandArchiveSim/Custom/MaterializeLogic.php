@@ -392,7 +392,8 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
             }
         }
         if($hasClarentSword) {
-            DecisionQueueController::AddDecision($player, "YESNO", "Banish_Clarent,_Sword_of_Peace_from_material_to_pay_1_memory?", 1);
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+                tooltip:"Banish_Clarent,_Sword_of_Peace_from_material_to_pay_1_memory?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCostStart|" . $lastDecision . "|" . $memoryCost, 1);
             return;
         }
@@ -714,9 +715,7 @@ $customDQHandlers["ClarentReimaginedMatCostChosen"] = function($player, $parts, 
     }
 
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $otherSwords), 1,
-        tooltip:"Banish_another_Sword_Regalia_to_pay_1_memory?",
-        minAmount:0,
-        maxAmount:1);
+        tooltip:"Banish_another_Sword_Regalia_to_pay_1_memory?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCostFinish|" . $mzCard . "|" . $remainingCost, 1);
 };
 
