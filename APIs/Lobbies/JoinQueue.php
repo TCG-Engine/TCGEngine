@@ -52,6 +52,7 @@
   $cacheInfo = apcu_cache_info();
   $matchFound = false;
   $ttl = 600; // 10 minutes in seconds
+  $matchedTtl = 90; // keep matched lobbies briefly so existing pollers can receive the ready state
 
   // Join a specific private lobby by invite code.
   if ($privateInviteCode !== '') {
@@ -77,8 +78,13 @@
         if ($lobby->ready) {
           include_once '../../' . $rootName . '/CreateGame.php';
         }
-
-        apcu_store($entry['info'], $lobby, $ttl);
+        if ($lobby->ready && isset($lobby->gameName) && $lobby->gameName !== '') {
+          RegisterActiveGame($rootName, strval($lobby->gameName), true);
+          $lobby->state = 'matched';
+          apcu_store($entry['info'], $lobby, $matchedTtl);
+        } else {
+          apcu_store($entry['info'], $lobby, $ttl);
+        }
 
         $response->success = true;
         $response->message = "Successfully joined private game.";
@@ -152,7 +158,13 @@
               if($lobby->ready) {
                 include_once '../../' . $rootName . '/CreateGame.php';
               }
-              apcu_store($entry['info'], $lobby, $ttl); // Update the lobby in the cache
+              if ($lobby->ready && isset($lobby->gameName) && $lobby->gameName !== '') {
+                RegisterActiveGame($rootName, strval($lobby->gameName), false);
+                $lobby->state = 'matched';
+                apcu_store($entry['info'], $lobby, $matchedTtl);
+              } else {
+                apcu_store($entry['info'], $lobby, $ttl); // Update the lobby in the cache
+              }
 
               $response->success = true;
               $response->message = "Successfully joined queue.";

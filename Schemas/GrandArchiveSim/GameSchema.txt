@@ -2,7 +2,7 @@ GrandArchiveSim
 Polling
 None
 None
-GamestateStorage: file
+GamestateStorage: APCu
 Layout: /Custom/GameLayout.php
 ServerInclude: /Custom/CustomInput.php
 ServerInclude: /Custom/GameLogic.php

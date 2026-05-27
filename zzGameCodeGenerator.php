@@ -1914,7 +1914,7 @@ function AddWriteGamestate() {
   }
   $writeGamestate .= "  \$gamestateText .= \$gRandomCounter . \"\\r\\n\";\r\n";
   $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"apcu_store\")) {\r\n";
-  $writeGamestate .= "    apcu_store(GetGamestateStorageKey(\$gameName), \$gamestateText);\r\n";
+  $writeGamestate .= "    apcu_store(GetGamestateStorageKey(\$gameName), \$gamestateText, 600);\r\n";
   $writeGamestate .= "  } else {\r\n";
   $writeGamestate .= "    file_put_contents(\$filename, \$gamestateText);\r\n";
   $writeGamestate .= "  }\r\n";

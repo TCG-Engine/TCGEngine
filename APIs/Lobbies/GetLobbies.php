@@ -24,6 +24,7 @@
 
       // Matchmaking lobbies are stored as objects with these core fields.
       if (!isset($lobby->id) || !isset($lobby->numPlayers) || !isset($lobby->maxPlayers) || !isset($lobby->ready)) continue;
+      if (isset($lobby->state) && $lobby->state === 'matched') continue;
 
       if ($rootName !== null && $rootName !== '') {
         if (!isset($lobby->rootName) || $lobby->rootName !== $rootName) continue;

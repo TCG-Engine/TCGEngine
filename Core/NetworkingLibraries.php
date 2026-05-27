@@ -191,4 +191,55 @@ function GamestateUpdated($gameName)
   WriteCache($gameName, implode(SHMOPDelimiter(), $cacheArr));
 }
 
+function ActiveGameIndexKey()
+{
+  return "tcgengine:activegames:index";
+}
+
+function ReadActiveGameIndex()
+{
+  global $APCuEnabled;
+  if(!$APCuEnabled || !function_exists('apcu_fetch')) return [];
+  $index = apcu_fetch(ActiveGameIndexKey());
+  return (is_array($index) ? $index : []);
+}
+
+function WriteActiveGameIndex($index, $ttl = 60)
+{
+  global $APCuEnabled;
+  if(!$APCuEnabled || !function_exists('apcu_store')) return;
+  if(!is_array($index)) $index = [];
+  apcu_store(ActiveGameIndexKey(), $index, $ttl);
+}
+
+function RegisterActiveGame($rootName, $gameName, $isPrivate = false)
+{
+  if($rootName === "" || $gameName === "") return;
+  $now = time();
+  $key = strval($rootName) . ":" . strval($gameName);
+  $index = ReadActiveGameIndex();
+  $existing = isset($index[$key]) && is_array($index[$key]) ? $index[$key] : [];
+  $index[$key] = [
+    'rootName' => strval($rootName),
+    'gameName' => strval($gameName),
+    'isPrivate' => boolval($isPrivate),
+    'createdAt' => isset($existing['createdAt']) ? intval($existing['createdAt']) : $now,
+    'lastUpdatedAt' => $now,
+  ];
+  WriteActiveGameIndex($index);
+}
+
+function TouchActiveGame($rootName, $gameName)
+{
+  if($rootName === "" || $gameName === "") return;
+  $key = strval($rootName) . ":" . strval($gameName);
+  $index = ReadActiveGameIndex();
+  if(!isset($index[$key]) || !is_array($index[$key])) {
+    RegisterActiveGame($rootName, $gameName, false);
+    return;
+  }
+  $index[$key]['lastUpdatedAt'] = time();
+  WriteActiveGameIndex($index);
+}
+
 ?>

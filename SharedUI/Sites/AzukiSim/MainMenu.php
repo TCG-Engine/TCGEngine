@@ -8,27 +8,12 @@ include_once 'Header.php';
 
 ?>
 <div class="row-wrapper" style="display: flex; flex-direction: row; flex-grow: 1;">
+  <!-- Create New Game Section -->
   <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px; position: relative;">
     <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
       <img src='../../../Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
-  <!-- Open Games Section -->
     <h2>Active Games (<span id="active-game-count">0</span>)</h2>
-    <ul style="list-style-type: none; padding: 0; display: flex; flex-direction: column;">
-      <!-- List of open games will be dynamically populated here -->
-      <div id="open-games-list" style="max-height: 400px; overflow-y: auto;">
-        <p style="color: #999;">Loading games...</p>
-      </div>
-    </ul>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        refreshOpenGames();
-      });
-    </script>
-  </div>
-  
-  <!-- Create New Game Section -->
-  <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px;">
     <h2>Create a New Game</h2>
     <div>
       <p style="color: #ccc; margin: 0 0 8px 0; font-size: 14px;">Choose your starter deck:</p>
@@ -614,10 +599,9 @@ include_once 'Header.php';
 
       function refreshOpenGames() {
         console.log('Refreshing open games');
-        var openGamesList = document.getElementById('open-games-list');
         var gameCountElement = document.getElementById('active-game-count');
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../../APIs/Lobbies/GetLobbies.php?rootName=' + encodeURIComponent(rootName), true);
+        xhr.open('GET', '../../../APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
         xhr.responseType = 'json';
 
         xhr.onload = function() {
@@ -627,33 +611,18 @@ include_once 'Header.php';
           if (data.data && Array.isArray(data.data)) {
             var totalCount = (typeof data.totalCount === 'number') ? data.totalCount : data.data.length;
             gameCountElement.textContent = totalCount;
-            if (data.data.length === 0) {
-              openGamesList.innerHTML = '<p style="color: #999;">No active games. Create one to get started!</p>';
-            } else {
-              var html = '';
-              data.data.forEach(function(game, index) {
-                html += '<div style="padding: 8px; border-bottom: 1px solid #444; display: flex; justify-content: space-between;">';
-                html += '<span>' + (game.gameName || 'Game ' + (index + 1)) + '</span>';
-                html += '<span style="color: #aaa; font-size: 0.9em;">Waiting for opponent...</span>';
-                html += '</div>';
-              });
-              openGamesList.innerHTML = html;
-            }
           } else {
             gameCountElement.textContent = '0';
-            openGamesList.innerHTML = '<p style="color: #999;">Unable to load games.</p>';
           }
           } else {
           console.error('Error fetching open games:', xhr.statusText);
           gameCountElement.textContent = '0';
-          openGamesList.innerHTML = '<p style="color: #999;">Failed to load open games.</p>';
           }
         };
 
         xhr.onerror = function() {
           console.error('Error fetching open games:', xhr.statusText);
           gameCountElement.textContent = '0';
-          openGamesList.innerHTML = '<p style="color: #999;">Failed to load open games.</p>';
         };
 
         xhr.send();
@@ -701,6 +670,7 @@ include_once 'Header.php';
 
       document.addEventListener('DOMContentLoaded', function() {
         initializePrivateInviteFromUrl();
+        refreshOpenGames();
       });
     </script>
 

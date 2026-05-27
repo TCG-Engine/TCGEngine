@@ -419,6 +419,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     if ($result['updateCache']) {
       SetFrameAnimationCache($gameName, $frameAnimations);
       GamestateUpdated($gameName);
+      if (function_exists('TouchActiveGame')) {
+        TouchActiveGame($folderPath, $gameName);
+      }
     }
     if ($result['recordAction'] && RegressionIsRecordingActive($folderPath, $gameName)) {
       RegressionRecordAction($folderPath, $gameName, $action);
