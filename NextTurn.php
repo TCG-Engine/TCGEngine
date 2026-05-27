@@ -212,6 +212,7 @@
       IsUserLoggedIn() &&
       function_exists('SupportsRegressionRecording') &&
       SupportsRegressionRecording();
+    $showManualControls = $showRegressionControls && $folderPath === 'GrandArchiveSim';
     $regressionRecordingActive = $showRegressionControls ? RegressionIsRecordingActive($folderPath, $gameName) : false;
     $regressionFixtureOptions = $showRegressionControls ? RegressionListFixtureOptions($folderPath) : [];
     $regressionReplayState = $showRegressionControls ? RegressionReadReplayState($folderPath, $gameName) : null;
@@ -966,6 +967,69 @@
         submitRegressionRequest(11006, JSON.stringify({ slug: select.value, cardId: cardId })).then(function(message) {
           if (message) alert(message);
           if (input) input.value = "";
+        });
+      }
+    </script>
+    <?php endif; ?>
+    <?php if ($showManualControls): ?>
+    <div id="manualControls" style="position:fixed; top:16px; right:260px; z-index:12000; background:rgba(7, 18, 30, 0.92); color:#f0e6c8; border:1px solid #c9a84c; border-radius:10px; padding:12px; min-width:220px; box-shadow:0 8px 24px rgba(0,0,0,0.35);">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;">
+        <div style="font-weight:700;">Manual Controls</div>
+        <button
+          type="button"
+          id="manualToggle"
+          onclick="toggleManualControls()"
+          aria-expanded="true"
+          title="Collapse manual controls"
+          style="padding:2px 8px; font-size:14px; line-height:1; cursor:pointer;"
+        >-</button>
+      </div>
+      <div id="manualControlsBody">
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <input type="text" id="manualCardIdInput" placeholder="Card ID" style="padding:6px 8px; font-size:12px;" />
+          <button type="button" onclick="addManualCardToHand(1)" style="padding:6px 10px;">Add to P1 Hand</button>
+          <button type="button" onclick="addManualCardToHand(2)" style="padding:6px 10px;">Add to P2 Hand</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      function applyManualControlsCollapsedState(collapsed) {
+        var body = document.getElementById("manualControlsBody");
+        var toggle = document.getElementById("manualToggle");
+        var panel = document.getElementById("manualControls");
+        if (!body || !toggle || !panel) return;
+        body.style.display = collapsed ? "none" : "block";
+        toggle.textContent = collapsed ? "+" : "-";
+        toggle.setAttribute("aria-expanded", collapsed ? "false" : "true");
+        toggle.setAttribute("title", collapsed ? "Expand manual controls" : "Collapse manual controls");
+        panel.style.minWidth = collapsed ? "unset" : "220px";
+      }
+
+      function toggleManualControls() {
+        var collapsed = localStorage.getItem("manualControlsCollapsed") === "true";
+        collapsed = !collapsed;
+        localStorage.setItem("manualControlsCollapsed", collapsed ? "true" : "false");
+        applyManualControlsCollapsedState(collapsed);
+      }
+
+      (function initializeManualControlsState() {
+        var collapsed = localStorage.getItem("manualControlsCollapsed") === "true";
+        applyManualControlsCollapsedState(collapsed);
+      })();
+
+      function addManualCardToHand(player) {
+        var input = document.getElementById("manualCardIdInput");
+        var cardId = input ? input.value.trim() : "";
+        if (!cardId) {
+          alert("Enter a card ID first.");
+          return;
+        }
+
+        var mode = player === 1 ? 11008 : 11009;
+        submitRegressionRequest(mode, cardId).then(function(message) {
+          if (message) alert(message);
+          if (input) input.value = "";
+          location.reload();
         });
       }
     </script>

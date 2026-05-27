@@ -406,6 +406,18 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       $result['updateCache'] = false;
       $result['recordAction'] = false;
       break;
+    case 11008:
+    case 11009:
+      $cardId = trim($inputText);
+      if ($cardId === '') {
+        $result['success'] = false;
+        $result['message'] = 'Card ID is required.';
+      } else {
+        $targetPlayer = ($mode === 11008) ? 1 : 2;
+        MZAddZone($targetPlayer, 'myHand', $cardId);
+        $result['message'] = "Added card $cardId to player $targetPlayer hand.";
+      }
+      break;
   }
 
   if ($result['writeGamestate']) {
