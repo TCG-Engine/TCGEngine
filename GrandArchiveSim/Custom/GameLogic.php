@@ -13462,6 +13462,7 @@ $backendOnlyTurnEffects = [
     "vz4kc558yx-ACTION_ACTIVATED",
     "vz4kc558yx-ALLY_ACTIVATED",
     "HIT_BY_3hgldrogit",
+    "CHAMP_DMG_BY_P2",
 ];
 
 function CardCurrentEffects($obj) {
