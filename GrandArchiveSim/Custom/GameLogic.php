@@ -9646,7 +9646,7 @@ function ObjectCurrentPower($obj) {
         // Adept Swordmaster (txgvf6xpkq): [Class Bonus] Weapons you control get +1 POWER
         if(PropertyContains(EffectiveCardType($obj), "WEAPON")) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "txgvf6xpkq" && !HasNoAbilities($fieldObj)
+                if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "txgvf6xpkq" && !HasNoAbilities($fieldObj)
                    && IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
                     $power += 1;
                     break;
@@ -9656,7 +9656,7 @@ function ObjectCurrentPower($obj) {
         // Sun Ce, Weaponsmaster (lvxsgng1a1): [CB] Warrior weapons you control get +1 POWER
         if(PropertyContains(EffectiveCardType($obj), "WEAPON")) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "lvxsgng1a1" && !HasNoAbilities($fieldObj)
+                if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "lvxsgng1a1" && !HasNoAbilities($fieldObj)
                    && IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
                     $power += 1;
                     break;
