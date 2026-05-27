@@ -850,6 +850,12 @@ function BeginCombatPhase($actionCard) {
     $obj = &GetZoneObject($actionCard);
     $cardType = EffectiveCardType($obj);
 
+    // Attacks are slow-speed only: cannot declare while anything is pending on EffectStack.
+    if(function_exists("GetLiveEffectStackEntries") && !empty(GetLiveEffectStackEntries())) {
+        SetFlashMessage("Cannot attack while an effect is pending on the stack.");
+        return false;
+    }
+
     // Only allies and champions can declare attacks as the attacking unit.
     // Exception: Spirit Blade: Ensoul (CQ1bxUyi0Q) allows Sword weapons to attack as allies.
     $ensoulSwordAttacking = PropertyContains($cardType, "WEAPON")

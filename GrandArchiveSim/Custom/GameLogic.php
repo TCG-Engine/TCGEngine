@@ -13568,6 +13568,10 @@ function FieldSelectionMetadata($obj) {
     if ($currentPhase !== "MAIN") {
         return json_encode(['highlight' => false]);
     }
+    // Units cannot declare attacks while effects are pending on the stack.
+    if(function_exists("GetLiveEffectStackEntries") && !empty(GetLiveEffectStackEntries())) {
+        return json_encode(['highlight' => false]);
+    }
     $cardType = EffectiveCardType($obj);
     if(!PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) {
         return json_encode(['highlight' => false]);
