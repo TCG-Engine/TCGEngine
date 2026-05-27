@@ -13845,8 +13845,10 @@ function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $card
         $cardSubtypes_arr = $cardSubtypesStr ? explode(",", $cardSubtypesStr) : [];
         $cardClassesStr = EffectiveCardClasses($obj);
         $cardClasses_arr = $cardClassesStr ? explode(",", $cardClassesStr) : [];
+        $effectiveElementStr = EffectiveCardElement($obj);
+        $effectiveElements = $effectiveElementStr ? array_values(array_filter(array_map('trim', explode(",", $effectiveElementStr)), fn($part) => $part !== "")) : [];
         if(($cardTypes === null || count(array_intersect($cardTypes_arr, (array)$cardTypes)) > 0) &&
-           ($cardElements === null || in_array(EffectiveCardElement($obj), (array)$cardElements)) &&
+           ($cardElements === null || count(array_intersect($effectiveElements, (array)$cardElements)) > 0) &&
            ($cardSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$cardSubtypes)) > 0) &&
               ($cardClasses === null || count(array_intersect($cardClasses_arr, (array)$cardClasses)) > 0) &&
            ($excludeSubtypes === null || count(array_intersect($cardSubtypes_arr, (array)$excludeSubtypes)) === 0) &&
