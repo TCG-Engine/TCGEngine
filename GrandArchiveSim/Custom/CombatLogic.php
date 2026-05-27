@@ -145,6 +145,15 @@ function GetTotalAttackPower($attackerObj, $player) {
         }
     }
 
+    // Lorraine, Blademaster (TJTeWcZnsQ): On Enter grants
+    // "CARDNAME's attacks get +2 POWER until end of turn."
+    // Apply this once to the full attack total (not per intent card).
+    if($attackerObj !== null
+        && $attackerObj->CardID === "TJTeWcZnsQ"
+        && in_array("TJTeWcZnsQ", $attackerObj->TurnEffects ?? [])) {
+        $totalPower += 2;
+    }
+
     return $totalPower;
 }
 

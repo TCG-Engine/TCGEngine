@@ -10134,20 +10134,6 @@ function ObjectCurrentPower($obj) {
                 break;
         }
     }
-    // Lorraine, Blademaster (TJTeWcZnsQ): if champion has TJTeWcZnsQ TurnEffect,
-    // all attack cards get +2 POWER until end of turn.
-    if(PropertyContains(EffectiveCardType($obj), "ATTACK")) {
-        $controller = $obj->Controller ?? null;
-        if($controller !== null && $controller > 0) {
-            $field = GetField($controller);
-            foreach($field as $fieldObj) {
-                if(PropertyContains(EffectiveCardType($fieldObj), "CHAMPION") && in_array("TJTeWcZnsQ", $fieldObj->TurnEffects)) {
-                    $power += 2;
-                    break;
-                }
-            }
-        }
-    }
     // Merlin, Kingslayer (rz1bqry41l): if champion has rz1bqry41l TurnEffect,
     // all attack cards get +2 POWER until end of turn.
     if(PropertyContains(EffectiveCardType($obj), "ATTACK")) {
