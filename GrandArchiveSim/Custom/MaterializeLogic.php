@@ -1192,6 +1192,14 @@ function DoMaterialize($player, $mzCard) {
         }
     }
 
+    // Alice, Phantom Monarch (emqOANitoD): whenever you play an advanced element card
+    // while no Curse in Alice's lineage, deal 7 unpreventable damage to your champion.
+    if(ChampionHasInLineage($player, "emqOANitoD")) {
+        if(IsAdvancedElementCard($sourceId) && CountCursesInLineage($player) === 0) {
+            DealChampionDamage($player, 7);
+        }
+    }
+
     // --- Domain Upkeep: "Whenever you materialize a card, sacrifice [domain]" ---
     // After any materialize, check if the player controls domains with materialize-sacrifice upkeep.
     // Domains tagged with NO_UPKEEP (via Right of Realm) skip this trigger.
