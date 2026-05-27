@@ -313,10 +313,6 @@
      #theirBanishWrapper,
      #myGraveyardWrapper,
      #theirGraveyardWrapper,
-     #myMaterialWrapper,
-     #theirMaterialWrapper,
-     #myMasteryWrapper,
-     #theirMasteryWrapper,
      #myMemoryWrapper,
      #theirMemoryWrapper {
           overflow: hidden !important;
@@ -330,10 +326,6 @@
      #theirBanishWrapper::-webkit-scrollbar,
      #myGraveyardWrapper::-webkit-scrollbar,
      #theirGraveyardWrapper::-webkit-scrollbar,
-     #myMaterialWrapper::-webkit-scrollbar,
-     #theirMaterialWrapper::-webkit-scrollbar,
-     #myMasteryWrapper::-webkit-scrollbar,
-     #theirMasteryWrapper::-webkit-scrollbar,
      #myMemoryWrapper::-webkit-scrollbar,
      #theirMemoryWrapper::-webkit-scrollbar {
           display: none;
@@ -532,6 +524,14 @@
           flex: 0 0 auto;
      }
 
+     /* Material/Mastery need visible overflow so card edges/counters aren't clipped. */
+     #myMaterialWrapper,
+     #theirMaterialWrapper,
+     #myMasteryWrapper,
+     #theirMasteryWrapper {
+          overflow: visible !important;
+     }
+
      .ga-intent {
           width: min(15vw, 210px);
           min-height: 112px;
@@ -725,6 +725,48 @@
 
           .ga-stack {
                width: clamp(280px, 40vw, 500px);
+          }
+     }
+
+     /* Desktop/laptop ultra-short-height fallback:
+        keep lanes readable without reflowing the full side-stack layout. */
+     @media (max-height: 760px) and (min-width: 1025px) {
+          .ga-pile {
+               width: 84px;
+               min-height: 84px;
+          }
+
+          .ga-token-bank,
+          #myMaterialSlot,
+          #theirMaterialSlot,
+          #myMasterySlot,
+          #theirMasterySlot {
+               width: 84px;
+               min-height: 84px;
+          }
+
+          .ga-hand {
+               min-height: 100px;
+          }
+
+          .ga-field {
+               min-height: 126px;
+          }
+
+          #myFieldSlot {
+               top: calc(50% + 34px) !important;
+          }
+
+          #theirFieldSlot {
+               top: calc(50% - 34px - 126px) !important;
+          }
+
+          #myHealthSlot {
+               top: calc(50% + 24px) !important;
+          }
+
+          #theirHealthSlot {
+               top: 24px !important;
           }
      }
 
