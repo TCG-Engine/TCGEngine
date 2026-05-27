@@ -8,7 +8,7 @@ include_once 'Header.php';
 
 ?>
 <div class="row-wrapper" style="display: flex; flex-direction: row; flex-grow: 1;">
-  <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px; position: relative;">
+  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: white; border-radius: 12px; position: relative;">
     <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
       <img src='../../../Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
@@ -28,7 +28,7 @@ include_once 'Header.php';
   </div>
   
   <!-- Create New Game Section -->
-  <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px;">
+  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: white; border-radius: 12px;">
     <h2>Create a New Game</h2>
     <div>
       <!--
@@ -92,7 +92,7 @@ include_once 'Header.php';
   </div>
   
   <!-- Tips & Info Section -->
-  <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px; display: flex; flex-direction: column; gap: 16px;">
+  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: white; border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
     <h2 style="margin: 0 0 4px 0;">Welcome to Clarent!</h2>
     <p class="login-message" style="margin: 0; color: #ccc; font-size: 14px;">Clarent is a fan-made online simulator for the Grand Archive TCG.</p>
 
@@ -124,15 +124,24 @@ include_once 'Header.php';
       <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 8px;">Quick Reference</div>
       <div style="display: flex; flex-direction: column; gap: 6px;" id="hotkey-list"></div>
     </div>
-    <div>
-      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 8px;">Settings</div>
-      <label for="ga-disable-keyword-indicators" style="display: flex; align-items: center; gap: 8px; color: #ddd; font-size: 13px; cursor: pointer;">
+  </div>
+</div>
+
+<div id="ga-settings-modal" class="ga-settings-modal" aria-hidden="true">
+  <div class="ga-settings-modal__overlay" data-close-settings-modal="true"></div>
+  <div class="ga-settings-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="ga-settings-modal-title">
+    <div class="ga-settings-modal__header">
+      <h3 id="ga-settings-modal-title">Menu Settings</h3>
+      <button type="button" class="ga-settings-modal__close" id="ga-close-settings-btn" aria-label="Close settings modal">x</button>
+    </div>
+    <div class="ga-settings-modal__body">
+      <label for="ga-disable-keyword-indicators" class="ga-settings-row">
         <input type="checkbox" id="ga-disable-keyword-indicators">
-        Disable keyword indicators (stealth, spellshroud, true sight)
+        <span>Disable keyword indicators (stealth, spellshroud, true sight)</span>
       </label>
-      <label for="ga-board-background-theme" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; color: #ddd; font-size: 13px; margin-top: 10px;">
-        Board background
-        <select id="ga-board-background-theme" style="background: rgba(20,20,28,0.9); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; padding: 4px 8px; font-size: 12px;">
+      <label for="ga-board-background-theme" class="ga-settings-row ga-settings-row--split">
+        <span>Board background</span>
+        <select id="ga-board-background-theme">
           <option value="dawn">Dawn of Ashes</option>
           <option value="classic">Classic Blue</option>
         </select>
@@ -145,6 +154,13 @@ include_once 'Header.php';
   .row-wrapper > .card {
     flex: 1 1 0 !important;
     min-width: 0;
+  }
+  .ga-glass-card {
+    background: linear-gradient(165deg, rgba(9, 23, 44, 0.82) 0%, rgba(6, 17, 34, 0.74) 100%);
+    border: 1px solid rgba(214, 184, 109, 0.24);
+    box-shadow: 0 14px 36px rgba(2, 8, 20, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px) saturate(115%);
+    -webkit-backdrop-filter: blur(10px) saturate(115%);
   }
   .hotkey-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #ccc; }
   .hotkey-badge {
@@ -174,6 +190,77 @@ include_once 'Header.php';
     white-space: normal !important;
     overflow-wrap: anywhere !important;
     word-break: break-word !important;
+  }
+  .ga-settings-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .ga-settings-modal.is-open {
+    display: flex;
+  }
+  .ga-settings-modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.66);
+  }
+  .ga-settings-modal__dialog {
+    position: relative;
+    width: min(560px, 92vw);
+    background: rgba(14, 24, 39, 0.96);
+    border: 1px solid rgba(214, 184, 109, 0.35);
+    border-radius: 10px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+    color: #fff;
+    padding: 18px;
+  }
+  .ga-settings-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .ga-settings-modal__header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #f4e2a4;
+  }
+  .ga-settings-modal__close {
+    border: 0;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .ga-settings-modal__body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ga-settings-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ddd;
+    font-size: 13px;
+  }
+  .ga-settings-row--split {
+    justify-content: space-between;
+  }
+  #ga-board-background-theme {
+    background: rgba(20, 20, 28, 0.9);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px;
+    padding: 4px 8px;
+    font-size: 12px;
   }
 </style>
 
@@ -226,6 +313,20 @@ include_once 'Header.php';
     container.innerHTML = html;
   }
 
+  function openGASettingsModal() {
+    var modal = document.getElementById('ga-settings-modal');
+    if (!modal) return;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeGASettingsModal() {
+    var modal = document.getElementById('ga-settings-modal');
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
   document.addEventListener('DOMContentLoaded', function() {
     if (window.TCGSettings) {
       window.TCGSettings.registerSchema('GrandArchiveSim', {
@@ -258,6 +359,34 @@ include_once 'Header.php';
         window.TCGSettings.set('BoardBackgroundTheme', value, { rootName: 'GrandArchiveSim', type: 'string' });
       });
     }
+
+    window.openGrandArchiveSettingsModal = openGASettingsModal;
+    var openSettingsBtn = document.getElementById('ga-open-settings-btn');
+    if (openSettingsBtn) {
+      openSettingsBtn.addEventListener('click', openGASettingsModal);
+    }
+
+    var closeSettingsBtn = document.getElementById('ga-close-settings-btn');
+    if (closeSettingsBtn) {
+      closeSettingsBtn.addEventListener('click', closeGASettingsModal);
+    }
+
+    var settingsModal = document.getElementById('ga-settings-modal');
+    if (settingsModal) {
+      settingsModal.addEventListener('click', function(event) {
+        var target = event.target;
+        if (target && target.getAttribute('data-close-settings-modal') === 'true') {
+          closeGASettingsModal();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key !== 'Escape') return;
+      var modal = document.getElementById('ga-settings-modal');
+      if (!modal || !modal.classList.contains('is-open')) return;
+      closeGASettingsModal();
+    });
     // Rotate tips every 8 seconds
     setInterval(cycleDidYouKnow, 8000);
   });

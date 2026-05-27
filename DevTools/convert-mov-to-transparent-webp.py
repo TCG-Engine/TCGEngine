@@ -8,8 +8,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
-input_path = r"C:\Users\maxim\Downloads\dawn-of-ashes.mov"
-output_path = r"C:\Users\maxim\Downloads\dawn-of-ashes.webp"
+input_path = r"C:\Users\maxim\Downloads\clarent.mov"
+output_path = r"C:\Users\maxim\Downloads\clarent.webp"
 
 TARGET_FPS = 12  # output frames per second
 BOARD_MODE = True  # When True: skip all transparency/crop/border — just resample FPS and convert to WebP
