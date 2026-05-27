@@ -1131,7 +1131,10 @@
               }
 
               widgetContent = widgetIcons(widgetName);
-              const buttonHtml = `&nbsp;<button class="widget-button${currentValue != "" && widget.Action == currentValue ? '-selected' : ''}" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${widget.Action}')">${widgetContent}</button>`;
+              const isSelected = currentValue != "" && widget.Action == currentValue;
+              const isPassAction = typeof widget.Action === 'string' && widget.Action.toUpperCase() === 'PASS';
+              const buttonClass = `${isSelected ? 'widget-button-selected' : 'widget-button'}${isPassAction ? ' widget-button-pass' : ''}`;
+              const buttonHtml = `&nbsp;<button class="${buttonClass}" onclick="handleWidgetAction(event, '${cardId}', '${widgetType}', '${widget.Action}')">${widgetContent}</button>`;
 
               if(widgetName == "Notes") {
                 topRightButtons += buttonHtml;
@@ -1267,12 +1270,49 @@
           cursor: pointer;
           border-radius: 999px;
           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.24);
-        }        .widget-button-selected:hover {
+        }
+
+        .widget-button-selected:hover {
           background: linear-gradient(180deg, rgba(255, 247, 233, 0.98) 0%, rgba(227, 220, 208, 0.98) 100%);
           color: #101010;
           border-color: rgba(255, 255, 255, 0.9);
           box-shadow: 0 0 0 1px rgba(255, 248, 236, 0.5), 0 8px 18px rgba(0, 0, 0, 0.3);
           transform: translateY(-1px);
+        }
+
+        .widget-button-pass {
+          background:
+            linear-gradient(170deg, rgba(214, 233, 255, 0.24) 0%, rgba(214, 233, 255, 0.06) 26%, rgba(214, 233, 255, 0) 42%),
+            linear-gradient(145deg, rgba(8, 20, 53, 0.52) 0%, rgba(14, 34, 79, 0.44) 45%, rgba(9, 24, 60, 0.56) 100%);
+          border: 1px solid rgba(173, 203, 255, 0.52);
+          color: #eef5ff;
+          padding: 10px 24px;
+          min-width: 96px;
+          font-size: 17px;
+          font-weight: 700;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          border-radius: 14px;
+          box-shadow:
+            inset 0 1px 0 rgba(233, 244, 255, 0.42),
+            inset 0 -1px 0 rgba(141, 178, 240, 0.2),
+            0 10px 24px rgba(3, 8, 26, 0.42);
+          backdrop-filter: blur(12px) saturate(125%);
+          -webkit-backdrop-filter: blur(12px) saturate(125%);
+          transition: box-shadow 0.18s ease, filter 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+        }
+
+        .widget-button-pass:hover {
+          background:
+            linear-gradient(170deg, rgba(229, 241, 255, 0.3) 0%, rgba(229, 241, 255, 0.08) 28%, rgba(229, 241, 255, 0) 44%),
+            linear-gradient(145deg, rgba(8, 20, 53, 0.56) 0%, rgba(17, 40, 92, 0.48) 45%, rgba(10, 25, 63, 0.6) 100%);
+          color: #f5f9ff;
+          border-color: rgba(202, 224, 255, 0.84);
+          box-shadow:
+            inset 0 1px 0 rgba(245, 250, 255, 0.55),
+            inset 0 -1px 0 rgba(160, 194, 248, 0.32),
+            0 12px 28px rgba(3, 8, 26, 0.5);
+          filter: brightness(1.06);
         }
       `;
       document.head.appendChild(style);
@@ -2991,16 +3031,33 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
   if (showPassButton) {
     let passBtn = document.createElement('button');
     passBtn.textContent = 'Pass';
-    passBtn.style.padding = '6px 16px';
-    passBtn.style.fontSize = '14px';
-    passBtn.style.background = '#6c757d';
-    passBtn.style.color = '#fff';
-    passBtn.style.border = 'none';
-    passBtn.style.borderRadius = '5px';
+    passBtn.style.padding = '10px 24px';
+    passBtn.style.fontSize = '16px';
+    passBtn.style.fontWeight = '700';
+    passBtn.style.letterSpacing = '0.04em';
+    passBtn.style.textTransform = 'uppercase';
+    passBtn.style.background = 'linear-gradient(150deg, rgba(10, 19, 48, 0.95), rgba(22, 39, 86, 0.88))';
+    passBtn.style.color = '#e9f1ff';
+    passBtn.style.border = '1px solid rgba(156, 190, 255, 0.45)';
+    passBtn.style.borderRadius = '12px';
+    passBtn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 12px 28px rgba(4, 10, 28, 0.5)';
+    passBtn.style.backdropFilter = 'blur(8px)';
+    passBtn.style.webkitBackdropFilter = 'blur(8px)';
     passBtn.style.cursor = 'pointer';
     passBtn.style.marginLeft = '8px';
-    passBtn.onmouseover = function() { passBtn.style.background = '#5a6268'; };
-    passBtn.onmouseout = function() { passBtn.style.background = '#6c757d'; };
+    passBtn.style.transition = 'transform 150ms ease, box-shadow 180ms ease, filter 180ms ease, border-color 180ms ease';
+    passBtn.onmouseover = function() {
+      passBtn.style.transform = 'translateY(-1px) scale(1.02)';
+      passBtn.style.filter = 'brightness(1.08)';
+      passBtn.style.borderColor = 'rgba(184, 211, 255, 0.72)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(236, 244, 255, 0.34), 0 16px 34px rgba(4, 10, 28, 0.6)';
+    };
+    passBtn.onmouseout = function() {
+      passBtn.style.transform = 'translateY(0) scale(1)';
+      passBtn.style.filter = 'brightness(1)';
+      passBtn.style.borderColor = 'rgba(156, 190, 255, 0.45)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 12px 28px rgba(4, 10, 28, 0.5)';
+    };
     passBtn.onclick = function() {
       // Submit PASS as a DECISION action (action code 100)
       SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=PASS');
@@ -3452,16 +3509,48 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
   if (showPassButton) {
     let passBtn = document.createElement('button');
     passBtn.textContent = 'Pass';
-    passBtn.style.padding = '10px 24px';
-    passBtn.style.fontSize = '16px';
-    passBtn.style.background = '#6c757d';
-    passBtn.style.color = '#fff';
-    passBtn.style.border = 'none';
-    passBtn.style.borderRadius = '6px';
+    passBtn.style.padding = '12px 34px';
+    passBtn.style.fontSize = '18px';
+    passBtn.style.fontWeight = '700';
+    passBtn.style.letterSpacing = '0.06em';
+    passBtn.style.textTransform = 'uppercase';
+    passBtn.style.background = 'linear-gradient(150deg, rgba(10, 19, 48, 0.95), rgba(22, 39, 86, 0.88))';
+    passBtn.style.color = '#e9f1ff';
+    passBtn.style.border = '1px solid rgba(156, 190, 255, 0.45)';
+    passBtn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 14px 34px rgba(4, 10, 28, 0.52)';
+    passBtn.style.backdropFilter = 'blur(8px)';
+    passBtn.style.webkitBackdropFilter = 'blur(8px)';
+    passBtn.style.borderRadius = '14px';
     passBtn.style.cursor = 'pointer';
     passBtn.style.fontFamily = "'Orbitron', sans-serif";
-    passBtn.onmouseover = function() { passBtn.style.background = '#5a6268'; };
-    passBtn.onmouseout = function() { passBtn.style.background = '#6c757d'; };
+    passBtn.style.transition = 'transform 150ms ease, box-shadow 180ms ease, filter 180ms ease, border-color 180ms ease';
+    passBtn.onmouseover = function() {
+      passBtn.style.transform = 'translateY(-1px) scale(1.02)';
+      passBtn.style.filter = 'brightness(1.08)';
+      passBtn.style.borderColor = 'rgba(184, 211, 255, 0.72)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(236, 244, 255, 0.34), 0 18px 38px rgba(4, 10, 28, 0.62)';
+    };
+    passBtn.onmouseout = function() {
+      passBtn.style.transform = 'translateY(0) scale(1)';
+      passBtn.style.filter = 'brightness(1)';
+      passBtn.style.borderColor = 'rgba(156, 190, 255, 0.45)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 14px 34px rgba(4, 10, 28, 0.52)';
+    };
+    passBtn.onmousedown = function() {
+      passBtn.style.transform = 'translateY(1px) scale(0.99)';
+      passBtn.style.boxShadow = 'inset 0 1px 4px rgba(3, 7, 20, 0.45), 0 8px 20px rgba(4, 10, 28, 0.48)';
+    };
+    passBtn.onmouseup = function() {
+      passBtn.style.transform = 'translateY(-1px) scale(1.02)';
+      passBtn.style.boxShadow = 'inset 0 1px 0 rgba(236, 244, 255, 0.34), 0 18px 38px rgba(4, 10, 28, 0.62)';
+    };
+    passBtn.onfocus = function() {
+      passBtn.style.outline = '2px solid rgba(203, 223, 255, 0.9)';
+      passBtn.style.outlineOffset = '2px';
+    };
+    passBtn.onblur = function() {
+      passBtn.style.outline = 'none';
+    };
     passBtn.onclick = function() {
       SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=PASS');
       ClearSelectionMode();
