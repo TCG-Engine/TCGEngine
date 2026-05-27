@@ -878,7 +878,8 @@ function GetPlayableFastCards($player) {
                     $memCardID = $memory[$mi]->CardID;
                     if(PropertyContains(CardSubtypes($memCardID), "REACTION")
                         && PropertyContains(CardSubtypes($memCardID), "SPELL")) {
-                        $spellCost = intval(CardCost_reserve($memCardID));
+                        $memObj = $memory[$mi];
+                        $spellCost = CalculateActivationReserveCost($player, $memObj, true);
                         if($spellCost <= $glimmerCount) {
                             $fastCards[] = "myMemory-" . $mi;
                         }
