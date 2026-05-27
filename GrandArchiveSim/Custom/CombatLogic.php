@@ -3689,7 +3689,17 @@ function OnDealDamage($player, $source, $target, $amount) {
                 }
             }
         }
-        // PREVENT_CHAMP_N: prevent up to N damage to champion this turn (Veiling Breeze)
+        // KoF3AMSlUe-N: prevent up to N damage to champion for each damage instance this turn (Veiling Breeze)
+        foreach($targetObj->TurnEffects as $effect) {
+            if(strpos($effect, "KoF3AMSlUe-") === 0) {
+                $budget = intval(substr($effect, strlen("KoF3AMSlUe-")));
+                if($budget <= 0) continue;
+                $prevented = min($budget, $amount);
+                $amount -= $prevented;
+                if($amount <= 0) break;
+            }
+        }
+        // PREVENT_CHAMP_N: prevent up to N damage to champion this turn (legacy pattern)
         foreach($targetObj->TurnEffects as $idx => $effect) {
             if(strpos($effect, "PREVENT_CHAMP_") === 0 && strpos($effect, "PREVENT_CHAMP_ENLIGHTEN") !== 0 && strpos($effect, "PREVENT_CHAMP_WIND_BUFF") !== 0 && strpos($effect, "PREVENT_CHAMP_ASTRA_GLIMPSE") !== 0 && strpos($effect, "PREVENT_CHAMP_TERA_PRESERVE") !== 0) {
                 $budget = intval(substr($effect, 14));

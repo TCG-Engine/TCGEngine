@@ -897,7 +897,7 @@ $customDQHandlers["VeilingBreezeChoose"] = function($player, $parts, $lastDecisi
 
     $champMZ = FindChampionMZ($player);
     if($champMZ === null) return;
-    AddTurnEffect($champMZ, "PREVENT_CHAMP_" . $revealedCount);
+    AddTurnEffect($champMZ, "KoF3AMSlUe-" . $revealedCount);
 };
 
 // False Step (47o7eanl1g): after paying (2), all allies become distant
