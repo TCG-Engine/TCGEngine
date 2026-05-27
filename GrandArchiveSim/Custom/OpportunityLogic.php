@@ -589,6 +589,7 @@ $cbFastActivationCards = [
 $unconditionalFastCards = [
     "aljx2ru1w3" => true, // Flashfire Horse
     "JeyOuhr3sj" => true, // Protector Raccoon
+    "G8pN8Hackq" => true, // Aella, Zephyr's Hand
 ];
 
 function EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label = "") {
