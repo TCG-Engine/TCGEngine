@@ -47,17 +47,21 @@ function BridgeDraftGameDir($root, $gameName) {
 
 function BridgeEnsureDraftGame($root, $gameName) {
   $gameDir = BridgeDraftGameDir($root, $gameName);
-  if (!is_dir($gameDir)) BridgeFail('Draft game not found.', ['gameName' => $gameName]);
-
-  $gameStatePath = $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt';
-  $hasFileGamestate = is_file($gameStatePath);
-
   $hasMemoryGamestate = false;
   if (function_exists('GamestateUsesMemoryStorage') && GamestateUsesMemoryStorage()) {
     if (function_exists('GetGamestateStorageKey') && function_exists('apcu_fetch')) {
       $cached = apcu_fetch(GetGamestateStorageKey($gameName));
       $hasMemoryGamestate = ($cached !== false);
     }
+  }
+
+  $hasGameDir = is_dir($gameDir);
+  if (!$hasGameDir && !$hasMemoryGamestate) BridgeFail('Draft game not found.', ['gameName' => $gameName]);
+
+  $hasFileGamestate = false;
+  if ($hasGameDir) {
+    $gameStatePath = $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt';
+    $hasFileGamestate = is_file($gameStatePath);
   }
 
   if (!$hasFileGamestate && !$hasMemoryGamestate) {
@@ -1212,7 +1216,7 @@ function BridgeLoadDeckForPlayer($root, $playerID, $deckText, &$summary) {
   return $playerSummary;
 }
 
-function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckTextP2) {
+function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckTextP2, $memoryOnly = 'auto') {
   $gameName = trim(strval($gameName));
   if ($gameName === '') BridgeFail('gameName is required for start-selfplay-game.');
 
@@ -1224,8 +1228,17 @@ function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckText
   EngineLoadRootRuntime($root);
   $GLOBALS['gameName'] = $gameName;
 
-  $gameDir = BridgeDraftGameDir($root, $gameName);
-  RegressionEnsureDir($gameDir);
+  $memoryOnlyRaw = strtolower(trim(strval($memoryOnly)));
+  if ($memoryOnlyRaw === '' || $memoryOnlyRaw === 'auto') {
+    $memoryOnlyResolved = (function_exists('GamestateUsesMemoryStorage') && GamestateUsesMemoryStorage());
+  } else {
+    $memoryOnlyResolved = in_array($memoryOnlyRaw, ['1', 'true', 'yes', 'on'], true);
+  }
+
+  if (!$memoryOnlyResolved) {
+    $gameDir = BridgeDraftGameDir($root, $gameName);
+    RegressionEnsureDir($gameDir);
+  }
 
   InitializeGamestate();
   SetDeterministicRandomCounter(intval($seed));
@@ -1280,6 +1293,7 @@ function BridgeStartSelfplayGame($root, $gameName, $seed, $deckTextP1, $deckText
     'success' => true,
     'gameName' => $gameName,
     'seed' => intval($seed),
+    'memoryOnlyResolved' => $memoryOnlyResolved,
     'deckParseSummary' => $deckSummary,
     'gamestateHash' => RegressionCurrentGamestateHash($root, $gameName),
     'snapshot' => BridgeSnapshot($root, $gameName, 'summary'),
@@ -1336,7 +1350,8 @@ function BridgeDispatchCommand($command, $root, $args) {
         strval($args['gameName'] ?? ''),
         intval($args['seed'] ?? 0),
         BridgeDecodeDeckTextArg($args['deckTextP1'] ?? ''),
-        BridgeDecodeDeckTextArg($args['deckTextP2'] ?? '')
+        BridgeDecodeDeckTextArg($args['deckTextP2'] ?? ''),
+        strval($args['memoryOnly'] ?? 'auto')
       );
     default:
       BridgeFail('Unsupported command.', ['command' => $command]);

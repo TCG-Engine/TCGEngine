@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 import time
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 
 from bridge_client import BridgeClient
 
@@ -11,6 +11,7 @@ class EnvConfig:
     max_steps: int = 1000
     max_turns: int = 100
     per_step_penalty: float = 0.0
+    memory_only: Optional[bool] = None
 
 
 class GrandArchiveSelfPlayEnv:
@@ -68,7 +69,12 @@ class GrandArchiveSelfPlayEnv:
         self.seed = seed
         self.game_name = game_name
         self.step_count = 0
-        start = self.bridge.start_selfplay_game(game_name=game_name, seed=seed, deck_text_p1=deck_text)
+        start = self.bridge.start_selfplay_game(
+            game_name=game_name,
+            seed=seed,
+            deck_text_p1=deck_text,
+            memory_only=self.config.memory_only,
+        )
         if not start.get("success", False):
             raise RuntimeError(f"start-selfplay-game failed: {start}")
         legal = start.get("legalActions", {})
@@ -80,6 +86,7 @@ class GrandArchiveSelfPlayEnv:
         info = {
             "seed": seed,
             "gameName": self.game_name,
+            "memoryOnlyResolved": start.get("memoryOnlyResolved", None),
             "deckParseSummary": start.get("deckParseSummary", []),
             "terminal": snapshot.get("terminal", {}),
             "gamestateHash": snapshot.get("gamestateHash", ""),

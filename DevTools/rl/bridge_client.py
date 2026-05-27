@@ -113,13 +113,17 @@ class BridgeClient:
     def _b64(text: str) -> str:
         return base64.b64encode(text.encode("utf-8")).decode("ascii")
 
-    def start_selfplay_game(self, game_name: str, seed: int, deck_text_p1: str, deck_text_p2: str = "") -> Dict[str, Any]:
+    def start_selfplay_game(
+        self, game_name: str, seed: int, deck_text_p1: str, deck_text_p2: str = "", memory_only: bool | None = None
+    ) -> Dict[str, Any]:
+        memory_arg = "auto" if memory_only is None else ("1" if memory_only else "0")
         return self._run(
             "start-selfplay-game",
             gameName=game_name,
             seed=str(seed),
             deckTextP1=self._b64(deck_text_p1),
             deckTextP2=self._b64(deck_text_p2 or deck_text_p1),
+            memoryOnly=memory_arg,
         )
 
     def enumerate_legal_actions(self, game_name: str) -> Dict[str, Any]:

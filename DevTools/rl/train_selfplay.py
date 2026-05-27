@@ -3,6 +3,7 @@ import csv
 import json
 import random
 import time
+from collections import Counter
 from collections import defaultdict
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -30,6 +31,37 @@ def _candidate_indices(mask: List[int], actions: List[Dict], no_op_keys: set, st
     return filtered
 
 
+def _action_signature(action: Dict) -> str:
+    mode = int(action.get("mode", -1))
+    card_id = str(action.get("cardID", ""))
+    button_input = str(action.get("buttonInput", ""))
+    input_text = str(action.get("inputText", ""))
+    chk_input = action.get("chkInput", [])
+    if isinstance(chk_input, list):
+        chk_key = ",".join(str(v) for v in chk_input)
+    else:
+        chk_key = str(chk_input)
+    return f"mode={mode}|card={card_id}|button={button_input}|input={input_text}|chk={chk_key}"
+
+
+def _build_stuck_diagnostics(step_trace: List[Dict], window: int = 200) -> Dict:
+    if not step_trace:
+        return {"traceWindow": 0, "topActions": [], "topTransitions": [], "stateChangeRate": 0.0}
+    tail = step_trace[-max(1, int(window)) :]
+    action_counts = Counter(item.get("actionSignature", "") for item in tail)
+    transition_counts = Counter(
+        f"{item.get('preHash', '')}->{item.get('postHash', '')}" for item in tail if item.get("preHash", "") or item.get("postHash", "")
+    )
+    changed = sum(1 for item in tail if bool(item.get("stateChanged", True)))
+    return {
+        "traceWindow": len(tail),
+        "stateChangeRate": (changed / len(tail)) if tail else 0.0,
+        "topActions": [{"signature": sig, "count": cnt} for sig, cnt in action_counts.most_common(10)],
+        "topTransitions": [{"transition": sig, "count": cnt} for sig, cnt in transition_counts.most_common(10)],
+        "tailTrace": tail,
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="GrandArchiveSim deterministic self-play RL MVP trainer")
     parser.add_argument("--root", default="GrandArchiveSim")
@@ -44,6 +76,9 @@ def main() -> None:
     parser.add_argument("--epsilon", type=float, default=0.05)
     parser.add_argument("--checkpoint-every", type=int, default=25)
     parser.add_argument("--log-every", type=int, default=25)
+    parser.add_argument("--stuck-debug-window", type=int, default=200)
+    parser.add_argument("--memory-only", dest="memory_only", action="store_const", const=True, default=None)
+    parser.add_argument("--disk-games", dest="memory_only", action="store_const", const=False)
     args = parser.parse_args()
 
     random.seed(args.seed)
@@ -58,7 +93,13 @@ def main() -> None:
     replay_dir.mkdir(parents=True, exist_ok=True)
 
     env = GrandArchiveSelfPlayEnv(
-        EnvConfig(root=args.root, max_steps=args.max_steps, max_turns=args.max_turns, per_step_penalty=0.0)
+        EnvConfig(
+            root=args.root,
+            max_steps=args.max_steps,
+            max_turns=args.max_turns,
+            per_step_penalty=0.0,
+            memory_only=args.memory_only,
+        )
     )
     policy = TabularMaskedCategoricalPolicy(
         max_actions=args.max_actions, temperature=args.temperature, learning_rate=args.learning_rate
@@ -110,6 +151,7 @@ def main() -> None:
             done = False
             episode_steps: List[Dict] = []
             replay_actions: List[Dict] = []
+            step_trace: List[Dict] = []
             no_op_action_keys = set()
             start = time.time()
             ep_timing = {"applyMs": 0, "snapshotMs": 0, "enumerateMs": 0, "bridgeTotalMs": 0}
@@ -189,6 +231,7 @@ def main() -> None:
                     }
                 timings = info.get("timingsMs", {})
                 chosen = info.get("chosenAction", {})
+                action_signature = _action_signature(chosen)
                 mode = int(chosen.get("mode", -1))
                 card_id = str(chosen.get("cardID", ""))
                 player_id = int(chosen.get("playerID", 0))
@@ -224,6 +267,18 @@ def main() -> None:
                     action_mode = int(action.get("mode", -1))
                     action_card = str(action.get("cardID", ""))
                     no_op_action_keys.add(f"{s_key}|{action_mode}|{action_card}")
+                step_trace.append(
+                    {
+                        "step": int(info.get("stepCount", 0) or 0),
+                        "turnPlayer": turn_player,
+                        "legalCount": len(legal_indices),
+                        "actionSignature": action_signature,
+                        "stateChanged": bool(info.get("stateChanged", True)),
+                        "preHash": str(info.get("preHash", "")),
+                        "postHash": str(info.get("postHash", "")),
+                        "gamestateHash": str(info.get("gamestateHash", "")),
+                    }
+                )
 
             terminal_reward = float(reward)
             policy.update_episode(episode_steps, terminal_reward)
@@ -273,6 +328,10 @@ def main() -> None:
                 "result": info,
                 "actions": replay_actions,
             }
+            if bool(info.get("timedOut", False)):
+                replay_payload["stuckDiagnostics"] = _build_stuck_diagnostics(
+                    step_trace, window=args.stuck_debug_window
+                )
             (replay_dir / f"episode_{ep + 1:04d}.json").write_text(
                 json.dumps(replay_payload, indent=2), encoding="utf-8"
             )
@@ -317,6 +376,7 @@ def main() -> None:
         "learningRate": args.learning_rate,
         "temperature": args.temperature,
         "epsilon": args.epsilon,
+        "memoryOnly": args.memory_only,
         "timingSummary": {
             "totalSteps": run_timing["steps"],
             "applyMs": run_timing["applyMs"],

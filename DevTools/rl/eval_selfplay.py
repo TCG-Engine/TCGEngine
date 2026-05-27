@@ -38,11 +38,15 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=123)
     parser.add_argument("--max-steps", type=int, default=1000)
     parser.add_argument("--max-turns", type=int, default=100)
+    parser.add_argument("--memory-only", dest="memory_only", action="store_const", const=True, default=None)
+    parser.add_argument("--disk-games", dest="memory_only", action="store_const", const=False)
     args = parser.parse_args()
 
     deck_text = read_deck_text(Path(args.deck_file))
     policy = TabularMaskedCategoricalPolicy.load(Path(args.checkpoint))
-    env = GrandArchiveSelfPlayEnv(EnvConfig(root=args.root, max_steps=args.max_steps, max_turns=args.max_turns))
+    env = GrandArchiveSelfPlayEnv(
+        EnvConfig(root=args.root, max_steps=args.max_steps, max_turns=args.max_turns, memory_only=args.memory_only)
+    )
 
     wins_p1 = 0
     wins_p2 = 0
