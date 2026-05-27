@@ -52,6 +52,7 @@ $macros = [];
 $hasFlashMessage = false;
 $hasAnyIndexedProperties = false;
 $customLayoutFile = null;
+$gamestateStorageMode = "file";
 
 $zoneObj = null;
 while(!feof($handler)) {
@@ -232,6 +233,13 @@ while(!feof($handler)) {
         break;
       case "PageBackground":
         $pageBackground = trim($lineValue);
+        break;
+      case "GamestateStorage":
+        $parsedStorageMode = strtolower(trim($lineValue));
+        if($parsedStorageMode == "memory") $parsedStorageMode = "apcu";
+        if($parsedStorageMode == "file" || $parsedStorageMode == "apcu") {
+          $gamestateStorageMode = $parsedStorageMode;
+        }
         break;
       case "Display":
         $displayArr = explode(",", $lineValue);
@@ -1476,6 +1484,16 @@ fwrite($handler, "}\r\n\r\n");
 fwrite($handler, "function GetEditAuth() {\r\n");
 fwrite($handler, "  return \"" . $editAuth . "\";\r\n");
 fwrite($handler, "}\r\n\r\n");
+//Gamestate storage configuration helpers
+fwrite($handler, "function GamestateStorageMode() {\r\n");
+fwrite($handler, "  return \"" . $gamestateStorageMode . "\";\r\n");
+fwrite($handler, "}\r\n\r\n");
+fwrite($handler, "function GamestateUsesMemoryStorage() {\r\n");
+fwrite($handler, "  return GamestateStorageMode() === \"apcu\";\r\n");
+fwrite($handler, "}\r\n\r\n");
+fwrite($handler, "function GetGamestateStorageKey(\$gameName) {\r\n");
+fwrite($handler, "  return \"tcgengine:gamestate:" . $rootName . ":\" . \$gameName;\r\n");
+fwrite($handler, "}\r\n\r\n");
 //Initialize gamestate function
 fwrite($handler, "function InitializeGamestate() {\r\n");
 fwrite($handler, GetZoneGlobals($zones) . "\r\n");
@@ -1762,7 +1780,18 @@ function AddReadGamestate() {
   $readGamestate .= "  InitializeGamestate();\r\n";
   $readGamestate .= "  global \$gameName;\r\n";
   $readGamestate .= "  \$filename = \$filepath . \"Games/\$gameName/Gamestate.txt\";\r\n";
-  $readGamestate .= "  \$handler = fopen(\$filename, \"r\");\r\n";
+  $readGamestate .= "  \$gamestateText = \"\";\r\n";
+  $readGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"apcu_fetch\")) {\r\n";
+  $readGamestate .= "    \$cachedGamestate = apcu_fetch(GetGamestateStorageKey(\$gameName));\r\n";
+  $readGamestate .= "    if(\$cachedGamestate !== false) \$gamestateText = \$cachedGamestate;\r\n";
+  $readGamestate .= "  }\r\n";
+  $readGamestate .= "  if(\$gamestateText === \"\" && is_file(\$filename)) {\r\n";
+  $readGamestate .= "    \$gamestateText = file_get_contents(\$filename);\r\n";
+  $readGamestate .= "  }\r\n";
+  $readGamestate .= "  if(\$gamestateText === false || \$gamestateText === \"\") return;\r\n";
+  $readGamestate .= "  \$handler = fopen(\"php://temp\", \"r+\");\r\n";
+  $readGamestate .= "  fwrite(\$handler, \$gamestateText);\r\n";
+  $readGamestate .= "  rewind(\$handler);\r\n";
   $readGamestate .= "  \$currentPlayer = intval(fgets(\$handler));\r\n";
   $readGamestate .= "  \$updateNumber = intval(fgets(\$handler));\r\n";
   $readGamestate .= "  while (!feof(\$handler)) {\r\n";
@@ -1847,8 +1876,8 @@ function AddWriteGamestate() {
   $writeGamestate = "";
   $writeGamestate .= "  global \$gameName;\r\n";
   $writeGamestate .= "  \$filename = \$filepath . \"Games/\$gameName/Gamestate.txt\";\r\n";
-  $writeGamestate .= "  \$handler = fopen(\$filename, \"w\");\r\n";
-  $writeGamestate .= "  \$writeZone = function(\$zone) use (\$handler) {\r\n";
+  $writeGamestate .= "  \$gamestateText = \"\";\r\n";
+  $writeGamestate .= "  \$writeZone = function(\$zone) use (&\$gamestateText) {\r\n";
   $writeGamestate .= "    \$zoneText = \"\";\r\n";
   $writeGamestate .= "    \$count = 0;\r\n";
   $writeGamestate .= "    foreach(\$zone as \$obj) {\r\n";
@@ -1856,12 +1885,12 @@ function AddWriteGamestate() {
   $writeGamestate .= "      ++\$count;\r\n";
   $writeGamestate .= "      \$zoneText .= trim(\$obj->Serialize()) . \"\\r\\n\";\r\n";
   $writeGamestate .= "    }\r\n";
-  $writeGamestate .= "    fwrite(\$handler, \$count . \"\\r\\n\");\r\n";
-  $writeGamestate .= "    fwrite(\$handler, \$zoneText);\r\n";
+  $writeGamestate .= "    \$gamestateText .= \$count . \"\\r\\n\";\r\n";
+  $writeGamestate .= "    \$gamestateText .= \$zoneText;\r\n";
   $writeGamestate .= "  };\r\n";
   //First write global data
-  $writeGamestate .= "  fwrite(\$handler, \$currentPlayer . \"\\r\\n\");\r\n";
-  $writeGamestate .= "  fwrite(\$handler, \$updateNumber . \"\\r\\n\");\r\n";
+  $writeGamestate .= "  \$gamestateText .= \$currentPlayer . \"\\r\\n\";\r\n";
+  $writeGamestate .= "  \$gamestateText .= \$updateNumber . \"\\r\\n\";\r\n";
   //Then write player zones
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -1869,21 +1898,26 @@ function AddWriteGamestate() {
     $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
     if (strtolower($scope) == 'global') {
       if ($zone->DisplayMode == 'Value') {
-        $writeGamestate .= "  fwrite(\$handler, \$g" . $zoneName . " . \"\\r\\n\");\r\n";
+        $writeGamestate .= "  \$gamestateText .= \$g" . $zoneName . " . \"\\r\\n\";\r\n";
       } else {
         $writeGamestate .= "  \$writeZone(\$g" . $zoneName . ");\r\n";
       }
     } else {
       if ($zone->DisplayMode == 'Value') {
-        $writeGamestate .= "  fwrite(\$handler, \$p1" . $zoneName . " . \"\\r\\n\");\r\n";
-        $writeGamestate .= "  fwrite(\$handler, \$p2" . $zoneName . " . \"\\r\\n\");\r\n";
+        $writeGamestate .= "  \$gamestateText .= \$p1" . $zoneName . " . \"\\r\\n\";\r\n";
+        $writeGamestate .= "  \$gamestateText .= \$p2" . $zoneName . " . \"\\r\\n\";\r\n";
       } else {
         $writeGamestate .= AddWriteZone($zoneName, 1);
         $writeGamestate .= AddWriteZone($zoneName, 2);
       }
     }
   }
-  $writeGamestate .= "  fwrite(\$handler, \$gRandomCounter . \"\\r\\n\");\r\n";
+  $writeGamestate .= "  \$gamestateText .= \$gRandomCounter . \"\\r\\n\";\r\n";
+  $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"apcu_store\")) {\r\n";
+  $writeGamestate .= "    apcu_store(GetGamestateStorageKey(\$gameName), \$gamestateText);\r\n";
+  $writeGamestate .= "  } else {\r\n";
+  $writeGamestate .= "    file_put_contents(\$filename, \$gamestateText);\r\n";
+  $writeGamestate .= "  }\r\n";
   return $writeGamestate;
 }
 

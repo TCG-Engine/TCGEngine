@@ -48,8 +48,21 @@ function BridgeDraftGameDir($root, $gameName) {
 function BridgeEnsureDraftGame($root, $gameName) {
   $gameDir = BridgeDraftGameDir($root, $gameName);
   if (!is_dir($gameDir)) BridgeFail('Draft game not found.', ['gameName' => $gameName]);
+
   $gameStatePath = $gameDir . DIRECTORY_SEPARATOR . 'Gamestate.txt';
-  if (!is_file($gameStatePath)) BridgeFail('Draft game Gamestate.txt is missing.', ['gameName' => $gameName]);
+  $hasFileGamestate = is_file($gameStatePath);
+
+  $hasMemoryGamestate = false;
+  if (function_exists('GamestateUsesMemoryStorage') && GamestateUsesMemoryStorage()) {
+    if (function_exists('GetGamestateStorageKey') && function_exists('apcu_fetch')) {
+      $cached = apcu_fetch(GetGamestateStorageKey($gameName));
+      $hasMemoryGamestate = ($cached !== false);
+    }
+  }
+
+  if (!$hasFileGamestate && !$hasMemoryGamestate) {
+    BridgeFail('Draft game gamestate is missing (neither file nor memory storage found).', ['gameName' => $gameName]);
+  }
   return $gameDir;
 }
 

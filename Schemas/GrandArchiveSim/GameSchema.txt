@@ -2,6 +2,7 @@ GrandArchiveSim
 Polling
 None
 None
+GamestateStorage: file
 Layout: /Custom/GameLayout.php
 ServerInclude: /Custom/CustomInput.php
 ServerInclude: /Custom/GameLogic.php

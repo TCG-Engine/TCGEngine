@@ -311,7 +311,18 @@
 
   </head>
 
-  <body onkeydown='Hotkeys(event)' onload='OnLoadCallback(<?php echo (filemtime("./" . $folderPath . "/Games/" . $gameName . "/Gamestate.txt")); ?>)'>
+  <?php
+    $initialGamestateUpdateMarker = 0;
+    if (function_exists('GamestateUsesMemoryStorage') && GamestateUsesMemoryStorage()) {
+      $initialGamestateUpdateMarker = intval($updateNumber);
+    } else {
+      $gamestateFile = "./" . $folderPath . "/Games/" . $gameName . "/Gamestate.txt";
+      if (is_file($gamestateFile)) {
+        $initialGamestateUpdateMarker = intval(filemtime($gamestateFile));
+      }
+    }
+  ?>
+  <body onkeydown='Hotkeys(event)' onload='OnLoadCallback(<?php echo ($initialGamestateUpdateMarker); ?>)'>
 
     <?php
       // Check if coming from match (for fade-in effect)

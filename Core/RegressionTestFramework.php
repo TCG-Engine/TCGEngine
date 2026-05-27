@@ -117,7 +117,27 @@ function RegressionCurrentGamestatePath($rootName, $gameName) {
   return RegressionRepoRoot() . DIRECTORY_SEPARATOR . $rootName . DIRECTORY_SEPARATOR . 'Games' . DIRECTORY_SEPARATOR . $gameName . DIRECTORY_SEPARATOR . 'Gamestate.txt';
 }
 
+function RegressionCurrentGamestateFromMemory($gameName) {
+  if (!function_exists('GamestateUsesMemoryStorage') || !GamestateUsesMemoryStorage()) return null;
+  if (!function_exists('GetGamestateStorageKey')) return null;
+  if (!function_exists('apcu_fetch')) return null;
+
+  $cached = apcu_fetch(GetGamestateStorageKey($gameName));
+  if ($cached === false) return null;
+  return is_string($cached) ? $cached : strval($cached);
+}
+
+function RegressionClearGamestateMemory($gameName) {
+  if (!function_exists('GamestateUsesMemoryStorage') || !GamestateUsesMemoryStorage()) return;
+  if (!function_exists('GetGamestateStorageKey')) return;
+  if (!function_exists('apcu_delete')) return;
+  apcu_delete(GetGamestateStorageKey($gameName));
+}
+
 function RegressionCurrentGamestateText($rootName, $gameName) {
+  $memoryText = RegressionCurrentGamestateFromMemory($gameName);
+  if ($memoryText !== null) return $memoryText;
+
   $path = RegressionCurrentGamestatePath($rootName, $gameName);
   if (!is_file($path)) return '';
   return file_get_contents($path);
@@ -510,10 +530,15 @@ function RegressionLoadFixtureIntoCurrentGame($rootName, $gameName, $slug) {
     return ['success' => false, 'message' => 'Unable to resolve the current game state path.'];
   }
 
+  RegressionClearGamestateMemory($gameName);
   copy($initialPath, $gameStatePath);
 
   if (function_exists('ParseGamestate')) {
     ParseGamestate('./' . $rootName . '/');
+  }
+  if (function_exists('WriteGamestate')) {
+    // Keep file and memory-backed storage in sync after fixture load.
+    WriteGamestate('./' . $rootName . '/');
   }
 
   return [
