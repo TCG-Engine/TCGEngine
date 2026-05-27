@@ -15592,6 +15592,18 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
         return true;
     }
 
+    // Harbinger of Lightning (1i5z6r7s9k): while you control an arcane Shenju ally, ignore this card's element requirements.
+    if($cardID === "1i5z6r7s9k") {
+        $field = &GetField($player);
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i]->removed) continue;
+            if(!PropertyContains(EffectiveCardType($field[$i]), "ALLY")) continue;
+            if(!PropertyContains(EffectiveCardSubtypes($field[$i]), "SHENJU")) continue;
+            if(!PropertyContains(EffectiveCardElement($field[$i]), "ARCANE")) continue;
+            return true;
+        }
+    }
+
     if($setFlash) {
         SetFlashMessage(GetElementRestrictionMessage($cardElement));
     }
