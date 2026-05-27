@@ -4441,6 +4441,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
+        case "Bt9xeTum94": // Alchemist's Cauldron — [Arisanna Bonus] (3), banish self
         case "QCUld5Xidm": // Dummy Trainer â€” (3), banish self
         case "mb3iqw3kc6": // Portentous Tanggu â€” (3), banish self
         case "mgesApvmwS": // Prismspire Scepter â€” (3), banish self
