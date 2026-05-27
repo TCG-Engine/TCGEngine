@@ -1090,13 +1090,14 @@ function DoMaterialize($player, $mzCard) {
             global $playerID;
             $fZone = ($player == $playerID) ? "myField" : "theirField";
             $field = GetZone($fZone);
-            for($fwi = 0; $fwi < count($field); ++$fwi) {
+            // Iterate backwards so queued mzIDs remain stable if an earlier Fractal
+            // gets sacrificed and the field compacts before later triggers resolve.
+            for($fwi = count($field) - 1; $fwi >= 0; --$fwi) {
                 if($field[$fwi]->removed || $field[$fwi]->CardID !== "qVtWCAx3zb" || HasNoAbilities($field[$fwi])) continue;
                 $fractalMZ = $fZone . "-" . $fwi;
                 DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                     tooltip:"Sacrifice_Fractal_of_Waves_to_draw_2_into_memory?");
                 DecisionQueueController::AddDecision($player, "CUSTOM", "FractalOfWavesLevel3|" . $fractalMZ, 1);
-                break;
             }
         }
 
