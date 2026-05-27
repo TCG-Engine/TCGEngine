@@ -5097,8 +5097,9 @@ $customDQHandlers["DiaoChanIdyllBanish"] = function($player, $params, $lastDecis
     $gy = GetZone($oppGY);
     $found = false;
     for($i = count($gy) - 1; $i >= 0; $i--) {
-        if($gy[$i]->CardID === $cardID) {
-            MZMove($player, $oppGY . "-" . $i, $oppBanish);
+        if($gy[$i]->removed || $gy[$i]->CardID !== $cardID) continue;
+        $moved = MZMove($player, $oppGY . "-" . $i, $oppBanish);
+        if($moved !== null) {
             $found = true;
             break;
         }
@@ -5108,8 +5109,9 @@ $customDQHandlers["DiaoChanIdyllBanish"] = function($player, $params, $lastDecis
         $oppMat = $destroyedController == $playerID ? "myMaterial" : "theirMaterial";
         $mat = GetZone($oppMat);
         for($i = count($mat) - 1; $i >= 0; $i--) {
-            if($mat[$i]->CardID === $cardID) {
-                MZMove($player, $oppMat . "-" . $i, $oppBanish);
+            if($mat[$i]->removed || $mat[$i]->CardID !== $cardID) continue;
+            $moved = MZMove($player, $oppMat . "-" . $i, $oppBanish);
+            if($moved !== null) {
                 $found = true;
                 break;
             }
