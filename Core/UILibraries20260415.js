@@ -744,8 +744,35 @@
       // If selection mode is active, invoke the configured callback. Otherwise delegate to CardClick.
       function OnSelectableCardClick(zoneName, cardId) {
         try {
+          const inlineMultiActive = !!(
+            window.SelectionMode &&
+            window.SelectionMode.active &&
+            Array.isArray(window.SelectionMode.multiSelected) &&
+            Number(window.SelectionMode.multiMax) > 0 &&
+            document.getElementById('inline-multi-confirm')
+          );
           // If selection mode is active, call the selection callback (used for decision queue selections)
           if (window.SelectionMode && window.SelectionMode.active) {
+            if (inlineMultiActive) {
+              if (!window.SelectionMode.multiSelected) window.SelectionMode.multiSelected = [];
+              const idx = window.SelectionMode.multiSelected.indexOf(cardId);
+              if (idx >= 0) {
+                window.SelectionMode.multiSelected.splice(idx, 1);
+              } else {
+                if (window.SelectionMode.multiSelected.length >= window.SelectionMode.multiMax) return;
+                window.SelectionMode.multiSelected.push(cardId);
+              }
+              // Immediate DOM signal so selection is visible even before next full render tick.
+              const el = document.getElementById(cardId);
+              if (el) {
+                ApplyInlineMultiSelectionDomState();
+              }
+              UpdateInlineMultiChooseMessage();
+              if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+                RenderRows(window.myRows, window.theirRows);
+              }
+              return;
+            }
             let submittedCardId = cardId;
             const specs = window.SelectionMode.inlineSpecs || window.SelectionMode.allowedZones || [];
             const match = /^(.+)-(\d+)$/.exec(cardId || '');
@@ -796,13 +823,20 @@
         var newHTML = "";
         var id = zone + "-" + i;
         var positionStyle = "relative";
+        var isInlineMultiSelected = !!(window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0 && window.SelectionMode.multiSelected.indexOf(id) >= 0);
         var className = isSelectable ? "selectable-card" : "";
+        if (isInlineMultiSelected) {
+          className += " selected-inline";
+        }
         var combatIndicatorText = sharedCardData.CombatTargetIndicator ? String(sharedCardData.CombatTargetIndicator) : "";
         var combatIndicatorClass = combatIndicatorText ? " combat-targeted-card" : "";
 
         // Build inline styles - combine position and custom color variable
         var inlineStyles = "position:" + positionStyle + "; margin:1px;";
         if (isSelectable) {
+          if (window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0) {
+            inlineStyles += " --highlight-color: rgba(198, 208, 224, 0.98);";
+          } else
           // If selectable, always set the highlight color (custom or default)
           if (highlightMetadata && highlightMetadata.color) {
             // Clean up the color string - replace underscores with spaces (serialization artifact)
@@ -812,6 +846,9 @@
           } else {
             // Set default green color for selectable cards without custom color
             inlineStyles += " --highlight-color: rgba(100,250,0,0.50);";
+          }
+          if (isInlineMultiSelected) {
+            inlineStyles += " --highlight-color: rgba(255, 198, 46, 1);";
           }
         }
 
@@ -1359,7 +1396,7 @@
             position: relative;
             overflow: visible;
             border-radius: 8px;
-            transition: transform 160ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms ease, outline-color 200ms ease;
+            transition: transform 160ms cubic-bezier(.2,.9,.2,1), box-shadow 200ms ease;
             /* no wrapper border — border lives on the image so it hugs art exactly */
             box-shadow: none;
             border: none;
@@ -1378,20 +1415,27 @@
             position: relative;
             z-index: 1;
             /* Always show border with custom color */
-            border: 1px solid var(--highlight-color);
+            border: 2px solid var(--highlight-color);
             /* Subtle outer glow even at rest */
-            box-shadow: 0 0 4px var(--highlight-color);
+            box-shadow: 0 0 12px var(--highlight-color), 0 0 6px var(--highlight-color);
             transition: box-shadow 140ms ease, border-color 140ms ease, border-width 140ms ease, transform 160ms ease;
           }
 
           /* On hover: slightly thicker border and enhanced glow */
           .selectable-card:hover img:not(.counter-image-icon) {
             /* Slightly thicker border */
-            border: 2px solid var(--highlight-color);
+            border: 3px solid var(--highlight-color);
             /* Enhanced but still subtle glow on hover */
             box-shadow:
-              0 0 12px var(--highlight-color),
-              0 0 6px var(--highlight-color);
+              0 0 20px var(--highlight-color),
+              0 0 12px var(--highlight-color);
+          }
+
+          .selectable-card.selected-inline img:not(.counter-image-icon) {
+            border: 3px solid rgba(255, 198, 46, 1);
+            box-shadow:
+              0 0 14px rgba(255, 198, 46, 1),
+              0 0 8px rgba(255, 198, 46, 0.95);
           }
 
           /* Gentle pulsing for active selection mode */
@@ -2765,47 +2809,6 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       const inlineSpecs = categorizedSpecs.inlineSpecs;
       const popupCards = categorizedSpecs.popupCards;
 
-
-function CategorizeMZChooseSpecs(parsedSpecs) {
-  const inlineSpecs = [];
-  const popupCards = [];
-
-  for (const spec of parsedSpecs) {
-    if (spec && spec.actionPayload) {
-      inlineSpecs.push(spec);
-      continue;
-    }
-
-    const zoneData = GetZoneData(spec.zone);
-    const displayMode = zoneData && zoneData.DisplayMode ? zoneData.DisplayMode : 'All';
-
-    if (spec.isSpecificCard && (displayMode === 'Single' || displayMode === 'None')) {
-      popupCards.push(spec);
-    } else {
-      inlineSpecs.push(spec);
-    }
-  }
-
-  if (popupCards.length > 0) {
-    const remainingInlineSpecs = [];
-    for (const spec of inlineSpecs) {
-      if (spec.isSpecificCard) {
-        popupCards.push(spec);
-      } else {
-        remainingInlineSpecs.push(spec);
-      }
-    }
-    return {
-      inlineSpecs: remainingInlineSpecs,
-      popupCards: popupCards,
-    };
-  }
-
-  return {
-    inlineSpecs: inlineSpecs,
-    popupCards: popupCards,
-  };
-}
       // Store categorized specs for rendering
       window.SelectionMode.inlineSpecs = inlineSpecs;
       window.SelectionMode.popupCards = popupCards;
@@ -2859,11 +2862,53 @@ function CategorizeMZChooseSpecs(parsedSpecs) {
       }
       break;
     } else if (entry && entry.Type === 'MZMULTICHOOSE' && !entry.removed) {
-      // MZMULTICHOOSE: Choose min..max cards from a set of MZ specs in a single popup.
+      // MZMULTICHOOSE: Choose min..max cards from a set of MZ specs.
       // Param format: "min|max|spec1&spec2&spec3"
       var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose cards';
+      const parsed = ParseMZMultiChooseParam(entry.Param);
+      if (!parsed || parsed.specs.length === 0) {
+        break;
+      }
+      const categorized = CategorizeMZChooseSpecs(parsed.specs);
+      const hasPopupCards = categorized.popupCards.length > 0;
 
-      if (typeof ShowMZMultiChooseUI === 'function') {
+      if (!hasPopupCards) {
+        const preserveExisting =
+          window.SelectionMode &&
+          window.SelectionMode.active &&
+          window.SelectionMode.decisionIndex === i &&
+          Array.isArray(window.SelectionMode.multiSelected) &&
+          Number(window.SelectionMode.multiMax) > 0;
+        const existingSelected = preserveExisting && Array.isArray(window.SelectionMode.multiSelected)
+          ? window.SelectionMode.multiSelected.slice()
+          : [];
+        window.SelectionMode.active = true;
+        window.SelectionMode.mode = 'MZMULTI_INLINE';
+        window.SelectionMode.mayPass = (parsed.min === 0);
+        window.SelectionMode.allowedZones = parsed.specs;
+        window.SelectionMode.inlineSpecs = categorized.inlineSpecs;
+        window.SelectionMode.popupCards = [];
+        window.SelectionMode.decisionIndex = i;
+        window.SelectionMode.multiMin = parsed.min;
+        window.SelectionMode.multiMax = parsed.max;
+        window.SelectionMode.multiSelected = existingSelected.filter((mzid) => {
+          if (!mzid || typeof mzid !== 'string') return false;
+          const parts = mzid.split('-');
+          if (parts.length < 2) return false;
+          const idx = parseInt(parts[parts.length - 1], 10);
+          if (Number.isNaN(idx)) return false;
+          const zone = parts.slice(0, -1).join('-');
+          const zoneDataStr = window[zone + 'Data'];
+          if (!zoneDataStr || typeof zoneDataStr !== 'string') return false;
+          const cards = zoneDataStr.split('<|>').filter(s => s.trim());
+          return idx >= 0 && idx < cards.length;
+        }).slice(0, parsed.max);
+        ShowInlineMultiChooseMessage(tooltip, i);
+        if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+          RenderRows(window.myRows, window.theirRows);
+        }
+        // Inline multi-select uses explicit gray/gold state instead of pulse glow.
+      } else if (typeof ShowMZMultiChooseUI === 'function') {
         ShowMZMultiChooseUI(entry.Param, tooltip, i, function(serializedResult, decisionIndex) {
           SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(serializedResult));
         });
@@ -2925,7 +2970,10 @@ window.SelectionMode = {
   zoneBindings: [],
   callback: null,
   decisionIndex: null,
-  mayPass: false
+  mayPass: false,
+  multiMin: 0,
+  multiMax: 0,
+  multiSelected: []
 };
 
 function ClearSelectionMode() {
@@ -2940,7 +2988,10 @@ function ClearSelectionMode() {
     zoneBindings: [],
     callback: null,
     decisionIndex: null,
-    mayPass: false
+    mayPass: false,
+    multiMin: 0,
+    multiMax: 0,
+    multiSelected: []
   };
   // Remove choose-zone click bindings and restore zone visuals.
   if (previousSelection && previousSelection.zoneBindings && Array.isArray(previousSelection.zoneBindings)) {
@@ -3072,6 +3123,254 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
 function HideSelectionMessage() {
   let existing = document.getElementById('selection-message');
   if (existing) existing.style.display = 'none';
+}
+
+function CategorizeMZChooseSpecs(parsedSpecs) {
+  const inlineSpecs = [];
+  const popupCards = [];
+
+  for (const spec of parsedSpecs) {
+    if (spec && spec.actionPayload) {
+      inlineSpecs.push(spec);
+      continue;
+    }
+
+    const zoneData = GetZoneData(spec.zone);
+    const displayMode = zoneData && zoneData.DisplayMode ? zoneData.DisplayMode : 'All';
+
+    if (spec.isSpecificCard && (displayMode === 'Single' || displayMode === 'None')) {
+      popupCards.push(spec);
+    } else {
+      inlineSpecs.push(spec);
+    }
+  }
+
+  if (popupCards.length > 0) {
+    const remainingInlineSpecs = [];
+    for (const spec of inlineSpecs) {
+      if (spec.isSpecificCard) {
+        popupCards.push(spec);
+      } else {
+        remainingInlineSpecs.push(spec);
+      }
+    }
+    return {
+      inlineSpecs: remainingInlineSpecs,
+      popupCards: popupCards,
+    };
+  }
+
+  return {
+    inlineSpecs: inlineSpecs,
+    popupCards: popupCards,
+  };
+}
+
+function ParseMZMultiChooseParam(param) {
+  const parts = String(param || '').split('|');
+  if (parts.length < 3) return null;
+  const min = parseInt(parts[0], 10);
+  const max = parseInt(parts[1], 10);
+  const rawSpecs = parts.slice(2).join('|');
+  const specs = (rawSpecs || '').split('&').map(s => s.trim()).filter(Boolean).map(spec => {
+    const p = spec.split(':');
+    const rawZoneOrCard = p[0].trim();
+    const encodedParts = rawZoneOrCard.split('@');
+    const zoneOrCard = encodedParts[0].trim();
+    const actionPayload = encodedParts.length > 1 ? encodedParts[1].trim() : '';
+    const selectionLabel = encodedParts.length > 2 ? encodedParts.slice(2).join('@').trim() : '';
+    const filters = [];
+    if (p.length > 1) {
+      const filtString = p.slice(1).join(':');
+      const clauses = filtString.split(',').map(f => f.trim()).filter(Boolean);
+      clauses.forEach(cl => {
+        const m = cl.match(/^(\w+)(==|!=|<=|>=|=|<|>)(.*)$/);
+        if (m) filters.push({ field: m[1], op: m[2], value: m[3] });
+        else filters.push({ field: cl, op: '=', value: 'true' });
+      });
+    }
+    const cardMatch = zoneOrCard.match(/^(.+)-(\d+)$/);
+    if (cardMatch) {
+      return {
+        zone: cardMatch[1],
+        specificIndex: parseInt(cardMatch[2], 10),
+        filters: filters,
+        isSpecificCard: true,
+        originalSpec: spec,
+        actionPayload: actionPayload,
+        selectionLabel: selectionLabel
+      };
+    }
+    return {
+      zone: zoneOrCard,
+      filters: filters,
+      isSpecificCard: false,
+      originalSpec: spec,
+      actionPayload: actionPayload,
+      selectionLabel: selectionLabel
+    };
+  });
+  const boundedMax = Math.max(0, isNaN(max) ? 0 : max);
+  const boundedMin = Math.max(0, Math.min(isNaN(min) ? 0 : min, boundedMax));
+  return { min: boundedMin, max: boundedMax, specs: specs };
+}
+
+function UpdateInlineMultiChooseMessage() {
+  const sm = window.SelectionMode || {};
+  if (!sm.active || sm.mode !== 'MZMULTI_INLINE') return;
+  const existing = document.getElementById('selection-message');
+  if (!existing) return;
+  const count = (sm.multiSelected || []).length;
+  const counter = document.getElementById('inline-multi-counter');
+  if (counter) counter.textContent = count + ' selected / ' + sm.multiMax + ' max';
+  const confirmBtn = document.getElementById('inline-multi-confirm');
+  if (confirmBtn) confirmBtn.disabled = (count < sm.multiMin || count > sm.multiMax);
+  const selectAllBtn = document.getElementById('inline-multi-select-all');
+  if (selectAllBtn) {
+    const allCount = ExpandInlineMultiSelectableCards().length;
+    selectAllBtn.disabled = (allCount <= 0 || count >= Math.min(allCount, sm.multiMax || allCount));
+  }
+  const clearAllBtn = document.getElementById('inline-multi-clear-all');
+  if (clearAllBtn) clearAllBtn.disabled = (count <= 0);
+}
+
+function ApplyInlineMultiSelectionDomState() {
+  const sm = window.SelectionMode || {};
+  const selected = new Set(Array.isArray(sm.multiSelected) ? sm.multiSelected : []);
+  document.querySelectorAll('.selectable-card').forEach((el) => {
+    const mzid = el.getAttribute('data-mzid') || el.id || '';
+    const isSelected = selected.has(mzid);
+    el.classList.toggle('selected-inline', isSelected);
+    el.style.setProperty('--highlight-color', isSelected ? 'rgba(255, 198, 46, 1)' : 'rgba(198, 208, 224, 0.98)');
+  });
+}
+
+function StyleInlineMultiActionButton(btn) {
+  btn.style.padding = '7px 14px';
+  btn.style.fontSize = '10px';
+  btn.style.fontWeight = '700';
+  btn.style.letterSpacing = '0.04em';
+  btn.style.textTransform = 'uppercase';
+  btn.style.background = 'linear-gradient(150deg, rgba(10, 19, 48, 0.95), rgba(22, 39, 86, 0.88))';
+  btn.style.color = '#e9f1ff';
+  btn.style.border = '1px solid rgba(156, 190, 255, 0.45)';
+  btn.style.borderRadius = '9px';
+  btn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 12px 28px rgba(4, 10, 28, 0.5)';
+  btn.style.backdropFilter = 'blur(8px)';
+  btn.style.webkitBackdropFilter = 'blur(8px)';
+  btn.style.cursor = 'pointer';
+  btn.style.transition = 'transform 150ms ease, box-shadow 180ms ease, filter 180ms ease, border-color 180ms ease';
+  btn.onmouseover = function() {
+    if (btn.disabled) return;
+    btn.style.transform = 'translateY(-1px) scale(1.02)';
+    btn.style.filter = 'brightness(1.08)';
+    btn.style.borderColor = 'rgba(184, 211, 255, 0.72)';
+    btn.style.boxShadow = 'inset 0 1px 0 rgba(236, 244, 255, 0.34), 0 16px 34px rgba(4, 10, 28, 0.6)';
+  };
+  btn.onmouseout = function() {
+    btn.style.transform = 'translateY(0) scale(1)';
+    btn.style.filter = 'brightness(1)';
+    btn.style.borderColor = 'rgba(156, 190, 255, 0.45)';
+    btn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 12px 28px rgba(4, 10, 28, 0.5)';
+  };
+}
+
+function ExpandInlineMultiSelectableCards() {
+  const sm = window.SelectionMode || {};
+  const specs = sm.inlineSpecs || sm.allowedZones || [];
+  const out = [];
+  const seen = new Set();
+  for (let si = 0; si < specs.length; ++si) {
+    const spec = specs[si];
+    if (!spec || !spec.zone) continue;
+    const zoneDataStr = window[spec.zone + 'Data'];
+    if (!zoneDataStr || typeof zoneDataStr !== 'string') continue;
+    const cards = zoneDataStr.split('<|>').filter(s => s.trim());
+    const indices = spec.isSpecificCard ? [spec.specificIndex] : cards.map((_, idx) => idx);
+    for (let ii = 0; ii < indices.length; ++ii) {
+      const idx = indices[ii];
+      if (idx < 0 || idx >= cards.length) continue;
+      const cardArr = cards[idx].split(' ');
+      if (!IsSelectableCard(spec.zone, cardArr, idx)) continue;
+      const mzID = spec.zone + '-' + idx;
+      if (seen.has(mzID)) continue;
+      seen.add(mzID);
+      out.push(mzID);
+    }
+  }
+  return out;
+}
+
+function ShowInlineMultiChooseMessage(msg, decisionIndex) {
+  let existing = document.getElementById('selection-message');
+  if (!existing) {
+    existing = document.createElement('div');
+    existing.id = 'selection-message';
+    existing.style.position = 'fixed';
+    existing.style.bottom = '20px';
+    existing.style.left = '50%';
+    existing.style.transform = 'translateX(-50%)';
+    existing.style.background = '#0D1B2A';
+    existing.style.color = '#fff';
+    existing.style.padding = '10px 24px';
+    existing.style.borderRadius = '8px';
+    existing.style.boxShadow = '0 0 10px #0008';
+    existing.style.fontFamily = "'Orbitron', sans-serif";
+    existing.style.zIndex = '9999';
+    existing.style.display = 'flex';
+    existing.style.alignItems = 'center';
+    existing.style.gap = '12px';
+    document.body.appendChild(existing);
+  }
+  existing.innerHTML = '';
+  const msgSpan = document.createElement('span');
+  msgSpan.textContent = msg;
+  existing.appendChild(msgSpan);
+  const counter = document.createElement('span');
+  counter.id = 'inline-multi-counter';
+  counter.style.opacity = '0.9';
+  existing.appendChild(counter);
+  const selectAllBtn = document.createElement('button');
+  selectAllBtn.id = 'inline-multi-select-all';
+  selectAllBtn.textContent = 'Select All';
+  StyleInlineMultiActionButton(selectAllBtn);
+  selectAllBtn.onclick = function() {
+    const sm = window.SelectionMode || {};
+    const all = ExpandInlineMultiSelectableCards();
+    sm.multiSelected = all.slice(0, sm.multiMax || all.length);
+    ApplyInlineMultiSelectionDomState();
+    UpdateInlineMultiChooseMessage();
+    if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+      RenderRows(window.myRows, window.theirRows);
+    }
+  };
+  existing.appendChild(selectAllBtn);
+  const clearAllBtn = document.createElement('button');
+  clearAllBtn.id = 'inline-multi-clear-all';
+  clearAllBtn.textContent = 'Deselect All';
+  StyleInlineMultiActionButton(clearAllBtn);
+  clearAllBtn.onclick = function() {
+    window.SelectionMode.multiSelected = [];
+    ApplyInlineMultiSelectionDomState();
+    UpdateInlineMultiChooseMessage();
+    if (typeof RenderRows === 'function' && typeof window.myRows !== 'undefined' && typeof window.theirRows !== 'undefined') {
+      RenderRows(window.myRows, window.theirRows);
+    }
+  };
+  existing.appendChild(clearAllBtn);
+  const confirmBtn = document.createElement('button');
+  confirmBtn.id = 'inline-multi-confirm';
+  confirmBtn.textContent = 'Confirm';
+  StyleInlineMultiActionButton(confirmBtn);
+  confirmBtn.onclick = function() {
+    const selected = (window.SelectionMode.multiSelected || []).slice();
+    const payload = selected.length > 0 ? selected.join('&') : '-';
+    SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(payload));
+    ClearSelectionMode();
+  };
+  existing.appendChild(confirmBtn);
+  UpdateInlineMultiChooseMessage();
+  existing.style.display = 'flex';
 }
 
 // Determine if a card element (in a given zone) should be selectable based on

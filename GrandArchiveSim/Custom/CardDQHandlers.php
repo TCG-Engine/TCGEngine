@@ -5163,22 +5163,15 @@ $customDQHandlers["EnthrallingChimeGainControl"] = function($player, $params, $l
 // ============================================================================
 $customDQHandlers["FrostnipPirouetteWitherLoop"] = function($player, $params, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    AddCounters($player, $lastDecision, "wither", 1);
-    $targets = [];
-    foreach(["myField", "theirField"] as $zoneName) {
-        $field = GetZone($zoneName);
-        for($i = 0; $i < count($field); ++$i) {
-            if($field[$i]->removed) continue;
-            if(PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) continue;
-            $targets[] = $zoneName . "-" . $i;
-        }
+    $selected = array_values(array_unique(array_filter(explode("&", $lastDecision), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    foreach($selected as $targetMZ) {
+        $obj = GetZoneObject($targetMZ);
+        if($obj === null || $obj->removed) continue;
+        if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) continue;
+        AddCounters($player, $targetMZ, "wither", 1);
     }
-    $targets = FilterSpellshroudTargets($targets);
-    if(empty($targets)) return;
-    $choices = implode("&", $targets);
-    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1,
-        tooltip:"Choose_another_object_to_put_wither_counter_on");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "FrostnipPirouetteWitherLoop", 1);
 };
 
 // ============================================================================
