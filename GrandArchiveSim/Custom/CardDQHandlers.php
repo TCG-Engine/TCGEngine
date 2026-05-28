@@ -5198,6 +5198,36 @@ $customDQHandlers["BloomAutumnToken"] = function($player, $params, $lastDecision
 };
 
 // ============================================================================
+// Bloom: Summer's Glow (a708z5ethq): caster chooses token mode once, then
+// each opponent Flowerbud is sacrificed and replaced with the chosen token.
+// ============================================================================
+$customDQHandlers["BloomSummerResolve"] = function($player, $params, $lastDecision) {
+    $opponent = intval($params[0] ?? 0);
+    if($opponent < 1) return;
+
+    // MZMODAL returns "0"/"1"; keep YES fallback for legacy safety.
+    $summonLycoria = ($lastDecision === "0" || $lastDecision === "YES");
+    $tokenCardID = $summonLycoria ? "89nl1vcn33" : "i59eamoov0"; // Lycoria / Baihua
+
+    // Resolve from the casting player's perspective:
+    // "theirField" is always the opponent battlefield for this controller.
+    $flowerbuds = ZoneSearch("theirField", cardSubtypes: ["FLOWERBUD"]);
+    if(empty($flowerbuds)) return;
+    usort($flowerbuds, function($a, $b) {
+        $ai = intval(substr(strrchr($a, "-"), 1));
+        $bi = intval(substr(strrchr($b, "-"), 1));
+        return $bi <=> $ai; // Process highest index first to avoid reindexing issues.
+    });
+
+    foreach($flowerbuds as $fbMZ) {
+        $fbObj = GetZoneObject($fbMZ);
+        if($fbObj === null || $fbObj->removed) continue;
+        MZMove($player, $fbMZ, "theirGraveyard");
+        MZAddZone($player, "theirField", $tokenCardID);
+    }
+};
+
+// ============================================================================
 // Ameliorating Mantra (b3sm5e7pan): remove wither counters from up to 2 targets
 // ============================================================================
 function FindWitherTargets($exclude = null) {

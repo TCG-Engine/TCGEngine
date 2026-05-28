@@ -5839,6 +5839,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         $opponent = $player == 1 ? 2 : 1;
         $oppField = GetField($opponent);
         foreach($oppField as $oppObj) {
+            if($oppObj === null) continue;
             if(!$oppObj->removed && $oppObj->CardID === "f0ht2tsn0y" && !HasNoAbilities($oppObj)) {
                 MZMove($player, "myField-" . (count($field) - 1), "myBanish");
                 DecisionQueueController::CleanupRemovedCards();
@@ -19417,6 +19418,7 @@ $customDQHandlers["RefractedTwilightCopy"] = function($player, $parts, $lastDeci
 function AddCounters($player, $mzCard, $counterType, $amount = 1) {
     if($amount <= 0) return;
     $obj = &GetZoneObject($mzCard);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return;
     if(!isset($obj->Counters) || !is_array($obj->Counters)) $obj->Counters = [];
 
     // Chateau de Coeurs (vxc8u5zz08): buff counters can't be placed on opponent's objects
