@@ -17342,6 +17342,10 @@ function FieldHasSpellshroud($obj) {
     return HasSpellshroud($obj) ? 1 : 0;
 }
 
+function FieldHasTaunt($obj) {
+    return HasTaunt($obj) ? 1 : 0;
+}
+
 // Siegeable: domain subtype that allows being attacked. Damage removes durability counters.
 function IsSiegeable($obj) {
     if($obj === null) return false;
