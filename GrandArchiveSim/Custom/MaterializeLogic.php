@@ -263,6 +263,15 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
     $materializeCard = &GetZoneObject($lastDecision);
     if($materializeCard === null || $materializeCard->removed) return;
     if(!CanPlayerUseCardElement($player, $materializeCard->CardID)) return;
+    // Preserve replacement (temporary rule): when you would materialize, return the
+    // selected card to hand instead if it is not CHAMPION or REGALIA.
+    // This is not a materialization.
+    $materializeCardType = CardType($materializeCard->CardID);
+    if(!PropertyContains($materializeCardType, "CHAMPION")
+        && !PropertyContains($materializeCardType, "REGALIA")) {
+        MZMove($player, $lastDecision, "myHand");
+        return;
+    }
 
     // The Elysian Astrolabe (4nmxqsm4o9): can only materialize if it's the last card in material deck
     if($materializeCard->CardID === "4nmxqsm4o9") {
