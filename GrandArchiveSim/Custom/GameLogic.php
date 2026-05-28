@@ -9749,7 +9749,7 @@ function ObjectCurrentPower($obj) {
         // Gustmark Gauge (cMixAGt8zv): [Level 2+] while rested, Chessman allies you control get +1 POWER
         if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "CHESSMAN")) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "cMixAGt8zv" && !HasNoAbilities($fieldObj)
+                if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "cMixAGt8zv" && !HasNoAbilities($fieldObj)
                    && isset($fieldObj->Status) && $fieldObj->Status == 1
                    && PlayerLevel($obj->Controller) >= 2) {
                     $power += 1;
@@ -9760,7 +9760,7 @@ function ObjectCurrentPower($obj) {
         // Chance, Seven of Spades (DKoSnhjX18): Cardistry â€” other Suited allies get +1 POWER
         if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SUITED")) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "DKoSnhjX18" && !HasNoAbilities($fieldObj)
+                if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "DKoSnhjX18" && !HasNoAbilities($fieldObj)
                    && $fieldObj !== $obj && in_array("DKoSnhjX18", $fieldObj->TurnEffects)) {
                     $power += 1;
                     break;
@@ -17641,7 +17641,7 @@ function HasTaunt($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $claudeObj) {
-            if(!$claudeObj->removed && $claudeObj->CardID === "52215upufy" && !HasNoAbilities($claudeObj)) {
+            if($claudeObj !== null && !$claudeObj->removed && $claudeObj->CardID === "52215upufy" && !HasNoAbilities($claudeObj)) {
                 return true;
             }
         }
@@ -17659,7 +17659,7 @@ function HasTaunt($obj) {
         $zone = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $soObj) {
-            if(!$soObj->removed && $soObj->CardID === "f4wqesifxk" && !HasNoAbilities($soObj)) {
+            if($soObj !== null && !$soObj->removed && $soObj->CardID === "f4wqesifxk" && !HasNoAbilities($soObj)) {
                 if(strpos(CardName($obj->CardID), "Ciel") === 0) {
                     return true;
                 }
