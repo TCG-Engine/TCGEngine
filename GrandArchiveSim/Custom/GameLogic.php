@@ -2480,7 +2480,7 @@ $customDQHandlers["MeteoricSlimeAfterGlimpse"] = function($player, $parts, $last
     for($i = 0; $i < $revealCount; ++$i) {
         DoRevealCard($player, "myDeck-" . $i);
         $cardID = $deck[$i]->CardID;
-        $reserve = intval(CardReserveCost($cardID));
+        $reserve = intval(CardCost_reserve($cardID));
         if($lowestReserve === null || $reserve < $lowestReserve) $lowestReserve = $reserve;
     }
     if($lowestReserve === null || $lowestReserve <= 0) return;
@@ -12812,14 +12812,14 @@ function TableStraightResolve($player) {
         if($memory[$i]->removed) continue;
         if(!PropertyContains(CardSubtypes($memory[$i]->CardID), "SUITED")) continue;
         DoRevealCard($player, "myMemory-" . $i);
-        $reserveCosts[] = intval(CardReserveCost($memory[$i]->CardID));
+        $reserveCosts[] = intval(CardCost_reserve($memory[$i]->CardID));
     }
 
     $suitedAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SUITED"]);
     foreach($suitedAllies as $mz) {
         $obj = GetZoneObject($mz);
         if($obj === null || $obj->removed) continue;
-        $reserveCosts[] = intval(CardReserveCost($obj->CardID));
+        $reserveCosts[] = intval(CardCost_reserve($obj->CardID));
     }
 
     if(empty($reserveCosts)) return;
