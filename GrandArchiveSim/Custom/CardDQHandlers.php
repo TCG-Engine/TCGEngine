@@ -5228,6 +5228,36 @@ $customDQHandlers["BloomSummerResolve"] = function($player, $params, $lastDecisi
 };
 
 // ============================================================================
+// Bloom: Winter's Chill (b4jvyh23y1): caster chooses token mode once, then
+// each opponent Flowerbud is sacrificed and replaced with the chosen token.
+// ============================================================================
+$customDQHandlers["BloomWinterResolve"] = function($player, $params, $lastDecision) {
+    $opponent = intval($params[0] ?? 0);
+    if($opponent < 1) return;
+
+    // MZMODAL returns "0"/"1"; keep YES fallback for legacy safety.
+    $summonNightshade = ($lastDecision === "0" || $lastDecision === "YES");
+    $tokenCardID = $summonNightshade ? "rzk3mjblse" : "4s1kmjeaks"; // Nightshade / Floodbloom
+
+    // Resolve from the casting player's perspective:
+    // "theirField" is always the opponent battlefield for this controller.
+    $flowerbuds = ZoneSearch("theirField", cardSubtypes: ["FLOWERBUD"]);
+    if(empty($flowerbuds)) return;
+    usort($flowerbuds, function($a, $b) {
+        $ai = intval(substr(strrchr($a, "-"), 1));
+        $bi = intval(substr(strrchr($b, "-"), 1));
+        return $bi <=> $ai; // Process highest index first to avoid reindexing issues.
+    });
+
+    foreach($flowerbuds as $fbMZ) {
+        $fbObj = GetZoneObject($fbMZ);
+        if($fbObj === null || $fbObj->removed) continue;
+        MZMove($player, $fbMZ, "theirGraveyard");
+        MZAddZone($player, "theirField", $tokenCardID);
+    }
+};
+
+// ============================================================================
 // Ameliorating Mantra (b3sm5e7pan): remove wither counters from up to 2 targets
 // ============================================================================
 function FindWitherTargets($exclude = null) {
