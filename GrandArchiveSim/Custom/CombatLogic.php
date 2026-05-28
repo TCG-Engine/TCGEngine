@@ -3842,8 +3842,17 @@ function OnDealDamage($player, $source, $target, $amount) {
     if($amount > 0) {
         $sourceObjSpell = GetZoneObject($source);
         $isUnitTarget = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
-        if($sourceObjSpell !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SPELL")) {
+        $sourceSpellCardID = null;
+        $sourceController = $player;
+        if($sourceObjSpell !== null) {
+            $sourceSpellCardID = $sourceObjSpell->CardID;
             $sourceController = $sourceObjSpell->Controller ?? $player;
+        } else if(is_string($source) && strpos($source, "-") === false) {
+            // Some effects pass a raw CardID as damage source instead of an mzID.
+            $sourceSpellCardID = $source;
+        }
+
+        if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;
             $srcFieldZone = ($sourceController == $playerID) ? "myField" : "theirField";
@@ -3854,10 +3863,12 @@ function OnDealDamage($player, $source, $target, $amount) {
             }
 
             // Senaris, Six of Diamonds (EIpkYYSP3s): next three suited spell source damages this turn are +3.
-            if(PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SUITED")
-                && GlobalEffectCount($sourceController, "EIpkYYSP3s") > 0) {
+            $senarisIsSuited = PropertyContains(CardSubtypes($sourceSpellCardID), "SUITED");
+            $senarisCountBefore = GlobalEffectCount($sourceController, "EIpkYYSP3s");
+            if($senarisIsSuited && $senarisCountBefore > 0) {
                 $amount += 3;
                 RemoveGlobalEffect($sourceController, "EIpkYYSP3s");
+                $senarisCountAfter = GlobalEffectCount($sourceController, "EIpkYYSP3s");
             }
 
             // Nipping Kicker (UBB1DWYDeS): next suited spell source damage to this unit is +3.
@@ -3865,7 +3876,7 @@ function OnDealDamage($player, $source, $target, $amount) {
                 if(strpos($nkEffect, "UBB1DWYDeS_") !== 0) continue;
                 $nkController = intval(substr($nkEffect, strlen("UBB1DWYDeS_")));
                 if($nkController !== $sourceController) continue;
-                if(!PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SUITED")) continue;
+                if(!PropertyContains(CardSubtypes($sourceSpellCardID), "SUITED")) continue;
                 $amount += 3;
                 unset($targetObj->TurnEffects[$nkIdx]);
                 $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
@@ -4139,8 +4150,17 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     if($amount > 0) {
         $sourceObjSpell = GetZoneObject($source);
         $isUnitTarget = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
-        if($sourceObjSpell !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SPELL")) {
+        $sourceSpellCardID = null;
+        $sourceController = $player;
+        if($sourceObjSpell !== null) {
+            $sourceSpellCardID = $sourceObjSpell->CardID;
             $sourceController = $sourceObjSpell->Controller ?? $player;
+        } else if(is_string($source) && strpos($source, "-") === false) {
+            // Some effects pass a raw CardID as damage source instead of an mzID.
+            $sourceSpellCardID = $source;
+        }
+
+        if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
 
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
             global $playerID;
@@ -4152,10 +4172,12 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
             }
 
             // Senaris, Six of Diamonds (EIpkYYSP3s): next three suited spell source damages this turn are +3.
-            if(PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SUITED")
-                && GlobalEffectCount($sourceController, "EIpkYYSP3s") > 0) {
+            $senarisIsSuited = PropertyContains(CardSubtypes($sourceSpellCardID), "SUITED");
+            $senarisCountBefore = GlobalEffectCount($sourceController, "EIpkYYSP3s");
+            if($senarisIsSuited && $senarisCountBefore > 0) {
                 $amount += 3;
                 RemoveGlobalEffect($sourceController, "EIpkYYSP3s");
+                $senarisCountAfter = GlobalEffectCount($sourceController, "EIpkYYSP3s");
             }
 
             // Nipping Kicker (UBB1DWYDeS): next suited spell source damage to this unit is +3.
@@ -4163,7 +4185,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
                 if(strpos($nkEffect, "UBB1DWYDeS_") !== 0) continue;
                 $nkController = intval(substr($nkEffect, strlen("UBB1DWYDeS_")));
                 if($nkController !== $sourceController) continue;
-                if(!PropertyContains(CardSubtypes($sourceObjSpell->CardID), "SUITED")) continue;
+                if(!PropertyContains(CardSubtypes($sourceSpellCardID), "SUITED")) continue;
                 $amount += 3;
                 unset($targetObj->TurnEffects[$nkIdx]);
                 $targetObj->TurnEffects = array_values($targetObj->TurnEffects);
