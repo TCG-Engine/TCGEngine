@@ -14575,6 +14575,9 @@ $doesGlobalEffectApply["EBWWwvSxr3"] = function($obj) { //Horn of Beastcalling
 $doesGlobalEffectApply["STEADY_VERSE_HARMONY_DISCOUNT"] = function($obj) { //Steady Verse: flag only â€” next Harmony card costs 1 less
     return false;
 };
+$doesGlobalEffectApply["9ooAGDhBj7_COST"] = function($obj) { // Briar's Spindle: flag only â€” next Chessman activation costs 2 less
+    return false;
+};
 
 $doesGlobalEffectApply["INNERVATE_STEALTH"] = function($obj) { //Innervate Agility: units gain stealth
     return PropertyContains(EffectiveCardType($obj), "ALLY") || PropertyContains(EffectiveCardType($obj), "CHAMPION");
@@ -20371,6 +20374,13 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         && PropertyContains(CardSubtypes($cardID), "HARMONY")) {
         $reserveCost = max(0, $reserveCost - 1);
         if(!$dryRun) RemoveGlobalEffect($player, "STEADY_VERSE_HARMONY_DISCOUNT");
+    }
+
+    // Briar's Spindle (9ooAGDhBj7): next Chessman card activated this turn costs 2 less (one-shot)
+    if(GlobalEffectCount($player, "9ooAGDhBj7_COST") > 0
+        && PropertyContains(CardSubtypes($cardID), "CHESSMAN")) {
+        $reserveCost = max(0, $reserveCost - 2);
+        if(!$dryRun) RemoveGlobalEffect($player, "9ooAGDhBj7_COST");
     }
 
     // Viridian Protective Trinket (s3572j3oda): during opponent's turn, water cards cost 2 more
