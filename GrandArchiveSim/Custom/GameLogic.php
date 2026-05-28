@@ -4480,6 +4480,11 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         }
+        case "4moumzcx9z": // Staff of Blossoming Will â€” (1), REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            break;
         case "d6soporhlq": // Obelisk of Protection â€” REST
         case "wk0pw0y6is": // Obelisk of Armaments â€” REST
         case "xy5lh23qu7": // Obelisk of Fabrication â€” REST
@@ -4492,7 +4497,6 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "mvfcd0ukk6": // Molten Arrow â€” REST
         case "szeb8zzj86": // Fractal of Mana â€” REST
         case "sq0ou8vas3": // Tome of Sorcery â€” REST
-        case "4moumzcx9z": // Staff of Blossoming Will â€” REST
         case "E09lX95cb9": // Ticket to the Afterlife â€” REST
         case "qj5bbae3z4": // Cosmic Astroscope â€” REST
         case "MyUTeqUJ0H": // Tome of Sacred Lightning â€” REST
@@ -13369,8 +13373,7 @@ function CardHasAbility($obj) {
     if($obj->CardID === "4moumzcx9z") {
         if(!IsDiaoChanBonus($obj->Controller)) return 0;
         if($obj->Status != 2) return 0;
-        $hand = &GetHand($obj->Controller);
-        if(count($hand) < 1) return 0;
+        if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 1) return 0;
     }
 
     // Mana Limiter (IC3OU6vCnF): requires champion has 6+ enlighten counters

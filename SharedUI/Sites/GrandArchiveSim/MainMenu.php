@@ -48,7 +48,7 @@ include_once 'Header.php';
         <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a deck link:</label>
         <input type="text" id="deck-link" name="deck_link" placeholder="https://shoutatyourdecks.com/decks/..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
         <div style="margin-top: 8px; color: #b9b9b9; font-size: 12px; line-height: 1.35;">
-          Supported deck links: Shout At Your Decks, sleeved.gg, DungeonGUI, TCGArchitect
+          Supported deck links: DungeonGUI, Shout At Your Decks, sleeved.gg, TCGArchitect
         </div>
       </div>
       <div id="deck-input-text" style="display: none;">
@@ -254,7 +254,7 @@ include_once 'Header.php';
     { key: 'u', label: 'Undo your most recent action' },
     { key: 'Space', label: 'Pass an optional decision when available' },
     { text: 'Hover a card on the field to see its full text' },
-    { text: 'You can paste a deck link directly from Shout At Your Decks, sleeved.gg, DungeonGUI, or TCGArchitect.' },
+    { text: 'You can paste a deck link directly from DungeonGUI, Shout At Your Decks, sleeved.gg, or TCGArchitect.' },
     { text: 'Private games generate a shareable invite link — send it to your opponent and they can join instantly.' },
     { text: 'The queue matches you with the first available opponent. No need to refresh — it polls automatically.' },
     { key: 'Esc', label: 'Cancel matchmaking while waiting for an opponent' },
