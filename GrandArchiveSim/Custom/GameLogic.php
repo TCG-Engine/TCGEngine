@@ -4873,7 +4873,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
-        case "cMixAGt8zv": // Gustmark Gauge: (2) reserve + REST (reserve queued by ability body)
+        case "cMixAGt8zv": // Gustmark Gauge: (2), REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            break;
         case "pv4n1n3gyg": // Cleric Robes - REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
