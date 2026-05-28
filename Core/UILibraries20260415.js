@@ -829,7 +829,9 @@
           className += " selected-inline";
         }
         var combatIndicatorText = sharedCardData.CombatTargetIndicator ? String(sharedCardData.CombatTargetIndicator) : "";
-        var combatIndicatorClass = combatIndicatorText ? " combat-targeted-card" : "";
+        var isCombatAttacker = combatIndicatorText === "ATTACKER";
+        var isCombatTarget = combatIndicatorText === "TARGET";
+        var combatIndicatorClass = isCombatAttacker ? " combat-attacker-card" : (isCombatTarget ? " combat-targeted-card" : "");
 
         // Build inline styles - combine position and custom color variable
         var inlineStyles = "position:" + positionStyle + "; margin:1px;";
@@ -963,7 +965,9 @@
 
         try {
           if (combatIndicatorText) {
-            newHTML += "<div class='combat-target-indicator' aria-label='Attack target'>" + combatIndicatorText + "</div>";
+            var combatIndicatorTypeClass = isCombatAttacker ? " combat-attacker-indicator" : " combat-target-indicator";
+            var combatAriaLabel = isCombatAttacker ? "Attack attacker" : "Attack target";
+            newHTML += "<div class='combat-indicator" + combatIndicatorTypeClass + "' aria-label='" + combatAriaLabel + "'>" + combatIndicatorText + "</div>";
           }
         } catch (e) {
           if (console && console.error) console.error('Combat target indicator render error', e);
@@ -1017,7 +1021,7 @@
           pointer-events: auto !important;
         }
 
-        .combat-target-indicator {
+        .combat-indicator {
           position: absolute;
           top: 6px;
           left: 50%;
@@ -1026,8 +1030,6 @@
           padding: 3px 8px;
           border: 1px solid rgba(255, 255, 255, 0.9);
           border-radius: 999px;
-          background: rgba(170, 22, 22, 0.9);
-          box-shadow: 0 0 0 2px rgba(255, 210, 210, 0.2);
           color: #fff;
           font-family: 'Orbitron', sans-serif;
           font-size: 11px;
@@ -1037,8 +1039,22 @@
           text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
         }
 
+        .combat-target-indicator {
+          background: rgba(170, 22, 22, 0.9);
+          box-shadow: 0 0 0 2px rgba(255, 210, 210, 0.2);
+        }
+
+        .combat-attacker-indicator {
+          background: rgba(24, 92, 190, 0.92);
+          box-shadow: 0 0 0 2px rgba(170, 214, 255, 0.25);
+        }
+
         span.draggable.combat-targeted-card > a > img {
           box-shadow: 0 0 0 2px rgba(255, 84, 84, 0.95), 0 0 18px rgba(255, 84, 84, 0.45);
+        }
+
+        span.draggable.combat-attacker-card > a > img {
+          box-shadow: 0 0 0 2px rgba(88, 164, 255, 0.96), 0 0 18px rgba(88, 164, 255, 0.48);
         }
       `;
       document.head.appendChild(widgetstyle);

@@ -13612,7 +13612,9 @@ function CombatTargetIndicator($obj) {
     $mzTarget = $obj->GetMzID();
     if($mzTarget === null || $mzTarget === "" || $mzTarget === "-") return "";
 
-    return IsUnitDefending($mzTarget) ? "TARGET" : "";
+    if(IsUnitAttacking($mzTarget)) return "ATTACKER";
+    if(IsUnitDefending($mzTarget)) return "TARGET";
+    return "";
 }
 
 function CanActExhausted($obj) {
