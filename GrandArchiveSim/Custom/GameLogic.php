@@ -6149,8 +6149,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         foreach($oppField as $oppObj) {
             if($oppObj->removed || $oppObj->CardID !== "qSxEKgmQ0I" || HasNoAbilities($oppObj)) continue;
             if(!IsDiaoChanBonus($opponent)) continue;
-            AddCounters($player, "myField-" . (count($field) - 1), "wither", 1);
-            break;
+            AddCounters($player, $added->GetMzID(), "wither", 1);
         }
     }
 
