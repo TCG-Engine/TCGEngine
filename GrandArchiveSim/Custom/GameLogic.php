@@ -4358,6 +4358,27 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "j9fiu22ltl": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "jk9w4buhwk": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "as8yfa8ptg": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "k7sz76vn6u": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "thaqwi9apy": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "86flbytki3": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "98i5ak5nwo": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "ztjuymn2ge": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "9tmr8iel1m": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "pv6ichyxj0": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "0794z3ffck": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "b53ccl9ipn": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "mic7hijxlg": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "nq6nhjy85f": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+        case "f4rlv5dsrb": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
+            if(intval($abilityIndex) === 0) {
+                for($ri = 0; $ri < 6; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
         case "u7d6soporh": // Ingredient Pouch â€” (1), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
