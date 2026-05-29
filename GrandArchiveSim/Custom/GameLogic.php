@@ -2405,7 +2405,7 @@ $customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecisi
     if(strpos($lastDecision, "myField-") === 0) {
         // Reservable card on field: rest/exhaust it to pay for 1 reserve cost
         $restedObj = GetZoneObject($lastDecision);
-        ExhaustCard($player, $lastDecision);
+        RestCard($player, $lastDecision);
 
         // Wildheart Lyre (50pcescfpw): [CB] whenever rested to pay for Harmony/Melody reserve,
         // put a buff counter on an Animal or Beast ally you control
@@ -16496,7 +16496,12 @@ function OnExhaustCard($player, $mzCard) {
 
 function OnRestCard($player, $mzCard) {
     $obj = &GetZoneObject($mzCard);
+    if($obj === null || $obj->removed) return;
     $obj->Status = 1; // Rest the card (Grand Archive terminology for exhaust)
+    global $restCardAbilities;
+    if(!HasNoAbilities($obj) && isset($restCardAbilities[$obj->CardID . ":0"])) {
+        $restCardAbilities[$obj->CardID . ":0"]($player);
+    }
 }
 
 function OnWakeupCard($player, $mzCard) {
