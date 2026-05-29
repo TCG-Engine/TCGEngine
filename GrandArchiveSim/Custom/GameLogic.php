@@ -4315,6 +4315,16 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "d6soporhlq": // Obelisk of Protection
+            $sourceObj = &GetZoneObject($mzCard);
+            if($sourceObj !== null) $sourceObj->Status = 1; // REST
+            $baseCost = 4;
+            $domainCount = count(ZoneSearch("myField", ["DOMAIN"]));
+            $abilityCost = max(0, $baseCost - $domainCount);
+            for($i = 0; $i < $abilityCost; ++$i) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
         case "wk0pw0y6is": //Obelisk of Armaments
             $baseCost = 5;
             $domainCount = count(ZoneSearch("myField", ["DOMAIN"]));
