@@ -1016,7 +1016,8 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             // Lost Providence (DNbIpzVgde): may activate from material deck -> enters field ephemeral
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
-                if($mObj !== null && !$mObj->removed && $mObj->CardID === "DNbIpzVgde") {
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "DNbIpzVgde"
+                    && CanPlayerUseCardElement($playerID, $mObj->CardID, false, false)) {
                     DecisionQueueController::StoreVariable("lostProvidenceFromMaterial", "YES");
                     DoMaterialize($playerID, $actionCard);
                     return "PLAY";
@@ -13720,8 +13721,8 @@ function MaterialSelectionMetadata($obj) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
-    // Lost Providence (DNbIpzVgde): may always activate from material deck
-    if ($obj->CardID === "DNbIpzVgde") {
+    // Lost Providence (DNbIpzVgde): may activate from material deck when element requirements are met
+    if ($obj->CardID === "DNbIpzVgde" && CanPlayerUseCardElement($turnPlayer, $obj->CardID, false, false)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
