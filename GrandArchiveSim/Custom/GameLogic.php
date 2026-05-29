@@ -4327,6 +4327,8 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             }
             break;
         case "wk0pw0y6is": //Obelisk of Armaments
+            $sourceObj = &GetZoneObject($mzCard);
+            if($sourceObj !== null) $sourceObj->Status = 1; // REST
             $baseCost = 5;
             $domainCount = count(ZoneSearch("myField", ["DOMAIN"]));
             $abilityCost = max(0, $baseCost - $domainCount);
