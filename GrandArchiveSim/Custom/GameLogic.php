@@ -11826,36 +11826,65 @@ function AngelicChannelingChoices($player) {
 
 $customDQHandlers["AngelicChannelingBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    global $playerID;
     $chosenCards = explode("&", $lastDecision);
     for($i = 0; $i < count($chosenCards); ++$i) {
         $chosen = $chosenCards[$i];
         if($chosen === "" || $chosen === "-" || $chosen === "PASS") continue;
-        $banished = MZMove($player, $chosen, "myBanish");
-        if($banished === null) continue;
-        if(!is_array($banished->TurnEffects)) $banished->TurnEffects = [];
-        $banished->TurnEffects[] = "ANGELIC_CHANNELING";
-        AddGlobalEffects($player, "ANGELIC_CHANNELING_PENDING");
+        $chosenObj = GetZoneObject($chosen);
+        if($chosenObj === null || $chosenObj->removed) continue;
+        $cardID = $chosenObj->CardID;
+        MZMove($player, $chosen, "myBanish");
+        $banish = GetBanish($player);
+        $prefix = ($player == $playerID) ? "myBanish" : "theirBanish";
+        for($bi = count($banish) - 1; $bi >= 0; --$bi) {
+            if($banish[$bi]->removed || $banish[$bi]->CardID !== $cardID) continue;
+            AddCounters($player, $prefix . "-" . $bi, "angelic_channeling", 1);
+            break;
+        }
         DrawIntoMemory($player, 1);
     }
 };
 
 function AngelicChannelingLevel3($player) {
-    if(GlobalEffectCount($player, "ANGELIC_CHANNELING_PENDING") <= 0) return;
     $banish = &GetBanish($player);
     $toReturn = [];
     for($i = count($banish) - 1; $i >= 0; --$i) {
-        if($banish[$i]->removed || !in_array("ANGELIC_CHANNELING", $banish[$i]->TurnEffects ?? [])) continue;
+        if($banish[$i]->removed || GetCounterCount($banish[$i], "angelic_channeling") <= 0) continue;
         $toReturn[] = $banish[$i]->CardID;
         $banish[$i]->Remove();
     }
     if(empty($toReturn)) return;
     DecisionQueueController::CleanupRemovedCards();
-    $deck = &GetDeck($player);
-    foreach(array_reverse($toReturn) as $cardID) {
-        array_unshift($deck, new Deck($cardID, 'Deck', $player));
-    }
-    RemoveGlobalEffect($player, "ANGELIC_CHANNELING_PENDING");
+    $param = "Top=" . implode(",", $toReturn) . ";Bottom=";
+    DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1,
+        tooltip:"Put_the_banished_cards_on_top_and/or_bottom_of_your_deck_in_any_order");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "AngelicChannelingRearrangeApply", 1);
 }
+
+$customDQHandlers["AngelicChannelingRearrangeApply"] = function($player, $parts, $lastDecision) {
+    $deck = &GetDeck($player);
+    $piles = ["Top" => [], "Bottom" => []];
+    foreach(explode(";", $lastDecision) as $pileStr) {
+        $eqPos = strpos($pileStr, "=");
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        if(isset($piles[$pileName])) {
+            $piles[$pileName] = ($cardsStr !== "") ? explode(",", $cardsStr) : [];
+        }
+    }
+
+    // Top pile goes to deck front in chosen order.
+    $topCards = $piles["Top"];
+    for($i = count($topCards) - 1; $i >= 0; --$i) {
+        array_unshift($deck, new Deck($topCards[$i], 'Deck', $player));
+    }
+    // Bottom pile goes to deck back in chosen order.
+    foreach($piles["Bottom"] as $cardID) {
+        $deck[] = new Deck($cardID, 'Deck', $player);
+    }
+};
 
 function LotorTrinketEnter($player) {
     ScavengeForSubtype($player, 6, "RACCOON");
@@ -14297,8 +14326,6 @@ $untilBeginTurnEffects["8m69iq4d5v"] = true;
 $untilBeginTurnEffects["4x7e22tk3i"] = true;
 $foreverEffects["GMBTMNTM"] = true;
 $effectAppliesToBoth["GMBF3HVRKG"] = true;
-$foreverEffects["ANGELIC_CHANNELING_PENDING"] = true;
-$doesGlobalEffectApply["ANGELIC_CHANNELING_PENDING"] = function($obj) { return false; };
 // Peaceful Reunion: never auto-expire (cleared manually at caster's RecollectionPhase)
 $foreverEffects["wr42i6eifn"] = true;
 // Freydis permanent distant: Ranger units are always distant for the rest of the game
