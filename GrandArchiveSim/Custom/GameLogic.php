@@ -17016,6 +17016,8 @@ function MaryAnnOmensHaveKeyword($obj, $keyword) {
 function HasVigor($obj) {
     if(HasNoAbilities($obj)) return false;
     if($obj->CardID === "4GFKcHg9NU") return true; // Argus, All-Seeing Giant
+    // Neos Elemental (jwsl7dedg6): Vigor missed by keyword parser (comma-separated keyword line)
+    if($obj->CardID === "jwsl7dedg6") return true;
     if(MaryAnnOmensHaveKeyword($obj, "Vigor")) return true;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     if($obj->CardID === "wAabqFjdM5") {
@@ -17440,6 +17442,8 @@ function HasTrueSight($obj) {
     if(HasNoAbilities($obj)) return false;
     // Memorite Shardwing (LxF5riNjnL): printed True Sight
     if($obj->CardID === "LxF5riNjnL") return true;
+    // Neos Elemental (jwsl7dedg6): True Sight missed by keyword parser (comma-separated keyword line)
+    if($obj->CardID === "jwsl7dedg6") return true;
     if($obj->CardID === "4GFKcHg9NU") return true; // Argus, All-Seeing Giant
     if(MaryAnnOmensHaveKeyword($obj, "TrueSight")) return true;
     if(HasKeyword_TrueSight($obj)) return true;
@@ -17655,6 +17659,8 @@ function HasTaunt($obj) {
     if(MaryAnnOmensHaveKeyword($obj, "Taunt")) return true;
     if(in_array("NO_TAUNT", $obj->TurnEffects)) return false;
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
+    // Neos Elemental (jwsl7dedg6): Taunt missed by keyword parser (comma-separated keyword line)
+    if($obj->CardID === "jwsl7dedg6") return true;
     // Avatar of Genbu (67CIhG8hmG): [Guo Jia Bonus][Deluge 12] has taunt
     if($obj->CardID === "67CIhG8hmG" && IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) return true;
     if($obj->CardID === "tf5f2n38g0") return true;
