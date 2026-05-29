@@ -4326,6 +4326,16 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
             break;
+        case "xy5lh23qu7": // Obelisk of Fabrication
+            $sourceObj = &GetZoneObject($mzCard);
+            if($sourceObj !== null) $sourceObj->Status = 1; // REST
+            $baseCost = 6;
+            $domainCount = count(ZoneSearch("myField", ["DOMAIN"]));
+            $abilityCost = max(0, $baseCost - $domainCount);
+            for($i = 0; $i < $abilityCost; ++$i) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
         case "wk0pw0y6is": //Obelisk of Armaments
             $sourceObj = &GetZoneObject($mzCard);
             if($sourceObj !== null) $sourceObj->Status = 1; // REST
@@ -4500,7 +4510,6 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         case "d6soporhlq": // Obelisk of Protection â€” REST
         case "wk0pw0y6is": // Obelisk of Armaments â€” REST
-        case "xy5lh23qu7": // Obelisk of Fabrication â€” REST
         case "waf8urrqtj": // Gloamspire, Black Market â€” REST
         case "4nmxqsm4o9": // The Elysian Astrolabe â€” REST
         case "0yetaebjlw": // Lunar Conduit â€” REST
