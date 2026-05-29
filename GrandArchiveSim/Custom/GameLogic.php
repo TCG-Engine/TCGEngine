@@ -2533,7 +2533,6 @@ function RevealImbueReserved($player) {
 
     $memory = GetMemory($player);
     $elementMatches = 0;
-    $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS"];
     if($matcher === "card_element" && !is_array($element) && $element !== null) {
         $element = array_values(array_filter(array_map('trim', explode(',', $element)), fn($part) => $part !== ""));
     }
@@ -2543,12 +2542,7 @@ function RevealImbueReserved($player) {
         $memoryElement = EffectiveCardElement($memory[$i]);
         switch($matcher) {
             case "advanced":
-                foreach($advancedElements as $advancedElement) {
-                    if(PropertyContains($memoryElement, $advancedElement)) {
-                        $elementMatches++;
-                        break;
-                    }
-                }
+                if(IsAdvancedElementCard($memory[$i]->CardID)) $elementMatches++;
                 break;
             case "element":
             case "card_element":
