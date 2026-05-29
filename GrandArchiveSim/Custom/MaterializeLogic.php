@@ -64,6 +64,18 @@ function GetMaterializeFloatingChoices($player) {
     return implode("&", $choices);
 }
 
+function QueueMaterializeFloatingPaymentChoice($player, $memoryCost) {
+    if($memoryCost <= 0) return;
+    $floatingIndices = GetMaterializeFloatingChoices($player);
+    if($floatingIndices === "") return;
+    $floatingChoices = explode("&", $floatingIndices);
+    $maxChoices = min($memoryCost, count($floatingChoices));
+    if($maxChoices <= 0) return;
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|".$maxChoices."|".$floatingIndices, 1,
+        tooltip:"Banish_up_to_".$maxChoices."_floating_memory_cards");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
+}
+
 function GetLegalMaterializeChoices($player) {
     $material = GetMaterial($player);
     $choices = [];
@@ -461,10 +473,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         }
 
         if($memoryCost > 0) {
-            if($floatingIndices != "") {
-                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-                DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
-            }
+            QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
         }
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
         return; // Materialize() will be called by FINISHPAYMATERIALIZE after cost is paid
@@ -521,10 +530,7 @@ $customDQHandlers["ShardforgedBladeMaterializeCost"] = function($player, $parts,
         for($i = 0; $i < $extraReserveCost; ++$i) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
         }
-        if($memoryCost > 0 && $floatingIndices != "") {
-            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
-        }
+        if($memoryCost > 0) QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
         return;
     }
@@ -569,11 +575,7 @@ $customDQHandlers["DragonsDawnBanish"] = function($player, $parts, $lastDecision
         // All 3 banished — handle memory cost then materialize
         if($memoryCost > 0) {
             DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
-            $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
-            if($floatingIndices != "") {
-                DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-                DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
-            }
+            QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
             DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
         }
         Materialize($player, $mzCard);
@@ -600,11 +602,7 @@ $customDQHandlers["DusksoulStoneMaterializeCostFinish"] = function($player, $par
     MZMove($player, $lastDecision, "myBanish");
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
-        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
-        if($floatingIndices != "") {
-            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
-        }
+        QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
     }
     Materialize($player, $mzCard);
@@ -640,11 +638,7 @@ $customDQHandlers["VernalTalismanMaterializeCostFinish"] = function($player, $pa
     MZMove($player, $lastDecision, "myBanish");
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
-        $floatingIndices = implode("&", ZoneSearch("myGraveyard", floatingMemoryOnly:true));
-        if($floatingIndices != "") {
-            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
-        }
+        QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
     }
     Materialize($player, $mzCard);
@@ -657,11 +651,7 @@ $customDQHandlers["CoronalMaterializeCost"] = function($player, $parts, $lastDec
     MZMove($player, $lastDecision, "myBanish");
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
-        $floatingIndices = GetMaterializeFloatingChoices($player);
-        if($floatingIndices != "") {
-            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
-        }
+        QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
     }
     Materialize($player, $mzCard);
@@ -741,36 +731,33 @@ $customDQHandlers["ClarentReimaginedMatCostFinish"] = function($player, $parts, 
 function ClarentReimaginedFinalizeMaterialize($player, $mzCard, $memoryCost) {
     if($memoryCost > 0) {
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
-        $floatingIndices = GetMaterializeFloatingChoices($player);
-        if($floatingIndices != "") {
-            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
-        }
+        QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
         DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
     }
     Materialize($player, $mzCard);
 }
 
 $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $banishedObj = GetZoneObject($lastDecision);
-    $banishedCardID = $banishedObj ? $banishedObj->CardID : null;
-    MZMove($player, $lastDecision, "myBanish");
-    // Floating-memory banish hooks for cards banished from GY to pay memory.
-    if($banishedCardID !== null) {
-        PelagicFatestoneOnFloatingBanished($player, $banishedCardID);
-        WeavingManastreamOnFloatingBanished($player, $banishedCardID);
+    $selected = [];
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        // MZMULTICHOOSE returns "&"-delimited selections; tolerate legacy single-select fallback.
+        $selected = explode("&", $lastDecision);
     }
-    $toPay = $parts[0];
-    --$toPay;
-    DecisionQueueController::StoreVariable("MemoryCost", $toPay);
-    if($toPay > 0) {
-        $floatingIndices = GetMaterializeFloatingChoices($player);
-        if($floatingIndices !== "") {
-            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $floatingIndices, 1);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $toPay, 1);
+    $paid = 0;
+    foreach($selected as $mzCard) {
+        if($mzCard === "" || $mzCard === "-" || $mzCard === "PASS") continue;
+        $banishedObj = GetZoneObject($mzCard);
+        if($banishedObj === null || $banishedObj->removed) continue;
+        $banishedCardID = $banishedObj->CardID;
+        MZMove($player, $mzCard, "myBanish");
+        if($banishedCardID !== null) {
+            PelagicFatestoneOnFloatingBanished($player, $banishedCardID);
+            WeavingManastreamOnFloatingBanished($player, $banishedCardID);
         }
+        ++$paid;
     }
+    $toPay = max(0, intval($parts[0] ?? 0) - $paid);
+    DecisionQueueController::StoreVariable("MemoryCost", $toPay);
     return $toPay;
 };
 
