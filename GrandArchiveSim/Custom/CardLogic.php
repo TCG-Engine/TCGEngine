@@ -751,20 +751,23 @@ function FatestoneOfBalanceOnOpponentActivated($activatingPlayer) {
 
 $customDQHandlers["HuajiEndPhaseTransform"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $fieldIdx = intval($parts[0]);
-    global $playerID;
-    $zone = $player == $playerID ? "myField" : "theirField";
-    $mzCard = $zone . "-" . $fieldIdx;
+    if(empty($parts) || $parts[0] === "") return;
+    $mzCard = $parts[0];
     $obj = GetZoneObject($mzCard);
     if($obj === null || $obj->removed || $obj->CardID !== "v1iyt8rugx") return;
-    // Pay (3): check if player has 3 cards in hand for reserve payment
-    $hand = &GetHand($player);
-    if(count($hand) < 3) return;
-    for($r = 0; $r < 3; ++$r) {
-        $hand = &GetHand($player);
-        if(count($hand) === 0) break;
-        MZMove($player, "myHand-0", "myMemory");
-    }
+    // Pay (3) reserve with normal reserve prompts, then transform.
+    if(CountAvailableReservePayments($player) < 3) return;
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "HuajiEndPhaseTransformResolve|" . $mzCard, 1);
+};
+
+$customDQHandlers["HuajiEndPhaseTransformResolve"] = function($player, $parts, $lastDecision) {
+    if(empty($parts) || $parts[0] === "") return;
+    $mzCard = $parts[0];
+    $obj = GetZoneObject($mzCard);
+    if($obj === null || $obj->removed || $obj->CardID !== "v1iyt8rugx") return;
     TransformCard($player, $mzCard);
 };
 

@@ -8527,9 +8527,9 @@ function EndPhase() {
         }
     }
 
-    // Huaji of Heaven's Rise (v1iyt8rugx): [Guo Jia Bonus] at end of turn,
+    // Huaji of Heaven's Rise (v1iyt8rugx): [Class Bonus] at end of turn,
     // if champion is exia element, may pay (3) to transform
-    if(IsGuoJiaBonus($turnPlayer)) {
+    if(IsClassBonusActive($turnPlayer, explode(",", CardClasses("v1iyt8rugx")))) {
         $tpField = &GetField($turnPlayer);
         for($hi = 0; $hi < count($tpField); ++$hi) {
             if(!$tpField[$hi]->removed && $tpField[$hi]->CardID === "v1iyt8rugx" && !HasNoAbilities($tpField[$hi])) {
@@ -8542,11 +8542,12 @@ function EndPhase() {
                     }
                 }
                 if($champObj !== null && EffectiveCardElement($champObj) === "EXIA") {
-                    $hand = &GetHand($turnPlayer);
-                    if(count($hand) >= 3) {
+                    if(CountAvailableReservePayments($turnPlayer) >= 3) {
+                        global $playerID;
+                        $huajiMZ = ($turnPlayer == $playerID ? "myField" : "theirField") . "-" . $hi;
                         DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1,
                             tooltip:"Pay_(3)_to_transform_Huaji_of_Heaven's_Rise?");
-                        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "HuajiEndPhaseTransform|" . $hi, 1);
+                        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "HuajiEndPhaseTransform|" . $huajiMZ, 1);
                     }
                 }
                 break;
