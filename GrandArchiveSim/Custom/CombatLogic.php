@@ -1558,6 +1558,28 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         AddPrepCounter($player, 1);
     }
 
+    // Fractured Memories (UAJGQFbXjs) [Merlin Bonus]:
+    // Your champion has "On Champion Hit: You may move all sheen counters on the hit champion
+    // to your Fractured Memories. If 3+ counters were moved this way, deal 3 damage to that champion."
+    $attackerObjFractured = GetZoneObject($attackerMZ);
+    if($attackerObjFractured !== null
+       && !HasNoAbilities($attackerObjFractured)
+       && PropertyContains(EffectiveCardType($attackerObjFractured), "CHAMPION")
+       && IsMerlinBonusActive($player)
+       && HasFracturedMemories($player)) {
+        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+            $hitObj = GetZoneObject($hitTarget);
+            if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
+                if(GetCounterCount($hitObj, "sheen") > 0) {
+                    DecisionQueueController::StoreVariable("FracturedMemoriesHitTarget", $hitTarget);
+                    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Move_all_sheen_counters_from_hit_champion_to_Fractured_Memories?");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "FracturedMemoriesOnChampionHit", 1);
+                }
+            }
+        }
+    }
+
     // Mana's Cascade (xywyzv14iv): On Champion Hit — opponent banishes random memory
     $attackerObjHit = GetZoneObject($attackerMZ);
     if($attackerObjHit !== null && in_array("xywyzv14iv_ON_HIT", $attackerObjHit->TurnEffects ?? [])) {
@@ -2540,6 +2562,30 @@ $customDQHandlers["TristanOnAllyHit"] = function($player, $parts, $lastDecision)
         if($targetObj !== null && !$targetObj->removed) {
             DoAllyDestroyed($player, $hitTarget);
         }
+    }
+};
+
+$customDQHandlers["FracturedMemoriesOnChampionHit"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") {
+        DecisionQueueController::ClearVariable("FracturedMemoriesHitTarget");
+        return;
+    }
+    if(!HasFracturedMemories($player)) {
+        DecisionQueueController::ClearVariable("FracturedMemoriesHitTarget");
+        return;
+    }
+    $hitTarget = DecisionQueueController::GetVariable("FracturedMemoriesHitTarget");
+    DecisionQueueController::ClearVariable("FracturedMemoriesHitTarget");
+    if($hitTarget === null || $hitTarget === "" || $hitTarget === "-") return;
+    $hitObj = GetZoneObject($hitTarget);
+    if($hitObj === null || $hitObj->removed || !PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
+    $movedSheen = GetCounterCount($hitObj, "sheen");
+    if($movedSheen <= 0) return;
+    RemoveCounters($player, $hitTarget, "sheen", $movedSheen);
+    AddSheenToMastery($player, $movedSheen);
+    if($movedSheen >= 3) {
+        $hitController = intval($hitObj->Controller ?? (($player == 1) ? 2 : 1));
+        DealChampionDamage($hitController, 3, $player);
     }
 };
 

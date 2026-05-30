@@ -16741,6 +16741,7 @@ function EndCombat($player) {
 function TonorisCreationsWillActive($player) {
     $field = &GetField($player);
     foreach($field as $obj) {
+        if($obj === null) continue;
         if(!$obj->removed && $obj->CardID === "n2jnltv5kl" && !HasNoAbilities($obj)) {
             return true;
         }
@@ -16760,6 +16761,7 @@ function HasFloatingMemory($obj) {
         for($p = 1; $p <= 2; $p++) {
             $pField = &GetField($p);
             foreach($pField as $fCard) {
+                if($fCard === null) continue;
                 if(!$fCard->removed && $fCard->CardID === "WI2owxIw0z") {
                     return true;
                 }
