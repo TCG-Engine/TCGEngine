@@ -5122,32 +5122,6 @@ $customDQHandlers["DiaoChanIdyllBanish"] = function($player, $params, $lastDecis
 };
 
 // ============================================================================
-// Diao Chan, Idyll Corsage (d7l6i5thdy): On Enter — choose any amount of
-// non-champion objects loop: add wither counter, repeat until pass
-// ============================================================================
-$customDQHandlers["DiaoChanIdyllWitherLoop"] = function($player, $params, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") return;
-    AddCounters($player, $lastDecision, "wither", 1);
-    // Offer to choose another (exclude already-chosen — filter still-valid targets)
-    $allObjects = array_merge(
-        ZoneSearch("myField", ["ALLY", "REGALIA"]),
-        ZoneSearch("myField", cardSubtypes: ["WEAPON"]),
-        ZoneSearch("theirField", ["ALLY", "REGALIA"]),
-        ZoneSearch("theirField", cardSubtypes: ["WEAPON"])
-    );
-    $allObjects = array_filter($allObjects, function($mz) {
-        $obj = GetZoneObject($mz);
-        return $obj !== null && !PropertyContains(EffectiveCardType($obj), "CHAMPION");
-    });
-    $allObjects = array_values($allObjects);
-    if(empty($allObjects)) return;
-    $choices = implode("&", $allObjects);
-    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $choices, 1,
-        tooltip:"Choose_another_object_to_put_wither_counter_on");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "DiaoChanIdyllWitherLoop", 1);
-};
-
-// ============================================================================
 // Enthralling Chime (mhc5a9jpi6): gain control of target ally with 3+ wither
 // ============================================================================
 $customDQHandlers["EnthrallingChimeGainControl"] = function($player, $params, $lastDecision) {
