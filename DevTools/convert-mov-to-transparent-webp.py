@@ -12,7 +12,7 @@ input_path = r"C:\Users\maxim\Downloads\draw-card.mov"
 output_path = r"C:\Users\maxim\Downloads\draw-card.webp"
 
 TARGET_FPS = 8  # output frames per second
-FRAME_SAMPLE_STEP = 6  # keep every Nth source frame (overrides TARGET_FPS when > 1)
+FRAME_SAMPLE_STEP = 4  # keep every Nth source frame (overrides TARGET_FPS when > 1)
 FAST_PLAYBACK = True  # True: sampled frames keep source frame duration (speeds up animation)
 RESPECT_TARGET_FPS = True  # In FAST_PLAYBACK mode, drop extra sampled frames to match TARGET_FPS without increasing duration
 BOARD_MODE = False  # When True: skip all transparency/crop/border - just resample FPS and convert to WebP

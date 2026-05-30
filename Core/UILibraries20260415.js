@@ -528,11 +528,12 @@
               fx.animate(
                 [
                   { opacity: 0, transform: 'scale(0.92)', offset: 0 },
-                  { opacity: 1, transform: 'scale(1.02)', offset: 0.45 },
+                  { opacity: 1, transform: 'scale(1.02)', offset: 0.50 },
+                  { opacity: 1, transform: 'scale(1.08)', offset: 0.92 },
                   { opacity: 0, transform: 'scale(1.08)', offset: 1 }
                 ],
                 {
-                  duration: 880,
+                  duration: 1290,
                   easing: 'ease-out',
                   fill: 'forwards'
                 }
@@ -541,7 +542,7 @@
               cardEl.classList.remove('reliquary-draw-card-enter');
               setTimeout(function() {
                 if (fx && fx.parentNode) fx.parentNode.removeChild(fx);
-              }, 940);
+              }, 1390);
             });
           });
         } catch (e) {}
