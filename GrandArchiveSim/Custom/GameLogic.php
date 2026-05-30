@@ -17308,6 +17308,8 @@ function HasStealth($obj) {
     if(HasNoAbilities($obj)) return false;
     // Memorite Shardwing (LxF5riNjnL): printed Stealth
     if($obj->CardID === "LxF5riNjnL") return true;
+    // Senaris, Six of Diamonds (EIpkYYSP3s): printed Stealth
+    if($obj->CardID === "EIpkYYSP3s") return true;
     if(MaryAnnOmensHaveKeyword($obj, "Stealth")) return true;
     // Expose Darkness (991ovfr8o0): loses stealth until end of turn
     if(in_array("LOSE_STEALTH", $obj->TurnEffects)) return false;
@@ -17568,6 +17570,8 @@ function GetProtectiveFractalPrevention($obj) {
  */
 function HasSpellshroud($obj) {
     if(HasNoAbilities($obj)) return false;
+    // Senaris, Six of Diamonds (EIpkYYSP3s): printed Spellshroud
+    if($obj->CardID === "EIpkYYSP3s") return true;
     if(MaryAnnOmensHaveKeyword($obj, "Spellshroud")) return true;
     if(in_array("NO_SPELLSHROUD", $obj->TurnEffects ?? [])) return false;
     if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($obj)) return true;
