@@ -5378,9 +5378,9 @@ function TriggerGameOver($loserPlayer) {
 function DoAllyDestroyed($player, $mzCard) {
     global $allyDestroyedAbilities, $customDQHandlers;
     $obj = GetZoneObject($mzCard);
-    // Immortality: ally survives instead of being destroyed, remove all damage
+    // Immortality: object survives destruction/sacrifice/death checks.
+    // Damage is intentionally preserved; immortality prevents dying, not damage.
     if(HasImmortality($obj)) {
-        $obj->Damage = 0;
         return;
     }
     $controller = $obj->Controller;
@@ -7959,6 +7959,21 @@ function EndPhase() {
 
     // Clear any remaining intent cards (unused attack cards) to graveyard
     ClearIntent($turnPlayer);
+
+    // Jin, Undying Resolve (c4yrrtv7o1): conditional immortality ends at the beginning
+    // of Jin controller's end phase. Re-check lethal immediately as a state-based action.
+    $turnChampMZ = FindChampionMZ($turnPlayer);
+    if($turnChampMZ !== null) {
+        $turnChampObj = GetZoneObject($turnChampMZ);
+        if($turnChampObj !== null && !$turnChampObj->removed) {
+            $isJinUndying = ($turnChampObj->CardID === "c4yrrtv7o1")
+                || ChampionHasInLineage($turnPlayer, "c4yrrtv7o1");
+            if($isJinUndying && intval($turnChampObj->Damage) >= ObjectCurrentHP($turnChampObj)) {
+                DoAllyDestroyed($turnPlayer, $turnChampMZ);
+                DecisionQueueController::CleanupRemovedCards();
+            }
+        }
+    }
 
     // Forgelight Scepter (smw3rrii17): at beginning of each opponent's end phase,
     // if that player has odd cards in memory, deal 2 unpreventable damage to their champion
@@ -18435,13 +18450,28 @@ function HasAgilityThisTurn($player) {
 }
 
 /**
- * Check if an ally has immortality (death prevention).
- * Currently granted by Verita, Queen of Hearts (4qc47amgpp) to other Suited allies.
- * @param object $obj A field zone object.
+ * Check whether a field object currently has immortality.
+ * Immortal objects can take damage, but can't be destroyed/sacrificed/sent to graveyard by death.
+ * @param object|null $obj A field zone object.
  * @return bool
  */
 function HasImmortality($obj) {
+    if($obj === null || $obj->removed) return false;
     if(HasNoAbilities($obj)) return false;
+    // Jin, Undying Resolve (c4yrrtv7o1): as long as it's not your end phase, Jin has immortality.
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        $controller = $obj->Controller ?? null;
+        if($controller !== null) {
+            $isJinUndying = ($obj->CardID === "c4yrrtv7o1")
+                || ChampionHasInLineage($controller, "c4yrrtv7o1");
+            if($isJinUndying) {
+                $isJinEndPhase = (GetCurrentPhase() === "END" && GetTurnPlayer() == $controller);
+                if(!$isJinEndPhase) return true;
+            }
+        }
+    }
+    // Wrathful Slime (wjaq7t8vbf): immortality while it has 6+ buff counters.
+    if($obj->CardID === "wjaq7t8vbf" && GetCounterCount($obj, "buff") >= 6) return true;
     if(HasGrantedKeyword($obj, 'Immortality')) return true;
     if(in_array("IMMORTALITY_NEXT_TURN", $obj->TurnEffects ?? [])) return true;
     if(!PropertyContains(EffectiveCardSubtypes($obj), "SUITED")) return false;

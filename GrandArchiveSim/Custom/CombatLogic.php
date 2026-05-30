@@ -4038,39 +4038,17 @@ function OnDealDamage($player, $source, $target, $amount) {
     }
     RadiantOriginGuardianTrigger($source, $amount);
 
-    // Jin, Undying Resolve (c4yrrtv7o1): Immortality — can't die except during Jin's controller's end phase
-    if($amount > 0 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
-        $champController = $targetObj->Controller ?? $player;
-        $isJinUndying = ($targetObj->CardID === "c4yrrtv7o1")
-            || ChampionHasInLineage($champController, "c4yrrtv7o1");
-        if($isJinUndying) {
-            $isJinEndPhase = (GetCurrentPhase() === "END" && GetTurnPlayer() == $champController);
-            if(!$isJinEndPhase) {
-                $hpNow = ObjectCurrentHP($targetObj);
-                if($targetObj->Damage >= $hpNow) {
-                    $targetObj->Damage = $hpNow - 1; // Immortality: prevent lethal damage outside Jin's end phase
-                }
-            }
-        }
-    }
-
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
-        // Wrathful Slime (wjaq7t8vbf): immortality while it has 6+ buff counters
-        if($targetObj->CardID === "wjaq7t8vbf" && !HasNoAbilities($targetObj)
-           && GetCounterCount($targetObj, "buff") >= 6) {
-            $targetObj->Damage = $currentHp - 1;
-        } else {
-            // If we're in combat context, record that a kill occurred from combat damage.
-            // This is checked by combat handlers to fire OnKillTrigger BEFORE OnHitTrigger.
-            $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
-            if($combatAttacker !== null) {
-                SetCombatKillOccurred();
-                // Store the killed card's ID so OnKill abilities can reference it
-                DecisionQueueController::StoreVariable("CombatKilledCardID", $targetObj->CardID);
-            }
-            AllyDestroyed($player, $target);
+        // If we're in combat context, record that a kill occurred from combat damage.
+        // This is checked by combat handlers to fire OnKillTrigger BEFORE OnHitTrigger.
+        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+        if($combatAttacker !== null) {
+            SetCombatKillOccurred();
+            // Store the killed card's ID so OnKill abilities can reference it
+            DecisionQueueController::StoreVariable("CombatKilledCardID", $targetObj->CardID);
         }
+        AllyDestroyed($player, $target);
     }
 }
 
@@ -4248,37 +4226,15 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     }
     RadiantOriginGuardianTrigger($source, $amount);
 
-    // Jin, Undying Resolve (c4yrrtv7o1): Immortality — can't die except during Jin's controller's end phase
-    if($amount > 0 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
-        $champController = $targetObj->Controller ?? $player;
-        $isJinUndying = ($targetObj->CardID === "c4yrrtv7o1")
-            || ChampionHasInLineage($champController, "c4yrrtv7o1");
-        if($isJinUndying) {
-            $isJinEndPhase = (GetCurrentPhase() === "END" && GetTurnPlayer() == $champController);
-            if(!$isJinEndPhase) {
-                $hpNow = ObjectCurrentHP($targetObj);
-                if($targetObj->Damage >= $hpNow) {
-                    $targetObj->Damage = $hpNow - 1; // Immortality: prevent lethal damage outside Jin's end phase
-                }
-            }
-        }
-    }
-
     $currentHp = ObjectCurrentHP($targetObj);
     if($targetObj->Damage >= $currentHp) {
-        // Wrathful Slime (wjaq7t8vbf): immortality while it has 6+ buff counters
-        if($targetObj->CardID === "wjaq7t8vbf" && !HasNoAbilities($targetObj)
-           && GetCounterCount($targetObj, "buff") >= 6) {
-            $targetObj->Damage = $currentHp - 1;
-        } else {
-            // If we're in combat context, record that a kill occurred from combat damage.
-            $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
-            if($combatAttacker !== null) {
-                SetCombatKillOccurred();
-                DecisionQueueController::StoreVariable("CombatKilledCardID", $targetObj->CardID);
-            }
-            AllyDestroyed($player, $target);
+        // If we're in combat context, record that a kill occurred from combat damage.
+        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+        if($combatAttacker !== null) {
+            SetCombatKillOccurred();
+            DecisionQueueController::StoreVariable("CombatKilledCardID", $targetObj->CardID);
         }
+        AllyDestroyed($player, $target);
     }
 }
 
