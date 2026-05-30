@@ -499,6 +499,57 @@
         window.ApplyExhaustedEnterAnimations = ApplyExhaustedEnterAnimations;
       }
 
+      function ApplyReliquaryDrawAnimations() {
+        try {
+          var enteringCards = document.querySelectorAll('.reliquary-draw-card-enter');
+          if (!enteringCards || enteringCards.length === 0) return;
+
+          requestAnimationFrame(function() {
+            enteringCards.forEach(function(cardEl) {
+              if (!(cardEl instanceof HTMLElement)) return;
+              if (getComputedStyle(cardEl).position === 'static') {
+                cardEl.style.position = 'relative';
+              }
+
+              var fx = document.createElement('div');
+              fx.className = 'reliquary-draw-overlay';
+              fx.style.position = 'absolute';
+              fx.style.inset = '0';
+              fx.style.borderRadius = '10px';
+              fx.style.pointerEvents = 'none';
+              fx.style.zIndex = '1200';
+              fx.style.opacity = '0';
+              fx.style.backgroundImage = "url('./Assets/Overlays/draw-card.webp')";
+              fx.style.backgroundSize = 'cover';
+              fx.style.backgroundPosition = 'center';
+              fx.style.backgroundRepeat = 'no-repeat';
+              cardEl.appendChild(fx);
+
+              fx.animate(
+                [
+                  { opacity: 0, transform: 'scale(0.92)', offset: 0 },
+                  { opacity: 1, transform: 'scale(1.02)', offset: 0.45 },
+                  { opacity: 0, transform: 'scale(1.08)', offset: 1 }
+                ],
+                {
+                  duration: 880,
+                  easing: 'ease-out',
+                  fill: 'forwards'
+                }
+              );
+
+              cardEl.classList.remove('reliquary-draw-card-enter');
+              setTimeout(function() {
+                if (fx && fx.parentNode) fx.parentNode.removeChild(fx);
+              }, 940);
+            });
+          });
+        } catch (e) {}
+      }
+      if (typeof window !== 'undefined') {
+        window.ApplyReliquaryDrawAnimations = ApplyReliquaryDrawAnimations;
+      }
+
       function GetHighlightMetadataForCard(zoneName, cardData) {
         try {
           if (!IsViewerActivePlayer()) return null;
@@ -912,10 +963,13 @@
         } catch (e) {}
 
         var shouldAnimateExhaustedTransition = false;
+        var shouldAnimateReliquaryDraw = false;
         try {
           if (typeof window !== "undefined") {
             if (!window.__prevCardStatusByMzid) window.__prevCardStatusByMzid = {};
             if (!window.__nextCardStatusByMzid) window.__nextCardStatusByMzid = {};
+            if (!window.__prevReliquaryDrawByMzid) window.__prevReliquaryDrawByMzid = {};
+            if (!window.__nextReliquaryDrawByMzid) window.__nextReliquaryDrawByMzid = {};
             if (typeof window.__cardStatusHistoryReady === "undefined") window.__cardStatusHistoryReady = false;
 
             var currentStatus = parseInt(sharedCardData.Status, 10);
@@ -929,6 +983,18 @@
               currentStatus === 1 &&
               previousStatus !== undefined &&
               previousStatus !== 1;
+
+            var turnEffects = Array.isArray(sharedCardData.TurnEffects) ? sharedCardData.TurnEffects : [];
+            var hasReliquaryDrawTag =
+              sharedCardData.CardID === "wsycqp2l90" &&
+              zoneName === "Field" &&
+              turnEffects.indexOf("wsycqp2l90_DRAW_ANIM") !== -1;
+            var hadReliquaryDrawTag = !!window.__prevReliquaryDrawByMzid[id];
+            window.__nextReliquaryDrawByMzid[id] = hasReliquaryDrawTag;
+            shouldAnimateReliquaryDraw =
+              window.__cardStatusHistoryReady === true &&
+              hasReliquaryDrawTag &&
+              !hadReliquaryDrawTag;
           }
         } catch (e) {}
 
@@ -937,6 +1003,9 @@
           if (shouldAnimateExhaustedTransition) {
             className += " exhausted-status-card-enter";
           }
+        }
+        if (shouldAnimateReliquaryDraw) {
+          className += (className ? " " : "") + " reliquary-draw-card-enter";
         }
 
         // Determine rotation from RotationRules

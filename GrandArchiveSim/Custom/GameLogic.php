@@ -7332,23 +7332,24 @@ function RecollectionPhase() {
         return;
     }
     
+    // Incandescent Reliquary (wsycqp2l90): if you have the least influence, draw a card.
+    // Resolve before additional custom upkeep handlers so influence-sensitive checks
+    // are evaluated from the phase entry state and re-checked per trigger copy.
+    $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
+    $field = &GetField($turnPlayer);
+    for($i = 0; $i < count($field); ++$i) {
+        if(!$field[$i]->removed && $field[$i]->CardID === "wsycqp2l90" && !HasNoAbilities($field[$i])) {
+            if(GetInfluence($turnPlayer) <= GetInfluence($otherPlayer)) {
+                Draw($turnPlayer, 1);
+                AddTurnEffect("myField-" . $i, "wsycqp2l90_DRAW_ANIM");
+            }
+        }
+    }
+
     // --- Domain Recollection Upkeep ---
     // Process domain upkeep checks that trigger "at the beginning of your recollection phase".
     // Must run BEFORE memory is returned to hand, since the checks reveal memory cards.
     DomainRecollectionUpkeep($turnPlayer);
-
-    // Incandescent Reliquary (wsycqp2l90): if you have the least influence, draw a card.
-    $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
-    $turnInfluence = GetInfluence($turnPlayer);
-    $otherInfluence = GetInfluence($otherPlayer);
-    $field = &GetField($turnPlayer);
-    for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed && $field[$i]->CardID === "wsycqp2l90" && !HasNoAbilities($field[$i])) {
-            if($turnInfluence <= $otherInfluence) {
-                Draw($turnPlayer, 1);
-            }
-        }
-    }
 
     // Kongming, Erudite Strategist (0i139x5eub): clear "may play until beginning of next turn" tags from banished cards
     $kongmingBanish = &GetBanish($turnPlayer);
