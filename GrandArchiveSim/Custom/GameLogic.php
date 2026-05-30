@@ -5378,6 +5378,12 @@ function TriggerGameOver($loserPlayer) {
 function DoAllyDestroyed($player, $mzCard) {
     global $allyDestroyedAbilities, $customDQHandlers;
     $obj = GetZoneObject($mzCard);
+    // Lu Bu, Indomitable Titan: Diao Chan replacement applies before any champion-loss handling.
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        if(LuBuDiaoChanChampionReplacement($player, $mzCard)) {
+            return;
+        }
+    }
     // Immortality: object survives destruction/sacrifice/death checks.
     // Damage is intentionally preserved; immortality prevents dying, not damage.
     if(HasImmortality($obj)) {
@@ -5417,9 +5423,24 @@ function DoAllyDestroyed($player, $mzCard) {
     $isChampion = PropertyContains(EffectiveCardType($obj), "CHAMPION");
     $animatedPotionDeath = is_array($obj->Counters ?? null) && !empty($obj->Counters["potion_animate"]);
     MZMove($player, $mzCard, $dest);
-    // Champion destruction triggers game over for that champion's controller
-    if ($isChampion) {
-        TriggerGameOver($controller);
+    // Champion destruction triggers game over only if controller no longer has any champion.
+    // This allows replacement effects that establish a new champion (e.g. Lu Bu replacement)
+    // to prevent an incorrect loss from stale destruction paths.
+    if($isChampion) {
+        $stillHasChampion = false;
+        $postField = GetField($controller);
+        foreach($postField as $postObj) {
+            if($postObj === null || $postObj->removed) continue;
+            if(!PropertyContains(EffectiveCardType($postObj), "CHAMPION")) continue;
+            if(intval($postObj->Controller ?? $controller) !== intval($controller)) continue;
+            $stillHasChampion = true;
+            break;
+        }
+        if(!$stillHasChampion) {
+            TriggerGameOver($controller);
+        } else {
+            DecisionQueueController::ClearVariable("GAMEOVER_WINNER");
+        }
     }
     if($animatedPotionDeath && isset($customDQHandlers["AbilityActivated"])) {
         for($ai = 0; $ai < CardActivateAbilityCount($obj->CardID); ++$ai) {
@@ -5478,6 +5499,7 @@ function DoAllyDestroyed($player, $mzCard) {
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
         foreach($field as $carterObj) {
+            if($carterObj === null) continue;
             if(!$carterObj->removed && $carterObj->CardID === "1wl8ao8bls" && !HasNoAbilities($carterObj)) {
                 RecoverChampion($controller, 1);
                 break;
@@ -5517,6 +5539,7 @@ function DoAllyDestroyed($player, $mzCard) {
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
         for($mi = 0; $mi < count($field); ++$mi) {
+            if($field[$mi] === null) continue;
             if(!$field[$mi]->removed && $field[$mi]->CardID === "9xycwz9gv4" && !HasNoAbilities($field[$mi])) {
                 AddCounters($controller, $controllerField . "-" . $mi, "prize", 1);
             }
@@ -5637,6 +5660,7 @@ function DoAllyDestroyed($player, $mzCard) {
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
         for($epi = 0; $epi < count($field); ++$epi) {
+            if($field[$epi] === null) continue;
             if(!$field[$epi]->removed && $field[$epi]->CardID === "7n0bv1sqgb" && !HasNoAbilities($field[$epi])) {
                 AddCounters($controller, $controllerField . "-" . $epi, "refinement", 1);
                 if(GetCounterCount($field[$epi], "refinement") >= 3) {
@@ -15173,6 +15197,9 @@ function DealChampionDamage($player, $amount=1, $sourceController = null) {
             
             TrackChampionDamageThisTurn($obj, $amount);
             TriggerSanguineGoblet($obj->Controller, $amount);
+            if(LuBuDiaoChanChampionReplacement($player, $zone . "-" . $i)) {
+                return $obj;
+            }
             // Assassin's Mantle (3tcs0axa03): if damage was dealt, offer banish to prevent 1 + add prep counter
             if($amount > 0) {
                 $mantleZone = $player == $playerID ? "myField" : "theirField";
@@ -15474,6 +15501,7 @@ function GetOpponent($player) {
 function GetChampionLineage($player) {
     $field = &GetField($player);
     foreach($field as $obj) {
+        if($obj === null) continue;
         if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION") && $obj->Controller == $player) {
             $subcards = is_array($obj->Subcards) ? $obj->Subcards : [];
             return array_merge([$obj->CardID], $subcards);
@@ -18640,6 +18668,7 @@ function FirebloodedOathEndPhase($player) {
 }
 
 function LuBuDiaoChanChampionReplacement($player, $championMZ) {
+    global $playerID;
     $champObj = GetZoneObject($championMZ);
     if($champObj === null || $champObj->removed) return false;
     if(!PropertyContains(EffectiveCardType($champObj), "CHAMPION")) return false;
@@ -18648,27 +18677,42 @@ function LuBuDiaoChanChampionReplacement($player, $championMZ) {
     if(intval($champObj->Damage ?? 0) !== 32 || intval($champObj->Damage ?? 0) < ObjectCurrentHP($champObj)) return false;
 
     $field = &GetField($controller);
+    $controllerFieldPrefix = ($controller == $playerID) ? "myField" : "theirField";
+    $controllerBanishZone = ($controller == $playerID) ? "myBanish" : "theirBanish";
     $luBuMZ = null;
+    $luBuObjRef = null;
     for($i = 0; $i < count($field); ++$i) {
         if(!$field[$i]->removed && $field[$i]->CardID === "xyan7zbtxi" && !HasNoAbilities($field[$i])) {
-            $luBuMZ = "myField-" . $i;
+            $luBuMZ = $controllerFieldPrefix . "-" . $i;
+            $luBuObjRef = $field[$i];
             break;
         }
     }
-    if($luBuMZ === null) return false;
+    if($luBuMZ === null || $luBuObjRef === null) return false;
 
-    MZMove($controller, $championMZ, "myBanish");
-    $luBuObj = GetZoneObject($luBuMZ);
-    if($luBuObj !== null) {
-        ApplyPersistentOverride($luBuMZ, ["type" => "UNIQUE,CHAMPION"]);
-        $luBuObj->Damage = 0;
+    MZMove($controller, $championMZ, $controllerBanishZone);
+    // Re-resolve Lu Bu after movement, because field indexes may shift.
+    $luBuCurrentMZ = null;
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i] === $luBuObjRef) {
+            $luBuCurrentMZ = $controllerFieldPrefix . "-" . $i;
+            break;
+        }
     }
+    if($luBuCurrentMZ === null) return false;
+    $luBuObj = GetZoneObject($luBuCurrentMZ);
+    if($luBuObj === null || $luBuObj->removed || $luBuObj->CardID !== "xyan7zbtxi") return false;
+    // Transform Lu Bu, Indomitable Titan into Lu Bu, Wrath Incarnate.
+    $luBuObj->CardID = "l5izukgdmh";
+    $luBuObj->Damage = 0;
     for($i = count($field) - 1; $i >= 0; --$i) {
         if($field[$i]->removed) continue;
-        $mzID = "myField-" . $i;
-        if($mzID === $luBuMZ) continue;
+        if($field[$i] === $luBuObjRef) continue;
+        $mzID = $controllerFieldPrefix . "-" . $i;
         DoAllyDestroyed($controller, $mzID);
     }
+    // Defensive: clear any stale game-over marker because this replacement prevents the loss.
+    DecisionQueueController::ClearVariable("GAMEOVER_WINNER");
     DecisionQueueController::CleanupRemovedCards();
     return true;
 }
