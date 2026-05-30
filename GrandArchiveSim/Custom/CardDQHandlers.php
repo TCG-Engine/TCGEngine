@@ -5034,7 +5034,8 @@ function WitherUpkeep($player) {
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zone);
-    for($i = 0; $i < count($field); $i++) {
+    // Iterate backwards so sacrifices/cleanup do not reindex unprocessed objects.
+    for($i = count($field) - 1; $i >= 0; $i--) {
         if($field[$i]->removed) continue;
         $witherCount = GetCounterCount($field[$i], "wither");
         if($witherCount <= 0) continue;
