@@ -2968,7 +2968,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         $fieldZone = $targetController == $playerID ? "myField" : "theirField";
         $field = GetZone($fieldZone);
         foreach($field as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "1vt1cn1tzg" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "1vt1cn1tzg" || HasNoAbilities($fieldObj)) continue;
             $linkedAllyMZ = GetLinkedAllyMZ($targetController, $fieldObj);
             if($linkedAllyMZ === null) continue;
             $linkedObj = GetZoneObject($linkedAllyMZ);
@@ -2983,7 +2983,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         $targetController = $targetObj->Controller ?? $player;
         $targetField = GetField($targetController);
         foreach($targetField as $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "8GTa6NS2RG" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "8GTa6NS2RG" || HasNoAbilities($fieldObj)) continue;
             if($fieldObj->GetMzID() === $target) continue; // "another object"
             $amount -= min(2, $amount);
             if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
@@ -3091,7 +3091,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         $zone = $targetController == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fi => $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "sqGcyYocLW" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "sqGcyYocLW" || HasNoAbilities($fieldObj)) continue;
             if(GetCounterCount($fieldObj, "charge") > 2) continue;
             $prevented = min(2, $amount);
             if($prevented <= 0) break;
@@ -3599,8 +3599,8 @@ function OnDealDamage($player, $source, $target, $amount) {
         global $playerID;
         $shieldZone = ($controller == $playerID) ? "myField" : "theirField";
         foreach($shieldField as $si => $sObj) {
-            if($sObj->removed) continue;
-            if(in_array("SURGE_PROTECTOR_SHIELD", $sObj->TurnEffects)) {
+            if($sObj === null || $sObj->removed) continue;
+            if(in_array("SURGE_PROTECTOR_SHIELD", $sObj->TurnEffects ?? [])) {
                 $amount = 0;
                 MZMove($controller, $shieldZone . "-" . $si, ($controller == $playerID) ? "myGraveyard" : "theirGraveyard");
                 DecisionQueueController::CleanupRemovedCards();
@@ -3894,7 +3894,7 @@ function OnDealDamage($player, $source, $target, $amount) {
             $ctrlFieldZone = ($targetController == $playerID) ? "myField" : "theirField";
             $ctrlField = GetZone($ctrlFieldZone);
             foreach($ctrlField as $ssObj) {
-                if(!$ssObj->removed && $ssObj->CardID === "w6OqqsfEso" && !HasNoAbilities($ssObj)) {
+                if($ssObj !== null && !$ssObj->removed && $ssObj->CardID === "w6OqqsfEso" && !HasNoAbilities($ssObj)) {
                     $amount = max(0, $amount - 2);
                     break;
                 }
@@ -3916,7 +3916,7 @@ function OnDealDamage($player, $source, $target, $amount) {
         $targetController = $targetObj->Controller;
         $field = GetField($targetController);
         foreach($field as $idx => $fieldObj) {
-            if($fieldObj->removed || $fieldObj->CardID !== "tsvbgl6ffq" || HasNoAbilities($fieldObj)) continue;
+            if($fieldObj === null || $fieldObj->removed || $fieldObj->CardID !== "tsvbgl6ffq" || HasNoAbilities($fieldObj)) continue;
             $majesticMZ = ($targetController == 1 ? "myField-" : "theirField-") . $idx;
             if($majesticMZ === $targetMZ) continue;
             $amount = intdiv($amount, 2);

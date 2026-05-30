@@ -5491,7 +5491,7 @@ function DoAllyDestroyed($player, $mzCard) {
             $fractFieldName = $fractPlayer == $playerID ? "myField" : "theirField";
             $fractField = GetZone($fractFieldName);
             foreach($fractField as $fractObj) {
-                if(!$fractObj->removed && $fractObj->CardID === "j43qiwqjt0" && !HasNoAbilities($fractObj)) {
+                if($fractObj !== null && !$fractObj->removed && $fractObj->CardID === "j43qiwqjt0" && !HasNoAbilities($fractObj)) {
                     $opponent = $fractPlayer == 1 ? 2 : 1;
                     DealChampionDamage($opponent, 1);
                     RecoverChampion($fractPlayer, 1);
@@ -5595,7 +5595,7 @@ function DoAllyDestroyed($player, $mzCard) {
         $field = GetZone($dcField);
         $hasDC = false;
         foreach($field as $dcObj) {
-            if(!$dcObj->removed && $dcObj->CardID === "d7l6i5thdy" && !HasNoAbilities($dcObj) && $dcObj->Controller == $dcPlayer) {
+            if($dcObj !== null && !$dcObj->removed && $dcObj->CardID === "d7l6i5thdy" && !HasNoAbilities($dcObj) && $dcObj->Controller == $dcPlayer) {
                 $hasDC = true;
                 break;
             }
@@ -9827,6 +9827,7 @@ function ObjectCurrentPower($obj) {
             $zone = $controller == $playerID ? "myField" : "theirField";
             $field = GetZone($zone);
             foreach($field as $fieldObj) {
+                if($fieldObj === null) continue;
                 if(!$fieldObj->removed && $fieldObj->CardID === "9m72c8x9oh" && !HasNoAbilities($fieldObj)
                    && IsClassBonusActive($controller, ["WARRIOR"])) {
                     $power += 2;
@@ -10339,6 +10340,7 @@ function ObjectCurrentPower($obj) {
             $hxField = GetZone($hxZone);
             $hasHuaXiong = false;
             foreach($hxField as $hxObj) {
+                if($hxObj === null) continue;
                 if(!$hxObj->removed && $hxObj->CardID === "TvugEkGGVd" && !HasNoAbilities($hxObj)) {
                     $hasHuaXiong = true;
                     break;
@@ -10347,6 +10349,7 @@ function ObjectCurrentPower($obj) {
             if($hasHuaXiong) {
                 $isJin = false;
                 foreach($hxField as $hxCObj) {
+                    if($hxCObj === null) continue;
                     if(!$hxCObj->removed && PropertyContains(EffectiveCardType($hxCObj), "CHAMPION")) {
                         if(strpos(CardName($hxCObj->CardID), "Jin") === 0) $isJin = true;
                         break;
@@ -16072,7 +16075,7 @@ function TriggerSanguineGoblet($player, $amount) {
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zone);
     foreach($field as $fi => $fObj) {
-        if(!$fObj->removed && $fObj->CardID === "mnz5kgifhd" && !HasNoAbilities($fObj)) {
+        if($fObj !== null && !$fObj->removed && $fObj->CardID === "mnz5kgifhd" && !HasNoAbilities($fObj)) {
             AddCounters($player, $zone . "-" . $fi, "blood", $amount);
         }
     }
@@ -16991,7 +16994,7 @@ function ApplyPersistentOverride($mzCard, $overrides) {
 function ZoneContainsCardID($zoneName, $cardID) {
     $zoneArr = &GetZone($zoneName);
     foreach($zoneArr as $obj) {
-        if(!$obj->removed && $obj->CardID === $cardID) return true;
+        if($obj !== null && !$obj->removed && $obj->CardID === $cardID) return true;
     }
     return false;
 }
@@ -19736,7 +19739,7 @@ function TriggerShademistPriestess($player) {
     $fieldZone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($fieldZone);
     foreach($field as $fObj) {
-        if($fObj->removed || $fObj->CardID !== "w1d0uc5dxZ" || HasNoAbilities($fObj)) continue;
+        if($fObj === null || $fObj->removed || $fObj->CardID !== "w1d0uc5dxZ" || HasNoAbilities($fObj)) continue;
         DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Recover_1?_(Shademist_Priestess)");
         DecisionQueueController::AddDecision($player, "CUSTOM", "ShademistPriestessRecover", 1);
     }

@@ -3878,7 +3878,7 @@ function MagebaneNicoBonusCheck($player) {
 function AegisOfDawnTrigger($player) {
     $field = &GetField($player);
     for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed && $field[$i]->CardID === "abipl6gt7l" && !HasNoAbilities($field[$i])) {
+        if($field[$i] !== null && !$field[$i]->removed && $field[$i]->CardID === "abipl6gt7l" && !HasNoAbilities($field[$i])) {
             MZAddZone($player, "myField", "mu6gvnta6q"); // Automaton Drone token
         }
     }
@@ -3893,7 +3893,7 @@ function RadiantOriginGuardianTrigger($sourceMZ, $amount) {
     if($controller <= 0) return;
     $field = &GetField($controller);
     for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed && $field[$i]->CardID === "yT32RI6pqt" && !HasNoAbilities($field[$i])) {
+        if($field[$i] !== null && !$field[$i]->removed && $field[$i]->CardID === "yT32RI6pqt" && !HasNoAbilities($field[$i])) {
             AddCounters($controller, "myField-" . $i, "training", 1);
         }
     }
