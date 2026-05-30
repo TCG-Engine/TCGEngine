@@ -17061,6 +17061,7 @@ function MaryAnnOmensHaveKeyword($obj, $keyword) {
 function HasVigor($obj) {
     if(HasNoAbilities($obj)) return false;
     if($obj->CardID === "4GFKcHg9NU") return true; // Argus, All-Seeing Giant
+    if($obj->CardID === "xyan7zbtxi") return true; // Lu Bu, Indomitable Titan
     // Neos Elemental (jwsl7dedg6): Vigor missed by keyword parser (comma-separated keyword line)
     if($obj->CardID === "jwsl7dedg6") return true;
     if(MaryAnnOmensHaveKeyword($obj, "Vigor")) return true;
