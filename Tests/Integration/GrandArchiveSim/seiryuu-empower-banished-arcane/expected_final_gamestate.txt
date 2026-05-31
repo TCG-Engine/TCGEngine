@@ -153,7 +153,7 @@ gnYM2V6TTw
 JFdxtCqdeg
 5
 tf5f2n38g0 1 1 0 1 - eyJidWZmIjoxfQ== -
-enxi6tshtu 2 1 2 1 EMPOWERED~EMPOWER_PLUS_5~vz4kc558yx-ACTION_ACTIVATED eyJxdWVzdCI6Mn0= WyI1OWlwcWE5MXIyIiwiajZka2RveHlxdCIsImdxeGR1MWZuNWIiXQ==
+enxi6tshtu 2 1 2 1 vz4kc558yx-ACTION_ACTIVATED eyJxdWVzdCI6Mn0= WyI1OWlwcWE5MXIyIiwiajZka2RveHlxdCIsImdxeGR1MWZuNWIiXQ==
 xd4kv0akqr 2 1 0 1 - - -
 JPcFmCpdiF 2 1 0 1 - - -
 2gv7DC0KID 2 1 0 1 ENTERED_THIS_TURN - -

@@ -1264,6 +1264,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             TrackEffectStackSourceZone("EffectStack-" . $obj->mzIndex, "myBanish");
         }
     }
+    // Empower: the next spell activated this turn gets the full pending empower amount.
+    // Tag this activation on the effect stack and consume pending empower immediately.
+    if(PropertyContains(CardSubtypes($obj->CardID), "SPELL")) {
+        $pendingEmpowerForActivation = PendingEmpowerAmount($player);
+        if($pendingEmpowerForActivation > 0) {
+            AddTurnEffect("EffectStack-" . $obj->mzIndex, "EMPOWERED");
+            AddTurnEffect("EffectStack-" . $obj->mzIndex, "EMPOWER_PLUS_" . $pendingEmpowerForActivation);
+            ConsumePendingEmpower($player);
+        }
+    }
 
     // Three Visits (w7o3agvvnc): pay mandatory additional cost by resting champion.
     if($obj->CardID === "w7o3agvvnc" && !$ignoreCost) {
@@ -15417,7 +15427,6 @@ function RecoverChampion($player, $amount=1) {
 
 function Empower($player, $amount, $sourceID) {
     if(intval($amount) <= 0) return;
-    AddGlobalEffects($player, $sourceID);
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zone);
@@ -15445,7 +15454,42 @@ function Empower($player, $amount, $sourceID) {
     }
 }
 
+function ConsumePendingEmpower($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = &GetZone($zone);
+    foreach($field as &$obj) {
+        if(!PropertyContains(EffectiveCardType($obj), "CHAMPION")) continue;
+        $newEffects = [];
+        $pending = 0;
+        foreach($obj->TurnEffects ?? [] as $effectID) {
+            if($effectID === "EMPOWERED") continue;
+            if(strpos($effectID, "EMPOWER_PLUS_") === 0) {
+                $pending += intval(substr($effectID, strlen("EMPOWER_PLUS_")));
+                continue;
+            }
+            $newEffects[] = $effectID;
+        }
+        $obj->TurnEffects = $newEffects;
+        return $pending;
+    }
+    return 0;
+}
+
 function IsEmpowered($player) {
+    $contextMZ = DecisionQueueController::GetVariable("mzID");
+    if(is_string($contextMZ) && strpos($contextMZ, "EffectStack-") === 0) {
+        $stackObj = GetZoneObject($contextMZ);
+        if($stackObj !== null && !$stackObj->removed) {
+            if(in_array("EMPOWERED", $stackObj->TurnEffects ?? [])) return true;
+            foreach($stackObj->TurnEffects ?? [] as $effectID) {
+                if(strpos($effectID, "EMPOWER_PLUS_") === 0
+                    && intval(substr($effectID, strlen("EMPOWER_PLUS_"))) > 0) {
+                    return true;
+                }
+            }
+        }
+    }
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zone);
@@ -15458,6 +15502,18 @@ function IsEmpowered($player) {
 }
 
 function PendingEmpowerAmount($player) {
+    $contextMZ = DecisionQueueController::GetVariable("mzID");
+    if(is_string($contextMZ) && strpos($contextMZ, "EffectStack-") === 0) {
+        $stackObj = GetZoneObject($contextMZ);
+        if($stackObj !== null && !$stackObj->removed) {
+            $pendingFromStack = 0;
+            foreach($stackObj->TurnEffects ?? [] as $effectID) {
+                if(strpos($effectID, "EMPOWER_PLUS_") !== 0) continue;
+                $pendingFromStack += intval(substr($effectID, strlen("EMPOWER_PLUS_")));
+            }
+            if($pendingFromStack > 0) return $pendingFromStack;
+        }
+    }
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zone);
@@ -20500,7 +20556,16 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     }
 
     $isSpellActivation = PropertyContains(CardSubtypes($cardID), "SPELL");
-    $pendingEmpowerLevel = ($isSpellActivation && IsEmpowered($player)) ? PendingEmpowerAmount($player) : 0;
+    $pendingEmpowerLevel = 0;
+    if($isSpellActivation) {
+        foreach($obj->TurnEffects ?? [] as $effectID) {
+            if(strpos($effectID, "EMPOWER_PLUS_") !== 0) continue;
+            $pendingEmpowerLevel += intval(substr($effectID, strlen("EMPOWER_PLUS_")));
+        }
+        if($pendingEmpowerLevel <= 0 && IsEmpowered($player)) {
+            $pendingEmpowerLevel = PendingEmpowerAmount($player);
+        }
+    }
 
     // Efficiency: reduce cost by champion's current level
     if(isset($Efficiency_Cards[$cardID])) {
