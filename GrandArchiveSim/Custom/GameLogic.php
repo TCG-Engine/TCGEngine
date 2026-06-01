@@ -20549,6 +20549,16 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
 
     $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
 
+    // Wayfinder's Map (porhlq2kkv): Domain cards you activate cost 1 less.
+    if(PropertyContains($cardType, "DOMAIN")) {
+        foreach(GetZone("myField") as $fieldObj) {
+            if($fieldObj === null || $fieldObj->removed) continue;
+            if($fieldObj->CardID !== "porhlq2kkv" || HasNoAbilities($fieldObj)) continue;
+            $reserveCost = max(0, $reserveCost - 1);
+            break;
+        }
+    }
+
     // Class Bonus: reduce cost if champion's class matches card's class
     $classBonusDiscount = ClassBonusActivateCostReduction($cardID);
     if($classBonusDiscount > 0 && IsClassBonusActive($player, explode(",", CardClasses($cardID)))) {
