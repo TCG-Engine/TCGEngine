@@ -298,8 +298,8 @@ $customDQHandlers["NegateActivationResolve"] = function($player, $parts, $lastDe
         NegateCardActivation($player, $lastDecision, $destinationMode);
         return;
     }
-    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, "Pay_" . $payAmount . "_to_prevent_negate?");
-    DecisionQueueController::AddDecision($controller, "CUSTOM", "NegateActivationPayChoice|" . $player, 1);
+    DecisionQueueController::AddDecision($controller, "YESNO", "-", 100, "Pay_" . $payAmount . "_to_prevent_negate?");
+    DecisionQueueController::AddDecision($controller, "CUSTOM", "NegateActivationPayChoice|" . $player, 100);
 };
 
 $customDQHandlers["NegateByCardContinue"] = function($player, $parts, $lastDecision) {
@@ -335,9 +335,9 @@ $customDQHandlers["NegateByCardContinue"] = function($player, $parts, $lastDecis
 
     DecisionQueueController::StoreVariable("NegateByCardCurrentIndex", strval($index));
     DecisionQueueController::StoreVariable("NegateByCardCurrentTarget", $targetMZ);
-    DecisionQueueController::AddDecision(intval($targetObj->Controller), "YESNO", "-", 1,
+    DecisionQueueController::AddDecision(intval($targetObj->Controller), "YESNO", "-", 100,
         "Pay_" . $payAmount . "_to_prevent_negate?");
-    DecisionQueueController::AddDecision(intval($targetObj->Controller), "CUSTOM", "NegateByCardPayChoice|" . $negatingPlayer, 1);
+    DecisionQueueController::AddDecision(intval($targetObj->Controller), "CUSTOM", "NegateByCardPayChoice|" . $negatingPlayer, 100);
 };
 
 $customDQHandlers["NegateByCardPayChoice"] = function($payingPlayer, $parts, $lastDecision) {
@@ -442,23 +442,6 @@ $customDQHandlers["NegateActivationSuffocatingResolve"] = function($controller, 
         NegateCardActivation($negatingPlayer, $targetMZ, "default");
     }
     DecisionQueueController::ClearVariable("pendingNegateTarget");
-};
-
-// Blossoming Denial (1nnpbddblx): optional negate unless pays (3), then summon 2 Flowerbud tokens + [L5+] Recover X phantasias
-$customDQHandlers["BlossomingDenialNegate"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $target = GetZoneObject($lastDecision);
-    if($target === null || $target->removed) return;
-    DecisionQueueController::StoreVariable("pendingNegateTarget", $lastDecision);
-    DecisionQueueController::StoreVariable("pendingNegateDestination", "default");
-    DecisionQueueController::StoreVariable("pendingNegatePayAmount", "3");
-    $controller = intval($target->Controller);
-    if(CountAvailableReservePayments($controller) < 3) {
-        NegateCardActivation($player, $lastDecision, "default");
-        return;
-    }
-    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, "Pay_3_to_prevent_negate?");
-    DecisionQueueController::AddDecision($controller, "CUSTOM", "NegateActivationPayChoice|" . $player, 1);
 };
 
 $customDQHandlers["BlossomingDenialFinal"] = function($player, $parts, $lastDecision) {
