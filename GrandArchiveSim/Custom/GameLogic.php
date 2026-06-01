@@ -15086,7 +15086,9 @@ function ApplyFatedKeepsakePrevention($player, $amount) {
 }
 
 function DealChampionDamage($player, $amount=1, $sourceController = null) {
-    global $playerID;
+    $targetMZ = FindChampionMZ($player);
+    if($targetMZ === null) return null;
+
     if($sourceController === null) {
         $effectStack = GetEffectStack();
         for($i = count($effectStack) - 1; $i >= 0; --$i) {
@@ -15096,163 +15098,23 @@ function DealChampionDamage($player, $amount=1, $sourceController = null) {
             }
         }
     }
-    if($sourceController === null) {
-        $sourceMZ = DecisionQueueController::GetVariable("mzID");
-        if($sourceMZ !== null && $sourceMZ !== "" && $sourceMZ !== "-") {
-            $sourceObj = GetZoneObject($sourceMZ);
-            if($sourceObj !== null) {
-                $sourceController = intval($sourceObj->Controller ?? $player);
-            }
+
+    $sourceMZ = DecisionQueueController::GetVariable("mzID");
+    if($sourceMZ !== null && $sourceMZ !== "" && $sourceMZ !== "-") {
+        $sourceObj = GetZoneObject($sourceMZ);
+        if($sourceObj !== null && $sourceController === null) {
+            $sourceController = intval($sourceObj->Controller ?? $player);
         }
     }
-    $zone = $player == $playerID ? "myField" : "theirField";
-    $zoneArr = &GetZone($zone);
-    for($i = 0; $i < count($zoneArr); ++$i) {
-        $obj = &$zoneArr[$i];
-        if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
-            $incomingAmount = intval($amount);
-            $amount = ApplyFatedKeepsakePrevention($player, $amount);
-            if($amount <= 0) {
-                if($incomingAmount > 0) {
-                    $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
-                    QueuePreventedDamageAnimation($absoluteTarget, 500, true);
-                }
-                return $obj;
-            }
-            // Safeguard Amulet: prevent up to 4 non-combat damage (one-time)
-            if(in_array("yj2rJBREH8", $obj->TurnEffects)) {
-                $prevented = min(4, $amount);
-                $amount -= $prevented;
-                $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "yj2rJBREH8"));
-            }
-            // PREVENT_NONCOMBAT_N: prevent up to N non-combat damage (Safeguard Paragon, etc.)
-            foreach($obj->TurnEffects as $pncIdx => $pncEffect) {
-                if(strpos($pncEffect, "PREVENT_NONCOMBAT_") === 0) {
-                    $pncBudget = intval(substr($pncEffect, 18));
-                    $pncPrevented = min($pncBudget, $amount);
-                    $amount -= $pncPrevented;
-                    $pncRemaining = $pncBudget - $pncPrevented;
-                    if($pncRemaining <= 0) {
-                        unset($obj->TurnEffects[$pncIdx]);
-                        $obj->TurnEffects = array_values($obj->TurnEffects);
-                    } else {
-                        $obj->TurnEffects[$pncIdx] = "PREVENT_NONCOMBAT_" . $pncRemaining;
-                    }
-                    break;
-                }
-            }
-            // Nascent Barrier (6bc3ogf0o8): prevent up to N damage (encoded as NASCENT_BARRIER_N)
-            foreach($obj->TurnEffects as $te) {
-                if(strpos($te, "NASCENT_BARRIER_") === 0) {
-                    $preventAmount = intval(substr($te, strlen("NASCENT_BARRIER_")));
-                    $prevented = min($preventAmount, $amount);
-                    $amount -= $prevented;
-                    $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== $te));
-                    break;
-                }
-            }
-            // Calming Breeze (XgJ72Ot13P): if 3 or less damage, prevent it entirely
-            if($amount > 0 && $amount <= 3 && in_array("CALMING_BREEZE", $obj->TurnEffects)) {
-                $amount = 0;
-            }
-            // Righteous Retribution (TO9qqKHakv): prevent up to 5 of next damage, store prevented for power boost
-            foreach($obj->TurnEffects as $rrIdx => $rrEffect) {
-                if(strpos($rrEffect, "RIGHTEOUS_RETRIBUTION_") === 0) {
-                    $rrBudget = intval(substr($rrEffect, strlen("RIGHTEOUS_RETRIBUTION_")));
-                    $rrPrevented = min($rrBudget, $amount);
-                    $amount -= $rrPrevented;
-                    unset($obj->TurnEffects[$rrIdx]);
-                    $obj->TurnEffects = array_values($obj->TurnEffects);
-                    if($rrPrevented > 0) {
-                        if(!is_array($obj->Counters)) $obj->Counters = [];
-                        $obj->Counters['retribution_power'] = $rrPrevented;
-                    }
-                    break;
-                }
-            }
-            $amount = ApplyCrystallizedDestinyPrevention($zone . "-" . $i, $amount);
-            if($amount <= 0) {
-                if($incomingAmount > 0) {
-                    $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
-                    QueuePreventedDamageAnimation($absoluteTarget, 500, true);
-                }
-                return $obj;
-            }
-            // Water Barrier (xWJND68I8X): prevent all but 1 of next damage to champion
-            if(in_array("WATER_BARRIER", $obj->TurnEffects) && $amount > 1) {
-                $amount = 1;
-                $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "WATER_BARRIER"));
-            }
-            // Blazing Charge (s5jwsl7ded): champion takes +1 damage
-            if(in_array("BLAZING_CHARGE_NEXT_TURN", $obj->TurnEffects)) {
-                $amount += 1;
-            }
-            if(in_array("PROOF_OF_LIFE_DOUBLE", $obj->TurnEffects ?? [])) {
-                $amount *= 2;
-                $obj->TurnEffects = array_values(array_filter($obj->TurnEffects, fn($e) => $e !== "PROOF_OF_LIFE_DOUBLE"));
-            }
-            if($amount <= 0) {
-                if($incomingAmount > 0) {
-                    $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
-                    QueuePreventedDamageAnimation($absoluteTarget, 500, true);
-                }
-                return $obj;
-            }
-            $obj->Damage += $amount;
-            
-            // Queue damage animation for the champion
-            if($amount > 0) {
-                $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
-                QueueDamageAnimation($absoluteTarget, $amount, 500, true);
-            }
-            
-            TrackChampionDamageThisTurn($obj, $amount);
-            TriggerSanguineGoblet($obj->Controller, $amount);
-            if(LuBuDiaoChanChampionReplacement($player, $zone . "-" . $i)) {
-                return $obj;
-            }
-            // Assassin's Mantle (3tcs0axa03): if damage was dealt, offer banish to prevent 1 + add prep counter
-            if($amount > 0) {
-                $mantleZone = $player == $playerID ? "myField" : "theirField";
-                $mantleArr = GetZone($mantleZone);
-                for($ami = 0; $ami < count($mantleArr); ++$ami) {
-                    $mantleObj = $mantleArr[$ami];
-                    if(!isset($mantleObj->removed) || !$mantleObj->removed) {
-                        if($mantleObj->CardID === "3tcs0axa03" && !HasNoAbilities($mantleObj)) {
-                            $mantleMZ = $mantleZone . "-" . $ami;
-                            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, "Banish_Assassin_Mantle_prevent_1_damage?");
-                            DecisionQueueController::AddDecision($player, "CUSTOM", "AssassinsMantlePrevent|" . $mantleMZ, 1);
-                            break;
-                        }
-                    }
-                }
-            }
-            if($amount > 0 && $sourceController !== null && intval($sourceController) !== intval($player)) {
-                TriggerShademistPriestess($player);
-            }
-            // Magebane Lash (oh300z2sns): Nico Bonus â€” whenever Nico takes non-combat damage, recover 2
-            if($amount > 0 && $obj->CardID === "5bbae3z4py") {
-                MagebaneNicoBonusCheck($player);
-            }
-            // Aegis of Dawn (abipl6gt7l): whenever champion dealt 4+ damage, summon Automaton Drone
-            if($amount >= 4) {
-                AegisOfDawnTrigger($player);
-            }
-            // Fabled Ruby Fatestone (mzf5dmpqbc): [Guo Jia Bonus]
-            if($amount > 0 && DecisionQueueController::GetVariable("CombatAttacker") === null) {
-                $rubyDCDSourceMZ = DecisionQueueController::GetVariable("mzID");
-                if($rubyDCDSourceMZ !== null && $rubyDCDSourceMZ !== "" && $rubyDCDSourceMZ !== "-") {
-                    CheckRubyFatestoneQuestCounter($rubyDCDSourceMZ, true, $player);
-                }
-            }
-            $rogSourceMZ = DecisionQueueController::GetVariable("mzID");
-            if($rogSourceMZ !== null && $rogSourceMZ !== "" && $rogSourceMZ !== "-") {
-                RadiantOriginGuardianTrigger($rogSourceMZ, $amount);
-            }
-            return $obj;
-        }
+    if($sourceMZ === null || $sourceMZ === "" || $sourceMZ === "-" || GetZoneObject($sourceMZ) === null) {
+        $sourceMZ = null;
     }
-    return null;
+
+    if($sourceMZ === null && $sourceController !== null) {
+        $sourceMZ = FindChampionMZ(intval($sourceController));
+    }
+
+    return DealDamage($player, $sourceMZ, $targetMZ, $amount);
 }
 
 function DealChampionDamageAmount($player, $amount=1) {
@@ -20350,9 +20212,17 @@ function RemoveQuestCounters($player, $amount) {
  */
 function CheckRubyFatestoneQuestCounter($source, $isUnit, $player) {
     if(!$isUnit) return;
+    if($source === null || $source === "" || $source === "-") return;
     global $playerID;
     $sourceObj = GetZoneObject($source);
-    $sourceElement = $sourceObj !== null ? EffectiveCardElement($sourceObj) : "FIRE";
+    $sourceElement = null;
+    if($sourceObj !== null) {
+        $sourceElement = EffectiveCardElement($sourceObj);
+    } else if(is_string($source) && strpos($source, "-") === false) {
+        // Some callers pass a raw CardID as source.
+        $sourceElement = CardElement($source);
+    }
+    if($sourceElement === null || $sourceElement === "") return;
     if($sourceElement !== "FIRE") return;
     $sourceCtrl = intval($sourceObj->Controller ?? $player);
     $rubyZone = $sourceCtrl == $playerID ? "myField" : "theirField";
@@ -20960,5 +20830,15 @@ $customDQHandlers["SlimeCallingActivate2"] = function($player, $parts, $lastDeci
     }
     SlimeCallingRearrange($player);
 };
+
+function NormalizeMZ($mzID, $player) {
+    global $playerID;
+    $mzArr = explode("-", $mzID);
+    $mzZoneName = $mzArr[0] ?? "";
+    if(str_starts_with($mzZoneName, "my")) $mzZoneName = substr($mzZoneName, 2);
+    else if(str_starts_with($mzZoneName, "their")) $mzZoneName = substr($mzZoneName, 5);
+    if($player == $playerID) return "my" . $mzZoneName . "-" . ($mzArr[1] ?? "");
+    else return "their" . $mzZoneName . "-" . ($mzArr[1] ?? "");
+}
 
 ?>

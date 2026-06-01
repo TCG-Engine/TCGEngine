@@ -2835,7 +2835,7 @@ function QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, 
     QueuePreventedDamageAnimation($absoluteTarget, 500, true);
 }
 
-function OnDealDamage($player, $source, $target, $amount) {
+function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePrompt = false) {
     $originalAmount = intval($amount);
     $targetObj = &GetZoneObject($target);
     if($targetObj === null) return; // Target no longer on the field (e.g. stale mzID after redirect)
@@ -2852,6 +2852,21 @@ function OnDealDamage($player, $source, $target, $amount) {
         $targetController = $targetObj->Controller ?? $player;
         $amount = ApplyFatedKeepsakePrevention($targetController, $amount);
         if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
+
+        // Assassin's Mantle (3tcs0axa03): if your champion would take damage, you may banish it;
+        // if you do, prevent 1 of that damage and put a preparation counter on your champion.
+        if(!$skipAssassinsMantlePrompt) {
+            global $playerID;
+            $fieldZone = ($targetController == $playerID) ? "myField" : "theirField";
+            $field = GetZone($fieldZone);
+            foreach($field as $fi => $fObj) {
+                if($fObj === null || $fObj->removed || $fObj->CardID !== "3tcs0axa03" || HasNoAbilities($fObj)) continue;
+                $mantleMZ = $fieldZone . "-" . $fi;
+                DecisionQueueController::AddDecision($targetController, "YESNO", "-", 1, tooltip:"Banish_Assassin's_Mantle_to_prevent_1_damage?");
+                DecisionQueueController::AddDecision($targetController, "CUSTOM", "AssassinsMantlePrevent|$mantleMZ|$source|$target|$player|$amount", 1);
+                return;
+            }
+        }
     }
 
     // Siegeable domains: damage removes durability counters instead of adding Damage.
@@ -3576,6 +3591,15 @@ function OnDealDamage($player, $source, $target, $amount) {
     if(!$isCombat && $amount > 0 && $targetObj->CardID === "ifmmvbm26h" && !HasNoAbilities($targetObj)) {
         if(IsClassBonusActive($targetObj->Controller ?? $player, ["CLERIC", "WARRIOR"])) {
             $amount = max(0, $amount - 2);
+        }
+        if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
+    }
+    // Safeguard Amulet (yj2rJBREH8): prevent up to 4 non-combat damage to champion (one-time).
+    if(!$isCombat && $amount > 0 && PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
+        if(in_array("yj2rJBREH8", $targetObj->TurnEffects ?? [])) {
+            $prevented = min(4, $amount);
+            $amount -= $prevented;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "yj2rJBREH8"));
         }
         if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }

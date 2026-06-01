@@ -8101,16 +8101,49 @@ $customDQHandlers["Decompose_Sacrifice"] = function($player, $parts, $lastDecisi
     DecisionQueueController::CleanupRemovedCards();
 };
 
-// Assassin's Mantle (3tcs0axa03): banish the Mantle to recover 1 damage and add a prep counter
+// Assassin's Mantle (3tcs0axa03): banish the Mantle and prevent 1 damage to your champion.
 $customDQHandlers["AssassinsMantlePrevent"] = function($player, $parts, $lastDecision) {
-    if($lastDecision !== "YES") return;
     $mantleMZ = $parts[0];
+    $source = $parts[1] ?? "";
+    $target = $parts[2] ?? "";
+    $target = NormalizeMZ($target, $player);
+    $mantleMZ = NormalizeMZ($mantleMZ, $player);
+    // New payload format includes the original OnDealDamage caller perspective.
+    // Backward-compatible with older queued decisions that only passed amount.
+    $incomingAmount = isset($parts[4]) ? intval($parts[4] ?? "0") : intval($parts[3] ?? "0");
+    if($incomingAmount <= 0 || $source === "" || $target === "") return;
+
+    if($lastDecision !== "YES") {
+        OnDealDamage($player, $source, $target, $incomingAmount, true);
+        return;
+    }
+
     $mantleObj = GetZoneObject($mantleMZ);
-    if($mantleObj === null || (isset($mantleObj->removed) && $mantleObj->removed)) return;
-    MZMove($player, $mantleMZ, "myBanish");
+    if($mantleObj === null || (isset($mantleObj->removed) && $mantleObj->removed)) {
+        OnDealDamage($player, $source, $target, $incomingAmount, true);
+        return;
+    }
+
+    $mantleArr = explode("-", $mantleMZ);
+    $mantleZone = $mantleArr[0] ?? "";
+    if($mantleZone !== "myField" && $mantleZone !== "theirField") {
+        OnDealDamage($player, $source, $target, $incomingAmount, true);
+        return;
+    }
+    $banishZone = ($mantleZone === "myField") ? "myBanish" : "theirBanish";
+    MZMove($player, $mantleMZ, $banishZone);
     DecisionQueueController::CleanupRemovedCards();
-    RecoverChampion($player, 1);
-    AddPrepCounter($player, 1);
+
+    $remainingAmount = max(0, $incomingAmount - 1);
+    if($incomingAmount > $remainingAmount) {
+        AddPrepCounter($player, 1);
+    }
+    if($remainingAmount <= 0) {
+        QueuePreventedDamageAnimation($target, 500, true);
+        return;
+    }
+
+    OnDealDamage($player, $source, $target, $remainingAmount, true);
 };
 
 // ============================================================================
