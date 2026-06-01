@@ -7327,13 +7327,6 @@ function RecollectionPhase() {
     // Defensive reset in case a prior opportunity/stack branch changed perspective.
     $playerID = $turnPlayer;
 
-    // Macro turn-index cleanup: materialize counters are intended to be per-turn.
-    // Reset only the active player's buckets at the beginning of their turn.
-    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
-    if(isset($_ti["Materialize"][$turnPlayer])) unset($_ti["Materialize"][$turnPlayer]);
-    if(isset($_ti["MaterializeCalls"][$turnPlayer])) unset($_ti["MaterializeCalls"][$turnPlayer]);
-    SetMacroTurnIndex(empty($_ti) ? '{}' : json_encode($_ti));
-
     // Golden Checkmate (KbE9R1mi3n): delayed win at the beginning of your next recollection phase.
     if(GlobalEffectCount($turnPlayer, "KbE9R1mi3n_WIN_NEXT_RECOLLECTION") > 0) {
         global $winner;
@@ -8613,6 +8606,8 @@ function EndPhase() {
     }
 
     ExpireEffects(isEndTurn:true);
+    // Reset per-turn macro counters at the end-turn boundary.
+    SetMacroTurnIndex('{}');
     $turnPlayer = ($turnPlayer == 1) ? 2 : 1;
 
     if ($turnPlayer == $firstPlayer) {
