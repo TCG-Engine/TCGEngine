@@ -499,6 +499,71 @@
         window.ApplyExhaustedEnterAnimations = ApplyExhaustedEnterAnimations;
       }
 
+      function ApplyWakeEnterAnimations() {
+        try {
+          var wakingCards = document.querySelectorAll('.wake-status-card-enter');
+          if (!wakingCards || wakingCards.length === 0) return;
+
+          requestAnimationFrame(function() {
+            wakingCards.forEach(function(cardEl) {
+              if (!(cardEl instanceof HTMLElement)) return;
+              if (getComputedStyle(cardEl).position === 'static') {
+                cardEl.style.position = 'relative';
+              }
+
+              var finalTransform = getComputedStyle(cardEl).transform;
+              var toTransform = (finalTransform && finalTransform !== 'none') ? finalTransform : 'rotate(0deg) scale(1)';
+              var fromTransform = 'rotate(9deg) scale(0.992)';
+
+              cardEl.animate(
+                [
+                  { transform: fromTransform, filter: 'brightness(0.9) saturate(0.92)', offset: 0 },
+                  { transform: 'rotate(-2deg) scale(1.012)', filter: 'brightness(1.12) saturate(1.08)', offset: 0.58 },
+                  { transform: toTransform, filter: 'brightness(1) saturate(1)', offset: 1 }
+                ],
+                {
+                  duration: 220,
+                  easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+                  fill: 'none'
+                }
+              );
+
+              var fx = document.createElement('div');
+              fx.style.position = 'absolute';
+              fx.style.inset = '0';
+              fx.style.borderRadius = '10px';
+              fx.style.pointerEvents = 'none';
+              fx.style.zIndex = '1200';
+              fx.style.background = 'radial-gradient(circle at 50% 50%, rgba(255, 241, 173, 0.46) 0%, rgba(150, 232, 255, 0.18) 42%, rgba(150, 232, 255, 0) 74%)';
+              fx.style.mixBlendMode = 'screen';
+              cardEl.appendChild(fx);
+
+              fx.animate(
+                [
+                  { opacity: 0, transform: 'scale(0.86)', offset: 0 },
+                  { opacity: 0.95, transform: 'scale(1.03)', offset: 0.34 },
+                  { opacity: 0, transform: 'scale(1.14)', offset: 1 }
+                ],
+                {
+                  duration: 240,
+                  easing: 'ease-out',
+                  fill: 'forwards'
+                }
+              );
+
+              window.setTimeout(function() {
+                if (fx.parentNode === cardEl) cardEl.removeChild(fx);
+              }, 260);
+
+              cardEl.classList.remove('wake-status-card-enter');
+            });
+          });
+        } catch (e) {}
+      }
+      if (typeof window !== 'undefined') {
+        window.ApplyWakeEnterAnimations = ApplyWakeEnterAnimations;
+      }
+
       function ApplyReliquaryDrawAnimations() {
         try {
           var enteringCards = document.querySelectorAll('.reliquary-draw-card-enter');
@@ -964,6 +1029,7 @@
         } catch (e) {}
 
         var shouldAnimateExhaustedTransition = false;
+        var shouldAnimateWakeTransition = false;
         var shouldAnimateReliquaryDraw = false;
         try {
           if (typeof window !== "undefined") {
@@ -984,6 +1050,10 @@
               currentStatus === 1 &&
               previousStatus !== undefined &&
               previousStatus !== 1;
+            shouldAnimateWakeTransition =
+              window.__cardStatusHistoryReady === true &&
+              currentStatus === 2 &&
+              previousStatus === 1;
 
             var turnEffects = Array.isArray(sharedCardData.TurnEffects) ? sharedCardData.TurnEffects : [];
             var hasReliquaryDrawTag =
@@ -1004,6 +1074,9 @@
           if (shouldAnimateExhaustedTransition) {
             className += " exhausted-status-card-enter";
           }
+        }
+        if (shouldAnimateWakeTransition) {
+          className += (className ? " " : "") + " wake-status-card-enter";
         }
         if (shouldAnimateReliquaryDraw) {
           className += (className ? " " : "") + " reliquary-draw-card-enter";

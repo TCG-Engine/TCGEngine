@@ -647,6 +647,9 @@
         if (typeof window !== 'undefined' && typeof window.ApplyExhaustedEnterAnimations === 'function') {
           window.ApplyExhaustedEnterAnimations();
         }
+        if (typeof window !== 'undefined' && typeof window.ApplyWakeEnterAnimations === 'function') {
+          window.ApplyWakeEnterAnimations();
+        }
         if (typeof window !== 'undefined' && typeof window.ApplyReliquaryDrawAnimations === 'function') {
           window.ApplyReliquaryDrawAnimations();
         }
