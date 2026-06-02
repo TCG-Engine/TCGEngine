@@ -5045,7 +5045,7 @@ function WitherUpkeep($player) {
         $mz = $zone . "-" . $i;
         if($handCount >= $witherCount) {
             DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
-                tooltip:"Pay_" . $witherCount . "_to_keep_withered_object?");
+                tooltip:"Pay_" . $witherCount . "_to_keep_" . CardName($field[$i]->CardID) . "?_(Wither)");
             DecisionQueueController::AddDecision($player, "CUSTOM", "WitherUpkeepProcess|" . $mz . "|" . $witherCount, 1);
         } else {
             // Can't afford — auto-sacrifice
