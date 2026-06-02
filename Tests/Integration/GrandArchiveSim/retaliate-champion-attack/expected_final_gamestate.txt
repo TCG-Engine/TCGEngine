@@ -110,8 +110,7 @@ rWhFC8XBaH
 aws20fsihd
 0
 0
-1
-NsnBhlVzTV
+0
 1
 WWnmb1Hjdo
 0
@@ -123,8 +122,9 @@ AxHzxEHBHZ
 zc7wxgur23
 40TLLuE6oG
 vk56lbihtc
-1
+2
 tiynu4lxnj 2 1 0 1 - - -
+NsnBhlVzTV 1 1 0 1 - - -
 1
 74wa4x7e22 1 2 4 2 DAMAGED_SINCE_LAST_TURN eyJfY2hhbXBEYW1hZ2VUaGlzVHVybiI6NH0= -
 0
@@ -180,8 +180,8 @@ y1tyo32voa
 2
 MAIN
 
-
-{"mzID":"theirField-1","amount":4,"ignoreCost":false,"mzIDCardID":"WWnmb1Hjdo","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"4","source":"myField-0","target":"theirField-1","CombatKilledCardID":"NsnBhlVzTV"}
+Attack canceled because the target left the field.
+{"mzID":"myField-0","amount":4,"ignoreCost":false,"mzIDCardID":"WWnmb1Hjdo","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","source":"myField-1","target":"theirField-0"}
 0
-{"ActivateCardCalls":{"1":1,"2":1},"ActivateCard":{"1":{"NsnBhlVzTV":1},"2":{"WWnmb1Hjdo":1}},"CardActivatedCalls":{"1":1,"2":1},"CardActivated":{"1":{"NsnBhlVzTV":1},"2":{"WWnmb1Hjdo":1}},"EnterCalls":{"1":1},"Enter":{"1":{"NsnBhlVzTV":1}},"DrawCalls":{"2":1},"Draw":{"2":1},"AttackCardActivated":{"2":1},"RestCardCalls":{"2":1},"RestCard":{"2":{"74wa4x7e22":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"74wa4x7e22":1}},"DealDamageCalls":{"1":1,"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"NsnBhlVzTV":1}}}
+{"ActivateCardCalls":{"1":1,"2":1},"ActivateCard":{"1":{"NsnBhlVzTV":1},"2":{"WWnmb1Hjdo":1}},"CardActivatedCalls":{"1":1,"2":1},"CardActivated":{"1":{"NsnBhlVzTV":1},"2":{"WWnmb1Hjdo":1}},"EnterCalls":{"1":1},"Enter":{"1":{"NsnBhlVzTV":1}},"DrawCalls":{"2":1},"Draw":{"2":1},"AttackCardActivated":{"2":1},"RestCardCalls":{"2":1},"RestCard":{"2":{"74wa4x7e22":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"74wa4x7e22":1}},"DealDamageCalls":{"1":1}}
 0

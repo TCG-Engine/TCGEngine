@@ -16626,6 +16626,9 @@ function GetCombatAttackerMZ() {
 function EndCombat($player) {
     $turnPlayer = GetTurnPlayer();
     ClearIntent($turnPlayer);
+    if(function_exists("ClearCombatTargetMarkers")) {
+        ClearCombatTargetMarkers();
+    }
     DecisionQueueController::ClearVariable("CombatAttacker");
     DecisionQueueController::ClearVariable("CombatTarget");
     DecisionQueueController::ClearVariable("CombatWeapon");

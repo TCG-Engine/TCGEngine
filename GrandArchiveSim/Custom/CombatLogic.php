@@ -421,6 +421,76 @@ function ConvertMzToPlayerPerspective($mzID, $targetPlayer) {
     return ($targetPlayer == $playerID) ? $mzID : FlipZonePerspective($mzID);
 }
 
+function CombatTargetMarker() {
+    return "COMBAT_TARGET_MARKER";
+}
+
+function ClearCombatTargetMarkers() {
+    $marker = CombatTargetMarker();
+    foreach(GetAllZones() as $zoneName) {
+        $zone = &GetZone($zoneName);
+        if(!is_array($zone)) continue;
+        foreach($zone as $obj) {
+            if($obj === null || !property_exists($obj, "TurnEffects") || !is_array($obj->TurnEffects)) continue;
+            while(($key = array_search($marker, $obj->TurnEffects)) !== false) {
+                array_splice($obj->TurnEffects, $key, 1);
+            }
+        }
+    }
+}
+
+function MarkCombatTarget($attackerPlayer, $targetMZ) {
+    if($targetMZ === null || $targetMZ === "-" || $targetMZ === "") return false;
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $attackerPlayer;
+
+    ClearCombatTargetMarkers();
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) {
+        $playerID = $savedPlayerID;
+        return false;
+    }
+    AddTurnEffect($targetMZ, CombatTargetMarker());
+
+    $playerID = $savedPlayerID;
+    return true;
+}
+
+function ResolveCombatTargetMarker($attackerPlayer) {
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $attackerPlayer;
+
+    $marker = CombatTargetMarker();
+    $defenderField = GetZone("theirField");
+    for($i = 0; $i < count($defenderField); ++$i) {
+        $obj = $defenderField[$i] ?? null;
+        if($obj === null || $obj->removed) continue;
+        if(in_array($marker, $obj->TurnEffects ?? [])) {
+            $targetMZ = "theirField-" . $i;
+            DecisionQueueController::StoreVariable("CombatTarget", $targetMZ);
+            $playerID = $savedPlayerID;
+            return $targetMZ;
+        }
+    }
+
+    $playerID = $savedPlayerID;
+    return null;
+}
+
+function CancelCombatForMissingTarget($attackerPlayer) {
+    SetFlashMessage("Attack canceled because the target left the field.");
+    ClearCombatTargetMarkers();
+    ClearIntent($attackerPlayer);
+    DecisionQueueController::ClearVariable("CombatAttacker");
+    DecisionQueueController::ClearVariable("CombatTarget");
+    DecisionQueueController::ClearVariable("CombatAttackerPlayer");
+    DecisionQueueController::ClearVariable("CombatIsCleave");
+    DecisionQueueController::ClearVariable("CombatWeapon");
+    DecisionQueueController::ClearVariable("CombatDamageAmount");
+}
+
 /**
  * Flip a zone mzID between player perspectives.
  * e.g. "myField-2" becomes "theirField-2" and vice versa.
@@ -2057,6 +2127,7 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
 
     // Store selected target before On Attack so declaration-time abilities can inspect CombatTarget.
     DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
+    MarkCombatTarget($player, $lastDecision);
 
     // Fire On Attack triggers (may grant effects like critical)
     OnAttack($player, $attackerMZ);
@@ -2152,6 +2223,7 @@ $customDQHandlers["AtmosShieldRedirect"] = function($player, $parts, $lastDecisi
     $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
     $shieldMZForAttacker = ConvertMzToPlayerPerspective($shieldMZCurrent, $attackerPlayer);
     DecisionQueueController::StoreVariable("CombatTarget", $shieldMZForAttacker);
+    MarkCombatTarget($attackerPlayer, $shieldMZForAttacker);
 };
 
 $customDQHandlers["InterceptTargetChosen"] = function($player, $parts, $lastDecision) {
@@ -2167,12 +2239,18 @@ $customDQHandlers["InterceptTargetChosen"] = function($player, $parts, $lastDeci
     $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
     $interceptMZForAttacker = ConvertMzToPlayerPerspective($lastDecision, $attackerPlayer);
     DecisionQueueController::StoreVariable("CombatTarget", $interceptMZForAttacker);
+    MarkCombatTarget($attackerPlayer, $interceptMZForAttacker);
 };
 
 function FinalizeAttackDeclaration($attackerPlayer) {
     $targetMZ = DecisionQueueController::GetVariable("CombatTarget");
     $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
     if($targetMZ === null || $targetMZ === "-" || $targetMZ === "") return;
+    $targetMZ = ResolveCombatTargetMarker($attackerPlayer);
+    if($targetMZ === null) {
+        CancelCombatForMissingTarget($attackerPlayer);
+        return;
+    }
 
     // Beguiling Bandit (jyrqgyj9vn): attacker must pay (1) to attack it
     $bbTargetObj = GetZoneObject($targetMZ);
@@ -2224,10 +2302,17 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
     $attacker = &GetZoneObject($attackerMZ);
     if($attacker === null) {
         ClearIntent($attackerPlayer);
+        ClearCombatTargetMarkers();
         DecisionQueueController::ClearVariable("CombatAttacker");
         DecisionQueueController::ClearVariable("CombatTarget");
         DecisionQueueController::ClearVariable("CombatAttackerPlayer");
         DecisionQueueController::ClearVariable("CombatIsCleave");
+        return;
+    }
+
+    $targetMZ = ResolveCombatTargetMarker($attackerPlayer);
+    if($targetMZ === null) {
+        CancelCombatForMissingTarget($attackerPlayer);
         return;
     }
 
@@ -2290,6 +2375,11 @@ $customDQHandlers["CombatRetaliationOpportunity"] = function($player, $parts, $l
     $isCleave = DecisionQueueController::GetVariable("CombatIsCleave") === "1";
 
     global $playerID;
+
+    if(!$isCleave && ResolveCombatTargetMarker($attackerPlayer) === null) {
+        CancelCombatForMissingTarget($attackerPlayer);
+        return;
+    }
 
     $canRetaliate = $isCleave
         ? !empty(GetCleaveRetaliatorMZs($defenderPlayer))
@@ -2642,6 +2732,7 @@ $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::ClearVariable("CombatAttackerPlayer");
     DecisionQueueController::ClearVariable("CombatIsCleave");
     DecisionQueueController::ClearVariable("CombatWeapon");
+    ClearCombatTargetMarkers();
 
     global $playerID;
     $savedPlayerID = $playerID;
@@ -2709,6 +2800,11 @@ $customDQHandlers["CombatApplyAttackerDamage"] = function($player, $parts, $last
     $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
     $targetMZ   = DecisionQueueController::GetVariable("CombatTarget");
     if($attackerMZ === null || $targetMZ === null) return;
+    $targetMZ = ResolveCombatTargetMarker($attackerPlayer);
+    if($targetMZ === null) {
+        CancelCombatForMissingTarget($attackerPlayer);
+        return;
+    }
 
     // Temporarily switch to the attacker's perspective so all GetZoneObject lookups
     // (including those inside OnDealDamage, OnHitTrigger, OnKillTrigger) work correctly.
@@ -4076,9 +4172,18 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Everflame Staff (nrvth9vyz1): whenever a fire Spell source you control deals damage,
     // put a refinement counter on Everflame Staff
     $sourceObj2 = GetZoneObject($source);
-    if($sourceObj2 !== null && CardElement($sourceObj2->CardID) === "FIRE"
-        && PropertyContains(CardSubtypes($sourceObj2->CardID), "SPELL")) {
-        $sourceController = $sourceObj2->Controller ?? $player;
+    $everflameSourceCardID = null;
+    $everflameSourceController = intval($player);
+    if($sourceObj2 !== null) {
+        $everflameSourceCardID = $sourceObj2->CardID;
+        $everflameSourceController = intval($sourceObj2->Controller ?? $player);
+    } else if(is_string($source) && strpos($source, "-") === false) {
+        // Some effects pass a raw CardID as damage source instead of an mzID.
+        $everflameSourceCardID = $source;
+    }
+    if($everflameSourceCardID !== null && CardElement($everflameSourceCardID) === "FIRE"
+        && PropertyContains(CardSubtypes($everflameSourceCardID), "SPELL")) {
+        $sourceController = $everflameSourceController;
         global $playerID;
         $staffZone = $sourceController == $playerID ? "myField" : "theirField";
         $staffField = GetZone($staffZone);
