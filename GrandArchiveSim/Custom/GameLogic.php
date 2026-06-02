@@ -15564,7 +15564,12 @@ function ChampionNameRoot($cardID) {
     return strtolower(trim(substr($name, 0, $commaPos)));
 }
 
-function CanMaterializeChampion($player, $cardID) {
+function ChampionCanSameLevelUp($player) {
+    return ChampionHasInLineage($player, "KqBosnU7pU")
+        || ChampionHasInLineage($player, "4upufooz13");
+}
+
+function CanChampionLevelUpIntoCard($player, $cardID, $higherLevelOnly = false) {
     if(!PropertyContains(CardType($cardID), "CHAMPION")) return false;
 
     $targetLevel = intval(CardLevel($cardID));
@@ -15574,8 +15579,25 @@ function CanMaterializeChampion($player, $cardID) {
     if($champObj === null || $champObj->removed) return false;
 
     $currentLevel = intval(CardLevel($champObj->CardID));
-    if($currentLevel !== ($targetLevel - 1)) return false;
-    return true;
+    if($targetLevel === ($currentLevel + 1)) return true;
+    if($higherLevelOnly) return false;
+    if($targetLevel !== $currentLevel) return false;
+    return ChampionCanSameLevelUp($player);
+}
+
+function GetLevelUpMaterialIndices($player, $higherLevelOnly = false) {
+    $material = GetMaterial($player);
+    $choices = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed) continue;
+        if(!CanChampionLevelUpIntoCard($player, $material[$i]->CardID, $higherLevelOnly)) continue;
+        $choices[] = "myMaterial-" . $i;
+    }
+    return $choices;
+}
+
+function CanMaterializeChampion($player, $cardID) {
+    return CanChampionLevelUpIntoCard($player, $cardID);
 }
 
 function IsDistortionCard($cardID) {
@@ -20087,22 +20109,17 @@ function ProcessSplitDamage($player, $source, $assignmentStr) {
 // ============================================================================
 
 /**
- * Level up the player's champion by materializing the first champion card in their
- * material deck without paying a cost. Used by effects that say "level up your champion."
+ * Level up the player's champion by materializing the first legal level-up target
+ * in their material deck without paying a cost. Used by effects that say
+ * "level up your champion."
  * @param int $player The acting player
  * @return bool True if successful, false if no champion found in material deck
  */
 function LevelUpChampion($player) {
-    global $playerID;
-    $material = GetMaterial($player);
-    $zoneName = $player == $playerID ? "myMaterial" : "theirMaterial";
-    for($i = 0; $i < count($material); ++$i) {
-        if(!$material[$i]->removed && PropertyContains(CardType($material[$i]->CardID), "CHAMPION")) {
-            DoMaterialize($player, $zoneName . "-" . $i);
-            return true;
-        }
-    }
-    return false;
+    $choices = GetLevelUpMaterialIndices($player);
+    if(empty($choices)) return false;
+    DoMaterialize($player, $choices[0]);
+    return true;
 }
 
 // ============================================================================

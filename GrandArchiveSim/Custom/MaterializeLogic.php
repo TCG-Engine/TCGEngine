@@ -842,12 +842,8 @@ function DoMaterialize($player, $mzCard) {
             }
         }
 
-        $targetLevel = intval(CardLevel($sourceId));
-        if($existingChampionCardID !== null) {
-            $currentLevel = intval(CardLevel($existingChampionCardID));
-            if($targetLevel !== ($currentLevel + 1)) {
-                return;
-            }
+        if($existingChampionCardID !== null && !CanChampionLevelUpIntoCard($player, $sourceId)) {
+            return;
         }
 
         // Snow White, Weiss Queen (5u5m8xblmd): [Level 1+] If a rested champion you
