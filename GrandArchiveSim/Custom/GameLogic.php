@@ -19973,6 +19973,11 @@ function DomainRecollectionUpkeep($player) {
                     }
                 }
                 break;
+            case "ShQkyQMBCT": // Starlit Apothecary: [Arisanna Bonus] copy a Potion or Herb unless opponent pays (4)
+                if(!HasNoAbilities($field[$i]) && IsArisannaBonusActive($player)) {
+                    StarlitApothecaryRecollection($player);
+                }
+                break;
         }
     }
 

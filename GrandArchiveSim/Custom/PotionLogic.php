@@ -406,6 +406,75 @@ $customDQHandlers["FertileGroundsCopy"] = function($player, $parts, $lastDecisio
     MZAddZone($player, "myField", $obj->CardID);
 };
 
+// --- Starlit Apothecary (ShQkyQMBCT): recollection phase — summon a brewed Potion/Herb copy unless opponent pays ---
+function StarlitApothecaryResolveCopy($player, $targetMZ) {
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) return;
+
+    MZAddZone($player, "myField", $targetObj->CardID);
+    if(!PropertyContains(CardSubtypes($targetObj->CardID), "POTION")) return;
+
+    $field = &GetField($player);
+    $newIndex = count($field) - 1;
+    if($newIndex < 0 || $field[$newIndex]->removed) return;
+    if(!isset($field[$newIndex]->Counters) || !is_array($field[$newIndex]->Counters)) {
+        $field[$newIndex]->Counters = [];
+    }
+    $field[$newIndex]->Counters["brewed"] = 1;
+}
+
+function StarlitApothecaryQueueCopy($player, $targetMZ) {
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) return;
+
+    $opponent = ($player == 1) ? 2 : 1;
+    if(CountAvailableReservePayments($opponent) < 4) {
+        StarlitApothecaryResolveCopy($player, $targetMZ);
+        return;
+    }
+
+    DecisionQueueController::AddDecision($opponent, "YESNO", "-", 1,
+        tooltip:"Pay_(4)_to_prevent_Starlit_Apothecary?");
+    DecisionQueueController::AddDecision($opponent, "CUSTOM",
+        "StarlitApothecaryPayChoice|" . $player . "|" . $targetMZ, 1);
+}
+
+function StarlitApothecaryRecollection($player) {
+    $targets = array_merge(
+        ZoneSearch("myField", cardSubtypes: ["POTION"]),
+        ZoneSearch("myField", cardSubtypes: ["HERB"])
+    );
+    if(empty($targets)) return;
+
+    if(count($targets) == 1) {
+        StarlitApothecaryQueueCopy($player, $targets[0]);
+        return;
+    }
+
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1,
+        tooltip:"Choose_Potion_or_Herb_to_copy");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StarlitApothecaryChoose", 1);
+}
+
+$customDQHandlers["StarlitApothecaryChoose"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    StarlitApothecaryQueueCopy($player, $lastDecision);
+};
+
+$customDQHandlers["StarlitApothecaryPayChoice"] = function($payingPlayer, $parts, $lastDecision) {
+    $controller = intval($parts[0] ?? $payingPlayer);
+    $targetMZ = $parts[1] ?? "";
+
+    if($lastDecision === "YES" && CountAvailableReservePayments($payingPlayer) >= 4) {
+        for($i = 0; $i < 4; ++$i) {
+            DecisionQueueController::AddDecision($payingPlayer, "CUSTOM", "ReserveCard", 100);
+        }
+        return;
+    }
+
+    StarlitApothecaryResolveCopy($controller, $targetMZ);
+};
+
 // --- Potion Infusion sacrifice trigger: check for infusion TurnEffects before potion's own effect ---
 function ProcessPotionInfusionTriggers($player, $potionMZ) {
     $obj = GetZoneObject($potionMZ);
