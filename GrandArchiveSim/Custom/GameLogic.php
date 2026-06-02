@@ -5388,8 +5388,9 @@ function TriggerGameOver($loserPlayer) {
 function DoAllyDestroyed($player, $mzCard) {
     global $allyDestroyedAbilities, $customDQHandlers;
     $obj = GetZoneObject($mzCard);
+    if($obj === null) return;
     // Lu Bu, Indomitable Titan: Diao Chan replacement applies before any champion-loss handling.
-    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
         if(LuBuDiaoChanChampionReplacement($player, $mzCard)) {
             return;
         }
@@ -5399,21 +5400,23 @@ function DoAllyDestroyed($player, $mzCard) {
     if(HasImmortality($obj)) {
         return;
     }
-    $controller = $obj->Controller;
-    $suppressed = HasNoAbilities($obj);
-    if($obj->CardID === "ejvddohjdu") {
-        DecisionQueueController::StoreVariable("LustrousSlimeBuffCount", strval(GetCounterCount($obj, "buff")));
+    // Snapshot the departing object before OnLeaveField/cleanup can invalidate the zone reference.
+    $destroyedObj = clone $obj;
+    $controller = $destroyedObj->Controller;
+    $suppressed = HasNoAbilities($destroyedObj);
+    if($destroyedObj->CardID === "ejvddohjdu") {
+        DecisionQueueController::StoreVariable("LustrousSlimeBuffCount", strval(GetCounterCount($destroyedObj, "buff")));
     }
     OnLeaveField($player, $mzCard);
     // Xiao Qiao, Cinderkeeper (3hgldrogit): if unit was hit by Xiao Qiao this turn, banish instead
-    $xiaoQiaoBanish = in_array("HIT_BY_3hgldrogit", $obj->TurnEffects);
+    $xiaoQiaoBanish = in_array("HIT_BY_3hgldrogit", $destroyedObj->TurnEffects ?? []);
     // Corhazi Arsonist (0ejcyuvuxn): if hit by Corhazi Arsonist this turn, banish instead
-    $corhaziArsonistBanish = in_array("HIT_BY_0ejcyuvuxn", $obj->TurnEffects);
+    $corhaziArsonistBanish = in_array("HIT_BY_0ejcyuvuxn", $destroyedObj->TurnEffects ?? []);
     // Fireworks Display (sx6q3p6i0i): banish instead of graveyard
     $fireworksBanish = GlobalEffectCount($controller, "FIREWORKS_BANISH") > 0;
     // Ephemeral: object is banished instead of leaving the field
-    $isEphemeral = IsEphemeral($obj);
-    if(IsRenewable($obj->CardID) && !$fireworksBanish && !$xiaoQiaoBanish && !$corhaziArsonistBanish && !$isEphemeral) {
+    $isEphemeral = IsEphemeral($destroyedObj);
+    if(IsRenewable($destroyedObj->CardID) && !$fireworksBanish && !$xiaoQiaoBanish && !$corhaziArsonistBanish && !$isEphemeral) {
         // Renewable: goes to material deck instead of graveyard/banish
         $dest = $player == $controller ? "myMaterial" : "theirMaterial";
     } else if($fireworksBanish || $xiaoQiaoBanish || $corhaziArsonistBanish || $isEphemeral) {
@@ -5422,7 +5425,7 @@ function DoAllyDestroyed($player, $mzCard) {
         $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
     }
     // Brackish Lutist (1clswn3ba2): if floating memory card would go to graveyard, banish instead
-    if(strpos($dest, "Graveyard") !== false && HasFloatingMemory($obj)) {
+    if(strpos($dest, "Graveyard") !== false && HasFloatingMemory($destroyedObj)) {
         if(IsBrackishLutistOnField()) {
             $dest = $player == $controller ? "myBanish" : "theirBanish";
         }
@@ -5430,8 +5433,8 @@ function DoAllyDestroyed($player, $mzCard) {
     if(DecisionQueueController::GetVariable("CombatTarget") == $mzCard) {
         DecisionQueueController::StoreVariable("CombatTarget", null);
     }
-    $isChampion = PropertyContains(EffectiveCardType($obj), "CHAMPION");
-    $animatedPotionDeath = is_array($obj->Counters ?? null) && !empty($obj->Counters["potion_animate"]);
+    $isChampion = PropertyContains(EffectiveCardType($destroyedObj), "CHAMPION");
+    $animatedPotionDeath = is_array($destroyedObj->Counters ?? null) && !empty($destroyedObj->Counters["potion_animate"]);
     MZMove($player, $mzCard, $dest);
     // Champion destruction triggers game over only if controller no longer has any champion.
     // This allows replacement effects that establish a new champion (e.g. Lu Bu replacement)
@@ -5453,16 +5456,16 @@ function DoAllyDestroyed($player, $mzCard) {
         }
     }
     if($animatedPotionDeath && isset($customDQHandlers["AbilityActivated"])) {
-        for($ai = 0; $ai < CardActivateAbilityCount($obj->CardID); ++$ai) {
-            $customDQHandlers["AbilityActivated"]($controller, [$obj->CardID, $ai], null);
+        for($ai = 0; $ai < CardActivateAbilityCount($destroyedObj->CardID); ++$ai) {
+            $customDQHandlers["AbilityActivated"]($controller, [$destroyedObj->CardID, $ai], null);
         }
     }
-    if(!$suppressed && isset($allyDestroyedAbilities[$obj->CardID . ":0"])) {
-        $allyDestroyedAbilities[$obj->CardID . ":0"]($controller);
+    if(!$suppressed && isset($allyDestroyedAbilities[$destroyedObj->CardID . ":0"])) {
+        $allyDestroyedAbilities[$destroyedObj->CardID . ":0"]($controller);
     }
     // Glimmer Essence Amulet (dy4urpjbjm): if a phantasia you control is destroyed on an opponent's turn,
     // you may banish each Amulet you control to draw a card.
-    if(PropertyContains(CardType($obj->CardID), "PHANTASIA")) {
+    if(PropertyContains(CardType($destroyedObj->CardID), "PHANTASIA")) {
         $turnPlayer = GetTurnPlayer();
         if($turnPlayer != $controller) {
             global $playerID;
@@ -5479,20 +5482,20 @@ function DoAllyDestroyed($player, $mzCard) {
     }
     // Synthetic Core (w0y6isxy5l): whenever a non-token Automaton ally you control dies,
     // you may banish Synthetic Core to return that ally to your memory.
-    if(PropertyContains(CardSubtypes($obj->CardID), "AUTOMATON") && !PropertyContains(CardType($obj->CardID), "TOKEN")) {
+    if(PropertyContains(CardSubtypes($destroyedObj->CardID), "AUTOMATON") && !PropertyContains(CardType($destroyedObj->CardID), "TOKEN")) {
         global $playerID;
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
         for($si = 0; $si < count($field); ++$si) {
             if(!$field[$si]->removed && $field[$si]->CardID === "w0y6isxy5l" && !HasNoAbilities($field[$si])) {
                 DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, tooltip:"Banish_Synthetic_Core_to_return_ally_to_memory?");
-                DecisionQueueController::AddDecision($controller, "CUSTOM", "SyntheticCoreChoice|$si|" . $obj->CardID, 1);
+                DecisionQueueController::AddDecision($controller, "CUSTOM", "SyntheticCoreChoice|$si|" . $destroyedObj->CardID, 1);
                 break;
             }
         }
     }
     // Worn Gearblade (r1o0qtb31x): whenever an Automaton ally you control dies, put a durability counter on it.
-    if(PropertyContains(CardSubtypes($obj->CardID), "AUTOMATON")) {
+    if(PropertyContains(CardSubtypes($destroyedObj->CardID), "AUTOMATON")) {
         global $playerID;
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
@@ -5532,7 +5535,7 @@ function DoAllyDestroyed($player, $mzCard) {
         }
     }
     // Claude, Fated Visionary (52215upufy): Automaton allies you control have "On Death: Glimpse 3"
-    if(PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON") && !PropertyContains(EffectiveCardType($obj), "TOKEN") && !$suppressed) {
+    if(PropertyContains(EffectiveCardSubtypes($destroyedObj), "AUTOMATON") && !PropertyContains(EffectiveCardType($destroyedObj), "TOKEN") && !$suppressed) {
         global $playerID;
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
@@ -5556,7 +5559,7 @@ function DoAllyDestroyed($player, $mzCard) {
         }
     }
     // Harvester Mk II (ttkat9hreq): Automaton allies you control have "On Death: Summon a Powercell token."
-    if(PropertyContains(EffectiveCardSubtypes($obj), "AUTOMATON") && !$suppressed) {
+    if(PropertyContains(EffectiveCardSubtypes($destroyedObj), "AUTOMATON") && !$suppressed) {
         global $playerID;
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
@@ -5568,14 +5571,14 @@ function DoAllyDestroyed($player, $mzCard) {
         }
     }
     // Perdition (nlf619svrr): granted On Death effect.
-    if(in_array("nlf619svrr_ONDEATH", $obj->TurnEffects ?? [])) {
+    if(in_array("nlf619svrr_ONDEATH", $destroyedObj->TurnEffects ?? [])) {
         $theirUnits = array_merge(ZoneSearch("theirField", ["ALLY", "CHAMPION"]), []);
         foreach($theirUnits as $unitMZ) {
             DealDamage($controller, $mzCard, $unitMZ, 1);
         }
     }
     // Crest of the Alliance (ojwk0pw0y6): fostered ally death can banish Crest to draw.
-    if(IsFostered($obj)) {
+    if(IsFostered($destroyedObj)) {
         global $playerID;
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
@@ -5588,7 +5591,7 @@ function DoAllyDestroyed($player, $mzCard) {
         }
     }
     // Jianye, Dawn's Keep (4ms1r3hjxp): [CB] Fire element allies have On Death: if influence <= 6, draw a card
-    if(CardElement($obj->CardID) === "FIRE" && PropertyContains(EffectiveCardType($obj), "ALLY") && !$suppressed) {
+    if(CardElement($destroyedObj->CardID) === "FIRE" && PropertyContains(EffectiveCardType($destroyedObj), "ALLY") && !$suppressed) {
         global $playerID;
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
@@ -5603,7 +5606,7 @@ function DoAllyDestroyed($player, $mzCard) {
         }
     }
     // Lumen Borealis (3ejd9yj9rl): whenever an Animal ally you control dies, you may reveal from memory
-    if(PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL") && PropertyContains(EffectiveCardType($obj), "ALLY")) {
+    if(PropertyContains(EffectiveCardSubtypes($destroyedObj), "ANIMAL") && PropertyContains(EffectiveCardType($destroyedObj), "ALLY")) {
         global $playerID;
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
@@ -5621,7 +5624,7 @@ function DoAllyDestroyed($player, $mzCard) {
     }
     // Diao Chan, Idyll Corsage (d7l6i5thdy): whenever a non-token object an opponent controls
     // is destroyed, you may banish it. If you do, that opponent summons a Flowerbud token.
-    if(!PropertyContains(CardType($obj->CardID), "TOKEN")) {
+    if(!PropertyContains(CardType($destroyedObj->CardID), "TOKEN")) {
         $dcPlayer = ($controller == 1) ? 2 : 1; // Diao Chan's player is the opponent of the destroyed card's controller
         global $playerID;
         $dcField = $dcPlayer == $playerID ? "myField" : "theirField";
@@ -5637,14 +5640,14 @@ function DoAllyDestroyed($player, $mzCard) {
             // Find the destroyed card in its current destination (GY/banish/material) and offer to banish it
             DecisionQueueController::AddDecision($dcPlayer, "YESNO", "-", 1,
                 tooltip:"Banish_destroyed_object_and_give_opponent_a_Flowerbud?");
-            DecisionQueueController::AddDecision($dcPlayer, "CUSTOM", "DiaoChanIdyllBanish|" . $obj->CardID . "|" . $controller, 1);
+            DecisionQueueController::AddDecision($dcPlayer, "CUSTOM", "DiaoChanIdyllBanish|" . $destroyedObj->CardID . "|" . $controller, 1);
         }
     }
     // Death Essence Amulet (ddag7ue0k7): whenever an ally you control dies while it's not your turn,
     // you may banish Death Essence Amulet to look at opponent's hand or memory and discard a card.
     {
         $turnPlayer = GetTurnPlayer();
-        if($turnPlayer != $controller && PropertyContains(EffectiveCardType($obj), "ALLY")) {
+        if($turnPlayer != $controller && PropertyContains(EffectiveCardType($destroyedObj), "ALLY")) {
             global $playerID;
             $controllerField = $controller == $playerID ? "myField" : "theirField";
             $deaField = GetZone($controllerField);
@@ -5658,7 +5661,7 @@ function DoAllyDestroyed($player, $mzCard) {
         }
     }
     // Phantasmagoria: [Alice Bonus] whenever a Specter ally you control dies, put a haunt counter
-    if(PropertyContains(EffectiveCardSubtypes($obj), "SPECTER") && PropertyContains(EffectiveCardType($obj), "ALLY")) {
+    if(PropertyContains(EffectiveCardSubtypes($destroyedObj), "SPECTER") && PropertyContains(EffectiveCardType($destroyedObj), "ALLY")) {
         if(IsAliceBonusActive($controller) && HasPhantasmagoria($controller)) {
             AddHauntToMastery($controller, 1);
         }
@@ -5682,7 +5685,7 @@ function DoAllyDestroyed($player, $mzCard) {
         }
     }
     // Companion Fatestone (izf4wdsbz9): whenever a Fatebound ally you control dies, you may transform CARDNAME
-    if(PropertyContains(EffectiveCardSubtypes($obj), "FATEBOUND") && PropertyContains(EffectiveCardType($obj), "ALLY")) {
+    if(PropertyContains(EffectiveCardSubtypes($destroyedObj), "FATEBOUND") && PropertyContains(EffectiveCardType($destroyedObj), "ALLY")) {
         global $playerID;
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
