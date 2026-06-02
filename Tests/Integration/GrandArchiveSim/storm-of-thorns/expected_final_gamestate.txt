@@ -179,7 +179,7 @@ bHGUNMFLg9
 MAIN
 
 
-{"mzID":"myField-2","amount":1,"ignoreCost":false,"mzIDCardID":"39i1f0ht2t","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","target":"myField-2","abilityIndex":0,"doDiscard":"YES","CombatDamageAmount":"1","source":"theirField-1","discarded":"myHand-7","CombatKilledCardID":"LZ8JpWj27h"}
+{"mzID":"myField-2","amount":1,"ignoreCost":false,"mzIDCardID":"39i1f0ht2t","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","target":"myField-2","abilityIndex":0,"doDiscard":"YES","CombatDamageAmount":"1","source":"theirField-1","discarded":"myHand-7"}
 0
 {"ActivateCardCalls":{"1":3,"2":10},"ActivateCard":{"1":{"jdog5yo5gg":2,"39i1f0ht2t":1},"2":{"sesw2ugmnm":3,"LZ8JpWj27h":2,"Pr48kXnasw":1,"aIbBhTilEN":1,"BqDw4Mei4C":1,"DsiRzt0trX":1,"kHhxq4UZTe":1}},"CardActivatedCalls":{"1":3,"2":10},"CardActivated":{"1":{"jdog5yo5gg":2,"39i1f0ht2t":1},"2":{"sesw2ugmnm":3,"LZ8JpWj27h":2,"Pr48kXnasw":1,"aIbBhTilEN":1,"BqDw4Mei4C":1,"DsiRzt0trX":1,"kHhxq4UZTe":1}},"EnterCalls":{"1":4,"2":5},"Enter":{"1":{"jdog5yo5gg":2,"zb14m4c8lj":1,"yevpmu6gvn":1},"2":{"LZ8JpWj27h":2,"dSSRtNnPtw":1,"DsiRzt0trX":1,"fhomy86084":1}},"DrawCalls":{"2":16,"1":2},"Draw":{"2":18,"1":2},"MaterializeCalls":[],"Materialize":[],"ActivateAbilityCalls":{"2":1},"ActivateAbility":{"2":{"dSSRtNnPtw":1}},"RestCardCalls":{"2":2},"RestCard":{"2":{"DsiRzt0trX":1,"LZ8JpWj27h":1}},"OnAttackCalls":{"2":2},"OnAttack":{"2":{"DsiRzt0trX":1,"LZ8JpWj27h":1}},"DealDamageCalls":{"2":3},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"LZ8JpWj27h":1}}}
 0

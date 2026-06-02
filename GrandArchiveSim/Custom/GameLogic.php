@@ -11505,11 +11505,13 @@ function DoDrawCard($player, $amount=1) {
             $titheOnField = false;
             $p1Field = GetField(1);
             foreach($p1Field as $fObj) {
+                if($fObj === null) continue;
                 if(!$fObj->removed && $fObj->CardID === "q8sdbzr5zs") { $titheOnField = true; break; }
             }
             if(!$titheOnField) {
                 $p2Field = GetField(2);
                 foreach($p2Field as $fObj) {
+                    if($fObj === null) continue;
                     if(!$fObj->removed && $fObj->CardID === "q8sdbzr5zs") { $titheOnField = true; break; }
                 }
             }
@@ -11524,6 +11526,7 @@ function DoDrawCard($player, $amount=1) {
             $hasMandateOnField = false;
             $hasUniqueAlly = false;
             foreach($mField as $mObj) {
+                if($mObj === null) continue;
                 if($mObj->removed) continue;
                 if($mObj->CardID === "5ckzgqa186" && !HasNoAbilities($mObj)) $hasMandateOnField = true;
                 if(PropertyContains(EffectiveCardType($mObj), "ALLY") && PropertyContains(EffectiveCardType($mObj), "UNIQUE")) $hasUniqueAlly = true;
