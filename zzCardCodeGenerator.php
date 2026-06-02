@@ -83,7 +83,7 @@ if($rootName == "SWUDeck") {
   $validSets = [
     "SOR", "SHD", "TWI", // blank rotation
     "JTL", "LOF", "IBH", "SEC", // rotation A
-    "LAW", // rotation B
+    "LAW", "ASH", // rotation B
     "TS26" // supplemental
   ];
 }
