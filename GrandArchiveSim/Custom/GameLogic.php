@@ -258,6 +258,22 @@ $Cardistry_Cards["xgax8bbjqj"] = 4; // Four of Hearts
 $Cardistry_Cards["i9hf5lhl5f"] = 5; // Five of Spades
 $Cardistry_Cards["idq4ih00rq"] = 5; // Five of Hearts
 $Cardistry_Cards["Zq4iWqdjGp"] = 5; // Five of Diamonds
+
+// Cards with Ally Link that must choose an ally target as they materialize.
+$AllyLink_Cards = [];
+$AllyLink_Cards["8asbierp5k"] = true; // Beastsoul Visage
+$AllyLink_Cards["eanbrfnrow"] = true; // Blast Shield
+$AllyLink_Cards["fviga4cmti"] = true; // Phantom Veil
+$AllyLink_Cards["i1j4gvwbjo"] = true; // Protector's Plate
+$AllyLink_Cards["c8ljyevpmu"] = true; // Alliance Gearshield
+$AllyLink_Cards["labt8hvoww"] = true; // Shield of Parvati
+$AllyLink_Cards["1vt1cn1tzg"] = true; // Covenant of Thorns
+$AllyLink_Cards["4muq2r6v37"] = true; // Ocean's Blessing
+$AllyLink_Cards["80mttsvbgl"] = true; // Mark of Fervor
+$AllyLink_Cards["fqsuo6gb0o"] = true; // Avatar of Gaia
+$AllyLink_Cards["t3q2svd53z"] = true; // Aqueous Armor
+$AllyLink_Cards["RgloaA6YV2"] = true; // Message in Shadows
+$AllyLink_Cards["g23WBQW2Ro"] = true; // Blood Dragon's Pact
 $Cardistry_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts
 $Cardistry_Cards["tdRR5lQHMN"] = 6; // Six of Spades
 $Cardistry_Cards["EIpkYYSP3s"] = 6; // Senaris, Six of Diamonds

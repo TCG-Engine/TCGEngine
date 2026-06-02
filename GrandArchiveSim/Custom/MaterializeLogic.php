@@ -269,19 +269,41 @@ $customDQHandlers["RECIPROCITY_MATERIAL_CHECK"] = function($player, $parts, $las
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $ignoreCost = isset($parts[0]) && $parts[0] === "NOCOST";
+    $continueMaterialize = isset($parts[0]) && $parts[0] === "CONTINUE";
+    if(!$continueMaterialize && ($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS")) return;
+    $mzCard = $continueMaterialize ? ($parts[1] ?? "") : $lastDecision;
+    if($mzCard === "") return;
+    $ignoreCost = $continueMaterialize
+        ? (isset($parts[2]) && $parts[2] === "NOCOST")
+        : (isset($parts[0]) && $parts[0] === "NOCOST");
     //First pay memory cost (unless cost is being ignored)
-    $materializeCard = &GetZoneObject($lastDecision);
+    $materializeCard = &GetZoneObject($mzCard);
     if($materializeCard === null || $materializeCard->removed) return;
     if(!CanPlayerUseCardElement($player, $materializeCard->CardID)) return;
+
+    global $AllyLink_Cards;
+    if(isset($AllyLink_Cards[$materializeCard->CardID]) && !$continueMaterialize) {
+        $allyTargets = ZoneSearch("myField", ["ALLY"]);
+        if(empty($allyTargets)) return;
+        DecisionQueueController::StoreVariable("linkTargetMZ", "");
+        DecisionQueueController::StoreVariable("linkTargetCardID", "");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allyTargets), 1,
+            tooltip:"Choose_ally_to_link");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareAllyLinkTarget", 1);
+        $continueParam = $ignoreCost
+            ? "MATERIALIZE|CONTINUE|" . $mzCard . "|NOCOST"
+            : "MATERIALIZE|CONTINUE|" . $mzCard;
+        DecisionQueueController::AddDecision($player, "CUSTOM", $continueParam, 1);
+        return;
+    }
+
     // Preserve replacement (temporary rule): when you would materialize, return the
     // selected card to hand instead if it is not CHAMPION or REGALIA.
     // This is not a materialization.
     $materializeCardType = CardType($materializeCard->CardID);
     if(!PropertyContains($materializeCardType, "CHAMPION")
         && !PropertyContains($materializeCardType, "REGALIA")) {
-        MZMove($player, $lastDecision, "myHand");
+        MZMove($player, $mzCard, "myHand");
         return;
     }
 
@@ -336,7 +358,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         }
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $fireGY), 1,
             tooltip:"Banish_fire_card_from_graveyard_(1/3)");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "DragonsDawnBanish|" . $lastDecision . "|1|" . $memoryCost, 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DragonsDawnBanish|" . $mzCard . "|1|" . $memoryCost, 1);
         return;
     }
 
@@ -353,7 +375,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         }
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $eligible), 1,
             tooltip:"Banish_ally_card_from_a_single_graveyard_(1/2)");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "DusksoulStoneMaterializeCost|" . $lastDecision . "|" . $memoryCost, 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DusksoulStoneMaterializeCost|" . $mzCard . "|" . $memoryCost, 1);
         return;
     }
 
@@ -375,7 +397,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $preserved), 1,
             tooltip:"Banish_preserved_card_from_material_(1/2)");
         DecisionQueueController::AddDecision($player, "CUSTOM",
-            "VernalTalismanMaterializeCost|" . $lastDecision . "|" . $memoryCost, 1);
+            "VernalTalismanMaterializeCost|" . $mzCard . "|" . $memoryCost, 1);
         return;
     }
 
@@ -397,7 +419,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $preserved), 1,
             tooltip:"Banish_preserved_card_from_material_(Coronal)");
         DecisionQueueController::AddDecision($player, "CUSTOM",
-            "CoronalMaterializeCost|" . $lastDecision . "|" . $memoryCost, 1);
+            "CoronalMaterializeCost|" . $mzCard . "|" . $memoryCost, 1);
         return;
     }
 
@@ -415,7 +437,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         if($hasClarentSword) {
             DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                 tooltip:"Banish_Clarent,_Sword_of_Peace_from_material_to_pay_1_memory?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCostStart|" . $lastDecision . "|" . $memoryCost, 1);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ClarentReimaginedMatCostStart|" . $mzCard . "|" . $memoryCost, 1);
             return;
         }
     }
@@ -437,7 +459,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $memorites), 1,
                 tooltip:"Sacrifice_a_Memorite_object_to_pay_1_memory?");
             DecisionQueueController::AddDecision($player, "CUSTOM",
-                "ShardforgedBladeMaterializeCost|" . $lastDecision . "|" . $memoryCost . "|" . $extraReserveCost, 1);
+                "ShardforgedBladeMaterializeCost|" . $mzCard . "|" . $memoryCost . "|" . $extraReserveCost, 1);
             return;
         }
     }
@@ -467,7 +489,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         }
 
         DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
-        DecisionQueueController::StoreVariable("PendingMatCard", $lastDecision);
+        DecisionQueueController::StoreVariable("PendingMatCard", $mzCard);
         for($i = 0; $i < $extraReserveCost; ++$i) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
         }
@@ -479,7 +501,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         return; // Materialize() will be called by FINISHPAYMATERIALIZE after cost is paid
     }
     //Then materialize the card (cost is 0, so it resolves immediately)
-    Materialize($player, $lastDecision);
+    Materialize($player, $mzCard);
 };
 
 $customDQHandlers["ShardforgedBladeMaterializeCost"] = function($player, $parts, $lastDecision) {

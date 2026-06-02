@@ -3213,7 +3213,9 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
             if($linkedAllyMZ === null) continue;
             $linkedObj = GetZoneObject($linkedAllyMZ);
             if($linkedObj === null || $linkedObj->removed || !PropertyContains(EffectiveCardType($linkedObj), "ALLY")) continue;
-            OnDealDamage($targetController, $source, $linkedAllyMZ, $amount);
+            // Preserve the original damage source/controller context while redirecting
+            // the target through the normal DealDamage macro pipeline.
+            DealDamage($player, $source, $linkedAllyMZ, $amount);
             return;
         }
     }
