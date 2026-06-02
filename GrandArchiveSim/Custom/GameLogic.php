@@ -18830,6 +18830,10 @@ function GetTrueSightCounterCount($obj) {
     return HasTrueSight($obj) ? 1 : 0;
 }
 
+function GetVigorCounterCount($obj) {
+    return HasVigor($obj) ? 1 : 0;
+}
+
 // --- Omen Counter Helpers ---
 
 function GetOmenCounterCount($obj) {

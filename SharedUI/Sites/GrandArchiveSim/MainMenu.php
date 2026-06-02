@@ -122,7 +122,7 @@ include_once 'Header.php';
     <div class="ga-settings-modal__body">
       <label for="ga-disable-keyword-indicators" class="ga-settings-row">
         <input type="checkbox" id="ga-disable-keyword-indicators">
-        <span>Disable keyword indicators (stealth, spellshroud, true sight)</span>
+        <span>Disable keyword indicators (stealth, spellshroud, true sight, vigor)</span>
       </label>
       <label for="ga-board-background-theme" class="ga-settings-row ga-settings-row--split">
         <span>Board background</span>
