@@ -4338,6 +4338,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "4yqL9xtzVi": // Bandersnatch, Frumious Foe - (2), sacrifice another ally
+            if(intval($abilityIndex) === 0) {
+                for($ri = 0; $ri < 2; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
         case "d6soporhlq": // Obelisk of Protection
             $sourceObj = &GetZoneObject($mzCard);
             if($sourceObj !== null) $sourceObj->Status = 1; // REST
@@ -5076,7 +5083,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             }
         }
     }
-    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq"]);
+    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi"]);
     if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
         && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;
@@ -14427,6 +14434,7 @@ function PreviewActivateReserveCost($player, $obj) {
     if($obj === null || !isset($obj->CardID)) return 0;
 
     $reserveCost = CardCost_reserve($obj->CardID);
+    if($obj->CardID === "4yqL9xtzVi") $reserveCost = 2;
 
     $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
 
@@ -20647,6 +20655,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     global $playerID, $Efficiency_Cards;
 
     $reserveCost = intval(CardCost_reserve($cardID));
+    if($cardID === "4yqL9xtzVi") $reserveCost = 2;
     // Ephemerate override
     $wasEphemerated = DecisionQueueController::GetVariable("wasEphemerated");
     if($wasEphemerated === "YES") {
