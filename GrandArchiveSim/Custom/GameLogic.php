@@ -18798,6 +18798,10 @@ function GetQuestCounterCountForObject($obj) {
     return GetCounterCount($obj, "quest");
 }
 
+function GetPrizeCounterCount($obj) {
+    return GetCounterCount($obj, "prize");
+}
+
 /**
  * Virtual property callback: returns the number of durability counters on the object.
  * Used for the DurabilityCounterCount display badge.
