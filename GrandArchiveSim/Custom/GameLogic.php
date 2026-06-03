@@ -14144,7 +14144,9 @@ function MakeEphemeral($mzCard) {
 }
 
 function IsEphemeral($obj) {
-    return $obj !== null && in_array("EPHEMERAL", $obj->TurnEffects);
+    if(is_string($obj)) $obj = GetZoneObject($obj);
+    if($obj === null || !is_object($obj)) return false;
+    return in_array("EPHEMERAL", $obj->TurnEffects ?? [], true);
 }
 
 function CountEphemeralObjects($player) {
