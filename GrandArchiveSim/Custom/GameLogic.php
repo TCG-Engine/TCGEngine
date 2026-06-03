@@ -1021,7 +1021,6 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 if($mObj !== null && !$mObj->removed && $mObj->CardID === "41t71u4bzz"
                     && IsArisannaBonusActive($playerID)) {
                     DecisionQueueController::StoreVariable("polarisActivateFromMaterial", "YES");
-                        echo("Action card: " . $actionCard);
                     DecisionQueueController::AddDecision($playerID, "PASSPARAMETER", $actionCard, 1);
                     DecisionQueueController::AddDecision($playerID, "CUSTOM", "MATERIALIZE", 1);
                     $dqController = new DecisionQueueController();
@@ -18818,6 +18817,10 @@ function GetQuestCounterCountForObject($obj) {
 
 function GetPrizeCounterCount($obj) {
     return GetCounterCount($obj, "prize");
+}
+
+function GetRootCounterCount($obj) {
+    return GetCounterCount($obj, "root");
 }
 
 /**
