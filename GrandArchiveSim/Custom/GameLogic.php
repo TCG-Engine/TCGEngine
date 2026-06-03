@@ -2384,13 +2384,14 @@ $customDQHandlers["RosewingedHollowGY_Buff"] = function($player, $parts, $lastDe
 // Phantasmagoria (D3rexaXCBo): End phase â€” put all GY on bottom of deck, then mill X = haunt counters
 $customDQHandlers["PhantasmagoriaEndPhase"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
+    global $playerID;
     // Put all graveyard cards on bottom of deck
+    $deckZone = $player == $playerID ? "myDeck" : "theirDeck";
+    $gyZone = $player == $playerID ? "myGraveyard" : "theirGraveyard";
     $gy = &GetGraveyard($player);
-    $deck = &GetDeck($player);
     for($i = count($gy) - 1; $i >= 0; --$i) {
         if(!$gy[$i]->removed) {
-            array_push($deck, $gy[$i]);
-            $gy[$i]->removed = true;
+            MZMove($player, $gyZone . "-" . $i, $deckZone);
         }
     }
     DecisionQueueController::CleanupRemovedCards();
@@ -2399,7 +2400,7 @@ $customDQHandlers["PhantasmagoriaEndPhase"] = function($player, $parts, $lastDec
     for($i = $hauntCount-1; $i >= 0; --$i) {
         $deck = &GetDeck($player);
         if($i >= count($deck)) continue;
-        MZMove($player, "myDeck-" . $i, "myGraveyard");
+        MZMove($player, $deckZone . "-" . $i, $gyZone);
     }
 };
 
