@@ -629,7 +629,9 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($playerID != $turnPlayer) break; // Only turn player can declare attacks
             $obj = &GetZoneObject($actionCard);
             $cardType = EffectiveCardType($obj);
-            if(PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION")) {
+            $countsAsAllyAttacker = PropertyContains($cardType, "ALLY")
+                || ($obj !== null && $obj->CardID === "YKrCbNs3rh" && !HasNoAbilities($obj));
+            if($countsAsAllyAttacker || PropertyContains($cardType, "CHAMPION")) {
                 BeginCombatPhase($actionCard);
             }
             break;
@@ -9001,6 +9003,9 @@ function ObjectCurrentPower($obj) {
         case "r44lyrzo6o": // Sword Saint's Vow: +1 POWER per durability counter
             $power += GetCounterCount($obj, "durability");
             break;
+        case "YKrCbNs3rh": // Tor, Realmwalker Colossus: +1 POWER per 4 durability counters
+            $power += intdiv(GetCounterCount($obj, "durability"), 4);
+            break;
         case "W1g0hNzXAC": // Invigorated Slash: +2 POWER while champion leveled up this turn
             if(GlobalEffectCount($obj->Controller, "LEVELED_UP_THIS_TURN") > 0) {
                 $power += 2;
@@ -13744,7 +13749,9 @@ function FieldSelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
     $cardType = EffectiveCardType($obj);
-    if(!PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) {
+    $countsAsAllyAttacker = PropertyContains($cardType, "ALLY")
+        || ($obj->CardID === "YKrCbNs3rh" && !HasNoAbilities($obj));
+    if(!$countsAsAllyAttacker && !PropertyContains($cardType, "CHAMPION")) {
         return json_encode(['highlight' => false]);
     }
     

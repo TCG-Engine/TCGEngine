@@ -921,6 +921,8 @@ function BeginCombatPhase($actionCard) {
     $turnPlayer = GetTurnPlayer();
     $obj = &GetZoneObject($actionCard);
     $cardType = EffectiveCardType($obj);
+    $countsAsAllyAttacker = PropertyContains($cardType, "ALLY")
+        || ($obj->CardID === "YKrCbNs3rh" && !HasNoAbilities($obj));
 
     // Attacks are slow-speed only: cannot declare while anything is pending on EffectStack.
     if(function_exists("GetLiveEffectStackEntries") && !empty(GetLiveEffectStackEntries())) {
@@ -934,7 +936,7 @@ function BeginCombatPhase($actionCard) {
         && PropertyContains(CardSubtypes($obj->CardID), "SWORD")
         && GlobalEffectCount($turnPlayer, "CQ1bxUyi0Q_SWORDS_AS_ALLY") > 0;
     if(!$ensoulSwordAttacking
-       && !PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) {
+       && !$countsAsAllyAttacker && !PropertyContains($cardType, "CHAMPION")) {
         SetFlashMessage("Only allies and champions can declare attacks.");
         return false;
     }
@@ -970,7 +972,7 @@ function BeginCombatPhase($actionCard) {
         SetFlashMessage("This unit can't attack (Bring Down the Mighty).");
         return false;
     }
-    if(PropertyContains($cardType, "ALLY") && GetCounterCount($obj, "frenzy") > 0) {
+    if($countsAsAllyAttacker && GetCounterCount($obj, "frenzy") > 0) {
         SetFlashMessage("This ally can't attack while it has a frenzy counter.");
         return false;
     }
@@ -1033,7 +1035,7 @@ function BeginCombatPhase($actionCard) {
     // Oppressive Presence (j9hjjvkyyr): allies can't attack unless they pay (X), where X is the
     // highest POWER among fire allies the caster controlled when the effect resolved.
     $oppressivePresenceTax = 0;
-    if(PropertyContains($cardType, "ALLY")) {
+    if($countsAsAllyAttacker) {
         $oppressivePresenceTax = GetOppressivePresenceAttackTax($turnPlayer);
         if($oppressivePresenceTax > 0) {
             $hand = GetZone("myHand");
@@ -1079,7 +1081,7 @@ function BeginCombatPhase($actionCard) {
     // Chibi, Battle of Red Cliffs (881gacexpv): players can't declare attacks with allies
     // unless they pay (1) for each attack declaration. Check both players' fields.
     $chibiActive = false;
-    if(PropertyContains($cardType, "ALLY")) {
+    if($countsAsAllyAttacker) {
         // Art of War (fjne9ri261): allies that entered this turn can't declare attacks
         if(in_array("ENTERED_THIS_TURN", $obj->TurnEffects)) {
             foreach(array_merge(GetField(1), GetField(2)) as $awObj) {
