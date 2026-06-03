@@ -8676,6 +8676,9 @@ function ObjectCurrentPower($obj) {
         if($effect === "CyiA6N2geQ") {
             $power += 1;
         }
+        if($effect === "gz92tQGwCZ-buff") { // Banner Slime activated ability buff
+            $power += 1;
+        }
         if($effect === "tZtoAl4ojK_POWER") {
             $power -= 5;
         }
@@ -9478,9 +9481,6 @@ function ObjectCurrentPower($obj) {
                     $power += 1;
                 }
             }
-            break;
-        case "gz92tQGwCZ-buff": // Banner Slime activated ability buff
-            $power += 1;
             break;
         case "dJlNMQ5rWP": // Golden Knight: [Alice Bonus] +1 POWER while attacking unit with intercept or taunt
             {
