@@ -883,7 +883,7 @@
                --ga-mobile-field-h: 84px;
           }
 
-          /* Top utility row: chat + report bug. */
+          /* Top utility row: chat + utility buttons. */
           #chatWidget {
                position: fixed !important;
                top: 4px !important;
@@ -900,14 +900,22 @@
                height: 28px !important;
           }
 
-          #bug-report-button {
+          #bug-report-button,
+          #concede-button {
                position: fixed !important;
                top: 4px !important;
-               right: 8px !important;
                bottom: auto !important;
                z-index: 2700 !important;
                padding: 6px 12px !important;
                font-size: 12px !important;
+          }
+
+          #concede-button {
+               right: 8px !important;
+          }
+
+          #bug-report-button {
+               right: 96px !important;
           }
 
           /* Explicit stacked board rows (top -> center -> bottom). */

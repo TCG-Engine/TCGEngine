@@ -2175,30 +2175,66 @@
         }, 400);
       }
 
-      function initBugReportButton() {
-        if (window.__bugReportButtonInitialized) return;
-        if (!document.getElementById('gameName') || !document.getElementById('folderPath') || !document.getElementById('playerID')) return;
-        if (document.getElementById('folderPath').value !== 'GrandArchiveSim') return;
-
-        window.__bugReportButtonInitialized = true;
-
+      function createGrandArchiveUtilityButton(config) {
+        if (!config || !config.id) return null;
         const button = document.createElement('button');
-        button.id = 'bug-report-button';
-        button.textContent = 'Report Bug';
+        button.id = config.id;
+        button.textContent = config.text || '';
         button.style.position = 'fixed';
-        button.style.right = '110px';
-        button.style.bottom = '8px';
+        button.style.top = '8px';
         button.style.zIndex = '2600';
         button.style.padding = '10px 16px';
         button.style.borderRadius = '999px';
-        button.style.border = '1px solid #a83232';
-        button.style.background = 'rgba(13, 27, 42, 0.94)';
+        button.style.border = config.border || '1px solid #375a7f';
+        button.style.background = config.background || 'rgba(13, 27, 42, 0.94)';
         button.style.color = '#fff';
         button.style.fontFamily = "'Orbitron', sans-serif";
         button.style.cursor = 'pointer';
-        button.style.boxShadow = '0 0 15px rgba(168, 50, 50, 0.45)';
-        button.onclick = openBugReportModal;
-        document.body.appendChild(button);
+        button.style.boxShadow = config.boxShadow || '0 0 15px rgba(55, 90, 127, 0.45)';
+        if (config.right) button.style.right = config.right;
+        if (config.onclick) button.onclick = config.onclick;
+        return button;
+      }
+
+      function initGrandArchiveUtilityButtons() {
+        if (window.__grandArchiveUtilityButtonsInitialized) return;
+        if (!document.getElementById('gameName') || !document.getElementById('folderPath') || !document.getElementById('playerID')) return;
+        if (document.getElementById('folderPath').value !== 'GrandArchiveSim') return;
+
+        window.__grandArchiveUtilityButtonsInitialized = true;
+
+        const bugReportButton = createGrandArchiveUtilityButton({
+          id: 'bug-report-button',
+          text: 'Report Bug',
+          right: '110px',
+          border: '1px solid #a83232',
+          boxShadow: '0 0 15px rgba(168, 50, 50, 0.45)',
+          onclick: openBugReportModal
+        });
+        if (bugReportButton) document.body.appendChild(bugReportButton);
+
+        const playerIdValue = parseInt(document.getElementById('playerID').value || '', 10);
+        if (playerIdValue === 1 || playerIdValue === 2) {
+          const concedeButton = createGrandArchiveUtilityButton({
+            id: 'concede-button',
+            text: 'Concede',
+            right: '8px',
+            border: '1px solid #b8891d',
+            background: 'rgba(34, 21, 8, 0.96)',
+            boxShadow: '0 0 15px rgba(201, 168, 76, 0.42)',
+            onclick: confirmConcedeGame
+          });
+          if (concedeButton) document.body.appendChild(concedeButton);
+        }
+      }
+
+      function confirmConcedeGame() {
+        const playerIdField = document.getElementById('playerID');
+        if (!playerIdField) return;
+        const playerIdValue = parseInt(playerIdField.value || '', 10);
+        if (playerIdValue !== 1 && playerIdValue !== 2) return;
+        if (!window.confirm('Concede this game? This will immediately count as a loss for you.')) return;
+        SubmitInput('10006', '');
       }
 
       function openBugReportModal() {
@@ -4314,8 +4350,8 @@ function SetCookieValue(cookieName, cookieValue, maxAgeDays) {
   document.cookie = cookieName + '=' + encodeURIComponent(cookieValue) + '; max-age=' + maxAgeSeconds + '; path=/; SameSite=Lax';
 }
 
-setTimeout(initBugReportButton, 0);
-window.addEventListener('load', initBugReportButton);
+setTimeout(initGrandArchiveUtilityButtons, 0);
+window.addEventListener('load', initGrandArchiveUtilityButtons);
 
 // ---- Mobile Deck Editor Layout ----
 // Reorganizes #myStuff into a vertical layout for screens ≤1000px:

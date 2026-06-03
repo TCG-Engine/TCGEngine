@@ -261,6 +261,20 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     case 10005:
       SaveVersion($playerID);
       break;
+    case 10006:
+      if (($playerID === 1 || $playerID === 2) && function_exists('TriggerGameOver')) {
+        TriggerGameOver($playerID);
+        if (function_exists('SetFlashMessage')) {
+          SetFlashMessage('Player ' . $playerID . ' conceded.');
+        }
+        if (function_exists('WriteLog')) {
+          WriteLog('Player ' . $playerID . ' conceded.');
+        }
+      } else {
+        $result['success'] = false;
+        $result['message'] = 'Concede is not available for this action.';
+      }
+      break;
     case 10014:
       $inpArr = explode('!', $cardID);
       $moveCard = $inpArr[0] ?? '';
