@@ -5987,6 +5987,19 @@ $customDQHandlers["PoisonousBreezecapSuppressReplace"] = function($player, $part
     }
 };
 
+$customDQHandlers["LifeEssenceAmuletBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    global $playerID;
+    $idx = intval($parts[0]);
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $obj = GetZoneObject($zone . "-" . $idx);
+    if($obj === null || $obj->CardID !== "1XegCUjBnY") return;
+    OnLeaveField($player, $zone . "-" . $idx);
+    MZMove($player, $zone . "-" . $idx, "myBanish");
+    DecisionQueueController::CleanupRemovedCards();
+    Draw($player, 1);
+};
+
 function CountReserveSources($player) {
     global $playerID;
     $available = count(GetHand($player));

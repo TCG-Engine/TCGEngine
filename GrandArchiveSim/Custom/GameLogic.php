@@ -5446,7 +5446,8 @@ function DoAllyDestroyed($player, $mzCard) {
             $dest = $player == $controller ? "myBanish" : "theirBanish";
         }
     }
-    if(DecisionQueueController::GetVariable("CombatTarget") == $mzCard) {
+    if(function_exists("CombatTargetMarker")
+        && in_array(CombatTargetMarker(), $destroyedObj->TurnEffects ?? [], true)) {
         DecisionQueueController::StoreVariable("CombatTarget", null);
     }
     $isChampion = PropertyContains(EffectiveCardType($destroyedObj), "CHAMPION");
@@ -5671,6 +5672,23 @@ function DoAllyDestroyed($player, $mzCard) {
                 if(!$deaField[$dei]->removed && $deaField[$dei]->CardID === "ddag7ue0k7" && !HasNoAbilities($deaField[$dei])) {
                     DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, tooltip:"Banish_Death_Essence_Amulet?");
                     DecisionQueueController::AddDecision($controller, "CUSTOM", "DeathEssenceAmuletBanish|$dei", 1);
+                    break;
+                }
+            }
+        }
+    }
+    // Life Essence Amulet (1XegCUjBnY): whenever an ally you control dies while it's not your turn,
+    // you may banish Life Essence Amulet. If you do, draw a card.
+    {
+        $turnPlayer = GetTurnPlayer();
+        if($turnPlayer != $controller && PropertyContains(EffectiveCardType($destroyedObj), "ALLY")) {
+            global $playerID;
+            $controllerField = $controller == $playerID ? "myField" : "theirField";
+            $leaField = GetZone($controllerField);
+            for($lei = 0; $lei < count($leaField); ++$lei) {
+                if(!$leaField[$lei]->removed && $leaField[$lei]->CardID === "1XegCUjBnY" && !HasNoAbilities($leaField[$lei])) {
+                    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, tooltip:"Banish_Life_Essence_Amulet?");
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LifeEssenceAmuletBanish|$lei", 1);
                     break;
                 }
             }
