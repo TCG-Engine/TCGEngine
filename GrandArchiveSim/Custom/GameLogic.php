@@ -3616,6 +3616,7 @@ function OnCardActivated($player, $mzCard) {
     global $cardActivatedAbilities;
     $obj = GetZoneObject($mzCard);
     $cardType = CardType($obj->CardID);
+    $turnPlayer = GetTurnPlayer();
     if(PropertyContains($cardType, "ALLY")) {
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
@@ -14422,10 +14423,9 @@ function CountAvailableReservePayments($player, $excludedMzID = null) {
     $hand = GetHand($player);
     $handZone = ReservePaymentSourceZoneName($player, "Hand");
     foreach($hand as $i => $handObj) {
-        if(!$handObj->removed) {
-            if($excludedMzID !== null && $excludedMzID === ($handZone . "-" . $i)) continue;
-            ++$available;
-        }
+        if($handObj === null || (isset($handObj->removed) && $handObj->removed)) continue;
+        if($excludedMzID !== null && $excludedMzID === ($handZone . "-" . $i)) continue;
+        ++$available;
     }
     return $available + count(GetReservablePaymentSources($player));
 }

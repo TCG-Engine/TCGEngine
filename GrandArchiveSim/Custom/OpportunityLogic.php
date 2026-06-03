@@ -771,7 +771,7 @@ function GetPlayableFastCards($player) {
     $fastCards = [];
     for($i = 0; $i < count($hand); $i++) {
         $obj = $hand[$i];
-        if(isset($obj->removed) && $obj->removed) continue;
+        if($obj === null || (isset($obj->removed) && $obj->removed)) continue;
         $cardID = strval($obj->CardID ?? "");
         $cardIDLower = strtolower($cardID);
         $mzID = "myHand-" . $i;
@@ -877,7 +877,10 @@ function GetPlayableFastCards($player) {
     if($player != $turnPlayer && IsAliceBonusActive($player) && IsChampionBeingAttacked($player)) {
         $gy = GetZone("myGraveyard");
         $gyCount = 0;
-        foreach($gy as $gyObj) { if(!$gyObj->removed) $gyCount++; }
+        foreach($gy as $gyObj) {
+            if($gyObj === null || (isset($gyObj->removed) && $gyObj->removed)) continue;
+            $gyCount++;
+        }
         if($gyCount >= 6) {
             $memory = &GetMemory($player);
             for($mi = 0; $mi < count($memory); ++$mi) {
@@ -932,7 +935,10 @@ function TryLostPromisesMemory($player, $mzID) {
     if(!IsChampionBeingAttacked($player)) return false;
     $gy = GetZone("myGraveyard");
     $gyCount = 0;
-    foreach($gy as $gyObj) { if(!$gyObj->removed) $gyCount++; }
+    foreach($gy as $gyObj) {
+        if($gyObj === null || (isset($gyObj->removed) && $gyObj->removed)) continue;
+        $gyCount++;
+    }
     if($gyCount < 6) return false;
     LostPromisesBanishLoop($player, 6, $mzID);
     return true;
