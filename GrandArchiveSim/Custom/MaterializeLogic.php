@@ -76,6 +76,41 @@ function QueueMaterializeFloatingPaymentChoice($player, $memoryCost) {
     DecisionQueueController::AddDecision($player, "CUSTOM", "PAYFLOATING|" . $memoryCost, 1);
 }
 
+function CountAvailableMaterializeMemoryPayments($player) {
+    $memoryCount = 0;
+    $memoryZone = GetMemory($player);
+    foreach($memoryZone as $memoryObj) {
+        if(!$memoryObj->removed) ++$memoryCount;
+    }
+
+    $floatingIndices = GetMaterializeFloatingChoices($player);
+    $floatingCount = $floatingIndices === "" ? 0 : count(explode("&", $floatingIndices));
+    return $memoryCount + $floatingCount;
+}
+
+function QueueMaterializePayment($player, $mzCard, $memoryCost, $extraReserveCost = 0) {
+    $memoryCost = intval($memoryCost);
+    $extraReserveCost = intval($extraReserveCost);
+    if($mzCard === "") return false;
+
+    if($memoryCost > 0 && CountAvailableMaterializeMemoryPayments($player) < $memoryCost) {
+        AutoUndoMaterializeCostFailure($player);
+        return false;
+    }
+
+    DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
+    DecisionQueueController::StoreVariable("PendingMatCard", $mzCard);
+    for($i = 0; $i < $extraReserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+
+    if($memoryCost > 0) {
+        QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+    return true;
+}
+
 function GetLegalMaterializeChoices($player) {
     $material = GetMaterial($player);
     $choices = [];
@@ -334,7 +369,8 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         }
     }
 
-    $memoryCost = $ignoreCost ? 0 : CardMemoryCost($materializeCard);
+    $declaredMemoryCost = CardCost_memory($materializeCard->CardID);
+    $memoryCost = $ignoreCost ? 0 : ($declaredMemoryCost < 0 ? $declaredMemoryCost : CardMemoryCost($materializeCard));
     $extraReserveCost = 0;
 
     // Inert Sword (2s08hssegf): "pay (2)" is reserve payment, not memory payment.
@@ -464,6 +500,15 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         }
     }
 
+    if($memoryCost < 0) {
+        $maxX = CountAvailableMaterializeMemoryPayments($player);
+        DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "0|" . $maxX, 1,
+            tooltip:"Choose_X_memory_to_pay_for_materialize");
+        DecisionQueueController::AddDecision($player, "CUSTOM",
+            "MaterializeXCost|" . $mzCard . "|" . $extraReserveCost . "|" . $maxX, 1);
+        return;
+    }
+
     if($memoryCost > 0 || $extraReserveCost > 0) {
         if($materializeCard->CardID === "mDN1CI9IEe") {
             $floating = ZoneSearch("myGraveyard", floatingMemoryOnly:true);
@@ -473,31 +518,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
             DecisionQueueController::AddDecision($player, "CUSTOM", "SealedBladeFloatingCost|" . $lastDecision . "|" . $memoryCost . "|1", 1);
             return;
         }
-        $floatingIndices = "";
-        if($memoryCost > 0) {
-            $memoryCount = 0;
-            $memoryZone = GetMemory($player);
-            foreach($memoryZone as $memoryObj) {
-                if(!$memoryObj->removed) ++$memoryCount;
-            }
-            $floatingIndices = GetMaterializeFloatingChoices($player);
-            $floatingCount = $floatingIndices === "" ? 0 : count(explode("&", $floatingIndices));
-            if($memoryCount + $floatingCount < $memoryCost) {
-                AutoUndoMaterializeCostFailure($player);
-                return;
-            }
-        }
-
-        DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
-        DecisionQueueController::StoreVariable("PendingMatCard", $mzCard);
-        for($i = 0; $i < $extraReserveCost; ++$i) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
-        }
-
-        if($memoryCost > 0) {
-            QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
-        }
-        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+        QueueMaterializePayment($player, $mzCard, $memoryCost, $extraReserveCost);
         return; // Materialize() will be called by FINISHPAYMATERIALIZE after cost is paid
     }
     //Then materialize the card (cost is 0, so it resolves immediately)
@@ -531,29 +552,7 @@ $customDQHandlers["ShardforgedBladeMaterializeCost"] = function($player, $parts,
             DecisionQueueController::AddDecision($player, "CUSTOM", "SealedBladeFloatingCost|" . $mzCard . "|" . $memoryCost . "|1", 1);
             return;
         }
-
-        $floatingIndices = "";
-        if($memoryCost > 0) {
-            $memoryCount = 0;
-            $memoryZone = GetMemory($player);
-            foreach($memoryZone as $memoryObj) {
-                if(!$memoryObj->removed) ++$memoryCount;
-            }
-            $floatingIndices = GetMaterializeFloatingChoices($player);
-            $floatingCount = $floatingIndices === "" ? 0 : count(explode("&", $floatingIndices));
-            if($memoryCount + $floatingCount < $memoryCost) {
-                AutoUndoMaterializeCostFailure($player);
-                return;
-            }
-        }
-
-        DecisionQueueController::StoreVariable("MemoryCost", $memoryCost);
-        DecisionQueueController::StoreVariable("PendingMatCard", $mzCard);
-        for($i = 0; $i < $extraReserveCost; ++$i) {
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
-        }
-        if($memoryCost > 0) QueueMaterializeFloatingPaymentChoice($player, $memoryCost);
-        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISHPAYMATERIALIZE", 2, dontSkipOnPass:1);
+        QueueMaterializePayment($player, $mzCard, $memoryCost, $extraReserveCost);
         return;
     }
 
@@ -783,6 +782,25 @@ $customDQHandlers["PAYFLOATING"] = function($player, $parts, $lastDecision) {
     return $toPay;
 };
 
+$customDQHandlers["MaterializeXCost"] = function($player, $parts, $lastDecision) {
+    $mzCard = $parts[0] ?? "";
+    $extraReserveCost = intval($parts[1] ?? 0);
+    $maxX = intval($parts[2] ?? 0);
+    if($mzCard === "") return;
+
+    $x = intval($lastDecision);
+    if($x < 0) $x = 0;
+    if($x > $maxX) $x = $maxX;
+    DecisionQueueController::StoreVariable("PendingMaterializeXCost", strval($x));
+
+    if($x > 0 || $extraReserveCost > 0) {
+        QueueMaterializePayment($player, $mzCard, $x, $extraReserveCost);
+        return;
+    }
+
+    Materialize($player, $mzCard);
+};
+
 $customDQHandlers["FINISHPAYMATERIALIZE"] = function($player, $parts, $lastDecision) {
     $memoryCost = DecisionQueueController::GetVariable("MemoryCost");
     for($i = 0; $i < $memoryCost; ++$i) {
@@ -802,6 +820,12 @@ function DoMaterialize($player, $mzCard) {
     global $customDQHandlers;
     $sourceObject = &GetZoneObject($mzCard);
     $sourceId = $sourceObject->CardID;
+    $pendingMaterializeXCost = DecisionQueueController::GetVariable("PendingMaterializeXCost");
+    DecisionQueueController::ClearVariable("PendingMaterializeXCost");
+    $chosenMaterializeX = ($pendingMaterializeXCost === null || $pendingMaterializeXCost === "")
+        ? null
+        : intval($pendingMaterializeXCost);
+    $resolvedMaterializeMemoryCost = $chosenMaterializeX ?? CardMemoryCost($sourceObject);
     $polarisFromMaterial = ($sourceId === "41t71u4bzz"
         && DecisionQueueController::GetVariable("polarisActivateFromMaterial") === "YES");
     if($polarisFromMaterial) {
@@ -809,7 +833,7 @@ function DoMaterialize($player, $mzCard) {
     }
 
     // Obstinate Cragback: opponents can't materialize cards with memory cost 0.
-    if(CardMemoryCost($sourceObject) === 0) {
+    if($resolvedMaterializeMemoryCost === 0) {
         $opponent = ($player == 1) ? 2 : 1;
         $oppField = &GetField($opponent);
         foreach($oppField as $oppObj) {
@@ -1179,7 +1203,10 @@ function DoMaterialize($player, $mzCard) {
         if($polarisFromMaterial) {
             $sourceObject->Status = 1;
         }
-        MZMove($player, $mzCard, "myField");
+        $newObj = MZMove($player, $mzCard, "myField");
+        if($newObj !== null && $sourceId === "1keruycrwi" && $chosenMaterializeX !== null && $chosenMaterializeX > 0) {
+            AddCounters($player, $newObj->GetMzID(), "gem", $chosenMaterializeX);
+        }
     }
 
     // Duplicitous Replication (owq8s5fefw): if the opponent has this effect active and
@@ -1222,7 +1249,7 @@ function DoMaterialize($player, $mzCard) {
     // Craggy Fatestone (h8n1520m2d): [Guo Jia Bonus] whenever opponent materializes a card
     // with memory cost 0, put a buff counter on Craggy Fatestone
     {
-        $matMemCost = CardCost_memory($sourceId);
+        $matMemCost = $resolvedMaterializeMemoryCost;
         if($matMemCost !== null && $matMemCost == 0) {
             $opponent = ($player == 1) ? 2 : 1;
             if(IsGuoJiaBonus($opponent)) {

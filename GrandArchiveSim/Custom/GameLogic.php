@@ -4787,6 +4787,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "1keruycrwi": // Devouring Malice: REST + remove 1 gem counter
+            $sourceObj = &GetZoneObject($mzCard);
+            if($sourceObj !== null && !$sourceObj->removed) {
+                $sourceObj->Status = 1;
+            }
+            RemoveCounters($player, $mzCard, "gem", 1);
+            break;
         case "0ejcyuvuxn": // Corhazi Arsonist: remove 1 prep counter from champion
             $pField = GetField($player);
             for($ci = 0; $ci < count($pField); ++$ci) {
@@ -16162,6 +16169,155 @@ function ApplyCrystallineRealityMode($player, $mode) {
     }
 }
 
+function GetDevouringMaliceChosenModes($obj) {
+    if($obj === null || !isset($obj->Counters) || !is_array($obj->Counters)) return [];
+    $stored = $obj->Counters["devouring_malice_modes"] ?? [];
+    if(is_array($stored)) {
+        return array_map("intval", array_keys(array_filter($stored)));
+    }
+    if(is_string($stored) && $stored !== "") {
+        return array_map("intval", array_filter(explode("|", $stored), fn($mode) => $mode !== ""));
+    }
+    return [];
+}
+
+function GetDevouringMaliceAvailableModes($player, $mzID) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || $obj->CardID !== "1keruycrwi") return [];
+
+    $chosenLookup = [];
+    foreach(GetDevouringMaliceChosenModes($obj) as $chosenMode) {
+        $chosenLookup[intval($chosenMode)] = true;
+    }
+
+    $available = [];
+
+    if(!isset($chosenLookup[0])) {
+        $allyTargets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+        $allyTargets = FilterSpellshroudTargets($allyTargets);
+        if(!empty($allyTargets)) {
+            $available[] = [
+                "mode" => 0,
+                "label" => "Put_three_debuff_counters_on_target_ally"
+            ];
+        }
+    }
+
+    if(!isset($chosenLookup[1])) {
+        $championTargets = array_merge(ZoneSearch("myField", ["CHAMPION"]), ZoneSearch("theirField", ["CHAMPION"]));
+        $championTargets = FilterSpellshroudTargets($championTargets);
+        if(!empty($championTargets)) {
+            $available[] = [
+                "mode" => 1,
+                "label" => "Deal_3_damage_to_target_champion_and_recover_3"
+            ];
+        }
+    }
+
+    if(!isset($chosenLookup[2]) && FindChampionMZ($player) !== null) {
+        $available[] = [
+            "mode" => 2,
+            "label" => "Deal_8_unpreventable_damage_to_your_champion_and_draw_two_cards"
+        ];
+    }
+
+    return $available;
+}
+
+function MarkDevouringMaliceModeChosen($mzID, $mode) {
+    $obj = &GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return;
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) {
+        $obj->Counters = [];
+    }
+    if(!isset($obj->Counters["devouring_malice_modes"]) || !is_array($obj->Counters["devouring_malice_modes"])) {
+        $obj->Counters["devouring_malice_modes"] = [];
+    }
+    $obj->Counters["devouring_malice_modes"][strval(intval($mode))] = true;
+}
+
+function ResolveDevouringMaliceMode($player, $mzID, $mode, $targetMZ = "") {
+    switch(intval($mode)) {
+        case 0:
+            if($targetMZ === "") return;
+            MarkDevouringMaliceModeChosen($mzID, 0);
+            AddCounters($player, $targetMZ, "debuff", 3);
+            break;
+        case 1:
+            if($targetMZ === "") return;
+            MarkDevouringMaliceModeChosen($mzID, 1);
+            DealDamage($player, $mzID, $targetMZ, 3);
+            RecoverChampion($player, 3);
+            break;
+        case 2:
+            $champMZ = FindChampionMZ($player);
+            if($champMZ === null) return;
+            MarkDevouringMaliceModeChosen($mzID, 2);
+            DealUnpreventableDamage($player, $mzID, $champMZ, 8);
+            Draw($player, 2);
+            break;
+    }
+}
+
+function DevouringMaliceStart($player, $mzID) {
+    $availableModes = GetDevouringMaliceAvailableModes($player, $mzID);
+    if(empty($availableModes)) return;
+
+    $labels = [];
+    $modeMap = [];
+    $labelPrefixes = ["A", "B", "C"];
+    foreach($availableModes as $index => $entry) {
+        $labels[] = $labelPrefixes[$index] . ":_" . $entry["label"];
+        $modeMap[] = strval($entry["mode"]);
+    }
+
+    DecisionQueueController::StoreVariable("DevouringMaliceModeMap", implode("|", $modeMap));
+    DecisionQueueController::AddDecision($player, "MZMODAL", "1|1|" . implode("&", $labels), 1, "Devouring_Malice");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "DevouringMaliceChooseMode|" . $mzID, 1);
+}
+
+$customDQHandlers["DevouringMaliceChooseMode"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0] ?? "";
+    if($mzID === "" || $lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+
+    $selectedParts = explode(",", $lastDecision);
+    $selectedDisplayIndex = intval(trim($selectedParts[0] ?? "0"));
+    $modeMapRaw = DecisionQueueController::GetVariable("DevouringMaliceModeMap");
+    DecisionQueueController::ClearVariable("DevouringMaliceModeMap");
+    $modeMap = $modeMapRaw === null || $modeMapRaw === "" ? [] : explode("|", $modeMapRaw);
+    if(!isset($modeMap[$selectedDisplayIndex])) return;
+
+    $selectedMode = intval($modeMap[$selectedDisplayIndex]);
+    if($selectedMode === 0) {
+        $allyTargets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("theirField", ["ALLY"]));
+        $allyTargets = FilterSpellshroudTargets($allyTargets);
+        if(empty($allyTargets)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allyTargets), 1,
+            tooltip:"Choose_target_ally_for_Devouring_Malice");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DevouringMaliceResolve|" . $mzID . "|0", 1);
+        return;
+    }
+
+    if($selectedMode === 1) {
+        $championTargets = array_merge(ZoneSearch("myField", ["CHAMPION"]), ZoneSearch("theirField", ["CHAMPION"]));
+        $championTargets = FilterSpellshroudTargets($championTargets);
+        if(empty($championTargets)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $championTargets), 1,
+            tooltip:"Choose_target_champion_for_Devouring_Malice");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DevouringMaliceResolve|" . $mzID . "|1", 1);
+        return;
+    }
+
+    ResolveDevouringMaliceMode($player, $mzID, 2);
+};
+
+$customDQHandlers["DevouringMaliceResolve"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0] ?? "";
+    $mode = intval($parts[1] ?? -1);
+    if($mzID === "" || $mode < 0 || $lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    ResolveDevouringMaliceMode($player, $mzID, $mode, $lastDecision);
+};
+
 function CrystallineRealityStart($player) {
     DecisionQueueController::StoreVariable("wasPrepared", "NO");
     $champMZ = FindChampionMZ($player);
@@ -18823,6 +18979,10 @@ function GetPrizeCounterCount($obj) {
 
 function GetRootCounterCount($obj) {
     return GetCounterCount($obj, "root");
+}
+
+function GetGemCounterCount($obj) {
+    return GetCounterCount($obj, "gem");
 }
 
 /**
