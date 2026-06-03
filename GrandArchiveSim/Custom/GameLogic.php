@@ -6458,12 +6458,12 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     // enters the field under your control, put a buff counter; 6+ may transform
     WildgrowthFatestoneOnEnterCheck($player, "myField-" . (count($field) - 1));
 
-    if(DecisionQueueController::GetVariable("SuppressNextEnter") === "YES") {
-        DecisionQueueController::ClearVariable("SuppressNextEnter");
+    $enteredMzID = $field[count($field)-1]->GetMzID();
+    if(QueueUniqueRuleResolution($player, $enteredMzID)) {
         return;
     }
 
-    Enter($player, $field[count($field)-1]->GetMzID());
+    FinalizeFieldEntryEnter($player, $enteredMzID);
 }
 
 // Airship Captain (t9hreqhj1t): deal 2 damage to chosen champion
@@ -18690,6 +18690,87 @@ function CountUniqueAllies($player) {
     }
     return $count;
 }
+
+function FinalizeFieldEntryEnter($player, $mzID) {
+    if(DecisionQueueController::GetVariable("SuppressNextEnter") === "YES") {
+        DecisionQueueController::ClearVariable("SuppressNextEnter");
+        return;
+    }
+    Enter($player, $mzID);
+}
+
+function QueueUniqueRuleResolution($player, $enteredMzID) {
+    $enteredObj = GetZoneObject($enteredMzID);
+    if($enteredObj === null || $enteredObj->removed) return false;
+    if(!PropertyContains(EffectiveCardType($enteredObj), "UNIQUE")) return false;
+
+    $duplicateChoices = [];
+    $field = GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        $fieldObj = $field[$i];
+        if($fieldObj === null || $fieldObj->removed) continue;
+        if(intval($fieldObj->Controller ?? $player) !== intval($player)) continue;
+        if($fieldObj->CardID !== $enteredObj->CardID) continue;
+        if(!PropertyContains(EffectiveCardType($fieldObj), "UNIQUE")) continue;
+        $duplicateChoices[] = "myField-" . $i;
+    }
+    if(count($duplicateChoices) <= 1) return false;
+
+    if(!in_array("PENDING_UNIQUE_RULE", $enteredObj->TurnEffects ?? [], true)) {
+        AddTurnEffect($enteredMzID, "PENDING_UNIQUE_RULE");
+    }
+
+    $cardName = str_replace([" ", ",", "'", ":"], ["_", "", "", ""], CardName($enteredObj->CardID));
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $duplicateChoices), 0,
+        "Choose_a_" . $cardName . "_to_sacrifice_(Unique)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ResolveUniqueRule|" . $enteredObj->CardID, 0, "", 1);
+    return true;
+}
+
+$customDQHandlers["ResolveUniqueRule"] = function($player, $parts, $lastDecision) {
+    $cardID = $parts[0] ?? "";
+    if($cardID === "") return;
+
+    if($lastDecision !== "" && $lastDecision !== "-" && $lastDecision !== "PASS") {
+        $chosenObj = GetZoneObject($lastDecision);
+        if($chosenObj !== null && !$chosenObj->removed
+            && $chosenObj->CardID === $cardID
+            && PropertyContains(EffectiveCardType($chosenObj), "UNIQUE")) {
+            DoSacrificeFighter($player, $lastDecision);
+            DecisionQueueController::CleanupRemovedCards();
+        }
+    }
+
+    $field = GetField($player);
+    $remainingChoices = [];
+    $pendingEnterMz = "";
+    for($i = 0; $i < count($field); ++$i) {
+        $fieldObj = $field[$i];
+        if($fieldObj === null || $fieldObj->removed) continue;
+        if(intval($fieldObj->Controller ?? $player) !== intval($player)) continue;
+        if($fieldObj->CardID !== $cardID) continue;
+        if(!PropertyContains(EffectiveCardType($fieldObj), "UNIQUE")) continue;
+        $mzID = "myField-" . $i;
+        $remainingChoices[] = $mzID;
+        if(in_array("PENDING_UNIQUE_RULE", $fieldObj->TurnEffects ?? [], true)) {
+            $pendingEnterMz = $mzID;
+        }
+    }
+
+    if(count($remainingChoices) > 1) {
+        $cardName = str_replace([" ", ",", "'", ":"], ["_", "", "", ""], CardName($cardID));
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $remainingChoices), 0,
+            "Choose_a_" . $cardName . "_to_sacrifice_(Unique)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ResolveUniqueRule|" . $cardID, 0, "", 1);
+        return;
+    }
+
+    if($pendingEnterMz === "") return;
+    $pendingObj = GetZoneObject($pendingEnterMz);
+    if($pendingObj === null || $pendingObj->removed) return;
+    $pendingObj->TurnEffects = array_values(array_diff($pendingObj->TurnEffects ?? [], ["PENDING_UNIQUE_RULE"]));
+    FinalizeFieldEntryEnter($player, $pendingEnterMz);
+};
 
 function CountChampionCombatDamageDealtThisTurn($player) {
     $champion = GetPlayerChampion($player);
