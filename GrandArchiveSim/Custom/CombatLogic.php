@@ -945,9 +945,13 @@ function BeginCombatPhase($actionCard) {
         return false;
     }
 
-    // Validate power > 0 (champions with 0 power can still attack if they have a weapon)
+    // Validate power > 0.
+    // Command / attack-card attacks can still be legal if the loaded intent adds enough POWER,
+    // and 0-power champions can still attack if they have an available weapon.
     if(ObjectCurrentPower($obj) <= 0) {
-        if(!PropertyContains($cardType, "CHAMPION") || empty(GetAvailableWeapons($turnPlayer))) {
+        $hasIntentPower = !empty(GetIntentCards($turnPlayer)) && GetTotalAttackPower($obj, $turnPlayer) > 0;
+        $hasChampionWeapon = PropertyContains($cardType, "CHAMPION") && !empty(GetAvailableWeapons($turnPlayer));
+        if(!$hasIntentPower && !$hasChampionWeapon) {
             SetFlashMessage("Cannot attack with a unit that has 0 or less power.");
             return false;
         }
