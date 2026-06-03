@@ -19093,15 +19093,10 @@ function PutOmenCounter($player, $mzCard) {
 function BanishWithOmenCounter($player, $mzCard) {
     global $playerID;
     $cardID = GetZoneObject($mzCard)->CardID;
-    MZMove($player, $mzCard, "myBanish");
+    $banishZone = $player != $playerID ? "theirBanish" : "myBanish";
+    MZMove($player, $mzCard, $banishZone);
     $banish = GetBanish($player);
-    $prefix = ($player == $playerID) ? "myBanish" : "theirBanish";
-    for($i = count($banish) - 1; $i >= 0; --$i) {
-        if(!$banish[$i]->removed && $banish[$i]->CardID === $cardID) {
-            PutOmenCounter($player, $prefix . "-" . $i);
-            break;
-        }
-    }
+    PutOmenCounter($player, $banishZone . "-" . (count($banish) - 1));
 }
 
 function SlimeKingLeaveStart($player) {
