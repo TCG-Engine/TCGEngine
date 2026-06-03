@@ -2107,35 +2107,35 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
             $waterGY = ZoneSearch("myGraveyard", cardElements: ["WATER"]);
             $cost = max(0, 10 - count($waterGY));
             for($wc = 0; $wc < $cost; ++$wc) {
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
         }
 
         // Defender's Maul (chnppup4iz): additional cost to attack — pay (2)
         if($weaponObj !== null && $weaponObj->CardID === "chnppup4iz") {
             for($dmc = 0; $dmc < 2; ++$dmc) {
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
         }
 
         // Oathbreaker's Justice (f5ooozsikp): additional cost to attack — pay (3)
         if($weaponObj !== null && $weaponObj->CardID === "f5ooozsikp") {
             for($ojc = 0; $ojc < 3; ++$ojc) {
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
         }
 
         // Bulwark Sword (8kmoi0a5uh): additional cost to attack — pay (2)
         if($weaponObj !== null && $weaponObj->CardID === "8kmoi0a5uh") {
             for($bsc = 0; $bsc < 2; ++$bsc) {
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
         }
 
         // Mechanized Smasher (qsm3n9yvn1): additional cost to attack — reveal 4 wind cards from memory
         if($weaponObj !== null && $weaponObj->CardID === "pyx8bd7ozu") {
             for($abc = 0; $abc < 2; ++$abc) {
-                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 97);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
         }
         if($weaponObj !== null && $weaponObj->CardID === "qsm3n9yvn1") {
