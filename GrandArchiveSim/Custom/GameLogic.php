@@ -5705,7 +5705,7 @@ function DoAllyDestroyed($player, $mzCard) {
             for($lei = 0; $lei < count($leaField); ++$lei) {
                 if(!$leaField[$lei]->removed && $leaField[$lei]->CardID === "1XegCUjBnY" && !HasNoAbilities($leaField[$lei])) {
                     DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, tooltip:"Banish_Life_Essence_Amulet?");
-                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LifeEssenceAmuletBanish|$lei", 1);
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LifeEssenceAmuletBanish|1XegCUjBnY", 1);
                     break;
                 }
             }

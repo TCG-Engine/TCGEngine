@@ -5990,12 +5990,18 @@ $customDQHandlers["PoisonousBreezecapSuppressReplace"] = function($player, $part
 $customDQHandlers["LifeEssenceAmuletBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
     global $playerID;
-    $idx = intval($parts[0]);
     $zone = $player == $playerID ? "myField" : "theirField";
-    $obj = GetZoneObject($zone . "-" . $idx);
-    if($obj === null || $obj->CardID !== "1XegCUjBnY") return;
-    OnLeaveField($player, $zone . "-" . $idx);
-    MZMove($player, $zone . "-" . $idx, "myBanish");
+    $targetMZ = null;
+    $field = GetZone($zone);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i] !== null && !$field[$i]->removed && $field[$i]->CardID === "1XegCUjBnY") {
+            $targetMZ = $zone . "-" . $i;
+            break;
+        }
+    }
+    if($targetMZ === null) return;
+    OnLeaveField($player, $targetMZ);
+    MZMove($player, $targetMZ, "myBanish");
     DecisionQueueController::CleanupRemovedCards();
     Draw($player, 1);
 };
