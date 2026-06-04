@@ -181,6 +181,44 @@ function IsDreamFairyLockedCardID($player, $cardID) {
     return false;
 }
 
+function FacetTheForgottenEnter($player, $facetMZ) {
+    $memory = ZoneSearch("theirMemory");
+    if(empty($memory)) return;
+    $tempChoices = StageHiddenMZChoicesToTemp($player, $memory, "facetForgottenTempMap");
+    if(empty($tempChoices)) return;
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $tempChoices), 1, tooltip:"Activate_card_from_opponent_memory");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FacetTheForgottenActivate|" . $facetMZ, 1);
+}
+
+$customDQHandlers["FacetTheForgottenActivate"] = function($player, $parts, $lastDecision) {
+    $facetMZ = $parts[0] ?? "";
+    $sourceMZ = ResolveTempChoiceToSourceMZ($lastDecision, "facetForgottenTempMap");
+    ClearMyTempZoneCards($player);
+    DecisionQueueController::StoreVariable("facetForgottenTempMap", "");
+    if($sourceMZ === null || $sourceMZ === "") return;
+    $chosenObj = GetZoneObject($sourceMZ);
+    if($chosenObj === null || $chosenObj->removed) return;
+    $chosenName = CardName($chosenObj->CardID);
+    $ignoreElementCountBefore = GlobalEffectCount($player, "PRISMATIC_CODEX_IGNORE_ELEMENT");
+    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "theirMemory");
+    AddGlobalEffects($player, "PRISMATIC_CODEX_IGNORE_ELEMENT");
+    MZMove($player, $sourceMZ, "myHand");
+    $hand = &GetHand($player);
+    $handMZ = "myHand-" . (count($hand) - 1);
+    $activated = ActivateCard($player, $handMZ, true);
+    if($activated === null) {
+        DecisionQueueController::ClearVariable("activationSourceZoneOverride");
+        if(GlobalEffectCount($player, "PRISMATIC_CODEX_IGNORE_ELEMENT") > $ignoreElementCountBefore) {
+            RemoveGlobalEffect($player, "PRISMATIC_CODEX_IGNORE_ELEMENT");
+        }
+        return;
+    }
+    $facetObj = &GetZoneObject($facetMZ);
+    if($facetObj === null || $facetObj->removed) return;
+    if(!is_array($facetObj->Counters)) $facetObj->Counters = [];
+    $facetObj->Counters["facetLockedName"] = $chosenName;
+};
+
 function GetImbueOptionLabel($cardID, $option) {
     switch($option['matcher']) {
         case 'advanced':
