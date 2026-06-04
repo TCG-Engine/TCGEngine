@@ -59,7 +59,6 @@ Highlight: EphemerateMeta
 Display: Visibility=Public, Mode=Single, BindTo=GraveyardSlot
 Click: FSM()
 GlobalEffects - CardID:string
-BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=None, Mode=None
 Hand - CardID:string
 AddReplacement: HandAddReplacement
