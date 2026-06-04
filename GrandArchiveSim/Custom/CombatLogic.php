@@ -1146,55 +1146,55 @@ function BeginCombatPhase($actionCard) {
 
     // Plea for Peace (ir99sx6q3p): pay (1) reserve for each attack declaration
     if($pleaActive) {
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
     // Crowd's Favor (gpmJdGYqoC): pay (1) reserve for each attack declaration
     if($crowdFavorActive) {
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
     // Suited Trickery (uxhmucm8si): pay (2) reserve for champion attack declaration
     if($suitedTrickeryActive && PropertyContains($cardType, "CHAMPION")) {
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
     // Chibi, Battle of Red Cliffs (881gacexpv): pay (1) reserve for ally attack declaration
     if($chibiActive) {
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
     // Oppressive Presence (j9hjjvkyyr): pay (X) reserve for ally attack declaration
     for($op = 0; $op < $oppressivePresenceTax; ++$op) {
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
     for($yt = 0; $yt < $yudiAttackTax; ++$yt) {
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
     for($tr = 0; $tr < $tariffRingTax; ++$tr) {
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
     // Eminent Lethargy (GGRtLQgaYU): pay (2) reserve for each attack declaration
     if($lethActive) {
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
     // Ducal Seal (qFwqqT0XWo): pay (3) reserve for each attack declaration
     if($ducalActive) {
         for($ds = 0; $ds < 3; ++$ds) {
-            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
         }
     }
 
     // Torch Marshal (izgiu216l2): additional cost to declare attack — pay (2)
     if($obj->CardID === "izgiu216l2" && !HasNoAbilities($obj)) {
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
-        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 90);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
     // Store the attacker location for later handlers
