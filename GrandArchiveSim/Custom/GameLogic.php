@@ -2644,7 +2644,6 @@ function RendingFlamesOnAttack($player, $mzID) {
     $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
     if(count($fireGY) < 3) return;
     DecisionQueueController::StoreVariable("RendingFlamesSource", $mzID);
-    DecisionQueueController::StoreVariable("RendingFlamesCount", "0");
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Banish_3_fire_cards_from_your_graveyard_for_double_damage?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "RendingFlamesConfirm", 1);
 }
@@ -2654,36 +2653,36 @@ $customDQHandlers["RendingFlamesConfirm"] = function($player, $parts, $lastDecis
     $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
     if(count($fireGY) < 3) return;
     $targetStr = implode("&", $fireGY);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Banish_a_fire_card_(1_of_3)");
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "3|3|" . $targetStr, 1, tooltip:"Banish_3_fire_cards_from_your_graveyard");
     DecisionQueueController::AddDecision($player, "CUSTOM", "RendingFlamesProcess", 1);
 };
 
 $customDQHandlers["RendingFlamesProcess"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $count = intval(DecisionQueueController::GetVariable("RendingFlamesCount"));
     $source = DecisionQueueController::GetVariable("RendingFlamesSource");
-    MZMove($player, $lastDecision, "myBanish");
-    DecisionQueueController::CleanupRemovedCards();
-    ++$count;
-    DecisionQueueController::StoreVariable("RendingFlamesCount", strval($count));
-    if($count >= 3) {
-        $intentCards = GetIntentCards($player);
-        foreach($intentCards as $intentMZ) {
-            $intentObj = GetZoneObject($intentMZ);
-            if($intentObj !== null && !$intentObj->removed && $intentObj->CardID === "soO3hjaVfN") {
-                AddTurnEffect($intentMZ, "soO3hjaVfN_DOUBLE");
-                return;
-            }
-        }
-        // Fallback for unexpected states where the intent card is missing.
-        AddTurnEffect($source, "soO3hjaVfN_DOUBLE");
-        return;
+    $selected = array_values(array_unique(array_filter(explode("&", $lastDecision), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    if(count($selected) !== 3) return;
+    usort($selected, function($left, $right) {
+        $leftIndex = intval(substr(strrchr($left, "-"), 1));
+        $rightIndex = intval(substr(strrchr($right, "-"), 1));
+        return $rightIndex <=> $leftIndex;
+    });
+    foreach($selected as $mzID) {
+        MZMove($player, $mzID, "myBanish");
     }
-    $fireGY = ZoneSearch("myGraveyard", cardElements: ["FIRE"]);
-    if(count($fireGY) < (3 - $count)) return;
-    $targetStr = implode("&", $fireGY);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Banish_a_fire_card_(" . ($count + 1) . "_of_3)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "RendingFlamesProcess", 1);
+    DecisionQueueController::CleanupRemovedCards();
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $intentMZ) {
+        $intentObj = GetZoneObject($intentMZ);
+        if($intentObj !== null && !$intentObj->removed && $intentObj->CardID === "soO3hjaVfN") {
+            AddTurnEffect($intentMZ, "soO3hjaVfN_DOUBLE");
+            return;
+        }
+    }
+    // Fallback for unexpected states where the intent card is missing.
+    AddTurnEffect($source, "soO3hjaVfN_DOUBLE");
 };
 
 $customDQHandlers["MoteSearOptionalSheen"] = function($player, $parts, $lastDecision) {
@@ -6554,6 +6553,11 @@ $customDQHandlers["XuchangFrozenCitadel"] = function($player, $parts, $lastDecis
     }
 };
 
+// Xuchang, Frozen Citadel (xpb20rar4k): no floating-memory GY card was available, so apply the tax.
+$customDQHandlers["XuchangFrozenCitadelNoChoice"] = function($player, $parts, $lastDecision) {
+    AddGlobalEffects($player, "XUCHANG_COST_INCREASE");
+};
+
 // Inner Court Schemer (spijrps4ny): On Attack â€” remove preparation counter for +2 POWER
 $customDQHandlers["InnerCourtSchemerRemovePrep"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
@@ -7746,8 +7750,8 @@ function RecollectionPhase() {
                 DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $floatingStr, 1, "Banish_floating-memory_card_or_next_activation_costs_2_more_(Xuchang)");
                 DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "XuchangFrozenCitadel", 1);
             } else {
-                // No floating memory cards to banish â€” apply cost increase
-                AddGlobalEffects($turnPlayer, "XUCHANG_COST_INCREASE");
+                // No floating memory cards to banish â€” queue the same penalty timing through DQ.
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "XuchangFrozenCitadelNoChoice", 1);
             }
             break;
         }
