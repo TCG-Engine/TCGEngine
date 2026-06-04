@@ -3516,15 +3516,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
             $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "RETURN_TO_DEPTHS_CIEL"));
             if($prevented >= 3) {
                 $targetPlayer = $targetObj->Controller;
-                global $playerID;
-                $gravZone = $targetPlayer == $playerID ? "myGraveyard" : "theirGraveyard";
-                $gy = GetZone($gravZone);
-                $gyTargets = [];
-                for($gi = 0; $gi < count($gy); ++$gi) {
-                    if(!$gy[$gi]->removed) {
-                        $gyTargets[] = $gravZone . "-" . $gi;
-                    }
-                }
+                $gyTargets = ZoneSearch("myGraveyard", forPlayer: $targetPlayer);
                 if(!empty($gyTargets)) {
                     $gyStr = implode("&", $gyTargets);
                     DecisionQueueController::AddDecision($targetPlayer, "MZMAYCHOOSE", $gyStr, 1, tooltip:"Banish_from_GY_with_omen_counter?_(Return_to_the_Depths)");
