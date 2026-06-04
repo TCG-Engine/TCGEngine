@@ -1040,6 +1040,15 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     return "PLAY";
                 }
             }
+            // Scepter of Awakening (2zh208013h): [Diao Chan Bonus] may activate from material deck with 4+ phantasias
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "2zh208013h"
+                    && IsDiaoChanBonus($playerID) && count(ZoneSearch("myField", ["PHANTASIA"])) >= 4) {
+                    DoMaterialize($playerID, $actionCard);
+                    return "PLAY";
+                }
+            }
             // Shadow's Claw (vm4kj3q2sv): may activate from material deck if champion has 4+ preparation counters
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
@@ -4577,6 +4586,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         }
+        case "2zh208013h": // Scepter of Awakening â€” (2), REST
+            $sourceObj = &GetZoneObject($mzCard);
+            $sourceObj->Status = 1;
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            break;
         case "4moumzcx9z": // Staff of Blossoming Will â€” (1), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
@@ -8710,6 +8725,12 @@ function ObjectCurrentPower($obj) {
     $power = (is_array($obj->Counters ?? null) && isset($obj->Counters["potion_animate_power"]))
         ? intval($obj->Counters["potion_animate_power"])
         : CardPower($obj->CardID);
+    foreach($obj->TurnEffects ?? [] as $effect) {
+        if(strpos($effect, "2zh208013h_POWER_") === 0) {
+            $power = intval(substr($effect, strlen("2zh208013h_POWER_")));
+            break;
+        }
+    }
     if($power === null || $power < 0) $power = 0;
     // Buff counter modifier: +1 power per buff counter (applied before other modifiers)
     $power += GetCounterCount($obj, "buff");
@@ -11038,6 +11059,12 @@ function ObjectCurrentHP($obj) {
     $cardLife = (is_array($obj->Counters ?? null) && isset($obj->Counters["potion_animate_life"]))
         ? intval($obj->Counters["potion_animate_life"])
         : CardLife($obj->CardID);
+    foreach($obj->TurnEffects ?? [] as $te) {
+        if(strpos($te, "2zh208013h_HP_") === 0) {
+            $cardLife = intval(substr($te, strlen("2zh208013h_HP_")));
+            break;
+        }
+    }
     // Humpty Dumpty (aou4be9z82): when becomes ally, base life = 0 + buff counters
     if(($cardLife === null || $cardLife < 0) && in_array("HUMPTY_ALLY", $obj->TurnEffects ?? [])) {
         $cardLife = 0;
@@ -13579,6 +13606,14 @@ function CardHasAbility($obj) {
         if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 1) return 0;
     }
 
+    // Scepter of Awakening (2zh208013h): [Diao Chan Bonus] (2), REST targeting a phantasia you control
+    if($obj->CardID === "2zh208013h") {
+        if(!IsDiaoChanBonus($obj->Controller)) return 0;
+        if($obj->Status != 2) return 0;
+        if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
+        if(empty(ZoneSearch("myField", ["PHANTASIA"]))) return 0;
+    }
+
     // Mana Limiter (IC3OU6vCnF): requires champion has 6+ enlighten counters
     if($obj->CardID === "IC3OU6vCnF") {
         $champObj = GetPlayerChampion($obj->Controller);
@@ -13691,7 +13726,13 @@ function CardDisplayEffects($obj) {
     $raw = CardCurrentEffects($obj);
     if($raw === "") return "";
     $effects = explode(",", $raw);
-    $effects = array_values(array_filter($effects, fn($e) => !in_array($e, $backendOnlyTurnEffects)));
+    $effects = array_values(array_filter($effects, function($e) use ($backendOnlyTurnEffects) {
+        if(in_array($e, $backendOnlyTurnEffects)) return false;
+        if($e === "2zh208013h_ALLY") return false;
+        if(strpos($e, "2zh208013h_POWER_") === 0) return false;
+        if(strpos($e, "2zh208013h_HP_") === 0) return false;
+        return true;
+    }));
     return implode(",", $effects);
 }
 
@@ -13917,6 +13958,12 @@ function MaterialSelectionMetadata($obj) {
 
     // Lost Providence (DNbIpzVgde): may activate from material deck when element requirements are met
     if ($obj->CardID === "DNbIpzVgde" && CanPlayerUseCardElement($turnPlayer, $obj->CardID, false, false)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Scepter of Awakening (2zh208013h): [Diao Chan Bonus] may activate from material deck with 4+ phantasias
+    if ($obj->CardID === "2zh208013h" && IsDiaoChanBonus($turnPlayer)
+        && count(ZoneSearch("myField", ["PHANTASIA"])) >= 4) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
@@ -15876,6 +15923,18 @@ function IsDiaoChanBonus($player) {
         || ChampionHasInLineage($player, "d7l6i5thdy"); // Diao Chan L3
 }
 
+function ScepterOfAwakeningAnimate($player, $targetMZ) {
+    $targetObj = &GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) return;
+    if(($targetObj->Controller ?? 0) != $player) return;
+    if(!PropertyContains(EffectiveCardType($targetObj), "PHANTASIA")) return;
+    $reserveCost = max(0, intval(CardCost_reserve($targetObj->CardID)));
+    AddTurnEffect($targetMZ, "2zh208013h_ALLY");
+    AddTurnEffect($targetMZ, "2zh208013h_POWER_" . $reserveCost);
+    AddTurnEffect($targetMZ, "2zh208013h_HP_" . $reserveCost);
+    AddCounters($player, $targetMZ, "buff", 1);
+}
+
 function IsVanitasBonusActive($player) {
     return ChampionHasInLineage($player, "x8bd7ozuj6")  // Vanitas, Obliviate Schemer
         || ChampionHasInLineage($player, "8m69iq4d5v")  // Vanitas, Convergent Ruin
@@ -17076,6 +17135,14 @@ function EffectiveCardType($obj) {
     }
     // Humpty Dumpty (aou4be9z82): becomes ally in addition to its other types until EOT
     if(in_array("HUMPTY_ALLY", $obj->TurnEffects ?? [])) {
+        $base = CardType($obj->CardID);
+        if(!PropertyContains($base, "ALLY")) {
+            return $base . ",ALLY";
+        }
+        return $base;
+    }
+    // Scepter of Awakening (2zh208013h): target phantasia becomes an ally in addition to its other types until EOT
+    if(in_array("2zh208013h_ALLY", $obj->TurnEffects ?? [])) {
         $base = CardType($obj->CardID);
         if(!PropertyContains($base, "ALLY")) {
             return $base . ",ALLY";
