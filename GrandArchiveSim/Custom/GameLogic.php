@@ -19220,6 +19220,10 @@ function GetGemCounterCount($obj) {
     return GetCounterCount($obj, "gem");
 }
 
+function GetTrainingCounterCount($obj) {
+    return GetCounterCount($obj, "training");
+}
+
 /**
  * Virtual property callback: returns the number of durability counters on the object.
  * Used for the DurabilityCounterCount display badge.
