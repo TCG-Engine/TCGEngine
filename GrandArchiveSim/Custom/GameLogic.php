@@ -2475,19 +2475,19 @@ $customDQHandlers["ShackledTheurgistSacrifice"] = function($player, $params, $la
     DoAllyDestroyed($player, $lastDecision);
 };
 
-$customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "PASS") return;
-    // Determine if the chosen card is from the field (reservable) or hand
-    if(strpos($lastDecision, "myField-") === 0) {
-        // Reservable card on field: rest/exhaust it to pay for 1 reserve cost
-        $restedObj = GetZoneObject($lastDecision);
-        RestCard($player, $lastDecision);
+function ProcessReservePaymentChoice($player, $choiceMZ) {
+    if($choiceMZ === "-" || $choiceMZ === "" || $choiceMZ === "PASS") return;
+    // Determine if the chosen card is from the field (reservable) or hand.
+    if(strpos($choiceMZ, "myField-") === 0 || strpos($choiceMZ, "theirField-") === 0) {
+        // Reservable card on field: rest/exhaust it to pay for 1 reserve cost.
+        $restedObj = GetZoneObject($choiceMZ);
+        RestCard($player, $choiceMZ);
 
         // Wildheart Lyre (50pcescfpw): [CB] whenever rested to pay for Harmony/Melody reserve,
-        // put a buff counter on an Animal or Beast ally you control
+        // put a buff counter on an Animal or Beast ally you control.
         if($restedObj !== null && $restedObj->CardID === "50pcescfpw" && !HasNoAbilities($restedObj)
             && IsClassBonusActive($player, ["TAMER"])) {
-            // Check if the card being activated is Harmony or Melody
+            // Check if the card being activated is Harmony or Melody.
             $es = GetZone("EffectStack");
             $isHarmonyMelody = false;
             for($esi = count($es) - 1; $esi >= 0; --$esi) {
@@ -2513,19 +2513,52 @@ $customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecisi
                 }
             }
         }
-    } else {
-        // Hand card: move to memory as normal
-        $newObj = OnCardReserved($player, $lastDecision);
-        if($newObj !== null && DecisionQueueController::GetVariable("imbueRevealQueue") !== null) {
-            $newMzID = "myMemory-" . $newObj->mzIndex;
-            $queued = DecisionQueueController::GetVariable("imbueRevealQueue");
-            if($queued === "" || $queued === null) {
-                DecisionQueueController::StoreVariable("imbueRevealQueue", $newMzID);
-            } else {
-                DecisionQueueController::StoreVariable("imbueRevealQueue", $queued . "|" . $newMzID);
-            }
+        return;
+    }
+
+    // Hand card: move to memory as normal.
+    $newObj = OnCardReserved($player, $choiceMZ);
+    if($newObj !== null && DecisionQueueController::GetVariable("imbueRevealQueue") !== null) {
+        $newMzID = "myMemory-" . $newObj->mzIndex;
+        $queued = DecisionQueueController::GetVariable("imbueRevealQueue");
+        if($queued === "" || $queued === null) {
+            DecisionQueueController::StoreVariable("imbueRevealQueue", $newMzID);
+        } else {
+            DecisionQueueController::StoreVariable("imbueRevealQueue", $queued . "|" . $newMzID);
         }
     }
+}
+
+function ParseReservePaymentSelections($selectionStr) {
+    $selected = array_values(array_unique(array_filter(explode("&", strval($selectionStr)), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    usort($selected, function($a, $b) {
+        $aZone = explode("-", $a)[0] ?? "";
+        $bZone = explode("-", $b)[0] ?? "";
+        $aIsHand = str_ends_with($aZone, "Hand");
+        $bIsHand = str_ends_with($bZone, "Hand");
+        if($aIsHand !== $bIsHand) return $aIsHand ? 1 : -1;
+        $aIndex = intval(explode("-", $a)[1] ?? -1);
+        $bIndex = intval(explode("-", $b)[1] ?? -1);
+        if($aIsHand && $bIsHand) return $bIndex <=> $aIndex;
+        return $aIndex <=> $bIndex;
+    });
+    return $selected;
+}
+
+function ProcessReservePaymentSelections($player, $selectionStr, $requiredCount) {
+    $selected = ParseReservePaymentSelections($selectionStr);
+    if(count($selected) !== intval($requiredCount)) return false;
+    foreach($selected as $choiceMZ) {
+        ProcessReservePaymentChoice($player, $choiceMZ);
+    }
+    return true;
+}
+
+$customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS") return;
+    ProcessReservePaymentChoice($player, $lastDecision);
 
     $imbueRemaining = DecisionQueueController::GetVariable("imbueReserveRemaining");
     if($imbueRemaining !== null && $imbueRemaining !== "") {
