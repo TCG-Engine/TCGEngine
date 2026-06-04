@@ -3526,25 +3526,49 @@ $customDQHandlers["FlowingOubliChoose"] = function($player, $parts, $lastDecisio
 function PristineScourgeResolve($player) {
     $oppMemory = ZoneSearch("theirMemory");
     if(empty($oppMemory)) return;
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $oppMemory), 1, tooltip:"Discard_from_opponent_memory");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "PristineScourgeDiscard", 1);
+    $discardCount = GetOmenDistinctCostCount($player) >= 5 ? 2 : 1;
+    $discardCount = min($discardCount, count($oppMemory));
+    if($discardCount <= 0) return;
+    $tempChoices = StageHiddenMZChoicesToTemp($player, $oppMemory, "pristineScourgeTempMap");
+    if(empty($tempChoices)) return;
+    DecisionQueueController::AddDecision(
+        $player,
+        "MZMULTICHOOSE",
+        $discardCount . "|" . $discardCount . "|" . implode("&", $tempChoices),
+        1,
+        tooltip:"Discard_{$discardCount}_card(s)_from_opponent_memory"
+    );
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PristineScourgeDiscard|" . $discardCount, 1);
 }
 
 $customDQHandlers["PristineScourgeDiscard"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    MZMove($player, $lastDecision, "theirGraveyard");
-    DecisionQueueController::CleanupRemovedCards();
-    // Check for additional discard: 5+ distinct omen reserve costs
-    if(GetOmenDistinctCostCount($player) < 5) return;
-    $oppMemory = ZoneSearch("theirMemory");
-    if(empty($oppMemory)) return;
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $oppMemory), 1, tooltip:"Discard_additional_card");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "PristineScourgeDiscard2", 1);
-};
-
-$customDQHandlers["PristineScourgeDiscard2"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    MZMove($player, $lastDecision, "theirGraveyard");
+    $required = isset($parts[0]) ? intval($parts[0]) : 0;
+    $selected = array_values(array_unique(array_filter(explode("&", $lastDecision), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    if($required > 0 && count($selected) > $required) {
+        $selected = array_slice($selected, 0, $required);
+    }
+    $sourceMZs = [];
+    foreach($selected as $tempChoice) {
+        $sourceMZ = ResolveTempChoiceToSourceMZ($tempChoice, "pristineScourgeTempMap");
+        if($sourceMZ === null || $sourceMZ === "") continue;
+        $sourceMZs[] = $sourceMZ;
+    }
+    ClearMyTempZoneCards($player);
+    DecisionQueueController::StoreVariable("pristineScourgeTempMap", "");
+    if(empty($sourceMZs)) return;
+    usort($sourceMZs, function($a, $b) {
+        $aParts = explode("-", $a);
+        $bParts = explode("-", $b);
+        $aIndex = intval(end($aParts));
+        $bIndex = intval(end($bParts));
+        return $bIndex <=> $aIndex;
+    });
+    $opponent = ($player == 1) ? 2 : 1;
+    foreach($sourceMZs as $sourceMZ) {
+        DiscardMappedSourceMZ($opponent, $sourceMZ);
+    }
 };
 
 $customDQHandlers["DevotionsPriceDiscard1"] = function($player, $parts, $lastDecision) {
