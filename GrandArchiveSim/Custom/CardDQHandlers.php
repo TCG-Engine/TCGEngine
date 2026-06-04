@@ -2459,6 +2459,43 @@ $customDQHandlers["FractalCreationCopy"] = function($player, $parts, $lastDecisi
     MZAddZone($player, "myField", $targetObj->CardID);
 };
 
+function ExcaliburReflectedEdgeSummonCopy($player, $targetMZ) {
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) return;
+    MZAddZone($player, "myField", $targetObj->CardID);
+    $field = &GetField($player);
+    $newMZ = "myField-" . (count($field) - 1);
+    $newObj = GetZoneObject($newMZ);
+    if($newObj === null) return;
+    $subtypes = EffectiveCardSubtypes($newObj);
+    if(!PropertyContains($subtypes, "DISTORTION")) {
+        ApplyPersistentOverride($newMZ, ["subtypes" => $subtypes . ",DISTORTION"]);
+    }
+}
+
+$customDQHandlers["ExcaliburReflectedEdgeChoose"] = function($player, $parts, $lastDecision) {
+    $validTargets = [];
+    foreach(ZoneSearch("myField", ["REGALIA"]) as $mz) {
+        $obj = GetZoneObject($mz);
+        if($obj === null || $obj->removed) continue;
+        if(intval(CardCost_memory($obj->CardID)) !== 0) continue;
+        if(PropertyContains(EffectiveCardSubtypes($obj), "DISTORTION")) continue;
+        $validTargets[] = $mz;
+    }
+    if(empty($validTargets)) return;
+    if(count($validTargets) === 1) {
+        ExcaliburReflectedEdgeSummonCopy($player, $validTargets[0]);
+        return;
+    }
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $validTargets), 1, tooltip:"Choose_regalia_to_copy");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ExcaliburReflectedEdgeResolve", 1);
+};
+
+$customDQHandlers["ExcaliburReflectedEdgeResolve"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    ExcaliburReflectedEdgeSummonCopy($player, $lastDecision);
+};
+
 // Obelisk of Armaments — summon Aurousteel Greatsword after reserve payment
 $customDQHandlers["ObeliskArmamentsSummon"] = function($player, $parts, $lastDecision) {
     MZAddZone($player, "myField", "hkurfp66pv"); // Aurousteel Greatsword token
