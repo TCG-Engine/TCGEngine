@@ -15728,6 +15728,11 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
         }
     }
 
+    // Flourishing Restoration (alnjt7DyZL): [Diao Chan Bonus] may ignore this card's elemental requirements.
+    if($cardID === "alnjt7DyZL" && IsDiaoChanBonus($player)) {
+        return true;
+    }
+
     if($setFlash) {
         SetFlashMessage(GetElementRestrictionMessage($cardElement));
     }
