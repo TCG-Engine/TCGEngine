@@ -92,9 +92,9 @@ function GetIntentCards($player) {
     $zoneArr = &GetZone($zone);
     $results = [];
     for($i = 0; $i < count($zoneArr); ++$i) {
-        if(!$zoneArr[$i]->removed) {
-            $results[] = $zone . "-" . $i;
-        }
+        $intentObj = $zoneArr[$i] ?? null;
+        if($intentObj === null || $intentObj->removed) continue;
+        $results[] = $zone . "-" . $i;
     }
     return $results;
 }

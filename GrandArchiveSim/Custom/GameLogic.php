@@ -9816,7 +9816,7 @@ function ObjectCurrentPower($obj) {
         // Lumen Borealis (3ejd9yj9rl): [CB] Animal allies you control get +1 POWER
         if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL")) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "3ejd9yj9rl" && !HasNoAbilities($fieldObj)
+                if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "3ejd9yj9rl" && !HasNoAbilities($fieldObj)
                    && IsClassBonusActive($obj->Controller, ["TAMER"])) {
                     $power += 1;
                     break;
@@ -11213,7 +11213,7 @@ function ObjectCurrentHP($obj) {
         // Lumen Borealis (3ejd9yj9rl): [CB] Animal allies you control get +1 LIFE
         if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "ANIMAL")) {
             foreach($field as $fieldObj) {
-                if(!$fieldObj->removed && $fieldObj->CardID === "3ejd9yj9rl" && !HasNoAbilities($fieldObj)
+                if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "3ejd9yj9rl" && !HasNoAbilities($fieldObj)
                    && IsClassBonusActive($obj->Controller, ["TAMER"])) {
                     $cardLife += 1;
                     break;
@@ -17325,7 +17325,7 @@ function HasVigor($obj) {
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
         foreach($field as $fObj) {
-            if(!$fObj->removed && $fObj->CardID === "y1utsihaxv" && !HasNoAbilities($fObj) && IsFostered($fObj)) {
+            if($fObj !== null && !$fObj->removed && $fObj->CardID === "y1utsihaxv" && !HasNoAbilities($fObj) && IsFostered($fObj)) {
                 return true;
             }
         }
