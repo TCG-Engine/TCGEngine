@@ -941,6 +941,12 @@ function BeginCombatPhase($actionCard) {
         return false;
     }
 
+    $prideAmount = PrideAmount($obj);
+    if($prideAmount > 0 && PlayerLevel($turnPlayer) < $prideAmount) {
+        SetFlashMessage("Must be level " . $prideAmount . " or higher to attack with Pride.");
+        return false;
+    }
+
     // Step 2.a -- The object must be able to attack (must be awake, Status == 2)
     if($obj->Status != 2) {
         SetFlashMessage("This unit must be awake to attack.");
