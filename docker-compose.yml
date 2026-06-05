@@ -165,7 +165,63 @@ services:
     ports:
       - "6484:6379"
 
+  swusim-web-server:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    restart: always
+    volumes:
+      - "./:/var/www/html/TCGEngine:Z"
+    command: bash "/var/www/html/TCGEngine/docker-entrypoint.sh"
+    ports:
+      - "3400:80"
+    depends_on:
+      - swusim-redis
+      - swusim-mysql-server
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_SERVER_NAME: "swusim-mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "swusim"
+      MYSQL_DATABASE_NAME: "swusim"
+      REDIS_HOST: "swusim-app_redis"
+      REDIS_ENABLED: true
+      DOMAIN: "${DOMAIN:-localhost}"
+      STAGE: "${STAGE:-prod}"
+    user: "${DOCKER_USER}"
+
+  swusim-mysql-server:
+    image: mysql:latest
+    restart: always
+    environment:
+      PHP_FPM_CLEAR_ENV: "no"
+      MYSQL_ROOT_PASSWORD: "secret"
+      MYSQL_SERVER_NAME: "swusim-mysql-server"
+      MYSQL_SERVER_USER_NAME: "root"
+      MYSQL_DATABASE: "swusim"
+    volumes:
+      - ./Database:/docker-entrypoint-initdb.d
+      - swusim-mysql-data:/var/lib/mysql
+
+  swusim-phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: swusim-mysql-server
+      PMA_USER: root
+      PMA_PASSWORD: "secret"
+    ports:
+      - "5104:80"
+
+  swusim-redis:
+    image: redis:7.0
+    container_name: swusim_app_redis
+    ports:
+      - "6485:6379"
+
 volumes:
   swustats-mysql-data:
   grandarchivesim-mysql-data:
   azukisim-mysql-data:
+  swusim-mysql-data:
