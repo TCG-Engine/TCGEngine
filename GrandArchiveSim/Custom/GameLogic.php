@@ -15955,6 +15955,13 @@ function TryGlimmerCast($player, $memoryMZ) {
     $memObj = GetZoneObject($memoryMZ);
     if($memObj === null || $memObj->removed) return false;
 
+    $existingFlash = GetFlashMessage();
+    $canActivate = function_exists("CanActivateCard")
+        ? CanActivateCard($player, $memoryMZ, true)
+        : true;
+    SetFlashMessage($existingFlash);
+    if(!$canActivate) return false;
+
     $spellCost = CalculateActivationReserveCost($player, $memObj, true);
     $glimmerCount = GetCounterCount($champObj, "glimmer");
     if($spellCost > $glimmerCount) return false;

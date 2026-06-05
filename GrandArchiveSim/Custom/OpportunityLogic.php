@@ -777,6 +777,27 @@ function CanActivateOpportunityCard($player, $mzID, $obj) {
     return true;
 }
 
+function CanUseDiaoChanMemoryFastCast($player, $mzID, $obj) {
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
+    if(!PropertyContains(CardSubtypes($obj->CardID), "REACTION")) return false;
+    if(!PropertyContains(CardSubtypes($obj->CardID), "SPELL")) return false;
+    if(!CanActivateOpportunityCard($player, $mzID, $obj)) return false;
+
+    $champObj = GetPlayerChampion($player);
+    if($champObj === null || $champObj->Status != 2 || HasNoAbilities($champObj)) return false;
+
+    $glimmerCount = GetCounterCount($champObj, "glimmer");
+    $spellCost = CalculateActivationReserveCost($player, $obj, true);
+    if($spellCost > $glimmerCount) return false;
+
+    $existingFlash = GetFlashMessage();
+    $canActivate = function_exists("CanActivateCard")
+        ? CanActivateCard($player, $mzID, true)
+        : true;
+    SetFlashMessage($existingFlash);
+    return $canActivate;
+}
+
 function TryResolveOpportunityActionMapSelection($player, $selection) {
     if(!is_string($selection) || $selection === "") return false;
     $isZoneSelection = strpos($selection, "myGraveyard-") === 0
@@ -926,14 +947,9 @@ function GetPlayableFastCards($player) {
                 $memory = &GetMemory($player);
                 for($mi = 0; $mi < count($memory); ++$mi) {
                     if(isset($memory[$mi]->removed) && $memory[$mi]->removed) continue;
-                    $memCardID = $memory[$mi]->CardID;
-                    if(PropertyContains(CardSubtypes($memCardID), "REACTION")
-                        && PropertyContains(CardSubtypes($memCardID), "SPELL")) {
-                        $memObj = $memory[$mi];
-                        $spellCost = CalculateActivationReserveCost($player, $memObj, true);
-                        if($spellCost <= $glimmerCount) {
-                            $fastCards[] = "myMemory-" . $mi;
-                        }
+                    $memMzID = "myMemory-" . $mi;
+                    if(CanUseDiaoChanMemoryFastCast($player, $memMzID, $memory[$mi])) {
+                        $fastCards[] = $memMzID;
                     }
                 }
             }
