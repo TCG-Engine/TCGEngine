@@ -4770,6 +4770,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 TriggerHerbSacrificeEffects($player, 1);
             }
             ProcessPotionInfusionTriggers($player, $mzCard);
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -4780,6 +4781,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::StoreVariable("gnYM2V6TTw_wasBrewed", $wasBrewed);
             }
             ProcessPotionInfusionTriggers($player, $mzCard);
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -4790,6 +4792,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::StoreVariable("O1OU62Zx2Y_wasBrewed", $wasBrewed);
             }
             ProcessPotionInfusionTriggers($player, $mzCard);
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -4803,6 +4806,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::StoreVariable("ageCounters", strval($age));
             }
             ProcessPotionInfusionTriggers($player, $mzCard);
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -4817,6 +4821,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                     );
                 }
             }
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -4826,10 +4831,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 $refinement = isset($kitObj->Counters['refinement']) ? $kitObj->Counters['refinement'] : 0;
                 DecisionQueueController::StoreVariable("refinementCounters", strval($refinement));
             }
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "0sVdvpQKXq": // Heirloom of Spectra: banish self; second ability also pays (3)
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             if($abilityIndex == 1) {
@@ -4862,6 +4869,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $sourceObj->Status = 1;
             break;
         case "soporhlq2k": // Fraysia: sacrifice self to graveyard
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -4873,12 +4881,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         case "df9q1vk8ao": // Molten Cinder: sacrifice self to graveyard
             ProcessPotionInfusionTriggers($player, $mzCard);
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "uhuy4xippo": // Fractal of Snow: sacrifice self to graveyard
         case "5fnmnpavo4": // Fractal of Polar Depths: sacrifice self to graveyard
         case "to1pmvo54d": // Mnemonic Charm: sacrifice self to graveyard
+            OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -5502,6 +5512,7 @@ function OnLeaveField($player, $mzID) {
     // Check and break any Link connections involving the departing card
     CheckAndBreakLinks($player, $mzID);
     DecisionQueueController::CleanupRemovedCards();
+    SyncCombatStateToFieldUniqueIDs();
     if(!HasNoAbilities($obj) && isset($leaveFieldAbilities[$obj->CardID . ":0"])) $leaveFieldAbilities[$obj->CardID . ":0"]($controller);
 }
 
@@ -5571,10 +5582,6 @@ function DoAllyDestroyed($player, $mzCard) {
         if(IsBrackishLutistOnField()) {
             $dest = $player == $controller ? "myBanish" : "theirBanish";
         }
-    }
-    if(function_exists("CombatTargetMarker")
-        && in_array(CombatTargetMarker(), $destroyedObj->TurnEffects ?? [], true)) {
-        DecisionQueueController::StoreVariable("CombatTarget", null);
     }
     $isChampion = PropertyContains(EffectiveCardType($destroyedObj), "CHAMPION");
     $animatedPotionDeath = is_array($destroyedObj->Counters ?? null) && !empty($destroyedObj->Counters["potion_animate"]);
@@ -7830,7 +7837,7 @@ function RecollectionPhase() {
     // the next card they activate this turn costs 2 more.
     foreach($nonTurnField as $xcObj) {
         if(!$xcObj->removed && $xcObj->CardID === "xpb20rar4k" && !HasNoAbilities($xcObj)) {
-            $floatingGY = ZoneSearch("myGraveyard", floatingMemoryOnly: true);
+            $floatingGY = ZoneSearch("myGraveyard", floatingMemoryOnly: true, forPlayer: $turnPlayer);
             if(!empty($floatingGY)) {
                 $floatingStr = implode("&", $floatingGY);
                 DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $floatingStr, 1, "Banish_floating-memory_card_or_next_activation_costs_2_more_(Xuchang)");
@@ -16328,7 +16335,7 @@ $customDQHandlers["HymnGaiaGraceRedirect"] = function($player, $parts, $lastDeci
     if($allyMZ === null || $allyMZ === "-" || $allyMZ === "") return;
     $allyObj = GetZoneObject($allyMZ);
     if($allyObj === null || $allyObj->removed) return;
-    DecisionQueueController::StoreVariable("CombatTarget", $allyMZ);
+    StoreCombatTargetState($allyMZ, ($player == 1) ? 2 : 1);
 };
 
 function ApplyCrystallineRealityMode($player, $mode) {
@@ -17016,6 +17023,19 @@ function GetCombatAttackerMZ() {
     return $combatAttacker;
 }
 
+function GetCombatTargetMZ() {
+    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($combatTarget === null || $combatTarget === "" || $combatTarget === "-") return null;
+
+    global $playerID;
+    $turnPlayer = GetTurnPlayer();
+
+    if($playerID != $turnPlayer) {
+        return FlipZonePerspective($combatTarget);
+    }
+    return $combatTarget;
+}
+
 /**
  * End the current combat: clear intent cards and combat tracking variables.
  * Any remaining combat decisions (damage, retaliation) that are still queued
@@ -17025,10 +17045,17 @@ function EndCombat($player) {
     $turnPlayer = GetTurnPlayer();
     ClearIntent($turnPlayer);
     if(function_exists("ClearCombatTargetMarkers")) {
-        ClearCombatTargetMarkers();
+        ClearCombatTargetState(true);
+    } else {
+        DecisionQueueController::ClearVariable("CombatTarget");
+        DecisionQueueController::ClearVariable("CombatTargetUniqueID");
     }
-    DecisionQueueController::ClearVariable("CombatAttacker");
-    DecisionQueueController::ClearVariable("CombatTarget");
+    if(function_exists("ClearCombatAttackerState")) {
+        ClearCombatAttackerState();
+    } else {
+        DecisionQueueController::ClearVariable("CombatAttacker");
+        DecisionQueueController::ClearVariable("CombatAttackerUniqueID");
+    }
     DecisionQueueController::ClearVariable("CombatWeapon");
 
     // Pop remaining combat decisions (AttackTargetChosen, CleaveAttack,

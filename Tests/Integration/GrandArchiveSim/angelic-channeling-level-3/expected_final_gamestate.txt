@@ -130,13 +130,13 @@ KVbuQJyWsU
 8qW1koLOK6
 bzwj7ztr78
 2
-zb14m4c8lj 2 1 0 1 - - WyJ0YWZxbGRBR1JGIl0=
-px8jypwc8t 2 1 0 1 - - -
+zb14m4c8lj 2 1 0 1 - - WyJ0YWZxbGRBR1JGIl0= -1
+px8jypwc8t 2 1 0 1 - - - -1
 4
-bjx6yo7mm5 2 2 0 2 - - -
-6ce5rzrjd9 2 2 0 2 - - -
-UVAb8CmjtL 2 2 0 2 - eyJkcmVhbUZhaXJ5TG9ja2VkQ2FyZElEIjoidzFkMHVjNWR4WiJ9 -
-enxi6tshtu 2 2 0 2 ENTERED_THIS_TURN eyJxdWVzdCI6N30= WyI1OWlwcWE5MXIyIiwiajZka2RveHlxdCIsInBOaXlhR2xJZTciXQ==
+bjx6yo7mm5 2 2 0 2 - - - -1
+6ce5rzrjd9 2 2 0 2 - - - -1
+UVAb8CmjtL 2 2 0 2 - eyJkcmVhbUZhaXJ5TG9ja2VkQ2FyZElEIjoidzFkMHVjNWR4WiJ9 - -1
+enxi6tshtu 2 2 0 2 ENTERED_THIS_TURN eyJxdWVzdCI6N30= WyI1OWlwcWE5MXIyIiwiajZka2RveHlxdCIsInBOaXlhR2xJZTciXQ== 1
 0
 0
 0
@@ -182,4 +182,5 @@ Main Phase
 {"mzID":"myField-3","amount":1,"ignoreCost":false,"mzIDCardID":"UVAb8CmjtL","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","revealedMZ":"myMaterial-9","questChoice":"YES","chosen":"theirField-0"}
 0
 {"ActivateCardCalls":{"1":2,"2":4},"ActivateCard":{"1":{"w1d0uc5dxZ":1,"px8jypwc8t":1},"2":{"bjx6yo7mm5":1,"o3M5ZWSL6E":2,"UVAb8CmjtL":1}},"CardActivatedCalls":{"1":2,"2":4},"CardActivated":{"1":{"w1d0uc5dxZ":1,"px8jypwc8t":1},"2":{"bjx6yo7mm5":1,"o3M5ZWSL6E":2,"UVAb8CmjtL":1}},"EnterCalls":{"1":3,"2":6},"Enter":{"1":{"w1d0uc5dxZ":1,"zb14m4c8lj":1,"px8jypwc8t":1},"2":{"bjx6yo7mm5":1,"j6dkdoxyqt":1,"6ce5rzrjd9":1,"59ipqa91r2":1,"UVAb8CmjtL":1,"enxi6tshtu":1}},"DrawCalls":{"2":6,"1":3},"Draw":{"2":6,"1":3},"MaterializeCalls":{"2":1},"Materialize":{"2":{"enxi6tshtu":1}},"RevealCalls":{"2":10}}
+1
 0

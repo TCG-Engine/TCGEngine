@@ -425,6 +425,112 @@ function CombatTargetMarker() {
     return "COMBAT_TARGET_MARKER";
 }
 
+function GetFieldObjectUniqueID($mzID, $perspectivePlayer = null) {
+    if($mzID === null || $mzID === "" || $mzID === "-") return null;
+    global $playerID;
+    $savedPlayerID = $playerID;
+    if($perspectivePlayer !== null && intval($perspectivePlayer) > 0) {
+        $playerID = intval($perspectivePlayer);
+    }
+    $obj = GetZoneObject($mzID);
+    $playerID = $savedPlayerID;
+    if($obj === null || $obj->removed || !isset($obj->UniqueID)) return null;
+    $uniqueID = intval($obj->UniqueID);
+    return $uniqueID > 0 ? $uniqueID : null;
+}
+
+function ClearCombatAttackerState() {
+    DecisionQueueController::ClearVariable("CombatAttacker");
+    DecisionQueueController::ClearVariable("CombatAttackerUniqueID");
+}
+
+function ClearCombatTargetState($clearMarkers = false) {
+    if($clearMarkers) {
+        ClearCombatTargetMarkers();
+    }
+    DecisionQueueController::ClearVariable("CombatTarget");
+    DecisionQueueController::ClearVariable("CombatTargetUniqueID");
+}
+
+function StoreCombatAttackerState($attackerMZ, $attackerPlayer = null) {
+    if($attackerMZ === null || $attackerMZ === "" || $attackerMZ === "-") {
+        ClearCombatAttackerState();
+        return;
+    }
+    DecisionQueueController::StoreVariable("CombatAttacker", $attackerMZ);
+    global $playerID;
+    $resolvedPlayer = $attackerPlayer !== null ? intval($attackerPlayer) : intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($playerID));
+    $uniqueID = GetFieldObjectUniqueID($attackerMZ, $resolvedPlayer);
+    DecisionQueueController::StoreVariable("CombatAttackerUniqueID", $uniqueID === null ? null : strval($uniqueID));
+}
+
+function StoreCombatTargetState($targetMZ, $attackerPlayer = null) {
+    if($targetMZ === null || $targetMZ === "" || $targetMZ === "-") {
+        ClearCombatTargetState();
+        return;
+    }
+    DecisionQueueController::StoreVariable("CombatTarget", $targetMZ);
+    global $playerID;
+    $resolvedPlayer = $attackerPlayer !== null ? intval($attackerPlayer) : intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($playerID));
+    $uniqueID = GetFieldObjectUniqueID($targetMZ, $resolvedPlayer);
+    DecisionQueueController::StoreVariable("CombatTargetUniqueID", $uniqueID === null ? null : strval($uniqueID));
+}
+
+function ClearCombatStateForMissingAttacker() {
+    ClearCombatTargetState(true);
+    ClearCombatAttackerState();
+    DecisionQueueController::ClearVariable("CombatAttackerPlayer");
+    DecisionQueueController::ClearVariable("CombatIsCleave");
+    DecisionQueueController::ClearVariable("CombatWeapon");
+    DecisionQueueController::ClearVariable("CombatDamageAmount");
+    DecisionQueueController::ClearVariable("CombatLorraineBlademasterDraw");
+}
+
+function ResolveCombatParticipantByUniqueID($attackerPlayer, $zoneName, $mzPrefix, $uniqueIDVarName, $mzVarName, $clearMarkersOnMissing = false) {
+    $uniqueID = intval(DecisionQueueController::GetVariable($uniqueIDVarName) ?? "0");
+    if($uniqueID <= 0) {
+        if($mzVarName === "CombatTarget") ClearCombatTargetState($clearMarkersOnMissing);
+        else ClearCombatAttackerState();
+        return null;
+    }
+
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $attackerPlayer;
+
+    $field = GetZone($zoneName);
+    for($i = 0; $i < count($field); ++$i) {
+        $obj = $field[$i] ?? null;
+        if($obj === null || $obj->removed || !isset($obj->UniqueID)) continue;
+        if(intval($obj->UniqueID) !== $uniqueID) continue;
+        $mzID = $mzPrefix . $i;
+        $playerID = $savedPlayerID;
+        if($mzVarName === "CombatTarget") StoreCombatTargetState($mzID);
+        else StoreCombatAttackerState($mzID);
+        return $mzID;
+    }
+
+    $playerID = $savedPlayerID;
+    if($mzVarName === "CombatTarget") ClearCombatTargetState($clearMarkersOnMissing);
+    else ClearCombatStateForMissingAttacker();
+    return null;
+}
+
+function ResolveCombatAttackerByUniqueID($attackerPlayer) {
+    return ResolveCombatParticipantByUniqueID($attackerPlayer, "myField", "myField-", "CombatAttackerUniqueID", "CombatAttacker");
+}
+
+function ResolveCombatTargetByUniqueID($attackerPlayer) {
+    return ResolveCombatParticipantByUniqueID($attackerPlayer, "theirField", "theirField-", "CombatTargetUniqueID", "CombatTarget", true);
+}
+
+function SyncCombatStateToFieldUniqueIDs() {
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    if($attackerPlayer <= 0) return;
+    if(ResolveCombatAttackerByUniqueID($attackerPlayer) === null) return;
+    ResolveCombatTargetByUniqueID($attackerPlayer);
+}
+
 function ClearCombatTargetMarkers() {
     $marker = CombatTargetMarker();
     foreach(GetAllZones() as $zoneName) {
@@ -469,7 +575,7 @@ function ResolveCombatTargetMarker($attackerPlayer) {
         if($obj === null || $obj->removed) continue;
         if(in_array($marker, $obj->TurnEffects ?? [])) {
             $targetMZ = "theirField-" . $i;
-            DecisionQueueController::StoreVariable("CombatTarget", $targetMZ);
+            StoreCombatTargetState($targetMZ);
             $playerID = $savedPlayerID;
             return $targetMZ;
         }
@@ -481,10 +587,9 @@ function ResolveCombatTargetMarker($attackerPlayer) {
 
 function CancelCombatForMissingTarget($attackerPlayer) {
     SetFlashMessage("Attack canceled because the target left the field.");
-    ClearCombatTargetMarkers();
+    ClearCombatTargetState(true);
     ClearIntent($attackerPlayer);
-    DecisionQueueController::ClearVariable("CombatAttacker");
-    DecisionQueueController::ClearVariable("CombatTarget");
+    ClearCombatAttackerState();
     DecisionQueueController::ClearVariable("CombatAttackerPlayer");
     DecisionQueueController::ClearVariable("CombatIsCleave");
     DecisionQueueController::ClearVariable("CombatWeapon");
@@ -822,8 +927,9 @@ function DeclareChampionAttack($player) {
     // Rest the champion as cost (Grand Archive: "rest" = exhaust)
     RestCard($player, $championMZ);
 
-    // Store attacker for resolution
-    DecisionQueueController::StoreVariable("CombatAttacker", $championMZ);
+    // Store attacker context before resolving the attacker's UniqueID.
+    DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
+    StoreCombatAttackerState($championMZ, $player);
     UpdateCombatLorraineBlademasterFlag($player, $championMZ);
 
     // Step 2.b -- Weapon selection: if the attacker is a champion, offer weapon choice
@@ -1197,8 +1303,9 @@ function BeginCombatPhase($actionCard) {
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "ReserveCard", 100);
     }
 
-    // Store the attacker location for later handlers
-    DecisionQueueController::StoreVariable("CombatAttacker", $actionCard);
+    // Store attacker context before resolving the attacker's UniqueID.
+    DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($turnPlayer));
+    StoreCombatAttackerState($actionCard, $turnPlayer);
     UpdateCombatLorraineBlademasterFlag($turnPlayer, $actionCard);
 
     // Step 2.b -- Weapon selection: only for champion attacks, not allies
@@ -2174,13 +2281,13 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     if($lastDecision === "-" || $lastDecision === "") {
         // No target chosen / fizzled -- clean up intent and return
         ClearIntent($player);
-        DecisionQueueController::ClearVariable("CombatAttacker");
+        ClearCombatAttackerState();
         DecisionQueueController::ClearVariable("CombatWeapon");
         return;
     }
 
     // Store selected target before On Attack so declaration-time abilities can inspect CombatTarget.
-    DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
+    StoreCombatTargetState($lastDecision, $player);
     MarkCombatTarget($player, $lastDecision);
 
     // Fire On Attack triggers (may grant effects like critical)
@@ -2209,7 +2316,6 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     }
 
     // Store combat state for the damage and retaliation handlers
-    DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
     DecisionQueueController::StoreVariable("CombatIsCleave", "0");
 
     // Track that the champion was attacked this turn (for Servant's Obligation)
@@ -2276,7 +2382,7 @@ $customDQHandlers["AtmosShieldRedirect"] = function($player, $parts, $lastDecisi
     if($shieldObj === null || $shieldObj->removed) return;
     $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
     $shieldMZForAttacker = ConvertMzToPlayerPerspective($shieldMZCurrent, $attackerPlayer);
-    DecisionQueueController::StoreVariable("CombatTarget", $shieldMZForAttacker);
+    StoreCombatTargetState($shieldMZForAttacker, $attackerPlayer);
     MarkCombatTarget($attackerPlayer, $shieldMZForAttacker);
 };
 
@@ -2292,7 +2398,7 @@ $customDQHandlers["InterceptTargetChosen"] = function($player, $parts, $lastDeci
 
     $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
     $interceptMZForAttacker = ConvertMzToPlayerPerspective($lastDecision, $attackerPlayer);
-    DecisionQueueController::StoreVariable("CombatTarget", $interceptMZForAttacker);
+    StoreCombatTargetState($interceptMZForAttacker, $attackerPlayer);
     MarkCombatTarget($attackerPlayer, $interceptMZForAttacker);
 };
 
@@ -2356,11 +2462,7 @@ $customDQHandlers["CombatDealDamage"] = function($player, $parts, $lastDecision)
     $attacker = &GetZoneObject($attackerMZ);
     if($attacker === null) {
         ClearIntent($attackerPlayer);
-        ClearCombatTargetMarkers();
-        DecisionQueueController::ClearVariable("CombatAttacker");
-        DecisionQueueController::ClearVariable("CombatTarget");
-        DecisionQueueController::ClearVariable("CombatAttackerPlayer");
-        DecisionQueueController::ClearVariable("CombatIsCleave");
+        ClearCombatStateForMissingAttacker();
         return;
     }
 
@@ -2553,10 +2655,7 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
     $attacker = &GetZoneObject($attackerMZ);
     if($attacker === null) {
         ClearIntent($attackerPlayer);
-        DecisionQueueController::ClearVariable("CombatAttacker");
-        DecisionQueueController::ClearVariable("CombatAttackerPlayer");
-        DecisionQueueController::ClearVariable("CombatIsCleave");
-        DecisionQueueController::ClearVariable("CombatWeapon");
+        ClearCombatStateForMissingAttacker();
         $playerID = $savedPlayerID;
         return;
     }
@@ -2820,13 +2919,12 @@ $customDQHandlers["CombatCleanup"] = function($player, $parts, $lastDecision) {
     //   1. Attacking and defending objects are removed from combat.
     //   2. Any cards in the intent are placed into the graveyard.
     // So clear combat state variables first, then clear the intent.
-    DecisionQueueController::ClearVariable("CombatAttacker");
-    DecisionQueueController::ClearVariable("CombatTarget");
+    ClearCombatAttackerState();
+    ClearCombatTargetState(true);
     DecisionQueueController::ClearVariable("CombatAttackerPlayer");
     DecisionQueueController::ClearVariable("CombatIsCleave");
     DecisionQueueController::ClearVariable("CombatWeapon");
     DecisionQueueController::ClearVariable("CombatLorraineBlademasterDraw");
-    ClearCombatTargetMarkers();
 
     global $playerID;
     $savedPlayerID = $playerID;
@@ -4601,8 +4699,8 @@ $customDQHandlers["SliceAndDiceNewAttack"] = function($player, $parts, $lastDeci
     AddTurnEffect("myIntent-" . $newIntentIdx, "3jg01o26b4-COPY_POWER");
 
     // Restore combat variables for the new attack
-    DecisionQueueController::StoreVariable("CombatAttacker", $attackerMZ);
     DecisionQueueController::StoreVariable("CombatAttackerPlayer", strval($player));
+    StoreCombatAttackerState($attackerMZ, $player);
     DecisionQueueController::StoreVariable("CombatIsCleave", "0");
     DecisionQueueController::StoreVariable("CombatWeapon", "-");
 

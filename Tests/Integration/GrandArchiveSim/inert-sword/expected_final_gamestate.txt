@@ -128,15 +128,15 @@ XgJ72Ot13P
 wsqvfsyid4
 2zs1pana81
 4
-fln04uv297 2 1 0 1 - - -
-nn48ne8a05 2 1 2 1 - - WyJwTml5YUdsSWU3Il0=
-UVAb8CmjtL 2 1 0 1 - eyJkcmVhbUZhaXJ5TG9ja2VkQ2FyZElEIjoiVVZBYjhDbWp0TCJ9 -
-mHd6LLyMyF 2 1 0 1 - - -
+fln04uv297 2 1 0 1 - - - -1
+nn48ne8a05 2 1 2 1 - - WyJwTml5YUdsSWU3Il0= -1
+UVAb8CmjtL 2 1 0 1 - eyJkcmVhbUZhaXJ5TG9ja2VkQ2FyZElEIjoiVVZBYjhDbWp0TCJ9 - -1
+mHd6LLyMyF 2 1 0 1 - - - -1
 4
-fln04uv297 2 2 0 2 - - -
-mHd6LLyMyF 2 2 0 2 - - -
-nn48ne8a05 2 2 2 2 - - WyJwTml5YUdsSWU3Il0=
-2s08hssegf 2 2 0 2 ENTERED_THIS_TURN eyJkdXJhYmlsaXR5IjoyfQ== -
+fln04uv297 2 2 0 2 - - - -1
+mHd6LLyMyF 2 2 0 2 - - - -1
+nn48ne8a05 2 2 2 2 - - WyJwTml5YUdsSWU3Il0= -1
+2s08hssegf 2 2 0 2 ENTERED_THIS_TURN eyJkdXJhYmlsaXR5IjoyfQ== - 1
 0
 0
 0
@@ -185,4 +185,5 @@ Main Phase
 {"mzID":"myField-3","amount":1,"ignoreCost":false,"mzIDCardID":"mHd6LLyMyF","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","chosen":"theirField-2","CombatDamageAmount":"1","source":"myField-3","target":"theirField-0"}
 0
 {"ActivateCardCalls":{"1":7,"2":2},"ActivateCard":{"1":{"mHd6LLyMyF":6,"UVAb8CmjtL":1},"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1}},"CardActivatedCalls":{"1":3,"2":2},"CardActivated":{"1":{"mHd6LLyMyF":2,"UVAb8CmjtL":1},"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1}},"EnterCalls":{"1":4,"2":4},"Enter":{"1":{"mHd6LLyMyF":2,"nn48ne8a05":1,"UVAb8CmjtL":1},"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1,"nn48ne8a05":1,"2s08hssegf":1}},"DrawCalls":{"2":3,"1":2},"Draw":{"2":3,"1":2},"RestCardCalls":{"2":2,"1":2},"RestCard":{"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1},"1":{"UVAb8CmjtL":1,"mHd6LLyMyF":1}},"OnAttackCalls":{"2":2,"1":2},"OnAttack":{"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1},"1":{"UVAb8CmjtL":1,"mHd6LLyMyF":1}},"DealDamageCalls":{"2":2,"1":2},"MaterializeCalls":{"1":1,"2":2},"Materialize":{"1":{"nn48ne8a05":1},"2":{"nn48ne8a05":1,"2s08hssegf":1}}}
+1
 0

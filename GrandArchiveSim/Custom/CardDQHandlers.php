@@ -7232,7 +7232,7 @@ $customDQHandlers["HuntChooseMode"] = function($player, $parts, $lastDecision) {
                     $rookMZ = $rooks[0];
                     $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
                     if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
-                        DecisionQueueController::StoreVariable("CombatTarget", $rookMZ);
+                        StoreCombatTargetState($rookMZ, ($player == 1) ? 2 : 1);
                     }
                     AddTurnEffect($rookMZ, "Y6PZntlVDl_LIFE");
                 } else {
@@ -7275,7 +7275,7 @@ $customDQHandlers["HuntRookRedirect"] = function($player, $parts, $lastDecision)
     if($lastDecision === "-" || $lastDecision === "") return;
     $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
     if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
-        DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
+        StoreCombatTargetState($lastDecision, ($player == 1) ? 2 : 1);
     }
     AddTurnEffect($lastDecision, "Y6PZntlVDl_LIFE");
 };
@@ -8133,7 +8133,7 @@ $customDQHandlers["RoseRedirectAttack"] = function($player, $parts, $lastDecisio
     if($roseMZ === null || $roseMZ === "-" || $roseMZ === "") return;
     $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
     if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
-        DecisionQueueController::StoreVariable("CombatTarget", $roseMZ);
+        StoreCombatTargetState($roseMZ, ($player == 1) ? 2 : 1);
     }
     AddTurnEffect($roseMZ, "2bbmoqk2c7-LIFE");
 };
@@ -8142,7 +8142,7 @@ $customDQHandlers["TrumpSetRedirect"] = function($player, $parts, $lastDecision)
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $allyObj = GetZoneObject($lastDecision);
     if($allyObj === null || $allyObj->removed) return;
-    DecisionQueueController::StoreVariable("CombatTarget", $lastDecision);
+    StoreCombatTargetState($lastDecision, ($player == 1) ? 2 : 1);
     AddTurnEffect($lastDecision, "w7g91ru45w_POWER");
     AddTurnEffect($lastDecision, "w7g91ru45w_LIFE");
 };

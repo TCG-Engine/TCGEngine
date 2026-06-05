@@ -616,14 +616,8 @@ for($i=0; $i<count($zones); ++$i) {
   $parametersNoDefaults = "";
   for($j=0; $j<count($zone->Properties); ++$j) {
     $property = $zone->Properties[$j];
-    $defaultValue = $property->DefaultValue;
-    $propertyType = strtolower($property->Type);
-    $isQuotedString = strlen($defaultValue) >= 2 &&
-      (($defaultValue[0] === '"' && substr($defaultValue, -1) === '"') || ($defaultValue[0] === "'" && substr($defaultValue, -1) === "'"));
-    $isScalarLiteral = is_numeric($defaultValue) || in_array(strtolower($defaultValue), ["true", "false", "null"], true);
-    if(!$isQuotedString && !$isScalarLiteral && !in_array($propertyType, ["int", "number", "float", "array", "json"], true)) {
-      $defaultValue = '"' . addslashes($defaultValue) . '"';
-    }
+    if(IsUniqueIDManagedProperty($zoneName, $property->Name)) continue;
+    $defaultValue = GetPropertyDefaultLiteral($property);
     $parameters .= ", \$" . $property->Name . "=" . $defaultValue;
     $parametersNoDefaults .= ", \$" . $property->Name;
   }
@@ -672,11 +666,18 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "  \$zoneObj = new " . $zoneName . "(");
     for($j=0; $j<count($zone->Properties); ++$j) {
       $property = $zone->Properties[$j];
+      $propertyExpr = IsUniqueIDManagedProperty($zoneName, $property->Name)
+        ? GetPropertyDefaultLiteral($property)
+        : "\$" . $property->Name;
       if($property->Type == "json") {
         // JSON fields need to be base64-encoded for the space-delimited constructor line
-        fwrite($handler, "(is_array(\$" . $property->Name . ") ? base64_encode(json_encode(\$" . $property->Name . ")) : \$" . $property->Name . ")");
+        if(IsUniqueIDManagedProperty($zoneName, $property->Name)) {
+          fwrite($handler, $propertyExpr);
+        } else {
+          fwrite($handler, "(is_array(\$" . $property->Name . ") ? base64_encode(json_encode(\$" . $property->Name . ")) : \$" . $property->Name . ")");
+        }
       } else {
-        fwrite($handler, "\$" . $property->Name);
+        fwrite($handler, $propertyExpr);
       }
       if($j < count($zone->Properties) - 1) fwrite($handler, " . ' ' . ");
     }
@@ -705,6 +706,12 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "      }\r\n");
     fwrite($handler, "    }\r\n");
     fwrite($handler, "  }\r\n");
+    $uniqueIDConfig = GetUniqueIDModuleConfigForZone($zoneName);
+    if($uniqueIDConfig != null && ZoneHasProperty($zone, $uniqueIDConfig->Field)) {
+      fwrite($handler, "  global \$g" . $uniqueIDConfig->Counter . ";\r\n");
+      fwrite($handler, "  \$g" . $uniqueIDConfig->Counter . "++;\r\n");
+      fwrite($handler, "  \$zoneObj->" . $uniqueIDConfig->Field . " = \$g" . $uniqueIDConfig->Counter . ";\r\n");
+    }
     // Build index for zones with indexed properties
     $hasIndexedProperties = count($zone->IndexedProperties) > 0;
     if($hasIndexedProperties) {
@@ -2653,6 +2660,51 @@ function GetModule($type) {
     if($modules[$i]->Name == $type) return $modules[$i];
   }
   return null;
+}
+
+function GetPropertyDefaultLiteral($property) {
+  $defaultValue = $property->DefaultValue;
+  $propertyType = strtolower($property->Type);
+  $isQuotedString = strlen($defaultValue) >= 2 &&
+    (($defaultValue[0] === '"' && substr($defaultValue, -1) === '"') || ($defaultValue[0] === "'" && substr($defaultValue, -1) === "'"));
+  $isScalarLiteral = is_numeric($defaultValue) || in_array(strtolower($defaultValue), ["true", "false", "null"], true);
+  if(!$isQuotedString && !$isScalarLiteral && !in_array($propertyType, ["int", "number", "float", "array", "json"], true)) {
+    $defaultValue = '"' . addslashes($defaultValue) . '"';
+  }
+  return $defaultValue;
+}
+
+function ZoneHasProperty($zone, $propertyName) {
+  foreach($zone->Properties as $property) {
+    if($property->Name === $propertyName) return true;
+  }
+  return false;
+}
+
+function GetUniqueIDModuleConfigForZone($zoneName) {
+  $module = GetModule("UniqueID");
+  if($module == null || trim($module->Parameters ?? "") === "") return null;
+
+  $configs = explode(";", $module->Parameters);
+  foreach($configs as $config) {
+    $parts = array_map('trim', explode(",", $config));
+    if(count($parts) < 3) continue;
+    if($parts[0] !== $zoneName) continue;
+
+    $rv = new StdClass();
+    $rv->Zone = $parts[0];
+    $rv->Field = $parts[1];
+    $rv->Counter = $parts[2];
+    return $rv;
+  }
+
+  return null;
+}
+
+function IsUniqueIDManagedProperty($zoneName, $propertyName) {
+  $config = GetUniqueIDModuleConfigForZone($zoneName);
+  if($config == null) return false;
+  return $config->Field === $propertyName;
 }
 
 /**
