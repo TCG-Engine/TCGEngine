@@ -6346,11 +6346,13 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    $deferEnterUntilAfterGlimpse = false;
     // Crystalline Mirror (9agwj4f15j): whenever a phantasia enters the field under your control, glimpse 1
     if(PropertyContains(CardType($added->CardID), "PHANTASIA")) {
         for($cm = 0; $cm < count($field); ++$cm) {
             if(!$field[$cm]->removed && $field[$cm]->CardID === "9agwj4f15j" && !HasNoAbilities($field[$cm])) {
                 Glimpse($player, 1);
+                $deferEnterUntilAfterGlimpse = true;
                 break;
             }
         }
@@ -6575,7 +6577,15 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     WildgrowthFatestoneOnEnterCheck($player, "myField-" . (count($field) - 1));
 
     $enteredMzID = $field[count($field)-1]->GetMzID();
+    if($deferEnterUntilAfterGlimpse && !in_array("PENDING_ENTER_AFTER_GLIMPSE", $field[count($field)-1]->TurnEffects ?? [], true)) {
+        AddTurnEffect($enteredMzID, "PENDING_ENTER_AFTER_GLIMPSE");
+    }
     if(QueueUniqueRuleResolution($player, $enteredMzID)) {
+        return;
+    }
+
+    if($deferEnterUntilAfterGlimpse) {
+        QueueFinalizeFieldEntryEnterAfterGlimpse($player, $enteredMzID);
         return;
     }
 
@@ -11811,7 +11821,7 @@ $customDQHandlers["SummonSpiritShardAfterGlimpse"] = function($player, $parts, $
     function QueueDrawIntoMemoryAfterGlimpse($player, $amount=1) {
         $amount = intval($amount);
         if($amount <= 0) return;
-        DecisionQueueController::AddDecision($player, "CUSTOM", "DrawIntoMemoryAfterGlimpse|" . $amount, 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DrawIntoMemoryAfterGlimpse|" . $amount, 1, dontSkipOnPass:true);
     }
 
     $customDQHandlers["DrawIntoMemoryAfterGlimpse"] = function($player, $parts, $lastDecision) {
@@ -18906,6 +18916,27 @@ function FinalizeFieldEntryEnter($player, $mzID) {
     Enter($player, $mzID);
 }
 
+function QueueFinalizeFieldEntryEnterAfterGlimpse($player, $mzID) {
+    if($mzID === "" || $mzID === null) return;
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FinalizeFieldEntryEnterAfterGlimpse|" . $mzID, 1, "", 1);
+}
+
+$customDQHandlers["FinalizeFieldEntryEnterAfterGlimpse"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0] ?? "";
+    if($mzID === "") return;
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) {
+        $playerID = $savedPlayerID;
+        return;
+    }
+    $obj->TurnEffects = array_values(array_diff($obj->TurnEffects ?? [], ["PENDING_ENTER_AFTER_GLIMPSE"]));
+    FinalizeFieldEntryEnter($player, $mzID);
+    $playerID = $savedPlayerID;
+};
+
 function QueueUniqueRuleResolution($player, $enteredMzID) {
     $enteredObj = GetZoneObject($enteredMzID);
     if($enteredObj === null || $enteredObj->removed) return false;
@@ -18976,6 +19007,10 @@ $customDQHandlers["ResolveUniqueRule"] = function($player, $parts, $lastDecision
     $pendingObj = GetZoneObject($pendingEnterMz);
     if($pendingObj === null || $pendingObj->removed) return;
     $pendingObj->TurnEffects = array_values(array_diff($pendingObj->TurnEffects ?? [], ["PENDING_UNIQUE_RULE"]));
+    if(in_array("PENDING_ENTER_AFTER_GLIMPSE", $pendingObj->TurnEffects ?? [], true)) {
+        QueueFinalizeFieldEntryEnterAfterGlimpse($player, $pendingEnterMz);
+        return;
+    }
     FinalizeFieldEntryEnter($player, $pendingEnterMz);
 };
 
