@@ -6646,11 +6646,6 @@ $customDQHandlers["XuchangFrozenCitadel"] = function($player, $parts, $lastDecis
     }
 };
 
-// Xuchang, Frozen Citadel (xpb20rar4k): no floating-memory GY card was available, so apply the tax.
-$customDQHandlers["XuchangFrozenCitadelNoChoice"] = function($player, $parts, $lastDecision) {
-    AddGlobalEffects($player, "XUCHANG_COST_INCREASE");
-};
-
 // Inner Court Schemer (spijrps4ny): On Attack â€” remove preparation counter for +2 POWER
 $customDQHandlers["InnerCourtSchemerRemovePrep"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
@@ -7843,8 +7838,9 @@ function RecollectionPhase() {
                 DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $floatingStr, 1, "Banish_floating-memory_card_or_next_activation_costs_2_more_(Xuchang)");
                 DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "XuchangFrozenCitadel", 1);
             } else {
-                // No floating memory cards to banish â€” queue the same penalty timing through DQ.
-                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "XuchangFrozenCitadelNoChoice", 1);
+                // No decision UI exists here, so apply the tax immediately instead of
+                // queueing a static-only handler that would leave recollection stalled.
+                AddGlobalEffects($turnPlayer, "XUCHANG_COST_INCREASE");
             }
             break;
         }
@@ -13774,6 +13770,7 @@ $backendOnlyTurnEffects = [
     "vz4kc558yx-ALLY_ACTIVATED",
     "HIT_BY_3hgldrogit",
     "CHAMP_DMG_BY_P2",
+    "XUCHANG_COST_INCREASE",
 ];
 
 function CardCurrentEffects($obj) {
