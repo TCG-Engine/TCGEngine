@@ -19186,6 +19186,7 @@ function LuBuDiaoChanChampionReplacement($player, $championMZ) {
     // Transform Lu Bu, Indomitable Titan into Lu Bu, Wrath Incarnate.
     $luBuObj->CardID = "l5izukgdmh";
     $luBuObj->Damage = 0;
+    DecisionQueueController::CleanupRemovedCards();
     for($i = count($field) - 1; $i >= 0; --$i) {
         if($field[$i]->removed) continue;
         if($field[$i] === $luBuObjRef) continue;
