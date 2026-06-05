@@ -59,7 +59,7 @@ while(!feof($handler)) {
   $line = fgets($handler);
   if($line !== false) {
     $line = trim($line);
-    if($line == "") continue;
+    if($line == "" || $line[0] == '#') continue;
     $lineArr = explode(":", $line);
     $lineType = $lineArr[0];
     $lineValue = count($lineArr) > 1 ? implode(":", array_slice($lineArr, 1)) : "";
@@ -767,11 +767,15 @@ for($i=0; $i<count($zones); ++$i) {
       $mzGetObject .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
       $mzGetZone .= "    case \"my" . $zoneName . "\": return Get" . $zoneName . "(\$playerID);\r\n";
       $mzGetZone .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
+      $mzGetZone .= "    case \"p1" . $zoneName . "\": return Get" . $zoneName . "(1);\r\n";
+      $mzGetZone .= "    case \"p2" . $zoneName . "\": return Get" . $zoneName . "(2);\r\n";
     } else {
       $mzGetObject .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); break;\r\n";
       $mzGetObject .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); break;\r\n";
       $mzGetZone .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr;\r\n";
       $mzGetZone .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr;\r\n";
+      $mzGetZone .= "    case \"p1" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(1); return \$zoneArr;\r\n";
+      $mzGetZone .= "    case \"p2" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(2); return \$zoneArr;\r\n";
     }
   }
 }
@@ -1307,6 +1311,9 @@ for($i=0; $i<count($zones); ++$i) {
       fwrite($handler, "(count(\$arr) > " . $j . " ? intval(\$arr[" . $j . "]) : -1);\r\n");
     } else if($propertyType == "float") {
       fwrite($handler, "(count(\$arr) > " . $j . " ? floatval(\$arr[" . $j . "]) : -1);\r\n");
+    } else if($propertyType == "boolean") {
+      // Stored as literal "true"/"false" in the serialized line.
+      fwrite($handler, "(count(\$arr) > " . $j . " ? filter_var(\$arr[" . $j . "], FILTER_VALIDATE_BOOLEAN) : false);\r\n");
     } else if($propertyType == "array") {
       // Arrays are serialized with ~ delimiter, e.g. "item1~item2~item3" or "-" for empty
       fwrite($handler, "(count(\$arr) > " . $j . " && \$arr[" . $j . "] != \"-\" ? explode(\"~\", \$arr[" . $j . "]) : []);\r\n");
@@ -1334,6 +1341,9 @@ for($i=0; $i<count($zones); ++$i) {
     } else if($property->Type == "json") {
       // Serialize JSON fields as base64-encoded JSON strings, or "-" if empty
       fwrite($handler, "    \$rv .= (!empty(\$this->" . $propertyName . ") ? base64_encode(json_encode(\$this->" . $propertyName . ")) : \"-\");\r\n");
+    } else if($property->Type == "boolean") {
+      // Serialize booleans as literal "true"/"false" strings
+      fwrite($handler, "    \$rv .= (\$this->" . $propertyName . " ? 'true' : 'false');\r\n");
     } else {
       fwrite($handler, "    \$rv .= \$this->" . $propertyName . ";\r\n");
     }
@@ -1634,6 +1644,12 @@ fwrite($handler, "  \$updateNumber = 1;\r\n");//TODO: Change this to startPlayer
 if(!SchemaOwnsRandomCounter()) {
   fwrite($handler, "  \$gRandomCounter = 0;\r\n");
 }
+if(in_array($rootName, ["SWUSim"], true)) {
+  fwrite($handler, "  global \$gWinner, \$gPendingTriggers, \$gTriggerDepth;\r\n");
+  fwrite($handler, "  \$gWinner = null;\r\n");
+  fwrite($handler, "  \$gPendingTriggers = [];\r\n");
+  fwrite($handler, "  \$gTriggerDepth = 1;\r\n");
+}
 fwrite($handler, "}\r\n\r\n");
 //Write gamestate function
 fwrite($handler, "function WriteGamestate(\$filepath=\"./\") {\r\n");
@@ -1686,6 +1702,7 @@ if($versionsModule != null) {
     $className = $baseZoneName;
     if(str_starts_with($className, "my")) $className = substr($className, 2);
     elseif(str_starts_with($className, "their")) $className = substr($className, 5);
+    elseif(preg_match('/^p\d/', $className)) $className = preg_replace('/^p\d/', '', $className);
 
     $isValueZone = isset($valueZones[$className]);
     $isGlobalZone = isset($globalZones[$className]);
@@ -1813,6 +1830,17 @@ fwrite($handler, "  echo(\$chatPayload);\r\n");
 fwrite($handler, "  exit;\r\n");
 fwrite($handler, "}\r\n");
 fwrite($handler, "ParseGamestate();\r\n");
+if($rootName == "SWUSim") {
+  // "Look at an opponent's hand" (SOR_200/201/228, …): while the viewer has a pending decision
+  // whose param references the opponent's hand ("theirHand"), reveal that hand face-up to them so
+  // they can see which card they are picking. Computed AFTER ParseGamestate (needs the decision
+  // queue). Auto-clears when the decision resolves.
+  fwrite($handler, "\$vSeat = \$viewerInfo[\"isSpectator\"] ? 0 : intval(\$viewerInfo[\"viewerSeat\"] ?? 0);\r\n");
+  fwrite($handler, "\$viewerLooksAtOppHand = false;\r\n");
+  fwrite($handler, "if(\$vSeat === 1 || \$vSeat === 2) { foreach(GetDecisionQueue(\$vSeat) as \$_d) { if(!empty(\$_d->removed)) continue; if(strpos((string)(\$_d->Param ?? ''), 'theirHand') !== false) { \$viewerLooksAtOppHand = true; break; } } }\r\n");
+  fwrite($handler, "\$canSeeHandPlayer1 = \$canSeePrivatePlayer1 || (\$viewerLooksAtOppHand && \$vSeat === 2);\r\n");
+  fwrite($handler, "\$canSeeHandPlayer2 = \$canSeePrivatePlayer2 || (\$viewerLooksAtOppHand && \$vSeat === 1);\r\n");
+}
 fwrite($handler, "SetCachePiece(\$gameName, 1, \$updateNumber);\r\n");
 fwrite($handler, "echo(\$updateNumber . \"<~>\");\r\n");
 $assetVisibilityModule = GetModuleOfType("AssetVisibility");
@@ -1865,8 +1893,19 @@ fwrite($handler, "  \"messages\" => GetChatMessagesSince(\$gameName, \$lastChatI
 fwrite($handler, "]);\r\n");
 fwrite($handler, "if(\$chatPayload === false) \$chatPayload = '{\"version\":0,\"messages\":[]}';\r\n");
 fwrite($handler, "echo(\$chatPayload);\r\n");
+// SWUSim: per-viewer actions data piece; NextTurnRender reads it at responseArr[length-2]
+// (second-to-last; frameAnimations must remain the final piece).
+if (in_array($rootName, ['SWUSim'], true)) {
+  fwrite($handler, "echo(\"<~>\");\r\n");
+  fwrite($handler, "\$actionsData = json_encode(SWUComputeActionsData(intval(\$playerID)));\r\n");
+  fwrite($handler, "if(\$actionsData === false) \$actionsData = '{}';\r\n");
+  fwrite($handler, "echo(\$actionsData);\r\n");
+}
 fwrite($handler, "echo(\"<~>\");\r\n");
-fwrite($handler, "\$frameAnimations = GetCachePiece(\$gameName, 15);\r\n");
+// Frame animations live under a DEDICATED cache key (not cache piece 15) so the unlocked
+// read-modify-write of the shared multi-piece game-state blob can't clobber them — see
+// SetFrameAnimationCache in EngineActionRunner.php.
+fwrite($handler, "\$frameAnimations = ReadCache(\$gameName . '_anim');\r\n");
 fwrite($handler, "if(\$frameAnimations == \"\") \$frameAnimations = \"[]\";\r\n");
 fwrite($handler, "echo(\$frameAnimations);\r\n");
 
@@ -2079,7 +2118,7 @@ function AddWriteZone($zoneName, $player) {
 }
 
 function AddGetNextTurnForPlayer($player) {
-  global $zones;
+  global $zones, $rootName;
   $getNextTurn = "";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -2149,13 +2188,22 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= "    ComputeVirtualProperties(\$obj);\r\n";
       }
       if($zone->Visibility == "Public") {
-        $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        // SWUSim: deployed leaders keep their leader-side CardID in state but must
+        // SHOW their unit side ("{CardID}_back") while on the battlefield.
+        if($rootName == "SWUSim" && ($zone->Name == "GroundArena" || $zone->Name == "SpaceArena")) {
+          $getNextTurn .= "    \$displayID = SWUArenaDisplayCardID(\$obj);\r\n";
+        } else {
+          $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
+        }
         $getNextTurn .= "    echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
       } else if($zone->Visibility == "Private") {
         $getNextTurn .= "    echo(ClientRenderedCard(\"CardBack\"));\r\n";
       } else if ($zone->Visibility == "Self") {
+        // SWUSim Hand uses the look-at-opponent's-hand-aware flag so a "look at an opponent's hand"
+        // decision reveals it to the chooser; all other Self zones keep the plain privacy flag.
+        $selfFlag = ($rootName == "SWUSim" && $zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
         $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
-        $getNextTurn .= "    if(\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        $getNextTurn .= "    if(\$" . $selfFlag . $player . ") echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         $getNextTurn .= "    else echo(ClientRenderedCard(\"CardBack\"));\r\n";
       }
       $getNextTurn .= "  }\r\n";
@@ -2176,7 +2224,19 @@ function AddGetNextTurnForPlayer($player) {
       }
     } else if($zone->DisplayMode == "Value") {
       if ($scope == 'global') {
-        $getNextTurn .= "  echo(\$g" . $zone->Name . ");\r\n";
+        if ($zone->Name == "GameLog") {
+          // GameLog entries are "TYPE|VISIBILITY|text" joined by "<NL>". Filter
+          // per viewer: ALL always; P1/P2 only for that seated player (never spectators).
+          $getNextTurn .= "  \$logEntries = explode('<NL>', \$gGameLog);\r\n";
+          $getNextTurn .= "  \$visibleLog = [];\r\n";
+          $getNextTurn .= "  foreach(\$logEntries as \$logEntry) {\r\n";
+          $getNextTurn .= "    \$logVis = explode('|', \$logEntry, 3)[1] ?? 'ALL';\r\n";
+          $getNextTurn .= "    if(\$logVis === 'ALL' || (!\$viewerInfo[\"isSpectator\"] && \$logVis === 'P' . intval(\$viewerInfo[\"viewerSeat\"] ?? 0))) \$visibleLog[] = \$logEntry;\r\n";
+          $getNextTurn .= "  }\r\n";
+          $getNextTurn .= "  echo(implode('<NL>', \$visibleLog));\r\n";
+        } else {
+          $getNextTurn .= "  echo(\$g" . $zone->Name . ");\r\n";
+        }
       } else {
         $getNextTurn .= "  echo(\$p" . $player . $zone->Name . ");\r\n";
       }
@@ -2198,7 +2258,7 @@ function AddGetNextTurnForPlayer($player) {
   return $getNextTurn;
 }
 function AddNextTurn() {
-  global $zones, $numRows, $rootPath, $hasDecisionQueue, $hasFlashMessage;
+  global $zones, $numRows, $rootPath, $hasDecisionQueue, $hasFlashMessage, $rootName;
   $startPiece = 1;
   $numPieces = count($zones);
   $setData = "";
@@ -2216,6 +2276,10 @@ function AddNextTurn() {
   $header .= "echo(\"var otherPlayerIndex = playerID == 1 ? 2 : 1;\");\r\n";
   $footer = "echo(\"RenderRows(myRows, theirRows);\");\r\n";
   $footer .= "echo(\"AppendStaticZones(myStatic, theirStatic, globalStatic);\");\r\n";
+  // SWUSim: refresh the Undo button state after every render cycle (GameLayout defines swuUpdateUndoUI).
+  if (in_array($rootName, ['SWUSim'], true)) {
+    $footer .= "echo(\"if (typeof swuUpdateUndoUI === 'function') swuUpdateUndoUI(currentPlayerIndex);\");\r\n";
+  }
   for ($i = 0; $i < count($zones); ++$i) {
     $zone = $zones[$i];
     if ($zone->DisplayMode == "Panel") {
@@ -2272,6 +2336,11 @@ function AddNextTurn() {
         $theirStaticStuff .= GeneratedZoneElement($zone, "their", "dataIndex", $dummy);
       }
     }
+  }
+
+  // SWUSim: actionsData is responseArr[length-2] (second-to-last; last = frameAnimations)
+  if (in_array($rootName, ['SWUSim'], true)) {
+    $setData .= "echo(\"window.myActionsData = JSON.parse(responseArr[responseArr.length - 2] || '{}');\");\r\n";
   }
 
   if ($hasDecisionQueue) {

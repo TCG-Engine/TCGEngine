@@ -6,7 +6,7 @@
     private $preconstructedDeck;
     private $authKey;
     private $gamePlayerID; // This is the ID used in the game, not the lobby
-    
+
     public function __construct($playerID, $deckLink, $preconstructedDeck = '') {
         $this->playerID = $playerID;
         $this->deckLink = $deckLink;
@@ -33,7 +33,7 @@
     public function getGamePlayerID() {
         return $this->gamePlayerID;
     }
-    
+
     public function setGamePlayerID($gamePlayerID) {
         $this->gamePlayerID = $gamePlayerID;
     }
@@ -47,6 +47,7 @@
         $this->preconstructedDeck = $preconstructedDeck;
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return [
             'playerID' => $this->getPlayerID(),

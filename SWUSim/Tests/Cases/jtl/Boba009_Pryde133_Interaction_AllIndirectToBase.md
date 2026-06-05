@@ -1,0 +1,29 @@
+# JTL_009 Boba Fett (leader) + JTL_133 Allegiant General Pryde interaction. P1 controls both, with the
+# initiative. Pryde attacks P2's base: its On Attack deals 2 indirect, and because that indirect is
+# non-combat damage Boba reacts (exhaust → 1 more indirect). P2 controls only a fragile 1-HP unit
+# (SOR_128, 3/1) — and Pryde's "defeat a non-unique upgrade on an indirect-damaged unit" plus the unit's
+# 1 HP make assigning the indirect onto it terrible — so P2 dumps ALL of it (2 + 1 = 3) onto their base.
+# Pryde then deals its 2 combat damage to the base as well → 5 total base damage. The 1-HP unit is
+# untouched (Pryde's upgrade-defeat reaction never fires, since no unit took indirect).
+
+## GIVEN
+P1LeaderBase: JTL_009/SOR_021
+P2LeaderBase: SOR_002/SOR_021
+SkipPreGame: true
+WithActivePlayer: 1
+WithInitiativePlayer: 1
+WithP1GroundArena: JTL_133:1:0
+WithP2GroundArena: SOR_128:1:0
+
+## WHEN
+- P1>AttackGroundArena:0:BASE
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:myBase-0:2
+- P1>AnswerDecision:YES
+- P1>AnswerDecision:Opponent
+- P2>AnswerDecision:myBase-0:1
+
+## EXPECT
+P2BASEDMG:5
+P2GROUNDARENAUNIT:0:CARDID:SOR_128
+P2GROUNDARENAUNIT:0:DAMAGE:0

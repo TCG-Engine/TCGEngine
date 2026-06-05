@@ -259,7 +259,7 @@ function ResolveGlobalFunction(functionName) {
           //$restrictionName = CardName($restriction);
           rv += "<img title='Restricted by: " + restriction + "' style='position:absolute; z-index:100; top:26px; left:26px;' src='./Images/restricted.png' />";
         }
-        if (epicActionUsed == 1) rv += "<img title='Epic Action Used' style='position:absolute; z-index:100; border-radius:5px; top: -3px; right: -2px; height:26px; width:26px; filter:drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.50));' src='./Images/ExhaustToken.png' />";
+        if (epicActionUsed == 1) rv += "<img title='Epic Action Used' style='position:absolute; z-index:100; top:4px; right:4px; height:22px; width:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7)); opacity:0.92;' src='./Assets/Icons/action-used.svg' />";
         rv += "</a>";
         /*
         if (gem != 0) {
@@ -299,17 +299,27 @@ function ResolveGlobalFunction(functionName) {
       function Hotkeys(event) {
         // Ignore gameplay hotkeys while the bug report modal is open.
         if (document.getElementById('bugReportOverlay')) return;
-        
+
         // Ignore hotkeys while typing in input/textarea fields (like chat)
         var activeElement = document.activeElement;
         if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
           return;
         }
-        
+
         //if (event.keyCode === 32) { if(document.getElementById("passConfirm").innerText == "false" || confirm("Do you want to skip arsenal?")) SubmitInput(99, ""); } //Space = pass
-        if(window.rootPath == './RBSim' || window.rootPath == './GudnakSim' || window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') {
+        if(window.rootPath == './RBSim' || window.rootPath == './GudnakSim' || window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim' || window.rootPath == './SWUSim') {
           if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
           if (event.keyCode === 85) SubmitInput(10004, ""); //U = Undo
+        }
+        if (window.rootPath == './SWUSim' && event.keyCode === 73) { //I = Take Initiative
+          // Only fire when the action is currently legal — gate on the same
+          // button-visibility guard used by the UI (your turn, MAIN phase, not
+          // yet claimed). The server re-enforces all of these regardless.
+          var swuInitBtn = document.getElementById('swuTakeInitBtn');
+          if (swuInitBtn && swuInitBtn.style.display !== 'none' && typeof window.swuTakeInitiative === 'function') {
+            event.preventDefault();
+            window.swuTakeInitiative();
+          }
         }
         if ((window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') && event.keyCode === 32) {
           if (TryPassCurrentDecision()) {
@@ -1137,6 +1147,8 @@ function ResolveGlobalFunction(functionName) {
 
         // Build inline styles - combine position and custom color variable
         var inlineStyles = "position:" + positionStyle + "; margin:1px;";
+        // EffectStack cards use a flex column so the trigger label renders below the card image.
+        if (zoneName === "EffectStack") inlineStyles += " display:inline-flex; flex-direction:column; align-items:center; vertical-align:top; gap:4px;";
         if (isSelectable) {
           if (window.SelectionMode && window.SelectionMode.active && Array.isArray(window.SelectionMode.multiSelected) && Number(window.SelectionMode.multiMax) > 0) {
             inlineStyles += " --highlight-color: rgba(198, 208, 224, 0.98);";
@@ -1323,7 +1335,8 @@ function ResolveGlobalFunction(functionName) {
         else newHTML += "<span " + styles + droppable + click + ">";
 
         var renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
-        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, 0, heatmapFunction, heatmapColorMap, id, overlayTypes.join("&"), JSON.stringify(overlayDescriptors));
+        var _epicUsed = (sharedCardData.EpicActionUsed === true || sharedCardData.EpicActionUsed === 'true') ? 1 : 0;
+        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, _epicUsed, heatmapFunction, heatmapColorMap, id, overlayTypes.join("&"), JSON.stringify(overlayDescriptors));
 
         try {
           if (combatIndicatorText) {
@@ -1344,10 +1357,21 @@ function ResolveGlobalFunction(functionName) {
             var effectStackTriggerLabel = sharedCardData.TriggerType === "ENTER" ? "On Enter" : "Trigger";
             newHTML += "<div style='position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:1002; padding:4px 8px; border-radius:999px; background:rgba(16, 24, 34, 0.88); border:1px solid rgba(244, 236, 219, 0.28); color:rgba(252, 238, 171, 0.98); font:700 10px/1.1 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 8px 18px rgba(7, 14, 20, 0.35); white-space:nowrap;'>" + effectStackTriggerLabel + "</div>";
           }
+          if (zoneName === "EffectStack" && sharedCardData.TriggerType) {
+            var _labelMap = {
+              'WhenPlayed':'When Played', 'WhenDefeated':'When Defeated',
+              'OnAttack':'On Attack', 'OnDefense':'On Defense',
+              'OnAttackEnd':'On Attack End', 'Shielded':'Shielded',
+              'Ambush':'Ambush', 'ENTER':'On Enter',
+            };
+            var _label = _labelMap[sharedCardData.TriggerType] || sharedCardData.TriggerType;
+            newHTML += "<div style='flex-shrink:0; padding:3px 8px; color:rgba(255,255,255,0.9); font:700 9px/1.2 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.04em; white-space:nowrap; pointer-events:none;'>" + _label + "</div>";
+          }
         } catch (e) {
           if (console && console.error) console.error('Effect stack trigger badge render error', e);
         }
 
+        // Render subcards — SWUSim upgrades/captives peek from below; GA lineage cards stack above.
         try {
           newHTML += RenderShiftingCurrentsFacingHTML(sharedCardData, shouldAnimateShiftingCurrentsDirectionChange);
         } catch (e) {
@@ -1359,24 +1383,89 @@ function ResolveGlobalFunction(functionName) {
           var cardDataSub = sharedCardData;
           if (cardDataSub.Subcards && Array.isArray(cardDataSub.Subcards) && cardDataSub.Subcards.length > 0) {
             var subcards = cardDataSub.Subcards;
-            var visibleLineageCount = Math.min(subcards.length, 3);
-            for (var si = visibleLineageCount - 1; si >= 0; si--) {
-              var offsetTop = (si + 1) * 10;
-              var offsetLeft = (si + 1) * 3;
-              var subFolder = folder;
-              if (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) {
-                subFolder = AssetReflectionPath();
+            var subFolder = folder;
+            if (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) {
+              subFolder = AssetReflectionPath();
+            }
+            // SWUSim upgrades/captives/pilots (and Experience tokens) peek from below as slivers; non-SWU
+            // "ga" lineage cards (plain IDs absent from the SWU card dictionary) stack above with a "+N" popup.
+            var shieldCount = 0, sliverIdx = 0, lineageCards = [];
+            var sliver = 18; // px each SWU subcard sliver shows below the unit card
+            // Vertical anchor (object-position-y) for a pilot sliver — unit pilots (full portrait) and
+            // leader pilots (_back side) share the same layout: the +X/+Y "while attached" band sits ~88%
+            // down, with an artist strip below it and the PILOTING/ability text box above it, so we bias
+            // toward the band. Higher = lower on the card (toward the band/artist), lower = higher (toward
+            // the text box). This is coupled to window.cardSize (board zoom): an 18px sliver spans
+            // ~18*450/cardSize px of the 628px card, so the exact sweet spot drifts with zoom. ~93% suits
+            // the default zoom; nudge if the board is much larger/smaller.
+            var pilotAnchorPct = 93;
+            for (var si = 0; si < subcards.length; si++) {
+              var sc = subcards[si];
+              if (sc && (sc.removed === true || sc.removed === 'true')) continue;
+              var scID = (typeof sc === 'string') ? sc : (sc && sc.CardID ? sc.CardID : null);
+              if (!scID || scID === '-') continue;
+              if (scID === 'SOR_T02') { shieldCount++; continue; }
+              // SOR_T01 (Experience) renders as a normal peek-from-below upgrade sliver; its concat image's
+              // bottom band carries the +1/+1 stat boxes (see zzImageConverter Token-Upgrade crop), so the
+              // sliver shows +1/+1 just like a real upgrade. It's in the SWU dictionary, so the GA check
+              // below lets it fall through to the sliver render.
+              // Non-SWU "ga" lineage card (a plain-string ID the SWU dictionary doesn't know — including
+              // when no SWU dictionary is loaded at all, i.e. a pure GA game): collect it to stack above.
+              // Everything else (objects, SWU-dictionary cards) is an SWU subcard → peek-from-below sliver.
+              if ((typeof sc === 'string') && !(window.typeData && window.typeData[scID] !== undefined)) {
+                lineageCards.push(scID);
+                continue;
               }
-              var subSrc = "./" + subFolder + "/concat/" + subcards[si] + ".webp";
-              newHTML += "<img data-subcard-id='" + subcards[si] + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
+              var scIsCaptive = !!(sc && sc.IsCaptive);
+              // A non-captive subcard carrying the "Pilot" trait is attached via Piloting (a real upgrade
+              // never has that trait; captures are flagged IsCaptive above). Detect by card TYPE + TRAIT —
+              // not the IsPilot flag, which isn't reliably present on the client — via the typeData/traitData
+              // globals from the loaded card dictionary. This needs no maintained ID list and grows with the
+              // card pool automatically. A pilot's concat is an art/PILOTING-box crop with no upgrade-style
+              // stat band, so we crop the FULL portrait instead, which carries the printed +power/+HP
+              // "while attached" band:
+              //   • Leader-pilots (type "Leader") use their unit (_back) side; unit pilots (type "Unit")
+              //     use the front portrait. Both share the same layout — an artist/copyright strip BELOW
+              //     the +X/+Y band and the ability/PILOTING text box ABOVE it — so both anchor at
+              //     ~pilotAnchorPct down to sit on the band.
+              // Regular upgrades, captives, and tokens are unaffected — they keep their concat sliver.
+              var scType   = (window.typeData  && window.typeData[scID])  ? String(window.typeData[scID])  : '';
+              var scTraits = (window.traitData && window.traitData[scID]) ? String(window.traitData[scID]) : '';
+              var scIsPilot       = !scIsCaptive && scTraits.toLowerCase().indexOf('pilot') !== -1;
+              var scIsLeaderPilot = scIsPilot && scType.indexOf('Leader') !== -1;
+              var scIsUnitPilot   = scIsPilot && !scIsLeaderPilot && scType.indexOf('Unit') !== -1;
+              var lineageSrc;
+              if (scIsLeaderPilot)    lineageSrc = "./" + subFolder + "/WebpImages/" + scID + "_back.webp";
+              else if (scIsUnitPilot) lineageSrc = "./" + subFolder + "/WebpImages/" + scID + ".webp";
+              else                    lineageSrc = "./" + subFolder + "/concat/" + scID + ".webp";
+              var li = sliverIdx++;
+              // Peek from below: bottom-most sliver of upgrade card (or top sliver of captive). Pilots
+              // (unit or leader) anchor on their +X/+Y band (~88% down) rather than the very bottom (artist strip).
+              var objPos = scIsCaptive ? 'top center' : (scIsPilot ? ('center ' + pilotAnchorPct + '%') : 'bottom center');
+              var bRadius = scIsCaptive ? '4px 4px 0 0' : '0 0 4px 4px';
+              var bottomOffset = (li + 1) * sliver;
+              newHTML += "<img data-subcard-id='" + scID + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
+                + "loading='lazy' class='lineage-subcard' "
+                + "style='position:absolute; bottom:-" + bottomOffset + "px; left:0; width:" + size + "px; height:" + sliver + "px; "
+                + "object-fit:cover; object-position:" + objPos + "; border-radius:" + bRadius + "; "
+                + "border:1px solid rgba(255,255,255,0.18); z-index:-" + (li + 1) + "; pointer-events:auto;' "
+                + "src='" + lineageSrc + "' alt='Upgrade' />";
+            }
+            // Non-SWU "ga" lineage cards — up to 3 visible as offset images above, plus a "+N" overflow popup.
+            var visibleLineageCount = Math.min(lineageCards.length, 3);
+            for (var gi = visibleLineageCount - 1; gi >= 0; gi--) {
+              var offsetTop = (gi + 1) * 10;
+              var offsetLeft = (gi + 1) * 3;
+              var subSrc = "./" + subFolder + "/concat/" + lineageCards[gi] + ".webp";
+              newHTML += "<img data-subcard-id='" + lineageCards[gi] + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
                 + "loading='lazy' class='lineage-subcard' style='position:absolute; top:-" + offsetTop + "px; left:" + offsetLeft + "px; height:" + size + "px; width:" + size + "px; "
-                + "border:1px solid transparent; opacity:0.85; z-index:-" + (si + 1) + "; pointer-events:auto;' "
+                + "border:1px solid transparent; opacity:0.85; z-index:-" + (gi + 1) + "; pointer-events:auto;' "
                 + "src='" + subSrc + "' alt='Lineage card' />";
             }
-            if (subcards.length > visibleLineageCount) {
-              var hiddenLineageCount = subcards.length - visibleLineageCount;
+            if (lineageCards.length > visibleLineageCount) {
+              var hiddenLineageCount = lineageCards.length - visibleLineageCount;
               var lineagePayload = encodeURIComponent(JSON.stringify({
-                subcards: subcards,
+                subcards: lineageCards,
                 folder: subFolder,
                 size: Math.max(74, size - 8)
               }));
@@ -1385,6 +1474,12 @@ function ResolveGlobalFunction(functionName) {
                 + " onfocusin='showLineageOverflowPopup(this)' onfocusout='hideLineageOverflowPopup()'"
                 + " onmousedown='event.stopPropagation()' onclick='event.preventDefault(); event.stopPropagation(); return false;'"
                 + " tabindex='0' role='button' aria-label='Show hidden lineage cards'>+" + hiddenLineageCount + "</span>";
+            }
+            // Shield token orbs — stacked in top-right corner
+            for (var shi = 0; shi < shieldCount; shi++) {
+              // counter-image-icon: marks this as a status-overlay icon so the selectable-card green
+              // border/glow rule (.selectable-card img:not(.counter-image-icon)) skips the shield orb.
+              newHTML += "<img class='counter-image-icon' title='Shield' loading='lazy' style='position:absolute; top:4px; right:" + (4 + shi * 20) + "px; width:20px; height:20px; z-index:5; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.6)); pointer-events:none;' src='./Assets/Icons/space-shield.svg' />";
             }
           }
         } catch (e) {
@@ -2216,8 +2311,8 @@ function ResolveGlobalFunction(functionName) {
           span:has(.lineage-subcard) {
             position: relative;
             z-index: 1;
-            margin-top: 12px;
             overflow: visible !important;
+            margin-bottom: 44px;
           }
 
           /* Lineage subcard images must not inherit the selectable highlight */
@@ -3872,7 +3967,287 @@ function EnableChooseZoneSelection(zoneSpecs, tooltip, decisionIndex) {
   });
 }
 
-// Call this after game state update to check for pending YESNO decisions
+// Show a panel for a SCRY decision — all peeked cards with Top/Bottom buttons.
+// Clicking a button removes the card from the display; the last assignment auto-submits.
+// entry.Param = comma-separated CardIDs (topmost-peeked first).
+// Result format: "topID1,topID2|bottomID1,bottomID2" (topmost first | order added).
+function ShowScryPanel(entry, decisionIndex, onSubmit) {
+  const cardIDs = (entry.Param || '').split(',').map(s => s.trim()).filter(Boolean);
+  const topCards = [];
+  const bottomCards = [];
+  let remaining = cardIDs.slice();
+  const imgBase = (window.rootPath || '.') + '/concat/';
+
+  function render() {
+    const existing = document.getElementById('scry-panel');
+    if (existing) existing.remove();
+
+    if (remaining.length === 0) {
+      if (onSubmit) onSubmit(topCards.join(',') + '|' + bottomCards.join(','));
+      return;
+    }
+
+    const overlay = document.createElement('div');
+    overlay.id = 'scry-panel';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:5000;display:flex;align-items:center;justify-content:center;';
+
+    const panel = document.createElement('div');
+    panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;";
+
+    const title = document.createElement('div');
+    title.textContent = 'LOOK AT THE TOP CARDS';
+    title.style.cssText = 'color:#fff;font-size:16px;letter-spacing:2px;margin-bottom:20px;';
+    panel.appendChild(title);
+
+    const cardsRow = document.createElement('div');
+    cardsRow.style.cssText = 'display:flex;gap:20px;justify-content:center;';
+
+    remaining.forEach(function(cardID) {
+      const cardWrap = document.createElement('div');
+      cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
+
+      const img = document.createElement('img');
+      img.src = imgBase + cardID + '.webp';
+      img.style.cssText = 'height:200px;border-radius:8px;border:1px solid #555;display:block;';
+      cardWrap.appendChild(img);
+
+      const btnRow = document.createElement('div');
+      btnRow.style.cssText = 'display:flex;gap:8px;';
+
+      const topBtn = document.createElement('button');
+      topBtn.textContent = 'Top';
+      topBtn.style.cssText = "padding:6px 18px;background:#1a4a8a;color:#fff;border:1px solid #4a8adf;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
+      topBtn.onclick = function() { topCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+
+      const botBtn = document.createElement('button');
+      botBtn.textContent = 'Bottom';
+      botBtn.style.cssText = "padding:6px 14px;background:#4a2060;color:#fff;border:1px solid #9a50df;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
+      botBtn.onclick = function() { bottomCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+
+      btnRow.appendChild(topBtn);
+      btnRow.appendChild(botBtn);
+      cardWrap.appendChild(btnRow);
+      cardsRow.appendChild(cardWrap);
+    });
+
+    panel.appendChild(cardsRow);
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+  }
+
+  render();
+}
+
+// Show a panel for a REVEALARRANGE decision — reveal the top N; each card goes either back on
+// Top (kept, in click order) or to the Discard pile. Modeled on the SCRY panel (Top/Bottom →
+// Top/Discard). entry.Param = comma-separated revealed CardIDs (topmost-peeked first).
+// Result format: "topID1,topID2|discardID1,discardID2" (kept top order | discarded).
+function ShowRevealArrangePanel(entry, decisionIndex, onSubmit) {
+  const cardIDs = (entry.Param || '').split(',').map(s => s.trim()).filter(Boolean);
+  const topCards = [];
+  const discardCards = [];
+  let remaining = cardIDs.slice();
+  const imgBase = (window.rootPath || '.') + '/concat/';
+  const titleText = (entry.Tooltip && entry.Tooltip !== '-')
+    ? entry.Tooltip.replace(/_/g, ' ').toUpperCase()
+    : 'DISCARD ANY, PUT THE REST BACK ON TOP';
+
+  function render() {
+    const existing = document.getElementById('revealarrange-panel');
+    if (existing) existing.remove();
+
+    if (remaining.length === 0) {
+      if (onSubmit) onSubmit(topCards.join(',') + '|' + discardCards.join(','));
+      return;
+    }
+
+    const overlay = document.createElement('div');
+    overlay.id = 'revealarrange-panel';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:5000;display:flex;align-items:center;justify-content:center;';
+
+    const panel = document.createElement('div');
+    panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;";
+
+    const title = document.createElement('div');
+    title.textContent = titleText;
+    title.style.cssText = 'color:#fff;font-size:16px;letter-spacing:2px;margin-bottom:8px;';
+    panel.appendChild(title);
+
+    const hint = document.createElement('div');
+    const keptSoFar = topCards.length ? ('  •  Kept on top: ' + topCards.length) : '';
+    hint.textContent = 'Click Top to keep a card on your deck (first kept ends up on top)' + keptSoFar;
+    hint.style.cssText = 'color:#9ab;font-size:11px;letter-spacing:1px;margin-bottom:18px;';
+    panel.appendChild(hint);
+
+    const cardsRow = document.createElement('div');
+    cardsRow.style.cssText = 'display:flex;gap:20px;justify-content:center;';
+
+    remaining.forEach(function(cardID) {
+      const cardWrap = document.createElement('div');
+      cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
+
+      const img = document.createElement('img');
+      img.src = imgBase + cardID + '.webp';
+      img.style.cssText = 'height:200px;border-radius:8px;border:1px solid #555;display:block;';
+      cardWrap.appendChild(img);
+
+      const btnRow = document.createElement('div');
+      btnRow.style.cssText = 'display:flex;gap:8px;';
+
+      const topBtn = document.createElement('button');
+      topBtn.textContent = 'Top';
+      topBtn.style.cssText = "padding:6px 18px;background:#1a4a8a;color:#fff;border:1px solid #4a8adf;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
+      topBtn.onclick = function() { topCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+
+      const discardBtn = document.createElement('button');
+      discardBtn.textContent = 'Discard';
+      discardBtn.style.cssText = "padding:6px 14px;background:#6a1f1f;color:#fff;border:1px solid #d05050;border-radius:5px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:13px;";
+      discardBtn.onclick = function() { discardCards.push(cardID); remaining = remaining.filter(id => id !== cardID); render(); };
+
+      btnRow.appendChild(topBtn);
+      btnRow.appendChild(discardBtn);
+      cardWrap.appendChild(btnRow);
+      cardsRow.appendChild(cardWrap);
+    });
+
+    panel.appendChild(cardsRow);
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+  }
+
+  render();
+}
+
+// Show a panel for a TOPDECKSEARCH decision — all peeked cards visible; matching cards
+// are selectable up to the constraint limit. Confirm submits chosen CardIDs.
+// entry.Param = "allIDs|matchingIDs|constraint"  where constraint is "count:N" or "cost:N".
+// Result format: comma-separated chosen CardIDs (empty string = choose none).
+function ShowTopDeckSearchPanel(entry, decisionIndex, onSubmit) {
+  const parts = (entry.Param || '').split('|');
+  const allIDs      = (parts[0] || '').split(',').map(s => s.trim()).filter(Boolean);
+  const matchSet    = new Set((parts[1] || '').split(',').map(s => s.trim()).filter(Boolean));
+  const constraint  = parts[2] || 'count:2';
+  const isCost      = constraint.startsWith('cost:');
+  const constraintParts = constraint.split(':');
+  const limitValue  = parseInt(constraintParts[1] || '2', 10);
+  // Optional 3rd segment on a cost constraint = max number of picks (e.g. "cost:7:3" —
+  // SOR_104 U-Wing Reinforcement: up to 3 units AND combined cost ≤ 7). 0 = no count cap.
+  const maxCountCap = (isCost && constraintParts.length >= 3) ? (parseInt(constraintParts[2], 10) || 0) : 0;
+  // costMap: "CardID:cost,..." — build lookup from 4th param segment.
+  const costLookup  = {};
+  (parts[3] || '').split(',').forEach(function(pair) {
+    var kv = pair.split(':');
+    if (kv.length === 2) costLookup[kv[0].trim()] = parseInt(kv[1], 10) || 0;
+  });
+
+  const imgBase = (window.rootPath || '.') + '/concat/';
+  const selectedIndices = new Set(); // indices into allIDs — each physical copy has a unique slot
+
+  function getCardCost(cardID) {
+    return costLookup[cardID] || 0;
+  }
+
+  function render() {
+    var existing = document.getElementById('topdecksearch-panel');
+    if (existing) existing.remove();
+
+    var overlay = document.createElement('div');
+    overlay.id = 'topdecksearch-panel';
+    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.65);z-index:5000;display:flex;align-items:center;justify-content:center;';
+
+    var panel = document.createElement('div');
+    panel.style.cssText = "background:#0D1B2A;padding:28px 32px 24px;border-radius:12px;box-shadow:0 0 30px #0009;font-family:'Orbitron',sans-serif;text-align:center;max-width:90vw;";
+
+    var title = document.createElement('div');
+    title.style.cssText = 'color:#fff;font-size:16px;letter-spacing:2px;margin-bottom:6px;';
+    title.textContent = 'SEARCH THE TOP CARDS';
+    panel.appendChild(title);
+
+    var subtitle = document.createElement('div');
+    subtitle.style.cssText = 'color:#aaa;font-size:12px;margin-bottom:18px;';
+    if (isCost) {
+      var used = Array.from(selectedIndices).reduce(function(s, idx) { return s + getCardCost(allIDs[idx]); }, 0);
+      subtitle.textContent = 'Select Villainy units (combined cost ≤ ' + limitValue + '). Used: ' + used + '/' + limitValue;
+    } else {
+      subtitle.textContent = 'Select up to ' + limitValue + ' card' + (limitValue !== 1 ? 's' : '') + '. Selected: ' + selectedIndices.size + '/' + limitValue;
+    }
+    panel.appendChild(subtitle);
+
+    var cardsRow = document.createElement('div');
+    cardsRow.style.cssText = 'display:flex;gap:16px;justify-content:center;flex-wrap:wrap;';
+
+    allIDs.forEach(function(cardID, i) {
+      var isMatch = matchSet.has(cardID);
+      var thisSelected = selectedIndices.has(i);
+      var costUsed = isCost ? Array.from(selectedIndices).reduce(function(s, idx) { return s + getCardCost(allIDs[idx]); }, 0) : 0;
+      var cardCost = getCardCost(cardID);
+      var canSelectMore = isMatch && (isCost
+        ? (costUsed + cardCost <= limitValue && (maxCountCap === 0 || selectedIndices.size < maxCountCap))
+        : (selectedIndices.size < limitValue));
+
+      var cardWrap = document.createElement('div');
+      cardWrap.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:8px;';
+
+      var img = document.createElement('img');
+      img.src = imgBase + cardID + '.webp';
+      img.style.cssText = 'height:180px;border-radius:8px;display:block;';
+      if (thisSelected) {
+        img.style.border = '3px solid #27ae60';
+        img.style.boxShadow = '0 0 12px #27ae60aa';
+      } else if (!isMatch) {
+        img.style.border = '1px solid #555';
+        img.style.opacity = '0.45';
+      } else if (!canSelectMore) {
+        img.style.border = '1px solid #555';
+        img.style.opacity = '0.6';
+      } else {
+        img.style.border = '1px solid #aaa';
+        img.style.cursor = 'pointer';
+      }
+
+      if (isMatch) {
+        img.onclick = (function(idx, cid) {
+          return function() {
+            if (selectedIndices.has(idx)) {
+              selectedIndices.delete(idx);
+            } else {
+              var curCostUsed = isCost ? Array.from(selectedIndices).reduce(function(s, j) { return s + getCardCost(allIDs[j]); }, 0) : 0;
+              var curCanSelect = isCost
+                ? (curCostUsed + getCardCost(cid) <= limitValue && (maxCountCap === 0 || selectedIndices.size < maxCountCap))
+                : (selectedIndices.size < limitValue);
+              if (curCanSelect) selectedIndices.add(idx);
+            }
+            render();
+          };
+        })(i, cardID);
+        img.style.cursor = (thisSelected || canSelectMore) ? 'pointer' : 'default';
+      }
+
+      cardWrap.appendChild(img);
+      cardsRow.appendChild(cardWrap);
+    });
+
+    panel.appendChild(cardsRow);
+
+    var selCount = selectedIndices.size;
+    var confirmBtn = document.createElement('button');
+    confirmBtn.textContent = selCount > 0 ? 'Take ' + selCount + ' card' + (selCount !== 1 ? 's' : '') : 'Take None';
+    confirmBtn.style.cssText = "margin-top:22px;padding:9px 36px;background:#1a5a2a;color:#fff;border:1px solid #3adf7a;border-radius:6px;cursor:pointer;font-family:'Orbitron',sans-serif;font-size:14px;letter-spacing:1px;";
+    confirmBtn.onclick = function() {
+      var existing2 = document.getElementById('topdecksearch-panel');
+      if (existing2) existing2.remove();
+      if (onSubmit) onSubmit(Array.from(selectedIndices).map(function(idx) { return allIDs[idx]; }).join(','));
+    };
+    panel.appendChild(confirmBtn);
+
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+  }
+
+  render();
+}
+
+// Call this after game state update to check for pending interactive decisions
 function CheckAndShowDecisionQueue(decisionQueue) {
   if (typeof IsSpectatorClient === 'function' && IsSpectatorClient()) return;
   // Accept raw string or array
@@ -3882,7 +4257,24 @@ function CheckAndShowDecisionQueue(decisionQueue) {
   if (!decisionQueue || !Array.isArray(decisionQueue)) return;
   for (let i = 0; i < decisionQueue.length; ++i) {
     let entry = decisionQueue[i];
-    if (entry && entry.Type === 'YESNO' && !entry.removed) {
+    if (entry && entry.Type === 'TOPDECKSEARCH' && !entry.removed) {
+      (function(idx, e) {
+        ShowTopDeckSearchPanel(e, idx, function(result) {
+          SubmitInput('DECISION', '&decisionIndex=' + idx + '&cardID=' + encodeURIComponent(result));
+        });
+      })(i, entry);
+      break;
+    } else if (entry && entry.Type === 'SCRY' && !entry.removed) {
+      ShowScryPanel(entry, i, function(result) {
+        SubmitInput('DECISION', '&decisionIndex=' + i + '&cardID=' + encodeURIComponent(result));
+      });
+      break;
+    } else if (entry && entry.Type === 'REVEALARRANGE' && !entry.removed) {
+      ShowRevealArrangePanel(entry, i, function(result) {
+        SubmitInput('DECISION', '&decisionIndex=' + i + '&cardID=' + encodeURIComponent(result));
+      });
+      break;
+    } else if (entry && entry.Type === 'YESNO' && !entry.removed) {
       ShowYesNoDecisionPopup(entry, function(result) {
         SubmitInput('DECISION', '&decisionIndex=' + i + '&cardID=' + result);
       });
@@ -4095,6 +4487,19 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         });
       } else {
         console.error('NumberChooseUI.js not loaded - ShowNumberChooseUI function not found');
+      }
+      break;
+    } else if (entry && entry.Type === 'OPTIONCHOOSE' && !entry.removed) {
+      // OPTIONCHOOSE: pick one labeled option; submits the label verbatim.
+      // Param format: "Opt1&Opt2[&...]" (e.g. "Ground&Space" — SOR_221 Outmaneuver)
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose an option';
+
+      if (typeof ShowOptionChooseUI === 'function') {
+        ShowOptionChooseUI(entry.Param, tooltip, i, function(selectedOption, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedOption));
+        });
+      } else {
+        console.error('OptionChooseUI.js not loaded - ShowOptionChooseUI function not found');
       }
       break;
     } else if (entry && entry.Type === 'TWOSIDEDSLIDER' && !entry.removed) {
@@ -5035,22 +5440,24 @@ function ShowMZChoosePopup(popupCards, tooltip, showPassButton, decisionIndex) {
 
     cardWrapper.appendChild(cardImgContainer);
 
-    // Zone label at bottom of card
-    let zoneLabel = document.createElement('div');
-    zoneLabel.style.position = 'absolute';
-    zoneLabel.style.bottom = '0';
-    zoneLabel.style.left = '0';
-    zoneLabel.style.right = '0';
-    zoneLabel.style.background = 'rgba(0,0,0,0.8)';
-    zoneLabel.style.color = '#fff';
-    zoneLabel.style.fontSize = '11px';
-    zoneLabel.style.padding = '4px 6px';
-    zoneLabel.style.textAlign = 'center';
-    zoneLabel.style.borderRadius = '0 0 6px 6px';
-    // Prefer an explicit action label when present; otherwise show the source zone.
+    // Zone label at bottom of card. Prefer an explicit action label when present; otherwise show the
+    // source zone — but never surface internal staging zones (TempZone) to the player.
     let displayZoneName = spec.selectionLabel ? spec.selectionLabel.replace(/_/g, ' ') : spec.zone.replace(/^(my|their)/, '');
-    zoneLabel.textContent = displayZoneName;
-    cardWrapper.appendChild(zoneLabel);
+    if (displayZoneName && displayZoneName !== 'TempZone') {
+      let zoneLabel = document.createElement('div');
+      zoneLabel.style.position = 'absolute';
+      zoneLabel.style.bottom = '0';
+      zoneLabel.style.left = '0';
+      zoneLabel.style.right = '0';
+      zoneLabel.style.background = 'rgba(0,0,0,0.8)';
+      zoneLabel.style.color = '#fff';
+      zoneLabel.style.fontSize = '11px';
+      zoneLabel.style.padding = '4px 6px';
+      zoneLabel.style.textAlign = 'center';
+      zoneLabel.style.borderRadius = '0 0 6px 6px';
+      zoneLabel.textContent = displayZoneName;
+      cardWrapper.appendChild(zoneLabel);
+    }
 
     // Click handler - select this card
     const cardIdToSubmit = spec.originalSpec; // e.g., "myHand-0" or "BG1-2"
@@ -5242,6 +5649,8 @@ function _firstPendingDecisionFromRaw(rawQueue) {
 
 function _describeDecisionType(type) {
   switch ((type || '').toUpperCase()) {
+    case 'SCRY': return 'look at the top cards';
+    case 'TOPDECKSEARCH': return 'search the top cards of your deck';
     case 'YESNO': return 'make a yes/no choice';
     case 'CHOOSEZONE': return 'choose a zone';
     case 'MZCHOOSE': return 'choose a card';

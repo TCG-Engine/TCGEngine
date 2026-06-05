@@ -19,6 +19,10 @@ RUN pecl install -o -f redis \
     && rm -rf /tmp/pear \
     && docker-php-ext-enable redis
 
+RUN pecl install apcu \
+    && docker-php-ext-enable apcu \
+    && echo "apc.enable_cli=1" >> /usr/local/etc/php/php.ini
+
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
     && docker-php-ext-install -j$(nproc) gd
 

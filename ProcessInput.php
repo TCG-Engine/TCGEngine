@@ -67,8 +67,12 @@ if (!$viewerInfo['isSpectator'] && !SimGameValidateSeatAuth($folderPath, $gameNa
 }
 
 //We should also have some information on the type of command
-$inputMode = $_GET["mode"] ?? "";
-$mode = $inputMode;
+$inputMode = $_GET["mode"];
+// 'DECISION' is a string mode sent by the client for interactive DQ responses (YESNO, CHOOSEZONE, etc.).
+// The engine normalizes mode via intval(), which converts 'DECISION' to 0 (unhandled).
+// Remap to 100 here: mode 100 pops index 0 and calls ExecuteStaticMethods, which is correct
+// as long as interactive decisions are always at index 0 (enforced by block priorities).
+$mode = ($inputMode === 'DECISION') ? 100 : $inputMode;
 $buttonInput = $_GET["buttonInput"] ?? ""; //The player that is the target of the command - e.g. for changing health total
 $cardID = $_GET["cardID"] ?? "";
 $chkCount = $_GET["chkCount"] ?? 0;

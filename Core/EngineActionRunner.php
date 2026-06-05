@@ -87,11 +87,30 @@ function QueueRestoreAnimation($targetMzID, $amount, $durationMs = 500, $blockin
   ]);
 }
 
+// Shield-break: a 5-frame SVG shatter that fades in over its duration, played at the broken
+// shield's own top-right slot ($slot = 0 is the rightmost orb, each +20px to the left).
+// Blocking by default because these overlays are injected into the live DOM and wiped by the
+// next board re-render, so the block is what keeps the animation on screen for its duration.
+function QueueShieldBreakAnimation($targetMzID, $slot = 0, $durationMs = 600, $blocking = true) {
+  QueueFrameAnimation([
+    'type' => 'SHIELD_BREAK',
+    'target' => strval($targetMzID),
+    'slot' => intval($slot),
+    'durationMs' => intval($durationMs),
+    'blocking' => $blocking ? true : false,
+  ]);
+}
+
 function SetFrameAnimationCache($gameName, $animations) {
   if (!is_array($animations)) $animations = [];
   $encoded = json_encode($animations);
   if ($encoded === false) $encoded = '[]';
-  SetCachePiece($gameName, 15, $encoded);
+  // Store frame animations under a DEDICATED cache key, not as a piece of the shared multi-piece
+  // game-state blob. SetCachePiece/GamestateUpdated do unlocked read-modify-write of the whole
+  // blob; a concurrent stale long-poll could read the blob before the anims were added and write
+  // its copy back, clobbering the animation piece before the poll reads it (the "animations only
+  // show after 2 retries" bug). A dedicated key is overwritten atomically and never RMW-contended.
+  WriteCache($gameName . '_anim', $encoded);
 }
 
 function EngineLoadRootRuntime($folderPath) {
@@ -311,8 +330,78 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       }
       break;
     case 10004:
-      LoadVersion($playerID);
-      SetFlashMessage('Player ' . $playerID . ' undid their last action.');
+      if (function_exists('GetSWUVar')) {
+        // SWUSim two-tier undo
+        $requiresConsent = GetSWUVar('UNDO_REQUIRES_CONSENT', 'false') === 'true';
+        if (!$requiresConsent) {
+          // Free undo — reapply permanent block flags after restore
+          // LoadVersion restores gDecisionQueueVariables from a pre-block snapshot;
+          // reapply permanent block flags so they survive the restore.
+          $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
+          $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
+          LoadVersion($playerID);
+          if ($bl1) SetSWUVar('UNDO_BLOCKED_1', 'true');
+          if ($bl2) SetSWUVar('UNDO_BLOCKED_2', 'true');
+          SetFlashMessage('Undo applied.');
+        } else {
+          $blocked = GetSWUVar('UNDO_BLOCKED_' . $playerID, 'false') === 'true';
+          if ($blocked) {
+            SetFlashMessage('Your opponent has blocked your undo requests.');
+          } else {
+            SetSWUVar('PENDING_UNDO_FROM', (string)$playerID);
+            SetFlashMessage('Undo requested. Waiting for opponent.');
+          }
+        }
+      } else {
+        // Legacy behaviour for other sims
+        LoadVersion($playerID);
+        SetFlashMessage('Player ' . $playerID . ' undid their last action.');
+      }
+      break;
+    case 10008:
+      // Approve undo request (called by the opponent)
+      if (!function_exists('GetSWUVar')) break;
+      $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
+      if ($requestingPlayer < 1 || $requestingPlayer > 2) break;
+      // LoadVersion restores gDecisionQueueVariables from a pre-block snapshot;
+      // reapply permanent block flags so they survive the restore.
+      $bl1 = GetSWUVar('UNDO_BLOCKED_1', 'false') === 'true';
+      $bl2 = GetSWUVar('UNDO_BLOCKED_2', 'false') === 'true';
+      LoadVersion($requestingPlayer);
+      if ($bl1) SetSWUVar('UNDO_BLOCKED_1', 'true');
+      if ($bl2) SetSWUVar('UNDO_BLOCKED_2', 'true');
+      SetFlashMessage('Undo approved.');
+      break;
+    case 10009:
+      // Deny undo request (called by the opponent)
+      if (!function_exists('GetSWUVar')) break;
+      $requestingPlayer = intval(GetSWUVar('PENDING_UNDO_FROM', '0'));
+      SetSWUVar('PENDING_UNDO_FROM', '');
+      SetSWUVar('UNDO_REQUIRES_CONSENT', 'false');
+      if ($requestingPlayer >= 1 && $requestingPlayer <= 2) {
+        $denyKey = 'UNDO_DENY_COUNT_' . $requestingPlayer;
+        $newCount = intval(GetSWUVar($denyKey, '0')) + 1;
+        SetSWUVar($denyKey, (string)$newCount);
+        if ($newCount >= 2) {
+          SetSWUVar('PENDING_BLOCK_PROMPT_FOR', (string)$requestingPlayer);
+        }
+      }
+      SetFlashMessage('Undo denied.');
+      break;
+    case 10010:
+      // Block future undo requests permanently (called by the opponent)
+      if (!function_exists('GetSWUVar')) break;
+      $targetPlayer = intval(GetSWUVar('PENDING_BLOCK_PROMPT_FOR', '0'));
+      if ($targetPlayer >= 1 && $targetPlayer <= 2) {
+        SetSWUVar('UNDO_BLOCKED_' . $targetPlayer, 'true');
+      }
+      SetSWUVar('PENDING_BLOCK_PROMPT_FOR', '');
+      SetFlashMessage('Future undo requests from this player are blocked.');
+      break;
+    case 10011:
+      // Keep allowing undo requests (dismiss block prompt)
+      if (!function_exists('GetSWUVar')) break;
+      SetSWUVar('PENDING_BLOCK_PROMPT_FOR', '');
       break;
     case 10015:
       if (function_exists('SetFlashMessage')) SetFlashMessage('');

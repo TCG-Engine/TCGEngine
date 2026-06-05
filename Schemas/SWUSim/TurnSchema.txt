@@ -1,0 +1,52 @@
+DecisionQueue: Enabled
+# TurnStyle: PerAction
+#
+# SWU uses an alternating-action model during the Action Phase: after each action resolves,
+# the active player (TurnPlayer) switches. The phase only ends when both players pass
+# consecutively. This is different from the full-turn-per-player model used by Grand Archive
+# and similar to Flesh and Blood / Runeterra.
+#
+# Consecutive-pass tracking is handled in game code (two-pass flag reset on any non-pass action).
+#
+# Round structure:
+#   Action Phase  → players alternate single actions until both pass consecutively
+#   Regroup Phase → draw 2 → (optional) resource 1 from hand → ready all exhausted cards
+#   → new round begins
+
+# ─── Action Phase ─────────────────────────────────────────────────────────────
+
+# ActionPhaseStart: fires start-of-round and start-of-action-phase triggers;
+# resets the consecutive-pass counter; the player with the initiative is set as TurnPlayer.
+ActionPhaseStart; APS; ActionPhaseStart
+AUTO -> MAIN
+
+# Main: the active player takes exactly one action:
+#   Play a Card | Attack With a Unit | Use an Action Ability | Take the Initiative | Pass
+# After the action, game code swaps TurnPlayer and increments the consecutive-pass counter
+# (or resets it on any non-pass action).
+# PASS transition fires only once both players have passed consecutively (i.e. the second
+# consecutive pass causes the engine to call AdvanceAndExecute("PASS") to exit to regroup).
+Main; MAIN; MainPhase
+AUTO -> MAIN
+PASS -> RGS
+
+# ─── Regroup Phase ────────────────────────────────────────────────────────────
+
+# RegroupStart: fires start-of-regroup-phase triggers.
+RegroupStart; RGS; RegroupPhaseStart
+AUTO -> DRAW
+
+# DrawPhase: both players simultaneously draw 2 cards.
+# If a player's deck is empty, they take 3 damage per card they would draw instead.
+DrawPhase; DRAW; DrawPhase
+AUTO -> RES
+
+# ResourcePhase: starting with the initiative holder, each player may place 1 card from
+# their hand into their resource zone (face-down, exhausted). Players may decline.
+ResourcePhase; RES; ResourcePhase
+AUTO -> READY
+
+# ReadyPhase: all exhausted cards each player controls become ready —
+# units in both arenas, resources, and the leader (if in the base zone).
+ReadyPhase; READY; ReadyPhase
+AUTO -> APS

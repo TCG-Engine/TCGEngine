@@ -13,9 +13,25 @@
       .trim();
   }
 
+  // CardID → display-name map. GA exposes `nameData`; SWUSim exposes `titleData` (generated from
+  // CardTitle). "Name a card" matches by TITLE alone, so same-title cards (differing subtitles)
+  // collapse to one suggestion and are all hit by the effect.
+  function getNameMap() {
+    if (typeof nameData !== 'undefined' && nameData) return nameData;
+    if (typeof titleData !== 'undefined' && titleData) return titleData;
+    return {};
+  }
+
+  // Resolve a CardID to its display name across roots (GA `Cardname`, SWUSim `Cardtitle`).
+  function getDisplayName(cardId) {
+    if (typeof Cardname === 'function') { var n = Cardname(cardId); if (n) return n; }
+    if (typeof Cardtitle === 'function') { var t = Cardtitle(cardId); if (t) return t; }
+    return getNameMap()[cardId] || cardId;
+  }
+
   function getAllCardNames() {
     if (Array.isArray(cardNamesCache)) return cardNamesCache;
-    var source = (typeof nameData !== 'undefined' && nameData) ? Object.values(nameData) : [];
+    var source = Object.values(getNameMap());
     var seen = new Set();
     cardNamesCache = source
       .map(function(name) { return String(name || '').trim(); })
@@ -33,14 +49,13 @@
   function getRepresentativeCardIdForName(cardName) {
     if (!nameToCardIdCache) {
       nameToCardIdCache = {};
-      if (typeof nameData !== 'undefined' && nameData) {
-        Object.keys(nameData).forEach(function(cardId) {
-          var rawName = String(nameData[cardId] || '').trim();
-          var key = normalizeName(rawName);
-          if (!key || nameToCardIdCache[key]) return;
-          nameToCardIdCache[key] = cardId;
-        });
-      }
+      var map = getNameMap();
+      Object.keys(map).forEach(function(cardId) {
+        var rawName = String(map[cardId] || '').trim();
+        var key = normalizeName(rawName);
+        if (!key || nameToCardIdCache[key]) return;
+        nameToCardIdCache[key] = cardId;
+      });
     }
     return nameToCardIdCache[normalizeName(cardName)] || null;
   }
@@ -57,7 +72,8 @@
   function resolveCardIdFromInput(rawValue) {
     var value = String(rawValue || '').trim();
     if (!value) return null;
-    if (typeof nameData !== 'undefined' && nameData && Object.prototype.hasOwnProperty.call(nameData, value)) {
+    var map = getNameMap();
+    if (map && Object.prototype.hasOwnProperty.call(map, value)) {
       return value;
     }
 
@@ -131,8 +147,8 @@
   }
 
   function applyPreviewCardSelection(inputEl, cardId) {
-    if (!inputEl || !cardId || typeof Cardname !== 'function') return;
-    var resolvedName = Cardname(cardId) || cardId;
+    if (!inputEl || !cardId) return;
+    var resolvedName = getDisplayName(cardId);
     inputEl.value = resolvedName;
     hideSuggestions();
     inputEl.focus();
@@ -207,9 +223,7 @@
     wrapper.appendChild(imageWrap);
 
     var label = document.createElement('div');
-    label.textContent = cardId && typeof Cardname === 'function'
-      ? (Cardname(cardId) || cardId)
-      : '';
+    label.textContent = cardId ? getDisplayName(cardId) : '';
     label.style.maxWidth = '110px';
     label.style.fontSize = '11px';
     label.style.lineHeight = '1.3';

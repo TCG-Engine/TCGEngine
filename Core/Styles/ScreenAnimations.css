@@ -396,6 +396,34 @@
   }
 }
 
+/* Shield-break animation: a 5-frame SVG shatter that fades in over 600ms.
+   The frames are stepped discretely (background-image does not interpolate between
+   keyframes) while opacity ramps up within each frame's window for the fade-in.
+   Position/size (top/right/width/height) are set inline per shield slot so the shatter
+   plays at the broken shield's own top-right orb. */
+.shield-break-animation {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  pointer-events: none;
+  z-index: 1002;
+  animation: shieldBreak 600ms linear forwards;
+}
+
+@keyframes shieldBreak {
+  0%     { background-image: url('../../Assets/Icons/space-shield_break1.svg'); opacity: 0; }
+  19.99% { background-image: url('../../Assets/Icons/space-shield_break1.svg'); opacity: 0.2; }
+  20%    { background-image: url('../../Assets/Icons/space-shield_break2.svg'); opacity: 0.2; }
+  39.99% { background-image: url('../../Assets/Icons/space-shield_break2.svg'); opacity: 0.4; }
+  40%    { background-image: url('../../Assets/Icons/space-shield_break3.svg'); opacity: 0.4; }
+  59.99% { background-image: url('../../Assets/Icons/space-shield_break3.svg'); opacity: 0.6; }
+  60%    { background-image: url('../../Assets/Icons/space-shield_break4.svg'); opacity: 0.6; }
+  79.99% { background-image: url('../../Assets/Icons/space-shield_break4.svg'); opacity: 0.8; }
+  80%    { background-image: url('../../Assets/Icons/space-shield_break5.svg'); opacity: 0.8; }
+  100%   { background-image: url('../../Assets/Icons/space-shield_break5.svg'); opacity: 1; }
+}
+
 #game-over-menu-btn {
   position: absolute;
   top: 24px;

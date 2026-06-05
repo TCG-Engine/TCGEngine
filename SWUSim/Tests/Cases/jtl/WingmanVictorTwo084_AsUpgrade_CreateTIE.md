@@ -1,0 +1,18 @@
+# JTL_084 Wingman Victor Two — When played as an upgrade: Create a TIE Fighter token. Played as a pilot
+# onto SOR_225, it creates a TIE Fighter (2 space units total).
+
+## GIVEN
+P1LeaderBase: JTL_001/SOR_020
+P2LeaderBase: SOR_002/SOR_021
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Resources: 8
+WithP1Hand: JTL_084
+WithP1SpaceArena: SOR_225:1:0
+
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:Pilot
+
+## EXPECT
+P1SPACEARENACOUNT:2

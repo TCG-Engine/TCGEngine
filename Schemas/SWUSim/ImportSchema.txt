@@ -1,0 +1,36 @@
+https://admin.starwarsunlimited.com/api/cards?locale=en&pagination[pageSize]=100&filters[variantOf][id][$null]=true
+https://cdn.starwarsunlimited.com/
+png
+data
+pagination[page]
+meta->pagination->pageCount
+title,subtitle,cardNumber:number,cost:number,hp:number,power:number,text,deployText,unique:boolean,upgradeHp:number,upgradePower:number,aspect,trait,arena,type,rarity,set
+
+# ── CardID construction ────────────────────────────────────────────────────────
+# The canonical SWUSim CardID is built from two API fields:
+#   SET_NNN  =  {set.abbreviation}  +  "_"  +  zero_pad(cardNumber, 3)
+# Example:  set.abbreviation="SOR", cardNumber=14  →  "SOR_014"
+#
+# ── UUID mapping ──────────────────────────────────────────────────────────────
+# The "documentId" field (Strapi v5 UUID string) is stored in $cardUUIDData
+# keyed by SET_NNN. This UUID is used when submitting game stats to the
+# SWUDeck / SWUStats project, whose records are keyed by documentId.
+#
+# Import script output arrays (written to GeneratedCode/GeneratedCardDictionaries.php):
+#   $titleData       SET_NNN → card name (title)
+#   $cardUUIDData    SET_NNN → documentId (Strapi v5) or cardUid (old API); via GetCardUUID()
+#   $typeData        SET_NNN → card type string
+#   $arenaData       SET_NNN → arena type string ('Ground' | 'Space' | '')
+#   $costData        SET_NNN → cost (int)
+#   $powerData       SET_NNN → power (int)
+#   $hpData          SET_NNN → HP (int)
+#   $upgradePowerData SET_NNN → upgrade power modifier (int)
+#   $upgradeHpData   SET_NNN → upgrade HP modifier (int)
+#   $aspectData      SET_NNN → comma-separated aspects
+#   $traitData       SET_NNN → comma-separated traits
+#   $subtitleData    SET_NNN → subtitle (unique cards only)
+#   $uniqueData      SET_NNN → 1 if unique, 0 otherwise
+#   $rarityData      SET_NNN → rarity string
+#   $setData         SET_NNN → set abbreviation
+#   $effectData      SET_NNN → ability text
+#   $deployTextData  SET_NNN → leader unit side text

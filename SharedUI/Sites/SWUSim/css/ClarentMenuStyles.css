@@ -1,0 +1,131 @@
+/* PETRANAKI ARENA MENU STYLES - Sandy Geonosis arena theme for Star Wars: Unlimited sim */
+
+/* Import the shared styles first */
+@import url('/TCGEngine/SharedUI/css/menuStyles.css');
+
+/* PETRANAKI ARENA OVERRIDES */
+
+/* Background — sandy gold, like the arena floor */
+body {
+    background-color: #c4a040;
+    background-image:
+        radial-gradient(ellipse at 50% 0%, rgba(220, 185, 80, 0.55) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 90%, rgba(180, 140, 40, 0.30) 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 55%, rgba(160, 120, 30, 0.22) 0%, transparent 40%);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* HEADER banner blocks */
+.block-1 { background-image: none; background-color: rgba(40, 24, 8, 0.18); }
+.block-2 { background-image: none; background-color: rgba(40, 24, 8, 0.15); }
+.block-3 { background-image: none; background-color: rgba(40, 24, 8, 0.12); }
+.block-4 { background-image: none; background-color: rgba(40, 24, 8, 0.10); }
+
+/* CARDS AND CONTAINERS — dark golden-brown */
+.card, .container {
+    background: rgba(62, 44, 12, 0.88);
+    backdrop-filter: blur(18px) brightness(0.97);
+    -webkit-backdrop-filter: blur(18px) brightness(0.97);
+    border: 1px solid rgba(190, 155, 50, 0.32);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 14px 38px rgba(20, 8, 0, 0.42);
+}
+
+/* BUTTONS — medium warm brown with sandy gold border */
+button, .GameLobby_Button, .create-game-button, .ServerChecker_Button, .JoinGame_Button, .spectate-button {
+    background: linear-gradient(135deg, #5a3a12 0%, #35200a 100%);
+    border: 1px solid rgba(180, 140, 45, 0.45);
+    color: #f0ddb0;
+    transition: 150ms ease-in-out;
+}
+
+button:hover, .GameLobby_Button:hover, .create-game-button:hover, .ServerChecker_Button:hover, .JoinGame_Button:hover, .spectate-button:hover {
+    background: linear-gradient(135deg, #724a18 0%, #45280c 100%);
+    border-color: rgba(200, 160, 55, 0.65);
+    transform: scale(1.05);
+    box-shadow: 0 0 16px rgba(180, 140, 40, 0.22);
+}
+
+/* INPUT FIELDS — warm parchment */
+input, select, textarea {
+    background: rgba(245, 228, 170, 0.88);
+    border: 1px solid rgba(130, 100, 25, 0.40);
+    color: #1e0900;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: rgba(180, 140, 40, 0.70);
+    outline: none;
+    box-shadow: 0 0 10px rgba(180, 140, 35, 0.20);
+}
+
+/* TEXT COLORS — light sandy on dark cards */
+p, label {
+    color: #e8d5a8;
+}
+
+p a {
+    color: #d4b060;
+}
+
+p a:hover {
+    color: #f0cc70;
+}
+
+/* HEADINGS */
+h1, h2, h3, h4, h5, h6 {
+    color: #f5e6c0;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.30);
+}
+
+/* INFO BOXES */
+.info-box {
+    background: rgba(50, 30, 8, 0.70);
+    border: 1px solid rgba(170, 130, 40, 0.25);
+}
+
+/* GAME BROWSER */
+.game-browser .game-item {
+    background: rgba(50, 30, 8, 0.55);
+    border: 1px solid rgba(170, 130, 40, 0.20);
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* NAV BAR — dark golden-brown */
+.nav-bar-user, .nav-bar-links {
+    background-color: rgba(55, 38, 10, 0.90);
+    border: 1px solid rgba(190, 155, 50, 0.28);
+}
+
+/* LINKS */
+a {
+    color: #d4b060;
+    transition: color 150ms ease-in-out;
+}
+
+a:hover {
+    color: #f0cc70;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(35, 20, 6, 0.55);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(180, 140, 45, 0.55);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(200, 160, 55, 0.80);
+}

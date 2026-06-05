@@ -1,0 +1,19 @@
+# JTL_002 Grand Admiral Thrawn (undeployed) — When you use a "When Defeated" ability:
+# you may exhaust this leader to use that ability again.
+# JTL_087 dies attacking SOR_044 → its When Defeated creates a TIE (use #1); Thrawn exhausts
+# to use it again → a 2nd TIE (use #2). Squadron died, so arena = 2 TIEs.
+
+## GIVEN
+P1LeaderBase: JTL_002/JTL_022
+P2LeaderBase: SOR_002/SOR_021
+SkipPreGame: true
+P1OnlyActions: true
+WithP1SpaceArena: JTL_087:1:1
+WithP2SpaceArena: SOR_044:1:0
+
+## WHEN
+- P1>AttackSpaceArena:0:0
+- P1>AnswerDecision:YES
+
+## EXPECT
+P1SPACEARENACOUNT:2

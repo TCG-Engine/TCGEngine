@@ -403,7 +403,9 @@
 
   function zoneLabelForSpec(spec) {
     if (spec.selectionLabel) return spec.selectionLabel.replace(/_/g, ' ');
-    return String(spec.zone || '').replace(/^(my|their)/, '');
+    var zone = String(spec.zone || '').replace(/^(my|their)/, '');
+    if (zone === 'TempZone') return ''; // internal staging zone — don't surface to the player
+    return zone;
   }
 
   function buildCandidate(spec, index, cardArr) {
@@ -520,10 +522,12 @@
     imageWrap.innerHTML = renderCardFn(candidate.cardNumber, folder, 112, 0, 0, 0, 0, candidate.counters);
     cardEl.appendChild(imageWrap);
 
-    const label = document.createElement('div');
-    label.className = 'mzmulti-label';
-    label.textContent = candidate.label;
-    cardEl.appendChild(label);
+    if (candidate.label) {
+      const label = document.createElement('div');
+      label.className = 'mzmulti-label';
+      label.textContent = candidate.label;
+      cardEl.appendChild(label);
+    }
 
     cardEl.addEventListener('click', function() {
       toggleSelection(candidate);
