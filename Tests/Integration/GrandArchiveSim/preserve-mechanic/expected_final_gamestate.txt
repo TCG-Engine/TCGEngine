@@ -171,7 +171,7 @@ x79cuuw5vo
 0
 0
 2
-MZMAYCHOOSE myField-0@Activate-0@Prevent&myField-4@Activate-0@Rest&myField-8@Activate-0@9agwj4f15j 100 Take_a_fast_action? 0
+MZMAYCHOOSE myField-0@Activate-0@Prevent&myField-4@Activate-0@Rest&myField-8@Activate-0@Banish 100 Take_a_fast_action? 0
 CUSTOM OpportunityWindowFirstResponse 100  1
 0
 1

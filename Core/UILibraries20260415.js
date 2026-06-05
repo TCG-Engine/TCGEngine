@@ -657,6 +657,35 @@
         return null;
       }
 
+      function ParseSharedCardData(cardArr) {
+        if (!cardArr || cardArr.length <= 2 || !cardArr[2] || cardArr[2] === '-') return {};
+        try {
+          return JSON.parse(cardArr[2]);
+        } catch (e) {
+          return {};
+        }
+      }
+
+      function ShouldSkipZoneCardRendering(cardArr, filter, filterFunction, linkedSubcardCardIDs) {
+        if (!cardArr || cardArr.length === 0) return true;
+        if (filter != "" && ShouldFilterWithOr(cardArr[0], filter)) return true;
+        if (filterFunction != null && window.customFilter && filterFunction(cardArr[0])) return true;
+        if (filterFunction != null && typeof window.InLegalFilter === 'function' && window.legalFilter && window.InLegalFilter(cardArr[0])) return true;
+        if (linkedSubcardCardIDs && linkedSubcardCardIDs[cardArr[0]]) return true;
+        return false;
+      }
+
+      function IsFieldTokenCard(cardArr, zoneName) {
+        if (zoneName !== "Field") return false;
+        var cardData = ParseSharedCardData(cardArr);
+        return Number(cardData.IsTokenObject || 0) === 1;
+      }
+
+      function ShouldUseTokenStacks(renderZone, zoneName, mode, filter) {
+        if (zoneName !== "Field" || mode !== "All") return false;
+        return true;
+      }
+
       //Note: 96 = Card Size
       function PopulateZone(zone, zoneData, size = 96, folder = "concat", row = 1, mode = 'All', filter="") {
           // Skip rendering if zone visibility is None
@@ -766,6 +795,7 @@
             }
             var filterFunction = null;
             if (!!filters && filters.length > 0) filterFunction = window[filters[0]];
+            var useTokenStacks = ShouldUseTokenStacks(zone, zoneName, mode, filter);
             // Reverse the zone array if Sort.Reverse is true (for all modes except Tile, which reverses after sorting)
             if(mode != "Tile" && zoneMetadata.Sort && zoneMetadata.Sort.Reverse) {
               zoneArr.reverse();
@@ -796,14 +826,33 @@
                 } catch (e) {}
               }
             }
+            var tokenStackGroupsByFirstIndex = {};
+            var tokenStackCoveredIndices = {};
+            if(useTokenStacks) {
+              var tokenIndicesByCardID = {};
+              for (var _tsi = 0; _tsi < zoneArr.length; ++_tsi) {
+                var _stackCardArr = zoneArr[_tsi].split(" ");
+                if(ShouldSkipZoneCardRendering(_stackCardArr, filter, filterFunction, linkedSubcardCardIDs)) continue;
+                if(!IsFieldTokenCard(_stackCardArr, zoneName)) continue;
+                if(!tokenIndicesByCardID[_stackCardArr[0]]) tokenIndicesByCardID[_stackCardArr[0]] = [];
+                tokenIndicesByCardID[_stackCardArr[0]].push(_tsi);
+              }
+              Object.keys(tokenIndicesByCardID).forEach(function(tokenCardID) {
+                var matchingIndices = tokenIndicesByCardID[tokenCardID];
+                if(!matchingIndices || matchingIndices.length <= 1) return;
+                var firstIndex = matchingIndices[0];
+                tokenStackGroupsByFirstIndex[firstIndex] = matchingIndices.map(function(stackIndex) {
+                  tokenStackCoveredIndices[stackIndex] = true;
+                  return {
+                    cardArr: zoneArr[stackIndex].split(" "),
+                    index: stackIndex
+                  };
+                });
+              });
+            }
             for (var i = 0; i < zoneArr.length; ++i) {
               cardArr = zoneArr[i].split(" ");
-              if(filter != "") {
-                if(ShouldFilterWithOr(cardArr[0], filter)) continue;
-              }
-              if(filterFunction != null && window.customFilter && filterFunction(cardArr[0])) continue;
-              if(filterFunction != null && typeof window.InLegalFilter === 'function' && window.legalFilter && window.InLegalFilter(cardArr[0])) continue;
-              if(linkedSubcardCardIDs[cardArr[0]]) continue; // skip cards rendered inline as subcards
+              if(ShouldSkipZoneCardRendering(cardArr, filter, filterFunction, linkedSubcardCardIDs)) continue;
               if(mode == "Tile") {
                 var cardObject = {
                   id: cardArr[0],
@@ -819,6 +868,12 @@
                   tiledCardArr.push(cardObject);
                 }
               } else {
+                if(useTokenStacks && tokenStackCoveredIndices[i]) {
+                  if(tokenStackGroupsByFirstIndex[i]) {
+                    newHTML += createTokenStackHTML(zone, zoneName, folder, size, tokenStackGroupsByFirstIndex[i], heatmapFunction, heatmapColorMap);
+                  }
+                  continue;
+                }
                 newHTML += createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction, heatmapColorMap);
               }
             }
@@ -1156,12 +1211,229 @@
         return newHTML;
       }
 
+      function createTokenStackHTML(zone, zoneName, folder, size, stackEntries, heatmapFunction = "", heatmapColorMap = "") {
+        if (!stackEntries || stackEntries.length <= 1) {
+          if (!stackEntries || stackEntries.length === 0) return "";
+          return createCardHTML(zone, zoneName, folder, size, stackEntries[0].cardArr, stackEntries[0].index, heatmapFunction, heatmapColorMap);
+        }
+
+        var leadEntry = stackEntries[0];
+        var totalCount = stackEntries.length;
+        var stackPayload = encodeURIComponent(JSON.stringify({
+          zone: zone,
+          zoneName: zoneName,
+          folder: folder,
+          size: Math.max(74, size - 12),
+          heatmapFunction: heatmapFunction || "",
+          heatmapColorMap: heatmapColorMap || "",
+          entries: stackEntries.slice(1)
+        }));
+        var newHTML = "<span class='ga-token-stack' data-token-stack-count='" + totalCount + "' data-token-stack='" + stackPayload + "'"
+          + " onmouseenter='showTokenStackPopup(this)' onmouseleave='hideTokenStackPopup(this)'"
+          + " onfocusin='showTokenStackPopup(this)' onfocusout='hideTokenStackPopup(this)'>";
+        newHTML += createCardHTML(zone, zoneName, folder, size, leadEntry.cardArr, leadEntry.index, heatmapFunction, heatmapColorMap);
+        newHTML += "<span class='ga-token-stack-toggle' aria-hidden='true'><span class='ga-token-stack-count'>" + totalCount + "</span></span>";
+        newHTML += "</span>";
+        return newHTML;
+      }
+
+      var tokenStackPopup = null;
+      var tokenStackPopupTimeout = null;
+
+      function getOrCreateTokenStackPopup() {
+        if (!tokenStackPopup) {
+          tokenStackPopup = document.createElement('div');
+          tokenStackPopup.className = 'ga-token-stack-popup';
+          tokenStackPopup.id = 'ga-token-stack-popup';
+          tokenStackPopup.addEventListener('mouseenter', function() {
+            if (tokenStackPopupTimeout) {
+              clearTimeout(tokenStackPopupTimeout);
+              tokenStackPopupTimeout = null;
+            }
+          });
+          tokenStackPopup.addEventListener('mouseleave', function() {
+            hideTokenStackPopup();
+          });
+          document.body.appendChild(tokenStackPopup);
+        }
+        return tokenStackPopup;
+      }
+
+      function showTokenStackPopup(stackEl) {
+        try {
+          if (!stackEl) return;
+          if (tokenStackPopupTimeout) {
+            clearTimeout(tokenStackPopupTimeout);
+            tokenStackPopupTimeout = null;
+          }
+
+          var payloadAttr = stackEl.getAttribute('data-token-stack');
+          if (!payloadAttr) return;
+
+          var payload = null;
+          try {
+            payload = JSON.parse(decodeURIComponent(payloadAttr));
+          } catch (e) {
+            return;
+          }
+          if (!payload || !Array.isArray(payload.entries) || payload.entries.length === 0) return;
+
+          var popup = getOrCreateTokenStackPopup();
+          var html = "<div class='ga-token-stack-popup-shell'><div class='ga-token-stack-popup-grid'>";
+          for (var i = 0; i < payload.entries.length; ++i) {
+            var entry = payload.entries[i];
+            if (!entry || !entry.cardArr) continue;
+            html += createCardHTML(
+              payload.zone,
+              payload.zoneName,
+              payload.folder,
+              payload.size,
+              entry.cardArr,
+              entry.index,
+              payload.heatmapFunction || "",
+              payload.heatmapColorMap || ""
+            );
+          }
+          html += "</div></div>";
+          popup.innerHTML = html;
+
+          popup.style.left = '-9999px';
+          popup.style.top = '-9999px';
+          popup.classList.add('visible');
+
+          requestAnimationFrame(function() {
+            if (!popup.classList.contains('visible')) return;
+            var rect = stackEl.getBoundingClientRect();
+            var actualWidth = popup.offsetWidth;
+            var actualHeight = popup.offsetHeight;
+            var left = rect.left + (rect.width / 2) - (actualWidth / 2);
+            var top = rect.bottom + 14;
+            var viewportWidth = window.innerWidth;
+            var viewportHeight = window.innerHeight;
+
+            if (left < 10) left = 10;
+            if (left + actualWidth > viewportWidth - 10) left = viewportWidth - actualWidth - 10;
+
+            if (top + actualHeight > viewportHeight - 10) {
+              top = rect.top - actualHeight - 14;
+            }
+            if (top < 10) {
+              top = Math.max(10, viewportHeight - actualHeight - 10);
+            }
+
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+          });
+        } catch (e) {
+          if (console && console.error) console.error('showTokenStackPopup error', e);
+        }
+      }
+
+      function hideTokenStackPopup() {
+        if (tokenStackPopupTimeout) clearTimeout(tokenStackPopupTimeout);
+        tokenStackPopupTimeout = setTimeout(function() {
+          var popup = document.getElementById('ga-token-stack-popup');
+          if (popup) popup.classList.remove('visible');
+        }, 120);
+      }
+
       // Add this CSS to your stylesheet for the hover effect
       const widgetstyle = document.createElement('style');
       widgetstyle.innerHTML = `
         span.draggable:hover .widget-buttons {
           visibility: visible !important;
           pointer-events: auto !important;
+        }
+
+        .ga-token-stack {
+          position: relative;
+          display: block;
+          flex: 0 0 auto;
+          margin: 1px 2px 0;
+          line-height: 0;
+          overflow: visible !important;
+        }
+
+        .ga-token-stack > span.draggable {
+          display: block;
+          margin: 0 !important;
+          line-height: 0;
+        }
+
+        .ga-token-stack-popup {
+          position: fixed;
+          left: -9999px;
+          top: -9999px;
+          z-index: 10020;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(10px) scale(0.97);
+          transition: opacity 160ms ease, transform 160ms ease;
+        }
+
+        .ga-token-stack-popup.visible {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0) scale(1);
+        }
+
+        .ga-token-stack-popup-shell {
+          max-width: min(72vw, 560px);
+          max-height: min(58vh, 520px);
+          padding: 14px 14px 12px;
+          border-radius: 18px;
+          border: 1px solid rgba(251, 191, 36, 0.34);
+          background:
+            linear-gradient(180deg, rgba(255, 247, 237, 0.12), rgba(255, 247, 237, 0.02)),
+            linear-gradient(160deg, rgba(99, 43, 10, 0.96), rgba(69, 28, 7, 0.98));
+          box-shadow: 0 20px 44px rgba(24, 10, 2, 0.46);
+          backdrop-filter: blur(12px);
+          overflow: auto;
+          scrollbar-width: thin;
+        }
+
+        .ga-token-stack-popup-grid {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: flex-start;
+          justify-content: center;
+          gap: 8px;
+          min-width: min(52vw, 360px);
+        }
+
+        .ga-token-stack-toggle {
+          position: absolute;
+          left: 50%;
+          top: calc(100% - 10px);
+          width: 0;
+          height: 0;
+          border-left: 30px solid transparent;
+          border-right: 30px solid transparent;
+          border-top: 18px solid rgba(217, 119, 6, 0.98);
+          transform: translateX(-50%);
+          filter: drop-shadow(0 10px 14px rgba(38, 18, 2, 0.38));
+          z-index: 0;
+          pointer-events: none;
+        }
+
+        .ga-token-stack-count {
+          position: absolute;
+          left: 50%;
+          top: -16px;
+          transform: translateX(-50%);
+          min-width: 20px;
+          height: 22px;
+          padding: 0 4px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(180deg, rgba(255, 244, 214, 0.98), rgba(255, 228, 167, 0.96));
+          border: 1px solid rgba(154, 52, 18, 0.6);
+          color: #9a3412;
+          font: 700 11px/1 Orbitron, sans-serif;
+          box-shadow: 0 4px 10px rgba(38, 18, 2, 0.24);
+          z-index: 1;
         }
 
         .combat-indicator {
@@ -1621,6 +1893,7 @@
       document.head.appendChild(selectableStyle);
 
       // Temporarily set nearest scrollable ancestor overflow to visible while hovering a selectable card
+      // or a token stack dropdown so overflow menus aren't clipped by scroll containers.
       function findOverflowingAncestor(el) {
         while (el && el !== document.documentElement) {
           el = el.parentElement;
@@ -1637,11 +1910,16 @@
         return null;
       }
 
+      function getOverflowHoverRegion(target) {
+        if (!target || !target.closest) return null;
+        return target.closest('.ga-token-stack') || target.closest('.selectable-card');
+      }
+
       // Manage hover delegation to avoid adding listeners to every card
       document.addEventListener('mouseover', function(e) {
-        const card = e.target.closest && e.target.closest('.selectable-card');
-        if (!card) return;
-        const anc = findOverflowingAncestor(card);
+        const hoverRegion = getOverflowHoverRegion(e.target);
+        if (!hoverRegion) return;
+        const anc = findOverflowingAncestor(hoverRegion);
         if (!anc) return;
         // initialize counter if needed
         if (!anc.dataset._overflowCount) anc.dataset._overflowCount = '0';
@@ -1654,12 +1932,12 @@
       });
 
       document.addEventListener('mouseout', function(e) {
-        const card = e.target.closest && e.target.closest('.selectable-card');
-        if (!card) return;
-        // if moving to an element still inside the card, do nothing
+        const hoverRegion = getOverflowHoverRegion(e.target);
+        if (!hoverRegion) return;
+        // if moving to an element still inside the hovered region, do nothing
         const to = e.relatedTarget;
-        if (to && card.contains(to)) return;
-        const anc = findOverflowingAncestor(card);
+        if (to && hoverRegion.contains(to)) return;
+        const anc = findOverflowingAncestor(hoverRegion);
         if (!anc) return;
         const count = Math.max(0, parseInt(anc.dataset._overflowCount || '0') - 1);
         anc.dataset._overflowCount = String(count);

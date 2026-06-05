@@ -17174,6 +17174,11 @@ function IsToken($cardID) {
     return PropertyContains(CardType($cardID), "TOKEN");
 }
 
+function IsTokenObject($obj) {
+    if($obj === null || !is_object($obj) || !isset($obj->CardID)) return 0;
+    return IsToken($obj->CardID) ? 1 : 0;
+}
+
 /**
  * Get the effective element for a zone object, considering runtime overrides.
  * Checks: persistent overrides (Fracturize), zone-based overrides (Nullifying

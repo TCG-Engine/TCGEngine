@@ -102,6 +102,7 @@ Virtual: TauntOverlay=FieldHasTaunt()
 Virtual: DynamicAbilities=GetDynamicAbilities()
 Virtual: ActivateAbilityButtonStates=GetActivateAbilityButtonStates()
 Virtual: HasAbility=CardHasAbility()
+Virtual: IsTokenObject=IsTokenObject()
 Index: TurnEffects
 Display: Visibility=Public, Mode=All, BindTo=FieldSlot
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
