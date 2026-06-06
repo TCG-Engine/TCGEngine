@@ -6433,50 +6433,139 @@ function TwistedVerdictStart($player) {
     $deck = &GetDeck($player);
     if(empty($deck)) return;
     $count = min(5, count($deck));
-    // Move top N cards to TempZone
-    for($i = 0; $i < $count; $i++) {
-        MZMove($player, "myDeck-0", "myTempZone");
+    $chooseCount = min(2, $count);
+    if($chooseCount <= 0) return;
+    $sourceMZs = [];
+    for($i = 0; $i < $count; ++$i) {
+        $sourceMZs[] = "myDeck-" . $i;
     }
     $opponent = ($player == 1) ? 2 : 1;
-    TwistedVerdictChoose($player, $opponent, 2);
-}
-
-function TwistedVerdictChoose($owner, $opponent, $remaining) {
-    if($remaining <= 0) {
-        TwistedVerdictFinish($owner);
+    $tempCards = StageHiddenMZChoicesToTemp($opponent, $sourceMZs, "twistedVerdictTempMap");
+    if(empty($tempCards)) {
+        TwistedVerdictFinish($player);
         return;
     }
-    global $playerID;
-    $tempRef = ($owner == $playerID) ? "myTempZone" : "theirTempZone";
-    $tempCards = ZoneSearch($tempRef);
-    if(empty($tempCards)) return;
-    $targetStr = implode("&", $tempCards);
-    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $targetStr, 1, tooltip:"Choose_card_for_opponent's_memory_(" . $remaining . "_remaining)");
-    DecisionQueueController::AddDecision($opponent, "CUSTOM", "TwistedVerdictPick|" . $owner . "|" . $remaining, 1);
+    DecisionQueueController::AddDecision(
+        $opponent,
+        "MZMULTICHOOSE",
+        $chooseCount . "|" . $chooseCount . "|" . implode("&", $tempCards),
+        1,
+        tooltip:"Choose_{$chooseCount}_card(s)_for_opponent's_memory"
+    );
+    DecisionQueueController::AddDecision($opponent, "CUSTOM", "TwistedVerdictChoose|" . $player . "|" . $chooseCount, 1);
 }
 
 function TwistedVerdictFinish($owner) {
-    global $playerID;
-    $tempRef = ($owner == $playerID) ? "myTempZone" : "theirTempZone";
-    $deckRef = ($owner == $playerID) ? "myDeck" : "theirDeck";
-    // Put remaining cards on bottom of deck in any order (random for sim)
-    $remaining = ZoneSearch($tempRef);
-    foreach($remaining as $mz) {
-        MZMove($playerID, $mz, $deckRef);
-    }
-}
-
-$customDQHandlers["TwistedVerdictPick"] = function($player, $parts, $lastDecision) {
-    $owner = intval($parts[0]);
-    $remaining = intval($parts[1]);
-    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) {
-        TwistedVerdictFinish($owner);
+    $chooser = ($owner == 1) ? 2 : 1;
+    $rawMap = DecisionQueueController::GetVariable("twistedVerdictTempMap");
+    $map = ($rawMap === null || $rawMap === "") ? [] : json_decode($rawMap, true);
+    if(!is_array($map) || empty($map)) {
+        ClearMyTempZoneCards($chooser);
+        DecisionQueueController::StoreVariable("twistedVerdictTempMap", "");
         return;
     }
-    global $playerID;
-    $memRef = ($owner == $playerID) ? "myMemory" : "theirMemory";
-    MZMove($playerID, $lastDecision, $memRef);
-    TwistedVerdictChoose($owner, $player, $remaining - 1);
+    $remaining = [];
+    foreach($map as $sourceMZ) $remaining[] = $sourceMZ;
+    ClearMyTempZoneCards($chooser);
+    if(empty($remaining)) return;
+    $remainingCardIDs = [];
+    $ownerDeck = GetDeck($owner);
+    foreach($remaining as $sourceMZ) {
+        $deckParts = explode("-", $sourceMZ);
+        if(count($deckParts) < 2) continue;
+        $deckIndex = intval($deckParts[1]);
+        if(!isset($ownerDeck[$deckIndex]) || $ownerDeck[$deckIndex] === null || $ownerDeck[$deckIndex]->removed) continue;
+        $remainingCardIDs[] = $ownerDeck[$deckIndex]->CardID;
+    }
+    if(empty($remainingCardIDs)) {
+        DecisionQueueController::StoreVariable("twistedVerdictTempMap", "");
+        return;
+    }
+    DecisionQueueController::StoreVariable("twistedVerdictRemainingDeckMZs", json_encode(array_values($remaining)));
+    $param = "Bottom=" . implode(",", $remainingCardIDs);
+    DecisionQueueController::AddDecision(
+        $chooser,
+        "MZREARRANGE",
+        $param,
+        1,
+        tooltip:"Put_remaining_cards_on_the_bottom_of_your_deck_in_any_order"
+    );
+    DecisionQueueController::AddDecision($chooser, "CUSTOM", "TwistedVerdictBottomApply|" . $owner, 1);
+}
+
+$customDQHandlers["TwistedVerdictChoose"] = function($player, $parts, $lastDecision) {
+    $owner = isset($parts[0]) ? intval($parts[0]) : 0;
+    $required = isset($parts[1]) ? intval($parts[1]) : 0;
+    if($owner <= 0) return;
+    $rawMap = DecisionQueueController::GetVariable("twistedVerdictTempMap");
+    $map = ($rawMap === null || $rawMap === "") ? [] : json_decode($rawMap, true);
+    if(!is_array($map)) $map = [];
+    $selected = array_values(array_unique(array_filter(explode("&", $lastDecision), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    if($required > 0 && count($selected) > $required) {
+        $selected = array_slice($selected, 0, $required);
+    }
+    $sourceMZs = [];
+    foreach($selected as $tempChoice) {
+        $sourceMZ = ResolveTempChoiceToSourceMZ($tempChoice, "twistedVerdictTempMap");
+        if($sourceMZ === null || $sourceMZ === "") continue;
+        $sourceMZs[] = $sourceMZ;
+        $tempParts = explode("-", $tempChoice);
+        $selectedTempIdx = (count($tempParts) >= 2) ? strval(intval($tempParts[1])) : null;
+        if($selectedTempIdx !== null && isset($map[$selectedTempIdx])) {
+            unset($map[$selectedTempIdx]);
+        }
+    }
+    usort($sourceMZs, function($a, $b) {
+        $aIndex = intval(substr(strrchr($a, "-"), 1));
+        $bIndex = intval(substr(strrchr($b, "-"), 1));
+        return $bIndex <=> $aIndex;
+    });
+    $memRef = "myMemory";
+    foreach($sourceMZs as $sourceMZ) {
+        MZMove($owner, $sourceMZ, $memRef);
+    }
+    DecisionQueueController::StoreVariable("twistedVerdictTempMap", json_encode($map));
+    TwistedVerdictFinish($owner);
+};
+
+$customDQHandlers["TwistedVerdictBottomApply"] = function($player, $parts, $lastDecision) {
+    $owner = isset($parts[0]) ? intval($parts[0]) : 0;
+    if($owner <= 0) return;
+    $deck = &GetDeck($owner);
+    $remainingRaw = DecisionQueueController::GetVariable("twistedVerdictRemainingDeckMZs");
+    $remainingMZs = ($remainingRaw === null || $remainingRaw === "") ? [] : json_decode($remainingRaw, true);
+    if(!is_array($remainingMZs)) $remainingMZs = [];
+
+    $piles = ["Top" => [], "Bottom" => []];
+    foreach(explode(";", $lastDecision) as $pileStr) {
+        $eqPos = strpos($pileStr, "=");
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        if(isset($piles[$pileName])) {
+            $piles[$pileName] = ($cardsStr !== "") ? explode(",", $cardsStr) : [];
+        }
+    }
+
+    usort($remainingMZs, function($a, $b) {
+        $aIndex = intval(substr(strrchr($a, "-"), 1));
+        $bIndex = intval(substr(strrchr($b, "-"), 1));
+        return $bIndex <=> $aIndex;
+    });
+    foreach($remainingMZs as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj === null || $obj->removed) continue;
+        $obj->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+    DecisionQueueController::StoreVariable("twistedVerdictRemainingDeckMZs", "");
+    DecisionQueueController::StoreVariable("twistedVerdictTempMap", "");
+
+    foreach(array_merge($piles["Bottom"], $piles["Top"]) as $cardID) {
+        $deck[] = new Deck($cardID, 'Deck', $owner);
+    }
 };
 
 // ============================================================================
