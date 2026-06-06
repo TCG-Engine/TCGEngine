@@ -6796,29 +6796,6 @@ $customDQHandlers["GaiasBlessingGYBanish"] = function($player, $parts, $lastDeci
 
 
 // ============================================================================
-function EnfeebleOrbChooseStep($player, $opponent, $remaining) {
-    if($remaining <= 0) return;
-    global $playerID;
-    $handZone = $opponent == $playerID ? "myHand" : "theirHand";
-    $hand = ZoneSearch($handZone);
-    if(empty($hand)) return;
-    $handStr = implode("&", $hand);
-    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $handStr, 1, tooltip:"Put_a_card_from_hand_into_memory_($remaining_remaining)");
-    DecisionQueueController::AddDecision($opponent, "CUSTOM", "EnfeebleOrbMove|$player|$remaining", 1);
-}
-
-$customDQHandlers["EnfeebleOrbMove"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $memZone = (strpos($lastDecision, "my") === 0) ? "myMemory" : "theirMemory";
-    MZMove($player, $lastDecision, $memZone);
-    DecisionQueueController::CleanupRemovedCards();
-    $activator = intval($parts[0]);
-    $remaining = intval($parts[1]) - 1;
-    $opponent = $player;
-    EnfeebleOrbChooseStep($activator, $opponent, $remaining);
-};
-
-// ============================================================================
 // Obscured Offering (S3ODMQ0V0o): banish 2 from material deck as additional cost
 // ============================================================================
 $customDQHandlers["ObscuredOfferingBanishMat"] = function($player, $parts, $lastDecision) {
