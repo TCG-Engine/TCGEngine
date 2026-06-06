@@ -8865,6 +8865,12 @@ function EndPhase() {
             $field[$i]->TurnEffects = array_values(array_diff($field[$i]->TurnEffects, ["DISTANT"]));
         }
     }
+    
+    // Obsequious Blow (macqlgvqo3): if the taxed player ends their turn without
+    // activating a card, clear the unused next-turn activation tax here.
+    while(GlobalEffectCount($turnPlayer, "OBSEQUIOUS_BLOW_COST") > 0) {
+        RemoveGlobalEffect($turnPlayer, "OBSEQUIOUS_BLOW_COST");
+    }
 
     ExpireEffects(isEndTurn:true);
     // Reset per-turn macro counters at the end-turn boundary.
@@ -13866,6 +13872,7 @@ $backendOnlyTurnEffects = [
     "HIT_BY_3hgldrogit",
     "CHAMP_DMG_BY_P2",
     "XUCHANG_COST_INCREASE",
+    "OBSEQUIOUS_BLOW_COST",
 ];
 
 function CardCurrentEffects($obj) {
@@ -14716,10 +14723,9 @@ $foreverEffects["wr42i6eifn"] = true;
 $foreverEffects["FREYDIS_PERMANENT_DISTANT"] = true;
 // Ignis Deus: for the rest of the game, non-Spirit champions you control can't level up
 $foreverEffects["IGNIS_DEUS_LOCK"] = true;
-// Obsequious Blow (macqlgvqo3): first card opponent activates costs +2
-$foreverEffects["OBSEQUIOUS_BLOW_COST"] = true;
 // Verita (4qc47amgpp) On Death: Suited allies get +1 POWER until end of next turn
 // PENDING survives end-of-turn cleanup; converted to VERITA_POWER in WakeUpPhase
+$foreverEffects["OBSEQUIOUS_BLOW_COST"] = true;
 $foreverEffects["VERITA_POWER_PENDING"] = true;
 // Don't display this effect on field cards â€” it's a global attack-prevention flag
 $doesGlobalEffectApply["gwWociEfxb_AETHERCALLING"] = function($obj) { return false; }; // Starstrung Reading: counter only, not a field effect
