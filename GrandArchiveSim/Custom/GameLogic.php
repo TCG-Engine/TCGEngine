@@ -2570,6 +2570,58 @@ $customDQHandlers["ReserveCard_Process"] = function($player, $parts, $lastDecisi
     }
 };
 
+$customDQHandlers["PendantOfAccrualRecollection"] = function($player, $parts, $lastDecision) {
+    $mzRef = $parts[0] ?? "";
+    $obj = GetZoneObject($mzRef);
+    if($obj === null || $obj->removed || $obj->CardID !== "WUhbG91eRa") return;
+
+    if($lastDecision !== "YES") {
+        AddCounters($player, $mzRef, "debt", 1);
+        return;
+    }
+
+    if(CountAvailableReservePayments($player) < 2) {
+        AddCounters($player, $mzRef, "debt", 1);
+        return;
+    }
+
+    $source = GetReservePaymentChoiceSource($player);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 0, "Choose_a_card_to_pay_reserve_cost_(1/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PendantOfAccrualPay1|" . $mzRef, 0);
+};
+
+$customDQHandlers["PendantOfAccrualPay1"] = function($player, $parts, $lastDecision) {
+    $mzRef = $parts[0] ?? "";
+    $obj = GetZoneObject($mzRef);
+    if($obj === null || $obj->removed || $obj->CardID !== "WUhbG91eRa") return;
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        AddCounters($player, $mzRef, "debt", 1);
+        return;
+    }
+
+    ProcessReservePaymentChoice($player, $lastDecision);
+    if(CountAvailableReservePayments($player) < 1) {
+        AddCounters($player, $mzRef, "debt", 1);
+        return;
+    }
+
+    $source = GetReservePaymentChoiceSource($player);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 0, "Choose_a_card_to_pay_reserve_cost_(2/2)");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "PendantOfAccrualPay2|" . $mzRef, 0);
+};
+
+$customDQHandlers["PendantOfAccrualPay2"] = function($player, $parts, $lastDecision) {
+    $mzRef = $parts[0] ?? "";
+    $obj = GetZoneObject($mzRef);
+    if($obj === null || $obj->removed || $obj->CardID !== "WUhbG91eRa") return;
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        AddCounters($player, $mzRef, "debt", 1);
+        return;
+    }
+
+    ProcessReservePaymentChoice($player, $lastDecision);
+};
+
 // Wildheart Lyre (50pcescfpw): DQ handler for choosing Animal/Beast ally to buff
 $customDQHandlers["WildheartLyreBuff"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
@@ -4922,6 +4974,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                     break;
                 }
             }
+            break;
+        case "WUhbG91eRa": // Pendant of Accrual: REST + remove 2 debt counters
+            $sourceObj = &GetZoneObject($mzCard);
+            if($sourceObj !== null && !$sourceObj->removed) {
+                $sourceObj->Status = 1;
+            }
+            RemoveCounters($player, $mzCard, "debt", 2);
             break;
         case "1keruycrwi": // Devouring Malice: REST + remove 1 gem counter
             $sourceObj = &GetZoneObject($mzCard);
@@ -7859,6 +7918,19 @@ function RecollectionPhase() {
                 AddGlobalEffects($turnPlayer, "XUCHANG_COST_INCREASE");
             }
             break;
+        }
+    }
+
+    // Pendant of Accrual (WUhbG91eRa): at the beginning of each opponent's recollection phase,
+    // that player may pay (2). If they don't, put a debt counter on Pendant of Accrual.
+    foreach($nonTurnField as $pendantObj) {
+        if($pendantObj->removed || $pendantObj->CardID !== "WUhbG91eRa" || HasNoAbilities($pendantObj)) continue;
+        if(CountAvailableReservePayments($turnPlayer) >= 2) {
+            DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1,
+                tooltip:"Pay_(2)_or_put_a_debt_counter_on_Pendant_of_Accrual?");
+            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "PendantOfAccrualRecollection|" . $pendantObj->GetMzID(), 1);
+        } else {
+            AddCounters($turnPlayer, $pendantObj->GetMzID(), "debt", 1);
         }
     }
     
@@ -19338,6 +19410,10 @@ function GetGemCounterCount($obj) {
 
 function GetTrainingCounterCount($obj) {
     return GetCounterCount($obj, "training");
+}
+
+function GetDebtCounterCount($obj) {
+    return GetCounterCount($obj, "debt");
 }
 
 /**
