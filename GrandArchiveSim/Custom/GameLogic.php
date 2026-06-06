@@ -5767,8 +5767,9 @@ function DoAllyDestroyed($player, $mzCard) {
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
         for($mi = 0; $mi < count($field); ++$mi) {
-            if($field[$mi] === null) continue;
-            if(!$field[$mi]->removed && $field[$mi]->CardID === "9xycwz9gv4" && !HasNoAbilities($field[$mi])) {
+            $mementoObj = $field[$mi] ?? null;
+            if($mementoObj === null) continue;
+            if(!$mementoObj->removed && $mementoObj->CardID === "9xycwz9gv4" && !HasNoAbilities($mementoObj)) {
                 AddCounters($controller, $controllerField . "-" . $mi, "prize", 1);
             }
         }
@@ -5905,10 +5906,11 @@ function DoAllyDestroyed($player, $mzCard) {
         $controllerField = $controller == $playerID ? "myField" : "theirField";
         $field = GetZone($controllerField);
         for($epi = 0; $epi < count($field); ++$epi) {
-            if($field[$epi] === null) continue;
-            if(!$field[$epi]->removed && $field[$epi]->CardID === "7n0bv1sqgb" && !HasNoAbilities($field[$epi])) {
+            $promiseObj = $field[$epi] ?? null;
+            if($promiseObj === null) continue;
+            if(!$promiseObj->removed && $promiseObj->CardID === "7n0bv1sqgb" && !HasNoAbilities($promiseObj)) {
                 AddCounters($controller, $controllerField . "-" . $epi, "refinement", 1);
-                if(GetCounterCount($field[$epi], "refinement") >= 3) {
+                if(GetCounterCount($promiseObj, "refinement") >= 3) {
                     DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
                         tooltip:"Banish_Etherealys'_Promise_to_draw_a_card?");
                     DecisionQueueController::AddDecision($controller, "CUSTOM", "EtherealysPromiseBanish|$epi", 1);

@@ -22,12 +22,39 @@
 // --- helpers -------------------------------------------------------------------
 
 /**
+ * Return the indices of subcards that count as a functional weapon's loaded payload.
+ */
+function GetFunctionalWeaponLoadedSubcardIndices($weaponObj) {
+    if($weaponObj === null || !is_array($weaponObj->Subcards) || empty($weaponObj->Subcards)) return [];
+
+    $weaponSubtypes = EffectiveCardSubtypes($weaponObj);
+    $requiredSubtype = null;
+    if(PropertyContains($weaponSubtypes, "GUN")) $requiredSubtype = "BULLET";
+    else if(PropertyContains($weaponSubtypes, "BOW")) $requiredSubtype = "ARROW";
+    else if(PropertyContains($weaponSubtypes, "AETHERWING")) $requiredSubtype = "AETHERCHARGE";
+    if($requiredSubtype === null) return [];
+
+    $loadedIndices = [];
+    foreach($weaponObj->Subcards as $idx => $cardID) {
+        if(PropertyContains(CardSubtypes($cardID), $requiredSubtype)) {
+            $loadedIndices[] = $idx;
+        }
+    }
+    return $loadedIndices;
+}
+
+function FunctionalWeaponIsLoaded($weaponObj) {
+    return !empty(GetFunctionalWeaponLoadedSubcardIndices($weaponObj));
+}
+
+/**
  * Return an array of mzIDs for awake weapon cards on a player's field.
  * Only returns weapons with durability > 0.
  */
 function GetAvailableWeapons($player) {
     $weapons = ZoneSearch("myField", ["WEAPON"]);
     $intentCards = GetIntentCards($player);
+    $hasAttackCardsInIntent = !empty($intentCards);
     foreach($intentCards as $intentMZ) {
         $intentObj = &GetZoneObject($intentMZ);
         if($intentObj != null && !$intentObj->removed && $intentObj->CardID === "svd53zc9p4") {
@@ -38,8 +65,14 @@ function GetAvailableWeapons($player) {
     foreach($weapons as $mzID) {
         $obj = &GetZoneObject($mzID);
         if($obj->Status == 2 && GetCounterCount($obj, "durability") > 0) {
+            $weaponSubtypes = EffectiveCardSubtypes($obj);
             // Weapons with 0 or less POWER cannot be chosen to attack with.
             if(ObjectCurrentPower($obj) <= 0) continue;
+            $isFunctionalWeapon = PropertyContains($weaponSubtypes, "GUN")
+                || PropertyContains($weaponSubtypes, "BOW")
+                || PropertyContains($weaponSubtypes, "AETHERWING");
+            if($isFunctionalWeapon && !FunctionalWeaponIsLoaded($obj)) continue;
+            if($isFunctionalWeapon && $hasAttackCardsInIntent) continue;
             // Mechanized Smasher (qsm3n9yvn1): can't be used with attack cards
             if($obj->CardID === "qsm3n9yvn1" && !empty($intentCards)) continue;
             // Mechanized Smasher: requires 4 wind element cards in memory
@@ -1942,6 +1975,7 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
                 // Look for Tristan on the attacker's field
                 $myField = GetZone("myField");
                 foreach($myField as $fi => $fObj) {
+                    if($fObj === null) continue;
                     if(!$fObj->removed && $fObj->CardID === "K5luT8aRzc" && !HasNoAbilities($fObj)) {
                         if(GetPrepCounterCount($fObj) >= 3) {
                             $tristanMZ = "myField-" . $fi;
@@ -2060,10 +2094,12 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
             if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "ALLY")) {
                 $myField = GetZone("myField");
                 foreach($myField as $fi => $fObj) {
+                    if($fObj === null) continue;
                     if(!$fObj->removed && $fObj->CardID === "PIcB5KuuMd" && !HasNoAbilities($fObj)) {
                         if(IsMerlinBonusActive($player) && !in_array("PIcB5KuuMd_USED", $fObj->TurnEffects)) {
                             // Check champion has prep counter
                             foreach($myField as $ci => $cObj) {
+                                if($cObj === null) continue;
                                 if(!$cObj->removed && PropertyContains(EffectiveCardType($cObj), "CHAMPION")) {
                                     if(GetPrepCounterCount($cObj) >= 1) {
                                         DecisionQueueController::StoreVariable("VorpalSwordMZ", "myField-" . $fi);
@@ -2254,36 +2290,20 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
         DecisionQueueController::StoreVariable("CombatWeapon", "-");
     } else {
         DecisionQueueController::StoreVariable("CombatWeapon", $lastDecision);
-        // Gun weapons: move loaded bullet from weapon's Subcards into intent
         $weaponObj = &GetZoneObject($lastDecision);
-        if($weaponObj !== null && PropertyContains(CardSubtypes($weaponObj->CardID), "GUN") && is_array($weaponObj->Subcards) && !empty($weaponObj->Subcards)) {
-            foreach($weaponObj->Subcards as $bulletCardID) {
-                MZAddZone($player, "myIntent", $bulletCardID);
+        $loadedSubcardIndices = GetFunctionalWeaponLoadedSubcardIndices($weaponObj);
+        if($weaponObj !== null && !empty($loadedSubcardIndices)) {
+            $remainingSubcards = $weaponObj->Subcards;
+            foreach($loadedSubcardIndices as $subcardIdx) {
+                $loadedCardID = $weaponObj->Subcards[$subcardIdx] ?? null;
+                if($loadedCardID === null) continue;
+                MZAddZone($player, "myIntent", $loadedCardID);
                 $intentZone = &GetZone("myIntent");
                 $newIdx = count($intentZone) - 1;
                 $intentZone[$newIdx]->Controller = $player;
+                unset($remainingSubcards[$subcardIdx]);
             }
-            $weaponObj->Subcards = []; // Gun is now unloaded
-        }
-        // Bow weapons: move loaded arrow from weapon's Subcards into intent
-        if($weaponObj !== null && PropertyContains(CardSubtypes($weaponObj->CardID), "BOW") && is_array($weaponObj->Subcards) && !empty($weaponObj->Subcards)) {
-            foreach($weaponObj->Subcards as $arrowCardID) {
-                MZAddZone($player, "myIntent", $arrowCardID);
-                $intentZone = &GetZone("myIntent");
-                $newIdx = count($intentZone) - 1;
-                $intentZone[$newIdx]->Controller = $player;
-            }
-            $weaponObj->Subcards = []; // Bow is now unloaded
-        }
-        // Aetherwing weapons: move loaded Aethercharge cards from weapon's Subcards into intent
-        if($weaponObj !== null && PropertyContains(CardSubtypes($weaponObj->CardID), "AETHERWING") && is_array($weaponObj->Subcards) && !empty($weaponObj->Subcards)) {
-            foreach($weaponObj->Subcards as $aetherCardID) {
-                MZAddZone($player, "myIntent", $aetherCardID);
-                $intentZone = &GetZone("myIntent");
-                $newIdx = count($intentZone) - 1;
-                $intentZone[$newIdx]->Controller = $player;
-            }
-            $weaponObj->Subcards = [];
+            $weaponObj->Subcards = array_values($remainingSubcards);
         }
 
         // Tideholder Claymore (5iqigcom2r): additional cost to attack — pay (10) reduced by (1) per water GY card
