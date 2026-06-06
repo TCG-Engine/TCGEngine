@@ -1940,12 +1940,10 @@ $customDQHandlers["EternalKingdomUpkeep"] = function($player, $parts, $lastDecis
     $field = &GetField($player);
     if($lastDecision === "YES") {
         // Pay 2 reserve
-        $hand = &GetHand($player);
-        if(count($hand) >= 2) {
-            // Must use block 100 (same as DoActivateCard) so each ReserveCard's
-            // MZCHOOSE→Process chain (blocks 1/99) completes before the next fires.
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+        if(CountAvailableReservePayments($player) >= 2) {
+            $source = GetReservePaymentChoiceSource($player);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 0, "Choose_a_card_to_pay_reserve_cost");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "EternalKingdomUpkeepPay1|$fieldIdx", 0);
         } else {
             // Can't pay — sacrifice
             if(isset($field[$fieldIdx]) && !$field[$fieldIdx]->removed && $field[$fieldIdx]->CardID === "fyoz23yfzk") {
@@ -1960,6 +1958,37 @@ $customDQHandlers["EternalKingdomUpkeep"] = function($player, $parts, $lastDecis
             DecisionQueueController::CleanupRemovedCards();
         }
     }
+};
+
+$customDQHandlers["EternalKingdomUpkeepPay1"] = function($player, $parts, $lastDecision) {
+    $fieldIdx = intval($parts[0] ?? -1);
+    $field = &GetField($player);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        if(isset($field[$fieldIdx]) && !$field[$fieldIdx]->removed && $field[$fieldIdx]->CardID === "fyoz23yfzk") {
+            DoSacrificeFighter($player, "myField-" . $fieldIdx);
+            DecisionQueueController::CleanupRemovedCards();
+        }
+        return;
+    }
+
+    ProcessReservePaymentChoice($player, $lastDecision);
+    $source = GetReservePaymentChoiceSource($player);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 0, "Choose_a_card_to_pay_reserve_cost");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EternalKingdomUpkeepPay2|$fieldIdx", 0);
+};
+
+$customDQHandlers["EternalKingdomUpkeepPay2"] = function($player, $parts, $lastDecision) {
+    $fieldIdx = intval($parts[0] ?? -1);
+    $field = &GetField($player);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        if(isset($field[$fieldIdx]) && !$field[$fieldIdx]->removed && $field[$fieldIdx]->CardID === "fyoz23yfzk") {
+            DoSacrificeFighter($player, "myField-" . $fieldIdx);
+            DecisionQueueController::CleanupRemovedCards();
+        }
+        return;
+    }
+
+    ProcessReservePaymentChoice($player, $lastDecision);
 };
 
 /**
