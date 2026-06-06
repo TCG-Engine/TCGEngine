@@ -3240,19 +3240,12 @@ $customDQHandlers["LoadSoulDurability"] = function($player, $parts, $lastDecisio
     // $lastDecision = mzID of the chosen Gun
     AddCounters($player, $lastDecision, "durability", 2);
     // Put Load Soul on bottom of champion's lineage
-    $field = &GetField($player);
-    for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed && PropertyContains(EffectiveCardType($field[$i]), "CHAMPION") && $field[$i]->Controller == $player) {
-            if(!is_array($field[$i]->Subcards)) $field[$i]->Subcards = [];
-            $field[$i]->Subcards[] = "8tuhuy4xip"; // Load Soul CardID
-            break;
-        }
-    }
+    AddToChampionLineage($player, "8tuhuy4xip");
     // Remove Load Soul from graveyard (it was just activated and resolved)
     $gy = GetZone("myGraveyard");
     for($gi = count($gy) - 1; $gi >= 0; --$gi) {
         if(!$gy[$gi]->removed && $gy[$gi]->CardID === "8tuhuy4xip") {
-            MZRemove($player, "myGraveyard-" . $gi);
+            $gy[$gi]->removed = true;
             DecisionQueueController::CleanupRemovedCards();
             break;
         }
@@ -3330,20 +3323,24 @@ $customDQHandlers["TurbulentBulletBuff"] = function($player, $parts, $lastDecisi
     }
 };
 
-// --- Supply Drone: materialize a 0-cost Bullet from material deck ---
-function SupplyDroneMaterialize($player) {
+// Queue a Bullet materialization from material deck, optionally capped by memory cost.
+function MaterializeBulletFromMaterial($player, $maxMemoryCost = null, $tooltip = "Materialize_a_Bullet") {
     $materialZone = GetZone("myMaterial");
     $bulletMZs = [];
     for($i = 0; $i < count($materialZone); ++$i) {
         $obj = $materialZone[$i];
-        if(!$obj->removed && PropertyContains(CardSubtypes($obj->CardID), "BULLET") && CardMemoryCost($obj) == 0) {
-            $bulletMZs[] = "myMaterial-" . $i;
-        }
+        if($obj->removed || !PropertyContains(CardSubtypes($obj->CardID), "BULLET")) continue;
+        if($maxMemoryCost !== null && CardMemoryCost($obj) > $maxMemoryCost) continue;
+        $bulletMZs[] = "myMaterial-" . $i;
     }
     if(empty($bulletMZs)) return;
-    // The player materializes a 0-cost Bullet (pays memory cost which is 0)
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $bulletMZs), 1, "Materialize_a_0-cost_Bullet");
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $bulletMZs), 1, $tooltip);
     DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+}
+
+// --- Supply Drone: materialize a 0-cost Bullet from material deck ---
+function SupplyDroneMaterialize($player) {
+    MaterializeBulletFromMaterial($player, 0, "Materialize_a_0-cost_Bullet");
 }
 
 // Mad Hatter, Morose Heritor (2nc48s3oqh): materialize a Ranger regalia from material deck
