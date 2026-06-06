@@ -74,6 +74,43 @@ function GetAvailableWeapons($player) {
     return $available;
 }
 
+function GetAttackWeaponChoices($player, $attackerObj) {
+    if($attackerObj === null || $attackerObj->removed) return [];
+    $cardType = EffectiveCardType($attackerObj);
+    if(PropertyContains($cardType, "CHAMPION")) {
+        return GetAvailableWeapons($player);
+    }
+
+    $choices = [];
+    $availableWeapons = GetAvailableWeapons($player);
+
+    // Huaji of Heaven's Rise (v1iyt8rugx): unique Warrior allies may attack using this weapon.
+    if(PropertyContains(CardSubtypes($attackerObj->CardID), "WARRIOR")
+        && PropertyContains(CardSubtypes($attackerObj->CardID), "UNIQUE")) {
+        foreach($availableWeapons as $wMZ) {
+            $wObj = GetZoneObject($wMZ);
+            if($wObj !== null && !$wObj->removed && $wObj->CardID === "v1iyt8rugx" && !HasNoAbilities($wObj)
+                && IsClassBonusActive($player, explode(",", CardClasses("v1iyt8rugx")))) {
+                $choices[] = $wMZ;
+                return $choices;
+            }
+        }
+    }
+
+    // Galahad, Court Knight (eO5wsjwRyQ): [Class Bonus] can attack using Sword weapons.
+    if($attackerObj->CardID === "eO5wsjwRyQ" && !HasNoAbilities($attackerObj)
+        && IsClassBonusActive($player, ["WARRIOR"])) {
+        foreach($availableWeapons as $wMZ) {
+            $wObj = GetZoneObject($wMZ);
+            if($wObj !== null && !$wObj->removed && PropertyContains(CardSubtypes($wObj->CardID), "SWORD")) {
+                $choices[] = $wMZ;
+            }
+        }
+    }
+
+    return $choices;
+}
+
 /**
  * Return the mzID of the currently selected combat weapon, or null.
  */
@@ -81,6 +118,60 @@ function GetCombatWeapon() {
     $mz = DecisionQueueController::GetVariable("CombatWeapon");
     if($mz === null || $mz === "-" || $mz === "") return null;
     return $mz;
+}
+
+function AttackHasAnyTargetOption($player, $attackerMZ, $weaponChoices = []) {
+    $originalWeapon = DecisionQueueController::GetVariable("CombatWeapon");
+    $testWeapons = array_merge(["-"], $weaponChoices);
+    foreach($testWeapons as $weaponMZ) {
+        DecisionQueueController::StoreVariable("CombatWeapon", $weaponMZ);
+        if(AttackerHasCleave($attackerMZ, $player)) {
+            if($originalWeapon === null) DecisionQueueController::ClearVariable("CombatWeapon");
+            else DecisionQueueController::StoreVariable("CombatWeapon", $originalWeapon);
+            return true;
+        }
+        if(!empty(GetValidAttackTargets($attackerMZ))) {
+            if($originalWeapon === null) DecisionQueueController::ClearVariable("CombatWeapon");
+            else DecisionQueueController::StoreVariable("CombatWeapon", $originalWeapon);
+            return true;
+        }
+    }
+    if($originalWeapon === null) DecisionQueueController::ClearVariable("CombatWeapon");
+    else DecisionQueueController::StoreVariable("CombatWeapon", $originalWeapon);
+    return false;
+}
+
+function GetAttackTargetOptionsAcrossWeaponChoices($player, $attackerMZ, $weaponChoices = []) {
+    $originalWeapon = DecisionQueueController::GetVariable("CombatWeapon");
+    $testWeapons = array_merge(["-"], $weaponChoices);
+    $targets = [];
+    foreach($testWeapons as $weaponMZ) {
+        DecisionQueueController::StoreVariable("CombatWeapon", $weaponMZ);
+        foreach(GetValidAttackTargets($attackerMZ) as $targetMZ) {
+            if(!in_array($targetMZ, $targets, true)) $targets[] = $targetMZ;
+        }
+    }
+    if($originalWeapon === null) DecisionQueueController::ClearVariable("CombatWeapon");
+    else DecisionQueueController::StoreVariable("CombatWeapon", $originalWeapon);
+    return $targets;
+}
+
+function ReplacePendingAttackTargetChoiceWithCleave($player, $attackerMZ) {
+    $queue = &GetDecisionQueue($player);
+    for($qi = count($queue) - 1; $qi >= 0; --$qi) {
+        $decision = $queue[$qi] ?? null;
+        if($decision === null) continue;
+        $param = $decision->Param ?? '';
+        if($decision->Type === "MZCHOOSE" && ($decision->Tooltip ?? '') === "Choose_attack_target") {
+            array_splice($queue, $qi, 1);
+            continue;
+        }
+        if($decision->Type === "CUSTOM" && $param === "AttackTargetChosen|" . $attackerMZ) {
+            array_splice($queue, $qi, 1);
+            continue;
+        }
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "CleaveAttack|" . $attackerMZ, 100);
 }
 
 /**
@@ -908,14 +999,13 @@ function DeclareChampionAttack($player) {
         return false;
     }
 
-    // Check valid targets (Cleave can come from the champion OR an attack card in intent)
     $hasCleave = AttackerHasCleave($championMZ, $player);
-    if(!$hasCleave) {
-        $validTargets = GetValidAttackTargets($championMZ);
-        if(empty($validTargets)) {
-            SetFlashMessage("No valid attack targets.");
-            return false;
-        }
+    $availableWeapons = GetAttackWeaponChoices($player, $champion);
+
+    // Check valid targets across the legal weapon choices for this attack.
+    if(!AttackHasAnyTargetOption($player, $championMZ, $availableWeapons)) {
+        SetFlashMessage("No valid attack targets.");
+        return false;
     }
 
     // Attack cards already create an undo point on activation; avoid duplicate snapshot.
@@ -933,7 +1023,6 @@ function DeclareChampionAttack($player) {
     UpdateCombatLorraineBlademasterFlag($player, $championMZ);
 
     // Step 2.b -- Weapon selection: if the attacker is a champion, offer weapon choice
-    $availableWeapons = GetAvailableWeapons($player);
     if(!empty($availableWeapons)) {
         $weaponList = implode("&", $availableWeapons);
         DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $weaponList, 95, "Choose_weapon?");
@@ -942,11 +1031,11 @@ function DeclareChampionAttack($player) {
         DecisionQueueController::StoreVariable("CombatWeapon", "-");
     }
 
-    // Choose target and resolve
-    if($hasCleave) {
+    // Preserve the original immediate cleave path when there is no weapon-choice ambiguity.
+    if($hasCleave && empty($availableWeapons)) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "CleaveAttack|" . $championMZ, 100);
     } else {
-        ChooseAttackTarget($player, $championMZ);
+        ChooseAttackTarget($player, $championMZ, $availableWeapons);
     }
 
     return true;
@@ -1230,15 +1319,12 @@ function BeginCombatPhase($actionCard) {
         }
     }
 
-    // Step 2.c (pre-check) -- Must have at least one valid target, unless attacker has Cleave
-    // Cleave can come from the attacking unit itself OR from an attack card already in intent
-    $hasCleave = AttackerHasCleave($actionCard, $turnPlayer);
-    if(!$hasCleave) {
-        $validTargets = GetValidAttackTargets($actionCard);
-        if(empty($validTargets)) {
-            SetFlashMessage("No valid attack targets.");
-            return false;
-        }
+    $availableWeapons = GetAttackWeaponChoices($turnPlayer, $obj);
+
+    // Step 2.c (pre-check) -- Must have at least one valid target across legal weapon choices.
+    if(!AttackHasAnyTargetOption($turnPlayer, $actionCard, $availableWeapons)) {
+        SetFlashMessage("No valid attack targets.");
+        return false;
     }
 
     // Attack cards already create an undo point on activation; avoid duplicate snapshot.
@@ -1310,7 +1396,6 @@ function BeginCombatPhase($actionCard) {
 
     // Step 2.b -- Weapon selection: only for champion attacks, not allies
     if(PropertyContains($cardType, "CHAMPION")) {
-        $availableWeapons = GetAvailableWeapons($turnPlayer);
         if(!empty($availableWeapons)) {
             $weaponList = implode("&", $availableWeapons);
             DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $weaponList, 95, "Choose_weapon?");
@@ -1319,37 +1404,14 @@ function BeginCombatPhase($actionCard) {
             DecisionQueueController::StoreVariable("CombatWeapon", "-");
         }
     } else {
-        // Allies can't use weapons normally, but Huaji of Heaven's Rise (v1iyt8rugx)
-        // allows unique Warrior allies to attack using this weapon
-        $huajiWeapon = null;
-        if(PropertyContains(CardSubtypes($obj->CardID), "WARRIOR")
-            && PropertyContains(CardSubtypes($obj->CardID), "UNIQUE")) {
-            $weapons = GetAvailableWeapons($turnPlayer);
-            foreach($weapons as $wMZ) {
-                $wObj = GetZoneObject($wMZ);
-                if($wObj !== null && !$wObj->removed && $wObj->CardID === "v1iyt8rugx" && !HasNoAbilities($wObj)
-                    && IsClassBonusActive($turnPlayer, explode(",", CardClasses("v1iyt8rugx")))) {
-                    $huajiWeapon = $wMZ;
-                    break;
-                }
-            }
-        }
-        if($huajiWeapon !== null) {
-            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $huajiWeapon, 95, "Attack_with_Huaji?");
+        $singleWeaponChoice = count($availableWeapons) === 1 ? GetZoneObject($availableWeapons[0]) : null;
+        if($singleWeaponChoice !== null && !$singleWeaponChoice->removed && $singleWeaponChoice->CardID === "v1iyt8rugx") {
+            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $availableWeapons[0], 95, "Attack_with_Huaji?");
             DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponSelected", 95);
         } else if($obj->CardID === "eO5wsjwRyQ" && !HasNoAbilities($obj)
             && IsClassBonusActive($turnPlayer, ["WARRIOR"])) {
-            // Galahad, Court Knight (eO5wsjwRyQ): [Class Bonus] can attack using Sword weapons
-            $swordWeapons = [];
-            foreach(GetAvailableWeapons($turnPlayer) as $wMZ) {
-                $wObj = GetZoneObject($wMZ);
-                if($wObj !== null && !$wObj->removed
-                   && PropertyContains(CardSubtypes($wObj->CardID), "SWORD")) {
-                    $swordWeapons[] = $wMZ;
-                }
-            }
-            if(!empty($swordWeapons)) {
-                $swordStr = implode("&", $swordWeapons);
+            if(!empty($availableWeapons)) {
+                $swordStr = implode("&", $availableWeapons);
                 DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $swordStr, 95, "Attack_with_Sword_weapon?");
                 DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponSelected", 95);
             } else {
@@ -1361,11 +1423,12 @@ function BeginCombatPhase($actionCard) {
     }
 
     // Step 2.c -- Choose attack target
-    if($hasCleave) {
+    $hasCleave = AttackerHasCleave($actionCard, $turnPlayer);
+    if($hasCleave && empty($availableWeapons)) {
         // Cleave: all opposing units become defenders automatically
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "CleaveAttack|" . $actionCard, 100);
     } else {
-        ChooseAttackTarget($turnPlayer, $actionCard);
+        ChooseAttackTarget($turnPlayer, $actionCard, $availableWeapons);
     }
 
     // Execute the decision queue
@@ -1378,8 +1441,10 @@ function BeginCombatPhase($actionCard) {
 /**
  * Queue interactive target selection for the attack.
  */
-function ChooseAttackTarget($player, $attackerMZ) {
-    $validTargets = GetValidAttackTargets($attackerMZ);
+function ChooseAttackTarget($player, $attackerMZ, $weaponChoices = null) {
+    $validTargets = is_array($weaponChoices)
+        ? GetAttackTargetOptionsAcrossWeaponChoices($player, $attackerMZ, $weaponChoices)
+        : GetValidAttackTargets($attackerMZ);
     if(empty($validTargets)) return;
     $targetList = implode("&", $validTargets);
 
@@ -2269,6 +2334,12 @@ $customDQHandlers["WeaponSelected"] = function($player, $parts, $lastDecision) {
                 }
             }
         }
+
+        $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+        if(is_string($attackerMZ) && $attackerMZ !== "" && $attackerMZ !== "-"
+            && AttackerHasCleave($attackerMZ, $player)) {
+            ReplacePendingAttackTargetChoiceWithCleave($player, $attackerMZ);
+        }
     }
 };
 
@@ -2283,6 +2354,13 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
         ClearIntent($player);
         ClearCombatAttackerState();
         DecisionQueueController::ClearVariable("CombatWeapon");
+        return;
+    }
+
+    $validTargets = GetValidAttackTargets($attackerMZ);
+    if(!AttackerHasCleave($attackerMZ, $player) && !in_array($lastDecision, $validTargets, true)) {
+        SetFlashMessage("Invalid attack target.");
+        ChooseAttackTarget($player, $attackerMZ);
         return;
     }
 
