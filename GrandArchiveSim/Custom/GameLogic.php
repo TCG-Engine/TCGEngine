@@ -4663,6 +4663,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
+        case "ugly4wiffe": // Sadi, Blood Harvester -- (2)
+            if(intval($abilityIndex) === 0) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
         case "4moumzcx9z": // Staff of Blossoming Will â€” (1), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
@@ -13696,6 +13702,11 @@ function CardHasAbility($obj) {
         if($obj->Status != 2) return 0;
         if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
         if(empty(ZoneSearch("myField", ["PHANTASIA"]))) return 0;
+    }
+
+    // Sadi, Blood Harvester (ugly4wiffe): (2)
+    if($obj->CardID === "ugly4wiffe") {
+        if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
     }
 
     // Mana Limiter (IC3OU6vCnF): requires champion has 6+ enlighten counters
