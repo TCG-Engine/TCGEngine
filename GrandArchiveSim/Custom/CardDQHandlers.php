@@ -2969,12 +2969,10 @@ $customDQHandlers["PunishingCartridgeMode1"] = function($player, $parts, $lastDe
 // --- Zander, Blinding Steel (UAF6Nr7GUE): Opponent puts hand card into memory (iterative) ---
 function ZanderBlindingSteelStep($player, $opponent, $remaining) {
     if($remaining <= 0) return;
-    global $playerID;
-    $handZone = $opponent == $playerID ? "myHand" : "theirHand";
-    $hand = ZoneSearch($handZone);
+    $hand = ZoneSearch("myHand", forPlayer: $opponent);
     if(empty($hand)) return;
     $handStr = implode("&", $hand);
-    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $handStr, 1, tooltip:"Put_card_from_hand_into_memory_($remaining_remaining)");
+    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $handStr, 1, tooltip:"Put_card_from_hand_into_memory_($remaining)");
     DecisionQueueController::AddDecision($opponent, "CUSTOM", "ZanderBlindingSteelMemory|$remaining", 1);
 }
 
@@ -6610,7 +6608,7 @@ function SpiritOfPurityBanishLoop($player, $targetPlayer, $remaining) {
         return;
     }
     $gyStr = implode("&", $gy);
-    DecisionQueueController::AddDecision($targetPlayer, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_graveyard_($remaining_remaining)");
+    DecisionQueueController::AddDecision($targetPlayer, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_graveyard_($remaining)");
     DecisionQueueController::AddDecision($targetPlayer, "CUSTOM", "SpiritOfPurityBanish|$player|$targetPlayer|$remaining", 1);
 }
 
@@ -6661,7 +6659,7 @@ function PurifyingThuribleBanishLoop($activator, $opponent, $remaining) {
         }, $gy);
     }
     $gyStr = implode("&", $gy);
-    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_your_graveyard_($remaining_remaining)");
+    DecisionQueueController::AddDecision($opponent, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_a_card_from_your_graveyard_($remaining)");
     DecisionQueueController::AddDecision($opponent, "CUSTOM", "PurifyingThuribleBanish|$activator|$remaining", 1);
 }
 
@@ -6723,7 +6721,7 @@ function LostPromisesBanishLoop($player, $remaining, $memoryMZ) {
         return;
     }
     $gyStr = implode("&", $gy);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_from_GY_($remaining_remaining)");
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_from_GY_($remaining)");
     DecisionQueueController::AddDecision($player, "CUSTOM", "LostPromisesGYBanish|$remaining|$memoryMZ", 1);
 }
 
@@ -6773,7 +6771,7 @@ function GaiasBlessingBanishLoop($player, $remaining, $materialMZ) {
         return;
     }
     $gyStr = implode("&", $animalBeastGY);
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_Animal_or_Beast_ally_($remaining_remaining)");
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", $gyStr, 1, tooltip:"Banish_Animal_or_Beast_ally_($remaining)");
     DecisionQueueController::AddDecision($player, "CUSTOM", "GaiasBlessingGYBanish|$remaining|$materialMZ", 1);
 }
 

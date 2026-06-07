@@ -7826,14 +7826,13 @@ function RecollectionPhase() {
     // Zander, Blinding Steel (UAF6Nr7GUE): at beginning of your recollection, reveal memory,
     // for each luxem card, opponent puts a card from hand into memory
     if(ChampionHasInLineage($turnPlayer, "UAF6Nr7GUE")) {
-        global $playerID;
-        $memZone = $turnPlayer == $playerID ? "myMemory" : "theirMemory";
-        $mem = GetZone($memZone);
+        $mem = ZoneSearch("myMemory", forPlayer: $turnPlayer);
         $luxemCount = 0;
-        foreach($mem as $mObj) {
-            if(!$mObj->removed && CardElement($mObj->CardID) === "LUXEM") {
-                $luxemCount++;
-            }
+        foreach($mem as $mz) {
+            Reveal($turnPlayer, $mz);
+            $mObj = GetZoneObject($mz);
+            if($mObj === null || $mObj->removed) continue;
+            if(CardElement($mObj->CardID) === "LUXEM") ++$luxemCount;
         }
         if($luxemCount > 0) {
             $opponent = ($turnPlayer == 1) ? 2 : 1;
