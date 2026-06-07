@@ -1156,13 +1156,9 @@ $customDQHandlers["WindriderMageBounce"] = function($player, $parts, $lastDecisi
 };
 
 $customDQHandlers["FirebloomRecollation"] = function($player, $parts, $lastDecision) {
-    // $lastDecision is the chosen champion mzID
-    if($lastDecision !== "-" && $lastDecision !== "") {
-        $champObj = &GetZoneObject($lastDecision);
-        if($champObj !== null && !$champObj->removed) {
-            $champObj->Damage += 1;
-        }
-    }
+    $sourceMZ = $parts[0] ?? "";
+    if($lastDecision === "-" || $lastDecision === "") return;
+    DealDamage($player, $sourceMZ, $lastDecision, 1);
 };
 
 $customDQHandlers["MorganSoulGuideRecollection"] = function($player, $parts, $lastDecision) {

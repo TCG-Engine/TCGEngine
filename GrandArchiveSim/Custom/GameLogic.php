@@ -7527,7 +7527,7 @@ function BeforeRecollectionPhase() {
                         $allChamps = array_merge(ZoneSearch("myField", ["CHAMPION"]), ZoneSearch("theirField", ["CHAMPION"]));
                         if(!empty($allChamps)) {
                             DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", implode("&", $allChamps), 1, "Firebloom:_Deal_1_damage_to_champion");
-                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "FirebloomRecollation", 1);
+                            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "FirebloomRecollation|myField-" . $i, 1);
                         }
                     }
                     break;
