@@ -501,14 +501,51 @@
         which creates a vertical scrollbar for rotated (exhausted) cards. */
      #myFieldWrapper,
      #theirFieldWrapper {
+          position: relative;
           overflow-x: auto !important;
           overflow-y: hidden !important;
           padding-top: 14px;
           padding-bottom: 14px;
           margin-top: -14px;
           margin-bottom: -14px;
-          scrollbar-width: thin;
+          border-radius: 18px;
+          background:
+               linear-gradient(180deg, rgba(7, 14, 20, 0.08), rgba(7, 14, 20, 0) 24%, rgba(7, 14, 20, 0) 76%, rgba(7, 14, 20, 0.12)),
+               linear-gradient(90deg, rgba(244, 236, 219, 0.03), rgba(244, 236, 219, 0.01) 22%, rgba(244, 236, 219, 0.01) 78%, rgba(244, 236, 219, 0.03));
+          scrollbar-width: none;
+          -ms-overflow-style: none;
           -webkit-overflow-scrolling: touch;
+     }
+
+     #myFieldWrapper::before,
+     #myFieldWrapper::after,
+     #theirFieldWrapper::before,
+     #theirFieldWrapper::after {
+          content: "";
+          position: absolute;
+          top: 14px;
+          bottom: 14px;
+          width: 34px;
+          pointer-events: none;
+          z-index: 2;
+          opacity: 0.92;
+     }
+
+     #myFieldWrapper::before,
+     #theirFieldWrapper::before {
+          left: 0;
+          background: linear-gradient(90deg, rgba(33, 63, 112, 0.88), rgba(33, 63, 112, 0.52) 42%, rgba(33, 63, 112, 0));
+     }
+
+     #myFieldWrapper::after,
+     #theirFieldWrapper::after {
+          right: 0;
+          background: linear-gradient(270deg, rgba(33, 63, 112, 0.88), rgba(33, 63, 112, 0.52) 42%, rgba(33, 63, 112, 0));
+     }
+
+     #myFieldWrapper::-webkit-scrollbar,
+     #theirFieldWrapper::-webkit-scrollbar {
+          display: none;
      }
 
      #myField,
@@ -614,6 +651,48 @@
           left: 50%;
           right: auto;
           transform: translateX(-50%);
+     }
+
+     .ga-field-scroll-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 30px;
+          height: 44px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(244, 236, 219, 0.16);
+          border-radius: 999px;
+          background: linear-gradient(180deg, rgba(19, 32, 43, 0.94), rgba(19, 32, 43, 0.78));
+          color: rgba(244, 236, 219, 0.88);
+          box-shadow: 0 10px 24px rgba(7, 14, 20, 0.28);
+          cursor: pointer;
+          z-index: 38;
+          transition: opacity 120ms ease, transform 120ms ease, border-color 120ms ease, background 120ms ease;
+     }
+
+     .ga-field-scroll-btn:hover {
+          background: linear-gradient(180deg, rgba(36, 58, 77, 0.96), rgba(24, 40, 54, 0.9));
+          border-color: rgba(200, 155, 70, 0.42);
+     }
+
+     .ga-field-scroll-btn.is-hidden {
+          opacity: 0;
+          pointer-events: none;
+     }
+
+     .ga-field-scroll-btn.is-disabled {
+          opacity: 0.32;
+          cursor: default;
+     }
+
+     .ga-field-scroll-btn-left {
+          left: -16px;
+     }
+
+     .ga-field-scroll-btn-right {
+          right: -16px;
      }
 
      #EffectStackSlot {
@@ -1677,6 +1756,140 @@
           };
      }
 
+     function setupFieldScrollButtons() {
+          function installForSlot(slotId, wrapperId) {
+               var slot = document.getElementById(slotId);
+               if (!slot) return;
+               var leftBtn = null;
+               var rightBtn = null;
+               var positionStorageKey = 'ga-field-scroll-v1-' + wrapperId;
+               var lastKnownScrollLeft = 0;
+
+               function ensureButton(side) {
+                    var className = '.ga-field-scroll-btn-' + side;
+                    var existing = slot.querySelector(className);
+                    if (existing) return existing;
+                    var btn = document.createElement('button');
+                    btn.className = 'ga-field-scroll-btn ga-field-scroll-btn-' + side;
+                    btn.setAttribute('type', 'button');
+                    btn.setAttribute('aria-label', side === 'left' ? 'Scroll field left' : 'Scroll field right');
+                    btn.textContent = side === 'left' ? '\u2039' : '\u203a';
+                    slot.appendChild(btn);
+                    return btn;
+               }
+
+               function ensureButtons() {
+                    leftBtn = ensureButton('left');
+                    rightBtn = ensureButton('right');
+               }
+
+               ensureButtons();
+
+               function getWrapper() {
+                    return document.getElementById(wrapperId);
+               }
+
+               function readSavedScrollLeft() {
+                    try {
+                         var raw = localStorage.getItem(positionStorageKey);
+                         var parsed = parseFloat(raw || '');
+                         return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
+                    } catch (e) {
+                         return 0;
+                    }
+               }
+
+               function saveScrollLeft(value) {
+                    lastKnownScrollLeft = Math.max(0, value);
+                    try {
+                         localStorage.setItem(positionStorageKey, String(lastKnownScrollLeft));
+                    } catch (e) {
+                         // Ignore storage failures.
+                    }
+               }
+
+               function restoreScrollLeft() {
+                    var wrapper = getWrapper();
+                    if (!wrapper) return;
+                    var maxScroll = Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
+                    var target = Math.min(maxScroll, Math.max(0, lastKnownScrollLeft));
+                    if (Math.abs(wrapper.scrollLeft - target) <= 1) return;
+                    wrapper.scrollLeft = target;
+               }
+
+               function updateButtons() {
+                    ensureButtons();
+                    var wrapper = getWrapper();
+                    if (!wrapper) {
+                         leftBtn.classList.add('is-hidden');
+                         rightBtn.classList.add('is-hidden');
+                         return;
+                    }
+                    var maxScroll = Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
+                    var hasOverflow = maxScroll > 6;
+                    leftBtn.classList.toggle('is-hidden', !hasOverflow);
+                    rightBtn.classList.toggle('is-hidden', !hasOverflow);
+                    leftBtn.classList.toggle('is-disabled', !hasOverflow || wrapper.scrollLeft <= 4);
+                    rightBtn.classList.toggle('is-disabled', !hasOverflow || wrapper.scrollLeft >= maxScroll - 4);
+               }
+
+               function scrollByAmount(dir) {
+                    var wrapper = getWrapper();
+                    if (!wrapper) return;
+                    var amount = Math.max(180, Math.floor(wrapper.clientWidth * 0.72));
+                    wrapper.scrollBy({ left: dir * amount, behavior: 'smooth' });
+                    window.setTimeout(updateButtons, 220);
+               }
+
+               function bindButtonHandlers(btn, dir) {
+                    if (!btn || btn.dataset.gaScrollBound === '1') return;
+                    btn.dataset.gaScrollBound = '1';
+                    btn.addEventListener('click', function(ev) {
+                         ev.preventDefault();
+                         if (btn.classList.contains('is-disabled')) return;
+                         scrollByAmount(dir);
+                    });
+               }
+
+               function bindWrapper() {
+                    var wrapper = getWrapper();
+                    if (!wrapper || wrapper.dataset.gaScrollButtonsBound === '1') return;
+                    wrapper.dataset.gaScrollButtonsBound = '1';
+                    wrapper.addEventListener('scroll', function() {
+                         saveScrollLeft(wrapper.scrollLeft);
+                         updateButtons();
+                    }, { passive: true });
+                    restoreScrollLeft();
+                }
+
+               new MutationObserver(function() {
+                    ensureButtons();
+                    bindButtonHandlers(leftBtn, -1);
+                    bindButtonHandlers(rightBtn, 1);
+                    bindWrapper();
+                    window.requestAnimationFrame(function() {
+                         restoreScrollLeft();
+                         updateButtons();
+                    });
+                    updateButtons();
+               }).observe(slot, { childList: true, subtree: true });
+
+               lastKnownScrollLeft = readSavedScrollLeft();
+               bindButtonHandlers(leftBtn, -1);
+               bindButtonHandlers(rightBtn, 1);
+               bindWrapper();
+               restoreScrollLeft();
+               updateButtons();
+               window.addEventListener('resize', function() {
+                    restoreScrollLeft();
+                    updateButtons();
+               });
+          }
+
+          installForSlot('myFieldSlot', 'myFieldWrapper');
+          installForSlot('theirFieldSlot', 'theirFieldWrapper');
+     }
+
      // Run once DOM is ready (GameLayout.php is included after DOMContentLoaded equivalent)
      if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function() {
@@ -1686,6 +1899,7 @@
                setupEffectStackDrag();
                setupHandCollapse();
                setupBoardTheme();
+               setupFieldScrollButtons();
           });
      } else {
           AUTO_HIDE_IDS.forEach(watchSlot);
@@ -1694,6 +1908,7 @@
           setupEffectStackDrag();
           setupHandCollapse();
           setupBoardTheme();
+          setupFieldScrollButtons();
      }
 })();
 </script>

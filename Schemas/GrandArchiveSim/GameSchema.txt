@@ -105,7 +105,7 @@ Virtual: ActivateAbilityButtonStates=GetActivateAbilityButtonStates()
 Virtual: HasAbility=CardHasAbility()
 Virtual: IsTokenObject=IsTokenObject()
 Index: TurnEffects
-Display: Visibility=Public, Mode=All, BindTo=FieldSlot
+Display: Visibility=Public, Mode=All, BindTo=FieldSlot, CollapseBy=IsTokenObject, CollapseGroupBy=CardID
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Overlay: Status=1:exhausted
 Overlay: TurnEffects=DISTANT:distant

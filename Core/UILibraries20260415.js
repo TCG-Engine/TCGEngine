@@ -675,15 +675,29 @@
         return false;
       }
 
-      function IsFieldTokenCard(cardArr, zoneName) {
-        if (zoneName !== "Field") return false;
+      function IsCollapsibleZoneCard(cardArr, zoneMetadata) {
+        if (!zoneMetadata || !zoneMetadata.CollapseBy) return false;
         var cardData = ParseSharedCardData(cardArr);
-        return Number(cardData.IsTokenObject || 0) === 1;
+        var collapseValue = cardData[zoneMetadata.CollapseBy];
+        if (collapseValue === true) return true;
+        if (collapseValue === false || collapseValue === null || typeof collapseValue === 'undefined') return false;
+        if (typeof collapseValue === 'number') return collapseValue !== 0;
+        var normalized = String(collapseValue).toLowerCase().trim();
+        return normalized === '1' || normalized === 'true' || normalized === 'yes';
       }
 
-      function ShouldUseTokenStacks(renderZone, zoneName, mode, filter) {
-        if (zoneName !== "Field" || mode !== "All") return false;
-        return true;
+      function GetCollapseGroupValue(cardArr, zoneMetadata) {
+        if (!cardArr || cardArr.length === 0) return "";
+        var groupField = (zoneMetadata && zoneMetadata.CollapseGroupBy) ? String(zoneMetadata.CollapseGroupBy) : "CardID";
+        if (groupField === "CardID") return cardArr[0];
+        var cardData = ParseSharedCardData(cardArr);
+        if (!cardData || typeof cardData[groupField] === 'undefined' || cardData[groupField] === null) return "";
+        return String(cardData[groupField]);
+      }
+
+      function ShouldUseCollapsedStacks(zoneMetadata, mode) {
+        if (!zoneMetadata || !zoneMetadata.CollapseBy) return false;
+        return mode === "All";
       }
 
       //Note: 96 = Card Size
@@ -795,7 +809,7 @@
             }
             var filterFunction = null;
             if (!!filters && filters.length > 0) filterFunction = window[filters[0]];
-            var useTokenStacks = ShouldUseTokenStacks(zone, zoneName, mode, filter);
+            var useCollapsedStacks = ShouldUseCollapsedStacks(zoneMetadata, mode);
             // Reverse the zone array if Sort.Reverse is true (for all modes except Tile, which reverses after sorting)
             if(mode != "Tile" && zoneMetadata.Sort && zoneMetadata.Sort.Reverse) {
               zoneArr.reverse();
@@ -828,17 +842,19 @@
             }
             var tokenStackGroupsByFirstIndex = {};
             var tokenStackCoveredIndices = {};
-            if(useTokenStacks) {
-              var tokenIndicesByCardID = {};
+            if(useCollapsedStacks) {
+              var collapseIndicesByGroup = {};
               for (var _tsi = 0; _tsi < zoneArr.length; ++_tsi) {
                 var _stackCardArr = zoneArr[_tsi].split(" ");
                 if(ShouldSkipZoneCardRendering(_stackCardArr, filter, filterFunction, linkedSubcardCardIDs)) continue;
-                if(!IsFieldTokenCard(_stackCardArr, zoneName)) continue;
-                if(!tokenIndicesByCardID[_stackCardArr[0]]) tokenIndicesByCardID[_stackCardArr[0]] = [];
-                tokenIndicesByCardID[_stackCardArr[0]].push(_tsi);
+                if(!IsCollapsibleZoneCard(_stackCardArr, zoneMetadata)) continue;
+                var collapseGroupValue = GetCollapseGroupValue(_stackCardArr, zoneMetadata);
+                if(collapseGroupValue === "") continue;
+                if(!collapseIndicesByGroup[collapseGroupValue]) collapseIndicesByGroup[collapseGroupValue] = [];
+                collapseIndicesByGroup[collapseGroupValue].push(_tsi);
               }
-              Object.keys(tokenIndicesByCardID).forEach(function(tokenCardID) {
-                var matchingIndices = tokenIndicesByCardID[tokenCardID];
+              Object.keys(collapseIndicesByGroup).forEach(function(collapseGroupValue) {
+                var matchingIndices = collapseIndicesByGroup[collapseGroupValue];
                 if(!matchingIndices || matchingIndices.length <= 1) return;
                 var firstIndex = matchingIndices[0];
                 tokenStackGroupsByFirstIndex[firstIndex] = matchingIndices.map(function(stackIndex) {
@@ -868,7 +884,7 @@
                   tiledCardArr.push(cardObject);
                 }
               } else {
-                if(useTokenStacks && tokenStackCoveredIndices[i]) {
+                if(useCollapsedStacks && tokenStackCoveredIndices[i]) {
                   if(tokenStackGroupsByFirstIndex[i]) {
                     newHTML += createTokenStackHTML(zone, zoneName, folder, size, tokenStackGroupsByFirstIndex[i], heatmapFunction, heatmapColorMap);
                   }

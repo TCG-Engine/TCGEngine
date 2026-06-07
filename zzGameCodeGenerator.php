@@ -288,6 +288,12 @@ while(!feof($handler)) {
             case "BindTo":
               $zoneObj->BindTo = $propertyArr[1];
               break;
+            case "CollapseBy":
+              $zoneObj->CollapseBy = $propertyArr[1];
+              break;
+            case "CollapseGroupBy":
+              $zoneObj->CollapseGroupBy = $propertyArr[1];
+              break;
           }
         }
         break;
@@ -508,6 +514,8 @@ while(!feof($handler)) {
         $zoneObj->Bottom = -1;
         $zoneObj->Width = -1;
         $zoneObj->BindTo = null;
+        $zoneObj->CollapseBy = null;
+        $zoneObj->CollapseGroupBy = "CardID";
         $zoneObj->Macros = [];
         $zoneObj->Widgets = [];
         $zoneObj->ClickActions = [];
