@@ -4934,9 +4934,11 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $sourceObj->Status = 1;
             RemoveCounters($player, $mzCard, "refinement", 1);
             break;
-        case "nlufjh84vm": // Confidant's Oath: REST + remove 2 refinement counters
+        case "nlufjh84vm": // Confidant's Oath: (2), REST + remove 2 refinement counters
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             RemoveCounters($player, $mzCard, "refinement", 2);
             break;
         case "n1voy5ttkk": // Shatterfall Keep: REST
@@ -13820,6 +13822,11 @@ function CardHasAbility($obj) {
         if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
     }
 
+    // Confidant's Oath (nlufjh84vm): (2), [REST], remove two refinement counters
+    if($obj->CardID === "nlufjh84vm") {
+        if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
+    }
+
     // Mana Limiter (IC3OU6vCnF): requires champion has 6+ enlighten counters
     if($obj->CardID === "IC3OU6vCnF") {
         $champObj = GetPlayerChampion($obj->Controller);
@@ -14729,6 +14736,7 @@ function PreviewActivateReserveCost($player, $obj) {
 
     $reserveCost = CardCost_reserve($obj->CardID);
     if($obj->CardID === "4yqL9xtzVi") $reserveCost = 2;
+    if($obj->CardID === "nlufjh84vm") $reserveCost = 2;
 
     $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
 
