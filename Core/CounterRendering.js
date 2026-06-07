@@ -589,6 +589,9 @@ function CreateCountersHTML(zoneName, cardArr, id) {
         if (imagePath) {
           html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + imageSize + "px; height:" + imageSize + "px; pointer-events:none;'>";
           html += "<img class='counter-image-icon' src='./" + imagePath + "' style='width:" + imageSize + "px; height:" + imageSize + "px; object-fit:contain; filter: drop-shadow(0 0 3px rgba(0,0,0,0.75));'/>";
+          if (params.TextColor) {
+            html += "<div style='position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; text-shadow: 0 0 3px rgba(0,0,0,0.95), 0 0 6px rgba(0,0,0,0.95);'>" + displayValue + "</div>";
+          }
           html += "</div>";
         } else {
           // fallback to badge when no path is provided

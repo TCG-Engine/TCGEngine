@@ -51,7 +51,7 @@ Virtual: OmenCounterCount=GetOmenCounterCount(), BanishSelectionMetadata=BanishS
 Highlight: BanishSelectionMetadata
 Display: Visibility=Public, Mode=Single, BindTo=BanishSlot
 Click: FSM()
-Counters: OmenCounterCount=Badge(Color=Purple,Position=Center,ShowZero=false)
+Counters: OmenCounterCount=Image(Path=Assets/Icons/omen-counter.webp,Position=Center,ShowZero=false,Size=30,TextColor=White)
 Graveyard - CardID:string
 AddReplacement: GraveyardAddReplacement
 BeforeAdd: TokenCeaseBeforeAdd
@@ -177,7 +177,7 @@ Display: Visibility=Public, Mode=All, BindTo=MasterySlot
 Overlay: Direction=NORTH:sc_north,Direction=SOUTH:sc_south,Direction=EAST:sc_east,Direction=WEST:sc_west
 Counters: SheenCounterCount=Badge(Color=Pink,Position=Center,ShowZero=false)
 Counters: HauntCounterCount=Badge(Color=Purple,Position=TopRight,ShowZero=false)
-Counters: ServilePossessionsBanishCount=Badge(Color=Purple,Position=Center,ShowZero=true,ShowNegative=false)
+Counters: ServilePossessionsBanishCount=Image(Path=Assets/Icons/omen-counter.webp,Position=Center,ShowZero=true,ShowNegative=false,Size=26,TextColor=White)
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string
