@@ -6693,14 +6693,24 @@ $customDQHandlers["ForestCakeEnterTrigger"] = function($player, $parts, $lastDec
     $enteredMZ = $parts[1] ?? "";
     if($forestMZ === "" || $enteredMZ === "") return;
 
+    $enteredObj = GetZoneObject($enteredMZ);
+    if($enteredObj === null || $enteredObj->removed || !isset($enteredObj->UniqueID)) return;
+    $enteredUniqueID = intval($enteredObj->UniqueID);
+    if($enteredUniqueID <= 0) return;
+
     $forestObj = GetZoneObject($forestMZ);
     if($forestObj === null || $forestObj->removed || $forestObj->CardID !== "bjx6yo7mm5") return;
     AllyDestroyed($player, $forestMZ);
     DecisionQueueController::CleanupRemovedCards();
 
-    $enteredObj = GetZoneObject($enteredMZ);
-    if($enteredObj === null || $enteredObj->removed) return;
-    AddCounters($player, $enteredMZ, "buff", 1);
+    $field = GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        $fieldObj = $field[$i] ?? null;
+        if($fieldObj === null || $fieldObj->removed || !isset($fieldObj->UniqueID)) continue;
+        if(intval($fieldObj->UniqueID) !== $enteredUniqueID) continue;
+        AddCounters($player, "myField-" . $i, "buff", 1);
+        return;
+    }
 };
 
 // Meadowbloom Dryad (cVRIUJdTW5): choose target ally and put a buff counter

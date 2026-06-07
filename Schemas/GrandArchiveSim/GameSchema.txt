@@ -114,11 +114,11 @@ Overlay: SpellshroudOverlay=1:spellshroud(Image=Assets/Overlays/spellshroud.webp
 Overlay: TauntOverlay=1:taunt(Image=Assets/Overlays/taunt.webp,DrawOrder=12,SettingsKey=DisableKeywordIndicators,SettingsValue=false,SettingsDefault=false)
 Rotation: Status=1:9
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
-Counters: Damage=Badge(Color=red,Position=TopRight,ShowZero=false)
+Counters: Damage=Image(Path=Assets/Icons/damage-counter.webp,Position=TopRight,ShowZero=false,Size=26,TextColor=White)
 Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowNegative=false)
 Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
 Counters: CurrentLevel=Badge(Color=Orange,Position=BottomLeft,ShowZero=false)
-Counters: BuffCounterCount=Badge(Color=Gold,Position=Center,ShowZero=false)
+Counters: BuffCounterCount=Image(Path=Assets/Icons/buff-counter.webp,Position=Center,ShowZero=false,Size=26,TextColor=White)
 Counters: RefinementCounterCount=Badge(Color=Silver,Position=Center,ShowZero=false)
 Counters: EnlightenCounterCount=Badge(Color=Cyan,Position=Center,ShowZero=false)
 Counters: PrepCounterCount=Badge(Color=Silver,Position=Center,ShowZero=false)
