@@ -10144,7 +10144,7 @@ function ObjectCurrentPower($obj) {
         if(PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardSubtypes($obj), "SUITED")) {
             foreach($field as $fieldObj) {
                 if($fieldObj !== null && !$fieldObj->removed && $fieldObj->CardID === "DKoSnhjX18" && !HasNoAbilities($fieldObj)
-                   && $fieldObj !== $obj && in_array("DKoSnhjX18", $fieldObj->TurnEffects)) {
+                   && $fieldObj->GetMzID() !== $obj->GetMzID() && in_array("DKoSnhjX18", $fieldObj->TurnEffects ?? [])) {
                     $power += 1;
                     break;
                 }
@@ -14809,6 +14809,7 @@ for($ucIdx = 0; $ucIdx <= 15; ++$ucIdx) {
 // SPELLSHROUD_NEXT_TURN / STEALTH_NEXT_TURN: "until beginning of your next turn" effects,
 //   consumed by WakeUpPhase of the controller's next turn.
 // NO_UPKEEP: Right of Realm exemption â€” domain permanently skips its upkeep abilities.
+// DKoSnhjX18: Chance, Seven of Spades has permanently gained its Cardistry-granted aura.
 $persistentTurnEffects = [];
 $persistentTurnEffects["SKIP_WAKEUP"] = true;
 $persistentTurnEffects["FROZEN_BY_SNOW_FAIRY"] = true;
@@ -14826,6 +14827,7 @@ $persistentTurnEffects["VIGOR_NEXT_TURN"] = true;
 $persistentTurnEffects["IMMORTALITY_NEXT_TURN"] = true;
 $persistentTurnEffects["FREEZING_ROUND_RETURN"] = true;
 $persistentTurnEffects["FOSTERED"] = true;
+$persistentTurnEffects["DKoSnhjX18"] = true;
 $persistentTurnEffects["DAMAGED_SINCE_LAST_TURN"] = true;
 $persistentTurnEffects["IMBUED"] = true;
 $persistentTurnEffects["VAINGLORY_NEXT_TURN"] = true;
@@ -17673,7 +17675,7 @@ function HasVigor($obj) {
         $field = GetZone($zone);
         foreach($field as $fObj) {
             if(!$fObj->removed && $fObj->CardID === "DKoSnhjX18" && !HasNoAbilities($fObj)
-               && $fObj !== $obj && in_array("DKoSnhjX18", $fObj->TurnEffects)) {
+               && $fObj->GetMzID() !== $obj->GetMzID() && in_array("DKoSnhjX18", $fObj->TurnEffects ?? [])) {
                 return true;
             }
         }
