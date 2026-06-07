@@ -69,7 +69,7 @@ Click: FSM()
 Virtual: SelectionMetadata=SelectionMetadata(), HandCardCostDifference=HandCardCostDifference(), DynamicAbilities=GetDynamicAbilities(), ActivateAbilityButtonStates=GetActivateAbilityButtonStates(), HasAbility=CardHasAbility(), HandActivateAbilityCount=GetHandActivateAbilityCountForObject(), HandActivateAbilityNames=GetHandActivateAbilityNamesForObject()
 Highlight: SelectionMetadata
 Index: CardID
-Counters: HandCardCostDifference=Badge(Color=White,Position=TopLeft,ShowNegative=false)
+Counters: HandCardCostDifference=Image(Path=Assets/Icons/cost-counter.webp,Position=TopLeft,ShowNegative=false,Size=26,TextColor=White)
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Field - CardID:string, Status:number=2, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Counters:json, Subcards:json, UniqueID:number=0
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
@@ -115,8 +115,8 @@ Overlay: TauntOverlay=1:taunt(Image=Assets/Overlays/taunt.webp,DrawOrder=12,Sett
 Rotation: Status=1:9
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Counters: Damage=Image(Path=Assets/Icons/damage-counter.webp,Position=TopRight,ShowZero=false,Size=26,TextColor=White)
-Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowNegative=false)
-Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
+Counters: CurrentPower=Image(Path=Assets/Icons/attack-counter.webp,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White)
+Counters: CurrentHP=Image(Path=Assets/Icons/hp-counter.webp,Position=BottomRight,ShowZero=false,Size=26,TextColor=White)
 Counters: CurrentLevel=Badge(Color=Orange,Position=BottomLeft,ShowZero=false)
 Counters: BuffCounterCount=Image(Path=Assets/Icons/buff-counter.webp,Position=Center,ShowZero=false,Size=26,TextColor=White)
 Counters: RefinementCounterCount=Badge(Color=Silver,Position=Center,ShowZero=false)
@@ -151,7 +151,7 @@ Index: TurnEffects
 Display: Visibility=Public, Mode=All, BindTo=IntentSlot
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Click: FSM()
-Counters: CurrentPower=Badge(Color=Green,Position=BottomLeft,ShowNegative=false)
+Counters: CurrentPower=Image(Path=Assets/Icons/attack-counter.webp,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White)
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Memory - CardID:string
 AddReplacement: MemoryAddReplacement
