@@ -1770,7 +1770,7 @@
                     var existing = slot.querySelector(className);
                     if (existing) return existing;
                     var btn = document.createElement('button');
-                    btn.className = 'ga-field-scroll-btn ga-field-scroll-btn-' + side;
+                    btn.className = 'ga-field-scroll-btn ga-field-scroll-btn-' + side + ' is-hidden is-disabled';
                     btn.setAttribute('type', 'button');
                     btn.setAttribute('aria-label', side === 'left' ? 'Scroll field left' : 'Scroll field right');
                     btn.textContent = side === 'left' ? '\u2039' : '\u203a';
