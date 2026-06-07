@@ -509,9 +509,6 @@
           margin-top: -14px;
           margin-bottom: -14px;
           border-radius: 18px;
-          background:
-               linear-gradient(180deg, rgba(7, 14, 20, 0.08), rgba(7, 14, 20, 0) 24%, rgba(7, 14, 20, 0) 76%, rgba(7, 14, 20, 0.12)),
-               linear-gradient(90deg, rgba(244, 236, 219, 0.03), rgba(244, 236, 219, 0.01) 22%, rgba(244, 236, 219, 0.01) 78%, rgba(244, 236, 219, 0.03));
           scrollbar-width: none;
           -ms-overflow-style: none;
           -webkit-overflow-scrolling: touch;
@@ -529,6 +526,13 @@
           pointer-events: none;
           z-index: 2;
           opacity: 0.92;
+     }
+
+     #myFieldWrapper:not(.ga-can-scroll-left)::before,
+     #theirFieldWrapper:not(.ga-can-scroll-left)::before,
+     #myFieldWrapper:not(.ga-can-scroll-right)::after,
+     #theirFieldWrapper:not(.ga-can-scroll-right)::after {
+          opacity: 0;
      }
 
      #myFieldWrapper::before,
@@ -677,14 +681,10 @@
           border-color: rgba(200, 155, 70, 0.42);
      }
 
-     .ga-field-scroll-btn.is-hidden {
+     .ga-field-scroll-btn.is-hidden,
+     .ga-field-scroll-btn.is-disabled {
           opacity: 0;
           pointer-events: none;
-     }
-
-     .ga-field-scroll-btn.is-disabled {
-          opacity: 0.32;
-          cursor: default;
      }
 
      .ga-field-scroll-btn-left {
@@ -1827,10 +1827,14 @@
                     }
                     var maxScroll = Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
                     var hasOverflow = maxScroll > 6;
+                    var canScrollLeft = hasOverflow && wrapper.scrollLeft > 4;
+                    var canScrollRight = hasOverflow && wrapper.scrollLeft < maxScroll - 4;
                     leftBtn.classList.toggle('is-hidden', !hasOverflow);
                     rightBtn.classList.toggle('is-hidden', !hasOverflow);
-                    leftBtn.classList.toggle('is-disabled', !hasOverflow || wrapper.scrollLeft <= 4);
-                    rightBtn.classList.toggle('is-disabled', !hasOverflow || wrapper.scrollLeft >= maxScroll - 4);
+                    leftBtn.classList.toggle('is-disabled', !canScrollLeft);
+                    rightBtn.classList.toggle('is-disabled', !canScrollRight);
+                    wrapper.classList.toggle('ga-can-scroll-left', canScrollLeft);
+                    wrapper.classList.toggle('ga-can-scroll-right', canScrollRight);
                }
 
                function scrollByAmount(dir) {
