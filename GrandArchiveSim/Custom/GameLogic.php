@@ -4562,6 +4562,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "dPP9I4nVn0": // Merlin, Amethyst's Glow â€” (9), activate once, reduced by sheen counters on your Fractured Memories
+            if(intval($abilityIndex) === 0) {
+                $reserveCost = max(0, 9 - GetSheenCount($player));
+                for($ri = 0; $ri < $reserveCost; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
         case "j9fiu22ltl": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
         case "jk9w4buhwk": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
         case "as8yfa8ptg": // Nameless Champion â€” (6), [REST]: Draw a card and put a level counter on it
@@ -5281,7 +5289,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             }
         }
     }
-    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi"]);
+    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0"]);
     if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
         && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;

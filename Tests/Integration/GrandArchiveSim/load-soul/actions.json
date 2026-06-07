@@ -24,6 +24,14 @@
         "inputText": ""
     },
     {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "PASS",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
@@ -36,54 +44,6 @@
         "mode": 100,
         "buttonInput": "",
         "cardID": "myField-1",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 10001,
-        "buttonInput": "",
-        "cardID": "myField-4!CustomInput!Activate:0",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myField-1",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 10002,
-        "buttonInput": "",
-        "cardID": "myField-2!FSM!",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myField-1",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "theirField-0",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "Top=;Bottom=1n3gygojwk",
         "chkInput": [],
         "inputText": ""
     }
