@@ -668,7 +668,7 @@ function GetPlayableFastAbilities($player) {
     $playerID = $player;
 
     $choices = [];
-    $existingFlash = function_exists("GetFlashMessage") ? GetFlashMessage() : "";
+    $existingFlash = GetFlashMessage();
     $abilityZones = [
         "myField" => GetField($player),
         "myIntent" => GetIntent($player),
@@ -685,15 +685,11 @@ function GetPlayableFastAbilities($player) {
 
             $mzID = $zonePrefix . "-" . $i;
             $staticAbilityCount = CardActivateAbilityCount($obj->CardID);
-            $staticAbilityNames = function_exists("CardActivateAbilityCountNames")
-                ? CardActivateAbilityCountNames($obj->CardID)
-                : [];
+            $staticAbilityNames = CardActivateAbilityCountNames($obj->CardID);
 
             for($abilityIndex = 0; $abilityIndex < $staticAbilityCount; ++$abilityIndex) {
-                $canActivate = function_exists("CanActivateAbility")
-                    ? CanActivateAbility($player, $mzID, $abilityIndex)
-                    : true;
-                if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
+                $canActivate = CanActivateAbility($player, $mzID, $abilityIndex);
+                SetFlashMessage($existingFlash);
                 if(!$canActivate) continue;
 
                 $label = $staticAbilityNames[$abilityIndex] ?? ("Ability_" . ($abilityIndex + 1));
@@ -710,10 +706,8 @@ function GetPlayableFastAbilities($player) {
                 $abilityIndex = intval($dynamicAbility['index'] ?? -1);
                 if($abilityIndex < 0) continue;
 
-                $canActivate = function_exists("CanActivateAbility")
-                    ? CanActivateAbility($player, $mzID, $abilityIndex)
-                    : true;
-                if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
+                $canActivate = CanActivateAbility($player, $mzID, $abilityIndex);
+                SetFlashMessage($existingFlash);
                 if(!$canActivate) continue;
 
                 $label = str_replace(" ", "_", $dynamicAbility['name'] ?? ("Ability_" . ($abilityIndex + 1)));
@@ -722,7 +716,39 @@ function GetPlayableFastAbilities($player) {
         }
     }
 
-    if(function_exists("SetFlashMessage")) SetFlashMessage($existingFlash);
+    SetFlashMessage($existingFlash);
+    $playerID = $savedPlayerID;
+    return $choices;
+}
+
+function GetPlayableFastHandAbilities($player) {
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+
+    $choices = [];
+    $existingFlash = GetFlashMessage();
+    $hand = &GetHand($player);
+    for($i = 0; $i < count($hand); ++$i) {
+        $obj = $hand[$i];
+        if($obj === null || (isset($obj->removed) && $obj->removed)) continue;
+        $mzID = "myHand-" . $i;
+        if(!CanActivateOpportunityCard($player, $mzID, $obj)) continue;
+
+        $staticAbilityCount = CardHandActivatedAbilityCount($obj->CardID);
+        $staticAbilityNames = CardHandActivatedAbilityCountNames($obj->CardID);
+
+        for($abilityIndex = 0; $abilityIndex < $staticAbilityCount; ++$abilityIndex) {
+            $canActivate = CanHandActivateAbility($player, $mzID, $abilityIndex);
+            SetFlashMessage($existingFlash);
+            if(!$canActivate) continue;
+
+            $label = $staticAbilityNames[$abilityIndex] ?? ("Ability_" . ($abilityIndex + 1));
+            $choices[] = EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label);
+        }
+    }
+
+    SetFlashMessage($existingFlash);
     $playerID = $savedPlayerID;
     return $choices;
 }
@@ -731,13 +757,20 @@ function GetPlayableOpportunityChoices($player) {
     $choices = GetPlayableFastCards($player);
     $abilityChoices = GetPlayableFastAbilities($player);
     if(!empty($abilityChoices)) $choices = array_merge($choices, $abilityChoices);
+    $handAbilityChoices = GetPlayableFastHandAbilities($player);
+    if(!empty($handAbilityChoices)) $choices = array_merge($choices, $handAbilityChoices);
     return $choices;
 }
 
 function ResolveOpportunitySelection($player, $selection) {
     $abilityChoice = DecodeOpportunityAbilityChoice($selection);
     if($abilityChoice !== null) {
-        ActivateAbility($player, $abilityChoice['mzID'], $abilityChoice['abilityIndex']);
+        $sourceObj = GetZoneObject($abilityChoice['mzID']);
+        if($sourceObj !== null && isset($sourceObj->Location) && $sourceObj->Location === "Hand") {
+            HandActivatedAbility($player, $abilityChoice['mzID'], $abilityChoice['abilityIndex']);
+        } else {
+            ActivateAbility($player, $abilityChoice['mzID'], $abilityChoice['abilityIndex']);
+        }
         ResumeIdleEffectStackIfNeeded();
         return true;
     }
@@ -768,7 +801,7 @@ function CanActivateOpportunityCard($player, $mzID, $obj) {
     }
 
     // Reuse the shared selection legality gate to avoid diverging checks.
-    if(function_exists("CanActivateCardForSelection") && !CanActivateCardForSelection($player, $obj, true)) {
+    if(!CanActivateCardForSelection($player, $obj, true)) {
         SetFlashMessage($existingFlash);
         return false;
     }
@@ -791,9 +824,7 @@ function CanUseDiaoChanMemoryFastCast($player, $mzID, $obj) {
     if($spellCost > $glimmerCount) return false;
 
     $existingFlash = GetFlashMessage();
-    $canActivate = function_exists("CanActivateCard")
-        ? CanActivateCard($player, $mzID, true)
-        : true;
+    $canActivate = CanActivateCard($player, $mzID, true);
     SetFlashMessage($existingFlash);
     return $canActivate;
 }
@@ -803,7 +834,6 @@ function TryResolveOpportunityActionMapSelection($player, $selection) {
     $isZoneSelection = strpos($selection, "myGraveyard-") === 0
         || strpos($selection, "myBanish-") === 0;
     if(!$isZoneSelection) return false;
-    if(!function_exists("ActionMap")) return false;
 
     global $playerID;
     $savedPlayerID = $playerID;
@@ -817,7 +847,7 @@ function CanUseFastOpportunityGraveyardCard($player, $mzID, $obj) {
     if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
     if(CardSpeed($obj->CardID) !== true) return false;
     if(!CanActivateOpportunityCard($player, $mzID, $obj)) return false;
-    if(function_exists("IsPhantasmagoriaGYSuppressed") && IsPhantasmagoriaGYSuppressed($player, $obj->CardID)) return false;
+    if(IsPhantasmagoriaGYSuppressed($player, $obj->CardID)) return false;
 
     if($obj->CardID === "w7o3agvvnc") {
         return IsClassBonusActive($player, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($player);

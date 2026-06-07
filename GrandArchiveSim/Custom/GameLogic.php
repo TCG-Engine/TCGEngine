@@ -13952,6 +13952,17 @@ function CanActivateCardForSelection($player, $obj, $strict = false) {
         SetFlashMessage($existingFlash);
         return false;
     }
+    $location = isset($obj->Location) ? $obj->Location : "";
+    if($location === "Hand") {
+        $handAbilityCount = CardHandActivatedAbilityCount($obj->CardID);
+        for($abilityIndex = 0; $abilityIndex < $handAbilityCount; ++$abilityIndex) {
+            if(CanHandActivateAbility($player, $mzID, $abilityIndex)) {
+                SetFlashMessage($existingFlash);
+                return true;
+            }
+            SetFlashMessage($existingFlash);
+        }
+    }
     if(!CanPlayerUseCardElement($player, $obj->CardID, $strict, $strict)) {
         SetFlashMessage($existingFlash);
         return false;

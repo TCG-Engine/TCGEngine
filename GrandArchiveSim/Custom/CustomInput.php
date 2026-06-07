@@ -66,9 +66,30 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         ActivateAbility($playerID, $actionCard, $abilityIndex);
         break;
       case "myHand":
-        // Block ability activation while DQs are pending
+        // During Opportunity windows, DQs are expected to be non-empty.
+        // Route hand activate clicks through the same selection resolver as mode=100.
         $dqChk = new DecisionQueueController();
-        if(!$dqChk->AllQueuesEmpty()) break;
+        if(!$dqChk->AllQueuesEmpty()) {
+            if(HasOpportunity($playerID)) {
+                // Parse ability index from action (e.g., "Activate:0", "Activate:1")
+                $abilityIndex = 0;
+                if (strpos($action, ':') !== false) {
+                    $actionParts = explode(':', $action);
+                    $abilityIndex = intval($actionParts[1]);
+                }
+                $prefix = $actionCard . "@Activate-" . $abilityIndex;
+                $choices = GetPlayableOpportunityChoices($playerID);
+                foreach($choices as $choice) {
+                    if(strpos($choice, $prefix) === 0) {
+                        $dqRoute = new DecisionQueueController();
+                        $dqRoute->PopDecision($playerID);
+                        $dqRoute->ExecuteStaticMethods($playerID, $choice);
+                        break 2;
+                    }
+                }
+            }
+            break;
+        }
         // Parse ability index from action (e.g., "Activate:0", "Activate:1")
         $abilityIndex = 0;
         if (strpos($action, ':') !== false) {
