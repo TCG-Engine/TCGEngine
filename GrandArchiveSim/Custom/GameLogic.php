@@ -5687,6 +5687,93 @@ function MoveEffectStackCardToField($player, $mzCard) {
     return $obj;
 }
 
+function FindFieldMzByUniqueID($uniqueID) {
+    $uniqueID = intval($uniqueID);
+    if($uniqueID <= 0) return "";
+    global $playerID;
+    for($player = 1; $player <= 2; ++$player) {
+        $field = GetField($player);
+        for($i = 0; $i < count($field); ++$i) {
+            $obj = $field[$i] ?? null;
+            if($obj === null || $obj->removed || !isset($obj->UniqueID)) continue;
+            if(intval($obj->UniqueID) !== $uniqueID) continue;
+            return (($player == $playerID) ? "myField-" : "theirField-") . $i;
+        }
+    }
+    return "";
+}
+
+function FireEnterTriggeredAbility($player, $cardID, $sourceUniqueID = 0, $copiedCardID = "") {
+    global $enterAbilities;
+
+    $sourceMzID = FindFieldMzByUniqueID($sourceUniqueID);
+    $sourceObj = $sourceMzID !== "" ? GetZoneObject($sourceMzID) : null;
+    if($sourceObj !== null) {
+        DecisionQueueController::CleanupRemovedCards();
+        $sourceMzID = FindFieldMzByUniqueID($sourceUniqueID);
+        $sourceObj = $sourceMzID !== "" ? GetZoneObject($sourceMzID) : null;
+    }
+
+    if($sourceMzID !== "") {
+        DecisionQueueController::StoreVariable("mzID", $sourceMzID);
+    }
+    if($sourceObj !== null && HasNoAbilities($sourceObj)) return;
+
+    $hasBaseEnter = isset($enterAbilities[$cardID . ":0"]);
+    $hasCopiedEnter = ($copiedCardID !== "" && isset($enterAbilities[$copiedCardID . ":0"]));
+    if(!$hasBaseEnter && !$hasCopiedEnter) return;
+
+    if($sourceObj !== null
+        && PropertyContains(EffectiveCardType($sourceObj), "ALLY")
+        && $hasBaseEnter) {
+        $gyreOpponent = ($player == 1) ? 2 : 1;
+        global $playerID;
+        $gyreZone = $gyreOpponent == $playerID ? "myField" : "theirField";
+        $gyreField = GetZone($gyreZone);
+        foreach($gyreField as $gyreObj) {
+            if($gyreObj->removed || $gyreObj->CardID !== "OADTyAUBZt" || HasNoAbilities($gyreObj)) continue;
+            $namedID = is_array($gyreObj->Counters) ? ($gyreObj->Counters['namedCardID'] ?? null) : null;
+            if($namedID === $cardID) {
+                DecisionQueueController::StoreVariable("OADTyAUBZt_namedCardID", $cardID);
+                DecisionQueueController::StoreVariable("OADTyAUBZt_enteringPlayer", strval($player));
+                DecisionQueueController::StoreVariable("OADTyAUBZt_sourceUniqueID", strval(intval($sourceUniqueID)));
+                DecisionQueueController::StoreVariable("OADTyAUBZt_copiedCardID", $copiedCardID);
+                DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Pay_(4)_or_on-enter_trigger_is_negated_(Stifling_Gyre)");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyrePayOrNegate", 1);
+                return;
+            }
+        }
+    }
+
+    if($hasBaseEnter) $enterAbilities[$cardID . ":0"]($player);
+    if($hasCopiedEnter) $enterAbilities[$copiedCardID . ":0"]($player);
+}
+
+function QueueEnterTriggeredAbility($player, $mzID, $copiedCardID = "") {
+    global $enterAbilities;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || HasNoAbilities($obj)) return false;
+    $hasBaseEnter = isset($enterAbilities[$obj->CardID . ":0"]);
+    $hasCopiedEnter = ($copiedCardID !== "" && isset($enterAbilities[$copiedCardID . ":0"]));
+    if(!$hasBaseEnter && !$hasCopiedEnter) return false;
+
+    $stackObj = AddEffectStack(
+        CardID:$obj->CardID,
+        Controller:$player,
+        TriggerType:"ENTER",
+        TriggerSourceUniqueID:intval($obj->UniqueID ?? 0),
+        TriggerCopiedCardID:$copiedCardID
+    );
+    if($stackObj === null) return false;
+
+    if(DecisionQueueController::GetVariable("ResolvingEffectStack") !== "YES") {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+        $dqController = new DecisionQueueController();
+        $dqController->ExecuteStaticMethods($player, "-");
+    }
+    return true;
+}
+
 /**
  * Signal the end of the game. The loser's opponent becomes the winner.
  * Stores GAMEOVER_WINNER in DQ variables so the client can show the
@@ -6146,43 +6233,10 @@ function WakeUpPhase() {
 }
 
 function OnEnter($player, $mzID) {
-    global $enterAbilities;
     $obj = GetZoneObject($mzID);
-    $CardID = $obj->CardID;
-    DecisionQueueController::CleanupRemovedCards();
-    // Re-store mzID after cleanup: CleanupRemovedCards reindexes the field so the
-    // stored index may differ from the card's actual current position.
-    DecisionQueueController::StoreVariable("mzID", $obj->GetMzID());
-    if(HasNoAbilities($obj)) return;
-    // Stifling Gyre (OADTyAUBZt): if opponent has Stifling Gyre on field naming this CardID,
-    // offer the entering player a choice: pay (4) to proceed with on-enter trigger, or it's negated.
-    if(PropertyContains(EffectiveCardType($obj), "ALLY") && isset($enterAbilities[$CardID . ":0"])) {
-        $gyreOpponent = ($player == 1) ? 2 : 1;
-        global $playerID;
-        $gyreZone = $gyreOpponent == $playerID ? "myField" : "theirField";
-        $gyreField = GetZone($gyreZone);
-        foreach($gyreField as $gyreObj) {
-            if($gyreObj->removed || $gyreObj->CardID !== "OADTyAUBZt" || HasNoAbilities($gyreObj)) continue;
-            $namedID = is_array($gyreObj->Counters) ? ($gyreObj->Counters['namedCardID'] ?? null) : null;
-            if($namedID === $CardID) {
-                DecisionQueueController::StoreVariable("OADTyAUBZt_namedCardID", $CardID);
-                DecisionQueueController::StoreVariable("OADTyAUBZt_enteringPlayer", strval($player));
-                DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
-                    tooltip:"Pay_(4)_or_on-enter_trigger_is_negated_(Stifling_Gyre)");
-                DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyrePayOrNegate", 1);
-                return;
-            }
-        }
-    }
-    if(isset($enterAbilities[$CardID . ":0"])) $enterAbilities[$CardID . ":0"]($player);
-
-    // Tome of Sacred Lightning (MyUTeqUJ0H): also execute the copied card's Enter ability.
-    if($CardID === "MyUTeqUJ0H") {
-        $copiedCardID = GetTomeCopiedCardID($obj);
-        if(!empty($copiedCardID) && isset($enterAbilities[$copiedCardID . ":0"])) {
-            $enterAbilities[$copiedCardID . ":0"]($player);
-        }
-    }
+    if($obj === null || $obj->removed) return;
+    $copiedCardID = $obj->CardID === "MyUTeqUJ0H" ? GetTomeCopiedCardID($obj) : "";
+    QueueEnterTriggeredAbility($player, $mzID, $copiedCardID);
 }
 
 function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $Controller="-", $TurnEffects="-", $Counters="-", $Subcards="-") {
@@ -12130,23 +12184,23 @@ $customDQHandlers["ShilowenBulwark"] = function($player, $parts, $lastDecision) 
 };
 
 $customDQHandlers["StiflingGyrePayOrNegate"] = function($player, $parts, $lastDecision) {
-    global $enterAbilities;
     $cardID = DecisionQueueController::GetVariable("OADTyAUBZt_namedCardID");
     $enteringPlayer = intval(DecisionQueueController::GetVariable("OADTyAUBZt_enteringPlayer"));
+    $sourceUniqueID = intval(DecisionQueueController::GetVariable("OADTyAUBZt_sourceUniqueID") ?? "0");
+    $copiedCardID = DecisionQueueController::GetVariable("OADTyAUBZt_copiedCardID") ?? "";
     if($lastDecision !== "YES") return;
     for($i = 0; $i < 4; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
-    DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyreFireEnter|" . $cardID . "|" . $enteringPlayer, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyreFireEnter|" . $cardID . "|" . $enteringPlayer . "|" . $sourceUniqueID . "|" . $copiedCardID, 1);
 };
 
 $customDQHandlers["StiflingGyreFireEnter"] = function($player, $parts, $lastDecision) {
-    global $enterAbilities;
     $cardID = $parts[0] ?? "";
     $enteringPlayer = intval($parts[1] ?? $player);
-    if(isset($enterAbilities[$cardID . ":0"])) {
-        $enterAbilities[$cardID . ":0"]($enteringPlayer);
-    }
+    $sourceUniqueID = intval($parts[2] ?? "0");
+    $copiedCardID = $parts[3] ?? "";
+    FireEnterTriggeredAbility($enteringPlayer, $cardID, $sourceUniqueID, $copiedCardID);
 };
 
 $customDQHandlers["TonorisCreationsWillReplace"] = function($player, $parts, $lastDecision) {

@@ -122,6 +122,20 @@ function QueueEffectStackOpportunityRound($priorityPlayer, $windowId = "STACK_RE
     return false;
 }
 
+function GetEffectStackWindowId($mzID = "") {
+    if($mzID === "") {
+        $effectStack = GetLiveEffectStackEntries();
+        if(empty($effectStack)) return "STACK_RESPONSE";
+        $mzID = "EffectStack-" . (count($effectStack) - 1);
+    }
+
+    $obj = GetZoneObject($mzID);
+    if($obj !== null && ($obj->TriggerType ?? "") === "ENTER") {
+        return "ENTER_RESPONSE";
+    }
+    return "STACK_RESPONSE";
+}
+
 function GetEffectStackActivationTargets($player, $filters = []) {
     $effectStack = GetLiveEffectStackEntries();
     $targets = [];
@@ -1119,7 +1133,7 @@ $customDQHandlers["EffectStackOpportunity"] = function($player, $parts, $lastDec
     $effectStack = GetLiveEffectStackEntries();
     if(empty($effectStack)) return;
 
-    if(!QueueEffectStackOpportunityRound($player, "STACK_RESPONSE")) {
+    if(!QueueEffectStackOpportunityRound($player, GetEffectStackWindowId())) {
         ResolveTopOfEffectStack();
     }
 };
@@ -1133,7 +1147,7 @@ $customDQHandlers["EffectStackActiveResponse"] = function($player, $parts, $last
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         // Active player passed, check opponent
         $fastCards = GetPlayableOpportunityChoices($otherPlayer);
-        if(!QueueShortcutAwareMayChoose($otherPlayer, $fastCards, "EffectStackOpponentResponse", [], "STACK_RESPONSE")) {
+        if(!QueueShortcutAwareMayChoose($otherPlayer, $fastCards, "EffectStackOpponentResponse", [], GetEffectStackWindowId())) {
             // Both passed (opponent has no cards), resolve
             ResolveTopOfEffectStack();
         }
@@ -1174,7 +1188,7 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
     if(!empty($effectStack)) {
         // More cards to resolve — turn player gets priority first (per rules)
         $turnPlayer = GetTurnPlayer();
-        if(!QueueEffectStackOpportunityRound($turnPlayer, "STACK_RESPONSE")) {
+        if(!QueueEffectStackOpportunityRound($turnPlayer, GetEffectStackWindowId())) {
             ResolveTopOfEffectStack();
         }
     } else {
@@ -1233,19 +1247,30 @@ function ResolveTopOfEffectStack() {
     $topMZ = "EffectStack-" . $topIndex;
     $topIsImbued = (is_array($topObj->TurnEffects ?? null) && in_array("IMBUED", $topObj->TurnEffects))
         || GetEffectStackImbued($topMZ);
+    $triggerType = $topObj->TriggerType ?? "";
 
     // Swap $playerID to the card owner for correct my/their resolution
     global $playerID;
     $savedPlayerID = $playerID;
     $playerID = $cardOwner;
     DecisionQueueController::StoreVariable("isImbued", $topIsImbued ? "YES" : "NO");
+    DecisionQueueController::StoreVariable("ResolvingEffectStack", "YES");
 
-    // Call the generated CardActivated() wrapper, which:
-    //  - Stores mzID variable for ability code
-    //  - Tracks MacroTurnIndex
-    //  - Calls OnCardActivated (moves card, fires abilities)
-    //  - Calls ExecuteStaticMethods to process any ability decisions
-    CardActivated($cardOwner, $topMZ);
+    if($triggerType === "ENTER") {
+        $cardID = $topObj->CardID ?? "";
+        $sourceUniqueID = intval($topObj->TriggerSourceUniqueID ?? 0);
+        $copiedCardID = $topObj->TriggerCopiedCardID ?? "";
+        FireEnterTriggeredAbility($cardOwner, $cardID, $sourceUniqueID, $copiedCardID);
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else {
+        // Call the generated CardActivated() wrapper, which:
+        //  - Stores mzID variable for ability code
+        //  - Tracks MacroTurnIndex
+        //  - Calls OnCardActivated (moves card, fires abilities)
+        //  - Calls ExecuteStaticMethods to process any ability decisions
+        CardActivated($cardOwner, $topMZ);
+    }
     ReconcileEffectStackSourceZones();
 
     // Queue PostResolutionCheck to run after all ability interactions (block 200)
@@ -1256,6 +1281,7 @@ function ResolveTopOfEffectStack() {
     $dqController->ExecuteStaticMethods($cardOwner, "-");
 
     // Restore $playerID
+    DecisionQueueController::ClearVariable("ResolvingEffectStack");
     $playerID = $savedPlayerID;
 }
 

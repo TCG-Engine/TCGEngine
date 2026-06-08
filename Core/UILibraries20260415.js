@@ -1187,6 +1187,14 @@
           if (console && console.error) console.error('Combat target indicator render error', e);
         }
 
+        try {
+          if (zoneName === "EffectStack" && sharedCardData.TriggerType === "ENTER") {
+            newHTML += "<div style='position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:1002; padding:4px 8px; border-radius:999px; background:rgba(16, 24, 34, 0.88); border:1px solid rgba(244, 236, 219, 0.28); color:rgba(252, 238, 171, 0.98); font:700 10px/1.1 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 8px 18px rgba(7, 14, 20, 0.35); white-space:nowrap;'>On Enter</div>";
+          }
+        } catch (e) {
+          if (console && console.error) console.error('Effect stack trigger badge render error', e);
+        }
+
         // Render subcards (lineage) as offset images behind the card
         try {
           var cardDataSub = sharedCardData;

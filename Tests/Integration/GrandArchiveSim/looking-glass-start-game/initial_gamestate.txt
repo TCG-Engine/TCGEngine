@@ -1,5 +1,5 @@
 1
-1
+2
 60
 kvoqk1l75t
 moi0a5uhjx
@@ -174,11 +174,14 @@ CUSTOM PREGAME_CHOOSE_STARTING_CHAMPION|2 1  0
 0
 0
 0
+{"version":1,"windows":{"REC_START":false,"END_START":false,"STACK_RESPONSE":false,"ENTER_RESPONSE":true,"ABILITY_RESPONSE":false,"COMBAT_DAMAGE":false,"COMBAT_RETALIATION":false}}
+-
 1
 1
 1
 WU
 -
+
 0
 0
 0
