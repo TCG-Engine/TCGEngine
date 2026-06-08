@@ -181,6 +181,77 @@ function IsDreamFairyLockedCardID($player, $cardID) {
     return false;
 }
 
+function NormalizeNamedCardString($name) {
+    $name = trim(strval($name));
+    if($name === "") return "";
+    $name = preg_replace('/\s+/', ' ', $name);
+    return strtolower($name);
+}
+
+function BuildNamedCardTurnEffect($prefix, $cardName) {
+    return $prefix . rawurlencode(trim(strval($cardName)));
+}
+
+function ExtractNamedCardTurnEffectName($effect, $prefix) {
+    if(strpos($effect, $prefix) !== 0) return null;
+    return rawurldecode(substr($effect, strlen($prefix)));
+}
+
+function DoesNamedCardEffectMatchCardID($effect, $prefix, $cardID) {
+    $namedCard = ExtractNamedCardTurnEffectName($effect, $prefix);
+    if($namedCard === null) return false;
+    return NormalizeNamedCardString($namedCard) === NormalizeNamedCardString(CardName($cardID));
+}
+
+function ApplyNiaMistveiledScoutNamedCardSurcharge($currentCost, $cardID) {
+    foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $niaObj) {
+        if($niaObj === null || $niaObj->removed || $niaObj->CardID !== "PZM9uvCFai") continue;
+        foreach($niaObj->TurnEffects as $niaTe) {
+            if(strpos($niaTe, "PZM9uvCFai-NAME-") === 0
+                && DoesNamedCardEffectMatchCardID($niaTe, "PZM9uvCFai-NAME-", $cardID)) {
+                return $currentCost + 1;
+            }
+            if(strpos($niaTe, "PZM9uvCFai-") === 0
+                && strpos($niaTe, "PZM9uvCFai-NAME-") !== 0
+                && $cardID === substr($niaTe, strlen("PZM9uvCFai-"))) {
+                return $currentCost + 1;
+            }
+        }
+    }
+    return $currentCost;
+}
+
+function NiaMistveiledScoutEnter($player, $mzID) {
+    $oppMemory = ZoneSearch("theirMemory");
+    $tempChoices = !empty($oppMemory) ? StageHiddenMZChoicesToTemp($player, $oppMemory, "niaMistveiledScoutTempMap") : [];
+    $previewParam = empty($tempChoices) ? "-" : "Opponent's_memory||" . implode("&", $tempChoices);
+    DecisionQueueController::StoreVariable("niaMistveiledScoutSource", $mzID);
+    DecisionQueueController::AddDecision(
+        $player,
+        "NAMECARD",
+        $previewParam,
+        1,
+        tooltip:"Choose_any_card_name"
+    );
+    DecisionQueueController::AddDecision($player, "CUSTOM", "NiaMistveiledScoutName", 1);
+}
+
+$customDQHandlers["NiaMistveiledScoutName"] = function($player, $parts, $lastDecision) {
+    $mzID = strval(DecisionQueueController::GetVariable("niaMistveiledScoutSource") ?? "");
+    ClearMyTempZoneCards($player);
+    DecisionQueueController::StoreVariable("niaMistveiledScoutTempMap", "");
+    DecisionQueueController::StoreVariable("niaMistveiledScoutSource", "");
+    $chosenName = trim(strval($lastDecision));
+    if($mzID === "" || $chosenName === "" || $chosenName === "-" || $chosenName === "PASS") return;
+    $niaObj = &GetZoneObject($mzID);
+    if($niaObj === null || $niaObj->removed) return;
+    $niaObj->TurnEffects = array_values(array_filter(
+        $niaObj->TurnEffects ?? [],
+        fn($effect) => strpos($effect, "PZM9uvCFai-NAME-") !== 0
+    ));
+    AddTurnEffect($mzID, BuildNamedCardTurnEffect("PZM9uvCFai-NAME-", $chosenName));
+};
+
 function FacetTheForgottenEnter($player, $facetMZ) {
     $memory = ZoneSearch("theirMemory");
     if(empty($memory)) return;
@@ -18681,6 +18752,7 @@ function CardMemoryCost($obj) {
         if(!empty($effectObj->removed)) continue;
         $cost += EvaluateMemoryCostModifier($effectObj->CardID, $turnPlayer, $obj, $cost, $effectObj);
     }
+    $cost = ApplyNiaMistveiledScoutNamedCardSurcharge($cost, $obj->CardID);
     return max(0, $cost);
 }
 
@@ -21226,16 +21298,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     }
 
     // Nia, Mistveiled Scout (PZM9uvCFai): named card costs 1 more
-    foreach(array_merge(GetZone("myField"), GetZone("theirField")) as $niaObj) {
-        if($niaObj === null || $niaObj->removed || $niaObj->CardID !== "PZM9uvCFai") continue;
-        foreach($niaObj->TurnEffects as $niaTe) {
-            if(strpos($niaTe, "PZM9uvCFai-") === 0
-                && $cardID === substr($niaTe, strlen("PZM9uvCFai-"))) {
-                $reserveCost += 1;
-                break 2;
-            }
-        }
-    }
+    $reserveCost = ApplyNiaMistveiledScoutNamedCardSurcharge($reserveCost, $cardID);
 
     // Dawn of Ashes (4coy34bro8): non-norm element cards cost 1 more
     if(CardElement($cardID) !== "NORM") {

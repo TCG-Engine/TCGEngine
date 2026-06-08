@@ -3431,6 +3431,17 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         console.error('NumberChooseUI.js not loaded - ShowNumberChooseUI function not found');
       }
       break;
+    } else if (entry && entry.Type === 'NAMECARD' && !entry.removed) {
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a card name';
+
+      if (typeof ShowNameCardUI === 'function') {
+        ShowNameCardUI(entry.Param, tooltip, i, function(selectedName, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedName));
+        });
+      } else {
+        console.error('NameCardUI.js not loaded - ShowNameCardUI function not found');
+      }
+      break;
     } else if (entry && entry.Type === 'ICONCHOICE' && !entry.removed) {
       // ICONCHOICE: Compass-rose directional choice (Shifting Currents)
       // Param format: "OPT1&OPT2|CURRENT|CARDID"
@@ -3528,6 +3539,9 @@ function ClearSelectionMode() {
   // Also hide the NumberChoose UI if it exists
   if (typeof HideNumberChooseUI === 'function') {
     HideNumberChooseUI();
+  }
+  if (typeof HideNameCardUI === 'function') {
+    HideNameCardUI();
   }
   // Also hide YES/NO and icon choice modals if they exist
   let yesNoModal = document.getElementById('yesno-decision-modal');
@@ -4471,6 +4485,7 @@ function _describeDecisionType(type) {
     case 'MZMULTICHOOSE': return 'choose multiple cards';
     case 'MZSPLITASSIGN': return 'assign values';
     case 'NUMBERCHOOSE': return 'choose a number';
+    case 'NAMECARD': return 'name a card';
     case 'ICONCHOICE': return 'choose a direction';
     default: return 'take an action';
   }

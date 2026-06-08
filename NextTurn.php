@@ -10,6 +10,7 @@
     <script src="./Core/MZModalUI.js"></script>
     <script src="./Core/IconChoiceUI.js"></script>
     <script src="./Core/NumberChooseUI.js"></script>
+    <script src="./Core/NameCardUI.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
 
     <style>
