@@ -70,6 +70,7 @@ include_once 'Header.php';
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="joinQueue()">Join Queue</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
+        <button onclick="startGoldfishGame()" style="background-color: #9f7a2f;">Start Goldfish</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
       </div>
       <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
@@ -517,6 +518,12 @@ include_once 'Header.php';
         });
       }
 
+      function startGoldfishGame() {
+        submitQueueJoin({
+          createGoldfish: true
+        });
+      }
+
       function joinPrivateInvite() {
         if (!_privateInviteCode) {
           showQueueInlineError('No private invite code found in this link.');
@@ -583,6 +590,9 @@ include_once 'Header.php';
         params += "&rootName=" + encodeURIComponent(rootName);
         if (options.createPrivate) {
           params += '&createPrivate=1';
+        }
+        if (options.createGoldfish) {
+          params += '&createGoldfish=1';
         }
         if (options.privateInviteCode) {
           params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);

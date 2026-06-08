@@ -25,6 +25,7 @@
   $deckLink = isset($_POST['deckLink']) ? $_POST['deckLink'] : '';
   $preconstructedDeck = isset($_POST['preconstructedDeck']) ? $_POST['preconstructedDeck'] : '';
   $createPrivate = isset($_POST['createPrivate']) && ($_POST['createPrivate'] === '1' || strtolower($_POST['createPrivate']) === 'true');
+  $createGoldfish = isset($_POST['createGoldfish']) && ($_POST['createGoldfish'] === '1' || strtolower($_POST['createGoldfish']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';
 
   // Require either deckLink or preconstructedDeck
@@ -47,6 +48,35 @@
 
   $response->success = false;
   $response->message = "Failed to join queue.";
+
+  if ($createGoldfish) {
+    $hostPlayer = new Player(1, $deckLink, $preconstructedDeck);
+    $goldfishPlayer = new Player(2, '', '');
+
+    $lobby = new stdClass();
+    $lobby->numPlayers = 2;
+    $lobby->maxPlayers = 2;
+    $lobby->ready = true;
+    $lobby->id = uniqid('goldfish_', true);
+    $lobby->rootName = $rootName;
+    $lobby->isPrivate = true;
+    $lobby->isGoldfish = true;
+    $lobby->goldfishPlayers = [2];
+    $lobby->players = [$hostPlayer, $goldfishPlayer];
+
+    include '../../' . $rootName . '/CreateGame.php';
+
+    $response->success = true;
+    $response->message = "Successfully created goldfish game.";
+    $response->ready = true;
+    $response->playerID = 1;
+    $response->authKey = $hostPlayer->getAuthKey();
+    $response->gameName = $lobby->gameName ?? '';
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
+  }
 
   // First check if there's already someone in the queue
   $cacheInfo = apcu_cache_info();

@@ -12,6 +12,236 @@ include_once __DIR__ . '/MaterializeLogic.php';
 include_once __DIR__ . '/PotionLogic.php';
 include_once __DIR__ . '/CardDQHandlers.php';
 
+function NormalizeGoldfishPlayers($players) {
+    $normalized = [];
+    if(!is_array($players)) return $normalized;
+    foreach($players as $player) {
+        $playerNum = intval($player);
+        if($playerNum <= 0) continue;
+        if(in_array($playerNum, $normalized, true)) continue;
+        $normalized[] = $playerNum;
+    }
+    sort($normalized);
+    return $normalized;
+}
+
+function SetGoldfishPlayers($players) {
+    DecisionQueueController::StoreVariable("GoldfishPlayers", NormalizeGoldfishPlayers($players));
+}
+
+function GetGoldfishPlayers() {
+    return NormalizeGoldfishPlayers(DecisionQueueController::GetVariable("GoldfishPlayers"));
+}
+
+function IsGoldfishPlayer($player) {
+    return in_array(intval($player), GetGoldfishPlayers(), true);
+}
+
+function GoldfishDecisionQueueSignature($player) {
+    $queue = GetDecisionQueue($player);
+    $parts = [GetCurrentPhase(), strval(count($queue))];
+    foreach($queue as $decision) {
+        if($decision === null) {
+            $parts[] = "null";
+            continue;
+        }
+        $parts[] = implode("~", [
+            strval($decision->Type ?? ""),
+            strval($decision->Param ?? ""),
+            strval($decision->Tooltip ?? ""),
+            strval($decision->Block ?? ""),
+            strval($decision->DontSkipOnPass ?? "")
+        ]);
+    }
+    return implode("|", $parts);
+}
+
+function GoldfishCollectChoicesFromSpecs($choiceSpecs, $limit = 1) {
+    $choiceSpecs = trim(strval($choiceSpecs));
+    $limit = max(1, intval($limit));
+    if($choiceSpecs === "" || $choiceSpecs === "-") return [];
+
+    $choices = [];
+    $specs = explode("&", $choiceSpecs);
+    foreach($specs as $spec) {
+        if(count($choices) >= $limit) break;
+        $spec = trim(strval($spec));
+        if($spec === "") continue;
+        $zoneSpecParts = explode(":", $spec, 2);
+        $zoneOrCard = trim($zoneSpecParts[0]);
+        if($zoneOrCard === "") continue;
+        if(preg_match('/^(.+)-(\d+)$/', $zoneOrCard, $matches)) {
+            $zoneName = $matches[1];
+            $zoneIndex = intval($matches[2]);
+            $zone = GetZone($zoneName);
+            if(!is_array($zone) || $zoneIndex < 0 || $zoneIndex >= count($zone)) continue;
+            $obj = $zone[$zoneIndex] ?? null;
+            if($obj === null || (is_object($obj) && $obj->Removed())) continue;
+            $choices[] = $zoneOrCard;
+            continue;
+        }
+
+        $zone = GetZone($zoneOrCard);
+        if(!is_array($zone)) continue;
+        for($i = 0; $i < count($zone) && count($choices) < $limit; ++$i) {
+            $obj = $zone[$i] ?? null;
+            if($obj === null || (is_object($obj) && $obj->Removed())) continue;
+            $choices[] = $zoneOrCard . "-" . $i;
+        }
+    }
+    return $choices;
+}
+
+function GoldfishChooseCardName($player, $param) {
+    $previewChoices = "";
+    $param = strval($param);
+    if(strpos($param, "||") !== false) {
+        $parts = explode("||", $param, 2);
+        $previewChoices = $parts[1] ?? "";
+    } else {
+        $previewChoices = $param;
+    }
+
+    $previewPick = GoldfishCollectChoicesFromSpecs($previewChoices, 1);
+    if(!empty($previewPick)) {
+        $obj = GetZoneObject($previewPick[0]);
+        if($obj !== null && !$obj->removed) return CardName($obj->CardID);
+    }
+
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+    $fallbackZones = ["myDeck", "myHand", "myMemory", "myMaterial", "myGraveyard", "myField"];
+    foreach($fallbackZones as $zoneName) {
+        $zone = GetZone($zoneName);
+        if(!is_array($zone)) continue;
+        foreach($zone as $obj) {
+            if($obj === null || $obj->removed) continue;
+            $playerID = $savedPlayerID;
+            return CardName($obj->CardID);
+        }
+    }
+    $playerID = $savedPlayerID;
+    return "Fireball";
+}
+
+function GoldfishResolveDecisionInput($player, $decision) {
+    if($decision === null) return null;
+
+    switch($decision->Type) {
+        case "YESNO":
+            return "NO";
+        case "MZMAYCHOOSE":
+            return "PASS";
+        case "MZCHOOSE":
+            $choices = GoldfishCollectChoicesFromSpecs($decision->Param, 1);
+            return empty($choices) ? "PASS" : $choices[0];
+        case "MZMULTICHOOSE":
+            $paramParts = explode("|", strval($decision->Param), 3);
+            $min = intval($paramParts[0] ?? 0);
+            $choiceSpecs = $paramParts[2] ?? "";
+            if($min <= 0) return "-";
+            $choices = GoldfishCollectChoicesFromSpecs($choiceSpecs, $min);
+            if(count($choices) < $min) return "-";
+            return implode("&", $choices);
+        case "NUMBERCHOOSE":
+            if(preg_match('/^\s*(-?\d+)\s*[\-|]\s*(-?\d+)\s*$/', strval($decision->Param), $matches)) {
+                return strval(intval($matches[1]));
+            }
+            $numbers = [];
+            preg_match_all('/-?\d+/', strval($decision->Param), $numbers);
+            if(!empty($numbers[0])) return strval(intval($numbers[0][0]));
+            return "0";
+        case "MZSPLITASSIGN":
+            $paramParts = explode("|", strval($decision->Param), 3);
+            $amount = intval($paramParts[0] ?? 0);
+            $targets = GoldfishCollectChoicesFromSpecs($paramParts[1] ?? "", 1);
+            if($amount <= 0 || empty($targets)) return "-";
+            return $targets[0] . ":" . $amount;
+        case "MZREARRANGE":
+            return strval($decision->Param);
+        case "NAMECARD":
+            return GoldfishChooseCardName($player, $decision->Param);
+        case "CHOOSEZONE":
+            $zones = explode("&", strval($decision->Param));
+            return trim(strval($zones[0] ?? "-"));
+        case "ICONCHOICE":
+            $parts = explode("|", strval($decision->Param), 2);
+            $options = explode("&", strval($parts[0] ?? ""));
+            return trim(strval($options[0] ?? "-"));
+        default:
+            return null;
+    }
+}
+
+function AutoResolveGoldfishPlayerDecisions($player) {
+    if(!IsGoldfishPlayer($player)) return false;
+
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = intval($player);
+
+    $beforeSignature = GoldfishDecisionQueueSignature($player);
+    $dqController = new DecisionQueueController();
+    $dqController->ExecuteStaticMethods($player, "-");
+    $decision = $dqController->NextDecision($player);
+    if($decision !== null) {
+        $input = GoldfishResolveDecisionInput($player, $decision);
+        if($input !== null) {
+            $dqController->PopDecision($player);
+            $dqController->ExecuteStaticMethods($player, $input);
+        }
+    }
+    $afterSignature = GoldfishDecisionQueueSignature($player);
+    $playerID = $savedPlayerID;
+    return $afterSignature !== $beforeSignature;
+}
+
+function AdvanceGoldfishTurnIfIdle() {
+    $turnPlayer = intval(GetTurnPlayer());
+    if(!IsGoldfishPlayer($turnPlayer)) return false;
+
+    $dqController = new DecisionQueueController();
+    if(!$dqController->AllQueuesEmpty()) return false;
+
+    $effectStack = GetEffectStack();
+    if(is_array($effectStack) && !empty($effectStack)) return false;
+
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $turnPlayer;
+
+    if(GetCurrentPhase() === "MAIN") {
+        AdvanceAndExecute("PASS");
+        AutoAdvanceAndExecute();
+        $playerID = $savedPlayerID;
+        return true;
+    }
+
+    $changed = AutoAdvanceAndExecute();
+    $playerID = $savedPlayerID;
+    return $changed;
+}
+
+function ProcessGoldfishAutomation($maxCycles = 64) {
+    $madeProgress = false;
+    for($i = 0; $i < $maxCycles; ++$i) {
+        $cycleProgress = false;
+        foreach(GetGoldfishPlayers() as $goldfishPlayer) {
+            if(AutoResolveGoldfishPlayerDecisions($goldfishPlayer)) {
+                $cycleProgress = true;
+                $madeProgress = true;
+            }
+        }
+        if(AdvanceGoldfishTurnIfIdle()) {
+            $cycleProgress = true;
+            $madeProgress = true;
+        }
+        if(!$cycleProgress) break;
+    }
+    return $madeProgress;
+}
+
 // --- Additional Activation Costs Registry ---
 // Cards that offer an optional extra reserve cost at activation time (Grand Archive rule 1.3).
 // Each entry maps a cardID to:
@@ -527,6 +757,13 @@ function GetStartingChampionChoices($player) {
 function QueuePregameStartingChampionChoice($player, $nextPlayer = null) {
     $choices = GetStartingChampionChoices($player);
     if(empty($choices)) return false;
+    if(IsGoldfishPlayer($player)) {
+        DecisionQueueController::AddDecision($player, "PASSPARAMETER", $choices[0], 1);
+        $handlerParam = "PREGAME_CHOOSE_STARTING_CHAMPION";
+        if($nextPlayer !== null) $handlerParam .= "|" . $nextPlayer;
+        DecisionQueueController::AddDecision($player, "CUSTOM", $handlerParam, 1);
+        return true;
+    }
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, "Reveal_your_starting_Lv_0_champion");
     $handlerParam = "PREGAME_CHOOSE_STARTING_CHAMPION";
     if($nextPlayer !== null) $handlerParam .= "|" . $nextPlayer;
@@ -11398,6 +11635,9 @@ function ObjectCurrentHP($obj) {
         $cardLife = 0;
     } elseif($cardLife === null || $cardLife < 0) {
         return 0; // No life stat â€” buff counters do not generate one
+    }
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && IsGoldfishPlayer(intval($obj->Controller ?? 0))) {
+        $cardLife = max(1000, intval($cardLife));
     }
     // Buff counter modifier: +1 life per buff counter (applied before other modifiers)
     $cardLife += GetCounterCount($obj, "buff");

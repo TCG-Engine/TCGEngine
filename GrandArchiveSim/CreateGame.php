@@ -17,16 +17,47 @@ include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 
 $ttl = 600;
 
+function LoadDefaultGoldfishLoadout($playerID) {
+    $gameDeck = &GetDeck($playerID);
+    $material = &GetMaterial($playerID);
+
+    $deck = ["5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai","5n874ubgai"];
+    for($i = 0; $i < count($deck); ++$i) {
+        array_push($gameDeck, new Deck($deck[$i]));
+    }
+    EngineShuffle($gameDeck, true);
+
+    $materialDeck = ["LMyKyVC2O9","j6dkdoxyqt","59ipqa91r2","enxi6tshtu","2gv7DC0KID"];
+    for($i = 0; $i < count($materialDeck); ++$i) {
+        array_push($material, new Material($materialDeck[$i]));
+    }
+}
+
 // ASSUMES: $lobby
 $gameName = GetGameCounter(__DIR__ . '/Games');
 InitializeGamestate();
 WriteGamestate(__DIR__ . "/");
 ParseGamestate(__DIR__ . "/");
 
+$goldfishPlayers = [];
+if(isset($lobby->goldfishPlayers) && is_array($lobby->goldfishPlayers)) {
+    foreach($lobby->goldfishPlayers as $goldfishPlayer) {
+        $playerNum = intval($goldfishPlayer);
+        if($playerNum > 0) $goldfishPlayers[] = $playerNum;
+    }
+}
+if(function_exists('SetGoldfishPlayers')) {
+    SetGoldfishPlayers($goldfishPlayers);
+}
+
 $playerCounter = 1;
 foreach ($lobby->players as $player) {
     $player->setGamePlayerID($playerCounter);
-    LoadPlayer($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck());
+    if(in_array($playerCounter, $goldfishPlayers, true)) {
+        LoadDefaultGoldfishLoadout($playerCounter);
+    } else {
+        LoadPlayer($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck());
+    }
     ++$playerCounter;
 }
 

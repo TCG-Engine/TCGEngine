@@ -442,6 +442,10 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       break;
   }
 
+  if ($result['success'] && $result['writeGamestate'] && function_exists('ProcessGoldfishAutomation')) {
+    ProcessGoldfishAutomation();
+  }
+
   if ($result['writeGamestate']) {
     ++$updateNumber;
     WriteGamestate('./' . $folderPath . '/');
