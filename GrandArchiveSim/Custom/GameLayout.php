@@ -312,9 +312,7 @@
      #myBanishWrapper,
      #theirBanishWrapper,
      #myGraveyardWrapper,
-     #theirGraveyardWrapper,
-     #myMemoryWrapper,
-     #theirMemoryWrapper {
+     #theirGraveyardWrapper {
           overflow: hidden !important;
           scrollbar-width: none;
           -ms-overflow-style: none;
@@ -325,9 +323,7 @@
      #myBanishWrapper::-webkit-scrollbar,
      #theirBanishWrapper::-webkit-scrollbar,
      #myGraveyardWrapper::-webkit-scrollbar,
-     #theirGraveyardWrapper::-webkit-scrollbar,
-     #myMemoryWrapper::-webkit-scrollbar,
-     #theirMemoryWrapper::-webkit-scrollbar {
+     #theirGraveyardWrapper::-webkit-scrollbar {
           display: none;
      }
 
@@ -565,12 +561,25 @@
           flex: 0 0 auto;
      }
 
-     /* Material/Mastery need visible overflow so card edges/counters aren't clipped. */
+     /* Left-side resource piles share one display model: visible overflow and
+        left-aligned contents so memory/material/mastery stay visually consistent. */
+     #myMemoryWrapper,
+     #theirMemoryWrapper,
      #myMaterialWrapper,
      #theirMaterialWrapper,
      #myMasteryWrapper,
      #theirMasteryWrapper {
           overflow: visible !important;
+     }
+
+     /* Keep the left-side resource stack visually aligned with memory. */
+     #myMemory,
+     #theirMemory,
+     #myMaterial,
+     #theirMaterial,
+     #myMastery,
+     #theirMastery {
+          justify-content: flex-start !important;
      }
 
      .ga-intent {
@@ -937,7 +946,9 @@
           #myMemorySlot,
           #theirMemorySlot,
           #myMaterialSlot,
-          #theirMaterialSlot {
+          #theirMaterialSlot,
+          #myMasterySlot,
+          #theirMasterySlot {
                left: 10px;
                right: auto;
           }
@@ -1190,7 +1201,9 @@
           #myMemorySlot,
           #theirMemorySlot,
           #myMaterialSlot,
-          #theirMaterialSlot {
+          #theirMaterialSlot,
+          #myMasterySlot,
+          #theirMasterySlot {
                left: 4px;
           }
 
