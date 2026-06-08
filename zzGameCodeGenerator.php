@@ -563,6 +563,19 @@ $mzGetZone .= "  global \$playerID;\r\n";
 $mzGetZone .= "  \$mzArr = explode(\"-\",\$mzID);\r\n";
 $mzGetZone .= "  switch(\$mzArr[0]) {\r\n";
 fwrite($handler, "<?php\r\n");
+$moduleDataMap = [];
+for($i=0; $i<count($modules); ++$i) {
+  $moduleDataMap[$modules[$i]->Name] = $modules[$i]->Parameters;
+}
+fwrite($handler, "\$generatedModuleData = " . var_export($moduleDataMap, true) . ";\r\n");
+fwrite($handler, "function GetModuleConfig(\$name) {\r\n");
+fwrite($handler, "  global \$generatedModuleData;\r\n");
+fwrite($handler, "  return isset(\$generatedModuleData[\$name]) ? \$generatedModuleData[\$name] : null;\r\n");
+fwrite($handler, "}\r\n\r\n");
+fwrite($handler, "function GetAllModuleConfigs() {\r\n");
+fwrite($handler, "  global \$generatedModuleData;\r\n");
+fwrite($handler, "  return \$generatedModuleData;\r\n");
+fwrite($handler, "}\r\n\r\n");
 for($i=0; $i<count($zones); ++$i) {
   $zone = $zones[$i];
   $zoneName = $zone->Name;
@@ -840,21 +853,21 @@ for($i=0; $i<count($zones); ++$i) {
   $zone = $zones[$i];
   $zoneName = $zone->Name;
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
-  if (strtolower($scope) == 'global') {
-    if ($zone->DisplayMode == 'Value') {
-      fwrite($handler, "    case \"" . $zoneName . "\": \$g" . $zoneName . " = 0; break;\r\n");
+    if (strtolower($scope) == 'global') {
+      if ($zone->DisplayMode == 'Value') {
+        fwrite($handler, "    case \"" . $zoneName . "\": \$g" . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . "; break;\r\n");
+      } else {
+        fwrite($handler, "    case \"" . $zoneName . "\": \$zone = &Get" . $zoneName . "(); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+      }
     } else {
-      fwrite($handler, "    case \"" . $zoneName . "\": \$zone = &Get" . $zoneName . "(); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
-    }
-  } else {
-    if ($zone->DisplayMode == 'Value') {
-      // Emit code like: case "myZone": ${'p' . $player . 'Zone'} = 0; break;
-      fwrite($handler, "    case \"my" . $zoneName . "\": \${'p' . \$player . '" . $zoneName . "'} = 0; break;\r\n");
-      // Emit code like: case "theirZone": ${'p' . ($player == 1 ? 2 : 1) . 'Zone'} = 0; break;
-      fwrite($handler, "    case \"their" . $zoneName . "\": \${'p' . (\$player == 1 ? 2 : 1) . '" . $zoneName . "'} = 0; break;\r\n");
-    } else {
-      fwrite($handler, "    case \"my" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
-      fwrite($handler, "    case \"their" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player == 1 ? 2 : 1); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+      if ($zone->DisplayMode == 'Value') {
+      // Emit code like: case "myZone": ${'p' . $player . 'Zone'} = <default>; break;
+      fwrite($handler, "    case \"my" . $zoneName . "\": \${'p' . \$player . '" . $zoneName . "'} = " . GetValueZoneDefaultLiteral($zone) . "; break;\r\n");
+      // Emit code like: case "theirZone": ${'p' . ($player == 1 ? 2 : 1) . 'Zone'} = <default>; break;
+      fwrite($handler, "    case \"their" . $zoneName . "\": \${'p' . (\$player == 1 ? 2 : 1) . '" . $zoneName . "'} = " . GetValueZoneDefaultLiteral($zone) . "; break;\r\n");
+      } else {
+        fwrite($handler, "    case \"my" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
+        fwrite($handler, "    case \"their" . $zoneName . "\": \$zone = &Get" . $zoneName . "(\$player == 1 ? 2 : 1); for(\$i=0; \$i<count(\$zone); ++\$i) \$zone[\$i]->Remove(); break;\r\n");
     }
   }
 }
@@ -1523,14 +1536,14 @@ for($i=0; $i<count($zones); ++$i) {
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
   if (strtolower($scope) == 'global') {
     if ($zone->DisplayMode == 'Value') {
-      fwrite($handler, "  \$g" . $zoneName . " = 0;\r\n");
+      fwrite($handler, "  \$g" . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . ";\r\n");
     } else {
       fwrite($handler, "  \$g" . $zoneName . " = [];\r\n");
     }
   } else {
     if ($zone->DisplayMode == 'Value') {
-      fwrite($handler, "  \$p1" . $zoneName . " = 0;\r\n");
-      fwrite($handler, "  \$p2" . $zoneName . " = 0;\r\n");
+      fwrite($handler, "  \$p1" . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . ";\r\n");
+      fwrite($handler, "  \$p2" . $zoneName . " = " . GetValueZoneDefaultLiteral($zone) . ";\r\n");
     } else {
       fwrite($handler, "  \$p1" . $zoneName . " = [];\r\n");
       fwrite($handler, "  \$p2" . $zoneName . " = [];\r\n");
@@ -1798,7 +1811,7 @@ function GetCoreGlobals() {
 
 function AddReadGamestate() {
   $readGamestate = "";
-  global $zones;
+  global $zones, $rootName;
   $readGamestate .= "  InitializeGamestate();\r\n";
   $readGamestate .= "  global \$gameName;\r\n";
   $readGamestate .= "  \$filename = \$filepath . \"Games/\$gameName/Gamestate.txt\";\r\n";
@@ -1811,6 +1824,9 @@ function AddReadGamestate() {
   $readGamestate .= "    \$gamestateText = file_get_contents(\$filename);\r\n";
   $readGamestate .= "  }\r\n";
   $readGamestate .= "  if(\$gamestateText === false || \$gamestateText === \"\") return;\r\n";
+  $readGamestate .= "  if(function_exists(\"UpgradeLegacyGamestateText\")) {\r\n";
+  $readGamestate .= "    \$gamestateText = UpgradeLegacyGamestateText(\$gamestateText, \"" . $rootName . "\");\r\n";
+  $readGamestate .= "  }\r\n";
   $readGamestate .= "  \$handler = fopen(\"php://temp\", \"r+\");\r\n";
   $readGamestate .= "  fwrite(\$handler, \$gamestateText);\r\n";
   $readGamestate .= "  rewind(\$handler);\r\n";
@@ -1825,11 +1841,7 @@ function AddReadGamestate() {
       if ($zone->DisplayMode == 'Value') {
         $readGamestate .= "    \$line = fgets(\$handler);\r\n";
         $readGamestate .= "    if (\$line !== false) {\r\n";
-        if($zone->Properties[0]->Type == "number") {
-          $readGamestate .= "      \$g" . $zone->Name . " = intval(trim(\$line));\r\n";
-        } else {
-          $readGamestate .= "      \$g" . $zone->Name . " = trim(\$line);\r\n";
-        }
+        $readGamestate .= "      \$g" . $zone->Name . " = " . GetValueZoneReadExpression($zone) . ";\r\n";
         $readGamestate .= "    }\r\n";
       } else {
         $readGamestate .= "    \$line = fgets(\$handler);\r\n";
@@ -1869,7 +1881,7 @@ function AddReadZone($zone, $player) {
     $rv = "";
     $rv .= "    \$line = fgets(\$handler);\r\n";
     $rv .= "    if (\$line !== false) {\r\n";
-    $rv .= "      \$p" . $player . $zoneName . " = intval(trim(\$line));\r\n";
+    $rv .= "      \$p" . $player . $zoneName . " = " . GetValueZoneReadExpression($zone) . ";\r\n";
     $rv .= "    }\r\n";
     return $rv;
   } else {
@@ -2239,7 +2251,7 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
 }
 
 function AddGeneratedUI() {
-  global $zones, $assetReflection, $hasFlashMessage;
+  global $zones, $assetReflection, $hasFlashMessage, $modules;
   $rv = "";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -2368,6 +2380,17 @@ function AddGeneratedUI() {
     }
   }
   $rv .= "const HighlightRules = " . json_encode($highlightRules) . ";\r\n";
+  $moduleConfigData = [];
+  for($i=0; $i<count($modules); ++$i) {
+    $moduleConfigData[$modules[$i]->Name] = $modules[$i]->Parameters;
+  }
+  $rv .= "const ModuleConfigs = " . json_encode($moduleConfigData) . ";\r\n";
+  $rv .= "function GetModuleConfig(moduleName) {\r\n";
+  $rv .= "  return Object.prototype.hasOwnProperty.call(ModuleConfigs, moduleName) ? ModuleConfigs[moduleName] : null;\r\n";
+  $rv .= "}\r\n";
+  $rv .= "function GetAllModuleConfigs() {\r\n";
+  $rv .= "  return ModuleConfigs;\r\n";
+  $rv .= "}\r\n";
 
   //Client dictionary of all zone data
   $rv .= "function GetZoneData(zoneName) {\r\n";
@@ -2686,6 +2709,24 @@ function GetPropertyDefaultLiteral($property) {
     $defaultValue = '"' . addslashes($defaultValue) . '"';
   }
   return $defaultValue;
+}
+
+function GetValueZoneDefaultLiteral($zone) {
+  if(empty($zone->Properties) || !isset($zone->Properties[0])) return '0';
+  return GetPropertyDefaultLiteral($zone->Properties[0]);
+}
+
+function GetValueZoneReadExpression($zone, $lineExpr = 'trim($line)') {
+  $propertyType = strtolower($zone->Properties[0]->Type ?? 'string');
+  switch($propertyType) {
+    case 'int':
+    case 'number':
+      return 'intval(' . $lineExpr . ')';
+    case 'float':
+      return 'floatval(' . $lineExpr . ')';
+    default:
+      return $lineExpr;
+  }
 }
 
 function ZoneHasProperty($zone, $propertyName) {

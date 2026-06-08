@@ -4,6 +4,7 @@ $debugMode = true;
 $customDQHandlers = [];
 $_computingPowerLifeSwap = false;
 
+include_once __DIR__ . '/../../Core/ShortcutPreferences.php';
 include_once __DIR__ . '/CardLogic.php';
 include_once __DIR__ . '/CombatLogic.php';
 include_once __DIR__ . '/OpportunityLogic.php';
@@ -7664,7 +7665,7 @@ function BeforeRecollectionPhase() {
     }
 
     // Grand Archive rules: Opportunity arises at the beginning of the Recollection phase.
-    GrantOpportunityWindow($turnPlayer, "NoOp");
+    GrantOpportunityWindow($turnPlayer, "NoOp", null, "REC_START");
 }
 
 function RecollectionPhase() {
@@ -8259,7 +8260,7 @@ function SuppressAllyTransformedNextEnd($player, $mzCard) {
 function BeforeEndOpportunityPhase() {
     $turnPlayer = &GetTurnPlayer();
     // Grand Archive rules: Opportunity arises at the beginning of the End phase.
-    GrantOpportunityWindow($turnPlayer, "NoOp");
+    GrantOpportunityWindow($turnPlayer, "NoOp", null, "END_START");
 }
 
 function BeforeEndPhase() {

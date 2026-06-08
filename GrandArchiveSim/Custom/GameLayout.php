@@ -224,6 +224,194 @@
           pointer-events: auto;
      }
 
+     .ga-shortcut-dock {
+          position: fixed;
+          left: 10px;
+          bottom: max(56px, env(safe-area-inset-bottom, 0px) + 12px);
+          z-index: 2800;
+          display: flex;
+          align-items: flex-end;
+          gap: 10px;
+          pointer-events: none;
+     }
+
+     .ga-shortcut-tab,
+     .ga-shortcut-panel {
+          pointer-events: auto;
+     }
+
+     .ga-shortcut-tab {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 44px;
+          min-height: 132px;
+          padding: 14px 10px;
+          border: 1px solid rgba(244, 236, 219, 0.20);
+          border-radius: 18px;
+          background:
+               linear-gradient(180deg, rgba(244, 236, 219, 0.16), rgba(255, 255, 255, 0.03)),
+               linear-gradient(160deg, rgba(19, 32, 43, 0.92), rgba(45, 111, 115, 0.72));
+          box-shadow: 0 18px 40px rgba(7, 14, 20, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+          color: rgba(244, 236, 219, 0.94);
+          cursor: pointer;
+          writing-mode: vertical-rl;
+          transform: rotate(180deg);
+          text-transform: uppercase;
+          letter-spacing: 0.24em;
+          font: 700 11px/1 var(--ga-font-label);
+          transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 220ms ease, border-color 220ms ease, filter 220ms ease;
+     }
+
+     .ga-shortcut-tab::after {
+          content: "";
+          position: absolute;
+          inset: 8px;
+          border-radius: 12px;
+          border: 1px solid rgba(244, 236, 219, 0.08);
+          pointer-events: none;
+     }
+
+     .ga-shortcut-tab:hover {
+          border-color: rgba(252, 238, 171, 0.36);
+          box-shadow: 0 24px 48px rgba(7, 14, 20, 0.34), 0 0 24px rgba(200, 155, 70, 0.18);
+          filter: saturate(110%);
+     }
+
+     .ga-shortcut-tab:focus-visible {
+          outline: 2px solid rgba(252, 238, 171, 0.72);
+          outline-offset: 3px;
+     }
+
+     .ga-shortcut-panel {
+          width: min(310px, calc(100vw - 84px));
+          max-width: min(310px, calc(100vw - 84px));
+          max-height: min(calc(100vh - 72px), 420px);
+          overflow: hidden;
+          border: 1px solid rgba(244, 236, 219, 0.16);
+          border-radius: 24px;
+          background:
+               linear-gradient(180deg, rgba(244, 236, 219, 0.15), rgba(255, 255, 255, 0.03)),
+               linear-gradient(165deg, rgba(19, 32, 43, 0.94), rgba(19, 32, 43, 0.78));
+          box-shadow: 0 28px 60px rgba(7, 14, 20, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+          backdrop-filter: blur(18px) saturate(145%);
+          -webkit-backdrop-filter: blur(18px) saturate(145%);
+          transform-origin: left bottom;
+          transition: opacity 280ms cubic-bezier(0.22, 1, 0.36, 1), transform 280ms cubic-bezier(0.22, 1, 0.36, 1), max-width 280ms cubic-bezier(0.22, 1, 0.36, 1), margin 280ms cubic-bezier(0.22, 1, 0.36, 1);
+     }
+
+     .ga-shortcut-dock.is-collapsed .ga-shortcut-panel {
+          opacity: 0;
+          transform: translateX(-18px) scale(0.92);
+          max-width: 0;
+          margin-right: -10px;
+          pointer-events: none;
+     }
+
+     .ga-shortcut-dock:not(.is-collapsed) .ga-shortcut-tab {
+          transform: translateY(-4px) rotate(180deg);
+          border-color: rgba(252, 238, 171, 0.34);
+          box-shadow: 0 26px 50px rgba(7, 14, 20, 0.34), 0 0 22px rgba(200, 155, 70, 0.20);
+     }
+
+     .ga-shortcut-panel-inner {
+          padding: 16px 16px 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+     }
+
+     .ga-shortcut-header {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+          padding-right: 16px;
+     }
+
+     .ga-shortcut-title {
+          color: rgba(252, 238, 171, 0.96);
+          text-transform: uppercase;
+          letter-spacing: 0.22em;
+          font: 700 11px/1 var(--ga-font-label);
+     }
+
+     .ga-shortcut-copy {
+          color: rgba(244, 236, 219, 0.70);
+          font: 500 12px/1.45 var(--ga-font-ui);
+     }
+
+     .ga-shortcut-list {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          overflow-y: auto;
+          padding-right: 4px;
+          padding-bottom: 6px;
+          scrollbar-width: thin;
+     }
+
+     .ga-shortcut-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 10px 12px;
+          border: 1px solid rgba(244, 236, 219, 0.10);
+          border-radius: 16px;
+          background: linear-gradient(180deg, rgba(244, 236, 219, 0.06), rgba(255, 255, 255, 0.02));
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+     }
+
+     .ga-shortcut-row-label {
+          color: rgba(244, 236, 219, 0.92);
+          font: 600 13px/1.35 var(--ga-font-ui);
+       }
+
+     .ga-shortcut-toggle {
+          position: relative;
+          flex: 0 0 auto;
+          width: 48px;
+          height: 28px;
+          border: none;
+          border-radius: 999px;
+          background: rgba(244, 236, 219, 0.18);
+          cursor: pointer;
+          transition: background 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+     }
+
+     .ga-shortcut-toggle::before {
+          content: "";
+          position: absolute;
+          top: 3px;
+          left: 3px;
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          background: rgba(244, 236, 219, 0.96);
+          box-shadow: 0 4px 10px rgba(7, 14, 20, 0.28);
+          transition: transform 180ms ease, background 180ms ease;
+     }
+
+     .ga-shortcut-toggle.is-on {
+          background: linear-gradient(90deg, rgba(200, 155, 70, 0.96), rgba(45, 111, 115, 0.88));
+          box-shadow: 0 0 18px rgba(200, 155, 70, 0.24);
+     }
+
+     .ga-shortcut-toggle.is-on::before {
+          transform: translateX(20px);
+          background: #fff7df;
+     }
+
+     .ga-shortcut-toggle:hover {
+          transform: translateY(-1px);
+     }
+
+     .ga-shortcut-footer {
+          color: rgba(244, 236, 219, 0.50);
+          font: 500 11px/1.4 var(--ga-font-ui);
+     }
+
      /* Glass panel — applied only to Hand, Intent, Effect Stack */
      .ga-glass {
           border: 1px solid rgba(244, 236, 219, 0.16);
@@ -965,6 +1153,23 @@
      }
 
      @media (max-width: 1024px) {
+          .ga-shortcut-dock {
+               left: 8px;
+               bottom: max(64px, env(safe-area-inset-bottom, 0px) + 14px);
+               gap: 8px;
+          }
+
+          .ga-shortcut-panel {
+               width: min(310px, calc(100vw - 76px));
+               max-width: min(310px, calc(100vw - 76px));
+               max-height: min(calc(100vh - 86px), 440px);
+          }
+
+          .ga-shortcut-panel-inner {
+               padding: 14px 14px 18px;
+               gap: 10px;
+          }
+
           :root {
                --ga-mobile-topbar-h: 34px;
                --ga-mobile-gap: 6px;
@@ -1252,6 +1457,16 @@
      }
 
      @media (max-width: 760px) {
+          .ga-shortcut-dock {
+               bottom: max(76px, env(safe-area-inset-bottom, 0px) + 16px);
+          }
+
+          .ga-shortcut-panel {
+               width: min(300px, calc(100vw - 68px));
+               max-width: min(300px, calc(100vw - 68px));
+               max-height: min(calc(100vh - 104px), 430px);
+          }
+
           .ga-phase-track {
                display: none;
           }
@@ -1442,6 +1657,13 @@
 <div id="EffectStackSlot" class="ga-zone ga-glass ga-stack"
            data-label="Effect Stack ('U' to undo)"
            style="top:calc(50% - 43px);">
+</div>
+
+<div id="gaShortcutDock" class="ga-shortcut-dock is-collapsed" aria-live="polite">
+     <button id="gaShortcutTab" class="ga-shortcut-tab" type="button" aria-expanded="false" aria-controls="gaShortcutPanel">
+          ⚡ Shortcuts
+     </button>
+     <div id="gaShortcutPanel" class="ga-shortcut-panel"></div>
 </div>
 
 <script>
@@ -1907,6 +2129,156 @@
           installForSlot('theirFieldSlot', 'theirFieldWrapper');
      }
 
+     function setupShortcutPanel() {
+          if (typeof IsSpectatorClient === 'function' && IsSpectatorClient()) return;
+
+          var dock = document.getElementById('gaShortcutDock');
+          var tab = document.getElementById('gaShortcutTab');
+          var panel = document.getElementById('gaShortcutPanel');
+          if (!dock || !tab || !panel) return;
+
+          var rootName = 'GrandArchiveSim';
+          var settingKey = 'ShortcutPreferences';
+          var collapsedKey = 'ga-shortcut-panel-collapsed-v1';
+          var registryRaw = (typeof GetModuleConfig === 'function') ? GetModuleConfig('ShortcutWindows') : null;
+          var registry = {};
+          try {
+               registry = registryRaw ? JSON.parse(registryRaw) : {};
+          } catch (e) {
+               registry = {};
+          }
+          var entries = Object.keys(registry).map(function(windowId) {
+               var entry = registry[windowId] || {};
+               return {
+                    id: windowId,
+                    label: (entry.label && String(entry.label).trim() !== '') ? String(entry.label) : windowId,
+                    defaultValue: !!entry.default,
+                    order: Number.isFinite(Number(entry.order)) ? Number(entry.order) : 0
+               };
+          }).sort(function(a, b) {
+               if (a.order !== b.order) return a.order - b.order;
+               return a.label.localeCompare(b.label);
+          });
+
+          if (entries.length === 0) {
+               dock.style.display = 'none';
+               return;
+          }
+
+          var defaultWindows = {};
+          entries.forEach(function(entry) {
+               defaultWindows[entry.id] = entry.defaultValue;
+          });
+          var defaultPayload = { version: 1, windows: defaultWindows };
+
+          if (window.TCGSettings && typeof window.TCGSettings.registerSchema === 'function') {
+               window.TCGSettings.registerSchema(rootName, {
+                    ShortcutPreferences: { type: 'json', defaultValue: defaultPayload }
+               });
+          }
+
+          function normalizePayload(raw) {
+               var incoming = raw;
+               if (!incoming || typeof incoming !== 'object') incoming = {};
+               var incomingWindows = (incoming.windows && typeof incoming.windows === 'object') ? incoming.windows : incoming;
+               var normalizedWindows = {};
+               entries.forEach(function(entry) {
+                    if (Object.prototype.hasOwnProperty.call(incomingWindows, entry.id)) {
+                         normalizedWindows[entry.id] = !!incomingWindows[entry.id];
+                    } else {
+                         normalizedWindows[entry.id] = entry.defaultValue;
+                    }
+               });
+               return {
+                    version: 1,
+                    windows: normalizedWindows
+               };
+          }
+
+          function getStoredPayload() {
+               if (!window.TCGSettings || typeof window.TCGSettings.get !== 'function') {
+                    return normalizePayload(defaultPayload);
+               }
+               return normalizePayload(window.TCGSettings.get(settingKey, {
+                    rootName: rootName,
+                    type: 'json',
+                    defaultValue: defaultPayload
+               }));
+          }
+
+          function storePayload(payload) {
+               if (!window.TCGSettings || typeof window.TCGSettings.set !== 'function') return;
+               window.TCGSettings.set(settingKey, normalizePayload(payload), {
+                    rootName: rootName,
+                    type: 'json'
+               });
+          }
+
+          function syncPayloadToServer(payload) {
+               if (typeof SubmitInput !== 'function') return;
+               SubmitInput('10015', '&inputText=' + encodeURIComponent(JSON.stringify(normalizePayload(payload))));
+          }
+
+          function renderPanel(payload) {
+               var normalized = normalizePayload(payload);
+               var rows = entries.map(function(entry) {
+                    var checked = !!normalized.windows[entry.id];
+                    return '' +
+                         '<div class="ga-shortcut-row" data-window-id="' + entry.id + '">' +
+                              '<div class="ga-shortcut-row-label">' + entry.label + '</div>' +
+                              '<button class="ga-shortcut-toggle' + (checked ? ' is-on' : '') + '" type="button" aria-pressed="' + (checked ? 'true' : 'false') + '" data-window-id="' + entry.id + '"></button>' +
+                         '</div>';
+               }).join('');
+
+               panel.innerHTML = '' +
+                    '<div id="gaShortcutPanelInner" class="ga-shortcut-panel-inner">' +
+                         '<div class="ga-shortcut-header">' +
+                              '<div class="ga-shortcut-title">⚡ Shortcut Windows</div>' +
+                              '<div class="ga-shortcut-copy">Toggle windows you want the server to auto-pass for this player.</div>' +
+                         '</div>' +
+                         '<div class="ga-shortcut-list">' + rows + '</div>' +
+                         '<div class="ga-shortcut-footer">Changes persist locally and sync to the current game when you join or toggle them.</div>' +
+                    '</div>';
+
+               Array.prototype.forEach.call(panel.querySelectorAll('.ga-shortcut-toggle'), function(toggle) {
+                    toggle.addEventListener('click', function(ev) {
+                         ev.preventDefault();
+                         var windowId = toggle.getAttribute('data-window-id');
+                         var nextPayload = normalizePayload(getStoredPayload());
+                         nextPayload.windows[windowId] = !nextPayload.windows[windowId];
+                         storePayload(nextPayload);
+                         renderPanel(nextPayload);
+                         syncPayloadToServer(nextPayload);
+                    });
+               });
+          }
+
+          function setCollapsed(isCollapsed) {
+               dock.classList.toggle('is-collapsed', isCollapsed);
+               tab.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+               try {
+                    localStorage.setItem(collapsedKey, isCollapsed ? '1' : '0');
+               } catch (e) {}
+          }
+
+          tab.addEventListener('click', function() {
+               setCollapsed(!dock.classList.contains('is-collapsed'));
+          });
+
+          var initialPayload = getStoredPayload();
+          storePayload(initialPayload);
+          renderPanel(initialPayload);
+          syncPayloadToServer(initialPayload);
+
+          var collapsed = true;
+          try {
+               collapsed = localStorage.getItem(collapsedKey) !== '0';
+          } catch (e) {
+               collapsed = true;
+          }
+          setCollapsed(collapsed);
+     }
+
      // Run once DOM is ready (GameLayout.php is included after DOMContentLoaded equivalent)
      if (document.readyState === 'loading') {
           document.addEventListener('DOMContentLoaded', function() {
@@ -1917,6 +2289,7 @@
                setupHandCollapse();
                setupBoardTheme();
                setupFieldScrollButtons();
+               setupShortcutPanel();
           });
      } else {
           AUTO_HIDE_IDS.forEach(watchSlot);
@@ -1926,6 +2299,7 @@
           setupHandCollapse();
           setupBoardTheme();
           setupFieldScrollButtons();
+          setupShortcutPanel();
      }
 })();
 </script>

@@ -2535,7 +2535,7 @@ function FinalizeAttackDeclaration($attackerPlayer) {
 
     // Grant Opportunity window before damage step (turn player gets priority first)
     $turnPlayer = GetTurnPlayer();
-    GrantOpportunityWindow($turnPlayer, "CombatDealDamage", $attackerPlayer);
+    GrantOpportunityWindow($turnPlayer, "CombatDealDamage", $attackerPlayer, "COMBAT_DAMAGE");
 }
 
 $customDQHandlers["FinalizeAttackDeclaration"] = function($player, $parts, $lastDecision) {
@@ -2694,8 +2694,10 @@ $customDQHandlers["CombatProceedToRetaliation"] = function($player, $parts, $las
     $retaliatorOptionStr = implode("&", $retaliatorOptions);
 
     // Retaliation step: let the defending player choose whether to retaliate
-    DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $retaliatorOptionStr, 100, "Retaliate?");
-    DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender, 100);
+    if(!ShouldAutoPassShortcutWindow($defenderPlayer, "COMBAT_RETALIATION")) {
+        DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $retaliatorOptionStr, 100, "Retaliate?");
+        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender . "|" . $defenderMZ_fromDefender, 100);
+    }
 
     // Apply attacker damage after retaliation is chosen (block 150, after block-100 Retaliate).
     // dontSkipOnPass:1 ensures this fires even when the defender passes the retaliation choice.
@@ -2733,7 +2735,7 @@ $customDQHandlers["CleaveAttack"] = function($player, $parts, $lastDecision) {
 
     // Grant Opportunity window before damage step
     $turnPlayer = GetTurnPlayer();
-    GrantOpportunityWindow($turnPlayer, "CleaveDealDamage", $player);
+    GrantOpportunityWindow($turnPlayer, "CleaveDealDamage", $player, "COMBAT_DAMAGE");
 };
 
 /**
@@ -2872,9 +2874,11 @@ $customDQHandlers["CleaveProceedToRetaliation"] = function($player, $parts, $las
     // GetCleaveRetaliatorMZs was already called in CombatRetaliationOpportunity to confirm
     // at least one unit qualifies, but we re-evaluate here in case state changed during
     // the opportunity window.
-    foreach(GetCleaveRetaliatorMZs($defenderPlayer) as $survivorMZ) {
-        DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $survivorMZ, 100, "Retaliate_with_" . $survivorMZ . "?");
-        DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender, 100);
+    if(!ShouldAutoPassShortcutWindow($defenderPlayer, "COMBAT_RETALIATION")) {
+        foreach(GetCleaveRetaliatorMZs($defenderPlayer) as $survivorMZ) {
+            DecisionQueueController::AddDecision($defenderPlayer, "MZMAYCHOOSE", $survivorMZ, 100, "Retaliate_with_" . $survivorMZ . "?");
+            DecisionQueueController::AddDecision($defenderPlayer, "CUSTOM", "Retaliate|" . $attackerMZ_fromDefender, 100);
+        }
     }
 
     // Cleanup on defender's queue after all retaliation decisions (block 200)

@@ -146,7 +146,7 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     SetFrameAnimationCache($gameName, []);
   }
 
-  if (function_exists('SetFlashMessage')) SetFlashMessage('');
+  if ($mode !== 10015 && function_exists('SetFlashMessage')) SetFlashMessage('');
 
   switch ($mode) {
     case 100:
@@ -257,6 +257,14 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     case 10004:
       LoadVersion($playerID);
       SetFlashMessage('Player ' . $playerID . ' undid their last action.');
+      break;
+    case 10015:
+      if (function_exists('SetFlashMessage')) SetFlashMessage('');
+      if (function_exists('SetShortcutPreferencesState')) {
+        SetShortcutPreferencesState($playerID, $inputText);
+      }
+      $result['updateCache'] = false;
+      $result['recordAction'] = false;
       break;
     case 10005:
       SaveVersion($playerID);

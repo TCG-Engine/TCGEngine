@@ -1,5 +1,7 @@
 <?php
 
+include_once __DIR__ . '/ShortcutPreferences.php';
+
 function RegressionRepoRoot() {
   return dirname(__DIR__);
 }
@@ -136,11 +138,11 @@ function RegressionClearGamestateMemory($gameName) {
 
 function RegressionCurrentGamestateText($rootName, $gameName) {
   $memoryText = RegressionCurrentGamestateFromMemory($gameName);
-  if ($memoryText !== null) return $memoryText;
+  if ($memoryText !== null) return RegressionNormalizeGamestateTextForRoot($rootName, $memoryText);
 
   $path = RegressionCurrentGamestatePath($rootName, $gameName);
   if (!is_file($path)) return '';
-  return file_get_contents($path);
+  return RegressionNormalizeGamestateTextForRoot($rootName, file_get_contents($path));
 }
 
 function RegressionFlushCurrentGamestate($rootName) {
@@ -154,6 +156,14 @@ function RegressionFlushCurrentGamestate($rootName) {
 
 function RegressionCurrentGamestateHash($rootName, $gameName) {
   return hash('sha256', RegressionNormalizeNewlines(RegressionCurrentGamestateText($rootName, $gameName)));
+}
+
+function RegressionNormalizeGamestateTextForRoot($rootName, $text) {
+  if (!is_string($text) || $text === '') return $text;
+  if (function_exists('UpgradeLegacyGamestateText')) {
+    return UpgradeLegacyGamestateText($text, $rootName);
+  }
+  return $text;
 }
 
 function RegressionIsRecordingActive($rootName, $gameName) {
@@ -482,7 +492,7 @@ function RegressionFixtureExpectedFinalPath($rootName, $slug) {
 function RegressionReplayStateMatchesExpectedFinal($rootName, $gameName, $slug) {
   $expectedPath = RegressionFixtureExpectedFinalPath($rootName, $slug);
   if (!is_file($expectedPath)) return null;
-  $expected = file_get_contents($expectedPath);
+  $expected = RegressionNormalizeGamestateTextForRoot($rootName, file_get_contents($expectedPath));
   $actual = RegressionCurrentGamestateText($rootName, $gameName);
   return RegressionNormalizeNewlines($expected) === RegressionNormalizeNewlines($actual);
 }

@@ -73,6 +73,55 @@ function ResumeIdleEffectStackIfNeeded() {
     return true;
 }
 
+function QueueShortcutAwareMayChoose($player, $choices, $customHandler, $customParts = [], $windowId = "", $block = 100, $tooltip = "Take_a_fast_action?") {
+    if(empty($choices)) return false;
+    if($windowId !== "" && ShouldAutoPassShortcutWindow($player, $windowId)) return false;
+
+    $cardList = implode("&", $choices);
+    $handlerParam = $customHandler;
+    if(!empty($customParts)) {
+        $handlerParam .= "|" . implode("|", $customParts);
+    }
+
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $cardList, $block, $tooltip);
+    DecisionQueueController::AddDecision($player, "CUSTOM", $handlerParam, $block, "", 1);
+    return true;
+}
+
+function InferOpportunityWindowId($nextHandler, $firstPlayer = null, $nextPlayer = null) {
+    switch($nextHandler) {
+        case "AbilityOpportunityResume":
+            return "ABILITY_RESPONSE";
+        case "CombatDealDamage":
+        case "CleaveDealDamage":
+            return "COMBAT_DAMAGE";
+        case "NoOp":
+            if(GetCurrentPhase() === "RECOLLECTION") return "REC_START";
+            if(GetCurrentPhase() === "END") return "END_START";
+            return "";
+        default:
+            return "";
+    }
+}
+
+function QueueEffectStackOpportunityRound($priorityPlayer, $windowId = "STACK_RESPONSE") {
+    $effectStack = GetLiveEffectStackEntries();
+    if(empty($effectStack)) return false;
+
+    $otherPlayer = ($priorityPlayer == 1) ? 2 : 1;
+    $fastCards = GetPlayableOpportunityChoices($priorityPlayer);
+    if(QueueShortcutAwareMayChoose($priorityPlayer, $fastCards, "EffectStackActiveResponse", [$otherPlayer], $windowId)) {
+        return true;
+    }
+
+    $fastCards2 = GetPlayableOpportunityChoices($otherPlayer);
+    if(QueueShortcutAwareMayChoose($otherPlayer, $fastCards2, "EffectStackOpponentResponse", [], $windowId)) {
+        return true;
+    }
+
+    return false;
+}
+
 function GetEffectStackActivationTargets($player, $filters = []) {
     $effectStack = GetLiveEffectStackEntries();
     $targets = [];
@@ -1070,25 +1119,8 @@ $customDQHandlers["EffectStackOpportunity"] = function($player, $parts, $lastDec
     $effectStack = GetLiveEffectStackEntries();
     if(empty($effectStack)) return;
 
-    $otherPlayer = ($player == 1) ? 2 : 1;
-
-    // Active player gets priority first (per rules: they can chain)
-    $fastCards = GetPlayableOpportunityChoices($player);
-    if(!empty($fastCards)) {
-        $cardList = implode("&", $fastCards);
-        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
-        DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackActiveResponse|$otherPlayer", 100, "", 1);
-    } else {
-        // Active player can't respond, check opponent
-        $fastCards2 = GetPlayableOpportunityChoices($otherPlayer);
-        if(!empty($fastCards2)) {
-            $cardList = implode("&", $fastCards2);
-            DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
-            DecisionQueueController::AddDecision($otherPlayer, "CUSTOM", "EffectStackOpponentResponse", 100, "", 1);
-        } else {
-            // Neither can respond, auto-resolve
-            ResolveTopOfEffectStack();
-        }
+    if(!QueueEffectStackOpportunityRound($player, "STACK_RESPONSE")) {
+        ResolveTopOfEffectStack();
     }
 };
 
@@ -1101,11 +1133,7 @@ $customDQHandlers["EffectStackActiveResponse"] = function($player, $parts, $last
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         // Active player passed, check opponent
         $fastCards = GetPlayableOpportunityChoices($otherPlayer);
-        if(!empty($fastCards)) {
-            $cardList = implode("&", $fastCards);
-            DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
-            DecisionQueueController::AddDecision($otherPlayer, "CUSTOM", "EffectStackOpponentResponse", 100, "", 1);
-        } else {
+        if(!QueueShortcutAwareMayChoose($otherPlayer, $fastCards, "EffectStackOpponentResponse", [], "STACK_RESPONSE")) {
             // Both passed (opponent has no cards), resolve
             ResolveTopOfEffectStack();
         }
@@ -1146,22 +1174,8 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
     if(!empty($effectStack)) {
         // More cards to resolve — turn player gets priority first (per rules)
         $turnPlayer = GetTurnPlayer();
-        $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
-
-        $fastCards = GetPlayableOpportunityChoices($turnPlayer);
-        if(!empty($fastCards)) {
-            $cardList = implode("&", $fastCards);
-            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
-            DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "EffectStackActiveResponse|$otherPlayer", 100, "", 1);
-        } else {
-            $fastCards2 = GetPlayableOpportunityChoices($otherPlayer);
-            if(!empty($fastCards2)) {
-                $cardList = implode("&", $fastCards2);
-                DecisionQueueController::AddDecision($otherPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
-                DecisionQueueController::AddDecision($otherPlayer, "CUSTOM", "EffectStackOpponentResponse", 100, "", 1);
-            } else {
-                ResolveTopOfEffectStack();
-            }
+        if(!QueueEffectStackOpportunityRound($turnPlayer, "STACK_RESPONSE")) {
+            ResolveTopOfEffectStack();
         }
     } else {
         $consumedOuterWindow = DecisionQueueController::GetVariable("ConsumedOuterOpportunityWindow");
@@ -1171,7 +1185,8 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
             if(IsCombatOpportunityContinuation($pendingHandler)) {
                 $firstPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? GetTurnPlayer());
                 $nextPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityNextPlayer") ?? GetTurnPlayer());
-                GrantOpportunityWindow($firstPlayer, $pendingHandler, $nextPlayer);
+                $pendingWindow = InferOpportunityWindowId($pendingHandler, $firstPlayer, $nextPlayer);
+                GrantOpportunityWindow($firstPlayer, $pendingHandler, $nextPlayer, $pendingWindow);
                 return;
             }
             ClearOpportunityVariables();
@@ -1183,8 +1198,9 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
         if($pendingHandler !== null && $pendingHandler !== "") {
             $firstPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? GetTurnPlayer());
             $nextPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityNextPlayer") ?? GetTurnPlayer());
+            $pendingWindow = InferOpportunityWindowId($pendingHandler, $firstPlayer, $nextPlayer);
             // Re-grant the Opportunity window (re-checks fast cards for both players)
-            GrantOpportunityWindow($firstPlayer, $pendingHandler, $nextPlayer);
+            GrantOpportunityWindow($firstPlayer, $pendingHandler, $nextPlayer, $pendingWindow);
         }
     }
 };
@@ -1257,12 +1273,13 @@ function ResolveTopOfEffectStack() {
  * @param int    $firstPlayer Player who gets priority first.
  * @param string $nextHandler CUSTOM DQ handler name to queue after both pass.
  * @param int    $nextPlayer  Player for whom to queue $nextHandler (default = $firstPlayer).
+ * @param string $windowId    Stable shortcut-window ID used for auto-pass preferences.
  */
-function GrantOpportunityWindow($firstPlayer, $nextHandler, $nextPlayer = null) {
+function GrantOpportunityWindow($firstPlayer, $nextHandler, $nextPlayer = null, $windowId = "") {
     if($nextPlayer === null) $nextPlayer = $firstPlayer;
     $secondPlayer = ($firstPlayer == 1) ? 2 : 1;
 
-    if(IsSameOpportunityWindowAlreadyPending($firstPlayer, $nextHandler, $nextPlayer)) {
+    if(IsSameOpportunityWindowAlreadyPending($firstPlayer, $nextHandler, $nextPlayer, $windowId)) {
         return;
     }
 
@@ -1273,18 +1290,10 @@ function GrantOpportunityWindow($firstPlayer, $nextHandler, $nextPlayer = null) 
 
     // Check first player's fast cards
     $fastCards1 = GetPlayableOpportunityChoices($firstPlayer);
-    if(!empty($fastCards1)) {
-        $cardList = implode("&", $fastCards1);
-        DecisionQueueController::AddDecision($firstPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
-        DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "OpportunityWindowFirstResponse", 100, "", 1);
-    } else {
+    if(!QueueShortcutAwareMayChoose($firstPlayer, $fastCards1, "OpportunityWindowFirstResponse", [], $windowId)) {
         // First player can't act, try second
         $fastCards2 = GetPlayableOpportunityChoices($secondPlayer);
-        if(!empty($fastCards2)) {
-            $cardList = implode("&", $fastCards2);
-            DecisionQueueController::AddDecision($secondPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
-            DecisionQueueController::AddDecision($secondPlayer, "CUSTOM", "OpportunityWindowSecondResponse", 100, "", 1);
-        } else {
+        if(!QueueShortcutAwareMayChoose($secondPlayer, $fastCards2, "OpportunityWindowSecondResponse", [], $windowId)) {
             // Neither can act, resolve immediately
             ResolveOpportunityWindow();
         }
@@ -1326,7 +1335,7 @@ function HasPendingOpportunityResponseWindow() {
     return false;
 }
 
-function IsSameOpportunityWindowAlreadyPending($firstPlayer, $nextHandler, $nextPlayer) {
+function IsSameOpportunityWindowAlreadyPending($firstPlayer, $nextHandler, $nextPlayer, $windowId = "") {
     if(!HasPendingOpportunityResponseWindow()) return false;
 
     return DecisionQueueController::GetVariable("PendingOpportunityHandler") === $nextHandler
@@ -1348,15 +1357,15 @@ function IsCombatOpportunityContinuation($handler) {
  * First player in an Opportunity window responded.
  */
 $customDQHandlers["OpportunityWindowFirstResponse"] = function($player, $parts, $lastDecision) {
+    $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler") ?? "";
+    $firstPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? $player);
+    $nextPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityNextPlayer") ?? $player);
+    $windowId = InferOpportunityWindowId($pendingHandler, $firstPlayer, $nextPlayer);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         // First player passed, check second player
         $secondPlayer = ($player == 1) ? 2 : 1;
         $fastCards = GetPlayableOpportunityChoices($secondPlayer);
-        if(!empty($fastCards)) {
-            $cardList = implode("&", $fastCards);
-            DecisionQueueController::AddDecision($secondPlayer, "MZMAYCHOOSE", $cardList, 100, "Take_a_fast_action?");
-            DecisionQueueController::AddDecision($secondPlayer, "CUSTOM", "OpportunityWindowSecondResponse", 100, "", 1);
-        } else {
+        if(!QueueShortcutAwareMayChoose($secondPlayer, $fastCards, "OpportunityWindowSecondResponse", [], $windowId)) {
             // Both passed (second has no cards), resolve
             ResolveOpportunityWindow();
         }
@@ -1401,7 +1410,12 @@ $customDQHandlers["AbilityOpportunityResume"] = function($player, $parts, $lastD
     DecisionQueueController::ClearVariable("AbilityResumePendingFirstPlayer");
 
     if($resumeHandler === null || $resumeHandler === "" || $resumeFirstPlayer <= 0) return;
-    GrantOpportunityWindow($resumeFirstPlayer, $resumeHandler, $resumeNextPlayer > 0 ? $resumeNextPlayer : $resumeFirstPlayer);
+    $resumeWindow = InferOpportunityWindowId(
+        $resumeHandler,
+        $resumeFirstPlayer,
+        $resumeNextPlayer > 0 ? $resumeNextPlayer : $resumeFirstPlayer
+    );
+    GrantOpportunityWindow($resumeFirstPlayer, $resumeHandler, $resumeNextPlayer > 0 ? $resumeNextPlayer : $resumeFirstPlayer, $resumeWindow);
 };
 
 /**
@@ -1456,11 +1470,11 @@ $customDQHandlers["AbilityOpportunity"] = function($player, $parts, $lastDecisio
             strval(intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? $player))
         );
         ClearOpportunityVariables();
-        GrantOpportunityWindow($player, "AbilityOpportunityResume", $player);
+        GrantOpportunityWindow($player, "AbilityOpportunityResume", $player, "ABILITY_RESPONSE");
         return;
     }
 
-    GrantOpportunityWindow($player, "NoOp", $player);
+    GrantOpportunityWindow($player, "NoOp", $player, "ABILITY_RESPONSE");
 };
 
 ?>

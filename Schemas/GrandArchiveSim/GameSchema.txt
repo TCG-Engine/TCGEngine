@@ -12,6 +12,7 @@ ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: GrandArchiveSim
 Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myMastery,myGlobalEffects,myMaterial,myField,myIntent,myMemory,myBanish,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirMastery,theirGlobalEffects,theirMaterial,theirField,theirIntent,theirMemory,theirBanish,DecisionQueueVariables,EffectStack,MacroTurnIndex,UniqueIDCounter
 Module: UniqueID=Field,UniqueID,UniqueIDCounter
+Module: ShortcutWindows={"REC_START":{"label":"Recollection Start","default":false,"group":"Phase","order":10},"END_START":{"label":"End Phase Start","default":false,"group":"Phase","order":20},"STACK_RESPONSE":{"label":"Effect Stack Response","default":false,"group":"Priority","order":30},"ABILITY_RESPONSE":{"label":"Ability Response","default":false,"group":"Priority","order":40},"COMBAT_DAMAGE":{"label":"Combat Damage Window","default":false,"group":"Combat","order":50},"COMBAT_RETALIATION":{"label":"Combat Retaliation","default":false,"group":"Combat","order":60}}
 Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
 Macro: Name=ActivateCard(mzID,ignoreCost); ChoiceFunction=DoActivateCard; PrereqFunction=CanActivateCard; SourceParam=mzID; Action={}
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
@@ -182,6 +183,8 @@ DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSki
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string
 Display: Visibility=None, Mode=All, Display=None
+ShortcutPreferences - Value:string=-
+Display: Visibility=None, Mode=Value, Display=None
 TurnNumber - Value:number=0
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 FirstPlayer - Value:number=1
