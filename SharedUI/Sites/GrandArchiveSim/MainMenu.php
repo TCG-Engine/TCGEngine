@@ -14,6 +14,7 @@ include_once 'Header.php';
       <img src='../../../Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
     <h2>Active Games (<span id="active-game-count">0</span>)</h2>
+    <div id="active-games-list" class="active-games-list" style="margin-bottom: 18px;"></div>
     <h2>Create a New Game</h2>
     <div>
       <!--
@@ -228,6 +229,58 @@ include_once 'Header.php';
     display: flex;
     flex-direction: column;
     gap: 12px;
+  }
+  .active-games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 240px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .active-game-card {
+    border: 1px solid rgba(214, 184, 109, 0.22);
+    border-radius: 10px;
+    background: rgba(9, 20, 36, 0.75);
+    padding: 10px 12px;
+  }
+  .active-game-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #d9d9d9;
+  }
+  .active-game-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .active-game-badge.private {
+    background: rgba(201, 168, 76, 0.18);
+    color: #f4e2a4;
+  }
+  .active-game-badge.public {
+    background: rgba(68, 170, 130, 0.18);
+    color: #9ed9b4;
+  }
+  .active-game-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .active-game-empty {
+    color: #b9b9b9;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 8px 0 2px;
   }
   .ga-settings-row {
     display: flex;
@@ -825,8 +878,9 @@ include_once 'Header.php';
       function refreshOpenGames() {
         console.log('Refreshing open games');
         var gameCountElement = document.getElementById('active-game-count');
+        var gameListElement = document.getElementById('active-games-list');
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../../APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
+        xhr.open('GET', '../../../APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName) + '&includePrivate=1', true);
         xhr.responseType = 'json';
 
         xhr.onload = function() {
@@ -836,22 +890,71 @@ include_once 'Header.php';
           if (data.data && Array.isArray(data.data)) {
             var totalCount = (typeof data.totalCount === 'number') ? data.totalCount : data.data.length;
             gameCountElement.textContent = totalCount;
+            renderActiveGames(data.data);
           } else {
             gameCountElement.textContent = '0';
+            renderActiveGames([]);
           }
           } else {
           console.error('Error fetching open games:', xhr.statusText);
           gameCountElement.textContent = '0';
+          renderActiveGames([]);
           }
         };
 
         xhr.onerror = function() {
           console.error('Error fetching open games:', xhr.statusText);
           gameCountElement.textContent = '0';
+          renderActiveGames([]);
         };
 
         xhr.send();
       }
+
+      function formatActiveGameTime(timestamp) {
+        if (!timestamp) return 'Unknown';
+        try {
+          return new Date(timestamp * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+        } catch (e) {
+          return 'Unknown';
+        }
+      }
+
+      function openSpectatorView(gameName, perspective) {
+        var url = new URL('../../../NextTurn.php', window.location.href);
+        url.searchParams.set('playerID', 'S');
+        url.searchParams.set('viewerPerspective', perspective === 2 ? '2' : '1');
+        url.searchParams.set('gameName', gameName);
+        url.searchParams.set('folderPath', rootName);
+        window.location.href = url.toString();
+      }
+
+      function renderActiveGames(games) {
+        var gameListElement = document.getElementById('active-games-list');
+        if (!gameListElement) return;
+        if (!games || !games.length) {
+          gameListElement.innerHTML = '<div class="active-game-empty">No active games right now. Start one or refresh again in a moment.</div>';
+          return;
+        }
+
+        var html = '';
+        games.forEach(function(game) {
+          var visibilityClass = game.isPrivate ? 'private' : 'public';
+          var visibilityLabel = game.isPrivate ? 'Private' : 'Public';
+          html += '<div class="active-game-card">';
+          html +=   '<div class="active-game-meta">';
+          html +=     '<div>Game <strong>' + game.gameName + '</strong><br><span style="font-size:12px; color:#b9b9b9;">Updated ' + formatActiveGameTime(game.lastUpdatedAt) + '</span></div>';
+          html +=     '<span class="active-game-badge ' + visibilityClass + '">' + visibilityLabel + '</span>';
+          html +=   '</div>';
+          html +=   '<div class="active-game-actions">';
+          html +=     '<button class="spectate-button" onclick="openSpectatorView(\'' + game.gameName + '\', 1)">Spectate P1 Side</button>';
+          html +=     '<button class="spectate-button" onclick="openSpectatorView(\'' + game.gameName + '\', 2)">Spectate P2 Side</button>';
+          html +=   '</div>';
+          html += '</div>';
+        });
+        gameListElement.innerHTML = html;
+      }
+
       function pollLobbyUpdates(playerID, authKey) {
         var xhr = new XMLHttpRequest();
         xhr.open('POST', '../../../APIs/Lobbies/PollLobbyUpdates.php', true);

@@ -11,6 +11,7 @@ include_once './Core/CoreZoneModifiers.php';
 include_once './Core/EngineActionRunner.php';
 include_once "./Core/NetworkingLibraries.php";
 include_once "./Core/HTTPLibraries.php";
+include_once "./Core/ViewerIdentity.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./AccountFiles/AccountDatabaseAPI.php";
 include_once "./Database/ConnectionManager.php";
@@ -21,7 +22,12 @@ if ($gameName == "" || !IsGameNameValid($gameName)) {
   echo ("Invalid game name.");
   exit;
 }
-$playerID = $_GET["playerID"];
+$viewerInfo = NormalizeViewerIdentity($_GET["playerID"] ?? "");
+if ($viewerInfo['viewerID'] === '') {
+  echo("Invalid player ID.");
+  exit;
+}
+$playerID = $viewerInfo['viewerID'];
 $authKey = $_GET["authKey"];
 $folderPath = $_GET["folderPath"];
 
@@ -81,6 +87,11 @@ global $gameName;
 $gameName = strval($gameName);
 ParseGamestate("./" . $folderPath . "/");
 
+if ($viewerInfo['isSpectator']) {
+  echo("Spectators are view-only.");
+  exit;
+}
+
 $actionResult = EngineExecuteLoadedAction([
   'playerID' => $playerID,
   'mode' => $mode,
@@ -113,8 +124,8 @@ if(!IsReplay()) {
   if (($playerID == 1 || $playerID == 2) && $authKey == "") {
     if (isset($_COOKIE["lastAuthKey"])) $authKey = $_COOKIE["lastAuthKey"];
   }
-  if ($playerID != 3 && $authKey != $targetAuth) { echo("Invalid auth key"); exit; }
-  if ($playerID == 3 && !IsModeAllowedForSpectators($mode)) ExitProcessInput();
+  if (!$viewerInfo['isSpectator'] && $authKey != $targetAuth) { echo("Invalid auth key"); exit; }
+  if ($viewerInfo['isSpectator'] && !IsModeAllowedForSpectators($mode)) ExitProcessInput();
   if (!IsModeAsync($mode) && $currentPlayer != $playerID) {
     $currentTime = round(microtime(true) * 1000);
     SetCachePiece($gameName, 2, $currentTime);

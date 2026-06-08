@@ -1666,6 +1666,7 @@ fwrite($handler, "include '../Core/UILibraries.php';\r\n");
 fwrite($handler, "include '../Core/NetworkingLibraries.php';\r\n");
 fwrite($handler, "include '../Core/HTTPLibraries.php';\r\n");
 fwrite($handler, "include '../Core/CoreZoneModifiers.php';\r\n");
+fwrite($handler, "include '../Core/ViewerIdentity.php';\r\n");
 fwrite($handler, "include '../Assets/patreon-php-master/src/PatreonLibraries.php';\r\n");
 fwrite($handler, "include './GamestateParser.php';\r\n");
 fwrite($handler, "include './ZoneAccessors.php';\r\n");
@@ -1673,7 +1674,12 @@ fwrite($handler, "include './ZoneClasses.php';\r\n");
 fwrite($handler, "include './GeneratedCode/GeneratedCardDictionaries.php';\r\n");
 //TODO: Validate these inputs
 fwrite($handler, "\$gameName = TryGet(\"gameName\");\r\n");
-fwrite($handler, "\$playerID = TryGet(\"playerID\");\r\n");
+fwrite($handler, "\$requestPlayerID = TryGet(\"playerID\");\r\n");
+fwrite($handler, "\$viewerInfo = NormalizeViewerIdentity(\$requestPlayerID);\r\n");
+fwrite($handler, "\$viewerPerspective = NormalizeViewerPerspective(\$viewerInfo, TryGet(\"viewerPerspective\", \"\"));\r\n");
+fwrite($handler, "\$playerID = \$viewerPerspective;\r\n");
+fwrite($handler, "\$canSeePrivatePlayer1 = !\$viewerInfo[\"isSpectator\"] && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) === 1;\r\n");
+fwrite($handler, "\$canSeePrivatePlayer2 = !\$viewerInfo[\"isSpectator\"] && intval(\$viewerInfo[\"viewerSeat\"] ?? 0) === 2;\r\n");
 fwrite($handler, "\$lastUpdate = TryGet(\"lastUpdate\", 0);\r\n");
 fwrite($handler, "\$count = 0;\r\n");
 fwrite($handler, "while(!CheckUpdate(\$gameName, \$lastUpdate) && \$count < 100) {\r\n");
@@ -1985,7 +1991,7 @@ function AddGetNextTurnForPlayer($player) {
         } else {
           $getNextTurn .= "  \$arr = &Get" . $zone->Name . "(" . $player . ");\r\n";
         }
-        $getNextTurn .= "  if(\$playerID == " . $player . ") {\r\n";
+        $getNextTurn .= "  if(\$canSeePrivatePlayer" . $player . ") {\r\n";
         $getNextTurn .= "    for(\$i=0; \$i<count(\$arr); ++\$i) {\r\n";
         $getNextTurn .= "      if(!isset(\$arr[\$i])) continue;\r\n";
         $getNextTurn .= "      if(\$i > 0) echo(\"<|>\");\r\n";
@@ -2020,7 +2026,7 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= "    echo(ClientRenderedCard(\"CardBack\"));\r\n";
       } else if ($zone->Visibility == "Self") {
         $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
-        $getNextTurn .= "    if(\$playerID == " . $player . ") echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        $getNextTurn .= "    if(\$canSeePrivatePlayer" . $player . ") echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         $getNextTurn .= "    else echo(ClientRenderedCard(\"CardBack\"));\r\n";
       }
       $getNextTurn .= "  }\r\n";

@@ -121,6 +121,12 @@ function ChatKey(event) {
   event.stopPropagation();
 }
 
+function IsSpectatorClient() {
+  var playerInput = document.getElementById("playerID");
+  if (!playerInput) return false;
+  return String(playerInput.value || '').toUpperCase() === 'S';
+}
+
 function SubmitChat() {
   var chatBox = document.getElementById("chatText");
   var text = chatBox.value.trim();
@@ -176,7 +182,7 @@ function _AppendChatMessage(msg) {
   div.style.cssText = "padding:2px 4px; word-break:break-word; font-size:13px;";
   var label = document.createElement("span");
   label.style.cssText = "font-weight:700; margin-right:4px;";
-  label.textContent = "P" + msg.playerID + ":";
+  label.textContent = (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID)) + ":";
   var body = document.createElement("span");
   body.textContent = msg.text;
   div.appendChild(label);
@@ -239,6 +245,7 @@ function ZoneClickHandler(zone) {
 }
 
 function SubmitInput(mode, params, fullRefresh = false) {
+  if (IsSpectatorClient()) return;
   mode = ModeAliasLookup(mode);
   var xmlhttp = new XMLHttpRequest();
   xmlhttp.onreadystatechange = function () {
@@ -329,6 +336,8 @@ function fetchPopupContent(name, callback) {
   ajaxLink += "&playerID=" + document.getElementById("playerID").value;
   ajaxLink += "&authKey=" + document.getElementById("authKey").value;
   ajaxLink += "&folderPath=" + document.getElementById("folderPath").value;
+  var viewerPerspective = document.getElementById("viewerPerspective");
+  if (viewerPerspective) ajaxLink += "&viewerPerspective=" + encodeURIComponent(viewerPerspective.value);
   ajaxLink += "&popupType=" + name;
   xmlhttp.open("GET", ajaxLink, true);
   xmlhttp.send();

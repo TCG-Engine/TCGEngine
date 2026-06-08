@@ -3209,6 +3209,7 @@ function EnableChooseZoneSelection(zoneSpecs, tooltip, decisionIndex) {
 
 // Call this after game state update to check for pending YESNO decisions
 function CheckAndShowDecisionQueue(decisionQueue) {
+  if (typeof IsSpectatorClient === 'function' && IsSpectatorClient()) return;
   // Accept raw string or array
   if (typeof decisionQueue === 'string') {
     decisionQueue = ParseDecisionQueue(decisionQueue);

@@ -31,6 +31,7 @@
         error_reporting(E_ALL);
 
         include './Core/HTTPLibraries.php';
+        include './Core/ViewerIdentity.php';
         //We should always have a player ID as a URL parameter
         $folderPath = TryGet("folderPath", "");
         if($folderPath == "") {
@@ -174,11 +175,14 @@
       echo ("Invalid game name.");
       exit;
     }
-    $playerID = TryGet("playerID", 3);
-    if (!is_numeric($playerID)) {
+    $viewerInfo = NormalizeViewerIdentity(TryGet("playerID", "S"));
+    if ($viewerInfo['viewerID'] === '') {
       echo ("Invalid player ID.");
       exit;
     }
+    $playerID = $viewerInfo['viewerID'];
+    $viewerPerspective = NormalizeViewerPerspective($viewerInfo, TryGet("viewerPerspective", ""));
+    $isSpectatorViewer = $viewerInfo['isSpectator'];
 
     if (!file_exists("./" . $folderPath . "/Games/" . $gameName . "/")) {
       echo ("Game does not exist");
@@ -212,7 +216,8 @@
       function_exists('IsUserLoggedIn') &&
       IsUserLoggedIn() &&
       function_exists('SupportsRegressionRecording') &&
-      SupportsRegressionRecording();
+      SupportsRegressionRecording() &&
+      !$isSpectatorViewer;
     $showManualControls = $showRegressionControls && $folderPath === 'GrandArchiveSim';
     $regressionRecordingActive = $showRegressionControls ? RegressionIsRecordingActive($folderPath, $gameName) : false;
     $regressionFixtureOptions = $showRegressionControls ? RegressionListFixtureOptions($folderPath) : [];
@@ -615,7 +620,7 @@
               QueueReload(update);
               var frameAnimations = ParseFrameAnimations(responseArr);
               if(<?php echo(AreAnimationsDisabled($playerID) ? 'true' : 'false');?>) frameAnimations = [];
-              var timeoutAmount = PlayFrameAnimations(frameAnimations, <?php echo($playerID); ?>);
+              var timeoutAmount = PlayFrameAnimations(frameAnimations, <?php echo($viewerPerspective); ?>);
               if(timeoutAmount > 0) setTimeout(RenderUpdate, timeoutAmount, responseArr);
               else RenderUpdate(responseArr);
             }
@@ -625,7 +630,7 @@
         var lcpEl = document.getElementById("lastCurrentPlayer");
         var lastCurrentPlayer = "&lastCurrentPlayer=" + (!lcpEl ? "0" : lcpEl.innerHTML);
         if (lastUpdate == "NaN") window.location.replace("https://www.petranaki.net/Arena/MainMenu.php");
-        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo ($playerID); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo ($authKey); ?>" + dimensions, true);
+        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo urlencode($playerID); ?>&viewerPerspective=<?php echo($viewerPerspective); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo urlencode($authKey); ?>" + dimensions, true);
         xmlhttp.send();
       }
 
@@ -638,7 +643,9 @@
           window.__nextReliquaryDrawByMzid = {};
         }
         var newHTML = "";
-        var playerID = <?php echo($playerID); ?>;
+        var playerID = <?php echo($viewerPerspective); ?>;
+        var viewerIdentity = <?php echo json_encode($playerID); ?>;
+        var viewerCanAct = <?php echo($isSpectatorViewer ? 'false' : 'true'); ?>;
         <?php include "./" . $folderPath . "/NextTurnRender.php"; ?>
         if (typeof window !== 'undefined') {
           window.__prevCardStatusByMzid = window.__nextCardStatusByMzid || {};
@@ -663,7 +670,7 @@
               var _goWinner = parseInt(_goVars.GAMEOVER_WINNER, 10);
               if (_goWinner > 0 && typeof ShowGameOver === 'function') {
                 window._gameOverShown = true;
-                ShowGameOver(playerID === _goWinner);
+                ShowGameOver(viewerCanAct && playerID === _goWinner);
               }
             }
           } catch (e) {}
@@ -1052,7 +1059,7 @@
             <div id='chatLog'
                  style='background:rgba(0,0,0,0.82); border:1px solid #555; border-bottom:none; border-radius:5px 5px 0 0; color:white;
                         font-family:barlow,sans-serif; height:160px; overflow-y:auto; padding:4px 6px;'></div>
-            <?php if ($playerID != 3 && !IsChatMuted()): ?>
+            <?php if (!IsChatMuted()): ?>
             <div style='display:flex;'>
                 <input id='chatText'
                       style='flex:1; background:#111; color:white; font-size:14px; font-family:barlow,sans-serif;
@@ -1095,12 +1102,36 @@
     StartChatPoll();
     </script>
 
+    <?php if ($isSpectatorViewer): ?>
+    <div id='spectatorControls'
+         style='position:fixed; top:16px; left:16px; z-index:12000; background:rgba(7, 18, 30, 0.92); color:#f0e6c8; border:1px solid #c9a84c; border-radius:10px; padding:10px 12px; box-shadow:0 8px 24px rgba(0,0,0,0.35);'>
+      <div style='font-weight:700; margin-bottom:8px;'>Spectator View</div>
+      <div style='display:flex; gap:8px; align-items:center;'>
+        <button type='button'
+                onclick='SetSpectatorPerspective(1)'
+                style='padding:6px 10px; <?php echo($viewerPerspective === 1 ? "background:#c9a84c; color:#0d1b2a;" : "background:#1d3a5e; color:#f0e6c8;"); ?>'>View P1 Side</button>
+        <button type='button'
+                onclick='SetSpectatorPerspective(2)'
+                style='padding:6px 10px; <?php echo($viewerPerspective === 2 ? "background:#c9a84c; color:#0d1b2a;" : "background:#1d3a5e; color:#f0e6c8;"); ?>'>View P2 Side</button>
+      </div>
+    </div>
+    <script>
+      function SetSpectatorPerspective(perspective) {
+        var url = new URL(window.location.href);
+        url.searchParams.set('playerID', 'S');
+        url.searchParams.set('viewerPerspective', perspective === 2 ? '2' : '1');
+        window.location.replace(url.toString());
+      }
+    </script>
+    <?php endif; ?>
+
     <?php include "./" . $folderPath . "/InitialLayout.php"; ?>
     </div>
 
 
     <input type='hidden' id='gameName' value='<?= htmlspecialchars($gameName, ENT_QUOTES, 'UTF-8'); ?>'>
     <input type='hidden' id='playerID' value='<?= htmlspecialchars($playerID, ENT_QUOTES, 'UTF-8'); ?>'>
+    <input type='hidden' id='viewerPerspective' value='<?= htmlspecialchars(strval($viewerPerspective), ENT_QUOTES, 'UTF-8'); ?>'>
     <input type='hidden' id='authKey' value='<?= htmlspecialchars($authKey, ENT_QUOTES, 'UTF-8'); ?>'>
     <input type='hidden' id='folderPath' value='<?= htmlspecialchars($folderPath, ENT_QUOTES, 'UTF-8'); ?>'>
 

@@ -17200,12 +17200,13 @@ function IsUnitAttacking($mzTarget) {
     if($combatAttacker === null || $combatAttacker === "" || $combatAttacker === "-") return false;
 
     global $playerID;
-    $turnPlayer = GetTurnPlayer();
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    if($attackerPlayer <= 0) $attackerPlayer = GetTurnPlayer();
 
-    // CombatAttacker was stored from the turn player's perspective.
-    // If current player is NOT the turn player, flip to match perspective.
+    // CombatAttacker is stored from the attacker's perspective.
+    // If current viewer is not that player, flip to match the active perspective.
     $normalizedAttacker = $combatAttacker;
-    if($playerID != $turnPlayer) {
+    if($playerID != $attackerPlayer) {
         $normalizedAttacker = FlipZonePerspective($combatAttacker);
     }
 
@@ -17221,12 +17222,13 @@ function IsUnitDefending($mzTarget) {
     if($combatTarget === null || $combatTarget === "" || $combatTarget === "-") return false;
 
     global $playerID;
-    $turnPlayer = GetTurnPlayer();
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    if($attackerPlayer <= 0) $attackerPlayer = GetTurnPlayer();
 
-    // CombatTarget was stored from the turn player's (attacker's) perspective.
-    // If current player is NOT the turn player, flip to match perspective.
+    // CombatTarget is stored from the attacker's perspective.
+    // If current viewer is not that player, flip to match the active perspective.
     $normalizedTarget = $combatTarget;
-    if($playerID != $turnPlayer) {
+    if($playerID != $attackerPlayer) {
         $normalizedTarget = FlipZonePerspective($combatTarget);
     }
 
@@ -17242,9 +17244,10 @@ function GetCombatAttackerMZ() {
     if($combatAttacker === null || $combatAttacker === "" || $combatAttacker === "-") return null;
 
     global $playerID;
-    $turnPlayer = GetTurnPlayer();
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    if($attackerPlayer <= 0) $attackerPlayer = GetTurnPlayer();
 
-    if($playerID != $turnPlayer) {
+    if($playerID != $attackerPlayer) {
         return FlipZonePerspective($combatAttacker);
     }
     return $combatAttacker;
@@ -17255,9 +17258,10 @@ function GetCombatTargetMZ() {
     if($combatTarget === null || $combatTarget === "" || $combatTarget === "-") return null;
 
     global $playerID;
-    $turnPlayer = GetTurnPlayer();
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    if($attackerPlayer <= 0) $attackerPlayer = GetTurnPlayer();
 
-    if($playerID != $turnPlayer) {
+    if($playerID != $attackerPlayer) {
         return FlipZonePerspective($combatTarget);
     }
     return $combatTarget;
