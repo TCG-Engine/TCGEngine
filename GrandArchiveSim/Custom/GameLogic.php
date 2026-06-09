@@ -1662,6 +1662,33 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 
     //TODO: 1.5 Declaring Targets
 
+    if($hasAllyLink) {
+        $allyTargets = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($allyTargets)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allyTargets), 1,
+                tooltip:"Choose_an_ally_to_link");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareAllyLinkTarget", 1);
+        }
+    }
+
+    if($hasWeaponLink) {
+        if($obj->CardID === "iebo5fu381") {
+            $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["POLEARM"]);
+            $weaponLinkTooltip = "Choose_a_Polearm_weapon_to_link";
+        } else if($obj->CardID === "swy2NJ4q6O") {
+            $weaponTargets = ZoneSearch("myField", ["REGALIA"]);
+            $weaponLinkTooltip = "Choose_a_regalia_to_link";
+        } else {
+            $weaponTargets = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["WARRIOR"]);
+            $weaponLinkTooltip = "Choose_a_Warrior_weapon_to_link";
+        }
+        if(!empty($weaponTargets)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $weaponTargets), 1,
+                tooltip:$weaponLinkTooltip);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareWeaponLinkTarget", 1);
+        }
+    }
+
     //TODO: 1.6 Checking Legality
 
     // Right of Realm (ptrz1bqry4): "Whenever you activate a domain card, you may sacrifice
