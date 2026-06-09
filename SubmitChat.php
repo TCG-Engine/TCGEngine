@@ -43,7 +43,7 @@ if (!$viewerInfo['isSpectator'] && $folderPath !== "") {
 // Store message in APCu
 if (!extension_loaded('apcu') || !apcu_enabled()) { echo "Chat unavailable (APCu not enabled)."; exit; }
 
-$cacheKey = "chat_" . $gameName;
+$cacheKey = GetChatMessagesCacheKey($gameName);
 $existing = apcu_fetch($cacheKey);
 $messages = ($existing !== false) ? $existing : [];
 
@@ -62,4 +62,5 @@ if (count($messages) > 100) {
 }
 
 apcu_store($cacheKey, $messages, 3600);
+IncrementChatUpdateVersion($gameName);
 echo "OK";

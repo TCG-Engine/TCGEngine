@@ -180,6 +180,56 @@ function IncrementCachePiece($gameName, $piece)
   return $oldVal+1;
 }
 
+function GetChatMessagesCacheKey($gameName)
+{
+  return "chat_" . strval($gameName);
+}
+
+function GetChatVersionCacheKey($gameName)
+{
+  return "chat_version_" . strval($gameName);
+}
+
+function GetChatUpdateVersion($gameName)
+{
+  global $APCuEnabled;
+  if(!$APCuEnabled || !function_exists('apcu_fetch')) return 0;
+  $version = apcu_fetch(GetChatVersionCacheKey($gameName));
+  if($version === false) return 0;
+  return intval($version);
+}
+
+function HasChatUpdate($gameName, $lastChatVersion)
+{
+  return intval($lastChatVersion) < GetChatUpdateVersion($gameName);
+}
+
+function IncrementChatUpdateVersion($gameName)
+{
+  global $APCuEnabled;
+  if(!$APCuEnabled || !function_exists('apcu_inc') || !function_exists('apcu_store')) return 0;
+  $success = false;
+  $key = GetChatVersionCacheKey($gameName);
+  $newVersion = apcu_inc($key, 1, $success, 3600);
+  if(!$success) {
+    apcu_store($key, 1, 3600);
+    return 1;
+  }
+  return intval($newVersion);
+}
+
+function GetChatMessagesSince($gameName, $lastChatID = 0)
+{
+  global $APCuEnabled;
+  if(!$APCuEnabled || !function_exists('apcu_fetch')) return [];
+  $messages = apcu_fetch(GetChatMessagesCacheKey($gameName));
+  if($messages === false || !is_array($messages)) return [];
+  $lastChatID = intval($lastChatID);
+  return array_values(array_filter($messages, function($message) use ($lastChatID) {
+    return isset($message['id']) && intval($message['id']) > $lastChatID;
+  }));
+}
+
 function GamestateUpdated($gameName)
 {
   global $currentPlayer, $updateNumber;

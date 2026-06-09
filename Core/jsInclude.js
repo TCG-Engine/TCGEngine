@@ -143,35 +143,28 @@ function SubmitChat() {
 }
 
 var _lastChatID = 0;
-var _chatPollTimer = null;
+var _lastChatVersion = 0;
 var _chatSeenIds = {};
 
 function StartChatPoll() {
-  if (_chatPollTimer !== null) return;
-  _chatPollTimer = setInterval(function() {
-    var gameName = document.getElementById("gameName");
-    if (!gameName) return;
-    var xmlhttp = new XMLHttpRequest();
-    xmlhttp.onreadystatechange = function() {
-      if (this.readyState == 4 && this.status == 200) {
-        try {
-          var msgs = JSON.parse(this.responseText);
-          if (Array.isArray(msgs) && msgs.length > 0) {
-            for (var i = 0; i < msgs.length; ++i) {
-              var m = msgs[i];
-              if (!_chatSeenIds[m.id]) {
-                _chatSeenIds[m.id] = true;
-                _AppendChatMessage(m);
-              }
-              if (m.id > _lastChatID) _lastChatID = m.id;
-            }
-          }
-        } catch(e) {}
-      }
-    };
-    xmlhttp.open("GET", "GetChat.php?gameName=" + encodeURIComponent(gameName.value) + "&lastChatID=" + _lastChatID, true);
-    xmlhttp.send();
-  }, 1500);
+  return;
+}
+
+function ApplyChatPayload(payload) {
+  if (!payload || typeof payload !== "object") return false;
+  var version = parseInt(payload.version || 0, 10);
+  if (Number.isNaN(version)) version = 0;
+  var msgs = Array.isArray(payload.messages) ? payload.messages : [];
+  for (var i = 0; i < msgs.length; ++i) {
+    var m = msgs[i];
+    if (!_chatSeenIds[m.id]) {
+      _chatSeenIds[m.id] = true;
+      _AppendChatMessage(m);
+    }
+    if (m.id > _lastChatID) _lastChatID = m.id;
+  }
+  if (version > _lastChatVersion) _lastChatVersion = version;
+  return msgs.length > 0 || version > 0;
 }
 
 function _AppendChatMessage(msg) {

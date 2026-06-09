@@ -486,6 +486,19 @@
         return [];
       }
 
+      function ParseChatPayload(responseArr) {
+        if (!Array.isArray(responseArr) || responseArr.length < 2) return null;
+        var raw = responseArr[0] === "CHATONLY" ? responseArr[1] : responseArr[responseArr.length - 2];
+        if (!raw) return null;
+        var trimmed = String(raw).trim();
+        if (trimmed === "" || trimmed.charAt(0) !== "{") return null;
+        try {
+          var parsed = JSON.parse(trimmed);
+          if (parsed && typeof parsed === "object") return parsed;
+        } catch (e) {}
+        return null;
+      }
+
       function NormalizeAnimationTarget(target, perspectivePlayerID) {
         if (!target) return "";
         var mzid = "";
@@ -605,6 +618,12 @@
               location.replace('GameLobby.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo ($playerID); ?>&authKey=<?php echo ($authKey); ?>');
             } else {
               var responseArr = responseText.split("<~>");
+              var chatPayload = ParseChatPayload(responseArr);
+              var chatChanged = ApplyChatPayload(chatPayload);
+              if (responseArr[0] === "CHATONLY") {
+                QueueReload(_lastUpdate);
+                return;
+              }
               var update = parseInt(responseArr[0], 10);
               if (Number.isNaN(update)) {
                 _lastUpdate = "NaN";
@@ -629,8 +648,10 @@
         var dimensions = "&windowWidth=" + window.innerWidth + "&windowHeight=" + window.innerHeight;
         var lcpEl = document.getElementById("lastCurrentPlayer");
         var lastCurrentPlayer = "&lastCurrentPlayer=" + (!lcpEl ? "0" : lcpEl.innerHTML);
+        var lastChatVersion = "&lastChatVersion=" + encodeURIComponent(_lastChatVersion);
+        var lastChatID = "&lastChatID=" + encodeURIComponent(_lastChatID);
         if (lastUpdate == "NaN") window.location.replace("https://www.petranaki.net/Arena/MainMenu.php");
-        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo urlencode($playerID); ?>&viewerPerspective=<?php echo($viewerPerspective); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo urlencode($authKey); ?>" + dimensions, true);
+        else xmlhttp.open("GET", "./<?php echo($folderPath);?>/GetNextTurn.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo urlencode($playerID); ?>&viewerPerspective=<?php echo($viewerPerspective); ?>&lastUpdate=" + lastUpdate + "&authKey=<?php echo urlencode($authKey); ?>" + lastChatVersion + lastChatID + dimensions, true);
         xmlhttp.send();
       }
 
