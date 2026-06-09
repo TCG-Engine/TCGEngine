@@ -153,9 +153,18 @@ function GetCombatWeapon() {
     return $mz;
 }
 
-function AttackHasAnyTargetOption($player, $attackerMZ, $weaponChoices = []) {
+function AttackHasPositivePowerWithoutWeapon($attackerObj, $player) {
     $originalWeapon = DecisionQueueController::GetVariable("CombatWeapon");
-    $testWeapons = array_merge(["-"], $weaponChoices);
+    DecisionQueueController::StoreVariable("CombatWeapon", "-");
+    $hasPositivePower = GetTotalAttackPower($attackerObj, $player) > 0;
+    if($originalWeapon === null) DecisionQueueController::ClearVariable("CombatWeapon");
+    else DecisionQueueController::StoreVariable("CombatWeapon", $originalWeapon);
+    return $hasPositivePower;
+}
+
+function AttackHasAnyTargetOption($player, $attackerMZ, $weaponChoices = [], $includeNoWeapon = true) {
+    $originalWeapon = DecisionQueueController::GetVariable("CombatWeapon");
+    $testWeapons = $includeNoWeapon ? array_merge(["-"], $weaponChoices) : $weaponChoices;
     foreach($testWeapons as $weaponMZ) {
         DecisionQueueController::StoreVariable("CombatWeapon", $weaponMZ);
         if(AttackerHasCleave($attackerMZ, $player)) {
@@ -174,9 +183,9 @@ function AttackHasAnyTargetOption($player, $attackerMZ, $weaponChoices = []) {
     return false;
 }
 
-function GetAttackTargetOptionsAcrossWeaponChoices($player, $attackerMZ, $weaponChoices = []) {
+function GetAttackTargetOptionsAcrossWeaponChoices($player, $attackerMZ, $weaponChoices = [], $includeNoWeapon = true) {
     $originalWeapon = DecisionQueueController::GetVariable("CombatWeapon");
-    $testWeapons = array_merge(["-"], $weaponChoices);
+    $testWeapons = $includeNoWeapon ? array_merge(["-"], $weaponChoices) : $weaponChoices;
     $targets = [];
     foreach($testWeapons as $weaponMZ) {
         DecisionQueueController::StoreVariable("CombatWeapon", $weaponMZ);
@@ -1034,9 +1043,17 @@ function DeclareChampionAttack($player) {
 
     $hasCleave = AttackerHasCleave($championMZ, $player);
     $availableWeapons = GetAttackWeaponChoices($player, $champion);
+    $requiresWeaponForPower = !AttackHasPositivePowerWithoutWeapon($champion, $player);
+
+    if($requiresWeaponForPower && empty($availableWeapons)) {
+        SetFlashMessage("Cannot attack with a unit that has 0 or less power.");
+        return false;
+    }
+
+    $includeNoWeapon = !$requiresWeaponForPower;
 
     // Check valid targets across the legal weapon choices for this attack.
-    if(!AttackHasAnyTargetOption($player, $championMZ, $availableWeapons)) {
+    if(!AttackHasAnyTargetOption($player, $championMZ, $availableWeapons, $includeNoWeapon)) {
         SetFlashMessage("No valid attack targets.");
         return false;
     }
@@ -1058,7 +1075,8 @@ function DeclareChampionAttack($player) {
     // Step 2.b -- Weapon selection: if the attacker is a champion, offer weapon choice
     if(!empty($availableWeapons)) {
         $weaponList = implode("&", $availableWeapons);
-        DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $weaponList, 95, "Choose_weapon?");
+        $weaponDecisionType = $requiresWeaponForPower ? "MZCHOOSE" : "MZMAYCHOOSE";
+        DecisionQueueController::AddDecision($player, $weaponDecisionType, $weaponList, 95, "Choose_weapon?");
         DecisionQueueController::AddDecision($player, "CUSTOM", "WeaponSelected", 95);
     } else {
         DecisionQueueController::StoreVariable("CombatWeapon", "-");
@@ -1068,7 +1086,7 @@ function DeclareChampionAttack($player) {
     if($hasCleave && empty($availableWeapons)) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "CleaveAttack|" . $championMZ, 100);
     } else {
-        ChooseAttackTarget($player, $championMZ, $availableWeapons);
+        ChooseAttackTarget($player, $championMZ, $availableWeapons, $includeNoWeapon);
     }
 
     return true;
@@ -1185,7 +1203,7 @@ function BeginCombatPhase($actionCard) {
     // Command / attack-card attacks can still be legal if the loaded intent adds enough POWER,
     // and 0-power champions can still attack if they have an available weapon.
     if(ObjectCurrentPower($obj) <= 0) {
-        $hasIntentPower = !empty(GetIntentCards($turnPlayer)) && GetTotalAttackPower($obj, $turnPlayer) > 0;
+        $hasIntentPower = AttackHasPositivePowerWithoutWeapon($obj, $turnPlayer);
         $hasChampionWeapon = PropertyContains($cardType, "CHAMPION") && !empty(GetAvailableWeapons($turnPlayer));
         if(!$hasIntentPower && !$hasChampionWeapon) {
             SetFlashMessage("Cannot attack with a unit that has 0 or less power.");
@@ -1353,9 +1371,10 @@ function BeginCombatPhase($actionCard) {
     }
 
     $availableWeapons = GetAttackWeaponChoices($turnPlayer, $obj);
+    $includeNoWeapon = !PropertyContains($cardType, "CHAMPION") || AttackHasPositivePowerWithoutWeapon($obj, $turnPlayer);
 
     // Step 2.c (pre-check) -- Must have at least one valid target across legal weapon choices.
-    if(!AttackHasAnyTargetOption($turnPlayer, $actionCard, $availableWeapons)) {
+    if(!AttackHasAnyTargetOption($turnPlayer, $actionCard, $availableWeapons, $includeNoWeapon)) {
         SetFlashMessage("No valid attack targets.");
         return false;
     }
@@ -1431,7 +1450,8 @@ function BeginCombatPhase($actionCard) {
     if(PropertyContains($cardType, "CHAMPION")) {
         if(!empty($availableWeapons)) {
             $weaponList = implode("&", $availableWeapons);
-            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $weaponList, 95, "Choose_weapon?");
+            $weaponDecisionType = AttackHasPositivePowerWithoutWeapon($obj, $turnPlayer) ? "MZMAYCHOOSE" : "MZCHOOSE";
+            DecisionQueueController::AddDecision($turnPlayer, $weaponDecisionType, $weaponList, 95, "Choose_weapon?");
             DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponSelected", 95);
         } else {
             DecisionQueueController::StoreVariable("CombatWeapon", "-");
@@ -1461,7 +1481,7 @@ function BeginCombatPhase($actionCard) {
         // Cleave: all opposing units become defenders automatically
         DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "CleaveAttack|" . $actionCard, 100);
     } else {
-        ChooseAttackTarget($turnPlayer, $actionCard, $availableWeapons);
+        ChooseAttackTarget($turnPlayer, $actionCard, $availableWeapons, $includeNoWeapon);
     }
 
     // Execute the decision queue
@@ -1474,9 +1494,9 @@ function BeginCombatPhase($actionCard) {
 /**
  * Queue interactive target selection for the attack.
  */
-function ChooseAttackTarget($player, $attackerMZ, $weaponChoices = null) {
+function ChooseAttackTarget($player, $attackerMZ, $weaponChoices = null, $includeNoWeapon = true) {
     $validTargets = is_array($weaponChoices)
-        ? GetAttackTargetOptionsAcrossWeaponChoices($player, $attackerMZ, $weaponChoices)
+        ? GetAttackTargetOptionsAcrossWeaponChoices($player, $attackerMZ, $weaponChoices, $includeNoWeapon)
         : GetValidAttackTargets($attackerMZ);
     if(empty($validTargets)) return;
     $targetList = implode("&", $validTargets);
