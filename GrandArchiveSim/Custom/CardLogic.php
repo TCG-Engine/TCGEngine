@@ -287,7 +287,7 @@ function BecomeDistant($player, $mzID) {
             if(!$fObj->removed && $fObj->CardID === "a53rqmuqxf" && !HasNoAbilities($fObj)) {
                 $liuBeiMZ = $zone . "-" . $fi;
                 if(!in_array("DISTANT", $fObj->TurnEffects)) {
-                    AddTurnEffect($liuBeiMZ, "DISTANT");
+                    BecomeDistant($fObj->Controller, $liuBeiMZ);
                 }
             }
         }
