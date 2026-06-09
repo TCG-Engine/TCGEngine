@@ -437,6 +437,7 @@ include_once 'Header.php';
   var _lobby_id = "";
   var _privateInviteCode = "";
   var _waitingEscHandler = null;
+  var _autoLaunchGoldfish = false;
 
       function switchDeckTab(tab) {
         var isLink = tab === 'link';
@@ -472,6 +473,36 @@ include_once 'Header.php';
           }
         } catch (e) {
           console.error('Failed to parse private invite URL:', e);
+        }
+      }
+
+      function initializeGoldfishLinkFromUrl() {
+        try {
+          var params = new URLSearchParams(window.location.search || '');
+          var deckLinkParam = (params.get('deckLink') || params.get('deck') || '').trim();
+          var deckTextParam = (params.get('deckText') || params.get('list') || '').trim();
+          var goldfishParam = (params.get('goldfish') || '').trim().toLowerCase();
+          var shouldAutostart = goldfishParam === '1' || goldfishParam === 'true' || goldfishParam === 'yes';
+
+          if (deckLinkParam) {
+            var deckLinkEl = document.getElementById('deck-link');
+            if (deckLinkEl && !deckLinkEl.value.trim()) {
+              deckLinkEl.value = deckLinkParam;
+            }
+            switchDeckTab('link');
+          } else if (deckTextParam) {
+            var deckTextEl = document.getElementById('deck-text');
+            if (deckTextEl && !deckTextEl.value.trim()) {
+              deckTextEl.value = deckTextParam;
+            }
+            switchDeckTab('text');
+          }
+
+          if (shouldAutostart && (deckLinkParam || deckTextParam)) {
+            _autoLaunchGoldfish = true;
+          }
+        } catch (e) {
+          console.error('Failed to parse goldfish launch URL:', e);
         }
       }
 
@@ -1008,7 +1039,14 @@ include_once 'Header.php';
 
       document.addEventListener('DOMContentLoaded', function() {
         initializePrivateInviteFromUrl();
+        initializeGoldfishLinkFromUrl();
         refreshOpenGames();
+        if (_autoLaunchGoldfish) {
+          window.setTimeout(function() {
+            _autoLaunchGoldfish = false;
+            startGoldfishGame();
+          }, 0);
+        }
       });
     </script>
 
