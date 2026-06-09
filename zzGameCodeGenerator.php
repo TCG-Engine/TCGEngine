@@ -1477,9 +1477,13 @@ for($i=0; $i<count($zones); ++$i) {
         } else {
           // Array zones
           fwrite($handler, "    \$zone = &GetZone(\"" . $baseZoneName . "\");\r\n");
+          fwrite($handler, "    \$wroteAny = false;\r\n");
           fwrite($handler, "    for(\$i=0; \$i<count(\$zone); ++\$i) {\r\n");
-          fwrite($handler, "      if(\$i > 0) \$rv .= \"<v1>\";\r\n");
+          fwrite($handler, "      if(!isset(\$zone[\$i]) || \$zone[\$i] === null) continue;\r\n");
+          fwrite($handler, "      if(\$zone[\$i]->Removed()) continue;\r\n");
+          fwrite($handler, "      if(\$wroteAny) \$rv .= \"<v1>\";\r\n");
           fwrite($handler, "      \$rv .= \$zone[\$i]->Serialize(\"<v2>\");\r\n");
+          fwrite($handler, "      \$wroteAny = true;\r\n");
           fwrite($handler, "    }\r\n");
         }
         if($j < count($versionZones) - 1) fwrite($handler, "    \$rv .= \"<v0>\";\r\n");
