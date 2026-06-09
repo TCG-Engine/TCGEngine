@@ -2593,32 +2593,42 @@ $customDQHandlers["TopsyDecree_Process"] = function($player, $parts, $lastDecisi
                 $oppMemory = &GetMemory($oppPlayer);
                 $targets = [];
                 for($i = 0; $i < count($oppHand); ++$i) {
-                    if(!$oppHand[$i]->removed) $targets[] = "theirHand-" . $i;
+                    if(!$oppHand[$i]->removed) $targets[] = "myHand-" . $i;
                 }
                 for($i = 0; $i < count($oppMemory); ++$i) {
-                    if(!$oppMemory[$i]->removed) $targets[] = "theirMemory-" . $i;
+                    if(!$oppMemory[$i]->removed) $targets[] = "myMemory-" . $i;
                 }
                 if(!empty($targets)) {
                     $targetStr = implode("&", $targets);
-                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_(Topsy_Decree)");
-                    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeDiscard", 1);
+                    DecisionQueueController::AddDecision($oppPlayer, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Discard_a_card_(Topsy_Decree)");
+                    DecisionQueueController::AddDecision($oppPlayer, "CUSTOM", "TopsyDecreeDiscard", 1);
                 }
                 break;
             case "2": // Choose up to 2 cards from a single graveyard and banish them
                 $myGY = GetZone("myGraveyard");
                 $theirGY = GetZone("theirGraveyard");
-                $targets = [];
+                $hasMyGY = false;
                 for($gi = 0; $gi < count($myGY); ++$gi) {
-                    if(!$myGY[$gi]->removed) $targets[] = "myGraveyard-" . $gi;
+                    if(!$myGY[$gi]->removed) {
+                        $hasMyGY = true;
+                        break;
+                    }
                 }
+                $hasTheirGY = false;
                 for($gi = 0; $gi < count($theirGY); ++$gi) {
-                    if(!$theirGY[$gi]->removed) $targets[] = "theirGraveyard-" . $gi;
+                    if(!$theirGY[$gi]->removed) {
+                        $hasTheirGY = true;
+                        break;
+                    }
                 }
-                if(!empty($targets)) {
-                    DecisionQueueController::StoreVariable("topsyBanishCount", "0");
-                    $targetStr = implode("&", $targets);
-                    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Banish_card_from_GY_(1_of_2)");
-                    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeBanish", 1);
+                if(!$hasMyGY && !$hasTheirGY) break;
+                if($hasMyGY && $hasTheirGY) {
+                    DecisionQueueController::AddDecision($player, "MZMODAL", "1|1|A:_Your_graveyard&B:_Opponent_graveyard", 1, tooltip:"Choose_a_graveyard_(Topsy_Decree)");
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeChooseGraveyard", 1);
+                }
+                else {
+                    $graveyardZone = $hasMyGY ? "myGraveyard" : "theirGraveyard";
+                    TopsyDecreeQueueBanishFromGraveyard($player, $graveyardZone);
                 }
                 break;
         }
@@ -2631,28 +2641,41 @@ $customDQHandlers["TopsyDecreeDiscard"] = function($player, $parts, $lastDecisio
     MZMove($player, $lastDecision, "myGraveyard");
 };
 
+function TopsyDecreeQueueBanishFromGraveyard($player, $graveyardZone) {
+    $gy = GetZone($graveyardZone);
+    $targets = [];
+    for($gi = 0; $gi < count($gy); ++$gi) {
+        if(!$gy[$gi]->removed) $targets[] = $graveyardZone . "-" . $gi;
+    }
+    if(empty($targets)) return;
+    $targetStr = implode("&", $targets);
+    $maxChoices = min(2, count($targets));
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . $maxChoices . "|" . $targetStr, 1, tooltip:"Banish_up_to_two_cards_from_the_chosen_graveyard");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeBanish", 1);
+}
+
+$customDQHandlers["TopsyDecreeChooseGraveyard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "PASS" || empty($lastDecision)) return;
+    $graveyardZone = $lastDecision === "0" ? "myGraveyard" : "theirGraveyard";
+    TopsyDecreeQueueBanishFromGraveyard($player, $graveyardZone);
+};
+
 $customDQHandlers["TopsyDecreeBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "PASS" || empty($lastDecision)) return;
-    // Determine which GY was chosen so the second pick must be from the same
-    $chosenGY = (strpos($lastDecision, "myGraveyard") === 0) ? "myGraveyard" : "theirGraveyard";
-    $destBanish = ($chosenGY === "myGraveyard") ? "myBanish" : "theirBanish";
-    MZMove($player, $lastDecision, $destBanish);
-    DecisionQueueController::CleanupRemovedCards();
-    $banishCount = intval(DecisionQueueController::GetVariable("topsyBanishCount")) + 1;
-    if($banishCount < 2) {
-        // Offer second banish from the SAME graveyard
-        $gy = GetZone($chosenGY);
-        $targets = [];
-        for($gi = 0; $gi < count($gy); ++$gi) {
-            if(!$gy[$gi]->removed) $targets[] = $chosenGY . "-" . $gi;
-        }
-        if(!empty($targets)) {
-            DecisionQueueController::StoreVariable("topsyBanishCount", "$banishCount");
-            $targetStr = implode("&", $targets);
-            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $targetStr, 1, tooltip:"Banish_card_from_GY_(2_of_2)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "TopsyDecreeBanish", 1);
-        }
+    $selected = array_values(array_unique(array_filter(explode("&", $lastDecision), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    if(empty($selected)) return;
+    usort($selected, function($left, $right) {
+        $leftIndex = intval(substr(strrchr($left, "-"), 1));
+        $rightIndex = intval(substr(strrchr($right, "-"), 1));
+        return $rightIndex <=> $leftIndex;
+    });
+    foreach($selected as $chosenMZ) {
+        $destBanish = (strpos($chosenMZ, "myGraveyard") === 0) ? "myBanish" : "theirBanish";
+        MZMove($player, $chosenMZ, $destBanish);
     }
+    DecisionQueueController::CleanupRemovedCards();
 };
 
 // --- Perilous Mend: recursive Curse selection ---
@@ -14400,7 +14423,7 @@ function SelectionMetadata($obj) {
         return json_encode(['color' => 'rgba(255, 64, 64, 0.95)']);
     }
     // Hand reserve affordability is advisory only; rare cost branches can still make it playable.
-    if(isset($obj->Location) && $obj->Location === "Hand" && !CanAffordActivationReserve($turnPlayer, $obj)) {
+    if(isset($obj->Location) && $obj->Location === "Hand" && !CanAffordCardActivation($turnPlayer, $obj)) {
         return json_encode(['color' => 'rgba(255, 170, 0, 0.95)']);
     }
     // Return bright vibrant lime green highlight for valid selectable cards
@@ -15121,6 +15144,21 @@ function CanAffordActivationReserve($player, $obj) {
         $excludedMzID = SelectionMetadataMzID($obj);
     }
     return CountAvailableReservePayments($player, $excludedMzID) >= PreviewActivateReserveCost($player, $obj);
+}
+
+function CanAffordAlternativeActivationCost($player, $obj) {
+    if($obj === null || !isset($obj->CardID)) return false;
+
+    global $brewCosts;
+    if(isset($brewCosts[$obj->CardID]) && CanPayBrewCost($player, $brewCosts[$obj->CardID])) {
+        return true;
+    }
+
+    return false;
+}
+
+function CanAffordCardActivation($player, $obj) {
+    return CanAffordActivationReserve($player, $obj) || CanAffordAlternativeActivationCost($player, $obj);
 }
 
 $untilBeginTurnEffects["RYBF1HBTCS"] = true;

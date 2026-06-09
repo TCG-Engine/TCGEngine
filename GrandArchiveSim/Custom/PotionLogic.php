@@ -25,6 +25,7 @@ $brewCosts["0Z1r8GC8a8"] = [["type"=>"HERB","count"=>2]]; // Speed Potion: 2 Her
 $brewCosts["NwK5wge8wy"] = [["type"=>"HERB","count"=>3]]; // Alpha Philterbeast: 3 Herbs
 $brewCosts["O1OU62Zx2Y"] = [["type"=>"HERB","count"=>1]]; // Distilled Water: 1 Herb
 $brewCosts["gnYM2V6TTw"] = [["type"=>"SAME_NAME_HERBS","count"=>2]]; // Soothing Potion: 2 Herbs with the same name
+$brewCosts["hj1trn0yet"] = [["type"=>"HERB","count"=>4]]; // Hide in Bush: 4 Herbs
 
 // --- Gather (Grand Archive keyword): summon a random herb token ---
 

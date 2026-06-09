@@ -1,41 +1,9 @@
 [
     {
-        "playerID": 1,
+        "playerID": 2,
         "mode": 10002,
         "buttonInput": "",
-        "cardID": "myHand-6!FSM!",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "YES",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myHand-2",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myHand-2",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myHand-3",
+        "cardID": "myHand-2!FSM!",
         "chkInput": [],
         "inputText": ""
     },
@@ -43,7 +11,55 @@
         "playerID": 2,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "PASS",
+        "cardID": "YES",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "1,2",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirGraveyard-0",
         "chkInput": [],
         "inputText": ""
     },
@@ -51,15 +67,7 @@
         "playerID": 1,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "0,2",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "myGraveyard-0",
+        "cardID": "myMemory-2",
         "chkInput": [],
         "inputText": ""
     }
