@@ -5060,6 +5060,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
+        case "pY1TImPn8g": // Oneiric Key â€” (4), banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            break;
         case "Nym5Y3JsO5": // Trivial Trinket â€” banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
@@ -14240,6 +14248,11 @@ function CardHasAbility($obj) {
     // Confidant's Oath (nlufjh84vm): (2), [REST], remove two refinement counters
     if($obj->CardID === "nlufjh84vm") {
         if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
+    }
+
+    // Oneiric Key (pY1TImPn8g): (4), banish self
+    if($obj->CardID === "pY1TImPn8g") {
+        if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 4) return 0;
     }
 
     // Mana Limiter (IC3OU6vCnF): requires champion has 6+ enlighten counters
