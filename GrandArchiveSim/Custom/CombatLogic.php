@@ -1745,6 +1745,20 @@ function OnAttackTrigger($player, $mzID) {
         }
     }
 
+    // Radiant Origin of Warrior (lqILsIDHNc): whenever your champion attacks using a weapon,
+    // put a training counter on it.
+    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+        $weaponMZ = GetCombatWeapon();
+        if($weaponMZ !== null) {
+            $field = &GetField($player);
+            for($ri = 0; $ri < count($field); ++$ri) {
+                if(!$field[$ri]->removed && $field[$ri]->CardID === "lqILsIDHNc" && !HasNoAbilities($field[$ri])) {
+                    AddCounters($player, "myField-" . $ri, "training", 1);
+                }
+            }
+        }
+    }
+
     // Hulao Gate, Sun's Ascent (snke7lneo4): whenever a unit declares an attack, deal 2 damage to it
     foreach(array_merge(GetField(1), GetField(2)) as $hgObj) {
         if(!$hgObj->removed && $hgObj->CardID === "snke7lneo4" && !HasNoAbilities($hgObj)) {
