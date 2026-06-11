@@ -8,6 +8,7 @@
     <script src="./Core/MZSplitAssignUI.js"></script>
     <script src="./Core/MZMultiChooseUI.js"></script>
     <script src="./Core/MZModalUI.js"></script>
+    <script src="./Core/TwoSidedSliderUI.js"></script>
     <script src="./Core/IconChoiceUI.js"></script>
     <script src="./Core/NumberChooseUI.js"></script>
     <script src="./Core/NameCardUI.js"></script>

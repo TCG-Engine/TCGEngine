@@ -5207,84 +5207,90 @@ $customDQHandlers["FrostnipPirouetteWitherLoop"] = function($player, $params, $l
 };
 
 // ============================================================================
-// Bloom: Autumn's Fall (pebu7agtcd): choose Acerbica or Washuru for each
-// sacrificed Flowerbud, then summon for the opponent
+// Bloom: Autumn's Fall (pebu7agtcd): caster chooses how to split the resulting
+// token summons between Acerbica and Washuru for the sacrificed Flowerbuds.
 // ============================================================================
-function BloomAutumnChooseTokens($player, $opponent, $remaining) {
-    if($remaining <= 0) return;
-    // YESNO: "Summon_Acerbica?" — YES = Acerbica, NO = Washuru
-    DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
-        tooltip:"Summon_Acerbica_for_opponent?_(NO=Washuru)_(" . $remaining . "_remaining)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "BloomAutumnToken|" . $opponent . "|" . $remaining, 1);
-}
+$customDQHandlers["BloomAutumnResolve"] = function($player, $params, $lastDecision) {
+    $totalFlowerbuds = intval($params[0] ?? 0);
+    if($totalFlowerbuds <= 0) return;
 
-$customDQHandlers["BloomAutumnToken"] = function($player, $params, $lastDecision) {
-    $opponent = intval($params[0]);
-    $remaining = intval($params[1]);
-    if($lastDecision === "YES") {
-        MZAddZone($opponent, "myField", "7ax4ywyv19"); // Acerbica
-    } else {
-        MZAddZone($opponent, "myField", "k5iv040vcq"); // Washuru
+    $acerbicaCount = intval($lastDecision);
+    if($acerbicaCount < 0) $acerbicaCount = 0;
+    if($acerbicaCount > $totalFlowerbuds) $acerbicaCount = $totalFlowerbuds;
+    $washuruCount = $totalFlowerbuds - $acerbicaCount;
+
+    for($i = 0; $i < $acerbicaCount; ++$i) {
+        MZAddZone($player, "theirField", "7ax4ywyv19");
     }
-    BloomAutumnChooseTokens($player, $opponent, $remaining - 1);
+    for($i = 0; $i < $washuruCount; ++$i) {
+        MZAddZone($player, "theirField", "k5iv040vcq");
+    }
 };
 
 // ============================================================================
-// Bloom: Summer's Glow (a708z5ethq): caster chooses token mode once, then
-// each opponent Flowerbud is sacrificed and replaced with the chosen token.
+// Bloom: Summer's Glow (a708z5ethq): caster chooses how to split the resulting
+// token summons between Lycoria and Baihua for the sacrificed Flowerbuds.
 // ============================================================================
 $customDQHandlers["BloomSummerResolve"] = function($player, $params, $lastDecision) {
-    $opponent = intval($params[0] ?? 0);
-    if($opponent < 1) return;
-
-    // MZMODAL returns "0"/"1"; keep YES fallback for legacy safety.
-    $summonLycoria = ($lastDecision === "0" || $lastDecision === "YES");
-    $tokenCardID = $summonLycoria ? "89nl1vcn33" : "i59eamoov0"; // Lycoria / Baihua
-
-    // Resolve from the casting player's perspective:
-    // "theirField" is always the opponent battlefield for this controller.
     $flowerbuds = ZoneSearch("theirField", cardSubtypes: ["FLOWERBUD"]);
     if(empty($flowerbuds)) return;
+
+    $totalFlowerbuds = count($flowerbuds);
+    $lycoriaCount = intval($lastDecision);
+    if($lycoriaCount < 0) $lycoriaCount = 0;
+    if($lycoriaCount > $totalFlowerbuds) $lycoriaCount = $totalFlowerbuds;
+    $baihuaCount = $totalFlowerbuds - $lycoriaCount;
+
     usort($flowerbuds, function($a, $b) {
         $ai = intval(substr(strrchr($a, "-"), 1));
         $bi = intval(substr(strrchr($b, "-"), 1));
         return $bi <=> $ai; // Process highest index first to avoid reindexing issues.
     });
 
-    foreach($flowerbuds as $fbMZ) {
+    $replacementTokens = array_merge(
+        array_fill(0, $lycoriaCount, "89nl1vcn33"),
+        array_fill(0, $baihuaCount, "i59eamoov0")
+    );
+
+    foreach($flowerbuds as $idx => $fbMZ) {
         $fbObj = GetZoneObject($fbMZ);
         if($fbObj === null || $fbObj->removed) continue;
         MZMove($player, $fbMZ, "theirGraveyard");
+        $tokenCardID = $replacementTokens[$idx] ?? "i59eamoov0";
         MZAddZone($player, "theirField", $tokenCardID);
     }
 };
 
 // ============================================================================
-// Bloom: Winter's Chill (b4jvyh23y1): caster chooses token mode once, then
-// each opponent Flowerbud is sacrificed and replaced with the chosen token.
+// Bloom: Winter's Chill (b4jvyh23y1): caster chooses how to split the resulting
+// token summons between Nightshade and Floodbloom for the sacrificed Flowerbuds.
 // ============================================================================
 $customDQHandlers["BloomWinterResolve"] = function($player, $params, $lastDecision) {
-    $opponent = intval($params[0] ?? 0);
-    if($opponent < 1) return;
-
-    // MZMODAL returns "0"/"1"; keep YES fallback for legacy safety.
-    $summonNightshade = ($lastDecision === "0" || $lastDecision === "YES");
-    $tokenCardID = $summonNightshade ? "rzk3mjblse" : "4s1kmjeaks"; // Nightshade / Floodbloom
-
-    // Resolve from the casting player's perspective:
-    // "theirField" is always the opponent battlefield for this controller.
     $flowerbuds = ZoneSearch("theirField", cardSubtypes: ["FLOWERBUD"]);
     if(empty($flowerbuds)) return;
+
+    $totalFlowerbuds = count($flowerbuds);
+    $nightshadeCount = intval($lastDecision);
+    if($nightshadeCount < 0) $nightshadeCount = 0;
+    if($nightshadeCount > $totalFlowerbuds) $nightshadeCount = $totalFlowerbuds;
+    $floodbloomCount = $totalFlowerbuds - $nightshadeCount;
+
     usort($flowerbuds, function($a, $b) {
         $ai = intval(substr(strrchr($a, "-"), 1));
         $bi = intval(substr(strrchr($b, "-"), 1));
         return $bi <=> $ai; // Process highest index first to avoid reindexing issues.
     });
 
-    foreach($flowerbuds as $fbMZ) {
+    $replacementTokens = array_merge(
+        array_fill(0, $nightshadeCount, "rzk3mjblse"),
+        array_fill(0, $floodbloomCount, "4s1kmjeaks")
+    );
+
+    foreach($flowerbuds as $idx => $fbMZ) {
         $fbObj = GetZoneObject($fbMZ);
         if($fbObj === null || $fbObj->removed) continue;
         MZMove($player, $fbMZ, "theirGraveyard");
+        $tokenCardID = $replacementTokens[$idx] ?? "4s1kmjeaks";
         MZAddZone($player, "theirField", $tokenCardID);
     }
 };
@@ -6204,21 +6210,6 @@ $customDQHandlers["ViridescentAetherstreakLoad"] = function($player, $parts, $la
         LoadArrowIntoBow($player, $sourceMZ, $lastDecision);
     }
     ViridescentAetherstreakFinalize($player);
-};
-
-$customDQHandlers["RafalesSlashPayment"] = function($player, $parts, $lastDecision) {
-    if($lastDecision !== "YES") return;
-    if(CountReserveSources($player) < 3) return;
-    for($i = 0; $i < 3; ++$i) {
-        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
-    }
-    DecisionQueueController::AddDecision($player, "CUSTOM", "RafalesSlashSummon", 1);
-};
-
-$customDQHandlers["RafalesSlashSummon"] = function($player, $parts, $lastDecision) {
-    MZAddZone($player, "myField", "L67r0GlRHR");
-    $field = &GetField($player);
-    $field[count($field) - 1]->Status = 1;
 };
 
 // ============================================================================

@@ -627,6 +627,11 @@ function BridgeEnumerateDecisionActions($decision, $player) {
           $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => strval($n), 'chkInput' => [], 'inputText' => ''];
         }
         break;
+      case 'TWOSIDEDSLIDER':
+        foreach (BridgeEnumerateTwoSidedSliderResults(strval($decision->Param ?? '')) as $resultStr) {
+          $actions[] = ['playerID' => $player, 'mode' => 100, 'buttonInput' => '', 'cardID' => $resultStr, 'chkInput' => [], 'inputText' => ''];
+        }
+        break;
       case 'MZSPLITASSIGN':
         $paramParts = explode('|', strval($decision->Param ?? ''), 2);
         $amount = max(0, intval($paramParts[0] ?? 0));
@@ -916,6 +921,22 @@ function BridgeEnumerateModalResults($param) {
     // last-k deterministic selection
     $results[] = implode('&', array_slice($labels, $n - $k, $k));
   }
+  return array_values(array_unique($results));
+}
+
+function BridgeEnumerateTwoSidedSliderResults($param) {
+  $parts = explode('|', strval($param), 3);
+  $min = intval($parts[0] ?? 0);
+  $max = intval($parts[1] ?? $min);
+  if ($max < $min) {
+    $tmp = $min;
+    $min = $max;
+    $max = $tmp;
+  }
+
+  $results = [strval($max), strval($min)];
+  $mid = intval(floor(($min + $max) / 2));
+  $results[] = strval($mid);
   return array_values(array_unique($results));
 }
 

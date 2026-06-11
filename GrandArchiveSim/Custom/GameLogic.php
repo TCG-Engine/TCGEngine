@@ -152,6 +152,16 @@ function GoldfishResolveDecisionInput($player, $decision) {
             preg_match_all('/-?\d+/', strval($decision->Param), $numbers);
             if(!empty($numbers[0])) return strval(intval($numbers[0][0]));
             return "0";
+        case "TWOSIDEDSLIDER":
+            $parts = explode("|", strval($decision->Param), 3);
+            $min = intval($parts[0] ?? 0);
+            $max = intval($parts[1] ?? $min);
+            if($max < $min) {
+                $tmp = $min;
+                $min = $max;
+                $max = $tmp;
+            }
+            return strval($max);
         case "MZSPLITASSIGN":
             $paramParts = explode("|", strval($decision->Param), 3);
             $amount = intval($paramParts[0] ?? 0);

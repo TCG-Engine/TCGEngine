@@ -3440,6 +3440,19 @@ function CheckAndShowDecisionQueue(decisionQueue) {
         console.error('NumberChooseUI.js not loaded - ShowNumberChooseUI function not found');
       }
       break;
+    } else if (entry && entry.Type === 'TWOSIDEDSLIDER' && !entry.removed) {
+      // TWOSIDEDSLIDER: Choose a numeric split between two labeled/card-backed sides.
+      // Param format: "min|max|leftSpec|rightSpec"
+      var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a split';
+
+      if (typeof ShowTwoSidedSliderUI === 'function') {
+        ShowTwoSidedSliderUI(entry.Param, tooltip, i, function(selectedNumber, decisionIndex) {
+          SubmitInput('DECISION', '&decisionIndex=' + decisionIndex + '&cardID=' + encodeURIComponent(selectedNumber));
+        });
+      } else {
+        console.error('TwoSidedSliderUI.js not loaded - ShowTwoSidedSliderUI function not found');
+      }
+      break;
     } else if (entry && entry.Type === 'NAMECARD' && !entry.removed) {
       var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a card name';
 
@@ -4494,6 +4507,7 @@ function _describeDecisionType(type) {
     case 'MZMULTICHOOSE': return 'choose multiple cards';
     case 'MZSPLITASSIGN': return 'assign values';
     case 'NUMBERCHOOSE': return 'choose a number';
+    case 'TWOSIDEDSLIDER': return 'choose a split';
     case 'NAMECARD': return 'name a card';
     case 'ICONCHOICE': return 'choose a direction';
     default: return 'take an action';

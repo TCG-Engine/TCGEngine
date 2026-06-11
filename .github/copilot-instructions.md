@@ -259,6 +259,18 @@ ProcessSplitDamage($player, $mzID, $assignments);
 
 **When to use vs. repeated MZCHOOSE:** Use `MZSplitAssign` when the total pool can be split freely. Use repeated `MZCHOOSE` when each "instance" must be a fixed amount (e.g., "for each card banished, choose a unit and deal 2 damage to it").
 
+### TWOSIDEDSLIDER — Numeric Split Between Two Outcomes
+
+**Decision type:** `TWOSIDEDSLIDER` — lets the player choose a numeric split between two outcomes in one compact chooser instead of repeated `YESNO` or one-choice modal prompts.
+
+**Queue syntax:** `DecisionQueueController::AddDecision($player, "TWOSIDEDSLIDER", "min|max|leftSpec|rightSpec", 1, tooltip:"Prompt_text");`
+- `min`, `max`: inclusive integer range for the left-side count.
+- `leftSpec`, `rightSpec`: one of `label~Caption_text`, `card~CARDID`, or `cardlabel~CARDID~Caption_text`.
+
+**Return value:** the chosen left-side count as a string. The right-side count is `max - chosen`.
+
+**When to use:** Prefer this when one effect produces `N` identical replacement events and the player should choose how many become option A versus option B.
+
 ### Additional Activation Costs (optional reserve at activation time)
 
 Some cards say "As an additional cost to activate this card, you may pay (N)." These costs are declared and paid **at activation time** (Grand Archive rules step 1.3), before the opponent gets priority, not at resolution time inside the ability.
