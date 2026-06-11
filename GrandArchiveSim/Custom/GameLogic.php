@@ -4479,6 +4479,11 @@ function OnCardActivated($player, $mzCard) {
                     AddCounters($player, "myField-" . $fi, "charge", 1);
                 }
                 break;
+            case "XPl2UAO9se": // Mordred, Aurelian Regent: whenever you activate a luxem element card, delevel Mordred
+                if($activatedElement === "LUXEM" && !HasNoAbilities($field[$fi])) {
+                    Delevel($player);
+                }
+                break;
             case "u6o6eanbrf": // Imperial Apprentice: whenever you activate a Spell card,
                 // you may banish a floating memory card from GY to draw a card
                 if(PropertyContains($subtypes, "SPELL") && !HasNoAbilities($field[$fi])) {
