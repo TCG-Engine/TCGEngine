@@ -8239,44 +8239,76 @@ $customDQHandlers["AssassinsMantlePrevent"] = function($player, $parts, $lastDec
     $mantleMZ = $parts[0];
     $source = $parts[1] ?? "";
     $target = $parts[2] ?? "";
+    $resumePlayer = isset($parts[4]) ? intval($parts[3] ?? strval($player)) : $player;
+    if($resumePlayer <= 0) $resumePlayer = $player;
+    $resumeSource = $source;
+    $resumeTarget = $target;
+    if(str_starts_with($resumeSource, "my") || str_starts_with($resumeSource, "their")) {
+        $resumeSource = NormalizeMZ($resumeSource, $resumePlayer);
+    }
+    if(str_starts_with($resumeTarget, "my") || str_starts_with($resumeTarget, "their")) {
+        $resumeTarget = NormalizeMZ($resumeTarget, $resumePlayer);
+    }
     $target = NormalizeMZ($target, $player);
     $mantleMZ = NormalizeMZ($mantleMZ, $player);
     // New payload format includes the original OnDealDamage caller perspective.
     // Backward-compatible with older queued decisions that only passed amount.
     $incomingAmount = isset($parts[4]) ? intval($parts[4] ?? "0") : intval($parts[3] ?? "0");
     if($incomingAmount <= 0 || $source === "" || $target === "") return;
+    $syncCombatResumeState = function() use ($resumePlayer, &$resumeSource, &$resumeTarget) {
+        $combatAttackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+        if($combatAttackerPlayer <= 0 || $combatAttackerPlayer !== $resumePlayer) return;
+        SyncCombatStateToFieldUniqueIDs();
+        $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
+        $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+        if($combatAttacker !== null && $combatAttacker !== "" && $combatAttacker !== "-") {
+            $resumeSource = $combatAttacker;
+        }
+        if($combatTarget !== null && $combatTarget !== "" && $combatTarget !== "-") {
+            $resumeTarget = $combatTarget;
+        }
+    };
+    $resumeDamage = function($amount) use ($resumePlayer, &$resumeSource, &$resumeTarget, $syncCombatResumeState) {
+        global $playerID;
+        $savedPlayerID = $playerID;
+        $playerID = $resumePlayer;
+        $syncCombatResumeState();
+        OnDealDamage($resumePlayer, $resumeSource, $resumeTarget, $amount, true);
+        $playerID = $savedPlayerID;
+    };
 
     if($lastDecision !== "YES") {
-        OnDealDamage($player, $source, $target, $incomingAmount, true);
+        $resumeDamage($incomingAmount);
         return;
     }
 
     $mantleObj = GetZoneObject($mantleMZ);
     if($mantleObj === null || (isset($mantleObj->removed) && $mantleObj->removed)) {
-        OnDealDamage($player, $source, $target, $incomingAmount, true);
+        $resumeDamage($incomingAmount);
         return;
     }
 
     $mantleArr = explode("-", $mantleMZ);
     $mantleZone = $mantleArr[0] ?? "";
     if($mantleZone !== "myField" && $mantleZone !== "theirField") {
-        OnDealDamage($player, $source, $target, $incomingAmount, true);
+        $resumeDamage($incomingAmount);
         return;
     }
     $banishZone = ($mantleZone === "myField") ? "myBanish" : "theirBanish";
     MZMove($player, $mantleMZ, $banishZone);
     DecisionQueueController::CleanupRemovedCards();
+    $syncCombatResumeState();
 
     $remainingAmount = max(0, $incomingAmount - 1);
     if($incomingAmount > $remainingAmount) {
         AddPrepCounter($player, 1);
     }
     if($remainingAmount <= 0) {
-        QueuePreventedDamageAnimation($target, 500, true);
+        QueuePreventedDamageAnimation(ConvertMzIDToAbsolute($resumeTarget, $resumePlayer), 500, true);
         return;
     }
 
-    OnDealDamage($player, $source, $target, $remainingAmount, true);
+    $resumeDamage($remainingAmount);
 };
 
 // ============================================================================
