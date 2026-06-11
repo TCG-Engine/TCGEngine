@@ -18929,6 +18929,10 @@ function HasTaunt($obj) {
     // Avatar of Genbu (67CIhG8hmG): [Guo Jia Bonus][Deluge 12] has taunt
     if($obj->CardID === "67CIhG8hmG" && IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) return true;
     if($obj->CardID === "tf5f2n38g0") return true;
+    // Burnished Obelith (mz1dJZExOk): [Sheen 8+] Taunt
+    // The generated keyword parser treats this as unconditional printed taunt,
+    // so handle it before HasKeyword_Taunt().
+    if($obj->CardID === "mz1dJZExOk") return GetSheenCount($obj->Controller) >= 8;
     if(HasKeyword_Taunt($obj)) return true;
     if(in_array("TAUNT", $obj->TurnEffects)) return true;
     if(in_array("TAUNT_NEXT_TURN", $obj->TurnEffects)) return true;
@@ -19025,10 +19029,6 @@ function HasTaunt($obj) {
                 return true;
             }
         }
-    }
-    // Burnished Obelith (mz1dJZExOk): [Sheen 8+] Taunt
-    if($obj->CardID === "mz1dJZExOk") {
-        if(GetSheenCount($obj->Controller) >= 8) return true;
     }
     // Sworn Windhand (9ewgUjy34b): [Class Bonus] Taunt
     if($obj->CardID === "9ewgUjy34b" && IsClassBonusActive($obj->Controller, ["GUARDIAN"])) return true;
