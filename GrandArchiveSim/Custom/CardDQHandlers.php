@@ -8342,4 +8342,19 @@ $customDQHandlers["EnsoulPickHandler"] = function($player, $parts, $lastDecision
     EnsoulPickNext($player);
 };
 
+/**
+ * Custom DQ handler: DeclareChampionLinkTarget - stores the chosen champion mzID
+ * and CardID as DQ variables for Champion Link resolution.
+ */
+$customDQHandlers["DeclareChampionLinkTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) {
+        DecisionQueueController::StoreVariable("championLinkTargetMZ", "");
+        DecisionQueueController::StoreVariable("championLinkTargetCardID", "");
+        return;
+    }
+    $targetObj = GetZoneObject($lastDecision);
+    DecisionQueueController::StoreVariable("championLinkTargetMZ", $lastDecision);
+    DecisionQueueController::StoreVariable("championLinkTargetCardID", $targetObj !== null ? $targetObj->CardID : "");
+};
+
 ?>

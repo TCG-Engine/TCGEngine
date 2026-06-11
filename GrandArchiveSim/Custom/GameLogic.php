@@ -624,6 +624,10 @@ $AllyLink_Cards["fqsuo6gb0o"] = true; // Avatar of Gaia
 $AllyLink_Cards["t3q2svd53z"] = true; // Aqueous Armor
 $AllyLink_Cards["RgloaA6YV2"] = true; // Message in Shadows
 $AllyLink_Cards["g23WBQW2Ro"] = true; // Blood Dragon's Pact
+
+// Cards with Champion Link that must choose a champion target as they enter.
+$ChampionLink_Cards = [];
+$ChampionLink_Cards["suo6gb0op3"] = true; // Fractured Crown
 $Cardistry_Cards["qzv380ujf5"] = 6; // Duchess, Six of Hearts
 $Cardistry_Cards["tdRR5lQHMN"] = 6; // Six of Spades
 $Cardistry_Cards["EIpkYYSP3s"] = 6; // Senaris, Six of Diamonds
@@ -1554,6 +1558,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($allyTargets)) return; // No valid Link target â€” block activation
     }
 
+    global $ChampionLink_Cards;
+    $hasChampionLink = isset($ChampionLink_Cards[$sourceObject->CardID]);
+    if($hasChampionLink) {
+        $championTargets = ZoneSearch("myField", ["CHAMPION"]);
+        if(empty($championTargets)) return; // No valid Link target â€” block activation
+    }
+
     // Nightmare Coil (3fe3c97s71): only while your champion is distant, and only during recollection.
     if($sourceObject->CardID === "3fe3c97s71") {
         if(GetCurrentPhase() !== "RECOLLECTION") return;
@@ -1678,6 +1689,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allyTargets), 1,
                 tooltip:"Choose_an_ally_to_link");
             DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareAllyLinkTarget", 1);
+        }
+    }
+
+    if($hasChampionLink) {
+        $championTargets = ZoneSearch("myField", ["CHAMPION"]);
+        if(!empty($championTargets)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $championTargets), 1,
+                tooltip:"Choose_a_champion_to_link");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareChampionLinkTarget", 1);
         }
     }
 
@@ -4166,6 +4186,32 @@ function OnCardActivated($player, $mzCard) {
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "REGALIA")) {
+        global $ChampionLink_Cards;
+        if(isset($ChampionLink_Cards[$obj->CardID])) {
+            $linkTargetMZ = DecisionQueueController::GetVariable("championLinkTargetMZ");
+            $linkTargetCardID = DecisionQueueController::GetVariable("championLinkTargetCardID");
+            $targetObj = (!empty($linkTargetMZ) && $linkTargetMZ !== "-") ? GetZoneObject($linkTargetMZ) : null;
+            $targetValid = ($targetObj !== null && !$targetObj->removed
+                && $targetObj->CardID === $linkTargetCardID
+                && PropertyContains(CardType($targetObj->CardID), "CHAMPION"));
+            if(!$targetValid && !empty($linkTargetCardID)) {
+                $field = GetZone("myField");
+                for($fi = 0; $fi < count($field); ++$fi) {
+                    if(!$field[$fi]->removed && $field[$fi]->CardID === $linkTargetCardID
+                        && PropertyContains(CardType($field[$fi]->CardID), "CHAMPION")) {
+                        DecisionQueueController::StoreVariable("championLinkTargetMZ", "myField-" . $fi);
+                        $targetValid = true;
+                        break;
+                    }
+                }
+            }
+            if(!$targetValid) {
+                $obj = MZMove($player, $mzCard, "myGraveyard");
+                DecisionQueueController::StoreVariable("championLinkTargetMZ", "");
+                DecisionQueueController::CleanupRemovedCards();
+                return;
+            }
+        }
         if($obj->CardID === "swy2NJ4q6O") {
             $wlTargetMZ = DecisionQueueController::GetVariable("weaponLinkTargetMZ");
             $wlTargetCardID = DecisionQueueController::GetVariable("weaponLinkTargetCardID");
@@ -6718,6 +6764,16 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             $phantasiaMZ = "myField-" . (count($field) - 1);
             CreateAllyLink($player, $phantasiaMZ, $linkTargetMZ);
             DecisionQueueController::StoreVariable("linkTargetMZ", ""); // Clear after use
+        }
+    }
+
+    global $ChampionLink_Cards;
+    if(isset($ChampionLink_Cards[$added->CardID])) {
+        $championLinkTargetMZ = DecisionQueueController::GetVariable("championLinkTargetMZ");
+        if(!empty($championLinkTargetMZ) && $championLinkTargetMZ !== "-") {
+            $linkingMZ = "myField-" . (count($field) - 1);
+            CreateChampionLink($player, $linkingMZ, $championLinkTargetMZ);
+            DecisionQueueController::StoreVariable("championLinkTargetMZ", "");
         }
     }
 
@@ -11947,27 +12003,21 @@ function ObjectCurrentHP($obj) {
             }
         }
     }
-    // Fractured Crown (suo6gb0op3): [Class Bonus] champion gets +2 LIFE per unique ally card in GY
-    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+    // Fractured Crown (suo6gb0op3): linked champion gets +2 LIFE per unique ally card in GY
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION")
+        && is_array($obj->Subcards)
+        && in_array("suo6gb0op3", $obj->Subcards)) {
         global $playerID;
-        $zone = $obj->Controller == $playerID ? "myField" : "theirField";
-        $field = GetZone($zone);
-        foreach($field as $fieldObj) {
-            if($fieldObj != null && !$fieldObj->removed && $fieldObj->CardID === "suo6gb0op3") {
-                if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
-                    $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
-                    $gyAllies = ZoneSearch($gravZone, ["ALLY"]);
-                    $uniqueCount = 0;
-                    foreach($gyAllies as $gyMZ) {
-                        $gyObj = GetZoneObject($gyMZ);
-                        if(PropertyContains(CardType($gyObj->CardID), "UNIQUE")) {
-                            $uniqueCount++;
-                        }
-                    }
-                    $cardLife += $uniqueCount * 2;
-                }
-                break;
+        if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+            $gravZone = $obj->Controller == $playerID ? "myGraveyard" : "theirGraveyard";
+            $gyAllies = ZoneSearch($gravZone, ["ALLY"]);
+            $uniqueAllies = [];
+            foreach($gyAllies as $gyMZ) {
+                $gyObj = GetZoneObject($gyMZ);
+                if($gyObj === null || $gyObj->removed) continue;
+                $uniqueAllies[$gyObj->CardID] = true;
             }
+            $cardLife += count($uniqueAllies) * 2;
         }
     }
     // Berserker Plate (ci00l7pqcx): [Class Bonus] your champion gets +7 LIFE
@@ -19281,6 +19331,30 @@ function CreateAllyLink($player, $phantasiaMZ, $allyMZ) {
 }
 
 /**
+ * Create a link between an object with Champion Link and a champion.
+ * The champion's Subcards stores the linking CardID for UI display.
+ * The linking object's Counters stores {"linkedToChampion": championCardID}.
+ * @param int    $player     The acting player.
+ * @param string $linkingMZ  The mzID of the linking object.
+ * @param string $championMZ The mzID of the champion to link to.
+ */
+function CreateChampionLink($player, $linkingMZ, $championMZ) {
+    $linkingObj = &GetZoneObject($linkingMZ);
+    $championObj = &GetZoneObject($championMZ);
+    if($linkingObj === null || $championObj === null) return;
+
+    if(!is_array($championObj->Subcards)) $championObj->Subcards = [];
+    if(!in_array($linkingObj->CardID, $championObj->Subcards)) {
+        array_push($championObj->Subcards, $linkingObj->CardID);
+    }
+
+    if(!is_array($linkingObj->Counters)) {
+        $linkingObj->Counters = [];
+    }
+    $linkingObj->Counters['linkedToChampion'] = $championObj->CardID;
+}
+
+/**
  * Create a link between a Phantasia card (with Weapon Link keyword) and a weapon.
  * @param int    $player       The acting player.
  * @param string $phantasiaMZ  The mzID of the Phantasia.
@@ -19323,7 +19397,9 @@ function GetLinkedCards($obj) {
             if($fObj->CardID !== $subcardCardID) continue;
             // Confirm it's actually linked (has the reverse pointer)
             if(!is_array($fObj->Counters)) continue;
-            if(!isset($fObj->Counters['linkedToAlly']) && !isset($fObj->Counters['linkedToWeapon'])) continue;
+            if(!isset($fObj->Counters['linkedToAlly'])
+                && !isset($fObj->Counters['linkedToWeapon'])
+                && !isset($fObj->Counters['linkedToChampion'])) continue;
             $linked[] = $fObj;
         }
     }
@@ -19367,8 +19443,8 @@ function CheckAndBreakLinks($player, $departingMZ) {
     $field = GetZone($zoneRef);
 
     // Case 1: Departing card is a Phantasia â€” remove it from the linked ally/weapon's Subcards
-    if(is_array($obj->Counters) && (isset($obj->Counters['linkedToAlly']) || isset($obj->Counters['linkedToWeapon']))) {
-        $hostCardID = $obj->Counters['linkedToAlly'] ?? $obj->Counters['linkedToWeapon'] ?? null;
+    if(is_array($obj->Counters) && (isset($obj->Counters['linkedToAlly']) || isset($obj->Counters['linkedToWeapon']) || isset($obj->Counters['linkedToChampion']))) {
+        $hostCardID = $obj->Counters['linkedToAlly'] ?? $obj->Counters['linkedToWeapon'] ?? $obj->Counters['linkedToChampion'] ?? null;
         if($hostCardID !== null) {
             foreach($field as $idx => $fObj) {
                 if($fObj->removed) continue;
@@ -19389,7 +19465,9 @@ function CheckAndBreakLinks($player, $departingMZ) {
         if($fObj->removed) continue;
         if(!in_array($fObj->CardID, $obj->Subcards)) continue;
         if(!is_array($fObj->Counters)) continue;
-        if(!isset($fObj->Counters['linkedToAlly']) && !isset($fObj->Counters['linkedToWeapon'])) continue;
+        if(!isset($fObj->Counters['linkedToAlly'])
+            && !isset($fObj->Counters['linkedToWeapon'])
+            && !isset($fObj->Counters['linkedToChampion'])) continue;
         // This is a linked Phantasia â€” its link is broken when the host leaves
         $toSacrifice[] = $idx;
     }
