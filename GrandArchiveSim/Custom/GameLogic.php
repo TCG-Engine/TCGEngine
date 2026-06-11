@@ -3796,7 +3796,7 @@ $customDQHandlers["DeclarePrepareCost"] = function($player, $parts, $lastDecisio
     }
 };
 
-$customDQHandlers["3uqgjoBQ9GResolve"] = function($player, $parts, $lastDecision) {
+function ResolveObelithEscort($player) {
     $wasPrepared = DecisionQueueController::GetVariable("wasPrepared");
     $field = &GetField($player);
     MZAddZone($player, "myField", "fdnlbJm3hr");
@@ -3807,6 +3807,10 @@ $customDQHandlers["3uqgjoBQ9GResolve"] = function($player, $parts, $lastDecision
         $idx2 = count($field) - 1;
         AddCounters($player, "myField-" . $idx2, "sheen", 1);
     }
+}
+
+$customDQHandlers["3uqgjoBQ9GResolve"] = function($player, $parts, $lastDecision) {
+    ResolveObelithEscort($player);
 };
 
 // Crackling Incineration: controller puts a sheen counter on a unit they control
