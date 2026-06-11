@@ -179,7 +179,7 @@ D3rexaXCBo NONE eyJoYXVudCI6NH0=
 MAIN
 
 
-{"mzID":"theirField-0","amount":7,"ignoreCost":false,"mzIDCardID":"w7g91ru45w","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"1","source":"myField-0","target":"theirField-0","lostProvidenceFromMaterial":"","abilityIndex":0,"wasEphemerated":"NO","chosen":"myField-0","CombatKilledCardIDs":"0r7j97g2zh"}
+{"mzID":"theirField-0","amount":7,"ignoreCost":false,"mzIDCardID":"w7g91ru45w","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"1","source":"myField-0","target":"theirField-0","lostProvidenceFromMaterial":"","abilityIndex":0,"wasEphemerated":"NO","chosen":"myField-0","CombatKillEvents":"0r7j97g2zh~0"}
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"E09lX95cb9":1}},"EnterCalls":{"1":2},"Enter":{"1":{"E09lX95cb9":1,"UtwWXmc0IU":1}},"DrawCalls":{"1":2},"Draw":{"1":2},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"DNbIpzVgde":1}},"ActivateCardCalls":{"1":1,"2":1},"ActivateCard":{"1":{"UtwWXmc0IU":1},"2":{"w7g91ru45w":1}},"CardActivatedCalls":{"1":1,"2":1},"CardActivated":{"1":{"UtwWXmc0IU":1},"2":{"w7g91ru45w":1}},"RestCardCalls":{"1":2},"RestCard":{"1":{"UtwWXmc0IU":1,"0r7j97g2zh":1}},"OnAttackCalls":{"1":2},"OnAttack":{"1":{"UtwWXmc0IU":1,"0r7j97g2zh":1}},"DealDamageCalls":{"1":1,"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"0r7j97g2zh":1}}}
 0
