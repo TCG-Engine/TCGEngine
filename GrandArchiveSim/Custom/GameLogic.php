@@ -2331,7 +2331,7 @@ $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
     $source = GetReservePaymentChoiceSource($player);
     $tooltip = "Choose_a_card_to_pay_reserve_cost";
     DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 1, $tooltip);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard_Process", 99);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard_Process", 1);
 };
 
 $customDQHandlers["DeclareImbue"] = function($player, $parts, $lastDecision) {
