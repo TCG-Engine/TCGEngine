@@ -1,5 +1,5 @@
 1
-455
+457
 42
 KFfmJZMdZN
 y8BNOi4rwD
@@ -126,7 +126,9 @@ mz1dJZExOk
 jTBNAEedbg
 iPpwkMxDt5
 8bRp3n2IAn
-0
+2
+qtRBz9azeZ-P1-WATER
+qtRBz9azeZ-P1-CRUX
 0
 0
 6
@@ -185,7 +187,7 @@ UAJGQFbXjs NONE eyJzaGVlbiI6MTB9
 1
 MAIN
 
-
+Players can't materialize or activate WATER and CRUX element cards until the beginning of your next turn.
 {"GoldfishPlayers":[],"mzID":"EffectStack-0","isImbued":"NO","amount":1,"glimpseCount":"1","aethercallCandidates":"","glimpsedToTempZone":"0","ignoreCost":false,"mzIDCardID":"qtRBz9azeZ","activationSourceZone":"myHand","additionalCostPaid":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"1","source":"myField-3","target":"theirField-0","topCard":"myDeck-0","payChoice":"YES","wasPrepared":"YES","abilityIndex":0,"payPrepare":"YES","chosen":"myMaterial-1","SparklingAdornmentSource":"theirField-2","SparklingAdornmentAmount":"1"}
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"suo6gb0op3":1}},"EnterCalls":{"1":1},"Enter":{"1":{"suo6gb0op3":1}},"DrawCalls":{"1":1},"Draw":{"1":1},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"qtRBz9azeZ":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"qtRBz9azeZ":1}},"AdvancedElementActivated":{"1":1}}

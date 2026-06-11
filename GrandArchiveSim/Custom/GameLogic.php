@@ -144,6 +144,22 @@ function GoldfishResolveDecisionInput($player, $decision) {
             $choices = GoldfishCollectChoicesFromSpecs($choiceSpecs, $min);
             if(count($choices) < $min) return "-";
             return implode("&", $choices);
+        case "MZMODAL":
+            $paramParts = explode("|", strval($decision->Param), 3);
+            $min = intval($paramParts[0] ?? 0);
+            $max = intval($paramParts[1] ?? $min);
+            $options = array_values(array_filter(explode("&", strval($paramParts[2] ?? "")), fn($opt) => $opt !== ""));
+            if($max < $min) {
+                $tmp = $min;
+                $min = $max;
+                $max = $tmp;
+            }
+            if($min <= 0) return "-";
+            $picked = [];
+            for($i = 0; $i < min($min, count($options)); ++$i) {
+                $picked[] = strval($i);
+            }
+            return count($picked) < $min ? "-" : implode(",", $picked);
         case "NUMBERCHOOSE":
             if(preg_match('/^\s*(-?\d+)\s*[\-|]\s*(-?\d+)\s*$/', strval($decision->Param), $matches)) {
                 return strval(intval($matches[1]));
@@ -461,6 +477,117 @@ function ApplyNiaMistveiledScoutNamedCardSurcharge($currentCost, $cardID) {
     }
     return $currentCost;
 }
+
+function GetBasicElementNames() {
+    return ["WATER", "FIRE", "WIND"];
+}
+
+function GetAdvancedElementNames() {
+    return ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS", "ARCANE"];
+}
+
+function GetAllNonNormElementNames() {
+    return array_values(array_unique(array_merge(GetBasicElementNames(), GetAdvancedElementNames())));
+}
+
+function GetExcaliburCleansingLightLockElements() {
+    return array_values(array_filter(
+        GetAllNonNormElementNames(),
+        fn($element) => $element !== "EXALTED"
+    ));
+}
+
+function NormalizeExcaliburCleansingLightElementChoice($rawChoice) {
+    $choice = strtoupper(trim(strval($rawChoice)));
+    if($choice === "" || $choice === "-" || $choice === "PASS") return "";
+    $choice = str_replace([" ", "-", "_"], "", $choice);
+    if(str_ends_with($choice, "ELEMENT")) {
+        $choice = substr($choice, 0, -strlen("ELEMENT"));
+    }
+    return in_array($choice, GetExcaliburCleansingLightLockElements(), true) ? $choice : "";
+}
+
+function GetExcaliburCleansingLightLockEffectID($sourcePlayer, $element) {
+    return "qtRBz9azeZ-P" . intval($sourcePlayer) . "-" . strtoupper($element);
+}
+
+function RemoveGlobalEffectsByPrefix($player, $prefix) {
+    $globalEffects = &GetGlobalEffects($player);
+    $removed = false;
+    for($i = count($globalEffects) - 1; $i >= 0; --$i) {
+        if(strpos($globalEffects[$i]->CardID, $prefix) === 0) {
+            array_splice($globalEffects, $i, 1);
+            $removed = true;
+        }
+    }
+    return $removed;
+}
+
+function ClearExcaliburCleansingLightLocks($sourcePlayer) {
+    $prefix = "qtRBz9azeZ-P" . intval($sourcePlayer) . "-";
+    RemoveGlobalEffectsByPrefix(1, $prefix);
+    RemoveGlobalEffectsByPrefix(2, $prefix);
+}
+
+function IsExcaliburCleansingLightElementLocked($player, $element) {
+    if($element === "" || $element === "NORM") return false;
+    foreach([1, 2] as $effectPlayer) {
+        foreach(GetGlobalEffects($effectPlayer) as $effectObj) {
+            if(strpos($effectObj->CardID, "qtRBz9azeZ-P") !== 0) continue;
+            $parts = explode("-", $effectObj->CardID, 3);
+            if(($parts[2] ?? "") === strtoupper($element)) return true;
+        }
+    }
+    return false;
+}
+
+function GetExcaliburCleansingLightElementModalLabels() {
+    $elements = GetExcaliburCleansingLightLockElements();
+    $labels = [];
+    foreach($elements as $element) {
+        $labels[] = $element;
+    }
+    return $labels;
+}
+
+function QueueExcaliburCleansingLightElementLock($player) {
+    $labels = GetExcaliburCleansingLightElementModalLabels();
+    if(empty($labels)) return;
+    DecisionQueueController::AddDecision(
+        $player,
+        "MZMODAL",
+        "0|2|" . implode("&", $labels),
+        1,
+        tooltip:"Choose_up_to_two_non-norm_elements_to_lock"
+    );
+    DecisionQueueController::AddDecision($player, "CUSTOM", "qtRBz9azeZChooseElements", 1);
+}
+
+function ApplyExcaliburCleansingLightElementLock($player, $chosen) {
+    $chosen = array_values(array_unique(array_filter(array_map(
+        "NormalizeExcaliburCleansingLightElementChoice",
+        is_array($chosen) ? $chosen : []
+    ))));
+    if(empty($chosen)) return;
+
+    foreach($chosen as $element) {
+        $effectID = GetExcaliburCleansingLightLockEffectID($player, $element);
+        AddGlobalEffects($player, $effectID);
+    }
+    SetFlashMessage("Players can't materialize or activate " . implode(" and ", $chosen) . " element cards until the beginning of your next turn.");
+}
+
+$customDQHandlers["qtRBz9azeZChooseElements"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "") return;
+    $labels = GetExcaliburCleansingLightElementModalLabels();
+    $chosen = [];
+    foreach(explode(",", $lastDecision) as $choiceIndex) {
+        $choiceIndex = intval(trim($choiceIndex));
+        $element = NormalizeExcaliburCleansingLightElementChoice($labels[$choiceIndex] ?? "");
+        if($element !== "") $chosen[] = $element;
+    }
+    ApplyExcaliburCleansingLightElementLock($player, $chosen);
+};
 
 function NiaMistveiledScoutEnter($player, $mzID) {
     $oppMemory = ZoneSearch("theirMemory");
@@ -8174,6 +8301,7 @@ function RecollectionPhase() {
     if(GlobalEffectCount($turnPlayer, "GGRtLQgaYU") > 0) {
         RemoveGlobalEffect($turnPlayer, "GGRtLQgaYU");
     }
+    ClearExcaliburCleansingLightLocks($turnPlayer);
     // Kingdom's Divide (qy34r8gffr): clear chosen-name activation tax at beginning of caster's next turn.
     $champMZ = FindChampionMZ($turnPlayer);
     if($champMZ !== null) {
@@ -13246,9 +13374,8 @@ function GetStarcallingCost($player, $cardID) {
 }
 
 function IsAdvancedElementCard($cardID) {
-    $advancedElements = ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS", "ARCANE"];
-    foreach($advancedElements as $advancedElement) {
-        if(PropertyContains(CardElement($cardID), $advancedElement)) return true;
+    foreach(GetCardElements($cardID) as $element) {
+        if(IsAdvancedElementName($element)) return true;
     }
     return false;
 }
@@ -14421,12 +14548,14 @@ function CardCurrentEffects($obj) {
     if($obj->Controller != -1) {
         $controllerEffects = $obj->Controller == $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
         foreach($controllerEffects as $index => $effectObj) {
+            if(strpos($effectObj->CardID, "qtRBz9azeZ-P") === 0) continue; // internal Excalibur lock
             if(!isset($doesGlobalEffectApply[$effectObj->CardID]) || $doesGlobalEffectApply[$effectObj->CardID]($obj)) {
                 array_push($effects, $effectObj->CardID);
             }
         }
         $otherEffects = $obj->Controller != $playerID ? GetZone("myGlobalEffects") : GetZone("theirGlobalEffects");
         foreach($otherEffects as $index => $effectObj) {
+            if(strpos($effectObj->CardID, "qtRBz9azeZ-P") === 0) continue; // internal Excalibur lock
             if(isset($effectAppliesToBoth[$effectObj->CardID]) && (!isset($doesGlobalEffectApply[$effectObj->CardID]) || $doesGlobalEffectApply[$effectObj->CardID]($obj))) {
                 array_push($effects, $effectObj->CardID);
             }
@@ -14885,7 +15014,24 @@ function ExpireEffects($isEndTurn=true) {
     }
     $newGlobalEffects = [];
     foreach($globalEffects as $index => $effectObj) {
-        if(isset($foreverEffects[$effectObj->CardID]) || ($isEndTurn && isset($untilBeginTurnEffects[$effectObj->CardID]))) {
+        $effectID = $effectObj->CardID;
+        $keepForever = isset($foreverEffects[$effectID]);
+        $keepUntilBeginTurn = false;
+        if($isEndTurn) {
+            if(isset($untilBeginTurnEffects[$effectID])) {
+                $keepUntilBeginTurn = true;
+            } else {
+                foreach($untilBeginTurnEffects as $listedEffectID => $enabled) {
+                    if(!$enabled) continue;
+                    if(!str_ends_with($listedEffectID, "-")) continue;
+                    if(strpos($effectID, $listedEffectID) === 0) {
+                        $keepUntilBeginTurn = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if($keepForever || $keepUntilBeginTurn) {
             array_push($newGlobalEffects, $effectObj);
         }
     }
@@ -15280,8 +15426,9 @@ $untilBeginTurnEffects["3vkxrw9462"] = true;
 $untilBeginTurnEffects["8m69iq4d5v"] = true;
 // Tasershot (4x7e22tk3i): On Champion Hit â€” level-up triggers 4 unpreventable damage
 $untilBeginTurnEffects["4x7e22tk3i"] = true;
-$foreverEffects["GMBTMNTM"] = true;
-$effectAppliesToBoth["GMBF3HVRKG"] = true;
+// Excalibur, Cleansing Light (qtRBz9azeZ): chosen element locks use qtRBz9azeZ-P{player}-{element}
+$untilBeginTurnEffects["qtRBz9azeZ-"] = true;
+
 // Peaceful Reunion: never auto-expire (cleared manually at caster's RecollectionPhase)
 $foreverEffects["wr42i6eifn"] = true;
 // Freydis permanent distant: Ranger units are always distant for the rest of the game
@@ -16320,11 +16467,11 @@ function ChampionHasInLineage($player, $cardID) {
 }
 
 function IsBasicElementName($element) {
-    return in_array($element, ["WATER", "FIRE", "WIND"]);
+    return in_array($element, GetBasicElementNames(), true);
 }
 
 function IsAdvancedElementName($element) {
-    return in_array($element, ["CRUX", "EXALTED", "ASTRA", "LUXEM", "UMBRA", "TERA", "EXIA", "NEOS"]);
+    return in_array($element, GetAdvancedElementNames(), true);
 }
 
 function GetCardElements($cardID) {
@@ -16484,6 +16631,13 @@ function CanLookingGlassIgnoreElementRequirement($player, $cardID) {
 function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setFlash = true) {
     $cardElement = CardElement($cardID);
     if($cardElement === null || $cardElement === "" || $cardElement === "NORM") return true;
+
+    if(IsExcaliburCleansingLightElementLocked($player, $cardElement)) {
+        if($setFlash) {
+            SetFlashMessage("Excalibur, Cleansing Light is preventing players from activating or materializing " . strtolower($cardElement) . " element cards.");
+        }
+        return false;
+    }
 
     if(CanLookingGlassIgnoreElementRequirement($player, $cardID)) {
         return true;

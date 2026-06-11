@@ -1,5 +1,5 @@
 1
-450
+451
 42
 KFfmJZMdZN
 y8BNOi4rwD
@@ -184,7 +184,7 @@ UAJGQFbXjs NONE eyJzaGVlbiI6MTB9
 1
 MAIN
 
-Player 1 undid their last action.
+
 {"GoldfishPlayers":[],"mzID":"myField-6","isImbued":"NO","amount":1,"glimpseCount":"1","aethercallCandidates":"","glimpsedToTempZone":"0","ignoreCost":false,"mzIDCardID":"8bRp3n2IAn","activationSourceZone":"myHand","additionalCostPaid":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"1","source":"myField-3","target":"theirField-5","topCard":"myDeck-0","payChoice":"YES","wasPrepared":"YES","abilityIndex":0,"payPrepare":"YES","chosen":"myMaterial-1","SparklingAdornmentSource":"theirField-2","SparklingAdornmentAmount":"1"}
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"suo6gb0op3":1}},"EnterCalls":{"1":1},"Enter":{"1":{"suo6gb0op3":1}},"DrawCalls":{"1":1},"Draw":{"1":1}}

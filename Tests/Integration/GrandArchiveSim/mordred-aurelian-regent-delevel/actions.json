@@ -38,5 +38,13 @@
         "cardID": "theirField-0",
         "chkInput": [],
         "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "0,3",
+        "chkInput": [],
+        "inputText": ""
     }
 ]
