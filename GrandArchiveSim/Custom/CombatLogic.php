@@ -1675,6 +1675,18 @@ function OnAttackTrigger($player, $mzID) {
         AddTurnEffect($mzID, "dfchplzf6m_POWER");
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["INGRESS_ACTIVE"]));
     }
+
+    // Mordred, Aurelian Regent (XPl2UAO9se): next attack this turn gets +3 POWER
+    // and gains "On Hit: Recover 3."
+    if($obj !== null && in_array("XPl2UAO9se:NEXT_ATTACK_BONUS", $obj->TurnEffects ?? [])) {
+        AddTurnEffect($mzID, "XPl2UAO9se:POWER");
+        $obj->TurnEffects = array_values(array_diff(
+            $obj->TurnEffects,
+            ["XPl2UAO9se:NEXT_ATTACK_BONUS"]
+        ));
+        AddTurnEffect($mzID, "XPl2UAO9se:RECOVER_ON_HIT");
+    }
+
     // Vainglory Retribution (qtzsekkjn3): first attack without a weapon during your next turn gets +X POWER.
     if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION") && in_array("VAINGLORY_ACTIVE", $obj->TurnEffects)) {
         if(GetCombatWeapon() === null) {
@@ -1861,6 +1873,15 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     // Shadeblood Coating (nd8dy77ikm): granted On Hit — put a preparation counter on your champion.
     if($obj !== null && in_array("nd8dy77ikm_ONHIT", $obj->TurnEffects ?? [])) {
         AddPrepCounter($player, 1);
+    }
+
+    // Mordred, Aurelian Regent (XPl2UAO9se): granted On Hit — Recover 3.
+    if($obj !== null && in_array("XPl2UAO9se:RECOVER_ON_HIT", $obj->TurnEffects ?? [])) {
+        RecoverChampion($player, 3);
+        $obj->TurnEffects = array_values(array_diff(
+            $obj->TurnEffects,
+            ["XPl2UAO9se:RECOVER_ON_HIT"]
+        ));
     }
 
     // Fractured Memories (UAJGQFbXjs) [Merlin Bonus]:

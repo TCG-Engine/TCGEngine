@@ -10830,6 +10830,9 @@ function ObjectCurrentPower($obj) {
             case "f0jbv5n196_POWER": // Memento Pocketwatch: On Charge 3 â†’ next attack +3 POWER
                 $power += 3;
                 break;
+            case "XPl2UAO9se:POWER": // Mordred, Aurelian Regent: next attack this turn gets +3 POWER
+                $power += 3;
+                break;
             case "dfchplzf6m_POWER": // Ingress of Sanguine Ire: +3 POWER on first attack
                 $power += 3;
                 break;
