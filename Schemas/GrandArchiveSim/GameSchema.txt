@@ -123,7 +123,7 @@ Counters: BuffCounterCount=Image(Path=Assets/Icons/buff-counter.webp,Position=Ce
 Counters: RefinementCounterCount=Badge(Color=Silver,Position=Center,ShowZero=false)
 Counters: EnlightenCounterCount=Badge(Color=Cyan,Position=Center,ShowZero=false)
 Counters: PrepCounterCount=Badge(Color=Silver,Position=Center,ShowZero=false)
-Counters: DurabilityCounterCount=Badge(Color=Brown,Position=TopRight,ShowZero=false)
+Counters: DurabilityCounterCount=Image(Path=Assets/Icons/durability-counter.webp,Position=BottomRight,ShowZero=false,Size=26,TextColor=White)
 Counters: GlimmerCounterCount=Badge(Color=Magenta,Position=Center,ShowZero=false)
 Counters: WitherCounterCount=Badge(Color=DarkGreen,Position=Center,ShowZero=false)
 Counters: ChargeCounterCount=Badge(Color=Gold,Position=Center,ShowZero=false)
