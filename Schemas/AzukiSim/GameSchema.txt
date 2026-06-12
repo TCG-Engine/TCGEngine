@@ -16,6 +16,10 @@ Macro: Name=AttackWith(mzID,targetMZ); ChoiceFunction=DoAttack; PrereqFunction=C
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
 Macro: Name=UseGate(gateMZ,entityMZ); ChoiceFunction=DoUseGate; SourceParam=gateMZ; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
+Macro: Name=AttackModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=HealthModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+Macro: Name=WhenAttacked(mzID,attackerMZ); ChoiceFunction=OnWhenAttacked; SourceParam=mzID; Action={}
+Macro: Name=EndTurnAbility(mzID); ChoiceFunction=OnEndTurnAbility; SourceParam=mzID; Action={}
 Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=EnterGarden(mzID); ChoiceFunction=OnEnterGarden; Action={}
 Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Action={}

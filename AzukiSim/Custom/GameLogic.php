@@ -384,6 +384,103 @@ function ParseAttackModifierEffects($obj) {
     return $delta;
 }
 
+function ParseModifierResult($result) {
+    $parsed = [
+        'delta' => 0,
+        'consume' => false,
+        'applied' => false,
+    ];
+    if(is_array($result)) {
+        $parsed['delta'] = intval($result['delta'] ?? 0);
+        $parsed['consume'] = !empty($result['consume']);
+        $parsed['applied'] = array_key_exists('applied', $result)
+            ? !empty($result['applied'])
+            : ($parsed['delta'] !== 0);
+        return $parsed;
+    }
+    $parsed['delta'] = intval($result);
+    $parsed['applied'] = ($parsed['delta'] !== 0);
+    return $parsed;
+}
+
+function ConsumeModifierSource($sourceObj) {
+    if($sourceObj === null) return false;
+    if(($sourceObj->_sourceZone ?? null) === "GlobalEffects") {
+        $controller = intval($sourceObj->Controller ?? 0);
+        if($controller < 1) return false;
+        return RemoveGlobalEffect($controller, $sourceObj->CardID ?? '');
+    }
+    return false;
+}
+
+function ApplyGeneratedAttackModifiers($player, $subjectObj, $currentValue) {
+    if(!is_object($subjectObj) || !function_exists('EvaluateAttackModifier')) return $currentValue;
+
+    $subjectCardID = $subjectObj->CardID ?? '';
+    if(!is_string($subjectCardID) || $subjectCardID === '') return $currentValue;
+
+    $currentValue += EvaluateAttackModifier($subjectCardID, $player, $subjectObj, $currentValue, $subjectObj);
+
+    foreach([1, 2] as $fieldPlayer) {
+        foreach([GetGarden($fieldPlayer), GetAlley($fieldPlayer)] as $fieldZone) {
+            foreach($fieldZone as $fieldObj) {
+                if($fieldObj === null || !empty($fieldObj->removed) || $fieldObj === $subjectObj) continue;
+                $fieldCardID = $fieldObj->CardID ?? '';
+                if(!is_string($fieldCardID) || $fieldCardID === '') continue;
+                $currentValue += EvaluateAttackModifier($fieldCardID, $player, $subjectObj, $currentValue, $fieldObj);
+            }
+        }
+    }
+
+    foreach([1, 2] as $effectPlayer) {
+        foreach(GetGlobalEffects($effectPlayer) as $effectObj) {
+            if($effectObj === null || !empty($effectObj->removed)) continue;
+            $effectCardID = $effectObj->CardID ?? '';
+            if(!is_string($effectCardID) || $effectCardID === '') continue;
+            $effectSource = clone $effectObj;
+            $effectSource->Controller = $effectPlayer;
+            $effectSource->_sourceZone = "GlobalEffects";
+            $currentValue += EvaluateAttackModifier($effectCardID, $player, $subjectObj, $currentValue, $effectSource);
+        }
+    }
+
+    return max(0, $currentValue);
+}
+
+function ApplyGeneratedHealthModifiers($player, $subjectObj, $currentValue) {
+    if(!is_object($subjectObj) || !function_exists('EvaluateHealthModifier')) return $currentValue;
+
+    $subjectCardID = $subjectObj->CardID ?? '';
+    if(!is_string($subjectCardID) || $subjectCardID === '') return $currentValue;
+
+    $currentValue += EvaluateHealthModifier($subjectCardID, $player, $subjectObj, $currentValue, $subjectObj);
+
+    foreach([1, 2] as $fieldPlayer) {
+        foreach([GetGarden($fieldPlayer), GetAlley($fieldPlayer)] as $fieldZone) {
+            foreach($fieldZone as $fieldObj) {
+                if($fieldObj === null || !empty($fieldObj->removed) || $fieldObj === $subjectObj) continue;
+                $fieldCardID = $fieldObj->CardID ?? '';
+                if(!is_string($fieldCardID) || $fieldCardID === '') continue;
+                $currentValue += EvaluateHealthModifier($fieldCardID, $player, $subjectObj, $currentValue, $fieldObj);
+            }
+        }
+    }
+
+    foreach([1, 2] as $effectPlayer) {
+        foreach(GetGlobalEffects($effectPlayer) as $effectObj) {
+            if($effectObj === null || !empty($effectObj->removed)) continue;
+            $effectCardID = $effectObj->CardID ?? '';
+            if(!is_string($effectCardID) || $effectCardID === '') continue;
+            $effectSource = clone $effectObj;
+            $effectSource->Controller = $effectPlayer;
+            $effectSource->_sourceZone = "GlobalEffects";
+            $currentValue += EvaluateHealthModifier($effectCardID, $player, $subjectObj, $currentValue, $effectSource);
+        }
+    }
+
+    return max(0, $currentValue);
+}
+
 function EquippedWeaponAttackBonus($obj, $ownerPlayer = null) {
     $bonus = 0;
     $weaponIDs = GetAttachedWeaponIDs($obj);
@@ -443,7 +540,23 @@ function ResolveEntityAttackValue($player, $obj) {
     if(!is_object($obj)) return 0;
     $base = max(0, intval(CardAttack($obj->CardID ?? '')));
     $value = $base + EquippedWeaponAttackBonus($obj, $player) + EntityCardAttackBonus($player, $obj) + ParseAttackModifierEffects($obj);
+    $value = ApplyGeneratedAttackModifiers($player, $obj, $value);
     return max(0, $value);
+}
+
+function ResolveEntityHealthValue($player, $obj) {
+    if(!is_object($obj)) return 0;
+    $base = max(0, intval(CardHealth($obj->CardID ?? '')));
+    if(($obj->CardID ?? '') === 'S1-STT02-012_Young-Shao_E_UC_die') {
+        $myGarden = &GetGarden($player);
+        $opp = intval($player) === 1 ? 2 : 1;
+        $theirGarden = &GetGarden($opp);
+        if(CountActiveEntities($myGarden, true) >= CountActiveEntities($theirGarden, true) + 2) {
+            $base += 1;
+        }
+    }
+    $base = ApplyGeneratedHealthModifiers($player, $obj, $base);
+    return max(0, $base);
 }
 
 function TriggerEquippedWeaponOnAttack($player, $attackerMZ) {
@@ -1144,7 +1257,7 @@ function DealDamageToGardenTarget($player, $targetMZ, $amount) {
     QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true);
     TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, true);
 
-    $targetHealth = intval(CardHealth($targetCardID));
+    $targetHealth = ResolveEntityHealthValue($targetPlayer, $garden[$index]);
     $targetDamage = intval($garden[$index]->Damage ?? 0);
     if($targetHealth > 0 && $targetDamage >= $targetHealth) {
         TriggerKuraiUntapFromEnemyGardenDestroy($player, $targetPlayer, $targetCardID);
@@ -1182,7 +1295,7 @@ function DealDamageToEntityTarget($player, $targetMZ, $amount, $isCardEffect = t
     QueueDamageAnimation('p' . $targetPlayer . 'Alley-' . $index, $amount, 500, true);
     TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
 
-    $targetHealth = intval(CardHealth($targetCardID));
+    $targetHealth = ResolveEntityHealthValue($targetPlayer, $alley[$index]);
     $targetDamage = intval($alley[$index]->Damage ?? 0);
     if($targetHealth > 0 && $targetDamage >= $targetHealth) {
         TriggerKuraiUntapFromEnemyGardenDestroy($player, $targetPlayer, $targetCardID);
@@ -1533,18 +1646,10 @@ function ObjectCurrentPowerDisplay($obj) {
 
 function ObjectCurrentHPDisplay($obj) {
     $baseHP = 0;
-    if(isset($obj->CardID)) {
-        $baseHP = CardHealth($obj->CardID);
-    }
-    if(is_object($obj) && ($obj->CardID ?? '') === 'S1-STT02-012_Young-Shao_E_UC_die') {
+    if(is_object($obj)) {
         $owner = ResolveObjectOwner($obj);
         if($owner === null || intval($owner) <= 0) $owner = GetTurnPlayer();
-        $myGarden = &GetGarden(intval($owner));
-        $opp = intval($owner) === 1 ? 2 : 1;
-        $theirGarden = &GetGarden($opp);
-        if(CountActiveEntities($myGarden, true) >= CountActiveEntities($theirGarden, true) + 2) {
-            $baseHP += 1;
-        }
+        $baseHP = ResolveEntityHealthValue(intval($owner), $obj);
     }
     $damage = isset($obj->Damage) ? intval($obj->Damage) : 0;
     return max(0, $baseHP - $damage);
@@ -1983,6 +2088,109 @@ function OnPlayCard($player, $mzID) {
     return 'ON_PLAY';
 }
 
+function OnEndTurnAbility($player, $mzID) {
+    global $endTurnAbilityAbilities;
+    if(!isset($endTurnAbilityAbilities) || !is_array($endTurnAbilityAbilities)) {
+        return 'END_TURN_ABILITY';
+    }
+
+    $obj = GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) {
+        return 'END_TURN_ABILITY';
+    }
+
+    $cardID = $obj->CardID ?? '';
+    if($cardID === '') {
+        return 'END_TURN_ABILITY';
+    }
+
+    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $abilityCount = 0;
+    if(function_exists('CardEndTurnAbilityCount')) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $abilityCount = max($abilityCount, intval(CardEndTurnAbilityCount($cardIDCandidates[$i])));
+        }
+    }
+
+    if($abilityCount <= 0) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $key = $cardIDCandidates[$i] . ':0';
+            if(isset($endTurnAbilityAbilities[$key])) {
+                $endTurnAbilityAbilities[$key]($player);
+                break;
+            }
+        }
+        return 'END_TURN_ABILITY';
+    }
+
+    for($i = 0; $i < $abilityCount; ++$i) {
+        for($j = 0; $j < count($cardIDCandidates); ++$j) {
+            $key = $cardIDCandidates[$j] . ':' . $i;
+            if(isset($endTurnAbilityAbilities[$key])) {
+                $endTurnAbilityAbilities[$key]($player);
+                break;
+            }
+        }
+    }
+
+    return 'END_TURN_ABILITY';
+}
+
+function OnWhenAttacked($player, $mzID, $attackerMZ) {
+    global $whenAttackedAbilities;
+    if(!isset($whenAttackedAbilities) || !is_array($whenAttackedAbilities)) {
+        return 'WHEN_ATTACKED';
+    }
+
+    $obj = GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) {
+        return 'WHEN_ATTACKED';
+    }
+
+    $cardID = $obj->CardID ?? '';
+    if($cardID === '') {
+        return 'WHEN_ATTACKED';
+    }
+
+    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $abilityCount = 0;
+    if(function_exists('CardWhenAttackedCount')) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $abilityCount = max($abilityCount, intval(CardWhenAttackedCount($cardIDCandidates[$i])));
+        }
+    }
+
+    if($abilityCount <= 0) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $key = $cardIDCandidates[$i] . ':0';
+            if(isset($whenAttackedAbilities[$key])) {
+                $whenAttackedAbilities[$key]($player);
+                break;
+            }
+        }
+        return 'WHEN_ATTACKED';
+    }
+
+    for($i = 0; $i < $abilityCount; ++$i) {
+        for($j = 0; $j < count($cardIDCandidates); ++$j) {
+            $key = $cardIDCandidates[$j] . ':' . $i;
+            if(isset($whenAttackedAbilities[$key])) {
+                $whenAttackedAbilities[$key]($player);
+                break;
+            }
+        }
+    }
+
+    return 'WHEN_ATTACKED';
+}
+
+function TriggerEndTurnAbilitiesForZone($player, &$zone) {
+    for($i = count($zone) - 1; $i >= 0; --$i) {
+        if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+        EndTurnAbility($player, GetMZID($zone[$i]));
+    }
+}
+
 function OnUseGateCard($player, $gateMZ) {
     global $useGateAbilities;
     if(!isset($useGateAbilities) || !is_array($useGateAbilities)) {
@@ -2127,7 +2335,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
     } else {
         $targetObj = &$theirGarden[$targetIndex];
         $defenderAttack = ResolveEntityAttackValue($opponent, $targetObj);
-        $defenderHealth = max(0, intval(CardHealth($targetObj->CardID ?? '')));
+        $defenderHealth = ResolveEntityHealthValue($opponent, $targetObj);
     }
 
     if($attackerAttack > 0) {
@@ -2179,7 +2387,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
 
     $myGarden = &GetGarden($player);
     if(isset($myGarden[$attackerIndex]) && !(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed)) {
-        $attackerHealth = max(0, intval(CardHealth($myGarden[$attackerIndex]->CardID ?? '')));
+        $attackerHealth = ResolveEntityHealthValue($player, $myGarden[$attackerIndex]);
         $attackerDamage = intval($myGarden[$attackerIndex]->Damage ?? 0);
         if($attackerHealth > 0 && CardType($myGarden[$attackerIndex]->CardID ?? '') !== 'LEADER' && $attackerDamage >= $attackerHealth) {
             TriggerKuraiUntapFromEnemyGardenDestroy($opponent, $player, $myGarden[$attackerIndex]->CardID ?? '');
@@ -2419,14 +2627,20 @@ function OnEndOfTurn($player) {
     DiscardAllEquippedWeapons($player);
     DiscardAllEquippedWeapons($player == 1 ? 2 : 1);
 
-    // 1. Reset entity damage
+    // 1. Run owned end-turn card abilities before end-of-turn cleanup removes temporary state.
+    $garden = &GetGarden($player);
+    TriggerEndTurnAbilitiesForZone($player, $garden);
+    $alley = &GetAlley($player);
+    TriggerEndTurnAbilitiesForZone($player, $alley);
+
+    // 2. Reset entity damage
     ResetEntityDamage($player, "myGarden");
     ResetEntityDamage($player, "myAlley");
 
-    // 2. Expire turn effects
+    // 3. Expire turn effects
     ExpireTurnEffects($player);
 
-    // 3. Tap Gate if it was used
+    // 4. Tap Gate if it was used
     $gateZone = &GetGate($player);
     if(!empty($gateZone)) {
         $gate = &$gateZone[0];
@@ -2531,6 +2745,84 @@ $customDQHandlers["S1-STT03-017_Sprout-of-Fortune_S_C_die:0:OnPlay-1"] = functio
     HealLeader(intval($player), 1);
 };
 
+$customDQHandlers["GOU_ONPLAY_CHOICE"] = function($player, $params, $lastDecision) {
+    $choiceMap = strval(DecisionQueueController::GetVariable('P' . intval($player) . '_GouChoiceMap'));
+    if($choiceMap === '') return;
+
+    $mappedChoices = array_values(array_filter(explode(',', $choiceMap), function($value) {
+        return $value !== '';
+    }));
+    if(empty($mappedChoices)) return;
+
+    $selectedIndex = intval(explode(',', strval($lastDecision))[0] ?? 0);
+    if($selectedIndex < 0 || $selectedIndex >= count($mappedChoices)) return;
+
+    $chosenMode = $mappedChoices[$selectedIndex];
+    if($chosenMode === 'sacrifice') {
+        $gardenChoices = [];
+        $myGarden = &GetGarden($player);
+        for($i = 0; $i < count($myGarden); ++$i) {
+            if(isset($myGarden[$i]->removed) && $myGarden[$i]->removed) continue;
+            if(CardType($myGarden[$i]->CardID ?? '') !== 'ENTITY') continue;
+            $gardenChoices[] = 'myGarden-' . $i;
+        }
+        if(empty($gardenChoices)) return;
+        if(count($gardenChoices) === 1) {
+            SafeMZMove($player, $gardenChoices[0], 'myDiscard');
+            DecisionQueueController::CleanupRemovedCards();
+            return;
+        }
+        DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $gardenChoices), 1, 'Choose_an_entity_to_sacrifice');
+        DecisionQueueController::AddDecision($player, 'CUSTOM', 'GOU_SACRIFICE_ENTITY', 1);
+        return;
+    }
+
+    if($chosenMode === 'discard') {
+        $handChoices = [];
+        $myHand = &GetHand($player);
+        for($i = 0; $i < count($myHand); ++$i) {
+            if(isset($myHand[$i]->removed) && $myHand[$i]->removed) continue;
+            $handChoices[] = 'myHand-' . $i;
+        }
+        if(count($handChoices) < 2) return;
+        if(count($handChoices) === 2) {
+            MZMove($player, $handChoices[1], 'myDiscard');
+            MZMove($player, $handChoices[0], 'myDiscard');
+            DecisionQueueController::CleanupRemovedCards();
+            return;
+        }
+        DecisionQueueController::AddDecision($player, 'MZMULTICHOOSE', '2|2|' . implode('&', $handChoices), 1, 'Choose_2_cards_to_discard');
+        DecisionQueueController::AddDecision($player, 'CUSTOM', 'GOU_DISCARD_TWO', 1);
+    }
+};
+
+$customDQHandlers["GOU_SACRIFICE_ENTITY"] = function($player, $params, $lastDecision) {
+    $chosen = strval($lastDecision);
+    if($chosen === '' || $chosen === '-' || strtoupper($chosen) === 'PASS') return;
+    SafeMZMove($player, $chosen, 'myDiscard');
+    DecisionQueueController::CleanupRemovedCards();
+};
+
+$customDQHandlers["GOU_DISCARD_TWO"] = function($player, $params, $lastDecision) {
+    $selected = strval($lastDecision);
+    if($selected === '' || $selected === '-') return;
+    $cards = array_values(array_filter(explode('&', $selected), function($value) {
+        return $value !== '';
+    }));
+    if(count($cards) < 2) return;
+
+    usort($cards, function($a, $b) {
+        $aParts = explode('-', $a);
+        $bParts = explode('-', $b);
+        return intval($bParts[1] ?? -1) <=> intval($aParts[1] ?? -1);
+    });
+
+    for($i = 0; $i < count($cards); ++$i) {
+        MZMove($player, $cards[$i], 'myDiscard');
+    }
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 $customDQHandlers["PORTAL_FROM_ALLEY"] = function($player, $params, $lastDecision) {
     $gateMZ = isset($params[0]) && $params[0] !== '' ? $params[0] : 'myGate-0';
     $entityMZ = isset($params[1]) && $params[1] !== '' ? $params[1] : $lastDecision;
@@ -2554,7 +2846,17 @@ $customDQHandlers["BEGIN_ATTACK_RESPONSE"] = function($player, $params, $lastDec
     $targetMZ = isset($params[1]) ? $params[1] : '';
     if(!is_string($attackerMZ) || $attackerMZ === '') return;
     if(!is_string($targetMZ) || $targetMZ === '') return;
-    BeginAttackResponseWindow($player, $attackerMZ, $targetMZ);
+    if(!BeginAttackResponseWindow($player, $attackerMZ, $targetMZ)) return;
+
+    $responderPlayer = GetPendingAttackResponderPlayer();
+    if($responderPlayer !== 1 && $responderPlayer !== 2) return;
+
+    $defenderTargetMZ = FlipZonePerspective($targetMZ);
+    $defenderAttackerMZ = FlipZonePerspective($attackerMZ);
+    if(!is_string($defenderTargetMZ) || $defenderTargetMZ === '') return;
+    if(!is_string($defenderAttackerMZ) || $defenderAttackerMZ === '') return;
+
+    WhenAttacked($responderPlayer, $defenderTargetMZ, $defenderAttackerMZ);
 };
 
 $customDQHandlers["RESOLVE_ATTACK_COMBAT"] = function($player, $params, $lastDecision) {
