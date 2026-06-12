@@ -106,6 +106,85 @@
         min-height: 148px;
     }
 
+    #myGardenWrapper,
+    #theirGardenWrapper,
+    #myAlleyWrapper,
+    #theirAlleyWrapper {
+        position: relative;
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        margin-top: -14px;
+        margin-bottom: -14px;
+        border-radius: 18px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #myGardenWrapper::-webkit-scrollbar,
+    #theirGardenWrapper::-webkit-scrollbar,
+    #myAlleyWrapper::-webkit-scrollbar,
+    #theirAlleyWrapper::-webkit-scrollbar {
+        display: none;
+    }
+
+    #myGarden,
+    #theirGarden,
+    #myAlley,
+    #theirAlley {
+        flex-wrap: nowrap !important;
+        justify-content: flex-start !important;
+        overflow: visible !important;
+        min-width: 100%;
+    }
+
+    #myGarden > span,
+    #theirGarden > span,
+    #myAlley > span,
+    #theirAlley > span {
+        flex: 0 0 auto;
+    }
+
+    .azuki-lane-scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(212, 175, 55, 0.26);
+        border-radius: 999px;
+        background: linear-gradient(180deg, rgba(26, 31, 58, 0.96), rgba(20, 24, 46, 0.86));
+        color: rgba(232, 220, 200, 0.92);
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+        cursor: pointer;
+        z-index: 38;
+        transition: opacity 120ms ease, transform 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+
+    .azuki-lane-scroll-btn:hover {
+        background: linear-gradient(180deg, rgba(38, 48, 88, 0.98), rgba(24, 31, 58, 0.9));
+        border-color: rgba(212, 175, 55, 0.5);
+    }
+
+    .azuki-lane-scroll-btn.is-hidden,
+    .azuki-lane-scroll-btn.is-disabled {
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .azuki-lane-scroll-btn-left {
+        left: -16px;
+    }
+
+    .azuki-lane-scroll-btn-right {
+        right: -16px;
+    }
+
     .azuki-leader {
         width: 148px;
         min-height: 180px;
@@ -391,12 +470,64 @@
         left: 50%;
         transform: translateX(-50%);
         bottom: 0;
+        z-index: 36;
+        overflow: visible;
+        transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1), border-color 140ms ease, box-shadow 140ms ease;
     }
 
     #theirHandSlot {
         left: 50%;
         transform: translateX(-50%);
         top: 0;
+        z-index: 36;
+        overflow: visible;
+        transition: transform 260ms cubic-bezier(0.4, 0, 0.2, 1), border-color 140ms ease, box-shadow 140ms ease;
+    }
+
+    .azuki-hand-collapse-btn {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        width: 48px;
+        height: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(26, 31, 58, 0.9);
+        border: 1px solid rgba(212, 175, 55, 0.28);
+        border-radius: 99px;
+        cursor: pointer;
+        color: rgba(232, 220, 200, 0.7);
+        font-size: 9px;
+        line-height: 1;
+        padding: 0;
+        z-index: 2;
+        transition: color 120ms ease, background 120ms ease, border-color 120ms ease;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .azuki-hand-collapse-btn:hover {
+        color: rgba(232, 220, 200, 0.98);
+        background: rgba(36, 44, 82, 0.96);
+        border-color: rgba(212, 175, 55, 0.52);
+    }
+
+    #myHandSlot.is-collapsed {
+        transform: translateX(-50%) translateY(calc(100% - 18px));
+    }
+
+    #myHandSlot.is-collapsed:hover {
+        transform: translateX(-50%) translateY(calc(100% - 18px)) !important;
+    }
+
+    #theirHandSlot.is-collapsed {
+        transform: translateX(-50%) translateY(calc(-100% + 18px));
+    }
+
+    #theirHandSlot.is-collapsed:hover {
+        transform: translateX(-50%) translateY(calc(-100% + 18px)) !important;
     }
 
     #myHandSlot.azuki-glass::before,
@@ -475,7 +606,81 @@
         background: linear-gradient(180deg, rgba(212, 175, 55, 0.4), rgba(212, 175, 55, 0.2));
     }
 
+    #chatWidget,
+    #regressionControls,
+    #manualControls,
+    #bug-report-button,
+    #concede-button {
+        z-index: 12000 !important;
+    }
+
+    #chatWidget {
+        left: 16px !important;
+        bottom: 16px !important;
+    }
+
+    #regressionControls {
+        top: 16px !important;
+        right: 16px !important;
+    }
+
+    #manualControls {
+        top: 16px !important;
+        right: 268px !important;
+    }
+
     @media (max-width: 1000px) {
+        :root {
+            --azuki-mobile-topbar-h: 34px;
+            --azuki-mobile-gap: 6px;
+            --azuki-mobile-hand-h: 74px;
+        }
+
+        #chatWidget {
+            position: fixed !important;
+            top: 4px !important;
+            left: 8px !important;
+            bottom: auto !important;
+            width: auto !important;
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: flex-start !important;
+        }
+
+        #chatToggleBtn {
+            margin-top: 0 !important;
+            height: 28px !important;
+        }
+
+        #bug-report-button,
+        #concede-button {
+            position: fixed !important;
+            top: 4px !important;
+            bottom: auto !important;
+            padding: 6px 12px !important;
+            font-size: 12px !important;
+        }
+
+        #concede-button {
+            right: 8px !important;
+        }
+
+        #bug-report-button {
+            right: 96px !important;
+        }
+
+        #regressionControls,
+        #manualControls {
+            top: calc(var(--azuki-mobile-topbar-h) + var(--azuki-mobile-gap)) !important;
+            right: 8px !important;
+            left: auto !important;
+            max-width: min(320px, calc(100vw - 16px));
+        }
+
+        #manualControls {
+            top: calc(var(--azuki-mobile-topbar-h) + var(--azuki-mobile-gap) + 190px) !important;
+        }
+
         #azukiResponseOpportunity {
             bottom: 110px;
             width: calc(100vw - 20px);
@@ -656,7 +861,199 @@
         }
     }
 
+    function setupHandCollapse() {
+        var slot = document.getElementById('myHandSlot');
+        var theirSlot = document.getElementById('theirHandSlot');
+        if(!slot) return;
+        var storageKey = 'azuki-hand-collapsed-v1';
+        var collapsed = false;
+        try { collapsed = localStorage.getItem(storageKey) === '1'; } catch (e) {}
+
+        function createBtn() {
+            var btn = document.createElement('button');
+            btn.className = 'azuki-hand-collapse-btn';
+            btn.setAttribute('type', 'button');
+            btn.setAttribute('title', 'Collapse/expand hand');
+            btn.textContent = collapsed ? '\u25b2' : '\u25bc';
+            btn.setAttribute('aria-label', collapsed ? 'Expand hand' : 'Collapse hand');
+            btn.addEventListener('click', function(ev) {
+                ev.stopPropagation();
+                setCollapsed(!slot.classList.contains('is-collapsed'));
+            });
+            return btn;
+        }
+
+        function ensureButton() {
+            if(!slot.querySelector('.azuki-hand-collapse-btn')) {
+                slot.insertBefore(createBtn(), slot.firstChild);
+            }
+        }
+
+        function setCollapsed(nextCollapsed) {
+            collapsed = nextCollapsed;
+            slot.classList.toggle('is-collapsed', nextCollapsed);
+            if(theirSlot) theirSlot.classList.toggle('is-collapsed', nextCollapsed);
+            var btn = slot.querySelector('.azuki-hand-collapse-btn');
+            if(btn) {
+                btn.textContent = nextCollapsed ? '\u25b2' : '\u25bc';
+                btn.setAttribute('aria-label', nextCollapsed ? 'Expand hand' : 'Collapse hand');
+            }
+            try { localStorage.setItem(storageKey, nextCollapsed ? '1' : '0'); } catch (e) {}
+        }
+
+        window.GAHandCollapse = {
+            toggle: function() { setCollapsed(!slot.classList.contains('is-collapsed')); },
+            collapse: function() { setCollapsed(true); },
+            expand: function() { setCollapsed(false); }
+        };
+
+        new MutationObserver(function() { ensureButton(); })
+            .observe(slot, { childList: true });
+
+        ensureButton();
+        if(collapsed) {
+            slot.classList.add('is-collapsed');
+            if(theirSlot) theirSlot.classList.add('is-collapsed');
+        }
+    }
+
+    function setupLaneScrollButtons() {
+        function installForSlot(slotId, wrapperId) {
+            var slot = document.getElementById(slotId);
+            if(!slot) return;
+            var leftBtn = null;
+            var rightBtn = null;
+            var storageKey = 'azuki-lane-scroll-v1-' + wrapperId;
+            var lastKnownScrollLeft = 0;
+
+            function ensureButton(side) {
+                var existing = slot.querySelector('.azuki-lane-scroll-btn-' + side);
+                if(existing) return existing;
+                var btn = document.createElement('button');
+                btn.className = 'azuki-lane-scroll-btn azuki-lane-scroll-btn-' + side + ' is-hidden is-disabled';
+                btn.setAttribute('type', 'button');
+                btn.setAttribute('aria-label', side === 'left' ? 'Scroll lane left' : 'Scroll lane right');
+                btn.textContent = side === 'left' ? '\u2039' : '\u203a';
+                slot.appendChild(btn);
+                return btn;
+            }
+
+            function ensureButtons() {
+                leftBtn = ensureButton('left');
+                rightBtn = ensureButton('right');
+            }
+
+            function getWrapper() {
+                return document.getElementById(wrapperId);
+            }
+
+            function readSavedScrollLeft() {
+                try {
+                    var raw = localStorage.getItem(storageKey);
+                    var parsed = parseFloat(raw || '');
+                    return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
+                } catch (e) {
+                    return 0;
+                }
+            }
+
+            function saveScrollLeft(value) {
+                lastKnownScrollLeft = Math.max(0, value);
+                try {
+                    localStorage.setItem(storageKey, String(lastKnownScrollLeft));
+                } catch (e) {}
+            }
+
+            function restoreScrollLeft() {
+                var wrapper = getWrapper();
+                if(!wrapper) return;
+                var maxScroll = Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
+                var target = Math.min(maxScroll, Math.max(0, lastKnownScrollLeft));
+                if(Math.abs(wrapper.scrollLeft - target) <= 1) return;
+                wrapper.scrollLeft = target;
+            }
+
+            function updateButtons() {
+                ensureButtons();
+                var wrapper = getWrapper();
+                if(!wrapper) {
+                    leftBtn.classList.add('is-hidden');
+                    rightBtn.classList.add('is-hidden');
+                    return;
+                }
+                var maxScroll = Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
+                var hasOverflow = maxScroll > 6;
+                var canScrollLeft = hasOverflow && wrapper.scrollLeft > 4;
+                var canScrollRight = hasOverflow && wrapper.scrollLeft < maxScroll - 4;
+                leftBtn.classList.toggle('is-hidden', !hasOverflow);
+                rightBtn.classList.toggle('is-hidden', !hasOverflow);
+                leftBtn.classList.toggle('is-disabled', !canScrollLeft);
+                rightBtn.classList.toggle('is-disabled', !canScrollRight);
+            }
+
+            function scrollByAmount(direction) {
+                var wrapper = getWrapper();
+                if(!wrapper) return;
+                var amount = Math.max(180, Math.floor(wrapper.clientWidth * 0.72));
+                wrapper.scrollBy({ left: direction * amount, behavior: 'smooth' });
+                window.setTimeout(updateButtons, 220);
+            }
+
+            function bindButtonHandlers(btn, direction) {
+                if(!btn || btn.dataset.azukiScrollBound === '1') return;
+                btn.dataset.azukiScrollBound = '1';
+                btn.addEventListener('click', function(ev) {
+                    ev.preventDefault();
+                    if(btn.classList.contains('is-disabled')) return;
+                    scrollByAmount(direction);
+                });
+            }
+
+            function bindWrapper() {
+                var wrapper = getWrapper();
+                if(!wrapper || wrapper.dataset.azukiScrollButtonsBound === '1') return;
+                wrapper.dataset.azukiScrollButtonsBound = '1';
+                wrapper.addEventListener('scroll', function() {
+                    saveScrollLeft(wrapper.scrollLeft);
+                    updateButtons();
+                }, { passive: true });
+                restoreScrollLeft();
+            }
+
+            new MutationObserver(function() {
+                ensureButtons();
+                bindButtonHandlers(leftBtn, -1);
+                bindButtonHandlers(rightBtn, 1);
+                bindWrapper();
+                window.requestAnimationFrame(function() {
+                    restoreScrollLeft();
+                    updateButtons();
+                });
+                updateButtons();
+            }).observe(slot, { childList: true, subtree: true });
+
+            lastKnownScrollLeft = readSavedScrollLeft();
+            ensureButtons();
+            bindButtonHandlers(leftBtn, -1);
+            bindButtonHandlers(rightBtn, 1);
+            bindWrapper();
+            restoreScrollLeft();
+            updateButtons();
+            window.addEventListener('resize', function() {
+                restoreScrollLeft();
+                updateButtons();
+            });
+        }
+
+        installForSlot('myGardenSlot', 'myGardenWrapper');
+        installForSlot('theirGardenSlot', 'theirGardenWrapper');
+        installForSlot('myAlleySlot', 'myAlleyWrapper');
+        installForSlot('theirAlleySlot', 'theirAlleyWrapper');
+    }
+
     installResponseWatcher();
+    setupHandCollapse();
+    setupLaneScrollButtons();
     window.UpdateAzukiResponseOpportunity();
 })();
 </script>

@@ -305,7 +305,7 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
             return;
           }
         }
-        if (window.rootPath == './GrandArchiveSim' && window.GAHandCollapse) {
+        if ((window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') && window.GAHandCollapse) {
           if (event.key === 'ArrowDown') { window.GAHandCollapse.collapse(); event.preventDefault(); return; }
           if (event.key === 'ArrowUp')   { window.GAHandCollapse.expand();   event.preventDefault(); return; }
         }
@@ -2587,7 +2587,8 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
       function initGrandArchiveUtilityButtons() {
         if (window.__grandArchiveUtilityButtonsInitialized) return;
         if (!document.getElementById('gameName') || !document.getElementById('folderPath') || !document.getElementById('playerID')) return;
-        if (document.getElementById('folderPath').value !== 'GrandArchiveSim') return;
+        const rootName = document.getElementById('folderPath').value;
+        if (rootName !== 'GrandArchiveSim' && rootName !== 'AzukiSim') return;
 
         window.__grandArchiveUtilityButtonsInitialized = true;
 

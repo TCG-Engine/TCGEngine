@@ -219,7 +219,7 @@
       function_exists('SupportsRegressionRecording') &&
       SupportsRegressionRecording() &&
       !$isSpectatorViewer;
-    $showManualControls = $showRegressionControls && $folderPath === 'GrandArchiveSim';
+    $showManualControls = $showRegressionControls && in_array($folderPath, ['GrandArchiveSim', 'AzukiSim'], true);
     $regressionRecordingActive = $showRegressionControls ? RegressionIsRecordingActive($folderPath, $gameName) : false;
     $regressionFixtureOptions = $showRegressionControls ? RegressionListFixtureOptions($folderPath) : [];
     $regressionReplayState = $showRegressionControls ? RegressionReadReplayState($folderPath, $gameName) : null;
