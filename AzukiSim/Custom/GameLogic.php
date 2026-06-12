@@ -384,6 +384,18 @@ function ParseAttackModifierEffects($obj) {
     return $delta;
 }
 
+function ParseHealthModifierEffects($obj) {
+    if(!is_object($obj) || !isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return 0;
+    $delta = 0;
+    foreach($obj->TurnEffects as $effectID) {
+        if(!is_string($effectID)) continue;
+        if(strpos($effectID, 'HP_MOD:') !== 0) continue;
+        $amount = intval(substr($effectID, strlen('HP_MOD:')));
+        $delta += $amount;
+    }
+    return $delta;
+}
+
 function ParseModifierResult($result) {
     $parsed = [
         'delta' => 0,
@@ -555,6 +567,7 @@ function ResolveEntityHealthValue($player, $obj) {
             $base += 1;
         }
     }
+    $base += ParseHealthModifierEffects($obj);
     $base = ApplyGeneratedHealthModifiers($player, $obj, $base);
     return max(0, $base);
 }
@@ -2858,6 +2871,32 @@ $customDQHandlers["S1-AZK01-014_Trade-Guild-Cavalry_E_R_die:0:AttackWith-1"] = f
     $targetObj = &GetZoneObject($chosenTarget);
     if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
     AddUniqueTurnEffect($targetObj, 'ATK_MOD:2');
+};
+
+$customDQHandlers["POWER_OF_FRIENDSHIP_ATTACK"] = function($player, $params, $lastDecision) {
+    $selected = strval($lastDecision);
+    if($selected === '' || $selected === '-') return;
+    $cards = array_values(array_filter(explode('&', $selected), function($value) {
+        return $value !== '';
+    }));
+    foreach($cards as $mzID) {
+        $targetObj = &GetZoneObject($mzID);
+        if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) continue;
+        AddUniqueTurnEffect($targetObj, 'ATK_MOD:1');
+    }
+};
+
+$customDQHandlers["POWER_OF_FRIENDSHIP_HEALTH"] = function($player, $params, $lastDecision) {
+    $selected = strval($lastDecision);
+    if($selected === '' || $selected === '-') return;
+    $cards = array_values(array_filter(explode('&', $selected), function($value) {
+        return $value !== '';
+    }));
+    foreach($cards as $mzID) {
+        $targetObj = &GetZoneObject($mzID);
+        if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) continue;
+        AddUniqueTurnEffect($targetObj, 'HP_MOD:1');
+    }
 };
 
 $customDQHandlers["PORTAL_FROM_ALLEY"] = function($player, $params, $lastDecision) {
