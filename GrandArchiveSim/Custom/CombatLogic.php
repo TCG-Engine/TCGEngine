@@ -3416,7 +3416,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
 
     // Enfeebled Dagger (idpdon8f0h): [CB] source unit deals that much damage minus 3
     $sourceObj2 = GetZoneObject($source);
-    if($sourceObj2 !== null && in_array("ENFEEBLED_DAGGER_REDUCE", $sourceObj2->TurnEffects)) {
+    if($sourceObj2 !== null && in_array("ENFEEBLED_DAGGER_REDUCE", $sourceObj2->TurnEffects ?? [])) {
         $amount = max(0, $amount - 3);
         if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
     }
@@ -3493,7 +3493,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Suzaku's Command Shenju (5v598k3m1w-SHENJU): combat damage is unpreventable
     if($isCombatContext) {
         $sourceObj = GetZoneObject($source);
-        if($sourceObj !== null && in_array("5v598k3m1w-SHENJU", $sourceObj->TurnEffects)) {
+        if($sourceObj !== null && in_array("5v598k3m1w-SHENJU", $sourceObj->TurnEffects ?? [])) {
             DealUnpreventableDamage($player, $source, $target, $amount);
             return;
         }
