@@ -35,6 +35,59 @@ function SaveActionSnapshot($player) {
     SaveVersion($player);
 }
 
+function MZMoveToDeckTop($player, $mzIndex, $toZone = 'myDeck') {
+    global $playerID;
+    if($player != $playerID) {
+        $mzIndex = FlipZonePerspective($mzIndex);
+        $toZone = FlipZonePerspective($toZone);
+    }
+
+    if($toZone !== 'myDeck' && $toZone !== 'theirDeck') return null;
+
+    $removed = GetZoneObject($mzIndex);
+    if($removed === null) return null;
+    if(property_exists($removed, 'removed') && $removed->removed === true) return null;
+
+    $removed->_sourceZone = strtok($mzIndex, '-');
+    $removed->Remove();
+
+    $deckOwner = ($toZone === 'theirDeck') ? ($player == 1 ? 2 : 1) : intval($player);
+    $deck = &GetDeck($deckOwner);
+    $zoneObj = new Deck($removed->CardID, 'Deck', $deckOwner, 0);
+
+    $properties = get_object_vars($removed);
+    foreach($properties as $prop => $value) {
+        if($prop !== 'removed' && $prop !== 'Location' && $prop !== 'mzIndex') {
+            $zoneObj->$prop = $value;
+        }
+    }
+
+    array_unshift($deck, $zoneObj);
+    for($i = 0; $i < count($deck); ++$i) {
+        $deck[$i]->mzIndex = $i;
+        $deck[$i]->BuildIndex();
+    }
+
+    return $zoneObj;
+}
+
+function QueueTidalInsightRearrange($player) {
+    $tempStart = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_TidalInsightTempStart'));
+    $tempZone = &GetTempZone($player);
+    $remaining = [];
+    for($i = $tempStart; $i < count($tempZone); ++$i) {
+        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
+        $remaining[] = $tempZone[$i]->CardID ?? '';
+    }
+
+    $remaining = array_values(array_filter($remaining, fn($cardID) => is_string($cardID) && $cardID !== ''));
+    if(empty($remaining)) return;
+
+    $param = 'Top=' . implode(',', $remaining) . ';Bottom=';
+    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Tidal_Insight:_Top=return_to_top,_Bottom=put_on_bottom');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'TidalInsightApply', 1);
+}
+
 function ParsePerspectiveMzID($perspectivePlayer, $mzID) {
     if(!is_string($mzID) || $mzID === '') return null;
 
@@ -352,6 +405,16 @@ function IsDefenderEntity($obj) {
     if(CardHasKeyword($cardID, 'Defender')) return true;
     if($cardID === 'S1-STT03-004_Sloth-Scarecrow_E_C_die') return true;
     if($cardID === 'S1-STT03-009_Warding-Totem_E_UC_die') return true;
+    return false;
+}
+
+function IsImmuneToCardEffectDamage($obj) {
+    if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return false;
+    if(HasTurnEffect($obj, 'EFFECT_DAMAGE_IMMUNE')) return true;
+    $cardID = $obj->CardID ?? '';
+    if($cardID === 'S1-STT02-006_Foamback-Crab_E_C_die') return true;
+    if($cardID === 'S1-STT02-008_Serene-Fist-Misaki_E_UC_die') return true;
+    if($cardID === 'S1-AZK01-025_Lighthouse-Keeper_E_UC_die') return true;
     return false;
 }
 
@@ -892,8 +955,7 @@ function LeaderAttack($player) {
     $leaderIndex = FindLeaderIndexInGarden($player);
     if($leaderIndex >= 0 && $leaderIndex < count($garden)) {
         $leaderObj = $garden[$leaderIndex];
-        $baseAttack = max(0, intval(CardAttack($leaderObj->CardID ?? '')));
-        return $baseAttack + EquippedWeaponAttackBonus($leaderObj);
+        return ResolveEntityAttackValue($player, $leaderObj);
     }
     return 0;
 }
@@ -1279,9 +1341,7 @@ function DealDamageToGardenTarget($player, $targetMZ, $amount) {
     }
 
     if(HasTurnEffect($garden[$index], 'FROZEN')) return;
-    if(HasTurnEffect($garden[$index], 'EFFECT_DAMAGE_IMMUNE')) return;
-    if($targetCardID === 'S1-STT02-006_Foamback-Crab_E_C_die') return;
-    if($targetCardID === 'S1-STT02-008_Serene-Fist-Misaki_E_UC_die') return;
+    if(IsImmuneToCardEffectDamage($garden[$index])) return;
 
     $garden[$index]->Damage = intval($garden[$index]->Damage ?? 0) + $amount;
     QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true);
@@ -1319,7 +1379,7 @@ function DealDamageToEntityTarget($player, $targetMZ, $amount, $isCardEffect = t
 
     $targetCardID = $alley[$index]->CardID ?? '';
     if(HasTurnEffect($alley[$index], 'FROZEN')) return;
-    if(HasTurnEffect($alley[$index], 'EFFECT_DAMAGE_IMMUNE')) return;
+    if($isCardEffect && IsImmuneToCardEffectDamage($alley[$index])) return;
 
     $alley[$index]->Damage = intval($alley[$index]->Damage ?? 0) + $amount;
     QueueDamageAnimation('p' . $targetPlayer . 'Alley-' . $index, $amount, 500, true);
@@ -1963,6 +2023,55 @@ function DoDrawCard($player, $amount) {
 
     return 'DRAW';
 }
+
+$customDQHandlers['TidalInsightReveal'] = function($player, $parts, $lastDecision) {
+    if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
+        MZMove($player, $lastDecision, 'myHand');
+        DecisionQueueController::CleanupRemovedCards();
+    }
+
+    QueueTidalInsightRearrange($player);
+};
+
+$customDQHandlers['TidalInsightApply'] = function($player, $parts, $lastDecision) {
+    $piles = ['Top' => [], 'Bottom' => []];
+    foreach(explode(';', strval($lastDecision)) as $pileStr) {
+        $eqPos = strpos($pileStr, '=');
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        if(isset($piles[$pileName])) {
+            $piles[$pileName] = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
+        }
+    }
+
+    $tempStart = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_TidalInsightTempStart'));
+    $tempZone = &GetTempZone($player);
+    $tempObjs = [];
+    for($i = $tempStart; $i < count($tempZone); ++$i) {
+        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
+        $tempObjs[] = $tempZone[$i];
+    }
+
+    foreach($tempObjs as $obj) {
+        $obj->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+
+    $deck = &GetDeck($player);
+    $topCards = $piles['Top'];
+    for($i = count($topCards) - 1; $i >= 0; --$i) {
+        array_unshift($deck, new Deck($topCards[$i], 'Deck', $player));
+    }
+    foreach($piles['Bottom'] as $cardID) {
+        $deck[] = new Deck($cardID, 'Deck', $player);
+    }
+
+    for($i = 0; $i < count($deck); ++$i) {
+        $deck[$i]->mzIndex = $i;
+        $deck[$i]->BuildIndex();
+    }
+};
 
 function OnEnter($player, $mzID) {
     global $enterAbilities, $customDQHandlers;
