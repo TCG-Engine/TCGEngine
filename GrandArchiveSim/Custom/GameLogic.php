@@ -6755,13 +6755,13 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         $opponent = ($player == 1) ? 2 : 1;
         $oppField = GetField($opponent);
         foreach($oppField as $fbObj) {
-            if($fbObj->removed || $fbObj->CardID !== "5WP1TXJo9E" || HasNoAbilities($fbObj)) continue;
+            if($fbObj === null || $fbObj->removed || $fbObj->CardID !== "5WP1TXJo9E" || HasNoAbilities($fbObj)) continue;
             if(!IsDiaoChanBonus($opponent)) continue;
             $sumPlayerField = &GetField($player);
             for($ci = 0; $ci < count($sumPlayerField); ++$ci) {
-                if($sumPlayerField[$ci]->removed) continue;
+                if($sumPlayerField[$ci] === null || $sumPlayerField[$ci]->removed) continue;
                 if(PropertyContains(EffectiveCardType($sumPlayerField[$ci]), "CHAMPION")) {
-                    $sumPlayerField[$ci]->Damage += 2;
+                    DealDamage($opponent, $fbObj->GetMzID(), $sumPlayerField[$ci]->GetMzID(), 2);
                 }
             }
             RecoverChampion($opponent, 2);
