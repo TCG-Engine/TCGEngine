@@ -26,6 +26,7 @@ $brewCosts["NwK5wge8wy"] = [["type"=>"HERB","count"=>3]]; // Alpha Philterbeast:
 $brewCosts["O1OU62Zx2Y"] = [["type"=>"HERB","count"=>1]]; // Distilled Water: 1 Herb
 $brewCosts["gnYM2V6TTw"] = [["type"=>"SAME_NAME_HERBS","count"=>2]]; // Soothing Potion: 2 Herbs with the same name
 $brewCosts["hj1trn0yet"] = [["type"=>"HERB","count"=>4]]; // Hide in Bush: 4 Herbs
+$brewCosts["vt9y597fqr"] = [["type"=>"DIFFERENT_NAME_HERBS","count"=>4]]; // Prima Materia: 4 Herbs with different names
 
 // --- Gather (Grand Archive keyword): summon a random herb token ---
 
@@ -129,6 +130,16 @@ function CanPayBrewCost($player, $slots) {
         if(!$hasEnoughSameName) return false;
     }
 
+    foreach($slots as $slot) {
+        $count = $slot['count'] ?? 1;
+        if($slot['type'] !== 'DIFFERENT_NAME_HERBS') continue;
+        $uniqueCardIDs = [];
+        foreach($available as $entry) {
+            $uniqueCardIDs[$entry['cardID']] = true;
+        }
+        if(count($uniqueCardIDs) < $count) return false;
+    }
+
     return true;
 }
 
@@ -184,6 +195,27 @@ function GetFilteredHerbs($filter, $excludeMZs) {
         } else {
             $matches[] = $mz;
         }
+    }
+    return $matches;
+}
+
+function GetDifferentNameHerbs($excludeMZs) {
+    $excludedCardIDs = [];
+    foreach($excludeMZs as $mz) {
+        if($mz === null || $mz === "") continue;
+        $obj = GetZoneObject($mz);
+        if($obj === null) continue;
+        $excludedCardIDs[$obj->CardID] = true;
+    }
+
+    $herbs = ZoneSearch("myField", cardSubtypes: ["HERB"]);
+    $matches = [];
+    foreach($herbs as $mz) {
+        if(in_array($mz, $excludeMZs)) continue;
+        $obj = GetZoneObject($mz);
+        if($obj === null) continue;
+        if(isset($excludedCardIDs[$obj->CardID])) continue;
+        $matches[] = $mz;
     }
     return $matches;
 }
@@ -272,6 +304,24 @@ $customDQHandlers["DeclareBrew"] = function($player, $parts, $lastDecision) {
         return;
     }
 
+    if($cardID === "vt9y597fqr") {
+        $firstPickChoices = ZoneSearch("myField", cardSubtypes: ["HERB"]);
+        if(empty($firstPickChoices)) {
+            DecisionQueueController::StoreVariable("wasBrewed", "NO");
+            for($i = 0; $i < $reserveCost; ++$i) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+            return;
+        }
+        DecisionQueueController::StoreVariable("brewMode", "PRIMA_DIFFERENT_NAMES");
+        DecisionQueueController::StoreVariable("brewChosen", "");
+        $choiceStr = implode("&", $firstPickChoices);
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", $choiceStr, 100, tooltip:"Sacrifice_an_herb");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BrewSelectHerb", 100);
+        return;
+    }
+
     $slots = $brewCosts[$cardID];
     $steps = FlattenBrewSlots($slots);
 
@@ -312,6 +362,20 @@ $customDQHandlers["BrewSelectHerb"] = function($player, $parts, $lastDecision) {
         $secondPickChoices = GetFilteredHerbs("CARD:" . $firstObj->CardID, $chosenArr);
         if(empty($secondPickChoices)) return;
         DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $secondPickChoices), 100, tooltip:"Sacrifice_a_matching_herb");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BrewSelectHerb", 100);
+        return;
+    }
+
+    if(DecisionQueueController::GetVariable("brewMode") === "PRIMA_DIFFERENT_NAMES") {
+        $chosenArr = array_values(array_filter(explode(",", $chosen)));
+        if(count($chosenArr) >= 4) {
+            DecisionQueueController::StoreVariable("brewMode", "");
+            BrewFinalizeHerbs($player, $chosen);
+            return;
+        }
+        $nextPickChoices = GetDifferentNameHerbs($chosenArr);
+        if(empty($nextPickChoices)) return;
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $nextPickChoices), 100, tooltip:"Sacrifice_a_different-name_herb");
         DecisionQueueController::AddDecision($player, "CUSTOM", "BrewSelectHerb", 100);
         return;
     }
