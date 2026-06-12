@@ -1,3 +1,70 @@
+function EnsureShiftingCurrentsFacingStyles() {
+  if (typeof document === "undefined") return;
+  if (document.getElementById("shifting-currents-facing-styles")) return;
+  var styleEl = document.createElement("style");
+  styleEl.id = "shifting-currents-facing-styles";
+  styleEl.textContent = ""
+    + ".sc-facing-compass{position:absolute;inset:6px;border-radius:12px;pointer-events:none;z-index:4;}"
+    + ".sc-facing-compass-ring{position:absolute;inset:0;border-radius:12px;border:1px solid rgba(255,255,255,0.18);box-shadow:inset 0 0 0 1px rgba(12,22,32,0.34);background:linear-gradient(180deg,rgba(10,18,28,0.14),rgba(10,18,28,0.03));}"
+    + ".sc-facing-compass-arm{position:absolute;display:flex;align-items:center;justify-content:center;font:700 11px/1 Orbitron,'Segoe UI',sans-serif;letter-spacing:0.08em;text-transform:uppercase;color:rgba(244,236,219,0.5);text-shadow:0 1px 4px rgba(0,0,0,0.8);-webkit-text-stroke:0.6px rgba(0,0,0,0.92);paint-order:stroke fill;transition:color 140ms ease,opacity 140ms ease,text-shadow 140ms ease,transform 140ms ease,filter 140ms ease;opacity:0.72;}"
+    + ".sc-facing-compass-arm.is-active{color:var(--sc-dir-color,#f4ecdb);opacity:1;text-shadow:0 0 10px var(--sc-dir-color,#f4ecdb),0 1px 6px rgba(0,0,0,0.85);transform:scale(1.14);filter:brightness(1.15);}"
+    + ".sc-facing-compass-arm.dir-north,.sc-facing-compass-arm.dir-south{left:50%;transform:translateX(-50%);width:48px;height:24px;}"
+    + ".sc-facing-compass-arm.dir-north{top:1px;}"
+    + ".sc-facing-compass-arm.dir-south{bottom:1px;}"
+    + ".sc-facing-compass-arm.dir-east,.sc-facing-compass-arm.dir-west{top:50%;transform:translateY(-50%);width:24px;height:48px;}"
+    + ".sc-facing-compass-arm.dir-east{right:1px;}"
+    + ".sc-facing-compass-arm.dir-west{left:1px;}"
+    + ".sc-facing-compass-pip{position:absolute;border-radius:999px;background:rgba(244,236,219,0.3);border:1px solid rgba(0,0,0,0.88);box-shadow:0 0 5px rgba(0,0,0,0.48);transition:background 140ms ease,box-shadow 140ms ease,transform 140ms ease,width 140ms ease,height 140ms ease;}"
+    + ".sc-facing-compass-arm.dir-north .sc-facing-compass-pip,.sc-facing-compass-arm.dir-south .sc-facing-compass-pip{left:50%;transform:translateX(-50%);width:26px;height:3px;}"
+    + ".sc-facing-compass-arm.dir-north .sc-facing-compass-pip{bottom:0;}"
+    + ".sc-facing-compass-arm.dir-south .sc-facing-compass-pip{top:0;}"
+    + ".sc-facing-compass-arm.dir-east .sc-facing-compass-pip,.sc-facing-compass-arm.dir-west .sc-facing-compass-pip{top:50%;transform:translateY(-50%);width:3px;height:26px;}"
+    + ".sc-facing-compass-arm.dir-east .sc-facing-compass-pip{left:0;}"
+    + ".sc-facing-compass-arm.dir-west .sc-facing-compass-pip{right:0;}"
+    + ".sc-facing-compass-arm.is-active .sc-facing-compass-pip{background:var(--sc-dir-color,#f4ecdb);box-shadow:0 0 12px var(--sc-dir-color,#f4ecdb),0 0 18px rgba(255,255,255,0.24);}"
+    + ".sc-facing-compass-arm.is-active.dir-north .sc-facing-compass-pip,.sc-facing-compass-arm.is-active.dir-south .sc-facing-compass-pip{width:32px;height:4px;}"
+    + ".sc-facing-compass-arm.is-active.dir-east .sc-facing-compass-pip,.sc-facing-compass-arm.is-active.dir-west .sc-facing-compass-pip{width:4px;height:32px;}"
+    + ".sc-facing-compass.is-changing .sc-facing-compass-ring{animation:scFacingPulse 520ms ease-out;}"
+    + "@keyframes scFacingPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,0);}30%{box-shadow:0 0 0 3px rgba(255,255,255,0.16),0 0 18px var(--sc-dir-color,#f4ecdb);}100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}}";
+  document.head.appendChild(styleEl);
+}
+
+function GetShiftingCurrentsDirectionMeta(direction) {
+  var dir = String(direction || "").toUpperCase();
+  var map = {
+    NORTH: { label: "North", short: "N", arrow: "&#9650;", color: "#4fc3f7" },
+    EAST: { label: "East", short: "E", arrow: "&#9654;", color: "#66bb6a" },
+    SOUTH: { label: "South", short: "S", arrow: "&#9660;", color: "#ff7043" },
+    WEST: { label: "West", short: "W", arrow: "&#9664;", color: "#ab47bc" }
+  };
+  return map[dir] || { label: dir || "None", short: dir ? dir.charAt(0) : "-", arrow: "", color: "#f4ecdb" };
+}
+
+function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
+  if (!cardData || cardData.CardID !== "qh5mpkyl60") return "";
+  var direction = String(cardData.Direction || "").toUpperCase();
+  if (!direction || direction === "NONE") return "";
+
+  EnsureShiftingCurrentsFacingStyles();
+
+  var directionMeta = GetShiftingCurrentsDirectionMeta(direction);
+  var directions = ["NORTH", "EAST", "SOUTH", "WEST"];
+  var html = "<div class='sc-facing-compass" + (animateChange ? " is-changing" : "") + "' style='--sc-dir-color:" + directionMeta.color + ";'>";
+  html += "<div class='sc-facing-compass-ring'></div>";
+  for (var i = 0; i < directions.length; ++i) {
+    var dir = directions[i];
+    var meta = GetShiftingCurrentsDirectionMeta(dir);
+    var dirClass = "dir-" + dir.toLowerCase();
+    var activeClass = dir === direction ? " is-active" : "";
+    html += "<div class='sc-facing-compass-arm " + dirClass + activeClass + "'>";
+    html += "<span class='sc-facing-compass-label'>" + meta.short + "</span>";
+    html += "<span class='sc-facing-compass-pip'></span>";
+    html += "</div>";
+  }
+  html += "</div>";
+  return html;
+}
+
 //Rotate is deprecated
       function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "", overlayDescriptorsJSON = "") {
         if (folder == "crops") {
@@ -1102,12 +1169,14 @@
         var shouldAnimateExhaustedTransition = false;
         var shouldAnimateWakeTransition = false;
         var shouldAnimateReliquaryDraw = false;
+        var shouldAnimateShiftingCurrentsDirectionChange = false;
         try {
           if (typeof window !== "undefined") {
             if (!window.__prevCardStatusByMzid) window.__prevCardStatusByMzid = {};
             if (!window.__nextCardStatusByMzid) window.__nextCardStatusByMzid = {};
             if (!window.__prevReliquaryDrawByMzid) window.__prevReliquaryDrawByMzid = {};
             if (!window.__nextReliquaryDrawByMzid) window.__nextReliquaryDrawByMzid = {};
+            if (!window.__shiftingCurrentsDirectionByMzid) window.__shiftingCurrentsDirectionByMzid = {};
             if (typeof window.__cardStatusHistoryReady === "undefined") window.__cardStatusHistoryReady = false;
 
             var currentStatus = parseInt(sharedCardData.Status, 10);
@@ -1137,6 +1206,17 @@
               window.__cardStatusHistoryReady === true &&
               hasReliquaryDrawTag &&
               !hadReliquaryDrawTag;
+
+            var isShiftingCurrents = sharedCardData.CardID === "qh5mpkyl60";
+            var currentDirection = isShiftingCurrents ? String(sharedCardData.Direction || "NONE").toUpperCase() : "NONE";
+            var previousDirection = window.__shiftingCurrentsDirectionByMzid[id];
+            if (isShiftingCurrents) {
+              shouldAnimateShiftingCurrentsDirectionChange =
+                previousDirection !== undefined &&
+                previousDirection !== currentDirection &&
+                currentDirection !== "NONE";
+              window.__shiftingCurrentsDirectionByMzid[id] = currentDirection;
+            }
           }
         } catch (e) {}
 
@@ -1193,6 +1273,12 @@
           }
         } catch (e) {
           if (console && console.error) console.error('Effect stack trigger badge render error', e);
+        }
+
+        try {
+          newHTML += RenderShiftingCurrentsFacingHTML(sharedCardData, shouldAnimateShiftingCurrentsDirectionChange);
+        } catch (e) {
+          if (console && console.error) console.error('Shifting Currents facing render error', e);
         }
 
         // Render subcards (lineage) as offset images behind the card
