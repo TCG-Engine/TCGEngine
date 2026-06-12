@@ -20121,6 +20121,23 @@ $customDQHandlers["ForagingFoxBottom"] = function($player, $parts, $lastDecision
     ForagingFoxChooseBottom($player);
 };
 
+function SwordSaintOfEventideEnter($player) {
+    $deck = GetDeck($player);
+    if(empty($deck)) return;
+    MZMove($player, "myDeck-0", "myTempZone");
+    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", "myTempZone-0", 1,
+        tooltip: "Put_the_top_card_of_your_deck_into_your_graveyard?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SwordSaintOfEventideResolve", 1);
+}
+
+$customDQHandlers["SwordSaintOfEventideResolve"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "myTempZone-0") {
+        MZMove($player, "myTempZone-0", "myGraveyard");
+        return;
+    }
+    PutTempZoneOnTopOfDeck($player);
+};
+
 /**
  * Get the number of a specific counter type on a card object.
  * @param object $obj   A Field zone object with a Counters property (json array/assoc).
