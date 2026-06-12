@@ -1434,14 +1434,7 @@ $customDQHandlers["ChannelManifoldBanish"] = function($player, $params, $lastDec
     }
     // If SC faces North, may put a preserved card from material deck into hand
     if(GetShiftingCurrents($player) === "NORTH") {
-        global $Preserve_Cards;
-        $material = GetZone("myMaterial");
-        $preserved = [];
-        for($i = 0; $i < count($material); $i++) {
-            if(isset($Preserve_Cards[$material[$i]->CardID])) {
-                $preserved[] = "myMaterial-" . $i;
-            }
-        }
+        $preserved = GetPreservedMaterialChoices($player, "myMaterial");
         if(!empty($preserved)) {
             DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $preserved), 1,
                 "Return_a_preserved_card_to_hand?");

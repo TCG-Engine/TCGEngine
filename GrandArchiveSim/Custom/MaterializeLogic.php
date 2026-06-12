@@ -433,15 +433,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 
     // Vernal Talisman (dW5uyngvJW): additional cost to materialize — banish 2 preserved cards from material deck
     if($materializeCard->CardID === "dW5uyngvJW" && !$ignoreCost) {
-        global $Preserve_Cards;
-        $material = GetZone("myMaterial");
-        $preserved = [];
-        for($i = 0; $i < count($material); ++$i) {
-            if($material[$i]->removed) continue;
-            if(isset($Preserve_Cards[$material[$i]->CardID])) {
-                $preserved[] = "myMaterial-" . $i;
-            }
-        }
+        $preserved = GetPreservedMaterialChoices($player, "myMaterial");
         if(count($preserved) < 2) {
             AutoUndoMaterializeCostFailure($player);
             return;
@@ -455,15 +447,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 
     // Coronal of Rejuvenation (uvgflagxbb): additional cost to materialize — banish 1 preserved card from material deck
     if($materializeCard->CardID === "uvgflagxbb" && !$ignoreCost) {
-        global $Preserve_Cards;
-        $material = GetZone("myMaterial");
-        $preserved = [];
-        for($i = 0; $i < count($material); ++$i) {
-            if($material[$i]->removed) continue;
-            if(isset($Preserve_Cards[$material[$i]->CardID])) {
-                $preserved[] = "myMaterial-" . $i;
-            }
-        }
+        $preserved = GetPreservedMaterialChoices($player, "myMaterial");
         if(empty($preserved)) {
             AutoUndoMaterializeCostFailure($player);
             return;
@@ -645,15 +629,7 @@ $customDQHandlers["VernalTalismanMaterializeCost"] = function($player, $parts, $
     $memoryCost = intval($parts[1]);
     MZMove($player, $lastDecision, "myBanish");
 
-    global $Preserve_Cards;
-    $material = GetZone("myMaterial");
-    $preserved = [];
-    for($i = 0; $i < count($material); ++$i) {
-        if($material[$i]->removed) continue;
-        if(isset($Preserve_Cards[$material[$i]->CardID])) {
-            $preserved[] = "myMaterial-" . $i;
-        }
-    }
+    $preserved = GetPreservedMaterialChoices($player, "myMaterial");
     if(empty($preserved)) return;
 
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $preserved), 1,

@@ -4235,14 +4235,12 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
                     SetFlashMessage('REVEAL:' . implode('|', $revealIDs));
                 }
                 // Move top $revealCount cards from deck to material deck (preserved)
-                global $Preserve_Cards;
                 for($ri = 0; $ri < $revealCount; ++$ri) {
                     $deckZone = GetZone($deckRef);
                     if(empty($deckZone)) break;
                     $cardID = $deckZone[0]->CardID;
                     MZMove($controller, $deckRef . "-0", $matRef);
-                    if(!isset($Preserve_Cards)) $Preserve_Cards = [];
-                    $Preserve_Cards[$cardID] = true;
+                    MarkCardIDPreserved($cardID);
                 }
             }
             return;

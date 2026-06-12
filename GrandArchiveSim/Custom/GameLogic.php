@@ -21144,7 +21144,7 @@ function SealThePastBanish($player, $targetSelf) {
 }
 
 function PutTopDeckCardIntoMaterialPreserved($player) {
-    global $playerID, $Preserve_Cards;
+    global $playerID;
     $deckRef = $player == $playerID ? "myDeck" : "theirDeck";
     $matRef = $player == $playerID ? "myMaterial" : "theirMaterial";
     $deck = GetZone($deckRef);
@@ -21152,11 +21152,11 @@ function PutTopDeckCardIntoMaterialPreserved($player) {
     $cardID = $deck[0]->CardID;
     SetFlashMessage("REVEAL:" . $cardID);
     MZMove($player, $deckRef . "-0", $matRef);
-    if(!isset($Preserve_Cards)) $Preserve_Cards = [];
-    $Preserve_Cards[$cardID] = true;
+    MarkCardIDPreserved($cardID);
 }
 
 function CountPreservedCardsInMaterial($player) {
+    HydrateDynamicPreserveCards();
     global $playerID, $Preserve_Cards;
     if(!isset($Preserve_Cards) || !is_array($Preserve_Cards)) return 0;
     $matRef = $player == $playerID ? "myMaterial" : "theirMaterial";
@@ -21167,6 +21167,61 @@ function CountPreservedCardsInMaterial($player) {
         if(isset($Preserve_Cards[$material[$i]->CardID])) ++$count;
     }
     return $count;
+}
+
+function GetDynamicPreserveCardIDs() {
+    if(!function_exists("GetDecisionQueueVariables")) return [];
+    $raw = DecisionQueueController::GetVariable("DynamicPreserveCardIDs");
+    if($raw === null || $raw === "") return [];
+    $decoded = json_decode($raw, true);
+    return is_array($decoded) ? $decoded : [];
+}
+
+function SetDynamicPreserveCardIDs($preservedCardIDs) {
+    if(!function_exists("SetDecisionQueueVariables")) return;
+    if(!is_array($preservedCardIDs) || empty($preservedCardIDs)) {
+        DecisionQueueController::StoreVariable("DynamicPreserveCardIDs", "{}");
+        return;
+    }
+    DecisionQueueController::StoreVariable("DynamicPreserveCardIDs", json_encode($preservedCardIDs));
+}
+
+function MarkCardIDPreserved($cardID) {
+    if($cardID === "") return;
+    $dynamicPreserved = GetDynamicPreserveCardIDs();
+    $dynamicPreserved[$cardID] = true;
+    SetDynamicPreserveCardIDs($dynamicPreserved);
+    global $Preserve_Cards;
+    if(!isset($Preserve_Cards) || !is_array($Preserve_Cards)) $Preserve_Cards = [];
+    if(!isset($Preserve_Cards[$cardID])) $Preserve_Cards[$cardID] = true;
+}
+
+function HydrateDynamicPreserveCards() {
+    $dynamicPreserved = GetDynamicPreserveCardIDs();
+    if(empty($dynamicPreserved)) return;
+    global $Preserve_Cards;
+    if(!isset($Preserve_Cards) || !is_array($Preserve_Cards)) $Preserve_Cards = [];
+    foreach(array_keys($dynamicPreserved) as $cardID) {
+        if(!isset($Preserve_Cards[$cardID])) $Preserve_Cards[$cardID] = true;
+    }
+}
+
+function GetPreservedMaterialChoices($player, $zoneRef = null) {
+    HydrateDynamicPreserveCards();
+    global $playerID, $Preserve_Cards;
+    if(!isset($Preserve_Cards) || !is_array($Preserve_Cards)) return [];
+    if($zoneRef === null || $zoneRef === "") {
+        $zoneRef = $player == $playerID ? "myMaterial" : "theirMaterial";
+    }
+    $material = GetZone($zoneRef);
+    $preserved = [];
+    for($i = 0; $i < count($material); ++$i) {
+        if($material[$i]->removed) continue;
+        if(isset($Preserve_Cards[$material[$i]->CardID])) {
+            $preserved[] = $zoneRef . "-" . $i;
+        }
+    }
+    return $preserved;
 }
 
 $customDQHandlers["ShademistPriestessRecover"] = function($player, $parts, $lastDecision) {
@@ -21185,20 +21240,6 @@ function TriggerShademistPriestess($player) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ShademistPriestessRecover", 1);
     }
 }
-
-$customDQHandlers["CoronalOfRejuvenationBanish"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $banished = MZMove($player, $lastDecision, "myBanish");
-    if($banished !== null) {
-        if(!isset($banished->Counters) || !is_array($banished->Counters)) $banished->Counters = [];
-        $banished->Counters['_coronal'] = 1;
-    }
-    $spells = ZoneSearch("myGraveyard", cardSubtypes: ["SPELL"]);
-    if(empty($spells)) return;
-    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $spells), 1,
-        tooltip:"Banish_another_Spell_card?_(Coronal)");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "CoronalOfRejuvenationBanish", 1);
-};
 
 $customDQHandlers["CoronalOfRejuvenationActivate"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
