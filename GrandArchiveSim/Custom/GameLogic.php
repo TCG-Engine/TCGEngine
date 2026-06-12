@@ -17556,14 +17556,14 @@ function ChangeShiftingCurrents($player, $newDirection) {
 
     // Fire transition callbacks for cards on this player's field
     $transitionKey = $oldDirection . "->" . $newDirection;
-    if(!isset($shiftingCurrentsTransitions[$transitionKey])) return;
-
     $field = &GetField($player);
-    foreach($shiftingCurrentsTransitions[$transitionKey] as $cardID => $callback) {
-        for($i = 0; $i < count($field); ++$i) {
-            if($field[$i]->removed) continue;
-            if($field[$i]->CardID === $cardID && !HasNoAbilities($field[$i])) {
-                $callback($player, "myField-" . $i);
+    if(isset($shiftingCurrentsTransitions[$transitionKey])) {
+        foreach($shiftingCurrentsTransitions[$transitionKey] as $cardID => $callback) {
+            for($i = 0; $i < count($field); ++$i) {
+                if($field[$i]->removed) continue;
+                if($field[$i]->CardID === $cardID && !HasNoAbilities($field[$i])) {
+                    $callback($player, "myField-" . $i);
+                }
             }
         }
     }
