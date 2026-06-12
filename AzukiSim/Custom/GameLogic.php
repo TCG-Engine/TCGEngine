@@ -885,6 +885,23 @@ function LeaderAttack($player) {
     return 0;
 }
 
+function LeaderCombatDamageReduction($player) {
+    $garden = &GetGarden($player);
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex < 0 || $leaderIndex >= count($garden)) return 0;
+
+    $leaderObj = $garden[$leaderIndex];
+    if($leaderObj === null || (isset($leaderObj->removed) && $leaderObj->removed)) return 0;
+
+    $reduction = 0;
+    foreach(GetAttachedWeaponIDs($leaderObj) as $weaponID) {
+        if($weaponID === 'S1-AZK01-018_Monk-Staff-of-Warding_W_C_die') {
+            $reduction += 1;
+        }
+    }
+    return $reduction;
+}
+
 function LeaderCurrentHealth($player) {
     $garden = &GetGarden($player);
     $leaderIndex = FindLeaderIndexInGarden($player);
@@ -2346,7 +2363,10 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
 
     if($attackerAttack > 0) {
         if($targetIsLeader) {
-            DealDamageToLeader($opponent, $attackerAttack);
+            $combatDamage = max(0, $attackerAttack - LeaderCombatDamageReduction($opponent));
+            if($combatDamage > 0) {
+                DealDamageToLeader($opponent, $combatDamage);
+            }
         } else {
             $theirGarden = &GetGarden($opponent);
             if(isset($theirGarden[$targetIndex]) && !(isset($theirGarden[$targetIndex]->removed) && $theirGarden[$targetIndex]->removed)) {
@@ -2362,7 +2382,10 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
 
     if($defenderAttack > 0) {
         if($attackerIsLeader) {
-            DealDamageToLeader($player, $defenderAttack);
+            $combatDamage = max(0, $defenderAttack - LeaderCombatDamageReduction($player));
+            if($combatDamage > 0) {
+                DealDamageToLeader($player, $combatDamage);
+            }
         } else {
             $myGarden = &GetGarden($player);
             if(isset($myGarden[$attackerIndex]) && !(isset($myGarden[$attackerIndex]->removed) && $myGarden[$attackerIndex]->removed)) {
