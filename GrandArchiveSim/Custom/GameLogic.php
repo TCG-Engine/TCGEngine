@@ -7372,7 +7372,7 @@ $customDQHandlers["FlamewreathCallSecondTarget"] = function($player, $parts, $la
 
 // Xuchang, Frozen Citadel (xpb20rar4k): opponent chose whether to banish a floating-memory GY card
 $customDQHandlers["XuchangFrozenCitadel"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
         // Didn't banish â€” next card activated this turn costs 2 more
         AddGlobalEffects($player, "XUCHANG_COST_INCREASE");
     } else {
@@ -8571,7 +8571,7 @@ function RecollectionPhase() {
             if(!empty($floatingGY)) {
                 $floatingStr = implode("&", $floatingGY);
                 DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $floatingStr, 1, "Banish_floating-memory_card_or_next_activation_costs_2_more_(Xuchang)");
-                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "XuchangFrozenCitadel", 1);
+                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "XuchangFrozenCitadel", 1, dontSkipOnPass:true);
             } else {
                 // No decision UI exists here, so apply the tax immediately instead of
                 // queueing a static-only handler that would leave recollection stalled.
