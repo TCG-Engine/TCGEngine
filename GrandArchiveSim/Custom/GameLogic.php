@@ -6731,6 +6731,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     $added = $field[count($field)-1];
     $added->Controller = $player;
     if($added->Owner == 0) $added->Owner = $player;
+    $otherPlayer = ($player == 1) ? 2 : 1;
     // Zinn, Volnia Abbess (N0GEBrywbW): [Arisanna Bonus] Silvershine/Fraysia summons become Volnia.
     if(($added->CardID === "bd7ozuj68m" || $added->CardID === "soporhlq2k") && IsArisannaBonusActive($player)) {
         foreach($field as $zinnObj) {
@@ -7094,9 +7095,10 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     }
 
     // Shattered Hope (XOevViFTB3): allies that enter under your control get sheen counter
-    if(PropertyContains(CardType($added->CardID), "ALLY")) {
-        if(GlobalEffectCount($player, "SHATTERED_HOPE_SHEEN") > 0) {
-            AddCounters($player, "myField-" . (count($field) - 1), "sheen", 1);
+    if(PropertyContains(CardType($added->CardID), "ALLY")
+        || (PropertyContains(CardType($added->CardID), "TOKEN") && PropertyContains(CardSubtypes($added->CardID), "ALLY"))) {
+        if(GlobalEffectCount($player, "SHATTERED_HOPE_SHEEN") > 0 || GlobalEffectCount($otherPlayer, "SHATTERED_HOPE_SHEEN") > 0) {
+            AddCounters($player, $added->GetMzID(), "sheen", 1);
         }
     }
 
