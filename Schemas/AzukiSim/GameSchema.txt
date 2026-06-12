@@ -19,6 +19,8 @@ Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=AttackModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=HealthModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=WhenAttacked(mzID,attackerMZ); ChoiceFunction=OnWhenAttacked; SourceParam=mzID; Action={}
+Macro: Name=AfterAttacking(mzID,targetMZ); ChoiceFunction=OnAfterAttacking; SourceParam=mzID; Action={}
+Macro: Name=DamageTaken(mzID,amount); ChoiceFunction=OnDamageTaken; SourceParam=mzID; Action={}
 Macro: Name=EndTurnAbility(mzID); ChoiceFunction=OnEndTurnAbility; SourceParam=mzID; Action={}
 Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=EnterGarden(mzID); ChoiceFunction=OnEnterGarden; Action={}

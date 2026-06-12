@@ -72,6 +72,11 @@ function HandlePassButton($playerID) {
         return;
     }
 
+    if(intval($playerID) !== intval(GetTurnPlayer())) {
+        SetFlashMessage("Only the active player can pass the turn.");
+        return;
+    }
+
     // Check if we can pass (no pending decisions or effects)
     $effectStack = &GetEffectStack();
     DecisionQueueController::CleanupRemovedCards();
@@ -88,9 +93,7 @@ function HandlePassButton($playerID) {
         return;
     }
 
-    // Advance to next phase
-    global $gCurrentPhase;
-    $gCurrentPhase = "MAIN"; // Passing in Main stays in Main or goes to EOT
+    // Advance to next phase from the current authoritative phase state.
     AdvanceAndExecute("PASS");
     AutoAdvanceAndExecute();
 }
@@ -102,7 +105,7 @@ function HandleAttackSetup($playerID, $attackerMZ) {
         return;
     }
 
-    // Get valid targets: opponent's Leader and tapped entities in their Garden
+    // Get valid targets from shared legality checks.
     $opponent = ($playerID === 1) ? 2 : 1;
     $targets = [];
 
@@ -113,18 +116,27 @@ function HandleAttackSetup($playerID, $attackerMZ) {
         return;
     }
 
+    DecisionQueueController::StoreVariable('CombatTarget', $attackerMZ);
+
     // Add opponent's leader as target if still alive.
     $leaderIdx = FindLeaderIndexInGarden($opponent);
-    if($leaderIdx >= 0 && LeaderCurrentHealth($opponent) > 0) {
+    if($leaderIdx >= 0 && LeaderCurrentHealth($opponent) > 0 && IsAttackTargetLegal($playerID, "theirGarden-" . $leaderIdx)) {
         $targets[] = "theirGarden-" . $leaderIdx;
     }
 
-    // Add tapped entities from opponent's garden
+    // Add legal targets from opponent's garden.
     $garden = &GetGarden($opponent);
     for($i = 0; $i < count($garden); ++$i) {
-        if(!$garden[$i]->removed && $garden[$i]->Status == 1) {
-            // Tapped entity — can be targeted
+        if(!$garden[$i]->removed && IsAttackTargetLegal($playerID, "theirGarden-" . $i)) {
             $targets[] = "theirGarden-" . $i;
+        }
+    }
+
+    // Add legal targets from opponent's alley for cards that can attack there.
+    $alley = &GetAlley($opponent);
+    for($i = 0; $i < count($alley); ++$i) {
+        if(!$alley[$i]->removed && IsAttackTargetLegal($playerID, "theirAlley-" . $i)) {
+            $targets[] = "theirAlley-" . $i;
         }
     }
 

@@ -229,6 +229,27 @@ foreach(explode("&", $selected) as $chosen) {
 
 **When to use vs. repeated `MZCHOOSE`:** Use `MZMultiChoose` when the player should choose several cards from one visible candidate set in a single interaction. Keep repeated `MZCHOOSE` flows for stepwise decisions where each pick changes the next legal set or needs separate processing between picks.
 
+### MZRearrange — Ordered Top/Bottom Pile Pattern
+
+**Decision type:** `MZREARRANGE` — lets the player drag revealed card IDs between named piles and order cards within each pile.
+
+**When to prefer it:** Use `MZREARRANGE` for "put the rest on the top or bottom in any order" and for bottom-only reorder flows after looking at or revealing cards from deck/temp zone. Do not fake these rearrangement UIs with `MZMultiChoose`.
+
+**Parameter format:** `"Top=cardA,cardB;Bottom=cardC"` where each pile is a comma-separated list of card IDs.
+
+**Common patterns:**
+- Top-or-bottom reorder: `Top=<ids>;Bottom=`
+- Bottom-only reorder: `Top=;Bottom=<ids>`
+
+**Queue pattern:**
+```php
+$param = "Top=;Bottom=" . implode(",", $remaining);
+DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Put_remaining_on_bottom_of_deck_in_any_order");
+DecisionQueueController::AddDecision($player, "CUSTOM", "MyRearrangeApply", 1);
+```
+
+**Apply pattern:** Parse `$lastDecision` by `;` and `=`, remove the temp-zone objects, then append `Bottom` pile cards to deck and handle `Top` pile explicitly when that mode is allowed. For bottom-only flows, append `array_merge($piles["Bottom"], $piles["Top"])` so misplaced cards still resolve safely.
+
 ### MZSplitAssign — Split Damage / Split Pool Pattern
 
 **Decision type:** `MZSPLITASSIGN` — lets the player distribute a numeric pool (e.g., damage) across multiple card targets on the board.

@@ -706,7 +706,7 @@
 <div id="azukiResponseOpportunity" aria-live="polite" aria-label="Response opportunity">
     <div class="azuki-opportunity-text">
         <span class="azuki-opportunity-title">Response Opportunity</span>
-        <span id="azukiResponseOpportunityText" class="azuki-opportunity-subtitle">You may play a [Response] spell.</span>
+        <span id="azukiResponseOpportunityText" class="azuki-opportunity-subtitle">You may play a [Response] card.</span>
     </div>
     <button id="azukiResponsePassBtn" type="button" onclick="AzukiResponsePass()">Pass</button>
 </div>
@@ -824,7 +824,7 @@
         var isResponder = viewer > 0 && viewer === state.responder;
 
         subtitle.textContent = isResponder
-            ? 'Play a [Response] spell or pass to resolve the attack.'
+            ? 'Play a [Response] card or pass to resolve the attack.'
             : 'Waiting for defending player responses.';
         passBtn.style.display = isResponder ? 'inline-flex' : 'none';
         panel.style.display = 'flex';

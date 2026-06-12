@@ -8,6 +8,7 @@ class DecisionQueueController {
     private static $debugMode = false;
     private static $executeDepth = 0;
     private static $executePlayerStack = [];
+    private static $suspendAutoAdvanceDepth = 0;
 
     public function __construct() {
 
@@ -117,9 +118,19 @@ class DecisionQueueController {
             array_pop(self::$executePlayerStack);
             self::$executeDepth--;
             // Only the outermost execution frame may auto-advance phases.
-            if($shouldAutoAdvance && self::$executeDepth === 0) {
+            if($shouldAutoAdvance && self::$executeDepth === 0 && self::$suspendAutoAdvanceDepth === 0) {
                 AutoAdvance();
             }
+        }
+    }
+
+    public static function SuspendAutoAdvance() {
+        self::$suspendAutoAdvanceDepth++;
+    }
+
+    public static function ResumeAutoAdvance() {
+        if(self::$suspendAutoAdvanceDepth > 0) {
+            self::$suspendAutoAdvanceDepth--;
         }
     }
 

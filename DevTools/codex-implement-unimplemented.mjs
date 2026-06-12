@@ -259,6 +259,8 @@ Execution rules:
 - If you hit a blocker, make the smallest justified shared change or explain the blocker clearly.
 - Prefer durable prereq/macro-layer fixes over ad hoc runtime guards.
 - Respect the await/codegen constraints from .github/copilot-instructions.md.
+- Do not call an existing custom DQ handler directly unless you also queue the exact matching decision/UI step it expects first. Custom handlers usually depend on a specific lastDecision shape from YESNO, MZCHOOSE, MZMAYCHOOSE, MZMULTICHOOSE, or MZMODAL.
+- If a flow needs the player to choose cards to discard/select, queue the chooser decision explicitly instead of jumping straight to a shared discard/resolve handler.
 
 When you finish, summarize:
 - what changed
