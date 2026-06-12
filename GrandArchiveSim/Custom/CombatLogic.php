@@ -2108,16 +2108,22 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         }
     }
 
-    // Shardwing Searchlight (8bRp3n2IAn): Memorite objects with SHARDWING_SEARCHLIGHT_ONHIT
-    // On Hit: put a sheen counter on the hit object
-    $swAttacker = GetZoneObject($attackerMZ);
-    if($swAttacker !== null && !HasNoAbilities($swAttacker)
-       && PropertyContains(EffectiveCardSubtypes($swAttacker), "MEMORITE")
-       && PropertyContains(CardCurrentEffects($swAttacker), "SHARDWING_SEARCHLIGHT_ONHIT")) {
-        $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
-        if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
-            $hitObj = GetZoneObject($hitTarget);
-            if($hitObj !== null && !$hitObj->removed) {
+    // Shardwing Searchlight (8bRp3n2IAn): each Memorite object that participated in the hit
+    // gains its own On Hit trigger to put a sheen counter on the hit object.
+    $hitTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if($hitTarget !== null && $hitTarget !== "-" && $hitTarget !== "") {
+        $hitObj = GetZoneObject($hitTarget);
+        if($hitObj !== null && !$hitObj->removed) {
+            $searchlightSources = [$attackerMZ];
+            $searchlightWeaponMZ = GetCombatWeapon();
+            if($searchlightWeaponMZ !== null && !in_array($searchlightWeaponMZ, $searchlightSources)) {
+                $searchlightSources[] = $searchlightWeaponMZ;
+            }
+            foreach($searchlightSources as $searchlightSourceMZ) {
+                $searchlightSourceObj = GetZoneObject($searchlightSourceMZ);
+                if($searchlightSourceObj === null || HasNoAbilities($searchlightSourceObj)) continue;
+                if(!PropertyContains(EffectiveCardSubtypes($searchlightSourceObj), "MEMORITE")) continue;
+                if(!PropertyContains(CardCurrentEffects($searchlightSourceObj), "SHARDWING_SEARCHLIGHT_ONHIT")) continue;
                 AddCounters($player, $hitTarget, "sheen", 1);
             }
         }
