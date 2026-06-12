@@ -1512,7 +1512,7 @@ fwrite($handler, "function GetAssetReflectionPath() {\r\n");
 fwrite($handler, "  return \"" . ($assetReflection === null ? "" : $assetReflection) . "\";\r\n");
 fwrite($handler, "}\r\n\r\n");
 // Function to control whether regression recording tools should be exposed
-$supportsRegressionRecording = in_array($rootName, ["GrandArchiveSim", "RBSim", "GudnakSim", "SoulMastersSim"], true) ? "true" : "false";
+$supportsRegressionRecording = in_array($rootName, ["GrandArchiveSim", "RBSim", "GudnakSim", "SoulMastersSim", "AzukiSim"], true) ? "true" : "false";
 fwrite($handler, "function SupportsRegressionRecording() {\r\n");
 fwrite($handler, "  return " . $supportsRegressionRecording . ";\r\n");
 fwrite($handler, "}\r\n\r\n");

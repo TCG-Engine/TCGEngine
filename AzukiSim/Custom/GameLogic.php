@@ -2186,8 +2186,14 @@ function OnWhenAttacked($player, $mzID, $attackerMZ) {
 
 function TriggerEndTurnAbilitiesForZone($player, &$zone) {
     for($i = count($zone) - 1; $i >= 0; --$i) {
+        if(!is_object($zone[$i])) continue;
         if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
-        EndTurnAbility($player, GetMZID($zone[$i]));
+
+        $mzID = '';
+        $mzID = $zone[$i]->GetMzID();
+        if($mzID === '') continue;
+
+        EndTurnAbility($player, $mzID);
     }
 }
 
@@ -2821,6 +2827,14 @@ $customDQHandlers["GOU_DISCARD_TWO"] = function($player, $params, $lastDecision)
         MZMove($player, $cards[$i], 'myDiscard');
     }
     DecisionQueueController::CleanupRemovedCards();
+};
+
+$customDQHandlers["S1-AZK01-014_Trade-Guild-Cavalry_E_R_die:0:AttackWith-1"] = function($player, $params, $lastDecision) {
+    $chosenTarget = strval($lastDecision);
+    if($chosenTarget === '' || $chosenTarget === '-') return;
+    $targetObj = &GetZoneObject($chosenTarget);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+    AddUniqueTurnEffect($targetObj, 'ATK_MOD:2');
 };
 
 $customDQHandlers["PORTAL_FROM_ALLEY"] = function($player, $params, $lastDecision) {
