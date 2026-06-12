@@ -758,7 +758,7 @@ for($i=0; $i<count($zones); ++$i) {
       $mzGetObject .= "    case \"" . $zoneName . "\": return Get" . $zoneName . "();\r\n";
       $mzGetZone .= "    case \"" . $zoneName . "\": return Get" . $zoneName . "();\r\n";
     } else {
-      $mzGetObject .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr[\$mzArr[1]];\r\n";
+      $mzGetObject .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); break;\r\n";
       $mzGetZone .= "    case \"" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(); return \$zoneArr;\r\n";
     }
   } else {
@@ -768,8 +768,8 @@ for($i=0; $i<count($zones); ++$i) {
       $mzGetZone .= "    case \"my" . $zoneName . "\": return Get" . $zoneName . "(\$playerID);\r\n";
       $mzGetZone .= "    case \"their" . $zoneName . "\": return Get" . $zoneName . "(\$playerID == 1 ? 2 : 1);\r\n";
     } else {
-      $mzGetObject .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr[\$mzArr[1]];\r\n";
-      $mzGetObject .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr[\$mzArr[1]];\r\n";
+      $mzGetObject .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); break;\r\n";
+      $mzGetObject .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); break;\r\n";
       $mzGetZone .= "    case \"my" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID); return \$zoneArr;\r\n";
       $mzGetZone .= "    case \"their" . $zoneName . "\": \$zoneArr = &Get" . $zoneName . "(\$playerID == 1 ? 2 : 1); return \$zoneArr;\r\n";
     }
@@ -777,6 +777,9 @@ for($i=0; $i<count($zones); ++$i) {
 }
 $mzGetObject .= "    default: \$_null = null; return \$_null;\r\n";
 $mzGetObject .= "  }\r\n";
+$mzGetObject .= "  // Guard: returning a missing index from a by-ref function would auto-vivify a null entry in the zone\r\n";
+$mzGetObject .= "  if(!isset(\$zoneArr[\$mzArr[1]])) { \$_null = null; return \$_null; }\r\n";
+$mzGetObject .= "  return \$zoneArr[\$mzArr[1]];\r\n";
 $mzGetObject .= "}\r\n\r\n";
 $mzGetZone .= "    default: \$_null = null; return \$_null;\r\n";
 $mzGetZone .= "  }\r\n";
