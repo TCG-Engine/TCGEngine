@@ -16,7 +16,10 @@ include_once 'Header.php';
     <h2>Active Games (<span id="active-game-count">0</span>)</h2>
     <h2>Create a New Game</h2>
     <div>
-      <p style="color: #ccc; margin: 0 0 8px 0; font-size: 14px;">Choose your starter deck:</p>
+      <label for="azuki-deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Optional deck link:</label>
+      <input type="text" id="azuki-deck-link" placeholder="https://thegateikz.com/... or deck slug" style="width: 100%; padding: 10px 15px; margin-bottom: 8px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+      <p style="color: #b9b9b9; margin: 0 0 12px 0; font-size: 12px; line-height: 1.35;">Paste a `thegateikz.com` deck link to load that list. If left blank, AzukiSim uses the selected starter deck below.</p>
+      <p style="color: #ccc; margin: 0 0 8px 0; font-size: 14px;">Starter deck fallback:</p>
       <select id="starter-deck-select" style="margin-bottom: 12px; min-width: 220px;">
         <option value="Raizan">Raizan Starter Deck</option>
         <option value="Shao">Shao Starter Deck</option>
@@ -111,6 +114,7 @@ include_once 'Header.php';
     { key: 'u', label: 'Undo your most recent action' },
     { text: 'Hover a card on the field to see its full text' },
     { text: 'You can queue with the Raizan, Shao, Bobu, or Zero starter deck.' },
+    { text: 'You can also paste a thegateikz.com deck link and AzukiSim will load that deck instead of a starter deck.' },
     { text: 'Private games generate a shareable invite link — send it to your opponent and they can join instantly.' },
     { text: 'The queue matches you with the first available opponent. No need to refresh — it polls automatically.' },
     { key: 'Esc', label: 'Cancel matchmaking while waiting for an opponent' },
@@ -168,25 +172,6 @@ include_once 'Header.php';
   var _privateInviteCode = "";
   var _waitingEscHandler = null;
 
-      function switchDeckTab(tab) {
-        var isLink = tab === 'link';
-        document.getElementById('deck-input-link').style.display = isLink ? '' : 'none';
-        document.getElementById('deck-input-text').style.display = isLink ? 'none' : '';
-        document.getElementById('tab-link').style.background = isLink ? 'rgba(52,152,219,0.25)' : 'rgba(40,40,40,0.7)';
-        document.getElementById('tab-link').style.color = isLink ? 'white' : '#aaa';
-        document.getElementById('tab-link').style.borderBottom = isLink ? '2px solid #3498db' : '2px solid transparent';
-        document.getElementById('tab-text').style.background = isLink ? 'rgba(40,40,40,0.7)' : 'rgba(52,152,219,0.25)';
-        document.getElementById('tab-text').style.color = isLink ? '#aaa' : 'white';
-        document.getElementById('tab-text').style.borderBottom = isLink ? '2px solid transparent' : '2px solid #3498db';
-        try { localStorage.setItem('ga_deck_tab', tab); } catch(e) {}
-      }
-
-      (function() {
-        var saved = '';
-        try { saved = localStorage.getItem('ga_deck_tab') || ''; } catch(e) {}
-        if (saved === 'text') switchDeckTab('text');
-      })();
-
       function initializePrivateInviteFromUrl() {
         try {
           var params = new URLSearchParams(window.location.search || '');
@@ -205,7 +190,28 @@ include_once 'Header.php';
         }
       }
 
+      function initializeDeckLinkFromUrl() {
+        try {
+          var params = new URLSearchParams(window.location.search || '');
+          var deckLinkParam = (params.get('deckLink') || params.get('deck') || '').trim();
+          if (!deckLinkParam) return;
+
+          var deckLinkInput = document.getElementById('azuki-deck-link');
+          if (deckLinkInput && !deckLinkInput.value.trim()) {
+            deckLinkInput.value = deckLinkParam;
+          }
+        } catch (e) {
+          console.error('Failed to parse deck link URL:', e);
+        }
+      }
+
       function getDeckSubmission() {
+        var deckLink = '';
+        var deckLinkInput = document.getElementById('azuki-deck-link');
+        if (deckLinkInput && deckLinkInput.value) {
+          deckLink = deckLinkInput.value.trim();
+        }
+
         var starterDeck = 'Raizan';
         var starterSelect = document.getElementById('starter-deck-select');
         if (starterSelect && starterSelect.value) {
@@ -215,7 +221,7 @@ include_once 'Header.php';
         var gameType = 'casual';
         return {
           preconstructedDeck: starterDeck,
-          deckLink: '',
+          deckLink: deckLink,
           gameType: gameType
         };
       }
@@ -669,6 +675,7 @@ include_once 'Header.php';
       }
 
       document.addEventListener('DOMContentLoaded', function() {
+        initializeDeckLinkFromUrl();
         initializePrivateInviteFromUrl();
         refreshOpenGames();
       });

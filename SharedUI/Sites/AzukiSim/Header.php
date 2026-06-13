@@ -3,8 +3,8 @@
 
     <a href="./MainMenu.php" class="title">
         <div class="title">
-            <h1>Clarent</h1>
-            <p>Fan-made automated Grand Archive simulator</p>
+            <h1>Azuki Sim</h1>
+            <p>Fan-made automated Azuki simulator</p>
         </div>
     </a>
 <!--

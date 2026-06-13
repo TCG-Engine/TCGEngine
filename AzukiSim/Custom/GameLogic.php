@@ -727,8 +727,13 @@ function ParseAttackModifierEffects($obj) {
     $delta = 0;
     foreach($obj->TurnEffects as $effectID) {
         if(!is_string($effectID)) continue;
-        if(strpos($effectID, 'ATK_MOD:') !== 0) continue;
-        $amount = intval(substr($effectID, strlen('ATK_MOD:')));
+        if(strpos($effectID, 'ATK_MOD:') === 0) {
+            $amount = intval(substr($effectID, strlen('ATK_MOD:')));
+            $delta += $amount;
+            continue;
+        }
+        if(strpos($effectID, 'ATK_') !== 0) continue;
+        $amount = intval(substr($effectID, strlen('ATK_')));
         $delta += $amount;
     }
     return $delta;
@@ -3703,6 +3708,12 @@ function OnAttackWithCard($player, $mzID, $targetMZ) {
         return 'ATTACK_WITH';
     }
 
+    // Mirror the generated AttackWith macro wrapper so attack-trigger abilities
+    // read the current attacker/target instead of stale queue variables.
+    DecisionQueueController::StoreVariable("mzID", $mzID);
+    DecisionQueueController::StoreVariable("targetMZ", $targetMZ);
+    DecisionQueueController::StoreVariable("mzIDCardID", $cardID);
+
     $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     $abilityCount = 0;
     if(function_exists('CardAttackWithCount')) {
@@ -3750,6 +3761,10 @@ function OnAfterAttacking($player, $mzID, $targetMZ) {
     if($cardID === '') {
         return 'AFTER_ATTACKING';
     }
+
+    DecisionQueueController::StoreVariable("mzID", $mzID);
+    DecisionQueueController::StoreVariable("targetMZ", $targetMZ);
+    DecisionQueueController::StoreVariable("mzIDCardID", $cardID);
 
     $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     $abilityCount = 0;

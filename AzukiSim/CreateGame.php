@@ -6,6 +6,7 @@ include_once __DIR__ . '/ZoneClasses.php';
 include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/TurnController.php';
 include_once __DIR__ . '/Custom/GameLogic.php';
+include_once __DIR__ . '/Custom/DeckImport.php';
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 include_once __DIR__ . '/../APIKeys/APIKeys.php';
@@ -25,7 +26,7 @@ ParseGamestate(__DIR__ . "/");
 $playerCounter = 1;
 foreach ($lobby->players as $player) {
     $player->setGamePlayerID($playerCounter);
-    LoadPlayer($playerCounter, $player->getPreconstructedDeck());
+    LoadPlayer($playerCounter, $player->getPreconstructedDeck(), $player->getDeckLink());
     ++$playerCounter;
 }
 
@@ -168,23 +169,46 @@ function GetPreconstructedDeckConfig($deckName) {
     ];
 }
 
-function LoadPlayer($playerID, $preconstructedDeck = 'Raizan') {
+function LoadPlayer($playerID, $preconstructedDeck = 'Raizan', $deckLink = '') {
     $deck = &GetDeck($playerID);
     $garden = &GetGarden($playerID);
     $gate = &GetGate($playerID);
 
-    $deckConfig = GetPreconstructedDeckConfig($preconstructedDeck);
-    $deckName = $deckConfig['name'];
+    $resolvedDeck = null;
+    $deckLink = trim((string)$deckLink);
+    if ($deckLink !== '' && function_exists('AzukiResolveDeckInput')) {
+        try {
+            $candidateDeck = AzukiResolveDeckInput($deckLink);
+            if (!empty($candidateDeck['success'])) {
+                $resolvedDeck = $candidateDeck;
+            } else {
+                error_log('AzukiSim deck import fallback to starter deck: ' . ($candidateDeck['message'] ?? 'unknown error'));
+            }
+        } catch (Throwable $e) {
+            error_log('AzukiSim deck import failed during game creation: ' . $e->getMessage());
+        }
+    }
 
-    // Raizan (Leader) starts in the Garden.
-    $leaderCard = new Garden($deckConfig['leader']);
-    array_push($garden, $leaderCard);
+    if ($resolvedDeck !== null) {
+        $leaderCard = new Garden($resolvedDeck['leader']);
+        array_push($garden, $leaderCard);
 
-    // Surge Gate
-    $gateCard = new Gate($deckConfig['gate']);
-    array_push($gate, $gateCard);
+        $gateCard = new Gate($resolvedDeck['gate']);
+        array_push($gate, $gateCard);
 
-    $deckList = $deckConfig['deckList'];
+        $deckList = $resolvedDeck['mainDeck'];
+    } else {
+        $deckConfig = GetPreconstructedDeckConfig($preconstructedDeck);
+
+        // Leader starts in the Garden.
+        $leaderCard = new Garden($deckConfig['leader']);
+        array_push($garden, $leaderCard);
+
+        $gateCard = new Gate($deckConfig['gate']);
+        array_push($gate, $gateCard);
+
+        $deckList = $deckConfig['deckList'];
+    }
 
     for($i = 0; $i < count($deckList); ++$i) {
         $cardID = $deckList[$i];

@@ -20,6 +20,11 @@
     if(is_file($grandArchiveDeckImportPath)) {
       include_once $grandArchiveDeckImportPath;
     }
+  } else if($rootName === 'AzukiSim') {
+    $azukiDeckImportPath = __DIR__ . '/../../AzukiSim/Custom/DeckImport.php';
+    if(is_file($azukiDeckImportPath)) {
+      include_once $azukiDeckImportPath;
+    }
   }
 
   $deckLink = isset($_POST['deckLink']) ? $_POST['deckLink'] : '';
@@ -251,6 +256,25 @@
         return GrandArchiveValidateDeckForQueue($deckLink, $preconstructedDeck);
       } catch (Throwable $e) {
         error_log('GrandArchive queue deck validation failed: ' . $e->getMessage());
+        return [
+          'success' => false,
+          'message' => 'Could not validate deck input. Please try again.'
+        ];
+      }
+    }
+
+    if($rootName === 'AzukiSim') {
+      if(!function_exists('AzukiValidateDeckForQueue')) {
+        return [
+          'success' => false,
+          'message' => 'Deck validation is temporarily unavailable.'
+        ];
+      }
+
+      try {
+        return AzukiValidateDeckForQueue($deckLink, $preconstructedDeck);
+      } catch (Throwable $e) {
+        error_log('AzukiSim queue deck validation failed: ' . $e->getMessage());
         return [
           'success' => false,
           'message' => 'Could not validate deck input. Please try again.'
