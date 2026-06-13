@@ -1273,6 +1273,44 @@ function CardCost($cardID) {
     return $cost !== null && $cost >= 0 ? intval($cost) : 0;
 }
 
+function HandCardCostReduction($player, $cardID, $obj = null) {
+    $player = intval($player);
+    if(!is_string($cardID) || $cardID === '') return 0;
+    if($cardID !== 'S1-AZK01-106_Lord-of-Sands-Osunanami_E_SR_die') return 0;
+
+    if(is_object($obj)) {
+        $location = strval($obj->Location ?? '');
+        if($location !== 'Hand') return 0;
+    }
+
+    $garden = &GetGarden($player);
+    $discount = 0;
+    for($i = 0; $i < count($garden); ++$i) {
+        if(isset($garden[$i]->removed) && $garden[$i]->removed) continue;
+        if(IsDefenderEntity($garden[$i])) ++$discount;
+    }
+
+    return max(0, $discount);
+}
+
+function EffectivePlayCost($player, $cardID, $obj = null) {
+    $baseCost = CardCost($cardID);
+    $discount = HandCardCostReduction($player, $cardID, $obj);
+    return max(0, intval($baseCost) - intval($discount));
+}
+
+function HandCardCostDifference($obj) {
+    global $playerID;
+    if(!is_object($obj)) return -1;
+
+    $cardID = strval($obj->CardID ?? '');
+    if($cardID === '') return -1;
+
+    $baseCost = CardCost($cardID);
+    $effectiveCost = EffectivePlayCost(intval($playerID), $cardID, $obj);
+    return $effectiveCost !== $baseCost ? $effectiveCost : -1;
+}
+
 function FindLeaderIndexInGarden($player) {
     $garden = &GetGarden($player);
     for($i = 0; $i < count($garden); ++$i) {
@@ -2141,6 +2179,20 @@ function SelectionMetadata($obj) {
         return json_encode(['highlight' => false]);
     }
 
+    $location = strval($obj->Location ?? '');
+    if($location === 'Hand') {
+        $cardID = $obj->CardID ?? '';
+        if($cardID === '' || !CanPlayCardByTiming($actingPlayer, $cardID)) {
+            return json_encode(['highlight' => false]);
+        }
+        if(CardType($cardID) === 'WEAPON' && empty(ResolveWeaponEquipTargets($actingPlayer))) {
+            return json_encode(['highlight' => false]);
+        }
+        if(!CanPayIKZCost($actingPlayer, EffectivePlayCost($actingPlayer, $cardID, $obj))) {
+            return json_encode(['highlight' => false]);
+        }
+    }
+
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
 }
 
@@ -2443,7 +2495,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
     SaveActionSnapshot($player);
 
     $cardType = CardType($cardID);
-    $cardCost = CardCost($cardID);
+    $cardCost = EffectivePlayCost($player, $cardID, $sourceObject);
     $ignoreTimingRestriction = strval(DecisionQueueController::GetVariable('IgnorePlayTimingRestriction') ?? '') === '1';
     if($ignoreTimingRestriction) {
         DecisionQueueController::StoreVariable('IgnorePlayTimingRestriction', '0');
@@ -2941,6 +2993,41 @@ $customDQHandlers['LOTUS_OF_REFLECTION_MODE'] = function($player, $parts, $lastD
     DecisionQueueController::StoreVariable('IgnorePlayTimingRestriction', '1');
     DoPlayCard($player, $playedMZ, true);
     QueueBottomDeckSearcherBottom($player);
+};
+
+$customDQHandlers['RAIKOS_WRATH_SHIN_CHOICE'] = function($player, $parts, $lastDecision) {
+    $choiceMap = strval(DecisionQueueController::GetVariable('P' . intval($player) . '_RaikosWrathShinChoiceMap') ?? '');
+    $mappedChoices = array_values(array_filter(explode(',', $choiceMap), function($value) {
+        return $value !== '';
+    }));
+    if(empty($mappedChoices)) return;
+
+    $selectedIndex = intval(explode(',', strval($lastDecision))[0] ?? 0);
+    if($selectedIndex < 0 || $selectedIndex >= count($mappedChoices)) return;
+
+    $chosenMode = $mappedChoices[$selectedIndex];
+    if($chosenMode === 'charge') {
+        $selfMZ = strval(DecisionQueueController::GetVariable('P' . intval($player) . '_RaikosWrathShinSelfMZ') ?? '');
+        if($selfMZ === '') return;
+        $selfObj = &GetZoneObject($selfMZ);
+        if($selfObj === null || (isset($selfObj->removed) && $selfObj->removed)) return;
+        AddUniqueTurnEffect($selfObj, 'CHARGE');
+        return;
+    }
+
+    if($chosenMode !== 'shock') return;
+    $targets = GetOpponentGardenEntityTargetsUpToCost($player, 5);
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $targets), 1, 'Choose_an_entity_to_become_Shocked');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'RAIKOS_WRATH_SHIN_SHOCK', 1);
+};
+
+$customDQHandlers['RAIKOS_WRATH_SHIN_SHOCK'] = function($player, $parts, $lastDecision) {
+    $chosen = is_string($lastDecision) ? $lastDecision : '';
+    if($chosen === '' || $chosen === '-') return;
+    $targetObj = &GetZoneObject($chosen);
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return;
+    AddUniqueTurnEffect($targetObj, 'SHOCKED');
 };
 
 $customDQHandlers['KIRA_SWAP_PENDING_ATTACK'] = function($player, $parts, $lastDecision) {

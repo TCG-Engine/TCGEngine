@@ -39,8 +39,9 @@ Click: FSM()
 Hand - CardID:string
 Display: Visibility=Self, Mode=All, BindTo=HandSlot
 Click: FSM()
-Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: SelectionMetadata=SelectionMetadata(), HandCardCostDifference=HandCardCostDifference()
 Highlight: SelectionMetadata
+Counters: HandCardCostDifference=Image(Path=Assets/Icons/cost-counter.webp,Position=TopLeft,ShowNegative=false,Size=26,TextColor=White)
 Index: CardID
 TempZone - CardID:string
 Display: Visibility=Self, Mode=None
