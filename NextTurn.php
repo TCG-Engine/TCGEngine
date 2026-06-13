@@ -1211,6 +1211,8 @@
           <input type="text" id="manualCardIdInput" placeholder="Card ID" style="padding:6px 8px; font-size:12px;" />
           <button type="button" onclick="addManualCardToHand(1)" style="padding:6px 10px;">Add to P1 Hand</button>
           <button type="button" onclick="addManualCardToHand(2)" style="padding:6px 10px;">Add to P2 Hand</button>
+          <button type="button" onclick="addManualCardToTopDeck(1)" style="padding:6px 10px;">Add to P1 Top Deck</button>
+          <button type="button" onclick="addManualCardToTopDeck(2)" style="padding:6px 10px;">Add to P2 Top Deck</button>
         </div>
       </div>
     </div>
@@ -1239,7 +1241,7 @@
         applyManualControlsCollapsedState(collapsed);
       })();
 
-      function addManualCardToHand(player) {
+      function submitManualCardAdd(mode) {
         var input = document.getElementById("manualCardIdInput");
         var cardId = input ? input.value.trim() : "";
         if (!cardId) {
@@ -1247,12 +1249,19 @@
           return;
         }
 
-        var mode = player === 1 ? 11008 : 11009;
         submitRegressionRequest(mode, cardId).then(function(message) {
           if (message) alert(message);
           if (input) input.value = "";
           location.reload();
         });
+      }
+
+      function addManualCardToHand(player) {
+        submitManualCardAdd(player === 1 ? 11008 : 11009);
+      }
+
+      function addManualCardToTopDeck(player) {
+        submitManualCardAdd(player === 1 ? 11010 : 11011);
       }
     </script>
     <?php endif; ?>

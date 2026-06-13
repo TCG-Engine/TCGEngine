@@ -479,6 +479,15 @@ function CardHasSubtype($cardID, $subtype) {
     return false;
 }
 
+function CardHasSubtypeInZone($cardID, $subtype, $zoneName = '') {
+    if(!is_string($cardID) || $cardID === '' || !is_string($subtype) || $subtype === '') return false;
+    if(($zoneName === 'myDeck' || $zoneName === 'theirDeck')
+        && $cardID === 'S1-AZK01-081_Gurugumi-Mentor_E_C_die') {
+        return true;
+    }
+    return CardHasSubtype($cardID, $subtype);
+}
+
 function HasTurnEffect($obj, $effectID) {
     if(!is_object($obj) || !is_string($effectID) || $effectID === '') return false;
     if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return false;
@@ -2509,18 +2518,75 @@ $customDQHandlers['TidalInsightApply'] = function($player, $parts, $lastDecision
     }
 };
 
-function BottomDeckSearcherMatches($cardID, $matchKind, $matchValue, $excludeCardID = '') {
+function ZoneSearchCardMatches($cardID, $matchKind, $matchValue, $excludeCardID = '', $matchZoneName = '') {
     if(!is_string($cardID) || $cardID === '') return false;
     if($excludeCardID !== '' && $cardID === $excludeCardID) return false;
 
     switch($matchKind) {
         case 'subtype':
-            return CardHasSubtype($cardID, $matchValue);
+            return CardHasSubtypeInZone($cardID, $matchValue, $matchZoneName);
         case 'type':
             return CardType($cardID) === $matchValue;
         default:
             return false;
     }
+}
+
+function ZoneSearch($player, $zoneName, $matchKind, $matchValue, $excludeCardID = '', $matchZoneName = '') {
+    $player = intval($player);
+    if(!is_string($zoneName) || $zoneName === '') return [];
+    if(!is_string($matchKind) || $matchKind === '') return [];
+    if(!is_string($matchValue) || $matchValue === '') return [];
+    if(!is_string($matchZoneName) || $matchZoneName === '') $matchZoneName = $zoneName;
+
+    $zone = null;
+    switch($zoneName) {
+        case 'myDeck':
+            $zone = &GetDeck($player);
+            break;
+        case 'theirDeck':
+            $zone = &GetDeck($player === 1 ? 2 : 1);
+            break;
+        case 'myHand':
+            $zone = &GetHand($player);
+            break;
+        case 'theirHand':
+            $zone = &GetHand($player === 1 ? 2 : 1);
+            break;
+        case 'myDiscard':
+            $zone = &GetDiscard($player);
+            break;
+        case 'theirDiscard':
+            $zone = &GetDiscard($player === 1 ? 2 : 1);
+            break;
+        case 'myGarden':
+            $zone = &GetGarden($player);
+            break;
+        case 'theirGarden':
+            $zone = &GetGarden($player === 1 ? 2 : 1);
+            break;
+        case 'myAlley':
+            $zone = &GetAlley($player);
+            break;
+        case 'theirAlley':
+            $zone = &GetAlley($player === 1 ? 2 : 1);
+            break;
+        case 'myTempZone':
+            $zone = &GetTempZone($player);
+            break;
+        default:
+            return [];
+    }
+
+    $matches = [];
+    for($i = 0; $i < count($zone); ++$i) {
+        if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+        $cardID = $zone[$i]->CardID ?? '';
+        if(!ZoneSearchCardMatches($cardID, $matchKind, $matchValue, $excludeCardID, $matchZoneName)) continue;
+        $matches[] = $zoneName . '-' . $i;
+    }
+
+    return $matches;
 }
 
 function GetBottomDeckSearcherVarPrefix($player) {
@@ -2544,12 +2610,11 @@ function BeginBottomDeckSearcher($player, $lookCount, $matchKind, $matchValue, $
     DecisionQueueController::StoreVariable($varPrefix . 'TempStart', strval($tempStart));
 
     $candidates = [];
-    $tempZone = &GetTempZone($player);
-    for($i = $tempStart; $i < count($tempZone); ++$i) {
-        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
-        $candidateID = $tempZone[$i]->CardID ?? '';
-        if(!BottomDeckSearcherMatches($candidateID, $matchKind, $matchValue, $excludeCardID)) continue;
-        $candidates[] = 'myTempZone-' . $i;
+    foreach(ZoneSearch($player, 'myTempZone', $matchKind, $matchValue, $excludeCardID, 'myDeck') as $mzID) {
+        $parts = explode('-', $mzID);
+        $index = intval($parts[1] ?? -1);
+        if($index < $tempStart) continue;
+        $candidates[] = $mzID;
     }
 
     if(empty($candidates)) {

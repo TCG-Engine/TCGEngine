@@ -122,6 +122,33 @@ function EngineActionCardExists($mzid) {
   return intval($mzArr[1]) < count($zone);
 }
 
+function EngineAddCardToTopOfDeck($player, $cardID, $sourceObject = null) {
+  if (function_exists('DeckAddReplacement')) {
+    $replaceResult = DeckAddReplacement($player, $cardID, $sourceObject);
+    if ($replaceResult) return $replaceResult;
+  }
+  if (function_exists('TokenCeaseBeforeAdd') && !TokenCeaseBeforeAdd($player, $cardID, $sourceObject)) return null;
+
+  $deckObj = new Deck($cardID, 'Deck', $player);
+  $deck = &GetDeck($player);
+  array_unshift($deck, $deckObj);
+
+  if ($sourceObject !== null) {
+    $properties = get_object_vars($sourceObject);
+    foreach ($properties as $prop => $value) {
+      if ($prop !== 'removed' && $prop !== 'Location' && $prop !== 'mzIndex') {
+        $deckObj->$prop = $value;
+      }
+    }
+  }
+
+  for ($i = 0; $i < count($deck); ++$i) {
+    $deck[$i]->mzIndex = $i;
+  }
+
+  return $deckObj;
+}
+
 function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = []) {
   global $updateNumber, $playerID, $frameAnimations;
 
@@ -438,6 +465,18 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $targetPlayer = ($mode === 11008) ? 1 : 2;
         MZAddZone($targetPlayer, 'myHand', $cardId);
         $result['message'] = "Added card $cardId to player $targetPlayer hand.";
+      }
+      break;
+    case 11010:
+    case 11011:
+      $cardId = trim($inputText);
+      if ($cardId === '') {
+        $result['success'] = false;
+        $result['message'] = 'Card ID is required.';
+      } else {
+        $targetPlayer = ($mode === 11010) ? 1 : 2;
+        EngineAddCardToTopOfDeck($targetPlayer, $cardId);
+        $result['message'] = "Added card $cardId to player $targetPlayer top deck.";
       }
       break;
   }
