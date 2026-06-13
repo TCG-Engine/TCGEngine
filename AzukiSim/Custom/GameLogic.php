@@ -1363,15 +1363,22 @@ function CardCost($cardID) {
 function HandCardCostReduction($player, $cardID, $obj = null) {
     $player = intval($player);
     if(!is_string($cardID) || $cardID === '') return 0;
-    if($cardID !== 'S1-AZK01-106_Lord-of-Sands-Osunanami_E_SR_die') return 0;
 
     if(is_object($obj)) {
         $location = strval($obj->Location ?? '');
         if($location !== 'Hand') return 0;
     }
 
-    $garden = &GetGarden($player);
     $discount = 0;
+    if(PlayerLeaderHasTurnEffect($player, 'BENZAI_SLY_NEXT_PLAY_DISCOUNT')) {
+        $discount += 2;
+    }
+
+    if($cardID !== 'S1-AZK01-106_Lord-of-Sands-Osunanami_E_SR_die') {
+        return max(0, $discount);
+    }
+
+    $garden = &GetGarden($player);
     for($i = 0; $i < count($garden); ++$i) {
         if(isset($garden[$i]->removed) && $garden[$i]->removed) continue;
         if(IsDefenderEntity($garden[$i])) ++$discount;
@@ -1405,6 +1412,20 @@ function FindLeaderIndexInGarden($player) {
         if(CardType($garden[$i]->CardID ?? '') === 'LEADER') return $i;
     }
     return -1;
+}
+
+function PlayerLeaderHasTurnEffect($player, $effectID) {
+    $garden = &GetGarden($player);
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex < 0 || $leaderIndex >= count($garden)) return false;
+    return HasTurnEffect($garden[$leaderIndex], $effectID);
+}
+
+function RemovePlayerLeaderTurnEffect($player, $effectID) {
+    $garden = &GetGarden($player);
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex < 0 || $leaderIndex >= count($garden)) return;
+    RemoveTurnEffect($garden[$leaderIndex], $effectID);
 }
 
 function LeaderMaxHealth($player) {
@@ -2561,6 +2582,7 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
 
     $cardType = CardType($cardID);
     $cardCost = EffectivePlayCost($player, $cardID, $sourceObject);
+    $benzaiDiscountActive = PlayerLeaderHasTurnEffect($player, 'BENZAI_SLY_NEXT_PLAY_DISCOUNT');
     $ignoreTimingRestriction = strval(DecisionQueueController::GetVariable('IgnorePlayTimingRestriction') ?? '') === '1';
     if($ignoreTimingRestriction) {
         DecisionQueueController::StoreVariable('IgnorePlayTimingRestriction', '0');
@@ -2591,6 +2613,10 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
         if(!PayIKZCost($player, $cardCost)) {
             return '';
         }
+    }
+
+    if($benzaiDiscountActive) {
+        RemovePlayerLeaderTurnEffect($player, 'BENZAI_SLY_NEXT_PLAY_DISCOUNT');
     }
 
     if($cardType === 'ENTITY') {
