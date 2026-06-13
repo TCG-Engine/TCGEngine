@@ -2119,17 +2119,18 @@ function CardHasTimingTag($cardID, $tagName) {
     return stripos($text, '[' . $tagName . ']') !== false;
 }
 
-function CanPlaySpellByTiming($player, $cardID) {
+function CanPlayCardByTiming($player, $cardID) {
     $isResponseWindow = HasPendingAttackResponse();
     $hasMainTiming = CardHasTimingTag($cardID, 'Main');
     $hasResponseTiming = CardHasTimingTag($cardID, 'Response');
+    $cardType = CardType($cardID);
 
     if($isResponseWindow) {
         if(intval($player) !== GetPendingAttackResponderPlayer()) return false;
         return $hasResponseTiming;
     }
 
-    if($hasResponseTiming && !$hasMainTiming) return false;
+    if($cardType === 'SPELL' && $hasResponseTiming && !$hasMainTiming) return false;
     return true;
 }
 
@@ -2393,11 +2394,11 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
     $cardType = CardType($cardID);
     $cardCost = CardCost($cardID);
 
-    if($cardType === 'SPELL' && !CanPlaySpellByTiming($player, $cardID)) {
+    if(!CanPlayCardByTiming($player, $cardID)) {
         if(HasPendingAttackResponse()) {
-            SetFlashMessage('Only [Response] spells can be played by the defending player during this response window.');
+            SetFlashMessage('Only [Response] cards can be played by the defending player during this response window.');
         } else {
-            SetFlashMessage('This spell cannot be played during the main phase.');
+            SetFlashMessage('This card cannot be played during the main phase.');
         }
         return '';
     }
@@ -2644,6 +2645,42 @@ function QueueBottomDeckSearcherBottom($player) {
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'BOTTOM_DECK_SEARCHER_BOTTOM', 1);
 }
 
+function GetOpponentGardenEntityTargetsUpToCost($player, $maxCost, $excludeMZ = '') {
+    $player = intval($player);
+    $opponent = $player === 1 ? 2 : 1;
+    $theirGarden = &GetGarden($opponent);
+    $targets = [];
+    for($i = 0; $i < count($theirGarden); ++$i) {
+        if(isset($theirGarden[$i]->removed) && $theirGarden[$i]->removed) continue;
+        $targetMZ = 'theirGarden-' . $i;
+        if($excludeMZ !== '' && $targetMZ === $excludeMZ) continue;
+        $cardID = $theirGarden[$i]->CardID ?? '';
+        if(CardType($cardID) !== 'ENTITY') continue;
+        if(intval(CardCost($cardID)) > intval($maxCost)) continue;
+        $targets[] = $targetMZ;
+    }
+    return $targets;
+}
+
+function QueueMizuryuusTorrentApplyBottomOrder($player, $firstTargetMZ, $secondTargetMZ) {
+    $firstObj = GetZoneObject($firstTargetMZ);
+    $secondObj = GetZoneObject($secondTargetMZ);
+    if($firstObj === null || $secondObj === null) return;
+    if((isset($firstObj->removed) && $firstObj->removed) || (isset($secondObj->removed) && $secondObj->removed)) return;
+
+    $firstCardID = $firstObj->CardID ?? '';
+    $secondCardID = $secondObj->CardID ?? '';
+    if(!is_string($firstCardID) || $firstCardID === '') return;
+    if(!is_string($secondCardID) || $secondCardID === '') return;
+
+    DecisionQueueController::StoreVariable('MizuryuusTorrentFirstTargetMZ', $firstTargetMZ);
+    DecisionQueueController::StoreVariable('MizuryuusTorrentSecondTargetMZ', $secondTargetMZ);
+
+    $param = 'Bottom=' . $firstCardID . ',' . $secondCardID;
+    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Choose_the_order_to_put_the_selected_entities_on_the_bottom_of_their_owners_deck');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'MIZURYUUS_TORRENT_APPLY', 1);
+}
+
 function CanActivateAbilityWithCopiedText($player, $mzID, $abilityIndex = 0) {
     global $activateAbilityPrereqs;
 
@@ -2704,6 +2741,105 @@ $customDQHandlers['BOTTOM_DECK_SEARCHER_BOTTOM'] = function($player, $parts, $la
         $deck[$i]->mzIndex = $i;
         $deck[$i]->BuildIndex();
     }
+};
+
+$customDQHandlers['MIZURYUUS_TORRENT_FIRST'] = function($player, $parts, $lastDecision) {
+    $firstTargetMZ = is_string($lastDecision) ? $lastDecision : '';
+    if($firstTargetMZ === '' || $firstTargetMZ === '-') return;
+
+    $firstObj = GetZoneObject($firstTargetMZ);
+    if($firstObj === null || (isset($firstObj->removed) && $firstObj->removed)) return;
+    $firstCardID = $firstObj->CardID ?? '';
+    $remainingCost = 5 - intval(CardCost($firstCardID));
+
+    DecisionQueueController::StoreVariable('MizuryuusTorrentFirstTargetMZ', $firstTargetMZ);
+    if($remainingCost <= 0) {
+        MZMove($player, $firstTargetMZ, 'theirDeck');
+        DecisionQueueController::CleanupRemovedCards();
+        return;
+    }
+
+    $secondTargets = GetOpponentGardenEntityTargetsUpToCost($player, $remainingCost, $firstTargetMZ);
+    if(empty($secondTargets)) {
+        MZMove($player, $firstTargetMZ, 'theirDeck');
+        DecisionQueueController::CleanupRemovedCards();
+        return;
+    }
+
+    DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $secondTargets), 1, 'Choose_a_second_entity_to_put_on_bottom');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'MIZURYUUS_TORRENT_SECOND', 1);
+};
+
+$customDQHandlers['MIZURYUUS_TORRENT_SECOND'] = function($player, $parts, $lastDecision) {
+    $firstTargetMZ = strval(DecisionQueueController::GetVariable('MizuryuusTorrentFirstTargetMZ') ?? '');
+    if($firstTargetMZ === '') return;
+
+    $secondTargetMZ = is_string($lastDecision) ? $lastDecision : '';
+    if($secondTargetMZ === '' || $secondTargetMZ === '-') {
+        MZMove($player, $firstTargetMZ, 'theirDeck');
+        DecisionQueueController::CleanupRemovedCards();
+        return;
+    }
+
+    QueueMizuryuusTorrentApplyBottomOrder($player, $firstTargetMZ, $secondTargetMZ);
+};
+
+$customDQHandlers['MIZURYUUS_TORRENT_APPLY'] = function($player, $parts, $lastDecision) {
+    $firstTargetMZ = strval(DecisionQueueController::GetVariable('MizuryuusTorrentFirstTargetMZ') ?? '');
+    $secondTargetMZ = strval(DecisionQueueController::GetVariable('MizuryuusTorrentSecondTargetMZ') ?? '');
+    if($firstTargetMZ === '' || $secondTargetMZ === '') return;
+
+    $firstParts = explode('-', $firstTargetMZ);
+    $secondParts = explode('-', $secondTargetMZ);
+    $firstIndex = intval($firstParts[1] ?? -1);
+    $secondIndex = intval($secondParts[1] ?? -1);
+    if($firstIndex < 0 || $secondIndex < 0) return;
+
+    $selected = [];
+    $firstObj = GetZoneObject($firstTargetMZ);
+    if($firstObj !== null && !(isset($firstObj->removed) && $firstObj->removed)) {
+        $selected[] = ['label' => 'FIRST', 'cardID' => strval($firstObj->CardID ?? ''), 'index' => $firstIndex];
+    }
+    $secondObj = GetZoneObject($secondTargetMZ);
+    if($secondObj !== null && !(isset($secondObj->removed) && $secondObj->removed)) {
+        $selected[] = ['label' => 'SECOND', 'cardID' => strval($secondObj->CardID ?? ''), 'index' => $secondIndex];
+    }
+    if(count($selected) !== 2) return;
+
+    $bottomCards = [];
+    foreach(explode(';', strval($lastDecision)) as $pileStr) {
+        $eqPos = strpos($pileStr, '=');
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        if($pileName !== 'Bottom') continue;
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        $bottomCards = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
+        break;
+    }
+    if(count($bottomCards) !== 2) return;
+
+    $ordered = [];
+    foreach($bottomCards as $cardID) {
+        for($i = 0; $i < count($selected); ++$i) {
+            if($selected[$i]['cardID'] !== $cardID) continue;
+            $ordered[] = $selected[$i];
+            array_splice($selected, $i, 1);
+            break;
+        }
+    }
+    if(count($ordered) !== 2) return;
+
+    $firstMove = $ordered[0];
+    $secondMove = $ordered[1];
+    MZMove($player, 'theirGarden-' . $firstMove['index'], 'theirDeck');
+    DecisionQueueController::CleanupRemovedCards();
+
+    $secondCurrentIndex = $secondMove['index'];
+    if($firstMove['index'] < $secondMove['index']) {
+        --$secondCurrentIndex;
+    }
+    MZMove($player, 'theirGarden-' . $secondCurrentIndex, 'theirDeck');
+    DecisionQueueController::CleanupRemovedCards();
 };
 
 $customDQHandlers['KIRA_SWAP_PENDING_ATTACK'] = function($player, $parts, $lastDecision) {
