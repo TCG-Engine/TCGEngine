@@ -2509,42 +2509,61 @@ $customDQHandlers['TidalInsightApply'] = function($player, $parts, $lastDecision
     }
 };
 
-function QueueElderHoshinBottom($player) {
-    $tempStart = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_ElderHoshinTempStart'));
-    $tempZone = &GetTempZone($player);
-    $remaining = [];
-    for($i = $tempStart; $i < count($tempZone); ++$i) {
-        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
-        $cardID = $tempZone[$i]->CardID ?? '';
-        if(!is_string($cardID) || $cardID === '') continue;
-        $remaining[] = $cardID;
-    }
-    if(empty($remaining)) return;
+function BottomDeckSearcherMatches($cardID, $matchKind, $matchValue, $excludeCardID = '') {
+    if(!is_string($cardID) || $cardID === '') return false;
+    if($excludeCardID !== '' && $cardID === $excludeCardID) return false;
 
-    $param = 'Bottom=' . implode(',', $remaining);
-    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Put_remaining_on_bottom_of_deck_in_any_order');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'ElderHoshinBottom', 1);
+    switch($matchKind) {
+        case 'subtype':
+            return CardHasSubtype($cardID, $matchValue);
+        case 'type':
+            return CardType($cardID) === $matchValue;
+        default:
+            return false;
+    }
 }
 
-function QueueTreetopScoutBottom($player) {
-    $tempStart = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_TreetopScoutTempStart'));
-    $tempZone = &GetTempZone($player);
-    $remaining = [];
-    for($i = $tempStart; $i < count($tempZone); ++$i) {
-        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
-        $cardID = $tempZone[$i]->CardID ?? '';
-        if(!is_string($cardID) || $cardID === '') continue;
-        $remaining[] = $cardID;
-    }
-    if(empty($remaining)) return;
-
-    $param = 'Bottom=' . implode(',', $remaining);
-    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Put_remaining_on_bottom_of_deck_in_any_order');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'TreetopScoutBottom', 1);
+function GetBottomDeckSearcherVarPrefix($player) {
+    return 'P' . intval($player) . '_BottomDeckSearcher_';
 }
 
-function QueueGlassBlowerHokutoBottom($player) {
-    $tempStart = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_GlassBlowerHokutoTempStart'));
+function BeginBottomDeckSearcher($player, $lookCount, $matchKind, $matchValue, $chooseTooltip = 'Choose_a_card_to_add_to_your_hand', $excludeCardID = '') {
+    $deck = &GetDeck($player);
+    if(empty($deck)) return;
+
+    $lookCount = min(max(0, intval($lookCount)), count($deck));
+    if($lookCount <= 0) return;
+
+    $tempZone = &GetTempZone($player);
+    $tempStart = count($tempZone);
+    for($i = 0; $i < $lookCount; ++$i) {
+        $tempZone[] = array_shift($deck);
+    }
+
+    $varPrefix = GetBottomDeckSearcherVarPrefix($player);
+    DecisionQueueController::StoreVariable($varPrefix . 'TempStart', strval($tempStart));
+
+    $candidates = [];
+    $tempZone = &GetTempZone($player);
+    for($i = $tempStart; $i < count($tempZone); ++$i) {
+        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
+        $candidateID = $tempZone[$i]->CardID ?? '';
+        if(!BottomDeckSearcherMatches($candidateID, $matchKind, $matchValue, $excludeCardID)) continue;
+        $candidates[] = 'myTempZone-' . $i;
+    }
+
+    if(empty($candidates)) {
+        QueueBottomDeckSearcherBottom($player);
+        return;
+    }
+
+    DecisionQueueController::AddDecision($player, 'MZMAYCHOOSE', implode('&', $candidates), 1, $chooseTooltip);
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'BOTTOM_DECK_SEARCHER_REVEAL', 1);
+}
+
+function QueueBottomDeckSearcherBottom($player) {
+    $varPrefix = GetBottomDeckSearcherVarPrefix($player);
+    $tempStart = intval(DecisionQueueController::GetVariable($varPrefix . 'TempStart'));
     $tempZone = &GetTempZone($player);
     $remaining = [];
     for($i = $tempStart; $i < count($tempZone); ++$i) {
@@ -2557,7 +2576,7 @@ function QueueGlassBlowerHokutoBottom($player) {
 
     $param = 'Bottom=' . implode(',', $remaining);
     DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Put_remaining_on_bottom_of_deck_in_any_order');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'GlassBlowerHokutoBottom', 1);
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'BOTTOM_DECK_SEARCHER_BOTTOM', 1);
 }
 
 function CanActivateAbilityWithCopiedText($player, $mzID, $abilityIndex = 0) {
@@ -2580,177 +2599,38 @@ function CanActivateAbilityWithCopiedText($player, $mzID, $abilityIndex = 0) {
     return !$hasCandidateAbility ? false : false;
 }
 
-function QueueLinkBottom($player) {
-    $tempStart = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_LinkTempStart'));
+$customDQHandlers['BOTTOM_DECK_SEARCHER_REVEAL'] = function($player, $parts, $lastDecision) {
+    if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
+        MZMove($player, $lastDecision, 'myHand');
+        DecisionQueueController::CleanupRemovedCards();
+    }
+
+    QueueBottomDeckSearcherBottom($player);
+};
+
+$customDQHandlers['BOTTOM_DECK_SEARCHER_BOTTOM'] = function($player, $parts, $lastDecision) {
+    $deck = &GetDeck($player);
     $tempZone = &GetTempZone($player);
-    $remaining = [];
+    $piles = ['Top' => [], 'Bottom' => []];
+
+    foreach(explode(';', strval($lastDecision)) as $pileStr) {
+        $eqPos = strpos($pileStr, '=');
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        if(isset($piles[$pileName])) {
+            $piles[$pileName] = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
+        }
+    }
+
+    $tempStart = intval(DecisionQueueController::GetVariable(GetBottomDeckSearcherVarPrefix($player) . 'TempStart'));
     for($i = $tempStart; $i < count($tempZone); ++$i) {
         if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
-        $cardID = $tempZone[$i]->CardID ?? '';
-        if(!is_string($cardID) || $cardID === '') continue;
-        $remaining[] = $cardID;
-    }
-    if(empty($remaining)) return;
-
-    $param = 'Bottom=' . implode(',', $remaining);
-    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Put_remaining_on_bottom_of_deck_in_any_order');
-    DecisionQueueController::AddDecision($player, 'CUSTOM', 'LinkBottom', 1);
-}
-
-$customDQHandlers['ElderHoshinReveal'] = function($player, $parts, $lastDecision) {
-    if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
-        MZMove($player, $lastDecision, 'myHand');
-        DecisionQueueController::CleanupRemovedCards();
-    }
-
-    QueueElderHoshinBottom($player);
-};
-
-$customDQHandlers['ElderHoshinBottom'] = function($player, $parts, $lastDecision) {
-    $deck = &GetDeck($player);
-    $tempZone = &GetTempZone($player);
-    $piles = ['Top' => [], 'Bottom' => []];
-
-    foreach(explode(';', strval($lastDecision)) as $pileStr) {
-        $eqPos = strpos($pileStr, '=');
-        if($eqPos === false) continue;
-        $pileName = substr($pileStr, 0, $eqPos);
-        $cardsStr = trim(substr($pileStr, $eqPos + 1));
-        if(isset($piles[$pileName])) {
-            $piles[$pileName] = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
-        }
-    }
-
-    foreach($tempZone as $obj) {
-        if(!$obj->removed) $obj->Remove();
+        $tempZone[$i]->Remove();
     }
     DecisionQueueController::CleanupRemovedCards();
 
-    $allCards = array_merge($piles['Bottom'], $piles['Top']);
-    foreach($allCards as $cardID) {
-        if(!is_string($cardID) || $cardID === '') continue;
-        $deck[] = new Deck($cardID, 'Deck', $player);
-    }
-
-    for($i = 0; $i < count($deck); ++$i) {
-        $deck[$i]->mzIndex = $i;
-        $deck[$i]->BuildIndex();
-    }
-};
-
-$customDQHandlers['TreetopScoutReveal'] = function($player, $parts, $lastDecision) {
-    if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
-        MZMove($player, $lastDecision, 'myHand');
-        DecisionQueueController::CleanupRemovedCards();
-    }
-
-    QueueTreetopScoutBottom($player);
-};
-
-$customDQHandlers['TreetopScoutBottom'] = function($player, $parts, $lastDecision) {
-    $deck = &GetDeck($player);
-    $tempZone = &GetTempZone($player);
-    $piles = ['Top' => [], 'Bottom' => []];
-
-    foreach(explode(';', strval($lastDecision)) as $pileStr) {
-        $eqPos = strpos($pileStr, '=');
-        if($eqPos === false) continue;
-        $pileName = substr($pileStr, 0, $eqPos);
-        $cardsStr = trim(substr($pileStr, $eqPos + 1));
-        if(isset($piles[$pileName])) {
-            $piles[$pileName] = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
-        }
-    }
-
-    foreach($tempZone as $obj) {
-        if(!$obj->removed) $obj->Remove();
-    }
-    DecisionQueueController::CleanupRemovedCards();
-
-    $allCards = array_merge($piles['Bottom'], $piles['Top']);
-    foreach($allCards as $cardID) {
-        if(!is_string($cardID) || $cardID === '') continue;
-        $deck[] = new Deck($cardID, 'Deck', $player);
-    }
-
-    for($i = 0; $i < count($deck); ++$i) {
-        $deck[$i]->mzIndex = $i;
-        $deck[$i]->BuildIndex();
-    }
-};
-
-$customDQHandlers['GlassBlowerHokutoReveal'] = function($player, $parts, $lastDecision) {
-    if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
-        MZMove($player, $lastDecision, 'myHand');
-        DecisionQueueController::CleanupRemovedCards();
-    }
-
-    QueueGlassBlowerHokutoBottom($player);
-};
-
-$customDQHandlers['GlassBlowerHokutoBottom'] = function($player, $parts, $lastDecision) {
-    $deck = &GetDeck($player);
-    $tempZone = &GetTempZone($player);
-    $piles = ['Top' => [], 'Bottom' => []];
-
-    foreach(explode(';', strval($lastDecision)) as $pileStr) {
-        $eqPos = strpos($pileStr, '=');
-        if($eqPos === false) continue;
-        $pileName = substr($pileStr, 0, $eqPos);
-        $cardsStr = trim(substr($pileStr, $eqPos + 1));
-        if(isset($piles[$pileName])) {
-            $piles[$pileName] = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
-        }
-    }
-
-    foreach($tempZone as $obj) {
-        if(!$obj->removed) $obj->Remove();
-    }
-    DecisionQueueController::CleanupRemovedCards();
-
-    $allCards = array_merge($piles['Bottom'], $piles['Top']);
-    foreach($allCards as $cardID) {
-        if(!is_string($cardID) || $cardID === '') continue;
-        $deck[] = new Deck($cardID, 'Deck', $player);
-    }
-
-    for($i = 0; $i < count($deck); ++$i) {
-        $deck[$i]->mzIndex = $i;
-        $deck[$i]->BuildIndex();
-    }
-};
-
-$customDQHandlers['LinkReveal'] = function($player, $parts, $lastDecision) {
-    if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
-        MZMove($player, $lastDecision, 'myHand');
-        DecisionQueueController::CleanupRemovedCards();
-    }
-
-    QueueLinkBottom($player);
-};
-
-$customDQHandlers['LinkBottom'] = function($player, $parts, $lastDecision) {
-    $deck = &GetDeck($player);
-    $tempZone = &GetTempZone($player);
-    $piles = ['Top' => [], 'Bottom' => []];
-
-    foreach(explode(';', strval($lastDecision)) as $pileStr) {
-        $eqPos = strpos($pileStr, '=');
-        if($eqPos === false) continue;
-        $pileName = substr($pileStr, 0, $eqPos);
-        $cardsStr = trim(substr($pileStr, $eqPos + 1));
-        if(isset($piles[$pileName])) {
-            $piles[$pileName] = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
-        }
-    }
-
-    foreach($tempZone as $obj) {
-        if(!$obj->removed) $obj->Remove();
-    }
-    DecisionQueueController::CleanupRemovedCards();
-
-    $allCards = array_merge($piles['Bottom'], $piles['Top']);
-    foreach($allCards as $cardID) {
+    foreach(array_merge($piles['Bottom'], $piles['Top']) as $cardID) {
         if(!is_string($cardID) || $cardID === '') continue;
         $deck[] = new Deck($cardID, 'Deck', $player);
     }
