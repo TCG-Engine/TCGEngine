@@ -34,7 +34,7 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
                 HandleAttackSetup($playerID, $actionCard);
             } else if ($action === "Activate") {
                 if($zone === "myGarden") {
-                    if(CanActivateAbilityRuntime($playerID, $actionCard, 0) && CanActivateAbility($playerID, $actionCard, 0)) {
+                    if(CanActivateAbilityRuntime($playerID, $actionCard, 0) && CanActivateAbilityWithCopiedText($playerID, $actionCard, 0)) {
                         ActivateAbility($playerID, $actionCard, 0);
                     } else {
                         MaybeSaveUndoVersion($playerID);

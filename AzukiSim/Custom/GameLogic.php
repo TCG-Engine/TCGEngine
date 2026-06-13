@@ -30,6 +30,15 @@ function ResolveOwnerFromPerspectiveZone($player, $zoneName) {
     return intval($player);
 }
 
+function NormalizeMZForPlayerPerspective($player, $mzID) {
+    global $playerID;
+    if(!is_string($mzID) || $mzID === '') return $mzID;
+    if(intval($player) !== intval($playerID)) {
+        return FlipZonePerspective($mzID);
+    }
+    return $mzID;
+}
+
 function SaveActionSnapshot($player) {
     $player = intval($player);
     if($player !== 1 && $player !== 2) return;
@@ -247,6 +256,13 @@ function TryRedirectPendingAttack($responderPlayer, $candidateMZ) {
 
     $attackerPlayer = GetPendingAttackAttackerPlayer();
     if($attackerPlayer !== 1 && $attackerPlayer !== 2) return false;
+    $attackerMZ = DecisionQueueController::GetVariable('PendingAttackAttackerMZ');
+    if(is_string($attackerMZ) && $attackerMZ !== '') {
+        $attackerObj = GetZoneObject($attackerMZ);
+        if($attackerObj !== null && !(isset($attackerObj->removed) && $attackerObj->removed)) {
+            if(HasTurnEffect($attackerObj, 'INFILTRATE')) return false;
+        }
+    }
 
     // Pending target is stored from attacker's perspective.
     $redirectTarget = FlipZonePerspective($candidateMZ);
@@ -469,6 +485,54 @@ function HasTurnEffect($obj, $effectID) {
     return in_array($effectID, $obj->TurnEffects, true);
 }
 
+function GetTurnEffectValue($obj, $prefix) {
+    if(!is_object($obj) || !is_string($prefix) || $prefix === '') return null;
+    if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return null;
+    foreach($obj->TurnEffects as $effect) {
+        if(!is_string($effect)) continue;
+        if(strpos($effect, $prefix) !== 0) continue;
+        return substr($effect, strlen($prefix));
+    }
+    return null;
+}
+
+function GetCopiedTextCardID($obj) {
+    $copiedCardID = GetTurnEffectValue($obj, 'COPY_TEXT:');
+    if(!is_string($copiedCardID) || $copiedCardID === '') return null;
+    return $copiedCardID;
+}
+
+function GetObjectMacroCardIDCandidates($obj) {
+    $candidates = [];
+    if(!is_object($obj) || !isset($obj->CardID)) return $candidates;
+
+    foreach(GetMacroCardIDCandidates($obj->CardID ?? '') as $candidate) {
+        if(!in_array($candidate, $candidates, true)) $candidates[] = $candidate;
+    }
+
+    $copiedCardID = GetCopiedTextCardID($obj);
+    if(is_string($copiedCardID) && $copiedCardID !== '') {
+        foreach(GetMacroCardIDCandidates($copiedCardID) as $candidate) {
+            if(!in_array($candidate, $candidates, true)) $candidates[] = $candidate;
+        }
+    }
+
+    return $candidates;
+}
+
+function ObjectHasEffectiveCardIDCandidate($obj, $cardID) {
+    if(!is_object($obj) || !is_string($cardID) || $cardID === '') return false;
+    return in_array($cardID, GetObjectMacroCardIDCandidates($obj), true);
+}
+
+function ObjectHasTimingTag($obj, $tagName) {
+    if(!is_object($obj) || !is_string($tagName) || $tagName === '') return false;
+    foreach(GetObjectMacroCardIDCandidates($obj) as $candidateCardID) {
+        if(CardHasTimingTag($candidateCardID, $tagName)) return true;
+    }
+    return false;
+}
+
 function IsCardEarthEntity($cardID) {
     return CardType($cardID) === 'ENTITY' && CardElement($cardID) === 'Earth';
 }
@@ -541,6 +605,42 @@ function RemoveTurnEffect(&$obj, $effectID) {
     ));
 }
 
+function NormalizeDamageSourceKey($sourceKey) {
+    if(!is_string($sourceKey) || $sourceKey === '') return '';
+    return preg_replace('/[^A-Za-z0-9:_-]/', '_', $sourceKey);
+}
+
+function ResolveDamageSourceKey($player, $explicitSourceKey = null) {
+    if(is_string($explicitSourceKey) && $explicitSourceKey !== '') {
+        return NormalizeDamageSourceKey($explicitSourceKey);
+    }
+
+    $sourceMZ = DecisionQueueController::GetVariable('mzID');
+    if(is_string($sourceMZ) && $sourceMZ !== '') {
+        return NormalizeDamageSourceKey($sourceMZ);
+    }
+
+    return 'P' . intval($player) . '_GENERIC';
+}
+
+function RecordDamageSourceOnObject(&$obj, $sourceKey) {
+    if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return;
+    $normalized = NormalizeDamageSourceKey($sourceKey);
+    if($normalized === '') return;
+    AddUniqueTurnEffect($obj, 'DMG_SRC:' . $normalized);
+}
+
+function CountDamageSourcesOnObject($obj) {
+    if(!is_object($obj) || !isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return 0;
+    $count = 0;
+    foreach($obj->TurnEffects as $effectID) {
+        if(!is_string($effectID)) continue;
+        if(strpos($effectID, 'DMG_SRC:') !== 0) continue;
+        ++$count;
+    }
+    return $count;
+}
+
 function ParseAttackModifierEffects($obj) {
     if(!is_object($obj) || !isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return 0;
     $delta = 0;
@@ -596,19 +696,20 @@ function ConsumeModifierSource($sourceObj) {
 
 function ApplyGeneratedAttackModifiers($player, $subjectObj, $currentValue) {
     if(!is_object($subjectObj) || !function_exists('EvaluateAttackModifier')) return $currentValue;
+    $subjectCardIDs = GetObjectMacroCardIDCandidates($subjectObj);
+    if(empty($subjectCardIDs)) return $currentValue;
 
-    $subjectCardID = $subjectObj->CardID ?? '';
-    if(!is_string($subjectCardID) || $subjectCardID === '') return $currentValue;
-
-    $currentValue += EvaluateAttackModifier($subjectCardID, $player, $subjectObj, $currentValue, $subjectObj);
+    foreach($subjectCardIDs as $subjectCardID) {
+        $currentValue += EvaluateAttackModifier($subjectCardID, $player, $subjectObj, $currentValue, $subjectObj);
+    }
 
     foreach([1, 2] as $fieldPlayer) {
         foreach([GetGarden($fieldPlayer), GetAlley($fieldPlayer)] as $fieldZone) {
             foreach($fieldZone as $fieldObj) {
                 if($fieldObj === null || !empty($fieldObj->removed) || $fieldObj === $subjectObj) continue;
-                $fieldCardID = $fieldObj->CardID ?? '';
-                if(!is_string($fieldCardID) || $fieldCardID === '') continue;
-                $currentValue += EvaluateAttackModifier($fieldCardID, $player, $subjectObj, $currentValue, $fieldObj);
+                foreach(GetObjectMacroCardIDCandidates($fieldObj) as $fieldCardID) {
+                    $currentValue += EvaluateAttackModifier($fieldCardID, $player, $subjectObj, $currentValue, $fieldObj);
+                }
             }
         }
     }
@@ -630,19 +731,20 @@ function ApplyGeneratedAttackModifiers($player, $subjectObj, $currentValue) {
 
 function ApplyGeneratedHealthModifiers($player, $subjectObj, $currentValue) {
     if(!is_object($subjectObj) || !function_exists('EvaluateHealthModifier')) return $currentValue;
+    $subjectCardIDs = GetObjectMacroCardIDCandidates($subjectObj);
+    if(empty($subjectCardIDs)) return $currentValue;
 
-    $subjectCardID = $subjectObj->CardID ?? '';
-    if(!is_string($subjectCardID) || $subjectCardID === '') return $currentValue;
-
-    $currentValue += EvaluateHealthModifier($subjectCardID, $player, $subjectObj, $currentValue, $subjectObj);
+    foreach($subjectCardIDs as $subjectCardID) {
+        $currentValue += EvaluateHealthModifier($subjectCardID, $player, $subjectObj, $currentValue, $subjectObj);
+    }
 
     foreach([1, 2] as $fieldPlayer) {
         foreach([GetGarden($fieldPlayer), GetAlley($fieldPlayer)] as $fieldZone) {
             foreach($fieldZone as $fieldObj) {
                 if($fieldObj === null || !empty($fieldObj->removed) || $fieldObj === $subjectObj) continue;
-                $fieldCardID = $fieldObj->CardID ?? '';
-                if(!is_string($fieldCardID) || $fieldCardID === '') continue;
-                $currentValue += EvaluateHealthModifier($fieldCardID, $player, $subjectObj, $currentValue, $fieldObj);
+                foreach(GetObjectMacroCardIDCandidates($fieldObj) as $fieldCardID) {
+                    $currentValue += EvaluateHealthModifier($fieldCardID, $player, $subjectObj, $currentValue, $fieldObj);
+                }
             }
         }
     }
@@ -690,27 +792,48 @@ function EquippedWeaponAttackBonus($obj, $ownerPlayer = null) {
 function EntityCardAttackBonus($player, $obj) {
     if(!is_object($obj)) return 0;
 
-    $cardID = $obj->CardID ?? '';
-    if(!is_string($cardID) || $cardID === '') return 0;
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
+    if(empty($cardIDCandidates)) return 0;
 
     $bonus = 0;
 
-    // Black Jade Crewleader gets +1 attack while equipped with a weapon.
-    if($cardID === 'S1-STT01-008_Black-Jade-Crewleader_E_UC_die' && HasEquippedWeapon($obj)) {
-        $bonus += 1;
-    }
-
-    // Mastersmith Yamada gets +2 attack with 6+ weapons in discard.
-    if($cardID === 'S1-STT01-009_Mastersmith-Yamada_E_UC_die' && CountCardsOfTypeInDiscard($player, 'WEAPON') >= 6) {
-        $bonus += 2;
-    }
-
-    if($cardID === 'S1-STT02-012_Young-Shao_E_UC_die') {
-        $myGarden = &GetGarden($player);
-        $opp = intval($player) === 1 ? 2 : 1;
-        $theirGarden = &GetGarden($opp);
-        if(CountActiveEntities($myGarden, true) >= CountActiveEntities($theirGarden, true) + 2) {
+    foreach($cardIDCandidates as $cardID) {
+        // Black Jade Crewleader gets +1 attack while equipped with a weapon.
+        if($cardID === 'S1-STT01-008_Black-Jade-Crewleader_E_UC_die' && HasEquippedWeapon($obj)) {
             $bonus += 1;
+        }
+
+        // Mastersmith Yamada gets +2 attack with 6+ weapons in discard.
+        if($cardID === 'S1-STT01-009_Mastersmith-Yamada_E_UC_die' && CountCardsOfTypeInDiscard($player, 'WEAPON') >= 6) {
+            $bonus += 2;
+        }
+
+        if($cardID === 'S1-STT02-012_Young-Shao_E_UC_die') {
+            $myGarden = &GetGarden($player);
+            $opp = intval($player) === 1 ? 2 : 1;
+            $theirGarden = &GetGarden($opp);
+            if(CountActiveEntities($myGarden, true) >= CountActiveEntities($theirGarden, true) + 2) {
+                $bonus += 1;
+            }
+        }
+
+        if($cardID === 'S1-AZK01-073_Top-Beanz_E_C_die') {
+            $myGarden = &GetGarden($player);
+            $allBeanz = true;
+            $hasOtherEntity = false;
+            for($i = 0; $i < count($myGarden); ++$i) {
+                if(isset($myGarden[$i]->removed) && $myGarden[$i]->removed) continue;
+                $candidateID = $myGarden[$i]->CardID ?? '';
+                if(CardType($candidateID) !== 'ENTITY') continue;
+                $hasOtherEntity = true;
+                if(!CardHasSubtype($candidateID, 'Beanz')) {
+                    $allBeanz = false;
+                    break;
+                }
+            }
+            if($hasOtherEntity && $allBeanz) {
+                $bonus += 1;
+            }
         }
     }
 
@@ -728,19 +851,42 @@ function ResolveEntityAttackValue($player, $obj) {
 function ResolveEntityHealthValue($player, $obj) {
     if(!is_object($obj)) return 0;
     $base = max(0, intval(CardHealth($obj->CardID ?? '')));
-    if(($obj->CardID ?? '') === 'S1-STT02-012_Young-Shao_E_UC_die') {
-        $myGarden = &GetGarden($player);
-        $opp = intval($player) === 1 ? 2 : 1;
-        $theirGarden = &GetGarden($opp);
-        if(CountActiveEntities($myGarden, true) >= CountActiveEntities($theirGarden, true) + 2) {
-            $base += 1;
+
+    foreach(GetObjectMacroCardIDCandidates($obj) as $candidateCardID) {
+        if($candidateCardID === 'S1-STT02-012_Young-Shao_E_UC_die') {
+            $myGarden = &GetGarden($player);
+            $opp = intval($player) === 1 ? 2 : 1;
+            $theirGarden = &GetGarden($opp);
+            if(CountActiveEntities($myGarden, true) >= CountActiveEntities($theirGarden, true) + 2) {
+                $base += 1;
+            }
+        }
+
+        if($candidateCardID === 'S1-AZK01-073_Top-Beanz_E_C_die') {
+            $myGarden = &GetGarden($player);
+            $allBeanz = true;
+            $hasOtherEntity = false;
+            for($i = 0; $i < count($myGarden); ++$i) {
+                if(isset($myGarden[$i]->removed) && $myGarden[$i]->removed) continue;
+                $candidateID = $myGarden[$i]->CardID ?? '';
+                if(CardType($candidateID) !== 'ENTITY') continue;
+                $hasOtherEntity = true;
+                if(!CardHasSubtype($candidateID, 'Beanz')) {
+                    $allBeanz = false;
+                    break;
+                }
+            }
+            if($hasOtherEntity && $allBeanz) {
+                $base += 1;
+            }
         }
     }
-    if(($obj->CardID ?? '') !== 'S1-AZK01-053_Geodust-Smuggler_E_R_die') {
+
+    if(!ObjectHasEffectiveCardIDCandidate($obj, 'S1-AZK01-053_Geodust-Smuggler_E_R_die')) {
         $myGarden = &GetGarden($player);
         foreach($myGarden as $ally) {
             if(!is_object($ally) || (isset($ally->removed) && $ally->removed)) continue;
-            if(($ally->CardID ?? '') !== 'S1-AZK01-053_Geodust-Smuggler_E_R_die') continue;
+            if(!ObjectHasEffectiveCardIDCandidate($ally, 'S1-AZK01-053_Geodust-Smuggler_E_R_die')) continue;
             $base += 1;
             break;
         }
@@ -816,8 +962,14 @@ function DiscardEquippedWeaponsFromObject($owner, $obj) {
 }
 
 function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
+    global $playerID;
     if(!is_string($mzIndex) || $mzIndex === '') return;
     if(!is_string($toZone) || $toZone === '') return;
+
+    if(intval($player) !== intval($playerID)) {
+        $mzIndex = FlipZonePerspective($mzIndex);
+        $toZone = FlipZonePerspective($toZone);
+    }
 
     $parts = explode('-', $mzIndex);
     $sourceZone = $parts[0] ?? '';
@@ -835,10 +987,28 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
     }
 
     $cardID = $obj->CardID ?? '';
+    DecisionQueueController::AddDecision(
+        intval($owner),
+        'PASSPARAMETER',
+        'LEAVEDBG|p=' . intval($player) . '|mz=' . $mzIndex . '|to=' . $toZone . '|owner=' . intval($owner) . '|card=' . strval($cardID),
+        97
+    );
+    $destroyedCardVar = 'P' . intval($owner) . '_LastDestroyedCardID';
+    if(is_string($cardID) && $cardID !== '') {
+        DecisionQueueController::StoreVariable($destroyedCardVar, $cardID);
+    }
 
     DiscardEquippedWeaponsFromObject(intval($owner), $obj);
 
     if($toZone !== 'myDiscard' && $toZone !== 'theirDiscard') return;
+
+    if(is_string($cardID) && $cardID !== '') {
+        $destroyedCardID = DecisionQueueController::GetVariable($destroyedCardVar);
+        if(!is_string($destroyedCardID) || $destroyedCardID === '') {
+            $destroyedCardID = $cardID;
+        }
+        WhenDestroyed(intval($owner), $destroyedCardID);
+    }
 
     if(IsCardEarthEntity($cardID)) {
         $bobuWardVar = 'P' . intval($owner) . '_BobuWardActive';
@@ -846,40 +1016,6 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
             DecisionQueueController::StoreVariable($bobuWardVar, '0');
             DecisionQueueController::AddDecision(intval($owner), 'YESNO', '-', 1, 'Bobu:_Heal_1_to_your_leader?');
             DecisionQueueController::AddDecision(intval($owner), 'CUSTOM', 'BOBU_WARD_HEAL', 1);
-        }
-    }
-
-    if($cardID === 'S1-STT03-005_Wobbly-Cabbage-Cart_E_C_die') {
-        $opponent = intval($owner) === 1 ? 2 : 1;
-        $theirGarden = &GetGarden($opponent);
-        $targets = [];
-        for($i = 0; $i < count($theirGarden); ++$i) {
-            if(isset($theirGarden[$i]->removed) && $theirGarden[$i]->removed) continue;
-            $candidateID = $theirGarden[$i]->CardID ?? '';
-            if(CardType($candidateID) !== 'ENTITY') continue;
-            $currentHP = max(0, intval(CardHealth($candidateID)) - intval($theirGarden[$i]->Damage ?? 0));
-            if($currentHP > 1) continue;
-            $targets[] = 'theirGarden-' . $i;
-        }
-        if(!empty($targets)) {
-            $targetStr = implode('&', $targets);
-            DecisionQueueController::AddDecision(intval($owner), 'MZMAYCHOOSE', $targetStr, 1);
-            DecisionQueueController::AddDecision(intval($owner), 'CUSTOM', 'WOBBLY_CART_DESTROY', 1);
-        }
-    }
-
-    if($cardID === 'S1-STT03-006_Cactus-Farmer_E_UC_die') {
-        DoDrawCard(intval($owner), 1);
-        $hand = &GetHand(intval($owner));
-        $discardOptions = [];
-        for($i = 0; $i < count($hand); ++$i) {
-            if(isset($hand[$i]->removed) && $hand[$i]->removed) continue;
-            $discardOptions[] = 'myHand-' . $i;
-        }
-        if(!empty($discardOptions)) {
-            $discardStr = implode('&', $discardOptions);
-            DecisionQueueController::AddDecision(intval($owner), 'MZCHOOSE', $discardStr, 1);
-            DecisionQueueController::AddDecision(intval($owner), 'CUSTOM', 'CACTUS_FARMER_DISCARD', 1);
         }
     }
 }
@@ -1381,7 +1517,7 @@ function QueueLeaderDamageAnimation($player, $amount) {
     QueueDamageAnimation(intval($player) === 1 ? 'P1BASE' : 'P2BASE', intval($amount), 500, true);
 }
 
-function DealDamageToLeader($player, $amount) {
+function DealDamageToLeader($player, $amount, $sourceKey = null) {
     $amount = max(0, intval($amount));
     if($amount <= 0) return;
 
@@ -1393,6 +1529,7 @@ function DealDamageToLeader($player, $amount) {
     if($leaderObj === null || (isset($leaderObj->removed) && $leaderObj->removed)) return;
 
     $leaderObj->Damage = intval($leaderObj->Damage ?? 0) + $amount;
+    RecordDamageSourceOnObject($leaderObj, ResolveDamageSourceKey($player, $sourceKey));
     QueueLeaderDamageAnimation($player, $amount);
 
     if(LeaderCurrentHealth($player) <= 0) {
@@ -1490,7 +1627,7 @@ function TriggerKuraiUntapFromEnemyGardenDestroy($actingPlayer, $destroyedOwner,
     }
 }
 
-function DealDamageToGardenTarget($player, $targetMZ, $amount) {
+function DealDamageToGardenTarget($player, $targetMZ, $amount, $sourceKey = null) {
     $amount = max(0, intval($amount));
     if($amount <= 0) return;
     if(!is_string($targetMZ) || $targetMZ === '') return;
@@ -1502,6 +1639,7 @@ function DealDamageToGardenTarget($player, $targetMZ, $amount) {
 
     $targetPlayer = ($zone === 'myGarden') ? intval($player) : (intval($player) === 1 ? 2 : 1);
     $targetOwnerMZ = ($zone === 'myGarden') ? $targetMZ : FlipZonePerspective($targetMZ);
+    $resolvedSourceKey = ResolveDamageSourceKey($player, $sourceKey);
     $garden = &GetGarden($targetPlayer);
 
     if($index < 0 || $index >= count($garden)) return;
@@ -1509,7 +1647,7 @@ function DealDamageToGardenTarget($player, $targetMZ, $amount) {
 
     $targetCardID = $garden[$index]->CardID ?? '';
     if(CardType($targetCardID) === 'LEADER') {
-        DealDamageToLeader($targetPlayer, $amount);
+        DealDamageToLeader($targetPlayer, $amount, $resolvedSourceKey);
         return;
     }
 
@@ -1521,6 +1659,7 @@ function DealDamageToGardenTarget($player, $targetMZ, $amount) {
     $garden[$index]->Damage = intval($garden[$index]->Damage ?? 0) + $amount;
     QueueDamageAnimation('p' . $targetPlayer . 'Garden-' . $index, $amount, 500, true);
     TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, true);
+    RecordDamageSourceOnObject($garden[$index], $resolvedSourceKey);
     if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
         DamageTaken($targetPlayer, $targetOwnerMZ, $amount);
     }
@@ -1534,7 +1673,7 @@ function DealDamageToGardenTarget($player, $targetMZ, $amount) {
     }
 }
 
-function DealDamageToEntityTarget($player, $targetMZ, $amount, $isCardEffect = true) {
+function DealDamageToEntityTarget($player, $targetMZ, $amount, $isCardEffect = true, $sourceKey = null) {
     $amount = max(0, intval($amount));
     if($amount <= 0) return;
     if(!is_string($targetMZ) || $targetMZ === '') return;
@@ -1544,7 +1683,7 @@ function DealDamageToEntityTarget($player, $targetMZ, $amount, $isCardEffect = t
     $index = intval($parts[1] ?? -1);
 
     if($zone === 'myGarden' || $zone === 'theirGarden') {
-        DealDamageToGardenTarget($player, $targetMZ, $amount);
+        DealDamageToGardenTarget($player, $targetMZ, $amount, $sourceKey);
         return;
     }
 
@@ -1552,6 +1691,7 @@ function DealDamageToEntityTarget($player, $targetMZ, $amount, $isCardEffect = t
 
     $targetPlayer = ($zone === 'myAlley') ? intval($player) : (intval($player) === 1 ? 2 : 1);
     $targetOwnerMZ = ($zone === 'myAlley') ? $targetMZ : FlipZonePerspective($targetMZ);
+    $resolvedSourceKey = ResolveDamageSourceKey($player, $sourceKey);
     $alley = &GetAlley($targetPlayer);
     if($index < 0 || $index >= count($alley)) return;
     if(isset($alley[$index]->removed) && $alley[$index]->removed) return;
@@ -1565,6 +1705,7 @@ function DealDamageToEntityTarget($player, $targetMZ, $amount, $isCardEffect = t
     $alley[$index]->Damage = intval($alley[$index]->Damage ?? 0) + $amount;
     QueueDamageAnimation('p' . $targetPlayer . 'Alley-' . $index, $amount, 500, true);
     TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
+    RecordDamageSourceOnObject($alley[$index], $resolvedSourceKey);
     if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
         DamageTaken($targetPlayer, $targetOwnerMZ, $amount);
     }
@@ -2035,7 +2176,7 @@ function CardHasAbility($obj) {
     $actingPlayer = $isResponseWindow ? GetPendingAttackResponderPlayer() : intval($turnPlayer);
 
     $cardID = $obj->CardID ?? '';
-    if($isResponseWindow && !CardHasTimingTag($cardID, 'Response')) return 0;
+    if($isResponseWindow && !ObjectHasTimingTag($obj, 'Response')) return 0;
 
     $owner = ResolveObjectOwner($obj);
     if($owner === null || intval($owner) !== intval($actingPlayer)) return 0;
@@ -2053,9 +2194,12 @@ function CardHasAbility($obj) {
         if(!$isResponseWindow && CanAttackWith($actingPlayer, $mzID)) return 1;
 
         if($cardID !== '') {
-            $abilityCount = intval(CardActivateAbilityCount($cardID));
+            $abilityCount = 0;
+            foreach(GetObjectMacroCardIDCandidates($obj) as $candidateCardID) {
+                $abilityCount = max($abilityCount, intval(CardActivateAbilityCount($candidateCardID)));
+            }
             for($abilityIndex = 0; $abilityIndex < $abilityCount; ++$abilityIndex) {
-                if(CanActivateAbilityRuntime($actingPlayer, $mzID, $abilityIndex) && CanActivateAbility($actingPlayer, $mzID, $abilityIndex)) {
+                if(CanActivateAbilityRuntime($actingPlayer, $mzID, $abilityIndex) && CanActivateAbilityWithCopiedText($actingPlayer, $mzID, $abilityIndex)) {
                     return 1;
                 }
             }
@@ -2070,9 +2214,12 @@ function CardHasAbility($obj) {
     // Alley cards can expose Activate abilities (e.g. Alpine Prowler sacrifice ability).
     if($location === 'Alley' && $mzIndex >= 0) {
         if($cardID !== '') {
-            $abilityCount = intval(CardActivateAbilityCount($cardID));
+            $abilityCount = 0;
+            foreach(GetObjectMacroCardIDCandidates($obj) as $candidateCardID) {
+                $abilityCount = max($abilityCount, intval(CardActivateAbilityCount($candidateCardID)));
+            }
             for($abilityIndex = 0; $abilityIndex < $abilityCount; ++$abilityIndex) {
-                if(CanActivateAbilityRuntime($actingPlayer, 'myAlley-' . $mzIndex, $abilityIndex) && CanActivateAbility($actingPlayer, 'myAlley-' . $mzIndex, $abilityIndex)) {
+                if(CanActivateAbilityRuntime($actingPlayer, 'myAlley-' . $mzIndex, $abilityIndex) && CanActivateAbilityWithCopiedText($actingPlayer, 'myAlley-' . $mzIndex, $abilityIndex)) {
                     return 1;
                 }
             }
@@ -2141,6 +2288,9 @@ function IsAttackTargetLegal($player, $targetMZ) {
     if($zone !== 'theirGarden') return false;
     if($index < 0 || $index >= count($garden)) return false;
     if(isset($garden[$index]->removed) && $garden[$index]->removed) return false;
+    if($attackerCardID === 'S1-AZK01-077_Stalking-Assassin_E_C_die') {
+        return CardType($garden[$index]->CardID ?? '') === 'LEADER';
+    }
 
     $cardID = $garden[$index]->CardID ?? '';
     if(CardType($cardID) === 'LEADER') {
@@ -2357,6 +2507,43 @@ function QueueGlassBlowerHokutoBottom($player) {
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'GlassBlowerHokutoBottom', 1);
 }
 
+function CanActivateAbilityWithCopiedText($player, $mzID, $abilityIndex = 0) {
+    global $activateAbilityPrereqs;
+
+    $obj = GetZoneObject($mzID);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
+
+    $abilityIndex = max(0, intval($abilityIndex));
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
+    $hasCandidateAbility = false;
+    foreach($cardIDCandidates as $candidateCardID) {
+        if(intval(CardActivateAbilityCount($candidateCardID)) <= $abilityIndex) continue;
+        $hasCandidateAbility = true;
+        $abilityKey = $candidateCardID . ':' . $abilityIndex;
+        if(!isset($activateAbilityPrereqs[$abilityKey])) return true;
+        if($activateAbilityPrereqs[$abilityKey]($player, $mzID, $abilityIndex)) return true;
+    }
+
+    return !$hasCandidateAbility ? false : false;
+}
+
+function QueueLinkBottom($player) {
+    $tempStart = intval(DecisionQueueController::GetVariable('P' . intval($player) . '_LinkTempStart'));
+    $tempZone = &GetTempZone($player);
+    $remaining = [];
+    for($i = $tempStart; $i < count($tempZone); ++$i) {
+        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
+        $cardID = $tempZone[$i]->CardID ?? '';
+        if(!is_string($cardID) || $cardID === '') continue;
+        $remaining[] = $cardID;
+    }
+    if(empty($remaining)) return;
+
+    $param = 'Bottom=' . implode(',', $remaining);
+    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Put_remaining_on_bottom_of_deck_in_any_order');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'LinkBottom', 1);
+}
+
 $customDQHandlers['ElderHoshinReveal'] = function($player, $parts, $lastDecision) {
     if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
         MZMove($player, $lastDecision, 'myHand');
@@ -2480,6 +2667,47 @@ $customDQHandlers['GlassBlowerHokutoBottom'] = function($player, $parts, $lastDe
     }
 };
 
+$customDQHandlers['LinkReveal'] = function($player, $parts, $lastDecision) {
+    if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
+        MZMove($player, $lastDecision, 'myHand');
+        DecisionQueueController::CleanupRemovedCards();
+    }
+
+    QueueLinkBottom($player);
+};
+
+$customDQHandlers['LinkBottom'] = function($player, $parts, $lastDecision) {
+    $deck = &GetDeck($player);
+    $tempZone = &GetTempZone($player);
+    $piles = ['Top' => [], 'Bottom' => []];
+
+    foreach(explode(';', strval($lastDecision)) as $pileStr) {
+        $eqPos = strpos($pileStr, '=');
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        if(isset($piles[$pileName])) {
+            $piles[$pileName] = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
+        }
+    }
+
+    foreach($tempZone as $obj) {
+        if(!$obj->removed) $obj->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+
+    $allCards = array_merge($piles['Bottom'], $piles['Top']);
+    foreach($allCards as $cardID) {
+        if(!is_string($cardID) || $cardID === '') continue;
+        $deck[] = new Deck($cardID, 'Deck', $player);
+    }
+
+    for($i = 0; $i < count($deck); ++$i) {
+        $deck[$i]->mzIndex = $i;
+        $deck[$i]->BuildIndex();
+    }
+};
+
 $customDQHandlers['KIRA_SWAP_PENDING_ATTACK'] = function($player, $parts, $lastDecision) {
     if(!is_string($lastDecision) || $lastDecision === '' || $lastDecision === '-') return;
     TryKiraSwapForPendingAttack($player, $lastDecision);
@@ -2546,6 +2774,40 @@ $customDQHandlers['SAEKO_OPP_DAMAGE'] = function($player, $parts, $lastDecision)
     DealDamageToEntityTarget($player, $chosen, 1, false);
 };
 
+$customDQHandlers['HOREN_OF_TWO_PATHS_CHOICE'] = function($player, $parts, $lastDecision) {
+    $sourcePerspectiveMZ = $parts[0] ?? '';
+    $owner = intval($parts[1] ?? 0);
+    if(!is_string($sourcePerspectiveMZ) || $sourcePerspectiveMZ === '') return;
+    if($owner !== 1 && $owner !== 2) return;
+
+    $selectedIndex = intval(explode(',', strval($lastDecision))[0] ?? 0);
+    $sourceMZ = FlipZonePerspective($sourcePerspectiveMZ);
+    if(!is_string($sourceMZ) || $sourceMZ === '') return;
+
+    if($selectedIndex === 0) {
+        $sourceObj = &GetZoneObject($sourceMZ);
+        if($sourceObj === null || (isset($sourceObj->removed) && $sourceObj->removed)) return;
+        AddUniqueTurnEffect($sourceObj, 'CHARGE');
+        return;
+    }
+
+    HealLeader($owner, 2);
+};
+
+$customDQHandlers['GIN_AND_TONIKA_CHOICE'] = function($player, $parts, $lastDecision) {
+    $owner = intval($parts[0] ?? 0);
+    if($owner !== 1 && $owner !== 2) return;
+
+    $selectedIndex = intval(explode(',', strval($lastDecision))[0] ?? 0);
+    if($selectedIndex === 0) {
+        DoDrawCard($owner, 2);
+        return;
+    }
+
+    $opponent = $owner == 1 ? 2 : 1;
+    DealDamageToLeader($opponent, 3);
+};
+
 function OnEnter($player, $mzID) {
     global $enterAbilities, $customDQHandlers;
 
@@ -2554,7 +2816,7 @@ function OnEnter($player, $mzID) {
         $cardID = $obj->CardID ?? '';
         $location = strval($obj->Location ?? '');
         if($cardID !== '' && isset($enterAbilities) && is_array($enterAbilities)) {
-            $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+            $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
             $abilityCount = 0;
             if(function_exists('CardEnterCount')) {
                 for($i = 0; $i < count($cardIDCandidates); ++$i) {
@@ -2605,7 +2867,7 @@ function OnEnterGarden($player, $mzID) {
 
     $cardID = $obj->CardID ?? '';
     if($cardID !== '' && isset($enterGardenAbilities) && is_array($enterGardenAbilities)) {
-        $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+        $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
         $abilityCount = 0;
         if(function_exists('CardEnterGardenCount')) {
             for($i = 0; $i < count($cardIDCandidates); ++$i) {
@@ -2668,7 +2930,7 @@ function OnPlayCard($player, $mzID) {
         return 'ON_PLAY';
     }
 
-    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     $abilityCount = 0;
     if(function_exists('CardOnPlayCount')) {
         for($i = 0; $i < count($cardIDCandidates); ++$i) {
@@ -2716,7 +2978,7 @@ function OnEndTurnAbility($player, $mzID) {
         return 'END_TURN_ABILITY';
     }
 
-    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     $abilityCount = 0;
     if(function_exists('CardEndTurnAbilityCount')) {
         for($i = 0; $i < count($cardIDCandidates); ++$i) {
@@ -2764,7 +3026,7 @@ function OnWhenAttacked($player, $mzID, $attackerMZ) {
         return 'WHEN_ATTACKED';
     }
 
-    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     $abilityCount = 0;
     if(function_exists('CardWhenAttackedCount')) {
         for($i = 0; $i < count($cardIDCandidates); ++$i) {
@@ -2827,7 +3089,7 @@ function OnUseGateCard($player, $gateMZ) {
         return 'USE_GATE';
     }
 
-    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     $abilityCount = 0;
     if(function_exists('CardUseGateCount')) {
         for($i = 0; $i < count($cardIDCandidates); ++$i) {
@@ -2875,7 +3137,7 @@ function OnAttackWithCard($player, $mzID, $targetMZ) {
         return 'ATTACK_WITH';
     }
 
-    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     $abilityCount = 0;
     if(function_exists('CardAttackWithCount')) {
         for($i = 0; $i < count($cardIDCandidates); ++$i) {
@@ -2923,7 +3185,7 @@ function OnAfterAttacking($player, $mzID, $targetMZ) {
         return 'AFTER_ATTACKING';
     }
 
-    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     $abilityCount = 0;
     if(function_exists('CardAfterAttackingCount')) {
         for($i = 0; $i < count($cardIDCandidates); ++$i) {
@@ -2961,7 +3223,8 @@ function OnDamageTaken($player, $mzID, $amount) {
         return 'DAMAGE_TAKEN';
     }
 
-    $obj = GetZoneObject($mzID);
+    $resolvedMZID = NormalizeMZForPlayerPerspective($player, $mzID);
+    $obj = GetZoneObject($resolvedMZID);
     if($obj === null || (isset($obj->removed) && $obj->removed)) {
         return 'DAMAGE_TAKEN';
     }
@@ -2975,7 +3238,7 @@ function OnDamageTaken($player, $mzID, $amount) {
         return 'DAMAGE_TAKEN';
     }
 
-    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     $abilityCount = 0;
     if(function_exists('CardDamageTakenCount')) {
         for($i = 0; $i < count($cardIDCandidates); ++$i) {
@@ -3005,6 +3268,53 @@ function OnDamageTaken($player, $mzID, $amount) {
     }
 
     return 'DAMAGE_TAKEN';
+}
+
+function OnWhenDestroyed($player, $cardID) {
+    global $whenDestroyedAbilities;
+    if(!isset($whenDestroyedAbilities) || !is_array($whenDestroyedAbilities)) {
+        DecisionQueueController::AddDecision($player, 'PASSPARAMETER', 'WDDBG|NO_TABLE|' . strval($cardID), 98);
+        return 'WHEN_DESTROYED';
+    }
+
+    if(!is_string($cardID) || $cardID === '') {
+        DecisionQueueController::AddDecision($player, 'PASSPARAMETER', 'WDDBG|EMPTY_CARD', 98);
+        return 'WHEN_DESTROYED';
+    }
+
+    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $abilityCount = 0;
+    if(function_exists('CardWhenDestroyedCount')) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $abilityCount = max($abilityCount, intval(CardWhenDestroyedCount($cardIDCandidates[$i])));
+        }
+    }
+    DecisionQueueController::AddDecision($player, 'PASSPARAMETER', 'WDDBG|COUNT|' . $cardID . '|' . strval($abilityCount), 98);
+
+    if($abilityCount <= 0) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $key = $cardIDCandidates[$i] . ':0';
+            if(isset($whenDestroyedAbilities[$key])) {
+                DecisionQueueController::AddDecision($player, 'PASSPARAMETER', 'WDDBG|FALLBACK|' . $key, 98);
+                $whenDestroyedAbilities[$key]($player);
+                break;
+            }
+        }
+        return 'WHEN_DESTROYED';
+    }
+
+    for($i = 0; $i < $abilityCount; ++$i) {
+        for($j = 0; $j < count($cardIDCandidates); ++$j) {
+            $key = $cardIDCandidates[$j] . ':' . $i;
+            if(isset($whenDestroyedAbilities[$key])) {
+                DecisionQueueController::AddDecision($player, 'PASSPARAMETER', 'WDDBG|HIT|' . $key, 98);
+                $whenDestroyedAbilities[$key]($player);
+                break;
+            }
+        }
+    }
+
+    return 'WHEN_DESTROYED';
 }
 
 function QueueMinaLeaderChoice($player, $sourceMZ) {
@@ -3143,6 +3453,13 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                         QueueDamageAnimation('p' . $opponent . $animTarget . '-' . $targetIndex, $damageDealt, 500, true);
                         TriggerZeroStarterDamageReactions($player, $targetZone . '-' . $targetIndex, $damageDealt, false);
                         $targetOwnerMZ = FlipZonePerspective($targetZone . '-' . $targetIndex);
+                        RecordDamageSourceOnObject($targetField[$targetIndex], 'COMBAT:' . NormalizeDamageSourceKey($mzCard));
+                        DecisionQueueController::AddDecision(
+                            $opponent,
+                            'PASSPARAMETER',
+                            'DMGDBG|target=' . $targetZone . '-' . $targetIndex . '|card=' . strval($targetField[$targetIndex]->CardID ?? '') . '|viewer=' . strval($player),
+                            97
+                        );
                         if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
                             DamageTaken($opponent, $targetOwnerMZ, $damageDealt);
                         }
@@ -3168,6 +3485,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                         $myGarden[$attackerIndex]->Damage = intval($myGarden[$attackerIndex]->Damage ?? 0) + $damageDealt;
                         QueueDamageAnimation('p' . $player . 'Garden-' . $attackerIndex, $damageDealt, 500, true);
                         TriggerZeroStarterDamageReactions($opponent, 'myGarden-' . $attackerIndex, $damageDealt, false);
+                        RecordDamageSourceOnObject($myGarden[$attackerIndex], 'COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex));
                         DamageTaken($player, 'myGarden-' . $attackerIndex, $damageDealt);
                     }
                 }
@@ -3186,6 +3504,12 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
                     AddUniqueTurnEffect($attackerObj, 'SHROOMMANCER_USED');
                 }
                 if($targetZone === 'theirGarden') {
+                    DecisionQueueController::AddDecision(
+                        $opponent,
+                        'PASSPARAMETER',
+                        'MOVEDBG|from=theirGarden-' . $targetIndex . '|card=' . strval($targetField[$targetIndex]->CardID ?? ''),
+                        97
+                    );
                     TriggerKuraiUntapFromEnemyGardenDestroy($player, $opponent, $targetField[$targetIndex]->CardID ?? '');
                     SafeMZMove($player, 'theirGarden-' . $targetIndex, 'theirDiscard');
                 } else {
@@ -3205,7 +3529,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         }
     }
 
-    AfterAttacking($player, $attackerMZ, $targetMZ);
+    AfterAttacking($player, $mzCard, $targetMZ);
     DecisionQueueController::CleanupRemovedCards();
     return 'ATTACK';
 }
@@ -3251,7 +3575,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if(!is_string($cardID) || $cardID === '') return '';
 
     $abilityIndex = max(0, intval($abilityIndex));
-    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $cardIDCandidates = GetObjectMacroCardIDCandidates($obj);
     for($i = 0; $i < count($cardIDCandidates); ++$i) {
         $abilityKey = $cardIDCandidates[$i] . ':' . $abilityIndex;
         if(isset($activateAbilityAbilities[$abilityKey]) && is_callable($activateAbilityAbilities[$abilityKey])) {
@@ -3535,6 +3859,71 @@ $customDQHandlers["CACTUS_FARMER_DISCARD"] = function($player, $params, $lastDec
     if(!is_string($chosen) || $chosen === '' || $chosen === '-') return;
     MZMove(intval($player), $chosen, 'myDiscard');
     DecisionQueueController::CleanupRemovedCards();
+};
+
+$customDQHandlers["FORGING_TRICKS_ORDER"] = function($player, $params, $lastDecision) {
+    $selected = strval($lastDecision);
+    if($selected === '' || $selected === '-') return;
+
+    $chosenCards = array_values(array_filter(explode('&', $selected), function($value) {
+        return $value !== '';
+    }));
+    if(empty($chosenCards)) return;
+
+    $chosenCardIDs = [];
+    foreach($chosenCards as $mzID) {
+        $obj = GetZoneObject($mzID);
+        if($obj === null || (isset($obj->removed) && $obj->removed)) continue;
+        $cardID = $obj->CardID ?? '';
+        if(!is_string($cardID) || $cardID === '') continue;
+        $chosenCardIDs[] = $cardID;
+    }
+    if(empty($chosenCardIDs)) return;
+
+    $param = 'Bottom=' . implode(',', $chosenCardIDs);
+    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Put_the_selected_weapon_cards_on_the_bottom_of_your_deck_in_any_order');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'FORGING_TRICKS_APPLY', 1);
+};
+
+$customDQHandlers["FORGING_TRICKS_APPLY"] = function($player, $params, $lastDecision) {
+    $bottomCards = [];
+    foreach(explode(';', strval($lastDecision)) as $pileStr) {
+        $eqPos = strpos($pileStr, '=');
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        if($pileName !== 'Bottom') continue;
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        $bottomCards = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
+        break;
+    }
+    if(empty($bottomCards)) return;
+
+    $moved = 0;
+    foreach($bottomCards as $cardID) {
+        if(!is_string($cardID) || $cardID === '') continue;
+        $discard = &GetDiscard($player);
+        $chosenMZ = '';
+        for($i = 0; $i < count($discard); ++$i) {
+            if(isset($discard[$i]->removed) && $discard[$i]->removed) continue;
+            if(($discard[$i]->CardID ?? '') !== $cardID) continue;
+            $chosenMZ = 'myDiscard-' . $i;
+            break;
+        }
+        if($chosenMZ === '') continue;
+        MZMove($player, $chosenMZ, 'myDeck');
+        DecisionQueueController::CleanupRemovedCards();
+        ++$moved;
+    }
+
+    if($moved <= 0) return;
+
+    $myGarden = &GetGarden($player);
+    for($i = 0; $i < count($myGarden); ++$i) {
+        if(isset($myGarden[$i]->removed) && $myGarden[$i]->removed) continue;
+        if(CardType($myGarden[$i]->CardID ?? '') !== 'LEADER') continue;
+        AddUniqueTurnEffect($myGarden[$i], 'ATK_MOD:' . $moved);
+        break;
+    }
 };
 
 $customDQHandlers["S1-STT03-017_Sprout-of-Fortune_S_C_die:0:OnPlay-1"] = function($player, $parts, $lastDecision) {

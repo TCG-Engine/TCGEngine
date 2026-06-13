@@ -45,6 +45,33 @@
     return nameToCardIdCache[normalizeName(cardName)] || null;
   }
 
+  function findMatchingCardNames(query, limit) {
+    var normalizedQuery = normalizeName(query);
+    if (!normalizedQuery) return [];
+    var maxResults = typeof limit === 'number' && limit > 0 ? limit : 12;
+    return getAllCardNames().filter(function(name) {
+      return normalizeName(name).indexOf(normalizedQuery) !== -1;
+    }).slice(0, maxResults);
+  }
+
+  function resolveCardIdFromInput(rawValue) {
+    var value = String(rawValue || '').trim();
+    if (!value) return null;
+    if (typeof nameData !== 'undefined' && nameData && Object.prototype.hasOwnProperty.call(nameData, value)) {
+      return value;
+    }
+
+    var exactMatch = getRepresentativeCardIdForName(value);
+    if (exactMatch) return exactMatch;
+
+    var matches = findMatchingCardNames(value, 2);
+    if (matches.length === 1) {
+      return getRepresentativeCardIdForName(matches[0]);
+    }
+
+    return null;
+  }
+
   function getAssetFolder() {
     var folderPathEl = document.getElementById('folderPath');
     var folderPath = folderPathEl ? folderPathEl.value : '';
@@ -204,10 +231,7 @@
     activeSuggestionIndex = -1;
     if (!query) return [];
 
-    var names = getAllCardNames();
-    var matches = names.filter(function(name) {
-      return normalizeName(name).indexOf(query) !== -1;
-    }).slice(0, 12);
+    var matches = findMatchingCardNames(query, 12);
 
     matches.forEach(function(name, index) {
       var btn = document.createElement('button');
@@ -430,4 +454,11 @@
 
   window.ShowNameCardUI = ShowNameCardUI;
   window.HideNameCardUI = HideNameCardUI;
+  window.NameCardLookup = {
+    normalizeName: normalizeName,
+    getAllCardNames: getAllCardNames,
+    getRepresentativeCardIdForName: getRepresentativeCardIdForName,
+    findMatchingCardNames: findMatchingCardNames,
+    resolveCardIdFromInput: resolveCardIdFromInput
+  };
 })();

@@ -21,6 +21,7 @@ Macro: Name=HealthModifier(subjectObj,currentValue,sourceObj); MacroType=ValueMo
 Macro: Name=WhenAttacked(mzID,attackerMZ); ChoiceFunction=OnWhenAttacked; SourceParam=mzID; Action={}
 Macro: Name=AfterAttacking(mzID,targetMZ); ChoiceFunction=OnAfterAttacking; SourceParam=mzID; Action={}
 Macro: Name=DamageTaken(mzID,amount); ChoiceFunction=OnDamageTaken; SourceParam=mzID; Action={}
+Macro: Name=WhenDestroyed(cardID); ChoiceFunction=OnWhenDestroyed; Action={}
 Macro: Name=EndTurnAbility(mzID); ChoiceFunction=OnEndTurnAbility; SourceParam=mzID; Action={}
 Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=EnterGarden(mzID); ChoiceFunction=OnEnterGarden; Action={}

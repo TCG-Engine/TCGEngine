@@ -742,14 +742,20 @@
         <button type="button" onclick="addRegressionAssertion()" style="padding:6px 10px;">Add Assertion</button>
         <button type="button" onclick="saveRegressionFixture()" style="padding:6px 10px;">Save Test</button>
         <button type="button" onclick="rerecordRegressionFixture()" style="padding:6px 10px;">Re-record Selected</button>
-        <div style="display:flex; gap:4px; align-items:center; margin-top:4px;">
-          <input type="text" id="regressionCardIdInput" placeholder="Card ID" style="flex:1; padding:5px 7px; font-size:12px; min-width:0;" />
-          <button type="button" onclick="linkCardToFixture()" style="padding:5px 8px; white-space:nowrap;">Link Card</button>
+        <div style="display:flex; flex-direction:column; gap:4px; align-items:stretch; margin-top:4px; position:relative;">
+          <div style="display:flex; gap:4px; align-items:center;">
+            <input type="text" id="regressionCardIdInput" placeholder="Card name or ID" style="flex:1; padding:5px 7px; font-size:12px; min-width:0;" autocomplete="off" spellcheck="false" />
+            <button type="button" onclick="linkCardToFixture()" style="padding:5px 8px; white-space:nowrap;">Link Card</button>
+          </div>
+          <div id="regressionCardLookupStatus" style="display:none; font-size:11px; line-height:1.35; color:#c7d8ff;"></div>
+          <div id="regressionCardSuggestions" style="display:none; max-height:150px; overflow-y:auto; border:1px solid rgba(201, 168, 76, 0.28); border-radius:8px; background:rgba(9, 18, 33, 0.98); padding:4px;"></div>
         </div>
       </div>
       </div>
     </div>
     <script>
+      var regressionCardSuggestionIndex = -1;
+
       function applyRegressionControlsCollapsedState(collapsed) {
         var body = document.getElementById("regressionControlsBody");
         var toggle = document.getElementById("regressionToggle");
@@ -990,6 +996,171 @@
         });
       }
 
+      function getRegressionCardLookupElements() {
+        return {
+          input: document.getElementById("regressionCardIdInput"),
+          suggestions: document.getElementById("regressionCardSuggestions"),
+          status: document.getElementById("regressionCardLookupStatus")
+        };
+      }
+
+      function clearRegressionCardSuggestions() {
+        var elements = getRegressionCardLookupElements();
+        if (elements.suggestions) {
+          elements.suggestions.innerHTML = "";
+          elements.suggestions.style.display = "none";
+        }
+        regressionCardSuggestionIndex = -1;
+      }
+
+      function setRegressionCardLookupStatus(message, isError) {
+        var elements = getRegressionCardLookupElements();
+        if (!elements.status) return;
+        if (!message) {
+          elements.status.textContent = "";
+          elements.status.style.display = "none";
+          return;
+        }
+        elements.status.textContent = message;
+        elements.status.style.display = "block";
+        elements.status.style.color = isError ? "#ffb2b2" : "#c7d8ff";
+      }
+
+      function refreshRegressionCardSuggestionHighlight() {
+        var elements = getRegressionCardLookupElements();
+        if (!elements.suggestions) return;
+        var children = Array.prototype.slice.call(elements.suggestions.children || []);
+        children.forEach(function(child, index) {
+          child.style.background = index === regressionCardSuggestionIndex ? "rgba(34, 62, 104, 0.98)" : "rgba(11, 24, 44, 0.84)";
+          child.style.borderColor = index === regressionCardSuggestionIndex ? "rgba(219, 188, 99, 0.62)" : "rgba(150, 183, 235, 0.18)";
+        });
+      }
+
+      function chooseRegressionCardSuggestion(name) {
+        var elements = getRegressionCardLookupElements();
+        if (!elements.input) return;
+        elements.input.value = name;
+        clearRegressionCardSuggestions();
+        if (window.NameCardLookup && typeof window.NameCardLookup.getRepresentativeCardIdForName === "function") {
+          var cardId = window.NameCardLookup.getRepresentativeCardIdForName(name);
+          setRegressionCardLookupStatus(cardId ? ("Will link " + name + " (" + cardId + ").") : "");
+        } else {
+          setRegressionCardLookupStatus("");
+        }
+        elements.input.focus();
+      }
+
+      function updateRegressionCardSuggestions() {
+        var elements = getRegressionCardLookupElements();
+        if (!elements.input || !elements.suggestions) return [];
+        if (!window.NameCardLookup || typeof window.NameCardLookup.findMatchingCardNames !== "function") {
+          clearRegressionCardSuggestions();
+          setRegressionCardLookupStatus("");
+          return [];
+        }
+
+        var query = elements.input.value.trim();
+        elements.suggestions.innerHTML = "";
+        regressionCardSuggestionIndex = -1;
+
+        if (!query) {
+          clearRegressionCardSuggestions();
+          setRegressionCardLookupStatus("");
+          return [];
+        }
+
+        var matches = window.NameCardLookup.findMatchingCardNames(query, 8);
+        if (matches.length === 0) {
+          clearRegressionCardSuggestions();
+          var directCardId = window.NameCardLookup.resolveCardIdFromInput(query);
+          setRegressionCardLookupStatus(directCardId ? ("Will link card ID " + directCardId + ".") : "No local card-name matches yet.");
+          return [];
+        }
+
+        matches.forEach(function(name, index) {
+          var cardId = window.NameCardLookup.getRepresentativeCardIdForName(name) || "";
+          var option = document.createElement("button");
+          option.type = "button";
+          option.style.display = "block";
+          option.style.width = "100%";
+          option.style.padding = "6px 8px";
+          option.style.border = "1px solid rgba(150, 183, 235, 0.18)";
+          option.style.borderRadius = "6px";
+          option.style.background = "rgba(11, 24, 44, 0.84)";
+          option.style.color = "#eef4ff";
+          option.style.textAlign = "left";
+          option.style.cursor = "pointer";
+          option.style.fontSize = "12px";
+          option.style.marginBottom = index === matches.length - 1 ? "0" : "4px";
+          option.textContent = cardId ? (name + " (" + cardId + ")") : name;
+          option.onmouseenter = function() {
+            regressionCardSuggestionIndex = index;
+            refreshRegressionCardSuggestionHighlight();
+          };
+          option.onclick = function() {
+            chooseRegressionCardSuggestion(name);
+          };
+          elements.suggestions.appendChild(option);
+        });
+
+        elements.suggestions.style.display = "block";
+
+        var resolvedCardId = window.NameCardLookup.resolveCardIdFromInput(query);
+        if (resolvedCardId) {
+          var resolvedName = typeof Cardname === "function" ? (Cardname(resolvedCardId) || query) : query;
+          setRegressionCardLookupStatus("Will link " + resolvedName + " (" + resolvedCardId + ").");
+        } else if (matches.length === 1) {
+          var exactCardId = window.NameCardLookup.getRepresentativeCardIdForName(matches[0]);
+          setRegressionCardLookupStatus(exactCardId ? ("Press Enter to link " + matches[0] + " (" + exactCardId + ").") : "");
+        } else {
+          setRegressionCardLookupStatus(matches.length + " matches. Keep typing or pick one below.");
+        }
+        return matches;
+      }
+
+      function initializeRegressionCardLookup() {
+        var elements = getRegressionCardLookupElements();
+        if (!elements.input) return;
+
+        elements.input.addEventListener("input", function() {
+          updateRegressionCardSuggestions();
+        });
+        elements.input.addEventListener("keydown", function(event) {
+          var suggestionButtons = Array.prototype.slice.call((getRegressionCardLookupElements().suggestions || {}).children || []);
+          if (event.key === "ArrowDown" && suggestionButtons.length > 0) {
+            event.preventDefault();
+            regressionCardSuggestionIndex = Math.min(regressionCardSuggestionIndex + 1, suggestionButtons.length - 1);
+            refreshRegressionCardSuggestionHighlight();
+            return;
+          }
+          if (event.key === "ArrowUp" && suggestionButtons.length > 0) {
+            event.preventDefault();
+            regressionCardSuggestionIndex = Math.max(regressionCardSuggestionIndex - 1, 0);
+            refreshRegressionCardSuggestionHighlight();
+            return;
+          }
+          if (event.key === "Enter") {
+            if (regressionCardSuggestionIndex >= 0 && regressionCardSuggestionIndex < suggestionButtons.length) {
+              event.preventDefault();
+              suggestionButtons[regressionCardSuggestionIndex].click();
+              return;
+            }
+            event.preventDefault();
+            linkCardToFixture();
+            return;
+          }
+          if (event.key === "Escape") {
+            clearRegressionCardSuggestions();
+            setRegressionCardLookupStatus("");
+          }
+        });
+        elements.input.addEventListener("blur", function() {
+          setTimeout(function() {
+            clearRegressionCardSuggestions();
+          }, 120);
+        });
+      }
+
       function linkCardToFixture() {
         var select = document.getElementById("regressionFixtureSelect");
         var input = document.getElementById("regressionCardIdInput");
@@ -997,16 +1168,29 @@
           alert("Select a fixture first.");
           return;
         }
-        var cardId = input ? input.value.trim() : "";
+        var rawValue = input ? input.value.trim() : "";
+        if (!rawValue) {
+          alert("Enter a card name or card ID to link.");
+          return;
+        }
+        var cardId = rawValue;
+        if (window.NameCardLookup && typeof window.NameCardLookup.resolveCardIdFromInput === "function") {
+          cardId = window.NameCardLookup.resolveCardIdFromInput(rawValue);
+        }
         if (!cardId) {
-          alert("Enter a card ID to link.");
+          setRegressionCardLookupStatus("No unique local card match found for \"" + rawValue + "\".", true);
+          alert("No unique local card match found. Keep typing, pick a suggestion, or enter the exact card ID.");
           return;
         }
         submitRegressionRequest(11006, JSON.stringify({ slug: select.value, cardId: cardId })).then(function(message) {
           if (message) alert(message);
           if (input) input.value = "";
+          clearRegressionCardSuggestions();
+          setRegressionCardLookupStatus("");
         });
       }
+
+      initializeRegressionCardLookup();
     </script>
     <?php endif; ?>
     <?php if ($showManualControls): ?>
