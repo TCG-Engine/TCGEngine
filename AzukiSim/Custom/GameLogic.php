@@ -2108,46 +2108,6 @@ function UntapAllIKZ($player) {
     }
 }
 
-function PromoteIKZFromPile($player, $statusOverride = null) {
-    $statusOverride = null;
-    $ikzArea = &GetIKZArea($player);
-    $ikzPile = &GetIKZPile($player);
-    
-    if(!is_array($ikzArea)) $ikzArea = [];
-    if(!is_array($ikzPile)) $ikzPile = [];
-    
-    // Count current IKZ in area
-    $currentCount = 0;
-    foreach($ikzArea as $ikz) {
-        if(!isset($ikz->removed) || !$ikz->removed) {
-            $currentCount++;
-        }
-    }
-    
-    // Move IKZ from pile to area up to the maximum of 10
-    $canAdd = max(0, 10 - $currentCount);
-    $moved = 0;
-    echo($canAdd . " IKZ can be promoted from pile to area.\n");
-    
-    for($i = count($ikzPile) - 1; $i >= 0; --$i) {
-        echo("Checking IKZ pile index " . $i . " for promotion.\n");
-        echo("Current moved count: " . $moved . "\n");
-        if($moved >= $canAdd) break;
-        $ikz = &$ikzPile[$i];
-        echo("IKZ pile index " . $i . " status: " . ($ikz->Status ?? 'N/A') . "\n");
-        if(isset($ikz->removed) && $ikz->removed) continue;
-
-        $status = $statusOverride !== null ? intval($statusOverride) : intval($ikz->Status ?? 2);
-        if($status !== 1) $status = 2;
-
-        $movedIKZ = MZMove($player, 'myIKZPile-' . $i, 'myIKZArea');
-        if($movedIKZ === null) continue;
-        $movedIKZ->Status = $status;
-        $moved++;
-        echo("Promoted an IKZ from pile to area with status " . $status . ".\n");
-    }
-}
-
 function ResolveObjectOwner($obj) {
     if(!is_object($obj)) return null;
 
@@ -4276,19 +4236,7 @@ $customDQHandlers["S1-STT03-017_Sprout-of-Fortune_S_C_die:0:OnPlay-1"] = functio
         DoDrawCard(intval($player), 1);
         return;
     }
-
-    $ikzArea = &GetIKZArea($player);
-    $ikzPile = &GetIKZPile($player);
-    if(is_array($ikzArea) && is_array($ikzPile) && !empty($ikzPile)) {
-        $areaCount = 0;
-        for($i = 0; $i < count($ikzArea); ++$i) {
-            if(isset($ikzArea[$i]->removed) && $ikzArea[$i]->removed) continue;
-            ++$areaCount;
-        }
-        if($areaCount < 10) {
-            PromoteIKZFromPile($player);
-        }
-    }
+    GainIKZ($player, 1, status:1);
     HealLeader(intval($player), 1);
 };
 
