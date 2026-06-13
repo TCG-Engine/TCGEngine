@@ -1865,51 +1865,6 @@ function TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardE
     $targetCardID = $targetObj->CardID ?? '';
     if(!is_string($targetCardID) || $targetCardID === '') return;
 
-    // Enraged Howler: once/turn when this takes damage, +1 attack this turn.
-    if($targetCardID === 'S1-STT04-007_Enraged-Howler_E_C_die') {
-        if(!HasTurnEffect($targetObj, 'STT04_HOWLER_USED')) {
-            AddUniqueTurnEffect($targetObj, 'STT04_HOWLER_USED');
-            AddUniqueTurnEffect($targetObj, 'ATK_MOD:1');
-        }
-    }
-
-    // Spiteful Raider: once/turn when this takes damage, deal 1 to a leader or entity.
-    if($targetCardID === 'S1-STT04-012_Spiteful-Raider_E_UC_die') {
-        if(!HasTurnEffect($targetObj, 'STT04_RAIDER_USED')) {
-            AddUniqueTurnEffect($targetObj, 'STT04_RAIDER_USED');
-            $opponent = ($player == 1) ? 2 : 1;
-            DealDamageToLeader($opponent, 1);
-        }
-    }
-
-    // Cinderwake Ritualist: once/turn when damaged by card effects, reflect that damage (max 2).
-    if($targetCardID === 'S1-STT04-009_Cinderwake-Ritualist_E_R_die' && $isCardEffect) {
-        if(!HasTurnEffect($targetObj, 'STT04_RITUALIST_USED')) {
-            AddUniqueTurnEffect($targetObj, 'STT04_RITUALIST_USED');
-            $reflect = min(2, $amount);
-            if($reflect > 0) {
-                $targetParts = explode('-', $targetMZ);
-                $targetZone = $targetParts[0] ?? '';
-                $targetIndex = intval($targetParts[1] ?? -1);
-                $opponent = ($player == 1) ? 2 : 1;
-                $theirGarden = &GetGarden($opponent);
-                $picked = '';
-                for($i = 0; $i < count($theirGarden); ++$i) {
-                    if(isset($theirGarden[$i]->removed) && $theirGarden[$i]->removed) continue;
-                    $candidateID = $theirGarden[$i]->CardID ?? '';
-                    if($targetZone === 'theirGarden' && $i === $targetIndex) continue;
-                    if(CardType($candidateID) !== 'ENTITY') continue;
-                    $picked = 'theirGarden-' . $i;
-                    break;
-                }
-                if($picked !== '') {
-                    DealDamageToGardenTarget($player, $picked, $reflect);
-                } else {
-                    DealDamageToLeader($opponent, $reflect);
-                }
-            }
-        }
-    }
 }
 
 function TriggerKuraiUntapFromEnemyGardenDestroy($actingPlayer, $destroyedOwner, $destroyedCardID) {
@@ -1962,6 +1917,8 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
         TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
         RecordDamageSourceOnObject($garden[$index], $resolvedSourceKey);
         if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
+            DecisionQueueController::StoreVariable('P' . intval($targetPlayer) . '_LastDamageWasCardEffect', $isCardEffect ? '1' : '0');
+            DecisionQueueController::StoreVariable('P' . intval($targetPlayer) . '_LastDamageSourceKey', strval($resolvedSourceKey));
             DamageTaken($targetPlayer, $targetOwnerMZ, $amount);
         }
 
@@ -1997,6 +1954,8 @@ function DealDamageToFieldTargetInternal($player, $targetMZ, $amount, $isCardEff
     TriggerZeroStarterDamageReactions($player, $targetMZ, $amount, $isCardEffect);
     RecordDamageSourceOnObject($alley[$index], $resolvedSourceKey);
     if(is_string($targetOwnerMZ) && $targetOwnerMZ !== '') {
+        DecisionQueueController::StoreVariable('P' . intval($targetPlayer) . '_LastDamageWasCardEffect', $isCardEffect ? '1' : '0');
+        DecisionQueueController::StoreVariable('P' . intval($targetPlayer) . '_LastDamageSourceKey', strval($resolvedSourceKey));
         DamageTaken($targetPlayer, $targetOwnerMZ, $amount);
     }
 
