@@ -2740,6 +2740,79 @@ $customDQHandlers['TidalInsightApply'] = function($player, $parts, $lastDecision
     }
 };
 
+$customDQHandlers['MIZUKI_SEARCH_REVEAL'] = function($player, $parts, $lastDecision) {
+    $chosenMZ = is_string($lastDecision) ? $lastDecision : '';
+    if($chosenMZ !== '' && $chosenMZ !== '-') {
+        $obj = GetZoneObject($chosenMZ);
+        if($obj !== null && !(isset($obj->removed) && $obj->removed)) {
+            $chosenCardID = $obj->CardID ?? '';
+            MZMove($player, $chosenMZ, 'myHand');
+            DecisionQueueController::CleanupRemovedCards();
+
+            $hand = &GetHand($player);
+            if(!empty($hand)) {
+                $varPrefix = GetMizukiSearchVarPrefix($player);
+                DecisionQueueController::StoreVariable($varPrefix . 'ChosenHandMZ', 'myHand-' . (count($hand) - 1));
+                DecisionQueueController::StoreVariable($varPrefix . 'ChosenCardID', $chosenCardID);
+            }
+        }
+    }
+
+    QueueMizukiSearchRearrange($player);
+};
+
+$customDQHandlers['MIZUKI_SEARCH_REARRANGE'] = function($player, $parts, $lastDecision) {
+    $deck = &GetDeck($player);
+    $tempZone = &GetTempZone($player);
+    $piles = ['Top' => [], 'Bottom' => []];
+
+    foreach(explode(';', strval($lastDecision)) as $pileStr) {
+        $eqPos = strpos($pileStr, '=');
+        if($eqPos === false) continue;
+        $pileName = substr($pileStr, 0, $eqPos);
+        $cardsStr = trim(substr($pileStr, $eqPos + 1));
+        if(isset($piles[$pileName])) {
+            $piles[$pileName] = ($cardsStr !== '') ? explode(',', $cardsStr) : [];
+        }
+    }
+
+    $tempStart = intval(DecisionQueueController::GetVariable(GetMizukiSearchVarPrefix($player) . 'TempStart'));
+    for($i = $tempStart; $i < count($tempZone); ++$i) {
+        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
+        $tempZone[$i]->Remove();
+    }
+    DecisionQueueController::CleanupRemovedCards();
+
+    foreach(array_merge($piles['Bottom'], $piles['Top']) as $cardID) {
+        if(!is_string($cardID) || $cardID === '') continue;
+        $deck[] = new Deck($cardID, 'Deck', $player);
+    }
+
+    for($i = 0; $i < count($deck); ++$i) {
+        $deck[$i]->mzIndex = $i;
+        $deck[$i]->BuildIndex();
+    }
+
+    QueueMizukiSearchPlayPrompt($player);
+};
+
+$customDQHandlers['MIZUKI_SEARCH_PLAY_ALLEY'] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== 'YES') return;
+
+    $varPrefix = GetMizukiSearchVarPrefix($player);
+    $chosenHandMZ = strval(DecisionQueueController::GetVariable($varPrefix . 'ChosenHandMZ') ?? '');
+    $chosenCardID = strval(DecisionQueueController::GetVariable($varPrefix . 'ChosenCardID') ?? '');
+    if($chosenHandMZ === '' || $chosenCardID === '') return;
+    if(CardType($chosenCardID) !== 'ENTITY') return;
+
+    $obj = GetZoneObject($chosenHandMZ);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return;
+    if(($obj->CardID ?? '') !== $chosenCardID) return;
+
+    ResolveEntityPlayFromHand($player, $chosenHandMZ, 'myAlley');
+    DecisionQueueController::CleanupRemovedCards();
+};
+
 function ZoneSearchCardMatches($cardID, $matchKind, $matchValue, $excludeCardID = '', $matchZoneName = '') {
     if(!is_string($cardID) || $cardID === '') return false;
     if($excludeCardID !== '' && $cardID === $excludeCardID) return false;
@@ -2864,6 +2937,90 @@ function QueueBottomDeckSearcherBottom($player) {
     $param = 'Bottom=' . implode(',', $remaining);
     DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Put_remaining_on_bottom_of_deck_in_any_order');
     DecisionQueueController::AddDecision($player, 'CUSTOM', 'BOTTOM_DECK_SEARCHER_BOTTOM', 1);
+}
+
+function GetMizukiSearchVarPrefix($player) {
+    return 'P' . intval($player) . '_MizukiSearch_';
+}
+
+function BeginMizukiSearch($player) {
+    $deck = &GetDeck($player);
+    if(empty($deck)) {
+        SetFlashMessage('No Water card with cost 2 or less was found.');
+        return;
+    }
+
+    $lookCount = min(3, count($deck));
+    if($lookCount <= 0) {
+        SetFlashMessage('No Water card with cost 2 or less was found.');
+        return;
+    }
+
+    $tempZone = &GetTempZone($player);
+    $tempStart = count($tempZone);
+    for($i = 0; $i < $lookCount; ++$i) {
+        $tempZone[] = array_shift($deck);
+    }
+
+    $varPrefix = GetMizukiSearchVarPrefix($player);
+    DecisionQueueController::StoreVariable($varPrefix . 'TempStart', strval($tempStart));
+    DecisionQueueController::StoreVariable($varPrefix . 'ChosenHandMZ', '');
+    DecisionQueueController::StoreVariable($varPrefix . 'ChosenCardID', '');
+
+    $candidates = [];
+    for($i = $tempStart; $i < count($tempZone); ++$i) {
+        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
+        $cardID = $tempZone[$i]->CardID ?? '';
+        if(CardElement($cardID) !== 'Water') continue;
+        if(intval(CardCost($cardID)) > 2) continue;
+        $candidates[] = 'myTempZone-' . $i;
+    }
+
+    if(empty($candidates)) {
+        SetFlashMessage('No Water card with cost 2 or less was found.');
+        QueueMizukiSearchRearrange($player);
+        return;
+    }
+
+    DecisionQueueController::AddDecision($player, 'MZCHOOSE', implode('&', $candidates), 1, 'Choose_a_Water_card_with_cost_2_or_less_to_reveal_and_add_to_your_hand');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'MIZUKI_SEARCH_REVEAL', 1);
+}
+
+function QueueMizukiSearchRearrange($player) {
+    $varPrefix = GetMizukiSearchVarPrefix($player);
+    $tempStart = intval(DecisionQueueController::GetVariable($varPrefix . 'TempStart'));
+    $tempZone = &GetTempZone($player);
+    $remaining = [];
+    for($i = $tempStart; $i < count($tempZone); ++$i) {
+        if(isset($tempZone[$i]->removed) && $tempZone[$i]->removed) continue;
+        $cardID = $tempZone[$i]->CardID ?? '';
+        if(!is_string($cardID) || $cardID === '') continue;
+        $remaining[] = $cardID;
+    }
+
+    if(empty($remaining)) {
+        QueueMizukiSearchPlayPrompt($player);
+        return;
+    }
+
+    $param = 'Bottom=' . implode(',', $remaining);
+    DecisionQueueController::AddDecision($player, 'MZREARRANGE', $param, 1, 'Put_the_rest_on_the_bottom_of_your_deck_in_any_order');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'MIZUKI_SEARCH_REARRANGE', 1);
+}
+
+function QueueMizukiSearchPlayPrompt($player) {
+    $varPrefix = GetMizukiSearchVarPrefix($player);
+    $chosenCardID = strval(DecisionQueueController::GetVariable($varPrefix . 'ChosenCardID') ?? '');
+    $chosenHandMZ = strval(DecisionQueueController::GetVariable($varPrefix . 'ChosenHandMZ') ?? '');
+    if($chosenCardID === '' || $chosenHandMZ === '') return;
+    if(CardType($chosenCardID) !== 'ENTITY') return;
+
+    $obj = GetZoneObject($chosenHandMZ);
+    if($obj === null || (isset($obj->removed) && $obj->removed)) return;
+    if(($obj->CardID ?? '') !== $chosenCardID) return;
+
+    DecisionQueueController::AddDecision($player, 'YESNO', '-', 1, 'Play_the_revealed_entity_to_Alley?');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'MIZUKI_SEARCH_PLAY_ALLEY', 1);
 }
 
 function GetOpponentGardenEntityTargetsUpToCost($player, $maxCost, $excludeMZ = '') {
