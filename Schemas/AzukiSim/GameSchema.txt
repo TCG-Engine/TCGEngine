@@ -22,6 +22,7 @@ Macro: Name=WhenAttacked(mzID,attackerMZ); ChoiceFunction=OnWhenAttacked; Source
 Macro: Name=AfterAttacking(mzID,targetMZ); ChoiceFunction=OnAfterAttacking; SourceParam=mzID; Action={}
 Macro: Name=DamageTaken(mzID,amount); ChoiceFunction=OnDamageTaken; SourceParam=mzID; Action={}
 Macro: Name=WhenDestroyed(cardID); ChoiceFunction=OnWhenDestroyed; Action={}
+Macro: Name=WhenSacrificed(cardID); ChoiceFunction=OnWhenSacrificed; Action={}
 Macro: Name=EndTurnAbility(mzID); ChoiceFunction=OnEndTurnAbility; SourceParam=mzID; Action={}
 Macro: Name=Enter(mzID); ChoiceFunction=OnEnter; Action={}
 Macro: Name=EnterGarden(mzID); ChoiceFunction=OnEnterGarden; Action={}

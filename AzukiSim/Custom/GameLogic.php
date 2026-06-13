@@ -1055,11 +1055,18 @@ function HandleFieldCardBeforeLeaving($player, $mzIndex, $toZone) {
     if($toZone !== 'myDiscard' && $toZone !== 'theirDiscard') return;
 
     if(is_string($cardID) && $cardID !== '') {
-        $destroyedCardID = DecisionQueueController::GetVariable($destroyedCardVar);
-        if(!is_string($destroyedCardID) || $destroyedCardID === '') {
-            $destroyedCardID = $cardID;
+        $leaveReasonVar = 'P' . intval($owner) . '_LeaveFieldReason';
+        $leaveReason = strval(DecisionQueueController::GetVariable($leaveReasonVar) ?? '');
+        $resolvedCardID = DecisionQueueController::GetVariable($destroyedCardVar);
+        if(!is_string($resolvedCardID) || $resolvedCardID === '') {
+            $resolvedCardID = $cardID;
         }
-        WhenDestroyed(intval($owner), $destroyedCardID);
+        if($leaveReason === 'SACRIFICE') {
+            WhenSacrificed(intval($owner), $resolvedCardID);
+        }
+        else {
+            WhenDestroyed(intval($owner), $resolvedCardID);
+        }
     }
 
     if(IsCardEarthEntity($cardID)) {
@@ -1117,6 +1124,50 @@ function SafeMZMove($player, $mzIndex, $toZone) {
     }
 
     return $result;
+}
+
+function SacrificeCards($player, $mzCards, $toZone = 'myDiscard') {
+    if(is_string($mzCards)) {
+        if($mzCards === '') return 0;
+        $mzCards = [$mzCards];
+    }
+    if(!is_array($mzCards) || empty($mzCards)) return 0;
+
+    $sacrificedCount = 0;
+    $leaveReasonVars = [];
+    $orderedCards = array_values(array_filter($mzCards, function($mzID) {
+        return is_string($mzID) && $mzID !== '';
+    }));
+    usort($orderedCards, function($a, $b) {
+        $aParts = explode('-', $a);
+        $bParts = explode('-', $b);
+        return intval($bParts[1] ?? -1) <=> intval($aParts[1] ?? -1);
+    });
+
+    for($i = 0; $i < count($orderedCards); ++$i) {
+        $obj = GetZoneObject($orderedCards[$i]);
+        if($obj === null || (isset($obj->removed) && $obj->removed)) continue;
+        $owner = ResolveObjectOwner($obj);
+        if($owner === null || intval($owner) <= 0) {
+            $parts = explode('-', $orderedCards[$i]);
+            $owner = ResolveOwnerFromPerspectiveZone($player, $parts[0] ?? '');
+        }
+        $owner = intval($owner);
+        if($owner <= 0) continue;
+        $leaveReasonVar = 'P' . $owner . '_LeaveFieldReason';
+        $leaveReasonVars[$leaveReasonVar] = strval(DecisionQueueController::GetVariable($leaveReasonVar) ?? '');
+        DecisionQueueController::StoreVariable($leaveReasonVar, 'SACRIFICE');
+        if(SafeMZMove($player, $orderedCards[$i], $toZone)) {
+            ++$sacrificedCount;
+        }
+        DecisionQueueController::StoreVariable($leaveReasonVar, $leaveReasonVars[$leaveReasonVar]);
+    }
+
+    if($sacrificedCount > 0) {
+        DecisionQueueController::CleanupRemovedCards();
+    }
+
+    return $sacrificedCount;
 }
 
 function ResolveWeaponEquipTargets($player) {
@@ -1226,6 +1277,42 @@ function ResolveWeaponPlayFromDiscard($player, $weaponMZ, $targetMZ) {
         $targetKey = 'P' . intval($player) . '_BlackJadeDaggerTargetMZ';
         DecisionQueueController::StoreVariable($targetKey, $targetMZ);
     }
+}
+
+function ReequipAttachedWeapon($player, $sourceMZ, $weaponCardID, $targetMZ) {
+    if(!is_string($sourceMZ) || $sourceMZ === '' || !is_string($targetMZ) || $targetMZ === '') return false;
+    if(!is_string($weaponCardID) || $weaponCardID === '' || CardType($weaponCardID) !== 'WEAPON') return false;
+    if($sourceMZ === $targetMZ) return false;
+
+    $sourceObj = &GetZoneObject($sourceMZ);
+    $targetObj = &GetZoneObject($targetMZ);
+    if($sourceObj === null || (isset($sourceObj->removed) && $sourceObj->removed)) return false;
+    if($targetObj === null || (isset($targetObj->removed) && $targetObj->removed)) return false;
+    if(($sourceObj->Location ?? '') !== 'Garden' || ($targetObj->Location ?? '') !== 'Garden') return false;
+
+    if(!isset($sourceObj->Subcards) || !is_array($sourceObj->Subcards)) return false;
+    $removedWeapon = false;
+    $remaining = [];
+    for($i = 0; $i < count($sourceObj->Subcards); ++$i) {
+        $subcardID = $sourceObj->Subcards[$i] ?? '';
+        if(!$removedWeapon && $subcardID === $weaponCardID) {
+            $removedWeapon = true;
+            continue;
+        }
+        $remaining[] = $subcardID;
+    }
+    if(!$removedWeapon) return false;
+
+    $sourceObj->Subcards = $remaining;
+    AttachWeaponCardIDToTarget($targetObj, $weaponCardID);
+    TriggerWhenEquippedAbilities($targetObj);
+
+    if($weaponCardID === 'S1-STT01-013_Black-Jade-Dagger_W_C_die') {
+        $targetKey = 'P' . intval($player) . '_BlackJadeDaggerTargetMZ';
+        DecisionQueueController::StoreVariable($targetKey, $targetMZ);
+    }
+
+    return true;
 }
 
 function DiscardAllEquippedWeapons($player) {
@@ -3373,6 +3460,20 @@ function TriggerEndTurnAbilitiesForZone($player, &$zone) {
     }
 }
 
+function SacrificeRushfireMarkedEntities($player, &$zone) {
+    for($i = count($zone) - 1; $i >= 0; --$i) {
+        if(!is_object($zone[$i])) continue;
+        if(isset($zone[$i]->removed) && $zone[$i]->removed) continue;
+        if(!HasTurnEffect($zone[$i], 'RUSHFIRE_SAC_EOT')) continue;
+
+        $mzID = $zone[$i]->GetMzID();
+        if($mzID === '') continue;
+
+        SafeMZMove($player, $mzID, 'myDiscard');
+        DecisionQueueController::CleanupRemovedCards();
+    }
+}
+
 function OnUseGateCard($player, $gateMZ) {
     global $useGateAbilities;
     if(!isset($useGateAbilities) || !is_array($useGateAbilities)) {
@@ -3610,6 +3711,48 @@ function OnWhenDestroyed($player, $cardID) {
     }
 
     return 'WHEN_DESTROYED';
+}
+
+function OnWhenSacrificed($player, $cardID) {
+    global $whenSacrificedAbilities;
+    if(!isset($whenSacrificedAbilities) || !is_array($whenSacrificedAbilities)) {
+        return 'WHEN_SACRIFICED';
+    }
+
+    if(!is_string($cardID) || $cardID === '') {
+        return 'WHEN_SACRIFICED';
+    }
+
+    $cardIDCandidates = GetMacroCardIDCandidates($cardID);
+    $abilityCount = 0;
+    if(function_exists('CardWhenSacrificedCount')) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $abilityCount = max($abilityCount, intval(CardWhenSacrificedCount($cardIDCandidates[$i])));
+        }
+    }
+
+    if($abilityCount <= 0) {
+        for($i = 0; $i < count($cardIDCandidates); ++$i) {
+            $key = $cardIDCandidates[$i] . ':0';
+            if(isset($whenSacrificedAbilities[$key])) {
+                $whenSacrificedAbilities[$key]($player);
+                break;
+            }
+        }
+        return 'WHEN_SACRIFICED';
+    }
+
+    for($i = 0; $i < $abilityCount; ++$i) {
+        for($j = 0; $j < count($cardIDCandidates); ++$j) {
+            $key = $cardIDCandidates[$j] . ':' . $i;
+            if(isset($whenSacrificedAbilities[$key])) {
+                $whenSacrificedAbilities[$key]($player);
+                break;
+            }
+        }
+    }
+
+    return 'WHEN_SACRIFICED';
 }
 
 function QueueMinaLeaderChoice($player, $sourceMZ) {
@@ -4056,6 +4199,8 @@ function OnEndOfTurn($player) {
     TriggerEndTurnAbilitiesForZone($player, $garden);
     $alley = &GetAlley($player);
     TriggerEndTurnAbilitiesForZone($player, $alley);
+    SacrificeRushfireMarkedEntities($player, $garden);
+    SacrificeRushfireMarkedEntities($player, $alley);
 
     // 2. Reset entity damage
     ResetEntityDamage($player, "myGarden");
