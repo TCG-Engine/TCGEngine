@@ -35,15 +35,70 @@
     }
 
     .mzrearrange-modal {
+      position: relative;
       background: linear-gradient(145deg, #1a2a3a, #0d1b2a);
       border: 2px solid #3a5a7a;
       border-radius: 16px;
-      padding: 24px 32px;
       max-width: 95vw;
       max-height: 85vh;
       overflow: auto;
       box-shadow: 0 0 60px rgba(0, 100, 200, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
       animation: mzrearrange-slide-up 0.4s ease-out;
+      pointer-events: auto;
+    }
+
+    .mzrearrange-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px 10px 18px;
+      cursor: grab;
+      user-select: none;
+      touch-action: none;
+    }
+
+    .mzrearrange-header-label {
+      flex: 1;
+      min-width: 0;
+      color: rgba(255, 255, 255, 0.92);
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .mzrearrange-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .mzrearrange-minimize-btn {
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border-radius: 999px;
+      border: 1px solid rgba(244, 236, 219, 0.18);
+      background: rgba(244, 236, 219, 0.08);
+      color: #f4ecdb;
+      font-size: 18px;
+      line-height: 1;
+      cursor: pointer;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .mzrearrange-header-divider {
+      height: 1px;
+      margin: 0 16px;
+      background: linear-gradient(90deg, rgba(100, 200, 255, 0.32), rgba(255, 255, 255, 0.06));
+    }
+
+    .mzrearrange-body {
+      padding: 10px 24px 24px 24px;
     }
 
     @keyframes mzrearrange-slide-up {
@@ -417,18 +472,51 @@
     // Create modal
     const modal = document.createElement('div');
     modal.className = 'mzrearrange-modal';
+
+    const popupTitle = 'Rearrange Cards';
+
+    // Header with minimize support
+    const header = document.createElement('div');
+    header.className = 'mzrearrange-header';
+    header.setAttribute('data-drag-handle', 'true');
+
+    const headerLabel = document.createElement('div');
+    headerLabel.className = 'mzrearrange-header-label';
+    headerLabel.textContent = popupTitle;
+    header.appendChild(headerLabel);
+
+    const controls = document.createElement('div');
+    controls.className = 'mzrearrange-controls';
+
+    const minimizeBtn = document.createElement('button');
+    minimizeBtn.type = 'button';
+    minimizeBtn.className = 'mzrearrange-minimize-btn';
+    minimizeBtn.textContent = '−';
+    minimizeBtn.title = 'Minimize';
+    minimizeBtn.setAttribute('aria-label', 'Minimize rearrange popup');
+    controls.appendChild(minimizeBtn);
+
+    header.appendChild(controls);
+    modal.appendChild(header);
+
+    const headerDivider = document.createElement('div');
+    headerDivider.className = 'mzrearrange-header-divider';
+    modal.appendChild(headerDivider);
+
+    const body = document.createElement('div');
+    body.className = 'mzrearrange-body';
     
     // Title
     const title = document.createElement('div');
     title.className = 'mzrearrange-title';
     title.textContent = tooltip || 'Arrange Cards';
-    modal.appendChild(title);
+    body.appendChild(title);
     
     // Instructions
     const instructions = document.createElement('div');
     instructions.className = 'mzrearrange-instructions';
     instructions.textContent = 'Drag cards to reorder within a pile or move between piles';
-    modal.appendChild(instructions);
+    body.appendChild(instructions);
     
     // Piles container
     const pilesContainer = document.createElement('div');
@@ -467,7 +555,7 @@
       pilesContainer.appendChild(pileEl);
     });
     
-    modal.appendChild(pilesContainer);
+    body.appendChild(pilesContainer);
     
     // Buttons
     const buttonsDiv = document.createElement('div');
@@ -512,9 +600,39 @@
     };
     buttonsDiv.appendChild(submitBtn);
     
-    modal.appendChild(buttonsDiv);
+    body.appendChild(buttonsDiv);
+    modal.appendChild(body);
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
+
+    if (typeof EnableDraggableModal === 'function') {
+      EnableDraggableModal(modal, header, 'mzrearrange-popup-position-v1');
+    }
+
+    let isMinimized = false;
+
+    function setMinimized(nextValue) {
+      isMinimized = !!nextValue;
+      body.style.display = isMinimized ? 'none' : 'block';
+      overlay.style.background = isMinimized ? 'transparent' : 'rgba(0, 0, 0, 0.85)';
+      overlay.style.backdropFilter = isMinimized ? 'none' : 'blur(8px)';
+      overlay.style.pointerEvents = isMinimized ? 'none' : 'auto';
+      modal.style.pointerEvents = 'auto';
+      modal.style.maxHeight = isMinimized ? 'none' : '85vh';
+      modal.style.overflow = isMinimized ? 'visible' : 'auto';
+      modal.style.width = isMinimized ? 'min(440px, calc(100vw - 24px))' : '';
+      modal.style.borderRadius = isMinimized ? '999px' : '16px';
+      headerDivider.style.display = isMinimized ? 'none' : 'block';
+      minimizeBtn.textContent = isMinimized ? '+' : '−';
+      minimizeBtn.title = isMinimized ? 'Expand' : 'Minimize';
+      minimizeBtn.setAttribute('aria-label', isMinimized ? 'Expand rearrange popup' : 'Minimize rearrange popup');
+    }
+
+    minimizeBtn.onclick = function(ev) {
+      ev.preventDefault();
+      ev.stopPropagation();
+      setMinimized(!isMinimized);
+    };
     
     // Setup drag and drop
     setupDragAndDrop(modal);
