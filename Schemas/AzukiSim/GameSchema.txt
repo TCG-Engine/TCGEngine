@@ -112,8 +112,7 @@ Display: Visibility=None, Mode=All
 Overlay: Status=1:exhausted
 Rotation: Status=1:9
 IKZToken - Value:number=0
-Display: Visibility=Public, Mode=Value, BindTo=IKZTokenSlot
-Widgets: CustomInput=Pass
+Display: Visibility=Public, Mode=Value(ValueOnly), BindTo=IKZTokenSlot
 DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
 Display: Visibility=Self, Mode=All, Display=None
 Versions - Version:string

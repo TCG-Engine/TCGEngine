@@ -279,47 +279,45 @@
     /* IKZ Token display — glowing orb */
     #myIKZTokenSlot,
     #theirIKZTokenSlot {
-        width: 48px;
-        height: 48px;
-        min-height: 48px;
-        padding: 0;
-        border: none;
-        background: none;
-        box-shadow: none;
-        display: flex;
+        display: none;
+        min-width: 108px;
+        height: 36px;
+        min-height: 36px;
+        padding: 0 12px;
+        border: 1px solid rgba(212, 175, 55, 0.30);
+        background:
+            linear-gradient(180deg, rgba(232, 220, 200, 0.14), rgba(255, 255, 255, 0.04)),
+            linear-gradient(160deg, rgba(26, 31, 58, 0.88), rgba(26, 31, 58, 0.78));
+        box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.08);
         align-items: center;
         justify-content: center;
-        border-radius: 50%;
-        position: relative;
-        overflow: visible;
+        border-radius: 999px;
+        position: fixed;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 12001;
     }
 
-    #myIKZTokenSlot > *:not(:last-child),
-    #theirIKZTokenSlot > *:not(:last-child) {
-        display: none;
+    #myIKZTokenSlot.has-token,
+    #theirIKZTokenSlot.has-token {
+        display: inline-flex;
     }
 
-    #myIKZTokenSlot::after,
-    #theirIKZTokenSlot::after {
-        content: "";
-        position: absolute;
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: radial-gradient(circle at 30% 30%, rgba(32, 180, 168, 0.9), rgba(20, 140, 130, 0.5));
-        box-shadow: 0 0 20px rgba(32, 180, 168, 0.8), inset 0 1px 3px rgba(255, 255, 255, 0.3);
-        border: 2px solid rgba(32, 180, 168, 0.9);
-        z-index: 1;
+    #myIKZTokenSlot::before,
+    #theirIKZTokenSlot::before {
+        content: "IKZ Token";
+        position: static;
+        color: rgba(212, 175, 55, 0.88);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font: 700 10px/1 var(--azuki-font-label);
+        pointer-events: none;
+        white-space: nowrap;
     }
 
-    #myIKZTokenSlot > span,
-    #theirIKZTokenSlot > span {
-        font: 700 20px/1 var(--azuki-font-ui);
-        color: rgba(255, 255, 255, 0.95);
-        margin: 0 !important;
-        padding: 0 !important;
-        position: relative;
-        z-index: 2;
+    #myIKZToken,
+    #theirIKZToken {
+        display: none !important;
     }
 
     /* Leader slot positioning */
@@ -408,15 +406,16 @@
 
     #myIKZTokenSlot,
     #theirIKZTokenSlot {
-        left: 24px;
+        left: 164px;
     }
 
     #myIKZTokenSlot {
-        bottom: 20px;
+        bottom: 56px;
     }
 
     #theirIKZTokenSlot {
-        top: 20px;
+        top: 56px;
+        bottom: auto;
     }
 
     /* Discard pile (bottom-right / top-right) - bottom of stack */
@@ -645,6 +644,22 @@
             display: flex !important;
             flex-direction: row !important;
             align-items: flex-start !important;
+        }
+
+        #myIKZTokenSlot,
+        #theirIKZTokenSlot {
+            left: 164px !important;
+            right: auto !important;
+        }
+
+        #theirIKZTokenSlot {
+            top: 56px !important;
+            bottom: auto !important;
+        }
+
+        #myIKZTokenSlot {
+            top: auto !important;
+            bottom: 56px !important;
         }
 
         #chatToggleBtn {
@@ -1051,9 +1066,47 @@
         installForSlot('theirAlleySlot', 'theirAlleyWrapper');
     }
 
+    function setupIKZTokenIndicator() {
+        function readTokenValue(dataKey, zoneId) {
+            var raw = window[dataKey];
+            if(typeof raw === 'undefined' || raw === null || raw === '') {
+                var zone = document.getElementById(zoneId);
+                raw = zone ? (zone.textContent || '').trim() : '';
+            }
+            var text = String(raw).trim();
+            var parsed = parseInt(text, 10);
+            return Number.isFinite(parsed) ? parsed : 0;
+        }
+
+        function syncTokenSlot(slotId, dataKey, zoneId) {
+            var slot = document.getElementById(slotId);
+            if(!slot) return;
+            var hasToken = readTokenValue(dataKey, zoneId) > 0;
+            slot.classList.toggle('has-token', hasToken);
+            slot.style.display = hasToken ? 'inline-flex' : 'none';
+        }
+
+        function update() {
+            syncTokenSlot('myIKZTokenSlot', 'myIKZTokenData', 'myIKZToken');
+            syncTokenSlot('theirIKZTokenSlot', 'theirIKZTokenData', 'theirIKZToken');
+        }
+
+        function observeZone(zoneId) {
+            var zone = document.getElementById(zoneId);
+            if(!zone) return;
+            new MutationObserver(update).observe(zone, { childList: true, subtree: true, characterData: true });
+        }
+
+        observeZone('myIKZToken');
+        observeZone('theirIKZToken');
+        update();
+        window.setInterval(update, 250);
+    }
+
     installResponseWatcher();
     setupHandCollapse();
     setupLaneScrollButtons();
+    setupIKZTokenIndicator();
     window.UpdateAzukiResponseOpportunity();
 })();
 </script>

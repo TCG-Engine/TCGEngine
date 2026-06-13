@@ -56,10 +56,9 @@ for ($p = 1; $p <= 2; ++$p) {
 // Player 1 gets 1 IKZ (player 2 draws on their first turn)
 GainIKZ(1, 1);
 
-// Player 2 gets 1 IKZ + 1 one-use token
+// Player 2 gets 1 IKZ and a pending one-use token that unlocks on their first turn
 GainIKZ(2, 1);
-$player2Token = &GetIKZToken(2);
-$player2Token = 1;
+DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '1');
 
 // Advance to Main phase to start the game
 AdvanceAndExecute("PASS");

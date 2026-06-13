@@ -1425,7 +1425,7 @@ function CanPayIKZCost($player, $cost) {
     if($cost === 0) return true;
     
     $ikzArea = GetIKZArea($player);
-    $ikzToken = intval(GetIKZToken($player));
+    $ikzToken = GetAccessibleIKZTokenCount($player);
     
     // Count untapped IKZ in the area
     $availableIKZ = 0;
@@ -1452,6 +1452,23 @@ function CanPayIKZCost($player, $cost) {
     }
 
     return ($availableIKZ + $ikzToken) >= $cost;
+}
+
+function GetAccessibleIKZTokenCount($player) {
+    $token = intval(GetIKZToken($player));
+    if($token <= 0) return 0;
+    if(intval($player) !== 2) return $token;
+    return DecisionQueueController::GetVariable('P2_StartingIKZTokenPending') === '1' ? 0 : $token;
+}
+
+function GrantSecondPlayerStartingIKZTokenIfPending($player) {
+    if(intval($player) !== 2) return;
+    if(DecisionQueueController::GetVariable('P2_StartingIKZTokenPending') !== '1') return;
+    $ikzToken = &GetIKZToken($player);
+    if(intval($ikzToken) <= 0) {
+        $ikzToken = 1;
+    }
+    DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '0');
 }
 
 function PayIKZCost($player, $cost) {
@@ -1496,7 +1513,8 @@ function PayIKZCost($player, $cost) {
     // If still need to pay, use the token
     if($remaining > 0) {
         $token = intval($ikzToken);
-        $fromToken = min($token, $remaining);
+        $accessibleToken = GetAccessibleIKZTokenCount($player);
+        $fromToken = min($accessibleToken, $remaining);
         $ikzToken = max(0, $token - $fromToken);
         $remaining -= $fromToken;
     }
@@ -1514,7 +1532,7 @@ function CountAvailableIKZ($player) {
             }
         }
     }
-    return $count + intval(GetIKZToken($player));
+    return $count + GetAccessibleIKZTokenCount($player);
 }
 
 function FindReplaceableIndex($zone) {
@@ -2043,7 +2061,7 @@ function WakeAllCards($player) {
     }
 }
 
-function GainIKZ($player, $amount) {
+function GainIKZ($player, $amount, $status=2) {
     $ikzArea = &GetIKZArea($player);
     $ikzPile = &GetIKZPile($player);
     
@@ -2065,14 +2083,7 @@ function GainIKZ($player, $amount) {
     
     // Add IKZ to area (untapped, Status=2)
     for($i = 0; $i < $toAdd; ++$i) {
-        $ikz = new IKZArea("IKZ-001_IKZ!_IKZ_die 2");
-        $ikzArea[] = $ikz;
-    }
-    
-    // Overflow goes to pile (also untapped)
-    for($i = 0; $i < $toOverflow; ++$i) {
-        $ikz = new IKZPile("IKZ-001_IKZ!_IKZ_die 2");
-        $ikzPile[] = $ikz;
+        AddIKZArea($player, "IKZ-001_IKZ!_IKZ_die", $status);
     }
 }
 
@@ -2097,7 +2108,8 @@ function UntapAllIKZ($player) {
     }
 }
 
-function PromoteIKZFromPile($player) {
+function PromoteIKZFromPile($player, $statusOverride = null) {
+    $statusOverride = null;
     $ikzArea = &GetIKZArea($player);
     $ikzPile = &GetIKZPile($player);
     
@@ -2115,18 +2127,24 @@ function PromoteIKZFromPile($player) {
     // Move IKZ from pile to area up to the maximum of 10
     $canAdd = max(0, 10 - $currentCount);
     $moved = 0;
+    echo($canAdd . " IKZ can be promoted from pile to area.\n");
     
-    foreach($ikzPile as &$ikz) {
+    for($i = count($ikzPile) - 1; $i >= 0; --$i) {
+        echo("Checking IKZ pile index " . $i . " for promotion.\n");
+        echo("Current moved count: " . $moved . "\n");
         if($moved >= $canAdd) break;
+        $ikz = &$ikzPile[$i];
+        echo("IKZ pile index " . $i . " status: " . ($ikz->Status ?? 'N/A') . "\n");
         if(isset($ikz->removed) && $ikz->removed) continue;
-        
-        // Convert to IKZArea and add to area
-        $newIKZ = new IKZArea($ikz->Status . "");
-        $ikzArea[] = $newIKZ;
-        
-        // Mark as removed from pile
-        $ikz->removed = true;
+
+        $status = $statusOverride !== null ? intval($statusOverride) : intval($ikz->Status ?? 2);
+        if($status !== 1) $status = 2;
+
+        $movedIKZ = MZMove($player, 'myIKZPile-' . $i, 'myIKZArea');
+        if($movedIKZ === null) continue;
+        $movedIKZ->Status = $status;
         $moved++;
+        echo("Promoted an IKZ from pile to area with status " . $status . ".\n");
     }
 }
 
@@ -4032,27 +4050,27 @@ function OnStartOfTurn($player) {
     WakeAllCards($player);
     UntapAllIKZ($player);
 
+    // 2. Player 2's starting token unlocks at the beginning of their first turn.
+    GrantSecondPlayerStartingIKZTokenIfPending($player);
+
     // Clear any effects that were intentionally carried to the start of this turn.
     ExpireTurnEffects($player, false);
 
-    // Start-of-turn triggered abilities that may queue player choices.
+    // 3. Start-of-turn triggered abilities that may queue player choices.
     TriggerMinaStartTurnAbilities($player);
     TriggerSaekoStartTurnAbilities($player);
-
-    // 2. Promote IKZ from pile to area if there's room
-    PromoteIKZFromPile($player);
     
-    // 3. Gain 1 IKZ (up to a maximum of 10 in area)
+    // 4. Gain 1 IKZ (up to a maximum of 10 in area)
     GainIKZ($player, 1);
 
-    // 4. Draw 1 card (except player 1 on turn 1)
+    // 5. Draw 1 card (except player 1 on turn 1)
     $turnNumber = GetTurnNumber();
     if(!($player === 1 && $turnNumber === 1)) {
         // Resolve draw immediately so SOT can auto-advance into MAIN.
         DoDrawCard($player, 1);
     }
 
-    // 5. Resolve SOT effects.
+    // 6. Resolve SOT effects.
     $myGarden = &GetGarden($player);
     for($i = count($myGarden) - 1; $i >= 0; --$i) {
         if(isset($myGarden[$i]->removed) && $myGarden[$i]->removed) continue;
@@ -4268,10 +4286,7 @@ $customDQHandlers["S1-STT03-017_Sprout-of-Fortune_S_C_die:0:OnPlay-1"] = functio
             ++$areaCount;
         }
         if($areaCount < 10) {
-            $ikz = array_shift($ikzPile);
-            if($ikz !== null) {
-                $ikzArea[] = new IKZArea('1');
-            }
+            PromoteIKZFromPile($player);
         }
     }
     HealLeader(intval($player), 1);
