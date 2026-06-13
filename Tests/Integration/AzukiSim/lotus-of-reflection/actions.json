@@ -1,0 +1,42 @@
+[
+    {
+        "playerID": 2,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-12!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myTempZone-3",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirGarden-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "Bottom=S1-STT02-014_Chilling-Water_S_C_die,S1-STT02-016_Water-Orb_S_R_die,S1-STT02-004_Rei_E_C_die,S1-STT02-005_Hayabusa-Saburo_E_UC_die",
+        "chkInput": [],
+        "inputText": ""
+    }
+]

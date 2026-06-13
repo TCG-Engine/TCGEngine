@@ -1,0 +1,58 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myGarden-1!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirGarden-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-13!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGarden-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myAlley-0",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 2,
+        "mode": 10001,
+        "buttonInput": "",
+        "cardID": "myLeaderHealthSlot!CustomInput!Pass",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myHand-11",
+        "chkInput": [],
+        "inputText": ""
+    }
+]

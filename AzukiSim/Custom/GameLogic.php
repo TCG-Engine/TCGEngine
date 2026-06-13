@@ -322,6 +322,55 @@ function TryKiraSwapForPendingAttack($responderPlayer, $kiraMZ) {
     return true;
 }
 
+function SwapMyGardenAndAlleyEntities($player, $gardenMZ, $alleyMZ, $retargetMessage = 'Swapped entities.') {
+    $player = intval($player);
+    if(!is_string($gardenMZ) || !is_string($alleyMZ)) return false;
+
+    $gardenParts = explode('-', $gardenMZ);
+    $alleyParts = explode('-', $alleyMZ);
+    $gardenZone = $gardenParts[0] ?? '';
+    $alleyZone = $alleyParts[0] ?? '';
+    $gardenIndex = intval($gardenParts[1] ?? -1);
+    $alleyIndex = intval($alleyParts[1] ?? -1);
+    if($gardenZone !== 'myGarden' || $alleyZone !== 'myAlley') return false;
+    if($gardenIndex < 0 || $alleyIndex < 0) return false;
+
+    $garden = &GetGarden($player);
+    $alley = &GetAlley($player);
+    if($gardenIndex >= count($garden) || $alleyIndex >= count($alley)) return false;
+    if(isset($garden[$gardenIndex]->removed) && $garden[$gardenIndex]->removed) return false;
+    if(isset($alley[$alleyIndex]->removed) && $alley[$alleyIndex]->removed) return false;
+    if(CardType($garden[$gardenIndex]->CardID ?? '') !== 'ENTITY') return false;
+    if(CardType($alley[$alleyIndex]->CardID ?? '') !== 'ENTITY') return false;
+
+    $oldGardenObj = $garden[$gardenIndex];
+    $oldAlleyObj = $alley[$alleyIndex];
+    $garden[$gardenIndex] = $oldAlleyObj;
+    $alley[$alleyIndex] = $oldGardenObj;
+
+    $garden[$gardenIndex]->Location = 'Garden';
+    $garden[$gardenIndex]->mzIndex = $gardenIndex;
+    $garden[$gardenIndex]->BuildIndex();
+    $alley[$alleyIndex]->Location = 'Alley';
+    $alley[$alleyIndex]->mzIndex = $alleyIndex;
+    $alley[$alleyIndex]->BuildIndex();
+
+    if(HasPendingAttackResponse()) {
+        $pendingTargetMZ = DecisionQueueController::GetVariable('PendingAttackTargetMZ');
+        if(is_string($pendingTargetMZ) && $pendingTargetMZ !== '') {
+            $defenderTargetMZ = FlipZonePerspective($pendingTargetMZ);
+            if($defenderTargetMZ === $gardenMZ) {
+                DecisionQueueController::StoreVariable('PendingAttackTargetMZ', FlipZonePerspective('myGarden-' . $gardenIndex));
+                SetFlashMessage($retargetMessage);
+                return true;
+            }
+        }
+    }
+
+    SetFlashMessage('Swapped Garden and Alley entities.');
+    return true;
+}
+
 function OfferKiraSwapOnAttack($player) {
     if(!HasPendingAttackResponse()) return;
     if(intval($player) !== intval(GetPendingAttackResponderPlayer())) return;
@@ -1867,7 +1916,9 @@ function CanAttackOpponentAlleyUntapped($cardID, $obj = null) {
     }
 
     if(is_object($obj) && CardType($cardID) === 'LEADER') {
-        return in_array('S1-AZK01-043_Stormglass-Daggers_W_C_die', GetAttachedWeaponIDs($obj), true);
+        $weaponIDs = GetAttachedWeaponIDs($obj);
+        return in_array('S1-AZK01-043_Stormglass-Daggers_W_C_die', $weaponIDs, true)
+            || in_array('S1-AZK01-095_Stormglass-Katana_W_C_die', $weaponIDs, true);
     }
 
     return false;
@@ -2393,8 +2444,12 @@ function DoPlayCard($player, $mzCard, $ignoreCost = false) {
 
     $cardType = CardType($cardID);
     $cardCost = CardCost($cardID);
+    $ignoreTimingRestriction = strval(DecisionQueueController::GetVariable('IgnorePlayTimingRestriction') ?? '') === '1';
+    if($ignoreTimingRestriction) {
+        DecisionQueueController::StoreVariable('IgnorePlayTimingRestriction', '0');
+    }
 
-    if(!CanPlayCardByTiming($player, $cardID)) {
+    if(!$ignoreTimingRestriction && !CanPlayCardByTiming($player, $cardID)) {
         if(HasPendingAttackResponse()) {
             SetFlashMessage('Only [Response] cards can be played by the defending player during this response window.');
         } else {
@@ -2840,6 +2895,52 @@ $customDQHandlers['MIZURYUUS_TORRENT_APPLY'] = function($player, $parts, $lastDe
     }
     MZMove($player, 'theirGarden-' . $secondCurrentIndex, 'theirDeck');
     DecisionQueueController::CleanupRemovedCards();
+};
+
+$customDQHandlers['LOTUS_OF_REFLECTION_CHOOSE'] = function($player, $parts, $lastDecision) {
+    $chosenMZ = is_string($lastDecision) ? $lastDecision : '';
+    if($chosenMZ === '' || $chosenMZ === '-') {
+        QueueBottomDeckSearcherBottom($player);
+        return;
+    }
+
+    $chosenObj = GetZoneObject($chosenMZ);
+    if($chosenObj === null || (isset($chosenObj->removed) && $chosenObj->removed)) {
+        QueueBottomDeckSearcherBottom($player);
+        return;
+    }
+
+    DecisionQueueController::StoreVariable('LotusOfReflectionChosenMZ', $chosenMZ);
+    DecisionQueueController::AddDecision($player, 'MZMODAL', '1|1|Add_to_hand&Play_it', 1, 'Choose_what_to_do_with_the_revealed_card');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'LOTUS_OF_REFLECTION_MODE', 1);
+};
+
+$customDQHandlers['LOTUS_OF_REFLECTION_MODE'] = function($player, $parts, $lastDecision) {
+    $chosenMZ = strval(DecisionQueueController::GetVariable('LotusOfReflectionChosenMZ') ?? '');
+    if($chosenMZ === '') {
+        QueueBottomDeckSearcherBottom($player);
+        return;
+    }
+
+    $selectedIndex = intval(explode(',', strval($lastDecision))[0] ?? 0);
+    MZMove($player, $chosenMZ, 'myHand');
+    DecisionQueueController::CleanupRemovedCards();
+
+    if($selectedIndex === 0) {
+        QueueBottomDeckSearcherBottom($player);
+        return;
+    }
+
+    $hand = &GetHand($player);
+    if(empty($hand)) {
+        QueueBottomDeckSearcherBottom($player);
+        return;
+    }
+
+    $playedMZ = 'myHand-' . (count($hand) - 1);
+    DecisionQueueController::StoreVariable('IgnorePlayTimingRestriction', '1');
+    DoPlayCard($player, $playedMZ, true);
+    QueueBottomDeckSearcherBottom($player);
 };
 
 $customDQHandlers['KIRA_SWAP_PENDING_ATTACK'] = function($player, $parts, $lastDecision) {
