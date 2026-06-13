@@ -5,6 +5,10 @@ $customDQHandlers = [];
 $untilBeginTurnEffects = [];
 $untilBeginTurnEffects['STONEHAVEN_DEFENDER'] = true;
 $untilBeginTurnEffects['SHOCKED'] = true;
+$untilBeginTurnEffects['EFFECT_DAMAGE_IMMUNE'] = true;
+$untilBeginOpponentTurnEffects = [];
+$untilBeginOpponentTurnEffects['FROZEN'] = true;
+$untilBeginOpponentTurnEffects['ROOTED'] = true;
 
 // --- Helper Functions ---
 
@@ -661,6 +665,25 @@ function RemoveTurnEffect(&$obj, $effectID) {
             return $effect !== $effectID;
         }
     ));
+}
+
+function FilterZoneTurnEffects(&$zone, $keepUntilBeginTurnEffects, $keepUntilBeginOpponentTurnEffects) {
+    global $untilBeginTurnEffects, $untilBeginOpponentTurnEffects;
+    foreach($zone as &$obj) {
+        if($obj->removed || !isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) continue;
+        $newEffects = [];
+        foreach($obj->TurnEffects as $effect) {
+            if(isset($untilBeginTurnEffects[$effect])) {
+                if($keepUntilBeginTurnEffects) $newEffects[] = $effect;
+                continue;
+            }
+            if(isset($untilBeginOpponentTurnEffects[$effect])) {
+                if($keepUntilBeginOpponentTurnEffects) $newEffects[] = $effect;
+                continue;
+            }
+        }
+        $obj->TurnEffects = $newEffects;
+    }
 }
 
 function NormalizeDamageSourceKey($sourceKey) {
@@ -4247,40 +4270,30 @@ function OnEndOfTurn($player) {
 }
 
 function ExpireTurnEffects($player, $isEndTurn = true) {
-    global $untilBeginTurnEffects;
     $garden = &GetGarden($player);
     $alley = &GetAlley($player);
     $gate = &GetGate($player);
+    $opponent = intval($player) === 1 ? 2 : 1;
+    $theirGarden = &GetGarden($opponent);
+    $theirAlley = &GetAlley($opponent);
+    $theirGate = &GetGate($opponent);
 
-    foreach($garden as &$entity) {
-        if(!$entity->removed && isset($entity->TurnEffects)) {
-            $newEffects = [];
-            foreach($entity->TurnEffects as $effect) {
-                if($isEndTurn && isset($untilBeginTurnEffects[$effect])) $newEffects[] = $effect;
-            }
-            $entity->TurnEffects = $newEffects;
-        }
+    if($isEndTurn) {
+        FilterZoneTurnEffects($garden, true, true);
+        FilterZoneTurnEffects($alley, true, true);
+        FilterZoneTurnEffects($gate, true, true);
+        FilterZoneTurnEffects($theirGarden, true, true);
+        FilterZoneTurnEffects($theirAlley, true, true);
+        FilterZoneTurnEffects($theirGate, true, true);
+        return;
     }
 
-    foreach($alley as &$entity) {
-        if(!$entity->removed && isset($entity->TurnEffects)) {
-            $newEffects = [];
-            foreach($entity->TurnEffects as $effect) {
-                if($isEndTurn && isset($untilBeginTurnEffects[$effect])) $newEffects[] = $effect;
-            }
-            $entity->TurnEffects = $newEffects;
-        }
-    }
-
-    foreach($gate as &$g) {
-        if(!$g->removed && isset($g->TurnEffects)) {
-            $newEffects = [];
-            foreach($g->TurnEffects as $effect) {
-                if($isEndTurn && isset($untilBeginTurnEffects[$effect])) $newEffects[] = $effect;
-            }
-            $g->TurnEffects = $newEffects;
-        }
-    }
+    FilterZoneTurnEffects($garden, false, true);
+    FilterZoneTurnEffects($alley, false, true);
+    FilterZoneTurnEffects($gate, false, true);
+    FilterZoneTurnEffects($theirGarden, true, false);
+    FilterZoneTurnEffects($theirAlley, true, false);
+    FilterZoneTurnEffects($theirGate, true, false);
 }
 
 // --- DQ Handlers ---
