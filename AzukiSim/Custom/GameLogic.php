@@ -1761,6 +1761,18 @@ function QueueLeaderDamageAnimation($player, $amount) {
     QueueDamageAnimation(intval($player) === 1 ? 'P1BASE' : 'P2BASE', intval($amount), 500, true);
 }
 
+function QueueLeaderRestoreAnimation($player, $amount) {
+    if(intval($amount) <= 0) return;
+
+    $leaderIndex = FindLeaderIndexInGarden($player);
+    if($leaderIndex >= 0) {
+        QueueRestoreAnimation('p' . $player . 'Garden-' . $leaderIndex, intval($amount), 500, true);
+        return;
+    }
+
+    QueueRestoreAnimation(intval($player) === 1 ? 'P1BASE' : 'P2BASE', intval($amount), 500, true);
+}
+
 function DealDamageToLeader($player, $amount, $sourceKey = null) {
     $amount = max(0, intval($amount));
     if($amount <= 0) return;
@@ -1796,6 +1808,8 @@ function HealLeader($player, $amount) {
     $currentDamage = max(0, intval($leaderObj->Damage ?? 0));
     $newDamage = max(0, $currentDamage - $amount);
     $leaderObj->Damage = min($maxHealth, $newDamage);
+    $actualHealed = max(0, $currentDamage - $leaderObj->Damage);
+    QueueLeaderRestoreAnimation($player, $actualHealed);
 }
 
 function ClearPekiroPendingDamageVars() {
