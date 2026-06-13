@@ -3752,7 +3752,11 @@ function OnAfterAttacking($player, $mzID, $targetMZ) {
         return 'AFTER_ATTACKING';
     }
 
-    $obj = GetZoneObject($mzID);
+    // Combat can finish while the defending player is the current request perspective,
+    // so normalize the attacker mzID back to the attacking player's viewpoint before
+    // deciding which card's AfterAttacking abilities should fire.
+    $resolvedMZID = NormalizeMZForPlayerPerspective($player, $mzID);
+    $obj = GetZoneObject($resolvedMZID);
     if($obj === null || (isset($obj->removed) && $obj->removed)) {
         return 'AFTER_ATTACKING';
     }

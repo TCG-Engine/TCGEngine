@@ -1,0 +1,26 @@
+[
+    {
+        "playerID": 1,
+        "mode": 10002,
+        "buttonInput": "",
+        "cardID": "myHand-1!FSM!",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "myGarden-1",
+        "chkInput": [],
+        "inputText": ""
+    },
+    {
+        "playerID": 1,
+        "mode": 100,
+        "buttonInput": "",
+        "cardID": "theirGarden-1",
+        "chkInput": [],
+        "inputText": ""
+    }
+]
