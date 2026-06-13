@@ -1528,6 +1528,22 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     return "PLAY";
                 }
             }
+            // Sablemere, Warden's Grip (WAodKSuGuX): [Nico Bonus] pay (3) to activate from material deck
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                $opponent = $playerID == 1 ? 2 : 1;
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "WAodKSuGuX"
+                    && IsNicoBonusActive($playerID) && count(GetGraveyard($opponent)) >= 3
+                    && CountAvailableReservePayments($playerID) >= 3) {
+                    for($ri = 0; $ri < 3; ++$ri) {
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                    }
+                    DecisionQueueController::AddDecision($playerID, "CUSTOM", "SablemereWardensGripFromMaterial|" . $actionCard, 1);
+                    $dqController = new DecisionQueueController();
+                    $dqController->ExecuteStaticMethods($playerID, "-");
+                    return "PLAY";
+                }
+            }
             // Scepter of Awakening (2zh208013h): [Diao Chan Bonus] may activate from material deck with 4+ phantasias
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
@@ -5271,6 +5287,10 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         }
+        case "WAodKSuGuX": // Sablemere, Warden's Grip â€” banish self; reserve is handled by its ability flow
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "TL19V7lU6A": { // Sacramental Rite â€” store banished card ID, then banish self
             $riteObj = &GetZoneObject($mzCard);
             $sacBanishedID = (is_array($riteObj->Counters) && isset($riteObj->Counters['sacBanishedID']))
@@ -14818,6 +14838,14 @@ function MaterialSelectionMetadata($obj) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
+    // Sablemere, Warden's Grip (WAodKSuGuX): [Nico Bonus] pay (3) to activate from material deck
+    if ($obj->CardID === "WAodKSuGuX" && IsNicoBonusActive($turnPlayer)) {
+        $opponent = $turnPlayer == 1 ? 2 : 1;
+        if(count(GetGraveyard($opponent)) >= 3 && CountAvailableReservePayments($turnPlayer) >= 3) {
+            return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+        }
+    }
+
     // Scepter of Awakening (2zh208013h): [Diao Chan Bonus] may activate from material deck with 4+ phantasias
     if ($obj->CardID === "2zh208013h" && IsDiaoChanBonus($turnPlayer)
         && count(ZoneSearch("myField", ["PHANTASIA"])) >= 4) {
@@ -20246,6 +20274,18 @@ function IsCielBonusActive($player) {
     foreach($field as $obj) {
         if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
             return strpos(CardName($obj->CardID), "Ciel") === 0;
+        }
+    }
+    return false;
+}
+
+function IsNicoBonusActive($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    foreach($field as $obj) {
+        if(!$obj->removed && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+            return strpos(CardName($obj->CardID), "Nico") === 0;
         }
     }
     return false;

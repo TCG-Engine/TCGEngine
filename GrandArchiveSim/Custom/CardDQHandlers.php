@@ -6364,6 +6364,22 @@ $customDQHandlers["MantleAbyssSacrifice"] = function($player, $parts, $lastDecis
     if($mantleMZ === null) return;
     DoMaterialize($player, $mantleMZ);
 };
+$customDQHandlers["SablemereWardensGripFromMaterial"] = function($player, $parts, $lastDecision) {
+    $gripMZ = $parts[0] ?? "";
+    $gripObj = $gripMZ !== "" ? GetZoneObject($gripMZ) : null;
+    if($gripObj === null || $gripObj->removed || $gripObj->CardID !== "WAodKSuGuX") {
+        $material = GetMaterial($player);
+        $gripMZ = null;
+        for($i = 0; $i < count($material); ++$i) {
+            if(!$material[$i]->removed && $material[$i]->CardID === "WAodKSuGuX") {
+                $gripMZ = "myMaterial-" . $i;
+                break;
+            }
+        }
+    }
+    if($gripMZ === null || $gripMZ === "") return;
+    DoMaterialize($player, $gripMZ);
+};
 $customDQHandlers["TomeSacredLightningFromMaterial"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) return;
     $obj = GetZoneObject($lastDecision);
@@ -6626,6 +6642,23 @@ $customDQHandlers["PurifyingThuribleEffect"] = function($player, $parts, $lastDe
     }
     $opponent = ($player == 1) ? 2 : 1;
     PurifyingThuribleBanishLoop($player, $opponent, $x);
+};
+
+$customDQHandlers["SablemereWardensGripPay"] = function($player, $parts, $lastDecision) {
+    $x = max(0, intval($lastDecision));
+    for($i = 0; $i < 3 + $x; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SablemereWardensGripEffect|" . $x, 100);
+};
+
+$customDQHandlers["SablemereWardensGripEffect"] = function($player, $parts, $lastDecision) {
+    $x = max(0, intval($parts[0] ?? 0));
+    MZAddZone($player, "myMemory", "6fxxgmuesd");
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null && $x > 0) {
+        AddCounters($player, $champMZ, "lash", $x);
+    }
 };
 
 function PurifyingThuribleBanishLoop($activator, $opponent, $remaining) {
