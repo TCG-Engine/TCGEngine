@@ -697,6 +697,7 @@ $cbFastActivationCards = [
     "yky280mtts" => ["TAMER"], // Flamebreak Chorus
     "uPn9SZdqrr" => ["GUARDIAN"], // Gustguard Bastion
     "Rgg4dJYxnl" => ["CLERIC"], // Tend the Land
+    "ysj63dw50a" => ["CLERIC", "TAMER"], // Convalescing Mare
 ];
 
 // Cards with unconditional Fast Activation (no class bonus required)
