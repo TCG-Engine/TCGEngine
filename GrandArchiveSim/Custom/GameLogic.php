@@ -22261,7 +22261,7 @@ function SlimeCallingChooseSlime($player, $pickNumber) {
  *
  * @param int $player The acting player.
  */
-function SlimeCallingRearrange($player) {
+function QueueTempZoneBottomDeckRearrange($player) {
     $tempZone = GetZone("myTempZone");
     $remaining = [];
     for($i = 0; $i < count($tempZone); ++$i) {
@@ -22273,14 +22273,18 @@ function SlimeCallingRearrange($player) {
     $param = "Top=;Bottom=" . implode(",", $remaining);
     DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1,
         tooltip:"Put_remaining_cards_on_the_bottom_of_your_deck_in_any_order");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SlimeCallingRearrangeApply", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "TempZoneBottomDeckRearrangeApply", 1);
+}
+
+function SlimeCallingRearrange($player) {
+    QueueTempZoneBottomDeckRearrange($player);
 }
 
 /**
  * Process the MZREARRANGE result: remove remaining temp-zone objects and push all
  * cards (regardless of which pile the player put them in) to the bottom of the deck.
  */
-$customDQHandlers["SlimeCallingRearrangeApply"] = function($player, $parts, $lastDecision) {
+$customDQHandlers["TempZoneBottomDeckRearrangeApply"] = function($player, $parts, $lastDecision) {
     $deck = &GetDeck($player);
     $tempZone = &GetTempZone($player);
 

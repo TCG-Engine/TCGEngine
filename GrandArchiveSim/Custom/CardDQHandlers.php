@@ -7892,60 +7892,6 @@ $customDQHandlers["LungeOfEvokingWindsChoose"] = function($player, $parts, $last
 
 
 // ============================================================================
-// Gather Slimes (1dfhbt3yna): Reveal top 5, recover X (slime count),
-// put a Slime ally into hand, rest to bottom
-// ============================================================================
-function GatherSlimesStart($player) {
-    $deck = &GetDeck($player);
-    $n = min(5, count($deck));
-    if($n == 0) return;
-    // Move top N to TempZone
-    for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
-    }
-    // Count slime allies among revealed cards
-    $tempCards = ZoneSearch("myTempZone");
-    $slimeCount = 0;
-    $slimeAllyMZs = [];
-    foreach($tempCards as $tMZ) {
-        $tObj = GetZoneObject($tMZ);
-        if($tObj !== null && PropertyContains(CardSubtypes($tObj->CardID), "SLIME")
-            && PropertyContains(CardType($tObj->CardID), "ALLY")) {
-            $slimeCount++;
-            $slimeAllyMZs[] = $tMZ;
-        }
-    }
-    // Recover X
-    if($slimeCount > 0) RecoverChampion($player, $slimeCount);
-    // Pick a slime ally to put into hand (mandatory if any exist)
-    if(!empty($slimeAllyMZs)) {
-        if(count($slimeAllyMZs) === 1) {
-            MZMove($player, $slimeAllyMZs[0], "myHand");
-            GatherSlimesCleanup($player);
-        } else {
-            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $slimeAllyMZs), 1, tooltip:"Choose_Slime_ally_for_hand");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "GatherSlimesPick", 1);
-        }
-    } else {
-        GatherSlimesCleanup($player);
-    }
-}
-
-function GatherSlimesCleanup($player) {
-    $remaining = ZoneSearch("myTempZone");
-    foreach($remaining as $rmz) {
-        MZMove($player, $rmz, "myDeck");
-    }
-}
-
-$customDQHandlers["GatherSlimesPick"] = function($player, $parts, $lastDecision) {
-    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
-        MZMove($player, $lastDecision, "myHand");
-    }
-    GatherSlimesCleanup($player);
-};
-
-// ============================================================================
 // Evasive Maneuvers (1n3gygojwk): prevent next 2 damage, Ranger becomes distant
 // ============================================================================
 function EvasiveManeuversResolve($player, $targetMZ) {
