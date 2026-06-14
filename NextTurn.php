@@ -530,6 +530,13 @@
         return document.querySelector("[data-mzid='" + mzid + "']");
       }
 
+      function GetFrameAnimationTargetKey(animation, perspectivePlayerID) {
+        if (!animation) return "";
+        var target = animation.target || animation.mzID || "";
+        if (target === "P1BASE" || target === "P2BASE") return String(target);
+        return NormalizeAnimationTarget(target, perspectivePlayerID);
+      }
+
       function ApplySingleFrameAnimation(animation, perspectivePlayerID) {
         var element = ResolveAnimationTargetElement(animation, perspectivePlayerID);
         if (!element) return 0;
@@ -544,33 +551,49 @@
         var type = String(animation.type || "").toUpperCase();
         if (type === "DAMAGE") {
           var amount = animation.amount != null ? animation.amount : "";
-          element.innerHTML += "<div class='dmg-animation dmg-animation-a'><div class='dmg-animation-a-inner'></div></div>";
-          element.innerHTML += "<div class='dmg-animation-a-label'><div class='dmg-animation-a-label-inner'>-" + amount + "</div></div>";
+          var damageDelayStyle = delayMs > 0 ? " style='animation-delay:" + delayMs + "ms;opacity:0;'" : "";
+          var damageLabelDelayStyle = delayMs > 0 ? " style='animation-delay:" + delayMs + "ms;opacity:0;'" : "";
+          element.innerHTML += "<div class='dmg-animation dmg-animation-a'" + damageDelayStyle + "><div class='dmg-animation-a-inner'></div></div>";
+          element.innerHTML += "<div class='dmg-animation-a-label'><div class='dmg-animation-a-label-inner'" + damageLabelDelayStyle + ">-" + amount + "</div></div>";
           if (totalMs < 500) totalMs = 500;
         } else if (type === "PREVENTED_DAMAGE") {
-          element.innerHTML += "<div class='prevented-dmg-animation prevented-dmg-animation-a'><div class='prevented-dmg-animation-a-inner'></div></div>";
-          element.innerHTML += "<div class='prevented-dmg-animation-a-label'><div class='prevented-dmg-animation-a-label-inner'>-0</div></div>";
+          var preventedDelayStyle = delayMs > 0 ? " style='animation-delay:" + delayMs + "ms;opacity:0;'" : "";
+          var preventedLabelDelayStyle = delayMs > 0 ? " style='animation-delay:" + delayMs + "ms;opacity:0;'" : "";
+          element.innerHTML += "<div class='prevented-dmg-animation prevented-dmg-animation-a'" + preventedDelayStyle + "><div class='prevented-dmg-animation-a-inner'></div></div>";
+          element.innerHTML += "<div class='prevented-dmg-animation-a-label'><div class='prevented-dmg-animation-a-label-inner'" + preventedLabelDelayStyle + ">-0</div></div>";
           if (totalMs < 500) totalMs = 500;
         } else if (type === "RESTORE") {
           var restoreAmount = animation.amount != null ? animation.amount : "";
-          element.innerHTML += "<div class='restore-animation restore-animation-a'><div class='restore-animation-a-inner'></div></div>";
-          element.innerHTML += "<div class='restore-animation-a-label'><div class='restore-animation-a-label-inner'>+" + restoreAmount + "</div></div>";
+          var restoreDelayStyle = delayMs > 0 ? " style='animation-delay:" + delayMs + "ms;opacity:0;'" : "";
+          var restoreLabelDelayStyle = delayMs > 0 ? " style='animation-delay:" + delayMs + "ms;opacity:0;'" : "";
+          element.innerHTML += "<div class='restore-animation restore-animation-a'" + restoreDelayStyle + "><div class='restore-animation-a-inner'></div></div>";
+          element.innerHTML += "<div class='restore-animation-a-label'><div class='restore-animation-a-label-inner'" + restoreLabelDelayStyle + ">+" + restoreAmount + "</div></div>";
           if (totalMs < 500) totalMs = 500;
         } else if (type === "EXHAUST") {
           var exhaustAnimation = [
             { transform: "rotate(0deg) scale(1)" },
             { transform: "rotate(5deg) scale(1)" },
           ];
-          var exhaustTiming = { duration: 60, iterations: 1 };
+          var exhaustTiming = { duration: 60, delay: delayMs, iterations: 1 };
           element.animate(exhaustAnimation, exhaustTiming);
-          element.innerHTML += "<div style='position:absolute; text-align:center; font-size:36px; top: 0px; left:-2px; width:100%; height: calc(100% - 16px); padding: 0 2px; border-radius:12px; background-color:rgba(0,0,0,0.5);'><div style='width:100%; height:100%:'></div></div>";
-          element.className += " exhausted";
+          var exhaustOverlayStyle = "position:absolute; text-align:center; font-size:36px; top: 0px; left:-2px; width:100%; height: calc(100% - 16px); padding: 0 2px; border-radius:12px; background-color:rgba(0,0,0,0.5);";
+          if (delayMs > 0) exhaustOverlayStyle += " animation: damageFlash 60ms ease-out " + delayMs + "ms 1 forwards; opacity:0;";
+          element.innerHTML += "<div style='" + exhaustOverlayStyle + "'><div style='width:100%; height:100%:'></div></div>";
+          if (delayMs > 0) {
+            window.setTimeout(function() { element.className += " exhausted"; }, delayMs);
+          } else {
+            element.className += " exhausted";
+          }
           if (totalMs < 60) totalMs = 60;
         } else {
           var animationName = animation.name || (animation.params && animation.params.animationName) || "";
           var cssClass = animation.className || (animation.params && animation.params.className) || "";
           if (cssClass) {
-            element.classList.add(cssClass);
+            if (delayMs > 0) {
+              window.setTimeout(function() { element.classList.add(cssClass); }, delayMs);
+            } else {
+              element.classList.add(cssClass);
+            }
             if (totalMs > 0) {
               window.setTimeout(function() { element.classList.remove(cssClass); }, totalMs);
             }
@@ -593,9 +616,22 @@
         if (!popup) popup = document.getElementById("MAYCHOOSEMULTIZONE");
         if (popup) popup.style.display = "none";
 
+        var perTargetQueuedDelayMs = {};
+        var sameTargetStaggerMs = 180;
         var blockingDelayMs = 0;
         for (var i = 0; i < animations.length; ++i) {
           var animation = animations[i];
+          if (animation && typeof animation === "object") {
+            animation = Object.assign({}, animation);
+            var targetKey = GetFrameAnimationTargetKey(animation, perspectivePlayerID);
+            if (targetKey) {
+              var existingDelayMs = parseInt(animation.delayMs || 0, 10);
+              if (Number.isNaN(existingDelayMs) || existingDelayMs < 0) existingDelayMs = 0;
+              var staggerDelayMs = perTargetQueuedDelayMs[targetKey] || 0;
+              animation.delayMs = existingDelayMs + staggerDelayMs;
+              perTargetQueuedDelayMs[targetKey] = staggerDelayMs + sameTargetStaggerMs;
+            }
+          }
           var thisDuration = ApplySingleFrameAnimation(animation, perspectivePlayerID);
           var isBlocking = animation && animation.blocking !== false;
           if (isBlocking && thisDuration > blockingDelayMs) blockingDelayMs = thisDuration;
