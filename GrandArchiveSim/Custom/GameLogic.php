@@ -8556,7 +8556,7 @@ function RecollectionPhase() {
             $opponent = ($turnPlayer == 1) ? 2 : 1;
             $oppChampions = ZoneSearch("theirField", ["CHAMPION"]);
             foreach($oppChampions as $champMZ) {
-                DealChampionDamage($opponent, 10);
+                DealDamage($turnPlayer, "", $champMZ, 10);
             }
         }
     }
@@ -15873,7 +15873,7 @@ $doesGlobalEffectApply["ysj63dw50a"] = function($obj) {
 
 // Planar Abyss (qexcwmx2ug): flag only â€” delayed destroy-all at next recollection
 $doesGlobalEffectApply["PLANAR_ABYSS_PENDING"] = function($obj) { return false; };
-$untilBeginTurnEffects["PLANAR_ABYSS_PENDING"] = true;
+$foreverEffects["PLANAR_ABYSS_PENDING"] = true;
 
 // Fiery Interference (gt2zqtgs42): flag only â€” controller can't recover until end of turn
 $doesGlobalEffectApply["CANT_RECOVER"] = function($obj) { return false; };
