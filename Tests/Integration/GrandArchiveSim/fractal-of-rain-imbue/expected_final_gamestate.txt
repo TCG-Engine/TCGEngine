@@ -129,7 +129,7 @@ tafqldAGRF 2 1 0 1 - - - -1
 px60u5n1do 2 1 0 1 - - - -1
 2
 tafqldAGRF 2 2 0 2 - - - -1
-3zb9p4lgdl 2 2 0 2 ENTERED_THIS_TURN~IMBUED - - 1
+3zb9p4lgdl 2 2 0 2 IMBUED~ENTERED_THIS_TURN - - 1
 0
 0
 4

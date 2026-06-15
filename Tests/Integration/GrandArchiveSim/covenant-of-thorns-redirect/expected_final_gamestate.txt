@@ -179,7 +179,7 @@ sphwpjsznn
 MAIN
 
 
-{"mzID":"theirField-0","amount":11,"ignoreCost":false,"mzIDCardID":"pn9gQjV3Rb","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"6","source":"pn9gQjV3Rb","target":"theirField-0","revealedMZ":"myHand-3","chosen":"myHand-3","questChoice":"YES","selected":"myHand-0&myMemory-0","abilityIndex":0,"choice":"1","linkTargetMZ":"","linkTargetCardID":"0xayo7mk1w"}
+{"mzID":"theirField-0","amount":11,"ignoreCost":false,"mzIDCardID":"pn9gQjV3Rb","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"6","source":"pn9gQjV3Rb","target":"theirField-0","revealedMZ":"myHand-3","chosen":"myHand-3","questChoice":"YES","selected":"myHand-0&myMemory-0","abilityIndex":0,"choice":"1","linkTargetMZ":"","linkTargetCardID":"0xayo7mk1w","resolvedActivationEmpowerAmount":"3","resolvedActivationWasEmpowered":"YES"}
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"1XegCUjBnY":1}},"EnterCalls":{"1":1},"Enter":{"1":{"1XegCUjBnY":1}},"DrawCalls":{"1":1,"2":1},"Draw":{"1":1,"2":1},"RestCardCalls":{"1":1},"RestCard":{"1":{"tf5f2n38g0":1}},"OnAttackCalls":{"1":1},"OnAttack":{"1":{"tf5f2n38g0":1}},"DealDamageCalls":{"1":3},"AllyDestroyedCalls":{"1":2},"AllyDestroyed":{"1":{"62lVDTOToR":1,"0xayo7mk1w":1}},"RevealCalls":{"2":1},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"pn9gQjV3Rb":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"pn9gQjV3Rb":1}},"AdvancedElementActivated":{"1":1}}
 2

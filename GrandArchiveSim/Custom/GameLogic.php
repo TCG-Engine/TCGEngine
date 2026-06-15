@@ -4321,6 +4321,32 @@ function OnCardActivated($player, $mzCard) {
     $obj = GetZoneObject($mzCard);
     $cardType = CardType($obj->CardID);
     $turnPlayer = GetTurnPlayer();
+    ClearResolvedActivationStateVars();
+    $resolvedActivationEmpowerAmount = 0;
+    $resolvedActivationWasEmpowered = "NO";
+    $resolvedActivationChargeCount = 0;
+    if(is_string($mzCard) && strpos($mzCard, "EffectStack-") === 0) {
+        $stackObj = GetZoneObject($mzCard);
+        if($stackObj !== null && !$stackObj->removed) {
+            $resolvedActivationChargeCount = GetCounterCount($stackObj, "charge");
+            foreach($stackObj->TurnEffects ?? [] as $effectID) {
+                if(strpos($effectID, "EMPOWER_PLUS_") !== 0) continue;
+                $resolvedActivationEmpowerAmount += intval(substr($effectID, strlen("EMPOWER_PLUS_")));
+            }
+            if($resolvedActivationEmpowerAmount > 0 || in_array("EMPOWERED", $stackObj->TurnEffects ?? [])) {
+                $resolvedActivationWasEmpowered = "YES";
+            }
+        }
+    }
+    if($resolvedActivationEmpowerAmount > 0) {
+        DecisionQueueController::StoreVariable("resolvedActivationEmpowerAmount", strval($resolvedActivationEmpowerAmount));
+    }
+    if($resolvedActivationWasEmpowered === "YES") {
+        DecisionQueueController::StoreVariable("resolvedActivationWasEmpowered", "YES");
+    }
+    if($resolvedActivationChargeCount > 0) {
+        DecisionQueueController::StoreVariable("resolvedActivationChargeCount", strval($resolvedActivationChargeCount));
+    }
     if(PropertyContains($cardType, "ALLY")) {
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
@@ -12621,26 +12647,43 @@ $customDQHandlers["BlackIceSpellweaverDebuff"] = function($player, $parts, $last
 };
 
 function FlourishingQiResolve($player) {
+    $sourceMZ = DecisionQueueController::GetVariable("mzID");
+    if(!is_string($sourceMZ) || strpos($sourceMZ, "EffectStack-") !== 0) {
+        $sourceMZ = "EffectStack-0";
+        $effectStack = GetZone("EffectStack");
+        for($i = count($effectStack) - 1; $i >= 0; --$i) {
+            if(!$effectStack[$i]->removed && $effectStack[$i]->CardID === "MDu0e3tib8" && $effectStack[$i]->Controller == $player) {
+                $sourceMZ = "EffectStack-" . $i;
+                break;
+            }
+        }
+    }
     $targets = array_merge(ZoneSearch("myField", ["ALLY", "CHAMPION"]), ZoneSearch("theirField", ["ALLY", "CHAMPION"]));
     $targets = FilterSpellshroudTargets($targets);
     if(empty($targets)) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1, tooltip:"Choose_unit_for_Flourishing_Qi");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "FlourishingQiDamage", 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FlourishingQiDamage|" . $sourceMZ, 1);
 }
 
 $customDQHandlers["FlourishingQiDamage"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
-    $damage = PlayerLevel($player);
-    $sourceMZ = "EffectStack-0";
-    $es = GetZone("EffectStack");
-    for($i = count($es) - 1; $i >= 0; --$i) {
-        if(!$es[$i]->removed && $es[$i]->CardID === "MDu0e3tib8" && $es[$i]->Controller == $player) {
-            $damage += GetCounterCount($es[$i], "charge");
-            $sourceMZ = "EffectStack-" . $i;
-            break;
-        }
-    }
+    $sourceMZ = $parts[0] ?? "EffectStack-0";
+    $damage = PlayerLevel($player) + PendingEmpowerAmount($player, $sourceMZ);
+    $sourceObj = GetZoneObject($sourceMZ);
+    if($sourceObj !== null && !$sourceObj->removed) $damage += GetCounterCount($sourceObj, "charge");
+    else $damage += intval(DecisionQueueController::GetVariable("resolvedActivationChargeCount") ?? 0);
     DealDamage($player, $sourceMZ, $lastDecision, $damage);
+};
+
+function ClearResolvedActivationStateVars() {
+    DecisionQueueController::ClearVariable("resolvedActivationEmpowerAmount");
+    DecisionQueueController::ClearVariable("resolvedActivationWasEmpowered");
+    DecisionQueueController::ClearVariable("resolvedActivationChargeCount");
+}
+
+global $systemDQHandlers;
+$systemDQHandlers["CardActivated_AfterAction"] = function($player, $param, $lastResult) {
+    ClearResolvedActivationStateVars();
 };
 
 function HeirloomOfLibraChoose($player) {
@@ -16361,6 +16404,7 @@ function IsEmpowered($player) {
             }
         }
     }
+    if(DecisionQueueController::GetVariable("resolvedActivationWasEmpowered") === "YES") return true;
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zone);
@@ -16372,8 +16416,8 @@ function IsEmpowered($player) {
     return false;
 }
 
-function PendingEmpowerAmount($player) {
-    $contextMZ = DecisionQueueController::GetVariable("mzID");
+function PendingEmpowerAmount($player, $contextMZ = null) {
+    if($contextMZ === null) $contextMZ = DecisionQueueController::GetVariable("mzID");
     if(is_string($contextMZ) && strpos($contextMZ, "EffectStack-") === 0) {
         $stackObj = GetZoneObject($contextMZ);
         if($stackObj !== null && !$stackObj->removed) {
@@ -16385,6 +16429,8 @@ function PendingEmpowerAmount($player) {
             if($pendingFromStack > 0) return $pendingFromStack;
         }
     }
+    $resolvedActivationEmpowerAmount = intval(DecisionQueueController::GetVariable("resolvedActivationEmpowerAmount") ?? 0);
+    if($resolvedActivationEmpowerAmount > 0) return $resolvedActivationEmpowerAmount;
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zone);

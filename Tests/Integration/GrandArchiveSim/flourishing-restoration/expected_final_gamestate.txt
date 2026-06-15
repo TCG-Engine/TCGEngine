@@ -192,7 +192,7 @@ j68m69iq4d
 MAIN
 
 
-{"mzID":"EffectStack-0","amount":1,"ignoreCost":false,"mzIDCardID":"alnjt7DyZL","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","doRest":"YES","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","CombatDamageAmount":"1","source":"myField-2","target":"theirField-1","selected":"theirField-0&theirField-2","yes":"YES","chosenBud":"theirField-0","choice":"3","abilityIndex":0,"pendingNegateTarget":"EffectStack-0","pendingNegateDestination":"default","pendingNegatePayAmount":"3"}
+{"mzID":"EffectStack-0","amount":1,"ignoreCost":false,"mzIDCardID":"alnjt7DyZL","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","doRest":"YES","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","CombatDamageAmount":"1","source":"myField-2","target":"theirField-1","selected":"theirField-0&theirField-2","yes":"YES","chosenBud":"theirField-0","choice":"3","abilityIndex":0,"pendingNegateTarget":"EffectStack-0","pendingNegateDestination":"default","pendingNegatePayAmount":"3","resolvedActivationEmpowerAmount":"6","resolvedActivationWasEmpowered":"YES"}
 0
 {"DrawCalls":{"1":1},"Draw":{"1":1},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"alnjt7DyZL":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"alnjt7DyZL":1}},"AdvancedElementActivated":{"1":1}}
 0

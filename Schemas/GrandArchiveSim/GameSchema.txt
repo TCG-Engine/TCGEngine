@@ -199,7 +199,7 @@ FlashMessage - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 DecisionQueueVariables - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
-EffectStack - CardID:string, Controller:number, TriggerType:string, TriggerSourceUniqueID:number, TriggerCopiedCardID:string
+EffectStack - CardID:string, Controller:number, TriggerType:string, TriggerSourceUniqueID:number, TriggerCopiedCardID:string, TurnEffects:array[string], Counters:json
 BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Public, Mode=All, Scope=Global, BindTo=EffectStackSlot
 Sort: Reverse=true
