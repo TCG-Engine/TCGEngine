@@ -631,9 +631,10 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
         window.ApplyWakeEnterAnimations = ApplyWakeEnterAnimations;
       }
 
-      function ApplyReliquaryDrawAnimations() {
+      function ApplyCardOverlayEnterAnimations(config) {
         try {
-          var enteringCards = document.querySelectorAll('.reliquary-draw-card-enter');
+          if (!config || !config.enterClass) return;
+          var enteringCards = document.querySelectorAll('.' + config.enterClass);
           if (!enteringCards || enteringCards.length === 0) return;
 
           requestAnimationFrame(function() {
@@ -644,43 +645,73 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
               }
 
               var fx = document.createElement('div');
-              fx.className = 'reliquary-draw-overlay';
+              fx.className = config.overlayClass || '';
               fx.style.position = 'absolute';
               fx.style.inset = '0';
               fx.style.borderRadius = '10px';
               fx.style.pointerEvents = 'none';
               fx.style.zIndex = '1200';
               fx.style.opacity = '0';
-              fx.style.backgroundImage = "url('./Assets/Overlays/draw-card.webp')";
+              fx.style.backgroundImage = "url('" + config.imageUrl + "')";
               fx.style.backgroundSize = 'cover';
               fx.style.backgroundPosition = 'center';
               fx.style.backgroundRepeat = 'no-repeat';
               cardEl.appendChild(fx);
 
               fx.animate(
-                [
-                  { opacity: 0, transform: 'scale(0.92)', offset: 0 },
-                  { opacity: 1, transform: 'scale(1.02)', offset: 0.50 },
-                  { opacity: 1, transform: 'scale(1.08)', offset: 0.92 },
-                  { opacity: 0, transform: 'scale(1.08)', offset: 1 }
-                ],
+                config.keyframes,
                 {
-                  duration: 1290,
-                  easing: 'ease-out',
+                  duration: config.durationMs,
+                  easing: config.easing || 'ease-out',
                   fill: 'forwards'
                 }
               );
 
-              cardEl.classList.remove('reliquary-draw-card-enter');
+              cardEl.classList.remove(config.enterClass);
               setTimeout(function() {
                 if (fx && fx.parentNode) fx.parentNode.removeChild(fx);
-              }, 1390);
+              }, config.cleanupDelayMs || (config.durationMs + 100));
             });
           });
         } catch (e) {}
       }
+
+      function ApplyReliquaryDrawAnimations() {
+        ApplyCardOverlayEnterAnimations({
+          enterClass: 'reliquary-draw-card-enter',
+          overlayClass: 'reliquary-draw-overlay',
+          imageUrl: './Assets/Overlays/draw-card.webp',
+          keyframes: [
+            { opacity: 0, transform: 'scale(0.92)', offset: 0 },
+            { opacity: 1, transform: 'scale(1.02)', offset: 0.50 },
+            { opacity: 1, transform: 'scale(1.08)', offset: 0.92 },
+            { opacity: 0, transform: 'scale(1.08)', offset: 1 }
+          ],
+          durationMs: 1290,
+          cleanupDelayMs: 1390
+        });
+      }
       if (typeof window !== 'undefined') {
         window.ApplyReliquaryDrawAnimations = ApplyReliquaryDrawAnimations;
+      }
+
+      function ApplyVerdurePreserveAnimations() {
+        ApplyCardOverlayEnterAnimations({
+          enterClass: 'verdure-preserve-card-enter',
+          overlayClass: 'verdure-preserve-overlay',
+          imageUrl: './Assets/Overlays/verdure.webp',
+          keyframes: [
+            { opacity: 0, transform: 'scale(0.94)', offset: 0 },
+            { opacity: 1, transform: 'scale(1.00)', offset: 0.35 },
+            { opacity: 1, transform: 'scale(1.06)', offset: 0.88 },
+            { opacity: 0, transform: 'scale(1.06)', offset: 1 }
+          ],
+          durationMs: 1240,
+          cleanupDelayMs: 1340
+        });
+      }
+      if (typeof window !== 'undefined') {
+        window.ApplyVerdurePreserveAnimations = ApplyVerdurePreserveAnimations;
       }
 
       function GetHighlightMetadataForCard(zoneName, cardData) {
@@ -1169,6 +1200,7 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
         var shouldAnimateExhaustedTransition = false;
         var shouldAnimateWakeTransition = false;
         var shouldAnimateReliquaryDraw = false;
+        var shouldAnimateVerdurePreserve = false;
         var shouldAnimateShiftingCurrentsDirectionChange = false;
         try {
           if (typeof window !== "undefined") {
@@ -1176,6 +1208,8 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
             if (!window.__nextCardStatusByMzid) window.__nextCardStatusByMzid = {};
             if (!window.__prevReliquaryDrawByMzid) window.__prevReliquaryDrawByMzid = {};
             if (!window.__nextReliquaryDrawByMzid) window.__nextReliquaryDrawByMzid = {};
+            if (!window.__prevVerdurePreserveByMzid) window.__prevVerdurePreserveByMzid = {};
+            if (!window.__nextVerdurePreserveByMzid) window.__nextVerdurePreserveByMzid = {};
             if (!window.__shiftingCurrentsDirectionByMzid) window.__shiftingCurrentsDirectionByMzid = {};
             if (typeof window.__cardStatusHistoryReady === "undefined") window.__cardStatusHistoryReady = false;
 
@@ -1207,6 +1241,17 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
               hasReliquaryDrawTag &&
               !hadReliquaryDrawTag;
 
+            var hasVerdurePreserveTag =
+              sharedCardData.CardID === "wCAIuvPOAT" &&
+              zoneName === "Field" &&
+              turnEffects.indexOf("PRESERVE_ANIMATION") !== -1;
+            var hadVerdurePreserveTag = !!window.__prevVerdurePreserveByMzid[id];
+            window.__nextVerdurePreserveByMzid[id] = hasVerdurePreserveTag;
+            shouldAnimateVerdurePreserve =
+              window.__cardStatusHistoryReady === true &&
+              hasVerdurePreserveTag &&
+              !hadVerdurePreserveTag;
+
             var isShiftingCurrents = sharedCardData.CardID === "qh5mpkyl60";
             var currentDirection = isShiftingCurrents ? String(sharedCardData.Direction || "NONE").toUpperCase() : "NONE";
             var previousDirection = window.__shiftingCurrentsDirectionByMzid[id];
@@ -1231,6 +1276,9 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
         }
         if (shouldAnimateReliquaryDraw) {
           className += (className ? " " : "") + " reliquary-draw-card-enter";
+        }
+        if (shouldAnimateVerdurePreserve) {
+          className += (className ? " " : "") + " verdure-preserve-card-enter";
         }
 
         // Determine rotation from RotationRules

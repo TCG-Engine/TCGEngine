@@ -6655,7 +6655,6 @@ function WakeUpPhase() {
     if($currentTurn === 1) return;
 
     // Wake Up phase â€” ready all cards on the turn player's field
-    SetFlashMessage("Wake Up Phase");
     $turnPlayer = &GetTurnPlayer();
     $otherPlayer = ($turnPlayer == 1) ? 2 : 1;
     $field = GetField($turnPlayer);
@@ -8282,7 +8281,6 @@ function RecollectionPhase() {
     if($currentTurn === 1) return;
 
     // Recollection phase
-    SetFlashMessage("Recollection Phase");
     $turnPlayer = &GetTurnPlayer();
     global $playerID;
     // Defensive reset in case a prior opportunity/stack branch changed perspective.
@@ -8767,7 +8765,6 @@ function DrawPhase() {
 }
 
 function MainPhase() {
-    SetFlashMessage("Main Phase");
     // --- Wither Upkeep ---
     // At the beginning of a player's main phase, if they control objects with wither counters,
     // for each such object, they sacrifice it unless they pay (1) per wither counter, then remove wither counters.
@@ -17579,9 +17576,11 @@ function ChangeShiftingCurrents($player, $newDirection) {
     ];
     if(IsKongmingBonus($player) && (($clockwise[$oldDirection] ?? null) === $newDirection)) {
         $field = &GetField($player);
-        foreach($field as $fObj) {
+        for($i = 0; $i < count($field); ++$i) {
+            $fObj = $field[$i];
             if(!$fObj->removed && $fObj->CardID === "wCAIuvPOAT" && !HasNoAbilities($fObj)) {
                 PutTopDeckCardIntoMaterialPreserved($player);
+                AddTurnEffect("myField-" . $i, "PRESERVE_ANIMATION");
                 break;
             }
         }

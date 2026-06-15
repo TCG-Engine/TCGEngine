@@ -699,6 +699,7 @@
         if (typeof window !== 'undefined') {
           window.__nextCardStatusByMzid = {};
           window.__nextReliquaryDrawByMzid = {};
+          window.__nextVerdurePreserveByMzid = {};
         }
         var newHTML = "";
         var playerID = <?php echo($viewerPerspective); ?>;
@@ -708,6 +709,7 @@
         if (typeof window !== 'undefined') {
           window.__prevCardStatusByMzid = window.__nextCardStatusByMzid || {};
           window.__prevReliquaryDrawByMzid = window.__nextReliquaryDrawByMzid || {};
+          window.__prevVerdurePreserveByMzid = window.__nextVerdurePreserveByMzid || {};
           window.__cardStatusHistoryReady = true;
         }
         if (typeof window !== 'undefined' && typeof window.ApplyExhaustedEnterAnimations === 'function') {
@@ -718,6 +720,9 @@
         }
         if (typeof window !== 'undefined' && typeof window.ApplyReliquaryDrawAnimations === 'function') {
           window.ApplyReliquaryDrawAnimations();
+        }
+        if (typeof window !== 'undefined' && typeof window.ApplyVerdurePreserveAnimations === 'function') {
+          window.ApplyVerdurePreserveAnimations();
         }
         UpdateTurnPlayerMiasma();
         // Game-over detection: check for GAMEOVER_WINNER set by server-side TriggerGameOver()

@@ -7,10 +7,7 @@
 function MaterializePhase() {
     $currentTurn = intval(GetTurnNumber());
     if($currentTurn === 1) return;
-
-    // Materialize phase
-    SetFlashMessage("Materialize Phase");
-
+    
     // Orchestrated Seizure (pwscn0esog): prepare one-turn materialize floating access window.
     while(GlobalEffectCount(GetTurnPlayer(), "pwscn0esog_ACTIVE") > 0) {
         RemoveGlobalEffect(GetTurnPlayer(), "pwscn0esog_ACTIVE");
