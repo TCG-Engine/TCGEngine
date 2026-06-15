@@ -5314,6 +5314,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         }
         case "WAodKSuGuX": // Sablemere, Warden's Grip â€” banish self; reserve is handled by its ability flow
+        case "by8145w2u2": // Imperial Seal â€” banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             break;
@@ -15918,6 +15919,11 @@ $foreverEffects["x9z2k2a5ig"] = true;
 // Legendary Saddle (AXE6sCzjZU): permanent flag â€” ignore element req for non-advanced Horse cards
 $doesGlobalEffectApply["AXE6sCzjZU_IGNORE_HORSE_ELEMENT"] = function($obj) { return false; };
 $foreverEffects["AXE6sCzjZU_IGNORE_HORSE_ELEMENT"] = true;
+
+// Imperial Seal (by8145w2u2): flag-only basic element enablement
+$doesGlobalEffectApply["by8145w2u2_FIRE"] = function($obj) { return false; };
+$doesGlobalEffectApply["by8145w2u2_WATER"] = function($obj) { return false; };
+$doesGlobalEffectApply["by8145w2u2_WIND"] = function($obj) { return false; };
 
 function GlobalEffectCount($player, $effectID) {
     $zoneArr = &GetGlobalEffects($player);
