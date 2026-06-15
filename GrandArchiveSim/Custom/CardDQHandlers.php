@@ -4184,18 +4184,10 @@ $customDQHandlers["ModulatingCadenceReveal"] = function($player, $parts, $lastDe
         Reveal($player, revealedMZ: $lastDecision);
         MZMove($player, $lastDecision, "myHand");
     }
-    // Put remaining TempZone cards on bottom of deck
-    $remaining = ZoneSearch("myTempZone");
-    foreach($remaining as $rmz) {
-        MZMove($player, $rmz, "myDeck");
-    }
+    QueueTempZoneBottomDeckRearrange($player);
 };
 $customDQHandlers["ModulatingCadenceBottom"] = function($player, $parts, $lastDecision) {
-    // Put all TempZone cards on bottom of deck
-    $remaining = ZoneSearch("myTempZone");
-    foreach($remaining as $rmz) {
-        MZMove($player, $rmz, "myDeck");
-    }
+    QueueTempZoneBottomDeckRearrange($player);
 };
 
 // ============================================================================
