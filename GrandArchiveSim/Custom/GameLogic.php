@@ -15645,54 +15645,6 @@ $doesGlobalEffectApply["9g44vm5kt3"] = function($obj) { // Empowering Tincture s
     return PropertyContains(EffectiveCardType($obj), "CHAMPION");
 };
 
-$doesGlobalEffectApply["a01pyxwo25"] = function($obj) { // Kongming L2 Empower 3: champion +3 level until end of turn
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["pmx99jrukm"] = function($obj) { // Ruinous Pillars Empower 2: champion +2 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["9f0nsj62l6"] = function($obj) { // Apprentice Aeromancer Empower 2: champion +2 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["zeig1e49wb"] = function($obj) { // Solar Pinnacle Empower 2: champion +2 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["n06isycm60"] = function($obj) { // Pupil of Sacred Flames Empower 2: champion +2 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["szeb8zzj86"] = function($obj) { // Fractal of Mana Empower 1: champion +1 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["sq0ou8vas3"] = function($obj) { // Tome of Sorcery Empower 1: champion +1 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["to1pmvo54d"] = function($obj) { // Mnemonic Charm Empower 2: champion +2 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["qb6zhphtw6"] = function($obj) { // Rainweaver Mage Empower 4: champion +4 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["zmoegdo111"] = function($obj) { // Sempiternal Sage Empower 3: champion +3 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["xllhbjr20n"] = function($obj) { // Lu Xun, Pyre Strategist Empower 3: champion +3 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
-$doesGlobalEffectApply["gyk90s0hst"] = function($obj) { // Gossamer Staff: champion +1 level
-    return PropertyContains(EffectiveCardType($obj), "CHAMPION");
-};
-
 $doesGlobalEffectApply["jgyx38zpl0-east"] = function($obj) { // Bagua East: allies +2 POWER until end of turn
     return PropertyContains(EffectiveCardType($obj), "ALLY");
 };
