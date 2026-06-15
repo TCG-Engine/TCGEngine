@@ -1378,7 +1378,27 @@ $customDQHandlers["SolarProvidenceDiscard"] = function($player, $params, $lastDe
 };
 
 $customDQHandlers["SolarProvidenceSCChoice"] = function($player, $params, $lastDecision) {
-    QueueShiftingCurrentsChoice($player, "any", true);
+    $current = GetShiftingCurrents($player);
+    if($current === "NONE") return;
+    $options = array_values(array_diff(["NORTH", "SOUTH", "EAST", "WEST"], [$current]));
+    if(empty($options)) return;
+    $param = implode("&", $options) . "|" . $current . "|qh5mpkyl60";
+    DecisionQueueController::AddDecision($player, "ICONCHOICE", $param, 1, "Choose_a_new_Shifting_Currents_direction");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SolarProvidenceSCApply", 1);
+};
+
+$customDQHandlers["SolarProvidenceSCApply"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $oldDirection = GetShiftingCurrents($player);
+    if($oldDirection === $lastDecision) return;
+    $source = DecisionQueueController::GetVariable("mzID");
+    if($source === null || $source === "" || $source === "-") $source = "gnj9hi5ult";
+    ChangeShiftingCurrents($player, $lastDecision);
+    if($oldDirection !== "SOUTH" || $lastDecision !== "NORTH") return;
+    $opponent = ($player == 1) ? 2 : 1;
+    $champMZ = FindChampionMZ($opponent);
+    if($champMZ === null) return;
+    DealDamage($player, $source, $champMZ, 3);
 };
 
 /**
@@ -3051,7 +3071,16 @@ $customDQHandlers["RelicDancingEmbers"] = function($player, $parts, $lastDecisio
 
 // --- Soothing Disillusion (geq18a4f2h): choose mode handler ---
 $customDQHandlers["SoothingDisillusionMode"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "YES") {
+    $mode = DecisionQueueController::GetVariable("mode");
+    if($mode === null || $mode === "") {
+        $mode = $parts[0] ?? $lastDecision;
+    }
+    if($mode === "YES") $mode = "0";
+    if($mode === "NO") $mode = "1";
+    $selectedParts = explode(",", strval($mode));
+    $selectedMode = trim($selectedParts[0] ?? "");
+    if($selectedMode !== "0" && $selectedMode !== "1") return;
+    if($selectedMode === "0") {
         // Mode 1: Destroy target phantasia
         $phantasias = array_merge(
             ZoneSearch("myField", ["PHANTASIA"]),

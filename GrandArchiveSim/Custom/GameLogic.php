@@ -17702,11 +17702,6 @@ $shiftingCurrentsTransitions["NORTH->WEST"]["1i2luu7dft"] = function($player, $m
 };
 
 // Solar Providence (gnj9hi5ult): Sâ†’N: deal 3 damage to target champion you don't control
-$shiftingCurrentsTransitions["SOUTH->NORTH"]["gnj9hi5ult"] = function($player, $mzID) {
-    $opponent = ($player == 1) ? 2 : 1;
-    DealChampionDamage($opponent, 3);
-};
-
 $shiftingCurrentsTransitions["SOUTH->EAST"]["l17uc67eaq"] = function($player, $mzID) {
     $obj = GetZoneObject($mzID);
     if($obj === null || $obj->removed || $obj->Status != 2) return;
