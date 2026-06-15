@@ -3415,7 +3415,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
 
     // Enfeebled Dagger (idpdon8f0h): [CB] source unit deals that much damage minus 3
-    $sourceObj2 = GetZoneObject($source);
+    $sourceInfo2 = ResolveDamageSourceCardInfo($source, $player);
+    $sourceObj2 = $sourceInfo2["obj"];
     if($sourceObj2 !== null && in_array("ENFEEBLED_DAGGER_REDUCE", $sourceObj2->TurnEffects ?? [])) {
         $amount = max(0, $amount - 3);
         if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
@@ -3424,11 +3425,12 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Varuck, Smoldering Spire (IyM7IBCQeb): "Damage dealt by fire element sources you
     // control can't be prevented." If the source is fire element and the source's controller
     // has Varuck on the field, bypass all prevention effects → use DealUnpreventableDamage path.
-    $sourceObj = GetZoneObject($source);
-    if($sourceObj !== null) {
-        $sourceElement = CardElement($sourceObj->CardID);
+    $sourceInfo = ResolveDamageSourceCardInfo($source, $player);
+    $sourceObj = $sourceInfo["obj"];
+    if($sourceInfo["cardID"] !== null) {
+        $sourceElement = $sourceObj !== null ? EffectiveCardElement($sourceObj) : CardElement($sourceInfo["cardID"]);
         if($sourceElement === "FIRE") {
-            $sourceController = $sourceObj->Controller ?? $player;
+            $sourceController = $sourceInfo["controller"] ?? $player;
             if(GlobalEffectCount($sourceController, "ecZsQQAYJJ") > 0) {
                 DealUnpreventableDamage($player, $source, $target, $amount);
                 return;
@@ -4377,8 +4379,9 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     }
     // Weaken Resistance (bb3oeup7oq): next Spell source damage to this unit +LV
     if($amount > 0) {
-        $srcObjWR = GetZoneObject($source);
-        if($srcObjWR !== null && PropertyContains(CardSubtypes($srcObjWR->CardID), "SPELL")) {
+        $sourceInfoWR = ResolveDamageSourceCardInfo($source, $player);
+        $sourceCardIDWR = $sourceInfoWR["cardID"];
+        if($sourceCardIDWR !== null && PropertyContains(CardSubtypes($sourceCardIDWR), "SPELL")) {
             foreach($targetObj->TurnEffects as $wrIdx => $wrEffect) {
                 if(strpos($wrEffect, "WEAKEN_RES_") === 0) {
                     $wrBonus = intval(substr($wrEffect, 11));
@@ -4393,17 +4396,11 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
 
     // Spell-source damage amplifiers on units
     if($amount > 0) {
-        $sourceObjSpell = GetZoneObject($source);
+        $sourceInfoSpell = ResolveDamageSourceCardInfo($source, $player);
+        $sourceObjSpell = $sourceInfoSpell["obj"];
         $isUnitTarget = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
-        $sourceSpellCardID = null;
-        $sourceController = $player;
-        if($sourceObjSpell !== null) {
-            $sourceSpellCardID = $sourceObjSpell->CardID;
-            $sourceController = $sourceObjSpell->Controller ?? $player;
-        } else if(is_string($source) && strpos($source, "-") === false) {
-            // Some effects pass a raw CardID as damage source instead of an mzID.
-            $sourceSpellCardID = $source;
-        }
+        $sourceSpellCardID = $sourceInfoSpell["cardID"];
+        $sourceController = $sourceInfoSpell["controller"] ?? $player;
 
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
             // Essence Crucible (DF5Ffwv7DJ): spell sources you control deal +X, X = refinement counters.
@@ -4558,16 +4555,11 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
 
     // Everflame Staff (nrvth9vyz1): whenever a fire Spell source you control deals damage,
     // put a refinement counter on Everflame Staff
-    $sourceObj2 = GetZoneObject($source);
+    $sourceInfo2 = ResolveDamageSourceCardInfo($source, $player);
+    $sourceObj2 = $sourceInfo2["obj"];
     $everflameSourceCardID = null;
-    $everflameSourceController = intval($player);
-    if($sourceObj2 !== null) {
-        $everflameSourceCardID = $sourceObj2->CardID;
-        $everflameSourceController = intval($sourceObj2->Controller ?? $player);
-    } else if(is_string($source) && strpos($source, "-") === false) {
-        // Some effects pass a raw CardID as damage source instead of an mzID.
-        $everflameSourceCardID = $source;
-    }
+    $everflameSourceController = intval($sourceInfo2["controller"] ?? $player);
+    $everflameSourceCardID = $sourceInfo2["cardID"];
     if($everflameSourceCardID !== null && CardElement($everflameSourceCardID) === "FIRE"
         && PropertyContains(CardSubtypes($everflameSourceCardID), "SPELL")) {
         $sourceController = $everflameSourceController;
@@ -4679,8 +4671,9 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     }
     // Weaken Resistance (bb3oeup7oq): next Spell source damage to this unit +LV
     if($amount > 0) {
-        $srcObjWR2 = GetZoneObject($source);
-        if($srcObjWR2 !== null && PropertyContains(CardSubtypes($srcObjWR2->CardID), "SPELL")) {
+        $sourceInfoWR2 = ResolveDamageSourceCardInfo($source, $player);
+        $sourceCardIDWR2 = $sourceInfoWR2["cardID"];
+        if($sourceCardIDWR2 !== null && PropertyContains(CardSubtypes($sourceCardIDWR2), "SPELL")) {
             foreach($targetObj->TurnEffects as $wrIdx => $wrEffect) {
                 if(strpos($wrEffect, "WEAKEN_RES_") === 0) {
                     $wrBonus = intval(substr($wrEffect, 11));
@@ -4695,17 +4688,11 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
 
     // Spell-source damage amplifiers on units
     if($amount > 0) {
-        $sourceObjSpell = GetZoneObject($source);
+        $sourceInfoSpell = ResolveDamageSourceCardInfo($source, $player);
+        $sourceObjSpell = $sourceInfoSpell["obj"];
         $isUnitTarget = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
-        $sourceSpellCardID = null;
-        $sourceController = $player;
-        if($sourceObjSpell !== null) {
-            $sourceSpellCardID = $sourceObjSpell->CardID;
-            $sourceController = $sourceObjSpell->Controller ?? $player;
-        } else if(is_string($source) && strpos($source, "-") === false) {
-            // Some effects pass a raw CardID as damage source instead of an mzID.
-            $sourceSpellCardID = $source;
-        }
+        $sourceSpellCardID = $sourceInfoSpell["cardID"];
+        $sourceController = $sourceInfoSpell["controller"] ?? $player;
 
         if($sourceSpellCardID !== null && $isUnitTarget && PropertyContains(CardSubtypes($sourceSpellCardID), "SPELL")) {
 

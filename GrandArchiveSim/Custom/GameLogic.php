@@ -21692,21 +21692,52 @@ function RemoveQuestCounters($player, $amount) {
  * @param bool   $isUnit   True if the target is an ALLY or CHAMPION (pre-computed by caller).
  * @param int    $player   Fallback player when source controller cannot be determined.
  */
+function ResolveDamageSourceCardInfo($source, $player) {
+    $info = [
+        "obj" => null,
+        "cardID" => null,
+        "controller" => intval($player),
+    ];
+    if($source === null || $source === "" || $source === "-") return $info;
+
+    $sourceObj = GetZoneObject($source);
+    if($sourceObj !== null) {
+        $info["obj"] = $sourceObj;
+        $info["cardID"] = $sourceObj->CardID;
+        $info["controller"] = intval($sourceObj->Controller ?? $player);
+        return $info;
+    }
+
+    if(is_string($source) && strpos($source, "EffectStack-") === 0) {
+        $resolvedCardID = DecisionQueueController::GetVariable("mzIDCardID");
+        if(!empty($resolvedCardID) && $resolvedCardID !== "-") {
+            $info["cardID"] = $resolvedCardID;
+            return $info;
+        }
+    }
+
+    if(is_string($source) && strpos($source, "-") === false) {
+        $info["cardID"] = $source;
+    }
+    return $info;
+}
+
 function CheckRubyFatestoneQuestCounter($source, $isUnit, $player) {
     if(!$isUnit) return;
     if($source === null || $source === "" || $source === "-") return;
     global $playerID;
-    $sourceObj = GetZoneObject($source);
+    $sourceInfo = ResolveDamageSourceCardInfo($source, $player);
+    $sourceObj = $sourceInfo["obj"];
+    $sourceCardID = $sourceInfo["cardID"];
     $sourceElement = null;
-    if($sourceObj !== null) {
+    if($sourceObj !== null && $sourceCardID !== null) {
         $sourceElement = EffectiveCardElement($sourceObj);
-    } else if(is_string($source) && strpos($source, "-") === false) {
-        // Some callers pass a raw CardID as source.
-        $sourceElement = CardElement($source);
+    } else if($sourceCardID !== null) {
+        $sourceElement = CardElement($sourceCardID);
     }
     if($sourceElement === null || $sourceElement === "") return;
     if($sourceElement !== "FIRE") return;
-    $sourceCtrl = intval($sourceObj->Controller ?? $player);
+    $sourceCtrl = intval($sourceInfo["controller"] ?? $player);
     $rubyZone = $sourceCtrl == $playerID ? "myField" : "theirField";
     foreach(GetZone($rubyZone) as $rubyObj) {
         if($rubyObj === null) continue;
