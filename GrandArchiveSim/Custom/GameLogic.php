@@ -19923,47 +19923,6 @@ $customDQHandlers["ArthurYoungHeirEnter"] = function($player, $parts, $lastDecis
     AddTurnEffect($mzID, "IMMORTALITY_NEXT_TURN");
 };
 
-function StrengthenTheBondsStart($player) {
-    $targets = [];
-    foreach(["myField", "theirField"] as $zone) {
-        foreach(GetZone($zone) as $i => $obj) {
-            if($obj->removed) continue;
-            $subtypes = EffectiveCardSubtypes($obj);
-            if(PropertyContains($subtypes, "FATESTONE") || PropertyContains($subtypes, "FATEBOUND")) {
-                $targets[] = $zone . "-" . $i;
-            }
-        }
-    }
-    if(empty($targets)) return;
-    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Put_a_buff_counter_on_up_to_two_Fatestone_or_Fatebound_objects");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "StrengthenTheBondsFirst", 1);
-}
-
-$customDQHandlers["StrengthenTheBondsFirst"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    AddCounters($player, $lastDecision, "buff", 1);
-    $targets = [];
-    foreach(["myField", "theirField"] as $zone) {
-        foreach(GetZone($zone) as $i => $obj) {
-            if($obj->removed) continue;
-            $mzID = $zone . "-" . $i;
-            if($mzID === $lastDecision) continue;
-            $subtypes = EffectiveCardSubtypes($obj);
-            if(PropertyContains($subtypes, "FATESTONE") || PropertyContains($subtypes, "FATEBOUND")) {
-                $targets[] = $mzID;
-            }
-        }
-    }
-    if(empty($targets)) return;
-    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $targets), 1, tooltip:"Put_a_second_buff_counter?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "StrengthenTheBondsSecond", 1);
-};
-
-$customDQHandlers["StrengthenTheBondsSecond"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    AddCounters($player, $lastDecision, "buff", 1);
-};
-
 function DaQiaoCinderbinderAbility($player) {
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_a_frenzy_counter_on_target_ally?");
     DecisionQueueController::AddDecision($player, "CUSTOM", "DaQiaoMode", 1);
