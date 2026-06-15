@@ -181,7 +181,7 @@ UAJGQFbXjs NONE -
 2
 MAIN
 
-Main Phase
+
 {"mzID":"EffectStack-0","amount":1,"ignoreCost":false,"mzIDCardID":"vfq3huqj5b","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"1","source":"myField-1","target":"myField-2","abilityIndex":0,"chosen":"myMaterial-0","MLAE_sourceMZ":"myGraveyard-1","MLAE_wingMZ":"myField-3","CombatKilledCardID":"GjM8b5fxqj","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","payChoice":"YES","choices":"1,2","CD_choices":"1,2"}
 0
 {"DrawCalls":{"2":1},"Draw":{"2":1}}

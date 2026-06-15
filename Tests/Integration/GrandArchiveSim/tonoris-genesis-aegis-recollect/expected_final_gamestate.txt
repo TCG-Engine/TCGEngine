@@ -179,7 +179,7 @@ wsycqp2l90
 1
 MAIN
 
-Main Phase
+
 {"mzID":"myField-4","amount":1,"ignoreCost":false,"mzIDCardID":"fz1nr5a3pm","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","target":"theirField-4","abilityIndex":0,"chosen":"myField-3","CombatDamageAmount":"3","source":"myField-0","revealedMZ":"myMaterial-9","questChoice":"NO","CombatKilledCardID":"k4pjo6lVMO"}
 0
 {"ActivateCardCalls":{"1":4,"2":5},"ActivateCard":{"1":{"kk39i1f0ht":2,"JeyOuhr3sj":1,"k4pjo6lVMO":1},"2":{"kl4bTg57Cj":2,"heq49UQGvQ":1,"F2wp1v0Tyk":1,"fz1nr5a3pm":1}},"CardActivatedCalls":{"1":4,"2":5},"CardActivated":{"1":{"kk39i1f0ht":2,"JeyOuhr3sj":1,"k4pjo6lVMO":1},"2":{"kl4bTg57Cj":2,"heq49UQGvQ":1,"F2wp1v0Tyk":1,"fz1nr5a3pm":1}},"EnterCalls":{"1":8,"2":7},"Enter":{"1":{"kk39i1f0ht":2,"JeyOuhr3sj":1,"zb14m4c8lj":1,"yevpmu6gvn":1,"k4pjo6lVMO":1,"ta6qsesw2u":1,"wk0pw0y6is":1},"2":{"kl4bTg57Cj":2,"heq49UQGvQ":1,"j6dkdoxyqt":1,"6ce5rzrjd9":1,"59ipqa91r2":1,"fz1nr5a3pm":1}},"DrawCalls":{"2":6,"1":3},"Draw":{"2":6,"1":3},"RestCardCalls":{"2":4,"1":4},"RestCard":{"2":{"heq49UQGvQ":3,"fz1nr5a3pm":1},"1":{"kk39i1f0ht":4}},"OnAttackCalls":{"2":4,"1":4},"OnAttack":{"2":{"heq49UQGvQ":3,"fz1nr5a3pm":1},"1":{"kk39i1f0ht":4}},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"JeyOuhr3sj":1}},"DealDamageCalls":{"2":4,"1":4},"MaterializeCalls":{"1":3,"2":2},"Materialize":{"1":{"zb14m4c8lj":1,"yevpmu6gvn":1,"ta6qsesw2u":1},"2":{"j6dkdoxyqt":1,"59ipqa91r2":1}},"RevealCalls":{"2":10},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"k4pjo6lVMO":1}}}

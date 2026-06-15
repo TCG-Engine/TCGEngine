@@ -175,7 +175,7 @@ qFwqqT0XWo
 1
 MAIN
 
-Main Phase
+
 {"mzID":"myField-3","amount":1,"ignoreCost":false,"mzIDCardID":"d6soporhlq","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"2","source":"myField-0","target":"theirField-1","abilityIndex":0,"choice":"NO","chosen":"myMemory-2"}
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"1XegCUjBnY":1}},"EnterCalls":{"1":1},"Enter":{"1":{"1XegCUjBnY":1}},"RestCardCalls":{"1":2},"RestCard":{"1":{"d6soporhlq":1,"x7mnu1xhs5":1}},"DrawCalls":{"1":1},"Draw":{"1":1}}

@@ -189,7 +189,7 @@ CUSTOM RECIPROCITY_MATERIAL_CHECK 1  0
 1
 MAT
 
-Materialize Phase
+
 {"mzID":"myField-5","amount":1,"ignoreCost":false,"mzIDCardID":"AxHzxEHBHZ","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"5","source":"myField-4","target":"theirField-1","CombatKilledCardID":"mzwTQzuXZa","chosen":"myMaterial-3","abilityIndex":0,"chosen1":"myMemory-0","choice2":"myMemory-1","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","first":"YES","second":"YES"}
 0
 {}

@@ -181,7 +181,7 @@ j68m69iq4d
 1
 MAIN
 
-Main Phase
+
 {"mzID":"myField-2","amount":1,"ignoreCost":false,"mzIDCardID":"lzsmw3rrii","activationSourceZone":"myHand","wasPrepared":"NO","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":""}
 0
 {"OnFosterCalls":{"1":1},"OnFoster":{"1":{"22tk3ir1o0":1}},"EnterCalls":{"1":1},"Enter":{"1":{"mu6gvnta6q":1}},"DrawCalls":{"1":1},"Draw":{"1":1}}

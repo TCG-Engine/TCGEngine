@@ -179,7 +179,7 @@ ly4wiffei7
 2
 MAIN
 
-Main Phase
+
 {"mzID":"myField-1","amount":1,"ignoreCost":false,"mzIDCardID":"PZM9uvCFai","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","niaMistveiledScoutTempMap":"","niaMistveiledScoutSource":""}
 0
 {"MaterializeCalls":{"2":2},"Materialize":{"2":{"DpHDGaX2Pn":1,"Dz8I0eJzaf":1}},"EnterCalls":{"2":2},"Enter":{"2":{"DpHDGaX2Pn":1,"Dz8I0eJzaf":1}},"DrawCalls":{"2":1},"Draw":{"2":1}}

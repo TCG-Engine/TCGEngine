@@ -205,7 +205,7 @@ CUSTOM RECIPROCITY_MATERIAL_CHECK 1  0
 1
 MAT
 
-Materialize Phase
+
 {"mzID":"myField-6","glimpseCount":"3","aethercallCandidates":"","glimpsedToTempZone":"0","amount":1,"ignoreCost":false,"mzIDCardID":"xd4kv0akqr","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"potionCardID":"bae3z4pyx8","revealedMZ":"myMaterial-8","FatestoneOfRevelationsFirst":"myMemory-2","CombatDamageAmount":"4","source":"myField-0","target":"theirField-2","questChoice":"YES","CombatKilledCardID":"xr93tig852","choice":"YES","mode":"YES"}
 0
 {"DrawCalls":{"2":1},"Draw":{"2":1}}

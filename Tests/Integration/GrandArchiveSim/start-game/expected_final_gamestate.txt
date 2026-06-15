@@ -179,7 +179,7 @@ j68m69iq4d
 1
 MAIN
 
-Main Phase
+
 {"mzID":"myField-0","isImbued":"NO","amount":7}
 0
 {}

@@ -180,7 +180,7 @@ s23UHXgcZq
 2
 MAIN
 
-Main Phase
+
 {"GoldfishPlayers":[],"mzID":"myField-1","isImbued":"NO","amount":1,"glimpseCount":"6","aethercallCandidates":"","glimpsedToTempZone":"0","ignoreCost":false,"mzIDCardID":"xpb20rar4k","activationSourceZone":"myHand","additionalCostPaid":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"3","source":"myField-0","target":"theirField-0"}
 0
 {"MaterializeCalls":{"2":1},"Materialize":{"2":{"mb3iqw3kc6":1}},"EnterCalls":{"2":1},"Enter":{"2":{"mb3iqw3kc6":1}},"DrawCalls":{"2":1},"Draw":{"2":1}}
