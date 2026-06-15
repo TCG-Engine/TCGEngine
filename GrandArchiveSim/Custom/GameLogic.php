@@ -16348,6 +16348,9 @@ function Empower($player, $amount, $sourceID) {
     $field = GetZone($zone);
     foreach($field as $i => $obj) {
         if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+            if($sourceID !== "") {
+                AddTurnEffect($zone . "-" . $i, $sourceID);
+            }
             AddTurnEffect($zone . "-" . $i, "EMPOWERED");
             AddTurnEffect($zone . "-" . $i, "EMPOWER_PLUS_" . intval($amount));
             break;
