@@ -20055,13 +20055,13 @@ function HarbingerOfLightningOnDeath($player) {
         DealChampionDamage($opponent, $totalCost);
     }
 }
-
+/*
 function ForagingFoxOnEnter($player) {
     $deck = GetDeck($player);
     $lookCount = min(5, count($deck));
     if($lookCount <= 0) return;
-    for($i = 0; $i < $lookCount; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+    for($i = $lookCount - 1; $i >= 0; --$i) {
+        MZMove($player, "myDeck-" . $i, "myTempZone");
     }
     $candidates = ZoneSearch("myTempZone", cardSubtypes: ["FATESTONE"]);
     if(empty($candidates)) {
@@ -20083,17 +20083,9 @@ $customDQHandlers["ForagingFoxReveal"] = function($player, $parts, $lastDecision
     }
     ForagingFoxChooseBottom($player);
 };
-
+*/
 function ForagingFoxChooseBottom($player) {
-    $remaining = ZoneSearch("myTempZone");
-    if(empty($remaining)) return;
-    if(count($remaining) === 1) {
-        MZMove($player, $remaining[0], "myDeck");
-        return;
-    }
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $remaining), 1,
-        tooltip: "Choose_card_to_put_on_bottom_next");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ForagingFoxBottom", 1);
+    QueueTempZoneBottomDeckRearrange($player);
 }
 
 $customDQHandlers["ForagingFoxBottom"] = function($player, $parts, $lastDecision) {
@@ -22219,13 +22211,13 @@ function SlimeCallingChooseSlime($player, $pickNumber) {
 function QueueTempZoneBottomDeckRearrange($player) {
     $tempZone = GetZone("myTempZone");
     $remaining = [];
-    for($i = 0; $i < count($tempZone); ++$i) {
+    for($i = count($tempZone) - 1; $i >= 0; --$i) {
         if(!$tempZone[$i]->removed) {
             $remaining[] = $tempZone[$i]->CardID;
         }
     }
     if(empty($remaining)) return;
-    $param = "Top=;Bottom=" . implode(",", $remaining);
+    $param = "Bottom=" . implode(",", $remaining);
     DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1,
         tooltip:"Put_remaining_cards_on_the_bottom_of_your_deck_in_any_order");
     DecisionQueueController::AddDecision($player, "CUSTOM", "TempZoneBottomDeckRearrangeApply", 1);
