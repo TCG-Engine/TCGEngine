@@ -8124,10 +8124,11 @@ function BeforeRecollectionPhase() {
                     break;
                 case "4s1kmjeaks": // Floodbloom: banish top 2 cards of deck at recollection
                     if(!HasNoAbilities($field[$i])) {
-                        for($fb = 0; $fb < 2; ++$fb) {
-                            $deck = GetZone("myDeck");
+                        $deck = GetZone("myDeck");
+                        for($fb = 1; $fb >= 0; --$fb) {
+                            if($fb >= count($deck)) continue;
                             if(!empty($deck)) {
-                                MZMove($turnPlayer, "myDeck-0", "myBanish");
+                                MZMove($turnPlayer, "myDeck-" . $fb, "myBanish");
                             }
                         }
                     }
