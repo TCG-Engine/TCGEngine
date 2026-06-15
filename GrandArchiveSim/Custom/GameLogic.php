@@ -8223,6 +8223,14 @@ function BeforeRecollectionPhase() {
                         }
                     }
                     break;
+                case "Vwc52lmFvi": // Perishing Florets: [Diao Chan Bonus] may have target opponent summon a Flowerbud token
+                    if(!HasNoAbilities($field[$i]) && IsDiaoChanBonus($turnPlayer)) {
+                        $opponent = ($turnPlayer == 1) ? 2 : 1;
+                        DecisionQueueController::AddDecision($turnPlayer, "YESNO", "-", 1,
+                            tooltip:"Have_target_opponent_summon_a_Flowerbud?");
+                        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "PerishingFloretsRecollection|" . $opponent, 1);
+                    }
+                    break;
                 case "w6OqqsfEso": // Sovereign Sanctuary: sacrifice self and draw into memory
                     if(!HasNoAbilities($field[$i])) {
                         MZMove($turnPlayer, "myField-" . $i, "myGraveyard");

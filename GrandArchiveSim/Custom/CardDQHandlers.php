@@ -1161,6 +1161,13 @@ $customDQHandlers["FirebloomRecollation"] = function($player, $parts, $lastDecis
     DealDamage($player, $sourceMZ, $lastDecision, 1);
 };
 
+$customDQHandlers["PerishingFloretsRecollection"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $opponent = intval($parts[0] ?? 0);
+    if($opponent !== 1 && $opponent !== 2) return;
+    MZAddZone($opponent, "myField", "yn78t73w1p");
+};
+
 $customDQHandlers["MorganSoulGuideRecollection"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "0" || $lastDecision === "YES") {
         Glimpse($player, 1);
