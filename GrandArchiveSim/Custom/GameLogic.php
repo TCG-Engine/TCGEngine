@@ -20305,6 +20305,10 @@ function GetDurabilityCounterCount($obj) {
     return GetCounterCount($obj, "durability");
 }
 
+function GetBulwarkCounterCount($obj) {
+    return GetCounterCount($obj, "bulwark");
+}
+
 function GetRefinementCounterCount($obj) {
     return GetCounterCount($obj, "refinement");
 }
