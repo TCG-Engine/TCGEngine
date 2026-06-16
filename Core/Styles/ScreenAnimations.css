@@ -429,6 +429,24 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+.macro-game-stats-grid {
+  display: grid;
+  grid-template-columns: minmax(360px, 0.92fr) minmax(520px, 1.28fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.macro-game-stats-grid-chart,
+.macro-game-stats-grid-matrix {
+  min-width: 0;
+}
+
+@media (max-width: 1120px) {
+  .macro-game-stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Exhausted / Rested status polish */
 .exhausted-status-card {
   will-change: transform;

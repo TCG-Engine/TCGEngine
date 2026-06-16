@@ -4780,11 +4780,11 @@ function ShowGameOver(didWin, menuUrl, statsHtml) {
 
   var stats = document.createElement('div');
   stats.id = 'game-over-stats';
-  stats.style.width = 'min(1100px, 92vw)';
-  stats.style.maxHeight = 'min(56vh, 720px)';
+  stats.style.width = 'min(1280px, 94vw)';
+  stats.style.maxHeight = 'min(68vh, 820px)';
   stats.style.overflowY = 'auto';
-  stats.style.margin = '14px auto 20px';
-  stats.style.padding = '14px 16px';
+  stats.style.margin = '14px auto 18px';
+  stats.style.padding = '16px 18px';
   stats.style.borderRadius = '12px';
   stats.style.background = 'rgba(8, 15, 25, 0.65)';
   stats.style.border = '1px solid rgba(255,255,255,0.12)';
@@ -5046,12 +5046,12 @@ function _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir) {
     }
     columnSummaries += ''
       + '<button type="button" onclick="SortMacroGameMatrix(this, \'' + _escapeMacroGameHtml(columns[i].key) + '\'); return false;"'
-      + ' style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; border-radius:10px;'
+      + ' style="display:flex; align-items:center; justify-content:space-between; gap:6px; padding:7px 9px; border-radius:10px;'
       + ' background:rgba(255,255,255,0.03); border:1px solid ' + (sortKey === columns[i].key ? 'rgba(201,168,76,0.28)' : 'rgba(240,230,200,0.08)') + ';'
       + ' color:#f5ecd2; cursor:pointer;">'
-      + '<span style="font-size:12px; font-weight:700; color:#f5ecd2;">' + _escapeMacroGameHtml(columns[i].label) + '</span>'
-      + '<span style="display:flex; align-items:center; gap:7px;">'
-      + '<span style="padding:2px 7px; border-radius:999px; background:rgba(68,103,163,0.24); border:1px solid rgba(126,164,232,0.22); color:#dce8ff; font-size:11px; font-weight:700;">' + total + '</span>'
+      + '<span style="font-size:11px; font-weight:700; color:#f5ecd2;">' + _escapeMacroGameHtml(columns[i].label) + '</span>'
+      + '<span style="display:flex; align-items:center; gap:6px;">'
+      + '<span style="padding:2px 6px; border-radius:999px; background:rgba(68,103,163,0.24); border:1px solid rgba(126,164,232,0.22); color:#dce8ff; font-size:10px; font-weight:700;">' + total + '</span>'
       + '<span style="font-size:11px; color:rgba(220,232,255,0.78);">' + _formatMacroGameSortIndicator(sortKey === columns[i].key, sortDir) + '</span>'
       + '</span>'
       + '</button>';
@@ -5059,13 +5059,13 @@ function _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir) {
 
   var headerHtml = ''
     + '<button type="button" onclick="SortMacroGameMatrix(this, \'card\'); return false;"'
-    + ' style="display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; padding:12px 10px;'
-    + ' font-size:11px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; color:rgba(220,232,255,0.72);'
+    + ' style="display:flex; align-items:center; justify-content:space-between; gap:6px; width:100%; padding:10px 8px;'
+    + ' font-size:10px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:rgba(220,232,255,0.72);'
     + ' background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">'
     + '<span>Card</span><span style="font-size:11px;">' + _formatMacroGameSortIndicator(sortKey === 'card', sortDir) + '</span></button>';
-  headerHtml += '<button type="button" onclick="SortMacroGameMatrix(this, \'total\'); return false;" style="padding:12px 6px; text-align:center; font-size:11px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:rgba(220,232,255,0.78); background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">Total ' + _formatMacroGameSortIndicator(sortKey === 'total', sortDir) + '</button>';
+  headerHtml += '<button type="button" onclick="SortMacroGameMatrix(this, \'total\'); return false;" style="padding:10px 4px; text-align:center; font-size:10px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:rgba(220,232,255,0.78); background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">Total ' + _formatMacroGameSortIndicator(sortKey === 'total', sortDir) + '</button>';
   for (var h = 0; h < columns.length; ++h) {
-    headerHtml += '<button type="button" onclick="SortMacroGameMatrix(this, \'' + _escapeMacroGameHtml(columns[h].key) + '\'); return false;" style="padding:12px 6px; text-align:center; font-size:11px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:rgba(220,232,255,0.78); background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">' + _escapeMacroGameHtml(columns[h].label) + ' ' + _formatMacroGameSortIndicator(sortKey === columns[h].key, sortDir) + '</button>';
+    headerHtml += '<button type="button" onclick="SortMacroGameMatrix(this, \'' + _escapeMacroGameHtml(columns[h].key) + '\'); return false;" style="padding:10px 4px; text-align:center; font-size:10px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:rgba(220,232,255,0.78); background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">' + _escapeMacroGameHtml(columns[h].label) + ' ' + _formatMacroGameSortIndicator(sortKey === columns[h].key, sortDir) + '</button>';
   }
 
   var bodyHtml = '';
@@ -5077,17 +5077,17 @@ function _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir) {
       + ' onmouseenter="this.style.background=\'rgba(35,58,94,0.40)\';ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
       + ' onmousemove="ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
       + ' onmouseleave="this.style.background=\'transparent\';HideMacroGameCardPreview()"'
-      + ' style="display:block; min-width:0; padding:10px 10px; border-radius:10px; color:#f7f0d8; text-decoration:none; transition:background 120ms ease;">'
-      + '<span style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13px; font-weight:700;">' + _escapeMacroGameHtml(_getMacroGameCardName(rowEntry.cardID)) + '</span>'
+      + ' style="display:block; min-width:0; padding:8px 8px; border-radius:10px; color:#f7f0d8; text-decoration:none; transition:background 120ms ease;">'
+      + '<span style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12px; font-weight:700;">' + _escapeMacroGameHtml(_getMacroGameCardName(rowEntry.cardID)) + '</span>'
       + '</a>';
-    bodyHtml += '<div style="display:flex; align-items:center; justify-content:center; padding:8px 6px;"><span style="min-width:28px; padding:3px 8px; border-radius:999px; background:rgba(68,103,163,0.16); border:1px solid rgba(126,164,232,0.18); color:#dce8ff; font-size:11px; font-weight:800; text-align:center;">' + (parseInt(rowEntry.total, 10) || 0) + '</span></div>';
+    bodyHtml += '<div style="display:flex; align-items:center; justify-content:center; padding:6px 4px;"><span style="min-width:24px; padding:2px 7px; border-radius:999px; background:rgba(68,103,163,0.16); border:1px solid rgba(126,164,232,0.18); color:#dce8ff; font-size:10px; font-weight:800; text-align:center;">' + (parseInt(rowEntry.total, 10) || 0) + '</span></div>';
     for (var c = 0; c < columns.length; ++c) {
       var value = parseInt(rowEntry.values[columns[c].key] || 0, 10) || 0;
       bodyHtml += ''
-        + '<div style="display:flex; align-items:center; justify-content:center; padding:8px 6px;">'
+        + '<div style="display:flex; align-items:center; justify-content:center; padding:6px 4px;">'
         + (value > 0
-          ? '<span style="min-width:28px; padding:3px 8px; border-radius:999px; background:rgba(201,168,76,0.16); border:1px solid rgba(201,168,76,0.26); color:#ffe09b; font-size:11px; font-weight:800; text-align:center;">' + value + '</span>'
-          : '<span style="color:rgba(220,232,255,0.28); font-size:12px;">-</span>')
+          ? '<span style="min-width:24px; padding:2px 7px; border-radius:999px; background:rgba(201,168,76,0.16); border:1px solid rgba(201,168,76,0.26); color:#ffe09b; font-size:10px; font-weight:800; text-align:center;">' + value + '</span>'
+          : '<span style="color:rgba(220,232,255,0.28); font-size:11px;">-</span>')
         + '</div>';
     }
   }
@@ -5100,9 +5100,9 @@ function _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir) {
     + '</div>'
     + '<div style="font-size:12px; color:rgba(220,232,255,0.66);">' + rows.length + ' cards tracked</div>'
     + '</div>'
-    + '<div style="display:grid; grid-template-columns:repeat(' + columns.length + ', minmax(120px, 1fr)); gap:8px; margin-bottom:12px;">' + columnSummaries + '</div>'
+    + '<div style="display:grid; grid-template-columns:repeat(' + columns.length + ', minmax(104px, 1fr)); gap:8px; margin-bottom:12px;">' + columnSummaries + '</div>'
     + '<div style="overflow:auto; border-radius:14px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">'
-    + '<div style="display:grid; grid-template-columns:minmax(220px, 2.1fr) minmax(72px, 0.7fr) repeat(' + columns.length + ', minmax(72px, 0.8fr)); align-items:center; min-width:' + (320 + columns.length * 84) + 'px;">'
+    + '<div style="display:grid; grid-template-columns:minmax(188px, 1.9fr) minmax(58px, 0.58fr) repeat(' + columns.length + ', minmax(58px, 0.64fr)); align-items:center; min-width:' + (248 + columns.length * 62) + 'px;">'
     + headerHtml
     + bodyHtml
     + '</div>'
@@ -5392,17 +5392,28 @@ function BuildMacroGameStatsHtml(playerID) {
     { key: 'attack', label: 'Attacks', cardBuckets: ['OnAttack', 'AttackWith'] },
     { key: 'damage', label: 'Damage', cardBuckets: ['OpponentChampionDamageSources'] }
   ];
-  var html = '';
   var damageTimeline = _collectMacroGameTimeline(indexData, playerID, ['OpponentChampionDamageTimeline']);
   var damageTotal = _collectMacroGameNumericBuckets(indexData, playerID, ['OpponentChampionDamage']);
-  html += _formatMacroGameDamageChart('Damage Dealt', damageTotal, damageTimeline);
-  html += _formatMacroGameMatrix(playerID, indexData, matrixColumns);
-  if (!html) return '';
+  var damageHtml = _formatMacroGameDamageChart('Damage Dealt', damageTotal, damageTimeline);
+  var matrixHtml = _formatMacroGameMatrix(playerID, indexData, matrixColumns);
+  if (!damageHtml && !matrixHtml) return '';
+
+  var layoutHtml = '';
+  if (damageHtml && matrixHtml) {
+    layoutHtml = ''
+      + '<div class="macro-game-stats-grid">'
+      + '<div class="macro-game-stats-grid-chart">' + damageHtml + '</div>'
+      + '<div class="macro-game-stats-grid-matrix">' + matrixHtml + '</div>'
+      + '</div>';
+  } else {
+    layoutHtml = damageHtml || matrixHtml;
+  }
+
   return ''
     + '<div style="margin-bottom:10px;">'
     + '<div style="font-size:18px; font-weight:800; letter-spacing:0.02em; color:#fff4cf;">Game Stats</div>'
     + '</div>'
-    + '<div style="display:flex; flex-direction:column; gap:12px;">' + html + '</div>';
+    + '<div style="display:flex; flex-direction:column; gap:12px;">' + layoutHtml + '</div>';
 }
 
 function GetCookieValue(cookieName) {
