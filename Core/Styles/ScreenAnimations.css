@@ -397,25 +397,31 @@
 }
 
 #game-over-menu-btn {
-  margin-top: 52px;
-  padding: 14px 44px;
-  font-size: 16px;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  margin-top: 0;
+  padding: 10px 18px;
+  font-size: 13px;
   font-weight: 700;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  background: rgba(255, 255, 255, 0.10);
+  background: rgba(9, 16, 27, 0.82);
   color: rgba(255, 255, 255, 0.90);
-  border: 2px solid rgba(255, 255, 255, 0.28);
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
   cursor: pointer;
-  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
   animation: gameOverBtnSlideUp 0.6s ease-out 0.9s both;
+  z-index: 2;
 }
 
 #game-over-menu-btn:hover {
-  background: rgba(255, 255, 255, 0.20);
-  border-color: rgba(255, 255, 255, 0.55);
-  transform: scale(1.05);
+  background: rgba(20, 31, 49, 0.94);
+  border-color: rgba(255, 255, 255, 0.42);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.34);
+  transform: translateY(-1px);
 }
 
 @keyframes gameOverBtnSlideUp {

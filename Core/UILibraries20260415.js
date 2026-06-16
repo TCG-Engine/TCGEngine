@@ -4972,6 +4972,106 @@ function _formatMacroGameSection(title, total, cardCounts) {
   return html;
 }
 
+function _collectMacroGameMatrixRows(indexData, playerID, columns) {
+  var rowMap = {};
+  for (var i = 0; i < columns.length; ++i) {
+    var counts = _collectMacroGameBucketCounts(indexData, playerID, columns[i].cardBuckets || []);
+    for (var cardID in counts) {
+      if (!Object.prototype.hasOwnProperty.call(counts, cardID)) continue;
+      var count = parseInt(counts[cardID], 10) || 0;
+      if (count <= 0) continue;
+      if (!rowMap[cardID]) rowMap[cardID] = { cardID: cardID, values: {} };
+      rowMap[cardID].values[columns[i].key] = count;
+    }
+  }
+
+  var rows = [];
+  for (var rowCardID in rowMap) {
+    if (!Object.prototype.hasOwnProperty.call(rowMap, rowCardID)) continue;
+    var row = rowMap[rowCardID];
+    var total = 0;
+    for (var j = 0; j < columns.length; ++j) {
+      total += parseInt(row.values[columns[j].key] || 0, 10) || 0;
+    }
+    row.total = total;
+    rows.push(row);
+  }
+
+  rows.sort(function(a, b) {
+    if (b.total !== a.total) return b.total - a.total;
+    return _getMacroGameCardName(a.cardID).localeCompare(_getMacroGameCardName(b.cardID));
+  });
+  return rows;
+}
+
+function _formatMacroGameMatrix(playerID, indexData, columns) {
+  var rows = _collectMacroGameMatrixRows(indexData, playerID, columns);
+  if (!rows.length) return '';
+
+  var columnSummaries = '';
+  for (var i = 0; i < columns.length; ++i) {
+    var total = 0;
+    for (var r = 0; r < rows.length; ++r) {
+      total += parseInt(rows[r].values[columns[i].key] || 0, 10) || 0;
+    }
+    columnSummaries += ''
+      + '<div style="display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 10px; border-radius:10px;'
+      + ' background:rgba(255,255,255,0.03); border:1px solid rgba(240,230,200,0.08);">'
+      + '<span style="font-size:12px; font-weight:700; color:#f5ecd2;">' + _escapeMacroGameHtml(columns[i].label) + '</span>'
+      + '<span style="padding:2px 7px; border-radius:999px; background:rgba(68,103,163,0.24); border:1px solid rgba(126,164,232,0.22); color:#dce8ff; font-size:11px; font-weight:700;">' + total + '</span>'
+      + '</div>';
+  }
+
+  var headerHtml = '<div></div>';
+  for (var h = 0; h < columns.length; ++h) {
+    headerHtml += '<div style="padding:0 6px; text-align:center; font-size:11px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:rgba(220,232,255,0.78);">' + _escapeMacroGameHtml(columns[h].label) + '</div>';
+  }
+
+  var bodyHtml = '';
+  for (var rowIndex = 0; rowIndex < rows.length; ++rowIndex) {
+    var rowEntry = rows[rowIndex];
+    var escapedCardID = _escapeMacroGameHtml(rowEntry.cardID);
+    bodyHtml += ''
+      + '<a href="#" onclick="return false;"'
+      + ' onmouseenter="this.style.background=\'rgba(35,58,94,0.40)\';ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
+      + ' onmousemove="ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
+      + ' onmouseleave="this.style.background=\'transparent\';HideMacroGameCardPreview()"'
+      + ' style="display:block; min-width:0; padding:10px 10px; border-radius:10px; color:#f7f0d8; text-decoration:none; transition:background 120ms ease;">'
+      + '<span style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13px; font-weight:700;">' + _escapeMacroGameHtml(_getMacroGameCardName(rowEntry.cardID)) + '</span>'
+      + '</a>';
+    for (var c = 0; c < columns.length; ++c) {
+      var value = parseInt(rowEntry.values[columns[c].key] || 0, 10) || 0;
+      bodyHtml += ''
+        + '<div style="display:flex; align-items:center; justify-content:center; padding:8px 6px;">'
+        + (value > 0
+          ? '<span style="min-width:28px; padding:3px 8px; border-radius:999px; background:rgba(201,168,76,0.16); border:1px solid rgba(201,168,76,0.26); color:#ffe09b; font-size:11px; font-weight:800; text-align:center;">' + value + '</span>'
+          : '<span style="color:rgba(220,232,255,0.28); font-size:12px;">-</span>')
+        + '</div>';
+    }
+  }
+
+  return ''
+    + '<section style="margin:0; padding:14px 14px 12px; border-radius:16px; min-width:0;'
+    + ' background:linear-gradient(180deg, rgba(15,24,39,0.92), rgba(9,15,26,0.88));'
+    + ' border:1px solid rgba(201,168,76,0.16); box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);">'
+    + '<div style="display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-bottom:12px;">'
+    + '<div>'
+    + '<div style="font-size:15px; font-weight:800; letter-spacing:0.01em; color:#fff1c6;">Card Activity Matrix</div>'
+    + '<div style="margin-top:3px; font-size:12px; color:rgba(220,232,255,0.72);">Cards on the left, tracked actions across the top.</div>'
+    + '</div>'
+    + '<div style="font-size:12px; color:rgba(220,232,255,0.66);">' + rows.length + ' cards tracked</div>'
+    + '</div>'
+    + '<div style="display:grid; grid-template-columns:repeat(' + columns.length + ', minmax(120px, 1fr)); gap:8px; margin-bottom:12px;">' + columnSummaries + '</div>'
+    + '<div style="overflow:auto; border-radius:14px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">'
+    + '<div style="display:grid; grid-template-columns:minmax(220px, 2.3fr) repeat(' + columns.length + ', minmax(72px, 0.8fr)); align-items:center; min-width:' + (240 + columns.length * 84) + 'px;">'
+    + '<div style="padding:12px 10px; font-size:11px; font-weight:800; letter-spacing:0.06em; text-transform:uppercase; color:rgba(220,232,255,0.72); border-bottom:1px solid rgba(255,255,255,0.07);">Card</div>'
+    + headerHtml.replace('<div></div>', '')
+    + bodyHtml
+    + '</div>'
+    + '</div>'
+    + '</section>';
+}
+
 function _collectMacroGameTimeline(indexData, playerID, bucketNames) {
   var combined = {};
   for (var i = 0; i < bucketNames.length; ++i) {
@@ -4995,52 +5095,112 @@ function _collectMacroGameTimeline(indexData, playerID, bucketNames) {
   return points;
 }
 
-function _formatMacroGameDamageChart(title, totalDamage, timelinePoints, sourceCounts) {
-  if (!totalDamage) return '';
-  var maxAmount = 0;
+function _buildMacroGameLinePath(points, width, height, paddingX, paddingY, valueAccessor) {
+  if (!points.length) return '';
+  var maxValue = 0;
+  for (var i = 0; i < points.length; ++i) {
+    maxValue = Math.max(maxValue, parseInt(valueAccessor(points[i]), 10) || 0);
+  }
+  if (maxValue <= 0) maxValue = 1;
+  var usableWidth = Math.max(1, width - paddingX * 2);
+  var usableHeight = Math.max(1, height - paddingY * 2);
+  var path = '';
+  for (var j = 0; j < points.length; ++j) {
+    var x = paddingX + (points.length === 1 ? usableWidth / 2 : (usableWidth * j / (points.length - 1)));
+    var y = height - paddingY - (usableHeight * ((parseInt(valueAccessor(points[j]), 10) || 0) / maxValue));
+    path += (j === 0 ? 'M' : ' L') + x.toFixed(2) + ' ' + y.toFixed(2);
+  }
+  return path;
+}
+
+function _buildMacroGameLineDots(points, width, height, paddingX, paddingY, valueAccessor, color) {
+  if (!points.length) return '';
+  var maxValue = 0;
+  for (var i = 0; i < points.length; ++i) {
+    maxValue = Math.max(maxValue, parseInt(valueAccessor(points[i]), 10) || 0);
+  }
+  if (maxValue <= 0) maxValue = 1;
+  var usableWidth = Math.max(1, width - paddingX * 2);
+  var usableHeight = Math.max(1, height - paddingY * 2);
+  var html = '';
+  for (var j = 0; j < points.length; ++j) {
+    var x = paddingX + (points.length === 1 ? usableWidth / 2 : (usableWidth * j / (points.length - 1)));
+    var y = height - paddingY - (usableHeight * ((parseInt(valueAccessor(points[j]), 10) || 0) / maxValue));
+    html += '<circle cx="' + x.toFixed(2) + '" cy="' + y.toFixed(2) + '" r="3.5" fill="' + color + '" stroke="rgba(8,15,25,0.9)" stroke-width="1.5"></circle>';
+  }
+  return html;
+}
+
+function _buildMacroGameCumulativeTimeline(timelinePoints) {
+  var cumulative = [];
+  var running = 0;
   for (var i = 0; i < timelinePoints.length; ++i) {
-    if (timelinePoints[i].amount > maxAmount) maxAmount = timelinePoints[i].amount;
+    running += parseInt(timelinePoints[i].amount, 10) || 0;
+    cumulative.push({ turn: timelinePoints[i].turn, amount: running });
   }
-  if (maxAmount <= 0) maxAmount = 1;
-  var columnCount = Math.max(timelinePoints.length, 1);
+  return cumulative;
+}
 
-  var barsHtml = '';
-  for (var j = 0; j < timelinePoints.length; ++j) {
-    var point = timelinePoints[j];
-    var barHeight = Math.max(18, Math.round((point.amount / maxAmount) * 108));
-    barsHtml += ''
-      + '<div style="display:flex; flex-direction:column; align-items:stretch; justify-content:flex-end; gap:8px; min-width:0;">'
-      + '<div style="text-align:center; font-size:11px; font-weight:700; color:#ffe3a1;">' + point.amount + '</div>'
-      + '<div style="display:flex; align-items:flex-end; justify-content:center; min-height:110px;">'
-      + '<div title="Turn ' + point.turn + ': ' + point.amount + ' damage" style="width:min(100%, 56px); height:' + barHeight + 'px; border-radius:12px 12px 5px 5px;'
-      + ' background:linear-gradient(180deg, #ffe08b 0%, #e7b43c 38%, #b97814 100%); box-shadow:0 10px 18px rgba(201,141,31,0.22), inset 0 1px 0 rgba(255,255,255,0.32);"></div>'
-      + '</div>'
-      + '<div style="text-align:center; font-size:10px; color:rgba(220,232,255,0.74); letter-spacing:0.03em;">Turn ' + point.turn + '</div>'
-      + '</div>';
-  }
-
-  if (!barsHtml) {
-    barsHtml = '<div style="display:flex; align-items:center; justify-content:center; min-height:150px; color:rgba(220,232,255,0.72); font-size:12px;">No opponent champion damage recorded.</div>';
+function _formatMacroGameDamageChart(title, totalDamage, timelinePoints) {
+  if (!totalDamage) return '';
+  var perTurnPoints = timelinePoints;
+  var cumulativePoints = _buildMacroGameCumulativeTimeline(timelinePoints);
+  var chartWidth = Math.max(240, timelinePoints.length * 54);
+  var chartHeight = 78;
+  var paddingX = 16;
+  var paddingY = 12;
+  var perTurnPath = _buildMacroGameLinePath(perTurnPoints, chartWidth, chartHeight, paddingX, paddingY, function(point) { return point.amount; });
+  var cumulativePath = _buildMacroGameLinePath(cumulativePoints, chartWidth, chartHeight, paddingX, paddingY, function(point) { return point.amount; });
+  var perTurnDots = _buildMacroGameLineDots(perTurnPoints, chartWidth, chartHeight, paddingX, paddingY, function(point) { return point.amount; }, '#ffd46b');
+  var cumulativeDots = _buildMacroGameLineDots(cumulativePoints, chartWidth, chartHeight, paddingX, paddingY, function(point) { return point.amount; }, '#8bc4ff');
+  var turnLabels = '';
+  for (var i = 0; i < timelinePoints.length; ++i) {
+    turnLabels += '<div style="text-align:center; font-size:9px; color:rgba(220,232,255,0.70);">T' + timelinePoints[i].turn + '</div>';
   }
 
   return ''
-    + '<section style="margin:0; padding:14px 14px 12px; border-radius:16px; min-width:0;'
+    + '<section style="margin:0; padding:12px 12px 10px; border-radius:16px; min-width:0;'
     + ' background:linear-gradient(180deg, rgba(20,29,45,0.96), rgba(10,16,27,0.92));'
     + ' border:1px solid rgba(201,168,76,0.18); box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">'
-    + '<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;">'
+    + '<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;">'
     + '<div>'
     + '<div style="font-size:15px; font-weight:800; letter-spacing:0.01em; color:#fff1c6;">' + _escapeMacroGameHtml(title) + '</div>'
-    + '<div style="margin-top:3px; font-size:12px; color:rgba(220,232,255,0.72);">Opponent champion damage by turn</div>'
     + '</div>'
     + '<div style="flex:0 0 auto; padding:5px 10px; border-radius:999px; background:rgba(201,168,76,0.18); border:1px solid rgba(201,168,76,0.28); color:#ffe09b; font-size:12px; font-weight:800;">' + totalDamage + '</div>'
     + '</div>'
-    + '<div style="display:flex; flex-direction:column; gap:12px;">'
-    + '<div style="min-width:0; padding:12px 12px 10px; border-radius:14px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);">'
-    + '<div style="display:grid; grid-template-columns:repeat(' + columnCount + ', minmax(56px, 1fr)); align-items:end; gap:12px; min-height:156px; width:100%;'
-    + (columnCount > 8 ? ' overflow-x:auto;' : '') + ' padding:4px 2px 2px;">' + barsHtml + '</div>'
-    + '<div style="margin-top:10px; height:1px; background:linear-gradient(90deg, rgba(201,168,76,0.12), rgba(201,168,76,0.4), rgba(201,168,76,0.12));"></div>'
+    + '<div style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:10px; margin-bottom:8px;">'
+    + '<div style="display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:999px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">'
+    + '<span style="width:10px; height:10px; border-radius:50%; background:#ffd46b; box-shadow:0 0 8px rgba(255,212,107,0.35);"></span>'
+    + '<span style="font-size:11px; font-weight:700; color:#f5ecd2;">Per Turn</span>'
     + '</div>'
-    + _formatMacroGameSection('Top Damage Sources', _collectMacroGameBucketTotal(sourceCounts), sourceCounts)
+    + '<div style="display:flex; align-items:center; gap:8px; padding:7px 10px; border-radius:999px; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07);">'
+    + '<span style="width:10px; height:10px; border-radius:50%; background:#8bc4ff; box-shadow:0 0 8px rgba(139,196,255,0.35);"></span>'
+    + '<span style="font-size:11px; font-weight:700; color:#f5ecd2;">Cumulative</span>'
+    + '</div>'
+    + '</div>'
+    + '<div style="min-width:0; padding:10px 10px 8px; border-radius:14px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07); overflow-x:auto;">'
+    + '<div style="min-width:' + chartWidth + 'px;">'
+    + '<div style="display:grid; grid-template-columns:68px minmax(0, 1fr); gap:8px; align-items:center; margin-bottom:8px;">'
+    + '<div style="font-size:10px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:rgba(255,212,107,0.78);">Per Turn</div>'
+    + '<svg viewBox="0 0 ' + chartWidth + ' ' + chartHeight + '" preserveAspectRatio="none" style="display:block; width:100%; height:78px;">'
+    + '<path d="M ' + paddingX + ' ' + (chartHeight - paddingY) + ' L ' + (chartWidth - paddingX) + ' ' + (chartHeight - paddingY) + '" stroke="rgba(255,255,255,0.10)" stroke-width="1" fill="none"></path>'
+    + '<path d="' + perTurnPath + '" stroke="#ffd46b" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>'
+    + perTurnDots
+    + '</svg>'
+    + '</div>'
+    + '<div style="display:grid; grid-template-columns:68px minmax(0, 1fr); gap:8px; align-items:center;">'
+    + '<div style="font-size:10px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:rgba(139,196,255,0.82);">Cumulative</div>'
+    + '<svg viewBox="0 0 ' + chartWidth + ' ' + chartHeight + '" preserveAspectRatio="none" style="display:block; width:100%; height:78px;">'
+    + '<path d="M ' + paddingX + ' ' + (chartHeight - paddingY) + ' L ' + (chartWidth - paddingX) + ' ' + (chartHeight - paddingY) + '" stroke="rgba(255,255,255,0.10)" stroke-width="1" fill="none"></path>'
+    + '<path d="' + cumulativePath + '" stroke="#8bc4ff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"></path>'
+    + cumulativeDots
+    + '</svg>'
+    + '</div>'
+    + '<div style="display:grid; grid-template-columns:68px repeat(' + Math.max(1, timelinePoints.length) + ', minmax(34px, 1fr)); gap:8px; align-items:center; margin-top:6px;">'
+    + '<div style="font-size:10px; color:rgba(220,232,255,0.56);">Turns</div>'
+    + turnLabels
+    + '</div>'
+    + '</div>'
     + '</div>'
     + '</section>';
 }
@@ -5057,31 +5217,24 @@ function _collectMacroGameBucketTotal(bucketCounts) {
 function BuildMacroGameStatsHtml(playerID) {
   if (typeof window === 'undefined' || !window.MacroGameIndexData) return '';
   var indexData = _parseMacroGameIndex(window.MacroGameIndexData);
-  var sections = [
-    { title: 'Cards Reserved', callMacros: [], cardBuckets: ['ReserveCardCommitted'] },
-    { title: 'Cards Played From Hand', callMacros: ['ActivateCard', 'PlayCard'], cardBuckets: ['ActivateCard', 'PlayCard'] },
-    { title: 'Abilities Activated', callMacros: ['ActivateAbility', 'HandActivatedAbility'], cardBuckets: ['ActivateAbility', 'HandActivatedAbility'] },
-    { title: 'Attacks Declared', callMacros: ['OnAttack', 'AttackWith'], cardBuckets: ['OnAttack', 'AttackWith'] }
+  var matrixColumns = [
+    { key: 'reserve', label: 'Reserved', cardBuckets: ['ReserveCardCommitted'] },
+    { key: 'play', label: 'Played', cardBuckets: ['ActivateCard', 'PlayCard'] },
+    { key: 'ability', label: 'Abilities', cardBuckets: ['ActivateAbility', 'HandActivatedAbility'] },
+    { key: 'attack', label: 'Attacks', cardBuckets: ['OnAttack', 'AttackWith'] },
+    { key: 'damage', label: 'Damage', cardBuckets: ['OpponentChampionDamageSources'] }
   ];
   var html = '';
   var damageTimeline = _collectMacroGameTimeline(indexData, playerID, ['OpponentChampionDamageTimeline']);
   var damageTotal = _collectMacroGameNumericBuckets(indexData, playerID, ['OpponentChampionDamage']);
-  var damageSources = _collectMacroGameBucketCounts(indexData, playerID, ['OpponentChampionDamageSources']);
-  html += _formatMacroGameDamageChart('Damage Dealt', damageTotal, damageTimeline, damageSources);
-  for (var i = 0; i < sections.length; ++i) {
-    var section = sections[i];
-    var total = _collectMacroGameCallCount(indexData, playerID, section.callMacros || []);
-    var cardCounts = _collectMacroGameBucketCounts(indexData, playerID, section.cardBuckets || []);
-    if (!total) total = _collectMacroGameBucketTotal(cardCounts);
-    html += _formatMacroGameSection(section.title, total, cardCounts);
-  }
+  html += _formatMacroGameDamageChart('Damage Dealt', damageTotal, damageTimeline);
+  html += _formatMacroGameMatrix(playerID, indexData, matrixColumns);
   if (!html) return '';
   return ''
     + '<div style="margin-bottom:10px;">'
     + '<div style="font-size:18px; font-weight:800; letter-spacing:0.02em; color:#fff4cf;">Game Stats</div>'
-    + '<div style="margin-top:3px; font-size:12px; color:rgba(220,232,255,0.76);">Hover a card name to preview its art.</div>'
     + '</div>'
-    + '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:12px; align-items:start;">' + html + '</div>';
+    + '<div style="display:flex; flex-direction:column; gap:12px;">' + html + '</div>';
 }
 
 function GetCookieValue(cookieName) {
