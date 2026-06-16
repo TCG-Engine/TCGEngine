@@ -9613,8 +9613,9 @@ function ObjectCurrentPower($obj) {
         }
     }
     if($power === null || $power < 0) $power = 0;
-    // Buff counter modifier: +1 power per buff counter (applied before other modifiers)
+    // Buff/debuff counters modify base power before other effects.
     $power += GetCounterCount($obj, "buff");
+    $power -= GetCounterCount($obj, "debuff");
     // Tweedledee, Contrarian Poet (EwUKdNL4bk): -3 POWER per hit (indefinite)
     $power -= GetCounterCount($obj, "power_loss");
     foreach($obj->TurnEffects ?? [] as $effect) {
@@ -11958,8 +11959,9 @@ function ObjectCurrentHP($obj) {
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && IsGoldfishPlayer(intval($obj->Controller ?? 0))) {
         $cardLife = max(1000, intval($cardLife));
     }
-    // Buff counter modifier: +1 life per buff counter (applied before other modifiers)
+    // Buff/debuff counters modify base life before other effects.
     $cardLife += GetCounterCount($obj, "buff");
+    $cardLife -= GetCounterCount($obj, "debuff");
     if(in_array("ymuarq5tv0-LIFE", $obj->TurnEffects ?? [])) {
         $cardLife += 1;
     }
@@ -20144,6 +20146,13 @@ function GetCounterCount($obj, $type) {
  */
 function GetBuffCounterCount($obj) {
     return GetCounterCount($obj, "buff");
+}
+
+/**
+ * Virtual property callback: returns the number of debuff counters on the object.
+ */
+function GetDebuffCounterCount($obj) {
+    return GetCounterCount($obj, "debuff");
 }
 
 /**
