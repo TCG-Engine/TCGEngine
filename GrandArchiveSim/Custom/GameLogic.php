@@ -4067,12 +4067,43 @@ $customDQHandlers["FacetTogetherApply"] = function($player, $parts, $lastDecisio
     AddSheenToMastery($player, $count);
 };
 
-function OnCardReserved($player, $mzCard) {
+function OnCardReserved($player, $mzCard, $statsContext = "ACTION") {
     $reservedObj = GetZoneObject($mzCard);
     if($reservedObj !== null && isset($reservedObj->CardID) && function_exists('IncrementMacroGameIndexCard')) {
         IncrementMacroGameIndexCard("ReserveCard", $player, $reservedObj->CardID);
+        IncrementMacroGameIndexCard("ReserveCardCommitted", $player, $reservedObj->CardID);
+        if($statsContext === "ACTION") {
+            IncrementMacroGameIndexCard("ReserveActionCommitted", $player, $reservedObj->CardID);
+        }
     }
     return MZMove($player, $mzCard, "myMemory");
+}
+
+function TrackMacroGameOpponentChampionDamage($source, $target, $amount, $defaultSourceController = null) {
+    $amount = intval($amount);
+    if($amount <= 0 || !function_exists('IncrementMacroGameIndexCount')) return;
+
+    $targetObj = GetZoneObject($target);
+    if($targetObj === null || $targetObj->removed || !PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) return;
+
+    $targetController = intval($targetObj->Controller ?? 0);
+    if($targetController <= 0) return;
+
+    $sourceController = $defaultSourceController !== null ? intval($defaultSourceController) : 0;
+    $sourceCardID = "";
+    $sourceObj = GetZoneObject($source);
+    if($sourceObj !== null && !$sourceObj->removed) {
+        $sourceController = intval($sourceObj->Controller ?? $sourceController);
+        $sourceCardID = strval($sourceObj->CardID ?? "");
+    }
+
+    if($sourceController <= 0 || $sourceController === $targetController) return;
+
+    IncrementMacroGameIndexCount("OpponentChampionDamage", $sourceController, $amount);
+    IncrementMacroGameIndexTimeline("OpponentChampionDamageTimeline", $sourceController, GetTurnNumber(), $amount);
+    if($sourceCardID !== "") {
+        IncrementMacroGameIndexBucket("OpponentChampionDamageSources", $sourceController, $sourceCardID, $amount);
+    }
 }
 
 function ClearImbueSetupVariables() {

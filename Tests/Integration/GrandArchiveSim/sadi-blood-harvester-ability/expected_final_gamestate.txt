@@ -191,5 +191,5 @@ MAIN
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"6R8XmWoKLn":1}},"EnterCalls":{"1":3},"Enter":{"1":{"6R8XmWoKLn":1,"qzzadf9q1v":1,"ugly4wiffe":1}},"ActivateAbilityCalls":{"1":2,"2":1},"ActivateAbility":{"1":{"9gv4vm4kj3":1,"ugly4wiffe":1},"2":{"ugly4wiffe":1}},"DrawCalls":{"1":1},"Draw":{"1":1},"RestCardCalls":{"1":1},"RestCard":{"1":{"6R8XmWoKLn":1}},"OnAttackCalls":{"1":1},"OnAttack":{"1":{"6R8XmWoKLn":1}},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"ugly4wiffe":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"ugly4wiffe":1}}}
 15
-{"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"ugly4wiffe":1}},"ReserveCard":{"1":{"szene5o32m":1,"xpb20rar4k":1}}}
+{"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"ugly4wiffe":1}},"ReserveCard":{"1":{"szene5o32m":1,"xpb20rar4k":1}},"ReserveCardCommitted":{"1":{"szene5o32m":1,"xpb20rar4k":1}},"ReserveActionCommitted":{"1":{"szene5o32m":1,"xpb20rar4k":1}}}
 0

@@ -189,5 +189,5 @@ MAIN
 0
 {"MaterializeCalls":{"1":3,"2":2},"Materialize":{"1":{"tafqldAGRF":1,"b31x97n2jn":1,"u7d6soporh":1},"2":{"tafqldAGRF":1,"b31x97n2jn":1}},"EnterCalls":{"1":9,"2":6},"Enter":{"1":{"tafqldAGRF":1,"bae3z4pyx8":1,"b31x97n2jn":1,"69iq4d5vet":1,"jnltv5klry":1,"u7d6soporh":1,"soporhlq2k":1,"5joh300z2s":2},"2":{"tafqldAGRF":1,"m4c8ljyevp":1,"b31x97n2jn":1,"soporhlq2k":1,"bd7ozuj68m":1,"bae3z4pyx8":1}},"DrawCalls":{"1":6,"2":4},"Draw":{"1":14,"2":10},"ActivateCardCalls":{"1":2,"2":2},"ActivateCard":{"1":{"bae3z4pyx8":1,"300z2snsdw":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"CardActivatedCalls":{"1":2,"2":2},"CardActivated":{"1":{"bae3z4pyx8":1,"300z2snsdw":1},"2":{"m4c8ljyevp":1,"bae3z4pyx8":1}},"ExhaustCardCalls":{"1":1},"ExhaustCard":{"1":{"bae3z4pyx8":1}},"ActivateAbilityCalls":{"1":4},"ActivateAbility":{"1":{"bae3z4pyx8":1,"u7d6soporh":3}}}
 1
-{"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"u7d6soporh":1}},"ReserveCard":{"1":{"xWJND68I8X":1}},"EnterCalls":{"1":1},"Enter":{"1":{"5joh300z2s":1}}}
+{"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"u7d6soporh":1}},"ReserveCard":{"1":{"xWJND68I8X":1}},"ReserveCardCommitted":{"1":{"xWJND68I8X":1}},"ReserveActionCommitted":{"1":{"xWJND68I8X":1}},"EnterCalls":{"1":1},"Enter":{"1":{"5joh300z2s":1}}}
 1

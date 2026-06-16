@@ -199,5 +199,5 @@ MAIN
 0
 {"MaterializeCalls":{"2":1},"Materialize":{"2":{"Y34Imzlr0n":1}},"EnterCalls":{"2":3},"Enter":{"2":{"Y34Imzlr0n":1,"fdnlbJm3hr":2}},"DrawCalls":{"2":1},"Draw":{"2":1},"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"3uqgjoBQ9G":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"3uqgjoBQ9G":1}}}
 19
-{"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"3uqgjoBQ9G":1}},"ReserveCard":{"2":{"XOevViFTB3":1,"A58xZJJMz6":1,"P9Y1Q5cQ0F":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"3uqgjoBQ9G":1}},"EnterCalls":{"2":2},"Enter":{"2":{"fdnlbJm3hr":2}}}
+{"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"3uqgjoBQ9G":1}},"ReserveCard":{"2":{"XOevViFTB3":1,"A58xZJJMz6":1,"P9Y1Q5cQ0F":1}},"ReserveCardCommitted":{"2":{"XOevViFTB3":1,"A58xZJJMz6":1,"P9Y1Q5cQ0F":1}},"ReserveActionCommitted":{"2":{"XOevViFTB3":1,"A58xZJJMz6":1,"P9Y1Q5cQ0F":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"3uqgjoBQ9G":1}},"EnterCalls":{"2":2},"Enter":{"2":{"fdnlbJm3hr":2}}}
 0

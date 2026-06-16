@@ -4849,12 +4849,38 @@ function _collectMacroGameCardCounts(indexData, playerID, macroNames) {
   return combined;
 }
 
+function _collectMacroGameBucketCounts(indexData, playerID, bucketNames) {
+  var combined = {};
+  for (var i = 0; i < bucketNames.length; ++i) {
+    var bucketName = bucketNames[i];
+    var bucketEntry = indexData[bucketName];
+    if (!bucketEntry) continue;
+    var playerEntry = bucketEntry[playerID] || bucketEntry[String(playerID)];
+    if (!playerEntry || typeof playerEntry !== 'object') continue;
+    for (var entryKey in playerEntry) {
+      if (!Object.prototype.hasOwnProperty.call(playerEntry, entryKey)) continue;
+      combined[entryKey] = (combined[entryKey] || 0) + (parseInt(playerEntry[entryKey], 10) || 0);
+    }
+  }
+  return combined;
+}
+
 function _collectMacroGameCallCount(indexData, playerID, macroNames) {
   var total = 0;
   for (var i = 0; i < macroNames.length; ++i) {
     var callEntry = indexData[macroNames[i] + 'Calls'];
     if (!callEntry) continue;
     total += parseInt(callEntry[playerID] || callEntry[String(playerID)] || 0, 10) || 0;
+  }
+  return total;
+}
+
+function _collectMacroGameNumericBuckets(indexData, playerID, bucketNames) {
+  var total = 0;
+  for (var i = 0; i < bucketNames.length; ++i) {
+    var bucketEntry = indexData[bucketNames[i]];
+    if (!bucketEntry) continue;
+    total += parseInt(bucketEntry[playerID] || bucketEntry[String(playerID)] || 0, 10) || 0;
   }
   return total;
 }
@@ -4946,20 +4972,107 @@ function _formatMacroGameSection(title, total, cardCounts) {
   return html;
 }
 
+function _collectMacroGameTimeline(indexData, playerID, bucketNames) {
+  var combined = {};
+  for (var i = 0; i < bucketNames.length; ++i) {
+    var bucketEntry = indexData[bucketNames[i]];
+    if (!bucketEntry) continue;
+    var playerEntry = bucketEntry[playerID] || bucketEntry[String(playerID)];
+    if (!playerEntry || typeof playerEntry !== 'object') continue;
+    for (var turnKey in playerEntry) {
+      if (!Object.prototype.hasOwnProperty.call(playerEntry, turnKey)) continue;
+      var amount = parseInt(playerEntry[turnKey], 10) || 0;
+      if (amount <= 0) continue;
+      combined[turnKey] = (combined[turnKey] || 0) + amount;
+    }
+  }
+  var points = [];
+  for (var combinedKey in combined) {
+    if (!Object.prototype.hasOwnProperty.call(combined, combinedKey)) continue;
+    points.push({ turn: parseInt(combinedKey, 10) || 0, amount: combined[combinedKey] });
+  }
+  points.sort(function(a, b) { return a.turn - b.turn; });
+  return points;
+}
+
+function _formatMacroGameDamageChart(title, totalDamage, timelinePoints, sourceCounts) {
+  if (!totalDamage) return '';
+  var maxAmount = 0;
+  for (var i = 0; i < timelinePoints.length; ++i) {
+    if (timelinePoints[i].amount > maxAmount) maxAmount = timelinePoints[i].amount;
+  }
+  if (maxAmount <= 0) maxAmount = 1;
+  var columnCount = Math.max(timelinePoints.length, 1);
+
+  var barsHtml = '';
+  for (var j = 0; j < timelinePoints.length; ++j) {
+    var point = timelinePoints[j];
+    var barHeight = Math.max(18, Math.round((point.amount / maxAmount) * 108));
+    barsHtml += ''
+      + '<div style="display:flex; flex-direction:column; align-items:stretch; justify-content:flex-end; gap:8px; min-width:0;">'
+      + '<div style="text-align:center; font-size:11px; font-weight:700; color:#ffe3a1;">' + point.amount + '</div>'
+      + '<div style="display:flex; align-items:flex-end; justify-content:center; min-height:110px;">'
+      + '<div title="Turn ' + point.turn + ': ' + point.amount + ' damage" style="width:min(100%, 56px); height:' + barHeight + 'px; border-radius:12px 12px 5px 5px;'
+      + ' background:linear-gradient(180deg, #ffe08b 0%, #e7b43c 38%, #b97814 100%); box-shadow:0 10px 18px rgba(201,141,31,0.22), inset 0 1px 0 rgba(255,255,255,0.32);"></div>'
+      + '</div>'
+      + '<div style="text-align:center; font-size:10px; color:rgba(220,232,255,0.74); letter-spacing:0.03em;">Turn ' + point.turn + '</div>'
+      + '</div>';
+  }
+
+  if (!barsHtml) {
+    barsHtml = '<div style="display:flex; align-items:center; justify-content:center; min-height:150px; color:rgba(220,232,255,0.72); font-size:12px;">No opponent champion damage recorded.</div>';
+  }
+
+  return ''
+    + '<section style="margin:0; padding:14px 14px 12px; border-radius:16px; min-width:0;'
+    + ' background:linear-gradient(180deg, rgba(20,29,45,0.96), rgba(10,16,27,0.92));'
+    + ' border:1px solid rgba(201,168,76,0.18); box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">'
+    + '<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:10px;">'
+    + '<div>'
+    + '<div style="font-size:15px; font-weight:800; letter-spacing:0.01em; color:#fff1c6;">' + _escapeMacroGameHtml(title) + '</div>'
+    + '<div style="margin-top:3px; font-size:12px; color:rgba(220,232,255,0.72);">Opponent champion damage by turn</div>'
+    + '</div>'
+    + '<div style="flex:0 0 auto; padding:5px 10px; border-radius:999px; background:rgba(201,168,76,0.18); border:1px solid rgba(201,168,76,0.28); color:#ffe09b; font-size:12px; font-weight:800;">' + totalDamage + '</div>'
+    + '</div>'
+    + '<div style="display:flex; flex-direction:column; gap:12px;">'
+    + '<div style="min-width:0; padding:12px 12px 10px; border-radius:14px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);">'
+    + '<div style="display:grid; grid-template-columns:repeat(' + columnCount + ', minmax(56px, 1fr)); align-items:end; gap:12px; min-height:156px; width:100%;'
+    + (columnCount > 8 ? ' overflow-x:auto;' : '') + ' padding:4px 2px 2px;">' + barsHtml + '</div>'
+    + '<div style="margin-top:10px; height:1px; background:linear-gradient(90deg, rgba(201,168,76,0.12), rgba(201,168,76,0.4), rgba(201,168,76,0.12));"></div>'
+    + '</div>'
+    + _formatMacroGameSection('Top Damage Sources', _collectMacroGameBucketTotal(sourceCounts), sourceCounts)
+    + '</div>'
+    + '</section>';
+}
+
+function _collectMacroGameBucketTotal(bucketCounts) {
+  var total = 0;
+  for (var key in bucketCounts) {
+    if (!Object.prototype.hasOwnProperty.call(bucketCounts, key)) continue;
+    total += parseInt(bucketCounts[key], 10) || 0;
+  }
+  return total;
+}
+
 function BuildMacroGameStatsHtml(playerID) {
   if (typeof window === 'undefined' || !window.MacroGameIndexData) return '';
   var indexData = _parseMacroGameIndex(window.MacroGameIndexData);
   var sections = [
-    { title: 'Cards Reserved', macros: ['ReserveCard'] },
-    { title: 'Cards Played From Hand', macros: ['ActivateCard', 'PlayCard'] },
-    { title: 'Abilities Activated', macros: ['ActivateAbility', 'HandActivatedAbility'] },
-    { title: 'Attacks Declared', macros: ['OnAttack', 'AttackWith'] }
+    { title: 'Cards Reserved', callMacros: [], cardBuckets: ['ReserveCardCommitted'] },
+    { title: 'Cards Played From Hand', callMacros: ['ActivateCard', 'PlayCard'], cardBuckets: ['ActivateCard', 'PlayCard'] },
+    { title: 'Abilities Activated', callMacros: ['ActivateAbility', 'HandActivatedAbility'], cardBuckets: ['ActivateAbility', 'HandActivatedAbility'] },
+    { title: 'Attacks Declared', callMacros: ['OnAttack', 'AttackWith'], cardBuckets: ['OnAttack', 'AttackWith'] }
   ];
   var html = '';
+  var damageTimeline = _collectMacroGameTimeline(indexData, playerID, ['OpponentChampionDamageTimeline']);
+  var damageTotal = _collectMacroGameNumericBuckets(indexData, playerID, ['OpponentChampionDamage']);
+  var damageSources = _collectMacroGameBucketCounts(indexData, playerID, ['OpponentChampionDamageSources']);
+  html += _formatMacroGameDamageChart('Damage Dealt', damageTotal, damageTimeline, damageSources);
   for (var i = 0; i < sections.length; ++i) {
     var section = sections[i];
-    var total = _collectMacroGameCallCount(indexData, playerID, section.macros);
-    var cardCounts = _collectMacroGameCardCounts(indexData, playerID, section.macros);
+    var total = _collectMacroGameCallCount(indexData, playerID, section.callMacros || []);
+    var cardCounts = _collectMacroGameBucketCounts(indexData, playerID, section.cardBuckets || []);
+    if (!total) total = _collectMacroGameBucketTotal(cardCounts);
     html += _formatMacroGameSection(section.title, total, cardCounts);
   }
   if (!html) return '';

@@ -192,5 +192,5 @@ Players can't materialize or activate WATER and CRUX element cards until the beg
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"suo6gb0op3":1}},"EnterCalls":{"1":1},"Enter":{"1":{"suo6gb0op3":1}},"DrawCalls":{"1":1},"Draw":{"1":1},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"qtRBz9azeZ":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"qtRBz9azeZ":1}},"AdvancedElementActivated":{"1":1}}
 35
-{"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"qtRBz9azeZ":1}},"ReserveCard":{"1":{"Bzy2hRKUmR":1,"qrxQGA1pc6":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"qtRBz9azeZ":1}}}
+{"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"qtRBz9azeZ":1}},"ReserveCard":{"1":{"Bzy2hRKUmR":1,"qrxQGA1pc6":1}},"ReserveCardCommitted":{"1":{"Bzy2hRKUmR":1,"qrxQGA1pc6":1}},"ReserveActionCommitted":{"1":{"Bzy2hRKUmR":1,"qrxQGA1pc6":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"qtRBz9azeZ":1}}}
 0

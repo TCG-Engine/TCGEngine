@@ -184,5 +184,5 @@ MAIN
 0
 {"DrawCalls":{"1":1},"Draw":{"1":1},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"C3YucOomEM":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"C3YucOomEM":1}},"AdvancedElementActivated":{"1":1}}
 23
-{"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"C3YucOomEM":1}},"ReserveCard":{"1":{"FwPdj4PkSS":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"C3YucOomEM":1}}}
+{"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"C3YucOomEM":1}},"ReserveCard":{"1":{"FwPdj4PkSS":1}},"ReserveCardCommitted":{"1":{"FwPdj4PkSS":1}},"ReserveActionCommitted":{"1":{"FwPdj4PkSS":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"C3YucOomEM":1}}}
 0

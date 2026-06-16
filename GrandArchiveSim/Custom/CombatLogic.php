@@ -4522,6 +4522,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         return;
     }
     RecordTrackedCombatDamageAmount($source, $target, $amount);
+    TrackMacroGameOpponentChampionDamage($source, $target, $amount, $player);
     $targetObj->Damage += $amount;
     
     // Queue damage animation for the target card
@@ -4730,6 +4731,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     $amount = ApplyCombatDamageReplacements($player, $source, $amount);
     if($amount <= 0) return;
     RecordTrackedCombatDamageAmount($source, $target, $amount);
+    TrackMacroGameOpponentChampionDamage($source, $target, $amount, $player);
     $targetObj->Damage += $amount;
     
     // Queue damage animation for the target card

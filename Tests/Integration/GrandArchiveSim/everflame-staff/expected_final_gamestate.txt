@@ -198,5 +198,5 @@ MAIN
 0
 {"DrawCalls":{"2":1},"Draw":{"2":1},"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"7iak6hyh6b":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"7iak6hyh6b":1}},"DealDamageCalls":{"2":1}}
 61
-{"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"7iak6hyh6b":1}},"ReserveCard":{"2":{"vjonmi9jjq":2,"1k2jb8mau1":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"7iak6hyh6b":1}},"DealDamageCalls":{"2":1}}
+{"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"7iak6hyh6b":1}},"ReserveCard":{"2":{"vjonmi9jjq":2,"1k2jb8mau1":1}},"ReserveCardCommitted":{"2":{"vjonmi9jjq":2,"1k2jb8mau1":1}},"ReserveActionCommitted":{"2":{"vjonmi9jjq":2,"1k2jb8mau1":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"7iak6hyh6b":1}},"DealDamageCalls":{"2":1},"OpponentChampionDamage":{"2":3},"OpponentChampionDamageTimeline":{"2":{"11":3}}}
 0

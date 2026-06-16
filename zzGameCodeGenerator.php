@@ -961,7 +961,11 @@ for($i=0; $i<count($macros); ++$i) {
     // AfterChoice handler
     fwrite($handler, "\$systemDQHandlers[\"" . $macro->FunctionName . "_AfterChoice\"] = function(\$player, \$param, \$lastResult) {\r\n");
     if(isset($macro->AfterChoice)) {
-      fwrite($handler, "  " . $macro->AfterChoice . "(\$player, \$lastResult);\r\n");
+      if($macro->FunctionName === "ReserveCard" && $macro->AfterChoice === "OnCardReserved") {
+        fwrite($handler, "  " . $macro->AfterChoice . "(\$player, \$lastResult, \"PAYMENT\");\r\n");
+      } else {
+        fwrite($handler, "  " . $macro->AfterChoice . "(\$player, \$lastResult);\r\n");
+      }
     }
     fwrite($handler, "  DecisionQueueController::AddDecision(\$player, \"SYSTEM\", \"" . $macro->FunctionName . "_Action\", 99);\r\n");
     fwrite($handler, "};\r\n\r\n");
@@ -1082,13 +1086,27 @@ $helperComment .= "  if (!is_string(\$raw) || \$raw === '' || \$raw === '-') ret
 $helperComment .= "  \$decoded = json_decode(\$raw, true);\r\n";
 $helperComment .= "  return is_array(\$decoded) ? \$decoded : [];\r\n";
 $helperComment .= "}\r\n\r\n";
-$helperComment .= "function IncrementMacroGameIndexCard(\$macroName, \$player, \$cardID, \$amount = 1) {\r\n";
-$helperComment .= "  if(\$macroName === '' || \$cardID === '') return;\r\n";
+$helperComment .= "function IncrementMacroGameIndexCount(\$bucketName, \$player, \$amount = 1) {\r\n";
+$helperComment .= "  if(\$bucketName === '') return;\r\n";
 $helperComment .= "  \$_gi = GetMacroGameIndexArray();\r\n";
-$helperComment .= "  if (!isset(\$_gi[\$macroName]) || !is_array(\$_gi[\$macroName])) \$_gi[\$macroName] = [];\r\n";
-$helperComment .= "  if (!isset(\$_gi[\$macroName][\$player]) || !is_array(\$_gi[\$macroName][\$player])) \$_gi[\$macroName][\$player] = [];\r\n";
-$helperComment .= "  \$_gi[\$macroName][\$player][\$cardID] = (\$_gi[\$macroName][\$player][\$cardID] ?? 0) + max(1, intval(\$amount));\r\n";
+$helperComment .= "  if (!isset(\$_gi[\$bucketName]) || !is_array(\$_gi[\$bucketName])) \$_gi[\$bucketName] = [];\r\n";
+$helperComment .= "  \$_gi[\$bucketName][\$player] = (\$_gi[\$bucketName][\$player] ?? 0) + max(1, intval(\$amount));\r\n";
 $helperComment .= "  SetMacroGameIndex(json_encode(\$_gi));\r\n";
+$helperComment .= "}\r\n\r\n";
+$helperComment .= "function IncrementMacroGameIndexBucket(\$bucketName, \$player, \$entryKey, \$amount = 1) {\r\n";
+$helperComment .= "  if(\$bucketName === '' || \$entryKey === '') return;\r\n";
+$helperComment .= "  \$_gi = GetMacroGameIndexArray();\r\n";
+$helperComment .= "  if (!isset(\$_gi[\$bucketName]) || !is_array(\$_gi[\$bucketName])) \$_gi[\$bucketName] = [];\r\n";
+$helperComment .= "  if (!isset(\$_gi[\$bucketName][\$player]) || !is_array(\$_gi[\$bucketName][\$player])) \$_gi[\$bucketName][\$player] = [];\r\n";
+$helperComment .= "  \$_gi[\$bucketName][\$player][\$entryKey] = (\$_gi[\$bucketName][\$player][\$entryKey] ?? 0) + max(1, intval(\$amount));\r\n";
+$helperComment .= "  SetMacroGameIndex(json_encode(\$_gi));\r\n";
+$helperComment .= "}\r\n\r\n";
+$helperComment .= "function IncrementMacroGameIndexTimeline(\$bucketName, \$player, \$turnNumber, \$amount = 1) {\r\n";
+$helperComment .= "  \$turnKey = strval(max(1, intval(\$turnNumber)));\r\n";
+$helperComment .= "  IncrementMacroGameIndexBucket(\$bucketName, \$player, \$turnKey, \$amount);\r\n";
+$helperComment .= "}\r\n\r\n";
+$helperComment .= "function IncrementMacroGameIndexCard(\$macroName, \$player, \$cardID, \$amount = 1) {\r\n";
+$helperComment .= "  IncrementMacroGameIndexBucket(\$macroName, \$player, \$cardID, \$amount);\r\n";
 $helperComment .= "}\r\n\r\n";
 fwrite($handler, $helperComment);
 

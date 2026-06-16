@@ -192,5 +192,5 @@ MAIN
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"XPl2UAO9se":1}},"EnterCalls":{"1":1},"Enter":{"1":{"XPl2UAO9se":1}},"DrawCalls":{"1":1},"Draw":{"1":1},"RestCardCalls":{"1":3},"RestCard":{"1":{"KFfmJZMdZN":1,"Bzy2hRKUmR":1,"XPl2UAO9se":1}},"OnAttackCalls":{"1":3},"OnAttack":{"1":{"KFfmJZMdZN":1,"Bzy2hRKUmR":1,"XPl2UAO9se":1}},"DealDamageCalls":{"1":3}}
 33
-{"RestCardCalls":{"1":1},"RestCard":{"1":{"XPl2UAO9se":1}},"OnAttackCalls":{"1":1},"OnAttack":{"1":{"XPl2UAO9se":1}},"DealDamageCalls":{"1":1}}
+{"RestCardCalls":{"1":1},"RestCard":{"1":{"XPl2UAO9se":1}},"OnAttackCalls":{"1":1},"OnAttack":{"1":{"XPl2UAO9se":1}},"DealDamageCalls":{"1":1},"OpponentChampionDamage":{"1":4},"OpponentChampionDamageTimeline":{"1":{"9":4}},"OpponentChampionDamageSources":{"1":{"XPl2UAO9se":4}}}
 0

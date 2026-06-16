@@ -184,5 +184,5 @@ MAIN
 0
 {"MaterializeCalls":{"2":1},"Materialize":{"2":{"52u81v4c0z":1}},"EnterCalls":{"2":1},"Enter":{"2":{"52u81v4c0z":1}},"RevealCalls":{"2":4},"DrawCalls":{"2":1},"Draw":{"2":1},"DealDamageCalls":{"2":1}}
 21
-{"MaterializeCalls":{"2":1},"Materialize":{"2":{"52u81v4c0z":1}},"EnterCalls":{"2":1},"Enter":{"2":{"52u81v4c0z":1}},"RevealCalls":{"2":4},"DrawCalls":{"2":1},"DealDamageCalls":{"2":1}}
+{"MaterializeCalls":{"2":1},"Materialize":{"2":{"52u81v4c0z":1}},"EnterCalls":{"2":1},"Enter":{"2":{"52u81v4c0z":1}},"RevealCalls":{"2":4},"DrawCalls":{"2":1},"DealDamageCalls":{"2":1},"OpponentChampionDamage":{"2":2},"OpponentChampionDamageTimeline":{"2":{"6":2}}}
 0

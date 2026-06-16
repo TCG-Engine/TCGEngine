@@ -196,5 +196,5 @@ MAIN
 0
 {"DrawCalls":{"1":1},"Draw":{"1":1},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"alnjt7DyZL":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"alnjt7DyZL":1}},"AdvancedElementActivated":{"1":1}}
 0
-{"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"alnjt7DyZL":1}},"ReserveCard":{"1":{"l94wp7qjwb":1,"5WP1TXJo9E":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"alnjt7DyZL":1}}}
+{"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"alnjt7DyZL":1}},"ReserveCard":{"1":{"l94wp7qjwb":1,"5WP1TXJo9E":1}},"ReserveCardCommitted":{"1":{"l94wp7qjwb":1,"5WP1TXJo9E":1}},"ReserveActionCommitted":{"1":{"l94wp7qjwb":1,"5WP1TXJo9E":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"alnjt7DyZL":1}}}
 0

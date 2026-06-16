@@ -184,5 +184,5 @@ MAIN
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"59ipqa91r2":1}},"EnterCalls":{"1":1},"Enter":{"1":{"59ipqa91r2":1}},"DrawCalls":{"1":1},"Draw":{"1":1},"ActivateAbilityCalls":{"1":2},"ActivateAbility":{"1":{"TjiH4U35bv":2}}}
 22
-{"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"TjiH4U35bv":1}},"ReserveCard":{"1":{"2sn7hlyrkw":1,"c53tomoaw3":1}}}
+{"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"TjiH4U35bv":1}},"ReserveCard":{"1":{"2sn7hlyrkw":1,"c53tomoaw3":1}},"ReserveCardCommitted":{"1":{"2sn7hlyrkw":1,"c53tomoaw3":1}},"ReserveActionCommitted":{"1":{"2sn7hlyrkw":1,"c53tomoaw3":1}}}
 0

@@ -185,5 +185,5 @@ MAIN
 0
 {"MaterializeCalls":{"2":1},"Materialize":{"2":{"1XegCUjBnY":1}},"EnterCalls":{"2":1},"Enter":{"2":{"1XegCUjBnY":1}},"DrawCalls":{"2":1},"Draw":{"2":1},"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"1dfhbt3yna":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"1dfhbt3yna":1}}}
 11
-{"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"1dfhbt3yna":1}},"ReserveCard":{"2":{"rpELNyrSrM":1,"f0ymeslfpw":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"1dfhbt3yna":1}}}
+{"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"1dfhbt3yna":1}},"ReserveCard":{"2":{"rpELNyrSrM":1,"f0ymeslfpw":1}},"ReserveCardCommitted":{"2":{"rpELNyrSrM":1,"f0ymeslfpw":1}},"ReserveActionCommitted":{"2":{"rpELNyrSrM":1,"f0ymeslfpw":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"1dfhbt3yna":1}}}
 0

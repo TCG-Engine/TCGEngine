@@ -187,5 +187,5 @@ Attack canceled because the target left the field.
 0
 {"ActivateCardCalls":{"1":1,"2":1},"ActivateCard":{"1":{"NsnBhlVzTV":1},"2":{"WWnmb1Hjdo":1}},"CardActivatedCalls":{"1":1,"2":1},"CardActivated":{"1":{"NsnBhlVzTV":1},"2":{"WWnmb1Hjdo":1}},"EnterCalls":{"1":1},"Enter":{"1":{"NsnBhlVzTV":1}},"DrawCalls":{"2":1},"Draw":{"2":1},"AttackCardActivated":{"2":1},"RestCardCalls":{"2":1},"RestCard":{"2":{"74wa4x7e22":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"74wa4x7e22":1}},"DealDamageCalls":{"1":1}}
 0
-{"DealDamageCalls":{"1":1}}
+{"DealDamageCalls":{"1":1},"OpponentChampionDamage":{"1":4},"OpponentChampionDamageTimeline":{"1":{"1":4}},"OpponentChampionDamageSources":{"1":{"NsnBhlVzTV":4}}}
 0
