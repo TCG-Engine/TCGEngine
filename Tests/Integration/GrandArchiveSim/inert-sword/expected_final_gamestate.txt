@@ -188,4 +188,5 @@ MAIN
 0
 {"ActivateCardCalls":{"1":7,"2":2},"ActivateCard":{"1":{"mHd6LLyMyF":6,"UVAb8CmjtL":1},"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1}},"CardActivatedCalls":{"1":3,"2":2},"CardActivated":{"1":{"mHd6LLyMyF":2,"UVAb8CmjtL":1},"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1}},"EnterCalls":{"1":4,"2":4},"Enter":{"1":{"mHd6LLyMyF":2,"nn48ne8a05":1,"UVAb8CmjtL":1},"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1,"nn48ne8a05":1,"2s08hssegf":1}},"DrawCalls":{"2":3,"1":2},"Draw":{"2":3,"1":2},"RestCardCalls":{"2":2,"1":2},"RestCard":{"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1},"1":{"UVAb8CmjtL":1,"mHd6LLyMyF":1}},"OnAttackCalls":{"2":2,"1":2},"OnAttack":{"2":{"UVAb8CmjtL":1,"mHd6LLyMyF":1},"1":{"UVAb8CmjtL":1,"mHd6LLyMyF":1}},"DealDamageCalls":{"2":2,"1":2},"MaterializeCalls":{"1":1,"2":2},"Materialize":{"1":{"nn48ne8a05":1},"2":{"nn48ne8a05":1,"2s08hssegf":1}}}
 1
+{"MaterializeCalls":{"2":1},"Materialize":{"2":{"2s08hssegf":1}},"EnterCalls":{"2":1},"Enter":{"2":{"2s08hssegf":1}},"ReserveCard":{"2":{"wsqvfsyid4":1,"XgJ72Ot13P":1}},"DrawCalls":{"2":1}}
 0

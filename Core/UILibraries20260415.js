@@ -4768,7 +4768,7 @@ function UpdateTurnPlayerMiasma() {
  * @param {string}  [menuUrl]  Optional explicit URL for the "Return to Menu" button.
  *   If omitted, derived from window.rootPath (e.g. "./GrandArchiveSim" → "./SharedUI/Sites/GrandArchiveSim/MainMenu.php").
  */
-function ShowGameOver(didWin, menuUrl) {
+function ShowGameOver(didWin, menuUrl, statsHtml) {
   if (document.getElementById('game-over-overlay')) return; // already shown
 
   var overlay = document.createElement('div');
@@ -4777,6 +4777,27 @@ function ShowGameOver(didWin, menuUrl) {
   var title = document.createElement('div');
   title.id = 'game-over-title';
   title.textContent = didWin ? 'You Won!' : 'You Lost';
+
+  var stats = document.createElement('div');
+  stats.id = 'game-over-stats';
+  stats.style.width = 'min(1100px, 92vw)';
+  stats.style.maxHeight = 'min(56vh, 720px)';
+  stats.style.overflowY = 'auto';
+  stats.style.margin = '14px auto 20px';
+  stats.style.padding = '14px 16px';
+  stats.style.borderRadius = '12px';
+  stats.style.background = 'rgba(8, 15, 25, 0.65)';
+  stats.style.border = '1px solid rgba(255,255,255,0.12)';
+  stats.style.fontSize = '15px';
+  stats.style.lineHeight = '1.35';
+  stats.style.textAlign = 'left';
+  stats.style.color = '#f0e6c8';
+  stats.style.boxShadow = '0 18px 40px rgba(0,0,0,0.22)';
+  if (statsHtml) {
+    stats.innerHTML = statsHtml;
+  } else {
+    stats.style.display = 'none';
+  }
 
   var btn = document.createElement('button');
   btn.id = 'game-over-menu-btn';
@@ -4793,12 +4814,161 @@ function ShowGameOver(didWin, menuUrl) {
   btn.addEventListener('click', function () { window.location.href = url; });
 
   overlay.appendChild(title);
+  overlay.appendChild(stats);
   overlay.appendChild(btn);
   document.body.appendChild(overlay);
 
   overlay.classList.add(didWin ? 'won' : 'lost');
   void overlay.offsetWidth; // force reflow so the entering animation fires
   overlay.classList.add('active');
+}
+
+function _parseMacroGameIndex(rawValue) {
+  if (!rawValue || rawValue === '-') return {};
+  try {
+    var parsed = JSON.parse(rawValue);
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch (e) {
+    return {};
+  }
+}
+
+function _collectMacroGameCardCounts(indexData, playerID, macroNames) {
+  var combined = {};
+  for (var i = 0; i < macroNames.length; ++i) {
+    var macroName = macroNames[i];
+    var macroEntry = indexData[macroName];
+    if (!macroEntry) continue;
+    var playerEntry = macroEntry[playerID] || macroEntry[String(playerID)];
+    if (!playerEntry || typeof playerEntry !== 'object') continue;
+    for (var cardID in playerEntry) {
+      if (!Object.prototype.hasOwnProperty.call(playerEntry, cardID)) continue;
+      combined[cardID] = (combined[cardID] || 0) + (parseInt(playerEntry[cardID], 10) || 0);
+    }
+  }
+  return combined;
+}
+
+function _collectMacroGameCallCount(indexData, playerID, macroNames) {
+  var total = 0;
+  for (var i = 0; i < macroNames.length; ++i) {
+    var callEntry = indexData[macroNames[i] + 'Calls'];
+    if (!callEntry) continue;
+    total += parseInt(callEntry[playerID] || callEntry[String(playerID)] || 0, 10) || 0;
+  }
+  return total;
+}
+
+function _escapeMacroGameHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function _getMacroGameCardName(cardID) {
+  if (typeof Cardname === 'function') {
+    var resolved = Cardname(cardID);
+    if (resolved) return resolved;
+  }
+  return cardID || 'Unknown card';
+}
+
+function _getMacroGameCardImageUrl(cardID) {
+  if (!cardID) return '';
+  var rootPath = typeof window !== 'undefined' && window.rootPath ? String(window.rootPath) : './GrandArchiveSim';
+  rootPath = rootPath.replace(/^(\.\/|\/)/, '');
+  return './' + rootPath + '/WebpImages/' + encodeURIComponent(cardID) + '.webp';
+}
+
+function ShowMacroGameCardPreview(event, cardID) {
+  if (!cardID || typeof ShowDetail !== 'function') return;
+  ShowDetail(event, _getMacroGameCardImageUrl(cardID));
+}
+
+function HideMacroGameCardPreview() {
+  if (typeof HideCardDetail === 'function') HideCardDetail();
+}
+
+function _formatMacroGameCardEntry(entry) {
+  var cardID = entry.cardID || '';
+  var count = parseInt(entry.count, 10) || 0;
+  if (!cardID || count <= 0) return '';
+  var displayName = _getMacroGameCardName(cardID);
+  var escapedCardID = _escapeMacroGameHtml(cardID);
+  var escapedName = _escapeMacroGameHtml(displayName);
+  return ''
+    + '<a href="#"'
+    + ' onclick="return false;"'
+    + ' onmouseenter="this.style.background=\'rgba(35,58,94,0.68)\';this.style.borderColor=\'rgba(201,168,76,0.36)\';this.style.transform=\'translateY(-1px)\';ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
+    + ' onmousemove="ShowMacroGameCardPreview(event, \'' + escapedCardID + '\')"'
+    + ' onmouseleave="this.style.background=\'rgba(255,255,255,0.03)\';this.style.borderColor=\'rgba(240,230,200,0.10)\';this.style.transform=\'none\';HideMacroGameCardPreview()"'
+    + ' style="display:flex; align-items:center; justify-content:space-between; gap:10px; min-width:0; padding:7px 9px; border-radius:10px;'
+    + ' background:rgba(255,255,255,0.03); border:1px solid rgba(240,230,200,0.10); color:#f0e6c8; text-decoration:none;'
+    + ' transition:background 120ms ease, border-color 120ms ease, transform 120ms ease;">'
+    + '<span style="display:block; min-width:0; font-size:13px; font-weight:600; color:#f7f0d8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">' + escapedName + '</span>'
+    + '<span style="flex:0 0 auto; padding:2px 7px; border-radius:999px; background:rgba(201,168,76,0.18); border:1px solid rgba(201,168,76,0.30); color:#ffd978; font-size:11px; font-weight:700;">x' + count + '</span>'
+    + '</a>';
+}
+
+function _formatMacroGameSection(title, total, cardCounts) {
+  if (!total) return '';
+  var entries = [];
+  for (var cardID in cardCounts) {
+    if (!Object.prototype.hasOwnProperty.call(cardCounts, cardID)) continue;
+    var count = parseInt(cardCounts[cardID], 10) || 0;
+    if (count <= 0) continue;
+    entries.push({ cardID: cardID, count: count });
+  }
+  entries.sort(function(a, b) {
+    if (b.count !== a.count) return b.count - a.count;
+    return _getMacroGameCardName(a.cardID).localeCompare(_getMacroGameCardName(b.cardID));
+  });
+  var topEntries = entries.slice(0, 6);
+  var html = ''
+    + '<section style="margin:0; padding:12px 12px 10px; border-radius:14px; min-width:0;'
+    + ' background:linear-gradient(180deg, rgba(15,24,39,0.92), rgba(9,15,26,0.88));'
+    + ' border:1px solid rgba(201,168,76,0.16); box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);">'
+    + '<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:' + (topEntries.length > 0 ? '9px' : '0') + ';">'
+    + '<div style="font-size:14px; font-weight:700; letter-spacing:0.01em; color:#f5ecd2;">' + _escapeMacroGameHtml(title) + '</div>'
+    + '<div style="flex:0 0 auto; padding:4px 9px; border-radius:999px; background:rgba(68,103,163,0.24); border:1px solid rgba(126,164,232,0.22); color:#dce8ff; font-size:12px; font-weight:700;">' + total + '</div>'
+    + '</div>';
+  if (topEntries.length > 0) {
+    html += '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:8px 10px;">';
+    for (var i = 0; i < topEntries.length; ++i) {
+      html += _formatMacroGameCardEntry(topEntries[i]);
+    }
+    html += '</div>';
+  }
+  html += '</section>';
+  return html;
+}
+
+function BuildMacroGameStatsHtml(playerID) {
+  if (typeof window === 'undefined' || !window.MacroGameIndexData) return '';
+  var indexData = _parseMacroGameIndex(window.MacroGameIndexData);
+  var sections = [
+    { title: 'Cards Reserved', macros: ['ReserveCard'] },
+    { title: 'Cards Played From Hand', macros: ['ActivateCard', 'PlayCard'] },
+    { title: 'Abilities Activated', macros: ['ActivateAbility', 'HandActivatedAbility'] },
+    { title: 'Attacks Declared', macros: ['OnAttack', 'AttackWith'] }
+  ];
+  var html = '';
+  for (var i = 0; i < sections.length; ++i) {
+    var section = sections[i];
+    var total = _collectMacroGameCallCount(indexData, playerID, section.macros);
+    var cardCounts = _collectMacroGameCardCounts(indexData, playerID, section.macros);
+    html += _formatMacroGameSection(section.title, total, cardCounts);
+  }
+  if (!html) return '';
+  return ''
+    + '<div style="margin-bottom:10px;">'
+    + '<div style="font-size:18px; font-weight:800; letter-spacing:0.02em; color:#fff4cf;">Game Stats</div>'
+    + '<div style="margin-top:3px; font-size:12px; color:rgba(220,232,255,0.76);">Hover a card name to preview its art.</div>'
+    + '</div>'
+    + '<div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:12px; align-items:start;">' + html + '</div>';
 }
 
 function GetCookieValue(cookieName) {

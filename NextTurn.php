@@ -733,7 +733,11 @@
               var _goWinner = parseInt(_goVars.GAMEOVER_WINNER, 10);
               if (_goWinner > 0 && typeof ShowGameOver === 'function') {
                 window._gameOverShown = true;
-                ShowGameOver(viewerCanAct && playerID === _goWinner);
+                var _goStatsHtml = '';
+                if (typeof BuildMacroGameStatsHtml === 'function') {
+                  _goStatsHtml = BuildMacroGameStatsHtml(playerID);
+                }
+                ShowGameOver(viewerCanAct && playerID === _goWinner, undefined, _goStatsHtml);
               }
             }
           } catch (e) {}

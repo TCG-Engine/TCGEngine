@@ -9,7 +9,7 @@ ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: AzukiSim
-Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZArea,myIKZPile,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZArea,theirIKZPile,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZArea,myIKZPile,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZArea,theirIKZPile,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex,MacroGameIndex
 Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=OnPlay(mzID); ChoiceFunction=OnPlayCard; Action={}
 Macro: Name=AttackWith(mzID,targetMZ); ChoiceFunction=DoAttack; PrereqFunction=CanAttack; SourceParam=mzID; Action={}
@@ -136,4 +136,6 @@ EffectStack - CardID:string, Controller:number
 Display: Visibility=Public, Mode=Single, Scope=Global, BindTo=EffectStackSlot
 Sort: Reverse=true
 MacroTurnIndex - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+MacroGameIndex - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None

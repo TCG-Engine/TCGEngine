@@ -183,4 +183,5 @@ MAIN
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"E09lX95cb9":1}},"EnterCalls":{"1":2},"Enter":{"1":{"E09lX95cb9":1,"UtwWXmc0IU":1}},"DrawCalls":{"1":2},"Draw":{"1":2},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"DNbIpzVgde":1}},"ActivateCardCalls":{"1":1,"2":1},"ActivateCard":{"1":{"UtwWXmc0IU":1},"2":{"w7g91ru45w":1}},"CardActivatedCalls":{"1":1,"2":1},"CardActivated":{"1":{"UtwWXmc0IU":1},"2":{"w7g91ru45w":1}},"RestCardCalls":{"1":2},"RestCard":{"1":{"UtwWXmc0IU":1,"0r7j97g2zh":1}},"OnAttackCalls":{"1":2},"OnAttack":{"1":{"UtwWXmc0IU":1,"0r7j97g2zh":1}},"DealDamageCalls":{"1":1,"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"0r7j97g2zh":1}}}
 0
+{"ActivateCardCalls":{"2":1},"ActivateCard":{"2":{"w7g91ru45w":1}},"ReserveCard":{"2":{"8bolq2y5qp":1}},"CardActivatedCalls":{"2":1},"CardActivated":{"2":{"w7g91ru45w":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"0r7j97g2zh":1}}}
 0

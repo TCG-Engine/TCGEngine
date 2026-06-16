@@ -185,4 +185,5 @@ MAIN
 0
 {"MaterializeCalls":{"2":1},"Materialize":{"2":{"mb3iqw3kc6":1}},"EnterCalls":{"2":1},"Enter":{"2":{"mb3iqw3kc6":1}},"DrawCalls":{"2":1},"Draw":{"2":1}}
 6
+{"MaterializeCalls":{"2":1},"Materialize":{"2":{"mb3iqw3kc6":1}},"EnterCalls":{"2":1},"Enter":{"2":{"mb3iqw3kc6":1}},"DrawCalls":{"2":1}}
 0

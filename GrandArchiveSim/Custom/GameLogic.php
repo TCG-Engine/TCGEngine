@@ -1062,6 +1062,7 @@ $customDQHandlers["PREGAME_FINISH_STARTING_CHAMPIONS"] = function($player, $part
     DecisionQueueController::ClearVariable("PregameStartingChampion1");
     DecisionQueueController::ClearVariable("PregameStartingChampion2");
     SetMacroTurnIndex('{}');
+    SetMacroGameIndex('{}');
 };
 
 function IsFirstTurnAttackLocked($player) {
@@ -4067,6 +4068,10 @@ $customDQHandlers["FacetTogetherApply"] = function($player, $parts, $lastDecisio
 };
 
 function OnCardReserved($player, $mzCard) {
+    $reservedObj = GetZoneObject($mzCard);
+    if($reservedObj !== null && isset($reservedObj->CardID) && function_exists('IncrementMacroGameIndexCard')) {
+        IncrementMacroGameIndexCard("ReserveCard", $player, $reservedObj->CardID);
+    }
     return MZMove($player, $mzCard, "myMemory");
 }
 

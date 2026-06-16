@@ -995,11 +995,16 @@ for($i=0; $i<count($macros); ++$i) {
     $paramList .= ', $' . implode(', $', $macro->Parameters);
   }
   fwrite($handler, "function " . $macro->FunctionName . "($paramList) {\r\n");
-  // Unconditionally track total call count per player in MacroTurnIndex
+  // Unconditionally track total call count per player in both turn and game indexes
   fwrite($handler, "  // Track total macro call count per player\r\n");
   fwrite($handler, "  { \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+  fwrite($handler, "    if (!isset(\$_ti[\"" . $macro->FunctionName . "Calls\"]) || !is_array(\$_ti[\"" . $macro->FunctionName . "Calls\"])) \$_ti[\"" . $macro->FunctionName . "Calls\"] = [];\r\n");
   fwrite($handler, "    \$_ti[\"" . $macro->FunctionName . "Calls\"][\$player] = (\$_ti[\"" . $macro->FunctionName . "Calls\"][\$player] ?? 0) + 1;\r\n");
   fwrite($handler, "    SetMacroTurnIndex(json_encode(\$_ti)); }\r\n");
+  fwrite($handler, "  { \$_gi = GetMacroGameIndexArray();\r\n");
+  fwrite($handler, "    if (!isset(\$_gi[\"" . $macro->FunctionName . "Calls\"]) || !is_array(\$_gi[\"" . $macro->FunctionName . "Calls\"])) \$_gi[\"" . $macro->FunctionName . "Calls\"] = [];\r\n");
+  fwrite($handler, "    \$_gi[\"" . $macro->FunctionName . "Calls\"][\$player] = (\$_gi[\"" . $macro->FunctionName . "Calls\"][\$player] ?? 0) + 1;\r\n");
+  fwrite($handler, "    SetMacroGameIndex(json_encode(\$_gi)); }\r\n");
   if(isset($macro->ChoiceFunction)) {
     $choiceParts = explode('|', $macro->ChoiceFunction);
     $cfName = $choiceParts[0];
@@ -1017,15 +1022,22 @@ for($i=0; $i<count($macros); ++$i) {
         fwrite($handler, "    DecisionQueueController::StoreVariable(\"" . $macro->SourceParam . "CardID\", \$_sourceObj->CardID);\r\n");
         fwrite($handler, "  }\r\n");
       }
-      // If mzID is a parameter, look up the card ID and increment the turn index
+      // If mzID is a parameter, look up the card ID and increment the turn/game indexes
       if (in_array('mzID', $macro->Parameters)) {
         fwrite($handler, "  // Track this macro invocation in the persistent turn index (keyed by card ID)\r\n");
         fwrite($handler, "  \$_mzObj = GetZoneObject(\$mzID);\r\n");
         fwrite($handler, "  \$_mzCardID = \$_mzObj !== null ? (\$_mzObj->CardID ?? null) : null;\r\n");
         fwrite($handler, "  if (\$_mzCardID !== null) {\r\n");
         fwrite($handler, "    \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
+        fwrite($handler, "    if (!isset(\$_ti[\"" . $macro->FunctionName . "\"]) || !is_array(\$_ti[\"" . $macro->FunctionName . "\"])) \$_ti[\"" . $macro->FunctionName . "\"] = [];\r\n");
+        fwrite($handler, "    if (!isset(\$_ti[\"" . $macro->FunctionName . "\"][\$player]) || !is_array(\$_ti[\"" . $macro->FunctionName . "\"][\$player])) \$_ti[\"" . $macro->FunctionName . "\"][\$player] = [];\r\n");
         fwrite($handler, "    \$_ti[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] = (\$_ti[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] ?? 0) + 1;\r\n");
         fwrite($handler, "    SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+        fwrite($handler, "    \$_gi = GetMacroGameIndexArray();\r\n");
+        fwrite($handler, "    if (!isset(\$_gi[\"" . $macro->FunctionName . "\"]) || !is_array(\$_gi[\"" . $macro->FunctionName . "\"])) \$_gi[\"" . $macro->FunctionName . "\"] = [];\r\n");
+        fwrite($handler, "    if (!isset(\$_gi[\"" . $macro->FunctionName . "\"][\$player]) || !is_array(\$_gi[\"" . $macro->FunctionName . "\"][\$player])) \$_gi[\"" . $macro->FunctionName . "\"][\$player] = [];\r\n");
+        fwrite($handler, "    \$_gi[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] = (\$_gi[\"" . $macro->FunctionName . "\"][\$player][\$_mzCardID] ?? 0) + 1;\r\n");
+        fwrite($handler, "    SetMacroGameIndex(json_encode(\$_gi));\r\n");
         fwrite($handler, "  }\r\n");
       }
     } else {
@@ -1063,6 +1075,24 @@ for($i=0; $i<count($macros); ++$i) {
 }
 
 // Generate macro turn-index helpers for macros with an mzID parameter
+$helperComment = "// Shared MacroGameIndex helpers for hooks that learn the specific card later.\r\n";
+$helperComment .= "function GetMacroGameIndexArray() {\r\n";
+$helperComment .= "  \$raw = GetMacroGameIndex();\r\n";
+$helperComment .= "  if (!is_string(\$raw) || \$raw === '' || \$raw === '-') return [];\r\n";
+$helperComment .= "  \$decoded = json_decode(\$raw, true);\r\n";
+$helperComment .= "  return is_array(\$decoded) ? \$decoded : [];\r\n";
+$helperComment .= "}\r\n\r\n";
+$helperComment .= "function IncrementMacroGameIndexCard(\$macroName, \$player, \$cardID, \$amount = 1) {\r\n";
+$helperComment .= "  if(\$macroName === '' || \$cardID === '') return;\r\n";
+$helperComment .= "  \$_gi = GetMacroGameIndexArray();\r\n";
+$helperComment .= "  if (!isset(\$_gi[\$macroName]) || !is_array(\$_gi[\$macroName])) \$_gi[\$macroName] = [];\r\n";
+$helperComment .= "  if (!isset(\$_gi[\$macroName][\$player]) || !is_array(\$_gi[\$macroName][\$player])) \$_gi[\$macroName][\$player] = [];\r\n";
+$helperComment .= "  \$_gi[\$macroName][\$player][\$cardID] = (\$_gi[\$macroName][\$player][\$cardID] ?? 0) + max(1, intval(\$amount));\r\n";
+$helperComment .= "  SetMacroGameIndex(json_encode(\$_gi));\r\n";
+$helperComment .= "}\r\n\r\n";
+fwrite($handler, $helperComment);
+
+// Generate macro turn-index helpers for macros with an mzID parameter
 $mzIDMacros = [];
 foreach ($macros as $macro) {
   if (!empty($macro->Parameters) && in_array('mzID', $macro->Parameters)) {
@@ -1095,6 +1125,26 @@ if (!empty($mzIDMacros)) {
   }
 }
 
+// Generate macro game-index helpers for macros with an mzID parameter
+if (!empty($mzIDMacros)) {
+  fwrite($handler, "// Macro game-index helpers\r\n");
+  fwrite($handler, "// For each macro that has an mzID parameter, three functions are generated:\r\n");
+  fwrite($handler, "//   MacroNameGameCount(\$player, \$cardID)  - how many times the macro fired for that card this game\r\n");
+  fwrite($handler, "//   MacroNameGameCards(\$player)           - array of [cardID => count] for all cards this game\r\n");
+  fwrite($handler, "//   MacroNameGameCallCount(\$player)       - total times the macro was called for that player this game\r\n\r\n");
+  foreach ($mzIDMacros as $macro) {
+    $fn = $macro->FunctionName;
+    fwrite($handler, "function " . $fn . "GameCount(\$player, \$cardID) {\r\n");
+    fwrite($handler, "  \$_gi = GetMacroGameIndexArray();\r\n");
+    fwrite($handler, "  return \$_gi[\"" . $fn . "\"][\$player][\$cardID] ?? 0;\r\n");
+    fwrite($handler, "}\r\n\r\n");
+    fwrite($handler, "function " . $fn . "GameCards(\$player) {\r\n");
+    fwrite($handler, "  \$_gi = GetMacroGameIndexArray();\r\n");
+    fwrite($handler, "  return \$_gi[\"" . $fn . "\"][\$player] ?? [];\r\n");
+    fwrite($handler, "}\r\n\r\n");
+  }
+}
+
 // Generate per-player total call-count helpers for ALL macros.
 // Incremented once per macro function call regardless of card identity.
 fwrite($handler, "// Per-player total call-count helpers for all macros.\r\n");
@@ -1109,6 +1159,10 @@ foreach ($macros as $_cm) {
   fwrite($handler, "  \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
   fwrite($handler, "  unset(\$_ti[\"" . $_cfn . "Calls\"]);\r\n");
   fwrite($handler, "  SetMacroTurnIndex(json_encode(\$_ti));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  fwrite($handler, "function " . $_cfn . "GameCallCount(\$player) {\r\n");
+  fwrite($handler, "  \$_gi = GetMacroGameIndexArray();\r\n");
+  fwrite($handler, "  return \$_gi[\"" . $_cfn . "Calls\"][\$player] ?? 0;\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
 

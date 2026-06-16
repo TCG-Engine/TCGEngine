@@ -137,7 +137,9 @@
   display: none;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  padding: 24px 20px 28px;
   background: rgba(0, 0, 0, 0.88);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
@@ -155,12 +157,13 @@
 
 #game-over-title {
   font-family: Georgia, serif;
-  font-size: clamp(56px, 10vw, 112px);
+  font-size: clamp(42px, 7vw, 92px);
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 6px;
   line-height: 1;
   text-align: center;
+  margin-top: max(8px, 2vh);
   animation: gameOverTitlePop 0.8s cubic-bezier(0.22, 1.6, 0.5, 1) 0.2s both;
 }
 
