@@ -2217,6 +2217,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $hasEdelsteinAltCost = true;
             DecisionQueueController::AddDecision($player, "YESNO", "-", 100, tooltip:"Banish_3+_Suited_Spell_cards_from_GY_(total_cost_10)_instead_of_reserve?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "EdelsteinAltCostChoice|" . $reserveCost, 100);
+        } else {
+            SetFlashMessage("Not enough suited Spell cards in graveyard to pay Edelstein's alternate cost.");
         }
     }
 
