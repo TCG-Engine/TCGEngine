@@ -1455,6 +1455,18 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     return "PLAY";
                 }
             }
+            // Devised Conspiracy (dih0LPaigc): tagged banished cards may be played ignoring elemental requirements.
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && in_array('_devisedConspiracy', $bObj->TurnEffects ?? [])) {
+                    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myBanish");
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
             // Recursive Confidant (KfC8fwcF2T): activate tagged Warrior attack from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -1748,6 +1760,9 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         $sourceObject->CardID === "pn9gQjV3Rb" &&
         GetCounterCount($sourceObject, "_seiryuuBanished") > 0
     );
+    if(!$ignoreElementRequirement && in_array("_devisedConspiracy", $sourceObject->TurnEffects ?? [])) {
+        $ignoreElementRequirement = true;
+    }
     if(!$ignoreElementRequirement && !CanPlayerUseCardElement($player, $sourceObject->CardID, true, true)) {
         return;
     }
@@ -11067,6 +11082,9 @@ function ObjectCurrentPower($obj) {
             case "KOqdA7G6by_POWER_1": // Luminous Surge reveal bonus: next attack +1 POWER
                 $power += 1;
                 break;
+            case "dih0LPaigc_POWER": // Devised Conspiracy: champion's next attack gets +2 POWER
+                $power += 2;
+                break;
             case "ATTUNE_FLAMES_BUFF": // Attune with Flames: +5 POWER until end of next turn
                 $power += 5;
                 break;
@@ -14426,6 +14444,16 @@ $customDQHandlers["StarcallingActivate"] = function($player, $parts, $lastDecisi
     }
 };
 
+$customDQHandlers["DevisedConspiracyResolve"] = function($player, $parts, $lastDecision) {
+    $champMZ = FindChampionMZ($player);
+    if($champMZ !== null) {
+        AddTurnEffect($champMZ, "dih0LPaigc");
+    }
+    if(DecisionQueueController::GetVariable("wasPrepared") === "YES") {
+        AddGlobalEffects($player, "dih0LPaigc_ON_HIT");
+    }
+};
+
 function SupernovaDivinationCheck($player, $supernovaMZ) {
     $supernovaObj = GetZoneObject($supernovaMZ);
     if($supernovaObj === null || $supernovaObj->removed || $supernovaObj->CardID !== "qhBecpDUO9") return;
@@ -15109,6 +15137,11 @@ function BanishSelectionMetadata($obj) {
 
     // Seething Intercession (5Xfg69S1XX): tagged _seethingIntercession turn effect
     if ($currentPhase === "MAIN" && in_array('_seethingIntercession', $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Devised Conspiracy (dih0LPaigc): tagged banished cards may be played from banishment.
+    if ($currentPhase === "MAIN" && in_array('_devisedConspiracy', $turnEffects)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 

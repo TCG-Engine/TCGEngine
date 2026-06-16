@@ -1587,6 +1587,12 @@ function OnAttackTrigger($player, $mzID) {
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["vnta6qsesw"]));
     }
 
+    // Devised Conspiracy (dih0LPaigc): champion's next attack this turn gets +2 POWER.
+    if($obj !== null && in_array("dih0LPaigc", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "dih0LPaigc_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["dih0LPaigc"]));
+    }
+
     // Galvanizing Gale (f00cEmu6Ql): target ally's next attack this turn gets +3 POWER
     if($obj !== null && in_array("f00cEmu6Ql", $obj->TurnEffects)) {
         AddTurnEffect($mzID, "f00cEmu6Ql_POWER");
@@ -2008,6 +2014,34 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
                 $hitObj = GetZoneObject($hitTarget);
                 if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
                     Draw($player, 1);
+                }
+            }
+        }
+    }
+
+    // Devised Conspiracy (dih0LPaigc): while active, your champion and Ominous Shadows
+    // gain "On Champion Hit: Banish the top card of that player's deck. You may play it."
+    $dcHitTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if(GlobalEffectCount($player, "dih0LPaigc_ON_HIT") > 0
+        && $dcHitTarget !== null && $dcHitTarget !== "-" && $dcHitTarget !== "") {
+        $dcAttacker = GetZoneObject($attackerMZ);
+        $dcHitObj = GetZoneObject($dcHitTarget);
+        $dcValidAttacker = false;
+        if($dcAttacker !== null && !HasNoAbilities($dcAttacker)) {
+            if(PropertyContains(EffectiveCardType($dcAttacker), "CHAMPION")) {
+                $dcValidAttacker = true;
+            } else if($dcAttacker->CardID === "gveirpdm44" && PropertyContains(EffectiveCardType($dcAttacker), "ALLY")) {
+                $dcValidAttacker = true;
+            }
+        }
+        if($dcValidAttacker && $dcHitObj !== null && !$dcHitObj->removed && PropertyContains(EffectiveCardType($dcHitObj), "CHAMPION")) {
+            $theirDeck = GetZone("theirDeck");
+            if(!empty($theirDeck)) {
+                $banishedObj = MZMove($player, "theirDeck-0", "theirBanish");
+                if($banishedObj !== null) {
+                    $banish = GetZone("theirBanish");
+                    $banishedMZ = "theirBanish-" . (count($banish) - 1);
+                    AddTurnEffect($banishedMZ, "_devisedConspiracy");
                 }
             }
         }
