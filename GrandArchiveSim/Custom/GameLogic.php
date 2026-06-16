@@ -18716,15 +18716,13 @@ function HasStealth($obj) {
     if($obj->CardID === "UmZpK4rt2M") {
         if(IsClassBonusActive($obj->Controller, ["ASSASSIN"])) return true;
     }
-    // Blackmarket Broker (hHVf5xyjob): CB stealth while champion has 3+ prep counters
+    // Blackmarket Broker (hHVf5xyjob): stealth while champion has 3+ preparation counters
     if($obj->CardID === "hHVf5xyjob") {
-        if(IsClassBonusActive($obj->Controller, CardClasses("hHVf5xyjob"))) {
-            $pField = &GetField($obj->Controller);
-            foreach($pField as $fCard) {
-                if(!$fCard->removed && EffectiveCardType($fCard) === "CHAMPION") {
-                    if(GetCounterCount($fCard, "prep") >= 3) return true;
-                    break;
-                }
+        $pField = &GetField($obj->Controller);
+        foreach($pField as $fCard) {
+            if(!$fCard->removed && EffectiveCardType($fCard) === "CHAMPION") {
+                if(GetCounterCount($fCard, "preparation") >= 3) return true;
+                break;
             }
         }
     }
