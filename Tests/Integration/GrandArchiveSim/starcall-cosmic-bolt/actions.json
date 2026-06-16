@@ -11,23 +11,7 @@
         "playerID": 2,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "myHand-6",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 2,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
+        "cardID": "myHand-5",
         "chkInput": [],
         "inputText": ""
     },
@@ -43,7 +27,7 @@
         "playerID": 2,
         "mode": 100,
         "buttonInput": "",
-        "cardID": "PASS",
+        "cardID": "theirField-3",
         "chkInput": [],
         "inputText": ""
     },
@@ -52,38 +36,6 @@
         "mode": 100,
         "buttonInput": "",
         "cardID": "Bottom=yBDxSHkT1s,lnhzj43qiw,p5af098kmo",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 2,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 1,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "PASS",
-        "chkInput": [],
-        "inputText": ""
-    },
-    {
-        "playerID": 2,
-        "mode": 100,
-        "buttonInput": "",
-        "cardID": "theirField-6",
         "chkInput": [],
         "inputText": ""
     }

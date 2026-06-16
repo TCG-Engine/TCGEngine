@@ -12638,7 +12638,7 @@ function DrawIntoMemory($player, $amount=1) {
 function QueueDrawAfterGlimpse($player, $amount=1) {
     $amount = intval($amount);
     if($amount <= 0) return;
-    DecisionQueueController::AddDecision($player, "CUSTOM", "DrawAfterGlimpse|" . $amount, 1, dontSkipOnPass:true);
+    QueuePendingAfterGlimpseDecision($player, "DrawAfterGlimpse|" . $amount);
 }
 
 $customDQHandlers["DrawAfterGlimpse"] = function($player, $parts, $lastDecision) {
@@ -12646,6 +12646,55 @@ $customDQHandlers["DrawAfterGlimpse"] = function($player, $parts, $lastDecision)
     if($amount <= 0) return;
     Draw($player, $amount);
 };
+
+function QueueMillAfterGlimpse($player, $amount=1) {
+    $amount = intval($amount);
+    if($amount <= 0) return;
+    QueuePendingAfterGlimpseDecision($player, "MillAfterGlimpse|" . $amount);
+}
+
+$customDQHandlers["MillAfterGlimpse"] = function($player, $parts, $lastDecision) {
+    $amount = intval($parts[0] ?? 0);
+    if($amount <= 0) return;
+    MillCards($player, "myDeck", "myGraveyard", $amount);
+};
+
+function QueuePendingAfterGlimpseDecision($player, $param) {
+    $param = trim(strval($param));
+    if($param === "") return;
+    $glimpseCount = DecisionQueueController::GetVariable("glimpseCount");
+    if($glimpseCount === null || $glimpseCount === "") {
+        DecisionQueueController::AddDecision($player, "CUSTOM", $param, 1, dontSkipOnPass:true);
+        return;
+    }
+
+    $existing = DecisionQueueController::GetVariable("PendingAfterGlimpseDecisions");
+    if($existing === null || $existing === "") {
+        DecisionQueueController::StoreVariable("PendingAfterGlimpseDecisions", $param);
+        return;
+    }
+    DecisionQueueController::StoreVariable("PendingAfterGlimpseDecisions", $existing . "||" . $param);
+}
+
+function FlushPendingAfterGlimpseDecisions($player) {
+    $pending = DecisionQueueController::GetVariable("PendingAfterGlimpseDecisions");
+    DecisionQueueController::ClearVariable("PendingAfterGlimpseDecisions");
+    if($pending === null || $pending === "") return;
+
+    foreach(explode("||", $pending) as $param) {
+        $param = trim($param);
+        if($param === "") continue;
+        DecisionQueueController::AddDecision($player, "CUSTOM", $param, 102, dontSkipOnPass:true);
+    }
+}
+
+function ClearResolvedGlimpseState() {
+    DecisionQueueController::ClearVariable("glimpseCount");
+    DecisionQueueController::ClearVariable("glimpseCardIDs");
+    DecisionQueueController::ClearVariable("glimpsedToTempZone");
+    DecisionQueueController::ClearVariable("glimpseTempBaseIndex");
+    DecisionQueueController::ClearVariable("aethercallCandidates");
+}
 
 function QueueSummonSpiritShardAfterGlimpse($player) {
     DecisionQueueController::AddDecision($player, "CUSTOM", "SummonSpiritShardAfterGlimpse", 1, dontSkipOnPass:true);
@@ -14127,6 +14176,8 @@ $customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
             $newObj = new Deck($cid, 'Deck', $player);
             $zone[] = $newObj;
         }
+        FlushPendingAfterGlimpseDecisions($player);
+        ClearResolvedGlimpseState();
         return;
     }
 
@@ -14163,6 +14214,8 @@ $customDQHandlers["GlimpseApply"] = function($player, $parts, $lastDecision) {
         $obj = $popCard($cardID);
         if($obj !== null) array_push($zone, $obj);
     }
+    FlushPendingAfterGlimpseDecisions($player);
+    ClearResolvedGlimpseState();
 };
 
 $customDQHandlers["CosmicAstroscopeGlimpse"] = function($player, $parts, $lastDecision) {
@@ -14306,6 +14359,8 @@ $customDQHandlers["StarcallingBottomApply"] = function($player, $parts, $lastDec
     foreach(array_merge($piles["Bottom"], $piles["Top"]) as $cid) {
         $deck[] = new Deck($cid, 'Deck', $player);
     }
+    FlushPendingAfterGlimpseDecisions($player);
+    ClearResolvedGlimpseState();
 };
 
 /**
@@ -14363,6 +14418,11 @@ $customDQHandlers["StarcallingActivate"] = function($player, $parts, $lastDecisi
     if(GlobalEffectCount($player, "btjuxztaug") > 0) {
         RemoveGlobalEffect($player, "btjuxztaug");
         DecisionQueueController::AddDecision($player, "CUSTOM", "StargazersPortentCopy|$chosenCardID", 201);
+    }
+
+    if(intval(DecisionQueueController::GetVariable("glimpseCount") ?? "0") <= 0) {
+        FlushPendingAfterGlimpseDecisions($player);
+        ClearResolvedGlimpseState();
     }
 };
 
@@ -14451,7 +14511,11 @@ $customDQHandlers["AethercallingOffer"] = function($player, $parts, $lastDecisio
         DecisionQueueController::StoreVariable("glimpsedToTempZone", "1");
         DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Glimpse:_Top=return_to_top,_Bottom=put_on_bottom");
         DecisionQueueController::AddDecision($player, "CUSTOM", "GlimpseApply", 1);
+        return;
     }
+
+    FlushPendingAfterGlimpseDecisions($player);
+    ClearResolvedGlimpseState();
 };
 
 /**

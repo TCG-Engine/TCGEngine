@@ -190,7 +190,7 @@ UAJGQFbXjs NONE -
 MAIN
 
 
-{"GoldfishPlayers":[],"mzID":"myField-5","isImbued":"NO","amount":1,"glimpseCount":"1","aethercallCandidates":"","glimpsedToTempZone":"0","ignoreCost":false,"mzIDCardID":"XOevViFTB3","activationSourceZone":"myHand","additionalCostPaid":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"1","source":"myField-4","target":"theirField-2","topCard":"myDeck-0","payChoice":"YES","wasPrepared":"NO","abilityIndex":0}
+{"GoldfishPlayers":[],"mzID":"myField-5","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"XOevViFTB3","activationSourceZone":"myHand","additionalCostPaid":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"1","source":"myField-4","target":"theirField-2","topCard":"myDeck-0","payChoice":"YES","wasPrepared":"NO","abilityIndex":0}
 0
 {"MaterializeCalls":{"1":1},"Materialize":{"1":{"2gv7DC0KID":1}},"EnterCalls":{"1":2},"Enter":{"1":{"2gv7DC0KID":1,"KFfmJZMdZN":1}},"DrawCalls":{"1":2,"2":1},"Draw":{"1":2,"2":1},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"2gv7DC0KID":1}},"ActivateCardCalls":{"1":1,"2":1},"ActivateCard":{"1":{"KFfmJZMdZN":1},"2":{"XOevViFTB3":1}},"CardActivatedCalls":{"2":1,"1":1},"CardActivated":{"2":{"XOevViFTB3":1},"1":{"KFfmJZMdZN":1}}}
 16
