@@ -2181,6 +2181,16 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    //1.3 Declaring Costs - Scry the Stars (oz23yfzk96): [Class Bonus] may banish Scry the Skies from GY instead of reserve
+    if($obj->CardID === "oz23yfzk96" && !$ignoreCost && $reserveCost > 0
+        && IsClassBonusActive($player, explode(",", CardClasses($obj->CardID)))
+        && ZoneContainsCardID("myGraveyard", "F9POfB5Nah")) {
+        $hasScryAltCost = true;
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 100,
+            tooltip:"Banish_Scry_the_Skies_from_GY_instead_of_paying_reserve?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ScryTheStarsAltCost|" . $reserveCost, 100);
+    }
+
     //1.3 Declaring Costs â€” Expunge (r73opcqtzs): mandatory discard of a Curse from any champion's lineage
     $hasExpungeCost = false;
     if($obj->CardID === "r73opcqtzs") {
@@ -15674,6 +15684,12 @@ function CanAffordAlternativeActivationCost($player, $obj) {
 
     global $brewCosts;
     if(isset($brewCosts[$obj->CardID]) && CanPayBrewCost($player, $brewCosts[$obj->CardID])) {
+        return true;
+    }
+
+    if($obj->CardID === "oz23yfzk96"
+        && IsClassBonusActive($player, explode(",", CardClasses($obj->CardID)))
+        && ZoneContainsCardID("myGraveyard", "F9POfB5Nah")) {
         return true;
     }
 
