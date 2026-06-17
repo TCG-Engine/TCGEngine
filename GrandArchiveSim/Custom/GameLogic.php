@@ -8460,15 +8460,16 @@ function RecollectionPhase() {
     // Supernova Divination (qhBecpDUO9): [Arisanna Bonus] recollection counter growth.
     {
         global $playerID;
-        $fieldZone = ($turnPlayer == $playerID) ? "myField" : "theirField";
-        $turnField = GetZone($fieldZone);
-        for($sdi = 0; $sdi < count($turnField); ++$sdi) {
-            if($turnField[$sdi]->removed || $turnField[$sdi]->CardID !== "qhBecpDUO9" || HasNoAbilities($turnField[$sdi])) continue;
-            if(!IsArisannaBonusActive($turnPlayer)) continue;
-            $sdMZ = $fieldZone . "-" . $sdi;
-            AddCounters($turnPlayer, $sdMZ, "divination", 1);
-            SupernovaDivinationCheck($turnPlayer, $sdMZ);
-            break;
+        for($sdPlayer = 1; $sdPlayer <= 2; ++$sdPlayer) {
+            if(!IsArisannaBonusActive($sdPlayer)) continue;
+            $fieldZone = ($sdPlayer == $playerID) ? "myField" : "theirField";
+            $turnField = GetZone($fieldZone);
+            for($sdi = 0; $sdi < count($turnField); ++$sdi) {
+                if($turnField[$sdi]->removed || $turnField[$sdi]->CardID !== "qhBecpDUO9" || HasNoAbilities($turnField[$sdi])) continue;
+                $sdMZ = $fieldZone . "-" . $sdi;
+                AddCounters($sdPlayer, $sdMZ, "divination", 1);
+                SupernovaDivinationCheck($sdPlayer, $sdMZ);
+            }
         }
     }
 
@@ -20524,6 +20525,10 @@ function GetChargeCounterCount($obj) {
 
 function GetAgeCounterCount($obj) {
     return GetCounterCount($obj, "age");
+}
+
+function GetDivinationCounterCount($obj) {
+    return GetCounterCount($obj, "divination");
 }
 
 function GetTrueSightCounterCount($obj) {
