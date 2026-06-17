@@ -819,10 +819,8 @@ function MasterAlchemistResolveHerbPairAndDraw($player, $chosenMZ) {
     $idxFirst = MZNumericIndex($first);
     $idxSecond = MZNumericIndex($second);
     if($idxFirst < $idxSecond) { [$first, $second] = [$second, $first]; }
-    OnLeaveField($player, $first);
-    MZMove($player, $first, "myGraveyard");
-    OnLeaveField($player, $second);
-    MZMove($player, $second, "myGraveyard");
+    DoSacrificeFighter($player, $first);
+    DoSacrificeFighter($player, $second);
     DecisionQueueController::CleanupRemovedCards();
     Draw($player, 1);
 }
