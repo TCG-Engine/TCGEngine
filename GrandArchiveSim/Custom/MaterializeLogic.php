@@ -345,6 +345,22 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         return;
     }
 
+    global $UnitLink_Cards;
+    if(isset($UnitLink_Cards[$materializeCard->CardID]) && !$continueMaterialize) {
+        $unitTargets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("myField", ["CHAMPION"]));
+        if(empty($unitTargets)) return;
+        DecisionQueueController::StoreVariable("unitLinkTargetMZ", "");
+        DecisionQueueController::StoreVariable("unitLinkTargetCardID", "");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $unitTargets), 1,
+            tooltip:"Choose_unit_to_link");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareUnitLinkTarget", 1);
+        $continueParam = $ignoreCost
+            ? "MATERIALIZE|CONTINUE|" . $mzCard . "|NOCOST"
+            : "MATERIALIZE|CONTINUE|" . $mzCard;
+        DecisionQueueController::AddDecision($player, "CUSTOM", $continueParam, 1);
+        return;
+    }
+
     // Preserve replacement (temporary rule): when you would materialize, return the
     // selected card to hand instead if it is not CHAMPION or REGALIA.
     // This is not a materialization.

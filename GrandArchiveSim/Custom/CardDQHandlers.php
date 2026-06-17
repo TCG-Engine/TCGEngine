@@ -8389,4 +8389,19 @@ $customDQHandlers["DeclareChampionLinkTarget"] = function($player, $parts, $last
     DecisionQueueController::StoreVariable("championLinkTargetCardID", $targetObj !== null ? $targetObj->CardID : "");
 };
 
+/**
+ * Custom DQ handler: DeclareUnitLinkTarget â€” stores the chosen unit mzID
+ * and CardID as DQ variables for Unit Link resolution.
+ */
+$customDQHandlers["DeclareUnitLinkTarget"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "PASS" || $lastDecision === "-" || empty($lastDecision)) {
+        DecisionQueueController::StoreVariable("unitLinkTargetMZ", "");
+        DecisionQueueController::StoreVariable("unitLinkTargetCardID", "");
+        return;
+    }
+    $targetObj = GetZoneObject($lastDecision);
+    DecisionQueueController::StoreVariable("unitLinkTargetMZ", $lastDecision);
+    DecisionQueueController::StoreVariable("unitLinkTargetCardID", $targetObj !== null ? $targetObj->CardID : "");
+};
+
 ?>

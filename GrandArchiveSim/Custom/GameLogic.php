@@ -752,6 +752,14 @@ $AllyLink_Cards["t3q2svd53z"] = true; // Aqueous Armor
 $AllyLink_Cards["RgloaA6YV2"] = true; // Message in Shadows
 $AllyLink_Cards["g23WBQW2Ro"] = true; // Blood Dragon's Pact
 
+// Cards with Unit Link that must choose an ally or champion target as they materialize.
+$UnitLink_Cards = [];
+$UnitLink_Cards["7lr2jiu66i"] = true; // Forged Scalemail
+$UnitLink_Cards["zadf9q1vk8"] = true; // Prototype Shield
+$UnitLink_Cards["l2ipxnctse"] = true; // Protective Helm
+$UnitLink_Cards["y208kkz07n"] = true; // Vaporjet Shield
+$UnitLink_Cards["uoy5ttkat9"] = true; // Winbless Kiteshield
+
 // Cards with Champion Link that must choose a champion target as they enter.
 $ChampionLink_Cards = [];
 $ChampionLink_Cards["suo6gb0op3"] = true; // Fractured Crown
@@ -1721,6 +1729,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         if(empty($championTargets)) return; // No valid Link target â€” block activation
     }
 
+    global $UnitLink_Cards;
+    $hasUnitLink = isset($UnitLink_Cards[$sourceObject->CardID]);
+    if($hasUnitLink) {
+        $unitTargets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("myField", ["CHAMPION"]));
+        if(empty($unitTargets)) return; // No valid Link target â€” block activation
+    }
+
     // Nightmare Coil (3fe3c97s71): only while your champion is distant, and only during recollection.
     if($sourceObject->CardID === "3fe3c97s71") {
         if(GetCurrentPhase() !== "RECOLLECTION") return;
@@ -1857,6 +1872,15 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $championTargets), 1,
                 tooltip:"Choose_a_champion_to_link");
             DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareChampionLinkTarget", 1);
+        }
+    }
+
+    if($hasUnitLink) {
+        $unitTargets = array_merge(ZoneSearch("myField", ["ALLY"]), ZoneSearch("myField", ["CHAMPION"]));
+        if(!empty($unitTargets)) {
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $unitTargets), 1,
+                tooltip:"Choose_a_unit_to_link");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DeclareUnitLinkTarget", 1);
         }
     }
 
@@ -4408,6 +4432,17 @@ function OnCardActivated($player, $mzCard) {
         $obj = MoveEffectStackCardToField($player, $mzCard);
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "REGALIA")) {
+        global $UnitLink_Cards;
+        if(isset($UnitLink_Cards[$obj->CardID])) {
+            $unitLinkTargetMZ = ValidateStoredUnitLinkTarget($player);
+            if($unitLinkTargetMZ === null) {
+                $obj = MZMove($player, $mzCard, "myGraveyard");
+                DecisionQueueController::StoreVariable("unitLinkTargetMZ", "");
+                DecisionQueueController::StoreVariable("unitLinkTargetCardID", "");
+                DecisionQueueController::CleanupRemovedCards();
+                return;
+            }
+        }
         global $ChampionLink_Cards;
         if(isset($ChampionLink_Cards[$obj->CardID])) {
             $linkTargetMZ = DecisionQueueController::GetVariable("championLinkTargetMZ");
@@ -7007,6 +7042,18 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
             $linkingMZ = "myField-" . (count($field) - 1);
             CreateChampionLink($player, $linkingMZ, $championLinkTargetMZ);
             DecisionQueueController::StoreVariable("championLinkTargetMZ", "");
+        }
+    }
+
+    global $UnitLink_Cards;
+    if(isset($UnitLink_Cards[$added->CardID])) {
+        $unitLinkTargetMZ = DecisionQueueController::GetVariable("unitLinkTargetMZ");
+        if(!empty($unitLinkTargetMZ) && $unitLinkTargetMZ !== "-") {
+            $linkingMZ = "myField-" . (count($field) - 1);
+            if(CreateUnitLink($player, $linkingMZ, $unitLinkTargetMZ)) {
+                DecisionQueueController::StoreVariable("unitLinkTargetMZ", "");
+                DecisionQueueController::StoreVariable("unitLinkTargetCardID", "");
+            }
         }
     }
 
@@ -19757,6 +19804,48 @@ function GetLinkedAllyMZ($player, $phantasiaObj) {
         if($obj->CardID !== $linkedCardID) continue;
         if(!is_array($obj->Subcards) || !in_array($phantasiaObj->CardID, $obj->Subcards)) continue;
         return $zoneRef . "-" . $idx;
+    }
+    return null;
+}
+
+function CreateUnitLink($player, $linkingMZ, $unitMZ) {
+    $unitObj = GetZoneObject($unitMZ);
+    if($unitObj === null || $unitObj->removed) return false;
+    if(PropertyContains(EffectiveCardType($unitObj), "ALLY")) {
+        CreateAllyLink($player, $linkingMZ, $unitMZ);
+        return true;
+    }
+    if(PropertyContains(EffectiveCardType($unitObj), "CHAMPION")) {
+        CreateChampionLink($player, $linkingMZ, $unitMZ);
+        return true;
+    }
+    return false;
+}
+
+function ValidateStoredUnitLinkTarget($player) {
+    $unitLinkTargetMZ = DecisionQueueController::GetVariable("unitLinkTargetMZ");
+    $unitLinkTargetCardID = DecisionQueueController::GetVariable("unitLinkTargetCardID");
+    $targetObj = (!empty($unitLinkTargetMZ) && $unitLinkTargetMZ !== "-") ? GetZoneObject($unitLinkTargetMZ) : null;
+    $targetValid = (
+        $targetObj !== null
+        && !$targetObj->removed
+        && $targetObj->CardID === $unitLinkTargetCardID
+        && (
+            PropertyContains(EffectiveCardType($targetObj), "ALLY")
+            || PropertyContains(EffectiveCardType($targetObj), "CHAMPION")
+        )
+    );
+    if($targetValid) return $unitLinkTargetMZ;
+    if(empty($unitLinkTargetCardID)) return null;
+
+    $field = GetZone("myField");
+    for($fi = 0; $fi < count($field); ++$fi) {
+        if($field[$fi]->removed || $field[$fi]->CardID !== $unitLinkTargetCardID) continue;
+        if(!PropertyContains(EffectiveCardType($field[$fi]), "ALLY")
+            && !PropertyContains(EffectiveCardType($field[$fi]), "CHAMPION")) continue;
+        $resolvedMZ = "myField-" . $fi;
+        DecisionQueueController::StoreVariable("unitLinkTargetMZ", $resolvedMZ);
+        return $resolvedMZ;
     }
     return null;
 }
