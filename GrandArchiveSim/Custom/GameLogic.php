@@ -5323,6 +5323,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "473gyf0w3v": // Duxal Proclamation â€” banish self
         case "4864k12no2": // Scepter of Fascination â€” banish self
         case "4dys05p49w": // Gem of Sorority â€” banish self
+        case "dgyduwh84p": // Sweet Ambrosia â€” banish self
         case "IC3OU6vCnF": // Mana Limiter â€” banish self
         case "lcb6jhxctx": // Gearstride Gloves â€” banish self
         case "llQe0cg4xJ": // Orb of Choking Fumes â€” banish self
