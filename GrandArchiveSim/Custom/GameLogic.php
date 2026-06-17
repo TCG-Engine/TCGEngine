@@ -18971,6 +18971,8 @@ function HasIntercept($obj) {
     if(MaryAnnOmensHaveKeyword($obj, "Intercept")) return true;
     if(in_array("NO_INTERCEPT", $obj->TurnEffects ?? [])) return false;
     if(HasKeyword_Intercept($obj)) return true;
+    // Overlord Mk III (sl7ddcgw05): printed Intercept missed by keyword parser
+    if($obj->CardID === "sl7ddcgw05") return true;
     if(in_array("INTERCEPT_EOT", $obj->TurnEffects ?? [])) return true;
     if($obj->CardID === "aKjX6INGkV" && in_array("IMBUED", $obj->TurnEffects ?? [])) return true;
     if($obj->CardID === "c9p4lpnvx7") {
@@ -19000,6 +19002,8 @@ function HasTrueSight($obj) {
     if($obj->CardID === "LxF5riNjnL") return true;
     // Neos Elemental (jwsl7dedg6): True Sight missed by keyword parser (comma-separated keyword line)
     if($obj->CardID === "jwsl7dedg6") return true;
+    // Overlord Mk III (sl7ddcgw05): printed True Sight missed by keyword parser
+    if($obj->CardID === "sl7ddcgw05") return true;
     if($obj->CardID === "4GFKcHg9NU") return true; // Argus, All-Seeing Giant
     if(MaryAnnOmensHaveKeyword($obj, "TrueSight")) return true;
     if(HasKeyword_TrueSight($obj)) return true;
@@ -19052,6 +19056,8 @@ function HasSpellshroud($obj) {
     if(HasNoAbilities($obj)) return false;
     // Senaris, Six of Diamonds (EIpkYYSP3s): printed Spellshroud
     if($obj->CardID === "EIpkYYSP3s") return true;
+    // Overlord Mk III (sl7ddcgw05): printed Spellshroud missed by keyword parser
+    if($obj->CardID === "sl7ddcgw05") return true;
     if(MaryAnnOmensHaveKeyword($obj, "Spellshroud")) return true;
     if(in_array("NO_SPELLSHROUD", $obj->TurnEffects ?? [])) return false;
     if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($obj)) return true;
