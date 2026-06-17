@@ -5447,6 +5447,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             }
             break;
+        case "js5qjwipkf": // Clandestine Chart -- (2), banish self
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            break;
         case "4moumzcx9z": // Staff of Blossoming Will â€” (1), REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
@@ -14730,6 +14736,11 @@ function CardHasAbility($obj) {
         if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
     }
 
+    // Clandestine Chart (js5qjwipkf): (2), banish self
+    if($obj->CardID === "js5qjwipkf") {
+        if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
+    }
+
     // Confidant's Oath (nlufjh84vm): (2), [REST], remove two refinement counters
     if($obj->CardID === "nlufjh84vm") {
         if(CountAvailableReservePayments($obj->Controller, $obj->GetMzID()) < 2) return 0;
@@ -15681,6 +15692,7 @@ function PreviewActivateReserveCost($player, $obj) {
 
     $reserveCost = CardCost_reserve($obj->CardID);
     if($obj->CardID === "4yqL9xtzVi") $reserveCost = 2;
+    if($obj->CardID === "js5qjwipkf") $reserveCost = 2;
     if($obj->CardID === "nlufjh84vm") $reserveCost = 2;
 
     $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
