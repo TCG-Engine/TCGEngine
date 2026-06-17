@@ -5550,6 +5550,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "9g44vm5kt3": // Empowering Tincture: sacrifice self
         case "14m4c8ljye": // Condensed Supernova: sacrifice self
         case "0Z1r8GC8a8": // Speed Potion: sacrifice self
+        case "yBDxSHkT1s": // Twinstar Tonic: sacrifice self
             if(PropertyContains(CardSubtypes($cardID), "HERB")) {
                 TriggerHerbSacrificeEffects($player, 1);
             }
@@ -14496,9 +14497,32 @@ $customDQHandlers["StarcallingActivate"] = function($player, $parts, $lastDecisi
         DecisionQueueController::AddDecision($player, "CUSTOM", "StargazersPortentCopy|$chosenCardID", 201);
     }
 
+    // Twinstar Tonic (yBDxSHkT1s): for the rest of the game, may copy starcalled activations
+    $twinstarCount = GlobalEffectCount($player, "yBDxSHkT1s");
+    if($twinstarCount > 0) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 201, "Copy_that_starcalled_activation?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "TwinstarTonicStarcallCopy|$chosenCardID|$twinstarCount", 201);
+    }
+
     if(intval(DecisionQueueController::GetVariable("glimpseCount") ?? "0") <= 0) {
         FlushPendingAfterGlimpseDecisions($player);
         ClearResolvedGlimpseState();
+    }
+};
+
+$customDQHandlers["TwinstarTonicStarcallCopy"] = function($player, $parts, $lastDecision) {
+    $cardID = $parts[0] ?? "";
+    $remaining = intval($parts[1] ?? "0");
+    if($cardID === "" || $remaining <= 0) return;
+
+    --$remaining;
+    if($remaining > 0) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 201, "Copy_that_starcalled_activation?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "TwinstarTonicStarcallCopy|$cardID|$remaining", 201);
+    }
+
+    if($lastDecision === "YES") {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "StargazersPortentCopy|$cardID", 201);
     }
 };
 
@@ -16036,6 +16060,8 @@ $doesGlobalEffectApply["FIREWORKS_BANISH"] = function($obj) { return false; };
 $doesGlobalEffectApply["FREE_STARCALLING"] = function($obj) { return false; };
 $doesGlobalEffectApply["ARISANNA_FREE_STARCALLING"] = function($obj) { return false; };
 $doesGlobalEffectApply["ASTROLABE_FREE_STARCALLING"] = function($obj) { return false; };
+$doesGlobalEffectApply["yBDxSHkT1s"] = function($obj) { return false; };
+$foreverEffects["yBDxSHkT1s"] = true;
 $doesGlobalEffectApply["oz23yfzk96"] = function($obj) { return false; }; // Scry the Stars dynamic starcalling
 $doesGlobalEffectApply["IGNIS_DEUS_LOCK"] = function($obj) { return false; }; // Ignis Deus lock: global level-up restriction only
 
