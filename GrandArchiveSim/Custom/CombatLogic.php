@@ -141,6 +141,18 @@ function GetAttackWeaponChoices($player, $attackerObj) {
         }
     }
 
+    // Shadow's Claw (vm4kj3q2sv): [Tristan Bonus] Phantasia allies may attack using this weapon.
+    if(PropertyContains($cardType, "ALLY")
+        && PropertyContains($cardType, "PHANTASIA")
+        && IsClassBonusActive($player, ["ASSASSIN"])) {
+        foreach($availableWeapons as $wMZ) {
+            $wObj = GetZoneObject($wMZ);
+            if($wObj !== null && !$wObj->removed && $wObj->CardID === "vm4kj3q2sv" && !HasNoAbilities($wObj)) {
+                $choices[] = $wMZ;
+            }
+        }
+    }
+
     return $choices;
 }
 
@@ -1446,7 +1458,7 @@ function BeginCombatPhase($actionCard) {
     StoreCombatAttackerState($actionCard, $turnPlayer);
     UpdateCombatLorraineBlademasterFlag($turnPlayer, $actionCard);
 
-    // Step 2.b -- Weapon selection: only for champion attacks, not allies
+    // Step 2.b -- Weapon selection
     if(PropertyContains($cardType, "CHAMPION")) {
         if(!empty($availableWeapons)) {
             $weaponList = implode("&", $availableWeapons);
@@ -1457,19 +1469,10 @@ function BeginCombatPhase($actionCard) {
             DecisionQueueController::StoreVariable("CombatWeapon", "-");
         }
     } else {
-        $singleWeaponChoice = count($availableWeapons) === 1 ? GetZoneObject($availableWeapons[0]) : null;
-        if($singleWeaponChoice !== null && !$singleWeaponChoice->removed && $singleWeaponChoice->CardID === "v1iyt8rugx") {
-            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $availableWeapons[0], 95, "Attack_with_Huaji?");
+        if(!empty($availableWeapons)) {
+            $weaponList = implode("&", $availableWeapons);
+            DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $weaponList, 95, "Attack_with_weapon?");
             DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponSelected", 95);
-        } else if($obj->CardID === "eO5wsjwRyQ" && !HasNoAbilities($obj)
-            && IsClassBonusActive($turnPlayer, ["WARRIOR"])) {
-            if(!empty($availableWeapons)) {
-                $swordStr = implode("&", $availableWeapons);
-                DecisionQueueController::AddDecision($turnPlayer, "MZMAYCHOOSE", $swordStr, 95, "Attack_with_Sword_weapon?");
-                DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "WeaponSelected", 95);
-            } else {
-                DecisionQueueController::StoreVariable("CombatWeapon", "-");
-            }
         } else {
             DecisionQueueController::StoreVariable("CombatWeapon", "-");
         }
@@ -1544,12 +1547,12 @@ function OnAttackTrigger($player, $mzID) {
             $onAttackAbilities[$iObj->CardID . ":0"]($player);
         }
     }
-    // Weapon OnAttack: if the champion is attacking and a weapon was selected, fire its OnAttack
-    if($obj !== null && PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
+    // Weapon OnAttack: if a weapon was selected for this attack, fire its OnAttack.
+    if($obj !== null) {
         $weaponMZ = GetCombatWeapon();
         if($weaponMZ !== null) {
             $weaponObj = GetZoneObject($weaponMZ);
-            if($weaponObj !== null && isset($onAttackAbilities[$weaponObj->CardID . ":0"])) {
+            if($weaponObj !== null && !HasNoAbilities($weaponObj) && isset($onAttackAbilities[$weaponObj->CardID . ":0"])) {
                 $onAttackAbilities[$weaponObj->CardID . ":0"]($player);
             }
         }
