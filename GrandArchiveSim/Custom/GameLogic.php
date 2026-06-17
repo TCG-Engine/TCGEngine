@@ -1510,6 +1510,24 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                 }
             }
             break;
+        case "theirBanish":
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                SaveUndoVersion($playerID);
+            }
+            // Tristan, Shadowreaver (4upufooz13): play opponent cards banished by Shadowreaver.
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if(ShadowreaverCanPlayBanishedCard($playerID, $bObj)) {
+                    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "theirBanish");
+                    DecisionQueueController::StoreVariable("shadowreaverIgnoreElement", "YES");
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    return "PLAY";
+                }
+            }
+            break;
         case "myMaterial":
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 SaveUndoVersion($playerID);
@@ -1777,6 +1795,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     );
     if(!$ignoreElementRequirement && in_array("_devisedConspiracy", $sourceObject->TurnEffects ?? [])) {
         $ignoreElementRequirement = true;
+    }
+    $shadowreaverIgnoreElement = DecisionQueueController::GetVariable("shadowreaverIgnoreElement");
+    if(!$ignoreElementRequirement && $shadowreaverIgnoreElement === "YES") {
+        $ignoreElementRequirement = true;
+    }
+    if($shadowreaverIgnoreElement !== null && $shadowreaverIgnoreElement !== "") {
+        DecisionQueueController::ClearVariable("shadowreaverIgnoreElement");
     }
     if(!$ignoreElementRequirement && !CanPlayerUseCardElement($player, $sourceObject->CardID, true, true)) {
         return;
@@ -15179,10 +15204,11 @@ function BanishSelectionMetadata($obj) {
     }
 
     $turnPlayer = GetTurnPlayer();
+    $shadowreaverPlayable = ShadowreaverCanPlayBanishedCard($turnPlayer, $obj);
 
-    // Only highlight cards belonging to the turn player
+    // Only highlight cards belonging to the turn player, unless Tristan can play them from their banish.
     $owner = isset($obj->Controller) ? $obj->Controller : (isset($obj->PlayerID) ? $obj->PlayerID : null);
-    if ($owner !== $turnPlayer) {
+    if ($owner !== $turnPlayer && !$shadowreaverPlayable) {
         return json_encode(['highlight' => false]);
     }
 
@@ -15195,6 +15221,11 @@ function BanishSelectionMetadata($obj) {
 
     $currentPhase = GetCurrentPhase();
     $turnEffects = $obj->TurnEffects ?? [];
+
+    // Tristan, Shadowreaver (4upufooz13): opponent cards banished by Shadowreaver stay playable.
+    if ($currentPhase === "MAIN" && $shadowreaverPlayable) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
 
     // Naia, Diviner of Fortunes (jdmthh88rx): spell tagged NAIA_BANISHED + Naia still on field
     if ($currentPhase === "MAIN" && in_array("NAIA_BANISHED", $turnEffects)) {
@@ -15433,6 +15464,13 @@ function AddTurnEffect($mzCard, $effectID) {
     if(!in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
     }
+}
+
+function ShadowreaverCanPlayBanishedCard($player, $obj) {
+    if($obj === null || $obj->removed) return false;
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) return false;
+    if(!isset($obj->Counters["_shadowreaverPlayableBy"])) return false;
+    return intval($obj->Counters["_shadowreaverPlayableBy"]) === intval($player);
 }
 
 // --- Ephemeral helpers ---
