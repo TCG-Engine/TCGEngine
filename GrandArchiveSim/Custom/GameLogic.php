@@ -5488,6 +5488,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         }
+        case "SpENiP3jbN": { // Focusing Gem — REST + banish self
+            $sourceObj = &GetZoneObject($mzCard);
+            if($sourceObj !== null) $sourceObj->Status = 1; // REST
+            MZMove($player, $mzCard, "myBanish");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
+        }
         case "WAodKSuGuX": // Sablemere, Warden's Grip â€” banish self; reserve is handled by its ability flow
         case "by8145w2u2": // Imperial Seal â€” banish self
             MZMove($player, $mzCard, "myBanish");
@@ -15791,21 +15798,7 @@ function CountAvailableReservePayments($player, $excludedMzID = null) {
 
 function PreviewActivateReserveCost($player, $obj) {
     if($obj === null || !isset($obj->CardID)) return 0;
-
-    $reserveCost = CardCost_reserve($obj->CardID);
-    if($obj->CardID === "4yqL9xtzVi") $reserveCost = 2;
-    if($obj->CardID === "js5qjwipkf") $reserveCost = 2;
-    if($obj->CardID === "nlufjh84vm") $reserveCost = 2;
-
-    $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
-
-    // Class Bonus: reduce cost if champion's class matches card's class
-    $classBonusDiscount = ClassBonusActivateCostReduction($obj->CardID);
-    if($classBonusDiscount > 0 && IsClassBonusActive($player, explode(",", CardClasses($obj->CardID)))) {
-        $reserveCost = max(0, $reserveCost - $classBonusDiscount);
-    }
-
-    return max(0, $reserveCost);
+    return CalculateActivationReserveCost($player, $obj, true);
 }
 
 function CanAffordActivationReserve($player, $obj) {
@@ -16305,6 +16298,8 @@ function ParseModifierResult($result) {
 }
 
 function ConsumeModifierSource($sourceObj) {
+    global $suspendModifierConsumption;
+    if(!empty($suspendModifierConsumption)) return false;
     if($sourceObj === null) return false;
     if(($sourceObj->_sourceZone ?? null) === "GlobalEffects") {
         $controller = $sourceObj->Controller ?? null;
@@ -22358,7 +22353,7 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
     $cardType  = CardType($cardID);
     $opponent  = ($player == 1) ? 2 : 1;
     $turnPlayer = &GetTurnPlayer();
-    global $playerID, $Efficiency_Cards;
+    global $playerID, $Efficiency_Cards, $suspendModifierConsumption;
 
     $reserveCost = intval(CardCost_reserve($cardID));
     if($cardID === "4yqL9xtzVi") $reserveCost = 2;
@@ -22368,7 +22363,10 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
         $reserveCost = GetEphemerateCost($player, $cardID);
     }
 
+    $previousSuspendModifierConsumption = $suspendModifierConsumption ?? false;
+    $suspendModifierConsumption = $dryRun;
     $reserveCost = ApplyGeneratedReserveLikeCostModifiers($player, $obj, $reserveCost, "activate");
+    $suspendModifierConsumption = $previousSuspendModifierConsumption;
 
     // Wayfinder's Map (porhlq2kkv): Domain cards you activate cost 1 less.
     if(PropertyContains($cardType, "DOMAIN")) {
