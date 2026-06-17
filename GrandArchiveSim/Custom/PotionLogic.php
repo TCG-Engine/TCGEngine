@@ -26,6 +26,7 @@ $brewCosts["NwK5wge8wy"] = [["type"=>"HERB","count"=>3]]; // Alpha Philterbeast:
 $brewCosts["O1OU62Zx2Y"] = [["type"=>"HERB","count"=>1]]; // Distilled Water: 1 Herb
 $brewCosts["gnYM2V6TTw"] = [["type"=>"SAME_NAME_HERBS","count"=>2]]; // Soothing Potion: 2 Herbs with the same name
 $brewCosts["hj1trn0yet"] = [["type"=>"HERB","count"=>4]]; // Hide in Bush: 4 Herbs
+$brewCosts["me0xxw0plq"] = [["type"=>"CARD","cardID"=>"bd7ozuj68m","count"=>2], ["type"=>"HERB","count"=>3]]; // Refracted Twilight: 2 Silvershine + 3 Herbs
 $brewCosts["vt9y597fqr"] = [["type"=>"DIFFERENT_NAME_HERBS","count"=>4]]; // Prima Materia: 4 Herbs with different names
 
 // --- Gather (Grand Archive keyword): summon a random herb token ---
@@ -177,6 +178,13 @@ function FlattenBrewSlots($slots) {
         }
     }
     return $steps;
+}
+
+function MZNumericIndex($mzID) {
+    if(!is_string($mzID) || $mzID === "") return -1;
+    $lastDash = strrpos($mzID, "-");
+    if($lastDash === false) return -1;
+    return intval(substr($mzID, $lastDash + 1));
 }
 
 /**
@@ -408,9 +416,11 @@ $customDQHandlers["BrewSelectHerb"] = function($player, $parts, $lastDecision) {
  * Sacrifice all chosen herbs and fire the Brew event.
  */
 function BrewFinalizeHerbs($player, $chosenStr) {
-    $chosenArr = explode(",", $chosenStr);
+    $chosenArr = array_values(array_unique(array_filter(explode(",", $chosenStr), function($mzID) {
+        return $mzID !== "";
+    })));
     usort($chosenArr, function($a, $b) {
-        return intval(explode("-", $b)[1]) - intval(explode("-", $a)[1]);
+        return MZNumericIndex($b) - MZNumericIndex($a);
     });
     $herbCount = 0;
     foreach($chosenArr as $herbMZ) {
@@ -806,8 +816,8 @@ function MasterAlchemistResolveHerbPairAndDraw($player, $chosenMZ) {
     // Sacrifice higher index first to avoid index shifts
     $first = $chosenMZ;
     $second = $partner;
-    $idxFirst = intval(explode('-', $first)[1]);
-    $idxSecond = intval(explode('-', $second)[1]);
+    $idxFirst = MZNumericIndex($first);
+    $idxSecond = MZNumericIndex($second);
     if($idxFirst < $idxSecond) { [$first, $second] = [$second, $first]; }
     OnLeaveField($player, $first);
     MZMove($player, $first, "myGraveyard");
