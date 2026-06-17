@@ -5032,12 +5032,20 @@ function ResolveTempChoiceToSourceMZ($tempChoiceMZ, $mapVarName) {
 }
 
 function DiscardMappedSourceMZ($ownerPlayer, $sourceMZ) {
+    global $playerID;
     if($sourceMZ === null || $sourceMZ === "") return;
     $sourceObj = GetZoneObject($sourceMZ);
     $resolvedOwner = ($sourceObj !== null && isset($sourceObj->PlayerID) && intval($sourceObj->PlayerID) > 0)
         ? intval($sourceObj->PlayerID)
         : $ownerPlayer;
-    DoDiscardCard($resolvedOwner, $sourceMZ);
+    $normalizedSourceMZ = $sourceMZ;
+    if($resolvedOwner != $ownerPlayer) {
+        $resolvedOwner = $ownerPlayer;
+    }
+    if($resolvedOwner != $playerID) {
+        $normalizedSourceMZ = FlipZonePerspective($sourceMZ);
+    }
+    DoDiscardCard($resolvedOwner, $normalizedSourceMZ);
 }
 
 $customDQHandlers["ExtricatingTouchZoneChoice"] = function($player, $parts, $lastDecision) {
@@ -7669,14 +7677,18 @@ $customDQHandlers["SpiritBladeSplitDamage"] = function($player, $parts, $lastDec
 
 // Seep Into the Mind — opponent adds 3 sheen counters to chosen unit
 $customDQHandlers["SeepIntoTheMindSheen"] = function($player, $parts, $lastDecision) {
+    global $playerID;
     $caster = intval($parts[0]);
     if($lastDecision === "-" || $lastDecision === "") return;
     AddCounters($player, $lastDecision, "sheen", 3);
     // [Merlin Bonus][Sheen 6+] Look at opponent's memory and discard a card
     if(IsMerlinBonusActive($caster) && GetSheenCount($caster) >= 6) {
-        $oppMemory = ZoneSearch("theirMemory");
-        if(!empty($oppMemory)) {
-            DecisionQueueController::AddDecision($caster, "MZCHOOSE", implode("&", $oppMemory), 1,
+        $targetPlayer = $caster == 1 ? 2 : 1;
+        $memoryZone = $targetPlayer == $playerID ? "myMemory" : "theirMemory";
+        $oppMemory = ZoneSearch($memoryZone);
+        $tempChoices = StageHiddenMZChoicesToTemp($caster, $oppMemory, "seepIntoTheMindTempMap");
+        if(!empty($tempChoices)) {
+            DecisionQueueController::AddDecision($caster, "MZCHOOSE", implode("&", $tempChoices), 1,
                 tooltip:"Discard_a_card_from_opponent's_memory_(Seep_Into_the_Mind)");
             DecisionQueueController::AddDecision($caster, "CUSTOM", "SeepIntoTheMindDiscard", 1);
         }
@@ -7685,8 +7697,12 @@ $customDQHandlers["SeepIntoTheMindSheen"] = function($player, $parts, $lastDecis
 
 // Seep Into the Mind — discard chosen card from memory
 $customDQHandlers["SeepIntoTheMindDiscard"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "") return;
-    MZMove($player, $lastDecision, "theirGraveyard");
+    $sourceMZ = ResolveTempChoiceToSourceMZ($lastDecision, "seepIntoTheMindTempMap");
+    ClearMyTempZoneCards($player);
+    DecisionQueueController::StoreVariable("seepIntoTheMindTempMap", "");
+    if($sourceMZ === null || $sourceMZ === "") return;
+    $opponent = $player == 1 ? 2 : 1;
+    DiscardMappedSourceMZ($opponent, $sourceMZ);
 };
 
 // Etherealys' Promise — banish to draw a card
