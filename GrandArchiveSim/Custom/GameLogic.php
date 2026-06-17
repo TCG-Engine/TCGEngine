@@ -1703,6 +1703,13 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         return;
     }
 
+    global $brewCosts;
+    // Reset brew context only for cards that can actually be brewed so stale
+    // state from a previous brew can't mark a later brew-capable object.
+    if(isset($brewCosts[$sourceObject->CardID])) {
+        DecisionQueueController::StoreVariable("wasBrewed", "NO");
+    }
+
     if(IsFacetLockedName($player, $sourceObject->CardID)) {
         return;
     }
@@ -6043,6 +6050,8 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($sourceObject === null || (isset($sourceObject->removed) && $sourceObject->removed)) return;
     // Capture cardID now â€” the card may be moved to banishment as a cost below.
     $cardID = $sourceObject->CardID;
+    if($cardID === "gnYM2V6TTw") DecisionQueueController::StoreVariable("gnYM2V6TTw_wasBrewed", "NO");
+    if($cardID === "O1OU62Zx2Y") DecisionQueueController::StoreVariable("O1OU62Zx2Y_wasBrewed", "NO");
     if($cardID === "uvgflagxbb" && HasOpportunity($player)) return; // Coronal of Rejuvenation: slow speed only
     if($cardID === "wCAIuvPOAT" && CountPreservedCardsInMaterial($player) < 5) return; // Verdure of Preservation
     if(GetCounterCount($sourceObject, "frenzy") > 0) return;
