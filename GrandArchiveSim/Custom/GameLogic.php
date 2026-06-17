@@ -4098,6 +4098,34 @@ $customDQHandlers["MerlinInheritedSheen"] = function($player, $parts, $lastDecis
     AddCounters($player, $lastDecision, "sheen", $sheenCount);
 };
 
+$customDQHandlers["LabyrinthJeweledOpusChooseAmount"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $targetObj = GetZoneObject($lastDecision);
+    if($targetObj === null || $targetObj->removed) return;
+    $targetType = EffectiveCardType($targetObj);
+    if(!PropertyContains($targetType, "ALLY") && !PropertyContains($targetType, "CHAMPION")) return;
+    $max = GetSheenCount($player);
+    if($max <= 0) return;
+    DecisionQueueController::StoreVariable("LabyrinthJeweledOpusTarget", $lastDecision);
+    DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "1-" . $max, 1,
+        tooltip:"Choose_sheen_counters_to_move");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LabyrinthJeweledOpusApply", 1);
+};
+
+$customDQHandlers["LabyrinthJeweledOpusApply"] = function($player, $parts, $lastDecision) {
+    $amount = intval($lastDecision);
+    if($amount <= 0) return;
+    $target = DecisionQueueController::GetVariable("LabyrinthJeweledOpusTarget");
+    if($target === null || $target === "") return;
+    $targetObj = GetZoneObject($target);
+    if($targetObj === null || $targetObj->removed) return;
+    $targetType = EffectiveCardType($targetObj);
+    if(!PropertyContains($targetType, "ALLY") && !PropertyContains($targetType, "CHAMPION")) return;
+    $moved = RemoveSheenFromMastery($player, $amount);
+    if($moved <= 0) return;
+    AddCounters($player, $target, "sheen", $moved);
+};
+
 // Merlin L3: banish a card from opponent's memory and let them activate it until end of next turn
 $customDQHandlers["MerlinL3BanishMemory"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
@@ -9614,6 +9642,16 @@ function EndPhase() {
                         AddCounters($turnPlayer, $fbChampMZ, "glimmer", 1);
                     }
                 }
+            }
+        }
+    }
+
+    // Labyrinth, Jeweled Opus (A58xZJJMz6): [Sheen 18+] At the beginning of your end phase, draw a card.
+    if(GetSheenCount($turnPlayer) >= 18) {
+        $field = &GetField($turnPlayer);
+        for($i = 0; $i < count($field); ++$i) {
+            if(!$field[$i]->removed && $field[$i]->CardID === "A58xZJJMz6" && !HasNoAbilities($field[$i])) {
+                Draw($turnPlayer, 1);
             }
         }
     }
@@ -17380,6 +17418,33 @@ function RemoveSheenFromMastery($player, $amount) {
     return $removed;
 }
 
+function LabyrinthJeweledOpusPassiveActive($player) {
+    if(GetSheenCount($player) < 10) return false;
+    $champObj = GetPlayerChampion($player);
+    if($champObj === null || intval($champObj->Status ?? 0) !== 2) return false;
+    $opponent = $player == 1 ? 2 : 1;
+    if(count(GetMemory($opponent)) > 6) return false;
+    $field = GetField($player);
+    foreach($field as $fieldObj) {
+        if(!$fieldObj->removed && $fieldObj->CardID === "A58xZJJMz6" && !HasNoAbilities($fieldObj)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function LabyrinthJeweledOpusActivate($player) {
+    if(GetSheenCount($player) < 36) return;
+    $targets = array_merge(
+        ZoneSearch("myField", ["ALLY", "CHAMPION"]),
+        ZoneSearch("theirField", ["ALLY", "CHAMPION"])
+    );
+    if(empty($targets)) return;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 1,
+        tooltip:"Choose_unit_to_receive_sheen_counters");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LabyrinthJeweledOpusChooseAmount", 1);
+}
+
 // --- Phantasmagoria Mastery (D3rexaXCBo) ---
 
 function HasPhantasmagoria($player) {
@@ -18916,6 +18981,10 @@ function HasStealth($obj) {
             }
         }
     }
+    // Labyrinth, Jeweled Opus (A58xZJJMz6): [Sheen 10+] your awake champion has stealth.
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && LabyrinthJeweledOpusPassiveActive($obj->Controller)) {
+        return true;
+    }
     // Weiss Bishop (Dgtim99eB5): stealth while you control one or more Pawn allies
     if($obj->CardID === "Dgtim99eB5") {
         global $playerID;
@@ -19145,6 +19214,10 @@ function HasSpellshroud($obj) {
                 return true;
             }
         }
+    }
+    // Labyrinth, Jeweled Opus (A58xZJJMz6): [Sheen 10+] your awake champion has spellshroud.
+    if(PropertyContains(EffectiveCardType($obj), "CHAMPION") && LabyrinthJeweledOpusPassiveActive($obj->Controller)) {
+        return true;
     }
     // The Majestic Spirit (tsvbgl6ffq): champions you control have spellshroud
     if(PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
