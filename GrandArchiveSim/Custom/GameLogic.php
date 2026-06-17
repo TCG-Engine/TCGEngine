@@ -2130,6 +2130,20 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         }
     }
 
+    // 1.3 Declaring Costs — Overlord Mk III (sl7ddcgw05): mandatory sacrifice of four Powercells
+    $hasOverlordPowercellCost = false;
+    if($obj->CardID === "sl7ddcgw05" && !$ignoreCost) {
+        $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+        if(count($powercells) < 4) {
+            SetFlashMessage("Overlord Mk III requires four Powercells to sacrifice.");
+            return;
+        }
+        $hasOverlordPowercellCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $powercells), 100, tooltip:"Sacrifice_a_Powercell_(1_of_4)");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "OverlordSacrifice|3|$reserveCost", 100);
+    }
+
     // 1.3 Declaring Costs — Argus, All-Seeing Giant (4GFKcHg9NU):
     // While paying reserve cost, you may banish Crystal/Eye of Argus from material (each pays 3).
     if($obj->CardID === "4GFKcHg9NU" && !$ignoreCost && $reserveCost > 0) {
@@ -2461,7 +2475,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasArgusReserveAltCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasArgusReserveAltCost && !$hasOverlordPowercellCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2540,6 +2554,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // reserve payments, and EffectStackOpportunity.
     // When $hasBlazingThrowCost is true, BlazingThrowCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
+    // When $hasOverlordPowercellCost is true, OverlordSacrifice handles the
+    // four Powercell sacrifices, reserve payments, and EffectStackOpportunity.
     // When $hasSongOfFrostAltCost is true, SongOfFrostAltCost handler queues its own
     // reserve/banish + EffectStackOpportunity.
     // When $hasBrewAltCost is true, DeclareBrew handler queues herb sacrifice or

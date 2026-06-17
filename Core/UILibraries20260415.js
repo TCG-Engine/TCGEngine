@@ -1089,8 +1089,9 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
       function createCardHTML(zone, zoneName, folder, size, cardArr, i, heatmapFunction = "", heatmapColorMap = "", forcedHighlightMetadata = null) {
         // Null/removed card placeholder — nothing to render
         if (cardArr[0] === "-" && (cardArr.length <= 2 || !cardArr[2] || cardArr[2] === "-")) return "";
+        const selectionModeActive = !!(window.SelectionMode && window.SelectionMode.active);
         let isSelectable = false;
-        if (window.SelectionMode.active && typeof IsSelectableCard === 'function') {
+        if (selectionModeActive && typeof IsSelectableCard === 'function') {
           isSelectable = IsSelectableCard(zone, cardArr, i);
         }
         var sharedCardData = {};
@@ -1102,7 +1103,7 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
         if (!highlightMetadata) {
           highlightMetadata = GetHighlightMetadataForCard(zoneName, sharedCardData);
         }
-        if (highlightMetadata) {
+        if (highlightMetadata && !selectionModeActive) {
           isSelectable = true;
         }
 

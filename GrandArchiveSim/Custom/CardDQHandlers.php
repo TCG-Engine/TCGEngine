@@ -4065,6 +4065,14 @@ function TriggerPowercellSacrifice($player) {
     }
 }
 
+function QueuePowercellSacrificeChoice($player, $tooltip, $customParam, $block = 100) {
+    $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+    if(empty($powercells)) return false;
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $powercells), $block, tooltip:$tooltip);
+    DecisionQueueController::AddDecision($player, "CUSTOM", $customParam, $block);
+    return true;
+}
+
 // Charged Gunslinger (svdv3zb9p4): discard handler — if fire element, become distant
 $customDQHandlers["ChargedGunslingerDiscard"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
@@ -4080,6 +4088,12 @@ $customDQHandlers["ChargedGunslingerDiscard"] = function($player, $parts, $lastD
 // Turbo Charge / Atmos Armor Type-Hermes: sacrifice a Powercell
 $customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecision) {
     if($lastDecision === "-" || $lastDecision === "") return;
+    $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+    if(!in_array($lastDecision, $powercells, true)) {
+        SetFlashMessage("Choose a Powercell you control.");
+        QueuePowercellSacrificeChoice($player, "Sacrifice_a_Powercell", "PowercellSacrifice");
+        return;
+    }
     OnLeaveField($player, $lastDecision);
     MZMove($player, $lastDecision, "myGraveyard");
     DecisionQueueController::CleanupRemovedCards();
@@ -4089,20 +4103,29 @@ $customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecisio
 // Overlord Mk III (sl7ddcgw05): iterative sacrifice of 4 Powercells
 $customDQHandlers["OverlordSacrifice"] = function($player, $parts, $lastDecision) {
     $remaining = intval($parts[0]);
+    $reserveCost = isset($parts[1]) ? intval($parts[1]) : 0;
     if($lastDecision !== "-" && $lastDecision !== "") {
+        $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+        if(!in_array($lastDecision, $powercells, true)) {
+            SetFlashMessage("Overlord Mk III must sacrifice a Powercell you control.");
+            QueuePowercellSacrificeChoice($player, "Sacrifice_a_Powercell_(" . (5 - $remaining) . "_of_4)", "OverlordSacrifice|" . $remaining . "|" . $reserveCost);
+            return;
+        }
         OnLeaveField($player, $lastDecision);
         MZMove($player, $lastDecision, "myGraveyard");
         DecisionQueueController::CleanupRemovedCards();
         TriggerPowercellSacrifice($player);
     }
     if($remaining > 0) {
-        $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
-        if(!empty($powercells)) {
-            $pcChoices = implode("&", $powercells);
-            DecisionQueueController::AddDecision($player, "MZCHOOSE", $pcChoices, 100, tooltip:"Sacrifice_a_Powercell_(" . (5 - $remaining) . "_of_4)");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "OverlordSacrifice|" . ($remaining - 1), 100);
-        }
+        QueuePowercellSacrificeChoice($player, "Sacrifice_a_Powercell_(" . (5 - $remaining) . "_of_4)", "OverlordSacrifice|" . ($remaining - 1) . "|" . $reserveCost);
+        return;
     }
+
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::StoreVariable("isImbued", "NO");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
 // Overlord Mk III (sl7ddcgw05): end phase — banish Automaton from GY → buff + draw
