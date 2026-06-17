@@ -1475,6 +1475,23 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     return "PLAY";
                 }
             }
+            // Limitless Defiance (9gRhhR0bGR): tagged Warrior action/attack cards may be activated
+            // from banishment this turn without paying reserve cost; wake Jin when the activation succeeds.
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $bObj = GetZoneObject($actionCard);
+                if($bObj !== null && !$bObj->removed && in_array('_limitlessDefiance', $bObj->TurnEffects ?? [])) {
+                    DecisionQueueController::StoreVariable("activationSourceZoneOverride", "myBanish");
+                    DecisionQueueController::StoreVariable("limitlessDefianceFreeReserve", "YES");
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    $hand = &GetHand($playerID);
+                    $handIdx = count($hand) - 1;
+                    ActivateCard($playerID, "myHand-" . $handIdx, false);
+                    $champMZ = FindChampionMZ($playerID);
+                    if($champMZ !== null) WakeupCard($playerID, $champMZ);
+                    DecisionQueueController::ClearVariable("limitlessDefianceFreeReserve");
+                    return "PLAY";
+                }
+            }
             // Recursive Confidant (KfC8fwcF2T): activate tagged Warrior attack from banishment
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
@@ -15340,6 +15357,11 @@ function BanishSelectionMetadata($obj) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
+    // Limitless Defiance (9gRhhR0bGR): tagged Warrior action/attack cards are playable from banishment this turn.
+    if ($currentPhase === "MAIN" && in_array('_limitlessDefiance', $turnEffects)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
     // Recursive Confidant (KfC8fwcF2T): tagged _recursiveConfidant turn effect
     if ($currentPhase === "MAIN" && in_array('_recursiveConfidant', $turnEffects)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
@@ -22357,6 +22379,9 @@ function CalculateActivationReserveCost($player, $obj, $dryRun = true) {
 
     $reserveCost = intval(CardCost_reserve($cardID));
     if($cardID === "4yqL9xtzVi") $reserveCost = 2;
+    if(DecisionQueueController::GetVariable("limitlessDefianceFreeReserve") === "YES") {
+        $reserveCost = 0;
+    }
     // Ephemerate override
     $wasEphemerated = DecisionQueueController::GetVariable("wasEphemerated");
     if($wasEphemerated === "YES") {
