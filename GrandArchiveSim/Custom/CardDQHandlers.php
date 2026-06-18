@@ -7358,71 +7358,55 @@ $customDQHandlers["BriarSpindleWakeup"] = function($player, $parts, $lastDecisio
     }
 };
 
-// HuntChooseMode: player chose YES/NO for a Hunt mode offer. parts: [huntMZ, modeName, remainingModes]
+// HuntChooseMode: player selected a Hunt mode from the modal. parts: [huntMZ, modeList]
 $customDQHandlers["HuntChooseMode"] = function($player, $parts, $lastDecision) {
     $huntMZ = $parts[0] ?? "";
-    $modeName = $parts[1] ?? "";
-    $remainingModes = $parts[2] ?? "";
+    $modeList = $parts[1] ?? "";
+    if($huntMZ === "" || $modeList === "" || $lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
 
-    if($lastDecision === "YES") {
-        // Execute chosen mode
-        $huntObj = &GetZoneObject($huntMZ);
-        if($huntObj === null) return;
-        global $playerID;
-        $zone = $player == $playerID ? "myField" : "theirField";
+    $selectedIndex = intval(explode(",", $lastDecision)[0] ?? 0);
+    $availableModes = array_values(array_filter(explode(",", $modeList), fn($mode) => $mode !== ""));
+    if(!isset($availableModes[$selectedIndex])) return;
 
-        if($modeName === "BISHOP") {
-            AddCounters($player, $huntMZ, "hunt_bishop", 1);
-            Draw($player, amount: 1);
-        } elseif($modeName === "KNIGHT") {
-            AddCounters($player, $huntMZ, "hunt_knight", 1);
-            $knights = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "KNIGHT"]);
-            if(!empty($knights)) {
-                if(count($knights) === 1) {
-                    AddCounters($player, $knights[0], "buff", 1);
-                } else {
-                    $knightStr = implode("&", $knights);
-                    DecisionQueueController::AddDecision($player, "MZCHOOSE", $knightStr, 1, tooltip:"Put_a_buff_counter_on_a_Knight");
-                    DecisionQueueController::AddDecision($player, "CUSTOM", "HuntKnightBuff", 1);
-                }
-            }
-        } elseif($modeName === "ROOK") {
-            AddCounters($player, $huntMZ, "hunt_rook", 1);
-            $rooks = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "ROOK"]);
-            if(!empty($rooks)) {
-                if(count($rooks) === 1) {
-                    $rookMZ = $rooks[0];
-                    $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
-                    if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
-                        StoreCombatTargetState($rookMZ, ($player == 1) ? 2 : 1);
-                    }
-                    AddTurnEffect($rookMZ, "Y6PZntlVDl_LIFE");
-                } else {
-                    $rookStr = implode("&", $rooks);
-                    DecisionQueueController::AddDecision($player, "MZCHOOSE", $rookStr, 1, tooltip:"Redirect_attack_to_Rook");
-                    DecisionQueueController::AddDecision($player, "CUSTOM", "HuntRookRedirect", 1);
-                }
+    $modeName = $availableModes[$selectedIndex];
+    $huntObj = &GetZoneObject($huntMZ);
+    if($huntObj === null) return;
+
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+
+    if($modeName === "BISHOP") {
+        AddCounters($player, $huntMZ, "hunt_bishop", 1);
+        Draw($player, amount: 1);
+    } elseif($modeName === "KNIGHT") {
+        AddCounters($player, $huntMZ, "hunt_knight", 1);
+        $knights = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "KNIGHT"]);
+        if(!empty($knights)) {
+            if(count($knights) === 1) {
+                AddCounters($player, $knights[0], "buff", 1);
+            } else {
+                $knightStr = implode("&", $knights);
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", $knightStr, 1, tooltip:"Put_a_buff_counter_on_a_Knight");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "HuntKnightBuff", 1);
             }
         }
-    } else {
-        // Skip this mode, offer next one
-        if(empty($remainingModes)) return;
-        $modes = explode(",", $remainingModes);
-        $nextMode = array_shift($modes);
-        $nextRemaining = implode(",", $modes);
-        $tooltips = [
-            "BISHOP" => "Bishop_mode:_draw_a_card?",
-            "KNIGHT" => "Knight_mode:_put_buff_counter?",
-            "ROOK" => "Rook_mode:_redirect_attack_+2_LIFE?"
-        ];
-        $tooltip = $tooltips[$nextMode] ?? "Choose_Hunt_mode?";
-        if(empty($modes)) {
-            // Last mode — auto-execute
-            DecisionQueueController::AddDecision($player, "PASSPARAMETER", "YES", 1);
-        } else {
-            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:$tooltip);
+    } elseif($modeName === "ROOK") {
+        AddCounters($player, $huntMZ, "hunt_rook", 1);
+        $rooks = ZoneSearch($zone, ["ALLY"], cardSubtypes: ["CHESSMAN", "ROOK"]);
+        if(!empty($rooks)) {
+            if(count($rooks) === 1) {
+                $rookMZ = $rooks[0];
+                $combatTarget = DecisionQueueController::GetVariable("CombatTarget");
+                if($combatTarget !== null && $combatTarget !== "-" && $combatTarget !== "") {
+                    StoreCombatTargetState($rookMZ, ($player == 1) ? 2 : 1);
+                }
+                AddTurnEffect($rookMZ, "Y6PZntlVDl_LIFE");
+            } else {
+                $rookStr = implode("&", $rooks);
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", $rookStr, 1, tooltip:"Redirect_attack_to_Rook");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "HuntRookRedirect", 1);
+            }
         }
-        DecisionQueueController::AddDecision($player, "CUSTOM", "HuntChooseMode|$huntMZ|$nextMode|$nextRemaining", 1);
     }
 };
 
