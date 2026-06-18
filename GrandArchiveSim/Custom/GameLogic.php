@@ -12901,17 +12901,17 @@ $customDQHandlers["SummonSpiritShardAfterGlimpse"] = function($player, $parts, $
     MZAddZone($player, "myField", "3p5iqigcom");
 };
 
-    function QueueDrawIntoMemoryAfterGlimpse($player, $amount=1) {
-        $amount = intval($amount);
-        if($amount <= 0) return;
-        DecisionQueueController::AddDecision($player, "CUSTOM", "DrawIntoMemoryAfterGlimpse|" . $amount, 1, dontSkipOnPass:true);
-    }
+function QueueDrawIntoMemoryAfterGlimpse($player, $amount=1) {
+    $amount = intval($amount);
+    if($amount <= 0) return;
+    QueuePendingAfterGlimpseDecision($player, "DrawIntoMemoryAfterGlimpse|" . $amount);
+}
 
-    $customDQHandlers["DrawIntoMemoryAfterGlimpse"] = function($player, $parts, $lastDecision) {
-        $amount = intval($parts[0] ?? 0);
-        if($amount <= 0) return;
-        DrawIntoMemory($player, $amount);
-    };
+$customDQHandlers["DrawIntoMemoryAfterGlimpse"] = function($player, $parts, $lastDecision) {
+    $amount = intval($parts[0] ?? 0);
+    if($amount <= 0) return;
+    DrawIntoMemory($player, $amount);
+};
 
 function PsychopompsGaleResolve($player) {
     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Target_yourself?");
