@@ -61,6 +61,8 @@
   echo("    default: return -1;\r\n");
   echo("  }\r\n");
   echo("}\r\n");
+  echo("window.CardPlayWinRate = CardPlayWinRate;\r\n");
+  echo("window.CardResourceRatio = CardResourceRatio;\r\n");
   echo("</script>\r\n");
 
   include_once './Utils/Output/SWUSimImplementation.php';

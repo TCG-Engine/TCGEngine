@@ -65,6 +65,13 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
   return html;
 }
 
+function ResolveGlobalFunction(functionName) {
+  if (typeof functionName !== "string" || functionName === "") return null;
+  if (typeof window !== "undefined" && typeof window[functionName] === "function") return window[functionName];
+  if (typeof globalThis !== "undefined" && typeof globalThis[functionName] === "function") return globalThis[functionName];
+  return null;
+}
+
 //Rotate is deprecated
       function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "", overlayDescriptorsJSON = "") {
         if (folder == "crops") {
@@ -137,7 +144,11 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
         rv += "<img " + (id != "" ? "id='" + id + "-img' " : "") + altText + orientation + "loading='lazy' style='" + border + " height:" + height + "; width:" + width + "px; position:relative;' src='" + folderPath + "/" + cardNumber + fileExt + "' />";
 
         if(heatmapFunction != "") {
-            var heatmapValue = window[heatmapFunction](cardNumber);
+            var resolvedHeatmapFunction = ResolveGlobalFunction(heatmapFunction);
+            if(resolvedHeatmapFunction == null) {
+              console.warn("Missing heatmap function:", heatmapFunction, "for card", cardNumber);
+            } else {
+            var heatmapValue = resolvedHeatmapFunction(cardNumber);
             var overlayColor = "rgba(0, 0, 0, .7)"; // Initialize to gray color
             if (heatmapColorMap == "HigherIsBetter") {
               overlayColor = heatmapValue == -1 ? "rgba(0, 0, 0, .7)" : getOverlayColorHigherIsBetter(heatmapValue);
@@ -146,6 +157,7 @@ function RenderShiftingCurrentsFacingHTML(cardData, animateChange) {
             }
             var gradientOverlay = heatmapValue == -1 ? "rgba(0, 0, 0, 0.5)" : `linear-gradient(to top, ${overlayColor}, rgba(255, 255, 255, 0))`;
             rv += "<div " + (id != "" ? "id='" + id + "-ovr' " : "") + "style='visibility:visible; width:calc(100% - 2px); height:calc(100% - 2px); top:1px; left:1px; border-radius:6px; position:absolute; background: " + gradientOverlay + "; z-index: 1; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; color: white; text-shadow: 2px 2px 4px black;'>" + (heatmapValue == -1 ? "No Data" : (heatmapValue * 100).toFixed(2) + "%") + "</div>";
+            }
         } else {
           var overlayTypeList = [];
           var overlayDescriptors = [];

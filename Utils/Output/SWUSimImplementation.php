@@ -126,4 +126,6 @@ function PetranakiImplemented(cardID) {
     default: return true;
   }
 }
+window.KarabastImplemented = KarabastImplemented;
+window.PetranakiImplemented = PetranakiImplemented;
 </script>";

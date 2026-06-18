@@ -209,6 +209,10 @@ function HyperGeo(cardID) {
   return -1;
 }
 
+window.InLegalFilter = InLegalFilter;
+window.InAspectFilter = InAspectFilter;
+window.HyperGeo = HyperGeo;
+
 function hypergeoWrapper(successes, sampleSize, populationSuccesses, populationSize) {
   var sum = 0;
   for (var i = successes; i <= sampleSize; i++) {
