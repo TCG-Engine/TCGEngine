@@ -1358,7 +1358,8 @@ function ResolveGlobalFunction(functionName) {
           var cardDataSub = sharedCardData;
           if (cardDataSub.Subcards && Array.isArray(cardDataSub.Subcards) && cardDataSub.Subcards.length > 0) {
             var subcards = cardDataSub.Subcards;
-            for (var si = subcards.length - 1; si >= 0; si--) {
+            var visibleLineageCount = Math.min(subcards.length, 3);
+            for (var si = visibleLineageCount - 1; si >= 0; si--) {
               var offsetTop = (si + 1) * 10;
               var offsetLeft = (si + 1) * 3;
               var subFolder = folder;
@@ -1370,6 +1371,19 @@ function ResolveGlobalFunction(functionName) {
                 + "loading='lazy' class='lineage-subcard' style='position:absolute; top:-" + offsetTop + "px; left:" + offsetLeft + "px; height:" + size + "px; width:" + size + "px; "
                 + "border:1px solid transparent; opacity:0.85; z-index:-" + (si + 1) + "; pointer-events:auto;' "
                 + "src='" + subSrc + "' alt='Lineage card' />";
+            }
+            if (subcards.length > visibleLineageCount) {
+              var hiddenLineageCount = subcards.length - visibleLineageCount;
+              var lineagePayload = encodeURIComponent(JSON.stringify({
+                subcards: subcards,
+                folder: subFolder,
+                size: Math.max(74, size - 8)
+              }));
+              newHTML += "<span class='ga-lineage-overflow' data-lineage-subcards='" + lineagePayload + "'"
+                + " onmouseenter='showLineageOverflowPopup(this)' onmouseleave='hideLineageOverflowPopup()'"
+                + " onfocusin='showLineageOverflowPopup(this)' onfocusout='hideLineageOverflowPopup()'"
+                + " onmousedown='event.stopPropagation()' onclick='event.preventDefault(); event.stopPropagation(); return false;'"
+                + " tabindex='0' role='button' aria-label='Show hidden lineage cards'>+" + hiddenLineageCount + "</span>";
             }
           }
         } catch (e) {
@@ -1421,6 +1435,8 @@ function ResolveGlobalFunction(functionName) {
 
       var tokenStackPopup = null;
       var tokenStackPopupTimeout = null;
+      var lineageOverflowPopup = null;
+      var lineageOverflowPopupTimeout = null;
 
       function getOrCreateTokenStackPopup() {
         if (!tokenStackPopup) {
@@ -1439,6 +1455,25 @@ function ResolveGlobalFunction(functionName) {
           document.body.appendChild(tokenStackPopup);
         }
         return tokenStackPopup;
+      }
+
+      function getOrCreateLineageOverflowPopup() {
+        if (!lineageOverflowPopup) {
+          lineageOverflowPopup = document.createElement('div');
+          lineageOverflowPopup.className = 'ga-lineage-popup';
+          lineageOverflowPopup.id = 'ga-lineage-popup';
+          lineageOverflowPopup.addEventListener('mouseenter', function() {
+            if (lineageOverflowPopupTimeout) {
+              clearTimeout(lineageOverflowPopupTimeout);
+              lineageOverflowPopupTimeout = null;
+            }
+          });
+          lineageOverflowPopup.addEventListener('mouseleave', function() {
+            hideLineageOverflowPopup();
+          });
+          document.body.appendChild(lineageOverflowPopup);
+        }
+        return lineageOverflowPopup;
       }
 
       function showTokenStackPopup(stackEl) {
@@ -1515,6 +1550,79 @@ function ResolveGlobalFunction(functionName) {
         if (tokenStackPopupTimeout) clearTimeout(tokenStackPopupTimeout);
         tokenStackPopupTimeout = setTimeout(function() {
           var popup = document.getElementById('ga-token-stack-popup');
+          if (popup) popup.classList.remove('visible');
+        }, 120);
+      }
+
+      function showLineageOverflowPopup(triggerEl) {
+        try {
+          if (!triggerEl) return;
+          if (lineageOverflowPopupTimeout) {
+            clearTimeout(lineageOverflowPopupTimeout);
+            lineageOverflowPopupTimeout = null;
+          }
+
+          var payloadAttr = triggerEl.getAttribute('data-lineage-subcards');
+          if (!payloadAttr) return;
+
+          var payload = null;
+          try {
+            payload = JSON.parse(decodeURIComponent(payloadAttr));
+          } catch (e) {
+            return;
+          }
+          if (!payload || !Array.isArray(payload.subcards) || payload.subcards.length === 0) return;
+
+          var popup = getOrCreateLineageOverflowPopup();
+          var html = "<div class='ga-lineage-popup-shell'><div class='ga-lineage-popup-title'>Champion Lineage</div><div class='ga-lineage-popup-grid'>";
+          for (var i = 0; i < payload.subcards.length; ++i) {
+            var cardId = payload.subcards[i];
+            if (!cardId) continue;
+            var subSrc = "./" + payload.folder + "/concat/" + cardId + ".webp";
+            html += "<span class='ga-lineage-popup-card' data-lineage-order='" + (i + 1) + "'>"
+              + "<img data-subcard-id='" + cardId + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()'"
+              + " loading='lazy' src='" + subSrc + "' alt='Lineage card' style='height:" + payload.size + "px; width:" + payload.size + "px;' />"
+              + "</span>";
+          }
+          html += "</div></div>";
+          popup.innerHTML = html;
+
+          popup.style.left = '-9999px';
+          popup.style.top = '-9999px';
+          popup.classList.add('visible');
+
+          requestAnimationFrame(function() {
+            if (!popup.classList.contains('visible')) return;
+            var rect = triggerEl.getBoundingClientRect();
+            var actualWidth = popup.offsetWidth;
+            var actualHeight = popup.offsetHeight;
+            var left = rect.left + (rect.width / 2) - (actualWidth / 2);
+            var top = rect.bottom + 12;
+            var viewportWidth = window.innerWidth;
+            var viewportHeight = window.innerHeight;
+
+            if (left < 10) left = 10;
+            if (left + actualWidth > viewportWidth - 10) left = viewportWidth - actualWidth - 10;
+
+            if (top + actualHeight > viewportHeight - 10) {
+              top = rect.top - actualHeight - 12;
+            }
+            if (top < 10) {
+              top = Math.max(10, viewportHeight - actualHeight - 10);
+            }
+
+            popup.style.left = left + 'px';
+            popup.style.top = top + 'px';
+          });
+        } catch (e) {
+          if (console && console.error) console.error('showLineageOverflowPopup error', e);
+        }
+      }
+
+      function hideLineageOverflowPopup() {
+        if (lineageOverflowPopupTimeout) clearTimeout(lineageOverflowPopupTimeout);
+        lineageOverflowPopupTimeout = setTimeout(function() {
+          var popup = document.getElementById('ga-lineage-popup');
           if (popup) popup.classList.remove('visible');
         }, 120);
       }
@@ -1616,6 +1724,109 @@ function ResolveGlobalFunction(functionName) {
           font: 700 11px/1 Orbitron, sans-serif;
           box-shadow: 0 4px 10px rgba(38, 18, 2, 0.24);
           z-index: 1;
+        }
+
+        .ga-lineage-overflow {
+          position: absolute;
+          left: -8px;
+          top: -18px;
+          min-width: 24px;
+          height: 24px;
+          padding: 0 7px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(180deg, rgba(255, 249, 230, 0.98), rgba(248, 213, 138, 0.97));
+          border: 1px solid rgba(140, 67, 10, 0.72);
+          color: #7c2d12;
+          font: 700 11px/1 Orbitron, sans-serif;
+          letter-spacing: 0.04em;
+          box-shadow: 0 10px 18px rgba(33, 14, 2, 0.24);
+          z-index: 14;
+          cursor: pointer;
+          pointer-events: auto;
+        }
+
+        .ga-lineage-overflow:hover,
+        .ga-lineage-overflow:focus-visible {
+          outline: none;
+          transform: translateY(-1px);
+          box-shadow: 0 12px 22px rgba(33, 14, 2, 0.32);
+        }
+
+        .ga-lineage-popup {
+          position: fixed;
+          left: -9999px;
+          top: -9999px;
+          z-index: 10021;
+          opacity: 0;
+          pointer-events: none;
+          transform: translateY(8px) scale(0.97);
+          transition: opacity 150ms ease, transform 150ms ease;
+        }
+
+        .ga-lineage-popup.visible {
+          opacity: 1;
+          pointer-events: auto;
+          transform: translateY(0) scale(1);
+        }
+
+        .ga-lineage-popup-shell {
+          max-width: min(76vw, 540px);
+          max-height: min(58vh, 520px);
+          padding: 12px;
+          border-radius: 16px;
+          border: 1px solid rgba(251, 191, 36, 0.28);
+          background:
+            linear-gradient(180deg, rgba(255, 248, 235, 0.10), rgba(255, 248, 235, 0.02)),
+            linear-gradient(160deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.98));
+          box-shadow: 0 22px 42px rgba(15, 23, 42, 0.42);
+          backdrop-filter: blur(12px);
+          overflow: auto;
+          scrollbar-width: thin;
+        }
+
+        .ga-lineage-popup-title {
+          margin-bottom: 10px;
+          color: rgba(248, 225, 170, 0.96);
+          font: 700 11px/1.2 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          text-align: center;
+        }
+
+        .ga-lineage-popup-grid {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 8px;
+        }
+
+        .ga-lineage-popup-card {
+          position: relative;
+          display: inline-flex;
+          border-radius: 10px;
+          overflow: hidden;
+          box-shadow: 0 10px 20px rgba(2, 6, 23, 0.34);
+        }
+
+        .ga-lineage-popup-card::after {
+          content: attr(data-lineage-order);
+          position: absolute;
+          left: 6px;
+          top: 6px;
+          min-width: 18px;
+          height: 18px;
+          padding: 0 5px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(15, 23, 42, 0.82);
+          border: 1px solid rgba(248, 225, 170, 0.32);
+          color: rgba(248, 225, 170, 0.96);
+          font: 700 10px/1 Orbitron, sans-serif;
         }
 
         .combat-indicator {
