@@ -855,6 +855,7 @@ function DoMaterialize($player, $mzCard) {
         $existingChampionIdx = -1;
         $existingSubcards = [];
         $existingChampionCardID = null;
+        $existingStatus = null;
         $existingDamage = 0;
         $existingCounters = [];
         $existingTurnEffects = [];
@@ -864,6 +865,7 @@ function DoMaterialize($player, $mzCard) {
                 $existingChampionIdx = $i;
                 $existingChampionCardID = $field[$i]->CardID;
                 $existingSubcards = is_array($field[$i]->Subcards) ? $field[$i]->Subcards : [];
+                $existingStatus = intval($field[$i]->Status ?? 0);
                 $existingDamage = $field[$i]->Damage;
                 $existingCounters = is_array($field[$i]->Counters) ? $field[$i]->Counters : [];
                 $existingTurnEffects = is_array($field[$i]->TurnEffects) ? $field[$i]->TurnEffects : [];
@@ -960,6 +962,11 @@ function DoMaterialize($player, $mzCard) {
 
         // Move new champion to field
         $newObj = MZMove($player, $mzCard, "myField");
+
+        // Preserve rested/awake state when leveling up an existing champion.
+        if($newObj !== null && $existingStatus !== null) {
+            $newObj->Status = $existingStatus;
+        }
 
         // Inherited state has already been transferred pre-MZMove so Enter saw it.
 
