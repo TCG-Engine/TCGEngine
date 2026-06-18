@@ -1960,6 +1960,15 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         AddPrepCounter($player, 1);
     }
 
+    // Curtain of Shadows (y7AFl2B1B3): Ominous Shadows gain "On Hit: Put a preparation counter on your champion."
+    if($obj !== null
+        && $obj->CardID === "gveirpdm44"
+        && PropertyContains(EffectiveCardType($obj), "ALLY")
+        && !HasNoAbilities($obj)
+        && GlobalEffectCount($player, "y7AFl2B1B3_ON_HIT") > 0) {
+        AddPrepCounter($player, 1);
+    }
+
     // Mordred, Aurelian Regent (XPl2UAO9se): granted On Hit — Recover 3.
     if($obj !== null && in_array("XPl2UAO9se:RECOVER_ON_HIT", $obj->TurnEffects ?? [])) {
         RecoverChampion($player, 3);

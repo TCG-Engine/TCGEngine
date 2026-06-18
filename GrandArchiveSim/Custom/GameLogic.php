@@ -11409,6 +11409,9 @@ function ObjectCurrentPower($obj) {
             case "4hnf1yyx1q": // Grim Foreboding: Phantasia allies get +1 POWER until end of turn
                 $power += 1;
                 break;
+            case "y7AFl2B1B3_POWER": // Curtain of Shadows: Ominous Shadows get +1 POWER for the rest of the game
+                $power += 1;
+                break;
             case "CgyJxpEgzk-POWER3": // Spirit Blade: Infusion: +3 POWER until end of turn
                 $power += 3;
                 break;
@@ -16145,6 +16148,14 @@ $doesGlobalEffectApply["473gyf0w3v"] = function($obj) { //Duxal Proclamation: al
 
 $doesGlobalEffectApply["4hnf1yyx1q"] = function($obj) { //Grim Foreboding: Phantasia allies get +1 POWER
     return PropertyContains(EffectiveCardType($obj), "ALLY") && PropertyContains(EffectiveCardType($obj), "PHANTASIA");
+};
+
+$doesGlobalEffectApply["y7AFl2B1B3_POWER"] = function($obj) { // Curtain of Shadows: Ominous Shadows you control get +1 POWER
+    return PropertyContains(EffectiveCardType($obj), "ALLY") && $obj->CardID === "gveirpdm44";
+};
+
+$doesGlobalEffectApply["y7AFl2B1B3_ON_HIT"] = function($obj) { // Curtain of Shadows: Ominous Shadows you control gain On Hit
+    return false;
 };
 
 $doesGlobalEffectApply["i1f0ht2tsn"] = function($obj) { //Strategic Warfare: allies get +1 POWER
