@@ -1,6 +1,7 @@
 1
 250
-35
+37
+ShQkyQMBCT
 oz23yfzk96
 zadf9q1wl8
 mloejozihs
@@ -36,6 +37,7 @@ JFdxtCqdeg
 gnYM2V6TTw
 14m4c8ljye
 9g44vm5kt3
+JFdxtCqdeg
 68
 CgyJxpEgzk
 HtExn3OxIN
@@ -119,7 +121,7 @@ IAkuSSnzYB - -
 8kmoi0a5uh - -
 vyRjDql0TR - -
 fK1IQGsUeh - -
-14
+12
 Rgg4dJYxnl
 Rgg4dJYxnl
 l8ao8bls6g
@@ -132,8 +134,6 @@ gnYM2V6TTw
 tiymuyv3fp
 O1OU62Zx2Y
 l8ao8bls6g
-JFdxtCqdeg
-l8ao8bls6g
 1
 4a7QLLouGk
 3
@@ -142,9 +142,9 @@ ARISANNA_FREE_STARCALLING
 FREE_STARCALLING
 0
 3
+l8ao8bls6g
 ShQkyQMBCT
 qhBecpDUO9
-ShQkyQMBCT
 3
 g7uDOmUf2u
 soO3hjaVfN
@@ -201,9 +201,9 @@ FxYwR2azTt
 MAIN
 
 
-{"GoldfishPlayers":[],"mzID":"myField-3","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"l8ao8bls6g","activationSourceZone":"myHand","additionalCostPaid":"NO","wasBrewed":"NO","brewMode":"","brewSteps":"[{\"filter\":\"HERB\",\"tooltip\":\"Sacrifice_an_herb\"}]","brewChosen":"myField-7","brewStepIndex":"1","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"potionCardID":"l8ao8bls6g","O1OU62Zx2Y_wasBrewed":"YES","CombatDamageAmount":"1","source":"myField-2","target":"theirField-4","gnYM2V6TTw_wasBrewed":"YES"}
+{"GoldfishPlayers":[],"mzID":"myField-3","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"l8ao8bls6g","activationSourceZone":"myHand","additionalCostPaid":"NO","wasBrewed":"NO","brewMode":"","brewSteps":"[{\"filter\":\"HERB\",\"tooltip\":\"Sacrifice_an_herb\"}]","brewChosen":"myField-7","brewStepIndex":"1","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"potionCardID":"l8ao8bls6g","O1OU62Zx2Y_wasBrewed":"YES","CombatDamageAmount":"1","source":"myField-2","target":"theirField-4","gnYM2V6TTw_wasBrewed":"YES","selected":"myHand-2"}
 0
-{"MaterializeCalls":{"1":1},"Materialize":{"1":{"q3huqj5bba":1}},"EnterCalls":{"1":1},"Enter":{"1":{"q3huqj5bba":1}},"DrawCalls":{"1":1},"Draw":{"1":3},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"l8ao8bls6g":1}}}
+{"MaterializeCalls":{"1":1},"Materialize":{"1":{"q3huqj5bba":1}},"EnterCalls":{"1":1},"Enter":{"1":{"q3huqj5bba":1}},"DrawCalls":{"1":2},"Draw":{"1":2},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"l8ao8bls6g":1}}}
 33
-{"ActivateCardCalls":{"1":13,"2":5},"ActivateCard":{"1":{"Rgg4dJYxnl":2,"l8ao8bls6g":2,"gnYM2V6TTw":1,"O1OU62Zx2Y":3,"o3M5ZWSL6E":1,"zadf9q1wl8":1,"F9POfB5Nah":1,"tiymuyv3fp":1,"y5ttkat9hr":1},"2":{"lqILsIDHNc":1,"vyRjDql0TR":1,"IAkuSSnzYB":1,"DsiRzt0trX":1,"4a7QLLouGk":1}},"ReserveCard":{"1":{"9g44vm5kt3":1,"JFdxtCqdeg":2,"qhBecpDUO9":2,"ShQkyQMBCT":1,"me0xxw0plq":1,"l8ao8bls6g":2,"O1OU62Zx2Y":2,"tiymuyv3fp":1,"qtb31x97n2":1,"y5ttkat9hr":3,"mdk0xhi5jn":1},"2":{"7tUvIHeo0i":1,"N0ipz8UWwf":4,"fK1IQGsUeh":2,"4a7QLLouGk":2,"IAkuSSnzYB":1,"soO3hjaVfN":1,"g7uDOmUf2u":1,"peyG8Hfgqt":2}},"ReserveCardCommitted":{"1":{"9g44vm5kt3":1,"JFdxtCqdeg":2,"qhBecpDUO9":2,"ShQkyQMBCT":1,"me0xxw0plq":1,"l8ao8bls6g":2,"O1OU62Zx2Y":2,"tiymuyv3fp":1,"qtb31x97n2":1,"y5ttkat9hr":3,"mdk0xhi5jn":1},"2":{"7tUvIHeo0i":1,"N0ipz8UWwf":4,"fK1IQGsUeh":2,"4a7QLLouGk":2,"IAkuSSnzYB":1,"soO3hjaVfN":1,"g7uDOmUf2u":1,"peyG8Hfgqt":2}},"ReserveActionCommitted":{"1":{"9g44vm5kt3":1,"JFdxtCqdeg":2,"qhBecpDUO9":2,"ShQkyQMBCT":1,"me0xxw0plq":1,"l8ao8bls6g":2,"O1OU62Zx2Y":2,"tiymuyv3fp":1,"qtb31x97n2":1,"y5ttkat9hr":3,"mdk0xhi5jn":1},"2":{"7tUvIHeo0i":1,"N0ipz8UWwf":4,"fK1IQGsUeh":2,"4a7QLLouGk":2,"IAkuSSnzYB":1,"soO3hjaVfN":1,"g7uDOmUf2u":1,"peyG8Hfgqt":2}},"CardActivatedCalls":{"1":13,"2":5},"CardActivated":{"1":{"Rgg4dJYxnl":2,"l8ao8bls6g":2,"gnYM2V6TTw":1,"O1OU62Zx2Y":3,"o3M5ZWSL6E":1,"zadf9q1wl8":1,"F9POfB5Nah":1,"tiymuyv3fp":1,"y5ttkat9hr":1},"2":{"lqILsIDHNc":1,"vyRjDql0TR":1,"IAkuSSnzYB":1,"DsiRzt0trX":1,"4a7QLLouGk":1}},"EnterCalls":{"1":23,"2":8},"Enter":{"1":{"5joh300z2s":5,"soporhlq2k":2,"l8ao8bls6g":2,"b31x97n2jn":1,"gnYM2V6TTw":1,"O1OU62Zx2Y":3,"ettczb14m4":1,"bd7ozuj68m":1,"41t71u4bzz":1,"u7d6soporh":1,"tiymuyv3fp":1,"ltv5klryvf":1,"jnltv5klry":1,"y5ttkat9hr":1,"q3huqj5bba":1},"2":{"DpHDGaX2Pn":1,"8kmoi0a5uh":1,"lqILsIDHNc":1,"3traenEA8M":1,"IAkuSSnzYB":1,"TJTeWcZnsQ":1,"DsiRzt0trX":1,"qyQLlDYBlr":1}},"DrawCalls":{"1":13,"2":6},"MaterializeCalls":{"1":6,"2":5},"Materialize":{"1":{"b31x97n2jn":1,"ettczb14m4":1,"41t71u4bzz":1,"u7d6soporh":1,"ltv5klryvf":1,"q3huqj5bba":1},"2":{"DpHDGaX2Pn":1,"8kmoi0a5uh":1,"3traenEA8M":1,"TJTeWcZnsQ":1,"qyQLlDYBlr":1}},"ActivateAbilityCalls":{"1":8},"ActivateAbility":{"1":{"l8ao8bls6g":2,"O1OU62Zx2Y":3,"gnYM2V6TTw":1,"u7d6soporh":2}},"RestCardCalls":{"2":9,"1":1},"RestCard":{"2":{"DpHDGaX2Pn":2,"IAkuSSnzYB":3,"TJTeWcZnsQ":2,"DsiRzt0trX":2},"1":{"tiymuyv3fp":1}},"OnAttackCalls":{"2":9,"1":1},"OnAttack":{"2":{"DpHDGaX2Pn":2,"IAkuSSnzYB":3,"TJTeWcZnsQ":2,"DsiRzt0trX":2},"1":{"tiymuyv3fp":1}},"DealDamageCalls":{"2":9,"1":1},"OpponentChampionDamage":{"2":14,"1":1},"OpponentChampionDamageTimeline":{"2":{"2":2,"3":3,"4":3,"5":6},"1":{"4":1}},"OpponentChampionDamageSources":{"2":{"DpHDGaX2Pn":4,"IAkuSSnzYB":3,"DsiRzt0trX":5,"TJTeWcZnsQ":2},"1":{"tiymuyv3fp":1}},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"tiymuyv3fp":1}}}
+{"ActivateCardCalls":{"1":13,"2":5},"ActivateCard":{"1":{"Rgg4dJYxnl":2,"l8ao8bls6g":2,"gnYM2V6TTw":1,"O1OU62Zx2Y":3,"o3M5ZWSL6E":1,"zadf9q1wl8":1,"F9POfB5Nah":1,"tiymuyv3fp":1,"y5ttkat9hr":1},"2":{"lqILsIDHNc":1,"vyRjDql0TR":1,"IAkuSSnzYB":1,"DsiRzt0trX":1,"4a7QLLouGk":1}},"ReserveCard":{"1":{"9g44vm5kt3":1,"JFdxtCqdeg":2,"qhBecpDUO9":2,"ShQkyQMBCT":1,"me0xxw0plq":1,"l8ao8bls6g":2,"O1OU62Zx2Y":2,"tiymuyv3fp":1,"qtb31x97n2":1,"y5ttkat9hr":3,"mdk0xhi5jn":1},"2":{"7tUvIHeo0i":1,"N0ipz8UWwf":4,"fK1IQGsUeh":2,"4a7QLLouGk":2,"IAkuSSnzYB":1,"soO3hjaVfN":1,"g7uDOmUf2u":1,"peyG8Hfgqt":2}},"ReserveCardCommitted":{"1":{"9g44vm5kt3":1,"JFdxtCqdeg":2,"qhBecpDUO9":2,"ShQkyQMBCT":1,"me0xxw0plq":1,"l8ao8bls6g":2,"O1OU62Zx2Y":2,"tiymuyv3fp":1,"qtb31x97n2":1,"y5ttkat9hr":3,"mdk0xhi5jn":1},"2":{"7tUvIHeo0i":1,"N0ipz8UWwf":4,"fK1IQGsUeh":2,"4a7QLLouGk":2,"IAkuSSnzYB":1,"soO3hjaVfN":1,"g7uDOmUf2u":1,"peyG8Hfgqt":2}},"ReserveActionCommitted":{"1":{"9g44vm5kt3":1,"JFdxtCqdeg":2,"qhBecpDUO9":2,"ShQkyQMBCT":1,"me0xxw0plq":1,"l8ao8bls6g":2,"O1OU62Zx2Y":2,"tiymuyv3fp":1,"qtb31x97n2":1,"y5ttkat9hr":3,"mdk0xhi5jn":1},"2":{"7tUvIHeo0i":1,"N0ipz8UWwf":4,"fK1IQGsUeh":2,"4a7QLLouGk":2,"IAkuSSnzYB":1,"soO3hjaVfN":1,"g7uDOmUf2u":1,"peyG8Hfgqt":2}},"CardActivatedCalls":{"1":13,"2":5},"CardActivated":{"1":{"Rgg4dJYxnl":2,"l8ao8bls6g":2,"gnYM2V6TTw":1,"O1OU62Zx2Y":3,"o3M5ZWSL6E":1,"zadf9q1wl8":1,"F9POfB5Nah":1,"tiymuyv3fp":1,"y5ttkat9hr":1},"2":{"lqILsIDHNc":1,"vyRjDql0TR":1,"IAkuSSnzYB":1,"DsiRzt0trX":1,"4a7QLLouGk":1}},"EnterCalls":{"1":23,"2":8},"Enter":{"1":{"5joh300z2s":5,"soporhlq2k":2,"l8ao8bls6g":2,"b31x97n2jn":1,"gnYM2V6TTw":1,"O1OU62Zx2Y":3,"ettczb14m4":1,"bd7ozuj68m":1,"41t71u4bzz":1,"u7d6soporh":1,"tiymuyv3fp":1,"ltv5klryvf":1,"jnltv5klry":1,"y5ttkat9hr":1,"q3huqj5bba":1},"2":{"DpHDGaX2Pn":1,"8kmoi0a5uh":1,"lqILsIDHNc":1,"3traenEA8M":1,"IAkuSSnzYB":1,"TJTeWcZnsQ":1,"DsiRzt0trX":1,"qyQLlDYBlr":1}},"DrawCalls":{"1":14,"2":6},"MaterializeCalls":{"1":6,"2":5},"Materialize":{"1":{"b31x97n2jn":1,"ettczb14m4":1,"41t71u4bzz":1,"u7d6soporh":1,"ltv5klryvf":1,"q3huqj5bba":1},"2":{"DpHDGaX2Pn":1,"8kmoi0a5uh":1,"3traenEA8M":1,"TJTeWcZnsQ":1,"qyQLlDYBlr":1}},"ActivateAbilityCalls":{"1":8},"ActivateAbility":{"1":{"l8ao8bls6g":2,"O1OU62Zx2Y":3,"gnYM2V6TTw":1,"u7d6soporh":2}},"RestCardCalls":{"2":9,"1":1},"RestCard":{"2":{"DpHDGaX2Pn":2,"IAkuSSnzYB":3,"TJTeWcZnsQ":2,"DsiRzt0trX":2},"1":{"tiymuyv3fp":1}},"OnAttackCalls":{"2":9,"1":1},"OnAttack":{"2":{"DpHDGaX2Pn":2,"IAkuSSnzYB":3,"TJTeWcZnsQ":2,"DsiRzt0trX":2},"1":{"tiymuyv3fp":1}},"DealDamageCalls":{"2":9,"1":1},"OpponentChampionDamage":{"2":14,"1":1},"OpponentChampionDamageTimeline":{"2":{"2":2,"3":3,"4":3,"5":6},"1":{"4":1}},"OpponentChampionDamageSources":{"2":{"DpHDGaX2Pn":4,"IAkuSSnzYB":3,"DsiRzt0trX":5,"TJTeWcZnsQ":2},"1":{"tiymuyv3fp":1}},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"tiymuyv3fp":1}}}
 9

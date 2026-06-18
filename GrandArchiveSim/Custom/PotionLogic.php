@@ -837,28 +837,6 @@ function WildgrowthElixirApplyDirect($player, $targetMZ) {
     AddCounters($player, $targetMZ, "buff", $x);
 }
 
-// --- Convalescent Tonic (l8ao8bls6g): cycle up to 2 cards ---
-function ConvalescentTonicCycleStep($player, $count) {
-    if($count >= 2) {
-        return;
-    }
-    $hand = ZoneSearch("myHand");
-    if(empty($hand)) {
-        return;
-    }
-    DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $hand), 1, tooltip:"Cycle_a_card?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ConvalescentTonicCycle|$count", 1);
-}
-
-$customDQHandlers["ConvalescentTonicCycle"] = function($player, $parts, $lastDecision) {
-    $count = intval($parts[0]);
-    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
-        MZMove($player, $lastDecision, "myGraveyard");
-        DoDrawCard($player);
-    }
-    ConvalescentTonicCycleStep($player, $count + 1);
-};
-
 // --- Bottled Forgelight (g616r0zadf): deal 2 damage to a unit ---
 function BottledForgelightDamageEffect($player, $sourceMZ) {
     $units = array_merge(
