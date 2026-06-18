@@ -15128,6 +15128,7 @@ function CombatTargetIndicator($obj) {
 
     if(IsUnitAttacking($mzTarget)) return "ATTACKER";
     if(IsUnitDefending($mzTarget)) return "TARGET";
+    if(IsWeaponUsedForAttack($mzTarget)) return "WEAPON";
     return "";
 }
 
@@ -18266,6 +18267,26 @@ function IsUnitDefending($mzTarget) {
     }
 
     return $mzTarget === $normalizedTarget;
+}
+
+/**
+ * Check if a field card (given by mzID from current player perspective) is the
+ * weapon currently being used for the active combat.
+ */
+function IsWeaponUsedForAttack($mzTarget) {
+    $combatWeapon = DecisionQueueController::GetVariable("CombatWeapon");
+    if($combatWeapon === null || $combatWeapon === "" || $combatWeapon === "-") return false;
+
+    global $playerID;
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
+    if($attackerPlayer <= 0) $attackerPlayer = GetTurnPlayer();
+
+    $normalizedWeapon = $combatWeapon;
+    if($playerID != $attackerPlayer) {
+        $normalizedWeapon = FlipZonePerspective($combatWeapon);
+    }
+
+    return $mzTarget === $normalizedWeapon;
 }
 
 /**

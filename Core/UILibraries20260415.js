@@ -1130,7 +1130,10 @@ function ResolveGlobalFunction(functionName) {
         var combatIndicatorText = sharedCardData.CombatTargetIndicator ? String(sharedCardData.CombatTargetIndicator) : "";
         var isCombatAttacker = combatIndicatorText === "ATTACKER";
         var isCombatTarget = combatIndicatorText === "TARGET";
-        var combatIndicatorClass = isCombatAttacker ? " combat-attacker-card" : (isCombatTarget ? " combat-targeted-card" : "");
+        var isCombatWeapon = combatIndicatorText === "WEAPON";
+        var combatIndicatorClass = isCombatAttacker
+          ? " combat-attacker-card"
+          : (isCombatTarget ? " combat-targeted-card" : (isCombatWeapon ? " combat-weapon-card" : ""));
 
         // Build inline styles - combine position and custom color variable
         var inlineStyles = "position:" + positionStyle + "; margin:1px;";
@@ -1324,8 +1327,12 @@ function ResolveGlobalFunction(functionName) {
 
         try {
           if (combatIndicatorText) {
-            var combatIndicatorTypeClass = isCombatAttacker ? " combat-attacker-indicator" : " combat-target-indicator";
-            var combatAriaLabel = isCombatAttacker ? "Attack attacker" : "Attack target";
+            var combatIndicatorTypeClass = isCombatAttacker
+              ? " combat-attacker-indicator"
+              : (isCombatTarget ? " combat-target-indicator" : " combat-weapon-indicator");
+            var combatAriaLabel = isCombatAttacker
+              ? "Attack attacker"
+              : (isCombatTarget ? "Attack target" : "Attack weapon");
             newHTML += "<div class='combat-indicator" + combatIndicatorTypeClass + "' aria-label='" + combatAriaLabel + "'>" + combatIndicatorText + "</div>";
           }
         } catch (e) {
@@ -1639,12 +1646,23 @@ function ResolveGlobalFunction(functionName) {
           box-shadow: 0 0 0 2px rgba(170, 214, 255, 0.25);
         }
 
+        .combat-weapon-indicator {
+          background: rgba(54, 60, 68, 0.94);
+          border-color: rgba(214, 220, 228, 0.88);
+          box-shadow: 0 0 0 2px rgba(122, 130, 140, 0.24);
+          color: rgba(244, 247, 250, 0.98);
+        }
+
         span.draggable.combat-targeted-card > a > img {
           box-shadow: 0 0 0 2px rgba(255, 84, 84, 0.95), 0 0 18px rgba(255, 84, 84, 0.45);
         }
 
         span.draggable.combat-attacker-card > a > img {
           box-shadow: 0 0 0 2px rgba(88, 164, 255, 0.96), 0 0 18px rgba(88, 164, 255, 0.48);
+        }
+
+        span.draggable.combat-weapon-card > a > img {
+          box-shadow: 0 0 0 2px rgba(78, 84, 92, 0.96), 0 0 18px rgba(30, 34, 40, 0.42);
         }
       `;
       document.head.appendChild(widgetstyle);
