@@ -13705,6 +13705,9 @@ $starcallingCards["dwavcoxpnj"] = 3; // Meteor Strike: Starcalling (3)
 $starcallingCards["xmtjrvfpuc"] = 1; // Stellaria Shower: Starcalling (1)
 $starcallingCards["dWgPzoEbIE"] = 0; // Cosmic Focus: Starcalling (0)
 $starcallingCards["vpmu6gvnta"] = 2; // Cosmic Bolt: Starcalling (2)
+$starcallingCards["JFdxtCqdeg"] = 2; // Stellar Bloom: Starcalling (2)
+$starcallingClassBonusCards = [];
+$starcallingClassBonusCards["JFdxtCqdeg"] = true; // Stellar Bloom: [Class Bonus] Starcalling
 
 /**
  * Get the effective starcalling cost for a card during a glimpse.
@@ -13713,10 +13716,14 @@ $starcallingCards["vpmu6gvnta"] = 2; // Cosmic Bolt: Starcalling (2)
  * Returns the cost to pay, or -1 if the card has no starcalling.
  */
 function GetStarcallingCost($player, $cardID) {
-    global $starcallingCards;
+    global $starcallingCards, $starcallingClassBonusCards;
     $cost = -1;
     // Check innate starcalling
     if(isset($starcallingCards[$cardID])) {
+        if(isset($starcallingClassBonusCards[$cardID])
+            && !IsClassBonusActive($player, explode(",", CardClasses($cardID)))) {
+            return -1;
+        }
         $cost = $starcallingCards[$cardID];
     }
     // Scry the Stars: "cards you look at while glimpsing have Starcalling (X) where X = reserve cost"
