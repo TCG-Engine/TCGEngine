@@ -840,12 +840,10 @@ function WildgrowthElixirApplyDirect($player, $targetMZ) {
 // --- Convalescent Tonic (l8ao8bls6g): cycle up to 2 cards ---
 function ConvalescentTonicCycleStep($player, $count) {
     if($count >= 2) {
-        RecoverChampion($player, 3);
         return;
     }
     $hand = ZoneSearch("myHand");
     if(empty($hand)) {
-        RecoverChampion($player, 3);
         return;
     }
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $hand), 1, tooltip:"Cycle_a_card?");
