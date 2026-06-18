@@ -199,7 +199,12 @@
    */
   window.ShowNumberChooseUI = function(paramString, tooltip, decisionIndex, submitCallback) {
     injectStyles();
-    const parts = paramString.split('|');
+    // Accept the canonical "min|max" format and the legacy "min-max" format
+    // used by some existing NUMBERCHOOSE callers.
+    let parts = paramString.split('|');
+    if (parts.length !== 2 && typeof paramString === 'string' && paramString.includes('-')) {
+      parts = paramString.split('-');
+    }
     minVal = parseInt(parts[0], 10) || 0;
     maxVal = parseInt(parts[1], 10) || 0;
     currentValue = minVal;
