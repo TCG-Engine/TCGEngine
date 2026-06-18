@@ -8,8 +8,8 @@ import cv2
 import numpy as np
 from PIL import Image
 
-input_path = r"C:\Users\maxim\Downloads\verdure.mov"
-output_path = r"C:\Users\maxim\Downloads\verdure.webp"
+input_path = r"C:\Users\maxim\Downloads\brewed.mov"
+output_path = r"C:\Users\maxim\Downloads\brewed.webp"
 
 TARGET_FPS = 8  # output frames per second
 FRAME_SAMPLE_STEP = 4  # keep every Nth source frame (overrides TARGET_FPS when > 1)
