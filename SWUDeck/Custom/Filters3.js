@@ -2,7 +2,7 @@
 window.customFilter = true;
 window.legalFilter = true;
 
-var legalSets = ["JTL", "LOF", "SEC", "IBH", "LAW"];
+var legalSets = ["JTL", "LOF", "SEC", "IBH", "LAW", "ASH"];
 
 function InLegalFilter(cardID) {
   var cardSet = Cardset(cardID);
