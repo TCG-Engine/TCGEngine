@@ -1324,6 +1324,7 @@
     <div id="cardDetail" style="z-index:100000; display:none; position:fixed;"></div>
     <div id='mainDiv' style='position:fixed; z-index:0; left:0; top:0; width:100%; height:100%;'>
 
+    <?php if ($folderPath !== "SWUDeck"): ?>
     <div id='chatWidget' style='z-index:40; position:fixed; bottom:20px; left:140px; display:flex; flex-direction:column; align-items:flex-start; width:280px;'>
         <div id='chatExpanded' style='display:none; flex-direction:column; width:100%;'>
             <div id='chatLog'
@@ -1371,6 +1372,7 @@
     }
     StartChatPoll();
     </script>
+    <?php endif; ?>
 
     <?php if ($isSpectatorViewer): ?>
     <div id='spectatorControls'
