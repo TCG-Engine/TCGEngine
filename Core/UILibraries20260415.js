@@ -1312,7 +1312,11 @@ function ResolveGlobalFunction(functionName) {
         var click = isSelectable
           ? " onclick=\"OnSelectableCardClick('" + zoneName + "', '" + id + "')\""
           : " onclick=\"CardClick(event, '" + zoneName + "', '" + id + "')\"";
-        if (id != "-") newHTML += "<span id='" + id + "' data-mzid='" + id + "' " + styles + droppable + click + ">";
+        var uniqueIdAttr = "";
+        if (sharedCardData && sharedCardData.UniqueID != null && sharedCardData.UniqueID !== "") {
+          uniqueIdAttr = " data-uniqueid='" + String(sharedCardData.UniqueID).replace(/'/g, "&#39;") + "'";
+        }
+        if (id != "-") newHTML += "<span id='" + id + "' data-mzid='" + id + "'" + uniqueIdAttr + " " + styles + droppable + click + ">";
         else newHTML += "<span " + styles + droppable + click + ">";
 
         var renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;

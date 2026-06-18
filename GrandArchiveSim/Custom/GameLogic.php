@@ -16675,10 +16675,18 @@ function RecoverChampion($player, $amount=1) {
             $actualRecovered = $obj->Damage - max(0, $obj->Damage - $amount);
             $obj->Damage = max(0, $obj->Damage - $amount);
 
-            // Queue restore animation for the champion
+            // Include the champion's stable UniqueID so the client can resolve the
+            // animation on the pre-render board state even if field cleanup reindexes.
             if($actualRecovered > 0) {
-                $absoluteTarget = ConvertMzIDToAbsolute($zone . "-" . $i, $player);
-                QueueRestoreAnimation($absoluteTarget, $actualRecovered, 500, true);
+                $absoluteTarget = ConvertMzIDToAbsolute($obj->GetMzID(), $player);
+                QueueFrameAnimation([
+                    'type' => 'RESTORE',
+                    'target' => $absoluteTarget,
+                    'uniqueID' => intval($obj->UniqueID ?? 0),
+                    'amount' => intval($actualRecovered),
+                    'durationMs' => 500,
+                    'blocking' => true,
+                ]);
             }
 
             $field = GetField($player);

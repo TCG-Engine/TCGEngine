@@ -521,11 +521,26 @@
         return mzid;
       }
 
+      function NormalizeAnimationUniqueID(animation) {
+        if (!animation) return "";
+        var uniqueID = animation.uniqueID;
+        if ((uniqueID == null || uniqueID === "") && animation.target && typeof animation.target === "object") {
+          uniqueID = animation.target.uniqueID;
+        }
+        if (uniqueID == null || uniqueID === "") return "";
+        return String(uniqueID).trim();
+      }
+
       function ResolveAnimationTargetElement(animation, perspectivePlayerID) {
         if (!animation) return null;
         var target = animation.target || animation.mzID || "";
         if (target === "P1BASE" || target === "P2BASE") {
           return document.getElementById(target);
+        }
+        var uniqueID = NormalizeAnimationUniqueID(animation);
+        if (uniqueID) {
+          var byUniqueID = document.querySelector("[data-uniqueid='" + uniqueID + "']");
+          if (byUniqueID) return byUniqueID;
         }
         var mzid = NormalizeAnimationTarget(target, perspectivePlayerID);
         if (!mzid) return null;
@@ -538,6 +553,8 @@
         if (!animation) return "";
         var target = animation.target || animation.mzID || "";
         if (target === "P1BASE" || target === "P2BASE") return String(target);
+        var uniqueID = NormalizeAnimationUniqueID(animation);
+        if (uniqueID) return "UID:" + uniqueID;
         return NormalizeAnimationTarget(target, perspectivePlayerID);
       }
 
