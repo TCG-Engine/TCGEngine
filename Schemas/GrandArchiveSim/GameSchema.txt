@@ -149,6 +149,7 @@ Click: FSM()
 Intent - CardID:string, Controller:number, TurnEffects:array[string]
 BeforeAdd: TokenCeaseBeforeAdd
 Virtual: CurrentPower=ObjectCurrentPowerDisplay()
+Virtual: ThreatenedDamage=IntentThreatenedDamageDisplay()
 Virtual: CurrentEffects=CardCurrentEffects()
 Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: DynamicAbilities=GetDynamicAbilities()
@@ -158,7 +159,7 @@ Index: TurnEffects
 Display: Visibility=Public, Mode=All, BindTo=IntentSlot
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Click: FSM()
-Counters: CurrentPower=Image(Path=Assets/Icons/attack-counter.webp,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White)
+Counters: ThreatenedDamage=Image(Path=Assets/Icons/attack-counter.webp,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White)
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
 Memory - CardID:string
 AddReplacement: MemoryAddReplacement

@@ -248,10 +248,11 @@ function GetIntentCards($player) {
  * Calculate the total attack power for a combat:
  *   base unit power  +  sum of power from all attack cards in the attacker's intent.
  */
-function GetTotalAttackPower($attackerObj, $player) {
+function GetTotalAttackPower($attackerObj, $player, $ignoredIntentMZ = null) {
     $totalPower = ObjectCurrentPower($attackerObj);
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $mzID) {
+        if($ignoredIntentMZ !== null && $mzID === $ignoredIntentMZ) continue;
         $intentObj = &GetZoneObject($mzID);
         $intentPower = ObjectCurrentPower($intentObj);
         if($intentPower > 0) {
@@ -300,6 +301,67 @@ function GetTotalAttackPower($attackerObj, $player) {
     }
 
     return $totalPower;
+}
+
+function AttackHasRendingFlamesDouble($player, $ignoredIntentMZ = null) {
+    $intentCards = GetIntentCards($player);
+    foreach($intentCards as $intentMZ) {
+        if($ignoredIntentMZ !== null && $intentMZ === $ignoredIntentMZ) continue;
+        $intentObj = GetZoneObject($intentMZ);
+        if($intentObj !== null && !$intentObj->removed && $intentObj->CardID === "soO3hjaVfN"
+            && in_array("soO3hjaVfN_DOUBLE", $intentObj->TurnEffects ?? [])) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function GetAttackThreatAmount($attackerObj, $player, $ignoredIntentMZ = null) {
+    $totalPower = GetTotalAttackPower($attackerObj, $player, $ignoredIntentMZ);
+    if($totalPower <= 0) return 0;
+    if(AttackHasRendingFlamesDouble($player, $ignoredIntentMZ)) {
+        $totalPower *= 2;
+    }
+    return $totalPower;
+}
+
+function ResolveIntentThreatAttackerMZ($player) {
+    $combatAttacker = GetCombatAttackerMZ();
+    if($combatAttacker !== null && $combatAttacker !== "-") {
+        $attackerObj = GetZoneObject($combatAttacker);
+        if($attackerObj !== null && !$attackerObj->removed && intval($attackerObj->Controller ?? 0) === intval($player)) {
+            return $combatAttacker;
+        }
+    }
+
+    $champions = ZoneSearch("myField", ["CHAMPION"]);
+    return empty($champions) ? null : $champions[0];
+}
+
+function IntentThreatenedDamageDisplay($obj) {
+    $player = intval($obj->Controller ?? 0);
+    if($player <= 0) return 0;
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $player;
+
+    $attackerMZ = ResolveIntentThreatAttackerMZ($player);
+    if($attackerMZ === null) {
+        $fallback = max(0, ObjectCurrentPower($obj));
+        $playerID = $savedPlayerID;
+        return $fallback;
+    }
+
+    $attackerObj = GetZoneObject($attackerMZ);
+    if($attackerObj === null || $attackerObj->removed) {
+        $fallback = max(0, ObjectCurrentPower($obj));
+        $playerID = $savedPlayerID;
+        return $fallback;
+    }
+
+    $totalWithCard = GetAttackThreatAmount($attackerObj, $player);
+    $playerID = $savedPlayerID;
+    return max(0, $totalWithCard);
 }
 
 /**
@@ -3274,17 +3336,7 @@ function HasRendingFlamesCombatDouble($player, $source) {
     if($combatAttacker === null || $combatAttacker !== $source || $combatAttackerPlayer !== intval($player)) {
         return false;
     }
-
-    $intentCards = GetIntentCards($combatAttackerPlayer);
-    foreach($intentCards as $intentMZ) {
-        $intentObj = GetZoneObject($intentMZ);
-        if($intentObj !== null && !$intentObj->removed && $intentObj->CardID === "soO3hjaVfN"
-            && in_array("soO3hjaVfN_DOUBLE", $intentObj->TurnEffects ?? [])) {
-            return true;
-        }
-    }
-
-    return false;
+    return AttackHasRendingFlamesDouble($combatAttackerPlayer);
 }
 
 function ApplyCombatDamageReplacements($player, $source, $amount) {

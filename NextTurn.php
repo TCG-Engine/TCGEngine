@@ -1260,6 +1260,8 @@
           <input type="text" id="manualCardIdInput" placeholder="Card ID" style="padding:6px 8px; font-size:12px;" />
           <button type="button" onclick="addManualCardToHand(1)" style="padding:6px 10px;">Add to P1 Hand</button>
           <button type="button" onclick="addManualCardToHand(2)" style="padding:6px 10px;">Add to P2 Hand</button>
+          <button type="button" onclick="addManualCardToGraveyard(1)" style="padding:6px 10px;">Add to P1 Graveyard</button>
+          <button type="button" onclick="addManualCardToGraveyard(2)" style="padding:6px 10px;">Add to P2 Graveyard</button>
           <button type="button" onclick="addManualCardToTopDeck(1)" style="padding:6px 10px;">Add to P1 Top Deck</button>
           <button type="button" onclick="addManualCardToTopDeck(2)" style="padding:6px 10px;">Add to P2 Top Deck</button>
         </div>
@@ -1307,6 +1309,10 @@
 
       function addManualCardToHand(player) {
         submitManualCardAdd(player === 1 ? 11008 : 11009);
+      }
+
+      function addManualCardToGraveyard(player) {
+        submitManualCardAdd(player === 1 ? 11012 : 11013);
       }
 
       function addManualCardToTopDeck(player) {

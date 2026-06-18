@@ -5572,6 +5572,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "E09lX95cb9": // Ticket to the Afterlife â€” REST
         case "qj5bbae3z4": // Cosmic Astroscope â€” REST
         case "MyUTeqUJ0H": // Tome of Sacred Lightning â€” REST
+        case "dW5uyngvJW": // Vernal Talisman — [Class Bonus] REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;

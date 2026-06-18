@@ -479,6 +479,18 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $result['message'] = "Added card $cardId to player $targetPlayer top deck.";
       }
       break;
+    case 11012:
+    case 11013:
+      $cardId = trim($inputText);
+      if ($cardId === '') {
+        $result['success'] = false;
+        $result['message'] = 'Card ID is required.';
+      } else {
+        $targetPlayer = ($mode === 11012) ? 1 : 2;
+        MZAddZone($targetPlayer, 'myGraveyard', $cardId);
+        $result['message'] = "Added card $cardId to player $targetPlayer graveyard.";
+      }
+      break;
   }
 
   if ($result['success'] && $result['writeGamestate'] && function_exists('ProcessGoldfishAutomation')) {
