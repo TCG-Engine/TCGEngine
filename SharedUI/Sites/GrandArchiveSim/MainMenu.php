@@ -122,6 +122,10 @@ include_once 'Header.php';
       <button type="button" class="ga-settings-modal__close" id="ga-close-settings-btn" aria-label="Close settings modal">x</button>
     </div>
     <div class="ga-settings-modal__body">
+      <label for="ga-enable-menu-sounds" class="ga-settings-row">
+        <input type="checkbox" id="ga-enable-menu-sounds">
+        <span>Enable menu sounds</span>
+      </label>
       <label for="ga-disable-keyword-indicators" class="ga-settings-row">
         <input type="checkbox" id="ga-disable-keyword-indicators">
         <span>Disable keyword indicators (stealth, spellshroud, true sight, vigor)</span>
@@ -136,6 +140,8 @@ include_once 'Header.php';
     </div>
   </div>
 </div>
+
+<audio id="ga-player-joined-sound" src="../../../Assets/playerJoinedSound.mp3" preload="auto"></audio>
 
 <style>
   .row-wrapper > .card {
@@ -369,6 +375,10 @@ include_once 'Header.php';
   document.addEventListener('DOMContentLoaded', function() {
     if (window.TCGSettings) {
       window.TCGSettings.registerSchema('GrandArchiveSim', {
+        EnableMenuSounds: {
+          type: 'boolean',
+          defaultValue: true
+        },
         DisableKeywordIndicators: {
           type: 'boolean',
           defaultValue: false
@@ -382,6 +392,13 @@ include_once 'Header.php';
 
     renderDidYouKnow();
     renderHotkeyList();
+    var menuSoundsToggle = document.getElementById('ga-enable-menu-sounds');
+    if (menuSoundsToggle && window.TCGSettings) {
+      menuSoundsToggle.checked = !!window.TCGSettings.get('EnableMenuSounds', { rootName: 'GrandArchiveSim', type: 'boolean', defaultValue: true });
+      menuSoundsToggle.addEventListener('change', function() {
+        window.TCGSettings.set('EnableMenuSounds', !!menuSoundsToggle.checked, { rootName: 'GrandArchiveSim', type: 'boolean' });
+      });
+    }
     var keywordToggle = document.getElementById('ga-disable-keyword-indicators');
     if (keywordToggle && window.TCGSettings) {
       keywordToggle.checked = !!window.TCGSettings.get('DisableKeywordIndicators', { rootName: 'GrandArchiveSim', type: 'boolean', defaultValue: false });
@@ -438,6 +455,30 @@ include_once 'Header.php';
   var _privateInviteCode = "";
   var _waitingEscHandler = null;
   var _autoLaunchGoldfish = false;
+
+      function shouldPlayMenuSounds() {
+        if (!window.TCGSettings || typeof window.TCGSettings.get !== 'function') return true;
+        return !!window.TCGSettings.get('EnableMenuSounds', {
+          rootName: 'GrandArchiveSim',
+          type: 'boolean',
+          defaultValue: true
+        });
+      }
+
+      function playPlayerJoinedSound() {
+        if (!shouldPlayMenuSounds()) return;
+        var audioEl = document.getElementById('ga-player-joined-sound');
+        if (!audioEl) return;
+        try {
+          audioEl.currentTime = 0;
+        } catch (e) {}
+        var playPromise = audioEl.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(function(err) {
+            console.warn('Unable to play player joined sound:', err);
+          });
+        }
+      }
 
       function switchDeckTab(tab) {
         var isLink = tab === 'link';
@@ -1005,6 +1046,7 @@ include_once 'Header.php';
           if (xhr.status >= 200 && xhr.status < 300) {
             var response = JSON.parse(xhr.responseText);
             if (response.ready) {
+              playPlayerJoinedSound();
               // Close waiting popup and show match found popup
               var waitingPopup = document.getElementById('waiting-popup');
               if (waitingPopup) waitingPopup.remove();
