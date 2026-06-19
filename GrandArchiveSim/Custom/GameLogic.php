@@ -70,6 +70,10 @@ function GoldfishCollectChoicesFromSpecs($choiceSpecs, $limit = 1) {
         $zoneSpecParts = explode(":", $spec, 2);
         $zoneOrCard = trim($zoneSpecParts[0]);
         if($zoneOrCard === "") continue;
+        if(CardName($zoneOrCard) !== null) {
+            $choices[] = $zoneOrCard;
+            continue;
+        }
         if(preg_match('/^(.+)-(\d+)$/', $zoneOrCard, $matches)) {
             $zoneName = $matches[1];
             $zoneIndex = intval($matches[2]);
@@ -449,6 +453,18 @@ function BuildNamedCardTurnEffect($prefix, $cardName) {
     return $prefix . rawurlencode(trim(strval($cardName)));
 }
 
+function ResolveNamedCardInputToRepresentativeID($rawName, $requiredType = "") {
+    global $nameData, $typeData;
+    $normalized = NormalizeNamedCardString($rawName);
+    if($normalized === "") return null;
+    foreach($nameData as $cardID => $cardName) {
+        if(NormalizeNamedCardString($cardName) !== $normalized) continue;
+        if($requiredType !== "" && !PropertyContains($typeData[$cardID] ?? "", $requiredType)) continue;
+        return $cardID;
+    }
+    return null;
+}
+
 function ExtractNamedCardTurnEffectName($effect, $prefix) {
     if(strpos($effect, $prefix) !== 0) return null;
     return rawurldecode(substr($effect, strlen($prefix)));
@@ -618,6 +634,35 @@ $customDQHandlers["NiaMistveiledScoutName"] = function($player, $parts, $lastDec
         fn($effect) => strpos($effect, "PZM9uvCFai-NAME-") !== 0
     ));
     AddTurnEffect($mzID, BuildNamedCardTurnEffect("PZM9uvCFai-NAME-", $chosenName));
+};
+
+function StiflingGyreEnter($player, $mzID) {
+    $previewParam = "Common_named_allies||em6eEh9q8y&fz1nr5a3pm&PZM9uvCFai";
+    DecisionQueueController::StoreVariable("stiflingGyreSource", $mzID);
+    DecisionQueueController::AddDecision(
+        $player,
+        "NAMECARD",
+        $previewParam,
+        1,
+        tooltip:"Choose_an_ally_card_name"
+    );
+    DecisionQueueController::AddDecision($player, "CUSTOM", "StiflingGyreName", 1);
+}
+
+$customDQHandlers["StiflingGyreName"] = function($player, $parts, $lastDecision) {
+    $mzID = strval(DecisionQueueController::GetVariable("stiflingGyreSource") ?? "");
+    DecisionQueueController::StoreVariable("stiflingGyreSource", "");
+    $chosenName = trim(strval($lastDecision));
+    if($mzID !== "" && $chosenName !== "" && $chosenName !== "-" && $chosenName !== "PASS") {
+        $chosenCardID = ResolveNamedCardInputToRepresentativeID($chosenName, "ALLY");
+        $gyreObj = &GetZoneObject($mzID);
+        if($gyreObj !== null && !$gyreObj->removed && $chosenCardID !== null) {
+            if(!is_array($gyreObj->Counters)) $gyreObj->Counters = [];
+            $gyreObj->Counters["namedCardName"] = CardName($chosenCardID);
+            $gyreObj->Counters["namedCardID"] = $chosenCardID;
+        }
+    }
+    DrawIntoMemory($player, 1);
 };
 
 function FacetTheForgottenEnter($player, $facetMZ) {
@@ -6537,8 +6582,12 @@ function FireEnterTriggeredAbility($player, $cardID, $sourceUniqueID = 0, $copie
         $gyreField = GetZone($gyreZone);
         foreach($gyreField as $gyreObj) {
             if($gyreObj->removed || $gyreObj->CardID !== "OADTyAUBZt" || HasNoAbilities($gyreObj)) continue;
+            $namedName = is_array($gyreObj->Counters) ? strval($gyreObj->Counters['namedCardName'] ?? "") : "";
             $namedID = is_array($gyreObj->Counters) ? ($gyreObj->Counters['namedCardID'] ?? null) : null;
-            if($namedID === $cardID) {
+            $matchesNamedAlly = $namedName !== ""
+                ? NormalizeNamedCardString($namedName) === NormalizeNamedCardString(CardName($cardID))
+                : ($namedID === $cardID);
+            if($matchesNamedAlly) {
                 DecisionQueueController::StoreVariable("OADTyAUBZt_namedCardID", $cardID);
                 DecisionQueueController::StoreVariable("OADTyAUBZt_enteringPlayer", strval($player));
                 DecisionQueueController::StoreVariable("OADTyAUBZt_sourceUniqueID", strval(intval($sourceUniqueID)));

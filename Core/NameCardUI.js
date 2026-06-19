@@ -111,6 +111,11 @@
     var parsed = parsePreviewParam(previewParam);
     var previewCards = [];
     for (var i = 0; i < parsed.specs.length; ++i) {
+      var directCardId = parsed.specs[i];
+      if (typeof Cardname === 'function' && Cardname(directCardId)) {
+        previewCards.push({ cardId: directCardId, spec: parsed.specs[i], cardEntry: null });
+        continue;
+      }
       var match = /^(.+)-(\d+)$/.exec(parsed.specs[i]);
       if (!match) continue;
       var zoneName = match[1];
@@ -134,13 +139,17 @@
   }
 
   function renderPreviewCard(cardInfo, inputEl) {
-    var cardArr = String(cardInfo.cardEntry || '').split(' ');
-    if (cardArr.length === 0) return null;
-    var sharedCardData = {};
-    if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
-      try { sharedCardData = JSON.parse(cardArr[2]); } catch (e) {}
+    var cardId = cardInfo.cardId || '';
+    if (!cardId) {
+      var cardArr = String(cardInfo.cardEntry || '').split(' ');
+      if (cardArr.length === 0) return null;
+      var sharedCardData = {};
+      if (cardArr.length > 2 && cardArr[2] && cardArr[2] !== '-') {
+        try { sharedCardData = JSON.parse(cardArr[2]); } catch (e) {}
+      }
+      cardId = sharedCardData.CardID || cardArr[0] || '';
     }
-    var cardId = sharedCardData.CardID || cardArr[0] || '';
+    if (!cardId) return null;
     var wrapper = document.createElement('div');
     wrapper.style.flex = '0 0 auto';
     wrapper.style.display = 'flex';
