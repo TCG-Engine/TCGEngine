@@ -395,7 +395,8 @@ include_once 'Header.php';
           var gameCountElement = document.getElementById('active-game-count');
           
           if (data.data && Array.isArray(data.data)) {
-            gameCountElement.textContent = String(data.data.length);
+            var totalCount = (typeof data.totalCount === 'number') ? data.totalCount : data.data.length;
+            gameCountElement.textContent = totalCount;
           } else {
             gameCountElement.textContent = '0';
           }
