@@ -26,6 +26,9 @@ foreach ($index as $key => $game) {
   $isPrivate = isset($game['isPrivate']) ? boolval($game['isPrivate']) : false;
   $lastUpdatedAt = isset($game['lastUpdatedAt']) ? intval($game['lastUpdatedAt']) : 0;
   if ($gRoot === '' || $gName === '' || $lastUpdatedAt <= 0) continue;
+  if (SimGameAuthKeysPath($gRoot, $gName) !== '' && file_exists(SimGameAuthKeysPath($gRoot, $gName))) {
+    $isPrivate = SimGameIsPrivateGame($gRoot, $gName);
+  }
   if ($rootName !== '' && $gRoot !== $rootName) continue;
   if (($now - $lastUpdatedAt) > $activeWithinSeconds) continue;
 

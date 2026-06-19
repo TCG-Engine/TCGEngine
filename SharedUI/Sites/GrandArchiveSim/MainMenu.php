@@ -1043,7 +1043,7 @@ include_once 'Header.php';
         var gameCountElement = document.getElementById('active-game-count');
         var gameListElement = document.getElementById('active-games-list');
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../../APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName) + '&includePrivate=1', true);
+        xhr.open('GET', '../../../APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
         xhr.responseType = 'json';
 
         xhr.onload = function() {
@@ -1051,8 +1051,7 @@ include_once 'Header.php';
           var data = xhr.response;
           
           if (data.data && Array.isArray(data.data)) {
-            var totalCount = (typeof data.totalCount === 'number') ? data.totalCount : data.data.length;
-            gameCountElement.textContent = totalCount;
+            gameCountElement.textContent = String(data.data.length);
             renderActiveGames(data.data);
           } else {
             gameCountElement.textContent = '0';

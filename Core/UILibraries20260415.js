@@ -2862,9 +2862,8 @@ function ResolveGlobalFunction(functionName) {
         const button = document.createElement('button');
         button.id = config.id;
         button.textContent = config.text || '';
-        button.style.position = 'fixed';
-        button.style.top = '8px';
-        button.style.zIndex = '2600';
+        button.style.position = config.position || 'relative';
+        button.style.zIndex = config.zIndex || '2600';
         button.style.padding = '10px 16px';
         button.style.borderRadius = '999px';
         button.style.border = config.border || '1px solid #375a7f';
@@ -2873,6 +2872,9 @@ function ResolveGlobalFunction(functionName) {
         button.style.fontFamily = "'Orbitron', sans-serif";
         button.style.cursor = 'pointer';
         button.style.boxShadow = config.boxShadow || '0 0 15px rgba(55, 90, 127, 0.45)';
+        button.style.whiteSpace = 'nowrap';
+        button.style.flex = '0 0 auto';
+        if (config.top) button.style.top = config.top;
         if (config.right) button.style.right = config.right;
         if (config.onclick) button.onclick = config.onclick;
         return button;
@@ -2886,29 +2888,104 @@ function ResolveGlobalFunction(functionName) {
 
         window.__grandArchiveUtilityButtonsInitialized = true;
 
+        const utilityButtonBar = document.createElement('div');
+        utilityButtonBar.id = 'grand-archive-utility-button-bar';
+        utilityButtonBar.style.position = 'fixed';
+        utilityButtonBar.style.top = '8px';
+        utilityButtonBar.style.right = '8px';
+        utilityButtonBar.style.zIndex = '2600';
+        utilityButtonBar.style.display = 'flex';
+        utilityButtonBar.style.alignItems = 'center';
+        utilityButtonBar.style.justifyContent = 'flex-end';
+        utilityButtonBar.style.gap = '10px';
+        utilityButtonBar.style.flexWrap = 'nowrap';
+        utilityButtonBar.style.maxWidth = 'calc(100vw - 16px)';
+        document.body.appendChild(utilityButtonBar);
+
+        const playerIdValue = parseInt(document.getElementById('playerID').value || '', 10);
+        const spectatorAuthKeyField = document.getElementById('spectatorAuthKey');
+        const privateSpectatorAuthField = document.getElementById('privateSpectatorAuthRequired');
+        const privateSpectatorAuthRequired = !!(privateSpectatorAuthField && privateSpectatorAuthField.value === '1');
+        const spectatorAuthKey = spectatorAuthKeyField ? spectatorAuthKeyField.value : '';
+        const shouldShowCopySpectateButton = (playerIdValue === 1 || playerIdValue === 2) && privateSpectatorAuthRequired && !!spectatorAuthKey;
+
         const bugReportButton = createGrandArchiveUtilityButton({
           id: 'bug-report-button',
           text: 'Report Bug',
-          right: '110px',
           border: '1px solid #a83232',
           boxShadow: '0 0 15px rgba(168, 50, 50, 0.45)',
           onclick: openBugReportModal
         });
-        if (bugReportButton) document.body.appendChild(bugReportButton);
+        if (bugReportButton) utilityButtonBar.appendChild(bugReportButton);
 
-        const playerIdValue = parseInt(document.getElementById('playerID').value || '', 10);
         if (playerIdValue === 1 || playerIdValue === 2) {
+          if (shouldShowCopySpectateButton) {
+            const copySpectateButton = createGrandArchiveUtilityButton({
+              id: 'copy-spectate-link-button',
+              text: 'Copy Spectate Link',
+              border: '1px solid #3e6ba0',
+              background: 'rgba(17, 39, 66, 0.96)',
+              boxShadow: '0 0 15px rgba(80, 132, 196, 0.38)',
+              onclick: copyPrivateSpectateLink
+            });
+            if (copySpectateButton) utilityButtonBar.appendChild(copySpectateButton);
+          }
+
           const concedeButton = createGrandArchiveUtilityButton({
             id: 'concede-button',
             text: 'Concede',
-            right: '8px',
             border: '1px solid #b8891d',
             background: 'rgba(34, 21, 8, 0.96)',
             boxShadow: '0 0 15px rgba(201, 168, 76, 0.42)',
             onclick: confirmConcedeGame
           });
-          if (concedeButton) document.body.appendChild(concedeButton);
+          if (concedeButton) utilityButtonBar.appendChild(concedeButton);
         }
+      }
+
+      function copyPrivateSpectateLink() {
+        const gameNameField = document.getElementById('gameName');
+        const rootField = document.getElementById('folderPath');
+        const spectatorAuthField = document.getElementById('spectatorAuthKey');
+        const playerField = document.getElementById('playerID');
+        if (!gameNameField || !rootField || !spectatorAuthField || !playerField) return;
+        const spectatorAuthKey = spectatorAuthField.value || '';
+        if (!spectatorAuthKey) {
+          if (typeof showFlashMessage === 'function') showFlashMessage('This game does not have a private spectator link.', 4000);
+          return;
+        }
+
+        const currentPlayerId = parseInt(playerField.value || '', 10);
+        const defaultPerspective = currentPlayerId === 2 ? '2' : '1';
+        const spectateUrl = new URL('./NextTurn.php', window.location.href);
+        spectateUrl.searchParams.set('playerID', 'S');
+        spectateUrl.searchParams.set('viewerPerspective', defaultPerspective);
+        spectateUrl.searchParams.set('gameName', gameNameField.value || '');
+        spectateUrl.searchParams.set('folderPath', rootField.value || '');
+        spectateUrl.searchParams.set('authKey', spectatorAuthKey);
+
+        const finish = function(success) {
+          if (typeof showFlashMessage !== 'function') return;
+          showFlashMessage(
+            success
+              ? 'Private spectate link copied to clipboard.'
+              : 'Unable to copy automatically. The private spectate link is ready in the address bar console fallback.',
+            5000
+          );
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(spectateUrl.toString()).then(function() {
+            finish(true);
+          }).catch(function() {
+            window.prompt('Copy this private spectate link:', spectateUrl.toString());
+            finish(false);
+          });
+          return;
+        }
+
+        window.prompt('Copy this private spectate link:', spectateUrl.toString());
+        finish(false);
       }
 
       function confirmConcedeGame() {

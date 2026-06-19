@@ -1,5 +1,7 @@
 <?php
 
+include_once __DIR__ . '/GameAuth.php';
+
 $APCuEnabled = extension_loaded('apcu');
 
 function CheckUpdate($gameName, $lastNumber)
@@ -285,9 +287,10 @@ function TouchActiveGame($rootName, $gameName)
   $key = strval($rootName) . ":" . strval($gameName);
   $index = ReadActiveGameIndex();
   if(!isset($index[$key]) || !is_array($index[$key])) {
-    RegisterActiveGame($rootName, $gameName, false);
+    RegisterActiveGame($rootName, $gameName, SimGameIsPrivateGame($rootName, $gameName));
     return;
   }
+  $index[$key]['isPrivate'] = SimGameIsPrivateGame($rootName, $gameName);
   $index[$key]['lastUpdatedAt'] = time();
   WriteActiveGameIndex($index);
 }

@@ -11,7 +11,6 @@ include_once './Core/CoreZoneModifiers.php';
 include_once './Core/EngineActionRunner.php';
 include_once "./Core/NetworkingLibraries.php";
 include_once "./Core/HTTPLibraries.php";
-include_once './Core/GameAuth.php';
 include_once "./Core/ViewerIdentity.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./AccountFiles/AccountDatabaseAPI.php";

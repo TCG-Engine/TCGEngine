@@ -36,7 +36,7 @@
         error_reporting(E_ALL);
 
         include './Core/HTTPLibraries.php';
-        include './Core/GameAuth.php';
+        include_once './Core/GameAuth.php';
         include './Core/ViewerIdentity.php';
         //We should always have a player ID as a URL parameter
         $folderPath = TryGet("folderPath", "");
@@ -206,9 +206,12 @@
       if(isset($_COOKIE["lastAuthKey"])) $authKey = $_COOKIE["lastAuthKey"];
     }
 
-    if (!$isSpectatorViewer && !SimGameValidateSeatAuth($folderPath, $gameName, $playerID, $authKey)) {
+    if (!SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
       SimGameRenderInvalidAuthPage($folderPath, $gameName, $playerID);
     }
+
+    $spectatorAuthKey = SimGameGetSpectatorAuthKey($folderPath, $gameName);
+    $privateSpectatorAuthRequired = SimGameIsPrivateGame($folderPath, $gameName);
 
     include "./" . $folderPath . "/ZoneClasses.php";
     include "./" . $folderPath . "/ZoneAccessors.php";
@@ -1452,6 +1455,8 @@
     <input type='hidden' id='playerID' value='<?= htmlspecialchars($playerID, ENT_QUOTES, 'UTF-8'); ?>'>
     <input type='hidden' id='viewerPerspective' value='<?= htmlspecialchars(strval($viewerPerspective), ENT_QUOTES, 'UTF-8'); ?>'>
     <input type='hidden' id='authKey' value='<?= htmlspecialchars($authKey, ENT_QUOTES, 'UTF-8'); ?>'>
+    <input type='hidden' id='spectatorAuthKey' value='<?= htmlspecialchars($spectatorAuthKey, ENT_QUOTES, 'UTF-8'); ?>'>
+    <input type='hidden' id='privateSpectatorAuthRequired' value='<?= $privateSpectatorAuthRequired ? '1' : '0'; ?>'>
     <input type='hidden' id='folderPath' value='<?= htmlspecialchars($folderPath, ENT_QUOTES, 'UTF-8'); ?>'>
 
 

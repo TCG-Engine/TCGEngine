@@ -9,6 +9,7 @@ include_once __DIR__ . '/../APIKeys/APIKeys.php';
 include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../Core/GameAuth.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
+include_once __DIR__ . '/../Core/ViewerIdentity.php';
 include_once __DIR__ . '/../Core/RegressionTestFramework.php';
 
 function SubmitBugReportRespond(int $statusCode, array $payload): void
@@ -46,11 +47,13 @@ $description = SubmitBugReportTrim($body['description'] ?? '', 4000);
 $gameName = SubmitBugReportTrim($body['gameName'] ?? '', 32);
 $folderPath = SubmitBugReportTrim($body['folderPath'] ?? '', 100);
 $authKey = SubmitBugReportTrim($body['authKey'] ?? '', 128);
+$rawPlayerID = SubmitBugReportTrim($body['playerID'] ?? '', 8);
 $reporter = SubmitBugReportTrim(
   $body['reporter'] ?? $body['discordID'] ?? $body['discordId'] ?? $body['discord_user_id'] ?? '',
   64
 );
-$playerID = isset($body['playerID']) ? intval($body['playerID']) : 0;
+$viewerInfo = NormalizeViewerIdentity($rawPlayerID);
+$playerID = $viewerInfo['viewerID'];
 
 if ($description === '') {
   SubmitBugReportRespond(400, ['error' => 'Description is required.']);
@@ -86,7 +89,7 @@ include_once $parserPath;
 $GLOBALS['gameName'] = strval($gameName);
 ParseGamestate(__DIR__ . '/../' . $folderPath . '/');
 
-if (($playerID === 1 || $playerID === 2) && $authKey === '') {
+if (($playerID === '1' || $playerID === '2') && $authKey === '') {
   if (isset($_COOKIE['lastAuthKey'])) {
     $authKey = SubmitBugReportTrim($_COOKIE['lastAuthKey'], 128);
   }
@@ -103,7 +106,7 @@ if ($reporter === '') {
   }
 }
 
-if (($playerID === 1 || $playerID === 2) && !SimGameValidateSeatAuth($folderPath, $gameName, $playerID, $authKey)) {
+if (!SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
   SubmitBugReportRespond(403, ['error' => 'Invalid auth key.']);
 }
 
@@ -170,3 +173,6 @@ SubmitBugReportRespond(200, [
 ]);
 
 ?>
+if ($playerID === '') {
+  SubmitBugReportRespond(400, ['error' => 'Invalid player ID.']);
+}

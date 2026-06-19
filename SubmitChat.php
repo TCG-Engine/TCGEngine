@@ -1,7 +1,6 @@
 <?php
 include_once './Core/HTTPLibraries.php';
 include_once './Core/NetworkingLibraries.php';
-include_once './Core/GameAuth.php';
 include_once './Core/ViewerIdentity.php';
 
 $gameName  = TryGET("gameName", "");
@@ -21,9 +20,9 @@ $chatText = substr($chatText, 0, 500);
 if ($chatText === "") { echo "Empty message."; exit; }
 
 // Validate auth key for real players (spectators skip auth)
-if (!$viewerInfo['isSpectator'] && $folderPath !== "") {
+if ($folderPath !== "") {
     $folderPath = preg_replace('/[^A-Za-z0-9_\/\-]/', '', $folderPath);
-    if (!SimGameValidateSeatAuth($folderPath, $gameName, $playerID, $authKey)) {
+    if (!SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
         echo "Invalid auth key."; exit;
     }
 }

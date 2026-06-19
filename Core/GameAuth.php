@@ -22,6 +22,8 @@ function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
   $payload = [
     'p1' => strval($authKeys['p1'] ?? ''),
     'p2' => strval($authKeys['p2'] ?? ''),
+    'spectator' => strval($authKeys['spectator'] ?? ''),
+    'isPrivate' => !empty($authKeys['isPrivate']),
     'updatedAt' => time(),
   ];
 
@@ -33,7 +35,12 @@ function SimGameWriteAuthKeys($rootName, $gameName, $authKeys)
 
 function SimGameBuildAuthKeysFromLobby($lobby)
 {
-  $authKeys = ['p1' => '', 'p2' => ''];
+  $authKeys = [
+    'p1' => '',
+    'p2' => '',
+    'spectator' => '',
+    'isPrivate' => is_object($lobby) && !empty($lobby->isPrivate),
+  ];
   if (!is_object($lobby) || !isset($lobby->players) || !is_array($lobby->players)) return $authKeys;
 
   foreach ($lobby->players as $index => $player) {
@@ -48,6 +55,10 @@ function SimGameBuildAuthKeysFromLobby($lobby)
     $authKeys['p' . $seat] = strval($player->getAuthKey());
   }
 
+  if (!empty($authKeys['isPrivate'])) {
+    $authKeys['spectator'] = bin2hex(random_bytes(16));
+  }
+
   return $authKeys;
 }
 
@@ -59,14 +70,20 @@ function SimGameWriteAuthKeysFromLobby($rootName, $gameName, $lobby)
 function SimGameReadAuthKeys($rootName, $gameName)
 {
   $path = SimGameAuthKeysPath($rootName, $gameName);
-  if ($path === '' || !is_file($path)) return ['p1' => '', 'p2' => ''];
+  if ($path === '' || !is_file($path)) {
+    return ['p1' => '', 'p2' => '', 'spectator' => '', 'isPrivate' => false];
+  }
 
   $decoded = json_decode(file_get_contents($path), true);
-  if (!is_array($decoded)) return ['p1' => '', 'p2' => ''];
+  if (!is_array($decoded)) {
+    return ['p1' => '', 'p2' => '', 'spectator' => '', 'isPrivate' => false];
+  }
 
   return [
     'p1' => strval($decoded['p1'] ?? ''),
     'p2' => strval($decoded['p2'] ?? ''),
+    'spectator' => strval($decoded['spectator'] ?? ''),
+    'isPrivate' => !empty($decoded['isPrivate']),
   ];
 }
 
@@ -87,6 +104,18 @@ function SimGameResolvePresentedAuthKey($authKey = '')
   return '';
 }
 
+function SimGameIsPrivateGame($rootName, $gameName)
+{
+  $authKeys = SimGameReadAuthKeys($rootName, $gameName);
+  return !empty($authKeys['isPrivate']);
+}
+
+function SimGameGetSpectatorAuthKey($rootName, $gameName)
+{
+  $authKeys = SimGameReadAuthKeys($rootName, $gameName);
+  return strval($authKeys['spectator'] ?? '');
+}
+
 function SimGameValidateSeatAuth($rootName, $gameName, $playerID, $authKey = '')
 {
   $expectedKey = SimGameGetSeatAuthKey($rootName, $gameName, $playerID);
@@ -98,15 +127,53 @@ function SimGameValidateSeatAuth($rootName, $gameName, $playerID, $authKey = '')
   return hash_equals($expectedKey, $presentedKey);
 }
 
+function SimGameValidateSpectatorAuth($rootName, $gameName, $authKey = '')
+{
+  if (!SimGameIsPrivateGame($rootName, $gameName)) return true;
+
+  $expectedKey = SimGameGetSpectatorAuthKey($rootName, $gameName);
+  if ($expectedKey === '') return false;
+
+  $presentedKey = SimGameResolvePresentedAuthKey($authKey);
+  if ($presentedKey === '') return false;
+
+  return hash_equals($expectedKey, $presentedKey);
+}
+
+function SimGameValidateViewerAuth($rootName, $gameName, $viewerInfo, $authKey = '')
+{
+  if (!is_array($viewerInfo)) return false;
+  if (!empty($viewerInfo['isSpectator'])) {
+    return SimGameValidateSpectatorAuth($rootName, $gameName, $authKey);
+  }
+
+  return SimGameValidateSeatAuth($rootName, $gameName, $viewerInfo['viewerSeat'] ?? 0, $authKey);
+}
+
 function SimGameRenderInvalidAuthPage($rootName, $gameName, $playerID)
 {
   http_response_code(403);
 
+  $isSpectator = strtoupper(strval($playerID)) === 'S';
+  $isPrivateGame = SimGameIsPrivateGame($rootName, $gameName);
   $safeRootName = htmlspecialchars(strval($rootName), ENT_QUOTES, 'UTF-8');
   $safeGameName = htmlspecialchars(strval($gameName), ENT_QUOTES, 'UTF-8');
   $safePlayerID = htmlspecialchars(strval($playerID), ENT_QUOTES, 'UTF-8');
   $menuHref = './SharedUI/Sites/' . rawurlencode(strval($rootName)) . '/MainMenu.php';
-  $spectateHref = './NextTurn.php?playerID=S&viewerPerspective=' . rawurlencode(strval($playerID)) . '&gameName=' . rawurlencode(strval($gameName)) . '&folderPath=' . rawurlencode(strval($rootName));
+  $spectatePerspective = $isSpectator ? '1' : strval($playerID);
+  $spectateHref = './NextTurn.php?playerID=S&viewerPerspective=' . rawurlencode($spectatePerspective) . '&gameName=' . rawurlencode(strval($gameName)) . '&folderPath=' . rawurlencode(strval($rootName));
+  $heading = $isSpectator ? 'This spectator link is no longer valid.' : 'This seat link is no longer valid.';
+  $primaryText = $isSpectator
+    ? 'The game is still there, but this browser is not currently authenticated to spectate this private match.'
+    : 'The game is still there, but this browser is not currently authenticated as player ' . $safePlayerID . '.';
+  $secondaryText = $isSpectator
+    ? 'This usually happens after opening an old private spectate link or after the game was recreated.'
+    : 'This usually happens after opening an old link, switching devices, or starting a newer session for the same seat.';
+  $spectatorButtonLabel = $isPrivateGame ? 'Open with Spectator Link' : 'Open as Spectator';
+  $showSpectatorButton = !$isPrivateGame;
+  $footnote = $isPrivateGame
+    ? 'For private games, a player must share a fresh spectate link from inside the match.'
+    : 'If you expected to keep playing, reopen the game from the matching sim menu so it can use your current saved session.';
 
   echo "<!doctype html>\n";
   echo "<html lang=\"en\">\n";
@@ -210,16 +277,18 @@ function SimGameRenderInvalidAuthPage($rootName, $gameName, $playerID)
   echo "<body>\n";
   echo "  <div class=\"card\">\n";
   echo "    <div class=\"eyebrow\">Session Expired</div>\n";
-  echo "    <h1>This seat link is no longer valid.</h1>\n";
-  echo "    <p>The game is still there, but this browser is not currently authenticated as player " . $safePlayerID . ".</p>\n";
-  echo "    <p>This usually happens after opening an old link, switching devices, or starting a newer session for the same seat.</p>\n";
+  echo "    <h1>" . $heading . "</h1>\n";
+  echo "    <p>" . $primaryText . "</p>\n";
+  echo "    <p>" . $secondaryText . "</p>\n";
   echo "    <div class=\"meta\">Game <strong>" . $safeGameName . "</strong> in <strong>" . $safeRootName . "</strong></div>\n";
   echo "    <div class=\"actions\">\n";
   echo "      <a class=\"button\" href=\"" . htmlspecialchars($menuHref, ENT_QUOTES, 'UTF-8') . "\">Back to Main Menu</a>\n";
-  echo "      <a class=\"button secondary\" href=\"" . htmlspecialchars($spectateHref, ENT_QUOTES, 'UTF-8') . "\">Open as Spectator</a>\n";
+  if ($showSpectatorButton) {
+    echo "      <a class=\"button secondary\" href=\"" . htmlspecialchars($spectateHref, ENT_QUOTES, 'UTF-8') . "\">" . $spectatorButtonLabel . "</a>\n";
+  }
   echo "      <button class=\"button ghost\" type=\"button\" onclick=\"try { localStorage.removeItem('tcgengine:lastSimGame:" . $safeRootName . "'); } catch (e) {} window.location.href='" . htmlspecialchars($menuHref, ENT_QUOTES, 'UTF-8') . "';\">Clear Saved Rejoin</button>\n";
   echo "    </div>\n";
-  echo "    <div class=\"footnote\">If you expected to keep playing, reopen the game from the matching sim menu so it can use your current saved session.</div>\n";
+  echo "    <div class=\"footnote\">" . $footnote . "</div>\n";
   echo "  </div>\n";
   echo "</body>\n";
   echo "</html>\n";
