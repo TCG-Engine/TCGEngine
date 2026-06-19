@@ -4464,15 +4464,21 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         $amount += 1;
     }
     // Prima Materia (vt9y597fqr): next astra source damage to units +3
-    $sourceObj = GetZoneObject($source);
-    if($sourceObj !== null && $amount > 0) {
+    if($amount > 0) {
+        $primaSourceInfo = ResolveDamageSourceCardInfo($source, $player);
+        $primaSourceObj = $primaSourceInfo["obj"];
+        $primaSourceCardID = $primaSourceInfo["cardID"];
+        $primaSourceController = intval($primaSourceInfo["controller"] ?? $player);
+        $primaSourceElement = null;
+        if($primaSourceObj !== null && $primaSourceCardID !== null) {
+            $primaSourceElement = EffectiveCardElement($primaSourceObj);
+        } else if($primaSourceCardID !== null) {
+            $primaSourceElement = CardElement($primaSourceCardID);
+        }
         $isUnit = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
-        if($isUnit && EffectiveCardElement($sourceObj) === "ASTRA") {
-            $srcCtrl = $sourceObj->Controller ?? $player;
-            if(GlobalEffectCount($srcCtrl, "PRIMA_MATERIA_BOOST") > 0) {
-                $amount += 3;
-                RemoveGlobalEffect($srcCtrl, "PRIMA_MATERIA_BOOST");
-            }
+        if($isUnit && $primaSourceElement === "ASTRA" && GlobalEffectCount($primaSourceController, "PRIMA_MATERIA_BOOST") > 0) {
+            $amount += 3;
+            RemoveGlobalEffect($primaSourceController, "PRIMA_MATERIA_BOOST");
         }
     }
     // Weaken Resistance (bb3oeup7oq): next Spell source damage to this unit +LV
@@ -4632,7 +4638,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
         TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);
-        $sourceCtrl = $sourceObj2 !== null ? intval($sourceObj2->Controller ?? $player) : intval($player);
+        $sourceInfoChampion = ResolveDamageSourceCardInfo($source, $player);
+        $sourceCtrl = intval($sourceInfoChampion["controller"] ?? $player);
         $targetCtrl = intval($targetObj->Controller ?? $player);
         if($sourceCtrl !== $targetCtrl) {
             TriggerShademistPriestess($targetCtrl);
@@ -4757,15 +4764,21 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         $amount += 1;
     }
     // Prima Materia (vt9y597fqr): next astra source damage to units +3
-    $sourceObj2 = GetZoneObject($source);
-    if($sourceObj2 !== null && $amount > 0) {
+    if($amount > 0) {
+        $primaSourceInfo2 = ResolveDamageSourceCardInfo($source, $player);
+        $primaSourceObj2 = $primaSourceInfo2["obj"];
+        $primaSourceCardID2 = $primaSourceInfo2["cardID"];
+        $primaSourceController2 = intval($primaSourceInfo2["controller"] ?? $player);
+        $primaSourceElement2 = null;
+        if($primaSourceObj2 !== null && $primaSourceCardID2 !== null) {
+            $primaSourceElement2 = EffectiveCardElement($primaSourceObj2);
+        } else if($primaSourceCardID2 !== null) {
+            $primaSourceElement2 = CardElement($primaSourceCardID2);
+        }
         $isUnit = PropertyContains(EffectiveCardType($targetObj), "ALLY") || PropertyContains(EffectiveCardType($targetObj), "CHAMPION");
-        if($isUnit && EffectiveCardElement($sourceObj2) === "ASTRA") {
-            $srcCtrl = $sourceObj2->Controller ?? $player;
-            if(GlobalEffectCount($srcCtrl, "PRIMA_MATERIA_BOOST") > 0) {
-                $amount += 3;
-                RemoveGlobalEffect($srcCtrl, "PRIMA_MATERIA_BOOST");
-            }
+        if($isUnit && $primaSourceElement2 === "ASTRA" && GlobalEffectCount($primaSourceController2, "PRIMA_MATERIA_BOOST") > 0) {
+            $amount += 3;
+            RemoveGlobalEffect($primaSourceController2, "PRIMA_MATERIA_BOOST");
         }
     }
     // Weaken Resistance (bb3oeup7oq): next Spell source damage to this unit +LV
@@ -4841,7 +4854,8 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
         TrackChampionDamageThisTurn($targetObj, $amount);
         TriggerSanguineGoblet($targetObj->Controller ?? $player, $amount);
-        $sourceCtrl = $sourceObj2 !== null ? intval($sourceObj2->Controller ?? $player) : intval($player);
+        $sourceInfoChampion = ResolveDamageSourceCardInfo($source, $player);
+        $sourceCtrl = intval($sourceInfoChampion["controller"] ?? $player);
         $targetCtrl = intval($targetObj->Controller ?? $player);
         if($sourceCtrl !== $targetCtrl) {
             TriggerShademistPriestess($targetCtrl);
