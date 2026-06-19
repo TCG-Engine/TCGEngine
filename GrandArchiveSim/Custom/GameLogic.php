@@ -5322,6 +5322,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "al6pqkmgmz": // Fatestone of Heaven - [Guo Jia Bonus] (3): reveal memory and transform
+            if(intval($abilityIndex) === 0) {
+                for($ri = 0; $ri < 3; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
         case "l6410a85dn": // Cyclonic Fatestone - [Guo Jia Bonus] (3), [REST]: Transform
             if(intval($abilityIndex) === 0) {
                 $sourceObj = &GetZoneObject($mzCard);

@@ -546,15 +546,11 @@ $customDQHandlers["FatestoneOfHeavenDestroy"] = function($player, $parts, $lastD
 function FatestoneOfHeavenActivated($player, $mzID) {
     // Reveal all cards in your memory. If 3+ luxem element, transform. Once per turn, slow speed.
     $memory = &GetMemory($player);
-    $revealIDs = [];
     $luxemCount = 0;
-    foreach($memory as $mObj) {
-        if($mObj->removed) continue;
-        $revealIDs[] = $mObj->CardID;
-        if(CardElement($mObj->CardID) === "LUXEM") ++$luxemCount;
-    }
-    if(!empty($revealIDs)) {
-        SetFlashMessage('REVEAL:' . implode('|', $revealIDs));
+    for($i = 0; $i < count($memory); ++$i) {
+        if($memory[$i]->removed) continue;
+        Reveal($player, "myMemory-" . $i);
+        if(CardElement($memory[$i]->CardID) === "LUXEM") ++$luxemCount;
     }
     if($luxemCount >= 3) {
         TransformCard($player, $mzID);
