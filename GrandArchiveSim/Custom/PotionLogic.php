@@ -28,6 +28,7 @@ $brewCosts["gnYM2V6TTw"] = [["type"=>"SAME_NAME_HERBS","count"=>2]]; // Soothing
 $brewCosts["hj1trn0yet"] = [["type"=>"HERB","count"=>4]]; // Hide in Bush: 4 Herbs
 $brewCosts["me0xxw0plq"] = [["type"=>"CARD","cardID"=>"bd7ozuj68m","count"=>2], ["type"=>"HERB","count"=>3]]; // Refracted Twilight: 2 Silvershine + 3 Herbs
 $brewCosts["vt9y597fqr"] = [["type"=>"DIFFERENT_NAME_HERBS","count"=>4]]; // Prima Materia: 4 Herbs with different names
+$brewCosts["k1l75tlzsm"] = [["type"=>"SUBTYPE","subtype"=>"ADJUVANT"], ["type"=>"SUBTYPE","subtype"=>"CATALYST"]]; // Essence of Blizzards: One Adjuvant, One Catalyst
 
 // --- Gather (Grand Archive keyword): summon a random herb token ---
 
