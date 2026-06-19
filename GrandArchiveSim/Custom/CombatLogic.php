@@ -2635,7 +2635,10 @@ $customDQHandlers["AttackTargetChosen"] = function($player, $parts, $lastDecisio
     // Atmos Shield (80yu75k0hl): whenever another neos unit you control is targeted
     // for an attack, you may change the target to Atmos Shield
     $asTargetObj = GetZoneObject($lastDecision);
-    if($asTargetObj !== null && EffectiveCardElement($asTargetObj) === "NEOS"
+    if($asTargetObj !== null
+       && EffectiveCardElement($asTargetObj) === "NEOS"
+       && (PropertyContains(EffectiveCardType($asTargetObj), "ALLY")
+           || PropertyContains(EffectiveCardType($asTargetObj), "CHAMPION"))
        && $asTargetObj->CardID !== "80yu75k0hl") {
         $defField = GetField($defPlayer);
         global $playerID;
