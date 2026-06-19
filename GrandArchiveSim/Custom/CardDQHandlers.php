@@ -3594,12 +3594,6 @@ $customDQHandlers["CellAssemblerSummon"] = function($player, $parts, $lastDecisi
     $pcObj->Status = 1; // rested
 };
 
-// --- Tonic of Remembrance (uqrptjej4m): return a card from memory to hand ---
-$customDQHandlers["TonicOfRemembranceReturn"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    MZMove($player, $lastDecision, "myHand");
-};
-
 // Krustallan Ruins (fei7chsbal): pay (1) or rest the entering ally
 $customDQHandlers["KrustallanRuinsPayOrRest"] = function($player, $parts, $lastDecision) {
     $fieldIdx = intval($parts[0]);
