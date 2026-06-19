@@ -71,10 +71,12 @@ include_once 'Header.php';
         <button onclick="joinQueue()">Join Queue</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button onclick="startGoldfishGame()" style="background-color: #9f7a2f;">Start Goldfish</button>
+        <button id="rejoin-last-game-btn" onclick="rejoinLastGame()" style="display: none; background-color: #5b4aa3;">Rejoin Last Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
       </div>
       <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
       <div id="private-invite-notice" style="display: none; margin-top: 10px; color: #9ed9b4; font-size: 13px;"></div>
+      <div id="rejoin-last-game-note" style="display: none; margin-top: 10px; color: #b9b9b9; font-size: 13px;"></div>
     </div>
   </div>
   
@@ -455,6 +457,85 @@ include_once 'Header.php';
   var _privateInviteCode = "";
   var _waitingEscHandler = null;
   var _autoLaunchGoldfish = false;
+  var _lastSimGameStorageKey = 'tcgengine:lastSimGame:' + rootName;
+
+      function getLastSimGame() {
+        try {
+          var raw = localStorage.getItem(_lastSimGameStorageKey);
+          if (!raw) return null;
+          return JSON.parse(raw);
+        } catch (e) {
+          return null;
+        }
+      }
+
+      function isValidLastSimGameRecord(record) {
+        return !!record &&
+          record.rootName === rootName &&
+          (record.playerID === '1' || record.playerID === '2') &&
+          typeof record.gameName === 'string' && record.gameName !== '' &&
+          typeof record.authKey === 'string' && record.authKey !== '';
+      }
+
+      function updateRejoinLastGameUI() {
+        var button = document.getElementById('rejoin-last-game-btn');
+        var note = document.getElementById('rejoin-last-game-note');
+        if (!button || !note) return;
+        var record = getLastSimGame();
+        if (!isValidLastSimGameRecord(record)) {
+          button.style.display = 'none';
+          note.style.display = 'none';
+          note.textContent = '';
+          return;
+        }
+        button.style.display = '';
+        note.style.display = '';
+        note.textContent = 'Resume game ' + record.gameName + ' as P' + record.playerID + '.';
+      }
+
+      function persistLastSimGame(gameName, playerID, authKey) {
+        if (!gameName || !authKey) return;
+        var normalizedPlayerID = String(playerID);
+        if (normalizedPlayerID !== '1' && normalizedPlayerID !== '2') return;
+
+        try {
+          localStorage.setItem(_lastSimGameStorageKey, JSON.stringify({
+            rootName: rootName,
+            gameName: String(gameName),
+            playerID: normalizedPlayerID,
+            authKey: String(authKey),
+            updatedAt: Date.now()
+          }));
+        } catch (e) {}
+
+        document.cookie = 'lastAuthKey=' + encodeURIComponent(authKey) + '; max-age=' + (30 * 24 * 60 * 60) + '; path=/; SameSite=Lax';
+        updateRejoinLastGameUI();
+      }
+
+      function buildGameUrl(playerID, gameName, authKey, fromMatch) {
+        var url = new URL('../../../NextTurn.php', window.location.href);
+        url.searchParams.set('playerID', String(playerID));
+        url.searchParams.set('gameName', String(gameName));
+        url.searchParams.set('folderPath', rootName);
+        if (authKey) url.searchParams.set('authKey', String(authKey));
+        if (fromMatch) url.searchParams.set('fromMatch', '1');
+        else url.searchParams.delete('fromMatch');
+        return url.toString();
+      }
+
+      function navigateToGame(playerID, gameName, authKey, fromMatch) {
+        persistLastSimGame(gameName, playerID, authKey);
+        window.location.href = buildGameUrl(playerID, gameName, authKey, fromMatch);
+      }
+
+      function rejoinLastGame() {
+        var record = getLastSimGame();
+        if (!isValidLastSimGameRecord(record)) {
+          updateRejoinLastGameUI();
+          return;
+        }
+        window.location.href = buildGameUrl(record.playerID, record.gameName, record.authKey, false);
+      }
 
       function shouldPlayMenuSounds() {
         if (!window.TCGSettings || typeof window.TCGSettings.get !== 'function') return true;
@@ -635,7 +716,7 @@ include_once 'Header.php';
             }
             clearQueueInlineError();
             if(response.ready) {
-              DisplayMatchFoundPopup(response.playerID, response.gameName);
+              DisplayMatchFoundPopup(response.playerID, response.gameName, response.authKey);
             } else {
               _lobby_id = response.lobbyID;
               var inviteLink = '';
@@ -835,7 +916,7 @@ include_once 'Header.php';
         document.addEventListener('keydown', _waitingEscHandler);
       }
 
-      function DisplayMatchFoundPopup(playerID, gameName) {
+      function DisplayMatchFoundPopup(playerID, gameName, authKey) {
         var matchPopup = document.createElement('div');
         matchPopup.id = 'match-found-popup';
         matchPopup.style.cssText = `
@@ -937,7 +1018,7 @@ include_once 'Header.php';
                       matchPopup.parentNode.removeChild(matchPopup);
                     }
                     // Redirect with fade parameter
-                    window.location.href = `../../../NextTurn.php?playerID=${playerID}&gameName=${gameName}&folderPath=${encodeURIComponent(rootName)}&fromMatch=1`;
+                    navigateToGame(playerID, gameName, authKey, true);
                   }, 400);
                 }
               }, 400);
@@ -1054,7 +1135,7 @@ include_once 'Header.php';
                 document.removeEventListener('keydown', _waitingEscHandler);
                 _waitingEscHandler = null;
               }
-              DisplayMatchFoundPopup(response.playerID, response.gameName);
+              DisplayMatchFoundPopup(response.playerID, response.gameName, authKey);
             } else {
               // Continue polling if the lobby is not ready
               pollLobbyUpdates(playerID, authKey);
@@ -1082,6 +1163,7 @@ include_once 'Header.php';
       document.addEventListener('DOMContentLoaded', function() {
         initializePrivateInviteFromUrl();
         initializeGoldfishLinkFromUrl();
+        updateRejoinLastGameUI();
         refreshOpenGames();
         if (_autoLaunchGoldfish) {
           window.setTimeout(function() {

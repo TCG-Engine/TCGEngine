@@ -7,6 +7,7 @@ header('Content-Type: application/json');
 
 include_once __DIR__ . '/../APIKeys/APIKeys.php';
 include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
+include_once __DIR__ . '/../Core/GameAuth.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 include_once __DIR__ . '/../Core/RegressionTestFramework.php';
 
@@ -102,12 +103,8 @@ if ($reporter === '') {
   }
 }
 
-if ($playerID === 1 && isset($GLOBALS['p1Key']) && $authKey !== strval($GLOBALS['p1Key'])) {
-  SubmitBugReportRespond(403, ['error' => 'Invalid auth key for player 1.']);
-}
-
-if ($playerID === 2 && isset($GLOBALS['p2Key']) && $authKey !== strval($GLOBALS['p2Key'])) {
-  SubmitBugReportRespond(403, ['error' => 'Invalid auth key for player 2.']);
+if (($playerID === 1 || $playerID === 2) && !SimGameValidateSeatAuth($folderPath, $gameName, $playerID, $authKey)) {
+  SubmitBugReportRespond(403, ['error' => 'Invalid auth key.']);
 }
 
 $gamestateText = RegressionCurrentGamestateText($folderPath, $gameName);

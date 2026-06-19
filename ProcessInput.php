@@ -11,6 +11,7 @@ include_once './Core/CoreZoneModifiers.php';
 include_once './Core/EngineActionRunner.php';
 include_once "./Core/NetworkingLibraries.php";
 include_once "./Core/HTTPLibraries.php";
+include_once './Core/GameAuth.php';
 include_once "./Core/ViewerIdentity.php";
 include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./AccountFiles/AccountDatabaseAPI.php";
@@ -30,6 +31,11 @@ if ($viewerInfo['viewerID'] === '') {
 $playerID = $viewerInfo['viewerID'];
 $authKey = $_GET["authKey"];
 $folderPath = $_GET["folderPath"];
+
+if (!$viewerInfo['isSpectator'] && !SimGameValidateSeatAuth($folderPath, $gameName, $playerID, $authKey)) {
+  echo("Invalid auth key");
+  exit;
+}
 
 //We should also have some information on the type of command
 $inputMode = $_GET["mode"];

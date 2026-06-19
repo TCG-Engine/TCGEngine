@@ -8,6 +8,7 @@ include_once __DIR__ . '/TurnController.php';
 include_once __DIR__ . '/Custom/GameLogic.php';
 include_once __DIR__ . '/Custom/DeckImport.php';
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
+include_once __DIR__ . '/../Core/GameAuth.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 include_once __DIR__ . '/../APIKeys/APIKeys.php';
 
@@ -82,6 +83,7 @@ SaveUndoVersion($firstPlayer, "Pregame Starting Champion");
 WriteGamestate(__DIR__ . "/");
 
 $lobby->gameName = $gameName;
+SimGameWriteAuthKeysFromLobby('GrandArchiveSim', $gameName, $lobby);
 //TODO: Handle $gameName = ""
 
 function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {

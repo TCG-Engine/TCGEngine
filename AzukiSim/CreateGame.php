@@ -8,6 +8,7 @@ include_once __DIR__ . '/TurnController.php';
 include_once __DIR__ . '/Custom/GameLogic.php';
 include_once __DIR__ . '/Custom/DeckImport.php';
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
+include_once __DIR__ . '/../Core/GameAuth.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 include_once __DIR__ . '/../APIKeys/APIKeys.php';
 
@@ -68,6 +69,7 @@ AutoAdvanceAndExecute();
 WriteGamestate(__DIR__ . "/");
 
 $lobby->gameName = $gameName;
+SimGameWriteAuthKeysFromLobby('AzukiSim', $gameName, $lobby);
 
 function GetPreconstructedDeckConfig($deckName) {
     $normalized = is_string($deckName) ? trim(strtolower($deckName)) : '';

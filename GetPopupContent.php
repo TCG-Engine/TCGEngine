@@ -3,6 +3,7 @@
 include './Core/NetworkingLibraries.php';
 include './Core/HTTPLibraries.php';
 include './Core/CoreZoneModifiers.php';
+include './Core/GameAuth.php';
 include './Core/ViewerIdentity.php';
 
 $gameName = $_GET["gameName"];
@@ -21,6 +22,11 @@ $authKey = TryGet("authKey", "");
 $folderPath = TryGet("folderPath", "");
 $popupType = $_GET["popupType"];
 $chainLinkIndex = TryGet("chainLinkIndex", "");
+
+if (!$viewerInfo['isSpectator'] && !SimGameValidateSeatAuth($folderPath, $gameName, $viewerInfo['viewerSeat'], $authKey)) {
+  echo("Invalid auth key.");
+  exit;
+}
 
 ob_start();
 include './Core/UILibraries.php';

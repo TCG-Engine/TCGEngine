@@ -1,6 +1,7 @@
 <?php
 include_once './Core/HTTPLibraries.php';
 include_once './Core/NetworkingLibraries.php';
+include_once './Core/GameAuth.php';
 include_once './Core/ViewerIdentity.php';
 
 $gameName  = TryGET("gameName", "");
@@ -22,21 +23,8 @@ if ($chatText === "") { echo "Empty message."; exit; }
 // Validate auth key for real players (spectators skip auth)
 if (!$viewerInfo['isSpectator'] && $folderPath !== "") {
     $folderPath = preg_replace('/[^A-Za-z0-9_\/\-]/', '', $folderPath);
-    $parserPath       = __DIR__ . '/' . $folderPath . '/GamestateParser.php';
-    $zoneClassesPath  = __DIR__ . '/' . $folderPath . '/ZoneClasses.php';
-    $zoneAccessorsPath = __DIR__ . '/' . $folderPath . '/ZoneAccessors.php';
-    if (is_file($parserPath) && is_file($zoneClassesPath) && is_file($zoneAccessorsPath)) {
-        include_once $zoneClassesPath;
-        include_once $zoneAccessorsPath;
-        include_once $parserPath;
-        $GLOBALS['gameName'] = strval($gameName);
-        ParseGamestate(__DIR__ . '/' . $folderPath . '/');
-        $targetKey = $playerID === 1
-            ? strval($GLOBALS['p1Key'] ?? '')
-            : strval($GLOBALS['p2Key'] ?? '');
-        if ($targetKey !== '' && $authKey !== $targetKey) {
-            echo "Invalid auth key."; exit;
-        }
+    if (!SimGameValidateSeatAuth($folderPath, $gameName, $playerID, $authKey)) {
+        echo "Invalid auth key."; exit;
     }
 }
 

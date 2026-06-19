@@ -36,6 +36,7 @@
         error_reporting(E_ALL);
 
         include './Core/HTTPLibraries.php';
+        include './Core/GameAuth.php';
         include './Core/ViewerIdentity.php';
         //We should always have a player ID as a URL parameter
         $folderPath = TryGet("folderPath", "");
@@ -203,6 +204,10 @@
     if(($playerID == 1 || $playerID == 2) && $authKey == "")
     {
       if(isset($_COOKIE["lastAuthKey"])) $authKey = $_COOKIE["lastAuthKey"];
+    }
+
+    if (!$isSpectatorViewer && !SimGameValidateSeatAuth($folderPath, $gameName, $playerID, $authKey)) {
+      SimGameRenderInvalidAuthPage($folderPath, $gameName, $playerID);
     }
 
     include "./" . $folderPath . "/ZoneClasses.php";
@@ -463,6 +468,31 @@
     <audio id="yourTurnSound" src="../Assets/prioritySound.wav"></audio>
 -->
     <script>
+      (function persistMostRecentSimGame() {
+        var rawPlayerID = <?php echo json_encode(strval($playerID)); ?>;
+        if (rawPlayerID !== "1" && rawPlayerID !== "2") return;
+        var authKey = <?php echo json_encode(strval($authKey)); ?>;
+        var folderPath = <?php echo json_encode(strval($folderPath)); ?>;
+        var gameName = <?php echo json_encode(strval($gameName)); ?>;
+        if (!authKey || !folderPath || !gameName) return;
+
+        try {
+          localStorage.setItem('tcgengine:lastSimGame:' + folderPath, JSON.stringify({
+            rootName: folderPath,
+            gameName: gameName,
+            playerID: rawPlayerID,
+            authKey: authKey,
+            updatedAt: Date.now()
+          }));
+        } catch (e) {}
+
+        if (typeof SetCookieValue === 'function') {
+          SetCookieValue('lastAuthKey', authKey, 30);
+        } else {
+          document.cookie = 'lastAuthKey=' + encodeURIComponent(authKey) + '; max-age=' + (30 * 24 * 60 * 60) + '; path=/; SameSite=Lax';
+        }
+      })();
+
       function reload() {
         CheckReloadNeeded(0);
       }

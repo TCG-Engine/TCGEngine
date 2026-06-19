@@ -6,6 +6,7 @@ include_once __DIR__ . '/ZoneClasses.php';
 include_once __DIR__ . '/TurnController.php';
 include_once __DIR__ . '/Custom/GameLogic.php';
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
+include_once __DIR__ . '/../Core/GameAuth.php';
 include_once __DIR__ . '/../RBDeck/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 
@@ -65,6 +66,7 @@ AutoAdvanceAndExecute();
 WriteGamestate(__DIR__ . "/");
 
 $lobby->gameName = $gameName;
+SimGameWriteAuthKeysFromLobby('GudnakSim', $gameName, $lobby);
 //TODO: Handle $gameName = ""
 
 function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
