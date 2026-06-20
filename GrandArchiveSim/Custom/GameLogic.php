@@ -13933,6 +13933,7 @@ $starcallingCards["xmtjrvfpuc"] = 1; // Stellaria Shower: Starcalling (1)
 $starcallingCards["dWgPzoEbIE"] = 0; // Cosmic Focus: Starcalling (0)
 $starcallingCards["vpmu6gvnta"] = 2; // Cosmic Bolt: Starcalling (2)
 $starcallingCards["JFdxtCqdeg"] = 2; // Stellar Bloom: Starcalling (2)
+$starcallingCards["zVubkJC3ce"] = 1; // Dwarf Star's Glow: Starcalling (1)
 $starcallingClassBonusCards = [];
 $starcallingClassBonusCards["JFdxtCqdeg"] = true; // Stellar Bloom: [Class Bonus] Starcalling
 
