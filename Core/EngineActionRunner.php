@@ -49,23 +49,31 @@ function QueueCardAnimation($targetMzID, $name, $durationMs = 400, $blocking = t
   ]);
 }
 
-function QueueDamageAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true) {
-  QueueFrameAnimation([
+function QueueDamageAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true, $uniqueID = null) {
+  $animation = [
     'type' => 'DAMAGE',
     'target' => strval($targetMzID),
     'amount' => intval($amount),
     'durationMs' => intval($durationMs),
     'blocking' => $blocking ? true : false,
-  ]);
+  ];
+  if ($uniqueID !== null && intval($uniqueID) > 0) {
+    $animation['uniqueID'] = intval($uniqueID);
+  }
+  QueueFrameAnimation($animation);
 }
 
-function QueuePreventedDamageAnimation($targetMzID, $durationMs = 500, $blocking = true) {
-  QueueFrameAnimation([
+function QueuePreventedDamageAnimation($targetMzID, $durationMs = 500, $blocking = true, $uniqueID = null) {
+  $animation = [
     'type' => 'PREVENTED_DAMAGE',
     'target' => strval($targetMzID),
     'durationMs' => intval($durationMs),
     'blocking' => $blocking ? true : false,
-  ]);
+  ];
+  if ($uniqueID !== null && intval($uniqueID) > 0) {
+    $animation['uniqueID'] = intval($uniqueID);
+  }
+  QueueFrameAnimation($animation);
 }
 
 function QueueRestoreAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true) {

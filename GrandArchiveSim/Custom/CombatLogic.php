@@ -3424,7 +3424,8 @@ function QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, 
     if(intval($remainingAmount) > 0) return;
     if($targetObj !== null && isset($targetObj->removed) && $targetObj->removed) return;
     $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
-    QueuePreventedDamageAnimation($absoluteTarget, 500, true);
+    $targetUniqueID = intval($targetObj->UniqueID ?? 0);
+    QueuePreventedDamageAnimation($absoluteTarget, 500, true, $targetUniqueID > 0 ? $targetUniqueID : null);
 }
 
 function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePrompt = false) {
@@ -4635,7 +4636,8 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     // Queue damage animation for the target card
     if($amount > 0) {
         $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
-        QueueDamageAnimation($absoluteTarget, $amount, 500, true);
+        $targetUniqueID = intval($targetObj->UniqueID ?? 0);
+        QueueDamageAnimation($absoluteTarget, $amount, 500, true, $targetUniqueID > 0 ? $targetUniqueID : null);
     }
     
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
@@ -4851,7 +4853,8 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     // Queue damage animation for the target card
     if($amount > 0) {
         $absoluteTarget = ConvertMzIDToAbsolute($target, $player);
-        QueueDamageAnimation($absoluteTarget, $amount, 500, true);
+        $targetUniqueID = intval($targetObj->UniqueID ?? 0);
+        QueueDamageAnimation($absoluteTarget, $amount, 500, true, $targetUniqueID > 0 ? $targetUniqueID : null);
     }
     
     if(PropertyContains(EffectiveCardType($targetObj), "CHAMPION")) {
