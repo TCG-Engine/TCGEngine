@@ -6549,6 +6549,7 @@ function OnLeaveField($player, $mzID) {
     $obj = GetZoneObject($mzID);
     if($obj === null) return;
     $controller = $obj->Controller;
+    $previousMzID = DecisionQueueController::GetVariable("mzID");
     // Weapons leaving the field: any loaded cards (Subcards) must go to the graveyard
     // as independent cards. Rule: "Cards Loaded into an object will still be Loaded as
     // long as that object remains on the field." Once it leaves, loaded cards are released.
@@ -6565,7 +6566,10 @@ function OnLeaveField($player, $mzID) {
     CheckAndBreakLinks($player, $mzID);
     DecisionQueueController::CleanupRemovedCards();
     SyncCombatStateToFieldUniqueIDs();
+    DecisionQueueController::StoreVariable("mzID", $mzID);
     if(!HasNoAbilities($obj) && isset($leaveFieldAbilities[$obj->CardID . ":0"])) $leaveFieldAbilities[$obj->CardID . ":0"]($controller);
+    if($previousMzID === null) DecisionQueueController::ClearVariable("mzID");
+    else DecisionQueueController::StoreVariable("mzID", $previousMzID);
 }
 
 function MoveEffectStackCardToField($player, $mzCard) {

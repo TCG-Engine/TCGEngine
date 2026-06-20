@@ -542,7 +542,7 @@ $customDQHandlers["ShardforgedBladeMaterializeCost"] = function($player, $parts,
         $chosenObj = GetZoneObject($lastDecision);
         if($chosenObj !== null && !$chosenObj->removed && $chosenObj->Controller == $player
             && PropertyContains(EffectiveCardSubtypes($chosenObj), "MEMORITE")) {
-            MZMove($player, $lastDecision, "myGraveyard");
+            DoSacrificeFighter($player, $lastDecision);
             $memoryCost = max(0, $memoryCost - 1);
         }
     }
