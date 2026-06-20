@@ -8217,6 +8217,18 @@ function BeforeRecollectionPhase() {
     // Ensure my/their zone references resolve from the active turn player's perspective.
     $playerID = $turnPlayer;
 
+    // Grand Archive rules: Opportunity arises at the beginning of the Recollection phase.
+    // Resolve the actual beginning-of-recollection triggers only after that window passes.
+    GrantOpportunityWindow($turnPlayer, "BeforeRecollectionContinue", null, "REC_START");
+}
+
+$customDQHandlers["BeforeRecollectionContinue"] = function($player, $parts, $lastDecision) {
+    ResolveBeforeRecollectionPhaseStart($player);
+};
+
+function ResolveBeforeRecollectionPhaseStart($turnPlayer) {
+    global $playerID;
+    $playerID = $turnPlayer;
 
     // Trigger recollection phase abilities for cards on the field
     $field = &GetField($turnPlayer);
@@ -8650,8 +8662,6 @@ function BeforeRecollectionPhase() {
         }
     }
 
-    // Grand Archive rules: Opportunity arises at the beginning of the Recollection phase.
-    GrantOpportunityWindow($turnPlayer, "NoOp", null, "REC_START");
 }
 
 function RecollectionPhase() {
