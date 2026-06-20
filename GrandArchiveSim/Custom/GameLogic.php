@@ -1629,6 +1629,21 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     return "PLAY";
                 }
             }
+            // Mercenary's Blade (k0xhi5jnsl): [Class Bonus] remove a prep counter to activate from material deck
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if($mObj !== null && !$mObj->removed && $mObj->CardID === "k0xhi5jnsl"
+                    && CanPlayerUseCardElement($playerID, $mObj->CardID, false, false)
+                    && IsClassBonusActive($playerID, ["ASSASSIN"])) {
+                    $champMZ = FindChampionMZ($playerID);
+                    $champObj = $champMZ !== null ? GetZoneObject($champMZ) : null;
+                    if($champObj !== null && !$champObj->removed && GetCounterCount($champObj, "preparation") >= 1) {
+                        RemoveCounters($playerID, $champMZ, "preparation", 1);
+                        DoMaterialize($playerID, $actionCard);
+                        return "PLAY";
+                    }
+                }
+            }
             // Sablemere, Warden's Grip (WAodKSuGuX): [Nico Bonus] pay (3) to activate from material deck
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
@@ -15447,6 +15462,17 @@ function MaterialSelectionMetadata($obj) {
     // Lost Providence (DNbIpzVgde): may activate from material deck when element requirements are met
     if ($obj->CardID === "DNbIpzVgde" && CanPlayerUseCardElement($turnPlayer, $obj->CardID, false, false)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Mercenary's Blade (k0xhi5jnsl): [Class Bonus] remove a prep counter to activate from material deck
+    if ($obj->CardID === "k0xhi5jnsl"
+        && CanPlayerUseCardElement($turnPlayer, $obj->CardID, false, false)
+        && IsClassBonusActive($turnPlayer, ["ASSASSIN"])) {
+        $champMZ = FindChampionMZ($turnPlayer);
+        $champObj = $champMZ !== null ? GetZoneObject($champMZ) : null;
+        if($champObj !== null && !$champObj->removed && GetCounterCount($champObj, "preparation") >= 1) {
+            return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+        }
     }
 
     // Sablemere, Warden's Grip (WAodKSuGuX): [Nico Bonus] pay (3) to activate from material deck
