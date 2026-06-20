@@ -22259,6 +22259,9 @@ function DomainRevealMemoryUpkeep($player, $fieldIndex, $allowedElements, $domai
  * @param int    $amount   Number of cards to mill
  */
 function MillCards($player, $deckRef, $gyRef, $amount) {
+    $deckOwner = (strpos($deckRef, "my") === 0) ? $player : (($player == 1) ? 2 : 1);
+    $graveOwner = (strpos($gyRef, "my") === 0) ? $player : (($player == 1) ? 2 : 1);
+    $graveBefore = count(GetGraveyard($graveOwner));
     $deck = GetZone($deckRef);
     $n = min($amount, count($deck));
     // Always mill in reverse order because cards stick around in their zone until cleaned up for last known information
@@ -22284,6 +22287,16 @@ function MillCards($player, $deckRef, $gyRef, $amount) {
             }
         }
         MZMove($player, "$deckRef-" . $i, $effectiveDest);
+    }
+    $graveAfter = count(GetGraveyard($graveOwner));
+    if($graveAfter > $graveBefore && $deckOwner === $graveOwner) {
+        foreach(GetField($graveOwner) as $fieldObj) {
+            if(!$fieldObj->removed && $fieldObj->CardID === "vzmnt0orxj" && !HasNoAbilities($fieldObj)
+                    && IsGuoJiaBonus($graveOwner)) {
+                AddQuestCounters($graveOwner, 1);
+                break;
+            }
+        }
     }
 }
 
