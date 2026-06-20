@@ -4642,6 +4642,7 @@ function OnCardActivated($player, $mzCard) {
     $obj = GetZoneObject($mzCard);
     $cardType = CardType($obj->CardID);
     $turnPlayer = GetTurnPlayer();
+    ClearDamageSourcesDealtThisResolution();
     ClearResolvedActivationStateVars();
     $resolvedActivationEmpowerAmount = 0;
     $resolvedActivationWasEmpowered = "NO";
@@ -13131,6 +13132,7 @@ function ClearResolvedActivationStateVars() {
 
 global $systemDQHandlers;
 $systemDQHandlers["CardActivated_AfterAction"] = function($player, $param, $lastResult) {
+    ClearDamageSourcesDealtThisResolution();
     ClearResolvedActivationStateVars();
 };
 
@@ -22337,6 +22339,40 @@ function RemoveQuestCounters($player, $amount) {
     return true;
 }
 
+function ClearDamageSourcesDealtThisResolution() {
+    DecisionQueueController::ClearVariable("damageSourcesDealtThisResolution");
+}
+
+function GetDamageSourceResolutionKey($source, $player) {
+    if($source === null || $source === "" || $source === "-") return "";
+    $normalizedSource = strval($source);
+    if(is_string($source) && strpos($source, "-") !== false) {
+        $normalizedSource = ConvertMzIDToAbsolute($source, intval($player));
+    }
+    $sourceInfo = ResolveDamageSourceCardInfo($source, $player);
+    $sourceCardID = strval($sourceInfo["cardID"] ?? "");
+    $sourceController = intval($sourceInfo["controller"] ?? $player);
+    return $normalizedSource . "|" . $sourceController . "|" . $sourceCardID;
+}
+
+function HasDamageSourceDealtThisResolution($source, $player) {
+    $sourceKey = GetDamageSourceResolutionKey($source, $player);
+    if($sourceKey === "") return false;
+    $tracked = json_decode(DecisionQueueController::GetVariable("damageSourcesDealtThisResolution") ?? "[]", true);
+    if(!is_array($tracked)) return false;
+    return in_array($sourceKey, $tracked, true);
+}
+
+function MarkDamageSourceDealtThisResolution($source, $player) {
+    $sourceKey = GetDamageSourceResolutionKey($source, $player);
+    if($sourceKey === "") return;
+    $tracked = json_decode(DecisionQueueController::GetVariable("damageSourcesDealtThisResolution") ?? "[]", true);
+    if(!is_array($tracked)) $tracked = [];
+    if(in_array($sourceKey, $tracked, true)) return;
+    $tracked[] = $sourceKey;
+    DecisionQueueController::StoreVariable("damageSourcesDealtThisResolution", json_encode($tracked));
+}
+
 /**
  * Fabled Ruby Fatestone (mzf5dmpqbc): [Guo Jia Bonus] trigger check.
  * Whenever non-combat damage is dealt to a unit (ALLY or CHAMPION) by a fire element
@@ -22397,12 +22433,14 @@ function CheckRubyFatestoneQuestCounter($source, $isUnit, $player) {
     if($sourceElement === null || $sourceElement === "") return;
     if($sourceElement !== "FIRE") return;
     $sourceCtrl = intval($sourceInfo["controller"] ?? $player);
+    if(HasDamageSourceDealtThisResolution($source, $sourceCtrl)) return;
     $rubyZone = $sourceCtrl == $playerID ? "myField" : "theirField";
     foreach(GetZone($rubyZone) as $rubyObj) {
         if($rubyObj === null) continue;
         if(!$rubyObj->removed && $rubyObj->CardID === "mzf5dmpqbc" && !HasNoAbilities($rubyObj)
                 && IsGuoJiaBonus($sourceCtrl)) {
             AddQuestCounters($sourceCtrl, 1);
+            MarkDamageSourceDealtThisResolution($source, $sourceCtrl);
             break;
         }
     }

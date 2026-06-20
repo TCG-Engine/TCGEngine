@@ -1181,6 +1181,7 @@ $customDQHandlers["EffectStackOpponentResponse"] = function($player, $parts, $la
  */
 $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecision) {
     DecisionQueueController::StoreVariable("isImbued", "NO");
+    ClearDamageSourcesDealtThisResolution();
     ReconcileEffectStackSourceZones();
     ReconcileEffectStackImbued();
     DecisionQueueController::CleanupRemovedCards();
@@ -1256,6 +1257,7 @@ function ResolveTopOfEffectStack() {
     $playerID = $cardOwner;
     DecisionQueueController::StoreVariable("isImbued", $topIsImbued ? "YES" : "NO");
     DecisionQueueController::StoreVariable("ResolvingEffectStack", "YES");
+    ClearDamageSourcesDealtThisResolution();
 
     if($triggerType === "ENTER") {
         $cardID = $topObj->CardID ?? "";
