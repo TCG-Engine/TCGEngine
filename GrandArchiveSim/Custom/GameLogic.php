@@ -8241,9 +8241,13 @@ function BeforeRecollectionPhase() {
                     break;
                 case "mzf5dmpqbc": // Fabled Ruby Fatestone: deal 1 damage to each champion
                     if(!HasNoAbilities($field[$i]) && IsGuoJiaBonus($turnPlayer)) {
-                        DealChampionDamage(1, 1);
-                        DealChampionDamage(2, 1);
-                        AddQuestCounters($turnPlayer, 1);
+                        // Attribute the damage to Ruby itself so the follow-up quest trigger
+                        // doesn't inherit a stale source mzID from a prior materialize/activation.
+                        $rubySourceMZ = "myField-" . $i;
+                        $champOneMZ = FindChampionMZ(1);
+                        if($champOneMZ !== null) DealDamage($turnPlayer, $rubySourceMZ, $champOneMZ, 1);
+                        $champTwoMZ = FindChampionMZ(2);
+                        if($champTwoMZ !== null) DealDamage($turnPlayer, $rubySourceMZ, $champTwoMZ, 1);
                     }
                     break;
                 case "P7hHZBVScB": // Orb of Glitter: glimpse 1 during recollection
