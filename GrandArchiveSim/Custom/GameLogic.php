@@ -1181,10 +1181,9 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 SaveUndoVersion($playerID);
             }
-            // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $gyObj = GetZoneObject($actionCard);
-                if($gyObj !== null && !$gyObj->removed && IsPhantasmagoriaGYSuppressed($playerID, $gyObj->CardID)) {
+                if($gyObj !== null && !$gyObj->removed && IsGraveyardAbilitySuppressed($playerID, $gyObj->CardID)) {
                     break;
                 }
             }
@@ -16042,8 +16041,7 @@ function CanPayEphemerate($player, $cardID) {
     global $ephemerateCards, $playerID;
     $isMordredFated = MordredFatedEphemerateApplies($player, $cardID);
     if(!isset($ephemerateCards[$cardID]) && !$isMordredFated) return false;
-    // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
-    if(IsPhantasmagoriaGYSuppressed($player, $cardID)) return false;
+    if(IsGraveyardAbilitySuppressed($player, $cardID)) return false;
     // Condition check (e.g. Alice Bonus + Element Bonus for Maledictum Vitae)
     $config = $ephemerateCards[$cardID] ?? [];
     if(isset($config['condition']) && !$config['condition']($player)) return false;
@@ -17806,6 +17804,25 @@ function IsPhantasmagoriaGYSuppressed($player, $cardID) {
     return true;
 }
 
+function CenserOfRestfulPeaceActive() {
+    for($player = 1; $player <= 2; ++$player) {
+        $field = &GetField($player);
+        foreach($field as $fieldObj) {
+            if($fieldObj === null || $fieldObj->removed) continue;
+            if($fieldObj->CardID !== "0nlhgqpckq") continue;
+            if(HasNoAbilities($fieldObj)) continue;
+            return true;
+        }
+    }
+    return false;
+}
+
+function IsGraveyardAbilitySuppressed($player, $cardID) {
+    if(CenserOfRestfulPeaceActive()) return true;
+    if($player === null) return false;
+    return IsPhantasmagoriaGYSuppressed($player, $cardID);
+}
+
 /**
  * Virtual property callback for Mastery zone: sheen counter display badge.
  */
@@ -18660,10 +18677,7 @@ function TonorisCreationsWillActive($player) {
 }
 
 function HasFloatingMemory($obj) {
-    // Censer of Restful Peace (0nlhgqpckq): cards in graveyards lose all abilities (including floating memory)
-    if(ZoneContainsCardID("myField", "0nlhgqpckq") || ZoneContainsCardID("theirField", "0nlhgqpckq")) return false;
-    // Phantasmagoria: Non-Specter cards in your graveyard lose all abilities
-    if(isset($obj->Controller) && IsPhantasmagoriaGYSuppressed($obj->Controller, $obj->CardID)) return false;
+    if(IsGraveyardAbilitySuppressed($obj->Controller ?? null, $obj->CardID)) return false;
     if(HasKeyword_FloatingMemory($obj)) return true;
     if(isset($obj->Controller) && MordredFatedEphemerateApplies($obj->Controller, $obj->CardID)) return true;
     // Mordred (WI2owxIw0z): attack cards in graveyard have floating memory
@@ -18729,11 +18743,8 @@ function HasNoAbilities($obj) {
         $opponent = ($obj->Controller == 1) ? 2 : 1;
         if(GlobalEffectCount($opponent, "0sVdvpQKXq_MEMORY") > 0) return true;
     }
-    // Censer of Restful Peace (0nlhgqpckq): cards in graveyards lose all abilities
     if(isset($obj->Location) && $obj->Location === 'Graveyard') {
-        if(ZoneContainsCardID("myField", "0nlhgqpckq") || ZoneContainsCardID("theirField", "0nlhgqpckq")) {
-            return true;
-        }
+        if(IsGraveyardAbilitySuppressed($obj->Controller ?? null, $obj->CardID)) return true;
     }
     return false;
 }

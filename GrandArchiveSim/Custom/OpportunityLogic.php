@@ -912,7 +912,7 @@ function CanUseFastOpportunityGraveyardCard($player, $mzID, $obj) {
     if($obj === null || (isset($obj->removed) && $obj->removed)) return false;
     if(CardSpeed($obj->CardID) !== true) return false;
     if(!CanActivateOpportunityCard($player, $mzID, $obj)) return false;
-    if(IsPhantasmagoriaGYSuppressed($player, $obj->CardID)) return false;
+    if(IsGraveyardAbilitySuppressed($player, $obj->CardID)) return false;
 
     if($obj->CardID === "w7o3agvvnc") {
         return IsClassBonusActive($player, ["CLERIC", "MAGE"]) && CanPayRestChampionCost($player);
