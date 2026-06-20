@@ -2383,10 +2383,19 @@ $customDQHandlers["TonorisChooseObelisk"] = function($player, $parts, $lastDecis
 
 $customDQHandlers["SyntheticCoreChoice"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $fieldIndex = intval($parts[0]);
+    if(count($parts) < 2) return;
     $dyingCardID = $parts[1];
-    // Banish Synthetic Core
-    MZMove($player, "myField-" . $fieldIndex, "myBanish");
+    global $playerID;
+    $fieldZone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($fieldZone);
+    $banishedCore = false;
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || $field[$i]->CardID !== "w0y6isxy5l" || HasNoAbilities($field[$i])) continue;
+        OnLeaveField($player, $fieldZone . "-" . $i);
+        $banishedCore = MZMove($player, "myField-" . $i, "myBanish") !== null;
+        break;
+    }
+    if(!$banishedCore) return;
     DecisionQueueController::CleanupRemovedCards();
     // Return the dying ally from graveyard to memory
     $gy = GetZone("myGraveyard");

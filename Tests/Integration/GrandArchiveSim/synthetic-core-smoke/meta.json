@@ -1,0 +1,20 @@
+{
+  "name": "Synthetic Core Smoke",
+  "rootName": "GrandArchiveSim",
+  "createdAt": "2026-06-20T14:51:48.711Z",
+  "createdBy": "mcp",
+  "sourceTemplate": "play-from-hand/basic-hand-card",
+  "draft": true,
+  "draftGameName": "103",
+  "parameters": {
+    "name": "Synthetic Core Smoke",
+    "slug": "synthetic-core-smoke",
+    "champion": "b31x97n2jn",
+    "element": "fire",
+    "mastery": "-",
+    "handCard": "w0y6isxy5l"
+  },
+  "testedCards": [
+    "w0y6isxy5l"
+  ]
+}
