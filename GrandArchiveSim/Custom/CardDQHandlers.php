@@ -6424,6 +6424,7 @@ $customDQHandlers["MantleAbyssSacrifice"] = function($player, $parts, $lastDecis
         }
     }
     if($mantleMZ === null) return;
+    if(!CanPlayerUseCardElement($player, "1ubrwubSQN", false, false)) return;
     DoMaterialize($player, $mantleMZ);
 };
 $customDQHandlers["SablemereWardensGripFromMaterial"] = function($player, $parts, $lastDecision) {

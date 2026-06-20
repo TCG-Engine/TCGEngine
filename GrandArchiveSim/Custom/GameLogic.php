@@ -1718,7 +1718,8 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
                 if($mObj !== null && !$mObj->removed && $mObj->CardID === "1ubrwubSQN"
-                    && IsAliceBonusActive($playerID)) {
+                    && IsAliceBonusActive($playerID)
+                    && CanPlayerUseCardElement($playerID, $mObj->CardID, false, false)) {
                     $specterAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SPECTER"]);
                     if(!empty($specterAllies)) {
                         $targetStr = implode("&", $specterAllies);
@@ -15442,7 +15443,9 @@ function MaterialSelectionMetadata($obj) {
     }
 
     // Mantle of the Abyss (1ubrwubSQN): [Alice Bonus] sacrifice a Specter ally to activate from material deck
-    if ($obj->CardID === "1ubrwubSQN" && IsAliceBonusActive($turnPlayer)) {
+    if ($obj->CardID === "1ubrwubSQN"
+        && IsAliceBonusActive($turnPlayer)
+        && CanPlayerUseCardElement($turnPlayer, $obj->CardID, false, false)) {
         $specterAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["SPECTER"]);
         if (!empty($specterAllies)) {
             return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
