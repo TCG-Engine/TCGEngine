@@ -189,7 +189,7 @@ MAIN
 
 {"mzID":"myField-7","glimpseCount":"2","aethercallCandidates":"","glimpsedToTempZone":"0","amount":8,"ignoreCost":false,"mzIDCardID":"g31dg6zl3j","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"CombatDamageAmount":"2","source":"myField-4","target":"myField-4","selected":"theirField-2&theirField-0","ShimmeringRefractionFromMemory":"NO","chosenChampion":"theirField-1","doRest":"YES","chosen":"theirField-13","x":"8"}
 0
-{"DrawCalls":{"1":1},"Draw":{"1":1},"ActivateCardCalls":{"1":2},"ActivateCard":{"1":{"xyan7zbtxi":1,"b4jvyh23y1":1}},"RestCardCalls":{"1":4},"RestCard":{"1":{"5pw07bh5wf":3,"1d47o7eanl":1}},"CardActivatedCalls":{"1":2},"CardActivated":{"1":{"xyan7zbtxi":1,"b4jvyh23y1":1}},"EnterCalls":{"1":1,"2":3},"Enter":{"1":{"xyan7zbtxi":1},"2":{"rzk3mjblse":3}},"AdvancedElementActivated":{"1":2},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"g31dg6zl3j":1}},"DealDamageCalls":{"1":1}}
+{"DrawCalls":{"1":1},"Draw":{"1":1},"ActivateCardCalls":{"1":2},"ActivateCard":{"1":{"xyan7zbtxi":1,"b4jvyh23y1":1}},"RestCardCalls":{"1":4},"RestCard":{"1":{"5pw07bh5wf":3,"1d47o7eanl":1}},"CardActivatedCalls":{"1":2},"CardActivated":{"1":{"xyan7zbtxi":1,"b4jvyh23y1":1}},"EnterCalls":{"1":1,"2":3},"Enter":{"1":{"xyan7zbtxi":1},"2":{"rzk3mjblse":3}},"AdvancedElementActivated":{"1":2},"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"g31dg6zl3j":1}},"OnBanishCalls":{"1":3},"OnBanish":{"1":{"g31dg6zl3j":1,"d7l6i5thdy":1,"4moumzcx9z":1}},"DealDamageCalls":{"1":1}}
 61
-{"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"g31dg6zl3j":1}},"DealDamageCalls":{"1":1}}
+{"ActivateAbilityCalls":{"1":1},"ActivateAbility":{"1":{"g31dg6zl3j":1}},"OnBanishCalls":{"1":3},"OnBanish":{"1":{"g31dg6zl3j":1,"d7l6i5thdy":1,"4moumzcx9z":1}},"DealDamageCalls":{"1":1}}
 0

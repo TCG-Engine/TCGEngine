@@ -212,7 +212,7 @@ MAIN
 
 {"mzID":"theirField-0","amount":4,"ignoreCost":false,"mzIDCardID":"41t71u4bzz","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","glimpseCount":"3","aethercallCandidates":"","glimpsedToTempZone":"0","EffectStackEnterCardID":"","EffectStackEnterController":"","CombatDamageAmount":"3","source":"myField-1","target":"theirField-0","abilityIndex":0,"potionCardID":"bd7ozuj68m","chosen":"myHand-0","selected":"theirField-0&theirField-1&theirField-2&theirField-4&theirField-5&theirField-6&theirField-7&theirField-8","yes":"YES","chosenBud":"theirField-5","choice":"1","polarisAgeCount":4,"numGen":"4"}
 0
-{"MaterializeCalls":{"2":1},"Materialize":{"2":{"Bt9xeTum94":1}},"EnterCalls":{"2":2},"Enter":{"2":{"Bt9xeTum94":1,"yn78t73w1p":1}},"DrawCalls":{"2":1},"Draw":{"2":1},"ActivateAbilityCalls":{"2":1},"ActivateAbility":{"2":{"41t71u4bzz":1}},"DealDamageCalls":{"2":3},"AllyDestroyedCalls":{"2":3},"AllyDestroyed":{"2":{"xkzLY4vWMk":1,"kk39i1f0ht":2}}}
+{"MaterializeCalls":{"2":1},"Materialize":{"2":{"Bt9xeTum94":1}},"EnterCalls":{"2":2},"Enter":{"2":{"Bt9xeTum94":1,"yn78t73w1p":1}},"DrawCalls":{"2":1},"Draw":{"2":1},"ActivateAbilityCalls":{"2":1},"ActivateAbility":{"2":{"41t71u4bzz":1}},"OnBanishCalls":{"2":1},"OnBanish":{"2":{"41t71u4bzz":1}},"DealDamageCalls":{"2":3},"AllyDestroyedCalls":{"2":3},"AllyDestroyed":{"2":{"xkzLY4vWMk":1,"kk39i1f0ht":2}}}
 5
-{"ActivateAbilityCalls":{"2":1},"ActivateAbility":{"2":{"41t71u4bzz":1}},"DealDamageCalls":{"2":3},"AllyDestroyedCalls":{"2":3},"AllyDestroyed":{"2":{"xkzLY4vWMk":1,"kk39i1f0ht":2}}}
+{"ActivateAbilityCalls":{"2":1},"ActivateAbility":{"2":{"41t71u4bzz":1}},"OnBanishCalls":{"2":1},"OnBanish":{"2":{"41t71u4bzz":1}},"DealDamageCalls":{"2":3},"AllyDestroyedCalls":{"2":3},"AllyDestroyed":{"2":{"xkzLY4vWMk":1,"kk39i1f0ht":2}}}
 76

@@ -184,7 +184,7 @@ MAIN
 
 {"mzID":"theirField-0","amount":1,"ignoreCost":false,"mzIDCardID":"c4poa10ezw","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","pendingNegateTarget":"EffectStack-0","pendingNegateDestination":"banish","pendingNegatePayAmount":"2","CombatDamageAmount":"1","source":"myField-1","target":"theirField-0"}
 0
-{"MaterializeCalls":{"2":2},"Materialize":{"2":{"DpHDGaX2Pn":1,"Dz8I0eJzaf":1}},"EnterCalls":{"2":3},"Enter":{"2":{"DpHDGaX2Pn":1,"0xayo7mk1w":1,"Dz8I0eJzaf":1}},"DrawCalls":{"2":2},"Draw":{"2":2},"RestCardCalls":{"2":1},"RestCard":{"2":{"0xayo7mk1w":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"0xayo7mk1w":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"y547d3iixm":1}}}
+{"MaterializeCalls":{"2":2},"Materialize":{"2":{"DpHDGaX2Pn":1,"Dz8I0eJzaf":1}},"EnterCalls":{"2":3},"Enter":{"2":{"DpHDGaX2Pn":1,"0xayo7mk1w":1,"Dz8I0eJzaf":1}},"DrawCalls":{"2":2},"Draw":{"2":2},"RestCardCalls":{"2":1},"RestCard":{"2":{"0xayo7mk1w":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"0xayo7mk1w":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"y547d3iixm":1}},"OnBanishCalls":{"1":1},"OnBanish":{"1":{"y547d3iixm":1}}}
 0
-{"RestCardCalls":{"2":1},"RestCard":{"2":{"0xayo7mk1w":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"0xayo7mk1w":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"y547d3iixm":1}}}
+{"RestCardCalls":{"2":1},"RestCard":{"2":{"0xayo7mk1w":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"0xayo7mk1w":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"y547d3iixm":1}},"OnBanishCalls":{"1":1},"OnBanish":{"1":{"y547d3iixm":1}}}
 0

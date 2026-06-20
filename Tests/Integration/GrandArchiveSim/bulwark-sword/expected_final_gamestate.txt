@@ -196,7 +196,7 @@ MAIN
 
 {"mzID":"myField-2","amount":1,"ignoreCost":false,"mzIDCardID":"9ewgUjy34b","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","chosen":"myHand-1","CombatDamageAmount":"6","source":"myField-6","target":"myField-1","abilityIndex":0,"omen":"myBanish-11"}
 0
-{"DrawCalls":{"2":1},"Draw":{"2":1},"RestCardCalls":{"2":1},"RestCard":{"2":{"zhh43i1eaa":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"zhh43i1eaa":1}}}
+{"DrawCalls":{"2":1},"Draw":{"2":1},"RestCardCalls":{"2":1},"RestCard":{"2":{"zhh43i1eaa":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"zhh43i1eaa":1}},"OnBanishCalls":{"2":1},"OnBanish":{"2":{"8kmoi0a5uh":1}}}
 0
-{"RestCardCalls":{"2":1},"RestCard":{"2":{"zhh43i1eaa":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"zhh43i1eaa":1}},"ReserveCard":{"2":{"crv1etn4g3":1,"akmv2ssjhu":1}},"ReserveCardCommitted":{"2":{"crv1etn4g3":1,"akmv2ssjhu":1}},"ReserveActionCommitted":{"2":{"crv1etn4g3":1,"akmv2ssjhu":1}}}
+{"RestCardCalls":{"2":1},"RestCard":{"2":{"zhh43i1eaa":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"zhh43i1eaa":1}},"ReserveCard":{"2":{"crv1etn4g3":1,"akmv2ssjhu":1}},"ReserveCardCommitted":{"2":{"crv1etn4g3":1,"akmv2ssjhu":1}},"ReserveActionCommitted":{"2":{"crv1etn4g3":1,"akmv2ssjhu":1}},"OnBanishCalls":{"2":1},"OnBanish":{"2":{"8kmoi0a5uh":1}}}
 0

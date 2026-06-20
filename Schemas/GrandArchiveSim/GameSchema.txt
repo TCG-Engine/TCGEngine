@@ -18,6 +18,7 @@ Macro: Name=ActivateCard(mzID,ignoreCost); ChoiceFunction=DoActivateCard; Prereq
 Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=AllyDestroyed(mzID); ChoiceFunction=DoAllyDestroyed; Action={}
 Macro: Name=LeaveField(mzID); ChoiceFunction=OnLeaveField; Action={}
+Macro: Name=OnBanish(mzID); ChoiceFunction=OnBanishTrigger; Action={}
 Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
 Macro: Name=HandActivatedAbility(mzID,abilityIndex); ChoiceFunction=DoHandActivatedAbility; PrereqFunction=CanHandActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}

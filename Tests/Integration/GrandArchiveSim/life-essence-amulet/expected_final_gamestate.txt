@@ -189,7 +189,7 @@ MAIN
 
 {"mzID":"theirField-4","amount":1,"ignoreCost":false,"mzIDCardID":"xy5lh23qu7","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","chosen":"myField-0","CombatDamageAmount":"2","source":"myField-6","target":"theirField-4","abilityIndex":0}
 0
-{"DrawCalls":{"2":1,"1":1},"Draw":{"2":1,"1":1},"RestCardCalls":{"2":1},"RestCard":{"2":{"L67r0GlRHR":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"L67r0GlRHR":1}},"DealDamageCalls":{"1":1,"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"mu6gvnta6q":1}}}
+{"DrawCalls":{"2":1,"1":1},"Draw":{"2":1,"1":1},"RestCardCalls":{"2":1},"RestCard":{"2":{"L67r0GlRHR":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"L67r0GlRHR":1}},"DealDamageCalls":{"1":1,"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"mu6gvnta6q":1}},"OnBanishCalls":{"1":1},"OnBanish":{"1":{"1XegCUjBnY":1}}}
 0
-{"RestCardCalls":{"2":1},"RestCard":{"2":{"L67r0GlRHR":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"L67r0GlRHR":1}},"DealDamageCalls":{"1":1,"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"mu6gvnta6q":1}},"DrawCalls":{"1":1}}
+{"RestCardCalls":{"2":1},"RestCard":{"2":{"L67r0GlRHR":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"L67r0GlRHR":1}},"DealDamageCalls":{"1":1,"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"mu6gvnta6q":1}},"OnBanishCalls":{"1":1},"OnBanish":{"1":{"1XegCUjBnY":1}},"DrawCalls":{"1":1}}
 0

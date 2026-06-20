@@ -183,7 +183,7 @@ MAIN
 
 {"mzID":"myField-2","amount":1,"ignoreCost":false,"mzIDCardID":"pvxb5hrfsu","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","EffectStackEnterCardID":"","EffectStackEnterController":"","chosen":"myField-3","abilityIndex":0,"choice":"myField-2"}
 0
-{"ActivateCardCalls":{"1":1,"2":3},"ActivateCard":{"1":{"267kgpwjmc":1},"2":{"u68a4mwrg3":1,"a53rqmuqxf":1,"1n3gygojwk":1}},"CardActivatedCalls":{"1":1,"2":3},"CardActivated":{"1":{"267kgpwjmc":1},"2":{"u68a4mwrg3":1,"a53rqmuqxf":1,"1n3gygojwk":1}},"DrawCalls":{"2":4,"1":1},"Draw":{"2":4,"1":1},"MaterializeCalls":{"2":1},"Materialize":{"2":{"pvxb5hrfsu":1}},"EnterCalls":{"2":2},"Enter":{"2":{"pvxb5hrfsu":1,"a53rqmuqxf":1}},"ActivateAbilityCalls":{"2":1},"ActivateAbility":{"2":{"pvxb5hrfsu":1}}}
+{"ActivateCardCalls":{"1":1,"2":3},"ActivateCard":{"1":{"267kgpwjmc":1},"2":{"u68a4mwrg3":1,"a53rqmuqxf":1,"1n3gygojwk":1}},"CardActivatedCalls":{"1":1,"2":3},"CardActivated":{"1":{"267kgpwjmc":1},"2":{"u68a4mwrg3":1,"a53rqmuqxf":1,"1n3gygojwk":1}},"DrawCalls":{"2":4,"1":1},"Draw":{"2":4,"1":1},"MaterializeCalls":{"2":1},"Materialize":{"2":{"pvxb5hrfsu":1}},"EnterCalls":{"2":2},"Enter":{"2":{"pvxb5hrfsu":1,"a53rqmuqxf":1}},"ActivateAbilityCalls":{"2":1},"ActivateAbility":{"2":{"pvxb5hrfsu":1}},"OnBanishCalls":{"2":1},"OnBanish":{"2":{"pvxb5hrfsu":1}}}
 0
-{"ActivateAbilityCalls":{"2":1},"ActivateAbility":{"2":{"pvxb5hrfsu":1}}}
+{"ActivateAbilityCalls":{"2":1},"ActivateAbility":{"2":{"pvxb5hrfsu":1}},"OnBanishCalls":{"2":1},"OnBanish":{"2":{"pvxb5hrfsu":1}}}
 0

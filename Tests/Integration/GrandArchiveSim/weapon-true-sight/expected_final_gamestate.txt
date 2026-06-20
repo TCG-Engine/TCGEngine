@@ -184,7 +184,7 @@ MAIN
 
 {"mzID":"theirField-3","amount":1,"glimpseCount":"4","aethercallCandidates":"","glimpsedToTempZone":"0","ignoreCost":false,"mzIDCardID":"7Rsid05Cf6","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","target":"theirField-3","CombatDamageAmount":"4","source":"myField-4","abilityIndex":0}
 0
-{"MaterializeCalls":{"2":1},"Materialize":{"2":{"TJTeWcZnsQ":1}},"EnterCalls":{"2":1},"Enter":{"2":{"TJTeWcZnsQ":1}},"DrawCalls":{"2":2},"Draw":{"2":2},"ActivateCardCalls":{"2":4},"ActivateCard":{"2":{"7Rsid05Cf6":3,"CgyJxpEgzk":1}},"RestCardCalls":{"2":1},"RestCard":{"2":{"TJTeWcZnsQ":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"TJTeWcZnsQ":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"4s0c9XgLg7":1}}}
+{"MaterializeCalls":{"2":1},"Materialize":{"2":{"TJTeWcZnsQ":1}},"EnterCalls":{"2":1},"Enter":{"2":{"TJTeWcZnsQ":1}},"DrawCalls":{"2":2},"Draw":{"2":2},"ActivateCardCalls":{"2":4},"ActivateCard":{"2":{"7Rsid05Cf6":3,"CgyJxpEgzk":1}},"RestCardCalls":{"2":1},"RestCard":{"2":{"TJTeWcZnsQ":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"TJTeWcZnsQ":1}},"OnBanishCalls":{"2":1},"OnBanish":{"2":{"Dz8I0eJzaf":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"4s0c9XgLg7":1}}}
 14
-{"RestCardCalls":{"2":1},"RestCard":{"2":{"TJTeWcZnsQ":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"TJTeWcZnsQ":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"4s0c9XgLg7":1}},"DrawCalls":{"2":1}}
+{"RestCardCalls":{"2":1},"RestCard":{"2":{"TJTeWcZnsQ":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"TJTeWcZnsQ":1}},"OnBanishCalls":{"2":1},"OnBanish":{"2":{"Dz8I0eJzaf":1}},"DealDamageCalls":{"2":1},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"4s0c9XgLg7":1}},"DrawCalls":{"2":1}}
 0

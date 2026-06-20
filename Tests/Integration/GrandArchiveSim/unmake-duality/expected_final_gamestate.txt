@@ -184,7 +184,7 @@ MAIN
 
 {"mzID":"EffectStack-0","amount":2,"ignoreCost":false,"mzIDCardID":"uWLKGJz1GY","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO"}
 0
-{"ActivateCardCalls":{"1":2},"ActivateCard":{"1":{"uWLKGJz1GY":2}},"CardActivatedCalls":{"1":2},"CardActivated":{"1":{"uWLKGJz1GY":2}},"DrawCalls":{"1":1},"Draw":{"1":2}}
+{"ActivateCardCalls":{"1":2},"ActivateCard":{"1":{"uWLKGJz1GY":2}},"CardActivatedCalls":{"1":2},"CardActivated":{"1":{"uWLKGJz1GY":2}},"OnBanishCalls":{"1":1},"OnBanish":{"1":{"fln04uv297":1}},"DrawCalls":{"1":1},"Draw":{"1":2}}
 0
-{"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"uWLKGJz1GY":1}},"ReserveCard":{"1":{"hd0sxpu7cp":1,"jdog5yo5gg":1,"1db8hz4prm":1}},"ReserveCardCommitted":{"1":{"hd0sxpu7cp":1,"jdog5yo5gg":1,"1db8hz4prm":1}},"ReserveActionCommitted":{"1":{"hd0sxpu7cp":1,"jdog5yo5gg":1,"1db8hz4prm":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"uWLKGJz1GY":1}},"DrawCalls":{"1":1}}
+{"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"uWLKGJz1GY":1}},"OnBanishCalls":{"1":1},"OnBanish":{"1":{"fln04uv297":1}},"ReserveCard":{"1":{"hd0sxpu7cp":1,"jdog5yo5gg":1,"1db8hz4prm":1}},"ReserveCardCommitted":{"1":{"hd0sxpu7cp":1,"jdog5yo5gg":1,"1db8hz4prm":1}},"ReserveActionCommitted":{"1":{"hd0sxpu7cp":1,"jdog5yo5gg":1,"1db8hz4prm":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"uWLKGJz1GY":1}},"DrawCalls":{"1":1}}
 0

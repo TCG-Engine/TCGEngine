@@ -4414,6 +4414,45 @@ function BanishAfterAdd($player, $CardID="-", $TurnEffects="-", $Counters="-") {
             OnBanishedFromMemory($player, $CardID, $added);
         }
     }
+    $triggerPlayer = ResolveOnBanishTriggerPlayer($player, $added);
+    $triggerMzID = GetOnBanishTriggerMzID($added, $triggerPlayer);
+    $previousMzID = DecisionQueueController::GetVariable("mzID");
+    OnBanish($triggerPlayer, $triggerMzID);
+    if($previousMzID === null || $previousMzID === "") DecisionQueueController::ClearVariable("mzID");
+    else DecisionQueueController::StoreVariable("mzID", $previousMzID);
+}
+
+function GetOnBanishTriggerCardID($obj) {
+    if($obj === null || !is_object($obj) || !isset($obj->CardID)) return null;
+    if(isset($obj->_banishTriggerCardID) && $obj->_banishTriggerCardID !== "") {
+        return $obj->_banishTriggerCardID;
+    }
+    return $obj->CardID;
+}
+
+function ResolveOnBanishTriggerPlayer($fallbackPlayer, $obj) {
+    if($obj !== null && is_object($obj)) {
+        if(isset($obj->Controller) && intval($obj->Controller) > 0) return intval($obj->Controller);
+        if(isset($obj->Owner) && intval($obj->Owner) > 0) return intval($obj->Owner);
+        if(isset($obj->PlayerID) && intval($obj->PlayerID) > 0) return intval($obj->PlayerID);
+    }
+    return intval($fallbackPlayer);
+}
+
+function GetOnBanishTriggerMzID($obj, $triggerPlayer) {
+    if($obj === null || !is_object($obj) || !method_exists($obj, "GetMzID")) return "";
+    return $obj->GetMzID();
+}
+
+function OnBanishTrigger($player, $mzID) {
+    global $onBanishAbilities;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return;
+    $triggerCardID = GetOnBanishTriggerCardID($obj);
+    if($triggerCardID === null) return;
+    if(isset($onBanishAbilities[$triggerCardID . ":0"])) {
+        $onBanishAbilities[$triggerCardID . ":0"]($player);
+    }
 }
 
 function OnBanishedFromMemory($player, $cardID, $newObj) {
@@ -15765,6 +15804,23 @@ function EphemeralRedirectDest($obj, $defaultDest, $player) {
     return $defaultDest;
 }
 
+function GetDefaultOffFieldCardID($cardID) {
+    if($cardID === null || $cardID === "" || $cardID === "-") return $cardID;
+    if(!function_exists("CardUuid")) return $cardID;
+    if(CardUuid($cardID) === $cardID) return $cardID;
+
+    $visited = [];
+    $current = $cardID;
+    while($current !== null && $current !== "" && !isset($visited[$current])) {
+        $visited[$current] = true;
+        $current = CardOtherOrientation($current);
+        if($current === null || $current === "") break;
+        if(CardUuid($current) === $current) return $current;
+    }
+
+    return $cardID;
+}
+
 // ============================================================================
 // Regalia zone-replacement hooks (called by generated AddGraveyard / AddHand /
 // AddDeck / AddMemory via the schema AddReplacement directive).
@@ -15776,8 +15832,15 @@ function EphemeralRedirectDest($obj, $defaultDest, $player) {
 // ============================================================================
 
 function GraveyardAddReplacement($player, $CardID, $sourceObject) {
-    if(!PropertyContains(CardType($CardID), "REGALIA")) return null;
-    return AddBanish($player, $CardID, sourceObject: $sourceObject);
+    $offFieldCardID = GetDefaultOffFieldCardID($CardID);
+    if(!PropertyContains(CardType($offFieldCardID), "REGALIA")) return null;
+    $copiedSource = $sourceObject;
+    if($sourceObject !== null && is_object($sourceObject) && isset($sourceObject->CardID) && $sourceObject->CardID !== $offFieldCardID) {
+        $copiedSource = clone $sourceObject;
+        $copiedSource->_banishTriggerCardID = $sourceObject->CardID;
+        $copiedSource->CardID = $offFieldCardID;
+    }
+    return AddBanish($player, $offFieldCardID, sourceObject: $copiedSource);
 }
 
 function HandAddReplacement($player, $CardID, $sourceObject) {
