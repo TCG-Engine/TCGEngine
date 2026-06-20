@@ -5,874 +5,533 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Card Editor</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { box-sizing: border-box; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #1e1e1e;
-            color: #e0e0e0;
-            height: 100vh;
+            margin: 0;
+            min-height: 100vh;
             overflow: hidden;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #202124;
+            color: #e8eaed;
         }
-        
-        .container {
-            display: flex;
+        button, input, textarea, select {
+            font: inherit;
+        }
+        button {
+            border: 1px solid #4d5156;
+            background: #2f6f73;
+            color: #ffffff;
+            border-radius: 6px;
+            min-height: 34px;
+            padding: 7px 12px;
+            cursor: pointer;
+        }
+        button:hover { background: #368186; }
+        button.danger, .danger { background: #8a3a3a; }
+        button.danger:hover, .danger:hover { background: #a34747; }
+        input, textarea, select {
+            width: 100%;
+            background: #2b2c30;
+            color: #f1f3f4;
+            border: 1px solid #4d5156;
+            border-radius: 6px;
+            min-height: 34px;
+            padding: 7px 9px;
+        }
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+        label {
+            display: grid;
+            gap: 5px;
+            color: #bdc1c6;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        label span {
+            text-transform: none;
+            font-weight: 400;
+            color: #9aa0a6;
+        }
+        .app {
+            display: grid;
+            grid-template-columns: 190px 1fr;
             height: 100vh;
         }
-        
-        /* Left panel - Root selection and card list */
-        .left-panel {
-            width: 25%;
-            background: #252526;
-            border-right: 1px solid #3e3e42;
+        .nav {
+            background: #18191b;
+            border-right: 1px solid #3c4043;
             display: flex;
             flex-direction: column;
+            min-width: 0;
+        }
+        .brand {
+            padding: 18px 16px;
+            border-bottom: 1px solid #3c4043;
+        }
+        .brand strong {
+            display: block;
+            color: #ffffff;
+            font-size: 16px;
+        }
+        .brand span {
+            display: block;
+            color: #9aa0a6;
+            font-size: 12px;
+            margin-top: 4px;
             overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
-        
-        .panel-header {
-            padding: 15px;
-            background: #2d2d30;
-            border-bottom: 1px solid #3e3e42;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            color: #cccccc;
+        .nav button {
+            background: transparent;
+            border: 0;
+            border-radius: 0;
+            color: #bdc1c6;
+            min-height: 44px;
+            padding: 0 16px;
+            text-align: left;
         }
-        
-        .root-selector {
-            padding: 10px 15px;
-            background: #2d2d30;
-            border-bottom: 1px solid #3e3e42;
-        }
-        
-        .root-selector select {
-            width: 100%;
-            padding: 8px;
-            background: #3c3c3c;
-            color: #e0e0e0;
-            border: 1px solid #555555;
-            border-radius: 3px;
-            font-size: 13px;
-            cursor: pointer;
-        }
-        
-        .root-selector select:focus {
-            outline: none;
-            border-color: #0e639c;
-            box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
-        }
-        
-        .card-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px 0;
-        }
-        
-        .card-item {
-            padding: 10px 15px;
-            cursor: pointer;
-            border-left: 3px solid transparent;
-            transition: background 0.2s, border-color 0.2s;
-            font-size: 13px;
-            user-select: none;
-        }
-        
-        .card-item:hover {
-            background: #3c3c3c;
-        }
-        
-        .card-item.active {
-            background: #264f78;
-            border-left-color: #007acc;
+        .nav button:hover, .nav button.active {
+            background: #283f42;
             color: #ffffff;
         }
-        
-        .card-item-id {
-            font-weight: 500;
+        .main {
+            min-width: 0;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            height: 100vh;
         }
-        
-        .card-item-name {
-            font-size: 12px;
-            color: #858585;
-            margin-top: 2px;
-        }
-        
-        .card-item.active .card-item-name {
-            color: #c8e1f5;
-        }
-        
-        /* Right panel - Ability editor */
-        .right-panel {
-            flex: 1;
-            background: #1e1e1e;
+        .topbar {
+            min-height: 54px;
+            background: #242529;
+            border-bottom: 1px solid #3c4043;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 18px;
+        }
+        .topbar h1 {
+            font-size: 16px;
+            margin: 0;
+        }
+        #content {
+            min-height: 0;
             overflow: hidden;
         }
-        
-        .editor-wrapper {
-            display: flex;
+        .workbench, .template-workbench, .card-workbench, .ability-workbench {
             height: 100%;
-            gap: 20px;
-            padding: 20px;
+            min-height: 0;
+            display: grid;
+            gap: 1px;
+            background: #3c4043;
         }
-        
+        .two-column { grid-template-columns: minmax(260px, 34%) 1fr; }
+        .template-workbench { grid-template-columns: 230px 310px 1fr 250px; }
+        .card-workbench { grid-template-columns: 250px minmax(320px, 420px) 1fr; }
+        .ability-workbench { grid-template-columns: 280px 1fr; }
+        .pane {
+            background: #202124;
+            min-width: 0;
+            min-height: 0;
+            overflow: auto;
+            padding: 16px;
+        }
+        .pane.compact { padding: 12px; }
+        .pane-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        .pane-head.spaced { margin-top: 16px; }
+        .pane-head h2 {
+            margin: 0;
+            font-size: 15px;
+        }
+        .list {
+            display: grid;
+            gap: 6px;
+        }
+        .list.tight { gap: 4px; }
+        .list-row {
+            width: 100%;
+            display: grid;
+            gap: 3px;
+            text-align: left;
+            background: #292a2e;
+            border-color: #3c4043;
+        }
+        .list-row.active {
+            background: #315d60;
+            border-color: #5fb3b3;
+        }
+        .list-row strong {
+            color: #ffffff;
+            font-size: 13px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .list-row span {
+            color: #aeb4b9;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .stack-form {
+            display: grid;
+            gap: 12px;
+            max-width: 620px;
+        }
+        .stack-form.mini {
+            margin-top: 14px;
+            gap: 9px;
+        }
+        .button-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .summary-grid div {
+            border: 1px solid #3c4043;
+            border-radius: 6px;
+            padding: 14px;
+            background: #292a2e;
+        }
+        .summary-grid strong {
+            display: block;
+            font-size: 26px;
+        }
+        .summary-grid span {
+            color: #aeb4b9;
+            font-size: 12px;
+        }
+        .json-output {
+            width: 100%;
+            height: calc(100vh - 128px);
+            font-family: Consolas, monospace;
+            font-size: 12px;
+        }
+        .fields-list {
+            display: grid;
+            gap: 10px;
+        }
+        .field-row {
+            display: grid;
+            gap: 8px;
+            padding: 10px;
+            border: 1px solid #3c4043;
+            border-radius: 6px;
+            background: #292a2e;
+        }
+        .field-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        .canvas-pane {
+            padding: 0;
+            overflow: hidden;
+        }
+        .canvas-toolbar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 10px;
+            background: #242529;
+            border-bottom: 1px solid #3c4043;
+        }
+        .canvas-toolbar select {
+            width: 100px;
+        }
+        .canvas-scroll {
+            height: calc(100vh - 106px);
+            overflow: auto;
+            padding: 18px;
+        }
+        .canvas-scale, .preview-scale {
+            position: relative;
+            margin: 0 auto;
+        }
+        .template-canvas, .card-preview-canvas {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 16px 40px rgba(0,0,0,0.35);
+        }
+        .canvas-el, .preview-el {
+            position: absolute;
+            overflow: hidden;
+        }
+        .canvas-el {
+            border: 1px dashed #315d60;
+            background: rgba(95, 179, 179, 0.12);
+            color: #101314;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: move;
+        }
+        .canvas-el.selected {
+            border: 2px solid #d9ead3;
+            background: rgba(217, 234, 211, 0.25);
+        }
+        .canvas-el span {
+            background: rgba(255,255,255,0.75);
+            color: #111111;
+            padding: 2px 5px;
+            border-radius: 4px;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        .canvas-el i {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 16px;
+            height: 16px;
+            background: #d9ead3;
+            border-left: 1px solid #315d60;
+            border-top: 1px solid #315d60;
+            cursor: nwse-resize;
+        }
+        .inspector {
+            display: grid;
+            gap: 10px;
+        }
+        .inspector h3 {
+            margin: 0 0 2px;
+            font-size: 14px;
+        }
+        .preview-pane {
+            display: grid;
+            grid-template-rows: auto 1fr;
+        }
+        #cardPreviewHost {
+            overflow: auto;
+            min-height: 0;
+            padding: 12px;
+        }
+        .preview-el.image-el img {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+        .asset-line {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 6px;
+        }
+        .wide-select {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .inline-filter {
+            display: flex;
+            grid-template-columns: none;
+            align-items: center;
+            gap: 8px;
+            margin: 10px 0;
+            text-transform: none;
+            font-weight: 500;
+        }
+        .inline-filter input {
+            width: 16px;
+            min-height: 16px;
+        }
+        .editor-wrapper {
+            height: 100%;
+            display: flex;
+            gap: 20px;
+        }
         .card-image-sidebar {
             width: 200px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            flex-shrink: 0;
+            flex: 0 0 auto;
         }
-        
         .card-image-container {
             width: 100%;
             aspect-ratio: 5 / 7;
-            background: #252526;
-            border: 1px solid #3e3e42;
-            border-radius: 4px;
+            border: 1px solid #3c4043;
+            border-radius: 6px;
+            background: #292a2e;
             overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            color: #9aa0a6;
+            text-align: center;
+            padding: 10px;
         }
-        
-        .card-image-container.square {
-            aspect-ratio: 1 / 1;
-        }
-        
+        .card-image-container.square { aspect-ratio: 1 / 1; }
         .card-image-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
         }
-        
-        .card-image-container.empty {
-            color: #858585;
-            font-size: 12px;
-            text-align: center;
-            padding: 10px;
-        }
-        
         .editor-container {
+            flex: 1;
+            min-width: 0;
             display: flex;
             flex-direction: column;
-            flex: 1;
-            overflow: hidden;
         }
-        
-        .no-card-selected {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            color: #858585;
-            font-size: 16px;
-        }
-        
         .card-header {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #3e3e42;
-        }
-        
-        .card-info h2 {
-            font-size: 18px;
-            color: #ffffff;
-            margin-bottom: 4px;
-        }
-        
-        .card-info p {
-            font-size: 13px;
-            color: #858585;
-        }
-        
-        .save-button {
-            padding: 8px 20px;
-            background: #007acc;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            transition: background 0.2s;
-        }
-        
-        .save-button:hover {
-            background: #005a9e;
-        }
-        
-        .save-button:active {
-            background: #004578;
-        }
-        
-        .abilities-area {
-            flex: 1;
-            overflow-y: auto;
-            margin-bottom: 15px;
-        }
-        
-        .ability-editor {
-            background: #252526;
-            border: 1px solid #3e3e42;
-            border-radius: 4px;
-            padding: 15px;
+            gap: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #3c4043;
             margin-bottom: 12px;
-            position: relative;
         }
-        
+        .card-info h2 {
+            margin: 0 0 4px;
+            font-size: 18px;
+        }
+        .card-info p {
+            margin: 0;
+            color: #9aa0a6;
+            font-size: 12px;
+        }
+        .abilities-area {
+            overflow: auto;
+            flex: 1;
+            display: grid;
+            align-content: start;
+            gap: 12px;
+        }
+        .ability-editor {
+            border: 1px solid #3c4043;
+            border-radius: 6px;
+            background: #292a2e;
+            padding: 12px;
+        }
         .ability-header {
-            display: flex;
+            display: grid;
+            grid-template-columns: minmax(160px, 260px) 1fr auto auto;
             gap: 10px;
+            align-items: end;
             margin-bottom: 10px;
-            align-items: flex-end;
         }
-        
         .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-            flex: 1;
+            display: grid;
+            gap: 5px;
         }
-        
-        .form-group label {
-            font-size: 12px;
-            color: #858585;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-        
-        .form-group select,
-        .form-group input {
-            padding: 8px;
-            background: #3c3c3c;
-            color: #e0e0e0;
-            border: 1px solid #555555;
-            border-radius: 3px;
-            font-size: 13px;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #0e639c;
-            box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
-        }
-        
-        .code-editor {
-            width: 100%;
-            height: 150px;
-            padding: 10px;
-            background: #1e1e1e;
-            color: #e0e0e0;
-            border: 1px solid #555555;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            font-size: 12px;
-            line-height: 1.5;
-            resize: vertical;
-            margin-top: 8px;
-        }
-        
-        .code-editor:focus {
-            outline: none;
-            border-color: #0e639c;
-            box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
-        }
-        
-        .delete-btn {
-            padding: 6px 12px;
-            background: #d13438;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-            transition: background 0.2s;
-            align-self: flex-start;
-        }
-        
-        .delete-btn:hover {
-            background: #a1262f;
-        }
-        
-        .add-ability-btn {
-            padding: 10px 20px;
-            background: #2d8659;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            transition: background 0.2s;
-            align-self: flex-start;
-        }
-        
-        .add-ability-btn:hover {
-            background: #237648;
-        }
-        
-        .footer {
-            padding: 10px 20px;
-            background: #2d2d30;
-            border-top: 1px solid #3e3e42;
-            font-size: 12px;
-            color: #858585;
-        }
-        
-        .loading {
-            text-align: center;
-            padding: 20px;
-            color: #858585;
-        }
-        
-        .error-message {
-            background: #5f2c2c;
-            border: 1px solid #d13438;
-            color: #f48771;
-            padding: 10px 15px;
-            border-radius: 3px;
-            margin-bottom: 10px;
-            font-size: 13px;
-        }
-        
-        .success-message {
-            background: #2d5a3d;
-            border: 1px solid #2d8659;
-            color: #6ccf8e;
-            padding: 10px 15px;
-            border-radius: 3px;
-            margin-bottom: 10px;
-            font-size: 13px;
-        }
-        
-        .checkbox-group {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background: #2d2d30;
-            border-bottom: 1px solid #3e3e42;
-            margin-bottom: 10px;
-        }
-        
-        .checkbox-group input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-            accent-color: #007acc;
-        }
-        
-        .checkbox-group label {
-            cursor: pointer;
-            font-size: 13px;
-            color: #cccccc;
-            flex: 1;
-        }
-        
-        .checkbox-group input[type="checkbox"]:checked + label {
-            color: #007acc;
-        }
-        
         .inline-checkbox {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
         }
-        
-        .inline-checkbox input[type="checkbox"] {
-            width: 14px;
-            height: 14px;
-            cursor: pointer;
-            accent-color: #007acc;
+        .inline-checkbox input {
+            width: 16px;
+            min-height: 16px;
         }
-        
         .inline-checkbox label {
-            cursor: pointer;
-            font-size: 12px;
-            color: #cccccc;
-        }
-        
-        .inline-checkbox input[type="checkbox"]:checked + label {
-            color: #007acc;
-        }
-
-        .test-count-badge {
-            display: inline-block;
-            background: #2d6a4f;
-            color: #6fcf97;
-            font-size: 10px;
-            font-weight: 600;
-            padding: 1px 5px;
-            border-radius: 8px;
-            margin-left: 5px;
-            vertical-align: middle;
-            line-height: 14px;
-        }
-
-        .test-count-badge.zero {
-            background: #3a3a3a;
-            color: #666666;
-        }
-
-        .card-item.active .test-count-badge {
-            background: #1b4332;
-            color: #95d5b2;
-        }
-
-        .card-item.active .test-count-badge.zero {
-            background: #2a2a2a;
-            color: #555555;
-        }
-
-        .filter-section {
-            padding: 6px 15px;
-            background: #2d2d30;
-            border-bottom: 1px solid #3e3e42;
-        }
-
-        .filter-section label {
-            font-size: 11px;
-            color: #858585;
-            text-transform: uppercase;
-            font-weight: 600;
-            margin-bottom: 3px;
-            display: block;
-        }
-
-        .filter-section select {
-            width: 100%;
-            padding: 6px 8px;
-            background: #3c3c3c;
-            color: #e0e0e0;
-            border: 1px solid #555555;
-            border-radius: 3px;
-            font-size: 12px;
-            cursor: pointer;
-        }
-
-        .filter-section select:focus {
-            outline: none;
-            border-color: #0e639c;
-            box-shadow: 0 0 0 2px rgba(14, 99, 156, 0.2);
-        }
-
-        .refresh-button {
-            padding: 6px 10px;
-            background: #0e639c;
-            color: white;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
+            text-transform: none;
             font-weight: 500;
-            transition: background 0.2s, transform 0.2s;
-            line-height: 1;
         }
-
-        .refresh-button:hover {
-            background: #1177bb;
+        .code-editor {
+            width: 100%;
+            min-height: 150px;
+            font-family: Consolas, monospace;
+            font-size: 12px;
         }
-
-        .refresh-button:active {
-            background: #0d4f7f;
+        .footer {
+            color: #9aa0a6;
+            font-size: 12px;
+            padding-top: 10px;
         }
-
-        .refresh-button.refreshing {
-            animation: spin 1s linear infinite;
+        .empty-state, .loading {
+            color: #9aa0a6;
+            padding: 18px;
+            text-align: center;
         }
-
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
+        .page-empty {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .error-message, .success-message, .info-message {
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .error-message { background: #4f2525; color: #ffd6d6; border: 1px solid #8a3a3a; }
+        .success-message { background: #1f4a3d; color: #d9ead3; border: 1px solid #2f6f73; }
+        .info-message { background: #263d4c; color: #d7ecff; border: 1px solid #3f647a; }
+        .toast {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            max-width: 360px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            background: #1f4a3d;
+            color: #ffffff;
+            opacity: 0;
+            transform: translateY(8px);
+            pointer-events: none;
+            transition: opacity 0.16s, transform 0.16s;
+            z-index: 20;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .toast.error { background: #8a3a3a; }
+        .toast.info { background: #3f647a; }
+        @media (max-width: 1100px) {
+            .template-workbench { grid-template-columns: 220px 280px 1fr; }
+            .inspector-pane { display: none; }
+            .card-workbench { grid-template-columns: 230px 1fr; }
+            .preview-pane { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Left Panel: Root Selection and Card List -->
-        <div class="left-panel">
-            <div class="panel-header">Root Selection</div>
-            
-            <div class="root-selector">
-                <select id="rootSelect" onchange="onRootChanged()">
-                    <option value="">-- Select a Root --</option>
-                </select>
+    <div class="app">
+        <nav class="nav">
+            <div class="brand">
+                <strong>Card Editor</strong>
+                <span id="contextLabel">Loading</span>
             </div>
-            
-            <div class="panel-header" style="flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center;">
-                <span>Cards</span>
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <button id="refreshBtn" class="refresh-button" title="Refresh card list" onclick="refreshCardList()" style="display: none;">↻</button>
-                    <div class="inline-checkbox">
-                        <input type="checkbox" id="hideImplemented" onchange="onFilterChanged()" />
-                        <label for="hideImplemented" title="Hide implemented cards">Unimpl. only</label>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="filter-section" id="setFilterSection" style="display: none;">
-                <label for="setFilter">Card Set</label>
-                <select id="setFilter" onchange="onFilterChanged()">
-                    <option value="">All Sets</option>
-                </select>
-            </div>
-
-            <div class="card-list" id="cardList">
-                <div class="loading">Loading roots...</div>
-            </div>
-        </div>
-        
-        <!-- Right Panel: Ability Editor -->
-        <div class="right-panel">
-            <div id="editorArea" class="editor-wrapper">
-                <div class="no-card-selected">
-                    Select a root and card to begin editing
-                </div>
-            </div>
-        </div>
+            <button data-screen="games">Games</button>
+            <button data-screen="templates">Templates</button>
+            <button data-screen="sets">Sets</button>
+            <button data-screen="cards">Cards</button>
+            <button data-screen="export">Export</button>
+            <button data-screen="abilities">Abilities</button>
+        </nav>
+        <main class="main">
+            <header class="topbar">
+                <h1>Card and Set Authoring</h1>
+            </header>
+            <div id="content"></div>
+        </main>
     </div>
-    
+    <div id="toast" class="toast"></div>
+
     <script src="AbilityEditor.js"></script>
-    <script>
-        // Per-root filter configuration (hardcoded per game)
-        const ROOT_FILTER_CONFIG = {
-            'GrandArchiveSim': { setFilter: true }
-        };
-
-        // Track which roots have had their generated dicts loaded
-        const loadedDictScripts = {};
-
-        // Dynamically load GeneratedCardDictionaries script for a root
-        async function loadGeneratedDicts(rootName) {
-            if (loadedDictScripts[rootName]) return true;
-            try {
-                const res = await fetch(`../API/GetGeneratedDictPath.php?root=${encodeURIComponent(rootName)}`);
-                const data = await res.json();
-                if (!data.success) return false;
-                return new Promise((resolve) => {
-                    const script = document.createElement('script');
-                    script.src = data.path;
-                    script.onload = () => { loadedDictScripts[rootName] = true; resolve(true); };
-                    script.onerror = () => resolve(false);
-                    document.head.appendChild(script);
-                });
-            } catch (e) {
-                return false;
-            }
-        }
-
-        // Show/hide and populate the set filter for a given root
-        function updateSetFilter(rootName) {
-            const config = ROOT_FILTER_CONFIG[rootName];
-            const section = document.getElementById('setFilterSection');
-            const select = document.getElementById('setFilter');
-
-            if (config && config.setFilter) {
-                section.style.display = '';
-                // Gather unique sets from all card IDs in this root
-                const cards = (window.availableRoots || {})[rootName] || {};
-                const cardIds = Object.keys(cards);
-                const sets = new Set();
-                cardIds.forEach(cardId => {
-                    if (typeof Cardset === 'function') {
-                        const s = Cardset(cardId);
-                        if (s) sets.add(s);
-                    }
-                });
-                // Rebuild options
-                select.innerHTML = '<option value="">All Sets</option>';
-                [...sets].sort().forEach(setName => {
-                    const opt = document.createElement('option');
-                    opt.value = setName;
-                    opt.textContent = setName;
-                    select.appendChild(opt);
-                });
-            } else {
-                section.style.display = 'none';
-                select.value = '';
-            }
-        }
-
-        // Initialize the application
-        document.addEventListener('DOMContentLoaded', initializeApp);
-        
-        async function initializeApp() {
-            try {
-                // Load roots from backend
-                const response = await fetch('../API/GetRoots.php');
-                const data = await response.json();
-                
-                if (!data.success || !data.roots) {
-                    throw new Error(data.error || 'Failed to load roots');
-                }
-                
-                // Populate root selector
-                const rootSelect = document.getElementById('rootSelect');
-                const roots = Object.keys(data.roots).sort();
-                
-                roots.forEach(rootName => {
-                    const option = document.createElement('option');
-                    option.value = rootName;
-                    option.textContent = rootName;
-                    rootSelect.appendChild(option);
-                });
-                
-                // Store roots globally for later use
-                window.availableRoots = data.roots;
-                
-            } catch (error) {
-                document.getElementById('cardList').innerHTML = 
-                    `<div class="loading error-message">Error: ${error.message}</div>`;
-            }
-        }
-        
-        async function onRootChanged() {
-            // Reset filters when changing root
-            document.getElementById('hideImplemented').checked = false;
-            document.getElementById('setFilter').value = '';
-
-            const rootName = document.getElementById('rootSelect').value;
-            const config = ROOT_FILTER_CONFIG[rootName];
-
-            // Show/hide refresh button based on root selection
-            document.getElementById('refreshBtn').style.display = rootName ? 'block' : 'none';
-
-            // Load generated dictionaries and populate set filter if needed
-            if (config && config.setFilter) {
-                await loadGeneratedDicts(rootName);
-                updateSetFilter(rootName);
-            } else {
-                updateSetFilter(rootName);
-            }
-
-            populateCardList();
-        }
-        
-        function onFilterChanged() {
-            populateCardList();
-        }
-        
-        function populateCardList() {
-            const rootSelect = document.getElementById('rootSelect');
-            const selectedRoot = rootSelect.value;
-            const cardList = document.getElementById('cardList');
-            const hideImplemented = document.getElementById('hideImplemented').checked;
-            const selectedSet = document.getElementById('setFilter').value;
-            
-            if (!selectedRoot) {
-                cardList.innerHTML = '<div class="loading">Select a root</div>';
-                clearEditor();
-                return;
-            }
-            
-            const cards = window.availableRoots[selectedRoot] || {};
-            let cardIds = Object.keys(cards).sort();
-            
-            // Apply unimplemented filter if needed
-            if (hideImplemented) {
-                cardIds = cardIds.filter(cardId => {
-                    const cardData = cards[cardId];
-                    // Handle both old format (string) and new format (object with isImplemented)
-                    if (typeof cardData === 'object' && cardData.isImplemented !== undefined) {
-                        return !cardData.isImplemented;
-                    }
-                    return true; // If no implementation data, show the card
-                });
-            }
-
-            // Apply set filter if one is selected (GrandArchiveSim and similar)
-            if (selectedSet && typeof Cardset === 'function') {
-                cardIds = cardIds.filter(cardId => Cardset(cardId) === selectedSet);
-            }
-            
-            if (cardIds.length === 0) {
-                cardList.innerHTML = '<div class="loading">No cards found</div>';
-                clearEditor();
-                return;
-            }
-            
-            // Clear previous selection and populate card list
-            cardList.innerHTML = '';
-            cardIds.forEach((cardId, index) => {
-                const cardItem = document.createElement('div');
-                cardItem.className = 'card-item' + (index === 0 ? ' active' : '');
-                const cardData = cards[cardId];
-                const displayName = typeof cardData === 'object' ? cardData.cardId : cardData;
-                const isImplemented = typeof cardData === 'object' ? cardData.isImplemented : false;
-                const testCount = typeof cardData === 'object' ? (cardData.testCount || 0) : 0;
-                const statusBadge = isImplemented ? ' ✓' : '';
-                const testBadgeClass = testCount === 0 ? 'test-count-badge zero' : 'test-count-badge';
-                const testBadgeLabel = testCount === 1 ? '1 test' : `${testCount} tests`;
-                const testBadge = `<span class="${testBadgeClass}">${testBadgeLabel}</span>`;
-                cardItem.innerHTML = `
-                    <div class="card-item-id">${displayName}${statusBadge}${testBadge}</div>
-                `;
-                cardItem.onclick = () => onCardSelected(selectedRoot, cardId, cardItem);
-                cardList.appendChild(cardItem);
-            });
-            
-            // Auto-select first card
-            if (cardIds.length > 0) {
-                const firstItem = cardList.querySelector('.card-item');
-                onCardSelected(selectedRoot, cardIds[0], firstItem);
-            }
-        }
-        
-        function onRootChanged_OLD() {
-            const rootSelect = document.getElementById('rootSelect');
-            const selectedRoot = rootSelect.value;
-            const cardList = document.getElementById('cardList');
-            
-            if (!selectedRoot) {
-                cardList.innerHTML = '<div class="loading">Select a root</div>';
-                clearEditor();
-                return;
-            }
-            
-            const cards = window.availableRoots[selectedRoot] || {};
-            const cardIds = Object.keys(cards).sort();
-            
-            if (cardIds.length === 0) {
-                cardList.innerHTML = '<div class="loading">No cards found</div>';
-                clearEditor();
-                return;
-            }
-            
-            // Clear previous selection and populate card list
-            cardList.innerHTML = '';
-            cardIds.forEach((cardId, index) => {
-                const cardItem = document.createElement('div');
-                cardItem.className = 'card-item' + (index === 0 ? ' active' : '');
-                cardItem.innerHTML = `
-                    <div class="card-item-id">${cardId}</div>
-                    <div class="card-item-name">${cards[cardId]}</div>
-                `;
-                cardItem.onclick = () => onCardSelected(selectedRoot, cardId);
-                cardList.appendChild(cardItem);
-            });
-            
-            // Auto-select first card
-            if (cardIds.length > 0) {
-                onCardSelected(selectedRoot, cardIds[0]);
-            }
-        }
-        
-        function onCardSelected(rootName, cardId, cardItem) {
-            // Update active card in list
-            document.querySelectorAll('.card-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            if (cardItem) {
-                cardItem.classList.add('active');
-            }
-            
-            // Load and display editor
-            window.currentRoot = rootName;
-            window.currentCard = cardId;
-            showEditor(rootName, cardId);
-        }
-        
-        function clearEditor() {
-            document.getElementById('editorArea').innerHTML = `
-                <div class="no-card-selected">
-                    Select a root and card to begin editing
-                </div>
-            `;
-        }
-        
-        async function showEditor(rootName, cardId) {
-            try {
-                // Load abilities for this card
-                const response = await fetch(`../API/LoadAbilities.php?root=${encodeURIComponent(rootName)}&card=${encodeURIComponent(cardId)}`);
-                const data = await response.json();
-                
-                if (!data.success) {
-                    throw new Error(data.error || 'Failed to load abilities');
-                }
-                
-                // Load macros for this root
-                const macrosResponse = await fetch(`../API/GetMacros.php?root=${encodeURIComponent(rootName)}`);
-                const macrosData = await macrosResponse.json();
-                
-                if (!macrosData.success) {
-                    throw new Error(macrosData.error || 'Failed to load macros');
-                }
-                
-                // Load asset path (for asset reflection support)
-                const assetResponse = await fetch(`../API/GetAssetPath.php?root=${encodeURIComponent(rootName)}`);
-                const assetData = await assetResponse.json();
-                const assetPath = assetData.success ? assetData.assetPath : rootName;
-                
-                window.currentMacros = macrosData.macros || [];
-                
-                // Render the editor UI
-                renderEditor(rootName, cardId, data.abilities || [], assetPath);
-                
-            } catch (error) {
-                document.getElementById('editorArea').innerHTML = `
-                    <div class="editor-container">
-                        <div class="error-message">Error: ${error.message}</div>
-                    </div>
-                `;
-            }
-        }
-        
-        function renderEditor(rootName, cardId, abilities, assetPath) {
-            const editor = new AbilityEditor(rootName, cardId, window.currentMacros, abilities, assetPath);
-            editor.render();
-        }
-        
-        async function refreshCardList() {
-            const refreshBtn = document.getElementById('refreshBtn');
-            const rootSelect = document.getElementById('rootSelect');
-            const selectedRoot = rootSelect.value;
-            
-            if (!selectedRoot) return;
-            
-            try {
-                // Show loading state
-                refreshBtn.classList.add('refreshing');
-                refreshBtn.disabled = true;
-                
-                // Re-fetch roots from backend
-                const response = await fetch('../API/GetRoots.php');
-                const data = await response.json();
-                
-                if (!data.success || !data.roots) {
-                    throw new Error(data.error || 'Failed to refresh cards');
-                }
-                
-                // Update global roots data
-                window.availableRoots = data.roots;
-                
-                // Re-populate the card list with preserved filters
-                populateCardList();
-                
-            } catch (error) {
-                document.getElementById('cardList').innerHTML = 
-                    `<div class="loading error-message">Error: ${error.message}</div>`;
-            } finally {
-                // Hide loading state
-                refreshBtn.classList.remove('refreshing');
-                refreshBtn.disabled = false;
-            }
-        }
-    </script>
+    <script src="ApiClient.js"></script>
+    <script src="PreviewRenderer.js"></script>
+    <script src="AssetPicker.js"></script>
+    <script src="GameScreen.js"></script>
+    <script src="SetScreen.js"></script>
+    <script src="TemplateCanvas.js"></script>
+    <script src="TemplateScreen.js"></script>
+    <script src="CardScreen.js"></script>
+    <script src="ExportScreen.js"></script>
+    <script src="AppShell.js"></script>
 </body>
 </html>
