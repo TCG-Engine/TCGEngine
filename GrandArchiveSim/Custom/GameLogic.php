@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $debugMode = true;
 $customDQHandlers = [];
@@ -2179,6 +2179,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasSlimeKingCost            = false;
     $hasInnervateAgilityCost     = false;
     $hasGoldenGambitCost         = false;
+    $hasDecomposeCost            = false;
     $hasArgusReserveAltCost      = false;
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
@@ -2221,6 +2222,17 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             $hasGoldenGambitCost = true;
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_a_Chessman_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "GoldenGambitActivationCost|" . $reserveCost, 100);
+        }
+    }
+
+    // 1.3 Declaring Costs - Decompose (3JWk1jxX5u): sacrifice an ally, then gather based on its life stat
+    if($obj->CardID === "3JWk1jxX5u" && !$ignoreCost) {
+        $targets = ZoneSearch("myField", ["ALLY"]);
+        if(!empty($targets)) {
+            $hasDecomposeCost = true;
+            DecisionQueueController::ClearVariable("decomposeSacrificeLife");
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_an_ally");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "DecomposeActivationCost|" . $reserveCost, 100);
         }
     }
 
@@ -2569,7 +2581,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasArgusReserveAltCost && !$hasOverlordPowercellCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasOverlordPowercellCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2650,6 +2662,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // reserve payments, and EffectStackOpportunity.
     // When $hasOverlordPowercellCost is true, OverlordSacrifice handles the
     // four Powercell sacrifices, reserve payments, and EffectStackOpportunity.
+    // When $hasDecomposeCost is true, DecomposeActivationCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
     // When $hasSongOfFrostAltCost is true, SongOfFrostAltCost handler queues its own
     // reserve/banish + EffectStackOpportunity.
     // When $hasBrewAltCost is true, DeclareBrew handler queues herb sacrifice or
@@ -3851,6 +3865,26 @@ $customDQHandlers["InnervateAgilityActivationCost"] = function($player, $parts, 
 $customDQHandlers["GoldenGambitActivationCost"] = function($player, $parts, $lastDecision) {
     $reserveCost = intval($parts[0] ?? 0);
     if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+/**
+ * DQ handler: Decompose (3JWk1jxX5u) mandatory activation cost.
+ * Sacrifice the chosen ally, store its life stat for resolution, then pay reserve.
+ * Parts: [reserveCost].
+ */
+$customDQHandlers["DecomposeActivationCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0] ?? 0);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $allyObj = GetZoneObject($lastDecision);
+    $life = ($allyObj !== null) ? max(1, intval(CardLife($allyObj->CardID))) : 1;
+    DecisionQueueController::StoreVariable("decomposeSacrificeLife", strval($life));
     DoSacrificeFighter($player, $lastDecision);
     DecisionQueueController::CleanupRemovedCards();
     DecisionQueueController::StoreVariable("additionalCostPaid", "YES");
