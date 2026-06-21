@@ -6505,7 +6505,9 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
                 $abilityCount = CardActivateAbilityCount($fObj->CardID);
                 for($ai = 0; $ai < $abilityCount; ++$ai) {
                     if($selectedAbilityIndex == $dynIndex) {
-                        $customDQHandlers["AbilityActivated"]($player, [$fObj->CardID, $ai], null);
+                        ActivatedAbilityCost($player, $mzCard, $fObj->CardID, $ai);
+                        // Queue copied ability after copied costs resolve on Cheshire itself.
+                        DecisionQueueController::AddDecision($player, "CUSTOM", "AbilityActivated|{$fObj->CardID}|$ai", 101, "", 1);
                         $handledDynamic = true;
                         break 2;
                     }
