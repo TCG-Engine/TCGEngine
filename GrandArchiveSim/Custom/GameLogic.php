@@ -15180,6 +15180,8 @@ $backendOnlyTurnEffects = [
     "CHAMP_DMG_BY_P2",
     "XUCHANG_COST_INCREASE",
     "OBSEQUIOUS_BLOW_COST",
+    "DISTANT",
+    "RANGED_4"
 ];
 
 function CardCurrentEffects($obj) {
