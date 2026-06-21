@@ -18992,6 +18992,21 @@ function HasGrantedKeyword($obj, $keyword) {
     return in_array($keyword, $obj->Counters['_overrides']['granted_keywords']);
 }
 
+function IsFracturizedObject($obj) {
+    if($obj === null) return false;
+    if(!isset($obj->Counters['_overrides']) || !is_array($obj->Counters['_overrides'])) return false;
+    $overrides = $obj->Counters['_overrides'];
+    if(!empty($overrides['FRACTURIZED'])) return true;
+
+    $grantedKeywords = $overrides['granted_keywords'] ?? [];
+    return ($overrides['type'] ?? null) === 'PHANTASIA'
+        && ($overrides['subtypes'] ?? null) === 'CLERIC,FRACTAL'
+        && ($overrides['classes'] ?? null) === 'CLERIC'
+        && !empty($overrides['NO_ABILITIES'])
+        && is_array($grantedKeywords)
+        && in_array('Reservable', $grantedKeywords);
+}
+
 function MaryAnnOmensHaveKeyword($obj, $keyword) {
     if($obj->CardID !== "mt5zs1w6c0") return false;
     foreach(GetOmens($obj->Controller) as $omenObj) {
@@ -19421,6 +19436,10 @@ function FieldHasTaunt($obj) {
 function FieldHasBrewed($obj) {
     if(GetCounterCount($obj, "brewed") > 0) return 1;
     return 0;
+}
+
+function FieldHasFracturized($obj) {
+    return IsFracturizedObject($obj) ? 1 : 0;
 }
 
 // Siegeable: domain subtype that allows being attacked. Damage removes durability counters.
