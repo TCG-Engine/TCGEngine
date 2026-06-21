@@ -6494,7 +6494,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
         }
 
         // Cheshire Cat, Impish Grin (cUltOcPo26): has activated abilities of Distortion regalia you control
-        if(!$handledDynamic && $cardID === "cUltOcPo26" && $sourceObject->Status == 2) {
+        if(!$handledDynamic && $cardID === "cUltOcPo26") {
             global $playerID;
             $zone = $sourceObject->Controller == $playerID ? "myField" : "theirField";
             $field = GetZone($zone);
@@ -15015,7 +15015,10 @@ function CardHasAbility($obj) {
     $hasAbility = ($staticCount > 0 || $hasDynamic);
     if(!$hasAbility) return 0;
     if($controller === null || $turnPlayer != $controller) return 0;
-    if(!$isIntentObject && isset($obj->Status) && $obj->Status != 2) return 0;
+    if(!$isIntentObject && isset($obj->Status) && $obj->Status != 2) {
+        // Cheshire Cat can still retain copied activated abilities while rested.
+        if($obj->CardID !== "cUltOcPo26" || GetDynamicAbilities($obj) === "") return 0;
+    }
 
     // Cunning Broker (oy34bro89w): requires 2+ prep counters on champion
     if($obj->CardID === "oy34bro89w") {
@@ -21576,7 +21579,7 @@ function GetDynamicAbilities($obj) {
         }
     }
     // Cheshire Cat, Impish Grin (cUltOcPo26): has activated abilities of Distortion regalia you control
-    if($obj->CardID === "cUltOcPo26" && $obj->Status == 2) {
+    if($obj->CardID === "cUltOcPo26") {
         global $playerID;
         $zone = $obj->Controller == $playerID ? "myField" : "theirField";
         $field = GetZone($zone);
