@@ -24,12 +24,28 @@
         --swu-hand-h:       118px;
         --swu-pile-w:       88px;
 
-        --swu-log-phase:     #9b59b6;
-        --swu-log-overwhelm: #e05050;
-        --swu-log-reveal:    #f0c040;
+        /* ── Game-log palette — ONE var per log type (single source of truth). ──
+           Tune a type's color here; every .swu-log-<TYPE> rule below reads its var.
+           Types pointing at --swu-log-default are currently un-tinted (no visual
+           change) but are wired so they can be given a color later in one place. */
+        --swu-log-default:    rgba(255,255,255,0.78);
+        --swu-log-phase:      #9b59b6;
+        --swu-log-overwhelm:  #e05050;
+        --swu-log-reveal:     #f0c040;
+        --swu-log-disclose:   var(--swu-log-reveal); /* disclose IS a reveal — share its color */
+        --swu-log-ability:    var(--swu-log-default);
+        --swu-log-play:       var(--swu-log-default);
+        --swu-log-draw:       var(--swu-log-default);
+        --swu-log-discard:    var(--swu-log-default);
+        --swu-log-defeat:     var(--swu-log-default);
+        --swu-log-attack:     var(--swu-log-default);
+        --swu-log-resource:   var(--swu-log-default);
+        --swu-log-namecard:   var(--swu-log-default);
+        --swu-log-pass:       var(--swu-log-default);
+        --swu-log-initiative: var(--swu-log-default);
 
-        /* 110px reserved on the left for the resource badge */
-        --swu-res-badge-w:  110px;
+        /* reserved on the left for the resource badge — sized to the badge's contents */
+        --swu-res-badge-w:  78px;
 
         /* Arena column width: (board - res-badge - center - 2×gap) / 2 */
         --swu-col-w: calc((var(--swu-board-w) - var(--swu-res-badge-w) - var(--swu-center-w) - 20px) / 2);
@@ -224,6 +240,15 @@
         transition: box-shadow 0.3s ease, border-color 0.3s ease;
     }
 
+    /* Credit-token count ("+ N") in the resource badge — gold, CR 3.13 */
+    .swu-credit-count {
+        color: #f2c14e;
+        font-weight: 700;
+        text-shadow: 0 0 4px rgba(242,193,78,0.55);
+        cursor: help;
+        margin-left: 2px;
+    }
+
     /* Per-card Smuggle-available glow inside the resource slot */
     #myResourcesSlot .smuggle-available {
         box-shadow: 0 0 10px 2px rgba(60,220,90,0.65), 0 0 3px 1px rgba(60,220,90,0.35);
@@ -302,10 +327,24 @@
         background: var(--swu-surface); overflow: visible; position: relative;
     }
 
+    /* ── The Force token — top-right of a player's base (mirror of the bottom-right
+          Epic-Action-Used token). Fades in when gained, out when used. ─────────── */
+    .swu-force-token {
+        position: absolute;
+        top: 4px; right: 4px;
+        width: 30px; height: 30px;
+        z-index: 60;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.55s ease;
+        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.7));
+    }
+    .swu-force-token.is-visible { opacity: 1; }
+
     /* ── Resource badge — anchored to hand edge (bottom-left / top-left) ──────── */
     .swu-res-badge {
         position: fixed; z-index: 37; pointer-events: auto;
-        width: 110px;
+        width: var(--swu-res-badge-w);
         display: flex; flex-direction: column; align-items: stretch; gap: 0;
         background: rgba(8,12,18,0.90);
         border: 1px solid var(--swu-border); border-radius: 10px;
@@ -314,22 +353,21 @@
     #swuMyResBadge    { bottom: 0; left: 0; border-bottom: none; border-left: none; border-radius: 0 10px 0 0; }
     #swuTheirResBadge { top: 0;    left: 0; border-top: none; border-left: none; border-radius: 0 0 10px 0; }
 
-    .swu-res-badge-label {
-        padding: 5px 8px 2px;
-        font: 700 8px/1 var(--swu-font-label); letter-spacing: 0.18em;
-        text-transform: uppercase; color: rgba(255,255,255,0.35); }
-
     .swu-res-badge-btn {
-        display: flex; align-items: center; justify-content: center; gap: 6px;
-        padding: 6px 10px 7px;
+        display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 5px;
+        padding: 6px 8px 8px;
         background: transparent; border: none;
-        color: rgba(255,255,255,0.85); cursor: default;
+        color: rgba(255,255,255,0.88); cursor: default;
         font: 700 14px/1 var(--swu-font-ui);
+        white-space: nowrap;
         transition: background 120ms; width: 100%;
     }
     .swu-res-badge-btn.is-clickable { cursor: pointer; }
     .swu-res-badge-btn.is-clickable:hover { background: rgba(200,151,30,0.12); }
-    .swu-res-icon { font-size: 11px; opacity: 0.6; }
+    .swu-res-img {
+        width: 40px; height: 40px; object-fit: contain;
+        filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
+    }
 
     /* ── Resource zone panel (expandable, my side only) ──────────────────────── */
     .swu-resource-panel {
@@ -498,7 +536,7 @@
     }
     .swu-log-entry {
         font: 11px/1.55 var(--swu-font-ui);
-        color: rgba(255,255,255,0.78);
+        color: var(--swu-log-default);
         padding: 1px 0;
         word-break: break-word;
     }
@@ -507,8 +545,20 @@
         font-style: italic;
         padding: 4px 0 2px;
     }
-    .swu-log-OVERWHELM { color: var(--swu-log-overwhelm); }
-    .swu-log-REVEAL    { color: var(--swu-log-reveal); }
+    /* One rule per log type → its var (single source of truth in :root above). */
+    .swu-log-OVERWHELM  { color: var(--swu-log-overwhelm); }
+    .swu-log-REVEAL     { color: var(--swu-log-reveal); }
+    .swu-log-DISCLOSE   { color: var(--swu-log-disclose); }
+    .swu-log-ABILITY    { color: var(--swu-log-ability); }
+    .swu-log-PLAY       { color: var(--swu-log-play); }
+    .swu-log-DRAW       { color: var(--swu-log-draw); }
+    .swu-log-DISCARD    { color: var(--swu-log-discard); }
+    .swu-log-DEFEAT     { color: var(--swu-log-defeat); }
+    .swu-log-ATTACK     { color: var(--swu-log-attack); }
+    .swu-log-RESOURCE   { color: var(--swu-log-resource); }
+    .swu-log-NAMECARD   { color: var(--swu-log-namecard); }
+    .swu-log-PASS       { color: var(--swu-log-pass); }
+    .swu-log-INITIATIVE { color: var(--swu-log-initiative); }
     .swu-card-link {
         text-decoration: underline;
         text-decoration-style: dotted;
@@ -594,10 +644,10 @@
 
     /* ── Responsive ──────────────────────────────────────────────────────────── */
     @media (max-width: 1100px) {
-        :root { --swu-sidebar-w: 220px; --swu-center-w: 160px; --swu-res-badge-w: 96px; }
+        :root { --swu-sidebar-w: 220px; --swu-center-w: 160px; --swu-res-badge-w: 74px; }
     }
     @media (max-width: 800px) {
-        :root { --swu-sidebar-w: 0px; --swu-center-w: 140px; --swu-res-badge-w: 88px; }
+        :root { --swu-sidebar-w: 0px; --swu-center-w: 140px; --swu-res-badge-w: 70px; }
         #swuSidebar { display: none !important; }
         #chatWidget {
             position: fixed !important; bottom: 20px !important; left: 10px !important;
@@ -725,20 +775,18 @@
 <!-- ═══════════════════ RESOURCE BADGES (bottom-left / top-left) ══════════════ -->
 <!-- My resources badge — bottom-left, above my hand -->
 <div id="swuMyResBadge" class="swu-res-badge">
-    <div class="swu-res-badge-label">Resources</div>
     <div class="swu-res-badge-btn is-clickable"
          title="Click to view your resources" onclick="swuToggleMyResources()">
-        <span class="swu-res-icon">🃏</span>
-        <span id="swuMyResCount">0 / 0</span>
+        <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.png" alt="Resources">
+        <span id="swuMyResCount">0/0</span>
     </div>
 </div>
 
 <!-- Opponent resources badge — top-left, below their hand -->
 <div id="swuTheirResBadge" class="swu-res-badge">
-    <div class="swu-res-badge-label">Resources</div>
     <div class="swu-res-badge-btn" title="Opponent resources (hidden)">
-        <span class="swu-res-icon">🂠</span>
-        <span id="swuTheirResCount">0 / 0</span>
+        <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.png" alt="Resources">
+        <span id="swuTheirResCount">0/0</span>
     </div>
 </div>
 
@@ -866,15 +914,20 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // Format: "cardID count json_with_underscores" separated by "<|>".
     // SWUSim convention: Status=1 means ready; Status=0 means exhausted.
     // Opponent cards have no JSON ("-").
+    // Credit tokens (CR 3.13) sit in the resource zone but are NOT resources — they're counted
+    // separately and excluded from ready/total. The only Credit token is LAW_T01.
+    var SWU_CREDIT_TOKEN_ID = 'LAW_T01';
     function parseResCountFromData(rawData) {
-        if (!rawData || rawData === '' || rawData === '-') return {ready:0, total:0};
+        if (!rawData || rawData === '' || rawData === '-') return {ready:0, total:0, credits:0};
         var entries = rawData.split('<|>');
-        var total = 0, exhausted = 0;
+        var total = 0, exhausted = 0, credits = 0;
         for (var i = 0; i < entries.length; i++) {
             var entry = entries[i].trim();
             if (!entry) continue;
-            total++;
             var spaceIdx = entry.indexOf(' ');
+            var cardId = spaceIdx >= 0 ? entry.substring(0, spaceIdx) : entry;
+            if (cardId === SWU_CREDIT_TOKEN_ID) { credits++; continue; } // Credit token, not a resource
+            total++;
             var rest = spaceIdx >= 0 ? entry.substring(spaceIdx + 1) : '';
             var spaceIdx2 = rest.indexOf(' ');
             var jsonPart = spaceIdx2 >= 0 ? rest.substring(spaceIdx2 + 1) : '-';
@@ -885,14 +938,22 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 } catch(e) {}
             }
         }
-        return {ready: total - exhausted, total: total};
+        return {ready: total - exhausted, total: total, credits: credits};
     }
 
     function updateResCounterFromData(dataVar, countElId) {
         var el = document.getElementById(countElId); if (!el) return;
         var raw = window[dataVar] || '';
         var c = parseResCountFromData(raw);
-        el.textContent = c.ready + ' / ' + c.total;
+        var html = c.ready + '/' + c.total;
+        // "+ N" in gold for Credit tokens — only shown when the player has 1+. Hover shows the
+        // Credit token card preview (so an opponent can read it).
+        if (c.credits > 0) {
+            html += ' <span class="swu-credit-count"' +
+                ' onmousemove="swuLogCardHover(event,\'' + SWU_CREDIT_TOKEN_ID + '\')"' +
+                ' onmouseout="HideCardDetail()">+ ' + c.credits + '</span>';
+        }
+        el.innerHTML = html;
     }
 
     function watchResZone(slotId, countElId, dataVar) {
@@ -909,12 +970,21 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         panel.classList.toggle('is-open');
     };
 
-    // Close resource panel when clicking outside
+    // Close resource panel when clicking outside — EXCEPT while a decision is actively asking the
+    // player to pick their own resource(s) (paying with Credit tokens, Han Solo's defeat-a-resource,
+    // etc.). The Select All / Deselect All / Confirm controls live in the #selection-message bar
+    // OUTSIDE the panel, so without this guard clicking them would dismiss the panel mid-selection.
+    // The panel must persist until the selection completes; refreshResourceSelectionPanel then
+    // auto-closes any panel it auto-opened.
     document.addEventListener('click', function(e) {
-        var panel = document.getElementById('myResourcesSlot');
+        var panel = document.getElementById('myResourcesSlot'); if (!panel) return;
+        if (!panel.classList.contains('is-open')) return;
+        var sm = window.SelectionMode;
+        var selectingResource = !!(sm && sm.active && Array.isArray(sm.allowedZones) &&
+            sm.allowedZones.some(function(z) { return z && z.zone === 'myResources'; }));
+        if (selectingResource) return; // keep the panel open until the player confirms / picks
         var badge = document.getElementById('swuMyResBadge');
-        if (panel && panel.classList.contains('is-open') &&
-            !panel.contains(e.target) && e.target !== badge && !badge.contains(e.target)) {
+        if (!panel.contains(e.target) && e.target !== badge && !(badge && badge.contains(e.target))) {
             panel.classList.remove('is-open');
         }
     });
@@ -1130,10 +1200,45 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
     }
 
+    // ── The Force token ───────────────────────────────────────────────────────
+    // Shows force-token.png in the base's top-right corner while a player holds the
+    // Force. The token lives on the persistent slot wrapper (not the per-render card
+    // HTML) so it survives the slot's innerHTML rebuild — letting the CSS opacity
+    // transition fade it in when gained and fade it out when used.
+    function refreshForceToken(slotId, dataStr) {
+        var slot = document.getElementById(slotId); if (!slot) return;
+        var wrap = slot.parentElement; if (!wrap) return;
+        var obj = swuParseZoneCard(dataStr || '');
+        var hasForce = !!(obj && (obj.HasForce === true || obj.HasForce === 'true' || obj.HasForce === 1));
+        var token = wrap.querySelector('.swu-force-token');
+        if (hasForce) {
+            if (!token) {
+                token = document.createElement('img');
+                token.className = 'swu-force-token';
+                token.src = './Assets/Icons/force-token.png';
+                token.alt = 'The Force';
+                token.title = 'The Force is with you';
+                wrap.appendChild(token);
+                void token.offsetWidth; // reflow at opacity 0 so the fade-in transition fires
+            }
+            token._forceRemoving = false;
+            token.classList.add('is-visible');
+        } else if (token && !token._forceRemoving) {
+            token._forceRemoving = true;
+            token.classList.remove('is-visible'); // fade out, then remove
+            token.addEventListener('transitionend', function te() {
+                token.removeEventListener('transitionend', te);
+                if (token._forceRemoving && token.parentElement) token.parentElement.removeChild(token);
+            });
+        }
+    }
+
     // ── Poll global data ──────────────────────────────────────────────────────
     function pollGlobals() {
         updatePhaseTrack(); updateInitiative(); updateRound(); refreshActionGlows();
         refreshResourceSelectionPanel();
+        refreshForceToken('myBaseSlot', window.myBaseData);
+        refreshForceToken('theirBaseSlot', window.theirBaseData);
         swuUpdateUndoUI(MY_PLAYER_ID);
     }
     function watchGlobalData() {

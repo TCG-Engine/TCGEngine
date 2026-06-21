@@ -316,6 +316,11 @@ class SchemaTestRunner {
             if ($dp > 0) $b->WithDefeatedPlayer($dp);
         }
 
+        // The Force token (CR §37): WithP1Force / WithP2Force: true → player controls their Force token.
+        foreach ([1, 2] as $pn) {
+            if (strtolower($given["WithP{$pn}Force"] ?? 'false') === 'true') $b->WithForceForPlayer($pn);
+        }
+
         // Explicit resource fill.
         // Single group:  "WithP1Resources: N:cardID"
         // Multi-group:   "WithP1Resources: 1:SHD_089:0,7:SOR_095"  (count:cardID[:status], status 0=exhausted 1=ready)
@@ -330,6 +335,18 @@ class SchemaTestRunner {
                     $allReady = isset($parts[2]) ? (intval($parts[2]) === 1) : true;
                     if ($n > 0) $b->FillResourcesForPlayer($pn, $fillCard, $n, $allReady);
                 }
+            }
+        }
+
+        // Credit tokens (CR §3.13): "WithP1Credits: N" creates N Credit tokens (LAW_T01) in the
+        // player's resource zone. They are created via the resource fill but are NOT resources —
+        // SWUResourceCount/SWUExhaustResources skip them, and they accumulate AFTER any real
+        // resources filled above (so their mzID index = realResourceCount + offset).
+        foreach ([1, 2] as $pn) {
+            $key = "WithP{$pn}Credits";
+            if (isset($given[$key])) {
+                $n = max(0, intval(trim($given[$key])));
+                if ($n > 0) $b->FillResourcesForPlayer($pn, 'LAW_T01', $n, true);
             }
         }
 
@@ -651,6 +668,13 @@ class SchemaTestRunner {
                 if ($actual !== $expected)
                     $failures[] = "{$line}: expected resource count {$expected}, got {$actual}";
 
+            } elseif (preg_match('/^P(\d+)CREDITCOUNT:(\d+)$/', $line, $m)) {
+                $p        = intval($m[1]);
+                $expected = intval($m[2]);
+                $actual   = $g->state->player($p)->resources->creditCount();
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected credit token count {$expected}, got {$actual}";
+
             } elseif (preg_match('/^P(\d+)NODECISION$/', $line, $m)) {
                 $p       = intval($m[1]);
                 $pending = $g->state->pendingDecision($p);
@@ -662,6 +686,23 @@ class SchemaTestRunner {
                 $pending = $g->state->pendingDecision($p);
                 if ($pending === null)
                     $failures[] = "{$line}: expected a pending decision, but none found";
+
+            } elseif (preg_match('/^P(\d+)HASFORCE$/', $line, $m)) {
+                $p = intval($m[1]);
+                if (!$g->state->player($p)->force)
+                    $failures[] = "{$line}: expected player $p to control the Force, but they do not";
+
+            } elseif (preg_match('/^P(\d+)NOFORCE$/', $line, $m)) {
+                $p = intval($m[1]);
+                if ($g->state->player($p)->force)
+                    $failures[] = "{$line}: expected player $p to NOT control the Force, but they do";
+
+            } elseif (preg_match('/^P(\d+)BASEACTIONUSES:(\d+)$/', $line, $m)) {
+                $p        = intval($m[1]);
+                $expected = intval($m[2]);
+                $actual   = $g->state->player($p)->base->actionUsesLeft;
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected base repeatable-action uses-left {$expected} for player $p, got {$actual}";
 
             } elseif (preg_match('/^PHASE:(.+)$/', $line, $m)) {
                 $expected = $m[1];

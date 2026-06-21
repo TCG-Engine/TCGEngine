@@ -461,6 +461,26 @@
     return 'Select between ' + min + ' and ' + max + ' cards.';
   }
 
+  // Disclose (CR §38): do the currently-selected candidates collectively cover the required aspect
+  // icons? Each card's icons come from window.aspectData (the generated client dictionary), keyed by
+  // CardID. A multiset check — e.g. one "Vigilance,Vigilance" card covers a "VigilanceVigilance" need.
+  function discloseCovers() {
+    if (!multiState || !multiState.requiredAspects || multiState.requiredAspects.length === 0) return true;
+    const pool = {};
+    for (let i = 0; i < multiState.candidates.length; i++) {
+      const c = multiState.candidates[i];
+      if (!multiState.selected.has(c.key)) continue;
+      const asp = (window.aspectData && window.aspectData[c.cardNumber]) ? String(window.aspectData[c.cardNumber]) : '';
+      asp.split(',').map(s => s.trim()).filter(Boolean).forEach(a => { pool[a] = (pool[a] || 0) + 1; });
+    }
+    for (let i = 0; i < multiState.requiredAspects.length; i++) {
+      const r = multiState.requiredAspects[i];
+      if (!pool[r]) return false;
+      pool[r]--;
+    }
+    return true;
+  }
+
   function refreshUI() {
     if (!multiState) return;
     const selectedCount = multiState.selected.size;
@@ -473,7 +493,11 @@
 
     const confirm = document.getElementById('mzmulti-confirm');
     if (confirm) {
-      confirm.disabled = selectedCount < multiState.min || selectedCount > multiState.max;
+      // Size gate, plus (for disclose) an aspect-coverage gate: with cards selected they must cover the
+      // required icons. Selecting nothing stays allowed (min is 0 for disclose → confirm = decline).
+      const sizeOk = selectedCount >= multiState.min && selectedCount <= multiState.max;
+      const aspectOk = (selectedCount === 0) || discloseCovers();
+      confirm.disabled = !sizeOk || !aspectOk;
     }
 
     const selectAll = document.getElementById('mzmulti-select-all');
@@ -555,6 +579,15 @@
     HideMZMultiChooseUI();
     injectStyles();
 
+    // Disclose side channel: the tooltip may carry a "~REQ~Aspect-Aspect" suffix listing the required
+    // aspect icons (CR §38). Strip it for display and keep the parsed list to gate the Confirm button.
+    let requiredAspects = [];
+    if (typeof tooltip === 'string' && tooltip.indexOf('~REQ~') !== -1) {
+      const tparts = tooltip.split('~REQ~');
+      tooltip = tparts[0].trim();
+      requiredAspects = String(tparts[1] || '').split('-').map(s => s.trim()).filter(Boolean);
+    }
+
     const parsed = parseParam(param);
     if (!parsed) {
       if (submitCallback) submitCallback('-', decisionIndex);
@@ -576,7 +609,8 @@
       candidates: candidates,
       selected: new Set(),
       callback: submitCallback,
-      decisionIndex: decisionIndex
+      decisionIndex: decisionIndex,
+      requiredAspects: requiredAspects
     };
 
     const overlay = document.createElement('div');
@@ -621,7 +655,11 @@
 
     const guidance = document.createElement('div');
     guidance.className = 'mzmulti-guidance';
-    guidance.textContent = min === 0 ? 'Confirm with nothing selected to skip.' : 'Selected cards are highlighted in green.';
+    if (requiredAspects.length) {
+      guidance.textContent = 'Disclose cards covering ' + requiredAspects.join(' ') + ', or confirm with none to skip.';
+    } else {
+      guidance.textContent = min === 0 ? 'Confirm with nothing selected to skip.' : 'Selected cards are highlighted in green.';
+    }
     footer.appendChild(guidance);
 
     const actions = document.createElement('div');

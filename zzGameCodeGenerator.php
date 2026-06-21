@@ -2203,7 +2203,11 @@ function AddGetNextTurnForPlayer($player) {
         // decision reveals it to the chooser; all other Self zones keep the plain privacy flag.
         $selfFlag = ($rootName == "SWUSim" && $zone->Name == "Hand") ? "canSeeHandPlayer" : "canSeePrivatePlayer";
         $getNextTurn .= "    \$displayID = isset(\$obj->CardID) ? \$obj->CardID : \"-\";\r\n";
-        $getNextTurn .= "    if(\$" . $selfFlag . $player . ") echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
+        // SWUSim Resources: Credit tokens (CR 3.13) are public info (count + targetable by LAW_106),
+        // so they render face-up even to the opponent; real resources stay Self-only (CardBack).
+        $creditClause = ($rootName == "SWUSim" && $zone->Name == "Resources")
+            ? " || SWUIsCreditToken(\$obj->CardID ?? '')" : "";
+        $getNextTurn .= "    if(\$" . $selfFlag . $player . $creditClause . ") echo(ClientRenderedCard(\$displayID, cardJSON:json_encode(\$obj)));\r\n";
         $getNextTurn .= "    else echo(ClientRenderedCard(\"CardBack\"));\r\n";
       }
       $getNextTurn .= "  }\r\n";

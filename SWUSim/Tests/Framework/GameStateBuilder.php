@@ -17,6 +17,7 @@ class GameStateBuilder {
     private array  $_groundUnits     = [1 => [], 2 => []];
     private array  $_spaceUnits      = [1 => [], 2 => []];
     private array  $_defeatedPlayers = [];
+    private array  $_forcePlayers    = []; // players who control their Force token (CR §37)
     private int    $_nextUID         = 1;
 
     // ── Turn context ─────────────────────────────────────────────
@@ -148,6 +149,12 @@ class GameStateBuilder {
         return $this;
     }
 
+    // Grant a player control of their Force token (CR §37) — sets the SWU_HAS_FORCE flag at build.
+    public function WithForceForPlayer(int $player): self {
+        $this->_forcePlayers[] = $player;
+        return $this;
+    }
+
     // ── Static helper ─────────────────────────────────────────────
 
     public static function Upgrade(string $cardID, int $player, int $owner = 0): array {
@@ -180,14 +187,20 @@ class GameStateBuilder {
         $suffix = $this->_initiativeClaimed ? 'CLAIMED' : 'UNCLAIMED';
         AddInitiativeCounter("P{$this->_initiativePlayer}_{$suffix}");
 
-        // Bases
+        // Bases. Seed the per-game use budget for repeatable base Actions (e.g. LOF_022) when the test
+        // didn't set numUses explicitly, mirroring CreateGame so the harness and real game match.
+        global $baseActionNumUses;
         if (!empty($this->_myBase)) {
-            $b = $this->_myBase;
-            AddBase(1, $b['cardID'], $b['damage'], $b['epicActionUsed'], $b['numUses']);
+            $b  = $this->_myBase;
+            $nu = ($b['numUses'] === 0 && isset($baseActionNumUses[$b['cardID']]))
+                ? intval($baseActionNumUses[$b['cardID']]) : $b['numUses'];
+            AddBase(1, $b['cardID'], $b['damage'], $b['epicActionUsed'], $nu);
         }
         if (!empty($this->_theirBase)) {
-            $b = $this->_theirBase;
-            AddBase(2, $b['cardID'], $b['damage'], $b['epicActionUsed'], $b['numUses']);
+            $b  = $this->_theirBase;
+            $nu = ($b['numUses'] === 0 && isset($baseActionNumUses[$b['cardID']]))
+                ? intval($baseActionNumUses[$b['cardID']]) : $b['numUses'];
+            AddBase(2, $b['cardID'], $b['damage'], $b['epicActionUsed'], $nu);
         }
 
         // Leaders — AddLeader signature: (player, CardID, EpicActionUsed, Ready, Deployed, ...)
@@ -251,6 +264,11 @@ class GameStateBuilder {
                 $gWinner = $dp === 1 ? 2 : 1;
                 break;
             }
+        }
+
+        // The Force token (CR §37) — player state via the SWU_HAS_FORCE GlobalEffects flag.
+        foreach ($this->_forcePlayers as $fp) {
+            TheForceIsWithYou(intval($fp));
         }
 
         // Sync unique ID counter so NextUniqueID() doesn't collide

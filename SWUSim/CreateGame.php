@@ -100,7 +100,14 @@ function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '') {
     // Base → Base zone
     if (!empty($resolved['base'])) {
         $baseZone = &GetBase($playerID);
-        array_push($baseZone, new Base($resolved['base']));
+        $newBase  = new Base($resolved['base']);
+        // Seed the per-game use budget for repeatable base Actions (e.g. LOF_022 Mystic Monastery).
+        // These track remaining uses in NumUses and are exempt from the per-round refill.
+        global $baseActionNumUses;
+        if (isset($baseActionNumUses[$resolved['base']])) {
+            $newBase->NumUses = intval($baseActionNumUses[$resolved['base']]);
+        }
+        array_push($baseZone, $newBase);
     }
 
     // Main deck → Deck zone (shuffled)

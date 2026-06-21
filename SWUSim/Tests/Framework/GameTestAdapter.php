@@ -146,8 +146,20 @@ class ZoneCountAccessor {
 }
 
 class ResourceZoneAccessor extends ZoneCountAccessor {
+    // Credit tokens (CR §3.13) live in the resource zone but are NOT resources, so they are
+    // excluded from resource counts. _isCredit detects them by card type ("Credit Token").
+    private static function _isCredit($o): bool {
+        return CardType($o->CardID ?? '') === 'Credit Token';
+    }
+    public function count(): int {
+        return count(array_filter($this->items, fn($o) => !self::_isCredit($o)));
+    }
     public function readyCount(): int {
-        return count(array_filter($this->items, fn($o) => intval($o->Status) === 1));
+        return count(array_filter($this->items,
+            fn($o) => !self::_isCredit($o) && intval($o->Status) === 1));
+    }
+    public function creditCount(): int {
+        return count(array_filter($this->items, fn($o) => self::_isCredit($o)));
     }
 }
 
@@ -160,6 +172,8 @@ class BaseAccessor {
             case 'damage':        return intval($this->obj->Damage);
             case 'hp':            return intval(CardHp($this->obj->CardID));
             case 'epicActionUsed': return (bool)($this->obj->EpicActionUsed ?? false);
+            // Remaining per-game uses of a repeatable base Action (e.g. LOF_022); 0 for non-action bases.
+            case 'actionUsesLeft': return _SWUBaseActionUsesLeft($this->obj, $this->obj->CardID ?? '');
         }
         throw new RuntimeException("BaseAccessor: unknown property '$name'");
     }
@@ -188,6 +202,7 @@ class PlayerStateAccessor {
             case 'resources':   return new ResourceZoneAccessor(GetResources($this->player));
             case 'groundArena': return new ArenaZoneAccessor(GetGroundArena($this->player));
             case 'spaceArena':  return new ArenaZoneAccessor(GetSpaceArena($this->player));
+            case 'force':       return PlayerHasTheForce($this->player); // The Force (CR §37) player state
         }
         throw new RuntimeException("PlayerStateAccessor: unknown property '$name'");
     }

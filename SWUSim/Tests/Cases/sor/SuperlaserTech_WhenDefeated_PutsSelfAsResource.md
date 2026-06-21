@@ -1,7 +1,7 @@
 # SOR_083 Superlaser Technician (2/1, Ground) — When Defeated: You may put this unit into
-# play as a resource and ready it. It attacks Battlefield Marine (3/3): it deals 2 (Marine
+# play as a resource AND READY IT. It attacks Battlefield Marine (3/3): it deals 2 (Marine
 # survives) and takes 3 (1 HP → defeated). The ramp auto-resolves (nobody declines it), moving
-# a SOR_083 copy from discard into the resource zone as a READY resource (resources 0 → 1).
+# a SOR_083 copy from discard into the resource zone READY (explicit "and ready it"): resources 0 → 1.
 
 ## GIVEN
 CommonSetup: ggw/ggw/{myResources:0}

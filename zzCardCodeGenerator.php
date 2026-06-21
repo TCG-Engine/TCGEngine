@@ -898,7 +898,8 @@ if($rootName == "SWUSim") {
     // line — not the "On Defense:" quoted reminder — is what matches.)
     if(in_array($cardType, $unitTypes)
       && ((strpos($combined, "On Defense:") !== false && strpos($combined, '"On Defense:') === false)
-          || strpos($combined, "When this unit is attacked:") !== false)) {
+          || strpos($combined, "When this unit is attacked:") !== false
+          || strpos($combined, "When this unit is attacked (before damage is dealt):") !== false)) {
       $stubs["onDefense"][] = $cardId;
     }
     // On Attack End: newer templates use "On Attack End:"; older cards (e.g. SOR_192 Ezra Bridger)
@@ -912,7 +913,10 @@ if($rootName == "SWUSim") {
         // "(and survives)" parenthetical variant (JTL_070, JTL_089, SEC_096): the survival gate is
         // enforced by CollectAfterAttackTriggers, so it maps to the same onAttackEnd stub.
         || (strpos($combined, "When this unit completes an attack (and survives):") !== false
-            && strpos($combined, '"When this unit completes an attack (and survives):') === false))) {
+            && strpos($combined, '"When this unit completes an attack (and survives):') === false)
+        // "When Attack Ends:" phrasing (LAW_074 Maz Kanata) — same onAttackEnd window.
+        || (strpos($combined, "When Attack Ends:") !== false
+            && strpos($combined, '"When Attack Ends:') === false))) {
       $stubs["onAttackEnd"][] = $cardId;
     }
   }

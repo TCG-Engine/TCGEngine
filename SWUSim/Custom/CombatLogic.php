@@ -23,6 +23,9 @@
 // Subcards may be arrays (builder/deserialized path) or stdClass objects (just-added path).
 function SWUConsumeShieldToken($unit): bool {
     if ($unit === null || !is_array($unit->Subcards ?? null)) return false;
+    // SEC_046 Galen Erso — if the enemy Galen named "Shield", the owner's Shield tokens have lost their
+    // damage-prevention ability: don't consume/prevent (the token stays attached but does nothing).
+    if (_SWUGalenSuppressesCard(intval($unit->Owner ?? $unit->Controller ?? 0), 'SOR_T02')) return false;
     foreach ($unit->Subcards as $key => $sub) {
         $cardID  = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
         $removed = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
@@ -70,6 +73,17 @@ function SWUQueueShieldBreakAnim(string $relMzID, int $perspective, int $slot = 
 }
 
 // Deal $damage to player $targetPlayer's base. Sets flash on win.
+// LOF_252 The Daughter — queue the base owner's "may use the Force → heal 2 from your base" reaction when
+// they control her (SWUQueueMayUseTheForce no-ops if they don't currently hold the Force).
+function _SWUCollectLof252Reaction(int $targetPlayer): void {
+    foreach (GetField($targetPlayer) as $u) {
+        if (empty($u->removed) && ($u->CardID ?? '') === 'LOF_252') {
+            SWUQueueMayUseTheForce($targetPlayer, "Use_the_Force_to_heal_2_damage_from_your_base?", "LOF_252#0");
+            return;
+        }
+    }
+}
+
 function SWUDealDamageToBase($damage, $targetPlayer, $damager = null) {
     global $playerID;
     $savedPID = $playerID;
@@ -87,6 +101,22 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null) {
         }
         $base[$i]->Damage = intval($base[$i]->Damage) + $damage;
         SWUQueueDamageAnim("myBase-0", intval($damage), intval($targetPlayer));
+        // LOF_252 The Daughter — "When damage is dealt to your base: may use the Force → heal 2 from your
+        // base." Post-damage reaction owned by the base owner (often the non-active player in combat); it
+        // sits on their queue and resolves after the damage event. Only while the base survives.
+        if (intval($damage) > 0 && intval($base[$i]->Damage) < intval(CardHp($base[$i]->CardID))) {
+            _SWUCollectLof252Reaction(intval($targetPlayer));
+        }
+        // SEC_041 Populist Advisor — "When an enemy unit deals COMBAT damage to your base: this unit
+        // gains Sentinel for this phase." Combat-gated; the base owner ($targetPlayer) gives its SEC_041s Sentinel.
+        if (intval($damage) > 0 && !empty($GLOBALS['gInCombatDamage'])) {
+            $savedPID2 = $playerID; $playerID = intval($targetPlayer);
+            foreach (ZoneSearch("myGroundArena", AnyUnitFilter) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o !== null && empty($o->removed) && ($o->CardID ?? '') === 'SEC_041') AddTurnEffect($mz, 'SENTINEL');
+            }
+            $playerID = $savedPID2;
+        }
         // "Each opponent whose base you've damaged this phase" set (SOR_175) — flag the DAMAGER
         // (the caller's context, i.e. the other player) keyed by the damaged base's owner. Cleared
         // at regroup. Skip self-damage (a player damaging their own base doesn't flag anyone).
@@ -236,7 +266,7 @@ function SWUDefeatUnit($player, $unitMzID, $skipReplacement = false, $fromDamage
         $playerID = $savedPID;
         return false;
     }
-    // "Can't be defeated by enemy card abilities" (SHD_187 / JTL_103 / LAW_149 / SEC_012 / TWI_220).
+    // "Can't be defeated by enemy card abilities" (SHD_187 / JTL_103 / LAW_149 / TWI_220).
     // Only blocks a DIRECT defeat effect from an opponent — NOT state-based "no remaining HP" defeat
     // ($fromDamage, governed by SWUImmuneToHpDefeat), NOT combat, NOT the controller's own abilities.
     if (!$fromDamage && intval($player) !== intval($obj->Controller ?? $player) && SWUAvoidsDefeat($obj)) {
@@ -346,6 +376,12 @@ function SWUDefeatUpgrade(int $player, string $hostMzID, int $upgradeIndex = 0, 
         return false;
     }
 
+    // SEC_061 Willrow Hood — an enemy ability can't defeat (or bounce) the lone friendly upgrade on him.
+    if (_SWUWillrowProtectsUpgrade($host, intval($foundCtrl), intval($player))) {
+        $playerID = $savedPID;
+        return false;
+    }
+
     // Rebuild Subcards without the defeated upgrade (explicit reassignment ensures the
     // property on the live zone object is updated even when $host was obtained without &).
     $newSubcards = [];
@@ -425,8 +461,8 @@ function OnHealUnit($player, $mzCard, $amount) {
     $obj->Damage = max(0, $before - intval($amount));
     $healed = $before - intval($obj->Damage);
     SWUQueueHealAnim($mzCard, $healed, intval($player));
-    // Reactive "When 1 or more damage is healed from this unit" (JTL_062 Silver Angel).
-    if ($healed >= 1 && function_exists('_SWUOnUnitHealed')) _SWUOnUnitHealed($obj);
+    // Reactive "When 1 or more damage is healed from this unit" (JTL_062 Silver Angel, LAW_047 Baze).
+    if ($healed >= 1 && function_exists('_SWUOnUnitHealed')) _SWUOnUnitHealed($obj, $healed);
 }
 
 // Remove up to $amount damage counters from player $targetPlayer's base. Clamps at 0.
@@ -462,25 +498,87 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
     $attacker = GetZoneObject($attackerMzID);
     $defender = GetZoneObject($defenderMzID);
 
+    // SEC_157 One Way Out — "If it attacks a UNIT, the defender loses all abilities for this attack."
+    // Apply the attack-duration LOSE_ABILITIES marker to the defending UNIT now, BEFORE its On Defense
+    // trigger (below) and its keyword reads in SWUCombatDamage. Gated on the attacker's SEC_157 signal
+    // marker and a unit target (base attacks — "theirBase-N" — are excluded).
+    if ($attacker !== null && !isset($attacker->removed) && _SWUAttackHasMarker($attacker, 'SEC_157')
+        && $defender !== null && empty($defender->removed) && strpos($defenderMzID, 'Base') === false) {
+        AddTurnEffect($defenderMzID, SWUMakeTurnEffect('SEC_157_DEF', [], SWU_DUR_ATTACK));
+    }
+
     if ($attacker !== null && !isset($attacker->removed) && HasOnAttackAbility($attacker->CardID)
         && !LostAbilities($attacker)) {
         AddTrigger($activePlayer, 'OnAttack', $attacker->CardID, $attackerMzID);
+    }
+    // LAW_169 Payroll Heist — "For this phase, each friendly unit gains: On Attack: Create a Credit
+    // token." Granted via the LAW_169 phase marker; the attacker's controller creates a Credit token.
+    if ($attacker !== null && !isset($attacker->removed) && !LostAbilities($attacker)
+        && is_array($attacker->TurnEffects ?? null) && in_array('LAW_169', $attacker->TurnEffects, true)) {
+        SWUCreateCreditToken(intval($attacker->Controller ?? $activePlayer), 1);
+    }
+    // LOF common Force bases (LOF_020/021/023/024/026/027/029/030) — "When a friendly Force unit
+    // attacks: The Force is with you (create your Force token)." Reactive trigger (NOT an Action); it
+    // rides the combat trigger bag so it orders correctly with any other On-Attack triggers and with
+    // multi-unit plays. The attacker is always controlled by the active player.
+    if ($attacker !== null && !isset($attacker->removed) && _SWUUnitHasTrait($attacker, 'Force')) {
+        foreach (GetBase($activePlayer) as $b) {
+            if (!empty($b->removed)) continue;
+            // SEC_046 Galen Erso — if the enemy Galen named this base, it has lost its abilities.
+            if (_SWUForceAttackBase($b->CardID ?? '') && !_SWUGalenSuppressesCard($activePlayer, $b->CardID ?? '')) {
+                AddTrigger($activePlayer, $b->CardID, $b->CardID, '');
+            }
+            break; // only one live base per player
+        }
+    }
+    // SEC_081 Major Partagaz — "When another friendly Official unit attacks: this unit gets +2/+2 for
+    // this phase." The attacker is always the active player's; only OTHER Official attackers trigger it.
+    // Apply directly (no decision) to each friendly SEC_081 that isn't the attacker.
+    if ($attacker !== null && !isset($attacker->removed) && _SWUUnitHasTrait($attacker, 'Official')) {
+        global $playerID; $savedPid81 = $playerID; $playerID = intval($activePlayer);
+        $atkUID81 = intval($attacker->UniqueID ?? 0);
+        foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed) && ($o->CardID ?? '') === 'SEC_081'
+                && intval($o->UniqueID ?? 0) !== $atkUID81) {
+                SWUApplyPhaseBuff($mz, 2, 2, '');
+            }
+        }
+        $playerID = $savedPid81;
     }
     // JTL_156 Trench Run — granted "On Attack: discard 2 from the defending player's deck; deal the
     // cost difference (unpreventable) to this unit." (Marker added for this attack only.)
     if ($attacker !== null && !isset($attacker->removed) && _SWUAttackHasMarker($attacker, 'JTL_156')) {
         AddTrigger($activePlayer, 'JTL_156', 'JTL_156', $attackerMzID);
     }
+    // LOF_205 Force Speed — granted "On Attack: return the defender's non-unique upgrades to hand." Pass the
+    // DEFENDER's mzID (that's what the trigger acts on).
+    if ($attacker !== null && !isset($attacker->removed) && _SWUAttackHasMarker($attacker, 'LOF_205')
+        && $defender !== null && empty($defender->removed)) {
+        AddTrigger($activePlayer, 'LOF_205', 'LOF_205', $defenderMzID);
+    }
     // Upgrade-granted On Attack abilities (e.g. JTL_172, SOR_137 on a Force unit).
     if ($attacker !== null && !isset($attacker->removed)) {
+        // SEC_038 Condemn: each Condemn grants its On Attack AND "loses all OTHER abilities" — so when
+        // the attacker bears any Condemn, every NON-Condemn upgrade grant is suppressed, and a Condemn's
+        // own grant fires ONLY if it is the lone Condemn (2+ Condemns mutually suppress each other's
+        // granted On Attack → none fire; the unit attacks for normal power).
+        $condemnCount = 0;
+        foreach (GetUpgradesOnUnit($attacker) as $u) { if (($u->CardID ?? '') === 'SEC_038') $condemnCount++; }
         foreach (GetUpgradesOnUnit($attacker) as $upgrade) {
             $key = $upgrade->CardID . ':0';
-            if (isset($onAttackAbilities[$key])) {
-                AddTrigger($activePlayer, 'OnAttackFromUpgrade', $upgrade->CardID, $attackerMzID);
+            if (!isset($onAttackAbilities[$key])) continue;
+            // SEC_046 Galen Erso — a named upgrade has lost its granted "On Attack" ability.
+            if (_SWUGalenSuppressesCard(intval($upgrade->Owner ?? $attacker->Controller ?? $activePlayer), $upgrade->CardID ?? '')) continue;
+            if ($condemnCount > 0) {
+                if (($upgrade->CardID ?? '') !== 'SEC_038') continue;   // other grants suppressed
+                if ($condemnCount !== 1) continue;                       // multiple Condemns cancel out
             }
+            AddTrigger($activePlayer, 'OnAttackFromUpgrade', $upgrade->CardID, $attackerMzID);
         }
     }
-    if ($defender !== null && !isset($defender->removed) && HasOnDefenseAbility($defender->CardID)) {
+    if ($defender !== null && !isset($defender->removed) && HasOnDefenseAbility($defender->CardID)
+        && !LostAbilities($defender)) {   // a defender that lost its abilities (SEC_157) has no On Defense
         $defController = intval($defender->Controller ?? GetOpponent($activePlayer));
         // $defenderMzID is in the ATTACKER's (active player's) frame — the defender always sits in the
         // attacker's "their..." zone. The OnDefense trigger is dispatched under $defController, so convert
@@ -488,13 +586,49 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
         $defMzForDef = preg_replace('/^their/', 'my', $defenderMzID);
         AddTrigger($defController, 'OnDefense', $defender->CardID, $defMzForDef);
     }
+    // Upgrade-granted "When this unit is attacked: ..." On Defense reactions (SEC_052 Diplomatic
+    // Immunity). Mirrors the own-unit OnDefense above: dispatched under the DEFENDER's controller, host
+    // mzID flipped to the defender's frame. OnDefenseFromUpgradeTrigger sets SWU_PENDING_DEF_REACTION so
+    // the combat-pause holds for the disclose/reaction, exactly like a true On Defense trigger.
+    if ($defender !== null && !isset($defender->removed)) {
+        global $onDefenseFromUpgradeAbilities;
+        $defControllerUp = intval($defender->Controller ?? GetOpponent($activePlayer));
+        $defMzForDefUp   = preg_replace('/^their/', 'my', $defenderMzID);
+        foreach (GetUpgradesOnUnit($defender) as $up) {
+            if (isset($onDefenseFromUpgradeAbilities[$up->CardID ?? ''])
+                && !_SWUGalenSuppressesCard(intval($up->Owner ?? $defender->Controller ?? $defControllerUp), $up->CardID ?? '')) { // SEC_046 Galen
+                AddTrigger($defControllerUp, 'OnDefenseFromUpgrade', $up->CardID, $defMzForDefUp);
+            }
+        }
+    }
+    // SEC_101 Queen Amidala — interactive combat-damage prevention. Routed through AddTrigger (NOT a
+    // direct decision) so FlushCombatTriggerBag reports a trigger and combat goes through the SWU_TRIGGER_
+    // RESUME path — which is what lets the offer resolve BEFORE SWUCombatDamage (the combat-pause for the
+    // defender; the pre-resume step-1 resolution for the attacker). SEC101PreventTrigger queues the offer
+    // and sets SWU_PENDING_DEF_REACTION. The host mzID is passed in the TRIGGER OWNER's (controller's) frame.
+    if ($attacker !== null && !isset($attacker->removed) && ($attacker->CardID ?? '') === 'SEC_101'
+        && !empty(_SWUAmidalaPreventTargets($attacker))) {
+        AddTrigger($activePlayer, 'SEC_101_PREVENT', 'SEC_101', $attackerMzID); // attacker frame = active player's "my…"
+    }
+    if ($defender !== null && !isset($defender->removed) && ($defender->CardID ?? '') === 'SEC_101'
+        && !empty(_SWUAmidalaPreventTargets($defender))) {
+        $defCtrl = intval($defender->Controller ?? GetOpponent($activePlayer));
+        AddTrigger($defCtrl, 'SEC_101_PREVENT', 'SEC_101', preg_replace('/^their/', 'my', $defenderMzID));
+    }
+    // SEC_231 Implicate — granted "When this unit is attacked: create a Spy token" (via the per-unit
+    // SEC_231 phase marker). Non-interactive, so create the Spy directly for the DEFENDER's controller;
+    // no combat-pause needed.
+    if ($defender !== null && !isset($defender->removed) && in_array('SEC_231', $defender->TurnEffects ?? [], true)) {
+        SWUCreateUnitToken(intval($defender->Controller ?? GetOpponent($activePlayer)), 'SEC_T01');
+    }
     // Upgrade-granted "When attached unit is attacked: ..." reactive (JTL_260 Death Star Plans — the
     // ATTACKING player steals the upgrade). Fires for the ATTACKER (active player); $defenderMzID is in
     // the attacker's frame, so the handler can locate the upgrade and pick one of the attacker's units.
     if ($defender !== null && !isset($defender->removed)) {
         global $onAttackedFromUpgradeAbilities;
         foreach (GetUpgradesOnUnit($defender) as $up) {
-            if (isset($onAttackedFromUpgradeAbilities[$up->CardID ?? ''])) {
+            if (isset($onAttackedFromUpgradeAbilities[$up->CardID ?? ''])
+                && !_SWUGalenSuppressesCard(intval($up->Owner ?? $defender->Controller ?? $activePlayer), $up->CardID ?? '')) { // SEC_046 Galen
                 AddTrigger($activePlayer, 'OnAttackedFromUpgrade', $up->CardID, $defenderMzID);
             }
         }
@@ -506,6 +640,21 @@ function CollectCombatStep3Triggers($activePlayer, $attackerMzID, $defenderMzID,
     CollectWhenDefeatedTriggers($activePlayer, $defeatedCards);
     // After-attack triggers always fire; conditions ("if survived", "if defeated defender") live inside handlers.
     CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID, $combatCtx);
+    _SWUCollectOnUnitDamagedReactions($activePlayer, $attackerMzID, $defenderMzID, $combatCtx);
+}
+
+// "When damage is dealt to this unit" reactions (post-damage; no combat-pause). Fires for the attacker
+// (took counter-damage) and the defender (took the hit) when each survived and took >0 combat damage.
+// First consumer: SEC_143 The Elite Squad. The ability/effect damage path is hooked in SWUDealDamageToUnit.
+function _SWUCollectOnUnitDamagedReactions(int $activePlayer, string $attackerMzID, string $defenderMzID, array $combatCtx): void {
+    if (!empty($combatCtx['attackerTookDmg'])) {
+        $a = GetZoneObject($attackerMzID);
+        if ($a !== null && empty($a->removed)) _SWUOnUnitDamaged($a, intval($combatCtx['attackerDmgAmt'] ?? 0));
+    }
+    if (!empty($combatCtx['dealtToUnit'])) {
+        $d = GetZoneObject($defenderMzID);
+        if ($d !== null && empty($d->removed)) _SWUOnUnitDamaged($d, intval($combatCtx['defenderDmgAmt'] ?? 0));
+    }
 }
 
 // WhenDealsCombatDamage / WhenDefeats windows (Phase 7.2): from the just-resolved attack's $combatCtx,
@@ -514,6 +663,7 @@ function CollectCombatStep3Triggers($activePlayer, $attackerMzID, $defenderMzID,
 function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID, array $combatCtx): void {
     $attacker = GetZoneObject($attackerMzID);
     if ($attacker === null || !empty($attacker->removed)) return; // attacker defeated → its triggers don't fire
+    if (LostAbilities($attacker)) return; // SEC_046 Galen — a named attacker fires no "deals combat damage" trigger
     $cardID = $attacker->CardID ?? '';
     switch ($cardID) {
         case 'SOR_085': // Rukh — "deals combat damage to a non-leader unit while attacking: defeat it."
@@ -526,10 +676,55 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                 AddTrigger($activePlayer, 'SOR_149', 'SOR_149', $attackerMzID);
             }
             break;
+        case 'LAW_033': // Hound's Tooth — "When Attack Ends: if this unit survived, you may defeat a unit
+                        // with less power than this unit." (Survival gated at line 665; fires on any attack.)
+            AddTrigger($activePlayer, 'LAW_033', 'LAW_033', $attackerMzID);
+            break;
+        case 'LAW_034': // Chewbacca — "When Attack Ends: if the defending unit was defeated, give it an
+                        // Experience token and heal 3 from him." (Attacker survived — gated at line 665.)
+            if (!empty($combatCtx['defenderDefeated'])) {
+                AddTrigger($activePlayer, 'LAW_034', 'LAW_034', $attackerMzID);
+            }
+            break;
+        case 'LAW_252': // Fett's Firespray — "When Attack Ends: If the defending unit was defeated,
+                        // create a Credit token." Mandatory, no decision → inline. (Both-died edge is
+                        // missed by the line-665 survival gate, consistent with the whole "if defender
+                        // defeated" family in this switch — an engine-wide limitation.)
+            if (!empty($combatCtx['defenderDefeated'])) SWUCreateCreditToken($activePlayer, 1);
+            break;
+        case 'LAW_046': // Chirrut Îmwe — "When Attack Ends: if this unit dealt combat damage to a base,
+                        // you may heal 4 from another unit."
+            if (!empty($combatCtx['dealtToBase'])) {
+                AddTrigger($activePlayer, 'LAW_046', 'LAW_046', $attackerMzID);
+            }
+            break;
+        case 'SEC_209': // The Mandalorian — "attacks and defeats a unit: may capture an enemy non-leader unit."
+            if (!empty($combatCtx['defenderDefeated'])) {
+                AddTrigger($activePlayer, 'SEC_209', 'SEC_209', $attackerMzID);
+            }
+            break;
+        case 'SEC_088': // First Light — "attacks and defeats a unit: may draw a card."
+            if (!empty($combatCtx['defenderDefeated'])) {
+                AddTrigger($activePlayer, 'SEC_088', 'SEC_088', $attackerMzID);
+            }
+            break;
         case 'SOR_133': // Seventh Sister — "deals combat damage to an opponent's base: may deal 3 to a ground unit."
             if (!empty($combatCtx['dealtToBase'])) {
                 AddTrigger($activePlayer, 'SOR_133', 'SOR_133', '');
             }
+            break;
+        case 'LOF_166': // Blockade Runner — deals combat damage to a base: may give Exp to itself.
+            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'LOF_166', 'LOF_166', $attackerMzID);
+            break;
+        case 'SEC_150': // Valiant Commando — deals combat damage to a base: may defeat itself → 3 to that base.
+            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_150', 'SEC_150', $attackerMzID);
+            break;
+        case 'SEC_147': // Chopper — deals combat damage to a base: each player discards a card from hand.
+            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_147', 'SEC_147', $attackerMzID);
+            break;
+        case 'SEC_205': // Obi-Wan Kenobi — deals combat damage to a base: mill the defending player's deck,
+                        // then may play that card from their discard this phase, ignoring aspect penalties.
+            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_205', 'SEC_205', $attackerMzID);
             break;
         case 'JTL_188': // Moff Gideon — deals combat damage to an opponent's base → that opponent's unit
                         // plays cost 1 more this phase (static flag; no decision).
@@ -542,6 +737,42 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                 AddTrigger($activePlayer, 'SOR_088', 'SOR_088', '', strval(intval($combatCtx['excess'])));
             }
             break;
+        case 'SEC_017': // Sabé (deployed) — deals combat damage to a base: look at the defending player's
+                        // hand, may discard a card; if you do, that player draws.
+            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_017', 'SEC_017', '');
+            break;
+        case 'LAW_054': // Maul — "When Attack Ends: if this unit dealt combat damage to a player's base,
+                        // you may take control of a non-leader unit that player controls (reverts when
+                        // Maul leaves play)."
+            if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'LAW_054', 'LAW_054', $attackerMzID);
+            break;
+    }
+
+    // LAW_056 Cassian Andor (field passive) — "When a friendly unit's attack ends: if the defending unit
+    // was defeated, deal 2 damage to a base." Fires once per Cassian the active player controls.
+    if (!empty($combatCtx['defenderDefeated'])) {
+        $cassians = _SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_056');
+        for ($i = 0; $i < $cassians; $i++) SWUDealDamageToBase(2, OtherPlayer($activePlayer));
+    }
+
+    // LAW_088 Anakin Skywalker (field passive) — "When a friendly unit's attack ends: if no other units
+    // have attacked this phase, you may return it to its owner's hand. If you do, heal 2 from your base."
+    // The attacker survived (gated at line 665). "No other units" = exactly one attack flag this phase.
+    if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_088') > 0) {
+        $attackers = 0;
+        foreach ([1, 2] as $ap) {
+            foreach (GetGlobalEffects($ap) as $ge) {
+                if (preg_match('/^SWU_ATTACKED_\d+$/', (string)($ge->CardID ?? ''))) $attackers++;
+            }
+        }
+        if ($attackers <= 1) AddTrigger($activePlayer, 'LAW_088', 'LAW_088', $attackerMzID);
+    }
+
+    // SEC_017 Sabé (leader FRONT passive) — "When a friendly unit deals combat damage to a base: you may
+    // exhaust this leader → look at the top 2 of the defending player's deck, discard 1, other on top."
+    // Active only while SEC_017 is the undeployed, ready leader (fires for ANY friendly attacker).
+    if (!empty($combatCtx['dealtToBase']) && _SWULeaderReadyUndeployed($activePlayer, 'SEC_017')) {
+        AddTrigger($activePlayer, 'SEC_017#1', 'SEC_017#1', '');
     }
 
     // SOR_150 Heroic Sacrifice — granted "When this unit deals combat damage: Defeat it." The per-attack
@@ -552,15 +783,76 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
         AddTrigger($activePlayer, 'SOR_150', 'SOR_150', $attackerMzID);
     }
 
+    // LAW_205 Flash the Vents — granted "after completing this attack, if that unit damaged a base,
+    // defeat that unit." Reuses the HeroicSacrificeDefeatTrigger dispatcher (defeats the attacker).
+    if (!empty($combatCtx['law205SelfDefeat']) && !empty($combatCtx['dealtToBase'])) {
+        AddTrigger($activePlayer, 'LAW_205', 'LAW_205', $attackerMzID);
+    }
+    // LAW_062 Defiant Hammerhead — "defeat this unit after completing this attack" (unconditional, when
+    // the +4/+0 was taken).
+    if (!empty($combatCtx['law062SelfDefeat'])) {
+        AddTrigger($activePlayer, 'LAW_205', 'LAW_205', $attackerMzID);   // same defeat-the-attacker dispatcher
+    }
+
     // JTL_177 Stay on Target — granted "When this unit deals damage to a base: Draw a card." (this attack)
     if (!empty($combatCtx['jtl177BaseDraw']) && !empty($combatCtx['dealtToBase'])) {
         DoDrawCard(intval($activePlayer), 1);
+    }
+
+    // LOF_063 Oggdo Bogdo — "When this unit attacks and defeats a unit: heal 2 damage from this unit."
+    if ($cardID === 'LOF_063' && !empty($combatCtx['defenderDefeated'])) {
+        OnHealUnit(intval($activePlayer), $attackerMzID, 2);
+    }
+
+    // LOF_017 Darth Revan (leader) — "When a friendly unit attacks and defeats a unit: you may exhaust this
+    // leader. If you do, give an Experience token to that friendly unit." Controller-based reaction; fires
+    // only while Revan is still in leader form (undeployed) and ready (the exhaust is the cost).
+    if (!empty($combatCtx['defenderDefeated'])) {
+        foreach (GetLeader(intval($activePlayer)) as $l) {
+            if (empty($l->removed) && ($l->CardID ?? '') === 'LOF_017' && empty($l->Deployed) && !empty($l->Ready)) {
+                AddTrigger($activePlayer, 'LOF_017', 'LOF_017', $attackerMzID);
+                break;
+            }
+        }
+    }
+
+    // LAW_007 Boba Fett — "When a friendly Bounty Hunter unit's attack ends: if the defending unit was
+    // defeated, [deployed] create a Credit token / [leader form, ready] you may exhaust this leader →
+    // create a Credit." The attacker ($cardID) is the friendly Bounty Hunter.
+    if (!empty($combatCtx['defenderDefeated']) && HasTrait($cardID, 'Bounty Hunter')) {
+        if (_SWUCountActiveUnitsWithCardID($activePlayer, 'LAW_007') > 0) {
+            SWUCreateCreditToken($activePlayer, 1);   // deployed Boba: mandatory
+        } else {
+            foreach (GetLeader($activePlayer) as $l) {
+                if (empty($l->removed) && ($l->CardID ?? '') === 'LAW_007' && empty($l->Deployed) && !empty($l->Ready)) {
+                    AddTrigger($activePlayer, 'LAW_007', 'LAW_007', '');   // leader form: may exhaust → Credit
+                    break;
+                }
+            }
+        }
+    }
+
+    // LOF_086 Drengir Spawn — "attacks and defeats a unit: give it Experience tokens equal to the
+    // defeated unit's (printed) cost."
+    if ($cardID === 'LOF_086' && !empty($combatCtx['defenderDefeated'])) {
+        $n = intval(CardCost($combatCtx['defenderCardID'] ?? ''));
+        for ($k = 0; $k < $n; $k++) DoGiveExperienceToken(intval($activePlayer), $attackerMzID);
     }
 
     // JTL_120 Dorsal Turret (upgrade) — host gains "When this unit deals combat damage to a unit while
     // attacking: Defeat that unit."
     if (!empty($combatCtx['dealtToUnit']) && _SWUUnitHasUpgrade($attacker, 'JTL_120')) {
         AddTrigger($activePlayer, 'JTL_120', 'JTL_120', $defenderMzID);
+    }
+
+    // LOF_025 Temple of Destruction (base) — "When a friendly unit deals 3 or more combat damage to an
+    // enemy base: The Force is with you." Controller-based (any friendly attacker), so it rides this
+    // collection point. baseCombatDmg accumulates both the direct base hit and any overwhelm spill.
+    if (intval($combatCtx['baseCombatDmg'] ?? 0) >= 3) {
+        $ldBase = GetBase(intval($activePlayer));
+        if (!empty($ldBase) && ($ldBase[0]->CardID ?? '') === 'LOF_025') {
+            TheForceIsWithYou(intval($activePlayer));
+        }
     }
 
     // SOR_013 Cassian Andor (deployed Leader Unit) — "When you deal damage to an enemy base: You may
@@ -578,7 +870,8 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
 // After-attack: fires unconditionally so handlers can inspect the outcome.
 function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID, array $combatCtx = []): void {
     $attacker = GetZoneObject($attackerMzID);
-    if ($attacker !== null && !isset($attacker->removed) && HasOnAttackEndAbility($attacker->CardID)) {
+    // SEC_046 Galen Erso — a named attacker that lost its abilities fires no "completes an attack" trigger.
+    if ($attacker !== null && !isset($attacker->removed) && HasOnAttackEndAbility($attacker->CardID) && !LostAbilities($attacker)) {
         // SOR_146 Zeb Orrelios — "completes an attack: IF the defender was defeated, ...". The "if" is
         // a trigger condition; gate collection on the combat outcome so nothing fires (no decision)
         // when the defender survived. Other OnAttackEnd cards (SOR_009/015/192) are unconditional.
@@ -592,7 +885,8 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     if ($attacker !== null && !isset($attacker->removed)) {
         global $onAttackEndFromUpgradeAbilities;
         foreach (GetUpgradesOnUnit($attacker) as $upgrade) {
-            if (isset($onAttackEndFromUpgradeAbilities[$upgrade->CardID])) {
+            if (isset($onAttackEndFromUpgradeAbilities[$upgrade->CardID])
+                && !_SWUGalenSuppressesCard(intval($upgrade->Owner ?? $attacker->Controller ?? $activePlayer), $upgrade->CardID ?? '')) { // SEC_046 Galen
                 AddTrigger($activePlayer, 'OnAttackEndFromUpgrade', $upgrade->CardID, $attackerMzID);
             }
         }
@@ -609,7 +903,7 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // first BeginSWUAttack. It is fired (and the var consumed) by the SWU_TRIGGER_RESUME stack-empty
     // handler, AFTER this attack's full trigger resolution. If no trigger flush queued a resume,
     // queue a bare one so the chained attack still fires and SWUAfterAction stays deferred until then.
-    if ($flushed === 0 && GetSWUVar('SWU_CHAINED_ATTACK', '') !== '') {
+    if ($flushed === 0 && (GetSWUVar('SWU_CHAINED_ATTACK', '') !== '' || GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== '')) {
         DecisionQueueController::AddDecision($activePlayer, "CUSTOM", "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
     }
 }
@@ -628,6 +922,11 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
         return;
     }
 
+    // Mark this unit as having attacked this phase (per-unit, cleared at RegroupPhaseStart). Used by
+    // "ready a unit that didn't attack this phase" effects (SEC_177).
+    $atkUID = intval($attacker->UniqueID ?? 0);
+    if ($atkUID > 0) AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_UNIT_ATTACKED_' . $atkUID);
+
     // SOR_072 Entrenched / JTL_092 Scramble Fighters: "can't attack bases." Backstop (the valid-targets
     // list already omits the base) so a base target never resolves into combat.
     if (strpos($targetMzID, 'Base') !== false
@@ -641,7 +940,21 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     // Expose the current defender so On-Attack abilities that target "the defender"
     // (e.g. SOR_054 Jedi Lightsaber's granted ability) can resolve it. Persisted in the
     // gamestate var so it survives the request boundary if triggers resume in a later request.
+    SetSWUVar('SWU_PENDING_DEF_REACTION', ''); // combat-pause flag — clear stale state each attack
     SetSWUVar('SWU_CURRENT_DEFENDER', $targetMzID);
+    // Capture the defender UNIT's UniqueID (0 for a base target) so SWUCombatDamage can re-resolve a
+    // reindexed target OR detect a target that LEFT PLAY before damage (e.g. SEC_187 Grievous bounces
+    // himself On Defense) — in which case the attack fizzles instead of hitting whatever unit shifted
+    // into the stale mzID slot.
+    $_defObj = (strpos($targetMzID, 'Arena') !== false) ? GetZoneObject($targetMzID) : null;
+    SetSWUVar('SWU_CURRENT_DEFENDER_UID', strval($_defObj !== null ? intval($_defObj->UniqueID ?? 0) : 0));
+    // SEC_194 per-action base-attack tracking: a transient recording that THIS action attacks a base
+    // (and whose). SWUAfterAction reads it to finalize SWU_LAST_ACTION. The base attacked is the
+    // opponent's (a unit can only attack an enemy base).
+    if (strpos($targetMzID, 'Base') !== false) SetSWUVar('SWU_ACTION_BASEATK', strval(OtherPlayer($player)));
+    // Expose the current attacker (in the active player's frame, "my…") so an OnDefense ability that
+    // affects "the attacker" (LOF_067 Chirrut) can resolve it — flip "my"→"their" for the defender frame.
+    SetSWUVar('SWU_CURRENT_ATTACKER', $attackerMzID);
 
     // SOR_212 Strafing Gunship: "While this unit is attacking a ground unit, the defender gets -2/-0."
     // The SWU_DEF_DEBUFF_N marker lives on the ATTACKER (SWUCombatDamage reads it from the attacker to
@@ -650,12 +963,51 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     if (($attacker->CardID ?? '') === 'SOR_212' && strpos($targetMzID, 'GroundArena') !== false) {
         AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
     }
+    // LOF_014 Grand Inquisitor (deployed) — On Attack: "the defender gets -2/-0 for this attack." Applied
+    // synchronously here (not via the deferred OnAttack trigger) so the marker exists before SWUCombatDamage
+    // reads it. (The $onAttackAbilities["LOF_014:0"] stub-handler is a no-op.)
+    if (($attacker->CardID ?? '') === 'LOF_014' && IsLeaderUnit($attacker)) {
+        AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
+    }
+    // IBH_010 / IBH_042 Han Solo — Raid 2 (keyword, auto) + On Attack: the defender gets -2/-0 for this
+    // attack. Synchronous marker (the deferred OnAttack trigger is too late). Stub handler is a no-op.
+    if (in_array($attacker->CardID ?? '', ['IBH_010', 'IBH_042'], true)) {
+        AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2');
+    }
+    // SEC_208 Hunter — On Attack: if the defender is exhausted, it gets -4/-0 for this attack. Applied
+    // synchronously (the deferred OnAttack trigger is too late — SWUCombatDamage reads the marker first).
+    if (($attacker->CardID ?? '') === 'SEC_208') {
+        $defObj = GetZoneObject($targetMzID);
+        if ($defObj !== null && empty($defObj->removed) && intval($defObj->Status ?? 0) === 0) {
+            AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
+        }
+    }
+    // SEC_224 Saw's Renegades — "Each exhausted enemy unit gets -2/-0 while defending." Field passive:
+    // while its controller has any unit attacking an EXHAUSTED enemy, that defender gets -2/-0.
+    $def224 = GetZoneObject($targetMzID);
+    if ($def224 !== null && empty($def224->removed) && intval($def224->Status ?? 0) === 0) {
+        foreach (GetUnitsInPlay(intval($attacker->Controller ?? $player)) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'SEC_224') {
+                AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_2'); break;
+            }
+        }
+    }
 
     // Restore (CR 7.6.6 / keyword text "When this unit attacks, heal X damage from your base"):
     // fires on EVERY attack — a unit OR a base target — not just base attacks. Heal the attacker's
     // own base by the Restore value once per attack, here at attack time.
-    $restoreVal = GetKeyword_Restore_Value($attacker);
+    $restoreVal = LostAbilities($attacker) ? null : GetKeyword_Restore_Value($attacker);
     if ($restoreVal !== null && $restoreVal > 0) OnHealBase($player, $player, $restoreVal);
+
+    // LAW_086 The Stranger — "While attacking, you may have the defending unit deal combat damage before
+    // this unit." Offer the attacker the choice when attacking a UNIT (not a base), before combat damage.
+    // YES sets the DEFENDER_FIRST marker (read in SWUCombatDamage); these block-1 decisions resolve ahead
+    // of the SWUCombatDamage commit below.
+    if (($attacker->CardID ?? '') === 'LAW_086' && strpos($targetMzID, 'Arena') !== false) {
+        DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
+            tooltip: "Have_the_defending_unit_deal_combat_damage_first?");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_086_DEFFIRST|{$attackerMzID}", 1);
+    }
 
     // Step 1: collect On Attack / On Defense triggers, then flush them onto the
     // EffectStack with a COMBAT continuation that queues SWUCombatDamage once the
@@ -691,6 +1043,10 @@ function _SWUInTriggerResumeMode(): bool {
 global $customDQHandlers;
 $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) {
     global $playerID, $gDeferredReplacements;
+    // parts[3] (optional) = the active/attacker player. When a combat-pause resume commits damage from the
+    // DEFENDER's drain, this CUSTOM is queued on the defender's queue ($player = defender), so re-derive
+    // the attacker frame from parts[3] — "my…" mzIDs below resolve relative to the attacker, not $player.
+    $player       = intval($parts[3] ?? $player);
     $savedPID     = $playerID;
     $playerID     = intval($player);
     $attackerMzID = $parts[0] ?? '';
@@ -718,6 +1074,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     $_logTargetID   = ($target !== null && isset($target->CardID)) ? $target->CardID : '';
     $_logTargetZone = $targetMzID;
     $_logPlayer     = intval($player);
+    $_logOverwhelm  = 0;  // Overwhelm spill amount, logged AFTER the attack line (see below)
 
     if ($attacker === null || (isset($attacker->removed) && $attacker->removed)) {
         $playerID = $savedPID;
@@ -725,24 +1082,83 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         return;
     }
 
+    // Defender re-validation (unit targets only). If the target mzID is stale because the defender
+    // reindexed (another unit left during step-1 triggers), re-resolve it by UniqueID. If the defender
+    // genuinely LEFT PLAY before damage (bounced/defeated by an On-Defense reaction — SEC_187 Grievous),
+    // the attack has no target and fizzles: deal NO combat damage (don't hit whatever shifted into the
+    // slot). A base target (expected UID 0) skips this entirely.
+    $defUidExpected = intval(GetSWUVar('SWU_CURRENT_DEFENDER_UID', '0'));
+    if ($defUidExpected > 0 && (
+            $target === null || !empty($target->removed)
+            || intval($target->UniqueID ?? 0) !== $defUidExpected)) {
+        $tzone = explode('-', $targetMzID)[0];
+        $found = null;
+        foreach (GetZone($tzone) as $idx => $u) {
+            if (empty($u->removed) && intval($u->UniqueID ?? 0) === $defUidExpected) {
+                $found = $u; $targetMzID = $tzone . '-' . $idx; break;
+            }
+        }
+        if ($found === null) {  // defender left play before damage → attack fizzles
+            $playerID = $savedPID;
+            if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
+            return;
+        }
+        $target = $found;
+    }
+
     $attackPower = intval(ObjectCurrentPower($attacker));
-    // Raid: +N power for this attack only (CR 7.6.7).
-    $raidVal = GetKeyword_Raid_Value($attacker);
+    $attackBasePower = $attackPower; // LAW_086: snapshot pre-modifier power to recompute Grit after a defender-first hit
+    // Raid: +N power for this attack only (CR 7.6.7). A unit that has lost all abilities (e.g. SEC_038
+    // Condemn while attacking, SEC_054) gets no Raid — value keywords honor suppression here, since the
+    // generated GetKeyword_*_Value readers don't gate on SWUKeywordSuppressed/LostAbilities themselves.
+    $raidVal = LostAbilities($attacker) ? null : GetKeyword_Raid_Value($attacker);
     if ($raidVal !== null && $raidVal > 0) $attackPower += $raidVal;
+    // LOF_206 Battle Droid action: "For this attack, it deals damage equal to its remaining HP
+    // instead of its power." Replace power entirely with current remaining HP (measured here, at
+    // damage-deal, before the defender's simultaneous counter resolves). Marker is attack-duration.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('SWU_HP_AS_DAMAGE', $attacker->TurnEffects)) {
+        $attackPower = max(0, intval(ObjectCurrentHP($attacker)) - intval($attacker->Damage ?? 0));
+    }
     // SOR_130 First Legion Snowtrooper: while attacking a DAMAGED unit, +2/+0 and
     // gains Overwhelm (both combat-time, depend on the defender's damage at declaration).
     $sor130VsDamaged = ($attacker->CardID === 'SOR_130'
         && $target !== null && empty($target->removed)
         && intval($target->Damage ?? 0) > 0);
     if ($sor130VsDamaged) $attackPower += 2;
+    // SEC_033 Sly Moore: "each enemy unit gets -2/-0 while attacking a base this phase." The marker sits
+    // on the (enemy) attacker; reduce its power only when the target is a base.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('SWU_SEC033', $attacker->TurnEffects, true)
+        && strpos((string)$targetMzID, 'Base') !== false) {
+        $attackPower = max(0, $attackPower - 2);
+    }
+    // SEC_139 Miraj Scintel: "While a friendly unit is attacking a damaged unit, the attacker gains
+    // Overwhelm." Field-passive — any friendly attacker, while its controller controls SEC_139.
+    $sec139Overwhelm = false;
+    if ($target !== null && empty($target->removed) && intval($target->Damage ?? 0) > 0) {
+        foreach (GetUnitsInPlay(intval($attacker->Controller ?? $player)) as $u) {
+            if (!empty($u->removed)) continue;
+            if (($u->CardID ?? '') === 'SEC_139') { $sec139Overwhelm = true; break; }
+        }
+    }
+    // LOF_090 Inquisitor's Lightsaber: attached unit gains "While attacking a Force unit, +2/+0."
+    if (_SWUUnitHasUpgrade($attacker, 'LOF_090') && $target !== null && empty($target->removed)
+        && _SWUUnitHasTrait($target, 'Force')) $attackPower += 2;
     // SOR_071 Electrostaff: "While attached unit is defending, the attacker gets -1/-0." If the
     // defender (host of this upgrade) is being attacked, reduce the attacker's power by 1.
     if ($target !== null && empty($target->removed) && _SWUUnitHasUpgrade($target, 'SOR_071')) {
         $attackPower = max(0, $attackPower - 1);
     }
+    // LAW_108 Lando Calrissian: "While this unit is defending, the attacker gets -1/-0."
+    if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'LAW_108') {
+        $attackPower = max(0, $attackPower - 1);
+    }
     // JTL_054 Gold Leader: "While this unit is defending, the attacker gets -1/-0."
     if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'JTL_054') {
         $attackPower = max(0, $attackPower - 1);
+    }
+    // SEC_042 Cassian Andor: "While this unit is defending, the attacker gets -2/-0."
+    if ($target !== null && empty($target->removed) && ($target->CardID ?? '') === 'SEC_042') {
+        $attackPower = max(0, $attackPower - 2);
     }
     // JTL_259 Retrofitted Airspeeder: "While attacking a space unit, this unit gets -1/-0."
     if (($attacker->CardID ?? '') === 'JTL_259' && $target !== null && empty($target->removed)
@@ -756,6 +1172,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // (SOR_198 gets the ordering with NO +1/+0).
     $hasShootFirst = (is_array($attacker->TurnEffects ?? null) && in_array('SHOOT_FIRST', $attacker->TurnEffects))
         || (($attacker->CardID ?? '') === 'SOR_198');
+    // LAW_086 The Stranger: "you may have the defending unit deal combat damage before this unit" — the
+    // REVERSE of Shoot First (the attacker chose it via the DEFENDER_FIRST marker). Mutually exclusive
+    // with shoot-first; only meaningful in unit combat (handled in the unit branch below).
+    $defenderFirst = !$hasShootFirst
+        && is_array($attacker->TurnEffects ?? null) && in_array('DEFENDER_FIRST', $attacker->TurnEffects);
     // JTL_185 Hound's Tooth: deals combat damage first while attacking an EXHAUSTED unit that DIDN'T
     // enter play this phase (the SWU_PLAYED_UNIT_{uid} flag marks units that entered this round).
     if (($attacker->CardID ?? '') === 'JTL_185' && $target !== null && empty($target->removed)
@@ -792,7 +1213,8 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // Combat-hit context (Phase 7.2): captured here, consumed by CollectCombatStep3Triggers to fire
     // WhenDealsCombatDamage / WhenDefeats abilities (Rukh, Mace, Seventh Sister, SOR_088).
     $combatCtx = ['dealtToBase' => false, 'dealtToUnit' => false, 'defenderDefeated' => false,
-                  'defenderIsLeader' => false, 'excess' => 0, 'attackerSelfDefeat' => false];
+                  'defenderIsLeader' => false, 'excess' => 0, 'attackerSelfDefeat' => false,
+                  'law205SelfDefeat' => false, 'baseCombatDmg' => 0];
     // Capture attack-duration markers NOW (before SWUExpireTurnEffects('attack') strips them later):
     // SOR_150 Heroic Sacrifice's granted "when it deals combat damage: defeat it"; JTL_177 Stay on
     // Target's "deal damage to a base → draw"; JTL_193 I Have You Now's damage prevention on the attacker.
@@ -800,8 +1222,16 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     foreach (($attacker->TurnEffects ?? []) as $te) {
         $teBase = SWUParseTurnEffect((string)$te)['base'];
         if ($teBase === 'SOR_150') $combatCtx['attackerSelfDefeat'] = true;
+        if ($teBase === 'LAW_205') $combatCtx['law205SelfDefeat']   = true;
+        if ($teBase === 'LAW_062') $combatCtx['law062SelfDefeat']   = true;
         if ($teBase === 'JTL_177') $combatCtx['jtl177BaseDraw']    = true;
         if ($teBase === 'JTL_193') $preventAttackerDmg            = true;
+    }
+
+    // "Can't deal combat damage this phase" (LAW_130 Betrayed Trust) — zero the attacker's outgoing
+    // combat damage (to a unit OR a base). The same marker on the defender zeroes its counter (below).
+    if (is_array($attacker->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $attacker->TurnEffects, true)) {
+        $attackPower = 0;
     }
 
     $targetZone = explode('-', $targetMzID)[0];
@@ -810,9 +1240,22 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         SWUDealDamageToBase($attackPower, $player === 1 ? 2 : 1);
         $GLOBALS['gInCombatDamage'] = false;
         $combatCtx['dealtToBase'] = ($attackPower > 0);
+        // SEC_077 Retaliation — mark a unit that dealt damage to a base this phase (per-unit, cleared at
+        // RegroupPhaseStart).
+        if ($attackPower > 0) {
+            $auid = intval($attacker->UniqueID ?? 0);
+            if ($auid > 0) AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_DEALT_BASEDMG_' . $auid);
+        }
+        $combatCtx['baseCombatDmg'] += max(0, intval($attackPower)); // LOF_025 threshold (incl. overwhelm below)
         // (Restore now fires once per attack in ExecuteSWUAttack — for unit AND base targets.)
     } elseif ($target !== null && !isset($target->removed)) {
         $defendPower = max(0, intval(ObjectCurrentPower($target)) - $defenderPowerDebuff);
+        // LOF_049 Jedi Guardian: "While this unit is defending, it gets +2/+0." (counter-damage only.)
+        if (($target->CardID ?? '') === 'LOF_049') $defendPower += 2;
+        // "Can't deal combat damage this phase" (LAW_130) on the defender → it deals no counter-damage.
+        if (is_array($target->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $target->TurnEffects, true)) {
+            $defendPower = 0;
+        }
         $combatCtx['defenderIsLeader'] = IsLeaderUnit($target);
 
         // Saboteur (CR 7.6.9): defeat ALL shield tokens on defender before combat damage.
@@ -836,10 +1279,14 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if ($hasShootFirst) {
             // Shoot First (SOR_217): attacker deals damage before defender.
             // If the defender is defeated, it deals no combat damage (CR card text).
-            if (!SWUConsumeShieldToken($target)) {
-                $target->Damage = intval($target->Damage) + $attackPower;
-                SWUQueueDamageAnim($targetMzID, $attackPower, intval($player));
-                $combatCtx['dealtToUnit'] = ($attackPower > 0);
+            if (_SWUConsumeAmidalaPrevent($target)) {
+                SWUQueuePreventedAnim($targetMzID, intval($player));   // SEC_101 Queen Amidala prevention
+            } elseif (!SWUConsumeShieldToken($target)) {
+                $tgtDmg = _SWUApplyDamagePrevention($target, $attackPower); // LOF_220 prevent-2 marker
+                $target->Damage = intval($target->Damage) + $tgtDmg;
+                SWUQueueDamageAnim($targetMzID, $tgtDmg, intval($player));
+                $combatCtx['dealtToUnit'] = ($tgtDmg > 0);
+                $combatCtx['defenderDmgAmt'] = $tgtDmg;          // SEC_002 "deal that much"
             } else {
                 SWUQueuePreventedAnim($targetMzID, intval($player));
                 SWUQueueShieldBreakAnim($targetMzID, intval($player));
@@ -849,8 +1296,12 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 // Defender survived — take counter-damage normally (unless prevented this attack).
                 if ($preventAttackerDmg) {
                     SWUQueuePreventedAnim($attackerMzID, intval($player));
+                } elseif (_SWUConsumeAmidalaPrevent($attacker)) {
+                    SWUQueuePreventedAnim($attackerMzID, intval($player));   // SEC_101 Queen Amidala prevention
                 } elseif (!SWUConsumeShieldToken($attacker)) {
                     $attacker->Damage = intval($attacker->Damage) + $defendPower;
+                    $combatCtx['attackerTookDmg'] = ($defendPower > 0);
+                    $combatCtx['attackerDmgAmt']  = $defendPower;   // SEC_002 "deal that much"
                     SWUQueueDamageAnim($attackerMzID, $defendPower, intval($player));
                 } else {
                     SWUQueuePreventedAnim($attackerMzID, intval($player));
@@ -858,23 +1309,69 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 }
             }
             // Defender at 0 HP → attacker takes no counter-damage.
+        } elseif ($defenderFirst) {
+            // LAW_086 The Stranger: the DEFENDER deals combat damage first (mirror of Shoot First, roles
+            // swapped). The attacker then recomputes its power (Grit grows with the damage just taken) and
+            // deals — but only if it survived.
+            // 1. Defender deals to the attacker first.
+            if ($preventAttackerDmg) {
+                SWUQueuePreventedAnim($attackerMzID, intval($player));
+            } elseif (_SWUConsumeAmidalaPrevent($attacker)) {
+                SWUQueuePreventedAnim($attackerMzID, intval($player));
+            } elseif (!SWUConsumeShieldToken($attacker)) {
+                $atkDmg = _SWUApplyDamagePrevention($attacker, $defendPower);
+                $attacker->Damage = intval($attacker->Damage) + $atkDmg;
+                $combatCtx['attackerTookDmg'] = ($atkDmg > 0);
+                $combatCtx['attackerDmgAmt']  = $atkDmg;
+                SWUQueueDamageAnim($attackerMzID, $atkDmg, intval($player));
+            } else {
+                SWUQueuePreventedAnim($attackerMzID, intval($player));
+                SWUQueueShieldBreakAnim($attackerMzID, intval($player));
+            }
+            // 2. If the attacker survived, recompute its power (Grit/while-damaged grows with the new
+            //    damage) and deal to the defender. A defeated attacker deals no combat damage.
+            $attackerRemainingHP = intval(ObjectCurrentHP($attacker)) - intval($attacker->Damage);
+            if ($attackerRemainingHP > 0) {
+                $attackPower += max(0, intval(ObjectCurrentPower($attacker)) - $attackBasePower); // Grit delta
+                if (_SWUConsumeAmidalaPrevent($target)) {
+                    SWUQueuePreventedAnim($targetMzID, intval($player));
+                } elseif (!SWUConsumeShieldToken($target)) {
+                    $tgtDmg = _SWUApplyDamagePrevention($target, $attackPower);
+                    $target->Damage = intval($target->Damage) + $tgtDmg;
+                    SWUQueueDamageAnim($targetMzID, $tgtDmg, intval($player));
+                    $combatCtx['dealtToUnit'] = ($tgtDmg > 0);
+                    $combatCtx['defenderDmgAmt'] = $tgtDmg;
+                } else {
+                    SWUQueuePreventedAnim($targetMzID, intval($player));
+                    SWUQueueShieldBreakAnim($targetMzID, intval($player));
+                }
+            }
         } else {
             // Normal simultaneous combat damage (CR 7.6.3).
             // Shield (CR 7.6.5): attacker's shield absorbs all counter-damage in one hit.
             if ($preventAttackerDmg) {
                 SWUQueuePreventedAnim($attackerMzID, intval($player));   // JTL_193: all damage to it prevented
+            } elseif (_SWUConsumeAmidalaPrevent($attacker)) {
+                SWUQueuePreventedAnim($attackerMzID, intval($player));   // SEC_101 Queen Amidala prevention
             } elseif (!SWUConsumeShieldToken($attacker)) {
-                $attacker->Damage = intval($attacker->Damage) + $defendPower;
-                SWUQueueDamageAnim($attackerMzID, $defendPower, intval($player));
+                $atkDmg = _SWUApplyDamagePrevention($attacker, $defendPower); // LOF_220 prevent-2 marker
+                $attacker->Damage = intval($attacker->Damage) + $atkDmg;
+                $combatCtx['attackerTookDmg'] = ($atkDmg > 0);
+                $combatCtx['attackerDmgAmt']  = $atkDmg;          // SEC_002 "deal that much"
+                SWUQueueDamageAnim($attackerMzID, $atkDmg, intval($player));
             } else {
                 SWUQueuePreventedAnim($attackerMzID, intval($player));
                 SWUQueueShieldBreakAnim($attackerMzID, intval($player));
             }
             // Shielded (CR 7.6.5): a shield token absorbs all combat damage in one hit; consume it instead.
-            if (!SWUConsumeShieldToken($target)) {
-                $target->Damage = intval($target->Damage) + $attackPower;
-                SWUQueueDamageAnim($targetMzID, $attackPower, intval($player));
-                $combatCtx['dealtToUnit'] = ($attackPower > 0);
+            if (_SWUConsumeAmidalaPrevent($target)) {
+                SWUQueuePreventedAnim($targetMzID, intval($player));   // SEC_101 Queen Amidala prevention
+            } elseif (!SWUConsumeShieldToken($target)) {
+                $tgtDmg = _SWUApplyDamagePrevention($target, $attackPower); // LOF_220 prevent-2 marker
+                $target->Damage = intval($target->Damage) + $tgtDmg;
+                SWUQueueDamageAnim($targetMzID, $tgtDmg, intval($player));
+                $combatCtx['dealtToUnit'] = ($tgtDmg > 0);
+                $combatCtx['defenderDmgAmt'] = $tgtDmg;          // SEC_002 "deal that much"
             } else {
                 SWUQueuePreventedAnim($targetMzID, intval($player));
                 SWUQueueShieldBreakAnim($targetMzID, intval($player));
@@ -888,6 +1385,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $defenderHP = intval(ObjectCurrentHP($target))   - intval($target->Damage);
         $combatCtx['defenderDefeated'] = ($defenderHP <= 0 && !SWUImmuneToHpDefeat($target));
         $combatCtx['excess'] = $combatCtx['defenderDefeated'] ? max(0, -$defenderHP) : 0;
+        $combatCtx['defenderCardID'] = $target->CardID ?? ''; // for "equal to the defeated unit's cost" (LOF_086)
 
         // Keep $playerID = $player (attacker's perspective) throughout so that
         // mzIDs like "myGroundArena-0" / "theirGroundArena-0" resolve correctly.
@@ -917,6 +1415,15 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 }
                 AddGlobalEffects(GetOpponent($player), 'SWU_ENEMY_DEFEATED');
                 AddGlobalEffects(intval($attacker->Controller ?? $player), 'SWU_FRIENDLY_DEFEATED');
+                // SEC_158 — "a friendly unit was defeated WHILE ATTACKING this phase." This block is the
+                // attacker's death in combat, so it is unambiguously "while attacking." Cleared at RGS.
+                $attCtrl = intval($attacker->Controller ?? $player);
+                AddGlobalEffects($attCtrl, 'SWU_ATTACKER_DEFEATED');
+                // SEC_013 Luthen Rael — "When a friendly unit is defeated while attacking: ..." (front side
+                // = may exhaust leader → deal 1; deployed = may deal 2). Rides the after-attack flush.
+                if (_SWULeaderReadyUndeployed($attCtrl, 'SEC_013') || _SWULeaderDeployed($attCtrl, 'SEC_013')) {
+                    AddTrigger($attCtrl, 'SEC_013', 'SEC_013', '');
+                }
             }
         }
         $defRep = ($defenderHP <= 0 && $target !== null && empty($target->removed) && !SWUImmuneToHpDefeat($target))
@@ -948,12 +1455,13 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 AddGlobalEffects(intval($target->Controller ?? GetOpponent($player)), 'SWU_FRIENDLY_DEFEATED');
             }
             // Overwhelm: excess damage (negative $defenderHP) spills to the opponent's base (CR 7.6.4).
-            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged)) {
+            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $sec139Overwhelm)) {
                 $overflowAmt = -$defenderHP;
                 $GLOBALS['gInCombatDamage'] = true;
                 SWUDealDamageToBase($overflowAmt, $player === 1 ? 2 : 1);
                 $GLOBALS['gInCombatDamage'] = false;
-                AddGameLogEntry('OVERWHELM', 'Overwhelm: ' . $overflowAmt . ' damage to P' . (3 - intval($player)) . '\'s base');
+                $combatCtx['baseCombatDmg'] += max(0, intval($overflowAmt)); // overwhelm counts for LOF_025
+                $_logOverwhelm = $overflowAmt; // deferred — logged after the attack line so it reads in event order
             }
         }
     }
@@ -985,6 +1493,11 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         AddGameLogEntry('ATTACK',
             'P' . $_logPlayer . '\'s ' . $atkRef . ' attacked ' . $targetLabel . $defeatSuffix);
     }
+    // Overwhelm spill is logged AFTER the attack line so the log reads in event order
+    // (attack/defeat first, then the excess damage to the base).
+    if ($_logOverwhelm > 0) {
+        AddGameLogEntry('OVERWHELM', 'Overwhelm: ' . $_logOverwhelm . ' damage to P' . (3 - $_logPlayer) . '\'s base');
+    }
 
     $playerID = $savedPID;
     if (!_SWUInTriggerResumeMode()) SWUAfterAction($player);
@@ -1008,6 +1521,44 @@ function _SWUSabineProtected(object $sabine): bool {
     return count($aspects) >= 3;
 }
 
+// Hidden (LOF keyword) — "This unit can't be attacked if it was played this phase." True when $u has
+// Hidden AND its current in-play instance was played this phase. "Played this phase" = the
+// SWU_PLAYED_UNIT_{uid} flag (set on a real play in ActivateCard, cleared at RegroupPhaseStart). A
+// rescued or token-created instance gets a fresh UID with NO flag — so a captured-then-rescued Hidden
+// unit (even rescued the same phase) is attackable. Used to exclude it from valid attack/Ambush targets.
+function _SWUHiddenBlocksAttack($u): bool {
+    if ($u === null || !HasKeyword_Hidden($u)) return false;
+    return GlobalEffectCount(intval($u->Controller ?? 0), 'SWU_PLAYED_UNIT_' . intval($u->UniqueID ?? 0)) > 0;
+}
+
+// SEC_012 Cassian Andor (leader front passive) — "Friendly units that have damaged an opponent's base
+// this phase can't be attacked (unless they have Sentinel)." Active while the unit's controller has
+// SEC_012 as their (undeployed) leader. Reuses the per-unit SWU_DEALT_BASEDMG_{uid} flag (set in combat
+// when a unit deals base damage; cleared at RegroupPhaseStart). The Sentinel exception is checked at the
+// call site (mirrors SOR_142).
+function _SWUSec012Protected($u): bool {
+    if ($u === null) return false;
+    $ctrl = intval($u->Controller ?? 0);
+    if ($ctrl <= 0) return false;
+    $hasCassian = false;
+    foreach (GetLeader($ctrl) as $l) {
+        if ($l !== null && empty($l->removed) && ($l->CardID ?? '') === 'SEC_012' && empty($l->Deployed)) {
+            $hasCassian = true; break;
+        }
+    }
+    if (!$hasCassian) return false;
+    return GlobalEffectCount($ctrl, 'SWU_DEALT_BASEDMG_' . intval($u->UniqueID ?? 0)) > 0;
+}
+
+// True if a unit carries the phase-duration "can't be attacked" marker (LOF_211 Dooku, LOF_262).
+function _SWUUnitCantBeAttacked($u): bool {
+    if ($u === null) return false;
+    // SEC_135 Muckraker Crab Droid — "While this unit is ready, it can't be attacked."
+    if (($u->CardID ?? '') === 'SEC_135' && intval($u->Status ?? 0) === 1) return true;
+    foreach (SWUParsedTurnEffects($u) as $e) { if (($e['base'] ?? '') === 'CANT_BE_ATTACKED') return true; }
+    return false;
+}
+
 function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName, bool $noBases = false): array {
     $opArenaZone = "their{$arenaName}";
     $oppUnits    = [];
@@ -1021,6 +1572,11 @@ function SWUGetValidAttackTargets(int $opponent, $attackerObj, string $arenaName
         // unit can't be attacked (unless she gains Sentinel)." Exclude her as a valid target — but if
         // she has Sentinel, the protection is off (she becomes a forced Sentinel target instead).
         if (($u->CardID ?? '') === 'SOR_142' && !HasKeyword_Sentinel($u) && _SWUSabineProtected($u)) continue;
+        // Hidden (LOF) — "This unit can't be attacked if it was played this phase." Exclude a Hidden
+        // unit whose current in-play instance was played this phase.
+        if (_SWUHiddenBlocksAttack($u)) continue;
+        if (_SWUUnitCantBeAttacked($u)) continue; // LOF_211/LOF_262 phase-duration "can't be attacked"
+        if (_SWUSec012Protected($u) && !HasKeyword_Sentinel($u)) continue; // SEC_012 — damaged a base this phase
         $oppUnits[] = "{$opArenaZone}-{$i}";
         if (HasKeyword_Sentinel($u)) $sentinels[] = "{$opArenaZone}-{$i}";
     }
@@ -1082,6 +1638,9 @@ function SWUGetValidAmbushTargets(int $opponent, $attackerObj, string $arenaName
     for ($i = 0; $i < count($oppArena); $i++) {
         $u = $oppArena[$i];
         if ($u === null || !empty($u->removed)) continue;
+        if (_SWUHiddenBlocksAttack($u)) continue; // Hidden — can't be attacked (incl. Ambush) the phase it was played
+        if (_SWUUnitCantBeAttacked($u)) continue; // LOF_211/LOF_262 phase-duration "can't be attacked"
+        if (_SWUSec012Protected($u) && !HasKeyword_Sentinel($u)) continue; // SEC_012 — damaged a base this phase
         $oppUnits[] = "{$opArenaZone}-{$i}";
         if (HasKeyword_Sentinel($u)) $sentinels[] = "{$opArenaZone}-{$i}";
     }
@@ -1107,11 +1666,47 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
         $playerID = $savedPID;
         return;
     }
+    // LOF_063 Oggdo Bogdo: "This unit can't attack unless it's damaged." No-op while undamaged.
+    if (($attacker->CardID ?? '') === 'LOF_063' && intval($attacker->Damage ?? 0) <= 0) {
+        $playerID = $savedPID;
+        return;
+    }
+    // LOF_044 Loth-Wolf: "This unit can't attack." Hard no-op.
+    if (($attacker->CardID ?? '') === 'LOF_044') {
+        $playerID = $savedPID;
+        return;
+    }
 
     $attackedUid = intval($attacker->UniqueID ?? 0);
     AddGlobalEffects($player, 'SWU_ATTACKED_' . $attackedUid);  // any unit attacked this phase (SOR_245)
     if (HasTrait($attacker->CardID, 'Mandalorian')) {
         AddGlobalEffects($player, 'SWU_ATTACKED_MANDALORIAN_' . $attackedUid);
+    }
+    // LAW_112 Boonta Eve Flagbearer — "When a friendly unit attacks: if no other units have attacked
+    // this phase (including enemy units), heal 2 from your base." This attack's flag was just set, so
+    // exactly one attack flag = first attack. Heal once per Flagbearer the active player controls.
+    if (_SWUCountActiveUnitsWithCardID($player, 'LAW_112') > 0) {
+        $atkCount = 0;
+        foreach ([1, 2] as $ap) {
+            foreach (GetGlobalEffects($ap) as $ge) {
+                if (preg_match('/^SWU_ATTACKED_\d+$/', (string)($ge->CardID ?? ''))) $atkCount++;
+            }
+        }
+        if ($atkCount <= 1) {
+            $flags = _SWUCountActiveUnitsWithCardID($player, 'LAW_112');
+            for ($i = 0; $i < $flags; $i++) OnHealBase($player, $player, 2);
+        }
+    }
+    // SEC_038 Condemn — "While attached unit is attacking, it ... loses all other abilities." Tag the
+    // attacker with an attack-duration LOSE_ABILITIES marker AT DECLARATION (before target/disclose),
+    // so its own On Attack (the line-492 !LostAbilities gate) and keywords (Raid, Sentinel) are
+    // suppressed for the whole attack. Auto-expires via SWUExpireTurnEffects('attack'). Any number of
+    // Condemns ⇒ one marker; the granted On Attack's mutual-suppression is handled in the upgrade scan.
+    foreach (GetUpgradesOnUnit($attacker) as $cu) {
+        if (($cu->CardID ?? '') === 'SEC_038') {
+            AddTurnEffect($attackerMzID, SWUMakeTurnEffect('SEC_038', [], SWU_DUR_ATTACK));
+            break;
+        }
     }
     // JTL_006 Darth Vader: "attacked with a non-token Vehicle this phase." A deployed Leader Unit
     // counts if it has the Vehicle trait; Token Units (TIE tokens etc.) are excluded.
@@ -1121,6 +1716,23 @@ function BeginSWUAttack($player, $attackerMzID, bool $noBases = false) {
     // JTL_012 Luke Skywalker: "attacked with a Fighter unit this phase."
     if (HasTrait($attacker->CardID, 'Fighter')) {
         AddGlobalEffects($player, 'SWU_ATTACKED_FIGHTER');
+    }
+    // LOF_011 Kit Fisto: "attacked with a Jedi unit this phase."
+    if (HasTrait($attacker->CardID, 'Jedi')) {
+        AddGlobalEffects($player, 'SWU_ATTACKED_JEDI');
+    }
+    // LAW_219 Anakin's Podracer — "While attacking, if no other units have attacked this phase, this
+    // unit deals combat damage before the defending unit." Conditional SHOOT_FIRST, set at declaration
+    // (before SWUCombatDamage reads it). This attack's flag was just added above, so exactly one attack
+    // flag this phase (either player) = this is the first attacker.
+    if (($attacker->CardID ?? '') === 'LAW_219') {
+        $atk219 = 0;
+        foreach ([1, 2] as $ap) {
+            foreach (GetGlobalEffects($ap) as $ge) {
+                if (preg_match('/^SWU_ATTACKED_\d+$/', (string)($ge->CardID ?? ''))) $atk219++;
+            }
+        }
+        if ($atk219 <= 1) AddTurnEffect($attackerMzID, 'SHOOT_FIRST');
     }
 
     // Exhaust the attacker (CR 6.3.1). This function never gates on the attacker being ready
@@ -1220,6 +1832,37 @@ function OnAttackedFromUpgradeTrigger(int $player, string $upgradeCardID, string
         $onAttackedFromUpgradeAbilities[$upgradeCardID]($player, $defenderMzID);
     }
     $playerID = $savedPID;
+}
+
+// Upgrade-granted "When this unit is attacked: ..." On Defense dispatch (SEC_052 Diplomatic Immunity).
+// $player = the DEFENDER's controller; $hostMzID is the attacked host in the defender's frame. Sets the
+// combat-pause flag like OnDefenseTrigger so the reaction (a disclose) resolves before combat damage.
+function OnDefenseFromUpgradeTrigger(int $player, string $upgradeCardID, string $hostMzID): void {
+    global $onDefenseFromUpgradeAbilities, $playerID;
+    $savedPID = $playerID;
+    $playerID = $player;
+    if (isset($onDefenseFromUpgradeAbilities[$upgradeCardID])) {
+        $onDefenseFromUpgradeAbilities[$upgradeCardID]($player, $hostMzID);
+        SetSWUVar('SWU_PENDING_DEF_REACTION', '1');
+    }
+    $playerID = $savedPID;
+}
+
+// SEC_101 Queen Amidala — combat-damage prevention dispatch. Queues the "defeat a trait-sharing friendly
+// to prevent?" offer for $player (Amidala's controller) and sets the combat-pause flag so it resolves
+// before SWUCombatDamage. $mzID is Amidala in $player's frame. On accept, AMIDALA_PREVENT_COMBAT sets a
+// one-shot marker that SWUCombatDamage consumes (skipping her damage this attack).
+function SEC101PreventTrigger($player, $mzID): void {
+    global $playerID; $playerID = intval($player);
+    $u = GetZoneObject($mzID);
+    if ($u === null || !empty($u->removed) || ($u->CardID ?? '') !== 'SEC_101') return;
+    $tg = _SWUAmidalaPreventTargets($u);
+    if (empty($tg)) return;
+    $uid = intval($u->UniqueID ?? 0);
+    DecisionQueueController::AddDecision(intval($player), 'MZMAYCHOOSE', implode('&', $tg), 1,
+        tooltip: 'Defeat_a_trait-sharing_friendly_to_prevent_combat_damage_to_Queen_Amidala?');
+    DecisionQueueController::AddDecision(intval($player), 'CUSTOM', "AMIDALA_PREVENT_COMBAT|{$uid}", 1);
+    SetSWUVar('SWU_PENDING_DEF_REACTION', '1');
 }
 
 // Calculate the total attack power for a combat:

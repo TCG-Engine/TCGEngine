@@ -259,7 +259,7 @@ function ResolveGlobalFunction(functionName) {
           //$restrictionName = CardName($restriction);
           rv += "<img title='Restricted by: " + restriction + "' style='position:absolute; z-index:100; top:26px; left:26px;' src='./Images/restricted.png' />";
         }
-        if (epicActionUsed == 1) rv += "<img title='Epic Action Used' style='position:absolute; z-index:100; top:4px; right:4px; height:22px; width:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7)); opacity:0.92;' src='./Assets/Icons/action-used.svg' />";
+        if (epicActionUsed == 1) rv += "<img title='Epic Action Used' style='position:absolute; z-index:100; bottom:4px; right:4px; height:22px; width:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7)); opacity:0.92;' src='./Assets/Icons/action-used.svg' />";
         rv += "</a>";
         /*
         if (gem != 0) {
