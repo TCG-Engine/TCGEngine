@@ -9564,18 +9564,7 @@ function EndPhase() {
     }
 
     // Agility N: at beginning of end phase, return N cards from memory to hand.
-    $agilityToReturn = 0;
-    foreach(GetGlobalEffects($turnPlayer) as $effectObj) {
-        if(!preg_match('/^AGILITY_(\d+)$/', $effectObj->CardID, $matches)) continue;
-        $agilityToReturn += intval($matches[1]);
-    }
-    global $playerID;
-    $memoryZoneRef = ($turnPlayer == $playerID) ? "myMemory" : "theirMemory";
-    $handZoneRef = ($turnPlayer == $playerID) ? "myHand" : "theirHand";
-    for($agi = $agilityToReturn - 1; $agi >= 0; --$agi) {
-        if($agi >= count(GetMemory($turnPlayer))) continue;
-        MZMove($playerID, $memoryZoneRef . "-" . $agi, $handZoneRef);
-    }
+    QueueAgilityReturnToHand($turnPlayer);
 
     // Devious Welcome (vz4kc558yx): next end phase discard if chosen type wasn't activated.
     $champMZ = FindChampionMZ($turnPlayer);
@@ -20525,6 +20514,50 @@ function HasAgilityThisTurn($player) {
     }
     return false;
 }
+
+function QueueAgilityReturnToHand($player) {
+    $agilityToReturn = 0;
+    foreach(GetGlobalEffects($player) as $effectObj) {
+        if(!preg_match('/^AGILITY_(\d+)$/', $effectObj->CardID, $matches)) continue;
+        $agilityToReturn += intval($matches[1]);
+    }
+    if($agilityToReturn <= 0) return;
+
+    $memoryChoices = ZoneSearch("myMemory", forPlayer: $player);
+    if(empty($memoryChoices)) return;
+
+    $returnCount = min($agilityToReturn, count($memoryChoices));
+    if($returnCount <= 0) return;
+
+    if($returnCount >= count($memoryChoices)) {
+        foreach($memoryChoices as $mzCard) {
+            MZMove($player, $mzCard, "myHand");
+        }
+        return;
+    }
+
+    DecisionQueueController::AddDecision(
+        $player,
+        "MZMULTICHOOSE",
+        $returnCount . "|" . $returnCount . "|" . implode("&", $memoryChoices),
+        1,
+        tooltip:"Choose_cards_to_return_from_memory_to_hand"
+    );
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ResolveAgilityReturnToHand|" . $returnCount, 1);
+}
+
+$customDQHandlers["ResolveAgilityReturnToHand"] = function($player, $parts, $lastDecision) {
+    $required = isset($parts[0]) ? intval($parts[0]) : 0;
+    $selected = array_values(array_unique(array_filter(explode("&", strval($lastDecision)), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    if($required > 0 && count($selected) > $required) {
+        $selected = array_slice($selected, 0, $required);
+    }
+    foreach($selected as $mzCard) {
+        MZMove($player, $mzCard, "myHand");
+    }
+};
 
 /**
  * Check whether a field object currently has immortality.
