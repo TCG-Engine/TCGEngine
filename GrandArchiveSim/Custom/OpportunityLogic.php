@@ -92,6 +92,8 @@ function InferOpportunityWindowId($nextHandler, $firstPlayer = null, $nextPlayer
     switch($nextHandler) {
         case "AbilityOpportunityResume":
             return "ABILITY_RESPONSE";
+        case "BeforeRecollectionContinue":
+            return "REC_START";
         case "CombatDealDamage":
         case "CleaveDealDamage":
             return "COMBAT_DAMAGE";
@@ -1199,10 +1201,10 @@ $customDQHandlers["PostResolutionCheck"] = function($player, $parts, $lastDecisi
         if($consumedOuterWindow === "YES") {
             $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
             DecisionQueueController::ClearVariable("ConsumedOuterOpportunityWindow");
-            if(IsCombatOpportunityContinuation($pendingHandler)) {
-                $firstPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? GetTurnPlayer());
-                $nextPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityNextPlayer") ?? GetTurnPlayer());
-                $pendingWindow = InferOpportunityWindowId($pendingHandler, $firstPlayer, $nextPlayer);
+            $firstPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? GetTurnPlayer());
+            $nextPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityNextPlayer") ?? GetTurnPlayer());
+            $pendingWindow = InferOpportunityWindowId($pendingHandler, $firstPlayer, $nextPlayer);
+            if(ShouldResumeConsumedOuterOpportunity($pendingHandler, $pendingWindow)) {
                 GrantOpportunityWindow($firstPlayer, $pendingHandler, $nextPlayer, $pendingWindow);
                 return;
             }
@@ -1383,6 +1385,11 @@ function IsCombatOpportunityContinuation($handler) {
     return in_array($handler, ["CombatDealDamage", "CleaveDealDamage", "AbilityOpportunityResume", "NoOp"], true);
 }
 
+function ShouldResumeConsumedOuterOpportunity($handler, $windowId = "") {
+    if($windowId === "REC_START") return true;
+    return IsCombatOpportunityContinuation($handler);
+}
+
 /**
  * First player in an Opportunity window responded.
  */
@@ -1404,7 +1411,7 @@ $customDQHandlers["OpportunityWindowFirstResponse"] = function($player, $parts, 
         // effect-stack / ability-response flow will provide any follow-up priority.
         DecisionQueueController::StoreVariable("ConsumedOuterOpportunityWindow", "YES");
         $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
-        if(!IsCombatOpportunityContinuation($pendingHandler)) {
+        if(!ShouldResumeConsumedOuterOpportunity($pendingHandler, $windowId)) {
             ClearOpportunityVariables();
         }
         ResolveOpportunitySelection($player, $lastDecision);
@@ -1423,7 +1430,10 @@ $customDQHandlers["OpportunityWindowSecondResponse"] = function($player, $parts,
         // effect-stack / ability-response flow will provide any follow-up priority.
         DecisionQueueController::StoreVariable("ConsumedOuterOpportunityWindow", "YES");
         $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
-        if(!IsCombatOpportunityContinuation($pendingHandler)) {
+        $firstPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityFirstPlayer") ?? $player);
+        $nextPlayer = intval(DecisionQueueController::GetVariable("PendingOpportunityNextPlayer") ?? $player);
+        $windowId = InferOpportunityWindowId($pendingHandler, $firstPlayer, $nextPlayer);
+        if(!ShouldResumeConsumedOuterOpportunity($pendingHandler, $windowId)) {
             ClearOpportunityVariables();
         }
         ResolveOpportunitySelection($player, $lastDecision);
