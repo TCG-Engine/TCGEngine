@@ -9884,7 +9884,7 @@ function EndPhase() {
         $tpField2 = &GetField($turnPlayer);
         for($fbi = 0; $fbi < count($tpField2); ++$fbi) {
             if(!$tpField2[$fbi]->removed && $tpField2[$fbi]->CardID === "prbwzihwyh" && !HasNoAbilities($tpField2[$fbi])) {
-                $influence = count(GetMemory($turnPlayer));
+                $influence = GetInfluence($turnPlayer);
                 if($influence <= 4) {
                     DrawIntoMemory($turnPlayer, 1);
                     $fbChampMZ = FindChampionMZ($turnPlayer);
