@@ -20370,6 +20370,12 @@ function GetLinkedCards($obj) {
                 if(!isset($fObj->Counters['linkedToAlly'])
                     && !isset($fObj->Counters['linkedToWeapon'])
                     && !isset($fObj->Counters['linkedToChampion'])) continue;
+                $linkedCardIDs = [
+                    $fObj->Counters['linkedToAlly'] ?? null,
+                    $fObj->Counters['linkedToWeapon'] ?? null,
+                    $fObj->Counters['linkedToChampion'] ?? null,
+                ];
+                if(!in_array($obj->CardID, $linkedCardIDs, true)) continue;
                 $linked[] = $fObj;
             }
         }
@@ -20486,6 +20492,12 @@ function CheckAndBreakLinks($player, $departingMZ) {
             if(!isset($fObj->Counters['linkedToAlly'])
                 && !isset($fObj->Counters['linkedToWeapon'])
                 && !isset($fObj->Counters['linkedToChampion'])) continue;
+            $linkedCardIDs = [
+                $fObj->Counters['linkedToAlly'] ?? null,
+                $fObj->Counters['linkedToWeapon'] ?? null,
+                $fObj->Counters['linkedToChampion'] ?? null,
+            ];
+            if(!in_array($obj->CardID, $linkedCardIDs, true)) continue;
             $linkedObjectsToSacrifice[] = [
                 "zone" => $linkedZoneRef,
                 "idx" => $idx,
@@ -20495,7 +20507,7 @@ function CheckAndBreakLinks($player, $departingMZ) {
     }
     usort($linkedObjectsToSacrifice, fn($a, $b) => $b["idx"] <=> $a["idx"]);
     foreach($linkedObjectsToSacrifice as $entry) {
-        DoSacrificeFighter($entry["controller"], $entry["zone"] . "-" . $entry["idx"]);
+        DoSacrificeFighter($playerID, $entry["zone"] . "-" . $entry["idx"]);
     }
     return;
 }
