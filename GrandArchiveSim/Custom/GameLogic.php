@@ -4309,11 +4309,14 @@ $customDQHandlers["LabyrinthJeweledOpusApply"] = function($player, $parts, $last
 
 // Merlin L3: banish a card from opponent's memory and let them activate it until end of next turn
 $customDQHandlers["MerlinL3BanishMemory"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     $opponent = intval($parts[0]);
+    $sourceMZ = ResolveTempChoiceToSourceMZ($lastDecision, "merlinL3MemoryTempMap");
+    ClearMyTempZoneCards($player);
+    DecisionQueueController::StoreVariable("merlinL3MemoryTempMap", "");
+    if($sourceMZ === null || $sourceMZ === "") return;
     global $playerID;
     $oppBanish = $opponent == $playerID ? "myBanish" : "theirBanish";
-    $banishedObj = MZMove($player, $lastDecision, $oppBanish);
+    $banishedObj = MZMove($player, $sourceMZ, $oppBanish);
     if($banishedObj !== null) {
         // Tag the banished card so it can be activated until end of opponent's next turn
         if(!is_array($banishedObj->TurnEffects)) $banishedObj->TurnEffects = [];
@@ -9941,7 +9944,9 @@ function EndPhase() {
                     }
                 }
                 if(!empty($memCards)) {
-                    $memStr = implode("&", $memCards);
+                    $tempChoices = StageHiddenMZChoicesToTemp($turnPlayer, $memCards, "merlinL3MemoryTempMap");
+                    if(empty($tempChoices)) break;
+                    $memStr = implode("&", $tempChoices);
                     DecisionQueueController::AddDecision($turnPlayer, "MZCHOOSE", $memStr, 1, tooltip:"Banish_a_card_from_opponent's_memory_(Merlin_L3)");
                     DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "MerlinL3BanishMemory|" . $opponent, 1);
                 }
