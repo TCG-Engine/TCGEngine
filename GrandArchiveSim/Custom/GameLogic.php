@@ -12938,6 +12938,7 @@ function ObjectCurrentLevelDisplay($obj) {
 }
 
 function DoDrawCard($player, $amount=1) {
+    DecisionQueueController::CleanupRemovedCards();
     $zone = &GetDeck($player);
     $hand = &GetHand($player);
     for($i=0; $i<$amount; ++$i) {
@@ -13034,6 +13035,7 @@ function DoDrawCard($player, $amount=1) {
  * @param int $amount Number of cards to draw into memory.
  */
 function DrawIntoMemory($player, $amount=1) {
+    DecisionQueueController::CleanupRemovedCards();
     $zone = &GetDeck($player);
     $memory = &GetMemory($player);
     for($i=0; $i<$amount; ++$i) {
@@ -22387,11 +22389,12 @@ function DomainRevealMemoryUpkeep($player, $fieldIndex, $allowedElements, $domai
  * @param int    $amount   Number of cards to mill
  */
 function MillCards($player, $deckRef, $gyRef, $amount) {
+    DecisionQueueController::CleanupRemovedCards();
     $deckOwner = (strpos($deckRef, "my") === 0) ? $player : (($player == 1) ? 2 : 1);
     $graveOwner = (strpos($gyRef, "my") === 0) ? $player : (($player == 1) ? 2 : 1);
-    $graveBefore = count(GetGraveyard($graveOwner));
     $deck = GetZone($deckRef);
     $n = min($amount, count($deck));
+    $milledToOwnGraveyard = 0;
     // Always mill in reverse order because cards stick around in their zone until cleaned up for last known information
     for($i = $n-1; $i >= 0; --$i) {
         // Purging Tempest (yuo7dbge3b): redirect GY destination to banish
@@ -22414,10 +22417,12 @@ function MillCards($player, $deckRef, $gyRef, $amount) {
                 }
             }
         }
-        MZMove($player, "$deckRef-" . $i, $effectiveDest);
+        $moved = MZMove($player, "$deckRef-" . $i, $effectiveDest);
+        if($moved !== null && $effectiveDest === $gyRef && $deckOwner === $graveOwner) {
+            ++$milledToOwnGraveyard;
+        }
     }
-    $graveAfter = count(GetGraveyard($graveOwner));
-    if($graveAfter > $graveBefore && $deckOwner === $graveOwner) {
+    if($milledToOwnGraveyard > 0) {
         foreach(GetField($graveOwner) as $fieldObj) {
             if(!$fieldObj->removed && $fieldObj->CardID === "vzmnt0orxj" && !HasNoAbilities($fieldObj)
                     && IsGuoJiaBonus($graveOwner)) {
