@@ -8575,6 +8575,7 @@ function ResolveBeforeRecollectionPhaseStart($turnPlayer) {
                     break;
                 case "4s1kmjeaks": // Floodbloom: banish top 2 cards of deck at recollection
                     if(!HasNoAbilities($field[$i])) {
+                        DecisionQueueController::CleanupRemovedCards();
                         $deck = GetZone("myDeck");
                         for($fb = 1; $fb >= 0; --$fb) {
                             if($fb >= count($deck)) continue;
