@@ -319,6 +319,7 @@ $Imbue_Cards["k4pjo6lVMO"] = ['threshold' => 2, 'matcher' => 'advanced']; // Fou
 $Imbue_Cards["eDCnvWoGxf"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['EXIA', 'NEOS']]; // Azrael, Archangel of Materia - Exia & Neos Imbue 3
 $Imbue_Cards["ozpG6bt7nC"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['ARCANE', 'ASTRA']]; // Raziel, Archangel of Libra - Arcane & Astra Imbue 3
 $Imbue_Cards["suH40WW60W"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['LUXEM', 'UMBRA']]; // Haniel, Archangel of Spectra - Luxem & Umbra Imbue 3
+$Imbue_Cards["FQKVzsMp3B"] = ['threshold' => 3, 'matcher' => 'element', 'element' => ['CRUX', 'TERA']]; // Ariel, Archangel of Natura - Crux & Tera Imbue 3
 $Imbue_Cards["AsDKTmP3kp"] = 3; // Hector, Praetorian Guard (NEOS) - Imbue 3
 $Imbue_Cards["kl4bTg57Cj"] = ['threshold' => 2, 'matcher' => 'advanced']; // Benediction Angel - Advanced Imbue 2
 
@@ -10075,6 +10076,9 @@ function ObjectCurrentPower($obj) {
         }
         if($effect === "gz92tQGwCZ-buff") { // Banner Slime activated ability buff
             $power += 1;
+        }
+        if($effect === "FQKVzsMp3B-buff") { // Ariel, Archangel of Natura: On Enter +3 POWER after banishing from material
+            $power += 3;
         }
         if($effect === "tZtoAl4ojK_POWER") {
             $power -= 5;
