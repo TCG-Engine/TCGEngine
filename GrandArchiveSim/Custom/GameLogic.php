@@ -1821,7 +1821,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     global $AllyLink_Cards;
     $hasAllyLink = isset($AllyLink_Cards[$sourceObject->CardID]);
     if($hasAllyLink) {
-        $allyTargets = ZoneSearch("myField", ["ALLY"]);
+        $allyTargets = GetAllyLinkTargets($player);
         if(empty($allyTargets)) return; // No valid Link target â€” block activation
     }
 
@@ -1968,7 +1968,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     //TODO: 1.5 Declaring Targets
 
     if($hasAllyLink) {
-        $allyTargets = ZoneSearch("myField", ["ALLY"]);
+        $allyTargets = GetAllyLinkTargets($player);
         if(!empty($allyTargets)) {
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $allyTargets), 1,
                 tooltip:"Choose_an_ally_to_link");
@@ -4801,29 +4801,12 @@ function OnCardActivated($player, $mzCard) {
         // Ally Link fizzle check: validate the link target is still legal at resolution time
         global $AllyLink_Cards;
         if(isset($AllyLink_Cards[$obj->CardID])) {
-            $linkTargetMZ = DecisionQueueController::GetVariable("linkTargetMZ");
-            $linkTargetCardID = DecisionQueueController::GetVariable("linkTargetCardID");
-            $targetObj = (!empty($linkTargetMZ) && $linkTargetMZ !== "-") ? GetZoneObject($linkTargetMZ) : null;
-            $targetValid = ($targetObj !== null && !$targetObj->removed
-                && $targetObj->CardID === $linkTargetCardID
-                && PropertyContains(CardType($targetObj->CardID), "ALLY"));
-            if(!$targetValid && !empty($linkTargetCardID)) {
-                // Target index may have shifted â€” scan field for the same CardID
-                $field = GetZone("myField");
-                $targetValid = false;
-                for($fi = 0; $fi < count($field); $fi++) {
-                    if(!$field[$fi]->removed && $field[$fi]->CardID === $linkTargetCardID
-                        && PropertyContains(CardType($field[$fi]->CardID), "ALLY")) {
-                        DecisionQueueController::StoreVariable("linkTargetMZ", "myField-" . $fi);
-                        $targetValid = true;
-                        break;
-                    }
-                }
-            }
-            if(!$targetValid) {
+            $linkTargetMZ = ValidateStoredAllyLinkTarget($player);
+            if($linkTargetMZ === null) {
                 // Fizzle â€” link target no longer exists
                 $obj = MZMove($player, $mzCard, "myGraveyard");
                 DecisionQueueController::StoreVariable("linkTargetMZ", "");
+                DecisionQueueController::StoreVariable("linkTargetCardID", "");
                 DecisionQueueController::CleanupRemovedCards();
                 return;
             }
@@ -20284,6 +20267,40 @@ function CreateAllyLink($player, $phantasiaMZ, $allyMZ) {
     $phantasiaObj->Counters['linkedToAlly'] = $allyObj->CardID;
 }
 
+function IsValidAllyLinkTarget($mzID, $expectedCardID=null) {
+    if(empty($mzID) || $mzID === "-") return false;
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return false;
+    if($expectedCardID !== null && $expectedCardID !== "" && $obj->CardID !== $expectedCardID) return false;
+    return PropertyContains(EffectiveCardType($obj), "ALLY");
+}
+
+function GetAllyLinkTargets($player) {
+    return array_merge(
+        ZoneSearch("myField", ["ALLY"], forPlayer:$player),
+        ZoneSearch("theirField", ["ALLY"], forPlayer:$player)
+    );
+}
+
+function ValidateStoredAllyLinkTarget($player) {
+    $linkTargetMZ = DecisionQueueController::GetVariable("linkTargetMZ");
+    $linkTargetCardID = DecisionQueueController::GetVariable("linkTargetCardID");
+    if(IsValidAllyLinkTarget($linkTargetMZ, $linkTargetCardID)) return $linkTargetMZ;
+    if(empty($linkTargetCardID)) return null;
+
+    foreach(["myField", "theirField"] as $zoneName) {
+        $field = GetZone($zoneName);
+        for($fi = 0; $fi < count($field); ++$fi) {
+            if($field[$fi]->removed || $field[$fi]->CardID !== $linkTargetCardID) continue;
+            if(!PropertyContains(EffectiveCardType($field[$fi]), "ALLY")) continue;
+            $resolvedMZ = $zoneName . "-" . $fi;
+            DecisionQueueController::StoreVariable("linkTargetMZ", $resolvedMZ);
+            return $resolvedMZ;
+        }
+    }
+    return null;
+}
+
 /**
  * Create a link between an object with Champion Link and a champion.
  * The champion's Subcards stores the linking CardID for UI display.
@@ -20339,22 +20356,22 @@ function CreateWeaponLink($player, $phantasiaMZ, $weaponMZ) {
  */
 function GetLinkedCards($obj) {
     if(!isset($obj->Subcards) || !is_array($obj->Subcards) || empty($obj->Subcards)) return [];
-    global $playerID;
-    $zoneRef = $obj->Controller == $playerID ? "myField" : "theirField";
-    $field = GetZone($zoneRef);
     $linked = [];
     foreach($obj->Subcards as $subcardCardID) {
         if(empty($subcardCardID)) continue;
-        foreach($field as $fObj) {
-            if($fObj === null) continue;
-            if($fObj->removed) continue;
-            if($fObj->CardID !== $subcardCardID) continue;
-            // Confirm it's actually linked (has the reverse pointer)
-            if(!is_array($fObj->Counters)) continue;
-            if(!isset($fObj->Counters['linkedToAlly'])
-                && !isset($fObj->Counters['linkedToWeapon'])
-                && !isset($fObj->Counters['linkedToChampion'])) continue;
-            $linked[] = $fObj;
+        foreach(["myField", "theirField"] as $zoneRef) {
+            $field = GetZone($zoneRef);
+            foreach($field as $fObj) {
+                if($fObj === null) continue;
+                if($fObj->removed) continue;
+                if($fObj->CardID !== $subcardCardID) continue;
+                // Confirm it's actually linked (has the reverse pointer)
+                if(!is_array($fObj->Counters)) continue;
+                if(!isset($fObj->Counters['linkedToAlly'])
+                    && !isset($fObj->Counters['linkedToWeapon'])
+                    && !isset($fObj->Counters['linkedToChampion'])) continue;
+                $linked[] = $fObj;
+            }
         }
     }
     return $linked;
@@ -20364,15 +20381,15 @@ function GetLinkedAllyMZ($player, $phantasiaObj) {
     if($phantasiaObj === null || $phantasiaObj->removed) return null;
     if(!is_array($phantasiaObj->Counters) || !isset($phantasiaObj->Counters['linkedToAlly'])) return null;
     $linkedCardID = $phantasiaObj->Counters['linkedToAlly'];
-    global $playerID;
-    $zoneRef = $player == $playerID ? "myField" : "theirField";
-    $field = GetZone($zoneRef);
-    foreach($field as $idx => $obj) {
-        if($obj === null) continue;
-        if($obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY")) continue;
-        if($obj->CardID !== $linkedCardID) continue;
-        if(!is_array($obj->Subcards) || !in_array($phantasiaObj->CardID, $obj->Subcards)) continue;
-        return $zoneRef . "-" . $idx;
+    foreach(["myField", "theirField"] as $zoneRef) {
+        $field = GetZone($zoneRef);
+        foreach($field as $idx => $obj) {
+            if($obj === null) continue;
+            if($obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY")) continue;
+            if($obj->CardID !== $linkedCardID) continue;
+            if(!is_array($obj->Subcards) || !in_array($phantasiaObj->CardID, $obj->Subcards)) continue;
+            return $zoneRef . "-" . $idx;
+        }
     }
     return null;
 }
@@ -20442,12 +20459,15 @@ function CheckAndBreakLinks($player, $departingMZ) {
     if(is_array($obj->Counters) && (isset($obj->Counters['linkedToAlly']) || isset($obj->Counters['linkedToWeapon']) || isset($obj->Counters['linkedToChampion']))) {
         $hostCardID = $obj->Counters['linkedToAlly'] ?? $obj->Counters['linkedToWeapon'] ?? $obj->Counters['linkedToChampion'] ?? null;
         if($hostCardID !== null) {
-            foreach($field as $idx => $fObj) {
-                if($fObj->removed) continue;
-                if($fObj->CardID !== $hostCardID) continue;
-                if(!is_array($fObj->Subcards)) continue;
-                $fObj->Subcards = array_values(array_filter($fObj->Subcards, fn($id) => $id !== $obj->CardID));
-                break;
+            foreach(["myField", "theirField"] as $hostZoneRef) {
+                $hostField = GetZone($hostZoneRef);
+                foreach($hostField as $idx => $fObj) {
+                    if($fObj->removed) continue;
+                    if($fObj->CardID !== $hostCardID) continue;
+                    if(!is_array($fObj->Subcards)) continue;
+                    $fObj->Subcards = array_values(array_filter($fObj->Subcards, fn($id) => $id !== $obj->CardID));
+                    break 2;
+                }
             }
         }
         return;
@@ -20456,23 +20476,28 @@ function CheckAndBreakLinks($player, $departingMZ) {
     // Case 2: Departing card is an ally/weapon with linked Phantasias
     if(!is_array($obj->Subcards) || empty($obj->Subcards)) return;
 
-    $toSacrifice = [];
-    foreach($field as $idx => $fObj) {
-        if($fObj->removed) continue;
-        if(!in_array($fObj->CardID, $obj->Subcards)) continue;
-        if(!is_array($fObj->Counters)) continue;
-        if(!isset($fObj->Counters['linkedToAlly'])
-            && !isset($fObj->Counters['linkedToWeapon'])
-            && !isset($fObj->Counters['linkedToChampion'])) continue;
-        // This is a linked Phantasia â€” its link is broken when the host leaves
-        $toSacrifice[] = $idx;
+    $linkedObjectsToSacrifice = [];
+    foreach(["myField", "theirField"] as $linkedZoneRef) {
+        $linkedField = GetZone($linkedZoneRef);
+        foreach($linkedField as $idx => $fObj) {
+            if($fObj->removed) continue;
+            if(!in_array($fObj->CardID, $obj->Subcards)) continue;
+            if(!is_array($fObj->Counters)) continue;
+            if(!isset($fObj->Counters['linkedToAlly'])
+                && !isset($fObj->Counters['linkedToWeapon'])
+                && !isset($fObj->Counters['linkedToChampion'])) continue;
+            $linkedObjectsToSacrifice[] = [
+                "zone" => $linkedZoneRef,
+                "idx" => $idx,
+                "controller" => $fObj->Controller,
+            ];
+        }
     }
-
-    // Sacrifice linked Phantasias in reverse index order to preserve indices
-    rsort($toSacrifice);
-    foreach($toSacrifice as $idx) {
-        DoSacrificeFighter($controller, $zoneRef . "-" . $idx);
+    usort($linkedObjectsToSacrifice, fn($a, $b) => $b["idx"] <=> $a["idx"]);
+    foreach($linkedObjectsToSacrifice as $entry) {
+        DoSacrificeFighter($entry["controller"], $entry["zone"] . "-" . $entry["idx"]);
     }
+    return;
 }
 
 // =============================================================================

@@ -315,7 +315,7 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
 
     global $AllyLink_Cards;
     if(isset($AllyLink_Cards[$materializeCard->CardID]) && !$continueMaterialize) {
-        $allyTargets = ZoneSearch("myField", ["ALLY"]);
+        $allyTargets = GetAllyLinkTargets($player);
         if(empty($allyTargets)) return;
         DecisionQueueController::StoreVariable("linkTargetMZ", "");
         DecisionQueueController::StoreVariable("linkTargetCardID", "");
