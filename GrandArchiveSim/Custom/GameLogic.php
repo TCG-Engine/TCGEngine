@@ -9212,7 +9212,11 @@ function MainPhase() {
     // At the beginning of a player's main phase, if they control objects with wither counters,
     // for each such object, they sacrifice it unless they pay (1) per wither counter, then remove wither counters.
     $turnPlayer = &GetTurnPlayer();
-    WitherUpkeep($turnPlayer);
+    if(QueueWitherUpkeepTrigger($turnPlayer)) {
+        DecisionQueueController::AddDecision($turnPlayer, "CUSTOM", "EffectStackOpportunity", 100);
+        $dqController = new DecisionQueueController();
+        $dqController->ExecuteStaticMethods($turnPlayer, "-");
+    }
 }
 
 /**

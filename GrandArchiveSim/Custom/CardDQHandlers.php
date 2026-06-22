@@ -5167,6 +5167,35 @@ function WitherUpkeep($player) {
     }
 }
 
+function QueueWitherUpkeepTrigger($player) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $field = GetZone($zone);
+    $triggerCardID = "wither";
+    $triggerUniqueID = 0;
+
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed) continue;
+        if(GetCounterCount($field[$i], "wither") <= 0) continue;
+        if(PropertyContains(EffectiveCardType($field[$i]), "CHAMPION")) continue;
+        $triggerUniqueID = intval($field[$i]->UniqueID ?? 0);
+        break;
+    }
+    if($triggerCardID === "") return false;
+
+    $stackObj = AddEffectStack(
+        CardID:$triggerCardID,
+        Controller:$player,
+        TriggerType:"WITHER",
+        TriggerSourceUniqueID:$triggerUniqueID
+    );
+    return $stackObj !== null;
+}
+
+function FireWitherTriggeredAbility($player) {
+    WitherUpkeep($player);
+}
+
 $customDQHandlers["WitherUpkeepProcess"] = function($player, $params, $lastDecision) {
     $mz = $params[0];
     $witherCount = intval($params[1]);

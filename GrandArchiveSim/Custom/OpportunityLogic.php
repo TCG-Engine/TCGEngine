@@ -1280,6 +1280,12 @@ function ResolveTopOfEffectStack() {
         }
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "WITHER") {
+        if(function_exists("FireWitherTriggeredAbility")) {
+            FireWitherTriggeredAbility($cardOwner);
+        }
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
     } else {
         // Call the generated CardActivated() wrapper, which:
         //  - Stores mzID variable for ability code
