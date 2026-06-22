@@ -747,6 +747,7 @@
       }
 
       function RenderUpdate(responseArr) {
+        if (typeof FreezeCardDetailUntilMouseMove === 'function') FreezeCardDetailUntilMouseMove();
         if (typeof ClearSelectionMode === 'function') {
           ClearSelectionMode();
         }

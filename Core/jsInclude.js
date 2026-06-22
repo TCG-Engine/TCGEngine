@@ -7,13 +7,38 @@ function OnLoadCallback(lastUpdate) {
 }
 
 var showDetailTimeout;
+var freezeCardDetailUntilMouseMove = false;
+var freezeCardDetailMouseX = null;
+var freezeCardDetailMouseY = null;
+var lastCardDetailMouseX = null;
+var lastCardDetailMouseY = null;
+
+function TrackCardDetailMouse(e) {
+  if (!e || typeof e.clientX !== "number" || typeof e.clientY !== "number") return;
+  lastCardDetailMouseX = e.clientX;
+  lastCardDetailMouseY = e.clientY;
+}
 
 function IsCardDetailSuppressed() {
-  return !!window._suppressCardDetail;
+  return !!window._suppressCardDetail || freezeCardDetailUntilMouseMove;
+}
+
+function IsCardDetailOpen() {
+  var el = document.getElementById("cardDetail");
+  return !!(el && el.style.display !== "none");
+}
+
+function FreezeCardDetailUntilMouseMove() {
+  if (!IsCardDetailOpen()) return false;
+  freezeCardDetailUntilMouseMove = true;
+  freezeCardDetailMouseX = lastCardDetailMouseX;
+  freezeCardDetailMouseY = lastCardDetailMouseY;
+  return true;
 }
 
 function ShowCardDetail(e, that) {
   if (IsCardDetailSuppressed()) return;
+  TrackCardDetailMouse(e);
   clearTimeout(showDetailTimeout);//In case there was another card waiting to show detail
   var folderPath = document.getElementById("folderPath").value;
   var timeOut = folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" || folderPath == "AzukiSim" ? 100 : 1;
@@ -30,6 +55,8 @@ function ShowCardDetail(e, that) {
 }
 
 function ShowDetail(e, imgSource) {
+  if (IsCardDetailSuppressed()) return;
+  TrackCardDetailMouse(e);
   imgSource = imgSource.replace("_cropped", "");
   imgSource = imgSource.replace("/crops/", "/WebpImages/");
   imgSource = imgSource.replace("_concat", "");
@@ -84,6 +111,7 @@ function ShowDetail(e, imgSource) {
 
 function ShowSubcardDetail(e, imgEl) {
   if (IsCardDetailSuppressed()) return;
+  TrackCardDetailMouse(e);
   clearTimeout(showDetailTimeout);
   showDetailTimeout = setTimeout(function() {
     if (IsCardDetailSuppressed()) return;
@@ -107,11 +135,29 @@ function ShowSubcardDetail(e, imgEl) {
   }, 1);
 }
 
-function HideCardDetail() {
+function HideCardDetail(force) {
+  if (!force && freezeCardDetailUntilMouseMove) return;
   clearTimeout(showDetailTimeout);
   var el = document.getElementById("cardDetail");
   el.style.display = "none";
 }
+
+document.addEventListener("mousemove", function(e) {
+  if (!freezeCardDetailUntilMouseMove) {
+    TrackCardDetailMouse(e);
+    return;
+  }
+
+  var moved = freezeCardDetailMouseX === null || freezeCardDetailMouseY === null ||
+    e.clientX !== freezeCardDetailMouseX || e.clientY !== freezeCardDetailMouseY;
+  TrackCardDetailMouse(e);
+  if (!moved) return;
+
+  freezeCardDetailUntilMouseMove = false;
+  freezeCardDetailMouseX = null;
+  freezeCardDetailMouseY = null;
+  HideCardDetail(true);
+}, true);
 
 function ChatKey(event) {
   if (event.keyCode === 13) {
