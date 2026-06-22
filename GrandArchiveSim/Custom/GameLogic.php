@@ -8323,6 +8323,12 @@ function ResolveBeforeRecollectionPhaseStart($turnPlayer) {
                         if($champTwoMZ !== null) DealDamage($turnPlayer, $rubySourceMZ, $champTwoMZ, 1);
                     }
                     break;
+                case "vzmnt0orxj": // Fabled Sapphire Fatestone: each player mills 1
+                    if(!HasNoAbilities($field[$i]) && IsGuoJiaBonus($turnPlayer)) {
+                        MillCards($turnPlayer, "myDeck", "myGraveyard", 1);
+                        MillCards($turnPlayer, "theirDeck", "theirGraveyard", 1);
+                    }
+                    break;
                 case "P7hHZBVScB": // Orb of Glitter: glimpse 1 during recollection
                     Glimpse($turnPlayer, 1);
                     break;
