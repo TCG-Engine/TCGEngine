@@ -187,7 +187,7 @@ UAJGQFbXjs NONE -
 MAIN
 
 
-{"mzID":"theirField-4","amount":2,"ignoreCost":false,"mzIDCardID":"OzNHncAfFJ","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"source":"myField-4","target":"theirField-7","payChoice":"NO","CombatDamageAmount":"2","ObelithTokenMZ":"myField-7","yesno":"YES"}
+{"mzID":"theirField-4","amount":2,"ignoreCost":false,"mzIDCardID":"OzNHncAfFJ","activationSourceZone":"myHand","additionalCostPaid":"NO","isImbued":"NO","EffectStackEnterCardID":"","EffectStackEnterController":"","abilityIndex":0,"source":"myField-4","target":"theirField-7","payChoice":"NO","ObelithTokenMZ":"myField-7","yesno":"YES"}
 0
 {"MaterializeCalls":{"2":1},"Materialize":{"2":{"dPP9I4nVn0":1}},"EnterCalls":{"2":1,"1":1},"Enter":{"2":{"dPP9I4nVn0":1},"1":{"fdnlbJm3hr":1}},"DrawCalls":{"2":1},"RestCardCalls":{"2":1},"RestCard":{"2":{"ugly4wiffe":1}},"OnAttackCalls":{"2":1},"OnAttack":{"2":{"ugly4wiffe":1}},"ActivateCardCalls":{"1":1},"ActivateCard":{"1":{"OzNHncAfFJ":1}},"CardActivatedCalls":{"1":1},"CardActivated":{"1":{"OzNHncAfFJ":1}},"DealDamageCalls":{"1":1,"2":1},"AllyDestroyedCalls":{"1":1},"AllyDestroyed":{"1":{"ugly4wiffe":1}}}
 27

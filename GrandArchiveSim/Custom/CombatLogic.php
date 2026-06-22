@@ -1981,7 +1981,13 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     // Fractured Memories (UAJGQFbXjs) [Merlin Bonus]:
     // Your champion has "On Champion Hit: You may move all sheen counters on the hit champion
     // to your Fractured Memories. If 3+ counters were moved this way, deal 3 damage to that champion."
-    $attackerObjFractured = GetZoneObject($attackerMZ);
+    $fracturedAttackerMZ = $attackerMZ;
+    $combatAttackerUniqueID = intval(DecisionQueueController::GetVariable("CombatAttackerUniqueID") ?? "0");
+    if($combatAttackerUniqueID > 0) {
+        $resolvedFracturedAttackerMZ = ResolveCombatAttackerByUniqueID($player);
+        if($resolvedFracturedAttackerMZ !== null) $fracturedAttackerMZ = $resolvedFracturedAttackerMZ;
+    }
+    $attackerObjFractured = GetZoneObject($fracturedAttackerMZ);
     if($attackerObjFractured !== null
        && !HasNoAbilities($attackerObjFractured)
        && PropertyContains(EffectiveCardType($attackerObjFractured), "CHAMPION")
@@ -1993,6 +1999,7 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
             if($hitObj !== null && !$hitObj->removed && PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) {
                 if(GetCounterCount($hitObj, "sheen") > 0) {
                     DecisionQueueController::StoreVariable("FracturedMemoriesHitTarget", $hitTarget);
+                    DecisionQueueController::StoreVariable("FracturedMemoriesHitSource", $fracturedAttackerMZ);
                     DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Move_all_sheen_counters_from_hit_champion_to_Fractured_Memories?");
                     DecisionQueueController::AddDecision($player, "CUSTOM", "FracturedMemoriesOnChampionHit", 1);
                 }
@@ -3163,14 +3170,18 @@ $customDQHandlers["TristanOnAllyHit"] = function($player, $parts, $lastDecision)
 $customDQHandlers["FracturedMemoriesOnChampionHit"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") {
         DecisionQueueController::ClearVariable("FracturedMemoriesHitTarget");
+        DecisionQueueController::ClearVariable("FracturedMemoriesHitSource");
         return;
     }
     if(!HasFracturedMemories($player)) {
         DecisionQueueController::ClearVariable("FracturedMemoriesHitTarget");
+        DecisionQueueController::ClearVariable("FracturedMemoriesHitSource");
         return;
     }
     $hitTarget = DecisionQueueController::GetVariable("FracturedMemoriesHitTarget");
+    $hitSource = DecisionQueueController::GetVariable("FracturedMemoriesHitSource");
     DecisionQueueController::ClearVariable("FracturedMemoriesHitTarget");
+    DecisionQueueController::ClearVariable("FracturedMemoriesHitSource");
     if($hitTarget === null || $hitTarget === "" || $hitTarget === "-") return;
     $hitObj = GetZoneObject($hitTarget);
     if($hitObj === null || $hitObj->removed || !PropertyContains(EffectiveCardType($hitObj), "CHAMPION")) return;
@@ -3179,8 +3190,17 @@ $customDQHandlers["FracturedMemoriesOnChampionHit"] = function($player, $parts, 
     RemoveCounters($player, $hitTarget, "sheen", $movedSheen);
     AddSheenToMastery($player, $movedSheen);
     if($movedSheen >= 3) {
-        $hitController = intval($hitObj->Controller ?? (($player == 1) ? 2 : 1));
-        DealChampionDamage($hitController, 3, $player);
+        if($hitSource === null || $hitSource === "" || $hitSource === "-" || GetZoneObject($hitSource) === null) {
+            $combatAttackerUniqueID = intval(DecisionQueueController::GetVariable("CombatAttackerUniqueID") ?? "0");
+            if($combatAttackerUniqueID > 0) {
+                $hitSource = ResolveCombatAttackerByUniqueID($player);
+            }
+            if($hitSource === null || $hitSource === "" || $hitSource === "-") {
+                $hitSource = DecisionQueueController::GetVariable("CombatAttacker");
+            }
+        }
+        if($hitSource === null || $hitSource === "" || $hitSource === "-") return;
+        DealDamage($player, $hitSource, $hitTarget, 3);
     }
 };
 
