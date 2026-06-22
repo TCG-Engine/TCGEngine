@@ -15784,7 +15784,8 @@ function AddTurnEffect($mzCard, $effectID) {
             }
         }
     }
-    if(!in_array($effectID, $obj->TurnEffects)) {
+    $isStackingEffect = strpos($effectID, "RANGED_") === 0;
+    if($isStackingEffect || !in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
     }
 }
