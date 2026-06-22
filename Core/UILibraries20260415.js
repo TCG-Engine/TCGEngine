@@ -4112,6 +4112,7 @@ function HideSelectionMessage() {
 function CategorizeMZChooseSpecs(parsedSpecs) {
   const inlineSpecs = [];
   const popupCards = [];
+  const popupVisibleSingleZone = ShouldPopupVisibleSingleZoneChoice(parsedSpecs);
 
   for (const spec of parsedSpecs) {
     if (spec && spec.actionPayload) {
@@ -4119,10 +4120,7 @@ function CategorizeMZChooseSpecs(parsedSpecs) {
       continue;
     }
 
-    const zoneData = GetZoneData(spec.zone);
-    const displayMode = zoneData && zoneData.DisplayMode ? zoneData.DisplayMode : 'All';
-
-    if (spec.isSpecificCard && ShouldUseMZChoosePopupForSpec(spec)) {
+    if (spec.isSpecificCard && (ShouldUseMZChoosePopupForSpec(spec) || popupVisibleSingleZone)) {
       popupCards.push(spec);
     } else {
       inlineSpecs.push(spec);
@@ -4140,6 +4138,23 @@ function CategorizeMZChooseSpecs(parsedSpecs) {
     inlineSpecs: inlineSpecs,
     popupCards: popupCards,
   };
+}
+
+function ShouldPopupVisibleSingleZoneChoice(parsedSpecs) {
+  const choiceSpecs = (parsedSpecs || []).filter(spec => spec && !spec.actionPayload);
+  if (choiceSpecs.length === 0) return false;
+  if (choiceSpecs.length !== (parsedSpecs || []).filter(Boolean).length) return false;
+
+  const zones = new Set();
+  for (const spec of choiceSpecs) {
+    if (!spec.isSpecificCard || ShouldUseMZChoosePopupForSpec(spec)) return false;
+    const zoneData = GetZoneData(spec.zone);
+    const displayMode = String((zoneData && zoneData.DisplayMode) || 'All').toLowerCase();
+    if (displayMode !== 'single') return false;
+    zones.add(spec.zone);
+  }
+
+  return zones.size === 1;
 }
 
 function ShouldUseMZChoosePopupForSpec(spec) {
