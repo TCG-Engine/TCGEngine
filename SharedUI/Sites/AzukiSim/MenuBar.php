@@ -19,7 +19,7 @@ $isMobile = IsMobile();
 
 <head>
   <meta charset="utf-8">
-  <title>Grand Archive Simulator</title>
+  <title>Azuki Simulator</title>
   <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/icons/gudnakIcon.png">
   <link rel="stylesheet" href="./css/ClarentMenuStyles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -54,7 +54,7 @@ $isMobile = IsMobile();
     <div class='nav-bar-links'>
       <ul>
           <?php
-            echo '<li><a target="_blank" href="https://discord.gg/b9nfNyVFpM" title="Clarent Development Server"><img src="/TCGEngine/Assets/Images/icons/discord.svg"></img></a></li>';
+            //echo '<li><a target="_blank" href="https://discord.gg/b9nfNyVFpM" title="Clarent Development Server"><img src="/TCGEngine/Assets/Images/icons/discord.svg"></img></a></li>';
             echo '<li><a target="_blank" href="https://github.com/TCG-Engine/TCGEngine"><img src="../../../Assets/Images/icons/github.svg"></img></a></li>';
           ?>
       </ul>
