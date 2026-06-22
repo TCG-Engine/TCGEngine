@@ -253,10 +253,37 @@ function OnBrew($player) {
         // Essence Crucible (DF5Ffwv7DJ): [Arisanna Bonus] whenever you brew → refinement counter
         if($field[$i]->CardID === "DF5Ffwv7DJ" && !HasNoAbilities($field[$i])) {
             if(IsArisannaBonusActive($player)) {
-                AddCounters($player, $fieldZone . "-" . $i, "refinement", 1);
+                QueueBrewTriggeredAbility($player, $fieldZone . "-" . $i);
             }
         }
     }
+}
+
+function QueueBrewTriggeredAbility($player, $mzID) {
+    $obj = GetZoneObject($mzID);
+    if($obj === null || $obj->removed || HasNoAbilities($obj)) return false;
+
+    $stackObj = AddEffectStack(
+        CardID:$obj->CardID,
+        Controller:$player,
+        TriggerType:"BREW",
+        TriggerSourceUniqueID:intval($obj->UniqueID ?? 0)
+    );
+    if($stackObj === null) return false;
+
+    return true;
+}
+
+function FireBrewTriggeredAbility($player, $cardID, $sourceUniqueID = 0) {
+    if($cardID !== "DF5Ffwv7DJ") return;
+    if(!IsArisannaBonusActive($player)) return;
+
+    $sourceMzID = FindFieldMzByUniqueID(intval($sourceUniqueID));
+    if($sourceMzID === "") return;
+    $sourceObj = GetZoneObject($sourceMzID);
+    if($sourceObj === null || $sourceObj->removed || $sourceObj->CardID !== $cardID || HasNoAbilities($sourceObj)) return;
+
+    AddCounters($player, $sourceMzID, "refinement", 1);
 }
 
 // --- DeclareBrew handler: player chose YES/NO to brew ---

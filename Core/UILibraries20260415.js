@@ -1340,8 +1340,9 @@ function ResolveGlobalFunction(functionName) {
         }
 
         try {
-          if (zoneName === "EffectStack" && sharedCardData.TriggerType === "ENTER") {
-            newHTML += "<div style='position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:1002; padding:4px 8px; border-radius:999px; background:rgba(16, 24, 34, 0.88); border:1px solid rgba(244, 236, 219, 0.28); color:rgba(252, 238, 171, 0.98); font:700 10px/1.1 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 8px 18px rgba(7, 14, 20, 0.35); white-space:nowrap;'>On Enter</div>";
+          if (zoneName === "EffectStack" && sharedCardData.TriggerType && sharedCardData.TriggerType !== "-") {
+            var effectStackTriggerLabel = sharedCardData.TriggerType === "ENTER" ? "On Enter" : "Trigger";
+            newHTML += "<div style='position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:1002; padding:4px 8px; border-radius:999px; background:rgba(16, 24, 34, 0.88); border:1px solid rgba(244, 236, 219, 0.28); color:rgba(252, 238, 171, 0.98); font:700 10px/1.1 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 8px 18px rgba(7, 14, 20, 0.35); white-space:nowrap;'>" + effectStackTriggerLabel + "</div>";
           }
         } catch (e) {
           if (console && console.error) console.error('Effect stack trigger badge render error', e);
@@ -4121,7 +4122,7 @@ function CategorizeMZChooseSpecs(parsedSpecs) {
     const zoneData = GetZoneData(spec.zone);
     const displayMode = zoneData && zoneData.DisplayMode ? zoneData.DisplayMode : 'All';
 
-    if (spec.isSpecificCard && (displayMode === 'Single' || displayMode === 'None')) {
+    if (spec.isSpecificCard && ShouldUseMZChoosePopupForSpec(spec)) {
       popupCards.push(spec);
     } else {
       inlineSpecs.push(spec);
@@ -4129,16 +4130,8 @@ function CategorizeMZChooseSpecs(parsedSpecs) {
   }
 
   if (popupCards.length > 0) {
-    const remainingInlineSpecs = [];
-    for (const spec of inlineSpecs) {
-      if (spec.isSpecificCard) {
-        popupCards.push(spec);
-      } else {
-        remainingInlineSpecs.push(spec);
-      }
-    }
     return {
-      inlineSpecs: remainingInlineSpecs,
+      inlineSpecs: inlineSpecs,
       popupCards: popupCards,
     };
   }
@@ -4147,6 +4140,21 @@ function CategorizeMZChooseSpecs(parsedSpecs) {
     inlineSpecs: inlineSpecs,
     popupCards: popupCards,
   };
+}
+
+function ShouldUseMZChoosePopupForSpec(spec) {
+  if (!spec || !spec.isSpecificCard) return false;
+  const zoneData = GetZoneData(spec.zone);
+  if (!zoneData) return false;
+
+  const visibility = String(zoneData.Visibility || 'Public').toLowerCase();
+  const displayMode = String(zoneData.DisplayMode || 'All').toLowerCase();
+  const isOpponentZone = String(spec.zone || '').indexOf('their') === 0;
+
+  return visibility === 'private'
+    || visibility === 'none'
+    || displayMode === 'none'
+    || (visibility === 'self' && isOpponentZone);
 }
 
 function ParseMZMultiChooseParam(param) {

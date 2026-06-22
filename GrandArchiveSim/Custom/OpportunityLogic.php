@@ -135,6 +135,9 @@ function GetEffectStackWindowId($mzID = "") {
     if($obj !== null && ($obj->TriggerType ?? "") === "ENTER") {
         return "ENTER_RESPONSE";
     }
+    if($obj !== null && ($obj->TriggerType ?? "") !== "" && ($obj->TriggerType ?? "") !== "-") {
+        return "TRIGGER_RESPONSE";
+    }
     return "STACK_RESPONSE";
 }
 
@@ -1267,6 +1270,14 @@ function ResolveTopOfEffectStack() {
         $sourceUniqueID = intval($topObj->TriggerSourceUniqueID ?? 0);
         $copiedCardID = $topObj->TriggerCopiedCardID ?? "";
         FireEnterTriggeredAbility($cardOwner, $cardID, $sourceUniqueID, $copiedCardID);
+        $topObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    } else if($triggerType === "BREW") {
+        $cardID = $topObj->CardID ?? "";
+        $sourceUniqueID = intval($topObj->TriggerSourceUniqueID ?? 0);
+        if(function_exists("FireBrewTriggeredAbility")) {
+            FireBrewTriggeredAbility($cardOwner, $cardID, $sourceUniqueID);
+        }
         $topObj->Remove();
         DecisionQueueController::CleanupRemovedCards();
     } else {
