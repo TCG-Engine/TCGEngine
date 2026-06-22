@@ -311,6 +311,43 @@ foreach ($allCardIds as $cardId) {
     }
 }
 
+$manualKeywordOverrides = [
+    // Magnificent Banquet uses "put this into material deck preserved" wording
+    // instead of a standalone **Preserve** keyword heading.
+    'TQoTD8eGQH' => [
+        [
+            'type' => 'KEYWORD',
+            'name' => 'Preserve',
+            'conditions' => [],
+            'value' => null
+        ]
+    ]
+];
+
+foreach ($manualKeywordOverrides as $cardId => $items) {
+    if (!isset($keywordData[$cardId])) {
+        $keywordData[$cardId] = [
+            'name' => $cardId,
+            'items' => []
+        ];
+        $processedCount++;
+        $skippedCount = max(0, $skippedCount - 1);
+    }
+
+    foreach ($items as $overrideItem) {
+        $alreadyPresent = false;
+        foreach ($keywordData[$cardId]['items'] as $existingItem) {
+            if (($existingItem['name'] ?? '') === ($overrideItem['name'] ?? '')) {
+                $alreadyPresent = true;
+                break;
+            }
+        }
+        if (!$alreadyPresent) {
+            $keywordData[$cardId]['items'][] = $overrideItem;
+        }
+    }
+}
+
 echo "<BR><BR>========================================<BR>";
 echo "<strong>Summary:</strong><BR>";
 echo "Processed: $processedCount cards<BR>";
