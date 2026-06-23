@@ -15,7 +15,7 @@ function HasOpportunity($player) {
     if(PlayerHasFastOpportunityDecision($player)) return true;
 
     $pendingHandler = DecisionQueueController::GetVariable("PendingOpportunityHandler");
-    if($pendingHandler !== null && $pendingHandler !== "") return true;
+    if($pendingHandler !== null && $pendingHandler !== "" && HasPendingOpportunityResponseWindow()) return true;
 
     return false;
 }
@@ -1396,6 +1396,7 @@ function ClearOpportunityVariables() {
     DecisionQueueController::ClearVariable("PendingOpportunityHandler");
     DecisionQueueController::ClearVariable("PendingOpportunityNextPlayer");
     DecisionQueueController::ClearVariable("PendingOpportunityFirstPlayer");
+    DecisionQueueController::ClearVariable("ConsumedOuterOpportunityWindow");
 }
 
 function IsCombatOpportunityContinuation($handler) {
