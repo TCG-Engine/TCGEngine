@@ -30,6 +30,11 @@ const PreviewRenderer = {
         return entry.value_text ?? '';
     },
 
+    effectiveZIndex(element) {
+        const layer = Number(element.z_index || 0);
+        return element.element_type === 'image' ? layer : 10000 + layer;
+    },
+
     render(container, template, values = [], options = {}) {
         if (!container) return;
         if (!template) {
@@ -55,7 +60,7 @@ const PreviewRenderer = {
                 top: `${element.y}px`,
                 width: `${element.width}px`,
                 height: `${element.height}px`,
-                zIndex: element.z_index,
+                zIndex: this.effectiveZIndex(element),
                 transform: `rotate(${element.rotation || 0}deg)`
             };
             if (element.element_type === 'image') {

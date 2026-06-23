@@ -41,16 +41,18 @@ class TemplateCanvas {
     addImage(assetId) {
         const template = this.app.state.activeTemplateDetail;
         if (!template || !assetId) return;
+        const canvasWidth = Number(template.canvas_width || 750);
+        const canvasHeight = Number(template.canvas_height || 1050);
         template.layout = template.layout || [];
         template.layout.push({
             id: `local-image-${Date.now()}`,
             element_type: 'image',
             asset_id: Number(assetId),
             field_id: null,
-            x: 40,
-            y: 40 + template.layout.length * 28,
-            width: 320,
-            height: 420,
+            x: 0,
+            y: 0,
+            width: canvasWidth,
+            height: canvasHeight,
             z_index: template.layout.length,
             rotation: 0,
             is_visible: true,
@@ -65,6 +67,11 @@ class TemplateCanvas {
         const template = this.app.state.activeTemplateDetail;
         if (!template || this.selectedIndex < 0) return null;
         return template.layout[this.selectedIndex] || null;
+    }
+
+    effectiveZIndex(element) {
+        const layer = Number(element.z_index || 0);
+        return element.element_type === 'image' ? layer : 10000 + layer;
     }
 
     render() {
@@ -92,7 +99,7 @@ class TemplateCanvas {
             const fit = element.style_json?.fitMode || 'cover';
             return `
                 <div class="canvas-el ${isImage ? 'image-layer' : ''} ${index === this.selectedIndex ? 'selected' : ''}" data-index="${index}"
-                    style="left:${element.x}px;top:${element.y}px;width:${element.width}px;height:${element.height}px;z-index:${element.z_index};transform:rotate(${element.rotation || 0}deg)"
+                    style="left:${element.x}px;top:${element.y}px;width:${element.width}px;height:${element.height}px;z-index:${this.effectiveZIndex(element)};transform:rotate(${element.rotation || 0}deg)"
                     onmousedown="${canEdit ? `app.templateCanvas.startDrag(event, ${index}, 'move')` : ''}">
                     ${isImage ? `<img src="${PreviewRenderer.escape(asset.url)}" style="object-fit:${PreviewRenderer.escapeCss(fit)}" alt="">` : `<span>${PreviewRenderer.escape(field.label)}</span>`}
                     ${canEdit ? `<i onmousedown="app.templateCanvas.startDrag(event, ${index}, 'resize')"></i>` : ''}
@@ -162,6 +169,7 @@ class TemplateCanvas {
                         ${['cover', 'contain', 'stretch'].map(value => `<option value="${value}" ${style.fitMode === value ? 'selected' : ''}>${value}</option>`).join('')}
                     </select>
                 </label>
+                ${isImage ? `<button onclick="app.templateCanvas.fitSelectedToCanvas()" ${disabled}>Fit Canvas</button>` : ''}
                 <button class="danger" onclick="app.templateCanvas.removeSelected()" ${disabled}>Remove From Canvas</button>
             </div>
         `;
@@ -210,6 +218,19 @@ class TemplateCanvas {
         this.selectedIndex = -1;
         this.render();
         this.scheduleLayoutSave();
+    }
+
+    fitSelectedToCanvas() {
+        const template = this.app.state.activeTemplateDetail;
+        const element = this.selectedElement();
+        if (!template || !element || element.element_type !== 'image') return;
+        element.x = 0;
+        element.y = 0;
+        element.width = Number(template.canvas_width || 750);
+        element.height = Number(template.canvas_height || 1050);
+        element.rotation = 0;
+        this.render();
+        this.scheduleLayoutSave(0);
     }
 
     startDrag(event, index, mode) {
