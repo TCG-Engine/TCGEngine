@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS ce_template_layout_elements (
   template_id BIGINT NOT NULL,
   element_type VARCHAR(32) NOT NULL,
   field_id BIGINT NULL,
+  asset_id BIGINT NULL,
   x DECIMAL(10,2) NOT NULL,
   y DECIMAL(10,2) NOT NULL,
   width DECIMAL(10,2) NOT NULL,
@@ -73,7 +74,8 @@ CREATE TABLE IF NOT EXISTS ce_template_layout_elements (
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
   KEY idx_ce_template_layout_sort (template_id, z_index),
-  KEY idx_ce_template_layout_field (field_id)
+  KEY idx_ce_template_layout_field (field_id),
+  KEY idx_ce_template_layout_asset (asset_id)
 );
 
 CREATE TABLE IF NOT EXISTS ce_cards (

@@ -35,6 +35,7 @@ const ApiClient = {
         });
     },
 
+    getCurrentUser() { return this.get('GetCurrentUser.php'); },
     listGames() { return this.get('ListGames.php'); },
     createGame(payload) { return this.post('CreateGame.php', payload); },
     updateGame(payload) { return this.post('UpdateGame.php', payload); },

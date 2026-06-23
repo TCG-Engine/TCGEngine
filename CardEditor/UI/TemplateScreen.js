@@ -13,6 +13,7 @@ class TemplateScreen {
     async render() {
         if (!this.app.requireGame()) return;
         const templates = this.app.state.templates;
+        const canEdit = this.app.activeGame()?.can_edit;
         if (this.app.state.activeTemplateId && !this.app.state.activeTemplateDetail) {
             this.app.state.activeTemplateDetail = await ApiClient.getTemplate(this.app.state.activeTemplateId);
         }
@@ -22,7 +23,7 @@ class TemplateScreen {
                 <aside class="pane compact">
                     <div class="pane-head">
                         <h2>Templates</h2>
-                        <button onclick="app.screens.templates.createTemplate()">New</button>
+                        <button onclick="app.screens.templates.createTemplate()" ${canEdit ? '' : 'disabled'}>New</button>
                     </div>
                     <div class="list tight">
                         ${templates.length ? templates.map(item => `
@@ -37,7 +38,7 @@ class TemplateScreen {
                 <aside class="pane fields-pane">
                     <div class="pane-head">
                         <h2>Fields</h2>
-                        ${template ? '<button onclick="app.screens.templates.addField()">Add</button>' : ''}
+                        ${template && canEdit ? '<button onclick="app.screens.templates.addField()">Add</button>' : ''}
                     </div>
                     <div id="templateFieldsHost">${template ? this.fieldsForm(template) : '<div class="empty-state">Select a template.</div>'}</div>
                 </aside>
@@ -50,22 +51,25 @@ class TemplateScreen {
                 </aside>
             </section>
         `);
+        this.bindTemplateAutosave();
+        this.bindFieldsAutosave();
         this.app.templateCanvas.render();
     }
 
     templateForm(template) {
+        const disabled = this.app.activeGame()?.can_edit ? '' : 'disabled';
         return `
-            <form class="stack-form mini" onsubmit="app.screens.templates.saveTemplate(event)">
+            <form class="stack-form mini" id="templateForm">
                 <input type="hidden" name="id" value="${template ? template.id : ''}">
                 <input type="hidden" name="gameId" value="${this.app.state.activeGameId || ''}">
-                <label>Name<input name="name" value="${template ? PreviewRenderer.escape(template.name) : ''}" required></label>
-                <label>Slug<input name="slug" value="${template ? PreviewRenderer.escape(template.slug) : ''}"></label>
-                <label>Width<input name="canvasWidth" type="number" value="${template ? template.canvas_width : 750}"></label>
-                <label>Height<input name="canvasHeight" type="number" value="${template ? template.canvas_height : 1050}"></label>
-                <label>Background<input name="canvasBackgroundColor" value="${template ? PreviewRenderer.escape(template.canvas_background_color || '#ffffff') : '#ffffff'}"></label>
-                <label>Safe Padding<input name="safeAreaPadding" type="number" value="${template ? template.safe_area_padding : 40}"></label>
-                <label>Description<textarea name="description">${template ? PreviewRenderer.escape(template.description || '') : ''}</textarea></label>
-                <button type="submit">${template ? 'Save Template' : 'Create Template'}</button>
+                <input type="hidden" name="expectedUpdatedAt" value="${template ? PreviewRenderer.escape(template.updated_at || '') : ''}">
+                <label>Name<input name="name" value="${template ? PreviewRenderer.escape(template.name) : ''}" required ${disabled}></label>
+                <label>Slug<input name="slug" value="${template ? PreviewRenderer.escape(template.slug) : ''}" ${disabled}></label>
+                <label>Width<input name="canvasWidth" type="number" value="${template ? template.canvas_width : 750}" ${disabled}></label>
+                <label>Height<input name="canvasHeight" type="number" value="${template ? template.canvas_height : 1050}" ${disabled}></label>
+                <label>Background<input name="canvasBackgroundColor" value="${template ? PreviewRenderer.escape(template.canvas_background_color || '#ffffff') : '#ffffff'}" ${disabled}></label>
+                <label>Safe Padding<input name="safeAreaPadding" type="number" value="${template ? template.safe_area_padding : 40}" ${disabled}></label>
+                <label>Description<textarea name="description" ${disabled}>${template ? PreviewRenderer.escape(template.description || '') : ''}</textarea></label>
             </form>
         `;
     }
@@ -73,31 +77,32 @@ class TemplateScreen {
     fieldsForm(template) {
         const fields = template.fields || [];
         return `
-            <form class="fields-list" onsubmit="app.screens.templates.saveFields(event)">
+            <form class="fields-list" id="templateFieldsForm">
                 ${fields.map((field, index) => this.fieldRow(field, index)).join('')}
-                ${fields.length ? '<button type="submit">Save Fields</button>' : '<div class="empty-state">Add fields to define this template.</div>'}
+                ${fields.length ? '' : '<div class="empty-state">Add fields to define this template.</div>'}
             </form>
         `;
     }
 
     fieldRow(field, index) {
         const settings = field.settings_json || {};
+        const disabled = this.app.activeGame()?.can_edit ? '' : 'disabled';
         return `
             <div class="field-row" data-index="${index}">
                 <input type="hidden" name="id" value="${field.id || ''}">
-                <label>Label<input name="label" value="${PreviewRenderer.escape(field.label || '')}" required></label>
-                <label>Key<input name="fieldKey" value="${PreviewRenderer.escape(field.field_key || '')}" required></label>
+                <label>Label<input name="label" value="${PreviewRenderer.escape(field.label || '')}" required ${disabled}></label>
+                <label>Key<input name="fieldKey" value="${PreviewRenderer.escape(field.field_key || '')}" required ${disabled}></label>
                 <label>Type
-                    <select name="fieldType">
+                    <select name="fieldType" ${disabled}>
                         ${['text', 'longtext', 'number', 'boolean', 'select', 'multiselect', 'image'].map(type => `<option value="${type}" ${field.field_type === type ? 'selected' : ''}>${type}</option>`).join('')}
                     </select>
                 </label>
-                <label>Default<input name="defaultValue" value="${PreviewRenderer.escape(field.default_value || '')}"></label>
-                <label>Options<input name="options" value="${PreviewRenderer.escape((settings.options || []).join(', '))}" placeholder="select options"></label>
-                <label>Help<input name="helpText" value="${PreviewRenderer.escape(field.help_text || '')}"></label>
+                <label>Default<input name="defaultValue" value="${PreviewRenderer.escape(field.default_value || '')}" ${disabled}></label>
+                <label>Options<input name="options" value="${PreviewRenderer.escape((settings.options || []).join(', '))}" placeholder="select options" ${disabled}></label>
+                <label>Help<input name="helpText" value="${PreviewRenderer.escape(field.help_text || '')}" ${disabled}></label>
                 <div class="field-actions">
-                    <button type="button" ${field.id ? `onclick="app.templateCanvas.addField(${field.id})"` : 'disabled'}>Place</button>
-                    <button type="button" class="danger" onclick="app.screens.templates.removeField(${index})">Remove</button>
+                    <button type="button" ${field.id && !disabled ? `onclick="app.templateCanvas.addField(${field.id})"` : 'disabled'}>Place</button>
+                    <button type="button" class="danger" onclick="app.screens.templates.removeField(${index})" ${disabled}>Remove</button>
                 </div>
             </div>
         `;
@@ -107,6 +112,35 @@ class TemplateScreen {
         this.app.state.activeTemplateId = null;
         this.app.state.activeTemplateDetail = null;
         this.render();
+    }
+
+    bindTemplateAutosave() {
+        const form = document.getElementById('templateForm');
+        if (!form) return;
+        this.app.autosave.bindForm(
+            form,
+            'template-form',
+            () => {
+                const payload = Object.fromEntries(new FormData(form).entries());
+                if (!payload.name.trim()) return null;
+                payload.canvasWidth = Number(payload.canvasWidth || 750);
+                payload.canvasHeight = Number(payload.canvasHeight || 1050);
+                payload.safeAreaPadding = Number(payload.safeAreaPadding || 40);
+                return payload;
+            },
+            async payload => {
+                const template = payload.id ? await ApiClient.updateTemplate(payload) : await ApiClient.createTemplate(payload);
+                form.elements.id.value = template.id;
+                form.elements.expectedUpdatedAt.value = template.updated_at || '';
+                this.app.state.activeTemplateId = template.id;
+                this.app.state.activeTemplateDetail = template;
+                await this.app.refreshTemplates();
+                await this.app.preloadTemplateDetails();
+                if (!payload.id) this.render();
+                else this.app.templateCanvas.render();
+                return template;
+            }
+        );
     }
 
     async saveTemplate(event) {
@@ -142,6 +176,8 @@ class TemplateScreen {
             settings_json: {}
         });
         document.getElementById('templateFieldsHost').innerHTML = this.fieldsForm(template);
+        this.bindFieldsAutosave();
+        this.saveFieldsForm();
     }
 
     removeField(index) {
@@ -151,15 +187,42 @@ class TemplateScreen {
         template.fields.splice(index, 1);
         template.layout = (template.layout || []).filter(element => Number(element.field_id) !== Number(field.id));
         document.getElementById('templateFieldsHost').innerHTML = this.fieldsForm(template);
+        this.bindFieldsAutosave();
         this.app.templateCanvas.render();
+        this.saveFieldsForm();
     }
 
-    async saveFields(event) {
-        event.preventDefault();
+    bindFieldsAutosave() {
+        const form = document.getElementById('templateFieldsForm');
+        if (!form) return;
+        this.app.autosave.bindForm(
+            form,
+            `template-fields:${this.app.state.activeTemplateId || 'new'}`,
+            () => this.collectFields(),
+            async fields => {
+                const template = this.app.state.activeTemplateDetail;
+                if (!template?.id) return null;
+                const needsRerender = fields.some(field => !field.id);
+                this.app.state.activeTemplateDetail = await ApiClient.saveTemplateFields(template.id, fields);
+                this.app.state.templateDetails[template.id] = this.app.state.activeTemplateDetail;
+                await this.app.refreshTemplates();
+                if (needsRerender) {
+                    document.getElementById('templateFieldsHost').innerHTML = this.fieldsForm(this.app.state.activeTemplateDetail);
+                    this.bindFieldsAutosave();
+                    this.app.templateCanvas.render();
+                }
+                return this.app.state.activeTemplateDetail;
+            }
+        );
+    }
+
+    collectFields() {
         const template = this.app.state.activeTemplateDetail;
-        if (!template) return;
-        const rows = [...event.target.querySelectorAll('.field-row')];
-        const normalized = rows.map((row, index) => {
+        if (!template?.id) return null;
+        const form = document.getElementById('templateFieldsForm');
+        if (!form) return null;
+        const rows = [...form.querySelectorAll('.field-row')];
+        return rows.map((row, index) => {
             const get = name => row.querySelector(`[name="${name}"]`)?.value || '';
             const options = get('options').split(',').map(item => item.trim()).filter(Boolean);
             return {
@@ -173,6 +236,34 @@ class TemplateScreen {
                 settingsJson: options.length ? { options } : {}
             };
         });
+    }
+
+    saveFieldsForm() {
+        const template = this.app.state.activeTemplateDetail;
+        if (!template?.id) return;
+        this.app.autosave.saveNow(
+            `template-fields:${template.id}`,
+            () => this.collectFields(),
+            async fields => {
+                const needsRerender = fields.some(field => !field.id);
+                this.app.state.activeTemplateDetail = await ApiClient.saveTemplateFields(template.id, fields);
+                this.app.state.templateDetails[template.id] = this.app.state.activeTemplateDetail;
+                await this.app.refreshTemplates();
+                if (needsRerender) {
+                    document.getElementById('templateFieldsHost').innerHTML = this.fieldsForm(this.app.state.activeTemplateDetail);
+                    this.bindFieldsAutosave();
+                    this.app.templateCanvas.render();
+                }
+                return this.app.state.activeTemplateDetail;
+            }
+        );
+    }
+
+    async saveFields(event) {
+        event.preventDefault();
+        const template = this.app.state.activeTemplateDetail;
+        if (!template) return;
+        const normalized = this.collectFields();
         try {
             this.app.state.activeTemplateDetail = await ApiClient.saveTemplateFields(template.id, normalized);
             await this.app.refreshTemplates();

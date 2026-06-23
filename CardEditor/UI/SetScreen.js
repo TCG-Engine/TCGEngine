@@ -7,12 +7,13 @@ class SetScreen {
         if (!this.app.requireGame()) return;
         const sets = this.app.state.sets;
         const activeSet = this.app.activeSet();
+        const canEdit = this.app.activeGame()?.can_edit;
         this.app.setContent(`
             <section class="workbench two-column">
                 <div class="pane">
                     <div class="pane-head">
                         <h2>Sets</h2>
-                        <button onclick="app.screens.sets.create()">New Set</button>
+                        <button onclick="app.screens.sets.create()" ${canEdit ? '' : 'disabled'}>New Set</button>
                     </div>
                     <div class="list">
                         ${sets.length ? sets.map(set => `
@@ -29,17 +30,19 @@ class SetScreen {
                 </div>
             </section>
         `);
+        this.bindAutosave();
     }
 
     form(set) {
+        const disabled = this.app.activeGame()?.can_edit ? '' : 'disabled';
         return `
-            <form class="stack-form" onsubmit="app.screens.sets.save(event)">
+            <form class="stack-form" id="setForm">
                 <input type="hidden" name="id" value="${set ? set.id : ''}">
                 <input type="hidden" name="gameId" value="${this.app.state.activeGameId || ''}">
-                <label>Name<input name="name" value="${set ? PreviewRenderer.escape(set.name) : ''}" required></label>
-                <label>Slug<input name="slug" value="${set ? PreviewRenderer.escape(set.slug) : ''}" placeholder="auto-from-name"></label>
-                <label>Description<textarea name="description">${set ? PreviewRenderer.escape(set.description || '') : ''}</textarea></label>
-                <button type="submit">${set ? 'Save Set' : 'Create Set'}</button>
+                <input type="hidden" name="expectedUpdatedAt" value="${set ? PreviewRenderer.escape(set.updated_at || '') : ''}">
+                <label>Name<input name="name" value="${set ? PreviewRenderer.escape(set.name) : ''}" required ${disabled}></label>
+                <label>Slug<input name="slug" value="${set ? PreviewRenderer.escape(set.slug) : ''}" placeholder="auto-from-name" ${disabled}></label>
+                <label>Description<textarea name="description" ${disabled}>${set ? PreviewRenderer.escape(set.description || '') : ''}</textarea></label>
             </form>
         `;
     }
@@ -49,22 +52,26 @@ class SetScreen {
         this.render();
     }
 
-    async save(event) {
-        event.preventDefault();
-        const payload = Object.fromEntries(new FormData(event.target).entries());
-        try {
-            if (payload.id) {
-                await ApiClient.updateSet(payload);
-                this.app.toast('Set saved');
-            } else {
-                const set = await ApiClient.createSet(payload);
+    bindAutosave() {
+        const form = document.getElementById('setForm');
+        if (!form) return;
+        this.app.autosave.bindForm(
+            form,
+            'set-form',
+            () => {
+                const payload = Object.fromEntries(new FormData(form).entries());
+                if (!payload.name.trim()) return null;
+                return payload;
+            },
+            async payload => {
+                const set = payload.id ? await ApiClient.updateSet(payload) : await ApiClient.createSet(payload);
+                form.elements.id.value = set.id;
+                form.elements.expectedUpdatedAt.value = set.updated_at || '';
                 this.app.state.activeSetId = set.id;
-                this.app.toast('Set created');
+                await this.app.refreshSets();
+                if (!payload.id) this.render();
+                return set;
             }
-            await this.app.refreshSets();
-            this.render();
-        } catch (error) {
-            this.app.toast(error.message, 'error');
-        }
+        );
     }
 }

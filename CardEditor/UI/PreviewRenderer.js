@@ -41,14 +41,14 @@ const PreviewRenderer = {
         values.forEach(value => { valuesByFieldId[value.field_id] = value; });
         const fieldsById = {};
         (template.fields || []).forEach(field => { fieldsById[field.id] = field; });
+        const assetsById = {};
+        (template.assets || options.assets || []).forEach(asset => { assetsById[asset.id] = asset; });
         const scale = options.scale || 1;
         const width = Number(template.canvas_width || 750);
         const height = Number(template.canvas_height || 1050);
         const bg = template.canvas_background_color || '#ffffff';
 
         const elements = (template.layout || []).filter(element => element.is_visible !== false).map(element => {
-            const field = fieldsById[element.field_id];
-            if (!field) return '';
             const style = element.style_json || {};
             const base = {
                 left: `${element.x}px`,
@@ -58,6 +58,13 @@ const PreviewRenderer = {
                 zIndex: element.z_index,
                 transform: `rotate(${element.rotation || 0}deg)`
             };
+            if (element.element_type === 'image') {
+                const asset = assetsById[element.asset_id];
+                const fit = style.fitMode || 'cover';
+                return `<div class="preview-el image-el" data-element-id="${element.id}" style="${this.css(style, base)}">${asset ? `<img src="${this.escape(asset.url)}" style="object-fit:${this.escapeCss(fit)}" alt="">` : ''}</div>`;
+            }
+            const field = fieldsById[element.field_id];
+            if (!field) return '';
             if (field.field_type === 'image') {
                 const assetUrl = this.valueFor(field, valuesByFieldId);
                 const fit = style.fitMode || 'cover';

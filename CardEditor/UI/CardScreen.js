@@ -13,6 +13,7 @@ class CardScreen {
         if (!this.app.requireGame()) return;
         const set = this.app.activeSet();
         const card = this.app.state.activeCardDetail;
+        const canEdit = this.app.activeGame()?.can_edit;
         this.app.setContent(`
             <section class="card-workbench">
                 <aside class="pane compact">
@@ -23,7 +24,7 @@ class CardScreen {
                     </select>
                     <div class="pane-head spaced">
                         <h2>Cards</h2>
-                        ${set ? '<button onclick="app.screens.cards.createCard()">New</button>' : ''}
+                        ${set ? `<button onclick="app.screens.cards.createCard()" ${canEdit ? '' : 'disabled'}>New</button>` : ''}
                     </div>
                     <div class="list tight">
                         ${this.app.state.cards.length ? this.app.state.cards.map(item => `
@@ -45,6 +46,7 @@ class CardScreen {
             </section>
         `);
         this.renderPreview();
+        this.bindAutosave();
     }
 
     async changeSet(value) {
@@ -65,20 +67,21 @@ class CardScreen {
         const templates = this.app.state.templates;
         const selectedTemplateId = card ? card.template_id : (templates[0] ? templates[0].id : '');
         const template = card ? card.template : this.app.state.templateDetails[selectedTemplateId];
+        const disabled = this.app.activeGame()?.can_edit ? '' : 'disabled';
         return `
-            <form class="stack-form card-edit-form" onsubmit="app.screens.cards.saveCard(event)" oninput="app.screens.cards.renderPreviewFromForm()">
+            <form class="stack-form card-edit-form" id="cardForm" oninput="app.screens.cards.renderPreviewFromForm()">
                 <input type="hidden" name="id" value="${card ? card.id : ''}">
                 <input type="hidden" name="gameId" value="${this.app.state.activeGameId || ''}">
                 <input type="hidden" name="setId" value="${this.app.state.activeSetId || ''}">
-                <label>Name<input name="name" value="${card ? PreviewRenderer.escape(card.name) : ''}" required></label>
-                <label>Slug<input name="slug" value="${card ? PreviewRenderer.escape(card.slug) : ''}"></label>
+                <input type="hidden" name="expectedUpdatedAt" value="${card ? PreviewRenderer.escape(card.updated_at || '') : ''}">
+                <label>Name<input name="name" value="${card ? PreviewRenderer.escape(card.name) : ''}" required ${disabled}></label>
+                <label>Slug<input name="slug" value="${card ? PreviewRenderer.escape(card.slug) : ''}" ${disabled}></label>
                 <label>Template
-                    <select name="templateId" ${card ? 'disabled' : ''} onchange="app.screens.cards.loadTemplateForNewCard(this.value)">
+                    <select name="templateId" ${card || disabled ? 'disabled' : ''} onchange="app.screens.cards.loadTemplateForNewCard(this.value)">
                         ${templates.map(item => `<option value="${item.id}" ${Number(selectedTemplateId) === Number(item.id) ? 'selected' : ''}>${PreviewRenderer.escape(item.name)}</option>`).join('')}
                     </select>
                 </label>
                 <div id="cardFieldsHost">${template ? this.valueFields(template, card ? card.values : []) : '<div class="empty-state">Create a template first.</div>'}</div>
-                <button type="submit">${card ? 'Save Card' : 'Create Card'}</button>
             </form>
         `;
     }
@@ -101,34 +104,35 @@ class CardScreen {
     }
 
     inputForField(field, current, settings) {
+        const disabled = this.app.activeGame()?.can_edit ? '' : 'disabled';
         if (field.field_type === 'longtext') {
-            return `<textarea name="field_${field.id}">${PreviewRenderer.escape(current)}</textarea>`;
+            return `<textarea name="field_${field.id}" ${disabled}>${PreviewRenderer.escape(current)}</textarea>`;
         }
         if (field.field_type === 'number') {
-            return `<input type="number" step="${PreviewRenderer.escape(settings.step || 'any')}" name="field_${field.id}" value="${PreviewRenderer.escape(current)}">`;
+            return `<input type="number" step="${PreviewRenderer.escape(settings.step || 'any')}" name="field_${field.id}" value="${PreviewRenderer.escape(current)}" ${disabled}>`;
         }
         if (field.field_type === 'boolean') {
-            return `<input type="checkbox" name="field_${field.id}" ${current ? 'checked' : ''}>`;
+            return `<input type="checkbox" name="field_${field.id}" ${current ? 'checked' : ''} ${disabled}>`;
         }
         if (field.field_type === 'select') {
-            return `<select name="field_${field.id}">${(settings.options || []).map(option => `<option value="${PreviewRenderer.escape(option)}" ${current === option ? 'selected' : ''}>${PreviewRenderer.escape(option)}</option>`).join('')}</select>`;
+            return `<select name="field_${field.id}" ${disabled}>${(settings.options || []).map(option => `<option value="${PreviewRenderer.escape(option)}" ${current === option ? 'selected' : ''}>${PreviewRenderer.escape(option)}</option>`).join('')}</select>`;
         }
         if (field.field_type === 'multiselect') {
             const currentValues = Array.isArray(current) ? current : [];
-            return `<select name="field_${field.id}" multiple>${(settings.options || []).map(option => `<option value="${PreviewRenderer.escape(option)}" ${currentValues.includes(option) ? 'selected' : ''}>${PreviewRenderer.escape(option)}</option>`).join('')}</select>`;
+            return `<select name="field_${field.id}" multiple ${disabled}>${(settings.options || []).map(option => `<option value="${PreviewRenderer.escape(option)}" ${currentValues.includes(option) ? 'selected' : ''}>${PreviewRenderer.escape(option)}</option>`).join('')}</select>`;
         }
         if (field.field_type === 'image') {
             return `
                 <div class="asset-line">
-                    <select name="field_${field.id}">
+                    <select name="field_${field.id}" ${disabled}>
                         <option value="">No image</option>
                         ${this.app.state.assets.map(asset => `<option value="${PreviewRenderer.escape(asset.url)}" ${current === asset.url ? 'selected' : ''}>${PreviewRenderer.escape(asset.original_filename)}</option>`).join('')}
                     </select>
-                    <input type="file" accept="image/*" onchange="app.screens.cards.uploadAsset(this, 'field_${field.id}')">
+                    <input type="file" accept="image/*" onchange="app.screens.cards.uploadAsset(this, 'field_${field.id}')" ${disabled}>
                 </div>
             `;
         }
-        return `<input name="field_${field.id}" value="${PreviewRenderer.escape(current)}">`;
+        return `<input name="field_${field.id}" value="${PreviewRenderer.escape(current)}" ${disabled}>`;
     }
 
     rawValue(field, value) {
@@ -160,6 +164,7 @@ class CardScreen {
                 select.appendChild(option);
             }
             this.renderPreviewFromForm();
+            this.saveCardFormNow();
         } catch (error) {
             this.app.toast(error.message, 'error');
         }
@@ -231,5 +236,54 @@ class CardScreen {
         } catch (error) {
             this.app.toast(error.message, 'error');
         }
+    }
+
+    bindAutosave() {
+        const form = document.getElementById('cardForm');
+        if (!form) return;
+        this.app.autosave.bindForm(
+            form,
+            'card-form',
+            () => this.collectCardPayload(),
+            payload => this.saveCardPayload(payload),
+            { delay: 650 }
+        );
+    }
+
+    collectCardPayload() {
+        const form = document.getElementById('cardForm');
+        if (!form) return null;
+        const payload = Object.fromEntries(new FormData(form).entries());
+        if (!payload.name?.trim()) return null;
+        const templateId = form.querySelector('[name="templateId"]')?.value || this.app.state.activeCardDetail?.template_id;
+        if (!templateId) return null;
+        payload.templateId = templateId;
+        const template = this.app.state.activeCardDetail?.template || this.app.state.templateDetails[templateId];
+        if (!template) return null;
+        payload.values = this.valuesFromForm(form, template);
+        return payload;
+    }
+
+    async saveCardPayload(payload) {
+        let card;
+        if (payload.id) {
+            card = await ApiClient.updateCard(payload);
+        } else {
+            card = await ApiClient.createCard(payload);
+            document.getElementById('cardForm').elements.id.value = card.id;
+            this.app.state.activeCardId = card.id;
+        }
+        card = await ApiClient.saveCardFieldValues(card.id, payload.values);
+        const form = document.getElementById('cardForm');
+        if (form) form.elements.expectedUpdatedAt.value = card.updated_at || '';
+        this.app.state.activeCardDetail = card;
+        await this.app.refreshCards();
+        if (!payload.id) this.render();
+        else this.renderPreview();
+        return card;
+    }
+
+    saveCardFormNow() {
+        this.app.autosave.saveNow('card-form', () => this.collectCardPayload(), payload => this.saveCardPayload(payload));
     }
 }

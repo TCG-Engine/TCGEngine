@@ -1,6 +1,10 @@
 <?php
 
+include_once(__DIR__ . '/../../AccountFiles/AccountSessionAPI.php');
+
 class CardAuthoringDB {
+    const ASSET_TYPE_CARD_EDITOR_GAME = 9001;
+
     private $conn;
 
     public function __construct($conn) {
@@ -28,7 +32,33 @@ class CardAuthoringDB {
                 throw new Exception("Schema setup failed: " . mysqli_error($this->conn));
             }
         }
+        $this->ensureColumn('ce_template_layout_elements', 'asset_id', 'BIGINT NULL AFTER field_id');
+        $this->ensureIndex('ce_template_layout_elements', 'idx_ce_template_layout_asset', 'asset_id');
         $checked = true;
+    }
+
+    private function ensureColumn($table, $column, $definition) {
+        $table = mysqli_real_escape_string($this->conn, $table);
+        $column = mysqli_real_escape_string($this->conn, $column);
+        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM `$table` LIKE '$column'");
+        if ($result && mysqli_num_rows($result) === 0) {
+            if (!mysqli_query($this->conn, "ALTER TABLE `$table` ADD COLUMN `$column` $definition")) {
+                throw new Exception("Schema migration failed: " . mysqli_error($this->conn));
+            }
+        }
+        if ($result) mysqli_free_result($result);
+    }
+
+    private function ensureIndex($table, $index, $column) {
+        $table = mysqli_real_escape_string($this->conn, $table);
+        $index = mysqli_real_escape_string($this->conn, $index);
+        $result = mysqli_query($this->conn, "SHOW INDEX FROM `$table` WHERE Key_name = '$index'");
+        if ($result && mysqli_num_rows($result) === 0) {
+            if (!mysqli_query($this->conn, "ALTER TABLE `$table` ADD KEY `$index` (`$column`)")) {
+                throw new Exception("Schema migration failed: " . mysqli_error($this->conn));
+            }
+        }
+        if ($result) mysqli_free_result($result);
     }
 
     public static function slugify($value) {
@@ -47,6 +77,118 @@ class CardAuthoringDB {
 
     private function now() {
         return date('Y-m-d H:i:s');
+    }
+
+    private function currentUserId() {
+        return IsUserLoggedIn() ? (int)LoggedInUser() : 0;
+    }
+
+    private function requireLoggedIn() {
+        $userId = $this->currentUserId();
+        if ($userId <= 0) throw new Exception("You must be logged in to edit CardEditor games");
+        return $userId;
+    }
+
+    private function currentUserTeamId() {
+        $userId = $this->currentUserId();
+        if ($userId <= 0) return 0;
+        $row = $this->one("SELECT teamID FROM users WHERE usersId = ?", "i", [$userId]);
+        return $row && $row['teamID'] !== null ? (int)$row['teamID'] : 0;
+    }
+
+    private function visibilityToInt($visibility) {
+        if (is_numeric($visibility)) return (int)$visibility;
+        $visibility = strtolower(trim((string)$visibility));
+        if ($visibility === 'public') return 2;
+        if ($visibility === 'link only' || $visibility === 'link_only' || $visibility === 'link') return 1;
+        if ($visibility === 'team') {
+            $teamId = $this->currentUserTeamId();
+            return $teamId > 0 ? 1000 + $teamId : 0;
+        }
+        return 0;
+    }
+
+    private function visibilityFromInt($visibility) {
+        $visibility = (int)$visibility;
+        if ($visibility === 2) return 'public';
+        if ($visibility === 1) return 'link only';
+        if ($visibility >= 1000) return 'team';
+        return 'private';
+    }
+
+    private function ownershipForGame($gameId) {
+        return $this->one(
+            "SELECT * FROM ownership WHERE assetType = ? AND assetIdentifier = ?",
+            "ii",
+            [self::ASSET_TYPE_CARD_EDITOR_GAME, (int)$gameId]
+        );
+    }
+
+    private function canViewGameRow($game) {
+        $ownership = $this->ownershipForGame($game['id']);
+        if (!$ownership) return $this->currentUserId() > 0;
+        $visibility = (int)($ownership['assetVisibility'] ?? 0);
+        $userId = $this->currentUserId();
+        if ($userId > 0 && (int)$ownership['assetOwner'] === $userId) return true;
+        if ($visibility === 1 || $visibility === 2) return true;
+        if ($visibility >= 1000 && $userId > 0) return $this->currentUserTeamId() === ($visibility - 1000);
+        return false;
+    }
+
+    private function canEditGameRow($game) {
+        $ownership = $this->ownershipForGame($game['id']);
+        $userId = $this->currentUserId();
+        if ($userId <= 0) return false;
+        if (!$ownership) return true;
+        if ((int)$ownership['assetOwner'] === $userId) return true;
+        $visibility = (int)($ownership['assetVisibility'] ?? 0);
+        return $visibility >= 1000 && $this->currentUserTeamId() === ($visibility - 1000);
+    }
+
+    private function assertCanViewGame($gameId) {
+        $game = $this->rawGame($gameId);
+        if (!$game || !$this->canViewGameRow($game)) throw new Exception("You do not have access to this game");
+        return $game;
+    }
+
+    private function assertCanEditGame($gameId) {
+        $game = $this->rawGame($gameId);
+        if (!$game || !$this->canEditGameRow($game)) throw new Exception("You do not have permission to edit this game");
+        return $game;
+    }
+
+    private function assertFresh($table, $id, $expectedUpdatedAt) {
+        if ($expectedUpdatedAt === null || $expectedUpdatedAt === '') return;
+        $allowed = ['ce_games', 'ce_sets', 'ce_templates', 'ce_cards'];
+        if (!in_array($table, $allowed)) return;
+        $row = $this->one("SELECT updated_at FROM `$table` WHERE id = ?", "i", [(int)$id]);
+        if ($row && (string)$row['updated_at'] !== (string)$expectedUpdatedAt) {
+            throw new Exception("This record changed elsewhere. Refresh before saving.");
+        }
+    }
+
+    private function saveGameOwnership($gameId, $name, $visibility = null) {
+        $userId = $this->requireLoggedIn();
+        $existing = $this->ownershipForGame($gameId);
+        if ($existing) {
+            $visibilityInt = $visibility === null ? (int)($existing['assetVisibility'] ?? 0) : $this->visibilityToInt($visibility);
+            $this->execute(
+                "UPDATE ownership SET assetName = ?, assetVisibility = ? WHERE assetType = ? AND assetIdentifier = ?",
+                "siii",
+                [$name, $visibilityInt, self::ASSET_TYPE_CARD_EDITOR_GAME, (int)$gameId]
+            );
+            return;
+        }
+        $visibilityInt = $visibility === null ? 0 : $this->visibilityToInt($visibility);
+        $this->execute(
+            "INSERT INTO ownership (assetType, assetIdentifier, assetOwner, assetStatus, assetName, assetVisibility) VALUES (?, ?, ?, 1, ?, ?)",
+            "iiisi",
+            [self::ASSET_TYPE_CARD_EDITOR_GAME, (int)$gameId, $userId, $name, $visibilityInt]
+        );
+    }
+
+    private function rawGame($id) {
+        return $this->one("SELECT * FROM ce_games WHERE id = ?", "i", [(int)$id]);
     }
 
     private function bindAndExecute($stmt, $types = "", $params = []) {
@@ -109,6 +251,15 @@ class CardAuthoringDB {
     private function normalizeGame($row) {
         if (!$row) return null;
         $row['id'] = (int)$row['id'];
+        $ownership = $this->ownershipForGame($row['id']);
+        $row['ownership'] = [
+            'assetType' => self::ASSET_TYPE_CARD_EDITOR_GAME,
+            'ownerId' => $ownership ? (int)$ownership['assetOwner'] : null,
+            'visibility' => $ownership ? $this->visibilityFromInt($ownership['assetVisibility'] ?? 0) : 'private',
+            'visibilityValue' => $ownership ? (int)($ownership['assetVisibility'] ?? 0) : 0,
+        ];
+        $row['can_edit'] = $this->canEditGameRow($row);
+        $row['can_view'] = $this->canViewGameRow($row);
         return $row;
     }
 
@@ -139,6 +290,7 @@ class CardAuthoringDB {
     private function normalizeLayoutElement($row) {
         foreach (['id', 'template_id', 'z_index'] as $key) $row[$key] = (int)$row[$key];
         $row['field_id'] = $row['field_id'] ? (int)$row['field_id'] : null;
+        $row['asset_id'] = $row['asset_id'] ? (int)$row['asset_id'] : null;
         foreach (['x', 'y', 'width', 'height', 'rotation'] as $key) $row[$key] = (float)$row[$key];
         $row['is_visible'] = (bool)$row['is_visible'];
         $this->decodeJsonFields($row, ['style_json']);
@@ -170,10 +322,12 @@ class CardAuthoringDB {
     }
 
     public function createGame($input) {
+        $this->requireLoggedIn();
         $name = trim($input['name'] ?? '');
         if ($name === '') throw new Exception("Game name is required");
         $slug = self::slugify($input['slug'] ?? $name);
         $description = $input['description'] ?? null;
+        $visibility = $input['visibility'] ?? 'private';
         $uuid = self::uuidv4();
         $now = $this->now();
         $this->execute(
@@ -181,21 +335,26 @@ class CardAuthoringDB {
             "ssssss",
             [$uuid, $name, $slug, $description, $now, $now]
         );
-        return $this->getGame((int)mysqli_insert_id($this->conn));
+        $gameId = (int)mysqli_insert_id($this->conn);
+        $this->saveGameOwnership($gameId, $name, $visibility);
+        return $this->getGame($gameId);
     }
 
     public function listGames() {
-        return array_map([$this, 'normalizeGame'], $this->all("SELECT * FROM ce_games ORDER BY name ASC"));
+        $rows = $this->all("SELECT * FROM ce_games ORDER BY name ASC");
+        $visible = array_filter($rows, function($row) { return $this->canViewGameRow($row); });
+        return array_map([$this, 'normalizeGame'], array_values($visible));
     }
 
     public function getGame($id) {
-        $row = $this->one("SELECT * FROM ce_games WHERE id = ?", "i", [(int)$id]);
+        $row = $this->assertCanViewGame($id);
         if (!$row) throw new Exception("Game not found");
         return $this->normalizeGame($row);
     }
 
     public function updateGame($id, $input) {
-        $game = $this->getGame($id);
+        $game = $this->assertCanEditGame($id);
+        $this->assertFresh('ce_games', $id, $input['expectedUpdatedAt'] ?? null);
         $name = trim($input['name'] ?? $game['name']);
         if ($name === '') throw new Exception("Game name is required");
         $slug = self::slugify($input['slug'] ?? $game['slug']);
@@ -206,12 +365,13 @@ class CardAuthoringDB {
             "ssssi",
             [$name, $slug, $description, $now, (int)$id]
         );
+        $this->saveGameOwnership($id, $name, $input['visibility'] ?? null);
         return $this->getGame($id);
     }
 
     public function createSet($input) {
         $gameId = (int)($input['gameId'] ?? $input['game_id'] ?? 0);
-        $this->getGame($gameId);
+        $this->assertCanEditGame($gameId);
         $name = trim($input['name'] ?? '');
         if ($name === '') throw new Exception("Set name is required");
         $slug = self::slugify($input['slug'] ?? $name);
@@ -227,18 +387,21 @@ class CardAuthoringDB {
     }
 
     public function listSets($gameId) {
-        $this->getGame($gameId);
+        $this->assertCanViewGame($gameId);
         return array_map([$this, 'normalizeSet'], $this->all("SELECT * FROM ce_sets WHERE game_id = ? ORDER BY name ASC", "i", [(int)$gameId]));
     }
 
     public function getSet($id) {
         $row = $this->one("SELECT * FROM ce_sets WHERE id = ?", "i", [(int)$id]);
         if (!$row) throw new Exception("Set not found");
+        $this->assertCanViewGame((int)$row['game_id']);
         return $this->normalizeSet($row);
     }
 
     public function updateSet($id, $input) {
         $set = $this->getSet($id);
+        $this->assertCanEditGame((int)$set['game_id']);
+        $this->assertFresh('ce_sets', $id, $input['expectedUpdatedAt'] ?? null);
         $name = trim($input['name'] ?? $set['name']);
         if ($name === '') throw new Exception("Set name is required");
         $slug = self::slugify($input['slug'] ?? $set['slug']);
@@ -250,7 +413,7 @@ class CardAuthoringDB {
 
     public function createTemplate($input) {
         $gameId = (int)($input['gameId'] ?? $input['game_id'] ?? 0);
-        $this->getGame($gameId);
+        $this->assertCanEditGame($gameId);
         $name = trim($input['name'] ?? '');
         if ($name === '') throw new Exception("Template name is required");
         $slug = self::slugify($input['slug'] ?? $name);
@@ -271,7 +434,7 @@ class CardAuthoringDB {
     }
 
     public function listTemplates($gameId) {
-        $this->getGame($gameId);
+        $this->assertCanViewGame($gameId);
         $rows = $this->all("SELECT * FROM ce_templates WHERE game_id = ? ORDER BY name ASC", "i", [(int)$gameId]);
         return array_map([$this, 'normalizeTemplate'], $rows);
     }
@@ -279,14 +442,18 @@ class CardAuthoringDB {
     public function getTemplate($id) {
         $row = $this->one("SELECT * FROM ce_templates WHERE id = ?", "i", [(int)$id]);
         if (!$row) throw new Exception("Template not found");
+        $this->assertCanViewGame((int)$row['game_id']);
         $template = $this->normalizeTemplate($row);
         $template['fields'] = array_map([$this, 'normalizeField'], $this->all("SELECT * FROM ce_template_fields WHERE template_id = ? ORDER BY sort_order ASC, id ASC", "i", [(int)$id]));
         $template['layout'] = array_map([$this, 'normalizeLayoutElement'], $this->all("SELECT * FROM ce_template_layout_elements WHERE template_id = ? ORDER BY z_index ASC, id ASC", "i", [(int)$id]));
+        $template['assets'] = $this->listAssets((int)$template['game_id']);
         return $template;
     }
 
     public function updateTemplate($id, $input) {
         $template = $this->getTemplate($id);
+        $this->assertCanEditGame((int)$template['game_id']);
+        $this->assertFresh('ce_templates', $id, $input['expectedUpdatedAt'] ?? null);
         $name = trim($input['name'] ?? $template['name']);
         if ($name === '') throw new Exception("Template name is required");
         $slug = self::slugify($input['slug'] ?? $template['slug']);
@@ -306,7 +473,8 @@ class CardAuthoringDB {
     }
 
     public function saveTemplateFields($templateId, $fields) {
-        $this->getTemplate($templateId);
+        $template = $this->getTemplate($templateId);
+        $this->assertCanEditGame((int)$template['game_id']);
         if (!is_array($fields)) throw new Exception("Fields must be an array");
         $validTypes = ['text', 'longtext', 'number', 'boolean', 'select', 'multiselect', 'image'];
         $now = $this->now();
@@ -361,7 +529,8 @@ class CardAuthoringDB {
     }
 
     public function saveTemplateLayout($templateId, $elements) {
-        $this->getTemplate($templateId);
+        $template = $this->getTemplate($templateId);
+        $this->assertCanEditGame((int)$template['game_id']);
         if (!is_array($elements)) throw new Exception("Layout must be an array");
         $now = $this->now();
         mysqli_query($this->conn, "START TRANSACTION");
@@ -369,21 +538,31 @@ class CardAuthoringDB {
             $this->execute("DELETE FROM ce_template_layout_elements WHERE template_id = ?", "i", [(int)$templateId]);
             foreach ($elements as $index => $element) {
                 $type = $element['element_type'] ?? $element['elementType'] ?? 'field';
-                if ($type !== 'field') throw new Exception("Only field elements are supported in v1");
-                $fieldId = isset($element['field_id']) ? (int)$element['field_id'] : (isset($element['fieldId']) ? (int)$element['fieldId'] : null);
-                if (!$fieldId) throw new Exception("Field element missing field id");
-                $field = $this->one("SELECT id FROM ce_template_fields WHERE id = ? AND template_id = ?", "ii", [$fieldId, (int)$templateId]);
-                if (!$field) throw new Exception("Layout field does not belong to template");
+                if (!in_array($type, ['field', 'image'])) throw new Exception("Unsupported layout element type");
+                $fieldId = null;
+                $assetId = null;
+                if ($type === 'field') {
+                    $fieldId = isset($element['field_id']) ? (int)$element['field_id'] : (isset($element['fieldId']) ? (int)$element['fieldId'] : null);
+                    if (!$fieldId) throw new Exception("Field element missing field id");
+                    $field = $this->one("SELECT id FROM ce_template_fields WHERE id = ? AND template_id = ?", "ii", [$fieldId, (int)$templateId]);
+                    if (!$field) throw new Exception("Layout field does not belong to template");
+                } else {
+                    $assetId = isset($element['asset_id']) ? (int)$element['asset_id'] : (isset($element['assetId']) ? (int)$element['assetId'] : null);
+                    if (!$assetId) throw new Exception("Image element missing asset id");
+                    $asset = $this->one("SELECT id FROM ce_assets WHERE id = ? AND game_id = ?", "ii", [$assetId, (int)$template['game_id']]);
+                    if (!$asset) throw new Exception("Image asset does not belong to game");
+                }
                 $uuid = self::uuidv4();
                 $styleJson = $this->jsonOrNull($element['style_json'] ?? $element['styleJson'] ?? null);
                 $this->execute(
-                    "INSERT INTO ce_template_layout_elements (element_uuid, template_id, element_type, field_id, x, y, width, height, z_index, rotation, is_visible, style_json, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                    "sisiddddidisss",
+                    "INSERT INTO ce_template_layout_elements (element_uuid, template_id, element_type, field_id, asset_id, x, y, width, height, z_index, rotation, is_visible, style_json, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                    "sisiiddddidisss",
                     [
                         $uuid,
                         (int)$templateId,
                         $type,
                         $fieldId,
+                        $assetId,
                         (float)($element['x'] ?? 40),
                         (float)($element['y'] ?? 40),
                         (float)($element['width'] ?? 200),
@@ -411,6 +590,7 @@ class CardAuthoringDB {
         if ((int)$set['game_id'] !== (int)$gameId) throw new Exception("Set does not belong to game");
         $template = $this->getTemplate($templateId);
         if ((int)$template['game_id'] !== (int)$gameId) throw new Exception("Template does not belong to game");
+        $this->assertCanEditGame($gameId);
     }
 
     public function createCard($input) {
@@ -439,6 +619,7 @@ class CardAuthoringDB {
     public function getCard($id) {
         $row = $this->one("SELECT * FROM ce_cards WHERE id = ?", "i", [(int)$id]);
         if (!$row) throw new Exception("Card not found");
+        $this->assertCanViewGame((int)$row['game_id']);
         $card = $this->normalizeCard($row);
         $card['template'] = $this->getTemplate($card['template_id']);
         $card['values'] = array_map([$this, 'normalizeValue'], $this->all("SELECT * FROM ce_card_field_values WHERE card_id = ?", "i", [(int)$id]));
@@ -447,6 +628,8 @@ class CardAuthoringDB {
 
     public function updateCard($id, $input) {
         $card = $this->getCard($id);
+        $this->assertCanEditGame((int)$card['game_id']);
+        $this->assertFresh('ce_cards', $id, $input['expectedUpdatedAt'] ?? null);
         $name = trim($input['name'] ?? $card['name']);
         if ($name === '') throw new Exception("Card name is required");
         $slug = self::slugify($input['slug'] ?? $card['slug']);
@@ -457,6 +640,7 @@ class CardAuthoringDB {
 
     public function saveCardFieldValues($cardId, $values) {
         $card = $this->getCard($cardId);
+        $this->assertCanEditGame((int)$card['game_id']);
         if (!is_array($values)) throw new Exception("Values must be an array");
         $fields = [];
         foreach ($card['template']['fields'] as $field) {
@@ -499,13 +683,13 @@ class CardAuthoringDB {
     }
 
     public function listAssets($gameId) {
-        $this->getGame($gameId);
+        $this->assertCanViewGame($gameId);
         return array_map([$this, 'normalizeAsset'], $this->all("SELECT * FROM ce_assets WHERE game_id = ? ORDER BY created_at DESC, id DESC", "i", [(int)$gameId]));
     }
 
     public function createAsset($input) {
         $gameId = (int)$input['gameId'];
-        $this->getGame($gameId);
+        $this->assertCanEditGame($gameId);
         $uuid = $input['assetUuid'] ?? self::uuidv4();
         $kind = $input['assetKind'] ?? 'image';
         $now = $this->now();

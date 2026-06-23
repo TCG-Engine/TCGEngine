@@ -57,7 +57,14 @@ function ce_run($method, $handler) {
         ce_success($result);
         mysqli_close($conn);
     } catch (Exception $e) {
-        ce_error($e->getMessage());
+        $message = $e->getMessage();
+        $status = 500;
+        if (stripos($message, 'logged in') !== false || stripos($message, 'permission') !== false || stripos($message, 'access') !== false) {
+            $status = 403;
+        } elseif (stripos($message, 'changed elsewhere') !== false) {
+            $status = 409;
+        }
+        ce_error($message, $status);
     }
 }
 

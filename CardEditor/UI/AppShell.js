@@ -14,10 +14,12 @@ class AppShell {
             templateDetails: {},
             cards: [],
             assets: [],
+            currentUser: { loggedIn: false },
             abilityRoots: {},
             abilityRoot: '',
             abilityCard: ''
         };
+        this.autosave = new AutoSaveManager(this);
         this.screens = {
             games: new GameScreen(this),
             sets: new SetScreen(this),
@@ -37,11 +39,15 @@ class AppShell {
 
     bindNav() {
         document.querySelectorAll('[data-screen]').forEach(button => {
-            button.addEventListener('click', () => this.show(button.dataset.screen));
+            button.addEventListener('click', async () => {
+                await this.autosave.flushAll();
+                this.show(button.dataset.screen);
+            });
         });
     }
 
     async refreshAll() {
+        this.state.currentUser = await ApiClient.getCurrentUser().catch(() => ({ loggedIn: false }));
         this.state.games = await ApiClient.listGames().catch(() => []);
         if (!this.state.activeGameId && this.state.games[0]) this.state.activeGameId = this.state.games[0].id;
         await this.refreshGameScoped();
@@ -107,12 +113,26 @@ class AppShell {
         const game = this.activeGame();
         const set = this.activeSet();
         document.getElementById('contextLabel').textContent = game ? `${game.name}${set ? ' / ' + set.name : ''}` : 'No game selected';
+        const userLabel = document.getElementById('userLabel');
+        if (userLabel) {
+            userLabel.textContent = this.state.currentUser.loggedIn
+                ? `${this.state.currentUser.userName}${this.state.currentUser.teamId ? ' / team ' + this.state.currentUser.teamId : ''}`
+                : 'Not logged in';
+        }
         document.querySelectorAll('[data-screen]').forEach(button => {
             button.classList.toggle('active', button.dataset.screen === this.state.activeScreen);
         });
     }
 
+    setSaveState(label) {
+        const host = document.getElementById('saveState');
+        if (!host) return;
+        host.textContent = label || '';
+        host.className = 'save-state ' + String(label || '').toLowerCase();
+    }
+
     async selectGame(id) {
+        await this.autosave.flushAll();
         this.state.activeGameId = Number(id);
         this.state.activeSetId = null;
         this.state.activeTemplateId = null;
@@ -124,6 +144,7 @@ class AppShell {
     }
 
     async selectSet(id) {
+        await this.autosave.flushAll();
         this.state.activeSetId = Number(id);
         this.state.activeCardId = null;
         this.state.activeCardDetail = null;
