@@ -2473,9 +2473,16 @@ function OnKillTrigger($player, $attackerMZ) {
     $killedCardID = DecisionQueueController::GetVariable("CombatKilledCardID");
     if($killedCardID !== null && $killedCardID !== "" && PropertyContains(CardType($killedCardID), "ALLY")) {
         $killedSheenCount = intval(DecisionQueueController::GetVariable("CombatKilledSheenCount") ?? "0");
-        if($obj !== null
-           && !HasNoAbilities($obj)
-           && PropertyContains(EffectiveCardType($obj), "CHAMPION")
+        $fracturedKillAttackerMZ = $attackerMZ;
+        $combatAttackerUniqueID = intval(DecisionQueueController::GetVariable("CombatAttackerUniqueID") ?? "0");
+        if($combatAttackerUniqueID > 0) {
+            $resolvedFracturedKillAttackerMZ = ResolveCombatAttackerByUniqueID($player);
+            if($resolvedFracturedKillAttackerMZ !== null) $fracturedKillAttackerMZ = $resolvedFracturedKillAttackerMZ;
+        }
+        $fracturedKillAttackerObj = GetZoneObject($fracturedKillAttackerMZ);
+        if($fracturedKillAttackerObj !== null
+           && !HasNoAbilities($fracturedKillAttackerObj)
+           && PropertyContains(EffectiveCardType($fracturedKillAttackerObj), "CHAMPION")
            && IsMerlinBonusActive($player)
            && HasFracturedMemories($player)
            && $killedSheenCount > 0) {
