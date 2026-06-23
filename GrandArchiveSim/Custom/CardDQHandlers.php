@@ -5172,7 +5172,7 @@ function QueueWitherUpkeepTrigger($player) {
     $zone = $player == $playerID ? "myField" : "theirField";
     $field = GetZone($zone);
     $triggerCardID = "wither";
-    $triggerUniqueID = 0;
+    $triggerUniqueID = -1;
 
     for($i = 0; $i < count($field); ++$i) {
         if($field[$i]->removed) continue;
@@ -5181,7 +5181,7 @@ function QueueWitherUpkeepTrigger($player) {
         $triggerUniqueID = intval($field[$i]->UniqueID ?? 0);
         break;
     }
-    if($triggerCardID === "") return false;
+    if($triggerUniqueID === -1) return false;
 
     $stackObj = AddEffectStack(
         CardID:$triggerCardID,
