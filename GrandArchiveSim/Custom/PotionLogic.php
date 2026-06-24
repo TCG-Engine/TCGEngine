@@ -567,6 +567,7 @@ $customDQHandlers["StarlitApothecaryChoose"] = function($player, $parts, $lastDe
 $customDQHandlers["StarlitApothecaryPayChoice"] = function($payingPlayer, $parts, $lastDecision) {
     $controller = intval($parts[0] ?? $payingPlayer);
     $targetMZ = $parts[1] ?? "";
+    $targetMZ = NormalizeMZ($targetMZ, $controller);
 
     if($lastDecision === "YES" && CountAvailableReservePayments($payingPlayer) >= 4) {
         for($i = 0; $i < 4; ++$i) {
