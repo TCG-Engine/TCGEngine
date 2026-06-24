@@ -610,6 +610,7 @@ function GetAvailableInterceptRedirectTargets($attackerMZ, $targetMZ, $attackerP
     $defenderPlayer = ($attackerPlayer == 1) ? 2 : 1;
     global $playerID;
     $zone = ($defenderPlayer == $playerID) ? "myField" : "theirField";
+    $attackerHasTrueSight = AttackerHasTrueSight($attackerMZ, $attackerPlayer);
     $interceptTargets = [];
     foreach(GetZone($zone) as $idx => $obj) {
         if($obj->removed) continue;
@@ -617,6 +618,7 @@ function GetAvailableInterceptRedirectTargets($attackerMZ, $targetMZ, $attackerP
         if(!PropertyContains(EffectiveCardType($obj), "ALLY")) continue;
         if(PlayerLevel($obj->Controller) < PrideAmount($obj)) continue;
         if(!HasIntercept($obj)) continue;
+        if(HasStealth($obj) && !$attackerHasTrueSight) continue;
         $interceptTargets[] = $zone . "-" . $idx;
     }
     return $interceptTargets;
@@ -2717,6 +2719,9 @@ $customDQHandlers["InterceptTargetChosen"] = function($player, $parts, $lastDeci
     if(!HasIntercept($interceptObj)) return;
 
     $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "1");
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    if(HasStealth($interceptObj) && !AttackerHasTrueSight($attackerMZ, $attackerPlayer)) return;
+
     $interceptMZForAttacker = ConvertMzToPlayerPerspective($lastDecision, $attackerPlayer);
     StoreCombatTargetState($interceptMZForAttacker, $attackerPlayer);
     MarkCombatTarget($attackerPlayer, $interceptMZForAttacker);
