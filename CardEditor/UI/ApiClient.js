@@ -55,5 +55,10 @@ const ApiClient = {
     saveCardFieldValues(cardId, values) { return this.post('SaveCardFieldValues.php', { cardId, values }); },
     listAssets(gameId) { return this.get('ListAssets.php', { gameId }); },
     exportGame(gameId) { return this.get('ExportGame.php', { gameId }); },
-    exportSet(setId) { return this.get('ExportSet.php', { setId }); }
+    exportSet(setId) { return this.get('ExportSet.php', { setId }); },
+    async logout() {
+        const response = await fetch('../../AccountFiles/LogoutUserAPI.php');
+        if (!response.ok) throw new Error('Logout failed');
+        return response.json().catch(() => ({}));
+    }
 };

@@ -6,6 +6,26 @@ include_once '../Assets/patreon-php-master/src/PatreonDictionary.php';
 include_once './ConnectionManager.php';
 include_once '../AccountFiles/AccountDatabaseAPI.php';
 
+function signup_safe_redirect($redirect, $fallback) {
+  if ($redirect == null || $redirect == "") return $fallback;
+  $parts = parse_url($redirect);
+  if ($parts === false) return $fallback;
+  if (isset($parts["scheme"]) || isset($parts["host"])) return $fallback;
+  $path = isset($parts["path"]) ? $parts["path"] : "";
+  if (strpos($path, "/TCGEngine/") !== 0) return $fallback;
+  return $redirect;
+}
+
+function signup_page_redirect($redirect, $error = "") {
+  $location = "/TCGEngine/SharedUI/Signup.php";
+  $params = [];
+  if ($error != "") $params["error"] = $error;
+  $safeRedirect = signup_safe_redirect($redirect, "");
+  if ($safeRedirect != "") $params["redirect"] = $safeRedirect;
+  if (count($params) > 0) $location .= "?" . http_build_query($params);
+  return $location;
+}
+
 if (isset($_POST["submit"])) {
 
   // First we get the form data from the URL
@@ -13,6 +33,7 @@ if (isset($_POST["submit"])) {
   $email = $_POST["email"];
   $pwd = $_POST["pwd"];
   $pwdRepeat = $_POST["pwdrepeat"];
+  $redirect = $_POST["redirect"] ?? "";
 
   // Then we run a bunch of error handlers to catch any user mistakes we can (you can add more than I did)
   // These functions can be found in functions.inc.php
@@ -24,32 +45,32 @@ if (isset($_POST["submit"])) {
   // We set the functions "!== false" since "=== true" has a risk of giving us the wrong outcome
   if (emptyInputSignup($username, $email, $pwd, $pwdRepeat) !== false) {
     mysqli_close($conn);
-    header("location: /TCGEngine/SharedUI/Signup.php?error=emptyinput");
+    header("location: " . signup_page_redirect($redirect, "emptyinput"));
 		exit();
   }
 
 	// Proper username chosen
   if (invalidUid($username) !== false) {
     mysqli_close($conn);
-    header("location: /TCGEngine/SharedUI/Signup.php?error=invaliduid");
+    header("location: " . signup_page_redirect($redirect, "invaliduid"));
 		exit();
   }
   // Proper email chosen
   if (invalidEmail($email) !== false) {
     mysqli_close($conn);
-    header("location: /TCGEngine/SharedUI/Signup.php?error=invalidemail");
+    header("location: " . signup_page_redirect($redirect, "invalidemail"));
 		exit();
   }
   // Do the two passwords match?
   if (pwdMatch($pwd, $pwdRepeat) !== false) {
     mysqli_close($conn);
-    header("location: /TCGEngine/SharedUI/Signup.php?error=passwordsdontmatch");
+    header("location: " . signup_page_redirect($redirect, "passwordsdontmatch"));
 		exit();
   }
   // Is the username taken already
   if (uidExists($conn, $username) !== false) {
     mysqli_close($conn);
-    header("location: /TCGEngine/SharedUI/Signup.php?error=usernametaken");
+    header("location: " . signup_page_redirect($redirect, "usernametaken"));
 		exit();
   }
 
@@ -59,16 +80,16 @@ if (isset($_POST["submit"])) {
   $status = createUser($conn, $username, $email, $pwd);
   if($status == false) {
     mysqli_close($conn);
-    header("location: /TCGEngine/SharedUI/Signup.php?error=stmtfailed");
+    header("location: " . signup_page_redirect($redirect, "stmtfailed"));
     exit();
   }
 
   mysqli_close($conn);
-  AttemptPasswordLogin($username, $pwd, true);
-  header("location: /TCGEngine/SharedUI/MainMenu.php");
+  AttemptPasswordLogin($username, $pwd, true, $redirect);
+  header("location: " . signup_safe_redirect($redirect, "/TCGEngine/SharedUI/MainMenu.php"));
   exit();
 
 } else {
-  header("location: /TCGEngine/SharedUI/Signup.php");
+  header("location: " . signup_page_redirect(""));
   exit();
 }

@@ -11,8 +11,9 @@ if (isset($_POST["submit"])) {
   $username = $_POST["userID"];
   $password = $_POST["password"];
   $rememberMe = isset($_POST["rememberMe"]);
+  $redirect = $_POST["redirect"] ?? "";
   try {
-    AttemptPasswordLogin($username, $password, $rememberMe);
+    AttemptPasswordLogin($username, $password, $rememberMe, $redirect);
   } catch (\Exception $e) { }
 } else {
 	echo("Login failed; please check your username and password.");

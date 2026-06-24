@@ -4,6 +4,15 @@ include_once 'MenuBar.php';
 
 <?php
 include_once 'Header.php';
+$redirect = $_GET["redirect"] ?? "";
+$safeRedirect = "";
+if ($redirect != "") {
+  $parts = parse_url($redirect);
+  $path = $parts !== false && isset($parts["path"]) ? $parts["path"] : "";
+  if ($parts !== false && !isset($parts["scheme"]) && !isset($parts["host"]) && strpos($path, "/TCGEngine/") === 0) {
+    $safeRedirect = $redirect;
+  }
+}
 ?>
 
 <div class="core-wrapper">
@@ -24,6 +33,7 @@ include_once 'Header.php';
   </div>
   <div class="signup-form-form">
     <form action="../Database/signup.inc.php" method="post">
+      <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($safeRedirect, ENT_QUOTES); ?>">
       <label for="uid">Username</label>
         <input type="text" name="uid">
       <label for="email">Email</label>

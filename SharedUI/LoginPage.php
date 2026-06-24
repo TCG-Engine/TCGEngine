@@ -2,8 +2,19 @@
 include_once './MenuBar.php';
 include_once '../AccountFiles/AccountSessionAPI.php';
 
+$redirect = $_GET["redirect"] ?? "";
+$safeRedirect = "";
+if ($redirect != "") {
+  $parts = parse_url($redirect);
+  $path = $parts !== false && isset($parts["path"]) ? $parts["path"] : "";
+  if ($parts !== false && !isset($parts["scheme"]) && !isset($parts["host"]) && strpos($path, "/TCGEngine/") === 0) {
+    $safeRedirect = $redirect;
+  }
+}
+
 if (IsUserLoggedIn()) {
-  header("Location: ./MainMenu.php");
+  header("Location: " . ($safeRedirect != "" ? $safeRedirect : "./MainMenu.php"));
+  exit();
 }
 ?>
 
@@ -20,6 +31,7 @@ include_once 'Header.php';
     <p class="login-message">Make sure to use your username, not your email!</i></p>
 
     <form action="../AccountFiles/AttemptPasswordLogin.php" method="post" class="LoginForm">
+      <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($safeRedirect, ENT_QUOTES); ?>">
       <label>Username</label>
       <input class="username" type="text" name="userID">
       <label>Password</label>

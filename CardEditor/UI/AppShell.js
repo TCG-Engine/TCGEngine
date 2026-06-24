@@ -104,6 +104,14 @@ class AppShell {
         return this.state.sets.find(set => set.id === this.state.activeSetId) || null;
     }
 
+    authReturnPath() {
+        return '/TCGEngine/CardEditor/UI/index.html';
+    }
+
+    authUrl(path) {
+        return `${path}?redirect=${encodeURIComponent(this.authReturnPath())}`;
+    }
+
     setContent(html) {
         document.getElementById('content').innerHTML = html;
         this.renderContext();
@@ -115,9 +123,18 @@ class AppShell {
         document.getElementById('contextLabel').textContent = game ? `${game.name}${set ? ' / ' + set.name : ''}` : 'No game selected';
         const userLabel = document.getElementById('userLabel');
         if (userLabel) {
-            userLabel.textContent = this.state.currentUser.loggedIn
-                ? `${this.state.currentUser.userName}${this.state.currentUser.teamId ? ' / team ' + this.state.currentUser.teamId : ''}`
-                : 'Not logged in';
+            const user = this.state.currentUser;
+            userLabel.innerHTML = user.loggedIn
+                ? `
+                    <span>${PreviewRenderer.escape(user.userName)}${user.teamId ? ' / team ' + PreviewRenderer.escape(user.teamId) : ''}</span>
+                    <a href="/TCGEngine/SharedUI/Profile.php">Profile</a>
+                    <button type="button" class="link-button" onclick="app.logout()">Log Out</button>
+                `
+                : `
+                    <span>Not logged in</span>
+                    <a href="${this.authUrl('/TCGEngine/SharedUI/LoginPage.php')}">Log In</a>
+                    <a href="${this.authUrl('/TCGEngine/SharedUI/Signup.php')}">Create Account</a>
+                `;
         }
         document.querySelectorAll('[data-screen]').forEach(button => {
             button.classList.toggle('active', button.dataset.screen === this.state.activeScreen);
@@ -129,6 +146,20 @@ class AppShell {
         if (!host) return;
         host.textContent = label || '';
         host.className = 'save-state ' + String(label || '').toLowerCase();
+    }
+
+    async logout() {
+        await this.autosave.flushAll();
+        await ApiClient.logout();
+        this.state.currentUser = { loggedIn: false };
+        this.state.activeGameId = null;
+        this.state.activeSetId = null;
+        this.state.activeTemplateId = null;
+        this.state.activeTemplateDetail = null;
+        this.state.activeCardId = null;
+        this.state.activeCardDetail = null;
+        await this.refreshAll();
+        this.show('games');
     }
 
     async selectGame(id) {

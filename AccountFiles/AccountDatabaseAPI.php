@@ -138,7 +138,24 @@ function IsBanned($username)
 	return intval($userData["isBanned"]) == 1;
 }
 
-function AttemptPasswordLogin($username, $password, $rememberMe) {
+function AccountSafeRedirect($redirect, $fallback) {
+	if($redirect == null || $redirect == "") return $fallback;
+	$parts = parse_url($redirect);
+	if($parts === false) return $fallback;
+	if(isset($parts["scheme"]) || isset($parts["host"])) return $fallback;
+	$path = isset($parts["path"]) ? $parts["path"] : "";
+	if(strpos($path, "/TCGEngine/") !== 0) return $fallback;
+	return $redirect;
+}
+
+function AccountLoginPageRedirect($redirect) {
+	$location = "../SharedUI/LoginPage.php";
+	$safeRedirect = AccountSafeRedirect($redirect, "");
+	if($safeRedirect != "") $location .= "?redirect=" . urlencode($safeRedirect);
+	return $location;
+}
+
+function AttemptPasswordLogin($username, $password, $rememberMe, $redirect = "") {
 	$conn = GetLocalMySQLConnection();
 	$userData = LoadUserData($username);
 
@@ -147,7 +164,7 @@ function AttemptPasswordLogin($username, $password, $rememberMe) {
 
   }
   else {
-		header("location: ../SharedUI/LoginPage.php");
+		header("location: " . AccountLoginPageRedirect($redirect));
 		exit();
   }
 
@@ -187,11 +204,11 @@ function AttemptPasswordLogin($username, $password, $rememberMe) {
 		}
 		session_write_close();
 
-		header("location: ../SharedUI/MainMenu.php");
+		header("location: " . AccountSafeRedirect($redirect, "../SharedUI/MainMenu.php"));
 		exit();
   }
   else {
-    header("location: ../SharedUI/LoginPage.php");
+    header("location: " . AccountLoginPageRedirect($redirect));
     exit();
   }
 }
