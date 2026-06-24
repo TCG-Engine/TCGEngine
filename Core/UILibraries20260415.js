@@ -1363,6 +1363,9 @@ function ResolveGlobalFunction(functionName) {
               'OnAttack':'On Attack', 'OnDefense':'On Defense',
               'OnAttackEnd':'On Attack End', 'Shielded':'Shielded',
               'Ambush':'Ambush', 'ENTER':'On Enter',
+              'Support':'Support', 'SupportOnAttack':'On Attack',
+              'SupportOnAttackEnd':'On Attack End', 'SupportWhenDefeated':'When Defeated',
+              'AdvantageShed':'Advantage',
             };
             var _label = _labelMap[sharedCardData.TriggerType] || sharedCardData.TriggerType;
             newHTML += "<div style='flex-shrink:0; padding:3px 8px; color:rgba(255,255,255,0.9); font:700 9px/1.2 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.04em; white-space:nowrap; pointer-events:none;'>" + _label + "</div>";
@@ -4381,6 +4384,9 @@ function CheckAndShowDecisionQueue(decisionQueue) {
           setTimeout(() => {
             document.querySelectorAll('.selectable-card').forEach(el => el.classList.add('pulse'));
           }, 0);
+      // Re-evaluate the Effect Stack overlay now the selection targets are known (hide it while the
+      // player selects a non-EffectStack board target; show it for trigger-ordering MZCHOOSE).
+      if (typeof window.UpdateEffectStackVisibility === 'function') window.UpdateEffectStackVisibility();
       break;
     } else if (entry && entry.Type === 'MZREARRANGE' && !entry.removed) {
       // MZREARRANGE: Allow player to rearrange cards between piles
@@ -4577,6 +4583,9 @@ function ClearSelectionMode() {
     multiMax: 0,
     multiSelected: []
   };
+  // Selection ended — re-evaluate the Effect Stack overlay (reappears for the next trigger-ordering
+  // step if entries remain; the board-target hide no longer applies).
+  if (typeof window.UpdateEffectStackVisibility === 'function') window.UpdateEffectStackVisibility();
   // Remove choose-zone click bindings and restore zone visuals.
   if (previousSelection && previousSelection.zoneBindings && Array.isArray(previousSelection.zoneBindings)) {
     previousSelection.zoneBindings.forEach(binding => {

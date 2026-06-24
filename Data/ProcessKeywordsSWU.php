@@ -35,6 +35,7 @@ $cardArray = $cacheData['cardArray'];
 $booleanKeywords = [
     'Ambush', 'Grit', 'Overwhelm', 'Saboteur', 'Sentinel', 'Shielded',
     'Bounty', 'Smuggle', 'Coordinate', 'Piloting', 'Hidden', 'Plot',
+    'Support',
 ];
 
 // Value keywords: HasKeyword_X($obj) + GetKeyword_X_Value($obj) → int|null

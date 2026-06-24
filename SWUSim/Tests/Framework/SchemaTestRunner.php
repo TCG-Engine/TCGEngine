@@ -872,6 +872,15 @@ class SchemaTestRunner {
                     if ($actual !== $expected)
                         $failures[] = "{$line}: expected shield token count {$expected}, got {$actual}";
 
+                } elseif (preg_match('/^ADVANTAGECOUNT:(\d+)$/', $assert, $am)) {
+                    $expected = intval($am[1]);
+                    $actual   = 0;
+                    for ($i = 0; $i < $unit->upgradeCount(); $i++) {
+                        if ($unit->upgrade($i)->cardID === 'ASH_T02') $actual++;
+                    }
+                    if ($actual !== $expected)
+                        $failures[] = "{$line}: expected advantage token count {$expected}, got {$actual}";
+
                 } elseif (preg_match('/^UPGRADE:(\d+):CARDID:(.+)$/', $assert, $am)) {
                     $upgradeIdx = intval($am[1]);
                     $expected   = $am[2];

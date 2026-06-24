@@ -13,12 +13,13 @@ then drives card-by-card via `swusim-implement-card`.
 
 ## Invocation
 
-Argument: one set abbreviation. Allowed: `JTL`, `LOF`, `SEC`, `IBH`, `LAW`, `ASH`.
+Argument: one set abbreviation. Allowed: any SWU set — Premier (`JTL`, `LOF`, `SEC`, `IBH`,
+`LAW`, `ASH`) or Eternal-only (`SOR`, `SHD`, `TWI`, `TS26`). The earlier Premier-only deferral
+of SHD/TWI/TS26 is lifted (2026-06-25 — see memory `project-set-scope-formats`).
 
 **Guards (refuse and stop):**
-- `SOR` — already complete.
-- `SHD`, `TWI`, `TS26` — deferred to Eternal (first release is Premier-only).
-- Anything else — unknown set; confirm the abbreviation with the user.
+- `SOR` — already complete (skip unless re-surveying intentionally).
+- Anything not a recognized set abbreviation — confirm with the user.
 
 First, invoke **`swusim-session-start`** to load project memory + `.claude/SWUSim/instructions.md`
 (zone schema, conventions, file status), then proceed.

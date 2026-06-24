@@ -270,6 +270,14 @@
         cursor: pointer;
     }
 
+    /* Per-unit "can attack" glow — a ready unit with at least one valid attack target (green, matching
+       the leader/base action glow). Click the unit to attack (framework flow). */
+    .can-attack {
+        box-shadow: 0 0 9px 3px rgba(60,220,90,0.70), inset 0 0 4px rgba(60,220,90,0.55);
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
     /* Attack / Ability chooser popup for a glowing .unit-action unit */
     .swu-unit-action-menu {
         position: fixed;
@@ -989,12 +997,26 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
     });
 
+    // ── Effect Stack visibility ───────────────────────────────────────────────
+    // Show only when it has entries AND the player isn't mid-resolving a trigger that needs a
+    // board target (e.g. "choose a unit"). During such a selection the centered overlay covers the
+    // board, so hide it; it reappears for the next "choose trigger to resolve" (an EffectStack MZCHOOSE).
+    window.UpdateEffectStackVisibility = function() {
+        var el = document.getElementById('EffectStackSlot'); if (!el) return;
+        if (el.querySelector('[id$="-0"]') === null) { el.style.display = 'none'; return; }
+        var sm = window.SelectionMode, boardTargeting = false;
+        if (sm && sm.active && Array.isArray(sm.allowedZones) && sm.allowedZones.length) {
+            boardTargeting = !sm.allowedZones.some(function(z){ return z && z.zone === 'EffectStack'; });
+        }
+        el.style.display = boardTargeting ? 'none' : '';
+    };
+
     // ── Auto-hide Effect Stack when empty ─────────────────────────────────────
     function watchSlot(id) {
         var el = document.getElementById(id); if (!el) return;
         el.style.display = 'none';
         new MutationObserver(function() {
-            el.style.display = (el.querySelector('[id$="-0"]') !== null) ? '' : 'none';
+            window.UpdateEffectStackVisibility();
         }).observe(el, {childList:true, subtree:true});
     }
 
@@ -1466,9 +1488,19 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     function refreshUnitActionGlows() {
         var d = window.myActionsData || {};
         document.querySelectorAll('.unit-action').forEach(function(el) { el.classList.remove('unit-action'); });
+        document.querySelectorAll('.can-attack').forEach(function(el) { el.classList.remove('can-attack'); });
+        var abilityMz = {};
         (d.unitActions || []).forEach(function(mz) {
+            abilityMz[mz] = true;
             var el = document.querySelector('[data-mzid="' + mz + '"]');
             if (el) el.classList.add('unit-action');
+        });
+        // "Can attack" green glow — skip units already showing the cyan ability glow (their click menu
+        // already offers Attack), so a unit never carries both highlights.
+        (d.attackers || []).forEach(function(mz) {
+            if (abilityMz[mz]) return;
+            var el = document.querySelector('[data-mzid="' + mz + '"]');
+            if (el) el.classList.add('can-attack');
         });
     }
 

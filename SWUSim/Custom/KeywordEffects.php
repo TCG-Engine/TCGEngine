@@ -28,6 +28,18 @@ function SWUKeywordSuppressed($obj, string $keyword): bool {
     if ($keyword === 'GRIT' && is_object($obj) && _SWUUnitHasUpgrade($obj, 'SEC_054')) return false;
     // A unit that has lost all abilities has NO keyword — innate, granted, or gained.
     if (LostAbilities($obj)) return true;
+    // ASH_040 Poe Dameron — "All units lose Sentinel." Field-presence: while any Poe is in play (either
+    // player), every unit's Sentinel is suppressed.
+    if ($keyword === 'SENTINEL' && is_object($obj)
+        && (_SWUCountUnitsWithCardID(1, 'ASH_040') > 0 || _SWUCountUnitsWithCardID(2, 'ASH_040') > 0)) return true;
+    // ASH_030 Marrok — "While this unit is upgraded, he loses Sentinel (and gains Saboteur)."
+    if ($keyword === 'SENTINEL' && is_object($obj) && ($obj->CardID ?? '') === 'ASH_030' && _SWUIsUpgraded($obj)) return true;
+    // ASH_068 Domesticated Loth-Cat — "Enemy units lose Ambush and Support." Field-presence suppression:
+    // a unit's AMBUSH/SUPPORT is suppressed while an OPPONENT controls a Loth-Cat.
+    if (($keyword === 'AMBUSH' || $keyword === 'SUPPORT') && is_object($obj)) {
+        $loth_opp = GetOpponent(intval($obj->Controller ?? 0));
+        if ($loth_opp > 0 && _SWUCountActiveUnitsWithCardID($loth_opp, 'ASH_068') > 0) return true;
+    }
     global $keywordSuppressors;
     if (empty($obj->TurnEffects)) return false;
     foreach ($obj->TurnEffects as $te) {
@@ -156,6 +168,10 @@ function IsLeaderUnit($obj): bool {
             if (CardLeaderCanDeployAsUpgrade($subCardID)) return true;
         }
     }
+    // ASH_135 The Darksaber — "Attached unit is a leader unit." Same derived-leader status as a leader
+    // Pilot subcard above; the host stays a normal Unit for defeat/bounce/return (only its status reads
+    // as a leader unit), mirroring the JTL_001 pattern.
+    if (_SWUUnitHasUpgrade($obj, 'ASH_135')) return true;
     return false;
 }
 
@@ -181,19 +197,13 @@ function PlayerHasUnitWithTraitInPlay(int $player, string $trait, $excludeUID = 
     return false;
 }
 
-// Returns true if $player has at least one unit in play with innate or
-// TurnEffect Coordinate.  Checks the generated $Coordinate_Cards table
-// directly to avoid recursive calls through HasConditionalKeyword_Coordinate.
+// Coordinate (CR 15.a): a Coordinate ability is active "while you control 3 or
+// more units" — counting ALL units the player controls, including the unit that
+// carries the Coordinate ability itself (TWI_106: "including this one"). This is
+// purely a unit-count condition; whether a unit *has* Coordinate is a separate
+// question answered by HasKeyword_Coordinate.
 function IsCoordinateActive(int $player): bool {
-    global $Coordinate_Cards;
-    foreach (GetUnitsInPlay($player) as $u) {
-        if (isset($Coordinate_Cards[$u->CardID])) return true;
-        if (!empty($u->TurnEffects) && in_array('COORDINATE', $u->TurnEffects)) return true;
-        foreach (GetUpgradesOnUnit($u) as $upg) {
-            if ($upg->CardID === 'TWI_051') return true; // For the Republic
-        }
-    }
-    return false;
+    return count(GetUnitsInPlay($player)) >= 3;
 }
 
 // Thin wrapper so callers can write HasInitiative() without worrying about the
@@ -237,6 +247,19 @@ function _SWUMirrorAnotherFriendlyHasKeyword($obj, string $kw): bool {
 
 function HasConditionalKeyword_Ambush($obj) {
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'AMBUSH')) return true;
+    // ASH_113 Mandalorian Flagship — "While you control a leader unit, this unit gains Ambush."
+    if (($obj->CardID ?? '') === 'ASH_113') {
+        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
+            if (empty($u->removed) && IsLeaderUnit($u)) return true;
+        }
+    }
+    // ASH_098 AT-ST Raider — "While you control another non-unique unit, this unit gains Ambush."
+    if (($obj->CardID ?? '') === 'ASH_098') {
+        $selfUid098 = intval($obj->UniqueID ?? 0);
+        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
+            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid098 && !CardUnique($u->CardID ?? '')) return true;
+        }
+    }
     switch ($obj->CardID) {
         case 'SOR_114': // Escort Skiff — while you have a Cunning unit
             return PlayerHasUnitWithAspectInPlay($obj->Controller, 'Cunning', $obj->UniqueID);
@@ -338,6 +361,7 @@ function _SWUSEC104AuraActive($obj): bool {
 }
 
 function HasConditionalKeyword_Overwhelm($obj) {
+    if (_SWUUnitHasUpgrade($obj, 'ASH_181')) return true;   // ASH_181 Mark My Words — "Attached unit gains Overwhelm."
     if (_SWUSEC104AuraActive($obj)) return true;   // SEC_104 aura
     // SEC_099 Naboo Royal Starship — each friendly LEADER unit gains Overwhelm.
     if (IsLeaderUnit($obj)) {
@@ -387,6 +411,8 @@ function HasConditionalKeyword_Saboteur($obj) {
     if (_SWUCountUnitsWithCardID(OtherPlayer(intval($obj->Controller ?? 0)), 'LAW_233') > 0) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SABOTEUR')) return true;
     if (_SWULof191HasBuff($obj)) return true; // LOF_191 BD-1: chosen unit gains Saboteur while BD-1 in play
+    // ASH_030 Marrok — "While this unit is upgraded, he loses Sentinel and gains Saboteur."
+    if (($obj->CardID ?? '') === 'ASH_030' && _SWUIsUpgraded($obj)) return true;
     switch ($obj->CardID) {
         case 'TWI_243': // Republic Commando — while Coordinate is active
             return IsCoordinateActive($obj->Controller);
@@ -426,9 +452,42 @@ function _SWUControlsAnotherResistance(int $player, int $selfUid): bool {
 function HasConditionalKeyword_Sentinel($obj) {
     // SEC_071 (upgrade) — "While attached unit is exhausted, it gains Sentinel."
     if (_SWUUnitHasUpgrade($obj, 'SEC_071') && intval($obj->Status ?? 1) === 0) return true;
+    // ASH_243 Darth Vader — Shielded + "While this unit is ready, he gains Sentinel."
+    if (($obj->CardID ?? '') === 'ASH_243' && intval($obj->Status ?? 1) === 1) return true;
+    // ASH_066 Luke's Jedi Lightsaber (upgrade) — "If attached unit is Luke Skywalker, he gains Sentinel."
+    if (_SWUUnitHasUpgrade($obj, 'ASH_066') && CardTitle($obj->CardID ?? '') === 'Luke Skywalker') return true;
+    // ASH_198 Nowhere to Hide (upgrade) — "Attached unit gains Sentinel."
+    if (_SWUUnitHasUpgrade($obj, 'ASH_198')) return true;
+    // ASH_120 Warrior of Clan Kryze — "While you control another exhausted unit, this unit gains Sentinel."
+    if (($obj->CardID ?? '') === 'ASH_120') {
+        $selfUid120 = intval($obj->UniqueID ?? 0);
+        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
+            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid120 && intval($u->Status ?? 1) === 0) return true;
+        }
+    }
+    // ASH_078 B-Wing Rearguard — "While you control a ground unit, this unit gains Sentinel."
+    if (($obj->CardID ?? '') === 'ASH_078') {
+        foreach (GetGroundArena(intval($obj->Controller ?? 0)) as $gu) {
+            if (empty($gu->removed)) return true;
+        }
+    }
+    // ASH_049 Shin Hati — "While this is the only friendly non-leader ground unit, she gains Sentinel."
+    if (($obj->CardID ?? '') === 'ASH_049') {
+        $ctrl049 = intval($obj->Controller ?? 0);
+        $others = 0;
+        foreach (GetGroundArena($ctrl049) as $u) {
+            if (empty($u->removed) && !IsLeaderUnit($u) && intval($u->UniqueID ?? 0) !== intval($obj->UniqueID ?? 0)) $others++;
+        }
+        if ($others === 0) return true;
+    }
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SENTINEL')) return true;
     if (_SWUYularenGrants($obj, 'SENTINEL')) return true;
     switch ($obj->CardID) {
+        case 'ASH_079': // Koska Reeves — "While you control a token unit, this unit gains Sentinel."
+            foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
+                if (empty($u->removed) && strpos(CardType($u->CardID ?? '') ?? '', 'Token') !== false) return true;
+            }
+            return false;
         case 'LAW_105': // Cinta Kaz — "While this unit is upgraded, she gains Sentinel."
             return _SWUIsUpgraded($obj);
         case 'SOR_048': // Vigilant Honor Guards — while undamaged
@@ -575,6 +634,14 @@ function HasConditionalKeyword_Piloting($obj) {
 function HasConditionalKeyword_Hidden($obj) {
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'HIDDEN')) return true;
     if ($obj === null) return false;
+    // ASH_177 Onyx Cinder — "Other friendly units gain Hidden." Granted to any unit whose controller
+    // controls another Onyx Cinder. (Onyx Cinder itself has Hidden innately.)
+    if (($obj->CardID ?? '') !== 'ASH_177') {
+        $ash177Uid = intval($obj->UniqueID ?? -1);
+        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'ASH_177' && intval($u->UniqueID ?? -2) !== $ash177Uid) return true;
+        }
+    }
     // LOF_132 Grand Inquisitor: "Other friendly Inquisitor units gain Hidden."
     if (HasTrait($obj->CardID ?? '', 'Inquisitor')) {
         $controller = intval($obj->Controller ?? 0);
@@ -597,11 +664,30 @@ function HasConditionalKeyword_Plot($obj) {
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
+// SUPPORT  (ASH) — "When you play this unit, you may attack with another unit. It
+// gains this unit's other abilities for this attack." Detection is innate-only for
+// now; ASH_008 (granted Support via discard-pile condition) is handled separately
+// if/when implemented. No card grants Support conditionally to a field unit yet.
+// ═════════════════════════════════════════════════════════════════════════════
+function HasConditionalKeyword_Support($obj) {
+    return false;
+}
+
+// ═════════════════════════════════════════════════════════════════════════════
 // RAID  (value keyword)
 // ═════════════════════════════════════════════════════════════════════════════
 
 function GetConditionalKeyword_Raid_Value($obj) {
     $amount = 0;
+    // ASH_093 Captain Pellaeon — "While a leader unit has been defeated this phase, this unit gains Raid 3."
+    if (($obj->CardID ?? '') === 'ASH_093' && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_LEADER_DEFEATED_PHASE') > 0) $amount += 3;
+    // ASH_105 Bo-Katan Kryze — "While you control another Mandalorian unit, this unit gains Raid 2."
+    if (($obj->CardID ?? '') === 'ASH_105') {
+        $selfUid105 = intval($obj->UniqueID ?? 0);
+        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
+            if (empty($u->removed) && intval($u->UniqueID ?? 0) !== $selfUid105 && _SWUUnitHasTrait($u, 'Mandalorian')) { $amount += 2; break; }
+        }
+    }
     if (_SWUSEC104AuraActive($obj)) $amount += 1;   // SEC_104 aura — Raid 1
     // LAW_233 Galen Erso — "Enemy units gain Raid 1 and Saboteur." (Raid half.)
     if (_SWUCountUnitsWithCardID(OtherPlayer(intval($obj->Controller ?? 0)), 'LAW_233') > 0) $amount += 1;
@@ -741,6 +827,17 @@ function GetConditionalKeyword_Raid_Value($obj) {
 
 function GetConditionalKeyword_Restore_Value($obj) {
     $amount = 0;
+    // ASH_114 Sabine's Lightsaber (upgrade) — "If attached unit is Sabine Wren or a Force unit, it gains Restore 2."
+    if (_SWUUnitHasUpgrade($obj, 'ASH_114')
+        && (CardTitle($obj->CardID ?? '') === 'Sabine Wren' || HasTrait($obj->CardID ?? '', 'Force'))) $amount += 2;
+    // ASH_122 Consortium StarViper — "While you have the initiative, this unit gains Restore 2."
+    if (($obj->CardID ?? '') === 'ASH_122' && HasInitiative(intval($obj->Controller ?? 0))) $amount += 2;
+    // ASH_057 Lothal E-Wing — "While an enemy unit is upgraded, this unit gains Restore 2."
+    if (($obj->CardID ?? '') === 'ASH_057') {
+        foreach (GetUnitsInPlay(OtherPlayer(intval($obj->Controller ?? 0))) as $eu) {
+            if (empty($eu->removed) && _SWUIsUpgraded($eu)) { $amount += 2; break; }
+        }
+    }
     if (_SWUYularenGrants($obj, 'RESTORE')) $amount += 1;   // JTL_047 Yularen (Restore 1 to Vehicles)
     if (_SWUSEC104AuraActive($obj)) $amount += 1;           // SEC_104 aura — Restore 1
     // LOF_105 Oppo Rancisis — "gains Restore 2 while another friendly unit has Restore."
