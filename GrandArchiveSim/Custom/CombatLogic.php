@@ -3023,16 +3023,23 @@ $customDQHandlers["CleaveDealDamage"] = function($player, $parts, $lastDecision)
         return $bIdx <=> $aIdx;
     });
 
-    $hitDealt = false;
+    $actualCleaveDamage = 0;
     ResetCombatKill();
     foreach($opponents as $defenderMZ) {
         if($effectivePower > 0) {
+            DecisionQueueController::StoreVariable("CombatTrackedDamageSource", $attackerMZ);
+            DecisionQueueController::StoreVariable("CombatTrackedDamageTarget", $defenderMZ);
+            DecisionQueueController::StoreVariable("CombatTrackedDamageAmount", "0");
             ApplyPreCombatHitReplacementTags($attackerMZ, $defenderMZ);
             DealDamage($attackerPlayer, $attackerMZ, $defenderMZ, $effectivePower);
-            $hitDealt = true;
+            $actualCleaveDamage += intval(DecisionQueueController::GetVariable("CombatTrackedDamageAmount") ?? "0");
+            DecisionQueueController::ClearVariable("CombatTrackedDamageSource");
+            DecisionQueueController::ClearVariable("CombatTrackedDamageTarget");
+            DecisionQueueController::ClearVariable("CombatTrackedDamageAmount");
         }
     }
-    if($hitDealt) {
+    if($actualCleaveDamage > 0) {
+        DecisionQueueController::StoreVariable("CombatDamageAmount", strval($actualCleaveDamage));
         DecisionQueueController::AddDecision($player, "CUSTOM", "CleaveOnHit|" . $attackerPlayer . "|" . $attackerMZ, 101);
     }
 
@@ -3361,7 +3368,10 @@ $customDQHandlers["CombatApplyAttackerDamage"] = function($player, $parts, $last
         }
         $killedCardIDs = ConsumeCombatKill();
         if(!empty($killedCardIDs)) DispatchCombatKillTriggers($attackerPlayer, $attackerMZ, $killedCardIDs);
-        OnHitTrigger($attackerPlayer, $attackerMZ);
+        if($dealtAmount > 0) {
+            DecisionQueueController::StoreVariable("CombatDamageAmount", strval($dealtAmount));
+            OnHitTrigger($attackerPlayer, $attackerMZ);
+        }
     }
 
     $playerID = $savedPlayerID;
