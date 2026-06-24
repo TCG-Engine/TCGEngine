@@ -240,6 +240,28 @@ class CardAuthoringDB {
         return json_encode($value);
     }
 
+    private function styleJsonOrNull($value) {
+        if ($value === null || $value === "") return null;
+        if (is_string($value)) {
+            $decoded = json_decode($value, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $value = $decoded;
+            } else {
+                return json_encode($value);
+            }
+        }
+        if (is_object($value)) $value = (array)$value;
+        if (is_array($value)) {
+            if (array_key_exists('behindTemplate', $value)) {
+                $raw = $value['behindTemplate'];
+                $value['behindTemplate'] = $raw === true || $raw === 1 || $raw === '1' || $raw === 'true' || $raw === 'on' || $raw === 'yes';
+                if (!$value['behindTemplate']) unset($value['behindTemplate']);
+            }
+            return empty($value) ? null : json_encode($value);
+        }
+        return json_encode($value);
+    }
+
     private function decodeJsonFields(&$row, $fields) {
         foreach ($fields as $field) {
             if (array_key_exists($field, $row)) {
@@ -294,6 +316,7 @@ class CardAuthoringDB {
         foreach (['x', 'y', 'width', 'height', 'rotation'] as $key) $row[$key] = (float)$row[$key];
         $row['is_visible'] = (bool)$row['is_visible'];
         $this->decodeJsonFields($row, ['style_json']);
+        if ($row['style_json'] === null || $row['style_json'] === []) $row['style_json'] = new stdClass();
         return $row;
     }
 
@@ -553,7 +576,7 @@ class CardAuthoringDB {
                     if (!$asset) throw new Exception("Image asset does not belong to game");
                 }
                 $uuid = self::uuidv4();
-                $styleJson = $this->jsonOrNull($element['style_json'] ?? $element['styleJson'] ?? null);
+                $styleJson = $this->styleJsonOrNull($element['style_json'] ?? $element['styleJson'] ?? null);
                 $this->execute(
                     "INSERT INTO ce_template_layout_elements (element_uuid, template_id, element_type, field_id, asset_id, x, y, width, height, z_index, rotation, is_visible, style_json, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     "sisiiddddidisss",

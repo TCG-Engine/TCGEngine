@@ -11,8 +11,10 @@ const PreviewRenderer = {
 
     css(style = {}, fallback = {}) {
         const merged = { ...fallback, ...(style || {}) };
+        const ignoredKeys = new Set(['fitMode', 'behindTemplate']);
         return Object.entries(merged)
             .filter(([, value]) => value !== undefined && value !== null && value !== '')
+            .filter(([key]) => !ignoredKeys.has(key))
             .map(([key, value]) => `${key.replace(/[A-Z]/g, m => '-' + m.toLowerCase())}:${this.escapeCss(value)}`)
             .join(';');
     },
@@ -32,7 +34,14 @@ const PreviewRenderer = {
 
     effectiveZIndex(element) {
         const layer = Number(element.z_index || 0);
-        return element.element_type === 'image' ? layer : 10000 + layer;
+        if (element.element_type !== 'image' && this.isBehindTemplate(element)) return layer;
+        if (element.element_type === 'image') return 100000 + layer;
+        return 200000 + layer;
+    },
+
+    isBehindTemplate(element) {
+        const value = element?.style_json?.behindTemplate;
+        return value === true || value === 1 || value === '1' || value === 'true';
     },
 
     render(container, template, values = [], options = {}) {

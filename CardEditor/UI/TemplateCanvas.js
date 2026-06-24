@@ -71,7 +71,20 @@ class TemplateCanvas {
 
     effectiveZIndex(element) {
         const layer = Number(element.z_index || 0);
-        return element.element_type === 'image' ? layer : 10000 + layer;
+        if (element.element_type === 'image') return 100000 + layer;
+        return 200000 + layer;
+    }
+
+    isBehindTemplate(element) {
+        const value = element?.style_json?.behindTemplate;
+        return value === true || value === 1 || value === '1' || value === 'true';
+    }
+
+    ensureStyleObject(element) {
+        if (!element.style_json || Array.isArray(element.style_json) || typeof element.style_json !== 'object') {
+            element.style_json = {};
+        }
+        return element.style_json;
     }
 
     render() {
@@ -162,6 +175,7 @@ class TemplateCanvas {
                             ${['left', 'center', 'right'].map(value => `<option value="${value}" ${style.textAlign === value ? 'selected' : ''}>${value}</option>`).join('')}
                         </select>
                     </label>
+                    <label class="inline-filter"><input type="checkbox" ${this.isBehindTemplate(element) ? 'checked' : ''} onchange="app.templateCanvas.updateStyle('behindTemplate', this.checked ? 1 : '')" ${disabled}> Behind Template</label>
                 `}
                 <label>Background<input value="${PreviewRenderer.escape(style.backgroundColor || '')}" placeholder="transparent or #ffffff" onchange="app.templateCanvas.updateStyle('backgroundColor', this.value)" ${disabled}></label>
                 <label>Image Fit
@@ -204,9 +218,14 @@ class TemplateCanvas {
     updateStyle(key, value) {
         const element = this.selectedElement();
         if (!element) return;
-        element.style_json = element.style_json || {};
-        if (value === '') delete element.style_json[key];
-        else element.style_json[key] = value;
+        const style = this.ensureStyleObject(element);
+        if (value === '') delete style[key];
+        else style[key] = value;
+        if (key === 'behindTemplate' || key === 'fitMode') {
+            this.render();
+            this.scheduleLayoutSave(0);
+            return;
+        }
         this.renderInspector();
         this.scheduleLayoutSave();
     }

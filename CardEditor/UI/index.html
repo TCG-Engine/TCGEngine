@@ -244,9 +244,55 @@
             border-radius: 6px;
             background: #292a2e;
         }
+        .field-row-head {
+            display: grid;
+            grid-template-columns: 28px minmax(0, 1fr) auto;
+            gap: 8px;
+            align-items: center;
+        }
+        .field-toggle {
+            width: 28px;
+            min-height: 28px;
+            padding: 0;
+            font-family: Consolas, monospace;
+        }
+        .field-summary {
+            min-width: 0;
+            display: grid;
+            gap: 2px;
+            padding: 4px 0;
+            border: 0;
+            background: transparent;
+            text-align: left;
+        }
+        .field-summary:hover {
+            background: transparent;
+            border: 0;
+        }
+        .field-summary strong,
+        .field-summary span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .field-summary strong {
+            color: #ffffff;
+            font-size: 13px;
+        }
+        .field-summary span {
+            color: #aeb4b9;
+            font-size: 11px;
+            text-transform: none;
+        }
+        .field-row-body {
+            display: grid;
+            gap: 8px;
+        }
+        .field-row-body[hidden] {
+            display: none;
+        }
         .field-actions {
             display: grid;
-            grid-template-columns: 1fr 1fr;
             gap: 8px;
         }
         button:disabled, input:disabled, textarea:disabled, select:disabled {

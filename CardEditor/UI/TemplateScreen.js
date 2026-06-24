@@ -1,12 +1,14 @@
 class TemplateScreen {
     constructor(app) {
         this.app = app;
+        this.expandedFieldKeys = new Set();
     }
 
     async selectTemplate(id) {
         this.app.state.activeTemplateId = Number(id);
         this.app.state.activeTemplateDetail = await ApiClient.getTemplate(id);
         this.app.templateCanvas.selectedIndex = -1;
+        this.expandedFieldKeys.clear();
         this.render();
     }
 
@@ -87,30 +89,73 @@ class TemplateScreen {
     fieldRow(field, index) {
         const settings = field.settings_json || {};
         const disabled = this.app.activeGame()?.can_edit ? '' : 'disabled';
+        const expanded = this.isFieldExpanded(field, index);
+        const summary = [
+            field.field_key || 'field',
+            field.field_type || 'text',
+            field.default_value ? `default: ${field.default_value}` : ''
+        ].filter(Boolean).join(' | ');
         return `
-            <div class="field-row" data-index="${index}">
+            <div class="field-row ${expanded ? 'expanded' : 'collapsed'}" data-index="${index}">
                 <input type="hidden" name="id" value="${field.id || ''}">
-                <label>Label<input name="label" value="${PreviewRenderer.escape(field.label || '')}" required ${disabled}></label>
-                <label>Key<input name="fieldKey" value="${PreviewRenderer.escape(field.field_key || '')}" required ${disabled}></label>
-                <label>Type
-                    <select name="fieldType" ${disabled}>
-                        ${['text', 'longtext', 'number', 'boolean', 'select', 'multiselect', 'image'].map(type => `<option value="${type}" ${field.field_type === type ? 'selected' : ''}>${type}</option>`).join('')}
-                    </select>
-                </label>
-                <label>Default<input name="defaultValue" value="${PreviewRenderer.escape(field.default_value || '')}" ${disabled}></label>
-                <label>Options<input name="options" value="${PreviewRenderer.escape((settings.options || []).join(', '))}" placeholder="select options" ${disabled}></label>
-                <label>Help<input name="helpText" value="${PreviewRenderer.escape(field.help_text || '')}" ${disabled}></label>
-                <div class="field-actions">
+                <div class="field-row-head">
+                    <button type="button" class="field-toggle" onclick="app.screens.templates.toggleField(${index})" aria-expanded="${expanded ? 'true' : 'false'}">${expanded ? 'v' : '>'}</button>
+                    <button type="button" class="field-summary" onclick="app.screens.templates.toggleField(${index})">
+                        <strong>${PreviewRenderer.escape(field.label || 'Untitled Field')}</strong>
+                        <span>${PreviewRenderer.escape(summary)}</span>
+                    </button>
                     <button type="button" ${field.id && !disabled ? `onclick="app.templateCanvas.addField(${field.id})"` : 'disabled'}>Place</button>
-                    <button type="button" class="danger" onclick="app.screens.templates.removeField(${index})" ${disabled}>Remove</button>
+                </div>
+                <div class="field-row-body" ${expanded ? '' : 'hidden'}>
+                    <label>Label<input name="label" value="${PreviewRenderer.escape(field.label || '')}" required ${disabled}></label>
+                    <label>Key<input name="fieldKey" value="${PreviewRenderer.escape(field.field_key || '')}" required ${disabled}></label>
+                    <label>Type
+                        <select name="fieldType" ${disabled}>
+                            ${['text', 'longtext', 'number', 'boolean', 'select', 'multiselect', 'image'].map(type => `<option value="${type}" ${field.field_type === type ? 'selected' : ''}>${type}</option>`).join('')}
+                        </select>
+                    </label>
+                    <label>Default<input name="defaultValue" value="${PreviewRenderer.escape(field.default_value || '')}" ${disabled}></label>
+                    <label>Options<input name="options" value="${PreviewRenderer.escape((settings.options || []).join(', '))}" placeholder="select options" ${disabled}></label>
+                    <label>Help<input name="helpText" value="${PreviewRenderer.escape(field.help_text || '')}" ${disabled}></label>
+                    <div class="field-actions">
+                        <button type="button" class="danger" onclick="app.screens.templates.removeField(${index})" ${disabled}>Remove</button>
+                    </div>
                 </div>
             </div>
         `;
     }
 
+    fieldExpansionKeys(field, index) {
+        const keys = [];
+        if (field?.id) keys.push(`id:${field.id}`);
+        if (field?.field_key) keys.push(`key:${field.field_key}`);
+        keys.push(`index:${index}`);
+        return keys;
+    }
+
+    isFieldExpanded(field, index) {
+        return this.fieldExpansionKeys(field, index).some(key => this.expandedFieldKeys.has(key));
+    }
+
+    primaryFieldExpansionKey(field, index) {
+        return this.fieldExpansionKeys(field, index)[0];
+    }
+
+    toggleField(index) {
+        const template = this.app.state.activeTemplateDetail;
+        const field = template?.fields?.[index];
+        if (!field) return;
+        const key = this.primaryFieldExpansionKey(field, index);
+        if (this.isFieldExpanded(field, index)) this.expandedFieldKeys.delete(key);
+        else this.expandedFieldKeys.add(key);
+        document.getElementById('templateFieldsHost').innerHTML = this.fieldsForm(template);
+        this.bindFieldsAutosave();
+    }
+
     createTemplate() {
         this.app.state.activeTemplateId = null;
         this.app.state.activeTemplateDetail = null;
+        this.expandedFieldKeys.clear();
         this.render();
     }
 
@@ -165,7 +210,7 @@ class TemplateScreen {
         const template = this.app.state.activeTemplateDetail;
         if (!template) return;
         template.fields = template.fields || [];
-        template.fields.push({
+        const field = {
             id: '',
             label: 'New Field',
             field_key: `field_${template.fields.length + 1}`,
@@ -174,7 +219,9 @@ class TemplateScreen {
             help_text: '',
             sort_order: template.fields.length,
             settings_json: {}
-        });
+        };
+        template.fields.push(field);
+        this.expandedFieldKeys.add(this.primaryFieldExpansionKey(field, template.fields.length - 1));
         document.getElementById('templateFieldsHost').innerHTML = this.fieldsForm(template);
         this.bindFieldsAutosave();
         this.saveFieldsForm();
@@ -184,6 +231,7 @@ class TemplateScreen {
         const template = this.app.state.activeTemplateDetail;
         if (!template) return;
         const field = template.fields[index];
+        this.fieldExpansionKeys(field, index).forEach(key => this.expandedFieldKeys.delete(key));
         template.fields.splice(index, 1);
         template.layout = (template.layout || []).filter(element => Number(element.field_id) !== Number(field.id));
         document.getElementById('templateFieldsHost').innerHTML = this.fieldsForm(template);
