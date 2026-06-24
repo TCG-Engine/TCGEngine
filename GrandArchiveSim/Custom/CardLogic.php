@@ -624,21 +624,6 @@ $customDQHandlers["LavaplumeFatestoneResolve"] = function($player, $parts, $last
 };
 
 // ============================================================================
-// Tidefate Brooch (vubaywkr69) helper
-// ============================================================================
-
-function TidefateBroochActivated($player, $mzID) {
-    // Banish Tidefate Brooch, put the top ten cards of your deck into your graveyard.
-    OnLeaveField($player, $mzID);
-    MZMove($player, $mzID, "myBanish");
-    $deck = GetDeck($player);
-    $millCount = min(10, count($deck));
-    for($i = 0; $i < $millCount; ++$i) {
-        MZMove($player, "myDeck-0", "myGraveyard");
-    }
-}
-
-// ============================================================================
 // Submerged Fatestone (zfb0pzm6qp) — recollection trigger helper
 // ============================================================================
 

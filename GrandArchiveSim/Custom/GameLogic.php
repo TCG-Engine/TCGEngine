@@ -5670,6 +5670,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "QCUld5Xidm": // Dummy Trainer â€” (3), banish self
         case "mb3iqw3kc6": // Portentous Tanggu â€” (3), banish self
         case "mgesApvmwS": // Prismspire Scepter â€” (3), banish self
+        case "vubaywkr69": // Tidefate Brooch - (3), banish self
             MZMove($player, $mzCard, "myBanish");
             DecisionQueueController::CleanupRemovedCards();
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -19542,6 +19543,8 @@ function HasSpellshroud($obj) {
     if($obj->CardID === "EIpkYYSP3s") return true;
     // Overlord Mk III (sl7ddcgw05): printed Spellshroud missed by keyword parser
     if($obj->CardID === "sl7ddcgw05") return true;
+    // Genbu, Black Tortoise: printed Spellshroud missed by keyword parser
+    if($obj->CardID === "k8bwlx70qj" || $obj->CardID === "u73yv2nbvj") return true;
     if(MaryAnnOmensHaveKeyword($obj, "Spellshroud")) return true;
     if(in_array("NO_SPELLSHROUD", $obj->TurnEffects ?? [])) return false;
     if(function_exists('HasKeyword_Spellshroud') && HasKeyword_Spellshroud($obj)) return true;
@@ -19713,6 +19716,8 @@ function HasTaunt($obj) {
     if($obj->CardID === "0v8zzzb83i" && GetCounterCount($obj, "buff") >= 2) return true;
     // Neos Elemental (jwsl7dedg6): Taunt missed by keyword parser (comma-separated keyword line)
     if($obj->CardID === "jwsl7dedg6") return true;
+    // Genbu, Black Tortoise: printed Taunt missed by keyword parser (comma-separated keyword line)
+    if($obj->CardID === "k8bwlx70qj" || $obj->CardID === "u73yv2nbvj") return true;
     // Avatar of Genbu (67CIhG8hmG): [Guo Jia Bonus][Deluge 12] has taunt
     if($obj->CardID === "67CIhG8hmG" && IsGuoJiaBonus($obj->Controller) && DelugeAmount($obj->Controller) >= 12) return true;
     if($obj->CardID === "tf5f2n38g0") return true;
