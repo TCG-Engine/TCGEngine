@@ -2693,7 +2693,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
 }
 
 $customDQHandlers["ReserveCard"] = function($player, $parts, $lastDecision) {
-    $source = GetReservePaymentChoiceSource($player);
+    $excludedMzID = $parts[0] ?? null;
+    $source = GetReservePaymentChoiceSource($player, true, $excludedMzID);
     $tooltip = "Choose_a_card_to_pay_reserve_cost";
     DecisionQueueController::AddDecision($player, "MZCHOOSE", $source, 1, $tooltip);
     DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard_Process", 1);
@@ -5462,6 +5463,14 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "k8bwlx70qj": // Genbu, Black Tortoise - [Guo Jia Bonus] (3): +X LIFE
+        case "u73yv2nbvj":
+            if(intval($abilityIndex) === 0) {
+                for($ri = 0; $ri < 3; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard|$mzCard", 100);
+                }
+            }
+            break;
         case "vZH2xr4yq2": // Auspicious Manifestation - (2), Discard this card from your hand
             if(intval($abilityIndex) === 0) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
@@ -6297,7 +6306,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             }
         }
     }
-    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0"]);
+    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0", "k8bwlx70qj", "u73yv2nbvj"]);
     if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
         && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;
@@ -12437,6 +12446,9 @@ function ObjectCurrentHP($obj) {
         if(strpos($te, "k8bwlx70qj_HP_") === 0) {
             $cardLife += intval(substr($te, strlen("k8bwlx70qj_HP_")));
         }
+        if(strpos($te, "u73yv2nbvj_HP_") === 0) {
+            $cardLife += intval(substr($te, strlen("u73yv2nbvj_HP_")));
+        }
     }
     switch($obj->CardID) { //Self hp modifiers
         case "KFfmJZMdZN": // Floodborne Warrior: Deluge 2 +1 LIFE
@@ -16018,26 +16030,28 @@ function ReservePaymentSourceZoneName($player, $zoneSuffix) {
     return $prefix . $zoneSuffix;
 }
 
-function GetReservablePaymentSources($player) {
+function GetReservablePaymentSources($player, $excludedMzID = null) {
     $sources = [];
     $fieldZone = ReservePaymentSourceZoneName($player, "Field");
     $field = GetField($player);
     foreach($field as $i => $fieldObj) {
         if(!$fieldObj || $fieldObj->removed) continue;
+        $mzID = $fieldZone . "-" . $i;
+        if($excludedMzID !== null && $excludedMzID === $mzID) continue;
         if(!isset($fieldObj->Status) || $fieldObj->Status != 2) continue;
         if(HasReservable($fieldObj)) {
-            $sources[] = $fieldZone . "-" . $i;
+            $sources[] = $mzID;
         }
     }
     return $sources;
 }
 
-function GetReservePaymentChoiceSource($player, $includeHand = true) {
+function GetReservePaymentChoiceSource($player, $includeHand = true, $excludedMzID = null) {
     $sources = [];
     if($includeHand) {
         $sources[] = ReservePaymentSourceZoneName($player, "Hand");
     }
-    return implode("&", array_merge($sources, GetReservablePaymentSources($player)));
+    return implode("&", array_merge($sources, GetReservablePaymentSources($player, $excludedMzID)));
 }
 
 function CanPayEphemerate($player, $cardID) {
@@ -16093,7 +16107,7 @@ function CountAvailableReservePayments($player, $excludedMzID = null) {
         if($excludedMzID !== null && $excludedMzID === ($handZone . "-" . $i)) continue;
         ++$available;
     }
-    return $available + count(GetReservablePaymentSources($player));
+    return $available + count(GetReservablePaymentSources($player, $excludedMzID));
 }
 
 function PreviewActivateReserveCost($player, $obj) {
