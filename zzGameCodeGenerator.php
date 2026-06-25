@@ -2226,6 +2226,9 @@ function AddNextTurn() {
     if (strtolower($scope) == 'global') {
       // Server will emit the same value in the slot for both players; use the base index
       $setData .= "echo(\"window." . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
+      if($zone->Name == "MacroGameIndex") {
+        $setData .= "echo(\"if(typeof ObserveMacroToastEvents === 'function') ObserveMacroToastEvents(window.MacroGameIndexData);\");\r\n";
+      }
     } else {
       $setData .= "echo(\"window.my" . $zone->Name . "Data = responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "];\");\r\n";
       $setData .= "echo(\"window.their" . $zone->Name . "Data = responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "];\");\r\n";
@@ -2362,7 +2365,7 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
 }
 
 function AddGeneratedUI() {
-  global $zones, $assetReflection, $hasFlashMessage, $modules;
+  global $zones, $assetReflection, $hasFlashMessage, $modules, $macros;
   $rv = "";
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -2491,6 +2494,21 @@ function AddGeneratedUI() {
     }
   }
   $rv .= "const HighlightRules = " . json_encode($highlightRules) . ";\r\n";
+  $macroToastRules = [];
+  for($i=0; $i<count($macros); ++$i) {
+    $macro = $macros[$i];
+    if(!isset($macro->Toast) || strtolower($macro->Toast) !== "card") continue;
+    if(!isset($macro->ToastCardParam) || !in_array($macro->ToastCardParam, $macro->Parameters)) continue;
+    $macroToastRules[$macro->FunctionName] = [
+      "type" => "Card",
+      "cardParam" => $macro->ToastCardParam,
+      "label" => isset($macro->ToastLabel) ? $macro->ToastLabel : $macro->FunctionName
+    ];
+  }
+  $rv .= "const MacroToastRules = " . json_encode($macroToastRules) . ";\r\n";
+  $rv .= "function GetMacroToastRules() {\r\n";
+  $rv .= "  return MacroToastRules;\r\n";
+  $rv .= "}\r\n";
   $moduleConfigData = [];
   for($i=0; $i<count($modules); ++$i) {
     $moduleConfigData[$modules[$i]->Name] = $modules[$i]->Parameters;

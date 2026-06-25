@@ -2858,6 +2858,115 @@ function ResolveGlobalFunction(functionName) {
         }, 400);
       }
 
+      function EnsureMacroCardToastStyles() {
+        if (typeof document === 'undefined') return;
+        if (document.getElementById('macro-card-toast-styles')) return;
+        const styleEl = document.createElement('style');
+        styleEl.id = 'macro-card-toast-styles';
+        styleEl.textContent = ''
+          + '#macro-card-toast-host{position:fixed;top:12px;left:12px;z-index:3100;display:flex;flex-direction:column;gap:8px;pointer-events:none;}'
+          + '.macro-card-toast{display:flex;align-items:center;gap:9px;min-width:178px;max-width:260px;padding:8px 10px 8px 8px;border-radius:8px;background:rgba(8,13,22,0.94);border:1px solid rgba(240,230,200,0.22);box-shadow:0 10px 24px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.06);color:#f7f0d8;font-family:Orbitron,Segoe UI,sans-serif;opacity:0;transform:translateX(-12px);transition:opacity 160ms ease,transform 160ms ease;}'
+          + '.macro-card-toast.is-visible{opacity:1;transform:translateX(0);}'
+          + '.macro-card-toast img{width:42px;height:58px;object-fit:cover;border-radius:4px;background:#111827;box-shadow:0 2px 8px rgba(0,0,0,0.35);flex:0 0 auto;}'
+          + '.macro-card-toast-title{font-size:10px;line-height:1.1;text-transform:uppercase;color:#c9a84c;margin-bottom:3px;font-weight:800;}'
+          + '.macro-card-toast-name{font-size:12px;line-height:1.25;color:#fff4cf;font-weight:700;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}'
+          + '.macro-card-toast-meta{font-size:10px;line-height:1.2;color:#b9c7dd;margin-top:3px;font-weight:600;}';
+        document.head.appendChild(styleEl);
+      }
+
+      function GetMacroCardToastHost() {
+        if (typeof document === 'undefined') return null;
+        EnsureMacroCardToastStyles();
+        let host = document.getElementById('macro-card-toast-host');
+        if (!host) {
+          host = document.createElement('div');
+          host.id = 'macro-card-toast-host';
+          document.body.appendChild(host);
+        }
+        return host;
+      }
+
+      function ShowMacroCardToast(cardID, playerID, increment, label) {
+        const host = GetMacroCardToastHost();
+        if (!host || !cardID) return;
+        const toast = document.createElement('div');
+        toast.className = 'macro-card-toast';
+
+        const img = document.createElement('img');
+        img.alt = _getMacroGameCardName(cardID);
+        img.src = _getMacroGameCardImageUrl(cardID);
+        toast.appendChild(img);
+
+        const body = document.createElement('div');
+        body.style.minWidth = '0';
+        const title = document.createElement('div');
+        title.className = 'macro-card-toast-title';
+        title.textContent = label || 'Card Event';
+        const name = document.createElement('div');
+        name.className = 'macro-card-toast-name';
+        name.textContent = _getMacroGameCardName(cardID);
+        const meta = document.createElement('div');
+        meta.className = 'macro-card-toast-meta';
+        meta.textContent = 'Player ' + playerID + (increment > 1 ? ' x' + increment : '');
+        body.appendChild(title);
+        body.appendChild(name);
+        body.appendChild(meta);
+        toast.appendChild(body);
+
+        host.appendChild(toast);
+        setTimeout(() => { toast.classList.add('is-visible'); }, 20);
+        setTimeout(() => {
+          toast.classList.remove('is-visible');
+          setTimeout(() => {
+            if (toast.parentNode) toast.parentNode.removeChild(toast);
+          }, 180);
+        }, 3600);
+      }
+
+      function ObserveMacroToastEvents(macroGameIndexData) {
+        if (typeof window === 'undefined') return;
+        const rules = typeof GetMacroToastRules === 'function' ? GetMacroToastRules() : {};
+        const indexData = _parseMacroGameIndex(macroGameIndexData || window.MacroGameIndexData);
+        const current = {};
+        for (const macroName in rules) {
+          if (!Object.prototype.hasOwnProperty.call(rules, macroName)) continue;
+          const rule = rules[macroName] || {};
+          if (rule.type !== 'Card') continue;
+          const macroBucket = indexData[macroName] || {};
+          current[macroName] = {};
+          [1, 2].forEach(function(playerID) {
+            const playerBucket = macroBucket[playerID] || macroBucket[String(playerID)] || {};
+            current[macroName][playerID] = {};
+            for (const cardID in playerBucket) {
+              if (!Object.prototype.hasOwnProperty.call(playerBucket, cardID)) continue;
+              current[macroName][playerID][cardID] = parseInt(playerBucket[cardID], 10) || 0;
+            }
+          });
+        }
+
+        if (!window._lastMacroToastEventCounts) {
+          window._lastMacroToastEventCounts = current;
+          return;
+        }
+
+        for (const macroName in current) {
+          if (!Object.prototype.hasOwnProperty.call(current, macroName)) continue;
+          const rule = rules[macroName] || {};
+          [1, 2].forEach(function(playerID) {
+            const bucket = current[macroName][playerID] || {};
+            const previousMacro = window._lastMacroToastEventCounts[macroName] || {};
+            const previous = previousMacro[playerID] || {};
+            for (const cardID in bucket) {
+              if (!Object.prototype.hasOwnProperty.call(bucket, cardID)) continue;
+              const oldCount = parseInt(previous[cardID], 10) || 0;
+              const newCount = parseInt(bucket[cardID], 10) || 0;
+              if (newCount > oldCount) ShowMacroCardToast(cardID, playerID, newCount - oldCount, rule.label);
+            }
+          });
+        }
+        window._lastMacroToastEventCounts = current;
+      }
+
       function createGrandArchiveUtilityButton(config) {
         if (!config || !config.id) return null;
         const button = document.createElement('button');
