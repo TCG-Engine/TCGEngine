@@ -4037,22 +4037,34 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
   if (!existing) {
     existing = document.createElement('div');
     existing.id = 'selection-message';
-    existing.style.position = 'fixed';
-    existing.style.bottom = '20px';
-    existing.style.left = '50%';
-    existing.style.transform = 'translateX(-50%)';
-    existing.style.background = '#0D1B2A';
-    existing.style.color = '#fff';
-    existing.style.padding = '10px 24px';
-    existing.style.borderRadius = '8px';
-    existing.style.boxShadow = '0 0 10px #0008';
-    existing.style.fontFamily = "'Orbitron', sans-serif";
-    existing.style.zIndex = '9999';
-    existing.style.display = 'flex';
-    existing.style.alignItems = 'center';
-    existing.style.gap = '16px';
     document.body.appendChild(existing);
   }
+
+  if (existing.__draggableModalAbortController) {
+    existing.__draggableModalAbortController.abort();
+    existing.__draggableModalAbortController = null;
+  }
+
+  existing.style.position = 'fixed';
+  existing.style.top = 'auto';
+  existing.style.bottom = '20px';
+  existing.style.left = '50%';
+  existing.style.transform = 'translateX(-50%)';
+  existing.style.margin = '';
+  existing.style.background = '#0D1B2A';
+  existing.style.color = '#fff';
+  existing.style.padding = '10px 24px';
+  existing.style.borderRadius = '8px';
+  existing.style.boxShadow = '0 0 10px #0008';
+  existing.style.fontFamily = "'Orbitron', sans-serif";
+  existing.style.zIndex = '9999';
+  existing.style.display = 'flex';
+  existing.style.alignItems = 'center';
+  existing.style.gap = '16px';
+  existing.style.maxWidth = '';
+  existing.style.flexWrap = '';
+  existing.style.userSelect = '';
+  existing.style.cursor = '';
 
   // Clear previous content
   existing.innerHTML = '';
@@ -4106,7 +4118,13 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
 
 function HideSelectionMessage() {
   let existing = document.getElementById('selection-message');
-  if (existing) existing.style.display = 'none';
+  if (existing) {
+    if (existing.__draggableModalAbortController) {
+      existing.__draggableModalAbortController.abort();
+      existing.__draggableModalAbortController = null;
+    }
+    existing.style.display = 'none';
+  }
 }
 
 function CategorizeMZChooseSpecs(parsedSpecs) {
@@ -4312,25 +4330,33 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   if (!existing) {
     existing = document.createElement('div');
     existing.id = 'selection-message';
-    existing.style.position = 'fixed';
-    existing.style.bottom = '20px';
-    existing.style.left = '50%';
-    existing.style.transform = 'translateX(-50%)';
-    existing.style.background = '#0D1B2A';
-    existing.style.color = '#fff';
-    existing.style.padding = '10px 24px';
-    existing.style.borderRadius = '8px';
-    existing.style.boxShadow = '0 0 10px #0008';
-    existing.style.fontFamily = "'Orbitron', sans-serif";
-    existing.style.zIndex = '9999';
-    existing.style.display = 'flex';
-    existing.style.alignItems = 'center';
-    existing.style.gap = '12px';
     document.body.appendChild(existing);
   }
+  existing.style.position = 'fixed';
+  existing.style.top = '50%';
+  existing.style.bottom = 'auto';
+  existing.style.left = '50%';
+  existing.style.transform = 'translate(-50%, -50%)';
+  existing.style.margin = '0';
+  existing.style.background = '#0D1B2A';
+  existing.style.color = '#fff';
+  existing.style.padding = '10px 24px';
+  existing.style.borderRadius = '8px';
+  existing.style.boxShadow = '0 0 10px #0008';
+  existing.style.fontFamily = "'Orbitron', sans-serif";
+  existing.style.zIndex = '9999';
+  existing.style.display = 'flex';
+  existing.style.alignItems = 'center';
+  existing.style.gap = '12px';
+  existing.style.maxWidth = 'min(960px, calc(100vw - 32px))';
+  existing.style.flexWrap = 'wrap';
+  existing.style.userSelect = 'none';
   existing.innerHTML = '';
   const msgSpan = document.createElement('span');
   msgSpan.textContent = msg;
+  msgSpan.style.flex = '1 1 260px';
+  msgSpan.style.minWidth = '0';
+  msgSpan.style.cursor = 'grab';
   existing.appendChild(msgSpan);
   const counter = document.createElement('span');
   counter.id = 'inline-multi-counter';
@@ -4377,6 +4403,32 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   existing.appendChild(confirmBtn);
   UpdateInlineMultiChooseMessage();
   existing.style.display = 'flex';
+  if (typeof EnableDraggableModal === 'function') {
+    const savedPositionKey = 'mzmulti-inline-position-v2';
+    let hasSavedPosition = false;
+    try {
+      hasSavedPosition = !!localStorage.getItem(savedPositionKey);
+    } catch (e) {
+      hasSavedPosition = false;
+    }
+    if (!hasSavedPosition) {
+      const rect = existing.getBoundingClientRect();
+      const handSlot = document.getElementById('myHandSlot');
+      const handRect = handSlot ? handSlot.getBoundingClientRect() : null;
+      const centeredLeft = handRect
+        ? handRect.left + (handRect.width - rect.width) / 2
+        : (window.innerWidth - rect.width) / 2;
+      const aboveHandTop = handRect
+        ? handRect.top - rect.height - 12
+        : (window.innerHeight - rect.height) / 2;
+      existing.style.transform = 'none';
+      existing.style.left = Math.min(Math.max(8, centeredLeft), Math.max(8, window.innerWidth - rect.width - 8)) + 'px';
+      existing.style.top = Math.min(Math.max(8, aboveHandTop), Math.max(8, window.innerHeight - rect.height - 8)) + 'px';
+    } else {
+      existing.style.transform = 'none';
+    }
+    EnableDraggableModal(existing, msgSpan, savedPositionKey);
+  }
 }
 
 // Determine if a card element (in a given zone) should be selectable based on
@@ -4473,6 +4525,19 @@ function HideMZChoosePopup() {
 function EnableDraggableModal(modal, handle, positionStorageKey) {
   if (!modal || !handle) return;
 
+  if (modal.__draggableModalAbortController) {
+    modal.__draggableModalAbortController.abort();
+    modal.__draggableModalAbortController = null;
+  }
+
+  const listenerOptions = {};
+  const passiveListenerOptions = { passive: false };
+  if (typeof AbortController !== 'undefined') {
+    modal.__draggableModalAbortController = new AbortController();
+    listenerOptions.signal = modal.__draggableModalAbortController.signal;
+    passiveListenerOptions.signal = modal.__draggableModalAbortController.signal;
+  }
+
   let dragState = null;
 
   handle.style.cursor = 'grab';
@@ -4552,29 +4617,29 @@ function EnableDraggableModal(modal, handle, positionStorageKey) {
 
   handle.addEventListener('mousedown', function(ev) {
     if (beginDrag(ev.clientX, ev.clientY, ev.button, ev.target)) ev.preventDefault();
-  });
+  }, listenerOptions);
 
   window.addEventListener('mousemove', function(ev) {
     moveDrag(ev.clientX, ev.clientY);
-  });
+  }, listenerOptions);
 
-  window.addEventListener('mouseup', finishDrag);
+  window.addEventListener('mouseup', finishDrag, listenerOptions);
 
   handle.addEventListener('touchstart', function(ev) {
     if (!ev.touches || ev.touches.length === 0) return;
     const touch = ev.touches[0];
     if (beginDrag(touch.clientX, touch.clientY, 0, ev.target)) ev.preventDefault();
-  }, { passive: false });
+  }, passiveListenerOptions);
 
   window.addEventListener('touchmove', function(ev) {
     if (!dragState || !ev.touches || ev.touches.length === 0) return;
     const touch = ev.touches[0];
     moveDrag(touch.clientX, touch.clientY);
     ev.preventDefault();
-  }, { passive: false });
+  }, passiveListenerOptions);
 
-  window.addEventListener('touchend', finishDrag);
-  window.addEventListener('touchcancel', finishDrag);
+  window.addEventListener('touchend', finishDrag, listenerOptions);
+  window.addEventListener('touchcancel', finishDrag, listenerOptions);
 
   window.addEventListener('resize', function() {
     const left = parseFloat(modal.style.left);
@@ -4582,7 +4647,7 @@ function EnableDraggableModal(modal, handle, positionStorageKey) {
     if (!Number.isFinite(left) || !Number.isFinite(top)) return;
     applyPosition(left, top);
     savePosition();
-  });
+  }, listenerOptions);
 
   const initialRect = modal.getBoundingClientRect();
   if (!loadPosition()) applyPosition(initialRect.left, initialRect.top);
