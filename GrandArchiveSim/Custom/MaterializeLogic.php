@@ -1111,11 +1111,12 @@ function DoMaterialize($player, $mzCard) {
             $field = GetZone($fZone);
             for($sci = 0; $sci < count($field); ++$sci) {
                 if(!$field[$sci]->removed && $field[$sci]->CardID === "5tphi6xl26" && !HasNoAbilities($field[$sci])) {
-                    $scMZ = $fZone . "-" . $sci;
+                    $scUniqueID = intval($field[$sci]->UniqueID ?? 0);
+                    if($scUniqueID <= 0) continue;
                     DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                         tooltip:"Banish_Suspicious_Concoction_to_draw_into_memory_and_recover_2?");
                     DecisionQueueController::AddDecision($player, "CUSTOM",
-                        "SuspiciousConcoctionLevelUp|$scMZ", 1);
+                        "SuspiciousConcoctionLevelUp|$scUniqueID", 1);
                     break;
                 }
             }

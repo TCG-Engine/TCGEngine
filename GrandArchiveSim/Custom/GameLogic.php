@@ -4211,17 +4211,41 @@ $customDQHandlers["DevotedMartyrLevelUp"] = function($player, $parts, $lastDecis
 
 /**
  * DQ handler: Suspicious Concoction (5tphi6xl26) level-up trigger â€” if YES, banish from field to draw into memory + recover 2.
- * Parts: [mzField].
+ * Parts: [fieldUniqueID].
  */
 $customDQHandlers["SuspiciousConcoctionLevelUp"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $mzField = $parts[0];
-    $obj = GetZoneObject($mzField);
-    if($obj === null || $obj->removed || $obj->CardID !== "5tphi6xl26") return;
-    OnLeaveField($player, $mzField);
+    $uniqueID = intval($parts[0] ?? 0);
+    if($uniqueID <= 0) return;
+
+    $field = GetField($player);
+    $viewerMzField = "";
     global $playerID;
-    $banishZone = ($player == $playerID) ? "myBanish" : "theirBanish";
-    MZMove($player, $mzField, $banishZone);
+    for($i = 0; $i < count($field); ++$i) {
+        $fieldObj = $field[$i] ?? null;
+        if($fieldObj === null || $fieldObj->removed || !isset($fieldObj->UniqueID)) continue;
+        if(intval($fieldObj->UniqueID) !== $uniqueID) continue;
+        $viewerMzField = (($player == $playerID) ? "myField-" : "theirField-") . $i;
+        break;
+    }
+    if($viewerMzField === "") return;
+
+    $obj = GetZoneObject($viewerMzField);
+    if($obj === null || $obj->removed || $obj->CardID !== "5tphi6xl26") return;
+    OnLeaveField($player, $viewerMzField);
+
+    $field = GetField($player);
+    $playerMzField = "";
+    for($i = 0; $i < count($field); ++$i) {
+        $fieldObj = $field[$i] ?? null;
+        if($fieldObj === null || $fieldObj->removed || !isset($fieldObj->UniqueID)) continue;
+        if(intval($fieldObj->UniqueID) !== $uniqueID) continue;
+        $playerMzField = "myField-" . $i;
+        break;
+    }
+    if($playerMzField === "") return;
+
+    MZMove($player, $playerMzField, "myBanish");
     DecisionQueueController::CleanupRemovedCards();
     DrawIntoMemory($player, 1);
     RecoverChampion($player, 2);
