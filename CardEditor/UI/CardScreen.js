@@ -36,7 +36,10 @@ class CardScreen {
                     </div>
                 </aside>
                 <main class="pane">
-                    <div class="pane-head"><h2>${card ? 'Edit Card' : 'Card Details'}</h2></div>
+                    <div class="pane-head">
+                        <h2>${card ? 'Edit Card' : 'Card Details'}</h2>
+                        ${card && canEdit ? `<button type="button" class="danger" onclick="app.screens.cards.deleteCard(${card.id})">Delete</button>` : ''}
+                    </div>
                     ${set ? this.cardForm(card) : '<div class="empty-state">Create or select a set first.</div>'}
                 </main>
                 <aside class="pane preview-pane">
@@ -285,5 +288,22 @@ class CardScreen {
 
     saveCardFormNow() {
         this.app.autosave.saveNow('card-form', () => this.collectCardPayload(), payload => this.saveCardPayload(payload));
+    }
+
+    async deleteCard(id) {
+        const card = this.app.state.activeCardDetail;
+        if (!card || Number(card.id) !== Number(id)) return;
+        if (!confirm(`Delete "${card.name}"? This cannot be undone.`)) return;
+        try {
+            await this.app.autosave.flushAll();
+            await ApiClient.deleteCard(id);
+            this.app.state.activeCardId = null;
+            this.app.state.activeCardDetail = null;
+            await this.app.refreshCards();
+            this.app.toast('Card deleted');
+            this.render();
+        } catch (error) {
+            this.app.toast(error.message, 'error');
+        }
     }
 }

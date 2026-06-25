@@ -661,6 +661,21 @@ class CardAuthoringDB {
         return $this->getCard($id);
     }
 
+    public function deleteCard($id) {
+        $card = $this->getCard($id);
+        $this->assertCanEditGame((int)$card['game_id']);
+        mysqli_query($this->conn, "START TRANSACTION");
+        try {
+            $this->execute("DELETE FROM ce_card_field_values WHERE card_id = ?", "i", [(int)$id]);
+            $this->execute("DELETE FROM ce_cards WHERE id = ?", "i", [(int)$id]);
+            mysqli_query($this->conn, "COMMIT");
+            return ['deleted' => true, 'id' => (int)$id];
+        } catch (Exception $e) {
+            mysqli_query($this->conn, "ROLLBACK");
+            throw $e;
+        }
+    }
+
     public function saveCardFieldValues($cardId, $values) {
         $card = $this->getCard($cardId);
         $this->assertCanEditGame((int)$card['game_id']);

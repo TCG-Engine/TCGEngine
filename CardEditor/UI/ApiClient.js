@@ -52,6 +52,7 @@ const ApiClient = {
     getCard(id) { return this.get('GetCard.php', { id }); },
     createCard(payload) { return this.post('CreateCard.php', payload); },
     updateCard(payload) { return this.post('UpdateCard.php', payload); },
+    deleteCard(id) { return this.post('DeleteCard.php', { id }); },
     saveCardFieldValues(cardId, values) { return this.post('SaveCardFieldValues.php', { cardId, values }); },
     listAssets(gameId) { return this.get('ListAssets.php', { gameId }); },
     exportGame(gameId) { return this.get('ExportGame.php', { gameId }); },
