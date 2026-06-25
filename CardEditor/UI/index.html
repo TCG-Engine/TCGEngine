@@ -589,6 +589,45 @@
         }
         .toast.error { background: #8a3a3a; }
         .toast.info { background: #3f647a; }
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            display: grid;
+            place-items: center;
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.62);
+            z-index: 30;
+        }
+        .auth-modal {
+            width: min(420px, 100%);
+            display: grid;
+            gap: 14px;
+            padding: 18px;
+            border: 1px solid #4d5156;
+            border-radius: 8px;
+            background: #202124;
+            box-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+        }
+        .modal-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .modal-head h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .icon-button {
+            width: 32px;
+            min-height: 32px;
+            padding: 0;
+            font-family: Consolas, monospace;
+        }
+        .modal-switch {
+            display: flex;
+            justify-content: center;
+        }
         @media (max-width: 1100px) {
             .template-workbench { grid-template-columns: 220px 280px 1fr; }
             .inspector-pane { display: none; }
@@ -623,6 +662,7 @@
         </main>
     </div>
     <div id="toast" class="toast"></div>
+    <div id="authModalHost"></div>
 
     <script src="AbilityEditor.js"></script>
     <script src="ApiClient.js"></script>

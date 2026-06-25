@@ -1,6 +1,6 @@
 <?php
 include_once './AccountSessionAPI.php';
-include_once '../Libraries/HTTPLibraries.php';
+include_once '../Core/HTTPLibraries.php';
 
 SetHeaders();
 

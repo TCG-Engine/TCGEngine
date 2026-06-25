@@ -5,11 +5,10 @@ include_once '../Assets/patreon-php-master/src/OAuth.php';
 include_once '../Assets/patreon-php-master/src/PatreonLibraries.php';
 include_once '../Assets/patreon-php-master/src/API.php';
 include_once '../Assets/patreon-php-master/src/PatreonDictionary.php';
-include_once '../includes/functions.inc.php';
-include_once '../includes/dbh.inc.php';
 include_once '../Database/ConnectionManager.php';
+include_once '../Database/functions.inc.php';
 include_once './AccountDatabaseAPI.php';
-include_once '../Libraries/HTTPLibraries.php';
+include_once '../Core/HTTPLibraries.php';
 
 SetHeaders();
 $response = new stdClass();
@@ -24,7 +23,7 @@ if($_POST == NULL) {
 
 $username = $_POST["userID"];
 $password = $_POST["password"];
-$rememberMe = isset($_POST["rememberMe"]);
+$rememberMe = !empty($_POST["rememberMe"]);
 
 try {
   PasswordLogin($username, $password, $rememberMe);
@@ -36,6 +35,8 @@ if($response->isUserLoggedIn) {
   $response->loggedInUserID = LoggedInUser();
   $response->loggedInUserName = LoggedInUserName();
   $response->isPatron = IsLoggedInUserPatron();
+} else {
+  $response->error = "Login failed; please check your username and password.";
 }
 
 echo (json_encode($response));

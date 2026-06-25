@@ -56,6 +56,22 @@ const ApiClient = {
     listAssets(gameId) { return this.get('ListAssets.php', { gameId }); },
     exportGame(gameId) { return this.get('ExportGame.php', { gameId }); },
     exportSet(setId) { return this.get('ExportSet.php', { setId }); },
+    async accountPost(path, body = {}) {
+        const response = await fetch(`../../AccountFiles/${path}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+        const data = await response.json().catch(() => ({ error: 'Invalid JSON response' }));
+        if (!response.ok || data.error) throw new Error(data.error || 'Request failed');
+        return data;
+    },
+    passwordLogin(payload) {
+        return this.accountPost('PasswordLoginAPI.php', payload);
+    },
+    signup(payload) {
+        return this.accountPost('SignupAPI.php', payload);
+    },
     async logout() {
         const response = await fetch('../../AccountFiles/LogoutUserAPI.php');
         if (!response.ok) throw new Error('Logout failed');

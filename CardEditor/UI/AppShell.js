@@ -104,14 +104,6 @@ class AppShell {
         return this.state.sets.find(set => set.id === this.state.activeSetId) || null;
     }
 
-    authReturnPath() {
-        return '/TCGEngine/CardEditor/UI/index.html';
-    }
-
-    authUrl(path) {
-        return `${path}?redirect=${encodeURIComponent(this.authReturnPath())}`;
-    }
-
     setContent(html) {
         document.getElementById('content').innerHTML = html;
         this.renderContext();
@@ -132,8 +124,8 @@ class AppShell {
                 `
                 : `
                     <span>Not logged in</span>
-                    <a href="${this.authUrl('/TCGEngine/SharedUI/LoginPage.php')}">Log In</a>
-                    <a href="${this.authUrl('/TCGEngine/SharedUI/Signup.php')}">Create Account</a>
+                    <button type="button" class="link-button" onclick="app.openAuthModal('login')">Log In</button>
+                    <button type="button" class="link-button" onclick="app.openAuthModal('signup')">Create Account</button>
                 `;
         }
         document.querySelectorAll('[data-screen]').forEach(button => {
@@ -146,6 +138,85 @@ class AppShell {
         if (!host) return;
         host.textContent = label || '';
         host.className = 'save-state ' + String(label || '').toLowerCase();
+    }
+
+    openAuthModal(mode = 'login') {
+        const host = document.getElementById('authModalHost');
+        if (!host) return;
+        const isSignup = mode === 'signup';
+        host.innerHTML = `
+            <div class="modal-backdrop" onclick="app.closeAuthModal(event)">
+                <section class="auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+                    <div class="modal-head">
+                        <h2 id="authTitle">${isSignup ? 'Create Account' : 'Log In'}</h2>
+                        <button type="button" class="icon-button" onclick="app.closeAuthModal()">x</button>
+                    </div>
+                    <form id="authForm" class="stack-form" onsubmit="app.submitAuth(event, '${isSignup ? 'signup' : 'login'}')">
+                        <label>Username<input name="username" autocomplete="username" required></label>
+                        ${isSignup ? '<label>Email<input name="email" type="email" autocomplete="email" required></label>' : ''}
+                        <label>Password<input name="password" type="password" autocomplete="${isSignup ? 'new-password' : 'current-password'}" required></label>
+                        ${isSignup ? '<label>Repeat Password<input name="passwordRepeat" type="password" autocomplete="new-password" required></label>' : '<label class="inline-filter"><input type="checkbox" name="rememberMe" checked> Remember Me</label>'}
+                        <div id="authError" class="error-message" hidden></div>
+                        <button type="submit">${isSignup ? 'Create Account' : 'Log In'}</button>
+                    </form>
+                    <div class="modal-switch">
+                        ${isSignup
+                            ? '<button type="button" class="link-button" onclick="app.openAuthModal(\'login\')">Log In</button>'
+                            : '<button type="button" class="link-button" onclick="app.openAuthModal(\'signup\')">Create Account</button>'}
+                    </div>
+                </section>
+            </div>
+        `;
+        host.querySelector('[name="username"]')?.focus();
+    }
+
+    closeAuthModal(event = null) {
+        if (event && !event.target.classList.contains('modal-backdrop')) return;
+        const host = document.getElementById('authModalHost');
+        if (host) host.innerHTML = '';
+    }
+
+    async submitAuth(event, mode) {
+        event.preventDefault();
+        const form = event.target;
+        const errorHost = document.getElementById('authError');
+        if (errorHost) {
+            errorHost.hidden = true;
+            errorHost.textContent = '';
+        }
+        const values = Object.fromEntries(new FormData(form).entries());
+        try {
+            if (mode === 'signup') {
+                await ApiClient.signup({
+                    userId: values.username,
+                    email: values.email,
+                    password: values.password,
+                    passwordRepeat: values.passwordRepeat
+                });
+                await ApiClient.passwordLogin({
+                    userID: values.username,
+                    password: values.password,
+                    rememberMe: true
+                });
+            } else {
+                const result = await ApiClient.passwordLogin({
+                    userID: values.username,
+                    password: values.password,
+                    rememberMe: Boolean(values.rememberMe)
+                });
+                if (!result.isUserLoggedIn) throw new Error('Login failed; please check your username and password.');
+            }
+            this.closeAuthModal();
+            await this.refreshAll();
+            this.show(this.state.activeScreen);
+        } catch (error) {
+            if (errorHost) {
+                errorHost.hidden = false;
+                errorHost.textContent = error.message;
+            } else {
+                this.toast(error.message, 'error');
+            }
+        }
     }
 
     async logout() {

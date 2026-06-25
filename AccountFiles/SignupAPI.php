@@ -1,6 +1,6 @@
 <?php
 
-  require_once "../Libraries/HTTPLibraries.php";
+  require_once "../Core/HTTPLibraries.php";
 
   $_POST = json_decode(file_get_contents('php://input'), true);
 
@@ -11,8 +11,8 @@
 
   SetHeaders();
 
-  require_once "../includes/dbh.inc.php";
-  require_once '../includes/functions.inc.php';
+  require_once "../Database/ConnectionManager.php";
+  require_once '../Database/functions.inc.php';
 
   $response = new stdClass();
 
@@ -41,7 +41,7 @@
     echo(json_encode($response));
     exit;
   }
-  $conn = GetDBConnection();
+  $conn = GetLocalMySQLConnection();
   // Is the username taken already
   if (uidExists($conn, $username) !== false) {
     $response->error = "The chosen username is taken.";
