@@ -2,8 +2,10 @@
 # 3 counter-damage. Its When Defeated triggers → its controller (P1) gains the Force.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LOF_129:1:0

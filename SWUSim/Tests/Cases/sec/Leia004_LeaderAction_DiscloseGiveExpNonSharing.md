@@ -6,8 +6,11 @@
 # EXCLUDED). Only SEC_080 → auto. Costs 1 resource.
 
 ## GIVEN
-P1LeaderBase: SEC_004/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myLeader:SEC_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

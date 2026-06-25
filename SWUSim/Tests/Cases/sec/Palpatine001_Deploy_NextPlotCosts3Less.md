@@ -5,8 +5,11 @@
 # SEC_034 for 5 − 3 = 2 (7 ready → 5). No enemy units → Cad Bane's When Played fizzles cleanly.
 
 ## GIVEN
-P1LeaderBase: SEC_001/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1:SEC_034:1,6:SOR_095:1

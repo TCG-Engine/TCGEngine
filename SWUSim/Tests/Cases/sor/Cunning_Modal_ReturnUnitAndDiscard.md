@@ -3,8 +3,9 @@
 # power) to P2's hand. P2 ends with 1 card in hand (the bounced unit) and 1 in discard.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_203

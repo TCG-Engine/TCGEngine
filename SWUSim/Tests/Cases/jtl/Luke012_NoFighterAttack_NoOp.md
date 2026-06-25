@@ -3,8 +3,11 @@
 # decision is pending. Gate test.
 
 ## GIVEN
-P1LeaderBase: JTL_012/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SOR_237:1:0

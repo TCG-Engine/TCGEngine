@@ -2,8 +2,11 @@
 # Deck top: 2 Vehicles (SOR_225, SOR_044) + 1 Trooper; P1 draws both Vehicles, the Trooper goes to bottom.
 
 ## GIVEN
-P1LeaderBase: JTL_007/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: ggw/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_128

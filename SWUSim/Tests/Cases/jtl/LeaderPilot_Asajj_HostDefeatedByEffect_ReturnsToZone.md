@@ -5,8 +5,11 @@
 # P2_ENEMY_DEFEATED fired (SWU_ENEMY_DEFEATED counter); space arena empty.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_022
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: gbk/brw/{
+  myLeader:JTL_001;
+  myBase:SOR_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

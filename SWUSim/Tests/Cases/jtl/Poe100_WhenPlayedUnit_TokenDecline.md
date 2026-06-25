@@ -17,8 +17,7 @@
 #   SOR_237 has no upgrade (free-attach declined).
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_009/SOR_024
+CommonSetup: ggw/ggw
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

@@ -33,8 +33,7 @@
 #   JTL_249 still has 0 upgrades (free-attach declined).
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_009/SOR_024
+CommonSetup: ggw/ggw
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

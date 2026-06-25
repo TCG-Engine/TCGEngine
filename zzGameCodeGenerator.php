@@ -2316,8 +2316,8 @@ function AddNextTurn() {
     $zone = $zones[$i];
     $index = $i + $startPiece;
     if($zone->Row >= 0) {//If it's -1, position is defined some other way
-      $myStuff .= "echo(\"myRows[" . $zone->Row . "] += PopulateZone('my" . $zone->Name . "', responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "], cardSize, '" . $rootPath . "/concat', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
-      $theirStuff .= "echo(\"theirRows[" . $zone->Row . "] += PopulateZone('their" . $zone->Name . "', responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "], cardSize, '" . $rootPath . "/concat', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
+      $myStuff .= "echo(\"myRows[" . $zone->Row . "] += PopulateZone('my" . $zone->Name . "', responseArr[" . $index . " + (currentPlayerIndex-1)*" . count($zones) . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
+      $theirStuff .= "echo(\"theirRows[" . $zone->Row . "] += PopulateZone('their" . $zone->Name . "', responseArr[" . $index . " + (otherPlayerIndex-1)*" . count($zones) . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '" . $zone->Row . "', '". $zone->DisplayMode . "');\");\r\n";
     }
   }
 
@@ -2373,7 +2373,7 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
     } else {
       $wrapperStyle = $overflowStyle;
       if ($zone->Width > -1) $wrapperStyle .= " width:" . $zone->Width . ";";
-      $rv .= "echo(\"var _btg_" . $zone->Name . " = document.getElementById('" . $zone->BindTo . "'); if(_btg_" . $zone->Name . ") { _btg_" . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $zone->Name . "'); }; _btg_" . $zone->Name . ".innerHTML = '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
+      $rv .= "echo(\"var _btg_" . $zone->Name . " = document.getElementById('" . $zone->BindTo . "'); if(_btg_" . $zone->Name . ") { _btg_" . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $zone->Name . "'); }; _btg_" . $zone->Name . ".innerHTML = '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
     }
   } else {
     // Legacy positional mode
@@ -2401,11 +2401,23 @@ function GeneratedGlobalZoneElement($zone, $index, &$setData) {
       if($hasTop) $rv .= " bottom:" . $zone->Top . ";";
       if($hasBottom) $rv .= " top:" . $zone->Bottom . ";";
       $rv .= "');\");\r\n";
-      $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+      $rv .= "echo(\"globalStatic += '<div id=\\\'" . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"' + globalStyle_" . $zone->Name . " + '\\\">' + PopulateZone('" . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
     }
   }
   if($zone->Visibility == "Private") return "";
   return $rv;
+}
+
+// Board image source folder for a zone. SWUSim Leader/Base load from WebpImages
+// (correctly-oriented 628x450 landscape cards) instead of concat (450x450 squares):
+// their CSS uses height:auto, so a square source renders them too tall. All other
+// zones/sims keep concat. NOTE: NextTurnRender.php is regenerated from here, so this
+// is the durable home for that choice — patch both if you hand-edit the generated file.
+function GenImageFolder($zone) {
+  global $rootName;
+  $useWebp = in_array($rootName, ["SWUSim"], true)
+          && in_array($zone->Name, ["Leader", "Base"], true);
+  return $useWebp ? "WebpImages" : "concat";
 }
 
 function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
@@ -2431,13 +2443,13 @@ function GeneratedZoneElement($zone, $prefix, $index, &$setData) {
     if ($zone->DisplayMode == "Pane") {
       $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
     } else {
-      $rv .= "echo(\"var _bt_" . $prefix . $zone->Name . " = document.getElementById('" . $bindToID . "'); if(_bt_" . $prefix . $zone->Name . ") { _bt_" . $prefix . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $prefix . $zone->Name . "'); }; _bt_" . $prefix . $zone->Name . ".innerHTML = '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
+      $rv .= "echo(\"var _bt_" . $prefix . $zone->Name . " = document.getElementById('" . $bindToID . "'); if(_bt_" . $prefix . $zone->Name . ") { _bt_" . $prefix . $zone->Name . ".onclick = function(){ ZoneClickHandler('" . $prefix . $zone->Name . "'); }; _bt_" . $prefix . $zone->Name . ".innerHTML = '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onscroll . " style=\\\"" . $wrapperStyle . "\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '0', '" . $zone->DisplayMode . "') + '</div>'; }\");\r\n";
       $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
     }
   } else {
     if($zone->DisplayMode == "Pane") $rv .= "echo(\"" . $prefix . "CardPanePanes.push(responseArr[" . $index . "]);\");\r\n";
     else {
-      $rv .= "echo(\"" . $prefix . "Static += '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/concat', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
+      $rv .= "echo(\"" . $prefix . "Static += '<div id=\\\'" . $prefix . $zone->Name . "Wrapper\\\' " . $onclick . " " . $onscroll . " style=\\\"$style\\\">' + PopulateZone('" . $prefix . $zone->Name . "', responseArr[" . $index . "], cardSize, '" . $rootPath . "/" . GenImageFolder($zone) . "', '0', '". $zone->DisplayMode . "') + '</div>';\");\r\n";
       $setData .= "echo(\"window." . $prefix . $zone->Name . "Data = responseArr[" . $index . "];\");\r\n";
     }
   }

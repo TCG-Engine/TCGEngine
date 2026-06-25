@@ -3,8 +3,9 @@
 # Bravado paid at full 5 (no enemy defeated this phase).
 
 ## GIVEN
-P1LeaderBase: SHD_012/SOR_026
-P2LeaderBase: SOR_009/SOR_024
+CommonSetup: rrw/ggw/{
+  myLeader:SHD_012
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

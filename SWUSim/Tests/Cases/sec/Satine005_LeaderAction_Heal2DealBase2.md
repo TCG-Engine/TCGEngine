@@ -3,8 +3,11 @@
 # own base. Player chooses Heal2 (the up-to amount). No resource cost.
 
 ## GIVEN
-P1LeaderBase: SEC_005/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myLeader:SEC_005;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:2

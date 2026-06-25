@@ -3,8 +3,9 @@
 #   penalty waived). Confirms a different base in the set shares the wiring.
 
 ## GIVEN
-P1LeaderBase: SOR_005/LAW_028
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: ybw/brk/{
+  myBase:LAW_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

@@ -2,8 +2,10 @@
 # unit. With no other Fighter in play, the V-Wing takes 1 self-damage.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_158

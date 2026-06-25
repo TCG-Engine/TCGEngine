@@ -3,8 +3,10 @@
 # P1 picks SEC_080; it returns to P2's hand, SOR_128 stays in play.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Hand: SOR_187

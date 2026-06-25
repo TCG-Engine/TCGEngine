@@ -6,8 +6,10 @@
 # The unit-side Shielded keyword on JTL_036 does NOT fire (JTL_036 enters as an upgrade, not a unit).
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_019
-P2LeaderBase: SOR_002/SOR_019
+CommonSetup: bbk/bbk/{
+  myBase:SOR_019;
+  theirBase:SOR_019
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

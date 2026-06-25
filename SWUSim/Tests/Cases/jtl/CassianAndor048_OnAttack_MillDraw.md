@@ -2,8 +2,10 @@
 # player's deck; if it costs 3 or less, draw a card." P2's top card (SOR_128, cost 1) is milled, so P1 draws.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SOR_237:1:0

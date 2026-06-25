@@ -4,13 +4,16 @@
 # (NOTDEPLOYED, NOT in discard). P2's attacker survives.
 
 ## GIVEN
-P1LeaderBase: JTL_001:1:1/SOR_022
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: gbk/brw/{
+  myLeader:JTL_001;
+  myBase:SOR_022;
+  myLeaderDeployedPilot:1;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 2
 WithInitiativePlayer: 1
 WithP1SpaceArena: JTL_T01:1:0
-WithP1SpaceArenaUpgrade: 0:JTL_001
 WithP2SpaceArena: SOR_086:1:0
 
 ## WHEN

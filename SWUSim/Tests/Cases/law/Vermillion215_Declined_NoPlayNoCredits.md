@@ -3,8 +3,11 @@
 # on top of P1's deck (deck count unchanged), no unit enters play, and neither player gets Credits.
 
 ## GIVEN
-P1LeaderBase: JTL_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: LAW_215:1:0

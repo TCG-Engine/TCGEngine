@@ -2,11 +2,13 @@
 # (3/6) attacks the enemy base; On Attack → deal 2 to the exhausted enemy SOR_095 (3/3 → DAMAGE:2).
 
 ## GIVEN
-P1LeaderBase: SEC_014:1:1:1/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byk/bbk/{
+  myLeader:SEC_014:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
-WithP1GroundArena: SEC_014:1:0
 WithP2GroundArena: SOR_095:0:0
 
 ## WHEN

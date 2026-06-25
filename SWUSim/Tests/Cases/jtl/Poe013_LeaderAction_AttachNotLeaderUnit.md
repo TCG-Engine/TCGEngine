@@ -5,8 +5,12 @@
 # Resources: 1 spent on action cost. Base SOR_022 (Vigilance) + Leader JTL_013 (Aggression+Heroism).
 
 ## GIVEN
-P1LeaderBase: JTL_013/SOR_022
-P2LeaderBase: JTL_013/SOR_022
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

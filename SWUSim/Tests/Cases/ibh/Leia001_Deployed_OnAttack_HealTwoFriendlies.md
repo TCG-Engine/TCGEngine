@@ -2,8 +2,9 @@
 #   unit. Leia deploys (5 resources), attacks the base; two damaged space units (2 dmg each) each heal 1.
 
 ## GIVEN
-P1LeaderBase: IBH_001:1:0:0/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: ggw/brk/{
+  myLeader:IBH_001
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5

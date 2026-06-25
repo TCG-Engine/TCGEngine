@@ -3,7 +3,10 @@
 # deals 3 to SOR_128 (3/1), defeating it.
 
 ## GIVEN
-P1LeaderBase: LAW_008/SOR_028
+CommonSetup: ygk/grw/{
+  myLeader:LAW_008;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 7

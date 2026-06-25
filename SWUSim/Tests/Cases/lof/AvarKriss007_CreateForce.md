@@ -2,8 +2,11 @@
 # the Force and gains it.
 
 ## GIVEN
-P1LeaderBase: LOF_007/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:LOF_007;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 

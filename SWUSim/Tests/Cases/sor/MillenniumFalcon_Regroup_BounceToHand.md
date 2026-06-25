@@ -8,8 +8,7 @@
 # before the cycle reaches the Ready step where the Falcon trigger fires.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: grw/ggk
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SOR_193:1:0

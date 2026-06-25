@@ -2,8 +2,10 @@
 # P1 commandeers P2's exhausted SOR_237 (cost 2 Vehicle): it moves to P1's arena, ready.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_235

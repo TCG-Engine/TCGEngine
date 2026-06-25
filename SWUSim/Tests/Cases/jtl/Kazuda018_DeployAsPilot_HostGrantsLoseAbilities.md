@@ -7,8 +7,11 @@
 # any upgrade whose CardID has that key) — no JTL_018-specific wiring needed. Guard test only.
 
 ## GIVEN
-P1LeaderBase: JTL_018/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5

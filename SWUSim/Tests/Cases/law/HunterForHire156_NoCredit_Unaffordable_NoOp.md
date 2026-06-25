@@ -3,8 +3,11 @@
 # attempt to use the action on the enemy Hunter For Hire does nothing (P1 keeps control).
 
 ## GIVEN
-P1LeaderBase: JTL_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 2
 WithP1GroundArena: LAW_156:1:0

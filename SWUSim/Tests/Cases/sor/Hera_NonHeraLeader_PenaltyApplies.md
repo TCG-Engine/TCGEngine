@@ -3,8 +3,9 @@
 # no-op (Zeb stays in hand), proving the waiver is Hera-specific, not just the shared Heroism aspect.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_146

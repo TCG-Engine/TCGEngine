@@ -2,8 +2,7 @@
 # With 2 damage, base power 4 + Grit bonus 2 = 6.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: grw/grw
 SkipPreGame: true
 WithP1GroundArena: SOR_148:1:2
 

@@ -3,8 +3,10 @@
 # all 3 land on P2's base → a base is damaged this way → JTL_218 readies itself.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 8

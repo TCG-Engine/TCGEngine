@@ -3,8 +3,10 @@
 # hits the enemy base for 3.
 
 ## GIVEN
-P1LeaderBase: JTL_013/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brw/bbk/{
+  myLeader:JTL_013;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_147:1:0

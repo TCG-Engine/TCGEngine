@@ -3,8 +3,11 @@
 # one regroup runs (one resource step per player) and each player ends with 2 cards.
 
 ## GIVEN
-P1LeaderBase: JTL_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1GroundArena: SEC_080:1:0

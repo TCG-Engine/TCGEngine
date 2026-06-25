@@ -277,8 +277,10 @@ class GameTestAdapter {
 
     /**
      * Declare an attack with $attackerMzID targeting $targetMzID.
-     * Calls BeginSWUAttack directly. If MZCHOOSE is queued (multiple targets),
-     * injects $targetMzID automatically before draining the DQ.
+     * Routes through ActionMap("{arena}-{N}") — the same FSM entry as a real click (mirrors
+     * playCardFromHand). ActionMap enforces the server's action guards (turn player, MAIN phase,
+     * unit ready, no pending decisions), so an out-of-turn or otherwise illegal attack no-ops
+     * exactly as it would in a live game — and only THEN injects $targetMzID into the picker.
      *
      * $attackerMzID: relative mzID, e.g. "myGroundArena-0"
      * $targetMzID:   relative mzID, e.g. "theirGroundArena-0" or "theirBase-0"
@@ -288,15 +290,25 @@ class GameTestAdapter {
         $saved = $playerID;
         $playerID = $player;
         ob_start();
-        BeginSWUAttack($player, $attackerMzID);
-        $this->_drainDQ($player);
-        // Inject target if MZCHOOSE is still pending (multiple-target scenario)
-        $pending = $this->state->pendingDecision($player);
-        if ($pending !== null && $pending->Type === 'MZCHOOSE') {
-            $dq = new DecisionQueueController();
-            $dq->PopDecision($player);
-            $dq->ExecuteStaticMethods($player, $targetMzID);
+        // ActionMap returns "ATTACK" only when the attack was actually declared (guards passed).
+        // An illegal attack (e.g. not this player's turn) returns "" and is a no-op — leave the
+        // gamestate untouched, exactly as the server would.
+        if (ActionMap($attackerMzID) === "ATTACK") {
             $this->_drainDQ($player);
+            // Inject the chosen defender ONLY into the attack-target picker — the MZCHOOSE BeginSWUAttack
+            // queues when there are 2+ valid targets, tagged "Choose_an_attack_target". A single-valid-target
+            // attack (e.g. only the base is attackable) runs ExecuteSWUAttack inline with NO picker, so the
+            // pending MZCHOOSE here would be an ON-ATTACK ability's own choice (e.g. SOR_116's "+2/+2 to a
+            // friendly unit"). Consuming THAT with the attack target silently mis-resolves the ability and
+            // swallows the test's explicit AnswerDecision; leave it pending so the next WHEN line answers it.
+            $pending = $this->state->pendingDecision($player);
+            if ($pending !== null && $pending->Type === 'MZCHOOSE'
+                && ($pending->Tooltip ?? '') === 'Choose_an_attack_target') {
+                $dq = new DecisionQueueController();
+                $dq->PopDecision($player);
+                $dq->ExecuteStaticMethods($player, $targetMzID);
+                $this->_drainDQ($player);
+            }
         }
         ob_end_clean();
         $playerID = $saved;

@@ -3,8 +3,7 @@
 # Steadfast Battalion stays 5/5 and its attack on the enemy base deals 5 (printed power).
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: ggw/grw
 SkipPreGame: true
 WithP1GroundArena: SOR_116:1:0
 

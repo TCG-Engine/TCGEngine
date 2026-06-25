@@ -8,8 +8,12 @@
 # SOR_225 TIE/ln Fighter: 2/1. JTL_035 upgradePower=+2, upgradeHp=+2. Host becomes 4/3.
 
 ## GIVEN
-P1LeaderBase: SOR_001/SOR_019
-P2LeaderBase: SOR_001/SOR_019
+CommonSetup: bbk/bbk/{
+  myLeader:SOR_001;
+  myBase:SOR_019;
+  theirLeader:SOR_001;
+  theirBase:SOR_019
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

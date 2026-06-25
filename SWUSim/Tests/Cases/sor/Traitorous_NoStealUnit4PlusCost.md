@@ -2,8 +2,7 @@
 Traitorous — attach to non-leader unit costing 4+, no steal trigger
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: grw/ggk
 SkipPreGame: true
 WithP1Hand: SOR_122
 WithP2GroundArena: SOR_148:1:0

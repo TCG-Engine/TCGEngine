@@ -109,3 +109,16 @@ function GetEffectiveSmuggleCost(int $player, string $cardID): int {
 
     return $found ? $best : -1;
 }
+
+// Display flag for the resource-zone Smuggle icon (schema Virtual: HasSmuggle).
+// Returns 1 when this resource currently has a Smuggle path — printed Smuggle or
+// granted (e.g. SHD_248 Tech makes every friendly resource Smuggle). Keyed off the
+// resource's owning player ($obj->PlayerID), matching the smuggle-PLAY detection;
+// the per-object Controller field isn't reliably populated on resource objects, so
+// HasKeyword_Smuggle($obj) (which reads Controller) reports false here. Returns int
+// 1/0 for the Image counter (ShowZero=false hides 0).
+function ResourceHasSmuggle($obj): int {
+    if (!isset($obj->CardID) || !isset($obj->PlayerID)) return 0;
+    if (SWUIsCreditToken($obj->CardID)) return 0; // Credit tokens aren't resources
+    return GetEffectiveSmuggleCost(intval($obj->PlayerID), $obj->CardID) >= 0 ? 1 : 0;
+}

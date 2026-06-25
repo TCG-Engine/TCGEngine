@@ -2,8 +2,11 @@
 # damage to a unit. Plo Koon (a Jedi) attacks first; then the leader deals 2 to SOR_059.
 
 ## GIVEN
-P1LeaderBase: LOF_011/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brw/bbk/{
+  myLeader:LOF_011;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1

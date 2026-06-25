@@ -4,8 +4,11 @@
 # the top 2 (SOR_046, SOR_128), leaving SOR_128 on top.
 
 ## GIVEN
-P1LeaderBase: SEC_017/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:SEC_017;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:0

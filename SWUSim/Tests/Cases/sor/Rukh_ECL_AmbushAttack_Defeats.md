@@ -5,8 +5,11 @@
 # counter-damage, so Rukh ends undamaged.)
 
 ## GIVEN
-P1LeaderBase: SOR_011/SOR_022
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: grk/brw/{
+  myLeader:SOR_011;
+  myBase:SOR_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_085

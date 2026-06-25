@@ -4,8 +4,11 @@
 # (SOR_015 is a non-pilot leader, so deploying with a friendly Vehicle present offers no Unit/Pilot choice.)
 
 ## GIVEN
-P1LeaderBase: SOR_015/SOR_021
-P2LeaderBase: SOR_005/SOR_021
+CommonSetup: byk/bbw/{
+  myLeader:SOR_015;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5

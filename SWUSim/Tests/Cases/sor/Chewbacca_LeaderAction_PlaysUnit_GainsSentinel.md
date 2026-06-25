@@ -5,8 +5,10 @@
 # turn-effect token.
 
 ## GIVEN
-P1LeaderBase: SOR_003/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myLeader:SOR_003;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

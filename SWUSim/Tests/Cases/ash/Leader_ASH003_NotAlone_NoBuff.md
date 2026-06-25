@@ -2,8 +2,9 @@
 # neither qualifies, so no buff is given (both stay at base power); the cost is still paid (Baylan exhausts,
 # 1 resource spent).
 ## GIVEN
-P1LeaderBase: ASH_003/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: gbk/brk/{
+  myLeader:ASH_003
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1

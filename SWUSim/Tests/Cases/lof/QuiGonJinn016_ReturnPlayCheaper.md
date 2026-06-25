@@ -3,8 +3,11 @@
 # SOR_059 (cost 1, Vigilance) for free.
 
 ## GIVEN
-P1LeaderBase: LOF_016/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:LOF_016;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Force: true

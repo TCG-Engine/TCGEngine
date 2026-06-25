@@ -2,8 +2,10 @@
 # P2's base for 2 and deals 1 more indirect, totalling 3.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: JTL_132:1:0

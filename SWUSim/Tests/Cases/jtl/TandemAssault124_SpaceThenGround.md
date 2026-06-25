@@ -2,8 +2,11 @@
 # the enemy space unit for 2; the chained ground attacker SOR_063 (2+2) hits the enemy ground unit for 4.
 
 ## GIVEN
-P1LeaderBase: JTL_007/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: ggw/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_124

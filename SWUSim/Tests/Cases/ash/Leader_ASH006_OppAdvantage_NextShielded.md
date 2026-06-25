@@ -2,8 +2,9 @@
 # control; if they do, the next unit you play this phase gains Shielded. P2's SOR_046 (its only unit,
 # auto-chosen) gets 2 Advantage; then P1 plays SOR_095, which enters with a Shield token.
 ## GIVEN
-P1LeaderBase: ASH_006/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: gbw/brk/{
+  myLeader:ASH_006
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

@@ -870,14 +870,27 @@ if($rootName == "SWUSim") {
     // "When deployed as an upgrade:" is the leader-as-Pilot deploy variant (e.g. JTL_001),
     // which also resolves through the WhenPlayedAsUpgrade window.
     if(strpos($combined, "When played as an upgrade:") !== false
-      || strpos($combined, "When deployed as an upgrade:") !== false) {
+      || strpos($combined, "When deployed as an upgrade:") !== false
+      // Suppressor: a Pilot with a unit-only WhenPlayed and NO explicit upgrade ability needs a
+      // WhenPlayedAsUpgrade stub (dispatched to a no-op handler in Custom code) so the Pilot-attach
+      // path fires the no-op instead of falling back to the unit's WhenPlayed (CollectWhenPlayedAs-
+      // UpgradeTriggers' HasWhenPlayedAbility fallback). Matches only JTL_100 Poe — JTL_098/210 have
+      // a real "When played as an upgrade:" ability, and JTL_213 is not a Pilot (can't attach).
+      || (strpos($combined, "Piloting") !== false
+          && (strpos($combined, "When played as a unit:") !== false || strpos($combined, "When played as a unit/") !== false)
+          && strpos($combined, "When played as an upgrade:") === false)) {
       $stubs["whenPlayedAsUpgrade"][] = $cardId;
     }
     // whenPlayed also covers a deployed leader's "When Deployed:" window — the engine collects it
     // through the WhenPlayed trigger (CollectEntryTriggers on deploy). The upstream dataset uses
     // "When Deployed:" instead of "When Played:" for leaders like SOR_006 (Palpatine).
     if(strpos($combined, "When Played:") !== false || strpos($combined, "When Played/") !== false
-      || strpos($combined, "When Deployed:") !== false) {
+      || strpos($combined, "When Deployed:") !== false
+      // Dual-mode Pilot cards trigger their unit-play ability through the WhenPlayed window when
+      // played as a unit. The colon form is unit-only (JTL_100/210/213); the slash form is a compound
+      // window, e.g. "When played as a unit/On Attack:" (JTL_098).
+      || strpos($combined, "When played as a unit:") !== false
+      || strpos($combined, "When played as a unit/") !== false) {
       $stubs["whenPlayed"][] = $cardId;
     }
     // whenDefeated: units only, innate ability (not grant-style).
@@ -921,16 +934,11 @@ if($rootName == "SWUSim") {
     }
   }
 
-  // Manual stub memberships for cards whose trigger text the auto-match doesn't catch.
-  // JTL_100 Poe Dameron: "When played as a unit:" (unit WhenPlayed) + a no-op WhenPlayedAsUpgrade
-  // entry that suppresses the WhenPlayedAsUpgrade->WhenPlayed fallback when JTL_100 is played as a Pilot.
-  $manualStubAdditions = [
-    'whenPlayed'          => ['JTL_100', 'JTL_098', 'JTL_213'], // dual-mode pilots: "When played as a unit:" (JTL_098 Snap, JTL_213 Sidon)
-    'whenPlayedAsUpgrade' => ['JTL_100'],
-  ];
-  foreach ($manualStubAdditions as $grp => $ids) {
-    foreach ($ids as $id) { if (!in_array($id, $stubs[$grp], true)) $stubs[$grp][] = $id; }
-  }
+  // (No manual stub list — every trigger window is now derived from card text above. The former
+  // manual entries are all covered: dual-mode pilots' "When played as a unit[:/]" → whenPlayed +
+  // the Pilot WhenPlayedAsUpgrade suppressor; ASH_001/LOF_016 → onAttackEnd via "When Attack Ends:"
+  // / "completes an attack (and survives):". If a future card's trigger isn't caught, EXTEND the
+  // detection above rather than reintroducing a manual list.)
 
   $stubFilename = $directory . "/GeneratedAbilityStubs.php";
   $stubHandler  = fopen($stubFilename, "w");

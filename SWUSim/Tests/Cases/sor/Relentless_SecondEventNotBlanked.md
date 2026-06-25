@@ -3,8 +3,9 @@
 # the upgrade. The end state (upgrade gone) plus Relentless_FirstEventBlanked together prove "first only."
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 2
 WithP1SpaceArena: SOR_089:1:0

@@ -2,8 +2,9 @@
 # unit) Sentinel and Overwhelm for this phase. P1 chooses Ground, so SOR_095 (ground) gains both keywords
 # while SOR_237 (space) is unaffected; Sloane exhausts.
 ## GIVEN
-P1LeaderBase: ASH_007/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: ggk/brk/{
+  myLeader:ASH_007
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 0

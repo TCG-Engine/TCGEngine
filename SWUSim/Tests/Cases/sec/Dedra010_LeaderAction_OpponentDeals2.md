@@ -2,8 +2,11 @@
 # unit, and P1 does NOT draw.
 
 ## GIVEN
-P1LeaderBase: SEC_010/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:SEC_010;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Resources: 2

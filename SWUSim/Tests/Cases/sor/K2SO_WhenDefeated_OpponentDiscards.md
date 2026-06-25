@@ -2,8 +2,9 @@
 # discards a card from their hand (here their only card, auto-discarded). The base is untouched.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_145:1:0

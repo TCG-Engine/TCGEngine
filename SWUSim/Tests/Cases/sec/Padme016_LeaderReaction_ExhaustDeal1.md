@@ -3,8 +3,11 @@
 # card from hand) → exhaust Padmé → deal 1 to the enemy SOR_095. (SEC_062's draw also resolves.)
 
 ## GIVEN
-P1LeaderBase: SEC_016/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:SEC_016;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 4

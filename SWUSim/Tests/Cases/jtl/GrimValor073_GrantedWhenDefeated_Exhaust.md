@@ -2,8 +2,10 @@
 # (3/3 → 4/4, pre-damaged 1) dies attacking SOR_046; its granted When Defeated exhausts SOR_046.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:1

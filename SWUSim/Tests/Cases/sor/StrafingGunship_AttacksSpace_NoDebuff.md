@@ -2,8 +2,9 @@
 # unit normally, the defender (SOR_237 2/3) deals its full 2 counter-damage, so the Gunship takes 2.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SOR_212:1:0

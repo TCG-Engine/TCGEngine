@@ -4,8 +4,10 @@
 
 ## GIVEN
 SkipPreGame: true
-P1LeaderBase: SOR_014/SOR_022
-P2LeaderBase: SOR_014/SOR_023
+CommonSetup: grw/grw/{
+  myBase:SOR_022;
+  theirBase:SOR_023
+}
 WithP1Resources: 2:SOR_095
 WithP1Hand: SOR_095
 WithP2GroundArena: SOR_095:1:0

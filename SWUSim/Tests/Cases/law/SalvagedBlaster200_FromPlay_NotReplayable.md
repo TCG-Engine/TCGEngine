@@ -6,8 +6,11 @@
 # holds the defeated SEC_080 AND the Blaster = 2 cards; if the Blaster had been replayable it would be 1.)
 
 ## GIVEN
-P1LeaderBase: JTL_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 4

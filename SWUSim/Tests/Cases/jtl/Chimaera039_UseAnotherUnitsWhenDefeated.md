@@ -3,8 +3,11 @@
 # JTL_087 stays in play; a TIE token is created. Arena ends with JTL_087 + Chimaera + TIE = 3.
 
 ## GIVEN
-P1LeaderBase: JTL_005/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: ggk/bbk/{
+  myLeader:JTL_005;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 8

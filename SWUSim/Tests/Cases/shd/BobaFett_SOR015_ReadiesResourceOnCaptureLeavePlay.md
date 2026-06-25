@@ -9,8 +9,10 @@
 # Base: SOR_024 Echo Base (Command aspect) covers SHD_131's Command aspect requirement.
 
 ## GIVEN
-P1LeaderBase: SOR_015/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: gyk/brw/{
+  myLeader:SOR_015;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SHD_131

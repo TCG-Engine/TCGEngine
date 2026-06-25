@@ -4,8 +4,11 @@
 # in printed order. No extra prompts for the absent aspects.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021:3
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  myBaseDamage:3;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_250:1:0

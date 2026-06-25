@@ -3,7 +3,10 @@
 # 1 Credit → SEC_080 moves to P2's arena.
 
 ## GIVEN
-P1LeaderBase: LAW_002/SOR_028
+CommonSetup: yyw/grw/{
+  myLeader:LAW_002;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:0

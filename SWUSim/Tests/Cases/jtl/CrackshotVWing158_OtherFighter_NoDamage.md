@@ -2,8 +2,10 @@
 # unit. With another Fighter (SOR_237) already in play, the V-Wing takes no damage.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SOR_237:1:0

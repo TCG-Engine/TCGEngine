@@ -2,8 +2,11 @@
 # it, and draw it. If it costs 2 or less, you may play it for free.
 
 ## GIVEN
-P1LeaderBase: JTL_005/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: ggk/bbk/{
+  myLeader:JTL_005;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_089

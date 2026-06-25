@@ -2,8 +2,10 @@
 # one Experience token (power 2+1=3), it attacks the base for 3, then loses the Experience token.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LOF_156:1:0

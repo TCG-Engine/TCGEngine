@@ -3,11 +3,13 @@
 # not add to SEC_011's "+1/+0 per ready token" power (base damage = 4).
 
 ## GIVEN
-P1LeaderBase: SEC_011:1:1:1/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:SEC_011:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
-WithP1GroundArena: SEC_011:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE

@@ -3,8 +3,7 @@
 # Attacking P2's base should deal 6 damage, not 4.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: grw/grw
 SkipPreGame: true
 WithP1GroundArena: SOR_148:1:2
 

@@ -2,8 +2,11 @@
 # Shield token to a unit. P2 has 3 exhausted units, so P1 shields the newly-played JTL_199.
 
 ## GIVEN
-P1LeaderBase: JTL_016/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_199

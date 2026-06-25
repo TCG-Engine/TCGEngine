@@ -3,8 +3,10 @@
 # is readied.
 
 ## GIVEN
-P1LeaderBase: SOR_011/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: grk/brw/{
+  myLeader:SOR_011;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:0:0

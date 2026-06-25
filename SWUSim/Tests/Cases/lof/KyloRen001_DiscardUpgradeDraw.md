@@ -2,8 +2,11 @@
 # draw a card. P1 discards SOR_053 (an upgrade) and draws SOR_059; the leader exhausts.
 
 ## GIVEN
-P1LeaderBase: LOF_001/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:LOF_001;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_053

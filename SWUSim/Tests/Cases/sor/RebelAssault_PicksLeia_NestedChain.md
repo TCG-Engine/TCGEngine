@@ -4,8 +4,9 @@
 # → 3; (3) THEN Rebel Assault continues → a third Rebel attacks BUFFED (+1) → 4. Total 5+3+4 = 12.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5

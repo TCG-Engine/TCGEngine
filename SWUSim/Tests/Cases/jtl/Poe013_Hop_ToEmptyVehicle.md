@@ -6,8 +6,12 @@
 # Resources: 1 for leader action + 1 for hop = 2 total.
 
 ## GIVEN
-P1LeaderBase: JTL_013/SOR_022
-P2LeaderBase: JTL_013/SOR_022
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

@@ -3,8 +3,9 @@
 # choice and discards the third. Aggression off-aspect for SOR_009 (Command) → WithP1Resources:7.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Hand: SOR_174

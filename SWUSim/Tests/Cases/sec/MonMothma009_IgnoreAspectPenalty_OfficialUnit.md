@@ -5,8 +5,11 @@
 # Played fizzles (no upgrades in play).
 
 ## GIVEN
-P1LeaderBase: SEC_009/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:SEC_009;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

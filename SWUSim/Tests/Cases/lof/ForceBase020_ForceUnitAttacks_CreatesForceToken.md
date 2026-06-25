@@ -3,8 +3,10 @@
 # whole base set, not a single hard-coded card. Force unit LOF_112 attacks the base → P1 gains the Force.
 
 ## GIVEN
-P1LeaderBase: SOR_002/LOF_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:LOF_020;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LOF_112:1:0

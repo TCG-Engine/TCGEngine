@@ -2,8 +2,9 @@
 #   (Leia stays ready, the unit is not healed).
 
 ## GIVEN
-P1LeaderBase: IBH_001/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: ggw/brk/{
+  myLeader:IBH_001
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:2

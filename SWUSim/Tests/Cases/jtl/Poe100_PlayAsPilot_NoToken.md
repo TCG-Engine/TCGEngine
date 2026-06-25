@@ -21,8 +21,7 @@
 #   JTL_100 is an upgrade on SOR_237, NOT a unit in any arena.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_009/SOR_024
+CommonSetup: ggw/ggw
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

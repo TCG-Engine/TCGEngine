@@ -3,8 +3,9 @@
 # paid, so the action is a no-op: leader stays ready, no resource spent, nothing queued.
 
 ## GIVEN
-P1LeaderBase: SOR_006/SOR_024
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: ggk/ggk/{
+  myLeader:SOR_006
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 8

@@ -2,8 +2,7 @@
 # ActionPhaseStart fires on load (APS->MAIN transition). Thrawn logs private REVEAL entries.
 
 ## GIVEN
-P1LeaderBase: SOR_016/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gyk/grw
 SkipPreGame: true
 WithP1Deck: SOR_095
 WithP2Deck: SOR_128

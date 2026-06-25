@@ -2,8 +2,11 @@
 # P1 controls an exhausted SOR_095 (satisfies the condition) → exhausts the ready enemy SOR_128.
 
 ## GIVEN
-P1LeaderBase: SEC_015/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:SEC_015;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

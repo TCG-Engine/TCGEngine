@@ -4,8 +4,11 @@
 # this play is ONLY possible because of the −1 discount (full cost 2 would be unaffordable).
 
 ## GIVEN
-P1LeaderBase: JTL_008/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:JTL_008;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_069:1:0

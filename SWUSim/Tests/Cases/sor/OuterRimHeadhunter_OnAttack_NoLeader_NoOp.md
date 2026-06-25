@@ -3,8 +3,7 @@
 # and the enemy unit stays ready. Absence guard for the leader-unit condition.
 
 ## GIVEN
-P1LeaderBase: SOR_009:1:0:0/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: ggw/grw
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SOR_208:1:0     # attacker

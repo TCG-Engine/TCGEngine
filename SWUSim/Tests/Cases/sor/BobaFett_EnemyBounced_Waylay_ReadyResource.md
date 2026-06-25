@@ -4,8 +4,11 @@
 # Waylay) + 1 exhausted; after Waylay all 4 are exhausted, then Boba readies one back to 1 ready.
 
 ## GIVEN
-P1LeaderBase: SOR_015/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ryk/brw/{
+  myLeader:SOR_015;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_222

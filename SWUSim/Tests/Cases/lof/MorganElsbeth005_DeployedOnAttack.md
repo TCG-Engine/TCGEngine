@@ -3,8 +3,11 @@
 # which shares Raid with the friendly LOF_131 — so it costs 3+2−1 = 4 instead of 5.
 
 ## GIVEN
-P1LeaderBase: LOF_005/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgk/bbk/{
+  myLeader:LOF_005;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

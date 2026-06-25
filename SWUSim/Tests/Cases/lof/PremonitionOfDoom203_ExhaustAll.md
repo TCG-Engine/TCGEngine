@@ -2,8 +2,11 @@
 # plays it, then claims the initiative; every unit in play (both players') is exhausted.
 
 ## GIVEN
-P1LeaderBase: JTL_007/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: ggw/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 1

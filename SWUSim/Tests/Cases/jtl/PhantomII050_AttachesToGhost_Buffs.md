@@ -3,8 +3,10 @@
 # space arena and becomes an upgrade on The Ghost, which goes 5/6 → 8/9 and gains Grit. 1 resource spent.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

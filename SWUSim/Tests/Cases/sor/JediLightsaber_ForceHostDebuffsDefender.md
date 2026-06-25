@@ -7,8 +7,7 @@
 #   defender survives at 7 HP with 0 damage; the shield only stopped the combat hit.)
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: grw/grw
 SkipPreGame: true
 WithP1GroundArena: SOR_149:1:0
 WithP1GroundArenaUpgrade: 0:SOR_054

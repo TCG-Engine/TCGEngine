@@ -3,11 +3,13 @@
 # enemy base for 2 + 2 = 4.
 
 ## GIVEN
-P1LeaderBase: SEC_010:1:1:1/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:SEC_010:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
-WithP1GroundArena: SEC_010:1:0
 WithP1Hand: SOR_095
 WithP1Hand: SOR_095
 

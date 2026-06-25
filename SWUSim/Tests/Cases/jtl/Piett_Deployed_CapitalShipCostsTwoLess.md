@@ -3,8 +3,11 @@
 # Frigate (cost 5, Vigilance covered by the Vigilance base) for 5 − 2 = 3, leaving 2 of 5 resources.
 
 ## GIVEN
-P1LeaderBase: JTL_005/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgk/bbk/{
+  myLeader:JTL_005;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_069

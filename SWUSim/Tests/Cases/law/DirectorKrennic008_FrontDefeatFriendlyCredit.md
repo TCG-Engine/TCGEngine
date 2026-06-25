@@ -2,7 +2,10 @@
 # token." P1's only friendly unit (SEC_080) is defeated as the cost and 1 Credit is created.
 
 ## GIVEN
-P1LeaderBase: LAW_008/SOR_028
+CommonSetup: ygk/grw/{
+  myLeader:LAW_008;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:0

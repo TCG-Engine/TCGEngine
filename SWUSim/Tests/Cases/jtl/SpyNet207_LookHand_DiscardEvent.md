@@ -2,8 +2,11 @@
 # SOR_200) and a unit (SOR_095); P1 may only target the events and discards SOR_172.
 
 ## GIVEN
-P1LeaderBase: JTL_001/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_207

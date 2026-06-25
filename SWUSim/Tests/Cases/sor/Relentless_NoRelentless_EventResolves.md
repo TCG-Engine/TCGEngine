@@ -2,8 +2,9 @@
 # upgrade.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 2
 WithP1GroundArena: SEC_080:1:0

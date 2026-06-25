@@ -3,7 +3,10 @@
 # (3/7) is NOT eligible. P1 defeats SOR_128, leaving SOR_046.
 
 ## GIVEN
-P1LeaderBase: LAW_004/SOR_028
+CommonSetup: ybk/grw/{
+  myLeader:LAW_004;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 7

@@ -3,7 +3,10 @@
 # Client's action exhausts the enemy SEC_080.
 
 ## GIVEN
-P1LeaderBase: LAW_016/SOR_028
+CommonSetup: yyk/grw/{
+  myLeader:LAW_016;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LAW_235:1:0

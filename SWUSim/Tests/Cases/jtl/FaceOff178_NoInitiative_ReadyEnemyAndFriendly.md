@@ -3,8 +3,11 @@
 # exhausted enemy SOR_237, then readies the friendly SOR_225 (same arena).
 
 ## GIVEN
-P1LeaderBase: JTL_012/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Hand: JTL_178

@@ -1,8 +1,9 @@
 # ASH_005 Luke Skywalker — declining the optional exhaust leaves Luke ready and heals nothing. SOR_046
 # attacks SEC_080, takes 3 counter damage, and P1 declines, so SOR_046 stays at 3 damage and Luke is ready.
 ## GIVEN
-P1LeaderBase: ASH_005/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: gbw/brk/{
+  myLeader:ASH_005
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_046:1:0

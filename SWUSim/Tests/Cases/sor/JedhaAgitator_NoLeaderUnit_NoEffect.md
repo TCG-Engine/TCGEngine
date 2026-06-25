@@ -3,8 +3,9 @@
 # choice is offered, and the enemy unit is untouched.
 
 ## GIVEN
-P1LeaderBase: SOR_014:1:0:0/SOR_026
-P2LeaderBase: SOR_010:1:0:0/SOR_027
+CommonSetup: rrw/rrk/{
+  theirBase:SOR_027
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_158:1:0

@@ -12,6 +12,9 @@ if ($error !== '') {
 }
 
 $filter = isset($_GET['filter']) ? strval($_GET['filter']) : null;
+// ?withDetails=1 → list every test with its run time (debugging). Default: minimal
+// output (failures + summary only) so plain regression curls stay small.
+$withDetails = isset($_GET['withDetails']) && ($_GET['withDetails'] === '1' || strtolower(strval($_GET['withDetails'])) === 'true');
 
 // ── Animation stubs (no-ops in test harness; real impl in Core/EngineActionRunner.php) ──
 if (!function_exists('ConvertMzIDToAbsolute')) {
@@ -47,4 +50,4 @@ include_once './SWUSim/Tests/Framework/GameTestAdapter.php';
 include_once './SWUSim/Tests/Framework/SchemaTestRunner.php';
 include_once './SWUSim/Tests/Framework/TestRunner.php';
 
-TestRunner::run($filter, $_pageStart);
+TestRunner::run($filter, $_pageStart, $withDetails);

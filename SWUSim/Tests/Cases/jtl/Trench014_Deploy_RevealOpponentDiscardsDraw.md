@@ -6,8 +6,11 @@
 # deploy did NOT consume the epic action (it is repeatable).
 
 ## GIVEN
-P1LeaderBase: JTL_014/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: gyk/bbk/{
+  myLeader:JTL_014;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Resources: 6

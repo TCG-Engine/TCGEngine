@@ -3,8 +3,11 @@
 # Rose Tico's leader action heals 2 from it; the heal triggers JTL_062's reactive, dealing 1 to SOR_237.
 
 ## GIVEN
-P1LeaderBase: JTL_004/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_062:1:2

@@ -4,8 +4,11 @@
 # and there is no dangling decision.
 
 ## GIVEN
-P1LeaderBase: LAW_014/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brw/bbk/{
+  myLeader:LAW_014;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1

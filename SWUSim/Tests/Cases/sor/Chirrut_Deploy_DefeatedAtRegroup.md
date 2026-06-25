@@ -4,8 +4,10 @@
 # Chirrut — he leaves the arena and the leader returns NOT deployed.
 
 ## GIVEN
-P1LeaderBase: SOR_004/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: gbw/brw/{
+  myLeader:SOR_004;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5

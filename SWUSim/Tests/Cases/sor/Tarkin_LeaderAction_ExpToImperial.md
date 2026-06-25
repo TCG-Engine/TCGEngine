@@ -3,8 +3,7 @@
 # exhausts, and the only Imperial unit (SOR_229, 3/3) auto-receives +1/+1 (→ 4/4).
 
 ## GIVEN
-P1LeaderBase: SOR_007/SOR_024
-P2LeaderBase: SOR_002/SOR_020
+CommonSetup: ggk/bbk
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

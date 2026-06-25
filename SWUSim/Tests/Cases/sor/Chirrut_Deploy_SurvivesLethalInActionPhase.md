@@ -3,8 +3,10 @@
 # damage (HP 5 → no remaining HP) but SURVIVES because it is still the action phase.
 
 ## GIVEN
-P1LeaderBase: SOR_004/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: gbw/brw/{
+  myLeader:SOR_004;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5

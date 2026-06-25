@@ -17,8 +17,7 @@
 # MZMULTICHOOSE answer: both TWI_T01s at myGroundArena-0 and myGroundArena-1.
 
 ## GIVEN
-P1LeaderBase: SOR_016/SOR_029
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: yyk/ggk
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SEC_122:1:0

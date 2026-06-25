@@ -2,8 +2,10 @@
 # One friendly unit on board → auto-targets it; HP rises by 2 (power unchanged), leader exhausts.
 
 ## GIVEN
-P1LeaderBase: SOR_004/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: gbw/brw/{
+  myLeader:SOR_004;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:0

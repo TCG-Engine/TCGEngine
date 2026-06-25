@@ -63,13 +63,18 @@ class GameStateBuilder {
     // ── Leaders ───────────────────────────────────────────────────
     // arg order matches TS: (cardID, ready=true, deployed=false, epicActionUsed=false)
 
-    public function MyLeader(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false): self {
-        $this->_myLeader = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed];
+    // $deployMode: '' = leader side only (no board presence); 'unit' = also place a real
+    // ground-arena leader unit linked via DeployedUniqueID; 'pilot' = attach the leader as a
+    // Pilot upgrade onto the player's first friendly arena unit (host Vehicle).
+    // $damage applies to the deployed leader UNIT (deployMode='unit'); ignored otherwise (an
+    // undeployed leader and a Pilot-attached leader carry no unit damage of their own).
+    public function MyLeader(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false, string $deployMode = '', int $damage = 0): self {
+        $this->_myLeader = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed, 'deployMode' => $deployMode, 'damage' => $damage];
         return $this;
     }
 
-    public function TheirLeader(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false): self {
-        $this->_theirLeader = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed];
+    public function TheirLeader(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false, string $deployMode = '', int $damage = 0): self {
+        $this->_theirLeader = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed, 'deployMode' => $deployMode, 'damage' => $damage];
         return $this;
     }
 
@@ -204,13 +209,29 @@ class GameStateBuilder {
         }
 
         // Leaders — AddLeader signature: (player, CardID, EpicActionUsed, Ready, Deployed, ...)
+        $leaderObjs = [1 => null, 2 => null];
         if (!empty($this->_myLeader)) {
             $l = $this->_myLeader;
-            AddLeader(1, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']);
+            $leaderObjs[1] = AddLeader(1, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']);
         }
         if (!empty($this->_theirLeader)) {
             $l = $this->_theirLeader;
-            AddLeader(2, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']);
+            $leaderObjs[2] = AddLeader(2, $l['cardID'], $l['epicActionUsed'], $l['ready'], $l['deployed']);
+        }
+
+        // Deployed-leader Pilot mode (CR Pilot): attach the leader as a Pilot upgrade onto the
+        // player's first friendly arena unit (host Vehicle) BEFORE the arena loop materializes it,
+        // so the host's Subcards carry the pilot and IsLeaderUnit() recognizes it. DeployedUniqueID
+        // stays 0 (the leader is a Subcard, not a standalone arena unit). No host unit → no-op.
+        foreach ([1 => $this->_myLeader, 2 => $this->_theirLeader] as $player => $leader) {
+            if (($leader['deployMode'] ?? '') !== 'pilot') continue;
+            $pilot = self::Upgrade($leader['cardID'], $player);
+            $pilot['IsPilot'] = true;
+            if (!empty($this->_groundUnits[$player])) {
+                $this->_groundUnits[$player][0]['upgrades'][] = $pilot;
+            } elseif (!empty($this->_spaceUnits[$player])) {
+                $this->_spaceUnits[$player][0]['upgrades'][] = $pilot;
+            }
         }
 
         // Resources — Status 1=ready, 0=exhausted
@@ -252,6 +273,19 @@ class GameStateBuilder {
                 AddSpaceArena($player, $unit['cardID'], $status, $player, $unit['damage'],
                               $unit['controller'], '-', $subcards, $uid);
             }
+        }
+
+        // Deployed-leader Unit mode: place the leader as a real ground-arena unit (after any
+        // GIVEN-declared units, so they keep their indices) and link it via DeployedUniqueID —
+        // matching SWUDeployLeader's Unit branch. The arena unit's ready state follows the leader
+        // spec's `ready`; a Leader CardID in an arena is auto-recognized by IsLeaderUnit().
+        foreach ([1, 2] as $player) {
+            $leader = $player === 1 ? $this->_myLeader : $this->_theirLeader;
+            if (($leader['deployMode'] ?? '') !== 'unit' || $leaderObjs[$player] === null) continue;
+            $uid    = $this->_nextUID++;
+            $status = $leader['ready'] ? 1 : 0;
+            AddGroundArena($player, $leader['cardID'], $status, $player, $leader['damage'] ?? 0, $player, '-', '-', $uid);
+            $leaderObjs[$player]->DeployedUniqueID = $uid;
         }
 
         // Defeated players — set base damage = base HP

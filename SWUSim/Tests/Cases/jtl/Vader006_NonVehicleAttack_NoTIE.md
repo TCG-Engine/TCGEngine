@@ -3,8 +3,11 @@
 # is created (the leader still exhausts). Proves the "non-token Vehicle" requirement.
 
 ## GIVEN
-P1LeaderBase: JTL_006/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: ggk/bbk/{
+  myLeader:JTL_006;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:0

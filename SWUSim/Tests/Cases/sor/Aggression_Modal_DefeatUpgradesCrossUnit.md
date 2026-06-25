@@ -4,8 +4,9 @@
 # Draw. Aggression,Aggression is fully off-aspect for SOR_009 → cost 8.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_155

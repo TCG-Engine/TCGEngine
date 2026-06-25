@@ -2,8 +2,10 @@
 # SOR_095 stays 3 power.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithP1GroundArena: LOF_237:1:0
 WithP1GroundArena: SOR_095:1:0

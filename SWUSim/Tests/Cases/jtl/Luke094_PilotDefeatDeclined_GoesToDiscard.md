@@ -2,8 +2,10 @@
 # Luke is defeated along with his host and goes to P1's discard (both SEC_214 and Luke discarded).
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 2
 WithInitiativePlayer: 2

@@ -2,8 +2,11 @@
 # in play (SOR_095 and SOR_046), the undamaged Juggernaut (printed 3 power) is at 3+2=5.
 
 ## GIVEN
-P1LeaderBase: JTL_001/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: JTL_170:1:0

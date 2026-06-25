@@ -5,8 +5,10 @@
 # it) + 2 to their base. SEC_080 stays in play (exhausted, undamaged). P2 base = 4 combat + 2 indirect = 6.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_069:1:0

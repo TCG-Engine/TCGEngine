@@ -3,7 +3,9 @@
 # returns SOR_046 (myDiscard-0) to the top → deck top = SOR_046, deck count 1, discard 2.
 
 ## GIVEN
-P1LeaderBase: SOR_005/LAW_026
+CommonSetup: rbw/grw/{
+  myBase:LAW_026
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Deck: SOR_046

@@ -3,8 +3,9 @@
 # Epic Action, nothing happens — no Shield is granted, no decision appears, and the epic is not consumed.
 
 ## GIVEN
-P1LeaderBase: SOR_005/SOR_020
-P2LeaderBase: SOR_010/SOR_019
+CommonSetup: bbw/brk/{
+  theirBase:SOR_019
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Resources: 4

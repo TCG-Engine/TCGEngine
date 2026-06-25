@@ -4,8 +4,11 @@
 # 2 of P1's 5 exhausted resources ready.
 
 ## GIVEN
-P1LeaderBase: JTL_017/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:JTL_017;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5:SOR_095:0

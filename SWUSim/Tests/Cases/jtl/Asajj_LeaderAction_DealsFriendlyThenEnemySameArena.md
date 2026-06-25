@@ -3,8 +3,11 @@
 # then the only enemy unit in the SAME (ground) arena (SOR_095) takes 1. Both auto-resolve (1 each).
 
 ## GIVEN
-P1LeaderBase: JTL_001/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:0

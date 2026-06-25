@@ -2,8 +2,11 @@
 # (floored) and 2 HP.
 
 ## GIVEN
-P1LeaderBase: JTL_004/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_079

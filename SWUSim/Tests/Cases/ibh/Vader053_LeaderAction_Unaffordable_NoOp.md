@@ -2,8 +2,9 @@
 #   no base damage).
 
 ## GIVEN
-P1LeaderBase: IBH_053/SOR_026
-P2LeaderBase: SOR_005/SOR_020
+CommonSetup: rrk/bbw/{
+  myLeader:IBH_053
+}
 SkipPreGame: true
 P1OnlyActions: true
 

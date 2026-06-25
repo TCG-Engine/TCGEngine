@@ -112,6 +112,14 @@ if ($error !== '') {
     .btn-primary:hover:not(:disabled) { background: #3a6a3a; }
     .btn-danger  { background: #4a2a2a; border-color: #7a4a4a; color: #cb7e7e; }
     .btn-danger:hover:not(:disabled) { background: #6a3a3a; }
+    .btn-info    { background: #26425e; border-color: #3f6f9e; color: #7ec0ff; }
+    .btn-info:hover:not(:disabled) { background: #33567a; color: #fff; }
+
+    /* Expect-button result states (override the blue base) */
+    .btn.is-pass { background: #2a4a2a; border-color: #4a7a4a; color: #7ecb7e; }
+    .btn.is-pass:hover:not(:disabled) { background: #3a6a3a; }
+    .btn.is-fail { background: #4a2a2a; border-color: #7a4a4a; color: #cb7e7e; }
+    .btn.is-fail:hover:not(:disabled) { background: #6a3a3a; }
 
     .btn-row {
       display: flex;
@@ -241,6 +249,10 @@ if ($error !== '') {
     </div>
     <br>
     <div class="btn-row">
+      <button id="expect-btn" class="btn btn-info" disabled title="Evaluate the EXPECT assertions against the current game state">Expect?</button>
+    </div>
+    <br>
+    <div class="btn-row">
       <button id="stop-btn"  class="btn btn-danger" disabled title="Stop step-through; play freely">⏹ Stop</button>
       <button id="reset-btn" class="btn" title="Reset game to initial GIVEN state">↩ Reset</button>
     </div>
@@ -282,6 +294,7 @@ if ($error !== '') {
   const whenList     = document.getElementById('when-list');
   const stepBtn      = document.getElementById('step-btn');
   const runBtn       = document.getElementById('run-btn');
+  const expectBtn    = document.getElementById('expect-btn');
   const stopBtn      = document.getElementById('stop-btn');
   const resetBtn     = document.getElementById('reset-btn');
   const swapPlayerBtn   = document.getElementById('swap-player-btn');
@@ -373,6 +386,7 @@ if ($error !== '') {
 
       renderStepList();
       updateStepCounter();
+      resetExpectButton();
       updateButtons();
       syncOverlay();
 
@@ -405,6 +419,7 @@ if ($error !== '') {
   // ── Step controls ──────────────────────────────────────────────────
   stepBtn.addEventListener('click', () => executeStep());
   runBtn.addEventListener('click',  () => runAll());
+  expectBtn.addEventListener('click', () => runExpect());
   stopBtn.addEventListener('click', () => {
     steppingMode = false;
     setStatus('Stepped out — play freely in the game board.', 'ok');
@@ -470,6 +485,54 @@ if ($error !== '') {
     }
   }
 
+  // ── Expect check ───────────────────────────────────────────────────
+  async function runExpect() {
+    if (!gameName || busy) return;
+    resetExpectButton();
+    expectBtn.textContent = 'Checking…';
+    setStatus('Evaluating EXPECT assertions…', '');
+    setBusy(true);
+
+    try {
+      const sim = simSelect.value;
+      const fd  = new FormData();
+      fd.append('gameName', gameName);
+      fd.append('schema', schemaContent);
+
+      const res  = await fetch('./' + sim + '/TestSchemaExpect.php', { method: 'POST', body: fd });
+      const data = await res.json();
+
+      if (data.error) {
+        setStatus('Expect error: ' + data.error, 'error');
+        resetExpectButton();
+        return;
+      }
+
+      if (data.passed) {
+        expectBtn.classList.remove('btn-info');
+        expectBtn.classList.add('is-pass');
+        expectBtn.textContent = 'Passed';
+        setStatus('EXPECT passed (' + data.total + ' assertion' + (data.total === 1 ? '' : 's') + ').', 'ok');
+      } else {
+        expectBtn.classList.remove('btn-info');
+        expectBtn.classList.add('is-fail');
+        expectBtn.textContent = 'Failed';
+        setStatus('EXPECT failed: ' + (data.failures || []).join('  |  '), 'error');
+      }
+    } catch (err) {
+      setStatus('Network error: ' + err.message, 'error');
+      resetExpectButton();
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  function resetExpectButton() {
+    expectBtn.classList.remove('is-pass', 'is-fail');
+    expectBtn.classList.add('btn-info');
+    expectBtn.textContent = 'Expect?';
+  }
+
   // ── Overlay ────────────────────────────────────────────────────────
   function syncOverlay() {
     gameOverlay.classList.toggle('is-blocking', steppingMode);
@@ -500,6 +563,7 @@ if ($error !== '') {
     const hasMore = stepIndex < whenSteps.length;
     stepBtn.disabled = !hasMore || busy;
     runBtn.disabled  = !hasMore || busy;
+    expectBtn.disabled = !gameName || busy;
     stopBtn.disabled = !steppingMode || busy;
   }
 

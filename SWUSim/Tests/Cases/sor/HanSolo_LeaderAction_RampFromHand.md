@@ -4,8 +4,7 @@
 # Resources go 3 → 4, all 4 ready (the new one entered READY, not exhausted).
 
 ## GIVEN
-P1LeaderBase: SOR_017/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gyw/grw
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_095

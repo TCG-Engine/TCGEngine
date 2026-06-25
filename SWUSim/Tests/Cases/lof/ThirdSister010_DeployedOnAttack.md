@@ -2,8 +2,11 @@
 # the base, then P1 plays Plo Koon, who enters with Hidden.
 
 ## GIVEN
-P1LeaderBase: LOF_010/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:LOF_010;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

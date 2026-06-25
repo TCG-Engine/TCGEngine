@@ -4,8 +4,10 @@
 # attacks P2's base (2) → no second offer. P1 drew exactly 1 (deck 2 → 1, hand 1), base took 4+2=6.
 
 ## GIVEN
-P1LeaderBase: SOR_013/SOR_024
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: grw/bbk/{
+  myLeader:SOR_013;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

@@ -3,8 +3,7 @@
 # Han stays ready, resources unchanged, and the player keeps their action (no decision pending).
 
 ## GIVEN
-P1LeaderBase: SOR_017/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gyw/grw
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

@@ -3,8 +3,10 @@
 # heals 1 from P1's base (3 → 2).
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024:3
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  myBaseDamage:3;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_109

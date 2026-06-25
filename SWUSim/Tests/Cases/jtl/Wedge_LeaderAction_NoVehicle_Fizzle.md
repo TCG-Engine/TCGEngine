@@ -3,8 +3,11 @@
 # pilot stays in hand, and no card is attached.
 
 ## GIVEN
-P1LeaderBase: JTL_008/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:JTL_008;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_108

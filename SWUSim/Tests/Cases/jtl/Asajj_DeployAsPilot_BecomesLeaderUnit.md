@@ -7,8 +7,12 @@
 # Leader: EpicActionUsed, Deployed. Resources unchanged (deploy is free).
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_022
-P2LeaderBase: JTL_001/SOR_022
+CommonSetup: gbk/gbk/{
+  myLeader:JTL_001;
+  myBase:SOR_022;
+  theirLeader:JTL_001;
+  theirBase:SOR_022
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

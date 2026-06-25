@@ -2,8 +2,9 @@
 Palpatine WhenDeployed — take control of a damaged non-leader unit (auto-resolve single target)
 
 ## GIVEN
-P1LeaderBase: SOR_006/SOR_024
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: ggk/ggk/{
+  myLeader:SOR_006
+}
 SkipPreGame: true
 WithP2GroundArena: SOR_095:1:2
 WithP1Resources: 8

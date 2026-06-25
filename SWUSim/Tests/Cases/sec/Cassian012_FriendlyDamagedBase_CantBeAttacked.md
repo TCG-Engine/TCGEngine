@@ -5,8 +5,11 @@
 # auto-resolve). SOR_095 ends undamaged.
 
 ## GIVEN
-P1LeaderBase: SEC_012/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brw/bbk/{
+  myLeader:SEC_012;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1GroundArena: SOR_095:1:0

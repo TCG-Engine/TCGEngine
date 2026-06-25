@@ -5,8 +5,10 @@
 # card, goes to his OWNER (P1)'s discard alongside SEC_214. (Discard 2: SEC_214 then JTL_094.)
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 2
 WithInitiativePlayer: 2

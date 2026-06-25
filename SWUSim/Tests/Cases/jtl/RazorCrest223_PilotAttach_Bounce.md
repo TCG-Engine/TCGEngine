@@ -2,8 +2,10 @@
 # less to its owner's hand. Playing JTL_034 onto Razor Crest lets P1 bounce P2's SOR_095 (cost 2).
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 9

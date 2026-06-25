@@ -2,8 +2,9 @@
 # Advantage token for each OTHER friendly unit. SEC_135 (exhausted, the only valid target) gets 2 Advantage
 # (SOR_095 and SOR_046 are the two other friendly units); Palpatine exhausts.
 ## GIVEN
-P1LeaderBase: ASH_015/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: gyk/brk/{
+  myLeader:ASH_015
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 0

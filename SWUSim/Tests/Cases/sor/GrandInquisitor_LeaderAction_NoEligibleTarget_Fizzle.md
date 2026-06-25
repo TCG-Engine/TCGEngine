@@ -3,8 +3,10 @@
 # its [Exhaust] cost but no unit is damaged and no decision is queued.
 
 ## GIVEN
-P1LeaderBase: SOR_011/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: grk/brw/{
+  myLeader:SOR_011;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LAW_124:1:0

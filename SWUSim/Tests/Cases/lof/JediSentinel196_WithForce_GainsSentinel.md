@@ -2,8 +2,10 @@
 # Sentinel is active; without it, it is not.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithP1Force: true
 WithP1GroundArena: LOF_196:1:0

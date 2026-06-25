@@ -1,8 +1,9 @@
 # ASH_017 Greef Karga — "When you play or create a unit: you may exhaust this leader; if you do, give an
 # Advantage token to that unit." P1 plays SOR_095 and exhausts Greef to give it an Advantage token.
 ## GIVEN
-P1LeaderBase: ASH_017/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: gyw/brk/{
+  myLeader:ASH_017
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

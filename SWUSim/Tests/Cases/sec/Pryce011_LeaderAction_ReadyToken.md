@@ -2,8 +2,11 @@
 # Battle Droid token (TWI_T01) is readied.
 
 ## GIVEN
-P1LeaderBase: SEC_011/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:SEC_011;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

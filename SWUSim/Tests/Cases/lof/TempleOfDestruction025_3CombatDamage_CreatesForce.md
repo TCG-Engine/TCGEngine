@@ -3,8 +3,10 @@
 # gains the Force.
 
 ## GIVEN
-P1LeaderBase: SOR_002/LOF_025
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: rbk/bbk/{
+  myBase:LOF_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:0

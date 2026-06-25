@@ -2,8 +2,9 @@
 # may exhaust this leader; if you do, give an Advantage token to a different unit." SOR_046 (3 power) hits
 # P2's base for 3; P1 exhausts Ezra and gives an Advantage to SOR_095 (the only non-attacker, auto-resolved).
 ## GIVEN
-P1LeaderBase: ASH_013/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: grw/brk/{
+  myLeader:ASH_013
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_046:1:0

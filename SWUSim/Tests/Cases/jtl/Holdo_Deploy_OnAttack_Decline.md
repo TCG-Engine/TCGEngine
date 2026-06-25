@@ -2,8 +2,11 @@
 # Holdo, attacks, and DECLINES (AnswerDecision:-): JTL_099 keeps its printed 2/1.
 
 ## GIVEN
-P1LeaderBase: JTL_007/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

@@ -2,8 +2,11 @@
 # attacks the base for 4 and Restore 1 heals P1's base from 3 to 2.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020:3
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBaseDamage:3;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SOR_237:1:0

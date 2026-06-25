@@ -3,7 +3,9 @@
 # returns one resource to hand (+1 hand), and resources the top of the deck (SOR_128) → deck empties.
 
 ## GIVEN
-P1LeaderBase: SOR_005/LAW_029
+CommonSetup: ybw/grw/{
+  myBase:LAW_029
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 3

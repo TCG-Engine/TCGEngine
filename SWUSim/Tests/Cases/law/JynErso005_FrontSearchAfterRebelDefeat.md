@@ -3,7 +3,10 @@
 # SOR_039 and dies (Rebel defeated this phase); then Jyn's action searches and draws SOR_046.
 
 ## GIVEN
-P1LeaderBase: LAW_005/SOR_028
+CommonSetup: ybw/grw/{
+  myLeader:LAW_005;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

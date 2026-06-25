@@ -3,8 +3,10 @@
 # token to the other unique unit (Zeb, in space → UPGRADECOUNT 1). Her 4 power hits the base.
 
 ## GIVEN
-P1LeaderBase: SOR_008/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  myLeader:SOR_008;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

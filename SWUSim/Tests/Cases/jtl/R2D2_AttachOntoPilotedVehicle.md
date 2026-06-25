@@ -20,8 +20,10 @@
 # Stats: base 2/3 + JTL_100 (+2/+3) + JTL_245 (+1/+1) = 5/7
 
 ## GIVEN
-P1LeaderBase: SOR_005/SOR_022
-P2LeaderBase: SOR_005/SOR_022
+CommonSetup: gbw/gbw/{
+  myBase:SOR_022;
+  theirBase:SOR_022
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

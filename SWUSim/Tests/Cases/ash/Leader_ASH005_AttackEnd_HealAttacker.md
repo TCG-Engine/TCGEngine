@@ -2,8 +2,9 @@
 # heal 1 damage from that unit." SOR_046 attacks SEC_080 and takes 3 counter damage; P1 exhausts Luke to
 # heal 1, leaving SOR_046 at 2 damage.
 ## GIVEN
-P1LeaderBase: ASH_005/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: gbw/brk/{
+  myLeader:ASH_005
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_046:1:0

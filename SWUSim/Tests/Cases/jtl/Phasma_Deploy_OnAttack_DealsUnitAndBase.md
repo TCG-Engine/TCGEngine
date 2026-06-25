@@ -4,8 +4,11 @@
 # 1 to the enemy base; combat then adds Phasma's power 4 → P2 base 5 total.
 
 ## GIVEN
-P1LeaderBase: JTL_010/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: grk/bbk/{
+  myLeader:JTL_010;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

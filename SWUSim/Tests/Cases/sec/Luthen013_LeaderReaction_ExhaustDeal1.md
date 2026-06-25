@@ -3,8 +3,11 @@
 # Sentinel) and dies to the 2 counter-damage. P1 exhausts Luthen and deals 1 to the enemy base.
 
 ## GIVEN
-P1LeaderBase: SEC_013/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brw/bbk/{
+  myLeader:SEC_013;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_128:1:0

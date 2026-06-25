@@ -3,8 +3,11 @@
 # (P1NODECISION) and the defender takes only the 5 combat damage (not 5 + 4). Proves the gate.
 
 ## GIVEN
-P1LeaderBase: SOR_011/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: rrk/brw/{
+  myLeader:SOR_011;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_146:1:0

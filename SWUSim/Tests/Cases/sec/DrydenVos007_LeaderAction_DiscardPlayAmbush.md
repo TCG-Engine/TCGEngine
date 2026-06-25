@@ -5,8 +5,11 @@
 # the unit just enters.
 
 ## GIVEN
-P1LeaderBase: SEC_007/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgk/bbk/{
+  myLeader:SEC_007;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

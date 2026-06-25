@@ -2,8 +2,10 @@
 # heal; P1's base stays at 3 damage.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024:3
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  myBaseDamage:3;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_109:1:0

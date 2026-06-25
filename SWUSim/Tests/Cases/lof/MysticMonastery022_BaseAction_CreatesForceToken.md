@@ -4,8 +4,10 @@
 # the three per-game uses.
 
 ## GIVEN
-P1LeaderBase: SOR_002/LOF_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: gbk/bbk/{
+  myBase:LOF_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 

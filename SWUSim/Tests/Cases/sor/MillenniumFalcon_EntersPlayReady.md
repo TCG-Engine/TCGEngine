@@ -5,8 +5,7 @@
 # (cost stays 3, no off-aspect penalty).
 
 ## GIVEN
-P1LeaderBase: SOR_017/SOR_024
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: gyw/ggk
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_193

@@ -4,8 +4,11 @@
 # Generous resources avoid aspect-penalty math on the played unit.
 
 ## GIVEN
-P1LeaderBase: SEC_018/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:SEC_018;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 8

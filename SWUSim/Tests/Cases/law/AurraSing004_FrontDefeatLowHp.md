@@ -2,7 +2,10 @@
 # remaining HP." P2's SOR_128 (3/1) has 1 remaining HP → it is the only legal target and is defeated.
 
 ## GIVEN
-P1LeaderBase: LAW_004/SOR_028
+CommonSetup: ybk/grw/{
+  myLeader:LAW_004;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP2GroundArena: SOR_128:1:0

@@ -4,8 +4,9 @@
 # HP unchanged at 7.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_028
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: yrw/grw/{
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP2GroundArena: SOR_046:1:0

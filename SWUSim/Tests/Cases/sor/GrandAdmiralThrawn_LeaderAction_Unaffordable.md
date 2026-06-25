@@ -3,8 +3,7 @@
 # nothing is queued, and the player keeps their action.
 
 ## GIVEN
-P1LeaderBase: SOR_016/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gyk/grw
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Deck: SOR_128

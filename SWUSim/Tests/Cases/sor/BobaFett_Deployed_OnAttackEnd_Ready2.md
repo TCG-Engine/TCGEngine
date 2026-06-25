@@ -3,8 +3,11 @@
 # play this phase); his OnAttackEnd then readies 2 of P1's exhausted resources.
 
 ## GIVEN
-P1LeaderBase: SOR_015/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ryk/brw/{
+  myLeader:SOR_015;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5:SOR_128:0

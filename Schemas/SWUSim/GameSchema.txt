@@ -102,9 +102,13 @@ Click: FSM()
 Virtual: SelectionMetadata=SelectionMetadata()
 Virtual: HandCardCostDifference=HandCardCostDifference()
 Virtual: HasAbility=CardHasAbility()
+Virtual: ExploitAvailable=HandCardExploitAvailable()
 Highlight: SelectionMetadata
 Index: CardID
 Counters: HandCardCostDifference=Badge(Color=White,Position=TopLeft,ShowNegative=false)
+# Exploit keyword indicator — on hand cards that can be played with Exploit (printed, or a
+# Separatist card while TWI_005 Count Dooku's charge is active). Bottom, nudged down 20px.
+Counters: ExploitAvailable=Image(Path=Assets/Icons/exploit.webp,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
 
 # Discard ──────────────────────────────────────────────────────────────────────
 # Defeated units, played events, and discarded cards. Public and face-up.
@@ -144,9 +148,17 @@ BeforeAdd: TokenCeaseBeforeAdd
 Display: Visibility=Self, Mode=All, BindTo=ResourcesSlot
 Click: FSM()
 Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: HasSmuggle=ResourceHasSmuggle()
+Virtual: HasPlot=ResourceHasPlot()
 Highlight: SelectionMetadata
 Overlay: Status=0:exhausted
 Rotation: Status=0:9
+# Smuggle keyword icon — shown on any resource that currently has Smuggle (e.g. while
+# SHD_248 Tech is in play). Nudged down 8px so it sits over the card's bottom edge.
+Counters: HasSmuggle=Image(Path=Assets/Icons/smuggle.webp,Position=Bottom,ShowZero=false,Size=32,OffsetY=8)
+# Plot keyword icon — shown on resources that have Plot (CR 19), playable from resources
+# when you deploy your leader. Same bottom treatment as the Smuggle icon.
+Counters: HasPlot=Image(Path=Assets/Icons/plot.webp,Position=Bottom,ShowZero=false,Size=32,OffsetY=8)
 
 # Leader ───────────────────────────────────────────────────────────────────────
 # The leader card in the base zone. Always stays in this zone for record-keeping;
@@ -186,7 +198,9 @@ Base - CardID:string, Damage:number=0, EpicActionUsed:boolean=false, NumUses:num
 Display: Visibility=Public, Mode=All, BindTo=BaseSlot
 Click: FSM()
 Virtual: HasAbility=CardHasAbility()
-Counters: Damage=Badge(Color=Red,Position=TopRight,ShowZero=false)
+# HasForce drives the Force token shown in the base's top-right corner (client refreshForceToken).
+Virtual: HasForce=BaseHasForce()
+Counters: Damage=Image(Path=Assets/Icons/swusim-damage.png,Position=Center,ShowZero=false,Size=48,TextColor=White,OffsetY=-8)
 
 # GroundArena ──────────────────────────────────────────────────────────────────
 # Units in the ground arena controlled by this player (including deployed leader units
@@ -205,8 +219,8 @@ Counters: Damage=Badge(Color=Red,Position=TopRight,ShowZero=false)
 #                   captives: {CardID, Owner, Damage, TurnEffects[], IsCaptive: true}
 #   UniqueID    — persistent ID used to track this unit across phase changes and by Leader.DeployedUniqueID
 GroundArena - CardID:string, Status:number=0, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Subcards:json, UniqueID:number=0, NumUses:number=1
-Virtual: CurrentPower=ObjectCurrentPowerDisplay()
-Virtual: CurrentHP=ObjectCurrentHPDisplay()
+Virtual: CurrentPower=ObjectPowerBadgeValue()
+Virtual: CurrentHP=ObjectHPBadgeValue()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Virtual: CombatTargetIndicator=CombatTargetIndicator()
 Virtual: CurrentEffects=CardCurrentEffects()
@@ -214,17 +228,51 @@ Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: HasAbility=CardHasAbility()
 Virtual: ShieldTokenCount=GetShieldTokenCount()
 Virtual: ExperienceTokenCount=GetExperienceTokenCount()
+Virtual: CoordinateActive=ObjectCoordinateActive()
+Virtual: CoordinateInactive=ObjectCoordinateInactive()
+Virtual: HasSaboteur=ObjectHasSaboteur()
+Virtual: HasOverwhelm=ObjectHasOverwhelm()
+Virtual: HasGrit=ObjectHasGrit()
+Virtual: HasSentinel=ObjectHasSentinel()
+Virtual: HasHidden=ObjectHasHidden()
+Virtual: HasAmbush=ObjectHasAmbush()
+Virtual: HasBounty=ObjectHasBounty()
+Virtual: HiddenUnattackable=ObjectHiddenUnattackable()
 Index: TurnEffects
 Display: Visibility=Public, Mode=All, BindTo=GroundArenaSlot
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Overlay: Status=0:exhausted
 Rotation: Status=0:9
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
-Counters: Damage=Badge(Color=Red,Position=Center,ShowZero=false,Opacity=0.8)
-Counters: CurrentPower=Badge(Color=Red,Position=BottomLeft,ShowNegative=false)
-Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
-Counters: ShieldTokenCount=Image(Path=Assets/Icons/shield.webp,Position=Bottom,ShowZero=false,Size=22)
+Counters: Damage=Image(Path=Assets/Icons/swusim-damage.png,Position=Center,ShowZero=false,Size=32,TextColor=White)
+Counters: CurrentPower=Image(Path=Assets/Icons/swusim-power_v2.png,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White,OffsetX=-6,OffsetY=12)
+Counters: CurrentHP=Image(Path=Assets/Icons/swusim-hp_v2.png,Position=BottomRight,ShowNegative=false,Size=26,TextColor=White,OffsetX=6,OffsetY=12)
+Counters: ShieldTokenCount=Image(Path=Assets/Icons/shield.webp,Position=Bottom,ShowZero=false,Size=15)
 Counters: ExperienceTokenCount=Badge(Color=Gold,Position=Center,ShowZero=false)
+# Coordinate keyword indicator (CR 15): animated icon while active (controller has 3+ units),
+# static icon while it has Coordinate but the condition isn't met. Mutually exclusive.
+Counters: CoordinateActive=Image(Path=Assets/Icons/coordinate_active.webp,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
+Counters: CoordinateInactive=Image(Path=Assets/Icons/coordinate_inactive.png,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
+# Saboteur keyword indicator — shown on units that have Saboteur (printed or granted).
+# Bottom like Coordinate; the two cluster side-by-side when a unit has both.
+Counters: HasSaboteur=Image(Path=Assets/Icons/saboteur.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Overwhelm keyword indicator — shown on units that have Overwhelm (printed or granted).
+Counters: HasOverwhelm=Image(Path=Assets/Icons/overwhelm.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Grit keyword indicator — shown on units that have Grit (printed or granted).
+Counters: HasGrit=Image(Path=Assets/Icons/grit.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Hidden keyword indicator — shown on units that have Hidden (printed or granted), regardless of
+# whether they're currently unattackable. (The smoke overlay is separate, unattackable-only.)
+Counters: HasHidden=Image(Path=Assets/Icons/hidden.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Ambush keyword indicator — shown on units that have Ambush (printed or granted).
+Counters: HasAmbush=Image(Path=Assets/Icons/ambush.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Bounty keyword indicator — shown on units that have Bounty (printed, upgrade-granted, or effect).
+Counters: HasBounty=Image(Path=Assets/Icons/bounty.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Hidden smoke overlay — full-card image shown UNDER the badges (low DrawOrder) while a Hidden
+# unit is still unattackable (entered play this phase); clears once the phase ends.
+Overlay: HiddenUnattackable=1:hidden(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
+# Sentinel tech-wall overlay — full-card image (under the badges) on units that have Sentinel.
+# Scaled up a touch so the wall frames around the card edges.
+Overlay: HasSentinel=1:sentinel(Image=Assets/Overlays/tech-wall.webp,DrawOrder=10,Opacity=0.71,Scale=1.15,OffsetY=-4)
 AfterAdd: GroundArenaAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()
@@ -234,8 +282,8 @@ Click: FSM()
 # Ground units cannot attack space units (and vice versa) unless an ability explicitly allows it.
 # Space units may still deal damage to units in the ground arena through non-attack abilities.
 SpaceArena - CardID:string, Status:number=0, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Subcards:json, UniqueID:number=0, NumUses:number=1
-Virtual: CurrentPower=ObjectCurrentPowerDisplay()
-Virtual: CurrentHP=ObjectCurrentHPDisplay()
+Virtual: CurrentPower=ObjectPowerBadgeValue()
+Virtual: CurrentHP=ObjectHPBadgeValue()
 Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
 Virtual: CombatTargetIndicator=CombatTargetIndicator()
 Virtual: CurrentEffects=CardCurrentEffects()
@@ -243,17 +291,51 @@ Virtual: DisplayEffects=CardDisplayEffects()
 Virtual: HasAbility=CardHasAbility()
 Virtual: ShieldTokenCount=GetShieldTokenCount()
 Virtual: ExperienceTokenCount=GetExperienceTokenCount()
+Virtual: CoordinateActive=ObjectCoordinateActive()
+Virtual: CoordinateInactive=ObjectCoordinateInactive()
+Virtual: HasSaboteur=ObjectHasSaboteur()
+Virtual: HasOverwhelm=ObjectHasOverwhelm()
+Virtual: HasGrit=ObjectHasGrit()
+Virtual: HasSentinel=ObjectHasSentinel()
+Virtual: HasHidden=ObjectHasHidden()
+Virtual: HasAmbush=ObjectHasAmbush()
+Virtual: HasBounty=ObjectHasBounty()
+Virtual: HiddenUnattackable=ObjectHiddenUnattackable()
 Index: TurnEffects
 Display: Visibility=Public, Mode=All, BindTo=SpaceArenaSlot
 Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
 Overlay: Status=0:exhausted
 Rotation: Status=0:9
 Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
-Counters: Damage=Badge(Color=Red,Position=Center,ShowZero=false,Opacity=0.8)
-Counters: CurrentPower=Badge(Color=Red,Position=BottomLeft,ShowNegative=false)
-Counters: CurrentHP=Badge(Color=Blue,Position=BottomRight,ShowZero=false)
-Counters: ShieldTokenCount=Image(Path=Assets/Icons/shield.webp,Position=Bottom,ShowZero=false,Size=22)
+Counters: Damage=Image(Path=Assets/Icons/swusim-damage.png,Position=Center,ShowZero=false,Size=32,TextColor=White)
+Counters: CurrentPower=Image(Path=Assets/Icons/swusim-power_v2.png,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White,OffsetX=-6,OffsetY=12)
+Counters: CurrentHP=Image(Path=Assets/Icons/swusim-hp_v2.png,Position=BottomRight,ShowNegative=false,Size=26,TextColor=White,OffsetX=6,OffsetY=12)
+Counters: ShieldTokenCount=Image(Path=Assets/Icons/shield.webp,Position=Bottom,ShowZero=false,Size=15)
 Counters: ExperienceTokenCount=Badge(Color=Gold,Position=Center,ShowZero=false)
+# Coordinate keyword indicator (CR 15): animated icon while active (controller has 3+ units),
+# static icon while it has Coordinate but the condition isn't met. Mutually exclusive.
+Counters: CoordinateActive=Image(Path=Assets/Icons/coordinate_active.webp,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
+Counters: CoordinateInactive=Image(Path=Assets/Icons/coordinate_inactive.png,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
+# Saboteur keyword indicator — shown on units that have Saboteur (printed or granted).
+# Bottom like Coordinate; the two cluster side-by-side when a unit has both.
+Counters: HasSaboteur=Image(Path=Assets/Icons/saboteur.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Overwhelm keyword indicator — shown on units that have Overwhelm (printed or granted).
+Counters: HasOverwhelm=Image(Path=Assets/Icons/overwhelm.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Grit keyword indicator — shown on units that have Grit (printed or granted).
+Counters: HasGrit=Image(Path=Assets/Icons/grit.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Hidden keyword indicator — shown on units that have Hidden (printed or granted), regardless of
+# whether they're currently unattackable. (The smoke overlay is separate, unattackable-only.)
+Counters: HasHidden=Image(Path=Assets/Icons/hidden.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Ambush keyword indicator — shown on units that have Ambush (printed or granted).
+Counters: HasAmbush=Image(Path=Assets/Icons/ambush.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Bounty keyword indicator — shown on units that have Bounty (printed, upgrade-granted, or effect).
+Counters: HasBounty=Image(Path=Assets/Icons/bounty.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Hidden smoke overlay — full-card image shown UNDER the badges (low DrawOrder) while a Hidden
+# unit is still unattackable (entered play this phase); clears once the phase ends.
+Overlay: HiddenUnattackable=1:hidden(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
+# Sentinel tech-wall overlay — full-card image (under the badges) on units that have Sentinel.
+# Scaled up a touch so the wall frames around the card edges.
+Overlay: HasSentinel=1:sentinel(Image=Assets/Overlays/tech-wall.webp,DrawOrder=10,Opacity=0.71,Scale=1.15,OffsetY=-4)
 AfterAdd: SpaceArenaAfterAdd
 Highlight: FieldSelectionMetadata
 Click: FSM()

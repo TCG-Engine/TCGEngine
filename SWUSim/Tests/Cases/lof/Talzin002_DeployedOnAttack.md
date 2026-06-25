@@ -2,8 +2,11 @@
 # On Attack drops SOR_046 to 2/6.
 
 ## GIVEN
-P1LeaderBase: LOF_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:LOF_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

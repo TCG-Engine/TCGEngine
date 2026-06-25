@@ -3,8 +3,11 @@
 # cost 1) and then buffs the OTHER unit SEC_080 (3/3 → 4/3); the just-played TIE is excluded.
 
 ## GIVEN
-P1LeaderBase: JTL_011/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:JTL_011;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:0

@@ -2,8 +2,11 @@
 # He attacks the base and gives SOR_046 an Experience token → 4/8.
 
 ## GIVEN
-P1LeaderBase: LOF_008/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:LOF_008;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

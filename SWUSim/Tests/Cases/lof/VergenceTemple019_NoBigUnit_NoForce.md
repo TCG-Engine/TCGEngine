@@ -2,8 +2,10 @@
 # regroup-start condition fails and no Force token is created.
 
 ## GIVEN
-P1LeaderBase: SOR_002/LOF_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:LOF_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:0

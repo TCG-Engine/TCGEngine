@@ -3,8 +3,9 @@
 # Scry: put SOR_095 on bottom, keep SOR_128 on top.
 
 ## GIVEN
-P1LeaderBase: SOR_001/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gbk/grw/{
+  myLeader:SOR_001
+}
 SkipPreGame: true
 WithP1SpaceArena: SOR_031:1:0
 WithP2SpaceArena: SOR_066:1:0

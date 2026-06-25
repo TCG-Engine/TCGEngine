@@ -3,8 +3,7 @@
 # Experience, and no decision is pending. Unaffordable-cost guard.
 
 ## GIVEN
-P1LeaderBase: SOR_007/SOR_024
-P2LeaderBase: SOR_002/SOR_020
+CommonSetup: ggk/bbk
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 0

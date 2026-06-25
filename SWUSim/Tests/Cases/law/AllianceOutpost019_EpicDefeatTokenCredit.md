@@ -3,7 +3,9 @@
 # (JTL_T01); the epic defeats it (cost) and P1 chooses the Credit mode → 1 Credit created.
 
 ## GIVEN
-P1LeaderBase: SOR_005/LAW_019
+CommonSetup: bbw/grw/{
+  myBase:LAW_019
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: JTL_T01:1:0

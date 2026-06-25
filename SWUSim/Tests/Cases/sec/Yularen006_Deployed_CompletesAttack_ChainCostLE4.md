@@ -3,18 +3,20 @@
 # SOR_095 (cost 2 ≤ 4, power 3). 4 + 3 = 7 base damage.
 
 ## GIVEN
-P1LeaderBase: SEC_006:1:1:1/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgk/bbk/{
+  myLeader:SEC_006:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
-WithP1GroundArena: SEC_006:1:0
 WithP1GroundArena: SOR_095:1:0
 
 ## WHEN
-- P1>AttackGroundArena:0
-- P1>AnswerDecision:myGroundArena-1
+- P1>AttackGroundArena:1
+- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
 P2BASEDMG:7
-P1GROUNDARENAUNIT:0:EXHAUSTED
 P1GROUNDARENAUNIT:1:EXHAUSTED
+P1GROUNDARENAUNIT:0:EXHAUSTED

@@ -2,8 +2,10 @@
 # The Son (6 → 8) and a friendly SOR_095 (3 → 5) both gain +2 power; HP is unchanged.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithP1Force: true
 WithP1GroundArena: LOF_237:1:0

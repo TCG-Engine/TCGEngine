@@ -4,8 +4,11 @@
 # P1's only unit is SEC_080 (Imperial/Droid/Trooper — NOT Underworld).
 
 ## GIVEN
-P1LeaderBase: LAW_015/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byk/bbk/{
+  myLeader:LAW_015;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1

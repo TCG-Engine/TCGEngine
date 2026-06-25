@@ -3,7 +3,10 @@
 # unit and P2 has no units, so it auto-attacks the base for 3+2 = 5, then is defeated.
 
 ## GIVEN
-P1LeaderBase: LAW_001/SOR_025
+CommonSetup: rgw/grw/{
+  myLeader:LAW_001;
+  myBase:SOR_025
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:0

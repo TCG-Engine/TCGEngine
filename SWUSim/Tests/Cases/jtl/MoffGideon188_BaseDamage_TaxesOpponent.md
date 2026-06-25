@@ -3,8 +3,12 @@
 # P2's 6 resources are exactly consumed.
 
 ## GIVEN
-P1LeaderBase: JTL_015/JTL_019
-P2LeaderBase: JTL_004/JTL_019
+CommonSetup: byk/bbw/{
+  myLeader:JTL_015;
+  myBase:JTL_019;
+  theirLeader:JTL_004;
+  theirBase:JTL_019
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1GroundArena: JTL_188:1:0

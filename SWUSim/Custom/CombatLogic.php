@@ -1066,7 +1066,14 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
         OnHealBase($ctrl031, $ctrl031, intval($combatCtx['baseCombatDmg']));
     }
     // SEC_046 Galen Erso — a named attacker that lost its abilities fires no "completes an attack" trigger.
-    if ($attacker !== null && !isset($attacker->removed) && HasOnAttackEndAbility($attacker->CardID) && !LostAbilities($attacker)) {
+    global $onAttackEndAbilities;
+    // Only collect the OnAttackEnd trigger when a REAL handler is registered. A card can carry a
+    // HasOnAttackEndAbility stub with NO $onAttackEndAbilities handler — either a silent no-op, or
+    // (LAW_034/ASH_101/LAW_046/LAW_054, etc.) because its "When Attack Ends" is implemented on the
+    // combat-hit path (SWUCollectCombatHitTriggers, gated on $combatCtx). Collecting a handler-less
+    // OnAttackEnd trigger would add a phantom second trigger → an unanswered trigger-ordering MZCHOOSE.
+    if ($attacker !== null && !isset($attacker->removed) && HasOnAttackEndAbility($attacker->CardID)
+        && isset($onAttackEndAbilities[$attacker->CardID . ':0']) && !LostAbilities($attacker)) {
         // SOR_146 Zeb Orrelios — "completes an attack: IF the defender was defeated, ...". The "if" is
         // a trigger condition; gate collection on the combat outcome so nothing fires (no decision)
         // when the defender survived. Other OnAttackEnd cards (SOR_009/015/192) are unconditional.
@@ -1465,6 +1472,9 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $attacker->TurnEffects = $keptDef;
     }
     if (_SWULeaderDeployed(intval($attacker->Controller ?? $player), 'SOR_018')) $defenderPowerDebuff += 1;
+    // ASH_018 Grogu (deployed): "While ANOTHER friendly unit is attacking, the defending unit gets -1/-0."
+    // (Grogu himself attacking does not count — it must be another friendly unit.)
+    if (($attacker->CardID ?? '') !== 'ASH_018' && _SWULeaderDeployed(intval($attacker->Controller ?? $player), 'ASH_018')) $defenderPowerDebuff += 1;
     $defeatedCards = [];
     // Combat-hit context (Phase 7.2): captured here, consumed by CollectCombatStep3Triggers to fire
     // WhenDealsCombatDamage / WhenDefeats abilities (Rukh, Mace, Seventh Sister, SOR_088).
@@ -1513,6 +1523,8 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         if (($target->CardID ?? '') === 'LOF_049') $defendPower += 2;
         // ASH_073 Palace Chef Droid: "This unit gets +2/+0 while defending." (counter-damage only.)
         if (($target->CardID ?? '') === 'ASH_073') $defendPower += 2;
+        // ASH_018 Grogu (deployed): "While ANOTHER friendly unit is defending, it gets +1/+0." (counter-damage only.)
+        if (($target->CardID ?? '') !== 'ASH_018' && _SWULeaderDeployed(intval($target->Controller ?? 0), 'ASH_018')) $defendPower += 1;
         // "Can't deal combat damage this phase" (LAW_130) on the defender → it deals no counter-damage.
         if (is_array($target->TurnEffects ?? null) && in_array('NO_COMBAT_DAMAGE', $target->TurnEffects, true)) {
             $defendPower = 0;

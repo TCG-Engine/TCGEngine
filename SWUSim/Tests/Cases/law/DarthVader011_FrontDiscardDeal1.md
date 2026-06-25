@@ -2,7 +2,10 @@
 # to a unit or base." P1 discards SEC_080 (cost) and deals 1 to P2's SOR_128 (3/1), defeating it.
 
 ## GIVEN
-P1LeaderBase: LAW_011/SOR_028
+CommonSetup: yrk/grw/{
+  myLeader:LAW_011;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SEC_080

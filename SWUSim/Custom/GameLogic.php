@@ -271,8 +271,31 @@ function ObjectCurrentPower($obj) {
         }
     }
 
+    // ASH_010 Bo-Katan Kryze (deployed): other friendly Mandalorian units get +1/+0.
+    $base += SWUTraitCommanderBonus($obj, 'ASH_010', 'Mandalorian');
+
     // Self-conditional buffs.
     switch ($obj->CardID) {
+        case 'LOF_004': // Kanan Jarrus (deployed): while you control ANOTHER Creature or Spectre unit, +2/+2.
+            if ($controller > 0) {
+                $selfUid = intval($obj->UniqueID ?? 0);
+                foreach (GetUnitsInPlay($controller) as $u) {
+                    if (empty($u->removed) && intval($u->UniqueID ?? -1) !== $selfUid
+                        && (HasTrait($u->CardID, 'Creature') || HasTrait($u->CardID, 'Spectre'))) { $base += 2; break; }
+                }
+            }
+            break;
+        case 'LOF_007': // Avar Kriss (deployed): while the Force is with you, +4/+0 (and gains Overwhelm — keyword code).
+            if ($controller > 0 && PlayerHasTheForce($controller)) $base += 4;
+            break;
+        case 'LOF_011': // Kit Fisto (deployed): +1/+0 for each OTHER friendly Jedi unit.
+            if ($controller > 0) {
+                $selfUid = intval($obj->UniqueID ?? 0);
+                foreach (GetUnitsInPlay($controller) as $u) {
+                    if (empty($u->removed) && intval($u->UniqueID ?? -1) !== $selfUid && HasTrait($u->CardID, 'Jedi')) $base += 1;
+                }
+            }
+            break;
         case 'SOR_081': // Seasoned Shoretrooper: while you control 6+ resources, +2/+0.
             if ($controller > 0 && count(GetResources($controller)) >= 6) $base += 2;
             break;
@@ -533,6 +556,14 @@ function ObjectCurrentHP($obj) {
     if (($obj->CardID ?? '') === 'LOF_060' && $controller > 0 && _SWUControlsForceUnitOrUpgrade($controller)) $base += 1;
     // LOF_062 Axe Woves: +1/+1 for each upgrade on him (the +1 HP half, on top of each upgrade's own HP).
     if (($obj->CardID ?? '') === 'LOF_062') $base += count(GetUpgradesOnUnit($obj));
+    // LOF_004 Kanan Jarrus (deployed): while you control ANOTHER Creature or Spectre unit, +2/+2 (the +2 HP half).
+    if (($obj->CardID ?? '') === 'LOF_004' && $controller > 0) {
+        $selfUid = intval($obj->UniqueID ?? 0);
+        foreach (GetUnitsInPlay($controller) as $u) {
+            if (empty($u->removed) && intval($u->UniqueID ?? -1) !== $selfUid
+                && (HasTrait($u->CardID, 'Creature') || HasTrait($u->CardID, 'Spectre'))) { $base += 2; break; }
+        }
+    }
 
     foreach (GetUpgradesOnUnit($obj) as $u) {
         $base += intval(CardUpgradeHp($u->CardID) ?? 0);
@@ -675,6 +706,7 @@ $turnEffectRegistry = [
     'SOR_022' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Energy Conversion Lab — played unit gains Ambush this phase
     'SEC_194' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Fully Armed and Operational — played unit gains Ambush this phase (token doubles as a findable marker)
     'SEC_007' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Dryden Vos — the ≤5 unit played by the leader action gains Ambush this phase
+    'SHD_006' => ['kind' => 'GRANT_KEYWORD',  'value' => 'BOUNTY',   'label' => 'Bounty'],                                    // Jabba the Hutt — chosen unit gains a Bounty this phase (custom reward, discount carried in the dash param: SHD_006-1 front / SHD_006-2 deployed)
     'SEC_018' => ['kind' => 'MARKER',          'label' => 'DJ'],                                                               // DJ — transient findable marker on the unit just played by the leader action (captured immediately)
     'SOR_138' => ['kind' => 'LOSE_ABILITIES',                        'label' => 'Loses all abilities'],                       // Force Lightning — chosen unit loses all abilities this phase
     'SOR_140' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // SpecForce Soldier — a unit loses Sentinel this phase
@@ -1913,6 +1945,12 @@ function SWUComputePlayCost($player, $obj, $host = null): int {
     // dealt this way." Count-based charge (1 per discount); consumed in ActivateCard; cleared at RGS.
     if (stripos(CardType($cardID) ?? '', 'Unit') !== false) {
         $cost += -GlobalEffectCount(intval($player), 'SWU_ASH027_DISCOUNT_NEXT');
+    }
+    // SHD_006 Jabba's collected Bounty: "the next unit you play this phase costs N less." Count-based
+    // charge (1 per resource of discount, accumulates across collected bounties); consumed on the next
+    // unit play in ActivateCard; cleared at RegroupPhaseStart.
+    if (stripos(CardType($cardID) ?? '', 'Unit') !== false) {
+        $cost += -GlobalEffectCount(intval($player), 'SWU_SHD006_DISCOUNT_NEXT');
     }
     // LAW_158 Khetanna: one-shot armed "the next Underworld unit you play this phase costs 1 less."
     // Consumed in ActivateCard on the next Underworld unit play; cleared at RegroupPhaseStart.
@@ -4064,6 +4102,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH237_DISCOUNT_NEXT'); // ASH_237 Mouse Droid "next Imperial unit -1"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW058_DISCOUNT_NEXT'); // LAW_058 "next unit -1"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ASH027_DISCOUNT_NEXT'); // ASH_027 Enoch "next unit -N"
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD006_DISCOUNT_NEXT'); // SHD_006 Jabba's bounty "next unit -N"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW053_USED');          // LAW_053 Dengar "once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW094_USED');          // LAW_094 Hondo "once each round"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW176_USED');          // LAW_176 Sebulba's Podracer "once each round"
@@ -4599,9 +4638,20 @@ function ResetUndoDenyCount(int $playerID): void {
 function SWUPassAction($player) {
     $consecutivePasses = intval(GetSWUVar('PASS', '0'));
     if ($consecutivePasses >= 1) {
-        SetSWUVar('PASS', '0');
-        AdvanceAndExecute("PASS");
-        AutoAdvanceAndExecute();
+        // Both players have passed → end the action phase (MAIN→RGS). But a "when you take the
+        // initiative" trigger (e.g. ASH_155 Grogu's bonus attack) can still be QUEUED when the
+        // initiative-claim resolves its pass — and a pending decision makes EvaluateTransition
+        // return PENDING_DECISION, so AdvanceAndExecute("PASS") is a no-op. If we cleared PASS
+        // first and the exit didn't actually fire, the phase would stay MAIN with PASS=0 — a fresh
+        // action sequence, letting BOTH players keep acting (the Grogu bug). So only clear PASS
+        // when the exit really fires; otherwise keep PASS=1 and retry once the queue drains
+        // (high block so it runs after the triggers; DontSkipOnPass so a PASS answer can't skip it).
+        if (AdvanceAndExecute("PASS")) {
+            SetSWUVar('PASS', '0');
+            AutoAdvanceAndExecute();
+        } else {
+            DecisionQueueController::AddDecision(intval($player), 'CUSTOM', 'SWU_RETRY_ENDPHASE', 9, '', 1);
+        }
     } else {
         // A player who has already claimed the initiative is locked out for the rest of the action
         // phase — the engine resolves their non-turns as passes, but they aren't choosing to pass,
@@ -4705,6 +4755,19 @@ function _SWURevertSec192Steals(): void {
             array_splice($ge, $i, 1);
         }
     }
+}
+
+// Queue the action terminator — the step that ends the current action and passes the turn
+// (the SWU_AFTER_ACTION handler → SWUAfterAction). ALWAYS use this instead of queuing
+// SWU_AFTER_ACTION inline. It MUST run even when the action's last player decision was a
+// declined optional "may" follow-up (Pass button → "PASS") or an auto-pass from an empty
+// mandatory choice: the engine's decision queue makes a "PASS" answer sticky and would
+// otherwise skip every subsequent CUSTOM (DecisionQueueController skip-on-pass at line ~77),
+// swallowing this terminator → the turn never passes → the active player gets a free action.
+// dontSkipOnPass marks the terminator exempt from that skip. (Events finalize the same way via
+// FINISH_PLAY_CARD, which carries the same flag for the same reason.)
+function SWUQueueAfterAction(int $player, int $block = 1): void {
+    DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_AFTER_ACTION", $block, dontSkipOnPass: 1);
 }
 
 function SWUAfterAction($player) {
@@ -6211,6 +6274,30 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                     'owner' => intval($defObj->Owner ?? $d['player']),
                 ];
             }
+            // Granted custom Bounty (SHD_006 phase grant / SHD_123 upgrade grant) — snapshot the
+            // reward(s) NOW while the (removed) object still carries its turn-effects + subcards, so the
+            // bounty can be offered after cleanup. Each granted Bounty is an independent ability
+            // (CR 13.b); the innate $Bounty_Cards bounty is offered separately. A reward = the source
+            // CardID + a param (SHD_006: the discount 1/2; SHD_123: 1 if the host was unique → top 10).
+            if ($defObj !== null) {
+                global $gGrantedBountySnapshot;
+                $rewards = [];
+                foreach (SWUParsedTurnEffects($defObj) as $e) {
+                    if (($e['kind'] ?? '') === 'GRANT_KEYWORD' && ($e['value'] ?? '') === 'BOUNTY') {
+                        $rewards[] = ['reward' => $e['base'], 'param' => intval($e['params'][0] ?? 0)];
+                    }
+                }
+                if (is_array($defObj->Subcards ?? null)) {
+                    foreach ($defObj->Subcards as $sub) {
+                        $scid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+                        $srem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
+                        if (!$srem && $scid === 'SHD_123') {
+                            $rewards[] = ['reward' => 'SHD_123', 'param' => CardUnique($d['cardID'] ?? '') ? 1 : 0];
+                        }
+                    }
+                }
+                if (!empty($rewards)) { $GLOBALS['gGrantedBountySnapshot'][$d['mzID']] = $rewards; }
+            }
             $playerID = $savedDPID;
         }
     }
@@ -6256,6 +6343,22 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
             DecisionQueueController::AddDecision(intval($activePlayer), "YESNO", "-", 1, tooltip:"Collect_bounty?");
             DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM", "SWUCollectBounty|{$d['cardID']}", 1);
         }
+    }
+
+    // Granted custom bounties (SHD_006 phase grant / SHD_123 upgrade grant), snapshotted above while the
+    // object still had its turn-effects/subcards. Each is an independent ability (CR 13.b) offered to the
+    // defeating player ($activePlayer = the opponent of the bountied unit's controller, CR 13.f).
+    global $gGrantedBountySnapshot;
+    foreach ($defeatedCards as $d) {
+        $mz = $d['mzID'] ?? '';
+        if ($mz === '' || empty($gGrantedBountySnapshot[$mz])) continue;
+        if (!_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'] ?? '')) {
+            foreach ($gGrantedBountySnapshot[$mz] as $rw) {
+                DecisionQueueController::AddDecision(intval($activePlayer), "YESNO", "-", 1, tooltip:"Collect_bounty?");
+                DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM", "SWUCollectBounty|{$rw['reward']}|{$rw['param']}", 1);
+            }
+        }
+        unset($gGrantedBountySnapshot[$mz]);
     }
 }
 
@@ -6797,6 +6900,20 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
             case 'SHD_027': // Hylobon Enforcer — draw 1 card
                 DoDrawCard($player, 1);
                 break;
+            case 'SHD_006': // Jabba's granted bounty — "the next unit you play this phase costs N less"
+                            // (N = the discount carried in parts[1]: 1 from the front Action, 2 deployed).
+                $amt = max(1, intval($parts[1] ?? 1));
+                for ($i = 0; $i < $amt; $i++) AddGlobalEffects($player, 'SWU_SHD006_DISCOUNT_NEXT');
+                break;
+            case 'SHD_123': // Bounty Hunter's Quarry — search the top 5 (10 if the bountied unit was
+                            // unique) of YOUR deck for a unit costing 3 or less and play it for free.
+                $n = (intval($parts[1] ?? 0) === 1) ? 10 : 5;
+                if (count(GetDeck($player)) > 0) {
+                    DoTopDeckPlay($player, $n,
+                        fn($c) => stripos(CardType($c) ?? '', 'Unit') !== false && intval(CardCost($c)) <= 3,
+                        3, 1);
+                }
+                break;
         }
     }
     $playerID = $savedPID;
@@ -6884,6 +7001,16 @@ function SWUDealDamageToUnit(string $unitMzID, int $amount, int $player, ?string
         // that damage." Source-aware: the dealing handler passes its own mz; prevent the whole instance
         // when that source is a Creature and source + target share a controller who has Malakili in play.
         if ($sourceMzID !== null && _SWULof108PreventsCreatureDamage($sourceMzID, $unit)) {
+            $playerID = $saved;
+            return;
+        }
+        // Shield (CR 8.31): a Shield token absorbs the ENTIRE instance of damage from any source —
+        // combat (handled in SWUCombatDamage) OR a card ability/effect (this funnel). Consume one token
+        // and prevent the whole instance. ASH_196 unpreventable already bypassed this above; indirect
+        // damage never reaches this funnel (it writes Damage directly), so it correctly ignores Shields.
+        if ($amount > 0 && SWUConsumeShieldToken($unit)) {
+            SWUQueuePreventedAnim($unitMzID, intval($player));
+            SWUQueueShieldBreakAnim($unitMzID, intval($player));
             $playerID = $saved;
             return;
         }
@@ -7651,8 +7778,8 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
     $savedPID = $playerID;
     $playerID = $player;
     $all = array_merge(
-        ZoneSearch("myGroundArena", ["Unit", "Leader Unit"]),
-        ZoneSearch("mySpaceArena",  ["Unit", "Leader Unit"])
+        ZoneSearch("myGroundArena", AnyUnitFilter),
+        ZoneSearch("mySpaceArena",  AnyUnitFilter)
     );
     $playerID = $savedPID;
     switch ($cardID) {
@@ -7736,10 +7863,10 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'ASH_150': // Deadly Vulnerability — Condition (double damage), attach to any unit
             $playerID = $player;
             $all = array_values(array_merge(
-                ZoneSearch("myGroundArena",    ["Unit"]),
-                ZoneSearch("mySpaceArena",     ["Unit"]),
-                ZoneSearch("theirGroundArena", ["Unit"]),
-                ZoneSearch("theirSpaceArena",  ["Unit"])
+                ZoneSearch("myGroundArena",    AnyUnitFilter),
+                ZoneSearch("mySpaceArena",     AnyUnitFilter),
+                ZoneSearch("theirGroundArena", AnyUnitFilter),
+                ZoneSearch("theirSpaceArena",  AnyUnitFilter)
             ));
             $playerID = $savedPID;
             break;
@@ -7827,8 +7954,8 @@ function SWUGetPilotValidTargets(int $player, string $pilotCardID): array {
     $savedPID = $playerID;
     $playerID = $player;
     $all = array_merge(
-        ZoneSearch("myGroundArena", ["Unit", "Leader Unit"]),
-        ZoneSearch("mySpaceArena",  ["Unit", "Leader Unit"])
+        ZoneSearch("myGroundArena", AnyUnitFilter),
+        ZoneSearch("mySpaceArena",  AnyUnitFilter)
     );
     $playerID = $savedPID;
 
@@ -7855,8 +7982,8 @@ function SWUGetLeaderPilotVehicles(int $player): array {
     $savedPID = $playerID;
     $playerID = $player;
     $all = array_merge(
-        ZoneSearch("myGroundArena", ["Unit", "Leader Unit"]),
-        ZoneSearch("mySpaceArena",  ["Unit", "Leader Unit"])
+        ZoneSearch("myGroundArena", AnyUnitFilter),
+        ZoneSearch("mySpaceArena",  AnyUnitFilter)
     );
     $playerID = $savedPID;
     return array_values(array_filter($all, function($mz) {
@@ -7876,8 +8003,8 @@ function SWUGetPoe013AttachVehicles(int $player): array {
     $savedPID = $playerID;
     $playerID = $player;
     $all = array_merge(
-        ZoneSearch("myGroundArena", ["Unit", "Leader Unit"]),
-        ZoneSearch("mySpaceArena",  ["Unit", "Leader Unit"])
+        ZoneSearch("myGroundArena", AnyUnitFilter),
+        ZoneSearch("mySpaceArena",  AnyUnitFilter)
     );
     $playerID = $savedPID;
     return array_values(array_filter($all, function($mz) {
@@ -8192,6 +8319,11 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
     if (stripos(CardType($cardID) ?? '', 'Unit') !== false
             && GlobalEffectCount(intval($player), 'SWU_ASH027_DISCOUNT_NEXT') > 0) {
         SWUClearGlobalEffectsByPrefix(intval($player), 'SWU_ASH027_DISCOUNT_NEXT');
+    }
+    // SHD_006 Jabba's collected Bounty: consume ALL "next unit -N" charges on the next unit play.
+    if (stripos(CardType($cardID) ?? '', 'Unit') !== false
+            && GlobalEffectCount(intval($player), 'SWU_SHD006_DISCOUNT_NEXT') > 0) {
+        SWUClearGlobalEffectsByPrefix(intval($player), 'SWU_SHD006_DISCOUNT_NEXT');
     }
     // LAW_158 Khetanna: consume the one-shot "next Underworld unit -1" charge.
     if (stripos(CardType($cardID) ?? '', 'Unit') !== false && HasTrait($cardID, 'Underworld')
@@ -8535,7 +8667,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
             DecisionQueueController::AddDecision($player, "CUSTOM",
                 "TWI_210#0|{$player}|{$cardID}|{$resourcesPaid}", 5);
         }
-        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISH_PLAY_CARD", 10);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "FINISH_PLAY_CARD", 10, dontSkipOnPass: 1);
         // Do NOT restore $playerID here — ExecuteStaticMethods calls MZCountChoices
         // immediately after this returns, and it needs $playerID = $player to resolve
         // relative zone names like "theirGroundArena" correctly.
@@ -8567,6 +8699,23 @@ function SWUEffectivePlayExploit($obj): int {
     if ($obj === null || !isset($obj->CardID)) return 0;
     $base = GetKeyword_Exploit_Value($obj);   // additive; may return null when 0
     return intval($base) + intval($gPlayGrantedExploit ?? 0);
+}
+
+// Display flag for the hand "Exploit available" icon (schema Virtual: ExploitAvailable).
+// 1 when a card in hand could be played with Exploit: it HAS Exploit (printed or granted
+// on the card itself), OR it is a Separatist card while TWI_005 Count Dooku's "next
+// Separatist card you play this phase gains Exploit" charge is active for the hand's owner
+// (SWU_DOOKU_NEXT_SEPARATIST_EXPLOIT). Returns 1/0 for the Image counter (ShowZero hides 0).
+function HandCardExploitAvailable($obj): int {
+    if ($obj === null || !isset($obj->CardID)) return 0;
+    if (HasKeyword_Exploit($obj)) return 1;
+    $player = intval($obj->PlayerID ?? 0);
+    if ($player > 0
+            && HasTrait($obj->CardID, 'Separatist')
+            && GlobalEffectCount($player, 'SWU_DOOKU_NEXT_SEPARATIST_EXPLOIT') > 0) {
+        return 1;
+    }
+    return 0;
 }
 
 // Friendly units the player may defeat for Exploit (CR 16): ANY friendly unit — non-leader
@@ -9018,6 +9167,19 @@ function SWULeaderActionAffordable(int $player, string $cardID): bool {
         if (empty($hand)) return false;
     }
 
+    // SHD_006 Jabba the Hutt: "Choose a unit" to give a Bounty — requires ≥1 unit in play (any arena,
+    // either side), else there's nothing to choose.
+    if ($cardID === 'SHD_006') {
+        $savedPID = $playerID;
+        $playerID = $player;
+        $hasUnit = !empty(ZoneSearch('myGroundArena', AnyUnitFilter))
+                || !empty(ZoneSearch('mySpaceArena',  AnyUnitFilter))
+                || !empty(ZoneSearch('theirGroundArena', AnyUnitFilter))
+                || !empty(ZoneSearch('theirSpaceArena',  AnyUnitFilter));
+        $playerID = $savedPID;
+        if (!$hasUnit) return false;
+    }
+
     // JTL_013 Poe Dameron: "attach to a friendly Vehicle without a Pilot" — requires ≥1
     // such Vehicle in play, else the action has no valid target (leader stays ready).
     if ($cardID === 'JTL_013') {
@@ -9276,6 +9438,12 @@ function SWULeaderAction(int $player, string $cardID): void {
     $savedPID = $playerID;
     $playerID = $player;
 
+    // A leader's "Action: …" ability is a player action — legal ONLY during the action phase.
+    // The UI gates on this, but guard the engine entry too: once both players have passed (e.g.
+    // a player takes the initiative after the opponent passed) the action phase ends, and a
+    // stray/bypassed call must not still exhaust the leader and fire the ability.
+    if (GetCurrentPhase() !== 'MAIN') { $playerID = $savedPID; return; }
+
     $leaderArr = &GetLeader($player);
     $leader    = null;
     for ($i = 0; $i < count($leaderArr); $i++) {
@@ -9458,6 +9626,47 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             if (!$hasPlay) $ok = false;
             break;
         }
+        case 'ASH_002': { // Fennec Shand (deployed): needs 1 ready resource, a hand unit, and a ready friendly unit (the cost).
+            if (SWUResourceCount($player, readyOnly: true) < 1) { $ok = false; break; }
+            if (empty(ZoneSearch('myHand', ['Unit', 'Token Unit']))) { $ok = false; break; }
+            $hasReady = false;
+            foreach (['myGroundArena', 'mySpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed) && intval($o->Status) === 1) { $hasReady = true; break 2; }
+                }
+            }
+            if (!$hasReady) $ok = false;
+            break;
+        }
+        case 'LOF_013': // Barriss Offee (deployed): needs the Force token + a playable event (at the −1 discount).
+            if (!PlayerHasTheForce($player) || empty(SWUHandPlayablesAtDiscount($player, ['Event'], 1))) $ok = false;
+            break;
+        case 'LOF_018': { // Anakin (deployed): needs the Force token + a playable Villainy non-unit at printed cost.
+            if (!PlayerHasTheForce($player)) { $ok = false; break; }
+            $ready = SWUResourceCount($player, readyOnly: true);
+            $has = false;
+            foreach (GetHand($player) as $c) {
+                if ($c === null || !empty($c->removed)) continue;
+                $cid = $c->CardID;
+                if (CardType($cid) === 'Unit' || strpos(CardAspect($cid) ?? '', 'Villainy') === false) continue;
+                if ($ready >= intval(CardCost($cid))) { $has = true; break; }
+            }
+            if (!$has) $ok = false;
+            break;
+        }
+        case 'SEC_007': { // Dryden Vos (deployed): needs a card to discard + a playable unit in hand.
+            if (empty(ZoneSearch('myHand'))) { $ok = false; break; }
+            $ready = SWUResourceCount($player, readyOnly: true);
+            $has = false;
+            foreach (ZoneSearch('myHand') as $hmz) {
+                $u = GetZoneObject($hmz);
+                if ($u !== null && empty($u->removed) && stripos(CardType($u->CardID) ?? '', 'Unit') !== false
+                    && SWUComputePlayCost($player, $u) <= $ready) { $has = true; break; }
+            }
+            if (!$has) $ok = false;
+            break;
+        }
         case 'LAW_126': { // Adventurer Sniper Rifle: needs an undamaged non-leader ground unit to target.
             $has = false;
             foreach (["myGroundArena", "theirGroundArena"] as $z) {
@@ -9513,8 +9722,8 @@ function SWUUnitActionAffordable(int $player, string $mzID, string $providerCard
             if (!SWUHasUseAvailable(SWUGetLeader($player))) { $ok = false; break; }
             $hopTargets = array_values(array_filter(
                 array_merge(
-                    ZoneSearch("myGroundArena", ["Unit", "Leader Unit"]),
-                    ZoneSearch("mySpaceArena",  ["Unit", "Leader Unit"])
+                    ZoneSearch("myGroundArena", AnyUnitFilter),
+                    ZoneSearch("mySpaceArena",  AnyUnitFilter)
                 ),
                 function($mz) use ($mzID) {
                     if ($mz === $mzID) return false;
@@ -18631,6 +18840,19 @@ function ObjectCurrentHPDisplay($obj) {
     return $cardHp == $currentHp ? 0 : $currentHp;
 }
 
+// Always-on power/HP badge values for arena units — show the CURRENT value whether
+// modified or not (the *Display variants above hide unmodified stats). Returns -1 to
+// hide for cards with no power/HP stat; the counter's ShowNegative=false suppresses
+// that sentinel.
+function ObjectPowerBadgeValue($obj) {
+    if (CardPower($obj->CardID) == -1) return -1; // no power stat → no badge
+    return ObjectCurrentPower($obj);
+}
+function ObjectHPBadgeValue($obj) {
+    if (CardHp($obj->CardID) == -1) return -1;    // no HP stat → no badge
+    return ObjectCurrentHP($obj);
+}
+
 
 function ObjectCurrentLevelDisplay($obj) {
     if(!PropertyContains(EffectiveCardType($obj), "CHAMPION")) {
@@ -21044,6 +21266,12 @@ function SWUClearGlobalEffectsByPrefix(int $player, string $prefix): void {
 // CR 37.3 — "the Force is with you" is true iff the player currently controls their Force token.
 function PlayerHasTheForce(int $player): bool {
     return GlobalEffectCount($player, 'SWU_HAS_FORCE') > 0;
+}
+
+// $obj-signature wrapper for the Base zone's "HasForce" virtual property (the schema
+// Virtual: directive passes the zone object; the client's Force token reads this flag).
+function BaseHasForce($obj): bool {
+    return isset($obj->PlayerID) ? PlayerHasTheForce(intval($obj->PlayerID)) : false;
 }
 
 // CR 37.2 — "The Force is with you": the player creates their Force token. If they already control it,

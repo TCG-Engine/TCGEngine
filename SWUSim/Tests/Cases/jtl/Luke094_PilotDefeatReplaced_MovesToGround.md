@@ -4,8 +4,10 @@
 # moves him to the ground arena as an exhausted unit instead — so SEC_214 is discarded but Luke is not.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 2
 WithInitiativePlayer: 2

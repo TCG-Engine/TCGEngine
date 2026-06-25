@@ -3,8 +3,9 @@
 # P1 says YES; Cell Block Guard (SOR_229, Villainy, exhausted) is the only eligible target.
 
 ## GIVEN
-P1LeaderBase: SOR_001/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gbk/grw/{
+  myLeader:SOR_001
+}
 SkipPreGame: true
 WithP1GroundArena: SOR_226:1:0
 WithP1GroundArena: SOR_229:0:0

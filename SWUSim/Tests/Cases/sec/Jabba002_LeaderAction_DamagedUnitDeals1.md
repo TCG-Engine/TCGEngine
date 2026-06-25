@@ -4,8 +4,11 @@
 # Costs 1 resource (2 ready → 1), leader exhausts.
 
 ## GIVEN
-P1LeaderBase: SEC_002/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_002;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

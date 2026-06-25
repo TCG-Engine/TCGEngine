@@ -5,11 +5,13 @@
 # Space arena = 2 TIEs (squadron died); ground arena keeps the Thrawn leader unit.
 
 ## GIVEN
-P1LeaderBase: JTL_002:1:1:1/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: gbk/bbk/{
+  myLeader:JTL_002:1:1:1;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
-WithP1GroundArena: JTL_002:1:0
 WithP1SpaceArena: JTL_087:1:1
 WithP2SpaceArena: SOR_044:1:0
 

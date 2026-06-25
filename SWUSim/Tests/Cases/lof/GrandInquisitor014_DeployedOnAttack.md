@@ -4,8 +4,11 @@
 # the innate Shield here; it's verified directly by the leader-side LOF_014 and SOR_212 tests.)
 
 ## GIVEN
-P1LeaderBase: LOF_014/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byk/bbk/{
+  myLeader:LOF_014;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

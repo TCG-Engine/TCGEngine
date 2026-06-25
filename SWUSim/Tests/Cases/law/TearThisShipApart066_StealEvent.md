@@ -3,8 +3,11 @@
 # goes to its OWNER's (P2's) discard. P2 then refills from deck.
 
 ## GIVEN
-P1LeaderBase: JTL_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 13

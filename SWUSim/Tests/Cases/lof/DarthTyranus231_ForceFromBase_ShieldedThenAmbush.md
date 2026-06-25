@@ -7,8 +7,10 @@
 # shield (shield consumed → Tyranus ends undamaged, 0 shields). LOF_112 (2 power) dealt 2 to P2's base.
 
 ## GIVEN
-P1LeaderBase: SOR_002/LOF_026
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: rbk/bbk/{
+  myBase:LOF_026;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LOF_112:1:0

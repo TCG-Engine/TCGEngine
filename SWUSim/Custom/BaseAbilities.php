@@ -75,7 +75,7 @@ $baseAbilities["SOR_028"] = function($player) {
     $playerID = $savedPID;
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget(intval($player), $targets, "Give_a_non-leader_unit_-4/-0_for_this_phase", "APPLY_PHASE_DEBUFF|4|0|SOR_028");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_AFTER_ACTION", 1);
+    SWUQueueAfterAction($player);
 };
 
 // SOR_025 Tarkintown — Epic Action: Deal 3 damage to a damaged non-leader unit.
@@ -98,7 +98,7 @@ $baseAbilities["SOR_025"] = function($player) {
     $playerID = $savedPID;
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget(intval($player), $targets, "Deal_3_to_a_damaged_non-leader_unit", "DEAL_UNIT_DAMAGE|3");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_AFTER_ACTION", 1);
+    SWUQueueAfterAction($player);
 };
 
 $baseAbilities["SOR_019"] = function($player) {
@@ -182,7 +182,7 @@ $baseAbilities["LAW_026"] = function($player) {
     }
     if (empty($milledMz)) { SWUAfterAction($player); return; }
     SWUQueueMayChooseTarget(intval($player), $milledMz, "Return_a_discarded_card_to_the_top_of_your_deck?", "Choose_a_card", "LAW_026#0");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_AFTER_ACTION", 1);
+    SWUQueueAfterAction($player);
 };
 
 // LAW_029 Citadel Research Center — Epic Action [1 resource]: Return a friendly resource to its owner's
@@ -199,5 +199,5 @@ $baseAbilities["LAW_029"] = function($player) {
     }
     if (empty($targets)) { SWUAfterAction($player); return; }
     SWUQueueChooseTarget(intval($player), $targets, "Return_a_friendly_resource_to_its_owner's_hand", "LAW_029#0");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SWU_AFTER_ACTION", 1);
+    SWUQueueAfterAction($player);
 };

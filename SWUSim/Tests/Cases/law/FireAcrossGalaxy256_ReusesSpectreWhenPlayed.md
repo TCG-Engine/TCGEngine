@@ -4,8 +4,10 @@
 # token (no Cunning/Vigilance unit controlled, so 1 token) → 2/3.
 
 ## GIVEN
-P1LeaderBase: SOR_005/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

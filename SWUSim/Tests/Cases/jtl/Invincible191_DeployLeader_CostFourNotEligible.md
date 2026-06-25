@@ -3,8 +3,11 @@
 # unit is untouched. (Proves the ≤3 cutoff, distinguishing it from the ≤4 wording on JTL_223 Razor Crest.)
 
 ## GIVEN
-P1LeaderBase: SOR_015/SOR_021
-P2LeaderBase: SOR_005/SOR_021
+CommonSetup: byk/bbw/{
+  myLeader:SOR_015;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5

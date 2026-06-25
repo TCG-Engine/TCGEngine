@@ -2,8 +2,11 @@
 # LOF_044 (a Creature) gets a Shield; the resource is spent.
 
 ## GIVEN
-P1LeaderBase: LOF_004/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myLeader:LOF_004;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1

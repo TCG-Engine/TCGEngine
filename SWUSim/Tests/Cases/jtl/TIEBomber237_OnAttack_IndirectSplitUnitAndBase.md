@@ -4,8 +4,10 @@
 # SOR_128 (defeats it) + 2 to their base. P2 base = 0 combat + 2 indirect = 2; SOR_128 is defeated.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_237:1:0

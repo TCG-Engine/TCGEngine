@@ -2,8 +2,9 @@
 #   damaged 3/3 (2 damage) heals to 1; Leia exhausts and 1 resource is spent.
 
 ## GIVEN
-P1LeaderBase: IBH_001/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: ggw/brk/{
+  myLeader:IBH_001
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1

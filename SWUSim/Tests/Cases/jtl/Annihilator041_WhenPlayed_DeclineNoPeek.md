@@ -4,8 +4,11 @@
 # copy; nothing is discarded and no decision is left pending. Proves the peek is gated on a defeat.
 
 ## GIVEN
-P1LeaderBase: JTL_001/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_041

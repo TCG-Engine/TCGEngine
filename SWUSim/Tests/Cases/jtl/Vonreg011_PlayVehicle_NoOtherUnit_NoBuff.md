@@ -2,8 +2,11 @@
 # the Vehicle enters, the buff has no target and fizzles: the played TIE keeps its printed 2 power.
 
 ## GIVEN
-P1LeaderBase: JTL_011/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:JTL_011;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_225

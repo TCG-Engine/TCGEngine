@@ -2,8 +2,11 @@
 # exhausted. With no enemy space units, JTL_135 (P1's only space unit) does not ready.
 
 ## GIVEN
-P1LeaderBase: JTL_011/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: grk/bbk/{
+  myLeader:JTL_011;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_135

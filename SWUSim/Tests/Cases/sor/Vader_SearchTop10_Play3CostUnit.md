@@ -1,8 +1,7 @@
 # SOR_087 Darth Vader — WhenPlayed search top 10: play one 3-cost Villainy unit for free.
 
 ## GIVEN
-P1LeaderBase: SOR_007/SOR_024
-P2LeaderBase: SOR_002/SOR_020
+CommonSetup: ggk/bbk
 SkipPreGame: true
 WithP1Hand: SOR_087
 WithP1Resources: 7

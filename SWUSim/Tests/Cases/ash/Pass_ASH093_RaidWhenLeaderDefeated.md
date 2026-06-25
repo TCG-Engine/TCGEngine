@@ -2,12 +2,15 @@
 # Raid 3. P1's SOR_046 attacks and defeats P2's deployed Iden Versio (4/4, pre-damaged to 3 HP); then
 # ASH_093 attacks the enemy base with Raid 3 → 2 + 3 = 5 damage.
 ## GIVEN
-P1LeaderBase: SOR_013/SOR_021
-P2LeaderBase: SOR_002:1:1:0/SOR_021
+CommonSetup: brw/bbk/{
+  theirLeader:SOR_002:1:1:0:1;
+  myLeader:SOR_013;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithP1GroundArena: ASH_093:1:0
 WithP1GroundArena: SOR_046:1:0
-WithP2GroundArena: SOR_002:1:1
 WithActivePlayer: 1
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

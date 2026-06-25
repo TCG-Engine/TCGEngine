@@ -3,8 +3,11 @@
 # READY, the upgrade stays in hand, resources unspent.
 
 ## GIVEN
-P1LeaderBase: SEC_003/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_003;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 4

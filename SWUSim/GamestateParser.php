@@ -241,9 +241,6 @@ function ParseGamestate($filepath="./") {
     $gamestateText = file_get_contents($filename);
   }
   if($gamestateText === false || $gamestateText === "") return;
-  if(function_exists("UpgradeLegacyGamestateText")) {
-    $gamestateText = UpgradeLegacyGamestateText($gamestateText, "SWUSim");
-  }
   $handler = fopen("php://temp", "r+");
   fwrite($handler, $gamestateText);
   rewind($handler);

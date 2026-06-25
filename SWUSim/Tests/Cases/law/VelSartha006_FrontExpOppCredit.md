@@ -3,7 +3,10 @@
 # P2 (the opponent) creates 1 Credit.
 
 ## GIVEN
-P1LeaderBase: LAW_006/SOR_028
+CommonSetup: ybw/grw/{
+  myLeader:LAW_006;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:0

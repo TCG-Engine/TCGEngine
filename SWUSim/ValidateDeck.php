@@ -75,16 +75,15 @@ function SWUCheckPremierFormat($leader, $base, array $mainDeck, array $sideboard
     ];
 
     $minDeck = 50;
-    $getSet  = function ($id) { return strtoupper(explode('_', $id)[0] ?? ''); };
 
-    // 1. Leader set legality
-    if ($leader && !in_array($getSet($leader), $legalSets, true)) {
+    // 1. Leader set legality (a reprint in a legal set counts — SWUCardHasLegalPrint)
+    if ($leader && !SWUCardHasLegalPrint($leader, $legalSets)) {
         $errors[] = "Leader $leader ($leader) is not in a legal Premier set.";
     }
 
     // 2. Base set legality + deck-size modifier
     if ($base) {
-        if (!in_array($getSet($base), $legalSets, true)) {
+        if (!SWUCardHasLegalPrint($base, $legalSets)) {
             $errors[] = "Base $base is not in a legal Premier set.";
         }
         if (isset($deckSizeModifiers[$base])) {
@@ -92,13 +91,14 @@ function SWUCheckPremierFormat($leader, $base, array $mainDeck, array $sideboard
         }
     }
 
-    // 3. Deck card legality + copy-count limits
-    $cardCounts  = array_count_values($mainDeck);
+    // 3. Deck card legality + copy-count limits. Count by canonical printing so
+    //    different printings of the same card share one 3-copy limit (CR 8.36).
+    $cardCounts  = array_count_values(array_map('CardIDOverride', $mainDeck));
     $illegalCards = [];
     $overLimit    = [];
 
     foreach ($cardCounts as $cardID => $count) {
-        if (!in_array($getSet($cardID), $legalSets, true)) {
+        if (!SWUCardHasLegalPrint($cardID, $legalSets)) {
             $illegalCards[] = $cardID;
         }
         $limit = $copyExceptions[$cardID] ?? 3;

@@ -3,8 +3,11 @@
 # two enemy ground units (both survive: SOR_046 is 3/7, SOR_063 is 2/4).
 
 ## GIVEN
-P1LeaderBase: JTL_009/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:JTL_009;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

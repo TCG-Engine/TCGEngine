@@ -2,8 +2,11 @@
 # Same setup as the take test; P1 declines the MZMAYCHOOSE, so P2's SOR_063 stays and P2's hand is empty.
 
 ## GIVEN
-P1LeaderBase: SOR_015/SOR_021
-P2LeaderBase: SOR_005/SOR_021
+CommonSetup: byk/bbw/{
+  myLeader:SOR_015;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 5

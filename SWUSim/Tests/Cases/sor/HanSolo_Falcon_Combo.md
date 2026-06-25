@@ -17,8 +17,7 @@
 # the Ready step (Falcon trigger) and the next Action phase (Han's pending defeat) are reached.
 
 ## GIVEN
-P1LeaderBase: SOR_017/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gyw/grw
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_095

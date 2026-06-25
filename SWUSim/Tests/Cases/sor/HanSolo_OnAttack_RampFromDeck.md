@@ -5,8 +5,7 @@
 # P2 base takes 4 (Han's power). Han is exhausted from attacking.
 
 ## GIVEN
-P1LeaderBase: SOR_017/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gyw/grw
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

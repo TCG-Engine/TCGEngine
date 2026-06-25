@@ -4,8 +4,10 @@
 # Firespray (power 4) attacks P2's base for 4 combat; the indirect goes to the unit, so P2 base = 4.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_240:1:0

@@ -1,8 +1,9 @@
 # SHD_012 Bo-Katan Kryze — Deployed: OnAttack YES first hit only (no other Mandalorian attacked).
 
 ## GIVEN
-P1LeaderBase: SHD_012/SOR_026
-P2LeaderBase: SOR_009/SOR_024
+CommonSetup: rrw/ggw/{
+  myLeader:SHD_012
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

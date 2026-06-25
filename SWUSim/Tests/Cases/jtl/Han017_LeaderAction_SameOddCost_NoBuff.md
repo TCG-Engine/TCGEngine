@@ -3,8 +3,11 @@
 # the attacker deals its base 4 to P2's base.
 
 ## GIVEN
-P1LeaderBase: JTL_017/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:JTL_017;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_069:1:0

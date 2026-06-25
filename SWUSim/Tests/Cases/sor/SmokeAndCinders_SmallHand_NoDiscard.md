@@ -2,8 +2,9 @@
 # decision). P1 (3 cards after playing) keeps 2/discards 1; P2 (1 card) keeps it, no decision.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Hand: SOR_174

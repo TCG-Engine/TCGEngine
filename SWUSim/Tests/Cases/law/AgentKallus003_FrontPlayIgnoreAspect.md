@@ -4,7 +4,10 @@
 # (full penalty waived). 3 resources → 1 (action) + 2 (card) = 0 left.
 
 ## GIVEN
-P1LeaderBase: LAW_003/SOR_028
+CommonSetup: ybk/grw/{
+  myLeader:LAW_003;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 3

@@ -44,22 +44,52 @@ function CommonSetup(
     [$myLeaderID, $myBaseID]     = _resolveLeaderBase($myCode);
     [$theirLeaderID, $theirBaseID] = _resolveLeaderBase($theirCode);
 
+    // Explicit leader override (opt 'myLeader'/'theirLeader'): the 3-char code still drives the base,
+    // but the leader is swapped to any cardID — e.g. a JTL pilot leader for myLeaderDeployedPilot.
+    $myLeaderID    = $myOpts['leaderCardID']    ?? $myLeaderID;
+    $theirLeaderID = $theirOpts['leaderCardID'] ?? $theirLeaderID;
+
+    // Explicit base override (opt 'myBase'/'theirBase'): the 3-char code's base letter still drives the
+    // color, but the base card itself is swapped to any cardID — needed for the many non-canonical bases
+    // (different HP, Epic Actions, Force triggers, starting-hand modifiers) that the 5 color bases can't
+    // stand in for.
+    $myBaseID    = $myOpts['baseCardID']    ?? $myBaseID;
+    $theirBaseID = $theirOpts['baseCardID'] ?? $theirBaseID;
+
+    // Deploy mode: 'pilot' (attach as a Pilot upgrade onto a host Vehicle) takes precedence over
+    // 'unit' (place a real ground-arena leader unit). Either implies the leader's Deployed flag.
+    $myDeployMode    = !empty($myOpts['leaderDeployedPilot'])    ? 'pilot'
+                     : (!empty($myOpts['leaderDeployed'])        ? 'unit' : '');
+    $theirDeployMode = !empty($theirOpts['leaderDeployedPilot']) ? 'pilot'
+                     : (!empty($theirOpts['leaderDeployed'])     ? 'unit' : '');
+
+    // Deployed flag decoupled from deploy mode: 'leaderDeployedFlag' sets Leader.Deployed=true WITHOUT
+    // any board presence (deployMode=''), matching the legacy P1LeaderBase `:deployed` field where the
+    // deployed leader unit is declared separately via WithP{n}GroundArena. Any real deploy mode also
+    // implies the flag.
+    $myDeployedFlag    = $myDeployMode !== ''    || !empty($myOpts['leaderDeployedFlag']);
+    $theirDeployedFlag = $theirDeployMode !== '' || !empty($theirOpts['leaderDeployedFlag']);
+
     $b->MyBase($myBaseID,
             $myOpts['baseDamage']          ?? 0,
             $myOpts['baseEpicActionUsed']  ?? false,
             $myOpts['baseNumUses']         ?? 0)
       ->MyLeader($myLeaderID,
             $myOpts['leaderReady']         ?? true,
-            $myOpts['leaderDeployed']      ?? false,
-            $myOpts['leaderEpicActionUsed'] ?? false)
+            $myDeployedFlag,
+            $myOpts['leaderEpicActionUsed'] ?? false,
+            $myDeployMode,
+            $myOpts['leaderDamage']        ?? 0)
       ->TheirBase($theirBaseID,
             $theirOpts['baseDamage']          ?? 0,
             $theirOpts['baseEpicActionUsed']  ?? false,
             $theirOpts['baseNumUses']         ?? 0)
       ->TheirLeader($theirLeaderID,
             $theirOpts['leaderReady']         ?? true,
-            $theirOpts['leaderDeployed']      ?? false,
-            $theirOpts['leaderEpicActionUsed'] ?? false);
+            $theirDeployedFlag,
+            $theirOpts['leaderEpicActionUsed'] ?? false,
+            $theirDeployMode,
+            $theirOpts['leaderDamage']        ?? 0);
 
     $vanilla = Cards::UNITS_SOR_BATTLEFIELD_MARINE;
 

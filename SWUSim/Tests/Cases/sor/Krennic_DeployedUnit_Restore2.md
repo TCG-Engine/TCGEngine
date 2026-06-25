@@ -3,10 +3,11 @@
 # heals 2 from P1 base -> P1 base at 2; P2 base takes 2.
 
 ## GIVEN
-P1LeaderBase: SOR_001:1:1:1/SOR_024:4
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gbk/grw/{
+  myLeader:SOR_001:1:1:1;
+  myBaseDamage:4
+}
 SkipPreGame: true
-WithP1GroundArena: SOR_001:1:0
 
 ## WHEN
 - P1>AttackGroundArena:0:BASE

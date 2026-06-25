@@ -3,8 +3,11 @@
 # an X-Wing (JTL_T02) in P2's space arena.
 
 ## GIVEN
-P1LeaderBase: JTL_016/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:JTL_016;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP2GroundArena: SOR_095:1:0

@@ -3,8 +3,11 @@
 # becomes 4/3.
 
 ## GIVEN
-P1LeaderBase: JTL_007/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:JTL_007;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: JTL_099:1:0

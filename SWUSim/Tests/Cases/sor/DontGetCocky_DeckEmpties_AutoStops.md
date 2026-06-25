@@ -3,8 +3,10 @@
 # further prompt is shown — combined 4 ≤ 7 deals 4, and both revealed cards return to the deck (count 2).
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_223

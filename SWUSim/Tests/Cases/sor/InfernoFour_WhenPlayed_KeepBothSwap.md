@@ -1,8 +1,9 @@
 # SOR_031 Inferno Four — WhenPlayed scry 2: keep both on top but swap order.
 
 ## GIVEN
-P1LeaderBase: SOR_001/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: gbk/grw/{
+  myLeader:SOR_001
+}
 SkipPreGame: true
 WithP1Hand: SOR_031
 WithP1Resources: 2

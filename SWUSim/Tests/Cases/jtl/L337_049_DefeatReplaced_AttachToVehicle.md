@@ -4,8 +4,10 @@
 # SEC_214 — so she leaves the unit slot, is NOT discarded, and SEC_214 gains her as an upgrade.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 2
 WithInitiativePlayer: 2

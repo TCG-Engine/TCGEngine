@@ -1,8 +1,7 @@
 # SOR_236 R2-D2 — WhenPlayed scry 1: choose to keep top card on top.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: grw/grw
 SkipPreGame: true
 WithP1Hand: SOR_236
 WithP1Resources: 2

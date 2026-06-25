@@ -2,8 +2,11 @@
 # deploys as a Pilot onto the lone friendly Vehicle (SOR_225 TIE/ln Fighter), then makes 2 TIE tokens.
 
 ## GIVEN
-P1LeaderBase: JTL_006/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgk/bbk/{
+  myLeader:JTL_006;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

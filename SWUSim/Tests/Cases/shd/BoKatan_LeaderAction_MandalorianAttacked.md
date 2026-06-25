@@ -2,12 +2,14 @@
 # SOR_162 (Disabling Fang Fighter) is Mandalorian trait, Space arena.
 
 ## GIVEN
-P1LeaderBase: SHD_012/SOR_026
-P2LeaderBase: SOR_009/SOR_024
+CommonSetup: rrw/ggw/{
+  myLeader:SHD_012
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true
-WithP1SpaceArena: SOR_162:2:0
+WithActivePlayer: 1
+WithP1SpaceArena: SOR_162:1:0
 WithP2GroundArena: SOR_095:2:0
 
 ## WHEN

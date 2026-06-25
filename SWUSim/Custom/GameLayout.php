@@ -1,7 +1,12 @@
 <?php
-// GameLayout.php — SWUSim board layout v3: horizontal arena columns.
+// GameLayout.php — SWUSim board layout v3: horizontal arena columns (desktop/tablet).
 // LEFT = Space Arena, CENTER = Leader/Base/Piles, RIGHT = Ground Arena.
 // Zone slot IDs must match BindTo values in GameSchema.txt.
+//
+// Phones are routed to the vertical-stack layout in GameLayoutMobile.php. Shared
+// behaviour lives in GameLayoutShared.php and targets slot IDs, so both reuse it.
+require_once __DIR__ . '/GameLayoutDevice.php';
+if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
     :root {
@@ -12,17 +17,28 @@
         --swu-border-hi:    rgba(255,255,255,0.22);
         --swu-gold:         #c8971e;
         --swu-gold-soft:    rgba(200,151,30,0.22);
-        --swu-space-bg:     rgba(30,60,120,0.20);
-        --swu-ground-bg:    rgba(120,80,30,0.20);
         --swu-font-ui:      "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif;
         --swu-font-label:   "Bahnschrift","Aptos Display","Franklin Gothic Medium",sans-serif;
 
         /* ── Layout ── */
         --swu-sidebar-w:    clamp(160px, 14vw, 200px);
         --swu-board-w:      calc(100vw - var(--swu-sidebar-w));
-        --swu-center-w:     196px;   /* leader + base column */
+        /* Leader + base column width. Leader/base art FILLS this column
+           (width:100% of the center col, via the object-fit rework), so this var
+           IS their on-screen card size. The engine renders a LANDSCAPE card at
+           width = cardSize * 1.35 (see UILibraries Card(): rotate/landscape branch),
+           which is exactly a unit card's height — i.e. naturally proportional. So we
+           match that constant: card width = cardSize * 1.35 (+18px for the col's
+           padding/border). --swu-cardsize is window.cardSize, set by GameLayoutShared
+           JS; the 80px fallback only applies for the first paint before the JS runs.
+           The <=1100px / <=800px media queries below can still override. */
+        --swu-center-w:     calc(var(--swu-cardsize, 80px) * 1.35 + 18px);
         --swu-hand-h:       118px;
         --swu-pile-w:       88px;
+        /* Width the deck+discard pile rows occupy on the right (2 piles + gap +
+           breathing room). Hand panels stop before this so they never bleed
+           under the piles. */
+        --swu-pile-zone-w:  calc(var(--swu-pile-w) * 2 + 20px);
 
         /* ── Game-log palette — ONE var per log type (single source of truth). ──
            Tune a type's color here; every .swu-log-<TYPE> rule below reads its var.
@@ -44,8 +60,20 @@
         --swu-log-pass:       var(--swu-log-default);
         --swu-log-initiative: var(--swu-log-default);
 
-        /* reserved on the left for the resource badge — sized to the badge's contents */
-        --swu-res-badge-w:  78px;
+        /* Left bar eliminated — initiative + resources now live in the hand band
+           (bottom-left / top-left), so the arenas reclaim the full left edge.
+           --swu-res-badge-w kept at 0 so the arena/center offset calcs still work. */
+        --swu-res-badge-w:  0px;
+        /* Hand-band control slots, left of the hand: initiative hex, then resources.
+           --swu-hud-pad pushes the whole cluster in from the left edge; --swu-res-w
+           is a nominal reserve for the hand-width calc (the badge itself is now
+           content-sized, not fixed). */
+        --swu-hud-pad:      40px;
+        --swu-init-w:       80px;
+        --swu-res-w:        80px;
+        /* Hand panel width (right-anchored). Factored out so the control band can
+           span exactly up to the hand's left edge and balance its outer gaps. */
+        --swu-hand-w: calc((100vw - var(--swu-sidebar-w) - var(--swu-init-w) - var(--swu-res-w) - var(--swu-pile-zone-w)) * 0.9);
 
         /* Arena column width: (board - res-badge - center - 2×gap) / 2 */
         --swu-col-w: calc((var(--swu-board-w) - var(--swu-res-badge-w) - var(--swu-center-w) - 20px) / 2);
@@ -62,6 +90,20 @@
     /* ── Global ─────────────────────────────────────────────────────────────── */
     body, #gameContainer { background: var(--swu-bg) !important; }
     #myStuff { border: 0 !important; }
+
+    /* ── Board background ────────────────────────────────────────────────────────
+       The framework's opaque .myStuff/.theirStuff/.stuff containers paint over
+       <body>, so a body background can't show. Render the board art as its own
+       fixed layer that sits ABOVE those containers (like .swu-starfield does) but
+       below the starfield, arenas, and all game content. */
+    .swu-board-bg {
+        position: fixed; inset: 0; z-index: 9; pointer-events: none;
+        background:
+            linear-gradient(to right,
+                rgba(0,0,0,0.05) var(--swu-center-left),
+                rgba(0,0,0,0.35) calc(var(--swu-center-left) + var(--swu-center-w))),
+            var(--swu-bg) url('<?= SWUBoardBackground(false) ?>') center center / cover no-repeat;
+    }
 
     /* ── Starfield ───────────────────────────────────────────────────────────── */
     .swu-starfield {
@@ -122,25 +164,163 @@
         color: rgba(255,220,120,0.98); opacity: 1;
         text-shadow: 0 0 14px rgba(200,151,30,0.7); }
 
-    /* ── Initiative badge ────────────────────────────────────────────────────── */
-    #swuInitiativeDisplay {
-        position: fixed; z-index: 20; pointer-events: none;
-        left: 50%; transform: translateX(calc(-50% - var(--swu-sidebar-w)/2 + var(--swu-res-badge-w)/2));
-        display: flex; align-items: center; gap: 7px;
-        padding: 5px 14px 5px 10px;
-        border: 1px solid var(--swu-border); border-radius: 99px;
-        background: rgba(11,15,20,0.82); backdrop-filter: blur(8px);
-        color: rgba(255,255,255,0.72);
-        font: 600 11px/1 var(--swu-font-label); letter-spacing: 0.14em; text-transform: uppercase;
+    /* ── Initiative hex button (hand band, far-left slot) ─────────────────────────
+       Leftmost slot of the hand band, left of the resources. Sits on whichever side
+       currently controls the initiative — my band (bottom) or their band (top) —
+       and moves to the claimer's side once taken (CR 2.2.2 / 4.7).
+       updateInitiative() drives the side class, label, and state classes. */
+    /* ── Hand-band control cluster — narrow per-side strip pinned to the left edge
+       of each hand band. Holds the initiative hex (left) and the resource badge
+       (right), spread apart with space-between; the hand itself is unaffected. The
+       single init hex is reparented into the controlling band by updateInitiative(). */
+    .swu-control-band {
+        position: fixed; z-index: 38;
+        /* Span the whole free zone — left edge to the hand's left edge — with equal
+           --swu-hud-pad on both sides, so the gap (edge → init) matches (res → hand). */
+        left: 0; right: calc(var(--swu-sidebar-w) + var(--swu-pile-zone-w) + var(--swu-hand-w));
+        height: var(--swu-hand-h);
+        padding: 0 var(--swu-hud-pad);
+        display: flex; align-items: center; justify-content: space-between;
+        pointer-events: none;                 /* children opt back in */
     }
-    #swuTakeInitBtn, #swuPassBtn {
-        pointer-events: auto;
+    .swu-control-band.is-bottom { bottom: 0; top: auto; }
+    .swu-control-band.is-top    { top: 0; bottom: auto; }
+
+    .swu-init-control {
+        position: relative; z-index: 38;
+        width: var(--swu-init-w); height: 100%;
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+        pointer-events: none;                 /* the hex itself opts back in */
     }
-    #swuInitiativeDisplay .swu-init-dot {
-        width: 9px; height: 9px; border-radius: 50%;
-        background: var(--swu-gold); box-shadow: 0 0 8px rgba(200,151,30,0.7); }
-    #swuInitiativeDisplay.is-claimed .swu-init-dot {
-        background: rgba(200,151,30,0.30); box-shadow: none; }
+
+    /* Octagonal HUD initiative token. A cyan rim (.swu-init-hex bg) wraps the inner
+       fill (#swuInitHexText): UNCLAIMED = faded blue horizontal lines; CLAIMED = solid
+       cyan; TAKEABLE (your turn) = brighter rim + cyan glow, clickable. The single
+       word "Initiative" is the only label; the fill conveys the state. */
+    .swu-init-hex {
+        position: relative;
+        width: 72px; height: 62px;
+        box-sizing: border-box; padding: 2px;          /* rim thickness */
+        clip-path: polygon(15px 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px), 0 15px);
+        background: rgba(120,200,255,0.50);            /* cyan rim */
+        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.55));
+        pointer-events: auto; cursor: help;            /* status badge: hover shows the tooltip, no click action */
+        transition: background 180ms, filter 180ms, transform 120ms;
+    }
+    #swuInitHexText {
+        position: relative; overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+        width: 100%; height: 100%;
+        box-sizing: border-box; padding: 0 2px; text-align: center;
+        clip-path: polygon(15px 0, calc(100% - 15px) 0, 100% 15px, 100% calc(100% - 15px), calc(100% - 15px) 100%, 15px 100%, 0 calc(100% - 15px), 0 15px);
+        /* Unclaimed look: faded blue glowing horizontal rays over a dark base */
+        background:
+            repeating-linear-gradient(0deg, transparent 0 0.3px, rgba(150,215,255,0.50) 1px, transparent 1.7px 3.5px),
+            rgba(14,27,42,0.92);
+    }
+    /* Cyan claimed fill — rises bottom→top whenever .is-claimed toggles on (keep), and
+       on the new side after a take. clip-path on #swuInitHexText keeps it octagonal. */
+    .swu-init-fill {
+        position: absolute; inset: 0; z-index: 0; pointer-events: none;
+        transform: scaleY(0); transform-origin: bottom;
+        background: linear-gradient(160deg, rgba(120,215,255,0.96), rgba(70,180,240,0.96));
+        transition: transform 430ms cubic-bezier(0.32,0,0.2,1);
+    }
+    .swu-init-control.is-claimed .swu-init-fill { transform: scaleY(1); }
+    .swu-init-word {
+        position: relative; z-index: 1;
+        color: rgba(185,222,255,0.85);
+        font: 700 10px/1 var(--swu-font-label);
+        letter-spacing: 0; text-transform: uppercase; white-space: nowrap;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.45);
+        transition: color 360ms, text-shadow 360ms;
+    }
+    .swu-init-control.is-claimed .swu-init-word { color: rgba(8,22,38,0.95); text-shadow: none; }
+    /* Takeable (your turn, MAIN, still unclaimed) — brighter cyan rim + glow as a STATUS
+       hint that the Take/Keep button is live; the token itself is no longer the action. */
+    .swu-init-control.is-takeable .swu-init-hex {
+        background: rgba(150,215,255,0.92);
+        filter: drop-shadow(0 0 9px rgba(120,200,255,0.70));
+    }
+    .swu-init-control.is-takeable .swu-init-word { color: rgba(225,242,255,0.95); }
+    /* Claimed — brighter cyan rim (the fill above carries the body) */
+    .swu-init-control.is-claimed .swu-init-hex {
+        background: rgba(150,215,255,0.95);
+        filter: drop-shadow(0 0 8px rgba(120,200,255,0.55));
+    }
+    /* Take = initiative switched sides: fade out (old side) → fade in (new side) */
+    .swu-init-control.is-leaving  { animation: swuInitLeave 200ms ease forwards; }
+    .swu-init-control.is-entering { animation: swuInitEnter 340ms ease; }
+    @keyframes swuInitLeave  { to   { opacity: 0; } }
+    @keyframes swuInitEnter  { from { opacity: 0; } }
+
+    /* ── Pass button — my side only, at the bottom of the center control cluster,
+          just above my hand. Carries the "Space" helper. ───────────────────────── */
+    .swu-init-pass {
+        position: fixed; z-index: 38;
+        left: var(--swu-center-left); width: var(--swu-center-w);
+        /* Sit just above the hand. The Take/Keep button stacked on Pass made the cluster
+           taller, so anchored higher (was +48px) its top butted into the leader/base column
+           — which reaches down near the hand on wide/4K screens. Drop it toward the hand so
+           the top clears the leader; --swu-pass-gap is the clearance above the hand. */
+        bottom: calc(var(--swu-hand-h) + var(--swu-pass-gap, 10px));
+        display: flex; flex-direction: column; align-items: center; gap: 4px;
+        pointer-events: none;                  /* the button opts back in */
+        transition: opacity 150ms;
+    }
+    /* Flat HUD panel — chamfered corners, thin cyan edge, flat fill (sci-fi interface).
+       The cyan body shows as a thin rim; ::before is the flat fill inset inside it;
+       the label sits in a <span> above the fill. drop-shadow gives the crisp edge glow. */
+    .swu-init-pass-btn {
+        position: relative; pointer-events: auto; cursor: pointer;
+        /* Both buttons (Take/Keep + Pass) share this class, so one width makes them equal.
+           Width + font scale with the center column (--swu-center-w grows with the board),
+           so they stay proportional to the cards at any resolution — a fixed px looked tiny
+           on wide/4K screens. --swu-init-btn-scale is the 80%-of-column knob. */
+        box-sizing: border-box; width: calc(var(--swu-center-w) * var(--swu-init-btn-scale, 0.8));
+        padding: 0.62em 0.9em; border: 0; background: rgba(130,205,255,0.80);
+        color: rgba(198,233,255,0.95);
+        font: 700 10px/1 var(--swu-font-label); font-size: clamp(9px, 0.5vw, 15px);
+        letter-spacing: 0.16em; text-transform: uppercase;
+        text-shadow: 0 0 5px rgba(120,200,255,0.45);
+        clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
+        filter: drop-shadow(0 0 4px rgba(110,190,255,0.35));
+        transition: filter 150ms, color 150ms, transform 110ms;
+    }
+    .swu-init-pass-btn::before {
+        content: ''; position: absolute; inset: 1.5px; z-index: 0;
+        background: rgba(16,34,58,0.92);
+        clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        transition: background 150ms;
+    }
+    .swu-init-pass-btn > span { position: relative; z-index: 1; }
+    .swu-init-pass-btn:hover { color: #fff; filter: drop-shadow(0 0 9px rgba(125,205,255,0.6)); }
+    .swu-init-pass-btn:hover::before  { background: rgba(28,56,90,0.92); }
+    .swu-init-pass-btn:active { transform: translateY(0.5px); }
+    .swu-init-pass-btn:active::before { background: rgba(42,78,118,0.95); }
+    /* Dimmed + inert when it isn't your turn to act */
+    .swu-init-pass.is-idle .swu-init-pass-btn { opacity: 0.35; pointer-events: none; cursor: default; }
+    .swu-init-pass.is-idle .swu-init-pass-hint { visibility: hidden; }
+
+    /* Take/Keep Initiative — same chamfered cyan HUD as Pass (inherits .swu-init-pass-btn);
+       only difference is it's hidden until updateInitiative() shows it (canTake). */
+    .swu-take-init[hidden] { display: none; }
+    /* Initiative already claimed this round — greyed & inert ("Initiative Claimed") instead of hidden. */
+    .swu-init-pass-btn.swu-take-init.is-taken {
+        background: rgba(255,255,255,0.14); color: rgba(255,255,255,0.42);
+        text-shadow: none; filter: none; cursor: default; pointer-events: none;
+    }
+    .swu-init-pass-btn.swu-take-init.is-taken::before { background: rgba(20,24,30,0.92); }
+
+    .swu-init-pass-hint {
+        font: 700 7px/1 var(--swu-font-label); letter-spacing: 0.10em;
+        text-transform: uppercase; color: rgba(255,255,255,0.30);
+        pointer-events: none;
+    }
+    .swu-init-pass-hint kbd {
+        display: inline-block; background: rgba(255,255,255,0.08);
+        border: 1px solid rgba(255,255,255,0.18); border-radius: 3px;
+        padding: 1px 5px; color: rgba(255,255,255,0.55); font: inherit; }
 
     /* ── Keyboard hints ──────────────────────────────────────────────────────── */
     .swu-kb-hints {
@@ -161,14 +341,62 @@
         position: fixed; z-index: 30; pointer-events: auto;
     }
 
+    /* ── Arena shared frames ─────────────────────────────────────────────────── */
+    /* One frame per arena, spanning both halves (their + mine). The arena-col
+       children are position:fixed so they ignore this wrapper for layout; it only
+       draws the HUD frame around both halves, letting the page background show through. */
+    .swu-arena-bg {
+        position: fixed; z-index: 29; pointer-events: none;
+        width: var(--swu-col-w);
+        top: var(--swu-hand-h); bottom: var(--swu-hand-h);
+        background: transparent;
+        /* Faint light-blue full frame + soft glow — the sci-fi targeting-HUD look. */
+        border: 1px solid rgba(120,200,255,0.22);
+        border-radius: 4px;
+        box-shadow: 0 0 6px rgba(80,170,255,0.10),
+                    inset 0 0 14px rgba(80,170,255,0.08);
+        animation: swuArenaPulse 3.2s ease-in-out infinite;
+    }
+    @keyframes swuArenaPulse {
+        0%, 100% { border-color: rgba(120,200,255,0.18);
+                   box-shadow: 0 0 5px rgba(80,170,255,0.08), inset 0 0 12px rgba(80,170,255,0.05); }
+        50%      { border-color: rgba(150,215,255,0.42);
+                   box-shadow: 0 0 13px rgba(95,185,255,0.28), inset 0 0 18px rgba(95,185,255,0.13); }
+    }
+    /* Bright cyan L-brackets at all four corners. Eight gradient slices (one
+       horizontal + one vertical arm per corner) painted on a single pseudo. */
+    .swu-arena-bg::before {
+        content: ''; position: absolute; inset: -1px; pointer-events: none;
+        --c:   rgba(150,215,255,0.92);   /* bracket color */
+        --len: 26px;                     /* arm length    */
+        --th:  3px;                      /* arm thickness */
+        filter: drop-shadow(0 0 4px rgba(150,215,255,0.75));   /* light glow on the brackets */
+        animation: swuArenaBracketPulse 3.2s ease-in-out infinite;
+        background:
+            linear-gradient(var(--c),var(--c)) left  top    / var(--len) var(--th) no-repeat,
+            linear-gradient(var(--c),var(--c)) left  top    / var(--th)  var(--len) no-repeat,
+            linear-gradient(var(--c),var(--c)) right top    / var(--len) var(--th) no-repeat,
+            linear-gradient(var(--c),var(--c)) right top    / var(--th)  var(--len) no-repeat,
+            linear-gradient(var(--c),var(--c)) left  bottom / var(--len) var(--th) no-repeat,
+            linear-gradient(var(--c),var(--c)) left  bottom / var(--th)  var(--len) no-repeat,
+            linear-gradient(var(--c),var(--c)) right bottom / var(--len) var(--th) no-repeat,
+            linear-gradient(var(--c),var(--c)) right bottom / var(--th)  var(--len) no-repeat;
+    }
+    .swu-arena-bg-space  { left: var(--swu-space-left);  }
+    .swu-arena-bg-ground { left: var(--swu-ground-left); }
+    @keyframes swuArenaBracketPulse {
+        0%, 100% { filter: drop-shadow(0 0 3px rgba(150,215,255,0.45)); }
+        50%      { filter: drop-shadow(0 0 8px rgba(150,215,255,0.95)); }
+    }
+
     /* ── Arena columns ───────────────────────────────────────────────────────── */
     .swu-arena-col {
         position: fixed; z-index: 30; pointer-events: auto;
         width: var(--swu-col-w);
         overflow: hidden; border-radius: 0;
     }
-    .swu-arena-col-space  { background: var(--swu-space-bg);  left: var(--swu-space-left);  }
-    .swu-arena-col-ground { background: var(--swu-ground-bg); left: var(--swu-ground-left); }
+    .swu-arena-col-space  { background: transparent; left: var(--swu-space-left);  }
+    .swu-arena-col-ground { background: transparent; left: var(--swu-ground-left); }
     .swu-arena-col-top    { top: var(--swu-hand-h); bottom: calc(var(--swu-midline) + 4px); }
     .swu-arena-col-bot    { top: calc(var(--swu-midline) + 4px); bottom: var(--swu-hand-h); }
 
@@ -180,9 +408,17 @@
     /* Hide the generic "GroundArena"/"SpaceArena" label that UILibraries injects when a zone is empty */
     #myGroundArena > span:only-child:not([id]), #theirGroundArena > span:only-child:not([id]),
     #mySpaceArena  > span:only-child:not([id]), #theirSpaceArena  > span:only-child:not([id]) { display: none; }
+    /* Same for the deck/discard/hand zones — the grey .swu-pile-label is the real label,
+       so hide the engine's black placeholder text. :not(:has(img)) spares real card piles. */
+    #myDeck    > span:only-child:not([id]):not(:has(img)), #theirDeck    > span:only-child:not([id]):not(:has(img)),
+    #myDiscard > span:only-child:not([id]):not(:has(img)), #theirDiscard > span:only-child:not([id]):not(:has(img)),
+    #myHand    > span:only-child:not([id]):not(:has(img)), #theirHand    > span:only-child:not([id]):not(:has(img)) { display: none; }
     #myGroundArena,   #theirGroundArena { justify-content: flex-start !important; }
     #theirSpaceArena > span, #theirGroundArena > span,
     #mySpaceArena    > span, #myGroundArena    > span { flex: 0 0 auto; }
+    /* Spacing between units in an arena */
+    #theirSpaceArena, #theirGroundArena,
+    #mySpaceArena,    #myGroundArena    { gap: 10px; }
 
     /* ── Center column ───────────────────────────────────────────────────────── */
     .swu-center-col {
@@ -208,7 +444,13 @@
         top: auto !important; left: auto !important;
         right: auto !important; bottom: auto !important;
         width: 100%;
+        text-align: center; /* center the landscape card so the tilt is symmetric
+                               and the corner tokens (Force / Epic-used) sit on it */
     }
+    /* Don't let the per-render card wrappers clip the card horizontally (their
+       overflow-y forces overflow-x to auto, which would crop the wide card). */
+    #myLeaderWrapper, #theirLeaderWrapper,
+    #myBaseWrapper,   #theirBaseWrapper { overflow: visible !important; }
 
     /* Pile rows — right end of the hand strip */
     .swu-pile-row {
@@ -231,22 +473,35 @@
         color: rgba(255,255,255,0.38); pointer-events: none;
     }
 
-    /* Action-available glow for Leader, Base, and Resource counter */
-    #myLeaderSlot.has-action,
+    /* Action-available glow for Base and Resource counter — on the slot (neither tilts). */
     #myBaseSlot.has-action,
     #swuMyResCount.has-action {
         box-shadow: 0 0 14px 3px rgba(60,220,90,0.70), 0 0 4px 1px rgba(60,220,90,0.40);
         border-color: rgba(60,220,90,0.75) !important;
         transition: box-shadow 0.3s ease, border-color 0.3s ease;
     }
+    /* Leader action glow: put it on the CARD (the data-mzid span), not the slot. The span
+       carries the exhaust tilt (transform:rotate), so the glow rotates WITH the card. On the
+       slot it stayed axis-aligned and looked detached around a tilted exhausted leader. */
+    #myLeaderSlot.has-action [data-mzid] {
+        box-shadow: 0 0 14px 3px rgba(60,220,90,0.70), 0 0 4px 1px rgba(60,220,90,0.40);
+        border-radius: 7px;
+        transition: box-shadow 0.3s ease;
+    }
+
+    /* Resource count line — full-width block so both it and the credit line center. */
+    #swuMyResCount, #swuTheirResCount {
+        display: block; width: 100%; text-align: center;
+    }
 
     /* Credit-token count ("+ N") in the resource badge — gold, CR 3.13 */
     .swu-credit-count {
+        display: block;
         color: #f2c14e;
         font-weight: 700;
         text-shadow: 0 0 4px rgba(242,193,78,0.55);
         cursor: help;
-        margin-left: 2px;
+        margin-top: 2px;
     }
 
     /* Per-card Smuggle-available glow inside the resource slot */
@@ -256,6 +511,7 @@
         transition: box-shadow 0.3s ease;
     }
 
+
     /* Per-card discard-playable glow inside the discard slots */
     #myDiscardSlot .discard-playable,
     #theirDiscardSlot .discard-playable {
@@ -263,20 +519,9 @@
         border-radius: 4px;
     }
 
-    /* Per-unit "Action available" glow — clicking the unit uses its Action ability */
-    .unit-action {
-        box-shadow: 0 0 9px 3px #5fd0ff, inset 0 0 4px #5fd0ff;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-
-    /* Per-unit "can attack" glow — a ready unit with at least one valid attack target (green, matching
-       the leader/base action glow). Click the unit to attack (framework flow). */
-    .can-attack {
-        box-shadow: 0 0 9px 3px rgba(60,220,90,0.70), inset 0 0 4px rgba(60,220,90,0.55);
-        border-radius: 4px;
-        cursor: pointer;
-    }
+    /* Per-unit "Action available" (.unit-action, cyan) and "can attack" (.can-attack,
+       green) glows now live in GameLayoutShared.php next to the JS that applies them, so
+       both desktop and mobile pick them up. */
 
     /* Attack / Ability chooser popup for a glowing .unit-action unit */
     .swu-unit-action-menu {
@@ -335,64 +580,76 @@
         background: var(--swu-surface); overflow: visible; position: relative;
     }
 
-    /* ── The Force token — top-right of a player's base (mirror of the bottom-right
-          Epic-Action-Used token). Fades in when gained, out when used. ─────────── */
-    .swu-force-token {
-        position: absolute;
-        top: 4px; right: 4px;
-        width: 30px; height: 30px;
-        z-index: 60;
-        pointer-events: none;
-        opacity: 0;
-        transition: opacity 0.55s ease;
-        filter: drop-shadow(0 1px 4px rgba(0,0,0,0.7));
-    }
-    .swu-force-token.is-visible { opacity: 1; }
+    /* The Force token is rendered INSIDE the base card (top-right corner) by the
+       core Card() renderer, driven by the base's HasForce virtual — same path as the
+       Epic-Action-Used token. See Core/UILibraries20260415.js. */
 
-    /* ── Resource badge — anchored to hand edge (bottom-left / top-left) ──────── */
+    /* ── Counter badges below the frame animations ───────────────────────────────
+       The shared CreateCountersHTML hardcodes z-index:1100 on every counter badge,
+       which is above the frame animations (ScreenAnimations.css, z-index 1000-1002).
+       SWUSim centers the damage badge right where the damage/heal animation plays, so
+       the animation was hidden behind it. Drop the counters below the animation layer
+       (still well above the card art) so damage/heal/shield pops over the badge.
+       Scoped to this page; other sims keep the default ordering. */
+    [data-counter-field] { z-index: 950 !important; }
+
+    /* ── Resource badge — hand-band slot, right of initiative / left of the hand ──
+       Transparent centering shell; the bordered box (the btn) hugs the contents
+       (+4px padding) and lights up light-blue on hover. */
     .swu-res-badge {
-        position: fixed; z-index: 37; pointer-events: auto;
-        width: var(--swu-res-badge-w);
-        display: flex; flex-direction: column; align-items: stretch; gap: 0;
-        background: rgba(8,12,18,0.90);
-        border: 1px solid var(--swu-border); border-radius: 10px;
-        overflow: hidden;
+        position: relative; z-index: 37; pointer-events: auto;
+        margin-left: auto;                    /* pin to the right end of the cluster */
+        height: 100%;
+        display: flex; align-items: center; justify-content: flex-end;
+        background: transparent;
     }
-    #swuMyResBadge    { bottom: 0; left: 0; border-bottom: none; border-left: none; border-radius: 0 10px 0 0; }
-    #swuTheirResBadge { top: 0;    left: 0; border-top: none; border-left: none; border-radius: 0 0 10px 0; }
 
     .swu-res-badge-btn {
-        display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 5px;
-        padding: 6px 8px 8px;
-        background: transparent; border: none;
-        color: rgba(255,255,255,0.88); cursor: default;
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+        padding: 8px;
+        text-align: center;
+        background: transparent;
+        border: 1px solid transparent; border-radius: 8px;
+        color: rgba(255,255,255,0.92); cursor: default;
         font: 700 14px/1 var(--swu-font-ui);
+        text-shadow: 0 1px 4px rgba(0,0,0,0.85);   /* legible over the board bg */
         white-space: nowrap;
-        transition: background 120ms; width: 100%;
+        transition: box-shadow 150ms ease, border-color 150ms ease;
     }
     .swu-res-badge-btn.is-clickable { cursor: pointer; }
-    .swu-res-badge-btn.is-clickable:hover { background: rgba(200,151,30,0.12); }
+    .swu-res-badge-btn:hover {
+        border-color: rgba(120,200,255,0.40);
+        box-shadow: 0 0 16px 2px rgba(120,200,255,0.40),
+                    inset 0 0 10px rgba(120,200,255,0.12);
+    }
     .swu-res-img {
-        width: 40px; height: 40px; object-fit: contain;
+        width: 34px; height: 34px; object-fit: contain;
         filter: drop-shadow(0 1px 3px rgba(0,0,0,0.6));
     }
 
     /* ── Resource zone panel (expandable, my side only) ──────────────────────── */
     .swu-resource-panel {
         position: fixed; z-index: 50;
-        left: 0; width: clamp(220px, 22vw, 320px);
+        left: calc(var(--swu-hud-pad) + var(--swu-init-w)); width: clamp(220px, 22vw, 320px);
         max-height: 40vh; overflow-y: auto;
         background: rgba(11,15,20,0.96);
         border: 1px solid var(--swu-border-hi);
-        border-radius: 0 12px 0 0;
+        border-radius: 0 12px 12px 0;
         padding: 28px 8px 8px; display: none;
         backdrop-filter: blur(14px);
     }
+    /* Opens upward from the resources slot in the hand band. */
     #myResourcesSlot { bottom: var(--swu-hand-h); }
 
-    /* Lift the selection prompt above the hand so it doesn't overlap cards */
+    /* Lift the bottom-anchored selection prompt above the hand so it doesn't overlap cards */
     #selection-message {
         bottom: calc(var(--swu-hand-h) + 12px) !important;
+    }
+    /* …but the inline MultiChoose panel is CENTERED (Core sets top:50%; bottom:auto).
+       The lift above would override that bottom:auto and stretch the panel tall, so
+       restore bottom:auto for that mode (detected by its Confirm button). */
+    #selection-message:has(#inline-multi-confirm) {
+        bottom: auto !important;
     }
     .swu-resource-panel.is-open { display: block; }
     .swu-resource-panel::before {
@@ -403,8 +660,12 @@
     /* ── Hand panels ─────────────────────────────────────────────────────────── */
     .swu-hand-panel {
         position: fixed; z-index: 36; pointer-events: auto;
-        left: var(--swu-res-badge-w); width: calc(100vw - var(--swu-sidebar-w) - var(--swu-res-badge-w));
-        min-height: var(--swu-hand-h);
+        /* Right-anchored just before the deck/discard pile zone; sized to ~84% of
+           the span between the resources slot and the piles. The freed space opens
+           up on the left, between the resources slot and the hand. */
+        right: calc(var(--swu-sidebar-w) + var(--swu-pile-zone-w));
+        width: var(--swu-hand-w);
+        height: var(--swu-hand-h);
         background:
             linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02)),
             linear-gradient(160deg, rgba(11,15,20,0.82), rgba(11,15,20,0.60));
@@ -414,6 +675,30 @@
     }
     #theirHandSlot { top: 0; border-radius: 0 0 8px 8px; border-top: none; }
     #myHandSlot    { bottom: 0; border-radius: 8px 8px 0 0; border-bottom: none; }
+
+    /* Card wrapper (rendered by NextTurnRender) = the horizontal scroll viewport.
+       overflow-y hidden so the hand never grows into the deck/pile band; previews
+       use the separate ShowDetail popup, not in-place growth. */
+    #myHandWrapper, #theirHandWrapper {
+        width: 100%; height: 100%;
+        overflow-x: auto !important; overflow-y: hidden !important;
+        scrollbar-width: thin;
+        scrollbar-color: rgba(120,200,255,0.45) transparent;
+    }
+    #myHandWrapper::-webkit-scrollbar, #theirHandWrapper::-webkit-scrollbar { height: 7px; }
+    #myHandWrapper::-webkit-scrollbar-thumb, #theirHandWrapper::-webkit-scrollbar-thumb {
+        background: rgba(120,200,255,0.45); border-radius: 99px; }
+
+    /* Card row (PopulateZone's #myHand span) — single nowrap line. Centered while
+       it fits; once it overflows, `safe center` falls back to flex-start so the
+       leading cards stay reachable by scroll instead of being clipped. */
+    #myHand, #theirHand {
+        flex-wrap: nowrap !important;
+        justify-content: safe center !important;
+        align-items: center !important;
+        min-width: 100%; height: 100%; gap: 4px;
+    }
+    #myHand > span, #theirHand > span { flex: 0 0 auto; }
 
     /* Suppress empty-state text */
     #myHand > span:not([id]), #theirHand > span:not([id]) { display: none; }
@@ -652,10 +937,10 @@
 
     /* ── Responsive ──────────────────────────────────────────────────────────── */
     @media (max-width: 1100px) {
-        :root { --swu-sidebar-w: 220px; --swu-center-w: 160px; --swu-res-badge-w: 74px; }
+        :root { --swu-sidebar-w: 220px; --swu-center-w: 160px; --swu-res-badge-w: 0px; }
     }
     @media (max-width: 800px) {
-        :root { --swu-sidebar-w: 0px; --swu-center-w: 140px; --swu-res-badge-w: 70px; }
+        :root { --swu-sidebar-w: 0px; --swu-center-w: 140px; --swu-res-badge-w: 0px; }
         #swuSidebar { display: none !important; }
         #chatWidget {
             position: fixed !important; bottom: 20px !important; left: 10px !important;
@@ -666,7 +951,8 @@
     }
 </style>
 
-<!-- Decorative -->
+<!-- Board background + decorative -->
+<div class="swu-board-bg"></div>
 <div class="swu-starfield"></div>
 
 <!-- Column separators -->
@@ -676,13 +962,6 @@
 <!-- Midline -->
 <div class="swu-midline-bar"></div>
 
-<!-- Arena labels -->
-<div class="swu-arena-label"
-     style="left:calc(var(--swu-space-left) + var(--swu-col-w)/2); top:calc(var(--swu-midline) - 11px);
-            color:rgba(59,127,196,0.45); text-shadow:0 0 12px rgba(59,127,196,0.30);">SPACE</div>
-<div class="swu-arena-label"
-     style="left:calc(var(--swu-ground-left) + var(--swu-col-w)/2); top:calc(var(--swu-midline) - 11px);
-            color:rgba(200,151,30,0.40); text-shadow:none;">GROUND</div>
 
 <!-- Phase track + initiative -->
 <!--
@@ -695,17 +974,19 @@
     <span class="swu-phase-step" data-phase-step="READY">Ready</span>
 </div>
 -->
-<div id="swuInitiativeDisplay" style="top:calc(var(--swu-midline) - 8px);">
-    <span class="swu-init-dot"></span>
-    <span id="swuInitiativeText">Initiative: —</span>
-    <button id="swuTakeInitBtn"
-            style="display:none; margin-left:6px; padding:1px 7px; font-size:11px;
-                   background:var(--swu-surface); border:1px solid #888; border-radius:3px;
-                   color:#eee; cursor:pointer;">Take Initiative <kbd style="font-size:9px;background:rgba(255,255,255,0.1);border:1px solid #888;border-radius:2px;padding:0 3px;">I</kbd></button>
-    <button id="swuPassBtn"
-            style="display:none; margin-left:4px; padding:1px 7px; font-size:11px;
-                   background:var(--swu-surface); border:1px solid #666; border-radius:3px;
-                   color:#bbb; cursor:pointer;">Pass <kbd style="font-size:9px;background:rgba(255,255,255,0.1);border:1px solid #666;border-radius:2px;padding:0 3px;">Space</kbd></button>
+<!-- Initiative hex now lives inside the hand-band control clusters below
+     (#swuMyControlBand / #swuTheirControlBand); updateInitiative() reparents it. -->
+
+<!-- Pass button — my side only, at the bottom of the center control cluster -->
+<div id="swuPassControl" class="swu-init-pass is-idle">
+    <!-- Take/Keep the Initiative — the action lives in YOUR controls, not on the token.
+         updateInitiative() unhides it when legal (canTake) and sets the label Take vs Keep. -->
+    <button id="swuTakeInitBtn" class="swu-init-pass-btn swu-take-init" title="Take the Initiative (I)" hidden
+            onclick="event.stopPropagation(); window.swuTakeInitiative();"><span>Take Initiative</span></button>
+    <!-- "I" hotkey hint — carries .swu-take-init so updateInitiative() shows/hides it with the button -->
+    <div id="swuTakeInitHint" class="swu-init-pass-hint swu-take-init" title="Press I to take/keep the initiative" hidden><kbd>I</kbd></div>
+    <button id="swuPassBtn" class="swu-init-pass-btn" title="Pass (Space)"><span>Pass</span></button>
+    <div class="swu-init-pass-hint" title="Press Space to pass"><kbd>Space</kbd></div>
 </div>
 <!--
 <div class="swu-kb-hints" style="top:calc(var(--swu-midline) + 6px);">
@@ -717,15 +998,19 @@
 -->
 
 <!-- ═══════════════════ SPACE ARENA — LEFT COLUMN ══════════════════════════════ -->
-<div id="theirSpaceArenaSlot" class="swu-arena-col swu-arena-col-space swu-arena-col-top">
-</div>
-<div id="mySpaceArenaSlot" class="swu-arena-col swu-arena-col-space swu-arena-col-bot">
+<div id="spaceArenaBg" class="swu-arena-bg swu-arena-bg-space">
+    <div id="theirSpaceArenaSlot" class="swu-arena-col swu-arena-col-space swu-arena-col-top">
+    </div>
+    <div id="mySpaceArenaSlot" class="swu-arena-col swu-arena-col-space swu-arena-col-bot">
+    </div>
 </div>
 
 <!-- ═══════════════════ GROUND ARENA — RIGHT COLUMN ═══════════════════════════ -->
-<div id="theirGroundArenaSlot" class="swu-arena-col swu-arena-col-ground swu-arena-col-top">
-</div>
-<div id="myGroundArenaSlot" class="swu-arena-col swu-arena-col-ground swu-arena-col-bot">
+<div id="groundArenaBg" class="swu-arena-bg swu-arena-bg-ground">
+    <div id="theirGroundArenaSlot" class="swu-arena-col swu-arena-col-ground swu-arena-col-top">
+    </div>
+    <div id="myGroundArenaSlot" class="swu-arena-col swu-arena-col-ground swu-arena-col-bot">
+    </div>
 </div>
 
 <!-- ═══════════════════ CENTER — THEIR HALF (Leader top → Base nearest mid) ════ -->
@@ -780,21 +1065,36 @@
     </div>
 </div>
 
-<!-- ═══════════════════ RESOURCE BADGES (bottom-left / top-left) ══════════════ -->
-<!-- My resources badge — bottom-left, above my hand -->
-<div id="swuMyResBadge" class="swu-res-badge">
-    <div class="swu-res-badge-btn is-clickable"
-         title="Click to view your resources" onclick="swuToggleMyResources()">
-        <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.png" alt="Resources">
-        <span id="swuMyResCount">0/0</span>
+<!-- ═══════════════════ HAND-BAND CONTROL CLUSTERS (bottom-left / top-left) ═════
+     Narrow per-side strip: initiative hex (left) ←space-between→ resource badge
+     (right). The single init hex is reparented into the controlling band by
+     updateInitiative(); the resource badge stays pinned right (margin-left:auto). -->
+<!-- My control band — bottom-left, above my hand -->
+<div id="swuMyControlBand" class="swu-control-band is-bottom">
+    <!-- Initiative hex — default home; moves to the controlling side -->
+    <div id="swuInitControl" class="swu-init-control">
+        <div id="swuInitHex" class="swu-init-hex" title="Initiative">
+            <span id="swuInitHexText"><span class="swu-init-fill"></span><span class="swu-init-word">Initiative</span></span>
+        </div>
+    </div>
+    <!-- My resources badge -->
+    <div id="swuMyResBadge" class="swu-res-badge">
+        <div class="swu-res-badge-btn is-clickable"
+             title="Click to view your resources" onclick="swuToggleMyResources()">
+            <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.webp" alt="Resources">
+            <span id="swuMyResCount">0/0</span>
+        </div>
     </div>
 </div>
 
-<!-- Opponent resources badge — top-left, below their hand -->
-<div id="swuTheirResBadge" class="swu-res-badge">
-    <div class="swu-res-badge-btn" title="Opponent resources (hidden)">
-        <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.png" alt="Resources">
-        <span id="swuTheirResCount">0/0</span>
+<!-- Their control band — top-left, below their hand -->
+<div id="swuTheirControlBand" class="swu-control-band is-top">
+    <!-- Opponent resources badge -->
+    <div id="swuTheirResBadge" class="swu-res-badge">
+        <div class="swu-res-badge-btn" title="Opponent resources (hidden)">
+            <img class="swu-res-img" src="./Assets/Icons/swusim-resource-badge.webp" alt="Resources">
+            <span id="swuTheirResCount">0/0</span>
+        </div>
     </div>
 </div>
 
@@ -838,1052 +1138,4 @@
     <div id="swuChatMount"></div>
 </div>
 
-<script>
-window.SWU_PILOT_LEADERS = <?php echo json_encode([
-    'JTL_001','JTL_003','JTL_006','JTL_008','JTL_009',
-    'JTL_011','JTL_012','JTL_015','JTL_017','JTL_018'
-]); ?>;
-</script>
-<script>
-(function (MY_PLAYER_ID) {
-    'use strict';
-
-    // ── Phase track ────────────────────────────────────────────────────────────
-    var PHASE_ALIASES = {
-        APS:'APS', ACTIONPHASESTART:'APS', MAIN:'MAIN',
-        RGS:'RGS', REGROUPSTART:'RGS', DRAW:'DRAW', DRAWPHASE:'DRAW',
-        RES:'RES', RESOURCEPHASE:'RES', READY:'READY', READYPHASE:'READY'
-    };
-    function normalizePhase(raw) {
-        return PHASE_ALIASES[(raw||'').toString().trim().toUpperCase().replace(/[^A-Z0-9]/g,'')] || '';
-    }
-    function updatePhaseTrack() {
-        var bar = document.getElementById('swuMidbar'); if (!bar) return;
-        var norm = normalizePhase(typeof window.CurrentPhaseData === 'string' ? window.CurrentPhaseData : '');
-        bar.querySelectorAll('[data-phase-step]').forEach(function(el) {
-            el.classList.toggle('is-active', el.getAttribute('data-phase-step') === norm);
-        });
-    }
-
-    // ── Round counter ─────────────────────────────────────────────────────────
-    function updateRound() {
-        var el = document.getElementById('swuRoundNumber'); if (!el) return;
-        var n = parseInt(window.TurnNumberData, 10);
-        el.textContent = isNaN(n) ? '—' : n;
-    }
-
-    // ── Initiative ────────────────────────────────────────────────────────────
-    function updateInitiative() {
-        var el      = document.getElementById('swuInitiativeDisplay');
-        var txt     = document.getElementById('swuInitiativeText');
-        var initBtn = document.getElementById('swuTakeInitBtn');
-        var passBtn = document.getElementById('swuPassBtn');
-        if (!el || !txt) return;
-
-        var state = typeof window.InitiativeCounterData === 'string'
-            ? window.InitiativeCounterData.trim() : '';
-        var labels = {
-            P1_UNCLAIMED:'Initiative: P1', P2_UNCLAIMED:'Initiative: P2',
-            P1_CLAIMED:'Initiative taken (P1)', P2_CLAIMED:'Initiative taken (P2)'
-        };
-        txt.textContent = labels[state] || 'Initiative: —';
-        el.classList.toggle('is-claimed', state==='P1_CLAIMED'||state==='P2_CLAIMED');
-
-        var isClaimed   = (state==='P1_CLAIMED' || state==='P2_CLAIMED');
-        var isMyTurn    = (String(window.TurnPlayerData||'').trim() === String(MY_PLAYER_ID));
-        var isMainPhase = (String(window.CurrentPhaseData||'').trim() === 'MAIN');
-        var canAct      = isMyTurn && isMainPhase;
-
-        // "Take Initiative": only when initiative is still claimable this round
-        if (initBtn) initBtn.style.display = (canAct && !isClaimed) ? 'inline-block' : 'none';
-
-        // "Pass": any time it is your turn in MAIN phase (CR 1.15.6 — always legal)
-        // Label shows "(end round)" hint when opponent already passed (consecutive-pass state)
-        if (passBtn) {
-            passBtn.style.display = canAct ? 'inline-block' : 'none';
-            var opponentPassed = (parseInt(window.DecisionQueueVariablesData, 10) >= 1);
-            passBtn.title = opponentPassed
-                ? 'Pass — opponent already passed, this ends the action phase'
-                : 'Pass';
-        }
-    }
-
-    window.swuTakeInitiative = function () {
-        SubmitInput('10001', '&cardID=' + encodeURIComponent('InitiativeCounter-0!CustomInput!TakeInitiative'));
-    };
-
-    window.swuPassAction = function () {
-        SubmitInput('10001', '&cardID=' + encodeURIComponent('myHealth-0!CustomInput!Pass'));
-    };
-
-    // ── Resource counters ─────────────────────────────────────────────────────
-    // Resources collapse to one DOM element (CollapseGroupBy CardID), so DOM counting
-    // is unreliable. Parse the raw data string set by NextTurnRender instead.
-    // Format: "cardID count json_with_underscores" separated by "<|>".
-    // SWUSim convention: Status=1 means ready; Status=0 means exhausted.
-    // Opponent cards have no JSON ("-").
-    // Credit tokens (CR 3.13) sit in the resource zone but are NOT resources — they're counted
-    // separately and excluded from ready/total. The only Credit token is LAW_T01.
-    var SWU_CREDIT_TOKEN_ID = 'LAW_T01';
-    function parseResCountFromData(rawData) {
-        if (!rawData || rawData === '' || rawData === '-') return {ready:0, total:0, credits:0};
-        var entries = rawData.split('<|>');
-        var total = 0, exhausted = 0, credits = 0;
-        for (var i = 0; i < entries.length; i++) {
-            var entry = entries[i].trim();
-            if (!entry) continue;
-            var spaceIdx = entry.indexOf(' ');
-            var cardId = spaceIdx >= 0 ? entry.substring(0, spaceIdx) : entry;
-            if (cardId === SWU_CREDIT_TOKEN_ID) { credits++; continue; } // Credit token, not a resource
-            total++;
-            var rest = spaceIdx >= 0 ? entry.substring(spaceIdx + 1) : '';
-            var spaceIdx2 = rest.indexOf(' ');
-            var jsonPart = spaceIdx2 >= 0 ? rest.substring(spaceIdx2 + 1) : '-';
-            if (jsonPart && jsonPart !== '-') {
-                try {
-                    var obj = JSON.parse(jsonPart.replace(/_/g, ' '));
-                    if (obj && parseInt(obj.Status) === 0) exhausted++;
-                } catch(e) {}
-            }
-        }
-        return {ready: total - exhausted, total: total, credits: credits};
-    }
-
-    function updateResCounterFromData(dataVar, countElId) {
-        var el = document.getElementById(countElId); if (!el) return;
-        var raw = window[dataVar] || '';
-        var c = parseResCountFromData(raw);
-        var html = c.ready + '/' + c.total;
-        // "+ N" in gold for Credit tokens — only shown when the player has 1+. Hover shows the
-        // Credit token card preview (so an opponent can read it).
-        if (c.credits > 0) {
-            html += ' <span class="swu-credit-count"' +
-                ' onmousemove="swuLogCardHover(event,\'' + SWU_CREDIT_TOKEN_ID + '\')"' +
-                ' onmouseout="HideCardDetail()">+ ' + c.credits + '</span>';
-        }
-        el.innerHTML = html;
-    }
-
-    function watchResZone(slotId, countElId, dataVar) {
-        updateResCounterFromData(dataVar, countElId);
-        var slot = document.getElementById(slotId); if (!slot) return;
-        new MutationObserver(function() {
-            updateResCounterFromData(dataVar, countElId);
-        }).observe(slot, {childList: true, subtree: true, attributes: true});
-    }
-
-    // ── Resource panel toggle (mine only) ─────────────────────────────────────
-    window.swuToggleMyResources = function() {
-        var panel = document.getElementById('myResourcesSlot'); if (!panel) return;
-        panel.classList.toggle('is-open');
-    };
-
-    // Close resource panel when clicking outside — EXCEPT while a decision is actively asking the
-    // player to pick their own resource(s) (paying with Credit tokens, Han Solo's defeat-a-resource,
-    // etc.). The Select All / Deselect All / Confirm controls live in the #selection-message bar
-    // OUTSIDE the panel, so without this guard clicking them would dismiss the panel mid-selection.
-    // The panel must persist until the selection completes; refreshResourceSelectionPanel then
-    // auto-closes any panel it auto-opened.
-    document.addEventListener('click', function(e) {
-        var panel = document.getElementById('myResourcesSlot'); if (!panel) return;
-        if (!panel.classList.contains('is-open')) return;
-        var sm = window.SelectionMode;
-        var selectingResource = !!(sm && sm.active && Array.isArray(sm.allowedZones) &&
-            sm.allowedZones.some(function(z) { return z && z.zone === 'myResources'; }));
-        if (selectingResource) return; // keep the panel open until the player confirms / picks
-        var badge = document.getElementById('swuMyResBadge');
-        if (!panel.contains(e.target) && e.target !== badge && !(badge && badge.contains(e.target))) {
-            panel.classList.remove('is-open');
-        }
-    });
-
-    // ── Effect Stack visibility ───────────────────────────────────────────────
-    // Show only when it has entries AND the player isn't mid-resolving a trigger that needs a
-    // board target (e.g. "choose a unit"). During such a selection the centered overlay covers the
-    // board, so hide it; it reappears for the next "choose trigger to resolve" (an EffectStack MZCHOOSE).
-    window.UpdateEffectStackVisibility = function() {
-        var el = document.getElementById('EffectStackSlot'); if (!el) return;
-        if (el.querySelector('[id$="-0"]') === null) { el.style.display = 'none'; return; }
-        var sm = window.SelectionMode, boardTargeting = false;
-        if (sm && sm.active && Array.isArray(sm.allowedZones) && sm.allowedZones.length) {
-            boardTargeting = !sm.allowedZones.some(function(z){ return z && z.zone === 'EffectStack'; });
-        }
-        el.style.display = boardTargeting ? 'none' : '';
-    };
-
-    // ── Auto-hide Effect Stack when empty ─────────────────────────────────────
-    function watchSlot(id) {
-        var el = document.getElementById(id); if (!el) return;
-        el.style.display = 'none';
-        new MutationObserver(function() {
-            window.UpdateEffectStackVisibility();
-        }).observe(el, {childList:true, subtree:true});
-    }
-
-    // ── Effect Stack drag ─────────────────────────────────────────────────────
-    function setupEffectStackDrag() {
-        var slot = document.getElementById('EffectStackSlot'); if (!slot) return;
-        var KEY = 'swu-effect-stack-pos-v2';
-        var drag = null;
-        slot.setAttribute('data-draggable', 'true');
-
-        function sidebarW() {
-            return parseFloat(getComputedStyle(document.documentElement)
-                .getPropertyValue('--swu-sidebar-w')) || 280;
-        }
-        function clamp(v,lo,hi){ return Math.min(hi,Math.max(lo,v)); }
-        function applyPos(left,top) {
-            var r = slot.getBoundingClientRect();
-            var l = clamp(left, 8, window.innerWidth - sidebarW() - r.width - 8);
-            var t = clamp(top, 8, window.innerHeight - r.height - 8);
-            slot.classList.add('is-custom-position');
-            slot.style.left=l+'px'; slot.style.top=t+'px';
-            slot.style.right='auto'; slot.style.bottom='auto';
-        }
-        function savePos(){ var l=parseFloat(slot.style.left),t=parseFloat(slot.style.top);
-            if(isFinite(l)&&isFinite(t)) try{localStorage.setItem(KEY,JSON.stringify({left:l,top:t}));}catch(e){} }
-        function loadPos(){ try{var d=JSON.parse(localStorage.getItem(KEY)||'null');
-            if(d&&isFinite(d.left)&&isFinite(d.top)) applyPos(d.left,d.top);}catch(e){} }
-
-        slot.addEventListener('mousedown', function(ev) {
-            if (ev.button!==0) return;
-            var r=slot.getBoundingClientRect();
-            if(ev.clientY-r.top>28) return;
-            drag={sx:ev.clientX,sy:ev.clientY,sl:r.left,st:r.top};
-            slot.setAttribute('data-dragging','true'); slot.classList.add('is-custom-position');
-            ev.preventDefault();
-        });
-        window.addEventListener('mousemove',function(ev){if(!drag)return; applyPos(drag.sl+(ev.clientX-drag.sx),drag.st+(ev.clientY-drag.sy));});
-        window.addEventListener('mouseup',function(){if(!drag)return; drag=null; slot.removeAttribute('data-dragging'); savePos();});
-        window.addEventListener('resize',function(){ if(slot.classList.contains('is-custom-position')){
-            var l=parseFloat(slot.style.left),t=parseFloat(slot.style.top);
-            if(isFinite(l)&&isFinite(t)) applyPos(l,t); }});
-        loadPos();
-    }
-
-    // ── Hand collapse ─────────────────────────────────────────────────────────
-    function setupHandCollapse() {
-        var my=document.getElementById('myHandSlot');
-        var their=document.getElementById('theirHandSlot');
-        if(!my) return;
-        var KEY='swu-hand-collapsed-v1';
-        var collapsed=false;
-        try{collapsed=localStorage.getItem(KEY)==='1';}catch(e){}
-
-        function makeBtn(){
-            var b=document.createElement('button'); b.className='swu-hand-collapse-btn';
-            b.type='button'; b.title='Collapse / expand hand';
-            b.textContent=collapsed?'▲':'▼';
-            b.addEventListener('click',function(ev){ev.stopPropagation(); setCollapsed(!my.classList.contains('is-collapsed'));});
-            return b;
-        }
-        function ensureBtn(){ if(!my.querySelector('.swu-hand-collapse-btn')) my.insertBefore(makeBtn(),my.firstChild); }
-        function setCollapsed(c){
-            collapsed=c; my.classList.toggle('is-collapsed',c);
-            if(their) their.classList.toggle('is-collapsed',c);
-            var b=my.querySelector('.swu-hand-collapse-btn'); if(b) b.textContent=c?'▲':'▼';
-            try{localStorage.setItem(KEY,c?'1':'0');}catch(e){}
-        }
-        window.SWUHandCollapse={
-            toggle:function(){setCollapsed(!my.classList.contains('is-collapsed'));},
-            collapse:function(){setCollapsed(true);}, expand:function(){setCollapsed(false);}
-        };
-        new MutationObserver(ensureBtn).observe(my,{childList:true});
-        ensureBtn();
-        if(collapsed){my.classList.add('is-collapsed'); if(their) their.classList.add('is-collapsed');}
-    }
-
-    // ── Mount chat widget in sidebar ──────────────────────────────────────────
-    function mountChat() {
-        var chatWidget = document.getElementById('chatWidget');
-        var mount      = document.getElementById('swuChatMount');
-        if (!chatWidget || !mount) return;
-        // Append inside mount so #swuChatMount stays in the DOM as the
-        // show/hide wrapper used by swuShowTab and init().
-        mount.appendChild(chatWidget);
-
-        // Watch for new chat messages: scroll to bottom + show notification dot
-        var chatLog = document.getElementById('chatLog');
-        var chatDot = document.getElementById('swuChatDot');
-        if (chatLog) {
-            new MutationObserver(function() {
-                chatLog.scrollTop = chatLog.scrollHeight;
-                if (chatDot && mount.style.display === 'none') {
-                    chatDot.style.display = 'inline-block';
-                }
-            }).observe(chatLog, { childList: true, subtree: true });
-            // Scroll to bottom on initial mount too
-            chatLog.scrollTop = chatLog.scrollHeight;
-        }
-    }
-
-    // ── Log/Chat tab switching ─────────────────────────────────────────────────
-    window.swuShowTab = function(tab) {
-        var logPanel  = document.getElementById('swuLogPanel');
-        var chatMount = document.getElementById('swuChatMount');
-        var tabLog    = document.getElementById('swuTabLog');
-        var tabChat   = document.getElementById('swuTabChat');
-        var chatDot   = document.getElementById('swuChatDot');
-        if (!logPanel || !chatMount || !tabLog || !tabChat) return;
-        if (tab === 'log') {
-            logPanel.style.display  = '';
-            chatMount.style.display = 'none';
-            tabLog.classList.add('is-active');
-            tabChat.classList.remove('is-active');
-        } else {
-            logPanel.style.display  = 'none';
-            chatMount.style.display = '';
-            tabLog.classList.remove('is-active');
-            tabChat.classList.add('is-active');
-            if (chatDot) chatDot.style.display = 'none';
-            var cl = document.getElementById('chatLog');
-            if (cl) requestAnimationFrame(function() { cl.scrollTop = cl.scrollHeight; });
-        }
-    };
-
-    // ── Card link hover ───────────────────────────────────────────────────────
-    window.swuLogCardHover = function(event, cardId) {
-        ShowDetail(event, './SWUSim/concat/' + cardId + '.webp');
-    };
-
-    // ── Log renderer ──────────────────────────────────────────────────────────
-    var _swuLogRenderedCount = 0;
-
-    function swuParseLogText(text) {
-        return text.replace(/\[\[([^\]|]+)\|([^\]]+)\]\]/g, function(_, cardId, name) {
-            return '<span class="swu-card-link"' +
-                ' onmousemove="swuLogCardHover(event,\'' + cardId.replace(/'/g, '') + '\')"' +
-                ' onmouseout="HideCardDetail()">' +
-                name.replace(/</g, '&lt;') + '</span>';
-        });
-    }
-
-    window.swuRenderGameLog = function() {
-        var panel = document.getElementById('swuLogPanel');
-        if (!panel) return;
-        var raw = window.GameLogData || '';
-        if (!raw || raw === '-') return;
-        var entries = raw.split('<NL>');
-        // Log shrank (undo) — rebuild from scratch instead of appending.
-        if (entries.length < _swuLogRenderedCount) {
-            panel.innerHTML = '';
-            _swuLogRenderedCount = 0;
-        }
-        if (entries.length <= _swuLogRenderedCount) return;
-
-        var wasNearBottom = (panel.scrollHeight - panel.scrollTop - panel.clientHeight) < 60;
-        var frag = document.createDocumentFragment();
-
-        for (var i = _swuLogRenderedCount; i < entries.length; i++) {
-            var entry = entries[i].trim();
-            if (!entry) continue;
-            var parts = entry.split('|');
-            if (parts.length < 3) continue;
-            var type = parts[0];
-            var text = parts.slice(2).join('|');
-            var div  = document.createElement('div');
-            div.className = 'swu-log-entry swu-log-' + type;
-            div.innerHTML = swuParseLogText(text.replace(/</g, '&lt;'));
-            frag.appendChild(div);
-        }
-        _swuLogRenderedCount = entries.length;
-        panel.appendChild(frag);
-
-        if (wasNearBottom) panel.scrollTop = panel.scrollHeight;
-    };
-
-    // ── Turn indicator settings ───────────────────────────────────────────────
-    window.TurnIndicatorSettings = {
-        showWaitingMessage: true,
-        messageAnchorId: 'myHandSlot',
-        waitingMessageBuilder: function(ctx) {
-            return (ctx && typeof ctx.defaultBuilder==='function') ? ctx.defaultBuilder() : null;
-        }
-    };
-
-    // Auto-open the resource panel while a decision is asking the player to pick one
-    // of their own resources (e.g. Han Solo's "defeat a resource you control" trigger).
-    // Resources live behind a collapsed badge, so a board-level MZCHOOSE would otherwise
-    // have nothing visible to click. We only auto-close a panel we ourselves opened, so a
-    // panel the player opened manually is left alone.
-    function refreshResourceSelectionPanel() {
-        var panel = document.getElementById('myResourcesSlot'); if (!panel) return;
-        var sel = window.SelectionMode;
-        var selectingResource = !!(sel && sel.active && Array.isArray(sel.allowedZones) &&
-            sel.allowedZones.some(function(z) { return z && z.zone === 'myResources'; }));
-        if (selectingResource) {
-            if (!panel.classList.contains('is-open')) {
-                panel.classList.add('is-open');
-                window.__swuAutoOpenedResPanel = true;
-            }
-        } else if (window.__swuAutoOpenedResPanel) {
-            panel.classList.remove('is-open');
-            window.__swuAutoOpenedResPanel = false;
-        }
-    }
-
-    // ── The Force token ───────────────────────────────────────────────────────
-    // Shows force-token.png in the base's top-right corner while a player holds the
-    // Force. The token lives on the persistent slot wrapper (not the per-render card
-    // HTML) so it survives the slot's innerHTML rebuild — letting the CSS opacity
-    // transition fade it in when gained and fade it out when used.
-    function refreshForceToken(slotId, dataStr) {
-        var slot = document.getElementById(slotId); if (!slot) return;
-        var wrap = slot.parentElement; if (!wrap) return;
-        var obj = swuParseZoneCard(dataStr || '');
-        var hasForce = !!(obj && (obj.HasForce === true || obj.HasForce === 'true' || obj.HasForce === 1));
-        var token = wrap.querySelector('.swu-force-token');
-        if (hasForce) {
-            if (!token) {
-                token = document.createElement('img');
-                token.className = 'swu-force-token';
-                token.src = './Assets/Icons/force-token.png';
-                token.alt = 'The Force';
-                token.title = 'The Force is with you';
-                wrap.appendChild(token);
-                void token.offsetWidth; // reflow at opacity 0 so the fade-in transition fires
-            }
-            token._forceRemoving = false;
-            token.classList.add('is-visible');
-        } else if (token && !token._forceRemoving) {
-            token._forceRemoving = true;
-            token.classList.remove('is-visible'); // fade out, then remove
-            token.addEventListener('transitionend', function te() {
-                token.removeEventListener('transitionend', te);
-                if (token._forceRemoving && token.parentElement) token.parentElement.removeChild(token);
-            });
-        }
-    }
-
-    // ── Poll global data ──────────────────────────────────────────────────────
-    function pollGlobals() {
-        updatePhaseTrack(); updateInitiative(); updateRound(); refreshActionGlows();
-        refreshResourceSelectionPanel();
-        refreshForceToken('myBaseSlot', window.myBaseData);
-        refreshForceToken('theirBaseSlot', window.theirBaseData);
-        swuUpdateUndoUI(MY_PLAYER_ID);
-    }
-    function watchGlobalData() {
-        pollGlobals();
-        var g=document.getElementById('globalStuff'); if(!g) return;
-        new MutationObserver(pollGlobals).observe(g,{childList:true,subtree:true});
-    }
-
-    // ── Leader popup ──────────────────────────────────────────────────────────
-
-    function swuParseZoneCard(dataStr) {
-        if (!dataStr || dataStr === '-') return null;
-        var first = dataStr.split('<|>')[0];
-        var spaceIdx = first.indexOf(' ');
-        if (spaceIdx === -1) return {CardID: first};
-        var cardID    = first.slice(0, spaceIdx);
-        var rest      = first.slice(spaceIdx + 1);
-        var spaceIdx2 = rest.indexOf(' ');
-        if (spaceIdx2 === -1) return {CardID: cardID};
-        var jsonStr = rest.slice(spaceIdx2 + 1).replace(/_/g, ' ');
-        try { var obj = JSON.parse(jsonStr); return obj; } catch (e) { return {CardID: cardID}; }
-    }
-
-    function showLeaderMenu(cardID, abilityAvail, deployAvail) {
-        var existing = document.getElementById('swuLeaderMenu');
-        if (existing) { existing.remove(); return; }
-        var menu = document.createElement('div');
-        menu.id = 'swuLeaderMenu';
-        menu.style.cssText = 'position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9998;' +
-            'background:#0d1b2a;border:2px solid #c8971e;border-radius:10px;padding:24px 32px;' +
-            'text-align:center;box-shadow:0 0 30px rgba(200,151,30,0.35);min-width:220px;' +
-            'font-family:var(--swu-font-ui,sans-serif);';
-        var isPilot = (window.SWU_PILOT_LEADERS || []).indexOf(cardID) !== -1;
-        var btnStyle = 'width:100%;padding:8px 16px;background:#1e3a5f;border:1px solid #888;' +
-            'border-radius:5px;color:#eee;cursor:pointer;font-size:13px;margin-bottom:2px;';
-        var html = '<div style="font-size:15px;font-weight:bold;color:#f0c040;margin-bottom:16px;">Leader Actions</div>';
-        if (abilityAvail) {
-            html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
-                'onclick="swuDoLeaderAction(\'LeaderAbility\')">Leader Ability</button></div>';
-        }
-        if (deployAvail && !isPilot) {
-            html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
-                'onclick="swuDoLeaderAction(\'DeployLeader:Unit\')">Deploy Leader</button></div>';
-        }
-        if (deployAvail && isPilot) {
-            html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
-                'onclick="swuDoLeaderAction(\'DeployLeader:Unit\')">Deploy as Unit</button></div>';
-            html += '<div style="margin-bottom:8px;"><button style="' + btnStyle + '" ' +
-                'onclick="swuDoLeaderAction(\'DeployLeader:Pilot\')">Deploy as Pilot</button></div>';
-        }
-        html += '<div><button style="width:100%;padding:6px 16px;background:transparent;border:1px solid #555;' +
-            'border-radius:5px;color:#aaa;cursor:pointer;font-size:12px;" ' +
-            'onclick="document.getElementById(\'swuLeaderMenu\').remove()">Cancel</button></div>';
-        menu.innerHTML = html;
-        document.body.appendChild(menu);
-        setTimeout(function () {
-            document.addEventListener('click', function outsideClose(e) {
-                var m = document.getElementById('swuLeaderMenu');
-                if (!m || !m.contains(e.target)) {
-                    if (m) m.remove();
-                    document.removeEventListener('click', outsideClose);
-                }
-            });
-        }, 0);
-    }
-
-    window.swuDoLeaderAction = function (action) {
-        var existing = document.getElementById('swuLeaderMenu');
-        if (existing) existing.remove();
-        SubmitInput('10001', '&cardID=' + encodeURIComponent('myLeader-0!CustomInput!' + action));
-    };
-
-    function handleLeaderClick(e) {
-        var d = window.myActionsData || {};
-        if (!d.leaderAbility && !d.leaderDeploy) return;
-        e.stopPropagation(); e.preventDefault();
-        var obj    = swuParseZoneCard(window.myLeaderData || '');
-        var cardID = (obj && obj.CardID) ? obj.CardID : '';
-        var isPilot = (window.SWU_PILOT_LEADERS || []).indexOf(cardID) !== -1;
-        if (d.leaderAbility && !d.leaderDeploy) {
-            window.swuDoLeaderAction('LeaderAbility');
-        } else if (!d.leaderAbility && d.leaderDeploy) {
-            isPilot ? showLeaderMenu(cardID, false, true)
-                    : window.swuDoLeaderAction('DeployLeader:Unit');
-        } else {
-            showLeaderMenu(cardID, d.leaderAbility, d.leaderDeploy);
-        }
-    }
-
-    function setupLeaderClick() {
-        var slot = document.getElementById('myLeaderSlot'); if (!slot) return;
-        slot.addEventListener('click', handleLeaderClick, true);
-    }
-
-    // ── Base popup ────────────────────────────────────────────────────────────
-
-    window.swuDoBaseAction = function () {
-        SubmitInput('10001', '&cardID=' + encodeURIComponent('myBase-0!CustomInput!EpicAction'));
-    };
-
-    function handleBaseClick(e) {
-        var d = window.myActionsData || {};
-        if (!d.baseEpic) return;
-        e.stopPropagation(); e.preventDefault();
-        window.swuDoBaseAction();
-    }
-
-    function setupBaseClick() {
-        var slot = document.getElementById('myBaseSlot'); if (!slot) return;
-        slot.addEventListener('click', handleBaseClick, true);
-    }
-
-    // ── Discard play click ────────────────────────────────────────────────────
-    function handleDiscardClick(e, owner) {
-        var el = e.target;
-        while (el && el !== e.currentTarget) {
-            if (el.classList && el.classList.contains('discard-playable')) {
-                var mzid = el.getAttribute && el.getAttribute('data-mzid');
-                if (mzid) {
-                    var parts = mzid.split('-');
-                    var idx = parts[parts.length - 1];
-                    e.stopPropagation();
-                    e.preventDefault();
-                    if (owner === 'opp') {
-                        SubmitInput('10001', '&cardID=' + encodeURIComponent('PlayFromOpponentDiscard-' + idx + '!CustomInput!'));
-                    } else {
-                        SubmitInput('10001', '&cardID=' + encodeURIComponent('PlayFromDiscard-' + idx + '!CustomInput!'));
-                    }
-                    return;
-                }
-            }
-            el = el.parentElement;
-        }
-    }
-
-    function setupDiscardClick() {
-        var mySlot = document.getElementById('myDiscardSlot');
-        if (mySlot) mySlot.addEventListener('click', function(e) { handleDiscardClick(e, 'mine'); }, true);
-        var theirSlot = document.getElementById('theirDiscardSlot');
-        if (theirSlot) theirSlot.addEventListener('click', function(e) { handleDiscardClick(e, 'opp'); }, true);
-    }
-
-    // Clicking a unit that has an available Action (glowing .unit-action) is ambiguous:
-    // a ready unit can either Attack OR use its Action (both exhaust it). Present a small
-    // menu so the player picks. Skips when a selection/targeting is active so attacks/
-    // targets are unaffected.
-    function removeUnitActionMenu() {
-        var ex = document.getElementById('swuUnitActionMenu');
-        if (ex && ex.parentNode) ex.parentNode.removeChild(ex);
-    }
-    function showUnitActionMenu(mzid, anchorEl) {
-        removeUnitActionMenu();
-        var menu = document.createElement('div');
-        menu.id = 'swuUnitActionMenu';
-        menu.className = 'swu-unit-action-menu';
-
-        var atkBtn = document.createElement('button');
-        atkBtn.className = 'swu-uam-btn';
-        atkBtn.textContent = 'Attack';
-        atkBtn.addEventListener('click', function(ev) {
-            ev.stopPropagation();
-            removeUnitActionMenu();
-            // Delegate to the framework's normal unit-click attack flow. CardClick's
-            // GetZoneClickActions switches on the BARE zone name (no my/their prefix),
-            // while the mzid passed as cardId stays player-prefixed (e.g. myGroundArena-0).
-            var zone = mzid.replace(/-\d+$/, '').replace('my', '').replace('their', '');
-            if (typeof CardClick === 'function') {
-                CardClick({ stopPropagation: function() {} }, zone, mzid);
-            }
-        });
-
-        var abilityBtn = document.createElement('button');
-        abilityBtn.className = 'swu-uam-btn';
-        abilityBtn.textContent = 'Ability';
-        abilityBtn.addEventListener('click', function(ev) {
-            ev.stopPropagation();
-            removeUnitActionMenu();
-            SubmitInput('10001', '&cardID=' + encodeURIComponent(mzid + '!CustomInput!Activate'));
-        });
-
-        menu.appendChild(atkBtn);
-        menu.appendChild(abilityBtn);
-        document.body.appendChild(menu);
-
-        // Position centered above the unit; flip below if it would clip the top.
-        var rect = anchorEl.getBoundingClientRect();
-        var left = rect.left + rect.width / 2 - menu.offsetWidth / 2;
-        var top  = rect.top - menu.offsetHeight - 6;
-        if (top < 4) top = rect.bottom + 6;
-        left = Math.max(4, Math.min(left, window.innerWidth - menu.offsetWidth - 4));
-        menu.style.left = left + 'px';
-        menu.style.top  = top + 'px';
-
-        // Dismiss on the next outside click (capture phase so it fires before card onclicks).
-        setTimeout(function() {
-            document.addEventListener('click', function dismiss(ev) {
-                var m = document.getElementById('swuUnitActionMenu');
-                if (m && !m.contains(ev.target)) removeUnitActionMenu();
-                document.removeEventListener('click', dismiss, true);
-            }, true);
-        }, 0);
-    }
-    function handleUnitActionClick(e) {
-        if (window.SelectionMode && window.SelectionMode.active) return;
-        var el = e.target;
-        while (el && el !== e.currentTarget) {
-            if (el.classList && el.classList.contains('unit-action')) {
-                var mzid = el.getAttribute && el.getAttribute('data-mzid');
-                if (mzid) {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    showUnitActionMenu(mzid, el);
-                    return;
-                }
-            }
-            el = el.parentElement;
-        }
-    }
-    function setupUnitActionClick() {
-        ['myGroundArenaSlot', 'mySpaceArenaSlot'].forEach(function(id) {
-            var slot = document.getElementById(id);
-            if (slot) slot.addEventListener('click', handleUnitActionClick, true);
-        });
-    }
-    function refreshUnitActionGlows() {
-        var d = window.myActionsData || {};
-        document.querySelectorAll('.unit-action').forEach(function(el) { el.classList.remove('unit-action'); });
-        document.querySelectorAll('.can-attack').forEach(function(el) { el.classList.remove('can-attack'); });
-        var abilityMz = {};
-        (d.unitActions || []).forEach(function(mz) {
-            abilityMz[mz] = true;
-            var el = document.querySelector('[data-mzid="' + mz + '"]');
-            if (el) el.classList.add('unit-action');
-        });
-        // "Can attack" green glow — skip units already showing the cyan ability glow (their click menu
-        // already offers Attack), so a unit never carries both highlights.
-        (d.attackers || []).forEach(function(mz) {
-            if (abilityMz[mz]) return;
-            var el = document.querySelector('[data-mzid="' + mz + '"]');
-            if (el) el.classList.add('can-attack');
-        });
-    }
-
-    // ── Resource Smuggle click ─────────────────────────────────────────────────
-    // Intercept resource card clicks to trigger Smuggle when conditions are met.
-    // Uses capture phase so it fires before the framework FSM onclick on the card.
-    function handleResourceClick(e) {
-        var isMyTurn    = (String(window.TurnPlayerData   || '').trim() === String(MY_PLAYER_ID));
-        var isMainPhase = (String(window.CurrentPhaseData || '').trim() === 'MAIN');
-        if (!isMyTurn || !isMainPhase) return;
-        // Don't intercept when selection mode is active (MZCHOOSE picking a resource target).
-        if (window.SelectionMode && window.SelectionMode.active) return;
-        // Walk up from the click target to find the card element with data-mzid.
-        var el = e.target;
-        var mzid = null;
-        while (el && el !== e.currentTarget) {
-            var m = el.getAttribute && el.getAttribute('data-mzid');
-            if (m && /^myResources-\d+$/.test(m)) { mzid = m; break; }
-            el = el.parentElement;
-        }
-        if (!mzid) return;
-        e.stopPropagation();
-        e.preventDefault();
-        SubmitInput('10001', '&cardID=' + encodeURIComponent(mzid + '!CustomInput!Smuggle'));
-    }
-
-    function setupResourceClick() {
-        var slot = document.getElementById('myResourcesSlot'); if (!slot) return;
-        slot.addEventListener('click', handleResourceClick, true);
-    }
-
-    // ── Init ──────────────────────────────────────────────────────────────────
-    function init() {
-        watchSlot('EffectStackSlot');
-        mountChat();
-        watchGlobalData();
-        setupEffectStackDrag();
-        setupHandCollapse();
-        watchResZone('myResourcesSlot',    'swuMyResCount',    'myResourcesData');
-        watchResZone('theirResourcesSlot', 'swuTheirResCount', 'theirResourcesData');
-        var initBtn = document.getElementById('swuTakeInitBtn');
-        if (initBtn) initBtn.addEventListener('click', window.swuTakeInitiative);
-        var passBtn = document.getElementById('swuPassBtn');
-        if (passBtn) passBtn.addEventListener('click', window.swuPassAction);
-        setupLeaderClick();
-        setupBaseClick();
-        setupResourceClick();
-        setupDiscardClick();
-        setupUnitActionClick();
-        // Space key = Pass (only fires when no input element is focused)
-        document.addEventListener('keydown', function(e) {
-            if (e.code !== 'Space' && e.keyCode !== 32) return;
-            if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) return;
-            e.preventDefault();
-            var isMyTurn    = (String(window.TurnPlayerData||'').trim() === String(MY_PLAYER_ID));
-            var isMainPhase = (String(window.CurrentPhaseData||'').trim() === 'MAIN');
-            if (isMyTurn && isMainPhase) window.swuPassAction();
-        });
-        // Start with Log tab active, chat hidden
-        var chatMount = document.getElementById('swuChatMount');
-        if (chatMount) chatMount.style.display = 'none';
-    }
-
-    // ── Game-over banner ──────────────────────────────────────────────────────
-    function showGameOverBanner(msg) {
-        var existing = document.getElementById('swuGameOverBanner');
-        if (existing) return;
-        var banner = document.createElement('div');
-        banner.id = 'swuGameOverBanner';
-        banner.style.cssText = [
-            'position:fixed', 'top:50%', 'left:50%',
-            'transform:translate(-50%,-50%)',
-            'z-index:9999',
-            'background:#0d1b2a',
-            'border:2px solid #f0c040',
-            'border-radius:10px',
-            'padding:32px 48px',
-            'text-align:center',
-            'box-shadow:0 0 40px rgba(240,192,64,0.4)',
-            'min-width:320px'
-        ].join(';');
-        banner.innerHTML =
-            '<div style="font-size:22px;font-weight:bold;color:#f0c040;margin-bottom:8px;">Game Over</div>' +
-            '<div style="font-size:14px;color:#d4d4d4;margin-bottom:20px;">' + msg.replace(/</g,'&lt;') + '</div>' +
-            '<button onclick="document.getElementById(\'swuGameOverBanner\').remove()" ' +
-            'style="padding:6px 18px;background:#1e3a5f;border:1px solid #888;border-radius:4px;' +
-            'color:#eee;cursor:pointer;font-size:12px;">Dismiss ×</button>';
-        document.body.appendChild(banner);
-    }
-
-    // ── Action-available glow ─────────────────────────────────────────────────
-
-    // Applies/removes the .smuggle-available class on individual resource card elements.
-    function refreshResourceCardGlows() {
-        var slot = document.getElementById('myResourcesSlot'); if (!slot) return;
-        slot.querySelectorAll('.smuggle-available').forEach(function(el) {
-            el.classList.remove('smuggle-available');
-        });
-        var d = window.myActionsData || {};
-        var indices = d.smugglableResources || [];
-        for (var i = 0; i < indices.length; i++) {
-            var cardEl = document.getElementById('myResources-' + indices[i]);
-            if (cardEl) cardEl.classList.add('smuggle-available');
-        }
-    }
-
-    function refreshActionGlows() {
-        var d = window.myActionsData || {};
-
-        var leaderSlot = document.getElementById('myLeaderSlot');
-        if (leaderSlot) {
-            leaderSlot.classList.toggle('has-action', !!(d.leaderAbility || d.leaderDeploy));
-        }
-
-        var baseSlot = document.getElementById('myBaseSlot');
-        if (baseSlot) {
-            baseSlot.classList.toggle('has-action', !!d.baseEpic);
-        }
-
-        var resCount = document.getElementById('swuMyResCount');
-        if (resCount) {
-            resCount.classList.toggle('has-action', !!(d.smugglableResources && d.smugglableResources.length > 0));
-        }
-
-        var myDiscardSlot = document.getElementById('myDiscardSlot');
-        if (myDiscardSlot) myDiscardSlot.classList.toggle('has-action',
-            !!(d.playableDiscards && d.playableDiscards.length > 0));
-        var theirDiscardSlot = document.getElementById('theirDiscardSlot');
-        if (theirDiscardSlot) theirDiscardSlot.classList.toggle('has-action',
-            !!(d.opponentPlayableDiscards && d.opponentPlayableDiscards.length > 0));
-    }
-
-    function refreshDiscardCardGlows() {
-        var d = window.myActionsData || {};
-        var mySlot = document.getElementById('myDiscardSlot');
-        if (mySlot) {
-            mySlot.querySelectorAll('.discard-playable').forEach(function(el) {
-                el.classList.remove('discard-playable');
-            });
-            (d.playableDiscards || []).forEach(function(entry) {
-                var el = document.getElementById('myDiscard-' + entry.idx);
-                if (el) el.classList.add('discard-playable');
-            });
-        }
-        var theirSlot = document.getElementById('theirDiscardSlot');
-        if (theirSlot) {
-            theirSlot.querySelectorAll('.discard-playable').forEach(function(el) {
-                el.classList.remove('discard-playable');
-            });
-            (d.opponentPlayableDiscards || []).forEach(function(entry) {
-                var el = document.getElementById('theirDiscard-' + entry.idx);
-                if (el) el.classList.add('discard-playable');
-            });
-        }
-    }
-
-    // ── Leader deployed state intercept ───────────────────────────────────────
-    // Intercept myLeaderData / theirLeaderData assignments to toggle .is-deployed
-    // on the leader slots so the card ghosts when the leader is in the arena.
-    function applyLeaderDeployedClass(slotId, dataStr) {
-        var slot = document.getElementById(slotId); if (!slot) return;
-        var obj  = swuParseZoneCard(dataStr || '');
-        var dep  = obj && (obj.Deployed === true || obj.Deployed === 'true' || parseInt(obj.Deployed, 10) === 1);
-        slot.classList.toggle('is-deployed', !!dep);
-    }
-
-    (function () {
-        var _myLeaderInternal    = window.myLeaderData    || '';
-        var _theirLeaderInternal = window.theirLeaderData || '';
-        var _myBaseInternal      = window.myBaseData      || '';
-        var _myResourcesInternal = window.myResourcesData || '';
-        var _turnPlayerInternal  = window.TurnPlayerData  || '';
-        var _phaseInternal       = window.CurrentPhaseData || '';
-        Object.defineProperty(window, 'myLeaderData', {
-            configurable: true,
-            get: function () { return _myLeaderInternal; },
-            set: function (v) { _myLeaderInternal = v; applyLeaderDeployedClass('myLeaderSlot', v); }
-        });
-        Object.defineProperty(window, 'theirLeaderData', {
-            configurable: true,
-            get: function () { return _theirLeaderInternal; },
-            set: function (v) { _theirLeaderInternal = v; applyLeaderDeployedClass('theirLeaderSlot', v); }
-        });
-        Object.defineProperty(window, 'myBaseData', {
-            configurable: true,
-            get: function () { return _myBaseInternal; },
-            set: function (v) { _myBaseInternal = v; }
-        });
-        Object.defineProperty(window, 'myResourcesData', {
-            configurable: true,
-            get: function () { return _myResourcesInternal; },
-            set: function (v) { _myResourcesInternal = v; }
-        });
-        Object.defineProperty(window, 'TurnPlayerData', {
-            configurable: true,
-            get: function () { return _turnPlayerInternal; },
-            set: function (v) { _turnPlayerInternal = v; }
-        });
-        Object.defineProperty(window, 'CurrentPhaseData', {
-            configurable: true,
-            get: function () { return _phaseInternal; },
-            set: function (v) { _phaseInternal = v; }
-        });
-        var _resGlowRafPending = false;
-        var _myActionsInternal = {};
-        Object.defineProperty(window, 'myActionsData', {
-            configurable: true,
-            get: function () { return _myActionsInternal; },
-            set: function (v) {
-                _myActionsInternal = (typeof v === 'string') ? (function(){ try { return JSON.parse(v); } catch(e) { return {}; } }()) : (v || {});
-                refreshActionGlows();
-                if (!_resGlowRafPending) {
-                    _resGlowRafPending = true;
-                    requestAnimationFrame(function() {
-                        _resGlowRafPending = false;
-                        refreshResourceCardGlows();
-                        refreshDiscardCardGlows();
-                        refreshUnitActionGlows();
-                    });
-                }
-            }
-        });
-    })();
-
-    // Re-render the game log whenever NextTurnRender assigns GameLogData.
-    (function () {
-        var _gameLogInternal = '';
-        Object.defineProperty(window, 'GameLogData', {
-            configurable: true,
-            get: function () { return _gameLogInternal; },
-            set: function (v) {
-                _gameLogInternal = v || '';
-                if (window.swuRenderGameLog) window.swuRenderGameLog();
-            }
-        });
-    })();
-
-    // Intercept FlashMessageData before NextTurnRender consumes it.
-    // If the value starts with "GAMEOVER:", show persistent banner and suppress normal flash.
-    var _flashInternal = '';
-    Object.defineProperty(window, 'FlashMessageData', {
-        configurable: true,
-        get: function () { return _flashInternal; },
-        set: function (v) {
-            if (typeof v === 'string' && v.indexOf('GAMEOVER:') === 0) {
-                showGameOverBanner(v.slice(9));
-                _flashInternal = '';
-            } else {
-                _flashInternal = v;
-            }
-        }
-    });
-
-    if (document.readyState==='loading') {
-        document.addEventListener('DOMContentLoaded', init);
-    } else {
-        init();
-    }
-})(<?php echo intval($playerID); ?>);
-</script>
-
-<script>
-// ── SWU Undo UI helpers ───────────────────────────────────────────────────────
-window.GetSWUDQVar = window.GetSWUDQVar || function(key, def) {
-    var d = typeof window.DecisionQueueVariablesData === 'string'
-        ? window.DecisionQueueVariablesData : '';
-    var pairs = d.split('|');
-    for (var i = 0; i < pairs.length; i++) {
-        var eq = pairs[i].indexOf('=');
-        if (eq !== -1 && pairs[i].slice(0, eq) === key) return pairs[i].slice(eq + 1); // first occurrence wins
-    }
-    return (def !== undefined ? def : '');
-};
-
-function swuShowUndoRequestPopup(fromPlayerID) {
-    var existing = document.getElementById('swu-undo-request-modal');
-    if (existing) return; // already showing
-    var overlay = document.createElement('div');
-    overlay.id = 'swu-undo-request-modal';
-    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.55);z-index:9000;display:flex;align-items:center;justify-content:center;';
-    var modal = document.createElement('div');
-    modal.style.cssText = 'background:#0D1B2A;padding:32px 28px;border-radius:10px;box-shadow:0 0 24px #0009;text-align:center;min-width:320px;font-family:\'Orbitron\',sans-serif;';
-    var msg = document.createElement('div');
-    msg.style.cssText = 'font-size:16px;color:#fff;margin-bottom:8px;';
-    msg.textContent = 'Player ' + fromPlayerID + ' requested to undo their last action.';
-    var sub = document.createElement('div');
-    sub.style.cssText = 'font-size:12px;color:rgba(255,255,255,0.55);margin-bottom:24px;';
-    sub.textContent = '(They revealed hidden card information.)';
-    var allowBtn = document.createElement('button');
-    allowBtn.textContent = 'Allow';
-    allowBtn.style.cssText = 'margin:0 12px 0 0;padding:8px 24px;font-size:16px;background:#28a745;color:#fff;border:none;border-radius:5px;cursor:pointer;';
-    allowBtn.onclick = function() { overlay.remove(); SubmitInput(10008, ''); };
-    var denyBtn = document.createElement('button');
-    denyBtn.textContent = 'Deny';
-    denyBtn.style.cssText = 'padding:8px 24px;font-size:16px;background:#dc3545;color:#fff;border:none;border-radius:5px;cursor:pointer;';
-    denyBtn.onclick = function() { overlay.remove(); SubmitInput(10009, ''); };
-    modal.appendChild(msg);
-    modal.appendChild(sub);
-    modal.appendChild(allowBtn);
-    modal.appendChild(denyBtn);
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-}
-
-function swuShowBlockPromptPopup(targetPlayerID) {
-    var existing = document.getElementById('swu-block-prompt-modal');
-    if (existing) return;
-    var overlay = document.createElement('div');
-    overlay.id = 'swu-block-prompt-modal';
-    overlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.55);z-index:9001;display:flex;align-items:center;justify-content:center;';
-    var modal = document.createElement('div');
-    modal.style.cssText = 'background:#0D1B2A;padding:32px 28px;border-radius:10px;box-shadow:0 0 24px #0009;text-align:center;min-width:320px;font-family:\'Orbitron\',sans-serif;';
-    var msg = document.createElement('div');
-    msg.style.cssText = 'font-size:16px;color:#fff;margin-bottom:8px;';
-    msg.textContent = 'Player ' + targetPlayerID + ' has had undo requests denied multiple times.';
-    var sub = document.createElement('div');
-    sub.style.cssText = 'font-size:12px;color:rgba(255,255,255,0.55);margin-bottom:24px;';
-    sub.textContent = 'Block all future undo requests from them?';
-    var blockBtn = document.createElement('button');
-    blockBtn.textContent = 'Block';
-    blockBtn.style.cssText = 'margin:0 12px 0 0;padding:8px 24px;font-size:16px;background:#dc3545;color:#fff;border:none;border-radius:5px;cursor:pointer;';
-    blockBtn.onclick = function() { overlay.remove(); SubmitInput(10010, ''); };
-    var keepBtn = document.createElement('button');
-    keepBtn.textContent = 'Keep Allowing';
-    keepBtn.style.cssText = 'padding:8px 24px;font-size:16px;background:#6c757d;color:#fff;border:none;border-radius:5px;cursor:pointer;';
-    keepBtn.onclick = function() { overlay.remove(); SubmitInput(10011, ''); };
-    modal.appendChild(msg);
-    modal.appendChild(sub);
-    modal.appendChild(blockBtn);
-    modal.appendChild(keepBtn);
-    overlay.appendChild(modal);
-    document.body.appendChild(overlay);
-}
-
-function swuUpdateUndoUI(myPlayerID) {
-    var btn = document.getElementById('swuUndoBtn');
-    if (!btn) return;
-
-    var hasVersion = typeof window.myVersionsData === 'string' && window.myVersionsData.trim() !== '';
-    var requiresConsent = GetSWUDQVar('UNDO_REQUIRES_CONSENT') === 'true';
-    var isBlocked = GetSWUDQVar('UNDO_BLOCKED_' + myPlayerID) === 'true';
-
-    btn.style.display = hasVersion ? 'inline-block' : 'none';
-    btn.textContent = requiresConsent ? 'Request Undo' : 'Undo';
-    btn.disabled = isBlocked;
-    btn.title = isBlocked ? 'Your opponent has blocked undo requests.' : '';
-
-    // Undo request popup: show to the opponent of PENDING_UNDO_FROM
-    var pendingFrom = GetSWUDQVar('PENDING_UNDO_FROM');
-    var otherPlayer = myPlayerID === 1 ? 2 : 1;
-    if (pendingFrom !== '' && parseInt(pendingFrom, 10) === otherPlayer) {
-        swuShowUndoRequestPopup(otherPlayer);
-    } else {
-        var reqModal = document.getElementById('swu-undo-request-modal');
-        if (reqModal) reqModal.remove();
-    }
-
-    // Block prompt popup: show to the opponent of PENDING_BLOCK_PROMPT_FOR
-    var pendingBlock = GetSWUDQVar('PENDING_BLOCK_PROMPT_FOR');
-    if (pendingBlock !== '' && parseInt(pendingBlock, 10) === otherPlayer) {
-        swuShowBlockPromptPopup(otherPlayer);
-    } else {
-        var blkModal = document.getElementById('swu-block-prompt-modal');
-        if (blkModal) blkModal.remove();
-    }
-}
-</script>
-
-<script>
-// ── Leader / Base use landscape (wide) aspect ratio ───────────────────────────
-window.RenderCardHTML = function(cardNumber, folder, maxHeight, action, showHover,
-    overlay, borderColor, counters, actionDataOverride, id, rotate,
-    lifeCounters, defCounters, atkCounters, controller, restriction,
-    isBroken, onChain, isFrozen, gem, landscape, epicActionUsed,
-    heatmapFunction, heatmapColorMap, mzId, overlayTypes, overlayDescriptorsJSON) {
-    // Force landscape ratio for leader and base zone cards
-    if (mzId && /^(my|their)(Leader|Base)-/.test(mzId)) {
-        landscape = 1;
-    }
-    return Card(cardNumber, folder, maxHeight, action, showHover,
-        overlay, borderColor, counters, actionDataOverride, id, rotate,
-        lifeCounters, defCounters, atkCounters, controller, restriction,
-        isBroken, onChain, isFrozen, gem, landscape, epicActionUsed,
-        heatmapFunction, heatmapColorMap, mzId, overlayTypes, overlayDescriptorsJSON);
-};
-</script>
+<?php include __DIR__ . '/GameLayoutShared.php'; ?>

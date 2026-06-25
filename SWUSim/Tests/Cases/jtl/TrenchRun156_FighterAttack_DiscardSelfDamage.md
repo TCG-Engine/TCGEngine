@@ -3,8 +3,10 @@
 # SOR_225(cost 1)/SOR_237(cost 2) from P2's deck (diff 1 → 1 self-damage), then hits P2's base for 6.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_156

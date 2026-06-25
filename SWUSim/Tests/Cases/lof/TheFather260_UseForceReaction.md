@@ -3,8 +3,11 @@
 # Father and regains the Force. Then Talzin's -1/-1 resolves on SOR_046.
 
 ## GIVEN
-P1LeaderBase: LOF_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:LOF_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Force: true

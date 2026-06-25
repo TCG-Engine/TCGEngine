@@ -5,8 +5,10 @@
 # gives a Shield to LAW_055. Result: LAW_055 = 1+2 = power 3, with 2 Experience + 1 Shield (3 subcards).
 
 ## GIVEN
-P1LeaderBase: SOR_005/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

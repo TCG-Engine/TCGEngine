@@ -7,17 +7,19 @@
 # → P2 gets a second Credit. P2 ends with 2 Credit tokens.
 
 ## GIVEN
-P1LeaderBase: JTL_002:1:1:1/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
-WithP1GroundArena: JTL_002:1:0
 WithP1GroundArena: SOR_128:1:0
-WithP1GroundArenaUpgrade: 1:LAW_141
+WithP1GroundArenaUpgrade: 0:LAW_141
 WithP2GroundArena: LAW_124:1:0
 
 ## WHEN
-- P1>AttackGroundArena:1:0
+- P1>AttackGroundArena:0:0
 - P1>AnswerDecision:YES
 
 ## EXPECT

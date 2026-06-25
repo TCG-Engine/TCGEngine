@@ -2,8 +2,11 @@
 # not a Fighter.)
 
 ## GIVEN
-P1LeaderBase: JTL_001/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_257:1:0

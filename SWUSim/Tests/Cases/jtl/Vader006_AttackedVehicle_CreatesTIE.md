@@ -3,8 +3,11 @@
 # Vader's action creates a TIE Fighter (JTL_T01) in the space arena.
 
 ## GIVEN
-P1LeaderBase: JTL_006/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: ggk/bbk/{
+  myLeader:JTL_006;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SOR_237:1:0

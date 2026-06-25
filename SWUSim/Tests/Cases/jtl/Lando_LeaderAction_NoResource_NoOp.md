@@ -3,8 +3,11 @@
 # not played, and no decision is pending. Unaffordable-cost guard.
 
 ## GIVEN
-P1LeaderBase: JTL_003/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_003;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_237

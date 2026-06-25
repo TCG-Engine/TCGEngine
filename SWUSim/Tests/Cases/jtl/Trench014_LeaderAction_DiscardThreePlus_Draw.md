@@ -3,8 +3,11 @@
 # from the deck.
 
 ## GIVEN
-P1LeaderBase: JTL_014/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: gyk/bbk/{
+  myLeader:JTL_014;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_069

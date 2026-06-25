@@ -3,8 +3,11 @@
 # token to the only friendly unit (himself) → 6/6 (with 3 combat damage on him).
 
 ## GIVEN
-P1LeaderBase: SOR_011/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: rrk/brw/{
+  myLeader:SOR_011;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_036:1:0

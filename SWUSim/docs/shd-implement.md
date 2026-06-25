@@ -9,7 +9,7 @@
 ⚠ **Already partially implemented — verify, do NOT duplicate:** SHD_012, SHD_028, SHD_135, SHD_166, SHD_182. ⚠ **SHD_187** immunity halves likely already wired via `SWUAvoids*` helpers — only the Raid 2 (auto) + any remaining text needs checking.
 
 ### Already Done
-SHD_019, SHD_020, SHD_021, SHD_022, SHD_023, SHD_024, SHD_025, SHD_026, SHD_029, SHD_043, SHD_055, SHD_060, SHD_061, SHD_062, SHD_063, SHD_070, SHD_098, SHD_100, SHD_110, SHD_114, SHD_121, SHD_136, SHD_146, SHD_152, SHD_162, SHD_200, SHD_210, SHD_218, SHD_237, SHD_238, SHD_240, SHD_257, SHD_259, SHD_T01, SHD_T02
+SHD_019, SHD_020, SHD_021, SHD_022, SHD_023, SHD_024, SHD_025, SHD_026, SHD_029, SHD_043, SHD_055, SHD_060, SHD_061, SHD_062, SHD_063, SHD_070, SHD_098, SHD_100, SHD_110, SHD_114, SHD_121, SHD_136, SHD_146, SHD_152, SHD_162, SHD_200, SHD_210, SHD_218, SHD_237, SHD_238, SHD_240, SHD_257, SHD_259, SHD_T01, SHD_T02, SHD_006, SHD_123
 
 ## Phase 1 — Bounty payloads (reuse SWUCollectBounty dispatch) (autonomous)
 - [ ] **Batch 1.1 — SHD_027, SHD_031, SHD_033, SHD_058**

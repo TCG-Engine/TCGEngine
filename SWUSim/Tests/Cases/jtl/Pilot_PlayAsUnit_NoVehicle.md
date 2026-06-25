@@ -5,8 +5,12 @@
 # Leader SOR_001 (Vigilance+Villainy) + Base SOR_019 (Vigilance) = no aspect penalty.
 
 ## GIVEN
-P1LeaderBase: SOR_001/SOR_019
-P2LeaderBase: SOR_001/SOR_019
+CommonSetup: bbk/bbk/{
+  myLeader:SOR_001;
+  myBase:SOR_019;
+  theirLeader:SOR_001;
+  theirBase:SOR_019
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

@@ -2,8 +2,9 @@
 # it's the only unit you control in its arena. SOR_095 is alone in the ground arena (and the only valid
 # target, auto-resolved), so it gets +2/+2 (3 → 5 power); Baylan exhausts and 1 resource is spent.
 ## GIVEN
-P1LeaderBase: ASH_003/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: gbk/brk/{
+  myLeader:ASH_003
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1

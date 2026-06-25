@@ -2,6 +2,62 @@
 
 include_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/DeckTextParser.php';
+include_once __DIR__ . '/../../SWUDeck/Overrides.php'; // CardIDOverride — reprint → earliest printing
+
+// Sets whose card abilities the sim actually implements. A reprint printed only
+// in a non-implemented set (e.g. SHD/TWI promos) must be aliased to one of these
+// so the engine fires the real ability. SOR is implemented though not Premier-legal.
+const SWUImplementedSets = ['SOR', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
+
+// Short set prefix of a SET_NNN card ID.
+function SWUCardSet($cardID) {
+    return strtoupper(explode('_', (string)$cardID)[0] ?? '');
+}
+
+// Every known printing that shares a canonical (earliest) printing with $cardID,
+// including $cardID and the canonical itself. Built once by inverting
+// CardIDOverride over the full card dictionary — the single source of reprint
+// relationships shared with SWUDeck stats.
+function SWUReprintGroup($cardID) {
+    static $groups = null;
+    if ($groups === null) {
+        global $titleData;
+        $groups = [];
+        $ids = is_array($titleData) ? array_keys($titleData) : [];
+        foreach ($ids as $id) {
+            $groups[CardIDOverride($id)][] = $id;
+        }
+    }
+    $canon = CardIDOverride($cardID);
+    $group = $groups[$canon] ?? [];
+    if (!in_array($cardID, $group, true)) $group[] = $cardID;
+    if (!in_array($canon,  $group, true)) $group[] = $canon;
+    return array_values(array_unique($group));
+}
+
+// Pick a printing of $cardID that the sim implements. Keeps the given printing
+// when its set is implemented; otherwise prefers the canonical, then any reprint
+// in an implemented set; falls back to the original if none exists.
+function SWUResolveToImplementedPrint($cardID) {
+    if ($cardID === '' || $cardID === null) return $cardID;
+    if (in_array(SWUCardSet($cardID), SWUImplementedSets, true)) return $cardID;
+    $canon = CardIDOverride($cardID);
+    if (in_array(SWUCardSet($canon), SWUImplementedSets, true)) return $canon;
+    foreach (SWUReprintGroup($cardID) as $print) {
+        if (in_array(SWUCardSet($print), SWUImplementedSets, true)) return $print;
+    }
+    return $cardID;
+}
+
+// True when $cardID — by any of its printings — appears in one of $legalSets.
+// Lets a deck list an older/alternate printing of a card that is Premier-legal
+// via a reprint (e.g. SHD_030 Death Trooper is legal because SEC_030 is).
+function SWUCardHasLegalPrint($cardID, array $legalSets) {
+    foreach (SWUReprintGroup($cardID) as $print) {
+        if (in_array(SWUCardSet($print), $legalSets, true)) return true;
+    }
+    return false;
+}
 
 /**
  * Validate a deck link or paste without fully loading the deck.
@@ -341,13 +397,15 @@ function SWUFetchDeckJson($url, $headers = []) {
 }
 
 function SWUDeckSuccess($leader, $base, $mainDeck, $sideboard, $unresolved) {
+    // Alias every printing to one the sim implements so reprints (incl. cards
+    // printed only in non-implemented sets) play with their real abilities.
     return [
         'success'    => true,
         'message'    => '',
-        'leader'     => $leader,
-        'base'       => $base,
-        'mainDeck'   => $mainDeck,
-        'sideboard'  => $sideboard,
+        'leader'     => SWUResolveToImplementedPrint($leader),
+        'base'       => SWUResolveToImplementedPrint($base),
+        'mainDeck'   => array_map('SWUResolveToImplementedPrint', $mainDeck),
+        'sideboard'  => array_map('SWUResolveToImplementedPrint', $sideboard),
         'unresolved' => $unresolved,
     ];
 }

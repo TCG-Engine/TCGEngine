@@ -2,8 +2,10 @@
 # the 7 damage is dealt. The target is a 4/7 wall, so 7 damage defeats it; the caster draws nothing.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Hand: SOR_233

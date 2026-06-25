@@ -3,8 +3,11 @@
 # (chosen over the enemy unit) for 3 damage.
 
 ## GIVEN
-P1LeaderBase: SOR_012/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: rrk/brw/{
+  myLeader:SOR_012;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:0

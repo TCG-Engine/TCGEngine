@@ -3,7 +3,10 @@
 # Hunter) attacks and defeats SOR_128 (3/1); P1 exhausts Boba to create a Credit.
 
 ## GIVEN
-P1LeaderBase: LAW_007/SOR_028
+CommonSetup: ygk/grw/{
+  myLeader:LAW_007;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LAW_124:1:0

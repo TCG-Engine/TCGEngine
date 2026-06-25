@@ -3,8 +3,7 @@
 # (Absence guard — passes pre-implementation; stays meaningful once the buff exists.)
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: grw/grw
 SkipPreGame: true
 WithP1GroundArena: SOR_082:1:0
 

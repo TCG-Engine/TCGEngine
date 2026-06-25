@@ -5,12 +5,14 @@
 # Starting from 2 exhausted resources, both end ready.
 
 ## GIVEN
-P1LeaderBase: LAW_014:1:1:1/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brw/bbk/{
+  myLeader:LAW_014:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2:SOR_046:0
-WithP1GroundArena: LAW_014:1:0
 WithP1SpaceArena: SOR_237:1:0
 WithP1SpaceArenaUpgrade: 0:SOR_214
 

@@ -184,6 +184,21 @@ var cardIdsBadgePopupTimeout = null;
 
 // ==================== Helper Functions ====================
 
+// Resolve the source-card image ID from an effect (CardIDs) token.
+// SWU turn-effect tokens are a leading CardID (SET_NNN, e.g. SOR_092 / TWI_106 /
+// TS26_046) optionally followed by params and/or a duration. Params may be
+// '#'-separated ("SOR_076#2_2") OR '-'-separated ("SOR_092-2-2@phase"), and the
+// duration is "@attack|@phase|@perm". The CardID is always the leading SET_NNN, so
+// match that first. GA tokens use a non-SET_NNN base id with a trailing "-suffix"
+// ("4hbA9FT56L-2"); those don't match SET_NNN and fall back to the legacy strip
+// (drop from '#'/'@', then the trailing '-suffix').
+function resolveEffectSourceCardId(token) {
+  var s = String(token);
+  var swu = s.match(/^[A-Z0-9]{2,5}_\d{3}/);
+  if (swu) return swu[0];
+  return s.replace(/[#@].*$/, '').replace(/-[^-]+$/, '');
+}
+
 function getOrCreateCardIdsBadgePopup() {
   if (!cardIdsBadgePopup) {
     cardIdsBadgePopup = document.createElement('div');
@@ -224,11 +239,8 @@ function showCardIdsBadgePopup(badgeEl, event) {
     var seenDisplayIds = {};
     for (var i = 0; i < cardIds.length; i++) {
       var cardId = cardIds[i];
-      // Resolve the source-card image ID from the effect token. SWU's turn-effect tokens are
-      // "CARDID#params@duration" (e.g. "SOR_076#2_2", "SOR_154#2") — strip from the first '#' or '@'.
-      // GA's tokens use the "CARDID-suffix" convention (e.g. "4hbA9FT56L-2") — strip the trailing
-      // "-suffix". The two strips are independent (GA tokens have no '#'/'@'; SWU CardIDs have no '-').
-      var displayCardId = cardId.replace(/[#@].*$/, '').replace(/-[^-]+$/, '');
+      // Resolve the source-card image ID from the effect token (see resolveEffectSourceCardId).
+      var displayCardId = resolveEffectSourceCardId(cardId);
       // Deduplicate: only show each source card's image once even if it contributes multiple effects
       if (seenDisplayIds[displayCardId]) continue;
       seenDisplayIds[displayCardId] = true;
@@ -498,9 +510,9 @@ function CreateCountersHTML(zoneName, cardArr, id) {
         var seenBase = {};
         cardIds = [];
         rawIds.forEach(function(id) {
-          // Dedup by source CardID. SWU tokens: "CARDID#params@dur" (strip from '#'/'@').
-          // GA tokens: "CARDID-suffix" (strip trailing "-suffix"). See popup rendering above.
-          var baseId = id.replace(/[#@].*$/, '').replace(/-[^-]+$/, '');
+          // Dedup by source CardID (see resolveEffectSourceCardId), so multiple
+          // effects from one card count and display as a single source.
+          var baseId = resolveEffectSourceCardId(id);
           if (!seenBase[baseId]) {
             seenBase[baseId] = true;
             cardIds.push(id); // Keep original ID for now; popup rendering will strip suffix
@@ -568,6 +580,11 @@ function CreateCountersHTML(zoneName, cardArr, id) {
       var bottomSideInsetPx = anchorInsetPx - 4;   // Push power/HP badges toward outer edges.
       var clusterOffset = getCounterClusterOffset(positionIndex, totalInPosition, spacingPx);
 
+      // Optional fine-positioning nudge from schema params (OffsetX / OffsetY), in px.
+      // Applied in absolute screen space below: +X = right, +Y = down, for any anchor.
+      var offsetX = (params.OffsetX !== undefined && params.OffsetX !== '') ? (parseFloat(params.OffsetX) || 0) : 0;
+      var offsetY = (params.OffsetY !== undefined && params.OffsetY !== '') ? (parseFloat(params.OffsetY) || 0) : 0;
+
       var posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;';
       switch (pos) {
         case 'topleft':
@@ -596,6 +613,17 @@ function CreateCountersHTML(zoneName, cardArr, id) {
         default:
           posStyle = 'top:calc(' + anchorInsetPx + 'px + ' + clusterOffset.y + 'px); right:calc(' + anchorInsetPx + 'px - ' + clusterOffset.x + 'px);';
           break;
+      }
+
+      // Apply OffsetX/OffsetY as a translate, composed onto any centering transform
+      // the position already uses (so e.g. Bottom keeps its -50% horizontal centering).
+      if (offsetX !== 0 || offsetY !== 0) {
+        var _nudge = ' translate(' + offsetX + 'px, ' + offsetY + 'px)';
+        if (/transform\s*:/.test(posStyle)) {
+          posStyle = posStyle.replace(/transform\s*:\s*([^;]+);?/, function (_m, t) { return 'transform:' + t.trim() + _nudge + ';'; });
+        } else {
+          posStyle += ' transform:' + _nudge + ';';
+        }
       }
 
       var opacityStyle = (params.Opacity !== undefined && params.Opacity !== '') ? '; opacity:' + parseFloat(params.Opacity) + ';' : '';

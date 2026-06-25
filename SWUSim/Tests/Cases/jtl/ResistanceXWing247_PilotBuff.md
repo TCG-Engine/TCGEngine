@@ -2,8 +2,10 @@
 # attached, its power is 2 (base) + 2 (pilot upgradePower) + 1 (has-pilot) = 5.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_247:1:0

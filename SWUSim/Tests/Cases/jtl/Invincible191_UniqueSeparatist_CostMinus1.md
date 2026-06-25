@@ -3,8 +3,11 @@
 # leader" bounce rider is deferred.)
 
 ## GIVEN
-P1LeaderBase: JTL_015/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byk/bbk/{
+  myLeader:JTL_015;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_191

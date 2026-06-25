@@ -3,7 +3,10 @@
 # Credits.
 
 ## GIVEN
-P1LeaderBase: LAW_018/SOR_028
+CommonSetup: yyw/grw/{
+  myLeader:LAW_018;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

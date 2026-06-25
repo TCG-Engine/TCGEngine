@@ -5,8 +5,11 @@
 # 4 ready → 3 (paid 1, proving the −1: full cost 2 would leave 2).
 
 ## GIVEN
-P1LeaderBase: SEC_003/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:SEC_003;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 4

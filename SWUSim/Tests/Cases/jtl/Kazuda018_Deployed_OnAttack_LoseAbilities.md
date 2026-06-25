@@ -3,16 +3,18 @@
 # Sentinel), which loses Sentinel.
 
 ## GIVEN
-P1LeaderBase: JTL_018:1:1:1/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
-WithP1GroundArena: JTL_018:1:0
 WithP1GroundArena: SOR_063:1:0
 
 ## WHEN
-- P1>AttackGroundArena:0:BASE
-- P1>AnswerDecision:myGroundArena-1
+- P1>AttackGroundArena:1:BASE
+- P1>AnswerDecision:myGroundArena-0
 
 ## EXPECT
-P1GROUNDARENAUNIT:1:NOTKEYWORD:Sentinel
+P1GROUNDARENAUNIT:0:NOTKEYWORD:Sentinel

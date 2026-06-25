@@ -3,7 +3,10 @@
 # gives +1/+0 while attacking).
 
 ## GIVEN
-P1LeaderBase: LAW_012/SOR_028
+CommonSetup: yrk/grw/{
+  myLeader:LAW_012;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SEC_080:1:0

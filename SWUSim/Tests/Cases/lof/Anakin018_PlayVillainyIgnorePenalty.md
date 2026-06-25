@@ -4,8 +4,11 @@
 # then 2 damage → 8/10 with 2 damage.
 
 ## GIVEN
-P1LeaderBase: LOF_018/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:LOF_018;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Force: true

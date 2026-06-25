@@ -2,8 +2,11 @@
 # play, create a Spy token. Four exhausted units (2 P1 + 2 P2) → a Spy (SEC_T01) enters P1's ground.
 
 ## GIVEN
-P1LeaderBase: SEC_014/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byk/bbk/{
+  myLeader:SEC_014;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

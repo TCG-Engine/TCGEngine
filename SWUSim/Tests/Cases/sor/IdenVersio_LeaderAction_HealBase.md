@@ -5,7 +5,8 @@
 CommonSetup: bbk/grk/{myBaseDamage:3}
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true
-WithP1GroundArena: SEC_080:2:0
+WithActivePlayer: 1
+WithP1GroundArena: SEC_080:1:0
 WithP2GroundArena: SOR_128:2:0
 
 ## WHEN

@@ -19,7 +19,7 @@
 CommonSetup: grw/grw
 WithP1SpaceArena: JTL_221:2:3
 WithP1SpaceArena: SOR_237:2:0
-WithP2SpaceArena: SHD_135:2:0
+WithP2SpaceArena: SHD_135:1:0
 WithP2GroundArena: SOR_100:2:0
 
 ## WHEN

@@ -2,8 +2,9 @@
 # unit that costs less than the combat damage dealt to a base this attack." SOR_038 (5 power) hits P2's base
 # for 5; P1 exhausts Shin and exhausts SOR_046 (cost 4 < 5, the only legal target, auto-resolved).
 ## GIVEN
-P1LeaderBase: ASH_016/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: gyk/brk/{
+  myLeader:ASH_016
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_038:1:0

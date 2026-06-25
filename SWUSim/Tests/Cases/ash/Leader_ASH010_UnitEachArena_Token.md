@@ -2,8 +2,9 @@
 # a Mandalorian token. P1 has SOR_095 (ground) and SOR_237 (space), so a Mandalorian token (ASH_T01, ground)
 # is created — the ground arena goes to 2 units; Bo-Katan exhausts and 2 resources are spent.
 ## GIVEN
-P1LeaderBase: ASH_010/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: ggw/brk/{
+  myLeader:ASH_010
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

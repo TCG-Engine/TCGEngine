@@ -2,8 +2,9 @@
 # your hand (paying its cost); it enters play ready. P1 exhausts SEC_135 (the cost, auto-chosen) and plays
 # SOR_095 (auto-chosen), which enters the ground arena READY; Fennec exhausts.
 ## GIVEN
-P1LeaderBase: ASH_002/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: grw/brk/{
+  myLeader:ASH_002
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

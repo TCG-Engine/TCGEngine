@@ -4,8 +4,11 @@
 # same player immediately attacks with SOR_063 into P2's base for 2 — proving the turn didn't pass.
 
 ## GIVEN
-P1LeaderBase: JTL_018/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:JTL_018;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_063:1:0

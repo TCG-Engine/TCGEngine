@@ -19,8 +19,7 @@
 # during the cost calculation, so it never counts itself.
 
 ## GIVEN
-P1LeaderBase: SOR_007/SOR_024
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: ggk/ggk
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6:SOR_095

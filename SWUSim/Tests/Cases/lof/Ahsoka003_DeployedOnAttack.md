@@ -2,8 +2,11 @@
 # grants herself Sentinel.
 
 ## GIVEN
-P1LeaderBase: LOF_003/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myLeader:LOF_003;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

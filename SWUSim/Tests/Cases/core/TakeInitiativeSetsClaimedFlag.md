@@ -1,6 +1,8 @@
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_022
-P2LeaderBase: SOR_007/SOR_022
+CommonSetup: grw/ggk/{
+  myBase:SOR_022;
+  theirBase:SOR_022
+}
 WithInitiativePlayer: 1
 
 ## WHEN

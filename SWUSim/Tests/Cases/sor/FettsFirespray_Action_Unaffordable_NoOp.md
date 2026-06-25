@@ -2,8 +2,10 @@
 # no-op: the enemy unit stays READY and resources are unchanged.
 
 ## GIVEN
-P1LeaderBase: SOR_016/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ryk/brw/{
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: SOR_184:1:0

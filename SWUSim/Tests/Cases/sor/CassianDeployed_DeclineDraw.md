@@ -2,8 +2,10 @@
 # P2's base; the reactive offers a draw, P1 declines (NO) → no card drawn (deck stays 1, hand stays 0).
 
 ## GIVEN
-P1LeaderBase: SOR_013/SOR_024
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: grw/bbk/{
+  myLeader:SOR_013;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

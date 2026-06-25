@@ -73,7 +73,7 @@ function ResolveGlobalFunction(functionName) {
 }
 
 //Rotate is deprecated
-      function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "", overlayDescriptorsJSON = "") {
+      function Card(cardNumber, folder, maxHeight, action = 0, showHover = 0, overlay = 0, borderColor = 0, counters = 0, actionDataOverride = "", id = "", rotate = 0, lifeCounters = 0, defCounters = 0, atkCounters = 0, controller = 0, restriction = "", isBroken = 0, onChain = 0, isFrozen = 0, gem = 0, landscape = 0, epicActionUsed = 0, heatmapFunction = "", heatmapColorMap = "", mzId = "", overlayTypes = "", overlayDescriptorsJSON = "", hasForce = 0) {
         if (folder == "crops") {
           cardNumber += "_cropped";
         }
@@ -192,7 +192,16 @@ function ResolveGlobalFunction(functionName) {
               imagePath = "./" + imagePath;
             }
             var layerOrder = Number(desc.drawOrder ? desc.drawOrder : 0);
-            rv += "<div style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; z-index:" + layerOrder + "; pointer-events:none;"
+            var ovOpacity = (typeof desc.opacity === "number" && !isNaN(desc.opacity)) ? desc.opacity : 1;
+            var ovScale = (typeof desc.scale === "number" && !isNaN(desc.scale) && desc.scale > 0) ? desc.scale : 1;
+            // OffsetY: vertical nudge as a % of card height (negative = up). Applied
+            // before scale so it reads as a fraction of the card, not the scaled image.
+            var ovOffsetY = (typeof desc.offsetY === "number" && !isNaN(desc.offsetY)) ? desc.offsetY : 0;
+            var ovTransformParts = [];
+            if (ovOffsetY !== 0) ovTransformParts.push("translateY(" + ovOffsetY + "%)");
+            if (ovScale !== 1) ovTransformParts.push("scale(" + ovScale + ")");
+            var ovTransform = ovTransformParts.length ? " transform:" + ovTransformParts.join(" ") + ";" : "";
+            rv += "<div style='position:absolute; top:0; left:0; width:100%; height:100%; border-radius:10px; z-index:" + layerOrder + "; pointer-events:none; opacity:" + ovOpacity + ";" + ovTransform
               + " background-image:url(\"" + imagePath + "\"); background-size:cover; background-position:center; background-repeat:no-repeat;'></div>";
           });
           if (hasDistantOverlay) {
@@ -260,6 +269,7 @@ function ResolveGlobalFunction(functionName) {
           rv += "<img title='Restricted by: " + restriction + "' style='position:absolute; z-index:100; top:26px; left:26px;' src='./Images/restricted.png' />";
         }
         if (epicActionUsed == 1) rv += "<img title='Epic Action Used' style='position:absolute; z-index:100; bottom:4px; right:4px; height:22px; width:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7)); opacity:0.92;' src='./Assets/Icons/action-used.svg' />";
+        if (hasForce == 1) rv += "<img title='The Force is with you' style='position:absolute; z-index:100; top:4px; right:4px; height:22px; width:22px; filter:drop-shadow(0 1px 3px rgba(0,0,0,0.7));' src='./Assets/Icons/force-token.webp' />";
         rv += "</a>";
         /*
         if (gem != 0) {
@@ -1208,7 +1218,10 @@ function ResolveGlobalFunction(functionName) {
                 overlayDescriptors.push({
                   overlay: rule.overlay ? String(rule.overlay) : "",
                   image: rule.image ? String(rule.image) : "",
-                  drawOrder: (typeof rule.drawOrder !== "undefined") ? Number(rule.drawOrder) : 0
+                  drawOrder: (typeof rule.drawOrder !== "undefined") ? Number(rule.drawOrder) : 0,
+                  opacity: (typeof rule.Opacity !== "undefined") ? Number(rule.Opacity) : 1,
+                  scale: (typeof rule.Scale !== "undefined") ? Number(rule.Scale) : 1,
+                  offsetY: (typeof rule.OffsetY !== "undefined") ? Number(rule.OffsetY) : 0
                 });
               }
             });
@@ -1336,7 +1349,8 @@ function ResolveGlobalFunction(functionName) {
 
         var renderCardFn = (typeof window !== 'undefined' && typeof window.RenderCardHTML === 'function') ? window.RenderCardHTML : Card;
         var _epicUsed = (sharedCardData.EpicActionUsed === true || sharedCardData.EpicActionUsed === 'true') ? 1 : 0;
-        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, _epicUsed, heatmapFunction, heatmapColorMap, id, overlayTypes.join("&"), JSON.stringify(overlayDescriptors));
+        var _hasForce = (sharedCardData.HasForce === true || sharedCardData.HasForce === 'true' || sharedCardData.HasForce === 1 || sharedCardData.HasForce === '1') ? 1 : 0;
+        newHTML += renderCardFn(cardArr[0], folder, size, 0, 1, overlay, 0, cardArr[1], "", "", 0, 0, 0, 0, 0, "", 0, 0, 0, 0, 0, _epicUsed, heatmapFunction, heatmapColorMap, id, overlayTypes.join("&"), JSON.stringify(overlayDescriptors), _hasForce);
 
         try {
           if (combatIndicatorText) {

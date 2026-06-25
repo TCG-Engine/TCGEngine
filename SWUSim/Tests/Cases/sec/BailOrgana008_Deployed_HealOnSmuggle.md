@@ -3,12 +3,15 @@
 # resources → the deployed SEC_008 heals 1 from P1's base (2 → 1).
 
 ## GIVEN
-P1LeaderBase: SEC_008:1:1:1/JTL_019:2
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:SEC_008:1:1:1;
+  myBase:JTL_019;
+  myBaseDamage:2;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1:SHD_065:1,8:SOR_095:1
-WithP1GroundArena: SEC_008:1:0
 
 ## WHEN
 - P1>SmuggleResource:0

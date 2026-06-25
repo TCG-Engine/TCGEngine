@@ -1,6 +1,7 @@
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_019
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: brw/grw/{
+  myBase:SOR_019
+}
 SkipPreGame: true
 WithP1GroundArena: SOR_046:1:0
 

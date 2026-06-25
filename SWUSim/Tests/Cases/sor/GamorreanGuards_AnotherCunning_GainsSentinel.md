@@ -6,8 +6,7 @@
 # 3 to the 4/4 Guards (survive); the Guards deal 4 back (attacker dies). Base 0.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: grw/grw
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:0    # attacker (3/3)

@@ -3,8 +3,11 @@
 # (Confirms the leave-play reactions are collected by SWUDefeatUnit, the single effect-defeat point.)
 
 ## GIVEN
-P1LeaderBase: SOR_015/SOR_021
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: byk/brw/{
+  myLeader:SOR_015;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_077

@@ -3,8 +3,11 @@
 # then chains SOR_128 (cost 1 < 2, power 3) into the base too. 3 + 3 = 6 base damage.
 
 ## GIVEN
-P1LeaderBase: SEC_006/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgk/bbk/{
+  myLeader:SEC_006;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:0

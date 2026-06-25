@@ -3,8 +3,11 @@
 # unit in the GROUND arena (the only other-arena unit, SOR_095).
 
 ## GIVEN
-P1LeaderBase: JTL_003/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_003;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 7

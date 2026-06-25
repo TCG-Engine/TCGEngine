@@ -3,8 +3,11 @@
 # base) for 5 − 1 = 4, leaving 0 resources.
 
 ## GIVEN
-P1LeaderBase: JTL_005/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgk/bbk/{
+  myLeader:JTL_005;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_069

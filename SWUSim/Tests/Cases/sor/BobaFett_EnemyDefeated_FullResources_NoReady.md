@@ -3,8 +3,11 @@
 # enemy defeat triggers no resource change.
 
 ## GIVEN
-P1LeaderBase: SOR_015/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ryk/brw/{
+  myLeader:SOR_015;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LAW_124:1:0

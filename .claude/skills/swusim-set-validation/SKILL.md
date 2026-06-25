@@ -51,7 +51,7 @@ A non-empty "In dictionary but NOT in Done list" = cards never touched. The rost
 A `Has*Ability(cardID)` returning true means the engine WILL fire that trigger window — but the effect lives in a separately-registered handler closure that may never have been written. A stub with no handler is a **silent no-op in-game** (the trigger dispatches to nothing). This sweep cross-references every stub against the handler registries.
 
 Registries by stub (a stub is satisfied if ANY of its registries has a `${CID}:` key, or for the bare-key registries a `${CID}` key):
-- `HasWhenPlayedAbility` → `whenPlayedAbilities` | `leaderAbilities` (bare key) | `baseAbilities` (bare key)
+- `HasWhenPlayedAbility` → `whenPlayedAbilities` | `baseAbilities` (bare key). ⚠ **NOT `leaderAbilities`.** For a leader this stub is the *deployed* "When Deployed:" side, satisfied **only** by `whenPlayedAbilities["CID:0"]`; the front Action in `leaderAbilities[CID]` is a different ability and must not clear it — treating the front Action as satisfying the deployed When Deployed is exactly how LOF_001/LOF_012 slipped through. (`baseAbilities` bare key still applies for Base cards.)
 - `HasOnAttackAbility` → `onAttackAbilities`
 - `HasOnAttackEndAbility` → `onAttackEndAbilities`
 - `HasWhenDefeatedAbility` → `whenDefeatedAbilities` | `cardDiscardedHandlers` (⚠ the on-discard path — JTL_221's "When Defeated" lives here, NOT in whenDefeatedAbilities)
@@ -65,7 +65,7 @@ import re,glob,os
 SET=os.environ['SET']
 stub=open('SWUSim/GeneratedCode/GeneratedAbilityStubs.php').read()
 funcs={
- 'HasWhenPlayedAbility':['whenPlayedAbilities','leaderAbilities','baseAbilities'],
+ 'HasWhenPlayedAbility':['whenPlayedAbilities','baseAbilities'],  # NOT leaderAbilities — that's the front Action, not the deployed "When Deployed"
  'HasOnAttackAbility':['onAttackAbilities'],
  'HasOnAttackEndAbility':['onAttackEndAbilities'],
  'HasWhenDefeatedAbility':['whenDefeatedAbilities','cardDiscardedHandlers'],
@@ -97,6 +97,48 @@ EOF
 
 ---
 
+## Method C — Leader flip-side sweep (every leader, BOTH sides)
+
+**A leader is two cards.** It has a *leader (front) side* (Epic deploy + any `Action:` / "When you take the initiative:" ability while undeployed → `leaderAbilities[CID]` / hooks) and a *leader unit (deployed) side* (`deployTextData[CID]` → On Attack, When Deployed, attack-end/"completes an attack", passives, a deployed `Action [...]:`, granted keywords). **Each side must be independently complete** — a finished front Action says nothing about the deployed side.
+
+Method B does **not** fully cover the deployed side: it only checks windows that have a `Has*Ability` stub, so it **misses** (a) deployed `Action [...]:` abilities — dispatched via `SWUUnitAction` → `$unitAbilities[CID]`, which has **no** stub and **no** `leaderAbilities` fallback — and (b) passives (field-presence in `ObjectCurrentPower`/`HP` or keyword-grant code, no stub). Run this leader-only pass in addition to A and B.
+
+For every leader in the set, dump its deployed text and check each deployed ability against its real registry:
+
+```bash
+SET=ASH python3 - <<'EOF'
+import re,glob,os
+SET=os.environ['SET']
+dic=open('SWUSim/GeneratedCode/GeneratedCardDictionaries.php').read()
+def arr(name):
+    m=re.search(r'\$'+name+r' = array \((.*?)\n\);',dic,re.S); d={}
+    if m:
+        for cid,val in re.findall(r"'("+SET+r"_\d+)' => '((?:[^'\\]|\\.)*)'",m.group(1)): d[cid]=val
+    return d
+typ=arr('typeData'); dep=arr('deployTextData')
+custom=''.join(open(f).read() for f in glob.glob('SWUSim/Custom/*.php'))
+def has(reg,cid,bare=False):
+    return (f'{reg}["{cid}:' in custom or f"{reg}['{cid}:" in custom or
+            (bare and (f'{reg}["{cid}"]' in custom or f"{reg}['{cid}']" in custom)))
+for cid in sorted(typ):
+    if typ.get(cid)!='Leader': continue
+    t=dep.get(cid,''); miss=[]
+    if re.search(r'On Attack:',t) and not has('onAttackAbilities',cid):           miss.append('OnAttack→onAttackAbilities')
+    if re.search(r'When Deployed:',t) and not has('whenPlayedAbilities',cid):      miss.append('WhenDeployed→whenPlayedAbilities')
+    if re.search(r'completes an attack|Attack Ends',t) and not has('onAttackEndAbilities',cid): miss.append('attack-end→onAttackEndAbilities')
+    if re.search(r'\bAction \[',t) and not has('unitAbilities',cid,bare=True):     miss.append('deployed Action→unitAbilities[CID]')
+    # passives / granted keywords are field-presence — flag for a manual read, not auto-fail:
+    passive = bool(re.search(r'gets [+\-]|Each other friendly|While you control|Other friendly|gains (Overwhelm|Sentinel|Saboteur)',t))
+    if miss or passive:
+        print(cid, '| MISSING:', ', '.join(miss) if miss else '(none structural)',
+              '| PASSIVE? read deployText:' if passive else '', t[:90] if passive else '')
+EOF
+```
+
+`MISSING:` entries are structural gaps (no handler in the named registry). `PASSIVE? read deployText` entries need a manual check that the "+X/+0" / "Each other friendly …" / keyword-grant is wired in `ObjectCurrentPower`/`ObjectCurrentHP` or the keyword-grant code (grep the CID there; cf. SOR_001/SOR_012/SOR_018 which ARE wired). Baseline known gaps as of 2026-06-27 are in `SWUSim/docs/leader-gaps.md` (ASH + LOF deployed sides); a clean run reproduces an empty (or doc-matching) list. **A set with leaders is not card-complete until every leader's front AND deployed side both pass.**
+
+---
+
 ## Triage each Method-B finding (real gap vs false positive)
 
 The sweep is a heuristic. Confirm each hit before reporting it as a gap — read the card text and grep the four ability files:
@@ -110,7 +152,11 @@ grep -rn "$CID" SWUSim/Custom/*.php | grep -iE "abilities|customDQ|cardDiscarded
 Classify:
 - **Real gap** — the card text describes a trigger effect, and no handler exists in ANY registry (e.g. JTL_039's "When Defeated: create 2 TIEs" had only the When-Played handler). → carry to the implement step.
 - **False positive** — the effect IS implemented, just via a registry the sweep didn't map for that stub. The known one: a **"When Defeated"** stub satisfied by **`cardDiscardedHandlers['CID:0']`** (the on-discard hook, fires synchronously when the card hits discard — JTL_221 Stolen AT-Hauler). Also a `whenPlayedAsUpgrade` stub legitimately falling back to a `whenPlayed` handler. Note it and move on.
-- **False positive — spurious `HasOnAttackAbility` stub on a LEADER** (generator *over*-detection, the inverse of the drift below): a leader whose FRONT-side text contains the word "attack" in a non-trigger sense — e.g. "Action [Exhaust]: **Attack** with a unit" (ASH_004) — gets a `HasOnAttackAbility` stub even though it has **no "On Attack:" clause**. The sweep flags it because `HasOnAttackAbility` maps only to `onAttackAbilities` (not `leaderAbilities`). Confirm with: card is a **Leader** + `grep -i 'on attack'` on its text finds nothing + its real ability is wired in **`leaderAbilities["CID"]`** (or, for a "When you take the initiative" leader like ASH_014, the **`SWUTakeInitiative` hook** — so it's correctly in NEITHER registry). A deployed leader attacking just dispatches to the missing `onAttackAbilities` key → clean no-op; nothing is missing. Note it and move on — don't churn the generated stub file (harmless). (ASH had **9**: ASH_003/004/006/009/010/011/012/014/015 — all false positives.)
+- **`HasOnAttackAbility` stub on a LEADER — check the DEPLOYED text before calling it a false positive.** For a leader the `Has*Ability` detectors scan the **deployed (Leader Unit) side** (`deployTextData[CID]`), NOT the front `textData`. So grepping the front text for "on attack" is the **wrong field** and will wrongly clear a real gap. Triage:
+  - **REAL gap** — `deployTextData[CID]` contains an `On Attack:` clause and there's no `$onAttackAbilities["CID:0"]` handler → the deployed leader's On Attack **silently no-ops**. `leaderAbilities[CID]` does **NOT** satisfy it (that's the *front* Action, a different ability). Carry it to the implement step.
+  - **True false positive** — **neither** `textData[CID]` nor `deployTextData[CID]` has an `On Attack:` clause (the stub fired on a bare "attack" word, e.g. front "Action [Exhaust]: **Attack** with a unit"). Only then is it harmless. Confirm with `awk '/\$deployTextData = array/,/^\);/' DICT | grep "'$CID'"` **and** the front-text grep — both must lack "On Attack:".
+
+  ⚠ **This exact triage was gotten wrong before:** ASH_003/004/006/009/010/011/012/014/015 were all dismissed as "spurious false positives" by grepping only the front text — but their **deployed** sides DO carry `On Attack:` clauses, so all 9 were **REAL gaps** (found 2026-06-27, `SWUSim/docs/leader-gaps.md`). Never clear a leader On-Attack stub without reading `deployTextData`.
 
 ⚠ **"No explicit FromUpgrade ref" ≠ unwired (a false-alarm trap).** A granted **"attached unit gains: On Attack: …"** rides the **generic `OnAttackFromUpgrade` seam** — `CollectCombatStep1Triggers` scans the attacker's upgrades and fires for ANY upgrade whose CardID has an `$onAttackAbilities["X:0"]`, calling that same closure with the host mzID. So a leader/pilot/upgrade that already has an `onAttackAbilities` key needs **NO** `onAttackFromUpgradeAbilities` entry and no stub for its host-grant to work (e.g. JTL_018 — its deployed-unit On Attack key doubles as the pilot's host-grant; JTL_172/SOR_137 likewise). Before reporting a granted-On-Attack as a gap, **reproduce it via TestSchemaStep** (place the card as a subcard, attack with the host, see if the offer fires). Same "reproduce before concluding" rule as for a suspected engine bug.
 

@@ -2,8 +2,9 @@
 #   attacks the enemy base: combat 3 + On Attack 2 = 5.
 
 ## GIVEN
-P1LeaderBase: IBH_053:1:0:0/SOR_026
-P2LeaderBase: SOR_005/SOR_020
+CommonSetup: rrk/bbw/{
+  myLeader:IBH_053
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

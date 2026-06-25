@@ -3,8 +3,10 @@
 # trigger fires during the OnAttack window and P1 gains the Force (player state, no real token card).
 
 ## GIVEN
-P1LeaderBase: SOR_002/LOF_026
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: rbk/bbk/{
+  myBase:LOF_026;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LOF_112:1:0

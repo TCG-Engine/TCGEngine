@@ -2,8 +2,10 @@
 # attack. SOR_237 attacks SOR_044: the defender takes 2, but SOR_237's counter-damage is prevented (0).
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_193

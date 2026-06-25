@@ -4,8 +4,10 @@
 # lets P1 use it again → a 2nd TIE (use #2). Arena = Shadow Caster + 2 TIEs = 3.
 
 ## GIVEN
-P1LeaderBase: SOR_002/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: gbk/bbk/{
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_087:1:1

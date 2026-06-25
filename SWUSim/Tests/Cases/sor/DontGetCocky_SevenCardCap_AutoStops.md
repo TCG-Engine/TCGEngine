@@ -4,8 +4,10 @@
 # deck (count stays 8).
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_223

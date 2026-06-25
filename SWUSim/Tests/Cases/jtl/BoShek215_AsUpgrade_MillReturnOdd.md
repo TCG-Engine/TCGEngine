@@ -2,8 +2,10 @@
 # to hand. Deck top: SOR_225 (cost 1, odd) and SOR_095 (cost 2, even). Odd → hand, even → discard.
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 12

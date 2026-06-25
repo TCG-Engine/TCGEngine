@@ -2,8 +2,9 @@
 Palpatine OnAttack — decline sacrifice, no bonus damage, normal combat
 
 ## GIVEN
-P1LeaderBase: SOR_006/SOR_024
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: ggk/ggk/{
+  myLeader:SOR_006
+}
 SkipPreGame: true
 WithP1GroundArena: SOR_063:1:0
 WithP2GroundArena: SOR_095:1:0

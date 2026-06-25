@@ -2,8 +2,10 @@
 # SOR_043 (cost 8) and stops: 8 > 7, so the chosen unit takes 0. The revealed card returns to the deck.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: bbk/brw/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_223

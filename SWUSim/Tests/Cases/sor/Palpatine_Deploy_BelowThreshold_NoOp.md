@@ -3,8 +3,9 @@
 # the leader stays in the leader zone, ready, with the epic action still available.
 
 ## GIVEN
-P1LeaderBase: SOR_006/SOR_024
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: ggk/ggk/{
+  myLeader:SOR_006
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 7

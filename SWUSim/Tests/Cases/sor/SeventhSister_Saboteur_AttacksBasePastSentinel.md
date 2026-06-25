@@ -4,8 +4,11 @@
 # no counter (bases don't fight back). Proves Saboteur + the base-damage trigger compose.
 
 ## GIVEN
-P1LeaderBase: SOR_011/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: rrk/brw/{
+  myLeader:SOR_011;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_133:1:0

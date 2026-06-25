@@ -6,8 +6,10 @@
 # shd/Capture_RescueOnCaptorDefeat.md — defeating this Paige would release SOR_095 to P2 exhausted.)
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 20

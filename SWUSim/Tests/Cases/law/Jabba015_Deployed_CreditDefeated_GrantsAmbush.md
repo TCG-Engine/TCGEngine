@@ -4,13 +4,15 @@
 # (WHEN sequence refined via live TestSchemaStep probing.)
 
 ## GIVEN
-P1LeaderBase: LAW_015:1:1:1/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byk/bbk/{
+  myLeader:LAW_015:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2
 WithP1Credits: 1
-WithP1GroundArena: LAW_015:1:0
 WithP1Hand: SOR_247
 WithP2GroundArena: SOR_247:1:0
 

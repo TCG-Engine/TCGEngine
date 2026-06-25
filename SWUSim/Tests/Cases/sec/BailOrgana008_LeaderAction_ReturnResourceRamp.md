@@ -5,8 +5,11 @@
 # Net resource count unchanged (return −1, ramp +1); hand +1; deck −1.
 
 ## GIVEN
-P1LeaderBase: SEC_008/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgw/bbk/{
+  myLeader:SEC_008;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 3

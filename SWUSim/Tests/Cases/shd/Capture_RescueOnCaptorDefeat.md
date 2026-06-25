@@ -7,7 +7,7 @@
 #   - Capturer: auto-picked (SOR_095, only P1 ground unit).
 #   - Captive:  two P2 ground units → player picks SOR_128 (theirGroundArena-0).
 #   - SOR_128 leaves P2's arena; becomes captive subcard on SOR_095.
-# Step 2: P1 passes → P2's LAW_124 (now index 0) attacks P1's SOR_095 (captor).
+# Step 2: playing the event passed the turn to P2 → P2's LAW_124 (now index 0) attacks P1's SOR_095 (captor).
 #   - LAW_124 deals 4 damage to SOR_095 (3HP) → SOR_095 defeated.
 #   - SWURescueCaptivesOf fires: SOR_128 returned to P2's ground arena EXHAUSTED (Status:0).
 # Final: P1 has 0 ground units; P2 has LAW_124 (index 0, ready after attack is exhausted) +
@@ -24,7 +24,6 @@ WithP2GroundArena: LAW_124:1:0
 ## WHEN
 - P1>PlayHand:0
 - P1>AnswerDecision:theirGroundArena-0
-- P1>Pass
 - P2>AttackGroundArena:0:0
 
 ## EXPECT

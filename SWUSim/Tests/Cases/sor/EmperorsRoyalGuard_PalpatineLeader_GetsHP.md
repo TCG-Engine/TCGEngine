@@ -4,8 +4,9 @@
 # implemented; no Official unit here, so only the +0/+1 is active.)
 
 ## GIVEN
-P1LeaderBase: SOR_006/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: ggk/grw/{
+  myLeader:SOR_006
+}
 SkipPreGame: true
 WithP1GroundArena: SOR_082:1:0
 

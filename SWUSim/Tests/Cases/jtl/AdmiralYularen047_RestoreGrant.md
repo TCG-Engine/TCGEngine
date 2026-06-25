@@ -2,8 +2,11 @@
 # the friendly Vehicle SOR_237 attacks the base (for 2) and heals P1's base by 1 (3 → 2).
 
 ## GIVEN
-P1LeaderBase: JTL_001/SOR_020:3
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBaseDamage:3;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_047

@@ -4,8 +4,7 @@
 # Host is not a Force unit, so no grant fires → defender keeps its printed 6/9.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: grw/grw
 SkipPreGame: true
 WithP1GroundArena: SOR_046:1:0
 WithP1GroundArenaUpgrade: 0:SOR_054

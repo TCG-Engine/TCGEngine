@@ -2,8 +2,11 @@
 # Vehicle, 2/3) becomes power 3 with Overwhelm; Tarkin itself (not a Vehicle) stays 2 power.
 
 ## GIVEN
-P1LeaderBase: JTL_001/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_001;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: JTL_161:1:0

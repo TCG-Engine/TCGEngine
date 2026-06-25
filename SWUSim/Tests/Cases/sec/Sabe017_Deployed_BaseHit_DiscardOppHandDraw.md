@@ -4,11 +4,13 @@
 # P2 then draws a card (hand back to 1, discard +1).
 
 ## GIVEN
-P1LeaderBase: SEC_017:1:1:1/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:SEC_017:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
-WithP1GroundArena: SEC_017:1:0
 WithP2Hand: SOR_095
 WithP2Deck: [SOR_128]
 

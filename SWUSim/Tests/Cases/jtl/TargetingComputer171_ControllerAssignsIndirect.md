@@ -4,8 +4,10 @@
 # P1 answers the split in the "their" frame and dumps all 3 onto P2's SOR_046.
 
 ## GIVEN
-P1LeaderBase: SOR_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 1

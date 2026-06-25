@@ -3,8 +3,10 @@
 # attacker takes only 2 counter-damage (3 without the debuff). The defender takes the full 3.
 
 ## GIVEN
-P1LeaderBase: SOR_018/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: gyw/brw/{
+  myLeader:SOR_018;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:0

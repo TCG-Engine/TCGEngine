@@ -103,17 +103,40 @@ class SchemaTestRunner {
     private static function _parse(string $content): array {
         $sections = ['given' => [], 'when' => [], 'expect' => []];
         $current  = null;
+        $braceBuf = null;   // non-null while accumulating a multi-line "{ ... }" block (e.g. CommonSetup opts)
 
         foreach (explode("\n", $content) as $raw) {
             $line = trim($raw);
-            if ($line === '## GIVEN')  { $current = 'given';  continue; }
-            if ($line === '## WHEN')   { $current = 'when';   continue; }
-            if ($line === '## EXPECT') { $current = 'expect'; continue; }
-            if ($current === null || $line === '') continue;
-            // Strip inline comments, skip blank-after-strip lines.
+            if ($braceBuf === null) {
+                if ($line === '## GIVEN')  { $current = 'given';  continue; }
+                if ($line === '## WHEN')   { $current = 'when';   continue; }
+                if ($line === '## EXPECT') { $current = 'expect'; continue; }
+            }
+            if ($current === null) continue;
+            // Strip inline comments.
             $clean = trim(preg_replace('/#.*$/', '', $line));
-            if ($clean !== '') $sections[$current][] = $clean;
+
+            // Mid-block: keep folding lines into one logical line until braces balance.
+            if ($braceBuf !== null) {
+                if ($clean !== '') $braceBuf .= ' ' . $clean;
+                if (substr_count($braceBuf, '{') <= substr_count($braceBuf, '}')) {
+                    $sections[$current][] = trim($braceBuf);
+                    $braceBuf = null;
+                }
+                continue;
+            }
+
+            if ($clean === '') continue;
+            // A line that opens more '{' than it closes starts a multi-line block.
+            if (substr_count($clean, '{') > substr_count($clean, '}')) {
+                $braceBuf = $clean;
+                continue;
+            }
+            $sections[$current][] = $clean;
         }
+
+        // Unterminated block: flush what we have so it surfaces downstream instead of vanishing.
+        if ($braceBuf !== null && $current !== null) $sections[$current][] = trim($braceBuf);
 
         return ['ok' => true] + $sections;
     }
@@ -123,13 +146,14 @@ class SchemaTestRunner {
         static $multiKeys = ['WithP1GroundArena',        'WithP2GroundArena',
                              'WithP1SpaceArena',          'WithP2SpaceArena',
                              'WithP1Hand',                'WithP2Hand',
+                             'WithP1Discard',             'WithP2Discard',
                              'WithP1GroundArenaUpgrade',  'WithP2GroundArenaUpgrade',
                              'WithP1SpaceArenaUpgrade',   'WithP2SpaceArenaUpgrade',
                              'WithP1Deck',                'WithP2Deck'];
         // List-valued keys accept either one card ID per line OR a whitespace-separated
         // array on a single line, e.g. "WithP2Deck: [SOR_225 SEC_080 SOR_128]". Each token
         // becomes its own accumulated entry, so both forms (and a mix) interoperate.
-        static $listKeys = ['WithP1Hand', 'WithP2Hand', 'WithP1Deck', 'WithP2Deck'];
+        static $listKeys = ['WithP1Hand', 'WithP2Hand', 'WithP1Discard', 'WithP2Discard', 'WithP1Deck', 'WithP2Deck'];
         $out = [];
         foreach ($lines as $line) {
             if (!str_contains($line, ':')) continue;
@@ -199,8 +223,8 @@ class SchemaTestRunner {
         [$p2LeaderSpec, $p2BaseSpec] = array_pad(explode('/', $given['P2LeaderBase'] ?? '/'), 2, '');
         [$p1Leader, $p1LeaderReady, $p1LeaderDeployed, $p1LeaderEpic] = self::_parseLeaderSpec($p1LeaderSpec);
         [$p2Leader, $p2LeaderReady, $p2LeaderDeployed, $p2LeaderEpic] = self::_parseLeaderSpec($p2LeaderSpec);
-        [$p1BaseID, $p1BaseDmg] = self::_parseBaseSpec($p1BaseSpec);
-        [$p2BaseID, $p2BaseDmg] = self::_parseBaseSpec($p2BaseSpec);
+        [$p1BaseID, $p1BaseDmg, $p1BaseEpic] = self::_parseBaseSpec($p1BaseSpec);
+        [$p2BaseID, $p2BaseDmg, $p2BaseEpic] = self::_parseBaseSpec($p2BaseSpec);
 
         $p1Deck     = self::_parseDeckList($given['P1Deck'] ?? '');
         $p2Deck     = self::_parseDeckList($given['P2Deck'] ?? '');
@@ -241,9 +265,9 @@ class SchemaTestRunner {
             ->WithCurrentRoundBeing(1);
 
         if (!isset($given['CommonSetup'])) {
-            $b->MyBase($p1BaseID, $p1BaseDmg)
+            $b->MyBase($p1BaseID, $p1BaseDmg, $p1BaseEpic)
               ->MyLeader($p1Leader, $p1LeaderReady, $p1LeaderDeployed, $p1LeaderEpic)
-              ->TheirBase($p2BaseID, $p2BaseDmg)
+              ->TheirBase($p2BaseID, $p2BaseDmg, $p2BaseEpic)
               ->TheirLeader($p2Leader, $p2LeaderReady, $p2LeaderDeployed, $p2LeaderEpic);
         }
 
@@ -288,6 +312,10 @@ class SchemaTestRunner {
         // Explicit hand cards (multi-value: WithP1Hand / WithP2Hand).
         foreach ($given['WithP1Hand'] ?? [] as $cid) $b->WithCardInHandForPlayer(1, trim($cid));
         foreach ($given['WithP2Hand'] ?? [] as $cid) $b->WithCardInHandForPlayer(2, trim($cid));
+
+        // Explicit discard cards (multi-value: WithP1Discard / WithP2Discard).
+        foreach ($given['WithP1Discard'] ?? [] as $cid) $b->WithCardInDiscardForPlayer(1, trim($cid));
+        foreach ($given['WithP2Discard'] ?? [] as $cid) $b->WithCardInDiscardForPlayer(2, trim($cid));
 
         // Individual deck cards (multi-value: WithP1Deck / WithP2Deck).
         foreach ($given['WithP1Deck'] ?? [] as $cid) $b->WithCardInDeckForPlayer(1, trim($cid));
@@ -377,10 +405,32 @@ class SchemaTestRunner {
                 case 'theirResources':
                     $theirOpts['resourceCount'] = intval($val);
                     break;
-                case 'handCardIds':
+                // Leader override with optional inline params, mirroring the P1LeaderBase leader spec
+                // plus a 4th damage field:  myLeader: CARDID[:ready[:deployed[:epicUsed[:damage]]]]
+                //   ready    1=ready (default) / 0=exhausted
+                //   deployed 1=deploy as a REAL linked ground-arena leader unit (deployMode='unit')
+                //   epicUsed 1=Epic deploy already used
+                //   damage   damage on the deployed leader UNIT (only meaningful when deployed=1)
+                // Each field is optional; bare `myLeader: CARDID` is unchanged. Individual opts
+                // (myLeaderReady/myLeaderDeployed/...) still work and override per-key if also present.
+                case 'myLeader':
+                    self::_applyLeaderParams($myOpts, $val);
+                    break;
+                case 'theirLeader':
+                    self::_applyLeaderParams($theirOpts, $val);
+                    break;
+                case 'myBase':         // override the code-derived base with an explicit cardID
+                    $myOpts['baseCardID'] = trim($val);
+                    break;
+                case 'theirBase':
+                    $theirOpts['baseCardID'] = trim($val);
+                    break;
+                case 'handCardIds':     // legacy alias; prefer 'myhandCardIds' going forward
+                case 'myhandCardIds':
                     $myOpts['handCardIds'] = array_map('trim', explode(',', $val));
                     break;
-                case 'theirHandCardIds':
+                case 'theirHandCardIds': // legacy alias; prefer 'theirhandCardIds' going forward
+                case 'theirhandCardIds':
                     $theirOpts['handCardIds'] = array_map('trim', explode(',', $val));
                     break;
                 case 'discardCardIds':
@@ -395,11 +445,23 @@ class SchemaTestRunner {
                 case 'theirBaseDamage':
                     $theirOpts['baseDamage'] = intval($val);
                     break;
-                case 'myLeaderDeployed':
+                case 'myLeaderDeployed':       // deploy as a real ground-arena leader unit
                     $myOpts['leaderDeployed'] = $val === '1' || $val === 'true';
                     break;
                 case 'theirLeaderDeployed':
                     $theirOpts['leaderDeployed'] = $val === '1' || $val === 'true';
+                    break;
+                case 'myLeaderDeployedFlag':   // Deployed=true flag only (no board unit; legacy deploy)
+                    $myOpts['leaderDeployedFlag'] = $val === '1' || $val === 'true';
+                    break;
+                case 'theirLeaderDeployedFlag':
+                    $theirOpts['leaderDeployedFlag'] = $val === '1' || $val === 'true';
+                    break;
+                case 'myLeaderDeployedPilot':  // deploy as a Pilot upgrade on the first friendly unit
+                    $myOpts['leaderDeployedPilot'] = $val === '1' || $val === 'true';
+                    break;
+                case 'theirLeaderDeployedPilot':
+                    $theirOpts['leaderDeployedPilot'] = $val === '1' || $val === 'true';
                     break;
                 case 'myLeaderReady':
                     $myOpts['leaderReady'] = $val === '1' || $val === 'true';
@@ -419,11 +481,28 @@ class SchemaTestRunner {
         return [$myOpts, $theirOpts];
     }
 
-    // "SOR_024"    → ['SOR_024', 0]
-    // "SOR_024:27" → ['SOR_024', 27]
+    // Parse `CARDID[:ready[:deployed[:epicUsed[:damage]]]]` from a myLeader/theirLeader opt into the
+    // side's opts array. Only fields actually present are written (so a bare CARDID leaves ready/etc.
+    // at their CommonSetup defaults, and a separate per-key opt can still override).
+    private static function _applyLeaderParams(array &$opts, string $val): void {
+        $p = array_map('trim', explode(':', $val));
+        $opts['leaderCardID'] = $p[0];
+        $truthy = fn($s) => $s === '1' || $s === 'true';
+        if (isset($p[1]) && $p[1] !== '') $opts['leaderReady']          = $truthy($p[1]);
+        if (isset($p[2]) && $truthy($p[2])) $opts['leaderDeployed']      = true;  // deployMode='unit'
+        if (isset($p[3]) && $truthy($p[3])) $opts['leaderEpicActionUsed'] = true;
+        if (isset($p[4]) && $p[4] !== '') $opts['leaderDamage']          = intval($p[4]);
+    }
+
+    // "SOR_024"     → ['SOR_024', 0,  epicActionUsed:false]
+    // "SOR_024:27"  → ['SOR_024', 27, epicActionUsed:false]
+    // "SOR_022:0:1" → ['SOR_022', 0,  epicActionUsed:true]   (3rd field: base Epic Action used)
     private static function _parseBaseSpec(string $spec): array {
-        $parts = explode(':', trim($spec), 2);
-        return [trim($parts[0]), isset($parts[1]) ? intval($parts[1]) : 0];
+        $parts        = explode(':', trim($spec));
+        $cardId       = trim($parts[0]);
+        $damage       = isset($parts[1]) ? intval($parts[1]) : 0;
+        $epicUsed     = isset($parts[2]) ? (intval($parts[2]) === 1) : false;
+        return [$cardId, $damage, $epicUsed];
     }
 
     // "SOR_014"       → ['SOR_014', ready:true,  deployed:false, epicActionUsed:false]
@@ -591,7 +670,13 @@ class SchemaTestRunner {
             'given'   => $parsed['given'],
             'pregame' => $pregame,
             'main'    => $main,
+            'expect'  => $parsed['expect'],
         ];
+    }
+
+    /** Evaluate EXPECT assertion lines against a live GameTestAdapter (read-only). */
+    public static function evalExpectLines(GameTestAdapter $g, array $expectLines): array {
+        return self::_evalExpect($g, $expectLines);
     }
 
     /** Build a GameStateBuilder from parsed GIVEN lines + pregame actions. */
@@ -653,6 +738,14 @@ class SchemaTestRunner {
             } elseif ($line === 'P2WIN') {
                 if ($g->state->winner() !== 2)
                     $failures[] = "P2WIN: winner is " . var_export($g->state->winner(), true);
+
+            } elseif (preg_match('/^TURNPLAYER:(\d+)$/', $line, $m)) {
+                // Whose action it is right now. Catches actions that fail to pass the turn —
+                // e.g. a declined optional "may" follow-up that leaks a free action.
+                $expected = intval($m[1]);
+                $actual   = intval(GetTurnPlayer());
+                if ($actual !== $expected)
+                    $failures[] = "{$line}: expected turn player {$expected}, got {$actual}";
 
             } elseif (preg_match('/^P(\d+)BASEDMG:(\d+)$/', $line, $m)) {
                 $p        = intval($m[1]);

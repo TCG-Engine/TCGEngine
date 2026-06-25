@@ -2,8 +2,9 @@
 # a unit from your hand costing 1 less. A SEC_080 (Imperial) dies attacking SOR_038, then Gideon plays the
 # hand SEC_080 (cost 2, Command/Villainy — on-aspect) for 1 resource (proving the -1 discount: 2 → 1 left).
 ## GIVEN
-P1LeaderBase: ASH_008/SOR_024
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: ggk/brk/{
+  myLeader:ASH_008
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

@@ -380,7 +380,7 @@ include_once 'Header.php';
       function loadTestDeck() {
         switchDeckTab('link');
         var el = document.getElementById('deck-link');
-        if (el) el.value = 'https://swudb.com/deck/uefBzouyQSFTI';
+        if (el) el.value = 'https://swudb.com/deck/prozLLKSsRS';
       }
 
       function switchDeckTab(tab) {

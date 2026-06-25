@@ -4,8 +4,11 @@
 # raises The Stranger's power from 1 to 4 (+1 per damage), so it deals 4 to the Marine (3 HP) → defeated.
 
 ## GIVEN
-P1LeaderBase: JTL_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:JTL_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: LAW_086:1:0

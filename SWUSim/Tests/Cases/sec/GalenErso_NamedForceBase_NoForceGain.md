@@ -3,8 +3,9 @@
 # and names "Starlight Temple". When P2 attacks with a Force unit, P2 does NOT gain the Force.
 
 ## GIVEN
-P1LeaderBase: SOR_005/SOR_020
-P2LeaderBase: SOR_010/LOF_024
+CommonSetup: bbw/grk/{
+  theirBase:LOF_024
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Resources: 4

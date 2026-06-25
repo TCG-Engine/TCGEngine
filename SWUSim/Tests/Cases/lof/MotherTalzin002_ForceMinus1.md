@@ -2,8 +2,11 @@
 # becomes 2/6 and P1 loses the Force token.
 
 ## GIVEN
-P1LeaderBase: LOF_002/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbk/bbk/{
+  myLeader:LOF_002;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Force: true

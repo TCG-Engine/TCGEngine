@@ -5,12 +5,14 @@
 # No resources are spent (deployed reuse is free).
 
 ## GIVEN
-P1LeaderBase: LAW_014:1:1:1/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brw/bbk/{
+  myLeader:LAW_014:1:1:1;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2
-WithP1GroundArena: LAW_014:1:0
 WithP1SpaceArena: IBH_006:1:0
 
 ## WHEN

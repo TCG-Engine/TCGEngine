@@ -206,6 +206,81 @@ function IsCoordinateActive(int $player): bool {
     return count(GetUnitsInPlay($player)) >= 3;
 }
 
+// Per-unit Coordinate indicator for the card counters (schema Virtual:
+// CoordinateActive / CoordinateInactive). A unit that HAS Coordinate shows the
+// "active" icon while its controller meets the 3-unit condition, and the "inactive"
+// icon while it has the keyword but the condition isn't met (CR 15.c). A unit
+// without Coordinate shows neither. Return 1/0 for the Image counters (ShowZero=false
+// hides 0); the two are mutually exclusive so only one icon ever renders.
+function ObjectCoordinateActive($obj): int {
+    if (!HasKeyword_Coordinate($obj)) return 0;
+    $player = intval($obj->Controller ?? $obj->Owner ?? $obj->PlayerID ?? 0);
+    return ($player > 0 && IsCoordinateActive($player)) ? 1 : 0;
+}
+function ObjectCoordinateInactive($obj): int {
+    if (!HasKeyword_Coordinate($obj)) return 0;
+    $player = intval($obj->Controller ?? $obj->Owner ?? $obj->PlayerID ?? 0);
+    return ($player > 0 && IsCoordinateActive($player)) ? 0 : 1;
+}
+
+// Per-unit Saboteur indicator for the card counter (schema Virtual: HasSaboteur). 1 when the
+// unit has the Saboteur keyword (printed or granted; CR — ignores enemy Sentinels and defeats
+// the defender's shields). Static keyword, no board-state condition. Returns 1/0 for the Image
+// counter (ShowZero=false hides 0).
+function ObjectHasSaboteur($obj): int {
+    return ($obj !== null && isset($obj->CardID) && HasKeyword_Saboteur($obj)) ? 1 : 0;
+}
+
+// Per-unit Overwhelm indicator for the card counter (schema Virtual: HasOverwhelm). 1 when the
+// unit has the Overwhelm keyword (printed or granted; CR — excess attack damage spills to the
+// defending player's base). Static keyword, no board-state condition. Returns 1/0 for the Image
+// counter (ShowZero=false hides 0).
+function ObjectHasOverwhelm($obj): int {
+    return ($obj !== null && isset($obj->CardID) && HasKeyword_Overwhelm($obj)) ? 1 : 0;
+}
+
+// Per-unit Grit indicator for the card counter (schema Virtual: HasGrit). 1 when the unit has
+// the Grit keyword (printed or granted; CR — gets +1/+1 for each damage on it). Shown whenever
+// the unit has Grit, regardless of its current damage. Returns 1/0 (ShowZero=false hides 0).
+function ObjectHasGrit($obj): int {
+    return ($obj !== null && isset($obj->CardID) && HasKeyword_Grit($obj)) ? 1 : 0;
+}
+
+// Tech-wall overlay flag (schema Virtual: HasSentinel + Overlay rule). 1 when the unit has the
+// Sentinel keyword (printed or granted). Returns 1/0 for the overlay rule (shown when == 1).
+function ObjectHasSentinel($obj): int {
+    return ($obj !== null && isset($obj->CardID) && HasKeyword_Sentinel($obj)) ? 1 : 0;
+}
+
+// Per-unit Hidden indicator for the card counter (schema Virtual: HasHidden). 1 whenever the unit
+// has the Hidden keyword (printed or granted), REGARDLESS of whether it's currently unattackable.
+// (The separate smoke overlay keeps its own unattackable-only logic — see ObjectHiddenUnattackable.)
+function ObjectHasHidden($obj): int {
+    return ($obj !== null && isset($obj->CardID) && HasKeyword_Hidden($obj)) ? 1 : 0;
+}
+
+// Per-unit Ambush indicator for the card counter (schema Virtual: HasAmbush). 1 when the unit has
+// the Ambush keyword (printed or granted). Returns 1/0 (ShowZero=false hides 0).
+function ObjectHasAmbush($obj): int {
+    return ($obj !== null && isset($obj->CardID) && HasKeyword_Ambush($obj)) ? 1 : 0;
+}
+
+// Per-unit Bounty indicator for the card counter (schema Virtual: HasBounty). 1 when the unit has
+// the Bounty keyword (printed, granted by an upgrade, or granted by an effect). Returns 1/0.
+function ObjectHasBounty($obj): int {
+    return ($obj !== null && isset($obj->CardID) && HasKeyword_Bounty($obj)) ? 1 : 0;
+}
+
+// Smoke-overlay flag (schema Virtual: HiddenUnattackable + Overlay rule). 1 while a unit is
+// unattackable because of Hidden: it has the Hidden keyword AND entered play this phase
+// (SWU_PLAYED_UNIT_{uid}, set on a real play and cleared at RegroupPhaseStart). Mirrors
+// _SWUHiddenBlocksAttack so the overlay is shown exactly while the unit can't be attacked,
+// and vanishes once the phase ends and the flag clears. Self-contained (no CombatLogic dep).
+function ObjectHiddenUnattackable($obj): int {
+    if ($obj === null || !HasKeyword_Hidden($obj)) return 0;
+    return GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_PLAYED_UNIT_' . intval($obj->UniqueID ?? 0)) > 0 ? 1 : 0;
+}
+
 // Thin wrapper so callers can write HasInitiative() without worrying about the
 // intentional typo in the GA-inherited PlayerHasIniative().
 function HasInitiative(int $player): bool {
@@ -379,12 +454,16 @@ function HasConditionalKeyword_Overwhelm($obj) {
             return PlayerHasUnitWithTraitInPlay($obj->Controller, 'Mandalorian', $obj->UniqueID);
         case 'JTL_137': // Vonreg's TIE Interceptor — while it has 4 or more power
             return ObjectCurrentPower($obj) >= 4;
+        case 'LOF_007': // Avar Kriss (deployed) — while the Force is with you, gains Overwhelm
+            return intval($obj->Controller ?? 0) > 0 && PlayerHasTheForce(intval($obj->Controller));
     }
     // JTL_150 Biggs Darklighter (pilot): if the attached unit is a Fighter, it gains Overwhelm.
     if (_SWUUnitHasUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Fighter')) return true;
     foreach (GetUnitsInPlay($obj->Controller) as $u) {
         if ($u->UniqueID === $obj->UniqueID) continue;
         switch ($u->CardID) {
+            case 'ASH_007': // Grand Admiral Sloane (deployed) — each OTHER friendly unit gains Overwhelm
+                return true;
             case 'SHD_007': // Moff Gideon — units costing 3 or less gain Overwhelm while attacking
                 if (intval(CardCost($obj->CardID)) <= 3) return true;
                 break;
@@ -458,6 +537,13 @@ function HasConditionalKeyword_Sentinel($obj) {
     if (_SWUUnitHasUpgrade($obj, 'ASH_066') && CardTitle($obj->CardID ?? '') === 'Luke Skywalker') return true;
     // ASH_198 Nowhere to Hide (upgrade) — "Attached unit gains Sentinel."
     if (_SWUUnitHasUpgrade($obj, 'ASH_198')) return true;
+    // ASH_007 Grand Admiral Sloane (deployed) — each OTHER friendly unit gains Sentinel.
+    if (intval($obj->Controller ?? 0) > 0) {
+        $self007 = intval($obj->UniqueID ?? 0);
+        foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
+            if (empty($u->removed) && ($u->CardID ?? '') === 'ASH_007' && intval($u->UniqueID ?? -1) !== $self007) return true;
+        }
+    }
     // ASH_120 Warrior of Clan Kryze — "While you control another exhausted unit, this unit gains Sentinel."
     if (($obj->CardID ?? '') === 'ASH_120') {
         $selfUid120 = intval($obj->UniqueID ?? 0);
@@ -597,6 +683,15 @@ function HasConditionalKeyword_Bounty($obj) {
         case 'SHD_165': // Unlicensed Headhunter — while exhausted
             return isset($obj->Status) && intval($obj->Status) !== 2;
     }
+    // Upgrade-granted Bounty — the attached unit gains a Bounty ability (the keyword shows the badge;
+    // the custom reward is collected on defeat — see the granted-bounty snapshot in
+    // CollectWhenDefeatedTriggers + SWUCollectBounty). SHD_123 Bounty Hunter's Quarry.
+    foreach (GetUpgradesOnUnit($obj) as $u) {
+        switch ($u->CardID) {
+            case 'SHD_123': // Bounty Hunter's Quarry
+                return true;
+        }
+    }
     return false;
 }
 
@@ -661,6 +756,14 @@ function HasConditionalKeyword_Hidden($obj) {
 
 function HasConditionalKeyword_Plot($obj) {
     return false;
+}
+
+// Display flag for the resource-zone Plot icon (schema Virtual: HasPlot). 1 when a card
+// in the resource zone has the Plot keyword (CR 19) — it can be played from resources when
+// you deploy your leader. Returns 1/0 for the Image counter (ShowZero=false hides 0).
+function ResourceHasPlot($obj): int {
+    if ($obj === null || !isset($obj->CardID)) return 0;
+    return HasKeyword_Plot($obj) ? 1 : 0;
 }
 
 // ═════════════════════════════════════════════════════════════════════════════

@@ -3,8 +3,10 @@
 # Aggression pip is off-aspect, +2), but Hera waives it — so with exactly 5 resources Zeb enters play.
 
 ## GIVEN
-P1LeaderBase: SOR_008/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  myLeader:SOR_008;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SOR_146

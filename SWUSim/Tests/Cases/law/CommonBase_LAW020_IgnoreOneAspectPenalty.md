@@ -4,8 +4,9 @@
 #   the base waives the Aggression pip → pays the printed 2. Epic is consumed.
 
 ## GIVEN
-P1LeaderBase: SOR_005/LAW_020
-P2LeaderBase: SOR_010/SOR_020
+CommonSetup: bbw/brk/{
+  myBase:LAW_020
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

@@ -7,8 +7,7 @@
 # dies). P2's base takes 0 — proving Sentinel blocked the base attack.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: grw/grw
 SkipPreGame: true
 P1OnlyActions: true
 WithP2Resources: 6

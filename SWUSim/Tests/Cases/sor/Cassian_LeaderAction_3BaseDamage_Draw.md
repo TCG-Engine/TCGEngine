@@ -4,8 +4,10 @@
 # exhausts, and the condition is met so P1 draws 1 (deck 1 → 0, hand 0 → 1).
 
 ## GIVEN
-P1LeaderBase: SOR_013/SOR_024
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: grw/bbk/{
+  myLeader:SOR_013;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1

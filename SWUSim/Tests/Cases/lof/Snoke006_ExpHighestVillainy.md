@@ -2,8 +2,11 @@
 # most power among friendly Villainy units. SOR_038 (Villainy, power 5) is the only Villainy unit → +1/+1.
 
 ## GIVEN
-P1LeaderBase: LOF_006/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bgk/bbk/{
+  myLeader:LOF_006;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 1

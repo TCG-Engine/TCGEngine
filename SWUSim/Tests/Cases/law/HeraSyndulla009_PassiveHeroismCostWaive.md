@@ -4,7 +4,10 @@
 # waived → it plays for 4 (exactly P1's resources).
 
 ## GIVEN
-P1LeaderBase: LAW_009/SOR_028
+CommonSetup: ygw/grw/{
+  myLeader:LAW_009;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 4

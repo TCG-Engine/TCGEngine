@@ -4,8 +4,11 @@
 # deals 1 indirect to P2, who assigns it to their base. (Base damage of 1 comes only from the reaction.)
 
 ## GIVEN
-P1LeaderBase: JTL_009/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:JTL_009;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 1

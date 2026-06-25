@@ -7,8 +7,11 @@
 # untouched (Pryde's upgrade-defeat reaction never fires, since no unit took indirect).
 
 ## GIVEN
-P1LeaderBase: JTL_009/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:JTL_009;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 1

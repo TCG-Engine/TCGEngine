@@ -5,8 +5,9 @@
 # the undamaged Marine is untouched.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_025
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: rrw/grw/{
+  myBase:SOR_025
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP2GroundArena: SOR_046:1:2    # damaged (2) → targetable, index 0

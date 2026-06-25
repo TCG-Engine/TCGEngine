@@ -5,8 +5,11 @@
 # P1 space arena empty, P1 discard has SOR_225.
 
 ## GIVEN
-P1LeaderBase: JTL_013/SOR_022
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: grw/brw/{
+  myLeader:JTL_013;
+  myBase:SOR_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

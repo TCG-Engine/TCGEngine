@@ -1,8 +1,7 @@
 # ASH_084 control — WITHOUT Arcana Star Map, Tarkin's search stays at top 5, which is all non-Imperial
 # SOR_063 filler, so the depth-7 Imperial (SOR_085) is never seen and nothing is drawn (hand stays empty).
 ## GIVEN
-P1LeaderBase: SOR_007/SOR_024
-P2LeaderBase: SOR_002/SOR_020
+CommonSetup: ggk/bbk
 SkipPreGame: true
 WithP1Resources: 4
 WithP1Hand: SOR_084

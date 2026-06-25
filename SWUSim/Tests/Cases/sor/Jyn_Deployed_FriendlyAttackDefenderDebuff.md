@@ -3,8 +3,10 @@
 # reduces the defender's power 3 → 2, so the attacker takes 2 counter-damage (3 without it).
 
 ## GIVEN
-P1LeaderBase: SOR_018/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: gyw/brw/{
+  myLeader:SOR_018;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

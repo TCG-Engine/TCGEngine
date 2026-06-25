@@ -3,8 +3,9 @@
 # in play), so P2's base takes 2 from the surcharge.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: ggw/brw/{
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 2
 WithP1GroundArena: SOR_153:1:0

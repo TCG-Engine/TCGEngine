@@ -1,8 +1,11 @@
 # JTL_082 Kijimi Patrollers — When Played: Create a TIE Fighter token.
 
 ## GIVEN
-P1LeaderBase: JTL_005/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: ggk/bbk/{
+  myLeader:JTL_005;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_082

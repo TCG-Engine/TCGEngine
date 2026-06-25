@@ -2,8 +2,10 @@
 # Same setup as the move test; P1 declines the upgrade MZMAYCHOOSE, so SOR_120 stays on JTL_070.
 
 ## GIVEN
-P1LeaderBase: SOR_005/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1SpaceArena: JTL_070:1:0

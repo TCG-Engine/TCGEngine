@@ -6,8 +6,12 @@
 # Assert: Poe still on index-1, P1RESAVAILABLE:1, no pending decision.
 
 ## GIVEN
-P1LeaderBase: JTL_013/SOR_022
-P2LeaderBase: JTL_013/SOR_022
+CommonSetup: grw/grw/{
+  myLeader:JTL_013;
+  myBase:SOR_022;
+  theirLeader:JTL_013;
+  theirBase:SOR_022
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

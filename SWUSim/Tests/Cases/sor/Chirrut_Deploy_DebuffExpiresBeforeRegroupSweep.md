@@ -5,8 +5,11 @@
 # remaining HP — Chirrut LIVES. (Targeting him at all relies on the deployed-leader ZoneSearch fix.)
 
 ## GIVEN
-P1LeaderBase: SOR_004/SOR_024
-P2LeaderBase: SOR_011/SOR_021
+CommonSetup: gbw/brk/{
+  myLeader:SOR_004;
+  theirLeader:SOR_011;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithP1Resources: 5

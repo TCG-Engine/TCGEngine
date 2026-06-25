@@ -5,7 +5,8 @@
 CommonSetup: grw/grw/{myResources:3;handCardIds:SHD_182}
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true
-WithP1GroundArena: SOR_095:2:0
+WithActivePlayer: 1
+WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SOR_189:2:0
 
 ## WHEN

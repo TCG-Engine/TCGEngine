@@ -4,8 +4,11 @@
 # 3/7, which reindexes to idx 0 after SEC_080 is cleaned up, and survives at 4 damage).
 
 ## GIVEN
-P1LeaderBase: SOR_011/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: rrk/brw/{
+  myLeader:SOR_011;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_146:1:0

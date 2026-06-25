@@ -2,8 +2,11 @@
 # unit. Both enemy units take 1; P1 loses the Force.
 
 ## GIVEN
-P1LeaderBase: LOF_009/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: brk/bbk/{
+  myLeader:LOF_009;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Force: true

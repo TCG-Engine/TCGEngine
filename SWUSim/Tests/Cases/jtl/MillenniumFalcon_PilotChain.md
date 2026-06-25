@@ -10,8 +10,10 @@
 # Resources = 0 (no plays needed).
 
 ## GIVEN
-P1LeaderBase: SOR_005/SOR_022
-P2LeaderBase: SOR_005/SOR_022
+CommonSetup: gbw/gbw/{
+  myBase:SOR_022;
+  theirBase:SOR_022
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2

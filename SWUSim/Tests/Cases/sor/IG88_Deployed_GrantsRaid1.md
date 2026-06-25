@@ -4,8 +4,9 @@
 # already implemented in GetConditionalKeyword_Raid_Value — this test verifies it.)
 
 ## GIVEN
-P1LeaderBase: SOR_012/SOR_024
-P2LeaderBase: SOR_002/SOR_020
+CommonSetup: grk/bbk/{
+  myLeader:SOR_012
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

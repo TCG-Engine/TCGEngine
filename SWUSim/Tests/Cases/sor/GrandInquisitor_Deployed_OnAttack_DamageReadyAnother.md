@@ -3,8 +3,10 @@
 # (a 3/3 at idx 0, exhausted) is chosen → takes 1 damage and is readied. Base takes GI's power 3.
 
 ## GIVEN
-P1LeaderBase: SOR_011/SOR_024
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: grk/brw/{
+  myLeader:SOR_011;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 6

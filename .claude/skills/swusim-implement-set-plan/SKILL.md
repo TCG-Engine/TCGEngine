@@ -5,7 +5,7 @@ description: Use when the user wants to drive a whole multi-batch SWUSim impleme
 
 # SWUSim Implement Set-Plan
 
-Thin orchestrator: drive a multi-batch implementation **plan doc** to completion by looping `swusim-implement-card` per batch, keeping the plan + set tracker current, and folding a retro into the card skill at two checkpoints — the autonomous→pair-programmed handoff and the end of the run. The plan doc (e.g. `docs/<set>-complex-plan.md`) is the source of truth for *what* to build and in *what order*; this skill is the loop that runs it. It writes no card logic itself — `swusim-implement-card` does that. Keep in mind the 94% confidence rule established in the `swusim-implement-card` skill itself. This is per card. Not per batch.
+Thin orchestrator: drive a multi-batch implementation **plan doc** to completion by looping `swusim-implement-card` per batch, keeping the plan + set tracker current, and folding a retro into the card skill at two checkpoints — the autonomous→pair-programmed handoff and the end of the run. The plan doc (e.g. `docs/<set>-complex-plan.md`) is the source of truth for *what* to build and in *what order*; this skill is the loop that runs it. It writes no card logic itself — `swusim-implement-card` does that. Keep in mind the 94% confidence rule established in the `swusim-implement-card` skill itself. This is per card. Not per batch. **For leaders it is also per *side*:** the leader (front) side AND the leader unit (deployed `deployTextData`) side are separate ability sets that must *each* independently clear 94% — a leader with a finished front Action but an unimplemented deployed On Attack / When Deployed / passive / deployed Action is **not** Done (the ASH/LOF deployed-side gaps in `SWUSim/docs/leader-gaps.md` are exactly this miss). Don't mark a leader done on its front side alone.
 
 ## Step 1 — Orient
 
@@ -89,3 +89,4 @@ When the scope is complete, report **start → end regression counts**, the phas
 | Marking a batch done while regression is red | Green-gate every batch; `0 failed` or it's not done. |
 | Halting the whole run on a Hard / ambiguous card | **Defer it to the backlog and keep going** (Step 5). Only halt for a blocker the rest of the scope depends on, or being stuck. Surface the backlog at the checkpoints. |
 | Calling a set "card-complete" with a non-empty backlog | It isn't. Report the backlog; run `swusim-set-validation` before any complete claim. |
+| Marking a leader Done on its front side alone | A leader has two ability sets (front + deployed `deployTextData`); each must independently clear 94%. Verify the deployed On Attack / When Deployed / passive / deployed Action has a real handler, not just the front Action. See `SWUSim/docs/leader-gaps.md`. |

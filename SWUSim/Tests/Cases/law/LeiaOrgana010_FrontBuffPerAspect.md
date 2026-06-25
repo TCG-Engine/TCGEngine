@@ -2,7 +2,10 @@
 # +1/+1 for each different aspect it has." SEC_080 (Command/Villainy = 2 aspects) gets +2/+2 → 5/5.
 
 ## GIVEN
-P1LeaderBase: LAW_010/SOR_028
+CommonSetup: ygw/grw/{
+  myLeader:LAW_010;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 2

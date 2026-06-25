@@ -2,8 +2,11 @@
 # attacks the base; P2 picks SOR_046 from its two ready units to be exhausted.
 
 ## GIVEN
-P1LeaderBase: LOF_015/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:LOF_015;
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

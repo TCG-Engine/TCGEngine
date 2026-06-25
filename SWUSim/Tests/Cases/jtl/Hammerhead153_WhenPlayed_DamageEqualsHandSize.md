@@ -3,8 +3,11 @@
 # SOR_046. Counting is at resolution (the just-played card is no longer in hand).
 
 ## GIVEN
-P1LeaderBase: JTL_012/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_153

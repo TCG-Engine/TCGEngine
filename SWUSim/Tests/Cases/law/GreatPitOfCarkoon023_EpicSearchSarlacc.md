@@ -3,7 +3,9 @@
 # and draws LAW_163 (The Sarlacc of Carkoon) from the deck.
 
 ## GIVEN
-P1LeaderBase: SOR_005/LAW_023
+CommonSetup: gbw/grw/{
+  myBase:LAW_023
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: SEC_080

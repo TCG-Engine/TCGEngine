@@ -2,8 +2,7 @@
 Change of Heart — steal ground unit (auto-resolve single target)
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_029
-P2LeaderBase: SOR_007/SOR_024
+CommonSetup: yrw/ggk
 SkipPreGame: true
 WithP1Hand: SOR_224
 WithP2GroundArena: SOR_063:1:0

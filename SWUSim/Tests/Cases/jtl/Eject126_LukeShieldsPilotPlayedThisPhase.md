@@ -3,8 +3,10 @@
 # with her UniqueID (and SWU_PLAYED_UNIT marker) preserved. P1's Luke (SOR_005) can then shield her.
 
 ## GIVEN
-P1LeaderBase: SOR_005/SOR_021
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: bbw/bbk/{
+  myBase:SOR_021;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 1

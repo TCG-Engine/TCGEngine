@@ -2,8 +2,11 @@
 # that unit. P1 defeats SOR_120 on the enemy SOR_046 and then deals 1 to SOR_046.
 
 ## GIVEN
-P1LeaderBase: JTL_012/JTL_022
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: grw/bbk/{
+  myLeader:JTL_012;
+  myBase:JTL_022;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Hand: JTL_175

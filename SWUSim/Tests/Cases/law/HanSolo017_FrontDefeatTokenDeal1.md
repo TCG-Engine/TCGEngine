@@ -3,7 +3,10 @@
 # to P2's SOR_128 (3/1), defeating it.
 
 ## GIVEN
-P1LeaderBase: LAW_017/SOR_028
+CommonSetup: yyw/grw/{
+  myLeader:LAW_017;
+  myBase:SOR_028
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: JTL_T01:1:0

@@ -1,8 +1,7 @@
 # SOR_236 R2-D2 — OnAttack scry 1: put top card on bottom.
 
 ## GIVEN
-P1LeaderBase: SOR_014/SOR_024
-P2LeaderBase: SOR_014/SOR_024
+CommonSetup: grw/grw
 SkipPreGame: true
 WithP1GroundArena: SOR_236:1:0
 WithP1Deck: SOR_095

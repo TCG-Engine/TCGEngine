@@ -1,8 +1,9 @@
 # SHD_012 Bo-Katan Kryze — Leader Action: No Mandalorian attacked → exhaust only, no damage.
 
 ## GIVEN
-P1LeaderBase: SHD_012/SOR_026
-P2LeaderBase: SOR_009/SOR_024
+CommonSetup: rrw/ggw/{
+  myLeader:SHD_012
+}
 SkipPreGame: true
 WithP2GroundArena: SOR_095:2:0
 

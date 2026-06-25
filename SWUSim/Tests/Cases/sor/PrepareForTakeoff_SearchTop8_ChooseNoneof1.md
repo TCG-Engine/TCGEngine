@@ -1,8 +1,7 @@
 # SOR_125 Prepare for Takeoff — search top 8: choose none of 1 matching Vehicle unit.
 
 ## GIVEN
-P1LeaderBase: SOR_007/SOR_024
-P2LeaderBase: SOR_002/SOR_020
+CommonSetup: ggk/bbk
 SkipPreGame: true
 WithP1Hand: SOR_125
 WithP1Resources: 2

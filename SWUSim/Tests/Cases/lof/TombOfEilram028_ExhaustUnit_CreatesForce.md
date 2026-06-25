@@ -4,8 +4,10 @@
 # Action and not once-per-game).
 
 ## GIVEN
-P1LeaderBase: SOR_002/LOF_028
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: ybk/bbk/{
+  myBase:LOF_028;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_095:1:0

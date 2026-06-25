@@ -2,8 +2,9 @@
 # No other Mandalorian attacked, so only the first "deal 1" question fires.
 
 ## GIVEN
-P1LeaderBase: SHD_012/SOR_026
-P2LeaderBase: SOR_009/SOR_024
+CommonSetup: rrw/ggw/{
+  myLeader:SHD_012
+}
 SkipPreGame: true
 WithInitiativePlayer: 2
 WithInitiativeClaimed: true

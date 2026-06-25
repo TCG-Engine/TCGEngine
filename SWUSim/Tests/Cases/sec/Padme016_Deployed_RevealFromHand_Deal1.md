@@ -3,15 +3,17 @@
 # Padmé reacts and deals 1 to the enemy SOR_095. (SEC_062's own draw also resolves.)
 
 ## GIVEN
-P1LeaderBase: SEC_016:1:1:1/JTL_019
-P2LeaderBase: SOR_002/SOR_021
+CommonSetup: byw/bbk/{
+  myLeader:SEC_016:1:1:1;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1Resources: 4
 WithP1Hand: SEC_062
 WithP1Hand: SEC_059
 WithP1Deck: [SOR_095 SOR_095]
-WithP1GroundArena: SEC_016:1:0
 WithP2GroundArena: SOR_095:1:0
 
 ## WHEN

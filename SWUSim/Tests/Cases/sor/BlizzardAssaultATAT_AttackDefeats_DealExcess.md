@@ -3,8 +3,11 @@
 # defeats it, then deals 6 to the opponent's other ground unit (a 3/7, which survives at 6 damage).
 
 ## GIVEN
-P1LeaderBase: SOR_011/SOR_025
-P2LeaderBase: SOR_014/SOR_021
+CommonSetup: rrk/brw/{
+  myLeader:SOR_011;
+  myBase:SOR_025;
+  theirBase:SOR_021
+}
 SkipPreGame: true
 P1OnlyActions: true
 WithP1GroundArena: SOR_088:1:0

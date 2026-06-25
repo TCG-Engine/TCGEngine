@@ -1,8 +1,7 @@
 # SOR_084 Grand Moff Tarkin — WhenPlayed search top 5: choose none of 2 matching Imperial cards.
 
 ## GIVEN
-P1LeaderBase: SOR_007/SOR_024
-P2LeaderBase: SOR_002/SOR_020
+CommonSetup: ggk/bbk
 SkipPreGame: true
 WithP1Hand: SOR_084
 WithP1Resources: 4

@@ -20,8 +20,7 @@
 #   SOR_237 hp:    3 (base) + 3 (JTL_100 upgradeHp)    = 6.
 
 ## GIVEN
-P1LeaderBase: SOR_009/SOR_024
-P2LeaderBase: SOR_009/SOR_024
+CommonSetup: ggw/ggw
 SkipPreGame: true
 WithActivePlayer: 1
 WithInitiativePlayer: 2
