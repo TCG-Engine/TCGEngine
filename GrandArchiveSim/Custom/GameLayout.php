@@ -773,11 +773,13 @@
      .ga-intent {
           width: min(15vw, 210px);
           min-height: 112px;
+          z-index: 37;
      }
 
      .ga-stack {
           width: clamp(320px, 34vw, 560px);
           min-height: 86px;
+          z-index: 37;
      }
 
      #myHandSlot,
@@ -898,16 +900,27 @@
           max-width: calc(100vw - 32px);
      }
 
-     #EffectStackSlot[data-draggable="true"] {
+     .ga-window-drag-handle {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 30px;
           cursor: grab;
+          z-index: 2000;
+          touch-action: none;
      }
 
-     #EffectStackSlot[data-dragging="true"] {
+     .ga-zone[data-dragging="true"] .ga-window-drag-handle {
+          cursor: grabbing;
+     }
+
+     .ga-zone[data-dragging="true"] {
           cursor: grabbing;
           user-select: none;
      }
 
-     #EffectStackSlot.is-custom-position {
+     .ga-zone.is-custom-position {
           transform: none !important;
      }
 
@@ -1764,13 +1777,25 @@
                .observe(globalStuff, { childList: true, subtree: true });
      }
 
-     function setupEffectStackDrag() {
-          var slot = document.getElementById('EffectStackSlot');
+     function setupDraggablePanel(slotId, positionStorageKey) {
+          var slot = document.getElementById(slotId);
           if (!slot) return;
 
-          var positionStorageKey = 'ga-effect-stack-position-v1';
           var dragState = null;
           slot.setAttribute('data-draggable', 'true');
+
+          function ensureDragHandle() {
+               var existing = slot.querySelector(':scope > .ga-window-drag-handle');
+               if (existing) return existing;
+
+               var handle = document.createElement('div');
+               handle.className = 'ga-window-drag-handle';
+               handle.setAttribute('title', 'Move window');
+               handle.setAttribute('aria-hidden', 'true');
+               slot.insertBefore(handle, slot.firstChild);
+               attachHandleListeners(handle);
+               return handle;
+          }
 
           function clamp(value, min, max) {
                return Math.min(max, Math.max(min, value));
@@ -1827,9 +1852,6 @@
           function beginDrag(clientX, clientY, button) {
                if (button !== 0) return false;
                var rect = slot.getBoundingClientRect();
-               var yInSlot = clientY - rect.top;
-               // Drag from the label band only so card interaction remains easy.
-               if (yInSlot > 28) return false;
                dragState = {
                     startX: clientX,
                     startY: clientY,
@@ -1848,21 +1870,23 @@
                applyPosition(nextLeft, nextTop);
           }
 
-          slot.addEventListener('mousedown', function(ev) {
-               if (beginDrag(ev.clientX, ev.clientY, ev.button)) ev.preventDefault();
-          });
+          function attachHandleListeners(handle) {
+               handle.addEventListener('mousedown', function(ev) {
+                    if (beginDrag(ev.clientX, ev.clientY, ev.button)) ev.preventDefault();
+               });
+
+               handle.addEventListener('touchstart', function(ev) {
+                    if (!ev.touches || ev.touches.length === 0) return;
+                    var touch = ev.touches[0];
+                    if (beginDrag(touch.clientX, touch.clientY, 0)) ev.preventDefault();
+               }, { passive: false });
+          }
 
           window.addEventListener('mousemove', function(ev) {
                moveDrag(ev.clientX, ev.clientY);
           });
 
           window.addEventListener('mouseup', finishDrag);
-
-          slot.addEventListener('touchstart', function(ev) {
-               if (!ev.touches || ev.touches.length === 0) return;
-               var touch = ev.touches[0];
-               if (beginDrag(touch.clientX, touch.clientY, 0)) ev.preventDefault();
-          }, { passive: false });
 
           window.addEventListener('touchmove', function(ev) {
                if (!dragState || !ev.touches || ev.touches.length === 0) return;
@@ -1883,7 +1907,17 @@
                savePosition();
           });
 
+          new MutationObserver(function() { ensureDragHandle(); })
+               .observe(slot, { childList: true });
+
+          ensureDragHandle();
           loadPosition();
+     }
+
+     function setupMovableWindows() {
+          setupDraggablePanel('EffectStackSlot', 'ga-effect-stack-position-v1');
+          setupDraggablePanel('myIntentSlot', 'ga-my-intent-position-v1');
+          setupDraggablePanel('theirIntentSlot', 'ga-their-intent-position-v1');
      }
 
      function setupHandCollapse() {
@@ -2285,7 +2319,7 @@
                AUTO_HIDE_IDS.forEach(watchSlot);
                EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
                watchPhaseData();
-               setupEffectStackDrag();
+               setupMovableWindows();
                setupHandCollapse();
                setupBoardTheme();
                setupFieldScrollButtons();
@@ -2295,7 +2329,7 @@
           AUTO_HIDE_IDS.forEach(watchSlot);
           EMPTY_STATE_SLOTS.forEach(function(s) { watchEmptyStateSlot(s.id, s.cls); });
           watchPhaseData();
-          setupEffectStackDrag();
+          setupMovableWindows();
           setupHandCollapse();
           setupBoardTheme();
           setupFieldScrollButtons();

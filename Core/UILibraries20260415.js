@@ -2864,13 +2864,20 @@ function ResolveGlobalFunction(functionName) {
         const styleEl = document.createElement('style');
         styleEl.id = 'macro-card-toast-styles';
         styleEl.textContent = ''
-          + '#macro-card-toast-host{position:fixed;top:12px;left:12px;z-index:3100;display:flex;flex-direction:column;gap:8px;pointer-events:none;}'
+          + '#macro-card-toast-host{position:fixed;top:12px;left:12px;z-index:3100;display:flex;flex-direction:column;gap:8px;pointer-events:none;align-items:flex-start;}'
+          + '#macro-card-toast-toggle{pointer-events:auto;display:flex;align-items:center;gap:7px;height:30px;padding:0 10px;border-radius:8px;border:1px solid rgba(201,168,76,0.32);background:rgba(8,13,22,0.94);color:#fff4cf;font:800 11px/1 Orbitron,Segoe UI,sans-serif;box-shadow:0 8px 18px rgba(0,0,0,0.32);cursor:pointer;}'
+          + '#macro-card-toast-toggle-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:rgba(201,168,76,0.22);border:1px solid rgba(201,168,76,0.38);color:#ffe09b;font-size:10px;}'
+          + '#macro-card-toast-log{pointer-events:auto;display:none;width:min(312px,calc(100vw - 24px));max-height:44vh;overflow-y:auto;padding:8px;border-radius:8px;background:rgba(8,13,22,0.96);border:1px solid rgba(240,230,200,0.18);box-shadow:0 12px 28px rgba(0,0,0,0.38);scrollbar-color:#6f5f38 rgba(0,0,0,0);scrollbar-width:thin;}'
+          + '#macro-card-toast-host.is-expanded #macro-card-toast-log{display:flex;flex-direction:column;gap:6px;}'
           + '.macro-card-toast{display:flex;align-items:center;gap:9px;min-width:178px;max-width:260px;padding:8px 10px 8px 8px;border-radius:8px;background:rgba(8,13,22,0.94);border:1px solid rgba(240,230,200,0.22);box-shadow:0 10px 24px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.06);color:#f7f0d8;font-family:Orbitron,Segoe UI,sans-serif;opacity:0;transform:translateX(-12px);transition:opacity 160ms ease,transform 160ms ease;}'
           + '.macro-card-toast.is-visible{opacity:1;transform:translateX(0);}'
           + '.macro-card-toast img{width:42px;height:58px;object-fit:cover;border-radius:4px;background:#111827;box-shadow:0 2px 8px rgba(0,0,0,0.35);flex:0 0 auto;}'
           + '.macro-card-toast-title{font-size:10px;line-height:1.1;text-transform:uppercase;color:#c9a84c;margin-bottom:3px;font-weight:800;}'
           + '.macro-card-toast-name{font-size:12px;line-height:1.25;color:#fff4cf;font-weight:700;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}'
-          + '.macro-card-toast-meta{font-size:10px;line-height:1.2;color:#b9c7dd;margin-top:3px;font-weight:600;}';
+          + '.macro-card-toast-meta{font-size:10px;line-height:1.2;color:#b9c7dd;margin-top:3px;font-weight:600;}'
+          + '.macro-card-toast-log-entry{display:flex;align-items:center;gap:8px;min-width:0;padding:6px;border-radius:7px;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);color:#f7f0d8;font-family:Orbitron,Segoe UI,sans-serif;}'
+          + '.macro-card-toast-log-entry img{width:32px;height:44px;object-fit:cover;border-radius:4px;background:#111827;flex:0 0 auto;}'
+          + '.macro-card-toast-log-empty{padding:8px;color:#b9c7dd;font:700 11px/1.3 Orbitron,Segoe UI,sans-serif;}';
         document.head.appendChild(styleEl);
       }
 
@@ -2883,17 +2890,98 @@ function ResolveGlobalFunction(functionName) {
           host.id = 'macro-card-toast-host';
           document.body.appendChild(host);
         }
+        if (!document.getElementById('macro-card-toast-toggle')) {
+          const toggle = document.createElement('button');
+          toggle.id = 'macro-card-toast-toggle';
+          toggle.type = 'button';
+          toggle.innerHTML = '<span>Events</span><span id="macro-card-toast-toggle-count">0</span>';
+          toggle.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            host.classList.toggle('is-expanded');
+          });
+          host.appendChild(toggle);
+        }
+        if (!document.getElementById('macro-card-toast-log')) {
+          const log = document.createElement('div');
+          log.id = 'macro-card-toast-log';
+          const empty = document.createElement('div');
+          empty.className = 'macro-card-toast-log-empty';
+          empty.textContent = 'No events yet';
+          log.appendChild(empty);
+          host.appendChild(log);
+        }
         return host;
+      }
+
+      function RenderMacroCardToastLog() {
+        const host = GetMacroCardToastHost();
+        if (!host) return;
+        const events = window._macroCardToastEvents || [];
+        const countEl = document.getElementById('macro-card-toast-toggle-count');
+        if (countEl) countEl.textContent = String(events.length);
+        const log = document.getElementById('macro-card-toast-log');
+        if (!log) return;
+        log.innerHTML = '';
+        if (events.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'macro-card-toast-log-empty';
+          empty.textContent = 'No events yet';
+          log.appendChild(empty);
+          return;
+        }
+        events.slice(0, 50).forEach(function(entry) {
+          const item = document.createElement('div');
+          item.className = 'macro-card-toast-log-entry';
+          const img = document.createElement('img');
+          img.alt = entry.name;
+          img.src = _getMacroGameCardImageUrl(entry.cardID);
+          item.appendChild(img);
+          const body = document.createElement('div');
+          body.style.minWidth = '0';
+          const title = document.createElement('div');
+          title.className = 'macro-card-toast-title';
+          title.textContent = entry.label;
+          const name = document.createElement('div');
+          name.className = 'macro-card-toast-name';
+          name.textContent = entry.name;
+          const meta = document.createElement('div');
+          meta.className = 'macro-card-toast-meta';
+          meta.textContent = 'Player ' + entry.playerID + (entry.increment > 1 ? ' x' + entry.increment : '');
+          body.appendChild(title);
+          body.appendChild(name);
+          body.appendChild(meta);
+          item.appendChild(body);
+          log.appendChild(item);
+        });
+      }
+
+      function AddMacroCardToastEvent(cardID, playerID, increment, label) {
+        if (typeof window === 'undefined') return null;
+        if (!window._macroCardToastEvents) window._macroCardToastEvents = [];
+        const event = {
+          cardID: cardID,
+          playerID: playerID,
+          increment: increment,
+          label: label || 'Card Event',
+          name: _getMacroGameCardName(cardID),
+          timestamp: Date.now()
+        };
+        window._macroCardToastEvents.unshift(event);
+        if (window._macroCardToastEvents.length > 100) window._macroCardToastEvents.length = 100;
+        RenderMacroCardToastLog();
+        return event;
       }
 
       function ShowMacroCardToast(cardID, playerID, increment, label) {
         const host = GetMacroCardToastHost();
         if (!host || !cardID) return;
+        const event = AddMacroCardToastEvent(cardID, playerID, increment, label);
         const toast = document.createElement('div');
         toast.className = 'macro-card-toast';
 
         const img = document.createElement('img');
-        img.alt = _getMacroGameCardName(cardID);
+        img.alt = event ? event.name : _getMacroGameCardName(cardID);
         img.src = _getMacroGameCardImageUrl(cardID);
         toast.appendChild(img);
 
@@ -2901,10 +2989,10 @@ function ResolveGlobalFunction(functionName) {
         body.style.minWidth = '0';
         const title = document.createElement('div');
         title.className = 'macro-card-toast-title';
-        title.textContent = label || 'Card Event';
+        title.textContent = event ? event.label : (label || 'Card Event');
         const name = document.createElement('div');
         name.className = 'macro-card-toast-name';
-        name.textContent = _getMacroGameCardName(cardID);
+        name.textContent = event ? event.name : _getMacroGameCardName(cardID);
         const meta = document.createElement('div');
         meta.className = 'macro-card-toast-meta';
         meta.textContent = 'Player ' + playerID + (increment > 1 ? ' x' + increment : '');
@@ -2926,6 +3014,7 @@ function ResolveGlobalFunction(functionName) {
       function ObserveMacroToastEvents(macroGameIndexData) {
         if (typeof window === 'undefined') return;
         const rules = typeof GetMacroToastRules === 'function' ? GetMacroToastRules() : {};
+        if (Object.keys(rules).length > 0) RenderMacroCardToastLog();
         const indexData = _parseMacroGameIndex(macroGameIndexData || window.MacroGameIndexData);
         const current = {};
         for (const macroName in rules) {
