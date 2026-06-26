@@ -115,6 +115,9 @@ function CardIDOverride($cardID) {
     case "LAW_175": return "JTL_136"; //Prototype TIE Advanced
     case "LAW_253": return "SOR_237"; //Alliance X-Wing
     case "LAW_261": return "SHD_260"; //Street Gang Recruiter
+    case "ASH_122": return "SOR_112"; //Consortium StarViper
+    case "ASH_152": return "LAW_180"; //Inspired Recruit
+    case "ASH_258": return "SEC_258"; //Grassroots Resistance
     default: return $cardID;
   }
 }
