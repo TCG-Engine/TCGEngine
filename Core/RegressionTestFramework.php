@@ -166,6 +166,14 @@ function RegressionNormalizeGamestateTextForRoot($rootName, $text) {
   return $text;
 }
 
+function RegressionNormalizeGamestateTextForComparison($rootName, $text) {
+  $normalized = RegressionNormalizeGamestateTextForRoot($rootName, $text);
+  if ($rootName === 'GrandArchiveSim' && function_exists('NormalizeGrandArchiveMatchReplayFieldsForComparison')) {
+    $normalized = NormalizeGrandArchiveMatchReplayFieldsForComparison($normalized);
+  }
+  return $normalized;
+}
+
 function RegressionIsRecordingActive($rootName, $gameName) {
   $recording = RegressionReadRecording($rootName, $gameName);
   return is_array($recording) && !empty($recording['active']);
@@ -492,8 +500,8 @@ function RegressionFixtureExpectedFinalPath($rootName, $slug) {
 function RegressionReplayStateMatchesExpectedFinal($rootName, $gameName, $slug) {
   $expectedPath = RegressionFixtureExpectedFinalPath($rootName, $slug);
   if (!is_file($expectedPath)) return null;
-  $expected = RegressionNormalizeGamestateTextForRoot($rootName, file_get_contents($expectedPath));
-  $actual = RegressionCurrentGamestateText($rootName, $gameName);
+  $expected = RegressionNormalizeGamestateTextForComparison($rootName, file_get_contents($expectedPath));
+  $actual = RegressionNormalizeGamestateTextForComparison($rootName, RegressionCurrentGamestateText($rootName, $gameName));
   return RegressionNormalizeNewlines($expected) === RegressionNormalizeNewlines($actual);
 }
 

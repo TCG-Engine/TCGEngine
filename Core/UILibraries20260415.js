@@ -5427,6 +5427,9 @@ function ShowGameOver(didWin, menuUrl, statsHtml) {
 
   overlay.appendChild(title);
   overlay.appendChild(stats);
+  if (typeof window.MatchReplayAddGameOverButton === 'function') {
+    window.MatchReplayAddGameOverButton(overlay);
+  }
   overlay.appendChild(btn);
   document.body.appendChild(overlay);
 

@@ -136,18 +136,25 @@ function UpgradeLegacyGamestateText($gamestateText, $rootName = '') {
   $lines = $trimmed === '' ? [] : explode("\n", $trimmed);
   if (count($lines) < 4) return $gamestateText;
 
-  $insertIndex = GrandArchiveShortcutPreferencesInsertIndex($lines);
-  if ($insertIndex === null) return $gamestateText;
+  $shortcutInsertIndex = GrandArchiveShortcutPreferencesInsertIndex($lines);
+  if ($shortcutInsertIndex === null) return $gamestateText;
 
-  $first = trim($lines[$insertIndex] ?? '');
-  $second = trim($lines[$insertIndex + 1] ?? '');
-  if ($first === '' || $second === '') return $gamestateText;
-
-  if (!preg_match('/^-?\d+$/', $first) || !preg_match('/^-?\d+$/', $second)) {
-    return $gamestateText;
+  $firstShortcut = trim($lines[$shortcutInsertIndex] ?? '');
+  $secondShortcut = trim($lines[$shortcutInsertIndex + 1] ?? '');
+  if ($firstShortcut !== '' && $secondShortcut !== ''
+      && preg_match('/^-?\d+$/', $firstShortcut)
+      && preg_match('/^-?\d+$/', $secondShortcut)) {
+    array_splice($lines, $shortcutInsertIndex, 0, ['-', '-']);
   }
 
-  array_splice($lines, $insertIndex, 0, ['-', '-']);
+  $matchReplayInsertIndex = GrandArchiveMatchReplayInsertIndex($lines);
+  if ($matchReplayInsertIndex === null) return $gamestateText;
+
+  $firstReplay = trim($lines[$matchReplayInsertIndex] ?? '');
+  if ($firstReplay !== '' && preg_match('/^-?\d+$/', $firstReplay)) {
+    array_splice($lines, $matchReplayInsertIndex, 0, ['-', '-']);
+  }
+
   $rebuilt = implode($newline, $lines);
   if ($hadTrailingNewline) $rebuilt .= $newline;
   return $rebuilt;
@@ -169,6 +176,53 @@ function GrandArchiveShortcutPreferencesInsertIndex($lines) {
   }
 
   return $index;
+}
+
+function GrandArchiveMatchReplayInsertIndex($lines) {
+  $index = 2;
+
+  for ($i = 0; $i < 20; ++$i) {
+    if (!AdvanceLegacyCountedGamestateSection($lines, $index)) return null;
+  }
+
+  for ($i = 0; $i < 2; ++$i) {
+    if (!AdvanceLegacyValueGamestateSection($lines, $index)) return null;
+  }
+
+  for ($i = 0; $i < 6; ++$i) {
+    if (!AdvanceLegacyCountedGamestateSection($lines, $index)) return null;
+  }
+
+  for ($i = 0; $i < 9; ++$i) {
+    if (!AdvanceLegacyValueGamestateSection($lines, $index)) return null;
+  }
+
+  if (!AdvanceLegacyCountedGamestateSection($lines, $index)) return null;
+
+  for ($i = 0; $i < 3; ++$i) {
+    if (!AdvanceLegacyValueGamestateSection($lines, $index)) return null;
+  }
+
+  return $index;
+}
+
+function NormalizeGrandArchiveMatchReplayFieldsForComparison($gamestateText) {
+  $newline = (strpos($gamestateText, "\r\n") !== false) ? "\r\n" : "\n";
+  $trimmed = preg_replace("/\r\n|\r|\n/", "\n", $gamestateText);
+  $hadTrailingNewline = substr($trimmed, -1) === "\n";
+  if ($hadTrailingNewline) $trimmed = substr($trimmed, 0, -1);
+  $lines = $trimmed === '' ? [] : explode("\n", $trimmed);
+
+  $insertIndex = GrandArchiveMatchReplayInsertIndex($lines);
+  if ($insertIndex === null) return $gamestateText;
+  if ($insertIndex + 1 >= count($lines)) return $gamestateText;
+
+  $lines[$insertIndex] = '-';
+  $lines[$insertIndex + 1] = '-';
+
+  $rebuilt = implode($newline, $lines);
+  if ($hadTrailingNewline) $rebuilt .= $newline;
+  return $rebuilt;
 }
 
 function AdvanceLegacyCountedGamestateSection($lines, &$index) {
