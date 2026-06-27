@@ -922,8 +922,6 @@ function SaveUndoVersion($targetPlayerID, $name = "") {
     $playerID = $targetPlayer;
 
     $zones = Versions::GetSerializedZones();
-    global $gRandomCounter;
-    $zones .= "<v0>" . $gRandomCounter;
 
     MZClearZone($targetPlayer, "myVersions");
 

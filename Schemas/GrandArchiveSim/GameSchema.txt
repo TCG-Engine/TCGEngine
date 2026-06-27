@@ -10,7 +10,7 @@ ServerInclude: /TurnController.php
 ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: GrandArchiveSim
-Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myMastery,myGlobalEffects,myMaterial,myField,myIntent,myMemory,myBanish,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirMastery,theirGlobalEffects,theirMaterial,theirField,theirIntent,theirMemory,theirBanish,DecisionQueueVariables,EffectStack,MacroTurnIndex,UniqueIDCounter,MacroGameIndex
+Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myGraveyard,myDeck,myDecisionQueue,myHealth,myMastery,myGlobalEffects,myMaterial,myField,myIntent,myMemory,myBanish,theirHand,theirTempZone,theirGraveyard,theirDeck,theirDecisionQueue,theirHealth,theirMastery,theirGlobalEffects,theirMaterial,theirField,theirIntent,theirMemory,theirBanish,DecisionQueueVariables,EffectStack,MacroTurnIndex,UniqueIDCounter,MacroGameIndex,RandomCounter
 Module: UniqueID=Field,UniqueID,UniqueIDCounter
 Module: ShortcutWindows={"REC_START":{"label":"Recollection Start","default":false,"group":"Phase","order":10},"END_START":{"label":"End Phase Start","default":false,"group":"Phase","order":20},"STACK_RESPONSE":{"label":"Effect Stack Response","default":false,"group":"Priority","order":30},"ENTER_RESPONSE":{"label":"On Enter Response","default":true,"group":"Priority","order":35},"TRIGGER_RESPONSE":{"label":"Triggered Abilities","default":true,"group":"Priority","order":37},"ABILITY_RESPONSE":{"label":"Ability Response","default":false,"group":"Priority","order":40},"COMBAT_DAMAGE":{"label":"Combat Damage Window","default":false,"group":"Combat","order":50},"COMBAT_RETALIATION":{"label":"Combat Retaliation","default":false,"group":"Combat","order":60}}
 Module: MatchReplay=MatchReplayInitialState,MatchReplayCommands
@@ -221,6 +221,8 @@ Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 UniqueIDCounter - Value:number=0
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 MacroGameIndex - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+RandomCounter - Value:number=0
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 MatchReplayInitialState - Value:string=-
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None

@@ -160,18 +160,11 @@ function RegressionCurrentGamestateHash($rootName, $gameName) {
 
 function RegressionNormalizeGamestateTextForRoot($rootName, $text) {
   if (!is_string($text) || $text === '') return $text;
-  if (function_exists('UpgradeLegacyGamestateText')) {
-    return UpgradeLegacyGamestateText($text, $rootName);
-  }
   return $text;
 }
 
 function RegressionNormalizeGamestateTextForComparison($rootName, $text) {
-  $normalized = RegressionNormalizeGamestateTextForRoot($rootName, $text);
-  if ($rootName === 'GrandArchiveSim' && function_exists('NormalizeGrandArchiveMatchReplayFieldsForComparison')) {
-    $normalized = NormalizeGrandArchiveMatchReplayFieldsForComparison($normalized);
-  }
-  return $normalized;
+  return RegressionNormalizeGamestateTextForRoot($rootName, $text);
 }
 
 function RegressionIsRecordingActive($rootName, $gameName) {

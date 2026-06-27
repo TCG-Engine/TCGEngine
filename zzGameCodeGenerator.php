@@ -1631,7 +1631,9 @@ for($i=0; $i<count($zones); ++$i) {
 }
 fwrite($handler, "  \$currentPlayer = 1;\r\n");//TODO: Change this to startPlayer (needs to be linked up w/ lobby code)
 fwrite($handler, "  \$updateNumber = 1;\r\n");//TODO: Change this to startPlayer (needs to be linked up w/ lobby code)
-fwrite($handler, "  \$gRandomCounter = 0;\r\n");
+if(!SchemaOwnsRandomCounter()) {
+  fwrite($handler, "  \$gRandomCounter = 0;\r\n");
+}
 fwrite($handler, "}\r\n\r\n");
 //Write gamestate function
 fwrite($handler, "function WriteGamestate(\$filepath=\"./\") {\r\n");
@@ -1657,7 +1659,8 @@ if($versionsModule == null) {
 }
 if($versionsModule != null) {
   $separator = $isNewVersionsModule ? "," : ";";
-  $versionZones = explode($separator, $versionsModule->Parameters ?? $versionsModule->Zones ?? "");
+  $versionZones = array_map('trim', explode($separator, $versionsModule->Parameters ?? $versionsModule->Zones ?? ""));
+  $versionsOwnsRandomCounter = in_array("RandomCounter", $versionZones, true);
 
   // Build lookup map for Value mode zones
   $valueZones = [];
@@ -1725,18 +1728,22 @@ if($versionsModule != null) {
     }
     fwrite($handler, "  }\r\n");
   }
-  fwrite($handler, "  if(count(\$zones) > " . count($versionZones) . ") {\r\n");
-  fwrite($handler, "    \$data = str_replace(\"<v2>\", \" \", \$zones[" . count($versionZones) . "]);\r\n");
-  fwrite($handler, "  global \$gRandomCounter;\r\n");
-  fwrite($handler, "  \$gRandomCounter = intval(\$data);\r\n");
-  fwrite($handler, "  }\r\n");
+  if(!$versionsOwnsRandomCounter) {
+    fwrite($handler, "  if(count(\$zones) > " . count($versionZones) . ") {\r\n");
+    fwrite($handler, "    \$data = str_replace(\"<v2>\", \" \", \$zones[" . count($versionZones) . "]);\r\n");
+    fwrite($handler, "  global \$gRandomCounter;\r\n");
+    fwrite($handler, "  \$gRandomCounter = intval(\$data);\r\n");
+    fwrite($handler, "  }\r\n");
+  }
   fwrite($handler, "}\r\n\r\n");
 
   //Save version function
   fwrite($handler, "function SaveVersion(\$playerID, \$name = \"\") {\r\n");
   fwrite($handler, "  \$zones = Versions::GetSerializedZones();\r\n");
-  fwrite($handler, "  global \$gRandomCounter;\r\n");
-  fwrite($handler, "  \$zones .= \"<v0>\" . \$gRandomCounter;\r\n");
+  if(!$versionsOwnsRandomCounter) {
+    fwrite($handler, "  global \$gRandomCounter;\r\n");
+    fwrite($handler, "  \$zones .= \"<v0>\" . \$gRandomCounter;\r\n");
+  }
   fwrite($handler, "  \$existingVersions = &GetVersions(\$playerID);\r\n");
   fwrite($handler, "  \$nextNum = 0;\r\n");
   fwrite($handler, "  foreach(\$existingVersions as \$v) {\r\n");
@@ -1933,9 +1940,6 @@ function AddReadGamestate() {
   $readGamestate .= "    \$gamestateText = file_get_contents(\$filename);\r\n";
   $readGamestate .= "  }\r\n";
   $readGamestate .= "  if(\$gamestateText === false || \$gamestateText === \"\") return;\r\n";
-  $readGamestate .= "  if(function_exists(\"UpgradeLegacyGamestateText\")) {\r\n";
-  $readGamestate .= "    \$gamestateText = UpgradeLegacyGamestateText(\$gamestateText, \"" . $rootName . "\");\r\n";
-  $readGamestate .= "  }\r\n";
   $readGamestate .= "  \$handler = fopen(\"php://temp\", \"r+\");\r\n";
   $readGamestate .= "  fwrite(\$handler, \$gamestateText);\r\n";
   $readGamestate .= "  rewind(\$handler);\r\n";
@@ -1974,10 +1978,12 @@ function AddReadGamestate() {
       $readGamestate .= AddReadZone($zone, 2);
     }
   }
-  $readGamestate .= "    \$line = fgets(\$handler);\r\n";
-  $readGamestate .= "    if (\$line !== false) {\r\n";
-  $readGamestate .= "      \$gRandomCounter = intval(trim(\$line));\r\n";
-  $readGamestate .= "    }\r\n";
+  if(!SchemaOwnsRandomCounter()) {
+    $readGamestate .= "    \$line = fgets(\$handler);\r\n";
+    $readGamestate .= "    if (\$line !== false) {\r\n";
+    $readGamestate .= "      \$gRandomCounter = intval(trim(\$line));\r\n";
+    $readGamestate .= "    }\r\n";
+  }
   $readGamestate .= "  }\r\n";
   $readGamestate .= "  fclose(\$handler);\r\n";
   return $readGamestate;
@@ -2055,7 +2061,9 @@ function AddWriteGamestate() {
       }
     }
   }
-  $writeGamestate .= "  \$gamestateText .= \$gRandomCounter . \"\\r\\n\";\r\n";
+  if(!SchemaOwnsRandomCounter()) {
+    $writeGamestate .= "  \$gamestateText .= \$gRandomCounter . \"\\r\\n\";\r\n";
+  }
   $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"apcu_store\")) {\r\n";
   $writeGamestate .= "    apcu_store(GetGamestateStorageKey(\$gameName), \$gamestateText, 600);\r\n";
   $writeGamestate .= "  } else {\r\n";
@@ -2826,6 +2834,20 @@ function GetModule($type) {
     if($modules[$i]->Name == $type) return $modules[$i];
   }
   return null;
+}
+
+function SchemaOwnsRandomCounter() {
+  global $zones;
+  for($i=0; $i<count($zones); ++$i) {
+    $zone = $zones[$i];
+    $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
+    if($zone->Name == "RandomCounter"
+        && strtolower($scope) == "global"
+        && $zone->DisplayMode == "Value") {
+      return true;
+    }
+  }
+  return false;
 }
 
 function GetPropertyDefaultLiteral($property) {
