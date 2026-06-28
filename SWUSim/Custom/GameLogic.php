@@ -2216,6 +2216,7 @@ function DoDrawCard($player, $amount) {
 
         $newObj = MZMove($player, "myDeck-$topIdx", "myHand");
         if ($newObj !== null) {
+            if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newObj->CardID ?? '', 'drawn');
             $hand = GetHand($player);
             for ($k = count($hand) - 1; $k >= 0; $k--) {
                 if (!isset($hand[$k]->removed) || !$hand[$k]->removed) {
@@ -2272,6 +2273,7 @@ function DoResourceCard($player, $mzID) {
     $savedPID = $playerID;
     $playerID = intval($player);
     $newObj   = MZMove($player, $mzID, "myResources");
+    if ($newObj !== null && function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newObj->CardID ?? '', 'resourced');
     if ($newObj !== null) SWUKeepCreditTokensLast(intval($player)); // Credit tokens stay at the end
     $playerID = $savedPID;
     return $newObj !== null ? $mzID : "-";
@@ -2283,6 +2285,7 @@ function DoDiscardCard($player, $mzID) {
     $playerID = intval($player);
     $fromHand = (strpos($mzID, 'Hand') !== false);
     $newObj   = MZMove($player, $mzID, "myDiscard");
+    if ($fromHand && $newObj !== null && function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newObj->CardID ?? '', 'discarded');
     $playerID = $savedPID;
     // Per-phase counter of cards discarded from a player's hand (LAW_179 cost reduction). Cleared at
     // RegroupPhaseStart with the other per-phase flags.
@@ -2909,7 +2912,7 @@ function _SWUCheckConfidenceWin(): void {
             $myCnt = 0;  foreach ($myArr  as $u) { if (empty($u->removed)) $myCnt++; }
             $opCnt = 0;  foreach ($oppArr as $u) { if (empty($u->removed)) $opCnt++; }
             if ($myCnt > 0 && $opCnt === 0) {                          // caster is the only one with units there
-                $gWinner = $caster;
+                SWUDeclareGameWinner($caster);
                 AddGameLogEntry('WIN', 'P' . $caster . ' wins the game (Confidence in Victory).', 'ALL');
             }
         }
@@ -3546,7 +3549,10 @@ $customDQHandlers["ApplyStartingResource"] = function($player, $parts, $lastDeci
     $playerID = intval($player);
     $newResource = MZMove($player, $lastDecision, "myResources");
     // Hand cards don't carry a Status field; Resources must default to 1 (ready).
-    if ($newResource !== null) $newResource->Status = 1;
+    if ($newResource !== null) {
+        $newResource->Status = 1;
+        if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newResource->CardID ?? '', 'resourced'); // Plan D telemetry
+    }
     $playerID = $savedPID;
 };
 
@@ -3575,6 +3581,7 @@ $customDQHandlers["SWUApplyRegroupResource"] = function($player, $parts, $lastDe
     $newResource = MZMove($player, $lastDecision, "myResources");
     if ($newResource !== null) {
         $newResource->Status = 0; // enters exhausted, readied in ReadyPhase
+        if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $newResource->CardID ?? '', 'resourced'); // Plan D telemetry
         AddGameLogEntry('RESOURCE', 'P' . intval($player) . ' resourced a card');
     }
     $playerID = $savedPID;
@@ -3862,6 +3869,8 @@ function _SWUAsh159RegroupStart(): void {
 
 function RegroupPhaseStart(): void {
     AddGameLogEntry('PHASE', '— Regroup Phase —');
+    // Telemetry: finalize each seat's per-round counters into a turnResults entry (once per round).
+    if (function_exists('SWUTelemetrySnapshotTurn')) { SWUTelemetrySnapshotTurn(1); SWUTelemetrySnapshotTurn(2); }
     SetSWUVar('SWU_REGROUP_NUM', (string)(intval(GetSWUVar('SWU_REGROUP_NUM', '0')) + 1)); // LAW_072: count regroups this round
     ResetUndoDenyCount(1);
     ResetUndoDenyCount(2);
@@ -4510,6 +4519,7 @@ function SWUPayCost($player, $cost, $prepaid = 0): bool {
     $resCost = SWUApplyCostHalving(intval($player), $resCost); // JTL_105 The Starhawk
     $ok      = ($resCost === 0) ? true : SWUExhaustResources($player, $resCost);
     $GLOBALS['gLastPlayResourcesPaid'] = $ok ? $resCost : 0;
+    if ($ok && $resCost > 0 && function_exists('SWUTelemetryBumpTurn')) SWUTelemetryBumpTurn($player, 'resourcesUsed', $resCost);
     return $ok;
 }
 
@@ -4898,6 +4908,18 @@ function FlushTriggerBag($activePlayer): bool {
     return true;
 }
 
+// _SWUQueueOrchestration — queue a trigger-orchestration / combat-commit CUSTOM decision that must NEVER
+// be skipped by a sticky "PASS". When a player DECLINES an optional ("you may") trigger via the Pass
+// button (lastDecision = "PASS"), that PASS persists across the rest of the drain and ExecuteStaticMethods
+// skips every following CUSTOM that isn't DontSkipOnPass. The trigger's *effect* (DEAL_UNIT_DAMAGE etc.)
+// SHOULD be skipped (it self-guards on '-'/'PASS' anyway), but the orchestration that resumes trigger
+// resolution / commits combat damage / finalizes the action must still run — else declining an On Attack
+// "you may" fizzles the attack's combat damage AND leaves the turn un-swapped (a free extra action).
+// dontSkipOnPass=1 is a no-op for any non-PASS lastDecision, so this only changes the broken PASS path.
+function _SWUQueueOrchestration($player, string $param, int $block): void {
+    DecisionQueueController::AddDecision($player, "CUSTOM", $param, $block, '', 1);
+}
+
 // FlushEntryTriggerBag — EffectStack path for entry triggers (WhenPlayed, Shielded, Ambush).
 // 0 triggers: returns 0.
 // 1 trigger:  auto-dispatches via RESOLVE_NEXT_TRIGGER (no player choice). Returns 1.
@@ -4920,8 +4942,8 @@ function FlushEntryTriggerBag($activePlayer): int {
         $stackIdx = count(array_filter($stack, fn($e) => empty($e->removed ?? false)));
         AddEffectStack(CardID:$t['cardID'], Controller:$t['player'], TriggerType:$t['triggerType'], Params:$buildParams($t));
         $mzID = "EffectStack-{$stackIdx}";
-        DecisionQueueController::AddDecision($t['player'], "CUSTOM", "RESOLVE_NEXT_TRIGGER|{$mzID}", $gTriggerDepth);
-        DecisionQueueController::AddDecision($t['player'], "CUSTOM", "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+        _SWUQueueOrchestration($t['player'], "RESOLVE_NEXT_TRIGGER|{$mzID}", $gTriggerDepth);
+        _SWUQueueOrchestration($t['player'], "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
         return 1;
     }
 
@@ -4934,13 +4956,13 @@ function FlushEntryTriggerBag($activePlayer): int {
         AddEffectStack(CardID:$t['cardID'], Controller:$t['player'], TriggerType:$t['triggerType'], Params:$buildParams($t));
     }
 
-    DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM", "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+    _SWUQueueOrchestration(intval($activePlayer), "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
 
     if (!empty($mine) && !empty($theirs)) {
         // Cross-player: active player picks who resolves first.
         DecisionQueueController::AddDecision(intval($activePlayer), "YESNO", "-", $gTriggerDepth,
             tooltip:"Resolve_Which_Player_First?");
-        DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM",
+        _SWUQueueOrchestration(intval($activePlayer),
             "SWU_TRIGGER_ORDER_CHOICE|{$activePlayer}", $gTriggerDepth);
     } else {
         // Single player has all triggers: go straight to MZCHOOSE.
@@ -4948,7 +4970,7 @@ function FlushEntryTriggerBag($activePlayer): int {
         $targetStr = _SWUEffectStackTargetsForPlayer($choosingPlayer);
         DecisionQueueController::AddDecision($choosingPlayer, "MZCHOOSE", $targetStr, $gTriggerDepth,
             tooltip:"Choose_trigger_to_resolve");
-        DecisionQueueController::AddDecision($choosingPlayer, "CUSTOM",
+        _SWUQueueOrchestration($choosingPlayer,
             "RESOLVE_NEXT_TRIGGER|{$choosingPlayer}", $gTriggerDepth);
     }
     return 2;
@@ -5004,8 +5026,8 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
         // Orchestration (resolve + resume) rides the ACTIVE player's queue so it drains in the attacker's
         // action — even when the lone trigger is the defender's On Defense ($t['player'] != activePlayer).
         // The effect still dispatches under the EffectStack entry's Controller in RESOLVE_NEXT_TRIGGER.
-        DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM", "RESOLVE_NEXT_TRIGGER|EffectStack-{$stackIdx}", $gTriggerDepth);
-        DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM", "SWU_TRIGGER_RESUME|{$activePlayer}|{$cont}", 20);
+        _SWUQueueOrchestration(intval($activePlayer), "RESOLVE_NEXT_TRIGGER|EffectStack-{$stackIdx}", $gTriggerDepth);
+        _SWUQueueOrchestration(intval($activePlayer), "SWU_TRIGGER_RESUME|{$activePlayer}|{$cont}", 20);
         return 1;
     }
 
@@ -5018,19 +5040,19 @@ function FlushCombatTriggerBag(int $activePlayer, string $attackerMzID, string $
         AddEffectStack(CardID:$t['cardID'], Controller:$t['player'], TriggerType:$t['triggerType'], Params:$buildParams($t));
     }
 
-    DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM", "SWU_TRIGGER_RESUME|{$activePlayer}|{$cont}", 20);
+    _SWUQueueOrchestration(intval($activePlayer), "SWU_TRIGGER_RESUME|{$activePlayer}|{$cont}", 20);
 
     if (!empty($mine) && !empty($theirs)) {
         DecisionQueueController::AddDecision(intval($activePlayer), "YESNO", "-", $gTriggerDepth,
             tooltip:"Resolve_Which_Player_First?");
-        DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM",
+        _SWUQueueOrchestration(intval($activePlayer),
             "SWU_TRIGGER_ORDER_CHOICE|{$activePlayer}", $gTriggerDepth);
     } else {
         $choosingPlayer = !empty($mine) ? intval($activePlayer) : (intval($activePlayer) === 1 ? 2 : 1);
         $targetStr = _SWUEffectStackTargetsForPlayer($choosingPlayer);
         DecisionQueueController::AddDecision($choosingPlayer, "MZCHOOSE", $targetStr, $gTriggerDepth,
             tooltip:"Choose_trigger_to_resolve");
-        DecisionQueueController::AddDecision($choosingPlayer, "CUSTOM",
+        _SWUQueueOrchestration($choosingPlayer,
             "RESOLVE_NEXT_TRIGGER|{$choosingPlayer}", $gTriggerDepth);
     }
 
@@ -6702,7 +6724,7 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
                 // SWUCombatDamage now; the re-fired resume commits combat once their reaction resolves.
                 $other = OtherPlayer($activePlayer);
                 if (GetSWUVar('SWU_PENDING_DEF_REACTION', '') === '1' && _SWUPlayerHasBlockingDecision($other)) {
-                    DecisionQueueController::AddDecision($other, "CUSTOM", "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
+                    _SWUQueueOrchestration($other, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
                     $playerID = $savedPID;
                     return;
                 }
@@ -6711,7 +6733,7 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
                 // or the defender when a combat-pause hop resumed here) so it runs in the same drain rather
                 // than stranding on the other player's queue. The trailing |{$activePlayer} carries the
                 // attacker frame so SWUCombatDamage resolves "my…" mzIDs correctly regardless of $player.
-                DecisionQueueController::AddDecision($player, "CUSTOM", "SWUCombatDamage|{$aMz}|{$tMz}|{$uid}|{$activePlayer}", 1);
+                _SWUQueueOrchestration($player, "SWUCombatDamage|{$aMz}|{$tMz}|{$uid}|{$activePlayer}", 1);
             }
         } else {
             // Chained "then (may) attack with another unit" (SOR_009 / SOR_103): an attack just
@@ -6721,7 +6743,7 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
             $chainSpec = GetSWUVar('SWU_CHAINED_ATTACK', '');
             if ($chainSpec !== '') {
                 SetSWUVar('SWU_CHAINED_ATTACK', '');
-                DecisionQueueController::AddDecision($activePlayer, "CUSTOM", "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+                _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
                 ChainedAttackTrigger($activePlayer, $chainSpec);
             } elseif (GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== '') {
                 // SEC_103 Mon Mothma — a looped attack just resolved; re-offer the next "attack with
@@ -6742,33 +6764,33 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
     $theirRemaining = array_filter($remaining, fn($e) => intval($e->Controller) !== $activePlayer);
 
     // Re-queue SWU_TRIGGER_RESUME for the next round at block 20, forwarding the continuation.
-    DecisionQueueController::AddDecision($activePlayer, "CUSTOM", "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
+    _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
 
     if (count($remaining) === 1) {
         // Single trigger left: auto-dispatch via RESOLVE_NEXT_TRIGGER.
         $e = $remaining[0];
         $stackIdx = array_search($e, $stack);
         $choosingPlayer = intval($e->Controller);
-        DecisionQueueController::AddDecision($choosingPlayer, "CUSTOM",
+        _SWUQueueOrchestration($choosingPlayer,
             "RESOLVE_NEXT_TRIGGER|EffectStack-{$stackIdx}", 1);
     } elseif (!empty($myRemaining) && empty($theirRemaining)) {
         // Active player still has multiple triggers: MZCHOOSE.
         $targetStr = _SWUEffectStackTargetsForPlayer($activePlayer);
         DecisionQueueController::AddDecision($activePlayer, "MZCHOOSE", $targetStr, 1,
             tooltip:"Choose_trigger_to_resolve");
-        DecisionQueueController::AddDecision($activePlayer, "CUSTOM", "RESOLVE_NEXT_TRIGGER|{$activePlayer}", 1);
+        _SWUQueueOrchestration($activePlayer, "RESOLVE_NEXT_TRIGGER|{$activePlayer}", 1);
     } elseif (empty($myRemaining) && !empty($theirRemaining)) {
         // Switch to other player's triggers.
         $other = intval($activePlayer) === 1 ? 2 : 1;
         $targetStr = _SWUEffectStackTargetsForPlayer($other);
         DecisionQueueController::AddDecision($other, "MZCHOOSE", $targetStr, 1,
             tooltip:"Choose_trigger_to_resolve");
-        DecisionQueueController::AddDecision($other, "CUSTOM", "RESOLVE_NEXT_TRIGGER|{$other}", 1);
+        _SWUQueueOrchestration($other, "RESOLVE_NEXT_TRIGGER|{$other}", 1);
     } else {
         // Mixed: ask active player who goes first (shouldn't normally happen mid-resolution, but handle it).
         DecisionQueueController::AddDecision($activePlayer, "YESNO", "-", 1,
             tooltip:"Resolve_Which_Player_First?");
-        DecisionQueueController::AddDecision($activePlayer, "CUSTOM",
+        _SWUQueueOrchestration($activePlayer,
             "SWU_TRIGGER_ORDER_CHOICE|{$activePlayer}", 1);
     }
 
@@ -6788,7 +6810,7 @@ $customDQHandlers["SWU_TRIGGER_ORDER_CHOICE"] = function($player, $parts, $lastD
 
     DecisionQueueController::AddDecision($first, "MZCHOOSE", $targetStr, 1,
         tooltip:"Choose_trigger_to_resolve");
-    DecisionQueueController::AddDecision($first, "CUSTOM", "RESOLVE_NEXT_TRIGGER|{$first}", 1);
+    _SWUQueueOrchestration($first, "RESOLVE_NEXT_TRIGGER|{$first}", 1);
 
     $playerID = $savedPID;
 };
@@ -8275,6 +8297,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
     }
     AddGameLogEntry('PLAY', 'P' . intval($player) . ' played ' . GameLogCardRef($cardID));
     AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');  // cards-played-this-phase counter (any type)
+    if (function_exists('SWUTelemetryBumpCard')) { SWUTelemetryBumpCard($player, $cardID, 'played'); SWUTelemetryBumpTurn($player, 'cardsUsed'); }
     $rawType       = CardType($cardID);
     // Cost (base + aspect penalty + all play-cost modifiers) — single source of
     // truth shared with the UI affordability check. See $playCostModifiers.
@@ -14870,6 +14893,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
     if($sourceObject === null || (isset($sourceObject->removed) && $sourceObject->removed)) return;
     // Capture cardID now â€” the card may be moved to banishment as a cost below.
     $cardID = $sourceObject->CardID;
+    if (function_exists('SWUTelemetryBumpCard')) SWUTelemetryBumpCard($player, $cardID, 'activated'); // Plan D telemetry
     if($cardID === "uvgflagxbb" && HasOpportunity($player)) return; // Coronal of Rejuvenation: slow speed only
     if($cardID === "wCAIuvPOAT" && CountPreservedCardsInMaterial($player) < 5) return; // Verdure of Preservation
     if(GetCounterCount($sourceObject, "frenzy") > 0) return;
@@ -15230,7 +15254,43 @@ function MoveEffectStackCardToField($player, $mzCard) {
  */
 function TriggerGameOver($loserPlayer) {
     $winner = ($loserPlayer == 1) ? 2 : 1;
-    DecisionQueueController::StoreVariable("GAMEOVER_WINNER", strval($winner));
+    SWUDeclareGameWinner($winner);
+}
+
+// ── Unified game-over commit point ───────────────────────────────────────────
+// One idempotent place that records the winner. $gWinner is ephemeral (reset on
+// every ParseGamestate); GAMEOVER_WINNER is serialized in the gamestate, so it is
+// the durable read point the Match layer relies on. First declared winner wins.
+function SWUDeclareGameWinner($winner, $flashMessage = null) {
+    global $gWinner;
+    if (DecisionQueueController::GetVariable("GAMEOVER_WINNER") !== null) return; // already decided
+    $w = intval($winner);
+    if ($w !== 1 && $w !== 2) return;
+    $gWinner = $w;
+    DecisionQueueController::StoreVariable("GAMEOVER_WINNER", strval($w));
+    if ($flashMessage !== null) SetFlashMessage($flashMessage);
+}
+
+// State-based game-over: a base sitting at lethal damage ends the game, regardless of HOW it got
+// there (combat, ability, indirect, OR an undo that restored a lethal-but-undeclared state). Runs
+// after every action as a safety net beyond the damage-time check in SWUDealDamageToBase.
+function SWUCheckBaseDefeatState() {
+    if (SWUGetGameWinner() !== 0) return; // already decided
+    foreach ([1, 2] as $p) {
+        $b = GetBase($p);
+        if (empty($b) || !empty($b[0]->removed)) continue;
+        $hp = intval(CardHp($b[0]->CardID));
+        if ($hp > 0 && intval($b[0]->Damage ?? 0) >= $hp) {
+            $winner = ($p === 1) ? 2 : 1;
+            SWUDeclareGameWinner($winner, "GAMEOVER:Player {$p}'s base has been defeated! Player {$winner} wins!");
+            return;
+        }
+    }
+}
+
+function SWUGetGameWinner() {
+    $w = DecisionQueueController::GetVariable("GAMEOVER_WINNER");
+    return $w === null ? 0 : intval($w);
 }
 
 function DoAllyDestroyed($player, $mzCard) {
@@ -20096,9 +20156,12 @@ function SelectionMetadata($obj) {
     if(!CanActivateCardForSelection($turnPlayer, $obj)) {
         return json_encode(['color' => 'rgba(255, 64, 64, 0.95)']);
     }
-    // Hand reserve affordability is advisory only; rare cost branches can still make it playable.
+    // Unaffordable hand cards get NO highlight — only cards you can actually pay for glow green.
+    // (Affordability is advisory: rare cost branches can still make it playable, and the card stays
+    // clickable either way — an unhighlighted card falls through to CardClick — so the server still
+    // lets you attempt the play; we just don't draw an amber "can't afford" glow.)
     if(isset($obj->Location) && $obj->Location === "Hand" && !CanAffordActivationReserve($turnPlayer, $obj)) {
-        return json_encode(['color' => 'rgba(255, 170, 0, 0.95)']);
+        return json_encode(['highlight' => false]);
     }
     // Return bright vibrant lime green highlight for valid selectable cards
     return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);

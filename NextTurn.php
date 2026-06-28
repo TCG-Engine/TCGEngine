@@ -203,11 +203,17 @@
       exit;
     }
 
-    session_start();
-    if ($playerID == 1 && isset($_SESSION["p1AuthKey"])) $authKey = $_SESSION["p1AuthKey"];
-    else if ($playerID == 2 && isset($_SESSION["p2AuthKey"])) $authKey = $_SESSION["p2AuthKey"];
-    else $authKey = TryGet("authKey", "");
-    session_write_close();
+    // HTML is already emitted above this point, so session_start() can't send its
+    // cookie header — guard to avoid a "headers already sent" warning. When the
+    // session is unavailable, auth falls through to the URL authKey / lastAuthKey cookie.
+    $authKey = "";
+    if (!headers_sent()) {
+      session_start();
+      if ($playerID == 1 && isset($_SESSION["p1AuthKey"])) $authKey = $_SESSION["p1AuthKey"];
+      else if ($playerID == 2 && isset($_SESSION["p2AuthKey"])) $authKey = $_SESSION["p2AuthKey"];
+      session_write_close();
+    }
+    if ($authKey === "") $authKey = TryGet("authKey", "");
 
     if(($playerID == 1 || $playerID == 2) && $authKey == "")
     {
@@ -757,6 +763,22 @@
             if (responseText == "NaN") {} //Do nothing, game is invalid
             else if(responseText == "" || responseText == "KEEPALIVE") {
               QueueReload(_lastUpdate);
+            } else if (responseText.split("SIDEBOARD")[0] == "1236") {
+              // Bo3: this game ended and sideboarding is pending. Show the end-game menu (the hub);
+              // the menu's "Go to Next Game" navigates to the sideboard screen. Keep polling so the
+              // menu stays in sync if the opponent forfeits/leaves.
+              if (typeof window.SWUShowEndGameMenu === 'function') window.SWUShowEndGameMenu();
+              QueueReload(_lastUpdate);
+              return;
+            } else if (responseText.split("MATCHADVANCE")[0] == "1235") {
+              // Bo3: this game advanced to the next child game — redirect (authKey carries over).
+              var nextGame = responseText.split("MATCHADVANCE")[1] || "";
+              if (nextGame) {
+                var u = new URL(window.location.href);
+                u.searchParams.set('gameName', nextGame);
+                window.location.replace(u.toString());
+                return;
+              }
             } else if (responseText.split("REMATCH")[0] == "1234") {
               location.replace('GameLobby.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo ($playerID); ?>&authKey=<?php echo ($authKey); ?>');
             } else {
@@ -850,7 +872,13 @@
                 if (typeof BuildMacroGameStatsHtml === 'function') {
                   _goStatsHtml = BuildMacroGameStatsHtml(playerID);
                 }
-                ShowGameOver(viewerCanAct && playerID === _goWinner, undefined, _goStatsHtml);
+                // SWUSim: show the match-aware end-game menu (contextual buttons + stats). Other sims
+                // keep the plain overlay.
+                if (typeof window.SWUShowEndGameMenu === 'function') {
+                  window.SWUShowEndGameMenu();
+                } else {
+                  ShowGameOver(viewerCanAct && playerID === _goWinner, undefined, _goStatsHtml);
+                }
               }
             }
           } catch (e) {}

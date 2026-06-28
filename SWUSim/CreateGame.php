@@ -9,6 +9,7 @@ include_once __DIR__ . '/Custom/GameLogic.php';
 include_once __DIR__ . '/Custom/DeckImport.php';
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
+include_once __DIR__ . '/../Core/GameAuth.php';
 include_once __DIR__ . '/../APIKeys/APIKeys.php';
 include_once __DIR__ . '/../Database/ConnectionManager.php';
 include_once __DIR__ . '/../AccountFiles/AccountDatabaseAPI.php';
@@ -16,52 +17,72 @@ include_once __DIR__ . '/../AccountFiles/AccountSessionAPI.php';
 
 $ttl = 600;
 
-// ASSUMES: $lobby is available
-$gameName = GetGameCounter(__DIR__ . '/Games');
-InitializeGamestate();
-WriteGamestate(__DIR__ . "/");
-ParseGamestate(__DIR__ . "/");
+/**
+ * Full game setup. Returns the new $gameName.
+ *   $opts['forcedFirstPlayer'] : 1|2 to override the coin flip (null = random)
+ *   $opts['resolvedDecks']     : [seat => SWUResolveDeckInput-shaped array] to inject
+ *                                already-resolved decks (e.g. sideboarded Bo3 games)
+ */
+function SWUSetupGame($lobby, $opts = []) {
+    global $gameName;
+    $gameName = GetGameCounter(__DIR__ . '/Games');
+    InitializeGamestate();
+    WriteGamestate(__DIR__ . "/");
+    ParseGamestate(__DIR__ . "/");
 
-// ─── Step 1–2: Load decks (leader, base, main deck) for each player ───────────
-$playerCounter = 1;
-$deckLoadOk = true;
-foreach ($lobby->players as $player) {
-    $player->setGamePlayerID($playerCounter);
-    if (!LoadPlayerDeck($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck())) {
-        $deckLoadOk = false;
+    $resolvedDecks = isset($opts['resolvedDecks']) && is_array($opts['resolvedDecks']) ? $opts['resolvedDecks'] : [];
+
+    // ─── Step 1–2: Load decks (leader, base, main deck) for each player ───────────
+    $playerCounter = 1;
+    $deckLoadOk = true;
+    foreach ($lobby->players as $player) {
+        $player->setGamePlayerID($playerCounter);
+        $injected = $resolvedDecks[$playerCounter] ?? null;
+        if (!LoadPlayerDeck($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck(), $injected)) {
+            $deckLoadOk = false;
+        }
+        ++$playerCounter;
     }
-    ++$playerCounter;
+
+    // ─── Step 3: Determine first player ───────────────────────────────────────────
+    // Forced (Bo3 / loser's choice) or random coin flip; first player holds initiative.
+    $forced = $opts['forcedFirstPlayer'] ?? null;
+    $firstPlayer = &GetFirstPlayer();
+    $firstPlayer = ($forced === 1 || $forced === 2) ? $forced : random_int(1, 2);
+
+    $turnPlayer = &GetTurnPlayer();
+    $turnPlayer = $firstPlayer;
+
+    $currentTurn = &GetTurnNumber();
+    $currentTurn = 1;
+
+    // Initiative starts with the first player, not yet taken this round.
+    SetInitiativeCounter("P{$firstPlayer}_UNCLAIMED");
+
+    if ($deckLoadOk) SetFlashMessage('');
+    $currentPhase = &GetCurrentPhase();
+    $currentPhase = 'APS';
+    SetPhaseParameters("-");
+
+    // ─── Steps 4–6: Draw opening hands, queue mulligan decisions, resource 2 ──────
+    if ($deckLoadOk) {
+        QueuePregameSetup($firstPlayer);
+        AdvanceAndExecute("PASS");
+        AutoAdvanceAndExecute();
+        SaveUndoVersion($firstPlayer, "Start of Game");
+    }
+
+    WriteGamestate(__DIR__ . "/");
+    $lobby->gameName = $gameName;
+    SimGameWriteAuthKeysFromLobby('SWUSim', $gameName, $lobby);
+    return $gameName;
 }
 
-// ─── Step 3: Determine first player ───────────────────────────────────────────
-// Randomly chosen; winner of the coin flip goes first and holds the initiative.
-$firstPlayer = &GetFirstPlayer();
-$firstPlayer = random_int(1, 2);
-
-$turnPlayer = &GetTurnPlayer();
-$turnPlayer = $firstPlayer;
-
-$currentTurn = &GetTurnNumber();
-$currentTurn = 1;
-
-// Initiative starts with the first player, not yet taken this round.
-SetInitiativeCounter("P{$firstPlayer}_UNCLAIMED");
-
-if ($deckLoadOk) SetFlashMessage('');
-$currentPhase = &GetCurrentPhase();
-$currentPhase = 'APS';
-SetPhaseParameters("-");
-
-// ─── Steps 4–6: Draw opening hands, queue mulligan decisions, resource 2 ──────
-if ($deckLoadOk) {
-    QueuePregameSetup($firstPlayer);
-    AdvanceAndExecute("PASS");
-    AutoAdvanceAndExecute();
-    SaveUndoVersion($firstPlayer, "Start of Game");
+// Backward-compatible entrypoint: the queue still does `include '.../CreateGame.php'`
+// with an ambient $lobby in scope. Only auto-run when that ambient lobby exists.
+if (isset($lobby) && is_object($lobby)) {
+    SWUSetupGame($lobby);
 }
-
-WriteGamestate(__DIR__ . "/");
-$lobby->gameName = $gameName;
 
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -69,16 +90,17 @@ $lobby->gameName = $gameName;
  * Resolve and load a deck for one player.
  * Returns true on success, false on failure (caller should abort game setup).
  */
-function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '') {
-    if (empty($deckLink)) {
-        SetFlashMessage("Player $playerID has no deck link. Please provide a SWUDeck or SWUDB deck URL.");
-        return false;
+function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolved = null) {
+    if ($resolved === null) {
+        if (empty($deckLink)) {
+            SetFlashMessage("Player $playerID has no deck link. Please provide a SWUDeck or SWUDB deck URL.");
+            return false;
+        }
+        $resolved = SWUResolveDeckInput($deckLink);
     }
 
-    $resolved = SWUResolveDeckInput($deckLink);
-
-    if (!$resolved['success']) {
-        $msg = $resolved['message'] ?? 'Unknown error';
+    if (!is_array($resolved) || empty($resolved['success'])) {
+        $msg = is_array($resolved) ? ($resolved['message'] ?? 'Unknown error') : 'Unknown error';
         SetFlashMessage("Could not load deck for Player $playerID: $msg");
         return false;
     }

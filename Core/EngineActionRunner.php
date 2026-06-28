@@ -129,6 +129,13 @@ function EngineLoadRootRuntime($folderPath) {
   include_once $repoRoot . '/' . $folderPath . '/ZoneAccessors.php';
   include_once $repoRoot . '/' . $folderPath . '/ZoneClasses.php';
 
+  // SWUSim Bo3 match orchestration — load on the action path so the after-action
+  // hook + concede/convert handlers exist during real play (not just in tests).
+  if ($folderPath === 'SWUSim') {
+    $swuMatchFlow = $repoRoot . '/SWUSim/MatchFlow.php';
+    if (is_file($swuMatchFlow)) include_once $swuMatchFlow;
+  }
+
   // Root runtime files define important registries at top level. When they are
   // included from inside this function, those variables land in local scope
   // unless we explicitly promote them back into the global runtime.
@@ -428,6 +435,51 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $result['message'] = 'Concede is not available for this action.';
       }
       break;
+    case 10007: // concede the whole match (Bo3)
+      if (($playerID === 1 || $playerID === 2) && function_exists('SWUReadMatchRef') && function_exists('SWUConcedeMatch')) {
+        $ref = SWUReadMatchRef($gameName);
+        if (is_array($ref)) {
+          $cm = SWUConcedeMatch($ref['matchId'], $playerID);
+          if (function_exists('SetFlashMessage') && is_array($cm)) {
+            SetFlashMessage('MATCHOVER:Player ' . intval($cm['winner']) . ' wins the match by concession.');
+          }
+        } else if (function_exists('TriggerGameOver')) {
+          TriggerGameOver($playerID); // not a match → fall back to game concede
+        }
+      } else {
+        $result['success'] = false;
+        $result['message'] = 'Match concede unavailable.';
+      }
+      break;
+    case 10012: // convert a finished Bo1 into a Bo3 (mutual agreement). (10008 was taken by undo-approve.)
+      if (($playerID === 1 || $playerID === 2) && function_exists('SWUReadMatchRef')
+          && function_exists('SWURequestConvertToBo3') && function_exists('SWUAcceptConvertToBo3')) {
+        $ref = SWUReadMatchRef($gameName);
+        if (is_array($ref)) {
+          SWURequestConvertToBo3($ref['matchId'], $playerID);
+          SWUAcceptConvertToBo3($ref['matchId']); // promotes when both have requested; clients follow the sideboard pointer
+        } else {
+          $result['success'] = false;
+          $result['message'] = 'Convert to Bo3 unavailable.';
+        }
+      } else {
+        $result['success'] = false;
+        $result['message'] = 'Convert to Bo3 unavailable.';
+      }
+      break;
+    case 10013: // request a QUICK rematch (no sideboard). inputText = bestOf ('1'|'3')
+    case 10016: // request a FULL rematch (sideboard).     inputText = bestOf ('1'|'3')
+      if (($playerID === 1 || $playerID === 2) && function_exists('SWUReadMatchRef')
+          && function_exists('SWURequestRematch') && function_exists('SWUAcceptRematch')) {
+        $ref = SWUReadMatchRef($gameName);
+        if (is_array($ref)) {
+          $bestOf = (intval($inputText) === 3) ? 3 : 1;
+          $sideboard = ($mode === 10016);
+          SWURequestRematch($ref['matchId'], $playerID, $bestOf, $sideboard);
+          SWUAcceptRematch($ref['matchId']); // creates the new match when both have requested
+        } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
+      } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
+      break;
     case 10014:
       $inpArr = explode('!', $cardID);
       $moveCard = $inpArr[0] ?? '';
@@ -647,8 +699,15 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     if ($result['recordAction']) {
       MatchReplayCommitAction($matchReplayPendingAction, $action);
     }
+    // SWUSim state-based game-over: catch a base sitting at lethal damage (incl. post-undo zombie
+    // states) BEFORE writing, so the GAMEOVER flash persists to the client. No-op for other sims.
+    if (function_exists('SWUCheckBaseDefeatState')) SWUCheckBaseDefeatState();
     ++$updateNumber;
     WriteGamestate('./' . $folderPath . '/');
+    // SWUSim-only Bo3 match advance (function exists only when MatchFlow is loaded; no-op for other sims).
+    if (function_exists('SWUAfterActionMatchHook')) {
+      SWUAfterActionMatchHook($folderPath, $gameName);
+    }
     if (is_numeric($gameName)
         && function_exists('TouchOwnershipLastUpdated')
         && function_exists('GetEditAuth') && GetEditAuth() === 'AssetOwner') {

@@ -3,6 +3,7 @@
 include_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/DeckTextParser.php';
 include_once __DIR__ . '/../../SWUDeck/Overrides.php'; // CardIDOverride — reprint → earliest printing
+include_once __DIR__ . '/../Formats.php'; // SWUGetFormat / SWUFormatLegalSets / config
 
 // Sets whose card abilities the sim actually implements. A reprint printed only
 // in a non-implemented set (e.g. SHD/TWI promos) must be aliased to one of these
@@ -59,22 +60,131 @@ function SWUCardHasLegalPrint($cardID, array $legalSets) {
     return false;
 }
 
+// Config-driven format legality. Returns a list of blocking error strings ([] = legal).
+// Banned IDs and copy-exception / deck-modifier keys are matched CANONICALLY
+// (CardIDOverride on both sides) because deck cards are canonicalized before compare.
+function SWUCheckFormat($formatId, $leader, $base, array $mainDeck, array $sideboard) {
+    $fmt = SWUGetFormat($formatId);
+    if ($fmt === null) {
+        return ["Unknown format: $formatId"];
+    }
+
+    $errors    = [];
+    $legalSets = SWUFormatLegalSets($formatId);
+
+    // Canonicalize config keys/entries so they match canonicalized deck cards.
+    $bannedCanon = [];
+    foreach ($fmt['banned'] as $id) { $bannedCanon[CardIDOverride($id)] = true; }
+
+    $copyExceptions = [];
+    foreach ($fmt['copyExceptions'] as $id => $max) { $copyExceptions[CardIDOverride($id)] = $max; }
+
+    $deckSizeModifiers = [];
+    foreach ($fmt['deckSizeModifiers'] as $id => $delta) { $deckSizeModifiers[CardIDOverride($id)] = $delta; }
+
+    $minDeck = 50;
+
+    // 1. Leader legality + ban.
+    if ($leader) {
+        if (!SWUCardHasLegalPrint($leader, $legalSets)) {
+            $errors[] = "Leader $leader is not legal in $formatId.";
+        }
+        if (isset($bannedCanon[CardIDOverride($leader)])) {
+            $errors[] = "Leader $leader is banned in $formatId.";
+        }
+    }
+
+    // 2. Base legality + ban + deck-size modifier.
+    if ($base) {
+        if (!SWUCardHasLegalPrint($base, $legalSets)) {
+            $errors[] = "Base $base is not legal in $formatId.";
+        }
+        if (isset($bannedCanon[CardIDOverride($base)])) {
+            $errors[] = "Base $base is banned in $formatId.";
+        }
+        $baseCanon = CardIDOverride($base);
+        if (isset($deckSizeModifiers[$baseCanon])) {
+            $minDeck += $deckSizeModifiers[$baseCanon];
+        }
+    }
+
+    // 3. Main-deck legality + ban + copy limits (count by canonical printing — CR 8.36).
+    $cardCounts   = array_count_values(array_map('CardIDOverride', $mainDeck));
+    $illegalCards = [];
+    $bannedCards  = [];
+    $overLimit    = [];
+    foreach ($cardCounts as $cardID => $count) {   // $cardID is already canonical
+        if (!SWUCardHasLegalPrint($cardID, $legalSets)) $illegalCards[] = $cardID;
+        if (isset($bannedCanon[$cardID]))               $bannedCards[]  = $cardID;
+        $limit = $copyExceptions[$cardID] ?? 3;
+        if ($count > $limit) $overLimit[] = "$cardID ($count copies, max $limit)";
+    }
+    if (!empty($illegalCards)) {
+        $shown = array_slice($illegalCards, 0, 5);
+        $more  = count($illegalCards) > 5 ? ' +' . (count($illegalCards) - 5) . ' more' : '';
+        $errors[] = "Cards not legal in $formatId: " . implode(', ', $shown) . $more;
+    }
+    if (!empty($bannedCards)) {
+        $errors[] = "Banned in $formatId: " . implode(', ', array_slice($bannedCards, 0, 5));
+    }
+    if (!empty($overLimit)) {
+        $errors[] = 'Over the 3-copy limit: ' . implode('; ', $overLimit);
+    }
+
+    // 4. Minimum deck size.
+    $deckSize = count($mainDeck);
+    if ($deckSize < $minDeck) {
+        $note = ($minDeck !== 50) ? " (modified to $minDeck by base)" : '';
+        $errors[] = "Deck has $deckSize cards; $formatId minimum is $minDeck$note.";
+    }
+
+    // 5. Sideboard maximum.
+    if (count($sideboard) > 10) {
+        $errors[] = 'Sideboard has ' . count($sideboard) . ' cards; maximum is 10.';
+    }
+
+    return $errors;
+}
+
+// Back-compat wrapper — Premier is just one format.
+function SWUCheckPremierFormat($leader, $base, array $mainDeck, array $sideboard) {
+    return SWUCheckFormat('premier', $leader, $base, $mainDeck, $sideboard);
+}
+
 /**
  * Validate a deck link or paste without fully loading the deck.
  */
 function SWUValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
-    if (!empty($preconstructedDeck)) {
-        return ['success' => true, 'message' => ''];
+    $input = trim($deckLink) !== '' ? trim($deckLink) : $preconstructedDeck;
+    if ($input === '') {
+        return ['success' => false, 'message' => 'No deck provided.'];
     }
-    $deckLink = trim($deckLink);
-    if ($deckLink === '') {
-        return ['success' => false, 'message' => 'Deck link is required.'];
+
+    $resolved = SWUResolveDeckInput($input);
+    if (!$resolved['success']) {
+        return ['success' => false, 'message' => $resolved['message'] ?? 'Could not read deck.'];
     }
-    $resolved = SWUResolveDeckInput($deckLink);
-    return [
-        'success' => $resolved['success'],
-        'message' => $resolved['success'] ? '' : $resolved['message'],
-    ];
+
+    if (empty($resolved['leader'])) {
+        return ['success' => false, 'message' => 'Deck is missing a leader.'];
+    }
+    if (empty($resolved['base'])) {
+        return ['success' => false, 'message' => 'Deck is missing a base.'];
+    }
+
+    // Structural minimum (base may modify it; same modifiers as ValidateDeck.php).
+    // Format-specific legality (legal sets, banlist, copy limits) is layered on later.
+    $minDeck = 50;
+    $baseModifiers = ['JTL_024' => +10, 'JTL_025' => -5];
+    if (isset($baseModifiers[$resolved['base']])) {
+        $minDeck += $baseModifiers[$resolved['base']];
+    }
+    $deckSize = is_array($resolved['mainDeck']) ? count($resolved['mainDeck']) : 0;
+    if ($deckSize < $minDeck) {
+        return ['success' => false, 'message' => "Deck has $deckSize cards; minimum is $minDeck."];
+    }
+
+    return ['success' => true, 'message' => ''];
 }
 
 /**
@@ -196,7 +306,8 @@ function SWUNormalizeStandardJSON($data) {
         return SWUDeckError('The JSON did not contain any recognizable SWU cards.');
     }
 
-    return SWUDeckSuccess($leader, $base, $mainDeck, $sideboard, $unresolved);
+    $name = trim((string)($data['metadata']['name'] ?? ''));
+    return SWUDeckSuccess($leader, $base, $mainDeck, $sideboard, $unresolved, $name);
 }
 
 // ─── Source: SWUDeck ─────────────────────────────────────────────────────────
@@ -396,12 +507,13 @@ function SWUFetchDeckJson($url, $headers = []) {
     return is_array($decoded) ? $decoded : null;
 }
 
-function SWUDeckSuccess($leader, $base, $mainDeck, $sideboard, $unresolved) {
+function SWUDeckSuccess($leader, $base, $mainDeck, $sideboard, $unresolved, $name = '') {
     // Alias every printing to one the sim implements so reprints (incl. cards
     // printed only in non-implemented sets) play with their real abilities.
     return [
         'success'    => true,
         'message'    => '',
+        'name'       => $name,
         'leader'     => SWUResolveToImplementedPrint($leader),
         'base'       => SWUResolveToImplementedPrint($base),
         'mainDeck'   => array_map('SWUResolveToImplementedPrint', $mainDeck),
@@ -414,10 +526,44 @@ function SWUDeckError($message) {
     return [
         'success'    => false,
         'message'    => $message,
+        'name'       => '',
         'leader'     => '',
         'base'       => '',
         'mainDeck'   => [],
         'sideboard'  => [],
         'unresolved' => [],
     ];
+}
+
+// ─── Personal deck stats (Feature B) helpers ──────────────────────────────────
+
+// Deck identity used as the favoritedeck `decklink` key. MUST match SavedDecks save logic.
+function SWUComputeDeckIdentity($input) {
+    $input = trim((string)$input);
+    if ($input === '') return '';
+    if (preg_match('#^https?://#i', $input) === 1) return $input;
+    return 'raw:' . sha1($input);
+}
+
+// Matchup base bucket: Common bases consolidate by color+type; Rare/Special keep their own cardId.
+function SWUNormalizeBaseForMatchup($baseId) {
+    global $rarityData, $aspectData, $hpData;
+    $baseId = (string)$baseId;
+    if ($baseId === '') return '';
+    if (($rarityData[$baseId] ?? '') !== 'Common') return $baseId;   // rare/special → own entry
+    $aspectColors = ['Vigilance'=>'Blue', 'Command'=>'Green', 'Aggression'=>'Red', 'Cunning'=>'Yellow'];
+    $asp = $aspectData[$baseId] ?? [];
+    if (!is_array($asp)) $asp = [$asp];
+    $color = $aspectColors[$asp[0] ?? ''] ?? 'Neutral';
+    $hp = intval($hpData[$baseId] ?? 0);
+    $tier = ($hp === 28) ? 'Force' : (($hp === 27) ? 'Splash' : ($hp . 'HP'));
+    return $color . ' ' . $tier;
+}
+
+// Human label for a stored oppBase token (bucket string passes through; cardId → its title).
+function SWUMatchupBaseLabel($token) {
+    global $titleData;
+    $token = (string)$token;
+    if (strpos($token, ' ') !== false) return $token;   // bucket like "Green 30HP"
+    return $titleData[$token] ?? $token;                // rare base cardId → title
 }

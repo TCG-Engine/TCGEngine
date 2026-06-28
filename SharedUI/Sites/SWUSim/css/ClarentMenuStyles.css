@@ -129,3 +129,62 @@ a:hover {
 ::-webkit-scrollbar-thumb:hover {
     background: rgba(200, 160, 55, 0.80);
 }
+
+/* SAVED DECKS — name-only dropdown library (no card art) */
+.saved-decks-panel h3 { color: #f0ddb0; }
+.deck-library-dropdown { display: flex; flex-direction: column; gap: 10px; }
+.deck-library-dropdown .dl-select {
+    width: 100%;
+    padding: 10px 12px;
+    background: rgba(30, 18, 4, 0.9);
+    color: #f0ddb0;
+    border: 1px solid rgba(180, 140, 45, 0.45);
+    border-radius: 8px;
+    font-size: 14px;
+}
+.deck-library-dropdown .dl-dropdown-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.deck-library-dropdown .dl-dropdown-actions button { padding: 7px 14px; font-size: 13px; }
+.deck-library-empty { color: #c8b080; font-size: 13px; }
+
+/* SAVED DECKS — custom rename dialog (replaces native prompt) */
+.dl-modal-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(10, 6, 0, 0.62);
+    backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+}
+.dl-modal {
+    width: min(92vw, 380px);
+    background: rgba(62, 44, 12, 0.98);
+    border: 1px solid rgba(190, 155, 50, 0.5);
+    border-radius: 12px;
+    padding: 22px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+}
+.dl-modal-title { margin: 0 0 14px 0; color: #f0ddb0; font-size: 18px; }
+.dl-modal-input {
+    width: 100%; box-sizing: border-box;
+    padding: 10px 12px; font-size: 14px;
+    background: rgba(30, 18, 4, 0.9); color: #f0ddb0;
+    border: 1px solid rgba(180, 140, 45, 0.5); border-radius: 8px;
+}
+.dl-modal-input:focus { outline: none; border-color: rgba(220, 185, 80, 0.85); }
+.dl-modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+.dl-modal-actions button { padding: 8px 16px; font-size: 13px; }
+.dl-modal-actions .dl-modal-save { font-weight: 600; }
+
+/* SAVED DECKS — confirm dialog extras (delete) */
+.dl-modal-message { margin: 0; color: #e6d4a8; font-size: 14px; line-height: 1.45; }
+.dl-modal-actions .dl-modal-danger {
+    font-weight: 600;
+    background: linear-gradient(135deg, #7a2a18 0%, #4a160c 100%);
+    border-color: rgba(200, 90, 60, 0.55);
+}
+.dl-modal-actions .dl-modal-danger:hover { background: linear-gradient(135deg, #8c3220 0%, #571a0e 100%); }
+
+/* SAVED DECKS — per-deck stats readout (Profile) */
+.dl-stats { margin-top: 12px; color: #e6d4a8; font-size: 13px; }
+.dl-stats-overall { font-weight: 600; color: #f0ddb0; margin-bottom: 6px; }
+.dl-stats-matchups .dl-mu-title { color: #c8b080; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; margin: 8px 0 4px; }
+.dl-mu-row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; border-bottom: 1px solid rgba(190,155,50,0.14); }
+.dl-mu-rec { color: #f0ddb0; font-variant-numeric: tabular-nums; white-space: nowrap; }

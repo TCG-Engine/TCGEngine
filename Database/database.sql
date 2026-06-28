@@ -35,7 +35,30 @@ CREATE TABLE `favoritedeck` (
   `usersId` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `hero` varchar(15) NOT NULL,
-  `format` varchar(32) DEFAULT NULL
+  `baseId` varchar(16) DEFAULT NULL,
+  `format` varchar(32) DEFAULT NULL,
+  `isFavorite` tinyint(4) NOT NULL DEFAULT 0,
+  `wins` int(11) NOT NULL DEFAULT 0,
+  `losses` int(11) NOT NULL DEFAULT 0,
+  `lastUsed` timestamp NULL DEFAULT NULL,
+  `deckContent` mediumtext DEFAULT NULL,
+  PRIMARY KEY (`decklink`,`usersId`),
+  KEY `usersId` (`usersId`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- --------------------------------------------------------
+--
+-- Table structure for table `favoritedeckmatchup`
+--
+
+CREATE TABLE `favoritedeckmatchup` (
+  `usersId` int(11) NOT NULL,
+  `decklink` varchar(128) NOT NULL,
+  `oppLeader` varchar(16) NOT NULL,
+  `oppBase` varchar(32) NOT NULL,
+  `wins` int(11) NOT NULL DEFAULT 0,
+  `losses` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`usersId`,`decklink`,`oppLeader`,`oppBase`),
+  KEY `usersId_decklink` (`usersId`,`decklink`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- --------------------------------------------------------
 --
@@ -86,7 +109,8 @@ CREATE TABLE `ownership` (
   `assetSourceID` varchar(32) DEFAULT NULL,
   `numLikes` int(11) NOT NULL DEFAULT 0,
   `keyIndicator1` varchar(16) DEFAULT NULL,
-  `keyIndicator2` varchar(16) DEFAULT NULL
+  `keyIndicator2` varchar(16) DEFAULT NULL,
+  `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 

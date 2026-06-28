@@ -321,16 +321,11 @@ function ResolveGlobalFunction(functionName) {
           if (event.keyCode === 83) SubmitInput(10005, ""); //S = Save snapshot
           if (event.keyCode === 85) SubmitInput(10004, ""); //U = Undo
         }
-        if (window.rootPath == './SWUSim' && event.keyCode === 73) { //I = Take Initiative
-          // Only fire when the action is currently legal — gate on the same
-          // button-visibility guard used by the UI (your turn, MAIN phase, not
-          // yet claimed). The server re-enforces all of these regardless.
-          var swuInitBtn = document.getElementById('swuTakeInitBtn');
-          if (swuInitBtn && swuInitBtn.style.display !== 'none' && typeof window.swuTakeInitiative === 'function') {
-            event.preventDefault();
-            window.swuTakeInitiative();
-          }
-        }
+        // SWUSim "I" = Take Initiative is handled by GameLayoutShared.php's keydown listener,
+        // which gates correctly on the button's `hidden` attribute + is-taken (claimed) class.
+        // Do NOT duplicate it here: a second handler firing on the same press double-submits,
+        // and the second submit (after initiative is claimed and the turn has switched) trips the
+        // server's "Only the active player can take the initiative" flash on BOTH players.
         if ((window.rootPath == './GrandArchiveSim' || window.rootPath == './AzukiSim') && event.keyCode === 32) {
           if (TryPassCurrentDecision()) {
             event.preventDefault();
@@ -3308,6 +3303,24 @@ function ResolveGlobalFunction(functionName) {
         SubmitInput('10006', '');
       }
 
+      // Bo3: concede the whole match (forfeit the series). No-op in non-match games server-side.
+      function confirmConcedeMatch() {
+        const pid = parseInt((document.getElementById('playerID') || {}).value || '', 10);
+        if (pid !== 1 && pid !== 2) return;
+        if (!window.confirm('Concede the whole match? This forfeits the entire series.')) return;
+        SubmitInput('10007', '');
+      }
+
+      // Bo3: convert a finished Bo1 into a Bo3 (both players must agree). No-op otherwise.
+      // No confirm dialog — the end-game menu drives the mutual handshake in-place: the initiator's
+      // button flips to "Waiting on opponent…" and the other player's to "Confirm Convert to Best of 3".
+      // The same input (10012) both requests and accepts; the server promotes once both have requested.
+      function confirmConvertToBo3() {
+        const pid = parseInt((document.getElementById('playerID') || {}).value || '', 10);
+        if (pid !== 1 && pid !== 2) return;
+        SubmitInput('10012', '');
+      }
+
       function openBugReportModal() {
         if (document.getElementById('bugReportOverlay')) return;
 
@@ -5809,7 +5822,7 @@ function UpdateTurnPlayerMiasma() {
  * @param {string}  [menuUrl]  Optional explicit URL for the "Return to Menu" button.
  *   If omitted, derived from window.rootPath (e.g. "./GrandArchiveSim" → "./SharedUI/Sites/GrandArchiveSim/MainMenu.php").
  */
-function ShowGameOver(didWin, menuUrl, statsHtml) {
+function ShowGameOver(didWin, menuUrl, statsHtml, buttons) {
   if (document.getElementById('game-over-overlay')) return; // already shown
 
   var overlay = document.createElement('div');
@@ -5843,10 +5856,6 @@ function ShowGameOver(didWin, menuUrl, statsHtml) {
     stats.style.display = 'none';
   }
 
-  var btn = document.createElement('button');
-  btn.id = 'game-over-menu-btn';
-  btn.textContent = 'Return to Menu';
-
   var url = menuUrl;
   if (!url && window.rootPath) {
     // window.rootPath is like './GrandArchiveSim'; derive shared-site menu path
@@ -5855,14 +5864,33 @@ function ShowGameOver(didWin, menuUrl, statsHtml) {
   }
   if (!url) url = './MainMenu.php';
 
-  btn.addEventListener('click', function () { window.location.href = url; });
-
   overlay.appendChild(title);
   overlay.appendChild(stats);
   if (typeof window.MatchReplayAddGameOverButton === 'function') {
     window.MatchReplayAddGameOverButton(overlay);
   }
-  overlay.appendChild(btn);
+
+  if (buttons && buttons.length) {
+    // Caller-supplied contextual buttons (e.g. SWUSim end-game menu).
+    var row = document.createElement('div');
+    row.id = 'game-over-buttons';
+    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;';
+    buttons.forEach(function (def) {
+      var b = document.createElement('button');
+      if (def.id) b.id = def.id;
+      b.textContent = def.label;
+      if (def.disabled) b.disabled = true;
+      b.addEventListener('click', function (ev) { if (b.disabled) return; def.onClick(ev); });
+      row.appendChild(b);
+    });
+    overlay.appendChild(row);
+  } else {
+    var btn = document.createElement('button');
+    btn.id = 'game-over-menu-btn';
+    btn.textContent = 'Return to Menu';
+    btn.addEventListener('click', function () { window.location.href = url; });
+    overlay.appendChild(btn);
+  }
   document.body.appendChild(overlay);
 
   overlay.classList.add(didWin ? 'won' : 'lost');

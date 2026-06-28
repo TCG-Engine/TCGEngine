@@ -7,6 +7,9 @@ include_once './Custom/DeckImport.php';
 
 $deckLink = trim(TryPost('deckLink', ''));
 
+$format = strtolower(trim(TryPost('format', 'premier')));
+if (SWUGetFormat($format) === null) $format = 'premier'; // guard unknown/garbage input
+
 if ($deckLink === '') {
     echo json_encode(['success' => false, 'message' => 'No deck link provided.']);
     exit;
@@ -30,7 +33,7 @@ $leaderName = $leaderID ? (CardTitle($leaderID) ?: $leaderID) : '';
 $baseName   = $baseID   ? (CardTitle($baseID)   ?: $baseID)   : '';
 
 // ── Premier format validation ─────────────────────────────────────────────────
-$formatErrors = SWUCheckPremierFormat($leaderID, $baseID, $mainDeck, $sideboard);
+$formatErrors = SWUCheckFormat($format, $leaderID, $baseID, $mainDeck, $sideboard);
 
 // ── Import warnings (unresolved cards, missing slots) ────────────────────────
 $warnings = [];
@@ -45,6 +48,7 @@ if (!empty($unresolved)) {
 
 echo json_encode([
     'success'      => true,
+    'format'       => $format,
     'leaderID'     => $leaderID,
     'leaderName'   => $leaderName,
     'baseID'       => $baseID,
@@ -55,78 +59,7 @@ echo json_encode([
     'formatErrors' => $formatErrors,  // blocking Premier rule violations
 ]);
 
-// ─────────────────────────────────────────────────────────────────────────────
-
-function SWUCheckPremierFormat($leader, $base, array $mainDeck, array $sideboard) {
-    $errors = [];
-
-    $legalSets = ['JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
-
-    // Cards allowed to exceed the 3-copy limit
-    // key = card ID, value = max copies (PHP_INT_MAX = unlimited)
-    $copyExceptions = [
-        'JTL_256' => 15,  // Vulture Droid
-    ];
-
-    // Base cards that shift the minimum deck size
-    $deckSizeModifiers = [
-        'JTL_024' => +10,  // Data Vault  → min 60
-        'JTL_025' => -5,   // Thermal Oscillator → min 45
-    ];
-
-    $minDeck = 50;
-
-    // 1. Leader set legality (a reprint in a legal set counts — SWUCardHasLegalPrint)
-    if ($leader && !SWUCardHasLegalPrint($leader, $legalSets)) {
-        $errors[] = "Leader $leader ($leader) is not in a legal Premier set.";
-    }
-
-    // 2. Base set legality + deck-size modifier
-    if ($base) {
-        if (!SWUCardHasLegalPrint($base, $legalSets)) {
-            $errors[] = "Base $base is not in a legal Premier set.";
-        }
-        if (isset($deckSizeModifiers[$base])) {
-            $minDeck += $deckSizeModifiers[$base];
-        }
-    }
-
-    // 3. Deck card legality + copy-count limits. Count by canonical printing so
-    //    different printings of the same card share one 3-copy limit (CR 8.36).
-    $cardCounts  = array_count_values(array_map('CardIDOverride', $mainDeck));
-    $illegalCards = [];
-    $overLimit    = [];
-
-    foreach ($cardCounts as $cardID => $count) {
-        if (!SWUCardHasLegalPrint($cardID, $legalSets)) {
-            $illegalCards[] = $cardID;
-        }
-        $limit = $copyExceptions[$cardID] ?? 3;
-        if ($count > $limit) {
-            $overLimit[] = "$cardID ($count copies, max $limit)";
-        }
-    }
-
-    if (!empty($illegalCards)) {
-        $shown = array_slice($illegalCards, 0, 5);
-        $more  = count($illegalCards) > 5 ? ' +' . (count($illegalCards) - 5) . ' more' : '';
-        $errors[] = 'Cards not in a legal Premier set: ' . implode(', ', $shown) . $more;
-    }
-    if (!empty($overLimit)) {
-        $errors[] = 'Over the 3-copy limit: ' . implode('; ', $overLimit);
-    }
-
-    // 4. Minimum deck size
-    $deckSize = count($mainDeck);
-    if ($deckSize < $minDeck) {
-        $note = ($minDeck !== 50) ? " (modified to $minDeck by base)" : '';
-        $errors[] = "Deck has $deckSize cards; Premier minimum is $minDeck$note.";
-    }
-
-    // 5. Sideboard maximum
-    if (count($sideboard) > 10) {
-        $errors[] = 'Sideboard has ' . count($sideboard) . ' cards; maximum is 10.';
-    }
-
-    return $errors;
-}
+// Format validation lives in SWUSim/Custom/DeckImport.php now:
+//   SWUCheckFormat($formatId, ...) — config-driven, all formats
+//   SWUCheckPremierFormat(...)     — back-compat wrapper for 'premier'
+// (DeckImport.php is included at the top of this file.)

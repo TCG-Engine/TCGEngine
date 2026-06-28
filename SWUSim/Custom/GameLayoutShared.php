@@ -218,6 +218,179 @@
 #selection-message:has(#inline-multi-confirm) > span:first-child { flex-basis: 100% !important; }
 #selection-message:has(#inline-multi-confirm) #inline-multi-counter { margin-top: 2px !important; }
 
+/* ── End-game menu buttons → SWUSim chamfered HUD look ──────────────────────────
+   ShowGameOver() (shared Core JS) renders the end-game buttons as plain <button>s in
+   #game-over-buttons, plus the corner-fallback #game-over-menu-btn. Both are class-less,
+   so re-skin them here (SWUSim-scoped file) with the same closed-chamfer two-pseudo HUD
+   treatment as the MZ buttons above: ::before = cyan rim, ::after = flat fill, text on top. */
+#game-over-buttons button, #game-over-menu-btn {
+    z-index: 0 !important; isolation: isolate !important;
+    border: 0 !important; border-radius: 0 !important; background: transparent !important;
+    box-shadow: none !important; clip-path: none !important;
+    padding: 10px 22px !important; font-weight: 700 !important; font-size: 13px !important;
+    text-transform: uppercase !important; letter-spacing: 0.10em !important; cursor: pointer !important;
+    color: rgba(205,238,255,0.98) !important; text-shadow: 0 0 6px rgba(120,200,255,0.5) !important;
+    filter: drop-shadow(0 0 5px rgba(110,190,255,0.45)) !important;
+    transition: filter 150ms, color 150ms, transform 110ms !important;
+}
+/* Row buttons are static by default → make them a containing block for their pseudos.
+   #game-over-menu-btn keeps its shared position:absolute (already a containing block). */
+#game-over-buttons button { position: relative !important; }
+#game-over-buttons button::before, #game-over-menu-btn::before {
+    content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
+    background: rgba(140,210,255,0.85) !important;   /* closed cyan rim */
+}
+#game-over-buttons button::after, #game-over-menu-btn::after {
+    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
+    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
+    background: rgba(20,42,70,0.95) !important;       /* flat fill */
+}
+#game-over-buttons button:not(:disabled):hover, #game-over-menu-btn:not(:disabled):hover {
+    color: #fff !important; filter: drop-shadow(0 0 10px rgba(125,205,255,0.65)) !important; transform: translateY(-1px) !important;
+}
+#game-over-buttons button:not(:disabled):hover::before, #game-over-menu-btn:not(:disabled):hover::before {
+    background: rgba(180,228,255,1) !important;
+}
+#game-over-buttons button:not(:disabled):active, #game-over-menu-btn:not(:disabled):active {
+    transform: translateY(1px) !important; filter: drop-shadow(0 0 4px rgba(110,190,255,0.4)) !important;
+}
+/* Disabled (e.g. the "Waiting on opponent to confirm…" convert button) — dimmed, inert. */
+#game-over-buttons button:disabled, #game-over-menu-btn:disabled {
+    opacity: 0.4 !important; filter: none !important; transform: none !important; cursor: default !important;
+    color: rgba(200,225,245,0.7) !important;
+}
+#game-over-buttons button:disabled::before, #game-over-menu-btn:disabled::before {
+    background: rgba(120,200,255,0.30) !important;
+}
+
+/* ── End-game overlay → 80% floating split panel (SWUSim only) ──────────────────
+   Shrink the shared full-screen game-over overlay to an 80%×80% centered panel so
+   the game board + chat stay visible AND interactive in the surrounding margin
+   (post-game review/chat). Inside, lay it out as a grid: the big "YOU WON!" title
+   spans the top, the action buttons stack vertically on the LEFT, and the stats
+   tables fill the RIGHT half (scrolling within their cell). All ID overrides need
+   !important to beat the shared ScreenAnimations.css #game-over-* rules. */
+#game-over-overlay {
+    inset: 10vh 20vw 10vh 10vw !important;  /* desktop: 80% tall, shifted left — 10% left / 30% right margin */
+    width: auto !important; height: auto !important;
+    padding: 16px 22px 20px !important;
+    background: rgba(8,15,25,0.77) !important;
+    border: 1px solid rgba(140,210,255,0.35) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,0,0,0.4) !important;
+    backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important;
+    overflow: hidden !important;           /* the stats pane scrolls, not the panel */
+    grid-template-columns: minmax(190px, 290px) minmax(0, 1fr) !important;
+    grid-template-rows: auto minmax(0, 1fr) !important;
+    grid-template-areas: "title title" "buttons stats" !important;
+    column-gap: 24px !important; row-gap: 12px !important;
+    align-items: stretch !important; justify-items: stretch !important;
+}
+#game-over-overlay.active { display: grid !important; }  /* shared sets display:flex */
+
+#game-over-title {
+    grid-area: title !important;
+    font-size: clamp(30px, 4.4vw, 64px) !important;
+    letter-spacing: 4px !important;
+    margin: 0 0 4px !important;
+    align-self: center !important;
+}
+/* SWUSim win/lose title colors (override the shared gold/red). "You Won!" uses the primary
+   button text color + a cyan HUD glow; "You Lost" is a darker, less-saturated muted red. */
+#game-over-overlay.won #game-over-title {
+    color: rgba(205,238,255,0.98) !important;
+    text-shadow: 0 0 30px rgba(140,210,255,0.85), 0 0 80px rgba(120,200,255,0.50), 0 4px 12px rgba(0,0,0,0.8) !important;
+}
+#game-over-overlay.lost #game-over-title {
+    color: #9b3e3e !important;
+    text-shadow: 0 0 26px rgba(150,62,62,0.58), 0 0 60px rgba(120,42,42,0.30), 0 4px 12px rgba(0,0,0,0.8) !important;
+}
+
+#game-over-stats {
+    grid-area: stats !important;
+    width: auto !important; max-width: none !important;
+    height: 100% !important; min-height: 0 !important; max-height: 100% !important;
+    margin: 0 !important; overflow-y: auto !important;
+}
+
+/* Buttons: vertical stack on the left. Full-width by default (each on its own row);
+   the Rematch + Best-of toggle are flex:1 so they SHARE one row (Best-of sits to the
+   right of Rematch). */
+#game-over-buttons {
+    grid-area: buttons !important;
+    flex-direction: row !important; flex-wrap: wrap !important;
+    align-content: flex-start !important; justify-content: flex-start !important;
+    gap: 10px !important; margin: 0 !important; align-self: stretch !important;
+}
+#game-over-buttons button { flex: 0 0 100% !important; }
+/* Rematch fills the row; the short Bo1/Bo3 toggle sits compact to its right. */
+#game-over-buttons #swu-rematch-btn { flex: 1 1 auto !important; }
+#game-over-buttons #swu-bestof-btn  { flex: 0 0 auto !important; }
+
+/* Best-of toggle → WHITE button, black text (SWUSim secondary-button style). MUST be
+   scoped under #game-over-buttons: the general `#game-over-buttons button::before/::after`
+   rules carry an extra element term, so a bare `#swu-bestof-btn::before` (fewer specificity
+   terms) loses even with !important. The double-id selector here outranks them. */
+#game-over-buttons #swu-bestof-btn {
+    color: #3a3a3a !important; text-shadow: none !important; text-transform: none !important;
+    filter: drop-shadow(0 0 6px rgba(120,200,255,0.55)) !important;   /* cyan HUD glow */
+}
+/* Cool sci-fi border: a glowing cyan chamfered rim around the off-white fill (the off-white
+   ::after is inset a touch more so the cyan edge reads as a crisp ~2.5px HUD keyline). */
+#game-over-buttons #swu-bestof-btn::before { background: rgba(130,205,255,0.95) !important; }   /* cyan border */
+#game-over-buttons #swu-bestof-btn::after  {
+    background: #dde2e9 !important; inset: 2.5px !important;                                     /* off-white fill */
+    clip-path: polygon(5.5px 0, 100% 0, 100% calc(100% - 5.5px), calc(100% - 5.5px) 100%, 0 100%, 0 5.5px) !important;
+}
+#game-over-buttons #swu-bestof-btn:not(:disabled):hover {
+    color: #1f1f1f !important; filter: drop-shadow(0 0 12px rgba(150,215,255,0.85)) !important;
+}
+#game-over-buttons #swu-bestof-btn:not(:disabled):hover::before { background: rgba(180,228,255,1) !important; }
+#game-over-buttons #swu-bestof-btn:not(:disabled):hover::after  { background: #e9edf2 !important; }
+
+/* Mobile / portrait → the 2-column split squeezes the stats into an unreadable sliver,
+   so collapse to ONE column: title, then the buttons, then the stats below (scrolling). */
+@media (orientation: portrait), (max-width: 760px) {
+    #game-over-overlay {
+        inset: 10vh 10vw !important;          /* mobile: keep the panel centered (80% wide) */
+        grid-template-columns: minmax(0, 1fr) !important;
+        grid-template-rows: auto auto minmax(0, 1fr) !important;
+        grid-template-areas: "title" "buttons" "stats" !important;
+        row-gap: 10px !important;
+    }
+    #game-over-buttons { align-self: start !important; }
+    /* Compact the win-screen content to ~75% on phones (zoom on the fixed panel breaks
+       its inset sizing, so scale the content metrics down instead — panel stays 80%).
+       The stats tables carry INLINE font-size/padding (StatsSubmit.php), so target the
+       table/cells directly with !important to beat them. */
+    #game-over-title { font-size: clamp(22px, 3.3vw, 48px) !important; letter-spacing: 3px !important; }
+    #game-over-buttons button { font-size: 10px !important; padding: 7px 16px !important; }
+    #game-over-stats { font-size: 11px !important; padding: 12px 13px !important; }
+    #game-over-stats table { font-size: 10px !important; }
+    #game-over-stats th, #game-over-stats td { padding: 2px 5px !important; }
+    /* Truncate long card names (first column) to ~12 chars + ellipsis so the table stays compact;
+       tapping a truncated cell reveals the full name in a .swu-stat-tip bubble (wired in JS below). */
+    #game-over-stats td:first-child, #game-over-stats th:first-child {
+        max-width: 12ch !important; white-space: nowrap !important;
+        overflow: hidden !important; text-overflow: ellipsis !important;
+    }
+    #game-over-stats td:first-child { cursor: pointer !important; }
+}
+
+/* Tap-to-reveal bubble for a truncated card name (mobile end-game stats). HUD look:
+   navy fill + cyan border. Dismissed by the next tap anywhere (handled in JS). */
+.swu-stat-tip {
+    position: fixed; z-index: 10001; max-width: 70vw;
+    padding: 8px 11px; border-radius: 8px;
+    background: rgba(8,15,25,0.97);
+    border: 1px solid rgba(130,205,255,0.85);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.55), 0 0 10px rgba(120,200,255,0.35);
+    color: #e8f4ff; font-size: 13px; font-weight: 600; line-height: 1.25;
+    animation: swuStatTipIn 120ms ease-out;
+}
+@keyframes swuStatTipIn { from { opacity: 0; transform: translateY(-3px); } to { opacity: 1; transform: none; } }
+
 /* ── Decision-queue picker sweep → SWUSim HUD treatment ─────────────────────────
    The live decision UIs are UILibraries/OptionChooseUI overlays whose buttons are
    styled INLINE (no class) or by their own class. Target each by overlay id (the
@@ -1346,21 +1519,172 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         });
     })();
 
+    // ── Match-aware end-game menu ─────────────────────────────────────────────
+    // The root SharedUI/MainMenu.php pointer renders whatever Sites/<ActiveSite>/ is set (SWUSim here);
+    // there is NO MainMenu.php at the TCGEngine root, so the old './MainMenu.php' fallback 404'd.
+    function SWUGoMainMenu() { window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
+    function SWUReportBug() { if (typeof openBugReportModal === 'function') openBugReportModal(); }
+    function SWUGoSideboard(info) {
+        var pid = document.getElementById('playerID').value;
+        var ak = document.getElementById('authKey').value;
+        if (!info || !info.matchId) { window.location.reload(); return; }
+        var u = new URL(window.location.origin + window.location.pathname.replace(/NextTurn\.php$/, 'SWUSim/Sideboard.php'));
+        u.searchParams.set('matchId', info.matchId);
+        u.searchParams.set('playerID', pid);
+        u.searchParams.set('authKey', ak);
+        window.location.replace(u.toString());
+    }
+    // Convert-to-Bo3 button label/disabled for the current mutual-confirmation state.
+    // Same click handler in every enabled state (input 10012 both requests and accepts).
+    function SWUConvertButtonState(info) {
+        var mine = info && info.convertRequestedByMe, opp = info && info.convertRequestedByOpp;
+        if (mine && !opp) return { label:'Waiting on opponent to confirm…', disabled:true };
+        if (opp && !mine) return { label:'Confirm Convert to Best of 3', disabled:false };
+        return { label:'Convert to Best of 3', disabled:false };
+    }
+    function SWUUpdateConvertButton(info) {
+        var btn = document.getElementById('swu-convert-btn');
+        if (!btn) return;
+        var cv = SWUConvertButtonState(info);
+        btn.textContent = cv.label;
+        btn.disabled = !!cv.disabled;
+    }
+    // While the end-game menu is open and the match is still convertible, poll for the opponent's
+    // convert request so the button updates without an alert. Once both confirm, the match leaves
+    // the convertible state (→ Bo3 sideboarding): rebuild the menu so it shows the Bo3 options.
+    function SWUStartEndGamePoll(gn, pid, ak) {
+        if (window._swuEndGamePollTimer) return;
+        window._swuEndGamePollTimer = setInterval(function () {
+            if (!document.getElementById('game-over-overlay')) {
+                clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null; return;
+            }
+            fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
+                .then(function(r){ return r.json(); }).then(function(info){
+                    if (!info || !info.isMatch) return;
+                    if (!info.convertible) { // both confirmed → rebuild for the new (Bo3) match shape
+                        clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null;
+                        var ov = document.getElementById('game-over-overlay'); if (ov) ov.remove();
+                        if (typeof SWUShowEndGameMenu === 'function') SWUShowEndGameMenu();
+                        return;
+                    }
+                    SWUUpdateConvertButton(info);
+                }).catch(function(){});
+        }, 2500);
+    }
+    function SWUBuildEndGameButtons(info) {
+        var b = [];
+        var mid = info && info.isMatch;
+        var bestOf = info ? info.bestOf : 1;
+        var seriesOver = info ? info.seriesOver : true;
+        var spectator = info ? info.isSpectator : false;
+        if (spectator || !mid) {
+            b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
+            if (!mid && !spectator) b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+            b.push({label:'Report Bug', onClick: SWUReportBug});
+            return b;
+        }
+        if (bestOf === 3 && !seriesOver) {
+            b.push({label:'Return to Main Menu', onClick:function(){ if(window.confirm('Leave now? This forfeits the best-of-3.')) { SubmitInput('10007',''); SWUGoMainMenu(); } }});
+            b.push({label:'Go to Next Game', onClick:function(){ SWUGoSideboard(info); }});
+            b.push({label:'Forfeit Best of 3', onClick:function(){ if(typeof confirmConcedeMatch==='function') confirmConcedeMatch(); }});
+        } else if (bestOf === 1 && seriesOver) {
+            b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
+            b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=1'); }});
+            b.push({label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=1'); }});
+            if (info.convertible) {
+                var cv = SWUConvertButtonState(info); // {label, disabled}
+                b.push({id:'swu-convert-btn', label:cv.label, disabled:cv.disabled,
+                        onClick:function(){ if(typeof confirmConvertToBo3==='function') confirmConvertToBo3(); }});
+            }
+        } else if (seriesOver) {
+            // Bo3 finished — rematch with a Bo1/Bo3 toggle.
+            var fmt = { v: 3 };
+            b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
+            b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=' + fmt.v); }});
+            b.push({id:'swu-rematch-btn', label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=' + fmt.v); }});
+            b.push({id:'swu-bestof-btn', label:'Bo3', onClick:function(ev){ fmt.v = (fmt.v===3?1:3); ev.target.textContent = 'Bo' + fmt.v; }});
+        } else {
+            b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
+        }
+        b.push({label:'Report Bug', onClick: SWUReportBug});
+        return b;
+    }
+    // The winner the client already knows locally (GAMEOVER_WINNER), independent of the match layer.
+    function SWULocalGameWinner() {
+        try { var v = JSON.parse(window.DecisionQueueVariablesData || '{}');
+              return (v && v.GAMEOVER_WINNER) ? parseInt(v.GAMEOVER_WINNER, 10) : 0; }
+        catch (e) { return 0; }
+    }
+    function SWUShowEndGameMenu() {
+        if (document.getElementById('game-over-overlay')) return;
+        var gn = document.getElementById('gameName').value;
+        var pid = document.getElementById('playerID').value;
+        var ak = document.getElementById('authKey').value;
+        fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
+            .then(function(r){ return r.json(); }).then(function(info){
+                // Non-match game (schema-test harness / goldfish): no match layer behind it, so
+                // EndGameInfo returns {isMatch:false} with no didWin. Show the plain overlay using the
+                // locally-known winner — not a match menu whose buttons (Rematch / Next Game) don't apply.
+                if (!info || !info.isMatch) {
+                    var w = SWULocalGameWinner();
+                    ShowGameOver(w > 0 && parseInt(pid, 10) === w, window.SWUMainMenuUrl || null, '');
+                    return;
+                }
+                ShowGameOver(!!info.didWin, window.SWUMainMenuUrl || null, info.statsHtml || '', SWUBuildEndGameButtons(info));
+                if (info.convertible) SWUStartEndGamePoll(gn, pid, ak);
+            }).catch(function(){
+                var w = SWULocalGameWinner();
+                ShowGameOver(w > 0 && parseInt(pid, 10) === w, window.SWUMainMenuUrl || null, '');
+            });
+    }
+    window.SWUShowEndGameMenu = SWUShowEndGameMenu;
+
     // Intercept FlashMessageData before NextTurnRender consumes it.
-    // If the value starts with "GAMEOVER:", show persistent banner and suppress normal flash.
+    // A "GAMEOVER:"/"MATCHOVER:" flash opens the match-aware end-game menu (falls back to the banner).
     var _flashInternal = '';
     Object.defineProperty(window, 'FlashMessageData', {
         configurable: true,
         get: function () { return _flashInternal; },
         set: function (v) {
-            if (typeof v === 'string' && v.indexOf('GAMEOVER:') === 0) {
-                showGameOverBanner(v.slice(9));
+            if (typeof v === 'string' && (v.indexOf('MATCHOVER:') === 0 || v.indexOf('GAMEOVER:') === 0)) {
+                if (typeof SWUShowEndGameMenu === 'function') SWUShowEndGameMenu();
+                else showGameOverBanner(v.indexOf('MATCHOVER:') === 0 ? v.slice(10) : v.slice(9));
                 _flashInternal = '';
             } else {
                 _flashInternal = v;
             }
         }
     });
+
+    // End-game stats (mobile): tap a TRUNCATED card-name cell to reveal its full name in a
+    // bubble; the next tap ANYWHERE (the bubble or outside it) dismisses it. Delegated on the
+    // document so it works whenever the overlay exists, and inert on desktop (cells aren't
+    // truncated there, so the scrollWidth check short-circuits).
+    (function () {
+        var tip = null;
+        function closeTip() { if (tip) { if (tip.parentNode) tip.parentNode.removeChild(tip); tip = null; } }
+        document.addEventListener('click', function (ev) {
+            if (tip) { closeTip(); return; }   // a bubble is open → ANY tap dismisses it
+            var t = ev.target;
+            var cell = (t && t.closest) ? t.closest('#game-over-stats td:first-child') : null;
+            if (!cell) return;
+            if (cell.scrollWidth <= cell.clientWidth + 1) return;   // not actually truncated
+            var full = (cell.textContent || '').trim();
+            if (!full) return;
+            tip = document.createElement('div');
+            tip.className = 'swu-stat-tip';
+            tip.textContent = full;
+            document.body.appendChild(tip);
+            var r = cell.getBoundingClientRect();
+            var tw = tip.offsetWidth, th = tip.offsetHeight, m = 6;
+            var left = Math.min(Math.max(m, r.left), window.innerWidth - tw - m);
+            var top = r.bottom + m;
+            if (top + th > window.innerHeight - m) top = Math.max(m, r.top - th - m);
+            tip.style.left = left + 'px';
+            tip.style.top = top + 'px';
+        }, false);
+        window.addEventListener('resize', closeTip);
+    })();
 
     if (document.readyState==='loading') {
         document.addEventListener('DOMContentLoaded', init);

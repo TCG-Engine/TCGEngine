@@ -1589,6 +1589,9 @@ fwrite($handler, "<?php\r\n");
 for($i=0; $i<count($serverIncludes); ++$i) {
   fwrite($handler, "include __DIR__ . '" . $serverIncludes[$i] . "';\r\n");
 }
+if($rootName == "SWUSim") {
+  fwrite($handler, "include_once __DIR__ . '/Telemetry.php';\r\n"); // Plan D: per-game stats accumulator (loaded everywhere the engine runs)
+}
 //Function to get asset reflection path
 fwrite($handler, "function GetAssetReflectionPath() {\r\n");
 fwrite($handler, "  return \"" . ($assetReflection === null ? "" : $assetReflection) . "\";\r\n");
@@ -1649,6 +1652,7 @@ if(in_array($rootName, ["SWUSim"], true)) {
   fwrite($handler, "  \$gWinner = null;\r\n");
   fwrite($handler, "  \$gPendingTriggers = [];\r\n");
   fwrite($handler, "  \$gTriggerDepth = 1;\r\n");
+  fwrite($handler, "  global \$gTelemetry; \$gTelemetry = \"-\";\r\n"); // Plan D: per-game telemetry global
 }
 fwrite($handler, "}\r\n\r\n");
 //Write gamestate function
@@ -1790,6 +1794,27 @@ fwrite($handler, "include './ZoneClasses.php';\r\n");
 fwrite($handler, "include './GeneratedCode/GeneratedCardDictionaries.php';\r\n");
 //TODO: Validate these inputs
 fwrite($handler, "\$gameName = TryGet(\"gameName\");\r\n");
+if($rootName == "SWUSim") {
+  // Plan C: a finished game awaiting sideboarding sends SEATED players to the sideboard screen;
+  // spectators skip it and keep polling (they follow MATCHADVANCE once the next game spawns).
+  fwrite($handler, "\$swuSidePtr = __DIR__ . '/Games/' . preg_replace('/[^A-Za-z0-9_]/', '', strval(\$gameName)) . '/Sideboard.json';\r\n");
+  fwrite($handler, "if (is_file(\$swuSidePtr) && TryGet(\"playerID\") !== 'S') {\r\n");
+  fwrite($handler, "  \$sp = json_decode(file_get_contents(\$swuSidePtr), true);\r\n");
+  fwrite($handler, "  \$sMatch = is_array(\$sp) ? strval(\$sp['matchId'] ?? '') : '';\r\n");
+  fwrite($handler, "  if (\$sMatch !== '') {\r\n");
+  fwrite($handler, "    if (is_file(__DIR__ . '/MatchFlow.php')) include_once __DIR__ . '/MatchFlow.php';\r\n");
+  fwrite($handler, "    if (function_exists('SWUSideboardTimeoutCheck')) SWUSideboardTimeoutCheck(\$sMatch);\r\n");
+  fwrite($handler, "    echo '1236SIDEBOARD' . \$sMatch; exit;\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "}\r\n");
+  // Plan B2: a game that advanced to the next child game redirects clients (authKey carries over).
+  fwrite($handler, "\$swuNextGamePtr = __DIR__ . '/Games/' . preg_replace('/[^A-Za-z0-9_]/', '', strval(\$gameName)) . '/NextGame.json';\r\n");
+  fwrite($handler, "if (is_file(\$swuNextGamePtr)) {\r\n");
+  fwrite($handler, "  \$swuPtr = json_decode(file_get_contents(\$swuNextGamePtr), true);\r\n");
+  fwrite($handler, "  \$swuNext = is_array(\$swuPtr) ? strval(\$swuPtr['nextGameName'] ?? '') : '';\r\n");
+  fwrite($handler, "  if (\$swuNext !== '') { echo '1235MATCHADVANCE' . \$swuNext; exit; }\r\n");
+  fwrite($handler, "}\r\n");
+}
 fwrite($handler, "\$requestPlayerID = TryGet(\"playerID\");\r\n");
 fwrite($handler, "\$viewerInfo = NormalizeViewerIdentity(\$requestPlayerID);\r\n");
 fwrite($handler, "\$viewerPerspective = NormalizeViewerPerspective(\$viewerInfo, TryGet(\"viewerPerspective\", \"\"));\r\n");
@@ -2023,6 +2048,12 @@ function AddReadGamestate() {
     $readGamestate .= "      \$gRandomCounter = intval(trim(\$line));\r\n";
     $readGamestate .= "    }\r\n";
   }
+  global $rootName;
+  if($rootName === 'SWUSim') {
+    // Plan D: read per-game telemetry (final field; absent in old saves leaves the init default).
+    $readGamestate .= "    \$line = fgets(\$handler);\r\n";
+    $readGamestate .= "    if (\$line !== false) { global \$gTelemetry; \$gTelemetry = trim(\$line); }\r\n";
+  }
   $readGamestate .= "  }\r\n";
   $readGamestate .= "  fclose(\$handler);\r\n";
   return $readGamestate;
@@ -2103,11 +2134,23 @@ function AddWriteGamestate() {
   if(!SchemaOwnsRandomCounter()) {
     $writeGamestate .= "  \$gamestateText .= \$gRandomCounter . \"\\r\\n\";\r\n";
   }
+  global $rootName;
+  if($rootName === 'SWUSim') {
+    // Plan D: append per-game telemetry as the final field (backward-compat: absent -> '-').
+    $writeGamestate .= "  global \$gTelemetry; \$gamestateText .= ((\$gTelemetry === null || \$gTelemetry === '') ? '-' : \$gTelemetry) . \"\\r\\n\";\r\n";
+  }
   $writeGamestate .= "  if(GamestateUsesMemoryStorage() && function_exists(\"apcu_store\")) {\r\n";
   $writeGamestate .= "    apcu_store(GetGamestateStorageKey(\$gameName), \$gamestateText, 600);\r\n";
-  $writeGamestate .= "  } else {\r\n";
-  $writeGamestate .= "    file_put_contents(\$filename, \$gamestateText);\r\n";
-  $writeGamestate .= "  }\r\n";
+  if($rootName === 'SWUSim') {
+    // Phase 0: durable write-through (SWUSim is apcu-mode; always persist a file copy so games + matches
+    // survive APCu eviction / FPM restart — ParseGamestate falls back to this file).
+    $writeGamestate .= "  }\r\n";
+    $writeGamestate .= "  file_put_contents(\$filename, \$gamestateText);\r\n";
+  } else {
+    $writeGamestate .= "  } else {\r\n";
+    $writeGamestate .= "    file_put_contents(\$filename, \$gamestateText);\r\n";
+    $writeGamestate .= "  }\r\n";
+  }
   return $writeGamestate;
 }
 

@@ -1,17 +1,24 @@
 <?php
-include_once './MenuBar.php';
-include_once '../../../AccountFiles/AccountSessionAPI.php';
-include_once '../../../Database/ConnectionManager.php';
-include_once '../../../SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
+// Use __DIR__-relative includes (matching the SWUDeck pilot): this page is reached via the
+// SharedUI/MainMenu.php pointer (which include()s it), so the cwd is SharedUI/, not this dir.
+// Bare './'/'../../../' paths resolved against the wrong cwd → missing-file warnings AND silently
+// pulled the ROOT SharedUI/MenuBar.php + Header.php (wrong chrome) instead of the SWUSim ones.
+include_once __DIR__ . '/MenuBar.php';
+include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
+include_once __DIR__ . '/../../../Database/ConnectionManager.php';
+include_once __DIR__ . '/../../../SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
+include_once __DIR__ . '/../../../SWUSim/Formats.php';
 
-include_once 'Header.php';
+include_once __DIR__ . '/Header.php';
 
+$swuFormats = function_exists('SWUListFormats') ? SWUListFormats() : ['premier' => 'Premier'];
+$swuQueueTypes = function_exists('SWUQueueTypeDefinitions') ? SWUQueueTypeDefinitions() : ['bo1' => ['displayName' => 'Best of 1']];
 ?>
 <div class="row-wrapper" style="display: flex; flex-direction: row; flex-grow: 1;">
   <!-- Create New Game Section -->
   <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: #f0ddb0; border-radius: 12px; position: relative;">
     <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
-      <img src='../../../Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
+      <img src='/TCGEngine/Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
     <h2>Active Games (<span id="active-game-count">0</span>)</h2>
     <h2>Create a New Game</h2>
@@ -69,13 +76,42 @@ include_once 'Header.php';
       </select>
     -->
       <br>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 12px;">
+        <div style="flex: 1; min-width: 140px;">
+          <label for="swu-format-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Format:</label>
+          <select id="swu-format-select" class="swu-queue-select">
+            <?php foreach ($swuFormats as $fid => $fname): ?>
+            <option value="<?php echo htmlspecialchars($fid, ENT_QUOTES); ?>"<?php echo $fid === 'premier' ? ' selected' : ''; ?>><?php echo htmlspecialchars($fname, ENT_QUOTES); ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+        <div style="flex: 1; min-width: 140px;">
+          <label for="swu-queuetype-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Match Type:</label>
+          <select id="swu-queuetype-select" class="swu-queue-select">
+            <?php foreach ($swuQueueTypes as $qid => $qdef): ?>
+            <option value="<?php echo htmlspecialchars($qid, ENT_QUOTES); ?>"<?php echo $qid === 'bo1' ? ' selected' : ''; ?>><?php echo htmlspecialchars($qdef['displayName'] ?? $qid, ENT_QUOTES); ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+      </div>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="joinQueue()">Join Queue</button>
+        <button onclick="saveCurrentDeck()" style="background-color: #6b4f9f;" title="Save this deck link to your library">Save Deck</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
       </div>
       <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
       <div id="private-invite-notice" style="display: none; margin-top: 10px; color: #c8b080; font-size: 13px;"></div>
+      <?php
+        require_once __DIR__ . '/../../Render/DeckLibrary.php';
+        if (isset($_SESSION['userid'])) {
+            echo "<div class='saved-decks-panel' style='margin-top:16px;'><h3 style='margin:0 0 8px 0;'>Saved Decks</h3>";
+            // Default (no action buttons): the dropdown only loads a deck into the queue box.
+            // Managing saved decks (favorite/rename/delete) lives on the Profile page.
+            echo RenderDeckLibrary((int)$_SESSION['userid']);
+            echo "</div>";
+        }
+      ?>
     </div>
   </div>
 
@@ -148,6 +184,24 @@ include_once 'Header.php';
     color: #f0ddb0 !important;
   }
   .ga-glass-card * { color: #e8d5a8; }
+  .swu-queue-select {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: rgba(40, 24, 7, 0.92);
+    color: #f0ddb0 !important;
+    border: 2px solid rgba(180, 140, 45, 0.40);
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .swu-queue-select:focus {
+    border-color: #d4933a;
+    box-shadow: 0 0 8px rgba(212, 147, 58, 0.4);
+  }
+  .swu-queue-select option { background-color: #281807; color: #f0ddb0; }
   .hotkey-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #c8b080; }
   .hotkey-badge {
     display: inline-block; min-width: 28px; text-align: center;
@@ -437,10 +491,17 @@ include_once 'Header.php';
         }
         var gameType = 'casual'; // Default game type since select is commented out
 
+        var formatEl = document.getElementById('swu-format-select');
+        var queueTypeEl = document.getElementById('swu-queuetype-select');
+        var format = formatEl ? formatEl.value : 'premier';
+        var queueType = queueTypeEl ? queueTypeEl.value : 'bo1';
+
         return {
           preconstructedDeck: preconstructedDeck,
           deckLink: deckLink,
-          gameType: gameType
+          gameType: gameType,
+          format: format,
+          queueType: queueType
         };
       }
 
@@ -455,6 +516,42 @@ include_once 'Header.php';
           waitingMessage: 'Waiting for opponent... (Esc to cancel)'
         });
       }
+
+      // ── Saved deck links ──────────────────────────────────────────────────
+      // This page is served at two URL depths (the ActiveSite root /TCGEngine/SharedUI/MainMenu.php
+      // AND /TCGEngine/SharedUI/Sites/SWUSim/MainMenu.php), so a fixed '../../../' prefix overshoots
+      // from the root entry. Anchor to /TCGEngine/ from the live URL instead — depth-independent.
+      function swusimAppBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0 ? p.slice(0, i+11) : '/TCGEngine/'; }
+      var SAVEDECKS_URL = swusimAppBase() + 'SWUSim/SavedDecks.php';
+      function saveCurrentDeck() {
+        var sub = getDeckSubmission();
+        if (!sub || !sub.deckLink) return;   // getDeckSubmission alerts when empty
+        var x = new XMLHttpRequest();
+        x.open('POST', SAVEDECKS_URL, true);
+        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        x.onload = function(){ var r={}; try{ r=JSON.parse(x.responseText); }catch(e){}
+          if (r.success) location.reload();
+          else showQueueInlineError('Could not save deck: ' + (r.error || 'unknown')); };
+        x.send('action=save&deckInput=' + encodeURIComponent(sub.deckLink));
+      }
+
+      // Load a saved deck's input into the correct deck box (URL → Link tab, raw JSON → Free Text tab).
+      function loadSavedDeckInput(input) {
+        if (!input) return;
+        if (input.charAt(0) === '{') {
+          if (typeof switchDeckTab === 'function') switchDeckTab('text');
+          var t = document.getElementById('deck-text'); if (t) t.value = input;
+        } else {
+          if (typeof switchDeckTab === 'function') switchDeckTab('link');
+          var el = document.getElementById('deck-link'); if (el) el.value = input;
+        }
+      }
+      // Selecting a deck from the dropdown loads it into the queue box (Join Queue takes it from there).
+      document.addEventListener('change', function(e){
+        var sel = e.target.closest('.saved-decks-panel .dl-select'); if(!sel) return;
+        var opt = sel.options[sel.selectedIndex];
+        loadSavedDeckInput(opt ? opt.getAttribute('data-queue-input') : '');
+      });
 
       function createPrivateGame() {
         submitQueueJoin({
@@ -483,7 +580,7 @@ include_once 'Header.php';
         // ── Step 1: validate deck before touching the queue ──────────────────
         showQueueInlineInfo('Validating deck…');
         var vxhr = new XMLHttpRequest();
-        vxhr.open('POST', '../../../SWUSim/ValidateDeck.php', true);
+        vxhr.open('POST', swusimAppBase() + 'SWUSim/ValidateDeck.php', true);
         vxhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         vxhr.onload = function() {
           clearQueueInlineError();
@@ -496,9 +593,11 @@ include_once 'Header.php';
             showQueueInlineError('Deck error: ' + (vres.message || 'Could not load deck.'));
             return;
           }
-          // Hard block on Premier format violations
+          // Hard block on format violations
           if (vres.formatErrors && vres.formatErrors.length) {
-            showQueueInlineError('Premier format error:\n• ' + vres.formatErrors.join('\n• '));
+            var formatLabel = (submission.format || 'premier');
+            formatLabel = formatLabel.charAt(0).toUpperCase() + formatLabel.slice(1);
+            showQueueInlineError(formatLabel + ' format error:\n• ' + vres.formatErrors.join('\n• '));
             return;
           }
           // Build deck summary line
@@ -516,12 +615,13 @@ include_once 'Header.php';
         vxhr.onerror = function() {
           showQueueInlineError('Could not reach deck validator. Check your connection.');
         };
-        vxhr.send('deckLink=' + encodeURIComponent(submission.deckLink));
+        vxhr.send('deckLink=' + encodeURIComponent(submission.deckLink) +
+                  '&format=' + encodeURIComponent(submission.format || 'premier'));
       }
 
       function doJoinQueue(options, submission) {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../../APIs/Lobbies/JoinQueue.php', true);
+        xhr.open('POST', swusimAppBase() + 'APIs/Lobbies/JoinQueue.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         xhr.onload = function() {
@@ -541,7 +641,7 @@ include_once 'Header.php';
             }
             clearQueueInlineError();
             if(response.ready) {
-              DisplayMatchFoundPopup(response.playerID, response.gameName);
+              DisplayMatchFoundPopup(response.playerID, response.gameName, response.authKey);
             } else {
               _lobby_id = response.lobbyID;
               var inviteLink = '';
@@ -563,6 +663,8 @@ include_once 'Header.php';
         var params = 'deckLink=' + encodeURIComponent(submission.deckLink) + '&game_type=' + encodeURIComponent(submission.gameType);
         params += '&preconstructedDeck=' + encodeURIComponent(submission.preconstructedDeck);
         params += '&rootName=' + encodeURIComponent(rootName);
+        params += '&format=' + encodeURIComponent(submission.format || 'premier');
+        params += '&queueType=' + encodeURIComponent(submission.queueType || 'bo1');
         if (options.createPrivate)      params += '&createPrivate=1';
         if (options.privateInviteCode)  params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);
         xhr.send(params);
@@ -718,7 +820,7 @@ include_once 'Header.php';
 
             // Send a message to the server to cancel the queue
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '../../../APIs/Lobbies/LeaveQueue.php', true);
+            xhr.open('POST', swusimAppBase() + 'APIs/Lobbies/LeaveQueue.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
             xhr.onload = function() {
@@ -740,7 +842,15 @@ include_once 'Header.php';
         document.addEventListener('keydown', _waitingEscHandler);
       }
 
-      function DisplayMatchFoundPopup(playerID, gameName) {
+      function DisplayMatchFoundPopup(playerID, gameName, authKey) {
+        // Persist the seat authKey so NextTurn.php / ProcessInput.php can authenticate
+        // this browser as the player. NextTurn.php emits HTML before session_start(),
+        // so the PHP session can't carry the key — the URL param + lastAuthKey cookie do.
+        if (authKey && (String(playerID) === '1' || String(playerID) === '2')) {
+          try {
+            document.cookie = 'lastAuthKey=' + encodeURIComponent(authKey) + '; max-age=' + (30 * 24 * 60 * 60) + '; path=/; SameSite=Lax';
+          } catch (e) {}
+        }
         var matchPopup = document.createElement('div');
         matchPopup.id = 'match-found-popup';
         matchPopup.style.cssText = `
@@ -842,7 +952,9 @@ include_once 'Header.php';
                       matchPopup.parentNode.removeChild(matchPopup);
                     }
                     // Redirect with fade parameter
-                    window.location.href = `../../../NextTurn.php?playerID=${playerID}&gameName=${gameName}&folderPath=${encodeURIComponent(rootName)}&fromMatch=1`;
+                    var _redirUrl = swusimAppBase() + `NextTurn.php?playerID=${playerID}&gameName=${gameName}&folderPath=${encodeURIComponent(rootName)}&fromMatch=1`;
+                    if (authKey) _redirUrl += '&authKey=' + encodeURIComponent(authKey);
+                    window.location.href = _redirUrl;
                   }, 400);
                 }
               }, 400);
@@ -866,7 +978,7 @@ include_once 'Header.php';
         console.log('Refreshing open games');
         var gameCountElement = document.getElementById('active-game-count');
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../../APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
+        xhr.open('GET', swusimAppBase() + 'APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
         xhr.responseType = 'json';
 
         xhr.onload = function() {
@@ -894,7 +1006,7 @@ include_once 'Header.php';
       }
       function pollLobbyUpdates(playerID, authKey) {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../../APIs/Lobbies/PollLobbyUpdates.php', true);
+        xhr.open('POST', swusimAppBase() + 'APIs/Lobbies/PollLobbyUpdates.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         xhr.onload = function() {
@@ -908,7 +1020,9 @@ include_once 'Header.php';
                 document.removeEventListener('keydown', _waitingEscHandler);
                 _waitingEscHandler = null;
               }
-              DisplayMatchFoundPopup(response.playerID, response.gameName);
+              // PollLobbyUpdates.php validates but does not echo the authKey back,
+              // so reuse the seat authKey this client already holds.
+              DisplayMatchFoundPopup(response.playerID, response.gameName, authKey);
             } else {
               // Continue polling if the lobby is not ready
               pollLobbyUpdates(playerID, authKey);
@@ -940,5 +1054,5 @@ include_once 'Header.php';
     </script>
 
 <?php
-include_once './Disclaimer.php';
+include_once __DIR__ . '/Disclaimer.php';
 ?>

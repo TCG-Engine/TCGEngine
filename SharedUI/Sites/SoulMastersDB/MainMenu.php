@@ -1,8 +1,10 @@
 <?php
 include_once './MenuBar.php';
-include_once '../AccountFiles/AccountSessionAPI.php';
-include_once '../Database/ConnectionManager.php';
-include_once '../SoulMastersDB/GeneratedCode/GeneratedCardDictionaries.php';
+include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
+include_once __DIR__ . '/../../../Database/ConnectionManager.php';
+if (file_exists(__DIR__ . '/../../../SoulMastersDB/GeneratedCode/GeneratedCardDictionaries.php')) {
+    include_once __DIR__ . '/../../../SoulMastersDB/GeneratedCode/GeneratedCardDictionaries.php';
+}
 
 include_once 'Header.php';
 

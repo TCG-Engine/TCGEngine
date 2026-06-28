@@ -1,16 +1,16 @@
 <?php
-include_once './MenuBar.php';
-include_once '../AccountFiles/AccountSessionAPI.php';
-include_once '../Database/ConnectionManager.php';
-include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
+include_once __DIR__ . '/MenuBar.php';
+include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
+include_once __DIR__ . '/../../../Database/ConnectionManager.php';
+include_once __DIR__ . '/../../../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 
-include_once './MobileViewport.php';
+include_once __DIR__ . '/MobileViewport.php';
 ?>
-<link rel="stylesheet" href="../SharedUI/css/mobile-responsive.css">
-<script src="../SharedUI/js/mobile-touch.js"></script>
-<script src="../SharedUI/js/pull-to-refresh.js"></script>
-<script src="../SharedUI/js/orientation-handler.js"></script>
-<script src="../SharedUI/js/card-zoom.js"></script>
+<link rel="stylesheet" href="/TCGEngine/SharedUI/css/mobile-responsive.css">
+<script src="/TCGEngine/SharedUI/js/mobile-touch.js"></script>
+<script src="/TCGEngine/SharedUI/js/pull-to-refresh.js"></script>
+<script src="/TCGEngine/SharedUI/js/orientation-handler.js"></script>
+<script src="/TCGEngine/SharedUI/js/card-zoom.js"></script>
 <style>
 .sciFiScroll::-webkit-scrollbar {
   width: 12px;
@@ -109,18 +109,18 @@ function LoadDecks() {
     if($deck["assetStatus"] == 1) { // Check if it's deleted
       $thisDeck = "";
       $title = $deck["assetName"] != "" ? $deck["assetName"] : "Deck #" . $deck["assetIdentifier"] . " (Click to rename)";
-      $thisDeck .= "<tr onclick=\"window.location='../NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck';\" onmouseover=\"this.style.boxShadow='0 0 10px 5px rgba(51, 204, 255, 0.6)'; this.style.transform='scaleY(1.02)';\" onmouseout=\"this.style.boxShadow='none'; this.style.transform='none';\" style='cursor: pointer; transition: all 0.3s ease-in-out;'>";
+      $thisDeck .= "<tr onclick=\"window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck';\" onmouseover=\"this.style.boxShadow='0 0 10px 5px rgba(51, 204, 255, 0.6)'; this.style.transform='scaleY(1.02)';\" onmouseout=\"this.style.boxShadow='none'; this.style.transform='none';\" style='cursor: pointer; transition: all 0.3s ease-in-out;'>";
       $id = "deck" . $deck["assetIdentifier"] . "Title";
       $thisDeck .= "<td style='padding: 3px;'>";
       if (!empty($deck["keyIndicator1"])) {
-        $thisDeck .= "<img src='../SWUDeck/concat/" . $deck["keyIndicator1"] . ".webp' style='height: 80px; cursor:pointer;' title='" . CardTitle($deck["keyIndicator1"]) . "' onclick=\"event.stopPropagation(); window.location='../NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'; return false;\" draggable='false' />";
+        $thisDeck .= "<img src='/TCGEngine/SWUDeck/concat/" . $deck["keyIndicator1"] . ".webp' style='height: 80px; cursor:pointer;' title='" . CardTitle($deck["keyIndicator1"]) . "' onclick=\"event.stopPropagation(); window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'; return false;\" draggable='false' />";
       } else {
         $thisDeck .= "No Leader";
       }
       $thisDeck .= "</td>";
       $thisDeck .= "<td style='padding: 3px;'>";
       if (!empty($deck["keyIndicator2"])) {
-        $thisDeck .= "<img src='../SWUDeck/concat/" . $deck["keyIndicator2"] . ".webp' style='height: 80px; cursor:pointer;' title='" . CardTitle($deck["keyIndicator2"]) . "' onclick=\"event.stopPropagation(); window.location='../NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'; return false;\" draggable='false' />";
+        $thisDeck .= "<img src='/TCGEngine/SWUDeck/concat/" . $deck["keyIndicator2"] . ".webp' style='height: 80px; cursor:pointer;' title='" . CardTitle($deck["keyIndicator2"]) . "' onclick=\"event.stopPropagation(); window.location='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'; return false;\" draggable='false' />";
       } else {
         $thisDeck .= "No Base";
       }
@@ -128,14 +128,21 @@ function LoadDecks() {
       $thisDeck .= "<td style='padding: 3px;'><span id='" . $id . "'><span onclick='event.stopPropagation(); DeckNameClick(\"" . $id . "\")'>" . $title . "</span></span></td>";
       // Desktop action buttons
       $thisDeck .= "<td class='deck-actions-desktop' style='padding: 3px;'>";
-      $thisDeck .= "<button title='Stats' onclick='event.stopPropagation(); window.location.href=\"../$folderPath/DeckStats.php?gameName=" . $deck["assetIdentifier"] . "\"'>";
+      $thisDeck .= "<button title='Stats' onclick='event.stopPropagation(); window.location.href=\"/TCGEngine/$folderPath/DeckStats.php?gameName=" . $deck["assetIdentifier"] . "\"'>";
       $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-bar-chart' viewBox='0 0 16 16'>
     <path d='M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z'/>
     </svg>";
       $thisDeck .= "</button>";
       $thisDeck .= "<button title='Copy Link' onclick='event.stopPropagation(); showCopyOptions(\"" . $deck["assetIdentifier"] . "\", event)'>";
-      $thisDeck .= "<img src='../Assets/Icons/clipboard-check.svg' width='16' height='16' alt='Copy Link' style='filter:invert(100%);' />";
+      $thisDeck .= "<img src='/TCGEngine/Assets/Icons/clipboard-check.svg' width='16' height='16' alt='Copy Link' style='filter:invert(100%);' />";
       $thisDeck .= "</button>";
+      if (CheckLoggedInUserMod() === '') {
+        $thisDeck .= "<button title='Export Card Text JSON' onclick='event.stopPropagation(); ShowCardTextJSON(\"" . $deck["assetIdentifier"] . "\")'>";
+        $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-braces' viewBox='0 0 16 16'>
+    <path d='M2.114 8.063V7.9c1.005-.102 1.497-.615 1.497-1.6V4.503c0-1.094.39-1.538 1.354-1.538h.273V2h-.376C3.25 2 2.49 2.759 2.49 4.352v1.524c0 1.094-.376 1.456-1.49 1.456v1.299c1.114 0 1.49.362 1.49 1.456v1.524c0 1.593.759 2.352 2.372 2.352h.376v-.964h-.273c-.964 0-1.354-.444-1.354-1.538V9.663c0-.984-.492-1.497-1.497-1.6M13.886 7.9v.163c-1.005.103-1.497.616-1.497 1.6v1.798c0 1.094-.39 1.538-1.354 1.538h-.273v.964h.376c1.613 0 2.372-.759 2.372-2.352v-1.524c0-1.094.376-1.456 1.49-1.456V7.332c-1.114 0-1.49-.362-1.49-1.456V4.352C13.51 2.759 12.75 2 11.138 2h-.376v.964h.273c.964 0 1.354.444 1.354 1.538V6.3c0 .984.492 1.497 1.497 1.6'/>
+    </svg>";
+        $thisDeck .= "</button>";
+      }
       if (!is_null($deck["assetSource"]) && !is_null($deck["assetSourceID"])) {
       $thisDeck .= "<button title='Refresh' onclick='event.stopPropagation(); RefreshDeck(\"" . $deck["assetIdentifier"] . "\", " . $deck["assetSource"] . ", \"" . $deck["assetSourceID"] . "\", event)'>";
       $thisDeck .= "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-arrow-clockwise' viewBox='0 0 16 16'>
@@ -153,11 +160,11 @@ function LoadDecks() {
       }
       if($deck["assetFolder"] == 0) {
         $thisDeck .= "<button title='Favorite' onclick='event.stopPropagation(); MoveDeck(\"" . $id . "\", 1)'>";
-        $thisDeck .= "<img src='../Assets/Icons/heart.svg' width='16' height='16' alt='Favorite' style='filter: invert(100%);' />";
+        $thisDeck .= "<img src='/TCGEngine/Assets/Icons/heart.svg' width='16' height='16' alt='Favorite' style='filter: invert(100%);' />";
         $thisDeck .= "</button>";
       } else if($deck["assetFolder"] == 1) {
         $thisDeck .= "<button title='Favorite' onclick='event.stopPropagation(); MoveDeck(\"" . $id . "\", 0)'>";
-        $thisDeck .= "<img src='../Assets/Icons/heart-fill.svg' width='16' height='16' alt='Favorite' style='filter: invert(100%);' />";
+        $thisDeck .= "<img src='/TCGEngine/Assets/Icons/heart-fill.svg' width='16' height='16' alt='Favorite' style='filter: invert(100%);' />";
         $thisDeck .= "</button>";
       }
       $thisDeck .= "<button title='Delete' onclick='event.stopPropagation(); DeleteDeck(\"" . $id . "\")'>";
@@ -192,16 +199,16 @@ function LoadDecks() {
       echo("<tr style='border-bottom: 1px solid #002249; padding: 3px;'>");
       $id = "deck" . $deck["assetIdentifier"] . "Title";
       echo("<td style='padding: 3px;'><span id='" . $id . "'>" . $title . "</span></td>");
-      echo("<td title='View' style='padding: 3px;'><button onclick=\"window.location.href='../NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'\">");
+      echo("<td title='View' style='padding: 3px;'><button onclick=\"window.location.href='/TCGEngine/NextTurn.php?gameName=" . $deck["assetIdentifier"] . "&playerID=1&folderPath=SWUDeck'\">");
       echo("<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-eye' viewBox='0 0 16 16'><path d='M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM8 3a5 5 0 0 1 0 10A5 5 0 0 1 8 3z'/><path d='M8 5a3 3 0 1 0 0 6A3 3 0 0 0 8 5z'/></svg>");
       echo("</button></td>");
-      echo("<td title='Stats' style='padding: 3px;'><button onclick='window.location.href=\"../$folderPath/DeckStats.php?gameName=" . $deck["assetIdentifier"] . "\"'>");
+      echo("<td title='Stats' style='padding: 3px;'><button onclick='window.location.href=\"/TCGEngine/$folderPath/DeckStats.php?gameName=" . $deck["assetIdentifier"] . "\"'>");
       echo("<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-bar-chart' viewBox='0 0 16 16'>
       <path d='M4 11H2v3h2zm5-4H7v7h2zm5-5v12h-2V2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1z'/>
       </svg>");
       echo("</button></td>");
       echo("<td title='Copy Link' style='padding: 3px;'><button onclick='CopyDeckLink(\"" . $deck["assetIdentifier"] . "\", event)'>");
-      echo("<img src='../Assets/Icons/clipboard-check.svg' width='16' height='16' alt='Copy Link' style='filter:invert(100%);' />");
+      echo("<img src='/TCGEngine/Assets/Icons/clipboard-check.svg' width='16' height='16' alt='Copy Link' style='filter:invert(100%);' />");
       echo("</button></td>");
       echo("</tr>");
       }
@@ -375,7 +382,7 @@ function LoadDecks() {
 
     function CopyDeckJSON(deckID, event) {
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "../APIs/LoadDeck.php?deckID=" + deckID + "&setId=true", true);
+      xhr.open("GET", "/TCGEngine/APIs/LoadDeck.php?deckID=" + deckID + "&setId=true", true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           var deckJSON = JSON.parse(xhr.responseText);
@@ -393,7 +400,7 @@ function LoadDecks() {
 
     function CopyDeckText(deckID, event) {
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "../APIs/LoadDeck.php?deckID=" + deckID + "&format=text", true);
+      xhr.open("GET", "/TCGEngine/APIs/LoadDeck.php?deckID=" + deckID + "&format=text", true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           var tempInput = document.createElement("textarea");
@@ -434,7 +441,7 @@ function LoadDecks() {
 
     async function CopyDeckImage(deckID, event) {
       try {
-        const response = await fetch(`../SWUDeck/CreateImage.php?gameName=${deckID}`);
+        const response = await fetch(`/TCGEngine/SWUDeck/CreateImage.php?gameName=${deckID}`);
         if (!response.ok) {
           showFlashMessage("Failed to load image!", event);
           return;
@@ -487,7 +494,7 @@ function LoadDecks() {
     var el = document.getElementById(id);
     el.innerHTML = "<span onclick='DeckNameClick(\"" + id + "\")'>" + newName + "</span>";
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../AccountFiles/RenameAsset.php?assetID=" + id.replace("deck", "").replace("Title", "") + "&newName=" + encodeURIComponent(newName) + "&assetType=1", true);
+    xhr.open("GET", "/TCGEngine/AccountFiles/RenameAsset.php?assetID=" + id.replace("deck", "").replace("Title", "") + "&newName=" + encodeURIComponent(newName) + "&assetType=1", true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
         console.log("Deck name updated successfully");
@@ -499,7 +506,7 @@ function LoadDecks() {
     if (confirm("Are you sure you want to delete this deck?")) {
       var deckID = id.replace("deck", "").replace("Title", "");
       var xhr = new XMLHttpRequest();
-      xhr.open("GET", "../AccountFiles/DeleteAsset.php?assetID=" + deckID + "&assetType=1", true);
+      xhr.open("GET", "/TCGEngine/AccountFiles/DeleteAsset.php?assetID=" + deckID + "&assetType=1", true);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
           console.log("Deck deleted successfully");
@@ -512,7 +519,7 @@ function LoadDecks() {
   function MoveDeck(id, folderID) {
     var deckID = id.replace("deck", "").replace("Title", "");
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "../AccountFiles/MoveAsset.php?assetID=" + deckID + "&assetType=1&folderID=" + folderID, true);
+    xhr.open("GET", "/TCGEngine/AccountFiles/MoveAsset.php?assetID=" + deckID + "&assetType=1&folderID=" + folderID, true);
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4 && xhr.status === 200) {
         console.log("Deck moved successfully");
@@ -521,6 +528,28 @@ function LoadDecks() {
     };
     xhr.send();
   }
+
+  function applyDeckSort(value) {
+    localStorage.setItem('deckSort', value);
+    var url = new URL(window.location.href);
+    url.searchParams.set('deckSort', value);
+    window.location.href = url.toString();
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var urlParam = new URLSearchParams(window.location.search).get('deckSort');
+    var stored = localStorage.getItem('deckSort');
+    var sel = document.getElementById('deckSortSelect');
+    if (!sel) return;
+    // URL param wins (PHP already sorted by it); otherwise restore from localStorage
+    if (urlParam) {
+      sel.value = urlParam;
+    } else if (stored) {
+      sel.value = stored;
+      // re-apply sort so the order matches what localStorage wants
+      applyDeckSort(stored);
+    }
+  });
 
   function filterDecks() {
     var input = document.getElementById("deckSearchInput");
@@ -540,27 +569,6 @@ function LoadDecks() {
       }
     }
   }
-
-  function applyDeckSort(value) {
-    localStorage.setItem('deckSort', value);
-    var url = new URL(window.location.href);
-    url.searchParams.set('deckSort', value);
-    window.location.href = url.toString();
-  }
-
-  // Restore sort select state from URL param (set by PHP) or localStorage
-  (function() {
-    var params = new URLSearchParams(window.location.search);
-    var sort = params.get('deckSort') || localStorage.getItem('deckSort') || 'id_desc';
-    var sel = document.getElementById('deckSortSelect');
-    if (sel) sel.value = sort;
-    // If localStorage had a value but URL didn't, sync the URL silently
-    if (!params.get('deckSort') && sort !== 'id_desc') {
-      var url = new URL(window.location.href);
-      url.searchParams.set('deckSort', sort);
-      history.replaceState(null, '', url.toString());
-    }
-  })();
 
   // Dropdown for mobile deck actions
   function showDeckDropdown(btn, id, deckID, assetSource, assetSourceID, assetFolder, canRefresh) {
@@ -599,12 +607,12 @@ function LoadDecks() {
       copy: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-clipboard2-check' viewBox='0 0 16 16'><path d='M9.5 0a.5.5 0 0 1 .5.5.5.5 0 0 0 .5.5.5.5 0 0 1 .5.5V2a.5.5 0 0 1-.5.5h-5A.5.5 0 0 1 5 2v-.5a.5.5 0 0 1 .5-.5.5.5 0 0 0 .5-.5.5.5 0 0 1 .5-.5z'/><path d='M3 2.5a.5.5 0 0 1 .5-.5H4a.5.5 0 0 0 0-1h-.5A1.5 1.5 0 0 0 2 2.5v12A1.5 1.5 0 0 0 3.5 16h9a1.5 1.5 0 0 0 1.5-1.5v-12A1.5 1.5 0 0 0 12.5 1H12a.5.5 0 0 0 0 1h.5a.5.5 0 0 1 .5.5v12a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5z'/><path d='M10.854 7.854a.5.5 0 0 0-.708-.708L7.5 9.793 6.354 8.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0z'/></svg>`,
       refresh: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-arrow-clockwise' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2z'/><path d='M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466'/></svg>`,
       favorite: assetFolder == 1
-        ? `<img src='../Assets/Icons/heart-fill.svg' width='18' height='18' style='vertical-align:middle;margin-right:10px;filter:invert(100%);' alt='Unfavorite' />`
-        : `<img src='../Assets/Icons/heart.svg' width='18' height='18' style='vertical-align:middle;margin-right:10px;filter:invert(100%);' alt='Favorite' />`,
+        ? `<img src='/TCGEngine/Assets/Icons/heart-fill.svg' width='18' height='18' style='vertical-align:middle;margin-right:10px;filter:invert(100%);' alt='Unfavorite' />`
+        : `<img src='/TCGEngine/Assets/Icons/heart.svg' width='18' height='18' style='vertical-align:middle;margin-right:10px;filter:invert(100%);' alt='Favorite' />`,
       delete: `<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='currentColor' style='vertical-align:middle;margin-right:10px;' class='bi bi-trash3' viewBox='0 0 16 16'><path d='M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5'/><path d='M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1Z'/><path d='M12.958 3l-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5ZM2.565 4.5a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L2.095 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5'/></svg>`
     };
     menu.innerHTML = `
-      <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); window.location.href="../SWUDeck/DeckStats.php?gameName=${deckID}";'>${icons.stats}Stats</button>
+      <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); window.location.href="/TCGEngine/SWUDeck/DeckStats.php?gameName=${deckID}";'>${icons.stats}Stats</button>
       ${window.innerWidth <= 768 ? `
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckLink("${deckID}", event); showFlashMessage("Link copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Link</button>
         <button style='width:100%;background:none;border:none;color:#fff;padding:10px 16px;text-align:left;display:flex;align-items:center;' onclick='event.stopPropagation(); CopyDeckText("${deckID}", event); showFlashMessage("Text copied!", event); if(document.getElementById("deckDropdownMenu"))document.getElementById("deckDropdownMenu").remove();'>${icons.copy}Copy Text</button>
@@ -641,10 +649,88 @@ function LoadDecks() {
     }
     window.addEventListener('scroll', removeMenuOnScroll, true);
   }
+
+  async function ShowCardTextJSON(deckID) {
+    // Show loading state
+    var modal = document.createElement('div');
+    modal.id = 'cardTextJsonModal';
+    modal.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:5000;display:flex;align-items:center;justify-content:center;';
+    modal.innerHTML = '<div style="background:#001833;border:1px solid #2a4b8d;border-radius:8px;padding:20px;width:min(680px,92vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 0 30px rgba(0,60,120,0.6);">' +
+      '<div style="color:#aac8ff;font-size:16px;text-align:center;padding:20px;">Loading card text...</div>' +
+      '</div>';
+    document.body.appendChild(modal);
+
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeCardTextJsonModal();
+    });
+    document.addEventListener('keydown', function escHandler(e) {
+      if (e.key === 'Escape') { closeCardTextJsonModal(); document.removeEventListener('keydown', escHandler); }
+    });
+
+    try {
+      var resp = await fetch('/TCGEngine/SWUDeck/GetCardTextJSON.php?deckID=' + encodeURIComponent(deckID));
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      var data = await resp.json();
+      if (data.error) throw new Error(data.error);
+
+      var jsonText = JSON.stringify(data, null, 2);
+
+      var inner = document.querySelector('#cardTextJsonModal > div');
+      inner.innerHTML =
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">' +
+          '<span style="color:#aac8ff;font-size:15px;font-weight:bold;">' + data.length + ' unique card(s)</span>' +
+          '<div style="display:flex;gap:8px;">' +
+            '<button onclick="copyCardTextJson()" style="background:#1a4a8a;color:#fff;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:13px;" onmouseover="this.style.background=\'#2a5aaa\'" onmouseout="this.style.background=\'#1a4a8a\'">Copy</button>' +
+            '<button onclick="downloadCardTextJson()" style="background:#1a4a8a;color:#fff;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:13px;" onmouseover="this.style.background=\'#2a5aaa\'" onmouseout="this.style.background=\'#1a4a8a\'">Download</button>' +
+            '<button onclick="closeCardTextJsonModal()" style="background:#5a1a1a;color:#fff;border:none;padding:5px 12px;border-radius:5px;cursor:pointer;font-size:13px;" onmouseover="this.style.background=\'#7a2a2a\'" onmouseout="this.style.background=\'#5a1a1a\'">Close</button>' +
+          '</div>' +
+        '</div>' +
+        '<textarea id="cardTextJsonContent" readonly style="flex:1;width:100%;box-sizing:border-box;background:#000c1a;color:#cce0ff;border:1px solid #2a4b8d;border-radius:4px;padding:10px;font-family:monospace;font-size:12px;resize:none;min-height:400px;outline:none;">' +
+          jsonText.replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+        '</textarea>';
+      inner.style.cssText = 'background:#001833;border:1px solid #2a4b8d;border-radius:8px;padding:20px;width:min(680px,92vw);max-height:80vh;display:flex;flex-direction:column;box-shadow:0 0 30px rgba(0,60,120,0.6);';
+
+      // Store for copy/download
+      window._cardTextJsonData = jsonText;
+      window._cardTextJsonDeckID = deckID;
+    } catch (err) {
+      var inner = document.querySelector('#cardTextJsonModal > div');
+      inner.innerHTML = '<div style="color:#ff8888;text-align:center;padding:20px;">Error: ' + err.message + '</div>' +
+        '<div style="text-align:center;margin-top:10px;"><button onclick="closeCardTextJsonModal()" style="background:#5a1a1a;color:#fff;border:none;padding:5px 14px;border-radius:5px;cursor:pointer;">Close</button></div>';
+    }
+  }
+
+  function closeCardTextJsonModal() {
+    var m = document.getElementById('cardTextJsonModal');
+    if (m) m.parentNode.removeChild(m);
+  }
+
+  function copyCardTextJson() {
+    var ta = document.getElementById('cardTextJsonContent');
+    if (!ta) return;
+    navigator.clipboard.writeText(window._cardTextJsonData || ta.value).then(function() {
+      showFlashMessage('Card text JSON copied!', null);
+    }).catch(function() {
+      ta.select();
+      document.execCommand('copy');
+      showFlashMessage('Card text JSON copied!', null);
+    });
+  }
+
+  function downloadCardTextJson() {
+    var text = window._cardTextJsonData || '';
+    var blob = new Blob([text], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'deck-' + (window._cardTextJsonDeckID || 'cards') + '-text.json';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(function() { document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 100);
+  }
 </script>
 
 <div class="pageContainer">
-<?php include_once 'Header.php'; ?>
+<?php include_once __DIR__ . '/Header.php'; ?>
   <div class="core-wrapper">
     <!-- Left pane: Deck List -->
     <div class="left-pane">
@@ -665,11 +751,11 @@ function LoadDecks() {
               $isRebelResourcePatron = IsPatron("12716027");
               $isStubbHubbPatron = IsPatron("13088942");
               $isStarWarzDadPatron = IsPatron("12636483");
-              echo("<button style='padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-ktod', event)\"><img src='../Assets/Images/logos/KTODLogo.webp' alt='KTOD' style='height: 15px;'></button>");
-              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-rebel', event)\"><img src='../Assets/Images/logos/RebelResourceLogo.webp' alt='Rebel Resource' style='height: 15px;'></button>");
-              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-L8Night', event)\"><img src='../Assets/Images/logos/L8NightBanner.webp' alt='L8 Night Gaming' style='height: 15px; '></button>");
-              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-StubbHub', event)\"><img src='../Assets/Images/logos/StubbHub.webp' alt='Stubb Hub' style='height: 15px; '></button>");
-              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-StarWarzDad', event)\"><img src='../Assets/Images/logos/StarWarzDad.webp' alt='Force Fam' style='height: 15px; '></button>");
+              echo("<button style='padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-ktod', event)\"><img src='/TCGEngine/Assets/Images/logos/KTODLogo.webp' alt='KTOD' style='height: 15px;'></button>");
+              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-rebel', event)\"><img src='/TCGEngine/Assets/Images/logos/RebelResourceLogo.webp' alt='Rebel Resource' style='height: 15px;'></button>");
+              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-L8Night', event)\"><img src='/TCGEngine/Assets/Images/logos/L8NightBanner.webp' alt='L8 Night Gaming' style='height: 15px; '></button>");
+              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-StubbHub', event)\"><img src='/TCGEngine/Assets/Images/logos/StubbHub.webp' alt='Stubb Hub' style='height: 15px; '></button>");
+              echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-StarWarzDad', event)\"><img src='/TCGEngine/Assets/Images/logos/StarWarzDad.webp' alt='Force Fam' style='height: 15px; '></button>");
               ?>
             </div>
             <div style="display: flex; align-items: center; gap: 10px;">
@@ -694,16 +780,18 @@ function LoadDecks() {
                             border: 1px solid #2a4b8d; border-radius: 4px;"
                       onkeyup="filterDecks()">
               </div>
+              <?php
+                $allowedSortKeys = ['id_desc','id_asc','updated_desc','updated_asc','alpha_asc','alpha_desc'];
+                $activeSortKey = isset($_GET['deckSort']) && in_array($_GET['deckSort'], $allowedSortKeys) ? $_GET['deckSort'] : null;
+                $sortLabels = ['id_desc'=>'Date Created (Newest)','id_asc'=>'Date Created (Oldest)','updated_desc'=>'Last Updated (Recent)','updated_asc'=>'Last Updated (Oldest)','alpha_asc'=>'Alphabetical (A&rarr;Z)','alpha_desc'=>'Alphabetical (Z&rarr;A)'];
+              ?>
               <div style="display:flex; align-items:center; gap:6px; margin:6px 0 4px;">
                 <label for="deckSortSelect" style="font-size:13px; color:#aac; white-space:nowrap;">Sort by:</label>
                 <select id="deckSortSelect" onchange="applyDeckSort(this.value)"
                   style="flex:1; padding:5px 8px; background:#002249; color:#fff; border:1px solid #2a4b8d; border-radius:4px; font-size:13px;">
-                  <option value="id_desc">Date Created (Newest)</option>
-                  <option value="id_asc">Date Created (Oldest)</option>
-                  <option value="updated_desc">Last Updated (Recent)</option>
-                  <option value="updated_asc">Last Updated (Oldest)</option>
-                  <option value="alpha_asc">Alphabetical (A→Z)</option>
-                  <option value="alpha_desc">Alphabetical (Z→A)</option>
+                  <?php foreach($sortLabels as $val => $label): ?>
+                  <option value="<?= $val ?>"<?= ($activeSortKey === $val) ? ' selected' : '' ?>><?= $label ?></option>
+                  <?php endforeach; ?>
                 </select>
               </div>
               <div><?php LoadDecks(); ?></div>
@@ -785,7 +873,7 @@ function LoadDecks() {
       </div>
     </div>
   </div> <!-- Close core-wrapper div -->
-  <?php include_once './Disclaimer.php'; ?>
+  <?php include_once __DIR__ . '/Disclaimer.php'; ?>
 </div> <!-- Close pageContainer div -->
 
 <script>
@@ -806,7 +894,7 @@ function LoadDecks() {
 
 <script>
   function createDeck() {
-    window.location.href = "../SWUDeck/CreateDeck.php";
+    window.location.href = "/TCGEngine/SWUDeck/CreateDeck.php";
   }
 
   function importDeck() {
@@ -841,7 +929,7 @@ function LoadDecks() {
   function importDeckLink() {
     var deckLink = document.getElementById("deckLinkInput").value;
     if (deckLink !== "") {
-      window.location.href = "../SWUDeck/CreateDeck.php?deckLink=" + encodeURIComponent(deckLink);
+      window.location.href = "/TCGEngine/SWUDeck/CreateDeck.php?deckLink=" + encodeURIComponent(deckLink);
     } else {
       alert("Enter a deck link to import");
     }

@@ -8956,11 +8956,20 @@ $whenPlayedAbilities["ASH_148:0"] = function($player, $mzID) {
     foreach (GetHand($opp) as $c) { if (empty($c->removed)) $handCount++; }
     if ($handCount === 0) return;   // no card to discard → no damage
     SWUDiscardCards(intval($player), 1);   // opponent discards 1
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_148#0", 1);
+    // The follow-up must run AFTER the discard so it can read the discarded card's cost. When the
+    // opponent holds exactly 1 card SWUDiscardCards resolves synchronously, so the follow-up goes on
+    // the controller's own queue (drained as part of this action). When they hold 2+ cards their
+    // choice is queued on THEIR queue; queue the follow-up there too (FIFO → after the discard) so it
+    // can't fire first and read an empty discard. Either way carry the controller in $parts[0].
+    if ($handCount > 1)
+        DecisionQueueController::AddDecision($opp, "CUSTOM", "ASH_148#0|" . intval($player), 1);
+    else
+        DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_148#0|" . intval($player), 1);
 };
-$customDQHandlers["ASH_148#0"] = function($player, $parts, $lastDecision) {
-    global $playerID; $playerID = intval($player);
-    $opp = OtherPlayer(intval($player));
+$customDQHandlers["ASH_148#0"] = function($queueOwner, $parts, $lastDecision) {
+    $player = intval($parts[0] ?? $queueOwner);   // the ASH_148 controller (deals the damage)
+    global $playerID; $playerID = $player;
+    $opp = OtherPlayer($player);
     $discard = GetDiscard($opp);
     $cost = -1;
     for ($i = count($discard) - 1; $i >= 0; $i--) {   // the just-discarded card = last non-removed entry

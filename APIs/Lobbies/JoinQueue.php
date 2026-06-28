@@ -4,6 +4,10 @@
   require_once "../../Core/HTTPLibraries.php";
   require_once "./Classes/Player.php";
 
+  // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
+  if (session_status() === PHP_SESSION_NONE) { @session_start(); }
+  $joiningUserId = isset($_SESSION['userid']) ? (int)$_SESSION['userid'] : null;
+
   $response = new stdClass();
   
   if(!isset($_POST['rootName'])) {
@@ -25,6 +29,15 @@
     if(is_file($azukiDeckImportPath)) {
       include_once $azukiDeckImportPath;
     }
+  } else if($rootName === 'SWUSim') {
+    $swuDeckImportPath = __DIR__ . '/../../SWUSim/Custom/DeckImport.php';
+    if(is_file($swuDeckImportPath)) {
+      include_once $swuDeckImportPath;
+    }
+    $swuMatchFlowPath = __DIR__ . '/../../SWUSim/MatchFlow.php';
+    if(is_file($swuMatchFlowPath)) {
+      include_once $swuMatchFlowPath;
+    }
   }
 
   $deckLink = isset($_POST['deckLink']) ? $_POST['deckLink'] : '';
@@ -32,6 +45,14 @@
   $createPrivate = isset($_POST['createPrivate']) && ($_POST['createPrivate'] === '1' || strtolower($_POST['createPrivate']) === 'true');
   $createGoldfish = isset($_POST['createGoldfish']) && ($_POST['createGoldfish'] === '1' || strtolower($_POST['createGoldfish']) === 'true');
   $privateInviteCode = isset($_POST['privateInviteCode']) ? trim($_POST['privateInviteCode']) : '';
+
+  $format = isset($_POST['format']) ? strtolower(trim($_POST['format'])) : 'premier';
+  $queueType = isset($_POST['queueType']) ? strtolower(trim($_POST['queueType'])) : 'bo1';
+  // Guard: for SWUSim, fall back to safe defaults on unknown/garbage. (Other roots ignore these.)
+  if ($rootName === 'SWUSim') {
+    if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
+    if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
+  }
 
   // Require either deckLink or preconstructedDeck
   if(empty($deckLink) && empty($preconstructedDeck)) {
@@ -55,7 +76,7 @@
   $response->message = "Failed to join queue.";
 
   if ($createGoldfish) {
-    $hostPlayer = new Player(1, $deckLink, $preconstructedDeck);
+    $hostPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
     $goldfishPlayer = new Player(2, '', '');
 
     $lobby = new stdClass();
@@ -64,12 +85,20 @@
     $lobby->ready = true;
     $lobby->id = uniqid('goldfish_', true);
     $lobby->rootName = $rootName;
+    $lobby->format = $format;
+    $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
     $lobby->isGoldfish = true;
     $lobby->goldfishPlayers = [2];
     $lobby->players = [$hostPlayer, $goldfishPlayer];
 
-    include '../../' . $rootName . '/CreateGame.php';
+    // SWUSim's CreateGame is pre-included via MatchFlow (functions already defined),
+    // so call SWUSetupGame directly rather than re-`include` (which would redeclare).
+    if ($rootName === 'SWUSim' && function_exists('SWUSetupGame')) {
+      SWUSetupGame($lobby);
+    } else {
+      include '../../' . $rootName . '/CreateGame.php';
+    }
 
     $response->success = true;
     $response->message = "Successfully created goldfish game.";
@@ -98,6 +127,8 @@
         if ($lobby === false || !is_object($lobby)) continue;
         if (!isset($lobby->id, $lobby->numPlayers, $lobby->maxPlayers, $lobby->rootName)) continue;
         if ($lobby->rootName !== $rootName) continue;
+        if (($lobby->format ?? 'premier') !== $format) continue;
+        if (($lobby->queueType ?? 'bo1') !== $queueType) continue;
         if (!isset($lobby->isPrivate) || !$lobby->isPrivate) continue;
         if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
         if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
@@ -107,11 +138,15 @@
           $lobby->ready = true;
         }
         $playerID = $lobby->numPlayers;
-        $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck);
+        $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
         $lobby->players[] = $newPlayer;
 
         if ($lobby->ready) {
-          include_once '../../' . $rootName . '/CreateGame.php';
+          if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
+            SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
+          } else {
+            include_once '../../' . $rootName . '/CreateGame.php';
+          }
         }
         if ($lobby->ready && isset($lobby->gameName) && $lobby->gameName !== '') {
           RegisterActiveGame($rootName, strval($lobby->gameName), true);
@@ -150,9 +185,11 @@
     $lobby->ready = false;
     $lobby->id = $lobbyId;
     $lobby->rootName = $rootName;
+    $lobby->format = $format;
+    $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
     $lobby->inviteCode = bin2hex(random_bytes(12));
-    $newPlayer = new Player(1, $deckLink, $preconstructedDeck);
+    $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
     $lobby->players = array($newPlayer);
 
     apcu_store($lobbyId, $lobby, $ttl);
@@ -180,6 +217,8 @@
             $lobby &&
             isset($lobby->numPlayers, $lobby->maxPlayers, $lobby->rootName) &&
             $lobby->rootName === $rootName &&
+            (($lobby->format ?? 'premier') === $format) &&
+            (($lobby->queueType ?? 'bo1') === $queueType) &&
             (!isset($lobby->isPrivate) || !$lobby->isPrivate) &&
             intval($lobby->numPlayers) < intval($lobby->maxPlayers)
           ) {
@@ -188,10 +227,14 @@
                   $lobby->ready = true;
               }
               $playerID = $lobby->numPlayers;
-              $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck);
+              $newPlayer = new Player($playerID, $deckLink, $preconstructedDeck, $joiningUserId);
               $lobby->players[] = $newPlayer;
               if($lobby->ready) {
-                include_once '../../' . $rootName . '/CreateGame.php';
+                if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
+                  SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
+                } else {
+                  include_once '../../' . $rootName . '/CreateGame.php';
+                }
               }
               if ($lobby->ready && isset($lobby->gameName) && $lobby->gameName !== '') {
                 RegisterActiveGame($rootName, strval($lobby->gameName), false);
@@ -225,8 +268,10 @@
       $lobby->ready = false;
       $lobby->id = $lobbyId;
       $lobby->rootName = $rootName;
+      $lobby->format = $format;
+      $lobby->queueType = $queueType;
       $lobby->isPrivate = false;
-      $newPlayer = new Player(1, $deckLink, $preconstructedDeck);
+      $newPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
       $lobby->players = array($newPlayer);
 
       apcu_store($lobbyId, $lobby, $ttl);
@@ -275,6 +320,25 @@
         return AzukiValidateDeckForQueue($deckLink, $preconstructedDeck);
       } catch (Throwable $e) {
         error_log('AzukiSim queue deck validation failed: ' . $e->getMessage());
+        return [
+          'success' => false,
+          'message' => 'Could not validate deck input. Please try again.'
+        ];
+      }
+    }
+
+    if($rootName === 'SWUSim') {
+      if(!function_exists('SWUValidateDeckForQueue')) {
+        return [
+          'success' => false,
+          'message' => 'Deck validation is temporarily unavailable.'
+        ];
+      }
+
+      try {
+        return SWUValidateDeckForQueue($deckLink, $preconstructedDeck);
+      } catch (Throwable $e) {
+        error_log('SWUSim queue deck validation failed: ' . $e->getMessage());
         return [
           'success' => false,
           'message' => 'Could not validate deck input. Please try again.'

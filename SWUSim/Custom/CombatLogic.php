@@ -48,6 +48,15 @@ function SWUQueueDamageAnim(string $relMzID, int $amount, int $perspective): voi
     $abs = ConvertMzIDToAbsolute($relMzID, intval($perspective));
     if ($abs === '') return;
     QueueDamageAnimation($abs, intval($amount));
+    // Telemetry: this is the universal damage-application hook (base + combat + ability all route here).
+    // The absolute mzID is p1/p2-prefixed, so it identifies the seat that took the damage.
+    if (function_exists('SWUTelemetryBumpTurn')) {
+        $taker = (strpos($abs, 'p1') === 0) ? 1 : ((strpos($abs, 'p2') === 0) ? 2 : 0);
+        if ($taker === 1 || $taker === 2) {
+            SWUTelemetryBumpTurn($taker, 'damageTaken', intval($amount));
+            SWUTelemetryBumpTurn(($taker === 1) ? 2 : 1, 'damageDealt', intval($amount));
+        }
+    }
 }
 
 function SWUQueueHealAnim(string $relMzID, int $actualHealed, int $perspective): void {
@@ -178,9 +187,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null) {
         $baseHP = intval(CardHp($base[$i]->CardID));
         if ($base[$i]->Damage >= $baseHP) {
             $winner = $targetPlayer === 1 ? 2 : 1;
-            global $gWinner;
-            $gWinner = $winner;
-            SetFlashMessage("GAMEOVER:Player {$targetPlayer}'s base has been defeated! Player {$winner} wins!");
+            SWUDeclareGameWinner($winner, "GAMEOVER:Player {$targetPlayer}'s base has been defeated! Player {$winner} wins!");
         }
         break;
     }
@@ -504,6 +511,7 @@ function OnHealUnit($player, $mzCard, $amount) {
     $obj->Damage = max(0, $before - intval($amount));
     $healed = $before - intval($obj->Damage);
     SWUQueueHealAnim($mzCard, $healed, intval($player));
+    if ($healed > 0 && function_exists('SWUTelemetryBumpTurn')) SWUTelemetryBumpTurn($player, 'restored', $healed);
     // Reactive "When 1 or more damage is healed from this unit" (JTL_062 Silver Angel, LAW_047 Baze).
     if ($healed >= 1 && function_exists('_SWUOnUnitHealed')) _SWUOnUnitHealed($obj, $healed);
 }
@@ -518,7 +526,9 @@ function OnHealBase($player, $targetPlayer, $amount) {
         if (isset($base[$i]->removed) && $base[$i]->removed) continue;
         $before = intval($base[$i]->Damage);
         $base[$i]->Damage = max(0, $before - intval($amount));
-        SWUQueueHealAnim("myBase-0", $before - intval($base[$i]->Damage), intval($targetPlayer));
+        $_healedBase = $before - intval($base[$i]->Damage);
+        SWUQueueHealAnim("myBase-0", $_healedBase, intval($targetPlayer));
+        if ($_healedBase > 0 && function_exists('SWUTelemetryBumpTurn')) SWUTelemetryBumpTurn(intval($targetPlayer), 'restored', $_healedBase);
         break;
     }
 }
@@ -1127,7 +1137,7 @@ function CollectAfterAttackTriggers($activePlayer, $attackerMzID, $defenderMzID,
     // handler, AFTER this attack's full trigger resolution. If no trigger flush queued a resume,
     // queue a bare one so the chained attack still fires and SWUAfterAction stays deferred until then.
     if ($flushed === 0 && (GetSWUVar('SWU_CHAINED_ATTACK', '') !== '' || GetSWUVar('SWU_MONMOTHMA_LOOP', '') !== '')) {
-        DecisionQueueController::AddDecision($activePlayer, "CUSTOM", "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
+        _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}", 20);
     }
 }
 
@@ -1262,9 +1272,7 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
     $triggered = FlushCombatTriggerBag($player, $attackerMzID, $targetMzID);
     if ($triggered === 0) {
         $attackerUID = intval($attacker->UniqueID ?? 0);
-        DecisionQueueController::AddDecision(
-            $player, "CUSTOM", "SWUCombatDamage|{$attackerMzID}|{$targetMzID}|{$attackerUID}", 1
-        );
+        _SWUQueueOrchestration($player, "SWUCombatDamage|{$attackerMzID}|{$targetMzID}|{$attackerUID}", 1);
     }
     // $triggered >= 1: the COMBAT continuation in SWU_TRIGGER_RESUME queues SWUCombatDamage.
 

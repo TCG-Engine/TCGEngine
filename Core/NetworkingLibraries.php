@@ -295,4 +295,12 @@ function TouchActiveGame($rootName, $gameName)
   WriteActiveGameIndex($index);
 }
 
+function RemoveActiveGame($rootName, $gameName)
+{
+  if($rootName === "" || $gameName === "") return;
+  $key = strval($rootName) . ":" . strval($gameName);
+  $index = ReadActiveGameIndex();
+  if(isset($index[$key])) { unset($index[$key]); WriteActiveGameIndex($index); }
+}
+
 ?>

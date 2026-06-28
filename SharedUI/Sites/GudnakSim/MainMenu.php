@@ -2,7 +2,9 @@
 include_once './MenuBar.php';
 include_once '../../../AccountFiles/AccountSessionAPI.php';
 include_once '../../../Database/ConnectionManager.php';
-include_once '../../../RBDeck/GeneratedCode/GeneratedCardDictionaries.php';
+if (file_exists(__DIR__ . '/../../../RBDeck/GeneratedCode/GeneratedCardDictionaries.php')) {
+    include_once __DIR__ . '/../../../RBDeck/GeneratedCode/GeneratedCardDictionaries.php';
+}
 
 include_once 'Header.php';
 

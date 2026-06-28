@@ -207,6 +207,127 @@ function addFavoriteDeck($userID, $decklink, $deckName, $heroID, $format = "")
 	mysqli_close($conn);
 }
 
+// ─── Saved deck links (SWUSim profile/MainMenu library) ──────────────────────
+// Identity is (usersId, decklink) — the table's dual PK. Raw-JSON decks use
+// decklink = 'raw:'+sha1(content) with the base64 JSON in deckContent.
+
+function AddSavedDeck($userID, $decklink, $name, $heroID, $baseId, $format, $deckContent = null) {
+    if ($userID == "") return false;
+    $conn = GetLocalMySQLConnection();
+    $sql = "INSERT INTO favoritedeck (decklink, usersId, name, hero, baseId, format, deckContent)
+            VALUES (?,?,?,?,?,?,?)
+            ON DUPLICATE KEY UPDATE name=VALUES(name), hero=VALUES(hero), baseId=VALUES(baseId),
+                                    format=VALUES(format), deckContent=VALUES(deckContent)";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) { $conn->close(); return false; }
+    $stmt->bind_param("sisssss", $decklink, $userID, $name, $heroID, $baseId, $format, $deckContent);
+    $ok = $stmt->execute();
+    $stmt->close(); $conn->close();
+    return (bool)$ok;
+}
+
+function LoadSavedDecks($userID) {
+    if ($userID == "") return [];
+    $conn = GetLocalMySQLConnection();
+    $sql = "SELECT decklink, name, hero, baseId, format, isFavorite, wins, losses, lastUsed, deckContent
+            FROM favoritedeck WHERE usersId=?
+            ORDER BY isFavorite DESC, lastUsed DESC, name ASC";
+    $stmt = $conn->prepare($sql);
+    $out = [];
+    if ($stmt) {
+        $stmt->bind_param("i", $userID);
+        $stmt->execute();
+        $res = $stmt->get_result();
+        while ($row = $res->fetch_assoc()) $out[] = $row;
+        $stmt->close();
+    }
+    $conn->close();
+    return $out;
+}
+
+function SetSavedDeckFavorite($userID, $decklink, $fav) {
+    $conn = GetLocalMySQLConnection();
+    $stmt = $conn->prepare("UPDATE favoritedeck SET isFavorite=? WHERE decklink=? AND usersId=?");
+    if (!$stmt) { $conn->close(); return false; }
+    $fav = $fav ? 1 : 0;
+    $stmt->bind_param("isi", $fav, $decklink, $userID);
+    $ok = $stmt->execute(); $stmt->close(); $conn->close();
+    return (bool)$ok;
+}
+
+function RenameSavedDeck($userID, $decklink, $name) {
+    $conn = GetLocalMySQLConnection();
+    $stmt = $conn->prepare("UPDATE favoritedeck SET name=? WHERE decklink=? AND usersId=?");
+    if (!$stmt) { $conn->close(); return false; }
+    $stmt->bind_param("ssi", $name, $decklink, $userID);
+    $ok = $stmt->execute(); $stmt->close(); $conn->close();
+    return (bool)$ok;
+}
+
+function DeleteSavedDeck($userID, $decklink) {
+    $conn = GetLocalMySQLConnection();
+    $stmt = $conn->prepare("DELETE FROM favoritedeck WHERE decklink=? AND usersId=?");
+    if (!$stmt) { $conn->close(); return false; }
+    $stmt->bind_param("si", $decklink, $userID);
+    $ok = $stmt->execute(); $stmt->close(); $conn->close();
+    return (bool)$ok;
+}
+
+function TouchSavedDeckUsed($userID, $decklink) {
+    $conn = GetLocalMySQLConnection();
+    $stmt = $conn->prepare("UPDATE favoritedeck SET lastUsed=NOW() WHERE decklink=? AND usersId=?");
+    if ($stmt) { $stmt->bind_param("si", $decklink, $userID); $stmt->execute(); $stmt->close(); }
+    $conn->close();
+}
+
+// Personal deck stats (Feature B): per-game W/L on a saved deck + per-opponent-matchup breakdown.
+
+function RecordSavedDeckResult($userID, $decklink, $won) {
+    if ($userID == "" || $decklink == "") return 0;
+    $conn = GetLocalMySQLConnection();
+    $col = $won ? 'wins' : 'losses';
+    $sql = "UPDATE favoritedeck SET $col = $col + 1, lastUsed = NOW() WHERE usersId=? AND decklink=?";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) { $conn->close(); return 0; }
+    $stmt->bind_param("is", $userID, $decklink);
+    $stmt->execute();
+    $affected = $stmt->affected_rows;
+    $stmt->close(); $conn->close();
+    return (int)$affected;
+}
+
+function RecordSavedDeckMatchup($userID, $decklink, $oppLeader, $oppBase, $won) {
+    if ($userID == "" || $decklink == "" || $oppLeader == "" || $oppBase == "") return false;
+    $conn = GetLocalMySQLConnection();
+    $w = $won ? 1 : 0; $l = $won ? 0 : 1;
+    $sql = "INSERT INTO favoritedeckmatchup (usersId, decklink, oppLeader, oppBase, wins, losses)
+            VALUES (?,?,?,?,?,?)
+            ON DUPLICATE KEY UPDATE wins = wins + VALUES(wins), losses = losses + VALUES(losses)";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) { $conn->close(); return false; }
+    $stmt->bind_param("isssii", $userID, $decklink, $oppLeader, $oppBase, $w, $l);
+    $ok = $stmt->execute();
+    $stmt->close(); $conn->close();
+    return (bool)$ok;
+}
+
+function LoadSavedDeckMatchups($userID, $decklink) {
+    if ($userID == "" || $decklink == "") return [];
+    $conn = GetLocalMySQLConnection();
+    $sql = "SELECT oppLeader, oppBase, wins, losses FROM favoritedeckmatchup
+            WHERE usersId=? AND decklink=?
+            ORDER BY (wins + losses) DESC, oppLeader ASC";
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) { $conn->close(); return []; }
+    $stmt->bind_param("is", $userID, $decklink);
+    $stmt->execute();
+    $res = $stmt->get_result();
+    $out = [];
+    while ($r = $res->fetch_assoc()) $out[] = $r;
+    $stmt->close(); $conn->close();
+    return $out;
+}
+
 function LoadFavoriteDecks($userID)
 {
 	if ($userID == "") return [];

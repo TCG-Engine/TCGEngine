@@ -1,0 +1,142 @@
+<?php
+// Curl-invoked render test harness. Run: curl http://localhost:3100/TCGEngine/SharedUI/Render/Tests/RunRenderTests.php
+error_reporting(E_ALL & ~E_DEPRECATED & ~E_NOTICE);
+header('Content-Type: text/plain');
+require_once __DIR__ . '/../SiteDef.php';
+
+$PASS = 0; $FAIL = 0; $MSGS = [];
+function check($name, $cond) {
+    global $PASS, $FAIL, $MSGS;
+    if ($cond) { $PASS++; }
+    else { $FAIL++; $MSGS[] = "FAIL: $name"; }
+}
+function checkContains($name, $haystack, $needle) {
+    check($name, is_string($haystack) && strpos($haystack, $needle) !== false);
+}
+
+$def = LoadSiteDef('SWUDeck');
+
+// --- Task 1 tests: validator ---
+check('valid def has no errors', ValidateSiteDef($def) === []);
+check('missing title is caught', in_array('branding.title is required', ValidateSiteDef(['branding'=>[],'nav'=>[]])));
+check('unknown section caught', (function() {
+    $bad = LoadSiteDef('SWUDeck'); $bad['profile']['sections'][] = 'bogus';
+    return in_array("profile.sections has unknown section 'bogus'", ValidateSiteDef($bad));
+})());
+
+// --- Task 2 tests: RenderHead ---
+require_once __DIR__ . '/../Head.php';
+$head = RenderHead($def);
+checkContains('head has title', $head, '<title>SWU Stats</title>');
+checkContains('head has favicon', $head, 'href="/TCGEngine/Assets/Images/blueDiamond.png"');
+checkContains('head has menuStyles', $head, '/TCGEngine/SharedUI/css/menuStyles.css');
+checkContains('head has device-detector', $head, '/TCGEngine/SharedUI/js/device-detector.js');
+checkContains('head has burger-menu', $head, '/TCGEngine/SharedUI/js/burger-menu.js');
+checkContains('head has Barlow font', $head, 'family=Barlow');
+checkContains('head has Teko font', $head, 'family=Teko');
+
+// --- Task 3 tests: RenderMenuBar ---
+require_once __DIR__ . '/../MenuBar.php';
+$navOut = RenderMenuBar($def, ['isLoggedIn'=>false,'isPatron'=>false,'username'=>null,'userId'=>null]);
+$navIn  = RenderMenuBar($def, ['isLoggedIn'=>true,'isPatron'=>false,'username'=>'tester','userId'=>5]);
+checkContains('menubar embeds head', $navOut, '<title>SWU Stats</title>');
+checkContains('menubar has Support', $navOut, "https://www.patreon.com/c/OotTheMonk");
+checkContains('menubar has Stats dropdown', $navOut, "class='dropdown'");
+checkContains('menubar has Deck Stats child', $navOut, '/TCGEngine/Stats/DeckMetaStats.php');
+checkContains('menubar has github icon', $navOut, 'icons/github.svg');
+checkContains('menubar has discord icon', $navOut, 'discord.gg/5ZHXyVvVFC');
+checkContains('loggedout has Log In', $navOut, '/TCGEngine/SharedUI/Sites/SWUDeck/LoginPage.php');
+check('loggedout hides Profile', strpos($navOut, 'SWUDeck/Profile.php') === false);
+checkContains('loggedin has Profile', $navIn, '/TCGEngine/SharedUI/Sites/SWUDeck/Profile.php');
+check('loggedin hides Log In', strpos($navIn, 'SWUDeck/LoginPage.php') === false);
+
+// --- Task 4 tests: RenderHeader ---
+require_once __DIR__ . '/../Header.php';
+$hdr = RenderHeader($def);
+checkContains('header title link', $hdr, 'href="/TCGEngine/SharedUI/Sites/SWUDeck/MainMenu.php"');
+checkContains('header h1', $hdr, '<h1>SWU Stats</h1>');
+checkContains('header tagline', $hdr, '<p>Star Wars Unlimited Stats</p>');
+checkContains('header banner block', $hdr, 'class="banner block-1"');
+checkContains('header pull indicator', $hdr, 'Pull down to refresh');
+
+// --- Task 5 tests: RenderProfile + RenderDisclaimer ---
+require_once __DIR__ . '/../Profile.php';
+$ud = ['teamID'=>null,'team'=>null,'teamInvites'=>[]];
+$ctxIn = ['isLoggedIn'=>true,'isPatron'=>false,'username'=>'tester','userId'=>5];
+$_SESSION['userid'] = 5; $_SESSION['useruid'] = 'tester';
+$prof = RenderProfile($def, $ctxIn, $ud);
+checkContains('profile has password form', $prof, 'id="selfResetPasswordForm"');
+checkContains('profile welcomes user', $prof, 'Welcome tester');
+checkContains('profile has team mgmt', $prof, 'Team Management');
+checkContains('profile oauthDev app label', $prof, 'connect to SWUDeck');
+checkContains('disclaimer names site', RenderDisclaimer($def), 'SWU Stats is in no way affiliated');
+$noPw = $def; $noPw['profile']['sections'] = ['team'];
+$prof2 = RenderProfile($noPw, $ctxIn, $ud);
+check('omitting password hides form', strpos($prof2, 'id="selfResetPasswordForm"') === false);
+
+// --- Task 6 tests: RenderLoginPage + RenderSignup ---
+require_once __DIR__ . '/../Auth.php';
+$login = RenderLoginPage($def); $signup = RenderSignup($def);
+checkContains('login posts to AttemptPasswordLogin', $login, '/TCGEngine/AccountFiles/AttemptPasswordLogin.php');
+checkContains('login has remember-me', $login, 'name="rememberMe"');
+check('login has no relative ../ urls', strpos($login, '"../') === false && strpos($login, "'../") === false);
+checkContains('signup posts to signup.inc', $signup, '/TCGEngine/Database/signup.inc.php');
+checkContains('signup has pwdrepeat', $signup, 'name="pwdrepeat"');
+checkContains('login has redirect field', $login, 'name="redirect"');
+checkContains('signup has redirect field', $signup, 'name="redirect"');
+checkContains('login redirect escapes value', RenderLoginPage($def, '/TCGEngine/x"y'), 'value="/TCGEngine/x&quot;y"');
+
+// --- Site page generator: identity validator, templates, MobileViewport ---
+require_once __DIR__ . '/../Template.php';
+require_once __DIR__ . '/../Misc.php';
+check('identity validator catches missing key', in_array('identity.ipOwner is required', ValidateSiteDef((function() {
+    $d = LoadSiteDef('SWUDeck'); unset($d['identity']['ipOwner']); return $d;
+})())));
+$priv = RenderTemplate('PrivacyPolicy', $def);
+checkContains('privacy fills appName', $priv, 'SWU Stats');
+checkContains('privacy fills ipOwner', $priv, 'Fantasy Flight Games, Disney');
+check('privacy has no unreplaced tokens', !preg_match('/\{\{[a-zA-Z]+\}\}/', $priv));
+$terms = RenderTemplate('TermsOfUse', $def);
+check('terms has no unreplaced tokens', !preg_match('/\{\{[a-zA-Z]+\}\}/', $terms));
+checkContains('terms fills tcgName', $terms, 'Star Wars Unlimited');
+checkContains('disclaimer template fills tokens', RenderTemplate('Disclaimer', $def), 'Fantasy Flight Games, Disney');
+checkContains('mobileviewport static', RenderMobileViewport(), 'width=device-width');
+
+// --- Saved decks library ---
+require_once __DIR__ . '/../DeckLibrary.php';
+$decks = [
+  ['decklink'=>'https://swudb.com/deck/a','name'=>'Aggro','hero'=>'SOR_010','baseId'=>'SOR_022','format'=>'premier','isFavorite'=>1,'wins'=>3,'losses'=>1,'lastUsed'=>null,'deckContent'=>null],
+  ['decklink'=>'https://swudb.com/deck/b','name'=>'Control','hero'=>'JTL_005','baseId'=>'JTL_020','format'=>'premier','isFavorite'=>0,'wins'=>0,'losses'=>0,'lastUsed'=>null,'deckContent'=>null],
+];
+// Default: name-only dropdown, no card art, no action buttons.
+$lib = RenderDeckLibrary(5, ['decks'=>$decks]);
+checkContains('lib renders a name dropdown', $lib, "class='dl-select'");
+checkContains('lib shows deck name', $lib, 'Aggro');
+checkContains('lib marks favorite with star', $lib, '★ Aggro');
+checkContains('lib option carries decklink id', $lib, 'data-id="https://swudb.com/deck/a"');
+check('lib shows no card art', strpos($lib, '/TCGEngine/SWUSim/concat/') === false);
+check('default has no action buttons', strpos($lib, 'data-action=') === false);
+// actionButtons: selector + Favorite/Rename/Delete + management wiring.
+$withBtns = RenderDeckLibrary(5, ['decks'=>$decks,'actionButtons'=>true]);
+checkContains('actionButtons has favorite', $withBtns, 'data-action="favorite"');
+checkContains('actionButtons has rename', $withBtns, 'data-action="rename"');
+checkContains('actionButtons has delete', $withBtns, 'data-action="delete"');
+checkContains('actionButtons emits wiring', $withBtns, '__deckLibWired');
+checkContains('options carry win data', $withBtns, 'data-wins="3"');
+checkContains('options carry loss data', $withBtns, 'data-losses="1"');
+checkContains('profile variant has stats readout', $withBtns, "class='dl-stats'");
+checkContains('stats wiring fetches matchups', $withBtns, "action=matchups");
+check('default variant has no stats readout', strpos($lib, "class='dl-stats'") === false);
+$empty = RenderDeckLibrary(5, ['decks'=>[], 'emptyText'=>'No saved decks yet.']);
+checkContains('empty state', $empty, 'No saved decks yet.');
+
+// --- savedDecks profile section ---
+$swusimDef = LoadSiteDef('SWUSim');
+check('SWUSim profile enables savedDecks', in_array('savedDecks', $swusimDef['profile']['sections'] ?? [], true));
+check('validator accepts savedDecks', !in_array("profile.sections has unknown section 'savedDecks'", ValidateSiteDef($swusimDef), true));
+
+// (later tasks append their checks above this line)
+
+echo "PASS=$PASS FAIL=$FAIL\n";
+foreach ($MSGS as $m) echo $m . "\n";
+echo $FAIL === 0 ? "ALL GREEN\n" : "RED\n";

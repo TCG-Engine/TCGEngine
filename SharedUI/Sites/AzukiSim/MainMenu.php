@@ -1,10 +1,14 @@
 <?php
-include_once './MenuBar.php';
-include_once '../../../AccountFiles/AccountSessionAPI.php';
-include_once '../../../Database/ConnectionManager.php';
-include_once '../../../AzukiSim/GeneratedCode/GeneratedCardDictionaries.php';
+// Use __DIR__-relative includes (matching the SWUSim/SWUDeck pilot): this page is reached via the
+// SharedUI/MainMenu.php pointer (which include()s it), so the cwd is SharedUI/, not this dir.
+// Bare './'/'../../../' paths resolved against the wrong cwd → missing-file warnings AND silently
+// pulled the ROOT SharedUI/MenuBar.php + Header.php (wrong chrome) instead of the AzukiSim ones.
+include_once __DIR__ . '/MenuBar.php';
+include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
+include_once __DIR__ . '/../../../Database/ConnectionManager.php';
+include_once __DIR__ . '/../../../AzukiSim/GeneratedCode/GeneratedCardDictionaries.php';
 
-include_once 'Header.php';
+include_once __DIR__ . '/Header.php';
 
 ?>
 <div class="row-wrapper" style="display: flex; flex-direction: row; flex-grow: 1;">
@@ -764,5 +768,5 @@ include_once 'Header.php';
     </script>
 
 <?php
-include_once './Disclaimer.php';
+include_once __DIR__ . '/Disclaimer.php';
 ?>

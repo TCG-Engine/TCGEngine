@@ -6,6 +6,7 @@ include __DIR__ . '/GeneratedCode/GeneratedMacroCode.php';
 include __DIR__ . '/GeneratedCode/GeneratedKeywordCode.php';
 include __DIR__ . '/GeneratedCode/GeneratedAbilityStubs.php';
 include __DIR__ . '/Custom/KeywordEffects.php';
+include_once __DIR__ . '/Telemetry.php';
 function GetAssetReflectionPath() {
   return "SWUSim";
 }
@@ -105,6 +106,7 @@ function InitializeGamestate() {
   $gWinner = null;
   $gPendingTriggers = [];
   $gTriggerDepth = 1;
+  global $gTelemetry; $gTelemetry = "-";
 }
 
 function WriteGamestate($filepath="./") {
@@ -191,11 +193,11 @@ function WriteGamestate($filepath="./") {
   $writeZone($gEffectStack);
   $gamestateText .= $gGameLog . "\r\n";
   $gamestateText .= $gRandomCounter . "\r\n";
+  global $gTelemetry; $gamestateText .= (($gTelemetry === null || $gTelemetry === '') ? '-' : $gTelemetry) . "\r\n";
   if(GamestateUsesMemoryStorage() && function_exists("apcu_store")) {
     apcu_store(GetGamestateStorageKey($gameName), $gamestateText, 600);
-  } else {
-    file_put_contents($filename, $gamestateText);
   }
+  file_put_contents($filename, $gamestateText);
 
 }
 
@@ -582,6 +584,8 @@ function ParseGamestate($filepath="./") {
     if ($line !== false) {
       $gRandomCounter = intval(trim($line));
     }
+    $line = fgets($handler);
+    if ($line !== false) { global $gTelemetry; $gTelemetry = trim($line); }
   }
   fclose($handler);
 
