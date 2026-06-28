@@ -176,6 +176,23 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     'updateCache' => $options['updateCache'] ?? true,
     'recordAction' => !($options['disableRecording'] ?? false),
   ];
+
+  $matchReplayControlModes = [11101, 11102, 11103];
+  if (
+    empty($options['disableRecording']) &&
+    function_exists('MatchReplayIsPlaybackSession') &&
+    MatchReplayIsPlaybackSession() &&
+    !in_array($mode, $matchReplayControlModes, true)
+  ) {
+    return [
+      'success' => false,
+      'message' => 'Replay playback sessions can only be advanced with replay controls.',
+      'writeGamestate' => false,
+      'updateCache' => false,
+      'recordAction' => false,
+    ];
+  }
+
   $matchReplayPendingAction = $result['recordAction']
     ? MatchReplayBeginPotentialAction($folderPath, $gameName)
     : null;

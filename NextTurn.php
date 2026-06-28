@@ -282,8 +282,12 @@
     <script>
       window.MatchReplayConfig = <?= json_encode([
         'enabled' => $matchReplayEnabled,
+        'rootName' => $folderPath,
         'canDownload' => $matchReplayCanDownload,
         'playbackState' => $matchReplayPlaybackState,
+        'apiBaseUrl' => './APIs/MatchReplay.php',
+        'processInputUrl' => './ProcessInput.php',
+        'nextTurnBaseUrl' => './NextTurn.php',
       ], JSON_UNESCAPED_SLASHES); ?>;
       if (window.MatchReplayClient) {
         window.MatchReplayClient.init(window.MatchReplayConfig);

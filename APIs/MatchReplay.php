@@ -121,6 +121,7 @@ if ($action === 'import') {
   $commandState['sourceGameName'] = strval($replay['gameName'] ?? '');
   $commandState['sourceSavedAt'] = strval($replay['savedAt'] ?? '');
   MatchReplaySetCommandState($commandState);
+  MatchReplayMarkPlaybackGame($gameName);
   if (function_exists('SetFlashMessage')) {
     SetFlashMessage('Loaded replay with ' . count($commandState['actions']) . ' actions.');
   }
@@ -131,8 +132,9 @@ if ($action === 'import') {
 
   MatchReplayApiRespond(200, [
     'success' => true,
+    'rootName' => $rootName,
     'gameName' => $gameName,
-    'nextTurnUrl' => './NextTurn.php?gameName=' . rawurlencode($gameName) . '&playerID=1&folderPath=' . rawurlencode($rootName),
+    'nextTurnUrl' => './NextTurn.php?gameName=' . rawurlencode($gameName) . '&playerID=1&folderPath=' . rawurlencode($rootName) . '&replay=1',
   ]);
 }
 

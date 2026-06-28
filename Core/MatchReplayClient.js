@@ -3,6 +3,7 @@
   var DB_VERSION = 1;
   var STORE_NAME = 'replays';
   var dbPromise = null;
+  var replayConfig = window.MatchReplayConfig || { enabled: false };
 
   function byId(id) {
     return document.getElementById(id);
@@ -14,10 +15,30 @@
   }
 
   function config() {
-    return window.MatchReplayConfig || { enabled: false };
+    return window.MatchReplayConfig || replayConfig || { enabled: false };
+  }
+
+  function configure(matchReplayConfig) {
+    var nextConfig = {};
+    var current = config();
+    for (var currentKey in current) {
+      if (Object.prototype.hasOwnProperty.call(current, currentKey)) nextConfig[currentKey] = current[currentKey];
+    }
+    matchReplayConfig = matchReplayConfig || {};
+    for (var key in matchReplayConfig) {
+      if (Object.prototype.hasOwnProperty.call(matchReplayConfig, key)) nextConfig[key] = matchReplayConfig[key];
+    }
+    replayConfig = nextConfig;
+    window.MatchReplayConfig = nextConfig;
+    return nextConfig;
+  }
+
+  function canUseIndexedDb() {
+    return !!window.indexedDB;
   }
 
   function openDb() {
+    if (!canUseIndexedDb()) return Promise.reject(new Error('Replay storage is not available in this browser.'));
     if (dbPromise) return dbPromise;
     dbPromise = new Promise(function(resolve, reject) {
       var request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -78,14 +99,19 @@
     });
   }
 
-  function listReplays() {
+  function listReplays(rootName) {
     return openDb().then(function(db) {
       return new Promise(function(resolve, reject) {
         var tx = db.transaction(STORE_NAME, 'readonly');
         var request = tx.objectStore(STORE_NAME).getAll();
         request.onsuccess = function() {
           var rows = request.result || [];
-          rows.sort(function(a, b) { return String(b.savedAt || '').localeCompare(String(a.savedAt || '')); });
+          if (rootName) {
+            rows = rows.filter(function(row) { return row && row.rootName === rootName; });
+          }
+          rows.sort(function(a, b) {
+            return String(b.savedAt || b.storedAt || '').localeCompare(String(a.savedAt || a.storedAt || ''));
+          });
           resolve(rows);
         };
         request.onerror = function() { reject(request.error || new Error('Unable to list replays.')); };
@@ -100,12 +126,41 @@
     });
   }
 
+  function configuredUrl(configKey, fallback) {
+    return config()[configKey] || fallback;
+  }
+
   function apiUrl(action) {
-    return './APIs/MatchReplay.php?action=' + encodeURIComponent(action);
+    var url = new URL(configuredUrl('apiBaseUrl', './APIs/MatchReplay.php'), window.location.href);
+    url.searchParams.set('action', action);
+    return url;
+  }
+
+  function processInputUrl() {
+    return new URL(configuredUrl('processInputUrl', './ProcessInput.php'), window.location.href);
+  }
+
+  function replayRootName() {
+    return config().rootName || pageValue('folderPath') || '';
+  }
+
+  function buildNextTurnUrl(payload, replay) {
+    if (config().nextTurnBaseUrl) {
+      var url = new URL(config().nextTurnBaseUrl, window.location.href);
+      url.searchParams.set('gameName', String(payload.gameName || ''));
+      url.searchParams.set('playerID', '1');
+      url.searchParams.set('folderPath', String(payload.rootName || replay.rootName || replayRootName()));
+      url.searchParams.set('replay', '1');
+      return url.toString();
+    }
+    if (payload.nextTurnUrl) return new URL(payload.nextTurnUrl, window.location.href).toString();
+    return './NextTurn.php?gameName=' + encodeURIComponent(payload.gameName || '')
+      + '&playerID=1&folderPath=' + encodeURIComponent(payload.rootName || replay.rootName || replayRootName())
+      + '&replay=1';
   }
 
   function saveCurrentReplay() {
-    if (!window.indexedDB) {
+    if (!canUseIndexedDb()) {
       alert('Replay storage is not available in this browser.');
       return Promise.resolve(null);
     }
@@ -113,14 +168,13 @@
       alert('Replay can be saved after the match is over.');
       return Promise.resolve(null);
     }
-    var params = new URLSearchParams();
-    params.set('action', 'download');
-    params.set('gameName', pageValue('gameName'));
-    params.set('playerID', pageValue('playerID'));
-    params.set('authKey', pageValue('authKey'));
-    params.set('folderPath', pageValue('folderPath'));
+    var url = apiUrl('download');
+    url.searchParams.set('gameName', pageValue('gameName'));
+    url.searchParams.set('playerID', pageValue('playerID'));
+    url.searchParams.set('authKey', pageValue('authKey'));
+    url.searchParams.set('folderPath', pageValue('folderPath'));
 
-    return fetch('./APIs/MatchReplay.php?' + params.toString(), { method: 'GET' })
+    return fetch(url.toString(), { method: 'GET' })
       .then(function(response) { return response.json(); })
       .then(function(payload) {
         if (!payload || !payload.success) throw new Error((payload && payload.message) || 'Unable to save replay.');
@@ -128,7 +182,6 @@
       })
       .then(function(replay) {
         alert('Replay saved to this browser.');
-        renderPanelList();
         return replay;
       })
       .catch(function(error) {
@@ -140,29 +193,29 @@
   function playReplay(id) {
     return getReplay(id).then(function(replay) {
       if (!replay) throw new Error('Replay not found.');
-      return fetch(apiUrl('import'), {
+      return fetch(apiUrl('import').toString(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ replay: replay })
+      }).then(function(response) {
+        return response.json();
+      }).then(function(payload) {
+        if (!payload || !payload.success) throw new Error((payload && payload.message) || 'Unable to start replay.');
+        window.location.href = buildNextTurnUrl(payload, replay);
       });
-    }).then(function(response) {
-      return response.json();
-    }).then(function(payload) {
-      if (!payload || !payload.success) throw new Error((payload && payload.message) || 'Unable to start replay.');
-      window.location.href = payload.nextTurnUrl;
     }).catch(function(error) {
       alert(error.message || String(error));
     });
   }
 
   function submitReplayMode(mode) {
-    var params = new URLSearchParams();
-    params.set('gameName', pageValue('gameName'));
-    params.set('playerID', pageValue('playerID') || '1');
-    params.set('authKey', pageValue('authKey'));
-    params.set('folderPath', pageValue('folderPath'));
-    params.set('mode', String(mode));
-    fetch('./ProcessInput.php?' + params.toString(), { method: 'GET' })
+    var url = processInputUrl();
+    url.searchParams.set('gameName', pageValue('gameName'));
+    url.searchParams.set('playerID', pageValue('playerID') || '1');
+    url.searchParams.set('authKey', pageValue('authKey'));
+    url.searchParams.set('folderPath', pageValue('folderPath'));
+    url.searchParams.set('mode', String(mode));
+    fetch(url.toString(), { method: 'GET' })
       .then(function(response) { return response.text(); })
       .then(function(message) {
         if (message && message.trim()) console.log(message.trim());
@@ -176,40 +229,25 @@
     var style = document.createElement('style');
     style.id = 'match-replay-styles';
     style.textContent = ''
-      + '#matchReplayPanel{position:fixed;left:14px;top:14px;z-index:12000;color:#f0e6c8;font-family:Roboto,Arial,sans-serif;}'
-      + '#matchReplayPanel button{cursor:pointer;border:1px solid rgba(201,168,76,.35);background:#10243a;color:#f0e6c8;border-radius:6px;padding:6px 10px;font-weight:700;}'
-      + '#matchReplayPanel button:hover{background:#1d3a5e;}'
-      + '#matchReplayPanelBody{display:none;width:min(390px,calc(100vw - 28px));max-height:72vh;overflow:auto;margin-top:6px;padding:10px;border:1px solid rgba(201,168,76,.35);border-radius:8px;background:rgba(7,18,30,.96);box-shadow:0 10px 26px rgba(0,0,0,.35);}'
-      + '#matchReplayPanel.is-open #matchReplayPanelBody{display:block;}'
-      + '.match-replay-row{display:grid;grid-template-columns:1fr auto auto;gap:6px;align-items:center;padding:8px 0;border-top:1px solid rgba(255,255,255,.08);}'
+      + '.match-replay-button,#matchReplayPlaybackModal button{cursor:pointer;border:1px solid rgba(201,168,76,.42);background:#10243a;color:#f0e6c8;border-radius:6px;padding:6px 10px;font-weight:700;}'
+      + '.match-replay-button:hover,#matchReplayPlaybackModal button:hover{background:#1d3a5e;}'
+      + '.match-replay-button:disabled,#matchReplayPlaybackModal button:disabled{opacity:.55;cursor:not-allowed;}'
+      + '#matchReplayPlaybackModal{position:fixed;left:16px;top:16px;width:min(360px,calc(100vw - 28px));z-index:30000;color:#f0e6c8;font-family:Roboto,Arial,sans-serif;border:1px solid rgba(201,168,76,.45);border-radius:8px;background:rgba(7,18,30,.97);box-shadow:0 16px 38px rgba(0,0,0,.45);overflow:hidden;}'
+      + '#matchReplayPlaybackModalHeader{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;cursor:move;user-select:none;background:rgba(201,168,76,.12);border-bottom:1px solid rgba(201,168,76,.24);}'
+      + '#matchReplayPlaybackModalTitle{font-size:13px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;color:#fff4cf;}'
+      + '#matchReplayPlaybackModalBadge{font-size:11px;font-weight:800;text-transform:uppercase;color:#0b1b2d;background:#d6b86d;border-radius:999px;padding:2px 8px;white-space:nowrap;}'
+      + '#matchReplayPlaybackModalBody{padding:11px 12px 12px;}'
+      + '.match-replay-muted{font-size:12px;color:#bfc8d7;line-height:1.35;}'
+      + '.match-replay-heading{font-size:13px;font-weight:800;margin-bottom:8px;}'
+      + '.match-replay-actions{display:flex;flex-wrap:wrap;gap:6px;margin:9px 0 0;}'
+      + '.match-replay-library{display:flex;flex-direction:column;gap:8px;}'
+      + '.match-replay-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;padding:9px 0;border-top:1px solid rgba(255,255,255,.08);}'
       + '.match-replay-row:first-child{border-top:0;}'
       + '.match-replay-meta{font-size:12px;line-height:1.35;color:#d9d0b8;min-width:0;overflow:hidden;text-overflow:ellipsis;}'
-      + '.match-replay-heading{font-size:13px;font-weight:800;margin-bottom:8px;}'
-      + '.match-replay-muted{font-size:12px;color:#bfc8d7;line-height:1.35;}';
+      + '.match-replay-meta strong{display:block;color:#fff4cf;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}'
+      + '.match-replay-stats-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 14px;padding:10px 12px;border:1px solid rgba(201,168,76,.28);border-radius:8px;background:rgba(10,24,42,.72);}'
+      + '.match-replay-stats-actions .match-replay-muted{max-width:620px;}';
     document.head.appendChild(style);
-  }
-
-  function ensurePanel() {
-    if (byId('matchReplayPanel')) return byId('matchReplayPanel');
-    ensureStyles();
-    var panel = document.createElement('div');
-    panel.id = 'matchReplayPanel';
-
-    var toggle = document.createElement('button');
-    toggle.type = 'button';
-    toggle.textContent = 'Replays';
-    toggle.addEventListener('click', function() {
-      panel.classList.toggle('is-open');
-      if (panel.classList.contains('is-open')) renderPanelList();
-    });
-    panel.appendChild(toggle);
-
-    var body = document.createElement('div');
-    body.id = 'matchReplayPanelBody';
-    panel.appendChild(body);
-    document.body.appendChild(panel);
-    renderPanelList();
-    return panel;
   }
 
   function formatDate(value) {
@@ -223,21 +261,23 @@
     var state = config().playbackState;
     if (!state) return;
 
-    var heading = document.createElement('div');
-    heading.className = 'match-replay-heading';
-    heading.textContent = 'Playback';
-    container.appendChild(heading);
-
     var progress = document.createElement('div');
     progress.className = 'match-replay-muted';
     progress.textContent = 'Action ' + state.nextActionIndex + ' of ' + state.actionCount;
     container.appendChild(progress);
 
+    if (state.sourceGameName || state.sourceSavedAt) {
+      var source = document.createElement('div');
+      source.className = 'match-replay-muted';
+      source.style.marginTop = '4px';
+      source.textContent = 'Source'
+        + (state.sourceGameName ? ' game ' + state.sourceGameName : '')
+        + (state.sourceSavedAt ? ' - ' + formatDate(state.sourceSavedAt) : '');
+      container.appendChild(source);
+    }
+
     var actions = document.createElement('div');
-    actions.style.display = 'flex';
-    actions.style.flexWrap = 'wrap';
-    actions.style.gap = '6px';
-    actions.style.margin = '8px 0 12px';
+    actions.className = 'match-replay-actions';
 
     var reset = document.createElement('button');
     reset.type = 'button';
@@ -262,33 +302,149 @@
     container.appendChild(actions);
   }
 
-  function renderPanelList() {
-    var body = byId('matchReplayPanelBody');
-    if (!body) return;
-    body.innerHTML = '';
+  function modalPositionKey() {
+    return 'tcgengine:matchReplayPlaybackModalPosition';
+  }
 
-    renderPlaybackControls(body);
+  function clampModalPosition(panel, left, top) {
+    var maxLeft = Math.max(8, window.innerWidth - panel.offsetWidth - 8);
+    var maxTop = Math.max(8, window.innerHeight - panel.offsetHeight - 8);
+    return {
+      left: Math.max(8, Math.min(maxLeft, left)),
+      top: Math.max(8, Math.min(maxTop, top))
+    };
+  }
 
-    if (config().canDownload) {
-      var save = document.createElement('button');
-      save.type = 'button';
-      save.textContent = 'Save Current Replay';
-      save.style.marginBottom = '10px';
-      save.addEventListener('click', saveCurrentReplay);
-      body.appendChild(save);
+  function restoreModalPosition(panel) {
+    try {
+      var raw = localStorage.getItem(modalPositionKey());
+      if (!raw) return;
+      var pos = JSON.parse(raw);
+      if (!pos || typeof pos.left !== 'number' || typeof pos.top !== 'number') return;
+      var clamped = clampModalPosition(panel, pos.left, pos.top);
+      panel.style.left = clamped.left + 'px';
+      panel.style.top = clamped.top + 'px';
+    } catch (e) {}
+  }
+
+  function saveModalPosition(panel) {
+    try {
+      localStorage.setItem(modalPositionKey(), JSON.stringify({
+        left: parseInt(panel.style.left || panel.offsetLeft, 10) || panel.offsetLeft,
+        top: parseInt(panel.style.top || panel.offsetTop, 10) || panel.offsetTop
+      }));
+    } catch (e) {}
+  }
+
+  function makeDraggable(panel, handle) {
+    var dragging = false;
+    var offsetX = 0;
+    var offsetY = 0;
+
+    function startDrag(event) {
+      if (event.button !== undefined && event.button !== 0) return;
+      if (event.target && event.target.closest && event.target.closest('button')) return;
+      dragging = true;
+      offsetX = event.clientX - panel.offsetLeft;
+      offsetY = event.clientY - panel.offsetTop;
+      document.addEventListener('pointermove', moveDrag);
+      document.addEventListener('pointerup', stopDrag);
+      event.preventDefault();
     }
 
-    var heading = document.createElement('div');
-    heading.className = 'match-replay-heading';
-    heading.textContent = 'Saved Replays';
-    body.appendChild(heading);
+    function moveDrag(event) {
+      if (!dragging) return;
+      var pos = clampModalPosition(panel, event.clientX - offsetX, event.clientY - offsetY);
+      panel.style.left = pos.left + 'px';
+      panel.style.top = pos.top + 'px';
+    }
 
-    listReplays().then(function(rows) {
+    function stopDrag() {
+      if (!dragging) return;
+      dragging = false;
+      saveModalPosition(panel);
+      document.removeEventListener('pointermove', moveDrag);
+      document.removeEventListener('pointerup', stopDrag);
+    }
+
+    handle.addEventListener('pointerdown', startDrag);
+  }
+
+  function renderPanelList() {
+    var body = byId('matchReplayPlaybackModalBody');
+    if (!body) return;
+    body.innerHTML = '';
+    renderPlaybackControls(body);
+  }
+
+  function ensurePlaybackModal() {
+    if (!config().playbackState) return null;
+    ensureStyles();
+    var existing = byId('matchReplayPlaybackModal');
+    if (existing) {
+      renderPanelList();
+      return existing;
+    }
+
+    var panel = document.createElement('div');
+    panel.id = 'matchReplayPlaybackModal';
+
+    var header = document.createElement('div');
+    header.id = 'matchReplayPlaybackModalHeader';
+
+    var title = document.createElement('div');
+    title.id = 'matchReplayPlaybackModalTitle';
+    title.textContent = 'Match Replay';
+    header.appendChild(title);
+
+    var badge = document.createElement('div');
+    badge.id = 'matchReplayPlaybackModalBadge';
+    badge.textContent = 'Replay Game';
+    header.appendChild(badge);
+
+    var body = document.createElement('div');
+    body.id = 'matchReplayPlaybackModalBody';
+
+    panel.appendChild(header);
+    panel.appendChild(body);
+    document.body.appendChild(panel);
+    restoreModalPosition(panel);
+    makeDraggable(panel, header);
+    renderPanelList();
+    return panel;
+  }
+
+  function renderReplayLibrary(containerOrId, options) {
+    var container = typeof containerOrId === 'string' ? byId(containerOrId) : containerOrId;
+    if (!container) return;
+    options = options || {};
+    ensureStyles();
+    container.classList.add('match-replay-library');
+    container.innerHTML = '';
+
+    if (!canUseIndexedDb()) {
+      var unavailable = document.createElement('div');
+      unavailable.className = 'match-replay-muted';
+      unavailable.textContent = 'Replay storage is not available in this browser.';
+      container.appendChild(unavailable);
+      return;
+    }
+
+    var loading = document.createElement('div');
+    loading.className = 'match-replay-muted';
+    loading.textContent = 'Loading saved replays...';
+    container.appendChild(loading);
+
+    var rootFilter = options.rootName !== undefined ? options.rootName : replayRootName();
+    listReplays(rootFilter).then(function(rows) {
+      container.innerHTML = '';
       if (!rows.length) {
         var empty = document.createElement('div');
         empty.className = 'match-replay-muted';
-        empty.textContent = 'No saved replays in this browser.';
-        body.appendChild(empty);
+        empty.textContent = rootFilter
+          ? 'No saved replays for this game in this browser.'
+          : 'No saved replays in this browser.';
+        container.appendChild(empty);
         return;
       }
 
@@ -298,65 +454,101 @@
 
         var meta = document.createElement('div');
         meta.className = 'match-replay-meta';
-        meta.textContent = (replay.rootName || 'Replay') + ' - ' + formatDate(replay.savedAt || replay.storedAt) + ' - ' + (replay.actionCount || 0) + ' actions';
+        var title = document.createElement('strong');
+        title.textContent = (replay.rootName || 'Replay') + (replay.gameName ? ' game ' + replay.gameName : '');
+        meta.appendChild(title);
+        var details = document.createElement('span');
+        details.textContent = formatDate(replay.savedAt || replay.storedAt) + ' - ' + (replay.actionCount || 0) + ' actions';
+        meta.appendChild(details);
         row.appendChild(meta);
 
         var play = document.createElement('button');
         play.type = 'button';
-        play.textContent = 'Play';
-        play.addEventListener('click', function() { playReplay(replay.id); });
+        play.className = 'match-replay-button';
+        play.textContent = 'Open';
+        play.addEventListener('click', function() {
+          play.disabled = true;
+          play.textContent = 'Opening...';
+          playReplay(replay.id).then(function() {
+            play.disabled = false;
+            play.textContent = 'Open';
+          });
+        });
         row.appendChild(play);
 
         var del = document.createElement('button');
         del.type = 'button';
+        del.className = 'match-replay-button';
         del.textContent = 'Delete';
         del.addEventListener('click', function() {
           if (!confirm('Delete this saved replay from this browser?')) return;
-          deleteReplay(replay.id).then(renderPanelList);
+          deleteReplay(replay.id).then(function() {
+            renderReplayLibrary(container, options);
+          });
         });
         row.appendChild(del);
 
-        body.appendChild(row);
+        container.appendChild(row);
       });
     }).catch(function(error) {
+      container.innerHTML = '';
       var errorEl = document.createElement('div');
       errorEl.className = 'match-replay-muted';
       errorEl.textContent = error.message || String(error);
-      body.appendChild(errorEl);
+      container.appendChild(errorEl);
     });
   }
 
   function addGameOverButton(overlay) {
-    if (!overlay || !window.indexedDB || !config().canDownload || byId('match-replay-game-over-save-btn')) return;
+    if (!overlay || !canUseIndexedDb() || !config().canDownload || byId('match-replay-game-over-save-btn')) return;
+    ensureStyles();
+
+    var target = byId('game-over-stats') || overlay;
+    if (target.style && target.style.display === 'none') target.style.display = '';
+
+    var wrap = document.createElement('div');
+    wrap.className = 'match-replay-stats-actions';
+
+    var copy = document.createElement('div');
+    copy.className = 'match-replay-muted';
+    copy.textContent = 'Save this completed match replay to this browser.';
+    wrap.appendChild(copy);
+
     var btn = document.createElement('button');
     btn.id = 'match-replay-game-over-save-btn';
+    btn.className = 'match-replay-button';
+    btn.type = 'button';
     btn.textContent = 'Save Replay';
     btn.addEventListener('click', saveCurrentReplay);
+    wrap.appendChild(btn);
 
-    var menuBtn = byId('game-over-menu-btn');
-    if (menuBtn && menuBtn.parentNode === overlay) {
-      overlay.insertBefore(btn, menuBtn);
-    } else {
-      overlay.appendChild(btn);
-    }
+    if (target.firstChild) target.insertBefore(wrap, target.firstChild);
+    else target.appendChild(wrap);
   }
 
   function init(matchReplayConfig) {
-    window.MatchReplayConfig = matchReplayConfig || window.MatchReplayConfig || { enabled: false };
-    if (!window.MatchReplayConfig.enabled) return;
-    if (!window.indexedDB) return;
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', ensurePanel);
-    } else {
-      ensurePanel();
+    configure(matchReplayConfig || window.MatchReplayConfig || { enabled: false });
+    if (!config().enabled) return;
+    ensureStyles();
+    if (config().playbackState) {
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', ensurePlaybackModal);
+      } else {
+        ensurePlaybackModal();
+      }
     }
   }
 
   window.MatchReplayClient = {
     init: init,
+    configure: configure,
     saveCurrentReplay: saveCurrentReplay,
     addGameOverButton: addGameOverButton,
-    renderPanelList: renderPanelList
+    renderReplayLibrary: renderReplayLibrary,
+    renderPanelList: renderPanelList,
+    listReplays: listReplays,
+    playReplay: playReplay,
+    deleteReplay: deleteReplay
   };
   window.MatchReplayAddGameOverButton = addGameOverButton;
 })();

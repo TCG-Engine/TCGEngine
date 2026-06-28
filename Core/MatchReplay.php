@@ -142,6 +142,18 @@ function MatchReplayGetCommandState() {
   return MatchReplayNormalizeCommandState(MatchReplayDecodeData(MatchReplayGetFieldValue($config['commandsField'])));
 }
 
+function MatchReplayIsPlaybackSession() {
+  if (!MatchReplayIsEnabled()) return false;
+  $state = MatchReplayGetCommandState();
+  return !empty($state['playback']);
+}
+
+function MatchReplayMarkPlaybackGame($gameName) {
+  if (!function_exists('SetCachePiece')) return;
+  if (!is_numeric($gameName)) return;
+  SetCachePiece($gameName, 10, '1');
+}
+
 function MatchReplaySetCommandState($state) {
   $config = MatchReplayModuleConfig();
   if ($config === null) return false;
@@ -311,6 +323,7 @@ function MatchReplayLoadInitialForPlayback($rootName, $gameName, $nextActionInde
   if ($sourceGameName !== '') $newState['sourceGameName'] = $sourceGameName;
   if ($sourceSavedAt !== '') $newState['sourceSavedAt'] = $sourceSavedAt;
   MatchReplaySetCommandState($newState);
+  MatchReplayMarkPlaybackGame($gameName);
   if (function_exists('SetFlashMessage')) {
     SetFlashMessage('Loaded replay initial state.');
   }
