@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . '/RegressionTestFramework.php';
+include_once __DIR__ . '/MatchReplay.php';
 
 function ConvertMzIDToAbsolute($mzID, $playerPerspective) {
   if (!$mzID || strpos($mzID, "-") === false) return $mzID;
@@ -175,6 +176,26 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     'updateCache' => $options['updateCache'] ?? true,
     'recordAction' => !($options['disableRecording'] ?? false),
   ];
+
+  $matchReplayControlModes = [11101, 11102, 11103];
+  if (
+    empty($options['disableRecording']) &&
+    function_exists('MatchReplayIsPlaybackSession') &&
+    MatchReplayIsPlaybackSession() &&
+    !in_array($mode, $matchReplayControlModes, true)
+  ) {
+    return [
+      'success' => false,
+      'message' => 'Replay playback sessions can only be advanced with replay controls.',
+      'writeGamestate' => false,
+      'updateCache' => false,
+      'recordAction' => false,
+    ];
+  }
+
+  $matchReplayPendingAction = $result['recordAction']
+    ? MatchReplayBeginPotentialAction($folderPath, $gameName)
+    : null;
 
   $frameAnimations = [];
   if ($result['updateCache']) {
@@ -499,6 +520,34 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
         $result['message'] = "Added card $cardId to player $targetPlayer graveyard.";
       }
       break;
+    case 11101:
+      $replayResult = MatchReplayReplayNextActionLoaded($folderPath, $gameName);
+      $result['success'] = $replayResult['success'];
+      $result['message'] = $replayResult['message'];
+      $result['writeGamestate'] = false;
+      $result['updateCache'] = true;
+      $result['recordAction'] = false;
+      break;
+    case 11102:
+      $replayResult = MatchReplayLoadInitialForPlayback($folderPath, $gameName, 0);
+      $result['success'] = $replayResult['success'];
+      $result['message'] = $replayResult['message'];
+      $result['writeGamestate'] = false;
+      $result['updateCache'] = true;
+      $result['recordAction'] = false;
+      break;
+    case 11103:
+      $replayResult = MatchReplayReplayAllLoaded($folderPath, $gameName);
+      $result['success'] = $replayResult['success'];
+      $result['message'] = $replayResult['message'];
+      $result['writeGamestate'] = false;
+      $result['updateCache'] = true;
+      $result['recordAction'] = false;
+      break;
+  }
+
+  if (!$result['success'] || !$result['writeGamestate'] || !$result['recordAction']) {
+    MatchReplayCancelPotentialAction($matchReplayPendingAction);
   }
 
   if ($result['success'] && $result['writeGamestate'] && function_exists('ProcessGoldfishAutomation')) {
@@ -506,6 +555,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
   }
 
   if ($result['writeGamestate']) {
+    if ($result['recordAction']) {
+      MatchReplayCommitAction($matchReplayPendingAction, $action);
+    }
     ++$updateNumber;
     WriteGamestate('./' . $folderPath . '/');
     if (is_numeric($gameName)

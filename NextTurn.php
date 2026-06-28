@@ -16,6 +16,7 @@
     <script src="./Core/IconChoiceUI.js"></script>
     <script src="./Core/NumberChooseUI.js"></script>
     <script src="./Core/NameCardUI.js"></script>
+    <script src="./Core/MatchReplayClient.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
 
     <style>
@@ -218,6 +219,7 @@
     include "./" . $folderPath . "/GamestateParser.php";
     include "./Core/UILibraries.php";
     include_once "./Core/RegressionTestFramework.php";
+    include_once "./Core/MatchReplay.php";
     include "./Core/Constants.php";
     include_once "./AccountFiles/AccountSessionAPI.php";
     include_once "./Assets/patreon-php-master/src/PatreonDictionary.php";
@@ -236,6 +238,9 @@
     $regressionFixtureOptions = $showRegressionControls ? RegressionListFixtureOptions($folderPath) : [];
     $regressionReplayState = $showRegressionControls ? RegressionReadReplayState($folderPath, $gameName) : null;
     $selectedRegressionFixtureSlug = is_array($regressionReplayState) ? strval($regressionReplayState['slug'] ?? '') : '';
+    $matchReplayEnabled = MatchReplayIsEnabled();
+    $matchReplayCanDownload = $matchReplayEnabled && MatchReplayCanDownload();
+    $matchReplayPlaybackState = $matchReplayEnabled ? MatchReplayPlaybackState() : null;
 
     function IsDarkMode() { return false; }
     function IsMuted() { return false; }
@@ -273,6 +278,21 @@
     }
 
     ?>
+
+    <script>
+      window.MatchReplayConfig = <?= json_encode([
+        'enabled' => $matchReplayEnabled,
+        'rootName' => $folderPath,
+        'canDownload' => $matchReplayCanDownload,
+        'playbackState' => $matchReplayPlaybackState,
+        'apiBaseUrl' => './APIs/MatchReplay.php',
+        'processInputUrl' => './ProcessInput.php',
+        'nextTurnBaseUrl' => './NextTurn.php',
+      ], JSON_UNESCAPED_SLASHES); ?>;
+      if (window.MatchReplayClient) {
+        window.MatchReplayClient.init(window.MatchReplayConfig);
+      }
+    </script>
 
     <head>
       <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/<?php if($folderPath == "SWUDeck") echo('blueDiamond'); else if($folderPath == "SoulMastersDB") echo('icons/soulMastersIcon'); ?>.png">
@@ -788,6 +808,12 @@
               var _goWinner = parseInt(_goVars.GAMEOVER_WINNER, 10);
               if (_goWinner > 0 && typeof ShowGameOver === 'function') {
                 window._gameOverShown = true;
+                if (window.MatchReplayConfig && window.MatchReplayConfig.enabled) {
+                  window.MatchReplayConfig.canDownload = true;
+                  if (window.MatchReplayClient && typeof window.MatchReplayClient.renderPanelList === 'function') {
+                    window.MatchReplayClient.renderPanelList();
+                  }
+                }
                 var _goStatsHtml = '';
                 if (typeof BuildMacroGameStatsHtml === 'function') {
                   _goStatsHtml = BuildMacroGameStatsHtml(playerID);

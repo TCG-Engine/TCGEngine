@@ -160,10 +160,11 @@ function RegressionCurrentGamestateHash($rootName, $gameName) {
 
 function RegressionNormalizeGamestateTextForRoot($rootName, $text) {
   if (!is_string($text) || $text === '') return $text;
-  if (function_exists('UpgradeLegacyGamestateText')) {
-    return UpgradeLegacyGamestateText($text, $rootName);
-  }
   return $text;
+}
+
+function RegressionNormalizeGamestateTextForComparison($rootName, $text) {
+  return RegressionNormalizeGamestateTextForRoot($rootName, $text);
 }
 
 function RegressionIsRecordingActive($rootName, $gameName) {
@@ -492,8 +493,8 @@ function RegressionFixtureExpectedFinalPath($rootName, $slug) {
 function RegressionReplayStateMatchesExpectedFinal($rootName, $gameName, $slug) {
   $expectedPath = RegressionFixtureExpectedFinalPath($rootName, $slug);
   if (!is_file($expectedPath)) return null;
-  $expected = RegressionNormalizeGamestateTextForRoot($rootName, file_get_contents($expectedPath));
-  $actual = RegressionCurrentGamestateText($rootName, $gameName);
+  $expected = RegressionNormalizeGamestateTextForComparison($rootName, file_get_contents($expectedPath));
+  $actual = RegressionNormalizeGamestateTextForComparison($rootName, RegressionCurrentGamestateText($rootName, $gameName));
   return RegressionNormalizeNewlines($expected) === RegressionNormalizeNewlines($actual);
 }
 

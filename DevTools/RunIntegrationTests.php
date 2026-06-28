@@ -47,13 +47,13 @@ function RunnerCompareFinalSnapshot($fixtureDir, $rootName, $gameName, $updateSn
   $expectedPath = $fixtureDir . DIRECTORY_SEPARATOR . 'expected_final_gamestate.txt';
   if (!is_file($expectedPath) && !$updateSnapshots) return [true, ''];
 
-  $actual = RegressionCurrentGamestateText($rootName, $gameName);
+  $actual = RegressionNormalizeGamestateTextForComparison($rootName, RegressionCurrentGamestateText($rootName, $gameName));
   if ($updateSnapshots) {
     file_put_contents($expectedPath, $actual);
     return [true, 'Updated final snapshot.'];
   }
 
-  $expected = file_get_contents($expectedPath);
+  $expected = RegressionNormalizeGamestateTextForComparison($rootName, file_get_contents($expectedPath));
   if (RegressionNormalizeNewlines($expected) !== RegressionNormalizeNewlines($actual)) {
     return [false, RegressionFormatSnapshotDiff($expected, $actual)];
   }

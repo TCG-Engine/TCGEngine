@@ -80,6 +80,13 @@ include_once 'Header.php';
     </div>
   </div>
   
+  <!-- Saved Replays Section -->
+  <div class="card ga-glass-card ga-replay-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: white; border-radius: 12px; display: flex; flex-direction: column; gap: 12px;">
+    <h2 style="margin: 0;">Your Replays</h2>
+    <p style="margin: 0; color: #ccc; font-size: 13px; line-height: 1.4;">Saved in this browser.</p>
+    <div id="match-replay-menu-list" class="ga-replay-list"></div>
+  </div>
+
   <!-- Tips & Info Section -->
   <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: white; border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
     <h2 style="margin: 0 0 4px 0;">Welcome to Clarent!</h2>
@@ -144,6 +151,7 @@ include_once 'Header.php';
 </div>
 
 <audio id="ga-player-joined-sound" src="../../../Assets/playerJoinedSound.mp3" preload="auto"></audio>
+<script src="/TCGEngine/Core/MatchReplayClient.js"></script>
 
 <style>
   .row-wrapper > .card {
@@ -156,6 +164,15 @@ include_once 'Header.php';
     box-shadow: 0 14px 36px rgba(2, 8, 20, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(10px) saturate(115%);
     -webkit-backdrop-filter: blur(10px) saturate(115%);
+  }
+  .ga-replay-card {
+    flex: 0 1 420px !important;
+  }
+  .ga-replay-list {
+    min-height: 72px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
   }
   .hotkey-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #ccc; }
   .hotkey-badge {
@@ -308,6 +325,14 @@ include_once 'Header.php';
     border-radius: 6px;
     padding: 4px 8px;
     font-size: 12px;
+  }
+  @media (max-width: 1180px) {
+    .row-wrapper {
+      flex-direction: column !important;
+    }
+    .ga-replay-card {
+      flex-basis: auto !important;
+    }
   }
 </style>
 
@@ -1161,6 +1186,17 @@ include_once 'Header.php';
       }
 
       document.addEventListener('DOMContentLoaded', function() {
+        if (window.MatchReplayClient) {
+          window.MatchReplayClient.init({
+            enabled: true,
+            rootName: rootName,
+            apiBaseUrl: '/TCGEngine/APIs/MatchReplay.php',
+            nextTurnBaseUrl: '/TCGEngine/NextTurn.php'
+          });
+          window.MatchReplayClient.renderReplayLibrary('match-replay-menu-list', {
+            rootName: rootName
+          });
+        }
         initializePrivateInviteFromUrl();
         initializeGoldfishLinkFromUrl();
         updateRejoinLastGameUI();
