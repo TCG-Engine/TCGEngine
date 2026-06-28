@@ -7678,7 +7678,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
        && PropertyContains(EffectiveCardClasses($added), "RANGER")) {
         for($pkp = 1; $pkp <= 2; ++$pkp) {
             if(GlobalEffectCount($pkp, "POLKHAWK_NEXT_RANGER_DISTANT") > 0) {
-                BecomeDistant($added);
+                BecomeDistant($added->Controller, $added->GetMzID());
                 RemoveGlobalEffect($pkp, "POLKHAWK_NEXT_RANGER_DISTANT");
                 break;
             }
