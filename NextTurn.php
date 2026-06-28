@@ -529,6 +529,10 @@
         }, 0);
       }
 
+      window.QueueGameUpdate = function() {
+        QueueReload(_lastUpdate);
+      };
+
       function ParseFrameAnimations(responseArr) {
         if (!Array.isArray(responseArr) || responseArr.length < 2) return [];
         var raw = responseArr[responseArr.length - 1];

@@ -16,28 +16,58 @@ include_once "./AccountFiles/AccountSessionAPI.php";
 include_once "./AccountFiles/AccountDatabaseAPI.php";
 include_once "./Database/ConnectionManager.php";
 
+$processInputResponseFormat = strtolower(strval($_GET["responseFormat"] ?? ""));
+
+function ProcessInputWantsJsonResponse() {
+  global $processInputResponseFormat;
+  return $processInputResponseFormat === "json";
+}
+
+function ProcessInputBuildJsonPayload($success, $message, $extra = []) {
+  $payload = [
+    "success" => (bool)$success,
+    "message" => strval($message),
+  ];
+  foreach ($extra as $key => $value) {
+    $payload[$key] = $value;
+  }
+  return $payload;
+}
+
+function ProcessInputReply($success, $message, $extra = []) {
+  if (ProcessInputWantsJsonResponse()) {
+    if (!headers_sent()) header("Content-Type: application/json");
+    echo(json_encode(ProcessInputBuildJsonPayload($success, $message, $extra), JSON_UNESCAPED_SLASHES));
+  } else if ($message !== "") {
+    echo($message);
+  }
+  exit;
+}
+
+function ProcessInputPlaybackStateForResponse() {
+  if (function_exists("MatchReplayPlaybackState")) return MatchReplayPlaybackState();
+  return null;
+}
+
 //We should always have a player ID as a URL parameter
 $gameName = TryGET("gameName", "");
 if ($gameName == "" || !IsGameNameValid($gameName)) {
-  echo ("Invalid game name.");
-  exit;
+  ProcessInputReply(false, "Invalid game name.");
 }
 $viewerInfo = NormalizeViewerIdentity($_GET["playerID"] ?? "");
 if ($viewerInfo['viewerID'] === '') {
-  echo("Invalid player ID.");
-  exit;
+  ProcessInputReply(false, "Invalid player ID.");
 }
 $playerID = $viewerInfo['viewerID'];
-$authKey = $_GET["authKey"];
-$folderPath = $_GET["folderPath"];
+$authKey = $_GET["authKey"] ?? "";
+$folderPath = $_GET["folderPath"] ?? "";
 
 if (!$viewerInfo['isSpectator'] && !SimGameValidateSeatAuth($folderPath, $gameName, $playerID, $authKey)) {
-  echo("Invalid auth key");
-  exit;
+  ProcessInputReply(false, "Invalid auth key");
 }
 
 //We should also have some information on the type of command
-$inputMode = $_GET["mode"];
+$inputMode = $_GET["mode"] ?? "";
 $mode = $inputMode;
 $buttonInput = $_GET["buttonInput"] ?? ""; //The player that is the target of the command - e.g. for changing health total
 $cardID = $_GET["cardID"] ?? "";
@@ -93,8 +123,9 @@ $gameName = strval($gameName);
 ParseGamestate("./" . $folderPath . "/");
 
 if ($viewerInfo['isSpectator']) {
-  echo("Spectators are view-only.");
-  exit;
+  ProcessInputReply(false, "Spectators are view-only.", [
+    "playbackState" => ProcessInputPlaybackStateForResponse(),
+  ]);
 }
 
 $actionResult = EngineExecuteLoadedAction([
@@ -109,6 +140,12 @@ $actionResult = EngineExecuteLoadedAction([
   'versionName' => $_GET["versionName"] ?? $inputText,
   'createdBy' => function_exists('LoggedInUser') && IsUserLoggedIn() ? strval(LoggedInUser()) : 'anonymous',
 ]);
+
+if (ProcessInputWantsJsonResponse()) {
+  ProcessInputReply(!empty($actionResult['success']), $actionResult['message'] ?? "", [
+    "playbackState" => ProcessInputPlaybackStateForResponse(),
+  ]);
+}
 
 if (!empty($actionResult['message'])) echo($actionResult['message']);
 

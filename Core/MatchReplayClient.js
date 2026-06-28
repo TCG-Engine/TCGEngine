@@ -4,6 +4,7 @@
   var STORE_NAME = 'replays';
   var dbPromise = null;
   var replayConfig = window.MatchReplayConfig || { enabled: false };
+  var replaySubmitPending = false;
 
   function byId(id) {
     return document.getElementById(id);
@@ -140,6 +141,40 @@
     return new URL(configuredUrl('processInputUrl', './ProcessInput.php'), window.location.href);
   }
 
+  function replayControlPlayerID() {
+    var raw = String(pageValue('playerID') || '1').toUpperCase();
+    return raw === 'S' ? '1' : raw;
+  }
+
+  function refreshPlaybackState(playbackState) {
+    if (playbackState !== undefined) {
+      configure({ playbackState: playbackState });
+    }
+    ensurePlaybackModal();
+    renderPanelList();
+  }
+
+  function requestGameUpdate() {
+    if (typeof window.QueueGameUpdate === 'function') {
+      window.QueueGameUpdate();
+    } else if (typeof window.reload === 'function') {
+      window.reload();
+    }
+  }
+
+  function handleReplaySubmitPayload(payload) {
+    if (payload && typeof payload === 'object') {
+      refreshPlaybackState(payload.playbackState);
+      if (payload.message) console.log(String(payload.message).trim());
+      if (!payload.success) throw new Error(payload.message || 'Replay action failed.');
+      return payload;
+    }
+
+    var message = String(payload || '').trim();
+    if (message) console.log(message);
+    return payload;
+  }
+
   function replayRootName() {
     return config().rootName || pageValue('folderPath') || '';
   }
@@ -209,19 +244,44 @@
   }
 
   function submitReplayMode(mode) {
-    var url = processInputUrl();
-    url.searchParams.set('gameName', pageValue('gameName'));
-    url.searchParams.set('playerID', pageValue('playerID') || '1');
-    url.searchParams.set('authKey', pageValue('authKey'));
-    url.searchParams.set('folderPath', pageValue('folderPath'));
-    url.searchParams.set('mode', String(mode));
-    fetch(url.toString(), { method: 'GET' })
-      .then(function(response) { return response.text(); })
-      .then(function(message) {
-        if (message && message.trim()) console.log(message.trim());
-        window.location.reload();
-      })
-      .catch(function(error) { alert(error.message || String(error)); });
+    if (replaySubmitPending) return;
+    replaySubmitPending = true;
+    renderPanelList();
+
+    var submitPromise;
+    if (typeof window.SubmitEngineInput === 'function') {
+      submitPromise = window.SubmitEngineInput(mode, '', {
+        playerID: replayControlPlayerID(),
+        authKey: pageValue('authKey'),
+        folderPath: pageValue('folderPath'),
+        gameName: pageValue('gameName'),
+        responseFormat: 'json',
+        afterSubmitReload: true,
+        allowSpectator: true
+      });
+    } else {
+      var url = processInputUrl();
+      url.searchParams.set('gameName', pageValue('gameName'));
+      url.searchParams.set('playerID', replayControlPlayerID());
+      url.searchParams.set('authKey', pageValue('authKey'));
+      url.searchParams.set('folderPath', pageValue('folderPath'));
+      url.searchParams.set('mode', String(mode));
+      url.searchParams.set('responseFormat', 'json');
+      submitPromise = fetch(url.toString(), { method: 'GET' })
+        .then(function(response) { return response.json(); })
+        .then(function(payload) {
+          requestGameUpdate();
+          return payload;
+        });
+    }
+
+    submitPromise
+      .then(handleReplaySubmitPayload)
+      .catch(function(error) { alert(error.message || String(error)); })
+      .then(function() {
+        replaySubmitPending = false;
+        renderPanelList();
+      });
   }
 
   function ensureStyles() {
@@ -282,20 +342,21 @@
     var reset = document.createElement('button');
     reset.type = 'button';
     reset.textContent = 'Reset';
+    reset.disabled = replaySubmitPending;
     reset.addEventListener('click', function() { submitReplayMode(11102); });
     actions.appendChild(reset);
 
     var next = document.createElement('button');
     next.type = 'button';
     next.textContent = 'Next';
-    next.disabled = !!state.completed;
+    next.disabled = replaySubmitPending || !!state.completed;
     next.addEventListener('click', function() { submitReplayMode(11101); });
     actions.appendChild(next);
 
     var all = document.createElement('button');
     all.type = 'button';
     all.textContent = 'Play All';
-    all.disabled = !!state.completed;
+    all.disabled = replaySubmitPending || !!state.completed;
     all.addEventListener('click', function() { submitReplayMode(11103); });
     actions.appendChild(all);
 

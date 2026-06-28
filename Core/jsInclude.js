@@ -283,25 +283,83 @@ function ZoneClickHandler(zone) {
   }
 }
 
-function SubmitInput(mode, params, fullRefresh = false) {
-  if (IsSpectatorClient()) return;
+function FormInputValue(id) {
+  var input = document.getElementById(id);
+  return input ? input.value : "";
+}
+
+function AppendSubmitInputParams(url, params) {
+  if (!params) return url;
+  params = String(params);
+  if (params === "") return url;
+  if (params.charAt(0) === "&") return url + params;
+  if (params.charAt(0) === "?") return url + "&" + params.substring(1);
+  return url + "&" + params;
+}
+
+function SubmitEngineInput(mode, params, options) {
+  options = options || {};
+  if (!options.allowSpectator && IsSpectatorClient()) {
+    return Promise.resolve({ success: false, message: "Spectators are view-only." });
+  }
+
   mode = ModeAliasLookup(mode);
-  var xmlhttp = new XMLHttpRequest();
-  xmlhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      if (fullRefresh) location.reload();
-      if(_openPopup != null) RefreshPopupContent(_openPopup);
-    }
-  };
-  var ajaxLink =
-    "ProcessInput.php?gameName=" + document.getElementById("gameName").value;
-  ajaxLink += "&playerID=" + document.getElementById("playerID").value;
-  ajaxLink += "&authKey=" + document.getElementById("authKey").value;
-  ajaxLink += "&folderPath=" + document.getElementById("folderPath").value;
-  ajaxLink += "&mode=" + mode;
-  ajaxLink += params;
-  xmlhttp.open("GET", ajaxLink, true);
-  xmlhttp.send();
+  var playerID = options.playerID != null ? String(options.playerID) : FormInputValue("playerID");
+  var authKey = options.authKey != null ? String(options.authKey) : FormInputValue("authKey");
+  var folderPath = options.folderPath != null ? String(options.folderPath) : FormInputValue("folderPath");
+  var gameName = options.gameName != null ? String(options.gameName) : FormInputValue("gameName");
+
+  var ajaxLink = "ProcessInput.php?gameName=" + encodeURIComponent(gameName);
+  ajaxLink += "&playerID=" + encodeURIComponent(playerID);
+  ajaxLink += "&authKey=" + encodeURIComponent(authKey);
+  ajaxLink += "&folderPath=" + encodeURIComponent(folderPath);
+  ajaxLink += "&mode=" + encodeURIComponent(mode);
+  if (options.responseFormat) ajaxLink += "&responseFormat=" + encodeURIComponent(options.responseFormat);
+  if (options.versionName) ajaxLink += "&versionName=" + encodeURIComponent(options.versionName);
+  ajaxLink = AppendSubmitInputParams(ajaxLink, params);
+
+  return new Promise(function(resolve, reject) {
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = function () {
+      if (this.readyState != 4) return;
+      if (this.status < 200 || this.status >= 300) {
+        reject(new Error("Input request failed with status " + this.status + "."));
+        return;
+      }
+
+      if (options.fullRefresh) {
+        location.reload();
+        resolve("");
+        return;
+      }
+
+      var responseText = this.responseText || "";
+      if (options.afterSubmitReload === true && typeof window.QueueGameUpdate === "function") {
+        window.QueueGameUpdate();
+      }
+
+      if (options.responseFormat === "json") {
+        try {
+          resolve(JSON.parse(responseText));
+        } catch (e) {
+          var preview = responseText.trim().substring(0, 80);
+          reject(new Error("Input request returned invalid JSON" + (preview ? ": " + preview : ".")));
+        }
+      } else {
+        resolve(responseText);
+      }
+    };
+    xmlhttp.open("GET", ajaxLink, true);
+    xmlhttp.send();
+  });
+}
+
+function SubmitInput(mode, params, fullRefresh = false) {
+  SubmitEngineInput(mode, params, { fullRefresh: fullRefresh }).then(function() {
+    if(_openPopup != null) RefreshPopupContent(_openPopup);
+  }).catch(function(error) {
+    if (window.console && console.error) console.error(error);
+  });
 }
 
 function ModeAliasLookup(mode) {
