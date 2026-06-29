@@ -15934,6 +15934,10 @@ function GraveyardAddReplacement($player, $CardID, $sourceObject) {
 }
 
 function HandAddReplacement($player, $CardID, $sourceObject) {
+    if($sourceObject !== null && is_object($sourceObject) && isset($sourceObject->_sourceZone)) {
+        HandleZoneMoveTriggers($player, $sourceObject->_sourceZone, "Hand");
+    }
+
     if(!PropertyContains(CardType($CardID), "REGALIA")) return null;
     return AddMaterial($player, $CardID, sourceObject: $sourceObject);
 }
@@ -17180,16 +17184,22 @@ function PendingEmpowerAmount($player, $contextMZ = null) {
 }
 
 function HandleZoneMoveTriggers($player, $fromZone, $toZone) {
-    if(strpos($fromZone, "Memory") !== false && strpos($toZone, "Hand") !== false) {
-        if(GetTurnPlayer() == $player && GlobalEffectCount($player, "yrzexkW5Ej") > 0) {
-            $deck = &GetDeck($player);
-            foreach($deck as $deckObj) {
-                if(!$deckObj->removed) {
-                    MZMove($player, "myDeck-0", "myGraveyard");
-                    break;
-                }
-            }
-        }
+    if(strpos($fromZone, "Memory") === false || strpos($toZone, "Hand") === false) return;
+    if(GetTurnPlayer() != $player) return;
+
+    $effectCount = GlobalEffectCount($player, "yrzexkW5Ej");
+    if($effectCount <= 0) return;
+
+    DecisionQueueController::CleanupRemovedCards();
+    $deck = &GetDeck($player);
+    $activeDeckCount = 0;
+    foreach($deck as $deckObj) {
+        if($deckObj !== null && !$deckObj->removed) ++$activeDeckCount;
+    }
+
+    $moveCount = min($effectCount, $activeDeckCount);
+    for($i = $moveCount - 1; $i >= 0; --$i) {
+        MZMove($player, "myDeck-" . $i, "myGraveyard");
     }
 }
 
