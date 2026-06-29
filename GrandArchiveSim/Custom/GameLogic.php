@@ -15668,6 +15668,12 @@ function BanishSelectionMetadata($obj) {
     return json_encode(['highlight' => false]);
 }
 
+function GetZoneObjectForPlayerPerspective($player, $mzID) {
+    global $playerID;
+    if($player != $playerID) $mzID = FlipZonePerspective($mzID);
+    return GetZoneObject($mzID);
+}
+
 function ZoneSearch($zoneName, $cardTypes=null, $floatingMemoryOnly=false, $cardElements=null, $cardSubtypes=null, $excludeSubtypes=null, $forPlayer=null, $cardClasses=null) {
     global $playerID;
     // $forPlayer: when specified and different from $playerID, flip the zone name so we
@@ -23255,12 +23261,10 @@ function SlimeCallingChooseSlime($player, $pickNumber) {
  * @param int $player The acting player.
  */
 function QueueTempZoneBottomDeckRearrange($player) {
-    $tempZone = GetZone("myTempZone");
     $remaining = [];
-    for($i = count($tempZone) - 1; $i >= 0; --$i) {
-        if(!$tempZone[$i]->removed) {
-            $remaining[] = $tempZone[$i]->CardID;
-        }
+    foreach(array_reverse(ZoneSearch("myTempZone", forPlayer:$player)) as $tempMZ) {
+        $tempObj = GetZoneObjectForPlayerPerspective($player, $tempMZ);
+        if($tempObj !== null && !$tempObj->removed) $remaining[] = $tempObj->CardID;
     }
     if(empty($remaining)) return;
     $param = "Bottom=" . implode(",", $remaining);

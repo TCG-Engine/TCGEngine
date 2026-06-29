@@ -4782,14 +4782,16 @@ $customDQHandlers["ReverseAfflictionPick"] = function($player, $parts, $lastDeci
 // Bertha, Spry Howitzer (ki6fxxgmue): look at top 5, may activate Ranger action
 // ============================================================================
 function BerthaLookFinish($player) {
-    $tempCards = ZoneSearch("myTempZone");
+    $tempCards = ZoneSearch("myTempZone", forPlayer:$player);
     // Find valid Ranger action cards with reserve cost ≤ 2
     $validActions = [];
     foreach($tempCards as $tmz) {
-        $tObj = GetZoneObject($tmz);
-        if(PropertyContains(CardType($tObj->CardID), "ACTION")
+        $tObj = GetZoneObjectForPlayerPerspective($player, $tmz);
+        if($tObj !== null
+            && !$tObj->removed
+            && PropertyContains(CardType($tObj->CardID), "ACTION")
             && PropertyContains(CardClasses($tObj->CardID), "RANGER")
-            && CardCost_reserve($tObj->CardID) <= 2) {
+            && intval(CardCost_reserve($tObj->CardID)) <= 2) {
             $validActions[] = $tmz;
         }
     }
@@ -4809,22 +4811,37 @@ $customDQHandlers["BerthaChooseAction"] = function($player, $parts, $lastDecisio
         return;
     }
     // Move chosen card to hand, then activate it for free
-    $chosenObj = GetZoneObject($lastDecision);
+    $chosenObj = GetZoneObjectForPlayerPerspective($player, $lastDecision);
+    if($chosenObj === null || $chosenObj->removed) {
+        BerthaPutRestOnBottom($player);
+        return;
+    }
     $chosenCardID = $chosenObj->CardID;
     MZMove($player, $lastDecision, "myHand");
     $hand = &GetHand($player);
     $handIdx = count($hand) - 1;
-    // Remove remaining TempZone to bottom of deck first
-    BerthaPutRestOnBottom($player);
-    // Activate the card for free (ignoreCost = true)
+    if(BerthaPutRestOnBottom($player)) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "BerthaActivateChosenAction|$handIdx|$chosenCardID", 1);
+        return;
+    }
     ActivateCard($player, "myHand-" . $handIdx, true);
 };
 
+$customDQHandlers["BerthaActivateChosenAction"] = function($player, $parts, $lastDecision) {
+    $handIdx = intval($parts[0] ?? -1);
+    $expectedCardID = $parts[1] ?? "";
+    if($handIdx < 0) return;
+    $handMZ = "myHand-" . $handIdx;
+    $handObj = GetZoneObjectForPlayerPerspective($player, $handMZ);
+    if($handObj === null || $handObj->removed || $handObj->CardID !== $expectedCardID) return;
+    ActivateCard($player, $handMZ, true);
+};
+
 function BerthaPutRestOnBottom($player) {
-    $remaining = ZoneSearch("myTempZone");
-    foreach($remaining as $rmz) {
-        MZMove($player, $rmz, "myDeck");
-    }
+    $remaining = ZoneSearch("myTempZone", forPlayer:$player);
+    if(empty($remaining)) return false;
+    QueueTempZoneBottomDeckRearrange($player);
+    return true;
 }
 
 // ============================================================================
