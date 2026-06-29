@@ -17452,8 +17452,9 @@ function CanPlayerUseCardElement($player, $cardID, $consumeBypass = false, $setF
         return true;
     }
 
-    // Harbinger of Lightning (1i5z6r7s9k): while you control an arcane Shenju ally, ignore this card's element requirements.
-    if($cardID === "1i5z6r7s9k") {
+    // Harbinger of Lightning (1i5z6r7s9k) / Seiryuu's Command (v9d2242357):
+    // while you control an arcane Shenju ally, ignore this card's element requirements.
+    if($cardID === "1i5z6r7s9k" || $cardID === "v9d2242357") {
         $field = &GetField($player);
         for($i = 0; $i < count($field); ++$i) {
             if($field[$i]->removed) continue;
