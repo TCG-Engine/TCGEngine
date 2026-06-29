@@ -1642,6 +1642,19 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     }
                 }
             }
+            // Framework Sidearm (p4lgdlx7md): [Class Bonus] pay (3) to activate from material deck
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if(CanActivateFrameworkSidearmFromMaterial($playerID, $mObj)) {
+                    for($ri = 0; $ri < 3; ++$ri) {
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                    }
+                    DecisionQueueController::AddDecision($playerID, "CUSTOM", "FrameworkSidearmAfterPay|" . $actionCard, 101);
+                    $dqController = new DecisionQueueController();
+                    $dqController->ExecuteStaticMethods($playerID, "-");
+                    return "PLAY";
+                }
+            }
             // Sablemere, Warden's Grip (WAodKSuGuX): [Nico Bonus] pay (3) to activate from material deck
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
@@ -15514,6 +15527,11 @@ function MaterialSelectionMetadata($obj) {
         }
     }
 
+    // Framework Sidearm (p4lgdlx7md): [Class Bonus] pay (3) to activate from material deck
+    if (CanActivateFrameworkSidearmFromMaterial($turnPlayer, $obj)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
     // Sablemere, Warden's Grip (WAodKSuGuX): [Nico Bonus] pay (3) to activate from material deck
     if ($obj->CardID === "WAodKSuGuX" && IsNicoBonusActive($turnPlayer)) {
         $opponent = $turnPlayer == 1 ? 2 : 1;
@@ -16136,6 +16154,15 @@ function CountAvailableReservePayments($player, $excludedMzID = null) {
         ++$available;
     }
     return $available + count(GetReservablePaymentSources($player, $excludedMzID));
+}
+
+function CanActivateFrameworkSidearmFromMaterial($player, $obj) {
+    return $obj !== null
+        && !$obj->removed
+        && $obj->CardID === "p4lgdlx7md"
+        && CanPlayerUseCardElement($player, $obj->CardID, false, false)
+        && IsClassBonusActive($player, ["RANGER"])
+        && CountAvailableReservePayments($player) >= 3;
 }
 
 function PreviewActivateReserveCost($player, $obj) {

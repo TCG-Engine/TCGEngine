@@ -238,13 +238,11 @@ $customDQHandlers["VaruckanMaterialBanish"] = function($player, $parts, $lastDec
 };
 
 $customDQHandlers["FRAMEWORK_SIDEARM_MATERIAL_CHECK"] = function($player, $parts, $lastDecision) {
-    if(!IsClassBonusActive($player, ["RANGER"])) return;
-    if(count(GetHand($player)) < 3) return;
     $material = GetMaterial($player);
     $sidearmMZ = null;
     for($i = 0; $i < count($material); ++$i) {
         if(!$material[$i]->removed && $material[$i]->CardID === "p4lgdlx7md") {
-            if(!CanPlayerUseCardElement($player, $material[$i]->CardID, false, false)) return;
+            if(!CanActivateFrameworkSidearmFromMaterial($player, $material[$i])) return;
             $sidearmMZ = "myMaterial-" . $i;
             break;
         }
@@ -259,7 +257,7 @@ $customDQHandlers["FrameworkSidearmMaterialActivate"] = function($player, $parts
     for($i = 0; $i < 3; ++$i) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
     }
-    DecisionQueueController::AddDecision($player, "CUSTOM", "FrameworkSidearmAfterPay|" . $lastDecision, 1);
+    DecisionQueueController::AddDecision($player, "CUSTOM", "FrameworkSidearmAfterPay|" . $lastDecision, 101);
 };
 
 $customDQHandlers["FrameworkSidearmAfterPay"] = function($player, $parts, $lastDecision) {
@@ -267,17 +265,7 @@ $customDQHandlers["FrameworkSidearmAfterPay"] = function($player, $parts, $lastD
     if($materialMZ === "") return;
     $obj = GetZoneObject($materialMZ);
     if($obj === null || $obj->removed || $obj->CardID !== "p4lgdlx7md") return;
-    $handObj = MZMove($player, $materialMZ, "myHand");
-    if($handObj === null) return;
-    $hand = GetHand($player);
-    $handIdx = count($hand) - 1;
-    DecisionQueueController::AddDecision($player, "MZCHOOSE", "myHand-" . $handIdx, 1);
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ActivateFrameworkSidearmFromHand", 1);
-};
-
-$customDQHandlers["ActivateFrameworkSidearmFromHand"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    ActivateCard($player, $lastDecision, true);
+    DoMaterialize($player, $materialMZ);
 };
 
 // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] activate from material deck while controlling 2+ domains
