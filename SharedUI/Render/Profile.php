@@ -279,8 +279,9 @@ function RenderProfile(array $def, array $ctx, array $userData): string {
     if (in_array('oauthDev', $sections, true)) $out .= _ProfileOAuthDev($def);
     if (in_array('savedDecks', $sections, true)) {
         require_once __DIR__ . '/DeckLibrary.php';
+        $deckLibraryConfig = DeckLibraryConfigFromSiteDef($def, ['actionButtons' => true]);
         $out .= "<div class='savedDecks container bg-black'><h2>Saved Decks</h2>"
-              . RenderDeckLibrary((int)($ctx['userId'] ?? 0), ['actionButtons' => true])
+              . RenderDeckLibrary((int)($ctx['userId'] ?? 0), $deckLibraryConfig)
               . "</div>";
     }
     // NOTE: core-wrapper is intentionally left open here to match the original Profile.php structure.

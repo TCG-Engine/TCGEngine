@@ -7,18 +7,26 @@ include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../GrandArchiveSim/GeneratedCode/GeneratedCardDictionaries.php';
+require_once __DIR__ . '/../../Render/DeckLibrary.php';
 
 include_once __DIR__ . '/Header.php';
 
+$gaSiteDef = require __DIR__ . '/SiteDef.php';
+$gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons' => true]);
+
 ?>
-<div class="row-wrapper" style="display: flex; flex-direction: row; flex-grow: 1;">
-  <!-- Create New Game Section -->
-  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: white; border-radius: 12px; position: relative;">
+<div class="row-wrapper ga-menu-grid">
+  <!-- Active Games Section -->
+  <div class="card ga-glass-card ga-active-card">
     <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
       <img src='../../../Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
     <h2>Active Games (<span id="active-game-count">0</span>)</h2>
-    <div id="active-games-list" class="active-games-list" style="margin-bottom: 18px;"></div>
+    <div id="active-games-list" class="active-games-list"></div>
+  </div>
+
+  <!-- Deck & Queue Section -->
+  <div class="card ga-glass-card ga-queue-card">
     <h2>Create a New Game</h2>
     <div>
       <!--
@@ -55,6 +63,10 @@ include_once __DIR__ . '/Header.php';
         <div style="margin-top: 8px; color: #b9b9b9; font-size: 12px; line-height: 1.35;">
           Supported deck links: DungeonGUI, Shout At Your Decks, sleeved.gg, TCGArchitect
         </div>
+        <div class="saved-decks-panel">
+          <div class="ga-inline-section-title">Saved Decks</div>
+          <?php echo RenderDeckLibrary(0, $gaDeckLibraryConfig); ?>
+        </div>
       </div>
       <div id="deck-input-text" style="display: none;">
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from fractalofin.site):</label>
@@ -83,16 +95,13 @@ include_once __DIR__ . '/Header.php';
       <div id="rejoin-last-game-note" style="display: none; margin-top: 10px; color: #b9b9b9; font-size: 13px;"></div>
     </div>
   </div>
-  
-  <!-- Saved Replays Section -->
-  <div class="card ga-glass-card ga-replay-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: white; border-radius: 12px; display: flex; flex-direction: column; gap: 12px;">
-    <h2 style="margin: 0;">Your Replays</h2>
-    <p style="margin: 0; color: #ccc; font-size: 13px; line-height: 1.4;">Saved in this browser.</p>
-    <div id="match-replay-menu-list" class="ga-replay-list"></div>
-  </div>
-
   <!-- Tips & Info Section -->
-  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: white; border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
+  <div class="card ga-glass-card ga-info-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: white; border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
+    <div class="ga-info-tabs" role="tablist" aria-label="Clarent information">
+      <button type="button" id="ga-info-tab-welcome" class="ga-info-tab is-active" onclick="switchInfoTab('welcome')" role="tab" aria-selected="true" aria-controls="ga-info-panel-welcome">Welcome</button>
+      <button type="button" id="ga-info-tab-replays" class="ga-info-tab" onclick="switchInfoTab('replays')" role="tab" aria-selected="false" aria-controls="ga-info-panel-replays">Replays</button>
+    </div>
+    <div id="ga-info-panel-welcome" class="ga-info-panel is-active" role="tabpanel" aria-labelledby="ga-info-tab-welcome">
     <h2 style="margin: 0 0 4px 0;">Welcome to Clarent!</h2>
     <p class="login-message" style="margin: 0; color: #ccc; font-size: 14px;">Clarent is a fan-made online simulator for the Grand Archive TCG.</p>
 
@@ -123,6 +132,12 @@ include_once __DIR__ . '/Header.php';
     <div>
       <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 8px;">Quick Reference</div>
       <div style="display: flex; flex-direction: column; gap: 6px;" id="hotkey-list"></div>
+    </div>
+    </div>
+    <div id="ga-info-panel-replays" class="ga-info-panel" role="tabpanel" aria-labelledby="ga-info-tab-replays">
+      <h2 style="margin: 0;">Your Replays</h2>
+      <p style="margin: 0; color: #ccc; font-size: 13px; line-height: 1.4;">Saved in this browser.</p>
+      <div id="match-replay-menu-list" class="ga-replay-list"></div>
     </div>
   </div>
 </div>
@@ -158,9 +173,36 @@ include_once __DIR__ . '/Header.php';
 <script src="/TCGEngine/Core/MatchReplayClient.js"></script>
 
 <style>
+  .home-header {
+    height: 92px;
+    padding: 10px 0 6px 40px;
+  }
+  .home-header h1 {
+    font-size: 42px;
+    margin: 0 0 2px;
+    line-height: 1;
+  }
+  .home-header p {
+    margin: 0;
+  }
+  .ga-menu-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.9fr) minmax(360px, 1.2fr) minmax(300px, 1fr);
+    gap: 14px;
+    align-items: start;
+    margin: 0 10px 10px;
+  }
   .row-wrapper > .card {
-    flex: 1 1 0 !important;
     min-width: 0;
+  }
+  .ga-active-card,
+  .ga-queue-card,
+  .ga-info-card {
+    color: white;
+    border-radius: 12px;
+    position: relative;
+    margin: 0 !important;
+    padding: 18px !important;
   }
   .ga-glass-card {
     background: linear-gradient(165deg, rgba(9, 23, 44, 0.82) 0%, rgba(6, 17, 34, 0.74) 100%);
@@ -187,6 +229,11 @@ include_once __DIR__ . '/Header.php';
     flex-shrink: 0;
   }
   #did-you-know-box {
+    background: linear-gradient(135deg, rgba(201,168,76,0.13) 0%, rgba(18,31,50,0.42) 100%);
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 8px;
+    padding: 14px 16px;
+    position: relative;
     transition: opacity 0.25s;
     min-height: 140px;
     width: 100%;
@@ -206,6 +253,79 @@ include_once __DIR__ . '/Header.php';
     white-space: normal !important;
     overflow-wrap: anywhere !important;
     word-break: break-word !important;
+  }
+  .ga-tip-icon {
+    display: inline-flex;
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(201, 168, 76, 0.18);
+    color: #f4e2a4;
+    border: 1px solid rgba(201, 168, 76, 0.35);
+    font-size: 12px;
+    font-weight: 700;
+    font-family: serif;
+  }
+  .ga-tip-next {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+  .ga-inline-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #888;
+    margin: 14px 0 8px;
+  }
+  .saved-decks-panel .deck-library-empty {
+    color: #b9b9b9;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .saved-decks-panel .dl-dropdown-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .saved-decks-panel .dl-act {
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+  .ga-info-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid rgba(201,168,76,0.28);
+  }
+  .ga-info-tab {
+    flex: 1;
+    padding: 8px;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    background: rgba(40,40,40,0.55);
+    color: #aaa;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .ga-info-tab.is-active {
+    background: rgba(201,168,76,0.16);
+    color: #fff;
+    border-bottom-color: #d6b86d;
+  }
+  .ga-info-panel {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .ga-info-panel.is-active {
+    display: flex;
   }
   .ga-settings-modal {
     position: fixed;
@@ -332,6 +452,7 @@ include_once __DIR__ . '/Header.php';
   }
   @media (max-width: 1180px) {
     .row-wrapper {
+      display: flex;
       flex-direction: column !important;
     }
     .ga-replay-card {
@@ -377,6 +498,21 @@ include_once __DIR__ . '/Header.php';
   function cycleDidYouKnow() {
     _dykIndex = (_dykIndex + 1) % _didYouKnowTips.length;
     renderDidYouKnow();
+  }
+
+  function switchInfoTab(tab) {
+    var isReplays = tab === 'replays';
+    var welcomeTab = document.getElementById('ga-info-tab-welcome');
+    var replaysTab = document.getElementById('ga-info-tab-replays');
+    var welcomePanel = document.getElementById('ga-info-panel-welcome');
+    var replaysPanel = document.getElementById('ga-info-panel-replays');
+    if (!welcomeTab || !replaysTab || !welcomePanel || !replaysPanel) return;
+    welcomeTab.classList.toggle('is-active', !isReplays);
+    replaysTab.classList.toggle('is-active', isReplays);
+    welcomeTab.setAttribute('aria-selected', isReplays ? 'false' : 'true');
+    replaysTab.setAttribute('aria-selected', isReplays ? 'true' : 'false');
+    welcomePanel.classList.toggle('is-active', !isReplays);
+    replaysPanel.classList.toggle('is-active', isReplays);
   }
 
   function renderHotkeyList() {
@@ -693,6 +829,40 @@ include_once __DIR__ . '/Header.php';
         });
       }
 
+      function autoSaveCurrentDeckLink(submission) {
+        if (!submission || !submission.deckLink) return;
+        var linkPanel = document.getElementById('deck-input-link');
+        if (!linkPanel || linkPanel.style.display === 'none') return;
+        if (!window.TCGDeckLibrarySaveCurrent) {
+          return;
+        }
+        window.TCGDeckLibrarySaveCurrent(submission.deckLink, {
+          localStorageKey: 'tcgengine:savedDecks:GrandArchiveSim',
+          promptName: false,
+          name: submission.deckLink
+        });
+      }
+
+      function loadSavedDeckInput(input) {
+        if (!input) return;
+        if (input.indexOf('\n') !== -1 || input.indexOf('\r') !== -1) {
+          switchDeckTab('text');
+          var textEl = document.getElementById('deck-text');
+          if (textEl) textEl.value = input;
+        } else {
+          switchDeckTab('link');
+          var linkEl = document.getElementById('deck-link');
+          if (linkEl) linkEl.value = input;
+        }
+      }
+
+      document.addEventListener('change', function(e) {
+        var sel = e.target.closest('.saved-decks-panel .dl-select');
+        if (!sel) return;
+        var opt = sel.options[sel.selectedIndex];
+        loadSavedDeckInput(opt ? opt.getAttribute('data-queue-input') : '');
+      });
+
       function createPrivateGame() {
         submitQueueJoin({
           createPrivate: true,
@@ -743,6 +913,7 @@ include_once __DIR__ . '/Header.php';
               showQueueInlineError(response.message || 'Unable to join queue.');
               return;
             }
+            autoSaveCurrentDeckLink(submission);
             clearQueueInlineError();
             if(response.ready) {
               DisplayMatchFoundPopup(response.playerID, response.gameName, response.authKey);

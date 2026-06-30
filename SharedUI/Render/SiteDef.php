@@ -33,6 +33,22 @@ function ValidateSiteDef(array $def): array {
     foreach (($def['profile']['sections'] ?? []) as $s) {
         if (!in_array($s, $known, true)) $errors[] = "profile.sections has unknown section '$s'";
     }
+    if (isset($def['deckLibrary'])) {
+        if (!is_array($def['deckLibrary'])) {
+            $errors[] = "deckLibrary must be an object";
+        } else {
+            $storage = $def['deckLibrary']['storage'] ?? 'account';
+            if (!in_array($storage, ['account', 'local'], true)) {
+                $errors[] = "deckLibrary.storage must be account or local";
+            }
+            if (isset($def['deckLibrary']['endpoint']) && !is_string($def['deckLibrary']['endpoint'])) {
+                $errors[] = "deckLibrary.endpoint must be a string";
+            }
+            if (isset($def['deckLibrary']['localStorageKey']) && !is_string($def['deckLibrary']['localStorageKey'])) {
+                $errors[] = "deckLibrary.localStorageKey must be a string";
+            }
+        }
+    }
     foreach (['rootName','appName','ipOwner','tcgName'] as $k) {
         if (empty($def['identity'][$k])) $errors[] = "identity.$k is required";
     }

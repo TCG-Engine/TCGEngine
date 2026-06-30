@@ -129,11 +129,18 @@ checkContains('stats wiring fetches matchups', $withBtns, "action=matchups");
 check('default variant has no stats readout', strpos($lib, "class='dl-stats'") === false);
 $empty = RenderDeckLibrary(5, ['decks'=>[], 'emptyText'=>'No saved decks yet.']);
 checkContains('empty state', $empty, 'No saved decks yet.');
+$localLib = RenderDeckLibrary(0, ['storage'=>'local','rootName'=>'GrandArchiveSim','localStorageKey'=>'tcgengine:savedDecks:GrandArchiveSim','actionButtons'=>true]);
+checkContains('local lib declares local storage', $localLib, 'data-storage="local"');
+checkContains('local lib carries storage key', $localLib, 'tcgengine:savedDecks:GrandArchiveSim');
+checkContains('local lib exposes save hook', $localLib, 'TCGDeckLibrarySaveCurrent');
 
 // --- savedDecks profile section ---
 $swusimDef = LoadSiteDef('SWUSim');
 check('SWUSim profile enables savedDecks', in_array('savedDecks', $swusimDef['profile']['sections'] ?? [], true));
 check('validator accepts savedDecks', !in_array("profile.sections has unknown section 'savedDecks'", ValidateSiteDef($swusimDef), true));
+$gaDef = LoadSiteDef('GrandArchiveSim');
+check('GrandArchiveSim declares local deck library', ($gaDef['deckLibrary']['storage'] ?? '') === 'local');
+check('validator accepts deckLibrary config', ValidateSiteDef($gaDef) === []);
 
 // (later tasks append their checks above this line)
 

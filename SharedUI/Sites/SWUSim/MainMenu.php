@@ -8,11 +8,14 @@ include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/../../../SWUSim/Formats.php';
+require_once __DIR__ . '/../../Render/DeckLibrary.php';
 
 include_once __DIR__ . '/Header.php';
 
 $swuFormats = function_exists('SWUListFormats') ? SWUListFormats() : ['premier' => 'Premier'];
 $swuQueueTypes = function_exists('SWUQueueTypeDefinitions') ? SWUQueueTypeDefinitions() : ['bo1' => ['displayName' => 'Best of 1']];
+$swuSiteDef = require __DIR__ . '/SiteDef.php';
+$swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
 ?>
 <div class="row-wrapper" style="display: flex; flex-direction: row; flex-grow: 1;">
   <!-- Create New Game Section -->
@@ -103,12 +106,11 @@ $swuQueueTypes = function_exists('SWUQueueTypeDefinitions') ? SWUQueueTypeDefini
       <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
       <div id="private-invite-notice" style="display: none; margin-top: 10px; color: #c8b080; font-size: 13px;"></div>
       <?php
-        require_once __DIR__ . '/../../Render/DeckLibrary.php';
         if (isset($_SESSION['userid'])) {
             echo "<div class='saved-decks-panel' style='margin-top:16px;'><h3 style='margin:0 0 8px 0;'>Saved Decks</h3>";
             // Default (no action buttons): the dropdown only loads a deck into the queue box.
             // Managing saved decks (favorite/rename/delete) lives on the Profile page.
-            echo RenderDeckLibrary((int)$_SESSION['userid']);
+            echo RenderDeckLibrary((int)$_SESSION['userid'], $swuDeckLibraryConfig);
             echo "</div>";
         }
       ?>
