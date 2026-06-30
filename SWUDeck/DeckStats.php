@@ -4,6 +4,7 @@
   include_once './ZoneClasses.php';
   include_once '../Core/CoreZoneModifiers.php';
   include_once './GeneratedCode/GeneratedCardDictionaries.php';
+  include_once '../Core/StatsBaseRegistry.php';
   include_once '../Core/HTTPLibraries.php';
 
   include_once '../Database/ConnectionManager.php';
@@ -64,30 +65,59 @@
 
     // Query for opponentdeckstats table with source filter
     // Pivot color columns into rows so each leader+base combo gets its own row
-    $colors = ['Green', 'Blue', 'Red', 'Yellow', 'Colorless'];
+    $colors = StatsBaseColors();
+    $typeSuffixes = StatsBaseTypeSuffixes();
     $unionParts = [];
     foreach($colors as $color) {
-      $winCol = "winsVs" . $color;
-      $totalCol = "totalVs" . $color;
-      if($statsSource === "all") {
-        $unionParts[] = "SELECT leaderID, '$color' AS baseColor, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? GROUP BY leaderID HAVING total > 0";
-      } else {
-        $unionParts[] = "SELECT leaderID, '$color' AS baseColor, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? AND source = ? GROUP BY leaderID HAVING total > 0";
+      foreach($typeSuffixes as $typeName => $suffix) {
+        $winCol = "winsVs$color$suffix";
+        $totalCol = "totalVs$color$suffix";
+        if($statsSource === "all") {
+          $unionParts[] = "SELECT leaderID, '$color' AS baseColor, '$typeName' AS baseType, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? GROUP BY leaderID HAVING total > 0";
+        } else {
+          $unionParts[] = "SELECT leaderID, '$color' AS baseColor, '$typeName' AS baseType, SUM($winCol) AS wins, SUM($totalCol) AS total FROM opponentdeckstats WHERE deckID = ? AND source = ? GROUP BY leaderID HAVING total > 0";
+        }
       }
     }
     $unionSql = implode(" UNION ALL ", $unionParts) . " ORDER BY total DESC";
     $stmt = $conn->prepare($unionSql);
     if($statsSource === "all") {
-      $ids = array_fill(0, count($colors), $gameName);
-      $stmt->bind_param(str_repeat("i", count($colors)), ...$ids);
+      $ids = array_fill(0, count($unionParts), $gameName);
+      $stmt->bind_param(str_repeat("i", count($unionParts)), ...$ids);
     } else {
       $sourceVal = ($statsSource === "owner") ? 1 : 0;
       $args = [];
-      foreach($colors as $_) { $args[] = $gameName; $args[] = $sourceVal; }
-      $stmt->bind_param(str_repeat("ii", count($colors)), ...$args);
+      foreach($unionParts as $_) { $args[] = $gameName; $args[] = $sourceVal; }
+      $stmt->bind_param(str_repeat("ii", count($unionParts)), ...$args);
     }
     $stmt->execute();
     $result = $stmt->get_result();
+    $matchupRows = [];
+    while ($r = $result->fetch_assoc()) { $r["baseName"] = null; $matchupRows[] = $r; }
+    $stmt->close();
+
+    // Rare/Special "named" bases (tracked by baseID, shown by card name)
+    if($statsSource === "all") {
+      $nstmt = $conn->prepare("SELECT leaderID, baseID, SUM(wins) AS wins, SUM(total) AS total FROM opponentnamedbasestats WHERE deckID = ? GROUP BY leaderID, baseID HAVING total > 0");
+      $nstmt->bind_param("i", $gameName);
+    } else {
+      $sourceVal = ($statsSource === "owner") ? 1 : 0;
+      $nstmt = $conn->prepare("SELECT leaderID, baseID, SUM(wins) AS wins, SUM(total) AS total FROM opponentnamedbasestats WHERE deckID = ? AND source = ? GROUP BY leaderID, baseID HAVING total > 0");
+      $nstmt->bind_param("ii", $gameName, $sourceVal);
+    }
+    $nstmt->execute();
+    $nres = $nstmt->get_result();
+    while ($r = $nres->fetch_assoc()) {
+      $matchupRows[] = [
+        "leaderID"  => $r["leaderID"],
+        "baseColor" => AspectToColor(CardAspect($r["baseID"]) ?? ''),
+        "baseType"  => "Named",
+        "baseName"  => CardTitle($r["baseID"]),
+        "wins"      => $r["wins"],
+        "total"     => $r["total"],
+      ];
+    }
+    $nstmt->close();
 
   // Matchup stats table
   // aspect name → hex color
@@ -114,7 +144,7 @@
   $matchupStats .= "<table id='matchupStatsTable' class='statsTable display' cellspacing='0' width='100%'><thead>";
   $matchupStats .= "<tr><th>Leader/Base</th><th>Wins</th><th>Losses</th><th>Win Rate</th><th>Games</th></tr>";
   $matchupStats .= "</thead><tbody>";
-    while ($row = $result->fetch_assoc()) {
+    foreach ($matchupRows as $row) {
       $totalWins = (int)$row["wins"];
       $totalPlays = (int)$row["total"];
       $totalLosses = $totalPlays - $totalWins;
@@ -132,10 +162,20 @@
       }
       // Base color dot
       $baseColor = $row["baseColor"];
+      $baseType  = $row["baseType"];
       $baseHex = $baseColorDotMap[$baseColor] ?? '#888';
       $baseDot = $makeDot($baseHex);
       $leaderName = htmlspecialchars(CardTitle($row["leaderID"]) . ", " . CardSubtitle($row["leaderID"]), ENT_QUOTES, 'UTF-8');
-      $baseLabel = htmlspecialchars($baseColor, ENT_QUOTES, 'UTF-8');
+      if ($baseType === 'Named') {
+        // Rare/Special base — spell out the card name.
+        $baseLabel = htmlspecialchars($row["baseName"], ENT_QUOTES, 'UTF-8');
+      } else {
+        // Common base — color, with the type appended for non-Standard (Legacy/Force/Splash).
+        $baseLabel = htmlspecialchars($baseColor, ENT_QUOTES, 'UTF-8');
+        if ($baseType !== 'Standard') {
+          $baseLabel .= ' · ' . htmlspecialchars($baseType, ENT_QUOTES, 'UTF-8');
+        }
+      }
       $leaderCell = $leaderName . ($leaderDots !== '' ? " (" . $leaderDots . ")" : '')
                   . " / " . $baseLabel . " (" . $baseDot . ")";
       $matchupStats .= "<tr>";
@@ -149,7 +189,7 @@
 
   $matchupStats .= "</tbody></table>";
 
-    $stmt->close();    $deckStatsOutput = "";
+    $deckStatsOutput = "";
     if($deckStats != null) {
       $deckStatsOutput = "<div style='margin: 10px; max-height:calc(98vh - 50px); overflow-y:auto; scrollbar-width: thin; scrollbar-color: #5a5a5a #2a2a2a;'>";
       $deckStatsOutput .= "<table style='padding:10px; color: white; border-collapse: collapse; width: 100%;'><tr><td style='vertical-align: top; min-width: 300px;'>";

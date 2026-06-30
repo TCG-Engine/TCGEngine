@@ -18,6 +18,7 @@ if ($deckID === "" || !ctype_digit((string)$deckID)) {
 }
 
 require_once "../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
+require_once "../Core/StatsBaseRegistry.php";
 require_once "../SWUDeck/GamestateParser.php";
 require_once "../SWUDeck/ZoneClasses.php";
 require_once "../SWUDeck/ZoneAccessors.php";
@@ -130,17 +131,24 @@ while ($row = $cardStatsResult->fetch_assoc()) {
 $stmt->close();
 
 // --- Matchup stats ---
-$colors = ['Green', 'Blue', 'Red', 'Yellow', 'Colorless'];
+// (1) Common bases: color x type wide columns (Legacy / Standard / Force / Splash).
+$colors = StatsBaseColors();
+$typeSuffixes = StatsBaseTypeSuffixes(); // ['Legacy'=>'','Standard'=>'Standard','Force'=>'Force','Splash'=>'Splash']
 $unionParts = [];
+$ids = [];
 foreach ($colors as $color) {
-    $unionParts[] = "SELECT leaderID, '$color' AS baseColor,
-        SUM(winsVs$color) AS wins, SUM(totalVs$color) AS total
-        FROM opponentdeckstats WHERE deckID = ? GROUP BY leaderID HAVING total > 0";
+    foreach ($typeSuffixes as $typeName => $suffix) {
+        $winCol = "winsVs$color$suffix";
+        $totCol = "totalVs$color$suffix";
+        $unionParts[] = "SELECT leaderID, '$color' AS baseColor, '$typeName' AS baseType,
+            SUM($winCol) AS wins, SUM($totCol) AS total
+            FROM opponentdeckstats WHERE deckID = ? GROUP BY leaderID HAVING total > 0";
+        $ids[] = $deckID;
+    }
 }
 $unionSql = implode(" UNION ALL ", $unionParts) . " ORDER BY total DESC";
 $stmt = $conn->prepare($unionSql);
-$ids = array_fill(0, count($colors), $deckID);
-$stmt->bind_param(str_repeat("i", count($colors)), ...$ids);
+$stmt->bind_param(str_repeat("i", count($ids)), ...$ids);
 $stmt->execute();
 $matchupResult = $stmt->get_result();
 $matchupStats = [];
@@ -151,6 +159,31 @@ while ($row = $matchupResult->fetch_assoc()) {
         "leaderID"  => $row["leaderID"],
         "leaderName"=> trim(CardTitle($row["leaderID"]) . ", " . CardSubtitle($row["leaderID"]), ", "),
         "baseColor" => $row["baseColor"],
+        "baseType"  => $row["baseType"],
+        "baseName"  => null,
+        "wins"      => $wins,
+        "losses"    => $total - $wins,
+        "games"     => $total,
+        "winRate"   => $total > 0 ? round($wins / $total * 100, 2) : 0,
+    ];
+}
+$stmt->close();
+
+// (2) Rare/Special bases: tracked individually by baseID, shown by card name.
+$stmt = $conn->prepare("SELECT leaderID, baseID, SUM(wins) AS wins, SUM(total) AS total
+    FROM opponentnamedbasestats WHERE deckID = ? GROUP BY leaderID, baseID HAVING total > 0 ORDER BY total DESC");
+$stmt->bind_param("i", $deckID);
+$stmt->execute();
+$namedResult = $stmt->get_result();
+while ($row = $namedResult->fetch_assoc()) {
+    $wins  = (int)$row["wins"];
+    $total = (int)$row["total"];
+    $matchupStats[] = [
+        "leaderID"  => $row["leaderID"],
+        "leaderName"=> trim(CardTitle($row["leaderID"]) . ", " . CardSubtitle($row["leaderID"]), ", "),
+        "baseColor" => AspectToColor(CardAspect($row["baseID"]) ?? ''),
+        "baseType"  => "Named",
+        "baseName"  => CardTitle($row["baseID"]),
         "wins"      => $wins,
         "losses"    => $total - $wins,
         "games"     => $total,

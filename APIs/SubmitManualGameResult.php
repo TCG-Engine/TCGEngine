@@ -2,6 +2,7 @@
 
   require_once "../Core/HTTPLibraries.php";
   require_once "../Database/ConnectionManager.php";
+  require_once "../Core/StatsBaseRegistry.php";
 
   $input = file_get_contents('php://input');
   $data = json_decode($input, true);
@@ -120,39 +121,62 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 		mysqli_stmt_close($stmt);
 	}
 	$leaderID = $playerJSON["opposingHero"];
-	$opponentColor = $playerJSON["opposingBaseColor"];
-	if($opponentColor != "") {
-		$winColumn = "winsVs" . ucfirst($opponentColor);
-		$totalColumn = "totalVs" . ucfirst($opponentColor);
-	
-		$sql = "SELECT COUNT(*) FROM opponentdeckstats WHERE deckID = ? AND leaderID = ?";
+
+	$resolved = isset($playerJSON["opposingBase"]) ? ResolveOpponentBase($playerJSON["opposingBase"]) : null;
+	$wins = $won ? 1 : 0;
+	$total = 1;
+
+	if ($resolved && $resolved["kind"] === "named") {
+		// Rare/Special base — tracked individually by base identity.
+		$namedBaseID = $resolved["baseID"];
+		$sql = "INSERT INTO opponentnamedbasestats (deckID, leaderID, baseID, wins, total) VALUES (?, ?, ?, ?, ?)
+		        ON DUPLICATE KEY UPDATE wins = wins + VALUES(wins), total = total + VALUES(total)";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
-			mysqli_stmt_bind_param($stmt, "is", $deckID, $leaderID);
+			mysqli_stmt_bind_param($stmt, "issii", $deckID, $leaderID, $namedBaseID, $wins, $total);
 			mysqli_stmt_execute($stmt);
-			mysqli_stmt_bind_result($stmt, $count);
-			mysqli_stmt_fetch($stmt);
 			mysqli_stmt_close($stmt);
 		}
-	
-		if ($count == 0) {
-			$sql = "INSERT INTO opponentdeckstats (deckID, leaderID) VALUES (?, ?)";
+	} else {
+		if ($resolved) {
+			$color = $resolved["color"];
+			$typeSuffix = StatsTypeColumnSuffix($resolved["type"]);
+		} else {
+			$color = isset($playerJSON["opposingBaseColor"]) ? $playerJSON["opposingBaseColor"] : "";
+			$typeSuffix = ""; // Legacy
+		}
+
+		if ($color != "") {
+			$winColumn   = "winsVs"  . ucfirst($color) . $typeSuffix;
+			$totalColumn = "totalVs" . ucfirst($color) . $typeSuffix;
+
+			$sql = "SELECT COUNT(*) FROM opponentdeckstats WHERE deckID = ? AND leaderID = ?";
 			$stmt = mysqli_stmt_init($conn);
 			if (mysqli_stmt_prepare($stmt, $sql)) {
 				mysqli_stmt_bind_param($stmt, "is", $deckID, $leaderID);
 				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $count);
+				mysqli_stmt_fetch($stmt);
 				mysqli_stmt_close($stmt);
 			}
-		}
-	
-		$sql = "UPDATE opponentdeckstats SET $winColumn = $winColumn + ?, $totalColumn = $totalColumn + ? WHERE deckID = ? AND leaderID = ?";
-		$stmt = mysqli_stmt_init($conn);
-		if (mysqli_stmt_prepare($stmt, $sql)) {
-			$wins = $won ? 1 : 0;
-			$total = 1;
-			mysqli_stmt_bind_param($stmt, "iiis", $wins, $total, $deckID, $leaderID);
-			mysqli_stmt_execute($stmt);
-			mysqli_stmt_close($stmt);
+
+			if ($count == 0) {
+				$sql = "INSERT INTO opponentdeckstats (deckID, leaderID) VALUES (?, ?)";
+				$stmt = mysqli_stmt_init($conn);
+				if (mysqli_stmt_prepare($stmt, $sql)) {
+					mysqli_stmt_bind_param($stmt, "is", $deckID, $leaderID);
+					mysqli_stmt_execute($stmt);
+					mysqli_stmt_close($stmt);
+				}
+			}
+
+			$sql = "UPDATE opponentdeckstats SET $winColumn = $winColumn + ?, $totalColumn = $totalColumn + ? WHERE deckID = ? AND leaderID = ?";
+			$stmt = mysqli_stmt_init($conn);
+			if (mysqli_stmt_prepare($stmt, $sql)) {
+				mysqli_stmt_bind_param($stmt, "iiis", $wins, $total, $deckID, $leaderID);
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_close($stmt);
+			}
 		}
 	}
 	mysqli_close($conn);
