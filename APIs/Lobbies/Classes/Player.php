@@ -6,11 +6,13 @@
     private $preconstructedDeck;
     private $authKey;
     private $gamePlayerID; // This is the ID used in the game, not the lobby
-    
-    public function __construct($playerID, $deckLink, $preconstructedDeck = '') {
+    private $userId; // account id of the human who created this seat (null for guests/bots)
+
+    public function __construct($playerID, $deckLink, $preconstructedDeck = '', $userId = null) {
         $this->playerID = $playerID;
         $this->deckLink = $deckLink;
         $this->preconstructedDeck = $preconstructedDeck;
+        $this->userId = $userId;
         $this->authKey = bin2hex(random_bytes(16)); // Generate a unique auth key
     }
 
@@ -30,10 +32,14 @@
         return $this->authKey;
     }
 
+    public function getUserId() {
+        return $this->userId;
+    }
+
     public function getGamePlayerID() {
         return $this->gamePlayerID;
     }
-    
+
     public function setGamePlayerID($gamePlayerID) {
         $this->gamePlayerID = $gamePlayerID;
     }
@@ -47,12 +53,14 @@
         $this->preconstructedDeck = $preconstructedDeck;
     }
 
+    #[\ReturnTypeWillChange]
     public function jsonSerialize() {
         return [
             'playerID' => $this->getPlayerID(),
             'deckLink' => $this->getDeckLink(),
             'preconstructedDeck' => $this->getPreconstructedDeck(),
-            'authKey' => $this->getAuthKey()
+            'authKey' => $this->getAuthKey(),
+            'userId' => $this->getUserId()
         ];
     }
   }

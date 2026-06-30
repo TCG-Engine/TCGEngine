@@ -1,0 +1,10 @@
+## GIVEN
+CommonSetup: grw/ggk/{myResources:1;handCardIds:ASH_259}
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:ASH_259
+P1HANDCOUNT:0

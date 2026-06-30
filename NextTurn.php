@@ -6,7 +6,7 @@
       src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
-    <script src="./Core/UILibraries20260415.js"></script>
+    <script src="./Core/UILibraries20260415.js?v=<?php echo filemtime('./Core/UILibraries20260415.js'); ?>"></script>
     <script src="./Core/CounterRendering.js"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
@@ -17,7 +17,14 @@
     <script src="./Core/NumberChooseUI.js"></script>
     <script src="./Core/NameCardUI.js"></script>
     <script src="./Core/MatchReplayClient.js"></script>
+    <script src="./Core/OptionChooseUI.js"></script>
     <link rel="stylesheet" type="text/css" href="./Core/Styles/ScreenAnimations.css">
+    <!-- Preload shield-break frames so the first shatter doesn't stutter fetching frames 2-5 mid-animation. -->
+    <link rel="preload" as="image" href="./Assets/Icons/space-shield_break1.svg">
+    <link rel="preload" as="image" href="./Assets/Icons/space-shield_break2.svg">
+    <link rel="preload" as="image" href="./Assets/Icons/space-shield_break3.svg">
+    <link rel="preload" as="image" href="./Assets/Icons/space-shield_break4.svg">
+    <link rel="preload" as="image" href="./Assets/Icons/space-shield_break5.svg">
 
     <style>
       @keyframes move {
@@ -196,11 +203,17 @@
       exit;
     }
 
-    session_start();
-    if ($playerID == 1 && isset($_SESSION["p1AuthKey"])) $authKey = $_SESSION["p1AuthKey"];
-    else if ($playerID == 2 && isset($_SESSION["p2AuthKey"])) $authKey = $_SESSION["p2AuthKey"];
-    else $authKey = TryGet("authKey", "");
-    session_write_close();
+    // HTML is already emitted above this point, so session_start() can't send its
+    // cookie header — guard to avoid a "headers already sent" warning. When the
+    // session is unavailable, auth falls through to the URL authKey / lastAuthKey cookie.
+    $authKey = "";
+    if (!headers_sent()) {
+      session_start();
+      if ($playerID == 1 && isset($_SESSION["p1AuthKey"])) $authKey = $_SESSION["p1AuthKey"];
+      else if ($playerID == 2 && isset($_SESSION["p2AuthKey"])) $authKey = $_SESSION["p2AuthKey"];
+      session_write_close();
+    }
+    if ($authKey === "") $authKey = TryGet("authKey", "");
 
     if(($playerID == 1 || $playerID == 2) && $authKey == "")
     {
@@ -335,7 +348,8 @@
       if ($lastSlashPos !== false) {
         $generateFilename = substr($generateFilename, $lastSlashPos + 1);
       }
-      echo("$folderPath/$generateFilename");
+      $fileMtime = @filemtime("./" . $folderPath . "/" . $generateFilename);
+      echo("$folderPath/$generateFilename?v=$fileMtime");
       ?>">
 
     </script>
@@ -647,6 +661,22 @@
           element.innerHTML += "<div class='restore-animation restore-animation-a'" + restoreDelayStyle + "><div class='restore-animation-a-inner'></div></div>";
           element.innerHTML += "<div class='restore-animation-a-label'><div class='restore-animation-a-label-inner'" + restoreLabelDelayStyle + ">+" + restoreAmount + "</div></div>";
           if (totalMs < 500) totalMs = 500;
+        } else if (type === "SHIELD_BREAK") {
+          // Play the shatter at the broken shield's own top-right orb (slot 0 = rightmost,
+          // each +20px to the left), matching the shield token layout (28px box centered
+          // on the 20px orb). See UILibraries shield-orb render.
+          var shieldSlot = parseInt(animation.slot || 0, 10);
+          if (Number.isNaN(shieldSlot) || shieldSlot < 0) shieldSlot = 0;
+          // Hide the underlying shield orb at this slot so only the shatter shows during the
+          // animation. Orbs render in slot order (shi 0 = rightmost), so the Nth orb is slot N.
+          // Setting the inline style before innerHTML += below preserves it through the re-parse.
+          // The board re-render after the block removes the consumed shield for real.
+          var shieldOrbs = element.querySelectorAll("img[title='Shield']");
+          if (shieldOrbs[shieldSlot]) shieldOrbs[shieldSlot].style.display = "none";
+          var shieldStyle = "top:1px; right:" + (shieldSlot * 20 + 1) + "px; width:28px; height:28px;";
+          if (delayMs > 0) shieldStyle += " animation-delay:" + delayMs + "ms; opacity:0;";
+          element.innerHTML += "<div class='shield-break-animation' style='" + shieldStyle + "'></div>";
+          if (totalMs < 600) totalMs = 600;
         } else if (type === "EXHAUST") {
           var exhaustAnimation = [
             { transform: "rotate(0deg) scale(1)" },
@@ -701,7 +731,11 @@
           var animation = animations[i];
           if (animation && typeof animation === "object") {
             animation = Object.assign({}, animation);
-            var targetKey = GetFrameAnimationTargetKey(animation, perspectivePlayerID);
+            // Shield breaks fire simultaneously: exempt from the same-target stagger so multiple
+            // shields stripped (e.g. by Saboteur) all play at once and the break isn't pushed
+            // behind the prevented-damage "-0" on the same unit.
+            var isShieldBreak = String(animation.type || "").toUpperCase() === "SHIELD_BREAK";
+            var targetKey = isShieldBreak ? "" : GetFrameAnimationTargetKey(animation, perspectivePlayerID);
             if (targetKey) {
               var existingDelayMs = parseInt(animation.delayMs || 0, 10);
               if (Number.isNaN(existingDelayMs) || existingDelayMs < 0) existingDelayMs = 0;
@@ -729,6 +763,22 @@
             if (responseText == "NaN") {} //Do nothing, game is invalid
             else if(responseText == "" || responseText == "KEEPALIVE") {
               QueueReload(_lastUpdate);
+            } else if (responseText.split("SIDEBOARD")[0] == "1236") {
+              // Bo3: this game ended and sideboarding is pending. Show the end-game menu (the hub);
+              // the menu's "Go to Next Game" navigates to the sideboard screen. Keep polling so the
+              // menu stays in sync if the opponent forfeits/leaves.
+              if (typeof window.SWUShowEndGameMenu === 'function') window.SWUShowEndGameMenu();
+              QueueReload(_lastUpdate);
+              return;
+            } else if (responseText.split("MATCHADVANCE")[0] == "1235") {
+              // Bo3: this game advanced to the next child game — redirect (authKey carries over).
+              var nextGame = responseText.split("MATCHADVANCE")[1] || "";
+              if (nextGame) {
+                var u = new URL(window.location.href);
+                u.searchParams.set('gameName', nextGame);
+                window.location.replace(u.toString());
+                return;
+              }
             } else if (responseText.split("REMATCH")[0] == "1234") {
               location.replace('GameLobby.php?gameName=<?php echo ($gameName); ?>&playerID=<?php echo ($playerID); ?>&authKey=<?php echo ($authKey); ?>');
             } else {
@@ -822,7 +872,13 @@
                 if (typeof BuildMacroGameStatsHtml === 'function') {
                   _goStatsHtml = BuildMacroGameStatsHtml(playerID);
                 }
-                ShowGameOver(viewerCanAct && playerID === _goWinner, undefined, _goStatsHtml);
+                // SWUSim: show the match-aware end-game menu (contextual buttons + stats). Other sims
+                // keep the plain overlay.
+                if (typeof window.SWUShowEndGameMenu === 'function') {
+                  window.SWUShowEndGameMenu();
+                } else {
+                  ShowGameOver(viewerCanAct && playerID === _goWinner, undefined, _goStatsHtml);
+                }
               }
             }
           } catch (e) {}

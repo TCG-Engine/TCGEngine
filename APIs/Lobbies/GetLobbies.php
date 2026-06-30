@@ -47,6 +47,8 @@
         'ready' => boolval($lobby->ready),
         'isPrivate' => $isPrivate,
         'rootName' => isset($lobby->rootName) ? $lobby->rootName : null,
+        'format' => isset($lobby->format) ? $lobby->format : null,
+        'queueType' => isset($lobby->queueType) ? $lobby->queueType : null,
       ];
     }
   }

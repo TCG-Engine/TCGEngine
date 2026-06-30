@@ -20,6 +20,8 @@
 
   function CheckLoggedInUserMod()
   {
+    if (getenv('DEVENV') === 'true') return '';
+
     if(!IsUserLoggedIn()) {
       return "You must be logged in to use this";
     }

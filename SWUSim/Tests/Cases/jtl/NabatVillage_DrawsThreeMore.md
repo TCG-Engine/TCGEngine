@@ -1,0 +1,21 @@
+# SWUSim Replay Schema
+JTL_028 Nabat Village — draw 3 more cards in starting hand (P1 draws 9, resources 2 → hand 7); P2 normal base unaffected (hand 4)
+## GIVEN
+P1LeaderBase: SOR_014/JTL_028
+P1Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+P2LeaderBase: SOR_014/SOR_024
+P2Deck: [SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095 SOR_095]
+InitChoice: 1
+## WHEN
+- P1>MulliganNo
+- P1>ResourceHand:0
+- P1>ResourceHand:0
+- P2>MulliganNo
+- P2>ResourceHand:0
+- P2>ResourceHand:0
+
+## EXPECT
+P1HANDCOUNT:7
+P2HANDCOUNT:4
+P1RESCOUNT:2
+P2RESCOUNT:2

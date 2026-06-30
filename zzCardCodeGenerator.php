@@ -38,6 +38,8 @@ $cardDBOverride = TryGET("CardDBOverride", "");
 // When withPreview=1, fetch fresh data from the external API (use when previewing new cards).
 // Default (withPreview omitted) skips the API and rebuilds dictionaries from the saved cache.
 $withPreview = (TryGET("withPreview", "") === "1" || TryGET("withPreview", "") === "true");
+// When overwriteImages=1, delete and re-download all images (webp, concat, crop) even if they exist.
+$overwriteImages = (TryGET("overwriteImages", "") === "1");
 logLine("=== Generator starting: rootName=" . $rootName . " | PHP " . PHP_VERSION . " | memory_limit=" . ini_get('memory_limit') . " | max_exec_time=" . ini_get('max_execution_time') . "s ===");
 
 $schemaFile = "./Schemas/" . $rootName . "/ImportSchema.txt";
@@ -79,7 +81,7 @@ for($i=0; $i<count($properties); ++$i) {
 
 $cacheFile = "./$rootName/GeneratedCode/cardArrayCache.json";
 
-if($rootName == "SWUDeck") {
+if($rootName == "SWUDeck" || $rootName == "SWUSim") {
   $validSets = [
     "SOR", "SHD", "TWI", // blank rotation
     "JTL", "LOF", "IBH", "SEC", // rotation A
@@ -93,6 +95,8 @@ $duplicateMap = [];
 $reprintMap = [];
 $otherOrientationMap = [];
 $count = 0;
+$tokenCountersPhase1 = []; // SET → count, used to assign SET_T## IDs during Phase 1
+$tokenTypesPhase1 = ['Token Unit', 'Token Upgrade', 'Force Token', 'Credit Token'];
 
 if(!$withPreview && file_exists($cacheFile)) {
   logLine("=== Phase 1: Loading card array from cache (use withPreview=1 to fetch from API) ===");
@@ -189,14 +193,74 @@ if(!$withPreview && file_exists($cacheFile)) {
       $cardID = $card->uuid;
     } else if($rootName == "AzukiSim") {
       $cardID = $card->id;
+    } else if($rootName == "SWUSim") {
+      // Official SWU API (admin.starwarsunlimited.com) — Strapi format.
+      // Unwrap .attributes if present (Strapi v4 compat), otherwise use card directly (v5).
+      if(isset($card->attributes) && !isset($card->title)) {
+        $card = $card->attributes;
+      }
+      $setObj = $card->set ?? null;
+      if(is_object($setObj)) {
+        $setCode = $setObj->abbreviation
+          ?? $setObj->code
+          ?? $setObj->data->attributes->abbreviation
+          ?? $setObj->data->attributes->code
+          ?? '';
+      } else {
+        $setCode = (string)($setObj ?? '');
+      }
+      // Official SWU API uses expansion.data.attributes.code (same shape as SWUDeck)
+      if($setCode === '') {
+        $setCode = $card->expansion->data->attributes->abbreviation
+          ?? $card->expansion->data->attributes->code
+          ?? '';
+      }
+      $cardNum = intval($card->cardNumber ?? 0);
+      $cardID = $setCode . "_" . str_pad($cardNum, 3, '0', STR_PAD_LEFT);
+      if(!in_array($setCode, $validSets)) {
+        $pageSkipped++; $totalSkipped++;
+        continue;
+      }
+      // Re-ID token cards to SET_T## before CheckImage so image files get the right name.
+      $typeName = SWURelAttr($card->type ?? null, 'name') ?? '';
+      if(in_array($typeName, $tokenTypesPhase1)) {
+        $serialCode = $card->serialCode ?? '';
+        if(preg_match('/[Tt]0*(\d+)$/', $serialCode, $m)) {
+          $cardID = $setCode . "_T" . str_pad(intval($m[1]), 2, '0', STR_PAD_LEFT);
+        } else {
+          $tokenCountersPhase1[$setCode] = ($tokenCountersPhase1[$setCode] ?? 0) + 1;
+          $cardID = $setCode . "_T" . str_pad($tokenCountersPhase1[$setCode], 2, '0', STR_PAD_LEFT);
+        }
+      }
     }
     $card->id = $cardID;
     $cardArray[] = $card;
 
     $thisImageUrl = $imageUrl . $cardID . "." . $imageFormat;
+    $thisBackImageUrl = null;
     $squareCards = false;
     if($rootName == "SWUDeck") {
       $thisImageUrl = $card->artFront->data->attributes->formats->card->url;
+    } else if($rootName == "SWUSim") {
+      // Fetch URL uses UUID (artFront CDN URL or documentId); saved filename uses SET_NNN ($cardID).
+      $artFront = $card->artFront ?? null;
+      if($artFront && isset($artFront->formats->card->url)) {
+        // Strapi v5 flat shape
+        $thisImageUrl = $artFront->formats->card->url;
+      } else if($artFront && isset($artFront->data->attributes->formats->card->url)) {
+        // Strapi v4 nested shape
+        $thisImageUrl = $artFront->data->attributes->formats->card->url;
+      } else {
+        $docId = $card->documentId ?? null;
+        $thisImageUrl = $docId ? ($imageUrl . $docId . "." . $imageFormat) : null;
+      }
+      // Leaders have a back side (unit side) — download it as SET_NNN_back.
+      $artBack = $card->artBack ?? null;
+      if($artBack && isset($artBack->formats->card->url)) {
+        $thisBackImageUrl = $artBack->formats->card->url;
+      } else if($artBack && isset($artBack->data->attributes->formats->card->url)) {
+        $thisBackImageUrl = $artBack->data->attributes->formats->card->url;
+      }
     } else if($rootName == "AzukiSim") {
       $thisImageUrl = $card->image;
     } else if($rootName == "SoulMastersDB" || $rootName == "SoulMastersSim") {
@@ -210,12 +274,20 @@ if(!$withPreview && file_exists($cacheFile)) {
         $thisImageUrl = $imageUrl . "hJb7hcK4Fd" . "." . $imageFormat;
       }
     }
-    CheckImage($cardID, $thisImageUrl, "", "", rootPath:"./" . $rootName . "/", squareCards:$squareCards);
+    $cardType = ($rootName == "SWUSim") ? GetPropertyValue($card, 'type') : "";
+    if($thisImageUrl !== null) {
+      CheckImage($cardID, $thisImageUrl, $cardType, "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
+    } else {
+      logLine("WARNING: No image URL for $cardID — skipping download.");
+    }
+    if($thisBackImageUrl !== null) {
+      CheckImage($cardID . "_back", $thisBackImageUrl, "LeaderUnit", "", rootPath:"./" . $rootName . "/", squareCards:$squareCards, overwriteImages:$overwriteImages);
+    }
 
     ++$count;
   }
   if($paginationUrlParameter != "") {
-    if($rootName == "SWUDeck") {
+    if($rootName == "SWUDeck" || $rootName == "SWUSim") {
       $pageCount = $response->meta->pagination->pageCount;
     }
     $pageLabel = isset($pageCount) ? $currentPage . "/" . $pageCount : (string)$currentPage;
@@ -223,7 +295,7 @@ if(!$withPreview && file_exists($cacheFile)) {
     $currentPage++;
 
     // Check for more data based on response metadata
-    if($rootName == "SWUDeck") {
+    if($rootName == "SWUDeck" || $rootName == "SWUSim") {
       $hasMoreData = $currentPage <= $pageCount;
     } else if($paginationResponseMetadata != "") {
       // Navigate to the metadata field in the response
@@ -245,6 +317,46 @@ if($nestedCardCount > 0) {
   $count += $nestedCardCount;
   logLine("Expanded " . $nestedCardCount . " nested cards from ImportSchema nestedCardPaths.");
 }
+
+// Phase 1b (SWUSim only): migrate stale token image files that were downloaded under the
+// wrong SET_NNN name (before Phase 1 got the early re-ID logic). For each token in the
+// card array, if WebpImages/SET_NNN.webp exists but WebpImages/SET_T##.webp does not,
+// rename it so the token art lands at the correct path and the real card can be
+// downloaded fresh by the next generator run.
+if($rootName == "SWUSim") {
+  $tokenCountersPhase1b = [];
+  $tokenMigrateCount = 0;
+  $tokenTypes1b = ['Token Unit', 'Token Upgrade', 'Force Token', 'Credit Token'];
+  for($i = 0; $i < count($cardArray); ++$i) {
+    $typeName = SWURelAttr($cardArray[$i]->type ?? null, 'name') ?? '';
+    if(!in_array($typeName, $tokenTypes1b)) continue;
+    $correctId = $cardArray[$i]->id ?? ''; // already SET_T## from Phase 1
+    if(!preg_match('/^[A-Z0-9]+_T\d+$/', $correctId)) continue;
+    $setCode = strstr($correctId, '_', true); // "SOR"
+    if(!$setCode) continue;
+    // Reconstruct what the old wrong ID would have been.
+    $serialCode = $cardArray[$i]->serialCode ?? '';
+    if(preg_match('/[Tt]0*(\d+)$/', $serialCode, $m)) {
+      $oldId = $setCode . "_" . str_pad(intval($m[1]), 3, '0', STR_PAD_LEFT);
+    } else {
+      $tokenCountersPhase1b[$setCode] = ($tokenCountersPhase1b[$setCode] ?? 0) + 1;
+      $oldId = $setCode . "_" . str_pad($tokenCountersPhase1b[$setCode], 3, '0', STR_PAD_LEFT);
+    }
+    $oldPath  = "./" . $rootName . "/WebpImages/" . $oldId . ".webp";
+    $newPath  = "./" . $rootName . "/WebpImages/" . $correctId . ".webp";
+    if($oldId !== $correctId && file_exists($oldPath) && !file_exists($newPath)) {
+      rename($oldPath, $newPath);
+      logLine("Phase 1b: renamed stale token image $oldId → $correctId");
+      ++$tokenMigrateCount;
+    }
+  }
+  if($tokenMigrateCount > 0) {
+    logLine("Phase 1b: migrated " . $tokenMigrateCount . " stale token image file(s). Run generator again to re-download real card images for the freed-up IDs.");
+  } else {
+    logLine("Phase 1b: no stale token images to migrate.");
+  }
+}
+
 logLine("=== Phase 2: Building property arrays for " . count($properties) . " properties ===");
 
 $associativeArrays = [];
@@ -257,11 +369,21 @@ if($rootName == "SWUDeck") {
   $associativeArrays["setNumOffsets"] = [];
   foreach($validSets as $set) { $associativeArrays["setNumOffsets"][$set] = 1000 * (1 + array_search($set, $validSets)); }
 }
+if($rootName == "SWUSim") {
+  // cardUUIDData: SET_NNN → documentId, used for SWUDeck/SWUStats stat reporting.
+  $associativeArrays["cardUUIDData"] = [];
+}
 $allCardIds = [];
 for ($i = 0; $i < count($cardArray); ++$i) {
   $card = $cardArray[$i];
   foreach ($properties as $property) {
     $value = GetPropertyValue($card, $property);
+    // SWUSim card logic and the test suite assume ASCII punctuation (straight quotes for
+    // grant-style ability detection, plain hyphens for "non-leader"/"non-Sentinel" matches,
+    // "-N/-N" stat modifiers). The upstream card API now returns typographic Unicode (curly
+    // quotes, en/em dashes, non-breaking hyphens). Normalise it back to ASCII so regenerating
+    // does not silently break text-matching card logic. (Accented letters are left intact.)
+    if ($rootName == "SWUSim") $value = NormalizeCardPunctuation($value);
     $associativeArrays[$property][$card->id] = $value;
   }
   if($rootName == "SWUDeck") {
@@ -273,6 +395,12 @@ for ($i = 0; $i < count($cardArray); ++$i) {
     $associativeArrays["uuidLookup"][$cardID] = $card->id;
     $associativeArrays["cardIdLookup"][$card->id] = $cardID;
     if(isset($reprintMap[$card->id])) $allCardIds[] = $card->id;
+  } else if($rootName == "SWUSim") {
+    // card->id is already SET_NNN (built during Phase 1).
+    // Store documentId → SET_NNN mapping for stat reporting.
+    $documentId = $card->documentId ?? $card->cardUid ?? $card->cardId ?? '';
+    $associativeArrays["cardUUIDData"][$card->id] = $documentId;
+    $allCardIds[] = $card->id;
   } else {
     $allCardIds[] = $card->id;
   }
@@ -364,7 +492,14 @@ logLine("=== Phase 5: Writing GeneratedCardDictionaries.php ===");$generateFilen
 $handler = fopen($generateFilename, "w");
 fwrite($handler, "<?php\r\n");
 foreach ($properties as $property) {
-  fwrite($handler, "  \$" . $property . "Data = " . var_export($associativeArrays[$property], true) . ";\r\n");
+  $arr = $associativeArrays[$property];
+  // For SWUSim: strip null and empty-string entries from every property except 'text'
+  // so lookups return null (absent) rather than a -1 sentinel or empty string.
+  // 'text' is always written in full so CardText() always returns a string.
+  if($rootName === "SWUSim" && $property !== 'text') {
+    $arr = array_filter($arr, fn($v) => $v !== null && $v !== '');
+  }
+  fwrite($handler, "  \$" . $property . "Data = " . var_export($arr, true) . ";\r\n");
   fwrite($handler, "function Card" . ucwords($property) . "(\$cardID) {\r\n");
   fwrite($handler, "  global \$" . $property . "Data;\r\n");
   fwrite($handler, "  return isset(\$" . $property . "Data[\$cardID]) ? \$" . $property . "Data[\$cardID] : null;\r\n");
@@ -394,6 +529,111 @@ if($rootName == "SWUDeck") {
   fwrite($handler, "  return isset(\$data[\$cardID]) ? \$data[\$cardID] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
 }
+if($rootName == "SWUSim") {
+  // cardUUIDData: SET_NNN → documentId, for SWUDeck/SWUStats stat reporting.
+  $uuidArr = array_filter($associativeArrays["cardUUIDData"], fn($v) => $v !== '' && $v !== null);
+  fwrite($handler, "  \$cardUUIDData = " . var_export($uuidArr, true) . ";\r\n");
+  fwrite($handler, "function GetCardUUID(\$cardID) {\r\n");
+  fwrite($handler, "  global \$cardUUIDData;\r\n");
+  fwrite($handler, "  return \$cardUUIDData[\$cardID] ?? null;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  // IsSWUCardID uses $nameData (title array) as the validity set.
+  fwrite($handler, "function IsSWUCardID(\$cardID) {\r\n");
+  fwrite($handler, "  global \$titleData;\r\n");
+  fwrite($handler, "  return is_array(\$titleData) && array_key_exists(\$cardID, \$titleData);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  // BuildCardID / DecomposeCardID helpers for constructing/destructuring SET_NNN keys.
+  fwrite($handler, "function BuildCardID(\$setAbbreviation, \$cardNumber) {\r\n");
+  fwrite($handler, "  return strtoupper(trim(\$setAbbreviation)) . '_' . str_pad(intval(\$cardNumber), 3, '0', STR_PAD_LEFT);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  fwrite($handler, "function DecomposeCardID(\$cardID) {\r\n");
+  fwrite($handler, "  if(!preg_match('/^([A-Z0-9]{2,5})_(T?\\\\d{1,4})\$/', \$cardID, \$m)) return null;\r\n");
+  fwrite($handler, "  return ['set' => \$m[1], 'number' => \$m[2], 'isToken' => (strpos(\$m[2], 'T') === 0)];\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  // leaderCanDeployAsUpgradeData: leaders whose Epic Action offers the Pilot-leader deploy mode
+  // (e.g. JTL_001). Derived by exact-substring match on card text.
+  $deployUpgradePhrase = "Deploy this leader as an upgrade on a friendly Vehicle unit without a Pilot on it.";
+  $leaderCanDeployAsUpgradeData = [];
+  foreach($allCardIds as $cardId) {
+    $text = $associativeArrays["text"][$cardId] ?? "";
+    if(strpos($text, $deployUpgradePhrase) !== false) {
+      $leaderCanDeployAsUpgradeData[$cardId] = true;
+    }
+  }
+  fwrite($handler, "  \$leaderCanDeployAsUpgradeData = " . var_export($leaderCanDeployAsUpgradeData, true) . ";\r\n");
+  fwrite($handler, "function CardLeaderCanDeployAsUpgrade(\$cardID) {\r\n");
+  fwrite($handler, "  global \$leaderCanDeployAsUpgradeData;\r\n");
+  fwrite($handler, "  return isset(\$leaderCanDeployAsUpgradeData[\$cardID]) ? \$leaderCanDeployAsUpgradeData[\$cardID] : false;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+  // ── Piloting data, parsed from the epicAction text ("Piloting [N resources <aspects>] …").
+  // Pilots store their upgrade-side text in epicAction; this is the only place the
+  // Piloting cost Y and its aspect set live.
+  // epicAction is not in the $properties list (we don't need it in the JS bundle), so build
+  // the lookup directly from $cardArray here.
+  $epicActionLookup = [];
+  foreach($cardArray as $card) {
+    $epicActionLookup[$card->id] = NormalizeCardPunctuation($card->epicAction ?? '');
+  }
+  $pilotingCostData         = [];
+  $pilotingAspectData       = [];
+  $pilotAddsCapacityData    = [];
+  $pilotIgnoresOccupiedData = [];
+  $aspectWords = ['Vigilance','Command','Aggression','Cunning','Heroism','Villainy'];
+  foreach($allCardIds as $cardId) {
+    $epic = $epicActionLookup[$cardId] ?? '';
+    if($epic === '' || stripos($epic, 'Piloting') === false) continue;
+    // "Piloting [3 resources Vigilance Villainy] …" — capture the bracket body.
+    if(preg_match('/Piloting\s*\[([^\]]*)\]/i', $epic, $m)) {
+      $body = $m[1];
+      if(preg_match('/^\s*(\d+)/', $body, $cm)) {
+        $pilotingCostData[$cardId] = intval($cm[1]);
+      }
+      $aspects = [];
+      foreach($aspectWords as $aw) {
+        if(stripos($body, $aw) !== false) $aspects[] = $aw;
+      }
+      if(!empty($aspects)) $pilotingAspectData[$cardId] = $aspects;
+    }
+    // Capacity grant: "play or deploy 1 additional Pilot" (R2-D2, Millennium Falcon).
+    if(stripos($epic, 'additional Pilot') !== false) {
+      $pilotAddsCapacityData[$cardId] = true;
+    }
+    // Occupied override: "Vehicle unit with a Pilot on it" (R2-D2).
+    if(stripos($epic, 'with a Pilot on it') !== false) {
+      $pilotIgnoresOccupiedData[$cardId] = true;
+    }
+  }
+  // Capacity grant may also appear in unit text (e.g. Millennium Falcon JTL_249, a Vehicle
+  // whose "additional Pilot" ability is in the text field, not epicAction).
+  foreach($allCardIds as $cardId) {
+    $cardText = $associativeArrays["text"][$cardId] ?? '';
+    if(stripos($cardText, 'additional Pilot') !== false) {
+      $pilotAddsCapacityData[$cardId] = true;
+    }
+  }
+  foreach([
+    ['pilotingCostData',         $pilotingCostData,         'CardPilotingCost',         'null'],
+    ['pilotingAspectData',       $pilotingAspectData,       'CardPilotingAspects',      'null'],
+    ['pilotAddsCapacityData',    $pilotAddsCapacityData,    'CardPilotAddsCapacity',    'false'],
+    ['pilotIgnoresOccupiedData', $pilotIgnoresOccupiedData, 'CardPilotIgnoresOccupied', 'false'],
+  ] as [$varName, $arr, $fnName, $default]) {
+    fwrite($handler, "  \$" . $varName . " = " . var_export($arr, true) . ";\r\n");
+    fwrite($handler, "function " . $fnName . "(\$cardID) {\r\n");
+    fwrite($handler, "  global \$" . $varName . ";\r\n");
+    fwrite($handler, "  return isset(\$" . $varName . "[\$cardID]) ? \$" . $varName . "[\$cardID] : " . $default . ";\r\n");
+    fwrite($handler, "}\r\n\r\n");
+  }
+  // ── OnAttached: manual, hand-curated (tiny pool). Fires on the attachment event,
+  // distinct from WhenPlayedAsUpgrade (a play trigger).
+  $onAttachedManual = ['SOR_122', 'JTL_036'];
+  $onAttachedData = [];
+  foreach($onAttachedManual as $oid) $onAttachedData[$oid] = true;
+  fwrite($handler, "  \$onAttachedData = " . var_export($onAttachedData, true) . ";\r\n");
+  fwrite($handler, "function HasOnAttachedAbility(\$cardID) {\r\n");
+  fwrite($handler, "  global \$onAttachedData;\r\n");
+  fwrite($handler, "  return isset(\$onAttachedData[\$cardID]) ? \$onAttachedData[\$cardID] : false;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+}
 fwrite($handler, "  \$otherOrientationData = " . var_export($otherOrientationMap, true) . ";\r\n");
 fwrite($handler, "function CardOtherOrientation(\$cardID) {\r\n");
 fwrite($handler, "  global \$otherOrientationData;\r\n");
@@ -417,7 +657,11 @@ foreach ($oldFiles as $oldFile) {
 $handler = fopen($generateFilename, "w");
 logLine("=== Phase 6: Writing " . basename($generateFilename) . " ===");
 foreach ($properties as $property) {
-  fwrite($handler, "var " . $property . "Data = " . json_encode($associativeArrays[$property]) . ";\r\n");
+  $arr = $associativeArrays[$property];
+  if($rootName === "SWUSim" && $property !== 'text') {
+    $arr = array_filter($arr, fn($v) => $v !== null && $v !== '');
+  }
+  fwrite($handler, "var " . $property . "Data = " . json_encode($arr) . ";\r\n");
   fwrite($handler, "function Card" . $property . "(cardID) {\r\n");
   fwrite($handler, "  return " . $property . "Data[cardID] !== undefined ? " . $property . "Data[cardID] : null;\r\n");
   fwrite($handler, "}\r\n\r\n");
@@ -596,6 +840,153 @@ for ($i = 0; $i < count($properties); ++$i) {
 fwrite($handler, "];\r\n\r\n");
 fclose($handler);
 logLine("JS file written: " . basename($generateFilename) . " (" . round(filesize($generateFilename)/1024, 1) . "KB)");
+
+if($rootName == "SWUSim") {
+  logLine("=== Phase 7: Writing GeneratedAbilityStubs.php ===");
+
+  $stubs = [
+    "whenPlayedUsingSmuggle" => [],
+    "whenPlayedAsUpgrade"    => [],
+    "whenPlayed"             => [],
+    "whenDefeated"           => [],
+    "onAttack"               => [],
+    "onDefense"              => [],
+    "onAttackEnd"            => [],
+  ];
+
+  $unitTypes = ["Unit", "Token Unit", "Leader Unit", "Leader"];
+
+  foreach($allCardIds as $cardId) {
+    $text       = $associativeArrays["text"][$cardId] ?? "";
+    $deployText = $associativeArrays["deployText"][$cardId] ?? "";
+    $combined   = $text . " " . $deployText;
+    $cardType   = $associativeArrays["type"][$cardId] ?? "";
+
+    // Check most-specific When Played variants first, then general
+    if(strpos($combined, "When played using Smuggle:") !== false) {
+      $stubs["whenPlayedUsingSmuggle"][] = $cardId;
+    }
+    // whenPlayedAsUpgrade: "When played as an upgrade:" cards, plus leader-as-Pilot deploy.
+    // "When deployed as an upgrade:" is the leader-as-Pilot deploy variant (e.g. JTL_001),
+    // which also resolves through the WhenPlayedAsUpgrade window.
+    if(strpos($combined, "When played as an upgrade:") !== false
+      || strpos($combined, "When deployed as an upgrade:") !== false
+      // Suppressor: a Pilot with a unit-only WhenPlayed and NO explicit upgrade ability needs a
+      // WhenPlayedAsUpgrade stub (dispatched to a no-op handler in Custom code) so the Pilot-attach
+      // path fires the no-op instead of falling back to the unit's WhenPlayed (CollectWhenPlayedAs-
+      // UpgradeTriggers' HasWhenPlayedAbility fallback). Matches only JTL_100 Poe — JTL_098/210 have
+      // a real "When played as an upgrade:" ability, and JTL_213 is not a Pilot (can't attach).
+      || (strpos($combined, "Piloting") !== false
+          && (strpos($combined, "When played as a unit:") !== false || strpos($combined, "When played as a unit/") !== false)
+          && strpos($combined, "When played as an upgrade:") === false)) {
+      $stubs["whenPlayedAsUpgrade"][] = $cardId;
+    }
+    // whenPlayed also covers a deployed leader's "When Deployed:" window — the engine collects it
+    // through the WhenPlayed trigger (CollectEntryTriggers on deploy). The upstream dataset uses
+    // "When Deployed:" instead of "When Played:" for leaders like SOR_006 (Palpatine).
+    if(strpos($combined, "When Played:") !== false || strpos($combined, "When Played/") !== false
+      || strpos($combined, "When Deployed:") !== false
+      // Dual-mode Pilot cards trigger their unit-play ability through the WhenPlayed window when
+      // played as a unit. The colon form is unit-only (JTL_100/210/213); the slash form is a compound
+      // window, e.g. "When played as a unit/On Attack:" (JTL_098).
+      || strpos($combined, "When played as a unit:") !== false
+      || strpos($combined, "When played as a unit/") !== false) {
+      $stubs["whenPlayed"][] = $cardId;
+    }
+    // whenDefeated: units only, innate ability (not grant-style).
+    // Grant-style text always has a double-quote before "When Defeated:" e.g. gains "When Defeated:...".
+    if(in_array($cardType, $unitTypes)
+      && strpos($combined, "When Defeated:") !== false
+      && strpos($combined, '"When Defeated:') === false) {
+      $stubs["whenDefeated"][] = $cardId;
+    }
+    // Include if there's an UNQUOTED "On Attack:" (the unit's own ability) even when a granted
+    // (quoted) "On Attack:" also appears in the text — e.g. JTL_018 Kazuda's deploy side has both.
+    if(in_array($cardType, $unitTypes)
+      && (preg_match('/(?<!")On Attack:/', $combined) === 1 || strpos($combined, "On Attack/") !== false)) {
+      $stubs["onAttack"][] = $cardId;
+    }
+    // "On Defense:" and the legacy/modern phrasing "When this unit is attacked:" are the same
+    // timing window (CR 15.c). Detect both. (Reminder text is parenthesised, so the bare ability
+    // line — not the "On Defense:" quoted reminder — is what matches.)
+    if(in_array($cardType, $unitTypes)
+      && ((strpos($combined, "On Defense:") !== false && strpos($combined, '"On Defense:') === false)
+          || strpos($combined, "When this unit is attacked:") !== false
+          || strpos($combined, "When this unit is attacked (before damage is dealt):") !== false)) {
+      $stubs["onDefense"][] = $cardId;
+    }
+    // On Attack End: newer templates use "On Attack End:"; older cards (e.g. SOR_192 Ezra Bridger)
+    // use the phrasing "When this unit completes an attack:". Both map to the onAttackEnd stub.
+    // Grant-style text (preceded by a double-quote) is excluded for either phrasing.
+    if(in_array($cardType, $unitTypes)
+      && ((strpos($combined, "On Attack End:") !== false
+            && strpos($combined, '"On Attack End:') === false)
+        || (strpos($combined, "When this unit completes an attack:") !== false
+            && strpos($combined, '"When this unit completes an attack:') === false)
+        // "(and survives)" parenthetical variant (JTL_070, JTL_089, SEC_096): the survival gate is
+        // enforced by CollectAfterAttackTriggers, so it maps to the same onAttackEnd stub.
+        || (strpos($combined, "When this unit completes an attack (and survives):") !== false
+            && strpos($combined, '"When this unit completes an attack (and survives):') === false)
+        // "When Attack Ends:" phrasing (LAW_074 Maz Kanata) — same onAttackEnd window.
+        || (strpos($combined, "When Attack Ends:") !== false
+            && strpos($combined, '"When Attack Ends:') === false))) {
+      $stubs["onAttackEnd"][] = $cardId;
+    }
+  }
+
+  // (No manual stub list — every trigger window is now derived from card text above. The former
+  // manual entries are all covered: dual-mode pilots' "When played as a unit[:/]" → whenPlayed +
+  // the Pilot WhenPlayedAsUpgrade suppressor; ASH_001/LOF_016 → onAttackEnd via "When Attack Ends:"
+  // / "completes an attack (and survives):". If a future card's trigger isn't caught, EXTEND the
+  // detection above rather than reintroducing a manual list.)
+
+  $stubFilename = $directory . "/GeneratedAbilityStubs.php";
+  $stubHandler  = fopen($stubFilename, "w");
+  fwrite($stubHandler, "<?php\r\n");
+  fwrite($stubHandler, "// AUTO-GENERATED FILE: Ability stubs derived from card text patterns\r\n");
+  fwrite($stubHandler, "// DO NOT EDIT MANUALLY - overwritten on each generator run\r\n");
+  fwrite($stubHandler, "// Last generated: " . date("Y-m-d H:i:s") . "\r\n\r\n");
+
+  $stubGroups = [
+    "whenPlayedUsingSmuggle" => ["HasWhenPlayedUsingSmuggleAbility", "When Played Using Smuggle"],
+    "whenPlayedAsUpgrade"    => ["HasWhenPlayedAsUpgradeAbility",    "When Played As Upgrade"],
+    "whenPlayed"             => ["HasWhenPlayedAbility",             "When Played"],
+    "whenDefeated"           => ["HasWhenDefeatedAbility",           "When Defeated"],
+    "onAttack"               => ["HasOnAttackAbility",               "On Attack"],
+    "onDefense"              => ["HasOnDefenseAbility",              "On Defense"],
+    "onAttackEnd"            => ["HasOnAttackEndAbility",            "On Attack End"],
+  ];
+
+  foreach($stubGroups as $key => [$fnName, $label]) {
+    $cards = $stubs[$key] ?? [];
+    fwrite($stubHandler, "// $label Has-check (" . count($cards) . " cards)\r\n");
+    fwrite($stubHandler, "function $fnName(string \$cardID): bool {\r\n");
+    if(!empty($cards)) {
+      fwrite($stubHandler, "    switch (\$cardID) {\r\n");
+      foreach($cards as $cardId) {
+        fwrite($stubHandler, "        case '$cardId':\r\n");
+      }
+      fwrite($stubHandler, "            return true;\r\n");
+      fwrite($stubHandler, "        default: return false;\r\n");
+      fwrite($stubHandler, "    }\r\n");
+    } else {
+      fwrite($stubHandler, "    return false;\r\n");
+    }
+    fwrite($stubHandler, "}\r\n\r\n");
+  }
+
+  fwrite($stubHandler, "?>");
+  fclose($stubHandler);
+  logLine("PHP file written: " . basename($stubFilename) . " (" . round(filesize($stubFilename)/1024, 1) . "KB)"
+    . " — whenPlayedUsingSmuggle:" . count($stubs["whenPlayedUsingSmuggle"])
+    . " whenPlayedAsUpgrade:" . count($stubs["whenPlayedAsUpgrade"])
+    . " whenPlayed:" . count($stubs["whenPlayed"])
+    . " whenDefeated:" . count($stubs["whenDefeated"])
+    . " onAttack:" . count($stubs["onAttack"])
+    . " onDefense:" . count($stubs["onDefense"])
+    . " onAttackEnd:" . count($stubs["onAttackEnd"]));
+}
+
 logLine("=== Generator complete! Total time: " . round(microtime(true) - $startTime, 2) . "s ===");
 
 function GetResponseMetadata($response, $metadataPath)
@@ -719,6 +1110,48 @@ function GetGrandArchiveImageId($card)
   return isset($card->id) ? $card->id : $card->uuid;
 }
 
+// Extract a scalar field from a Strapi relation object (v4 or v5).
+// v5 flat: {name:"Unit"}  →  SWURelAttr($obj, 'name') = "Unit"
+// v4 nested: {data:{attributes:{name:"Unit"}}}  →  same result
+function SWURelAttr($obj, $field) {
+    if(!is_object($obj)) return null;
+    if(isset($obj->$field)) return $obj->$field;
+    if(isset($obj->data->attributes->$field)) return $obj->data->attributes->$field;
+    return null;
+}
+
+// Extract a named field from a Strapi multi-relation (v4 or v5), returning a plain array.
+// v5: [{name:"Heroism"}, ...]  →  ["Heroism", ...]
+// v4: {data:[{attributes:{name:"Heroism"}}, ...]}  →  ["Heroism", ...]
+function SWURelAttrList($val, $field) {
+    if(is_array($val)) {
+        return array_map(fn($item) => is_object($item) ? ($item->$field ?? '') : (string)$item, $val);
+    }
+    if(is_object($val) && isset($val->data) && is_array($val->data)) {
+        return array_map(fn($item) => $item->attributes->$field ?? '', $val->data);
+    }
+    return [];
+}
+
+// Normalise typographic Unicode punctuation from the card API to ASCII (SWUSim only).
+// Only punctuation is mapped — accented letters (é, Î, …) are preserved.
+function NormalizeCardPunctuation($value)
+{
+  if (!is_string($value)) return $value;
+  static $map = [
+    "\xE2\x80\x9C" => '"',   // U+201C left double quotation mark
+    "\xE2\x80\x9D" => '"',   // U+201D right double quotation mark
+    "\xE2\x80\x98" => "'",   // U+2018 left single quotation mark
+    "\xE2\x80\x99" => "'",   // U+2019 right single quotation mark (apostrophe)
+    "\xE2\x80\x93" => '-',   // U+2013 en dash (used in "-3/-3" stat modifiers)
+    "\xE2\x80\x94" => '-',   // U+2014 em dash
+    "\xE2\x80\x91" => '-',   // U+2011 non-breaking hyphen ("non-leader")
+    "\xE2\x80\xA6" => '...', // U+2026 horizontal ellipsis
+    "\xC2\xA0"     => ' ',   // U+00A0 non-breaking space
+  ];
+  return strtr($value, $map);
+}
+
 function GetPropertyValue($card, $property)
 {
   global $rootName;
@@ -781,6 +1214,54 @@ function GetPropertyValue($card, $property)
           }
           return isset($card->$property) ? $card->$property : "";
         default: return isset($card->$property) ? $card->$property : "";
+      }
+    case "SWUSim":
+      // Official SWU API — relation fields vary between Strapi v4 nested ({data:{attributes:{...}}})
+      // and v5 flat ({name:...}). SWURelAttr/SWURelAttrList handle both shapes.
+      switch($property) {
+        case "type":
+          return SWURelAttr($card->type ?? null, 'name');
+        case "arena":
+          return implode(",", array_filter(SWURelAttrList($card->arenas ?? null, 'name')));
+        case "rarity":
+          $r = $card->rarity ?? null;
+          return SWURelAttr($r, 'name') ?: SWURelAttr($r, 'character') ?: '';
+        case "set":
+          $s = $card->set ?? null;
+          $setResult = SWURelAttr($s, 'abbreviation') ?: SWURelAttr($s, 'code') ?: '';
+          if($setResult === '') $setResult = $card->expansion->data->attributes->abbreviation ?? $card->expansion->data->attributes->code ?? '';
+          return $setResult;
+        case "aspect":
+          $aspects = SWURelAttrList($card->aspects ?? null, 'name');
+          $dupes    = SWURelAttrList($card->aspectDuplicates ?? null, 'name');
+          return implode(",", array_filter(array_merge($aspects, $dupes)));
+        case "trait":
+          // API uses "traits" (plural); "trait" in the schema maps to this relation
+          return implode(",", array_filter(SWURelAttrList($card->traits ?? null, 'name')));
+        case "documentId":
+          // Strapi v5 uses documentId; old API uses cardUid / cardId
+          return (string)($card->documentId ?? $card->cardUid ?? $card->cardId ?? '');
+        case "text":
+          // Combine card text with epic action text (leader deploy ability)
+          $text = (string)($card->text ?? '');
+          $epic = (string)($card->epicAction ?? '');
+          return $text . ($epic !== '' ? "\n" . $epic : '');
+        case "deployText":
+          // API uses "deployBox" for the leader unit-side text
+          return (string)($card->deployBox ?? $card->deployText ?? '');
+        case "unique":
+          return (bool)($card->unique ?? false);
+        case "cost":
+        case "hp":
+        case "power":
+        case "cardNumber":
+        case "upgradeHp":
+        case "upgradePower":
+          $val = $card->$property ?? null;
+          return $val !== null ? intval($val) : null;
+        default:
+          $val = $card->$property ?? null;
+          return $val !== null ? (string)$val : '';
       }
     case "GrandArchiveSim":
       switch($property) {

@@ -1,0 +1,21 @@
+# JTL_252 Tantive IV — Sentinel + When Played: Create an X-Wing token.
+
+## GIVEN
+CommonSetup: bbw/bbk/{
+  myLeader:JTL_004;
+  myBase:JTL_019;
+  theirBase:SOR_021
+}
+SkipPreGame: true
+P1OnlyActions: true
+WithP1Hand: JTL_252
+WithP1Resources: 7
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1SPACEARENACOUNT:2
+P1SPACEARENAUNIT:0:CARDID:JTL_252
+P1SPACEARENAUNIT:0:HASKEYWORD:Sentinel
+P1SPACEARENAUNIT:1:CARDID:JTL_T02

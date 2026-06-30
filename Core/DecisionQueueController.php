@@ -214,6 +214,46 @@ class DecisionQueueController {
         return $numChoices;
     }
     
+    // Returns the first valid mzID from an MZCHOOSE param string, or null if none.
+    private function MZFirstChoiceMzID($zoneStr) {
+        foreach ($this->MZParseSpecs($zoneStr) as $spec) {
+            if ($spec['specificIndex'] !== null) {
+                if ($spec['specificIndex'] < MZZoneCount($spec['zone'])) return $spec['original'];
+            } else {
+                if (MZZoneCount($spec['zone']) > 0) return $spec['zone'] . '-0';
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Auto-resolve any MZCHOOSE decision that has exactly one valid choice.
+     * Iterates both players' queues until no single-choice decisions remain.
+     * Returns the number of decisions auto-resolved.
+     * Called by the Test Schema Editor after each step execution.
+     */
+    public function AutoResolveSingleChoiceDecisions(int $maxIterations = 30): int {
+        $totalResolved = 0;
+        for ($iter = 0; $iter < $maxIterations; $iter++) {
+            $anyResolved = false;
+            for ($p = 1; $p <= 2; $p++) {
+                $queue = &GetDecisionQueue($p);
+                if (empty($queue)) continue;
+                $decision = $queue[0];
+                if ($decision->Type !== 'MZCHOOSE') continue;
+                if ($this->MZCountChoices($decision->Param) !== 1) continue;
+                $choice = $this->MZFirstChoiceMzID($decision->Param);
+                if ($choice === null) continue;
+                $this->PopDecision($p);
+                $this->ExecuteStaticMethods($p, $choice);
+                $anyResolved = true;
+                $totalResolved++;
+            }
+            if (!$anyResolved) break;
+        }
+        return $totalResolved;
+    }
+
     // Variable storage for await syntax using DecisionQueueVariables zone
     public static function StoreVariable($name, $value) {
         $vars = json_decode(GetDecisionQueueVariables(), true);

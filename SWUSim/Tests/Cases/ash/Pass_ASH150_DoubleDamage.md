@@ -1,0 +1,14 @@
+# ASH_150 Deadly Vulnerability (Upgrade/Condition) — If attached unit would take damage, it takes twice
+# as much instead. P2's SOR_046 (3/7) carries Deadly Vulnerability; P1's Grassroots Resistance deals 3,
+# which is doubled to 6.
+## GIVEN
+CommonSetup: bbw/bbk/{myResources:4;handCardIds:ASH_258}
+WithP2GroundArena: SOR_046:1:0
+WithP2GroundArenaUpgrade: 0:ASH_150
+P1OnlyActions: true
+## WHEN
+- P1>PlayHand:0
+- P1>AnswerDecision:theirGroundArena-0
+## EXPECT
+P2GROUNDARENAUNIT:0:CARDID:SOR_046
+P2GROUNDARENAUNIT:0:DAMAGE:6

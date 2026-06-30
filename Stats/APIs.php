@@ -430,6 +430,7 @@ include_once "../SharedUI/Header.php";
     "firstPlayer": 1,               // 1 if this player went first, 0 otherwise
     "opposingHero": "12345",        // Opponent's leader id (FFG UID format)
     "opposingBaseColor": "Red",     // Opponent's base color (Red, Blue, Yellow, Green, Colorless)
+    "opposingBase": "5396502974",   // (Optional, preferred) Opponent's base card id (FFG UID). When present and recognized, matchup stats bucket by base type (Standard/Force/Splash). Falls back to opposingBaseColor when absent or unrecognized.
     "deckbuilderID": "user_42",     // Deckbuilder user ID
     "cardResults": [
         {
@@ -454,7 +455,8 @@ include_once "../SharedUI/Header.php";
         // More turn results...
     ]
 }</code></pre>
-            
+            <p>Matchup stats read back via <code>SWUDeck/GetCardTextJSON.php?deckID=&lt;id&gt;</code> now include <code>baseType</code> (<code>"Legacy"</code> | <code>"Standard"</code> | <code>"Force"</code> | <code>"Splash"</code> | <code>"Named"</code>) and <code>baseName</code> alongside <code>baseColor</code>. Common bases are one row per (opponent leader, color, type); Rare/Special bases are one row per (opponent leader, base) with <code>baseType="Named"</code> and <code>baseName</code> set to the base's card name.</p>
+
             <h4>Example Response:</h4>
             <h5>Success (HTTP 200)</h5>
             <pre><code>{

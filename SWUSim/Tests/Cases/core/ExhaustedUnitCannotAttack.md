@@ -1,0 +1,9 @@
+## GIVEN
+CommonSetup: grw/ggk
+WithP1GroundArena: SOR_229:0:0
+
+## WHEN
+
+## EXPECT
+P1GROUNDARENAUNIT:0:EXHAUSTED
+P2BASEDMG:0

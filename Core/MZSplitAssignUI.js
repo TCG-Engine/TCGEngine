@@ -190,14 +190,24 @@
   let splitState = null; // { totalPool, remaining, targets: [{mzID, amount}], callback, decisionIndex }
 
   // ── Parse param string ───────────────────────────────────────────────
-  // Param: "amount|mzID1&mzID2&mzID3"
+  // Param: "amount|mzID1&mzID2&mzID3"                              (full assignment, cap = pool)
+  //   or:  "amount|mzID1:cap1&mzID2:cap2|UPTO"                     (per-target caps; partial OK)
+  // The optional trailing "|UPTO" segment lets the player submit with points unassigned
+  // ("up to N" effects — SOR_052 Redemption). Per-target ":cap" limits each target's amount
+  // (e.g. a heal can't exceed a target's current damage). Backward compatible: no ":cap" → cap is
+  // the full pool, and no "|UPTO" → must assign all (the original damage-split behaviour).
   function parseSplitParam(param) {
-    const pipeIdx = param.indexOf('|');
-    if (pipeIdx === -1) return null;
-    const amount = parseInt(param.substring(0, pipeIdx), 10);
-    const targetsStr = param.substring(pipeIdx + 1);
-    const mzIDs = targetsStr.split('&').map(s => s.trim()).filter(Boolean);
-    return { amount, mzIDs };
+    const segs = String(param).split('|');
+    if (segs.length < 2) return null;
+    const amount = parseInt(segs[0], 10);
+    const mode = (segs[2] || '').trim().toUpperCase();
+    const allowPartial = (mode === 'UPTO');
+    const targets = segs[1].split('&').map(s => s.trim()).filter(Boolean).map(function (spec) {
+      const c = spec.indexOf(':');
+      if (c === -1) return { mzID: spec, cap: amount };
+      return { mzID: spec.substring(0, c), cap: parseInt(spec.substring(c + 1), 10) };
+    });
+    return { amount, targets, allowPartial, mzIDs: targets.map(t => t.mzID) };
   }
 
   // ── Serialize result ─────────────────────────────────────────────────
@@ -225,7 +235,8 @@
       const plusBtn  = document.getElementById('mzsplit-plus-'  + target.mzID);
       if (amountEl) amountEl.textContent = target.amount;
       if (minusBtn) minusBtn.disabled = target.amount <= 0;
-      if (plusBtn)  plusBtn.disabled  = splitState.remaining <= 0;
+      // Plus is capped by both the remaining pool AND this target's own cap (e.g. its damage).
+      if (plusBtn)  plusBtn.disabled  = (splitState.remaining <= 0) || (target.amount >= target.cap);
     }
 
     // Banner
@@ -233,7 +244,8 @@
     if (poolEl) poolEl.textContent = splitState.remaining;
 
     const submitBtn = document.getElementById('mzsplit-submit');
-    if (submitBtn) submitBtn.disabled = splitState.remaining !== 0;
+    // "Up to" effects may submit with points left over; otherwise the full pool must be assigned.
+    if (submitBtn) submitBtn.disabled = splitState.allowPartial ? false : (splitState.remaining !== 0);
   }
 
   // ── Build per-card overlay ───────────────────────────────────────────
@@ -271,7 +283,7 @@
     plus.addEventListener('click', function(e) {
       e.stopPropagation();
       e.preventDefault();
-      if (splitState.remaining > 0) {
+      if (splitState.remaining > 0 && target.amount < target.cap) {
         target.amount++;
         refreshUI();
       }
@@ -314,7 +326,8 @@
     submit.textContent = 'Confirm';
     submit.disabled = true;
     submit.addEventListener('click', function() {
-      if (!splitState || splitState.remaining !== 0) return;
+      if (!splitState) return;
+      if (!splitState.allowPartial && splitState.remaining !== 0) return;
       const result = serializeAssignments();
       const cb = splitState.callback;
       const di = splitState.decisionIndex;
@@ -362,7 +375,7 @@
     injectStyles();
 
     const parsed = parseSplitParam(param);
-    if (!parsed || parsed.amount <= 0 || parsed.mzIDs.length === 0) {
+    if (!parsed || parsed.amount <= 0 || parsed.targets.length === 0) {
       // Nothing to split — auto-submit empty
       if (submitCallback) submitCallback('', decisionIndex);
       return;
@@ -372,7 +385,8 @@
     splitState = {
       totalPool: parsed.amount,
       remaining: parsed.amount,
-      targets: parsed.mzIDs.map(id => ({ mzID: id, amount: 0 })),
+      allowPartial: parsed.allowPartial,
+      targets: parsed.targets.map(t => ({ mzID: t.mzID, cap: t.cap, amount: 0 })),
       callback: submitCallback,
       decisionIndex: decisionIndex
     };

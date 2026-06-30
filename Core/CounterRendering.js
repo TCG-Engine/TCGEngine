@@ -151,6 +151,29 @@ cardIdsBadgeStyle.innerHTML = `
     0% { background-position: 200% 200%; }
     100% { background-position: -200% -200%; }
   }
+
+  /* Duration chip shown under each effect's source card (SWU). */
+  .cardids-popup-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  .cardids-popup-chip {
+    font-family: Orbitron, 'Segoe UI', sans-serif;
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    border-radius: 6px;
+    color: #fff;
+    white-space: nowrap;
+    line-height: 1.4;
+  }
+  .cardids-popup-chip.dur-attack { background: rgba(220, 70, 70, 0.9); }
+  .cardids-popup-chip.dur-phase  { background: rgba(70, 120, 220, 0.9); }
+  .cardids-popup-chip.dur-perm   { background: rgba(210, 170, 60, 0.95); color: #1a1a1a; }
 `;
 document.head.appendChild(cardIdsBadgeStyle);
 
@@ -160,6 +183,21 @@ var cardIdsBadgePopup = null;
 var cardIdsBadgePopupTimeout = null;
 
 // ==================== Helper Functions ====================
+
+// Resolve the source-card image ID from an effect (CardIDs) token.
+// SWU turn-effect tokens are a leading CardID (SET_NNN, e.g. SOR_092 / TWI_106 /
+// TS26_046) optionally followed by params and/or a duration. Params may be
+// '#'-separated ("SOR_076#2_2") OR '-'-separated ("SOR_092-2-2@phase"), and the
+// duration is "@attack|@phase|@perm". The CardID is always the leading SET_NNN, so
+// match that first. GA tokens use a non-SET_NNN base id with a trailing "-suffix"
+// ("4hbA9FT56L-2"); those don't match SET_NNN and fall back to the legacy strip
+// (drop from '#'/'@', then the trailing '-suffix').
+function resolveEffectSourceCardId(token) {
+  var s = String(token);
+  var swu = s.match(/^[A-Z0-9]{2,5}_\d{3}/);
+  if (swu) return swu[0];
+  return s.replace(/[#@].*$/, '').replace(/-[^-]+$/, '');
+}
 
 function getOrCreateCardIdsBadgePopup() {
   if (!cardIdsBadgePopup) {
@@ -201,18 +239,29 @@ function showCardIdsBadgePopup(badgeEl, event) {
     var seenDisplayIds = {};
     for (var i = 0; i < cardIds.length; i++) {
       var cardId = cardIds[i];
-      // Strip trailing variant suffix (e.g. "4hbA9FT56L-2" -> "4hbA9FT56L", "sdbzr5zs29-debuff" -> "sdbzr5zs29")
-      // so that multi-effect cards using the cardID-suffix convention still resolve to the correct image.
-      var displayCardId = cardId.replace(/-[^-]+$/, '');
+      // Resolve the source-card image ID from the effect token (see resolveEffectSourceCardId).
+      var displayCardId = resolveEffectSourceCardId(cardId);
       // Deduplicate: only show each source card's image once even if it contributes multiple effects
       if (seenDisplayIds[displayCardId]) continue;
       seenDisplayIds[displayCardId] = true;
+      // Duration chip (SWU): the token carries an explicit "@attack|@phase|@perm" suffix. Tokens
+      // without one (global-effect CardIDs, GA tokens) get no chip.
+      var durHtml = '';
+      var durMatch = cardId.match(/@([a-z]+)/);
+      if (durMatch) {
+        var durKey = durMatch[1];
+        var durLabel = durKey === 'attack' ? 'Attack'
+                     : durKey === 'phase'  ? 'Phase'
+                     : durKey === 'perm'   ? 'Permanent' : '';
+        if (durLabel) durHtml = '<div class="cardids-popup-chip dur-' + durKey + '">' + durLabel + '</div>';
+      }
       // Try concat folder first, fallback to WebpImages, then hide to avoid infinite 404 spam
       var imgPath = rootPath + '/concat/' + displayCardId + '.webp';
       var imgFallback = rootPath + '/WebpImages/' + displayCardId + '.webp';
       html += '<div class="cardids-popup-card">';
       html += '<img src="' + imgPath + '" alt="' + displayCardId + '" loading="lazy"'
            + ' onerror="if(this.dataset.tried){this.onerror=null;this.style.display=\'none\';}else{this.dataset.tried=\'1\';this.src=\'' + imgFallback + '\';}" />';
+      html += durHtml;
       html += '</div>';
     }
     
@@ -461,7 +510,9 @@ function CreateCountersHTML(zoneName, cardArr, id) {
         var seenBase = {};
         cardIds = [];
         rawIds.forEach(function(id) {
-          var baseId = id.replace(/-[^-]+$/, '');
+          // Dedup by source CardID (see resolveEffectSourceCardId), so multiple
+          // effects from one card count and display as a single source.
+          var baseId = resolveEffectSourceCardId(id);
           if (!seenBase[baseId]) {
             seenBase[baseId] = true;
             cardIds.push(id); // Keep original ID for now; popup rendering will strip suffix
@@ -525,8 +576,14 @@ function CreateCountersHTML(zoneName, cardArr, id) {
       var spacingPx = sizePx + 4;
       var cornerInsetPx = 3;
       var anchorInsetPx = cornerInsetPx + (sizePx * 0.1);
-      var bottomAnchorInsetPx = anchorInsetPx - 12; // Lower bottom-positioned counters slightly.
+      var bottomAnchorInsetPx = anchorInsetPx + 3; // Align bottom badges over printed card stats.
+      var bottomSideInsetPx = anchorInsetPx - 4;   // Push power/HP badges toward outer edges.
       var clusterOffset = getCounterClusterOffset(positionIndex, totalInPosition, spacingPx);
+
+      // Optional fine-positioning nudge from schema params (OffsetX / OffsetY), in px.
+      // Applied in absolute screen space below: +X = right, +Y = down, for any anchor.
+      var offsetX = (params.OffsetX !== undefined && params.OffsetX !== '') ? (parseFloat(params.OffsetX) || 0) : 0;
+      var offsetY = (params.OffsetY !== undefined && params.OffsetY !== '') ? (parseFloat(params.OffsetY) || 0) : 0;
 
       var posStyle = 'top:' + cornerInsetPx + 'px; right:' + cornerInsetPx + 'px;';
       switch (pos) {
@@ -541,10 +598,10 @@ function CreateCountersHTML(zoneName, cardArr, id) {
           posStyle = 'top:calc(' + anchorInsetPx + 'px + ' + clusterOffset.y + 'px); left:50%; transform: translateX(calc(-50% + ' + clusterOffset.x + 'px));';
           break;
         case 'bottomleft':
-          posStyle = 'bottom:calc(' + bottomAnchorInsetPx + 'px - ' + clusterOffset.y + 'px); left:calc(' + anchorInsetPx + 'px + ' + clusterOffset.x + 'px);';
+          posStyle = 'bottom:calc(' + bottomAnchorInsetPx + 'px - ' + clusterOffset.y + 'px); left:calc(' + bottomSideInsetPx + 'px + ' + clusterOffset.x + 'px);';
           break;
         case 'bottomright':
-          posStyle = 'bottom:calc(' + bottomAnchorInsetPx + 'px - ' + clusterOffset.y + 'px); right:calc(' + anchorInsetPx + 'px - ' + clusterOffset.x + 'px);';
+          posStyle = 'bottom:calc(' + bottomAnchorInsetPx + 'px - ' + clusterOffset.y + 'px); right:calc(' + bottomSideInsetPx + 'px - ' + clusterOffset.x + 'px);';
           break;
         case 'bottom':
         case 'bottomcenter':
@@ -558,6 +615,18 @@ function CreateCountersHTML(zoneName, cardArr, id) {
           break;
       }
 
+      // Apply OffsetX/OffsetY as a translate, composed onto any centering transform
+      // the position already uses (so e.g. Bottom keeps its -50% horizontal centering).
+      if (offsetX !== 0 || offsetY !== 0) {
+        var _nudge = ' translate(' + offsetX + 'px, ' + offsetY + 'px)';
+        if (/transform\s*:/.test(posStyle)) {
+          posStyle = posStyle.replace(/transform\s*:\s*([^;]+);?/, function (_m, t) { return 'transform:' + t.trim() + _nudge + ';'; });
+        } else {
+          posStyle += ' transform:' + _nudge + ';';
+        }
+      }
+
+      var opacityStyle = (params.Opacity !== undefined && params.Opacity !== '') ? '; opacity:' + parseFloat(params.Opacity) + ';' : '';
       if (type.toLowerCase() === 'badge') {
         if (mode === 'cardids' && cardIds.length > 0) {
           // Badge with hover popup for card IDs
@@ -566,10 +635,10 @@ function CreateCountersHTML(zoneName, cardArr, id) {
           html += "<div data-counter-field='" + field + "' data-counter-mode='cardids' data-card-ids='" + cardIdsJson + "' ";
           html += "class='counter-badge-cardids' ";
           html += "onmouseenter='showCardIdsBadgePopup(this, event)' onmouseleave='hideCardIdsBadgePopup(this)' ";
-          html += "style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6); cursor:pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;'>" + displayValue + "</div>";
+          html += "style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6); cursor:pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" + opacityStyle + "'>" + displayValue + "</div>";
         } else {
           // Standard badge
-          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
+          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);" + opacityStyle + "'>" + displayValue + "</div>";
         }
       } else if (type.toLowerCase() === 'icon') {
         // If an icon name is provided as positional param, use it as img src fallback

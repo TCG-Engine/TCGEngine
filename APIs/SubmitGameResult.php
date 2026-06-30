@@ -5,6 +5,7 @@
   require_once "../APIKeys/APIKeys.php";
   require_once "../Core/StatsHelpers.php";
   require_once "../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php";
+  require_once "../Core/StatsBaseRegistry.php";
 
   $input = file_get_contents('php://input');
   $data = json_decode($input, true);
@@ -243,36 +244,8 @@
 	// Finish the request; SaveDeckStats is defined below and may be used by other callers.
 	exit;
 
-// Normalize base IDs to their canonical versions to de-duplicate functional duplicates
-function NormalizeBaseID($baseID) {
-	if(CardHp($baseID) == 30) {
-		// Canonical base IDs by aspect
-		$canonicalBases = [
-			'Cunning' => '2376813177',
-			'Command' => '7790300585',
-			'Aggression' => '2696059415',
-			'Vigilance' => '9014930596'
-		];
-
-		// Map of known base IDs to their aspect (add more as needed)
-		$baseToAspect = [
-			'2376813177' => 'Cunning',
-			'7790300585' => 'Command',
-			'2696059415' => 'Aggression',
-			'9014930596' => 'Vigilance',
-			// Add other functional duplicates here as they are identified
-		];
-
-		// If this base is in our mapping, return the canonical version
-		if (isset($baseToAspect[$baseID])) {
-			$aspect = $baseToAspect[$baseID];
-			return $canonicalBases[$aspect];
-		}
-	}
-
-	// Otherwise return the original base ID unchanged
-	return $baseID;
-}
+// NormalizeBaseID() now lives in Core/StatsBaseRegistry.php (single source of truth for
+// base canonicalization + color/type resolution), included at the top of this file.
 
   //Parameters:
   // won: true if this player won the game, false if they lost
@@ -503,7 +476,12 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 
 	   // deckmetamatchupstats update (moved here)
 	   $opponentLeaderID = isset($playerJSON["opposingHero"]) ? $playerJSON["opposingHero"] : "";
-	   $opponentBaseID = isset($playerJSON["opposingBaseColor"]) ? NormalizeBaseID($playerJSON["opposingBaseColor"]) : "";
+	   $opposingBaseGuid = isset($playerJSON["opposingBase"]) ? $playerJSON["opposingBase"] : "";
+	   if ($opposingBaseGuid !== "") {
+		   $opponentBaseID = NormalizeBaseID($opposingBaseGuid);
+	   } else {
+		   $opponentBaseID = isset($playerJSON["opposingBaseColor"]) ? NormalizeBaseID($playerJSON["opposingBaseColor"]) : "";
+	   }
 	   if ($opponentLeaderID !== "" && $opponentBaseID !== "") {
 		   $sql = "SELECT COUNT(*) FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
 		   $stmt = mysqli_stmt_init($conn);
@@ -577,39 +555,64 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 	}
 
 	$leaderID = $playerJSON["opposingHero"];
-	$opponentColor = $playerJSON["opposingBaseColor"];
-	if($opponentColor != "") {
-		$winColumn = "winsVs" . ucfirst($opponentColor);
-		$totalColumn = "totalVs" . ucfirst($opponentColor);
-	
-	$sql = "SELECT COUNT(*) FROM opponentdeckstats WHERE deckID = ? AND leaderID = ? AND source = ?";
+
+	// Classify the opponent base: prefer the real GUID.
+	$resolved = isset($playerJSON["opposingBase"]) ? ResolveOpponentBase($playerJSON["opposingBase"]) : null;
+	$wins = ($won === true) ? 1 : 0;
+	$total = 1;
+
+	if ($resolved && $resolved["kind"] === "named") {
+		// Rare/Special base — tracked individually by base identity.
+		$namedBaseID = $resolved["baseID"];
+		$sql = "INSERT INTO opponentnamedbasestats (deckID, leaderID, baseID, source, wins, total) VALUES (?, ?, ?, ?, ?, ?)
+		        ON DUPLICATE KEY UPDATE wins = wins + VALUES(wins), total = total + VALUES(total)";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
-			mysqli_stmt_bind_param($stmt, "isi", $deckID, $leaderID, $source);
+			mysqli_stmt_bind_param($stmt, "issiii", $deckID, $leaderID, $namedBaseID, $source, $wins, $total);
 			mysqli_stmt_execute($stmt);
-			mysqli_stmt_bind_result($stmt, $count);
-			mysqli_stmt_fetch($stmt);
 			mysqli_stmt_close($stmt);
 		}
-	
-		if ($count == 0) {
-			$sql = "INSERT INTO opponentdeckstats (deckID, leaderID, source) VALUES (?, ?, ?)";
+	} else {
+		// Common base -> color x type wide columns; legacy color-only -> Legacy bucket (suffix '').
+		if ($resolved) {
+			$color = $resolved["color"];
+			$typeSuffix = StatsTypeColumnSuffix($resolved["type"]);
+		} else {
+			$color = isset($playerJSON["opposingBaseColor"]) ? $playerJSON["opposingBaseColor"] : "";
+			$typeSuffix = ""; // Legacy
+		}
+
+		if ($color != "") {
+			$winColumn   = "winsVs"  . ucfirst($color) . $typeSuffix;
+			$totalColumn = "totalVs" . ucfirst($color) . $typeSuffix;
+
+			$sql = "SELECT COUNT(*) FROM opponentdeckstats WHERE deckID = ? AND leaderID = ? AND source = ?";
 			$stmt = mysqli_stmt_init($conn);
 			if (mysqli_stmt_prepare($stmt, $sql)) {
 				mysqli_stmt_bind_param($stmt, "isi", $deckID, $leaderID, $source);
 				mysqli_stmt_execute($stmt);
+				mysqli_stmt_bind_result($stmt, $count);
+				mysqli_stmt_fetch($stmt);
 				mysqli_stmt_close($stmt);
 			}
-		}
-	
-		$sql = "UPDATE opponentdeckstats SET $winColumn = $winColumn + ?, $totalColumn = $totalColumn + ? WHERE deckID = ? AND leaderID = ? AND source = ?";
-		$stmt = mysqli_stmt_init($conn);
-		if (mysqli_stmt_prepare($stmt, $sql)) {
-			$wins = ($won === true) ? 1 : 0;
-			$total = 1;
-			mysqli_stmt_bind_param($stmt, "iiisi", $wins, $total, $deckID, $leaderID, $source);
-			mysqli_stmt_execute($stmt);
-			mysqli_stmt_close($stmt);
+
+			if ($count == 0) {
+				$sql = "INSERT INTO opponentdeckstats (deckID, leaderID, source) VALUES (?, ?, ?)";
+				$stmt = mysqli_stmt_init($conn);
+				if (mysqli_stmt_prepare($stmt, $sql)) {
+					mysqli_stmt_bind_param($stmt, "isi", $deckID, $leaderID, $source);
+					mysqli_stmt_execute($stmt);
+					mysqli_stmt_close($stmt);
+				}
+			}
+
+			$sql = "UPDATE opponentdeckstats SET $winColumn = $winColumn + ?, $totalColumn = $totalColumn + ? WHERE deckID = ? AND leaderID = ? AND source = ?";
+			$stmt = mysqli_stmt_init($conn);
+			if (mysqli_stmt_prepare($stmt, $sql)) {
+				mysqli_stmt_bind_param($stmt, "iiisi", $wins, $total, $deckID, $leaderID, $source);
+				mysqli_stmt_execute($stmt);
+				mysqli_stmt_close($stmt);
+			}
 		}
 	}
 

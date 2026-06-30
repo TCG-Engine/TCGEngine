@@ -35,7 +35,30 @@ CREATE TABLE `favoritedeck` (
   `usersId` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `hero` varchar(15) NOT NULL,
-  `format` varchar(32) DEFAULT NULL
+  `baseId` varchar(16) DEFAULT NULL,
+  `format` varchar(32) DEFAULT NULL,
+  `isFavorite` tinyint(4) NOT NULL DEFAULT 0,
+  `wins` int(11) NOT NULL DEFAULT 0,
+  `losses` int(11) NOT NULL DEFAULT 0,
+  `lastUsed` timestamp NULL DEFAULT NULL,
+  `deckContent` mediumtext DEFAULT NULL,
+  PRIMARY KEY (`decklink`,`usersId`),
+  KEY `usersId` (`usersId`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
+-- --------------------------------------------------------
+--
+-- Table structure for table `favoritedeckmatchup`
+--
+
+CREATE TABLE `favoritedeckmatchup` (
+  `usersId` int(11) NOT NULL,
+  `decklink` varchar(128) NOT NULL,
+  `oppLeader` varchar(16) NOT NULL,
+  `oppBase` varchar(32) NOT NULL,
+  `wins` int(11) NOT NULL DEFAULT 0,
+  `losses` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`usersId`,`decklink`,`oppLeader`,`oppBase`),
+  KEY `usersId_decklink` (`usersId`,`decklink`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4;
 -- --------------------------------------------------------
 --
@@ -86,7 +109,8 @@ CREATE TABLE `ownership` (
   `assetSourceID` varchar(32) DEFAULT NULL,
   `numLikes` int(11) NOT NULL DEFAULT 0,
   `keyIndicator1` varchar(16) DEFAULT NULL,
-  `keyIndicator2` varchar(16) DEFAULT NULL
+  `keyIndicator2` varchar(16) DEFAULT NULL,
+  `lastUpdated` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -104,14 +128,58 @@ CREATE TABLE `opponentdeckstats` (
   `winsVsYellow` int(11) NOT NULL DEFAULT 0,
   `totalVsYellow` int(11) NOT NULL DEFAULT 0,
   `winsVsColorless` int(11) NOT NULL DEFAULT 0,
-  `totalVsColorless` int(11) NOT NULL DEFAULT 0
+  `totalVsColorless` int(11) NOT NULL DEFAULT 0,
+  `winsVsGreenForce` int(11) NOT NULL DEFAULT 0,
+  `totalVsGreenForce` int(11) NOT NULL DEFAULT 0,
+  `winsVsBlueForce` int(11) NOT NULL DEFAULT 0,
+  `totalVsBlueForce` int(11) NOT NULL DEFAULT 0,
+  `winsVsRedForce` int(11) NOT NULL DEFAULT 0,
+  `totalVsRedForce` int(11) NOT NULL DEFAULT 0,
+  `winsVsYellowForce` int(11) NOT NULL DEFAULT 0,
+  `totalVsYellowForce` int(11) NOT NULL DEFAULT 0,
+  `winsVsColorlessForce` int(11) NOT NULL DEFAULT 0,
+  `totalVsColorlessForce` int(11) NOT NULL DEFAULT 0,
+  `winsVsGreenSplash` int(11) NOT NULL DEFAULT 0,
+  `totalVsGreenSplash` int(11) NOT NULL DEFAULT 0,
+  `winsVsBlueSplash` int(11) NOT NULL DEFAULT 0,
+  `totalVsBlueSplash` int(11) NOT NULL DEFAULT 0,
+  `winsVsRedSplash` int(11) NOT NULL DEFAULT 0,
+  `totalVsRedSplash` int(11) NOT NULL DEFAULT 0,
+  `winsVsYellowSplash` int(11) NOT NULL DEFAULT 0,
+  `totalVsYellowSplash` int(11) NOT NULL DEFAULT 0,
+  `winsVsColorlessSplash` int(11) NOT NULL DEFAULT 0,
+  `totalVsColorlessSplash` int(11) NOT NULL DEFAULT 0,
+  `winsVsGreenStandard` int(11) NOT NULL DEFAULT 0,
+  `totalVsGreenStandard` int(11) NOT NULL DEFAULT 0,
+  `winsVsBlueStandard` int(11) NOT NULL DEFAULT 0,
+  `totalVsBlueStandard` int(11) NOT NULL DEFAULT 0,
+  `winsVsRedStandard` int(11) NOT NULL DEFAULT 0,
+  `totalVsRedStandard` int(11) NOT NULL DEFAULT 0,
+  `winsVsYellowStandard` int(11) NOT NULL DEFAULT 0,
+  `totalVsYellowStandard` int(11) NOT NULL DEFAULT 0,
+  `winsVsColorlessStandard` int(11) NOT NULL DEFAULT 0,
+  `totalVsColorlessStandard` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+-- NOTE: the suffix-less winsVs{Color}/totalVs{Color} columns above are the "Legacy" bucket
+-- (color-only data, base type unknown). 30HP Standard commons use the {Color}Standard columns.
 
 --
 -- Indexes for table `opponentdeckstats`
 --
 ALTER TABLE `opponentdeckstats`
   ADD PRIMARY KEY (`deckID`,`leaderID`,`source`,`version`) USING BTREE;
+
+-- Per-deck matchup stats vs Rare/Special "named" bases, tracked by base identity
+-- (the wide color x type columns above only cover common bases).
+CREATE TABLE `opponentnamedbasestats` (
+  `deckID` int(11) NOT NULL,
+  `leaderID` varchar(16) NOT NULL,
+  `baseID` varchar(16) NOT NULL,
+  `source` int(11) NOT NULL DEFAULT 0,
+  `wins` int(11) NOT NULL DEFAULT 0,
+  `total` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`deckID`,`leaderID`,`baseID`,`source`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 CREATE TABLE `assetversions` (
   `assetType` int(11) NOT NULL,

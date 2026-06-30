@@ -1,0 +1,10 @@
+## GIVEN
+CommonSetup: grw/ggk/{myResources:3;handCardIds:SOR_095}
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1GROUNDARENACOUNT:1
+P1GROUNDARENAUNIT:0:CARDID:SOR_095
+P1NODECISION

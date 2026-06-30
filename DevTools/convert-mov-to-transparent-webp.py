@@ -36,6 +36,14 @@ CROP_PADDING = 0        # extra pixels added on every side of the detected bound
 BLACK_THRESHOLD = 3     # HSV V values (0-255) at or below this count as "black"
 OUTPUT_SIZE = (60, 60)
 
+# --- Preserve-interior mode ---
+# When True, only black CONNECTED TO THE FRAME BORDER is made transparent; black enclosed
+# by brighter content (e.g. inside a silver ring/border) stays opaque. Use for bordered/ring
+# icons where the per-pixel luminance alpha would otherwise punch holes through the middle.
+# Leave False for pure glow effects (it would harden their soft falloff).
+PRESERVE_INTERIOR = False
+INTERIOR_BLACK_THRESHOLD = 30  # HSV V at or below this is "dark"; the border must be brighter
+
 
 def compute_crop_bounds(raw_frames, threshold, padding):
     """Return (x0, y0, x1, y1) - the union bbox of all non-black pixels across
@@ -66,6 +74,20 @@ def compute_crop_bounds(raw_frames, threshold, padding):
     x1 = min(w, x1 + padding + 1)
     y1 = min(h, y1 + padding + 1)
     return (x0, y0, x1, y1)
+
+
+def restore_interior_alpha(bgr, rgba):
+    """Keep only EDGE-CONNECTED black transparent. Flood-fills the dark region inward from
+    the frame border; any dark pixel not reachable from the border (enclosed by brighter
+    content, e.g. inside a ring) is forced back to opaque so interior black isn't cut."""
+    v = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)[:, :, 2]
+    dark = (v <= INTERIOR_BLACK_THRESHOLD).astype(np.uint8)
+    num, labels = cv2.connectedComponents(dark, connectivity=8)
+    border = set(labels[0, :]) | set(labels[-1, :]) | set(labels[:, 0]) | set(labels[:, -1])
+    border.discard(0)                      # 0 = the bright (non-dark) region
+    bg = np.isin(labels, list(border))     # dark AND reachable from the border = real background
+    rgba[~bg, 3] = 255                      # content + interior black -> opaque
+    return rgba
 
 
 def bgr_to_rgba(bgr):
@@ -174,6 +196,8 @@ else:
         frames = []
         for bgr in raw_frames:
             rgba = bgr_to_rgba(bgr)
+            if PRESERVE_INTERIOR:
+                rgba = restore_interior_alpha(bgr, rgba)
             img = Image.fromarray(rgba, "RGBA")
             if crop_box is not None:
                 x0, y0, x1, y1 = crop_box

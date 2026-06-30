@@ -1,0 +1,426 @@
+SWUSim
+Polling
+None
+None
+GamestateStorage: APCu
+Layout: /Custom/GameLayout.php
+ServerInclude: /Custom/CustomInput.php
+ServerInclude: /Custom/GameLogic.php
+ServerInclude: /TurnController.php
+ServerInclude: /GeneratedCode/GeneratedMacroCode.php
+ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
+ServerInclude: /GeneratedCode/GeneratedAbilityStubs.php
+ServerInclude: /Custom/KeywordEffects.php
+AssetReflection: SWUSim
+Module: Versions=TurnPlayer,FirstPlayer,CurrentPhase,TurnNumber,PhaseParameters,DecisionQueueVariables,EffectStack,MacroTurnIndex,MacroGameIndex,InitiativeCounter,GameLog,p1DecisionQueue,p1GlobalEffects,p1Hand,p1Discard,p1Deck,p1Leader,p1Base,p1Resources,p1GroundArena,p1SpaceArena,p1TempZone,p2DecisionQueue,p2GlobalEffects,p2Hand,p2Discard,p2Deck,p2Leader,p2Base,p2Resources,p2GroundArena,p2SpaceArena,p2TempZone
+Module: UniqueID=GroundArena,SpaceArena,UniqueID,UniqueIDCounter
+
+# ── CardID Format Rule ────────────────────────────────────────────────────────
+# Every CardID stored in any zone must use the SET_NNN format:
+#   {set abbreviation (2–5 uppercase letters)} + "_" + {card number zero-padded to 3 digits}
+#
+# Examples:  SOR_014   SHD_154   JTL_095   LOF_102
+#
+# This format is the primary key across all game state (zone entries, DQ variables,
+# mzIDs, generated dictionaries, and the deck JSON import format).
+#
+# For stat reporting to SWUDeck/SWUStats, call GetCardUUID(cardId) to resolve
+# SET_NNN → documentId (Strapi UUID). See GeneratedCardDictionaries.php.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ─── Macros ──────────────────────────────────────────────────────────────────
+# Card selection
+Macro: Name=ChooseCard(mzSearch,helptext); Choice={MZCHOOSE:mzSearch|helptext}; AfterChoice=OnCardChosen; Action={}
+
+# Core card actions
+Macro: Name=PlayCard(mzID,ignoreCost); ChoiceFunction=DoPlayCard; Action={}
+Macro: Name=UnitDefeated(mzID); ChoiceFunction=DoUnitDefeated; Action={}
+Macro: Name=LeavePlay(mzID); ChoiceFunction=OnLeavePlay; Action={}
+Macro: Name=DeployLeader(leaderMZ); ChoiceFunction=DoDeployLeader; Action={}
+Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
+
+# Card movement / zone transitions
+Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
+Macro: Name=DiscardCard(mzID); ChoiceFunction=DoDiscardCard; Action={}
+Macro: Name=Reveal(revealedMZ); ChoiceFunction=DoRevealCard; Action={}
+Macro: Name=ResourceCard(mzID); ChoiceFunction=DoResourceCard; Action={}
+
+# Status changes
+Macro: Name=ExhaustCard(mzID); ChoiceFunction=OnExhaustCard; Action={}
+Macro: Name=ReadyCard(mzID); ChoiceFunction=OnReadyCard; Action={}
+
+# Damage and combat
+# DealDamage   — deal damage from source to a unit target (runs full prevention/lethal pipeline)
+# DamageBase   — deal damage directly to a player's base (bypasses unit pipeline, checks win condition)
+# HealUnit     — remove damage counters from a unit (clamped at 0)
+# HealBase     — remove damage counters from a player's base (clamped at 0)
+Macro: Name=DealDamage(source,target,amount); ChoiceFunction=OnDealDamage; Action={}
+Macro: Name=DamageBase(source,targetPlayer,amount); ChoiceFunction=OnDamageBase; Action={}
+Macro: Name=HealUnit(mzCard,amount); ChoiceFunction=OnHealUnit; Action={}
+Macro: Name=HealBase(targetPlayer,amount); ChoiceFunction=OnHealBase; Action={}
+
+# Triggered ability macros (fired by game code at appropriate timing windows)
+Macro: Name=WhenPlayed(mzID); ChoiceFunction=OnWhenPlayed; Action={}
+Macro: Name=WhenDefeated(mzID); ChoiceFunction=OnWhenDefeated; Action={}
+Macro: Name=OnAttack(mzID); ChoiceFunction=OnAttackTrigger; Action={}
+Macro: Name=OnAttackEnd(mzID); ChoiceFunction=OnAttackEndTrigger; Action={}
+Macro: Name=OnDefense(mzID); ChoiceFunction=OnDefenseTrigger; Action={}
+Macro: Name=OnDefenseEnd(mzID); ChoiceFunction=OnDefenseEndTrigger; Action={}
+
+# Token creation — tokenType matches token class constants (e.g. SHIELD, EXPERIENCE, BATTLE_DROID)
+Macro: Name=CreateToken(tokenType,targetPlayer); ChoiceFunction=DoCreateToken; Action={}
+Macro: Name=GiveShieldToken(targetMZ); ChoiceFunction=DoGiveShieldToken; Action={}
+Macro: Name=GiveExperienceToken(targetMZ); ChoiceFunction=DoGiveExperienceToken; Action={}
+
+# Capture / rescue (CR 8.34)
+# Capture: places the captured unit face-down as a subcard under the capturing unit.
+# Rescue: removes a captured unit from under its guard and returns it to play exhausted.
+Macro: Name=CaptureUnit(capturingMZ,capturedMZ); ChoiceFunction=DoCaptureUnit; Action={}
+Macro: Name=RescueUnit(guardingMZ); ChoiceFunction=DoRescueUnit; Action={}
+
+# Cost modification value modifier (applied during Play a Card cost calculation)
+Macro: Name=PlayCostModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
+
+# ─── Zones ───────────────────────────────────────────────────────────────────
+# Zones are per-player unless Scope=Global.
+# mzID format: <zoneName>-<index> for per-player zones (e.g. myGroundArena-0).
+# "my"/"their" prefixes are resolved relative to the requesting player.
+
+# Deck ─────────────────────────────────────────────────────────────────────────
+# Draw pile. Cards are face-down and private to the owner. Shuffled at setup.
+Deck - CardID:string
+BeforeAdd: TokenCeaseBeforeAdd
+Display: Visibility=Private, Mode=Single, BindTo=DeckSlot
+Macros: Shuffle
+
+# Hand ─────────────────────────────────────────────────────────────────────────
+# Cards in the player's hand. Visible only to the owner; count is public.
+Hand - CardID:string
+BeforeAdd: TokenCeaseBeforeAdd
+Display: Visibility=Self, Mode=All, BindTo=HandSlot
+Click: FSM()
+Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: HandCardCostDifference=HandCardCostDifference()
+Virtual: HasAbility=CardHasAbility()
+Virtual: ExploitAvailable=HandCardExploitAvailable()
+Highlight: SelectionMetadata
+Index: CardID
+Counters: HandCardCostDifference=Badge(Color=White,Position=TopLeft,ShowNegative=false)
+# Exploit keyword indicator — on hand cards that can be played with Exploit (printed, or a
+# Separatist card while TWI_005 Count Dooku's charge is active). Bottom, nudged down 20px.
+Counters: ExploitAvailable=Image(Path=Assets/Icons/exploit.webp,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
+
+# Discard ──────────────────────────────────────────────────────────────────────
+# Defeated units, played events, and discarded cards. Public and face-up.
+# Order does not matter and may be rearranged freely.
+#
+# Fields:
+#   From     — origin zone when the card entered discard:
+#                "HAND"      — discarded from hand (regroup discard, card effect)
+#                "DECK"      — milled from top of deck
+#                "PLAY"      — left the arena (unit defeated, event resolved)
+#                "RESOURCES" — played from resource zone (Smuggle / similar)
+#   Turn     — TurnNumber when the card was discarded; used for "discarded this phase/round" checks
+#   Modifier — optional tag on the discard entry:
+#                "TTFREE"  — may be played for free this turn (this player)
+#                "OTTFREE" — may be played for free this turn (opponent)
+#                ""        — no modifier (default)
+Discard - CardID:string, From:string="", Turn:number=0, Modifier:string=""
+BeforeAdd: TokenCeaseBeforeAdd
+Display: Visibility=Public, Mode=Single, BindTo=DiscardSlot
+Click: FSM()
+
+# Resources ────────────────────────────────────────────────────────────────────
+# Face-down cards in the resource zone used to pay costs (exhaust ready resources).
+# Status: 1 = ready, 0 = exhausted.
+# Visibility is Self (owner can look at their resources; count is public).
+# Cards become resources by being placed face-down during setup or the regroup phase.
+# Smuggle replacement (top of deck → resources exhausted) is handled inline in SWUSmuggleResource.
+#
+# Note: resource order does not need to be maintained (CR 8.36.4); resources may be
+# rearranged freely at any time, so no slot-tracking ID is needed.
+#
+# Fields:
+#   Owner      — player who owns the card (determines who gets it back when a steal effect ends)
+#   Controller — player currently controlling the resource (may differ from Owner via DJ SHD_213)
+Resources - CardID:string, Status:number=1, Owner:number, Controller:number
+BeforeAdd: TokenCeaseBeforeAdd
+Display: Visibility=Self, Mode=All, BindTo=ResourcesSlot
+Click: FSM()
+Virtual: SelectionMetadata=SelectionMetadata()
+Virtual: HasSmuggle=ResourceHasSmuggle()
+Virtual: HasPlot=ResourceHasPlot()
+Highlight: SelectionMetadata
+Overlay: Status=0:exhausted
+Rotation: Status=0:9
+# Smuggle keyword icon — shown on any resource that currently has Smuggle (e.g. while
+# SHD_248 Tech is in play). Nudged down 8px so it sits over the card's bottom edge.
+Counters: HasSmuggle=Image(Path=Assets/Icons/smuggle.webp,Position=Bottom,ShowZero=false,Size=32,OffsetY=8)
+# Plot keyword icon — shown on resources that have Plot (CR 19), playable from resources
+# when you deploy your leader. Same bottom treatment as the Smuggle icon.
+Counters: HasPlot=Image(Path=Assets/Icons/plot.webp,Position=Bottom,ShowZero=false,Size=32,OffsetY=8)
+
+# Leader ───────────────────────────────────────────────────────────────────────
+# The leader card in the base zone. Always stays in this zone for record-keeping;
+# deployment state is tracked by Deployed + DeployedUniqueID.
+#
+# Fields:
+#   EpicActionUsed  — true after the Epic Action (deploy) has been triggered once per game
+#   Ready           — false when the leader side is exhausted (for leader-side action abilities)
+#   Deployed        — true when the leader unit side is currently on the field
+#   DeployedUniqueID — UniqueID of the corresponding GroundArena/SpaceArena entry (0 if not deployed)
+#   Damage          — damage on the leader UNIT side while deployed (leader side has no HP)
+#   TurnEffects     — temporary effects applied this phase/round/attack
+#   Counters        — named counter map (e.g. epic action counter display)
+#
+# When Deployed=true, a matching entry in GroundArena (or SpaceArena) represents the
+# Leader Unit side. On defeat of that entry, Deployed is reset to false and the leader
+# returns to the base zone exhausted (Ready=false), per CR 3.4.5.
+Leader - CardID:string, EpicActionUsed:boolean=false, Ready:boolean=true, Deployed:boolean=false, DeployedUniqueID:number=0, Damage:number=0, TurnEffects:array[string], Counters:json, NumUses:number=1
+Display: Visibility=Public, Mode=All, BindTo=LeaderSlot
+Click: FSM()
+Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: HasAbility=CardHasAbility()
+Index: TurnEffects
+Overlay: Ready=false:exhausted
+Rotation: Ready=false:9
+
+# Base ─────────────────────────────────────────────────────────────────────────
+# The player's base card. Stays in the base zone throughout the game.
+# When Damage >= base HP, that player loses immediately (CR 3.2.5).
+#
+# Fields:
+#   Damage         — current damage counters on the base
+#   EpicActionUsed — true if the base's once-per-game ability has been used (some bases have one)
+#   NumUses        — usage counter for bases with limited-use abilities
+#   TurnEffects    — temporary effects
+Base - CardID:string, Damage:number=0, EpicActionUsed:boolean=false, NumUses:number=1, TurnEffects:array[string]
+Display: Visibility=Public, Mode=All, BindTo=BaseSlot
+Click: FSM()
+Virtual: HasAbility=CardHasAbility()
+# HasForce drives the Force token shown in the base's top-right corner (client refreshForceToken).
+Virtual: HasForce=BaseHasForce()
+Counters: Damage=Image(Path=Assets/Icons/swusim-damage.png,Position=Center,ShowZero=false,Size=48,TextColor=White,OffsetY=-8)
+
+# GroundArena ──────────────────────────────────────────────────────────────────
+# Units in the ground arena controlled by this player (including deployed leader units
+# that deploy to ground). Each player maintains their own side of the shared arena.
+#
+# Fields:
+#   Status      — 1=ready (facing controller), 0=exhausted (rotated 90°). Units enter play exhausted (CR 4.3.3).
+#   Owner       — player who owns the card (for discard-pile destination on defeat)
+#   Damage      — current damage counters
+#   Controller  — player currently controlling the card (may differ from owner via Take Control)
+#   TurnEffects — temporary effects for this turn/phase/attack (e.g. "RAID_2", "HIDDEN")
+#                 All buffs, debuffs, and keyword grants are encoded as TurnEffect strings.
+#                 Numeric values are encoded in the string (e.g. "RAID_2").
+#   Subcards    — JSON array of attached upgrades and face-down captives:
+#                   upgrades: {CardID, Owner, Controller, TurnEffects[], IsPilot}
+#                   captives: {CardID, Owner, Damage, TurnEffects[], IsCaptive: true}
+#   UniqueID    — persistent ID used to track this unit across phase changes and by Leader.DeployedUniqueID
+GroundArena - CardID:string, Status:number=0, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Subcards:json, UniqueID:number=0, NumUses:number=1
+Virtual: CurrentPower=ObjectPowerBadgeValue()
+Virtual: CurrentHP=ObjectHPBadgeValue()
+Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
+Virtual: CombatTargetIndicator=CombatTargetIndicator()
+Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: DisplayEffects=CardDisplayEffects()
+Virtual: HasAbility=CardHasAbility()
+Virtual: ShieldTokenCount=GetShieldTokenCount()
+Virtual: ExperienceTokenCount=GetExperienceTokenCount()
+Virtual: CoordinateActive=ObjectCoordinateActive()
+Virtual: CoordinateInactive=ObjectCoordinateInactive()
+Virtual: HasSaboteur=ObjectHasSaboteur()
+Virtual: HasOverwhelm=ObjectHasOverwhelm()
+Virtual: HasGrit=ObjectHasGrit()
+Virtual: HasSentinel=ObjectHasSentinel()
+Virtual: HasHidden=ObjectHasHidden()
+Virtual: HasAmbush=ObjectHasAmbush()
+Virtual: HasBounty=ObjectHasBounty()
+Virtual: HiddenUnattackable=ObjectHiddenUnattackable()
+Index: TurnEffects
+Display: Visibility=Public, Mode=All, BindTo=GroundArenaSlot
+Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Overlay: Status=0:exhausted
+Rotation: Status=0:9
+Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
+Counters: Damage=Image(Path=Assets/Icons/swusim-damage.png,Position=Center,ShowZero=false,Size=32,TextColor=White)
+Counters: CurrentPower=Image(Path=Assets/Icons/swusim-power_v2.png,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White,OffsetX=-6,OffsetY=12)
+Counters: CurrentHP=Image(Path=Assets/Icons/swusim-hp_v2.png,Position=BottomRight,ShowNegative=false,Size=26,TextColor=White,OffsetX=6,OffsetY=12)
+Counters: ShieldTokenCount=Image(Path=Assets/Icons/shield.webp,Position=Bottom,ShowZero=false,Size=15)
+Counters: ExperienceTokenCount=Badge(Color=Gold,Position=Center,ShowZero=false)
+# Coordinate keyword indicator (CR 15): animated icon while active (controller has 3+ units),
+# static icon while it has Coordinate but the condition isn't met. Mutually exclusive.
+Counters: CoordinateActive=Image(Path=Assets/Icons/coordinate_active.webp,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
+Counters: CoordinateInactive=Image(Path=Assets/Icons/coordinate_inactive.png,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
+# Saboteur keyword indicator — shown on units that have Saboteur (printed or granted).
+# Bottom like Coordinate; the two cluster side-by-side when a unit has both.
+Counters: HasSaboteur=Image(Path=Assets/Icons/saboteur.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Overwhelm keyword indicator — shown on units that have Overwhelm (printed or granted).
+Counters: HasOverwhelm=Image(Path=Assets/Icons/overwhelm.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Grit keyword indicator — shown on units that have Grit (printed or granted).
+Counters: HasGrit=Image(Path=Assets/Icons/grit.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Hidden keyword indicator — shown on units that have Hidden (printed or granted), regardless of
+# whether they're currently unattackable. (The smoke overlay is separate, unattackable-only.)
+Counters: HasHidden=Image(Path=Assets/Icons/hidden.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Ambush keyword indicator — shown on units that have Ambush (printed or granted).
+Counters: HasAmbush=Image(Path=Assets/Icons/ambush.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Bounty keyword indicator — shown on units that have Bounty (printed, upgrade-granted, or effect).
+Counters: HasBounty=Image(Path=Assets/Icons/bounty.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Hidden smoke overlay — full-card image shown UNDER the badges (low DrawOrder) while a Hidden
+# unit is still unattackable (entered play this phase); clears once the phase ends.
+Overlay: HiddenUnattackable=1:hidden(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
+# Sentinel tech-wall overlay — full-card image (under the badges) on units that have Sentinel.
+# Scaled up a touch so the wall frames around the card edges.
+Overlay: HasSentinel=1:sentinel(Image=Assets/Overlays/tech-wall.webp,DrawOrder=10,Opacity=0.71,Scale=1.15,OffsetY=-4)
+AfterAdd: GroundArenaAfterAdd
+Highlight: FieldSelectionMetadata
+Click: FSM()
+
+# SpaceArena ───────────────────────────────────────────────────────────────────
+# Units in the space arena controlled by this player. Same field schema as GroundArena.
+# Ground units cannot attack space units (and vice versa) unless an ability explicitly allows it.
+# Space units may still deal damage to units in the ground arena through non-attack abilities.
+SpaceArena - CardID:string, Status:number=0, Owner:number, Damage:number=0, Controller:number, TurnEffects:array[string], Subcards:json, UniqueID:number=0, NumUses:number=1
+Virtual: CurrentPower=ObjectPowerBadgeValue()
+Virtual: CurrentHP=ObjectHPBadgeValue()
+Virtual: FieldSelectionMetadata=FieldSelectionMetadata()
+Virtual: CombatTargetIndicator=CombatTargetIndicator()
+Virtual: CurrentEffects=CardCurrentEffects()
+Virtual: DisplayEffects=CardDisplayEffects()
+Virtual: HasAbility=CardHasAbility()
+Virtual: ShieldTokenCount=GetShieldTokenCount()
+Virtual: ExperienceTokenCount=GetExperienceTokenCount()
+Virtual: CoordinateActive=ObjectCoordinateActive()
+Virtual: CoordinateInactive=ObjectCoordinateInactive()
+Virtual: HasSaboteur=ObjectHasSaboteur()
+Virtual: HasOverwhelm=ObjectHasOverwhelm()
+Virtual: HasGrit=ObjectHasGrit()
+Virtual: HasSentinel=ObjectHasSentinel()
+Virtual: HasHidden=ObjectHasHidden()
+Virtual: HasAmbush=ObjectHasAmbush()
+Virtual: HasBounty=ObjectHasBounty()
+Virtual: HiddenUnattackable=ObjectHiddenUnattackable()
+Index: TurnEffects
+Display: Visibility=Public, Mode=All, BindTo=SpaceArenaSlot
+Widgets: CustomInput=Activate(Position:BottomLeft,Condition:HasAbility=1)
+Overlay: Status=0:exhausted
+Rotation: Status=0:9
+Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode=CardIDs)
+Counters: Damage=Image(Path=Assets/Icons/swusim-damage.png,Position=Center,ShowZero=false,Size=32,TextColor=White)
+Counters: CurrentPower=Image(Path=Assets/Icons/swusim-power_v2.png,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White,OffsetX=-6,OffsetY=12)
+Counters: CurrentHP=Image(Path=Assets/Icons/swusim-hp_v2.png,Position=BottomRight,ShowNegative=false,Size=26,TextColor=White,OffsetX=6,OffsetY=12)
+Counters: ShieldTokenCount=Image(Path=Assets/Icons/shield.webp,Position=Bottom,ShowZero=false,Size=15)
+Counters: ExperienceTokenCount=Badge(Color=Gold,Position=Center,ShowZero=false)
+# Coordinate keyword indicator (CR 15): animated icon while active (controller has 3+ units),
+# static icon while it has Coordinate but the condition isn't met. Mutually exclusive.
+Counters: CoordinateActive=Image(Path=Assets/Icons/coordinate_active.webp,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
+Counters: CoordinateInactive=Image(Path=Assets/Icons/coordinate_inactive.png,Position=Bottom,ShowZero=false,Size=25,OffsetY=20)
+# Saboteur keyword indicator — shown on units that have Saboteur (printed or granted).
+# Bottom like Coordinate; the two cluster side-by-side when a unit has both.
+Counters: HasSaboteur=Image(Path=Assets/Icons/saboteur.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Overwhelm keyword indicator — shown on units that have Overwhelm (printed or granted).
+Counters: HasOverwhelm=Image(Path=Assets/Icons/overwhelm.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Grit keyword indicator — shown on units that have Grit (printed or granted).
+Counters: HasGrit=Image(Path=Assets/Icons/grit.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Hidden keyword indicator — shown on units that have Hidden (printed or granted), regardless of
+# whether they're currently unattackable. (The smoke overlay is separate, unattackable-only.)
+Counters: HasHidden=Image(Path=Assets/Icons/hidden.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Ambush keyword indicator — shown on units that have Ambush (printed or granted).
+Counters: HasAmbush=Image(Path=Assets/Icons/ambush.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Bounty keyword indicator — shown on units that have Bounty (printed, upgrade-granted, or effect).
+Counters: HasBounty=Image(Path=Assets/Icons/bounty.webp,Position=Bottom,ShowZero=false,Size=21,OffsetY=20)
+# Hidden smoke overlay — full-card image shown UNDER the badges (low DrawOrder) while a Hidden
+# unit is still unattackable (entered play this phase); clears once the phase ends.
+Overlay: HiddenUnattackable=1:hidden(Image=Assets/Overlays/smoke-overlay.webp,DrawOrder=10)
+# Sentinel tech-wall overlay — full-card image (under the badges) on units that have Sentinel.
+# Scaled up a touch so the wall frames around the card edges.
+Overlay: HasSentinel=1:sentinel(Image=Assets/Overlays/tech-wall.webp,DrawOrder=10,Opacity=0.71,Scale=1.15,OffsetY=-4)
+AfterAdd: SpaceArenaAfterAdd
+Highlight: FieldSelectionMetadata
+Click: FSM()
+
+# GlobalEffects ────────────────────────────────────────────────────────────────
+# Per-player string flags for tracking lasting game state (e.g. "TOOK_INITIATIVE").
+# Not displayed. Searched by string value.
+GlobalEffects - CardID:string
+Display: Visibility=None, Mode=None
+
+# DecisionQueue ────────────────────────────────────────────────────────────────
+# Pending interactive decisions for each player. Internal; not displayed to users.
+DecisionQueue - Type:string, Param:string, Block:number, Tooltip:string, DontSkipOnPass:number
+Display: Visibility=Self, Mode=All, Display=None
+
+# TempZone ───────────────────────────────────────────────────────────────────────
+# Scratch zone for transient "stage some cards, then pick a subset" effects (e.g.
+# SWUQueueDefeatUpgrade stages a unit's upgrades here so they get real mzIDs and
+# render as card images). No board slot — Mode=None routes its myTempZone-N specs to
+# the MZCHOOSE card-image popup, and MZMULTICHOOSE renders them in its own modal.
+# Visibility=Self so only the owner receives their staged cards. Always drained at
+# the end of the effect that staged into it.
+TempZone - CardID:string
+Display: Visibility=Self, Mode=None
+
+# ─── Global Scalars ──────────────────────────────────────────────────────────
+# Scalar zones have a single Value field and are not card-keyed.
+
+Versions - Version:string
+Display: Visibility=None, Mode=All, Display=None
+
+TurnNumber - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+# FirstPlayer: which player started the game with the initiative (1 or 2). Set at setup.
+FirstPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+# TurnPlayer: which player is currently the active player (1 or 2).
+# Swapped by game code after each action in the action phase.
+TurnPlayer - Value:number=1
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+CurrentPhase - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+PhaseParameters - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+FlashMessage - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+DecisionQueueVariables - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+# InitiativeCounter ────────────────────────────────────────────────────────────
+# Tracks which player holds the initiative and whether it has been taken this round.
+# P1_UNCLAIMED / P2_UNCLAIMED: initiative is available; that player goes first next round.
+# P1_CLAIMED   / P2_CLAIMED  : player took the initiative this round (auto-passes rest of AP).
+# Flipped back to UNCLAIMED at the start of each action phase.
+InitiativeCounter - Value:string=P1_UNCLAIMED
+Display: Visibility=Public, Mode=Value, Scope=Global, Display=None
+
+MacroTurnIndex - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+# MacroGameIndex: game-long macro counters (e.g. "once per game" / per-card fire counts).
+# Consumed by the generated GetMacroGameIndexArray() helper.
+MacroGameIndex - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+# UniqueIDCounter: monotonically increasing counter for assigning UniqueIDs to arena entries.
+UniqueIDCounter - Value:number=0
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+
+# EffectStack ──────────────────────────────────────────────────────────────────
+# Global stack of effects awaiting resolution. Public; displayed center screen.
+EffectStack - CardID:string, Controller:number, TriggerType:string="", Params:string=""
+BeforeAdd: TokenCeaseBeforeAdd
+Display: Visibility=Public, Mode=All, Scope=Global, BindTo=EffectStackSlot
+
+# GameLog ──────────────────────────────────────────────────────────────────────
+# Append-only game log. Entries are "TYPE|VISIBILITY|text" joined by "<NL>".
+# VISIBILITY is ALL, P1, or P2; GetNextTurn filters entries per viewer before
+# sending, so private entries (e.g. Thrawn's deck peeks) never reach the
+# opponent or spectators. Written via AddGameLogEntry in Custom/GameLogic.php.
+GameLog - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
