@@ -5532,6 +5532,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "yicNKtzC3H": // Jabberwocky, Calamity's Call - (2), banish a Specter ally card from graveyard
+            if(intval($abilityIndex) === 0) {
+                for($ri = 0; $ri < 2; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard|$mzCard", 100);
+                }
+            }
+            break;
         case "d6soporhlq": // Obelisk of Protection
             $sourceObj = &GetZoneObject($mzCard);
             if($sourceObj !== null) $sourceObj->Status = 1; // REST
@@ -6342,7 +6349,7 @@ function DoActivatedAbility($player, $mzCard, $abilityIndex = 0) {
             }
         }
     }
-    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0", "k8bwlx70qj", "u73yv2nbvj"]);
+    $skipAutoRest = in_array($cardID, ["sqGcyYocLW", "tJAIMX3C4R", "wCAIuvPOAT", "G8pN8Hackq", "4yqL9xtzVi", "dPP9I4nVn0", "k8bwlx70qj", "u73yv2nbvj", "yicNKtzC3H"]);
     if($selectedAbilityIndex < $staticAbilityCount && !$isCardistry && !$skipAutoRest
         && (PropertyContains($cardType, "ALLY") || PropertyContains($cardType, "CHAMPION") || PropertyContains($cardType, "PHANTASIA"))) {
         $sourceObject->Status = 1;
