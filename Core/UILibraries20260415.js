@@ -2976,13 +2976,13 @@ function ResolveGlobalFunction(functionName) {
           + '#macro-card-toast-toggle-count{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:rgba(201,168,76,0.22);border:1px solid rgba(201,168,76,0.38);color:#ffe09b;font-size:10px;}'
           + '#macro-card-toast-log{pointer-events:auto;display:none;width:min(312px,calc(100vw - 24px));max-height:44vh;overflow-y:auto;padding:8px;border-radius:8px;background:rgba(8,13,22,0.96);border:1px solid rgba(240,230,200,0.18);box-shadow:0 12px 28px rgba(0,0,0,0.38);scrollbar-color:#6f5f38 rgba(0,0,0,0);scrollbar-width:thin;}'
           + '#macro-card-toast-host.is-expanded #macro-card-toast-log{display:flex;flex-direction:column;gap:6px;}'
-          + '.macro-card-toast{display:flex;align-items:center;gap:9px;min-width:178px;max-width:260px;padding:8px 10px 8px 8px;border-radius:8px;background:rgba(8,13,22,0.94);border:1px solid rgba(240,230,200,0.22);box-shadow:0 10px 24px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.06);color:#f7f0d8;font-family:Orbitron,Segoe UI,sans-serif;opacity:0;transform:translateX(-12px);transition:opacity 160ms ease,transform 160ms ease;}'
+          + '.macro-card-toast{pointer-events:auto;display:flex;align-items:center;gap:9px;min-width:178px;max-width:260px;padding:8px 10px 8px 8px;border-radius:8px;background:rgba(8,13,22,0.94);border:1px solid rgba(240,230,200,0.22);box-shadow:0 10px 24px rgba(0,0,0,0.35),inset 0 1px 0 rgba(255,255,255,0.06);color:#f7f0d8;font-family:Orbitron,Segoe UI,sans-serif;opacity:0;transform:translateX(-12px);transition:opacity 160ms ease,transform 160ms ease;cursor:help;}'
           + '.macro-card-toast.is-visible{opacity:1;transform:translateX(0);}'
           + '.macro-card-toast img{width:42px;height:58px;object-fit:cover;border-radius:4px;background:#111827;box-shadow:0 2px 8px rgba(0,0,0,0.35);flex:0 0 auto;}'
           + '.macro-card-toast-title{font-size:10px;line-height:1.1;text-transform:uppercase;color:#c9a84c;margin-bottom:3px;font-weight:800;}'
           + '.macro-card-toast-name{font-size:12px;line-height:1.25;color:#fff4cf;font-weight:700;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}'
           + '.macro-card-toast-meta{font-size:10px;line-height:1.2;color:#b9c7dd;margin-top:3px;font-weight:600;}'
-          + '.macro-card-toast-log-entry{display:flex;align-items:center;gap:8px;min-width:0;padding:6px;border-radius:7px;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);color:#f7f0d8;font-family:Orbitron,Segoe UI,sans-serif;}'
+          + '.macro-card-toast-log-entry{display:flex;align-items:center;gap:8px;min-width:0;padding:6px;border-radius:7px;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);color:#f7f0d8;font-family:Orbitron,Segoe UI,sans-serif;cursor:help;}'
           + '.macro-card-toast-log-entry img{width:32px;height:44px;object-fit:cover;border-radius:4px;background:#111827;flex:0 0 auto;}'
           + '.macro-card-toast-log-empty{padding:8px;color:#b9c7dd;font:700 11px/1.3 Orbitron,Segoe UI,sans-serif;}';
         document.head.appendChild(styleEl);
@@ -3040,6 +3040,15 @@ function ResolveGlobalFunction(functionName) {
         events.slice(0, 50).forEach(function(entry) {
           const item = document.createElement('div');
           item.className = 'macro-card-toast-log-entry';
+          item.addEventListener('mouseenter', function(event) {
+            ShowMacroGameCardPreview(event, entry.cardID);
+          });
+          item.addEventListener('mousemove', function(event) {
+            ShowMacroGameCardPreview(event, entry.cardID);
+          });
+          item.addEventListener('mouseleave', function() {
+            HideMacroGameCardPreview();
+          });
           const img = document.createElement('img');
           img.alt = entry.name;
           img.src = _getMacroGameCardImageUrl(entry.cardID);
@@ -3086,6 +3095,15 @@ function ResolveGlobalFunction(functionName) {
         const event = AddMacroCardToastEvent(cardID, playerID, increment, label);
         const toast = document.createElement('div');
         toast.className = 'macro-card-toast';
+        toast.addEventListener('mouseenter', function(event) {
+          ShowMacroGameCardPreview(event, cardID);
+        });
+        toast.addEventListener('mousemove', function(event) {
+          ShowMacroGameCardPreview(event, cardID);
+        });
+        toast.addEventListener('mouseleave', function() {
+          HideMacroGameCardPreview();
+        });
 
         const img = document.createElement('img');
         img.alt = event ? event.name : _getMacroGameCardName(cardID);
