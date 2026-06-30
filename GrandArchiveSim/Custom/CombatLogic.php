@@ -2318,9 +2318,9 @@ function ApplyPreCombatHitReplacementTags($attackerMZ, $targetMZ) {
 
 /**
  * Track whether a combat kill occurred during damage resolution.
- * Stores the card IDs of units killed by combat damage during the current
- * combat-damage resolution batch. Reset by combat handlers before dealing
- * damage and consumed after the relevant damage steps complete.
+ * Stores units killed by combat damage during the current combat-damage
+ * resolution batch. Reset by combat handlers before dealing damage and
+ * consumed after the relevant damage steps complete.
  *
  * Per rules: On Kill only triggers when the unit enters the graveyard
  * directly from play due to combat damage, NOT through secondary effects
@@ -2332,24 +2332,33 @@ $_combatKillEvents = [];
  * Mark that a combat kill just occurred. Called from OnDealDamage when
  * damage >= HP and a CombatAttacker variable is set (indicating combat context).
  */
-function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0) {
+function SetCombatKillOccurred($killedCardID = null, $sheenCount = 0, $power = null, $hp = null) {
     global $_combatKillEvents;
     $killedCardID = $killedCardID ?? "";
     $sheenCount = max(0, intval($sheenCount));
-    $event = $killedCardID . "~" . $sheenCount;
+    $power = $power === null ? null : max(0, intval($power));
+    $hp = $hp === null ? null : max(0, intval($hp));
+    $eventParts = [$killedCardID, strval($sheenCount)];
+    if($power !== null || $hp !== null) {
+        $eventParts[] = strval($power ?? 0);
+        $eventParts[] = strval($hp ?? 0);
+    }
+    $event = implode("~", $eventParts);
     $stored = DecisionQueueController::GetVariable("CombatKillEvents");
     $kills = ($stored === null || $stored === "") ? [] : explode("|", $stored);
     $kills[] = $event;
     DecisionQueueController::StoreVariable("CombatKillEvents", implode("|", $kills));
     $_combatKillEvents[] = [
         "cardID" => $killedCardID,
-        "sheenCount" => $sheenCount
+        "sheenCount" => $sheenCount,
+        "power" => $power,
+        "hp" => $hp
     ];
 }
 
 /**
  * Check and reset the recorded combat kills.
- * @return array<int, array{cardID:string,sheenCount:int}> Kill metadata since last reset.
+ * @return array<int, array{cardID:string,sheenCount:int,power:?int,hp:?int}> Kill metadata since last reset.
  */
 function ConsumeCombatKill() {
     global $_combatKillEvents;
@@ -2360,12 +2369,14 @@ function ConsumeCombatKill() {
         $kills = [];
         foreach(explode("|", $stored) as $event) {
             if($event === null || $event === "") continue;
-            $parts = explode("~", $event, 2);
+            $parts = explode("~", $event);
             $cardID = $parts[0] ?? "";
             if($cardID === "") continue;
             $kills[] = [
                 "cardID" => $cardID,
-                "sheenCount" => intval($parts[1] ?? "0")
+                "sheenCount" => intval($parts[1] ?? "0"),
+                "power" => array_key_exists(2, $parts) ? max(0, intval($parts[2])) : null,
+                "hp" => array_key_exists(3, $parts) ? max(0, intval($parts[3])) : null
             ];
         }
     }
@@ -2383,16 +2394,24 @@ function ResetCombatKill() {
     DecisionQueueController::ClearVariable("CombatKillEvents");
     DecisionQueueController::ClearVariable("CombatKilledCardID");
     DecisionQueueController::ClearVariable("CombatKilledSheenCount");
+    DecisionQueueController::ClearVariable("CombatKilledPower");
+    DecisionQueueController::ClearVariable("CombatKilledHP");
 }
 
 function DispatchCombatKillTriggers($player, $attackerMZ, $killEvents) {
     foreach($killEvents as $killEvent) {
         $killedCardID = is_array($killEvent) ? ($killEvent["cardID"] ?? "") : strval($killEvent);
         $sheenCount = is_array($killEvent) ? intval($killEvent["sheenCount"] ?? 0) : 0;
+        $power = is_array($killEvent) && array_key_exists("power", $killEvent) ? $killEvent["power"] : null;
+        $hp = is_array($killEvent) && array_key_exists("hp", $killEvent) ? $killEvent["hp"] : null;
         if($killedCardID === "") continue;
         DecisionQueueController::StoreVariable("CombatKilledCardID", $killedCardID);
         DecisionQueueController::StoreVariable("CombatKilledSheenCount", strval($sheenCount));
+        if($power !== null) DecisionQueueController::StoreVariable("CombatKilledPower", strval(max(0, intval($power))));
+        if($hp !== null) DecisionQueueController::StoreVariable("CombatKilledHP", strval(max(0, intval($hp))));
         OnKillTrigger($player, $attackerMZ);
+        DecisionQueueController::ClearVariable("CombatKilledPower");
+        DecisionQueueController::ClearVariable("CombatKilledHP");
     }
     DecisionQueueController::ClearVariable("CombatKilledCardID");
     DecisionQueueController::ClearVariable("CombatKilledSheenCount");
@@ -2432,7 +2451,11 @@ function UpdateCombatLorraineBlademasterFlag($player, $attackerMZ) {
 function OnKillTrigger($player, $attackerMZ) {
     global $onKillAbilities;
 
+    // Preserve prior macro context and set source mzID per dispatched On Kill ability.
+    $prevMzID = DecisionQueueController::GetVariable("mzID");
+
     // Dispatch On Kill for the attacker itself
+    DecisionQueueController::StoreVariable("mzID", $attackerMZ);
     $obj = GetZoneObject($attackerMZ);
     if(isset($onKillAbilities) && is_array($onKillAbilities)) {
         if($obj !== null && !HasNoAbilities($obj) && isset($onKillAbilities[$obj->CardID . ":0"])) {
@@ -2442,6 +2465,7 @@ function OnKillTrigger($player, $attackerMZ) {
         // Dispatch On Kill for attack cards in intent
         $intentCards = GetIntentCards($player);
         foreach($intentCards as $iMZ) {
+            DecisionQueueController::StoreVariable("mzID", $iMZ);
             $iObj = GetZoneObject($iMZ);
             if($iObj === null) continue;
             if(isset($onKillAbilities[$iObj->CardID . ":0"])) {
@@ -2452,12 +2476,16 @@ function OnKillTrigger($player, $attackerMZ) {
         // Dispatch On Kill for combat weapon
         $weaponMZ = GetCombatWeapon();
         if($weaponMZ !== null) {
+            DecisionQueueController::StoreVariable("mzID", $weaponMZ);
             $weaponObj = GetZoneObject($weaponMZ);
             if($weaponObj !== null && isset($onKillAbilities[$weaponObj->CardID . ":0"])) {
                 $onKillAbilities[$weaponObj->CardID . ":0"]($player);
             }
         }
     }
+
+    if($prevMzID === null || $prevMzID === "") DecisionQueueController::ClearVariable("mzID");
+    else DecisionQueueController::StoreVariable("mzID", $prevMzID);
 
     // Granted On Kill effects via TurnEffects on the attacker (champion).
     // Lorraine, Blademaster (TJTeWcZnsQ): On Enter grants "On Kill: Draw a card" to attacks.
@@ -3060,6 +3088,8 @@ $customDQHandlers["CleaveCombatKillTrigger"] = function($player, $parts, $lastDe
     $attackerMZ = $parts[1];
     $killedCardID = $parts[2];
     $killedSheenCount = intval($parts[3] ?? "0");
+    $killedPower = array_key_exists(4, $parts) ? max(0, intval($parts[4])) : null;
+    $killedHP = array_key_exists(5, $parts) ? max(0, intval($parts[5])) : null;
     if($attackerMZ === null || $attackerMZ === "" || $attackerMZ === "-") return;
 
     global $playerID;
@@ -3068,7 +3098,11 @@ $customDQHandlers["CleaveCombatKillTrigger"] = function($player, $parts, $lastDe
 
     DecisionQueueController::StoreVariable("CombatKilledCardID", $killedCardID);
     DecisionQueueController::StoreVariable("CombatKilledSheenCount", strval($killedSheenCount));
+    if($killedPower !== null) DecisionQueueController::StoreVariable("CombatKilledPower", strval($killedPower));
+    if($killedHP !== null) DecisionQueueController::StoreVariable("CombatKilledHP", strval($killedHP));
     OnKillTrigger($attackerPlayer, $attackerMZ);
+    DecisionQueueController::ClearVariable("CombatKilledPower");
+    DecisionQueueController::ClearVariable("CombatKilledHP");
     DecisionQueueController::ClearVariable("CombatKilledCardID");
     DecisionQueueController::ClearVariable("CombatKilledSheenCount");
 
@@ -4751,13 +4785,13 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
         // This is checked by combat handlers to fire OnKillTrigger BEFORE OnHitTrigger.
         $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
         if($combatAttacker !== null) {
-            SetCombatKillOccurred($targetObj->CardID, GetCounterCount($targetObj, "sheen"));
+            SetCombatKillOccurred($targetObj->CardID, GetCounterCount($targetObj, "sheen"), ObjectCurrentPower($targetObj), ObjectCurrentHP($targetObj));
             if(DecisionQueueController::GetVariable("CombatIsCleave") === "1") {
                 $combatAttackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($player));
                 DecisionQueueController::AddDecision(
                     $player,
                     "CUSTOM",
-                    "CleaveCombatKillTrigger|" . $combatAttackerPlayer . "|" . $combatAttacker . "|" . $targetObj->CardID . "|" . GetCounterCount($targetObj, "sheen"),
+                    "CleaveCombatKillTrigger|" . $combatAttackerPlayer . "|" . $combatAttacker . "|" . $targetObj->CardID . "|" . GetCounterCount($targetObj, "sheen") . "|" . max(0, ObjectCurrentPower($targetObj)) . "|" . max(0, ObjectCurrentHP($targetObj)),
                     100
                 );
             }
@@ -4949,13 +4983,13 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
         // If we're in combat context, record that a kill occurred from combat damage.
         $combatAttacker = DecisionQueueController::GetVariable("CombatAttacker");
         if($combatAttacker !== null) {
-            SetCombatKillOccurred($targetObj->CardID, GetCounterCount($targetObj, "sheen"));
+            SetCombatKillOccurred($targetObj->CardID, GetCounterCount($targetObj, "sheen"), ObjectCurrentPower($targetObj), ObjectCurrentHP($targetObj));
             if(DecisionQueueController::GetVariable("CombatIsCleave") === "1") {
                 $combatAttackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($player));
                 DecisionQueueController::AddDecision(
                     $player,
                     "CUSTOM",
-                    "CleaveCombatKillTrigger|" . $combatAttackerPlayer . "|" . $combatAttacker . "|" . $targetObj->CardID . "|" . GetCounterCount($targetObj, "sheen"),
+                    "CleaveCombatKillTrigger|" . $combatAttackerPlayer . "|" . $combatAttacker . "|" . $targetObj->CardID . "|" . GetCounterCount($targetObj, "sheen") . "|" . max(0, ObjectCurrentPower($targetObj)) . "|" . max(0, ObjectCurrentHP($targetObj)),
                     100
                 );
             }
