@@ -12977,16 +12977,25 @@ function ObjectCurrentHP($obj) {
 }
 
 function ObjectCurrentPowerDisplay($obj) {
+    $cardType = EffectiveCardType($obj);
+    if(!PropertyContains($cardType, "ALLY") && !PropertyContains($cardType, "CHAMPION")) return -1;
+
+    return ObjectCurrentPower($obj);
+    /*
     $cardPower = CardPower($obj->CardID);
     $currentCardPower = ObjectCurrentPower($obj);
     if($cardPower == -1 && $currentCardPower == 0) return -1;
-    return $cardPower == $currentCardPower ? -1 : $currentCardPower;
+    return $currentCardPower;
+    */
 }
 
 function ObjectCurrentHPDisplay($obj) {
+    return ObjectCurrentHP($obj);
+    /*
     $cardLife = CardLife($obj->CardID);
     $currentCardLife = ObjectCurrentHP($obj);
     return $cardLife == $currentCardLife ? 0 : $currentCardLife;
+    */
 }
 
 

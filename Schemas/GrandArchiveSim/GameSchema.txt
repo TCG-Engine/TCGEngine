@@ -127,7 +127,7 @@ Counters: DisplayEffects=Badge(Color=Purple,Position=TopLeft,ShowZero=false,Mode
 Counters: Damage=Image(Path=Assets/Icons/damage-counter.webp,Position=TopRight,ShowZero=false,Size=26,TextColor=White)
 Counters: CurrentPower=Image(Path=Assets/Icons/attack-counter.webp,Position=BottomLeft,ShowNegative=false,Size=26,TextColor=White)
 Counters: CurrentHP=Image(Path=Assets/Icons/hp-counter.webp,Position=BottomRight,ShowZero=false,Size=26,TextColor=White)
-Counters: CurrentLevel=Badge(Color=Orange,Position=BottomLeft,ShowZero=false)
+Counters: CurrentLevel=Badge(Color=Orange,Position=TopLeft,ShowZero=false)
 Counters: BuffCounterCount=Image(Path=Assets/Icons/buff-counter.webp,Position=Center,ShowZero=false,Size=26,TextColor=White)
 Counters: DebuffCounterCount=Badge(Color=Red,Position=Center,ShowZero=false)
 Counters: RefinementCounterCount=Badge(Color=Silver,Position=Center,ShowZero=false)
