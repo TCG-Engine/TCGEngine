@@ -188,3 +188,18 @@ a:hover {
 .dl-stats-matchups .dl-mu-title { color: #c8b080; font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; margin: 8px 0 4px; }
 .dl-mu-row { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; border-bottom: 1px solid rgba(190,155,50,0.14); }
 .dl-mu-rec { color: #f0ddb0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* COSMETICS chooser + preview (Profile) */
+.cosmetics-chooser { display: flex; flex-direction: column; gap: 12px; }
+.cos-row { display: flex; align-items: center; gap: 10px; color: #e8d5a8; }
+.cos-row label { min-width: 140px; }
+.cos-select { padding: 8px 10px; background: rgba(30,18,4,0.9); color: #f0ddb0;
+    border: 1px solid rgba(180,140,45,0.5); border-radius: 8px; }
+.cos-preview { position: relative; width: 100%; max-width: 420px; aspect-ratio: 16/10;
+    border: 1px solid rgba(190,155,50,0.4); border-radius: 10px; overflow: hidden;
+    background-size: cover; background-position: center; display: flex; align-items: center;
+    justify-content: center; gap: 10px; }
+.cos-preview-mat { position: absolute; left: 8%; right: 8%; bottom: 6%; height: 42%;
+    background-size: cover; background-position: center; border-radius: 8px; opacity: 0.95; }
+.cos-preview-back { position: relative; height: 46%; border-radius: 6px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.5); }

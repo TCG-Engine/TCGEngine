@@ -102,8 +102,17 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
             linear-gradient(to right,
                 rgba(0,0,0,0.05) var(--swu-center-left),
                 rgba(0,0,0,0.35) calc(var(--swu-center-left) + var(--swu-center-w))),
-            var(--swu-bg) url('<?= SWUBoardBackground(false) ?>') center center / cover no-repeat;
+            var(--swu-bg) var(--swu-cos-board, url('<?= SWUBoardBackground(false) ?>')) center center / cover no-repeat;
     }
+
+    /* ── Cosmetic playmats (per side; above board-bg=9, below zones) ──────────── */
+    .swu-playmat {
+        position: fixed; left: 0; right: 0; z-index: 10;
+        background-size: cover; background-position: center; background-repeat: no-repeat;
+        pointer-events: none;
+    }
+    .swu-playmat-top { top: 0; bottom: 50%; }
+    .swu-playmat-bot { top: 50%; bottom: 0; }
 
     /* ── Starfield ───────────────────────────────────────────────────────────── */
     .swu-starfield {
@@ -953,6 +962,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
 <!-- Board background + decorative -->
 <div class="swu-board-bg"></div>
+<div class="swu-playmat swu-playmat-top" style="display:none;"></div>
+<div class="swu-playmat swu-playmat-bot" style="display:none;"></div>
 <div class="swu-starfield"></div>
 
 <!-- Column separators -->
@@ -1122,7 +1133,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
             <div class="swu-round-label">Round</div>
             <div id="swuRoundNumber">—</div>
         </div>
-        <button id="swuUndoBtn" onclick="SubmitInput(10004, '')">Undo</button>
+        <div class="swu-header-right">
+            <button id="swuUndoBtn" onclick="SubmitInput(10004, '')">Undo</button>
+            <button id="swuGearBtn" class="swu-gear-btn" title="Settings" aria-label="Settings" onclick="swuOpenSettings()">&#9881;</button>
+        </div>
     </div>
     <div id="swuLastPlayedSection">
         <div class="swu-sidebar-section-label">Last Played</div>

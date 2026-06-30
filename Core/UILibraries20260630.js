@@ -1399,8 +1399,12 @@ function ResolveGlobalFunction(functionName) {
             if (typeof AssetReflectionPath === 'function' && AssetReflectionPath()) {
               subFolder = AssetReflectionPath();
             }
-            // SWUSim upgrades/captives/pilots (and Experience tokens) peek from below as slivers; non-SWU
-            // "ga" lineage cards (plain IDs absent from the SWU card dictionary) stack above with a "+N" popup.
+            // Which way subcards flow is declared by the zone schema (Subcards: Flow=... →
+            // GetZoneData().SubcardFlow). "Below" = SWU upgrades/captives/pilots peek from
+            // below as slivers; anything else (default "Above", including games/zones with no
+            // directive, e.g. GrandArchive) = lineage cards stack above with a "+N" popup.
+            var subcardZoneMeta = (typeof GetZoneData === 'function') ? GetZoneData(zoneName) : null;
+            var subcardFlow = (subcardZoneMeta && subcardZoneMeta.SubcardFlow) ? subcardZoneMeta.SubcardFlow : 'Above';
             var shieldCount = 0, sliverIdx = 0, lineageCards = [];
             var sliver = 18; // px each SWU subcard sliver shows below the unit card
             // Vertical anchor (object-position-y) for a pilot sliver — unit pilots (full portrait) and
@@ -1419,12 +1423,12 @@ function ResolveGlobalFunction(functionName) {
               if (scID === 'SOR_T02') { shieldCount++; continue; }
               // SOR_T01 (Experience) renders as a normal peek-from-below upgrade sliver; its concat image's
               // bottom band carries the +1/+1 stat boxes (see zzImageConverter Token-Upgrade crop), so the
-              // sliver shows +1/+1 just like a real upgrade. It's in the SWU dictionary, so the GA check
-              // below lets it fall through to the sliver render.
-              // Non-SWU "ga" lineage card (a plain-string ID the SWU dictionary doesn't know — including
-              // when no SWU dictionary is loaded at all, i.e. a pure GA game): collect it to stack above.
-              // Everything else (objects, SWU-dictionary cards) is an SWU subcard → peek-from-below sliver.
-              if ((typeof sc === 'string') && !(window.typeData && window.typeData[scID] !== undefined)) {
+              // sliver shows +1/+1 just like a real upgrade. SWU arenas are Flow=Below, so it falls through
+              // to the sliver render.
+              // Zones that stack subcards above (default "Above", e.g. GrandArchive's lineage):
+              // collect every subcard for the offset-above render below. Only "Below" zones (SWU
+              // arenas) fall through to the peek-from-below sliver logic.
+              if (subcardFlow !== 'Below') {
                 lineageCards.push(scID);
                 continue;
               }

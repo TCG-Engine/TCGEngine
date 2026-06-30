@@ -328,6 +328,83 @@ function LoadSavedDeckMatchups($userID, $decklink) {
     return $out;
 }
 
+// Cosmetics (Feature C): per-user slot choices, resolved through the SWUSim catalog.
+
+function _SWUCosmeticEnsureCatalog() {
+    if (!function_exists('SWUCosmeticCatalog')) {
+        require_once __DIR__ . '/../SWUSim/Cosmetics/Catalog.php';
+    }
+}
+
+function SetUserCosmetic($userID, $slot, $choiceId) {
+    if ($userID == "") return false;
+    _SWUCosmeticEnsureCatalog();
+    $cat = SWUCosmeticCatalog();
+    if (!isset($cat[$slot]) || !isset($cat[$slot][$choiceId])) return false;   // validate slot + choice
+    $conn = GetLocalMySQLConnection();
+    $stmt = $conn->prepare("INSERT INTO usercosmetic (usersId, slot, choiceId) VALUES (?,?,?)
+                            ON DUPLICATE KEY UPDATE choiceId=VALUES(choiceId)");
+    if (!$stmt) { $conn->close(); return false; }
+    $stmt->bind_param("iss", $userID, $slot, $choiceId);
+    $ok = $stmt->execute();
+    $stmt->close(); $conn->close();
+    return (bool)$ok;
+}
+
+function LoadUserCosmetics($userID) {
+    _SWUCosmeticEnsureCatalog();
+    $saved = [];
+    if (!empty($userID)) {   // 0 / "" / null → guest → all-defaults, no DB hit
+        $conn = GetLocalMySQLConnection();
+        $stmt = $conn->prepare("SELECT slot, choiceId FROM usercosmetic WHERE usersId=?");
+        if ($stmt) {
+            $stmt->bind_param("i", $userID); $stmt->execute();
+            $res = $stmt->get_result();
+            while ($r = $res->fetch_assoc()) $saved[$r['slot']] = $r['choiceId'];
+            $stmt->close();
+        }
+        $conn->close();
+    }
+    $out = [];
+    foreach (SWUCosmeticSlots() as $slot) {
+        $out[$slot] = SWUCosmeticResolve($slot, $saved[$slot] ?? SWUCosmeticDefault($slot));
+    }
+    return $out;
+}
+
+// All-defaults when the seat has no account (guest).
+function SWUResolveSeatCosmetics($userID) {
+    return LoadUserCosmetics($userID === null ? "" : $userID);
+}
+
+// Mod-uploaded cosmetics (Mod tools): rows in cosmeticupload, merged into the catalog.
+
+function AddCosmeticUpload($slot, $id, $label, $asset, $userId) {
+    $conn = GetLocalMySQLConnection();
+    $stmt = $conn->prepare("INSERT INTO cosmeticupload (slot, id, label, asset, uploadedBy) VALUES (?,?,?,?,?)
+                            ON DUPLICATE KEY UPDATE label=VALUES(label), asset=VALUES(asset)");
+    if (!$stmt) { $conn->close(); return false; }
+    $uid = ($userId === null) ? null : (int)$userId;
+    $stmt->bind_param("ssssi", $slot, $id, $label, $asset, $uid);
+    $ok = $stmt->execute();
+    $stmt->close(); $conn->close();
+    return (bool)$ok;
+}
+
+// Returns the deleted row's asset path, or null if no such uploaded row (built-ins are not in this table).
+function DeleteCosmeticUpload($slot, $id) {
+    $conn = GetLocalMySQLConnection();
+    $asset = null;
+    $sel = $conn->prepare("SELECT asset FROM cosmeticupload WHERE slot=? AND id=?");
+    if ($sel) { $sel->bind_param("ss", $slot, $id); $sel->execute();
+        $r = $sel->get_result()->fetch_assoc(); if ($r) $asset = $r['asset']; $sel->close(); }
+    if ($asset === null) { $conn->close(); return null; }
+    $del = $conn->prepare("DELETE FROM cosmeticupload WHERE slot=? AND id=?");
+    if ($del) { $del->bind_param("ss", $slot, $id); $del->execute(); $del->close(); }
+    $conn->close();
+    return $asset;
+}
+
 function LoadFavoriteDecks($userID)
 {
 	if ($userID == "") return [];

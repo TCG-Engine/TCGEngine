@@ -466,6 +466,28 @@
     background: rgba(180,228,255,1) !important;
 }
 
+/* ── Mulligan opening-hand preview ─────────────────────────────────────────────
+   The mulligan YESNO modal (#yesno-decision-modal) is a fixed full-screen overlay
+   that blocks scrolling to the real board, so on mobile the player can't see the
+   hand they're deciding whether to mulligan. The wrapper in JS (below) injects the
+   freshly-drawn hand as a thumbnail row ABOVE the prompt. The row wraps and is
+   scroll-capped so it never pushes the YES/NO buttons off a short mobile viewport. */
+.swu-mulligan-hand {
+    display: flex !important; flex-wrap: wrap !important;
+    justify-content: center !important; align-items: center !important;
+    gap: 6px !important; margin: 0 0 18px 0 !important;
+    max-width: min(86vw, 560px) !important;
+    max-height: 46vh !important; overflow-y: auto !important; overflow-x: hidden !important;
+}
+.swu-mulligan-hand img {
+    height: 124px !important; width: auto !important; border-radius: 5px !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.6) !important;
+}
+@media (orientation: portrait), (max-width: 760px) {
+    .swu-mulligan-hand img { height: 92px !important; }
+    .swu-mulligan-hand { gap: 4px !important; margin-bottom: 12px !important; }
+}
+
 /* ── Decision-queue sweep, part 2 — the remaining modules ──────────────────────
    NUMBERCHOOSE (.numchoose-*), TWOSIDEDSLIDER (.twosided-slider-*), MZMODAL panel
    (.mzmodal-panel; its .mzmodal-submit-btn is styled above), MZREARRANGE
@@ -1695,6 +1717,58 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 </script>
 
 <script>
+// ── SWU mulligan hand preview ─────────────────────────────────────────────────
+// The shared ShowYesNoDecisionPopup (Core/UILibraries) renders the mulligan prompt
+// as a fixed full-screen overlay that blocks scrolling to the board, so on mobile
+// the player can't see the hand they're deciding whether to mulligan. Wrap it to
+// inject the freshly-drawn hand thumbnails at the top of the modal panel, above the
+// prompt. Gated to the mulligan decision (Param 'mulligan'); every other YESNO is
+// untouched. UILibraries loads in NextTurn.php's <head>, so the original is defined
+// by the time this inline body script runs.
+(function () {
+    var _origShowYesNo = window.ShowYesNoDecisionPopup;
+    if (typeof _origShowYesNo !== 'function') return;
+
+    function isMulligan(decision) {
+        if (!decision) return false;
+        if (decision.Param === 'mulligan') return true;
+        return !!(decision.Tooltip && /mulligan/i.test(decision.Tooltip));
+    }
+
+    // Build a thumbnail row from the current hand (window.myHandData: "<|>"-joined
+    // entries, each a space-separated token list whose first token is the CardID).
+    function buildHandRow() {
+        var raw = (typeof window.myHandData === 'string') ? window.myHandData.trim() : '';
+        if (!raw) return null;
+        var row = document.createElement('div');
+        row.className = 'swu-mulligan-hand';
+        var entries = raw.split('<|>');
+        var rendered = 0;
+        for (var i = 0; i < entries.length; i++) {
+            var cardID = (entries[i] || '').trim().split(' ')[0];
+            if (!cardID || cardID === '-') continue;
+            var img = document.createElement('img');
+            img.loading = 'lazy';
+            img.alt = cardID;
+            img.src = './SWUSim/concat/' + cardID + '.webp';
+            row.appendChild(img);
+            rendered++;
+        }
+        return rendered > 0 ? row : null;
+    }
+
+    window.ShowYesNoDecisionPopup = function (decision, onSubmit) {
+        _origShowYesNo(decision, onSubmit);
+        if (!isMulligan(decision)) return;
+        var modal = document.querySelector('#yesno-decision-modal > div');
+        if (!modal) return;
+        var row = buildHandRow();
+        if (row) modal.insertBefore(row, modal.firstChild);
+    };
+})();
+</script>
+
+<script>
 // ── SWU Undo UI helpers ───────────────────────────────────────────────────────
 window.GetSWUDQVar = window.GetSWUDQVar || function(key, def) {
     var d = typeof window.DecisionQueueVariablesData === 'string'
@@ -1818,5 +1892,138 @@ window.RenderCardHTML = function(cardNumber, folder, maxHeight, action, showHove
         isBroken, onChain, isFrozen, gem, landscape, epicActionUsed,
         heatmapFunction, heatmapColorMap, mzId, overlayTypes, overlayDescriptorsJSON, hasForce);
 };
+</script>
+
+<script>
+// ── Cosmetics (Feature C): apply the viewer's window.SWU_COSMETICS to the board ──────
+function ApplyCosmeticBackground() {
+  try {
+    var c = window.SWU_COSMETICS; if (!c || !c.background) return;
+    // Set a CSS var the board rules reference, preserving their gradient layers.
+    // One var covers both layouts (desktop .swu-board-bg and mobile #swuMobileRoot);
+    // SWU_COSMETICS.background is already the correct (mobile/desktop) variant.
+    document.documentElement.style.setProperty('--swu-cos-board', "url('" + c.background + "')");
+  } catch (e) {}
+}
+if (document.readyState !== 'loading') ApplyCosmeticBackground();
+else document.addEventListener('DOMContentLoaded', ApplyCosmeticBackground);
+
+// Card backs: rewrite each face-down CardBack image to its OWNING side's back.
+function ApplyCosmeticCardBacks() {
+  var c = window.SWU_COSMETICS; if (!c) return;
+  var imgs = document.querySelectorAll("img[src*='/concat/CardBack.webp'], img[src$='CardBack.webp']");
+  for (var i = 0; i < imgs.length; i++) {
+    var img = imgs[i];
+    var owner = img.closest("[id^='my']") ? 'my' : (img.closest("[id^='their']") ? 'their' : null);
+    if (!owner) continue;
+    var back = owner === 'my' ? c.myCardBack : c.theirCardBack;
+    if (back && img.getAttribute('data-cos-back') !== back) {
+      img.src = back;
+      img.setAttribute('data-cos-back', back);   // idempotent guard (prevents observer loops)
+    }
+  }
+}
+// Re-apply ALL cosmetics together. Background + playmats are CSS-based and were applied once;
+// the game re-renders the board via AJAX, so we re-apply all three on every board mutation
+// (and on load) — same resilience the card backs already had. All three are idempotent.
+function ApplyAllCosmetics() {
+  ApplyCosmeticBackground();   // hoisted
+  ApplyCosmeticPlaymats();     // hoisted
+  ApplyCosmeticCardBacks();
+}
+(function () {
+  function start() {
+    ApplyAllCosmetics();
+    if (!window.MutationObserver) return;
+    var pending = false;
+    var obs = new MutationObserver(function () {
+      if (pending) return; pending = true;
+      requestAnimationFrame(function () { pending = false; ApplyAllCosmetics(); });
+    });
+    obs.observe(document.body, { childList: true, subtree: true });
+  }
+  if (document.readyState !== 'loading') start();
+  else document.addEventListener('DOMContentLoaded', start);
+  window.addEventListener('load', ApplyAllCosmetics);
+})();
+
+// Per-side playmats (desktop): paint each side's mat, honoring the viewer's Show-playmats toggle.
+function ApplyCosmeticPlaymats() {
+  try {
+    var c = window.SWU_COSMETICS; if (!c) return;
+    var show = true;
+    if (window.TCGSettings && typeof window.TCGSettings.get === 'function') {
+      show = window.TCGSettings.get('ShowPlaymats', { rootName: 'SWUSim', type: 'boolean', defaultValue: true }) !== false;
+    }
+    var top = document.querySelector('.swu-playmat-top');   // opponent side
+    var bot = document.querySelector('.swu-playmat-bot');   // my side
+    function paint(el, asset) {
+      if (!el) return;
+      if (show && asset) { el.style.backgroundImage = "url('" + asset + "')"; el.style.display = 'block'; }
+      else { el.style.display = 'none'; }
+    }
+    paint(bot, c.myPlaymat);
+    paint(top, c.theirPlaymat);
+  } catch (e) {}
+}
+if (document.readyState !== 'loading') ApplyCosmeticPlaymats();
+else document.addEventListener('DOMContentLoaded', ApplyCosmeticPlaymats);
+window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the toggle changes
+</script>
+
+<!-- ── In-game Settings hub (gear menu) ─────────────────────────────────────── -->
+<style>
+  .swu-header-right { display: flex; align-items: center; gap: 8px; }
+  .swu-gear-btn { background: transparent; border: 0; color: rgba(140,210,255,0.85); font-size: 20px;
+    line-height: 1; cursor: pointer; padding: 2px 4px; filter: drop-shadow(0 0 4px rgba(140,210,255,0.4));
+    transition: transform 140ms ease, color 140ms ease; }
+  .swu-gear-btn:hover { color: #fff; transform: rotate(40deg); }
+  .swu-settings-overlay { position: fixed; inset: 0; z-index: 10001; display: flex;
+    align-items: center; justify-content: center; background: rgba(4,10,18,0.6);
+    backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .swu-settings-panel { width: min(92vw, 360px); background: rgba(10,22,36,0.97);
+    border: 1px solid rgba(140,210,255,0.35); border-radius: 12px;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.6); color: #dceaf7; overflow: hidden; }
+  .swu-settings-head { display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 16px; border-bottom: 1px solid rgba(140,210,255,0.2);
+    font: 700 16px/1 var(--swu-font-label, sans-serif); color: #bfe3ff; letter-spacing: 0.02em; }
+  .swu-settings-close { background: transparent; border: 0; color: #9fc4e0; font-size: 16px; cursor: pointer; }
+  .swu-settings-close:hover { color: #fff; }
+  .swu-settings-section { padding: 14px 16px; }
+  .swu-settings-section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
+    color: rgba(140,210,255,0.7); margin-bottom: 8px; }
+  .swu-settings-row { display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; padding: 6px 0; font-size: 14px; cursor: pointer; }
+  .swu-settings-row input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; }
+  .swu-settings-link { display: inline-block; margin-top: 8px; color: #8cd2ff; font-size: 13px; text-decoration: none; }
+  .swu-settings-link:hover { text-decoration: underline; }
+</style>
+<div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
+  <div class="swu-settings-panel" role="dialog" aria-modal="true">
+    <div class="swu-settings-head"><span>Settings</span>
+      <button class="swu-settings-close" onclick="swuCloseSettings()" aria-label="Close">&#10005;</button></div>
+    <div class="swu-settings-section">
+      <div class="swu-settings-section-title">Cosmetics</div>
+      <label class="swu-settings-row"><span>Show playmats</span>
+        <input type="checkbox" id="swuSetShowPlaymats"></label>
+      <a class="swu-settings-link" href="/TCGEngine/SharedUI/Sites/SWUSim/Profile.php" target="_blank">Change cosmetics on Profile &#8599;</a>
+    </div>
+  </div>
+</div>
+<script>
+  function swuOpenSettings() {
+    var ov = document.getElementById('swuSettingsOverlay'); if (!ov) return;
+    var t = document.getElementById('swuSetShowPlaymats');
+    if (t && window.TCGSettings) t.checked = window.TCGSettings.get('ShowPlaymats', { rootName:'SWUSim', type:'boolean', defaultValue:true }) !== false;
+    ov.style.display = 'flex';
+  }
+  function swuCloseSettings() { var ov = document.getElementById('swuSettingsOverlay'); if (ov) ov.style.display = 'none'; }
+  document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'swuSetShowPlaymats') {
+      if (window.TCGSettings) window.TCGSettings.set('ShowPlaymats', e.target.checked, { rootName:'SWUSim', type:'boolean' });
+      if (typeof window.ApplyCosmeticPlaymats === 'function') window.ApplyCosmeticPlaymats();
+    }
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') swuCloseSettings(); });
 </script>
 

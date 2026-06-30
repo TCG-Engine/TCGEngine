@@ -284,6 +284,12 @@ function RenderProfile(array $def, array $ctx, array $userData): string {
               . RenderDeckLibrary((int)($ctx['userId'] ?? 0), $deckLibraryConfig)
               . "</div>";
     }
+    if (in_array('cosmetics', $sections, true)) {
+        require_once __DIR__ . '/CosmeticsChooser.php';
+        $out .= "<div class='cosmetics container bg-black'><h2>Cosmetics</h2>"
+              . RenderCosmeticsChooser((int)($ctx['userId'] ?? 0))
+              . "</div>";
+    }
     // NOTE: core-wrapper is intentionally left open here to match the original Profile.php structure.
     return $out;
 }

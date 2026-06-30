@@ -78,9 +78,11 @@ function SWUCreateMatch($rootName, $format, $queueType, $players) {
         'winsNeeded'        => $winsNeeded,
         'players'           => [
             '1' => ['originalDeck' => $players[1]['originalDeck'] ?? [], 'authKey' => strval($players[1]['authKey'] ?? ''),
-                    'userId' => $players[1]['userId'] ?? null, 'deckIdentity' => strval($players[1]['deckIdentity'] ?? '')],
+                    'userId' => $players[1]['userId'] ?? null, 'deckIdentity' => strval($players[1]['deckIdentity'] ?? ''),
+                    'cosmetics' => $players[1]['cosmetics'] ?? null],
             '2' => ['originalDeck' => $players[2]['originalDeck'] ?? [], 'authKey' => strval($players[2]['authKey'] ?? ''),
-                    'userId' => $players[2]['userId'] ?? null, 'deckIdentity' => strval($players[2]['deckIdentity'] ?? '')],
+                    'userId' => $players[2]['userId'] ?? null, 'deckIdentity' => strval($players[2]['deckIdentity'] ?? ''),
+                    'cosmetics' => $players[2]['cosmetics'] ?? null],
         ],
         'games'             => [],
         'wins'              => ['1' => 0, '2' => 0],
