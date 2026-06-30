@@ -142,6 +142,18 @@ $gaDef = LoadSiteDef('GrandArchiveSim');
 check('GrandArchiveSim declares local deck library', ($gaDef['deckLibrary']['storage'] ?? '') === 'local');
 check('validator accepts deckLibrary config', ValidateSiteDef($gaDef) === []);
 
+// --- Cosmetics chooser ---
+require_once __DIR__ . '/../CosmeticsChooser.php';
+$cos = RenderCosmeticsChooser(0);   // userId 0 -> all defaults
+checkContains('cosmetics has background select', $cos, "data-slot=\"background\"");
+checkContains('cosmetics has cardback select', $cos, "data-slot=\"cardback\"");
+checkContains('cosmetics playmat has None', $cos, '>None<');
+checkContains('cosmetics has preview', $cos, "class='cos-preview'");
+checkContains('cosmetics has show-playmats toggle', $cos, "id='cos-show-playmats'");
+checkContains('cosmetics posts to endpoint', $cos, 'SWUSim/Cosmetics.php');
+check('SWUSim profile enables cosmetics', in_array('cosmetics', $swusimDef['profile']['sections'] ?? [], true));
+check('validator accepts cosmetics', !in_array("profile.sections has unknown section 'cosmetics'", ValidateSiteDef($swusimDef), true));
+
 // (later tasks append their checks above this line)
 
 echo "PASS=$PASS FAIL=$FAIL\n";

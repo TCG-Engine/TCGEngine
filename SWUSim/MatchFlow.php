@@ -7,6 +7,7 @@ include_once __DIR__ . '/Match.php';
 include_once __DIR__ . '/CreateGame.php';      // defines SWUSetupGame / LoadPlayerDeck
 include_once __DIR__ . '/Custom/DeckImport.php'; // SWUResolveDeckInput / SWUCheckFormat
 include_once __DIR__ . '/StatsSubmit.php';       // telemetry → SubmitGameResult on final completion
+require_once __DIR__ . '/../Database/functions.inc.php'; // SWUResolveSeatCosmetics (Feature C snapshot)
 
 // A lobby-player stand-in for spawning child games (mid-match, no real lobby).
 class SWUMatchSyntheticPlayer {
@@ -65,8 +66,10 @@ function SWUCreateMatchFromLobby($lobby) {
     }
 
     $matchId = SWUCreateMatch('SWUSim', $format, $queueType, [
-        1 => ['originalDeck' => $resolved[1], 'authKey' => $authKeys[1], 'userId' => $userIds[1], 'deckIdentity' => $deckIdentities[1]],
-        2 => ['originalDeck' => $resolved[2], 'authKey' => $authKeys[2], 'userId' => $userIds[2], 'deckIdentity' => $deckIdentities[2]],
+        1 => ['originalDeck' => $resolved[1], 'authKey' => $authKeys[1], 'userId' => $userIds[1], 'deckIdentity' => $deckIdentities[1],
+              'cosmetics' => SWUResolveSeatCosmetics($userIds[1])],
+        2 => ['originalDeck' => $resolved[2], 'authKey' => $authKeys[2], 'userId' => $userIds[2], 'deckIdentity' => $deckIdentities[2],
+              'cosmetics' => SWUResolveSeatCosmetics($userIds[2])],
     ]);
 
     // Spawn game 1 from the real lobby (its AuthKeys.json gets the match auth keys for free),

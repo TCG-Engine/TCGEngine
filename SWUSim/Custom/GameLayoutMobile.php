@@ -34,7 +34,7 @@
            Follows the <base>.webp / <base>-mobile.webp convention — see SWUBoardBackground(). */
         background:
             linear-gradient(180deg, rgba(6,10,16,0.62), rgba(6,10,16,0.82)),
-            url('<?= SWUBoardBackground(true) ?>') center center / cover no-repeat;
+            var(--swu-cos-board, url('<?= SWUBoardBackground(true) ?>')) center center / cover no-repeat;
         color: rgba(255,255,255,0.92);
         font-family: var(--swu-font-ui);
     }
@@ -492,7 +492,10 @@
                 <div class="swu-round-label">Round</div>
                 <div id="swuRoundNumber">—</div>
             </div>
-            <button id="swuUndoBtn" onclick="SubmitInput(10004, '')">Undo</button>
+            <div class="swu-header-right">
+                <button id="swuUndoBtn" onclick="SubmitInput(10004, '')">Undo</button>
+                <button id="swuGearBtn" class="swu-gear-btn" title="Settings" aria-label="Settings" onclick="swuOpenSettings()">&#9881;</button>
+            </div>
         </div>
         <div id="swuLastPlayedSection">
             <div class="swu-sidebar-section-label">Last Played</div>

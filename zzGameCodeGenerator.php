@@ -470,6 +470,18 @@ while(!feof($handler)) {
           }
         }
         break;
+      case "Subcards":
+        // Subcards: Flow=Below  — direction attached subcards render relative to the host
+        // unit. Flow=Above (default) stacks lineage cards above (GrandArchive); Flow=Below
+        // peeks upgrades/captives/pilots from below as slivers (SWU). Read by createCardHTML.
+        $subcardArr = explode(",", $lineValue);
+        for($i=0; $i<count($subcardArr); ++$i) {
+          $propertyArr = explode("=", trim($subcardArr[$i]));
+          if(trim($propertyArr[0]) === "Flow" && count($propertyArr) > 1) {
+            $zoneObj->SubcardFlow = trim($propertyArr[1]);
+          }
+        }
+        break;
       default://This is a new zone
         if($zoneObj != null) array_push($zones, $zoneObj);
         $zone = str_replace(' ', '', $line);
@@ -531,6 +543,11 @@ while(!feof($handler)) {
         $zoneObj->VirtualProperties = [];
         $zoneObj->IndexedProperties = [];
         $zoneObj->HighlightProperty = null;
+        // Direction attached subcards render relative to their host card. "Above" (default)
+        // = lineage cards stack above the unit (GrandArchive style); "Below" = upgrades/
+        // captives/pilots peek from below as slivers (SWU style). Consumed by createCardHTML
+        // in Core/UILibraries. Overridden per-zone via the `Subcards: Flow=...` directive.
+        $zoneObj->SubcardFlow = "Above";
         break;
     }
   }
