@@ -240,9 +240,23 @@
 
     ParseGamestate("./" . $folderPath . "/");
 
+    function IsRegressionLocalDevelopmentRequest() {
+      if (getenv('DEVENV') === 'true') return true;
+      $remoteAddr = $_SERVER['REMOTE_ADDR'] ?? '';
+      $host = strtolower(strval($_SERVER['HTTP_HOST'] ?? $_SERVER['SERVER_NAME'] ?? ''));
+      if (substr($host, 0, 1) === '[') {
+        $closeBracket = strpos($host, ']');
+        if ($closeBracket !== false) $host = substr($host, 0, $closeBracket + 1);
+      } else if (substr_count($host, ':') === 1) {
+        $host = preg_replace('/:\d+$/', '', $host);
+      }
+      return in_array($remoteAddr, ['127.0.0.1', '::1'], true) &&
+        in_array($host, ['localhost', '127.0.0.1', '::1', '[::1]'], true);
+    }
+
+    $canUseRegressionControls = IsRegressionLocalDevelopmentRequest();
     $showRegressionControls =
-      function_exists('IsUserLoggedIn') &&
-      IsUserLoggedIn() &&
+      $canUseRegressionControls &&
       function_exists('SupportsRegressionRecording') &&
       SupportsRegressionRecording() &&
       !$isSpectatorViewer;
