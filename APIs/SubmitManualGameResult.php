@@ -142,8 +142,11 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 			$color = $resolved["color"];
 			$typeSuffix = StatsTypeColumnSuffix($resolved["type"]);
 		} else {
+			// Common base reported by color + group (Standard/Force/Splash). Absent an
+			// explicit group, fall back to the Legacy color-only bucket (suffix '').
 			$color = isset($playerJSON["opposingBaseColor"]) ? $playerJSON["opposingBaseColor"] : "";
-			$typeSuffix = ""; // Legacy
+			$group = isset($playerJSON["opposingBaseGroup"]) ? $playerJSON["opposingBaseGroup"] : "Legacy";
+			$typeSuffix = StatsTypeColumnSuffix($group);
 		}
 
 		if ($color != "") {

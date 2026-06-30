@@ -147,7 +147,8 @@
 		}
 		// If tie, $won is null so SaveDeckStats can handle it as a tie
 		$won = ($winner == 1 ? true : ($winner == 2 ? false : null));
-		SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner);
+		$opponentData = isset($data["player2"]) ? $data["player2"] : null;
+		SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData);
 	}
   }
   if(strpos($p2DeckLink, 'swustats.net') !== false) {
@@ -176,7 +177,8 @@
 		}
 		// If tie, $won is null so SaveDeckStats can handle it as a tie
 		$won = ($winner == 2 ? true : ($winner == 1 ? false : null));
-		SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner);
+		$opponentData = isset($data["player1"]) ? $data["player1"] : null;
+		SaveDeckStats($deckID, $data["player2"], $won, $firstPlayer == 2, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData);
 	}
   }
 
@@ -250,15 +252,25 @@
   //Parameters:
   // won: true if this player won the game, false if they lost
   // wasFirstPlayer: true if this player was the first player in the game, false if they were the second player
-function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, $winnerHealth, $gameName, $disableMetaStats, $isDeckOwner) {
+function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, $winnerHealth, $gameName, $disableMetaStats, $isDeckOwner, $opponentData = null) {
 	global $input;
 	if (is_string($playerData)) {
 		$playerJSON = json_decode($playerData, true);
 	} else {
 		$playerJSON = $playerData;
 	}
+	if (is_string($opponentData)) {
+		$opponentJSON = json_decode($opponentData, true);
+	} else {
+		$opponentJSON = $opponentData;
+	}
 	$leaderID = $playerJSON["leader"];
 	$baseID = NormalizeBaseID($playerJSON["base"]);
+	// Opponent identity is derived by cross-referencing the other player's own
+	// leader/base GUIDs (the standard). Clients may still send the per-player
+	// opposingHero/opposingBase/opposingBaseColor fields, but they are ignored.
+	$opponentLeaderID = isset($opponentJSON["leader"]) ? $opponentJSON["leader"] : "";
+	$opponentBaseGuid = isset($opponentJSON["base"]) ? $opponentJSON["base"] : "";
 	$source = $isDeckOwner ? 1 : 0;
 
 	$conn = GetLocalMySQLConnection();
@@ -475,13 +487,9 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 		  }
 
 	   // deckmetamatchupstats update (moved here)
-	   $opponentLeaderID = isset($playerJSON["opposingHero"]) ? $playerJSON["opposingHero"] : "";
-	   $opposingBaseGuid = isset($playerJSON["opposingBase"]) ? $playerJSON["opposingBase"] : "";
-	   if ($opposingBaseGuid !== "") {
-		   $opponentBaseID = NormalizeBaseID($opposingBaseGuid);
-	   } else {
-		   $opponentBaseID = isset($playerJSON["opposingBaseColor"]) ? NormalizeBaseID($playerJSON["opposingBaseColor"]) : "";
-	   }
+	   // $opponentLeaderID / $opponentBaseGuid come from the opponent player's own
+	   // leader/base GUIDs (set at the top of this function).
+	   $opponentBaseID = $opponentBaseGuid !== "" ? NormalizeBaseID($opponentBaseGuid) : "";
 	   if ($opponentLeaderID !== "" && $opponentBaseID !== "") {
 		   $sql = "SELECT COUNT(*) FROM deckmetamatchupstats WHERE leaderID = ? AND baseID = ? AND opponentLeaderID = ? AND opponentBaseID = ? AND week = ?";
 		   $stmt = mysqli_stmt_init($conn);
@@ -554,10 +562,10 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 	   }
 	}
 
-	$leaderID = $playerJSON["opposingHero"];
+	$leaderID = $opponentLeaderID;
 
-	// Classify the opponent base: prefer the real GUID.
-	$resolved = isset($playerJSON["opposingBase"]) ? ResolveOpponentBase($playerJSON["opposingBase"]) : null;
+	// Classify the opponent base from the opponent player's own base GUID.
+	$resolved = $opponentBaseGuid !== "" ? ResolveOpponentBase($opponentBaseGuid) : null;
 	$wins = ($won === true) ? 1 : 0;
 	$total = 1;
 
@@ -573,13 +581,13 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 			mysqli_stmt_close($stmt);
 		}
 	} else {
-		// Common base -> color x type wide columns; legacy color-only -> Legacy bucket (suffix '').
+		// Common base -> color x type wide columns; unresolved -> skipped (no color).
 		if ($resolved) {
 			$color = $resolved["color"];
 			$typeSuffix = StatsTypeColumnSuffix($resolved["type"]);
 		} else {
-			$color = isset($playerJSON["opposingBaseColor"]) ? $playerJSON["opposingBaseColor"] : "";
-			$typeSuffix = ""; // Legacy
+			$color = "";
+			$typeSuffix = "";
 		}
 
 		if ($color != "") {
