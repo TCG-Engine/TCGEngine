@@ -16829,6 +16829,7 @@ function ClassBonusActivateCostReduction($cardID) {
         '44eld1c5ac' => 2, // Surging Undertow: [Class Bonus] costs 2 less
         '6gt6zkly69' => 2, // Shriveling Vines: [Class Bonus] costs 2 less
         'kvoqk1l75t' => 2, // Heavy Swing: [Class Bonus] costs 2 less
+        'a8mmiv2ptn' => 2, // Manaflare Barrage: [Class Bonus] costs 2 less
     ];
     return isset($reductions[$cardID]) ? $reductions[$cardID] : 0;
 }
