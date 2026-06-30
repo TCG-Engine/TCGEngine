@@ -7064,8 +7064,8 @@ function DoAllyDestroyed($player, $mzCard) {
             $leaField = GetZone($controllerField);
             for($lei = 0; $lei < count($leaField); ++$lei) {
                 if(!$leaField[$lei]->removed && $leaField[$lei]->CardID === "1XegCUjBnY" && !HasNoAbilities($leaField[$lei])) {
-                    DecisionQueueController::AddDecision($controller, "YESNO", "-", 1, tooltip:"Banish_Life_Essence_Amulet?");
-                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LifeEssenceAmuletBanish|1XegCUjBnY", 1);
+                    $leaUniqueID = intval($leaField[$lei]->UniqueID ?? 0);
+                    DecisionQueueController::AddDecision($controller, "CUSTOM", "LifeEssenceAmuletOffer|" . $leaUniqueID, 1);
                     break;
                 }
             }

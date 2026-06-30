@@ -6126,20 +6126,63 @@ $customDQHandlers["PoisonousBreezecapSuppressReplace"] = function($player, $part
     }
 };
 
+$customDQHandlers["LifeEssenceAmuletOffer"] = function($player, $parts, $lastDecision) {
+    global $playerID;
+    $zone = $player == $playerID ? "myField" : "theirField";
+    $targetMZ = null;
+    $uniqueID = intval($parts[0] ?? 0);
+    if($uniqueID > 0 && function_exists("FindFieldMzByUniqueID")) {
+        $targetMZ = FindFieldMzByUniqueID($uniqueID);
+        $targetObj = $targetMZ !== "" ? GetZoneObject($targetMZ) : null;
+        if($targetObj === null || $targetObj->removed || $targetObj->CardID !== "1XegCUjBnY") {
+            $targetMZ = null;
+        }
+    }
+    if($targetMZ === null && $uniqueID <= 0) {
+        $field = GetZone($zone);
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i] !== null && !$field[$i]->removed && $field[$i]->CardID === "1XegCUjBnY") {
+                $targetMZ = $zone . "-" . $i;
+                $uniqueID = intval($field[$i]->UniqueID ?? 0);
+                break;
+            }
+        }
+    }
+    if($targetMZ === null) return;
+
+    DecisionQueueController::AddDecision($player, "YESNO", "-", 0, tooltip:"Banish_Life_Essence_Amulet?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "LifeEssenceAmuletBanish|" . $uniqueID, 0);
+};
+
 $customDQHandlers["LifeEssenceAmuletBanish"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
     global $playerID;
     $zone = $player == $playerID ? "myField" : "theirField";
     $targetMZ = null;
-    $field = GetZone($zone);
-    for($i = 0; $i < count($field); ++$i) {
-        if($field[$i] !== null && !$field[$i]->removed && $field[$i]->CardID === "1XegCUjBnY") {
-            $targetMZ = $zone . "-" . $i;
-            break;
+    $uniqueID = intval($parts[0] ?? 0);
+    if($uniqueID > 0 && function_exists("FindFieldMzByUniqueID")) {
+        $targetMZ = FindFieldMzByUniqueID($uniqueID);
+        $targetObj = $targetMZ !== "" ? GetZoneObject($targetMZ) : null;
+        if($targetObj === null || $targetObj->removed || $targetObj->CardID !== "1XegCUjBnY") {
+            $targetMZ = null;
+        }
+    }
+    if($targetMZ === null && $uniqueID <= 0) {
+        $field = GetZone($zone);
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i] !== null && !$field[$i]->removed && $field[$i]->CardID === "1XegCUjBnY") {
+                $targetMZ = $zone . "-" . $i;
+                $uniqueID = intval($field[$i]->UniqueID ?? 0);
+                break;
+            }
         }
     }
     if($targetMZ === null) return;
     OnLeaveField($player, $targetMZ);
+    if($uniqueID > 0 && function_exists("FindFieldMzByUniqueID")) {
+        $refreshedMZ = FindFieldMzByUniqueID($uniqueID);
+        if($refreshedMZ !== "") $targetMZ = $refreshedMZ;
+    }
     MZMove($player, $targetMZ, "myBanish");
     DecisionQueueController::CleanupRemovedCards();
     Draw($player, 1);
