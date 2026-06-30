@@ -6,7 +6,7 @@
       src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"
       integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ"
       crossorigin="anonymous"></script>
-    <script src="./Core/UILibraries20260415.js?v=<?php echo filemtime('./Core/UILibraries20260415.js'); ?>"></script>
+    <script src="./Core/UILibraries20260630.js?v=<?php echo filemtime('./Core/UILibraries20260630.js'); ?>"></script>
     <script src="./Core/CounterRendering.js"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
