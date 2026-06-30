@@ -417,6 +417,22 @@
       }
       echo "deckStats += \"</select><br><br>\";";
       echo "deckStats += \"<label for='baseColor' style='display: inline-block; width: 110px; margin-right: 10px;'>Base Color:</label><select id='baseColor'><option value='Green'>Green</option><option value='Blue'>Blue</option><option value='Red'>Red</option><option value='Yellow'>Yellow</option><option value='Colorless'>Colorless</option></select><br><br>\";";
+      echo "deckStats += \"<label for='baseGroup' style='display: inline-block; width: 110px; margin-right: 10px;'>Base Group:</label><select id='baseGroup'><option value='Standard'>Standard</option><option value='Force'>Force</option><option value='Splash'>Splash</option></select><br><br>\";";
+      // Optional rare/special base picker; when chosen it overrides Base Color + Base Group.
+      echo "deckStats += \"<label for='rareBase' style='display: inline-block; width: 110px; margin-right: 10px;'>Rare Base:</label><select id='rareBase' onchange='toggleRareBase()'><option value=''>&mdash; none (use color + group) &mdash;</option>\";";
+      $rareBaseOptions = [];
+      foreach (array_keys(StatsRareSpecialBases()) as $rareID) {
+        $rareTitle = function_exists('CardTitle') ? CardTitle($rareID) : '';
+        if ($rareTitle === null || $rareTitle === '') { $rareTitle = $rareID; }
+        $rareSet = function_exists('CardSet') ? CardSet($rareID) : '';
+        $rareBaseOptions[$rareID] = $rareTitle . ($rareSet ? " ({$rareSet})" : "");
+      }
+      asort($rareBaseOptions);
+      foreach ($rareBaseOptions as $rareID => $rareLabel) {
+        $rareLabel = htmlspecialchars($rareLabel, ENT_QUOTES, 'UTF-8');
+        echo "deckStats += \"<option value='$rareID'>$rareLabel</option>\";";
+      }
+      echo "deckStats += \"</select><br><br>\";";
       echo "deckStats += \"<input type='radio' id='win' name='statType' value='win'><label for='win' style='margin-right: 10px;'>Win</label>\";";
       echo "deckStats += \"<input type='radio' id='loss' name='statType' value='loss'><label for='loss'>Loss</label><br><br>\";";
       echo "deckStats += \"<input type='radio' id='firstPlayer' name='playerType' value='firstPlayer'><label for='firstPlayer'  style='margin-right: 10px;'>First Player</label>\";";
@@ -567,6 +583,16 @@
       }
     }
 
+    // Disable the common Base Color/Group inputs while a specific Rare Base is selected.
+    function toggleRareBase() {
+      var rare = document.getElementById('rareBase');
+      var usingRare = rare && rare.value !== '';
+      var color = document.getElementById('baseColor');
+      var group = document.getElementById('baseGroup');
+      if (color) { color.disabled = usingRare; color.style.opacity = usingRare ? 0.4 : 1; }
+      if (group) { group.disabled = usingRare; group.style.opacity = usingRare ? 0.4 : 1; }
+    }
+
     function confirmAddStats() {
       var winRadio = document.getElementById('win');
       var lossRadio = document.getElementById('loss');
@@ -582,6 +608,8 @@
       }
       var leader = document.getElementById('leader').value;
       var baseColor = document.getElementById('baseColor').value;
+      var baseGroup = document.getElementById('baseGroup').value;
+      var rareBase = document.getElementById('rareBase').value;
       var statType = winRadio.checked ? 'win' : 'loss';
       var playerType = firstPlayerRadio.checked ? 'firstPlayer' : 'secondPlayer';
       var rounds = document.getElementById('rounds').value;
@@ -615,32 +643,39 @@
         }
       };
 
+      var playerObj = {
+        opposingHero: leader,
+        cardResults: Object.keys(mainDeckStats).map(function(cardID) {
+            return {
+              cardID: cardID,
+              resourced: mainDeckStats[cardID].resourced,
+              played: mainDeckStats[cardID].played
+            };
+          }).concat(Object.keys(sideBoardStats).filter(function(cardID) {
+            return !mainDeckStats.hasOwnProperty(cardID);
+          }).map(function(cardID) {
+            return {
+              cardID: cardID,
+              resourced: sideBoardStats[cardID].resourced,
+              played: sideBoardStats[cardID].played
+            };
+          }))
+      };
+      // A chosen rare base overrides color + group; otherwise report the common color + group.
+      if (rareBase) {
+        playerObj.opposingBase = rareBase;
+      } else {
+        playerObj.opposingBaseColor = baseColor;
+        playerObj.opposingBaseGroup = baseGroup;
+      }
+
       var data = {
         deckID: <?php echo $gameName; ?>,
         won: statType == 'win',
         rounds: rounds,
         winnerHealth: winnerHealth,
         firstPlayer: playerType == 'firstPlayer',
-
-        player: JSON.stringify({
-          opposingHero: leader,
-          opposingBaseColor: baseColor,
-          cardResults: Object.keys(mainDeckStats).map(function(cardID) {
-              return {
-                cardID: cardID,
-                resourced: mainDeckStats[cardID].resourced,
-                played: mainDeckStats[cardID].played
-              };
-            }).concat(Object.keys(sideBoardStats).filter(function(cardID) {
-              return !mainDeckStats.hasOwnProperty(cardID);
-            }).map(function(cardID) {
-              return {
-                cardID: cardID,
-                resourced: sideBoardStats[cardID].resourced,
-                played: sideBoardStats[cardID].played
-              };
-            }))
-        }),
+        player: JSON.stringify(playerObj),
       };
       console.log(JSON.stringify(data));
       xhr.send(JSON.stringify(data));
