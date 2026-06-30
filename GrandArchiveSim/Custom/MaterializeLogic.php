@@ -26,7 +26,7 @@ function MaterializePhase() {
     // Varuckan Soulknife (9ox7u6wzh9): [Class Bonus][Element Bonus] may activate from material deck by banishing 3 fire from graveyard
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "VARUCKAN_MATERIAL_CHECK", 1);
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "FRAMEWORK_SIDEARM_MATERIAL_CHECK", 1);
-    // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] activate from material deck while controlling 2+ domains
+    // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] pay 6, reduced by 3 per non-token domain, to activate from material deck
     DecisionQueueController::AddDecision(GetTurnPlayer(), "CUSTOM", "RECIPROCITY_MATERIAL_CHECK", 1);
     
     // If the player has no cards left in material, run the same path as a skipped
@@ -268,23 +268,53 @@ $customDQHandlers["FrameworkSidearmAfterPay"] = function($player, $parts, $lastD
     DoMaterialize($player, $materialMZ);
 };
 
-// Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] activate from material deck while controlling 2+ domains
+function ReciprocityMaterialActivationCost($player) {
+    return max(0, 6 - (3 * CountNonTokenDomainsControlled($player)));
+}
+
+function CanActivateReciprocityFromMaterial($player, $obj) {
+    return $obj !== null
+        && !$obj->removed
+        && $obj->CardID === "mSOHJGjrIu"
+        && IsTonorisBonusActive($player)
+        && CanPlayerUseCardElement($player, $obj->CardID, false, false)
+        && CountAvailableReservePayments($player) >= ReciprocityMaterialActivationCost($player);
+}
+
+// Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] activate from material deck with dynamic reserve cost
 $customDQHandlers["RECIPROCITY_MATERIAL_CHECK"] = function($player, $parts, $lastDecision) {
-    if(!IsTonorisBonusActive($player)) return;
-    if(CountDomainsControlled($player) < 2) return;
     $material = GetMaterial($player);
     $reciprocityMZ = null;
     for($i = 0; $i < count($material); ++$i) {
-        if(!$material[$i]->removed && $material[$i]->CardID === "mSOHJGjrIu") {
-            if(!CanPlayerUseCardElement($player, "mSOHJGjrIu", false, false)) return;
+        if(CanActivateReciprocityFromMaterial($player, $material[$i])) {
             $reciprocityMZ = "myMaterial-" . $i;
             break;
         }
     }
     if($reciprocityMZ === null) return;
+    $cost = ReciprocityMaterialActivationCost($player);
     DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", $reciprocityMZ, 1,
-        tooltip:"Activate_Reciprocity_from_material_deck?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "MATERIALIZE", 1);
+        tooltip:"Pay_" . $cost . "_to_activate_Reciprocity_from_material_deck?");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReciprocityMaterialActivate", 1);
+};
+
+$customDQHandlers["ReciprocityMaterialActivate"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if(!CanActivateReciprocityFromMaterial($player, $obj)) return;
+    $cost = ReciprocityMaterialActivationCost($player);
+    for($i = 0; $i < $cost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ReciprocityAfterPay|" . $lastDecision, 101);
+};
+
+$customDQHandlers["ReciprocityAfterPay"] = function($player, $parts, $lastDecision) {
+    $materialMZ = $parts[0] ?? "";
+    if($materialMZ === "") return;
+    $obj = GetZoneObject($materialMZ);
+    if($obj === null || $obj->removed || $obj->CardID !== "mSOHJGjrIu") return;
+    DoActivateCard($player, $materialMZ, true);
 };
 
 $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)

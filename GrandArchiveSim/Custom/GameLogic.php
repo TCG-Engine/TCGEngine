@@ -1655,6 +1655,20 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                     return "PLAY";
                 }
             }
+            // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] pay 6, reduced by 3 per non-token domain, to activate from material deck
+            if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
+                $mObj = GetZoneObject($actionCard);
+                if(function_exists("CanActivateReciprocityFromMaterial") && CanActivateReciprocityFromMaterial($playerID, $mObj)) {
+                    $cost = ReciprocityMaterialActivationCost($playerID);
+                    for($ri = 0; $ri < $cost; ++$ri) {
+                        DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                    }
+                    DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReciprocityAfterPay|" . $actionCard, 101);
+                    $dqController = new DecisionQueueController();
+                    $dqController->ExecuteStaticMethods($playerID, "-");
+                    return "PLAY";
+                }
+            }
             // Sablemere, Warden's Grip (WAodKSuGuX): [Nico Bonus] pay (3) to activate from material deck
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $mObj = GetZoneObject($actionCard);
@@ -5566,6 +5580,12 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $abilityCost = max(0, $baseCost - $domainCount);
             for($i = 0; $i < $abilityCost; ++$i) {
                 DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
+        case "mSOHJGjrIu": // Reciprocity, Dorumegia's Call - [Tonoris Bonus] [Level 2+] [REST]: negate upkeep trigger, summon Drone
+            if(intval($abilityIndex) === 0) {
+                $sourceObj = &GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
             }
             break;
         case "wk0pw0y6is": //Obelisk of Armaments
@@ -13422,6 +13442,16 @@ function CountDomainsControlled($player) {
     return $count;
 }
 
+function CountNonTokenDomainsControlled($player) {
+    $count = 0;
+    foreach(GetField($player) as $obj) {
+        if($obj->removed) continue;
+        if(IsTokenObject($obj)) continue;
+        if(PropertyContains(EffectiveCardType($obj), "DOMAIN")) $count++;
+    }
+    return $count;
+}
+
 function AutomataGenesisResolve($player) {
     for($i = 0; $i < 3; ++$i) MZAddZone($player, "myField", "r79VgzA3W4");
     if(!IsTonorisBonusActive($player)) return;
@@ -15557,6 +15587,11 @@ function MaterialSelectionMetadata($obj) {
 
     // Framework Sidearm (p4lgdlx7md): [Class Bonus] pay (3) to activate from material deck
     if (CanActivateFrameworkSidearmFromMaterial($turnPlayer, $obj)) {
+        return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
+    }
+
+    // Reciprocity, Dorumegia's Call (mSOHJGjrIu): [Tonoris Bonus] pay 6, reduced by 3 per non-token domain, to activate from material deck
+    if (function_exists("CanActivateReciprocityFromMaterial") && CanActivateReciprocityFromMaterial($turnPlayer, $obj)) {
         return json_encode(['color' => 'rgba(0, 255, 0, 0.95)']);
     }
 
