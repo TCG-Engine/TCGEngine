@@ -29,7 +29,7 @@ function ValidateSiteDef(array $def): array {
             }
         }
     }
-    $known = ['password','patreon','discord','team','oauthDev','savedDecks','cosmetics'];
+    $known = ['password','patreon','discord','team','oauthDev','savedDecks','cosmetics','blockedUsers'];
     foreach (($def['profile']['sections'] ?? []) as $s) {
         if (!in_array($s, $known, true)) $errors[] = "profile.sections has unknown section '$s'";
     }

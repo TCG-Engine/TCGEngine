@@ -35,7 +35,7 @@
     'endpoint' => 'SWUSim/SavedDecks.php',
   ],
   'profile' => [
-    'sections'         => ['discord','team','savedDecks','cosmetics'],
+    'sections'         => ['discord','team','savedDecks','cosmetics','blockedUsers'],
     'oauthAppLabel'    => 'Petranaki Arena',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordClientID'  => '1338995198730043432',

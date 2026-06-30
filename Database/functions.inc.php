@@ -699,6 +699,62 @@ function LoadBlockedPlayers($playerId)
 	return $output;
 }
 
+function AddBlock($blockingUserId, $blockedUserId)
+{
+	$blockingUserId = (int)$blockingUserId; $blockedUserId = (int)$blockedUserId;
+	if ($blockingUserId <= 0 || $blockedUserId <= 0 || $blockingUserId === $blockedUserId) return false;
+	$conn = GetLocalMySQLConnection();
+	$stmt = mysqli_prepare($conn, "INSERT IGNORE INTO `blocklist` (blockingPlayer, blockedPlayer) VALUES (?, ?)");
+	mysqli_stmt_bind_param($stmt, "ii", $blockingUserId, $blockedUserId);
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_close($stmt); mysqli_close($conn);
+	return true;
+}
+
+function RemoveBlock($blockingUserId, $blockedUserId)
+{
+	$blockingUserId = (int)$blockingUserId; $blockedUserId = (int)$blockedUserId;
+	if ($blockingUserId <= 0 || $blockedUserId <= 0) return false;
+	$conn = GetLocalMySQLConnection();
+	$stmt = mysqli_prepare($conn, "DELETE FROM `blocklist` WHERE blockingPlayer = ? AND blockedPlayer = ?");
+	mysqli_stmt_bind_param($stmt, "ii", $blockingUserId, $blockedUserId);
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_close($stmt); mysqli_close($conn);
+	return true;
+}
+
+function AreUsersBlocked($a, $b)
+{
+	$a = (int)$a; $b = (int)$b;
+	if ($a <= 0 || $b <= 0) return false;
+	$conn = GetLocalMySQLConnection();
+	$stmt = mysqli_prepare($conn, "SELECT 1 FROM `blocklist` WHERE (blockingPlayer = ? AND blockedPlayer = ?) OR (blockingPlayer = ? AND blockedPlayer = ?) LIMIT 1");
+	mysqli_stmt_bind_param($stmt, "iiii", $a, $b, $b, $a);
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_store_result($stmt);
+	$blocked = mysqli_stmt_num_rows($stmt) > 0;
+	mysqli_stmt_close($stmt); mysqli_close($conn);
+	return $blocked;
+}
+
+function LoadBlockedUsersDetailed($userId)
+{
+	$userId = (int)$userId;
+	if ($userId <= 0) return [];
+	$conn = GetLocalMySQLConnection();
+	$stmt = mysqli_prepare($conn, "SELECT b.blockedPlayer, u.usersUid FROM `blocklist` b LEFT JOIN `users` u ON u.usersId = b.blockedPlayer WHERE b.blockingPlayer = ? ORDER BY u.usersUid");
+	mysqli_stmt_bind_param($stmt, "i", $userId);
+	mysqli_stmt_execute($stmt);
+	$res = mysqli_stmt_get_result($stmt);
+	$out = [];
+	while ($row = mysqli_fetch_assoc($res)) {
+		$id = (int)$row['blockedPlayer'];
+		$out[] = ['id' => $id, 'username' => $row['usersUid'] !== null ? $row['usersUid'] : ('#' . $id)];
+	}
+	mysqli_stmt_close($stmt); mysqli_close($conn);
+	return $out;
+}
+
 function SendEmail($userEmail, $url)
 {
 	include "../APIKeys/APIKeys.php";

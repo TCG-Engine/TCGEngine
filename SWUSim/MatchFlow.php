@@ -37,6 +37,47 @@ function SWUReadMatchRef($gameName) {
     return is_array($d) ? $d : null;
 }
 
+// Resolve the opponent of $userId in the match backing $gameName.
+// Returns null if no match/ref, the user isn't a seat, or the game store is unavailable.
+function SWUResolveOpponent($gameName, $userId) {
+    $userId = (int)$userId;
+    if ($userId <= 0) return null;
+    $ref = SWUReadMatchRef($gameName);
+    if (!$ref || empty($ref['matchId'])) return null;
+    $m = SWUReadMatch($ref['matchId']);
+    if (!$m || empty($m['players'])) return null;
+    $u1 = isset($m['players']['1']['userId']) ? (int)$m['players']['1']['userId'] : 0;
+    $u2 = isset($m['players']['2']['userId']) ? (int)$m['players']['2']['userId'] : 0;
+    if     ($u1 === $userId) { $mySeat = 1; $oppUserId = $u2; }
+    elseif ($u2 === $userId) { $mySeat = 2; $oppUserId = $u1; }
+    else return null;
+    $winsNeeded = (int)($m['winsNeeded'] ?? 1);
+    $seriesOver = ($m['state'] ?? '') === 'complete'
+        || (int)($m['wins']['1'] ?? 0) >= $winsNeeded
+        || (int)($m['wins']['2'] ?? 0) >= $winsNeeded;
+    return [
+        'matchId'    => $ref['matchId'],
+        'mySeat'     => $mySeat,
+        'oppUserId'  => $oppUserId > 0 ? $oppUserId : null,
+        'bestOf'     => (int)($m['bestOf'] ?? 1),
+        'seriesOver' => $seriesOver,
+    ];
+}
+
+// True when the two seats of the match backing $gameName have a block between them.
+function SWUAreGamePlayersBlocked($gameName) {
+    $ref = SWUReadMatchRef($gameName);
+    if (!$ref || empty($ref['matchId'])) return false;
+    $m = SWUReadMatch($ref['matchId']);
+    if (!$m || empty($m['players'])) return false;
+    $u1 = isset($m['players']['1']['userId']) ? (int)$m['players']['1']['userId'] : 0;
+    $u2 = isset($m['players']['2']['userId']) ? (int)$m['players']['2']['userId'] : 0;
+    if ($u1 <= 0 || $u2 <= 0) return false;
+    require_once __DIR__ . '/../Database/ConnectionManager.php';
+    require_once __DIR__ . '/../Database/functions.inc.php';
+    return AreUsersBlocked($u1, $u2);
+}
+
 // Create a match from a ready 2-player lobby, spawn game 1, return matchId (or null).
 function SWUCreateMatchFromLobby($lobby) {
     $format    = $lobby->format ?? 'premier';

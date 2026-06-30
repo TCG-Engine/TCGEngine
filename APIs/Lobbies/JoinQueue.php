@@ -3,6 +3,7 @@
   require_once "../../Core/NetworkingLibraries.php";
   require_once "../../Core/HTTPLibraries.php";
   require_once "./Classes/Player.php";
+  require_once __DIR__ . '/JoinQueue_blocklib.php';
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
@@ -131,6 +132,7 @@
         if (($lobby->queueType ?? 'bo1') !== $queueType) continue;
         if (!isset($lobby->isPrivate) || !$lobby->isPrivate) continue;
         if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
+        if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // blocked: fall through to generic "invalid/expired/full"
         if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
 
         $lobby->numPlayers++;
@@ -222,6 +224,7 @@
             (!isset($lobby->isPrivate) || !$lobby->isPrivate) &&
             intval($lobby->numPlayers) < intval($lobby->maxPlayers)
           ) {
+              if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // skip blocked host, keep scanning
               $lobby->numPlayers++;
               if($lobby->numPlayers == $lobby->maxPlayers) {
                   $lobby->ready = true;

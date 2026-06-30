@@ -290,6 +290,12 @@ function RenderProfile(array $def, array $ctx, array $userData): string {
               . RenderCosmeticsChooser((int)($ctx['userId'] ?? 0))
               . "</div>";
     }
+    if (in_array('blockedUsers', $sections, true)) {
+        require_once __DIR__ . '/BlockedUsers.php';
+        $out .= "<div class='blockedUsers container bg-black'><h2>Blocked Users</h2>"
+              . RenderBlockedUsers((int)($ctx['userId'] ?? 0))
+              . "</div>";
+    }
     // NOTE: core-wrapper is intentionally left open here to match the original Profile.php structure.
     return $out;
 }

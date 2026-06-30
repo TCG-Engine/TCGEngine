@@ -1546,6 +1546,27 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     // there is NO MainMenu.php at the TCGEngine root, so the old './MainMenu.php' fallback 404'd.
     function SWUGoMainMenu() { window.location.href = window.SWUMainMenuUrl || './SharedUI/MainMenu.php'; }
     function SWUReportBug() { if (typeof openBugReportModal === 'function') openBugReportModal(); }
+    // Block the current opponent. Server resolves who the opponent is and whether to forfeit
+    // (an in-progress Bo3 set). The blocked player is never told — privacy invariant.
+    function SWUBlockOpponent(opts) {
+        opts = opts || {};
+        var msg = opts.liveBo3
+            ? "Block this player? You won't be able to play the next game in this set with them, and you'll be granted the loss."
+            : "Block this player? You won't be matched with them again.";
+        if (!window.confirm(msg)) return;
+        var gnEl = document.getElementById('gameName');
+        var gn = gnEl ? gnEl.value : '';
+        var x = new XMLHttpRequest();
+        x.open('POST', '/TCGEngine/SWUSim/BlockedUsers.php', true);
+        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        x.onreadystatechange = function() {
+            if (x.readyState === 4) {
+                var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
+                if (r && r.forfeited) { SWUGoMainMenu(); }
+            }
+        };
+        x.send('action=blockOpponent&gameName=' + encodeURIComponent(gn));
+    }
     function SWUGoSideboard(info) {
         var pid = document.getElementById('playerID').value;
         var ak = document.getElementById('authKey').value;
@@ -1605,6 +1626,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             b.push({label:'Report Bug', onClick: SWUReportBug});
             return b;
         }
+        // Real match, not a spectator: allow blocking the opponent. Between Bo3 games this
+        // forfeits the set (server decides); post-game / Bo1 it just blocks.
+        b.push({label:'Block Player', onClick:function(){ SWUBlockOpponent({liveBo3: (bestOf === 3 && !seriesOver)}); }});
         if (bestOf === 3 && !seriesOver) {
             b.push({label:'Return to Main Menu', onClick:function(){ if(window.confirm('Leave now? This forfeits the best-of-3.')) { SubmitInput('10007',''); SWUGoMainMenu(); } }});
             b.push({label:'Go to Next Game', onClick:function(){ SWUGoSideboard(info); }});

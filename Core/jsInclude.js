@@ -211,6 +211,17 @@ function ApplyChatPayload(payload) {
     if (m.id > _lastChatID) _lastChatID = m.id;
   }
   if (version > _lastChatVersion) _lastChatVersion = version;
+  // Neutral "chat disabled" state (e.g. a player was blocked). Never reveals why.
+  var ci = document.getElementById("chatText");
+  if (ci) {
+    if (payload.chatDisabled) {
+      if (!ci.disabled) { ci.dataset.ph = ci.placeholder || ""; ci.placeholder = "Chat disabled"; }
+      ci.disabled = true;
+    } else if (ci.disabled) {
+      ci.disabled = false;
+      if (ci.dataset.ph !== undefined) ci.placeholder = ci.dataset.ph;
+    }
+  }
   return msgs.length > 0 || version > 0;
 }
 
