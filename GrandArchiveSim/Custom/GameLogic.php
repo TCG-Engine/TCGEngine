@@ -13066,13 +13066,9 @@ function DoDrawCard($player, $amount=1) {
             foreach($pChamps as $champMZ) {
                 $champObj = GetZoneObject($champMZ);
                 if($champObj !== null && in_array("DELUSIONAL_VAPORS_MILL", $champObj->TurnEffects)) {
-                    $pDeck = &GetDeck($player);
-                    $pGY = &GetGraveyard($player);
-                    for($dm = 0; $dm < 4; ++$dm) {
-                        if(count($pDeck) == 0) break;
-                        $millCard = array_shift($pDeck);
-                        array_push($pGY, $millCard);
-                    }
+                    $deckRef = ($player == $GLOBALS['playerID']) ? "myDeck" : "theirDeck";
+                    $gyRef = ($player == $GLOBALS['playerID']) ? "myGraveyard" : "theirGraveyard";
+                    MillCards($player, $deckRef, $gyRef, 4);
                     break;
                 }
             }
@@ -18149,6 +18145,20 @@ $customDQHandlers["DevouringMaliceResolve"] = function($player, $parts, $lastDec
     $mode = intval($parts[1] ?? -1);
     if($mzID === "" || $mode < 0 || $lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
     ResolveDevouringMaliceMode($player, $mzID, $mode, $lastDecision);
+};
+
+function ResolveDelusionalVapors($player) {
+    MillCards($player, "theirDeck", "theirGraveyard", 8);
+    if(DecisionQueueController::GetVariable("wasPrepared") !== "YES") return;
+    $oppChamps = ZoneSearch("theirField", ["CHAMPION"]);
+    foreach($oppChamps as $champ) {
+        AddTurnEffect($champ, "DELUSIONAL_VAPORS_MILL");
+        break;
+    }
+}
+
+$customDQHandlers["DelusionalVaporsResolve"] = function($player, $parts, $lastDecision) {
+    ResolveDelusionalVapors($player);
 };
 
 function CrystallineRealityStart($player) {
