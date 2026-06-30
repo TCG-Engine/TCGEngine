@@ -13,8 +13,6 @@ function RenderHeader(array $def): string {
         }
         $out .= "    </div>\n";
     }
-    $out .= "    \n    <!-- Mobile-specific pull-to-refresh indicator -->\n";
-    $out .= "    <div class=\"pull-indicator\">Pull down to refresh</div>\n";
     $out .= "</div>";
     return $out;
 }

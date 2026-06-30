@@ -57,7 +57,7 @@ checkContains('header title link', $hdr, 'href="/TCGEngine/SharedUI/Sites/SWUDec
 checkContains('header h1', $hdr, '<h1>SWU Stats</h1>');
 checkContains('header tagline', $hdr, '<p>Star Wars Unlimited Stats</p>');
 checkContains('header banner block', $hdr, 'class="banner block-1"');
-checkContains('header pull indicator', $hdr, 'Pull down to refresh');
+check('header omits dead pull-to-refresh indicator', strpos($hdr, 'pull-indicator') === false);
 
 // --- Task 5 tests: RenderProfile + RenderDisclaimer ---
 require_once __DIR__ . '/../Profile.php';
