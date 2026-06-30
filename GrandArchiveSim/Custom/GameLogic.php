@@ -22800,16 +22800,19 @@ function CheckRubyFatestoneQuestCounter($source, $isUnit, $player) {
 
 /**
  * Think Deep (xw9w6y7vtz): put up to two cards from the top of your deck into your graveyard.
- * Queues a decision loop that lets the player choose to mill 0, 1, or 2 cards.
+ * Queues a single amount choice after Glimpse resolves, then mills that amount at once.
  */
 function ThinkDeepMill($player) {
+    QueuePendingAfterGlimpseDecision($player, "ThinkDeepMillChoose");
+}
+
+$customDQHandlers["ThinkDeepMillChoose"] = function($player, $parts, $lastDecision) {
     $deck = GetDeck($player);
     if(empty($deck)) return;
     $maxMill = min(2, count($deck));
-    DecisionQueueController::StoreVariable("thinkDeepRemaining", strval($maxMill));
-    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_top_card_of_deck_into_graveyard?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "ThinkDeepMillStep", 1);
-}
+    DecisionQueueController::AddDecision($player, "NUMBERCHOOSE", "0|" . $maxMill, 1, tooltip:"Choose_cards_to_mill_(0-" . $maxMill . ")");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ThinkDeepMillApply", 1);
+};
 
 function AvatarOfGenbuResolve($player) {
     if(!IsGuoJiaBonus($player)) return;
@@ -22928,21 +22931,12 @@ $customDQHandlers["CompanionFatestoneTransform"] = function($player, $parts, $la
     TransformCard($player, $mzCard);
 };
 
-$customDQHandlers["ThinkDeepMillStep"] = function($player, $parts, $lastDecision) {
-    $remaining = intval(DecisionQueueController::GetVariable("thinkDeepRemaining"));
-    if($lastDecision !== "YES" || $remaining <= 0) return;
+$customDQHandlers["ThinkDeepMillApply"] = function($player, $parts, $lastDecision) {
+    $amount = min(2, max(0, intval($lastDecision)));
+    if($amount <= 0) return;
     $deck = GetDeck($player);
     if(empty($deck)) return;
-    MZMove($player, "myDeck-0", "myGraveyard");
-    $remaining--;
-    if($remaining > 0) {
-        $deck2 = GetDeck($player);
-        if(!empty($deck2)) {
-            DecisionQueueController::StoreVariable("thinkDeepRemaining", strval($remaining));
-            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Put_another_card_into_graveyard?");
-            DecisionQueueController::AddDecision($player, "CUSTOM", "ThinkDeepMillStep", 1);
-        }
-    }
+    MillCards($player, "myDeck", "myGraveyard", min($amount, count($deck)));
 };
 
 // ============================================================================
