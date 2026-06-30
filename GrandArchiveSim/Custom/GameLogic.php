@@ -5656,6 +5656,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
             break;
+        case "lq2kkvoqk1": // Necklace of Foresight - banish self
         // --- Always banish self ---
         case "iiZtKTulPg": // Eye of Argus
         case "usb5FgKvZX": // Sharpening Stone
