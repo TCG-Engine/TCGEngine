@@ -5420,6 +5420,15 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         }
     }
     switch($cardID) {
+        case "X7rh3Yi26A": { // Endura, Reimagined - remove 3 enlighten counters + REST
+            $sourceObj = &GetZoneObject($mzCard);
+            if($sourceObj !== null) $sourceObj->Status = 1;
+            $champMZ = FindChampionMZ($player);
+            if($champMZ !== null) {
+                RemoveCounters($player, $champMZ, "enlighten", 3);
+            }
+            break;
+        }
         case "2sn7hlyrkw": // Fatestone of Progress - [Guo Jia Bonus] (4): Transform
             if(intval($abilityIndex) === 0) {
                 for($ri = 0; $ri < 4; ++$ri) {
@@ -21271,6 +21280,13 @@ function IsNicoBonusActive($player) {
         }
     }
     return false;
+}
+
+function IsRaiBonusActive($player) {
+    return ChampionHasInLineage($player, "gPKTJKqvOI")  // Rai, Spellcrafter
+        || ChampionHasInLineage($player, "zdIhSL5RhK")  // Rai, Archmage
+        || ChampionHasInLineage($player, "g92bHLtTNl")  // Rai, Storm Seer
+        || ChampionHasInLineage($player, "6ILtLfjQEe"); // Rai, Mana Weaver
 }
 
 function IsArisannaBonusActive($player) {
