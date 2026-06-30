@@ -2143,6 +2143,10 @@ $customDQHandlers["MeteorStrikeDestroy"] = function($player, $parts, $lastDecisi
     if($lastDecision === "-" || $lastDecision === "") return;
     $targetObj = GetZoneObject($lastDecision);
     if($targetObj === null) return;
+    if(PropertyContains(EffectiveCardType($targetObj), "ALLY")) {
+        DoAllyDestroyed($player, $lastDecision);
+        return;
+    }
     OnLeaveField($player, $lastDecision);
     $dest = $player == $targetObj->Controller ? "myGraveyard" : "theirGraveyard";
     MZMove($player, $lastDecision, $dest);

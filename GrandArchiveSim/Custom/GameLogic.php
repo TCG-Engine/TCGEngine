@@ -7095,9 +7095,11 @@ function DoAllyDestroyed($player, $mzCard) {
         $field = GetZone($controllerField);
         for($cfi = 0; $cfi < count($field); ++$cfi) {
             if(!$field[$cfi]->removed && $field[$cfi]->CardID === "izf4wdsbz9" && !HasNoAbilities($field[$cfi])) {
+                $fatestoneUniqueID = intval($field[$cfi]->UniqueID ?? 0);
+                if($fatestoneUniqueID <= 0) continue;
                 DecisionQueueController::AddDecision($controller, "YESNO", "-", 1,
                     tooltip:"Transform_Companion_Fatestone_into_Fatebound_Caracal?");
-                DecisionQueueController::AddDecision($controller, "CUSTOM", "CompanionFatestoneTransform|$cfi", 1);
+                DecisionQueueController::AddDecision($controller, "CUSTOM", "CompanionFatestoneTransform|$fatestoneUniqueID", 1);
                 break;
             }
         }
@@ -22923,10 +22925,10 @@ function FoundPowerResolve($player) {
 
 $customDQHandlers["CompanionFatestoneTransform"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "YES") return;
-    $fieldIdx = intval($parts[0]);
-    global $playerID;
-    $zone = $player == $playerID ? "myField" : "theirField";
-    $mzCard = $zone . "-" . $fieldIdx;
+    $uniqueID = intval($parts[0] ?? 0);
+    if($uniqueID <= 0) return;
+    $mzCard = FindFieldMzByUniqueID($uniqueID);
+    if($mzCard === "") return;
     $obj = GetZoneObject($mzCard);
     if($obj === null || $obj->removed || $obj->CardID !== "izf4wdsbz9") return;
     TransformCard($player, $mzCard);
