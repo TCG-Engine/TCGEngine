@@ -482,21 +482,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         color: rgba(255,255,255,0.38); pointer-events: none;
     }
 
-    /* Action-available glow for Base and Resource counter — on the slot (neither tilts). */
-    #myBaseSlot.has-action,
-    #swuMyResCount.has-action {
-        box-shadow: 0 0 14px 3px rgba(60,220,90,0.70), 0 0 4px 1px rgba(60,220,90,0.40);
-        border-color: rgba(60,220,90,0.75) !important;
-        transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    }
-    /* Leader action glow: put it on the CARD (the data-mzid span), not the slot. The span
-       carries the exhaust tilt (transform:rotate), so the glow rotates WITH the card. On the
-       slot it stayed axis-aligned and looked detached around a tilted exhausted leader. */
-    #myLeaderSlot.has-action [data-mzid] {
-        box-shadow: 0 0 14px 3px rgba(60,220,90,0.70), 0 0 4px 1px rgba(60,220,90,0.40);
-        border-radius: 7px;
-        transition: box-shadow 0.3s ease;
-    }
+    /* Leader/Base/Resource ".has-action" glows now live in GameLayoutShared.php next to the JS
+       that applies them, so both desktop and mobile pick them up. */
 
     /* Resource count line — full-width block so both it and the credit line center. */
     #swuMyResCount, #swuTheirResCount {
@@ -513,20 +500,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         margin-top: 2px;
     }
 
-    /* Per-card Smuggle-available glow inside the resource slot */
-    #myResourcesSlot .smuggle-available {
-        box-shadow: 0 0 10px 2px rgba(60,220,90,0.65), 0 0 3px 1px rgba(60,220,90,0.35);
-        border-radius: 4px;
-        transition: box-shadow 0.3s ease;
-    }
-
-
-    /* Per-card discard-playable glow inside the discard slots */
-    #myDiscardSlot .discard-playable,
-    #theirDiscardSlot .discard-playable {
-        box-shadow: 0 0 8px 3px #f0c040, inset 0 0 4px #f0c040;
-        border-radius: 4px;
-    }
+    /* Per-card Smuggle / discard-playable glows moved to GameLayoutShared.php (shared by mobile). */
 
     /* Per-unit "Action available" (.unit-action, cyan) and "can attack" (.can-attack,
        green) glows now live in GameLayoutShared.php next to the JS that applies them, so
@@ -560,13 +534,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         border-color: #5fd0ff;
     }
 
-    /* Action-available glow for discard slot badges */
-    #myDiscardSlot.has-action,
-    #theirDiscardSlot.has-action {
-        box-shadow: 0 0 14px 3px rgba(240,192,64,0.70), 0 0 4px 1px rgba(240,192,64,0.40);
-        border-color: rgba(240,192,64,0.75) !important;
-        transition: box-shadow 0.3s ease, border-color 0.3s ease;
-    }
+    /* Discard-slot ".has-action" glow moved to GameLayoutShared.php (shared by mobile). */
 
     /* Leader deployed state: ghost the leader card to simulate it moving to arena */
     #myLeaderSlot.is-deployed     > * { opacity: 0; pointer-events: none; }

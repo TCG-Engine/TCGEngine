@@ -233,7 +233,10 @@ function _AppendChatMessage(msg) {
   div.style.cssText = "padding:2px 4px; word-break:break-word; font-size:13px;";
   var label = document.createElement("span");
   label.style.cssText = "font-weight:700; margin-right:4px;";
-  label.textContent = (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID)) + ":";
+  // Prefer the seat's username (SWUSim) so chat reads from real names; fall back to P#/label.
+  var seatName = (window.SWU_SEAT_USERNAMES && (msg.playerID === 1 || msg.playerID === 2 || msg.playerID === "1" || msg.playerID === "2"))
+    ? window.SWU_SEAT_USERNAMES[String(msg.playerID)] : null;
+  label.textContent = (seatName ? seatName : (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID))) + ":";
   var body = document.createElement("span");
   body.textContent = msg.text;
   div.appendChild(label);

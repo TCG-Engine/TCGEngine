@@ -18,6 +18,39 @@
     box-shadow: 0 0 9px 3px rgba(60,220,90,0.70), inset 0 0 4px rgba(60,220,90,0.55);
     border-radius: 4px; cursor: pointer;
 }
+/* Action-available glows for the Leader / Base / Resource / Discard slots + per-card Smuggle /
+   discard highlights. Applied by refreshActionGlows / refreshResourceCardGlows /
+   refreshDiscardCardGlows in this file's JS — kept HERE (not desktop-only GameLayout.php) so the
+   mobile layout styles them too (the class was added but never styled → leader/base/etc. showed
+   no glow on phones). */
+#myBaseSlot.has-action,
+#swuMyResCount.has-action {
+    box-shadow: 0 0 14px 3px rgba(60,220,90,0.70), 0 0 4px 1px rgba(60,220,90,0.40);
+    border-color: rgba(60,220,90,0.75) !important;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+/* Leader action glow: on the CARD (data-mzid span), not the slot, so it rotates with the exhaust tilt. */
+#myLeaderSlot.has-action [data-mzid] {
+    box-shadow: 0 0 14px 3px rgba(60,220,90,0.70), 0 0 4px 1px rgba(60,220,90,0.40);
+    border-radius: 7px;
+    transition: box-shadow 0.3s ease;
+}
+#myResourcesSlot .smuggle-available {
+    box-shadow: 0 0 10px 2px rgba(60,220,90,0.65), 0 0 3px 1px rgba(60,220,90,0.35);
+    border-radius: 4px;
+    transition: box-shadow 0.3s ease;
+}
+#myDiscardSlot .discard-playable,
+#theirDiscardSlot .discard-playable {
+    box-shadow: 0 0 8px 3px #f0c040, inset 0 0 4px #f0c040;
+    border-radius: 4px;
+}
+#myDiscardSlot.has-action,
+#theirDiscardSlot.has-action {
+    box-shadow: 0 0 14px 3px rgba(240,192,64,0.70), 0 0 4px 1px rgba(240,192,64,0.40);
+    border-color: rgba(240,192,64,0.75) !important;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
 
 /* ── Initiative token palette = turn-indicator palette ───────────────────────────
    Green when the initiative sits on MY side, red on the opponent's — matching the
@@ -1567,6 +1600,37 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         };
         x.send('action=blockOpponent&gameName=' + encodeURIComponent(gn));
     }
+    // Collapsible "Block Player" widget: collapsed header → expand shows the opponent's username
+    // + a Block button. Returns null when there's no logged-in opponent to block.
+    function SWUBuildBlockPlayerWidget(opts) {
+        opts = opts || {};
+        var viewerSeat = window.SWU_VIEWER_SEAT;
+        if (viewerSeat !== 1 && viewerSeat !== 2) {
+            var pf = document.getElementById('playerID');
+            viewerSeat = pf ? parseInt(pf.value || '', 10) : NaN;
+        }
+        if (viewerSeat !== 1 && viewerSeat !== 2) return null; // spectator / not seated
+        var oppSeat = (viewerSeat === 1) ? 2 : 1;
+        var oppName = window.SWU_SEAT_USERNAMES ? window.SWU_SEAT_USERNAMES[String(oppSeat)] : null;
+        if (!oppName) return null; // opponent anonymous / unknown → nothing to block
+        var wrap = document.createElement('div'); wrap.className = 'swu-blockplayer';
+        var head = document.createElement('button'); head.type = 'button';
+        head.className = 'swu-blockplayer-head'; head.textContent = 'Block Player ▸';
+        var body = document.createElement('div'); body.className = 'swu-blockplayer-body'; body.style.display = 'none';
+        var nameEl = document.createElement('span'); nameEl.className = 'swu-blockplayer-name'; nameEl.textContent = oppName;
+        var btn = document.createElement('button'); btn.type = 'button';
+        btn.className = 'swu-blockplayer-btn'; btn.textContent = 'Block';
+        btn.onclick = function() { SWUBlockOpponent({ liveBo3: !!opts.liveBo3 }); wrap.style.display = 'none'; };
+        head.onclick = function() {
+            var open = body.style.display !== 'none';
+            body.style.display = open ? 'none' : 'flex';
+            head.textContent = open ? 'Block Player ▸' : 'Block Player ▾';
+        };
+        body.appendChild(nameEl); body.appendChild(btn);
+        wrap.appendChild(head); wrap.appendChild(body);
+        return wrap;
+    }
+    window.SWUBuildBlockPlayerWidget = SWUBuildBlockPlayerWidget;
     function SWUGoSideboard(info) {
         var pid = document.getElementById('playerID').value;
         var ak = document.getElementById('authKey').value;
@@ -1626,9 +1690,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             b.push({label:'Report Bug', onClick: SWUReportBug});
             return b;
         }
-        // Real match, not a spectator: allow blocking the opponent. Between Bo3 games this
-        // forfeits the set (server decides); post-game / Bo1 it just blocks.
-        b.push({label:'Block Player', onClick:function(){ SWUBlockOpponent({liveBo3: (bestOf === 3 && !seriesOver)}); }});
+        // (Block Player moved to a collapsible widget below the game-over stats — see SWUShowEndGameMenu.)
         if (bestOf === 3 && !seriesOver) {
             b.push({label:'Return to Main Menu', onClick:function(){ if(window.confirm('Leave now? This forfeits the best-of-3.')) { SubmitInput('10007',''); SWUGoMainMenu(); } }});
             b.push({label:'Go to Next Game', onClick:function(){ SWUGoSideboard(info); }});
@@ -1677,6 +1739,13 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                     return;
                 }
                 ShowGameOver(!!info.didWin, window.SWUMainMenuUrl || null, info.statsHtml || '', SWUBuildEndGameButtons(info));
+                // Collapsible Block Player, placed below the stats panel.
+                var goStats = document.getElementById('game-over-stats');
+                if (goStats) {
+                    var bw = SWUBuildBlockPlayerWidget({ liveBo3: (info.bestOf === 3 && info.matchState !== 'complete') });
+                    // Inside the stats box, right below the stats table (not pushed to the panel bottom).
+                    if (bw) goStats.appendChild(bw);
+                }
                 if (info.convertible) SWUStartEndGamePoll(gn, pid, ak);
             }).catch(function(){
                 var w = SWULocalGameWinner();
@@ -1784,6 +1853,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     window.ShowYesNoDecisionPopup = function (decision, onSubmit) {
         _origShowYesNo(decision, onSubmit);
         if (!isMulligan(decision)) return;
+        if (!window.SWU_MOBILE_LAYOUT) return; // desktop: the hand is already visible on the board
         var modal = document.querySelector('#yesno-decision-modal > div');
         if (!modal) return;
         var row = buildHandRow();
@@ -2021,6 +2091,28 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-settings-row input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; }
   .swu-settings-link { display: inline-block; margin-top: 8px; color: #8cd2ff; font-size: 13px; text-decoration: none; }
   .swu-settings-link:hover { text-decoration: underline; }
+  .swu-settings-action { display: block; width: 100%; margin: 6px 0 0; padding: 9px 12px;
+    background: rgba(180,40,55,0.18); border: 1px solid rgba(220,80,95,0.5); border-radius: 7px;
+    color: #ffd7dc; font: 600 14px/1 var(--swu-font-label, sans-serif); cursor: pointer;
+    transition: background 140ms ease, border-color 140ms ease; }
+  .swu-settings-action:hover { background: rgba(200,50,65,0.32); border-color: rgba(240,110,125,0.8); }
+  /* Collapsible Block Player widget (shared by the gear menu + game-over overlay) */
+  .swu-blockplayer { margin: 8px auto 0; max-width: 360px; text-align: left; }
+  .swu-blockplayer-head { display: block; width: 100%; padding: 6px 0; background: transparent; border: 0;
+    color: rgba(140,210,255,0.7); font: 700 12px/1 var(--swu-font-label, sans-serif);
+    text-transform: uppercase; letter-spacing: 0.05em; cursor: pointer; text-align: left; }
+  .swu-blockplayer-head:hover { color: #cfe6fb; }
+  .swu-blockplayer-body { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    margin-top: 6px; padding: 8px 12px; background: rgba(8,15,25,0.5);
+    border: 1px solid rgba(255,255,255,0.12); border-radius: 7px; }
+  .swu-blockplayer-name { color: #f0e6c8; font-size: 14px; font-weight: 600; overflow: hidden;
+    text-overflow: ellipsis; white-space: nowrap; }
+  .swu-blockplayer-btn { flex: 0 0 auto; padding: 7px 16px; background: rgba(180,40,55,0.22);
+    border: 1px solid rgba(220,80,95,0.6); border-radius: 6px; color: #ffd7dc;
+    font: 700 13px/1 var(--swu-font-label, sans-serif); cursor: pointer; }
+  .swu-blockplayer-btn:hover { background: rgba(200,50,65,0.4); }
+  /* Sits inside the stats box, directly under the stats table. */
+  #game-over-stats .swu-blockplayer { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.12); }
 </style>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
   <div class="swu-settings-panel" role="dialog" aria-modal="true">
@@ -2032,6 +2124,12 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         <input type="checkbox" id="swuSetShowPlaymats"></label>
       <a class="swu-settings-link" href="/TCGEngine/SharedUI/Sites/SWUSim/Profile.php" target="_blank">Change cosmetics on Profile &#8599;</a>
     </div>
+    <div class="swu-settings-section" id="swuSettingsMatchSection" style="display:none; border-top:1px solid rgba(140,210,255,0.2);">
+      <div class="swu-settings-section-title">Match</div>
+      <button class="swu-settings-action" onclick="SWUGearConcede(false)">Concede</button>
+      <button class="swu-settings-action" onclick="SWUGearConcede(true)">Return to Main Menu</button>
+      <div id="swuSettingsBlockMount"></div>
+    </div>
   </div>
 </div>
 <script>
@@ -2039,9 +2137,50 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     var ov = document.getElementById('swuSettingsOverlay'); if (!ov) return;
     var t = document.getElementById('swuSetShowPlaymats');
     if (t && window.TCGSettings) t.checked = window.TCGSettings.get('ShowPlaymats', { rootName:'SWUSim', type:'boolean', defaultValue:true }) !== false;
+    // Match actions are player-only (hidden for spectators / non-players).
+    var ms = document.getElementById('swuSettingsMatchSection');
+    if (ms) {
+      var pf = document.getElementById('playerID');
+      var pid = pf ? parseInt(pf.value || '', 10) : NaN;
+      var isPlayer = (pid === 1 || pid === 2);
+      ms.style.display = isPlayer ? 'block' : 'none';
+      // (Re)build the collapsible Block Player widget for the current opponent.
+      var bm = document.getElementById('swuSettingsBlockMount');
+      if (bm) {
+        bm.innerHTML = '';
+        if (isPlayer && typeof SWUBuildBlockPlayerWidget === 'function') {
+          var w = SWUBuildBlockPlayerWidget({ liveBo3: (window.SWU_MATCH_BESTOF === 3) });
+          if (w) bm.appendChild(w);
+        }
+      }
+    }
     ov.style.display = 'flex';
   }
   function swuCloseSettings() { var ov = document.getElementById('swuSettingsOverlay'); if (ov) ov.style.display = 'none'; }
+  // Concede from the gear menu. Live Bo3 forfeits the whole match (10007); otherwise the game (10006).
+  function SWUGearConcede(goHome) {
+    var pf = document.getElementById('playerID');
+    var pid = pf ? parseInt(pf.value || '', 10) : NaN;
+    if (pid !== 1 && pid !== 2) return; // spectators can't concede
+    var gnEl = document.getElementById('gameName');
+    var akEl = document.getElementById('authKey');
+    var gn = gnEl ? gnEl.value : '';
+    var ak = akEl ? akEl.value : '';
+    function act(liveBo3) {
+      var msg = liveBo3
+        ? 'Concede the whole match? This forfeits the entire series.'
+        : 'Concede this game? This will immediately count as a loss for you.';
+      if (!window.confirm(msg)) return;
+      SubmitInput(liveBo3 ? '10007' : '10006', '');
+      swuCloseSettings();
+      if (goHome && typeof SWUGoMainMenu === 'function') SWUGoMainMenu();
+    }
+    fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
+      .then(function(r){ return r.json(); })
+      .then(function(info){ act(!!(info && info.isMatch && info.bestOf === 3 && info.matchState !== 'complete')); })
+      .catch(function(){ act(false); }); // fall back to single-game concede on any error
+  }
+  window.SWUGearConcede = SWUGearConcede;
   document.addEventListener('change', function (e) {
     if (e.target && e.target.id === 'swuSetShowPlaymats') {
       if (window.TCGSettings) window.TCGSettings.set('ShowPlaymats', e.target.checked, { rootName:'SWUSim', type:'boolean' });

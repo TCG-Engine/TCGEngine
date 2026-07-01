@@ -6,6 +6,19 @@ include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 
 $conn = GetLocalMySQLConnection();
 
+// Token cardIDs that aren't real SWUDeck cards (no entry in $titleData) but appear
+// in stats. Map them to friendly display names.
+$tokenCardNames = [
+  '4571900905' => 'Force token',
+  '8752877738' => 'Shield token',
+  '2007868442' => 'XP token',
+  '6665455613' => 'Spy token',
+  '7268926664' => 'TIE token',
+  '9415311381' => 'X-Wing token',
+  '3463348370' => 'Droid token',
+  '3941784506' => 'Clone token',
+];
+
 // Accept optional startWeek and endWeek query parameters (integers). Default to week=0 for backward compatibility.
 $startWeek = isset($_GET['startWeek']) ? intval($_GET['startWeek']) : null;
 $endWeek = isset($_GET['endWeek']) ? intval($_GET['endWeek']) : null;
@@ -63,6 +76,10 @@ if ($result && $result->num_rows > 0) {
     $cardName = $cardTitle;
     if ($cardSubtitle != "") {
       $cardName .= ", " . $cardSubtitle;
+    }
+    // Fall back to a friendly token name for non-card token IDs.
+    if (($cardName === null || $cardName === "") && isset($tokenCardNames[$card['cardID']])) {
+      $cardName = $tokenCardNames[$card['cardID']];
     }
 
     $response[] = [

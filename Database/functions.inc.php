@@ -755,6 +755,21 @@ function LoadBlockedUsersDetailed($userId)
 	return $out;
 }
 
+// Look up a user's display username (usersUid) by id. Null if not found / anonymous.
+function LoadUsernameById($userId)
+{
+	$userId = (int)$userId;
+	if ($userId <= 0) return null;
+	$conn = GetLocalMySQLConnection();
+	$stmt = mysqli_prepare($conn, "SELECT usersUid FROM `users` WHERE usersId = ? LIMIT 1");
+	mysqli_stmt_bind_param($stmt, "i", $userId);
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_bind_result($stmt, $uname);
+	$found = mysqli_stmt_fetch($stmt) ? $uname : null;
+	mysqli_stmt_close($stmt); mysqli_close($conn);
+	return ($found !== null && $found !== '') ? $found : null;
+}
+
 function SendEmail($userEmail, $url)
 {
 	include "../APIKeys/APIKeys.php";
