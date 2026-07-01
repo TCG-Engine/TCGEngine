@@ -6030,6 +6030,13 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
             break;
+        case "pbtudivyzb": // Chamber of Reflections: REST + sacrifice self
+            $sourceObj = &GetZoneObject($mzCard);
+            if($sourceObj !== null) $sourceObj->Status = 1;
+            OnLeaveField($player, $mzCard);
+            MZMove($player, $mzCard, "myGraveyard");
+            DecisionQueueController::CleanupRemovedCards();
+            break;
         case "uy4xippor7": // Oasis Trading Post: REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
