@@ -887,6 +887,10 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
             0%, 100% { text-shadow: 0 0 20px rgba(212, 147, 58, 0.8), 0 0 40px rgba(212, 147, 58, 0.4); }
             50% { text-shadow: 0 0 30px rgba(212, 147, 58, 1), 0 0 60px rgba(212, 147, 58, 0.6); }
           }
+          @keyframes pulseGlowIcon {
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.2)); }
+            50% { filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.55)) drop-shadow(0 0 36px rgba(255, 255, 255, 0.3)); }
+          }
           @keyframes countdownPop {
             0% { transform: scale(1.5); opacity: 0; }
             50% { transform: scale(1.1); opacity: 1; }
@@ -906,8 +910,8 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           width: 213px;
           height: 160px;
           margin-bottom: 20px;
-          filter: drop-shadow(0 0 20px rgba(212, 147, 58, 0.6));
-          animation: pulseGlow 1.5s ease-in-out infinite;
+          filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.2));
+          animation: pulseGlowIcon 1.5s ease-in-out infinite;
         `;
 
         var titleElement = document.createElement('h1');

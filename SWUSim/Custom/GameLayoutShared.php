@@ -18,6 +18,20 @@
     box-shadow: 0 0 9px 3px rgba(60,220,90,0.70), inset 0 0 4px rgba(60,220,90,0.55);
     border-radius: 4px; cursor: pointer;
 }
+
+/* ── Arena HUD darkening overlay (shared: desktop + mobile) ─────────────────────
+   Blue cyan-interface wash inside each arena box, clipped to the box (behind the
+   cards, below the corner brackets). Kept here so both layouts share one definition.
+     • Desktop box = .swu-arena-bg — a z-index:29 fixed frame; the card columns are
+       separate z-index:30 elements, so this ::after lands behind them.
+     • Mobile box  = .swu-m-arena-col — an isolated stacking context whose card
+       content is lifted to z-index:1 (see GameLayoutMobile.php). */
+.swu-arena-bg::after,
+.swu-m-arena-col::after {
+    content: ''; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    border-radius: 4px;
+    background: linear-gradient(180deg, rgba(20,50,90,0.18), rgba(8,14,22,0.33));
+}
 /* Action-available glows for the Leader / Base / Resource / Discard slots + per-card Smuggle /
    discard highlights. Applied by refreshActionGlows / refreshResourceCardGlows /
    refreshDiscardCardGlows in this file's JS — kept HERE (not desktop-only GameLayout.php) so the
@@ -2053,15 +2067,32 @@ function ApplyCosmeticPlaymats() {
     if (window.TCGSettings && typeof window.TCGSettings.get === 'function') {
       show = window.TCGSettings.get('ShowPlaymats', { rootName: 'SWUSim', type: 'boolean', defaultValue: true }) !== false;
     }
-    var top = document.querySelector('.swu-playmat-top');   // opponent side
-    var bot = document.querySelector('.swu-playmat-bot');   // my side
+    // Transparent-black tint layered OVER the mat art (and under the arena HUD wash),
+    // so the mat reads darker/uniform behind the cards. Layered into the same
+    // background as the mat image → it only shows where a mat is set. Tune the alpha.
+    var TINT = 'rgba(10,10,10,0.67)';
+    var matBg = function (asset) { return "linear-gradient(" + TINT + "," + TINT + "), url('" + asset + "')"; };
+    var top = document.querySelector('.swu-playmat-top');   // opponent side (desktop)
+    var bot = document.querySelector('.swu-playmat-bot');   // my side (desktop)
     function paint(el, asset) {
       if (!el) return;
-      if (show && asset) { el.style.backgroundImage = "url('" + asset + "')"; el.style.display = 'block'; }
+      if (show && asset) { el.style.backgroundImage = matBg(asset); el.style.display = 'block'; }
       else { el.style.display = 'none'; }
     }
     paint(bot, c.myPlaymat);
     paint(top, c.theirPlaymat);
+
+    // Mobile: no dedicated playmat divs — the per-side mat backs each player's arena
+    // row directly (cover/center = inner slice). Toggle .has-playmat for the overlay.
+    var mMine   = document.querySelector('.swu-m-arena-row.is-mine');
+    var mTheirs = document.querySelector('.swu-m-arena-row.is-theirs');
+    function paintRow(el, asset) {
+      if (!el) return;
+      if (show && asset) { el.style.backgroundImage = matBg(asset); el.classList.add('has-playmat'); }
+      else { el.style.backgroundImage = ''; el.classList.remove('has-playmat'); }
+    }
+    paintRow(mMine, c.myPlaymat);
+    paintRow(mTheirs, c.theirPlaymat);
   } catch (e) {}
 }
 if (document.readyState !== 'loading') ApplyCosmeticPlaymats();
@@ -2072,7 +2103,7 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
 <!-- ── In-game Settings hub (gear menu) ─────────────────────────────────────── -->
 <style>
   .swu-header-right { display: flex; align-items: center; gap: 8px; }
-  .swu-gear-btn { background: transparent; border: 0; color: rgba(140,210,255,0.85); font-size: 20px;
+  .swu-gear-btn { background: transparent; border: 0; color: rgba(140,210,255,0.85); font-size: 40px;
     line-height: 1; cursor: pointer; padding: 2px 4px; filter: drop-shadow(0 0 4px rgba(140,210,255,0.4));
     transition: transform 140ms ease, color 140ms ease; }
   .swu-gear-btn:hover { color: #fff; transform: rotate(40deg); }

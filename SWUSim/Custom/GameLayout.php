@@ -71,9 +71,15 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         --swu-hud-pad:      40px;
         --swu-init-w:       80px;
         --swu-res-w:        80px;
+        /* Extra right-margin for the play cluster (resources / hand / deck / discard).
+           Pulls that whole cluster LEFT off the mat's rounded right corner so the piles
+           land on the flat mat, and tightens the gap between it and the far-left
+           initiative token (which stays pinned to its corner). Tune to taste. */
+        --swu-play-margin-r: 90px;
+
         /* Hand panel width (right-anchored). Factored out so the control band can
            span exactly up to the hand's left edge and balance its outer gaps. */
-        --swu-hand-w: calc((100vw - var(--swu-sidebar-w) - var(--swu-init-w) - var(--swu-res-w) - var(--swu-pile-zone-w)) * 0.9);
+        --swu-hand-w: calc((100vw - var(--swu-sidebar-w) - var(--swu-play-margin-r) - var(--swu-init-w) - var(--swu-res-w) - var(--swu-pile-zone-w)) * 0.9);
 
         /* Arena column width: (board - res-badge - center - 2×gap) / 2 */
         --swu-col-w: calc((var(--swu-board-w) - var(--swu-res-badge-w) - var(--swu-center-w) - 20px) / 2);
@@ -85,6 +91,24 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
         /* Midline vertical offset */
         --swu-midline: 50%;
+
+        /* Breathing room around each arena box (space / ground) — insets the frame
+           + its card columns off the screen edges, center column, and hand bands,
+           mirroring the mobile arena margins. Midline stays internal to the box. */
+        --swu-arena-margin: 24px;
+
+        /* Playmat / board-art corner rounding (makes the mat read as a physical mat) */
+        --swu-playmat-radius: 64px;
+        /* Vertical gap between the two per-side mats at the midline (desktop) — each
+           pulls back half this, so the mats separate by the full amount. */
+        --swu-playmat-gap: 18px;
+        /* Outer vertical margin of the desktop playmats — my mat's BOTTOM edge and
+           their mat's TOP edge (the hand-band-facing edges). 8px tighter than the
+           shared arena margin. */
+        --swu-playmat-margin-y: calc(var(--swu-arena-margin) - 16px);
+        /* Mat edge — a hairline so the rounded corners read even where the art is
+           dark (e.g. the top space-arena half against the dark background). */
+        --swu-playmat-edge: 1px solid rgba(255,255,255,0.16);
     }
 
     /* ── Global ─────────────────────────────────────────────────────────────── */
@@ -97,7 +121,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        fixed layer that sits ABOVE those containers (like .swu-starfield does) but
        below the starfield, arenas, and all game content. */
     .swu-board-bg {
-        position: fixed; inset: 0; z-index: 9; pointer-events: none;
+        position: fixed; top: 0; bottom: 0; left: 0; right: var(--swu-sidebar-w);
+        z-index: 9; pointer-events: none;
         background:
             linear-gradient(to right,
                 rgba(0,0,0,0.05) var(--swu-center-left),
@@ -107,12 +132,21 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
 
     /* ── Cosmetic playmats (per side; above board-bg=9, below zones) ──────────── */
     .swu-playmat {
-        position: fixed; left: 0; right: 0; z-index: 10;
+        position: fixed; z-index: 10;
+        /* Inset by the arena margin so each mat floats with the same breathing room as
+           the arena boxes (desktop only — mobile paints an overfilled bg on its cols). */
+        left:  var(--swu-arena-margin);
+        right: calc(var(--swu-sidebar-w) + var(--swu-arena-margin));
         background-size: cover; background-position: center; background-repeat: no-repeat;
         pointer-events: none;
     }
-    .swu-playmat-top { top: 0; bottom: 50%; }
-    .swu-playmat-bot { top: 50%; bottom: 0; }
+    .swu-playmat-top { top: var(--swu-playmat-margin-y); bottom: calc(50% + var(--swu-playmat-gap) / 2); }
+    .swu-playmat-bot { top: calc(50% + var(--swu-playmat-gap) / 2); bottom: var(--swu-playmat-margin-y); }
+    /* Each side is its own physical mat — round all four corners + full edge. */
+    .swu-playmat-top, .swu-playmat-bot {
+        border-radius: var(--swu-playmat-radius);
+        border: var(--swu-playmat-edge);
+    }
 
     /* ── Starfield ───────────────────────────────────────────────────────────── */
     .swu-starfield {
@@ -186,7 +220,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         position: fixed; z-index: 38;
         /* Span the whole free zone — left edge to the hand's left edge — with equal
            --swu-hud-pad on both sides, so the gap (edge → init) matches (res → hand). */
-        left: 0; right: calc(var(--swu-sidebar-w) + var(--swu-pile-zone-w) + var(--swu-hand-w));
+        left: 0; right: calc(var(--swu-sidebar-w) + var(--swu-play-margin-r) + var(--swu-pile-zone-w) + var(--swu-hand-w));
         height: var(--swu-hand-h);
         padding: 0 var(--swu-hud-pad);
         display: flex; align-items: center; justify-content: space-between;
@@ -356,8 +390,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
        draws the HUD frame around both halves, letting the page background show through. */
     .swu-arena-bg {
         position: fixed; z-index: 29; pointer-events: none;
-        width: var(--swu-col-w);
-        top: var(--swu-hand-h); bottom: var(--swu-hand-h);
+        width: calc(var(--swu-col-w) - 2 * var(--swu-arena-margin));
+        top: calc(var(--swu-hand-h) + var(--swu-arena-margin));
+        bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin));
         background: transparent;
         /* Faint light-blue full frame + soft glow — the sci-fi targeting-HUD look. */
         border: 1px solid rgba(120,200,255,0.22);
@@ -375,7 +410,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* Bright cyan L-brackets at all four corners. Eight gradient slices (one
        horizontal + one vertical arm per corner) painted on a single pseudo. */
     .swu-arena-bg::before {
-        content: ''; position: absolute; inset: -1px; pointer-events: none;
+        content: ''; position: absolute; inset: -1px; z-index: 1; pointer-events: none;
         --c:   rgba(150,215,255,0.92);   /* bracket color */
         --len: 26px;                     /* arm length    */
         --th:  3px;                      /* arm thickness */
@@ -391,8 +426,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
             linear-gradient(var(--c),var(--c)) right bottom / var(--len) var(--th) no-repeat,
             linear-gradient(var(--c),var(--c)) right bottom / var(--th)  var(--len) no-repeat;
     }
-    .swu-arena-bg-space  { left: var(--swu-space-left);  }
-    .swu-arena-bg-ground { left: var(--swu-ground-left); }
+    .swu-arena-bg-space  { left: calc(var(--swu-space-left)  + var(--swu-arena-margin)); }
+    .swu-arena-bg-ground { left: calc(var(--swu-ground-left) + var(--swu-arena-margin)); }
     @keyframes swuArenaBracketPulse {
         0%, 100% { filter: drop-shadow(0 0 3px rgba(150,215,255,0.45)); }
         50%      { filter: drop-shadow(0 0 8px rgba(150,215,255,0.95)); }
@@ -401,13 +436,13 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* ── Arena columns ───────────────────────────────────────────────────────── */
     .swu-arena-col {
         position: fixed; z-index: 30; pointer-events: auto;
-        width: var(--swu-col-w);
+        width: calc(var(--swu-col-w) - 2 * var(--swu-arena-margin));
         overflow: hidden; border-radius: 0;
     }
-    .swu-arena-col-space  { background: transparent; left: var(--swu-space-left);  }
-    .swu-arena-col-ground { background: transparent; left: var(--swu-ground-left); }
-    .swu-arena-col-top    { top: var(--swu-hand-h); bottom: calc(var(--swu-midline) + 4px); }
-    .swu-arena-col-bot    { top: calc(var(--swu-midline) + 4px); bottom: var(--swu-hand-h); }
+    .swu-arena-col-space  { background: transparent; left: calc(var(--swu-space-left)  + var(--swu-arena-margin)); }
+    .swu-arena-col-ground { background: transparent; left: calc(var(--swu-ground-left) + var(--swu-arena-margin)); }
+    .swu-arena-col-top    { top: calc(var(--swu-hand-h) + var(--swu-arena-margin)); bottom: calc(var(--swu-midline) + 4px); }
+    .swu-arena-col-bot    { top: calc(var(--swu-midline) + 4px); bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin)); }
 
     /* Card flow inside arena cols — wrap, fill from edge nearest midline */
     #theirSpaceArena, #theirGroundArena { flex-wrap: wrap !important; align-content: flex-end !important; }
@@ -465,7 +500,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-pile-row {
         position: fixed; z-index: 37; pointer-events: auto;
         display: flex; gap: 6px; align-items: center;
-        right: var(--swu-sidebar-w);
+        right: calc(var(--swu-sidebar-w) + var(--swu-play-margin-r));
     }
     #myPileRow    { bottom: 0; height: var(--swu-hand-h); }
     #theirPileRow { top: 0;    height: var(--swu-hand-h); }
@@ -640,7 +675,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         /* Right-anchored just before the deck/discard pile zone; sized to ~84% of
            the span between the resources slot and the piles. The freed space opens
            up on the left, between the resources slot and the hand. */
-        right: calc(var(--swu-sidebar-w) + var(--swu-pile-zone-w));
+        right: calc(var(--swu-sidebar-w) + var(--swu-play-margin-r) + var(--swu-pile-zone-w));
         width: var(--swu-hand-w);
         height: var(--swu-hand-h);
         background:
