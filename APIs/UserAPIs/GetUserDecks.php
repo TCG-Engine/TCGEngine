@@ -241,17 +241,22 @@ if (!in_array($sort, ['name', 'date'])) {
 }
 
 // Build the query based on the assetFolder column (favorites)
-$sql = "SELECT 
-            o.assetIdentifier as id, 
-            o.assetName as name, 
-            o.assetVisibility as visibility, 
+// Match decks the user OWNS, plus decks shared to the user's team
+// (assetVisibility = 1000 + the user's teamID). COALESCE keeps the clause safe for
+// users with no team (1000 + 0 = 1000, which matches no real deck).
+$ownershipClause = "(o.assetOwner = ? OR o.assetVisibility = (1000 + COALESCE((SELECT teamID FROM users WHERE usersId = ?), 0)))";
+$sql = "SELECT
+            o.assetIdentifier as id,
+            o.assetName as name,
+            o.assetVisibility as visibility,
             o.assetFolder as folder,
             (o.assetFolder = 1) as is_favorite,
+            o.assetOwner as owner,
             o.numLikes as likes,
             o.keyIndicator1,
-            o.keyIndicator2 
-        FROM ownership o 
-        WHERE o.assetOwner = ? AND o.assetType = 1 AND o.assetStatus != 0";
+            o.keyIndicator2
+        FROM ownership o
+        WHERE $ownershipClause AND o.assetType = 1 AND o.assetStatus != 0";
 
 // Add favorites filter if requested
 if ($favorites_only) {
@@ -273,7 +278,7 @@ $sql .= " LIMIT ? OFFSET ?";
 
 // Prepare and execute the statement
 $stmt = mysqli_prepare($conn, $sql);
-mysqli_stmt_bind_param($stmt, "iii", $userId, $limit, $offset);
+mysqli_stmt_bind_param($stmt, "iiii", $userId, $userId, $limit, $offset);
 mysqli_stmt_execute($stmt);
 $result = mysqli_stmt_get_result($stmt);
 
@@ -299,18 +304,22 @@ while ($row = mysqli_fetch_assoc($result)) {
     
     // Convert the boolean flag for favorites
     $row['is_favorite'] = (bool)$row['is_favorite'];
-    
+
+    // Flag whether the deck is the caller's own or a team-shared deck, then drop the raw owner id.
+    $row['is_owner'] = ((int)$row['owner'] === (int)$userId);
+    unset($row['owner']);
+
     $decks[] = $row;
 }
 
-// Get total count for pagination
+// Get total count for pagination (same ownership + team clause as the main query).
 if ($favorites_only) {
-    $countSql = "SELECT COUNT(*) as total FROM ownership o WHERE o.assetOwner = ? AND o.assetType = 1 AND o.assetFolder = 1 AND o.assetStatus != 0";
+    $countSql = "SELECT COUNT(*) as total FROM ownership o WHERE $ownershipClause AND o.assetType = 1 AND o.assetFolder = 1 AND o.assetStatus != 0";
 } else {
-    $countSql = "SELECT COUNT(*) as total FROM ownership o WHERE o.assetOwner = ? AND o.assetType = 1 AND o.assetStatus != 0";
+    $countSql = "SELECT COUNT(*) as total FROM ownership o WHERE $ownershipClause AND o.assetType = 1 AND o.assetStatus != 0";
 }
 $countStmt = mysqli_prepare($conn, $countSql);
-mysqli_stmt_bind_param($countStmt, "i", $userId);
+mysqli_stmt_bind_param($countStmt, "ii", $userId, $userId);
 mysqli_stmt_execute($countStmt);
 $countResult = mysqli_stmt_get_result($countStmt);
 $countRow = mysqli_fetch_assoc($countResult);

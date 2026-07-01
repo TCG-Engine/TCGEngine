@@ -1,3 +1,11 @@
+<?php
+// Start the session before ANY output so its cookie can be sent and $_SESSION is
+// populated for the whole request. With output_buffering off, headers are sent the
+// moment the markup below is emitted, after which session_start() silently no-ops —
+// which stripped the logged-in user's identity from the deck visibility dropdown
+// (the Team/Patreon options), since those need LoggedInUser() deep in InitialLayout.php.
+if (session_status() === PHP_SESSION_NONE) session_start();
+?>
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -203,16 +211,14 @@
       exit;
     }
 
-    // HTML is already emitted above this point, so session_start() can't send its
-    // cookie header — guard to avoid a "headers already sent" warning. When the
-    // session is unavailable, auth falls through to the URL authKey / lastAuthKey cookie.
+    // The session was started at the very top of this file (before any output), so
+    // $_SESSION is populated here and further down (e.g. the deck visibility dropdown's
+    // Team/Patreon options). Read seat auth from it, then release the session lock so
+    // concurrent same-session requests aren't blocked ($_SESSION stays readable after close).
     $authKey = "";
-    if (!headers_sent()) {
-      session_start();
-      if ($playerID == 1 && isset($_SESSION["p1AuthKey"])) $authKey = $_SESSION["p1AuthKey"];
-      else if ($playerID == 2 && isset($_SESSION["p2AuthKey"])) $authKey = $_SESSION["p2AuthKey"];
-      session_write_close();
-    }
+    if ($playerID == 1 && isset($_SESSION["p1AuthKey"])) $authKey = $_SESSION["p1AuthKey"];
+    else if ($playerID == 2 && isset($_SESSION["p2AuthKey"])) $authKey = $_SESSION["p2AuthKey"];
+    if (session_status() === PHP_SESSION_ACTIVE) session_write_close();
     if ($authKey === "") $authKey = TryGet("authKey", "");
 
     if(($playerID == 1 || $playerID == 2) && $authKey == "")

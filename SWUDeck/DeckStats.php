@@ -1,4 +1,7 @@
 <?php
+  // Start the session before any output so $_SESSION is populated for InitialLayout.php's
+  // visibility dropdown (the Team/Patreon options need the logged-in user).
+  if (session_status() === PHP_SESSION_NONE) session_start();
   include_once './GamestateParser.php';
   include_once './ZoneAccessors.php';
   include_once './ZoneClasses.php';
