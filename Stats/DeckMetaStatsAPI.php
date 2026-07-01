@@ -8,19 +8,22 @@ header('Content-Type: application/json');
 
 $conn = GetLocalMySQLConnection();
 
-// Accept optional startWeek and endWeek query parameters (integers). Default behavior is week=0 for backward compatibility.
+// Optional week filter (uniform across the meta-stats family). intval()'d, so safe to inline:
+//   none           -> all weeks (all-time)
+//   startWeek only -> week >= startWeek  (that week to the end)
+//   endWeek only   -> week <= endWeek    (from 0 to that week)
+//   both           -> week BETWEEN start AND end (auto-swapped)
+// Rows are aggregated across the selected weeks by leaderID+baseID below.
 $startWeek = isset($_GET['startWeek']) ? intval($_GET['startWeek']) : null;
 $endWeek = isset($_GET['endWeek']) ? intval($_GET['endWeek']) : null;
 
 if ($startWeek === null && $endWeek === null) {
-  $where = 'week = 0';
+  $where = '1';
 } elseif ($startWeek !== null && $endWeek === null) {
-  // Single week
-  $where = 'week = ' . $startWeek;
+  $where = 'week >= ' . $startWeek;
+} elseif ($startWeek === null && $endWeek !== null) {
+  $where = 'week <= ' . $endWeek;
 } else {
-  // Both provided or only endWeek provided: normalize so start <= end
-  if ($startWeek === null) $startWeek = $endWeek;
-  if ($endWeek === null) $endWeek = $startWeek;
   if ($startWeek > $endWeek) {
     $tmp = $startWeek; $startWeek = $endWeek; $endWeek = $tmp;
   }

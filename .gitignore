@@ -197,3 +197,8 @@ SharedUI/MainMenu.php
 SharedUI/Profile.php
 SharedUI/LoginPage.php
 SharedUI/Signup.php
+
+# --- Local dev DB snapshot tooling (kept local for now) ---
+DevTools/snapshot-prod-db.sh
+DevTools/scrub-local-db.sh
+DevTools/.snapshots/

@@ -94,8 +94,13 @@ $forIndividual = false;
   // use flex layout when showing so centering works
   $('#matchupModal').css('display','flex');
     $('#matchupModalBody').html('Loading...');
-    // AJAX to fetch matchup data
-    $.get('../APIs/DeckMetaMatchupStatsAPI.php', { leaderID: leaderID, baseID: baseID }, function(data) {
+    // AJAX to fetch matchup data — aggregated over the SAME week window the deck
+    // table is showing, so the drilldown matches the numbers above it.
+    var mParams = { leaderID: leaderID, baseID: baseID };
+    var mStart = document.getElementById('startWeek'), mEnd = document.getElementById('endWeek');
+    if (mStart && mStart.value !== '') mParams.startWeek = mStart.value;
+    if (mEnd && mEnd.value !== '') mParams.endWeek = mEnd.value;
+    $.get('../APIs/DeckMetaMatchupStatsAPI.php', mParams, function(data) {
       try {
         var json = typeof data === 'string' ? JSON.parse(data) : data;
         if (!Array.isArray(json) || json.length === 0) {

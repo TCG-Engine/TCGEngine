@@ -19,7 +19,9 @@ $tokenCardNames = [
   '3941784506' => 'Clone token',
 ];
 
-// Accept optional startWeek and endWeek query parameters (integers). Default to week=0 for backward compatibility.
+// Optional week filter (uniform across the meta-stats family). intval()'d, so safe to inline:
+//   none -> all weeks | startWeek only -> week >= startWeek | endWeek only -> week <= endWeek
+//   both -> week BETWEEN start AND end (auto-swapped). Rows aggregated by cardID below.
 $startWeek = isset($_GET['startWeek']) ? intval($_GET['startWeek']) : null;
 $endWeek = isset($_GET['endWeek']) ? intval($_GET['endWeek']) : null;
 
@@ -27,12 +29,12 @@ $sortColumn = isset($_GET['sort']) ? $_GET['sort'] : 'cardID';
 $sortOrder = isset($_GET['order']) && $_GET['order'] == 'desc' ? 'desc' : 'asc';
 
 if ($startWeek === null && $endWeek === null) {
-  $where = 'week = 0';
+  $where = '1';
 } elseif ($startWeek !== null && $endWeek === null) {
-  $where = 'week = ' . $startWeek;
+  $where = 'week >= ' . $startWeek;
+} elseif ($startWeek === null && $endWeek !== null) {
+  $where = 'week <= ' . $endWeek;
 } else {
-  if ($startWeek === null) $startWeek = $endWeek;
-  if ($endWeek === null) $endWeek = $startWeek;
   if ($startWeek > $endWeek) { $tmp = $startWeek; $startWeek = $endWeek; $endWeek = $tmp; }
   $where = 'week BETWEEN ' . $startWeek . ' AND ' . $endWeek;
 }
