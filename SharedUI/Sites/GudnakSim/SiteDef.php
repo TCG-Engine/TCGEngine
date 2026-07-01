@@ -29,7 +29,7 @@
     ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/gudnak'],
   ],
   'profile' => [
-    'sections'         => ['discord','team'],
+    'sections'         => ['welcome'],
     'oauthAppLabel'    => 'Gudnak Simulator',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordClientID'  => '1338995198730043432',

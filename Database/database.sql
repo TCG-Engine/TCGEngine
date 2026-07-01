@@ -369,7 +369,8 @@ ALTER TABLE `carddeckstats`
 --
 ALTER TABLE `blocklist`
   ADD PRIMARY KEY (`blockingPlayer`,`blockedPlayer`),
-  ADD KEY `blockingPlayer` (`blockingPlayer`);
+  ADD KEY `blockingPlayer` (`blockingPlayer`),
+  ADD KEY `blockedPlayer` (`blockedPlayer`);
 
 --
 -- Indexes for table `ownership`

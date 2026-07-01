@@ -109,16 +109,24 @@
 
     /* ── Side-by-side arena row (Space | Ground) ─────────────────────────────── */
     .swu-m-arena-row {
+        position: relative;
         display: flex; gap: 6px; padding: 5px 30px;
         border-bottom: 1px solid rgba(255,255,255,0.05);
+        /* Playmat (mobile): ApplyCosmeticPlaymats() sets the per-side mat image on
+           this element; `cover`/center shows just its inner vertical slice — the
+           piece that fits the phone's tall-narrow arena band. */
+        background-position: center; background-size: cover; background-repeat: no-repeat;
     }
-    .swu-m-arena-row.is-mine   { background: rgba(60,120,200,0.06); }
-    .swu-m-arena-row.is-theirs { background: rgba(200,80,80,0.05); }
+    /* Faint side tint — the base look when no playmat is set. */
+    .swu-m-arena-row.is-mine   { background-color: rgba(60,120,200,0.06); }
+    .swu-m-arena-row.is-theirs { background-color: rgba(200,80,80,0.05); }
+    /* The blue HUD darkening overlay lives on each arena BOX (.swu-m-arena-col ::after)
+       so it's clipped to the cyan-bracketed boundary rather than the whole row. */
     /* Light-blue tech-HUD frame per arena — faint full border + glow plus bright
        cyan L-brackets at the corners (matches desktop .swu-arena-bg). Lives on the
        non-scrolling col wrapper so the brackets stay put while the slot scrolls. */
     .swu-m-arena-col {
-        position: relative; flex: 1 1 0; min-width: 0; padding: 4px;
+        position: relative; isolation: isolate; flex: 1 1 0; min-width: 0; padding: 4px;
         border: 1px solid rgba(120,200,255,0.22); border-radius: 4px;
         box-shadow: 0 0 6px rgba(80,170,255,0.10), inset 0 0 14px rgba(80,170,255,0.08);
         animation: swuMArenaPulse 3.2s ease-in-out infinite;
@@ -129,8 +137,12 @@
         50%      { border-color: rgba(150,215,255,0.42);
                    box-shadow: 0 0 13px rgba(95,185,255,0.28), inset 0 0 18px rgba(95,185,255,0.13); }
     }
+    /* The blue HUD darkening (.swu-m-arena-col::after) is a SHARED style, defined in
+       GameLayoutShared.php so desktop (.swu-arena-bg) and mobile use one definition.
+       Card content sits above it; brackets stay on top of everything. */
+    .swu-m-arena-col > * { position: relative; z-index: 1; }
     .swu-m-arena-col::before {
-        content: ''; position: absolute; inset: -1px; pointer-events: none;
+        content: ''; position: absolute; inset: -1px; z-index: 3; pointer-events: none;
         --c: rgba(150,215,255,0.92);   /* bracket color */
         --len: 18px;                   /* arm length    */
         --th: 3px;                     /* arm thickness */

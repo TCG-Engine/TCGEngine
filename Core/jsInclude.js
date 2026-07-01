@@ -211,6 +211,17 @@ function ApplyChatPayload(payload) {
     if (m.id > _lastChatID) _lastChatID = m.id;
   }
   if (version > _lastChatVersion) _lastChatVersion = version;
+  // Neutral "chat disabled" state (e.g. a player was blocked). Never reveals why.
+  var ci = document.getElementById("chatText");
+  if (ci) {
+    if (payload.chatDisabled) {
+      if (!ci.disabled) { ci.dataset.ph = ci.placeholder || ""; ci.placeholder = "Chat disabled"; }
+      ci.disabled = true;
+    } else if (ci.disabled) {
+      ci.disabled = false;
+      if (ci.dataset.ph !== undefined) ci.placeholder = ci.dataset.ph;
+    }
+  }
   return msgs.length > 0 || version > 0;
 }
 
@@ -222,7 +233,10 @@ function _AppendChatMessage(msg) {
   div.style.cssText = "padding:2px 4px; word-break:break-word; font-size:13px;";
   var label = document.createElement("span");
   label.style.cssText = "font-weight:700; margin-right:4px;";
-  label.textContent = (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID)) + ":";
+  // Prefer the seat's username (SWUSim) so chat reads from real names; fall back to P#/label.
+  var seatName = (window.SWU_SEAT_USERNAMES && (msg.playerID === 1 || msg.playerID === 2 || msg.playerID === "1" || msg.playerID === "2"))
+    ? window.SWU_SEAT_USERNAMES[String(msg.playerID)] : null;
+  label.textContent = (seatName ? seatName : (msg.playerLabel ? msg.playerLabel : ("P" + msg.playerID))) + ":";
   var body = document.createElement("span");
   body.textContent = msg.text;
   div.appendChild(label);

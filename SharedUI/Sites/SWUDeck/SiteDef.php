@@ -40,7 +40,7 @@
     ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/5ZHXyVvVFC'],
   ],
   'profile' => [
-    'sections'         => ['password','patreon','discord','team','oauthDev'],
+    'sections'         => ['welcome+changePassword','team','developerOptions'],
     'oauthAppLabel'    => 'SWUDeck',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordClientID'  => '1338995198730043432',

@@ -33,7 +33,7 @@
     'emptyText'       => 'No saved decks yet - paste a deck link and save it.',
   ],
   'profile' => [
-    'sections'         => ['discord','team'],
+    'sections'         => ['welcome'],
     'oauthAppLabel'    => 'Clarent',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordClientID'  => '1338995198730043432',

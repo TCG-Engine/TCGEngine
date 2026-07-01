@@ -29,9 +29,14 @@ function ValidateSiteDef(array $def): array {
             }
         }
     }
-    $known = ['password','patreon','discord','team','oauthDev','savedDecks','cosmetics'];
+    $known = ['changePassword','welcome','team','developerOptions','savedDecks','cosmetics','blockedUsers'];
     foreach (($def['profile']['sections'] ?? []) as $s) {
-        if (!in_array($s, $known, true)) $errors[] = "profile.sections has unknown section '$s'";
+        // An entry may combine up to 2 panels with '+' (e.g. 'welcome+changePassword') → one pane.
+        $panels = array_values(array_filter(array_map('trim', explode('+', (string)$s))));
+        if (count($panels) > 2) $errors[] = "profile.sections entry '$s' combines more than 2 panels";
+        foreach ($panels as $p) {
+            if (!in_array($p, $known, true)) $errors[] = "profile.sections has unknown section '$p'";
+        }
     }
     if (isset($def['deckLibrary'])) {
         if (!is_array($def['deckLibrary'])) {

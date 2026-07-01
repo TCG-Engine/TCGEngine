@@ -27,6 +27,17 @@ if ($folderPath !== "") {
     }
 }
 
+// Blocked players cannot chat. Generic response — never reveals the block to the other side.
+if ($folderPath === 'SWUSim') {
+    $swuMatchFlow = __DIR__ . '/SWUSim/MatchFlow.php';
+    if (is_file($swuMatchFlow)) {
+        include_once $swuMatchFlow;
+        if (function_exists('SWUAreGamePlayersBlocked') && SWUAreGamePlayersBlocked($gameName)) {
+            echo "Chat disabled."; exit;
+        }
+    }
+}
+
 // Store message in APCu
 if (!extension_loaded('apcu') || !apcu_enabled()) { echo "Chat unavailable (APCu not enabled)."; exit; }
 

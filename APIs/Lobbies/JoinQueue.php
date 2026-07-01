@@ -3,6 +3,7 @@
   require_once "../../Core/NetworkingLibraries.php";
   require_once "../../Core/HTTPLibraries.php";
   require_once "./Classes/Player.php";
+  require_once __DIR__ . '/JoinQueue_blocklib.php';
 
   // Personal deck stats (Feature B): remember who created each seat so the match can attribute W/L.
   if (session_status() === PHP_SESSION_NONE) { @session_start(); }
@@ -52,6 +53,16 @@
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
     if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
+    // Only logged-in users may join the public queue for non-Open formats (Open is the
+    // anonymous-friendly format). Goldfish (solo) and private games (invite link) are exempt.
+    $swuPublicQueue = !$createGoldfish && !$createPrivate && $privateInviteCode === '';
+    if ($format !== 'open' && $swuPublicQueue && !$joiningUserId) {
+      $response->success = false;
+      $response->message = "You must be logged in to join this queue.";
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
   }
 
   // Require either deckLink or preconstructedDeck
@@ -131,6 +142,7 @@
         if (($lobby->queueType ?? 'bo1') !== $queueType) continue;
         if (!isset($lobby->isPrivate) || !$lobby->isPrivate) continue;
         if (!isset($lobby->inviteCode) || strval($lobby->inviteCode) !== $privateInviteCode) continue;
+        if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // blocked: fall through to generic "invalid/expired/full"
         if (intval($lobby->numPlayers) >= intval($lobby->maxPlayers)) continue;
 
         $lobby->numPlayers++;
@@ -222,6 +234,7 @@
             (!isset($lobby->isPrivate) || !$lobby->isPrivate) &&
             intval($lobby->numPlayers) < intval($lobby->maxPlayers)
           ) {
+              if (SWUJoinBlocked($joiningUserId, SWULobbyHostUserId($lobby))) continue; // skip blocked host, keep scanning
               $lobby->numPlayers++;
               if($lobby->numPlayers == $lobby->maxPlayers) {
                   $lobby->ready = true;

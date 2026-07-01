@@ -83,8 +83,15 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         <div style="flex: 1; min-width: 140px;">
           <label for="swu-format-select" style="display: block; margin-bottom: 6px; font-weight: 500; font-size: 13px;">Format:</label>
           <select id="swu-format-select" class="swu-queue-select">
+            <?php
+              // Only logged-in users may queue non-Open formats, so only offer 'Open' when logged out.
+              // (The JoinQueue endpoint enforces this too, for anyone who bypasses the UI.)
+              $swuLoggedIn = isset($_SESSION['userid']);
+              $swuDefaultFormat = $swuLoggedIn ? 'premier' : 'open';
+            ?>
             <?php foreach ($swuFormats as $fid => $fname): ?>
-            <option value="<?php echo htmlspecialchars($fid, ENT_QUOTES); ?>"<?php echo $fid === 'premier' ? ' selected' : ''; ?>><?php echo htmlspecialchars($fname, ENT_QUOTES); ?></option>
+            <?php if (!$swuLoggedIn && $fid !== 'open') continue; ?>
+            <option value="<?php echo htmlspecialchars($fid, ENT_QUOTES); ?>"<?php echo $fid === $swuDefaultFormat ? ' selected' : ''; ?>><?php echo htmlspecialchars($fname, ENT_QUOTES); ?></option>
             <?php endforeach; ?>
           </select>
         </div>
@@ -880,6 +887,10 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
             0%, 100% { text-shadow: 0 0 20px rgba(212, 147, 58, 0.8), 0 0 40px rgba(212, 147, 58, 0.4); }
             50% { text-shadow: 0 0 30px rgba(212, 147, 58, 1), 0 0 60px rgba(212, 147, 58, 0.6); }
           }
+          @keyframes pulseGlowIcon {
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.2)); }
+            50% { filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.55)) drop-shadow(0 0 36px rgba(255, 255, 255, 0.3)); }
+          }
           @keyframes countdownPop {
             0% { transform: scale(1.5); opacity: 0; }
             50% { transform: scale(1.1); opacity: 1; }
@@ -892,8 +903,19 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         `;
         document.head.appendChild(style);
 
+        var iconElement = document.createElement('img');
+        iconElement.src = '/TCGEngine/Assets/Icons/swusim-all-aspects.webp';
+        iconElement.alt = 'Match Found';
+        iconElement.style.cssText = `
+          width: 213px;
+          height: 160px;
+          margin-bottom: 20px;
+          filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.2));
+          animation: pulseGlowIcon 1.5s ease-in-out infinite;
+        `;
+
         var titleElement = document.createElement('h1');
-        titleElement.textContent = '⚔️ Match Found!';
+        titleElement.textContent = 'Match Found!';
         titleElement.style.cssText = `
           color: #d4933a;
           font-size: 48px;
@@ -924,6 +946,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           justify-content: center;
         `;
 
+        matchPopup.appendChild(iconElement);
         matchPopup.appendChild(titleElement);
         matchPopup.appendChild(subtitleElement);
         matchPopup.appendChild(countdownElement);
