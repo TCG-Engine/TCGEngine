@@ -2222,6 +2222,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $hasGoldenGambitCost         = false;
     $hasDecomposeCost            = false;
     $hasArgusReserveAltCost      = false;
+    $hasPowercellSacrificeCost   = false;
     global $additionalActivationCosts;
     $hasAdditionalCost = false;
     if(isset($additionalActivationCosts[$obj->CardID])) {
@@ -2275,6 +2276,19 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
             DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $targets), 100, tooltip:"Sacrifice_an_ally");
             DecisionQueueController::AddDecision($player, "CUSTOM", "DecomposeActivationCost|" . $reserveCost, 100);
         }
+    }
+
+    // 1.3 Declaring Costs - Turbo Charge / Atmos Armor Type-Hermes: sacrifice a Powercell
+    if(($obj->CardID === "cnqsm3n9yv" || $obj->CardID === "dlx7mdk0xh") && !$ignoreCost) {
+        $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+        if(empty($powercells)) {
+            SetFlashMessage(CardName($obj->CardID) . " requires a Powercell to sacrifice.");
+            return;
+        }
+        $hasPowercellSacrificeCost = true;
+        DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $powercells), 100, tooltip:"Sacrifice_a_Powercell");
+        DecisionQueueController::AddDecision($player, "CUSTOM", "PowercellSacrifice|" . $reserveCost, 100);
     }
 
     // 1.3 Declaring Costs — Overlord Mk III (sl7ddcgw05): mandatory sacrifice of four Powercells
@@ -2622,7 +2636,7 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         DecisionQueueController::AddDecision($player, "CUSTOM", "AvatarSuzakuQuestCost|" . $reserveCost, 100);
     }
 
-    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasOverlordPowercellCost) {
+    if(!$hasAdditionalCost && !$hasSongOfFrostAltCost && !$hasBrewAltCost && !$hasScryAltCost && !$hasDominatingStrikeAltCost && !$hasKindlingFlareCost && !$hasRavishingFinaleCost && !$hasExpungeCost && !$hasInterventionCost && !$hasBreakApartCost && !$hasCoronationCost && !$hasResoluteStandFree && !$hasVeritaAltCost && !$hasEdelsteinAltCost && !$hasBrusqueNeigeAltCost && !$hasRefabricationAltCost && !$hasAwakenOmbreCost && !$hasFurnaceDroneCost && !$hasDevotionsPriceCost && !$hasUnmakeDualityCost && !$hasBrokenPromisesCost && !$hasPrimordialRitualCost && !$hasUndeniableTruthCost && !$hasBlazingThrowCost && !$hasSlimeKingCost && !$hasClashOfFatesAltCost && !$hasWindsOfDestinyAltCost && !$hasAvatarSuzakuQuestCost && !$hasInnervateAgilityCost && !$hasGoldenGambitCost && !$hasDecomposeCost && !$hasArgusReserveAltCost && !$hasPowercellSacrificeCost && !$hasOverlordPowercellCost) {
         // No additional cost â€” store default and queue normal reserve + opportunity
         DecisionQueueController::StoreVariable("additionalCostPaid", "NO");
 
@@ -2700,6 +2714,8 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     // When $hasUndeniableTruthCost is true, UndeniableTruthCost handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasBlazingThrowCost is true, BlazingThrowCost handles sacrifice,
+    // reserve payments, and EffectStackOpportunity.
+    // When $hasPowercellSacrificeCost is true, PowercellSacrifice handles sacrifice,
     // reserve payments, and EffectStackOpportunity.
     // When $hasOverlordPowercellCost is true, OverlordSacrifice handles the
     // four Powercell sacrifices, reserve payments, and EffectStackOpportunity.
