@@ -1586,19 +1586,20 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         var msg = opts.liveBo3
             ? "Block this player? You won't be able to play the next game in this set with them, and you'll be granted the loss."
             : "Block this player? You won't be matched with them again.";
-        if (!window.confirm(msg)) return;
-        var gnEl = document.getElementById('gameName');
-        var gn = gnEl ? gnEl.value : '';
-        var x = new XMLHttpRequest();
-        x.open('POST', '/TCGEngine/SWUSim/BlockedUsers.php', true);
-        x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        x.onreadystatechange = function() {
-            if (x.readyState === 4) {
-                var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
-                if (r && r.forfeited) { SWUGoMainMenu(); }
-            }
-        };
-        x.send('action=blockOpponent&gameName=' + encodeURIComponent(gn));
+        SWUConfirm(msg, function() {
+            var gnEl = document.getElementById('gameName');
+            var gn = gnEl ? gnEl.value : '';
+            var x = new XMLHttpRequest();
+            x.open('POST', '/TCGEngine/SWUSim/BlockedUsers.php', true);
+            x.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            x.onreadystatechange = function() {
+                if (x.readyState === 4) {
+                    var r = {}; try { r = JSON.parse(x.responseText); } catch (e) {}
+                    if (r && r.forfeited) { SWUGoMainMenu(); }
+                }
+            };
+            x.send('action=blockOpponent&gameName=' + encodeURIComponent(gn));
+        }, { confirmLabel: 'Block', danger: true });
     }
     // Collapsible "Block Player" widget: collapsed header → expand shows the opponent's username
     // + a Block button. Returns null when there's no logged-in opponent to block.
@@ -1692,7 +1693,7 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         }
         // (Block Player moved to a collapsible widget below the game-over stats — see SWUShowEndGameMenu.)
         if (bestOf === 3 && !seriesOver) {
-            b.push({label:'Return to Main Menu', onClick:function(){ if(window.confirm('Leave now? This forfeits the best-of-3.')) { SubmitInput('10007',''); SWUGoMainMenu(); } }});
+            b.push({label:'Return to Main Menu', onClick:function(){ SWUConfirm('Leave now? This forfeits the best-of-3.', function(){ SubmitInput('10007',''); SWUGoMainMenu(); }, { confirmLabel: 'Leave', danger: true }); }});
             b.push({label:'Go to Next Game', onClick:function(){ SWUGoSideboard(info); }});
             b.push({label:'Forfeit Best of 3', onClick:function(){ if(typeof confirmConcedeMatch==='function') confirmConcedeMatch(); }});
         } else if (bestOf === 1 && seriesOver) {
@@ -2113,6 +2114,22 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-blockplayer-btn:hover { background: rgba(200,50,65,0.4); }
   /* Sits inside the stats box, directly under the stats table. */
   #game-over-stats .swu-blockplayer { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.12); }
+  /* In-app confirm dialog (SWUConfirm) — replaces native window.confirm. */
+  .swu-confirm-overlay { position: fixed; inset: 0; z-index: 100001; display: flex; align-items: center;
+    justify-content: center; background: rgba(4,10,18,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+  .swu-confirm-panel { width: min(90vw, 380px); background: rgba(10,22,36,0.98);
+    border: 1px solid rgba(140,210,255,0.35); border-radius: 12px; box-shadow: 0 18px 50px rgba(0,0,0,0.6);
+    color: #dceaf7; padding: 20px; }
+  .swu-confirm-msg { font-size: 15px; line-height: 1.4; margin-bottom: 18px; text-align: center; }
+  .swu-confirm-actions { display: flex; gap: 10px; justify-content: center; }
+  .swu-confirm-btn { padding: 9px 22px; border-radius: 7px; font: 600 14px/1 var(--swu-font-label, sans-serif);
+    cursor: pointer; border: 1px solid transparent; }
+  .swu-confirm-cancel { background: rgba(140,210,255,0.10); border-color: rgba(140,210,255,0.35); color: #cfe6fb; }
+  .swu-confirm-cancel:hover { background: rgba(140,210,255,0.18); }
+  .swu-confirm-ok { background: rgba(140,210,255,0.90); color: #0a1624; }
+  .swu-confirm-ok:hover { background: #a9defc; }
+  .swu-confirm-danger { background: rgba(180,40,55,0.90); border-color: rgba(220,80,95,0.70); color: #fff; }
+  .swu-confirm-danger:hover { background: rgba(200,50,65,1); }
 </style>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
   <div class="swu-settings-panel" role="dialog" aria-modal="true">
@@ -2157,6 +2174,31 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     ov.style.display = 'flex';
   }
   function swuCloseSettings() { var ov = document.getElementById('swuSettingsOverlay'); if (ov) ov.style.display = 'none'; }
+  // Styled in-app confirm (replaces native window.confirm). onConfirm runs only if the user confirms.
+  function SWUConfirm(message, onConfirm, opts) {
+    opts = opts || {};
+    var prev = document.getElementById('swu-confirm-overlay'); if (prev) prev.remove();
+    var ov = document.createElement('div'); ov.id = 'swu-confirm-overlay'; ov.className = 'swu-confirm-overlay';
+    var panel = document.createElement('div'); panel.className = 'swu-confirm-panel';
+    var msg = document.createElement('div'); msg.className = 'swu-confirm-msg'; msg.textContent = message;
+    var row = document.createElement('div'); row.className = 'swu-confirm-actions';
+    var cancel = document.createElement('button'); cancel.className = 'swu-confirm-btn swu-confirm-cancel';
+    cancel.textContent = opts.cancelLabel || 'Cancel';
+    var ok = document.createElement('button');
+    ok.className = 'swu-confirm-btn ' + (opts.danger ? 'swu-confirm-danger' : 'swu-confirm-ok');
+    ok.textContent = opts.confirmLabel || 'Confirm';
+    function close() { ov.remove(); document.removeEventListener('keydown', onKey); }
+    function onKey(e) { if (e.key === 'Escape') close(); }
+    cancel.onclick = close;
+    ok.onclick = function() { close(); if (typeof onConfirm === 'function') onConfirm(); };
+    ov.onclick = function(e) { if (e.target === ov) close(); };
+    document.addEventListener('keydown', onKey);
+    row.appendChild(cancel); row.appendChild(ok);
+    panel.appendChild(msg); panel.appendChild(row); ov.appendChild(panel);
+    document.body.appendChild(ov);
+    ok.focus();
+  }
+  window.SWUConfirm = SWUConfirm;
   // Concede from the gear menu. Live Bo3 forfeits the whole match (10007); otherwise the game (10006).
   function SWUGearConcede(goHome) {
     var pf = document.getElementById('playerID');
@@ -2170,10 +2212,11 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
       var msg = liveBo3
         ? 'Concede the whole match? This forfeits the entire series.'
         : 'Concede this game? This will immediately count as a loss for you.';
-      if (!window.confirm(msg)) return;
-      SubmitInput(liveBo3 ? '10007' : '10006', '');
-      swuCloseSettings();
-      if (goHome && typeof SWUGoMainMenu === 'function') SWUGoMainMenu();
+      SWUConfirm(msg, function() {
+        SubmitInput(liveBo3 ? '10007' : '10006', '');
+        swuCloseSettings();
+        if (goHome && typeof SWUGoMainMenu === 'function') SWUGoMainMenu();
+      }, { confirmLabel: 'Concede', danger: true });
     }
     fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
       .then(function(r){ return r.json(); })
