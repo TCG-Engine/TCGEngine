@@ -10587,6 +10587,13 @@ function ObjectCurrentPower($obj) {
                 $power += count(ZoneSearch($zone, ["TOKEN"]));
             }
             break;
+        case "XOfDNzX4ck": // Automaton Forgewarden: [Class Bonus] +1 POWER per token you control, up to three
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $power += min(3, count(ZoneSearch($zone, ["TOKEN"])));
+            }
+            break;
         case "m4c8ljyevp": // Academy Attendant: [Class Bonus][Memory 4+] +1 POWER
             if(IsClassBonusActive($obj->Controller, ["CLERIC"])) {
                 $memory = &GetMemory($obj->Controller);
@@ -12581,6 +12588,13 @@ function ObjectCurrentHP($obj) {
                 $zone = $obj->Controller == $playerID ? "myField" : "theirField";
                 $tokenCount = count(ZoneSearch($zone, ["TOKEN"]));
                 $cardLife += $tokenCount;
+            }
+            break;
+        case "XOfDNzX4ck": // Automaton Forgewarden: [Class Bonus] +1 LIFE per token you control, up to three
+            if(IsClassBonusActive($obj->Controller, ["GUARDIAN"])) {
+                global $playerID;
+                $zone = $obj->Controller == $playerID ? "myField" : "theirField";
+                $cardLife += min(3, count(ZoneSearch($zone, ["TOKEN"])));
             }
             break;
         case "NwK5wge8wy": // Alpha Philterbeast: +1 LIFE per age counter
