@@ -42,15 +42,17 @@ $forIndividual = false;
 <script>
   (function() {
     var currentWeek = <?php echo intval($cardCurrentWeek); ?>;
+    var weekLabels = <?php echo json_encode(GetWeekLabels($cardCurrentWeek)); ?>;
     var s = document.getElementById('cardStartWeek');
     var e = document.getElementById('cardEndWeek');
     for (var w = 0; w <= currentWeek; ++w) {
-      var o1 = document.createElement('option'); o1.value = w; o1.text = w;
-      var o2 = document.createElement('option'); o2.value = w; o2.text = w;
+      var o1 = document.createElement('option'); o1.value = w; o1.text = weekLabels[w];
+      var o2 = document.createElement('option'); o2.value = w; o2.text = weekLabels[w];
       s.appendChild(o1);
       e.appendChild(o2);
     }
-    s.value = 0;
+    // Default to the most recent ~10 weeks (self-caps at week 0 early on).
+    s.value = Math.max(0, currentWeek - 10);
     e.value = currentWeek;
   })();
 </script>

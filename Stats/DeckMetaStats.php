@@ -38,18 +38,19 @@ $forIndividual = false;
   // Populate week dropdowns with options 0..currentWeek and default to show latest (start=0, end=currentWeek)
   (function() {
     var currentWeek = <?php echo intval($currentWeek); ?>;
+    var weekLabels = <?php echo json_encode(GetWeekLabels($currentWeek)); ?>;
     var startSelect = document.getElementById('startWeek');
     var endSelect = document.getElementById('endWeek');
     for (var w = 0; w <= currentWeek; ++w) {
       var opt1 = document.createElement('option');
-      opt1.value = w; opt1.text = w;
+      opt1.value = w; opt1.text = weekLabels[w];
       var opt2 = document.createElement('option');
-      opt2.value = w; opt2.text = w;
+      opt2.value = w; opt2.text = weekLabels[w];
       startSelect.appendChild(opt1);
       endSelect.appendChild(opt2);
     }
-    // Defaults: show all data up to current week
-    startSelect.value = 0;
+    // Default to the most recent ~10 weeks (self-caps at week 0 early on).
+    startSelect.value = Math.max(0, currentWeek - 10);
     endSelect.value = currentWeek;
   })();
 </script>
