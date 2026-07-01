@@ -36,6 +36,18 @@ function AspectToColor($aspectCsv) {
     return 'Colorless';
 }
 
+// Human-friendly label for a common-base bucket, e.g. "30HP — Command".
+// Type comes from ResolveOpponentBase() (Standard/Force/Splash); color is mapped
+// back to its aspect since that is how players refer to bases.
+function BaseGroupDisplayLabel($type, $color) {
+    $typeLabel = ['Standard' => '30HP', 'Force' => 'Force', 'Splash' => 'Splash'];
+    $colorToAspect = ['Green' => 'Command', 'Blue' => 'Vigilance', 'Red' => 'Aggression',
+                      'Yellow' => 'Cunning', 'Colorless' => 'Colorless'];
+    $t = isset($typeLabel[$type]) ? $typeLabel[$type] : $type;
+    $a = isset($colorToAspect[$color]) ? $colorToAspect[$color] : $color;
+    return $t . ' — ' . $a;
+}
+
 // GUID => ['color','type','canonical']. Force = LOF 28HP commons, Splash = LAW 27HP commons.
 // Two printings per color; both map to the first printing's GUID as canonical.
 function StatsForceSplashRegistry() {
