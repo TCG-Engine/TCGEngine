@@ -9222,17 +9222,6 @@ function RecollectionPhase() {
     // --- Celestial Calling: check for banished cards tagged for free activation ---
     CelestialCallingRecollectionCheck($turnPlayer);
 
-    // --- Arisanna, Astral Zenith (q3huqj5bba): once per turn free starcalling ---
-    // Grant the free starcalling effect at the beginning of each of the player's turns.
-    $field = &GetField($turnPlayer);
-    for($i = 0; $i < count($field); ++$i) {
-        if(!$field[$i]->removed && $field[$i]->CardID === "q3huqj5bba" && !HasNoAbilities($field[$i])) {
-            AddGlobalEffects($turnPlayer, "ARISANNA_FREE_STARCALLING");
-            AddGlobalEffects($turnPlayer, "FREE_STARCALLING");
-            break;
-        }
-    }
-
     $memory = &GetMemory($turnPlayer);
 
     // Crystallized Anthem (XfAJlQt9hH): at beginning of your next recollection,
@@ -14086,6 +14075,28 @@ $starcallingClassBonusCards["JFdxtCqdeg"] = true; // Stellar Bloom: [Class Bonus
  * 3) free starcalling from Arisanna L3 or Elysian Astrolabe.
  * Returns the cost to pay, or -1 if the card has no starcalling.
  */
+function HasUsedArisannaFreeStarcalling($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    return !empty($_ti["ArisannaFreeStarcallingUsed"][$player]);
+}
+
+function MarkArisannaFreeStarcallingUsed($player) {
+    $_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];
+    if(!isset($_ti["ArisannaFreeStarcallingUsed"]) || !is_array($_ti["ArisannaFreeStarcallingUsed"])) {
+        $_ti["ArisannaFreeStarcallingUsed"] = [];
+    }
+    $_ti["ArisannaFreeStarcallingUsed"][$player] = true;
+    SetMacroTurnIndex(json_encode($_ti));
+}
+
+function EnsureArisannaFreeStarcallingEligibility($player) {
+    if(GlobalEffectCount($player, "ARISANNA_FREE_STARCALLING") > 0) return;
+    if(!ChampionHasInLineage($player, "q3huqj5bba")) return;
+    if(HasUsedArisannaFreeStarcalling($player)) return;
+    AddGlobalEffects($player, "ARISANNA_FREE_STARCALLING");
+    AddGlobalEffects($player, "FREE_STARCALLING");
+}
+
 function GetStarcallingCost($player, $cardID) {
     global $starcallingCards, $starcallingClassBonusCards;
     $cost = -1;
@@ -14105,6 +14116,7 @@ function GetStarcallingCost($player, $cardID) {
     if($cost < 0) return -1;
     // Starcalling still requires the card's element requirements to be usable.
     if(!CanPlayerUseCardElement($player, $cardID, false, false)) return -1;
+    EnsureArisannaFreeStarcallingEligibility($player);
     // Free starcalling: Arisanna L3 or Elysian Astrolabe global effect
     if(GlobalEffectCount($player, "FREE_STARCALLING") > 0) {
         $cost = 0;
@@ -14243,7 +14255,7 @@ function Glimpse($player, $amount, $allowAstroscope = true) {
     for($i = 0; $i < $n; ++$i) {
         $sc = GetStarcallingCost($player, $cardIDs[$i]);
         if($sc >= 0) {
-            // Check if player can afford: sc == 0 is free, otherwise need enough hand cards
+            // Check if player can afford: sc == 0 is free, otherwise pay reserve normally.
             if($sc == 0 || CountAvailableReservePayments($player) >= $sc) {
                 $starcallCandidateIndices[] = $i;
             }
@@ -14856,7 +14868,10 @@ $customDQHandlers["StarcallingOffer"] = function($player, $parts, $lastDecision)
         // Arisanna L3 (q3huqj5bba): once per turn
         if(GlobalEffectCount($player, "ARISANNA_FREE_STARCALLING") > 0) {
             RemoveGlobalEffect($player, "ARISANNA_FREE_STARCALLING");
-            RemoveGlobalEffect($player, "FREE_STARCALLING");
+            if(GlobalEffectCount($player, "ASTROLABE_FREE_STARCALLING") <= 0) {
+                RemoveGlobalEffect($player, "FREE_STARCALLING");
+            }
+            MarkArisannaFreeStarcallingUsed($player);
             $usedFreeStarcalling = true;
         }
         // Elysian Astrolabe (4nmxqsm4o9): until end of turn, unlimited
