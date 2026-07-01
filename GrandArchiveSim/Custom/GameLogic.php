@@ -1807,6 +1807,10 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
         return;
     }
 
+    // Normal activations are not starcalled; the starcalling handlers set this
+    // only for the activation they create.
+    DecisionQueueController::ClearVariable("wasStarcalled");
+
     global $brewCosts;
     // Reset brew context only for cards that can actually be brewed so stale
     // state from a previous brew can't mark a later brew-capable object.
