@@ -96,7 +96,7 @@ a5igwbsmks 2 1 0 1 - - - 13
 3krdvxapdp 2 1 0 1 - eyJidWZmIjo0fQ== - 14
 JeyOuhr3sj 2 1 0 1 - - - 15
 akb1k0zi5h 2 1 0 1 ENTERED_THIS_TURN - - 16
-5adaqTUV0i 1 1 0 1 ENTERED_THIS_TURN eyJidWZmIjoxfQ== - 17
+5adaqTUV0i 1 1 0 1 ENTERED_THIS_TURN - - 17
 bdPYKwzWt5 1 1 0 1 ENTERED_THIS_TURN - - 18
 bdPYKwzWt5 1 1 0 1 ENTERED_THIS_TURN - - 19
 1

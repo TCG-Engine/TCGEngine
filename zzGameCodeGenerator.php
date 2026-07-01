@@ -739,7 +739,7 @@ for($i=0; $i<count($zones); ++$i) {
     fwrite($handler, "  if(\$sourceObject !== null) {\r\n");
     fwrite($handler, "    \$properties = get_object_vars(\$sourceObject);\r\n");
     fwrite($handler, "    foreach(\$properties as \$prop => \$value) {\r\n");
-    fwrite($handler, "      if(\$prop !== 'removed' && \$prop !== 'Location' && \$prop !== 'mzIndex') {\r\n");
+    fwrite($handler, "      if(\$prop !== 'removed' && \$prop !== 'Location' && \$prop !== 'mzIndex' && \$prop !== 'Counters') {\r\n");
     fwrite($handler, "        \$zoneObj->\$prop = \$value;\r\n");
     fwrite($handler, "      }\r\n");
     fwrite($handler, "    }\r\n");
