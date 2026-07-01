@@ -89,16 +89,22 @@ if ($selectedBase !== '') {
                 <?php
                     $leaderQuery = "SELECT DISTINCT keyIndicator1 FROM ownership WHERE assetType=1 AND assetVisibility=2 AND keyIndicator1 IS NOT NULL";
                     $leaderResult = mysqli_query($conn, $leaderQuery);
+                    // Collect + filter first, then sort alphabetically before emitting.
+                    $leaders = [];
                     while ($leaderRow = mysqli_fetch_assoc($leaderResult)) {
                         $rawLeader = $leaderRow['keyIndicator1'];
                         if ($premierOnly && LeaderNotPremierLegal($rawLeader, $legalSets)) continue;
-                        $currentLeader = htmlspecialchars($rawLeader);
-                        $selected = (isset($_GET['leader']) && $_GET['leader'] === $rawLeader) ? 'selected' : '';
-                        $leaderName = CardTitle($currentLeader);
-                        $subtitle = CardSubtitle($currentLeader);
+                        $leaderName = CardTitle($rawLeader);
+                        $subtitle = CardSubtitle($rawLeader);
                         $leaderName .= $subtitle != "" ? ", " . $subtitle : "";
                         if($leaderName == "" || $leaderName == "Shield" || $leaderName == "Experience") continue;
-                        echo "<option value='{$currentLeader}' {$selected}>{$leaderName}</option>";
+                        $leaders[] = ['guid' => $rawLeader, 'name' => $leaderName];
+                    }
+                    usort($leaders, function ($a, $b) { return strcasecmp($a['name'], $b['name']); });
+                    foreach ($leaders as $leader) {
+                        $currentLeader = htmlspecialchars($leader['guid']);
+                        $selected = (isset($_GET['leader']) && $_GET['leader'] === $leader['guid']) ? 'selected' : '';
+                        echo "<option value='{$currentLeader}' {$selected}>" . htmlspecialchars($leader['name']) . "</option>";
                     }
                 ?>
             </select>
