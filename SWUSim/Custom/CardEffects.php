@@ -231,7 +231,7 @@ function OnPlayEvent(int $player, string $cardID): void {
             global $playerID; $playerID = intval($player);
             $uid = SWUCreateUnitToken(intval($player), 'ASH_T01');
             $mz  = SWUFindMzByUID($uid);
-            if ($mz !== null) AddTurnEffect($mz, SWUMakeTurnEffect('SENTINEL', [], SWU_DUR_PHASE));
+            if ($mz !== null) AddTurnEffect($mz, SWUMakeTurnEffect('SENTINEL', [], SWU_DUR_PHASE, 'ASH_091'));
             return;
         }
 
@@ -1981,8 +1981,8 @@ function OnPlayEvent(int $player, string $cardID): void {
                 $o = GetZoneObject($mz);
                 if ($o === null || !empty($o->removed)) continue;
                 if (_SWUUnitHasTrait($o, 'Force')) {
-                    AddTurnEffect($mz, 'LOF_152');   // Raid 1 (registry token), this phase
-                    AddTurnEffect($mz, 'SABOTEUR');  // Saboteur, this phase
+                    AddTurnEffect($mz, 'LOF_152');          // Raid 1 (registry token), this phase
+                    AddTurnEffect($mz, 'SABOTEUR^LOF_152'); // Saboteur, this phase (source = LOF_152)
                 }
             }
             return;
@@ -2132,7 +2132,7 @@ function OnPlayEvent(int $player, string $cardID): void {
                 ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
             );
             if (empty($targets)) return;
-            SWUQueueChooseTarget(intval($player), $targets, "Make_a_unit_unattackable_this_phase", "GRANT_PHASE_KEYWORD|CANT_BE_ATTACKED");
+            SWUQueueChooseTarget(intval($player), $targets, "Make_a_unit_unattackable_this_phase", "GRANT_PHASE_KEYWORD|CANT_BE_ATTACKED^LOF_262");
             return;
         }
 

@@ -194,6 +194,10 @@ var cardIdsBadgePopupTimeout = null;
 // (drop from '#'/'@', then the trailing '-suffix').
 function resolveEffectSourceCardId(token) {
   var s = String(token);
+  // Explicit "^SOURCECARDID" provenance suffix (server-emitted for synthetic-base keyword grants,
+  // e.g. "SENTINEL@phase^LOF_003"): the source card is everything after the caret.
+  var caret = s.indexOf('^');
+  if (caret >= 0) return s.slice(caret + 1);
   var swu = s.match(/^[A-Z0-9]{2,5}_\d{3}/);
   if (swu) return swu[0];
   return s.replace(/[#@].*$/, '').replace(/-[^-]+$/, '');

@@ -829,7 +829,7 @@ $leaderAbilities["LOF_003"] = function(int $player): void {
 $customDQHandlers["LOF_003#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') {
-        AddTurnEffect($lastDecision, 'SENTINEL');
+        AddTurnEffect($lastDecision, 'SENTINEL^LOF_003');
     }
     SWUAfterAction(intval($player));
 };
@@ -1755,7 +1755,7 @@ $customDQHandlers["SEC_018#1"] = function($player, $parts, $lastDecision) {
 function _SWULaw001AttackWith(int $player, string $attackerMz): void {
     global $playerID; $playerID = $player;
     SWUAddAttackPowerBonus($attackerMz, 2);
-    AddTurnEffect($attackerMz, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK));
+    AddTurnEffect($attackerMz, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK, 'LAW_001'));
     AddTurnEffect($attackerMz, SWUMakeTurnEffect('LAW_062', [], SWU_DUR_ATTACK)); // unconditional self-defeat after attack
     BeginSWUAttack($player, $attackerMz);   // owns SWUAfterAction once it attacks
 }
@@ -2717,8 +2717,8 @@ $customDQHandlers["ASH_007#0"] = function($player, $parts, $lastDecision) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
             $o = GetZoneObject($mz);
             if ($o !== null && empty($o->removed)) {
-                AddTurnEffect($mz, 'SENTINEL');
-                AddTurnEffect($mz, 'OVERWHELM');
+                AddTurnEffect($mz, 'SENTINEL^ASH_007');
+                AddTurnEffect($mz, 'OVERWHELM^ASH_007');
             }
         }
     }
