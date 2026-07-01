@@ -710,6 +710,8 @@ $turnEffectRegistry = [
     'SEC_018' => ['kind' => 'MARKER',          'label' => 'DJ'],                                                               // DJ — transient findable marker on the unit just played by the leader action (captured immediately)
     'SOR_138' => ['kind' => 'LOSE_ABILITIES',                        'label' => 'Loses all abilities'],                       // Force Lightning — chosen unit loses all abilities this phase
     'SOR_140' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // SpecForce Soldier — a unit loses Sentinel this phase
+    'LOF_096' => ['kind' => 'GRANT_KEYWORD',       'value' => 'SENTINEL', 'label' => 'Sentinel'],                            // Obi-Wan Kenobi — gains Sentinel this phase when you play a Force unit
+    'LOF_045' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RESTORE', 'amount' => 1, 'label' => 'Restore 1'],             // Yaddle — each other friendly Jedi unit gains Restore 1 this phase
     'SOR_154' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RAID', 'amount' => 2, 'label' => 'Raid 2'],                    // Rallying Cry — each friendly unit gains Raid 2 this phase
     'SOR_156' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RAID', 'amount' => 2, 'label' => 'Raid 2'],                    // Benthic "Two Tubes" — another friendly Aggression unit gains Raid 2 this phase
     'LOF_152' => ['kind' => 'GRANT_KEYWORD_VALUE', 'value' => 'RAID', 'amount' => 1, 'label' => 'Raid 1'],                    // Focus Determines Reality — each friendly Force unit gains Raid 1 this phase
@@ -802,6 +804,12 @@ $turnEffectRegistry = [
 function SWUParseTurnEffect(string $s): array {
     global $turnEffectRegistry;
     $raw = $s;
+    // Optional "^SOURCECARDID" provenance suffix (stripped first, before @/-): lets a synthetic-base
+    // keyword token (e.g. "SENTINEL^LOF_003", "RESTORE-1@attack^JTL_097") name the card that granted
+    // it so the Active Effects popup can render that card's art. CardID-base tokens don't need it.
+    $source = null;
+    $caret = strpos($s, '^');
+    if ($caret !== false) { $source = substr($s, $caret + 1); $s = substr($s, 0, $caret); }
     $duration = null;
     $at = strpos($s, '@');
     if ($at !== false) { $duration = substr($s, $at + 1); $s = substr($s, 0, $at); }
@@ -817,17 +825,20 @@ function SWUParseTurnEffect(string $s): array {
     }
     $base = $s;
     if ($duration === null) $duration = $turnEffectRegistry[$base]['duration'] ?? SWU_DUR_PHASE;
-    return ['base' => $base, 'params' => $params, 'duration' => $duration, 'raw' => $raw];
+    return ['base' => $base, 'params' => $params, 'duration' => $duration, 'source' => $source, 'raw' => $raw];
 }
 
 // Build a canonical TurnEffects token. The "@duration" suffix is emitted only when it differs
 // from the registry default for $base, keeping tokens short and back-compatible with bare names.
-function SWUMakeTurnEffect(string $base, array $params = [], ?string $duration = null): string {
+function SWUMakeTurnEffect(string $base, array $params = [], ?string $duration = null, ?string $source = null): string {
     global $turnEffectRegistry;
     $s = $base;
     if (!empty($params)) $s .= '-' . implode('-', array_map('strval', $params));
     $default = $turnEffectRegistry[$base]['duration'] ?? SWU_DUR_PHASE;
     if ($duration !== null && $duration !== $default) $s .= '@' . $duration;
+    // Provenance suffix last (see SWUParseTurnEffect). Only for synthetic bases; a CardID base is
+    // already its own source, so callers pass $source only when $base is a bare keyword token.
+    if ($source !== null && $source !== '') $s .= '^' . $source;
     return $s;
 }
 
@@ -858,7 +869,7 @@ function SWUParsedTurnEffects($obj): array {
             'params'       => $p['params'],
             'duration'     => $p['duration'],
             'label'        => $reg['label'] ?? null,
-            'sourceCardID' => $isCardID ? $p['base'] : null,
+            'sourceCardID' => $p['source'] ?? ($isCardID ? $p['base'] : null),
             'raw'          => $p['raw'],
         ];
     }
@@ -6166,7 +6177,9 @@ function SWUCollectOwnPlayReactions(int $playingPlayer, string $playedCardID, in
         if ($cid === 'LOF_096'
             && strpos(CardType($playedCardID) ?? '', 'Unit') !== false && HasTrait($playedCardID, 'Force')) {
             $obiMz = SWUFindMzByUID($uid);
-            if ($obiMz !== null) AddTurnEffect($obiMz, 'SENTINEL');
+            // CardID-based token (not bare 'SENTINEL') so the Active Effects popup shows Obi-Wan's
+            // art as the source — registry row 'LOF_096' => GRANT_KEYWORD SENTINEL.
+            if ($obiMz !== null) AddTurnEffect($obiMz, 'LOF_096');
         }
     }
     // ── Leader observers (undeployed leaders are NOT in GetUnitsInPlay) ──
@@ -8516,12 +8529,12 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
         // LOF_180 Deceptive Shade — "the next unit you play this phase gains Ambush." Lingering flag,
         // consumed at this (the next) unit's entry — before entry triggers collect, so Ambush can fire.
         if (GlobalEffectCount(intval($player), 'SWU_LOF180_NEXT_AMBUSH') > 0) {
-            AddTurnEffect($newCardMzID, 'AMBUSH');
+            AddTurnEffect($newCardMzID, 'AMBUSH^LOF_180');
             RemoveGlobalEffect(intval($player), 'SWU_LOF180_NEXT_AMBUSH');
         }
         // LOF_010 Third Sister (deployed) — "the next unit you play this phase gains Hidden."
         if (GlobalEffectCount(intval($player), 'SWU_LOF010_NEXT_HIDDEN') > 0) {
-            AddTurnEffect($newCardMzID, 'HIDDEN');
+            AddTurnEffect($newCardMzID, 'HIDDEN^LOF_010');
             RemoveGlobalEffect(intval($player), 'SWU_LOF010_NEXT_HIDDEN');
         }
         // LAW_015 Jabba (deployed) — the Underworld unit played by Jabba's action gains Ambush this phase
@@ -8530,7 +8543,7 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
         if (GlobalEffectCount(intval($player), 'SWU_JABBA015_PENDING') > 0) {
             RemoveGlobalEffect(intval($player), 'SWU_JABBA015_PENDING');
             if (GlobalEffectCount(intval($player), 'SWU_JABBA015_AMBUSH') > 0) {
-                AddTurnEffect($newCardMzID, 'AMBUSH');
+                AddTurnEffect($newCardMzID, 'AMBUSH^LAW_015');
                 RemoveGlobalEffect(intval($player), 'SWU_JABBA015_AMBUSH');
             }
         }
@@ -9163,7 +9176,14 @@ function SWUDeployLeader(int $player, string $mode = 'Unit', string $hostMz = ''
 // additional cost. Checked before the leader exhausts — an unaffordable
 // action must be a no-op, not a soft pass that spends the leader.
 function SWULeaderActionAffordable(int $player, string $cardID): bool {
-    global $leaderActionResourceCosts, $playerID;
+    global $leaderActionResourceCosts, $playerID, $leaderAbilities;
+
+    // No registered activated ability → nothing to activate. Leaders whose front side is
+    // purely reactive/triggered (e.g. ASH_005 "When a friendly unit's attack ends...") have
+    // no $leaderAbilities entry; without this guard a zero-cost such leader would glow green
+    // and clicking it would exhaust (tap) the leader for free. Activation dispatches only via
+    // $leaderAbilities (see SWULeaderAction), so membership IS "has an activated action".
+    if (!isset($leaderAbilities[$cardID])) return false;
 
     $cost = $leaderActionResourceCosts[$cardID] ?? 0;
     if ($cost > 0 && SWUResourceCount($player, readyOnly: true) < $cost) return false;
@@ -20072,12 +20092,17 @@ function CardDisplayEffects($obj) {
     $out = [];
     foreach (explode(",", $raw) as $e) {
         if (in_array($e, $backendOnlyTurnEffects) || strpos($e, 'SWU_') === 0) continue;
-        // Canonicalize an explicit "@duration" onto each registry-known turn-effect token so the
-        // client Active Effects popup can render a duration chip without shipping the registry to
-        // JS. Global-effect CardIDs and unregistered tokens pass through unchanged (no chip).
-        if (strpos($e, '@') === false) {
-            $p = SWUParseTurnEffect($e);
-            if (SWUEffectKind($p['base']) !== null) $e .= '@' . $p['duration'];
+        // Canonicalize each registry-known token to "base[-params]@duration[^source]" so the client
+        // Active Effects popup can render a duration chip (@) AND the source-card art (^source)
+        // without shipping the registry to JS. Order matters: @duration BEFORE ^source so the client's
+        // resolveEffectSourceCardId reads a clean CardID after '^'. Global-effect CardIDs and
+        // unregistered tokens pass through unchanged (no chip).
+        $p = SWUParseTurnEffect($e);
+        if (SWUEffectKind($p['base']) !== null) {
+            $e = $p['base'];
+            if (!empty($p['params'])) $e .= '-' . implode('-', $p['params']);
+            $e .= '@' . $p['duration'];
+            if (!empty($p['source'])) $e .= '^' . $p['source'];
         }
         $out[] = $e;
     }

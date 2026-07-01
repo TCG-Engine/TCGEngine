@@ -158,7 +158,7 @@ function SWUDealDamageToBase($damage, $targetPlayer, $damager = null) {
             $savedPID2 = $playerID; $playerID = intval($targetPlayer);
             foreach (ZoneSearch("myGroundArena", AnyUnitFilter) as $mz) {
                 $o = GetZoneObject($mz);
-                if ($o !== null && empty($o->removed) && ($o->CardID ?? '') === 'SEC_041') AddTurnEffect($mz, 'SENTINEL');
+                if ($o !== null && empty($o->removed) && ($o->CardID ?? '') === 'SEC_041') AddTurnEffect($mz, 'SENTINEL^SEC_041');
             }
             $playerID = $savedPID2;
         }
@@ -596,18 +596,21 @@ function _SWUSupportGrantAbilities(int $player, string $supportMz, string $attac
     $A = GetZoneObject($attackerMz);
     if ($S === null || $A === null || !empty($A->removed)) return;
 
-    // Combat-relevant keywords — effective reads so conditional/granted keywords on S transfer.
-    if (HasKeyword_Grit($S))      AddTurnEffect($attackerMz, SWUMakeTurnEffect('GRIT',      [], SWU_DUR_ATTACK));
-    if (HasKeyword_Overwhelm($S)) AddTurnEffect($attackerMz, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK));
-    if (HasKeyword_Saboteur($S))  AddTurnEffect($attackerMz, SWUMakeTurnEffect('SABOTEUR',  [], SWU_DUR_ATTACK));
-    if (HasKeyword_Sentinel($S))  AddTurnEffect($attackerMz, SWUMakeTurnEffect('SENTINEL',  [], SWU_DUR_ATTACK));
+    // Combat-relevant keywords — effective reads so conditional/granted keywords on S transfer. Each
+    // lent keyword names S as its source (^S CardID) so the Active Effects popup shows the supporting
+    // unit's art as the provenance.
+    $sSrc = $S->CardID ?? '';
+    if (HasKeyword_Grit($S))      AddTurnEffect($attackerMz, SWUMakeTurnEffect('GRIT',      [], SWU_DUR_ATTACK, $sSrc));
+    if (HasKeyword_Overwhelm($S)) AddTurnEffect($attackerMz, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK, $sSrc));
+    if (HasKeyword_Saboteur($S))  AddTurnEffect($attackerMz, SWUMakeTurnEffect('SABOTEUR',  [], SWU_DUR_ATTACK, $sSrc));
+    if (HasKeyword_Sentinel($S))  AddTurnEffect($attackerMz, SWUMakeTurnEffect('SENTINEL',  [], SWU_DUR_ATTACK, $sSrc));
     $raid = GetKeyword_Raid_Value($S);
-    if ($raid !== null && $raid > 0)       AddTurnEffect($attackerMz, SWUMakeTurnEffect('RAID',    [$raid],    SWU_DUR_ATTACK));
+    if ($raid !== null && $raid > 0)       AddTurnEffect($attackerMz, SWUMakeTurnEffect('RAID',    [$raid],    SWU_DUR_ATTACK, $sSrc));
     $restore = GetKeyword_Restore_Value($S);
-    if ($restore !== null && $restore > 0) AddTurnEffect($attackerMz, SWUMakeTurnEffect('RESTORE', [$restore], SWU_DUR_ATTACK));
+    if ($restore !== null && $restore > 0) AddTurnEffect($attackerMz, SWUMakeTurnEffect('RESTORE', [$restore], SWU_DUR_ATTACK, $sSrc));
 
     // Triggered + constant abilities ride one marker (S's CardID for closure lookup, UID for provenance).
-    AddTurnEffect($attackerMz, SWUMakeTurnEffect('SUPPORT_GRANT', [$S->CardID, intval($S->UniqueID ?? 0)], SWU_DUR_ATTACK));
+    AddTurnEffect($attackerMz, SWUMakeTurnEffect('SUPPORT_GRANT', [$S->CardID, intval($S->UniqueID ?? 0)], SWU_DUR_ATTACK, $S->CardID ?? null));
 
     BeginSWUAttack($player, $attackerMz);   // exhausts A, picks A's target, runs combat (grants now visible)
 }

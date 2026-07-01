@@ -116,6 +116,10 @@ function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolve
         $leaderZone = &GetLeader($playerID);
         $newLeader = new Leader($resolved['leader']);
         $newLeader->Ready = true;
+        // The generated zone constructor defaults absent numeric fields to -1 (not the schema's
+        // Damage:number=0), and `new Leader($cardID)` passes only the CardID — so Damage would
+        // start at -1. Force it to 0 so the leader begins undamaged.
+        $newLeader->Damage = 0;
         array_push($leaderZone, $newLeader);
     }
 
@@ -123,6 +127,10 @@ function LoadPlayerDeck($playerID, $deckLink, $preconstructedDeck = '', $resolve
     if (!empty($resolved['base'])) {
         $baseZone = &GetBase($playerID);
         $newBase  = new Base($resolved['base']);
+        // Same constructor-default gap as the leader above: `new Base($cardID)` would leave
+        // Damage at the -1 fallback instead of the schema default 0, making every base start at
+        // -1 damage (so a base attack renders one counter short). Force it undamaged.
+        $newBase->Damage = 0;
         // Seed the per-game use budget for repeatable base Actions (e.g. LOF_022 Mystic Monastery).
         // These track remaining uses in NumUses and are exempt from the per-round refill.
         global $baseActionNumUses;

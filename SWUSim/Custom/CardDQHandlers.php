@@ -829,7 +829,9 @@ $onAttackAbilities["LOF_045:0"] = function($player, $mzID) {
     foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
         $o = GetZoneObject($mz);
         if ($o === null || !empty($o->removed) || intval($o->UniqueID ?? -1) === $selfUID) continue;
-        if (HasTrait($o->CardID ?? '', 'Jedi')) AddTurnEffect($mz, SWUMakeTurnEffect('RESTORE', [1]));
+        // CardID-based token (not bare 'RESTORE') so the Active Effects popup shows Yaddle's art as
+        // the source — registry row 'LOF_045' => GRANT_KEYWORD_VALUE RESTORE amount 1.
+        if (HasTrait($o->CardID ?? '', 'Jedi')) AddTurnEffect($mz, 'LOF_045');
     }
 };
 
@@ -1365,7 +1367,7 @@ $customDQHandlers["LOF_140#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
     $mz = SWUFindMzByUID(intval($parts[0] ?? -1));
     if ($mz === null || $mz === '') return;
-    AddTurnEffect($mz, 'OVERWHELM');                 // for this attack (phase-duration grant)
+    AddTurnEffect($mz, 'OVERWHELM^LOF_140');         // for this attack (phase-duration grant)
     BeginSWUAttack(intval($player), $mz, true);       // noBases = true (can't attack bases)
 };
 
@@ -1441,7 +1443,7 @@ $onAttackAbilities["LOF_003:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $friendly = array_values(array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)));
     if (empty($friendly)) return;
-    SWUQueueMayChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_Sentinel?", "Choose_a_friendly_unit", "GRANT_PHASE_KEYWORD|SENTINEL");
+    SWUQueueMayChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_Sentinel?", "Choose_a_friendly_unit", "GRANT_PHASE_KEYWORD|SENTINEL^LOF_003");
 };
 
 // LOF_006 Supreme Leader Snoke — On Attack: Give an Experience token to the unit with the most power among
@@ -1767,7 +1769,7 @@ $whenPlayedAbilities["LOF_114:0"] = function($player, $mzID) {
         $targets[] = $mz;
     }
     if (empty($targets)) return;
-    SWUQueueMayChooseTarget(intval($player), $targets, "Give_another_friendly_unit_Overwhelm?", "Choose_a_unit", "GRANT_PHASE_KEYWORD|OVERWHELM");
+    SWUQueueMayChooseTarget(intval($player), $targets, "Give_another_friendly_unit_Overwhelm?", "Choose_a_unit", "GRANT_PHASE_KEYWORD|OVERWHELM^LOF_114");
 };
 
 // ── LOF "You may use the Force" units (Phase 5) ─────────────────────────────────────────────────────
@@ -2478,7 +2480,7 @@ $customDQHandlers["ASH_003D"] = function($player, $parts, $lastDecision) {
     if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return;
     global $playerID; $playerID = intval($player);
     SWUApplyPhaseBuff($lastDecision, 2, 2, 'ASH_003');
-    AddTurnEffect($lastDecision, 'SENTINEL');
+    AddTurnEffect($lastDecision, 'SENTINEL^ASH_003');
 };
 
 // ASH_004 Grand Admiral Thrawn — if you control more units than the defending player,
@@ -3613,7 +3615,7 @@ $customDQHandlers["JTL_097#0"] = function($player, $parts, $lastDecision) {
     $obj = GetZoneObject($lastDecision);
     if ($obj === null || !empty($obj->removed)) return;
     SWUAddAttackPowerBonus($lastDecision, 1);                                   // +1/+0 for this attack
-    AddTurnEffect($lastDecision, SWUMakeTurnEffect('RESTORE', [1], SWU_DUR_ATTACK)); // Restore 1 this attack
+    AddTurnEffect($lastDecision, SWUMakeTurnEffect('RESTORE', [1], SWU_DUR_ATTACK, 'JTL_097')); // Restore 1 this attack
     BeginSWUAttack(intval($player), $lastDecision);
 };
 
@@ -7196,7 +7198,7 @@ $customDQHandlers["LAW_202#0"] = function($player, $parts, $lastDecision) {
     $attackerMzID = $lastDecision ?? '';
     $attacker = (!empty($attackerMzID) && str_contains($attackerMzID, '-')) ? GetZoneObject($attackerMzID) : null;
     if ($attacker === null || !empty($attacker->removed)) { $playerID = $savedPID; SWUAfterAction($player); return; }
-    AddTurnEffect($attackerMzID, SWUMakeTurnEffect('SABOTEUR', [], SWU_DUR_ATTACK));
+    AddTurnEffect($attackerMzID, SWUMakeTurnEffect('SABOTEUR', [], SWU_DUR_ATTACK, 'LAW_202'));
     if (SWUResourceCount(intval($player)) < SWUResourceCount($opp)) SWUAddAttackPowerBonus($attackerMzID, 2);
     BeginSWUAttack($player, $attackerMzID);
     $playerID = $savedPID;
@@ -7217,7 +7219,7 @@ $customDQHandlers["LAW_205#0"] = function($player, $parts, $lastDecision) {
     $attacker = (!empty($attackerMzID) && str_contains($attackerMzID, '-')) ? GetZoneObject($attackerMzID) : null;
     if ($attacker === null || !empty($attacker->removed)) { $playerID = $savedPID; SWUAfterAction($player); return; }
     SWUAddAttackPowerBonus($attackerMzID, 2);
-    AddTurnEffect($attackerMzID, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK));
+    AddTurnEffect($attackerMzID, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK, 'LAW_205'));
     AddTurnEffect($attackerMzID, SWUMakeTurnEffect('LAW_205', [], SWU_DUR_ATTACK));
     BeginSWUAttack($player, $attackerMzID);
     $playerID = $savedPID;
@@ -8400,7 +8402,7 @@ $onAttackAbilities["ASH_072:0"] = function($player, $mzID) {
 // ASH_099 Gozanti Assault Carrier — On Attack: this unit gains Sentinel for this phase.
 $onAttackAbilities["ASH_099:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
-    AddTurnEffect($mzID, SWUMakeTurnEffect('SENTINEL', [], SWU_DUR_PHASE));
+    AddTurnEffect($mzID, SWUMakeTurnEffect('SENTINEL', [], SWU_DUR_PHASE, 'ASH_099'));
 };
 
 // ASH_203 Mando's N-1 Starfighter — On Attack: you may exhaust a friendly (non-upgrade) leader. If you
@@ -12933,7 +12935,7 @@ $customDQHandlers["LOF_223#0"] = function($player, $parts, $lastDecision) {
     $o->Status = 0; // exhaust the enemy unit
     $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
     if (empty($friendly)) return;
-    SWUQueueChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_Sentinel_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL");
+    SWUQueueChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_Sentinel_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL^LOF_223");
 };
 
 // LOF_241 In the Shadows — give one Experience token to each chosen Hidden unit (up to 3).
@@ -13119,7 +13121,7 @@ $customDQHandlers["LOF_126#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if ($o === null || !empty($o->removed)) return;
     SWUApplyPhaseBuff($lastDecision, 3, 3, 'LOF_126');
-    AddTurnEffect($lastDecision, 'OVERWHELM');
+    AddTurnEffect($lastDecision, 'OVERWHELM^LOF_126');
 };
 
 // LOF_077 Crushing Blow — defeat the chosen non-leader unit (cost ≤2 already enforced at choose time).
@@ -13500,7 +13502,7 @@ $customDQHandlers["SEC_120#0"] = function($player, $parts, $lastDecision) {
     );
     if (empty($friendly)) return;
     SWUQueueChooseTarget(intval($player), $friendly, "Give_a_friendly_unit_Sentinel_this_phase",
-        "GRANT_PHASE_KEYWORD|SENTINEL");
+        "GRANT_PHASE_KEYWORD|SENTINEL^SEC_120");
 };
 
 // SEC_129 With Thunderous Applause continuations — #0: buff the first chosen unit +2/+2, then offer
@@ -13760,7 +13762,7 @@ $customDQHandlers["SEC_248#0"] = function($player, $parts, $lastDecision) {
         ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
     );
     if (empty($units)) return;
-    SWUQueueChooseTarget(intval($player), $units, "Give_a_unit_Sentinel_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL");
+    SWUQueueChooseTarget(intval($player), $units, "Give_a_unit_Sentinel_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL^SEC_248");
 };
 
 // ── SEC Phase 2: Spy tokens ──────────────────────────────────────────────────
@@ -13772,7 +13774,7 @@ $whenPlayedAbilities["SEC_082:0"] = function($player, $mzID) {
     foreach ([0, 1] as $i) {
         $uid = SWUCreateUnitToken(intval($player), 'SEC_T01');
         $mz  = SWUFindMzByUID($uid);
-        if ($mz !== null) AddTurnEffect($mz, 'SENTINEL');   // Sentinel for this phase (registry SENTINEL token)
+        if ($mz !== null) AddTurnEffect($mz, 'SENTINEL^SEC_082');   // Sentinel for this phase (source = SEC_082)
     }
 };
 
@@ -13918,7 +13920,7 @@ $sec031 = function($player, $mzID) {
         if ($o !== null && empty($o->removed) && intval($o->UniqueID ?? 0) !== $selfUID && HasTrait($o->CardID ?? '', 'Official')) $officials[] = $mz;
     }
     if (empty($officials)) return;
-    SWUQueueMayChooseTarget(intval($player), $officials, "Give_another_Official_unit_Sentinel?", "Choose_an_Official_unit", "GRANT_PHASE_KEYWORD|SENTINEL");
+    SWUQueueMayChooseTarget(intval($player), $officials, "Give_another_Official_unit_Sentinel?", "Choose_an_Official_unit", "GRANT_PHASE_KEYWORD|SENTINEL^SEC_031");
 };
 $whenPlayedAbilities["SEC_031:0"] = $sec031;
 $onAttackAbilities["SEC_031:0"]   = $sec031;
@@ -13948,10 +13950,10 @@ $customDQHandlers["SEC_045#0"] = function($player, $parts, $lastDecision) {
 $sec048 = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $self = GetZoneObject($mzID);
-    if ($self !== null && empty($self->removed)) AddTurnEffect($mzID, 'SENTINEL');   // give itself Sentinel
+    if ($self !== null && empty($self->removed)) AddTurnEffect($mzID, 'SENTINEL^SEC_048');   // give itself Sentinel
     $enemy = array_merge(ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter));
     if (empty($enemy)) return;
-    SWUQueueChooseTarget(intval($player), $enemy, "Give_an_enemy_unit_Sentinel", "GRANT_PHASE_KEYWORD|SENTINEL");
+    SWUQueueChooseTarget(intval($player), $enemy, "Give_an_enemy_unit_Sentinel", "GRANT_PHASE_KEYWORD|SENTINEL^SEC_048");
 };
 $whenPlayedAbilities["SEC_048:0"]   = $sec048;
 $onAttackEndAbilities["SEC_048:0"]  = $sec048;
@@ -14834,7 +14836,7 @@ $customDQHandlers["SEC_157#0"] = function($player, $parts, $lastDecision) {
     $obj = (!empty($mz) && str_contains($mz, '-')) ? GetZoneObject($mz) : null;
     if ($obj === null || !empty($obj->removed)) { $playerID = $savedPID; SWUAfterAction($player); return; }
     SWUAddAttackPowerBonus($mz, 1);                                         // +1/+0 for this attack
-    AddTurnEffect($mz, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK)); // gains Overwhelm this attack
+    AddTurnEffect($mz, SWUMakeTurnEffect('OVERWHELM', [], SWU_DUR_ATTACK, 'SEC_157')); // gains Overwhelm this attack
     AddTurnEffect($mz, SWUMakeTurnEffect('SEC_157', [], SWU_DUR_ATTACK));   // signal: defender loses abilities
     BeginSWUAttack(intval($player), $mz);     // combat owns SWUAfterAction
     $playerID = $savedPID;
@@ -14845,7 +14847,7 @@ $whenPlayedAbilities["SEC_255:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
     $targets = array_values(_SWUAllUnits());
     if (empty($targets)) return;
-    SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_Sentinel_for_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL");
+    SWUQueueChooseTarget(intval($player), $targets, "Give_a_unit_Sentinel_for_this_phase", "GRANT_PHASE_KEYWORD|SENTINEL^SEC_255");
 };
 
 // SEC_206 Senator Riyo Chuchi — When Played: you may give a unit -3/-0 for this phase.
@@ -15514,7 +15516,7 @@ $customDQHandlers["SEC_202#0"] = function($player, $parts, $lastDecision) {
     $o = GetZoneObject($lastDecision);
     if ($o === null || !empty($o->removed)) return;
     SWUApplyPhaseBuff($lastDecision, 1, 0, 'SEC_202');
-    AddTurnEffect($lastDecision, 'SABOTEUR');   // Saboteur this phase (registry SABOTEUR token)
+    AddTurnEffect($lastDecision, 'SABOTEUR^SEC_202');   // Saboteur this phase (source = SEC_202)
 };
 
 // SEC_240 Hutt Cartel Starfighter — When Played: deal 2 to this unit.
