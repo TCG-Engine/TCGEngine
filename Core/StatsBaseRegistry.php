@@ -42,7 +42,7 @@ function AspectToColor($aspectCsv) {
 function BaseGroupDisplayLabel($type, $color) {
     $typeLabel = ['Standard' => '30HP', 'Force' => 'Force', 'Splash' => 'Splash'];
     $colorToAspect = ['Green' => 'Command', 'Blue' => 'Vigilance', 'Red' => 'Aggression',
-                      'Yellow' => 'Cunning', 'Colorless' => 'Colorless'];
+                      'Yellow' => 'Cunning', 'Colorless' => 'Colorless', '*' => 'Any'];
     $t = isset($typeLabel[$type]) ? $typeLabel[$type] : $type;
     $a = isset($colorToAspect[$color]) ? $colorToAspect[$color] : $color;
     return $t . ' — ' . $a;

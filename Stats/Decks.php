@@ -48,19 +48,42 @@ while ($baseRow = mysqli_fetch_assoc($baseResult)) {
     if ($r && $r['kind'] === 'common') {
         $key   = 'grp:' . $r['type'] . ':' . $r['color'];
         $label = BaseGroupDisplayLabel($r['type'], $r['color']);
-        $sort  = '0' . ($typeOrder[$r['type']] ?? 9) . ($colorOrder[$r['color']] ?? 9);
+        // '1' sub-order keeps individual colors after the "Any" aggregate ('0' below).
+        $sort  = '0' . ($typeOrder[$r['type']] ?? 9) . '1' . ($colorOrder[$r['color']] ?? 9);
     } else {
         // Named rare (or unresolvable) — keep it as a specific-card option.
         $key   = $guid;
         $label = CardTitle($guid);
         if ($label === '' || $label === null) $label = $guid;
-        $sort  = '1' . $label;
+        $sort  = '2' . $label;
     }
     if (!isset($baseGroups[$key])) {
         $baseGroups[$key] = ['label' => $label, 'members' => [], 'sort' => $sort];
     }
     $baseGroups[$key]['members'][] = $guid;
 }
+
+// Add a "<Type> — Any" aggregate per common type (union of all its colors), so a
+// player can search e.g. every 30HP deck at once. Only when >1 color is present,
+// otherwise it would just duplicate the single color option.
+foreach (['Standard', 'Force', 'Splash'] as $type) {
+    $members = [];
+    $colorCount = 0;
+    foreach ($baseGroups as $k => $g) {
+        if (strpos($k, 'grp:' . $type . ':') === 0) {
+            $members = array_merge($members, $g['members']);
+            $colorCount++;
+        }
+    }
+    if ($colorCount >= 2) {
+        $baseGroups['grp:' . $type . ':*'] = [
+            'label'   => BaseGroupDisplayLabel($type, '*'),
+            'members' => array_values(array_unique($members)),
+            'sort'    => '0' . ($typeOrder[$type] ?? 9) . '0',   // '0' sub-order => sorts first within type
+        ];
+    }
+}
+
 uasort($baseGroups, function ($a, $b) { return strcmp($a['sort'], $b['sort']); });
 
 // Resolve the selected base to a group key. Handles both a group key from this page's
