@@ -136,7 +136,7 @@ checkContains('local lib exposes save hook', $localLib, 'TCGDeckLibrarySaveCurre
 
 // --- savedDecks profile section ---
 $swusimDef = LoadSiteDef('SWUSim');
-check('SWUSim profile enables savedDecks', in_array('savedDecks', $swusimDef['profile']['sections'] ?? [], true));
+check('SWUSim profile enables savedDecks', strpos(implode(',', $swusimDef['profile']['sections'] ?? []), 'savedDecks') !== false);
 check('validator accepts savedDecks', !in_array("profile.sections has unknown section 'savedDecks'", ValidateSiteDef($swusimDef), true));
 $gaDef = LoadSiteDef('GrandArchiveSim');
 check('GrandArchiveSim declares local deck library', ($gaDef['deckLibrary']['storage'] ?? '') === 'local');
@@ -153,6 +153,59 @@ checkContains('cosmetics has show-playmats toggle', $cos, "id='cos-show-playmats
 checkContains('cosmetics posts to endpoint', $cos, 'SWUSim/Cosmetics.php');
 check('SWUSim profile enables cosmetics', in_array('cosmetics', $swusimDef['profile']['sections'] ?? [], true));
 check('validator accepts cosmetics', !in_array("profile.sections has unknown section 'cosmetics'", ValidateSiteDef($swusimDef), true));
+
+// --- Profile panel registry (order-driven) + welcome gating ---
+require_once __DIR__ . '/../Profile.php';
+$pCtx = ['username' => 'Tester', 'userId' => 0];
+$defA = ['profile' => ['sections' => ['team','blockedUsers']]];
+$defB = ['profile' => ['sections' => ['blockedUsers','team']]];
+$htmlA = RenderProfile($defA, $pCtx, []);
+$htmlB = RenderProfile($defB, $pCtx, []);
+check('panels render in sections order (team before blocked)', strpos($htmlA,'Team Management') < strpos($htmlA,'Blocked Users'));
+check('order follows sections (reversed)', strpos($htmlB,'Blocked Users') < strpos($htmlB,'Team Management'));
+check('unlisted panel absent (no Cosmetics)', strpos($htmlA,'>Cosmetics<') === false);
+
+$defWD = ['profile' => ['sections' => ['welcome'], 'discordClientID' => '123']];
+$defWN = ['profile' => ['sections' => ['welcome']]];
+$welD = RenderProfile($defWD, $pCtx, []);
+checkContains('welcome greets the user', $welD, 'Welcome Tester!');
+check('welcome shows discord when configured', strpos($welD, 'discord-button') !== false || strpos($welD, 'Discord Account') !== false);
+check('welcome hides discord when not configured', strpos(RenderProfile($defWN, $pCtx, []), 'discord-button') === false);
+
+// --- All sites validate under the new panel keys + render their listed panels ---
+$expectPanels = [
+  'SWUDeck'         => ['welcome+changePassword','team','developerOptions'],
+  'SWUSim'          => ['welcome+changePassword','savedDecks+blockedUsers','cosmetics'],
+  'GrandArchiveSim' => ['welcome'],
+  'AzukiSim'        => ['welcome'],
+  'GudnakSim'       => ['welcome'],
+  'SoulMastersDB'   => ['welcome'],
+];
+foreach ($expectPanels as $site => $panels) {
+    $sd = LoadSiteDef($site);
+    check("$site validates clean", ValidateSiteDef($sd) === []);
+    check("$site sections match target", ($sd['profile']['sections'] ?? []) === $panels);
+}
+// SWUDeck full render is DB-free (changePassword/welcome/team/developerOptions); assert its panels.
+// (SWUSim's savedDecks/cosmetics panels hit swusim-DB tables not present on this harness's DB, so
+//  its composition is covered by the sections-match assertion above rather than a full render.)
+$swuDeckHtml = RenderProfile(LoadSiteDef('SWUDeck'), ['username'=>'T','userId'=>0], []);
+checkContains('SWUDeck profile has Team Management', $swuDeckHtml, 'Team Management');
+check('SWUDeck profile has no Saved Decks', strpos($swuDeckHtml,'>Saved Decks<') === false);
+$swusimFlat = implode(',', LoadSiteDef('SWUSim')['profile']['sections']);
+check('SWUSim drops team, includes savedDecks', strpos($swusimFlat,'team') === false && strpos($swusimFlat,'savedDecks') !== false);
+
+// Combined-pane syntax ('a+b'): two panels merge into one .profile-pane with a divider (max 2).
+$defPane = ['profile' => ['sections' => ['team+blockedUsers']]];
+$paneHtml = RenderProfile($defPane, ['username'=>'T','userId'=>0], []);
+checkContains('combined entry wraps a profile-pane', $paneHtml, "class='profile-pane container bg-black'");
+checkContains('combined pane has a divider', $paneHtml, 'profile-pane-sep');
+check('combined pane holds both panels', strpos($paneHtml,'Team Management') !== false && strpos($paneHtml,'Blocked Users') !== false);
+check('combined pane keeps order (team before blocked)', strpos($paneHtml,'Team Management') < strpos($paneHtml,'Blocked Users'));
+$defCap = ['profile' => ['sections' => ['team+blockedUsers+cosmetics']]];
+check('validator rejects >2 combined', in_array("profile.sections entry 'team+blockedUsers+cosmetics' combines more than 2 panels", ValidateSiteDef($defCap)));
+check('validator flags an unknown part in a combined entry', in_array("profile.sections has unknown section 'bogus'", ValidateSiteDef(['profile'=>['sections'=>['welcome+bogus']]])));
+// (a valid combined entry passing cleanly is covered by the 'SWUSim validates clean' check above.)
 
 // (later tasks append their checks above this line)
 

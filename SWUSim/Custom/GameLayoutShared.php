@@ -1611,6 +1611,9 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             viewerSeat = pf ? parseInt(pf.value || '', 10) : NaN;
         }
         if (viewerSeat !== 1 && viewerSeat !== 2) return null; // spectator / not seated
+        // Only logged-in users may block (the server also enforces this).
+        var myName = window.SWU_SEAT_USERNAMES ? window.SWU_SEAT_USERNAMES[String(viewerSeat)] : null;
+        if (!myName) return null; // viewer not logged in → can't block
         var oppSeat = (viewerSeat === 1) ? 2 : 1;
         var oppName = window.SWU_SEAT_USERNAMES ? window.SWU_SEAT_USERNAMES[String(oppSeat)] : null;
         if (!oppName) return null; // opponent anonymous / unknown → nothing to block

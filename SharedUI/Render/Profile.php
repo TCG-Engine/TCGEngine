@@ -263,38 +263,81 @@ function _DisplayDiscordOAuth(array $def): string {
     return ob_get_clean();
 }
 
+// The "Welcome {user}!" panel: greeting + Patreon (when configured) + Discord (when configured).
+function _ProfileWelcome(array $def, array $ctx): string {
+    $out = "<div class='fav-decks container bg-black'>\n<h2>Welcome " . ($ctx['username'] ?? '') . "!</h2>\n    ";
+    $parts = [];
+    if (!empty($def['profile']['patreonFinalPage'])) $parts[] = _DisplayPatreon($def);
+    if (!empty($def['profile']['discordClientID']))   $parts[] = _DisplayDiscordOAuth($def);
+    $out .= implode("<hr style='border:0;border-top:1px solid rgba(255,255,255,0.14);margin:18px 0;'>", $parts);
+    $out .= "\n\n</div>\n";
+    return $out;
+}
+
+// Ordered panel registry: key => fn($def, $ctx, $userData): string. RenderProfile renders the
+// site's profile.sections in declared order by looking each key up here.
+function _ProfilePanelRegistry(): array {
+    return [
+        'changePassword'   => function($def, $ctx, $ud) { return _ProfilePassword() . _ProfilePasswordScript(); },
+        'welcome'          => function($def, $ctx, $ud) { return _ProfileWelcome($def, $ctx); },
+        'team'             => function($def, $ctx, $ud) { return _ProfileTeam($ud); },
+        'developerOptions' => function($def, $ctx, $ud) { return _ProfileOAuthDev($def); },
+        'savedDecks'       => function($def, $ctx, $ud) {
+            require_once __DIR__ . '/DeckLibrary.php';
+            $cfg = DeckLibraryConfigFromSiteDef($def, ['actionButtons' => true]);
+            return "<div class='savedDecks container bg-black'><h2>Saved Decks</h2>"
+                 . RenderDeckLibrary((int)($ctx['userId'] ?? 0), $cfg) . "</div>";
+        },
+        'cosmetics'        => function($def, $ctx, $ud) {
+            require_once __DIR__ . '/CosmeticsChooser.php';
+            return "<div class='cosmetics container bg-black'><h2>Cosmetics</h2>"
+                 . RenderCosmeticsChooser((int)($ctx['userId'] ?? 0)) . "</div>";
+        },
+        'blockedUsers'     => function($def, $ctx, $ud) {
+            require_once __DIR__ . '/BlockedUsers.php';
+            return "<div class='blockedUsers container bg-black'><h2>Blocked Users</h2>"
+                 . RenderBlockedUsers((int)($ctx['userId'] ?? 0)) . "</div>";
+        },
+    ];
+}
+
+// CSS so two panels combined with '+' merge into a single pane (one bordered box) with a divider,
+// instead of showing as two nested boxes. Injected once by RenderProfile; app-agnostic.
+function _ProfilePaneStyle(): string {
+    // The pane is the single box (keeps .container's own padding); the two inner panels contribute
+    // only their content — no box chrome, no padding — so a+b read as ONE container, not two cards.
+    return "<style>\n"
+         // Even column gapping on the profile: let the flex row own the spacing (gap + edge padding)
+         // instead of relying on each panel's own inconsistent side margins.
+         // stretch = every column matches the tallest column; height:auto so 'tallest' is the tallest
+         // column's content (not the full viewport).
+         . ".core-wrapper { gap: 20px; padding: 20px; box-sizing: border-box; align-items: stretch; height: auto; }\n"
+         . ".core-wrapper > .container, .core-wrapper > .profile-pane { margin: 0 !important; }\n"
+         . ".profile-pane { overflow: hidden; }\n"
+         . ".profile-pane > .container { background: transparent !important; backdrop-filter: none !important;"
+         . " -webkit-backdrop-filter: none !important; border: 0 !important; border-radius: 0 !important;"
+         . " box-shadow: none !important; margin: 0 !important; padding: 0 !important; }\n"
+         . ".profile-pane > .profile-pane-sep { border: 0; border-top: 1px solid rgba(255,255,255,0.14); margin: 18px 0; }\n"
+         . "</style>\n";
+}
+
 function RenderProfile(array $def, array $ctx, array $userData): string {
     $sections = $def['profile']['sections'] ?? [];
+    $registry = _ProfilePanelRegistry();
     $out  = "<div id=\"cardDetail\" style=\"z-index:100000; display:none; position:fixed;\"></div>\n\n\n\n";
+    $out .= _ProfilePaneStyle();
     $out .= "<div class=\"core-wrapper\">\n\n";
-    if (in_array('password', $sections, true)) $out .= _ProfilePassword();
-    if (in_array('patreon', $sections, true) || in_array('discord', $sections, true)) {
-        $out .= "<div class='fav-decks container bg-black'>\n<h2>Welcome " . $ctx['username'] . "!</h2>\n    ";
-        if (in_array('patreon', $sections, true)) $out .= _DisplayPatreon($def);
-        if (in_array('discord', $sections, true)) $out .= _DisplayDiscordOAuth($def);
-        $out .= "\n\n</div>\n";
-    }
-    if (in_array('team', $sections, true))     $out .= _ProfileTeam($userData);
-    if (in_array('password', $sections, true)) $out .= _ProfilePasswordScript();
-    if (in_array('oauthDev', $sections, true)) $out .= _ProfileOAuthDev($def);
-    if (in_array('savedDecks', $sections, true)) {
-        require_once __DIR__ . '/DeckLibrary.php';
-        $deckLibraryConfig = DeckLibraryConfigFromSiteDef($def, ['actionButtons' => true]);
-        $out .= "<div class='savedDecks container bg-black'><h2>Saved Decks</h2>"
-              . RenderDeckLibrary((int)($ctx['userId'] ?? 0), $deckLibraryConfig)
-              . "</div>";
-    }
-    if (in_array('cosmetics', $sections, true)) {
-        require_once __DIR__ . '/CosmeticsChooser.php';
-        $out .= "<div class='cosmetics container bg-black'><h2>Cosmetics</h2>"
-              . RenderCosmeticsChooser((int)($ctx['userId'] ?? 0))
-              . "</div>";
-    }
-    if (in_array('blockedUsers', $sections, true)) {
-        require_once __DIR__ . '/BlockedUsers.php';
-        $out .= "<div class='blockedUsers container bg-black'><h2>Blocked Users</h2>"
-              . RenderBlockedUsers((int)($ctx['userId'] ?? 0))
-              . "</div>";
+    foreach ($sections as $entry) {
+        // An entry may combine up to 2 panels with '+' → one pane with a divider between them.
+        $keys = array_slice(array_values(array_filter(array_map('trim', explode('+', (string)$entry)))), 0, 2);
+        $parts = [];
+        foreach ($keys as $key) {
+            if (isset($registry[$key])) $parts[] = $registry[$key]($def, $ctx, $userData);
+        }
+        if (count($parts) === 0) continue;
+        if (count($parts) === 1) { $out .= $parts[0]; continue; }
+        $out .= "<div class='profile-pane container bg-black'>" . $parts[0]
+              . "<div class='profile-pane-sep'></div>" . $parts[1] . "</div>";
     }
     // NOTE: core-wrapper is intentionally left open here to match the original Profile.php structure.
     return $out;

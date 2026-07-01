@@ -29,7 +29,7 @@
     ['kind'=>'icon','icon'=>'github.svg','href'=>'https://github.com/TCG-Engine/TCGEngine'],
   ],
   'profile' => [
-    'sections'         => ['discord','team'],
+    'sections'         => ['welcome'],
     'oauthAppLabel'    => 'Azuki Sim',
     'patreonFinalPage' => 'https://swustats.net/TCGEngine/SharedUI/MainMenu.php',
     'discordClientID'  => '1338995198730043432',

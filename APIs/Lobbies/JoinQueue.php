@@ -53,6 +53,16 @@
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
     if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
+    // Only logged-in users may join the public queue for non-Open formats (Open is the
+    // anonymous-friendly format). Goldfish (solo) and private games (invite link) are exempt.
+    $swuPublicQueue = !$createGoldfish && !$createPrivate && $privateInviteCode === '';
+    if ($format !== 'open' && $swuPublicQueue && !$joiningUserId) {
+      $response->success = false;
+      $response->message = "You must be logged in to join this queue.";
+      header('Content-Type: application/json');
+      echo json_encode($response);
+      exit;
+    }
   }
 
   // Require either deckLink or preconstructedDeck
