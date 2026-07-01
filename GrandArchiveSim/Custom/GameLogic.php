@@ -7360,6 +7360,10 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
         }
     }
 
+    if(isset($added->_sourceZone) && $added->_sourceZone !== null && $added->_sourceZone !== "Field" && !PropertyContains(CardType($added->CardID), "CHAMPION")) {
+        $added->Counters = [];
+    }
+
     // Track that this card entered the field this turn (for Tempest Downfall etc.)
     $added->TurnEffects[] = "ENTERED_THIS_TURN";
 
@@ -14240,7 +14244,7 @@ function Glimpse($player, $amount, $allowAstroscope = true) {
         $sc = GetStarcallingCost($player, $cardIDs[$i]);
         if($sc >= 0) {
             // Check if player can afford: sc == 0 is free, otherwise need enough hand cards
-            if($sc == 0 || count(GetZone("myHand")) >= $sc) {
+            if($sc == 0 || CountAvailableReservePayments($player) >= $sc) {
                 $starcallCandidateIndices[] = $i;
             }
         }
