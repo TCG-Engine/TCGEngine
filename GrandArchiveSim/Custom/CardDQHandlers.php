@@ -2932,11 +2932,11 @@ $customDQHandlers["ThreeOfDiamondsGraveyard"] = function($player, $parts, $lastD
         MZMove($player, $lastDecision, "myGraveyard");
         DecisionQueueController::CleanupRemovedCards();
     }
-    $remaining = ZoneSearch("myTempZone");
+    $remaining = ZoneSearch("myTempZone", forPlayer:$player);
     if(empty($remaining)) return;
     $cardIDs = [];
     foreach($remaining as $mz) {
-        $obj = GetZoneObject($mz);
+        $obj = GetZoneObjectForPlayerPerspective($player, $mz);
         if($obj !== null && !$obj->removed) $cardIDs[] = $obj->CardID;
     }
     if(empty($cardIDs)) return;

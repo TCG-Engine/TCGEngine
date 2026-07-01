@@ -20752,10 +20752,10 @@ function CardistryThreeOfDiamonds($player, $mzID) {
     $deck = GetDeck($player);
     $n = min(3, count($deck));
     if($n <= 0) return;
-    for($i = 0; $i < $n; ++$i) {
-        MZMove($player, "myDeck-0", "myTempZone");
+    for($i = $n - 1; $i >= 0; --$i) {
+        MZMove($player, "myDeck-" . $i, "myTempZone");
     }
-    $choices = ZoneSearch("myTempZone");
+    $choices = ZoneSearch("myTempZone", forPlayer:$player);
     if(empty($choices)) return;
     DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1, "Choose_card_to_put_into_graveyard");
     DecisionQueueController::AddDecision($player, "CUSTOM", "ThreeOfDiamondsGraveyard", 1);
