@@ -766,6 +766,7 @@ $Kindle_Cards["vrK16VZ2zU"] = 2; // Burning Aethercharge (FIRE) - Kindle 2
 $Kindle_Cards["4ms1r3hjxp"] = 6; // Jianye, Dawn's Keep (FIRE) - Kindle 6
 $Kindle_Cards["FnTT1G4OQg"] = 4; // Restoring Embers (FIRE) - Kindle 4
 $Kindle_Cards["znk6g5o8ys"] = 3; // Dazzling Courtesan (FIRE) - Kindle 3
+$Kindle_Cards["s3bqtjayfn"] = 2; // Tinderflare Pivot (FIRE) - Kindle 2
 
 // --- Cardistry Cards Registry ---
 // Maps cardID => base reserve cost for the Cardistry activated ability.
