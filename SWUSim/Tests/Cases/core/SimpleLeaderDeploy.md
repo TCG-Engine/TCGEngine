@@ -1,5 +1,5 @@
 ## GIVEN
-CommonSetup: grw/grw/{myLeaderReady:0;myResources:4}
+CommonSetup: grw/grw/{myLeader:SOR_014:0;myResources:4}
 
 ## WHEN
 - P1>DeployLeader

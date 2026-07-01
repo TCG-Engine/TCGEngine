@@ -530,6 +530,16 @@
     height: 124px !important; width: auto !important; border-radius: 5px !important;
     box-shadow: 0 2px 8px rgba(0,0,0,0.6) !important;
 }
+/* While the "Resolve whose abilities first?" prompt is up, lift the effect stack ABOVE the modal's
+   dark backdrop (z 5000) and pin it just above the centered prompt, so the two trigger cards are
+   bright and uncovered while the rest of the board stays dimmed. Toggled by the ShowYesNoDecisionPopup
+   wrapper. id+class + !important beats the drag's .is-custom-position and its inline position. */
+#EffectStackSlot.swu-es-order-front {
+    z-index: 5001 !important;
+    top: 20vh !important; bottom: auto !important; left: 50% !important;
+    transform: translateX(calc(-50% - var(--swu-sidebar-w)/2)) !important;
+    pointer-events: none !important; /* context only during the choice — no card clicks/zoom */
+}
 @media (orientation: portrait), (max-width: 760px) {
     .swu-mulligan-hand img { height: 92px !important; }
     .swu-mulligan-hand { gap: 4px !important; margin-bottom: 12px !important; }
@@ -821,17 +831,45 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
     });
 
     // ── Effect Stack visibility ───────────────────────────────────────────────
-    // Show only when it has entries AND the player isn't mid-resolving a trigger that needs a
-    // board target (e.g. "choose a unit"). During such a selection the centered overlay covers the
-    // board, so hide it; it reappears for the next "choose trigger to resolve" (an EffectStack MZCHOOSE).
+    // The centered popup is shown ONLY when the player must actively PICK a trigger from it — i.e.
+    // there's an active selection whose allowed zones include EffectStack (a "choose trigger to
+    // resolve" MZCHOOSE, which only happens when you control 2+ simultaneous triggers and must order
+    // them). In every other case it stays HIDDEN: a lone trigger auto-resolves now, board-target
+    // pings cover the board, and while the OPPONENT resolves their trigger you have nothing to click.
+    // Previously it showed whenever the stack had entries, so it flashed the trigger cards on/off as
+    // they auto-resolved. Updates are coalesced through a short settle so a transient
+    // populate→clear (or a full re-render's empty→refill) never flickers.
+    var ES_SETTLE_MS = 130;
+    var _esTimer = null;
+    function _esShouldShow(el) {
+        if (!el || el.querySelector('[id$="-0"]') === null) return false; // no entries → nothing to show
+        // Show while the "Resolve whose abilities first?" prompt is open, so the two trigger cards are
+        // visible context for the Yours/Theirs choice (the prompt is dropped below the stack, see the
+        // ShowYesNoDecisionPopup wrapper). Self-clears when that modal is removed.
+        if (document.querySelector('#yesno-decision-modal[data-swu-order]')) return true;
+        // Otherwise only when the player must PICK a trigger from it (an EffectStack MZCHOOSE).
+        var sm = window.SelectionMode;
+        return !!(sm && sm.active && Array.isArray(sm.allowedZones) && sm.allowedZones.length
+            && sm.allowedZones.some(function(z){ return z && z.zone === 'EffectStack'; }));
+    }
+    // Restore a slot we lifted to <body> for the order choice back onto the board.
+    function _esRestoreParent(el) {
+        if (!el || !el._swuOrigParent) return;
+        el.classList.remove('swu-es-order-front');
+        if (el._swuOrigNext && el._swuOrigNext.parentNode === el._swuOrigParent) el._swuOrigParent.insertBefore(el, el._swuOrigNext);
+        else el._swuOrigParent.appendChild(el);
+        el._swuOrigParent = null; el._swuOrigNext = null;
+    }
     window.UpdateEffectStackVisibility = function() {
-        var el = document.getElementById('EffectStackSlot'); if (!el) return;
-        if (el.querySelector('[id$="-0"]') === null) { el.style.display = 'none'; return; }
-        var sm = window.SelectionMode, boardTargeting = false;
-        if (sm && sm.active && Array.isArray(sm.allowedZones) && sm.allowedZones.length) {
-            boardTargeting = !sm.allowedZones.some(function(z){ return z && z.zone === 'EffectStack'; });
-        }
-        el.style.display = boardTargeting ? 'none' : '';
+        if (_esTimer) return; // a settle is already scheduled — it will read the final state
+        _esTimer = setTimeout(function() {
+            _esTimer = null;
+            var el = document.getElementById('EffectStackSlot'); if (!el) return;
+            // Defensive: if the slot is still lifted but the order prompt is gone (e.g. an undo removed
+            // it without going through the button handler), put it back before applying visibility.
+            if (el._swuOrigParent && !document.querySelector('#yesno-decision-modal[data-swu-order]')) _esRestoreParent(el);
+            el.style.display = _esShouldShow(el) ? '' : 'none';
+        }, ES_SETTLE_MS);
     };
 
     // ── Auto-hide Effect Stack when empty ─────────────────────────────────────
@@ -1868,8 +1906,67 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         return rendered > 0 ? row : null;
     }
 
+    // The cross-player trigger-order choice (CR 7.6.10 — the active player picks which player
+    // resolves simultaneous triggered abilities first) is a plain YESNO whose "Yes/No" buttons say
+    // nothing about WHICH player. Relabel them (YES = your abilities first, NO = opponent's first —
+    // see SWU_TRIGGER_ORDER_CHOICE) and clarify the prompt. Submit values are untouched.
+    function isTriggerOrder(decision) {
+        return !!(decision && decision.Tooltip && /Resolve_Which_Player_First/i.test(decision.Tooltip));
+    }
+
     window.ShowYesNoDecisionPopup = function (decision, onSubmit) {
         _origShowYesNo(decision, onSubmit);
+        if (isTriggerOrder(decision)) {
+            // Keep the prompt CENTERED. Mark the overlay so the effect stack stays visible while
+            // choosing (see _esShouldShow), and lift the stack ABOVE the dark backdrop + pin it just
+            // above the centered prompt (class .swu-es-order-front) so it's bright and uncovered while
+            // the rest of the board stays dimmed behind the backdrop.
+            var overlay = document.getElementById('yesno-decision-modal');
+            if (overlay) overlay.setAttribute('data-swu-order', '1');
+            // Lift the stack out of the board's (transformed) stacking context up to <body> so its
+            // high z-index actually clears the body-level backdrop — otherwise it stays dimmed. No
+            // re-render happens while waiting for the answer, so temporarily reparenting is safe.
+            var slot = document.getElementById('EffectStackSlot');
+            if (slot) {
+                if (slot.parentNode && slot.parentNode !== document.body) {
+                    slot._swuOrigParent = slot.parentNode;
+                    slot._swuOrigNext = slot.nextSibling;
+                    document.body.appendChild(slot);
+                }
+                slot.classList.add('swu-es-order-front');
+            }
+            var tm = document.querySelector('#yesno-decision-modal > div');
+            if (tm) {
+                var prompt = tm.firstElementChild;
+                if (prompt) prompt.textContent = "Resolve whose abilities first?";
+                var btns = tm.querySelectorAll('button');
+                if (btns.length >= 2) {
+                    btns[0].textContent = "Yours";  // YES → active player first
+                    btns[1].textContent = "Theirs"; // NO  → opponent first
+                    // On answer, the overlay is removed by the original handler; drop the stack back to
+                    // its normal layer/position and re-run visibility so it hides (no pop-up during the
+                    // auto-resolution that follows).
+                    [btns[0], btns[1]].forEach(function(b) {
+                        var orig = b.onclick;
+                        b.onclick = function(ev) {
+                            if (orig) orig.call(this, ev);
+                            var s = document.getElementById('EffectStackSlot');
+                            if (s) {
+                                s.classList.remove('swu-es-order-front');
+                                if (s._swuOrigParent) { // put it back where it lived on the board
+                                    if (s._swuOrigNext && s._swuOrigNext.parentNode === s._swuOrigParent) s._swuOrigParent.insertBefore(s, s._swuOrigNext);
+                                    else s._swuOrigParent.appendChild(s);
+                                    s._swuOrigParent = null; s._swuOrigNext = null;
+                                }
+                            }
+                            if (typeof window.UpdateEffectStackVisibility === 'function') window.UpdateEffectStackVisibility();
+                        };
+                    });
+                }
+            }
+            if (typeof window.UpdateEffectStackVisibility === 'function') window.UpdateEffectStackVisibility();
+            return;
+        }
         if (!isMulligan(decision)) return;
         if (!window.SWU_MOBILE_LAYOUT) return; // desktop: the hand is already visible on the board
         var modal = document.querySelector('#yesno-decision-modal > div');

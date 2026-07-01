@@ -2,7 +2,7 @@
 #   leader starts exhausted; SEC_188 attacks P2's base and readies it.
 
 ## GIVEN
-CommonSetup: yyk/rrk/{myLeaderReady:0}
+CommonSetup: yyk/rrk/{myLeader:SOR_016:0}
 WithActivePlayer: 1
 WithP1GroundArena: SEC_188:1:0
 

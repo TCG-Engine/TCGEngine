@@ -9,10 +9,12 @@ SkipPreGame: true       # no drew-6 math; state is EXACTLY what GIVEN says (no a
 #   myhandCardIds:A,B / theirhandCardIds:A,B    — hand cards   (legacy aliases: handCardIds / theirHandCardIds)
 #   discardCardIds:A,B / theirDiscardCardIds:A,B — discard cards
 #   myBaseDamage:N / theirBaseDamage:N          — base damage
-#   myLeader:CARDID / theirLeader:CARDID        — override the code's leader with any cardID (e.g. a JTL pilot leader)
+#   myLeader:CARDID[:ready[:deployed[:epicUsed[:damage[:indexOverride]]]]]  — override the code's leader; inline fields:
+#       ready (2nd) / deployed-as-unit (3rd) / epic-used (4th) / deployed-unit damage (5th) / ground-arena deploy index (6th).
+#       e.g. myLeader:SOR_016:0   or   myLeader:ASH_011:1:1:1:0:2  (deploy the leader unit at ground index 2)
 #   myLeaderDeployed:true / theirLeaderDeployed:true       — deploy leader as a real ground-arena leader unit
 #   myLeaderDeployedPilot:true / theirLeaderDeployedPilot:true — deploy leader as a Pilot upgrade on the player's FIRST friendly unit (host Vehicle)
-#   myLeaderReady / myLeaderEpicUsed (+ their)  — leader-side flags
+#   myLeaderEpicUsed (+ their)  — leader-side epic-action-used flag
 # The opts block can be inline — {myResources:5; ...} — OR spread across multiple lines inside the { } (as below).
 CommonSetup: bgw/grk/{
   myResources:5;
@@ -25,7 +27,9 @@ CommonSetup: bgw/grk/{
 # P1LeaderBase: SOR_010:1/SOR_026         # leader spec = CARDID:ready:deployed:epicUsed  →  ready leader, NOT deployed  /  base = CARDID:damage:epicUsed
 # P1LeaderBase: SOR_010:1:1/SOR_026       # ...continuing: ':1:1' = ready AND already-deployed leader unit on the field
 
-# Units in each of the four arenas — spec = CARDID:ready:damage  (ready 1/0, damage default 0)
+# Units in each of the four arenas — spec = CARDID:ready:damage[:turnEffects]  (ready 1/0, damage
+# default 0; optional 4th field = '~'-delimited active TurnEffects, e.g. SEC_098:0:3:LOF_045~SENTINEL^SEC_041).
+# Multiple units on one line as a bracketed array: WithP1GroundArena: [SOR_095:1:0 SOR_085:0:2:LOF_045]
 WithP1GroundArena: SOR_095:1:0
 WithP2GroundArena: SOR_085:1:0
 WithP1SpaceArena: SOR_237:1:0

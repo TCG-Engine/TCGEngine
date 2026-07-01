@@ -68,13 +68,16 @@ class GameStateBuilder {
     // Pilot upgrade onto the player's first friendly arena unit (host Vehicle).
     // $damage applies to the deployed leader UNIT (deployMode='unit'); ignored otherwise (an
     // undeployed leader and a Pilot-attached leader carry no unit damage of their own).
-    public function MyLeader(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false, string $deployMode = '', int $damage = 0): self {
-        $this->_myLeader = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed, 'deployMode' => $deployMode, 'damage' => $damage];
+    // $indexOverride (>=0): ground-arena position to insert the deployed leader unit at, shifting the
+    // other units up. ONLY honored for deployMode='unit' (a real deployed leader unit); ignored for
+    // pilot/flag/undeployed. -1 = append at the end (default, prior behavior).
+    public function MyLeader(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false, string $deployMode = '', int $damage = 0, int $indexOverride = -1): self {
+        $this->_myLeader = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed, 'deployMode' => $deployMode, 'damage' => $damage, 'indexOverride' => $indexOverride];
         return $this;
     }
 
-    public function TheirLeader(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false, string $deployMode = '', int $damage = 0): self {
-        $this->_theirLeader = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed, 'deployMode' => $deployMode, 'damage' => $damage];
+    public function TheirLeader(string $cardID, bool $ready = true, bool $deployed = false, bool $epicActionUsed = false, string $deployMode = '', int $damage = 0, int $indexOverride = -1): self {
+        $this->_theirLeader = ['cardID' => $cardID, 'ready' => $ready, 'deployed' => $deployed, 'epicActionUsed' => $epicActionUsed, 'deployMode' => $deployMode, 'damage' => $damage, 'indexOverride' => $indexOverride];
         return $this;
     }
 
@@ -112,24 +115,28 @@ class GameStateBuilder {
     // ready=true → Status 1 (ready); ready=false → Status 0 (exhausted)
     // controller=0 → same as owner ($player)
 
-    public function WithGroundUnitForPlayer(int $player, string $cardID, bool $ready = true, int $damage = 0, int $controller = 0): self {
+    // $turnEffects: '~'-delimited active TurnEffects on the unit (e.g. "LOF_045~SENTINEL^SEC_041"),
+    // or "-" for none. Serialized straight into the arena entry's TurnEffects field.
+    public function WithGroundUnitForPlayer(int $player, string $cardID, bool $ready = true, int $damage = 0, int $controller = 0, string $turnEffects = '-'): self {
         $this->_groundUnits[$player][] = [
-            'cardID'     => $cardID,
-            'ready'      => $ready,
-            'damage'     => $damage,
-            'controller' => $controller ?: $player,
-            'upgrades'   => [],
+            'cardID'      => $cardID,
+            'ready'       => $ready,
+            'damage'      => $damage,
+            'controller'  => $controller ?: $player,
+            'upgrades'    => [],
+            'turnEffects' => $turnEffects,
         ];
         return $this;
     }
 
-    public function WithSpaceUnitForPlayer(int $player, string $cardID, bool $ready = true, int $damage = 0, int $controller = 0): self {
+    public function WithSpaceUnitForPlayer(int $player, string $cardID, bool $ready = true, int $damage = 0, int $controller = 0, string $turnEffects = '-'): self {
         $this->_spaceUnits[$player][] = [
-            'cardID'     => $cardID,
-            'ready'      => $ready,
-            'damage'     => $damage,
-            'controller' => $controller ?: $player,
-            'upgrades'   => [],
+            'cardID'      => $cardID,
+            'ready'       => $ready,
+            'damage'      => $damage,
+            'controller'  => $controller ?: $player,
+            'upgrades'    => [],
+            'turnEffects' => $turnEffects,
         ];
         return $this;
     }
@@ -264,14 +271,14 @@ class GameStateBuilder {
                 $status   = $unit['ready'] ? 1 : 0;
                 $subcards = empty($unit['upgrades']) ? '-' : $unit['upgrades'];
                 AddGroundArena($player, $unit['cardID'], $status, $player, $unit['damage'],
-                               $unit['controller'], '-', $subcards, $uid);
+                               $unit['controller'], $unit['turnEffects'] ?? '-', $subcards, $uid);
             }
             foreach ($this->_spaceUnits[$player] as $unit) {
                 $uid      = $this->_nextUID++;
                 $status   = $unit['ready'] ? 1 : 0;
                 $subcards = empty($unit['upgrades']) ? '-' : $unit['upgrades'];
                 AddSpaceArena($player, $unit['cardID'], $status, $player, $unit['damage'],
-                              $unit['controller'], '-', $subcards, $uid);
+                              $unit['controller'], $unit['turnEffects'] ?? '-', $subcards, $uid);
             }
         }
 
@@ -286,6 +293,18 @@ class GameStateBuilder {
             $status = $leader['ready'] ? 1 : 0;
             AddGroundArena($player, $leader['cardID'], $status, $player, $leader['damage'] ?? 0, $player, '-', '-', $uid);
             $leaderObjs[$player]->DeployedUniqueID = $uid;
+
+            // indexOverride: scoot the just-appended leader unit to a specific ground-arena index,
+            // shifting the GIVEN-declared units up. Reindex mzIndex so it matches array position.
+            $override = intval($leader['indexOverride'] ?? -1);
+            if ($override >= 0) {
+                $zone = &GetGroundArena($player);
+                $leaderUnit = array_pop($zone);                    // remove from the end
+                $pos = max(0, min($override, count($zone)));       // clamp into range
+                array_splice($zone, $pos, 0, [$leaderUnit]);
+                for ($i = 0; $i < count($zone); $i++) $zone[$i]->mzIndex = $i;
+                unset($zone);
+            }
         }
 
         // Defeated players — set base damage = base HP

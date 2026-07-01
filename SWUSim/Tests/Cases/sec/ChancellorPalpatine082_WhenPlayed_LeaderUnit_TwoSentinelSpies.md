@@ -9,7 +9,7 @@ CommonSetup: ybw/ybw/{
   myLeader:SOR_005:1:1:1;
   myBase:SOR_028;
   theirBase:SOR_028;
-  theirLeaderReady:0
+  theirLeader:SOR_005:0
 }
 SkipPreGame: true
 P1OnlyActions: true

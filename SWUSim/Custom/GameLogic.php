@@ -6725,26 +6725,27 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
     if (empty($remaining)) {
         DecisionQueueController::CleanupRemovedCards();
         if ($continuation === 'COMBAT') {
+            // A defender's On Defense reaction (Captain Typho's disclose, LOF_047/067/252, …) is a
+            // NON-active-player decision that must resolve BEFORE combat damage. When it was resolved in
+            // the active drain (the single/other branches below), its decision sits on the defender's
+            // queue. If the other player still has a pending BLOCKING decision, hop this resume onto
+            // their queue and wait — the re-fired resume commits combat once they're done. (Supersedes
+            // the old SWU_PENDING_DEF_REACTION-gated hop; scoped to COMBAT so non-combat plays that queue
+            // an opponent decision, e.g. a forced discard, still finalize normally.)
+            $other = OtherPlayer($activePlayer);
+            if (_SWUPlayerHasBlockingDecision($other)) {
+                _SWUQueueOrchestration($other, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
+                $playerID = $savedPID;
+                return;
+            }
+            SetSWUVar('SWU_PENDING_DEF_REACTION', '');
             $aMz = $parts[2] ?? '';
             $tMz = $parts[3] ?? '';
             $uid = $parts[4] ?? '0';
             if ($aMz !== '' && $tMz !== '') {
-                // Combat-pause: a defender's On Defense reaction (LOF_047/067/252 — "when this unit is
-                // attacked, before damage") is a NON-active-player decision that must resolve BEFORE
-                // combat damage. Its YESNO sits on the defender's queue, which the active player's drain
-                // never reaches before this resume. If the non-active player still has a pending blocking
-                // decision, hop this resume onto THEIR queue (after their reaction) instead of committing
-                // SWUCombatDamage now; the re-fired resume commits combat once their reaction resolves.
-                $other = OtherPlayer($activePlayer);
-                if (GetSWUVar('SWU_PENDING_DEF_REACTION', '') === '1' && _SWUPlayerHasBlockingDecision($other)) {
-                    _SWUQueueOrchestration($other, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
-                    $playerID = $savedPID;
-                    return;
-                }
-                SetSWUVar('SWU_PENDING_DEF_REACTION', ''); // reaction (if any) resolved → commit combat
                 // Queue combat damage onto the CURRENT drain's queue ($player — the active player normally,
-                // or the defender when a combat-pause hop resumed here) so it runs in the same drain rather
-                // than stranding on the other player's queue. The trailing |{$activePlayer} carries the
+                // or the defender when a hop resumed here) so it runs in the same drain rather than
+                // stranding on the other player's queue. The trailing |{$activePlayer} carries the
                 // attacker frame so SWUCombatDamage resolves "my…" mzIDs correctly regardless of $player.
                 _SWUQueueOrchestration($player, "SWUCombatDamage|{$aMz}|{$tMz}|{$uid}|{$activePlayer}", 1);
             }
@@ -6780,11 +6781,16 @@ $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecisio
     _SWUQueueOrchestration($activePlayer, "SWU_TRIGGER_RESUME|{$activePlayer}{$contStr}", 20);
 
     if (count($remaining) === 1) {
-        // Single trigger left: auto-dispatch via RESOLVE_NEXT_TRIGGER.
+        // Single trigger left: auto-dispatch via RESOLVE_NEXT_TRIGGER, onto the CURRENT drain's queue
+        // ($player — the player whose ExecuteStaticMethods is running this resume), NOT the trigger's
+        // controller. Queuing on the controller would strand a lone opponent trigger on their queue and
+        // loop this resume; $player is always being drained now, so it runs. RESOLVE_NEXT_TRIGGER
+        // dispatches under the entry's own Controller regardless, so the trigger still resolves under
+        // the right player; if it queues a reaction for the OTHER player, the empty-stack hop above
+        // waits for it next round.
         $e = $remaining[0];
         $stackIdx = array_search($e, $stack);
-        $choosingPlayer = intval($e->Controller);
-        _SWUQueueOrchestration($choosingPlayer,
+        _SWUQueueOrchestration($player,
             "RESOLVE_NEXT_TRIGGER|EffectStack-{$stackIdx}", 1);
     } elseif (!empty($myRemaining) && empty($theirRemaining)) {
         // Active player still has multiple triggers: MZCHOOSE.
@@ -6819,11 +6825,19 @@ $customDQHandlers["SWU_TRIGGER_ORDER_CHOICE"] = function($player, $parts, $lastD
 
     $mineFirst = ($lastDecision === 'YES' || $lastDecision === '1');
     $first  = $mineFirst ? $activePlayer : (intval($activePlayer) === 1 ? 2 : 1);
-    $targetStr = _SWUEffectStackTargetsForPlayer($first);
+    $ids = array_values(array_filter(explode('&', _SWUEffectStackTargetsForPlayer($first))));
 
-    DecisionQueueController::AddDecision($first, "MZCHOOSE", $targetStr, 1,
-        tooltip:"Choose_trigger_to_resolve");
-    _SWUQueueOrchestration($first, "RESOLVE_NEXT_TRIGGER|{$first}", 1);
+    if (count($ids) === 1) {
+        // The chosen side has exactly ONE trigger — no order to pick, so skip the single-option
+        // "Choose_trigger_to_resolve" MZCHOOSE (it just hangs the effect stack with one clickable card)
+        // and auto-dispatch it. Queue onto the current drain ($player); RESOLVE_NEXT_TRIGGER dispatches
+        // under the entry's own Controller, so a lone opponent trigger still resolves right.
+        _SWUQueueOrchestration($player, "RESOLVE_NEXT_TRIGGER|{$ids[0]}", 1);
+    } else {
+        DecisionQueueController::AddDecision($first, "MZCHOOSE", implode('&', $ids), 1,
+            tooltip:"Choose_trigger_to_resolve");
+        _SWUQueueOrchestration($first, "RESOLVE_NEXT_TRIGGER|{$first}", 1);
+    }
 
     $playerID = $savedPID;
 };
