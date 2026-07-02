@@ -127,8 +127,9 @@ class CardScreen {
         if (field.field_type === 'image') {
             return `
                 <div class="asset-line">
-                    <select name="field_${field.id}" ${disabled}>
-                        <option value="">No image</option>
+                    <input name="field_${field.id}" value="${PreviewRenderer.escape(current)}" placeholder="https://example.com/card-image.jpg" ${disabled}>
+                    <select onchange="app.screens.cards.setImageFieldUrl('field_${field.id}', this.value)" ${disabled}>
+                        <option value="">Use uploaded asset</option>
                         ${this.app.state.assets.map(asset => `<option value="${PreviewRenderer.escape(asset.url)}" ${current === asset.url ? 'selected' : ''}>${PreviewRenderer.escape(asset.original_filename)}</option>`).join('')}
                     </select>
                     <input type="file" accept="image/*" onchange="app.screens.cards.uploadAsset(this, 'field_${field.id}')" ${disabled}>
@@ -158,19 +159,32 @@ class CardScreen {
     async uploadAsset(input, fieldName) {
         try {
             const asset = await this.app.assetPicker.uploadFromInput(input);
-            const select = document.querySelector(`[name="${fieldName}"]`);
-            if (asset && select) {
-                const option = document.createElement('option');
-                option.value = asset.url;
-                option.textContent = asset.original_filename;
-                option.selected = true;
-                select.appendChild(option);
+            const urlInput = document.querySelector(`[name="${fieldName}"]`);
+            const select = input.closest('.asset-line')?.querySelector('select');
+            if (asset && urlInput) {
+                urlInput.value = asset.url;
+                if (select) {
+                    const option = document.createElement('option');
+                    option.value = asset.url;
+                    option.textContent = asset.original_filename;
+                    option.selected = true;
+                    select.appendChild(option);
+                }
             }
             this.renderPreviewFromForm();
             this.saveCardFormNow();
         } catch (error) {
             this.app.toast(error.message, 'error');
         }
+    }
+
+    setImageFieldUrl(fieldName, value) {
+        if (!value) return;
+        const input = document.querySelector(`[name="${fieldName}"]`);
+        if (!input) return;
+        input.value = value;
+        this.renderPreviewFromForm();
+        this.saveCardFormNow();
     }
 
     valuesFromForm(form, template) {
