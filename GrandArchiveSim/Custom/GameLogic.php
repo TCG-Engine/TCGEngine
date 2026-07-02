@@ -7874,6 +7874,7 @@ function FieldAfterAdd($player, $CardID="-", $Status=2, $Owner="-", $Damage=0, $
     // Wildgrowth Fatestone (x2oydmfcre): [Guo Jia Bonus] whenever another wind element card
     // enters the field under your control, put a buff counter; 6+ may transform
     WildgrowthFatestoneOnEnterCheck($player, "myField-" . (count($field) - 1));
+    EdgeOfTommorrowDomainEntered($player, "myField-" . (count($field) - 1));
 
     $enteredMzID = $field[count($field)-1]->GetMzID();
     if($deferEnterUntilAfterGlimpse && !in_array("PENDING_ENTER_AFTER_GLIMPSE", $field[count($field)-1]->TurnEffects ?? [], true)) {
@@ -14524,10 +14525,11 @@ function ScavengeForType($player, $amount, $type) {
     $handZone = $player == $playerID ? "myHand" : "theirHand";
 
     $deck = GetZone($deckZone);
-    if(empty($deck)) return;
+    if(empty($deck)) return null;
 
     $revealCount = min(intval($amount), count($deck));
     $foundIdx = -1;
+    $foundCardID = null;
     $revealedIDs = [];
     for($i = 0; $i < $revealCount; ++$i) {
         if($deck[$i]->removed) continue;
@@ -14546,11 +14548,12 @@ function ScavengeForType($player, $amount, $type) {
     }
 
     if($foundIdx >= 0) {
+        $foundCardID = $deck[$foundIdx]->CardID;
         MZMove($player, $deckZone . "-" . $foundIdx, $handZone);
     }
 
     $remaining = $revealCount - ($foundIdx >= 0 ? 1 : 0);
-    if($remaining <= 0) return;
+    if($remaining <= 0) return $foundCardID;
 
     $remainingIDs = [];
     for($i = 0; $i < $remaining; ++$i) {
@@ -14560,12 +14563,40 @@ function ScavengeForType($player, $amount, $type) {
         $deckNow[0]->Remove();
     }
     DecisionQueueController::CleanupRemovedCards();
-    if(empty($remainingIDs)) return;
+    if(empty($remainingIDs)) return $foundCardID;
 
     EngineShuffle($remainingIDs);
     foreach($remainingIDs as $cardID) {
         MZAddZone($player, $deckZone, $cardID);
     }
+    return $foundCardID;
+}
+
+function EdgeOfTommorrowScavenge($player) {
+    $scavengedCardID = ScavengeForType($player, 8, "DOMAIN");
+    if($scavengedCardID === null || $scavengedCardID === "") return;
+    AddGlobalEffects($player, "GA-SHOUT-EDGE-OF-TOMMORROW-PRD-" . $scavengedCardID);
+}
+
+function EdgeOfTommorrowDomainEntered($player, $enteredMzID) {
+    $enteredObj = GetZoneObject($enteredMzID);
+    if($enteredObj === null || $enteredObj->removed) return;
+    if(!PropertyContains(CardType($enteredObj->CardID), "DOMAIN")) return;
+
+    $prefix = "GA-SHOUT-EDGE-OF-TOMMORROW-PRD-";
+    $globalEffects = &GetGlobalEffects($player);
+    $drawCount = 0;
+    for($i = count($globalEffects) - 1; $i >= 0; --$i) {
+        $effectID = $globalEffects[$i]->CardID;
+        if(strpos($effectID, $prefix) !== 0) continue;
+
+        $scavengedCardID = substr($effectID, strlen($prefix));
+        if(CardName($enteredObj->CardID) !== CardName($scavengedCardID)) continue;
+
+        array_splice($globalEffects, $i, 1);
+        ++$drawCount;
+    }
+    if($drawCount > 0) DrawIntoMemory($player, $drawCount);
 }
 
 function ScavengeForElement($player, $amount, $element) {
