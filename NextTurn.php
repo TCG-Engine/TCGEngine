@@ -227,6 +227,17 @@ if (session_status() === PHP_SESSION_NONE) session_start();
     }
 
     if (!SimGameValidateViewerAuth($folderPath, $gameName, $viewerInfo, $authKey)) {
+      // SWUSim public spectating requires a logged-in account: send anonymous spectators to the
+      // login page with a return link back to this spectate URL (rather than the generic "link
+      // invalid" page, which would be misleading — nothing is wrong with the link). This file has
+      // already emitted markup by now (output buffering is off), so a header() redirect can't work
+      // — use a client-side redirect, the same way SimGameRenderInvalidAuthPage renders post-output.
+      if (SimGameSpectatorLoginRequiredMissing($folderPath, $gameName, $viewerInfo)) {
+        $loginUrl = './SharedUI/LoginPage.php?redirect=' . urlencode($_SERVER['REQUEST_URI'] ?? '');
+        echo '<script>window.location.replace(' . json_encode($loginUrl) . ');</script>';
+        echo '<noscript><meta http-equiv="refresh" content="0;url=' . htmlspecialchars($loginUrl, ENT_QUOTES, 'UTF-8') . '"></noscript>';
+        exit;
+      }
       SimGameRenderInvalidAuthPage($folderPath, $gameName, $playerID);
     }
 
@@ -786,8 +797,11 @@ if (session_status() === PHP_SESSION_NONE) session_start();
             } else if (responseText.split("SIDEBOARD")[0] == "1236") {
               // Bo3: this game ended and sideboarding is pending. Show the end-game menu (the hub);
               // the menu's "Go to Next Game" navigates to the sideboard screen. Keep polling so the
-              // menu stays in sync if the opponent forfeits/leaves.
-              if (typeof window.SWUShowEndGameMenu === 'function') window.SWUShowEndGameMenu();
+              // menu stays in sync if the opponent forfeits/leaves. (After a full rematch a NEW match
+              // is sideboarding — SWUEnterSideboardOrMenu detects that and navigates straight there,
+              // since the completed-match overlay would otherwise block the menu rebuild.)
+              if (typeof window.SWUEnterSideboardOrMenu === 'function') window.SWUEnterSideboardOrMenu();
+              else if (typeof window.SWUShowEndGameMenu === 'function') window.SWUShowEndGameMenu();
               QueueReload(_lastUpdate);
               return;
             } else if (responseText.split("MATCHADVANCE")[0] == "1235") {

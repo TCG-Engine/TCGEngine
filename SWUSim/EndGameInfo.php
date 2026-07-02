@@ -35,9 +35,29 @@ $seriesOver = ($state === 'complete');
 $convReq = is_array($m['convertRequests'] ?? null) ? $m['convertRequests'] : [];
 $oppSeat = ($seat === 1) ? 2 : 1;
 
+// Full-rematch (10016): SWUAcceptRematch writes a Sideboard.json on THIS (completed) game pointing to a
+// NEW sideboarding match. Follow that pointer so the menu shows a "Go to Next Game" → the new match's
+// sideboard (otherwise the player is stranded on the completed-match menu). A pointer to the SAME match
+// is the normal Bo3 sideboarding case, already handled by the bestOf===3 branch — leave it alone.
+$navMatchId = $isSpectator ? null : $ref['matchId'];
+$sideboardPending = false;
+$sidePtr = __DIR__ . '/Games/' . $gameName . '/Sideboard.json';
+if (is_file($sidePtr)) {
+    $sp = json_decode(file_get_contents($sidePtr), true);
+    $sideMatchId = is_array($sp) ? strval($sp['matchId'] ?? '') : '';
+    if ($sideMatchId !== '' && $sideMatchId !== strval($ref['matchId'])) {
+        $sm = SWUReadMatch($sideMatchId);
+        if (is_array($sm) && ($sm['state'] ?? '') === 'sideboarding') {
+            $sideboardPending = true;
+            if (!$isSpectator) $navMatchId = $sideMatchId;
+        }
+    }
+}
+
 echo json_encode([
     'isMatch'     => true,
-    'matchId'     => $isSpectator ? null : $ref['matchId'], // for the "Go to Next Game" → Sideboard.php nav
+    'matchId'     => $navMatchId, // for the "Go to Next Game" → Sideboard.php nav (rematch: the NEW match)
+    'sideboardPending' => $sideboardPending,
     'didWin'      => $isSpectator ? null : ($gameWinner === $seat),
     'bestOf'      => $bestOf,
     'matchState'  => $state,
@@ -49,5 +69,6 @@ echo json_encode([
     'convertRequestedByOpp' => $isSpectator ? false : !empty($convReq[strval($oppSeat)]),
     'seriesOver'  => $seriesOver,
     'isSpectator' => $isSpectator,
+    'statsStatus' => strval($m['statsStatus'] ?? ''), // '', 'success', 'skipped_early', or 'failed'
     'statsHtml'   => SWUBuildStatsHtml($m, $gameRec, $isSpectator ? null : $seat),
 ]);

@@ -1909,6 +1909,13 @@ function SWUComputePlayCost($player, $obj, $host = null): int {
     if (GlobalEffectCount(intval($player), 'SWU_SNAP_DISCOUNT') > 0 && HasTrait($cardID, 'Resistance')) {
         $cost += -1;
     }
+    // JTL_008 Wedge (deployed On Attack): one-shot "next Pilot card you play this phase costs 1 less".
+    // This is the UNIT-play half (a Pilot played as a unit); the Piloting/attach half is honored in
+    // SWUComputePilotCost. Consumed in ActivateCard on the next Pilot unit-play. The two paths share the
+    // one-shot flag, so whichever the player uses first consumes it.
+    if (GlobalEffectCount(intval($player), 'SWU_PILOT_DISCOUNT') > 0 && HasTrait($cardID, 'Pilot')) {
+        $cost += -1;
+    }
     // LOF_005 Morgan Elsbeth (deployed) On Attack: one-shot "next unit you play this phase costs 1 less if
     // it shares a keyword with a friendly unit". Charge consumed in ActivateCard on the next unit play.
     if (GlobalEffectCount(intval($player), 'SWU_LOF005_DISCOUNT_NEXT') > 0
@@ -4259,6 +4266,9 @@ function ActionPhaseStart() {
             );
         }
     }
+    $playerID = $savedPID; // restore: the peek loop leaves $playerID on the last deck owner,
+    // which would otherwise mis-resolve the relative-mzID MZCHOOSE queued in the SOR_017 block
+    // below (the documented MZCountChoices/$playerID gotcha) when Thrawn is in play.
 
     // SOR_017 Han Solo — pending delayed trigger:
     // "At the start of the next action phase, defeat a resource you control."
@@ -8338,6 +8348,11 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
     // JTL_098 Snap Wexley: consume the one-shot "next Resistance card -1" charge now that the cost is locked.
     if (HasTrait($cardID, 'Resistance') && GlobalEffectCount(intval($player), 'SWU_SNAP_DISCOUNT') > 0) {
         RemoveGlobalEffect(intval($player), 'SWU_SNAP_DISCOUNT');
+    }
+    // JTL_008 Wedge: consume the one-shot "next Pilot card -1" charge on a Pilot played AS A UNIT
+    // (the Piloting/attach path consumes it in _SWUFinalizeUpgradeAttach). Locked in now.
+    if (HasTrait($cardID, 'Pilot') && GlobalEffectCount(intval($player), 'SWU_PILOT_DISCOUNT') > 0) {
+        RemoveGlobalEffect(intval($player), 'SWU_PILOT_DISCOUNT');
     }
     // ASH_212 Peli Motto: "Ignore the aspect penalties of the first non-unit card you play each phase." Mark
     // it used now that this non-unit card's (already-waived) cost is locked in. Cleared at RegroupPhaseStart.

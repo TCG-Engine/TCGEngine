@@ -168,7 +168,7 @@
       $baseType  = $row["baseType"];
       $baseHex = $baseColorDotMap[$baseColor] ?? '#888';
       $baseDot = $makeDot($baseHex);
-      $leaderName = htmlspecialchars(CardTitle($row["leaderID"]) . ", " . CardSubtitle($row["leaderID"]), ENT_QUOTES, 'UTF-8');
+      $leaderName = htmlspecialchars((string)CardTitle($row["leaderID"]) . ", " . CardSubtitle($row["leaderID"]), ENT_QUOTES, 'UTF-8');
       if ($baseType === 'Named') {
         // Rare/Special base — spell out the card name.
         $baseLabel = htmlspecialchars($row["baseName"], ENT_QUOTES, 'UTF-8');
@@ -321,7 +321,7 @@
 
     foreach ($mainDeckCardStats as $row) {
       $cardStatsTable .= "<tr>";
-      $cardStatsTable .= "<td>" . htmlspecialchars(CardTitle($row["cardID"]), ENT_QUOTES, 'UTF-8') . " (" . CardSet($row["cardID"]) . ")</td>";
+      $cardStatsTable .= "<td>" . htmlspecialchars((string)CardTitle($row["cardID"]), ENT_QUOTES, 'UTF-8') . " (" . CardSet($row["cardID"]) . ")</td>";
       $cardStatsTable .= "<td>" . $row["timesIncluded"] . "</td>";
       $cardStatsTable .= "<td>" . $row["timesIncludedInWins"] . "</td>";
       $cardStatsTable .= "<td>" . $row["timesDrawn"] . "</td>";
@@ -344,7 +344,7 @@
 
       foreach ($sideboardCardStats as $row) {
         $cardStatsTable .= "<tr>";
-        $cardStatsTable .= "<td>" . htmlspecialchars(CardTitle($row["cardID"]), ENT_QUOTES, 'UTF-8') . " (" . CardSet($row["cardID"]) . ")</td>";
+        $cardStatsTable .= "<td>" . htmlspecialchars((string)CardTitle($row["cardID"]), ENT_QUOTES, 'UTF-8') . " (" . CardSet($row["cardID"]) . ")</td>";
         $cardStatsTable .= "<td>" . $row["timesIncluded"] . "</td>";
         $cardStatsTable .= "<td>" . $row["timesIncludedInWins"] . "</td>";
         $cardStatsTable .= "<td>" . $row["timesDrawn"] . "</td>";
@@ -413,7 +413,7 @@
       echo "deckStats += \"<form><label for='leader' style='display: inline-block; width: 110px; margin-right: 10px;'>Leaders:</label><select id='leader'>\";";
       foreach ($allLeaders as $leader) {
         $leaderID = $leader->CardID;
-        $leaderName = htmlspecialchars(CardTitle($leaderID), ENT_QUOTES, 'UTF-8');
+        $leaderName = htmlspecialchars((string)CardTitle($leaderID), ENT_QUOTES, 'UTF-8');
         $leaderSet = CardSet($leaderID);
         $displayName = $leaderName . ($leaderSet ? " ({$leaderSet})" : "");
         echo "deckStats += \"<option value='$leaderID'>$displayName</option>\";";
@@ -452,7 +452,7 @@
         if (!in_array($card->CardID, $uniqueMainDeckCards)) {
           $uniqueMainDeckCards[] = $card->CardID;
           $cardID = $card->CardID;
-          $cardName = htmlspecialchars(CardTitle($cardID), ENT_QUOTES, 'UTF-8');
+          $cardName = htmlspecialchars((string)CardTitle($cardID), ENT_QUOTES, 'UTF-8');
           echo "deckStats += \"<label style='display: inline-block; width: 200px;'>$cardName</label>\";";
           echo "deckStats += \"<input type='number' id='played_$cardID' name='played_$cardID' placeholder='0' value='0' style='display: inline-block; width: 100px; margin-right: 10px;' min='0' max='100' oninput='validateNumberInput(this)' onkeypress='handleKeyPress(event)'>\";";
           echo "deckStats += \"<input type='number' id='resourced_$cardID' name='resourced_$cardID' placeholder='0' value='0' style='display: inline-block; width: 100px;' min='0' max='100' oninput='validateNumberInput(this)' onkeypress='handleKeyPress(event)'><br>\";";
@@ -463,7 +463,7 @@
         if (!in_array($card->CardID, $uniqueSideBoardCards) && (!in_array($card->CardID, $uniqueMainDeckCards))) {
           $uniqueSideBoardCards[] = $card->CardID;
           $cardID = $card->CardID;
-          $cardName = htmlspecialchars(CardTitle($cardID), ENT_QUOTES, 'UTF-8');
+          $cardName = htmlspecialchars((string)CardTitle($cardID), ENT_QUOTES, 'UTF-8');
           echo "deckStats += \"<label style='display: inline-block; width: 200px;'>$cardName</label>\";";
           echo "deckStats += \"<input type='number' id='played_$cardID' name='played_$cardID' placeholder='0' value='0' style='display: inline-block; width: 100px; margin-right: 10px;' min='0' max='100' oninput='validateNumberInput(this)' onkeypress='handleKeyPress(event)'>\";";
           echo "deckStats += \"<input type='number' id='resourced_$cardID' name='resourced_$cardID' placeholder='0' value='0' style='display: inline-block; width: 100px;' min='0' max='100' oninput='validateNumberInput(this)' onkeypress='handleKeyPress(event)'><br>\";";

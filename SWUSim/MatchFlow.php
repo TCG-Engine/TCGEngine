@@ -97,20 +97,24 @@ function SWUCreateMatchFromLobby($lobby) {
 
     // Per-seat match auth keys = the lobby players' keys (carried into every child game).
     // Also capture userId + a stable deck identity so the match can attribute per-deck W/L.
-    $authKeys = []; $userIds = []; $deckIdentities = [];
+    $authKeys = []; $userIds = []; $deckIdentities = []; $deckLinks = [];
     $seat = 1;
     foreach ($lobby->players as $player) {
         $authKeys[$seat]       = $player->getAuthKey();
         $userIds[$seat]        = method_exists($player, 'getUserId') ? $player->getUserId() : null;
         $deckIdentities[$seat] = SWUComputeDeckIdentity($player->getDeckLink());
+        // Keep the raw source link so SubmitGameResult can record deck-level stats (SaveDeckStats
+        // keys on a swustats/SWUDeck gameName link). Only such links yield deck stats; a swudb/
+        // pasted deck has no swustats deckID and is simply skipped downstream.
+        $deckLinks[$seat]      = $player->getDeckLink();
         ++$seat;
     }
 
     $matchId = SWUCreateMatch('SWUSim', $format, $queueType, [
         1 => ['originalDeck' => $resolved[1], 'authKey' => $authKeys[1], 'userId' => $userIds[1], 'deckIdentity' => $deckIdentities[1],
-              'cosmetics' => SWUResolveSeatCosmetics($userIds[1])],
+              'deckLink' => $deckLinks[1], 'cosmetics' => SWUResolveSeatCosmetics($userIds[1])],
         2 => ['originalDeck' => $resolved[2], 'authKey' => $authKeys[2], 'userId' => $userIds[2], 'deckIdentity' => $deckIdentities[2],
-              'cosmetics' => SWUResolveSeatCosmetics($userIds[2])],
+              'deckLink' => $deckLinks[2], 'cosmetics' => SWUResolveSeatCosmetics($userIds[2])],
     ]);
 
     // Spawn game 1 from the real lobby (its AuthKeys.json gets the match auth keys for free),
@@ -368,7 +372,8 @@ function SWUAfterActionMatchHook($folderPath, $gameName) {
     $winner = SWUGetGameWinner();
     // Capture per-game telemetry/detail while this game's gamestate is loaded (for stats).
     $detail = function_exists('SWUCaptureCurrentGameDetail') ? SWUCaptureCurrentGameDetail() : null;
-    $m = SWURecordGameResult($ref['matchId'], $gameName, $winner);
+    $roundNumber = is_array($detail) ? intval($detail['turns'] ?? 0) : null; // gate early-concede stats (round < 2)
+    $m = SWURecordGameResult($ref['matchId'], $gameName, $winner, $roundNumber);
     if ($detail !== null) {
         SWUWithMatchLock($ref['matchId'], function (&$mm) use ($gameName, $detail) {
             foreach ($mm['games'] as &$g) { if (($g['gameName'] ?? '') === strval($gameName)) { $g['detail'] = $detail; break; } }

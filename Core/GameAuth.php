@@ -127,9 +127,39 @@ function SimGameValidateSeatAuth($rootName, $gameName, $playerID, $authKey = '')
   return hash_equals($expectedKey, $presentedKey);
 }
 
+// True when the current browser is authenticated as a logged-in account. Self-contained so it
+// works from every caller (NextTurn.php closes its session before the auth check; GetNextTurn.php
+// never starts one): it opens the session only if needed, reads the flag, then releases the lock
+// it opened so it stays safe inside GetNextTurn's long-poll loop.
+function SimGameSpectatorIsLoggedIn()
+{
+  $started = false;
+  if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+    session_start();
+    $started = true;
+  }
+  $loggedIn = isset($_SESSION['useruid']);
+  if ($started) session_write_close();
+  return $loggedIn;
+}
+
+// True when a viewer is being denied specifically because SWUSim public spectating now requires a
+// logged-in account (used by NextTurn.php to redirect to login instead of the generic auth page).
+function SimGameSpectatorLoginRequiredMissing($rootName, $gameName, $viewerInfo)
+{
+  if ($rootName !== 'SWUSim') return false;
+  if (!is_array($viewerInfo) || empty($viewerInfo['isSpectator'])) return false;
+  if (SimGameIsPrivateGame($rootName, $gameName)) return false; // private games gate on the shared key, not login
+  return !SimGameSpectatorIsLoggedIn();
+}
+
 function SimGameValidateSpectatorAuth($rootName, $gameName, $authKey = '')
 {
-  if (!SimGameIsPrivateGame($rootName, $gameName)) return true;
+  if (!SimGameIsPrivateGame($rootName, $gameName)) {
+    // Public game: SWUSim requires a logged-in account to spectate; other sims stay open to all.
+    if ($rootName === 'SWUSim') return SimGameSpectatorIsLoggedIn();
+    return true;
+  }
 
   $expectedKey = SimGameGetSpectatorAuthKey($rootName, $gameName);
   if ($expectedKey === '') return false;

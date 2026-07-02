@@ -2747,6 +2747,88 @@ $customDQHandlers["JTL_001#0"] = function($player, $parts, $lastDecision) {
     SWUQueueAfterAction($player);
 };
 
+// ── Pilot-leader DEPLOYED (pilot-grant) On Attack handlers (JTL_001/008/011/012) ─────────────────
+// These four leaders' deployed text is "Attached unit is a leader unit. It gains: 'On Attack: …'" —
+// the On Attack is granted to the piloted HOST (dispatched via OnAttackFromUpgradeTrigger →
+// $onAttackAbilities["<CID>:0"] with $mzID = the host). Unlike JTL_018 (whose On Attack is ALSO on
+// its own deployed-unit side), these grants are PILOT-ONLY, so each guards out the case where the
+// attacker is the leader deployed as a plain unit (CardID === the leader). Combat owns the
+// after-action — no SWUAfterAction here.
+
+// JTL_001 Asajj Ventress — pilot grant: "On Attack: You may deal 1 to a friendly unit. If you do,
+// deal 1 to an enemy unit in the same arena." (Same effect as her front Action, but "you may" and
+// combat-owned — so a dedicated combat-safe continuation, not the front's JTL_001#0.)
+$onAttackAbilities["JTL_001:0"] = function($player, $mzID) {
+    global $playerID;
+    $playerID = intval($player);
+    $atk = GetZoneObject($mzID);
+    if ($atk === null || ($atk->CardID ?? '') === 'JTL_001') return; // deployed-unit side has only Grit
+    $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+    if (empty($friendly)) return;
+    SWUQueueMayChooseTarget(intval($player), $friendly,
+        "You_may_deal_1_to_a_friendly_unit", "Deal_1_to_a_friendly_unit", "JTL_001#1");
+};
+// Deal 1 to the chosen friendly, then (mandatory) 1 to an enemy in the SAME arena. No SWUAfterAction.
+$customDQHandlers["JTL_001#1"] = function($player, $parts, $lastDecision) {
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === '' || $lastDecision === 'PASS') return;
+    global $playerID;
+    $playerID = intval($player);
+    SWUDealDamageToUnit($lastDecision, 1, intval($player));
+    $enemyZone = (strpos($lastDecision, 'Space') !== false) ? 'theirSpaceArena' : 'theirGroundArena';
+    $enemies = ZoneSearch($enemyZone, AnyUnitFilter);
+    if (empty($enemies)) return; // no same-arena enemy → done
+    SWUQueueChooseTarget(intval($player), $enemies,
+        "Deal_1_to_an_enemy_unit_in_the_same_arena", "DEAL_UNIT_DAMAGE|1");
+};
+
+// JTL_008 Wedge Antilles — pilot grant: "On Attack: The next Pilot card you play this phase costs 1
+// resource less. (This includes Piloting costs.)" Arms the one-shot SWU_PILOT_DISCOUNT flag, honored
+// at BOTH SWUComputePilotCost (attach) and SWUComputePlayCost (a Pilot played as a unit).
+$onAttackAbilities["JTL_008:0"] = function($player, $mzID) {
+    global $playerID;
+    $playerID = intval($player);
+    $atk = GetZoneObject($mzID);
+    if ($atk !== null && ($atk->CardID ?? '') === 'JTL_008') return; // pilot-only grant
+    AddGlobalEffects(intval($player), 'SWU_PILOT_DISCOUNT');
+};
+
+// JTL_011 Major Vonreg — pilot grant: "On Attack: You may give another unit in this arena +1/+0 for
+// this phase." (The front Action buffs "another unit" in any arena; the deployed side is arena-local.)
+$onAttackAbilities["JTL_011:0"] = function($player, $mzID) {
+    global $playerID;
+    $playerID = intval($player);
+    $atk = GetZoneObject($mzID);
+    if ($atk === null || ($atk->CardID ?? '') === 'JTL_011') return; // pilot-only grant
+    $arena = (strpos($mzID, 'Space') !== false) ? 'Space' : 'Ground';
+    $hostUid = intval($atk->UniqueID ?? 0);
+    $targets = [];
+    foreach (array_merge(ZoneSearch("my{$arena}Arena", AnyUnitFilter), ZoneSearch("their{$arena}Arena", AnyUnitFilter)) as $mz) {
+        $o = GetZoneObject($mz);
+        if ($o === null || !empty($o->removed)) continue;
+        if (intval($o->UniqueID ?? 0) === $hostUid) continue; // "another" excludes the attacking host
+        $targets[] = $mz;
+    }
+    if (empty($targets)) return;
+    SWUQueueMayChooseTarget(intval($player), $targets,
+        "You_may_buff_another_unit_in_this_arena", "Give_another_unit_in_this_arena_+1/+0", "APPLY_PHASE_BUFF|1|0|JTL_011");
+};
+
+// JTL_012 — pilot grant, gated on the host being a Fighter: "If it's a Fighter, it gains: 'On Attack:
+// You may deal 3 damage to a unit.'"
+$onAttackAbilities["JTL_012:0"] = function($player, $mzID) {
+    global $playerID;
+    $playerID = intval($player);
+    $atk = GetZoneObject($mzID);
+    if ($atk === null || !HasTrait($atk->CardID, 'Fighter')) return; // pilot-only + Fighter-host gate
+    $targets = array_merge(
+        ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter),
+        ZoneSearch("theirGroundArena", AnyUnitFilter), ZoneSearch("theirSpaceArena", AnyUnitFilter)
+    );
+    if (empty($targets)) return;
+    SWUQueueMayChooseTarget(intval($player), $targets,
+        "You_may_deal_3_to_a_unit", "Deal_3_damage_to_a_unit", "DEAL_UNIT_DAMAGE|3");
+};
+
 // ── JTL_003 Lando Calrissian (leader action: play unit, then conditional Shield) ─────────────────
 // $lastDecision = the chosen hand unit. Queue the post-play Shield check FIRST (block 1, runs before
 // the play's FINISH_PLAY_CARD at block 10), then play the unit at full cost — ActivateCard owns the

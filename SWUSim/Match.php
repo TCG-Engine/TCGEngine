@@ -79,9 +79,11 @@ function SWUCreateMatch($rootName, $format, $queueType, $players) {
         'players'           => [
             '1' => ['originalDeck' => $players[1]['originalDeck'] ?? [], 'authKey' => strval($players[1]['authKey'] ?? ''),
                     'userId' => $players[1]['userId'] ?? null, 'deckIdentity' => strval($players[1]['deckIdentity'] ?? ''),
+                    'deckLink' => strval($players[1]['deckLink'] ?? ''),
                     'cosmetics' => $players[1]['cosmetics'] ?? null],
             '2' => ['originalDeck' => $players[2]['originalDeck'] ?? [], 'authKey' => strval($players[2]['authKey'] ?? ''),
                     'userId' => $players[2]['userId'] ?? null, 'deckIdentity' => strval($players[2]['deckIdentity'] ?? ''),
+                    'deckLink' => strval($players[2]['deckLink'] ?? ''),
                     'cosmetics' => $players[2]['cosmetics'] ?? null],
         ],
         'games'             => [],
@@ -111,8 +113,8 @@ function SWUMatchWinner(array $match) {
 // Idempotent by gameName: recording the same game twice does not double-count.
 // Games may be pre-seeded as shells (winner => null) when spawned; fill the shell
 // rather than appending a duplicate, and skip games already decided.
-function SWURecordGameResult($matchId, $gameName, $winnerSeat) {
-    return SWUWithMatchLock($matchId, function (&$match) use ($gameName, $winnerSeat) {
+function SWURecordGameResult($matchId, $gameName, $winnerSeat, $roundNumber = null) {
+    return SWUWithMatchLock($matchId, function (&$match) use ($gameName, $winnerSeat, $roundNumber) {
         $seat = intval($winnerSeat);
         $idx = null;
         foreach ($match['games'] as $i => $g) {
@@ -129,7 +131,11 @@ function SWURecordGameResult($matchId, $gameName, $winnerSeat) {
             $match['games'][$idx]['winner'] = $seat;
             $match['wins'][strval($seat)] = intval($match['wins'][strval($seat)] ?? 0) + 1;
             // Reached only on the null→seat transition (idempotent early-return above) → count once.
-            if (function_exists('SWURecordDeckStatsForGame')) SWURecordDeckStatsForGame($match, $seat);
+            // Skip a game that ended before Round 2 (early concede) — same rule as the SWUStats submit.
+            // ($roundNumber null = caller didn't supply it → record, preserving non-hook callers.)
+            if (($roundNumber === null || intval($roundNumber) >= 2) && function_exists('SWURecordDeckStatsForGame')) {
+                SWURecordDeckStatsForGame($match, $seat);
+            }
         }
         if (SWUMatchIsOver($match)) {
             $match['state']  = 'complete';

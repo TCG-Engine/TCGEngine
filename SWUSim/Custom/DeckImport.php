@@ -231,7 +231,18 @@ function SWUResolveDeckInput($deckLink) {
         return SWUImportFromSWUDB($deckLink);
     }
 
-    return SWUDeckError('Unsupported deck format. Paste a deck list, JSON, or a SWUDeck / SWUDB URL.');
+    // ── SWUStats / SWUDeck game link (a deck stored as a SWUStats game) ────────
+    // Prod: https://swustats.net/TCGEngine/NextTurn.php?gameName=<id>&folderPath=SWUDeck
+    // Dev:  http://localhost:3100/TCGEngine/NextTurn.php?gameName=<id>&folderPath=SWUDeck
+    // The localhost/loopback form is accepted ONLY under DEVENV (dev-only; avoids a prod
+    // SWUSim fetching arbitrary internal hosts).
+    if (stripos($deckLink, 'swustats.net') !== false
+        || (getenv('DEVENV') === 'true'
+            && preg_match('#^https?://(localhost|127\.0\.0\.1|host\.docker\.internal)(:\d+)?/#i', $deckLink))) {
+        return SWUImportFromSWUStats($deckLink);
+    }
+
+    return SWUDeckError('Unsupported deck format. Paste a deck list, JSON, or a SWUDeck / SWUDB / SWUStats URL.');
 }
 
 // ─── Source: standardized SWU JSON ───────────────────────────────────────────
@@ -351,6 +362,34 @@ function SWUImportFromSWUDB($url) {
     $data   = SWUFetchDeckJson($apiUrl, ['Accept: application/json']);
     if (!is_array($data)) {
         return SWUDeckError('Could not load the SWUDB deck. It may be private or unavailable.');
+    }
+
+    return SWUNormalizeStandardJSON($data);
+}
+
+// ─── Source: SWUStats / SWUDeck game link ────────────────────────────────────
+
+function SWUImportFromSWUStats($url) {
+    // A SWUStats/SWUDeck deck lives as a "game"; the link carries ?gameName=<numericId>.
+    if (!preg_match('/[?&]gameName=(\d+)/', $url, $m)) {
+        return SWUDeckError('Could not extract a gameName from the SWUStats/SWUDeck link.');
+    }
+    $deckId = $m[1];
+
+    // Fetch base follows the link host: swustats.net stays swustats.net; a local/loopback link
+    // (dev only) is reached via the Docker host gateway, since "localhost" inside this game
+    // container is the container itself, not the host's :3100 SWUDeck mapping.
+    $base = 'https://swustats.net';
+    if (getenv('DEVENV') === 'true'
+        && preg_match('#^https?://(localhost|127\.0\.0\.1|host\.docker\.internal)(:\d+)?#i', $url)) {
+        $base = 'http://host.docker.internal:3100';
+    }
+
+    // LoadDeck.php with setId=true returns the standardized SWU JSON (SET_NNN ids) SWUSim expects.
+    $apiUrl = $base . '/TCGEngine/APIs/LoadDeck.php?deckID=' . rawurlencode($deckId) . '&format=json&setId=true';
+    $data   = SWUFetchDeckJson($apiUrl, ['Accept: application/json']);
+    if (!is_array($data)) {
+        return SWUDeckError('Could not load the deck from SWUStats/SWUDeck. It may be private or unavailable.');
     }
 
     return SWUNormalizeStandardJSON($data);

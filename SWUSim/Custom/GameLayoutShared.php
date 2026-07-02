@@ -1747,6 +1747,15 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             return b;
         }
         // (Block Player moved to a collapsible widget below the game-over stats — see SWUShowEndGameMenu.)
+        // Full-rematch (10016) both agreed: a NEW match is sideboarding (EndGameInfo followed the
+        // Sideboard.json pointer and set info.matchId to it). Steer straight to its sideboard — the
+        // completed-match buttons don't apply anymore.
+        if (info.sideboardPending) {
+            b.push({label:'Go to Next Game', onClick:function(){ SWUGoSideboard(info); }});
+            b.push({label:'Return to Main Menu', onClick: SWUGoMainMenu});
+            b.push({label:'Report Bug', onClick: SWUReportBug});
+            return b;
+        }
         if (bestOf === 3 && !seriesOver) {
             b.push({label:'Return to Main Menu', onClick:function(){ SWUConfirm('Leave now? This forfeits the best-of-3.', function(){ SubmitInput('10007',''); SWUGoMainMenu(); }, { confirmLabel: 'Leave', danger: true }); }});
             b.push({label:'Go to Next Game', onClick:function(){ SWUGoSideboard(info); }});
@@ -1798,9 +1807,31 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
                 // Collapsible Block Player, placed below the stats panel.
                 var goStats = document.getElementById('game-over-stats');
                 if (goStats) {
+                    // Dedupe first: this append runs even when ShowGameOver early-returned on an
+                    // existing overlay, so two concurrent rebuilds (the convert poll removing the
+                    // overlay + NextTurn.php's GAMEOVER_WINNER detector both firing in that gap)
+                    // would otherwise stack a second widget in the same stats box.
+                    var existingBw = goStats.querySelector('.swu-blockplayer');
+                    if (existingBw) existingBw.remove();
                     var bw = SWUBuildBlockPlayerWidget({ liveBo3: (info.bestOf === 3 && info.matchState !== 'complete') });
                     // Inside the stats box, right below the stats table (not pushed to the panel bottom).
                     if (bw) goStats.appendChild(bw);
+                    // SWUStats submission banner — shown once the match completes (SWUSubmitMatchResults ran).
+                    var existingSt = goStats.querySelector('.swu-stats-status');
+                    if (existingSt) existingSt.remove();
+                    var stMap = {
+                        success:       ['Game sent to SWUStats successfully!', '#7CFC9E'],
+                        skipped_early: ['Game not sent to SWUStats due to ending before Round 2', '#F0B429'],
+                        failed:        ['Game failed to send to SWUStats', '#E06666']
+                    };
+                    var st = stMap[info.statsStatus];
+                    if (st) {
+                        var sd = document.createElement('div');
+                        sd.className = 'swu-stats-status';
+                        sd.textContent = st[0];
+                        sd.style.cssText = 'margin:0 0 10px;font-size:13px;font-weight:700;color:' + st[1] + ';';
+                        goStats.insertBefore(sd, goStats.firstChild);
+                    }
                 }
                 if (info.convertible) SWUStartEndGamePoll(gn, pid, ak);
             }).catch(function(){
@@ -1809,6 +1840,26 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
             });
     }
     window.SWUShowEndGameMenu = SWUShowEndGameMenu;
+    // Called on a 1236SIDEBOARD poll. Normally shows/keeps the end-game menu (its "Go to Next Game"
+    // navigates to the sideboard). BUT after a FULL rematch (10016) both agreed and a NEW match is
+    // sideboarding — the completed-match overlay is already up, so SWUShowEndGameMenu would no-op and
+    // strand the player. EndGameInfo flags that case (sideboardPending, matchId = the new match); go
+    // straight there, since both already opted in.
+    function SWUEnterSideboardOrMenu() {
+        var gnEl = document.getElementById('gameName');
+        var pidEl = document.getElementById('playerID');
+        var akEl = document.getElementById('authKey');
+        var gn = gnEl ? gnEl.value : '', pid = pidEl ? pidEl.value : '', ak = akEl ? akEl.value : '';
+        if (pid !== '1' && pid !== '2') { SWUShowEndGameMenu(); return; } // spectators just follow the menu
+        fetch('./SWUSim/EndGameInfo.php?gameName=' + encodeURIComponent(gn) + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(ak))
+            .then(function(r){ return r.json(); })
+            .then(function(info){
+                if (info && info.sideboardPending && info.matchId) { SWUGoSideboard(info); return; }
+                SWUShowEndGameMenu();
+            })
+            .catch(function(){ SWUShowEndGameMenu(); });
+    }
+    window.SWUEnterSideboardOrMenu = SWUEnterSideboardOrMenu;
 
     // Intercept FlashMessageData before NextTurnRender consumes it.
     // A "GAMEOVER:"/"MATCHOVER:" flash opens the match-aware end-game menu (falls back to the banner).

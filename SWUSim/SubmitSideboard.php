@@ -14,6 +14,13 @@ if ($seat !== 1 && $seat !== 2) { echo json_encode(['success'=>false,'message'=>
 // Auth: the match stores each seat's authKey.
 $expected = strval($m['players'][strval($seat)]['authKey'] ?? '');
 if ($expected === '' || !hash_equals($expected, $authKey)) { echo json_encode(['success'=>false,'message'=>'Auth failed.']); exit; }
+// Sideboard-timeout heartbeat: both players poll THIS endpoint (not GetNextTurn) while sideboarding,
+// so the no-submit countdown must be checked here too — otherwise a waiting (already-submitted) player
+// hangs forever when the opponent never submits (GetNextTurn's check only fires for a player still on
+// the game page). No-op until the deadline passes; may advance the match, so re-read below.
+SWUSideboardTimeoutCheck($matchId);
+$m = SWUReadMatch($matchId);
+if (!is_array($m)) { echo json_encode(['success'=>false,'message'=>'Unknown match.']); exit; }
 if (($m['state'] ?? '') !== 'sideboarding') {
   // The opponent's submit already spawned the next game and advanced the match. A client
   // still polling this round must be told where to go instead of hanging on an error.
