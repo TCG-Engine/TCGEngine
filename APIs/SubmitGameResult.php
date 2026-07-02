@@ -71,8 +71,18 @@
   $p1id = isset($data["p1id"]) ? $data["p1id"] : "";
   $p2id = isset($data["p2id"]) ? $data["p2id"] : "";
 
-  $p1DeckLink = $data["p1DeckLink"];
-  $p2DeckLink = $data["p2DeckLink"];
+  $p1DeckLink = isset($data["p1DeckLink"]) ? $data["p1DeckLink"] : "";
+  $p2DeckLink = isset($data["p2DeckLink"]) ? $data["p2DeckLink"] : "";
+  // A deck link yields deck-level stats when it points at a SWUStats/SWUDeck game (…?gameName=<id>).
+  // Prod uses swustats.net; in local dev the deck link is a loopback host (localhost:3100 /
+  // host.docker.internal). Accepting loopback is safe here regardless of env — this endpoint never
+  // dials the host, it only parses the ?gameName= id for a DB lookup, and prod links are swustats.net.
+  // (DEVENV isn't set on the SWUDeck web container anyway, so it can't be the gate here.)
+  $statsDeckLinkOK = function($link) {
+    if (strpos((string)$link, 'swustats.net') !== false) return true;
+    if (preg_match('#^https?://(localhost|127\.0\.0\.1|host\.docker\.internal)(:\d+)?/#i', (string)$link)) return true;
+    return false;
+  };
   $p1SWUStatsToken = isset($data["p1SWUStatsToken"]) ? $data["p1SWUStatsToken"] : "";
   $p2SWUStatsToken = isset($data["p2SWUStatsToken"]) ? $data["p2SWUStatsToken"] : "";
 
@@ -122,7 +132,7 @@
 
   writeLog("Received game result. P1 token: " . $p1SWUStatsToken . ", P2 token: " . $p2SWUStatsToken);
 
-  if(strpos($p1DeckLink, 'swustats.net') !== false) {
+  if($statsDeckLinkOK($p1DeckLink)) {
 	$arr = explode("gameName=", $p1DeckLink);
 	if(count($arr) >= 2)
 	{
@@ -151,7 +161,7 @@
 		SaveDeckStats($deckID, $data["player1"], $won, $firstPlayer == 1, $data["round"], $data["winnerHealth"], $data["gameName"], $disableMetaStats, $isDeckOwner, $opponentData);
 	}
   }
-  if(strpos($p2DeckLink, 'swustats.net') !== false) {
+  if($statsDeckLinkOK($p2DeckLink)) {
 	$arr = explode("gameName=", $p2DeckLink);
 	if(count($arr) >= 2)
 	{

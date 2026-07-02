@@ -231,15 +231,123 @@ if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
     exit();
 }
 
+// Fill a SWUDeck game with a supplied deck JSON (mirrors SWUDeck/CreateDeck.php's parse+write, but
+// targets a caller-supplied gameName and takes the JSON directly). A SWUDeck game file is a full
+// gamestate, but only the leader/base/mainDeck/sideboard zones carry deck content — the rest are
+// empty scaffolding written by WriteGamestate. Deck JSON shape: {leader:{id},base:{id},
+// deck:[{id,count}],sideboard:[{id,count}]} with SET_NNN ids.
+if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
+    header('Content-Type: application/json');
+    $gameNameIn = isset($_POST['gameName']) ? preg_replace('/[^0-9]/', '', $_POST['gameName']) : '';
+    $deckJsonIn = isset($_POST['deckJson']) ? trim($_POST['deckJson']) : '';
+    if ($gameNameIn === '' || $deckJsonIn === '') {
+        echo json_encode(['success' => false, 'error' => 'gameName (numeric) and deckJson are both required.']);
+        exit();
+    }
+    $deckObj = json_decode($deckJsonIn);
+    if ($deckObj === null) {
+        echo json_encode(['success' => false, 'error' => 'deckJson is not valid JSON.']);
+        exit();
+    }
+    include_once './SWUDeck/GamestateParser.php';
+    include_once './SWUDeck/ZoneAccessors.php';
+    include_once './SWUDeck/ZoneClasses.php';
+    include_once './SWUDeck/Overrides.php';
+    include_once './Core/CoreZoneModifiers.php';
+    include_once './SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
+    include_once './SWUDeck/Custom/CardIdentifiers.php';
+    global $gameName, $p1Leader, $p1Base, $p1MainDeck, $p1Sideboard;
+    $gameName = $gameNameIn;
+    InitializeGamestate();
+    if (isset($deckObj->leader->id)) array_push($p1Leader, new Leader(UUIDLookup($deckObj->leader->id)));
+    if (isset($deckObj->base->id))   array_push($p1Base,   new Base(UUIDLookup($deckObj->base->id)));
+    foreach (($deckObj->deck ?? []) as $c) {
+        if (!isset($c->id)) continue;
+        $cardID = UUIDLookup(CardIDOverride($c->id));
+        for ($j = 0; $j < intval($c->count ?? 1); ++$j) array_push($p1MainDeck, new MainDeck($cardID));
+    }
+    foreach (($deckObj->sideboard ?? []) as $c) {
+        if (!isset($c->id)) continue;
+        $cardID = UUIDLookup(CardIDOverride($c->id));
+        for ($j = 0; $j < intval($c->count ?? 1); ++$j) array_push($p1Sideboard, new Sideboard($cardID));
+    }
+    @mkdir('./SWUDeck/Games/' . $gameName, 0777, true); // ensure the dir exists for the file-mode write
+    WriteGamestate('./SWUDeck/');
+    echo json_encode([
+        'success' => true,
+        'message' => 'Filled SWUDeck game ' . $gameName . ': leader ' . (isset($deckObj->leader->id) ? '✓' : '—')
+            . ', base ' . (isset($deckObj->base->id) ? '✓' : '—')
+            . ', ' . count($p1MainDeck) . ' main deck, ' . count($p1Sideboard) . ' sideboard.',
+        'link' => '/TCGEngine/NextTurn.php?gameName=' . $gameName . '&playerID=1&folderPath=SWUDeck',
+    ]);
+    exit();
+}
+
 // HTML and JS for truncate button
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Mod Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SWUDeck — Mod Page</title>
+    <style>
+      /* SWUDeck-themed mod page (dark navy + blue accents, matching the SWUDeck site palette). */
+      :root { color-scheme: dark; }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0 auto; max-width: 920px; padding: 28px 22px 64px; min-height: 100vh;
+        font-family: Roboto, Barlow, system-ui, -apple-system, sans-serif;
+        background: radial-gradient(circle at 50% -12%, #0a2452 0%, #000022 62%) fixed;
+        color: #dfe8ff;
+      }
+      h1.mod-title {
+        font-size: 26px; font-weight: 700; letter-spacing: .4px; color: #cfe0ff;
+        margin: 0 0 4px; display: flex; align-items: center; gap: 10px;
+      }
+      h1.mod-title::before { content: '◆'; color: #4f8bff; text-shadow: 0 0 10px #2a4b8d; }
+      .mod-sub { color: #7d97c8; font-size: 13px; margin: 0 0 26px; }
+      h3 {
+        color: #aac8ff; font-size: 16px; margin: 28px 0 12px;
+        padding-bottom: 6px; border-bottom: 1px solid #2a4b8d;
+      }
+      hr { border: none; border-top: 1px solid #143062; margin: 26px 0; }
+      form {
+        background: #001833; border: 1px solid #23407d; border-radius: 8px;
+        padding: 14px 16px; box-shadow: 0 2px 14px rgba(0,20,60,.5);
+        display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center;
+      }
+      form label { color: #c3d4f5; font-size: 13px; display: flex; align-items: center; gap: 6px; }
+      input, textarea, select {
+        background: #00102a; color: #e8f0ff; border: 1px solid #2a4b8d; border-radius: 5px;
+        padding: 6px 8px; font-size: 13px; font-family: inherit;
+      }
+      textarea { font-family: ui-monospace, Menlo, Consolas, monospace; width: 100%; }
+      input:focus, textarea:focus, select:focus {
+        outline: none; border-color: #4f8bff; box-shadow: 0 0 0 2px rgba(79,139,255,.3);
+      }
+      button {
+        background: linear-gradient(180deg, #2a4b8d, #001f4d); color: #fff;
+        border: 1px solid #3a5b9d; border-radius: 6px; padding: 7px 16px;
+        font-size: 13px; font-weight: 600; cursor: pointer;
+        transition: filter .12s, box-shadow .12s;
+      }
+      button:hover { filter: brightness(1.25); box-shadow: 0 0 8px rgba(79,139,255,.5); }
+      button:active { filter: brightness(.9); }
+      pre.mod-pre {
+        background: #00112b; border: 1px solid #143062; border-radius: 6px;
+        color: #bcd0f5; padding: 10px 12px; margin-top: 10px; font-size: 12px;
+        white-space: pre-wrap; word-break: break-word;
+      }
+      [id$="Result"], #result { margin-top: 10px; color: #bcd0f5; font-size: 13px; }
+      [id$="Result"] a, #result a { color: #7fb0ff; }
+    </style>
 </head>
 <body>
+    <h1 class="mod-title">SWUDeck Mod Tools</h1>
+    <p class="mod-sub">Moderator utilities — ownership, accounts, SQL, and SWUDeck game tooling.</p>
+
+    <h3>Truncate Meta Stats</h3>
     <button id="truncateBtn">Truncate Meta Stats Tables</button>
     <div id="result" style="margin-top:10px;"></div>
 
@@ -250,7 +358,7 @@ if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
         <label>Asset Identifier: <input type="number" id="viewAssetIdentifier" required></label>
         <button id="viewOwnershipBtn">View Row</button>
     </form>
-    <pre id="ownershipRowResult" style="background:#f0f0f0;padding:10px;"></pre>
+    <pre id="ownershipRowResult" class="mod-pre"></pre>
 
     <h3>Change Ownership Owner</h3>
     <form id="updateOwnershipForm" onsubmit="return false;">
@@ -268,7 +376,7 @@ if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
         <label>or Email: <input type="email" id="lookupUsersEmail"></label>
         <button id="lookupUserBtn">Lookup</button>
     </form>
-    <pre id="lookupUserResult" style="background:#f0f0f0;padding:10px;"></pre>
+    <pre id="lookupUserResult" class="mod-pre"></pre>
 
     <h3>Reset User Password</h3>
     <form id="modResetPasswordForm" onsubmit="return false;">
@@ -286,7 +394,19 @@ if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
         </label><br>
         <button id="adminSQLBtn">Execute SQL</button>
     </form>
-    <pre id="adminSQLResult" style="background:#f0f0f0;padding:10px;"></pre>
+    <pre id="adminSQLResult" class="mod-pre"></pre>
+
+    <hr style="margin:20px 0;">
+    <h3>Fill SWUDeck Game with Deck JSON</h3>
+    <form id="fillSWUDeckForm" onsubmit="return false;">
+        <label>gameName: <input type="number" id="fillGameName" required></label><br>
+        <label>Deck JSON:<br>
+            <textarea id="fillDeckJson" rows="6" cols="80" style="font-family:monospace;"
+                placeholder='{"leader":{"id":"ASH_011"},"base":{"id":"ASH_020"},"deck":[{"id":"SOR_033","count":3}],"sideboard":[]}'></textarea>
+        </label><br>
+        <button id="fillSWUDeckBtn">Fill Game</button>
+    </form>
+    <div id="fillSWUDeckResult" style="margin-top:10px;"></div>
 
     <script>
     document.getElementById('adminSQLBtn').onclick = function() {
@@ -441,6 +561,36 @@ if (isset($_POST['lookupUserAccount']) && $_POST['lookupUserAccount'] === '1') {
         .catch(e => {
             document.getElementById('modResetPasswordResult').innerText = 'Request failed.';
         });
+    };
+
+    document.getElementById('fillSWUDeckBtn').onclick = function() {
+        var gameName = document.getElementById('fillGameName').value.trim();
+        var deckJson = document.getElementById('fillDeckJson').value.trim();
+        var out = document.getElementById('fillSWUDeckResult');
+        if (!gameName || !deckJson) { out.innerText = 'Please enter a gameName and deck JSON.'; return; }
+        try { JSON.parse(deckJson); } catch (err) { out.innerText = 'Deck JSON is not valid JSON.'; return; }
+        out.innerText = 'Processing...';
+        var params = 'fillSWUDeckGame=1&gameName=' + encodeURIComponent(gameName) + '&deckJson=' + encodeURIComponent(deckJson);
+        fetch(window.location.pathname, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: params
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data.success) {
+                out.innerHTML = '';
+                out.appendChild(document.createTextNode(data.message + ' '));
+                if (data.link) {
+                    var a = document.createElement('a');
+                    a.href = data.link; a.target = '_blank'; a.textContent = 'Open game';
+                    out.appendChild(a);
+                }
+            } else {
+                out.innerText = data.error || 'Unknown error.';
+            }
+        })
+        .catch(e => { out.innerText = 'Request failed.'; });
     };
     </script>
 </body>

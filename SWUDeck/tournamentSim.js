@@ -77,8 +77,19 @@ function participantsFromApiDecks(decks) {
   return participants;
 }
 
+// Full weeks since the stats reference date (mirrors PHP GetWeekSinceRef('2025-09-20')).
+function currentStatsWeek() {
+  const refUTC = Date.UTC(2025, 8, 20); // 2025-09-20 (month is 0-indexed)
+  const days = Math.floor((Date.now() - refUTC) / 86400000);
+  return Math.max(0, Math.floor(days / 7));
+}
+
 function fetchMetaMatchupStats() {
-  const url = '/TCGEngine/APIs/MetaMatchupStatsAPI.php';
+  // Simulate on the RECENT meta (last ~10 weeks) rather than all-time: startWeek
+  // alone means "that week to the end" and the API aggregates the window into one
+  // row per matchup. Keeps the payload light and the sim representative of now.
+  const startWeek = Math.max(0, currentStatsWeek() - 10);
+  const url = '/TCGEngine/APIs/MetaMatchupStatsAPI.php?startWeek=' + startWeek;
   // use hostname without scheme; use HTTPS on port 443
   const options = { hostname: 'swustats.net', port: 443, path: url, method: 'GET' };
   return new Promise((resolve, reject) => {

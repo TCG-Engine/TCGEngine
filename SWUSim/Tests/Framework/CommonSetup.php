@@ -63,12 +63,11 @@ function CommonSetup(
     $theirDeployMode = !empty($theirOpts['leaderDeployedPilot']) ? 'pilot'
                      : (!empty($theirOpts['leaderDeployed'])     ? 'unit' : '');
 
-    // Deployed flag decoupled from deploy mode: 'leaderDeployedFlag' sets Leader.Deployed=true WITHOUT
-    // any board presence (deployMode=''), matching the legacy P1LeaderBase `:deployed` field where the
-    // deployed leader unit is declared separately via WithP{n}GroundArena. Any real deploy mode also
-    // implies the flag.
-    $myDeployedFlag    = $myDeployMode !== ''    || !empty($myOpts['leaderDeployedFlag']);
-    $theirDeployedFlag = $theirDeployMode !== '' || !empty($theirOpts['leaderDeployedFlag']);
+    // A leader is Deployed iff it has real board presence (deployMode 'unit' or 'pilot'). There is no
+    // board-less "deployed flag" — a regular deploy (deployMode='unit', optionally positioned with
+    // leaderIndexOverride) places the leader unit directly.
+    $myDeployedFlag    = $myDeployMode !== '';
+    $theirDeployedFlag = $theirDeployMode !== '';
 
     $b->MyBase($myBaseID,
             $myOpts['baseDamage']          ?? 0,
@@ -79,7 +78,8 @@ function CommonSetup(
             $myDeployedFlag,
             $myOpts['leaderEpicActionUsed'] ?? false,
             $myDeployMode,
-            $myOpts['leaderDamage']        ?? 0)
+            $myOpts['leaderDamage']        ?? 0,
+            $myOpts['leaderIndexOverride'] ?? -1)
       ->TheirBase($theirBaseID,
             $theirOpts['baseDamage']          ?? 0,
             $theirOpts['baseEpicActionUsed']  ?? false,
@@ -89,7 +89,8 @@ function CommonSetup(
             $theirDeployedFlag,
             $theirOpts['leaderEpicActionUsed'] ?? false,
             $theirDeployMode,
-            $theirOpts['leaderDamage']        ?? 0);
+            $theirOpts['leaderDamage']        ?? 0,
+            $theirOpts['leaderIndexOverride'] ?? -1);
 
     $vanilla = Cards::UNITS_SOR_BATTLEFIELD_MARINE;
 

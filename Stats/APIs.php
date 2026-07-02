@@ -135,12 +135,12 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>startWeek</td>
                     <td>integer</td>
-                    <td>(Optional) Start week (inclusive). If omitted and endWeek omitted, defaults to week = 0 (historical/current week depending on server config).</td>
+                    <td>(Optional) Include weeks &ge; startWeek. If BOTH startWeek and endWeek are omitted, all weeks are included (all-time). Results are aggregated across the selected weeks.</td>
                 </tr>
                 <tr>
                     <td>endWeek</td>
                     <td>integer</td>
-                    <td>(Optional) End week (inclusive). If provided together with startWeek, returns the inclusive range between them.</td>
+                    <td>(Optional) Include weeks &le; endWeek. With both provided, the inclusive range is used; with only endWeek, weeks 0..endWeek.</td>
                 </tr>
                 <tr>
                     <td>format</td>
@@ -148,7 +148,7 @@ include_once "../SharedUI/Header.php";
                     <td>(Optional) Filter by game format</td>
                 </tr>
             </table>
-            
+
             <h4>Example Response:</h4>
             <pre><code>{
     "leaderID": "0524529055",
@@ -252,7 +252,7 @@ include_once "../SharedUI/Header.php";
         <div class="api-endpoint">
             <h3>Get All Matchup Statistics</h3>
             <p><span class="method get">GET</span> <code>/TCGEngine/APIs/MetaMatchupStatsAPI.php</code></p>
-            <p>Returns every row from the <code>deckmetamatchupstats</code> table for the current week (week = 0).</p>
+            <p>Returns the whole-meta matchup grid. By default results are aggregated across ALL weeks (all-time); use the week parameters to restrict the window, or <code>groupByWeek=1</code> for a per-week breakdown.</p>
             <h4>Query Parameters:</h4>
             <table>
                 <tr>
@@ -261,9 +261,19 @@ include_once "../SharedUI/Header.php";
                     <th>Description</th>
                 </tr>
                 <tr>
-                    <td>None</td>
-                    <td>—</td>
-                    <td>This endpoint does not accept query parameters; it returns all rows for week = 0.</td>
+                    <td>startWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) Include weeks &ge; startWeek. If both week params are omitted, all weeks are included (all-time).</td>
+                </tr>
+                <tr>
+                    <td>endWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) Include weeks &le; endWeek. With both provided, the inclusive range is used; with only endWeek, weeks 0..endWeek.</td>
+                </tr>
+                <tr>
+                    <td>groupByWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) Set to <code>1</code> to return one row per matchup PER WEEK (each row includes a <code>week</code> field), for tracking change over time. Default aggregates the selected weeks into one row per matchup.</td>
                 </tr>
             </table>
             <h4>Example Response:</h4>
@@ -295,7 +305,7 @@ include_once "../SharedUI/Header.php";
         <div class="api-endpoint">
             <h3>Get Deck Matchup Statistics</h3>
             <p><span class="method get">GET</span> <code>/TCGEngine/APIs/DeckMetaMatchupStatsAPI.php</code></p>
-            <p>Retrieve matchup statistics for a deck, showing how it performs against other leader/base combinations.</p>
+            <p>Retrieve matchup statistics for a deck, showing how it performs against other leader/base combinations. By default results are aggregated across ALL weeks (all-time); use the week parameters to restrict the window, or <code>groupByWeek=1</code> for a per-week breakdown.</p>
             <h4>Query Parameters:</h4>
             <table>
                 <tr>
@@ -306,12 +316,27 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>leaderID</td>
                     <td>string</td>
-                    <td>The ID of the leader for the deck</td>
+                    <td>The ID of the leader for the deck (required)</td>
                 </tr>
                 <tr>
                     <td>baseID</td>
                     <td>string</td>
-                    <td>The ID of the base for the deck</td>
+                    <td>The ID of the base for the deck (required)</td>
+                </tr>
+                <tr>
+                    <td>startWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) Include weeks &ge; startWeek. If both week params are omitted, all weeks are included (all-time).</td>
+                </tr>
+                <tr>
+                    <td>endWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) Include weeks &le; endWeek. With both provided, the inclusive range is used; with only endWeek, weeks 0..endWeek.</td>
+                </tr>
+                <tr>
+                    <td>groupByWeek</td>
+                    <td>integer</td>
+                    <td>(Optional) Set to <code>1</code> to return one row per opponent PER WEEK (each row includes a <code>week</code> field), for tracking change over time. Default aggregates the selected weeks into one row per opponent.</td>
                 </tr>
             </table>
             <h4>Example Response:</h4>
@@ -359,12 +384,12 @@ include_once "../SharedUI/Header.php";
                 <tr>
                     <td>startWeek</td>
                     <td>integer</td>
-                    <td>(Optional) Start week (inclusive). If omitted and endWeek omitted, defaults to week = 0.</td>
+                    <td>(Optional) Include weeks &ge; startWeek. If BOTH startWeek and endWeek are omitted, all weeks are included (all-time). Results are aggregated across the selected weeks.</td>
                 </tr>
                 <tr>
                     <td>endWeek</td>
                     <td>integer</td>
-                    <td>(Optional) End week (inclusive). If provided together with startWeek, returns the inclusive range between them.</td>
+                    <td>(Optional) Include weeks &le; endWeek. With both provided, the inclusive range is used; with only endWeek, weeks 0..endWeek.</td>
                 </tr>
                 <tr>
                     <td>format</td>

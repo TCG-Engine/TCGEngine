@@ -150,10 +150,16 @@ class SchemaTestRunner {
                              'WithP1GroundArenaUpgrade',  'WithP2GroundArenaUpgrade',
                              'WithP1SpaceArenaUpgrade',   'WithP2SpaceArenaUpgrade',
                              'WithP1Deck',                'WithP2Deck'];
-        // List-valued keys accept either one card ID per line OR a whitespace-separated
-        // array on a single line, e.g. "WithP2Deck: [SOR_225 SEC_080 SOR_128]". Each token
-        // becomes its own accumulated entry, so both forms (and a mix) interoperate.
-        static $listKeys = ['WithP1Hand', 'WithP2Hand', 'WithP1Discard', 'WithP2Discard', 'WithP1Deck', 'WithP2Deck'];
+        // List-valued keys accept either one spec per line OR a bracketed, whitespace-separated
+        // array on a single line — e.g. "WithP2Deck: [SOR_225 SEC_080 SOR_128]" or
+        // "WithP1GroundArena: [ASH_048:1:0 SEC_098:0:3]". Each token becomes its own accumulated
+        // entry, so both forms (and a mix) interoperate. Arena/upgrade specs never contain spaces,
+        // so whitespace-splitting is safe for them too (a bare single spec splits to one token).
+        static $listKeys = ['WithP1Hand', 'WithP2Hand', 'WithP1Discard', 'WithP2Discard',
+                            'WithP1Deck', 'WithP2Deck',
+                            'WithP1GroundArena', 'WithP2GroundArena', 'WithP1SpaceArena', 'WithP2SpaceArena',
+                            'WithP1GroundArenaUpgrade', 'WithP2GroundArenaUpgrade',
+                            'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade'];
         $out = [];
         foreach ($lines as $line) {
             if (!str_contains($line, ':')) continue;
@@ -293,20 +299,20 @@ class SchemaTestRunner {
 
         // Arena units from GIVEN directives.
         foreach ($given['WithP1GroundArena'] ?? [] as $spec) {
-            [$cid, $ready, $dmg] = self::_parseUnitSpec($spec);
-            $b->WithGroundUnitForPlayer(1, $cid, $ready, $dmg);
+            [$cid, $ready, $dmg, $te] = self::_parseUnitSpec($spec);
+            $b->WithGroundUnitForPlayer(1, $cid, $ready, $dmg, 0, $te);
         }
         foreach ($given['WithP2GroundArena'] ?? [] as $spec) {
-            [$cid, $ready, $dmg] = self::_parseUnitSpec($spec);
-            $b->WithGroundUnitForPlayer(2, $cid, $ready, $dmg);
+            [$cid, $ready, $dmg, $te] = self::_parseUnitSpec($spec);
+            $b->WithGroundUnitForPlayer(2, $cid, $ready, $dmg, 0, $te);
         }
         foreach ($given['WithP1SpaceArena'] ?? [] as $spec) {
-            [$cid, $ready, $dmg] = self::_parseUnitSpec($spec);
-            $b->WithSpaceUnitForPlayer(1, $cid, $ready, $dmg);
+            [$cid, $ready, $dmg, $te] = self::_parseUnitSpec($spec);
+            $b->WithSpaceUnitForPlayer(1, $cid, $ready, $dmg, 0, $te);
         }
         foreach ($given['WithP2SpaceArena'] ?? [] as $spec) {
-            [$cid, $ready, $dmg] = self::_parseUnitSpec($spec);
-            $b->WithSpaceUnitForPlayer(2, $cid, $ready, $dmg);
+            [$cid, $ready, $dmg, $te] = self::_parseUnitSpec($spec);
+            $b->WithSpaceUnitForPlayer(2, $cid, $ready, $dmg, 0, $te);
         }
 
         // Explicit hand cards (multi-value: WithP1Hand / WithP2Hand).
@@ -451,24 +457,16 @@ class SchemaTestRunner {
                 case 'theirLeaderDeployed':
                     $theirOpts['leaderDeployed'] = $val === '1' || $val === 'true';
                     break;
-                case 'myLeaderDeployedFlag':   // Deployed=true flag only (no board unit; legacy deploy)
-                    $myOpts['leaderDeployedFlag'] = $val === '1' || $val === 'true';
-                    break;
-                case 'theirLeaderDeployedFlag':
-                    $theirOpts['leaderDeployedFlag'] = $val === '1' || $val === 'true';
-                    break;
                 case 'myLeaderDeployedPilot':  // deploy as a Pilot upgrade on the first friendly unit
                     $myOpts['leaderDeployedPilot'] = $val === '1' || $val === 'true';
                     break;
                 case 'theirLeaderDeployedPilot':
                     $theirOpts['leaderDeployedPilot'] = $val === '1' || $val === 'true';
                     break;
-                case 'myLeaderReady':
-                    $myOpts['leaderReady'] = $val === '1' || $val === 'true';
-                    break;
-                case 'theirLeaderReady':
-                    $theirOpts['leaderReady'] = $val === '1' || $val === 'true';
-                    break;
+                // NOTE: leader READY is set via the inline "myLeader: CID:ready:..." form (its 2nd
+                // field), not a standalone opt. There is no myLeaderDeployedFlag either — a deployed
+                // leader always has board presence: use myLeaderDeployed (regular deploy, + optional
+                // myLeaderIndexOverride) or myLeaderDeployedPilot.
                 case 'myLeaderEpicUsed':
                     $myOpts['leaderEpicActionUsed'] = $val === '1' || $val === 'true';
                     break;
@@ -481,9 +479,11 @@ class SchemaTestRunner {
         return [$myOpts, $theirOpts];
     }
 
-    // Parse `CARDID[:ready[:deployed[:epicUsed[:damage]]]]` from a myLeader/theirLeader opt into the
-    // side's opts array. Only fields actually present are written (so a bare CARDID leaves ready/etc.
-    // at their CommonSetup defaults, and a separate per-key opt can still override).
+    // Parse `CARDID[:ready[:deployed[:epicUsed[:damage[:indexOverride]]]]]` from a myLeader/theirLeader
+    // opt into the side's opts array. Only fields actually present are written (so a bare CARDID leaves
+    // ready/etc. at their CommonSetup defaults). The 6th field, indexOverride, is the ground-arena index
+    // to insert a REGULAR-deploy (deployed=1) leader unit at, shifting the other WithP{n}GroundArena
+    // units up; ignored unless deployed as a unit.
     private static function _applyLeaderParams(array &$opts, string $val): void {
         $p = array_map('trim', explode(':', $val));
         $opts['leaderCardID'] = $p[0];
@@ -492,6 +492,7 @@ class SchemaTestRunner {
         if (isset($p[2]) && $truthy($p[2])) $opts['leaderDeployed']      = true;  // deployMode='unit'
         if (isset($p[3]) && $truthy($p[3])) $opts['leaderEpicActionUsed'] = true;
         if (isset($p[4]) && $p[4] !== '') $opts['leaderDamage']          = intval($p[4]);
+        if (isset($p[5]) && $p[5] !== '') $opts['leaderIndexOverride']   = intval($p[5]);
     }
 
     // "SOR_024"     → ['SOR_024', 0,  epicActionUsed:false]
@@ -521,12 +522,16 @@ class SchemaTestRunner {
     // "SOR_095:1:3" → ['SOR_095', ready:true,  damage:3]
     // "SOR_095:0"   → ['SOR_095', ready:false, damage:0]
     // "SOR_095"     → ['SOR_095', ready:true,  damage:0]
+    // "CID"  |  "CID:ready"  |  "CID:ready:dmg"  |  "CID:ready:dmg:eff1~eff2"
+    // 4th field = active TurnEffects on the unit ('~'-delimited, e.g. a granted keyword like
+    // LOF_045 / SENTINEL^SEC_041 / RESTORE-1@attack^JTL_097). Returns "-" (none) when absent.
     private static function _parseUnitSpec(string $spec): array {
         $parts  = explode(':', trim($spec));
         $cardId = trim($parts[0]);
         $ready  = isset($parts[1]) ? (intval($parts[1]) === 1) : true;
         $damage = isset($parts[2]) ? intval($parts[2]) : 0;
-        return [$cardId, $ready, $damage];
+        $turnEffects = (isset($parts[3]) && $parts[3] !== '') ? trim($parts[3]) : '-';
+        return [$cardId, $ready, $damage, $turnEffects];
     }
 
     // ── Execution ────────────────────────────────────────────────────

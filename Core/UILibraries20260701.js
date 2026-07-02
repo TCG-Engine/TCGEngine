@@ -1363,10 +1363,9 @@ function ResolveGlobalFunction(functionName) {
 
         try {
           if (zoneName === "EffectStack" && sharedCardData.TriggerType && sharedCardData.TriggerType !== "-") {
-            var effectStackTriggerLabel = sharedCardData.TriggerType === "ENTER" ? "On Enter" : "Trigger";
-            newHTML += "<div style='position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:1002; padding:4px 8px; border-radius:999px; background:rgba(16, 24, 34, 0.88); border:1px solid rgba(244, 236, 219, 0.28); color:rgba(252, 238, 171, 0.98); font:700 10px/1.1 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 8px 18px rgba(7, 14, 20, 0.35); white-space:nowrap;'>" + effectStackTriggerLabel + "</div>";
-          }
-          if (zoneName === "EffectStack" && sharedCardData.TriggerType) {
+            // ONE badge that names the trigger type itself (was a generic "TRIGGER" pill overlapping a
+            // separate type label — they conflicted, so merged: the pill now reads the mapped type,
+            // e.g. "On Attack"/"On Defense"/"When Played"; unknown types fall back to the raw string).
             var _labelMap = {
               'WhenPlayed':'When Played', 'WhenDefeated':'When Defeated',
               'OnAttack':'On Attack', 'OnDefense':'On Defense',
@@ -1376,8 +1375,8 @@ function ResolveGlobalFunction(functionName) {
               'SupportOnAttackEnd':'On Attack End', 'SupportWhenDefeated':'When Defeated',
               'AdvantageShed':'Advantage',
             };
-            var _label = _labelMap[sharedCardData.TriggerType] || sharedCardData.TriggerType;
-            newHTML += "<div style='flex-shrink:0; padding:3px 8px; color:rgba(255,255,255,0.9); font:700 9px/1.2 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.04em; white-space:nowrap; pointer-events:none;'>" + _label + "</div>";
+            var effectStackTriggerLabel = _labelMap[sharedCardData.TriggerType] || sharedCardData.TriggerType;
+            newHTML += "<div style='position:absolute; left:50%; bottom:8px; transform:translateX(-50%); z-index:1002; padding:4px 8px; border-radius:999px; background:rgba(16, 24, 34, 0.88); border:1px solid rgba(244, 236, 219, 0.28); color:rgba(252, 238, 171, 0.98); font:700 10px/1.1 Bahnschrift, Aptos Display, Franklin Gothic Medium, sans-serif; letter-spacing:0.08em; text-transform:uppercase; box-shadow:0 8px 18px rgba(7, 14, 20, 0.35); white-space:nowrap;'>" + effectStackTriggerLabel + "</div>";
           }
         } catch (e) {
           if (console && console.error) console.error('Effect stack trigger badge render error', e);

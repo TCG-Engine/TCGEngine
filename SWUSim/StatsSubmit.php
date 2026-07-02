@@ -3,9 +3,19 @@
 // once, on final match completion.
 include_once __DIR__ . '/Match.php';
 
-// Map a SWUSim CardID to the stats/SWUDeck card identifier. PASSTHROUGH for now — swap for a
-// SET_NNN -> FFG-UID mapping once the live SWUDeck API field format is confirmed.
-function SWUCardToStatsId($cardID) { return strval($cardID); }
+// Map a SWUSim CardID (SET_NNN) to the stats/SWUDeck card identifier (the FFG UID / documentId that
+// the SWUDeck stats tables are keyed on). GetCardUUID reads $cardUUIDData from the generated dict
+// (loaded in the game runtime alongside this file). Falls back to the raw CardID for a token/unknown
+// so we never drop a value; empty input stays empty.
+function SWUCardToStatsId($cardID) {
+    $cid = strval($cardID);
+    if ($cid === '') return '';
+    if (function_exists('GetCardUUID')) {
+        $uuid = GetCardUUID($cid);
+        if ($uuid !== null && strval($uuid) !== '') return strval($uuid);
+    }
+    return $cid;
+}
 
 // Snapshot the just-finished game's gamestate (called from the after-action hook, where the
 // gamestate is loaded and current).
@@ -68,6 +78,10 @@ function SWUBuildGameResultPayload($match, $game) {
         'sequenceNumber'=>intval($game['gameNumber'] ?? 1),
         'player1'=>json_encode($buildPlayer(1)),
         'player2'=>json_encode($buildPlayer(2)),
+        // Source deck links (from match creation) — SubmitGameResult uses these to record deck-level
+        // stats (SaveDeckStats). Empty for a non-swustats/SWUDeck source, which it skips.
+        'p1DeckLink'=>strval($match['players']['1']['deckLink'] ?? ''),
+        'p2DeckLink'=>strval($match['players']['2']['deckLink'] ?? ''),
     ];
 }
 
@@ -79,15 +93,33 @@ function SWUSubmitMatchResults($matchId) {
     SWUWithMatchLock($matchId, function(&$mm){ $mm['statsSubmitted']=true; });
     $m = SWUReadMatch($matchId);
     $apiKey = $GLOBALS['petranakiAPIKey'] ?? ($GLOBALS['karabastAPIKey'] ?? '');
+    // Post to the SWUStats/SWUDeck stats site. In prod that's swustats.net; locally it's the SWUDeck
+    // container the user reaches at localhost:3100 — but this curl runs INSIDE the game container, where
+    // "localhost" is that container, so use the Docker host gateway (host.docker.internal:3100) to hit
+    // the host's :3100 mapping. DEVENV is set only in the local docker-compose override.
+    $statsBase = (getenv('DEVENV') === 'true') ? 'http://host.docker.internal:3100' : 'https://swustats.net';
+    $statsUrl = $statsBase . '/TCGEngine/APIs/SubmitGameResult.php';
+    $attempted = 0; $succeeded = 0; $failed = 0;
     foreach (($m['games'] ?? []) as $g) {
         if (($g['winner'] ?? null) === null) continue;
+        // Don't record a game that ended before Round 2 (an early concede/abandon). GetTurnNumber is
+        // the round counter; a game conceded during Round 1 has turns < 2 and must not pollute stats.
+        if (intval($g['detail']['turns'] ?? 0) < 2) continue;
+        $attempted++;
         $payload = SWUBuildGameResultPayload($m, $g);
         $payload['apiKey'] = $apiKey;
-        $ch=curl_init('http://localhost/TCGEngine/APIs/SubmitGameResult.php');
+        $ch=curl_init($statsUrl);
         curl_setopt_array($ch,[CURLOPT_RETURNTRANSFER=>true,CURLOPT_POST=>true,CURLOPT_TIMEOUT=>10,
             CURLOPT_POSTFIELDS=>json_encode($payload),CURLOPT_HTTPHEADER=>['Content-Type: application/json']]);
-        curl_exec($ch); curl_close($ch);
+        $resp = curl_exec($ch); $code = intval(curl_getinfo($ch, CURLINFO_HTTP_CODE)); curl_close($ch);
+        $ok = ($resp !== false && $code >= 200 && $code < 300);
+        if ($ok) { $j = json_decode($resp, true); if (is_array($j) && array_key_exists('success', $j) && $j['success'] === false) $ok = false; }
+        $ok ? $succeeded++ : $failed++;
     }
+    // Outcome for the end-game "sent to SWUStats" banner: skipped_early = every decided game ended
+    // before Round 2 (nothing submitted); failed = at least one POST failed; success otherwise.
+    $status = ($attempted === 0) ? 'skipped_early' : (($failed > 0) ? 'failed' : 'success');
+    SWUWithMatchLock($matchId, function(&$mm) use ($status) { $mm['statsStatus'] = $status; });
 }
 
 // Render a finished game's telemetry as a compact HTML block for the end-game menu.

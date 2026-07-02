@@ -49,8 +49,16 @@ Bootstrap mirrors `TestSchemaSetup.php` (engine + `Custom/GameLogic.php`, which 
   to base), LAW_003 (play Heroism), LAW_007 (Bounty Hunter attack ends), LAW_014 (reuse On
   Attack), JTL_002 (reuse When Defeated), SOR_002 (enemy defeated → heal), SOR_013 (damage enemy
   base → draw), ASH_005/013/016/017 (friendly attack-ends / play-or-create). All implemented.
-- **Pilot leaders / deploy-as-upgrade / attached-unit-gains-On-Attack** — JTL_001/003/006/008/009/
-  011/012/015/017/018 all wired (`onAttached`, `whenPlayedAsUpgrade`, etc.).
+- **Pilot leaders / deploy-as-upgrade / attached-unit-gains-On-Attack** — JTL_003/006/009/015/017/018 wired
+  (`onAttached`, `whenPlayedAsUpgrade`, keyword grants, etc.). ⚠ **CORRECTION 2026-07-01:** JTL_001/008/011/012
+  were WRONGLY listed here — their pilot-grant **On Attack** (dispatched via `OnAttackFromUpgradeTrigger` →
+  `$onAttackAbilities["<CID>:0"]`) had **no handler**, so the granted On Attack silently no-op'd (the ASH_011
+  class; only the keyword-grant halves — Grit / "can't be defeated" — worked). Method C caught it; fixed
+  2026-07-01 (registered the four `$onAttackAbilities[:0]` handlers, each guarded to fire only via the pilot
+  path since these leaders' deployed-UNIT side lacks the On Attack; JTL_008 also extended `SWUComputePlayCost`
+  so its "next Pilot costs 1 less" covers the unit-play path too, not just Piloting/attach). Regression 2326/0;
+  Method C now clean. Unlike these, **JTL_018's** On Attack IS on its own deployed-unit side too, so it correctly
+  fires on both paths with no guard.
 - **Poe JTL_013 single hop** — `$unitAbilities["JTL_013"]` + `SWUGetPoe013AttachVehicles`.
 - **Deployed passives that ARE handled** — SOR_001, SOR_003, SOR_004, SOR_008, SOR_012, SOR_018,
   SEC_009/010/011/012/018, LAW_009, JTL_005 (cost modifier), SEC_011.
@@ -126,11 +134,11 @@ execution). Fix: register `$unitAbilities[CID]` + `$unitActionCostKind[CID]` + (
 > Force token, gated like `$leaderActionForceCost`). Use a non-exhaust costKind (cf. LAW_003's
 > `'none'`) plus a Force-token payment, not the default `'exhaust'`.
 
-### F. Minor / uncertain — 1
+### F. Minor / uncertain — 1  ✅ RESOLVED 2026-07-01
 
 | CardID | Name | Item |
 |--------|------|------|
-| SOR_016 | Grand Admiral Thrawn | "When the action phase starts: Look at the top card of each player's deck." No `ActionPhaseStart` hook found. Pure information peek with no state change — possibly intentionally omitted (UI-only nicety). On Attack side **is** implemented. Low priority. |
+| SOR_016 | Grand Admiral Thrawn | ~~"When the action phase starts: Look at the top card of each player's deck." No `ActionPhaseStart` hook found.~~ **DONE** — the APS peek is implemented in `ActionPhaseStart` (`GameLogic.php`, fires whenever SOR_016 is in the leader zone, so it covers BOTH the undeployed front side and the deployed unit side; logs a private `REVEAL` visible only to Thrawn's controller = "look at"). Both sides verified to ≥96% 2026-07-01: front (APS peek + `Action [1 resource, exhaust]` reveal/exhaust + Epic deploy) and deployed (APS peek + `On Attack` may-reveal/exhaust) each have a real handler AND a test (`GrandAdmiralThrawn_APS_*`, `_LeaderAction_*` ×5, `_OnAttack_Yes/No`, `_Deploy`). Also fixed a latent `$playerID` non-restore in the APS block that could mis-resolve the adjacent SOR_017 Han-Solo `myResources` MZCHOOSE when Thrawn is in play. Regression 2320/0. |
 
 ---
 

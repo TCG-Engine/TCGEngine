@@ -36,6 +36,18 @@ function AspectToColor($aspectCsv) {
     return 'Colorless';
 }
 
+// Human-friendly label for a common-base bucket, e.g. "30HP — Command".
+// Type comes from ResolveOpponentBase() (Standard/Force/Splash); color is mapped
+// back to its aspect since that is how players refer to bases.
+function BaseGroupDisplayLabel($type, $color) {
+    $typeLabel = ['Standard' => '30HP', 'Force' => 'Force', 'Splash' => 'Splash'];
+    $colorToAspect = ['Green' => 'Command', 'Blue' => 'Vigilance', 'Red' => 'Aggression',
+                      'Yellow' => 'Cunning', 'Colorless' => 'Colorless', '*' => 'Any'];
+    $t = isset($typeLabel[$type]) ? $typeLabel[$type] : $type;
+    $a = isset($colorToAspect[$color]) ? $colorToAspect[$color] : $color;
+    return $t . ' — ' . $a;
+}
+
 // GUID => ['color','type','canonical']. Force = LOF 28HP commons, Splash = LAW 27HP commons.
 // Two printings per color; both map to the first printing's GUID as canonical.
 function StatsForceSplashRegistry() {
@@ -58,6 +70,17 @@ function StatsForceSplashRegistry() {
         '5020919647' => ['color'=>'Red',   'type'=>'Splash','canonical'=>'0121172430'], // LAW_027
         '2937103129' => ['color'=>'Yellow','type'=>'Splash','canonical'=>'2937103129'], // LAW_028
         '1156889063' => ['color'=>'Yellow','type'=>'Splash','canonical'=>'2937103129'], // LAW_030
+    ];
+}
+
+// Promo / OP-set base reprints whose GUIDs are NOT in the card dictionary (so CardAspect
+// can't classify them and CardIDOverride — being SET_NNN keyed — never reaches them).
+// Map each promo base GUID straight to its common-base classification + the canonical
+// dictionary GUID of the base it reprints. Add more as promo bases surface.
+function PromosRegistry() {
+    return [
+        // GG_004 Jabba's Palace — reprint of the Cunning 30HP common (SHD_026).
+        '2537094666' => ['color' => 'Yellow', 'type' => 'Standard', 'canonical' => '2376813177'],
     ];
 }
 
@@ -138,6 +161,13 @@ function ResolveOpponentBase($baseID) {
     $reg = StatsForceSplashRegistry();
     if (isset($reg[$baseID])) {
         $e = $reg[$baseID];
+        return ['kind' => 'common', 'color' => $e['color'], 'type' => $e['type'], 'canonical' => $e['canonical']];
+    }
+
+    // 1b. Promo / OP-set base reprints (dict-independent static list).
+    $promos = PromosRegistry();
+    if (isset($promos[$baseID])) {
+        $e = $promos[$baseID];
         return ['kind' => 'common', 'color' => $e['color'], 'type' => $e['type'], 'canonical' => $e['canonical']];
     }
 

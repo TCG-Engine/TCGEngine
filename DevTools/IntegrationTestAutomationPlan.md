@@ -27,7 +27,7 @@ Build a Copilot-first workflow for generating GrandArchiveSim regression tests f
 - [Core/RegressionTestFramework.php](c:\xampp\htdocs\TCGEngine\Core\RegressionTestFramework.php) already defines the shared fixture format and assertion model.
 - [DevTools/RunIntegrationTests.php](c:\xampp\htdocs\TCGEngine\DevTools\RunIntegrationTests.php) already replays fixtures in CLI.
 - [McpServer](c:\xampp\htdocs\TCGEngine\McpServer) already provides a working MCP codebase and packaging pattern.
-- The client already exposes structured pending choices via decision queue handling in [Core/UILibraries20260630.js](c:\xampp\htdocs\TCGEngine\Core\UILibraries20260630.js).
+- The client already exposes structured pending choices via decision queue handling in [Core/UILibraries20260701.js](c:\xampp\htdocs\TCGEngine\Core\UILibraries20260701.js).
 
 ### Current gaps
 
