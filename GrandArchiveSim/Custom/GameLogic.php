@@ -14469,23 +14469,33 @@ function TriggerNightmareCoilPunish($activatingPlayer) {
     DealUnpreventableDamage($activatingPlayer, $champMZ, $champMZ, 8);
 }
 
-function ScavengeForSubtype($player, $amount, $subtype) {
-    global $playerID;
-    $deckZone = $player == $playerID ? "myDeck" : "theirDeck";
-    $handZone = $player == $playerID ? "myHand" : "theirHand";
+function ScavengeForSubtype($player, $amount, $subtype, $callback = "") {
+    ScavengeForProperty($player, $amount, "subtype", $subtype, $callback);
+}
 
-    $deck = GetZone($deckZone);
+function ScavengeForType($player, $amount, $type, $callback = "") {
+    ScavengeForProperty($player, $amount, "type", $type, $callback);
+}
+
+function ScavengeForElement($player, $amount, $element, $callback = "") {
+    ScavengeForProperty($player, $amount, "element", $element, $callback);
+}
+
+function ScavengeForProperty($player, $amount, $kind, $value, $callback = "") {
+    $deck = GetDeck($player);
     if(empty($deck)) return;
 
+    ClearMyTempZoneCards($player);
     $revealCount = min(intval($amount), count($deck));
-    $foundIdx = -1;
+    if($revealCount <= 0) return;
+
     $revealedIDs = [];
     for($i = 0; $i < $revealCount; ++$i) {
-        if($deck[$i]->removed) continue;
+        if(!isset($deck[$i]) || $deck[$i]->removed) continue;
         $revealedIDs[] = $deck[$i]->CardID;
-        if($foundIdx < 0 && PropertyContains(CardSubtypes($deck[$i]->CardID), $subtype)) {
-            $foundIdx = $i;
-        }
+    }
+    for($i = $revealCount - 1; $i >= 0; --$i) {
+        MZMove($player, "myDeck-" . $i, "myTempZone");
     }
     if(!empty($revealedIDs)) {
         $existing = GetFlashMessage();
@@ -14496,84 +14506,62 @@ function ScavengeForSubtype($player, $amount, $subtype) {
         }
     }
 
-    if($foundIdx >= 0) {
-        MZMove($player, $deckZone . "-" . $foundIdx, $handZone);
+    $choices = ScavengeTempZoneChoices($player, $kind, $value);
+    if(empty($choices)) {
+        QueueTempZoneBottomDeckRearrange($player);
+        return;
     }
 
-    $remaining = $revealCount - ($foundIdx >= 0 ? 1 : 0);
-    if($remaining <= 0) return;
-
-    $remainingIDs = [];
-    for($i = 0; $i < $remaining; ++$i) {
-        $deckNow = &GetZone($deckZone);
-        if(empty($deckNow)) break;
-        $remainingIDs[] = $deckNow[0]->CardID;
-        $deckNow[0]->Remove();
-    }
-    DecisionQueueController::CleanupRemovedCards();
-    if(empty($remainingIDs)) return;
-
-    EngineShuffle($remainingIDs);
-    foreach($remainingIDs as $cardID) {
-        MZAddZone($player, $deckZone, $cardID);
-    }
+    $tooltipValue = str_replace([" ", ",", "'", ":"], ["_", "", "", ""], $value);
+    DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $choices), 1,
+        tooltip:"Choose_scavenged_" . $tooltipValue . "_card");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "ScavengeChoose|" . $callback, 1);
 }
 
-function ScavengeForType($player, $amount, $type) {
-    global $playerID;
-    $deckZone = $player == $playerID ? "myDeck" : "theirDeck";
-    $handZone = $player == $playerID ? "myHand" : "theirHand";
-
-    $deck = GetZone($deckZone);
-    if(empty($deck)) return null;
-
-    $revealCount = min(intval($amount), count($deck));
-    $foundIdx = -1;
-    $foundCardID = null;
-    $revealedIDs = [];
-    for($i = 0; $i < $revealCount; ++$i) {
-        if($deck[$i]->removed) continue;
-        $revealedIDs[] = $deck[$i]->CardID;
-        if($foundIdx < 0 && PropertyContains(CardType($deck[$i]->CardID), $type)) {
-            $foundIdx = $i;
+function ScavengeTempZoneChoices($player, $kind, $value) {
+    $tempZone = GetTempZone($player);
+    $choices = [];
+    for($i = count($tempZone) - 1; $i >= 0; --$i) {
+        if($tempZone[$i]->removed) continue;
+        $cardID = $tempZone[$i]->CardID;
+        $matches = false;
+        switch($kind) {
+            case "type":
+                $matches = PropertyContains(CardType($cardID), $value);
+                break;
+            case "subtype":
+                $matches = PropertyContains(CardSubtypes($cardID), $value);
+                break;
+            case "element":
+                $matches = CardElement($cardID) === $value;
+                break;
         }
+        if($matches) $choices[] = "myTempZone-" . $i;
     }
-    if(!empty($revealedIDs)) {
-        $existing = GetFlashMessage();
-        if(is_string($existing) && strpos($existing, 'REVEAL:') === 0) {
-            SetFlashMessage($existing . '|' . implode('|', $revealedIDs));
-        } else {
-            SetFlashMessage('REVEAL:' . implode('|', $revealedIDs));
-        }
-    }
-
-    if($foundIdx >= 0) {
-        $foundCardID = $deck[$foundIdx]->CardID;
-        MZMove($player, $deckZone . "-" . $foundIdx, $handZone);
-    }
-
-    $remaining = $revealCount - ($foundIdx >= 0 ? 1 : 0);
-    if($remaining <= 0) return $foundCardID;
-
-    $remainingIDs = [];
-    for($i = 0; $i < $remaining; ++$i) {
-        $deckNow = &GetZone($deckZone);
-        if(empty($deckNow)) break;
-        $remainingIDs[] = $deckNow[0]->CardID;
-        $deckNow[0]->Remove();
-    }
-    DecisionQueueController::CleanupRemovedCards();
-    if(empty($remainingIDs)) return $foundCardID;
-
-    EngineShuffle($remainingIDs);
-    foreach($remainingIDs as $cardID) {
-        MZAddZone($player, $deckZone, $cardID);
-    }
-    return $foundCardID;
+    return $choices;
 }
+
+$customDQHandlers["ScavengeChoose"] = function($player, $parts, $lastDecision) {
+    $callback = $parts[0] ?? "";
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $chosenObj = GetZoneObjectForPlayerPerspective($player, $lastDecision);
+        if($chosenObj !== null && !$chosenObj->removed) {
+            $chosenCardID = $chosenObj->CardID;
+            Reveal($player, $lastDecision);
+            MZMove($player, $lastDecision, "myHand");
+            if($callback !== "" && function_exists($callback)) {
+                $callback($player, $chosenCardID);
+            }
+        }
+    }
+    QueueTempZoneBottomDeckRearrange($player);
+};
 
 function EdgeOfTommorrowScavenge($player) {
-    $scavengedCardID = ScavengeForType($player, 8, "DOMAIN");
+    ScavengeForType($player, 8, "DOMAIN", "EdgeOfTommorrowScavenged");
+}
+
+function EdgeOfTommorrowScavenged($player, $scavengedCardID) {
     if($scavengedCardID === null || $scavengedCardID === "") return;
     AddGlobalEffects($player, "GA-SHOUT-EDGE-OF-TOMMORROW-PRD-" . $scavengedCardID);
 }
@@ -14597,56 +14585,6 @@ function EdgeOfTommorrowDomainEntered($player, $enteredMzID) {
         ++$drawCount;
     }
     if($drawCount > 0) DrawIntoMemory($player, $drawCount);
-}
-
-function ScavengeForElement($player, $amount, $element) {
-    global $playerID;
-    $deckZone = $player == $playerID ? "myDeck" : "theirDeck";
-    $handZone = $player == $playerID ? "myHand" : "theirHand";
-
-    $deck = GetZone($deckZone);
-    if(empty($deck)) return;
-
-    $revealCount = min(intval($amount), count($deck));
-    $foundIdx = -1;
-    $revealedIDs = [];
-    for($i = 0; $i < $revealCount; ++$i) {
-        if($deck[$i]->removed) continue;
-        $revealedIDs[] = $deck[$i]->CardID;
-        if($foundIdx < 0 && CardElement($deck[$i]->CardID) === $element) {
-            $foundIdx = $i;
-        }
-    }
-    if(!empty($revealedIDs)) {
-        $existing = GetFlashMessage();
-        if(is_string($existing) && strpos($existing, 'REVEAL:') === 0) {
-            SetFlashMessage($existing . '|' . implode('|', $revealedIDs));
-        } else {
-            SetFlashMessage('REVEAL:' . implode('|', $revealedIDs));
-        }
-    }
-
-    if($foundIdx >= 0) {
-        MZMove($player, $deckZone . "-" . $foundIdx, $handZone);
-    }
-
-    $remaining = $revealCount - ($foundIdx >= 0 ? 1 : 0);
-    if($remaining <= 0) return;
-
-    $remainingIDs = [];
-    for($i = 0; $i < $remaining; ++$i) {
-        $deckNow = &GetZone($deckZone);
-        if(empty($deckNow)) break;
-        $remainingIDs[] = $deckNow[0]->CardID;
-        $deckNow[0]->Remove();
-    }
-    DecisionQueueController::CleanupRemovedCards();
-    if(empty($remainingIDs)) return;
-
-    EngineShuffle($remainingIDs);
-    foreach($remainingIDs as $cardID) {
-        MZAddZone($player, $deckZone, $cardID);
-    }
 }
 
 function TableStraightResolve($player) {
