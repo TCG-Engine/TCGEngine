@@ -73,6 +73,17 @@ function StatsForceSplashRegistry() {
     ];
 }
 
+// Promo / OP-set base reprints whose GUIDs are NOT in the card dictionary (so CardAspect
+// can't classify them and CardIDOverride — being SET_NNN keyed — never reaches them).
+// Map each promo base GUID straight to its common-base classification + the canonical
+// dictionary GUID of the base it reprints. Add more as promo bases surface.
+function PromosRegistry() {
+    return [
+        // GG_004 Jabba's Palace — reprint of the Cunning 30HP common (SHD_026).
+        '2537094666' => ['color' => 'Yellow', 'type' => 'Standard', 'canonical' => '2376813177'],
+    ];
+}
+
 // Rare/Special bases — tracked individually by base identity (NOT bucketed by color).
 // Curated per set so the classification does not depend on runtime CardRarity/CardHp (which
 // may not be future-proof). Add a new set's Rare/Special base GUIDs here when it releases;
@@ -150,6 +161,13 @@ function ResolveOpponentBase($baseID) {
     $reg = StatsForceSplashRegistry();
     if (isset($reg[$baseID])) {
         $e = $reg[$baseID];
+        return ['kind' => 'common', 'color' => $e['color'], 'type' => $e['type'], 'canonical' => $e['canonical']];
+    }
+
+    // 1b. Promo / OP-set base reprints (dict-independent static list).
+    $promos = PromosRegistry();
+    if (isset($promos[$baseID])) {
+        $e = $promos[$baseID];
         return ['kind' => 'common', 'color' => $e['color'], 'type' => $e['type'], 'canonical' => $e['canonical']];
     }
 

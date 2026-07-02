@@ -214,10 +214,10 @@ echo "  <div id='sciFiScroll' style='max-height: calc(100vh - 220px); overflow: 
 echo "    <table border='0' cellpadding='5' cellspacing='0'>";
 echo "      <tr><th>Leader</th><th>Base</th><th>Asset Name</th><th>Likes</th></tr>";
 while ($row = mysqli_fetch_assoc($result)) {
-    $assetName = htmlspecialchars($row['assetName']);
-    $leader = htmlspecialchars($row['keyIndicator1']);
-    $base = htmlspecialchars($row['keyIndicator2']);
-    $likes = htmlspecialchars($row['numLikes']);
+    $assetName = htmlspecialchars($row['assetName'] ?? '');
+    $leader = htmlspecialchars($row['keyIndicator1'] ?? '');
+    $base = htmlspecialchars($row['keyIndicator2'] ?? '');
+    $likes = htmlspecialchars($row['numLikes'] ?? '');
     if($leader == "" || $base == "") continue;
     if ($premierOnly && LeaderNotPremierLegal($row['keyIndicator1'], $legalSets)) continue;
     echo "<tr onclick=\"window.location='https://swustats.net/TCGEngine/NextTurn.php?gameName=" . $row['assetIdentifier'] . "&playerID=1&folderPath=SWUDeck';\" onmouseover=\"this.style.boxShadow='0 0 10px 5px rgba(51, 204, 255, 0.6)'; this.style.transform='scaleY(1.02)';\" onmouseout=\"this.style.boxShadow='none'; this.style.transform='none';\" style='cursor: pointer; transition: all 0.3s ease-in-out;'>";
