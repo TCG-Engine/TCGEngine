@@ -14566,6 +14566,16 @@ function EdgeOfTommorrowScavenged($player, $scavengedCardID) {
     AddGlobalEffects($player, "GA-SHOUT-EDGE-OF-TOMMORROW-PRD-" . $scavengedCardID);
 }
 
+function DestinedEncounterScavenge($player) {
+    ScavengeForType($player, 6, "ALLY", "DestinedEncounterScavenged");
+}
+
+function DestinedEncounterScavenged($player, $scavengedCardID) {
+    if(PropertyContains(CardSubtypes($scavengedCardID), "ELYSIAN")) {
+        DrawIntoMemory($player, 1);
+    }
+}
+
 function EdgeOfTommorrowDomainEntered($player, $enteredMzID) {
     $enteredObj = GetZoneObject($enteredMzID);
     if($enteredObj === null || $enteredObj->removed) return;
