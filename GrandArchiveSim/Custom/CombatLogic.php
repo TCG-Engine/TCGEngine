@@ -1643,6 +1643,19 @@ function OnAttackTrigger($player, $mzID) {
     }
 
     // Tonoris, Might of Humanity (yevpmu6gvn): next attack +3 POWER — consume and apply
+    // Blistering Insurgent: whenever your champion attacks for the first time each turn, it gets +1 POWER.
+    if($obj !== null
+        && PropertyContains(EffectiveCardType($obj), "CHAMPION")
+        && OnAttackCallCount($player) === 1) {
+        $field = GetField($player);
+        for($i = 0; $i < count($field); ++$i) {
+            if($field[$i] === null || $field[$i]->removed) continue;
+            if($field[$i]->CardID !== "GA-SHOUT-BLISTERING-INSURGENT-PRDSD") continue;
+            if(HasNoAbilities($field[$i])) continue;
+            AddTurnEffect("myField-" . $i, "GA-SHOUT-BLISTERING-INSURGENT-PRDSD_POWER");
+        }
+    }
+
     if($obj !== null && in_array("yevpmu6gvn", $obj->TurnEffects)) {
         AddTurnEffect($mzID, "yevpmu6gvn_POWER");
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["yevpmu6gvn"]));
