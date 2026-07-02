@@ -14325,12 +14325,14 @@ function DoDiscardCard($player, $mzCard) {
     $discardPlayer = ($discObj !== null && isset($discObj->PlayerID) && intval($discObj->PlayerID) > 0)
         ? intval($discObj->PlayerID)
         : $player;
+    $discardedCardID = $discObj !== null ? $discObj->CardID : "";
     $banishZone = ($discardPlayer == $playerID) ? "myBanish" : "theirBanish";
     $graveyardZone = ($discardPlayer == $playerID) ? "myGraveyard" : "theirGraveyard";
 
     // Purging Tempest (yuo7dbge3b): cards that would enter this player's GY are banished instead
     if(GlobalEffectCount($discardPlayer, "yuo7dbge3b") > 0) {
         MZMove($playerID, $mzCard, $banishZone);
+        OnDiscardCard($discardPlayer, $discardedCardID);
         return;
     }
     // Sasha, Purifying Acolyte (GRlUlcYRmV): while fostered, cards entering your GY are banished instead
@@ -14338,6 +14340,7 @@ function DoDiscardCard($player, $mzCard) {
     foreach($field as $fObj) {
         if(!$fObj->removed && $fObj->CardID === "GRlUlcYRmV" && !HasNoAbilities($fObj) && IsFostered($fObj)) {
             MZMove($playerID, $mzCard, $banishZone);
+            OnDiscardCard($discardPlayer, $discardedCardID);
             return;
         }
     }
@@ -14347,6 +14350,30 @@ function DoDiscardCard($player, $mzCard) {
     } else {
         MZMove($playerID, $mzCard, $graveyardZone);
     }
+    OnDiscardCard($discardPlayer, $discardedCardID);
+}
+
+function OnDiscardCard($player, $discardedCardID) {
+    if($discardedCardID === "") return;
+    DecisionQueueController::StoreVariable("discardedCardID", $discardedCardID);
+    global $discardCardAbilities;
+    if(!isset($discardCardAbilities) || !is_array($discardCardAbilities)) {
+        DecisionQueueController::ClearVariable("discardedCardID");
+        return;
+    }
+
+    $field = GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i]->removed || HasNoAbilities($field[$i])) continue;
+        $count = CardDiscardCardCount($field[$i]->CardID);
+        for($abilityIndex = 0; $abilityIndex < $count; ++$abilityIndex) {
+            $abilityKey = $field[$i]->CardID . ":" . $abilityIndex;
+            if(isset($discardCardAbilities[$abilityKey])) {
+                $discardCardAbilities[$abilityKey]($player);
+            }
+        }
+    }
+    DecisionQueueController::ClearVariable("discardedCardID");
 }
 
 function DoRevealCard($player, $revealedMZ) {
@@ -15861,9 +15888,14 @@ function ZoneCardSearch($zoneName, $cardID) {
 function DiscardCards($player, $amount=1) {
     for($i = 0; $i < $amount; ++$i) {
         DecisionQueueController::AddDecision($player, "MZCHOOSE", ZoneMZIndices("myHand"), 1);
-        DecisionQueueController::AddDecision($player, "MZMOVE", "{<-}->myGraveyard", 1);
+        DecisionQueueController::AddDecision($player, "CUSTOM", "DiscardChosenCard", 1);
     }
 }
+
+$customDQHandlers["DiscardChosenCard"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    DiscardCard($player, $lastDecision);
+};
 
 function ExpireEffects($isEndTurn=true) {
     $turnPlayer = &GetTurnPlayer();
