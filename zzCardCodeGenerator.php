@@ -58,12 +58,23 @@ while(($line = fgets($handler)) !== false) {
   if($line == "" || substr($line, 0, 1) == "#") continue;
   $optionParts = explode("=", $line, 2);
   if(count($optionParts) == 2) {
-    $importOptions[trim($optionParts[0])] = trim($optionParts[1]);
+    $optionKey = trim($optionParts[0]);
+    $optionValue = trim($optionParts[1]);
+    if(isset($importOptions[$optionKey])) {
+      if(is_array($importOptions[$optionKey])) {
+        $importOptions[$optionKey][] = $optionValue;
+      } else {
+        $importOptions[$optionKey] = [$importOptions[$optionKey], $optionValue];
+      }
+    } else {
+      $importOptions[$optionKey] = $optionValue;
+    }
   }
 }
 $propertyTypes = [];
 fclose($handler);
-$nestedCardPaths = isset($importOptions["nestedCardPaths"]) && $importOptions["nestedCardPaths"] != "" ? array_map("trim", explode(",", $importOptions["nestedCardPaths"])) : [];
+$nestedCardPaths = isset($importOptions["nestedCardPaths"]) && !is_array($importOptions["nestedCardPaths"]) && $importOptions["nestedCardPaths"] != "" ? array_map("trim", explode(",", $importOptions["nestedCardPaths"])) : [];
+$supplementalCardSources = ImportOptionList($importOptions, "cardEditorSupplement");
 
 $rootPath = "./" . $rootName;
 if(!is_dir($rootPath)) mkdir($rootPath, 0755, true);
@@ -317,6 +328,12 @@ $nestedCardCount = ExpandNestedCards($cardArray, $nestedCardPaths, $otherOrienta
 if($nestedCardCount > 0) {
   $count += $nestedCardCount;
   logLine("Expanded " . $nestedCardCount . " nested cards from ImportSchema nestedCardPaths.");
+}
+
+$supplementalCardCount = AppendSupplementalImportCards($cardArray, $supplementalCardSources);
+if($supplementalCardCount > 0) {
+  $count += $supplementalCardCount;
+  logLine("Appended " . $supplementalCardCount . " supplemental cards from ImportSchema cardEditorSupplement sources.");
 }
 
 // Phase 1b (SWUSim only): migrate stale token image files that were downloaded under the
@@ -1053,6 +1070,107 @@ function ExpandNestedCards(&$cardArray, $nestedCardPaths, &$otherOrientationMap,
   return $added;
 }
 
+function ImportOptionList($importOptions, $key)
+{
+  if(!isset($importOptions[$key])) return [];
+  $value = $importOptions[$key];
+  $values = is_array($value) ? $value : [$value];
+  $results = [];
+  foreach($values as $item) {
+    foreach(explode(",", $item) as $part) {
+      $part = trim($part);
+      if($part !== "") $results[] = $part;
+    }
+  }
+  return $results;
+}
+
+function AppendSupplementalImportCards(&$cardArray, $sources)
+{
+  global $rootName, $overwriteImages;
+  if(empty($sources)) return 0;
+
+  $seenCardIds = [];
+  for($i = 0; $i < count($cardArray); ++$i) {
+    if(isset($cardArray[$i]->id)) $seenCardIds[(string)$cardArray[$i]->id] = true;
+  }
+
+  $added = 0;
+  foreach($sources as $sourceUrl) {
+    $rows = FetchSupplementalImportRows($sourceUrl);
+    if($rows === null) {
+      logLine("WARNING: Failed to load supplemental card source: " . $sourceUrl);
+      continue;
+    }
+
+    $sourceAdded = 0;
+    $sourceDuplicates = 0;
+    $sourceInvalid = 0;
+    foreach($rows as $row) {
+      if(is_array($row)) $row = (object)$row;
+      if(!is_object($row)) {
+        ++$sourceInvalid;
+        continue;
+      }
+
+      $cardID = SupplementalCardId($row);
+      if($cardID === "") {
+        ++$sourceInvalid;
+        continue;
+      }
+      if(isset($seenCardIds[$cardID])) {
+        ++$sourceDuplicates;
+        continue;
+      }
+
+      $row->id = $cardID;
+      $cardArray[] = $row;
+      $seenCardIds[$cardID] = true;
+      ++$added;
+      ++$sourceAdded;
+
+      if(isset($row->image_url) && trim((string)$row->image_url) !== "") {
+        CheckImage($cardID, trim((string)$row->image_url), "", "", rootPath:"./" . $rootName . "/", overwriteImages:$overwriteImages);
+      }
+    }
+
+    logLine("Supplemental source " . $sourceUrl . ": " . count($rows) . " rows, " . $sourceAdded . " appended, " . $sourceDuplicates . " duplicates skipped, " . $sourceInvalid . " invalid skipped.");
+  }
+
+  return $added;
+}
+
+function FetchSupplementalImportRows($sourceUrl)
+{
+  $curl = curl_init();
+  curl_setopt($curl, CURLOPT_URL, $sourceUrl);
+  curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+  curl_setopt($curl, CURLOPT_FAILONERROR, true);
+  $response = curl_exec($curl);
+  $curlError = curl_error($curl);
+  curl_close($curl);
+  if($response === false || $curlError) return null;
+
+  if(substr($response, 0, 3) === "\xEF\xBB\xBF") {
+    $response = substr($response, 3);
+  }
+  $decoded = json_decode($response);
+  if($decoded === null) return null;
+
+  if(is_object($decoded) && isset($decoded->success) && !$decoded->success) return null;
+  if(is_object($decoded) && isset($decoded->data) && is_array($decoded->data)) return $decoded->data;
+  if(is_array($decoded)) return $decoded;
+  return null;
+}
+
+function SupplementalCardId($card)
+{
+  foreach(["uuid", "id", "card_id", "cardId"] as $property) {
+    if(isset($card->$property) && trim((string)$card->$property) !== "") return trim((string)$card->$property);
+  }
+  return "";
+}
+
 function GetNestedImportCards($node, $pathParts)
 {
   if(empty($pathParts)) {
@@ -1272,11 +1390,14 @@ function GetPropertyValue($card, $property)
           }
           return isset($card->element) ? $card->element : "";
         case "type":
-          return isset($card->types) && is_array($card->types) ? implode(",", $card->types) : "";
+          if(isset($card->types) && is_array($card->types)) return implode(",", $card->types);
+          return isset($card->type) ? $card->type : "";
         case "classes":
-          return isset($card->classes) && is_array($card->classes) ? implode(",", $card->classes) : "";
+          if(isset($card->classes) && is_array($card->classes)) return implode(",", $card->classes);
+          return isset($card->classes) ? $card->classes : "";
         case "subtypes":
-          return isset($card->subtypes) && is_array($card->subtypes) ? implode(",", $card->subtypes) : "";
+          if(isset($card->subtypes) && is_array($card->subtypes)) return implode(",", $card->subtypes);
+          return isset($card->subtypes) ? $card->subtypes : "";
         case "cost_memory":
         case "cost_reserve":
         case "level":
@@ -1286,7 +1407,8 @@ function GetPropertyValue($card, $property)
         case "speed":
           return isset($card->$property) && $card->$property !== null ? $card->$property : -1;
         case "set":
-          return isset($card->editions) && isset($card->editions[0]->set) && isset($card->editions[0]->set->prefix) ? $card->editions[0]->set->prefix : "";
+          if(isset($card->editions) && isset($card->editions[0]->set) && isset($card->editions[0]->set->prefix)) return $card->editions[0]->set->prefix;
+          return isset($card->set) ? $card->set : "";
         case "effect":
           return isset($card->$property) ? str_replace("\n", "<br>", $card->$property) : "";
         default: return isset($card->$property) ? $card->$property : "";
