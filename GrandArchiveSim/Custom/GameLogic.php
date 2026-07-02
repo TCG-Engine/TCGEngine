@@ -5465,6 +5465,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             break;
         }
         case "2sn7hlyrkw": // Fatestone of Progress - [Guo Jia Bonus] (4): Transform
+        case "GA-SHOUT-CELL-FORGER-DROID-PRD": // Cell Forger Droid - (4), REST: summon a Powercell token rested
             if(intval($abilityIndex) === 0) {
                 for($ri = 0; $ri < 4; ++$ri) {
                     DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
