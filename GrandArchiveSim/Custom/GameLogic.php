@@ -1283,7 +1283,23 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
                         }
                     }
                 }
-                // Molten Arrow (mvfcd0ukk6): Banish 3 other fire GY cards â†’ load from GY into unloaded Bow
+                // Fulgurite Coordinator: Banish self from graveyard to add static counters.
+                if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "GA-SHOUT-FULGURITE-COORDINATOR-PRDSD") {
+                    if(IsElementBonusActive($playerID, "GA-SHOUT-FULGURITE-COORDINATOR-PRDSD") && CountAvailableReservePayments($playerID) >= 1) {
+                        $targets = FulguriteCoordinatorTargets($playerID);
+                        if(!empty($targets)) {
+                            MZMove($playerID, $actionCard, "myBanish");
+                            DecisionQueueController::CleanupRemovedCards();
+                            DecisionQueueController::AddDecision($playerID, "CUSTOM", "ReserveCard", 100);
+                            DecisionQueueController::AddDecision($playerID, "CUSTOM", "EffectStackOpportunity", 100);
+                            DecisionQueueController::AddDecision($playerID, "MZCHOOSE", implode("&", $targets), 1,
+                                tooltip:"Put_static_counter_on_arcane_object");
+                            DecisionQueueController::AddDecision($playerID, "CUSTOM", "FulguriteCoordinatorGY_Apply", 1);
+                            return "PLAY";
+                        }
+                    }
+                }
+                // Molten Arrow (mvfcd0ukk6): Banish 3 other fire GY cards to load from GY into unloaded Bow.
                 if($gyObj !== null && !$gyObj->removed && $gyObj->CardID === "mvfcd0ukk6") {
                     $fireGY = [];
                     $gy = GetZone("myGraveyard");
@@ -5468,6 +5484,15 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "GA-SHOUT-CELL-FORGER-DROID-PRD": // Cell Forger Droid - (4), REST: summon a Powercell token rested
             if(intval($abilityIndex) === 0) {
                 for($ri = 0; $ri < 4; ++$ri) {
+                    DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+                }
+            }
+            break;
+        case "GA-SHOUT-BEDLAM-BOROUGH-PRD": // Bedlam Borough - (2), REST: Cascade
+            if(intval($abilityIndex) === 0) {
+                $sourceObj = &GetZoneObject($mzCard);
+                if($sourceObj !== null) $sourceObj->Status = 1;
+                for($ri = 0; $ri < 2; ++$ri) {
                     DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
                 }
             }
@@ -14615,6 +14640,90 @@ $customDQHandlers["MusicalCuratorScavenge"] = function($player, $parts, $lastDec
     ScavengeForSubtype($player, 12, $subtype);
 };
 
+function FulguriteCoordinatorTargets($player) {
+    $targets = [];
+    $field = GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i] === null || $field[$i]->removed) continue;
+        if(EffectiveCardElement($field[$i]) !== "ARCANE") continue;
+        $targets[] = "myField-" . $i;
+    }
+    return FilterSpellshroudTargets($targets);
+}
+
+function FulguriteCoordinatorApply($player, $targetMZ) {
+    if($targetMZ === "-" || $targetMZ === "" || $targetMZ === "PASS") return;
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed) return;
+    if($targetObj->Controller != $player) return;
+    if(EffectiveCardElement($targetObj) !== "ARCANE") return;
+
+    $affected = [$targetMZ];
+    foreach(GetLinkedCards($targetObj) as $linkedObj) {
+        if($linkedObj === null || $linkedObj->removed) continue;
+        $affected[] = $linkedObj->GetMzID();
+    }
+    $affected = array_values(array_unique(array_filter($affected, fn($mz) => $mz !== null && $mz !== "")));
+    foreach($affected as $mz) {
+        AddCounters($player, $mz, "static", 1);
+    }
+}
+
+$customDQHandlers["FulguriteCoordinatorGY_Apply"] = function($player, $parts, $lastDecision) {
+    FulguriteCoordinatorApply($player, $lastDecision);
+};
+
+function AdvanceCascadeStep($mzID) {
+    $obj = &GetZoneObject($mzID);
+    if($obj === null || $obj->removed) return 0;
+    if(!isset($obj->Counters) || !is_array($obj->Counters)) $obj->Counters = [];
+    $obj->Counters["cascade"] = intval($obj->Counters["cascade"] ?? 0) + 1;
+    return intval($obj->Counters["cascade"]);
+}
+
+function SummonRestedPowercell($player) {
+    $pcObj = MZAddZone($player, "myField", "qzzadf9q1v");
+    if($pcObj !== null) {
+        $pcObj->Status = 1;
+        $pcObj->Controller = $player;
+        $pcObj->Owner = $player;
+    }
+    return $pcObj;
+}
+
+function ResolveBedlamBoroughCascade($player, $mzID) {
+    $cascadeStep = AdvanceCascadeStep($mzID);
+    if($cascadeStep >= 1 && $cascadeStep <= 3) {
+        SummonRestedPowercell($player);
+        return;
+    }
+    if($cascadeStep === 4) {
+        OnLeaveField($player, $mzID);
+        MZMove($player, $mzID, "myGraveyard");
+        DecisionQueueController::CleanupRemovedCards();
+        Draw($player, 1);
+    }
+}
+
+function ResolveRevitalizerXUltraCascade($player, $mzID) {
+    $cascadeStep = AdvanceCascadeStep($mzID);
+    if($cascadeStep === 1) {
+        RecoverChampion($player, 1);
+        return;
+    }
+    if($cascadeStep === 2) {
+        RecoverChampion($player, 2);
+        return;
+    }
+    if($cascadeStep === 3) {
+        OnLeaveField($player, $mzID);
+        MZMove($player, $mzID, "myGraveyard");
+        DecisionQueueController::CleanupRemovedCards();
+        RecoverChampion($player, 3);
+        DrawIntoMemory($player, 1);
+    }
+}
+
 function EdgeOfTommorrowDomainEntered($player, $enteredMzID) {
     $enteredObj = GetZoneObject($enteredMzID);
     if($enteredObj === null || $enteredObj->removed) return;
@@ -21318,6 +21427,10 @@ function GetRootCounterCount($obj) {
 
 function GetGemCounterCount($obj) {
     return GetCounterCount($obj, "gem");
+}
+
+function GetStaticCounterCount($obj) {
+    return GetCounterCount($obj, "static");
 }
 
 function GetTrainingCounterCount($obj) {
