@@ -1,7 +1,7 @@
 <?php
 // http://localhost:3400/TCGEngine/DevTools/tdd-regression/test_swusim_match.php
 header('Content-Type: text/plain');
-include_once __DIR__ . '/../../SWUSim/Formats.php';
+include_once __DIR__ . '/../../AppCore/SWU/Formats.php';
 include_once __DIR__ . '/../../SWUSim/Match.php';
 
 $checks = [];

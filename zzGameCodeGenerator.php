@@ -598,7 +598,7 @@ for($i=0; $i<count($zones); ++$i) {
   $zoneName = $zone->Name;
   //Getter
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
-  $isValueType = ($zone->DisplayMode == 'Value' || $zone->DisplayMode == 'Radio');
+  $isValueType = ($zone->DisplayMode == 'Value' || $zone->DisplayMode == 'Radio' || $zone->DisplayMode == 'Dropdown');
   $isValueOnly = ($zone->DisplayMode == 'Value');
   if (strtolower($scope) == 'global') {
     // Global-scoped zones don't take a player parameter
@@ -2052,7 +2052,7 @@ function AddReadGamestate() {
         $readGamestate .= "        }\r\n";
         $readGamestate .= "      }\r\n";
         $readGamestate .= "    }\r\n";
-        if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $readGamestate .= "    if(count(\$g" . $zone->Name . ") == 0) array_push(\$g" . $zone->Name . ", new " . $zone->Name . "(0));\r\n";
+        if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") $readGamestate .= "    if(count(\$g" . $zone->Name . ") == 0) array_push(\$g" . $zone->Name . ", new " . $zone->Name . "(0));\r\n";
       }
     } else {
       $readGamestate .= AddReadZone($zone, 1);
@@ -2102,7 +2102,7 @@ function AddReadZone($zone, $player) {
     $rv .= "        }\r\n";
     $rv .= "      }\r\n";
     $rv .= "    }\r\n";
-    if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $rv .= "    if(count(\$p" . $player . $zoneName . ") == 0) array_push(\$p" . $player . $zoneName . ", new " . $zoneName . "(0));\r\n";
+    if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") $rv .= "    if(count(\$p" . $player . $zoneName . ") == 0) array_push(\$p" . $player . $zoneName . ", new " . $zoneName . "(0));\r\n";
     return $rv;
   }
 }
@@ -2305,7 +2305,7 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= "  echo(\$p" . $player . $zone->Name . ");\r\n";
       }
     }
-    else if($zone->DisplayMode == "Radio") {
+    else if($zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") {
       if ($scope == 'global') {
         $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
       } else {
@@ -2857,7 +2857,7 @@ function AddGeneratedUI() {
 }
 
 function WriteInitialLayout() {
-  global $zones, $rootPath, $headerElements, $initializeScript, $clientIncludes, $pageBackground, $customLayoutFile;
+  global $zones, $rootPath, $headerElements, $initializeScript, $clientIncludes, $pageBackground, $customLayoutFile, $rootName;
   $shouldSplitScreen = true;
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -2948,7 +2948,8 @@ function WriteInitialLayout() {
     }
     fwrite($handler, "echo(\"</div>\");\r\n");
   }
-  fwrite($handler, "echo(\"<div class='flex-item' style='flex-grow: 1;'>\");\r\n");
+  $boardFlexStyle = "flex-grow: 1;" . ($rootName === "SWUDeck" ? " position:relative;" : "");
+  fwrite($handler, "echo(\"<div class='flex-item' style='" . $boardFlexStyle . "'>\");\r\n");
   if($shouldSplitScreen) {
     fwrite($handler, "echo(\"<div class='theirStuffWrapper' style='position:relative; z-index:10; left:0; top:0; width:100%; height:50%;'><div class='stuffParent'><div id='theirStuff' class='stuff theirStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\r\n<div class='myStuffWrapper' style='position:absolute; z-index:10; left:0; top:50%; width:100%; height:50%;'><div style='position:relative; width:100%; height:100%'><div class='stuffParent'><div id='myStuff' class='stuff myStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\");\r\n");
   } else {

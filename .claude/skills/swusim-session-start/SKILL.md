@@ -14,23 +14,18 @@ Read both files before doing anything else:
 .claude/SWUSim/instructions.md
 ```
 
-The memory file is the source of truth for: zone schema, turn model, file status (done vs not started), architecture decisions, CardID format, and reference file locations. The instructions file contains session-specific guidance and requirements that take precedence.
+The memory file is the source of truth for: zone schema, turn model, file status (done vs not started), architecture decisions, CardID format, and reference file locations. The instructions file is a lean orientation — file index, Decision-Queue plumbing, a compact zone-schema, and a few load-bearing rules — and points to the `swusim-implement-card` skill for the card-ability workflow/DSL; any explicit rule it states still takes precedence.
 
-## Step 2 — What's Next (Priority Order)
+## Step 2 — What's Next
 
-From the memory file as of 2026-06-04:
-
-| # | Task | File | Notes |
-|---|------|------|-------|
-| 1 | Run zone/accessor generator | `SWUSim/ZoneClasses.php`, `SWUSim/ZoneAccessors.php` | `zzGameCodeGenerator.php?rootName=SWUSim` — quick win, needed by GameLogic |
-| 2 | Run card dictionary generator | `SWUSim/GeneratedCode/GeneratedCardDictionaries.php` | `zzCardCodeGenerator.php?rootName=SWUSim&withPreview=1` — quick win |
-| 3 | Write GameLogic.php | `SWUSim/Custom/GameLogic.php` | Biggest piece — phase handlers, resource payment, play card, keywords, tokens |
-| 4 | Write CombatLogic.php | `SWUSim/Custom/CombatLogic.php` | Attacker exhausts, target selection, shield intercept, simultaneous damage |
-| 5 | Write CustomInput.php | `SWUSim/Custom/CustomInput.php` | SWU input routing: pass, attack, play card, resource cost payment |
+The engine + all 7 first-release Premier sets (SOR/JTL/LOF/SEC/IBH/LAW/ASH) are **card-complete**.
+For current state and next priorities, read the **"Latest (session N)" log at the top of
+`swusim-project.md`** (maintained each session — that's the live what's-next). Do NOT rely on a
+hardcoded task list here. Confirm the target with the user before starting new work.
 
 ## Step 3 — Architecture Rules (Never Forget)
 
-- **GA is the template.** Every SWU file mirrors GA patterns but replaces GA mechanics. Before writing anything, read the equivalent GA file first.
+- **GA was the structural template** the engine was originally built from (GrandArchiveSim). It's rarely relevant now that the engine is mature — card work follows the `swusim-implement-card` skill, not GA files. Reach for the equivalent GA file only when touching core engine plumbing that predates the card layer.
 - **Leader never leaves its zone.** When deployed, a `GroundArena` entry is created; `Leader.DeployedUniqueID` holds its `UniqueID`. On defeat, leader returns exhausted; `Deployed=false`.
 - **`TurnPlayer` swaps in game code**, not by the engine. Consecutive-pass tracking lives in `GameLogic.php`. Second consecutive pass calls `AdvanceAndExecute("PASS")`.
 - **Boolean zone properties** — `GameLogic.php` must use string `'true'`/`'false'` when writing zone fields (`EpicActionUsed`, `Ready`, `Deployed`). The generator now handles deserialization, but writes must be explicit strings.

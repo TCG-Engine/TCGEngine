@@ -1,7 +1,7 @@
 <?php
 // SWU Match: the top-level unit of play (Bo1 = bestOf 1, Bo3 = bestOf 3) owning a
 // sequence of child games. Filesystem-durable; every read-modify-write is flock-guarded.
-include_once __DIR__ . '/Formats.php';
+include_once __DIR__ . '/../AppCore/SWU/Formats.php';
 
 function SWUMatchesDir() {
     $dir = __DIR__ . '/Matches';

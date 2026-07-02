@@ -718,16 +718,18 @@ if($rootName == "SWUDeck") {
 }
 // Load AllSets data for ordered set filtering
 $allSetsOrdered = [];
-if(($rootName == "SWUDeck" || $rootName == "SoulMastersDB") && file_exists("./" . $rootName . "/AllSets.php")) {
-  $allSetsOrdered = include("./" . $rootName . "/AllSets.php");
+// SWU's set list lives in the shared AppCore/SWU/ dir; SoulMastersDB keeps its own per-product file.
+$allSetsPath = ($rootName == "SWUDeck") ? "./AppCore/SWU/AllSets.php" : ("./" . $rootName . "/AllSets.php");
+if(($rootName == "SWUDeck" || $rootName == "SoulMastersDB") && file_exists($allSetsPath)) {
+  $allSetsOrdered = include($allSetsPath);
   if(!is_array($allSetsOrdered)) $allSetsOrdered = [];
 }
 $allSetsJson = json_encode($allSetsOrdered, JSON_FORCE_OBJECT);
 fwrite($handler, "var allSetsData = " . $allSetsJson . ";\r\n");
 // Build reprint set map: canonicalUUID => [reprintSetCode, ...] for ordered set filtering
 $reprintSetsMap = [];
-if($rootName == "SWUDeck" && file_exists("./$rootName/Overrides.php")) {
-  $overridesContent = file_get_contents("./$rootName/Overrides.php");
+if($rootName == "SWUDeck" && file_exists("./AppCore/SWU/Overrides.php")) { // Overrides.php lives in the shared AppCore/SWU/ dir
+  $overridesContent = file_get_contents("./AppCore/SWU/Overrides.php");
   $overrideMatches = [];
   preg_match_all('/case "([A-Z0-9]+_[0-9]+)":\s*return "([A-Z0-9]+_[0-9]+)"/', $overridesContent, $overrideMatches);
   for($oi = 0; $oi < count($overrideMatches[1]); $oi++) {

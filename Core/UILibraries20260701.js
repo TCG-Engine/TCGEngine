@@ -900,6 +900,10 @@ function ResolveGlobalFunction(functionName) {
             var id = zone + "-0";
             var buttons = createWidgetButtons(zoneName, id, "-", zoneData);
             newHTML += "<div style='display: flex; justify-content: center; align-items: center; padding-left: 5px;flex-wrap: wrap; gap:0.5rem 0;'>" + buttons.middleButtons + "</div>";
+          } else if(mode == 'Dropdown') {
+            newHTML += "<span style='margin: 1px; display: flex; align-items: center; padding-right: 5px;'>" + zoneName + ":</span>";
+            var id = zone + "-0";
+            newHTML += "<div style='display: flex; align-items: center; padding-left: 5px;'>" + createWidgetDropdown(zoneName, id, zoneData) + "</div>";
           } else if(mode == 'Panel') {
             var id = zone;
             newHTML += "div id='" + id + "' style='display: flex; flex-wrap: wrap; justify-content: center;'></div>";
@@ -1988,6 +1992,32 @@ function ResolveGlobalFunction(functionName) {
         }
       `;
       document.head.appendChild(widgetstyle);
+
+      // Render a zone's widget actions as a single native <select> (used by DisplayMode=Dropdown,
+      // e.g. SWUDeck's Sort control). onchange dispatches the SAME handleWidgetAction the buttons
+      // use, so behavior is identical to the button row it replaces.
+      function createWidgetDropdown(zoneName, cardId, currentValue="") {
+        const widgets = GetZoneWidgets(zoneName);
+        const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        let options = '';
+        let hasSelection = false;
+        let widgetTypeForChange = 'Value';
+        for (const widgetType in widgets) {
+          widgetTypeForChange = widgetType;
+          const widgetGroup = widgets[widgetType];
+          const widgetActions = Array.isArray(widgetGroup) ? widgetGroup : (widgetGroup.actions || []);
+          widgetActions.forEach(widget => {
+            const action = String(widget.Action);
+            const label = action.replace(/_/g, ' ');
+            const selected = (currentValue && currentValue !== "-" && action === currentValue);
+            if (selected) hasSelection = true;
+            options += `<option value="${esc(action)}"${selected ? ' selected' : ''}>${esc(label)}</option>`;
+          });
+        }
+        const placeholder = `<option value="" disabled${hasSelection ? '' : ' selected'}>Sort by&hellip;</option>`;
+        const style = "background:#2a2a2a;color:#fff;border:1px solid #555;border-radius:5px;padding:3px 6px;font-size:13px;cursor:pointer;";
+        return `<select class="widget-dropdown" style="${style}" onchange="handleWidgetAction(event, '${cardId}', '${widgetTypeForChange}', this.value)">${placeholder}${options}</select>`;
+      }
 
       function createWidgetButtons(zoneName, cardId, cardJSON="-", currentValue="") {
         const escapeHtmlAttr = (value) => String(value ?? '')
@@ -6536,6 +6566,10 @@ window.addEventListener('load', initGrandArchiveUtilityButtons);
 //   - Card search/browse pane fixed at the bottom
 // Called automatically from AppendStaticZones on every render update.
 function MobileDeckEditorLayout() {
+  // SWUDeck now lays itself out natively per-device in PHP (GameLayoutMobile.php emits
+  // the mobile stack directly). This legacy JS reflow would fight that native layout, so
+  // skip it whenever the slot-based layout is active. Set by GameLayout.php.
+  if (window.SWUDeckSlotLayout) return;
   if (window.innerWidth > 1000) return;
   var myStuff = document.getElementById('myStuff');
   var cardPaneWrapper = document.getElementById('myCardPaneWrapper');

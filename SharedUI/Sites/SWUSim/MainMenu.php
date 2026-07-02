@@ -7,7 +7,7 @@ include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../SWUSim/GeneratedCode/GeneratedCardDictionaries.php';
-include_once __DIR__ . '/../../../SWUSim/Formats.php';
+include_once __DIR__ . '/../../../AppCore/SWU/Formats.php';
 require_once __DIR__ . '/../../Render/DeckLibrary.php';
 
 include_once __DIR__ . '/Header.php';

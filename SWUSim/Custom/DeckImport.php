@@ -2,39 +2,19 @@
 
 include_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/DeckTextParser.php';
-include_once __DIR__ . '/../../SWUDeck/Overrides.php'; // CardIDOverride — reprint → earliest printing
-include_once __DIR__ . '/../Formats.php'; // SWUGetFormat / SWUFormatLegalSets / config
+include_once __DIR__ . '/../../AppCore/SWU/Overrides.php'; // CardIDOverride — reprint → earliest printing
+include_once __DIR__ . '/../../AppCore/SWU/Formats.php'; // SWUGetFormat / SWUFormatLegalSets / config
+include_once __DIR__ . '/../../AppCore/SWU/DeckValidation.php'; // shared legality validator: SWUCheckFormat / SWUCardHasLegalPrint / SWUReprintGroup / SWUCardSet / SWUIsDeckLegal
 
 // Sets whose card abilities the sim actually implements. A reprint printed only
 // in a non-implemented set (e.g. SHD/TWI promos) must be aliased to one of these
 // so the engine fires the real ability. SOR is implemented though not Premier-legal.
 const SWUImplementedSets = ['SOR', 'JTL', 'LOF', 'SEC', 'IBH', 'LAW', 'ASH'];
 
-// Short set prefix of a SET_NNN card ID.
-function SWUCardSet($cardID) {
-    return strtoupper(explode('_', (string)$cardID)[0] ?? '');
-}
+// NOTE: the format-legality validator (SWUCheckFormat/SWUCardHasLegalPrint/SWUReprintGroup/
+// SWUCardSet/_SWULeaderStartAlignment/SWUIsDeckLegal) now lives in AppCore/SWU/DeckValidation.php,
+// shared with SWUDeck. SWUResolveToImplementedPrint stays here — it's sim-engine-specific.
 
-// Every known printing that shares a canonical (earliest) printing with $cardID,
-// including $cardID and the canonical itself. Built once by inverting
-// CardIDOverride over the full card dictionary — the single source of reprint
-// relationships shared with SWUDeck stats.
-function SWUReprintGroup($cardID) {
-    static $groups = null;
-    if ($groups === null) {
-        global $titleData;
-        $groups = [];
-        $ids = is_array($titleData) ? array_keys($titleData) : [];
-        foreach ($ids as $id) {
-            $groups[CardIDOverride($id)][] = $id;
-        }
-    }
-    $canon = CardIDOverride($cardID);
-    $group = $groups[$canon] ?? [];
-    if (!in_array($cardID, $group, true)) $group[] = $cardID;
-    if (!in_array($canon,  $group, true)) $group[] = $canon;
-    return array_values(array_unique($group));
-}
 
 // Pick a printing of $cardID that the sim implements. Keeps the given printing
 // when its set is implemented; otherwise prefers the canonical, then any reprint
@@ -50,106 +30,6 @@ function SWUResolveToImplementedPrint($cardID) {
     return $cardID;
 }
 
-// True when $cardID — by any of its printings — appears in one of $legalSets.
-// Lets a deck list an older/alternate printing of a card that is Premier-legal
-// via a reprint (e.g. SHD_030 Death Trooper is legal because SEC_030 is).
-function SWUCardHasLegalPrint($cardID, array $legalSets) {
-    foreach (SWUReprintGroup($cardID) as $print) {
-        if (in_array(SWUCardSet($print), $legalSets, true)) return true;
-    }
-    return false;
-}
-
-// Config-driven format legality. Returns a list of blocking error strings ([] = legal).
-// Banned IDs and copy-exception / deck-modifier keys are matched CANONICALLY
-// (CardIDOverride on both sides) because deck cards are canonicalized before compare.
-function SWUCheckFormat($formatId, $leader, $base, array $mainDeck, array $sideboard) {
-    $fmt = SWUGetFormat($formatId);
-    if ($fmt === null) {
-        return ["Unknown format: $formatId"];
-    }
-
-    $errors    = [];
-    $legalSets = SWUFormatLegalSets($formatId);
-
-    // Canonicalize config keys/entries so they match canonicalized deck cards.
-    $bannedCanon = [];
-    foreach ($fmt['banned'] as $id) { $bannedCanon[CardIDOverride($id)] = true; }
-
-    $copyExceptions = [];
-    foreach ($fmt['copyExceptions'] as $id => $max) { $copyExceptions[CardIDOverride($id)] = $max; }
-
-    $deckSizeModifiers = [];
-    foreach ($fmt['deckSizeModifiers'] as $id => $delta) { $deckSizeModifiers[CardIDOverride($id)] = $delta; }
-
-    $minDeck = 50;
-
-    // 1. Leader legality + ban.
-    if ($leader) {
-        if (!SWUCardHasLegalPrint($leader, $legalSets)) {
-            $errors[] = "Leader $leader is not legal in $formatId.";
-        }
-        if (isset($bannedCanon[CardIDOverride($leader)])) {
-            $errors[] = "Leader $leader is banned in $formatId.";
-        }
-    }
-
-    // 2. Base legality + ban + deck-size modifier.
-    if ($base) {
-        if (!SWUCardHasLegalPrint($base, $legalSets)) {
-            $errors[] = "Base $base is not legal in $formatId.";
-        }
-        if (isset($bannedCanon[CardIDOverride($base)])) {
-            $errors[] = "Base $base is banned in $formatId.";
-        }
-        $baseCanon = CardIDOverride($base);
-        if (isset($deckSizeModifiers[$baseCanon])) {
-            $minDeck += $deckSizeModifiers[$baseCanon];
-        }
-    }
-
-    // 3. Main-deck legality + ban + copy limits (count by canonical printing — CR 8.36).
-    $cardCounts   = array_count_values(array_map('CardIDOverride', $mainDeck));
-    $illegalCards = [];
-    $bannedCards  = [];
-    $overLimit    = [];
-    foreach ($cardCounts as $cardID => $count) {   // $cardID is already canonical
-        if (!SWUCardHasLegalPrint($cardID, $legalSets)) $illegalCards[] = $cardID;
-        if (isset($bannedCanon[$cardID]))               $bannedCards[]  = $cardID;
-        $limit = $copyExceptions[$cardID] ?? 3;
-        if ($count > $limit) $overLimit[] = "$cardID ($count copies, max $limit)";
-    }
-    if (!empty($illegalCards)) {
-        $shown = array_slice($illegalCards, 0, 5);
-        $more  = count($illegalCards) > 5 ? ' +' . (count($illegalCards) - 5) . ' more' : '';
-        $errors[] = "Cards not legal in $formatId: " . implode(', ', $shown) . $more;
-    }
-    if (!empty($bannedCards)) {
-        $errors[] = "Banned in $formatId: " . implode(', ', array_slice($bannedCards, 0, 5));
-    }
-    if (!empty($overLimit)) {
-        $errors[] = 'Over the 3-copy limit: ' . implode('; ', $overLimit);
-    }
-
-    // 4. Minimum deck size.
-    $deckSize = count($mainDeck);
-    if ($deckSize < $minDeck) {
-        $note = ($minDeck !== 50) ? " (modified to $minDeck by base)" : '';
-        $errors[] = "Deck has $deckSize cards; $formatId minimum is $minDeck$note.";
-    }
-
-    // 5. Sideboard maximum.
-    if (count($sideboard) > 10) {
-        $errors[] = 'Sideboard has ' . count($sideboard) . ' cards; maximum is 10.';
-    }
-
-    return $errors;
-}
-
-// Back-compat wrapper — Premier is just one format.
-function SWUCheckPremierFormat($leader, $base, array $mainDeck, array $sideboard) {
-    return SWUCheckFormat('premier', $leader, $base, $mainDeck, $sideboard);
-}
 
 /**
  * Validate a deck link or paste without fully loading the deck.

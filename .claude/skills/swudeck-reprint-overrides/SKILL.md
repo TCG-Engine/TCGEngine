@@ -1,11 +1,11 @@
 ---
 name: swudeck-reprint-overrides
-description: Find which cards in a SWU set are reprints of earlier-set cards and add the mappings to SWUDeck/Overrides.php. Use when a new set is released and its reprints need to be aliased back to their earliest printing for deck stats. Takes a set code (e.g. ASH, LAW, SEC).
+description: Find which cards in a SWU set are reprints of earlier-set cards and add the mappings to AppCore/SWU/Overrides.php. Use when a new set is released and its reprints need to be aliased back to their earliest printing for deck stats. Takes a set code (e.g. ASH, LAW, SEC).
 ---
 
 # SWUDeck reprint overrides
 
-`SWUDeck/Overrides.php` (`CardIDOverride`) aliases a reprinted card's CardID back to the
+`AppCore/SWU/Overrides.php` (`CardIDOverride`) aliases a reprinted card's CardID back to the
 CardID of its **earliest** printing, so deck stats treat reprints as one card. This skill
 finds a set's reprints and appends the `case` lines.
 
@@ -42,7 +42,7 @@ data so it stays correct as sets are added.
    can confirm the target is genuinely the earliest.
 2. Sanity-check each pair (the script prints title/subtitle/cost/aspects, and power/hp as
    an extra signal). A real reprint matches on all four key fields.
-3. Append the `case` lines to `SWUDeck/Overrides.php`, just before `default: return $cardID;`,
+3. Append the `case` lines to `AppCore/SWU/Overrides.php`, just before `default: return $cardID;`,
    following the existing `case "XXX_NNN": return "YYY_NNN"; //Card Name` format.
 
 ## Notes

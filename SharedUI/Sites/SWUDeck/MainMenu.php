@@ -745,7 +745,7 @@ function LoadDecks() {
         <!-- ...tab buttons and deck list content... -->
         <div class="login container bg-black">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div class="tab-buttons">              <button class="tab-button active" onclick="switchTab('tab-decks', event)">Decks</button>
+            <div class="tab-buttons">              <button class="tab-button active" onclick="switchTab('tab-decks', event)">My Decks</button>
               <?php
               $isKTODPatron = IsPatron("11987758");
               $isRebelResourcePatron = IsPatron("12716027");

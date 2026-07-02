@@ -7,7 +7,7 @@ include_once "../Core/UILibraries.php";
 include_once '../Database/ConnectionManager.php';
 include_once '../SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
 include_once '../Core/StatsBaseRegistry.php';        // ResolveOpponentBase / BaseGroupDisplayLabel
-include_once '../SWUSim/Formats.php';                 // SWUFormatLegalSets (dict-free; no card-dictionary collision)
+include_once '../AppCore/SWU/Formats.php';                 // SWUFormatLegalSets (dict-free; no card-dictionary collision)
 
 $isMobile = IsMobile();
 

@@ -7881,6 +7881,13 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
             $all = array_values(array_filter($all, fn($mz) =>
                 CardUnique(GetZoneObject($mz)->CardID ?? '')));
             break;
+        // "Attach to a <uq> non-Vehicle unit."
+        case 'ASH_135': // The Darksaber
+            $all = array_values(array_filter($all, function($mz) {
+                $cid = GetZoneObject($mz)->CardID ?? '';
+                return CardUnique($cid) && !HasTrait($cid, 'Vehicle');
+            }));
+            break;
         // "Attach to a Jedi non-Vehicle unit."
         case 'LOF_151': // Knight's Saber
             $all = array_values(array_filter($all, function($mz) {

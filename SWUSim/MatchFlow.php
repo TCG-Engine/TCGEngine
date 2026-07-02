@@ -2,7 +2,7 @@
 // Bo3 match orchestration: create a match from a ready lobby, spawn child games,
 // and advance the match on game-over. Defines SWUSetupGame via CreateGame include
 // (no ambient $lobby here, so its auto-run guard does not fire).
-include_once __DIR__ . '/Formats.php';
+include_once __DIR__ . '/../AppCore/SWU/Formats.php';
 include_once __DIR__ . '/Match.php';
 include_once __DIR__ . '/CreateGame.php';      // defines SWUSetupGame / LoadPlayerDeck
 include_once __DIR__ . '/Custom/DeckImport.php'; // SWUResolveDeckInput / SWUCheckFormat

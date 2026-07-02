@@ -9,7 +9,7 @@ Thin orchestrator: drive a multi-batch implementation **plan doc** to completion
 
 ## Step 1 — Orient
 
-1. Invoke **`swusim-session-start`** (loads project memory + `.claude/SWUSim/instructions.md` — zone schema, conventions, file status).
+1. Invoke **`swusim-session-start`** (loads project memory — zone schema, conventions, file status — + the lean `.claude/SWUSim/instructions.md` orientation).
 2. Read the target **plan doc** end to end. Identify its **phases** (`## Phase X`) and **batches** (`- [ ] **Batch X.Y …**` with card IDs). If the user named a phase range, scope to it; otherwise start at the first unchecked batch.
 3. Capture a **baseline regression**: `curl http://localhost:3400/TCGEngine/zzRegressionSWUSim.php`. Record passing/failing — every later "+N" is measured against this, and a pre-existing red test is not yours.
 

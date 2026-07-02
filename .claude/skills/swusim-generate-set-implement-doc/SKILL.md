@@ -21,8 +21,8 @@ of SHD/TWI/TS26 is lifted (2026-06-25 — see memory `project-set-scope-formats`
 - `SOR` — already complete (skip unless re-surveying intentionally).
 - Anything not a recognized set abbreviation — confirm with the user.
 
-First, invoke **`swusim-session-start`** to load project memory + `.claude/SWUSim/instructions.md`
-(zone schema, conventions, file status), then proceed.
+First, invoke **`swusim-session-start`** to load project memory (zone schema, conventions, file
+status) + the lean `.claude/SWUSim/instructions.md` orientation, then proceed.
 
 ## Flow (overview)
 
