@@ -14576,6 +14576,18 @@ function DestinedEncounterScavenged($player, $scavengedCardID) {
     }
 }
 
+function MusicalCuratorEnter($player) {
+    DecisionQueueController::AddDecision($player, "MZMODAL", "1|1|Harmony&Melody", 1,
+        tooltip:"Choose_Harmony_or_Melody");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "MusicalCuratorScavenge", 1);
+}
+
+$customDQHandlers["MusicalCuratorScavenge"] = function($player, $parts, $lastDecision) {
+    $selectedIndex = intval(explode(",", strval($lastDecision))[0] ?? 1);
+    $subtype = ($selectedIndex === 0) ? "HARMONY" : "MELODY";
+    ScavengeForSubtype($player, 12, $subtype);
+};
+
 function EdgeOfTommorrowDomainEntered($player, $enteredMzID) {
     $enteredObj = GetZoneObject($enteredMzID);
     if($enteredObj === null || $enteredObj->removed) return;
