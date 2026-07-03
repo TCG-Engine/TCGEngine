@@ -5309,24 +5309,7 @@ function OnCardActivated($player, $mzCard) {
                 }
                 break;
             case "bEXmm4rKOs": // Duchess's Thornes: whenever you activate a cardistry ability of an ally, that ally gets +1 POWER and true sight until EOT
-                global $Cardistry_Cards;
-                if(!HasNoAbilities($field[$fi])
-                    && isset($Cardistry_Cards[$obj->CardID])
-                    && PropertyContains(EffectiveCardType($obj), "ALLY")) {
-                    // Find the ally on the field and buff it
-                    $fi2 = null;
-                    $f2 = GetField($player);
-                    for($k = 0; $k < count($f2); ++$k) {
-                        if(!$f2[$k]->removed && $f2[$k]->CardID === $obj->CardID) {
-                            $fi2 = $k;
-                            break;
-                        }
-                    }
-                    if($fi2 !== null) {
-                        AddTurnEffect("myField-" . $fi2, "bEXmm4rKOs_CARDISTRY_POWER");
-                        AddTurnEffect("myField-" . $fi2, "TRUE_SIGHT");
-                    }
-                }
+                // Cardistry ability activations are handled in AbilityActivated.
                 break;
             case "IBXLKkBUe1": // Weiss Knight: whenever you activate a Chessman Command card, gain unblockable until EOT
                 if(PropertyContains($subtypes, "COMMAND") && PropertyContains($subtypes, "CHESSMAN")
@@ -14731,6 +14714,29 @@ $customDQHandlers["CardPlayed"] = function($player, $param, $lastResult) {
     }
 };
 
+function TriggerDuchessThornesCardistry($player, $sourceMZ, $cardID) {
+    global $Cardistry_Cards;
+    if(!isset($Cardistry_Cards[$cardID])) return;
+    $sourceObj = GetZoneObject($sourceMZ);
+    if($sourceObj === null || $sourceObj->removed) return;
+    if($sourceObj->CardID !== $cardID) return;
+    if(!PropertyContains(EffectiveCardType($sourceObj), "ALLY")) return;
+
+    $field = GetField($player);
+    $duchessActive = false;
+    for($fi = 0; $fi < count($field); ++$fi) {
+        if($field[$fi]->removed) continue;
+        if($field[$fi]->CardID !== "bEXmm4rKOs") continue;
+        if(HasNoAbilities($field[$fi])) continue;
+        $duchessActive = true;
+        break;
+    }
+    if(!$duchessActive) return;
+
+    AddTurnEffect($sourceMZ, "bEXmm4rKOs_CARDISTRY_POWER");
+    AddTurnEffect($sourceMZ, "TRUE_SIGHT");
+}
+
 $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     global $activateAbilityAbilities;
     $cardID = $param[0];
@@ -14740,6 +14746,7 @@ $customDQHandlers["AbilityActivated"] = function($player, $param, $lastResult) {
     if(isset($activateAbilityAbilities[$abilityKey])) {
         $activateAbilityAbilities[$abilityKey]($player);
     }
+    TriggerDuchessThornesCardistry($player, DecisionQueueController::GetVariable("mzID"), $cardID);
     TriggerNightmareCoilPunish($player);
     // Enhance Potency: fire any copy after ability decisions (block 1) but before AbilityOpportunity (block 200)
     DecisionQueueController::AddDecision($player, "CUSTOM", "CheckEnhancePotency", 99);
