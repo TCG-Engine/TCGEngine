@@ -14473,6 +14473,28 @@ $customDQHandlers["AMIDALA_PREVENT_ABILITY"] = function($player, $parts, $lastDe
     SWUDefeatUnit(intval($player), $lastDecision);                 // defeat the chosen friendly → prevent
     if ($amz !== null) SWUQueuePreventedAnim($amz, intval($player));
 };
+// Prevention — SPLIT/divided damage path (SWUDealSplitDamage). One offer per SEC_101 target in the split;
+// all carry-state rides the PARAM (DQ variables don't survive the request boundary). $parts = [casterPlayer,
+// amidalaUID, amount, decider, applyCSV, offerCSV]. Accept (a trait-sharing friendly mzID) → defeat it and
+// DROP this hit (prevented); decline ('-') → re-park the hit to apply with the rest. Either way, continue
+// the offer loop, which applies all surviving damage simultaneously once the offers run out.
+$customDQHandlers["SPLIT_PREVENT_RESOLVE"] = function($player, $parts, $lastDecision) {
+    $caster  = intval($parts[0] ?? 0);
+    $curUid  = intval($parts[1] ?? 0);
+    $curAmt  = intval($parts[2] ?? 0);
+    $decider = intval($parts[3] ?? 0);
+    $apply   = _SWUDecodeHits($parts[4] ?? '');
+    $offer   = _SWUDecodeHits($parts[5] ?? '');
+    global $playerID; $playerID = $decider;
+    if ($lastDecision && $lastDecision !== '-' && $lastDecision !== 'PASS') {
+        SWUDefeatUnit($decider, $lastDecision);                       // pay the cost → prevent this hit
+        $amz = SWUFindMzByUID($curUid);
+        if ($amz !== null) SWUQueuePreventedAnim($amz, $decider);
+    } else {
+        $apply[] = ['uid' => $curUid, 'amount' => $curAmt];           // declined → apply it with the rest
+    }
+    _SWUSplitOfferStep($caster, $offer, $apply);
+};
 // Prevention — COMBAT damage path. Pick → defeat friendly + set the one-shot marker SWUCombatDamage
 // consumes (skips Amidala's combat damage this attack). Decline → damage applies normally.
 $customDQHandlers["AMIDALA_PREVENT_COMBAT"] = function($player, $parts, $lastDecision) {
