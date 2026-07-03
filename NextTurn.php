@@ -352,14 +352,17 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       function CalculateCardSize() {
         if (window.innerWidth <= 1000) {
           var viewportWidth = (window.visualViewport && window.visualViewport.width) ? window.visualViewport.width : window.innerWidth;
-          // SWUDeck's phone layout shows fewer, larger cards (4 per row). Gate on the same
-          // phone/?swuLayout=mobile trigger the mobile LAYOUT uses, so a narrow desktop window
-          // (which keeps the wide desktop layout) still gets the small-card grid.
+          // Phone-specific layouts can show fewer, larger cards. Gate on the same
+          // phone/query override triggers their mobile layouts use, so a narrow desktop window
+          // that keeps the wide desktop layout still gets the historical small-card grid.
           var isSWUDeckPhone = <?php echo ($folderPath === 'SWUDeck' ? 'true' : 'false'); ?> &&
             (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|webOS|Opera Mini|IEMobile/i.test(navigator.userAgent)
               || /[?&]swuLayout=mobile/.test(location.search));
-          var mobileColumns = isSWUDeckPhone ? 4 : 7;
-          var maxCardSize = isSWUDeckPhone ? 120 : 80;
+          var isAzukiPhone = <?php echo ($folderPath === 'AzukiSim' ? 'true' : 'false'); ?> &&
+            (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|webOS|Opera Mini|IEMobile/i.test(navigator.userAgent)
+              || /[?&]azukiLayout=mobile/.test(location.search));
+          var mobileColumns = isSWUDeckPhone ? 4 : (isAzukiPhone ? 6 : 7);
+          var maxCardSize = isSWUDeckPhone ? 120 : (isAzukiPhone ? 62 : 80);
           var rowPadding = 24; // account for wrapper padding and edge spacing
           var perCardHorizontalSpacing = 4; // two 1px margins + buffer for layout rounding
           var calculatedSize = Math.floor((viewportWidth - rowPadding - (mobileColumns * perCardHorizontalSpacing)) / mobileColumns);

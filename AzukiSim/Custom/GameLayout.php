@@ -1,6 +1,8 @@
 <?php
 // GameLayout.php — Container divs for all BindTo zones in AzukiSim.
 // Included from InitialLayout.php after the main split-screen structure.
+require_once __DIR__ . '/GameLayoutDevice.php';
+if (AzukiSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
     html,
