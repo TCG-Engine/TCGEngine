@@ -365,7 +365,9 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           var calculatedSize = Math.floor((viewportWidth - rowPadding - (mobileColumns * perCardHorizontalSpacing)) / mobileColumns);
           return Math.max(36, Math.min(maxCardSize, calculatedSize));
         }
-        return window.innerWidth / 16;
+        // SWUDeck's desktop deck editor shows larger cards (smaller divisor => bigger card,
+        // fewer per row); other sims keep the historical /16 sizing.
+        return window.innerWidth / <?php echo ($folderPath === 'SWUDeck' ? '13.5' : '16'); ?>;
       }
 
       var cardSize = CalculateCardSize();

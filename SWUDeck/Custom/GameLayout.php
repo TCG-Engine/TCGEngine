@@ -151,6 +151,12 @@ if (SWUDeckIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; retur
   <div id="myDeckSlot"      style="position:absolute; left:26%; top:16%;"></div>
   <div id="myStatsSlot"     style="position:absolute; left:46%; top:16%;"></div>
   <div id="mySortSlot"      style="position:absolute; left:82%; top:16%;"></div>
-  <div id="myMainDeckSlot"  style="position:absolute; left:26%; top:20%; bottom:130px;"></div>
+  <!-- Bottom reserve clears the sideboard row. The sideboard sits at bottom:5% (scales with
+       viewport HEIGHT) and its one row is ~cardSize tall — and cardSize is innerWidth/13, so
+       the row scales with viewport WIDTH. The reserve therefore tracks both: 5% (height) for
+       the sideboard's own offset + ~9vw (width) for its row height plus a small gap. A fixed
+       px reserve would spill on wider windows (bigger cards => taller sideboard). The main-deck
+       slot has overflow:hidden, so its content clips here and scrolls within. -->
+  <div id="myMainDeckSlot"  style="position:absolute; left:26%; top:20%; bottom:calc(5% + 9vw);"></div>
   <div id="mySideboardSlot" style="position:absolute; left:26%; bottom:5%;"></div>
 </div>
