@@ -6046,6 +6046,9 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
         case "cc0jmpmman": // Ghostsight Glass â€” REST
             $sourceObj = &GetZoneObject($mzCard);
             $sourceObj->Status = 1;
+            for($ri = 0; $ri < 3; ++$ri) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard|$mzCard", 100);
+            }
             break;
         case "7gz0j8p4sx": // Minister of Ceremony â€” REST
             $sourceObj = &GetZoneObject($mzCard);
