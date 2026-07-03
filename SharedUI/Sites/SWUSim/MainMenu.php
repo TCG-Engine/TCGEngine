@@ -68,6 +68,11 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from SWUDB or SWUDeck):</label>
         <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Leader&#10;1 Luke Skywalker, Faithful Friend&#10;&#10;# Base&#10;1 Echo Base&#10;&#10;# Main Deck&#10;3 Alliance X-Wing&#10;..." style="width: 100%; padding: 10px 15px; background-color: rgba(245, 228, 170, 0.88); color: #1e0900; border: 2px solid rgba(130, 85, 5, 0.45); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
       </div>
+      <!-- Hotseat: a second deck link for Player 2 (revealed only when the Hotseat format is selected). -->
+      <div id="swu-deck2-group" style="display: none; margin-top: 10px;">
+        <label for="swu-deck2-input" style="display: block; margin-bottom: 8px; font-weight: 500;">Player 2 deck link (Hotseat):</label>
+        <input type="text" id="swu-deck2-input" placeholder="Second deck link" style="width: 100%; padding: 10px 15px; background-color: rgba(245, 228, 170, 0.88); color: #1e0900; border: 2px solid rgba(130, 85, 5, 0.45); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+      </div>
       <!--
       <label for="game-name">Game Name:</label>
       <input type="text" id="game-name" name="game_name" required>
@@ -90,7 +95,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
               $swuDefaultFormat = $swuLoggedIn ? 'premier' : 'open';
             ?>
             <?php foreach ($swuFormats as $fid => $fname): ?>
-            <?php if (!$swuLoggedIn && $fid !== 'open') continue; ?>
+            <?php if (!$swuLoggedIn && $fid !== 'open' && $fid !== 'goldfish' && $fid !== 'hotseat') continue; ?>
             <option value="<?php echo htmlspecialchars($fid, ENT_QUOTES); ?>"<?php echo $fid === $swuDefaultFormat ? ' selected' : ''; ?>><?php echo htmlspecialchars($fname, ENT_QUOTES); ?></option>
             <?php endforeach; ?>
           </select>
@@ -505,9 +510,13 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         var format = formatEl ? formatEl.value : 'premier';
         var queueType = queueTypeEl ? queueTypeEl.value : 'bo1';
 
+        var deck2El = document.getElementById('swu-deck2-input');
+        var deckLink2 = deck2El ? deck2El.value.trim() : '';
+
         return {
           preconstructedDeck: preconstructedDeck,
           deckLink: deckLink,
+          deckLink2: deckLink2,
           gameType: gameType,
           format: format,
           queueType: queueType
@@ -562,6 +571,25 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         loadSavedDeckInput(opt ? opt.getAttribute('data-queue-input') : '');
       });
 
+      // Format-dependent UI: Hotseat reveals a 2nd deck input; both solo/local modes are Bo1-only
+      // for now (lock Match Type to Bo1 — remove the isMode branch below to re-enable Bo3 later).
+      (function(){
+        var fmt = document.getElementById('swu-format-select');
+        if (!fmt) return;
+        function applyFormatUI(){
+          var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat');
+          var g = document.getElementById('swu-deck2-group');
+          if (g) g.style.display = (fmt.value === 'hotseat') ? '' : 'none';
+          var qt = document.getElementById('swu-queuetype-select');
+          if (qt) {
+            if (isMode) { qt.value = 'bo1'; qt.disabled = true; }
+            else { qt.disabled = false; }
+          }
+        }
+        fmt.addEventListener('change', applyFormatUI);
+        applyFormatUI();
+      })();
+
       function createPrivateGame() {
         submitQueueJoin({
           createPrivate: true,
@@ -585,6 +613,10 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         clearQueueInlineError();
         var submission = getDeckSubmission();
         if (!submission) return;
+        if (submission.format === 'hotseat' && !submission.deckLink2) {
+          showQueueInlineError('Hotseat needs a second deck link (Player 2).');
+          return;
+        }
 
         // ── Step 1: validate deck before touching the queue ──────────────────
         showQueueInlineInfo('Validating deck…');
@@ -674,6 +706,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         params += '&rootName=' + encodeURIComponent(rootName);
         params += '&format=' + encodeURIComponent(submission.format || 'premier');
         params += '&queueType=' + encodeURIComponent(submission.queueType || 'bo1');
+        if (submission.deckLink2)       params += '&deckLink2=' + encodeURIComponent(submission.deckLink2);
         if (options.createPrivate)      params += '&createPrivate=1';
         if (options.privateInviteCode)  params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);
         xhr.send(params);

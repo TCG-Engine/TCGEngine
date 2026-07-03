@@ -2232,6 +2232,8 @@ function DoDrawCard($player, $amount) {
         for ($j = 0; $j < count($deck); $j++) {
             if (!isset($deck[$j]->removed) || !$deck[$j]->removed) { $topIdx = $j; break; }
         }
+        // Empty deck: stop drawing. NOTE: SWU deck-out base damage (CR §6.1) is not implemented here;
+        // if it is ever added, exempt goldfish P2 (SWUGameMode()==='goldfish' && $player===2).
         if ($topIdx === null) break;
 
         $newObj = MZMove($player, "myDeck-$topIdx", "myHand");
@@ -4623,6 +4625,12 @@ function SWUSwapTurnPlayer() {
     elseif ($ic === 'P2_CLAIMED') $claimedPlayer = 2;
     if ($claimedPlayer !== 0 && intval($gTurnPlayer) === $claimedPlayer) {
         SWUPassAction($claimedPlayer);
+    }
+    // Goldfish: P2 is a passive bot. Whenever the turn swaps to it, auto-pass immediately — exactly
+    // like an initiative-claimant. P1's action → swap to P2 → P2 passes → swap back to P1. Two passes
+    // (P1 pass + P2 auto-pass) end the action phase and advance to the next regroup, so P1 plays solo.
+    if (SWUGameMode() === 'goldfish' && intval($gTurnPlayer) === 2) {
+        SWUPassAction(2);
     }
 }
 
@@ -21429,6 +21437,14 @@ function GlobalEffectCount($player, $effectID) {
         }
     }
     return $count;
+}
+
+// Runtime game-mode accessor. Modes are persisted as a never-cleared GlobalEffect on player 1
+// at creation (see SWUSetupGame). Returns 'goldfish', 'hotseat', or '' for a normal 2-player game.
+function SWUGameMode(): string {
+    if (GlobalEffectCount(1, 'SWU_MODE_GOLDFISH') > 0) return 'goldfish';
+    if (GlobalEffectCount(1, 'SWU_MODE_HOTSEAT')  > 0) return 'hotseat';
+    return '';
 }
 
 function RemoveGlobalEffect($player, $effectID) {

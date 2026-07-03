@@ -344,6 +344,10 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* Dimmed + inert when it isn't your turn to act */
     .swu-init-pass.is-idle .swu-init-pass-btn { opacity: 0.35; pointer-events: none; cursor: default; }
     .swu-init-pass.is-idle .swu-init-pass-hint { visibility: hidden; }
+    /* Hotseat: Switch Player must stay usable even while the pass controls are idle (setup /
+       waiting for the other player) — that's exactly when you hand the device to the other seat. */
+    .swu-init-pass.is-idle #swuSwitchPlayerBtn { opacity: 1; pointer-events: auto; cursor: pointer; }
+    .swu-init-pass.is-idle #swuSwitchPlayerBtn + .swu-init-pass-hint { visibility: visible; }
 
     /* Take/Keep Initiative — same chamfered cyan HUD as Pass (inherits .swu-init-pass-btn);
        only difference is it's hidden until updateInitiative() shows it (canTake). */
@@ -1001,6 +1005,13 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     <div id="swuTakeInitHint" class="swu-init-pass-hint swu-take-init" title="Press I to take/keep the initiative" hidden><kbd>I</kbd></div>
     <button id="swuPassBtn" class="swu-init-pass-btn" title="Pass (Space)"><span>Pass</span></button>
     <div class="swu-init-pass-hint" title="Press Space to pass"><kbd>Space</kbd></div>
+    <?php if (function_exists('SWUGameMode') && SWUGameMode() === 'hotseat'): ?>
+    <!-- Hotseat: hand the device to the other player. Reloads this page as the other seat
+         (shared authKey). Mirrors the test editor's swapPlayerBtn. -->
+    <button id="swuSwitchPlayerBtn" class="swu-init-pass-btn" title="Switch Player (W)"
+            onclick="event.stopPropagation(); window.swuSwitchPlayer();"><span>Switch Player</span></button>
+    <div class="swu-init-pass-hint" title="Press W to switch player"><kbd>W</kbd></div>
+    <?php endif; ?>
 </div>
 <!--
 <div class="swu-kb-hints" style="top:calc(var(--swu-midline) + 6px);">

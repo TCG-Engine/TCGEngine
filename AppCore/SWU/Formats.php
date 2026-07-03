@@ -31,6 +31,27 @@ function SWUFormatDefinitions() {
             'enabled'               => true,
         ],
 
+        // ── SOLO / LOCAL MODES ────────────────────────────────────────────────
+        // Not matchmade — JoinQueue creates the game immediately. Both validate decks
+        // like Open (unrestricted pool). 'mode' marks them so the menu can special-case
+        // the UI (single vs. double deck input) and skip the "logged-in" queue gate.
+        'goldfish' => [
+            'displayName'           => 'Goldfish (Solo)',
+            'legalSets'             => '*',
+            'banned'                => [],
+            'ignoreGlobalCardRules' => true,
+            'mode'                  => true,
+            'enabled'               => true,
+        ],
+        'hotseat' => [
+            'displayName'           => 'Hotseat (2P local)',
+            'legalSets'             => '*',
+            'banned'                => [],
+            'ignoreGlobalCardRules' => true,
+            'mode'                  => true,
+            'enabled'               => true,
+        ],
+
         // ── TWIN SUNS (multiplayer; footprint only) ──────────────────────────
         // CR §12: a 4-player format with UNIQUE deckbuilding — two leaders, and a
         // singleton (highlander) deck. Deck validation is scaffolded here, but the
