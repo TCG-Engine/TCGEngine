@@ -508,6 +508,20 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         return;
     }
 
+    // Venous Core (GA-SHOUT-VENOUS-CORE-PRDSD): additional cost to materialize - sacrifice an Elysian ally.
+    if($materializeCard->CardID === "GA-SHOUT-VENOUS-CORE-PRDSD" && !$ignoreCost) {
+        $elysianAllies = ZoneSearch("myField", ["ALLY"], cardSubtypes: ["ELYSIAN"]);
+        if(empty($elysianAllies)) {
+            AutoUndoMaterializeCostFailure($player, "Venous Core requires an Elysian ally to sacrifice.");
+            return;
+        }
+        DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $elysianAllies), 1,
+            tooltip:"Sacrifice_an_Elysian_ally");
+        DecisionQueueController::AddDecision($player, "CUSTOM",
+            "VenousCoreMaterializeCost|" . $mzCard . "|" . $memoryCost . "|" . $extraReserveCost, 1);
+        return;
+    }
+
     // Clarent, Reimagined (kINobk9KQA): [Lorraine Bonus] may banish Clarent, Sword of Peace and up to one other Sword Regalia from material to pay memory.
     if($materializeCard->CardID === "kINobk9KQA" && !$ignoreCost && $memoryCost > 0 && IsLorraineBonusActive($player)) {
         $clarentChoices = GetClarentReimaginedMaterialChoices($mzCard);
@@ -565,6 +579,31 @@ $customDQHandlers["MATERIALIZE"] = function($player, $parts, $lastDecision)
         return; // Materialize() will be called by FINISHPAYMATERIALIZE after cost is paid
     }
     //Then materialize the card (cost is 0, so it resolves immediately)
+    Materialize($player, $mzCard);
+};
+
+$customDQHandlers["VenousCoreMaterializeCost"] = function($player, $parts, $lastDecision) {
+    $mzCard = $parts[0] ?? "";
+    $memoryCost = intval($parts[1] ?? 0);
+    $extraReserveCost = intval($parts[2] ?? 0);
+    if($mzCard === "") return;
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") {
+        AutoUndoMaterializeCostFailure($player, "Venous Core requires an Elysian ally to sacrifice.");
+        return;
+    }
+    $chosen = GetZoneObject($lastDecision);
+    if($chosen === null || $chosen->removed
+        || !PropertyContains(EffectiveCardType($chosen), "ALLY")
+        || !PropertyContains(EffectiveCardSubtypes($chosen), "ELYSIAN")) {
+        AutoUndoMaterializeCostFailure($player, "Venous Core requires an Elysian ally to sacrifice.");
+        return;
+    }
+    DoSacrificeFighter($player, $lastDecision);
+    DecisionQueueController::CleanupRemovedCards();
+    if($memoryCost > 0 || $extraReserveCost > 0) {
+        QueueMaterializePayment($player, $mzCard, $memoryCost, $extraReserveCost);
+        return;
+    }
     Materialize($player, $mzCard);
 };
 
@@ -1168,6 +1207,25 @@ function DoMaterialize($player, $mzCard) {
                     RecoverChampion($player, 2);
                     break;
                 }
+            }
+        }
+
+        // Martial Flowstate: [Class Bonus] whenever your champion levels up, sacrifice it,
+        // draw into memory, and your champion's next attack this turn gets +2 POWER.
+        if(IsClassBonusActive($player, ["WARRIOR"])) {
+            global $playerID;
+            $fZone = ($player == $playerID) ? "myField" : "theirField";
+            $field = &GetZone($fZone);
+            for($mfi = 0; $mfi < count($field); ++$mfi) {
+                if($field[$mfi]->removed || $field[$mfi]->CardID !== "GA-SHOUT-MARTIAL-FLOWSTATE-PRD" || HasNoAbilities($field[$mfi])) continue;
+                DoSacrificeFighter($player, $fZone . "-" . $mfi);
+                DecisionQueueController::CleanupRemovedCards();
+                DrawIntoMemory($player, 1);
+                $champMZ = FindChampionMZ($player);
+                if($champMZ !== null && $champMZ !== "") {
+                    AddTurnEffect($champMZ, "GA-SHOUT-MARTIAL-FLOWSTATE-PRD_NEXT_ATTACK");
+                }
+                break;
             }
         }
 

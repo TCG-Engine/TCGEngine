@@ -1673,6 +1673,11 @@ function OnAttackTrigger($player, $mzID) {
         $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["dih0LPaigc"]));
     }
 
+    if($obj !== null && in_array("GA-SHOUT-MARTIAL-FLOWSTATE-PRD_NEXT_ATTACK", $obj->TurnEffects)) {
+        AddTurnEffect($mzID, "GA-SHOUT-MARTIAL-FLOWSTATE-PRD_POWER");
+        $obj->TurnEffects = array_values(array_diff($obj->TurnEffects, ["GA-SHOUT-MARTIAL-FLOWSTATE-PRD_NEXT_ATTACK"]));
+    }
+
     // Galvanizing Gale (f00cEmu6Ql): target ally's next attack this turn gets +3 POWER
     if($obj !== null && in_array("f00cEmu6Ql", $obj->TurnEffects)) {
         AddTurnEffect($mzID, "f00cEmu6Ql_POWER");
@@ -1964,6 +1969,32 @@ function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
         $weaponObj = GetZoneObject($weaponMZ);
         if($weaponObj !== null && isset($onHitAbilities[$weaponObj->CardID . ":0"])) {
             $onHitAbilities[$weaponObj->CardID . ":0"]($player);
+        }
+    }
+
+    // Fulminator Rising Storm: when an arcane unit you control deals combat damage,
+    // you may spend a static counter from Fulminator to deal 1 damage to the hit object.
+    $fulminatorTarget = DecisionQueueController::GetVariable("CombatTarget");
+    $fulminatorAttacker = GetZoneObject($attackerMZ);
+    $fulminatorTargetObj = ($fulminatorTarget === null || $fulminatorTarget === "-" || $fulminatorTarget === "")
+        ? null : GetZoneObject($fulminatorTarget);
+    $fulminatorAttackerType = $fulminatorAttacker === null ? "" : EffectiveCardType($fulminatorAttacker);
+    if($fulminatorAttacker !== null && $fulminatorTargetObj !== null
+        && !$fulminatorAttacker->removed && !$fulminatorTargetObj->removed
+        && (PropertyContains($fulminatorAttackerType, "ALLY") || PropertyContains($fulminatorAttackerType, "CHAMPION"))
+        && EffectiveCardElement($fulminatorAttacker) === "ARCANE") {
+        $field = GetField($player);
+        foreach($field as $fulminatorObj) {
+            if($fulminatorObj === null || $fulminatorObj->removed || HasNoAbilities($fulminatorObj)) continue;
+            if($fulminatorObj->CardID !== "GA-SHOUT-FULMINATOR-RISING-STORM-PRDSD"
+                && $fulminatorObj->CardID !== "GA-SHOUT-LORRAINE-ARCHLIGHT-SABER-PRDSD"
+                && $fulminatorObj->CardID !== "GA-SHOUT-LORRAINE-ARCHLIGHT-SABER-PRD1E-CUR") continue;
+            if(GetCounterCount($fulminatorObj, "static") <= 0) continue;
+            $weaponUniqueID = intval($fulminatorObj->UniqueID ?? 0);
+            $targetUniqueID = intval($fulminatorTargetObj->UniqueID ?? 0);
+            if($weaponUniqueID <= 0 || $targetUniqueID <= 0) continue;
+            DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip:"Remove_static_counter_from_Fulminator_to_deal_1_damage?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "FulminatorRisingStormPing|" . $weaponUniqueID . "|" . $targetUniqueID, 1);
         }
     }
 
@@ -3517,6 +3548,34 @@ function QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, 
     QueuePreventedDamageAnimation($absoluteTarget, 500, true, $targetUniqueID > 0 ? $targetUniqueID : null);
 }
 
+function TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount) {
+    if(intval($amount) <= 0) return;
+    $sourceInfo = ResolveDamageSourceCardInfo($source, $player);
+    $sourceCardID = $sourceInfo["cardID"] ?? null;
+    if($sourceCardID === null) return;
+    if(!PropertyContains(CardType($sourceCardID), "ACTION")) return;
+    if(!PropertyContains(CardSubtypes($sourceCardID), "SPELL")) return;
+    $sourceController = intval($sourceInfo["controller"] ?? $player);
+    $sourceObj = &GetZoneObject($source);
+    if($sourceObj === null || $sourceObj->removed) return;
+    if(!in_array("EMPOWERED", $sourceObj->TurnEffects ?? [])) return;
+    if(in_array("DANTE_HEMOMANCER_DAMAGE_FIRED", $sourceObj->TurnEffects ?? [])) return;
+
+    $hasDante = false;
+    foreach(GetField($sourceController) as $fieldObj) {
+        if($fieldObj === null || $fieldObj->removed || HasNoAbilities($fieldObj)) continue;
+        if($fieldObj->CardID === "GA-SHOUT-DANTE-HEMOMANCER-PRDSD"
+            || $fieldObj->CardID === "GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR") {
+            $hasDante = true;
+            break;
+        }
+    }
+    if(!$hasDante) return;
+    $sourceObj->TurnEffects[] = "DANTE_HEMOMANCER_DAMAGE_FIRED";
+    DecisionQueueController::AddDecision($sourceController, "YESNO", "-", 1, tooltip:"Recover_2?");
+    DecisionQueueController::AddDecision($sourceController, "CUSTOM", "DanteHemomancerRecover", 1);
+}
+
 function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePrompt = false) {
     $originalAmount = intval($amount);
     $targetObj = &GetZoneObject($target);
@@ -4363,6 +4422,14 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
             AddCounters($targetObj->Controller, $target, "enlighten", $prevented);
             return;
         }
+        // PREVENT_CHAMP_EXIA_RECOVER: prevent all of next damage to champion; recover the amount prevented.
+        if(in_array("PREVENT_CHAMP_EXIA_RECOVER", $targetObj->TurnEffects)) {
+            $prevented = $amount;
+            $amount = 0;
+            $targetObj->TurnEffects = array_values(array_filter($targetObj->TurnEffects, fn($e) => $e !== "PREVENT_CHAMP_EXIA_RECOVER"));
+            if($prevented > 0) RecoverChampion($targetObj->Controller, $prevented);
+            return;
+        }
         $amount = ApplyCrystallizedDestinyPrevention($target, $amount);
         if($amount <= 0) { QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, $amount, $targetObj); return; }
         // PREVENT_CHAMP_MILL: prevent all of next damage to champion; mill X where X = amount prevented (Hailstorm Guard)
@@ -4721,6 +4788,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
     RecordTrackedCombatDamageAmount($source, $target, $amount);
     TrackMacroGameOpponentChampionDamage($source, $target, $amount, $player);
     $targetObj->Damage += $amount;
+    TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount);
     
     // Queue damage animation for the target card
     if($amount > 0) {
@@ -4938,6 +5006,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
     RecordTrackedCombatDamageAmount($source, $target, $amount);
     TrackMacroGameOpponentChampionDamage($source, $target, $amount, $player);
     $targetObj->Damage += $amount;
+    TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount);
     
     // Queue damage animation for the target card
     if($amount > 0) {

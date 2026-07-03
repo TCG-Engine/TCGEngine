@@ -4116,6 +4116,29 @@ $customDQHandlers["PowercellSacrifice"] = function($player, $parts, $lastDecisio
     DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
 };
 
+$customDQHandlers["GrayLupindroidPowercell"] = function($player, $parts, $lastDecision) {
+    $uniqueID = intval($parts[0] ?? 0);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS" || $uniqueID <= 0) return;
+    $powercells = ZoneSearch("myField", cardSubtypes: ["POWERCELL"]);
+    if(!in_array($lastDecision, $powercells, true)) {
+        SetFlashMessage("Choose a Powercell you control.");
+        QueuePowercellSacrificeChoice($player, "Sacrifice_a_Powercell", "GrayLupindroidPowercell|" . $uniqueID, 1);
+        return;
+    }
+
+    OnLeaveField($player, $lastDecision);
+    MZMove($player, $lastDecision, "myGraveyard");
+    DecisionQueueController::CleanupRemovedCards();
+    TriggerPowercellSacrifice($player);
+
+    $sourceMZ = FindFieldMzByUniqueID($uniqueID);
+    if($sourceMZ === "") return;
+    $sourceObj = GetZoneObject($sourceMZ);
+    if($sourceObj === null || $sourceObj->removed || $sourceObj->CardID !== "GA-SHOUT-GRAY-LUPINDROID-PRD") return;
+    AddCounters($player, $sourceMZ, "buff", 1);
+    DrawIntoMemory($player, 1);
+};
+
 // Overlord Mk III (sl7ddcgw05): iterative sacrifice of 4 Powercells
 $customDQHandlers["OverlordSacrifice"] = function($player, $parts, $lastDecision) {
     $remaining = intval($parts[0]);
@@ -5301,6 +5324,208 @@ $customDQHandlers["EnthrallingChimeGainControl"] = function($player, $params, $l
     $obj = &GetZoneObject($lastDecision);
     if($obj === null || $obj->removed) return;
     $obj->Controller = $player;
+};
+
+// ============================================================================
+// Demons Bargain (GA-SHOUT-DEMONS-BARGAIN-PRD): target controller chooses
+// whether to have the caster draw two cards or lose control of the ally.
+// ============================================================================
+$customDQHandlers["DemonsBargainOffer"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY")) return;
+    if(intval($obj->Controller ?? 0) === $player) return;
+
+    $targetController = intval($obj->Controller ?? 0);
+    if($targetController <= 0) return;
+    $uniqueID = intval($obj->UniqueID ?? 0);
+    if($uniqueID <= 0) return;
+
+    DecisionQueueController::AddDecision($targetController, "YESNO", "-", 1, tooltip:"Have_opponent_draw_two_cards_to_keep_control?");
+    DecisionQueueController::AddDecision($targetController, "CUSTOM", "DemonsBargainResolve|" . $player . "|" . $uniqueID, 1);
+};
+
+$customDQHandlers["DemonsBargainResolve"] = function($player, $params, $lastDecision) {
+    $caster = intval($params[0] ?? 0);
+    $uniqueID = intval($params[1] ?? 0);
+    if($caster <= 0 || $uniqueID <= 0) return;
+
+    if($lastDecision === "YES") {
+        Draw($caster, 2);
+        return;
+    }
+
+    $targetMZ = FindFieldMzByUniqueID($uniqueID);
+    if($targetMZ === "") return;
+    $obj = &GetZoneObject($targetMZ);
+    if($obj === null || $obj->removed || !PropertyContains(EffectiveCardType($obj), "ALLY")) return;
+    $obj->Controller = $caster;
+};
+
+$customDQHandlers["FulminatorRisingStormPing"] = function($player, $params, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    $weaponUniqueID = intval($params[0] ?? 0);
+    $targetUniqueID = intval($params[1] ?? 0);
+    if($weaponUniqueID <= 0 || $targetUniqueID <= 0) return;
+
+    $weaponMZ = FindFieldMzByUniqueID($weaponUniqueID);
+    $targetMZ = FindFieldMzByUniqueID($targetUniqueID);
+    if($weaponMZ === "" || $targetMZ === "") return;
+    $weaponObj = GetZoneObject($weaponMZ);
+    $targetObj = GetZoneObject($targetMZ);
+    $validSources = [
+        "GA-SHOUT-FULMINATOR-RISING-STORM-PRDSD" => true,
+        "GA-SHOUT-LORRAINE-ARCHLIGHT-SABER-PRDSD" => true,
+        "GA-SHOUT-LORRAINE-ARCHLIGHT-SABER-PRD1E-CUR" => true,
+    ];
+    if($weaponObj === null || $weaponObj->removed || !isset($validSources[$weaponObj->CardID])) return;
+    if($targetObj === null || $targetObj->removed) return;
+    if(GetCounterCount($weaponObj, "static") <= 0) return;
+
+    RemoveCounters($player, $weaponMZ, "static", 1);
+    DealDamage($player, $weaponMZ, $targetMZ, 1);
+};
+
+$customDQHandlers["LorraineHonedOperativeSwordBuff"] = function($player, $params, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $weaponObj = GetZoneObject($lastDecision);
+    if($weaponObj === null || $weaponObj->removed) return;
+    if(!PropertyContains(EffectiveCardType($weaponObj), "WEAPON")) return;
+    if(!PropertyContains(EffectiveCardSubtypes($weaponObj), "SWORD")) return;
+    AddCounters($player, $lastDecision, "durability", 1);
+    AddTurnEffect($lastDecision, "GA-SHOUT-LORRAINE-HONED-OPERATIVE_POWER");
+};
+
+$customDQHandlers["LorraineHonedOperativeBanishMemory"] = function($player, $params, $lastDecision) {
+    $amount = max(0, min(3, intval($lastDecision ?? 0)));
+    if($amount <= 0) return;
+    $memory = GetMemory($player);
+    if(empty($memory)) return;
+
+    $candidates = [];
+    for($i = 0; $i < count($memory); ++$i) {
+        if($memory[$i]->removed) continue;
+        $candidates[] = ["idx" => $i, "cardID" => $memory[$i]->CardID];
+    }
+    if(empty($candidates)) return;
+
+    shuffle($candidates);
+    $selected = array_slice($candidates, 0, min($amount, count($candidates)));
+    usort($selected, function($a, $b) { return $b["idx"] <=> $a["idx"]; });
+
+    foreach($selected as $entry) {
+        $idx = intval($entry["idx"]);
+        $cardID = $entry["cardID"];
+        MZMove($player, "myMemory-" . $idx, "myBanish");
+        DrawIntoMemory($player, 1);
+        if(IsAdvancedElementCard($cardID)) {
+            $swords = ZoneSearch("myField", ["WEAPON"], cardSubtypes: ["SWORD"]);
+            if(!empty($swords)) {
+                DecisionQueueController::AddDecision($player, "MZCHOOSE", implode("&", $swords), 1, tooltip:"Choose_Sword_weapon_for_durability_and_power");
+                DecisionQueueController::AddDecision($player, "CUSTOM", "LorraineHonedOperativeSwordBuff", 1);
+            }
+        }
+    }
+};
+
+$customDQHandlers["MemoryInvocationAdditionalCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = intval($parts[0] ?? 0);
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed || !HasFloatingMemory($obj)) return;
+    MZMove($player, $lastDecision, "myBanish");
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+$customDQHandlers["WeightOfLookingUpBanish"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $obj = GetZoneObject($lastDecision);
+    if($obj === null || $obj->removed) return;
+    if(!PropertyContains(CardType($obj->CardID), "CHAMPION")) return;
+    if(intval(CardLevel($obj->CardID)) < 3) return;
+    MZMove($player, $lastDecision, "myBanish");
+    DrawIntoMemory($player, 1);
+};
+
+$customDQHandlers["PiccardaStaticCost"] = function($player, $parts, $lastDecision) {
+    $reserveCost = max(0, intval($parts[0] ?? 0));
+    $remainingStatic = max(0, intval($parts[1] ?? 0));
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $obj = GetZoneObject($lastDecision);
+        if($obj !== null && !$obj->removed && intval($obj->Controller ?? 0) === intval($player)
+            && GetCounterCount($obj, "static") > 0) {
+            RemoveCounters($player, $lastDecision, "static", 1);
+            $reserveCost = max(0, $reserveCost - 1);
+            $remainingStatic = max(0, $remainingStatic - 1);
+        }
+    }
+
+    if($reserveCost > 0 && $remainingStatic > 0) {
+        $staticSources = [];
+        foreach(GetField($player) as $fieldObj) {
+            if($fieldObj === null || $fieldObj->removed) continue;
+            if(GetCounterCount($fieldObj, "static") <= 0) continue;
+            $staticSources[] = $fieldObj->GetMZID();
+        }
+        if(!empty($staticSources)) {
+            DecisionQueueController::AddDecision($player, "MZMAYCHOOSE", implode("&", $staticSources), 100, tooltip:"Remove_a_static_counter_to_pay_1?");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PiccardaStaticCost|" . $reserveCost . "|" . $remainingStatic, 100);
+            return;
+        }
+    }
+
+    for($i = 0; $i < $reserveCost; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+    DecisionQueueController::AddDecision($player, "CUSTOM", "EffectStackOpportunity", 100);
+};
+
+$customDQHandlers["WelcomeMerrimentPrompt"] = function($player, $parts, $lastDecision) {
+    $choices = [];
+    $field = GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        if($field[$i] === null || $field[$i]->removed) continue;
+        if(!PropertyContains(EffectiveCardType($field[$i]), "ALLY")) continue;
+        $choices[] = "myField-" . $i;
+    }
+    if(empty($choices)) return;
+    DecisionQueueController::AddDecision($player, "MZMULTICHOOSE", "0|" . count($choices) . "|" . implode("&", $choices), 1, tooltip:"Rest_any_amount_of_allies");
+    DecisionQueueController::AddDecision($player, "CUSTOM", "WelcomeMerrimentResolve", 1);
+};
+
+$customDQHandlers["WelcomeMerrimentResolve"] = function($player, $parts, $lastDecision) {
+    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
+    $selected = array_values(array_unique(array_filter(explode("&", $lastDecision), function($value) {
+        return $value !== "" && $value !== "-" && $value !== "PASS";
+    })));
+    foreach($selected as $mzID) {
+        $obj = &GetZoneObject($mzID);
+        if($obj === null || $obj->removed) continue;
+        if(!PropertyContains(EffectiveCardType($obj), "ALLY")) continue;
+        if(intval($obj->Controller ?? 0) !== intval($player)) continue;
+        $obj->Status = 1;
+        AddCounters($player, $mzID, "buff", 1);
+    }
+};
+
+$customDQHandlers["DanteHemomancerXCost"] = function($player, $parts, $lastDecision) {
+    $x = intval($lastDecision);
+    if($x < 1) $x = 1;
+    if($x > 4) $x = 4;
+    $available = CountAvailableReservePayments($player);
+    if($x > $available) $x = $available;
+    DecisionQueueController::StoreVariable("DanteHemomancerX", strval($x));
+    for($i = 0; $i < $x; ++$i) {
+        DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+    }
+};
+
+$customDQHandlers["DanteHemomancerRecover"] = function($player, $parts, $lastDecision) {
+    if($lastDecision !== "YES") return;
+    RecoverChampion($player, 2);
 };
 
 // ============================================================================
