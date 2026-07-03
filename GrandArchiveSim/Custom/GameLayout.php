@@ -320,6 +320,10 @@
           display: flex;
           flex-direction: column;
           gap: 12px;
+          box-sizing: border-box;
+          max-height: inherit;
+          min-height: 0;
+          overflow: hidden;
      }
 
      .ga-shortcut-header {
@@ -345,14 +349,37 @@
           display: flex;
           flex-direction: column;
           gap: 8px;
+          flex: 1 1 auto;
+          min-height: 0;
           overflow-y: auto;
-          padding-right: 4px;
+          padding-right: 6px;
           padding-bottom: 6px;
+          scrollbar-color: rgba(252, 238, 171, 0.32) rgba(244, 236, 219, 0.05);
           scrollbar-width: thin;
+     }
+
+     .ga-shortcut-list::-webkit-scrollbar {
+          width: 8px;
+     }
+
+     .ga-shortcut-list::-webkit-scrollbar-track {
+          border-radius: 999px;
+          background: rgba(244, 236, 219, 0.05);
+     }
+
+     .ga-shortcut-list::-webkit-scrollbar-thumb {
+          border: 2px solid rgba(19, 32, 43, 0.92);
+          border-radius: 999px;
+          background: rgba(252, 238, 171, 0.36);
+     }
+
+     .ga-shortcut-list::-webkit-scrollbar-thumb:hover {
+          background: rgba(252, 238, 171, 0.52);
      }
 
      .ga-shortcut-row {
           display: flex;
+          flex: 0 0 auto;
           align-items: center;
           justify-content: space-between;
           gap: 12px;
@@ -2281,7 +2308,8 @@
                          var nextPayload = normalizePayload(getStoredPayload());
                          nextPayload.windows[windowId] = !nextPayload.windows[windowId];
                          storePayload(nextPayload);
-                         renderPanel(nextPayload);
+                         toggle.classList.toggle('is-on', !!nextPayload.windows[windowId]);
+                         toggle.setAttribute('aria-pressed', nextPayload.windows[windowId] ? 'true' : 'false');
                          syncPayloadToServer(nextPayload);
                     });
                });
