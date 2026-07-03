@@ -209,7 +209,26 @@ class CardScreen {
                 </div>
             `;
         }
+        if (field.field_type === 'icon_enum') {
+            const enumDef = this.enumForField(field);
+            const options = enumDef?.options || [];
+            return `
+                <select name="field_${field.id}" ${disabled}>
+                    <option value="">Select ${PreviewRenderer.escape(enumDef?.name || 'icon')}</option>
+                    ${options.map(option => `<option value="${PreviewRenderer.escape(option.value)}" ${current === option.value ? 'selected' : ''}>${PreviewRenderer.escape(option.label)}</option>`).join('')}
+                </select>
+            `;
+        }
         return `<input name="field_${field.id}" value="${PreviewRenderer.escape(current)}" ${disabled}>`;
+    }
+
+    enumForField(field) {
+        const enumId = field.settings_json?.enumId;
+        const sources = [
+            ...(this.app.activeGame()?.enums || []),
+            ...(this.app.state.activeCardDetail?.template?.enums || [])
+        ];
+        return sources.find(item => Number(item.id) === Number(enumId)) || null;
     }
 
     rawValue(field, value) {

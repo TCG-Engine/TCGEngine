@@ -157,6 +157,7 @@ class TemplateCanvas {
         const asset = (template.assets || this.app.state.assets || []).find(item => Number(item.id) === Number(element.asset_id));
         const style = element.style_json || {};
         const isImage = element.element_type === 'image';
+        const isIconField = element.element_type === 'field' && field?.field_type === 'icon_enum';
         const disabled = this.app.activeGame()?.can_edit ? '' : 'disabled';
         host.innerHTML = `
             <div class="inspector">
@@ -167,7 +168,7 @@ class TemplateCanvas {
                 ${this.numberControl('height', 'Height', element.height, disabled)}
                 ${this.numberControl('z_index', 'Layer', element.z_index, disabled)}
                 ${this.numberControl('rotation', 'Rotation', element.rotation || 0, disabled)}
-                ${isImage ? this.assetControl(element) : `
+                ${isImage ? this.assetControl(element) : (isIconField ? '<div class="info-message">Icon enum field</div>' : `
                     <label>Font Size<input type="number" value="${PreviewRenderer.escape(style.fontSize ? parseInt(style.fontSize, 10) : '')}" onchange="app.templateCanvas.updateStyle('fontSize', this.value ? this.value + 'px' : '')" ${disabled}></label>
                     <label>Color<input type="color" value="${PreviewRenderer.escape(style.color || '#111111')}" onchange="app.templateCanvas.updateStyle('color', this.value)" ${disabled}></label>
                     <label>Align
@@ -176,7 +177,7 @@ class TemplateCanvas {
                         </select>
                     </label>
                     <label class="inline-filter"><input type="checkbox" ${this.isBehindTemplate(element) ? 'checked' : ''} onchange="app.templateCanvas.updateStyle('behindTemplate', this.checked ? 1 : '')" ${disabled}> Behind Template</label>
-                `}
+                `)}
                 <label>Background<input value="${PreviewRenderer.escape(style.backgroundColor || '')}" placeholder="transparent or #ffffff" onchange="app.templateCanvas.updateStyle('backgroundColor', this.value)" ${disabled}></label>
                 <label>Image Fit
                     <select onchange="app.templateCanvas.updateStyle('fitMode', this.value)" ${disabled}>

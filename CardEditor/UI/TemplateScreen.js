@@ -93,6 +93,7 @@ class TemplateScreen {
         const summary = [
             field.field_key || 'field',
             field.field_type || 'text',
+            field.field_type === 'icon_enum' ? this.enumName(settings.enumId) : '',
             field.default_value ? `default: ${field.default_value}` : ''
         ].filter(Boolean).join(' | ');
         return `
@@ -111,11 +112,17 @@ class TemplateScreen {
                     <label>Key<input name="fieldKey" value="${PreviewRenderer.escape(field.field_key || '')}" required ${disabled}></label>
                     <label>Type
                         <select name="fieldType" ${disabled}>
-                            ${['text', 'longtext', 'number', 'boolean', 'select', 'multiselect', 'image'].map(type => `<option value="${type}" ${field.field_type === type ? 'selected' : ''}>${type}</option>`).join('')}
+                            ${['text', 'longtext', 'number', 'boolean', 'select', 'multiselect', 'image', 'icon_enum'].map(type => `<option value="${type}" ${field.field_type === type ? 'selected' : ''}>${type}</option>`).join('')}
                         </select>
                     </label>
                     <label>Default<input name="defaultValue" value="${PreviewRenderer.escape(field.default_value || '')}" ${disabled}></label>
                     <label>Options<input name="options" value="${PreviewRenderer.escape((settings.options || []).join(', '))}" placeholder="select options" ${disabled}></label>
+                    <label>Icon Enum
+                        <select name="enumId" ${disabled}>
+                            <option value="">Select enum</option>
+                            ${(this.app.activeGame()?.enums || []).map(item => `<option value="${item.id}" ${Number(settings.enumId || 0) === Number(item.id) ? 'selected' : ''}>${PreviewRenderer.escape(item.name)}</option>`).join('')}
+                        </select>
+                    </label>
                     <label>Help<input name="helpText" value="${PreviewRenderer.escape(field.help_text || '')}" ${disabled}></label>
                     <div class="field-actions">
                         <button type="button" class="danger" onclick="app.screens.templates.removeField(${index})" ${disabled}>Remove</button>
@@ -123,6 +130,11 @@ class TemplateScreen {
                 </div>
             </div>
         `;
+    }
+
+    enumName(enumId) {
+        const item = (this.app.activeGame()?.enums || []).find(candidate => Number(candidate.id) === Number(enumId));
+        return item ? `enum: ${item.name}` : '';
     }
 
     fieldExpansionKeys(field, index) {
@@ -273,15 +285,23 @@ class TemplateScreen {
         return rows.map((row, index) => {
             const get = name => row.querySelector(`[name="${name}"]`)?.value || '';
             const options = get('options').split(',').map(item => item.trim()).filter(Boolean);
+            const fieldType = get('fieldType');
+            let settingsJson = {};
+            if (fieldType === 'icon_enum') {
+                const enumId = get('enumId');
+                if (enumId) settingsJson.enumId = Number(enumId);
+            } else if (options.length) {
+                settingsJson.options = options;
+            }
             return {
                 id: get('id'),
                 label: get('label'),
                 fieldKey: get('fieldKey'),
-                fieldType: get('fieldType'),
+                fieldType,
                 defaultValue: get('defaultValue'),
                 helpText: get('helpText'),
                 sortOrder: index,
-                settingsJson: options.length ? { options } : {}
+                settingsJson
             };
         });
     }

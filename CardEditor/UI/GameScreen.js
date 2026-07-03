@@ -57,6 +57,15 @@ class GameScreen {
                         ${(game?.tags || []).map(tag => this.tagRow(tag, disabled)).join('') || '<div class="empty-state compact-empty">No tags yet.</div>'}
                     </div>
                 </div>
+                <div class="form-section">
+                    <div class="section-head">
+                        <strong>Icon Enums</strong>
+                        <button type="button" onclick="app.screens.games.addEnum()" ${disabled}>Add Enum</button>
+                    </div>
+                    <div id="gameEnumsEditor" class="enum-editor">
+                        ${(game?.enums || []).map(item => this.enumRow(item, disabled)).join('') || '<div class="empty-state compact-empty">No icon enums yet.</div>'}
+                    </div>
+                </div>
             </form>
         `;
     }
@@ -68,6 +77,45 @@ class GameScreen {
                 <button type="button" class="link-button" onclick="app.screens.games.removeTag(this)" ${disabled}>Remove</button>
             </div>
         `;
+    }
+
+    enumRow(item = {}, disabled = '') {
+        const options = item.options || [];
+        return `
+            <div class="enum-row" data-enum-id="${item.id || ''}">
+                <div class="enum-row-head">
+                    <input class="enum-name-input" value="${PreviewRenderer.escape(item.name || '')}" placeholder="Enum name, e.g. Element" ${disabled}>
+                    <button type="button" onclick="app.screens.games.addEnumOption(this)" ${disabled}>Add Option</button>
+                    <button type="button" class="link-button" onclick="app.screens.games.removeEnum(this)" ${disabled}>Remove</button>
+                </div>
+                <div class="enum-options">
+                    ${options.map(option => this.enumOptionRow(option, disabled)).join('') || '<div class="empty-state compact-empty">No options yet.</div>'}
+                </div>
+            </div>
+        `;
+    }
+
+    enumOptionRow(option = {}, disabled = '') {
+        const assets = this.app.state.assets || [];
+        return `
+            <div class="enum-option-row" data-option-id="${option.id || ''}">
+                <input class="enum-option-label" value="${PreviewRenderer.escape(option.label || '')}" placeholder="Label" ${disabled}>
+                <input class="enum-option-value" value="${PreviewRenderer.escape(option.value || '')}" placeholder="stored value" ${disabled}>
+                <select class="enum-option-asset" onchange="app.screens.games.updateEnumOptionAssetPreview(this)" ${disabled}>
+                    <option value="">Icon asset</option>
+                    ${assets.map(asset => `<option value="${asset.id}" ${Number(option.asset_id || option.assetId || 0) === Number(asset.id) ? 'selected' : ''}>${PreviewRenderer.escape(asset.original_filename)}</option>`).join('')}
+                </select>
+                ${this.enumOptionPreview(option)}
+                <input type="file" accept="image/*" onchange="app.screens.games.uploadEnumOptionAsset(this)" ${disabled}>
+                <button type="button" class="link-button" onclick="app.screens.games.removeEnumOption(this)" ${disabled}>Remove</button>
+            </div>
+        `;
+    }
+
+    enumOptionPreview(option = {}) {
+        const assetId = Number(option.asset_id || option.assetId || 0);
+        const asset = option.asset || (this.app.state.assets || []).find(item => Number(item.id) === assetId);
+        return asset?.url ? `<img class="enum-icon-preview" src="${PreviewRenderer.escape(asset.url)}" alt="">` : '<span class="enum-icon-preview empty"></span>';
     }
 
     create() {
@@ -92,11 +140,93 @@ class GameScreen {
         this.saveGameFormNow();
     }
 
+    addEnum() {
+        const host = document.getElementById('gameEnumsEditor');
+        if (!host) return;
+        if (host.querySelector('.compact-empty')) host.innerHTML = '';
+        host.insertAdjacentHTML('beforeend', this.enumRow({}, ''));
+        host.querySelector('.enum-row:last-child .enum-name-input')?.focus();
+    }
+
+    removeEnum(button) {
+        button.closest('.enum-row')?.remove();
+        const host = document.getElementById('gameEnumsEditor');
+        if (host && !host.querySelector('.enum-row')) {
+            host.innerHTML = '<div class="empty-state compact-empty">No icon enums yet.</div>';
+        }
+        this.saveGameFormNow();
+    }
+
+    addEnumOption(button) {
+        const optionsHost = button.closest('.enum-row')?.querySelector('.enum-options');
+        if (!optionsHost) return;
+        if (optionsHost.querySelector('.compact-empty')) optionsHost.innerHTML = '';
+        optionsHost.insertAdjacentHTML('beforeend', this.enumOptionRow({}, ''));
+        optionsHost.querySelector('.enum-option-row:last-child .enum-option-label')?.focus();
+    }
+
+    removeEnumOption(button) {
+        const optionsHost = button.closest('.enum-options');
+        button.closest('.enum-option-row')?.remove();
+        if (optionsHost && !optionsHost.querySelector('.enum-option-row')) {
+            optionsHost.innerHTML = '<div class="empty-state compact-empty">No options yet.</div>';
+        }
+        this.saveGameFormNow();
+    }
+
+    async uploadEnumOptionAsset(input) {
+        try {
+            const asset = await this.app.assetPicker.uploadFromInput(input);
+            const row = input.closest('.enum-option-row');
+            const select = row?.querySelector('.enum-option-asset');
+            if (asset && select) {
+                let option = [...select.options].find(item => Number(item.value) === Number(asset.id));
+                if (!option) {
+                    option = document.createElement('option');
+                    option.value = asset.id;
+                    option.textContent = asset.original_filename;
+                    select.appendChild(option);
+                }
+                option.selected = true;
+                this.updateEnumOptionAssetPreview(select);
+                this.saveGameFormNow();
+            }
+        } catch (error) {
+            this.app.toast(error.message, 'error');
+        } finally {
+            input.value = '';
+        }
+    }
+
+    updateEnumOptionAssetPreview(select) {
+        const row = select.closest('.enum-option-row');
+        const asset = (this.app.state.assets || []).find(item => Number(item.id) === Number(select.value));
+        const preview = row?.querySelector('.enum-icon-preview');
+        if (!row || !preview) return;
+        preview.outerHTML = asset?.url
+            ? `<img class="enum-icon-preview" src="${PreviewRenderer.escape(asset.url)}" alt="">`
+            : '<span class="enum-icon-preview empty"></span>';
+    }
+
     tagsFromForm() {
         return [...document.querySelectorAll('#gameTagsEditor .tag-row')].map(row => ({
             id: row.dataset.tagId || '',
             name: row.querySelector('.tag-name-input')?.value || ''
         })).filter(tag => tag.name.trim());
+    }
+
+    enumsFromForm() {
+        return [...document.querySelectorAll('#gameEnumsEditor .enum-row')].map(row => ({
+            id: row.dataset.enumId || '',
+            name: row.querySelector('.enum-name-input')?.value || '',
+            options: [...row.querySelectorAll('.enum-option-row')].map((optionRow, index) => ({
+                id: optionRow.dataset.optionId || '',
+                label: optionRow.querySelector('.enum-option-label')?.value || '',
+                value: optionRow.querySelector('.enum-option-value')?.value || '',
+                assetId: optionRow.querySelector('.enum-option-asset')?.value || '',
+                sortOrder: index
+            })).filter(option => option.label.trim())
+        })).filter(item => item.name.trim());
     }
 
     bindAutosave() {
@@ -109,6 +239,7 @@ class GameScreen {
                 const payload = Object.fromEntries(new FormData(form).entries());
                 if (!payload.name.trim()) return null;
                 payload.tags = this.tagsFromForm();
+                payload.enums = this.enumsFromForm();
                 return payload;
             },
             async payload => {
@@ -118,10 +249,16 @@ class GameScreen {
                 this.app.state.activeGameId = game.id;
                 await this.app.refreshAll();
                 this.app.renderContext();
-                if (!payload.id) this.render();
+                if (!payload.id || this.payloadHasUnsavedMetadata(payload)) this.render();
                 return game;
             }
         );
+    }
+
+    payloadHasUnsavedMetadata(payload) {
+        const hasNewTag = (payload.tags || []).some(tag => !tag.id);
+        const hasNewEnum = (payload.enums || []).some(item => !item.id || (item.options || []).some(option => !option.id));
+        return hasNewTag || hasNewEnum;
     }
 
     saveGameFormNow() {
@@ -133,6 +270,7 @@ class GameScreen {
                 const payload = Object.fromEntries(new FormData(form).entries());
                 if (!payload.name?.trim()) return null;
                 payload.tags = this.tagsFromForm();
+                payload.enums = this.enumsFromForm();
                 return payload;
             },
             async payload => {

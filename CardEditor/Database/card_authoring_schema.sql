@@ -114,6 +114,33 @@ CREATE TABLE IF NOT EXISTS ce_card_tags (
   KEY idx_ce_card_tags_tag (tag_id)
 );
 
+CREATE TABLE IF NOT EXISTS ce_game_enums (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  enum_uuid VARCHAR(36) UNIQUE NOT NULL,
+  game_id BIGINT NOT NULL,
+  name VARCHAR(120) NOT NULL,
+  slug VARCHAR(120) NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  UNIQUE KEY uq_ce_game_enums_slug (game_id, slug),
+  KEY idx_ce_game_enums_game (game_id)
+);
+
+CREATE TABLE IF NOT EXISTS ce_game_enum_options (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  option_uuid VARCHAR(36) UNIQUE NOT NULL,
+  enum_id BIGINT NOT NULL,
+  label VARCHAR(120) NOT NULL,
+  value VARCHAR(120) NOT NULL,
+  asset_id BIGINT NULL,
+  sort_order INT NOT NULL DEFAULT 0,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  UNIQUE KEY uq_ce_game_enum_options_value (enum_id, value),
+  KEY idx_ce_game_enum_options_enum (enum_id),
+  KEY idx_ce_game_enum_options_asset (asset_id)
+);
+
 CREATE TABLE IF NOT EXISTS ce_card_field_values (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   card_id BIGINT NOT NULL,

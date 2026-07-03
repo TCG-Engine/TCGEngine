@@ -36,6 +36,9 @@ class CardAuthoringDB {
         $this->ensureIndex('ce_template_layout_elements', 'idx_ce_template_layout_asset', 'asset_id');
         $this->ensureIndex('ce_game_tags', 'idx_ce_game_tags_game', 'game_id');
         $this->ensureIndex('ce_card_tags', 'idx_ce_card_tags_tag', 'tag_id');
+        $this->ensureIndex('ce_game_enums', 'idx_ce_game_enums_game', 'game_id');
+        $this->ensureIndex('ce_game_enum_options', 'idx_ce_game_enum_options_enum', 'enum_id');
+        $this->ensureIndex('ce_game_enum_options', 'idx_ce_game_enum_options_asset', 'asset_id');
         $checked = true;
     }
 
@@ -285,6 +288,7 @@ class CardAuthoringDB {
         $row['can_edit'] = $this->canEditGameRow($row);
         $row['can_view'] = $this->canViewGameRow($row);
         $row['tags'] = $this->listGameTagsForVisibleRow($row);
+        $row['enums'] = $this->listGameEnumsForVisibleRow($row);
         return $row;
     }
 
@@ -336,6 +340,31 @@ class CardAuthoringDB {
         return $row;
     }
 
+    private function normalizeEnum($row) {
+        if (!$row) return null;
+        $row['id'] = (int)$row['id'];
+        $row['game_id'] = (int)$row['game_id'];
+        $row['options'] = [];
+        return $row;
+    }
+
+    private function normalizeEnumOption($row) {
+        if (!$row) return null;
+        $row['id'] = (int)$row['id'];
+        $row['enum_id'] = (int)$row['enum_id'];
+        $row['asset_id'] = $row['asset_id'] ? (int)$row['asset_id'] : null;
+        $row['sort_order'] = (int)$row['sort_order'];
+        if (isset($row['asset_relative_path'])) {
+            $row['asset'] = $row['asset_id'] ? [
+                'id' => $row['asset_id'],
+                'original_filename' => $row['asset_original_filename'],
+                'url' => '../' . $row['asset_relative_path']
+            ] : null;
+            unset($row['asset_relative_path'], $row['asset_original_filename']);
+        }
+        return $row;
+    }
+
     private function normalizeValue($row) {
         $row['id'] = (int)$row['id'];
         $row['card_id'] = (int)$row['card_id'];
@@ -373,6 +402,9 @@ class CardAuthoringDB {
         if (array_key_exists('tags', $input)) {
             $this->syncGameTags($gameId, is_array($input['tags']) ? $input['tags'] : []);
         }
+        if (array_key_exists('enums', $input)) {
+            $this->syncGameEnums($gameId, is_array($input['enums']) ? $input['enums'] : []);
+        }
         return $this->getGame($gameId);
     }
 
@@ -387,6 +419,7 @@ class CardAuthoringDB {
         if (!$row) throw new Exception("Game not found");
         $game = $this->normalizeGame($row);
         $game['tags'] = $this->listGameTags($game['id']);
+        $game['enums'] = $this->listGameEnums($game['id']);
         return $game;
     }
 
@@ -407,6 +440,9 @@ class CardAuthoringDB {
         if (array_key_exists('tags', $input)) {
             $this->syncGameTags($id, is_array($input['tags']) ? $input['tags'] : []);
         }
+        if (array_key_exists('enums', $input)) {
+            $this->syncGameEnums($id, is_array($input['enums']) ? $input['enums'] : []);
+        }
         return $this->getGame($id);
     }
 
@@ -418,6 +454,29 @@ class CardAuthoringDB {
     private function listGameTagsForVisibleRow($game) {
         $rows = $this->all("SELECT * FROM ce_game_tags WHERE game_id = ? ORDER BY name ASC, id ASC", "i", [(int)$game['id']]);
         return array_map([$this, 'normalizeTag'], $rows);
+    }
+
+    public function listGameEnums($gameId) {
+        $this->assertCanViewGame($gameId);
+        return $this->listGameEnumsForVisibleRow(['id' => (int)$gameId]);
+    }
+
+    private function listGameEnumsForVisibleRow($game) {
+        $enums = array_map(
+            [$this, 'normalizeEnum'],
+            $this->all("SELECT * FROM ce_game_enums WHERE game_id = ? ORDER BY name ASC, id ASC", "i", [(int)$game['id']])
+        );
+        foreach ($enums as &$enum) {
+            $enum['options'] = array_map(
+                [$this, 'normalizeEnumOption'],
+                $this->all(
+                    "SELECT o.*, a.relative_path AS asset_relative_path, a.original_filename AS asset_original_filename FROM ce_game_enum_options o LEFT JOIN ce_assets a ON a.id = o.asset_id WHERE o.enum_id = ? ORDER BY o.sort_order ASC, o.id ASC",
+                    "i",
+                    [(int)$enum['id']]
+                )
+            );
+        }
+        return $enums;
     }
 
     private function syncGameTags($gameId, $tags) {
@@ -471,6 +530,109 @@ class CardAuthoringDB {
             if (!in_array($existingId, $keptIds)) {
                 $this->execute("DELETE FROM ce_card_tags WHERE tag_id = ?", "i", [$existingId]);
                 $this->execute("DELETE FROM ce_game_tags WHERE id = ? AND game_id = ?", "ii", [$existingId, (int)$gameId]);
+            }
+        }
+    }
+
+    private function syncGameEnums($gameId, $enums) {
+        $this->assertCanEditGame($gameId);
+        $existing = $this->all("SELECT id FROM ce_game_enums WHERE game_id = ?", "i", [(int)$gameId]);
+        $existingIds = array_map(function($row) { return (int)$row['id']; }, $existing);
+        $incomingIds = [];
+        foreach ($enums as $enum) {
+            $id = isset($enum['id']) && $enum['id'] ? (int)$enum['id'] : 0;
+            if ($id > 0 && in_array($id, $existingIds)) $incomingIds[] = $id;
+        }
+        foreach ($existingIds as $existingId) {
+            if (!in_array($existingId, $incomingIds)) {
+                $this->execute("DELETE FROM ce_game_enum_options WHERE enum_id = ?", "i", [$existingId]);
+                $this->execute("DELETE FROM ce_game_enums WHERE id = ? AND game_id = ?", "ii", [$existingId, (int)$gameId]);
+            }
+        }
+
+        $usedSlugs = [];
+        $now = $this->now();
+        foreach ($enums as $enum) {
+            $name = trim($enum['name'] ?? '');
+            if ($name === '') continue;
+            $slugBase = self::slugify($enum['slug'] ?? $name);
+            $slug = $slugBase;
+            $suffix = 2;
+            while (in_array($slug, $usedSlugs)) {
+                $slug = $slugBase . '-' . $suffix;
+                $suffix++;
+            }
+            $usedSlugs[] = $slug;
+            $id = isset($enum['id']) && $enum['id'] ? (int)$enum['id'] : 0;
+            if ($id > 0 && in_array($id, $existingIds)) {
+                $this->execute(
+                    "UPDATE ce_game_enums SET name = ?, slug = ?, updated_at = ? WHERE id = ? AND game_id = ?",
+                    "sssii",
+                    [$name, $slug, $now, $id, (int)$gameId]
+                );
+                $enumId = $id;
+            } else {
+                $uuid = self::uuidv4();
+                $this->execute(
+                    "INSERT INTO ce_game_enums (enum_uuid, game_id, name, slug, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
+                    "sissss",
+                    [$uuid, (int)$gameId, $name, $slug, $now, $now]
+                );
+                $enumId = (int)mysqli_insert_id($this->conn);
+            }
+            $this->syncGameEnumOptions($gameId, $enumId, is_array($enum['options'] ?? null) ? $enum['options'] : []);
+        }
+    }
+
+    private function syncGameEnumOptions($gameId, $enumId, $options) {
+        $existing = $this->all("SELECT id FROM ce_game_enum_options WHERE enum_id = ?", "i", [(int)$enumId]);
+        $existingIds = array_map(function($row) { return (int)$row['id']; }, $existing);
+        $incomingIds = [];
+        foreach ($options as $option) {
+            $id = isset($option['id']) && $option['id'] ? (int)$option['id'] : 0;
+            if ($id > 0 && in_array($id, $existingIds)) $incomingIds[] = $id;
+        }
+        foreach ($existingIds as $existingId) {
+            if (!in_array($existingId, $incomingIds)) {
+                $this->execute("DELETE FROM ce_game_enum_options WHERE id = ? AND enum_id = ?", "ii", [$existingId, (int)$enumId]);
+            }
+        }
+
+        $usedValues = [];
+        $now = $this->now();
+        foreach ($options as $index => $option) {
+            $label = trim($option['label'] ?? '');
+            if ($label === '') continue;
+            $rawValue = trim((string)($option['value'] ?? ''));
+            $valueBase = self::slugify($rawValue !== '' ? $rawValue : $label);
+            $value = $valueBase;
+            $suffix = 2;
+            while (in_array($value, $usedValues)) {
+                $value = $valueBase . '-' . $suffix;
+                $suffix++;
+            }
+            $usedValues[] = $value;
+            $assetId = isset($option['assetId']) ? (int)$option['assetId'] : (isset($option['asset_id']) ? (int)$option['asset_id'] : 0);
+            $assetId = $assetId > 0 ? $assetId : null;
+            if ($assetId !== null) {
+                $asset = $this->one("SELECT id FROM ce_assets WHERE id = ? AND game_id = ?", "ii", [$assetId, (int)$gameId]);
+                if (!$asset) $assetId = null;
+            }
+            $sortOrder = (int)($option['sortOrder'] ?? $option['sort_order'] ?? $index);
+            $id = isset($option['id']) && $option['id'] ? (int)$option['id'] : 0;
+            if ($id > 0 && in_array($id, $existingIds)) {
+                $this->execute(
+                    "UPDATE ce_game_enum_options SET label = ?, value = ?, asset_id = ?, sort_order = ?, updated_at = ? WHERE id = ? AND enum_id = ?",
+                    "ssiisii",
+                    [$label, $value, $assetId, $sortOrder, $now, $id, (int)$enumId]
+                );
+            } else {
+                $uuid = self::uuidv4();
+                $this->execute(
+                    "INSERT INTO ce_game_enum_options (option_uuid, enum_id, label, value, asset_id, sort_order, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+                    "sissiiss",
+                    [$uuid, (int)$enumId, $label, $value, $assetId, $sortOrder, $now, $now]
+                );
             }
         }
     }
@@ -553,6 +715,7 @@ class CardAuthoringDB {
         $template['fields'] = array_map([$this, 'normalizeField'], $this->all("SELECT * FROM ce_template_fields WHERE template_id = ? ORDER BY sort_order ASC, id ASC", "i", [(int)$id]));
         $template['layout'] = array_map([$this, 'normalizeLayoutElement'], $this->all("SELECT * FROM ce_template_layout_elements WHERE template_id = ? ORDER BY z_index ASC, id ASC", "i", [(int)$id]));
         $template['assets'] = $this->listAssets((int)$template['game_id']);
+        $template['enums'] = $this->listGameEnums((int)$template['game_id']);
         return $template;
     }
 
@@ -582,7 +745,7 @@ class CardAuthoringDB {
         $template = $this->getTemplate($templateId);
         $this->assertCanEditGame((int)$template['game_id']);
         if (!is_array($fields)) throw new Exception("Fields must be an array");
-        $validTypes = ['text', 'longtext', 'number', 'boolean', 'select', 'multiselect', 'image'];
+        $validTypes = ['text', 'longtext', 'number', 'boolean', 'select', 'multiselect', 'image', 'icon_enum'];
         $now = $this->now();
         mysqli_query($this->conn, "START TRANSACTION");
         try {
@@ -788,7 +951,7 @@ class CardAuthoringDB {
                 $number = null;
                 $boolean = null;
                 $json = null;
-                if (in_array($type, ['text', 'longtext', 'select', 'image'])) {
+                if (in_array($type, ['text', 'longtext', 'select', 'image', 'icon_enum'])) {
                     $text = $raw === null ? null : (string)$raw;
                 } elseif ($type === 'number') {
                     $number = ($raw === '' || $raw === null) ? null : (float)$raw;

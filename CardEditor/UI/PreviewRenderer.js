@@ -32,6 +32,18 @@ const PreviewRenderer = {
         return entry.value_text ?? '';
     },
 
+    enumForField(field, template) {
+        const enumId = field?.settings_json?.enumId;
+        if (!enumId) return null;
+        return (template.enums || []).find(item => Number(item.id) === Number(enumId)) || null;
+    },
+
+    enumOptionForValue(field, template, value) {
+        const enumDef = this.enumForField(field, template);
+        if (!enumDef) return null;
+        return (enumDef.options || []).find(option => option.value === value) || null;
+    },
+
     effectiveZIndex(element) {
         const layer = Number(element.z_index || 0);
         if (element.element_type !== 'image' && this.isBehindTemplate(element)) return layer;
@@ -83,6 +95,13 @@ const PreviewRenderer = {
                 const assetUrl = this.valueFor(field, valuesByFieldId);
                 const fit = style.fitMode || 'cover';
                 return `<div class="preview-el image-el" data-element-id="${element.id}" style="${this.css(style, base)}">${assetUrl ? `<img src="${this.escape(assetUrl)}" style="object-fit:${this.escapeCss(fit)}" alt="">` : ''}</div>`;
+            }
+            if (field.field_type === 'icon_enum') {
+                const value = this.valueFor(field, valuesByFieldId);
+                const option = this.enumOptionForValue(field, template, value);
+                const fit = style.fitMode || 'contain';
+                const url = option?.asset?.url || '';
+                return `<div class="preview-el image-el" data-element-id="${element.id}" style="${this.css(style, base)}">${url ? `<img src="${this.escape(url)}" style="object-fit:${this.escapeCss(fit)}" alt="">` : ''}</div>`;
             }
             const textStyle = {
                 fontFamily: 'Arial, sans-serif',

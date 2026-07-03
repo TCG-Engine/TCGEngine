@@ -286,6 +286,39 @@
             font-size: 13px;
             font-weight: 700;
         }
+        .enum-editor, .enum-row, .enum-options {
+            display: grid;
+            gap: 10px;
+        }
+        .enum-row {
+            padding: 10px;
+            border: 1px solid #3c4043;
+            border-radius: 6px;
+            background: #202124;
+        }
+        .enum-row-head {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto auto;
+            gap: 8px;
+            align-items: center;
+        }
+        .enum-option-row {
+            display: grid;
+            grid-template-columns: minmax(90px, 1fr) minmax(90px, 1fr) minmax(120px, 1fr) 34px minmax(120px, 1fr) auto;
+            gap: 6px;
+            align-items: center;
+        }
+        .enum-icon-preview {
+            width: 28px;
+            height: 28px;
+            border: 1px solid #3c4043;
+            border-radius: 4px;
+            background: #111315;
+            object-fit: contain;
+        }
+        .enum-icon-preview.empty {
+            display: inline-block;
+        }
         .button-row {
             display: flex;
             align-items: center;
