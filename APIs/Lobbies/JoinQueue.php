@@ -25,6 +25,10 @@
     if(is_file($grandArchiveDeckImportPath)) {
       include_once $grandArchiveDeckImportPath;
     }
+    $gaMatchFlowPath = __DIR__ . '/../../GrandArchiveSim/MatchFlow.php';
+    if(is_file($gaMatchFlowPath)) {
+      include_once $gaMatchFlowPath;
+    }
   } else if($rootName === 'AzukiSim') {
     $azukiDeckImportPath = __DIR__ . '/../../AzukiSim/Custom/DeckImport.php';
     if(is_file($azukiDeckImportPath)) {
@@ -52,7 +56,9 @@
   $queueType = isset($_POST['queueType']) ? strtolower(trim($_POST['queueType'])) : 'bo1';
   // Solo/local modes are created immediately (no matchmaking). 'goldfish' = 1 deck (empty P2);
   // 'hotseat' = 2 decks, shared authKey.
-  $isModeFormat = ($rootName === 'SWUSim' && ($format === 'goldfish' || $format === 'hotseat'));
+  $isModeFormat =
+      ($rootName === 'SWUSim'         && ($format === 'goldfish' || $format === 'hotseat')) ||
+      ($rootName === 'GrandArchiveSim' && ($format === 'goldfish' || $format === 'hotseat'));
   // Guard: for SWUSim, fall back to safe defaults on unknown/garbage. (Other roots ignore these.)
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
@@ -68,6 +74,11 @@
       exit;
     }
   }
+  if ($rootName === 'GrandArchiveSim') {
+    // GA has no DB-backed login, so no logged-in gate. Just normalize unknown values.
+    if (!function_exists('GAGetFormat') || GAGetFormat($format) === null) $format = 'standard';
+    if (!function_exists('GAGetQueueType') || GAGetQueueType($queueType) === null) $queueType = 'bo1';
+  }
 
   // Require either deckLink or preconstructedDeck
   if(empty($deckLink) && empty($preconstructedDeck)) {
@@ -78,7 +89,7 @@
     exit;
   }
 
-  $deckValidation = ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck);
+  $deckValidation = ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format);
   if(!$deckValidation['success']) {
     $response->success = false;
     $response->message = $deckValidation['message'];
@@ -119,10 +130,12 @@
     $lobby->goldfishPlayers = $isHotseat ? [] : [2];
     $lobby->players = [$hostPlayer, $secondPlayer];
 
-    // SWUSim's CreateGame is pre-included via MatchFlow (functions already defined),
-    // so call SWUSetupGame directly rather than re-`include` (which would redeclare).
+    // CreateGame is pre-included via MatchFlow (SWU + GA), so call the setup function directly rather
+    // than re-`include` (which would redeclare its functions and fatal).
     if ($rootName === 'SWUSim' && function_exists('SWUSetupGame')) {
       SWUSetupGame($lobby);
+    } else if ($rootName === 'GrandArchiveSim' && function_exists('GASetupGame')) {
+      GASetupGame($lobby);
     } else {
       include '../../' . $rootName . '/CreateGame.php';
     }
@@ -172,6 +185,8 @@
         if ($lobby->ready) {
           if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
             SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
+          } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('GACreateMatchFromLobby')) {
+            GACreateMatchFromLobby($lobby); // creates the Match + game 1, sets $lobby->gameName
           } else {
             include_once '../../' . $rootName . '/CreateGame.php';
           }
@@ -261,6 +276,8 @@
               if($lobby->ready) {
                 if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
                   SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
+                } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('GACreateMatchFromLobby')) {
+                  GACreateMatchFromLobby($lobby); // creates the Match + game 1, sets $lobby->gameName
                 } else {
                   include_once '../../' . $rootName . '/CreateGame.php';
                 }
@@ -317,7 +334,7 @@
   header('Content-Type: application/json');
   echo json_encode($response);
 
-  function ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck) {
+  function ValidateDeckSubmissionForQueue($rootName, $deckLink, $preconstructedDeck, $format = 'standard') {
     if($rootName === 'GrandArchiveSim') {
       if(!function_exists('GrandArchiveValidateDeckForQueue')) {
         return [
@@ -327,7 +344,7 @@
       }
 
       try {
-        return GrandArchiveValidateDeckForQueue($deckLink, $preconstructedDeck);
+        return GrandArchiveValidateDeckForQueue($deckLink, $preconstructedDeck, $format);
       } catch (Throwable $e) {
         error_log('GrandArchive queue deck validation failed: ' . $e->getMessage());
         return [

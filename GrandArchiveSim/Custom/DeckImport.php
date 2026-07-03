@@ -2,28 +2,123 @@
 
 include_once __DIR__ . '/../GeneratedCode/GeneratedCardDictionaries.php';
 include_once __DIR__ . '/DeckTextParser.php';
+require_once __DIR__ . '/../Formats.php';
 
-function GrandArchiveValidateDeckForQueue($deckLink, $preconstructedDeck = '') {
+function GrandArchiveValidateDeckForQueue($deckLink, $preconstructedDeck = '', $format = 'standard') {
     if (!empty($preconstructedDeck)) {
-        return [
-            'success' => true,
-            'message' => ''
-        ];
+        return ['success' => true, 'message' => '']; // preconstructed decks bypass validation
     }
 
     $deckLink = trim($deckLink);
     if ($deckLink === '') {
-        return [
-            'success' => false,
-            'message' => 'Deck link is required.'
-        ];
+        return ['success' => false, 'message' => 'Deck link is required.'];
     }
 
     $resolved = GrandArchiveResolveDeckInput($deckLink);
-    return [
-        'success' => $resolved['success'],
-        'message' => $resolved['success'] ? '' : $resolved['message']
-    ];
+    if (!$resolved['success']) {
+        return ['success' => $resolved['success'], 'message' => $resolved['message']];
+    }
+    return GAValidateResolvedDeck($resolved, $format);
+}
+
+function GAIsChampion($uuid) {
+    global $typeData;
+    return strpos(strtoupper((string)($typeData[$uuid] ?? '')), 'CHAMPION') !== false;
+}
+function GAIsRegalia($uuid) {
+    global $typeData;
+    return strpos(strtoupper((string)($typeData[$uuid] ?? '')), 'REGALIA') !== false;
+}
+function GACountByName(array $uuids) {
+    global $nameData;
+    $c = [];
+    foreach ($uuids as $u) { $nm = $nameData[$u] ?? $u; $c[$nm] = ($c[$nm] ?? 0) + 1; }
+    return $c;
+}
+
+// Enforce banlist (per-format, UUID) + full constructed deckbuilding rules (CR §129–132).
+// Mode-formats (goldfish) enforce only the banlist. Returns ['success'=>bool,'message'=>string].
+function GAValidateResolvedDeck(array $resolved, string $format) {
+    global $nameData, $levelData;
+    $fmt = GAGetFormat($format) ?? GAGetFormat('standard');
+    $label = $fmt['displayName'] ?? $format;
+
+    $main       = $resolved['mainDeck'] ?? [];
+    $material   = $resolved['material'] ?? [];
+    $sideboard  = $resolved['sideboard'] ?? [];
+    $unresolved = $resolved['unresolved'] ?? [];
+
+    if (!empty($unresolved)) {
+        return ['success' => false, 'message' =>
+            'Unrecognized card(s): ' . implode(', ', array_slice($unresolved, 0, 10)) . '. Deck could not be validated.'];
+    }
+
+    // a. Banlist across all zones
+    $banned = [];
+    foreach (array_merge($main, $material, $sideboard) as $u) {
+        if (GACardBanned($u, $format)) {
+            $nm = $nameData[$u] ?? $u;
+            if (!in_array($nm, $banned, true)) $banned[] = $nm;
+        }
+    }
+    if (!empty($banned)) {
+        return ['success' => false, 'message' => 'Banned in ' . $label . ': ' . implode(', ', $banned) . '.'];
+    }
+
+    // Mode-formats (goldfish) skip structural rules
+    if (!empty($fmt['mode'])) {
+        return ['success' => true, 'message' => ''];
+    }
+
+    $rules = GAConstructedDeckRules();
+
+    // b. Main deck size + copy limit (main + sideboard combined, by name)
+    if (count($main) < $rules['mainMin']) {
+        return ['success' => false, 'message' => 'Main deck has ' . count($main) . ' cards; minimum is ' . $rules['mainMin'] . '.'];
+    }
+    foreach (GACountByName(array_merge($main, $sideboard)) as $nm => $n) {
+        if ($n > $rules['mainMaxCopies']) {
+            return ['success' => false, 'message' => "Too many copies of \"$nm\" ($n; max {$rules['mainMaxCopies']} across main + sideboard)."];
+        }
+    }
+
+    // c. Material deck size + copy + Level-0 champion
+    if (count($material) > $rules['materialMax']) {
+        return ['success' => false, 'message' => 'Material deck has ' . count($material) . ' cards; maximum is ' . $rules['materialMax'] . '.'];
+    }
+    foreach (GACountByName($material) as $nm => $n) {
+        if ($n > $rules['materialMaxCopies']) {
+            return ['success' => false, 'message' => "Too many copies of \"$nm\" in material ($n; max {$rules['materialMaxCopies']})."];
+        }
+    }
+    if ($rules['materialNeedsLv0Champion']) {
+        $hasLv0 = false;
+        foreach ($material as $u) {
+            if (GAIsChampion($u) && intval($levelData[$u] ?? -1) === 0) { $hasLv0 = true; break; }
+        }
+        if (!$hasLv0) return ['success' => false, 'message' => 'Material deck must contain a Level 0 champion.'];
+    }
+
+    // d. Sideboard: card count + 15-point system + combined material+sideboard champ/regalia <=1/name
+    if (count($sideboard) > $rules['sideboardMaxCards']) {
+        return ['success' => false, 'message' => 'Sideboard has ' . count($sideboard) . ' cards; maximum is ' . $rules['sideboardMaxCards'] . '.'];
+    }
+    $points = 0;
+    foreach ($sideboard as $u) {
+        $points += (GAIsChampion($u) || GAIsRegalia($u)) ? $rules['sideboardChampionRegaliaPoints'] : 1;
+    }
+    if ($points > $rules['sideboardMaxPoints']) {
+        return ['success' => false, 'message' => 'Sideboard is ' . $points . ' points; maximum is ' . $rules['sideboardMaxPoints'] . '.'];
+    }
+    $cr = [];
+    foreach (array_merge($material, $sideboard) as $u) {
+        if (GAIsChampion($u) || GAIsRegalia($u)) { $nm = $nameData[$u] ?? $u; $cr[$nm] = ($cr[$nm] ?? 0) + 1; }
+    }
+    foreach ($cr as $nm => $n) {
+        if ($n > 1) return ['success' => false, 'message' => "Too many copies of champion/regalia \"$nm\" ($n; max 1 across material + sideboard)."];
+    }
+
+    return ['success' => true, 'message' => ''];
 }
 
 function GrandArchiveResolveDeckInput($deckLink) {
@@ -84,6 +179,7 @@ function GrandArchiveResolveDeckInput($deckLink) {
                 'message' => 'Unable to parse the pasted deck list. Please verify the list format and card names.',
                 'material' => [],
                 'mainDeck' => [],
+                'sideboard' => [],
                 'unresolved' => $parsed['unresolved'] ?? []
             ];
         }
@@ -93,6 +189,7 @@ function GrandArchiveResolveDeckInput($deckLink) {
             'message' => '',
             'material' => $material,
             'mainDeck' => $mainDeck,
+            'sideboard' => $parsed['sideboard'] ?? [],
             'unresolved' => $parsed['unresolved'] ?? []
         ];
     }
@@ -240,6 +337,7 @@ function GrandArchiveNormalizeShoutLikeDeck($deckData) {
         'message' => '',
         'material' => $material,
         'mainDeck' => $mainDeck,
+        'sideboard' => [],   // ShoutLike source exposes no sideboard section
         'unresolved' => []
     ];
 }
@@ -257,6 +355,7 @@ function GrandArchiveNormalizeTCGArchitectDeck($deckData) {
 
     $material = [];
     $mainDeck = [];
+    $sideboard = [];
 
     foreach ($deckData['cards'] as $card) {
         $cardID = $card['id'] ?? '';
@@ -269,7 +368,7 @@ function GrandArchiveNormalizeTCGArchitectDeck($deckData) {
             if ($deckType === 'material') {
                 $material[] = $cardID;
             } elseif ($deckType === 'sideboard') {
-                continue;
+                $sideboard[] = $cardID;
             } else {
                 $mainDeck[] = $cardID;
             }
@@ -282,6 +381,7 @@ function GrandArchiveNormalizeTCGArchitectDeck($deckData) {
             'message' => '',
             'material' => [],
             'mainDeck' => [],
+            'sideboard' => [],
             'unresolved' => []
         ];
     }
@@ -291,6 +391,7 @@ function GrandArchiveNormalizeTCGArchitectDeck($deckData) {
         'message' => '',
         'material' => $material,
         'mainDeck' => $mainDeck,
+        'sideboard' => $sideboard,
         'unresolved' => []
     ];
 }
@@ -353,6 +454,7 @@ function GrandArchiveNormalizeSleevedDeck($deckData) {
 
     $material = [];
     $mainDeck = [];
+    $sideboard = [];
     $unresolved = [];
 
     foreach ($cards as $card) {
@@ -375,8 +477,11 @@ function GrandArchiveNormalizeSleevedDeck($deckData) {
             if ($zone === 'material') {
                 $material[] = $resolvedCardID;
             }
-            else if ($zone === 'sideboard' || $zone === 'references') {
-                continue;
+            else if ($zone === 'sideboard') {
+                $sideboard[] = $resolvedCardID;
+            }
+            else if ($zone === 'references') {
+                continue;  // referenced/token cards, not part of the constructed deck
             }
             else {
                 $mainDeck[] = $resolvedCardID;
@@ -390,6 +495,7 @@ function GrandArchiveNormalizeSleevedDeck($deckData) {
             'message' => '',
             'material' => [],
             'mainDeck' => [],
+            'sideboard' => [],
             'unresolved' => $unresolved
         ];
     }
@@ -399,6 +505,7 @@ function GrandArchiveNormalizeSleevedDeck($deckData) {
         'message' => '',
         'material' => $material,
         'mainDeck' => $mainDeck,
+        'sideboard' => $sideboard,
         'unresolved' => $unresolved
     ];
 }
@@ -472,6 +579,9 @@ function NormalizeCardSlug($value) {
     if ($value === '') return '';
 
     $value = str_replace('&', ' and ', $value);
+    // Strip apostrophes so possessives collapse the way sleeved.gg's slugs do
+    // ("Grand Crusader's Ring" -> "grand-crusaders-ring", not "grand-crusader-s-ring").
+    $value = str_replace(["'", "\u{2019}"], '', $value);
     $value = preg_replace('/[^a-z0-9]+/', '-', $value);
     $value = preg_replace('/-+/', '-', $value);
     return trim($value, '-');

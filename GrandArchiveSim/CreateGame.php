@@ -34,57 +34,99 @@ function LoadDefaultGoldfishLoadout($playerID) {
     }
 }
 
-// ASSUMES: $lobby
-$gameName = GetGameCounter(__DIR__ . '/Games');
-InitializeGamestate();
-WriteGamestate(__DIR__ . "/");
-ParseGamestate(__DIR__ . "/");
+// Goldfish dummy opponent: EMPTY main deck + a single Lv0 champion (Spirit of Fire) so GA's pregame
+// (which requires each player to place a Lv0 champion) completes. The human seat tests its own curve.
+function LoadEmptyGoldfishLoadout($playerID) {
+    $material = &GetMaterial($playerID);
+    array_push($material, new Material("LMyKyVC2O9")); // Spirit of Fire (Lv0 Spirit champion)
+    // Main deck intentionally left empty.
+}
 
-$goldfishPlayers = [];
-if(isset($lobby->goldfishPlayers) && is_array($lobby->goldfishPlayers)) {
-    foreach($lobby->goldfishPlayers as $goldfishPlayer) {
-        $playerNum = intval($goldfishPlayer);
-        if($playerNum > 0) $goldfishPlayers[] = $playerNum;
+// Full game setup. Callable (Match system spawns multiple games): $opts['resolvedDecks'] =
+// [seat => resolver-output] to load pre-resolved decks; $opts['forcedFirstPlayer'] = 1|2 to override
+// who goes first. Backward-compat: including this file with an ambient $lobby still auto-runs setup.
+function GASetupGame($lobby, $opts = []) {
+    global $gameName;
+    $gameName = GetGameCounter(__DIR__ . '/Games');
+    InitializeGamestate();
+    WriteGamestate(__DIR__ . "/");
+    ParseGamestate(__DIR__ . "/");
+
+    // Persist the game mode (goldfish/hotseat) so the UI/mode checks can read it (GAGameMode()).
+    $gaMode = '';
+    if (isset($lobby->format)) {
+        $f = strtolower((string)$lobby->format);
+        if ($f === 'goldfish' || $f === 'hotseat') $gaMode = $f;
     }
-}
-if(function_exists('SetGoldfishPlayers')) {
-    SetGoldfishPlayers($goldfishPlayers);
-}
+    if ($gaMode !== '') DecisionQueueController::StoreVariable("GameMode", $gaMode);
 
-$playerCounter = 1;
-foreach ($lobby->players as $player) {
-    $player->setGamePlayerID($playerCounter);
-    if(in_array($playerCounter, $goldfishPlayers, true)) {
-        LoadDefaultGoldfishLoadout($playerCounter);
-    } else {
-        LoadPlayer($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck());
+    $goldfishPlayers = [];
+    if(isset($lobby->goldfishPlayers) && is_array($lobby->goldfishPlayers)) {
+        foreach($lobby->goldfishPlayers as $goldfishPlayer) {
+            $playerNum = intval($goldfishPlayer);
+            if($playerNum > 0) $goldfishPlayers[] = $playerNum;
+        }
     }
-    ++$playerCounter;
+    if(function_exists('SetGoldfishPlayers')) {
+        SetGoldfishPlayers($goldfishPlayers);
+    }
+
+    $playerCounter = 1;
+    foreach ($lobby->players as $player) {
+        $player->setGamePlayerID($playerCounter);
+        $injected = $opts['resolvedDecks'][$playerCounter] ?? null;
+        if(in_array($playerCounter, $goldfishPlayers, true)) {
+            // Goldfish: the opponent seat has an EMPTY main deck (nothing to draw/play) — the human seat
+            // just tests its own draws/curve. GA requires each player to place a Lv0 champion in pregame,
+            // so the dummy still gets a single Lv0 champion (Spirit of Fire) and no main deck.
+            LoadEmptyGoldfishLoadout($playerCounter);
+        } else if (is_array($injected)) {
+            LoadResolvedDeck($playerCounter, $injected);   // Match system: pre-resolved (+ sideboarded) deck
+        } else {
+            LoadPlayer($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck());
+        }
+        ++$playerCounter;
+    }
+
+    $firstPlayer = &GetFirstPlayer();
+    $firstPlayer = (isset($opts['forcedFirstPlayer']) && in_array($opts['forcedFirstPlayer'], [1,2], true))
+        ? intval($opts['forcedFirstPlayer']) : 1;
+    $turnPlayer = &GetTurnPlayer();
+    $turnPlayer = $firstPlayer;
+    $currentTurn = &GetTurnNumber();
+    $currentTurn = 1;
+
+    SetFlashMessage('');
+    $currentPhase = &GetCurrentPhase();
+    $currentPhase = 'WU';
+    SetPhaseParameters("-");
+    QueuePregameStartingChampionSetup();
+    AdvanceAndExecute("PASS");
+    AutoAdvanceAndExecute();
+    SaveUndoVersion($firstPlayer, "Pregame Starting Champion");
+
+    WriteGamestate(__DIR__ . "/");
+
+    $lobby->gameName = $gameName;
+    SimGameWriteAuthKeysFromLobby('GrandArchiveSim', $gameName, $lobby);
+    return $gameName;
 }
 
-$firstPlayer = &GetFirstPlayer();
-//$firstPlayer = &FirstPlayerValue();
-$firstPlayer = 1;
-//$turnPlayer = &TurnPlayerValue();
-$turnPlayer = &GetTurnPlayer();
-$turnPlayer = $firstPlayer;
-$currentTurn = &GetTurnNumber();
-$currentTurn = 1;
+// Backward-compatible entrypoint: the queue still does `include '.../CreateGame.php'` with an ambient
+// $lobby in scope (goldfish/hotseat + legacy). Only auto-run when that ambient lobby exists.
+if (isset($lobby) && is_object($lobby)) {
+    GASetupGame($lobby);
+}
 
-SetFlashMessage('');
-$currentPhase = &GetCurrentPhase();
-$currentPhase = 'WU';
-SetPhaseParameters("-");
-QueuePregameStartingChampionSetup();
-AdvanceAndExecute("PASS");
-AutoAdvanceAndExecute();
-SaveUndoVersion($firstPlayer, "Pregame Starting Champion");
-
-WriteGamestate(__DIR__ . "/");
-
-$lobby->gameName = $gameName;
-SimGameWriteAuthKeysFromLobby('GrandArchiveSim', $gameName, $lobby);
-//TODO: Handle $gameName = ""
+// Load an already-resolved deck (Match system passes pre-resolved / sideboarded decks). Mirrors the
+// resolved-deck path of LoadPlayer. The sideboard is NOT placed on the field — it lives in the Match.
+function LoadResolvedDeck($playerID, array $resolved) {
+    $gameDeck = &GetDeck($playerID);
+    $material = &GetMaterial($playerID);
+    foreach (($resolved['material'] ?? []) as $cardID) { array_push($material, new Material($cardID)); }
+    foreach (($resolved['mainDeck'] ?? []) as $cardID) { array_push($gameDeck, new Deck($cardID)); }
+    EngineShuffle($gameDeck, true);
+}
 
 function LoadPlayer($playerID, $deckLink, $preconstructedDeck = '') {
     // For now, ignore deckLink and use the preconstructed deck

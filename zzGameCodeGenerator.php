@@ -1310,7 +1310,10 @@ for($i=0; $i<count($zones); ++$i) {
   $zone = $zones[$i];
   $zoneName = $zone->Name;
   $hasIndexedProperties = count($zone->IndexedProperties) > 0;
-  fwrite($handler, "class " . $zoneName . " {\r\n");
+  // AllowDynamicProperties: ZoneAccessors assigns computed props (e.g. Material::$MaterialSelectionMetadata,
+  // GroundArena::$DynamicAbilities) that aren't declared here — undeclared-property writes are deprecated
+  // in PHP 8.2+. The attribute permits them (the code already relies on these dynamic props).
+  fwrite($handler, "#[\\AllowDynamicProperties]\r\nclass " . $zoneName . " {\r\n");
   for($j=0; $j<count($zone->Properties); ++$j) {
     $property = $zone->Properties[$j];
     fwrite($handler, "  public \$" . $property->Name . ";\r\n");

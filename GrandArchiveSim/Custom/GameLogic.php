@@ -37,6 +37,13 @@ function IsGoldfishPlayer($player) {
     return in_array(intval($player), GetGoldfishPlayers(), true);
 }
 
+// Runtime game-mode accessor. Persisted at creation via CreateGame (StoreVariable "GameMode").
+// Returns 'goldfish', 'hotseat', or '' for a normal 2-player game.
+function GAGameMode(): string {
+    $m = DecisionQueueController::GetVariable("GameMode");
+    return in_array($m, ['goldfish', 'hotseat'], true) ? $m : '';
+}
+
 function GoldfishDecisionQueueSignature($player) {
     $queue = GetDecisionQueue($player);
     $parts = [GetCurrentPhase(), strval(count($queue))];
@@ -1140,7 +1147,10 @@ $customDQHandlers["PREGAME_FINISH_STARTING_CHAMPIONS"] = function($player, $part
     DecisionQueueController::ClearVariable("PregameStartingChampion1");
     DecisionQueueController::ClearVariable("PregameStartingChampion2");
     SetMacroTurnIndex('{}');
-    SetMacroGameIndex('{}');
+    // MacroGameIndex is an optional/incomplete stats feature — its functions aren't generated (no such
+    // schema macro), so every other call site guards with function_exists. This lone unguarded call
+    // fataled pregame champion setup. Guard it to match.
+    if(function_exists('SetMacroGameIndex')) SetMacroGameIndex('{}');
 };
 
 function IsFirstTurnAttackLocked($player) {

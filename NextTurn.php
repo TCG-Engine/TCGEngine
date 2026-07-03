@@ -918,10 +918,12 @@ if (session_status() === PHP_SESSION_NONE) session_start();
                 if (typeof BuildMacroGameStatsHtml === 'function') {
                   _goStatsHtml = BuildMacroGameStatsHtml(playerID);
                 }
-                // SWUSim: show the match-aware end-game menu (contextual buttons + stats). Other sims
-                // keep the plain overlay.
+                // SWUSim / GrandArchiveSim: show the match-aware end-game menu (contextual buttons + the
+                // same card-activity stats matrix, in one overlay). Other sims keep the plain overlay.
                 if (typeof window.SWUShowEndGameMenu === 'function') {
                   window.SWUShowEndGameMenu();
+                } else if (typeof window.GAShowEndGameMenu === 'function') {
+                  window.GAShowEndGameMenu(_goStatsHtml);
                 } else {
                   ShowGameOver(viewerCanAct && playerID === _goWinner, undefined, _goStatsHtml);
                 }

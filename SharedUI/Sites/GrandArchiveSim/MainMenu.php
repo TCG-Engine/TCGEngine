@@ -7,6 +7,7 @@ include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../GrandArchiveSim/GeneratedCode/GeneratedCardDictionaries.php';
+include_once __DIR__ . '/../../../GrandArchiveSim/Formats.php';
 require_once __DIR__ . '/../../Render/DeckLibrary.php';
 
 include_once __DIR__ . '/Header.php';
@@ -19,7 +20,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
   <!-- Active Games Section -->
   <div class="card ga-glass-card ga-active-card">
     <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
-      <img src='../../../Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
+      <img src='/TCGEngine/Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
     <h2>Active Games (<span id="active-game-count">0</span>)</h2>
     <div id="active-games-list" class="active-games-list"></div>
@@ -72,6 +73,11 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from fractalofin.site):</label>
         <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Material Deck&#10;1 Lorraine, Wandering Warrior&#10;&#10;# Main Deck&#10;4 Fireball&#10;..." style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
       </div>
+      <!-- Hotseat: a second deck link for Player 2 (revealed only when the Hotseat format is selected). -->
+      <div id="ga-deck2-group" style="display: none; margin-top: 10px;">
+        <label for="ga-deck2-input" style="display: block; margin-bottom: 8px; font-weight: 500;">Player 2 deck link (Hotseat):</label>
+        <input type="text" id="ga-deck2-input" placeholder="Second deck link" style="width: 100%; padding: 10px 15px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+      </div>
       <!--
       <label for="game-name">Game Name:</label>
       <input type="text" id="game-name" name="game_name" required>
@@ -83,10 +89,25 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
       </select>
     -->
       <br>
+      <div style="margin-bottom: 10px;">
+        <label for="ga-format-select" style="display:block; margin-bottom:6px; font-weight:500; font-size:13px;">Format:</label>
+        <select id="ga-format-select" class="ga-queue-select">
+          <?php foreach (GAListFormats() as $fid => $fname): ?>
+          <option value="<?php echo htmlspecialchars($fid, ENT_QUOTES); ?>"<?php echo $fid === 'standard' ? ' selected' : ''; ?>><?php echo htmlspecialchars($fname, ENT_QUOTES); ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
+      <div style="margin-bottom: 10px;">
+        <label for="ga-queuetype-select" style="display:block; margin-bottom:6px; font-weight:500; font-size:13px;">Match Type:</label>
+        <select id="ga-queuetype-select" class="ga-queue-select">
+          <?php foreach (GAQueueTypeDefinitions() as $qid => $qdef): if (empty($qdef['enabled'])) continue; ?>
+          <option value="<?php echo htmlspecialchars($qid, ENT_QUOTES); ?>"<?php echo $qid === 'bo1' ? ' selected' : ''; ?>><?php echo htmlspecialchars($qdef['displayName'] ?? $qid, ENT_QUOTES); ?></option>
+          <?php endforeach; ?>
+        </select>
+      </div>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
         <button onclick="joinQueue()">Join Queue</button>
         <button onclick="createPrivateGame()" style="background-color: #2f6f9f;">Create Private Game</button>
-        <button onclick="startGoldfishGame()" style="background-color: #9f7a2f;">Start Goldfish</button>
         <button id="rejoin-last-game-btn" onclick="rejoinLastGame()" style="display: none; background-color: #5b4aa3;">Rejoin Last Game</button>
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
       </div>
@@ -169,7 +190,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
   </div>
 </div>
 
-<audio id="ga-player-joined-sound" src="../../../Assets/playerJoinedSound.mp3" preload="auto"></audio>
+<audio id="ga-player-joined-sound" src="/TCGEngine/Assets/playerJoinedSound.mp3" preload="auto"></audio>
 <script src="/TCGEngine/Core/MatchReplayClient.js"></script>
 
 <style>
@@ -617,6 +638,11 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
 
 <script>
 
+  // This page is served at two URL depths (the ActiveSite pointer /TCGEngine/SharedUI/MainMenu.php AND
+  // /TCGEngine/SharedUI/Sites/GrandArchiveSim/MainMenu.php), so a fixed '../../../' prefix overshoots
+  // to '/APIs/...' (404) from the pointer path. Anchor to /TCGEngine/ from the live URL instead.
+  function gaAppBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0 ? p.slice(0, i+11) : '/TCGEngine/'; }
+
   var rootName = "GrandArchiveSim";
   var _lobby_id = "";
   var _privateInviteCode = "";
@@ -678,7 +704,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
       }
 
       function buildGameUrl(playerID, gameName, authKey, fromMatch) {
-        var url = new URL('../../../NextTurn.php', window.location.href);
+        var url = new URL(gaAppBase() + 'NextTurn.php', window.location.href);
         url.searchParams.set('playerID', String(playerID));
         url.searchParams.set('gameName', String(gameName));
         url.searchParams.set('folderPath', rootName);
@@ -810,12 +836,39 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         }
         var gameType = 'casual'; // Default game type since select is commented out
 
+        var formatEl = document.getElementById('ga-format-select');
+        var format = formatEl ? formatEl.value : 'standard';
+
+        var deck2El = document.getElementById('ga-deck2-input');
+        var deckLink2 = deck2El ? deck2El.value.trim() : '';
+
+        var qtEl = document.getElementById('ga-queuetype-select');
+        var queueType = qtEl ? qtEl.value : 'bo1';
+
         return {
           preconstructedDeck: preconstructedDeck,
           deckLink: deckLink,
-          gameType: gameType
+          deckLink2: deckLink2,
+          gameType: gameType,
+          format: format,
+          queueType: queueType
         };
       }
+
+      // Hotseat needs a second deck (reveal the P2 input); mode formats (goldfish/hotseat) are Bo1-only.
+      (function(){
+        var fmt = document.getElementById('ga-format-select');
+        if (!fmt) return;
+        function applyFmt(){
+          var isMode = (fmt.value === 'goldfish' || fmt.value === 'hotseat');
+          var g = document.getElementById('ga-deck2-group');
+          if (g) g.style.display = (fmt.value === 'hotseat') ? '' : 'none';
+          var qt = document.getElementById('ga-queuetype-select');
+          if (qt) { if (isMode) { qt.value = 'bo1'; qt.disabled = true; } else { qt.disabled = false; } }
+        }
+        fmt.addEventListener('change', applyFmt);
+        applyFmt();
+      })();
 
       function buildPrivateInviteLink(inviteCode) {
         var url = new URL(window.location.href);
@@ -871,9 +924,9 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
       }
 
       function startGoldfishGame() {
-        submitQueueJoin({
-          createGoldfish: true
-        });
+        var formatEl = document.getElementById('ga-format-select');
+        if (formatEl) formatEl.value = 'goldfish';
+        submitQueueJoin({ waitingMessage: 'Starting solo game...' });
       }
 
       function joinPrivateInvite() {
@@ -892,9 +945,13 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         clearQueueInlineError();
         var submission = getDeckSubmission();
         if (!submission) return;
+        if (submission.format === 'hotseat' && !submission.deckLink2) {
+          showQueueInlineError('Hotseat needs a second deck link (Player 2).');
+          return;
+        }
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../../APIs/Lobbies/JoinQueue.php', true);
+        xhr.open('POST', gaAppBase() + 'APIs/Lobbies/JoinQueue.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         xhr.onload = function() {
@@ -941,11 +998,11 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         var params = 'deckLink=' + encodeURIComponent(submission.deckLink) + '&game_type=' + encodeURIComponent(submission.gameType);
         params += '&preconstructedDeck=' + encodeURIComponent(submission.preconstructedDeck);
         params += "&rootName=" + encodeURIComponent(rootName);
+        params += '&format=' + encodeURIComponent(submission.format || 'standard');
+        params += '&queueType=' + encodeURIComponent(submission.queueType || 'bo1');
+        if (submission.deckLink2) params += '&deckLink2=' + encodeURIComponent(submission.deckLink2);
         if (options.createPrivate) {
           params += '&createPrivate=1';
-        }
-        if (options.createGoldfish) {
-          params += '&createGoldfish=1';
         }
         if (options.privateInviteCode) {
           params += '&privateInviteCode=' + encodeURIComponent(options.privateInviteCode);
@@ -1094,7 +1151,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
 
             // Send a message to the server to cancel the queue
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '../../../APIs/Lobbies/LeaveQueue.php', true);
+            xhr.open('POST', gaAppBase() + 'APIs/Lobbies/LeaveQueue.php', true);
             xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
             xhr.onload = function() {
@@ -1243,7 +1300,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
         var gameCountElement = document.getElementById('active-game-count');
         var gameListElement = document.getElementById('active-games-list');
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '../../../APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
+        xhr.open('GET', gaAppBase() + 'APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
         xhr.responseType = 'json';
 
         xhr.onload = function() {
@@ -1284,7 +1341,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
       }
 
       function openSpectatorView(gameName, perspective) {
-        var url = new URL('../../../NextTurn.php', window.location.href);
+        var url = new URL(gaAppBase() + 'NextTurn.php', window.location.href);
         url.searchParams.set('playerID', 'S');
         url.searchParams.set('viewerPerspective', perspective === 2 ? '2' : '1');
         url.searchParams.set('gameName', gameName);
@@ -1320,7 +1377,7 @@ $gaDeckLibraryConfig = DeckLibraryConfigFromSiteDef($gaSiteDef, ['actionButtons'
 
       function pollLobbyUpdates(playerID, authKey) {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '../../../APIs/Lobbies/PollLobbyUpdates.php', true);
+        xhr.open('POST', gaAppBase() + 'APIs/Lobbies/PollLobbyUpdates.php', true);
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
         xhr.onload = function() {

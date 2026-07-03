@@ -1567,7 +1567,17 @@
      <span><kbd>Space</kbd> Pass</span>
      <span><kbd>↓</kbd> Collapse hand</span>
      <span><kbd>↑</kbd> Expand hand</span>
+     <?php if (function_exists('GAGameMode') && GAGameMode() === 'hotseat'): ?>
+     <span><kbd>W</kbd> Switch Player</span>
+     <?php endif; ?>
 </div>
+<?php if (function_exists('GAGameMode') && GAGameMode() === 'hotseat'): ?>
+<!-- Hotseat: hand the device to the other player — reloads as the other seat (shared authKey). -->
+<button id="gaSwitchPlayerBtn" type="button" onclick="window.gaSwitchPlayer();"
+        style="position: fixed; z-index: 40; bottom: 12px; left: 50%; transform: translateX(-50%);
+               padding: 8px 16px; background: rgba(40,40,40,0.95); color: #fff; border: 2px solid #9f7a2f;
+               border-radius: 8px; cursor: pointer; font-size: 14px;">Switch Player (W)</button>
+<?php endif; ?>
 
 <!-- =================== MY ZONES (bottom half) =================== -->
 
@@ -1708,6 +1718,115 @@
 
 <script>
 (function() {
+     // Hotseat: one person plays both seats from one browser (shared authKey). Switch reloads the
+     // page as the OTHER seat. No-op in non-hotseat games. GA-local (no Core/ edit).
+     window.GAIsHotseat = <?php echo (function_exists('GAGameMode') && GAGameMode() === 'hotseat') ? 'true' : 'false'; ?>;
+     window.gaSwitchPlayer = function () {
+          if (!window.GAIsHotseat) return;
+          var url = new URL(window.location.href);
+          var cur = parseInt(url.searchParams.get('playerID') || '1', 10);
+          url.searchParams.set('playerID', cur === 1 ? '2' : '1');
+          window.location.href = url.toString();
+     };
+     document.addEventListener('keydown', function(e) {
+          if (e.key !== 'w' && e.key !== 'W') return;
+          if (!window.GAIsHotseat) return;
+          var t = e.target;
+          if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable)) return;
+          e.preventDefault();
+          window.gaSwitchPlayer();
+     });
+
+     // Game-over screen for match games (only match games carry a MatchId in their gamestate). The native
+     // game-over trigger in NextTurn.php calls window.GAShowEndGameMenu (the way it calls SWUShowEndGameMenu
+     // for SWUSim) with the pre-built card-activity matrix, so ONE overlay carries the matrix + Save Replay
+     // + our nav buttons: Return to Main Menu, Quick Rematch, Rematch, Convert to Best of 3, Report Bug —
+     // plus "Go to Next Game" for mid-series/sideboard states. We then poll EndGameInfo and rebuild the
+     // overlay (KEEPING the matrix) only when the match state changes (opponent confirms a convert, or a
+     // rematch spawns). GA-local — no Core/ edit; ShowGameOver/SubmitInput/openBugReportModal/
+     // BuildMacroGameStatsHtml all come from Core JS. No Block Player (GA has no login yet).
+     window.GAMatchId = <?php echo json_encode(class_exists('DecisionQueueController') ? strval(DecisionQueueController::GetVariable('MatchId') ?? '') : ''); ?>;
+     (function() {
+          if (!window.GAMatchId) return;   // goldfish / hotseat / non-match game → leave native ShowGameOver alone
+          function gaAppBase(){ var p=location.pathname, i=p.indexOf('/TCGEngine/'); return i>=0 ? p.slice(0, i+11) : '/TCGEngine/'; }
+          var url = new URL(window.location.href);
+          var pid = url.searchParams.get('playerID') || '1';
+          var authKey = url.searchParams.get('authKey') || '';
+          var gameName = url.searchParams.get('gameName') || '';
+          var menuUrl = gaAppBase() + 'SharedUI/MainMenu.php';
+          var statsHtml = '';   // the card-activity matrix; cached so state-change rebuilds keep showing it
+
+          function gaGoMenu(){ location.href = menuUrl; }
+          function gaReportBug(){ if (typeof openBugReportModal === 'function') openBugReportModal(); }
+          function gaGoNext(info){
+               if (info.sideboardPending) {
+                    location.href = gaAppBase() + 'GrandArchiveSim/Sideboard.php?matchId=' + encodeURIComponent(info.matchId)
+                         + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(authKey);
+               } else if (info.nextGameName) {
+                    location.href = gaAppBase() + 'NextTurn.php?playerID=' + encodeURIComponent(pid)
+                         + '&gameName=' + encodeURIComponent(info.nextGameName) + '&authKey=' + encodeURIComponent(authKey)
+                         + '&folderPath=GrandArchiveSim';
+               }
+          }
+          function gaBuildButtons(info){
+               var b = [];
+               if (info.sideboardPending || info.nextGameName) {   // series continues → advance to the next game
+                    b.push({label:'Go to Next Game', onClick:function(){ gaGoNext(info); }});
+                    b.push({label:'Return to Main Menu', onClick: gaGoMenu});
+                    b.push({label:'Report Bug', onClick: gaReportBug});
+                    return b;
+               }
+               if (info.seriesOver) {                              // Bo1 done (or Bo3 decided) → rematch options
+                    var bo = (info.bestOf === 3) ? 3 : 1;
+                    b.push({label:'Return to Main Menu', onClick: gaGoMenu});
+                    b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=' + bo); }});
+                    b.push({label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=' + bo); }});
+                    if (info.convertible) {
+                         var lbl = 'Convert to Best of 3', dis = false;
+                         if (info.convertRequestedByMe && !info.convertRequestedByOpp) { lbl = 'Waiting on opponent…'; dis = true; }
+                         else if (info.convertRequestedByOpp && !info.convertRequestedByMe) { lbl = 'Confirm Convert to Best of 3'; }
+                         b.push({id:'ga-convert-btn', label: lbl, disabled: dis, onClick:function(){ SubmitInput('10012',''); }});
+                    }
+                    b.push({label:'Report Bug', onClick: gaReportBug});
+                    return b;
+               }
+               b.push({label:'Return to Main Menu', onClick: gaGoMenu});   // fallback (over, unknown state)
+               b.push({label:'Report Bug', onClick: gaReportBug});
+               return b;
+          }
+
+          function gaRenderOverlay(info){
+               var ex = document.getElementById('game-over-overlay'); if (ex && ex.remove) ex.remove();
+               if (typeof ShowGameOver === 'function') ShowGameOver(!!info.didWin, menuUrl, statsHtml, gaBuildButtons(info));
+          }
+
+          var lastSig = null;
+          function gaCheckMatchEnd(force) {
+               return fetch(gaAppBase() + 'GrandArchiveSim/EndGameInfo.php?gameName=' + encodeURIComponent(gameName)
+                    + '&playerID=' + encodeURIComponent(pid) + '&authKey=' + encodeURIComponent(authKey)
+                    + '&folderPath=GrandArchiveSim')
+                    .then(function(r){ return r.json(); })
+                    .then(function(info) {
+                         if (!info || !info.gameWinner) return;   // game not over yet
+                         var sig = [info.sideboardPending, info.nextGameName, info.seriesOver, info.convertible,
+                                    info.convertRequestedByMe, info.convertRequestedByOpp].join('|');
+                         if (sig === lastSig && !force) return;   // no change → leave the current overlay be
+                         lastSig = sig;
+                         gaRenderOverlay(info);
+                    })
+                    .catch(function(){});
+          }
+
+          // Called by NextTurn.php's native game-over trigger (with the pre-built matrix). Shows our unified
+          // overlay, then starts the state-change poll (convert confirm / rematch spawn rebuild the overlay).
+          var gaPollStarted = false;
+          window.GAShowEndGameMenu = function(prebuiltStats){
+               statsHtml = prebuiltStats || ((typeof BuildMacroGameStatsHtml === 'function') ? BuildMacroGameStatsHtml(pid) : '');
+               gaCheckMatchEnd(true);
+               if (!gaPollStarted) { gaPollStarted = true; setInterval(gaCheckMatchEnd, 3000); }
+          };
+     })();
+
      // App-level turn indicator config hook (consumed by Core/UILibraries20260703.js).
      // This keeps ownership/wording customizable per app layout.
      window.TurnIndicatorSettings = {

@@ -135,6 +135,12 @@ function EngineLoadRootRuntime($folderPath) {
     $swuMatchFlow = $repoRoot . '/SWUSim/MatchFlow.php';
     if (is_file($swuMatchFlow)) include_once $swuMatchFlow;
   }
+  // GrandArchiveSim Bo3 match orchestration — same as SWUSim: load on the action path so the
+  // after-action hook exists during real play.
+  if ($folderPath === 'GrandArchiveSim') {
+    $gaMatchFlow = $repoRoot . '/GrandArchiveSim/MatchFlow.php';
+    if (is_file($gaMatchFlow)) include_once $gaMatchFlow;
+  }
 
   // Root runtime files define important registries at top level. When they are
   // included from inside this function, those variables land in local scope
@@ -462,6 +468,13 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
           $result['success'] = false;
           $result['message'] = 'Convert to Bo3 unavailable.';
         }
+      } else if (($playerID === 1 || $playerID === 2) && function_exists('GAReadGameMatchRef')
+          && function_exists('GARequestConvertToBo3') && function_exists('GAAcceptConvertToBo3')) {
+        $ref = GAReadGameMatchRef(); // GA reads the ref from the loaded gamestate, not a file
+        if (is_array($ref)) {
+          GARequestConvertToBo3($ref['matchId'], $playerID);
+          GAAcceptConvertToBo3($ref['matchId']); // promotes when both have requested; clients poll EndGameInfo
+        } else { $result['success'] = false; $result['message'] = 'Convert to Bo3 unavailable.'; }
       } else {
         $result['success'] = false;
         $result['message'] = 'Convert to Bo3 unavailable.';
@@ -477,6 +490,15 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
           $sideboard = ($mode === 10016);
           SWURequestRematch($ref['matchId'], $playerID, $bestOf, $sideboard);
           SWUAcceptRematch($ref['matchId']); // creates the new match when both have requested
+        } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
+      } else if (($playerID === 1 || $playerID === 2) && function_exists('GAReadGameMatchRef')
+          && function_exists('GARequestRematch') && function_exists('GAAcceptRematch')) {
+        $ref = GAReadGameMatchRef();
+        if (is_array($ref)) {
+          $bestOf = (intval($inputText) === 3) ? 3 : 1;
+          $sideboard = ($mode === 10016);
+          GARequestRematch($ref['matchId'], $playerID, $bestOf, $sideboard);
+          GAAcceptRematch($ref['matchId']); // creates the new match when both have requested
         } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
       } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
       break;
@@ -707,6 +729,10 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     // SWUSim-only Bo3 match advance (function exists only when MatchFlow is loaded; no-op for other sims).
     if (function_exists('SWUAfterActionMatchHook')) {
       SWUAfterActionMatchHook($folderPath, $gameName);
+    }
+    // GrandArchiveSim-only Bo3 match advance (function exists only when MatchFlow is loaded; no-op for other sims).
+    if (function_exists('GAAfterActionMatchHook')) {
+      GAAfterActionMatchHook($folderPath, $gameName);
     }
     if (is_numeric($gameName)
         && function_exists('TouchOwnershipLastUpdated')
