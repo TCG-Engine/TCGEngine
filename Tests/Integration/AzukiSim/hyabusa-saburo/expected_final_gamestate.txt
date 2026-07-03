@@ -122,4 +122,6 @@ MAIN
 0
 {"EndTurnAbilityCalls":{"1":2,"2":2},"EndTurnAbility":{"1":{"S1-STT02-001_Shao_L_L_die":2},"2":{"S1-STT02-007_Benzai-the-Merchant_E_C_die":1,"S1-STT04-001_Zero_L_L_die":1}},"PlayCardCalls":{"2":5,"1":1},"PlayCard":{"2":{"S1-STT02-011_Bubblemancer_E_C_die":1,"S1-STT02-007_Benzai-the-Merchant_E_C_die":1,"S1-STT02-004_Rei_E_C_die":2,"S1-STT02-005_Hayabusa-Saburo_E_UC_die":1},"1":{"S1-STT04-006_Wolf-Cub_E_C_die":1}},"EnterCalls":{"2":4},"Enter":{"2":{"S1-STT02-007_Benzai-the-Merchant_E_C_die":1,"S1-STT02-004_Rei_E_C_die":2,"S1-STT02-005_Hayabusa-Saburo_E_UC_die":1}},"EnterGardenCalls":{"2":4},"EnterGarden":{"2":{"S1-STT02-007_Benzai-the-Merchant_E_C_die":1,"S1-STT02-004_Rei_E_C_die":2,"S1-STT02-005_Hayabusa-Saburo_E_UC_die":1}},"OnPlayCalls":{"2":4},"OnPlay":{"2":{"S1-STT02-007_Benzai-the-Merchant_E_C_die":1,"S1-STT02-004_Rei_E_C_die":2,"S1-STT02-005_Hayabusa-Saburo_E_UC_die":1}}}
 {"PlayCardCalls":{"2":3},"PlayCard":{"2":{"S1-STT02-004_Rei_E_C_die":2,"S1-STT02-005_Hayabusa-Saburo_E_UC_die":1}},"EnterCalls":{"2":3},"Enter":{"2":{"S1-STT02-004_Rei_E_C_die":2,"S1-STT02-005_Hayabusa-Saburo_E_UC_die":1}},"EnterGardenCalls":{"2":3},"EnterGarden":{"2":{"S1-STT02-004_Rei_E_C_die":2,"S1-STT02-005_Hayabusa-Saburo_E_UC_die":1}},"OnPlayCalls":{"2":3},"OnPlay":{"2":{"S1-STT02-004_Rei_E_C_die":2,"S1-STT02-005_Hayabusa-Saburo_E_UC_die":1}}}
+
+
 0
