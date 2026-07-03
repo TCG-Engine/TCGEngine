@@ -5934,11 +5934,13 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons) {
 
   var stats = document.createElement('div');
   stats.id = 'game-over-stats';
-  stats.style.width = 'min(1280px, 94vw)';
+  stats.style.boxSizing = 'border-box';
+  stats.style.width = 'min(1280px, calc(100vw - 96px))';
   stats.style.maxHeight = 'min(68vh, 820px)';
+  stats.style.overflowX = 'hidden';
   stats.style.overflowY = 'auto';
   stats.style.margin = '14px auto 18px';
-  stats.style.padding = '16px 18px';
+  stats.style.padding = '14px 16px';
   stats.style.borderRadius = '12px';
   stats.style.background = 'rgba(8, 15, 25, 0.65)';
   stats.style.border = '1px solid rgba(255,255,255,0.12)';
@@ -6084,6 +6086,43 @@ function _getMacroGameCardImageUrl(cardID) {
   return './' + rootPath + '/WebpImages/' + encodeURIComponent(cardID) + '.webp';
 }
 
+function _getMacroGameRootName() {
+  var rootPath = typeof window !== 'undefined' && window.rootPath ? String(window.rootPath) : './GrandArchiveSim';
+  return rootPath.replace(/^(\.\/|\/)/, '').replace(/\/.*$/, '');
+}
+
+function _getMacroGameStatsConfig() {
+  var rootName = _getMacroGameRootName();
+  if (rootName === 'AzukiSim') {
+    return {
+      damageTitle: 'Leader Damage Dealt',
+      damageBuckets: ['OpponentLeaderDamage'],
+      damageTimelineBuckets: ['OpponentLeaderDamageTimeline'],
+      columns: [
+        { key: 'play', label: 'Played', cardBuckets: ['PlayCard', 'OnPlay'] },
+        { key: 'enter', label: 'Entered', cardBuckets: ['Enter', 'EnterGarden'] },
+        { key: 'gate', label: 'Gates', cardBuckets: ['UseGate'] },
+        { key: 'ability', label: 'Abilities', cardBuckets: ['ActivateAbility', 'CardActivated'] },
+        { key: 'attack', label: 'Attacks', cardBuckets: ['AttackWith', 'AfterAttacking'] },
+        { key: 'defense', label: 'Defended', cardBuckets: ['WhenAttacked', 'DamageTaken'] },
+        { key: 'damage', label: 'Damage', cardBuckets: ['OpponentLeaderDamageSources'] }
+      ]
+    };
+  }
+  return {
+    damageTitle: 'Damage Dealt',
+    damageBuckets: ['OpponentChampionDamage'],
+    damageTimelineBuckets: ['OpponentChampionDamageTimeline'],
+    columns: [
+      { key: 'reserve', label: 'Reserved', cardBuckets: ['ReserveCardCommitted'] },
+      { key: 'play', label: 'Played', cardBuckets: ['ActivateCard', 'PlayCard'] },
+      { key: 'ability', label: 'Abilities', cardBuckets: ['ActivateAbility', 'HandActivatedAbility'] },
+      { key: 'attack', label: 'Attacks', cardBuckets: ['OnAttack', 'AttackWith'] },
+      { key: 'damage', label: 'Damage', cardBuckets: ['OpponentChampionDamageSources'] }
+    ]
+  };
+}
+
 function ShowMacroGameCardPreview(event, cardID) {
   if (!cardID || typeof ShowDetail !== 'function') return;
   ShowDetail(event, _getMacroGameCardImageUrl(cardID));
@@ -6218,10 +6257,10 @@ function _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir) {
     }
     columnSummaries += ''
       + '<button type="button" onclick="SortMacroGameMatrix(this, \'' + _escapeMacroGameHtml(columns[i].key) + '\'); return false;"'
-      + ' style="display:flex; align-items:center; justify-content:space-between; gap:6px; padding:7px 9px; border-radius:10px;'
+      + ' style="display:flex; flex:1 1 94px; min-width:0; align-items:center; justify-content:space-between; gap:6px; padding:7px 9px; border-radius:10px;'
       + ' background:rgba(255,255,255,0.03); border:1px solid ' + (sortKey === columns[i].key ? 'rgba(201,168,76,0.28)' : 'rgba(240,230,200,0.08)') + ';'
       + ' color:#f5ecd2; cursor:pointer;">'
-      + '<span style="font-size:11px; font-weight:700; color:#f5ecd2;">' + _escapeMacroGameHtml(columns[i].label) + '</span>'
+      + '<span style="min-width:0; font-size:11px; font-weight:700; color:#f5ecd2; white-space:normal; line-height:1.1;">' + _escapeMacroGameHtml(columns[i].label) + '</span>'
       + '<span style="display:flex; align-items:center; gap:6px;">'
       + '<span style="padding:2px 6px; border-radius:999px; background:rgba(68,103,163,0.24); border:1px solid rgba(126,164,232,0.22); color:#dce8ff; font-size:10px; font-weight:700;">' + total + '</span>'
       + '<span style="font-size:11px; color:rgba(220,232,255,0.78);">' + _formatMacroGameSortIndicator(sortKey === columns[i].key, sortDir) + '</span>'
@@ -6235,7 +6274,6 @@ function _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir) {
     + ' font-size:10px; font-weight:800; letter-spacing:0.05em; text-transform:uppercase; color:rgba(220,232,255,0.72);'
     + ' background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">'
     + '<span>Card</span><span style="font-size:11px;">' + _formatMacroGameSortIndicator(sortKey === 'card', sortDir) + '</span></button>';
-  headerHtml += '<button type="button" onclick="SortMacroGameMatrix(this, \'total\'); return false;" style="padding:10px 4px; text-align:center; font-size:10px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:rgba(220,232,255,0.78); background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">Total ' + _formatMacroGameSortIndicator(sortKey === 'total', sortDir) + '</button>';
   for (var h = 0; h < columns.length; ++h) {
     headerHtml += '<button type="button" onclick="SortMacroGameMatrix(this, \'' + _escapeMacroGameHtml(columns[h].key) + '\'); return false;" style="padding:10px 4px; text-align:center; font-size:10px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:rgba(220,232,255,0.78); background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.07); cursor:pointer;">' + _escapeMacroGameHtml(columns[h].label) + ' ' + _formatMacroGameSortIndicator(sortKey === columns[h].key, sortDir) + '</button>';
   }
@@ -6252,7 +6290,6 @@ function _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir) {
       + ' style="display:block; min-width:0; padding:8px 8px; border-radius:10px; color:#f7f0d8; text-decoration:none; transition:background 120ms ease;">'
       + '<span style="display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:12px; font-weight:700;">' + _escapeMacroGameHtml(_getMacroGameCardName(rowEntry.cardID)) + '</span>'
       + '</a>';
-    bodyHtml += '<div style="display:flex; align-items:center; justify-content:center; padding:6px 4px;"><span style="min-width:24px; padding:2px 7px; border-radius:999px; background:rgba(68,103,163,0.16); border:1px solid rgba(126,164,232,0.18); color:#dce8ff; font-size:10px; font-weight:800; text-align:center;">' + (parseInt(rowEntry.total, 10) || 0) + '</span></div>';
     for (var c = 0; c < columns.length; ++c) {
       var value = parseInt(rowEntry.values[columns[c].key] || 0, 10) || 0;
       bodyHtml += ''
@@ -6265,16 +6302,16 @@ function _renderMacroGameMatrixInner(rows, columns, sortKey, sortDir) {
   }
 
   return ''
-    + '<div style="display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-bottom:12px;">'
+    + '<div style="display:flex; align-items:flex-end; justify-content:space-between; gap:10px; margin-bottom:10px;">'
     + '<div>'
     + '<div style="font-size:15px; font-weight:800; letter-spacing:0.01em; color:#fff1c6;">Card Activity Matrix</div>'
     + '<div style="margin-top:3px; font-size:12px; color:rgba(220,232,255,0.72);">Click any column to sort.</div>'
     + '</div>'
-    + '<div style="font-size:12px; color:rgba(220,232,255,0.66);">' + rows.length + ' cards tracked</div>'
+    + '<div style="flex:0 0 auto; font-size:12px; color:rgba(220,232,255,0.66);">' + rows.length + ' cards tracked</div>'
     + '</div>'
-    + '<div style="display:grid; grid-template-columns:repeat(' + columns.length + ', minmax(104px, 1fr)); gap:8px; margin-bottom:12px;">' + columnSummaries + '</div>'
-    + '<div style="overflow:auto; border-radius:14px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">'
-    + '<div style="display:grid; grid-template-columns:minmax(188px, 1.9fr) minmax(58px, 0.58fr) repeat(' + columns.length + ', minmax(58px, 0.64fr)); align-items:center; min-width:' + (248 + columns.length * 62) + 'px;">'
+    + '<div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:10px; min-width:0;">' + columnSummaries + '</div>'
+    + '<div style="overflow-x:auto; overflow-y:hidden; border-radius:14px; border:1px solid rgba(255,255,255,0.07); background:rgba(255,255,255,0.02);">'
+    + '<div style="display:grid; grid-template-columns:minmax(172px, 1.8fr) repeat(' + columns.length + ', minmax(54px, 0.62fr)); align-items:center; min-width:' + (172 + columns.length * 58) + 'px;">'
     + headerHtml
     + bodyHtml
     + '</div>'
@@ -6318,7 +6355,7 @@ function _formatMacroGameMatrix(playerID, indexData, columns) {
   var rowsJson = _escapeMacroGameHtml(JSON.stringify(rows));
   var columnsJson = _escapeMacroGameHtml(JSON.stringify(columns));
   return ''
-    + '<section style="margin:0; padding:14px 14px 12px; border-radius:16px; min-width:0;'
+    + '<section style="margin:0; padding:12px 12px 10px; border-radius:16px; min-width:0; max-width:100%; overflow:hidden;'
     + ' background:linear-gradient(180deg, rgba(15,24,39,0.92), rgba(9,15,26,0.88));'
     + ' border:1px solid rgba(201,168,76,0.16); box-shadow:inset 0 1px 0 rgba(255,255,255,0.04);"'
     + ' data-macro-game-matrix-root="1" data-rows="' + rowsJson + '" data-columns="' + columnsJson + '"'
@@ -6528,7 +6565,7 @@ function _formatMacroGameDamageChart(title, totalDamage, timelinePoints) {
   var timelineJson = _escapeMacroGameHtml(JSON.stringify(timelinePoints));
 
   return ''
-    + '<section style="margin:0; padding:12px 12px 10px; border-radius:16px; min-width:0;'
+    + '<section style="margin:0; padding:12px 12px 10px; border-radius:16px; min-width:0; max-width:100%; overflow:hidden;'
     + ' background:linear-gradient(180deg, rgba(20,29,45,0.96), rgba(10,16,27,0.92));'
     + ' border:1px solid rgba(201,168,76,0.18); box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);">'
     + '<div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;">'
@@ -6537,8 +6574,8 @@ function _formatMacroGameDamageChart(title, totalDamage, timelinePoints) {
     + '</div>'
     + '<div style="flex:0 0 auto; padding:5px 10px; border-radius:999px; background:rgba(201,168,76,0.18); border:1px solid rgba(201,168,76,0.28); color:#ffe09b; font-size:12px; font-weight:800;">' + totalDamage + '</div>'
     + '</div>'
-    + '<div data-macro-game-chart="damage" data-timeline="' + timelineJson + '" style="min-width:0; padding:10px 10px 8px; border-radius:14px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);">'
-    + '<div style="position:relative; height:220px;">'
+    + '<div data-macro-game-chart="damage" data-timeline="' + timelineJson + '" style="min-width:0; padding:8px 8px 6px; border-radius:14px; background:rgba(255,255,255,0.025); border:1px solid rgba(255,255,255,0.07);">'
+    + '<div style="position:relative; height:190px;">'
     + '<canvas aria-label="Damage dealt chart"></canvas>'
     + '</div>'
     + '</div>'
@@ -6557,25 +6594,19 @@ function _collectMacroGameBucketTotal(bucketCounts) {
 function BuildMacroGameStatsHtml(playerID) {
   if (typeof window === 'undefined' || !window.MacroGameIndexData) return '';
   var indexData = _parseMacroGameIndex(window.MacroGameIndexData);
-  var matrixColumns = [
-    { key: 'reserve', label: 'Reserved', cardBuckets: ['ReserveCardCommitted'] },
-    { key: 'play', label: 'Played', cardBuckets: ['ActivateCard', 'PlayCard'] },
-    { key: 'ability', label: 'Abilities', cardBuckets: ['ActivateAbility', 'HandActivatedAbility'] },
-    { key: 'attack', label: 'Attacks', cardBuckets: ['OnAttack', 'AttackWith'] },
-    { key: 'damage', label: 'Damage', cardBuckets: ['OpponentChampionDamageSources'] }
-  ];
-  var damageTimeline = _collectMacroGameTimeline(indexData, playerID, ['OpponentChampionDamageTimeline']);
-  var damageTotal = _collectMacroGameNumericBuckets(indexData, playerID, ['OpponentChampionDamage']);
-  var damageHtml = _formatMacroGameDamageChart('Damage Dealt', damageTotal, damageTimeline);
-  var matrixHtml = _formatMacroGameMatrix(playerID, indexData, matrixColumns);
+  var statsConfig = _getMacroGameStatsConfig();
+  var damageTimeline = _collectMacroGameTimeline(indexData, playerID, statsConfig.damageTimelineBuckets);
+  var damageTotal = _collectMacroGameNumericBuckets(indexData, playerID, statsConfig.damageBuckets);
+  var damageHtml = _formatMacroGameDamageChart(statsConfig.damageTitle, damageTotal, damageTimeline);
+  var matrixHtml = _formatMacroGameMatrix(playerID, indexData, statsConfig.columns);
   if (!damageHtml && !matrixHtml) return '';
 
   var layoutHtml = '';
   if (damageHtml && matrixHtml) {
     layoutHtml = ''
       + '<div class="macro-game-stats-grid">'
-      + '<div class="macro-game-stats-grid-chart">' + damageHtml + '</div>'
-      + '<div class="macro-game-stats-grid-matrix">' + matrixHtml + '</div>'
+      + '<div class="macro-game-stats-grid-chart" style="min-width:0;">' + damageHtml + '</div>'
+      + '<div class="macro-game-stats-grid-matrix" style="min-width:0;">' + matrixHtml + '</div>'
       + '</div>';
   } else {
     layoutHtml = damageHtml || matrixHtml;
@@ -6585,7 +6616,11 @@ function BuildMacroGameStatsHtml(playerID) {
     + '<div style="margin-bottom:10px;">'
     + '<div style="font-size:18px; font-weight:800; letter-spacing:0.02em; color:#fff4cf;">Game Stats</div>'
     + '</div>'
-    + '<div style="display:flex; flex-direction:column; gap:12px;">' + layoutHtml + '</div>';
+    + '<style>'
+    + '#game-over-stats .macro-game-stats-grid{display:grid;grid-template-columns:minmax(300px,0.4fr) minmax(0,1fr);gap:12px;align-items:start;min-width:0;}'
+    + '@media (max-width: 980px){#game-over-stats .macro-game-stats-grid{grid-template-columns:minmax(0,1fr);}}'
+    + '</style>'
+    + '<div style="display:flex; flex-direction:column; gap:12px; min-width:0; max-width:100%; overflow:hidden;">' + layoutHtml + '</div>';
 }
 
 function GetCookieValue(cookieName) {

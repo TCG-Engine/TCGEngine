@@ -711,6 +711,57 @@ function RecordDamageSourceOnObject(&$obj, $sourceKey) {
     AddUniqueTurnEffect($obj, 'DMG_SRC:' . $normalized);
 }
 
+function ResolveDamageSourceInfoForStats($sourceKey) {
+    $normalized = NormalizeDamageSourceKey($sourceKey);
+    $empty = ['cardID' => '', 'controller' => 0];
+    if($normalized === '') return $empty;
+
+    $candidates = [$normalized];
+    $colonPos = strrpos($normalized, ':');
+    if($colonPos !== false) {
+        $candidates[] = substr($normalized, $colonPos + 1);
+    }
+
+    foreach($candidates as $candidate) {
+        if(!is_string($candidate) || $candidate === '') continue;
+        $sourceObj = GetZoneObject($candidate);
+        if($sourceObj !== null && !(isset($sourceObj->removed) && $sourceObj->removed)) {
+            return [
+                'cardID' => strval($sourceObj->CardID ?? ''),
+                'controller' => intval($sourceObj->Controller ?? $sourceObj->Owner ?? 0)
+            ];
+        }
+    }
+
+    $sourceCardID = DecisionQueueController::GetVariable('mzIDCardID');
+    return [
+        'cardID' => is_string($sourceCardID) ? $sourceCardID : '',
+        'controller' => 0
+    ];
+}
+
+function TrackMacroGameOpponentLeaderDamage($targetPlayer, $amount, $sourceKey) {
+    $amount = intval($amount);
+    if($amount <= 0 || !function_exists('IncrementMacroGameIndexCount')) return;
+
+    $targetPlayer = intval($targetPlayer);
+    if($targetPlayer !== 1 && $targetPlayer !== 2) return;
+
+    $sourceInfo = ResolveDamageSourceInfoForStats($sourceKey);
+    $sourcePlayer = intval($sourceInfo['controller'] ?? 0);
+    if($sourcePlayer === $targetPlayer) return;
+    if($sourcePlayer !== 1 && $sourcePlayer !== 2) {
+        $sourcePlayer = $targetPlayer === 1 ? 2 : 1;
+    }
+    $sourceCardID = strval($sourceInfo['cardID'] ?? '');
+
+    IncrementMacroGameIndexCount('OpponentLeaderDamage', $sourcePlayer, $amount);
+    IncrementMacroGameIndexTimeline('OpponentLeaderDamageTimeline', $sourcePlayer, GetTurnNumber(), $amount);
+    if($sourceCardID !== '') {
+        IncrementMacroGameIndexBucket('OpponentLeaderDamageSources', $sourcePlayer, $sourceCardID, $amount);
+    }
+}
+
 function CountDamageSourcesOnObject($obj) {
     if(!is_object($obj) || !isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return 0;
     $count = 0;
@@ -1773,7 +1824,7 @@ function QueueLeaderRestoreAnimation($player, $amount) {
     QueueRestoreAnimation(intval($player) === 1 ? 'P1BASE' : 'P2BASE', intval($amount), 500, true);
 }
 
-function DealDamageToLeader($player, $amount, $sourceKey = null) {
+function DealDamageToLeader($player, $amount, $sourceKey = null, $statsSourceKey = null) {
     $amount = max(0, intval($amount));
     if($amount <= 0) return;
 
@@ -1785,7 +1836,10 @@ function DealDamageToLeader($player, $amount, $sourceKey = null) {
     if($leaderObj === null || (isset($leaderObj->removed) && $leaderObj->removed)) return;
 
     $leaderObj->Damage = intval($leaderObj->Damage ?? 0) + $amount;
-    RecordDamageSourceOnObject($leaderObj, ResolveDamageSourceKey($player, $sourceKey));
+    $resolvedSourceKey = ResolveDamageSourceKey($player, $sourceKey);
+    RecordDamageSourceOnObject($leaderObj, $resolvedSourceKey);
+    $resolvedStatsSourceKey = is_string($statsSourceKey) && $statsSourceKey !== '' ? NormalizeDamageSourceKey($statsSourceKey) : $resolvedSourceKey;
+    TrackMacroGameOpponentLeaderDamage($player, $amount, $resolvedStatsSourceKey);
     QueueLeaderDamageAnimation($player, $amount);
 
     if(LeaderCurrentHealth($player) <= 0) {
@@ -4131,7 +4185,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         if($targetIsLeader) {
             $combatDamage = max(0, $attackerAttack - LeaderCombatDamageReduction($opponent));
             if($combatDamage > 0) {
-                DealDamageToLeader($opponent, $combatDamage);
+                DealDamageToLeader($opponent, $combatDamage, null, 'COMBAT:' . NormalizeDamageSourceKey($mzCard));
                 TriggerEquippedWeaponOnCombatDamage($player, $attackerObj, $targetZone, $targetIndex, $combatDamage);
             }
         } else {
@@ -4160,7 +4214,7 @@ function ResolveAttackCombat($player, $mzCard, $targetMZ) {
         if($attackerIsLeader) {
             $combatDamage = max(0, $defenderAttack - LeaderCombatDamageReduction($player));
             if($combatDamage > 0) {
-                DealDamageToLeader($player, $combatDamage);
+                DealDamageToLeader($player, $combatDamage, null, 'COMBAT:' . NormalizeDamageSourceKey($targetZone . '-' . $targetIndex));
             }
         } else {
             $myGarden = &GetGarden($player);
