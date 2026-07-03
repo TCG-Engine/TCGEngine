@@ -106,8 +106,7 @@ $myB = baseInfo(1);   $thB = baseInfo(2);
 foreach ([1 => ['P1', $myL], 2 => ['P2', $thL]] as [$tagW, $L]) {
     if (!$L || !$L['deployed']) continue;
     if ($L['index'] < 0)          $warnings[] = "{$tagW} leader {$L['cid']} is DEPLOYED but its unit couldn't be located (DeployedUniqueID mismatch) — verify manually.";
-    if ($L['unitHasUpgrades'])    $warnings[] = "{$tagW} deployed leader {$L['cid']} has upgrade(s) on its unit — regular deploy can't attach those; add a WithP{n}GroundArenaUpgrade for its index by hand.";
-    else                          $warnings[] = "{$tagW} leader {$L['cid']} is DEPLOYED — reconstructed via regular deploy (myLeader:…:deployed) + indexOverride; verify the leader-unit flip side.";
+    $warnings[] = "{$tagW} leader {$L['cid']} is DEPLOYED — reconstructed via regular deploy (myLeader:…:deployed) + indexOverride; verify the leader-unit flip side." . ($L['unitHasUpgrades'] ? " Its upgrade(s) are emitted as WithP{n}GroundArenaUpgrade at the leader's FINAL arena index." : "");
 }
 
 // Build the {opts} for one side. A deployed leader uses the inline "CID:ready:deployed:epicUsed:damage"
@@ -174,25 +173,29 @@ $skipUID = [1 => (($myL['deployed'] ?? false) ? intval($myL['unitUID']) : -999),
             2 => (($thL['deployed'] ?? false) ? intval($thL['unitUID']) : -999)];
 foreach ([1 => 'P1', 2 => 'P2'] as $p => $tag) {
     foreach (['Ground' => GetGroundArena($p), 'Space' => GetSpaceArena($p)] as $arena => $units) {
-        $unitSpecs = []; $upgradeSpecs = []; $bidx = 0;
+        $unitSpecs = []; $upgradeSpecs = []; $finalIdx = 0;
         foreach ($units as $u) {
             if ($u === null || !empty($u->removed)) continue;
-            if (intval($u->UniqueID ?? -1) === $skipUID[$p]) continue; // deployed leader — emitted via myLeader
-            $ready = (intval($u->Status ?? 1) === 1) ? 1 : 0;
-            $dmg   = max(0, intval($u->Damage ?? 0));
-            // Active TurnEffects (4th spec field): keep the player-facing ones, drop SWU_-prefixed
-            // backend bookkeeping (cost/phase trackers), matching what the Active Effects UI shows.
-            $effs = array_values(array_filter(($u->TurnEffects ?? []), fn($e) => strpos((string)$e, 'SWU_') !== 0));
-            $effField = !empty($effs) ? ':' . implode('~', $effs) : '';
-            $unitSpecs[] = "{$u->CardID}:{$ready}:{$dmg}{$effField}";
-            // Upgrades ride as Subcards (type Upgrade); index is bracket-relative (leader excluded).
+            $isLeaderUnit = (intval($u->UniqueID ?? -1) === $skipUID[$p]); // deployed leader — arena spec via myLeader
+            // Upgrades ride as Subcards (type Upgrade); index is the FINAL arena index (advances for EVERY
+            // live unit incl. the deployed leader), so WithP{n}ArenaUpgrade addresses the same slot the DSL
+            // reconstructs — including the leader's own upgrades (the DSL attaches them at the splice).
             foreach (($u->Subcards ?? []) as $sub) {
                 $subCid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
                 if ($subCid === '') continue;
                 if (strpos(CardType($subCid) ?? '', 'Upgrade') === false) continue; // captives/other subcards aren't upgrades
-                $upgradeSpecs[] = "{$bidx}:{$subCid}";
+                $upgradeSpecs[] = "{$finalIdx}:{$subCid}";
             }
-            $bidx++;
+            if (!$isLeaderUnit) {
+                $ready = (intval($u->Status ?? 1) === 1) ? 1 : 0;
+                $dmg   = max(0, intval($u->Damage ?? 0));
+                // Active TurnEffects (4th spec field): keep the player-facing ones, drop SWU_-prefixed
+                // backend bookkeeping (cost/phase trackers), matching what the Active Effects UI shows.
+                $effs = array_values(array_filter(($u->TurnEffects ?? []), fn($e) => strpos((string)$e, 'SWU_') !== 0));
+                $effField = !empty($effs) ? ':' . implode('~', $effs) : '';
+                $unitSpecs[] = "{$u->CardID}:{$ready}:{$dmg}{$effField}";
+            }
+            $finalIdx++; // advance for EVERY unit (incl. the leader) so upgrade indices are FINAL-arena
         }
         if (!empty($unitSpecs))    $lines[] = "With{$tag}{$arena}Arena: [" . implode(' ', $unitSpecs) . "]";
         if (!empty($upgradeSpecs)) $lines[] = "With{$tag}{$arena}ArenaUpgrade: [" . implode(' ', $upgradeSpecs) . "]";

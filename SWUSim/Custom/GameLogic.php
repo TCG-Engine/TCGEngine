@@ -1362,12 +1362,14 @@ function SWUImmuneToHpDefeat($obj): bool {
 
 // LOF_220 — consume a one-shot "prevent 2 of the next damage" marker on $obj (if present) and return the
 // reduced amount. Called at every damage instance (combat + effect) so whichever lands first consumes it.
-function _SWUApplyDamagePrevention($obj, int $amount): int {
+// $peek=true computes the post-prevention amount WITHOUT consuming any one-shot marker (LOF_220's
+// PREVENT_DMG_2) or spending SEC_067's once-per-phase — used to decide shield-vs-reduction ordering.
+function _SWUApplyDamagePrevention($obj, int $amount, bool $peek = false): int {
     if ($obj === null || $amount <= 0) return $amount;
     // LOF_220 one-shot "prevent 2 of the next damage" marker (combat or effect).
     if (is_array($obj->TurnEffects ?? null)) {
         $idx = array_search('PREVENT_DMG_2', $obj->TurnEffects, true);
-        if ($idx !== false) { array_splice($obj->TurnEffects, $idx, 1); $amount = max(0, $amount - 2); }
+        if ($idx !== false) { if (!$peek) array_splice($obj->TurnEffects, $idx, 1); $amount = max(0, $amount - 2); }
     }
     if ($amount <= 0) return 0;
     $ctrl = intval($obj->Controller ?? 0);
@@ -1376,7 +1378,7 @@ function _SWUApplyDamagePrevention($obj, int $amount): int {
     // that damage." Per-unit per-phase flag; cleared at RegroupPhaseStart.
     if (($obj->CardID ?? '') === 'SEC_067' && $ctrl > 0
             && GlobalEffectCount($ctrl, 'SWU_SEC067_USED_' . $uid) <= 0) {
-        AddGlobalEffects($ctrl, 'SWU_SEC067_USED_' . $uid);
+        if (!$peek) AddGlobalEffects($ctrl, 'SWU_SEC067_USED_' . $uid);
         return 0;
     }
     // SEC_050 Vigil — "If damage would be dealt to THIS unit by another card, deal that much +1 instead."
