@@ -6233,6 +6233,7 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
             DecisionQueueController::CleanupRemovedCards();
             break;
         case "qzzadf9q1v": // Powercell: sacrifice self to graveyard
+            DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard|$mzCard", 100);
             OnLeaveField($player, $mzCard);
             MZMove($player, $mzCard, "myGraveyard");
             DecisionQueueController::CleanupRemovedCards();
@@ -11875,6 +11876,9 @@ function ObjectCurrentPower($obj) {
             case "qzzadf9q1v-2": // Powercell: +1 POWER until end of turn (stacks to +2)
                 $power += 1;
                 break;
+            case "qzzadf9q1v-POWER": // Powercell: +1 POWER per stack until end of turn
+                $power += 1;
+                break;
             case "ln926ymxdc": // Fraternal Garrison: +1 POWER until end of turn (from ally entering)
                 $power += 1;
                 break;
@@ -16491,7 +16495,7 @@ function AddTurnEffect($mzCard, $effectID) {
             }
         }
     }
-    $isStackingEffect = strpos($effectID, "RANGED_") === 0;
+    $isStackingEffect = strpos($effectID, "RANGED_") === 0 || $effectID === "qzzadf9q1v-POWER";
     if($isStackingEffect || !in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
     }
