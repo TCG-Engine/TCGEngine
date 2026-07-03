@@ -1273,6 +1273,24 @@ function NormalizeCardPunctuation($value)
   return strtr($value, $map);
 }
 
+function NormalizeGrandArchiveSpeed($value)
+{
+  if($value === null || $value === "") return -1;
+  if(is_bool($value)) return $value;
+  if(is_numeric($value)) {
+    $number = (int)$value;
+    if($number === 1) return true;
+    if($number === 0) return false;
+    if($number === -1) return -1;
+  }
+
+  $speed = strtoupper(trim((string)$value));
+  if(in_array($speed, ["FAST", "TRUE", "YES", "1"], true)) return true;
+  if(in_array($speed, ["SLOW", "FALSE", "NO", "0"], true)) return false;
+  if(in_array($speed, ["UNDEFINED", "UNKNOWN", "NONE", "NULL", "-1"], true)) return -1;
+  return -1;
+}
+
 function GetPropertyValue($card, $property)
 {
   global $rootName;
@@ -1406,8 +1424,9 @@ function GetPropertyValue($card, $property)
         case "power":
         case "life":
         case "durability":
-        case "speed":
           return isset($card->$property) && $card->$property !== null ? $card->$property : -1;
+        case "speed":
+          return NormalizeGrandArchiveSpeed($card->$property ?? null);
         case "set":
           if(isset($card->editions) && isset($card->editions[0]->set) && isset($card->editions[0]->set->prefix)) return $card->editions[0]->set->prefix;
           return isset($card->set) ? $card->set : "";
