@@ -25,6 +25,10 @@
   echo("<body style='margin:0px; scroll: none;'>");
   $skipInitialize = true;
   $playerID = 1;//To fix php errors
+  // We only want InitialLayout's toolbar chrome here — not the deck-builder board, which
+  // would overlay (#swuDeckBoard z-index:11) the stats injected into #myStuff and block all
+  // clicks/scroll. GameLayout.php honors this flag and skips the board on the stats page.
+  $suppressDeckBoard = true;
   include_once './InitialLayout.php';
 
   echo("</body>");

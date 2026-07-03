@@ -8,6 +8,13 @@
 // baked inline in NextTurnRender.php, so desktop rendering is unchanged.
 require_once __DIR__ . '/GameLayoutDevice.php';
 
+// DeckStats.php reuses InitialLayout.php purely for the toolbar chrome; it injects its
+// stats into #myStuff and does NOT want the deck-builder board. Rendering the board here
+// would lay #swuDeckBoard (position:absolute; inset:0; z-index:11) over the stats content
+// (#myStuff wrapper is z-index:10) — a transparent overlay that swallows every click and
+// wheel/scroll event, making the whole stats page feel frozen. Bail before emitting anything.
+if (!empty($suppressDeckBoard)) return;
+
 // Signal the shared UILibraries to skip its legacy MobileDeckEditorLayout() JS reflow:
 // SWUDeck now lays itself out natively per-device in PHP, so the reflow would fight it.
 echo("<script>window.SWUDeckSlotLayout = true;</script>");
