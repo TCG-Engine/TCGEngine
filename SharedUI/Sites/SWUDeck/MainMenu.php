@@ -125,6 +125,42 @@ include_once __DIR__ . '/MobileViewport.php';
 .tab-button.active { color: #fff !important; }
 .tab-button.active::before { background: rgba(180,228,255,1) !important; }
 .tab-button.active::after  { background: rgba(30,64,104,0.96) !important; }
+/* Partner (Patreon) tabs: every image tab gets the SAME width so no creator's button
+   reads as bigger. Kept narrower than the "My Decks" tab (~92px) so that stays the widest;
+   the widest logo (KTOD) scales down via max-width to fit. "My Decks" is text-only, so
+   :has(img) leaves it untouched. */
+.tab-button:has(img) {
+  width: 72px !important;
+  box-sizing: border-box !important;
+  padding-left: 4px !important; padding-right: 4px !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+}
+.tab-button:has(img) img { max-width: 100% !important; }
+/* Vertical separator between "My Decks" (the text tab) and the partner-button cluster —
+   a thin cyan HUD tick that fades out top and bottom, with a soft glow. Doesn't stretch
+   or wrap oddly (flex: 0 0 auto), stays vertically centered with the buttons. */
+.tab-divider {
+  /* inline-block so width/height apply when the row is a plain inline row (desktop);
+     flex props kick in when .tab-buttons is a flex container (mobile). */
+  display: inline-block !important; vertical-align: middle !important;
+  flex: 0 0 2px !important;
+  align-self: center !important;
+  width: 2px !important; min-width: 2px !important; height: 24px !important; margin: 0 8px !important;
+  background: linear-gradient(to bottom,
+    rgba(140,210,255,0) 0%, rgba(140,210,255,0.75) 22%,
+    rgba(140,210,255,0.75) 78%, rgba(140,210,255,0) 100%);
+  box-shadow: 0 0 6px rgba(120,200,255,0.5);
+  border-radius: 1px;
+}
+/* Mobile: don't let the partner tabs stretch to fill the row (mobile-responsive.css sets
+   flex: 1 1 auto). Pin them to their fixed width and pack from the left so the trailing
+   empty space reads as "more creators can be added here". My Decks (text tab) stays natural
+   width and remains the widest. */
+@media (max-width: 768px) {
+  .tab-buttons { justify-content: flex-start !important; }
+  .tab-button:has(img) { flex: 0 0 72px !important; width: 72px !important; }
+  .tab-button:not(:has(img)) { flex: 0 0 auto !important; }
+}
 /* Mobile "more" button: square chamfer instead of the round pill */
 .deck-more-btn { border-radius: 0 !important; width: 34px !important; height: 30px !important; box-shadow: none !important;
   line-height: 1 !important; padding: 0 0 5px 0 !important; /* nudge the ⋮ glyph up to visual center */ }
@@ -833,6 +869,7 @@ function LoadDecks() {
         <div class="login container bg-black">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
             <div class="tab-buttons">              <button class="tab-button active" onclick="switchTab('tab-decks', event)">My Decks</button>
+              <span class="tab-divider" aria-hidden="true"></span>
               <?php
               $isKTODPatron = IsPatron("11987758");
               $isRebelResourcePatron = IsPatron("12716027");

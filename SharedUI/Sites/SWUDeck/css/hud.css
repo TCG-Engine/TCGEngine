@@ -221,3 +221,21 @@ input[type="submit"], input[type="button"], input[type="reset"] {
   border-color: rgba(160,215,255,0.85) !important;
   box-shadow: 0 0 6px rgba(120,200,255,0.35) !important;
 }
+
+/* ---- Home header — "SWU STATS" title + tagline, HUD glow. The title keeps its light
+   weight but gains a cyan targeting-HUD glow + tracking; the tagline picks up a matching
+   cyan tint + softer glow. (menuStyles.css already uppercases h1 and sets the font.) ---- */
+.home-header .title h1,
+.home-header h1 {
+  color: #eaf7ff !important;
+  letter-spacing: 0.06em !important;
+  text-shadow:
+    0 0 8px rgba(140,210,255,0.55),
+    0 0 22px rgba(120,200,255,0.35),
+    0 0 46px rgba(90,170,240,0.22) !important;
+}
+.home-header .title p {
+  color: rgba(170,212,246,0.95) !important;
+  letter-spacing: 0.10em !important;
+  text-shadow: 0 0 8px rgba(120,200,255,0.30) !important;
+}
