@@ -44,15 +44,9 @@ SetPhaseParameters("-");
 
 // Draw 7 cards for each player at game start
 for ($p = 1; $p <= 2; ++$p) {
-    $hand = &GetHand($p);
-    $deck = &GetDeck($p);
-    for ($i = 0; $i < 7; ++$i) {
-        if (!empty($deck)) {
-            $card = array_shift($deck);
-            array_push($hand, $card);
-        }
-    }
+    DrawOpeningHand($p);
 }
+QueueOpeningMulligans();
 
 // Set up starting resources
 // Player 1 gets 1 IKZ (player 2 draws on their first turn)
@@ -62,7 +56,7 @@ GainIKZ(1, 1);
 GainIKZ(2, 1);
 DecisionQueueController::StoreVariable('P2_StartingIKZTokenPending', '1');
 
-// Advance to Main phase to start the game
+// Advance to Main phase after both opening mulligan decisions resolve.
 AdvanceAndExecute("PASS");
 AutoAdvanceAndExecute();
 

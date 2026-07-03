@@ -2669,6 +2669,62 @@ function DoDrawCard($player, $amount) {
     return 'DRAW';
 }
 
+function DrawOpeningHand($player, $amount = 7) {
+    DoDrawCard(intval($player), $amount);
+}
+
+function ResolveOpeningMulligan($player) {
+    $player = intval($player);
+    if($player !== 1 && $player !== 2) return;
+
+    $usedVar = 'P' . $player . '_OpeningMulliganUsed';
+    if(DecisionQueueController::GetVariable($usedVar) === '1') return;
+
+    $hand = &GetHand($player);
+    $deck = &GetDeck($player);
+
+    $bottomCards = [];
+    for($i = 0; $i < count($hand); ++$i) {
+        if(isset($hand[$i]->removed) && $hand[$i]->removed) continue;
+        $cardID = $hand[$i]->CardID ?? '';
+        if($cardID === '') continue;
+        $bottomCards[] = new Deck($cardID, 'Deck', $player, count($deck) + count($bottomCards));
+    }
+
+    $hand = [];
+    foreach($bottomCards as $card) {
+        $deck[] = $card;
+    }
+
+    DrawOpeningHand($player, 7);
+    EngineShuffle($deck);
+    DecisionQueueController::StoreVariable($usedVar, '1');
+}
+
+function QueueOpeningMulliganDecision($player) {
+    $player = intval($player);
+    if($player !== 1 && $player !== 2) return;
+    if(DecisionQueueController::GetVariable('P' . $player . '_OpeningMulliganOffered') === '1') return;
+
+    DecisionQueueController::StoreVariable('P' . $player . '_OpeningMulliganOffered', '1');
+    DecisionQueueController::AddDecision($player, 'YESNO', '-', 0, 'Mulligan:_place_your_hand_on_bottom,_draw_7,_then_shuffle?');
+    DecisionQueueController::AddDecision($player, 'CUSTOM', 'OPENING_MULLIGAN', 0, '', 1);
+}
+
+function QueueOpeningMulligans() {
+    QueueOpeningMulliganDecision(1);
+}
+
+$customDQHandlers['OPENING_MULLIGAN'] = function($player, $parts, $lastDecision) {
+    if($lastDecision === 'YES') {
+        ResolveOpeningMulligan($player);
+    }
+
+    if(intval($player) === 1) {
+        QueueOpeningMulliganDecision(2);
+    }
+};
+
 $customDQHandlers['TidalInsightReveal'] = function($player, $parts, $lastDecision) {
     if(is_string($lastDecision) && $lastDecision !== '' && $lastDecision !== '-') {
         MZMove($player, $lastDecision, 'myHand');
