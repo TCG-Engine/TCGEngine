@@ -5726,7 +5726,8 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'LAW_201': Law201Trigger($player, $mzID); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break;   // Thermal Detonator — if host was ready, 2 to each enemy ground unit (granted WD; Thrawn-reusable)
         case 'LAW_007': Law007Trigger($player); break;          // Boba Fett (leader form) — may exhaust → Credit
         case 'LAW_046': Law046Trigger($player, $mzID); break;   // Chirrut — may heal 4 from another unit
-        case 'ASH_005': Ash005Trigger($player, $mzID); break;   // Luke — may exhaust → heal 1 from the attacker
+        case 'ASH_005': Ash005Trigger($player, $mzID); break;   // Luke (undeployed) — may exhaust → heal 1 from the attacker
+        case 'ASH_005#1': Ash005DeployedTrigger($player, $mzID); break;   // Luke (deployed) — heal 2 from the attacker or your base
         case 'ASH_128': { $pp128 = explode(',', $mzID, 2); Ash128Trigger($player, intval($pp128[0] ?? 0), strval($pp128[1] ?? '')); break; }   // Bothan-5 — may capture defeated friendly from discard
         case 'ASH_013': Ash013Trigger($player, $mzID); break;   // Ezra — may exhaust → Advantage to a different unit
         case 'ASH_016': Ash016Trigger($player, $mzID, intval($extra[0] ?? 0)); break;   // Shin — may exhaust → exhaust a cheaper unit

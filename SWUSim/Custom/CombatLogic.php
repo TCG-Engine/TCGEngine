@@ -1021,6 +1021,11 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_005')) {
         AddTrigger($activePlayer, 'ASH_005', 'ASH_005', $attackerMzID);
     }
+    // ASH_005 Luke Skywalker (DEPLOYED unit side) — "When a friendly unit's attack ends: Heal 2 damage from
+    // that unit or from your base." Field observer while Luke is deployed; fires for ANY friendly attack.
+    if (_SWULeaderDeployed($activePlayer, 'ASH_005')) {
+        AddTrigger($activePlayer, 'ASH_005#1', 'ASH_005#1', $attackerMzID);
+    }
     // ASH_013 Ezra Bridger — "When a friendly unit's attack ends: if it dealt 3+ combat damage to a base, you
     // may exhaust this leader; if you do, give an Advantage token to a different unit."
     if (intval($combatCtx['baseCombatDmg'] ?? 0) >= 3 && _SWULeaderReadyUndeployed($activePlayer, 'ASH_013')) {
