@@ -55,6 +55,25 @@ function ShowCardDetail(e, that) {
   }, timeOut); //(hover delay)
 }
 
+// Place the card-detail preview beside the cursor on desktop, but always keep it fully
+// on-screen. On narrow viewports (phones) the preview is wider than half the screen, so
+// beside-the-tap placement pushes it off an edge (the old `clientX - 400` bug) — center
+// it horizontally there instead. cx/cy = pointer position; w/h = preview dimensions.
+function PositionCardDetail(el, cx, cy, w, h) {
+  var vw = window.innerWidth, vh = window.innerHeight;
+  var left;
+  if (w > vw * 0.6) {
+    left = Math.max(5, Math.round((vw - w) / 2));
+  } else {
+    left = (cx < vw / 2) ? cx + 30 : cx - w - 10;
+    left = Math.max(5, Math.min(left, vw - w - 5));
+  }
+  var top = (cy > vh / 2) ? cy - h - 20 : cy + 30;
+  top = Math.max(5, Math.min(top, vh - h - 5));
+  el.style.left = left + 'px';
+  el.style.top = top + 'px';
+}
+
 function ShowDetail(e, imgSource) {
   if (IsCardDetailSuppressed()) return;
   TrackCardDetailMouse(e);
@@ -64,6 +83,9 @@ function ShowDetail(e, imgSource) {
   imgSource = imgSource.replace("/concat/", "/WebpImages/");
   imgSource = imgSource.replace(".png", ".webp");
   var el = document.getElementById("cardDetail");
+  var cx = e.clientX, cy = e.clientY; // capture: pointer may move before the image loads
+  el.style.display = "none";
+  el.style.zIndex = 100000;
   var img = new Image();
   img.onload = function() {
     //Original dimension: height:523px; width:375px;
@@ -85,6 +107,7 @@ function ShowDetail(e, imgSource) {
     }
 
     el.innerHTML = "<img style='height:" + height + "px; width:" + width + "px;' src='" + imgSource + "' />";
+    PositionCardDetail(el, cx, cy, width, height);
     el.style.display = "inline";
     el.style.opacity = 0;
     showDetailTimeout = setTimeout(function() {
@@ -93,21 +116,6 @@ function ShowDetail(e, imgSource) {
     }, 100);
   };
   img.src = imgSource;
-  el.style.left =
-    (e.clientX < window.innerWidth / 2 ? e.clientX + 30 : e.clientX - 400) + 'px';
-  el.style.top =
-    (e.clientY > window.innerHeight / 2 ? e.clientY - 523 - 20 : e.clientY + 30) + 'px';
-  if (parseInt(el.style.top) + 523 >= window.innerHeight) {
-    el.style.top = (window.innerHeight - 530) + 'px';
-    el.style.left =
-      (e.clientX < window.innerWidth / 2 ? e.clientX + 30 : e.clientX - 400) + 'px';
-  } else if (parseInt(el.style.top) <= 0) {
-    el.style.top = '5px';
-    el.style.left =
-      (e.clientX < window.innerWidth / 2 ? e.clientX + 30 : e.clientX - 400) + 'px';
-  }
-  el.style.zIndex = 100000;
-  el.style.display = "none";
 }
 
 function ShowSubcardDetail(e, imgEl) {
@@ -130,8 +138,7 @@ function ShowSubcardDetail(e, imgEl) {
       el.style.transition = 'opacity 0.5s';
       el.style.opacity = 1;
     }, 100);
-    el.style.left = (e.clientX < window.innerWidth / 2 ? e.clientX + 30 : e.clientX - 400) + 'px';
-    el.style.top = Math.max(5, Math.min(e.clientY - 200, window.innerHeight - 530)) + 'px';
+    PositionCardDetail(el, e.clientX, e.clientY, displayWidth, displayHeight);
     el.style.zIndex = 100000;
   }, 1);
 }
@@ -159,6 +166,14 @@ document.addEventListener("mousemove", function(e) {
   freezeCardDetailMouseY = null;
   HideCardDetail(true);
 }, true);
+
+// Touch devices open the card preview on tap (a synthetic mouseover) but never fire a
+// matching mouseout, so it would linger. Dismiss any open preview on the next touch (a
+// tap elsewhere or the start of a scroll); a freshly-tapped card re-opens its own preview
+// via that card's later mouseover event.
+document.addEventListener("touchstart", function() {
+  if (IsCardDetailOpen()) HideCardDetail(true);
+}, { passive: true });
 
 function ChatKey(event) {
   if (event.keyCode === 13) {

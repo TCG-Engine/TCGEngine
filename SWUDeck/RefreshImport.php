@@ -2,7 +2,7 @@
   include_once './GamestateParser.php';
   include_once './ZoneAccessors.php';
   include_once './ZoneClasses.php';
-  include_once './Overrides.php';
+  include_once __DIR__ . '/../AppCore/SWU/Overrides.php';
   include_once '../Core/CoreZoneModifiers.php';
   include_once './GeneratedCode/GeneratedCardDictionaries.php';
   include_once '../Core/HTTPLibraries.php';

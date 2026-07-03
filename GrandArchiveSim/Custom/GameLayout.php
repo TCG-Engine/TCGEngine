@@ -1681,7 +1681,7 @@
 
 <script>
 (function() {
-     // App-level turn indicator config hook (consumed by Core/UILibraries20260701.js).
+     // App-level turn indicator config hook (consumed by Core/UILibraries20260703.js).
      // This keeps ownership/wording customizable per app layout.
      window.TurnIndicatorSettings = {
           showWaitingMessage: true,

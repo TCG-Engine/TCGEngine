@@ -598,7 +598,7 @@ for($i=0; $i<count($zones); ++$i) {
   $zoneName = $zone->Name;
   //Getter
   $scope = isset($zone->Scope) ? $zone->Scope : 'Player';
-  $isValueType = ($zone->DisplayMode == 'Value' || $zone->DisplayMode == 'Radio');
+  $isValueType = ($zone->DisplayMode == 'Value' || $zone->DisplayMode == 'Radio' || $zone->DisplayMode == 'Dropdown');
   $isValueOnly = ($zone->DisplayMode == 'Value');
   if (strtolower($scope) == 'global') {
     // Global-scoped zones don't take a player parameter
@@ -1808,7 +1808,14 @@ fwrite($handler, "include '../Assets/patreon-php-master/src/PatreonLibraries.php
 fwrite($handler, "include './GamestateParser.php';\r\n");
 fwrite($handler, "include './ZoneAccessors.php';\r\n");
 fwrite($handler, "include './ZoneClasses.php';\r\n");
-fwrite($handler, "include './GeneratedCode/GeneratedCardDictionaries.php';\r\n");
+// Card dictionaries live with the asset owner. A reflected site (e.g. SWUCardList ->
+// SWUDeck) has no local GeneratedCode/, so pull the dictionaries from the reflected
+// site's folder — matching how NextTurn.php resolves them via GetAssetReflectionPath.
+if ($assetReflection !== null && $assetReflection !== "") {
+  fwrite($handler, "include '../" . $assetReflection . "/GeneratedCode/GeneratedCardDictionaries.php';\r\n");
+} else {
+  fwrite($handler, "include './GeneratedCode/GeneratedCardDictionaries.php';\r\n");
+}
 //TODO: Validate these inputs
 fwrite($handler, "\$gameName = TryGet(\"gameName\");\r\n");
 if($rootName == "SWUSim") {
@@ -2052,7 +2059,7 @@ function AddReadGamestate() {
         $readGamestate .= "        }\r\n";
         $readGamestate .= "      }\r\n";
         $readGamestate .= "    }\r\n";
-        if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $readGamestate .= "    if(count(\$g" . $zone->Name . ") == 0) array_push(\$g" . $zone->Name . ", new " . $zone->Name . "(0));\r\n";
+        if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") $readGamestate .= "    if(count(\$g" . $zone->Name . ") == 0) array_push(\$g" . $zone->Name . ", new " . $zone->Name . "(0));\r\n";
       }
     } else {
       $readGamestate .= AddReadZone($zone, 1);
@@ -2102,7 +2109,7 @@ function AddReadZone($zone, $player) {
     $rv .= "        }\r\n";
     $rv .= "      }\r\n";
     $rv .= "    }\r\n";
-    if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio") $rv .= "    if(count(\$p" . $player . $zoneName . ") == 0) array_push(\$p" . $player . $zoneName . ", new " . $zoneName . "(0));\r\n";
+    if($zone->DisplayMode == "Value" || $zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") $rv .= "    if(count(\$p" . $player . $zoneName . ") == 0) array_push(\$p" . $player . $zoneName . ", new " . $zoneName . "(0));\r\n";
     return $rv;
   }
 }
@@ -2305,7 +2312,7 @@ function AddGetNextTurnForPlayer($player) {
         $getNextTurn .= "  echo(\$p" . $player . $zone->Name . ");\r\n";
       }
     }
-    else if($zone->DisplayMode == "Radio") {
+    else if($zone->DisplayMode == "Radio" || $zone->DisplayMode == "Dropdown") {
       if ($scope == 'global') {
         $getNextTurn .= "  \$arr = &Get" . $zone->Name . "();\r\n";
       } else {
@@ -2857,7 +2864,7 @@ function AddGeneratedUI() {
 }
 
 function WriteInitialLayout() {
-  global $zones, $rootPath, $headerElements, $initializeScript, $clientIncludes, $pageBackground, $customLayoutFile;
+  global $zones, $rootPath, $headerElements, $initializeScript, $clientIncludes, $pageBackground, $customLayoutFile, $rootName;
   $shouldSplitScreen = true;
   for($i=0; $i<count($zones); ++$i) {
     $zone = $zones[$i];
@@ -2948,7 +2955,8 @@ function WriteInitialLayout() {
     }
     fwrite($handler, "echo(\"</div>\");\r\n");
   }
-  fwrite($handler, "echo(\"<div class='flex-item' style='flex-grow: 1;'>\");\r\n");
+  $boardFlexStyle = "flex-grow: 1;" . ($rootName === "SWUDeck" ? " position:relative;" : "");
+  fwrite($handler, "echo(\"<div class='flex-item' style='" . $boardFlexStyle . "'>\");\r\n");
   if($shouldSplitScreen) {
     fwrite($handler, "echo(\"<div class='theirStuffWrapper' style='position:relative; z-index:10; left:0; top:0; width:100%; height:50%;'><div class='stuffParent'><div id='theirStuff' class='stuff theirStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\r\n<div class='myStuffWrapper' style='position:absolute; z-index:10; left:0; top:50%; width:100%; height:50%;'><div style='position:relative; width:100%; height:100%'><div class='stuffParent'><div id='myStuff' class='stuff myStuff' style='background-image: url(\\\"$pageBackground\\\"); background-size: cover;'></div></div></div>\");\r\n");
   } else {

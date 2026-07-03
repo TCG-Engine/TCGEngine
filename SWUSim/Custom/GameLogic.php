@@ -5726,7 +5726,8 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'LAW_201': Law201Trigger($player, $mzID); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break;   // Thermal Detonator — if host was ready, 2 to each enemy ground unit (granted WD; Thrawn-reusable)
         case 'LAW_007': Law007Trigger($player); break;          // Boba Fett (leader form) — may exhaust → Credit
         case 'LAW_046': Law046Trigger($player, $mzID); break;   // Chirrut — may heal 4 from another unit
-        case 'ASH_005': Ash005Trigger($player, $mzID); break;   // Luke — may exhaust → heal 1 from the attacker
+        case 'ASH_005': Ash005Trigger($player, $mzID); break;   // Luke (undeployed) — may exhaust → heal 1 from the attacker
+        case 'ASH_005#1': Ash005DeployedTrigger($player, $mzID); break;   // Luke (deployed) — heal 2 from the attacker or your base
         case 'ASH_128': { $pp128 = explode(',', $mzID, 2); Ash128Trigger($player, intval($pp128[0] ?? 0), strval($pp128[1] ?? '')); break; }   // Bothan-5 — may capture defeated friendly from discard
         case 'ASH_013': Ash013Trigger($player, $mzID); break;   // Ezra — may exhaust → Advantage to a different unit
         case 'ASH_016': Ash016Trigger($player, $mzID, intval($extra[0] ?? 0)); break;   // Shin — may exhaust → exhaust a cheaper unit
@@ -7119,18 +7120,40 @@ function SWUDealSplitDamage(int $player, string $assignmentStr): void {
         $hits[] = ['uid' => intval($obj->UniqueID ?? 0), 'amount' => $amt];
     }
 
-    // Phase 1: apply ALL assigned damage (no defeats — indices stay put through this loop).
+    // Split hits into those whose target has an INTERACTIVE damage-replacement (SEC_101 Queen Amidala —
+    // "if damage would be dealt to this unit, you may defeat a trait-sharing friendly to prevent it") and
+    // the rest. Divided damage is simultaneous (CR 34/35.5): offer each replacement FIRST — its cost may
+    // defeat a co-target, which is then simply skipped — then apply all surviving damage together and sweep.
+    // (Non-interactive prevention in split damage — Shields, LOF_220 reduction — is a separate deferred gap.)
+    $offer = []; $apply = [];
+    foreach ($hits as $h) {
+        $mz  = SWUFindMzByUID($h['uid']);
+        $obj = $mz !== null ? GetZoneObject($mz) : null;
+        if ($obj === null || !empty($obj->removed)) continue;
+        if (($obj->CardID ?? '') === 'SEC_101' && !empty(_SWUAmidalaPreventTargets($obj))) $offer[] = $h;
+        else $apply[] = $h;
+    }
+
+    if (empty($offer)) { _SWUApplySplitHits(intval($player), $apply); $playerID = $saved; return; }
+
+    // Interactive: carry the plain hits + remaining offers through the decision, offering each replacement
+    // one at a time; the final step applies everything that survived.
+    _SWUSplitOfferStep(intval($player), $offer, $apply);
+    $playerID = $saved;
+}
+
+// Apply a resolved hit list SIMULTANEOUSLY: add ALL damage first (indices stay put), then sweep defeats
+// by UID (re-resolve each time, since SWUDefeatUnit cleans up and shifts indices).
+function _SWUApplySplitHits(int $player, array $hits): void {
+    global $playerID; $saved = $playerID; $playerID = intval($player);
     foreach ($hits as $h) {
         $mz  = SWUFindMzByUID($h['uid']);
         if ($mz === null) continue;
         $obj = GetZoneObject($mz);
         if ($obj === null || !empty($obj->removed)) continue;
-        $obj->Damage = intval($obj->Damage) + $h['amount'];
-        SWUQueueDamageAnim($mz, $h['amount'], intval($player));
+        $obj->Damage = intval($obj->Damage) + intval($h['amount']);
+        SWUQueueDamageAnim($mz, intval($h['amount']), intval($player));
     }
-
-    // Phase 2: defeat sweep — any unit now at/over its current HP. Re-resolve by UID each time
-    // because SWUDefeatUnit cleans up and shifts indices.
     foreach ($hits as $h) {
         $mz  = SWUFindMzByUID($h['uid']);
         if ($mz === null) continue;
@@ -7143,6 +7166,50 @@ function SWUDealSplitDamage(int $player, string $assignmentStr): void {
         }
     }
     $playerID = $saved;
+}
+
+function _SWUEncodeHits(array $hits): string {
+    $out = [];
+    foreach ($hits as $h) $out[] = intval($h['uid']) . ':' . intval($h['amount']);
+    return implode(',', $out);
+}
+function _SWUDecodeHits(?string $s): array {
+    $out = [];
+    foreach (explode(',', (string)$s) as $pair) {
+        if ($pair === '') continue;
+        $p = explode(':', $pair);
+        if (count($p) < 2) continue;
+        $out[] = ['uid' => intval($p[0]), 'amount' => intval($p[1])];
+    }
+    return $out;
+}
+
+// Offer the next SEC_101 damage-replacement in a split. $offer = remaining hits still to offer; $apply =
+// the plain + already-declined hits to apply at the end. State is carried through the decision PARAM (DQ
+// variables don't survive the request boundary — the split spans P1's assign and the target-controller's
+// answer). Skips a target already gone (a prior prevent's cost) and one that can no longer pay (no trait-
+// sharing friendly → its hit just applies). When offers run out, apply everything simultaneously. $player =
+// the caster (damage dealer / attribution).
+function _SWUSplitOfferStep(int $player, array $offer, array $apply): void {
+    global $playerID; $playerID = intval($player);
+    while (!empty($offer)) {
+        $cur = array_shift($offer);
+        $mz  = SWUFindMzByUID(intval($cur['uid']));
+        $obj = $mz !== null ? GetZoneObject($mz) : null;
+        if ($obj === null || !empty($obj->removed)) continue;   // target gone (a prior prevent's cost) → nothing to do
+        $targets = _SWUAmidalaPreventTargets($obj);
+        if (empty($targets)) { $apply[] = $cur; continue; }     // can't pay now → this hit applies with the rest
+        $decider = intval($obj->Controller ?? $player);
+        $playerID = $decider;   // leave set = the decision's player, so MZCountChoices validates its frame
+        DecisionQueueController::AddDecision($decider, 'MZMAYCHOOSE', implode('&', $targets), 1,
+            tooltip: 'Defeat_a_trait-sharing_friendly_to_prevent_damage_to_Queen_Amidala?');
+        DecisionQueueController::AddDecision($decider, 'CUSTOM',
+            "SPLIT_PREVENT_RESOLVE|{$player}|" . intval($cur['uid']) . "|" . intval($cur['amount']) . "|{$decider}|"
+            . _SWUEncodeHits($apply) . "|" . _SWUEncodeHits($offer), 1);
+        return;   // wait on the decision; SPLIT_PREVENT_RESOLVE continues the loop
+    }
+    // No more offers → apply the plain + declined hits simultaneously, then sweep.
+    _SWUApplySplitHits($player, $apply);
 }
 
 // "Distribute N Advantage tokens among units (divided as you choose)" — the SPLIT_DAMAGE analogue for
@@ -7880,6 +7947,13 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'SEC_256': // Moral Authority
             $all = array_values(array_filter($all, fn($mz) =>
                 CardUnique(GetZoneObject($mz)->CardID ?? '')));
+            break;
+        // "Attach to a <uq> non-Vehicle unit."
+        case 'ASH_135': // The Darksaber
+            $all = array_values(array_filter($all, function($mz) {
+                $cid = GetZoneObject($mz)->CardID ?? '';
+                return CardUnique($cid) && !HasTrait($cid, 'Vehicle');
+            }));
             break;
         // "Attach to a Jedi non-Vehicle unit."
         case 'LOF_151': // Knight's Saber

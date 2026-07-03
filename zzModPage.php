@@ -252,7 +252,7 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
     include_once './SWUDeck/GamestateParser.php';
     include_once './SWUDeck/ZoneAccessors.php';
     include_once './SWUDeck/ZoneClasses.php';
-    include_once './SWUDeck/Overrides.php';
+    include_once './AppCore/SWU/Overrides.php';
     include_once './Core/CoreZoneModifiers.php';
     include_once './SWUDeck/GeneratedCode/GeneratedCardDictionaries.php';
     include_once './SWUDeck/Custom/CardIdentifiers.php';

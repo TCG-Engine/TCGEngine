@@ -25,6 +25,10 @@
   echo("<body style='margin:0px; scroll: none;'>");
   $skipInitialize = true;
   $playerID = 1;//To fix php errors
+  // We only want InitialLayout's toolbar chrome here — not the deck-builder board, which
+  // would overlay (#swuDeckBoard z-index:11) the stats injected into #myStuff and block all
+  // clicks/scroll. GameLayout.php honors this flag and skips the board on the stats page.
+  $suppressDeckBoard = true;
   include_once './InitialLayout.php';
 
   echo("</body>");
@@ -899,4 +903,57 @@
       padding: 8px 12px;
     }
   }
+</style>
+
+<style>
+/* ===== HUD skin for DeckStats controls (the toolbar chamfer comes from GameLayout). ===== */
+/* Action buttons (.btn) — chamfered cyan, UPPERCASE */
+.btn {
+  position: relative !important; z-index: 0 !important; isolation: isolate !important;
+  border: 0 !important; border-radius: 0 !important; background: transparent !important;
+  box-shadow: none !important; padding: 6px 14px !important; margin: 2px 3px !important;
+  color: rgba(205,238,255,0.96) !important; font-weight: 600 !important;
+  text-transform: uppercase !important; letter-spacing: 0.04em !important;
+  filter: drop-shadow(0 0 3px rgba(110,190,255,0.30)); cursor: pointer;
+  transition: filter 150ms, color 150ms, transform 110ms !important;
+}
+.btn::before { content:'' !important; position:absolute !important; inset:0 !important; z-index:-2 !important;
+  clip-path: polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px); background: rgba(140,210,255,0.80) !important; }
+.btn::after  { content:'' !important; position:absolute !important; inset:1.5px !important; z-index:-1 !important;
+  clip-path: polygon(5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%,0 5px); background: rgba(20,42,70,0.95) !important; }
+.btn:hover { color:#fff !important; filter: drop-shadow(0 0 8px rgba(125,205,255,0.6)); transform: translateY(-1px); }
+.btn:hover::before { background: rgba(180,228,255,1) !important; }
+/* Green (primary/confirm) + red (danger) semantic tints */
+.btn.primary { color:#eafff0 !important; filter: drop-shadow(0 0 4px rgba(95,210,120,0.45)) !important; }
+.btn.primary::before { background: rgba(120,225,150,0.85) !important; }
+.btn.primary::after  { background: rgba(16,44,28,0.95) !important; }
+.btn.primary:hover::before { background: rgba(155,240,185,1) !important; }
+.btn.danger { color:#ffe4e4 !important; filter: drop-shadow(0 0 4px rgba(230,95,95,0.45)) !important; }
+.btn.danger::before { background: rgba(235,120,120,0.85) !important; }
+.btn.danger::after  { background: rgba(52,20,26,0.95) !important; }
+.btn.danger:hover::before { background: rgba(255,150,150,1) !important; }
+
+/* All / Owner / Community toggle (.selector-btn) — chamfered; active = bright cyan */
+.selector-btn {
+  position: relative !important; z-index: 0 !important; isolation: isolate !important;
+  border: 0 !important; border-radius: 0 !important; background: transparent !important;
+  box-shadow: none !important; color: rgba(205,238,255,0.90) !important;
+  text-transform: uppercase !important; letter-spacing: 0.03em !important; font-weight: 600 !important;
+  filter: drop-shadow(0 0 3px rgba(110,190,255,0.25)); cursor: pointer;
+}
+.selector-btn::before { content:'' !important; position:absolute !important; inset:0 !important; z-index:-2 !important;
+  clip-path: polygon(6px 0,100% 0,100% calc(100% - 6px),calc(100% - 6px) 100%,0 100%,0 6px); background: rgba(140,210,255,0.50) !important; }
+.selector-btn::after  { content:'' !important; position:absolute !important; inset:1.5px !important; z-index:-1 !important;
+  clip-path: polygon(5px 0,100% 0,100% calc(100% - 5px),calc(100% - 5px) 100%,0 100%,0 5px); background: rgba(16,32,54,0.95) !important; }
+.selector-btn.active { color:#fff !important; filter: drop-shadow(0 0 7px rgba(125,205,255,0.55)); }
+.selector-btn.active::before { background: rgba(180,228,255,1) !important; }
+.selector-btn.active::after  { background: rgba(30,64,104,0.96) !important; }
+
+/* Stats tables — cyan uppercase headers + cyan dividers */
+.statsTable th { background: rgba(20,42,70,0.90) !important; color: rgba(205,238,255,0.95) !important;
+  text-transform: uppercase !important; letter-spacing: 0.03em; border-bottom: 1px solid rgba(140,210,255,0.35) !important; }
+.statsTable td { border-bottom: 1px solid rgba(140,210,255,0.12) !important; }
+
+/* Form labels (Add Stats) — cyan HUD */
+label { color: rgba(205,238,255,0.92) !important; text-transform: uppercase !important; letter-spacing: 0.03em; }
 </style>

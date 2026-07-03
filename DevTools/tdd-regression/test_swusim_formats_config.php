@@ -1,7 +1,7 @@
 <?php
 // http://localhost:3400/TCGEngine/DevTools/tdd-regression/test_swusim_formats_config.php
 header('Content-Type: text/plain');
-include_once __DIR__ . '/../../SWUSim/Formats.php';
+include_once __DIR__ . '/../../AppCore/SWU/Formats.php';
 
 $checks = [];
 
@@ -20,6 +20,17 @@ $checks['open same as eternal'] = SWUFormatLegalSets('open') === $eternalSets;
 $open = SWUGetFormat('open');
 $checks['open no bans'] = $open['banned'] === [];
 $checks['open default modifiers'] = $open['deckSizeModifiers'] === [];
+
+// Global card-intrinsic rules (JTL_256 copy-exception, JTL_024/025 deck-size mods) apply to EVERY
+// format except Open, which ignores them.
+$eternal = SWUGetFormat('eternal');
+$twin    = SWUGetFormat('twinsuns');
+$checks['premier has global deckSize'] = ($premier['deckSizeModifiers']['JTL_024'] ?? null) === 10;
+$checks['eternal gains global copyEx'] = ($eternal['copyExceptions']['JTL_256'] ?? null) === 15;
+$checks['eternal gains global deckSize'] = ($eternal['deckSizeModifiers']['JTL_024'] ?? null) === 10;
+$checks['twinsuns gains global rules'] = ($twin['copyExceptions']['JTL_256'] ?? null) === 15
+                                      && ($twin['deckSizeModifiers']['JTL_025'] ?? null) === -5;
+$checks['open ignores global copyEx'] = $open['copyExceptions'] === [];
 
 // Disable-not-delete: preview is disabled by default.
 $listed = SWUListFormats();

@@ -1,6 +1,7 @@
 <?php
 
 include_once '../SharedUI/MenuBar.php';
+echo('<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUDeck/css/hud.css">');
 include_once '../SharedUI/Header.php';
 include_once '../Core/HTTPLibraries.php';
 include_once "../Core/UILibraries.php";

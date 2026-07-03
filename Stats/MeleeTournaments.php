@@ -1,5 +1,6 @@
 <?php
 include_once "../SharedUI/MenuBar.php";
+echo('<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUDeck/css/hud.css">');
 include_once "../SharedUI/Header.php";
 ?>
 
@@ -23,15 +24,18 @@ include_once "../SharedUI/Header.php";
             margin-bottom: 20px;
         }
         .filters {
-            background-color: #f9f9f9;
-            border-radius: 8px;
+            background: rgba(14,26,44,0.92);
+            border: 1px solid rgba(140,210,255,0.40);
+            border-radius: 0;
             padding: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 0 12px rgba(120,200,255,0.15);
         }
         .filters h3 {
             margin-top: 0;
-            color: #333;
+            color: rgba(205,238,255,0.92);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
         .filter-row {
             display: flex;
@@ -46,7 +50,11 @@ include_once "../SharedUI/Header.php";
         label {
             display: block;
             margin-bottom: 5px;
-            font-weight: 500;
+            font-weight: 600;
+            color: rgba(205,238,255,0.90);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            font-size: 13px;
         }
         input, select, button {
             width: 100%;
@@ -138,7 +146,7 @@ include_once "../SharedUI/Header.php";
         <h3>Filter Tournaments</h3>
         <form id="melee-link-search-form" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
             <input type="url" id="melee-link-input" placeholder="Paste melee.gg tournament link here" style="flex: 1 1 400px; min-width: 0; color: #000; font-size: 1rem; padding: 10px 8px; height: 44px; display: block;" required>
-            <button type="submit" style="flex: 0 0 auto; width: auto; min-width: 120px; font-size: 1rem; padding: 10px 18px; height: 44px; display: block; margin-top:-10px;">Go to Tournament</button>
+            <button type="submit" class="hud-green" style="flex: 0 0 auto; width: auto; min-width: 120px; font-size: 1rem; padding: 10px 18px; height: 44px; display: block; margin-top:-10px;">Go to Tournament</button>
         </form>
         <form id="filterForm">
             <div class="filter-row">
@@ -162,10 +170,10 @@ include_once "../SharedUI/Header.php";
             </div>
             <div class="filter-row">
                 <div class="filter-group">
-                    <button type="submit">Apply Filters</button>
+                    <button type="submit" class="hud-green">Apply Filters</button>
                 </div>
                 <div class="filter-group">
-                    <button type="button" id="reset-filters">Reset Filters</button>
+                    <button type="button" id="reset-filters" class="hud-red">Reset Filters</button>
                 </div>
             </div>
         </form>

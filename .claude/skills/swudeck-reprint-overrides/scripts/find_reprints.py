@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Find reprints in a SWU set and emit SWUDeck/Overrides.php case lines.
+"""Find reprints in a SWU set and emit AppCore/SWU/Overrides.php case lines.
 
 Usage:
     python3 find_reprints.py <SET_CODE>      e.g. ASH

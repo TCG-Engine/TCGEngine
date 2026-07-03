@@ -740,7 +740,12 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
     // RESUME path — which is what lets the offer resolve BEFORE SWUCombatDamage (the combat-pause for the
     // defender; the pre-resume step-1 resolution for the attacker). SEC101PreventTrigger queues the offer
     // and sets SWU_PENDING_DEF_REACTION. The host mzID is passed in the TRIGGER OWNER's (controller's) frame.
+    // Attacker side fires ONLY when combat damage would actually be dealt back to her — i.e. she is
+    // attacking a UNIT (not a base — bases deal no counter-damage) that has power to counter. Without this,
+    // attacking a base wrongly prompted "prevent combat damage" and wasted the sacrifice on nothing.
     if ($attacker !== null && !isset($attacker->removed) && ($attacker->CardID ?? '') === 'SEC_101'
+        && $defender !== null && empty($defender->removed) && strpos($defenderMzID, 'Base') === false
+        && intval(ObjectCurrentPower($defender)) > 0
         && !empty(_SWUAmidalaPreventTargets($attacker))) {
         AddTrigger($activePlayer, 'SEC_101_PREVENT', 'SEC_101', $attackerMzID); // attacker frame = active player's "my…"
     }
@@ -754,7 +759,11 @@ function CollectCombatStep1Triggers($activePlayer, $attackerMzID, $defenderMzID)
     // ASH_062) and its controller defeats a Shield on their ASH_062 to prevent. The trigger host mzID is
     // the PROTECTED unit (in its controller's frame). Skip when the combatant IS an ASH_062 (its own
     // Shielded handles that — "another friendly unit" doesn't apply).
+    // Same "only if counter-damage would occur" gate as SEC_101 above: a unit attacking a base takes no
+    // counter, so don't offer to defeat a Shield on ASH_062 to prevent nothing.
     if ($attacker !== null && !isset($attacker->removed) && ($attacker->CardID ?? '') !== 'ASH_062'
+        && $defender !== null && empty($defender->removed) && strpos($defenderMzID, 'Base') === false
+        && intval(ObjectCurrentPower($defender)) > 0
         && _SWUAsh062Provider($attacker) !== null) {
         AddTrigger($activePlayer, 'ASH_062_PREVENT', 'ASH_062', $attackerMzID); // attacker frame = active player's "my…"
     }
@@ -1020,6 +1029,11 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
     // leader; if you do, heal 1 damage from that unit." Fires for the attacking player's ready, undeployed Luke.
     if (_SWULeaderReadyUndeployed($activePlayer, 'ASH_005')) {
         AddTrigger($activePlayer, 'ASH_005', 'ASH_005', $attackerMzID);
+    }
+    // ASH_005 Luke Skywalker (DEPLOYED unit side) — "When a friendly unit's attack ends: Heal 2 damage from
+    // that unit or from your base." Field observer while Luke is deployed; fires for ANY friendly attack.
+    if (_SWULeaderDeployed($activePlayer, 'ASH_005')) {
+        AddTrigger($activePlayer, 'ASH_005#1', 'ASH_005#1', $attackerMzID);
     }
     // ASH_013 Ezra Bridger — "When a friendly unit's attack ends: if it dealt 3+ combat damage to a base, you
     // may exhaust this leader; if you do, give an Advantage token to a different unit."

@@ -2594,6 +2594,24 @@ $customDQHandlers["ASH_005#0"] = function($player, $parts, $lastDecision) {
     }
 };
 
+// ASH_005 Luke Skywalker (DEPLOYED unit side) — "When a friendly unit's attack ends: Heal 2 damage from
+// that unit or from your base." Mandatory heal (no "may"); the player chooses the source. Offer only the
+// sources that actually carry damage — "that unit" (the attacker, $mzID) and/or "your base" — so the
+// no-benefit case fizzles cleanly with no prompt (mirrors the undeployed side's Damage<=0 skip). Dispatched
+// from the combat hook (DispatchTrigger case 'ASH_005#1').
+function Ash005DeployedTrigger($player, $mzID): void {
+    global $playerID; $playerID = intval($player);
+    $targets = [];
+    if ($mzID !== '' && str_contains($mzID, '-')) {
+        $self = GetZoneObject($mzID);
+        if ($self !== null && empty($self->removed) && intval($self->Damage ?? 0) > 0) $targets[] = $mzID;
+    }
+    $base = GetBase(intval($player));
+    if (!empty($base) && empty($base[0]->removed) && intval($base[0]->Damage ?? 0) > 0) $targets[] = 'myBase-0';
+    if (empty($targets)) return;   // neither the attacker nor the base is damaged → nothing to heal
+    SWUQueueChooseTarget(intval($player), $targets, "Heal_2_from_that_unit_or_your_base", "HEAL_TARGET|2");
+}
+
 
 // ASH_002 Fennec Shand — Action [1 resource, Exhaust, exhaust a friendly unit]: play a unit from your hand
 // (paying its cost). It enters play ready. Costs: 1 resource + leader exhaust (auto) + exhaust a friendly

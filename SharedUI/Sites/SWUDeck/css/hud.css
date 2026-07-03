@@ -1,0 +1,241 @@
+/* ============================================================================
+   SWUDeck HUD theme — site-wide cyan "targeting-HUD" skin for the SWU Stats pages.
+   CSS-only (no JS). Loaded on SWUDeck chrome only (SiteDef head.styles + the SWU
+   Stats pages + Sites/SWUDeck/MenuBar). Matches the deck-builder / SWUSim board.
+
+   Scope notes:
+   - Brand login buttons are <a class="patreon-button|discord-button"> (anchors), so the
+     button rules below (which target <button>/<input>) never touch them.
+   - Destructive semantics (red) are preserved via .btn-danger / [data-danger] opt-outs.
+   ========================================================================== */
+
+/* ---- Panels: thin cyan frame + faint glow ---- */
+.container.bg-black,
+.login.container.bg-black {
+  border: 1px solid rgba(140,210,255,0.40) !important;
+  box-shadow: 0 0 12px rgba(120,200,255,0.15) !important;
+}
+
+/* ---- Interface labels — cyan HUD, UPPERCASE, soft glow (matches the deck editor).
+   !important so it wins over inline color styles (e.g. Melee's inline color:#000 labels). ---- */
+label {
+  color: rgba(205,238,255,0.92) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.04em !important;
+  text-shadow: 0 0 5px rgba(120,200,255,0.30) !important;
+}
+
+/* ---- Form fields: cyan HUD (text inputs, selects, textareas) ---- */
+input[type="text"], input[type="password"], input[type="email"], input[type="url"],
+input[type="number"], input[type="search"], input[type="date"], select, textarea {
+  background: rgba(20,42,70,0.60) !important;
+  color: rgba(222,240,255,0.95) !important;
+  border: 1px solid rgba(140,210,255,0.45) !important;
+  border-radius: 0 !important;
+}
+input::placeholder, textarea::placeholder { color: rgba(160,195,225,0.60) !important; }
+input:focus, select:focus, textarea:focus {
+  outline: none !important;
+  border-color: rgba(160,215,255,0.85) !important;
+  box-shadow: 0 0 6px rgba(120,200,255,0.35) !important;
+}
+
+/* ---- Custom cyan checkboxes ---- */
+input[type="checkbox"] {
+  -webkit-appearance: none !important; appearance: none !important;
+  width: 16px !important; height: 16px !important; margin: 0 6px 0 0 !important; padding: 0 !important;
+  background: rgba(20,42,70,0.9) !important; border: 1px solid rgba(140,210,255,0.6) !important;
+  border-radius: 0 !important; cursor: pointer; position: relative; vertical-align: middle; flex-shrink: 0;
+  transition: box-shadow 120ms, background 120ms;
+}
+input[type="checkbox"]:hover { box-shadow: 0 0 6px rgba(120,200,255,0.45) !important; }
+input[type="checkbox"]:checked { background: rgba(30,64,104,0.95) !important; box-shadow: 0 0 5px rgba(120,200,255,0.35) !important; }
+input[type="checkbox"]:checked::after {
+  content: '' !important; position: absolute; left: 4px; top: 1px; width: 5px; height: 9px;
+  border: solid rgba(180,228,255,1); border-width: 0 2px 2px 0; transform: rotate(45deg);
+}
+
+/* ---- Buttons: chamfered cyan HUD (recipe 2 — negative-z pseudos) ----
+   Targets <button>/<input> only; brand <a> buttons are unaffected. Interface text = CAPS. */
+button, input[type="submit"], input[type="button"], input[type="reset"] {
+  position: relative !important; z-index: 0 !important; isolation: isolate !important;
+  border: 0 !important; border-radius: 0 !important; background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(205,238,255,0.96) !important; font-weight: 600 !important;
+  text-transform: uppercase !important; letter-spacing: 0.04em !important;
+  filter: drop-shadow(0 0 3px rgba(110,190,255,0.30));
+  transition: filter 150ms, color 150ms, transform 110ms !important;
+  cursor: pointer;
+}
+button::before, input[type="submit"]::before, input[type="button"]::before, input[type="reset"]::before {
+  content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  background: rgba(140,210,255,0.80) !important;
+}
+button::after, input[type="submit"]::after, input[type="button"]::after, input[type="reset"]::after {
+  content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  background: rgba(20,42,70,0.95) !important;
+}
+button:hover, input[type="submit"]:hover, input[type="button"]:hover {
+  color: #fff !important; filter: drop-shadow(0 0 8px rgba(125,205,255,0.6)); transform: translateY(-1px);
+}
+button:hover::before, input[type="submit"]:hover::before, input[type="button"]:hover::before { background: rgba(180,228,255,1) !important; }
+button:active, input[type="submit"]:active, input[type="button"]:active { transform: translateY(1px); }
+button:active::after, input[type="submit"]:active::after { background: rgba(12,26,46,0.98) !important; }
+
+/* <input> buttons can't render ::before/::after, so the chamfer above doesn't draw on them —
+   give them a flat cyan-outlined box instead so they still read as buttons. (Prefer a real
+   <button> for the full chamfer.) */
+input[type="submit"], input[type="button"], input[type="reset"] {
+  border: 1px solid rgba(140,210,255,0.70) !important;
+  background: rgba(20,42,70,0.90) !important;
+  padding: 7px 14px !important;
+}
+
+/* ---- Semantic tints ----
+   Chamfered HUD button tinted GREEN (confirm/apply/positive) or RED (destructive), the same
+   idea as SWUSim's MZSplitAssign +/- steppers: colored rim + dark tinted fill + colored glow,
+   over the same chamfer silhouette. Add class .hud-green / .hud-red (or legacy .btn-success /
+   .btn-danger / .danger). */
+.hud-green, .btn-success {
+  color: #eafff0 !important; filter: drop-shadow(0 0 4px rgba(95,210,120,0.45)) !important;
+}
+.hud-green::before, .btn-success::before { background: rgba(120,225,150,0.85) !important; }
+.hud-green::after,  .btn-success::after  { background: rgba(16,44,28,0.95) !important; }
+.hud-green:hover, .btn-success:hover { color: #fff !important; filter: drop-shadow(0 0 9px rgba(110,225,140,0.70)) !important; }
+.hud-green:hover::before, .btn-success:hover::before { background: rgba(155,240,185,1) !important; }
+
+.hud-red, .btn-danger, .danger, button[data-danger] {
+  color: #ffe4e4 !important; filter: drop-shadow(0 0 4px rgba(230,95,95,0.45)) !important;
+}
+.hud-red::before, .btn-danger::before, .danger::before, button[data-danger]::before { background: rgba(235,120,120,0.85) !important; }
+.hud-red::after,  .btn-danger::after,  .danger::after,  button[data-danger]::after  { background: rgba(52,20,26,0.95) !important; }
+.hud-red:hover, .btn-danger:hover, .danger:hover { color: #fff !important; filter: drop-shadow(0 0 9px rgba(240,110,110,0.70)) !important; }
+.hud-red:hover::before, .btn-danger:hover::before, .danger:hover::before { background: rgba(255,150,150,1) !important; }
+
+/* ---- Top nav — HUD skin (overrides the shared menuStyles.css; SWUDeck-scoped since hud.css
+   only loads on SWUDeck pages). ---- */
+.nav-bar .NavBarItem {
+  color: rgba(205,238,255,0.92) !important;
+  text-shadow: 0 0 5px rgba(120,200,255,0.30) !important;
+  transition: color 150ms, text-shadow 150ms !important;
+}
+.nav-bar .NavBarItem:hover {
+  color: #fff !important; text-decoration: none !important;
+  text-shadow: 0 0 10px rgba(140,215,255,0.70) !important;
+}
+/* Nav pill containers — subtle cyan edge + glow */
+.nav-bar-user, .nav-bar-links {
+  border: 1px solid rgba(140,210,255,0.35) !important;
+  box-shadow: 0 0 10px rgba(120,200,255,0.12) !important;
+}
+.dropdown-arrow { color: rgba(150,215,255,0.90) !important; }
+/* Stats ▾ dropdown popup — cyan HUD panel (matches the deck-menu popups) */
+.dropdown-content {
+  background: rgba(14,26,44,0.98) !important;
+  border: 1px solid rgba(140,210,255,0.55) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 8px rgba(120,200,255,0.22) !important;
+}
+.dropdown-content a { color: rgba(205,238,255,0.92) !important; }
+.dropdown-content a:hover { background: rgba(30,64,104,0.90) !important; color: #fff !important; }
+
+/* ---- Mobile burger menu — HUD skin ----
+   The icon (a blue rounded box in mobile-responsive.css) becomes a chamfered cyan
+   HUD chip, matching the buttons. The <div class="burger-menu"> holds three <span>
+   lines; we chamfer via negative-z pseudos and recolor the lines cyan. The slide-in
+   panel (.nav-bar.active) goes navy — its .NavBarItem links are already cyan above.
+   Scoped to .active so the desktop nav pill's translucent look is untouched. */
+.burger-menu {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  isolation: isolate !important;
+  filter: drop-shadow(0 0 4px rgba(115,195,255,0.40));
+}
+.burger-menu::before {
+  content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  background: rgba(140,210,255,0.80) !important;
+}
+.burger-menu::after {
+  content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  background: rgba(20,42,70,0.96) !important;
+}
+.burger-menu span { background-color: rgba(180,228,255,0.95) !important; }
+
+/* Slide-in mobile nav panel — navy HUD (only when the burger is open) */
+.nav-bar.active .nav-bar-user,
+.nav-bar.active .nav-bar-links {
+  background: rgba(14,26,44,0.98) !important;
+}
+
+/* ---- Card-browser panel (MainMenu) — the RenderPane card search widget.
+   Its base look (rounded pill tabs + rounded filter bar) comes from NextTurn.php; the
+   deck-builder overrides it inline in GameLayout.php. MainMenu loads neither of those
+   HUD overrides, so mirror the deck-builder recipe here: chamfered cyan tabs + a cyan
+   filter bar. Same negative-z pseudo chamfer as the buttons above. ---- */
+.panelTab {
+  position: relative !important; z-index: 0 !important; isolation: isolate !important;
+  border: 0 !important; border-radius: 0 !important; background: transparent !important;
+  box-shadow: none !important;
+  padding: 4px 11px !important; margin: 2px 3px !important;
+  color: rgba(205,238,255,0.96) !important; font-weight: 600 !important;
+  text-transform: uppercase !important; letter-spacing: 0.05em !important;
+  text-shadow: 0 0 5px rgba(120,200,255,0.35) !important;
+  filter: drop-shadow(0 0 3px rgba(110,190,255,0.30)) !important;
+  transition: filter 150ms, color 150ms, transform 110ms !important;
+  cursor: pointer !important;
+}
+.panelTab::before {
+  content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
+  clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px) !important;
+  background: rgba(140,210,255,0.80) !important;
+}
+.panelTab::after {
+  content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px) !important;
+  background: rgba(20,42,70,0.95) !important;
+}
+.panelTab:hover {
+  color: #fff !important; filter: drop-shadow(0 0 8px rgba(125,205,255,0.6)) !important; transform: translateY(-1px) !important;
+}
+.panelTab:hover::before { background: rgba(180,228,255,1) !important; }
+.panelTab:active { transform: translateY(1px) !important; }
+.panelTab:active::after { background: rgba(12,26,46,0.98) !important; }
+
+.filterBar {
+  background: rgba(20,42,70,0.60) !important;
+  color: rgba(222,240,255,0.95) !important;
+  border: 1px solid rgba(140,210,255,0.45) !important;
+  border-radius: 0 !important;
+  font-family: Arial, Helvetica, sans-serif !important;
+}
+.filterBar::placeholder { color: rgba(160,195,225,0.60) !important; }
+.filterBar:focus {
+  outline: none !important;
+  border-color: rgba(160,215,255,0.85) !important;
+  box-shadow: 0 0 6px rgba(120,200,255,0.35) !important;
+}
+
+/* ---- Home header — "SWU STATS" title + tagline, HUD glow. The title keeps its light
+   weight but gains a cyan targeting-HUD glow + tracking; the tagline picks up a matching
+   cyan tint + softer glow. (menuStyles.css already uppercases h1 and sets the font.) ---- */
+.home-header .title h1,
+.home-header h1 {
+  color: #eaf7ff !important;
+  letter-spacing: 0.06em !important;
+  text-shadow:
+    0 0 8px rgba(140,210,255,0.55),
+    0 0 22px rgba(120,200,255,0.35),
+    0 0 46px rgba(90,170,240,0.22) !important;
+}
+.home-header .title p {
+  color: rgba(170,212,246,0.95) !important;
+  letter-spacing: 0.10em !important;
+  text-shadow: 0 0 8px rgba(120,200,255,0.30) !important;
+}

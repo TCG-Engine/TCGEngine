@@ -15,7 +15,7 @@
     'disclaimerName' => 'SWU Stats',
   ],
   'head' => [
-    'styles'  => ['/TCGEngine/SharedUI/css/menuStyles.css'],
+    'styles'  => ['/TCGEngine/SharedUI/css/menuStyles.css', '/TCGEngine/SharedUI/Sites/SWUDeck/css/hud.css'],
     'scripts' => ['/TCGEngine/SharedUI/js/device-detector.js',
                   '/TCGEngine/SharedUI/js/burger-menu.js'],
     'fonts'   => ['Barlow', 'Teko'],
