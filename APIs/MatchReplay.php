@@ -125,7 +125,7 @@ if ($action === 'import') {
   if (function_exists('SetFlashMessage')) {
     SetFlashMessage('Loaded replay with ' . count($commandState['actions']) . ' actions.');
   }
-  WriteGamestate('./' . $rootName . '/');
+  WriteGamestate(dirname(__DIR__) . '/' . $rootName . '/');
   if (function_exists('GamestateUpdated')) {
     GamestateUpdated($gameName);
   }
