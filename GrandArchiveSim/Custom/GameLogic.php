@@ -5591,6 +5591,16 @@ function ActivatedAbilityCost($player, $mzCard, $cardID, $abilityIndex = 0) {
                 }
             }
             break;
+        case "uy4xippor7": { // Oasis Trading Post - (3/4/5), [REST]: Glimpse/Gather/Summon
+            $sourceObj = &GetZoneObject($mzCard);
+            if($sourceObj !== null) $sourceObj->Status = 1;
+            $costsByAbility = [3, 4, 5];
+            $reserveCost = $costsByAbility[intval($abilityIndex)] ?? 0;
+            for($ri = 0; $ri < $reserveCost; ++$ri) {
+                DecisionQueueController::AddDecision($player, "CUSTOM", "ReserveCard", 100);
+            }
+            break;
+        }
         case "GA-SHOUT-SINON-BABELIAS-COMPANION-PRD1E-CSR": // Sinon Babelias Companion - sacrifice a Powercell: Cascade
             if(intval($abilityIndex) === 0) {
                 QueuePowercellSacrificeChoice($player, "Sacrifice_a_Powercell", "PowercellSacrifice");
