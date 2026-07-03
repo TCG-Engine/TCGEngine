@@ -35,7 +35,7 @@ function MatchReplayApiLoadGame($rootName, $gameName) {
 
   EngineLoadRootRuntime($rootName);
   $GLOBALS['gameName'] = strval($gameName);
-  ParseGamestate('./' . $rootName . '/');
+  ParseGamestate(dirname(__DIR__) . '/' . $rootName . '/');
 }
 
 function MatchReplayApiCreateTempGameName($rootName) {
@@ -111,7 +111,7 @@ if ($action === 'import') {
   file_put_contents($gameDir . '/Gamestate.txt', strval($replay['initialGamestate']));
 
   $GLOBALS['gameName'] = strval($gameName);
-  ParseGamestate('./' . $rootName . '/');
+  ParseGamestate(dirname(__DIR__) . '/' . $rootName . '/');
   MatchReplaySetInitialGamestateText(strval($replay['initialGamestate']));
 
   $commandState = MatchReplayEmptyCommandState();
