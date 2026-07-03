@@ -89,6 +89,87 @@ include_once __DIR__ . '/MobileViewport.php';
     box-shadow: 0 0 4px #001f4d;
   }
 }
+
+/* ===== SWU HUD skin — chamfered cyan (matches the deck builder / SWUSim board) ===== */
+/* Buttons: closed chamfer drawn with two negative-z pseudos, so it works on the plain
+   <button>s here without markup changes. */
+.tab-button, #createDeckButton, #importDeckButton,
+.deck-actions-desktop button, .deck-more-btn {
+  position: relative !important; z-index: 0 !important; isolation: isolate !important;
+  border: 0 !important; border-radius: 0 !important; background: transparent !important;
+  box-shadow: none !important;
+  color: rgba(205,238,255,0.96) !important;
+  filter: drop-shadow(0 0 3px rgba(110,190,255,0.30));
+  transition: filter 150ms, color 150ms, transform 110ms !important;
+  cursor: pointer;
+}
+.tab-button::before, #createDeckButton::before, #importDeckButton::before,
+.deck-actions-desktop button::before, .deck-more-btn::before {
+  content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
+  clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px);
+  background: rgba(140,210,255,0.80) !important;
+}
+.tab-button::after, #createDeckButton::after, #importDeckButton::after,
+.deck-actions-desktop button::after, .deck-more-btn::after {
+  content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
+  clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px);
+  background: rgba(20,42,70,0.95) !important;
+}
+.tab-button:hover, #createDeckButton:hover, #importDeckButton:hover,
+.deck-actions-desktop button:hover, .deck-more-btn:hover {
+  color: #fff !important; filter: drop-shadow(0 0 8px rgba(125,205,255,0.6)); transform: translateY(-1px);
+}
+.tab-button:hover::before, #createDeckButton:hover::before, #importDeckButton:hover::before,
+.deck-actions-desktop button:hover::before, .deck-more-btn:hover::before { background: rgba(180,228,255,1) !important; }
+/* Active tab — bright rim + lit fill */
+.tab-button.active { color: #fff !important; }
+.tab-button.active::before { background: rgba(180,228,255,1) !important; }
+.tab-button.active::after  { background: rgba(30,64,104,0.96) !important; }
+/* Mobile "more" button: square chamfer instead of the round pill */
+.deck-more-btn { border-radius: 0 !important; width: 34px !important; height: 30px !important; box-shadow: none !important;
+  line-height: 1 !important; padding: 0 0 5px 0 !important; /* nudge the ⋮ glyph up to visual center */ }
+
+/* Deck names — HUD sans-serif, but normal case (not all-caps). */
+.deck-name, .deck-name span { font-family: Arial, Helvetica, sans-serif !important; text-transform: none !important; }
+
+/* Create / Import buttons in the search row — match the search input's height. */
+#createDeckButton, #importDeckButton {
+  height: 40px !important; box-sizing: border-box !important; padding: 0 12px !important;
+  display: inline-flex !important; align-items: center !important; justify-content: center !important;
+}
+
+/* Space out the desktop deck-action buttons (stats / copy / refresh / favorite / delete). */
+.deck-actions-desktop button + button { margin-left: 6px !important; }
+
+/* Delete deck action → red-tinted HUD (destructive). */
+.deck-actions-desktop button[title='Delete'] { color: #ffe4e4 !important; filter: drop-shadow(0 0 4px rgba(230,95,95,0.45)) !important; }
+.deck-actions-desktop button[title='Delete']::before { background: rgba(235,120,120,0.85) !important; }
+.deck-actions-desktop button[title='Delete']::after  { background: rgba(52,20,26,0.95) !important; }
+.deck-actions-desktop button[title='Delete']:hover::before { background: rgba(255,150,150,1) !important; }
+
+/* Panels: thin cyan frame + faint glow. */
+.left-pane .login.container.bg-black,
+.right-pane .login.container.bg-black {
+  border: 1px solid rgba(140,210,255,0.40) !important;
+  box-shadow: 0 0 12px rgba(120,200,255,0.15) !important;
+}
+
+/* Text inputs + selects → cyan HUD fields. */
+.left-pane input[type="text"], .right-pane input[type="text"],
+.left-pane select, .right-pane select {
+  background: rgba(20,42,70,0.55) !important; color: rgba(222,240,255,0.95) !important;
+  border: 1px solid rgba(140,210,255,0.45) !important; border-radius: 0 !important;
+}
+.left-pane input[type="text"]::placeholder, .right-pane input[type="text"]::placeholder { color: rgba(160,195,225,0.6) !important; }
+
+/* Top nav — HUD skin (same as hud.css; MainMenu uses its own chrome so it's duplicated here). */
+.nav-bar .NavBarItem { color: rgba(205,238,255,0.92) !important; text-shadow: 0 0 5px rgba(120,200,255,0.30) !important; transition: color 150ms, text-shadow 150ms !important; }
+.nav-bar .NavBarItem:hover { color: #fff !important; text-decoration: none !important; text-shadow: 0 0 10px rgba(140,215,255,0.70) !important; }
+.nav-bar-user, .nav-bar-links { border: 1px solid rgba(140,210,255,0.35) !important; box-shadow: 0 0 10px rgba(120,200,255,0.12) !important; }
+.dropdown-arrow { color: rgba(150,215,255,0.90) !important; }
+.dropdown-content { background: rgba(14,26,44,0.98) !important; border: 1px solid rgba(140,210,255,0.55) !important; border-radius: 0 !important; box-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 8px rgba(120,200,255,0.22) !important; }
+.dropdown-content a { color: rgba(205,238,255,0.92) !important; }
+.dropdown-content a:hover { background: rgba(30,64,104,0.90) !important; color: #fff !important; }
 </style>
 
 <?php
@@ -125,7 +206,7 @@ function LoadDecks() {
         $thisDeck .= "No Base";
       }
       $thisDeck .= "</td>";
-      $thisDeck .= "<td style='padding: 3px;'><span id='" . $id . "'><span onclick='event.stopPropagation(); DeckNameClick(\"" . $id . "\")'>" . $title . "</span></span></td>";
+      $thisDeck .= "<td class='deck-name' style='padding: 3px;'><span id='" . $id . "'><span onclick='event.stopPropagation(); DeckNameClick(\"" . $id . "\")'>" . $title . "</span></span></td>";
       // Desktop action buttons
       $thisDeck .= "<td class='deck-actions-desktop' style='padding: 3px;'>";
       $thisDeck .= "<button title='Stats' onclick='event.stopPropagation(); window.location.href=\"/TCGEngine/$folderPath/DeckStats.php?gameName=" . $deck["assetIdentifier"] . "\"'>";
@@ -175,8 +256,14 @@ function LoadDecks() {
     </svg>";
       $thisDeck .= "</button>";
       $thisDeck .= "</td>";
-      // Mobile dropdown button
-      $thisDeck .= "<td class='deck-actions-mobile' style='padding: 3px; display: none;'><button class='deck-more-btn' title='More' onclick='event.stopPropagation(); showDeckDropdown(this, \"$id\", \"{$deck['assetIdentifier']}\", {$deck['assetSource']}, \"{$deck['assetSourceID']}\", {$deck['assetFolder']}, " . (!is_null($deck['assetSource']) && !is_null($deck['assetSourceID']) ? "true" : "false") . ")'>⋮</button></td>";
+      // Mobile dropdown button. NOTE: assetSource/assetFolder are numeric args passed UNQUOTED
+      // into the onclick — a null (e.g. imported decks with no external source) would render as
+      // an empty token and break the JS ("showDeckDropdown(this, ..., , ...)"). Encode nulls as
+      // valid JS values so the handler still runs (canRefresh already guards the refresh action).
+      $_ddAssetSource = is_null($deck['assetSource']) ? 'null' : intval($deck['assetSource']);
+      $_ddAssetFolder = is_null($deck['assetFolder']) ? 0 : intval($deck['assetFolder']);
+      $_ddCanRefresh = (!is_null($deck['assetSource']) && !is_null($deck['assetSourceID'])) ? 'true' : 'false';
+      $thisDeck .= "<td class='deck-actions-mobile' style='padding: 3px; display: none;'><button class='deck-more-btn' title='More' onclick='event.stopPropagation(); showDeckDropdown(this, \"$id\", \"{$deck['assetIdentifier']}\", {$_ddAssetSource}, \"{$deck['assetSourceID']}\", {$_ddAssetFolder}, {$_ddCanRefresh})'>⋮</button></td>";
       $thisDeck .= "</tr>";
       if($deck["assetFolder"] == 0) $otherDecks .= $thisDeck;
       else $favoriteDecks .= $thisDeck;
@@ -758,27 +845,25 @@ function LoadDecks() {
               echo("<button style='margin-left:3px; padding-bottom:8px;' class=\"tab-button\" onclick=\"switchTab('tab-StarWarzDad', event)\"><img src='/TCGEngine/Assets/Images/logos/StarWarzDad.webp' alt='Force Fam' style='height: 15px; '></button>");
               ?>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <button id="createDeckButton" onclick="createDeck()" title="Create New Deck" style="font-size: 18px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                  <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
-                </svg>
-              </button>
-              <button id="importDeckButton" onclick="importDeck()" title="Import Deck" style="font-size: 18px;">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708z"/>
-                  <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
-                </svg>
-              </button>
-            </div>
           </div>
           <div class="tab-content-container">
             <div id="tab-decks" class="tab-content" style="display: block;">
-              <div>
+              <div style="display: flex; align-items: center; gap: 8px; margin: 10px 0 20px;">
                 <input type="text" id="deckSearchInput" placeholder="Search your decks..."
-                      style="width: 100%; padding: 10px; background-color: #002249; color: white;
+                      style="flex: 1; min-width: 0; margin: 0; padding: 10px; background-color: #002249; color: white;
                             border: 1px solid #2a4b8d; border-radius: 4px;"
                       onkeyup="filterDecks()">
+                <button id="createDeckButton" onclick="createDeck()" title="Create New Deck" style="font-size: 18px; padding: 0 12px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>
+                  </svg>
+                </button>
+                <button id="importDeckButton" onclick="importDeck()" title="Import Deck" style="font-size: 18px; padding: 0 12px;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-cloud-arrow-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M7.646 10.854a.5.5 0 0 0 .708 0l2-2a.5.5 0 0 0-.708-.708L8.5 9.293V5.5a.5.5 0 0 0-1 0v3.793L6.354 8.146a.5.5 0 1 0-.708.708z"/>
+                    <path d="M4.406 3.342A5.53 5.53 0 0 1 8 2c2.69 0 4.923 2 5.166 4.579C14.758 6.804 16 8.137 16 9.773 16 11.569 14.502 13 12.687 13H3.781C1.708 13 0 11.366 0 9.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383m.653.757c-.757.653-1.153 1.44-1.153 2.056v.448l-.445.049C2.064 6.805 1 7.952 1 9.318 1 10.785 2.23 12 3.781 12h8.906C13.98 12 15 10.988 15 9.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 4.825 10.328 3 8 3a4.53 4.53 0 0 0-2.941 1.1z"/>
+                  </svg>
+                </button>
               </div>
               <?php
                 $allowedSortKeys = ['id_desc','id_asc','updated_desc','updated_asc','alpha_asc','alpha_desc'];
@@ -958,8 +1043,9 @@ function LoadDecks() {
     // Show the popup container first
     popup.style.display = "block";
 
-    // Set iframe source
-    document.getElementById("cardSearchFrame").src = "https://swustats.net/TCGEngine/NextTurn.php?gameName=1&playerID=1&folderPath=SWUCardList";
+    // Set iframe source (same-origin, so the parent page's theme/CSS can reach it and it
+    // follows whatever host it's served from instead of always hitting production).
+    document.getElementById("cardSearchFrame").src = "/TCGEngine/NextTurn.php?gameName=1&playerID=1&folderPath=SWUCardList";
 
     // Force a reflow to ensure transitions work
     void popup.offsetWidth;

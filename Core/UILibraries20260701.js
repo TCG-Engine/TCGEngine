@@ -1993,30 +1993,52 @@ function ResolveGlobalFunction(functionName) {
       `;
       document.head.appendChild(widgetstyle);
 
-      // Render a zone's widget actions as a single native <select> (used by DisplayMode=Dropdown,
-      // e.g. SWUDeck's Sort control). onchange dispatches the SAME handleWidgetAction the buttons
-      // use, so behavior is identical to the button row it replaces.
+      // Render a zone's widget actions as a CUSTOM dropdown (used by DisplayMode=Dropdown,
+      // e.g. SWUDeck's Sort control): a chamfered trigger button + a styled popup list, so it
+      // can be themed to match the site's other dropdown menus (a native <select>'s option list
+      // is OS-rendered and can't be styled on macOS). Picking an item dispatches the SAME
+      // handleWidgetAction the buttons use, so behavior is identical to the button row.
       function createWidgetDropdown(zoneName, cardId, currentValue="") {
         const widgets = GetZoneWidgets(zoneName);
         const esc = (v) => String(v ?? '').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-        let options = '';
-        let hasSelection = false;
-        let widgetTypeForChange = 'Value';
-        for (const widgetType in widgets) {
-          widgetTypeForChange = widgetType;
-          const widgetGroup = widgets[widgetType];
+        let items = '';
+        let currentLabel = 'Sort by…';
+        let widgetType = 'Value';
+        for (const wt in widgets) {
+          widgetType = wt;
+          const widgetGroup = widgets[wt];
           const widgetActions = Array.isArray(widgetGroup) ? widgetGroup : (widgetGroup.actions || []);
           widgetActions.forEach(widget => {
             const action = String(widget.Action);
             const label = action.replace(/_/g, ' ');
             const selected = (currentValue && currentValue !== "-" && action === currentValue);
-            if (selected) hasSelection = true;
-            options += `<option value="${esc(action)}"${selected ? ' selected' : ''}>${esc(label)}</option>`;
+            if (selected) currentLabel = label;
+            items += `<div class="widget-dd-item${selected ? ' is-active' : ''}" onclick="PickWidgetDropdown(event, '${esc(cardId)}', '${esc(widgetType)}', '${esc(action)}')">${esc(label)}</div>`;
           });
         }
-        const placeholder = `<option value="" disabled${hasSelection ? '' : ' selected'}>Sort by&hellip;</option>`;
-        const style = "background:#2a2a2a;color:#fff;border:1px solid #555;border-radius:5px;padding:3px 6px;font-size:13px;cursor:pointer;";
-        return `<select class="widget-dropdown" style="${style}" onchange="handleWidgetAction(event, '${cardId}', '${widgetTypeForChange}', this.value)">${placeholder}${options}</select>`;
+        return `<div class="widget-dd-wrap"><button type="button" class="widget-button widget-dd-trigger" onclick="ToggleWidgetDropdown(event, this)"><span class="widget-dd-label">${esc(currentLabel)}</span><span class="widget-dd-caret">▾</span></button><div class="widget-dd-menu">${items}</div></div>`;
+      }
+
+      // Open/close a custom widget dropdown; only one open at a time; outside-click closes it.
+      function CloseWidgetDropdowns() {
+        var open = document.querySelectorAll('.widget-dd-menu.is-open');
+        for (var i = 0; i < open.length; i++) open[i].classList.remove('is-open');
+      }
+      function ToggleWidgetDropdown(event, btn) {
+        event.stopPropagation();
+        var menu = btn.parentNode.querySelector('.widget-dd-menu');
+        if (!menu) return;
+        var wasOpen = menu.classList.contains('is-open');
+        CloseWidgetDropdowns();
+        if (!wasOpen) {
+          menu.classList.add('is-open');
+          setTimeout(function() { document.addEventListener('click', CloseWidgetDropdowns, { once: true }); }, 0);
+        }
+      }
+      function PickWidgetDropdown(event, cardId, widgetType, action) {
+        event.stopPropagation();
+        CloseWidgetDropdowns();
+        handleWidgetAction(event, cardId, widgetType, action);
       }
 
       function createWidgetButtons(zoneName, cardId, cardJSON="-", currentValue="") {
@@ -2327,6 +2349,27 @@ function ResolveGlobalFunction(functionName) {
             0 12px 28px rgba(3, 8, 26, 0.5);
           filter: brightness(1.06);
         }
+
+        /* ---- Custom widget dropdown (DisplayMode=Dropdown) ---- */
+        /* Base = structural (open/close toggle, positioning) + a neutral default look that
+           matches .widget-button. Apps override the cosmetics in their own GameLayout CSS
+           (e.g. SWUDeck's cyan-HUD theme) — do NOT hard-code an app theme here. */
+        .widget-dd-wrap { position: relative; display: inline-block; }
+        .widget-dd-trigger { display: inline-flex; align-items: center; gap: 6px; }
+        .widget-dd-caret { font-size: 10px; opacity: 0.85; }
+        .widget-dd-menu {
+          display: none; position: absolute; top: 100%; left: 0; margin-top: 3px;
+          z-index: 9999; min-width: 100%;
+          background: linear-gradient(180deg, rgba(42,42,42,0.98) 0%, rgba(24,24,24,0.99) 100%);
+          border: 1px solid rgba(255,255,255,0.16); border-radius: 8px;
+          box-shadow: 0 8px 20px rgba(0,0,0,0.45); overflow: hidden;
+        }
+        .widget-dd-menu.is-open { display: block; }
+        .widget-dd-item {
+          padding: 7px 14px; font-size: 13px; color: #f6f3eb; cursor: pointer; white-space: nowrap;
+        }
+        .widget-dd-item:hover { background: rgba(255,255,255,0.10); }
+        .widget-dd-item.is-active { font-weight: 700; }
       `;
       document.head.appendChild(style);
 
@@ -2794,19 +2837,25 @@ function ResolveGlobalFunction(functionName) {
           }
           ++index;
         });
-        if(hasCustomFilter) {
-          html += `<div style='display: flex; align-items: center; margin-left: 10px;'>
-          <input type='checkbox' id='customFilterCheckbox' onchange='PaneFilterCards("${prefix}", "${zoneName}", event, "check");' ${customFilterStatus ? 'checked' : ''}>
-          <label for='customFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter Aspect</label>
-              </div>`;
+        html += `</div>`; // close the tabs row
+        // Filters go on their OWN row below the tabs: [Filter Legal] [Filter Aspect].
+        var hasLegalFilter = (typeof window.InLegalFilter === 'function');
+        if(hasLegalFilter || hasCustomFilter) {
+          html += `<div style='display: flex; align-items: center; flex-wrap: wrap; margin-top: 4px; gap: 12px;'>`;
+          if(hasLegalFilter) {
+            html += `<div style='display: flex; align-items: center;'>
+            <input type='checkbox' id='legalFilterCheckbox' onchange='PaneFilterCards("${prefix}", "${zoneName}", event, "check");' ${legalFilterStatus ? 'checked' : ''}>
+            <label for='legalFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter Legal</label>
+                </div>`;
+          }
+          if(hasCustomFilter) {
+            html += `<div style='display: flex; align-items: center;'>
+            <input type='checkbox' id='customFilterCheckbox' onchange='PaneFilterCards("${prefix}", "${zoneName}", event, "check");' ${customFilterStatus ? 'checked' : ''}>
+            <label for='customFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter Aspect</label>
+                </div>`;
+          }
+          html += `</div>`;
         }
-        if(typeof window.InLegalFilter === 'function') {
-          html += `<div style='display: flex; align-items: center; margin-left: 10px;'>
-          <input type='checkbox' id='legalFilterCheckbox' onchange='PaneFilterCards("${prefix}", "${zoneName}", event, "check");' ${legalFilterStatus ? 'checked' : ''}>
-          <label for='legalFilterCheckbox' style='margin-left: 5px; font-size: 13px; cursor: pointer;'>Filter Legal</label>
-              </div>`;
-        }
-        html += `</div>`;
         paneHTML += "</span>";
         html += "</div>";
         document.getElementById(fullName).innerHTML = html + paneHTML;

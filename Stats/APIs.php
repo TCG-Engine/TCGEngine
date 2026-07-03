@@ -1,5 +1,6 @@
 <?php
 include_once "../SharedUI/MenuBar.php";
+echo('<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUDeck/css/hud.css">');
 include_once "../SharedUI/Header.php";
 ?>
 
@@ -105,6 +106,27 @@ include_once "../SharedUI/Header.php";
         table td:nth-child(3) {
             font-weight: 500;
         }
+
+        /* --- SWUDeck HUD navy override: dark panels + light text (info text stays normal case) --- */
+        .api-section {
+            background: rgba(14,26,44,0.92) !important;
+            border: 1px solid rgba(140,210,255,0.40) !important;
+            border-radius: 0 !important;
+            box-shadow: 0 0 12px rgba(120,200,255,0.12) !important;
+        }
+        .api-endpoint {
+            background: rgba(10,20,36,0.92) !important;
+            border: 1px solid rgba(140,210,255,0.22) !important;
+            border-radius: 0 !important;
+        }
+        .api-section, .api-section p, .api-section li,
+        .api-endpoint, .api-endpoint p, .api-endpoint li, .api-endpoint ul,
+        table td { color: rgba(220,238,255,0.90) !important; }
+        .api-section h2, .api-section h3, .api-endpoint h3, .api-endpoint h4, .api-endpoint h5 {
+            color: rgba(205,238,255,0.95) !important; text-transform: uppercase; letter-spacing: 0.03em;
+        }
+        th { background: rgba(20,42,70,0.90) !important; color: rgba(205,238,255,0.95) !important; text-transform: uppercase; }
+        th, td { border-bottom: 1px solid rgba(140,210,255,0.18) !important; }
     </style>
 </head>
 <body>

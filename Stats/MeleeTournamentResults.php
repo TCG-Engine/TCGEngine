@@ -1,5 +1,6 @@
 <?php
 include_once "../SharedUI/MenuBar.php";
+echo('<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUDeck/css/hud.css">');
 include_once "../SharedUI/Header.php";
 
 // Get tournament ID from URL parameter

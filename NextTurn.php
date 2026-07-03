@@ -352,11 +352,18 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       function CalculateCardSize() {
         if (window.innerWidth <= 1000) {
           var viewportWidth = (window.visualViewport && window.visualViewport.width) ? window.visualViewport.width : window.innerWidth;
-          var mobileColumns = 7; // target at least seven cards visible before wrapping
+          // SWUDeck's phone layout shows fewer, larger cards (4 per row). Gate on the same
+          // phone/?swuLayout=mobile trigger the mobile LAYOUT uses, so a narrow desktop window
+          // (which keeps the wide desktop layout) still gets the small-card grid.
+          var isSWUDeckPhone = <?php echo ($folderPath === 'SWUDeck' ? 'true' : 'false'); ?> &&
+            (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|webOS|Opera Mini|IEMobile/i.test(navigator.userAgent)
+              || /[?&]swuLayout=mobile/.test(location.search));
+          var mobileColumns = isSWUDeckPhone ? 4 : 7;
+          var maxCardSize = isSWUDeckPhone ? 120 : 80;
           var rowPadding = 24; // account for wrapper padding and edge spacing
           var perCardHorizontalSpacing = 4; // two 1px margins + buffer for layout rounding
           var calculatedSize = Math.floor((viewportWidth - rowPadding - (mobileColumns * perCardHorizontalSpacing)) / mobileColumns);
-          return Math.max(36, Math.min(80, calculatedSize));
+          return Math.max(36, Math.min(maxCardSize, calculatedSize));
         }
         return window.innerWidth / 16;
       }

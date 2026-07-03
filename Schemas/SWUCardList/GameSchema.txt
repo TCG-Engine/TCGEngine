@@ -6,6 +6,7 @@ Initialization: Initialize.php
 ServerInclude: /Custom/CustomInput.php
 ClientInclude: /TCGEngine/SWUCardList/Custom/Filters.js
 ClientInclude: /TCGEngine/SWUCardList/Custom/ClientActions.js
+Layout: /Custom/GameLayout.php
 PageBackground: /TCGEngine/Assets/Images/gamebg.jpg
 AssetReflection: SWUDeck
 CardPane - Value:string

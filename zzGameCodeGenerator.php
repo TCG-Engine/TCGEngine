@@ -1808,7 +1808,14 @@ fwrite($handler, "include '../Assets/patreon-php-master/src/PatreonLibraries.php
 fwrite($handler, "include './GamestateParser.php';\r\n");
 fwrite($handler, "include './ZoneAccessors.php';\r\n");
 fwrite($handler, "include './ZoneClasses.php';\r\n");
-fwrite($handler, "include './GeneratedCode/GeneratedCardDictionaries.php';\r\n");
+// Card dictionaries live with the asset owner. A reflected site (e.g. SWUCardList ->
+// SWUDeck) has no local GeneratedCode/, so pull the dictionaries from the reflected
+// site's folder — matching how NextTurn.php resolves them via GetAssetReflectionPath.
+if ($assetReflection !== null && $assetReflection !== "") {
+  fwrite($handler, "include '../" . $assetReflection . "/GeneratedCode/GeneratedCardDictionaries.php';\r\n");
+} else {
+  fwrite($handler, "include './GeneratedCode/GeneratedCardDictionaries.php';\r\n");
+}
 //TODO: Validate these inputs
 fwrite($handler, "\$gameName = TryGet(\"gameName\");\r\n");
 if($rootName == "SWUSim") {

@@ -1,6 +1,7 @@
 <?php
 
 include_once '../SharedUI/MenuBar.php';
+echo('<link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUDeck/css/hud.css">');
 include_once '../SharedUI/Header.php';
 include_once '../Core/HTTPLibraries.php';
 include_once "../Core/UILibraries.php";
@@ -148,12 +149,12 @@ if ($selectedBase !== '') {
         </div>
         <div style="margin-bottom: 10px;">
             <label style="cursor: pointer;">
-                <input type="checkbox" name="premierOnly" value="1" <?php echo $premierOnly ? 'checked' : ''; ?>>
+                <input type="checkbox" name="premierOnly" value="1" onchange="this.form.submit()" <?php echo $premierOnly ? 'checked' : ''; ?>>
                 Premier only
             </label>
         </div>
         <div>
-            <input type="submit" value="Filter">
+            <button type="submit">Filter</button>
         </div>
     </div>
 </form>
