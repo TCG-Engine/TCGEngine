@@ -28,6 +28,11 @@
     ['kind'=>'icon','icon'=>'discord.svg','href'=>'https://discord.gg/b9nfNyVFpM'],
     ['kind'=>'icon','icon'=>'github.svg','href'=>'https://github.com/TCG-Engine/TCGEngine'],
   ],
+  'deckLibrary' => [
+    'storage'         => 'local',
+    'localStorageKey' => 'tcgengine:savedDecks:AzukiSim',
+    'emptyText'       => 'No saved decks yet - paste a deck link and save it.',
+  ],
   'profile' => [
     'sections'         => ['welcome'],
     'oauthAppLabel'    => 'Azuki Sim',

@@ -7,22 +7,35 @@ include_once __DIR__ . '/MenuBar.php';
 include_once __DIR__ . '/../../../AccountFiles/AccountSessionAPI.php';
 include_once __DIR__ . '/../../../Database/ConnectionManager.php';
 include_once __DIR__ . '/../../../AzukiSim/GeneratedCode/GeneratedCardDictionaries.php';
+require_once __DIR__ . '/../../Render/DeckLibrary.php';
 
 include_once __DIR__ . '/Header.php';
 
+$azukiSiteDef = require __DIR__ . '/SiteDef.php';
+$azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionButtons' => true]);
+
 ?>
-<div class="row-wrapper" style="display: flex; flex-direction: row; flex-grow: 1;">
-  <!-- Create New Game Section -->
-  <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px; position: relative;">
+<div class="row-wrapper azuki-menu-grid">
+  <!-- Active Games Section -->
+  <div class="card azuki-glass-card azuki-active-card">
     <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
       <img src='../../../Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
     <h2>Active Games (<span id="active-game-count">0</span>)</h2>
+    <div id="active-games-list" class="active-games-list"></div>
+  </div>
+
+  <!-- Create New Game Section -->
+  <div class="card azuki-glass-card azuki-queue-card">
     <h2>Create a New Game</h2>
     <div>
       <label for="azuki-deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Optional deck link:</label>
       <input type="text" id="azuki-deck-link" placeholder="https://thegateikz.com/... or deck slug" style="width: 100%; padding: 10px 15px; margin-bottom: 8px; background-color: rgba(40, 40, 40, 0.95); color: white; border: 2px solid rgba(100, 100, 100, 0.5); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
       <p style="color: #b9b9b9; margin: 0 0 12px 0; font-size: 12px; line-height: 1.35;">Paste a `thegateikz.com` deck link to load that list. If left blank, AzukiSim uses the selected starter deck below.</p>
+      <div class="saved-decks-panel">
+        <div class="azuki-inline-section-title">Saved Decks</div>
+        <?php echo RenderDeckLibrary(0, $azukiDeckLibraryConfig); ?>
+      </div>
       <p style="color: #ccc; margin: 0 0 8px 0; font-size: 14px;">Starter deck fallback:</p>
       <select id="starter-deck-select" style="margin-bottom: 12px; min-width: 220px;">
         <option value="Raizan">Raizan Starter Deck</option>
@@ -44,20 +57,19 @@ include_once __DIR__ . '/Header.php';
   </div>
   
   <!-- Tips & Info Section -->
-  <div class="card" style="flex-grow: 1; margin: 10px; padding: 20px; background-color: rgba(51, 51, 51, 0.9); color: white; border-radius: 10px; display: flex; flex-direction: column; gap: 16px;">
+  <div class="card azuki-glass-card azuki-info-card">
+    <div class="azuki-info-tabs" role="tablist" aria-label="Azuki information">
+      <button type="button" id="azuki-info-tab-welcome" class="azuki-info-tab is-active" onclick="switchInfoTab('welcome')" role="tab" aria-selected="true" aria-controls="azuki-info-panel-welcome">Welcome</button>
+      <button type="button" id="azuki-info-tab-replays" class="azuki-info-tab" onclick="switchInfoTab('replays')" role="tab" aria-selected="false" aria-controls="azuki-info-panel-replays">Replays</button>
+    </div>
+    <div id="azuki-info-panel-welcome" class="azuki-info-panel is-active" role="tabpanel" aria-labelledby="azuki-info-tab-welcome">
     <h2 style="margin: 0 0 4px 0;">Welcome to Azuki TCG Simulator!</h2>
     <p class="login-message" style="margin: 0; color: #ccc; font-size: 14px;">A fan-made online simulator for the Azuki TCG.</p>
 
     <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 0;">
 
     <!-- Did you know? -->
-    <div id="did-you-know-box" style="
-      background: linear-gradient(135deg, rgba(52,152,219,0.15) 0%, rgba(30,30,50,0.4) 100%);
-      border: 1px solid rgba(52,152,219,0.35);
-      border-radius: 8px;
-      padding: 14px 16px;
-      position: relative;
-    ">
+    <div id="did-you-know-box">
       <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
         <span style="font-size: 18px;">💡</span>
         <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #3498db;">Did you know?</span>
@@ -76,8 +88,15 @@ include_once __DIR__ . '/Header.php';
       <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 8px;">Quick Reference</div>
       <div style="display: flex; flex-direction: column; gap: 6px;" id="hotkey-list"></div>
     </div>
+    </div>
+    <div id="azuki-info-panel-replays" class="azuki-info-panel" role="tabpanel" aria-labelledby="azuki-info-tab-replays">
+      <h2 style="margin: 0;">Your Replays</h2>
+      <p style="margin: 0; color: #ccc; font-size: 13px; line-height: 1.4;">Saved in this browser.</p>
+      <div id="match-replay-menu-list" class="ga-replay-list"></div>
+    </div>
   </div>
 </div>
+<script src="/TCGEngine/Core/MatchReplayClient.js"></script>
 
 <style>
   .row-wrapper > .card {
@@ -85,6 +104,51 @@ include_once __DIR__ . '/Header.php';
     min-width: 0;
   }
   .hotkey-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #ccc; }
+  .azuki-inline-section-title {
+    color: #ccc;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin: 0 0 8px;
+    text-transform: uppercase;
+  }
+  .saved-decks-panel {
+    margin: 0 0 12px;
+  }
+  .azuki-info-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid rgba(255,255,255,0.18);
+  }
+  .azuki-info-tab {
+    flex: 1;
+    padding: 8px;
+    background: rgba(40,40,40,0.7);
+    color: #aaa;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .azuki-info-tab.is-active {
+    background: rgba(52,152,219,0.25);
+    border-bottom-color: #3498db;
+    color: #fff;
+    font-weight: 600;
+  }
+  .azuki-info-panel {
+    display: none;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .azuki-info-panel.is-active {
+    display: flex;
+  }
+  .ga-replay-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
   .hotkey-badge {
     display: inline-block; min-width: 28px; text-align: center;
     padding: 2px 7px; border-radius: 5px;
@@ -112,6 +176,155 @@ include_once __DIR__ . '/Header.php';
     white-space: normal !important;
     overflow-wrap: anywhere !important;
     word-break: break-word !important;
+  }
+  .home-header {
+    height: 92px;
+    padding: 10px 0 6px 40px;
+  }
+  .home-header h1 {
+    font-size: 42px;
+    margin: 0 0 2px;
+    line-height: 1;
+  }
+  .home-header p {
+    margin: 0;
+  }
+  .azuki-menu-grid {
+    display: grid !important;
+    grid-template-columns: minmax(260px, 0.9fr) minmax(360px, 1.2fr) minmax(300px, 1fr);
+    gap: 14px;
+    align-items: start;
+    margin: 0 10px 10px;
+  }
+  .azuki-active-card,
+  .azuki-queue-card,
+  .azuki-info-card {
+    color: white;
+    border-radius: 12px;
+    position: relative;
+    margin: 0 !important;
+    padding: 18px !important;
+  }
+  .azuki-info-card {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .azuki-glass-card {
+    background: linear-gradient(165deg, rgba(9, 23, 44, 0.82) 0%, rgba(6, 17, 34, 0.74) 100%) !important;
+    border: 1px solid rgba(118, 196, 255, 0.24) !important;
+    box-shadow: 0 14px 36px rgba(2, 8, 20, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px) saturate(115%);
+    -webkit-backdrop-filter: blur(10px) saturate(115%);
+  }
+  .azuki-queue-card h2,
+  .azuki-active-card h2,
+  .azuki-info-card h2 {
+    margin-top: 0;
+  }
+  .azuki-info-tabs {
+    border-bottom-color: rgba(118, 196, 255, 0.24);
+  }
+  .azuki-info-tab {
+    background: rgba(40,40,40,0.55);
+  }
+  .azuki-info-tab.is-active {
+    background: rgba(85, 166, 225, 0.18);
+    border-bottom-color: #76c4ff;
+  }
+  #did-you-know-box {
+    background: linear-gradient(135deg, rgba(85, 166, 225, 0.14) 0%, rgba(18, 31, 50, 0.42) 100%);
+    border: 1px solid rgba(118, 196, 255, 0.28);
+    border-radius: 8px;
+    padding: 14px 16px;
+    position: relative;
+  }
+  #did-you-know-box button {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    padding: 3px 8px !important;
+    border-radius: 5px !important;
+    font-size: 12px !important;
+  }
+  .saved-decks-panel .deck-library-empty {
+    color: #b9b9b9;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .saved-decks-panel .dl-dropdown-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .saved-decks-panel .dl-act {
+    padding: 5px 9px;
+    font-size: 12px;
+  }
+  .active-games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 240px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .active-game-card {
+    border: 1px solid rgba(118, 196, 255, 0.22);
+    border-radius: 10px;
+    background: rgba(9, 20, 36, 0.75);
+    padding: 10px 12px;
+  }
+  .active-game-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 13px;
+    color: #d9d9d9;
+  }
+  .active-game-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .active-game-badge.private {
+    background: rgba(201, 168, 76, 0.18);
+    color: #f4e2a4;
+  }
+  .active-game-badge.public {
+    background: rgba(68, 170, 130, 0.18);
+    color: #9ed9b4;
+  }
+  .active-game-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .active-game-empty {
+    color: #b9b9b9;
+    font-size: 13px;
+    line-height: 1.4;
+    padding: 8px 0 2px;
+  }
+  .ga-replay-list {
+    min-height: 72px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  @media (max-width: 1180px) {
+    .azuki-menu-grid {
+      display: flex !important;
+      flex-direction: column !important;
+    }
   }
 </style>
 
@@ -151,6 +364,21 @@ include_once __DIR__ . '/Header.php';
   function cycleDidYouKnow() {
     _dykIndex = (_dykIndex + 1) % _didYouKnowTips.length;
     renderDidYouKnow();
+  }
+
+  function switchInfoTab(tab) {
+    var isReplays = tab === 'replays';
+    var welcomeTab = document.getElementById('azuki-info-tab-welcome');
+    var replaysTab = document.getElementById('azuki-info-tab-replays');
+    var welcomePanel = document.getElementById('azuki-info-panel-welcome');
+    var replaysPanel = document.getElementById('azuki-info-panel-replays');
+    if (!welcomeTab || !replaysTab || !welcomePanel || !replaysPanel) return;
+    welcomeTab.classList.toggle('is-active', !isReplays);
+    replaysTab.classList.toggle('is-active', isReplays);
+    welcomeTab.setAttribute('aria-selected', isReplays ? 'false' : 'true');
+    replaysTab.setAttribute('aria-selected', isReplays ? 'true' : 'false');
+    welcomePanel.classList.toggle('is-active', !isReplays);
+    replaysPanel.classList.toggle('is-active', isReplays);
   }
 
   function renderHotkeyList() {
@@ -323,6 +551,27 @@ include_once __DIR__ . '/Header.php';
         });
       }
 
+      function autoSaveCurrentDeckLink(submission) {
+        if (!submission || !submission.deckLink || !window.TCGDeckLibrarySaveCurrent) return;
+        window.TCGDeckLibrarySaveCurrent(submission.deckLink, {
+          localStorageKey: 'tcgengine:savedDecks:AzukiSim',
+          promptName: false,
+          name: submission.deckLink
+        });
+      }
+
+      function loadSavedDeckInput(input) {
+        var linkEl = document.getElementById('azuki-deck-link');
+        if (linkEl) linkEl.value = input || '';
+      }
+
+      document.addEventListener('change', function(e) {
+        var sel = e.target.closest('.saved-decks-panel .dl-select');
+        if (!sel) return;
+        var opt = sel.options[sel.selectedIndex];
+        loadSavedDeckInput(opt ? opt.getAttribute('data-queue-input') : '');
+      });
+
       function createPrivateGame() {
         submitQueueJoin({
           createPrivate: true,
@@ -367,6 +616,7 @@ include_once __DIR__ . '/Header.php';
               showQueueInlineError(response.message || 'Unable to join queue.');
               return;
             }
+            autoSaveCurrentDeckLink(submission);
             clearQueueInlineError();
             if(response.ready) {
               DisplayMatchFoundPopup(response.playerID, response.gameName, response.authKey);
@@ -691,6 +941,7 @@ include_once __DIR__ . '/Header.php';
       function refreshOpenGames() {
         console.log('Refreshing open games');
         var gameCountElement = document.getElementById('active-game-count');
+        var gameListElement = document.getElementById('active-games-list');
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '../../../APIs/Lobbies/GetActiveGames.php?rootName=' + encodeURIComponent(rootName), true);
         xhr.responseType = 'json';
@@ -702,21 +953,82 @@ include_once __DIR__ . '/Header.php';
           if (data.data && Array.isArray(data.data)) {
             var totalCount = (typeof data.totalCount === 'number') ? data.totalCount : data.data.length;
             gameCountElement.textContent = totalCount;
+            renderActiveGames(data.data);
           } else {
             gameCountElement.textContent = '0';
+            renderActiveGames([]);
           }
           } else {
           console.error('Error fetching open games:', xhr.statusText);
           gameCountElement.textContent = '0';
+          renderActiveGames([]);
           }
         };
 
         xhr.onerror = function() {
           console.error('Error fetching open games:', xhr.statusText);
           gameCountElement.textContent = '0';
+          renderActiveGames([]);
         };
 
         xhr.send();
+      }
+
+      function escapeHtml(value) {
+        return String(value == null ? '' : value).replace(/[&<>"']/g, function(ch) {
+          return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+          }[ch];
+        });
+      }
+
+      function formatActiveGameTime(timestamp) {
+        if (!timestamp) return 'Unknown';
+        try {
+          return new Date(timestamp * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+        } catch (e) {
+          return 'Unknown';
+        }
+      }
+
+      function openSpectatorView(gameName, perspective) {
+        var url = new URL('../../../NextTurn.php', window.location.href);
+        url.searchParams.set('playerID', 'S');
+        url.searchParams.set('viewerPerspective', perspective === 2 ? '2' : '1');
+        url.searchParams.set('gameName', gameName);
+        url.searchParams.set('folderPath', rootName);
+        window.location.href = url.toString();
+      }
+
+      function renderActiveGames(games) {
+        var gameListElement = document.getElementById('active-games-list');
+        if (!gameListElement) return;
+        if (!games || !games.length) {
+          gameListElement.innerHTML = '<div class="active-game-empty">No active games right now. Start one or refresh again in a moment.</div>';
+          return;
+        }
+
+        var html = '';
+        games.forEach(function(game) {
+          var visibilityClass = game.isPrivate ? 'private' : 'public';
+          var visibilityLabel = game.isPrivate ? 'Private' : 'Public';
+          var gameName = String(game.gameName || '');
+          html += '<div class="active-game-card">';
+          html +=   '<div class="active-game-meta">';
+          html +=     '<div>Game <strong>' + escapeHtml(gameName) + '</strong><br><span style="font-size:12px; color:#b9b9b9;">Updated ' + escapeHtml(formatActiveGameTime(game.lastUpdatedAt)) + '</span></div>';
+          html +=     '<span class="active-game-badge ' + visibilityClass + '">' + visibilityLabel + '</span>';
+          html +=   '</div>';
+          html +=   '<div class="active-game-actions">';
+          html +=     '<button class="spectate-button" onclick="openSpectatorView(' + JSON.stringify(gameName).replace(/"/g, '&quot;') + ', 1)">Spectate P1 Side</button>';
+          html +=     '<button class="spectate-button" onclick="openSpectatorView(' + JSON.stringify(gameName).replace(/"/g, '&quot;') + ', 2)">Spectate P2 Side</button>';
+          html +=   '</div>';
+          html += '</div>';
+        });
+        gameListElement.innerHTML = html;
       }
       function pollLobbyUpdates(playerID, authKey) {
         var xhr = new XMLHttpRequest();
@@ -760,6 +1072,17 @@ include_once __DIR__ . '/Header.php';
       }
 
       document.addEventListener('DOMContentLoaded', function() {
+        if (window.MatchReplayClient) {
+          window.MatchReplayClient.init({
+            enabled: true,
+            rootName: rootName,
+            apiBaseUrl: '/TCGEngine/APIs/MatchReplay.php',
+            nextTurnBaseUrl: '/TCGEngine/NextTurn.php'
+          });
+          window.MatchReplayClient.renderReplayLibrary('match-replay-menu-list', {
+            rootName: rootName
+          });
+        }
         initializeDeckLinkFromUrl();
         initializePrivateInviteFromUrl();
         updateRejoinLastGameUI();

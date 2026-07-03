@@ -10,6 +10,7 @@ ServerInclude: /GeneratedCode/GeneratedMacroCode.php
 ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: AzukiSim
 Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZArea,myIKZPile,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZArea,theirIKZPile,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex,MacroGameIndex
+Module: MatchReplay=MatchReplayInitialState,MatchReplayCommands
 Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Action={}
 Macro: Name=OnPlay(mzID); ChoiceFunction=OnPlayCard; Action={}
 Macro: Name=AttackWith(mzID,targetMZ); ChoiceFunction=DoAttack; PrereqFunction=CanAttack; SourceParam=mzID; Action={}
@@ -138,4 +139,8 @@ Sort: Reverse=true
 MacroTurnIndex - Value:string
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
 MacroGameIndex - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+MatchReplayInitialState - Value:string=-
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+MatchReplayCommands - Value:string=-
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None
