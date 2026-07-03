@@ -1220,30 +1220,8 @@ $customDQHandlers["LOF_220#0"] = function($player, $parts, $lastDecision) {
     $gPlayGrantTurnEffect = null;
     $gPlayGrantPrevent2   = null;
     $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
-    // A nested play inside an event continuation does NOT resume the entered unit's entry triggers (its
-    // When Played, and the granted Ambush), so fire them here, in order: (1) the unit's When Played, then
-    // (2) the Ambush attack window. Locate the just-played unit by the one-shot PREVENT_DMG_2 marker.
-    $playerID = intval($player);
-    $mzPlayed = '';
-    foreach (array_merge(ZoneSearch('myGroundArena', AnyUnitFilter), ZoneSearch('mySpaceArena', AnyUnitFilter)) as $mz) {
-        $o = GetZoneObject($mz);
-        if ($o !== null && empty($o->removed) && is_array($o->TurnEffects ?? null) && in_array('PREVENT_DMG_2', $o->TurnEffects, true)) {
-            $mzPlayed = $mz; break;
-        }
-    }
-    if ($mzPlayed === '') return;
-    // (1) When Played (e.g. LOF_037 Vader's shields) — fire it explicitly since the nested play dropped it.
-    if ($playedCardID !== '' && HasWhenPlayedAbility($playedCardID)) {
-        OnWhenPlayed(intval($player), $playedCardID, $mzPlayed);
-    }
-    // (2) Ambush attack window.
-    $playerID = intval($player);
-    $o = GetZoneObject($mzPlayed);
-    if ($o === null || !empty($o->removed)) return;
-    $targets = SWUGetValidAmbushTargets(OtherPlayer(intval($player)), $o, $o->Location ?? 'GroundArena');
-    if (empty($targets)) return;
-    DecisionQueueController::AddDecision($player, "YESNO", "-", 1, tooltip: "Ambush_attack?");
-    DecisionQueueController::AddDecision($player, "CUSTOM", "SWUAmbushAnswer|{$mzPlayed}|" . implode('&', $targets), 1);
+    // ActivateCard collected + flushed the entered unit's entry triggers (When Played + granted Ambush);
+    // do NOT re-fire them here (that double-shielded / double-attacked).
 };
 
 // LOF_205 Force Speed — the chosen unit attacks with a one-shot 'LOF_205' marker that returns the

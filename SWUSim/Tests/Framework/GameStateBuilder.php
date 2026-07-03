@@ -16,6 +16,7 @@ class GameStateBuilder {
     private array  $_discard         = []; // [[player, cardID]]
     private array  $_groundUnits     = [1 => [], 2 => []];
     private array  $_spaceUnits      = [1 => [], 2 => []];
+    private array  $_groundUpgradeRequests = [1 => [], 2 => []]; // WithP{n}GroundArenaUpgrade, keyed by FINAL arena index
     private array  $_defeatedPlayers = [];
     private array  $_forcePlayers    = []; // players who control their Force token (CR §37)
     private int    $_nextUID         = 1;
@@ -145,7 +146,10 @@ class GameStateBuilder {
     // Call AFTER the unit-adding method. unitIndex = 0-based index of the unit for that player.
 
     public function WithUpgradesOnGroundUnitForPlayer(int $player, int $unitIndex, array $upgrades): self {
-        $this->_groundUnits[$player][$unitIndex]['upgrades'] = $upgrades;
+        // Recorded by FINAL arena index (resolved against the deployed-leader splice at build time), so
+        // index N targets whatever unit ends at ground index N — a bracketed unit OR the deployed leader.
+        $this->_groundUpgradeRequests[$player][$unitIndex] =
+            array_merge($this->_groundUpgradeRequests[$player][$unitIndex] ?? [], $upgrades);
         return $this;
     }
 
@@ -264,6 +268,31 @@ class GameStateBuilder {
             AddDiscard($d['player'], $d['cardID'], 'PLAY');
         }
 
+        // Resolve WithP{n}GroundArenaUpgrade requests against the FINAL ground layout (after a deployed-unit
+        // leader is spliced in). A request for index N targets whatever unit ends at ground index N: a
+        // bracketed WithP{n}GroundArena unit OR the deployed leader itself. Split each into the bracketed
+        // unit's upgrades (baked below) or the leader's upgrades (attached at the splice). Space arenas have
+        // no leader, so WithUpgradesOnSpaceUnitForPlayer already bakes by final index — left untouched.
+        $leaderGroundUpgrades = [1 => [], 2 => []];
+        foreach ([1, 2] as $player) {
+            $leader   = $player === 1 ? $this->_myLeader : $this->_theirLeader;
+            $hasLead  = (($leader['deployMode'] ?? '') === 'unit');
+            $K        = count($this->_groundUnits[$player]);
+            $P        = -1; // leader's final ground index: indexOverride if valid, else appended last (K)
+            if ($hasLead) { $ov = intval($leader['indexOverride'] ?? -1); $P = ($ov >= 0) ? max(0, min($ov, $K)) : $K; }
+            foreach (($this->_groundUpgradeRequests[$player] ?? []) as $finalIdx => $ups) {
+                if ($hasLead && $finalIdx === $P) {
+                    $leaderGroundUpgrades[$player] = array_merge($leaderGroundUpgrades[$player], $ups);
+                    continue;
+                }
+                $bracketIdx = ($hasLead && $finalIdx > $P) ? $finalIdx - 1 : $finalIdx; // shift past the spliced leader
+                if ($bracketIdx >= 0 && $bracketIdx < $K) {
+                    $this->_groundUnits[$player][$bracketIdx]['upgrades'] =
+                        array_merge($this->_groundUnits[$player][$bracketIdx]['upgrades'] ?? [], $ups);
+                }
+            }
+        }
+
         // Arena units — Status 1=ready, 0=exhausted; units placed by builder start in correct state
         foreach ([1, 2] as $player) {
             foreach ($this->_groundUnits[$player] as $unit) {
@@ -291,7 +320,9 @@ class GameStateBuilder {
             if (($leader['deployMode'] ?? '') !== 'unit' || $leaderObjs[$player] === null) continue;
             $uid    = $this->_nextUID++;
             $status = $leader['ready'] ? 1 : 0;
-            AddGroundArena($player, $leader['cardID'], $status, $player, $leader['damage'] ?? 0, $player, '-', '-', $uid);
+            $leaderUps = $leaderGroundUpgrades[$player] ?? [];   // WithP{n}GroundArenaUpgrade aimed at the leader's index
+            AddGroundArena($player, $leader['cardID'], $status, $player, $leader['damage'] ?? 0, $player, '-',
+                           empty($leaderUps) ? '-' : $leaderUps, $uid);
             $leaderObjs[$player]->DeployedUniqueID = $uid;
 
             // indexOverride: scoot the just-appended leader unit to a specific ground-arena index,

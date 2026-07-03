@@ -533,6 +533,32 @@ function OnHealBase($player, $targetPlayer, $amount) {
     }
 }
 
+// Player-optimal Shield vs fixed-reduction ordering for ONE combat hit (after the ASH_196-unpreventable /
+// Amidala / Mandalorian branches, which are handled by the caller). Rules: multiple "prevent" replacements
+// on one damage event are ordered by the damaged unit's controller (CR replacement effects), so pick the
+// order that wastes the least. If a reduction (LOF_220's PREVENT_DMG_2, SEC_067, …) would FULLY cover the
+// hit, use it and KEEP the shield (a 2-damage hit into a shield+PREVENT_DMG_2 unit → 0 damage, shield stays);
+// otherwise let a Shield token absorb the whole instance (keeping the one-shot marker for a bigger hit);
+// otherwise apply any partial reduction and take what's left. Mutates $obj->Damage, consumes the shield/
+// marker, queues anims, and RETURNS the damage actually dealt (0 if fully prevented). Callers set combatCtx.
+function _SWUShieldOrReduceCombat($obj, string $mzID, int $amount, int $animPlayer): int {
+    if ($amount <= 0) return 0;
+    if (_SWUApplyDamagePrevention($obj, $amount, true) <= 0) {   // a reduction fully covers → keep the shield
+        _SWUApplyDamagePrevention($obj, $amount);                 // consume the one-shot marker(s)
+        SWUQueuePreventedAnim($mzID, $animPlayer);
+        return 0;
+    }
+    if (SWUConsumeShieldToken($obj)) {                            // shield absorbs the whole hit (marker kept)
+        SWUQueuePreventedAnim($mzID, $animPlayer);
+        SWUQueueShieldBreakAnim($mzID, $animPlayer);
+        return 0;
+    }
+    $dmg = _SWUApplyDamagePrevention($obj, $amount);              // no shield → apply any partial reduction
+    $obj->Damage = intval($obj->Damage) + $dmg;
+    if ($dmg > 0) SWUQueueDamageAnim($mzID, $dmg, $animPlayer);
+    return $dmg;
+}
+
 // ── Combat trigger collectors ───────────────────────────────────────────────
 
 // True if $obj carries an attack-duration TurnEffect marker with base $base (granted "for this attack").
@@ -1353,6 +1379,13 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         return;
     }
 
+    // Frame animations play on the PRE-mutation board (before the re-render), where the defender is still
+    // at the slot it occupied when the attack was declared. If an On-Attack effect defeated an EARLIER unit
+    // (reindexing the defender down), the re-resolved slot below would point the "damage" flash at whatever
+    // now sits in the old slot (e.g. the just-defeated unit) — misleading. So animate the defender at its
+    // PRE-action slot ($targetAnimMzID) while all game logic uses the re-resolved $targetMzID. In the common
+    // (no-reindex) case the two are identical.
+    $targetAnimMzID = $targetMzID;
     // Defender re-validation (unit targets only). If the target mzID is stale because the defender
     // reindexed (another unit left during step-1 triggers), re-resolve it by UniqueID. If the defender
     // genuinely LEFT PLAY before damage (bounced/defeated by an On-Defense reaction — SEC_187 Grievous),
@@ -1568,7 +1601,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                     : (empty($sub->removed) && isset($sub->CardID) && $sub->CardID === 'SOR_T02');
                 if (!$isShield) continue;
                 if (is_array($sub)) $sub['removed'] = true; else $sub->removed = true;
-                SWUQueueShieldBreakAnim($targetMzID, intval($player), $shieldSlot);
+                SWUQueueShieldBreakAnim($targetAnimMzID, intval($player), $shieldSlot);
                 $shieldSlot++;
             }
             unset($sub);
@@ -1579,22 +1612,17 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             // If the defender is defeated, it deals no combat damage (CR card text).
             if (_SWUDamageUnpreventable($attacker)) {   // ASH_196 — bypass Shield + all prevention
                 $target->Damage = intval($target->Damage) + $attackPower;
-                SWUQueueDamageAnim($targetMzID, $attackPower, intval($player));
+                SWUQueueDamageAnim($targetAnimMzID, $attackPower, intval($player));
                 $combatCtx['dealtToUnit'] = ($attackPower > 0);
                 $combatCtx['defenderDmgAmt'] = $attackPower;
             } elseif (_SWUConsumeAmidalaPrevent($target)) {
-                SWUQueuePreventedAnim($targetMzID, intval($player));   // SEC_101 Queen Amidala prevention
+                SWUQueuePreventedAnim($targetAnimMzID, intval($player));   // SEC_101 Queen Amidala prevention
             } elseif (_SWUConsumeAsh062Prevent($target)) {
-                SWUQueuePreventedAnim($targetMzID, intval($player));   // ASH_062 The Mandalorian prevention
-            } elseif (!SWUConsumeShieldToken($target)) {
-                $tgtDmg = _SWUApplyDamagePrevention($target, $attackPower); // LOF_220 prevent-2 marker
-                $target->Damage = intval($target->Damage) + $tgtDmg;
-                SWUQueueDamageAnim($targetMzID, $tgtDmg, intval($player));
+                SWUQueuePreventedAnim($targetAnimMzID, intval($player));   // ASH_062 The Mandalorian prevention
+            } else {
+                $tgtDmg = _SWUShieldOrReduceCombat($target, $targetAnimMzID, $attackPower, intval($player));
                 $combatCtx['dealtToUnit'] = ($tgtDmg > 0);
                 $combatCtx['defenderDmgAmt'] = $tgtDmg;          // SEC_002 "deal that much"
-            } else {
-                SWUQueuePreventedAnim($targetMzID, intval($player));
-                SWUQueueShieldBreakAnim($targetMzID, intval($player));
             }
             $defenderRemainingHP = intval(ObjectCurrentHP($target)) - intval($target->Damage);
             if ($defenderRemainingHP > 0) {
@@ -1637,15 +1665,10 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 SWUQueuePreventedAnim($attackerMzID, intval($player));
             } elseif (_SWUConsumeAsh062Prevent($attacker)) {
                 SWUQueuePreventedAnim($attackerMzID, intval($player));   // ASH_062 The Mandalorian prevention
-            } elseif (!SWUConsumeShieldToken($attacker)) {
-                $atkDmg = _SWUApplyDamagePrevention($attacker, $defendPower);
-                $attacker->Damage = intval($attacker->Damage) + $atkDmg;
+            } else {
+                $atkDmg = _SWUShieldOrReduceCombat($attacker, $attackerMzID, $defendPower, intval($player));
                 $combatCtx['attackerTookDmg'] = ($atkDmg > 0);
                 $combatCtx['attackerDmgAmt']  = $atkDmg;
-                SWUQueueDamageAnim($attackerMzID, $atkDmg, intval($player));
-            } else {
-                SWUQueuePreventedAnim($attackerMzID, intval($player));
-                SWUQueueShieldBreakAnim($attackerMzID, intval($player));
             }
             // 2. If the attacker survived, recompute its power (Grit/while-damaged grows with the new
             //    damage) and deal to the defender. A defeated attacker deals no combat damage.
@@ -1654,22 +1677,17 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 $attackPower += max(0, intval(ObjectCurrentPower($attacker)) - $attackBasePower); // Grit delta
                 if (_SWUDamageUnpreventable($attacker)) {   // ASH_196 — bypass Shield + all prevention
                     $target->Damage = intval($target->Damage) + $attackPower;
-                    SWUQueueDamageAnim($targetMzID, $attackPower, intval($player));
+                    SWUQueueDamageAnim($targetAnimMzID, $attackPower, intval($player));
                     $combatCtx['dealtToUnit'] = ($attackPower > 0);
                     $combatCtx['defenderDmgAmt'] = $attackPower;
                 } elseif (_SWUConsumeAmidalaPrevent($target)) {
-                    SWUQueuePreventedAnim($targetMzID, intval($player));
+                    SWUQueuePreventedAnim($targetAnimMzID, intval($player));
                 } elseif (_SWUConsumeAsh062Prevent($target)) {
-                    SWUQueuePreventedAnim($targetMzID, intval($player));   // ASH_062 The Mandalorian prevention
-                } elseif (!SWUConsumeShieldToken($target)) {
-                    $tgtDmg = _SWUApplyDamagePrevention($target, $attackPower);
-                    $target->Damage = intval($target->Damage) + $tgtDmg;
-                    SWUQueueDamageAnim($targetMzID, $tgtDmg, intval($player));
+                    SWUQueuePreventedAnim($targetAnimMzID, intval($player));   // ASH_062 The Mandalorian prevention
+                } else {
+                    $tgtDmg = _SWUShieldOrReduceCombat($target, $targetAnimMzID, $attackPower, intval($player));
                     $combatCtx['dealtToUnit'] = ($tgtDmg > 0);
                     $combatCtx['defenderDmgAmt'] = $tgtDmg;
-                } else {
-                    SWUQueuePreventedAnim($targetMzID, intval($player));
-                    SWUQueueShieldBreakAnim($targetMzID, intval($player));
                 }
             }
         } else {
@@ -1686,35 +1704,25 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
                 SWUQueuePreventedAnim($attackerMzID, intval($player));   // SEC_101 Queen Amidala prevention
             } elseif (_SWUConsumeAsh062Prevent($attacker)) {
                 SWUQueuePreventedAnim($attackerMzID, intval($player));   // ASH_062 The Mandalorian prevention
-            } elseif (!SWUConsumeShieldToken($attacker)) {
-                $atkDmg = _SWUApplyDamagePrevention($attacker, $defendPower); // LOF_220 prevent-2 marker
-                $attacker->Damage = intval($attacker->Damage) + $atkDmg;
+            } else {
+                $atkDmg = _SWUShieldOrReduceCombat($attacker, $attackerMzID, $defendPower, intval($player));
                 $combatCtx['attackerTookDmg'] = ($atkDmg > 0);
                 $combatCtx['attackerDmgAmt']  = $atkDmg;          // SEC_002 "deal that much"
-                SWUQueueDamageAnim($attackerMzID, $atkDmg, intval($player));
-            } else {
-                SWUQueuePreventedAnim($attackerMzID, intval($player));
-                SWUQueueShieldBreakAnim($attackerMzID, intval($player));
             }
             // Shielded (CR 7.6.5): a shield token absorbs all combat damage in one hit; consume it instead.
             if (_SWUDamageUnpreventable($attacker)) {   // ASH_196 — bypass Shield + all prevention
                 $target->Damage = intval($target->Damage) + $attackPower;
-                SWUQueueDamageAnim($targetMzID, $attackPower, intval($player));
+                SWUQueueDamageAnim($targetAnimMzID, $attackPower, intval($player));
                 $combatCtx['dealtToUnit'] = ($attackPower > 0);
                 $combatCtx['defenderDmgAmt'] = $attackPower;
             } elseif (_SWUConsumeAmidalaPrevent($target)) {
-                SWUQueuePreventedAnim($targetMzID, intval($player));   // SEC_101 Queen Amidala prevention
+                SWUQueuePreventedAnim($targetAnimMzID, intval($player));   // SEC_101 Queen Amidala prevention
             } elseif (_SWUConsumeAsh062Prevent($target)) {
-                SWUQueuePreventedAnim($targetMzID, intval($player));   // ASH_062 The Mandalorian prevention
-            } elseif (!SWUConsumeShieldToken($target)) {
-                $tgtDmg = _SWUApplyDamagePrevention($target, $attackPower); // LOF_220 prevent-2 marker
-                $target->Damage = intval($target->Damage) + $tgtDmg;
-                SWUQueueDamageAnim($targetMzID, $tgtDmg, intval($player));
+                SWUQueuePreventedAnim($targetAnimMzID, intval($player));   // ASH_062 The Mandalorian prevention
+            } else {
+                $tgtDmg = _SWUShieldOrReduceCombat($target, $targetAnimMzID, $attackPower, intval($player));
                 $combatCtx['dealtToUnit'] = ($tgtDmg > 0);
                 $combatCtx['defenderDmgAmt'] = $tgtDmg;          // SEC_002 "deal that much"
-            } else {
-                SWUQueuePreventedAnim($targetMzID, intval($player));
-                SWUQueueShieldBreakAnim($targetMzID, intval($player));
             }
         }
 
