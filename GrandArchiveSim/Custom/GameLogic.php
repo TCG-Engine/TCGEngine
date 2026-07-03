@@ -21472,9 +21472,10 @@ function GetCardistryDiscount($player) {
     $distinctCosts = [];
     foreach($field as $obj) {
         if($obj->removed) continue;
+        if(PropertyContains(EffectiveCardType($obj), "REGALIA")) continue;
         if(!PropertyContains(EffectiveCardSubtypes($obj), "SUITED")) continue;
         $cost = CardCost_reserve($obj->CardID);
-        if($cost !== null) $distinctCosts[$cost] = true;
+        if($cost !== null && intval($cost) >= 0) $distinctCosts[intval($cost)] = true;
     }
     return count($distinctCosts);
 }
