@@ -36,7 +36,7 @@
         padding-top: 36px;
         overflow: hidden;
         display: grid;
-        grid-template-rows: 54px 74px minmax(0, 1fr) minmax(0, 1fr) 98px 58px;
+        grid-template-rows: 58px minmax(0, 1fr) minmax(0, 1fr) 100px 58px;
         color: rgba(232, 220, 200, 0.96);
         font-family: var(--azuki-font-ui);
         background:
@@ -121,6 +121,7 @@
     .azuki-m-gate,
     .azuki-m-pass,
     .azuki-m-ikz-summary,
+    .azuki-m-hand-summary,
     .azuki-m-token {
         flex: 0 0 auto;
         min-width: 42px;
@@ -133,7 +134,8 @@
         overflow: hidden;
     }
 
-    .azuki-m-ikz-summary {
+    .azuki-m-ikz-summary,
+    .azuki-m-hand-summary {
         min-width: 72px;
         flex-direction: row;
         justify-content: flex-start;
@@ -142,6 +144,10 @@
         border: 1px solid rgba(212, 175, 55, 0.24);
         border-radius: 8px;
         background: rgba(18, 26, 50, 0.58);
+    }
+
+    .azuki-m-hand-summary {
+        min-width: 68px;
     }
 
     .azuki-m-ikz-thumb {
@@ -177,6 +183,12 @@
     }
 
     .azuki-m-ikz-count {
+        color: rgba(232, 220, 200, 0.94);
+        font: 800 12px/1 var(--azuki-font-ui);
+        white-space: nowrap;
+    }
+
+    .azuki-m-hand-count {
         color: rgba(232, 220, 200, 0.94);
         font: 800 12px/1 var(--azuki-font-ui);
         white-space: nowrap;
@@ -362,6 +374,7 @@
 
     #myIKZAreaSlot,
     #theirIKZAreaSlot,
+    #theirHandSlot,
     #theirLeaderHealthSlot,
     #myIKZPileWrapper,
     #theirIKZPileWrapper,
@@ -449,6 +462,71 @@
         display: none !important;
     }
 
+    #grand-archive-utility-button-bar {
+        display: none !important;
+    }
+
+    .azuki-admin-menu {
+        position: fixed;
+        top: 4px;
+        right: 8px;
+        z-index: 12050;
+    }
+
+    .azuki-admin-menu-btn {
+        width: 32px;
+        height: 30px;
+        padding: 0;
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border: 1px solid rgba(212, 175, 55, 0.58);
+        border-radius: 8px;
+        background: rgba(8, 13, 22, 0.94);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.32);
+        cursor: pointer;
+    }
+
+    .azuki-admin-menu-btn span {
+        width: 15px;
+        height: 2px;
+        border-radius: 99px;
+        background: rgba(255, 244, 207, 0.94);
+    }
+
+    .azuki-admin-menu-panel {
+        position: absolute;
+        top: 36px;
+        right: 0;
+        min-width: 154px;
+        display: none;
+        padding: 6px;
+        border: 1px solid rgba(212, 175, 55, 0.28);
+        border-radius: 10px;
+        background: rgba(8, 13, 22, 0.98);
+        box-shadow: 0 14px 32px rgba(0, 0, 0, 0.42);
+    }
+
+    .azuki-admin-menu.is-open .azuki-admin-menu-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .azuki-admin-menu-panel button {
+        width: 100%;
+        padding: 8px 10px;
+        border: 1px solid rgba(212, 175, 55, 0.28);
+        border-radius: 7px;
+        background: rgba(18, 26, 50, 0.92);
+        color: rgba(255, 244, 207, 0.96);
+        font: 800 11px/1 var(--azuki-font-label);
+        text-align: left;
+        cursor: pointer;
+    }
+
     #chatWidget,
     #bug-report-button,
     #copy-spectate-link-button,
@@ -459,10 +537,10 @@
     #chatWidget {
         position: fixed !important;
         top: 4px !important;
-        left: 8px !important;
+        left: 112px !important;
         bottom: auto !important;
         width: auto !important;
-        max-width: calc(100vw - 16px) !important;
+        max-width: calc(100vw - 156px) !important;
         display: flex !important;
         flex-direction: row !important;
         align-items: flex-start !important;
@@ -473,31 +551,33 @@
         height: 28px !important;
     }
 
-    #bug-report-button,
-    #copy-spectate-link-button,
-    #concede-button {
-        position: fixed !important;
+    #macro-card-toast-host {
         top: 4px !important;
-        bottom: auto !important;
-        padding: 6px 10px !important;
-        font-size: 11px !important;
-        white-space: nowrap !important;
+        left: 8px !important;
+        z-index: 12000 !important;
     }
 
-    #concede-button {
-        right: 8px !important;
+    #macro-card-toast-toggle {
+        height: 30px !important;
     }
 
-    #bug-report-button {
-        right: 88px !important;
-    }
-
-    #copy-spectate-link-button {
-        right: 176px !important;
+    #macro-card-toast-log {
+        max-height: 48vh !important;
     }
 </style>
 
 <div id="azukiMobileRoot">
+    <div id="azukiAdminMenu" class="azuki-admin-menu">
+        <button id="azukiAdminMenuBtn" class="azuki-admin-menu-btn" type="button" aria-label="Game menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <div id="azukiAdminMenuPanel" class="azuki-admin-menu-panel">
+            <button type="button" data-azuki-admin-target="bug-report-button">Report Bug</button>
+            <button type="button" data-azuki-admin-target="copy-spectate-link-button">Copy Spectate Link</button>
+            <button type="button" data-azuki-admin-target="concede-button">Concede</button>
+        </div>
+    </div>
+
     <div id="azukiResponseOpportunity" aria-live="polite" aria-label="Response opportunity">
         <div class="azuki-opportunity-text">
             <span class="azuki-opportunity-title">Response Opportunity</span>
@@ -508,15 +588,11 @@
 
     <div class="azuki-m-band is-theirs">
         <div id="theirIKZSummary" class="azuki-m-ikz-summary" aria-label="Their IKZ summary"></div>
+        <div id="theirHandSummary" class="azuki-m-hand-summary" aria-label="Their hand summary"></div>
         <div id="theirIKZTokenSlot" class="azuki-zone azuki-m-token" data-label="IKZ Token"></div>
         <div class="azuki-m-gate"><div class="azuki-m-pile-label">Gate</div><div id="theirGateSlot" class="azuki-zone"></div></div>
         <div class="azuki-m-pile"><div class="azuki-m-pile-label">Deck</div><div id="theirDeckSlot" class="azuki-zone"></div></div>
         <div class="azuki-m-pile"><div class="azuki-m-pile-label">Discard</div><div id="theirDiscardSlot" class="azuki-zone"></div></div>
-    </div>
-
-    <div class="azuki-m-section is-theirs">
-        <div class="azuki-m-label">Their Hand</div>
-        <div id="theirHandSlot" class="azuki-zone"></div>
     </div>
 
     <div class="azuki-m-lanes is-theirs">
@@ -549,7 +625,7 @@
     <div class="azuki-m-band is-mine">
         <div id="myIKZSummary" class="azuki-m-ikz-summary" aria-label="My IKZ summary"></div>
         <div id="myIKZTokenSlot" class="azuki-zone azuki-m-token" data-label="IKZ Token"></div>
-        <div class="azuki-m-pass"><div class="azuki-m-pile-label">Pass</div><div id="myLeaderHealthSlot" class="azuki-zone"></div></div>
+        <div class="azuki-m-pass"><div id="myLeaderHealthSlot" class="azuki-zone"></div></div>
         <div class="azuki-m-gate"><div class="azuki-m-pile-label">Gate</div><div id="myGateSlot" class="azuki-zone"></div></div>
         <div class="azuki-m-pile"><div class="azuki-m-pile-label">Deck</div><div id="myDeckSlot" class="azuki-zone"></div></div>
         <div class="azuki-m-pile"><div class="azuki-m-pile-label">Discard</div><div id="myDiscardSlot" class="azuki-zone"></div></div>
@@ -558,6 +634,7 @@
     <div id="EffectStackSlot" class="azuki-zone"></div>
 
     <div class="azuki-m-hidden-bindings" aria-hidden="true">
+        <div id="theirHandSlot" class="azuki-zone"></div>
         <div id="theirIKZAreaSlot" class="azuki-zone"></div>
         <div id="myIKZAreaSlot" class="azuki-zone"></div>
         <div id="theirLeaderHealthSlot" class="azuki-zone"></div>
@@ -710,6 +787,19 @@
         }).filter(Boolean);
     }
 
+    function parseZoneCount(dataKey) {
+        var raw = window[dataKey];
+        if(!raw || typeof raw !== 'string') return 0;
+        var trimmed = raw.trim();
+        if(trimmed === '') return 0;
+        return trimmed.split('<|>').filter(function(entry) {
+            entry = entry.trim();
+            if(entry === '' || entry === '-') return false;
+            var cardID = entry.split(' ')[0] || '';
+            return cardID !== '' && cardID !== '-';
+        }).length;
+    }
+
     function renderIKZSummary(prefix, label) {
         var summary = document.getElementById(prefix + 'IKZSummary');
         if(!summary) return;
@@ -730,6 +820,18 @@
             '</div>';
     }
 
+    function renderOpponentHandSummary() {
+        var summary = document.getElementById('theirHandSummary');
+        if(!summary) return;
+        var count = parseZoneCount('theirHandData');
+        summary.innerHTML =
+            '<div class="azuki-m-ikz-thumb"><img alt="" src="./AzukiSim/concat/CardBack.webp"></div>' +
+            '<div class="azuki-m-ikz-meta">' +
+                '<div class="azuki-m-pile-label">Their Hand</div>' +
+                '<div class="azuki-m-hand-count">' + count + ' cards</div>' +
+            '</div>';
+    }
+
     function updateIKZSummaries() {
         renderIKZSummary('their', 'Their IKZ');
         renderIKZSummary('my', 'My IKZ');
@@ -744,14 +846,65 @@
         new MutationObserver(callback).observe(zone, { childList: true, subtree: true, characterData: true });
     }
 
+    function setupAdminMenu() {
+        var menu = document.getElementById('azukiAdminMenu');
+        var btn = document.getElementById('azukiAdminMenuBtn');
+        var panel = document.getElementById('azukiAdminMenuPanel');
+        if(!menu || !btn || !panel) return;
+
+        function setOpen(open) {
+            menu.classList.toggle('is-open', open);
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        }
+
+        function updateAvailability() {
+            var actions = panel.querySelectorAll('[data-azuki-admin-target]');
+            for(var i = 0; i < actions.length; ++i) {
+                var action = actions[i];
+                var targetID = action.getAttribute('data-azuki-admin-target');
+                action.style.display = document.getElementById(targetID) ? 'block' : 'none';
+            }
+        }
+
+        btn.addEventListener('click', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            updateAvailability();
+            setOpen(!menu.classList.contains('is-open'));
+        });
+
+        panel.addEventListener('click', function(event) {
+            var action = event.target && event.target.closest ? event.target.closest('[data-azuki-admin-target]') : null;
+            if(!action) return;
+            event.preventDefault();
+            event.stopPropagation();
+            var target = document.getElementById(action.getAttribute('data-azuki-admin-target'));
+            if(target && typeof target.click === 'function') target.click();
+            setOpen(false);
+        });
+
+        document.addEventListener('click', function(event) {
+            if(!menu.contains(event.target)) setOpen(false);
+        });
+
+        updateAvailability();
+        window.setInterval(updateAvailability, 700);
+    }
+
     installResponseWatcher();
+    setupAdminMenu();
     setupIKZTokenIndicator();
     updateIKZSummaries();
+    renderOpponentHandSummary();
+    observeZone('theirHandSlot', renderOpponentHandSummary);
     observeZone('myIKZAreaSlot', updateIKZSummaries);
     observeZone('theirIKZAreaSlot', updateIKZSummaries);
     observeZone('myIKZTokenSlot', window.UpdateAzukiMobileIKZTokens);
     observeZone('theirIKZTokenSlot', window.UpdateAzukiMobileIKZTokens);
-    window.setInterval(updateIKZSummaries, 400);
+    window.setInterval(function() {
+        updateIKZSummaries();
+        renderOpponentHandSummary();
+    }, 400);
     window.UpdateAzukiResponseOpportunity();
 })();
 </script>
