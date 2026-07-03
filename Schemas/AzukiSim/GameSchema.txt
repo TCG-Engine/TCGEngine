@@ -11,11 +11,11 @@ ServerInclude: /GeneratedCode/GeneratedKeywordCode.php
 AssetReflection: AzukiSim
 Module: Versions=TurnPlayer,CurrentPhase,TurnNumber,PhaseParameters,myHand,myTempZone,myDiscard,myDeck,myDecisionQueue,myGarden,myAlley,myGate,myLeaderHealth,myIKZArea,myIKZPile,myIKZToken,myGlobalEffects,theirHand,theirTempZone,theirDiscard,theirDeck,theirDecisionQueue,theirGarden,theirAlley,theirGate,theirLeaderHealth,theirIKZArea,theirIKZPile,theirIKZToken,theirGlobalEffects,DecisionQueueVariables,EffectStack,MacroTurnIndex,MacroGameIndex
 Module: MatchReplay=MatchReplayInitialState,MatchReplayCommands
-Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Action={}
+Macro: Name=PlayCard(mzID); ChoiceFunction=DoPlayCard; Toast=Card; ToastCardParam=mzID; ToastLabel=Played; Action={}
 Macro: Name=OnPlay(mzID); ChoiceFunction=OnPlayCard; Action={}
 Macro: Name=AttackWith(mzID,targetMZ); ChoiceFunction=DoAttack; PrereqFunction=CanAttack; SourceParam=mzID; Action={}
-Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Action={}
-Macro: Name=UseGate(gateMZ,entityMZ); ChoiceFunction=DoUseGate; SourceParam=gateMZ; Action={}
+Macro: Name=ActivateAbility(mzID,abilityIndex); ChoiceFunction=DoActivatedAbility; PrereqFunction=CanActivateAbility; SourceParam=mzID; SelectedIndexParam=abilityIndex; Toast=Card; ToastCardParam=mzID; ToastLabel=Ability; Action={}
+Macro: Name=UseGate(gateMZ,entityMZ); ChoiceFunction=DoUseGate; SourceParam=gateMZ; Toast=Card; ToastCardParam=entityMZ; ToastLabel=Gated; Action={}
 Macro: Name=Draw(amount); ChoiceFunction=DoDrawCard; Action={}
 Macro: Name=AttackModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0
 Macro: Name=HealthModifier(subjectObj,currentValue,sourceObj); MacroType=ValueModifier; ReturnType=Int; ModifierMode=Delta; DefaultValue=0; ClampMin=0

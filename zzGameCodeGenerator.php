@@ -1047,10 +1047,19 @@ for($i=0; $i<count($macros); ++$i) {
         fwrite($handler, "    DecisionQueueController::StoreVariable(\"" . $macro->SourceParam . "CardID\", \$_sourceObj->CardID);\r\n");
         fwrite($handler, "  }\r\n");
       }
-      // If mzID is a parameter, look up the card ID and increment the turn/game indexes
-      if (in_array('mzID', $macro->Parameters)) {
+      $cardIndexParam = null;
+      if(
+        isset($macro->Toast) && strtolower($macro->Toast) === "card" &&
+        isset($macro->ToastCardParam) && in_array($macro->ToastCardParam, $macro->Parameters)
+      ) {
+        $cardIndexParam = $macro->ToastCardParam;
+      } else if (in_array('mzID', $macro->Parameters)) {
+        $cardIndexParam = 'mzID';
+      }
+      // If a card-bearing MZ parameter is available, look up the card ID and increment the turn/game indexes.
+      if ($cardIndexParam !== null) {
         fwrite($handler, "  // Track this macro invocation in the persistent turn index (keyed by card ID)\r\n");
-        fwrite($handler, "  \$_mzObj = GetZoneObject(\$mzID);\r\n");
+        fwrite($handler, "  \$_mzObj = GetZoneObject(\$" . $cardIndexParam . ");\r\n");
         fwrite($handler, "  \$_mzCardID = \$_mzObj !== null ? (\$_mzObj->CardID ?? null) : null;\r\n");
         fwrite($handler, "  if (\$_mzCardID !== null) {\r\n");
         fwrite($handler, "    \$_ti = json_decode(GetMacroTurnIndex() ?: '{}', true) ?: [];\r\n");
