@@ -13,6 +13,7 @@ class AppShell {
             templates: [],
             templateDetails: {},
             cards: [],
+            cardTagFilter: { tagId: '', mode: 'has' },
             assets: [],
             currentUser: { loggedIn: false },
             abilityRoots: {},
@@ -241,6 +242,7 @@ class AppShell {
         this.state.activeTemplateDetail = null;
         this.state.activeCardId = null;
         this.state.activeCardDetail = null;
+        this.state.cardTagFilter = { tagId: '', mode: 'has' };
         await this.refreshGameScoped();
         this.show(this.state.activeScreen);
     }

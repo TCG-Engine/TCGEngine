@@ -94,6 +94,26 @@ CREATE TABLE IF NOT EXISTS ce_cards (
   KEY idx_ce_cards_template (template_id)
 );
 
+CREATE TABLE IF NOT EXISTS ce_game_tags (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  tag_uuid VARCHAR(36) UNIQUE NOT NULL,
+  game_id BIGINT NOT NULL,
+  name VARCHAR(120) NOT NULL,
+  slug VARCHAR(120) NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  UNIQUE KEY uq_ce_game_tags_slug (game_id, slug),
+  KEY idx_ce_game_tags_game (game_id)
+);
+
+CREATE TABLE IF NOT EXISTS ce_card_tags (
+  card_id BIGINT NOT NULL,
+  tag_id BIGINT NOT NULL,
+  created_at DATETIME NOT NULL,
+  PRIMARY KEY (card_id, tag_id),
+  KEY idx_ce_card_tags_tag (tag_id)
+);
+
 CREATE TABLE IF NOT EXISTS ce_card_field_values (
   id BIGINT AUTO_INCREMENT PRIMARY KEY,
   card_id BIGINT NOT NULL,

@@ -17,6 +17,8 @@ class CardScreen {
         const set = this.app.activeSet();
         const card = this.app.state.activeCardDetail;
         const canEdit = this.app.activeGame()?.can_edit;
+        this.normalizeTagFilter();
+        const visibleCards = this.filteredCards();
         this.app.setContent(`
             <section class="card-workbench">
                 <aside class="pane compact">
@@ -29,13 +31,15 @@ class CardScreen {
                         <h2>Cards</h2>
                         ${set ? `<button onclick="app.screens.cards.createCard()" ${canEdit ? '' : 'disabled'}>New</button>` : ''}
                     </div>
+                    ${this.tagFilterControls()}
                     <div class="list tight">
-                        ${this.app.state.cards.length ? this.app.state.cards.map(item => `
+                        ${visibleCards.length ? visibleCards.map(item => `
                             <button class="list-row ${this.app.state.activeCardId === item.id ? 'active' : ''}" onclick="app.screens.cards.selectCard(${item.id})">
                                 <strong>${PreviewRenderer.escape(item.name)}</strong>
                                 <span>${PreviewRenderer.escape(item.slug)}</span>
+                                ${this.cardTagBadges(item.tags || [])}
                             </button>
-                        `).join('') : '<div class="empty-state">No cards in this set.</div>'}
+                        `).join('') : `<div class="empty-state">${this.app.state.cards.length ? 'No cards match this filter.' : 'No cards in this set.'}</div>`}
                     </div>
                 </aside>
                 <main class="pane">
@@ -53,6 +57,53 @@ class CardScreen {
         `);
         this.renderPreview();
         this.bindAutosave();
+    }
+
+    tagFilterControls() {
+        const tags = this.app.activeGame()?.tags || [];
+        const filter = this.app.state.cardTagFilter || { tagId: '', mode: 'has' };
+        if (!tags.length) return '';
+        return `
+            <div class="tag-filter">
+                <select onchange="app.screens.cards.changeTagFilter('tagId', this.value)">
+                    <option value="">All tags</option>
+                    ${tags.map(tag => `<option value="${tag.id}" ${String(filter.tagId) === String(tag.id) ? 'selected' : ''}>${PreviewRenderer.escape(tag.name)}</option>`).join('')}
+                </select>
+                <select onchange="app.screens.cards.changeTagFilter('mode', this.value)" ${filter.tagId ? '' : 'disabled'}>
+                    <option value="has" ${filter.mode === 'has' ? 'selected' : ''}>Has tag</option>
+                    <option value="missing" ${filter.mode === 'missing' ? 'selected' : ''}>Missing tag</option>
+                </select>
+            </div>
+        `;
+    }
+
+    normalizeTagFilter() {
+        const tags = this.app.activeGame()?.tags || [];
+        const filter = this.app.state.cardTagFilter || { tagId: '', mode: 'has' };
+        if (filter.tagId && !tags.some(tag => String(tag.id) === String(filter.tagId))) {
+            this.app.state.cardTagFilter = { tagId: '', mode: 'has' };
+        }
+    }
+
+    changeTagFilter(key, value) {
+        this.app.state.cardTagFilter = this.app.state.cardTagFilter || { tagId: '', mode: 'has' };
+        this.app.state.cardTagFilter[key] = value;
+        if (key === 'tagId' && !value) this.app.state.cardTagFilter.mode = 'has';
+        this.render();
+    }
+
+    filteredCards() {
+        const filter = this.app.state.cardTagFilter || { tagId: '', mode: 'has' };
+        if (!filter.tagId) return this.app.state.cards;
+        return this.app.state.cards.filter(card => {
+            const hasTag = (card.tags || []).some(tag => String(tag.id) === String(filter.tagId));
+            return filter.mode === 'missing' ? !hasTag : hasTag;
+        });
+    }
+
+    cardTagBadges(tags) {
+        if (!tags.length) return '';
+        return `<span class="tag-badges">${tags.map(tag => `<em>${PreviewRenderer.escape(tag.name)}</em>`).join('')}</span>`;
     }
 
     async changeSet(value) {
@@ -87,8 +138,27 @@ class CardScreen {
                         ${templates.map(item => `<option value="${item.id}" ${Number(selectedTemplateId) === Number(item.id) ? 'selected' : ''}>${PreviewRenderer.escape(item.name)}</option>`).join('')}
                     </select>
                 </label>
+                ${this.tagCheckboxes(card)}
                 <div id="cardFieldsHost">${template ? this.valueFields(template, card ? card.values : []) : '<div class="empty-state">Create a template first.</div>'}</div>
             </form>
+        `;
+    }
+
+    tagCheckboxes(card) {
+        const tags = this.app.activeGame()?.tags || [];
+        if (!tags.length) return '';
+        const disabled = this.app.activeGame()?.can_edit ? '' : 'disabled';
+        const assigned = new Set((card?.tags || []).map(tag => String(tag.id)));
+        return `
+            <fieldset class="tag-checkboxes">
+                <legend>Tags</legend>
+                ${tags.map(tag => `
+                    <label class="inline-filter">
+                        <input type="checkbox" name="tag_${tag.id}" value="${tag.id}" ${assigned.has(String(tag.id)) ? 'checked' : ''} ${disabled}>
+                        ${PreviewRenderer.escape(tag.name)}
+                    </label>
+                `).join('')}
+            </fieldset>
         `;
     }
 
@@ -278,6 +348,7 @@ class CardScreen {
         const templateId = form.querySelector('[name="templateId"]')?.value || this.app.state.activeCardDetail?.template_id;
         if (!templateId) return null;
         payload.templateId = templateId;
+        payload.tagIds = [...form.querySelectorAll('.tag-checkboxes input[type="checkbox"]:checked')].map(input => input.value);
         const template = this.app.state.activeCardDetail?.template || this.app.state.templateDetails[templateId];
         if (!template) return null;
         payload.values = this.valuesFromForm(form, template);
@@ -286,6 +357,9 @@ class CardScreen {
 
     async saveCardPayload(payload) {
         let card;
+        const previousTagIds = new Set((this.app.state.activeCardDetail?.tags || []).map(tag => String(tag.id)));
+        const nextTagIds = new Set((payload.tagIds || []).map(tagId => String(tagId)));
+        const tagsChanged = previousTagIds.size !== nextTagIds.size || [...nextTagIds].some(tagId => !previousTagIds.has(tagId));
         if (payload.id) {
             card = await ApiClient.updateCard(payload);
         } else {
@@ -299,6 +373,7 @@ class CardScreen {
         this.app.state.activeCardDetail = card;
         await this.app.refreshCards();
         if (!payload.id) this.render();
+        else if (tagsChanged) this.render();
         else this.renderPreview();
         return card;
     }

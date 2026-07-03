@@ -48,13 +48,55 @@ class GameScreen {
                     </select>
                 </label>
                 <label>Description<textarea name="description" ${disabled}>${game ? PreviewRenderer.escape(game.description || '') : ''}</textarea></label>
+                <div class="form-section">
+                    <div class="section-head">
+                        <strong>Tags</strong>
+                        <button type="button" onclick="app.screens.games.addTag()" ${disabled}>Add Tag</button>
+                    </div>
+                    <div id="gameTagsEditor" class="tag-editor">
+                        ${(game?.tags || []).map(tag => this.tagRow(tag, disabled)).join('') || '<div class="empty-state compact-empty">No tags yet.</div>'}
+                    </div>
+                </div>
             </form>
+        `;
+    }
+
+    tagRow(tag = {}, disabled = '') {
+        return `
+            <div class="tag-row" data-tag-id="${tag.id || ''}">
+                <input class="tag-name-input" value="${PreviewRenderer.escape(tag.name || '')}" placeholder="Tag name" ${disabled}>
+                <button type="button" class="link-button" onclick="app.screens.games.removeTag(this)" ${disabled}>Remove</button>
+            </div>
         `;
     }
 
     create() {
         this.app.state.activeGameId = null;
         this.render();
+    }
+
+    addTag() {
+        const host = document.getElementById('gameTagsEditor');
+        if (!host) return;
+        if (host.querySelector('.compact-empty')) host.innerHTML = '';
+        host.insertAdjacentHTML('beforeend', this.tagRow({}, ''));
+        host.querySelector('.tag-row:last-child input')?.focus();
+    }
+
+    removeTag(button) {
+        button.closest('.tag-row')?.remove();
+        const host = document.getElementById('gameTagsEditor');
+        if (host && !host.querySelector('.tag-row')) {
+            host.innerHTML = '<div class="empty-state compact-empty">No tags yet.</div>';
+        }
+        this.saveGameFormNow();
+    }
+
+    tagsFromForm() {
+        return [...document.querySelectorAll('#gameTagsEditor .tag-row')].map(row => ({
+            id: row.dataset.tagId || '',
+            name: row.querySelector('.tag-name-input')?.value || ''
+        })).filter(tag => tag.name.trim());
     }
 
     bindAutosave() {
@@ -66,6 +108,7 @@ class GameScreen {
             () => {
                 const payload = Object.fromEntries(new FormData(form).entries());
                 if (!payload.name.trim()) return null;
+                payload.tags = this.tagsFromForm();
                 return payload;
             },
             async payload => {
@@ -76,6 +119,28 @@ class GameScreen {
                 await this.app.refreshAll();
                 this.app.renderContext();
                 if (!payload.id) this.render();
+                return game;
+            }
+        );
+    }
+
+    saveGameFormNow() {
+        this.app.autosave.saveNow(
+            'game-form',
+            () => {
+                const form = document.getElementById('gameForm');
+                if (!form) return null;
+                const payload = Object.fromEntries(new FormData(form).entries());
+                if (!payload.name?.trim()) return null;
+                payload.tags = this.tagsFromForm();
+                return payload;
+            },
+            async payload => {
+                const game = payload.id ? await ApiClient.updateGame(payload) : await ApiClient.createGame(payload);
+                this.app.state.activeGameId = game.id;
+                await this.app.refreshAll();
+                this.app.renderContext();
+                this.render();
                 return game;
             }
         );

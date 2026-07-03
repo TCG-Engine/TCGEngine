@@ -34,6 +34,8 @@ class CardAuthoringDB {
         }
         $this->ensureColumn('ce_template_layout_elements', 'asset_id', 'BIGINT NULL AFTER field_id');
         $this->ensureIndex('ce_template_layout_elements', 'idx_ce_template_layout_asset', 'asset_id');
+        $this->ensureIndex('ce_game_tags', 'idx_ce_game_tags_game', 'game_id');
+        $this->ensureIndex('ce_card_tags', 'idx_ce_card_tags_tag', 'tag_id');
         $checked = true;
     }
 
@@ -282,6 +284,7 @@ class CardAuthoringDB {
         ];
         $row['can_edit'] = $this->canEditGameRow($row);
         $row['can_view'] = $this->canViewGameRow($row);
+        $row['tags'] = $this->listGameTagsForVisibleRow($row);
         return $row;
     }
 
@@ -326,6 +329,13 @@ class CardAuthoringDB {
         return $row;
     }
 
+    private function normalizeTag($row) {
+        if (!$row) return null;
+        $row['id'] = (int)$row['id'];
+        $row['game_id'] = (int)$row['game_id'];
+        return $row;
+    }
+
     private function normalizeValue($row) {
         $row['id'] = (int)$row['id'];
         $row['card_id'] = (int)$row['card_id'];
@@ -360,6 +370,9 @@ class CardAuthoringDB {
         );
         $gameId = (int)mysqli_insert_id($this->conn);
         $this->saveGameOwnership($gameId, $name, $visibility);
+        if (array_key_exists('tags', $input)) {
+            $this->syncGameTags($gameId, is_array($input['tags']) ? $input['tags'] : []);
+        }
         return $this->getGame($gameId);
     }
 
@@ -372,7 +385,9 @@ class CardAuthoringDB {
     public function getGame($id) {
         $row = $this->assertCanViewGame($id);
         if (!$row) throw new Exception("Game not found");
-        return $this->normalizeGame($row);
+        $game = $this->normalizeGame($row);
+        $game['tags'] = $this->listGameTags($game['id']);
+        return $game;
     }
 
     public function updateGame($id, $input) {
@@ -389,7 +404,75 @@ class CardAuthoringDB {
             [$name, $slug, $description, $now, (int)$id]
         );
         $this->saveGameOwnership($id, $name, $input['visibility'] ?? null);
+        if (array_key_exists('tags', $input)) {
+            $this->syncGameTags($id, is_array($input['tags']) ? $input['tags'] : []);
+        }
         return $this->getGame($id);
+    }
+
+    public function listGameTags($gameId) {
+        $this->assertCanViewGame($gameId);
+        return $this->listGameTagsForVisibleRow(['id' => (int)$gameId]);
+    }
+
+    private function listGameTagsForVisibleRow($game) {
+        $rows = $this->all("SELECT * FROM ce_game_tags WHERE game_id = ? ORDER BY name ASC, id ASC", "i", [(int)$game['id']]);
+        return array_map([$this, 'normalizeTag'], $rows);
+    }
+
+    private function syncGameTags($gameId, $tags) {
+        $this->assertCanEditGame($gameId);
+        $existing = $this->all("SELECT id FROM ce_game_tags WHERE game_id = ?", "i", [(int)$gameId]);
+        $existingIds = array_map(function($row) { return (int)$row['id']; }, $existing);
+        $incomingIds = [];
+        foreach ($tags as $tag) {
+            $id = isset($tag['id']) && $tag['id'] ? (int)$tag['id'] : 0;
+            if ($id > 0 && in_array($id, $existingIds)) $incomingIds[] = $id;
+        }
+        foreach ($existingIds as $existingId) {
+            if (!in_array($existingId, $incomingIds)) {
+                $this->execute("DELETE FROM ce_card_tags WHERE tag_id = ?", "i", [$existingId]);
+                $this->execute("DELETE FROM ce_game_tags WHERE id = ? AND game_id = ?", "ii", [$existingId, (int)$gameId]);
+            }
+        }
+        $keptIds = [];
+        $usedSlugs = [];
+        $now = $this->now();
+        foreach ($tags as $tag) {
+            $name = trim($tag['name'] ?? '');
+            if ($name === '') continue;
+            $slugBase = self::slugify($tag['slug'] ?? $name);
+            $slug = $slugBase;
+            $suffix = 2;
+            while (in_array($slug, $usedSlugs)) {
+                $slug = $slugBase . '-' . $suffix;
+                $suffix++;
+            }
+            $usedSlugs[] = $slug;
+            $id = isset($tag['id']) && $tag['id'] ? (int)$tag['id'] : 0;
+            if ($id > 0 && in_array($id, $existingIds)) {
+                $this->execute(
+                    "UPDATE ce_game_tags SET name = ?, slug = ?, updated_at = ? WHERE id = ? AND game_id = ?",
+                    "sssii",
+                    [$name, $slug, $now, $id, (int)$gameId]
+                );
+                $keptIds[] = $id;
+            } else {
+                $uuid = self::uuidv4();
+                $this->execute(
+                    "INSERT INTO ce_game_tags (tag_uuid, game_id, name, slug, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
+                    "sissss",
+                    [$uuid, (int)$gameId, $name, $slug, $now, $now]
+                );
+                $keptIds[] = (int)mysqli_insert_id($this->conn);
+            }
+        }
+        foreach ($existingIds as $existingId) {
+            if (!in_array($existingId, $keptIds)) {
+                $this->execute("DELETE FROM ce_card_tags WHERE tag_id = ?", "i", [$existingId]);
+                $this->execute("DELETE FROM ce_game_tags WHERE id = ? AND game_id = ?", "ii", [$existingId, (int)$gameId]);
+            }
+        }
     }
 
     public function createSet($input) {
@@ -631,12 +714,18 @@ class CardAuthoringDB {
             "siiissss",
             [$uuid, $gameId, $setId, $templateId, $name, $slug, $now, $now]
         );
-        return $this->getCard((int)mysqli_insert_id($this->conn));
+        $cardId = (int)mysqli_insert_id($this->conn);
+        if (array_key_exists('tagIds', $input)) $this->syncCardTags($cardId, $input['tagIds']);
+        return $this->getCard($cardId);
     }
 
     public function listCards($setId) {
         $this->getSet($setId);
-        return array_map([$this, 'normalizeCard'], $this->all("SELECT * FROM ce_cards WHERE set_id = ? ORDER BY name ASC", "i", [(int)$setId]));
+        $cards = array_map([$this, 'normalizeCard'], $this->all("SELECT * FROM ce_cards WHERE set_id = ? ORDER BY name ASC", "i", [(int)$setId]));
+        foreach ($cards as &$card) {
+            $card['tags'] = $this->listCardTags($card['id']);
+        }
+        return $cards;
     }
 
     public function getCard($id) {
@@ -646,6 +735,7 @@ class CardAuthoringDB {
         $card = $this->normalizeCard($row);
         $card['template'] = $this->getTemplate($card['template_id']);
         $card['values'] = array_map([$this, 'normalizeValue'], $this->all("SELECT * FROM ce_card_field_values WHERE card_id = ?", "i", [(int)$id]));
+        $card['tags'] = $this->listCardTags($card['id']);
         return $card;
     }
 
@@ -658,6 +748,7 @@ class CardAuthoringDB {
         $slug = self::slugify($input['slug'] ?? $card['slug']);
         $now = $this->now();
         $this->execute("UPDATE ce_cards SET name = ?, slug = ?, updated_at = ? WHERE id = ?", "sssi", [$name, $slug, $now, (int)$id]);
+        if (array_key_exists('tagIds', $input)) $this->syncCardTags($id, $input['tagIds']);
         return $this->getCard($id);
     }
 
@@ -667,6 +758,7 @@ class CardAuthoringDB {
         mysqli_query($this->conn, "START TRANSACTION");
         try {
             $this->execute("DELETE FROM ce_card_field_values WHERE card_id = ?", "i", [(int)$id]);
+            $this->execute("DELETE FROM ce_card_tags WHERE card_id = ?", "i", [(int)$id]);
             $this->execute("DELETE FROM ce_cards WHERE id = ?", "i", [(int)$id]);
             mysqli_query($this->conn, "COMMIT");
             return ['deleted' => true, 'id' => (int)$id];
@@ -720,6 +812,42 @@ class CardAuthoringDB {
         }
     }
 
+    public function listCardTags($cardId) {
+        $card = $this->one("SELECT game_id FROM ce_cards WHERE id = ?", "i", [(int)$cardId]);
+        if (!$card) throw new Exception("Card not found");
+        $this->assertCanViewGame((int)$card['game_id']);
+        $rows = $this->all(
+            "SELECT t.* FROM ce_game_tags t INNER JOIN ce_card_tags ct ON ct.tag_id = t.id WHERE ct.card_id = ? ORDER BY t.name ASC, t.id ASC",
+            "i",
+            [(int)$cardId]
+        );
+        return array_map([$this, 'normalizeTag'], $rows);
+    }
+
+    private function syncCardTags($cardId, $tagIds) {
+        $card = $this->one("SELECT game_id FROM ce_cards WHERE id = ?", "i", [(int)$cardId]);
+        if (!$card) throw new Exception("Card not found");
+        $gameId = (int)$card['game_id'];
+        $this->assertCanEditGame($gameId);
+        if (!is_array($tagIds)) $tagIds = [];
+        $cleanIds = [];
+        foreach ($tagIds as $tagId) {
+            $tagId = (int)$tagId;
+            if ($tagId > 0 && !in_array($tagId, $cleanIds)) $cleanIds[] = $tagId;
+        }
+        $now = $this->now();
+        $this->execute("DELETE FROM ce_card_tags WHERE card_id = ?", "i", [(int)$cardId]);
+        foreach ($cleanIds as $tagId) {
+            $tag = $this->one("SELECT id FROM ce_game_tags WHERE id = ? AND game_id = ?", "ii", [$tagId, $gameId]);
+            if (!$tag) continue;
+            $this->execute(
+                "INSERT INTO ce_card_tags (card_id, tag_id, created_at) VALUES (?, ?, ?)",
+                "iis",
+                [(int)$cardId, $tagId, $now]
+            );
+        }
+    }
+
     public function listAssets($gameId) {
         $this->assertCanViewGame($gameId);
         return array_map([$this, 'normalizeAsset'], $this->all("SELECT * FROM ce_assets WHERE game_id = ? ORDER BY created_at DESC, id DESC", "i", [(int)$gameId]));
@@ -753,6 +881,7 @@ class CardAuthoringDB {
 
     public function exportGame($gameId) {
         $game = $this->getGame($gameId);
+        unset($game['tags']);
         $sets = $this->listSets($gameId);
         $templates = [];
         foreach ($this->listTemplates($gameId) as $template) $templates[] = $this->getTemplate($template['id']);

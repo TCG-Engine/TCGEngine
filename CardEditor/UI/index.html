@@ -226,6 +226,66 @@
             margin-top: 14px;
             gap: 9px;
         }
+        .form-section {
+            display: grid;
+            gap: 8px;
+            padding: 10px;
+            border: 1px solid #3c4043;
+            border-radius: 6px;
+            background: #17191c;
+        }
+        .section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .tag-editor, .tag-row {
+            display: grid;
+            gap: 8px;
+        }
+        .tag-row {
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: center;
+        }
+        .compact-empty {
+            padding: 8px;
+            min-height: auto;
+        }
+        .tag-filter {
+            display: grid;
+            gap: 6px;
+            margin-bottom: 10px;
+        }
+        .tag-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        .tag-badges em {
+            max-width: 100%;
+            padding: 2px 6px;
+            border-radius: 999px;
+            background: #3b4550;
+            color: #d7edf0;
+            font-style: normal;
+            font-size: 11px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .tag-checkboxes {
+            display: grid;
+            gap: 6px;
+            padding: 10px;
+            border: 1px solid #3c4043;
+            border-radius: 6px;
+        }
+        .tag-checkboxes legend {
+            padding: 0 4px;
+            color: #dfe5ea;
+            font-size: 13px;
+            font-weight: 700;
+        }
         .button-row {
             display: flex;
             align-items: center;
