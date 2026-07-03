@@ -4,9 +4,12 @@ class CardScreen {
     }
 
     async selectCard(id) {
+        const listPaneScrollTop = document.querySelector('.card-workbench .pane.compact')?.scrollTop || 0;
         this.app.state.activeCardId = Number(id);
         this.app.state.activeCardDetail = await ApiClient.getCard(id);
         this.render();
+        const listPane = document.querySelector('.card-workbench .pane.compact');
+        if (listPane) listPane.scrollTop = listPaneScrollTop;
     }
 
     async render() {
