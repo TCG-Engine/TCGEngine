@@ -153,20 +153,23 @@ So in the ability code, you have access to:
   - `$var = await $player.NumberChoose(min, max, "prompt")` — choose a number in a range
   - `$var = await $player.MZSplitAssign($targets, $amount, "prompt")` — split-assign a pool across targets. Returns comma-separated `mzID:amount` pairs (e.g. `"myField-0:3,myField-1:2"`). `$targets` is an `&`-delimited mzID string, `$amount` is the total pool to assign.
   - `await FunctionName($player, $args)` — call a function that queues decisions
+  - `$var = await $player.Modal($min, $max, "label1&label2", "tooltip")` - choose labeled non-card modes; returns comma-separated 0-based option indexes
+  - `$var = await $player.Rearrange($param)` - reorder/reassign revealed cards between named piles; returns the pile serialization
 
 **Critical await constraints:**
-The code generator splits your ability code at each `await` line. Pre-await code goes into the main ability function; post-await code goes into a custom DQ handler. **Braces, variables, and scope do NOT carry across the split.** This means:
-  - **NO await inside conditionals or loops.** Ever. Use early `return` statements to flatten control flow so `await` is always at top level.
-  - **NO variables used after await** that were computed before it. The generator cannot propagate them across function boundaries. Recompute any needed values after the await (in the handler section).
+The code generator supports inline `await` for player choices, including awaits nested inside `if`/`else`, `for`, and `while` blocks. Prefer this for card-local interactive flows instead of hand-writing one-off Decision Queue handlers.
+  - **Control blocks are supported.** `await` may appear inside conditionals and loops when that directly expresses the card text.
+  - **Keep await state serializable.** Scalar values and arrays can be carried through the generated await frame. Recompute live zone objects after an await instead of relying on pre-await object references.
   - **NO function calls as await parameters.** Pre-compute into a variable: `$str = implode("&", $arr);` then `await $player.MZChoose($str)`.
   - **NO tooltip parameter as second arg to MZChoose/MZMayChoose.** The await syntax does not support `await $player.MZChoose($targetStr, "tooltip")` — the generator produces broken PHP. Omit it: just `await $player.MZChoose($targetStr)`.
 
-**Correct pattern:** Early returns + pre-computed variables + top-level await
+**Correct pattern:** Pre-computed chooser strings + inline await
 ```php
-if(empty($targets)) return;                  // Early return instead of nested if
-$targetStr = implode("&", $targets);         // Pre-compute before await
-$chosen = await $player.MZChoose($targetStr); // await at top level
-// After await, use $chosen and $mzID (auto-retrieved), but recompute other values
+if(!empty($targets)) {
+    $targetStr = implode("&", $targets);      // Pre-compute before await
+    $chosen = await $player.MZChoose($targetStr);
+    $chosenObj = GetZoneObject($chosen);      // Recompute live objects after await
+}
 ```
 
 ### Step 6: Save via MCP
@@ -180,7 +183,7 @@ Call `save_card_abilities` with the card ID, macro name, and ability code. The M
 
 ### Multi-Step Ability Patterns (YesNo, Target Selection)
 
-**Pattern:** When an ability requires player input (YesNo, card choice), write ability code that *queues* decisions rather than awaiting inline. The generator will compile these into custom DQ handlers.
+**Pattern:** When an ability requires player input (YesNo, card choice), write the ability with inline `await`. The generator will compile those awaits into Decision Queue entries and generated resume machinery.
 
 **Example: Card with YesNo + target selection**
 ```php
@@ -195,10 +198,78 @@ for($i = 0; $i < 3; ++$i) {
 ```
 
 The generator translates `await` statements into queued `DecisionQueueController::AddDecision()` calls. Each `await` becomes:
-1. A decision queue entry (YESNO, MZCHOOSE, or MZMAYCHOOSE)
-2. A custom DQ handler that processes the player's response
+1. A decision queue entry (YESNO, MZCHOOSE, MZMAYCHOOSE, MZMULTICHOOSE, etc.)
+2. Generated resume logic that processes the player's response
 
-The `lastDecision` parameter in the handler receives the player's choice ("YES"/"NO" for YesNo, or the mzID for card choices).
+Custom DQ handlers are still useful for shared helpers, runtime hooks, and short non-interactive effects, but card-local multi-step prompts should generally be expressed with inline `await`.
+
+### Choosing the Right UI Interaction
+
+For new card-local prompts, prefer these modern interactions:
+
+| Player choice needed | Preferred interaction | Await syntax? | Return shape |
+| --- | --- | --- | --- |
+| Binary yes/no | `YESNO` | `await $player.YesNo("prompt")` | `"YES"` or `"NO"` |
+| Exactly one visible card/object | `MZCHOOSE` | `await $player.MZChoose($targetStr)` | selected mzID |
+| Optional one visible card/object | `MZMAYCHOOSE` | `await $player.MZMayChoose($targetStr)` | selected mzID or pass sentinel |
+| Any/up to/exactly N cards from one known set | `MZMULTICHOOSE` | `await $player.MZMultiChoose($targetStr, $min, $max, "prompt")` | `&`-delimited mzIDs or `"-"` |
+| One or more labeled modes, not cards | `MZMODAL` | `await $player.Modal($min, $max, "label1&label2", "prompt")` | comma-separated 0-based indexes or `"-"` |
+| Integer amount in a range | `NUMBERCHOOSE` | `await $player.NumberChoose($min, $max, "prompt")` | selected number as a string |
+| Numeric pool distributed among card targets | `MZSPLITASSIGN` | `await $player.MZSplitAssign($targetStr, $amount, "prompt")` | comma-separated `mzID:amount` pairs |
+| Reorder/reassign revealed cards between piles | `MZREARRANGE` | `await $player.Rearrange($param)` | pile serialization, e.g. `Top=a,b;Bottom=c` |
+| Split a count between exactly two outcomes | `TWOSIDEDSLIDER` | queue directly | selected left-side count |
+| One plain text option label | `OPTIONCHOOSE` | queue directly | selected label verbatim |
+| Name a card | `NAMECARD` | queue directly | selected card name |
+| Specialized icon/direction choice | `ICONCHOICE` | queue directly | selected option |
+
+Older/specialized client decision types such as `TOPDECKSEARCH`, `SCRY`, `REVEALARRANGE`, and `CHOOSEZONE` exist for legacy or framework-specific flows. Do not reach for them in new saved ability code unless you are maintaining an existing path that already uses them.
+
+### MZChoose / MZMayChoose - Single Card Choice Pattern
+
+Use `MZChoose` when the player must choose one card/object from a visible candidate set. Use `MZMayChoose` when passing is legal. Always precompute the `&`-delimited target string before the await, and guard optional results against `"-"`, `""`, and `"PASS"`.
+
+```php
+$targets = ZoneSearch("myField", ["ALLY"]);
+if(empty($targets)) return;
+$targetStr = implode("&", $targets);
+$chosen = await $player.MZMayChoose($targetStr);
+if($chosen === "-" || $chosen === "" || $chosen === "PASS") return;
+AddCounters($player, $chosen, "buff", 1);
+```
+
+### MZModal - Labeled Mode Choice Pattern
+
+**Decision type:** `MZMODAL` - lets the player choose one or more labeled modes that are not themselves cards.
+
+**Await syntax:** `$var = await $player.Modal($min, $max, "label1&label2&label3", "tooltip")`
+
+**Return value:** comma-separated 0-based indexes of the chosen labels, e.g. `"0,2"`. Returns `"-"` if no options were chosen and `min` is `0`. The return value is indexes, not label text.
+
+**When to use:** Use `MZMODAL` for "choose one" / "choose two" mode cards, element/type declarations, or other labeled choices where the options are rules text rather than board cards.
+
+```php
+$modeChoice = await $player.Modal(1, 1, "Recover_3&Draw_a_card", "Choose_a_mode");
+if($modeChoice === "0") {
+    RecoverChampion($player, 3);
+} else if($modeChoice === "1") {
+    Draw($player, 1);
+}
+```
+
+### NumberChoose - Numeric Amount Pattern
+
+**Decision type:** `NUMBERCHOOSE` - lets the player choose an integer between a minimum and maximum.
+
+**Await syntax:** `$var = await $player.NumberChoose($min, $max, "tooltip")`
+
+**Return value:** selected number as a string; cast with `intval(...)` before arithmetic.
+
+**When to use:** Use this when the card asks "choose a number" or "up to N" and the chosen count drives one shared resolution. For mill/discard/damage counts, prefer one bounded `NUMBERCHOOSE` followed by one shared resolver rather than recursive prompts.
+
+```php
+$amount = await $player.NumberChoose(0, $maxAmount, "Choose_amount_to_mill");
+MillCards($player, intval($amount));
+```
 
 ### MZMultiChoose — Single Popup Multi-Select Pattern
 
@@ -235,13 +306,15 @@ foreach(explode("&", $selected) as $chosen) {
 
 **When to prefer it:** Use `MZREARRANGE` for "put the rest on the top or bottom in any order" and for bottom-only reorder flows after looking at or revealing cards from deck/temp zone. Do not fake these rearrangement UIs with `MZMultiChoose`.
 
+**Await syntax:** `$var = await $player.Rearrange($param)`
+
 **Parameter format:** `"Top=cardA,cardB;Bottom=cardC"` where each pile is a comma-separated list of card IDs.
 
 **Common patterns:**
 - Top-or-bottom reorder: `Top=<ids>;Bottom=`
 - Bottom-only reorder: `Top=;Bottom=<ids>`
 
-**Queue pattern:**
+**Queue pattern:** Use this form from helper functions or custom runtime paths that are already queuing decisions directly.
 ```php
 $param = "Top=;Bottom=" . implode(",", $remaining);
 DecisionQueueController::AddDecision($player, "MZREARRANGE", $param, 1, "Put_remaining_on_bottom_of_deck_in_any_order");
@@ -283,6 +356,8 @@ ProcessSplitDamage($player, $mzID, $assignments);
 ### TWOSIDEDSLIDER — Numeric Split Between Two Outcomes
 
 **Decision type:** `TWOSIDEDSLIDER` — lets the player choose a numeric split between two outcomes in one compact chooser instead of repeated `YESNO` or one-choice modal prompts.
+
+`TWOSIDEDSLIDER` is queued directly rather than through the await syntax.
 
 **Queue syntax:** `DecisionQueueController::AddDecision($player, "TWOSIDEDSLIDER", "min|max|leftSpec|rightSpec", 1, tooltip:"Prompt_text");`
 - `min`, `max`: inclusive integer range for the left-side count.

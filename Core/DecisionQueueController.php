@@ -278,6 +278,88 @@ class DecisionQueueController {
     public static function ClearVariables() {
         SetDecisionQueueVariables('{}');
     }
+
+    private static function SanitizeAwaitFrameValue($value) {
+        if ($value === null || is_scalar($value)) return $value;
+        if (is_array($value)) {
+            $out = [];
+            foreach ($value as $key => $child) {
+                if (is_object($child) || is_resource($child)) continue;
+                $out[$key] = self::SanitizeAwaitFrameValue($child);
+            }
+            return $out;
+        }
+        return null;
+    }
+
+    private static function SanitizeAwaitFrameLocals($locals) {
+        $out = [];
+        if (!is_array($locals)) return $out;
+        foreach ($locals as $name => $value) {
+            $name = strval($name);
+            if ($name === '') continue;
+            $out[$name] = self::SanitizeAwaitFrameValue($value);
+        }
+        return $out;
+    }
+
+    public static function BeginAwaitFrame($prefix, $locals = []) {
+        $vars = json_decode(GetDecisionQueueVariables(), true);
+        if (!is_array($vars)) $vars = [];
+        if (!isset($vars['__awaitFrames']) || !is_array($vars['__awaitFrames'])) {
+            $vars['__awaitFrames'] = [];
+        }
+        $nextId = intval($vars['__awaitNextID'] ?? 1);
+        $safePrefix = preg_replace('/[^A-Za-z0-9_.:-]/', '_', strval($prefix));
+        $frameKey = $safePrefix . '#' . $nextId;
+        $vars['__awaitNextID'] = $nextId + 1;
+        $vars['__awaitFrames'][$frameKey] = [
+            'locals' => self::SanitizeAwaitFrameLocals($locals),
+        ];
+        SetDecisionQueueVariables(json_encode($vars));
+        return $frameKey;
+    }
+
+    public static function GetAwaitFrame($frameKey) {
+        $vars = json_decode(GetDecisionQueueVariables(), true);
+        if (!is_array($vars)) return null;
+        $frames = $vars['__awaitFrames'] ?? null;
+        if (!is_array($frames)) return null;
+        $frame = $frames[strval($frameKey)] ?? null;
+        return is_array($frame) ? $frame : null;
+    }
+
+    public static function UpdateAwaitFrame($frameKey, $locals = []) {
+        $vars = json_decode(GetDecisionQueueVariables(), true);
+        if (!is_array($vars)) $vars = [];
+        if (!isset($vars['__awaitFrames']) || !is_array($vars['__awaitFrames'])) {
+            $vars['__awaitFrames'] = [];
+        }
+        $frameKey = strval($frameKey);
+        $existing = $vars['__awaitFrames'][$frameKey]['locals'] ?? [];
+        if (!is_array($existing)) $existing = [];
+        $vars['__awaitFrames'][$frameKey] = [
+            'locals' => array_merge($existing, self::SanitizeAwaitFrameLocals($locals)),
+        ];
+        SetDecisionQueueVariables(json_encode($vars));
+    }
+
+    public static function SetAwaitFrameLocal($frameKey, $name, $value) {
+        self::UpdateAwaitFrame($frameKey, [strval($name) => $value]);
+    }
+
+    public static function FinishAwaitFrame($frameKey) {
+        $vars = json_decode(GetDecisionQueueVariables(), true);
+        if (!is_array($vars)) return;
+        if (isset($vars['__awaitFrames']) && is_array($vars['__awaitFrames'])) {
+            unset($vars['__awaitFrames'][strval($frameKey)]);
+            if (empty($vars['__awaitFrames'])) {
+                unset($vars['__awaitFrames']);
+                unset($vars['__awaitNextID']);
+            }
+        }
+        SetDecisionQueueVariables(json_encode($vars));
+    }
     
     public static function CleanupRemovedCards() {
         $allZones = GetAllZones();

@@ -8033,38 +8033,6 @@ $customDQHandlers["CastlingSecondTarget"] = function($player, $parts, $lastDecis
     AddTurnEffect($lastDecision, "tFOpmUdi2W_HP");
 };
 
-// ============================================================================
-// Crackling Incineration (14bepZKPlK): destroy target item/weapon with mem0 or res<=4,
-// then its controller puts a sheen counter on a unit they control.
-// ============================================================================
-$customDQHandlers["CracklingIncinerationDestroy"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    $targetObj = GetZoneObject($lastDecision);
-    if($targetObj === null) return;
-    $controller = $targetObj->Controller ?? $player;
-    OnLeaveField($player, $lastDecision);
-    $dest = $player == $controller ? "myGraveyard" : "theirGraveyard";
-    MZMove($player, $lastDecision, $dest);
-    DecisionQueueController::CleanupRemovedCards();
-    // Controller puts a sheen counter on a unit they control
-    global $playerID;
-    $controllerZone = $controller == $playerID ? "myField" : "theirField";
-    $units = ZoneSearch($controllerZone, ["ALLY", "CHAMPION"]);
-    if(empty($units)) return;
-    if(count($units) === 1) {
-        AddCounters($player, $units[0], "sheen", 1);
-        return;
-    }
-    $str = implode("&", $units);
-    DecisionQueueController::AddDecision($controller, "MZCHOOSE", $str, 1, tooltip:"Put_a_sheen_counter_on_a_unit_you_control");
-    DecisionQueueController::AddDecision($controller, "CUSTOM", "CracklingIncinerationSheen", 1);
-};
-
-$customDQHandlers["CracklingIncinerationSheen"] = function($player, $parts, $lastDecision) {
-    if($lastDecision === "-" || $lastDecision === "" || $lastDecision === "PASS") return;
-    AddCounters($player, $lastDecision, "sheen", 1);
-};
-
 function SinistreStabCommitToLineage($player, $targetPlayer) {
     $intentCards = GetIntentCards($player);
     foreach($intentCards as $iMZ) {

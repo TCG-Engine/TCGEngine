@@ -3105,7 +3105,7 @@ function GenerateMacroParamRetrievalCode($macroParams) {
 }
 
 /**
- * Generate code to retrieve macro parameters with indentation (for continuation handlers)
+ * Generate code to retrieve macro parameters with indentation (for generated resume handlers)
  *
  * @param array $macroParams Array of parameter names from the macro definition
  * @param string $indent Indentation to prepend to each line
@@ -3127,16 +3127,18 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
  *
  * Supported patterns:
  *   Pattern 1: $var = await $player.ChoiceType(params)
- *     Becomes: AddDecision + continuation handler with variable storage
+ *     Becomes: AddDecision + generated resume logic with variable storage
  *
  *   Pattern 2: await FunctionName($player, args)
- *     Becomes: FunctionName call + continuation handler (for functions that queue decisions)
+ *     Becomes: FunctionName call + generated resume logic (for functions that queue decisions)
  *
  * Supported choice types (Pattern 1):
  *   - MZChoose: Mandatory card choice from zones
  *   - MZMayChoose: Optional card choice (client shows Pass button)
  *   - MZMultiChoose: Select min..max cards in one popup and return an ampersand-delimited result
  *   - YesNo: Yes/No choice
+ *   - Modal: Choose min..max labeled options and return comma-delimited 0-based indexes
+ *   - NumberChoose: Choose a number in a min..max range
  *   - Rearrange: Rearrange cards with zones and starting cards (semicolon-delimited)
  *   - MZSplitAssign: Split-assign a pool of N across multiple targets
  *   - Custom types: Any name is converted to uppercase (e.g., CustomChoice -> CUSTOMCHOICE)
@@ -3161,7 +3163,7 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
  *     DecisionQueueController::AddDecision($player, "MZCHOOSE", $hunters, 1);
  *     DecisionQueueController::AddDecision($player, "CUSTOM", "CARDID-1", 1);
  *
- *   OUTPUT (continuation handler):
+ *   OUTPUT (resume handlers, simplified):
  *     $customDQHandlers["CARDID-1"] = function($player, $parts, $lastDecision) {
  *       DecisionQueueController::StoreVariable("hunter", $lastDecision);
  *       $hunter = $lastDecision;
@@ -3247,7 +3249,7 @@ function BuildAddDecisionCall($await, $cardId, $indent = '') {
   }
 }
 
-function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = []) {
+function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = []) {
   $lines = explode("\n", $code);
   $awaits = [];
 
@@ -3374,7 +3376,7 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
     $transformedCode .= "DecisionQueueController::AddDecision(" . $firstAwait['playerVar'] . ", \"CUSTOM\", \"" . $cardId . "-1\", 1);\n";
   }
 
-  // Generate continuation handlers for each await
+  // Generate legacy resume handlers for each await
   for ($awaitIndex = 0; $awaitIndex < count($awaits); $awaitIndex++) {
     $currentAwait = $awaits[$awaitIndex];
     $handlerName = $cardId . "-" . ($awaitIndex + 1);
@@ -3439,6 +3441,527 @@ function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers
   }
 
   return rtrim($transformedCode);
+}
+
+function AwaitParseAwaitLine($line, $lineIndex = 0) {
+  if (preg_match('/(\$\w+)\s*=\s*await\s+(\$\w+)\.(\w+)\((.*)\)\s*;?\s*$/', $line, $matches)) {
+    $rawParams = trim($matches[4]);
+    $methodName = $matches[3];
+
+    if (strtolower($methodName) === 'rearrange') {
+      $params = $rawParams;
+    } else if (strtolower($methodName) === 'mzsplitassign') {
+      $splitArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else if (strtolower($methodName) === 'mzmultichoose') {
+      $multiArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else if (strtolower($methodName) === 'modal') {
+      $modalArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else if (strtolower($methodName) === 'numberchoose') {
+      $numberArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
+    } else {
+      $params = trim($rawParams, '"\'');
+    }
+
+    $isSplitAssign = strtolower($methodName) === 'mzsplitassign';
+    $isMultiChoose = strtolower($methodName) === 'mzmultichoose';
+    $isModal = strtolower($methodName) === 'modal';
+    $isNumberChoose = strtolower($methodName) === 'numberchoose';
+    $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isMultiChoose ? 'MZMULTICHOOSE' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : strtoupper($methodName)))));
+    $awaitEntry = [
+      'lineIndex' => $lineIndex,
+      'returnVar' => $matches[1],
+      'playerVar' => $matches[2],
+      'choiceType' => $choiceType,
+      'params' => $params,
+      'isRearrange' => strtolower($methodName) === 'rearrange',
+      'isSplitAssign' => $isSplitAssign,
+      'isMultiChoose' => $isMultiChoose,
+      'isModal' => $isModal,
+      'isNumberChoose' => $isNumberChoose,
+      'isVoidFunction' => false
+    ];
+    if ($isSplitAssign && isset($splitArgs)) {
+      $awaitEntry['splitTargets'] = trim($splitArgs[0] ?? '');
+      $awaitEntry['splitAmount'] = trim($splitArgs[1] ?? '0');
+      $awaitEntry['splitTooltip'] = isset($splitArgs[2]) ? trim(trim($splitArgs[2]), '"\'') : '';
+    }
+    if ($isMultiChoose && isset($multiArgs)) {
+      $awaitEntry['multiTargets'] = trim($multiArgs[0] ?? '');
+      $awaitEntry['multiMin'] = trim($multiArgs[1] ?? '0');
+      $awaitEntry['multiMax'] = trim($multiArgs[2] ?? '0');
+      $awaitEntry['multiTooltip'] = isset($multiArgs[3]) ? trim(trim($multiArgs[3]), '"\'') : '';
+    }
+    if ($isModal && isset($modalArgs)) {
+      $awaitEntry['modalMin'] = trim($modalArgs[0] ?? '0');
+      $awaitEntry['modalMax'] = trim($modalArgs[1] ?? '0');
+      $awaitEntry['modalOptions'] = trim($modalArgs[2] ?? '', '"\'');
+      $awaitEntry['modalTooltip'] = isset($modalArgs[3]) ? trim(trim($modalArgs[3]), '"\'') : '';
+    }
+    if ($isNumberChoose && isset($numberArgs)) {
+      $awaitEntry['numberMin'] = trim($numberArgs[0] ?? '0');
+      $awaitEntry['numberMax'] = trim($numberArgs[1] ?? '0');
+      $awaitEntry['numberTooltip'] = isset($numberArgs[2]) ? trim(trim($numberArgs[2]), '"\'') : '';
+    }
+    return $awaitEntry;
+  }
+
+  if (preg_match('/^\s*await\s+(\w+)\s*\((.+)\)\s*;?\s*$/', $line, $matches)) {
+    $functionArgs = trim($matches[2]);
+    $playerVar = '$player';
+    if (preg_match('/^\s*(\$\w+)/', $functionArgs, $playerMatch)) {
+      $playerVar = $playerMatch[1];
+    }
+    return [
+      'lineIndex' => $lineIndex,
+      'returnVar' => null,
+      'playerVar' => $playerVar,
+      'functionName' => $matches[1],
+      'functionArgs' => $functionArgs,
+      'isVoidFunction' => true
+    ];
+  }
+
+  return null;
+}
+
+function AwaitNormalizeControlLines($code) {
+  $lines = explode("\n", str_replace(["\r\n", "\r"], "\n", $code));
+  $out = [];
+  foreach ($lines as $line) {
+    $line = rtrim($line);
+    if (preg_match('/^(\s*)}\s*(else\b.*)$/', $line, $matches)) {
+      $out[] = $matches[1] . '}';
+      $out[] = $matches[1] . $matches[2];
+    } else {
+      $out[] = $line;
+    }
+  }
+  return $out;
+}
+
+function AwaitRequiresStateMachine($code) {
+  $depth = 0;
+  $lines = AwaitNormalizeControlLines($code);
+  foreach ($lines as $i => $line) {
+    if (AwaitParseAwaitLine($line, $i) !== null) {
+      if ($depth > 0 || preg_match('/^\s*(if|else\s+if|elseif|for|while)\b/', $line)) {
+        return true;
+      }
+    }
+    $withoutStrings = preg_replace('/(["\']).*?\1/', '', $line);
+    $depth += substr_count($withoutStrings, '{');
+    $depth -= substr_count($withoutStrings, '}');
+    if ($depth < 0) $depth = 0;
+  }
+  return false;
+}
+
+function AwaitFlushRawLines(&$nodes, &$rawLines) {
+  if (empty($rawLines)) return;
+  $code = rtrim(implode("\n", $rawLines));
+  if (trim($code) !== '') {
+    $nodes[] = ['type' => 'raw', 'code' => $code];
+  }
+  $rawLines = [];
+}
+
+function AwaitSimpleNodeFromStatement($stmt) {
+  $trim = trim($stmt);
+  if ($trim === '') return null;
+  $await = AwaitParseAwaitLine($trim);
+  if ($await !== null) return ['type' => 'await', 'await' => $await];
+  if (preg_match('/^break\s*;\s*$/', $trim)) return ['type' => 'break'];
+  if (preg_match('/^continue\s*;\s*$/', $trim)) return ['type' => 'continue'];
+  if (preg_match('/^return\b(.*);\s*$/', $trim, $matches)) {
+    return ['type' => 'return', 'expr' => trim($matches[1])];
+  }
+  return ['type' => 'raw', 'code' => rtrim($stmt)];
+}
+
+function AwaitParseElseBlock($lines, &$idx) {
+  if ($idx >= count($lines)) return [];
+  $line = $lines[$idx];
+  if (preg_match('/^\s*else\s+if\s*\((.*)\)\s*\{\s*$/', $line, $matches) || preg_match('/^\s*elseif\s*\((.*)\)\s*\{\s*$/', $line, $matches)) {
+    $idx++;
+    $thenNodes = AwaitParseBlock($lines, $idx);
+    $elseNodes = AwaitParseElseBlock($lines, $idx);
+    return [[
+      'type' => 'if',
+      'cond' => trim($matches[1]),
+      'then' => $thenNodes,
+      'else' => $elseNodes
+    ]];
+  }
+  if (preg_match('/^\s*else\s*\{\s*$/', $line)) {
+    $idx++;
+    return AwaitParseBlock($lines, $idx);
+  }
+  return [];
+}
+
+function AwaitSplitTopLevel($value, $delimiter) {
+  $parts = [];
+  $current = '';
+  $depth = 0;
+  $inString = false;
+  $stringChar = '';
+  for ($i = 0; $i < strlen($value); ++$i) {
+    $ch = $value[$i];
+    if ($inString) {
+      $current .= $ch;
+      if ($ch === '\\' && $i + 1 < strlen($value)) {
+        $current .= $value[++$i];
+      } else if ($ch === $stringChar) {
+        $inString = false;
+      }
+    } else if ($ch === '"' || $ch === "'") {
+      $inString = true;
+      $stringChar = $ch;
+      $current .= $ch;
+    } else if ($ch === '(' || $ch === '[' || $ch === '{') {
+      $depth++;
+      $current .= $ch;
+    } else if ($ch === ')' || $ch === ']' || $ch === '}') {
+      $depth--;
+      $current .= $ch;
+    } else if ($ch === $delimiter && $depth === 0) {
+      $parts[] = trim($current);
+      $current = '';
+    } else {
+      $current .= $ch;
+    }
+  }
+  $parts[] = trim($current);
+  return $parts;
+}
+
+function AwaitParseBlock($lines, &$idx) {
+  $nodes = [];
+  $rawLines = [];
+  while ($idx < count($lines)) {
+    $line = $lines[$idx];
+    $trim = trim($line);
+
+    if ($trim === '}') {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $idx++;
+      return $nodes;
+    }
+
+    if (preg_match('/^\s*if\s*\((.*)\)\s*\{\s*$/', $line, $matches)) {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $idx++;
+      $thenNodes = AwaitParseBlock($lines, $idx);
+      $elseNodes = AwaitParseElseBlock($lines, $idx);
+      $nodes[] = [
+        'type' => 'if',
+        'cond' => trim($matches[1]),
+        'then' => $thenNodes,
+        'else' => $elseNodes
+      ];
+      continue;
+    }
+
+    if (preg_match('/^\s*while\s*\((.*)\)\s*\{\s*$/', $line, $matches)) {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $idx++;
+      $bodyNodes = AwaitParseBlock($lines, $idx);
+      $nodes[] = [
+        'type' => 'while',
+        'cond' => trim($matches[1]),
+        'body' => $bodyNodes
+      ];
+      continue;
+    }
+
+    if (preg_match('/^\s*for\s*\((.*)\)\s*\{\s*$/', $line, $matches)) {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $idx++;
+      $parts = AwaitSplitTopLevel($matches[1], ';');
+      while (count($parts) < 3) $parts[] = '';
+      $bodyNodes = AwaitParseBlock($lines, $idx);
+      $nodes[] = [
+        'type' => 'for',
+        'init' => trim($parts[0]),
+        'cond' => trim($parts[1]),
+        'inc' => trim($parts[2]),
+        'body' => $bodyNodes
+      ];
+      continue;
+    }
+
+    if (preg_match('/^\s*if\s*\((.*)\)\s*(.+;)\s*$/', $line, $matches)) {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $stmtNode = AwaitSimpleNodeFromStatement($matches[2]);
+      if ($stmtNode !== null) {
+        $nodes[] = [
+          'type' => 'ifline',
+          'cond' => trim($matches[1]),
+          'stmt' => $stmtNode
+        ];
+      }
+      $idx++;
+      continue;
+    }
+
+    $simpleNode = AwaitSimpleNodeFromStatement($line);
+    if ($simpleNode !== null && $simpleNode['type'] !== 'raw') {
+      AwaitFlushRawLines($nodes, $rawLines);
+      $nodes[] = $simpleNode;
+      $idx++;
+      continue;
+    }
+
+    $rawLines[] = $line;
+    $idx++;
+  }
+
+  AwaitFlushRawLines($nodes, $rawLines);
+  return $nodes;
+}
+
+function AwaitAddInstruction(&$instructions, $type, $data = []) {
+  $pc = count($instructions);
+  $instructions[$pc] = array_merge(['type' => $type], $data);
+  return $pc;
+}
+
+function AwaitStatementCode($code) {
+  $code = trim($code);
+  if ($code === '') return '';
+  return substr($code, -1) === ';' ? $code : $code . ';';
+}
+
+function AwaitCompileNodes($nodes, $nextPc, &$instructions, $context = []) {
+  for ($i = count($nodes) - 1; $i >= 0; --$i) {
+    $node = $nodes[$i];
+    switch ($node['type']) {
+      case 'raw':
+        if (trim($node['code']) !== '') {
+          $nextPc = AwaitAddInstruction($instructions, 'raw', ['code' => $node['code'], 'next' => $nextPc]);
+        }
+        break;
+      case 'await':
+        $nextPc = AwaitAddInstruction($instructions, 'await', ['await' => $node['await'], 'next' => $nextPc]);
+        break;
+      case 'return':
+        $nextPc = AwaitAddInstruction($instructions, 'return', ['expr' => $node['expr']]);
+        break;
+      case 'break':
+        $target = $context['break'] ?? $nextPc;
+        $nextPc = AwaitAddInstruction($instructions, 'jump', ['target' => $target]);
+        break;
+      case 'continue':
+        $target = $context['continue'] ?? $nextPc;
+        $nextPc = AwaitAddInstruction($instructions, 'jump', ['target' => $target]);
+        break;
+      case 'ifline':
+        $thenStart = AwaitCompileNodes([$node['stmt']], $nextPc, $instructions, $context);
+        $nextPc = AwaitAddInstruction($instructions, 'branch', [
+          'cond' => $node['cond'],
+          'then' => $thenStart,
+          'else' => $nextPc
+        ]);
+        break;
+      case 'if':
+        $thenStart = AwaitCompileNodes($node['then'], $nextPc, $instructions, $context);
+        $elseStart = AwaitCompileNodes($node['else'], $nextPc, $instructions, $context);
+        $nextPc = AwaitAddInstruction($instructions, 'branch', [
+          'cond' => $node['cond'],
+          'then' => $thenStart,
+          'else' => $elseStart
+        ]);
+        break;
+      case 'while':
+        $condPc = AwaitAddInstruction($instructions, 'branch', [
+          'cond' => $node['cond'],
+          'then' => null,
+          'else' => $nextPc
+        ]);
+        $bodyStart = AwaitCompileNodes($node['body'], $condPc, $instructions, [
+          'break' => $nextPc,
+          'continue' => $condPc
+        ]);
+        $instructions[$condPc]['then'] = $bodyStart;
+        $nextPc = $condPc;
+        break;
+      case 'for':
+        $cond = trim($node['cond']) === '' ? 'true' : $node['cond'];
+        $condPc = AwaitAddInstruction($instructions, 'branch', [
+          'cond' => $cond,
+          'then' => null,
+          'else' => $nextPc
+        ]);
+        $incPc = $condPc;
+        $incCode = AwaitStatementCode($node['inc']);
+        if ($incCode !== '') {
+          $incPc = AwaitAddInstruction($instructions, 'raw', ['code' => $incCode, 'next' => $condPc]);
+        }
+        $bodyStart = AwaitCompileNodes($node['body'], $incPc, $instructions, [
+          'break' => $nextPc,
+          'continue' => $incPc
+        ]);
+        $instructions[$condPc]['then'] = $bodyStart;
+        $initCode = AwaitStatementCode($node['init']);
+        $nextPc = $initCode === ''
+          ? $condPc
+          : AwaitAddInstruction($instructions, 'raw', ['code' => $initCode, 'next' => $condPc]);
+        break;
+    }
+  }
+  return $nextPc;
+}
+
+function AwaitExtractLocalVariables($code, $macroParams = []) {
+  preg_match_all('/\$([A-Za-z_][A-Za-z0-9_]*)/', $code, $matches);
+  $vars = array_merge($macroParams, $matches[1] ?? []);
+  $excluded = [
+    'GLOBALS' => true, '_SERVER' => true, '_GET' => true, '_POST' => true,
+    '_FILES' => true, '_COOKIE' => true, '_SESSION' => true, '_REQUEST' => true,
+    '_ENV' => true, 'this' => true, 'player' => true, 'lastDecision' => true,
+    '_awaitPc' => true, '_awaitFrameKey' => true
+  ];
+  $out = [];
+  foreach ($vars as $var) {
+    $var = trim($var);
+    if ($var === '' || isset($excluded[$var])) continue;
+    $out[$var] = true;
+  }
+  return array_keys($out);
+}
+
+function AwaitLocalArrayCode($vars) {
+  if (empty($vars)) return '[]';
+  $parts = [];
+  foreach ($vars as $var) {
+    $parts[] = '"' . addslashes($var) . '" => $' . $var . ' ?? null';
+  }
+  return '[' . implode(', ', $parts) . ']';
+}
+
+function AwaitIndentCode($code, $indent) {
+  $lines = explode("\n", rtrim($code));
+  $out = '';
+  foreach ($lines as $line) {
+    $out .= $indent . $line . "\n";
+  }
+  return $out;
+}
+
+function AwaitRunnerFunctionName($cardId) {
+  return '__RunAwait_' . substr(md5($cardId), 0, 20);
+}
+
+function AwaitGenerateRunnerFunction($functionName, $handlerName, $instructions, $localVars) {
+  $code = "function " . $functionName . "(\$player, \$lastDecision = null, \$_awaitPc = 0, \$_awaitFrameKey = \"\") {\n";
+  $code .= "  \$_awaitFrame = DecisionQueueController::GetAwaitFrame(\$_awaitFrameKey);\n";
+  $code .= "  \$_awaitLocals = is_array(\$_awaitFrame) && isset(\$_awaitFrame['locals']) && is_array(\$_awaitFrame['locals']) ? \$_awaitFrame['locals'] : [];\n";
+  foreach ($localVars as $var) {
+    $code .= "  if(array_key_exists(\"" . addslashes($var) . "\", \$_awaitLocals)) \$" . $var . " = \$_awaitLocals[\"" . addslashes($var) . "\"];\n";
+  }
+  $code .= "  while(true) {\n";
+  $code .= "    switch(intval(\$_awaitPc)) {\n";
+
+  foreach ($instructions as $pc => $instruction) {
+    $code .= "      case " . intval($pc) . ":\n";
+    switch ($instruction['type']) {
+      case 'raw':
+        $code .= AwaitIndentCode($instruction['code'], "        ");
+        $code .= "        \$_awaitPc = " . intval($instruction['next']) . ";\n";
+        $code .= "        continue 2;\n";
+        break;
+      case 'branch':
+        $code .= "        if(" . $instruction['cond'] . ") { \$_awaitPc = " . intval($instruction['then']) . "; } else { \$_awaitPc = " . intval($instruction['else']) . "; }\n";
+        $code .= "        continue 2;\n";
+        break;
+      case 'jump':
+        $code .= "        \$_awaitPc = " . intval($instruction['target']) . ";\n";
+        $code .= "        continue 2;\n";
+        break;
+      case 'await':
+        $await = $instruction['await'];
+        $nextPc = intval($instruction['next']);
+        $returnVar = isset($await['returnVar']) && $await['returnVar'] !== null ? substr($await['returnVar'], 1) : '';
+        $code .= "        DecisionQueueController::UpdateAwaitFrame(\$_awaitFrameKey, " . AwaitLocalArrayCode($localVars) . ");\n";
+        if (isset($await['isVoidFunction']) && $await['isVoidFunction']) {
+          $code .= "        " . $await['functionName'] . "(" . $await['functionArgs'] . ");\n";
+          $code .= "        DecisionQueueController::AddDecision(" . $await['playerVar'] . ", \"CUSTOM\", \"" . addslashes($handlerName) . "|\" . \$_awaitFrameKey . \"|" . $nextPc . "|\", 1);\n";
+        } else {
+          $code .= BuildAddDecisionCall($await, '', '        ');
+          $code .= "        DecisionQueueController::AddDecision(" . $await['playerVar'] . ", \"CUSTOM\", \"" . addslashes($handlerName) . "|\" . \$_awaitFrameKey . \"|" . $nextPc . "|" . addslashes($returnVar) . "\", 1);\n";
+        }
+        $code .= "        return;\n";
+        break;
+      case 'return':
+        $expr = trim($instruction['expr']);
+        $code .= "        DecisionQueueController::FinishAwaitFrame(\$_awaitFrameKey);\n";
+        $code .= $expr === '' ? "        return;\n" : "        return " . $expr . ";\n";
+        break;
+      case 'finish':
+        $code .= "        DecisionQueueController::FinishAwaitFrame(\$_awaitFrameKey);\n";
+        $code .= "        return;\n";
+        break;
+    }
+  }
+
+  $code .= "      default:\n";
+  $code .= "        DecisionQueueController::FinishAwaitFrame(\$_awaitFrameKey);\n";
+  $code .= "        return;\n";
+  $code .= "    }\n";
+  $code .= "  }\n";
+  $code .= "}\n\n";
+  return $code;
+}
+
+function TransformAwaitCodeStateMachine($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = []) {
+  $lines = AwaitNormalizeControlLines($code);
+  $idx = 0;
+  $nodes = AwaitParseBlock($lines, $idx);
+  $instructions = [];
+  $finishPc = AwaitAddInstruction($instructions, 'finish');
+  $startPc = AwaitCompileNodes($nodes, $finishPc, $instructions);
+  $localVars = AwaitExtractLocalVariables($code, $macroParams);
+  $functionName = AwaitRunnerFunctionName($cardId);
+  $handlerName = $cardId . '-await';
+
+  $continuationHandlers['__awaitRunner:' . $functionName] = [
+    'kind' => 'function',
+    'code' => AwaitGenerateRunnerFunction($functionName, $handlerName, $instructions, $localVars),
+    'comment' => $abilityName
+  ];
+
+  $handlerCode = "";
+  $handlerCode .= "  \$_awaitFrameKey = \$parts[0] ?? \"\";\n";
+  $handlerCode .= "  \$_awaitPc = intval(\$parts[1] ?? 0);\n";
+  $handlerCode .= "  \$_awaitReturnVar = \$parts[2] ?? \"\";\n";
+  $handlerCode .= "  if(\$_awaitReturnVar !== \"\") {\n";
+  $handlerCode .= "    DecisionQueueController::StoreVariable(\$_awaitReturnVar, \$lastDecision);\n";
+  $handlerCode .= "    DecisionQueueController::SetAwaitFrameLocal(\$_awaitFrameKey, \$_awaitReturnVar, \$lastDecision);\n";
+  $handlerCode .= "  }\n";
+  $handlerCode .= "  " . $functionName . "(\$player, \$lastDecision, \$_awaitPc, \$_awaitFrameKey);\n";
+
+  $continuationHandlers[$handlerName] = [
+    'kind' => 'handler',
+    'code' => $handlerCode,
+    'comment' => $abilityName
+  ];
+
+  $initialLocalVars = array_values(array_filter($macroParams, fn($param) => $param !== 'player'));
+  $transformedCode = GenerateMacroParamRetrievalCode($macroParams);
+  $transformedCode .= "\$_awaitFrameKey = DecisionQueueController::BeginAwaitFrame(\"" . addslashes($cardId) . "\", " . AwaitLocalArrayCode($initialLocalVars) . ");\n";
+  $transformedCode .= $functionName . "(\$player, null, " . intval($startPc) . ", \$_awaitFrameKey);";
+  return rtrim($transformedCode);
+}
+
+function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = []) {
+  if (!AwaitRequiresStateMachine($code)) {
+    return TransformAwaitCodeLegacy($code, $cardId, $abilityName, $continuationHandlers, $macroParams);
+  }
+  return TransformAwaitCodeStateMachine($code, $cardId, $abilityName, $continuationHandlers, $macroParams);
 }
 
 function GenerateMacroCode() {
@@ -3548,7 +4071,7 @@ function GenerateMacroCode() {
       fwrite($handler, "// Card-specific macro implementations\r\n");
       fwrite($handler, "// Each macro has an array where card IDs are keys (or CardID:Index for multiple abilities)\r\n\r\n");
 
-      $allContinuationHandlers = []; // Store all continuation handlers for output later
+      $allContinuationHandlers = []; // Store all generated await resume handlers for output later
 
       // Track ability index per card for macros that support multiple abilities
       $abilityIndexByCard = [];
@@ -3597,12 +4120,12 @@ function GenerateMacroCode() {
             $transformedCode = trim($code);
           } else {
             // Transform code to handle await syntax (pass macro params for variable retrieval).
-            // Use abilityKey:macroName as handlerPrefix so continuation handler names are unique
+            // Use abilityKey:macroName as handlerPrefix so generated resume handler names are unique
             // even when the same card has abilities for multiple macros (e.g. OnAttack + Reveal).
             $handlerPrefix = $abilityKey . ":" . $macroName;
             $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $macroParams);
 
-            // Merge continuation handlers into global collection
+            // Merge generated resume handlers into global collection
             $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);
             $signature = '$player';
           }
@@ -3624,12 +4147,16 @@ function GenerateMacroCode() {
         fwrite($handler, "\r\n");
       }
 
-      // Generate continuation handlers (from await transformations)
+      // Generate generated await resume handlers
       if (count($allContinuationHandlers) > 0) {
         fwrite($handler, "// Continuation handlers for await syntax\r\n");
         fwrite($handler, "// These handlers are called after player makes a choice in an ability\r\n\r\n");
 
         foreach ($allContinuationHandlers as $handlerName => $handlerData) {
+          if (($handlerData['kind'] ?? 'handler') === 'function') {
+            fwrite($handler, $handlerData['code']);
+            continue;
+          }
           fwrite($handler, "\$customDQHandlers[\"" . $handlerName . "\"] = function(\$player, \$parts, \$lastDecision) { //" . $handlerData['comment'] . "\r\n");
           fwrite($handler, $handlerData['code']);
           fwrite($handler, "};\r\n\r\n");

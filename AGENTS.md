@@ -11,9 +11,10 @@ Use this file as the compact default guidance:
   - `get_implemented_examples`
   - `save_card_abilities`
 - Treat `.github/copilot-instructions.md` as canonical for await/codegen constraints. In particular:
-  - Do not put `await` inside conditionals or loops.
-  - Do not rely on pre-`await` locals after an `await`; recompute what you need.
+  - `await` is supported inside `if`/`else`, `for`, and `while` blocks.
+  - Recompute live zone objects after an `await`; only rely on serializable scalar/array locals crossing the await frame.
   - Precompute chooser strings before `await $player.MZChoose(...)`, `await $player.MZMultiChoose(...)`, or similar calls.
+- Use the "Choosing the Right UI Interaction" matrix in `.github/copilot-instructions.md` for chooser shape: `MZChoose`/`MZMayChoose`, `MZMultiChoose`, `Modal`, `NumberChoose`, `MZSplitAssign`, `Rearrange`, and queued-only choices such as `TWOSIDEDSLIDER`.
 - Use `await $player.MZMultiChoose($targets, $min, $max, "tooltip")` when one popup should handle selecting several cards from the same candidate set; it returns an `&`-delimited mzID string.
 - Use `TWOSIDEDSLIDER` for "choose how many become left option vs. right option" flows. Param format: `"min|max|leftSpec|rightSpec"` where each side spec is `label~Caption_text`, `card~CARDID`, or `cardlabel~CARDID~Caption_text`.
 - Do not manually edit generated files such as `<RootName>/GeneratedCode/GeneratedMacroCode.php`, `GeneratedMacroCount.js`, or generated `GeneratedUI_*.js` outputs unless the task is specifically about the generator.
@@ -25,7 +26,7 @@ Use this file as the compact default guidance:
 - For per-turn single-card stat changes, use `AddTurnEffect(...)` plus the corresponding `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel` switch case in `GameLogic.php`.
 - For persistent field-object overrides, use `ApplyPersistentOverride(...)`; for temporary suppression, use `AddTurnEffect($mzCard, 'NO_ABILITIES')`.
 - Field-presence passives belong in `ObjectCurrentPower`, `ObjectCurrentHP`, or `ObjectCurrentLevel`, using the established passive-deduping pattern.
-- Keep Decision Queue custom handlers short, non-interactive, and tolerant of malformed parameters. Interactive flows should use the supported decision types and established `await` patterns described in `.github/copilot-instructions.md`.
+- Keep Decision Queue custom handlers short, non-interactive, and tolerant of malformed parameters. Card-local interactive flows should use the supported decision types and established inline `await` patterns described in `.github/copilot-instructions.md`.
 - Register game-specific custom Decision Queue handlers and additional activation costs in `<RootName>/Custom/GameLogic.php`, not in generated code.
 - Use the appropriate custom file for new helpers:
   - combat helpers -> `CombatLogic.php`
