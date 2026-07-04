@@ -15,12 +15,28 @@ $authKey = strval($_POST['authKey'] ?? '');
 
 $m = GAReadMatch($matchId);
 if (!is_array($m)) { echo json_encode(['success' => false, 'message' => 'Match not found.']); exit; }
-if (($m['state'] ?? '') !== 'sideboarding') { echo json_encode(['success' => false, 'message' => 'Not in sideboarding.']); exit; }
 if ($seat !== 1 && $seat !== 2) { echo json_encode(['success' => false, 'message' => 'Invalid seat.']); exit; }
 
 // Auth: the match stores each seat's authKey.
 $expected = strval($m['players'][strval($seat)]['authKey'] ?? '');
 if ($expected === '' || !hash_equals($expected, $authKey)) { echo json_encode(['success' => false, 'message' => 'Auth failed.']); exit; }
+if (($m['state'] ?? '') !== 'sideboarding') {
+    // The other seat may have submitted and spawned the next game while this client was polling.
+    if (($m['state'] ?? '') === 'in_progress' && !empty($m['games'])) {
+        $latest = $m['games'][count($m['games']) - 1]['gameName'] ?? '';
+        if ($latest !== '') {
+            echo json_encode([
+                'success'      => true,
+                'message'      => '',
+                'bothReady'    => true,
+                'waiting'      => false,
+                'nextGameName' => strval($latest),
+            ]);
+            exit;
+        }
+    }
+    echo json_encode(['success' => false, 'message' => 'Not in sideboarding.']); exit;
+}
 
 // The card-image editor posts three JSON arrays of card ids.
 $material  = json_decode($_POST['material']  ?? '[]', true);
