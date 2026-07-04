@@ -800,8 +800,22 @@ if (session_status() === PHP_SESSION_NONE) session_start();
         if (_reloadRequestInFlight) return;
         _reloadRequestInFlight = true;
         var xmlhttp = new XMLHttpRequest();
+        var _pollHandled = false;
+        function _pollRetry() {
+          // Transient server error (500/502) / network blip / timeout: reset the in-flight guard and
+          // retry with a small backoff. Without this, a single failed request leaves
+          // _reloadRequestInFlight stuck true and the update loop never reschedules — the game freezes
+          // mid-play until the user reloads. Idempotent so a status!=200 + onerror pair fires once.
+          if (_pollHandled) return; _pollHandled = true;
+          _reloadRequestInFlight = false;
+          window.setTimeout(function() { QueueReload(_lastUpdate); }, 3000);
+        }
+        xmlhttp.onerror = _pollRetry;
+        xmlhttp.ontimeout = _pollRetry;
         xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status != 200) { _pollRetry(); return; }
           if (this.readyState == 4 && this.status == 200) {
+            _pollHandled = true;
             _reloadRequestInFlight = false;
             var responseText = (this.responseText || "").trim();
             if (responseText == "NaN") {} //Do nothing, game is invalid

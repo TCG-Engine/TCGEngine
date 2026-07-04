@@ -1052,7 +1052,10 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
               pollLobbyUpdates(playerID, authKey);
             }
           } else {
+            // Non-2xx (e.g. 500 under load): xhr.onerror does NOT fire for HTTP error statuses, so
+            // reschedule here too, else a single failed poll strands the player in the queue forever.
             console.error('Error polling lobby updates:', xhr.statusText);
+            setTimeout(function() { pollLobbyUpdates(playerID, authKey); }, 5000);
           }
         };
 
