@@ -15,7 +15,12 @@
     'disclaimerName' => 'Clarent',
   ],
   'head' => [
-    'styles'  => ['/TCGEngine/SharedUI/Sites/GrandArchiveSim/css/ClarentMenuStyles.css'],
+    'styles'  => [
+      '/TCGEngine/SharedUI/css/tokens.css',
+      '/TCGEngine/SharedUI/css/components.css',
+      '/TCGEngine/SharedUI/Themes/clarent.tokens.css',
+      '/TCGEngine/SharedUI/Sites/GrandArchiveSim/css/grandarchive-overrides.css',
+    ],
     'scripts' => ['/TCGEngine/Core/AppSettings.js'],
     'fonts'   => ['Barlow', 'Teko'],
   ],

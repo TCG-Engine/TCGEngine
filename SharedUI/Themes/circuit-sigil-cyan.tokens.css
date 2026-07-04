@@ -1,0 +1,48 @@
+/* circuit-sigil-cyan.tokens.css — signature theme (from zzButtonTest V2 default): octagonal
+   HUD-key button, cyan honeycomb traces + neon inner-frame, gold rim. Navy base, cyan accent. */
+:root {
+  --surface:        rgba(10,22,38,0.86);
+  --surface-raised: rgba(16,31,48,0.72);
+  --surface-sunken: rgba(12,24,40,0.76);
+  --border:         rgba(87,215,255,0.32);
+  --text:           #f4ead1;
+  --text-muted:     rgba(239,226,195,0.55);
+  --accent:         #57d7ff;
+  --accent-strong:  #a9e9ff;
+  --on-accent:      #08202b;
+  --glow:           rgba(87,215,255,0.4);
+  --radius:         0;
+  --danger:         rgba(235,120,120,0.85);
+  --success:        rgba(120,225,150,0.85);
+  --accent-surface:  linear-gradient(180deg, #8ce6ff 0%, #2ab6e0 100%);   /* .btn-primary fill (cyan) */
+  --danger-surface:  linear-gradient(135deg, #8a2a1a 0%, #4a160c 100%);
+  --success-surface: linear-gradient(135deg, #2a6b3f 0%, #12331f 100%);
+  --check-fill:     #57d7ff;
+  --check-mark:     #08202b;
+  --card-border:    rgba(87,215,255,0.28);
+  --font-display:   "Bahnschrift","Segoe UI Variable","Trebuchet MS",barlow,sans-serif;
+
+  /* signature button — octagonal sigil */
+  --btn-chamfer-content: '';
+  --btn-rim-width:  1.6px;
+  --btn-bw:         0;
+  --btn-surface:    transparent;
+  --btn-shadow:     none;
+  --btn-text:       #f4e2a4;
+  --btn-transform:  uppercase;
+  --btn-tracking:   0.11em;
+  --btn-pad:        13px 30px;
+  --btn-hover-transform: none;
+  --btn-clip:       polygon(10px 0,calc(100% - 10px) 0,100% 10px,100% calc(100% - 10px),calc(100% - 10px) 100%,10px 100%,0 calc(100% - 10px),0 10px);
+  --btn-clip-inner: polygon(9px 0,calc(100% - 9px) 0,100% 9px,100% calc(100% - 9px),calc(100% - 9px) 100%,9px 100%,0 calc(100% - 9px),0 9px);
+  --btn-rim:        linear-gradient(180deg,#c9a84c,#d6b86d);
+  --btn-fill:       url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill='none' stroke='%2357d7ff' stroke-opacity='0.5'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l11 6.35 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/svg%3E"),
+                    linear-gradient(180deg, rgba(87,215,255,0.10), transparent 40%),
+                    linear-gradient(160deg,#11233a,#0b1a2c);
+  --btn-fill-blend: screen,normal,normal;
+  --btn-fill-size:  22px,auto,auto;
+  --btn-plain-fill: linear-gradient(160deg,#11233a,#0b1a2c);   /* input buttons + tabs (no honeycomb) */
+  --btn-after-shadow: inset 0 0 0 1px rgba(87,215,255,0.22), inset 0 0 16px rgba(9,19,33,0.7);
+  --btn-glow:       12px;
+  --btn-glow-color: rgba(87,215,255,0.4);
+}

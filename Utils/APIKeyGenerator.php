@@ -218,6 +218,7 @@ $existingKeys = getAPIKeys();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Key Generator</title>
+    <script src="/TCGEngine/Core/StyledDialog.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -403,7 +404,7 @@ $existingKeys = getAPIKeys();
                         <td><?php echo htmlspecialchars($key['created_at']); ?></td>
                         <td><?php echo $key['expires_at'] ? htmlspecialchars($key['expires_at']) : 'Never'; ?></td>
                         <td>
-                            <form method="post" class="revoke-form" onsubmit="return confirm('Are you sure you want to revoke this API key?');">
+                            <form method="post" class="revoke-form" onsubmit="event.preventDefault(); StyledConfirm('Are you sure you want to revoke this API key?',{danger:true,confirmLabel:'Revoke'}).then(function(ok){ if(ok) event.target.submit(); }); return false;">
                                 <input type="hidden" name="action" value="revoke">
                                 <input type="hidden" name="revoke_key" value="<?php echo htmlspecialchars($key['api_key']); ?>">
                                 <button type="submit" class="revoke-button">Revoke</button>

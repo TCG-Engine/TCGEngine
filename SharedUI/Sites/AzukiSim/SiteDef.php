@@ -15,7 +15,12 @@
     'disclaimerName' => 'Azuki Sim',
   ],
   'head' => [
-    'styles'  => ['/TCGEngine/SharedUI/Sites/AzukiSim/css/ClarentMenuStyles.css'],
+    'styles'  => [
+      '/TCGEngine/SharedUI/css/tokens.css',
+      '/TCGEngine/SharedUI/css/components.css',
+      '/TCGEngine/SharedUI/Themes/clarent.tokens.css',
+      '/TCGEngine/SharedUI/Sites/AzukiSim/css/azuki-overrides.css',
+    ],
     'scripts' => [],
     'fonts'   => ['Barlow', 'Teko'],
   ],

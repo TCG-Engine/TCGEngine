@@ -14,7 +14,12 @@
     'disclaimerName' => 'Gudnak Simulator',
   ],
   'head' => [
-    'styles'  => ['/TCGEngine/SharedUI/Sites/GudnakSim/css/gudnakMenuStyles.css'],
+    'styles'  => [
+      '/TCGEngine/SharedUI/css/tokens.css',
+      '/TCGEngine/SharedUI/css/components.css',
+      '/TCGEngine/SharedUI/Themes/gudnak.tokens.css',
+      '/TCGEngine/SharedUI/Sites/GudnakSim/css/gudnak-overrides.css',
+    ],
     'scripts' => [],
     'fonts'   => ['Barlow', 'Teko'],
   ],

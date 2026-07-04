@@ -1,0 +1,36 @@
+/* gudnak.tokens.css — GudnakSim forest-green theme. */
+:root {
+  --accent:        rgba(100,180,120,0.9);
+  --accent-strong: rgba(100,180,120,1);
+  --text:          #e0f0d8;
+  --on-accent:     #1a472a;
+  --btn-surface:   linear-gradient(135deg, #2d6b46 0%, #1a472a 100%);
+  --btn-fill:      linear-gradient(135deg, #2d6b46 0%, #1a472a 100%);
+  --btn-border:    rgba(100,180,120,0.4);
+  --btn-bw:        1px;
+  /* --btn-radius inherits the 5px default (rounded, matches the original UA look) */
+  --btn-shadow:    none;
+  --btn-text:      #e0f0d8;
+  --btn-transform: none;
+  --btn-tracking:  normal;
+  --btn-pad:       5px 7px;
+  --btn-hover-surface:   linear-gradient(135deg, #3d8b56 0%, #2a573a 100%);
+  --btn-hover-border:    rgba(100,180,120,0.6);
+  --btn-hover-transform: scale(1.05);
+  --btn-glow:       15px;
+  --btn-glow-color: rgba(100,180,120,0.3);
+
+  /* Form / panel tokens — consumed by SharedUI/css/components.css
+     (input/select/textarea, placeholder, :focus, checkbox/radio, dropdowns).
+     Values lifted verbatim from the old gudnakMenuStyles.css field rules.
+     --input-text omitted: input text (#e0f0d8) == --text. */
+  --surface-sunken: rgba(15,30,45,0.7);      /* input/select/textarea background */
+  --surface-raised: rgba(20,40,60,0.85);     /* dropdown panel background (matches .card/.container) */
+  --border:         rgba(100,180,120,0.3);   /* input/panel border */
+  --text-muted:     rgba(224,240,216,0.5);   /* placeholder (--text @ 50%) */
+  --glow:           rgba(100,180,120,0.2);   /* focus ring */
+  --check-fill:     rgba(100,180,120,0.9);   /* checked checkbox/radio fill (== --accent) */
+  --check-mark:     #1a472a;                 /* checkmark glyph (== --on-accent) */
+  --surface:        rgba(20,40,60,0.85);     /* .card/.container panel bg */
+  --card-border:    rgba(100,180,120,0.2);   /* .card/.container border */
+}

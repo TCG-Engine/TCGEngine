@@ -70,9 +70,9 @@ function ProcessInputLink($player, $mode, $input, $event = 'onmousedown', $fullR
   global $gameName;
 
   $jsCode = "SubmitInput(\"" . $mode . "\", \"&buttonInput=" . $input . "\", " . $fullRefresh . ");";
-  // If a prompt is given, surround the code with a "confirm()" call
+  // If a prompt is given, gate the code behind a styled confirm (StyledDialog.js, loaded in-game).
   if ($prompt != "")
-    $jsCode = "if (confirm(\"" . $prompt . "\")) { " . $jsCode . " }";
+    $jsCode = "StyledConfirm(\"" . $prompt . "\").then(function(ok){ if (ok) { " . $jsCode . " } });";
 
   return " " . $event . "='" . $jsCode . "'";
 }

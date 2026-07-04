@@ -1,0 +1,34 @@
+/* petranaki.tokens.css — SWUSim "Petranaki" sandy-gold MENU theme. */
+:root {
+  --accent:        rgba(180,140,45,0.9);
+  --accent-strong: rgba(200,160,55,1);
+  --text:          #f0ddb0;
+  --on-accent:     #35200a;
+  --btn-surface:   linear-gradient(135deg, #5a3a12 0%, #35200a 100%);
+  --btn-fill:      linear-gradient(135deg, #5a3a12 0%, #35200a 100%);
+  --btn-border:    rgba(180,140,45,0.45);
+  --btn-bw:        1px;
+  /* --btn-radius inherits the 5px default (rounded, matches the original UA look) */
+  --btn-shadow:    none;
+  --btn-text:      #f0ddb0;
+  --btn-transform: none;
+  --btn-tracking:  normal;
+  --btn-pad:       5px 7px;
+  --btn-hover-surface:   linear-gradient(135deg, #724a18 0%, #45280c 100%);
+  --btn-hover-border:    rgba(200,160,55,0.65);
+  --btn-hover-transform: scale(1.05);
+  --btn-glow:       16px;
+  --btn-glow-color: rgba(180,140,40,0.22);
+
+  /* form/panel tokens — light cream field, dark text (lifted from ClarentMenuStyles) */
+  --surface-sunken: rgba(245,228,170,0.88);   /* input/checkbox bg */
+  --input-text:     #1e0900;                  /* DARK input text (differs from --text parchment) */
+  --border:         rgba(130,100,25,0.40);    /* input/panel border */
+  --text-muted:     rgba(60,35,5,0.55);       /* placeholder — reads on cream */
+  --glow:           rgba(180,140,35,0.20);    /* focus ring (:focus box-shadow) */
+  --surface-raised: rgba(30,18,4,0.95);       /* dropdown-panel bg */
+  --check-fill:     rgba(180,140,45,0.9);     /* checked box fill */
+  --check-mark:     #1e0900;                  /* checkmark (dark on gold) */
+  --surface:        rgba(62,44,12,0.88);      /* .card/.container panel bg */
+  --card-border:    rgba(190,155,50,0.32);    /* .card/.container border */
+}

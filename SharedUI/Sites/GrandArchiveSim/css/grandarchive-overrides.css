@@ -1,4 +1,4 @@
-/* CLARENT MENU STYLES - Override and extend the shared menuStyles.css with Grand Archive branding */
+/* grandarchive-overrides.css -- GrandArchiveSim site overrides (Clarent navy/gold). Imports the shared menuStyles base; theme tokens live in Themes/clarent.tokens.css. */
 
 /* Import the shared styles first */
 @import url('/TCGEngine/SharedUI/css/menuStyles.css');
@@ -41,42 +41,34 @@ body {
 
 /* Cards and containers with Grand Archive's navy-and-gold palette */
 .card, .container {
-    background: rgba(10, 22, 38, 0.86);
+    background: var(--surface, rgba(10, 22, 38, 0.86));
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(201, 168, 76, 0.28);
+    border: 1px solid var(--card-border, rgba(201, 168, 76, 0.28));
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
 }
 
 /* Buttons - Grand Archive styled */
-button, .GameLobby_Button, .create-game-button, .ServerChecker_Button, .JoinGame_Button, .spectate-button {
+/* Plain <button> is now styled by the shared component via SharedUI/Themes/clarent.tokens.css.
+   These lobby-button classes keep the Clarent gradient until a later phase tokenizes them. */
+.GameLobby_Button, .create-game-button, .ServerChecker_Button, .JoinGame_Button, .spectate-button {
     background: linear-gradient(135deg, #203b5d 0%, #11233a 100%);
     border: 1px solid rgba(201, 168, 76, 0.45);
     color: #f4ead1;
     transition: 150ms ease-in-out;
 }
 
-button:hover, .GameLobby_Button:hover, .create-game-button:hover, .ServerChecker_Button:hover, .JoinGame_Button:hover, .spectate-button:hover {
+.GameLobby_Button:hover, .create-game-button:hover, .ServerChecker_Button:hover, .JoinGame_Button:hover, .spectate-button:hover {
     background: linear-gradient(135deg, #2b4f7c 0%, #17304e 100%);
     border-color: rgba(201, 168, 76, 0.7);
     transform: scale(1.05);
     box-shadow: 0 0 18px rgba(201, 168, 76, 0.2);
 }
 
-/* Input Fields */
-input, select, textarea {
-    background: rgba(12, 24, 40, 0.76);
-    border: 1px solid rgba(201, 168, 76, 0.32);
-    color: #f4ead1;
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: rgba(201, 168, 76, 0.72);
-    outline: none;
-    box-shadow: 0 0 12px rgba(201, 168, 76, 0.18);
-}
+/* Input Fields / focus / checkbox / dropdown-panel are now styled by the shared
+   component (SharedUI/css/components.css) via SharedUI/Themes/clarent.tokens.css. */
 
 /* Text colors - Grand Archive palette */
 p, label {

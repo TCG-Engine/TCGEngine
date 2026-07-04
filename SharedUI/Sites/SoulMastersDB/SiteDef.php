@@ -15,7 +15,11 @@
     'disclaimerName' => 'Soul Masters DB',
   ],
   'head' => [
-    'styles'  => ['/TCGEngine/SharedUI/css/menuStyles.css'],
+    'styles'  => [
+      '/TCGEngine/SharedUI/css/menuStyles.css',
+      '/TCGEngine/SharedUI/css/tokens.css',
+      '/TCGEngine/SharedUI/css/components.css',
+    ],
     'scripts' => [],
     'fonts'   => ['Barlow', 'Teko'],
   ],

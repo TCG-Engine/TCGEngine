@@ -1,0 +1,46 @@
+/* infernal-edge.tokens.css — signature theme (from zzButtonTest V3.primary): slashed-corner
+   plate with a molten lava seam + scanlines, gold rim. Navy base, gold/lava accent. */
+:root {
+  --surface:        rgba(10,22,38,0.86);
+  --surface-raised: rgba(16,31,48,0.72);
+  --surface-sunken: rgba(12,24,40,0.76);
+  --border:         rgba(201,168,76,0.32);
+  --text:           #f4ead1;
+  --text-muted:     rgba(239,226,195,0.55);
+  --accent:         #e8933a;
+  --accent-strong:  #ff6a2b;
+  --on-accent:      #11233a;
+  --glow:           rgba(255,106,43,0.5);
+  --radius:         0;
+  --danger:         rgba(235,120,120,0.85);
+  --success:        rgba(120,225,150,0.85);
+  --accent-surface:  linear-gradient(135deg, #ff8a3d 0%, #e8722a 100%);   /* .btn-primary fill (lava) */
+  --danger-surface:  linear-gradient(135deg, #8a2a1a 0%, #4a160c 100%);   /* .btn-danger fill */
+  --success-surface: linear-gradient(135deg, #2a6b3f 0%, #12331f 100%);   /* .btn-success fill */
+  --check-fill:     #e8933a;
+  --check-mark:     #11233a;
+  --card-border:    rgba(201,168,76,0.28);
+  --font-display:   "Bahnschrift","Segoe UI Variable","Trebuchet MS",barlow,sans-serif;
+
+  /* signature button — slashed infernal edge */
+  --btn-chamfer-content: '';
+  --btn-rim-width:  2px;
+  --btn-bw:         0;
+  --btn-surface:    transparent;
+  --btn-shadow:     none;
+  --btn-text:       #f4e2a4;
+  --btn-transform:  uppercase;
+  --btn-tracking:   0.11em;
+  --btn-pad:        13px 30px;
+  --btn-hover-transform: none;
+  --btn-clip:       polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px));
+  --btn-clip-inner: polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));
+  --btn-rim:        linear-gradient(120deg,#d6b86d,#f4e2a4);
+  --btn-fill:       repeating-linear-gradient(0deg, rgba(0,0,0,0.16) 0 1px, transparent 1px 3px),
+                    linear-gradient(90deg, rgba(255,106,43,0.4) 0%, rgba(255,180,90,0.9) 22%, rgba(255,106,43,0.35) 40%, transparent 62%),
+                    linear-gradient(120deg,#241a14,#120d0a 60%);
+  --btn-fill-blend: overlay,screen,normal;
+  --btn-plain-fill: linear-gradient(135deg,#2a3c52,#1a2a40 55%,#0e1c2e);   /* input buttons + tabs (no seam/scanlines) */
+  --btn-glow:       16px;
+  --btn-glow-color: rgba(255,106,43,0.6);
+}

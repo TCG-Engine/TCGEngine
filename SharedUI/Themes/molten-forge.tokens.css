@@ -1,0 +1,49 @@
+/* molten-forge.tokens.css — signature theme (from zzButtonTest V1.primary): chamfered
+   forged-plate button, honeycomb + rising ember, gold rim, slow ember pulse. Navy base. */
+:root {
+  /* palette / role tokens (shared navy base) */
+  --surface:        rgba(10,22,38,0.86);
+  --surface-raised: rgba(16,31,48,0.72);
+  --surface-sunken: rgba(12,24,40,0.76);
+  --border:         rgba(201,168,76,0.32);
+  --text:           #f4ead1;
+  --text-muted:     rgba(239,226,195,0.55);
+  --accent:         #e8933a;
+  --accent-strong:  #ff6a2b;
+  --on-accent:      #11233a;
+  --glow:           rgba(255,106,43,0.45);
+  --radius:         0;
+  --danger:         rgba(235,120,120,0.85);
+  --success:        rgba(120,225,150,0.85);
+  --accent-surface:  linear-gradient(135deg, #ff8a3d 0%, #e8933a 45%, #c47a2a 100%);  /* .btn-primary fill */
+  --danger-surface:  linear-gradient(135deg, #7a2a18 0%, #4a160c 100%);               /* .btn-danger fill */
+  --success-surface: linear-gradient(135deg, #2a6b3f 0%, #12331f 100%);               /* .btn-success fill */
+  --check-fill:     #e8933a;
+  --check-mark:     #11233a;
+  --card-border:    rgba(201,168,76,0.28);
+  --font-display:   "Bahnschrift","Segoe UI Variable","Trebuchet MS",barlow,sans-serif;
+
+  /* signature button — chamfered forge plate */
+  --btn-chamfer-content: '';
+  --btn-cut:        0;      /* rectangle — no chamfered corners */
+  --btn-cut-inner:  0;
+  --btn-rim-width:  2px;
+  --btn-bw:         0;
+  --btn-surface:    transparent;
+  --btn-shadow:     none;
+  --btn-text:       #f4ead1;
+  --btn-transform:  uppercase;
+  --btn-tracking:   0.11em;
+  --btn-pad:        13px 30px;
+  --btn-hover-transform: none;
+  --btn-rim:        linear-gradient(135deg,#f4e2a4,#c9a84c 40%,#d6b86d);
+  --btn-fill:       repeating-linear-gradient(0deg, rgba(0,0,0,0.16) 0 1px, transparent 1px 3px),
+                    linear-gradient(0deg, rgba(255,106,43,0.55), rgba(232,147,58,0.12) 30%, transparent 52%),
+                    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='49' viewBox='0 0 28 49'%3E%3Cg fill='none' stroke='%23c9a84c' stroke-opacity='0.5'%3E%3Cpath d='M13.99 9.25l13 7.5v15l-13 7.5L1 31.75v-15l12.99-7.5zM3 17.9v12.7l11 6.35 11-6.35V17.9l-11-6.34L3 17.9zM0 15l12.98-7.5V0h-2v6.35L0 12.69v2.3zm0 18.5L12.98 41v8h-2v-6.85L0 35.81v-2.3zM15 0v7.5L27.99 15H28v-2.31h-.01L17 6.35V0h-2zm0 49v-8l12.99-7.5H28v2.31h-.01L17 42.15V49h-2z'/%3E%3C/g%3E%3C/svg%3E"),
+                    linear-gradient(135deg,#2a3c52,#1a2a40 55%,#0e1c2e);
+  --btn-fill-blend: overlay,normal,overlay,normal;
+  --btn-plain-fill: linear-gradient(135deg,#2a3c52,#1a2a40 55%,#0e1c2e);   /* input buttons + tabs (no honeycomb) */
+  --btn-glow:       14px;
+  --btn-glow-color: rgba(255,106,43,0.5);
+  --btn-anim:       emberpulse 2.6s ease-in-out infinite;
+}

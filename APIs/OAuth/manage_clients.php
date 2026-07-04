@@ -70,6 +70,7 @@ $availableScopes = $server->getScopes();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWUDeck - Manage OAuth Applications</title>
+    <script src="/TCGEngine/Core/StyledDialog.js"></script>
     <link rel="stylesheet" href="/TCGEngine/SharedUI/css/buttons.css">
     <style>
         body {
@@ -245,8 +246,9 @@ $availableScopes = $server->getScopes();
                                 <td><?php echo htmlspecialchars($client['scope']); ?></td>
                                 <td><?php echo htmlspecialchars($client['created_at']); ?></td>
                                 <td>
-                                    <form method="post" onsubmit="return confirm('Are you sure you want to delete this application?');">
+                                    <form method="post" onsubmit="event.preventDefault(); StyledConfirm('Are you sure you want to delete this application?',{danger:true,confirmLabel:'Delete'}).then(function(ok){ if(ok) event.target.submit(); }); return false;">
                                         <input type="hidden" name="client_id" value="<?php echo htmlspecialchars($client['client_id']); ?>">
+                                        <input type="hidden" name="delete" value="1">
                                         <button type="submit" name="delete" class="danger">Delete</button>
                                     </form>
                                 </td>

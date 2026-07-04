@@ -656,7 +656,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
       function showQueueInlineError(message) {
         var el = document.getElementById('queue-inline-error');
         if (!el) {
-          alert(message);
+          StyledAlert(message);
           return;
         }
         el.textContent = message || 'Unable to join queue.';
@@ -777,7 +777,7 @@ $azukiDeckLibraryConfig = DeckLibraryConfigFromSiteDef($azukiSiteDef, ['actionBu
                 }, 1200);
               })
               .catch(function() {
-                alert('Unable to copy automatically. Please copy the invite link manually.');
+                StyledAlert('Unable to copy automatically. Please copy the invite link manually.');
               });
           };
           waitingPopup.appendChild(copyButton);

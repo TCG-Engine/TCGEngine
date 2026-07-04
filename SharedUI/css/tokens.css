@@ -1,0 +1,56 @@
+/* tokens.css — role-based design-token defaults (neutral theme).
+   A theme overrides these in its own :root{} token file. Never reference palette
+   names here; only roles. */
+:root {
+  /* Color roles */
+  --surface:        #23262b;
+  --surface-raised: #2b2f36;
+  --surface-sunken: #394452;
+  --border:         #454545;
+  --text:           #ffffff;
+  --text-muted:     #aaaaaa;
+  --accent:         #5aa0ff;
+  --accent-strong:  #7db4ff;
+  --on-accent:      #08202b;
+  --danger:         #e46a6a;
+  --success:        #64c878;
+  --danger-surface:  #3a1c22;   /* dark danger-tinted fill for .btn-danger */
+  --success-surface: #1c3a26;   /* dark success-tinted fill for .btn-success */
+  --on-danger:       #ffe4e4;
+  --on-success:      #eafff0;
+  --check-fill:      var(--accent);      /* checkbox/radio checked fill */
+  --check-mark:      var(--on-accent);   /* checkbox tick / radio dot */
+  --glow:           var(--accent);
+
+  /* Geometry / effects */
+  --radius:        5px;
+  --border-width:  1px;
+  --backdrop-blur: 20px;
+
+  /* Typography */
+  --font-display:  barlow, sans-serif;
+  --font-body:     barlow, sans-serif;
+  --tracking-caps: 0.06em;
+
+  /* Button tokens — neutral reproduces the current default (menuStyles) button */
+  --btn-surface:   #292929;
+  --btn-fill:      var(--surface);
+  --btn-border:    transparent;
+  --btn-bw:        0;
+  --btn-radius:    var(--radius);
+  --btn-cut:       0;
+  --btn-cut-inner: 0;
+  --btn-chamfer-content: none;      /* '' turns the chamfer pseudos ON */
+  --btn-rim:       var(--accent);
+  --btn-rim-width: 2px;
+  --btn-shadow:    inset 0 0 0 1px var(--border);
+  --btn-text:      var(--text);
+  --btn-transform: none;
+  --btn-tracking:  normal;
+  --btn-glow:      0px;
+  --btn-glow-color: transparent;
+  --btn-hover-transform: scale(1.1);
+  --btn-hover-surface: var(--btn-surface);   /* themes brighten on hover; default = no change */
+  --btn-hover-border:  var(--btn-border);
+  --btn-pad:       5px 7px;
+}

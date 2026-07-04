@@ -30,46 +30,14 @@ function _DeckLibraryScript(array $config = []): string {
   function post(params){ var x=new XMLHttpRequest(); x.open('POST',URL,true);
     x.setRequestHeader('Content-Type','application/x-www-form-urlencoded'); x.onload=function(){location.reload();}; x.send(params); }
 
+  // Delegate to the shared StyledDialog primitive (self-injects its themed CSS, so these
+  // now render correctly on every app, not just where the old .dl-modal CSS happened to load).
   function confirmDialog(title, message, confirmLabel){
-    return new Promise(function(resolve){
-      var ov = document.createElement('div'); ov.className='dl-modal-overlay';
-      ov.innerHTML = \"<div class='dl-modal' role='dialog' aria-modal='true'>\"
-        + \"<h3 class='dl-modal-title'></h3><p class='dl-modal-message'></p>\"
-        + \"<div class='dl-modal-actions'><button type='button' class='dl-modal-cancel'>Cancel</button>\"
-        + \"<button type='button' class='dl-modal-confirm dl-modal-danger'></button></div></div>\";
-      ov.querySelector('.dl-modal-title').textContent = title;
-      ov.querySelector('.dl-modal-message').textContent = message;
-      ov.querySelector('.dl-modal-confirm').textContent = confirmLabel;
-      document.body.appendChild(ov);
-      function done(v){ ov.remove(); document.removeEventListener('keydown', onKey, true); resolve(v); }
-      function onKey(e){ if(e.key==='Escape'){ e.preventDefault(); done(false); } else if(e.key==='Enter'){ e.preventDefault(); done(true); } }
-      ov.querySelector('.dl-modal-cancel').onclick = function(){ done(false); };
-      ov.querySelector('.dl-modal-confirm').onclick = function(){ done(true); };
-      ov.addEventListener('mousedown', function(e){ if(e.target===ov) done(false); });
-      document.addEventListener('keydown', onKey, true);
-      ov.querySelector('.dl-modal-confirm').focus();
-    });
+    return StyledConfirm(message, { title: title, confirmLabel: confirmLabel, danger: true });
   }
 
   function renameDialog(currentName){
-    return new Promise(function(resolve){
-      var ov = document.createElement('div'); ov.className='dl-modal-overlay';
-      ov.innerHTML = \"<div class='dl-modal' role='dialog' aria-modal='true'>\"
-        + \"<h3 class='dl-modal-title'>Deck Name</h3>\"
-        + \"<input type='text' class='dl-modal-input' maxlength='128'>\"
-        + \"<div class='dl-modal-actions'><button type='button' class='dl-modal-cancel'>Cancel</button>\"
-        + \"<button type='button' class='dl-modal-save'>Save</button></div></div>\";
-      document.body.appendChild(ov);
-      var input = ov.querySelector('.dl-modal-input');
-      input.value = currentName || ''; input.focus(); input.select();
-      function done(v){ ov.remove(); document.removeEventListener('keydown', onKey, true); resolve(v); }
-      function save(){ var v=(input.value||'').trim(); done(v ? v : null); }
-      function onKey(e){ if(e.key==='Escape'){ e.preventDefault(); done(null); } else if(e.key==='Enter'){ e.preventDefault(); save(); } }
-      ov.querySelector('.dl-modal-cancel').onclick = function(){ done(null); };
-      ov.querySelector('.dl-modal-save').onclick = save;
-      ov.addEventListener('mousedown', function(e){ if(e.target===ov) done(null); });
-      document.addEventListener('keydown', onKey, true);
-    });
+    return StyledPrompt('Enter a name for this deck.', { title: 'Deck Name', initial: currentName || '', confirmLabel: 'Save' });
   }
 
   function esc(s){ return String(s==null?'':s).replace(/[&<>\"]/g, function(ch){

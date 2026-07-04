@@ -1,0 +1,41 @@
+/* hud.tokens.css — SWUDeck "Cyan HUD" theme: role tokens only. */
+:root {
+  --accent:        rgba(140,210,255,0.80);
+  --accent-strong: rgba(180,228,255,1);
+  --danger:        rgba(235,120,120,0.85);
+  --success:       rgba(120,225,150,0.85);
+  --danger-surface:  rgba(52,20,26,0.95);   /* dark red-tinted HUD fill */
+  --success-surface: rgba(16,44,28,0.95);   /* dark green-tinted HUD fill */
+  --on-danger:     #ffe4e4;
+  --on-success:    #eafff0;
+  --text:          rgba(205,238,255,0.96);
+  --on-accent:     #08202b;
+
+  /* Surfaces / borders / glow for inputs, dropdowns, dialogs (HUD is square: radius 0) */
+  --surface-sunken: rgba(20,42,70,0.60);
+  --surface-raised: rgba(14,26,44,0.98);
+  --border:         rgba(140,210,255,0.45);
+  --text-muted:     rgba(160,195,225,0.60);
+  --radius:         0;
+  --glow:           rgba(120,200,255,0.45);
+  --check-fill:     rgba(30,64,104,0.95);
+  --check-mark:     rgba(180,228,255,1);
+
+  /* Button: chamfered HUD */
+  --btn-chamfer-content: '';        /* turns the chamfer pseudos ON */
+  --btn-cut:        6px;
+  --btn-cut-inner:  5px;
+  --btn-rim-width:  1.5px;
+  --btn-bw:         0;
+  --btn-surface:    transparent;    /* pseudos supply the fill */
+  --btn-shadow:     none;
+  --btn-rim:        rgba(140,210,255,0.80);
+  --btn-fill:       rgba(20,42,70,0.95);
+  --btn-text:       rgba(205,238,255,0.96);
+  --btn-transform:  uppercase;
+  --btn-tracking:   0.04em;
+  --btn-glow:       8px;
+  --btn-glow-color: rgba(125,205,255,0.6);
+  --btn-hover-transform: translateY(-1px);
+  --btn-pad:        5px 7px;
+}

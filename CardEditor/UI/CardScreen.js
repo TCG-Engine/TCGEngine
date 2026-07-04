@@ -404,7 +404,7 @@ class CardScreen {
     async deleteCard(id) {
         const card = this.app.state.activeCardDetail;
         if (!card || Number(card.id) !== Number(id)) return;
-        if (!confirm(`Delete "${card.name}"? This cannot be undone.`)) return;
+        if (!(await StyledConfirm(`Delete "${card.name}"? This cannot be undone.`, { danger: true, confirmLabel: 'Delete' }))) return;
         try {
             await this.app.autosave.flushAll();
             await ApiClient.deleteCard(id);

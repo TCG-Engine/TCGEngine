@@ -1,0 +1,34 @@
+/* clarent.tokens.css — GrandArchive/Azuki "Clarent" navy-gold theme. */
+:root {
+  --accent:        rgba(201,168,76,0.9);
+  --accent-strong: rgba(201,168,76,1);
+  --text:          #f4ead1;
+  --on-accent:     #11233a;
+  --btn-surface:   linear-gradient(135deg, #203b5d 0%, #11233a 100%);
+  --btn-fill:      linear-gradient(135deg, #203b5d 0%, #11233a 100%);
+  --btn-border:    rgba(201,168,76,0.45);
+  --btn-bw:        1px;
+  /* --btn-radius inherits the 5px default (rounded, matches the original UA look) */
+  --btn-shadow:    none;
+  --btn-text:      #f4ead1;
+  --btn-transform: none;
+  --btn-tracking:  normal;
+  --btn-pad:       5px 7px;
+  --btn-hover-surface:   linear-gradient(135deg, #2b4f7c 0%, #17304e 100%);
+  --btn-hover-border:    rgba(201,168,76,0.7);
+  --btn-hover-transform: scale(1.05);
+  --btn-glow:       18px;
+  --btn-glow-color: rgba(201,168,76,0.2);
+
+  /* Form / panel tokens (Phase 3) — lifted from the old ClarentMenuStyles.css
+     input/:focus rules. Input text == --text (#f4ead1), so no --input-text. */
+  --surface-sunken: rgba(12,24,40,0.76);   /* input/select/textarea/checkbox bg */
+  --surface-raised: rgba(16,31,48,0.72);   /* dropdown panels / <select> options (info-box navy) */
+  --border:         rgba(201,168,76,0.32); /* input & panel border (gold, low alpha) */
+  --text-muted:     rgba(239,226,195,0.55);/* placeholder — dimmed --text */
+  --glow:           rgba(201,168,76,0.18); /* focus / checkbox glow ring */
+  --check-fill:     rgba(201,168,76,0.9);  /* checked box fill == --accent */
+  --check-mark:     #11233a;               /* checkmark == --on-accent navy */
+  --surface:        rgba(10,22,38,0.86);   /* .card/.container panel bg */
+  --card-border:    rgba(201,168,76,0.28); /* .card/.container border */
+}

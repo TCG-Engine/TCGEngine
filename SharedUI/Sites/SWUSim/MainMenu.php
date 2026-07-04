@@ -500,7 +500,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
           deckLink = deckLinkEl.value.trim();
         }
         if (!deckLink && !preconstructedDeck) {
-          alert('Please enter a deck link or paste a deck list.');
+          StyledAlert('Please enter a deck link or paste a deck list.');
           return null;
         }
         var gameType = 'casual'; // Default game type since select is commented out
@@ -714,7 +714,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
 
       function showQueueInlineError(message) {
         var el = document.getElementById('queue-inline-error');
-        if (!el) { alert(message); return; }
+        if (!el) { StyledAlert(message); return; }
         el.style.color = '#ff6b6b';
         el.style.display = '';
         var lines = (message || 'Unable to join queue.').split('\n');
@@ -845,7 +845,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
                 }, 1200);
               })
               .catch(function() {
-                alert('Unable to copy automatically. Please copy the invite link manually.');
+                StyledAlert('Unable to copy automatically. Please copy the invite link manually.');
               });
           };
           waitingPopup.appendChild(copyButton);

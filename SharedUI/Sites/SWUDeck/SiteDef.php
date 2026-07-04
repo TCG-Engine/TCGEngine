@@ -15,7 +15,13 @@
     'disclaimerName' => 'SWU Stats',
   ],
   'head' => [
-    'styles'  => ['/TCGEngine/SharedUI/css/menuStyles.css', '/TCGEngine/SharedUI/Sites/SWUDeck/css/hud.css'],
+    'styles'  => [
+      '/TCGEngine/SharedUI/css/menuStyles.css',
+      '/TCGEngine/SharedUI/css/tokens.css',
+      '/TCGEngine/SharedUI/css/components.css',
+      '/TCGEngine/SharedUI/Themes/hud.tokens.css',
+      '/TCGEngine/SharedUI/Sites/SWUDeck/css/swudeck-overrides.css',
+    ],
     'scripts' => ['/TCGEngine/SharedUI/js/device-detector.js',
                   '/TCGEngine/SharedUI/js/burger-menu.js'],
     'fonts'   => ['Barlow', 'Teko'],

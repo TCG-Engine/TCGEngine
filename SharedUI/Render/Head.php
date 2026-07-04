@@ -1,4 +1,18 @@
 <?php
+require_once __DIR__ . '/SiteDef.php';   // LoadSiteDef() — for RenderSiteStyles()
+
+// Emit a site's versioned stylesheet stack straight from its SiteDef styles array, for pages
+// that build their own <head> instead of going through RenderHead (the SWU Stats pages). Single
+// source of truth = the SiteDef; replaces the old per-app hud-head.php partial.
+function RenderSiteStyles(string $site): string {
+    $def = LoadSiteDef($site);
+    $out = '';
+    foreach (($def['head']['styles'] ?? []) as $s) {
+        $out .= '  <link rel="stylesheet" href="' . _VersionAsset($s) . "\">\n";
+    }
+    return $out;
+}
+
 // Map known font names to their Google Fonts <link> tags (faithful to current SWUDeck head).
 function _RenderFontLinks(array $fonts): string {
     $map = [
@@ -30,7 +44,10 @@ function RenderHead(array $def): string {
     $out .= "  <link rel=\"icon\" type=\"image/png\" href=\"{$b['favicon']}\">\n";
     $styleTags = '';
     foreach ($h['styles'] as $s) $styleTags .= "  <link rel=\"stylesheet\" href=\"" . _VersionAsset($s) . "\">";
-    $scriptTags = '';
+    // StyledDialog loads on every SiteDef site so StyledConfirm/StyledAlert/StyledPrompt/Toast
+    // are always available (self-injects its own CSS). No native alert/confirm/prompt anywhere.
+    $scriptTags = "  <script src=\"" . _VersionAsset('/TCGEngine/Core/StyledDialog.js') . "\"></script>\n";
+    $scriptTags .= "  <script src=\"" . _VersionAsset('/TCGEngine/Core/StyledSelect.js') . "\"></script>\n";
     foreach ($h['scripts'] as $s) $scriptTags .= "  <script src=\"" . _VersionAsset($s) . "\"></script>\n";
     // Faithful reproduction of the existing comment + spacing on the styles line:
     $out .= "  <!--<link rel=\"stylesheet\" href=\"./css/menuStyles.css\">-->$styleTags$scriptTags";

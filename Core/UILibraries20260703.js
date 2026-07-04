@@ -3384,30 +3384,30 @@ function ResolveGlobalFunction(functionName) {
           navigator.clipboard.writeText(spectateUrl.toString()).then(function() {
             finish(true);
           }).catch(function() {
-            window.prompt('Copy this private spectate link:', spectateUrl.toString());
+            StyledPrompt('Copy this private spectate link:', {title: 'Spectate link', initial: spectateUrl.toString(), confirmLabel: 'Done'});
             finish(false);
           });
           return;
         }
 
-        window.prompt('Copy this private spectate link:', spectateUrl.toString());
+        StyledPrompt('Copy this private spectate link:', {title: 'Spectate link', initial: spectateUrl.toString(), confirmLabel: 'Done'});
         finish(false);
       }
 
-      function confirmConcedeGame() {
+      async function confirmConcedeGame() {
         const playerIdField = document.getElementById('playerID');
         if (!playerIdField) return;
         const playerIdValue = parseInt(playerIdField.value || '', 10);
         if (playerIdValue !== 1 && playerIdValue !== 2) return;
-        if (!window.confirm('Concede this game? This will immediately count as a loss for you.')) return;
+        if (!(await StyledConfirm('Concede this game? This will immediately count as a loss for you.', {title: 'Concede game', danger: true, confirmLabel: 'Concede'}))) return;
         SubmitInput('10006', '');
       }
 
       // Bo3: concede the whole match (forfeit the series). No-op in non-match games server-side.
-      function confirmConcedeMatch() {
+      async function confirmConcedeMatch() {
         const pid = parseInt((document.getElementById('playerID') || {}).value || '', 10);
         if (pid !== 1 && pid !== 2) return;
-        if (!window.confirm('Concede the whole match? This forfeits the entire series.')) return;
+        if (!(await StyledConfirm('Concede the whole match? This forfeits the entire series.', {title: 'Concede match', danger: true, confirmLabel: 'Concede'}))) return;
         SubmitInput('10007', '');
       }
 

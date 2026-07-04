@@ -165,6 +165,7 @@ if ($isAjax || (isset($_POST['action']) && $_POST['action'] === 'process')) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Base De-duplication Tool</title>
+    <script src="/TCGEngine/Core/StyledDialog.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -358,44 +359,50 @@ if ($isAjax || (isset($_POST['action']) && $_POST['action'] === 'process')) {
             const warningBox = document.getElementById('warningBox');
             
             if (!weeks) {
-                alert('Please specify which weeks to process');
+                StyledAlert('Please specify which weeks to process');
                 return;
             }
-            
+
+            const runConversion = function() {
+                output.classList.add('visible');
+                output.textContent = (dryRun ? '[DRY RUN MODE - No changes will be made]\n' : '') + 'Processing...\n';
+                processBtn.disabled = true;
+
+                fetch('', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: `action=process&weeks=${encodeURIComponent(weeks)}&dryRun=${dryRun}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        output.textContent = (dryRun ? '[DRY RUN MODE - No changes were made]\n\n' : '') +
+                            data.output.join('\n') + '\n\n' +
+                            '✓ Complete! Total rows processed: ' + data.totalMerged;
+                    } else {
+                        output.textContent = 'Error: ' + (data.error || 'Unknown error occurred');
+                    }
+                    processBtn.disabled = false;
+                })
+                .catch(error => {
+                    output.textContent = 'Error: ' + error.message;
+                    processBtn.disabled = false;
+                });
+            };
+
             if (!dryRun) {
                 warningBox.style.display = 'block';
-                if (!confirm('Are you sure you want to process the conversion? This will modify database records!')) {
-                    return;
-                }
+                StyledConfirm('Are you sure you want to process the conversion? This will modify database records!', {danger: true, confirmLabel: 'Process'}).then(function(ok) {
+                    if (!ok) return;
+                    runConversion();
+                });
+                return;
             }
-            
-            output.classList.add('visible');
-            output.textContent = (dryRun ? '[DRY RUN MODE - No changes will be made]\n' : '') + 'Processing...\n';
-            processBtn.disabled = true;
-            
-            fetch('', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: `action=process&weeks=${encodeURIComponent(weeks)}&dryRun=${dryRun}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    output.textContent = (dryRun ? '[DRY RUN MODE - No changes were made]\n\n' : '') + 
-                        data.output.join('\n') + '\n\n' +
-                        '✓ Complete! Total rows processed: ' + data.totalMerged;
-                } else {
-                    output.textContent = 'Error: ' + (data.error || 'Unknown error occurred');
-                }
-                processBtn.disabled = false;
-            })
-            .catch(error => {
-                output.textContent = 'Error: ' + error.message;
-                processBtn.disabled = false;
-            });
+
+            runConversion();
         }
     </script>
 </body>

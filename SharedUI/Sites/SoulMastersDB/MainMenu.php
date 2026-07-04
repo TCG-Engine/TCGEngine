@@ -416,7 +416,8 @@ function LoadDecks() {
     xhr.send();
   }
   function DeleteDeck(id) {
-    if (confirm("Are you sure you want to delete this deck?")) {
+    StyledConfirm("Are you sure you want to delete this deck?", {danger: true, confirmLabel: 'Delete'}).then(function(ok) {
+      if (!ok) return;
       var deckID = id.replace("deck", "").replace("Title", "");
       var xhr = new XMLHttpRequest();
       xhr.open("GET", "../AccountFiles/DeleteAsset.php?assetID=" + deckID + "&assetType=1", true);
@@ -427,7 +428,7 @@ function LoadDecks() {
         }
       };
       xhr.send();
-    }
+    });
   }
   function MoveDeck(id, folderID) {
     var deckID = id.replace("deck", "").replace("Title", "");
@@ -576,7 +577,7 @@ function LoadDecks() {
     if (deckLink !== "") {
       window.location.href = "../SoulMastersDB/CreateDeck.php?deckLink=" + encodeURIComponent(deckLink);
     } else {
-      alert("Enter a deck link to import");
+      StyledAlert("Enter a deck link to import");
     }
   }
 </script>

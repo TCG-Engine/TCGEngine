@@ -196,11 +196,11 @@
 
   function saveCurrentReplay() {
     if (!canUseIndexedDb()) {
-      alert('Replay storage is not available in this browser.');
+      StyledAlert('Replay storage is not available in this browser.');
       return Promise.resolve(null);
     }
     if (!config().canDownload) {
-      alert('Replay can be saved after the match is over.');
+      StyledAlert('Replay can be saved after the match is over.');
       return Promise.resolve(null);
     }
     var url = apiUrl('download');
@@ -216,11 +216,11 @@
         return putReplay(payload.replay);
       })
       .then(function(replay) {
-        alert('Replay saved to this browser.');
+        Toast('Replay saved to this browser.', { type: 'success' });
         return replay;
       })
       .catch(function(error) {
-        alert(error.message || String(error));
+        StyledAlert(error.message || String(error));
         return null;
       });
   }
@@ -239,7 +239,7 @@
         window.location.href = buildNextTurnUrl(payload, replay);
       });
     }).catch(function(error) {
-      alert(error.message || String(error));
+      StyledAlert(error.message || String(error));
     });
   }
 
@@ -277,7 +277,7 @@
 
     submitPromise
       .then(handleReplaySubmitPayload)
-      .catch(function(error) { alert(error.message || String(error)); })
+      .catch(function(error) { StyledAlert(error.message || String(error)); })
       .then(function() {
         replaySubmitPending = false;
         renderPanelList();
@@ -542,9 +542,11 @@
         del.className = 'match-replay-button';
         del.textContent = 'Delete';
         del.addEventListener('click', function() {
-          if (!confirm('Delete this saved replay from this browser?')) return;
-          deleteReplay(replay.id).then(function() {
-            renderReplayLibrary(container, options);
+          StyledConfirm('Delete this saved replay from this browser?', { danger: true, confirmLabel: 'Delete' }).then(function(ok) {
+            if (!ok) return;
+            deleteReplay(replay.id).then(function() {
+              renderReplayLibrary(container, options);
+            });
           });
         });
         row.appendChild(del);

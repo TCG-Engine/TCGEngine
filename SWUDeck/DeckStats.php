@@ -34,6 +34,7 @@
   echo("</body>");
 ?>
 
+<script src="/TCGEngine/Core/StyledDialog.js"></script>
 <script>
   var el = document.getElementById("myStuff");
   window.statsSource = "all"; // Default to showing all stats
@@ -604,13 +605,13 @@
       var winRadio = document.getElementById('win');
       var lossRadio = document.getElementById('loss');
       if (!winRadio.checked && !lossRadio.checked) {
-        alert('Please select either Win or Loss.');
+        StyledAlert('Please select either Win or Loss.');
         return;
       }
       var firstPlayerRadio = document.getElementById('firstPlayer');
       var secondPlayerRadio = document.getElementById('secondPlayer');
       if (!firstPlayerRadio.checked && !secondPlayerRadio.checked) {
-        alert('Please select either First Player or Second Player.');
+        StyledAlert('Please select either First Player or Second Player.');
         return;
       }
       var leader = document.getElementById('leader').value;
@@ -723,7 +724,8 @@
     }
 
     function clearStats() {
-      if (confirm('Are you sure you want to clear your stats? This is unreversable.')) {
+      StyledConfirm('Are you sure you want to clear your stats? This is unreversable.', {title: 'Clear stats', danger: true, confirmLabel: 'Clear'}).then(function(ok) {
+        if (!ok) return;
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '/TCGEngine/SWUDeck/ClearStats.php?deckID=' + <?php echo($gameName); ?>, true);
         xhr.onreadystatechange = function () {
@@ -733,7 +735,7 @@
         }
         };
         xhr.send();
-      }
+      });
     }    function changeStatsSource(source) {
       // Update active state visually before page reload
       document.querySelectorAll('.selector-btn').forEach(btn => {

@@ -174,10 +174,11 @@ class AbilityEditor {
     }
     
     deleteAbility(index) {
-        if (confirm('Delete this ability?')) {
+        StyledConfirm('Delete this ability?', { danger: true, confirmLabel: 'Delete' }).then(ok => {
+            if (!ok) return;
             this.abilities.splice(index, 1);
             this.render();
-        }
+        });
     }
     
     async saveAbilities() {

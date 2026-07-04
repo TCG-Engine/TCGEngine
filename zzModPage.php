@@ -291,6 +291,7 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SWUDeck — Mod Page</title>
+    <script src="/TCGEngine/Core/StyledDialog.js"></script>
     <style>
       /* SWUDeck-themed mod page (dark navy + blue accents, matching the SWUDeck site palette). */
       :root { color-scheme: dark; }
@@ -439,27 +440,29 @@ if (isset($_POST['fillSWUDeckGame']) && $_POST['fillSWUDeckGame'] === '1') {
         });
     };
     document.getElementById('truncateBtn').onclick = function() {
-        if (!confirm('Are you sure you want to truncate cardmetastats and deckmetastats? This cannot be undone!')) return;
         var btn = this;
-        btn.disabled = true;
-        document.getElementById('result').innerText = 'Processing...';
-        fetch(window.location.pathname, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: 'truncateMetaStats=1'
-        })
-        .then(r => r.json())
-        .then(data => {
-            if (data.success) {
-                document.getElementById('result').innerText = data.message;
-            } else {
-                document.getElementById('result').innerText = data.error || 'Unknown error.';
-            }
-            btn.disabled = false;
-        })
-        .catch(e => {
-            document.getElementById('result').innerText = 'Request failed.';
-            btn.disabled = false;
+        StyledConfirm('Are you sure you want to truncate cardmetastats and deckmetastats? This cannot be undone!', {danger: true, confirmLabel: 'Truncate'}).then(function(ok) {
+            if (!ok) return;
+            btn.disabled = true;
+            document.getElementById('result').innerText = 'Processing...';
+            fetch(window.location.pathname, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'truncateMetaStats=1'
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('result').innerText = data.message;
+                } else {
+                    document.getElementById('result').innerText = data.error || 'Unknown error.';
+                }
+                btn.disabled = false;
+            })
+            .catch(e => {
+                document.getElementById('result').innerText = 'Request failed.';
+                btn.disabled = false;
+            });
         });
     };
 

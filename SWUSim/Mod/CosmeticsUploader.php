@@ -13,7 +13,8 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
 <html><head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Cosmetics Uploader</title>
-  <link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/ClarentMenuStyles.css">
+  <script src="/TCGEngine/Core/StyledDialog.js"></script>
+  <link rel="stylesheet" href="/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css">
   <style>
     .cu-wrap { max-width: 1000px; margin: 32px auto; padding: 24px; }
     .cu-wrap h1, .cu-wrap h2 { color: #f5e6c0; }
@@ -85,16 +86,18 @@ $labels = ['background'=>'Background', 'cardback'=>'Card back', 'playmat'=>'Play
       var fd=new FormData(e.target); fd.append('slot', slot);
       var x=new XMLHttpRequest(); x.open('POST', cuBase()+'SWUSim/Mod/CosmeticsUpload.php', true);
       x.onload=function(){ var r={}; try{r=JSON.parse(x.responseText);}catch(_){}
-        if(r.success) location.reload(); else alert('Upload failed: '+(r.error||'unknown')); };
+        if(r.success) location.reload(); else StyledAlert('Upload failed: '+(r.error||'unknown')); };
       x.send(fd); return false;
     }
     function cuDelete(slot, id){
-      if(!confirm('Delete this cosmetic?')) return;
-      var x=new XMLHttpRequest(); x.open('POST', cuBase()+'SWUSim/Mod/CosmeticsDelete.php', true);
-      x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-      x.onload=function(){ var r={}; try{r=JSON.parse(x.responseText);}catch(_){}
-        if(r.success) location.reload(); else alert('Delete failed: '+(r.error||'unknown')); };
-      x.send('slot='+encodeURIComponent(slot)+'&id='+encodeURIComponent(id));
+      StyledConfirm('Delete this cosmetic?', {danger:true, confirmLabel:'Delete'}).then(function(ok){
+        if(!ok) return;
+        var x=new XMLHttpRequest(); x.open('POST', cuBase()+'SWUSim/Mod/CosmeticsDelete.php', true);
+        x.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        x.onload=function(){ var r={}; try{r=JSON.parse(x.responseText);}catch(_){}
+          if(r.success) location.reload(); else StyledAlert('Delete failed: '+(r.error||'unknown')); };
+        x.send('slot='+encodeURIComponent(slot)+'&id='+encodeURIComponent(id));
+      });
     }
   </script>
 </body></html>

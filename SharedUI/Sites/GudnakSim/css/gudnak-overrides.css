@@ -40,41 +40,34 @@ body {
 
 /* Cards and containers with Gudnak color palette */
 .card, .container {
-    background: rgba(20, 40, 60, 0.85);
+    background: var(--surface, rgba(20, 40, 60, 0.85));
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(100, 180, 120, 0.2);
+    border: 1px solid var(--card-border, rgba(100, 180, 120, 0.2));
     border-radius: 10px;
     padding: 20px;
 }
 
 /* Buttons - Gudnak styled */
-button, .GameLobby_Button, .create-game-button, .ServerChecker_Button, .JoinGame_Button, .spectate-button {
+/* Plain <button> is now styled by the shared component via SharedUI/Themes/gudnak.tokens.css.
+   These lobby-button classes keep the green gradient until a later phase tokenizes them. */
+.GameLobby_Button, .create-game-button, .ServerChecker_Button, .JoinGame_Button, .spectate-button {
     background: linear-gradient(135deg, #2d6b46 0%, #1a472a 100%);
     border: 1px solid rgba(100, 180, 120, 0.4);
     color: #e0f0d8;
     transition: 150ms ease-in-out;
 }
 
-button:hover, .GameLobby_Button:hover, .create-game-button:hover, .ServerChecker_Button:hover, .JoinGame_Button:hover, .spectate-button:hover {
+.GameLobby_Button:hover, .create-game-button:hover, .ServerChecker_Button:hover, .JoinGame_Button:hover, .spectate-button:hover {
     background: linear-gradient(135deg, #3d8b56 0%, #2a573a 100%);
     border-color: rgba(100, 180, 120, 0.6);
     transform: scale(1.05);
     box-shadow: 0 0 15px rgba(100, 180, 120, 0.3);
 }
 
-/* Input Fields */
-input, select, textarea {
-    background: rgba(15, 30, 45, 0.7);
-    border: 1px solid rgba(100, 180, 120, 0.3);
-    color: #e0f0d8;
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: rgba(100, 180, 120, 0.6);
-    outline: none;
-    box-shadow: 0 0 10px rgba(100, 180, 120, 0.2);
-}
+/* Input fields, placeholders, focus rings, checkboxes/radios, and dropdown panels
+   are now themed by the shared component in SharedUI/css/components.css via the
+   form/panel role tokens in SharedUI/Themes/gudnak.tokens.css (Phase 3 migration). */
 
 /* Text colors - Gudnak palette */
 p, label {

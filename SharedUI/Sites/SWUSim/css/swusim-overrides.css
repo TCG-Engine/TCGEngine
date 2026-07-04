@@ -25,42 +25,34 @@ body {
 
 /* CARDS AND CONTAINERS — dark golden-brown */
 .card, .container {
-    background: rgba(62, 44, 12, 0.88);
+    background: var(--surface, rgba(62, 44, 12, 0.88));
     backdrop-filter: blur(18px) brightness(0.97);
     -webkit-backdrop-filter: blur(18px) brightness(0.97);
-    border: 1px solid rgba(190, 155, 50, 0.32);
+    border: 1px solid var(--card-border, rgba(190, 155, 50, 0.32));
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 14px 38px rgba(20, 8, 0, 0.42);
 }
 
 /* BUTTONS — medium warm brown with sandy gold border */
-button, .GameLobby_Button, .create-game-button, .ServerChecker_Button, .JoinGame_Button, .spectate-button {
+/* Plain <button> is now styled by the shared component via SharedUI/Themes/petranaki.tokens.css.
+   These lobby-button classes keep the sandy gradient until a later phase tokenizes them. */
+.GameLobby_Button, .create-game-button, .ServerChecker_Button, .JoinGame_Button, .spectate-button {
     background: linear-gradient(135deg, #5a3a12 0%, #35200a 100%);
     border: 1px solid rgba(180, 140, 45, 0.45);
     color: #f0ddb0;
     transition: 150ms ease-in-out;
 }
 
-button:hover, .GameLobby_Button:hover, .create-game-button:hover, .ServerChecker_Button:hover, .JoinGame_Button:hover, .spectate-button:hover {
+.GameLobby_Button:hover, .create-game-button:hover, .ServerChecker_Button:hover, .JoinGame_Button:hover, .spectate-button:hover {
     background: linear-gradient(135deg, #724a18 0%, #45280c 100%);
     border-color: rgba(200, 160, 55, 0.65);
     transform: scale(1.05);
     box-shadow: 0 0 16px rgba(180, 140, 40, 0.22);
 }
 
-/* INPUT FIELDS — warm parchment */
-input, select, textarea {
-    background: rgba(245, 228, 170, 0.88);
-    border: 1px solid rgba(130, 100, 25, 0.40);
-    color: #1e0900;
-}
-
-input:focus, select:focus, textarea:focus {
-    border-color: rgba(180, 140, 40, 0.70);
-    outline: none;
-    box-shadow: 0 0 10px rgba(180, 140, 35, 0.20);
-}
+/* INPUT FIELDS + focus — migrated to SharedUI/css/components.css via petranaki.tokens.css
+   (--surface-sunken/--input-text/--border/--text-muted/--glow/--accent/--check-*). */
 
 /* TEXT COLORS — light sandy on dark cards */
 p, label {
@@ -146,41 +138,8 @@ a:hover {
 .deck-library-dropdown .dl-dropdown-actions button { padding: 7px 14px; font-size: 13px; }
 .deck-library-empty { color: #c8b080; font-size: 13px; }
 
-/* SAVED DECKS — custom rename dialog (replaces native prompt) */
-.dl-modal-overlay {
-    position: fixed; inset: 0; z-index: 9999;
-    display: flex; align-items: center; justify-content: center;
-    background: rgba(10, 6, 0, 0.62);
-    backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
-}
-.dl-modal {
-    width: min(92vw, 380px);
-    background: rgba(62, 44, 12, 0.98);
-    border: 1px solid rgba(190, 155, 50, 0.5);
-    border-radius: 12px;
-    padding: 22px;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
-}
-.dl-modal-title { margin: 0 0 14px 0; color: #f0ddb0; font-size: 18px; }
-.dl-modal-input {
-    width: 100%; box-sizing: border-box;
-    padding: 10px 12px; font-size: 14px;
-    background: rgba(30, 18, 4, 0.9); color: #f0ddb0;
-    border: 1px solid rgba(180, 140, 45, 0.5); border-radius: 8px;
-}
-.dl-modal-input:focus { outline: none; border-color: rgba(220, 185, 80, 0.85); }
-.dl-modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
-.dl-modal-actions button { padding: 8px 16px; font-size: 13px; }
-.dl-modal-actions .dl-modal-save { font-weight: 600; }
-
-/* SAVED DECKS — confirm dialog extras (delete) */
-.dl-modal-message { margin: 0; color: #e6d4a8; font-size: 14px; line-height: 1.45; }
-.dl-modal-actions .dl-modal-danger {
-    font-weight: 600;
-    background: linear-gradient(135deg, #7a2a18 0%, #4a160c 100%);
-    border-color: rgba(200, 90, 60, 0.55);
-}
-.dl-modal-actions .dl-modal-danger:hover { background: linear-gradient(135deg, #8c3220 0%, #571a0e 100%); }
+/* SAVED DECKS rename/delete dialogs now use the shared StyledDialog primitive
+   (DeckLibrary.php delegates to StyledPrompt/StyledConfirm); the old .dl-modal-* CSS was removed. */
 
 /* SAVED DECKS — per-deck stats readout (Profile) */
 .dl-stats { margin-top: 12px; color: #e6d4a8; font-size: 13px; }

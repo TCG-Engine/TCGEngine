@@ -153,7 +153,7 @@ include_once 'Header.php';
       function joinQueue() {
         var preconstructedDeck = document.getElementById('preconstructed-deck').value;
         if (!preconstructedDeck) {
-          alert('Please select a preconstructed deck.');
+          StyledAlert('Please select a preconstructed deck.');
           return;
         }
         var deckLink = document.getElementById('deck-link').value; // Keep for future

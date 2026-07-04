@@ -4,6 +4,10 @@
 // layouts reuse it verbatim. Included within InitialLayout.php scope so the PHP
 // interpolations below ($playerID, pilot-leader list) resolve.
 ?>
+<!-- SWUSim in-game uses the cyan HUD theme. Load its role tokens (:root only — no element
+     rules, so it can't clash with the CSS below) so shared design-system components like
+     StyledDialog (concede/mulligan confirms) render in the HUD theme instead of neutral gray. -->
+<link rel="stylesheet" href="/TCGEngine/SharedUI/Themes/hud.tokens.css">
 <style>
 /* ── Per-unit action glows ─────────────────────────────────────────────────────
    Applied by refreshUnitActionGlows() in this file's JS to ANY unit element with
@@ -622,6 +626,12 @@
     bottom: auto !important;
     transform: translate(calc(-50% - var(--swu-sidebar-w, 0px) / 2), -50%) !important;
 }
+/* The turn-miasma overlay (ambient turn indicator + the "Waiting for the other player" pill)
+   must sit BELOW decision modals like the mulligan #yesno-decision-modal (z-index 5000), so the
+   waiting pill renders behind the prompt instead of over its YES/NO buttons. Shared default is
+   9998 (Core/Styles/ScreenAnimations.css); lowered here (SWUSim-scoped) to just under the modal
+   tier. Still well above the board, so the turn glyphs stay visible during normal play. */
+#turn-miasma-overlay { z-index: 4999 !important; }
 </style>
 <script>
 window.SWU_PILOT_LEADERS = <?php echo json_encode([
@@ -2319,22 +2329,8 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
   .swu-blockplayer-btn:hover { background: rgba(200,50,65,0.4); }
   /* Sits inside the stats box, directly under the stats table. */
   #game-over-stats .swu-blockplayer { margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.12); }
-  /* In-app confirm dialog (SWUConfirm) — replaces native window.confirm. */
-  .swu-confirm-overlay { position: fixed; inset: 0; z-index: 100001; display: flex; align-items: center;
-    justify-content: center; background: rgba(4,10,18,0.6); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-  .swu-confirm-panel { width: min(90vw, 380px); background: rgba(10,22,36,0.98);
-    border: 1px solid rgba(140,210,255,0.35); border-radius: 12px; box-shadow: 0 18px 50px rgba(0,0,0,0.6);
-    color: #dceaf7; padding: 20px; }
-  .swu-confirm-msg { font-size: 15px; line-height: 1.4; margin-bottom: 18px; text-align: center; }
-  .swu-confirm-actions { display: flex; gap: 10px; justify-content: center; }
-  .swu-confirm-btn { padding: 9px 22px; border-radius: 7px; font: 600 14px/1 var(--swu-font-label, sans-serif);
-    cursor: pointer; border: 1px solid transparent; }
-  .swu-confirm-cancel { background: rgba(140,210,255,0.10); border-color: rgba(140,210,255,0.35); color: #cfe6fb; }
-  .swu-confirm-cancel:hover { background: rgba(140,210,255,0.18); }
-  .swu-confirm-ok { background: rgba(140,210,255,0.90); color: #0a1624; }
-  .swu-confirm-ok:hover { background: #a9defc; }
-  .swu-confirm-danger { background: rgba(180,40,55,0.90); border-color: rgba(220,80,95,0.70); color: #fff; }
-  .swu-confirm-danger:hover { background: rgba(200,50,65,1); }
+  /* SWUConfirm now delegates to the shared StyledDialog (which self-injects its themed CSS);
+     its bespoke .swu-confirm-* styles were removed. */
 </style>
 <div id="swuSettingsOverlay" class="swu-settings-overlay" style="display:none;" onclick="if(event.target===this)swuCloseSettings()">
   <div class="swu-settings-panel" role="dialog" aria-modal="true">
@@ -2379,29 +2375,10 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
     ov.style.display = 'flex';
   }
   function swuCloseSettings() { var ov = document.getElementById('swuSettingsOverlay'); if (ov) ov.style.display = 'none'; }
-  // Styled in-app confirm (replaces native window.confirm). onConfirm runs only if the user confirms.
+  // SWUConfirm is now a thin shim over the shared StyledDialog primitive — the bespoke modal
+  // and its CSS were removed. Callback-style signature preserved so existing call sites are unchanged.
   function SWUConfirm(message, onConfirm, opts) {
-    opts = opts || {};
-    var prev = document.getElementById('swu-confirm-overlay'); if (prev) prev.remove();
-    var ov = document.createElement('div'); ov.id = 'swu-confirm-overlay'; ov.className = 'swu-confirm-overlay';
-    var panel = document.createElement('div'); panel.className = 'swu-confirm-panel';
-    var msg = document.createElement('div'); msg.className = 'swu-confirm-msg'; msg.textContent = message;
-    var row = document.createElement('div'); row.className = 'swu-confirm-actions';
-    var cancel = document.createElement('button'); cancel.className = 'swu-confirm-btn swu-confirm-cancel';
-    cancel.textContent = opts.cancelLabel || 'Cancel';
-    var ok = document.createElement('button');
-    ok.className = 'swu-confirm-btn ' + (opts.danger ? 'swu-confirm-danger' : 'swu-confirm-ok');
-    ok.textContent = opts.confirmLabel || 'Confirm';
-    function close() { ov.remove(); document.removeEventListener('keydown', onKey); }
-    function onKey(e) { if (e.key === 'Escape') close(); }
-    cancel.onclick = close;
-    ok.onclick = function() { close(); if (typeof onConfirm === 'function') onConfirm(); };
-    ov.onclick = function(e) { if (e.target === ov) close(); };
-    document.addEventListener('keydown', onKey);
-    row.appendChild(cancel); row.appendChild(ok);
-    panel.appendChild(msg); panel.appendChild(row); ov.appendChild(panel);
-    document.body.appendChild(ov);
-    ok.focus();
+    StyledConfirm(message, opts || {}).then(function(ok) { if (ok && typeof onConfirm === 'function') onConfirm(); });
   }
   window.SWUConfirm = SWUConfirm;
   // Concede from the gear menu. Live Bo3 forfeits the whole match (10007); otherwise the game (10006).
