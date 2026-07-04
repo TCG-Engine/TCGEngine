@@ -42,6 +42,7 @@
   }
 
   $deckLink = isset($_POST['deckLink']) ? $_POST['deckLink'] : '';
+  $deckLink2 = isset($_POST['deckLink2']) ? $_POST['deckLink2'] : '';
   $preconstructedDeck = isset($_POST['preconstructedDeck']) ? $_POST['preconstructedDeck'] : '';
   $createPrivate = isset($_POST['createPrivate']) && ($_POST['createPrivate'] === '1' || strtolower($_POST['createPrivate']) === 'true');
   $createGoldfish = isset($_POST['createGoldfish']) && ($_POST['createGoldfish'] === '1' || strtolower($_POST['createGoldfish']) === 'true');
@@ -49,13 +50,16 @@
 
   $format = isset($_POST['format']) ? strtolower(trim($_POST['format'])) : 'premier';
   $queueType = isset($_POST['queueType']) ? strtolower(trim($_POST['queueType'])) : 'bo1';
+  // Solo/local modes are created immediately (no matchmaking). 'goldfish' = 1 deck (empty P2);
+  // 'hotseat' = 2 decks, shared authKey.
+  $isModeFormat = ($rootName === 'SWUSim' && ($format === 'goldfish' || $format === 'hotseat'));
   // Guard: for SWUSim, fall back to safe defaults on unknown/garbage. (Other roots ignore these.)
   if ($rootName === 'SWUSim') {
     if (!function_exists('SWUGetFormat') || SWUGetFormat($format) === null) $format = 'premier';
     if (!function_exists('SWUGetQueueType') || SWUGetQueueType($queueType) === null) $queueType = 'bo1';
     // Only logged-in users may join the public queue for non-Open formats (Open is the
     // anonymous-friendly format). Goldfish (solo) and private games (invite link) are exempt.
-    $swuPublicQueue = !$createGoldfish && !$createPrivate && $privateInviteCode === '';
+    $swuPublicQueue = !$createGoldfish && !$isModeFormat && !$createPrivate && $privateInviteCode === '';
     if ($format !== 'open' && $swuPublicQueue && !$joiningUserId) {
       $response->success = false;
       $response->message = "You must be logged in to join this queue.";
@@ -86,22 +90,34 @@
   $response->success = false;
   $response->message = "Failed to join queue.";
 
-  if ($createGoldfish) {
+  if ($createGoldfish || $isModeFormat) {
+    // Normalize: the legacy createGoldfish param maps to the goldfish mode format.
+    if ($createGoldfish && !$isModeFormat) $format = 'goldfish';
+    $isHotseat = ($format === 'hotseat');
+    // Goldfish/Hotseat are Bo1-only for now (leave Bo3 open for later): force Bo1 regardless of input.
+    $queueType = 'bo1';
+
     $hostPlayer = new Player(1, $deckLink, $preconstructedDeck, $joiningUserId);
-    $goldfishPlayer = new Player(2, '', '');
+    if ($isHotseat) {
+      // Hotseat: a real second deck; one person plays both seats.
+      $secondPlayer = new Player(2, $deckLink2, '', $joiningUserId);
+    } else {
+      // Goldfish: P2 is an empty passive seat (SWUSetupGame no longer gates pregame on it).
+      $secondPlayer = new Player(2, '', '');
+    }
 
     $lobby = new stdClass();
     $lobby->numPlayers = 2;
     $lobby->maxPlayers = 2;
     $lobby->ready = true;
-    $lobby->id = uniqid('goldfish_', true);
+    $lobby->id = uniqid($isHotseat ? 'hotseat_' : 'goldfish_', true);
     $lobby->rootName = $rootName;
     $lobby->format = $format;
     $lobby->queueType = $queueType;
     $lobby->isPrivate = true;
-    $lobby->isGoldfish = true;
-    $lobby->goldfishPlayers = [2];
-    $lobby->players = [$hostPlayer, $goldfishPlayer];
+    $lobby->isGoldfish = true;            // reuse the "skip matchmaking / skip Bo3 match" plumbing
+    $lobby->goldfishPlayers = $isHotseat ? [] : [2];
+    $lobby->players = [$hostPlayer, $secondPlayer];
 
     // SWUSim's CreateGame is pre-included via MatchFlow (functions already defined),
     // so call SWUSetupGame directly rather than re-`include` (which would redeclare).
@@ -112,7 +128,7 @@
     }
 
     $response->success = true;
-    $response->message = "Successfully created goldfish game.";
+    $response->message = "Successfully created $format game.";
     $response->ready = true;
     $response->playerID = 1;
     $response->authKey = $hostPlayer->getAuthKey();

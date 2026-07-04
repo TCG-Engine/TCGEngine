@@ -612,6 +612,16 @@
 #selection-message > button:not([id]):hover::before {
     background: rgba(180,228,255,1) !important;
 }
+/* "Waiting for the other player…" — center it over the board (both bases), not pinned above the
+   hand. !important beats the shared JS's per-frame inline top/bottom (_positionMessageNearAnchor).
+   left:50% comes from the base rule; the -sidebar/2 X-shift matches how the bases/midbar center over
+   the BOARD (which is inset by the right sidebar) — see GameLayout.php's base-slot rule. Fallback 0px
+   keeps it viewport-centered on mobile (no sidebar). */
+#turn-miasma-message {
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translate(calc(-50% - var(--swu-sidebar-w, 0px) / 2), -50%) !important;
+}
 </style>
 <script>
 window.SWU_PILOT_LEADERS = <?php echo json_encode([
@@ -747,6 +757,17 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
 
     window.swuPassAction = function () {
         SubmitInput('10001', '&cardID=' + encodeURIComponent('myHealth-0!CustomInput!Pass'));
+    };
+
+    // Hotseat: one person plays both seats from one browser (shared authKey). Switch reloads the
+    // page as the OTHER seat. No-op in non-hotseat games.
+    window.SWUIsHotseat = <?php echo (function_exists('SWUGameMode') && SWUGameMode() === 'hotseat') ? 'true' : 'false'; ?>;
+    window.swuSwitchPlayer = function () {
+        if (!window.SWUIsHotseat) return;
+        var url = new URL(window.location.href);
+        var cur = parseInt(url.searchParams.get('playerID') || '1', 10);
+        url.searchParams.set('playerID', cur === 1 ? '2' : '1');
+        window.location.href = url.toString();
     };
 
     // ── Resource counters ─────────────────────────────────────────────────────
@@ -1437,6 +1458,8 @@ window.SWU_PILOT_LEADERS = <?php echo json_encode([
         document.addEventListener('keydown', function(e) {
             if (e.key !== 'w' && e.key !== 'W') return;
             if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA')) return;
+            // Hotseat: W hands the device to the other seat (reload as the other playerID).
+            if (window.SWUIsHotseat) { e.preventDefault(); window.swuSwitchPlayer(); return; }
             var authKey = '';
             try { authKey = new URLSearchParams(window.location.search).get('authKey') || ''; } catch (err) {}
             if (authKey !== 'testschema') return;

@@ -55,6 +55,11 @@ function SimGameBuildAuthKeysFromLobby($lobby)
     $authKeys['p' . $seat] = strval($player->getAuthKey());
   }
 
+  // Hotseat: one person plays both seats from one browser, so both seats share P1's key.
+  if (is_object($lobby) && isset($lobby->format) && strtolower((string)$lobby->format) === 'hotseat') {
+    $authKeys['p2'] = $authKeys['p1'];
+  }
+
   if (!empty($authKeys['isPrivate'])) {
     $authKeys['spectator'] = bin2hex(random_bytes(16));
   }

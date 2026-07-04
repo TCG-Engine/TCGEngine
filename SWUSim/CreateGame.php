@@ -30,6 +30,16 @@ function SWUSetupGame($lobby, $opts = []) {
     WriteGamestate(__DIR__ . "/");
     ParseGamestate(__DIR__ . "/");
 
+    // Persist the game mode (goldfish/hotseat) as a never-cleared GlobalEffect on P1 so all
+    // runtime branching (SWUGameMode()) can read it. Normal games leave $mode '' and write nothing.
+    $mode = '';
+    if (isset($lobby->format)) {
+        $f = strtolower((string)$lobby->format);
+        if ($f === 'goldfish' || $f === 'hotseat') $mode = $f;
+    }
+    if ($mode === 'goldfish') AddGlobalEffects(1, 'SWU_MODE_GOLDFISH');
+    if ($mode === 'hotseat')  AddGlobalEffects(1, 'SWU_MODE_HOTSEAT');
+
     $resolvedDecks = isset($opts['resolvedDecks']) && is_array($opts['resolvedDecks']) ? $opts['resolvedDecks'] : [];
 
     // ─── Step 1–2: Load decks (leader, base, main deck) for each player ───────────
@@ -39,7 +49,9 @@ function SWUSetupGame($lobby, $opts = []) {
         $player->setGamePlayerID($playerCounter);
         $injected = $resolvedDecks[$playerCounter] ?? null;
         if (!LoadPlayerDeck($playerCounter, $player->getDeckLink(), $player->getPreconstructedDeck(), $injected)) {
-            $deckLoadOk = false;
+            // Goldfish P2 is an intentionally empty passive seat — its failed load must NOT block
+            // the pregame (which is what left P1 unable to act). Every other failure still gates.
+            if (!($mode === 'goldfish' && $playerCounter === 2)) $deckLoadOk = false;
         }
         ++$playerCounter;
     }
@@ -47,6 +59,7 @@ function SWUSetupGame($lobby, $opts = []) {
     // ─── Step 3: Determine first player ───────────────────────────────────────────
     // Forced (Bo3 / loser's choice) or random coin flip; first player holds initiative.
     $forced = $opts['forcedFirstPlayer'] ?? null;
+    if ($mode === 'goldfish') $forced = 1;   // solo: the human seat always opens
     $firstPlayer = &GetFirstPlayer();
     $firstPlayer = ($forced === 1 || $forced === 2) ? $forced : random_int(1, 2);
 
@@ -194,7 +207,10 @@ function QueuePregameSetup($firstPlayer) {
         DecisionQueueController::AddDecision($firstPlayer, "CUSTOM", "MulliganDecision|$firstPlayer", 10);
     }
 
-    if (!$baseSuppressesMulligan($secondPlayer)) {
+    // Goldfish: P2 is an empty passive seat (no hand to mulligan). Skip its mulligan decision so it
+    // never blocks P1's pregame. Its ChooseStartingResource entries (block 50) auto-drain (no cards).
+    $skipGoldfishBot = (SWUGameMode() === 'goldfish' && $secondPlayer === 2);
+    if (!$baseSuppressesMulligan($secondPlayer) && !$skipGoldfishBot) {
         DecisionQueueController::AddDecision($secondPlayer, "YESNO", "mulligan", 10,
             tooltip:"Take_a_mulligan_(discard_hand_and_draw_6_new_cards)?");
         DecisionQueueController::AddDecision($secondPlayer, "CUSTOM", "MulliganDecision|$secondPlayer", 10);
