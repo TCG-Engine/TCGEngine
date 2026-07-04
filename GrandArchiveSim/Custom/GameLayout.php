@@ -1753,7 +1753,7 @@
           var pid = url.searchParams.get('playerID') || '1';
           var authKey = url.searchParams.get('authKey') || '';
           var gameName = url.searchParams.get('gameName') || '';
-          var menuUrl = gaAppBase() + 'SharedUI/MainMenu.php';
+          var menuUrl = gaAppBase() + 'SharedUI/Sites/GrandArchiveSim/MainMenu.php';
           var statsHtml = '';   // the card-activity matrix; cached so state-change rebuilds keep showing it
 
           function gaGoMenu(){ location.href = menuUrl; }
