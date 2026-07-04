@@ -66,8 +66,8 @@
     .azuki-m-band {
         display: flex;
         align-items: center;
-        gap: 6px;
-        padding: 3px 8px;
+        gap: 4px;
+        padding: 3px 6px;
         background: rgba(8, 12, 24, 0.78);
     }
 
@@ -134,25 +134,42 @@
         overflow: hidden;
     }
 
+    .azuki-m-pile,
+    .azuki-m-gate {
+        width: 40px;
+        min-width: 40px;
+    }
+
+    .azuki-m-band .azuki-m-gate {
+        margin-left: auto;
+    }
+
+    .azuki-m-pass {
+        min-width: 70px;
+    }
+
     .azuki-m-ikz-summary,
     .azuki-m-hand-summary {
-        min-width: 72px;
+        min-width: 0;
+        max-width: 96px;
+        flex: 1 1 86px;
         flex-direction: row;
         justify-content: flex-start;
-        gap: 5px;
-        padding: 3px 6px;
+        gap: 4px;
+        padding: 3px 4px;
         border: 1px solid rgba(212, 175, 55, 0.24);
         border-radius: 8px;
         background: rgba(18, 26, 50, 0.58);
     }
 
     .azuki-m-hand-summary {
-        min-width: 68px;
+        max-width: 86px;
+        flex-basis: 78px;
     }
 
     .azuki-m-ikz-thumb {
-        width: 28px;
-        height: 39px;
+        width: 24px;
+        height: 34px;
         flex: 0 0 auto;
         display: flex;
         align-items: center;
@@ -184,21 +201,22 @@
 
     .azuki-m-ikz-count {
         color: rgba(232, 220, 200, 0.94);
-        font: 800 12px/1 var(--azuki-font-ui);
+        font: 800 11px/1 var(--azuki-font-ui);
         white-space: nowrap;
     }
 
     .azuki-m-hand-count {
         color: rgba(232, 220, 200, 0.94);
-        font: 800 12px/1 var(--azuki-font-ui);
+        font: 800 11px/1 var(--azuki-font-ui);
         white-space: nowrap;
     }
 
     .azuki-m-token {
         display: none;
-        min-width: 42px;
-        height: 34px;
-        padding: 0 8px;
+        width: 32px;
+        min-width: 32px;
+        height: 30px;
+        padding: 0 4px;
         border: 1px solid rgba(212, 175, 55, 0.30);
         border-radius: 999px;
         background: rgba(26, 31, 58, 0.78);
@@ -211,31 +229,99 @@
     .azuki-m-token::before {
         content: "IKZ";
         color: rgba(212, 175, 55, 0.86);
-        font: 700 9px/1 var(--azuki-font-label);
-        letter-spacing: 0.12em;
+        font: 700 8px/1 var(--azuki-font-label);
+        letter-spacing: 0.06em;
     }
 
     .azuki-m-pile > div:not(.azuki-m-pile-label),
-    .azuki-m-gate > div,
+    .azuki-m-gate > div:not(.azuki-m-pile-label),
     .azuki-m-pass > div {
-        min-width: 42px;
+        width: 100%;
+        min-width: 0;
         min-height: 36px;
-        max-height: 44px;
-        max-width: 62px;
+        max-height: 40px;
+        max-width: 100%;
         overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
+    .azuki-m-pile > div:not(.azuki-m-pile-label),
+    .azuki-m-gate > div:not(.azuki-m-pile-label) {
+        border-radius: 5px;
+        background: rgba(8, 12, 24, 0.38);
+        box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.12);
+    }
+
+    #myDeckWrapper,
+    #theirDeckWrapper,
+    #myDiscardWrapper,
+    #theirDiscardWrapper,
+    #myGateWrapper,
+    #theirGateWrapper {
+        width: 100% !important;
+        height: 100% !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        scrollbar-width: none;
+    }
+
+    #myDeckWrapper::-webkit-scrollbar,
+    #theirDeckWrapper::-webkit-scrollbar,
+    #myDiscardWrapper::-webkit-scrollbar,
+    #theirDiscardWrapper::-webkit-scrollbar,
+    #myGateWrapper::-webkit-scrollbar,
+    #theirGateWrapper::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+
+    #myDeck,
+    #theirDeck,
+    #myDiscard,
+    #theirDiscard,
+    #myGate,
+    #theirGate {
+        width: 100% !important;
+        height: 100% !important;
+        min-width: 0 !important;
+        min-height: 0 !important;
+        display: flex !important;
+        flex-wrap: nowrap !important;
+        align-items: center !important;
+        justify-content: center !important;
+        overflow: hidden !important;
+    }
+
+    #myDeck > span[id],
+    #theirDeck > span[id],
+    #myGate > span[id],
+    #theirGate > span[id],
+    #myDeck a,
+    #theirDeck a,
+    #myGate a,
+    #theirGate a {
+        max-width: 100% !important;
+        max-height: 100% !important;
+        margin: 0 !important;
+    }
+
     .azuki-m-pile img:not(.counter-image-icon) {
-        height: 40px !important;
+        height: 36px !important;
+        max-width: 38px !important;
         width: auto !important;
         border-radius: 4px;
     }
 
     .azuki-m-gate img:not(.counter-image-icon) {
-        height: 44px !important;
+        height: 38px !important;
+        max-width: 38px !important;
         width: auto !important;
         border-radius: 4px;
     }
