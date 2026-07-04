@@ -326,6 +326,50 @@
         border-radius: 4px;
     }
 
+    #myDeck .counter-bubble,
+    #theirDeck .counter-bubble {
+        top: auto !important;
+        bottom: -1px !important;
+        left: 50% !important;
+        width: 20px !important;
+        height: 20px !important;
+        border: 2px solid rgba(15, 17, 24, 0.92) !important;
+        line-height: 16px !important;
+        background: rgba(30, 31, 38, 0.92) !important;
+        color: rgba(245, 238, 220, 0.96) !important;
+        font: 800 11px/16px var(--azuki-font-ui) !important;
+        text-shadow: none !important;
+        transform: translateX(-50%) !important;
+        -ms-transform: translateX(-50%) !important;
+        box-shadow:
+            0 0 0 1px rgba(212, 175, 55, 0.35),
+            0 4px 8px rgba(0, 0, 0, 0.42) !important;
+    }
+
+    #turn-miasma-overlay .turn-edge-glyph {
+        width: 18px;
+        height: 420px;
+    }
+
+    #turn-edge-glyph-left {
+        left: -7px;
+    }
+
+    #turn-edge-glyph-right {
+        right: -7px;
+    }
+
+    #turn-miasma-overlay .turn-edge-glyph::before,
+    #turn-miasma-overlay .turn-edge-glyph::after {
+        width: 2px;
+        box-shadow: 0 0 8px rgba(64, 214, 110, 0.28);
+    }
+
+    #turn-miasma-overlay .turn-edge-core {
+        width: 13px;
+        height: 13px;
+    }
+
     #myLeaderHealthSlot {
         min-width: 72px;
         max-width: 84px;
