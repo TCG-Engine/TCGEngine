@@ -5768,6 +5768,18 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'Ambush':
             // Re-compute valid targets at dispatch time (units may have died between collect and dispatch).
             $ambushObj = GetZoneObject($mzID);
+            // The Ambush unit may have changed arenas since collect — e.g. JTL_096 Blue Leader whose
+            // When-Played ("pay 2 → move to the ground arena") was ordered to resolve FIRST. That move
+            // gives the unit a new mzID and marks the cached (space) slot removed, so GetZoneObject($mzID)
+            // returns null and Ambush would silently fizzle. Re-resolve by the unit's UID (carried in
+            // $extra[0]), mirroring FlushCombatTriggerBag's attacker-UID re-resolution.
+            if ($ambushObj === null || !empty($ambushObj->removed)) {
+                $ambushUID = intval($extra[0] ?? 0);
+                if ($ambushUID > 0) {
+                    $reMz = SWUFindMzByUID($ambushUID);
+                    if ($reMz !== null) { $mzID = $reMz; $ambushObj = GetZoneObject($mzID); }
+                }
+            }
             if ($ambushObj === null || !empty($ambushObj->removed)) break;
             $ambushArena    = $ambushObj->Location ?? 'GroundArena';
             $ambushOpponent = OtherPlayer($player);
@@ -5840,7 +5852,10 @@ function CollectEntryTriggers($activePlayer, $cardID, $mzID, $targetArena, bool 
         $opponent      = OtherPlayer($activePlayer);
         $ambushTargets = SWUGetValidAmbushTargets($opponent, $obj, $targetArena);
         if (!empty($ambushTargets)) {
-            AddTrigger($activePlayer, 'Ambush', $cardID, $mzID, implode('&', $ambushTargets));
+            // Carry the unit's UID (not the target list — dispatch recomputes valid targets fresh) so a
+            // preceding trigger that moves the unit between arenas (JTL_096) can be re-resolved at dispatch.
+            $ambushUID = intval($obj->UniqueID ?? 0);
+            AddTrigger($activePlayer, 'Ambush', $cardID, $mzID, (string)$ambushUID);
         }
     }
 
