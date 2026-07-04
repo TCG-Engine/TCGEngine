@@ -170,10 +170,16 @@ document.getElementById('submit').onclick=function(){
     submitting=true; document.getElementById('submit').disabled=true;
     document.getElementById('status').textContent='Submitted — waiting for opponent…';
     if(j.nextGameName){ go(j.nextGameName); } else { poll(); }
+  }).catch(function(){ // transient error/500 on submit — fall into polling (poll re-submits the deck), don't strand
+    submitting=true; document.getElementById('submit').disabled=true;
+    document.getElementById('status').textContent='Submitted — waiting for opponent…';
+    poll();
   });
 };
-function poll(){ // re-submit is a no-op (first-submit-wins) but returns nextGameName once both are in / timeout fires
-  send().then(j=>{ if(j&&j.nextGameName){go(j.nextGameName);} else { setTimeout(poll,2000);} });
+function poll(){ // re-submit is a no-op (first-submit-wins) but returns nextGameName once both are in / timeout fires.
+  // A rejected request (transient 500 / non-JSON under load) MUST reschedule — otherwise the waiting player hangs forever.
+  send().then(j=>{ if(j&&j.nextGameName){go(j.nextGameName);} else { setTimeout(poll,2000);} })
+        .catch(function(){ setTimeout(poll,2000); });
 }
 if(alreadyAdvanced && advancedGameName){ go(advancedGameName); } else { render(); }
 </script></body></html>

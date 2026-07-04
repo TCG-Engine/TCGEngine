@@ -105,6 +105,13 @@ function GASetupGame($lobby, $opts = []) {
     AutoAdvanceAndExecute();
     SaveUndoVersion($firstPlayer, "Pregame Starting Champion");
 
+    // Stamp the match ref into the gamestate so the GA client overlay (window.GAMatchId) recognizes a
+    // match game. Canonical cross-game state is the pointer files (Core/Match); this is client-detection only.
+    if (isset($opts['matchId']) && $opts['matchId'] !== '') {
+        DecisionQueueController::StoreVariable('MatchId', strval($opts['matchId']));
+        DecisionQueueController::StoreVariable('GameNumber', strval(intval($opts['gameNumber'] ?? 1)));
+    }
+
     WriteGamestate(__DIR__ . "/");
 
     $lobby->gameName = $gameName;

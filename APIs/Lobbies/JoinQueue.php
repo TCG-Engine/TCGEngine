@@ -25,10 +25,11 @@
     if(is_file($grandArchiveDeckImportPath)) {
       include_once $grandArchiveDeckImportPath;
     }
-    $gaMatchFlowPath = __DIR__ . '/../../GrandArchiveSim/MatchFlow.php';
-    if(is_file($gaMatchFlowPath)) {
-      include_once $gaMatchFlowPath;
-    }
+    // Shared Core/Match framework + GA adapter. CreateGame defines GASetupGame (the setupGame hook
+    // + the goldfish direct-call path); no ambient $lobby here, so its auto-run guard stays quiet.
+    require_once __DIR__ . '/../../GrandArchiveSim/CreateGame.php';
+    require_once __DIR__ . '/../../Core/Match/MatchFlow.php';
+    require_once __DIR__ . '/../../GrandArchiveSim/MatchHooks.php';
   } else if($rootName === 'AzukiSim') {
     $azukiDeckImportPath = __DIR__ . '/../../AzukiSim/Custom/DeckImport.php';
     if(is_file($azukiDeckImportPath)) {
@@ -185,8 +186,8 @@
         if ($lobby->ready) {
           if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
             SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
-          } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('GACreateMatchFromLobby')) {
-            GACreateMatchFromLobby($lobby); // creates the Match + game 1, sets $lobby->gameName
+          } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
+            MatchCreateFromLobby('GrandArchiveSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
           } else {
             include_once '../../' . $rootName . '/CreateGame.php';
           }
@@ -276,8 +277,8 @@
               if($lobby->ready) {
                 if ($rootName === 'SWUSim' && empty($lobby->isGoldfish) && function_exists('SWUCreateMatchFromLobby')) {
                   SWUCreateMatchFromLobby($lobby); // sets $lobby->gameName to game 1
-                } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('GACreateMatchFromLobby')) {
-                  GACreateMatchFromLobby($lobby); // creates the Match + game 1, sets $lobby->gameName
+                } else if ($rootName === 'GrandArchiveSim' && empty($lobby->isGoldfish) && function_exists('MatchCreateFromLobby')) {
+                  MatchCreateFromLobby('GrandArchiveSim', $lobby); // creates the Match + game 1, sets $lobby->gameName
                 } else {
                   include_once '../../' . $rootName . '/CreateGame.php';
                 }
