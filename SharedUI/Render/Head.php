@@ -10,6 +10,18 @@ function _RenderFontLinks(array $fonts): string {
     return $out;
 }
 
+// Append an auto-updating ?v=<filemtime> token to a local asset URL so CDN/browser
+// caches pick up edits immediately. External URLs and missing files pass through unchanged.
+function _VersionAsset(string $webPath): string {
+    if (preg_match('#^https?://#i', $webPath)) return $webPath;   // external → untouched
+    $docRoot = $_SERVER['DOCUMENT_ROOT'] ?? '';
+    if ($docRoot === '') return $webPath;                          // CLI / no docroot
+    $mtime = @filemtime($docRoot . $webPath);
+    if ($mtime === false) return $webPath;                         // missing → bare path
+    $sep = (strpos($webPath, '?') === false) ? '?' : '&';
+    return $webPath . $sep . 'v=' . $mtime;
+}
+
 function RenderHead(array $def): string {
     $b = $def['branding']; $h = $def['head'];
     $headTitle = $b['headTitle'] ?? $b['title'];   // distinct browser-tab title; defaults to the h1 title
@@ -17,9 +29,9 @@ function RenderHead(array $def): string {
     $out .= "  <title>$headTitle</title>\n";
     $out .= "  <link rel=\"icon\" type=\"image/png\" href=\"{$b['favicon']}\">\n";
     $styleTags = '';
-    foreach ($h['styles'] as $s) $styleTags .= "  <link rel=\"stylesheet\" href=\"$s\">";
+    foreach ($h['styles'] as $s) $styleTags .= "  <link rel=\"stylesheet\" href=\"" . _VersionAsset($s) . "\">";
     $scriptTags = '';
-    foreach ($h['scripts'] as $s) $scriptTags .= "  <script src=\"$s\"></script>\n";
+    foreach ($h['scripts'] as $s) $scriptTags .= "  <script src=\"" . _VersionAsset($s) . "\"></script>\n";
     // Faithful reproduction of the existing comment + spacing on the styles line:
     $out .= "  <!--<link rel=\"stylesheet\" href=\"./css/menuStyles.css\">-->$styleTags$scriptTags";
     $out .= "  <!-- <link rel=\"stylesheet\" href=\"./css/menuStyles2.css\"> -->\n";

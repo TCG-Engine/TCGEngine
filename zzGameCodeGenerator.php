@@ -2885,8 +2885,11 @@ function WriteInitialLayout() {
   if($initializeScript != "") {
     fwrite($handler, "if(!isset(\$skipInitialize) || !\$skipInitialize) include_once '" . $initializeScript . "';\r\n");
   }
+  if (count($clientIncludes) > 0) {
+    fwrite($handler, "if(!function_exists('_VersionedClientInclude')){function _VersionedClientInclude(\$p){if(preg_match('#^https?://#i',\$p))return \$p;\$d=\$_SERVER['DOCUMENT_ROOT']??'';if(\$d==='')return \$p;\$m=@filemtime(\$d.\$p);if(\$m===false)return \$p;return \$p.(strpos(\$p,'?')===false?'?':'&').'v='.\$m;}}\r\n");
+  }
   for ($i = 0; $i < count($clientIncludes); ++$i) {
-    fwrite($handler, "echo(\"<script src='" . $clientIncludes[$i] . "'></script>\");\r\n");
+    fwrite($handler, "echo(\"<script src='\" . _VersionedClientInclude('" . $clientIncludes[$i] . "') . \"'></script>\");\r\n");
   }
   fwrite($handler, "echo(\"<div class='flex-container' style='margin:0px; padding:0px; display: flex; flex-direction: column; width: 100%; height: 100%;'>\");\r\n");
   if(count($headerElements) > 0) {
