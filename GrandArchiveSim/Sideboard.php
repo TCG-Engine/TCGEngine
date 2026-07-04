@@ -3,13 +3,13 @@
 // Regalia cards belong in the material deck and cost 3 sideboard points; all others go in main (1 pt).
 include_once __DIR__ . '/../Core/NetworkingLibraries.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
-include_once __DIR__ . '/Match.php';
+include_once __DIR__ . '/../Core/Match/Match.php';
 include_once __DIR__ . '/GeneratedCode/GeneratedCardDictionaries.php'; // CardName + $typeData
 
 $matchId = preg_replace('/[^A-Za-z0-9_]/', '', $_GET['matchId'] ?? '');
 $seat    = intval($_GET['playerID'] ?? 0);
 $authKey = strval($_GET['authKey'] ?? '');
-$m = GAReadMatch($matchId);
+$m = MatchRead('GrandArchiveSim', $matchId);
 if (!is_array($m) || ($seat !== 1 && $seat !== 2)
     || !hash_equals(strval($m['players'][strval($seat)]['authKey'] ?? ''), $authKey)) {
     http_response_code(404); echo 'Invalid match / seat / auth.'; exit;
@@ -153,9 +153,16 @@ document.getElementById('submit').onclick=function(){
     submitting=true; document.getElementById('submit').disabled=true;
     document.getElementById('status').textContent='Submitted — waiting for opponent…';
     if(j.nextGameName){ go(j.nextGameName); } else { poll(); }
-  }).catch(function(){ document.getElementById('status').textContent='Network error.'; });
+  }).catch(function(){ // transient error/500 on submit — fall into polling (poll re-submits the deck), don't strand
+    submitting=true; document.getElementById('submit').disabled=true;
+    document.getElementById('status').textContent='Submitted — waiting for opponent…';
+    poll();
+  });
 };
-function poll(){ send().then(function(j){ if(j&&j.nextGameName){ go(j.nextGameName); } else { setTimeout(poll,2000); } }); }
+function poll(){ // A rejected request (transient 500 / non-JSON under load) MUST reschedule — otherwise the waiting player hangs forever.
+  send().then(function(j){ if(j&&j.nextGameName){ go(j.nextGameName); } else { setTimeout(poll,2000); } })
+        .catch(function(){ setTimeout(poll,2000); });
+}
 document.getElementById('reset').onclick=function(){ if(!submitting) resetDecks(); };
 
 if(advanced && advancedGame){ go(advancedGame); } else { resetDecks(); }

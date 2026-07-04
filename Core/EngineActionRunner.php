@@ -135,11 +135,11 @@ function EngineLoadRootRuntime($folderPath) {
     $swuMatchFlow = $repoRoot . '/SWUSim/MatchFlow.php';
     if (is_file($swuMatchFlow)) include_once $swuMatchFlow;
   }
-  // GrandArchiveSim Bo3 match orchestration — same as SWUSim: load on the action path so the
-  // after-action hook exists during real play.
+  // GrandArchiveSim Bo3 match orchestration — shared Core/Match framework + GA adapter,
+  // loaded on the action path so the after-action hook + hooks exist during real play.
   if ($folderPath === 'GrandArchiveSim') {
-    $gaMatchFlow = $repoRoot . '/GrandArchiveSim/MatchFlow.php';
-    if (is_file($gaMatchFlow)) include_once $gaMatchFlow;
+    require_once $repoRoot . '/Core/Match/MatchFlow.php';
+    require_once $repoRoot . '/GrandArchiveSim/MatchHooks.php';
   }
 
   // Root runtime files define important registries at top level. When they are
@@ -468,12 +468,12 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
           $result['success'] = false;
           $result['message'] = 'Convert to Bo3 unavailable.';
         }
-      } else if (($playerID === 1 || $playerID === 2) && function_exists('GAReadGameMatchRef')
-          && function_exists('GARequestConvertToBo3') && function_exists('GAAcceptConvertToBo3')) {
-        $ref = GAReadGameMatchRef(); // GA reads the ref from the loaded gamestate, not a file
+      } else if (($playerID === 1 || $playerID === 2) && $folderPath === 'GrandArchiveSim'
+          && function_exists('MatchReadRef') && function_exists('MatchRequestConvertToBo3')) {
+        $ref = MatchReadRef($folderPath, $gameName);
         if (is_array($ref)) {
-          GARequestConvertToBo3($ref['matchId'], $playerID);
-          GAAcceptConvertToBo3($ref['matchId']); // promotes when both have requested; clients poll EndGameInfo
+          MatchRequestConvertToBo3($folderPath, $ref['matchId'], $playerID);
+          MatchAcceptConvertToBo3($folderPath, $ref['matchId']); // promotes when both have requested; clients poll EndGameInfo
         } else { $result['success'] = false; $result['message'] = 'Convert to Bo3 unavailable.'; }
       } else {
         $result['success'] = false;
@@ -491,14 +491,14 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
           SWURequestRematch($ref['matchId'], $playerID, $bestOf, $sideboard);
           SWUAcceptRematch($ref['matchId']); // creates the new match when both have requested
         } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
-      } else if (($playerID === 1 || $playerID === 2) && function_exists('GAReadGameMatchRef')
-          && function_exists('GARequestRematch') && function_exists('GAAcceptRematch')) {
-        $ref = GAReadGameMatchRef();
+      } else if (($playerID === 1 || $playerID === 2) && $folderPath === 'GrandArchiveSim'
+          && function_exists('MatchReadRef') && function_exists('MatchRequestRematch')) {
+        $ref = MatchReadRef($folderPath, $gameName);
         if (is_array($ref)) {
           $bestOf = (intval($inputText) === 3) ? 3 : 1;
           $sideboard = ($mode === 10016);
-          GARequestRematch($ref['matchId'], $playerID, $bestOf, $sideboard);
-          GAAcceptRematch($ref['matchId']); // creates the new match when both have requested
+          MatchRequestRematch($folderPath, $ref['matchId'], $playerID, $bestOf, $sideboard);
+          MatchAcceptRematch($folderPath, $ref['matchId']); // creates the new match when both have requested
         } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
       } else { $result['success'] = false; $result['message'] = 'Rematch unavailable.'; }
       break;
@@ -730,9 +730,9 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     if (function_exists('SWUAfterActionMatchHook')) {
       SWUAfterActionMatchHook($folderPath, $gameName);
     }
-    // GrandArchiveSim-only Bo3 match advance (function exists only when MatchFlow is loaded; no-op for other sims).
-    if (function_exists('GAAfterActionMatchHook')) {
-      GAAfterActionMatchHook($folderPath, $gameName);
+    // GrandArchiveSim Bo3 match advance via the shared Core/Match framework.
+    if ($folderPath === 'GrandArchiveSim' && function_exists('MatchAfterActionHook')) {
+      MatchAfterActionHook($folderPath, $gameName);
     }
     if (is_numeric($gameName)
         && function_exists('TouchOwnershipLastUpdated')

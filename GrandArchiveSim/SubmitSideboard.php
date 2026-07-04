@@ -7,13 +7,15 @@ header('Content-Type: application/json');
 include_once __DIR__ . '/../Core/NetworkingLibraries.php';
 include_once __DIR__ . '/../Core/HTTPLibraries.php';
 include_once __DIR__ . '/../Core/CoreZoneModifiers.php';
-include_once __DIR__ . '/MatchFlow.php';   // Match model + spawn + CreateGame runtime (DeckImport + dictionaries)
+include_once __DIR__ . '/CreateGame.php';            // GASetupGame + card dictionaries (spawn runtime)
+include_once __DIR__ . '/../Core/Match/MatchFlow.php'; // shared Match model + spawn
+include_once __DIR__ . '/MatchHooks.php';            // registers GA hooks (+ DeckImport → GAValidateResolvedDeck)
 
 $matchId = isset($_POST['matchId']) ? preg_replace('/[^A-Za-z0-9_]/', '', $_POST['matchId']) : '';
 $seat    = intval($_POST['playerID'] ?? $_POST['seat'] ?? 0);
 $authKey = strval($_POST['authKey'] ?? '');
 
-$m = GAReadMatch($matchId);
+$m = MatchRead('GrandArchiveSim', $matchId);
 if (!is_array($m)) { echo json_encode(['success' => false, 'message' => 'Match not found.']); exit; }
 if ($seat !== 1 && $seat !== 2) { echo json_encode(['success' => false, 'message' => 'Invalid seat.']); exit; }
 
@@ -63,10 +65,10 @@ $resolved = ['success' => true, 'message' => '', 'material' => $material, 'mainD
 $vr = GAValidateResolvedDeck($resolved, strval($m['format'] ?? 'standard'));
 if (empty($vr['success'])) { echo json_encode(['success' => false, 'message' => $vr['message'] ?? 'Illegal deck.']); exit; }
 
-GASubmitSideboardDeck($matchId, $seat, $resolved);
-$next = GAMaybeSpawnAfterSideboard($matchId);   // spawns + clears sideboard state when both are in
-$m = GAReadMatch($matchId);
-$bothReady = (!empty($next)) || (is_array($m) && GASideboardBothReady($m));
+MatchSubmitSideboardDeck('GrandArchiveSim', $matchId, $seat, $resolved);
+$next = MatchMaybeSpawnAfterSideboard('GrandArchiveSim', $matchId);   // spawns + clears sideboard state when both are in
+$m = MatchRead('GrandArchiveSim', $matchId);
+$bothReady = (!empty($next)) || (is_array($m) && MatchSideboardBothReady($m));
 
 echo json_encode([
     'success'      => true,
