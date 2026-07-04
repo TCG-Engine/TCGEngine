@@ -2394,7 +2394,9 @@ function ObjectCurrentPowerDisplay($obj) {
     if(!is_object($obj) || !isset($obj->CardID)) return 0;
     $owner = ResolveObjectOwner($obj);
     if($owner === null || intval($owner) <= 0) $owner = GetTurnPlayer();
-    return ResolveEntityAttackValue(intval($owner), $obj);
+    $currentPower = ResolveEntityAttackValue(intval($owner), $obj);
+    if(CardType($obj->CardID ?? '') === 'LEADER' && intval($currentPower) <= 0) return -1;
+    return $currentPower;
 }
 
 function ObjectCurrentHPDisplay($obj) {
@@ -2468,8 +2470,41 @@ function CardCurrentEffects($obj) {
     return implode(',', array_values($obj->TurnEffects));
 }
 
+function IsInternalDisplayEffect($effectID) {
+    if(!is_string($effectID) || $effectID === '') return true;
+    $internalEffects = [
+        'COOLDOWN' => true,
+        'CHARGE' => true,
+        'DEFENDER' => true,
+        'STONEHAVEN_DEFENDER' => true,
+        'SHAO_USED' => true
+    ];
+    if(isset($internalEffects[$effectID])) return true;
+    if(strpos($effectID, 'ATK_MOD:') === 0) return true;
+    if(strpos($effectID, 'DMG_SRC:') === 0) return true;
+    return false;
+}
+
 function CardDisplayEffects($obj) {
-    return CardCurrentEffects($obj);
+    if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) return '';
+    $displayEffects = [];
+    foreach($obj->TurnEffects as $effectID) {
+        if(IsInternalDisplayEffect($effectID)) continue;
+        $displayEffects[] = $effectID;
+    }
+    return implode(',', array_values($displayEffects));
+}
+
+function ChargeKeywordIndicator($obj) {
+    if(!is_object($obj) || (isset($obj->removed) && $obj->removed)) return 0;
+    if(CardType($obj->CardID ?? '') !== 'ENTITY') return 0;
+    if(CardHasKeyword($obj->CardID ?? '', 'Charge')) return 1;
+    if(HasTurnEffect($obj, 'CHARGE')) return 1;
+    return 0;
+}
+
+function DefenderKeywordIndicator($obj) {
+    return IsDefenderEntity($obj) ? 1 : 0;
 }
 
 function CardHasAbility($obj) {

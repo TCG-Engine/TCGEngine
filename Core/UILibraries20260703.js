@@ -1464,7 +1464,7 @@ function ResolveGlobalFunction(functionName) {
               var bRadius = scIsCaptive ? '4px 4px 0 0' : '0 0 4px 4px';
               var bottomOffset = (li + 1) * sliver;
               newHTML += "<img data-subcard-id='" + scID + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
-                + "loading='lazy' class='lineage-subcard' "
+                + "loading='lazy' class='lineage-subcard subcard-below' "
                 + "style='position:absolute; bottom:-" + bottomOffset + "px; left:0; width:" + size + "px; height:" + sliver + "px; "
                 + "object-fit:cover; object-position:" + objPos + "; border-radius:" + bRadius + "; "
                 + "border:1px solid rgba(255,255,255,0.18); z-index:-" + (li + 1) + "; pointer-events:auto;' "
@@ -1477,7 +1477,7 @@ function ResolveGlobalFunction(functionName) {
               var offsetLeft = (gi + 1) * 3;
               var subSrc = "./" + subFolder + "/concat/" + lineageCards[gi] + ".webp";
               newHTML += "<img data-subcard-id='" + lineageCards[gi] + "' onmouseover='ShowSubcardDetail(event, this)' onmouseout='HideCardDetail()' "
-                + "loading='lazy' class='lineage-subcard' style='position:absolute; top:-" + offsetTop + "px; left:" + offsetLeft + "px; height:" + size + "px; width:" + size + "px; "
+                + "loading='lazy' class='lineage-subcard subcard-above' style='position:absolute; top:-" + offsetTop + "px; left:" + offsetLeft + "px; height:" + size + "px; width:" + size + "px; "
                 + "border:1px solid transparent; opacity:0.85; z-index:-" + (gi + 1) + "; pointer-events:auto;' "
                 + "src='" + subSrc + "' alt='Lineage card' />";
             }
@@ -2396,11 +2396,17 @@ function ResolveGlobalFunction(functionName) {
           /* Light lime glow for selectable cards */
 
           /* Any span containing a lineage subcard must not clip its overflow */
-          span:has(.lineage-subcard) {
+          span:has(.lineage-subcard.subcard-above) {
             position: relative;
             z-index: 1;
             overflow: visible !important;
             margin-bottom: 44px;
+          }
+
+          span:has(.lineage-subcard.subcard-below) {
+            position: relative;
+            z-index: 1;
+            overflow: visible !important;
           }
 
           /* Lineage subcard images must not inherit the selectable highlight */

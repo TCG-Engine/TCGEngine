@@ -8,18 +8,18 @@ import cv2
 import numpy as np
 from PIL import Image
 
-input_path = r"C:\Users\maxim\Downloads\charge.mov"
-output_path = r"C:\Users\maxim\Downloads\charge.webp"
+input_path = r"C:\Users\maxim\Downloads\defender.mov"
+output_path = r"C:\Users\maxim\Downloads\defender.webp"
 
 TARGET_FPS = 8  # output frames per second
 FRAME_SAMPLE_STEP = 1  # keep every Nth source frame (overrides TARGET_FPS when > 1)
 FAST_PLAYBACK = False  # True: sampled frames keep source frame duration (speeds up animation)
 RESPECT_TARGET_FPS = True  # In FAST_PLAYBACK mode, drop extra sampled frames to match TARGET_FPS without increasing duration
 BOARD_MODE = False  # When True: skip all transparency/crop/border - just resample FPS and convert to WebP
-VALUE_SCALE = 16.0  # scales HSV V per pixel before gamma mapping
-ALPHA_GAMMA = 4.0  # lower values push more pixels toward opacity
-ALPHA_SCALE = 4.0  # >1.0 boosts alpha, <1.0 reduces alpha
-SATURATION_SCALE = 2.0  # >1.0 boosts color saturation, 1.0 = no change
+VALUE_SCALE = 8.0  # scales HSV V per pixel before gamma mapping
+ALPHA_GAMMA = 16.0  # lower values push more pixels toward opacity
+ALPHA_SCALE = 1.0  # >1.0 boosts alpha, <1.0 reduces alpha
+SATURATION_SCALE = 1.0  # >1.0 boosts color saturation, 1.0 = no change
 
 # --- Border mode ---
 # When True, draws a solid-color outline around the visible content in each frame.
@@ -33,7 +33,7 @@ BORDER_COLOR = (0, 0, 0, 255)  # RGBA - black by default
 # resizing. Ideal for icon animations recorded on a black background.
 CROP_MODE = True
 CROP_PADDING = 0        # extra pixels added on every side of the detected bounds
-BLACK_THRESHOLD = 3     # HSV V values (0-255) at or below this count as "black"
+BLACK_THRESHOLD = 0     # HSV V values (0-255) at or below this count as "black"
 OUTPUT_SIZE = (60, 60)
 
 # --- Preserve-interior mode ---
