@@ -40,6 +40,8 @@ $bestOf = 1;
 $convertible = false;
 $convertRequestedByMe = false;
 $convertRequestedByOpp = false;
+$rematchRequestedByMe = false;
+$rematchRequestedByOpp = false;
 
 if (is_array($m)) {
     // A rematch spawned a NEW match — steer this finished game into it (GA stores the pointer on the
@@ -60,6 +62,7 @@ if (is_array($m)) {
                 'sideboardPending' => $sideboardPending, 'nextGameName' => $nextGameName,
                 'matchWinner' => 0, 'seriesOver' => false, 'wins' => $newM['wins'] ?? null,
                 'convertible' => false, 'convertRequestedByMe' => false, 'convertRequestedByOpp' => false,
+                'rematchRequestedByMe' => false, 'rematchRequestedByOpp' => false,
             ]);
             exit;
         }
@@ -81,6 +84,8 @@ if (is_array($m)) {
     $opp = ($seat === 1) ? 2 : 1;
     $convertRequestedByMe  = !empty($m['convertRequests'][strval($seat)]);
     $convertRequestedByOpp = !empty($m['convertRequests'][strval($opp)]);
+    $rematchRequestedByMe  = !empty($m['rematchRequests'][strval($seat)]);
+    $rematchRequestedByOpp = !empty($m['rematchRequests'][strval($opp)]);
 }
 
 echo json_encode([
@@ -98,4 +103,6 @@ echo json_encode([
     'convertible'          => $convertible,
     'convertRequestedByMe' => $convertRequestedByMe,
     'convertRequestedByOpp'=> $convertRequestedByOpp,
+    'rematchRequestedByMe' => $rematchRequestedByMe,
+    'rematchRequestedByOpp'=> $rematchRequestedByOpp,
 ]);

@@ -156,14 +156,52 @@ function GAMaybeSpawnAfterSideboard($matchId) {
 // GA keeps NO pointer files (unlike SWUSim): a rematch spawns a brand-new match, and the OLD match
 // records `rematchInto` (the new matchId) so the finished game's EndGameInfo can steer players into it.
 
+function GAAppendMatchChatNotice($gameName, $message) {
+    $gameName = strval($gameName);
+    $message = trim(strval($message));
+    if ($gameName === '' || $message === '') return;
+    if (!function_exists('apcu_enabled') || !apcu_enabled()) return;
+    if (!function_exists('GetChatMessagesCacheKey') || !function_exists('IncrementChatUpdateVersion')) return;
+
+    $cacheKey = GetChatMessagesCacheKey($gameName);
+    $existing = apcu_fetch($cacheKey);
+    $messages = is_array($existing) ? $existing : [];
+    $last = empty($messages) ? null : end($messages);
+    $nextId = intval(is_array($last) ? ($last['id'] ?? 0) : 0) + 1;
+    $messages[] = [
+        'id' => $nextId,
+        'playerID' => 'S',
+        'playerLabel' => 'Match',
+        'text' => $message,
+        'time' => time(),
+    ];
+    if (count($messages) > 100) $messages = array_slice($messages, -100);
+    apcu_store($cacheKey, $messages, 3600);
+    IncrementChatUpdateVersion($gameName);
+}
+
 // Record one seat's rematch request on the finished match (mutual handshake).
 function GARequestRematch($oldMatchId, $seat, $bestOf, $sideboard) {
-    return GAWithMatchLock($oldMatchId, function (&$m) use ($seat, $bestOf, $sideboard) {
+    $seat = intval($seat);
+    $bestOf = (intval($bestOf) === 3) ? 3 : 1;
+    $sideboard = (bool)$sideboard;
+    $noticeGame = '';
+    $noticeMessage = '';
+    $result = GAWithMatchLock($oldMatchId, function (&$m) use ($seat, $bestOf, $sideboard, &$noticeGame, &$noticeMessage) {
         if (($m['state'] ?? '') !== 'complete') return;
         if ($seat !== 1 && $seat !== 2) return;
+        $s = strval($seat);
+        $request = ['bestOf' => $bestOf, 'sideboard' => $sideboard];
         if (!isset($m['rematchRequests'])) $m['rematchRequests'] = [];
-        $m['rematchRequests'][strval($seat)] = ['bestOf' => (intval($bestOf) === 3 ? 3 : 1), 'sideboard' => (bool)$sideboard];
+        $existing = $m['rematchRequests'][$s] ?? null;
+        if ($existing !== $request && !empty($m['games'])) {
+            $noticeGame = strval($m['games'][count($m['games']) - 1]['gameName'] ?? '');
+            $noticeMessage = 'Player ' . $seat . ' requested a rematch.';
+        }
+        $m['rematchRequests'][$s] = $request;
     });
+    if ($noticeGame !== '' && $noticeMessage !== '') GAAppendMatchChatNotice($noticeGame, $noticeMessage);
+    return $result;
 }
 
 // When both seats agree on bestOf, create a new match (same decks/authkeys) and point the old one at it.

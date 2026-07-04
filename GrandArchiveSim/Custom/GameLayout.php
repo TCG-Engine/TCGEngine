@@ -1740,7 +1740,7 @@
      // Game-over screen for match games (only match games carry a MatchId in their gamestate). The native
      // game-over trigger in NextTurn.php calls window.GAShowEndGameMenu (the way it calls SWUShowEndGameMenu
      // for SWUSim) with the pre-built card-activity matrix, so ONE overlay carries the matrix + Save Replay
-     // + our nav buttons: Return to Main Menu, Quick Rematch, Rematch, Convert to Best of 3, Report Bug —
+     // + our nav buttons: Return to Main Menu, Rematch, Convert to Best of 3, Report Bug —
      // plus "Go to Next Game" for mid-series/sideboard states. We then poll EndGameInfo and rebuild the
      // overlay (KEEPING the matrix) only when the match state changes (opponent confirms a convert, or a
      // rematch spawns). GA-local — no Core/ edit; ShowGameOver/SubmitInput/openBugReportModal/
@@ -1768,6 +1768,18 @@
                          + '&folderPath=GrandArchiveSim';
                }
           }
+          function gaSubmitRematch(bo){
+               var btn = document.getElementById('ga-rematch-btn');
+               if (btn) { btn.textContent = 'Rematch Requested'; btn.disabled = true; }
+               if (typeof SubmitEngineInput === 'function') {
+                    SubmitEngineInput('10013', '&inputText=' + encodeURIComponent(bo), {responseFormat:'json'})
+                         .then(function(){ gaCheckMatchEnd(true); })
+                         .catch(function(){ gaCheckMatchEnd(true); });
+               } else {
+                    SubmitInput('10013', '&inputText=' + encodeURIComponent(bo));
+                    setTimeout(function(){ gaCheckMatchEnd(true); }, 500);
+               }
+          }
           function gaBuildButtons(info){
                var b = [];
                if (info.sideboardPending || info.nextGameName) {   // series continues → advance to the next game
@@ -1778,9 +1790,15 @@
                }
                if (info.seriesOver) {                              // Bo1 done (or Bo3 decided) → rematch options
                     var bo = (info.bestOf === 3) ? 3 : 1;
+                    var rematchLabel = 'Rematch', rematchDisabled = false;
+                    if (info.rematchRequestedByMe && !info.rematchRequestedByOpp) {
+                         rematchLabel = 'Rematch Requested';
+                         rematchDisabled = true;
+                    } else if (info.rematchRequestedByOpp && !info.rematchRequestedByMe) {
+                         rematchLabel = 'Accept Rematch';
+                    }
                     b.push({label:'Return to Main Menu', onClick: gaGoMenu});
-                    b.push({label:'Quick Rematch', onClick:function(){ SubmitInput('10013','&inputText=' + bo); }});
-                    b.push({label:'Rematch', onClick:function(){ SubmitInput('10016','&inputText=' + bo); }});
+                    b.push({id:'ga-rematch-btn', label: rematchLabel, disabled: rematchDisabled, onClick:function(){ gaSubmitRematch(bo); }});
                     if (info.convertible) {
                          var lbl = 'Convert to Best of 3', dis = false;
                          if (info.convertRequestedByMe && !info.convertRequestedByOpp) { lbl = 'Waiting on opponent…'; dis = true; }
@@ -1809,7 +1827,8 @@
                     .then(function(info) {
                          if (!info || !info.gameWinner) return;   // game not over yet
                          var sig = [info.sideboardPending, info.nextGameName, info.seriesOver, info.convertible,
-                                    info.convertRequestedByMe, info.convertRequestedByOpp].join('|');
+                                    info.convertRequestedByMe, info.convertRequestedByOpp,
+                                    info.rematchRequestedByMe, info.rematchRequestedByOpp].join('|');
                          if (sig === lastSig && !force) return;   // no change → leave the current overlay be
                          lastSig = sig;
                          gaRenderOverlay(info);
