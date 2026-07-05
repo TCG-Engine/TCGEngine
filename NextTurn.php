@@ -362,8 +362,11 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           var isAzukiPhone = <?php echo ($folderPath === 'AzukiSim' ? 'true' : 'false'); ?> &&
             (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|webOS|Opera Mini|IEMobile/i.test(navigator.userAgent)
               || /[?&]azukiLayout=mobile/.test(location.search));
-          var mobileColumns = isSWUDeckPhone ? 4 : (isAzukiPhone ? 6 : 7);
-          var maxCardSize = isSWUDeckPhone ? 120 : (isAzukiPhone ? 62 : 80);
+          var isGrandArchivePhone = <?php echo ($folderPath === 'GrandArchiveSim' ? 'true' : 'false'); ?> &&
+            (/iPhone|iPod|Android.*Mobile|Windows Phone|BlackBerry|webOS|Opera Mini|IEMobile/i.test(navigator.userAgent)
+              || /[?&](gaLayout|grandArchiveLayout)=mobile/.test(location.search));
+          var mobileColumns = isSWUDeckPhone ? 4 : ((isAzukiPhone || isGrandArchivePhone) ? 6 : 7);
+          var maxCardSize = isSWUDeckPhone ? 120 : ((isAzukiPhone || isGrandArchivePhone) ? 62 : 80);
           var rowPadding = 24; // account for wrapper padding and edge spacing
           var perCardHorizontalSpacing = 4; // two 1px margins + buffer for layout rounding
           var calculatedSize = Math.floor((viewportWidth - rowPadding - (mobileColumns * perCardHorizontalSpacing)) / mobileColumns);

@@ -7,6 +7,8 @@
 // Naming convention:
 //   Player-scoped zones: my{BindTo} and their{BindTo}
 //   Global zones:        {BindTo}  (no prefix)
+require_once __DIR__ . '/GameLayoutDevice.php';
+if (GrandArchiveSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return; }
 ?>
 <style>
      :root {
