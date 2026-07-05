@@ -34,8 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   SubmitBugReportRespond(405, ['error' => 'Method not allowed. Use POST.']);
 }
 
-if (!isset($bugReportApiKey) || trim($bugReportApiKey) === '' || !isset($bugReportApiUrl) || trim($bugReportApiUrl) === '') {
-  SubmitBugReportRespond(500, ['error' => 'Bug report forwarding is not configured.']);
+$isDevEnv = getenv('DEVENV') === 'true';
+
+if (!isset($bugReportApiUrl) || trim($bugReportApiUrl) === '') {
+  SubmitBugReportRespond(500, ['error' => 'Bug report forwarding is not configured (missing URL).']);
+}
+
+// The API key is required in prod, but ignored under DEVENV so a local intake can
+// accept reports without a shared secret.
+if (!$isDevEnv && (!isset($bugReportApiKey) || trim($bugReportApiKey) === '')) {
+  SubmitBugReportRespond(500, ['error' => 'Bug report forwarding is not configured (missing API key).']);
 }
 
 $body = json_decode(file_get_contents('php://input'), true);
@@ -144,7 +152,7 @@ curl_setopt_array($ch, [
   CURLOPT_POSTFIELDS => json_encode($payload),
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_HTTPHEADER => [
-    'X-API-Key: ' . $bugReportApiKey,
+    'X-API-Key: ' . ($bugReportApiKey ?? ''),
     'Content-Type: application/json',
   ],
 ]);
