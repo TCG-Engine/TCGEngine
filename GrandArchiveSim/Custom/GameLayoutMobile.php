@@ -98,15 +98,16 @@
      .ga-m-label,
      .ga-m-pile-label {
           color: rgba(200, 155, 70, 0.88);
-          font: 700 7px/1 var(--ga-font-label);
-          letter-spacing: 0.1em;
+          font: 700 8px/1 var(--ga-font-label);
+          letter-spacing: 0.09em;
           text-transform: uppercase;
           white-space: nowrap;
      }
 
      .ga-m-label {
           flex: 0 0 auto;
-          margin: 0 0 3px;
+          margin: 0 0 4px;
+          font-size: 9px;
      }
 
      .ga-m-pile,
@@ -206,7 +207,7 @@
      .ga-m-center-strip {
           position: relative;
           display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(96px, 1.2fr) minmax(0, 1fr);
+          grid-template-columns: minmax(0, 1fr) minmax(128px, 1.05fr) minmax(0, 1fr);
           align-items: center;
           gap: 5px;
           padding: 4px 6px;
@@ -218,10 +219,61 @@
           position: absolute;
           left: 8px;
           right: 8px;
-          top: 50%;
+          top: 34%;
           height: 1px;
           background: linear-gradient(90deg, transparent, rgba(200, 155, 70, 0.48), transparent);
           pointer-events: none;
+     }
+
+     .ga-phase-track {
+          position: absolute;
+          left: 50%;
+          top: calc(50% - 1px);
+          transform: translateX(-50%);
+          z-index: 2;
+          pointer-events: none;
+          width: min(342px, calc(100% - 48px));
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 7px;
+          color: rgba(244, 236, 219, 0.56);
+          font: 700 9px/1 var(--ga-font-label);
+          letter-spacing: 0.055em;
+          text-align: center;
+          text-shadow: 0 1px 8px rgba(7, 14, 20, 0.62);
+          text-transform: uppercase;
+          white-space: nowrap;
+     }
+
+     .ga-phase-step {
+          position: relative;
+          padding: 0 1px;
+          opacity: 0.72;
+          transition: color 140ms ease, opacity 140ms ease, text-shadow 140ms ease;
+     }
+
+     .ga-phase-step::before {
+          content: "";
+          position: absolute;
+          left: -5px;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 2px;
+          height: 2px;
+          border-radius: 50%;
+          background: rgba(244, 236, 219, 0.36);
+          box-shadow: 0 0 7px rgba(244, 236, 219, 0.28);
+     }
+
+     .ga-phase-step:first-child::before {
+          display: none;
+     }
+
+     .ga-phase-step.is-active {
+          color: rgba(252, 238, 171, 0.98);
+          opacity: 1;
+          text-shadow: 0 0 14px rgba(252, 221, 120, 0.72), 0 0 24px rgba(200, 155, 70, 0.56);
      }
 
      #myFieldSlot,
@@ -239,6 +291,11 @@
      }
 
      #EffectStackSlot {
+          position: absolute !important;
+          top: 4px;
+          right: 6px;
+          width: 64px;
+          height: 50px;
           z-index: 3;
           min-height: 44px;
           max-height: 50px;
@@ -250,6 +307,14 @@
      #theirIntentSlot {
           min-height: 42px;
           max-height: 50px;
+     }
+
+     #theirIntentSlot {
+          grid-column: 1;
+     }
+
+     #myIntentSlot {
+          grid-column: 3;
      }
 
      #myFieldSlot,
@@ -406,6 +471,59 @@
      #gaMobileRoot [data-counter-field],
      #gaMobileRoot img.counter-image-icon {
           zoom: 0.72;
+     }
+
+     #turn-miasma-overlay {
+          z-index: 1200 !important;
+          pointer-events: none !important;
+     }
+
+     #turn-miasma-overlay .turn-edge-glyph {
+          top: calc(50% - 32px) !important;
+          width: 18px !important;
+          height: 58px !important;
+          opacity: 0.7;
+     }
+
+     #turn-edge-glyph-left {
+          left: 2px !important;
+          right: auto !important;
+     }
+
+     #turn-edge-glyph-right {
+          right: 2px !important;
+          left: auto !important;
+     }
+
+     #turn-miasma-overlay .turn-edge-glyph::before,
+     #turn-miasma-overlay .turn-edge-glyph::after {
+          width: 4px !important;
+          border-radius: 999px !important;
+          transform: translateX(-50%) !important;
+     }
+
+     #turn-miasma-overlay .turn-edge-glyph::before {
+          clip-path: none !important;
+          top: 8px !important;
+     }
+
+     #turn-miasma-overlay .turn-edge-glyph::after {
+          bottom: 8px !important;
+          clip-path: none !important;
+     }
+
+     #turn-miasma-overlay .turn-edge-core {
+          width: 14px !important;
+          height: 14px !important;
+          box-shadow: 0 0 12px currentColor, 0 0 20px currentColor !important;
+     }
+
+     #turn-miasma-message {
+          max-width: calc(100vw - 24px) !important;
+          border-radius: 10px !important;
+          font-size: 12px !important;
+          line-height: 1.2 !important;
+          padding: 8px 10px !important;
      }
 
      #myHealth,
@@ -666,6 +784,15 @@
                padding-bottom: 2px;
           }
 
+          .ga-m-label {
+               font-size: 8px;
+               margin-bottom: 3px;
+          }
+
+          .ga-m-pile-label {
+               font-size: 7px;
+          }
+
           .ga-m-pile,
           .ga-m-pass,
           .ga-m-hand-summary {
@@ -676,6 +803,18 @@
           #theirIntentSlot,
           #EffectStackSlot {
                max-height: 42px;
+          }
+
+          .ga-phase-track {
+               width: calc(100% - 50px);
+               gap: 4px;
+               font-size: 7px;
+               letter-spacing: 0.04em;
+          }
+
+          #turn-miasma-overlay .turn-edge-glyph {
+               top: calc(50% - 28px) !important;
+               height: 48px !important;
           }
      }
 </style>
@@ -713,6 +852,14 @@
 
      <div class="ga-m-center-strip">
           <div id="theirIntentSlot" class="ga-zone" data-label="Their Intent"></div>
+          <div id="gaPhaseTrack" class="ga-phase-track" aria-live="polite" aria-label="Turn phases">
+               <span class="ga-phase-step" data-phase-step="WU">Wake Up</span>
+               <span class="ga-phase-step" data-phase-step="MAT">Materialize</span>
+               <span class="ga-phase-step" data-phase-step="RECOLLECTION">Recollect</span>
+               <span class="ga-phase-step" data-phase-step="DRAW">Draw</span>
+               <span class="ga-phase-step" data-phase-step="MAIN">Main</span>
+               <span class="ga-phase-step" data-phase-step="END">End</span>
+          </div>
           <div id="EffectStackSlot" class="ga-zone" data-label="Effect Stack"></div>
           <div id="myIntentSlot" class="ga-zone" data-label="My Intent"></div>
      </div>
@@ -928,6 +1075,44 @@
                .observe(el, { childList: true, subtree: true });
      }
 
+     var PHASE_ALIASES = {
+          WU: 'WU',
+          WAKEUP: 'WU',
+          MAT: 'MAT',
+          MATERIALIZE: 'MAT',
+          BREC: 'RECOLLECTION',
+          REC: 'RECOLLECTION',
+          RECOLLECTION: 'RECOLLECTION',
+          DRAW: 'DRAW',
+          MAIN: 'MAIN',
+          BEND: 'END',
+          BEOP: 'END',
+          END: 'END'
+     };
+
+     function normalizePhaseStep(rawPhase) {
+          var value = (rawPhase || '').toString().trim();
+          if (value === '' || value === '-') return '';
+          var key = value.toUpperCase();
+          return PHASE_ALIASES[key] || '';
+     }
+
+     function updatePhaseTrack() {
+          var track = document.getElementById('gaPhaseTrack');
+          if (!track) return;
+          var raw = (typeof window.CurrentPhaseData === 'string') ? window.CurrentPhaseData : '';
+          var normalized = normalizePhaseStep(raw);
+          track.setAttribute('data-raw-phase', raw || '-');
+          var steps = track.querySelectorAll('[data-phase-step]');
+          for (var i = 0; i < steps.length; ++i) {
+               var step = steps[i];
+               var isActive = step.getAttribute('data-phase-step') === normalized;
+               step.classList.toggle('is-active', isActive);
+               if (isActive) step.setAttribute('aria-current', 'step');
+               else step.removeAttribute('aria-current');
+          }
+     }
+
      function parseZoneCount(dataKey) {
           var raw = window[dataKey];
           if (!raw || typeof raw !== 'string') return 0;
@@ -1131,15 +1316,24 @@
      EMPTY_STATE_IDS.forEach(watchEmptyState);
      setupAdminMenu();
      setupShortcutPanel();
+     updatePhaseTrack();
      renderOpponentHandSummary();
      watchEmptyState('theirHandSlot');
      if (window.MutationObserver) {
+          var globalStuff = document.getElementById('globalStuff');
+          if (globalStuff) {
+               new MutationObserver(updatePhaseTrack)
+                    .observe(globalStuff, { childList: true, subtree: true, characterData: true });
+          }
           var theirHand = document.getElementById('theirHandSlot');
           if (theirHand) {
                new MutationObserver(renderOpponentHandSummary)
                     .observe(theirHand, { childList: true, subtree: true, characterData: true });
           }
      }
-     window.setInterval(renderOpponentHandSummary, 400);
+     window.setInterval(function() {
+          updatePhaseTrack();
+          renderOpponentHandSummary();
+     }, 400);
 })();
 </script>
