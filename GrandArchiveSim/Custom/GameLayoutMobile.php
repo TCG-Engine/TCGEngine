@@ -399,15 +399,52 @@
 
      #myField,
      #theirField {
+          --ga-field-card-size: 96px;
+          --ga-field-columns: 1;
+          --ga-field-gap-x: 6px;
+          --ga-field-gap-y: 6px;
           width: 100%;
           height: 100%;
-          display: flex !important;
-          flex-wrap: wrap !important;
-          align-content: center !important;
+          display: grid !important;
+          grid-template-columns: repeat(var(--ga-field-columns), var(--ga-field-card-size));
+          grid-auto-rows: var(--ga-field-card-size);
+          place-content: center !important;
+          justify-items: center !important;
           align-items: center !important;
-          justify-content: center !important;
-          gap: 2px;
+          gap: var(--ga-field-gap-y) var(--ga-field-gap-x);
+          padding: 3px;
           overflow: hidden;
+     }
+
+     #myField > [id^="myField-"],
+     #theirField > [id^="theirField-"] {
+          width: var(--ga-field-card-size) !important;
+          height: var(--ga-field-card-size) !important;
+          margin: 0 !important;
+          display: flex !important;
+          align-items: center;
+          justify-content: center;
+          position: relative !important;
+          max-width: 100%;
+          max-height: 100%;
+     }
+
+     #myField > [id^="myField-"] > a,
+     #theirField > [id^="theirField-"] > a {
+          width: 100% !important;
+          height: 100% !important;
+          margin: 0 !important;
+          display: block !important;
+     }
+
+     #myField > [id^="myField-"] > a > img:not(.counter-image-icon),
+     #theirField > [id^="theirField-"] > a > img:not(.counter-image-icon) {
+          display: block !important;
+          width: 100% !important;
+          height: 100% !important;
+          max-width: 100% !important;
+          max-height: 100% !important;
+          object-fit: contain;
      }
 
      #myHand,
@@ -1059,6 +1096,117 @@
           slot.classList.toggle('ga-m-empty', !hasCards(slot));
      }
 
+     function getMobileFieldCards(field) {
+          if (!field) return [];
+          return Array.prototype.filter.call(field.children, function(child) {
+               return !!(child && child.id && /^(myField|theirField)-\d+$/.test(child.id) && child.querySelector('a > img:not(.counter-image-icon)'));
+          });
+     }
+
+     function maxMobileFieldCardSize(count) {
+          if (count <= 1) return 112;
+          if (count <= 2) return 104;
+          if (count <= 3) return 94;
+          if (count <= 4) return 90;
+          if (count <= 6) return 80;
+          if (count <= 9) return 70;
+          if (count <= 12) return 62;
+          return 54;
+     }
+
+     function mobileFieldGap(count) {
+          if (count <= 2) return 8;
+          if (count <= 6) return 6;
+          return 4;
+     }
+
+     function preferredMobileFieldColumns(count) {
+          if (count <= 1) return 1;
+          if (count <= 3) return count;
+          if (count <= 4) return 2;
+          if (count <= 9) return 3;
+          if (count <= 12) return 4;
+          return Math.max(4, Math.ceil(Math.sqrt(count * 1.35)));
+     }
+
+     function chooseMobileFieldLayout(count, width, height) {
+          var gap = mobileFieldGap(count);
+          var maxSize = maxMobileFieldCardSize(count);
+          var minSize = 36;
+          var preferredCols = preferredMobileFieldColumns(count);
+          var best = { cols: Math.max(1, Math.min(count, preferredCols)), rows: 1, size: minSize, score: -1 };
+
+          for (var cols = 1; cols <= count; ++cols) {
+               var rows = Math.ceil(count / cols);
+               var sizeFromWidth = (width - gap * (cols - 1)) / cols;
+               var sizeFromHeight = (height - gap * (rows - 1)) / rows;
+               var size = Math.floor(Math.min(maxSize, sizeFromWidth, sizeFromHeight));
+               if (!Number.isFinite(size)) size = minSize;
+               size = Math.max(minSize, size);
+
+               var score = size * 100;
+               score -= Math.abs(cols - preferredCols) * 6;
+               score -= Math.abs((cols / rows) - (width / Math.max(height, 1))) * 2;
+               if (count <= 3 && rows === 1) score += 40;
+               if (count === 4 && cols === 2) score += 45;
+               if (count >= 5 && count <= 6 && cols === 3) score += 35;
+               if (count >= 7 && count <= 9 && cols === 3) score += 35;
+               if (count >= 10 && count <= 12 && cols === 4) score += 35;
+
+               if (score > best.score) {
+                    best = { cols: cols, rows: rows, size: size, score: score };
+               }
+          }
+
+          return {
+               cols: Math.max(1, Math.min(count, best.cols)),
+               rows: Math.max(1, best.rows),
+               size: best.size,
+               gap: gap
+          };
+     }
+
+     function refreshMobileFieldLayout(slotID) {
+          var slot = document.getElementById(slotID);
+          if (!slot) return;
+          var fieldID = slotID === 'myFieldSlot' ? 'myField' : 'theirField';
+          var field = document.getElementById(fieldID);
+          if (!field) return;
+
+          var cards = getMobileFieldCards(field);
+          var count = cards.length;
+          slot.setAttribute('data-card-count', String(count));
+          field.setAttribute('data-card-count', String(count));
+          if (count === 0) {
+               field.style.setProperty('--ga-field-columns', '1');
+               field.style.setProperty('--ga-field-card-size', '72px');
+               field.style.setProperty('--ga-field-gap-x', '4px');
+               field.style.setProperty('--ga-field-gap-y', '4px');
+               field.removeAttribute('data-field-layout');
+               return;
+          }
+
+          var rect = field.getBoundingClientRect();
+          var usableWidth = Math.max(1, rect.width - 8);
+          var usableHeight = Math.max(1, rect.height - 8);
+          var layout = chooseMobileFieldLayout(count, usableWidth, usableHeight);
+          field.style.setProperty('--ga-field-columns', String(layout.cols));
+          field.style.setProperty('--ga-field-card-size', layout.size + 'px');
+          field.style.setProperty('--ga-field-gap-x', layout.gap + 'px');
+          field.style.setProperty('--ga-field-gap-y', layout.gap + 'px');
+          field.setAttribute('data-field-layout', layout.cols + 'x' + layout.rows);
+     }
+
+     var fieldLayoutFrame = null;
+     function refreshMobileFieldLayouts() {
+          if (fieldLayoutFrame !== null) return;
+          fieldLayoutFrame = window.requestAnimationFrame(function() {
+               fieldLayoutFrame = null;
+               refreshMobileFieldLayout('theirFieldSlot');
+               refreshMobileFieldLayout('myFieldSlot');
+          });
+     }
+
      function watchSlot(id) {
           var el = document.getElementById(id);
           if (!el || !window.MutationObserver) return;
@@ -1072,6 +1220,15 @@
           if (!el || !window.MutationObserver) return;
           refreshEmptyState(el);
           new MutationObserver(function() { refreshEmptyState(el); })
+               .observe(el, { childList: true, subtree: true });
+     }
+
+     function watchMobileFieldLayout(id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          refreshMobileFieldLayouts();
+          if (!window.MutationObserver) return;
+          new MutationObserver(refreshMobileFieldLayouts)
                .observe(el, { childList: true, subtree: true });
      }
 
@@ -1314,9 +1471,12 @@
 
      AUTO_HIDE_IDS.forEach(watchSlot);
      EMPTY_STATE_IDS.forEach(watchEmptyState);
+     watchMobileFieldLayout('theirFieldSlot');
+     watchMobileFieldLayout('myFieldSlot');
      setupAdminMenu();
      setupShortcutPanel();
      updatePhaseTrack();
+     refreshMobileFieldLayouts();
      renderOpponentHandSummary();
      watchEmptyState('theirHandSlot');
      if (window.MutationObserver) {
@@ -1331,8 +1491,13 @@
                     .observe(theirHand, { childList: true, subtree: true, characterData: true });
           }
      }
+     window.addEventListener('resize', refreshMobileFieldLayouts);
+     if (window.visualViewport && typeof window.visualViewport.addEventListener === 'function') {
+          window.visualViewport.addEventListener('resize', refreshMobileFieldLayouts);
+     }
      window.setInterval(function() {
           updatePhaseTrack();
+          refreshMobileFieldLayouts();
           renderOpponentHandSummary();
      }, 400);
 })();
