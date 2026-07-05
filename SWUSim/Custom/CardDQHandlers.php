@@ -14397,7 +14397,11 @@ $whenPlayedAbilities["SEC_069:0"] = function($player, $mzID) {
     $host = GetZoneObject($mzID);
     if ($host === null || !empty($host->removed)) return;
     $arena = $host->Location ?? 'GroundArena';   // 'GroundArena' | 'SpaceArena'
-    $targets = array_values(array_merge(ZoneSearch('my' . $arena, AnyUnitFilter), ZoneSearch('their' . $arena, AnyUnitFilter)));
+    $inArena = array_merge(ZoneSearch('my' . $arena, AnyUnitFilter), ZoneSearch('their' . $arena, AnyUnitFilter));
+    // Only READY units can be exhausted — an already-exhausted unit is not a valid target, so it must
+    // not be offered (else the "may exhaust" prompt fires with nothing meaningful to do). No ready unit
+    // in the arena → auto-pass.
+    $targets = array_values(array_filter($inArena, fn($mz) => intval(GetZoneObject($mz)->Status ?? 0) === 1));
     if (empty($targets)) return;
     SWUQueueMayChooseTarget(intval($player), $targets, "Exhaust_a_unit_in_attached_unit's_arena?", "Choose_a_unit", "EXHAUST_UNIT");
 };
