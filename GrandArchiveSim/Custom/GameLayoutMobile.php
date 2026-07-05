@@ -510,6 +510,10 @@
           zoom: 0.72;
      }
 
+     #gaMobileRoot [data-counter-field] img.counter-image-icon {
+          zoom: 1;
+     }
+
      #turn-miasma-overlay {
           z-index: 1200 !important;
           pointer-events: none !important;

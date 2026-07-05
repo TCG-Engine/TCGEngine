@@ -16,7 +16,7 @@ if (session_status() === PHP_SESSION_NONE) session_start();
       crossorigin="anonymous"></script>
     <script src="./Core/StyledDialog.js?v=<?php echo filemtime('./Core/StyledDialog.js'); ?>"></script>
     <script src="./Core/UILibraries20260703.js?v=<?php echo filemtime('./Core/UILibraries20260703.js'); ?>"></script>
-    <script src="./Core/CounterRendering.js"></script>
+    <script src="./Core/CounterRendering.js?v=<?php echo filemtime('./Core/CounterRendering.js'); ?>"></script>
     <script src="./Core/MZRearrangePopup.js"></script>
     <script src="./Core/MZSplitAssignUI.js"></script>
     <script src="./Core/MZMultiChooseUI.js"></script>

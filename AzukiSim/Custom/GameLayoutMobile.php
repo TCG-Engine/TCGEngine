@@ -491,6 +491,10 @@
         zoom: 0.72;
     }
 
+    #azukiMobileRoot [data-counter-field] img.counter-image-icon {
+        zoom: 1;
+    }
+
     .azuki-m-hidden-bindings {
         position: fixed;
         left: -10000px;

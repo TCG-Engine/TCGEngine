@@ -443,6 +443,14 @@ function getCounterClusterOffset(slotIndex, total, spacingPx) {
   return { x: Math.cos(angle) * radius, y: Math.sin(angle) * radius };
 }
 
+function counterTextStyle(fontSizePx) {
+  return "box-sizing:border-box; padding:0; text-align:center; line-height:1; font-weight:700; font-family: Orbitron, sans-serif; font-size:" + fontSizePx + "px; font-variant-numeric:tabular-nums;";
+}
+
+function counterCenteredTextStyle(fontSizePx) {
+  return "display:flex; align-items:center; justify-content:center; " + counterTextStyle(fontSizePx);
+}
+
 function shouldRenderSchemaVisualBySetting(ruleOrParams) {
   var params = (ruleOrParams && ruleOrParams.params) ? ruleOrParams.params : ruleOrParams;
   if (!params || typeof params !== 'object') return true;
@@ -639,22 +647,22 @@ function CreateCountersHTML(zoneName, cardArr, id) {
           html += "<div data-counter-field='" + field + "' data-counter-mode='cardids' data-card-ids='" + cardIdsJson + "' ";
           html += "class='counter-badge-cardids' ";
           html += "onmouseenter='showCardIdsBadgePopup(this, event)' onmouseleave='hideCardIdsBadgePopup(this)' ";
-          html += "style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6); cursor:pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" + opacityStyle + "'>" + displayValue + "</div>";
+          html += "style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6); cursor:pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" + opacityStyle + "'>" + displayValue + "</div>";
         } else {
           // Standard badge
-          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);" + opacityStyle + "'>" + displayValue + "</div>";
+          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);" + opacityStyle + "'>" + displayValue + "</div>";
         }
       } else if (type.toLowerCase() === 'icon') {
         // If an icon name is provided as positional param, use it as img src fallback
         var icon = params.Icon || (params[0] ? params[0] : null);
         if (icon) {
-          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + ";'>";
+          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " " + counterCenteredTextStyle(12) + " color:" + textColor + ";'>";
           html += "<img src='./Images/" + icon + ".png' style='width:" + sizePx + "px; height:" + sizePx + "px; object-fit:contain; filter: drop-shadow(0 0 3px rgba(0,0,0,0.6));'/>";
-          html += "<div style='position:absolute; font-size:11px; font-weight:700; color:" + textColor + "; margin-top:12px; text-shadow: 0 0 3px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
+          html += "<div style='position:absolute; " + counterTextStyle(11) + " color:" + textColor + "; margin-top:12px; text-shadow: 0 0 3px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
           html += "</div>";
         } else {
           // fallback to badge
-          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
+          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
         }
       } else if (type.toLowerCase() === 'image') {
         var imagePath = params.Path || params.Image || (params[0] ? params[0] : null);
@@ -670,16 +678,16 @@ function CreateCountersHTML(zoneName, cardArr, id) {
           html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + imageSize + "px; height:" + imageSize + "px; pointer-events:none;" + imageBackgroundStyle + "'>";
           html += "<img class='counter-image-icon' src='./" + imagePath + "' style='width:" + imageSize + "px; height:" + imageSize + "px; object-fit:contain; filter: drop-shadow(0 0 3px rgba(0,0,0,0.75));'/>";
           if (params.TextColor) {
-            html += "<div style='position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; text-shadow: 0 0 3px rgba(0,0,0,0.95), 0 0 6px rgba(0,0,0,0.95);'>" + displayValue + "</div>";
+            html += "<div style='position:absolute; inset:0; " + counterCenteredTextStyle(12) + " color:" + textColor + "; text-shadow: 0 0 3px rgba(0,0,0,0.95), 0 0 6px rgba(0,0,0,0.95);'>" + displayValue + "</div>";
           }
           html += "</div>";
         } else {
           // fallback to badge when no path is provided
-          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
+          html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
         }
       } else {
         // unknown type -> render as badge
-        html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:700; font-family: Orbitron, sans-serif; font-size:12px; color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
+        html += "<div data-counter-field='" + field + "' style='position:absolute; z-index:1100; " + posStyle + " width:" + sizePx + "px; height:" + sizePx + "px; border-radius:50%; " + counterCenteredTextStyle(12) + " color:" + textColor + "; background:" + bg + "; box-shadow: 0 0 6px rgba(0,0,0,0.6);'>" + displayValue + "</div>";
       }
     }
     return html;
