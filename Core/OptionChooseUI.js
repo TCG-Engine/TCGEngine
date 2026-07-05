@@ -12,6 +12,9 @@
  *
  * Return value: the chosen option label as a string (e.g. "Ground").
  *
+ * Deprecated for new card-authoring. Prefer MZMODAL / await $player.Modal(...)
+ * for new finite labeled choices; keep this file for existing queued paths.
+ *
  * Usage (called from the decision dispatcher in UILibraries.js):
  *   ShowOptionChooseUI(paramString, tooltip, decisionIndex, submitCallback)
  */

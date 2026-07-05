@@ -4630,6 +4630,8 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       break;
     } else if (entry && entry.Type === 'OPTIONCHOOSE' && !entry.removed) {
       // OPTIONCHOOSE: pick one labeled option; submits the label verbatim.
+      // Deprecated for new card-authoring. Use MZMODAL / await $player.Modal(...)
+      // for new finite labeled choices.
       // Param format: "Opt1&Opt2[&...]" (e.g. "Ground&Space" — SOR_221 Outmaneuver)
       var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose an option';
 
@@ -4667,6 +4669,8 @@ function CheckAndShowDecisionQueue(decisionQueue) {
       break;
     } else if (entry && entry.Type === 'ICONCHOICE' && !entry.removed) {
       // ICONCHOICE: Compass-rose directional choice (Shifting Currents)
+      // Deprecated for new card-authoring. Use MZMODAL / await $player.Modal(...)
+      // unless the compass presentation is essential.
       // Param format: "OPT1&OPT2|CURRENT|CARDID"
       var tooltip = (entry.Tooltip && entry.Tooltip !== '-') ? entry.Tooltip.replace(/_/g, ' ') : 'Choose a direction';
 

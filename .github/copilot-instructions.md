@@ -155,6 +155,7 @@ So in the ability code, you have access to:
   - `await FunctionName($player, $args)` — call a function that queues decisions
   - `$var = await $player.Modal($min, $max, "label1&label2", "tooltip")` - choose labeled non-card modes; returns comma-separated 0-based option indexes
   - `$var = await $player.Rearrange($param)` - reorder/reassign revealed cards between named piles; returns the pile serialization
+  - `$var = await $player.NameCard($previewParam, "tooltip")` - choose/type a card name; pass `""` as `$previewParam` for an unrestricted name search
 
 **Critical await constraints:**
 The code generator supports inline `await` for player choices, including awaits nested inside `if`/`else`, `for`, and `while` blocks. Prefer this for card-local interactive flows instead of hand-writing one-off Decision Queue handlers.
@@ -217,10 +218,14 @@ For new card-local prompts, prefer these modern interactions:
 | Integer amount in a range | `NUMBERCHOOSE` | `await $player.NumberChoose($min, $max, "prompt")` | selected number as a string |
 | Numeric pool distributed among card targets | `MZSPLITASSIGN` | `await $player.MZSplitAssign($targetStr, $amount, "prompt")` | comma-separated `mzID:amount` pairs |
 | Reorder/reassign revealed cards between piles | `MZREARRANGE` | `await $player.Rearrange($param)` | pile serialization, e.g. `Top=a,b;Bottom=c` |
-| Split a count between exactly two outcomes | `TWOSIDEDSLIDER` | queue directly | selected left-side count |
-| One plain text option label | `OPTIONCHOOSE` | queue directly | selected label verbatim |
-| Name a card | `NAMECARD` | queue directly | selected card name |
-| Specialized icon/direction choice | `ICONCHOICE` | queue directly | selected option |
+| Type or choose a card name | `NAMECARD` | `await $player.NameCard($previewParam, "prompt")` | selected card name |
+
+`TWOSIDEDSLIDER` also exists as a specialized queued UI:
+- `TWOSIDEDSLIDER` is a specialized numeric split UI and is a good candidate for first-class await support if kept.
+
+`OPTIONCHOOSE` and `ICONCHOICE` are deprecated for new card-authoring:
+- `OPTIONCHOOSE` is largely a label-return predecessor to `MZMODAL`; keep existing direct-queue paths working, but use `MZMODAL` for new labeled mode choices.
+- `ICONCHOICE` is a specialized directional/icon picker; keep existing Shifting Currents-style paths working, but use `MZMODAL` for new icon/direction choices unless the visual compass presentation is essential.
 
 Older/specialized client decision types such as `TOPDECKSEARCH`, `SCRY`, `REVEALARRANGE`, and `CHOOSEZONE` exist for legacy or framework-specific flows. Do not reach for them in new saved ability code unless you are maintaining an existing path that already uses them.
 
@@ -254,6 +259,29 @@ if($modeChoice === "0") {
 } else if($modeChoice === "1") {
     Draw($player, 1);
 }
+```
+
+### NameCard - Card Name Input Pattern
+
+**Decision type:** `NAMECARD` - lets the player type/search for a card name, optionally constrained or previewed by a provided card set.
+
+**Await syntax:** `$var = await $player.NameCard($previewParam, "tooltip")`
+
+**Return value:** selected card name as a string.
+
+**When to use:** Use this for "name a card" effects. Do not model open card-name input as `MZMODAL`; `MZMODAL` is for a finite list of labeled modes.
+
+```php
+$namedCard = await $player.NameCard("", "Name_a_card");
+AddNamedCardEffect($player, $namedCard);
+```
+
+If the UI should show a constrained preview set, precompute the preview parameter before the await:
+
+```php
+$previewCards = implode("&", $candidateCardIDs);
+$previewParam = "Common_named_allies||" . $previewCards;
+$namedCard = await $player.NameCard($previewParam, "Name_an_ally");
 ```
 
 ### NumberChoose - Numeric Amount Pattern
@@ -357,7 +385,7 @@ ProcessSplitDamage($player, $mzID, $assignments);
 
 **Decision type:** `TWOSIDEDSLIDER` — lets the player choose a numeric split between two outcomes in one compact chooser instead of repeated `YESNO` or one-choice modal prompts.
 
-`TWOSIDEDSLIDER` is queued directly rather than through the await syntax.
+`TWOSIDEDSLIDER` currently uses direct queue syntax. If new saved ability code needs it often, add first-class await syntax instead of adding more direct queue call sites.
 
 **Queue syntax:** `DecisionQueueController::AddDecision($player, "TWOSIDEDSLIDER", "min|max|leftSpec|rightSpec", 1, tooltip:"Prompt_text");`
 - `min`, `max`: inclusive integer range for the left-side count.

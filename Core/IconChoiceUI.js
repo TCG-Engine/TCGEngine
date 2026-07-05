@@ -7,6 +7,9 @@
  *   - cardID: mastery card ID (used to show card art)
  *
  * Returns the selected direction string (e.g. "NORTH") or "-" if skipped.
+ *
+ * Deprecated for new card-authoring. Prefer MZMODAL / await $player.Modal(...)
+ * for new direction/icon choices unless the compass presentation is essential.
  */
 
 function ShowIconChoiceUI(param, tooltip, decisionIndex, submitCallback) {

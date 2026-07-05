@@ -14,7 +14,7 @@ Use this file as the compact default guidance:
   - `await` is supported inside `if`/`else`, `for`, and `while` blocks.
   - Recompute live zone objects after an `await`; only rely on serializable scalar/array locals crossing the await frame.
   - Precompute chooser strings before `await $player.MZChoose(...)`, `await $player.MZMultiChoose(...)`, or similar calls.
-- Use the "Choosing the Right UI Interaction" matrix in `.github/copilot-instructions.md` for chooser shape: `MZChoose`/`MZMayChoose`, `MZMultiChoose`, `Modal`, `NumberChoose`, `MZSplitAssign`, `Rearrange`, and queued-only choices such as `TWOSIDEDSLIDER`.
+- Use the "Choosing the Right UI Interaction" matrix in `.github/copilot-instructions.md` for chooser shape: `MZChoose`/`MZMayChoose`, `MZMultiChoose`, `Modal`, `NumberChoose`, `MZSplitAssign`, `Rearrange`, and `NameCard`. Treat `OPTIONCHOOSE`/`ICONCHOICE` as deprecated for new card-authoring; prefer `Modal` for new labeled/icon choices, and add first-class await support before introducing more direct-queue-only core choices.
 - Use `await $player.MZMultiChoose($targets, $min, $max, "tooltip")` when one popup should handle selecting several cards from the same candidate set; it returns an `&`-delimited mzID string.
 - Use `TWOSIDEDSLIDER` for "choose how many become left option vs. right option" flows. Param format: `"min|max|leftSpec|rightSpec"` where each side spec is `label~Caption_text`, `card~CARDID`, or `cardlabel~CARDID~Caption_text`.
 - Do not manually edit generated files such as `<RootName>/GeneratedCode/GeneratedMacroCode.php`, `GeneratedMacroCount.js`, or generated `GeneratedUI_*.js` outputs unless the task is specifically about the generator.

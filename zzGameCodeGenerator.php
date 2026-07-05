@@ -3141,7 +3141,8 @@ function GenerateMacroParamRetrievalCodeIndented($macroParams, $indent = "  ") {
  *   - NumberChoose: Choose a number in a min..max range
  *   - Rearrange: Rearrange cards with zones and starting cards (semicolon-delimited)
  *   - MZSplitAssign: Split-assign a pool of N across multiple targets
- *   - Custom types: Any name is converted to uppercase (e.g., CustomChoice -> CUSTOMCHOICE)
+ *   - NameCard: Typeahead/card-name picker; use NameCard($previewParam, "tooltip")
+ *   - Custom types: Any name is converted to uppercase for compatibility only (e.g., CustomChoice -> CUSTOMCHOICE)
  *
  * Example transformation (Pattern 1 - choice):
  *   INPUT:
@@ -3244,6 +3245,10 @@ function BuildAddDecisionCall($await, $cardId, $indent = '') {
     // NumberChoose: Param = min|max, tooltip in 5th arg
     $tooltip = isset($await['numberTooltip']) ? $await['numberTooltip'] : '';
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"NUMBERCHOOSE\", " . $await['numberMin'] . " . \"|\" . " . $await['numberMax'] . ", 1, \"" . $tooltip . "\");\n";
+  } else if (isset($await['isNameCard']) && $await['isNameCard']) {
+    // NameCard: Param = preview card set/filter, tooltip in 5th arg
+    $tooltip = isset($await['nameCardTooltip']) ? $await['nameCardTooltip'] : '';
+    return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"NAMECARD\", " . $await['nameCardParam'] . ", 1, \"" . $tooltip . "\");\n";
   } else {
     return $indent . "DecisionQueueController::AddDecision(" . $pv . ", \"" . $ct . "\", \"" . $await['params'] . "\", 1);\n";
   }
@@ -3281,6 +3286,10 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
         // NumberChoose($min, $max, "tooltip")
         $numberArgs = ParseAwaitArgs($rawParams);
         $params = $rawParams; // store raw for reference
+      } else if (strtolower($methodName) === 'namecard') {
+        // NameCard($previewParam, "tooltip")
+        $nameCardArgs = ParseAwaitArgs($rawParams);
+        $params = $rawParams; // store raw for reference
       } else {
         $params = trim($rawParams, '"\'');
       }
@@ -3289,7 +3298,8 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
       $isMultiChoose = strtolower($methodName) === 'mzmultichoose';
       $isModal = strtolower($methodName) === 'modal';
       $isNumberChoose = strtolower($methodName) === 'numberchoose';
-      $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isMultiChoose ? 'MZMULTICHOOSE' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : strtoupper($methodName)))));
+      $isNameCard = strtolower($methodName) === 'namecard';
+      $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isMultiChoose ? 'MZMULTICHOOSE' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : ($isNameCard ? 'NAMECARD' : strtoupper($methodName))))));
       $awaitEntry = [
         'lineIndex' => $i,
         'returnVar' => $matches[1],  // e.g., $cardToDeploy
@@ -3301,6 +3311,7 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
         'isMultiChoose' => $isMultiChoose,
         'isModal' => $isModal,
         'isNumberChoose' => $isNumberChoose,
+        'isNameCard' => $isNameCard,
         'isVoidFunction' => false
       ];
       if ($isSplitAssign && isset($splitArgs)) {
@@ -3324,6 +3335,11 @@ function TransformAwaitCodeLegacy($code, $cardId, $abilityName, &$continuationHa
         $awaitEntry['numberMin'] = trim($numberArgs[0]);
         $awaitEntry['numberMax'] = trim($numberArgs[1]);
         $awaitEntry['numberTooltip'] = isset($numberArgs[2]) ? trim(trim($numberArgs[2]), '"\'') : '';
+      }
+      if ($isNameCard && isset($nameCardArgs)) {
+        $awaitEntry['nameCardParam'] = trim($nameCardArgs[0] ?? '""');
+        if ($awaitEntry['nameCardParam'] === '') $awaitEntry['nameCardParam'] = '""';
+        $awaitEntry['nameCardTooltip'] = isset($nameCardArgs[1]) ? trim(trim($nameCardArgs[1]), '"\'') : '';
       }
       $awaits[] = $awaitEntry;
     }
@@ -3462,6 +3478,9 @@ function AwaitParseAwaitLine($line, $lineIndex = 0) {
     } else if (strtolower($methodName) === 'numberchoose') {
       $numberArgs = ParseAwaitArgs($rawParams);
       $params = $rawParams;
+    } else if (strtolower($methodName) === 'namecard') {
+      $nameCardArgs = ParseAwaitArgs($rawParams);
+      $params = $rawParams;
     } else {
       $params = trim($rawParams, '"\'');
     }
@@ -3470,7 +3489,8 @@ function AwaitParseAwaitLine($line, $lineIndex = 0) {
     $isMultiChoose = strtolower($methodName) === 'mzmultichoose';
     $isModal = strtolower($methodName) === 'modal';
     $isNumberChoose = strtolower($methodName) === 'numberchoose';
-    $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isMultiChoose ? 'MZMULTICHOOSE' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : strtoupper($methodName)))));
+    $isNameCard = strtolower($methodName) === 'namecard';
+    $choiceType = strtolower($methodName) === 'rearrange' ? 'MZREARRANGE' : ($isSplitAssign ? 'MZSPLITASSIGN' : ($isMultiChoose ? 'MZMULTICHOOSE' : ($isModal ? 'MZMODAL' : ($isNumberChoose ? 'NUMBERCHOOSE' : ($isNameCard ? 'NAMECARD' : strtoupper($methodName))))));
     $awaitEntry = [
       'lineIndex' => $lineIndex,
       'returnVar' => $matches[1],
@@ -3482,6 +3502,7 @@ function AwaitParseAwaitLine($line, $lineIndex = 0) {
       'isMultiChoose' => $isMultiChoose,
       'isModal' => $isModal,
       'isNumberChoose' => $isNumberChoose,
+      'isNameCard' => $isNameCard,
       'isVoidFunction' => false
     ];
     if ($isSplitAssign && isset($splitArgs)) {
@@ -3505,6 +3526,11 @@ function AwaitParseAwaitLine($line, $lineIndex = 0) {
       $awaitEntry['numberMin'] = trim($numberArgs[0] ?? '0');
       $awaitEntry['numberMax'] = trim($numberArgs[1] ?? '0');
       $awaitEntry['numberTooltip'] = isset($numberArgs[2]) ? trim(trim($numberArgs[2]), '"\'') : '';
+    }
+    if ($isNameCard && isset($nameCardArgs)) {
+      $awaitEntry['nameCardParam'] = trim($nameCardArgs[0] ?? '""');
+      if ($awaitEntry['nameCardParam'] === '') $awaitEntry['nameCardParam'] = '""';
+      $awaitEntry['nameCardTooltip'] = isset($nameCardArgs[1]) ? trim(trim($nameCardArgs[1]), '"\'') : '';
     }
     return $awaitEntry;
   }

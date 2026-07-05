@@ -625,37 +625,6 @@ $customDQHandlers["qtRBz9azeZChooseElements"] = function($player, $parts, $lastD
     ApplyExcaliburCleansingLightElementLock($player, $chosen);
 };
 
-function NiaMistveiledScoutEnter($player, $mzID) {
-    $oppMemory = ZoneSearch("theirMemory");
-    $tempChoices = !empty($oppMemory) ? StageHiddenMZChoicesToTemp($player, $oppMemory, "niaMistveiledScoutTempMap") : [];
-    $previewParam = empty($tempChoices) ? "-" : "Opponent's_memory||" . implode("&", $tempChoices);
-    DecisionQueueController::StoreVariable("niaMistveiledScoutSource", $mzID);
-    DecisionQueueController::AddDecision(
-        $player,
-        "NAMECARD",
-        $previewParam,
-        1,
-        tooltip:"Choose_any_card_name"
-    );
-    DecisionQueueController::AddDecision($player, "CUSTOM", "NiaMistveiledScoutName", 1);
-}
-
-$customDQHandlers["NiaMistveiledScoutName"] = function($player, $parts, $lastDecision) {
-    $mzID = strval(DecisionQueueController::GetVariable("niaMistveiledScoutSource") ?? "");
-    ClearMyTempZoneCards($player);
-    DecisionQueueController::StoreVariable("niaMistveiledScoutTempMap", "");
-    DecisionQueueController::StoreVariable("niaMistveiledScoutSource", "");
-    $chosenName = trim(strval($lastDecision));
-    if($mzID === "" || $chosenName === "" || $chosenName === "-" || $chosenName === "PASS") return;
-    $niaObj = &GetZoneObject($mzID);
-    if($niaObj === null || $niaObj->removed) return;
-    $niaObj->TurnEffects = array_values(array_filter(
-        $niaObj->TurnEffects ?? [],
-        fn($effect) => strpos($effect, "PZM9uvCFai-NAME-") !== 0
-    ));
-    AddTurnEffect($mzID, BuildNamedCardTurnEffect("PZM9uvCFai-NAME-", $chosenName));
-};
-
 function StiflingGyreEnter($player, $mzID) {
     $previewParam = "Common_named_allies||em6eEh9q8y&fz1nr5a3pm&PZM9uvCFai";
     DecisionQueueController::StoreVariable("stiflingGyreSource", $mzID);
