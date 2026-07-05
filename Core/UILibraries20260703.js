@@ -4798,17 +4798,24 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
   existing.style.top = 'auto';
   existing.style.bottom = '20px';
   existing.style.left = '50%';
+  existing.style.right = '';
   existing.style.transform = 'translateX(-50%)';
   existing.style.margin = '';
+  existing.style.width = '';
   existing.style.background = '#0D1B2A';
   existing.style.color = '#fff';
   existing.style.padding = '10px 24px';
+  existing.style.border = '';
   existing.style.borderRadius = '8px';
   existing.style.boxShadow = '0 0 10px #0008';
+  existing.style.boxSizing = '';
   existing.style.fontFamily = "'Orbitron', sans-serif";
+  existing.style.fontSize = '';
+  existing.style.lineHeight = '';
   existing.style.zIndex = '9999';
   existing.style.display = 'flex';
   existing.style.alignItems = 'center';
+  existing.style.justifyContent = '';
   existing.style.gap = '16px';
   existing.style.maxWidth = '';
   existing.style.flexWrap = '';
@@ -4863,6 +4870,7 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
   }
 
   existing.style.display = 'flex';
+  PositionSelectionMessageForMobile(existing, msgSpan);
 }
 
 function HideSelectionMessage() {
@@ -4874,6 +4882,89 @@ function HideSelectionMessage() {
     }
     existing.style.display = 'none';
   }
+}
+
+function IsMobileGameLayoutActive() {
+  return !!(
+    document.getElementById('gaMobileRoot') ||
+    document.getElementById('azukiMobileRoot')
+  );
+}
+
+function ResolveSelectionMessageAnchor() {
+  const settings = window.MobileSelectionMessageSettings || {};
+  if (settings && typeof settings.anchorId === 'string' && settings.anchorId !== '') {
+    const configured = document.getElementById(settings.anchorId);
+    if (configured) return configured;
+  }
+
+  const sm = window.SelectionMode || {};
+  const specs = []
+    .concat(Array.isArray(sm.inlineSpecs) ? sm.inlineSpecs : [])
+    .concat(Array.isArray(sm.allowedZones) ? sm.allowedZones : [])
+    .concat(Array.isArray(sm.allowedDecisionZones) ? sm.allowedDecisionZones : []);
+  const hasHandChoice = specs.some(function(spec) {
+    return spec && typeof spec.zone === 'string' && spec.zone.indexOf('myHand') === 0;
+  });
+
+  if (hasHandChoice) {
+    const hand = document.getElementById('myHandSlot');
+    if (hand) return hand;
+  }
+
+  return document.getElementById('myHandSlot');
+}
+
+function PositionSelectionMessageForMobile(messageEl, dragHandle) {
+  if (!messageEl || !IsMobileGameLayoutActive()) return false;
+
+  messageEl.style.boxSizing = 'border-box';
+  messageEl.style.left = '8px';
+  messageEl.style.right = '8px';
+  messageEl.style.bottom = 'auto';
+  messageEl.style.transform = 'none';
+  messageEl.style.margin = '0';
+  messageEl.style.width = 'auto';
+  messageEl.style.maxWidth = 'calc(100vw - 16px)';
+  messageEl.style.padding = '7px 9px';
+  messageEl.style.gap = '8px';
+  messageEl.style.justifyContent = 'center';
+  messageEl.style.flexWrap = 'nowrap';
+  messageEl.style.fontSize = '12px';
+  messageEl.style.lineHeight = '1.15';
+  messageEl.style.border = '1px solid rgba(200, 155, 70, 0.34)';
+  messageEl.style.background = 'linear-gradient(180deg, rgba(13, 27, 42, 0.97), rgba(9, 17, 28, 0.97))';
+  messageEl.style.boxShadow = '0 8px 24px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.10)';
+
+  if (dragHandle) {
+    dragHandle.style.minWidth = '0';
+    dragHandle.style.flex = '0 1 auto';
+    dragHandle.style.textAlign = 'center';
+    dragHandle.style.whiteSpace = 'normal';
+    dragHandle.style.overflowWrap = 'anywhere';
+  }
+
+  const buttons = messageEl.querySelectorAll('button');
+  buttons.forEach(function(btn) {
+    btn.style.flex = '0 0 auto';
+    btn.style.padding = '8px 16px';
+    btn.style.fontSize = '12px';
+    btn.style.borderRadius = '10px';
+    btn.style.marginLeft = '0';
+  });
+
+  const rect = messageEl.getBoundingClientRect();
+  const anchor = ResolveSelectionMessageAnchor();
+  const anchorRect = anchor ? anchor.getBoundingClientRect() : null;
+  const desiredTop = anchorRect
+    ? anchorRect.top - rect.height - 8
+    : Math.round(window.innerHeight * 0.56);
+  const top = Math.min(
+    Math.max(42, desiredTop),
+    Math.max(42, window.innerHeight - rect.height - 8)
+  );
+  messageEl.style.top = top + 'px';
+  return true;
 }
 
 function CategorizeMZChooseSpecs(parsedSpecs) {
@@ -5081,21 +5172,32 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
     existing.id = 'selection-message';
     document.body.appendChild(existing);
   }
+  if (existing.__draggableModalAbortController) {
+    existing.__draggableModalAbortController.abort();
+    existing.__draggableModalAbortController = null;
+  }
   existing.style.position = 'fixed';
   existing.style.top = '50%';
   existing.style.bottom = 'auto';
   existing.style.left = '50%';
+  existing.style.right = '';
   existing.style.transform = 'translate(-50%, -50%)';
   existing.style.margin = '0';
+  existing.style.width = '';
   existing.style.background = '#0D1B2A';
   existing.style.color = '#fff';
   existing.style.padding = '10px 24px';
+  existing.style.border = '';
   existing.style.borderRadius = '8px';
   existing.style.boxShadow = '0 0 10px #0008';
+  existing.style.boxSizing = '';
   existing.style.fontFamily = "'Orbitron', sans-serif";
+  existing.style.fontSize = '';
+  existing.style.lineHeight = '';
   existing.style.zIndex = '9999';
   existing.style.display = 'flex';
   existing.style.alignItems = 'center';
+  existing.style.justifyContent = '';
   existing.style.gap = '12px';
   existing.style.maxWidth = 'min(960px, calc(100vw - 32px))';
   existing.style.flexWrap = 'wrap';
@@ -5152,7 +5254,8 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   existing.appendChild(confirmBtn);
   UpdateInlineMultiChooseMessage();
   existing.style.display = 'flex';
-  if (typeof EnableDraggableModal === 'function') {
+  const didMobilePosition = PositionSelectionMessageForMobile(existing, msgSpan);
+  if (typeof EnableDraggableModal === 'function' && !didMobilePosition) {
     const savedPositionKey = 'mzmulti-inline-position-v2';
     let hasSavedPosition = false;
     try {
