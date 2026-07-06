@@ -2000,6 +2000,11 @@ function DoActivateCard($player, $mzCard, $ignoreCost = false) {
     $obj = MZMove($player, $mzCard, "EffectStack");
     $obj->_sourceZone = DecisionQueueController::GetVariable("activationSourceZone");
     $obj->Controller = $player;
+    $temporaryCopyCardID = DecisionQueueController::GetVariable("temporaryActivationCopyCardID");
+    if($temporaryCopyCardID !== null && $temporaryCopyCardID !== "" && $temporaryCopyCardID === $obj->CardID) {
+        AddTurnEffect("EffectStack-" . $obj->mzIndex, "TEMPORARY_ACTIVATION_COPY");
+        DecisionQueueController::ClearVariable("temporaryActivationCopyCardID");
+    }
     $threeVisitsSource = DecisionQueueController::GetVariable("threeVisitsActivationSource");
     if($obj->CardID === "w7o3agvvnc") {
         if(!isset($obj->TurnEffects) || !is_array($obj->TurnEffects)) $obj->TurnEffects = [];
@@ -5022,11 +5027,14 @@ function OnCardActivated($player, $mzCard) {
         $obj->Controller = $player;
     }  else if(PropertyContains($cardType, "ACTION")) {
         // Ephemerate: ephemeral actions are banished on resolve
+        $isTemporaryActivationCopy = in_array("TEMPORARY_ACTIVATION_COPY", $obj->TurnEffects ?? [], true);
         $wasEphemerationAction = DecisionQueueController::GetVariable("wasEphemerated");
         $effectStackSourceZone = GetEffectStackSourceZone($mzCard);
         // Frost Shard (jnsl7ddcgw): banish on resolve when activated from graveyard
         global $gyActivatedCardID, $Preserve_Cards;
-        if($wasEphemerationAction === "YES") {
+        if($isTemporaryActivationCopy) {
+            $obj->Remove();
+        } else if($wasEphemerationAction === "YES") {
             $obj = MZMove($player, $mzCard, "myBanish");
         } else if($obj->CardID === "w7o3agvvnc" && $effectStackSourceZone === "myBanish") {
             $obj = MZMove($player, $mzCard, "myDeck");
@@ -16509,6 +16517,30 @@ function AddTurnEffect($mzCard, $effectID) {
     if($isStackingEffect || !in_array($effectID, $obj->TurnEffects)) {
         array_push($obj->TurnEffects, $effectID);
     }
+}
+
+function ActivateTemporaryCardCopy($player, $cardID, $sourceZone = "COPY") {
+    if(!is_string($cardID) || $cardID === "" || $cardID === "-") return false;
+
+    $copyObj = MZAddZone($player, "myTempZone", $cardID);
+    if($copyObj === null) return false;
+
+    $tempMZ = "myTempZone-" . $copyObj->mzIndex;
+    DecisionQueueController::StoreVariable("temporaryActivationCopyCardID", $cardID);
+    DecisionQueueController::StoreVariable("activationSourceZoneOverride", $sourceZone);
+    ActivateCard($player, $tempMZ, true);
+
+    if(!isset($copyObj->removed) || !$copyObj->removed) {
+        $copyObj->Remove();
+        DecisionQueueController::CleanupRemovedCards();
+    }
+    if(DecisionQueueController::GetVariable("temporaryActivationCopyCardID") === $cardID) {
+        DecisionQueueController::ClearVariable("temporaryActivationCopyCardID");
+    }
+    if(DecisionQueueController::GetVariable("activationSourceZoneOverride") === $sourceZone) {
+        DecisionQueueController::ClearVariable("activationSourceZoneOverride");
+    }
+    return true;
 }
 
 function ShadowreaverCanPlayBanishedCard($player, $obj) {
