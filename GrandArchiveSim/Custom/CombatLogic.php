@@ -3628,6 +3628,7 @@ function OnDealDamage($player, $source, $target, $amount, $skipAssassinsMantlePr
             if($toRemove > 0) {
                 RemoveCounters($targetController, $target, "durability", $toRemove);
             }
+            RecordTrackedCombatDamageAmount($source, $target, $amount);
             if(GetCounterCount($targetObj, "durability") <= 0) {
                 // Keep mzID in the current combat perspective (attacker-context during combat damage),
                 // matching normal lethal resolution paths.
@@ -4897,6 +4898,7 @@ function DealUnpreventableDamage($player, $source, $target, $amount) {
             if($toRemove > 0) {
                 RemoveCounters($targetController, $target, "durability", $toRemove);
             }
+            RecordTrackedCombatDamageAmount($source, $target, $amount);
             if(GetCounterCount($targetObj, "durability") <= 0) {
                 // Keep mzID in the current combat perspective (attacker-context during combat damage),
                 // matching normal lethal resolution paths.
