@@ -22075,6 +22075,10 @@ function GetDebtCounterCount($obj) {
     return GetCounterCount($obj, "debt");
 }
 
+function GetBloodCounterCount($obj) {
+    return GetCounterCount($obj, "blood");
+}
+
 /**
  * Virtual property callback: returns the number of durability counters on the object.
  * Used for the DurabilityCounterCount display badge.
