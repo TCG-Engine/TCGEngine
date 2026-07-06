@@ -77,6 +77,19 @@ function QueuePreventedDamageAnimation($targetMzID, $durationMs = 500, $blocking
   QueueFrameAnimation($animation);
 }
 
+function QueueBlockedRecoveryAnimation($targetMzID, $durationMs = 500, $blocking = true, $uniqueID = null) {
+  $animation = [
+    'type' => 'BLOCKED_RECOVERY',
+    'target' => strval($targetMzID),
+    'durationMs' => intval($durationMs),
+    'blocking' => $blocking ? true : false,
+  ];
+  if ($uniqueID !== null && intval($uniqueID) > 0) {
+    $animation['uniqueID'] = intval($uniqueID);
+  }
+  QueueFrameAnimation($animation);
+}
+
 function QueueRestoreAnimation($targetMzID, $amount, $durationMs = 500, $blocking = true) {
   QueueFrameAnimation([
     'type' => 'RESTORE',

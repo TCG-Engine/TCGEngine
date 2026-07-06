@@ -701,6 +701,12 @@ if (session_status() === PHP_SESSION_NONE) session_start();
           element.innerHTML += "<div class='prevented-dmg-animation prevented-dmg-animation-a'" + preventedDelayStyle + "><div class='prevented-dmg-animation-a-inner'></div></div>";
           element.innerHTML += "<div class='prevented-dmg-animation-a-label'><div class='prevented-dmg-animation-a-label-inner'" + preventedLabelDelayStyle + ">-0</div></div>";
           if (totalMs < 500) totalMs = 500;
+        } else if (type === "BLOCKED_RECOVERY") {
+          var blockedRecoveryDelayStyle = delayMs > 0 ? " style='animation-delay:" + delayMs + "ms;opacity:0;'" : "";
+          var blockedRecoveryLabelDelayStyle = delayMs > 0 ? " style='animation-delay:" + delayMs + "ms;opacity:0;'" : "";
+          element.innerHTML += "<div class='blocked-recovery-animation blocked-recovery-animation-a'" + blockedRecoveryDelayStyle + "><div class='blocked-recovery-animation-a-inner'></div></div>";
+          element.innerHTML += "<div class='blocked-recovery-animation-a-label'><div class='blocked-recovery-animation-a-label-inner'" + blockedRecoveryLabelDelayStyle + ">+0</div><div class='blocked-recovery-animation-a-caption'" + blockedRecoveryLabelDelayStyle + ">Recover blocked</div></div>";
+          if (totalMs < 500) totalMs = 500;
         } else if (type === "RESTORE") {
           var restoreAmount = animation.amount != null ? animation.amount : "";
           var restoreDelayStyle = delayMs > 0 ? " style='animation-delay:" + delayMs + "ms;opacity:0;'" : "";

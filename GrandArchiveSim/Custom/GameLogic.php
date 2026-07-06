@@ -17668,11 +17668,23 @@ function AnnihilationResolve($player, $amount) {
     DecisionQueueController::CleanupRemovedCards();
 }
 
+function QueueBlockedRecoveryForPlayer($player) {
+    $field = GetField($player);
+    for($i = 0; $i < count($field); ++$i) {
+        $obj = $field[$i];
+        if($obj === null || $obj->removed) continue;
+        if(!PropertyContains(EffectiveCardType($obj), "CHAMPION")) continue;
+        QueueBlockedRecoveryAnimation("p" . intval($player) . "Field-" . $i, 500, true, intval($obj->UniqueID ?? 0));
+        return;
+    }
+}
+
 function RecoverChampion($player, $amount=1) {
     global $playerID;
 
     // Fiery Interference (gt2zqtgs42): controller can't recover until end of turn
     if(GlobalEffectCount($player, "CANT_RECOVER") > 0) {
+        QueueBlockedRecoveryForPlayer($player);
         return null;
     }
 
@@ -17682,10 +17694,12 @@ function RecoverChampion($player, $amount=1) {
     foreach($oppField as $oppObj) {
         if(!$oppObj->removed && $oppObj->CardID === "ka5av43ehj" && !HasNoAbilities($oppObj)) {
             if(PlayerLevel($oppObj->Controller) >= 2) {
+                QueueBlockedRecoveryForPlayer($player);
                 return null; // Recovery blocked by Morgan
             }
         }
         if(!$oppObj->removed && $oppObj->CardID === "koyegh1snb" && !HasNoAbilities($oppObj)) {
+            QueueBlockedRecoveryForPlayer($player);
             return null; // Recovery blocked by Serpentine Judicator
         }
     }
@@ -17701,7 +17715,10 @@ function RecoverChampion($player, $amount=1) {
             break;
         }
     }
-    if($amount <= 0) return null;
+    if($amount <= 0) {
+        QueueBlockedRecoveryForPlayer($player);
+        return null;
+    }
 
     // Transfusive Aura (7qWYuRNoYI): [Damage 20+] recover 2+X instead of X.
     // Stacking is additive per active copy (+2 each).
