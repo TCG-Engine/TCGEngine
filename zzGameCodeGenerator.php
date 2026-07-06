@@ -3983,11 +3983,250 @@ function TransformAwaitCodeStateMachine($code, $cardId, $abilityName, &$continua
   return rtrim($transformedCode);
 }
 
-function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = []) {
-  if (!AwaitRequiresStateMachine($code)) {
+function TransformAwaitCode($code, $cardId, $abilityName, &$continuationHandlers, $macroParams = [], $forceStateMachine = false) {
+  if (!$forceStateMachine && !AwaitRequiresStateMachine($code)) {
     return TransformAwaitCodeLegacy($code, $cardId, $abilityName, $continuationHandlers, $macroParams);
   }
   return TransformAwaitCodeStateMachine($code, $cardId, $abilityName, $continuationHandlers, $macroParams);
+}
+
+function ListenerEventParamVariableName($paramName) {
+  $safe = preg_replace('/[^A-Za-z0-9_]/', '_', trim(strval($paramName)));
+  if ($safe === '') $safe = 'param';
+  if (preg_match('/^[0-9]/', $safe)) $safe = '_' . $safe;
+  return 'event_' . $safe;
+}
+
+function ListenerContextParamNames($macroParams) {
+  $contextParams = ['listenerMZ', 'listenerCardID', 'eventMacro', 'eventPlayer', 'eventParams'];
+  foreach ($macroParams as $paramName) {
+    $contextParams[] = ListenerEventParamVariableName($paramName);
+  }
+  return array_values(array_unique($contextParams));
+}
+
+function ParseListenerZones($listenerZones) {
+  if (is_array($listenerZones)) return array_values(array_filter(array_map('trim', $listenerZones)));
+  $parts = explode(',', strval($listenerZones ?? ''));
+  return array_values(array_filter(array_map('trim', $parts)));
+}
+
+function WriteGeneratedAwaitContinuationHandlers($handler, $allContinuationHandlers) {
+  if (count($allContinuationHandlers) <= 0) return;
+
+  fwrite($handler, "// Continuation handlers for await syntax\r\n");
+  fwrite($handler, "// These handlers are called after player makes a choice in an ability\r\n\r\n");
+
+  foreach ($allContinuationHandlers as $handlerName => $handlerData) {
+    if (($handlerData['kind'] ?? 'handler') === 'function') {
+      fwrite($handler, $handlerData['code']);
+      continue;
+    }
+    fwrite($handler, "\$customDQHandlers[\"" . $handlerName . "\"] = function(\$player, \$parts, \$lastDecision) { //" . $handlerData['comment'] . "\r\n");
+    fwrite($handler, $handlerData['code']);
+    fwrite($handler, "};\r\n\r\n");
+  }
+}
+
+function WriteMacroListenerCode($handler, $listenerAbilitiesByMacro, $macrosByName) {
+  fwrite($handler, "// Zone-active macro listener implementations\r\n");
+  fwrite($handler, "// App code chooses timing by calling DispatchMacroListeners(...).\r\n\r\n");
+  fwrite($handler, "\$macroListenerAbilities = [];\r\n");
+  fwrite($handler, "\$macroListenerPrereqs = [];\r\n");
+  fwrite($handler, "\$macroListenerZones = [];\r\n");
+  fwrite($handler, "\$macroListenerAbilityNames = [];\r\n");
+  fwrite($handler, "\$macroListenerEventParamMap = [];\r\n\r\n");
+
+  $allContinuationHandlers = [];
+
+  foreach ($listenerAbilitiesByMacro as $macroName => $abilities) {
+    $macroMeta = isset($macrosByName[$macroName]) ? $macrosByName[$macroName] : ['params' => []];
+    $macroParams = $macroMeta['params'] ?? [];
+    $contextParams = ListenerContextParamNames($macroParams);
+
+    $eventParamMap = [];
+    foreach ($macroParams as $paramName) {
+      $eventParamMap[$paramName] = ListenerEventParamVariableName($paramName);
+    }
+    fwrite($handler, "\$macroListenerEventParamMap[\"" . addslashes($macroName) . "\"] = " . var_export($eventParamMap, true) . ";\r\n");
+
+    $abilityIndexByCard = [];
+    foreach ($abilities as $ability) {
+      $cardId = $ability['card_id'];
+      $code = $ability['ability_code'];
+      $prereqCode = $ability['prereq_code'] ?? '';
+      $name = $ability['ability_name'] ?? $cardId;
+      $listenerZones = ParseListenerZones($ability['listener_zones'] ?? '');
+
+      if (!isset($abilityIndexByCard[$cardId])) {
+        $abilityIndexByCard[$cardId] = 0;
+      }
+      $abilityIndex = $abilityIndexByCard[$cardId];
+      $abilityIndexByCard[$cardId]++;
+      $abilityKey = $cardId . ":" . $abilityIndex;
+
+      $continuationHandlers = [];
+      $handlerPrefix = $abilityKey . ":Listener:" . $macroName;
+      $forceStateMachine = stripos($code, 'await') !== false;
+      $transformedCode = TransformAwaitCode($code, $handlerPrefix, $name, $continuationHandlers, $contextParams, $forceStateMachine);
+      $allContinuationHandlers = array_merge($allContinuationHandlers, $continuationHandlers);
+
+      fwrite($handler, "\$macroListenerAbilities[\"" . addslashes($macroName) . "\"][\"" . addslashes($abilityKey) . "\"] = function(\$player) { //" . $name . "\r\n");
+      fwrite($handler, "  " . str_replace("\n", "\n  ", trim($transformedCode)) . "\r\n");
+      fwrite($handler, "};\r\n");
+      fwrite($handler, "\$macroListenerZones[\"" . addslashes($macroName) . "\"][\"" . addslashes($abilityKey) . "\"] = " . var_export($listenerZones, true) . ";\r\n");
+      fwrite($handler, "\$macroListenerAbilityNames[\"" . addslashes($macroName) . "\"][\"" . addslashes($abilityKey) . "\"] = \"" . addslashes($name) . "\";\r\n");
+
+      if (trim($prereqCode) !== '') {
+        $prereqTransformedCode = GenerateMacroParamRetrievalCode($contextParams) . $prereqCode;
+        fwrite($handler, "\$macroListenerPrereqs[\"" . addslashes($macroName) . "\"][\"" . addslashes($abilityKey) . "\"] = function(\$player) { //" . $name . " listener prereq\r\n");
+        fwrite($handler, "  " . str_replace("\n", "\n  ", trim($prereqTransformedCode)) . "\r\n");
+        fwrite($handler, "};\r\n");
+      }
+    }
+    fwrite($handler, "\r\n");
+  }
+
+  WriteGeneratedAwaitContinuationHandlers($handler, $allContinuationHandlers);
+
+  fwrite($handler, "function NormalizeMacroListenerZoneList(\$zones) {\r\n");
+  fwrite($handler, "  if(\$zones === null) return null;\r\n");
+  fwrite($handler, "  if(is_string(\$zones)) \$zones = explode(',', \$zones);\r\n");
+  fwrite($handler, "  if(!is_array(\$zones)) return [];\r\n");
+  fwrite($handler, "  \$out = [];\r\n");
+  fwrite($handler, "  foreach(\$zones as \$zone) {\r\n");
+  fwrite($handler, "    \$zone = trim(strval(\$zone));\r\n");
+  fwrite($handler, "    if(\$zone !== '') \$out[] = \$zone;\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return array_values(array_unique(\$out));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function ExpandMacroListenerZoneName(\$zoneName) {\r\n");
+  fwrite($handler, "  \$zoneName = trim(strval(\$zoneName));\r\n");
+  fwrite($handler, "  if(\$zoneName === '') return [];\r\n");
+  fwrite($handler, "  if(preg_match('/^(my|their|p1|p2)/', \$zoneName)) return [\$zoneName];\r\n");
+  fwrite($handler, "  return array_values(array_unique(['p1' . \$zoneName, 'p2' . \$zoneName, \$zoneName]));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function ExpandMacroListenerZones(\$zones) {\r\n");
+  fwrite($handler, "  \$zones = NormalizeMacroListenerZoneList(\$zones);\r\n");
+  fwrite($handler, "  if(\$zones === null) return null;\r\n");
+  fwrite($handler, "  \$expanded = [];\r\n");
+  fwrite($handler, "  foreach(\$zones as \$zoneName) {\r\n");
+  fwrite($handler, "    foreach(ExpandMacroListenerZoneName(\$zoneName) as \$expandedZone) \$expanded[] = \$expandedZone;\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return array_values(array_unique(\$expanded));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function MacroListenerCardIDFromAbilityKey(\$abilityKey) {\r\n");
+  fwrite($handler, "  \$pos = strrpos(strval(\$abilityKey), ':');\r\n");
+  fwrite($handler, "  return \$pos === false ? strval(\$abilityKey) : substr(strval(\$abilityKey), 0, \$pos);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function MacroListenerPlayerForZoneObject(\$zoneName, \$obj, \$eventPlayer) {\r\n");
+  fwrite($handler, "  if(preg_match('/^p([12])/', strval(\$zoneName), \$matches)) return intval(\$matches[1]);\r\n");
+  fwrite($handler, "  if(is_object(\$obj) && isset(\$obj->Controller) && intval(\$obj->Controller) > 0) return intval(\$obj->Controller);\r\n");
+  fwrite($handler, "  if(is_object(\$obj) && isset(\$obj->Owner) && intval(\$obj->Owner) > 0) return intval(\$obj->Owner);\r\n");
+  fwrite($handler, "  return intval(\$eventPlayer);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function MacroListenerRelativeMzID(\$zoneName, \$index, \$listenerPlayer, \$resolverPlayer) {\r\n");
+  fwrite($handler, "  \$zoneName = strval(\$zoneName);\r\n");
+  fwrite($handler, "  \$listenerPlayer = intval(\$listenerPlayer);\r\n");
+  fwrite($handler, "  \$resolverPlayer = intval(\$resolverPlayer);\r\n");
+  fwrite($handler, "  if(\$resolverPlayer !== 1 && \$resolverPlayer !== 2) \$resolverPlayer = \$listenerPlayer;\r\n");
+  fwrite($handler, "  if(preg_match('/^p([12])(.+)$/', \$zoneName, \$matches)) {\r\n");
+  fwrite($handler, "    \$zonePlayer = intval(\$matches[1]);\r\n");
+  fwrite($handler, "    \$zoneSuffix = \$matches[2];\r\n");
+  fwrite($handler, "    return (\$zonePlayer === \$listenerPlayer ? 'my' : 'their') . \$zoneSuffix . '-' . intval(\$index);\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  if(preg_match('/^(my|their)(.+)$/', \$zoneName, \$matches)) {\r\n");
+  fwrite($handler, "    \$zonePlayer = \$matches[1] === 'my' ? \$resolverPlayer : (\$resolverPlayer === 1 ? 2 : 1);\r\n");
+  fwrite($handler, "    \$zoneSuffix = \$matches[2];\r\n");
+  fwrite($handler, "    return (\$zonePlayer === \$listenerPlayer ? 'my' : 'their') . \$zoneSuffix . '-' . intval(\$index);\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return \$zoneName . '-' . intval(\$index);\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function MacroListenerContextVariableNames(\$eventMacro) {\r\n");
+  fwrite($handler, "  global \$macroListenerEventParamMap;\r\n");
+  fwrite($handler, "  \$names = ['listenerMZ', 'listenerCardID', 'eventMacro', 'eventPlayer', 'eventParams'];\r\n");
+  fwrite($handler, "  foreach((\$macroListenerEventParamMap[\$eventMacro] ?? []) as \$variableName) \$names[] = \$variableName;\r\n");
+  fwrite($handler, "  return array_values(array_unique(\$names));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function CaptureMacroListenerContext(\$eventMacro) {\r\n");
+  fwrite($handler, "  \$vars = json_decode(GetDecisionQueueVariables() ?: '{}', true);\r\n");
+  fwrite($handler, "  if(!is_array(\$vars)) \$vars = [];\r\n");
+  fwrite($handler, "  \$snapshot = [];\r\n");
+  fwrite($handler, "  foreach(MacroListenerContextVariableNames(\$eventMacro) as \$name) {\r\n");
+  fwrite($handler, "    \$snapshot[\$name] = ['exists' => array_key_exists(\$name, \$vars), 'value' => \$vars[\$name] ?? null];\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return \$snapshot;\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function RestoreMacroListenerContext(\$snapshot) {\r\n");
+  fwrite($handler, "  \$vars = json_decode(GetDecisionQueueVariables() ?: '{}', true);\r\n");
+  fwrite($handler, "  if(!is_array(\$vars)) \$vars = [];\r\n");
+  fwrite($handler, "  foreach(\$snapshot as \$name => \$entry) {\r\n");
+  fwrite($handler, "    if(!empty(\$entry['exists'])) \$vars[\$name] = \$entry['value'];\r\n");
+  fwrite($handler, "    else unset(\$vars[\$name]);\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  SetDecisionQueueVariables(json_encode(\$vars));\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function StoreMacroListenerContext(\$listenerMZ, \$listenerCardID, \$eventMacro, \$eventPlayer, \$eventParams) {\r\n");
+  fwrite($handler, "  global \$macroListenerEventParamMap;\r\n");
+  fwrite($handler, "  if(!is_array(\$eventParams)) \$eventParams = [];\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('listenerMZ', \$listenerMZ);\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('listenerCardID', \$listenerCardID);\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('eventMacro', \$eventMacro);\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('eventPlayer', \$eventPlayer);\r\n");
+  fwrite($handler, "  DecisionQueueController::StoreVariable('eventParams', \$eventParams);\r\n");
+  fwrite($handler, "  \$paramMap = \$macroListenerEventParamMap[\$eventMacro] ?? [];\r\n");
+  fwrite($handler, "  foreach(\$paramMap as \$paramName => \$variableName) {\r\n");
+  fwrite($handler, "    DecisionQueueController::StoreVariable(\$variableName, \$eventParams[\$paramName] ?? null);\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "}\r\n\r\n");
+
+  fwrite($handler, "function DispatchMacroListeners(\$macroName, \$eventPlayer, \$eventParams = [], \$candidateZones = null) {\r\n");
+  fwrite($handler, "  global \$macroListenerAbilities, \$macroListenerPrereqs, \$macroListenerZones, \$playerID;\r\n");
+  fwrite($handler, "  \$macroName = strval(\$macroName);\r\n");
+  fwrite($handler, "  if(!isset(\$macroListenerAbilities[\$macroName]) || !is_array(\$macroListenerAbilities[\$macroName])) return 0;\r\n");
+  fwrite($handler, "  if(!is_array(\$eventParams)) \$eventParams = [];\r\n");
+  fwrite($handler, "  \$candidateExpanded = ExpandMacroListenerZones(\$candidateZones);\r\n");
+  fwrite($handler, "  \$dispatched = 0;\r\n");
+  fwrite($handler, "  foreach(\$macroListenerAbilities[\$macroName] as \$abilityKey => \$listenerFn) {\r\n");
+  fwrite($handler, "    \$abilityZones = \$macroListenerZones[\$macroName][\$abilityKey] ?? [];\r\n");
+  fwrite($handler, "    \$expandedZones = ExpandMacroListenerZones(\$abilityZones);\r\n");
+  fwrite($handler, "    if(\$candidateExpanded !== null) \$expandedZones = array_values(array_intersect(\$expandedZones, \$candidateExpanded));\r\n");
+  fwrite($handler, "    if(empty(\$expandedZones)) continue;\r\n");
+  fwrite($handler, "    \$abilityCardID = MacroListenerCardIDFromAbilityKey(\$abilityKey);\r\n");
+  fwrite($handler, "    foreach(\$expandedZones as \$zoneName) {\r\n");
+  fwrite($handler, "      \$zone = GetZone(\$zoneName);\r\n");
+  fwrite($handler, "      if(!is_array(\$zone)) continue;\r\n");
+  fwrite($handler, "      for(\$i = 0; \$i < count(\$zone); ++\$i) {\r\n");
+  fwrite($handler, "        \$obj = \$zone[\$i] ?? null;\r\n");
+  fwrite($handler, "        if(\$obj === null || !is_object(\$obj)) continue;\r\n");
+  fwrite($handler, "        if(isset(\$obj->removed) && \$obj->removed) continue;\r\n");
+  fwrite($handler, "        if(!isset(\$obj->CardID) || \$obj->CardID !== \$abilityCardID) continue;\r\n");
+  fwrite($handler, "        if(function_exists('HasNoAbilities') && HasNoAbilities(\$obj)) continue;\r\n");
+  fwrite($handler, "        \$listenerPlayer = MacroListenerPlayerForZoneObject(\$zoneName, \$obj, \$eventPlayer);\r\n");
+  fwrite($handler, "        \$savedPlayerID = \$playerID ?? null;\r\n");
+  fwrite($handler, "        \$listenerMZ = MacroListenerRelativeMzID(\$zoneName, \$i, \$listenerPlayer, \$savedPlayerID ?? \$eventPlayer);\r\n");
+  fwrite($handler, "        \$playerID = \$listenerPlayer;\r\n");
+  fwrite($handler, "        \$listenerContextSnapshot = CaptureMacroListenerContext(\$macroName);\r\n");
+  fwrite($handler, "        StoreMacroListenerContext(\$listenerMZ, \$obj->CardID, \$macroName, intval(\$eventPlayer), \$eventParams);\r\n");
+  fwrite($handler, "        if(isset(\$macroListenerPrereqs[\$macroName][\$abilityKey]) && !\$macroListenerPrereqs[\$macroName][\$abilityKey](\$listenerPlayer)) { RestoreMacroListenerContext(\$listenerContextSnapshot); \$playerID = \$savedPlayerID; continue; }\r\n");
+  fwrite($handler, "        \$listenerFn(\$listenerPlayer);\r\n");
+  fwrite($handler, "        RestoreMacroListenerContext(\$listenerContextSnapshot);\r\n");
+  fwrite($handler, "        \$playerID = \$savedPlayerID;\r\n");
+  fwrite($handler, "        ++\$dispatched;\r\n");
+  fwrite($handler, "      }\r\n");
+  fwrite($handler, "    }\r\n");
+  fwrite($handler, "  }\r\n");
+  fwrite($handler, "  return \$dispatched;\r\n");
+  fwrite($handler, "}\r\n\r\n");
 }
 
 function GenerateMacroCode() {
@@ -4092,6 +4331,16 @@ function GenerateMacroCode() {
       }
     }
 
+    $listenerAbilitiesByMacro = [];
+    foreach ($cardAbilityDB->getListenerAbilities($rootName) as $ability) {
+      $listenerMacroName = $ability['macro_name'] ?? '';
+      if ($listenerMacroName === '') continue;
+      if (!isset($listenerAbilitiesByMacro[$listenerMacroName])) {
+        $listenerAbilitiesByMacro[$listenerMacroName] = [];
+      }
+      $listenerAbilitiesByMacro[$listenerMacroName][] = $ability;
+    }
+
     // Generate card-specific macro implementations
     if (count($abilitiesByMacro) > 0) {
       fwrite($handler, "// Card-specific macro implementations\r\n");
@@ -4174,20 +4423,7 @@ function GenerateMacroCode() {
       }
 
       // Generate generated await resume handlers
-      if (count($allContinuationHandlers) > 0) {
-        fwrite($handler, "// Continuation handlers for await syntax\r\n");
-        fwrite($handler, "// These handlers are called after player makes a choice in an ability\r\n\r\n");
-
-        foreach ($allContinuationHandlers as $handlerName => $handlerData) {
-          if (($handlerData['kind'] ?? 'handler') === 'function') {
-            fwrite($handler, $handlerData['code']);
-            continue;
-          }
-          fwrite($handler, "\$customDQHandlers[\"" . $handlerName . "\"] = function(\$player, \$parts, \$lastDecision) { //" . $handlerData['comment'] . "\r\n");
-          fwrite($handler, $handlerData['code']);
-          fwrite($handler, "};\r\n\r\n");
-        }
-      }
+      WriteGeneratedAwaitContinuationHandlers($handler, $allContinuationHandlers);
 
       // Generate macro count data and functions
       fwrite($handler, "// Global macro count arrays - stores how many of each macro each card has\r\n");
@@ -4378,6 +4614,8 @@ function GenerateMacroCode() {
         fwrite($handler, "function " . $evaluateFunction . "(" . implode(", ", $signatureParams) . ") { return 0; }\r\n\r\n");
       }
     }
+
+    WriteMacroListenerCode($handler, $listenerAbilitiesByMacro, $macrosByName);
 
     fwrite($handler, "?>");
     fclose($handler);

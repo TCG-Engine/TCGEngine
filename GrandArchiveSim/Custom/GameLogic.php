@@ -5124,6 +5124,10 @@ function OnCardActivated($player, $mzCard) {
     $field = GetField($player);
     $subtypes = CardSubtypes($obj->CardID);
     $activatedElement = CardElement($obj->CardID);
+    DispatchMacroListeners("CardActivated", $player, [
+        "mzID" => $mzCard,
+        "cardID" => $obj->CardID
+    ], ["Field"]);
 
     // Vernal Talisman (dW5uyngvJW): next empowered tera spell this turn -> recover 1
     if(GlobalEffectCount($player, "dW5uyngvJW_RECOVER") > 0
@@ -5276,12 +5280,6 @@ function OnCardActivated($player, $mzCard) {
                             DecisionQueueController::AddDecision($player, "CUSTOM", "MaidenShroudedFogBuff|" . $fi, 1);
                         }
                     }
-                }
-                break;
-            case "84e2rfex54": // Quadrille's Gryphon: whenever you activate a Melody or Harmony, put a buff counter
-                if((PropertyContains($subtypes, "MELODY") || PropertyContains($subtypes, "HARMONY"))
-                    && !HasNoAbilities($field[$fi])) {
-                    AddCounters($player, "myField-" . $fi, "buff", 1);
                 }
                 break;
             case "5LoOprBJay": // Discordia, Harp of Malice: whenever you activate a Harmony or Melody, put a music counter

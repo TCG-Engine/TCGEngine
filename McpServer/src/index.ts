@@ -89,7 +89,7 @@ server.tool(
 // ---------------------------------------------------------------------------
 server.tool(
   "get_macros",
-  "Get the list of available macros for a root. Macros are the event hooks (e.g. 'PlayCard', 'Enter', 'AllyDestroyed') that card abilities can be attached to. Each card ability must reference one of these macros.",
+  "Get the list of available macros and card-bearing zones for a root. Macros are the event hooks (e.g. 'PlayCard', 'Enter', 'AllyDestroyed') that card abilities can attach to or listen to.",
   {
     root: z.string().describe("The root/game name"),
   },
@@ -109,7 +109,7 @@ server.tool(
 // ---------------------------------------------------------------------------
 server.tool(
   "get_card_abilities",
-  "Read all abilities (macro implementations / code) currently saved for a specific card. Returns the macro name, PHP code body, optional prerequisite code, optional ability name, and implementation status for each ability on the card.",
+  "Read all abilities (macro implementations, listener implementations, and code) currently saved for a specific card. Returns macro/listener metadata, PHP code body, optional prerequisite code, optional ability name, and implementation status for each ability on the card.",
   {
     root: z.string().describe("The root/game name"),
     cardId: z.string().describe("The card ID to load abilities for"),
@@ -141,6 +141,8 @@ server.tool(
           macroName: z.string().describe("The macro this ability hooks into (e.g. 'Enter', 'PlayCard')"),
           abilityCode: z.string().describe("The PHP code body for this ability"),
           prereqCode: z.string().nullable().optional().describe("Optional PHP code body that returns whether this macro ability can run in the current context."),
+          abilityType: z.enum(["macro", "listener"]).optional().describe("Use 'macro' for the card's own macro implementation, or 'listener' for a zone-active listener that observes macroName. Default: macro."),
+          listenerZones: z.array(z.string()).optional().describe("For listener abilities, schema zone names where this card listens (e.g. ['Field'] or ['Garden','Alley'])."),
           abilityName: z.string().nullable().optional().describe("Optional human-readable name for this ability"),
           isImplemented: z.boolean().optional().describe("Whether this ability is considered implemented (default: false)"),
         })

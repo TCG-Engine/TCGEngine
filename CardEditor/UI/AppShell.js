@@ -353,7 +353,7 @@ class AppShell {
             if (!macrosData.success) throw new Error(macrosData.error || 'Failed to load macros');
             const assetResponse = await fetch(`../API/GetAssetPath.php?root=${encodeURIComponent(root)}`);
             const assetData = await assetResponse.json();
-            const editor = new AbilityEditor(root, cardId, macrosData.macros || [], abilitiesData.abilities || [], assetData.success ? assetData.assetPath : root);
+            const editor = new AbilityEditor(root, cardId, macrosData.macros || [], abilitiesData.abilities || [], assetData.success ? assetData.assetPath : root, macrosData.zones || []);
             editor.render();
         } catch (error) {
             this.toast(error.message, 'error');

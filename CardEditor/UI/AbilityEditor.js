@@ -3,17 +3,20 @@
  * Manages the UI for editing card abilities
  */
 class AbilityEditor {
-    constructor(rootName, cardId, macros, existingAbilities = [], assetPath = null) {
+    constructor(rootName, cardId, macros, existingAbilities = [], assetPath = null, zones = []) {
         this.rootName = rootName;
         this.cardId = cardId;
         this.macros = macros;
+        this.zones = zones;
         this.assetPath = assetPath || rootName; // Default to current root if not specified
         this.cardImplemented = false; // Track if card is marked as implemented
         this.abilities = existingAbilities.map(a => ({
             id: a.id || null,
             macroName: a.macro_name,
+            abilityType: a.ability_type || 'macro',
             abilityCode: a.ability_code,
             prereqCode: a.prereq_code || '',
+            listenerZones: this.normalizeListenerZones(a.listener_zones || ''),
             abilityName: a.ability_name,
             isImplemented: a.is_implemented ? true : false
         }));
@@ -25,6 +28,16 @@ class AbilityEditor {
         this.originalCardImplemented = this.cardImplemented;
         this.editorContainer = document.getElementById('editorArea');
         this.statusMessage = null;
+    }
+
+    normalizeListenerZones(value) {
+        if (Array.isArray(value)) {
+            return value.map(v => String(v).trim()).filter(Boolean);
+        }
+        return String(value || '')
+            .split(',')
+            .map(v => v.trim())
+            .filter(Boolean);
     }
     
     render() {
@@ -91,14 +104,43 @@ class AbilityEditor {
         const macroOptions = this.macros.map(m => 
             `<option value="${m}" ${m === ability.macroName ? 'selected' : ''}>${m}</option>`
         ).join('');
+        const abilityType = ability.abilityType === 'listener' ? 'listener' : 'macro';
+        const zoneOptions = this.zones.map(z => {
+            const checked = (ability.listenerZones || []).includes(z) ? 'checked' : '';
+            return `
+                <label class="inline-checkbox" style="margin-right: 10px;">
+                    <input
+                        type="checkbox"
+                        ${checked}
+                        onchange="window.abilityEditor.toggleListenerZone(${index}, '${z}', this.checked)"
+                    />
+                    <span>${z}</span>
+                </label>
+            `;
+        }).join('');
+        const listenerControls = abilityType === 'listener' ? `
+            <div class="form-group" style="margin-top: 10px;">
+                <label>Active Zones</label>
+                <div style="display: flex; flex-wrap: wrap; gap: 6px 10px;">
+                    ${zoneOptions || '<span style="color: #858585;">No card zones found in schema</span>'}
+                </div>
+            </div>
+        ` : '';
         
         const isImplementedChecked = ability.isImplemented ? 'checked' : '';
         
         return `
             <div class="ability-editor" data-index="${index}">
                 <div class="ability-header">
-                    <div class="form-group" style="flex: 0 0 40%;">
-                        <label>Macro</label>
+                    <div class="form-group" style="flex: 0 0 150px;">
+                        <label>Kind</label>
+                        <select onchange="window.abilityEditor.updateAbility(${index}, 'abilityType', this.value)">
+                            <option value="macro" ${abilityType === 'macro' ? 'selected' : ''}>Macro</option>
+                            <option value="listener" ${abilityType === 'listener' ? 'selected' : ''}>Listener</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 0 0 32%;">
+                        <label>${abilityType === 'listener' ? 'Listens To Macro' : 'Macro'}</label>
                         <select onchange="window.abilityEditor.updateAbility(${index}, 'macroName', this.value)">
                             <option value="">-- Select Macro --</option>
                             ${macroOptions}
@@ -128,6 +170,7 @@ class AbilityEditor {
                         Delete
                     </button>
                 </div>
+                ${listenerControls}
                 
                 <label style="font-size: 12px; color: #858585; text-transform: uppercase; font-weight: 600;">
                     Code / Function Body
@@ -154,7 +197,21 @@ class AbilityEditor {
     updateAbility(index, field, value) {
         if (index >= 0 && index < this.abilities.length) {
             this.abilities[index][field] = value;
+            if (field === 'abilityType' && value !== 'listener') {
+                this.abilities[index].listenerZones = [];
+            }
+            if (field === 'abilityType') {
+                this.render();
+            }
         }
+    }
+
+    toggleListenerZone(index, zoneName, enabled) {
+        if (index < 0 || index >= this.abilities.length) return;
+        const zones = new Set(this.abilities[index].listenerZones || []);
+        if (enabled) zones.add(zoneName);
+        else zones.delete(zoneName);
+        this.abilities[index].listenerZones = Array.from(zones).sort();
     }
     
     updateCardImplemented(isImplemented) {
@@ -165,8 +222,10 @@ class AbilityEditor {
         this.abilities.push({
             id: null,
             macroName: '',
+            abilityType: 'macro',
             abilityCode: '',
             prereqCode: '',
+            listenerZones: [],
             abilityName: '',
             isImplemented: false
         });
@@ -185,9 +244,14 @@ class AbilityEditor {
         // Validate that any abilities that exist have both macro and code
         const validAbilities = this.abilities.filter(a => a.macroName && a.abilityCode);
         const incompleteAbilities = this.abilities.filter(a => (a.macroName && !a.abilityCode) || (!a.macroName && a.abilityCode));
+        const listenerWithoutZones = validAbilities.filter(a => a.abilityType === 'listener' && (!a.listenerZones || a.listenerZones.length === 0));
         
         if (incompleteAbilities.length > 0) {
             this.showStatus('error', 'All abilities must have both a macro and code, or be removed');
+            return;
+        }
+        if (listenerWithoutZones.length > 0) {
+            this.showStatus('error', 'Listener abilities must have at least one active zone');
             return;
         }
         
@@ -229,8 +293,10 @@ class AbilityEditor {
                 this.abilities = loadData.abilities.map(a => ({
                     id: a.id,
                     macroName: a.macro_name,
+                    abilityType: a.ability_type || 'macro',
                     abilityCode: a.ability_code,
                     prereqCode: a.prereq_code || '',
+                    listenerZones: this.normalizeListenerZones(a.listener_zones || ''),
                     abilityName: a.ability_name,
                     isImplemented: a.is_implemented ? true : false
                 }));

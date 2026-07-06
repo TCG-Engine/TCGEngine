@@ -9,7 +9,7 @@ class CardAbilityDB {
         $this->conn = $conn;
     }
 
-    private function ensurePrereqColumn() {
+    private function ensureSchemaColumns() {
         static $checked = false;
         if ($checked) return;
 
@@ -18,6 +18,19 @@ class CardAbilityDB {
             mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN prereq_code LONGTEXT NULL AFTER ability_code");
         }
         if ($result) mysqli_free_result($result);
+
+        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'ability_type'");
+        if ($result && mysqli_num_rows($result) === 0) {
+            mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN ability_type VARCHAR(32) NOT NULL DEFAULT 'macro' AFTER macro_name");
+        }
+        if ($result) mysqli_free_result($result);
+
+        $result = mysqli_query($this->conn, "SHOW COLUMNS FROM card_abilities LIKE 'listener_zones'");
+        if ($result && mysqli_num_rows($result) === 0) {
+            mysqli_query($this->conn, "ALTER TABLE card_abilities ADD COLUMN listener_zones TEXT NULL AFTER prereq_code");
+        }
+        if ($result) mysqli_free_result($result);
+
         $checked = true;
     }
     
@@ -26,9 +39,9 @@ class CardAbilityDB {
      */
     public function loadCardAbilities($rootName, $cardId) {
         try {
-            $this->ensurePrereqColumn();
+            $this->ensureSchemaColumns();
             $stmt = mysqli_prepare($this->conn, "
-                SELECT id, macro_name, ability_code, prereq_code, ability_name, is_implemented, created_at, updated_at
+                SELECT id, macro_name, ability_type, ability_code, prereq_code, listener_zones, ability_name, is_implemented, created_at, updated_at
                 FROM card_abilities
                 WHERE root_name = ? AND card_id = ?
                 ORDER BY created_at ASC
@@ -52,16 +65,18 @@ class CardAbilityDB {
      * Save a single ability (insert or update)
      * If $id is null, creates new record. Otherwise updates existing.
      */
-    public function saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $prereqCode = null, $abilityName = null, $isImplemented = 0) {
+    public function saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $prereqCode = null, $abilityName = null, $isImplemented = 0, $abilityType = 'macro', $listenerZones = null) {
         try {
-            $this->ensurePrereqColumn();
+            $this->ensureSchemaColumns();
+            $abilityType = ($abilityType === 'listener') ? 'listener' : 'macro';
+            if ($abilityType !== 'listener') $listenerZones = null;
             if ($id === null) {
                 // Insert new
                 $stmt = mysqli_prepare($this->conn, "
-                    INSERT INTO card_abilities (root_name, card_id, macro_name, ability_code, prereq_code, ability_name, is_implemented)
-                    VALUES (?, ?, ?, ?, ?, ?, ?)
+                    INSERT INTO card_abilities (root_name, card_id, macro_name, ability_type, ability_code, prereq_code, listener_zones, ability_name, is_implemented)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
                 ");
-                mysqli_stmt_bind_param($stmt, "ssssssi", $rootName, $cardId, $macroName, $abilityCode, $prereqCode, $abilityName, $isImplemented);
+                mysqli_stmt_bind_param($stmt, "ssssssssi", $rootName, $cardId, $macroName, $abilityType, $abilityCode, $prereqCode, $listenerZones, $abilityName, $isImplemented);
                 if (mysqli_stmt_execute($stmt)) {
                     $newId = mysqli_insert_id($this->conn);
                     mysqli_stmt_close($stmt);
@@ -73,10 +88,10 @@ class CardAbilityDB {
                 // Update existing
                 $stmt = mysqli_prepare($this->conn, "
                     UPDATE card_abilities
-                    SET macro_name = ?, ability_code = ?, prereq_code = ?, ability_name = ?, is_implemented = ?
+                    SET macro_name = ?, ability_type = ?, ability_code = ?, prereq_code = ?, listener_zones = ?, ability_name = ?, is_implemented = ?
                     WHERE id = ? AND root_name = ? AND card_id = ?
                 ");
-                mysqli_stmt_bind_param($stmt, "ssssiiss", $macroName, $abilityCode, $prereqCode, $abilityName, $isImplemented, $id, $rootName, $cardId);
+                mysqli_stmt_bind_param($stmt, "ssssssiiss", $macroName, $abilityType, $abilityCode, $prereqCode, $listenerZones, $abilityName, $isImplemented, $id, $rootName, $cardId);
                 $result = mysqli_stmt_execute($stmt);
                 mysqli_stmt_close($stmt);
                 return $result ? $id : false;
@@ -112,11 +127,11 @@ class CardAbilityDB {
      */
     public function getAbilitiesByMacro($rootName, $macroName) {
         try {
-            $this->ensurePrereqColumn();
+            $this->ensureSchemaColumns();
             $stmt = mysqli_prepare($this->conn, "
                 SELECT card_id, ability_code, prereq_code, ability_name
                 FROM card_abilities
-                WHERE root_name = ? AND macro_name = ?
+                WHERE root_name = ? AND macro_name = ? AND ability_type = 'macro'
                 ORDER BY card_id ASC
             ");
             mysqli_stmt_bind_param($stmt, "ss", $rootName, $macroName);
@@ -130,6 +145,34 @@ class CardAbilityDB {
             return $abilities;
         } catch (Exception $e) {
             error_log("CardAbilityDB::getAbilitiesByMacro error: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    /**
+     * Get listener abilities grouped by observed macro.
+     * Listener abilities are dispatched by generated helper code at app-chosen timing.
+     */
+    public function getListenerAbilities($rootName) {
+        try {
+            $this->ensureSchemaColumns();
+            $stmt = mysqli_prepare($this->conn, "
+                SELECT card_id, macro_name, ability_code, prereq_code, listener_zones, ability_name
+                FROM card_abilities
+                WHERE root_name = ? AND ability_type = 'listener'
+                ORDER BY macro_name ASC, card_id ASC
+            ");
+            mysqli_stmt_bind_param($stmt, "s", $rootName);
+            mysqli_stmt_execute($stmt);
+            $result = mysqli_stmt_get_result($stmt);
+            $abilities = [];
+            while ($row = mysqli_fetch_assoc($result)) {
+                $abilities[] = $row;
+            }
+            mysqli_stmt_close($stmt);
+            return $abilities;
+        } catch (Exception $e) {
+            error_log("CardAbilityDB::getListenerAbilities error: " . $e->getMessage());
             return [];
         }
     }

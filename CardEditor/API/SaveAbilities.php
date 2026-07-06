@@ -55,14 +55,28 @@ try {
             $macroName = $ability['macroName'] ?? null;
             $abilityCode = $ability['abilityCode'] ?? null;
             $prereqCode = $ability['prereqCode'] ?? null;
+            $abilityType = ($ability['abilityType'] ?? 'macro') === 'listener' ? 'listener' : 'macro';
+            $listenerZones = $ability['listenerZones'] ?? null;
             $abilityName = $ability['abilityName'] ?? null;
             $isImplemented = $ability['isImplemented'] ?? 0;
             
             if (!$macroName || !$abilityCode) {
                 throw new Exception("Ability missing macroName or abilityCode");
             }
+            if ($abilityType === 'listener') {
+                if (is_array($listenerZones)) {
+                    $listenerZones = implode(',', array_values(array_filter(array_map('trim', $listenerZones))));
+                } else {
+                    $listenerZones = trim(strval($listenerZones ?? ''));
+                }
+                if ($listenerZones === '') {
+                    throw new Exception("Listener ability missing active zones");
+                }
+            } else {
+                $listenerZones = null;
+            }
             
-            $savedId = $db->saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $prereqCode, $abilityName, $isImplemented);
+            $savedId = $db->saveAbility($id, $rootName, $cardId, $macroName, $abilityCode, $prereqCode, $abilityName, $isImplemented, $abilityType, $listenerZones);
             if (!$savedId) {
                 throw new Exception("Failed to save ability");
             }
@@ -74,7 +88,7 @@ try {
         // If card is marked as implemented but has no abilities, create a marker ability
         if ($cardImplemented && count($abilities) === 0) {
             // Create a marker ability to indicate card is implemented (no macro, no code, just the flag)
-            $markerId = $db->saveAbility(null, $rootName, $cardId, '', '', null, '[Card Implemented]', 1);
+            $markerId = $db->saveAbility(null, $rootName, $cardId, '', '', null, '[Card Implemented]', 1, 'macro', null);
             if ($markerId) {
                 $savedIds[] = $markerId;
             }
