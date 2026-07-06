@@ -1,0 +1,203 @@
+1
+486
+24
+GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD
+GA-SHOUT-HEMOFLUX-DRAIN-PRDSD
+GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD
+ka5av43ehj
+GA-SHOUT-SPELLSHIELD-EXIA-PRDSD
+ka5av43ehj
+GA-SHOUT-AENEAN-FROSTLANCE-PRDSD
+GA-SHOUT-AENEAN-FROSTLANCE-PRDSD
+GA-SHOUT-KEEN-TIDEBINDER-PRDSD
+GA-SHOUT-SPELLSHIELD-EXIA-PRDSD
+GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD
+776yt8UxhU
+eaxvvj7hz3
+GA-SHOUT-EDGE-OF-TOMMORROW-PRD
+GA-SHOUT-BLOOD-SURGE-PRDSD
+kk39i1f0ht
+rWhFC8XBaH
+GA-SHOUT-AENEAN-FROSTLANCE-PRDSD
+GA-SHOUT-MAGUS-INITIATE-PRDSD
+GA-SHOUT-BLOOD-SURGE-PRDSD
+776yt8UxhU
+GA-SHOUT-AENEAN-FROSTLANCE-PRDSD
+GA-SHOUT-HEMOFLUX-DRAIN-PRDSD
+kk39i1f0ht
+45
+7qg90wqPHs
+e1xj8mqr2o
+2zs1pana81
+crv1etn4g3
+UdYcJGrJt5
+5tz8bwcoel
+kvoqk1l75t
+kvoqk1l75t
+1a5zdqgydt
+UVAb8CmjtL
+cworak5y4y
+pw9b6IJWEr
+mt5zs1w6c0
+rn1gmo124j
+5tz8bwcoel
+rn1gmo124j
+1wl8ao8bls
+akmv2ssjhu
+crv1etn4g3
+dZ0Y2ILgZW
+pc3zpkw43o
+ri955ygd5v
+cworak5y4y
+q1b6htzcox
+j43qiwqjt0
+crv1etn4g3
+mt5zs1w6c0
+1t3dvor61i
+2bbmoqk2c7
+kvoqk1l75t
+9ewgUjy34b
+5tz8bwcoel
+5tz8bwcoel
+UVAb8CmjtL
+2bbmoqk2c7
+7qg90wqPHs
+7qg90wqPHs
+9ewgUjy34b
+1t3dvor61i
+rn1gmo124j
+e1xj8mqr2o
+tu7jvjf2gh
+9ewgUjy34b
+2zs1pana81
+tu7jvjf2gh
+8
+GA-SHOUT-BLOOD-SURGE-PRDSD - -
+GA-SHOUT-GENCODE-WOMB-PRDSD - -
+GA-SHOUT-HEMOFLUX-DRAIN-PRDSD - -
+rWhFC8XBaH - -
+GA-SHOUT-AENEAN-WARD-PRDSD - -
+z0fgm3pal7 - -
+GA-SHOUT-KEEN-TIDEBINDER-PRDSD - -
+2gv7DC0KID - -
+15
+du4df43ci2 - -
+UdYcJGrJt5 - eyJvbWVuIjoxfQ==
+kvoqk1l75t - eyJvbWVuIjoxfQ==
+1wl8ao8bls - -
+pw9b6IJWEr - -
+j43qiwqjt0 - eyJvbWVuIjoxfQ==
+2zs1pana81 - -
+ri955ygd5v - eyJvbWVuIjoxfQ==
+tu7jvjf2gh - -
+cworak5y4y - -
+eaxvvj7hz3 - -
+9ewgUjy34b - eyJvbWVuIjoxfQ==
+8kmoi0a5uh - -
+2zs1pana81 - eyJvbWVuIjoxfQ==
+q1b6htzcox - eyJvbWVuIjoxfQ==
+18
+GA-SHOUT-EDGE-OF-TOMMORROW-PRD
+GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD
+GA-SHOUT-EDGE-OF-TOMMORROW-PRD
+GA-SHOUT-AENEAN-WARD-PRDSD
+GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD
+GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD
+z0fgm3pal7
+GA-SHOUT-EDGE-OF-TOMMORROW-PRD
+eaxvvj7hz3
+GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD
+GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD
+kk39i1f0ht
+eaxvvj7hz3
+GA-SHOUT-SPELLSHIELD-EXIA-PRDSD
+w1d0uc5dxZ
+GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD
+GA-SHOUT-SPELLSHIELD-EXIA-PRDSD
+w1d0uc5dxZ
+2
+1a5zdqgydt
+akmv2ssjhu
+0
+0
+4
+GA-SHOUT-HEMOFLUX-DRAIN-PRDSD
+GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD
+GA-SHOUT-AENEAN-WARD-PRDSD
+GA-SHOUT-BLOOD-SURGE-PRDSD
+3
+Kc5Bktw0yK
+Kc5Bktw0yK
+Kc5Bktw0yK
+15
+GA-SHOUT-MAGUS-INITIATE-PRDSD 1 1 0 1 - - - 4
+GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD 2 1 0 1 - - - 7
+GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD 2 1 0 1 - - - 8
+GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR 2 1 8 1 - - WyJHQS1TSE9VVC1EQU5URS1BRU5FQU4tSU5JVElBVEUtUFJEMUUtQ1NSIiwiR0EtU0hPVVQtREFOVEUtUFJPRElHQUwtU1dBSU4tUFJEMUUtQ1NSIiwiVTVya1QwSlJ6QyJd 19
+GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD 2 1 0 1 - - - 20
+GA-SHOUT-CRIMSON-VEIN-PRDSD 2 1 0 1 - eyJibG9vZCI6Mjh9 - 24
+ci00l7pqcx 2 1 0 1 - - - 27
+GA-SHOUT-VENOUS-CORE-PRDSD 2 1 0 1 - - - 31
+ka5av43ehj 1 1 0 1 - - - 33
+GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD 2 1 0 1 - - - 36
+GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD 2 1 0 1 - - - 40
+eaxvvj7hz3 2 1 0 1 - eyJkdXJhYmlsaXR5Ijo2fQ== - 41
+GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD 2 1 0 1 - - - 42
+UiohpiTtgs 2 1 0 1 - - - 43
+w1d0uc5dxZ 2 1 0 1 - - - 44
+9
+eaxvvj7hz3 2 2 0 2 - eyJkdXJhYmlsaXR5Ijo1fQ== - 5
+fm894uc4ij 2 2 0 2 - - - 14
+pc3zpkw43o 2 2 0 2 - - - 18
+21oy1nd4nw 2 2 0 2 - - - 26
+6ihv6hbvye 2 2 0 2 - eyJkdXJhYmlsaXR5IjoyfQ== - 28
+zhh43i1eaa 2 2 4 2 vz4kc558yx-ACTION_ACTIVATED~vz4kc558yx-ALLY_ACTIVATED eyJfY2hhbXBDb21iYXREYW1hZ2VEZWFsdFRoaXNUdXJuIjoxMn0= WyJvNjlvZ29jZW1vIiwibm40OG5lOGEwNSIsIjc0d2E0eDdlMjIiXQ== 34
+9xycwz9gv4 2 2 0 2 - eyJwcml6ZSI6MX0= - 38
+f4wqesifxk 1 2 0 2 ENTERED_THIS_TURN - - 45
+84e2rfex54 2 2 0 2 ENTERED_THIS_TURN - - 46
+0
+0
+2
+GA-SHOUT-AENEAN-WARD-PRDSD
+kk39i1f0ht
+5
+dZ0Y2ILgZW
+du4df43ci2
+akmv2ssjhu
+pc3zpkw43o
+rn1gmo124j
+2
+yDARN8eV6B
+k5wrAxBbF9
+2
+aZzm2GEWEu
+s4b2mkh1xm
+0
+0
+0
+0
+0
+1
+0d93t7bfwc NONE -
+0
+0
+1
+0:Declare Attack<vname>1<v0>MAIN<v0>11<v0><v0>GA-SHOUT-HEMOFLUX-DRAIN-PRDSD<v1>GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD<v1>GA-SHOUT-AENEAN-WARD-PRDSD<v1>GA-SHOUT-BLOOD-SURGE-PRDSD<v0><v0>GA-SHOUT-EDGE-OF-TOMMORROW-PRD<v1>GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD<v1>GA-SHOUT-EDGE-OF-TOMMORROW-PRD<v1>GA-SHOUT-AENEAN-WARD-PRDSD<v1>GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD<v1>GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD<v1>z0fgm3pal7<v1>GA-SHOUT-EDGE-OF-TOMMORROW-PRD<v1>eaxvvj7hz3<v1>GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD<v1>GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD<v1>kk39i1f0ht<v1>eaxvvj7hz3<v1>GA-SHOUT-SPELLSHIELD-EXIA-PRDSD<v1>w1d0uc5dxZ<v1>GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD<v1>GA-SHOUT-SPELLSHIELD-EXIA-PRDSD<v1>w1d0uc5dxZ<v0>GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD<v1>GA-SHOUT-HEMOFLUX-DRAIN-PRDSD<v1>GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD<v1>ka5av43ehj<v1>GA-SHOUT-SPELLSHIELD-EXIA-PRDSD<v1>ka5av43ehj<v1>GA-SHOUT-AENEAN-FROSTLANCE-PRDSD<v1>GA-SHOUT-AENEAN-FROSTLANCE-PRDSD<v1>GA-SHOUT-KEEN-TIDEBINDER-PRDSD<v1>GA-SHOUT-SPELLSHIELD-EXIA-PRDSD<v1>GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD<v1>776yt8UxhU<v1>eaxvvj7hz3<v1>GA-SHOUT-EDGE-OF-TOMMORROW-PRD<v1>GA-SHOUT-BLOOD-SURGE-PRDSD<v1>kk39i1f0ht<v1>rWhFC8XBaH<v1>GA-SHOUT-AENEAN-FROSTLANCE-PRDSD<v1>GA-SHOUT-MAGUS-INITIATE-PRDSD<v1>GA-SHOUT-BLOOD-SURGE-PRDSD<v1>776yt8UxhU<v1>GA-SHOUT-AENEAN-FROSTLANCE-PRDSD<v1>GA-SHOUT-HEMOFLUX-DRAIN-PRDSD<v1>kk39i1f0ht<v0><v0>0<v0><v0><v0>yDARN8eV6B<v1>k5wrAxBbF9<v0>GA-SHOUT-MAGUS-INITIATE-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>4<v1>GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>7<v1>GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>8<v1>GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR<v2>2<v2>1<v2>9<v2>1<v2>vz4kc558yx-ALLY_ACTIVATED<v2>-<v2>WyJHQS1TSE9VVC1EQU5URS1BRU5FQU4tSU5JVElBVEUtUFJEMUUtQ1NSIiwiR0EtU0hPVVQtREFOVEUtUFJPRElHQUwtU1dBSU4tUFJEMUUtQ1NSIiwiVTVya1QwSlJ6QyJd<v2>19<v1>GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>20<v1>GA-SHOUT-CRIMSON-VEIN-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>eyJibG9vZCI6Mjd9<v2>-<v2>24<v1>ci00l7pqcx<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>27<v1>GA-SHOUT-VENOUS-CORE-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>31<v1>ka5av43ehj<v2>1<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>33<v1>GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>36<v1>GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>40<v1>eaxvvj7hz3<v2>2<v2>1<v2>0<v2>1<v2>-<v2>eyJkdXJhYmlsaXR5Ijo2fQ==<v2>-<v2>41<v1>GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>42<v1>UiohpiTtgs<v2>2<v2>1<v2>0<v2>1<v2>ENTERED_THIS_TURN<v2>-<v2>-<v2>43<v1>w1d0uc5dxZ<v2>2<v2>1<v2>0<v2>1<v2>ENTERED_THIS_TURN<v2>-<v2>-<v2>44<v0><v0>GA-SHOUT-AENEAN-WARD-PRDSD<v1>kk39i1f0ht<v0>GA-SHOUT-BLOOD-SURGE-PRDSD<v2>-<v2>-<v1>GA-SHOUT-GENCODE-WOMB-PRDSD<v2>-<v2>-<v1>GA-SHOUT-HEMOFLUX-DRAIN-PRDSD<v2>-<v2>-<v1>rWhFC8XBaH<v2>-<v2>-<v1>GA-SHOUT-AENEAN-WARD-PRDSD<v2>-<v2>-<v1>z0fgm3pal7<v2>-<v2>-<v1>GA-SHOUT-KEEN-TIDEBINDER-PRDSD<v2>-<v2>-<v1>2gv7DC0KID<v2>-<v2>-<v0>rn1gmo124j<v0><v0>1a5zdqgydt<v0>akmv2ssjhu<v1>7qg90wqPHs<v1>e1xj8mqr2o<v1>2zs1pana81<v1>crv1etn4g3<v1>UdYcJGrJt5<v1>5tz8bwcoel<v1>kvoqk1l75t<v1>kvoqk1l75t<v1>1a5zdqgydt<v1>UVAb8CmjtL<v1>cworak5y4y<v1>pw9b6IJWEr<v1>mt5zs1w6c0<v1>rn1gmo124j<v1>5tz8bwcoel<v1>rn1gmo124j<v1>1wl8ao8bls<v1>akmv2ssjhu<v1>crv1etn4g3<v1>dZ0Y2ILgZW<v1>pc3zpkw43o<v1>ri955ygd5v<v1>cworak5y4y<v1>q1b6htzcox<v1>j43qiwqjt0<v1>crv1etn4g3<v1>mt5zs1w6c0<v1>1t3dvor61i<v1>2bbmoqk2c7<v1>kvoqk1l75t<v1>9ewgUjy34b<v1>5tz8bwcoel<v1>5tz8bwcoel<v1>UVAb8CmjtL<v1>2bbmoqk2c7<v1>7qg90wqPHs<v1>7qg90wqPHs<v1>9ewgUjy34b<v1>1t3dvor61i<v1>rn1gmo124j<v1>e1xj8mqr2o<v1>tu7jvjf2gh<v1>9ewgUjy34b<v1>2zs1pana81<v1>tu7jvjf2gh<v0><v0>0<v0>0d93t7bfwc<v2>NONE<v2>-<v0><v0>aZzm2GEWEu<v1>f4wqesifxk<v1>s4b2mkh1xm<v0>eaxvvj7hz3<v2>2<v2>2<v2>0<v2>2<v2>-<v2>eyJkdXJhYmlsaXR5Ijo1fQ==<v2>-<v2>5<v1>fm894uc4ij<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>14<v1>pc3zpkw43o<v2>1<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>18<v1>21oy1nd4nw<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>26<v1>6ihv6hbvye<v2>2<v2>2<v2>0<v2>2<v2>-<v2>eyJkdXJhYmlsaXR5IjoyfQ==<v2>-<v2>28<v1>zhh43i1eaa<v2>1<v2>2<v2>3<v2>2<v2>vz4kc558yx-ACTION_ACTIVATED~WAS_ATTACKED~DAMAGED_SINCE_LAST_TURN<v2>eyJfY2hhbXBDb21iYXREYW1hZ2VEZWFsdFRoaXNUdXJuIjoxMiwiX2NoYW1wRGFtYWdlVGhpc1R1cm4iOjF9<v2>WyJvNjlvZ29jZW1vIiwibm40OG5lOGEwNSIsIjc0d2E0eDdlMjIiXQ==<v2>34<v1>9xycwz9gv4<v2>2<v2>2<v2>0<v2>2<v2>-<v2>eyJwcml6ZSI6MX0=<v2>-<v2>38<v0><v0>pc3zpkw43o<v1>dZ0Y2ILgZW<v1>du4df43ci2<v0>du4df43ci2<v2>-<v2>-<v1>UdYcJGrJt5<v2>-<v2>eyJvbWVuIjoxfQ==<v1>kvoqk1l75t<v2>-<v2>eyJvbWVuIjoxfQ==<v1>1wl8ao8bls<v2>-<v2>-<v1>pw9b6IJWEr<v2>-<v2>-<v1>j43qiwqjt0<v2>-<v2>eyJvbWVuIjoxfQ==<v1>2zs1pana81<v2>-<v2>-<v1>ri955ygd5v<v2>-<v2>eyJvbWVuIjoxfQ==<v1>tu7jvjf2gh<v2>-<v2>-<v1>cworak5y4y<v2>-<v2>-<v1>eaxvvj7hz3<v2>-<v2>-<v1>9ewgUjy34b<v2>-<v2>eyJvbWVuIjoxfQ==<v1>8kmoi0a5uh<v2>-<v2>-<v1>2zs1pana81<v2>-<v2>eyJvbWVuIjoxfQ==<v1>q1b6htzcox<v2>-<v2>eyJvbWVuIjoxfQ==<v0>{"GoldfishPlayers":[],"MatchId":"M112","GameNumber":"1","mzID":"myField-8","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"1a5zdqgydt","activationSourceZone":"myHand","additionalCostPaid":"NO","revealedMZ":"myTempZone-0","EffectStackEnterCardID":"","EffectStackEnterController":"","source":"myField-8","target":"theirField-5","abilityIndex":0,"pendingNegateTarget":"EffectStack-0","pendingNegateDestination":"banish","pendingNegatePayAmount":"2","choice":"YES","CombatDamageAmount":"1"}<v0><v0>{"OnBanishCalls":{"2":1},"OnBanish":{"2":{"q1b6htzcox":1}},"AllyDestroyedCalls":{"2":1},"AllyDestroyed":{"2":{"w1d0uc5dxZ":1}},"MaterializeCalls":{"1":1},"Materialize":{"1":{"UiohpiTtgs":1}},"EnterCalls":{"1":2},"Enter":{"1":{"UiohpiTtgs":1,"w1d0uc5dxZ":1}},"DrawCalls":{"1":2},"Draw":{"1":2},"ActivateCardCalls":{"1":1,"2":1},"ActivateCard":{"1":{"w1d0uc5dxZ":1},"2":{"1a5zdqgydt":1}},"CardActivatedCalls":{"2":1,"1":1},"CardActivated":{"2":{"1a5zdqgydt":1},"1":{"w1d0uc5dxZ":1}},"AdvancedElementActivated":{"2":1},"RestCardCalls":{"1":1},"RestCard":{"1":{"ka5av43ehj":1}},"OnAttackCalls":{"1":1},"OnAttack":{"1":{"ka5av43ehj":1}},"DealDamageCalls":{"1":1}}<v0>44<v0>{"ActivateCardCalls":{"1":25,"2":9},"ActivateCard":{"1":{"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1,"eaxvvj7hz3":3,"kk39i1f0ht":1,"rWhFC8XBaH":1,"GA-SHOUT-AENEAN-WARD-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":3,"w1d0uc5dxZ":3,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":2,"z0fgm3pal7":1,"ka5av43ehj":1,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":2},"2":{"eaxvvj7hz3":1,"UdYcJGrJt5":1,"9ewgUjy34b":1,"kvoqk1l75t":1,"pc3zpkw43o":1,"2zs1pana81":2,"q1b6htzcox":1,"1a5zdqgydt":1}},"ReserveCard":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":2,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":9,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":3,"GA-SHOUT-AENEAN-WARD-PRDSD":9,"z0fgm3pal7":8,"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"w1d0uc5dxZ":1,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":4,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":1,"kk39i1f0ht":2},"2":{"du4df43ci2":2,"pw9b6IJWEr":4,"1wl8ao8bls":4,"kvoqk1l75t":1,"cworak5y4y":6,"pc3zpkw43o":4,"tu7jvjf2gh":3,"ri955ygd5v":1,"eaxvvj7hz3":3,"q1b6htzcox":4}},"ReserveCardCommitted":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":2,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":9,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":3,"GA-SHOUT-AENEAN-WARD-PRDSD":9,"z0fgm3pal7":8,"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"w1d0uc5dxZ":1,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":4,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":1,"kk39i1f0ht":2},"2":{"du4df43ci2":2,"pw9b6IJWEr":4,"1wl8ao8bls":4,"kvoqk1l75t":1,"cworak5y4y":6,"pc3zpkw43o":4,"tu7jvjf2gh":3,"ri955ygd5v":1,"eaxvvj7hz3":3,"q1b6htzcox":4}},"ReserveActionCommitted":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":2,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":9,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":3,"GA-SHOUT-AENEAN-WARD-PRDSD":9,"z0fgm3pal7":8,"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"w1d0uc5dxZ":1,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":4,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":1,"kk39i1f0ht":2},"2":{"du4df43ci2":2,"pw9b6IJWEr":4,"1wl8ao8bls":4,"kvoqk1l75t":1,"cworak5y4y":6,"pc3zpkw43o":4,"tu7jvjf2gh":3,"ri955ygd5v":1,"eaxvvj7hz3":3,"q1b6htzcox":4}},"CardActivatedCalls":{"1":25,"2":8},"CardActivated":{"1":{"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1,"eaxvvj7hz3":3,"kk39i1f0ht":1,"rWhFC8XBaH":1,"GA-SHOUT-AENEAN-WARD-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":3,"w1d0uc5dxZ":3,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":2,"z0fgm3pal7":1,"ka5av43ehj":1,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":2},"2":{"eaxvvj7hz3":1,"UdYcJGrJt5":1,"9ewgUjy34b":1,"kvoqk1l75t":1,"pc3zpkw43o":1,"2zs1pana81":1,"q1b6htzcox":1,"1a5zdqgydt":1}},"RevealCalls":{"1":3},"EnterCalls":{"1":29,"2":13},"Enter":{"1":{"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1,"GA-SHOUT-DANTE-PRODIGAL-SWAIN-PRD1E-CSR":1,"GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD":4,"eaxvvj7hz3":3,"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"kk39i1f0ht":1,"GA-SHOUT-DANTE-AENEAN-INITIATE-PRD1E-CSR":1,"GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":3,"w1d0uc5dxZ":3,"GA-SHOUT-CRIMSON-VEIN-PRDSD":1,"ci00l7pqcx":1,"GA-SHOUT-VENOUS-CORE-PRDSD":1,"ka5av43ehj":1,"k5wrAxBbF9":1,"2gv7DC0KID":1,"UiohpiTtgs":1},"2":{"eaxvvj7hz3":1,"nn48ne8a05":1,"9ewgUjy34b":1,"fm894uc4ij":1,"8kmoi0a5uh":1,"pc3zpkw43o":1,"o69ogocemo":1,"21oy1nd4nw":1,"6ihv6hbvye":1,"2zs1pana81":1,"L67r0GlRHR":1,"zhh43i1eaa":1,"9xycwz9gv4":1}},"DrawCalls":{"2":10,"1":21},"OnBanishCalls":{"1":8,"2":15},"OnBanish":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":1,"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":1,"rWhFC8XBaH":1,"GA-SHOUT-AENEAN-WARD-PRDSD":1,"z0fgm3pal7":1,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"2gv7DC0KID":1},"2":{"du4df43ci2":1,"UdYcJGrJt5":1,"kvoqk1l75t":1,"1wl8ao8bls":1,"pw9b6IJWEr":1,"j43qiwqjt0":1,"ri955ygd5v":1,"tu7jvjf2gh":1,"cworak5y4y":1,"eaxvvj7hz3":1,"9ewgUjy34b":1,"8kmoi0a5uh":1,"2zs1pana81":1,"q1b6htzcox":1}},"MaterializeCalls":{"1":10,"2":8},"Materialize":{"1":{"GA-SHOUT-DANTE-PRODIGAL-SWAIN-PRD1E-CSR":1,"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"GA-SHOUT-DANTE-AENEAN-INITIATE-PRD1E-CSR":1,"GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR":1,"GA-SHOUT-CRIMSON-VEIN-PRDSD":1,"ci00l7pqcx":1,"GA-SHOUT-VENOUS-CORE-PRDSD":1,"k5wrAxBbF9":1,"2gv7DC0KID":1,"UiohpiTtgs":1},"2":{"nn48ne8a05":1,"fm894uc4ij":1,"8kmoi0a5uh":1,"o69ogocemo":1,"21oy1nd4nw":1,"6ihv6hbvye":1,"zhh43i1eaa":1,"9xycwz9gv4":1}},"RestCardCalls":{"1":9,"2":18},"RestCard":{"1":{"GA-SHOUT-MAGUS-INITIATE-PRDSD":4,"kk39i1f0ht":1,"ka5av43ehj":4},"2":{"nn48ne8a05":2,"pc3zpkw43o":7,"o69ogocemo":1,"2zs1pana81":1,"L67r0GlRHR":4,"zhh43i1eaa":3}},"OnAttackCalls":{"1":9,"2":18},"OnAttack":{"1":{"GA-SHOUT-MAGUS-INITIATE-PRDSD":4,"kk39i1f0ht":1,"ka5av43ehj":4},"2":{"nn48ne8a05":2,"pc3zpkw43o":7,"o69ogocemo":1,"2zs1pana81":1,"L67r0GlRHR":4,"zhh43i1eaa":3}},"DealDamageCalls":{"1":9,"2":18},"ActivateAbilityCalls":{"1":2},"ActivateAbility":{"1":{"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"2gv7DC0KID":1}},"OpponentChampionDamage":{"2":32,"1":3},"OpponentChampionDamageTimeline":{"2":{"3":7,"5":3,"7":3,"8":5,"9":8,"10":6},"1":{"10":2,"11":1}},"OpponentChampionDamageSources":{"2":{"nn48ne8a05":7,"pc3zpkw43o":12,"zhh43i1eaa":5,"L67r0GlRHR":6},"1":{"ka5av43ehj":2,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1}},"AllyDestroyedCalls":{"2":5,"1":2},"AllyDestroyed":{"2":{"eaxvvj7hz3":2,"kk39i1f0ht":1,"w1d0uc5dxZ":2},"1":{"9ewgUjy34b":1,"2zs1pana81":1}}}<v0>0
+1
+0:2<v0>MAIN<v0>11<v0><v0>Kc5Bktw0yK<v1>Kc5Bktw0yK<v1>Kc5Bktw0yK<v0><v0>1a5zdqgydt<v1>akmv2ssjhu<v0>7qg90wqPHs<v1>e1xj8mqr2o<v1>2zs1pana81<v1>crv1etn4g3<v1>UdYcJGrJt5<v1>5tz8bwcoel<v1>kvoqk1l75t<v1>kvoqk1l75t<v1>1a5zdqgydt<v1>UVAb8CmjtL<v1>cworak5y4y<v1>pw9b6IJWEr<v1>mt5zs1w6c0<v1>rn1gmo124j<v1>5tz8bwcoel<v1>rn1gmo124j<v1>1wl8ao8bls<v1>akmv2ssjhu<v1>crv1etn4g3<v1>dZ0Y2ILgZW<v1>pc3zpkw43o<v1>ri955ygd5v<v1>cworak5y4y<v1>q1b6htzcox<v1>j43qiwqjt0<v1>crv1etn4g3<v1>mt5zs1w6c0<v1>1t3dvor61i<v1>2bbmoqk2c7<v1>kvoqk1l75t<v1>9ewgUjy34b<v1>5tz8bwcoel<v1>5tz8bwcoel<v1>UVAb8CmjtL<v1>2bbmoqk2c7<v1>7qg90wqPHs<v1>7qg90wqPHs<v1>9ewgUjy34b<v1>1t3dvor61i<v1>rn1gmo124j<v1>e1xj8mqr2o<v1>tu7jvjf2gh<v1>9ewgUjy34b<v1>2zs1pana81<v1>tu7jvjf2gh<v0><v0>0<v0>0d93t7bfwc<v2>NONE<v2>-<v0><v0>aZzm2GEWEu<v1>s4b2mkh1xm<v0>eaxvvj7hz3<v2>2<v2>2<v2>0<v2>2<v2>-<v2>eyJkdXJhYmlsaXR5Ijo1fQ==<v2>-<v2>5<v1>fm894uc4ij<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>14<v1>pc3zpkw43o<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>18<v1>21oy1nd4nw<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>26<v1>6ihv6hbvye<v2>2<v2>2<v2>0<v2>2<v2>-<v2>eyJkdXJhYmlsaXR5IjoyfQ==<v2>-<v2>28<v1>zhh43i1eaa<v2>2<v2>2<v2>4<v2>2<v2>vz4kc558yx-ACTION_ACTIVATED~vz4kc558yx-ALLY_ACTIVATED<v2>eyJfY2hhbXBDb21iYXREYW1hZ2VEZWFsdFRoaXNUdXJuIjoxMn0=<v2>WyJvNjlvZ29jZW1vIiwibm40OG5lOGEwNSIsIjc0d2E0eDdlMjIiXQ==<v2>34<v1>9xycwz9gv4<v2>2<v2>2<v2>0<v2>2<v2>-<v2>eyJwcml6ZSI6MX0=<v2>-<v2>38<v1>f4wqesifxk<v2>1<v2>2<v2>0<v2>2<v2>ENTERED_THIS_TURN<v2>-<v2>-<v2>45<v1>84e2rfex54<v2>2<v2>2<v2>0<v2>2<v2>ENTERED_THIS_TURN<v2>-<v2>-<v2>46<v0><v0>dZ0Y2ILgZW<v1>du4df43ci2<v1>akmv2ssjhu<v1>pc3zpkw43o<v1>rn1gmo124j<v0>du4df43ci2<v2>-<v2>-<v1>UdYcJGrJt5<v2>-<v2>eyJvbWVuIjoxfQ==<v1>kvoqk1l75t<v2>-<v2>eyJvbWVuIjoxfQ==<v1>1wl8ao8bls<v2>-<v2>-<v1>pw9b6IJWEr<v2>-<v2>-<v1>j43qiwqjt0<v2>-<v2>eyJvbWVuIjoxfQ==<v1>2zs1pana81<v2>-<v2>-<v1>ri955ygd5v<v2>-<v2>eyJvbWVuIjoxfQ==<v1>tu7jvjf2gh<v2>-<v2>-<v1>cworak5y4y<v2>-<v2>-<v1>eaxvvj7hz3<v2>-<v2>-<v1>9ewgUjy34b<v2>-<v2>eyJvbWVuIjoxfQ==<v1>8kmoi0a5uh<v2>-<v2>-<v1>2zs1pana81<v2>-<v2>eyJvbWVuIjoxfQ==<v1>q1b6htzcox<v2>-<v2>eyJvbWVuIjoxfQ==<v0>GA-SHOUT-HEMOFLUX-DRAIN-PRDSD<v1>GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD<v1>GA-SHOUT-AENEAN-WARD-PRDSD<v1>GA-SHOUT-BLOOD-SURGE-PRDSD<v0><v0>GA-SHOUT-EDGE-OF-TOMMORROW-PRD<v1>GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD<v1>GA-SHOUT-EDGE-OF-TOMMORROW-PRD<v1>GA-SHOUT-AENEAN-WARD-PRDSD<v1>GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD<v1>GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD<v1>z0fgm3pal7<v1>GA-SHOUT-EDGE-OF-TOMMORROW-PRD<v1>eaxvvj7hz3<v1>GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD<v1>GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD<v1>kk39i1f0ht<v1>eaxvvj7hz3<v1>GA-SHOUT-SPELLSHIELD-EXIA-PRDSD<v1>w1d0uc5dxZ<v1>GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD<v1>GA-SHOUT-SPELLSHIELD-EXIA-PRDSD<v1>w1d0uc5dxZ<v0>GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD<v1>GA-SHOUT-HEMOFLUX-DRAIN-PRDSD<v1>GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD<v1>ka5av43ehj<v1>GA-SHOUT-SPELLSHIELD-EXIA-PRDSD<v1>ka5av43ehj<v1>GA-SHOUT-AENEAN-FROSTLANCE-PRDSD<v1>GA-SHOUT-AENEAN-FROSTLANCE-PRDSD<v1>GA-SHOUT-KEEN-TIDEBINDER-PRDSD<v1>GA-SHOUT-SPELLSHIELD-EXIA-PRDSD<v1>GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD<v1>776yt8UxhU<v1>eaxvvj7hz3<v1>GA-SHOUT-EDGE-OF-TOMMORROW-PRD<v1>GA-SHOUT-BLOOD-SURGE-PRDSD<v1>kk39i1f0ht<v1>rWhFC8XBaH<v1>GA-SHOUT-AENEAN-FROSTLANCE-PRDSD<v1>GA-SHOUT-MAGUS-INITIATE-PRDSD<v1>GA-SHOUT-BLOOD-SURGE-PRDSD<v1>776yt8UxhU<v1>GA-SHOUT-AENEAN-FROSTLANCE-PRDSD<v1>GA-SHOUT-HEMOFLUX-DRAIN-PRDSD<v1>kk39i1f0ht<v0><v0>0<v0><v0><v0>yDARN8eV6B<v1>k5wrAxBbF9<v0>GA-SHOUT-MAGUS-INITIATE-PRDSD<v2>1<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>4<v1>GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>7<v1>GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>8<v1>GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR<v2>2<v2>1<v2>8<v2>1<v2>-<v2>-<v2>WyJHQS1TSE9VVC1EQU5URS1BRU5FQU4tSU5JVElBVEUtUFJEMUUtQ1NSIiwiR0EtU0hPVVQtREFOVEUtUFJPRElHQUwtU1dBSU4tUFJEMUUtQ1NSIiwiVTVya1QwSlJ6QyJd<v2>19<v1>GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>20<v1>GA-SHOUT-CRIMSON-VEIN-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>eyJibG9vZCI6Mjh9<v2>-<v2>24<v1>ci00l7pqcx<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>27<v1>GA-SHOUT-VENOUS-CORE-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>31<v1>ka5av43ehj<v2>1<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>33<v1>GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>36<v1>GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>40<v1>eaxvvj7hz3<v2>2<v2>1<v2>0<v2>1<v2>-<v2>eyJkdXJhYmlsaXR5Ijo2fQ==<v2>-<v2>41<v1>GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>42<v1>UiohpiTtgs<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>43<v1>w1d0uc5dxZ<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>44<v0><v0>GA-SHOUT-AENEAN-WARD-PRDSD<v1>kk39i1f0ht<v0>GA-SHOUT-BLOOD-SURGE-PRDSD<v2>-<v2>-<v1>GA-SHOUT-GENCODE-WOMB-PRDSD<v2>-<v2>-<v1>GA-SHOUT-HEMOFLUX-DRAIN-PRDSD<v2>-<v2>-<v1>rWhFC8XBaH<v2>-<v2>-<v1>GA-SHOUT-AENEAN-WARD-PRDSD<v2>-<v2>-<v1>z0fgm3pal7<v2>-<v2>-<v1>GA-SHOUT-KEEN-TIDEBINDER-PRDSD<v2>-<v2>-<v1>2gv7DC0KID<v2>-<v2>-<v0>{"GoldfishPlayers":[],"MatchId":"M112","GameNumber":"1","mzID":"myField-8","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"84e2rfex54","activationSourceZone":"myHand","additionalCostPaid":"NO","revealedMZ":"myTempZone-0","EffectStackEnterCardID":"","EffectStackEnterController":"","source":"myField-0","target":"theirField-5","abilityIndex":0,"pendingNegateTarget":"EffectStack-0","pendingNegateDestination":"banish","pendingNegatePayAmount":"2","choice":"YES","CombatDamageAmount":"1"}<v0><v0>{"MaterializeCalls":{"2":1},"Materialize":{"2":{"f4wqesifxk":1}},"EnterCalls":{"2":2},"Enter":{"2":{"f4wqesifxk":1,"84e2rfex54":1}},"DrawCalls":{"2":1},"Draw":{"2":1},"ActivateCardCalls":{"2":2},"ActivateCard":{"2":{"akmv2ssjhu":1,"84e2rfex54":1}},"CardActivatedCalls":{"2":2},"CardActivated":{"2":{"akmv2ssjhu":1,"84e2rfex54":1}},"AdvancedElementActivated":{"2":1}}<v0>46<v0>{"ActivateCardCalls":{"1":25,"2":11},"ActivateCard":{"1":{"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1,"eaxvvj7hz3":3,"kk39i1f0ht":1,"rWhFC8XBaH":1,"GA-SHOUT-AENEAN-WARD-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":3,"w1d0uc5dxZ":3,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":2,"z0fgm3pal7":1,"ka5av43ehj":1,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":2},"2":{"eaxvvj7hz3":1,"UdYcJGrJt5":1,"9ewgUjy34b":1,"kvoqk1l75t":1,"pc3zpkw43o":1,"2zs1pana81":2,"q1b6htzcox":1,"1a5zdqgydt":1,"akmv2ssjhu":1,"84e2rfex54":1}},"ReserveCard":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":2,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":9,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":3,"GA-SHOUT-AENEAN-WARD-PRDSD":9,"z0fgm3pal7":8,"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"w1d0uc5dxZ":1,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":4,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":1,"kk39i1f0ht":2},"2":{"du4df43ci2":3,"pw9b6IJWEr":4,"1wl8ao8bls":4,"kvoqk1l75t":1,"cworak5y4y":6,"pc3zpkw43o":5,"tu7jvjf2gh":3,"ri955ygd5v":1,"eaxvvj7hz3":3,"q1b6htzcox":4,"dZ0Y2ILgZW":1,"akmv2ssjhu":1,"rn1gmo124j":1}},"ReserveCardCommitted":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":2,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":9,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":3,"GA-SHOUT-AENEAN-WARD-PRDSD":9,"z0fgm3pal7":8,"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"w1d0uc5dxZ":1,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":4,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":1,"kk39i1f0ht":2},"2":{"du4df43ci2":3,"pw9b6IJWEr":4,"1wl8ao8bls":4,"kvoqk1l75t":1,"cworak5y4y":6,"pc3zpkw43o":5,"tu7jvjf2gh":3,"ri955ygd5v":1,"eaxvvj7hz3":3,"q1b6htzcox":4,"dZ0Y2ILgZW":1,"akmv2ssjhu":1,"rn1gmo124j":1}},"ReserveActionCommitted":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":2,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":9,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":3,"GA-SHOUT-AENEAN-WARD-PRDSD":9,"z0fgm3pal7":8,"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"w1d0uc5dxZ":1,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":4,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":1,"kk39i1f0ht":2},"2":{"du4df43ci2":3,"pw9b6IJWEr":4,"1wl8ao8bls":4,"kvoqk1l75t":1,"cworak5y4y":6,"pc3zpkw43o":5,"tu7jvjf2gh":3,"ri955ygd5v":1,"eaxvvj7hz3":3,"q1b6htzcox":4,"dZ0Y2ILgZW":1,"akmv2ssjhu":1,"rn1gmo124j":1}},"CardActivatedCalls":{"1":25,"2":10},"CardActivated":{"1":{"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1,"eaxvvj7hz3":3,"kk39i1f0ht":1,"rWhFC8XBaH":1,"GA-SHOUT-AENEAN-WARD-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":3,"w1d0uc5dxZ":3,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":2,"z0fgm3pal7":1,"ka5av43ehj":1,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":2},"2":{"eaxvvj7hz3":1,"UdYcJGrJt5":1,"9ewgUjy34b":1,"kvoqk1l75t":1,"pc3zpkw43o":1,"2zs1pana81":1,"q1b6htzcox":1,"1a5zdqgydt":1,"akmv2ssjhu":1,"84e2rfex54":1}},"RevealCalls":{"1":3},"EnterCalls":{"1":29,"2":15},"Enter":{"1":{"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1,"GA-SHOUT-DANTE-PRODIGAL-SWAIN-PRD1E-CSR":1,"GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD":4,"eaxvvj7hz3":3,"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"kk39i1f0ht":1,"GA-SHOUT-DANTE-AENEAN-INITIATE-PRD1E-CSR":1,"GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":3,"w1d0uc5dxZ":3,"GA-SHOUT-CRIMSON-VEIN-PRDSD":1,"ci00l7pqcx":1,"GA-SHOUT-VENOUS-CORE-PRDSD":1,"ka5av43ehj":1,"k5wrAxBbF9":1,"2gv7DC0KID":1,"UiohpiTtgs":1},"2":{"eaxvvj7hz3":1,"nn48ne8a05":1,"9ewgUjy34b":1,"fm894uc4ij":1,"8kmoi0a5uh":1,"pc3zpkw43o":1,"o69ogocemo":1,"21oy1nd4nw":1,"6ihv6hbvye":1,"2zs1pana81":1,"L67r0GlRHR":1,"zhh43i1eaa":1,"9xycwz9gv4":1,"f4wqesifxk":1,"84e2rfex54":1}},"DrawCalls":{"2":11,"1":21},"OnBanishCalls":{"1":8,"2":15},"OnBanish":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":1,"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":1,"rWhFC8XBaH":1,"GA-SHOUT-AENEAN-WARD-PRDSD":1,"z0fgm3pal7":1,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"2gv7DC0KID":1},"2":{"du4df43ci2":1,"UdYcJGrJt5":1,"kvoqk1l75t":1,"1wl8ao8bls":1,"pw9b6IJWEr":1,"j43qiwqjt0":1,"ri955ygd5v":1,"tu7jvjf2gh":1,"cworak5y4y":1,"eaxvvj7hz3":1,"9ewgUjy34b":1,"8kmoi0a5uh":1,"2zs1pana81":1,"q1b6htzcox":1}},"MaterializeCalls":{"1":10,"2":9},"Materialize":{"1":{"GA-SHOUT-DANTE-PRODIGAL-SWAIN-PRD1E-CSR":1,"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"GA-SHOUT-DANTE-AENEAN-INITIATE-PRD1E-CSR":1,"GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR":1,"GA-SHOUT-CRIMSON-VEIN-PRDSD":1,"ci00l7pqcx":1,"GA-SHOUT-VENOUS-CORE-PRDSD":1,"k5wrAxBbF9":1,"2gv7DC0KID":1,"UiohpiTtgs":1},"2":{"nn48ne8a05":1,"fm894uc4ij":1,"8kmoi0a5uh":1,"o69ogocemo":1,"21oy1nd4nw":1,"6ihv6hbvye":1,"zhh43i1eaa":1,"9xycwz9gv4":1,"f4wqesifxk":1}},"RestCardCalls":{"1":10,"2":18},"RestCard":{"1":{"GA-SHOUT-MAGUS-INITIATE-PRDSD":5,"kk39i1f0ht":1,"ka5av43ehj":4},"2":{"nn48ne8a05":2,"pc3zpkw43o":7,"o69ogocemo":1,"2zs1pana81":1,"L67r0GlRHR":4,"zhh43i1eaa":3}},"OnAttackCalls":{"1":10,"2":18},"OnAttack":{"1":{"GA-SHOUT-MAGUS-INITIATE-PRDSD":5,"kk39i1f0ht":1,"ka5av43ehj":4},"2":{"nn48ne8a05":2,"pc3zpkw43o":7,"o69ogocemo":1,"2zs1pana81":1,"L67r0GlRHR":4,"zhh43i1eaa":3}},"DealDamageCalls":{"1":10,"2":18},"ActivateAbilityCalls":{"1":2},"ActivateAbility":{"1":{"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"2gv7DC0KID":1}},"OpponentChampionDamage":{"2":32,"1":4},"OpponentChampionDamageTimeline":{"2":{"3":7,"5":3,"7":3,"8":5,"9":8,"10":6},"1":{"10":2,"11":2}},"OpponentChampionDamageSources":{"2":{"nn48ne8a05":7,"pc3zpkw43o":12,"zhh43i1eaa":5,"L67r0GlRHR":6},"1":{"ka5av43ehj":2,"GA-SHOUT-MAGUS-INITIATE-PRDSD":2}},"AllyDestroyedCalls":{"2":5,"1":2},"AllyDestroyed":{"2":{"eaxvvj7hz3":2,"kk39i1f0ht":1,"w1d0uc5dxZ":2},"1":{"9ewgUjy34b":1,"2zs1pana81":1}}}<v0>0
+{"version":1,"windows":{"REC_START":false,"END_START":true,"STACK_RESPONSE":false,"ENTER_RESPONSE":true,"TRIGGER_RESPONSE":false,"ABILITY_RESPONSE":true,"COMBAT_DAMAGE":false,"COMBAT_RETALIATION":false}}
+{"version":1,"windows":{"REC_START":false,"END_START":true,"STACK_RESPONSE":false,"ENTER_RESPONSE":true,"TRIGGER_RESPONSE":false,"ABILITY_RESPONSE":true,"COMBAT_DAMAGE":false,"COMBAT_RETALIATION":false}}
+11
+1
+2
+MAIN
+
+Player 2 undid their last action.
+{"GoldfishPlayers":[],"MatchId":"M112","GameNumber":"1","mzID":"myField-8","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"84e2rfex54","activationSourceZone":"myHand","additionalCostPaid":"NO","revealedMZ":"myTempZone-0","EffectStackEnterCardID":"","EffectStackEnterController":"","source":"myField-0","target":"theirField-5","abilityIndex":0,"pendingNegateTarget":"EffectStack-0","pendingNegateDestination":"banish","pendingNegatePayAmount":"2","choice":"YES","CombatDamageAmount":"1"}
+0
+{"MaterializeCalls":{"2":1},"Materialize":{"2":{"f4wqesifxk":1}},"EnterCalls":{"2":2},"Enter":{"2":{"f4wqesifxk":1,"84e2rfex54":1}},"DrawCalls":{"2":1},"Draw":{"2":1},"ActivateCardCalls":{"2":2},"ActivateCard":{"2":{"akmv2ssjhu":1,"84e2rfex54":1}},"CardActivatedCalls":{"2":2},"CardActivated":{"2":{"akmv2ssjhu":1,"84e2rfex54":1}},"AdvancedElementActivated":{"2":1}}
+46
+{"ActivateCardCalls":{"1":25,"2":11},"ActivateCard":{"1":{"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1,"eaxvvj7hz3":3,"kk39i1f0ht":1,"rWhFC8XBaH":1,"GA-SHOUT-AENEAN-WARD-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":3,"w1d0uc5dxZ":3,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":2,"z0fgm3pal7":1,"ka5av43ehj":1,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":2},"2":{"eaxvvj7hz3":1,"UdYcJGrJt5":1,"9ewgUjy34b":1,"kvoqk1l75t":1,"pc3zpkw43o":1,"2zs1pana81":2,"q1b6htzcox":1,"1a5zdqgydt":1,"akmv2ssjhu":1,"84e2rfex54":1}},"ReserveCard":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":2,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":9,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":3,"GA-SHOUT-AENEAN-WARD-PRDSD":9,"z0fgm3pal7":8,"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"w1d0uc5dxZ":1,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":4,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":1,"kk39i1f0ht":2},"2":{"du4df43ci2":3,"pw9b6IJWEr":4,"1wl8ao8bls":4,"kvoqk1l75t":1,"cworak5y4y":6,"pc3zpkw43o":5,"tu7jvjf2gh":3,"ri955ygd5v":1,"eaxvvj7hz3":3,"q1b6htzcox":4,"dZ0Y2ILgZW":1,"akmv2ssjhu":1,"rn1gmo124j":1}},"ReserveCardCommitted":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":2,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":9,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":3,"GA-SHOUT-AENEAN-WARD-PRDSD":9,"z0fgm3pal7":8,"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"w1d0uc5dxZ":1,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":4,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":1,"kk39i1f0ht":2},"2":{"du4df43ci2":3,"pw9b6IJWEr":4,"1wl8ao8bls":4,"kvoqk1l75t":1,"cworak5y4y":6,"pc3zpkw43o":5,"tu7jvjf2gh":3,"ri955ygd5v":1,"eaxvvj7hz3":3,"q1b6htzcox":4,"dZ0Y2ILgZW":1,"akmv2ssjhu":1,"rn1gmo124j":1}},"ReserveActionCommitted":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":2,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":9,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":3,"GA-SHOUT-AENEAN-WARD-PRDSD":9,"z0fgm3pal7":8,"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"w1d0uc5dxZ":1,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":4,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":1,"kk39i1f0ht":2},"2":{"du4df43ci2":3,"pw9b6IJWEr":4,"1wl8ao8bls":4,"kvoqk1l75t":1,"cworak5y4y":6,"pc3zpkw43o":5,"tu7jvjf2gh":3,"ri955ygd5v":1,"eaxvvj7hz3":3,"q1b6htzcox":4,"dZ0Y2ILgZW":1,"akmv2ssjhu":1,"rn1gmo124j":1}},"CardActivatedCalls":{"1":25,"2":10},"CardActivated":{"1":{"GA-SHOUT-EDGE-OF-TOMMORROW-PRD":3,"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1,"eaxvvj7hz3":3,"kk39i1f0ht":1,"rWhFC8XBaH":1,"GA-SHOUT-AENEAN-WARD-PRDSD":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":3,"w1d0uc5dxZ":3,"GA-SHOUT-AENEAN-FROZEN-SHUNT-PRDSD":2,"z0fgm3pal7":1,"ka5av43ehj":1,"GA-SHOUT-SPELLSHIELD-EXIA-PRDSD":2},"2":{"eaxvvj7hz3":1,"UdYcJGrJt5":1,"9ewgUjy34b":1,"kvoqk1l75t":1,"pc3zpkw43o":1,"2zs1pana81":1,"q1b6htzcox":1,"1a5zdqgydt":1,"akmv2ssjhu":1,"84e2rfex54":1}},"RevealCalls":{"1":3},"EnterCalls":{"1":29,"2":15},"Enter":{"1":{"GA-SHOUT-EPICUREAN-INSTITUTE-PRDSD":3,"GA-SHOUT-MAGUS-INITIATE-PRDSD":1,"GA-SHOUT-DANTE-PRODIGAL-SWAIN-PRD1E-CSR":1,"GA-SHOUT-ELYSIAN-TEST-SUBJECT-PRDSD":4,"eaxvvj7hz3":3,"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"kk39i1f0ht":1,"GA-SHOUT-DANTE-AENEAN-INITIATE-PRD1E-CSR":1,"GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR":1,"GA-SHOUT-ELYSIAN-ASPIRANT-PRDSD":3,"w1d0uc5dxZ":3,"GA-SHOUT-CRIMSON-VEIN-PRDSD":1,"ci00l7pqcx":1,"GA-SHOUT-VENOUS-CORE-PRDSD":1,"ka5av43ehj":1,"k5wrAxBbF9":1,"2gv7DC0KID":1,"UiohpiTtgs":1},"2":{"eaxvvj7hz3":1,"nn48ne8a05":1,"9ewgUjy34b":1,"fm894uc4ij":1,"8kmoi0a5uh":1,"pc3zpkw43o":1,"o69ogocemo":1,"21oy1nd4nw":1,"6ihv6hbvye":1,"2zs1pana81":1,"L67r0GlRHR":1,"zhh43i1eaa":1,"9xycwz9gv4":1,"f4wqesifxk":1,"84e2rfex54":1}},"DrawCalls":{"2":11,"1":21},"OnBanishCalls":{"1":8,"2":15},"OnBanish":{"1":{"GA-SHOUT-BLOOD-SURGE-PRDSD":1,"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"GA-SHOUT-HEMOFLUX-DRAIN-PRDSD":1,"rWhFC8XBaH":1,"GA-SHOUT-AENEAN-WARD-PRDSD":1,"z0fgm3pal7":1,"GA-SHOUT-KEEN-TIDEBINDER-PRDSD":1,"2gv7DC0KID":1},"2":{"du4df43ci2":1,"UdYcJGrJt5":1,"kvoqk1l75t":1,"1wl8ao8bls":1,"pw9b6IJWEr":1,"j43qiwqjt0":1,"ri955ygd5v":1,"tu7jvjf2gh":1,"cworak5y4y":1,"eaxvvj7hz3":1,"9ewgUjy34b":1,"8kmoi0a5uh":1,"2zs1pana81":1,"q1b6htzcox":1}},"MaterializeCalls":{"1":10,"2":9},"Materialize":{"1":{"GA-SHOUT-DANTE-PRODIGAL-SWAIN-PRD1E-CSR":1,"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"GA-SHOUT-DANTE-AENEAN-INITIATE-PRD1E-CSR":1,"GA-SHOUT-DANTE-HEMOMANCER-PRD1E-CSR":1,"GA-SHOUT-CRIMSON-VEIN-PRDSD":1,"ci00l7pqcx":1,"GA-SHOUT-VENOUS-CORE-PRDSD":1,"k5wrAxBbF9":1,"2gv7DC0KID":1,"UiohpiTtgs":1},"2":{"nn48ne8a05":1,"fm894uc4ij":1,"8kmoi0a5uh":1,"o69ogocemo":1,"21oy1nd4nw":1,"6ihv6hbvye":1,"zhh43i1eaa":1,"9xycwz9gv4":1,"f4wqesifxk":1}},"RestCardCalls":{"1":10,"2":18},"RestCard":{"1":{"GA-SHOUT-MAGUS-INITIATE-PRDSD":5,"kk39i1f0ht":1,"ka5av43ehj":4},"2":{"nn48ne8a05":2,"pc3zpkw43o":7,"o69ogocemo":1,"2zs1pana81":1,"L67r0GlRHR":4,"zhh43i1eaa":3}},"OnAttackCalls":{"1":10,"2":18},"OnAttack":{"1":{"GA-SHOUT-MAGUS-INITIATE-PRDSD":5,"kk39i1f0ht":1,"ka5av43ehj":4},"2":{"nn48ne8a05":2,"pc3zpkw43o":7,"o69ogocemo":1,"2zs1pana81":1,"L67r0GlRHR":4,"zhh43i1eaa":3}},"DealDamageCalls":{"1":10,"2":18},"ActivateAbilityCalls":{"1":2},"ActivateAbility":{"1":{"GA-SHOUT-GENCODE-WOMB-PRDSD":1,"2gv7DC0KID":1}},"OpponentChampionDamage":{"2":32,"1":4},"OpponentChampionDamageTimeline":{"2":{"3":7,"5":3,"7":3,"8":5,"9":8,"10":6},"1":{"10":2,"11":2}},"OpponentChampionDamageSources":{"2":{"nn48ne8a05":7,"pc3zpkw43o":12,"zhh43i1eaa":5,"L67r0GlRHR":6},"1":{"ka5av43ehj":2,"GA-SHOUT-MAGUS-INITIATE-PRDSD":2}},"AllyDestroyedCalls":{"2":5,"1":2},"AllyDestroyed":{"2":{"eaxvvj7hz3":2,"kk39i1f0ht":1,"w1d0uc5dxZ":2},"1":{"9ewgUjy34b":1,"2zs1pana81":1}}}
+0
+MR1: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
+MR1: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
