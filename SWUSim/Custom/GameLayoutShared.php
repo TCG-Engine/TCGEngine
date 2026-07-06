@@ -4,10 +4,9 @@
 // layouts reuse it verbatim. Included within InitialLayout.php scope so the PHP
 // interpolations below ($playerID, pilot-leader list) resolve.
 ?>
-<!-- SWUSim in-game uses the cyan HUD theme. Load its role tokens (:root only — no element
-     rules, so it can't clash with the CSS below) so shared design-system components like
-     StyledDialog (concede/mulligan confirms) render in the HUD theme instead of neutral gray. -->
-<link rel="stylesheet" href="/TCGEngine/SharedUI/Themes/hud.tokens.css">
+<!-- SWUSim in-game uses the cyan HUD theme. The design-system board stack (tokens + button +
+     switch + hud.tokens overlay) is now emitted centrally by NextTurn.php from the SiteDef
+     `theme` key, so no per-board <link> is needed here (removed to avoid a duplicate load). -->
 <style>
 /* ── Per-unit action glows ─────────────────────────────────────────────────────
    Applied by refreshUnitActionGlows() in this file's JS to ANY unit element with
@@ -75,8 +74,8 @@
    turn-edge glow (green rgba(64,214,110) / red rgba(222,72,72)). updateInitiative()
    adds .is-mine / .is-theirs; one --init-rgb recolors the cyan token in BOTH layouts.
    No class yet (state unset) → falls back to the layout's base cyan. */
-.swu-init-control.is-mine   { --init-rgb: 64,214,110; }
-.swu-init-control.is-theirs { --init-rgb: 222,72,72; }
+.swu-init-control.is-mine   { --init-rgb: var(--turn-mine-rgb); }
+.swu-init-control.is-theirs { --init-rgb: var(--turn-theirs-rgb); }
 .swu-init-control.is-mine .swu-init-hex,
 .swu-init-control.is-theirs .swu-init-hex { background: rgba(var(--init-rgb), 0.50) !important; }
 .swu-init-control.is-mine #swuInitHexText,
@@ -160,160 +159,21 @@
     border-radius: 7px !important;
 }
 
-/* ── SWUSim HUD button sweep ───────────────────────────────────────────────────
-   Restyle the engine's decision-queue buttons (MZChoosee / MZMultiChoose /
-   MZSplitAssign) to the SWUSim chamfered cyan HUD look. These classes are in shared
-   Core/*.js, so we override here (this file loads only for SWUSim → SWUSim-scoped),
-   with !important to win the runtime cascade. Core buttons have no <span> wrapper,
-   so the CLOSED chamfered border is drawn by two negative-z pseudos: ::before = cyan
-   rim (full chamfer), ::after = flat fill (inset, slightly smaller chamfer). The
-   button's text is normal content (z 0) so it stays above; `filter` gives the edge
-   glow that follows the chamfered silhouette. */
-.mzmodal-submit-btn, .mzmulti-btn, .mzsplit-submit-btn,
-.mzsplit-btn-minus, .mzsplit-btn-plus {
-    position: relative !important; z-index: 0 !important; isolation: isolate !important;
-    border: 0 !important; border-radius: 0 !important; background: transparent !important;
-    box-shadow: none !important; clip-path: none !important;
-    text-transform: uppercase !important; letter-spacing: 0.10em !important;
-    transition: filter 150ms, color 150ms, transform 110ms !important;
-}
-.mzmodal-submit-btn::before, .mzmulti-btn::before,
-.mzsplit-submit-btn::before, .mzsplit-btn-minus::before, .mzsplit-btn-plus::before {
-    content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
-    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
-    background: rgba(140,210,255,0.85) !important;   /* the closed cyan rim */
-}
-.mzmodal-submit-btn::after, .mzmulti-btn::after,
-.mzsplit-submit-btn::after, .mzsplit-btn-minus::after, .mzsplit-btn-plus::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
-    background: rgba(20,42,70,0.95) !important;       /* flat fill */
-}
-/* Primary / confirm — bright text + cyan glow */
-.mzmodal-submit-btn:not(:disabled), .mzmulti-btn-primary:not(:disabled), .mzsplit-submit-btn:not(:disabled) {
-    color: rgba(205,238,255,0.98) !important; text-shadow: 0 0 6px rgba(120,200,255,0.5) !important;
-    filter: drop-shadow(0 0 5px rgba(110,190,255,0.45)) !important;
-}
-.mzmodal-submit-btn:not(:disabled):hover, .mzmulti-btn-primary:not(:disabled):hover, .mzsplit-submit-btn:not(:disabled):hover {
-    color: #fff !important; filter: drop-shadow(0 0 10px rgba(125,205,255,0.65)) !important; transform: translateY(-1px) !important;
-}
-.mzmodal-submit-btn:not(:disabled):hover::before, .mzmulti-btn-primary:not(:disabled):hover::before, .mzsplit-submit-btn:not(:disabled):hover::before {
-    background: rgba(180,228,255,1) !important;
-}
-/* Secondary / cancel-pass — dimmer rim + darker fill */
-.mzmulti-btn-secondary { color: rgba(175,212,242,0.92) !important; filter: drop-shadow(0 0 3px rgba(90,170,255,0.22)) !important; }
-.mzmulti-btn-secondary::before { background: rgba(120,200,255,0.50) !important; }
-.mzmulti-btn-secondary::after  { background: rgba(14,26,44,0.92) !important; }
-.mzmulti-btn-secondary:hover:not(:disabled) { color: #eaf6ff !important; }
-.mzmulti-btn-secondary:hover:not(:disabled)::before { background: rgba(150,215,255,0.80) !important; }
-/* Disabled */
-.mzmodal-submit-btn:disabled, .mzmulti-btn:disabled, .mzsplit-submit-btn:disabled {
-    opacity: 0.4 !important; filter: none !important; transform: none !important; color: rgba(200,225,245,0.7) !important;
-}
-.mzmodal-submit-btn:disabled::before, .mzmulti-btn:disabled::before, .mzsplit-submit-btn:disabled::before {
-    background: rgba(120,200,255,0.30) !important;
-}
-/* +/- steppers — closed cyan rim, faint red/green glow + fill to keep the +/- semantics */
-.mzsplit-btn-minus::before, .mzsplit-btn-plus::before {
-    clip-path: polygon(5px 0, 100% 0, 100% calc(100% - 5px), calc(100% - 5px) 100%, 0 100%, 0 5px) !important;
-}
-.mzsplit-btn-minus::after, .mzsplit-btn-plus::after {
-    clip-path: polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px) !important;
-}
-.mzsplit-btn-minus { color: #eaf6ff !important; filter: drop-shadow(0 0 4px rgba(230,95,95,0.45)) !important; }
-.mzsplit-btn-plus  { color: #eaf6ff !important; filter: drop-shadow(0 0 4px rgba(95,210,120,0.45)) !important; }
-.mzsplit-btn-minus::after { background: rgba(58,24,30,0.92) !important; }
-.mzsplit-btn-plus::after  { background: rgba(20,48,30,0.92) !important; }
-.mzsplit-btn-minus:hover { filter: drop-shadow(0 0 8px rgba(230,95,95,0.65)) !important; }
-.mzsplit-btn-plus:hover  { filter: drop-shadow(0 0 8px rgba(95,210,120,0.65)) !important; }
+/* ── SWUSim decision-button sweep REMOVED (Tier 2 / Phase 2) ────────────────────
+   The MZChoose/MZMultiChoose/MZSplitAssign + inline-multi buttons now carry the shared
+   .btn/.btn-primary/.btn-secondary/.btn-danger/.btn-success classes (Tier 1), so their
+   HUD skin comes from button.css + hud.tokens.css (loaded in-game by NextTurn). The old
+   !important overrides here were redundant and have been deleted (see spec §4.6). Only the
+   selection-message LAYOUT below is kept (not button skin). */
 
-/* Inline MultiChoose bar (UILibraries StyleInlineMultiActionButton) — Select All /
-   Deselect All / Confirm. These are ID'd buttons with INLINE JS styles (no class),
-   so override by ID with !important (beats inline non-important). Same closed-chamfer
-   two-pseudo HUD treatment as the MZ buttons above. */
-#inline-multi-select-all, #inline-multi-clear-all, #inline-multi-confirm {
-    position: relative !important; z-index: 0 !important; isolation: isolate !important;
-    border: 0 !important; border-radius: 0 !important; background: transparent !important;
-    box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
-    text-transform: uppercase !important; letter-spacing: 0.10em !important;
-    transition: filter 150ms, color 150ms, transform 110ms !important;
-}
-#inline-multi-select-all::before, #inline-multi-clear-all::before, #inline-multi-confirm::before {
-    content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
-    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
-    background: rgba(140,210,255,0.85) !important;
-}
-#inline-multi-select-all::after, #inline-multi-clear-all::after, #inline-multi-confirm::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
-    background: rgba(20,42,70,0.95) !important;
-}
-/* Confirm = primary (bright rim + glow) */
-#inline-multi-confirm {
-    color: rgba(205,238,255,0.98) !important; text-shadow: 0 0 6px rgba(120,200,255,0.5) !important;
-    filter: drop-shadow(0 0 5px rgba(110,190,255,0.45)) !important;
-}
-#inline-multi-confirm:hover { color: #fff !important; filter: drop-shadow(0 0 10px rgba(125,205,255,0.65)) !important; transform: translateY(-1px) !important; }
-#inline-multi-confirm:hover::before { background: rgba(180,228,255,1) !important; }
-/* Select All / Deselect All = secondary (dimmer rim) */
-#inline-multi-select-all, #inline-multi-clear-all { color: rgba(190,222,248,0.95) !important; filter: drop-shadow(0 0 3px rgba(90,170,255,0.25)) !important; }
-#inline-multi-select-all::before, #inline-multi-clear-all::before { background: rgba(120,200,255,0.55) !important; }
-#inline-multi-select-all:hover, #inline-multi-clear-all:hover { color: #eaf6ff !important; transform: translateY(-1px) !important; }
-#inline-multi-select-all:hover::before, #inline-multi-clear-all:hover::before { background: rgba(150,215,255,0.82) !important; }
-/* Disabled */
-#inline-multi-confirm:disabled, #inline-multi-select-all:disabled, #inline-multi-clear-all:disabled {
-    opacity: 0.4 !important; filter: none !important; transform: none !important;
-}
-/* Message gets its own first line; the "N selected / M max" counter + controls drop
+/* (inline-multi button skin removed — now .btn/.btn-primary/.btn-secondary from Tier 1.)
+   Message gets its own first line; the "N selected / M max" counter + controls drop
    to a second line (msgSpan is the panel's first child). */
 #selection-message:has(#inline-multi-confirm) > span:first-child { flex-basis: 100% !important; }
 #selection-message:has(#inline-multi-confirm) #inline-multi-counter { margin-top: 2px !important; }
 
-/* ── End-game menu buttons → SWUSim chamfered HUD look ──────────────────────────
-   ShowGameOver() (shared Core JS) renders the end-game buttons as plain <button>s in
-   #game-over-buttons, plus the corner-fallback #game-over-menu-btn. Both are class-less,
-   so re-skin them here (SWUSim-scoped file) with the same closed-chamfer two-pseudo HUD
-   treatment as the MZ buttons above: ::before = cyan rim, ::after = flat fill, text on top. */
-#game-over-buttons button, #game-over-menu-btn {
-    z-index: 0 !important; isolation: isolate !important;
-    border: 0 !important; border-radius: 0 !important; background: transparent !important;
-    box-shadow: none !important; clip-path: none !important;
-    padding: 10px 22px !important; font-weight: 700 !important; font-size: 13px !important;
-    text-transform: uppercase !important; letter-spacing: 0.10em !important; cursor: pointer !important;
-    color: rgba(205,238,255,0.98) !important; text-shadow: 0 0 6px rgba(120,200,255,0.5) !important;
-    filter: drop-shadow(0 0 5px rgba(110,190,255,0.45)) !important;
-    transition: filter 150ms, color 150ms, transform 110ms !important;
-}
-/* Row buttons are static by default → make them a containing block for their pseudos.
-   #game-over-menu-btn keeps its shared position:absolute (already a containing block). */
-#game-over-buttons button { position: relative !important; }
-#game-over-buttons button::before, #game-over-menu-btn::before {
-    content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
-    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
-    background: rgba(140,210,255,0.85) !important;   /* closed cyan rim */
-}
-#game-over-buttons button::after, #game-over-menu-btn::after {
-    content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
-    clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
-    background: rgba(20,42,70,0.95) !important;       /* flat fill */
-}
-#game-over-buttons button:not(:disabled):hover, #game-over-menu-btn:not(:disabled):hover {
-    color: #fff !important; filter: drop-shadow(0 0 10px rgba(125,205,255,0.65)) !important; transform: translateY(-1px) !important;
-}
-#game-over-buttons button:not(:disabled):hover::before, #game-over-menu-btn:not(:disabled):hover::before {
-    background: rgba(180,228,255,1) !important;
-}
-#game-over-buttons button:not(:disabled):active, #game-over-menu-btn:not(:disabled):active {
-    transform: translateY(1px) !important; filter: drop-shadow(0 0 4px rgba(110,190,255,0.4)) !important;
-}
-/* Disabled (e.g. the "Waiting on opponent to confirm…" convert button) — dimmed, inert. */
-#game-over-buttons button:disabled, #game-over-menu-btn:disabled {
-    opacity: 0.4 !important; filter: none !important; transform: none !important; cursor: default !important;
-    color: rgba(200,225,245,0.7) !important;
-}
-#game-over-buttons button:disabled::before, #game-over-menu-btn:disabled::before {
-    background: rgba(120,200,255,0.30) !important;
-}
+/* (End-game button skin removed — #game-over buttons now carry .btn.btn-primary from Tier 1,
+   so their HUD look comes from button.css + hud.tokens.) */
 
 /* ── End-game overlay → 80% floating split panel (SWUSim only) ──────────────────
    Shrink the shared full-screen game-over overlay to an 80%×80% centered panel so
@@ -327,7 +187,7 @@
     width: auto !important; height: auto !important;
     padding: 16px 22px 20px !important;
     background: rgba(8,15,25,0.77) !important;
-    border: 1px solid rgba(140,210,255,0.35) !important;
+    border: 1px solid var(--border) !important;
     border-radius: 16px !important;
     box-shadow: 0 24px 80px rgba(0,0,0,0.65), 0 0 0 1px rgba(0,0,0,0.4) !important;
     backdrop-filter: blur(4px) !important; -webkit-backdrop-filter: blur(4px) !important;
@@ -350,8 +210,8 @@
 /* SWUSim win/lose title colors (override the shared gold/red). "You Won!" uses the primary
    button text color + a cyan HUD glow; "You Lost" is a darker, less-saturated muted red. */
 #game-over-overlay.won #game-over-title {
-    color: rgba(205,238,255,0.98) !important;
-    text-shadow: 0 0 30px rgba(140,210,255,0.85), 0 0 80px rgba(120,200,255,0.50), 0 4px 12px rgba(0,0,0,0.8) !important;
+    color: var(--text) !important;
+    text-shadow: 0 0 30px rgba(var(--accent-rgb),0.85), 0 0 80px rgba(var(--accent-rgb),0.50), 0 4px 12px rgba(0,0,0,0.8) !important;
 }
 #game-over-overlay.lost #game-over-title {
     color: #9b3e3e !important;
@@ -385,19 +245,20 @@
    terms) loses even with !important. The double-id selector here outranks them. */
 #game-over-buttons #swu-bestof-btn {
     color: #3a3a3a !important; text-shadow: none !important; text-transform: none !important;
-    filter: drop-shadow(0 0 6px rgba(120,200,255,0.55)) !important;   /* cyan HUD glow */
+    filter: drop-shadow(0 0 6px rgba(var(--accent-rgb),0.55)) !important;   /* theme-accent HUD glow */
 }
-/* Cool sci-fi border: a glowing cyan chamfered rim around the off-white fill (the off-white
-   ::after is inset a touch more so the cyan edge reads as a crisp ~2.5px HUD keyline). */
-#game-over-buttons #swu-bestof-btn::before { background: rgba(130,205,255,0.95) !important; }   /* cyan border */
+/* Cool sci-fi border: a glowing accent chamfered rim around the off-white fill (the off-white
+   ::after is inset a touch more so the edge reads as a crisp ~2.5px HUD keyline). The white fill
+   is the deliberate Bo1/Bo3 TOGGLE look (distinct from the primary Rematch); only cyan → tokens. */
+#game-over-buttons #swu-bestof-btn::before { background: var(--accent); }   /* accent border */
 #game-over-buttons #swu-bestof-btn::after  {
     background: #dde2e9 !important; inset: 2.5px !important;                                     /* off-white fill */
     clip-path: polygon(5.5px 0, 100% 0, 100% calc(100% - 5.5px), calc(100% - 5.5px) 100%, 0 100%, 0 5.5px) !important;
 }
 #game-over-buttons #swu-bestof-btn:not(:disabled):hover {
-    color: #1f1f1f !important; filter: drop-shadow(0 0 12px rgba(150,215,255,0.85)) !important;
+    color: #1f1f1f !important; filter: drop-shadow(0 0 12px rgba(var(--accent-rgb),0.85)) !important;
 }
-#game-over-buttons #swu-bestof-btn:not(:disabled):hover::before { background: rgba(180,228,255,1) !important; }
+#game-over-buttons #swu-bestof-btn:not(:disabled):hover::before { background: var(--accent-strong); }
 #game-over-buttons #swu-bestof-btn:not(:disabled):hover::after  { background: #e9edf2 !important; }
 
 /* Mobile / portrait → the 2-column split squeezes the stats into an unreadable sliver,
@@ -435,8 +296,8 @@
     position: fixed; z-index: 10001; max-width: 70vw;
     padding: 8px 11px; border-radius: 8px;
     background: rgba(8,15,25,0.97);
-    border: 1px solid rgba(130,205,255,0.85);
-    box-shadow: 0 6px 22px rgba(0,0,0,0.55), 0 0 10px rgba(120,200,255,0.35);
+    border: 1px solid var(--accent);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.55), 0 0 10px rgba(var(--accent-rgb),0.35);
     color: #e8f4ff; font-size: 13px; font-weight: 600; line-height: 1.25;
     animation: swuStatTipIn 120ms ease-out;
 }
@@ -459,22 +320,22 @@
 #topdecksearch-panel > div, #scry-panel > div, #revealarrange-panel > div,
 #yesno-decision-modal > div, .optchoose-banner {
     position: relative !important;
-    border: 1px solid rgba(120,200,255,0.30) !important; border-radius: 6px !important;
-    box-shadow: 0 0 10px rgba(80,170,255,0.18), inset 0 0 26px rgba(80,170,255,0.06), 0 14px 44px rgba(0,0,0,0.6) !important;
+    border: 1px solid rgba(var(--accent-rgb),0.30) !important; border-radius: 6px !important;
+    box-shadow: 0 0 10px rgba(var(--accent-rgb),0.18), inset 0 0 26px rgba(var(--accent-rgb),0.06), 0 14px 44px rgba(0,0,0,0.6) !important;
 }
 #topdecksearch-panel > div::before, #scry-panel > div::before, #revealarrange-panel > div::before,
 #yesno-decision-modal > div::before, .optchoose-banner::before {
     content: '' !important; position: absolute !important; inset: -1px !important; pointer-events: none !important;
     background:
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) left  top    / 22px 2px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) left  top    / 2px  22px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) right top    / 22px 2px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) right top    / 2px  22px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) left  bottom / 22px 2px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) left  bottom / 2px  22px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) right bottom / 22px 2px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) right bottom / 2px  22px no-repeat !important;
-    filter: drop-shadow(0 0 4px rgba(150,215,255,0.55)) !important;
+        linear-gradient(var(--accent-strong),var(--accent-strong)) left  top    / 22px 2px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) left  top    / 2px  22px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) right top    / 22px 2px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) right top    / 2px  22px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) left  bottom / 22px 2px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) left  bottom / 2px  22px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) right bottom / 22px 2px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) right bottom / 2px  22px no-repeat !important;
+    filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.55)) !important;
 }
 /* The OPTIONCHOOSE banner (peek hand / peek deck reveal) is itself the fixed element
    (no overlay wrapper, unlike the other panels), so the combined rule's
@@ -491,30 +352,30 @@
 #yesno-decision-modal button, .optchoose-btn {
     position: relative !important; z-index: 0 !important; isolation: isolate !important;
     border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important;
-    color: rgba(205,238,255,0.98) !important; text-transform: uppercase !important; letter-spacing: 0.12em !important;
-    text-shadow: 0 0 6px rgba(120,200,255,0.5) !important;
-    filter: drop-shadow(0 0 5px rgba(110,190,255,0.45)) !important;
+    color: var(--text) !important; text-transform: uppercase !important; letter-spacing: 0.12em !important;
+    text-shadow: 0 0 6px rgba(var(--accent-rgb),0.5) !important;
+    filter: drop-shadow(0 0 5px rgba(var(--accent-rgb),0.45)) !important;
     transition: filter 150ms, color 150ms, transform 110ms !important;
 }
 #topdecksearch-panel button::before, #scry-panel button::before, #revealarrange-panel button::before,
 #yesno-decision-modal button::before, .optchoose-btn::before {
     content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
-    background: rgba(140,210,255,0.85) !important;
+    background: var(--accent) !important;
 }
 #topdecksearch-panel button::after, #scry-panel button::after, #revealarrange-panel button::after,
 #yesno-decision-modal button::after, .optchoose-btn::after {
     content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
     clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
-    background: rgba(20,42,70,0.95) !important;
+    background: var(--btn-fill) !important;
 }
 #topdecksearch-panel button:hover, #scry-panel button:hover, #revealarrange-panel button:hover,
 #yesno-decision-modal button:hover, .optchoose-btn:hover {
-    color: #fff !important; filter: drop-shadow(0 0 10px rgba(125,205,255,0.65)) !important; transform: translateY(-1px) !important;
+    color: #fff !important; filter: drop-shadow(0 0 10px rgba(var(--accent-rgb),0.65)) !important; transform: translateY(-1px) !important;
 }
 #topdecksearch-panel button:hover::before, #scry-panel button:hover::before, #revealarrange-panel button:hover::before,
 #yesno-decision-modal button:hover::before, .optchoose-btn:hover::before {
-    background: rgba(180,228,255,1) !important;
+    background: var(--accent-strong) !important;
 }
 
 /* ── Mulligan opening-hand preview ─────────────────────────────────────────────
@@ -558,28 +419,28 @@
 /* Panels in flex-centered overlays (relative-safe). */
 .twosided-slider-panel, .mzmodal-panel, .mzrearrange-modal, .namecard-modal {
     position: relative !important;
-    border: 1px solid rgba(120,200,255,0.30) !important; border-radius: 6px !important;
-    box-shadow: 0 0 10px rgba(80,170,255,0.18), inset 0 0 26px rgba(80,170,255,0.06), 0 14px 44px rgba(0,0,0,0.6) !important;
+    border: 1px solid rgba(var(--accent-rgb),0.30) !important; border-radius: 6px !important;
+    box-shadow: 0 0 10px rgba(var(--accent-rgb),0.18), inset 0 0 26px rgba(var(--accent-rgb),0.06), 0 14px 44px rgba(0,0,0,0.6) !important;
 }
 /* NUMBERCHOOSE is a fixed bottom bar (like the OPTIONCHOOSE banner) — frame it in
    place; do NOT force position:relative (that would drop it out of fixed). */
 .numchoose-banner {
-    border: 1px solid rgba(120,200,255,0.30) !important; border-radius: 6px !important;
-    box-shadow: 0 0 10px rgba(80,170,255,0.18), inset 0 0 26px rgba(80,170,255,0.06), 0 4px 24px rgba(0,0,0,0.5) !important;
+    border: 1px solid rgba(var(--accent-rgb),0.30) !important; border-radius: 6px !important;
+    box-shadow: 0 0 10px rgba(var(--accent-rgb),0.18), inset 0 0 26px rgba(var(--accent-rgb),0.06), 0 4px 24px rgba(0,0,0,0.5) !important;
 }
 .twosided-slider-panel::before, .mzmodal-panel::before, .mzrearrange-modal::before,
 .namecard-modal::before, .numchoose-banner::before {
     content: '' !important; position: absolute !important; inset: -1px !important; pointer-events: none !important;
     background:
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) left  top    / 22px 2px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) left  top    / 2px  22px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) right top    / 22px 2px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) right top    / 2px  22px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) left  bottom / 22px 2px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) left  bottom / 2px  22px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) right bottom / 22px 2px no-repeat,
-        linear-gradient(rgba(150,215,255,0.85),rgba(150,215,255,0.85)) right bottom / 2px  22px no-repeat !important;
-    filter: drop-shadow(0 0 4px rgba(150,215,255,0.55)) !important;
+        linear-gradient(var(--accent-strong),var(--accent-strong)) left  top    / 22px 2px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) left  top    / 2px  22px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) right top    / 22px 2px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) right top    / 2px  22px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) left  bottom / 22px 2px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) left  bottom / 2px  22px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) right bottom / 22px 2px no-repeat,
+        linear-gradient(var(--accent-strong),var(--accent-strong)) right bottom / 2px  22px no-repeat !important;
+    filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.55)) !important;
 }
 /* Action / confirm / stepper buttons → chamfered cyan HUD (closed two-pseudo). */
 .numchoose-confirm, .numchoose-btn-minus, .numchoose-btn-plus, .twosided-slider-confirm,
@@ -587,9 +448,9 @@
 #selection-message > button:not([id]) {
     position: relative !important; z-index: 0 !important; isolation: isolate !important;
     border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important;
-    color: rgba(205,238,255,0.98) !important; text-transform: uppercase !important; letter-spacing: 0.12em !important;
-    text-shadow: 0 0 6px rgba(120,200,255,0.5) !important;
-    filter: drop-shadow(0 0 5px rgba(110,190,255,0.45)) !important;
+    color: var(--text) !important; text-transform: uppercase !important; letter-spacing: 0.12em !important;
+    text-shadow: 0 0 6px rgba(var(--accent-rgb),0.5) !important;
+    filter: drop-shadow(0 0 5px rgba(var(--accent-rgb),0.45)) !important;
     transition: filter 150ms, color 150ms, transform 110ms !important;
 }
 .numchoose-confirm::before, .numchoose-btn-minus::before, .numchoose-btn-plus::before, .twosided-slider-confirm::before,
@@ -597,24 +458,24 @@
 #selection-message > button:not([id])::before {
     content: '' !important; position: absolute !important; inset: 0 !important; z-index: -2 !important;
     clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px) !important;
-    background: rgba(140,210,255,0.85) !important;
+    background: var(--accent) !important;
 }
 .numchoose-confirm::after, .numchoose-btn-minus::after, .numchoose-btn-plus::after, .twosided-slider-confirm::after,
 .mzrearrange-btn-submit::after, .mzrearrange-btn-reset::after, .namecard-modal button::after,
 #selection-message > button:not([id])::after {
     content: '' !important; position: absolute !important; inset: 1.5px !important; z-index: -1 !important;
     clip-path: polygon(7px 0, 100% 0, 100% calc(100% - 7px), calc(100% - 7px) 100%, 0 100%, 0 7px) !important;
-    background: rgba(20,42,70,0.95) !important;
+    background: var(--btn-fill) !important;
 }
 .numchoose-confirm:hover, .numchoose-btn-minus:hover, .numchoose-btn-plus:hover, .twosided-slider-confirm:hover,
 .mzrearrange-btn-submit:hover, .mzrearrange-btn-reset:hover, .namecard-modal button:hover,
 #selection-message > button:not([id]):hover {
-    color: #fff !important; filter: drop-shadow(0 0 10px rgba(125,205,255,0.65)) !important; transform: translateY(-1px) !important;
+    color: #fff !important; filter: drop-shadow(0 0 10px rgba(var(--accent-rgb),0.65)) !important; transform: translateY(-1px) !important;
 }
 .numchoose-confirm:hover::before, .numchoose-btn-minus:hover::before, .numchoose-btn-plus:hover::before, .twosided-slider-confirm:hover::before,
 .mzrearrange-btn-submit:hover::before, .mzrearrange-btn-reset:hover::before, .namecard-modal button:hover::before,
 #selection-message > button:not([id]):hover::before {
-    background: rgba(180,228,255,1) !important;
+    background: var(--accent-strong) !important;
 }
 /* "Waiting for the other player…" — center it over the board (both bases), not pinned above the
    hand. !important beats the shared JS's per-frame inline top/bottom (_positionMessageNearAnchor).
@@ -2284,32 +2145,32 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
 <!-- ── In-game Settings hub (gear menu) ─────────────────────────────────────── -->
 <style>
   .swu-header-right { display: flex; align-items: center; gap: 8px; }
-  .swu-gear-btn { background: transparent; border: 0; color: rgba(140,210,255,0.85); font-size: 40px;
-    line-height: 1; cursor: pointer; padding: 2px 4px; filter: drop-shadow(0 0 4px rgba(140,210,255,0.4));
+  .swu-gear-btn { background: transparent; border: 0; color: var(--accent); font-size: 40px;
+    line-height: 1; cursor: pointer; padding: 2px 4px; filter: drop-shadow(0 0 4px var(--glow));
     transition: transform 140ms ease, color 140ms ease; }
   .swu-gear-btn:hover { color: #fff; transform: rotate(40deg); }
   .swu-settings-overlay { position: fixed; inset: 0; z-index: 10001; display: flex;
-    align-items: center; justify-content: center; background: rgba(4,10,18,0.6);
+    align-items: center; justify-content: center; background: var(--overlay-scrim);
     backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
-  .swu-settings-panel { width: min(92vw, 360px); background: rgba(10,22,36,0.97);
-    border: 1px solid rgba(140,210,255,0.35); border-radius: 12px;
-    box-shadow: 0 18px 50px rgba(0,0,0,0.6); color: #dceaf7; overflow: hidden; }
+  .swu-settings-panel { width: min(92vw, 360px); background: var(--surface-raised);
+    border: 1px solid var(--border); border-radius: 12px;
+    box-shadow: 0 18px 50px rgba(0,0,0,0.6); color: var(--text); overflow: hidden; }
   .swu-settings-head { display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px; border-bottom: 1px solid rgba(140,210,255,0.2);
-    font: 700 16px/1 var(--swu-font-label, sans-serif); color: #bfe3ff; letter-spacing: 0.02em; }
-  .swu-settings-close { background: transparent; border: 0; color: #9fc4e0; font-size: 16px; cursor: pointer; }
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    font: 700 16px/1 var(--swu-font-label, sans-serif); color: var(--accent-strong); letter-spacing: 0.02em; }
+  .swu-settings-close { background: transparent; border: 0; color: var(--text-muted); font-size: 16px; cursor: pointer; }
   .swu-settings-close:hover { color: #fff; }
   .swu-settings-section { padding: 14px 16px; }
   .swu-settings-section-title { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em;
-    color: rgba(140,210,255,0.7); margin-bottom: 8px; }
+    color: var(--accent); margin-bottom: 8px; }
   .swu-settings-row { display: flex; align-items: center; justify-content: space-between;
     gap: 12px; padding: 6px 0; font-size: 14px; cursor: pointer; }
   .swu-settings-row input[type=checkbox] { width: 16px; height: 16px; cursor: pointer; }
-  .swu-settings-link { display: inline-block; margin-top: 8px; color: #8cd2ff; font-size: 13px; text-decoration: none; }
+  .swu-settings-link { display: inline-block; margin-top: 8px; color: var(--accent); font-size: 13px; text-decoration: none; }
   .swu-settings-link:hover { text-decoration: underline; }
   .swu-settings-action { display: block; width: 100%; margin: 6px 0 0; padding: 9px 12px;
-    background: rgba(180,40,55,0.18); border: 1px solid rgba(220,80,95,0.5); border-radius: 7px;
-    color: #ffd7dc; font: 600 14px/1 var(--swu-font-label, sans-serif); cursor: pointer;
+    background: var(--danger-surface); border: 1px solid var(--danger); border-radius: 7px;
+    color: var(--on-danger); font: 600 14px/1 var(--swu-font-label, sans-serif); cursor: pointer;
     transition: background 140ms ease, border-color 140ms ease; }
   .swu-settings-action:hover { background: rgba(200,50,65,0.32); border-color: rgba(240,110,125,0.8); }
   /* Collapsible Block Player widget (shared by the gear menu + game-over overlay) */
@@ -2342,7 +2203,7 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
         <input type="checkbox" id="swuSetShowPlaymats"></label>
       <a class="swu-settings-link" href="/TCGEngine/SharedUI/Sites/SWUSim/Profile.php" target="_blank">Change cosmetics on Profile &#8599;</a>
     </div>
-    <div class="swu-settings-section" id="swuSettingsMatchSection" style="display:none; border-top:1px solid rgba(140,210,255,0.2);">
+    <div class="swu-settings-section" id="swuSettingsMatchSection" style="display:none; border-top:1px solid var(--border);">
       <div class="swu-settings-section-title">Match</div>
       <button class="swu-settings-action" onclick="SWUGearConcede(false)">Concede</button>
       <button class="swu-settings-action" onclick="SWUGearConcede(true)">Return to Main Menu</button>
@@ -2353,6 +2214,10 @@ window.ApplyCosmeticPlaymats = ApplyCosmeticPlaymats;   // re-callable when the 
 <script>
   function swuOpenSettings() {
     var ov = document.getElementById('swuSettingsOverlay'); if (!ov) return;
+    // Move the overlay to <body> so its z-index (10001) competes in the top-level stacking
+    // context — otherwise the board's transformed wrapper traps it below the body-level
+    // turn-miasma "Waiting for the other player" pill (z 4999). Idempotent across re-opens.
+    if (ov.parentNode !== document.body) document.body.appendChild(ov);
     var t = document.getElementById('swuSetShowPlaymats');
     if (t && window.TCGSettings) t.checked = window.TCGSettings.get('ShowPlaymats', { rootName:'SWUSim', type:'boolean', defaultValue:true }) !== false;
     // Match actions are player-only (hidden for spectators / non-players).

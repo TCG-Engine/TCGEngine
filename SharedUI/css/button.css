@@ -1,0 +1,49 @@
+/* button.css — the .btn component (token-driven chamfer switch). SAFE to load anywhere:
+   NO bare `button`/`input` selector, so it never restyles raw buttons on board pages.
+   components.css @imports this and adds the bare-element menu alias. */
+
+.btn {
+  position: relative; z-index: 0; isolation: isolate; cursor: pointer;
+  display: inline-block; text-align: center; white-space: nowrap;
+  font-family: var(--font-display, inherit); font-weight: 600;
+  text-transform: var(--btn-transform, none); letter-spacing: var(--btn-tracking, normal);
+  padding: var(--btn-pad, 5px 7px);
+  color: var(--btn-text, var(--text, #fff));
+  /* --btn-el-bg lets chamfer themes keep the element bg transparent (fill carried by ::after)
+     so a solid --btn-surface variant can't bleed past the cut — WITHOUT clipping the element
+     (clipping would also clip the :hover drop-shadow glow). Defaults to --btn-surface (flat). */
+  background: var(--btn-el-bg, var(--btn-surface, transparent));
+  border: var(--btn-bw, 0) solid var(--btn-border, transparent);
+  border-radius: var(--btn-radius, 5px);
+  box-shadow: var(--btn-shadow, none);
+  clip-path: var(--btn-clip);
+  transition: transform .12s, filter .2s, color .2s, background .2s;
+  animation: var(--btn-anim, none);
+}
+.btn:hover {
+  transform: var(--btn-hover-transform, scale(1.1));
+  background: var(--btn-hover-surface, var(--btn-surface));
+  border-color: var(--btn-hover-border, var(--btn-border));
+  filter: drop-shadow(0 0 var(--btn-glow, 0) var(--btn-glow-color, transparent));
+}
+.btn:active { transform: translateY(1px); }
+.btn:disabled, .btn[disabled] { cursor: default; opacity: .42; filter: saturate(.4); transform: none; }
+
+.btn::before {
+  content: var(--btn-chamfer-content, none);
+  position: absolute; inset: 0; z-index: -2; background: var(--btn-rim, var(--accent));
+  clip-path: var(--btn-clip, polygon(var(--btn-cut,0) 0,100% 0,100% calc(100% - var(--btn-cut,0)),calc(100% - var(--btn-cut,0)) 100%,0 100%,0 var(--btn-cut,0)));
+}
+.btn::after {
+  content: var(--btn-chamfer-content, none);
+  position: absolute; inset: var(--btn-rim-width, 2px); z-index: -1;
+  background: var(--btn-fill, var(--surface));
+  background-blend-mode: var(--btn-fill-blend, normal); background-size: var(--btn-fill-size, auto);
+  box-shadow: var(--btn-after-shadow, none);
+  clip-path: var(--btn-clip-inner, polygon(var(--btn-cut-inner,0) 0,100% 0,100% calc(100% - var(--btn-cut-inner,0)),calc(100% - var(--btn-cut-inner,0)) 100%,0 100%,0 var(--btn-cut-inner,0)));
+}
+@keyframes emberpulse { 0%,100% { filter: drop-shadow(0 0 5px rgba(232,147,58,0.35)); } 50% { filter: drop-shadow(0 0 15px rgba(255,106,43,0.55)); } }
+
+.btn-primary { --btn-surface: var(--accent-surface, var(--accent)); --btn-fill: var(--accent-surface, var(--accent)); --btn-border: var(--accent-strong); --btn-rim: var(--accent-strong); --btn-shadow: none; --btn-text: var(--on-accent); --btn-fill-blend: normal; --btn-fill-size: auto; }
+.btn-danger,  .hud-red   { --btn-border: var(--danger);  --btn-rim: var(--danger);  --btn-glow-color: var(--danger);  --btn-surface: var(--danger-surface);  --btn-fill: var(--danger-surface);  --btn-text: var(--on-danger);  --btn-fill-blend: normal; --btn-fill-size: auto; }
+.btn-success, .hud-green { --btn-border: var(--success); --btn-rim: var(--success); --btn-glow-color: var(--success); --btn-surface: var(--success-surface); --btn-fill: var(--success-surface); --btn-text: var(--on-success); --btn-fill-blend: normal; --btn-fill-size: auto; }

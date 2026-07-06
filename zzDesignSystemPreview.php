@@ -50,6 +50,9 @@ h2{letter-spacing:.1em;text-transform:uppercase;font-size:15px;opacity:.7;margin
     <label style="display:inline-flex;align-items:center"><input type="checkbox" checked> Checkbox</label>
     <label style="display:inline-flex;align-items:center"><input type="radio" name="r" checked> Radio A</label>
     <label style="display:inline-flex;align-items:center"><input type="radio" name="r"> Radio B</label>
+    <button class="switch" aria-pressed="false" onclick="this.classList.toggle('is-on')"></button>
+    <button class="switch is-on" aria-pressed="true" onclick="this.classList.toggle('is-on')"></button>
+    <span class="u-label" style="font-size:11px">SWITCH (off / on)</span>
   </div>
   <div class="dropdown-panel" style="width:200px;padding:4px 0">
     <div class="dropdown-panel__item" style="padding:8px 14px">Menu item</div>

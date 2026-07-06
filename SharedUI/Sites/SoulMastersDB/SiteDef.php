@@ -5,6 +5,7 @@
     'ipOwner'  => 'Soul Master Games LLC',
     'tcgName'  => 'Soul Masters',
   ],
+  'theme' => 'neutral',   // no overlay; tokens.css defaults
   'branding' => [
     'title'          => 'Soul Masters DB',                 // home-header h1
     'headTitle'      => 'Soul Masters Deck Builder',        // browser-tab <title>
@@ -15,11 +16,7 @@
     'disclaimerName' => 'Soul Masters DB',
   ],
   'head' => [
-    'styles'  => [
-      '/TCGEngine/SharedUI/css/menuStyles.css',
-      '/TCGEngine/SharedUI/css/tokens.css',
-      '/TCGEngine/SharedUI/css/components.css',
-    ],
+    'styles'  => [],   // derived from `theme` (neutral) via _RenderThemeStack
     'scripts' => [],
     'fonts'   => ['Barlow', 'Teko'],
   ],

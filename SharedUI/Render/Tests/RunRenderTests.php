@@ -207,6 +207,34 @@ check('validator rejects >2 combined', in_array("profile.sections entry 'team+bl
 check('validator flags an unknown part in a combined entry', in_array("profile.sections has unknown section 'bogus'", ValidateSiteDef(['profile'=>['sections'=>['welcome+bogus']]])));
 // (a valid combined entry passing cleanly is covered by the 'SWUSim validates clean' check above.)
 
+// --- Task 4 (Phase 0): SiteDef theme key + validation ---
+check('SWUDeck declares theme hud', LoadSiteDef('SWUDeck')['theme'] === 'hud');
+check('SWUSim declares theme hud', LoadSiteDef('SWUSim')['theme'] === 'hud');
+check('GrandArchiveSim declares theme clarent', LoadSiteDef('GrandArchiveSim')['theme'] === 'clarent');
+check('validator accepts a valid theme', !in_array('theme must be a non-empty string', ValidateSiteDef(LoadSiteDef('SWUDeck')), true));
+check('validator rejects empty theme', in_array('theme must be a non-empty string', ValidateSiteDef(array_merge(LoadSiteDef('SWUDeck'), ['theme'=>'']))));
+check('validator rejects non-string theme', in_array('theme must be a non-empty string', ValidateSiteDef(array_merge(LoadSiteDef('SWUDeck'), ['theme'=>['x']]))));
+
+// --- Task 5 (Phase 0): centralized menu theme stack ---
+$dsHead = RenderHead(LoadSiteDef('SWUDeck'));
+checkContains('menu stack has menuStyles (hud)', $dsHead, '/TCGEngine/SharedUI/css/menuStyles.css');
+checkContains('menu stack has tokens.css', $dsHead, '/TCGEngine/SharedUI/css/tokens.css');
+checkContains('menu stack has components.css', $dsHead, '/TCGEngine/SharedUI/css/components.css');
+checkContains('menu stack links hud theme (SWUDeck)', $dsHead, '/TCGEngine/SharedUI/Themes/hud.tokens.css');
+$gaHead = RenderHead(LoadSiteDef('GrandArchiveSim'));
+checkContains('clarent app links clarent theme', $gaHead, '/TCGEngine/SharedUI/Themes/clarent.tokens.css');
+check('clarent app has NO menuStyles', strpos($gaHead, '/TCGEngine/SharedUI/css/menuStyles.css') === false);
+$smHead = RenderHead(LoadSiteDef('SoulMastersDB'));
+check('neutral app links NO theme overlay', strpos($smHead, '/TCGEngine/SharedUI/Themes/') === false);
+checkContains('neutral app still has tokens.css', $smHead, '/TCGEngine/SharedUI/css/tokens.css');
+checkContains('neutral app keeps menuStyles', $smHead, '/TCGEngine/SharedUI/css/menuStyles.css');
+// Turnkey property: a def with EMPTY head.styles still gets the whole stack FROM the theme key.
+$minimal = LoadSiteDef('SWUDeck'); $minimal['head']['styles'] = [];
+$minHead = RenderHead($minimal);
+checkContains('empty head.styles still yields components (from theme)', $minHead, '/TCGEngine/SharedUI/css/components.css');
+checkContains('empty head.styles still yields hud theme (from theme)', $minHead, '/TCGEngine/SharedUI/Themes/hud.tokens.css');
+checkContains('empty head.styles still yields menuStyles (hud base)', $minHead, '/TCGEngine/SharedUI/css/menuStyles.css');
+
 // (later tasks append their checks above this line)
 
 echo "PASS=$PASS FAIL=$FAIL\n";

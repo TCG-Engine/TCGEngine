@@ -84,25 +84,25 @@
 }
 
 #turn-miasma-overlay.my-turn .turn-edge-glyph::after {
-  background: rgba(64, 214, 110, 0.92);
-  box-shadow: 0 0 12px rgba(64, 214, 110, 0.74), 0 0 24px rgba(64, 214, 110, 0.4);
+  background: rgba(var(--turn-mine-rgb), 0.92);
+  box-shadow: 0 0 12px rgba(var(--turn-mine-rgb), 0.74), 0 0 24px rgba(var(--turn-mine-rgb), 0.4);
 }
 
 #turn-miasma-overlay.my-turn .turn-edge-core {
   border-color: rgba(112, 237, 148, 0.96);
-  background: rgba(64, 214, 110, 0.92);
-  box-shadow: 0 0 12px rgba(64, 214, 110, 0.74), 0 0 26px rgba(64, 214, 110, 0.48);
+  background: rgba(var(--turn-mine-rgb), 0.92);
+  box-shadow: 0 0 12px rgba(var(--turn-mine-rgb), 0.74), 0 0 26px rgba(var(--turn-mine-rgb), 0.48);
 }
 
 #turn-miasma-overlay.their-turn .turn-edge-glyph::before {
-  background: rgba(222, 72, 72, 0.92);
-  box-shadow: 0 0 12px rgba(222, 72, 72, 0.72), 0 0 24px rgba(222, 72, 72, 0.42);
+  background: rgba(var(--turn-theirs-rgb), 0.92);
+  box-shadow: 0 0 12px rgba(var(--turn-theirs-rgb), 0.72), 0 0 24px rgba(var(--turn-theirs-rgb), 0.42);
 }
 
 #turn-miasma-overlay.their-turn .turn-edge-core {
   border-color: rgba(237, 122, 122, 0.96);
-  background: rgba(222, 72, 72, 0.9);
-  box-shadow: 0 0 12px rgba(222, 72, 72, 0.72), 0 0 26px rgba(222, 72, 72, 0.48);
+  background: rgba(var(--turn-theirs-rgb), 0.9);
+  box-shadow: 0 0 12px rgba(var(--turn-theirs-rgb), 0.72), 0 0 26px rgba(var(--turn-theirs-rgb), 0.48);
 }
 
 #turn-miasma-overlay.my-turn .turn-edge-core,

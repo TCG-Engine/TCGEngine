@@ -19,7 +19,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
 ?>
 <div class="row-wrapper" style="display: flex; flex-direction: row; flex-grow: 1;">
   <!-- Create New Game Section -->
-  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: #f0ddb0; border-radius: 12px; position: relative;">
+  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: var(--text); border-radius: 12px; position: relative;">
     <button style="position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer;" onclick="refreshOpenGames()">
       <img src='/TCGEngine/Assets/Icons/refresh.svg' width='16' height='16' alt='Refresh' style='filter: invert(100%);' />
     </button>
@@ -39,7 +39,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         cursor: pointer;
         transition: all 0.3s ease;
         outline: none;
-      " onmouseover="this.style.borderColor='rgba(212, 147, 58, 0.8)'; this.style.backgroundColor='rgba(50, 50, 50, 0.95)';" onmouseout="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.backgroundColor='rgba(40, 40, 40, 0.95)';" onfocus="this.style.borderColor='#d4933a'; this.style.boxShadow='0 0 8px rgba(212, 147, 58, 0.4)';" onblur="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.boxShadow='none';">
+      " onmouseover="this.style.borderColor='rgba(var(--accent-rgb), 0.8)'; this.style.backgroundColor='rgba(50, 50, 50, 0.95)';" onmouseout="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.backgroundColor='rgba(40, 40, 40, 0.95)';" onfocus="this.style.borderColor='var(--accent)'; this.style.boxShadow='0 0 8px rgba(var(--accent-rgb), 0.4)';" onblur="this.style.borderColor='rgba(100, 100, 100, 0.5)'; this.style.boxShadow='none';">
         <option value="" disabled selected style="color: #999;">Select a preconstructed deck...</option>
         <option value="Refractory">Refractory</option>
         <option value="Gloaming">Gloaming</option>
@@ -54,24 +54,24 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       <button onclick="loadTestDeck()" style="margin-bottom: 10px; padding: 6px 14px; background: rgba(60,120,60,0.25); color: #90e090; border: 1px solid rgba(90,160,90,0.45); border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600;">⚗ Test Deck</button>
 
       <div style="display: flex; gap: 0; margin-bottom: 10px; border-bottom: 2px solid rgba(100,100,100,0.4);">
-        <button id="tab-link" onclick="switchDeckTab('link')" style="flex: 1; padding: 8px; background: rgba(180,140,45,0.18); color: #f0ddb0; border: none; border-bottom: 2px solid #d4b060; cursor: pointer; font-size: 13px; font-weight: 600;">Deck Link</button>
-        <button id="tab-text" onclick="switchDeckTab('text')" style="flex: 1; padding: 8px; background: rgba(180,140,45,0.06); color: #a09060; border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px;">Free Text</button>
+        <button id="tab-link" onclick="switchDeckTab('link')" style="flex: 1; padding: 8px; background: rgba(var(--accent-rgb),0.18); color: var(--text); border: none; border-bottom: 2px solid var(--accent); cursor: pointer; font-size: 13px; font-weight: 600;">Deck Link</button>
+        <button id="tab-text" onclick="switchDeckTab('text')" style="flex: 1; padding: 8px; background: rgba(var(--accent-rgb),0.06); color: var(--text-muted); border: none; border-bottom: 2px solid transparent; cursor: pointer; font-size: 13px;">Free Text</button>
       </div>
       <div id="deck-input-link">
         <label for="deck-link" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste a deck link:</label>
-        <input type="text" id="deck-link" name="deck_link" placeholder="https://swustats.net/TCGEngine/NextTurn.php?gameName=..." style="width: 100%; padding: 10px 15px; background-color: rgba(245, 228, 170, 0.88); color: #1e0900; border: 2px solid rgba(130, 85, 5, 0.45); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
-        <div style="margin-top: 8px; color: #a09060; font-size: 12px; line-height: 1.35;">
+        <input type="text" id="deck-link" name="deck_link" placeholder="https://swustats.net/TCGEngine/NextTurn.php?gameName=..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        <div style="margin-top: 8px; color: var(--text-muted); font-size: 12px; line-height: 1.35;">
           Supported deck links: SWUStats, SWUDB
         </div>
       </div>
       <div id="deck-input-text" style="display: none;">
         <label for="deck-text" style="display: block; margin-bottom: 8px; font-weight: 500;">Paste deck list (e.g. from SWUDB or SWUDeck):</label>
-        <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Leader&#10;1 Luke Skywalker, Faithful Friend&#10;&#10;# Base&#10;1 Echo Base&#10;&#10;# Main Deck&#10;3 Alliance X-Wing&#10;..." style="width: 100%; padding: 10px 15px; background-color: rgba(245, 228, 170, 0.88); color: #1e0900; border: 2px solid rgba(130, 85, 5, 0.45); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
+        <textarea id="deck-text" name="deck_text" rows="12" placeholder="# Leader&#10;1 Luke Skywalker, Faithful Friend&#10;&#10;# Base&#10;1 Echo Base&#10;&#10;# Main Deck&#10;3 Alliance X-Wing&#10;..." style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 13px; font-family: monospace; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
       </div>
       <!-- Hotseat: a second deck link for Player 2 (revealed only when the Hotseat format is selected). -->
       <div id="swu-deck2-group" style="display: none; margin-top: 10px;">
         <label for="swu-deck2-input" style="display: block; margin-bottom: 8px; font-weight: 500;">Player 2 deck link (Hotseat):</label>
-        <input type="text" id="swu-deck2-input" placeholder="Second deck link" style="width: 100%; padding: 10px 15px; background-color: rgba(245, 228, 170, 0.88); color: #1e0900; border: 2px solid rgba(130, 85, 5, 0.45); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
+        <input type="text" id="swu-deck2-input" placeholder="Second deck link" style="width: 100%; padding: 10px 15px; background-color: var(--surface-sunken); color: var(--text); border: 2px solid var(--border); border-radius: 8px; font-size: 14px; outline: none; box-sizing: border-box;">
       </div>
       <!--
       <label for="game-name">Game Name:</label>
@@ -116,7 +116,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         <button id="join-private-invite-btn" onclick="joinPrivateInvite()" style="display: none; background-color: #2d8a57;">Join Private Invite</button>
       </div>
       <div id="queue-inline-error" style="display: none; margin-top: 10px; color: #ff6b6b; font-size: 13px; line-height: 1.35;"></div>
-      <div id="private-invite-notice" style="display: none; margin-top: 10px; color: #c8b080; font-size: 13px;"></div>
+      <div id="private-invite-notice" style="display: none; margin-top: 10px; color: var(--text-muted); font-size: 13px;"></div>
       <?php
         if (isset($_SESSION['userid'])) {
             echo "<div class='saved-decks-panel' style='margin-top:16px;'><h3 style='margin:0 0 8px 0;'>Saved Decks</h3>";
@@ -130,40 +130,49 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   </div>
 
   <!-- Tips & Info Section -->
-  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: #f0ddb0; border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
+  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: var(--text); border-radius: 12px; display: flex; flex-direction: column; gap: 16px;">
     <h2 style="margin: 0 0 4px 0;">Welcome to Petranaki Arena!</h2>
-    <p class="login-message" style="margin: 0; color: #cdb880; font-size: 14px;">Petranaki Arena is a fan-made online simulator for Star Wars: Unlimited.</p>
+    <p class="login-message" style="margin: 0; color: var(--text-muted); font-size: 14px;">Petranaki Arena is a fan-made online simulator for Star Wars: Unlimited.</p>
 
-    <hr style="border: none; border-top: 1px solid rgba(180,140,45,0.20); margin: 0;">
+    <hr style="border: none; border-top: 1px solid rgba(var(--accent-rgb),0.20); margin: 0;">
 
     <!-- Did you know? -->
     <div id="did-you-know-box" style="
-      background: linear-gradient(135deg, rgba(180,140,45,0.14) 0%, rgba(140,105,25,0.20) 100%);
-      border: 1px solid rgba(180,140,45,0.28);
+      background: linear-gradient(135deg, rgba(var(--accent-rgb),0.14) 0%, rgba(var(--accent-rgb),0.20) 100%);
+      border: 1px solid rgba(var(--accent-rgb),0.28);
       border-radius: 8px;
       padding: 14px 16px;
       position: relative;
     ">
       <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
         <span style="font-size: 18px;">⚡</span>
-        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #d4b060;">Did you know?</span>
+        <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent);">Did you know?</span>
       </div>
-      <p id="did-you-know-text" style="margin: 0; font-size: 14px; color: #e8d5a8; line-height: 1.55;"></p>
+      <p id="did-you-know-text" style="margin: 0; font-size: 14px; color: var(--text); line-height: 1.55;"></p>
       <button onclick="cycleDidYouKnow()" title="Next tip" style="
         position: absolute; top: 10px; right: 10px;
         background: none; border: none; cursor: pointer;
-        color: #d4b060; font-size: 16px; padding: 2px 6px; border-radius: 4px;
+        color: var(--accent); font-size: 16px; padding: 2px 6px; border-radius: 4px;
         transition: background 0.2s;
-      " onmouseover="this.style.background='rgba(180,140,45,0.14)'" onmouseout="this.style.background='none'">→</button>
+      " onmouseover="this.style.background='rgba(var(--accent-rgb),0.14)'" onmouseout="this.style.background='none'">→</button>
     </div>
 
     <!-- Quick-reference hotkeys -->
     <div>
-      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #a09060; margin-bottom: 8px;">Quick Reference</div>
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">Quick Reference</div>
       <div style="display: flex; flex-direction: column; gap: 6px;" id="hotkey-list"></div>
     </div>
   </div>
+
+  <!-- Replays Section -->
+  <div class="card ga-glass-card" style="flex-grow: 1; margin: 10px; padding: 20px; color: var(--text); border-radius: 12px; display: flex; flex-direction: column; gap: 8px;">
+    <h2 style="margin: 0 0 4px 0;">Your Replays</h2>
+    <p style="margin: 0; color: var(--text-muted); font-size: 13px; line-height: 1.4;">Saved in this browser. Use the <strong>Save Replay</strong> button on the end-of-game screen to add one here.</p>
+    <div id="match-replay-menu-list" class="swu-replay-list" style="margin-top: 6px;"></div>
+  </div>
 </div>
+
+<script src="/TCGEngine/Core/MatchReplayClient.js"></script>
 
 <div id="ga-settings-modal" class="ga-settings-modal" aria-hidden="true">
   <div class="ga-settings-modal__overlay" data-close-settings-modal="true"></div>
@@ -190,20 +199,20 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
     min-width: 0;
   }
   .ga-glass-card {
-    background: linear-gradient(165deg, rgba(65, 46, 12, 0.90) 0%, rgba(50, 34, 8, 0.86) 100%);
-    border: 1px solid rgba(190, 155, 50, 0.30);
-    box-shadow: 0 14px 36px rgba(10, 4, 0, 0.50), inset 0 1px 0 rgba(255, 230, 140, 0.06);
+    background: var(--surface-raised);
+    border: 1px solid rgba(var(--accent-rgb), 0.30);
+    box-shadow: 0 14px 36px rgba(10, 4, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(10px) saturate(110%);
     -webkit-backdrop-filter: blur(10px) saturate(110%);
-    color: #f0ddb0 !important;
+    color: var(--text) !important;
   }
-  .ga-glass-card * { color: #e8d5a8; }
+  .ga-glass-card * { color: var(--text); }
   .swu-queue-select {
     width: 100%;
     padding: 8px 12px;
-    background-color: rgba(40, 24, 7, 0.92);
-    color: #f0ddb0 !important;
-    border: 2px solid rgba(180, 140, 45, 0.40);
+    background-color: var(--surface-sunken);
+    color: var(--text) !important;
+    border: 2px solid rgba(var(--accent-rgb), 0.40);
     border-radius: 8px;
     font-size: 14px;
     cursor: pointer;
@@ -212,16 +221,16 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
     transition: border-color 0.2s, box-shadow 0.2s;
   }
   .swu-queue-select:focus {
-    border-color: #d4933a;
-    box-shadow: 0 0 8px rgba(212, 147, 58, 0.4);
+    border-color: var(--accent);
+    box-shadow: 0 0 8px rgba(var(--accent-rgb), 0.4);
   }
-  .swu-queue-select option { background-color: #281807; color: #f0ddb0; }
-  .hotkey-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #c8b080; }
+  .swu-queue-select option { background-color: var(--surface-raised); color: var(--text); }
+  .hotkey-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-muted); }
   .hotkey-badge {
     display: inline-block; min-width: 28px; text-align: center;
     padding: 2px 7px; border-radius: 5px;
-    background: rgba(180, 140, 45, 0.12); border: 1px solid rgba(180, 140, 45, 0.30);
-    font-family: monospace; font-size: 13px; font-weight: 700; color: #f0ddb0;
+    background: rgba(var(--accent-rgb), 0.12); border: 1px solid rgba(var(--accent-rgb), 0.30);
+    font-family: monospace; font-size: 13px; font-weight: 700; color: var(--text);
     flex-shrink: 0;
   }
   #did-you-know-box {
@@ -264,11 +273,11 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   .ga-settings-modal__dialog {
     position: relative;
     width: min(560px, 92vw);
-    background: rgba(58, 40, 10, 0.97);
-    border: 1px solid rgba(180, 140, 45, 0.35);
+    background: var(--surface-raised);
+    border: 1px solid rgba(var(--accent-rgb), 0.35);
     border-radius: 10px;
     box-shadow: 0 20px 50px rgba(10, 4, 0, 0.55);
-    color: #f0ddb0;
+    color: var(--text);
     padding: 18px;
   }
   .ga-settings-modal__header {
@@ -280,12 +289,12 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
   .ga-settings-modal__header h3 {
     margin: 0;
     font-size: 18px;
-    color: #f5e6c0;
+    color: var(--text);
   }
   .ga-settings-modal__close {
     border: 0;
-    background: rgba(180, 140, 45, 0.14);
-    color: #f0ddb0;
+    background: rgba(var(--accent-rgb), 0.14);
+    color: var(--text);
     border-radius: 6px;
     width: 28px;
     height: 28px;
@@ -302,16 +311,16 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #d8c890;
+    color: var(--text-muted);
     font-size: 13px;
   }
   .ga-settings-row--split {
     justify-content: space-between;
   }
   #ga-board-background-theme {
-    background: rgba(40, 24, 7, 0.92);
-    color: #f0ddb0;
-    border: 1px solid rgba(180, 140, 45, 0.35);
+    background: var(--surface-sunken);
+    color: var(--text);
+    border: 1px solid rgba(var(--accent-rgb), 0.35);
     border-radius: 6px;
     padding: 4px 8px;
     font-size: 12px;
@@ -455,12 +464,12 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         var isLink = tab === 'link';
         document.getElementById('deck-input-link').style.display = isLink ? '' : 'none';
         document.getElementById('deck-input-text').style.display = isLink ? 'none' : '';
-        document.getElementById('tab-link').style.background = isLink ? 'rgba(180,140,45,0.18)' : 'rgba(180,140,45,0.06)';
-        document.getElementById('tab-link').style.color = isLink ? '#f0ddb0' : '#a09060';
-        document.getElementById('tab-link').style.borderBottom = isLink ? '2px solid #d4b060' : '2px solid transparent';
-        document.getElementById('tab-text').style.background = isLink ? 'rgba(180,140,45,0.06)' : 'rgba(180,140,45,0.18)';
-        document.getElementById('tab-text').style.color = isLink ? '#a09060' : '#f0ddb0';
-        document.getElementById('tab-text').style.borderBottom = isLink ? '2px solid transparent' : '2px solid #d4b060';
+        document.getElementById('tab-link').style.background = isLink ? 'rgba(var(--accent-rgb),0.18)' : 'rgba(var(--accent-rgb),0.06)';
+        document.getElementById('tab-link').style.color = isLink ? 'var(--text)' : 'var(--text-muted)';
+        document.getElementById('tab-link').style.borderBottom = isLink ? '2px solid var(--accent)' : '2px solid transparent';
+        document.getElementById('tab-text').style.background = isLink ? 'rgba(var(--accent-rgb),0.06)' : 'rgba(var(--accent-rgb),0.18)';
+        document.getElementById('tab-text').style.color = isLink ? 'var(--text-muted)' : 'var(--text)';
+        document.getElementById('tab-text').style.borderBottom = isLink ? '2px solid transparent' : '2px solid var(--accent)';
         try { localStorage.setItem('swu_deck_tab', tab); } catch(e) {}
       }
 
@@ -785,7 +794,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
 
         var animation = document.createElement('div');
         animation.style.border = '16px solid #f3f3f3';
-        animation.style.borderTop = '16px solid #d4933a';
+        animation.style.borderTop = '16px solid var(--accent)';
         animation.style.borderRadius = '50%';
         animation.style.width = '120px';
         animation.style.height = '120px';
@@ -917,8 +926,8 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
             to { opacity: 1; }
           }
           @keyframes pulseGlow {
-            0%, 100% { text-shadow: 0 0 20px rgba(212, 147, 58, 0.8), 0 0 40px rgba(212, 147, 58, 0.4); }
-            50% { text-shadow: 0 0 30px rgba(212, 147, 58, 1), 0 0 60px rgba(212, 147, 58, 0.6); }
+            0%, 100% { text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.8), 0 0 40px rgba(var(--accent-rgb), 0.4); }
+            50% { text-shadow: 0 0 30px rgba(var(--accent-rgb), 1), 0 0 60px rgba(var(--accent-rgb), 0.6); }
           }
           @keyframes pulseGlowIcon {
             0%, 100% { filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.35)) drop-shadow(0 0 24px rgba(255, 255, 255, 0.2)); }
@@ -950,7 +959,7 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
         var titleElement = document.createElement('h1');
         titleElement.textContent = 'Match Found!';
         titleElement.style.cssText = `
-          color: #d4933a;
+          color: var(--accent);
           font-size: 48px;
           margin-bottom: 30px;
           font-family: 'Roboto', sans-serif;
@@ -1109,6 +1118,17 @@ $swuDeckLibraryConfig = DeckLibraryConfigFromSiteDef($swuSiteDef);
       }
 
       document.addEventListener('DOMContentLoaded', function() {
+        if (window.MatchReplayClient) {
+          window.MatchReplayClient.init({
+            enabled: true,
+            rootName: rootName,
+            apiBaseUrl: '/TCGEngine/APIs/MatchReplay.php',
+            nextTurnBaseUrl: '/TCGEngine/NextTurn.php'
+          });
+          window.MatchReplayClient.renderReplayLibrary('match-replay-menu-list', {
+            rootName: rootName
+          });
+        }
         initializePrivateInviteFromUrl();
         refreshOpenGames();
       });

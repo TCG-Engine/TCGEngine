@@ -57,6 +57,9 @@ function ValidateSiteDef(array $def): array {
     foreach (['rootName','appName','ipOwner','tcgName'] as $k) {
         if (empty($def['identity'][$k])) $errors[] = "identity.$k is required";
     }
+    if (isset($def['theme']) && (!is_string($def['theme']) || $def['theme'] === '')) {
+        $errors[] = "theme must be a non-empty string";
+    }
     return $errors;
 }
 

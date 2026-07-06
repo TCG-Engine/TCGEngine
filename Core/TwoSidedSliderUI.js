@@ -123,22 +123,8 @@
       margin-top: 10px;
     }
 
-    .twosided-slider-confirm {
-      border: none;
-      border-radius: 8px;
-      padding: 8px 22px;
-      background: linear-gradient(135deg, #1692d1, #38bdf8);
-      color: #fff;
-      font-family: 'Orbitron', 'Segoe UI', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.25);
-    }
-
-    .twosided-slider-confirm:hover {
-      background: linear-gradient(135deg, #1da9f0, #67d4ff);
-    }
+    /* Skin from .btn.btn-primary (button.css); layout only kept here. */
+    .twosided-slider-confirm { padding: 8px 22px; font-size: 13px; }
 
     @media (max-width: 640px) {
       .twosided-slider-panel {
@@ -326,7 +312,7 @@
     const footer = document.createElement('div');
     footer.className = 'twosided-slider-footer';
     const confirmBtn = document.createElement('button');
-    confirmBtn.className = 'twosided-slider-confirm';
+    confirmBtn.className = 'twosided-slider-confirm btn btn-primary';
     confirmBtn.textContent = 'Confirm';
     footer.appendChild(confirmBtn);
     panel.appendChild(footer);

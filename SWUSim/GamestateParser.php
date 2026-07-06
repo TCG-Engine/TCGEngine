@@ -57,6 +57,8 @@ function InitializeGamestate() {
   global $gUniqueIDCounter;
   global $gEffectStack;
   global $gGameLog;
+  global $gMatchReplayInitialState;
+  global $gMatchReplayCommands;
 
   global $currentPlayer, $updateNumber, $gRandomCounter;
   global $objectDataIndices;
@@ -99,6 +101,8 @@ function InitializeGamestate() {
   $gUniqueIDCounter = 0;
   $gEffectStack = [];
   $gGameLog = "-";
+  $gMatchReplayInitialState = "";
+  $gMatchReplayCommands = "";
   $currentPlayer = 1;
   $updateNumber = 1;
   $gRandomCounter = 0;
@@ -135,6 +139,8 @@ function WriteGamestate($filepath="./") {
   global $gUniqueIDCounter;
   global $gEffectStack;
   global $gGameLog;
+  global $gMatchReplayInitialState;
+  global $gMatchReplayCommands;
 
   global $currentPlayer, $updateNumber, $gRandomCounter;
   global $objectDataIndices;
@@ -192,6 +198,8 @@ function WriteGamestate($filepath="./") {
   $gamestateText .= $gUniqueIDCounter . "\r\n";
   $writeZone($gEffectStack);
   $gamestateText .= $gGameLog . "\r\n";
+  $gamestateText .= $gMatchReplayInitialState . "\r\n";
+  $gamestateText .= $gMatchReplayCommands . "\r\n";
   $gamestateText .= $gRandomCounter . "\r\n";
   global $gTelemetry; $gamestateText .= (($gTelemetry === null || $gTelemetry === '') ? '-' : $gTelemetry) . "\r\n";
   if(GamestateUsesMemoryStorage() && function_exists("apcu_store")) {
@@ -227,6 +235,8 @@ function ParseGamestate($filepath="./") {
   global $gUniqueIDCounter;
   global $gEffectStack;
   global $gGameLog;
+  global $gMatchReplayInitialState;
+  global $gMatchReplayCommands;
 
   global $currentPlayer, $updateNumber, $gRandomCounter;
   global $objectDataIndices;
@@ -579,6 +589,14 @@ function ParseGamestate($filepath="./") {
     $line = fgets($handler);
     if ($line !== false) {
       $gGameLog = trim($line);
+    }
+    $line = fgets($handler);
+    if ($line !== false) {
+      $gMatchReplayInitialState = trim($line);
+    }
+    $line = fgets($handler);
+    if ($line !== false) {
+      $gMatchReplayCommands = trim($line);
     }
     $line = fgets($handler);
     if ($line !== false) {

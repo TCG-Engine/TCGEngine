@@ -15,7 +15,7 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         --swu-surface:      rgba(255,255,255,0.04);
         --swu-border:       rgba(255,255,255,0.10);
         --swu-border-hi:    rgba(255,255,255,0.22);
-        --swu-gold:         #c8971e;
+        --swu-gold:         var(--accent-gold, #c8971e);   /* theme-driven (design-system token) */
         --swu-gold-soft:    rgba(200,151,30,0.22);
         --swu-font-ui:      "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif;
         --swu-font-label:   "Bahnschrift","Aptos Display","Franklin Gothic Medium",sans-serif;
@@ -321,23 +321,23 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
            so they stay proportional to the cards at any resolution — a fixed px looked tiny
            on wide/4K screens. --swu-init-btn-scale is the 80%-of-column knob. */
         box-sizing: border-box; width: calc(var(--swu-center-w) * var(--swu-init-btn-scale, 0.8));
-        padding: 0.62em 0.9em; border: 0; background: rgba(130,205,255,0.80);
-        color: rgba(198,233,255,0.95);
+        padding: 0.62em 0.9em; border: 0; background: var(--accent);   /* rim */
+        color: var(--btn-text, var(--text));
         font: 700 10px/1 var(--swu-font-label); font-size: clamp(9px, 0.5vw, 15px);
         letter-spacing: 0.16em; text-transform: uppercase;
-        text-shadow: 0 0 5px rgba(120,200,255,0.45);
+        text-shadow: 0 0 5px var(--glow);
         clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
-        filter: drop-shadow(0 0 4px rgba(110,190,255,0.35));
+        filter: drop-shadow(0 0 4px var(--glow));
         transition: filter 150ms, color 150ms, transform 110ms;
     }
     .swu-init-pass-btn::before {
         content: ''; position: absolute; inset: 1.5px; z-index: 0;
-        background: rgba(16,34,58,0.92);
+        background: var(--btn-fill);   /* flat fill */
         clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
         transition: background 150ms;
     }
     .swu-init-pass-btn > span { position: relative; z-index: 1; }
-    .swu-init-pass-btn:hover { color: #fff; filter: drop-shadow(0 0 9px rgba(125,205,255,0.6)); }
+    .swu-init-pass-btn:hover { color: #fff; filter: drop-shadow(0 0 9px var(--btn-glow-color, var(--glow))); }
     .swu-init-pass-btn:hover::before  { background: rgba(28,56,90,0.92); }
     .swu-init-pass-btn:active { transform: translateY(0.5px); }
     .swu-init-pass-btn:active::before { background: rgba(42,78,118,0.95); }
@@ -398,27 +398,27 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         top: calc(var(--swu-hand-h) + var(--swu-arena-margin));
         bottom: calc(var(--swu-hand-h) + var(--swu-arena-margin));
         background: transparent;
-        /* Faint light-blue full frame + soft glow — the sci-fi targeting-HUD look. */
-        border: 1px solid rgba(120,200,255,0.22);
+        /* Faint theme-accent full frame + soft glow — the sci-fi targeting-HUD look. */
+        border: 1px solid rgba(var(--accent-rgb),0.22);
         border-radius: 4px;
-        box-shadow: 0 0 6px rgba(80,170,255,0.10),
-                    inset 0 0 14px rgba(80,170,255,0.08);
+        box-shadow: 0 0 6px rgba(var(--accent-rgb),0.10),
+                    inset 0 0 14px rgba(var(--accent-rgb),0.08);
         animation: swuArenaPulse 3.2s ease-in-out infinite;
     }
     @keyframes swuArenaPulse {
-        0%, 100% { border-color: rgba(120,200,255,0.18);
-                   box-shadow: 0 0 5px rgba(80,170,255,0.08), inset 0 0 12px rgba(80,170,255,0.05); }
-        50%      { border-color: rgba(150,215,255,0.42);
-                   box-shadow: 0 0 13px rgba(95,185,255,0.28), inset 0 0 18px rgba(95,185,255,0.13); }
+        0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
+                   box-shadow: 0 0 5px rgba(var(--accent-rgb),0.08), inset 0 0 12px rgba(var(--accent-rgb),0.05); }
+        50%      { border-color: rgba(var(--accent-rgb),0.42);
+                   box-shadow: 0 0 13px rgba(var(--accent-rgb),0.28), inset 0 0 18px rgba(var(--accent-rgb),0.13); }
     }
     /* Bright cyan L-brackets at all four corners. Eight gradient slices (one
        horizontal + one vertical arm per corner) painted on a single pseudo. */
     .swu-arena-bg::before {
         content: ''; position: absolute; inset: -1px; z-index: 1; pointer-events: none;
-        --c:   rgba(150,215,255,0.92);   /* bracket color */
+        --c:   var(--accent-strong);   /* bracket color (theme accent) */
         --len: 26px;                     /* arm length    */
         --th:  3px;                      /* arm thickness */
-        filter: drop-shadow(0 0 4px rgba(150,215,255,0.75));   /* light glow on the brackets */
+        filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.75));   /* light glow on the brackets */
         animation: swuArenaBracketPulse 3.2s ease-in-out infinite;
         background:
             linear-gradient(var(--c),var(--c)) left  top    / var(--len) var(--th) no-repeat,
@@ -433,8 +433,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     .swu-arena-bg-space  { left: calc(var(--swu-space-left)  + var(--swu-arena-margin)); }
     .swu-arena-bg-ground { left: calc(var(--swu-ground-left) + var(--swu-arena-margin)); }
     @keyframes swuArenaBracketPulse {
-        0%, 100% { filter: drop-shadow(0 0 3px rgba(150,215,255,0.45)); }
-        50%      { filter: drop-shadow(0 0 8px rgba(150,215,255,0.95)); }
+        0%, 100% { filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.45)); }
+        50%      { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.95)); }
     }
 
     /* ── Arena columns ───────────────────────────────────────────────────────── */
@@ -553,15 +553,15 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         flex-direction: column;
         gap: 3px;
         padding: 4px;
-        background: rgba(20,28,38,0.97);
-        border: 1px solid #5fd0ff;
+        background: var(--panel-scrim);
+        border: 1px solid var(--accent);
         border-radius: 6px;
         box-shadow: 0 2px 10px rgba(0,0,0,0.6);
     }
     .swu-uam-btn {
-        background: #1b2a3a;
-        color: #e6f3ff;
-        border: 1px solid #3a5168;
+        background: var(--surface-sunken);
+        color: var(--text);
+        border: 1px solid var(--border);
         border-radius: 4px;
         padding: 5px 16px;
         font-size: 13px;
@@ -569,8 +569,8 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         white-space: nowrap;
     }
     .swu-uam-btn:hover {
-        background: #28455f;
-        border-color: #5fd0ff;
+        background: var(--surface-raised);
+        border-color: var(--accent);
     }
 
     /* Discard-slot ".has-action" glow moved to GameLayoutShared.php (shared by mobile). */
@@ -634,9 +634,9 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     }
     .swu-res-badge-btn.is-clickable { cursor: pointer; }
     .swu-res-badge-btn:hover {
-        border-color: rgba(120,200,255,0.40);
-        box-shadow: 0 0 16px 2px rgba(120,200,255,0.40),
-                    inset 0 0 10px rgba(120,200,255,0.12);
+        border-color: var(--badge-glow);
+        box-shadow: 0 0 16px 2px var(--badge-glow),
+                    inset 0 0 10px rgba(var(--accent-rgb),0.12);
     }
     .swu-res-img {
         width: 34px; height: 34px; object-fit: contain;
@@ -699,11 +699,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
         width: 100%; height: 100%;
         overflow-x: auto !important; overflow-y: hidden !important;
         scrollbar-width: thin;
-        scrollbar-color: rgba(120,200,255,0.45) transparent;
+        scrollbar-color: var(--glow) transparent;
     }
     #myHandWrapper::-webkit-scrollbar, #theirHandWrapper::-webkit-scrollbar { height: 7px; }
     #myHandWrapper::-webkit-scrollbar-thumb, #theirHandWrapper::-webkit-scrollbar-thumb {
-        background: rgba(120,200,255,0.45); border-radius: 99px; }
+        background: var(--glow); border-radius: 99px; }
 
     /* Card row (PopulateZone's #myHand span) — single nowrap line. Centered while
        it fits; once it overflows, `safe center` falls back to flex-start so the
@@ -743,14 +743,14 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* ── Effect Stack ────────────────────────────────────────────────────────── */
     .swu-stack {
         width: clamp(200px, 24vw, 420px); min-height: 80px;
-        border: 1px solid rgba(100,140,220,0.35); border-radius: 16px;
+        border: 1px solid var(--border); border-radius: 16px;
         background: rgba(8,13,22,0.96);
         box-shadow: 0 0 0 1px rgba(255,255,255,0.06), 0 8px 32px rgba(0,0,0,0.7);
         backdrop-filter: blur(16px); padding: 28px 10px 10px;
     }
     .swu-stack::before {
         content: "Effect Stack ('U' to undo)"; position: absolute; top: 9px; left: 12px;
-        color: rgba(100,160,255,0.70); font: 700 9px/1 var(--swu-font-label);
+        color: var(--accent); font: 700 9px/1 var(--swu-font-label);
         letter-spacing: 0.20em; text-transform: uppercase; pointer-events: none; }
     #EffectStackSlot {
         position: fixed; z-index: 200; pointer-events: auto;

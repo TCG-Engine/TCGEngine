@@ -258,46 +258,8 @@
       margin-top: 8px;
     }
 
-    .mzrearrange-btn {
-      padding: 12px 32px;
-      font-size: 16px;
-      font-family: 'Orbitron', sans-serif;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      font-weight: 600;
-    }
-
-    .mzrearrange-btn-submit {
-      background: linear-gradient(145deg, #00cc66, #009944);
-      color: #fff;
-      box-shadow: 0 4px 15px rgba(0, 200, 100, 0.4);
-    }
-
-    .mzrearrange-btn-submit:hover {
-      background: linear-gradient(145deg, #00dd77, #00aa55);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 200, 100, 0.6);
-    }
-
-    .mzrearrange-btn-submit:active {
-      transform: translateY(0);
-    }
-
-    .mzrearrange-btn-reset {
-      background: linear-gradient(145deg, #555, #333);
-      color: #ccc;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .mzrearrange-btn-reset:hover {
-      background: linear-gradient(145deg, #666, #444);
-      color: #fff;
-      transform: translateY(-2px);
-    }
+    /* Skin from .btn + .btn-primary/.btn-secondary (button.css); layout only kept here. */
+    .mzrearrange-btn { padding: 12px 32px; font-size: 16px; }
 
     .mzrearrange-instructions {
       text-align: center;
@@ -562,7 +524,7 @@
     buttonsDiv.className = 'mzrearrange-buttons';
     
     const resetBtn = document.createElement('button');
-    resetBtn.className = 'mzrearrange-btn mzrearrange-btn-reset';
+    resetBtn.className = 'mzrearrange-btn mzrearrange-btn-reset btn btn-secondary';
     resetBtn.textContent = 'Reset';
     resetBtn.onclick = () => {
       // Reset to initial state
@@ -588,7 +550,7 @@
     buttonsDiv.appendChild(resetBtn);
     
     const submitBtn = document.createElement('button');
-    submitBtn.className = 'mzrearrange-btn mzrearrange-btn-submit';
+    submitBtn.className = 'mzrearrange-btn mzrearrange-btn-submit btn btn-primary';
     submitBtn.textContent = 'Confirm';
     submitBtn.onclick = () => {
       const currentState = getCurrentPileState(modal);

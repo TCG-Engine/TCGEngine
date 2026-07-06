@@ -1,14 +1,25 @@
 /* components.css — theme-agnostic component layer. Consumes tokens.css roles.
    Loaded AFTER menuStyles.css so plain source-order wins; NO !important. */
 
-.btn, button, input[type=submit], input[type=button], input[type=reset] {
+/* Button component lives in button.css (.btn-only, board-safe). Import it, then add the
+   bare-element MENU alias: raw <button>/<input> buttons on menu pages adopt the same
+   token-driven look. In-game pages load button.css directly (NOT this file), so raw board
+   buttons are never touched. The alias is the one intentional structural repeat — it is
+   fully var(--btn-*)-driven, so it can never drift in color from .btn. */
+@import "button.css";
+@import "switch.css";
+
+/* The bare-element alias must NOT touch buttons that opt into a component class
+   (.btn → button.css, .switch → switch.css); otherwise those get double-styled with
+   the chamfer chrome on top of their own look. Exclude them here. */
+button:not(.btn):not(.switch), input[type=submit], input[type=button], input[type=reset] {
   position: relative; z-index: 0; isolation: isolate; cursor: pointer;
   display: inline-block; text-align: center; white-space: nowrap;
   font-family: var(--font-display, inherit); font-weight: 600;
   text-transform: var(--btn-transform, none); letter-spacing: var(--btn-tracking, normal);
   padding: var(--btn-pad, 5px 7px);
   color: var(--btn-text, var(--text, #fff));
-  background: var(--btn-surface, transparent);
+  background: var(--btn-el-bg, var(--btn-surface, transparent));   /* see button.css note */
   border: var(--btn-bw, 0) solid var(--btn-border, transparent);
   border-radius: var(--btn-radius, 5px);
   box-shadow: var(--btn-shadow, none);
@@ -17,26 +28,20 @@
   transition: transform .12s, filter .2s, color .2s, background .2s;
   animation: var(--btn-anim, none);   /* signature themes opt into e.g. emberpulse */
 }
-.btn:hover, button:hover, input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover {
+button:not(.btn):not(.switch):hover, input[type=submit]:hover, input[type=button]:hover, input[type=reset]:hover {
   transform: var(--btn-hover-transform, scale(1.1));
   background: var(--btn-hover-surface, var(--btn-surface));
   border-color: var(--btn-hover-border, var(--btn-border));
   filter: drop-shadow(0 0 var(--btn-glow, 0) var(--btn-glow-color, transparent));
 }
-.btn:active, button:active, input[type=submit]:active, input[type=button]:active { transform: translateY(1px); }
-.btn:disabled, button:disabled, .btn[disabled], button[disabled] {
-  cursor: default; opacity: .42; filter: saturate(.4); transform: none;
-}
-
-/* Rim/fill layer — generated ONLY when a theme sets --btn-chamfer-content:''. Geometry is
-   token-driven: --btn-clip / --btn-clip-inner default to the chamfer polygon (existing themes
-   unchanged); signature themes supply octagon/slash polygons + multi-layer textured fills. */
-.btn::before, button::before {
+button:not(.btn):not(.switch):active, input[type=submit]:active, input[type=button]:active { transform: translateY(1px); }
+button:not(.btn):not(.switch):disabled, button:not(.btn):not(.switch)[disabled] { cursor: default; opacity: .42; filter: saturate(.4); transform: none; }
+button:not(.btn):not(.switch)::before {
   content: var(--btn-chamfer-content, none);
   position: absolute; inset: 0; z-index: -2; background: var(--btn-rim, var(--accent));
   clip-path: var(--btn-clip, polygon(var(--btn-cut,0) 0,100% 0,100% calc(100% - var(--btn-cut,0)),calc(100% - var(--btn-cut,0)) 100%,0 100%,0 var(--btn-cut,0)));
 }
-.btn::after, button::after {
+button:not(.btn):not(.switch)::after {
   content: var(--btn-chamfer-content, none);
   position: absolute; inset: var(--btn-rim-width, 2px); z-index: -1;
   background: var(--btn-fill, var(--surface));
@@ -44,9 +49,6 @@
   box-shadow: var(--btn-after-shadow, none);   /* signature themes: inner neon frame */
   clip-path: var(--btn-clip-inner, polygon(var(--btn-cut-inner,0) 0,100% 0,100% calc(100% - var(--btn-cut-inner,0)),calc(100% - var(--btn-cut-inner,0)) 100%,0 100%,0 var(--btn-cut-inner,0)));
 }
-/* Shared keyframes signature themes can opt into via --btn-anim (e.g. Molten Forge's pulse). */
-@keyframes emberpulse { 0%,100% { filter: drop-shadow(0 0 5px rgba(232,147,58,0.35)); } 50% { filter: drop-shadow(0 0 15px rgba(255,106,43,0.55)); } }
-
 /* Input-type buttons can't render ::before/::after, so a chamfer theme (transparent
    element bg, fill supplied by the pseudos) would render them invisible. Give them a
    flat fill+border fallback drawn from the same tokens. */
@@ -54,14 +56,6 @@ input[type=submit], input[type=button], input[type=reset] {
   background: var(--btn-plain-fill, var(--btn-fill, var(--btn-surface, transparent)));
   border: 1px solid var(--btn-rim, var(--btn-border, transparent));
 }
-
-/* Semantic variants — remap color tokens; work on flat and chamfer.
-   Legacy .hud-green / .hud-red are kept as aliases for existing markup. */
-/* Semantic fills use *-surface tokens (which a theme may set to a gradient); blend/size are
-   reset so a single-layer gradient renders cleanly even under a signature theme's texture tokens. */
-.btn-primary { --btn-surface: var(--accent-surface, var(--accent)); --btn-fill: var(--accent-surface, var(--accent)); --btn-border: var(--accent-strong); --btn-rim: var(--accent-strong); --btn-shadow: none; --btn-text: var(--on-accent); --btn-fill-blend: normal; --btn-fill-size: auto; }
-.btn-danger,  .hud-red   { --btn-border: var(--danger);  --btn-rim: var(--danger);  --btn-glow-color: var(--danger);  --btn-surface: var(--danger-surface);  --btn-fill: var(--danger-surface);  --btn-text: var(--on-danger);  --btn-fill-blend: normal; --btn-fill-size: auto; }
-.btn-success, .hud-green { --btn-border: var(--success); --btn-rim: var(--success); --btn-glow-color: var(--success); --btn-surface: var(--success-surface); --btn-fill: var(--success-surface); --btn-text: var(--on-success); --btn-fill-blend: normal; --btn-fill-size: auto; }
 
 /* Typography — two intents */
 .u-label { font-family: var(--font-display); text-transform: uppercase; letter-spacing: var(--tracking-caps, .06em); font-weight: 700; }

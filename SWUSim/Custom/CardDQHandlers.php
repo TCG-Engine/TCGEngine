@@ -8750,8 +8750,13 @@ $customDQHandlers["ASH_247#0"] = function($player, $parts, $lastDecision) {
         if ($d !== null && empty($d->removed) && ($d->CardID ?? '') === $cardID) { $found = true; break; }
     }
     if (!$found) return;
-    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 1, tooltip: "Play_" . GameLogCardRef($cardID) . "_from_your_discard_for_free?");
-    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_247#1|{$cardID}", 1);
+    // The defeat above already flushed the unit's When Defeated trigger (a RESOLVE_TRIGGER at block
+    // $gTriggerDepth = 1). Per CR the EVENT resolves fully — defeat AND this replay — before that
+    // triggered ability resolves, so a self-replayed unit (ASH_191) is back in play and targetable by
+    // its own When Defeated. Queue the replay at block 0 so it drains BEFORE that trigger. (Globals reset
+    // per request, so the ordering must live in the persisted decision queue, not a defer flag.)
+    DecisionQueueController::AddDecision(intval($player), "YESNO", "-", 0, tooltip: "Play_" . GameLogCardRef($cardID) . "_from_your_discard_for_free?");
+    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "ASH_247#1|{$cardID}", 0);
 };
 $customDQHandlers["ASH_247#1"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
@@ -8811,10 +8816,14 @@ $customDQHandlers["ASH_224#0"] = function($player, $parts, $lastDecision) {
 // ASH_195 Helgait — When Defeated: you may distribute a number of Advantage tokens equal to this unit's
 // power among friendly units (divided as you choose).
 $whenDefeatedAbilities["ASH_195:0"] = function($player, $mzID) {
-    global $playerID; $playerID = intval($player);
-    $self  = GetZoneObject($mzID);
-    $power = ($self !== null) ? intval(ObjectCurrentPower($self)) : 0;
-    if ($power <= 0) $power = intval(CardPower('ASH_195'));   // fallback if the object was already cleaned
+    global $playerID, $gAsh195DefeatSnapshot; $playerID = intval($player);
+    // Read Helgait's power from the defeat-time snapshot taken in CollectWhenDefeatedTriggers. The $mzID we
+    // receive is frame-relative to the DEFEATING player (e.g. "theirGroundArena-0" when an opponent kills
+    // Helgait), but this closure runs under Helgait's controller's frame — re-resolving it here would point
+    // at a DIFFERENT unit (the opponent's unit in that slot). The snapshot is keyed by the same mzID string.
+    $power = intval($gAsh195DefeatSnapshot[$mzID] ?? 0);
+    unset($gAsh195DefeatSnapshot[$mzID]);
+    if ($power <= 0) $power = intval(CardPower('ASH_195'));   // fallback if the snapshot was missed
     $targets = [];
     foreach (['myGroundArena', 'mySpaceArena'] as $z) {
         foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {

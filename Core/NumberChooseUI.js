@@ -65,30 +65,31 @@
 
     .numchoose-btn:active { transform: scale(0.88); }
 
+    /* Circular steppers keep their shape; colours from tokens (danger/success). */
     .numchoose-btn-minus {
-      background: #dc3545;
-      color: #fff;
-      box-shadow: 0 0 6px rgba(220,53,69,0.6);
+      background: var(--danger);
+      color: var(--on-danger);
+      box-shadow: 0 0 6px var(--danger);
     }
     .numchoose-btn-minus:hover:not(:disabled) {
-      background: #ff4d5e;
-      box-shadow: 0 0 12px rgba(255,77,94,0.8);
+      filter: brightness(1.15);
+      box-shadow: 0 0 12px var(--danger);
     }
     .numchoose-btn-minus:disabled {
-      background: #555; color: #999; cursor: default; box-shadow: none;
+      background: var(--surface-sunken); color: var(--text-muted); cursor: default; box-shadow: none;
     }
 
     .numchoose-btn-plus {
-      background: #28a745;
-      color: #fff;
-      box-shadow: 0 0 6px rgba(40,167,69,0.6);
+      background: var(--success);
+      color: var(--on-success);
+      box-shadow: 0 0 6px var(--success);
     }
     .numchoose-btn-plus:hover:not(:disabled) {
-      background: #34d058;
-      box-shadow: 0 0 12px rgba(52,208,88,0.8);
+      filter: brightness(1.15);
+      box-shadow: 0 0 12px var(--success);
     }
     .numchoose-btn-plus:disabled {
-      background: #555; color: #999; cursor: default; box-shadow: none;
+      background: var(--surface-sunken); color: var(--text-muted); cursor: default; box-shadow: none;
     }
 
     .numchoose-value {
@@ -100,23 +101,8 @@
       text-shadow: 0 0 12px rgba(180,100,255,0.7);
     }
 
-    .numchoose-confirm {
-      padding: 8px 22px;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Orbitron', 'Segoe UI', monospace;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      background: linear-gradient(135deg, #7c3aed, #a855f7);
-      color: #fff;
-      box-shadow: 0 0 10px rgba(124,58,237,0.5);
-      transition: background 0.15s ease, box-shadow 0.15s ease;
-    }
-    .numchoose-confirm:hover {
-      background: linear-gradient(135deg, #9333ea, #c084fc);
-      box-shadow: 0 0 18px rgba(147,51,234,0.7);
-    }
+    /* Skin from .btn.btn-primary (button.css); layout only kept here. */
+    .numchoose-confirm { padding: 8px 22px; font-size: 14px; }
   `;
 
   let styleEl = null;
@@ -158,7 +144,7 @@
     plusBtn.textContent = '+';
 
     const confirmBtn = document.createElement('button');
-    confirmBtn.className = 'numchoose-confirm';
+    confirmBtn.className = 'numchoose-confirm btn btn-primary';
     confirmBtn.textContent = 'Confirm';
 
     function updateUI() {

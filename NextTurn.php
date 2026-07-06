@@ -341,6 +341,28 @@ if (session_status() === PHP_SESSION_NONE) session_start();
 
     <head>
       <link rel="icon" type="image/png" href="/TCGEngine/Assets/Images/<?php if($folderPath == "SWUDeck") echo('blueDiamond'); else if($folderPath == "SoulMastersDB") echo('icons/soulMastersIcon'); ?>.png">
+      <?php
+        // In-game board design-system stack, derived from the app's SiteDef `theme` key.
+        // .btn/.switch-scoped only — NOT components.css (its bare-`button` rule would restyle
+        // every raw board button). 'neutral'/unknown links no overlay (tokens.css defaults win).
+        require_once __DIR__ . '/SharedUI/Render/Head.php';   // pulls in SiteDef.php + _VersionAsset()
+        // LoadSiteDef throws when a root has no SiteDef (e.g. SWUCardList) — fall back to neutral.
+        $__siteDef = [];
+        try { $__siteDef = LoadSiteDef($folderPath); } catch (\Throwable $e) { $__siteDef = []; }
+        $__theme   = is_string($__siteDef['theme'] ?? null) ? $__siteDef['theme'] : 'neutral';
+        $__board   = [
+          '/TCGEngine/SharedUI/css/tokens.css',
+          '/TCGEngine/SharedUI/css/button.css',
+          '/TCGEngine/SharedUI/css/switch.css',
+        ];
+        $__themePath = "/TCGEngine/SharedUI/Themes/$__theme.tokens.css";
+        if ($__theme !== 'neutral' && @file_exists(($_SERVER['DOCUMENT_ROOT'] ?? '') . $__themePath)) {
+          $__board[] = $__themePath;
+        }
+        foreach ($__board as $__f) {
+          echo '      <link rel="stylesheet" href="' . _VersionAsset($__f) . "\">\n";
+        }
+      ?>
       <meta charset="utf-8">
       <title><?php echo($folderPath); ?></title>
       <link rel="preconnect" href="https://fonts.googleapis.com">

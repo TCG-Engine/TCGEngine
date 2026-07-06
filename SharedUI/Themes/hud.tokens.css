@@ -25,6 +25,11 @@
   --btn-chamfer-content: '';        /* turns the chamfer pseudos ON */
   --btn-cut:        6px;
   --btn-cut-inner:  5px;
+  /* Keep the ELEMENT box background transparent even for semantic variants (.btn-primary etc.):
+     the ::after pseudo (--btn-fill, chamfer-clipped) carries the fill, so a solid --btn-surface
+     never paints a rectangle that bleeds past the chamfer corners. We do NOT clip the element
+     itself (that would also clip the :hover drop-shadow glow). */
+  --btn-el-bg:      transparent;
   --btn-rim-width:  1.5px;
   --btn-bw:         0;
   --btn-surface:    transparent;    /* pseudos supply the fill */
@@ -38,4 +43,25 @@
   --btn-glow-color: rgba(125,205,255,0.6);
   --btn-hover-transform: translateY(-1px);
   --btn-pad:        5px 7px;
+
+  /* In-game board roles — cyan HUD (Phase 0) */
+  --accent-secondary:    rgba(120,200,255,0.55);
+  --on-accent-secondary: #08202b;
+  --accent-gold:         #c8971e;
+  --on-accent-gold:      #1a1204;
+  --switch-track:        rgba(20,42,70,0.85);
+  --switch-knob:         rgba(180,228,255,1);      /* light cyan head — same in both states so the move reads */
+  --switch-on:           rgba(120,200,255,0.55);
+  --switch-on-knob:      rgba(180,228,255,1);
+  --panel-scrim:         rgba(20,28,38,0.97);
+  --overlay-scrim:       rgba(0,0,0,0.55);
+  --card-frame:          rgba(140,210,255,0.45);
+  --badge-surface:       rgba(28,32,40,0.95);
+  --badge-glow:          rgba(120,200,255,0.40);
+  --glow-strong:         rgba(120,200,255,0.70);
+
+  /* Turn/initiative ownership — SWUSim uses --success / --danger RGB for now (tune later). */
+  --turn-mine-rgb:       120,225,150;  /* = --success */
+  --turn-theirs-rgb:     235,120,120;  /* = --danger */
+  --accent-rgb:          140,210,255;  /* = --accent, for themeable glow/pulse alpha */
 }

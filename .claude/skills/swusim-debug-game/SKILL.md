@@ -130,6 +130,10 @@ Host PHP is off-limits (per the test-runner memory) — always the container's P
 
 Handy assertions seen in cases: `P1NODECISION` (no pending decision — proves an auto-pass), `P1GROUNDARENAUNIT:0:EXHAUSTED` / `:READY`, `P1GROUNDARENAUNIT:0:UPGRADECOUNT:1`, `P2BASEDMG:4`. Browse `SWUSim/Tests/Cases/` for the vocabulary and `SWUSim/Tests/_TEMPLATE.md` for the shape.
 
+**Assert the offered pool/amount, not just the applied result.** For "distribute up to N" / split effects (Advantage, indirect), the harness applies the answer's counts *without capping to the offered pool* (the live UI caps; the harness doesn't) — so `ADVANTAGECOUNT`/`BASEDMG` on the receiver can't catch a wrong *pool*. The pool is embedded in the decision prompt; assert it with **`P<n>DECISIONTOOLTIP:<exact>`** (e.g. `Distribute_up_to_6_Advantage_among_friendly_units`). Leave the decision pending (don't answer it) so it's still there to read.
+
+**Driving a non-active player's queued trigger** (an opponent unit's WhenDefeated fires on *your* attack, etc.): use **`P2>Pass`**, NOT `P2>AnswerDecision:-`. `AnswerDecision` pops+discards P2's `RESOLVE_TRIGGER` before it runs; `P2>Pass` does a pure drain that auto-executes it (then the resulting interactive decision stays pending for the next line). This mirrors the live game (each client polls its own queue). Cover BOTH who-defeats-whom directions for any "when this unit is defeated" card — the same-side case can pass while the cross-frame case is broken.
+
 ---
 
 ## Environment quick reference
