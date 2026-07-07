@@ -1554,7 +1554,10 @@ function ActionMap($actionCard, $allowDuringDecisionQueue = false)
             if($currentPhase == "MAIN" && $playerID == $turnPlayer) {
                 $bObj = GetZoneObject($actionCard);
                 if($bObj !== null && !$bObj->removed && in_array('_seethingIntercession', $bObj->TurnEffects ?? [])) {
-                    MZMove($playerID, $actionCard, "myHand");
+                    $handObj = MZMove($playerID, $actionCard, "myHand");
+                    if($handObj !== null) {
+                        $handObj->TurnEffects = array_values(array_diff($handObj->TurnEffects ?? [], ['_seethingIntercession']));
+                    }
                     $champMZ = FindChampionMZ($playerID);
                     if($champMZ !== null) {
                         DealUnpreventableDamage($playerID, $actionCard, $champMZ, 2);
@@ -16489,13 +16492,19 @@ function ExpireEffects($isEndTurn=true) {
     }
     unset($fieldObj);
 
-    // Clear all TurnEffects from the expiring player's banish zone.
+    // Clear TurnEffects from the expiring player's banish zone.
     // Most banish TurnEffects are turn-scoped tags (NAIA_BANISHED, _mordredBurnished, etc.)
     $banishZone = $isEndTurn ? "myBanish" : "theirBanish";
     $banishArr = &GetZone($banishZone);
     foreach($banishArr as &$banishObj) {
         if(!$banishObj->removed) {
-            $banishObj->TurnEffects = [];
+            $newBanishEffects = [];
+            foreach($banishObj->TurnEffects ?? [] as $effect) {
+                if($effect === '_seethingIntercession') {
+                    $newBanishEffects[] = $effect;
+                }
+            }
+            $banishObj->TurnEffects = $newBanishEffects;
         }
     }
     unset($banishObj);
