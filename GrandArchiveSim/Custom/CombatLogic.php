@@ -733,6 +733,28 @@ function ResolveCombatTargetByUniqueID($attackerPlayer) {
     return ResolveCombatParticipantByUniqueID($attackerPlayer, "theirField", "theirField-", "CombatTargetUniqueID", "CombatTarget", true);
 }
 
+function RefreshCombatTargetForHit($attackerPlayer) {
+    $targetUniqueID = intval(DecisionQueueController::GetVariable("CombatTargetUniqueID") ?? "0");
+    if($targetUniqueID <= 0) {
+        ClearCombatTargetState(true);
+        return null;
+    }
+
+    $targetMZ = ResolveCombatTargetByUniqueID($attackerPlayer);
+    if($targetMZ === null || $targetMZ === "" || $targetMZ === "-") {
+        ClearCombatTargetState(true);
+        return null;
+    }
+
+    $targetObj = GetZoneObject($targetMZ);
+    if($targetObj === null || $targetObj->removed || intval($targetObj->UniqueID ?? 0) !== $targetUniqueID) {
+        ClearCombatTargetState(true);
+        return null;
+    }
+
+    return $targetMZ;
+}
+
 function SyncCombatStateToFieldUniqueIDs() {
     $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? "0");
     if($attackerPlayer <= 0) return;
@@ -1940,6 +1962,8 @@ function OnAttackTrigger($player, $mzID) {
 function OnHitTrigger($player, $attackerMZ, $isExtraRepeat = false) {
     global $onHitAbilities;
     if(!isset($onHitAbilities) || !is_array($onHitAbilities)) return;
+
+    RefreshCombatTargetForHit($player);
 
     // Preserve prior macro context and set source mzID per dispatched On Hit ability.
     $prevMzID = DecisionQueueController::GetVariable("mzID");
