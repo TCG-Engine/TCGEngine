@@ -14320,7 +14320,7 @@ function NocturnesOblivionResolve($player) {
 $customDQHandlers["NocturnesOblivionDestroy"] = function($player, $parts, $lastDecision) {
     if($lastDecision !== "-" && $lastDecision !== "") {
         $obj = GetZoneObject($lastDecision);
-        if($obj !== null && !$obj->removed) DoSacrificeFighter($obj->Controller, $lastDecision);
+        if($obj !== null && !$obj->removed) DoAllyDestroyed($player, $lastDecision);
     }
     $source = DecisionQueueController::GetVariable("mzID");
     if($source !== null && $source !== "-" && $source !== "") MZMove($player, $source, "myBanish");
