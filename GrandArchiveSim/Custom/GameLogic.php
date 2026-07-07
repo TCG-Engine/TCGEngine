@@ -11072,6 +11072,7 @@ function ObjectCurrentPower($obj) {
             break;
         case "blyb6fd6vy": // Bloodbond Bladesworn: [CB] +1 POWER per 10 damage counters on champion
             if(IsClassBonusActive($obj->Controller, ["WARRIOR"])) {
+                global $playerID;
                 $champs = ZoneSearch($obj->Controller == $playerID ? "myField" : "theirField", ["CHAMPION"]);
                 if(!empty($champs)) {
                     $champObj = GetZoneObject($champs[0]);
