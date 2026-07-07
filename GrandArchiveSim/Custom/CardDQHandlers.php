@@ -2975,6 +2975,44 @@ $customDQHandlers["HuaXiongDiscard"] = function($player, $parts, $lastDecision) 
 };
 
 // --- Punishing Cartridge (XgzTexcCSA): Choose discard modes ---
+function PunishingCartridgeRedirectTargets($player) {
+    $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($player));
+    if($attackerPlayer <= 0) $attackerPlayer = $player;
+    if(function_exists("SyncCombatStateToFieldUniqueIDs")) SyncCombatStateToFieldUniqueIDs();
+
+    $attackerMZ = DecisionQueueController::GetVariable("CombatAttacker");
+    if($attackerMZ === null || $attackerMZ === "-" || $attackerMZ === "") return [];
+
+    global $playerID;
+    $savedPlayerID = $playerID;
+    $playerID = $attackerPlayer;
+
+    $currentTarget = DecisionQueueController::GetVariable("CombatTarget");
+    if(function_exists("ResolveCombatTargetMarker")) {
+        $resolvedTarget = ResolveCombatTargetMarker($attackerPlayer);
+        if($resolvedTarget !== null) $currentTarget = $resolvedTarget;
+    } else if(function_exists("ResolveCombatTargetByUniqueID")) {
+        $resolvedTarget = ResolveCombatTargetByUniqueID($attackerPlayer);
+        if($resolvedTarget !== null) $currentTarget = $resolvedTarget;
+    }
+
+    $currentTargetUniqueID = intval(DecisionQueueController::GetVariable("CombatTargetUniqueID") ?? "0");
+    $validTargets = GetValidAttackTargets($attackerMZ);
+    $targets = [];
+    foreach($validTargets as $targetMZ) {
+        if($targetMZ === $currentTarget) continue;
+        $targetObj = GetZoneObject($targetMZ);
+        if($targetObj === null || $targetObj->removed) continue;
+        if($currentTargetUniqueID > 0 && intval($targetObj->UniqueID ?? 0) === $currentTargetUniqueID) continue;
+        $targetType = EffectiveCardType($targetObj);
+        if(!PropertyContains($targetType, "ALLY") && !PropertyContains($targetType, "CHAMPION")) continue;
+        $targets[] = $targetMZ;
+    }
+
+    $playerID = $savedPlayerID;
+    return $targets;
+}
+
 function PunishingCartridgeChooseMode($player, $mzID, $modeCount) {
     if($modeCount <= 0) return;
     $modes = [];
@@ -2986,17 +3024,44 @@ function PunishingCartridgeChooseMode($player, $mzID, $modeCount) {
 }
 
 $customDQHandlers["PunishingCartridgeMode1"] = function($player, $parts, $lastDecision) {
-    $mzID = $parts[0];
-    $modeCount = intval($parts[1]);
+    $mzID = $parts[0] ?? "";
+    $modeCount = intval($parts[1] ?? "0");
+    $remainingModes = $modeCount - 1;
     if($lastDecision === "YES") {
-        // Apply "change target" mode if needed (happens via combat mechanics)
+        $targets = PunishingCartridgeRedirectTargets($player);
+        if(!empty($targets)) {
+            $targetStr = implode("&", $targets);
+            DecisionQueueController::AddDecision($player, "MZCHOOSE", $targetStr, 1, tooltip:"Choose_new_attack_target");
+            DecisionQueueController::AddDecision($player, "CUSTOM", "PunishingCartridgeRedirect|$mzID|$remainingModes", 1);
+            return;
+        }
     }
-    $modeCount--;
-    if($modeCount > 0) {
-        PunishingCartridgeChooseMode($player, $mzID, $modeCount);
+    if($remainingModes > 0) {
+        PunishingCartridgeChooseMode($player, $mzID, $remainingModes);
     }
     // On Champion Hit granting: add global effect or TurnEffect to the weapon
     // (Usually handled by bullet On Hit mechanics)
+};
+
+$customDQHandlers["PunishingCartridgeRedirect"] = function($player, $parts, $lastDecision) {
+    $mzID = $parts[0] ?? "";
+    $remainingModes = intval($parts[1] ?? "0");
+
+    if($lastDecision !== "-" && $lastDecision !== "" && $lastDecision !== "PASS") {
+        $validTargets = PunishingCartridgeRedirectTargets($player);
+        if(in_array($lastDecision, $validTargets, true)) {
+            $attackerPlayer = intval(DecisionQueueController::GetVariable("CombatAttackerPlayer") ?? strval($player));
+            if($attackerPlayer <= 0) $attackerPlayer = $player;
+            StoreCombatTargetState($lastDecision, $attackerPlayer);
+            if(function_exists("MarkCombatTarget")) {
+                MarkCombatTarget($attackerPlayer, $lastDecision);
+            }
+        }
+    }
+
+    if($remainingModes > 0) {
+        PunishingCartridgeChooseMode($player, $mzID, $remainingModes);
+    }
 };
 
 // --- Zander, Blinding Steel (UAF6Nr7GUE): Opponent puts hand card into memory (iterative) ---
