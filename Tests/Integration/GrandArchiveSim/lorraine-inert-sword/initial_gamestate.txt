@@ -1,0 +1,128 @@
+1
+36
+52
+kl4bTg57Cj
+fz1nr5a3pm
+G8pN8Hackq
+HYFtrEXYFi
+UVAb8CmjtL
+SSu2eQZFJV
+F2wp1v0Tyk
+heq49UQGvQ
+em6eEh9q8y
+N0ipz8UWwf
+KoF3AMSlUe
+G8pN8Hackq
+G8pN8Hackq
+Byx6iokcT4
+12XYNDPi49
+4V6qKuM7xs
+N0ipz8UWwf
+HYFtrEXYFi
+KoF3AMSlUe
+UVAb8CmjtL
+cUltOcPo26
+heq49UQGvQ
+kl4bTg57Cj
+fz1nr5a3pm
+cUltOcPo26
+HYFtrEXYFi
+SkAe1hsw5H
+G8pN8Hackq
+fz1nr5a3pm
+Byx6iokcT4
+4V6qKuM7xs
+kl4bTg57Cj
+fz1nr5a3pm
+KoF3AMSlUe
+SkAe1hsw5H
+F2wp1v0Tyk
+N0ipz8UWwf
+em6eEh9q8y
+SkAe1hsw5H
+F2wp1v0Tyk
+12XYNDPi49
+12XYNDPi49
+4V6qKuM7xs
+SSu2eQZFJV
+em6eEh9q8y
+kl4bTg57Cj
+SSu2eQZFJV
+em6eEh9q8y
+UVAb8CmjtL
+N0ipz8UWwf
+q2svd53zc9
+heq49UQGvQ
+0
+1
+q2svd53zc9 - -
+0
+1
+v43ehjdu50
+0
+0
+0
+4
+HtExn3OxIN
+cUltOcPo26
+SkAe1hsw5H
+q2svd53zc9
+0
+3
+fln04uv297 2 1 0 1 - - - 3
+cUltOcPo26 2 1 0 1 - - - 4
+pNiyaGlIe7 2 1 0 1 - - - 5
+1
+LMyKyVC2O9 2 2 0 2 - - - 2
+0
+0
+2
+Byx6iokcT4
+F2wp1v0Tyk
+0
+10
+TJTeWcZnsQ
+n2TKqNaODR
+kINobk9KQA
+m31WVJ9F04
+eSAIP7mx9z
+LeyUk5auEP
+2s08hssegf
+wU3OvTrjEt
+FxYwR2azTt
+DpHDGaX2Pn
+0
+0
+0
+0
+0
+0
+0
+6
+MZMAYCHOOSE myMaterial-2&myMaterial-3&myMaterial-4&myMaterial-5&myMaterial-6&myMaterial-7&myMaterial-9 1  0
+CUSTOM MATERIALIZE 1  0
+CUSTOM EVENTIDE_MATERIAL_CHECK 1  0
+CUSTOM VARUCKAN_MATERIAL_CHECK 1  0
+CUSTOM FRAMEWORK_SIDEARM_MATERIAL_CHECK 1  0
+CUSTOM RECIPROCITY_MATERIAL_CHECK 1  0
+0
+2
+0:Materialize Choice<vname>1<v0>MAT<v0>3<v0><v0>HtExn3OxIN<v1>cUltOcPo26<v1>SkAe1hsw5H<v1>q2svd53zc9<v0><v0>v43ehjdu50<v0>kl4bTg57Cj<v1>fz1nr5a3pm<v1>G8pN8Hackq<v1>HYFtrEXYFi<v1>UVAb8CmjtL<v1>SSu2eQZFJV<v1>F2wp1v0Tyk<v1>heq49UQGvQ<v1>em6eEh9q8y<v1>N0ipz8UWwf<v1>KoF3AMSlUe<v1>G8pN8Hackq<v1>G8pN8Hackq<v1>Byx6iokcT4<v1>12XYNDPi49<v1>4V6qKuM7xs<v1>N0ipz8UWwf<v1>HYFtrEXYFi<v1>KoF3AMSlUe<v1>UVAb8CmjtL<v1>cUltOcPo26<v1>heq49UQGvQ<v1>kl4bTg57Cj<v1>fz1nr5a3pm<v1>cUltOcPo26<v1>HYFtrEXYFi<v1>SkAe1hsw5H<v1>G8pN8Hackq<v1>fz1nr5a3pm<v1>Byx6iokcT4<v1>4V6qKuM7xs<v1>kl4bTg57Cj<v1>fz1nr5a3pm<v1>KoF3AMSlUe<v1>SkAe1hsw5H<v1>F2wp1v0Tyk<v1>N0ipz8UWwf<v1>em6eEh9q8y<v1>SkAe1hsw5H<v1>F2wp1v0Tyk<v1>12XYNDPi49<v1>12XYNDPi49<v1>4V6qKuM7xs<v1>SSu2eQZFJV<v1>em6eEh9q8y<v1>kl4bTg57Cj<v1>SSu2eQZFJV<v1>em6eEh9q8y<v1>UVAb8CmjtL<v1>N0ipz8UWwf<v1>q2svd53zc9<v1>heq49UQGvQ<v0>MZMAYCHOOSE<v2>myMaterial-2&myMaterial-3&myMaterial-4&myMaterial-5&myMaterial-6&myMaterial-7&myMaterial-9<v2>1<v2><v2>0<v1>CUSTOM<v2>MATERIALIZE<v2>1<v2><v2>0<v0>0<v0><v0><v0>TJTeWcZnsQ<v1>n2TKqNaODR<v1>kINobk9KQA<v1>m31WVJ9F04<v1>eSAIP7mx9z<v1>LeyUk5auEP<v1>2s08hssegf<v1>wU3OvTrjEt<v1>FxYwR2azTt<v1>DpHDGaX2Pn<v0>fln04uv297<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>3<v1>cUltOcPo26<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>4<v1>pNiyaGlIe7<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>5<v0><v0>Byx6iokcT4<v1>F2wp1v0Tyk<v0>q2svd53zc9<v2>-<v2>-<v0><v0><v0><v0><v0><v0>0<v0><v0><v0><v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{"GameMode":"goldfish","GoldfishPlayers":[2],"mzID":"EffectStack-0","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"v43ehjdu50","activationSourceZone":"myHand","additionalCostPaid":"YES","EffectStackEnterCardID":"","EffectStackEnterController":""}<v0><v0>{}<v0>5<v0>{"ActivateCardCalls":{"1":2},"ActivateCard":{"1":{"cUltOcPo26":1,"v43ehjdu50":1}},"ReserveCard":{"1":{"q2svd53zc9":2,"F2wp1v0Tyk":2,"Byx6iokcT4":1}},"ReserveCardCommitted":{"1":{"q2svd53zc9":2,"F2wp1v0Tyk":2,"Byx6iokcT4":1}},"ReserveActionCommitted":{"1":{"q2svd53zc9":2,"F2wp1v0Tyk":2,"Byx6iokcT4":1}},"CardActivatedCalls":{"1":2},"CardActivated":{"1":{"cUltOcPo26":1,"v43ehjdu50":1}},"EnterCalls":{"1":2},"Enter":{"1":{"cUltOcPo26":1,"DpHDGaX2Pn":1}},"DrawCalls":{"2":2,"1":1},"OnBanishCalls":{"1":1},"OnBanish":{"1":{"q2svd53zc9":1}},"MaterializeCalls":{"1":1},"Materialize":{"1":{"DpHDGaX2Pn":1}}}<v0>0
+1:1<v0>MAT<v0>3<v0><v0>HtExn3OxIN<v1>cUltOcPo26<v1>SkAe1hsw5H<v1>q2svd53zc9<v0><v0>v43ehjdu50<v0>kl4bTg57Cj<v1>fz1nr5a3pm<v1>G8pN8Hackq<v1>HYFtrEXYFi<v1>UVAb8CmjtL<v1>SSu2eQZFJV<v1>F2wp1v0Tyk<v1>heq49UQGvQ<v1>em6eEh9q8y<v1>N0ipz8UWwf<v1>KoF3AMSlUe<v1>G8pN8Hackq<v1>G8pN8Hackq<v1>Byx6iokcT4<v1>12XYNDPi49<v1>4V6qKuM7xs<v1>N0ipz8UWwf<v1>HYFtrEXYFi<v1>KoF3AMSlUe<v1>UVAb8CmjtL<v1>cUltOcPo26<v1>heq49UQGvQ<v1>kl4bTg57Cj<v1>fz1nr5a3pm<v1>cUltOcPo26<v1>HYFtrEXYFi<v1>SkAe1hsw5H<v1>G8pN8Hackq<v1>fz1nr5a3pm<v1>Byx6iokcT4<v1>4V6qKuM7xs<v1>kl4bTg57Cj<v1>fz1nr5a3pm<v1>KoF3AMSlUe<v1>SkAe1hsw5H<v1>F2wp1v0Tyk<v1>N0ipz8UWwf<v1>em6eEh9q8y<v1>SkAe1hsw5H<v1>F2wp1v0Tyk<v1>12XYNDPi49<v1>12XYNDPi49<v1>4V6qKuM7xs<v1>SSu2eQZFJV<v1>em6eEh9q8y<v1>kl4bTg57Cj<v1>SSu2eQZFJV<v1>em6eEh9q8y<v1>UVAb8CmjtL<v1>N0ipz8UWwf<v1>q2svd53zc9<v1>heq49UQGvQ<v0>MZMAYCHOOSE<v2>myMaterial-2&myMaterial-3&myMaterial-4&myMaterial-5&myMaterial-6&myMaterial-7&myMaterial-9<v2>1<v2><v2>0<v1>CUSTOM<v2>MATERIALIZE<v2>1<v2><v2>0<v1>CUSTOM<v2>EVENTIDE_MATERIAL_CHECK<v2>1<v2><v2>0<v1>CUSTOM<v2>VARUCKAN_MATERIAL_CHECK<v2>1<v2><v2>0<v1>CUSTOM<v2>FRAMEWORK_SIDEARM_MATERIAL_CHECK<v2>1<v2><v2>0<v1>CUSTOM<v2>RECIPROCITY_MATERIAL_CHECK<v2>1<v2><v2>0<v0>0<v0><v0><v0>TJTeWcZnsQ<v1>n2TKqNaODR<v1>kINobk9KQA<v1>m31WVJ9F04<v1>eSAIP7mx9z<v1>LeyUk5auEP<v1>2s08hssegf<v1>wU3OvTrjEt<v1>FxYwR2azTt<v1>DpHDGaX2Pn<v0>fln04uv297<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>3<v1>cUltOcPo26<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>4<v1>pNiyaGlIe7<v2>2<v2>1<v2>0<v2>1<v2>-<v2>-<v2>-<v2>5<v0><v0>Byx6iokcT4<v1>F2wp1v0Tyk<v0>q2svd53zc9<v2>-<v2>-<v0><v0><v0><v0><v0><v0>0<v0><v0><v0><v0>LMyKyVC2O9<v2>2<v2>2<v2>0<v2>2<v2>-<v2>-<v2>-<v2>2<v0><v0><v0><v0>{"GameMode":"goldfish","GoldfishPlayers":[2],"mzID":"EffectStack-0","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"v43ehjdu50","activationSourceZone":"myHand","additionalCostPaid":"YES","EffectStackEnterCardID":"","EffectStackEnterController":""}<v0><v0>{}<v0>5<v0>{"ActivateCardCalls":{"1":2},"ActivateCard":{"1":{"cUltOcPo26":1,"v43ehjdu50":1}},"ReserveCard":{"1":{"q2svd53zc9":2,"F2wp1v0Tyk":2,"Byx6iokcT4":1}},"ReserveCardCommitted":{"1":{"q2svd53zc9":2,"F2wp1v0Tyk":2,"Byx6iokcT4":1}},"ReserveActionCommitted":{"1":{"q2svd53zc9":2,"F2wp1v0Tyk":2,"Byx6iokcT4":1}},"CardActivatedCalls":{"1":2},"CardActivated":{"1":{"cUltOcPo26":1,"v43ehjdu50":1}},"EnterCalls":{"1":2},"Enter":{"1":{"cUltOcPo26":1,"DpHDGaX2Pn":1}},"DrawCalls":{"2":2,"1":1},"OnBanishCalls":{"1":1},"OnBanish":{"1":{"q2svd53zc9":1}},"MaterializeCalls":{"1":1},"Materialize":{"1":{"DpHDGaX2Pn":1}}}<v0>0
+0
+{"version":1,"windows":{"REC_START":true,"END_START":true,"STACK_RESPONSE":true,"ENTER_RESPONSE":true,"TRIGGER_RESPONSE":true,"ABILITY_RESPONSE":true,"COMBAT_DAMAGE":true,"COMBAT_RETALIATION":true}}
+
+3
+1
+1
+MAT
+
+Player 1 undid their last action.
+{"GameMode":"goldfish","GoldfishPlayers":[2],"mzID":"EffectStack-0","isImbued":"NO","amount":1,"ignoreCost":false,"mzIDCardID":"v43ehjdu50","activationSourceZone":"myHand","additionalCostPaid":"YES","EffectStackEnterCardID":"","EffectStackEnterController":""}
+0
+{}
+5
+{"ActivateCardCalls":{"1":2},"ActivateCard":{"1":{"cUltOcPo26":1,"v43ehjdu50":1}},"ReserveCard":{"1":{"q2svd53zc9":2,"F2wp1v0Tyk":2,"Byx6iokcT4":1}},"ReserveCardCommitted":{"1":{"q2svd53zc9":2,"F2wp1v0Tyk":2,"Byx6iokcT4":1}},"ReserveActionCommitted":{"1":{"q2svd53zc9":2,"F2wp1v0Tyk":2,"Byx6iokcT4":1}},"CardActivatedCalls":{"1":2},"CardActivated":{"1":{"cUltOcPo26":1,"v43ehjdu50":1}},"EnterCalls":{"1":2},"Enter":{"1":{"cUltOcPo26":1,"DpHDGaX2Pn":1}},"DrawCalls":{"2":2,"1":1},"OnBanishCalls":{"1":1},"OnBanish":{"1":{"q2svd53zc9":1}},"MaterializeCalls":{"1":1},"Materialize":{"1":{"DpHDGaX2Pn":1}}}
+0
+MR1:H4sIAAAAAAAAA61VbW+ySBT9K8bPawL4Un3SmFBFpMpLedHadWOonVYqooKiuNv/vtyxMt7FpclmPzDhMDP3zLn3zqHMT8NpIMDQ4GDs76RjUNWPigZoK0TxW716mrcAzR1/p8+NtdAA1BMOGz7m7GSZn7OWIuEX0aHez0d5SI4Nb72c2zVAS7/2an/U7zqfgN5PfBDW3epmBUhubrRm350vt/Rkk94ulJ4nPQ+QMxJfm53V525I+ay9QJ5eeo+j/MkWZFtrOU9y/ASIrBpEWrS2zQSQxnmbU9MZH94BDda9qqhavkPy7BhhDbzwPNG6hlej+mqjxnawV++OUZ4Ba8B8WBHOJ9ZQlDO8D/PhqmBFOArWhxUVsWNFmA9XBecFV6VoH851UeZxT2AGrKFoJa4KPjXua1wj7v8beHo9N5qXuLKvkDtA3U2/K7vPghEAsh9tMp6/BBGlDgR7sNVcvWtSqYq2fl22Bk8ioFWVH48eWz2OFpZYomLcrY6tEy2lH3C1fSy0KMOQJM6y7u4lgzpExDUXUUQ+qPCDU9VjO/yUdrRAx8nBFNyTTRE1lKGaDJJRR9BbP8uj6tSXTl/XLam0SlR3R0LP9StciS+ZJCauP0vW+3AW7dxw5wUfs2E842bzhbvaeOugRIN0HMvW1ZJhSrKoSrNzsJlli6ataHKKRdVQdO0vIY1ZukotfftlhOTDXZGS9c1Q6nwHv4+D9Hubv4+59tiBkb5WYLh+mGvex3yb9QUgdiMBsW7Oz7G+z0dhNxIQ619A7A4CYvcaEHMAQKybKV/W9/mTsW4GxO4EIHYLALE7n2fHCGtgdxcQu7t5BqwB82FFOJ9YQ1HO8D7Mh6uCFeEoWB9WVMSOFWE+XBWcF1yVon0410WZxz2BGbCGopW4KvjUuK+va8S1LzZwHwvtaycAzMPwsx/AKg4iny0B4M+ukMX/3s2dh8vDvBcCM+8FxLwXEPNemrDMewEx76UJy7yXNkTmvYCY9wJi3guIeS8tc+a9/7Skf3uQMObTt5b+OS3Lqf2p6zcyLf+alj/W/tu7Fy2m5d/SmW9g+G5Cwihd8Lvwx9dlayWjOr9ljpvGjNPlaaHSHXwa5+AFb+sD7E+nTKlzLk8K310/IukCSevmvqW4M5iZkmXomiWhxbZkXk/swj18t01Flm/OiA/KULEnt4J1dPVBtGddURXlG99NyRaHiminHXSZ/PoCjdmfhQ1jB8bKZfY/ZDbLYOXG2+Up/w1QjDjY0AsAAA==
+MR1:H4sIAAAAAAAACu2Wz2vCMBTH/5a+6xpI+kO33GSbrAdhoJchO8Qk2s42LW0qivi/Lylju0znKt0UhB5ewzffT/LeI8kW5nmZMQ0UNF9ItUiUROafx6iURco2iOdZxpSo0IqAC7yUTEsxsBM87PUQ7ptvggklPvXJDfYoxkZXF+I7HenTsE8D/KljXCe5qoBOt2BxsowegBIXslxIE2DswqzWOleRKmrrZhfBSmFlkG1GhlImLEXWjMfLD9X01YXEhhO5bibt3H3+2DtMeDKbR54zHI+ctogjAORCvf3WaSc/uEuW6hhh576udJ41IueZVVU3m+m+j4aJTE9tpHNgfGXqbzC9K+a3PXzXzt8Abg8RDrquAl/Gb6IO8alnbZcpagBhh95BF94vj+OLOWZx2LqF/q3xj/bvneNNeszzpXU1g2s1r9VsXM2AMvGgebBHSsg1ULNaS5oxvgQ6Z2kld+8KPYWRUQwAAA==
