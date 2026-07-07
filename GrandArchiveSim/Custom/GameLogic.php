@@ -13313,7 +13313,7 @@ function ObjectCurrentHP($obj) {
 function ObjectCurrentPowerDisplay($obj) {
     $cardType = EffectiveCardType($obj);
     $isChampion = PropertyContains($cardType, "CHAMPION");
-    if(!PropertyContains($cardType, "ALLY") && !$isChampion) return -1;
+    if(!PropertyContains($cardType, "ALLY") && !$isChampion && !PropertyContains($cardType, "WEAPON")) return -1;
     $currentPower = ObjectCurrentPower($obj);
     if($currentPower < 0) $currentPower = 0;
     if($isChampion && $currentPower == 0) return -1;
