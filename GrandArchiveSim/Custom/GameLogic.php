@@ -13599,6 +13599,7 @@ function ClearResolvedActivationStateVars() {
     DecisionQueueController::ClearVariable("resolvedActivationEmpowerAmount");
     DecisionQueueController::ClearVariable("resolvedActivationWasEmpowered");
     DecisionQueueController::ClearVariable("resolvedActivationChargeCount");
+    DecisionQueueController::ClearVariable("danteHemomancerDamageSourcesThisResolution");
 }
 
 global $systemDQHandlers;

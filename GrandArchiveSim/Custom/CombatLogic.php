@@ -3572,6 +3572,35 @@ function QueueOnDealDamagePreventionIfNeeded($player, $target, $originalAmount, 
     QueuePreventedDamageAnimation($absoluteTarget, 500, true, $targetUniqueID > 0 ? $targetUniqueID : null);
 }
 
+function GetDanteHemomancerDamageSourceKey($source, $sourceController, $sourceCardID) {
+    $normalizedSource = strval($source ?? "");
+    if($normalizedSource === "" || $normalizedSource === "-") {
+        $normalizedSource = strval($sourceCardID ?? "");
+    } else if(strpos($normalizedSource, "-") !== false) {
+        $normalizedSource = ConvertMzIDToAbsolute($normalizedSource, intval($sourceController));
+    }
+    return $normalizedSource . "|" . intval($sourceController) . "|" . strval($sourceCardID ?? "");
+}
+
+function HasDanteHemomancerDamageFired($source, $sourceController, $sourceCardID) {
+    $sourceKey = GetDanteHemomancerDamageSourceKey($source, $sourceController, $sourceCardID);
+    if($sourceKey === "||") return false;
+    $tracked = json_decode(DecisionQueueController::GetVariable("danteHemomancerDamageSourcesThisResolution") ?? "[]", true);
+    if(!is_array($tracked)) return false;
+    return in_array($sourceKey, $tracked, true);
+}
+
+function MarkDanteHemomancerDamageFired($source, $sourceController, $sourceCardID) {
+    $sourceKey = GetDanteHemomancerDamageSourceKey($source, $sourceController, $sourceCardID);
+    if($sourceKey === "||") return;
+    $tracked = json_decode(DecisionQueueController::GetVariable("danteHemomancerDamageSourcesThisResolution") ?? "[]", true);
+    if(!is_array($tracked)) $tracked = [];
+    if(!in_array($sourceKey, $tracked, true)) {
+        $tracked[] = $sourceKey;
+        DecisionQueueController::StoreVariable("danteHemomancerDamageSourcesThisResolution", json_encode($tracked));
+    }
+}
+
 function TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount) {
     if(intval($amount) <= 0) return;
     $sourceInfo = ResolveDamageSourceCardInfo($source, $player);
@@ -3580,10 +3609,16 @@ function TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount) {
     if(!PropertyContains(CardType($sourceCardID), "ACTION")) return;
     if(!PropertyContains(CardSubtypes($sourceCardID), "SPELL")) return;
     $sourceController = intval($sourceInfo["controller"] ?? $player);
-    $sourceObj = &GetZoneObject($source);
-    if($sourceObj === null || $sourceObj->removed) return;
-    if(!in_array("EMPOWERED", $sourceObj->TurnEffects ?? [])) return;
-    if(in_array("DANTE_HEMOMANCER_DAMAGE_FIRED", $sourceObj->TurnEffects ?? [])) return;
+    $sourceObj = GetZoneObject($source);
+    $sourceWasEmpowered = false;
+    if($sourceObj !== null && !$sourceObj->removed) {
+        $sourceWasEmpowered = in_array("EMPOWERED", $sourceObj->TurnEffects ?? []);
+        if(in_array("DANTE_HEMOMANCER_DAMAGE_FIRED", $sourceObj->TurnEffects ?? [])) return;
+    } else if($sourceController === intval($player) && DecisionQueueController::GetVariable("resolvedActivationWasEmpowered") === "YES") {
+        $sourceWasEmpowered = true;
+        if(HasDanteHemomancerDamageFired($source, $sourceController, $sourceCardID)) return;
+    }
+    if(!$sourceWasEmpowered) return;
 
     $hasDante = false;
     foreach(GetField($sourceController) as $fieldObj) {
@@ -3595,7 +3630,11 @@ function TriggerDanteHemomancerEmpoweredSpellDamage($player, $source, $amount) {
         }
     }
     if(!$hasDante) return;
-    $sourceObj->TurnEffects[] = "DANTE_HEMOMANCER_DAMAGE_FIRED";
+    if($sourceObj !== null && !$sourceObj->removed) {
+        AddTurnEffect($source, "DANTE_HEMOMANCER_DAMAGE_FIRED");
+    } else {
+        MarkDanteHemomancerDamageFired($source, $sourceController, $sourceCardID);
+    }
     DecisionQueueController::AddDecision($sourceController, "YESNO", "-", 1, tooltip:"Recover_2?");
     DecisionQueueController::AddDecision($sourceController, "CUSTOM", "DanteHemomancerRecover", 1);
 }
