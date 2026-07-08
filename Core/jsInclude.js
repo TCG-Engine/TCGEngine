@@ -12,6 +12,15 @@ var freezeCardDetailMouseX = null;
 var freezeCardDetailMouseY = null;
 var lastCardDetailMouseX = null;
 var lastCardDetailMouseY = null;
+var cardDetailLongPressTimeout = null;
+var cardDetailLongPressTarget = null;
+var cardDetailLongPressStartX = null;
+var cardDetailLongPressStartY = null;
+var cardDetailLongPressPreviewShown = false;
+var suppressMouseCardDetailUntil = 0;
+var suppressNextCardDetailClickUntil = 0;
+var CARD_DETAIL_LONG_PRESS_MS = 430;
+var CARD_DETAIL_TOUCH_MOVE_TOLERANCE = 12;
 
 function TrackCardDetailMouse(e) {
   if (!e || typeof e.clientX !== "number" || typeof e.clientY !== "number") return;
@@ -36,13 +45,29 @@ function FreezeCardDetailUntilMouseMove() {
   return true;
 }
 
-function ShowCardDetail(e, that) {
+function IsTouchCardDetailEvent(e) {
+  return !!(e && typeof e.type === "string" && e.type.indexOf("touch") === 0);
+}
+
+function IsMouseCardDetailEvent(e) {
+  return !!(e && typeof e.type === "string" && e.type.indexOf("mouse") === 0);
+}
+
+function ShouldIgnoreCardDetailEvent(e, options) {
+  if (options && options.allowTouch) return false;
+  if (IsTouchCardDetailEvent(e)) return true;
+  return IsMouseCardDetailEvent(e) && Date.now() < suppressMouseCardDetailUntil;
+}
+
+function ShowCardDetail(e, that, options) {
+  options = options || {};
+  if (ShouldIgnoreCardDetailEvent(e, options)) return;
   if (IsCardDetailSuppressed()) return;
   TrackCardDetailMouse(e);
   clearTimeout(showDetailTimeout);//In case there was another card waiting to show detail
   var folderPath = document.getElementById("folderPath").value;
-  var timeOut = folderPath == "SWUSim" ? 850 :
-    (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" || folderPath == "AzukiSim" ? 100 : 1);
+  var timeOut = options.skipDelay ? 0 : (folderPath == "SWUSim" ? 850 :
+    (folderPath == "GudnakSim" || folderPath == "GrandArchiveSim" || folderPath == "AzukiSim" ? 100 : 1));
   showDetailTimeout = setTimeout(function() {
     if (IsCardDetailSuppressed()) return;
     if (e.target.hasAttribute("data-subcard-id")) {
@@ -118,7 +143,9 @@ function ShowDetail(e, imgSource) {
   img.src = imgSource;
 }
 
-function ShowSubcardDetail(e, imgEl) {
+function ShowSubcardDetail(e, imgEl, options) {
+  options = options || {};
+  if (ShouldIgnoreCardDetailEvent(e, options)) return;
   if (IsCardDetailSuppressed()) return;
   TrackCardDetailMouse(e);
   clearTimeout(showDetailTimeout);
@@ -140,7 +167,7 @@ function ShowSubcardDetail(e, imgEl) {
     }, 100);
     PositionCardDetail(el, e.clientX, e.clientY, displayWidth, displayHeight);
     el.style.zIndex = 100000;
-  }, 1);
+  }, options.skipDelay ? 0 : 1);
 }
 
 function HideCardDetail(force) {
@@ -167,13 +194,103 @@ document.addEventListener("mousemove", function(e) {
   HideCardDetail(true);
 }, true);
 
-// Touch devices open the card preview on tap (a synthetic mouseover) but never fire a
-// matching mouseout, so it would linger. Dismiss any open preview on the next touch (a
-// tap elsewhere or the start of a scroll); a freshly-tapped card re-opens its own preview
-// via that card's later mouseover event.
-document.addEventListener("touchstart", function() {
+function FirstChangedTouch(e) {
+  if (e && e.changedTouches && e.changedTouches.length > 0) return e.changedTouches[0];
+  if (e && e.touches && e.touches.length > 0) return e.touches[0];
+  return null;
+}
+
+function FindLongPressCardDetailTarget(e) {
+  var target = e && e.target;
+  if (!target || typeof target.closest !== "function") return null;
+
+  var subcardEl = target.closest("[onmouseover*='ShowSubcardDetail'], [data-subcard-id]");
+  if (subcardEl) {
+    return { type: "subcard", element: subcardEl };
+  }
+
+  var cardEl = target.closest("a[onmouseover*='ShowCardDetail']");
+  if (cardEl) {
+    return { type: "card", element: cardEl };
+  }
+
+  return null;
+}
+
+function ClearCardDetailLongPress() {
+  clearTimeout(cardDetailLongPressTimeout);
+  cardDetailLongPressTimeout = null;
+  cardDetailLongPressTarget = null;
+  cardDetailLongPressStartX = null;
+  cardDetailLongPressStartY = null;
+  cardDetailLongPressPreviewShown = false;
+}
+
+function BeginCardDetailLongPress(e) {
+  suppressMouseCardDetailUntil = Date.now() + 900;
   if (IsCardDetailOpen()) HideCardDetail(true);
-}, { passive: true });
+  ClearCardDetailLongPress();
+
+  var touch = FirstChangedTouch(e);
+  var detailTarget = FindLongPressCardDetailTarget(e);
+  if (!touch || !detailTarget) return;
+
+  cardDetailLongPressTarget = detailTarget;
+  cardDetailLongPressStartX = touch.clientX;
+  cardDetailLongPressStartY = touch.clientY;
+  var previewEvent = {
+    type: "touchlongpress",
+    target: e.target,
+    clientX: touch.clientX,
+    clientY: touch.clientY
+  };
+
+  cardDetailLongPressTimeout = setTimeout(function() {
+    if (!cardDetailLongPressTarget) return;
+    cardDetailLongPressPreviewShown = true;
+    suppressNextCardDetailClickUntil = Date.now() + 1200;
+    if (cardDetailLongPressTarget.type === "subcard") {
+      ShowSubcardDetail(previewEvent, cardDetailLongPressTarget.element, { allowTouch: true, skipDelay: true });
+    } else {
+      ShowCardDetail(previewEvent, cardDetailLongPressTarget.element, { allowTouch: true, skipDelay: true });
+    }
+  }, CARD_DETAIL_LONG_PRESS_MS);
+}
+
+function MoveCardDetailLongPress(e) {
+  if (!cardDetailLongPressTarget) return;
+  var touch = FirstChangedTouch(e);
+  if (!touch) return;
+  var dx = Math.abs(touch.clientX - cardDetailLongPressStartX);
+  var dy = Math.abs(touch.clientY - cardDetailLongPressStartY);
+  if (dx > CARD_DETAIL_TOUCH_MOVE_TOLERANCE || dy > CARD_DETAIL_TOUCH_MOVE_TOLERANCE) {
+    ClearCardDetailLongPress();
+  }
+}
+
+function EndCardDetailLongPress(e) {
+  var previewWasShown = cardDetailLongPressPreviewShown;
+  ClearCardDetailLongPress();
+  if (!previewWasShown) return;
+
+  suppressNextCardDetailClickUntil = Date.now() + 700;
+  HideCardDetail(true);
+  if (e && typeof e.preventDefault === "function" && e.cancelable) e.preventDefault();
+  if (e && typeof e.stopPropagation === "function") e.stopPropagation();
+}
+
+// Touch uses long-press for card inspection. Normal taps should remain available for
+// board actions and zone opening, so suppress the synthetic mouseover that follows touch.
+document.addEventListener("touchstart", BeginCardDetailLongPress, { passive: true, capture: true });
+document.addEventListener("touchmove", MoveCardDetailLongPress, { passive: true, capture: true });
+document.addEventListener("touchend", EndCardDetailLongPress, { passive: false, capture: true });
+document.addEventListener("touchcancel", EndCardDetailLongPress, { passive: false, capture: true });
+document.addEventListener("click", function(e) {
+  if (Date.now() >= suppressNextCardDetailClickUntil) return;
+  suppressNextCardDetailClickUntil = 0;
+  if (e && typeof e.preventDefault === "function") e.preventDefault();
+  if (e && typeof e.stopPropagation === "function") e.stopPropagation();
+}, true);
 
 function ChatKey(event) {
   if (event.keyCode === 13) {
@@ -416,6 +533,80 @@ function ClosePopup() {
   }
 }
 
+function ZonePopupStyle() {
+  return [
+    "overflow: auto",
+    "-webkit-overflow-scrolling: touch",
+    "background-color: rgba(0, 0, 0, 0.6)",
+    "backdrop-filter: blur(20px)",
+    "-webkit-backdrop-filter: blur(20px)",
+    "border-radius: 10px",
+    "padding: 10px",
+    "font-weight: 500",
+    "scrollbar-color: #888888 rgba(0, 0, 0, 0)",
+    "scrollbar-width: thin",
+    "z-index: 5000",
+    "position: fixed",
+    "top: 50%",
+    "left: 50%",
+    "transform: translate(-50%, -50%)",
+    "width: min(760px, calc(100vw - 24px))",
+    "max-width: calc(100vw - 24px)",
+    "height: min(420px, calc(100vh - 88px))",
+    "height: min(56dvh, 420px, calc(100dvh - 88px))",
+    "max-height: calc(100vh - 88px)",
+    "max-height: calc(100dvh - 88px)",
+    "box-sizing: border-box",
+    "display: block"
+  ].join("; ");
+}
+
+function ZonePopupContentStyle() {
+  return [
+    "#popupContainer .tcg-zone-popup-cards > span {",
+    "  width: 100% !important;",
+    "  height: auto !important;",
+    "  min-width: 0 !important;",
+    "  min-height: 0 !important;",
+    "  max-width: 100% !important;",
+    "  max-height: none !important;",
+    "  display: grid !important;",
+    "  grid-template-columns: repeat(auto-fit, minmax(74px, 96px)) !important;",
+    "  justify-content: center !important;",
+    "  align-items: start !important;",
+    "  gap: 10px 8px !important;",
+    "  overflow: visible !important;",
+    "}",
+    "#popupContainer .tcg-zone-popup-cards > span > span[id] {",
+    "  width: 96px !important;",
+    "  max-width: 100% !important;",
+    "  height: auto !important;",
+    "  margin: 0 !important;",
+    "  display: flex !important;",
+    "  justify-content: center !important;",
+    "}",
+    "#popupContainer .tcg-zone-popup-cards img:not(.counter-image-icon) {",
+    "  height: 96px !important;",
+    "  width: 96px !important;",
+    "  max-width: 100% !important;",
+    "  object-fit: contain !important;",
+    "}",
+    "@media (max-width: 430px) {",
+    "  #popupContainer .tcg-zone-popup-cards > span {",
+    "    grid-template-columns: repeat(auto-fit, minmax(68px, 86px)) !important;",
+    "    gap: 9px 7px !important;",
+    "  }",
+    "  #popupContainer .tcg-zone-popup-cards > span > span[id] {",
+    "    width: 86px !important;",
+    "  }",
+    "  #popupContainer .tcg-zone-popup-cards img:not(.counter-image-icon) {",
+    "    height: 86px !important;",
+    "    width: 86px !important;",
+    "  }",
+    "}"
+  ].join("\n");
+}
+
 function ShowZonePopup(cardId) {
   // Extract zone name from card ID (format: "zoneName-index")
   // Handle cases where there's no "-" or the format is different
@@ -438,8 +629,9 @@ function ShowZonePopup(cardId) {
 
 function TogglePopup(name) {
   var id = name + "Popup";
-  if (document.getElementById(id)?.style.display == "inline") {
-    document.getElementById(id).style.display = "none";
+  var existing = document.getElementById(id);
+  if (existing && existing.style.display !== "none") {
+    existing.style.display = "none";
     _openPopup = null;
   } else {
     fetchPopupContent(name, function(responseText) {
@@ -473,15 +665,18 @@ function fetchPopupContent(name, callback) {
 function createPopupHTML(name, responseText) {
   var id = name + "Popup";
   var folderPath = document.getElementById("folderPath").value;
-  var popup = "<div id='" + id + "' style='overflow-y: auto; background-color:rgba(0, 0, 0, 0.6); backdrop-filter: blur(20px); border-radius: 10px; padding: 10px; font-weight: 500; scrollbar-color: #888888 rgba(0, 0, 0, 0); scrollbar-width: thin; z-index:1000; position: absolute; top:40%; left:calc(25% - 129px); width:50%; height:30%; display:inline;'>";
-  popup += "<div style='display: flex; justify-content: center; align-items: center; padding-bottom: 10px;'>";
+  var popup = "<div id='" + id + "' class='tcg-zone-popup' style='" + ZonePopupStyle() + "'>";
+  popup += "<style>" + ZonePopupContentStyle() + "</style>";
+  popup += "<div style='display: flex; justify-content: center; align-items: center; padding-bottom: 10px; position: sticky; top: -10px; z-index: 1; background: rgba(0, 0, 0, 0.64); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);'>";
   popup += "<h2 style='text-align: center; color: white; margin: 0;'>" + name.split(/(?=[A-Z])/).join(" ").replace(/^./, str => str.toUpperCase()) + "</h2>";
   popup += "<button style='background-color: transparent; border: none; color: white; font-size: 24px; cursor: pointer; position: absolute; right: 10px;' onclick='ClosePopup()'>&times;</button>";
   popup += "</div>";
   var responseArr = responseText.split("</>");
   var macros = responseArr[0] == "" ? [] : responseArr[0].split(",");
   var cards = responseArr[1];
+  popup += "<div class='tcg-zone-popup-cards'>";
   popup += PopulateZone(name, cards, 96, "./" + folderPath + "/concat", 1, "All");
+  popup += "</div>";
   macros.forEach(function(macro) {
     popup += "<button style='margin: 5px; padding: 5px 10px; background-color: #444; color: white; border: none; border-radius: 5px; cursor: pointer;' onclick='SubmitInput(10000, \"&buttonInput=" + macro + "&inputText=" + name + "\")'>" + macro + "</button>";
   });
