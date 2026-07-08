@@ -23,7 +23,7 @@
      Row 2: the three Stats buttons. */
   .swu-dm-controls-row1 { display:flex; flex-direction:row; flex-wrap:nowrap; justify-content:space-between; align-items:center; gap:8px; padding:4px 8px 2px; }
   .swu-dm-controls-row2 { display:flex; flex-direction:row; flex-wrap:wrap; align-items:center; gap:4px; padding:0 8px 4px; }
-  .swu-dm-title      { position:sticky; top:0; z-index:10; background:#142a46; color:rgba(205,238,255,0.92); font-family:Arial, Helvetica, sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; text-shadow:0 0 5px rgba(120,200,255,0.35); padding:4px 10px; border-bottom:1px solid rgba(140,210,255,0.45); box-sizing:border-box; }
+  .swu-dm-title      { position:sticky; top:0; z-index:10; background:var(--surface-raised); color:var(--text); font-family:Arial, Helvetica, sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; text-shadow:0 0 5px rgba(var(--accent-rgb),0.35); padding:4px 10px; border-bottom:1px solid var(--border); box-sizing:border-box; }
 
   /* In the stack, the deck/sideboard grids grow with their content — the TOP region scrolls,
      not each grid. (Desktop gives these wrappers a fixed height + inner scroll; override here.) */
@@ -42,9 +42,9 @@
   #swuDeckMobileRoot #myDeckWrapper #myDeck .widget-button { font-size:13px; }
 
   /* Bottom card-browser pane (collapsible) */
-  #swuDeckMobileBrowser { flex:0 0 auto; display:flex; flex-direction:column; border-top:2px solid #3f3f5a; box-sizing:border-box; height:48vh; min-height:0; transition:height 0.2s ease; }
+  #swuDeckMobileBrowser { flex:0 0 auto; display:flex; flex-direction:column; border-top:2px solid var(--border); box-sizing:border-box; height:48vh; min-height:0; transition:height 0.2s ease; }
   #swuDeckMobileBrowser.is-collapsed { height:36px; }
-  #swuDeckBrowserHandle { flex:0 0 auto; height:36px; display:flex; align-items:center; justify-content:space-between; padding:0 14px; background:rgba(18,18,30,0.96); color:#cfe0ff; font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; cursor:pointer; user-select:none; }
+  #swuDeckBrowserHandle { flex:0 0 auto; height:36px; display:flex; align-items:center; justify-content:space-between; padding:0 14px; background:var(--surface-raised); color:var(--text); font-family:Arial, Helvetica, sans-serif; font-size:13px; font-weight:600; letter-spacing:0.02em; text-transform:uppercase; cursor:pointer; user-select:none; }
   #swuDeckBrowserHandle .swu-dm-chevron { transition:transform 0.2s ease; font-size:11px; opacity:0.85; }
   #swuDeckMobileBrowser.is-collapsed #swuDeckBrowserHandle .swu-dm-chevron { transform:rotate(180deg); }
   #myCardPaneSlot { flex:1 1 auto; min-height:0; overflow:hidden; }

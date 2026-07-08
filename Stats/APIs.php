@@ -20,7 +20,7 @@ include_once "../SharedUI/Header.php";
             padding: 0 20px;
         }
         h1, h2, h3 {
-            color: #1a2535; /* Darkened from #2c3e50 */
+            color: var(--surface-sunken); /* Darkened from var(--surface-raised) */
         }
         h1 {
             color: white; /* Setting the main header "SWU STATS APIs" to white */
@@ -51,7 +51,7 @@ include_once "../SharedUI/Header.php";
             font-weight: 600;
         }
         .api-endpoint h5 {
-            color: #1a2535; /* Dark color for h5 headings inside API endpoint boxes */
+            color: var(--surface-sunken); /* Dark color for h5 headings inside API endpoint boxes */
             font-weight: 600;
         }
         code {
@@ -74,10 +74,10 @@ include_once "../SharedUI/Header.php";
             width: 60px;
         }
         .get {
-            color: #28a745;
+            color: var(--success);
         }
         .post {
-            color: #007bff;
+            color: var(--accent);
         }
         table {
             width: 100%;
@@ -109,24 +109,24 @@ include_once "../SharedUI/Header.php";
 
         /* --- SWUDeck HUD navy override: dark panels + light text (info text stays normal case) --- */
         .api-section {
-            background: rgba(14,26,44,0.92) !important;
-            border: 1px solid rgba(140,210,255,0.40) !important;
+            background: var(--surface-raised) !important;
+            border: 1px solid var(--border) !important;
             border-radius: 0 !important;
-            box-shadow: 0 0 12px rgba(120,200,255,0.12) !important;
+            box-shadow: 0 0 12px rgba(var(--accent-rgb),0.12) !important;
         }
         .api-endpoint {
-            background: rgba(10,20,36,0.92) !important;
-            border: 1px solid rgba(140,210,255,0.22) !important;
+            background: var(--surface-raised) !important;
+            border: 1px solid rgba(var(--accent-rgb),0.22) !important;
             border-radius: 0 !important;
         }
         .api-section, .api-section p, .api-section li,
         .api-endpoint, .api-endpoint p, .api-endpoint li, .api-endpoint ul,
-        table td { color: rgba(220,238,255,0.90) !important; }
+        table td { color: var(--text) !important; }
         .api-section h2, .api-section h3, .api-endpoint h3, .api-endpoint h4, .api-endpoint h5 {
-            color: rgba(205,238,255,0.95) !important; text-transform: uppercase; letter-spacing: 0.03em;
+            color: var(--text) !important; text-transform: uppercase; letter-spacing: 0.03em;
         }
-        th { background: rgba(20,42,70,0.90) !important; color: rgba(205,238,255,0.95) !important; text-transform: uppercase; }
-        th, td { border-bottom: 1px solid rgba(140,210,255,0.18) !important; }
+        th { background: var(--btn-fill) !important; color: var(--text) !important; text-transform: uppercase; }
+        th, td { border-bottom: 1px solid rgba(var(--accent-rgb),0.18) !important; }
     </style>
 </head>
 <body>
@@ -198,7 +198,7 @@ include_once "../SharedUI/Header.php";
 
             <h4>Authentication:</h4>
             <p>This endpoint requires an OAuth access token. Provide the token via one of the following:</p>
-            <ul style="color: #000; font-weight: 500;">
+            <ul style="color: var(--text); font-weight: 500;">
                 <li><strong>Authorization header:</strong> <code>Authorization: Bearer {access_token}</code></li>
                 <li><strong>JSON body:</strong> <code>{"access_token": "{access_token}"}</code> (recommended for local testing where Authorization headers may be stripped)</li>
             </ul>
@@ -685,7 +685,7 @@ include_once "../SharedUI/Header.php";
             
             <h4>Authentication:</h4>
             <p>This endpoint requires OAuth 2.0 authentication with the 'decks' scope. The access token must be provided in one of the following ways:</p>
-            <ul style="color: #000; font-weight: 500;">
+            <ul style="color: var(--text); font-weight: 500;">
                 <li><strong>Authorization header:</strong> <code>Authorization: Bearer {access_token}</code></li>
                 <li><strong>Query parameter:</strong> <code>access_token={access_token}</code></li>
             </ul>

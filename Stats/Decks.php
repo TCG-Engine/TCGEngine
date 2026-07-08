@@ -186,7 +186,7 @@ echo "<style>
 
 /* Ensure the track itself has rounded corners */
 #sciFiScroll::-webkit-scrollbar-track {
-    background: #000022;
+    background: var(--surface-sunken);
     box-shadow: inset 0 0 5px #000;
     border-radius: 8px; /* Ensure rounded edges */
     overflow: hidden; /* Prevents clipping */
@@ -194,14 +194,14 @@ echo "<style>
 
 /* Modify the scrollbar thumb */
 #sciFiScroll::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #000066, #000099);
+    background: linear-gradient(180deg, var(--surface-raised), var(--accent));
     border-radius: 12px; /* Increase for more rounded effect */
     box-shadow: inset 0 0 5px #000;
 }
 
 /* Smooth animation for hover */
 #sciFiScroll::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #000099, #000066);
+    background: linear-gradient(180deg, var(--accent), var(--surface-raised));
 }
 
 /* Optional: Handle the scrollbar corners */
@@ -221,7 +221,7 @@ while ($row = mysqli_fetch_assoc($result)) {
     $likes = htmlspecialchars($row['numLikes'] ?? '');
     if($leader == "" || $base == "") continue;
     if ($premierOnly && LeaderNotPremierLegal($row['keyIndicator1'], $legalSets)) continue;
-    echo "<tr onclick=\"window.location='https://swustats.net/TCGEngine/NextTurn.php?gameName=" . $row['assetIdentifier'] . "&playerID=1&folderPath=SWUDeck';\" onmouseover=\"this.style.boxShadow='0 0 10px 5px rgba(51, 204, 255, 0.6)'; this.style.transform='scaleY(1.02)';\" onmouseout=\"this.style.boxShadow='none'; this.style.transform='none';\" style='cursor: pointer; transition: all 0.3s ease-in-out;'>";
+    echo "<tr onclick=\"window.location='https://swustats.net/TCGEngine/NextTurn.php?gameName=" . $row['assetIdentifier'] . "&playerID=1&folderPath=SWUDeck';\" onmouseover=\"this.style.boxShadow='0 0 10px 5px rgba(var(--accent-rgb), 0.6)'; this.style.transform='scaleY(1.02)';\" onmouseout=\"this.style.boxShadow='none'; this.style.transform='none';\" style='cursor: pointer; transition: all 0.3s ease-in-out;'>";
     echo "    <td><img style='height:80px' src='../SWUDeck/concat/" . $leader . ".webp' title='" . CardTitle($leader) . "' /></td>";
     echo "    <td><img style='height:80px' src='../SWUDeck/concat/" . $base . ".webp' title='" . CardTitle($base) . "' /></td>";
     echo "    <td>{$assetName}</td>";

@@ -14,7 +14,7 @@ include_once "../SharedUI/Header.php";
         body {
             font-family: 'Barlow', sans-serif;
             line-height: 1.6;
-            color: #000;
+            color: var(--text);
             max-width: 1200px;
             margin: 20px auto;
             padding: 0 20px;
@@ -24,16 +24,16 @@ include_once "../SharedUI/Header.php";
             margin-bottom: 20px;
         }
         .filters {
-            background: rgba(14,26,44,0.92);
-            border: 1px solid rgba(140,210,255,0.40);
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
             border-radius: 0;
             padding: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 0 12px rgba(120,200,255,0.15);
+            box-shadow: 0 0 12px rgba(var(--accent-rgb),0.15);
         }
         .filters h3 {
             margin-top: 0;
-            color: rgba(205,238,255,0.92);
+            color: var(--text);
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
@@ -51,7 +51,7 @@ include_once "../SharedUI/Header.php";
             display: block;
             margin-bottom: 5px;
             font-weight: 600;
-            color: rgba(205,238,255,0.90);
+            color: var(--text);
             text-transform: uppercase;
             letter-spacing: 0.04em;
             font-size: 13px;
@@ -64,7 +64,7 @@ include_once "../SharedUI/Header.php";
             box-sizing: border-box;
         }
         button {
-            background-color: #4CAF50;
+            background-color: var(--success);
             color: white;
             border: none;
             cursor: pointer;
@@ -73,19 +73,19 @@ include_once "../SharedUI/Header.php";
             transition: background-color 0.2s ease; /* Subtle, quick transition */
         }
         button:hover {
-            background-color: #45a049;
+            background-color: var(--success);
         }
         /* Special styling for filter buttons */
         #filterForm button {
-            background-color: #4CAF50;
+            background-color: var(--success);
             transform: none; /* No transform effects */
             box-shadow: none; /* No shadow effects */
         }
         #filterForm button:hover {
-            background-color: #3d8b40; /* Slightly darker on hover */
+            background-color: var(--success); /* Slightly darker on hover */
         }
         #filterForm button:active {
-            background-color: #367d39; /* Even darker when clicked */
+            background-color: var(--success); /* Even darker when clicked */
             transform: translateY(1px); /* Very slight push down effect */
         }
         table {
@@ -100,12 +100,12 @@ include_once "../SharedUI/Header.php";
             color: white; /* Always use white text */
         }
         th {
-            background-color: #2c3e50; /* Darker header background for white text */
+            background-color: var(--surface-raised); /* Darker header background for white text */
             font-weight: 600;
             color: white; /* Ensure header text is also white */
         }
         tr:hover {
-            background-color: #3e5267; /* Slightly lighter than header but still dark for contrast */
+            background-color: var(--border); /* Slightly lighter than header but still dark for contrast */
         }
         .pagination {
             display: flex;
@@ -130,12 +130,12 @@ include_once "../SharedUI/Header.php";
             color: #666;
         }
         .tournament-link {
-            color: #4db5ff; /* Brighter blue for links on dark background */
+            color: var(--accent); /* Brighter blue for links on dark background */
             text-decoration: none;
         }
         .tournament-link:hover {
             text-decoration: underline;
-            color: #79caff; /* Even brighter on hover */
+            color: var(--accent); /* Even brighter on hover */
         }
     </style>
 </head>
@@ -145,22 +145,22 @@ include_once "../SharedUI/Header.php";
     <div class="filters">
         <h3>Filter Tournaments</h3>
         <form id="melee-link-search-form" style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center;">
-            <input type="url" id="melee-link-input" placeholder="Paste melee.gg tournament link here" style="flex: 1 1 400px; min-width: 0; color: #000; font-size: 1rem; padding: 10px 8px; height: 44px; display: block;" required>
+            <input type="url" id="melee-link-input" placeholder="Paste melee.gg tournament link here" style="flex: 1 1 400px; min-width: 0; color: var(--text); font-size: 1rem; padding: 10px 8px; height: 44px; display: block;" required>
             <button type="submit" class="hud-green" style="flex: 0 0 auto; width: auto; min-width: 120px; font-size: 1rem; padding: 10px 18px; height: 44px; display: block; margin-top:-10px;">Go to Tournament</button>
         </form>
         <form id="filterForm">
             <div class="filter-row">
             <div class="filter-group">
-                <label for="date-from" style="color: #000;">Date From:</label>
-                <input type="date" id="date-from" name="date_from" style="color: #000;">
+                <label for="date-from" style="color: var(--text);">Date From:</label>
+                <input type="date" id="date-from" name="date_from" style="color: var(--text);">
             </div>
             <div class="filter-group">
-                <label for="date-to" style="color: #000;">Date To:</label>
-                <input type="date" id="date-to" name="date_to" style="color: #000;">
+                <label for="date-to" style="color: var(--text);">Date To:</label>
+                <input type="date" id="date-to" name="date_to" style="color: var(--text);">
             </div>
             <div class="filter-group">
-                <label for="sort-by" style="color: #000;">Sort By:</label>
-                <select id="sort-by" name="sort" style="color: #000;">
+                <label for="sort-by" style="color: var(--text);">Sort By:</label>
+                <select id="sort-by" name="sort" style="color: var(--text);">
                 <option value="tournamentDate DESC">Date (Newest First)</option>
                 <option value="tournamentDate ASC">Date (Oldest First)</option>
                 <option value="tournamentName ASC">Name (A-Z)</option>

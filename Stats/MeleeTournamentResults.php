@@ -23,7 +23,7 @@ if ($tournamentId <= 0) {
         body {
             font-family: 'Barlow', sans-serif;
             line-height: 1.6;
-            color: #000;
+            color: var(--text);
             max-width: 1200px;
             margin: 20px auto;
             padding: 0 20px;
@@ -35,7 +35,7 @@ if ($tournamentId <= 0) {
             margin-bottom: 30px;
         }
         .tournament-meta {
-            background-color: rgba(44, 62, 80, 0.8);
+            background-color: var(--surface-raised);
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
@@ -45,7 +45,7 @@ if ($tournamentId <= 0) {
             margin: 5px 0;
         }
         .tournament-meta a {
-            color: #4db5ff;
+            color: var(--accent);
             text-decoration: none;
         }
         .tournament-meta a:hover {
@@ -57,19 +57,19 @@ if ($tournamentId <= 0) {
         }
         .tab {
             padding: 10px 20px;
-            background-color: #2c3e50;
+            background-color: var(--surface-raised);
             color: white;
             cursor: pointer;
             border-radius: 5px 5px 0 0;
             margin-right: 5px;
         }
         .tab.active {
-            background-color: #3e5267;
+            background-color: var(--border);
             font-weight: bold;
         }
         .tab-content {
             display: none;
-            background-color: rgba(20, 20, 20, 0.8);
+            background-color: var(--overlay-scrim);
             padding: 20px;
             border-radius: 0 5px 5px 5px;
         }
@@ -86,15 +86,15 @@ if ($tournamentId <= 0) {
         th, td {
             padding: 10px;
             text-align: left;
-            border-bottom: 1px solid #3e5267;
+            border-bottom: 1px solid var(--border);
             color: white;
         }
         th {
-            background-color: #2c3e50;
+            background-color: var(--surface-raised);
             font-weight: 600;
         }
         tr:hover {
-            background-color: rgba(62, 82, 103, 0.5);
+            background-color: var(--surface-raised);
         }
         .player-record {
             display: inline-block;
@@ -124,18 +124,18 @@ if ($tournamentId <= 0) {
         .match-result {
             text-align: center;
             font-weight: bold;
-            background-color: #2c3e50;
+            background-color: var(--surface-raised);
             padding: 4px;
             border-radius: 4px;
         }
         .win {
-            color: #2ecc71;
+            color: var(--success);
         }
         .loss {
-            color: #e74c3c;
+            color: var(--danger);
         }
         .draw {
-            color: #f1c40f;
+            color: var(--accent-gold);
         }
         .loading {
             text-align: center;
@@ -144,7 +144,7 @@ if ($tournamentId <= 0) {
             font-size: 18px;
         }
         .error {
-            background-color: rgba(231, 76, 60, 0.7);
+            background-color: var(--danger);
             color: white;
             padding: 20px;
             border-radius: 5px;
@@ -165,7 +165,7 @@ if ($tournamentId <= 0) {
         }
         .tiebreaker {
             font-size: 0.9em;
-            color: #bdc3c7;
+            color: var(--text-muted);
         }
         /* Leader Analysis Styles */
         .chart-container {
@@ -193,14 +193,14 @@ if ($tournamentId <= 0) {
         }
         .bar {
             width: 40px;
-            background-color: #3498db;
+            background-color: var(--accent);
             margin-bottom: 5px;
             border-radius: 3px 3px 0 0;
             position: relative;
             transition: all 0.3s;
         }
         .bar:hover {
-            background-color: #2980b9;
+            background-color: var(--accent);
             filter: brightness(1.2);
         }
         .bar-label {
@@ -243,17 +243,17 @@ if ($tournamentId <= 0) {
             padding: 5px;
         }
         .matchup-win {
-            background-color: rgba(46, 204, 113, 0.4);
+            background-color: var(--success);
         }
         .matchup-loss {
-            background-color: rgba(231, 76, 60, 0.4);
+            background-color: var(--danger);
         }
         .matchup-even {
-            background-color: rgba(241, 196, 15, 0.4);
+            background-color: var(--accent-gold);
         }
         .matchup-na {
-            background-color: rgba(52, 73, 94, 0.4);
-            color: #7f8c8d;
+            background-color: var(--surface-sunken);
+            color: var(--text-muted);
         }
         .leader-img {
             width: 40px;
@@ -261,18 +261,18 @@ if ($tournamentId <= 0) {
             object-fit: cover;
             border-radius: 50%;
             display: inline-block;
-            border: 2px solid #34495e;
+            border: 2px solid var(--surface-raised);
             transition: transform 0.2s;
         }
         .leader-img:hover {
             transform: scale(1.2);
-            border-color: #3498db;
+            border-color: var(--accent);
             z-index: 5;
             cursor: pointer;
         }
         .leader-tooltip {
             position: absolute;
-            background-color: rgba(20, 20, 20, 0.95);
+            background-color: var(--overlay-scrim);
             color: white;
             padding: 10px;
             border-radius: 5px;
@@ -296,7 +296,7 @@ if ($tournamentId <= 0) {
         .leader-tooltip p {
             margin: 0;
             font-size: 0.85em;
-            color: #bdc3c7;
+            color: var(--text-muted);
         }
         .pie-chart {
             position: relative;
@@ -545,7 +545,7 @@ if ($tournamentId <= 0) {
                 if (deck.meleeId) {
                     const meleeUrl = `https://melee.gg/Decklist/View/${deck.meleeId}`;
                     meleeButton = `
-                        <a href="${meleeUrl}" target="_blank" class="melee-deck-btn" title="View on melee.gg" style="margin-left:6px; padding:2px 8px; background:#2d72d9; color:#fff; border-radius:4px; text-decoration:none; font-size:0.9em;">Melee.gg</a>
+                        <a href="${meleeUrl}" target="_blank" class="melee-deck-btn" title="View on melee.gg" style="margin-left:6px; padding:2px 8px; background:var(--accent); color:#fff; border-radius:4px; text-decoration:none; font-size:0.9em;">Melee.gg</a>
                         <button class="copy-melee-link-btn" data-link="${meleeUrl}" title="Copy link to clipboard" style="margin-left:3px; background:transparent; border:none; cursor:pointer; vertical-align:middle;">
                             <img src="../Assets/Icons/clipboard-check.svg" width="16" height="16" alt="Copy Link" style="filter:invert(100%); vertical-align:middle;" />
                         </button>
@@ -1279,13 +1279,13 @@ if ($tournamentId <= 0) {
                 const winRate = parseFloat(leader.matchWinRate);
                 let color;
                 if (winRate >= 60) {
-                    color = '#27ae60'; // Strong green
+                    color = 'var(--success)'; // Strong green
                 } else if (winRate >= 50) {
-                    color = '#2ecc71'; // Light green
+                    color = 'var(--success)'; // Light green
                 } else if (winRate >= 40) {
-                    color = '#f39c12'; // Orange
+                    color = 'var(--accent-gold)'; // Orange
                 } else {
-                    color = '#e74c3c'; // Red
+                    color = 'var(--danger)'; // Red
                 }
                 
                 card.style.borderLeft = `4px solid ${color}`;
