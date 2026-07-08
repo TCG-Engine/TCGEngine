@@ -709,7 +709,7 @@
           gap: 6px;
      }
 
-     .ga-m-admin-menu-panel button {
+     .ga-m-admin-menu-panel > button {
           width: 100%;
           padding: 8px 10px;
           border: 1px solid rgba(200, 155, 70, 0.28);
@@ -737,22 +737,32 @@
      }
 
      .ga-m-shortcut-row {
-          display: flex;
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) 42px;
           align-items: center;
-          justify-content: space-between;
           gap: 8px;
           color: rgba(244, 236, 219, 0.9);
           font: 700 11px/1.2 var(--ga-font-ui);
      }
 
+     .ga-m-shortcut-row span {
+          min-width: 0;
+          overflow-wrap: anywhere;
+     }
+
      .ga-m-shortcut-toggle {
           position: relative;
+          justify-self: end;
           flex: 0 0 auto;
+          min-width: 42px;
+          max-width: 42px;
           width: 42px;
           height: 24px;
+          padding: 0;
           border: 0;
           border-radius: 999px;
           background: rgba(244, 236, 219, 0.18);
+          box-shadow: none;
           cursor: pointer;
      }
 
@@ -866,6 +876,7 @@
                <span></span><span></span><span></span>
           </button>
           <div id="gaMobileAdminMenuPanel" class="ga-m-admin-menu-panel">
+               <button type="button" data-ga-mobile-action="undo" data-ga-mobile-player-action="true">Undo</button>
                <button type="button" data-ga-admin-target="bug-report-button">Report Bug</button>
                <button type="button" data-ga-admin-target="copy-spectate-link-button">Copy Spectate Link</button>
                <button type="button" data-ga-admin-target="concede-button">Concede</button>
@@ -1317,6 +1328,11 @@
                     var targetID = action.getAttribute('data-ga-admin-target');
                     action.style.display = document.getElementById(targetID) ? 'block' : 'none';
                }
+               var playerActions = panel.querySelectorAll('[data-ga-mobile-player-action]');
+               var hidePlayerActions = (typeof IsSpectatorClient === 'function' && IsSpectatorClient());
+               for (var j = 0; j < playerActions.length; ++j) {
+                    playerActions[j].style.display = hidePlayerActions ? 'none' : 'block';
+               }
           }
 
           btn.addEventListener('click', function(event) {
@@ -1340,7 +1356,10 @@
                if (!mobileAction) return;
                event.preventDefault();
                event.stopPropagation();
-               if (mobileAction.getAttribute('data-ga-mobile-action') === 'switch-player' && typeof window.gaSwitchPlayer === 'function') {
+               var mobileActionName = mobileAction.getAttribute('data-ga-mobile-action');
+               if (mobileActionName === 'undo' && typeof SubmitInput === 'function') {
+                    SubmitInput(10004, '');
+               } else if (mobileActionName === 'switch-player' && typeof window.gaSwitchPlayer === 'function') {
                     window.gaSwitchPlayer();
                }
                setOpen(false);
