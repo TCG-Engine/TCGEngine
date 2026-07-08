@@ -16,14 +16,14 @@ function ClientWidgetActions(action) {
       overlay.style.zIndex = "2000";
 
       var modal = document.createElement('div');
-      modal.style.backgroundColor = "#0D1B2A";
+      modal.style.backgroundColor = "var(--surface-raised)";
       modal.style.padding = "20px";
       modal.style.borderRadius = "8px";
       modal.style.position = "relative";
       modal.style.maxWidth = "90%";
       modal.style.maxHeight = "90%";
       modal.style.overflowY = "auto";
-      modal.style.boxShadow = "0 0 15px 5px rgba(0, 123, 255, 0.7)";
+      modal.style.boxShadow = "0 0 15px 5px rgba(var(--accent-rgb), 0.7)";
 
       // Create close button
       var closeButton = document.createElement('button');

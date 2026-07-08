@@ -75,10 +75,10 @@ $forIndividual = false;
 
 <!-- Matchup modal (was missing) -->
 <div id="matchupModal" style="display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;">
-  <div id="matchupModalContent" style="background:#071029;color:#7FDBFF;padding:12px;border-radius:8px;max-width:900px;width:90%;max-height:85%;overflow:auto;box-shadow:0 8px 24px rgba(0,0,0,0.8);margin:48px auto;">
+  <div id="matchupModalContent" style="background:var(--surface-sunken);color:var(--accent);padding:12px;border-radius:8px;max-width:900px;width:90%;max-height:85%;overflow:auto;box-shadow:0 8px 24px rgba(0,0,0,0.8);margin:48px auto;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-      <h3 style="margin:0;padding:0;color:#7FDBFF;">Matchup Breakout</h3>
-      <button id="closeMatchupModal" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:6px 10px;cursor:pointer;">Close</button>
+      <h3 style="margin:0;padding:0;color:var(--accent);">Matchup Breakout</h3>
+      <button id="closeMatchupModal" style="background:var(--check-fill);color:var(--accent);border:none;border-radius:4px;padding:6px 10px;cursor:pointer;">Close</button>
     </div>
     <div id="matchupModalBody"> </div>
   </div>
@@ -108,7 +108,7 @@ $forIndividual = false;
           $('#matchupModalBody').html('<p>No matchup data found for this deck.</p>');
           return;
         }
-        var html = '<table border="1" cellpadding="4" style="width:100%;background:#0d0d1a;color:#7FDBFF;">';
+        var html = '<table border="1" cellpadding="4" style="width:100%;background:var(--surface-sunken);color:var(--accent);">';
         html += '<thead><tr>'
           + '<th>Opponent Leader</th>'
           + '<th>Opponent Base</th>'
@@ -177,27 +177,27 @@ $forIndividual = false;
 }
 
 .dataTables_scrollBody::-webkit-scrollbar-track {
-  background: #0d0d1a; /* deep space background */
+  background: var(--surface-sunken); /* deep space background */
   box-shadow: inset 0 0 5px #000;
   border-radius: 8px; /* Ensure rounded edges */
   overflow: hidden; /* Prevents clipping */
 }
 
 .dataTables_scrollBody::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #001f3f, #0074D9); /* futuristic blue gradient */
+  background: linear-gradient(180deg, var(--surface-raised), var(--accent)); /* futuristic blue gradient */
   border-radius: 12px; /* increased border radius for rounded ends */
-  border: 3px solid #0d0d1a; /* matches the deep space background */
-  box-shadow: inset 0 0 8px #7FDBFF; /* bright neon effect */
+  border: 3px solid var(--surface-sunken); /* matches the deep space background */
+  box-shadow: inset 0 0 8px var(--accent); /* bright neon effect */
 }
 
 .dataTables_scrollBody::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #0074D9, #001f3f);
+  background: linear-gradient(180deg, var(--accent), var(--surface-raised));
 }
 
 /* Fallback scrollbar styling for Firefox */
 .dataTables_scrollBody {
   scrollbar-width: thin;
-  scrollbar-color: #0074D9 #0d0d1a;
+  scrollbar-color: var(--accent) var(--surface-sunken);
 }
 
 </style>
@@ -210,7 +210,7 @@ $forIndividual = false;
     border-spacing: 0 6px; /* vertical spacing between rows */
     width: 100%;
     background: transparent;
-    color: #BFDFFF;
+    color: var(--text);
     font-family: 'Montserrat', system-ui, Arial, sans-serif;
   }
 
@@ -224,10 +224,10 @@ $forIndividual = false;
   #deckMetaStatsTable thead th,
   table.dataTable thead th,
   .dataTables_scrollHead table thead th {
-    background: linear-gradient(180deg,#071029 0%, #08142a 100%);
-    color: #7FDBFF;
+    background: linear-gradient(180deg,var(--surface-sunken) 0%, var(--surface-raised) 100%);
+    color: var(--accent);
     padding: 10px 12px;
-    border-bottom: 1px solid rgba(127,200,255,0.08);
+    border-bottom: 1px solid rgba(var(--accent-rgb),0.08);
     text-align: left;
     font-weight: 600;
     letter-spacing: 0.6px;
@@ -237,7 +237,7 @@ $forIndividual = false;
 
   /* Rows: card-like panels with subtle inner background */
   #deckMetaStatsTable tbody tr {
-    background: linear-gradient(180deg, rgba(9,12,22,0.6), rgba(6,8,15,0.6));
+    background: var(--surface-sunken);
     box-shadow: 0 2px 8px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
     border-radius: 6px;
   }
@@ -252,8 +252,8 @@ $forIndividual = false;
   /* Hover highlight */
   #deckMetaStatsTable tbody tr:hover {
     transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(0,0,0,0.7), inset 0 0 14px rgba(127,200,255,0.02);
-    background: linear-gradient(180deg, rgba(12,20,36,0.75), rgba(8,12,22,0.75));
+    box-shadow: 0 6px 18px rgba(0,0,0,0.7), inset 0 0 14px rgba(var(--accent-rgb),0.02);
+    background: var(--surface-raised);
   }
 
   /* Subtle neon separators between columns using pseudo-element */
@@ -262,7 +262,7 @@ $forIndividual = false;
     position: absolute;
     width: 1px;
     height: 60%;
-    background: linear-gradient(180deg, rgba(127,200,255,0.08), rgba(127,200,255,0.02));
+    background: linear-gradient(180deg, rgba(var(--accent-rgb),0.08), rgba(var(--accent-rgb),0.02));
     margin-left: -6px;
   }
 
@@ -273,7 +273,7 @@ $forIndividual = false;
   #deckMetaStatsTable thead th.sorting:after {
     content: '\25B4\25BE'; /* up + down */
     font-size: 10px;
-    color: rgba(127,200,255,0.35);
+    color: rgba(var(--accent-rgb),0.35);
     position: absolute;
     right: 10px;
     top: 50%;
@@ -282,11 +282,11 @@ $forIndividual = false;
   }
   #deckMetaStatsTable thead th.sorting_asc:after {
     content: '\25B4'; /* up */
-    color: #7FDBFF;
+    color: var(--accent);
   }
   #deckMetaStatsTable thead th.sorting_desc:after {
     content: '\25BE'; /* down */
-    color: #7FDBFF;
+    color: var(--accent);
   }
   #deckMetaStatsTable thead th { cursor: pointer; }
 
@@ -324,7 +324,7 @@ $forIndividual = false;
           + '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">'
           + '<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>'
           + '</svg></a>'
-          + '<button class="drilldown-btn" data-leader="' + r.leaderID + '" data-base="' + r.baseID + '" title="Show Matchup Breakout" style="background:#222a44;color:#7FDBFF;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;height:100%;align-self:stretch;">Matchups</button>'
+          + '<button class="drilldown-btn" data-leader="' + r.leaderID + '" data-base="' + r.baseID + '" title="Show Matchup Breakout" style="background:var(--check-fill);color:var(--accent);border:none;border-radius:4px;padding:4px 10px;cursor:pointer;height:100%;align-self:stretch;">Matchups</button>'
           + '</td>';
         rows += '<td><img src="../SWUDeck/concat/' + r.leaderID + '.webp" style="height: 80px;" title="' + r.leaderTitle + '" /></td>';
         rows += '<td><img src="../SWUDeck/concat/' + r.baseID + '.webp" style="height: 80px;" title="' + r.baseTitle + '" /></td>';
