@@ -689,8 +689,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1DecisionQueue';
-        $controller = 0;
+        $location = 'DecisionQueue';
+        $controller = 1;
         array_push($zone, new DecisionQueue($data[$j], $location, $controller));
       }
     }
@@ -703,8 +703,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1GlobalEffects';
-        $controller = 0;
+        $location = 'GlobalEffects';
+        $controller = 1;
         array_push($zone, new GlobalEffects($data[$j], $location, $controller));
       }
     }
@@ -717,8 +717,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1Hand';
-        $controller = 0;
+        $location = 'Hand';
+        $controller = 1;
         array_push($zone, new Hand($data[$j], $location, $controller));
       }
     }
@@ -731,8 +731,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1Discard';
-        $controller = 0;
+        $location = 'Discard';
+        $controller = 1;
         array_push($zone, new Discard($data[$j], $location, $controller));
       }
     }
@@ -745,8 +745,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1Deck';
-        $controller = 0;
+        $location = 'Deck';
+        $controller = 1;
         array_push($zone, new Deck($data[$j], $location, $controller));
       }
     }
@@ -759,8 +759,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1Leader';
-        $controller = 0;
+        $location = 'Leader';
+        $controller = 1;
         array_push($zone, new Leader($data[$j], $location, $controller));
       }
     }
@@ -773,8 +773,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1Base';
-        $controller = 0;
+        $location = 'Base';
+        $controller = 1;
         array_push($zone, new Base($data[$j], $location, $controller));
       }
     }
@@ -787,8 +787,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1Resources';
-        $controller = 0;
+        $location = 'Resources';
+        $controller = 1;
         array_push($zone, new Resources($data[$j], $location, $controller));
       }
     }
@@ -801,8 +801,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1GroundArena';
-        $controller = 0;
+        $location = 'GroundArena';
+        $controller = 1;
         array_push($zone, new GroundArena($data[$j], $location, $controller));
       }
     }
@@ -815,8 +815,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1SpaceArena';
-        $controller = 0;
+        $location = 'SpaceArena';
+        $controller = 1;
         array_push($zone, new SpaceArena($data[$j], $location, $controller));
       }
     }
@@ -829,8 +829,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p1TempZone';
-        $controller = 0;
+        $location = 'TempZone';
+        $controller = 1;
         array_push($zone, new TempZone($data[$j], $location, $controller));
       }
     }
@@ -843,8 +843,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2DecisionQueue';
-        $controller = 0;
+        $location = 'DecisionQueue';
+        $controller = 2;
         array_push($zone, new DecisionQueue($data[$j], $location, $controller));
       }
     }
@@ -857,8 +857,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2GlobalEffects';
-        $controller = 0;
+        $location = 'GlobalEffects';
+        $controller = 2;
         array_push($zone, new GlobalEffects($data[$j], $location, $controller));
       }
     }
@@ -871,8 +871,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2Hand';
-        $controller = 0;
+        $location = 'Hand';
+        $controller = 2;
         array_push($zone, new Hand($data[$j], $location, $controller));
       }
     }
@@ -885,8 +885,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2Discard';
-        $controller = 0;
+        $location = 'Discard';
+        $controller = 2;
         array_push($zone, new Discard($data[$j], $location, $controller));
       }
     }
@@ -899,8 +899,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2Deck';
-        $controller = 0;
+        $location = 'Deck';
+        $controller = 2;
         array_push($zone, new Deck($data[$j], $location, $controller));
       }
     }
@@ -913,8 +913,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2Leader';
-        $controller = 0;
+        $location = 'Leader';
+        $controller = 2;
         array_push($zone, new Leader($data[$j], $location, $controller));
       }
     }
@@ -927,8 +927,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2Base';
-        $controller = 0;
+        $location = 'Base';
+        $controller = 2;
         array_push($zone, new Base($data[$j], $location, $controller));
       }
     }
@@ -941,8 +941,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2Resources';
-        $controller = 0;
+        $location = 'Resources';
+        $controller = 2;
         array_push($zone, new Resources($data[$j], $location, $controller));
       }
     }
@@ -955,8 +955,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2GroundArena';
-        $controller = 0;
+        $location = 'GroundArena';
+        $controller = 2;
         array_push($zone, new GroundArena($data[$j], $location, $controller));
       }
     }
@@ -969,8 +969,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2SpaceArena';
-        $controller = 0;
+        $location = 'SpaceArena';
+        $controller = 2;
         array_push($zone, new SpaceArena($data[$j], $location, $controller));
       }
     }
@@ -983,8 +983,8 @@ function LoadVersion($playerID, $versionNum = -1) {
       for($j=0; $j<count($data); ++$j) {
         if(trim($data[$j]) == "") continue;
         $data[$j] = str_replace("<v2>", " ", $data[$j]);
-        $location = 'p2TempZone';
-        $controller = 0;
+        $location = 'TempZone';
+        $controller = 2;
         array_push($zone, new TempZone($data[$j], $location, $controller));
       }
     }

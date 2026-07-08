@@ -4645,7 +4645,13 @@ function SWUSwapTurnPlayer() {
     // Goldfish: P2 is a passive bot. Whenever the turn swaps to it, auto-pass immediately — exactly
     // like an initiative-claimant. P1's action → swap to P2 → P2 passes → swap back to P1. Two passes
     // (P1 pass + P2 auto-pass) end the action phase and advance to the next regroup, so P1 plays solo.
-    if (SWUGameMode() === 'goldfish' && intval($gTurnPlayer) === 2) {
+    // Goldfish P2, OR the passive opponent of an interrupted replay ("Play from Here" — P1 plays a
+    // different line solo), auto-passes whenever the turn swaps to it, exactly like an initiative
+    // claimant. The function_exists guard keeps the schema test harness (which may not load MatchReplay)
+    // safe; MatchReplayIsInterrupted() is false in every normal/goldfish game.
+    if ((SWUGameMode() === 'goldfish'
+         || (function_exists('MatchReplayIsInterrupted') && MatchReplayIsInterrupted()))
+        && intval($gTurnPlayer) === 2) {
         SWUPassAction(2);
     }
 }

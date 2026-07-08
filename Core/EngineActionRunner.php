@@ -222,11 +222,15 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     'recordAction' => !($options['disableRecording'] ?? false),
   ];
 
-  $matchReplayControlModes = [11101, 11102, 11103];
+  $matchReplayControlModes = [11101, 11102, 11103, 11104];
+  // "Play from Here" (11104) branches a playback session into free play: the guard is lifted so normal
+  // actions run, and those actions are NOT recorded into the replay (so Reset still replays the original).
+  $matchReplayInterrupted = function_exists('MatchReplayIsInterrupted') && MatchReplayIsInterrupted();
   if (
     empty($options['disableRecording']) &&
     function_exists('MatchReplayIsPlaybackSession') &&
     MatchReplayIsPlaybackSession() &&
+    !$matchReplayInterrupted &&
     !in_array($mode, $matchReplayControlModes, true)
   ) {
     return [
@@ -238,7 +242,7 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
     ];
   }
 
-  $matchReplayPendingAction = $result['recordAction']
+  $matchReplayPendingAction = ($result['recordAction'] && !$matchReplayInterrupted)
     ? MatchReplayBeginPotentialAction($folderPath, $gameName)
     : null;
 
@@ -720,6 +724,14 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
       $result['updateCache'] = true;
       $result['recordAction'] = false;
       break;
+    case 11104:
+      $replayResult = MatchReplayEnterInterrupt($folderPath, $gameName);
+      $result['success'] = $replayResult['success'];
+      $result['message'] = $replayResult['message'];
+      $result['writeGamestate'] = false;
+      $result['updateCache'] = true;
+      $result['recordAction'] = false;
+      break;
   }
 
   if (!$result['success'] || !$result['writeGamestate'] || !$result['recordAction']) {
@@ -731,7 +743,7 @@ function EngineExecuteLoadedAction($action, $folderPath, $gameName, $options = [
   }
 
   if ($result['writeGamestate']) {
-    if ($result['recordAction']) {
+    if ($result['recordAction'] && !$matchReplayInterrupted) {
       MatchReplayCommitAction($matchReplayPendingAction, $action);
     }
     // SWUSim state-based game-over: catch a base sitting at lethal damage (incl. post-undo zombie

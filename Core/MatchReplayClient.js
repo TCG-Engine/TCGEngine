@@ -5,6 +5,30 @@
   var dbPromise = null;
   var replayConfig = window.MatchReplayConfig || { enabled: false };
   var replaySubmitPending = false;
+  var replayPlayingAll = false;
+
+  // "Play All" replays action-by-action, each as its OWN ProcessInput request (mode 11101 = Next), with a
+  // delay between steps. Every request re-parses the gamestate, which is the boundary that makes stepping
+  // faithful — the in-memory server batch (mode 11103) skips it and diverges. The delay is the Speed slider.
+  var REPLAY_SPEEDS = { fast: 150, normal: 300, slow: 800 };
+  var REPLAY_SPEED_ORDER = ['fast', 'normal', 'slow'];
+  var REPLAY_SPEED_STORAGE_KEY = 'tcgengine:matchReplaySpeed';
+
+  function replaySpeedKey() {
+    var k = config().replaySpeed;
+    if (REPLAY_SPEEDS[k] === undefined) {
+      try { k = localStorage.getItem(REPLAY_SPEED_STORAGE_KEY); } catch (e) {}
+    }
+    return REPLAY_SPEEDS[k] !== undefined ? k : 'normal';
+  }
+
+  function replayStepDelay() { return REPLAY_SPEEDS[replaySpeedKey()]; }
+
+  function setReplaySpeed(k) {
+    if (REPLAY_SPEEDS[k] === undefined) return;
+    configure({ replaySpeed: k });
+    try { localStorage.setItem(REPLAY_SPEED_STORAGE_KEY, k); } catch (e) {}
+  }
 
   function byId(id) {
     return document.getElementById(id);
@@ -162,9 +186,25 @@
     }
   }
 
+  // Tear down the end-game overlay so the board re-renders live after Reset (or stepping back from the end)
+  // — the game-over overlay + its one-shot flag/poll normally persist until a full page refresh, which is why
+  // Reset left "YOU LOST" up over an already-reset board. Safe to call when no overlay exists (all no-ops).
+  function clearReplayGameOverUI() {
+    var overlay = document.getElementById('game-over-overlay');
+    if (overlay && overlay.parentNode) overlay.parentNode.removeChild(overlay);
+    var banner = document.getElementById('swuGameOverBanner');
+    if (banner && banner.parentNode) banner.parentNode.removeChild(banner);
+    if (window._swuEndGamePollTimer) { clearInterval(window._swuEndGamePollTimer); window._swuEndGamePollTimer = null; }
+    // Re-arm so a later Play All can show the end-game overlay again.
+    window._gameOverShown = false;
+  }
+
   function handleReplaySubmitPayload(payload) {
     if (payload && typeof payload === 'object') {
       refreshPlaybackState(payload.playbackState);
+      // Not at the end anymore (e.g. Reset → action 0): drop any lingering end-game overlay so the freshly
+      // reloaded board is visible without a page refresh. At the end (completed) we leave it for the overlay.
+      if (payload.playbackState && !payload.playbackState.completed) clearReplayGameOverUI();
       if (payload.message) console.log(String(payload.message).trim());
       if (!payload.success) throw new Error(payload.message || 'Replay action failed.');
       return payload;
@@ -243,14 +283,10 @@
     });
   }
 
-  function submitReplayMode(mode) {
-    if (replaySubmitPending) return;
-    replaySubmitPending = true;
-    renderPanelList();
-
-    var submitPromise;
+  // Fire a single replay-control action as its own ProcessInput request; resolves with the JSON payload.
+  function runReplaySubmit(mode) {
     if (typeof window.SubmitEngineInput === 'function') {
-      submitPromise = window.SubmitEngineInput(mode, '', {
+      return window.SubmitEngineInput(mode, '', {
         playerID: replayControlPlayerID(),
         authKey: pageValue('authKey'),
         folderPath: pageValue('folderPath'),
@@ -259,29 +295,70 @@
         afterSubmitReload: true,
         allowSpectator: true
       });
-    } else {
-      var url = processInputUrl();
-      url.searchParams.set('gameName', pageValue('gameName'));
-      url.searchParams.set('playerID', replayControlPlayerID());
-      url.searchParams.set('authKey', pageValue('authKey'));
-      url.searchParams.set('folderPath', pageValue('folderPath'));
-      url.searchParams.set('mode', String(mode));
-      url.searchParams.set('responseFormat', 'json');
-      submitPromise = fetch(url.toString(), { method: 'GET' })
-        .then(function(response) { return response.json(); })
-        .then(function(payload) {
-          requestGameUpdate();
-          return payload;
-        });
     }
+    var url = processInputUrl();
+    url.searchParams.set('gameName', pageValue('gameName'));
+    url.searchParams.set('playerID', replayControlPlayerID());
+    url.searchParams.set('authKey', pageValue('authKey'));
+    url.searchParams.set('folderPath', pageValue('folderPath'));
+    url.searchParams.set('mode', String(mode));
+    url.searchParams.set('responseFormat', 'json');
+    return fetch(url.toString(), { method: 'GET' })
+      .then(function(response) { return response.json(); })
+      .then(function(payload) {
+        requestGameUpdate();
+        return payload;
+      });
+  }
 
-    submitPromise
+  // Single manual control (Reset / Next).
+  function submitReplayMode(mode) {
+    if (replaySubmitPending || replayPlayingAll) return;
+    replaySubmitPending = true;
+    renderPanelList();
+
+    runReplaySubmit(mode)
       .then(handleReplaySubmitPayload)
       .catch(function(error) { StyledAlert(error.message || String(error)); })
       .then(function() {
         replaySubmitPending = false;
         renderPanelList();
       });
+  }
+
+  function stopPlayAll() {
+    replayPlayingAll = false;
+    renderPanelList();
+  }
+
+  // Auto-advance: submit "Next" (11101) one action at a time, pausing replayStepDelay() between each, until
+  // the replay completes / is stopped / errors. Looping Next (not the 11103 batch) keeps every action on its
+  // own re-parsed request boundary, so Play All reproduces the game exactly like manual stepping.
+  function playAll() {
+    if (replaySubmitPending || replayPlayingAll) return;
+    var state = config().playbackState;
+    if (state && state.completed) return;
+    replayPlayingAll = true;
+    renderPanelList();
+
+    function step() {
+      if (!replayPlayingAll) { renderPanelList(); return; }
+      runReplaySubmit(11101)
+        .then(handleReplaySubmitPayload)
+        .then(function() {
+          var st = config().playbackState;
+          if (!replayPlayingAll) { renderPanelList(); return; }
+          if (st && st.completed) { replayPlayingAll = false; renderPanelList(); return; }
+          renderPanelList();
+          setTimeout(step, replayStepDelay());
+        })
+        .catch(function(error) {
+          replayPlayingAll = false;
+          StyledAlert(error.message || String(error));
+          renderPanelList();
+        });
+    }
+    step();
   }
 
   function ensureStyles() {
@@ -339,28 +416,88 @@
     var actions = document.createElement('div');
     actions.className = 'match-replay-actions';
 
+    var busy = replaySubmitPending || replayPlayingAll;
+    // "Play from Here" branched this replay into free play — you play a different line as P1 (opponent
+    // auto-passes). Advancing the recording no longer applies, so Next / Play All / Speed grey out; only
+    // Reset (which restores the replay) stays live.
+    var interrupted = !!state.interrupted;
+
     var reset = document.createElement('button');
     reset.type = 'button';
     reset.textContent = 'Reset';
-    reset.disabled = replaySubmitPending;
+    reset.disabled = busy;
     reset.addEventListener('click', function() { submitReplayMode(11102); });
     actions.appendChild(reset);
 
     var next = document.createElement('button');
     next.type = 'button';
     next.textContent = 'Next';
-    next.disabled = replaySubmitPending || !!state.completed;
+    next.disabled = busy || !!state.completed || interrupted;
     next.addEventListener('click', function() { submitReplayMode(11101); });
     actions.appendChild(next);
 
+    // Play All ⇄ Stop toggle (auto-advances one Next per step at the chosen Speed).
     var all = document.createElement('button');
     all.type = 'button';
-    all.textContent = 'Play All';
-    all.disabled = replaySubmitPending || !!state.completed;
-    all.addEventListener('click', function() { submitReplayMode(11103); });
+    if (replayPlayingAll) {
+      all.textContent = 'Stop';
+      all.addEventListener('click', function() { stopPlayAll(); });
+    } else {
+      all.textContent = 'Play All';
+      all.disabled = replaySubmitPending || !!state.completed || interrupted;
+      all.addEventListener('click', function() { playAll(); });
+    }
     actions.appendChild(all);
 
+    // Play from Here — pause the replay at this position and take control (mode 11104). One click, no
+    // confirm; Reset is the undo. Disabled once already interrupted.
+    var branch = document.createElement('button');
+    branch.type = 'button';
+    branch.textContent = 'Play from Here';
+    branch.disabled = busy || interrupted;
+    branch.addEventListener('click', function() { submitReplayMode(11104); });
+    actions.appendChild(branch);
+
     container.appendChild(actions);
+
+    // Speed slider — Fast / Normal / Slow → 150 / 300 / 800 ms between steps.
+    var speedRow = document.createElement('div');
+    speedRow.className = 'match-replay-actions';
+    speedRow.style.alignItems = 'center';
+
+    var currentSpeed = replaySpeedKey();
+    var speedLabel = document.createElement('span');
+    speedLabel.className = 'match-replay-muted';
+    speedLabel.style.minWidth = '92px';
+    function speedText(k) { return 'Speed: ' + k.charAt(0).toUpperCase() + k.slice(1); }
+    speedLabel.textContent = speedText(currentSpeed);
+
+    var slider = document.createElement('input');
+    slider.type = 'range';
+    slider.min = '0';
+    slider.max = String(REPLAY_SPEED_ORDER.length - 1);
+    slider.step = '1';
+    slider.value = String(Math.max(0, REPLAY_SPEED_ORDER.indexOf(currentSpeed)));
+    slider.style.flex = '1';
+    slider.disabled = interrupted;
+    slider.setAttribute('aria-label', 'Replay speed');
+    slider.addEventListener('input', function() {
+      var k = REPLAY_SPEED_ORDER[parseInt(slider.value, 10)] || 'normal';
+      setReplaySpeed(k);
+      speedLabel.textContent = speedText(k);
+    });
+
+    speedRow.appendChild(speedLabel);
+    speedRow.appendChild(slider);
+    container.appendChild(speedRow);
+
+    if (interrupted) {
+      var hint = document.createElement('div');
+      hint.className = 'match-replay-muted';
+      hint.style.marginTop = '6px';
+      hint.textContent = 'Playing from here as P1 — Reset to restore the replay.';
+      container.appendChild(hint);
+    }
   }
 
   function modalPositionKey() {

@@ -572,6 +572,12 @@ class SchemaTestRunner {
                 $g->passAction($player);
                 break;
 
+            case 'UndoCycle':
+                // SaveVersion→LoadVersion round-trip (a mid-game undo). Reconstructs every zone object
+                // via LoadVersion — regression guard for the relative-Location / owner-PlayerID invariant.
+                $g->undoCycle($player);
+                break;
+
             case 'Claim':
                 $g->takeInitiative($player);
                 break;

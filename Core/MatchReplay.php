@@ -111,6 +111,7 @@ function MatchReplayEmptyCommandState() {
     'actions' => [],
     'nextActionIndex' => 0,
     'playback' => false,
+    'interrupted' => false,
   ];
 }
 
@@ -129,6 +130,7 @@ function MatchReplayNormalizeCommandState($decoded) {
   $state['nextActionIndex'] = max(0, intval($decoded['nextActionIndex'] ?? 0));
   $state['nextActionIndex'] = min($state['nextActionIndex'], count($state['actions']));
   $state['playback'] = !empty($decoded['playback']);
+  $state['interrupted'] = !empty($decoded['interrupted']);
   $state['createdAt'] = strval($decoded['createdAt'] ?? $state['createdAt']);
   $state['updatedAt'] = strval($decoded['updatedAt'] ?? $state['updatedAt']);
   if (isset($decoded['sourceGameName'])) $state['sourceGameName'] = strval($decoded['sourceGameName']);
@@ -146,6 +148,15 @@ function MatchReplayIsPlaybackSession() {
   if (!MatchReplayIsEnabled()) return false;
   $state = MatchReplayGetCommandState();
   return !empty($state['playback']);
+}
+
+// True when a playback session has been branched into free play via "Play from Here" (mode 11104): the
+// action guard is lifted so the viewer can play a different line, and the opponent auto-passes. Reset
+// clears it (the fresh command-state default is interrupted:false).
+function MatchReplayIsInterrupted() {
+  if (!MatchReplayIsEnabled()) return false;
+  $state = MatchReplayGetCommandState();
+  return !empty($state['interrupted']);
 }
 
 function MatchReplayMarkPlaybackGame($gameName) {
@@ -290,12 +301,35 @@ function MatchReplayPlaybackState() {
     'actionCount' => count($state['actions'] ?? []),
     'nextActionIndex' => intval($state['nextActionIndex'] ?? 0),
     'completed' => intval($state['nextActionIndex'] ?? 0) >= count($state['actions'] ?? []),
+    'interrupted' => !empty($state['interrupted']),
     'sourceGameName' => strval($state['sourceGameName'] ?? ''),
     'sourceSavedAt' => strval($state['sourceSavedAt'] ?? ''),
   ];
 }
 
+function MatchReplayEnterInterrupt($rootName, $gameName) {
+  global $updateNumber;
+  $state = MatchReplayGetCommandState();
+  if (empty($state['playback'])) return ['success' => false, 'message' => 'This game is not a replay playback session.'];
+  $state['interrupted'] = true;
+  MatchReplaySetCommandState($state);
+  // Move the client's monotonic reload counter forward so the panel re-renders in the interrupted mode
+  // (same reason Reset bumps it — GetNextTurn echoes $updateNumber and the client skips <= _lastUpdate).
+  $updateNumber = intval($updateNumber) + 1;
+  if (function_exists('WriteGamestate')) WriteGamestate('./' . $rootName . '/');
+  if (function_exists('GamestateUpdated')) GamestateUpdated($gameName);
+  return ['success' => true, 'message' => 'Playing from here — replay paused.'];
+}
+
 function MatchReplayLoadInitialForPlayback($rootName, $gameName, $nextActionIndex = 0) {
+  global $updateNumber;
+  // The client's reload loop only re-renders when the gamestate's $updateNumber moves FORWARD
+  // (GetNextTurn echoes it; NextTurn.php skips any update where number <= _lastUpdate). Reset re-parses the
+  // INITIAL gamestate, whose $updateNumber is its low starting value — a backward jump the client ignores,
+  // so the board stays frozen on the end state until a manual page refresh. Capture the current (pre-reset,
+  // high) number so we can keep it moving forward after the initial state is loaded below.
+  $priorUpdateNumber = intval($updateNumber ?? 0);
+
   $initialText = MatchReplayGetInitialGamestateText();
   if ($initialText === '') return ['success' => false, 'message' => 'Replay initial gamestate is missing.'];
 
@@ -315,6 +349,10 @@ function MatchReplayLoadInitialForPlayback($rootName, $gameName, $nextActionInde
   if (function_exists('ParseGamestate')) {
     ParseGamestate('./' . $rootName . '/');
   }
+  // Force the update counter strictly past what the client last rendered so its monotonic reload guard
+  // accepts the reset and re-renders the initial board (no page refresh needed). WriteGamestate below
+  // persists this, so subsequent Next steps keep climbing from here.
+  $updateNumber = max($priorUpdateNumber, intval($updateNumber)) + 1;
   MatchReplaySetInitialGamestateText($initialText);
   $newState = MatchReplayEmptyCommandState();
   $newState['actions'] = $actions;
@@ -339,6 +377,7 @@ function MatchReplayLoadInitialForPlayback($rootName, $gameName, $nextActionInde
 function MatchReplayReplayNextActionLoaded($rootName, $gameName) {
   $state = MatchReplayGetCommandState();
   if (empty($state['playback'])) return ['success' => false, 'message' => 'This game is not a replay playback session.'];
+  if (!empty($state['interrupted'])) return ['success' => false, 'message' => 'Replay is paused (playing from here). Reset to resume.'];
 
   $actions = $state['actions'] ?? [];
   $nextActionIndex = intval($state['nextActionIndex'] ?? 0);
@@ -380,6 +419,7 @@ function MatchReplayReplayNextActionLoaded($rootName, $gameName) {
 function MatchReplayReplayAllLoaded($rootName, $gameName) {
   $state = MatchReplayGetCommandState();
   if (empty($state['playback'])) return ['success' => false, 'message' => 'This game is not a replay playback session.'];
+  if (!empty($state['interrupted'])) return ['success' => false, 'message' => 'Replay is paused (playing from here). Reset to resume.'];
 
   $actions = $state['actions'] ?? [];
   $start = intval($state['nextActionIndex'] ?? 0);
