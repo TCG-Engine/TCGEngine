@@ -276,6 +276,67 @@
           text-shadow: 0 0 14px rgba(252, 221, 120, 0.72), 0 0 24px rgba(200, 155, 70, 0.56);
      }
 
+     .ga-fast-action-prompt-slot {
+          position: absolute;
+          left: 50%;
+          top: 5px;
+          transform: translateX(-50%);
+          z-index: 4;
+          width: min(270px, calc(100% - 72px));
+          min-height: 18px;
+          display: none;
+          align-items: center;
+          justify-content: center;
+          pointer-events: none;
+     }
+
+     .ga-fast-action-prompt-slot.is-active {
+          display: flex;
+     }
+
+     #gaFastActionPromptSlot #selection-message.ga-mobile-phase-prompt {
+          position: static !important;
+          inset: auto !important;
+          left: auto !important;
+          right: auto !important;
+          top: auto !important;
+          bottom: auto !important;
+          transform: none !important;
+          width: auto !important;
+          max-width: 100% !important;
+          min-height: 18px;
+          margin: 0 !important;
+          padding: 0 !important;
+          gap: 0 !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+          flex-wrap: nowrap !important;
+          border: 0 !important;
+          border-radius: 0 !important;
+          background: transparent !important;
+          box-shadow: none !important;
+          box-sizing: border-box !important;
+          color: rgba(244, 236, 219, 0.88) !important;
+          font: 700 10px/1 var(--ga-font-label) !important;
+          letter-spacing: 0 !important;
+          text-transform: none !important;
+          text-shadow: 0 1px 7px rgba(7, 12, 17, 0.86), 0 0 14px rgba(200, 155, 70, 0.28) !important;
+          pointer-events: none !important;
+          white-space: nowrap;
+     }
+
+     #gaFastActionPromptSlot #selection-message.ga-mobile-phase-prompt > span {
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+     }
+
+     #gaFastActionPromptSlot #selection-message.ga-mobile-phase-prompt > button {
+          display: none !important;
+     }
+
      #myFieldSlot,
      #theirFieldSlot,
      #myHandSlot,
@@ -904,6 +965,7 @@
 
      <div class="ga-m-center-strip">
           <div id="theirIntentSlot" class="ga-zone" data-label="Their Intent"></div>
+          <div id="gaFastActionPromptSlot" class="ga-fast-action-prompt-slot" aria-live="polite"></div>
           <div id="gaPhaseTrack" class="ga-phase-track" aria-live="polite" aria-label="Turn phases">
                <span class="ga-phase-step" data-phase-step="WU">Wake Up</span>
                <span class="ga-phase-step" data-phase-step="MAT">Materialize</span>
@@ -1084,6 +1146,20 @@
           waitingMessageBuilder: function(ctx) {
                if (!ctx || typeof ctx.defaultBuilder !== 'function') return null;
                return ctx.defaultBuilder();
+          }
+     };
+
+     window.SelectionMessageSettings = {
+          embedTargetId: 'gaFastActionPromptSlot',
+          embeddedClassName: 'ga-mobile-phase-prompt',
+          embeddedTargetClassName: 'is-active',
+          shouldEmbed: function(ctx) {
+               if (!ctx || !ctx.showPassButton) return false;
+               return String(ctx.message || '').trim().toLowerCase() === 'take a fast action?';
+          },
+          afterEmbed: function(messageEl) {
+               var passButton = messageEl ? messageEl.querySelector('button') : null;
+               if (passButton && passButton.remove) passButton.remove();
           }
      };
 

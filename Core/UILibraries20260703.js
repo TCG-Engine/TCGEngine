@@ -4780,6 +4780,86 @@ function ClearSelectionMode() {
   if (iconChoiceModal) iconChoiceModal.remove();
 }
 
+function ResetSelectionMessageContainer(messageEl) {
+  if (!messageEl) return;
+
+  if (messageEl.__selectionMessageEmbedTarget && messageEl.__selectionMessageEmbedTargetClass) {
+    messageEl.__selectionMessageEmbedTarget.classList.remove(messageEl.__selectionMessageEmbedTargetClass);
+  }
+
+  if (Array.isArray(messageEl.__selectionMessageEmbedClasses)) {
+    messageEl.__selectionMessageEmbedClasses.forEach(function(cls) {
+      messageEl.classList.remove(cls);
+    });
+  }
+
+  messageEl.__selectionMessageEmbedTarget = null;
+  messageEl.__selectionMessageEmbedTargetClass = null;
+  messageEl.__selectionMessageEmbedClasses = null;
+  messageEl.classList.remove('selection-message-embedded');
+  messageEl.removeAttribute('data-selection-message-embedded');
+
+  if (messageEl.parentElement !== document.body) {
+    document.body.appendChild(messageEl);
+  }
+}
+
+function ShouldEmbedSelectionMessage(settings, msg, showPassButton, decisionIndex) {
+  if (!settings || typeof settings !== 'object') return false;
+  if (typeof settings.shouldEmbed === 'function') {
+    return !!settings.shouldEmbed({
+      message: msg,
+      showPassButton: !!showPassButton,
+      decisionIndex: decisionIndex
+    });
+  }
+
+  if (!Array.isArray(settings.embedMessages)) return false;
+  const normalizedMessage = String(msg || '').trim().toLowerCase();
+  return settings.embedMessages.some(function(candidate) {
+    return String(candidate || '').trim().toLowerCase() === normalizedMessage;
+  });
+}
+
+function TryEmbedSelectionMessage(messageEl, msg, showPassButton, decisionIndex) {
+  const settings = window.SelectionMessageSettings || {};
+  if (!ShouldEmbedSelectionMessage(settings, msg, showPassButton, decisionIndex)) return false;
+  if (typeof settings.embedTargetId !== 'string' || settings.embedTargetId === '') return false;
+
+  const target = document.getElementById(settings.embedTargetId);
+  if (!target) return false;
+
+  const extraClasses = String(settings.embeddedClassName || '')
+    .split(/\s+/)
+    .map(function(cls) { return cls.trim(); })
+    .filter(Boolean);
+  const targetClass = (typeof settings.embeddedTargetClassName === 'string' && settings.embeddedTargetClassName !== '')
+    ? settings.embeddedTargetClassName
+    : 'has-selection-message';
+
+  target.appendChild(messageEl);
+  messageEl.classList.add('selection-message-embedded');
+  extraClasses.forEach(function(cls) {
+    messageEl.classList.add(cls);
+  });
+  target.classList.add(targetClass);
+  messageEl.__selectionMessageEmbedTarget = target;
+  messageEl.__selectionMessageEmbedTargetClass = targetClass;
+  messageEl.__selectionMessageEmbedClasses = extraClasses;
+  messageEl.setAttribute('data-selection-message-embedded', settings.embedTargetId);
+
+  if (typeof settings.afterEmbed === 'function') {
+    settings.afterEmbed(messageEl, {
+      target: target,
+      message: msg,
+      showPassButton: !!showPassButton,
+      decisionIndex: decisionIndex
+    });
+  }
+
+  return true;
+}
+
 function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
   // Use flash message or unobtrusive banner
   let existing = document.getElementById('selection-message');
@@ -4788,6 +4868,7 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
     existing.id = 'selection-message';
     document.body.appendChild(existing);
   }
+  ResetSelectionMessageContainer(existing);
 
   if (existing.__draggableModalAbortController) {
     existing.__draggableModalAbortController.abort();
@@ -4870,7 +4951,9 @@ function ShowSelectionMessage(msg, showPassButton, decisionIndex) {
   }
 
   existing.style.display = 'flex';
-  PositionSelectionMessageForMobile(existing, msgSpan);
+  if (!TryEmbedSelectionMessage(existing, msg, showPassButton, decisionIndex)) {
+    PositionSelectionMessageForMobile(existing, msgSpan);
+  }
 }
 
 function HideSelectionMessage() {
@@ -4881,6 +4964,7 @@ function HideSelectionMessage() {
       existing.__draggableModalAbortController = null;
     }
     existing.style.display = 'none';
+    ResetSelectionMessageContainer(existing);
   }
 }
 
@@ -5151,6 +5235,7 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
     existing.id = 'selection-message';
     document.body.appendChild(existing);
   }
+  ResetSelectionMessageContainer(existing);
   if (existing.__draggableModalAbortController) {
     existing.__draggableModalAbortController.abort();
     existing.__draggableModalAbortController = null;

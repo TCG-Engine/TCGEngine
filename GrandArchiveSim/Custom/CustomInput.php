@@ -6,6 +6,10 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
     $index = $cardArr[1];
     switch ($zone) {
       case "myHealth"://Pass button
+        DecisionQueueController::CleanupRemovedCards();
+        if(TryPassFastOpportunityDecision($playerID)) {
+            break;
+        }
         // Only the turn player can pass
         if(GetTurnPlayer() !== $playerID) {
             SetFlashMessage("Only the turn player can pass.");
@@ -13,7 +17,6 @@ function CustomWidgetInput($playerID, $actionCard, $action) {
         }
         // Don't end turn if EffectStack has cards or DQs are pending
         $effectStack = &GetEffectStack();
-        DecisionQueueController::CleanupRemovedCards();
         $effectStack = &GetEffectStack();
         if(!empty($effectStack)) {
             SetFlashMessage("Cannot pass while effects are pending resolution.");

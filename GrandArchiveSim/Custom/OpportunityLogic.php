@@ -29,10 +29,9 @@ function PlayerHasFastOpportunityDecision($player) {
         if(isset($decision->removed) && $decision->removed) continue;
 
         $type = $decision->Type ?? "";
-        $tooltip = $decision->Tooltip ?? "";
         $param = $decision->Param ?? "";
 
-        if(($type === "MZCHOOSE" || $type === "MZMAYCHOOSE") && $tooltip === "Take_a_fast_action?") {
+        if(IsFastOpportunityDecision($decision)) {
             return true;
         }
 
@@ -47,6 +46,26 @@ function PlayerHasFastOpportunityDecision($player) {
         }
     }
     return false;
+}
+
+function IsFastOpportunityDecision($decision) {
+    if($decision === null || !is_object($decision)) return false;
+    if(isset($decision->removed) && $decision->removed) return false;
+
+    $type = $decision->Type ?? "";
+    $tooltip = $decision->Tooltip ?? "";
+    return ($type === "MZCHOOSE" || $type === "MZMAYCHOOSE") && $tooltip === "Take_a_fast_action?";
+}
+
+function TryPassFastOpportunityDecision($player) {
+    $player = intval($player);
+    $dqController = new DecisionQueueController();
+    $decision = $dqController->NextDecision($player);
+    if(!IsFastOpportunityDecision($decision)) return false;
+
+    $dqController->PopDecision($player);
+    $dqController->ExecuteStaticMethods($player, "PASS");
+    return true;
 }
 
 function GetLiveEffectStackEntries() {
