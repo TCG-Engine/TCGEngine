@@ -36,12 +36,14 @@
 
     .mzrearrange-modal {
       position: relative;
+      width: min(560px, calc(100vw - 16px));
       background: linear-gradient(145deg, #1a2a3a, #0d1b2a);
       border: 2px solid #3a5a7a;
       border-radius: 16px;
       max-width: 95vw;
       max-height: 85vh;
-      overflow: auto;
+      overflow-x: hidden;
+      overflow-y: auto;
       box-shadow: 0 0 60px rgba(0, 100, 200, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
       animation: mzrearrange-slide-up 0.4s ease-out;
       pointer-events: auto;
@@ -98,7 +100,7 @@
     }
 
     .mzrearrange-body {
-      padding: 10px 24px 24px 24px;
+      padding: 10px clamp(12px, 4vw, 24px) 24px clamp(12px, 4vw, 24px);
     }
 
     @keyframes mzrearrange-slide-up {
@@ -113,7 +115,7 @@
     }
 
     .mzrearrange-title {
-      font-size: 22px;
+      font-size: clamp(18px, 5vw, 22px);
       color: #fff;
       text-align: center;
       margin-bottom: 20px;
@@ -122,29 +124,28 @@
     }
 
     .mzrearrange-piles-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: clamp(12px, 3vw, 18px);
       margin-bottom: 24px;
     }
 
     .mzrearrange-pile {
+      box-sizing: border-box;
       background: rgba(0, 20, 40, 0.6);
       border: 2px solid #2a4a6a;
       border-radius: 12px;
-      padding: 16px;
-      min-width: 180px;
+      padding: clamp(10px, 3vw, 16px);
+      min-width: 0;
       min-height: 200px;
-      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-      will-change: transform, box-shadow;
+      transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+      will-change: box-shadow;
     }
 
     .mzrearrange-pile.drag-over {
       border-color: #00ccff;
       background: rgba(0, 100, 150, 0.3);
       box-shadow: 0 0 30px rgba(0, 200, 255, 0.4);
-      transform: scale(1.02);
     }
 
     .mzrearrange-pile-header {
@@ -171,9 +172,16 @@
       border-radius: 8px;
       transition: transform 0.15s ease, box-shadow 0.15s ease;
       user-select: none;
+      touch-action: none;
       background: rgba(30, 50, 70, 0.5);
       padding: 4px;
       will-change: transform;
+    }
+
+    .mzrearrange-card img {
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
     }
 
     .mzrearrange-card:hover {
@@ -194,7 +202,7 @@
       pointer-events: none;
       z-index: 10000;
       opacity: 0.9;
-      transform: rotate(5deg) scale(1.1);
+      transform: rotate(2deg) scale(1.03);
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
       will-change: transform, left, top;
       transition: none;
@@ -230,7 +238,7 @@
     }
 
     .mzrearrange-card.dropping {
-      animation: mzrearrange-drop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      animation: mzrearrange-drop 0.16s ease-out;
     }
 
     .mzrearrange-card-order {
@@ -275,6 +283,12 @@
       text-align: center;
       padding: 20px;
       font-size: 13px;
+    }
+
+    @media (max-width: 340px) {
+      .mzrearrange-piles-container {
+        grid-template-columns: 1fr;
+      }
     }
   `;
 
@@ -611,6 +625,24 @@
     let currentMouseX = 0;
     let currentMouseY = 0;
     let animationFrameId = null;
+    let activePointerDrag = null;
+    let activeTouchDrag = null;
+    const DRAG_START_THRESHOLD = 6;
+    const MAX_DROP_ANIMATION_DISTANCE = 72;
+    const supportsPointerEvents = typeof window.PointerEvent !== 'undefined';
+
+    if (modal.__mzrearrangeDndAbortController) {
+      modal.__mzrearrangeDndAbortController.abort();
+      modal.__mzrearrangeDndAbortController = null;
+    }
+
+    const listenerOptions = {};
+    const passiveListenerOptions = { passive: false };
+    if (typeof AbortController !== 'undefined') {
+      modal.__mzrearrangeDndAbortController = new AbortController();
+      listenerOptions.signal = modal.__mzrearrangeDndAbortController.signal;
+      passiveListenerOptions.signal = modal.__mzrearrangeDndAbortController.signal;
+    }
 
     function setCardDetailSuppressed(isSuppressed) {
       window._suppressCardDetail = isSuppressed;
@@ -618,46 +650,39 @@
         HideCardDetail();
       }
     }
-    
-    /**
-     * Setup listeners for cards in a container
-     */
-    function setupCardDragListeners(container) {
-      const cards = container.querySelectorAll('.mzrearrange-card');
-      cards.forEach(card => {
-        card.addEventListener('dragstart', handleDragStart);
-        card.addEventListener('dragend', handleDragEnd);
-      });
-    }
-    
-    // Make setupCardDragListeners available globally for reset
-    window._mzrearrangeSetupCardDragListeners = setupCardDragListeners;
-    
-    /**
-     * Smoothly update preview position using requestAnimationFrame
-     */
-    function updatePreviewPosition() {
-      if (dragPreview && currentMouseX && currentMouseY) {
-        dragPreview.style.left = (currentMouseX + 10) + 'px';
-        dragPreview.style.top = (currentMouseY + 10) + 'px';
-      }
-      if (draggedCard) {
-        animationFrameId = requestAnimationFrame(updatePreviewPosition);
-      }
-    }
-    
-    function handleDragStart(e) {
-      draggedCard = e.target.closest('.mzrearrange-card');
-      if (!draggedCard) return;
 
+    function hasMovedEnough(startX, startY, clientX, clientY) {
+      return Math.abs(clientX - startX) >= DRAG_START_THRESHOLD ||
+        Math.abs(clientY - startY) >= DRAG_START_THRESHOLD;
+    }
+
+    function nextRealCardSibling(card) {
+      let next = card ? card.nextElementSibling : null;
+      while (next && !next.classList.contains('mzrearrange-card')) {
+        next = next.nextElementSibling;
+      }
+      return next;
+    }
+
+    function clampDropDelta(deltaX, deltaY) {
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+      if (distance <= MAX_DROP_ANIMATION_DISTANCE || distance === 0) {
+        return { x: deltaX, y: deltaY };
+      }
+      const ratio = MAX_DROP_ANIMATION_DISTANCE / distance;
+      return { x: deltaX * ratio, y: deltaY * ratio };
+    }
+
+    function beginCardDrag(card, clientX, clientY) {
+      if (!card || draggedCard) return false;
+
+      draggedCard = card;
+      currentMouseX = clientX;
+      currentMouseY = clientY;
       setCardDetailSuppressed(true);
-      
+
       draggedCard.classList.add('dragging');
-      
-      // Store initial mouse position
-      currentMouseX = e.clientX;
-      currentMouseY = e.clientY;
-      
+
       // Create drag preview
       dragPreview = draggedCard.cloneNode(true);
       dragPreview.classList.add('drag-preview');
@@ -665,7 +690,7 @@
       dragPreview.style.left = (currentMouseX + 10) + 'px';
       dragPreview.style.top = (currentMouseY + 10) + 'px';
       document.body.appendChild(dragPreview);
-      
+
       // Create placeholder (smaller than actual card)
       placeholder = document.createElement('div');
       placeholder.className = 'mzrearrange-card-placeholder';
@@ -674,47 +699,118 @@
       placeholder.style.width = draggedCard.offsetWidth + 'px';
       placeholder.dataset.originalHeight = placeholderHeight;
       placeholder.dataset.fullHeight = draggedCard.offsetHeight;
-      
-      // Set drag image to transparent (we use our own preview)
-      const emptyImg = new Image();
-      emptyImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
-      e.dataTransfer.setDragImage(emptyImg, 0, 0);
-      e.dataTransfer.effectAllowed = 'move';
-      
+
       // Start smooth animation loop
       animationFrameId = requestAnimationFrame(updatePreviewPosition);
+      return true;
     }
-    
-    function handleDragEnd(e) {
-      // Cancel animation frame
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId);
-        animationFrameId = null;
+
+    function updateDropTargetAtPoint(clientX, clientY) {
+      if (!draggedCard || !placeholder) return;
+
+      const target = document.elementFromPoint(clientX, clientY);
+      const pile = target && target.closest ? target.closest('.mzrearrange-pile') : null;
+
+      modal.querySelectorAll('.mzrearrange-pile').forEach(pileEl => {
+        pileEl.classList.toggle('drag-over', pileEl === pile);
+      });
+
+      if (!pile || !modal.contains(pile)) {
+        if (placeholder.parentNode) placeholder.remove();
+        placeholder.classList.remove('active');
+        return;
       }
-      
-      if (draggedCard) {
-        draggedCard.classList.remove('dragging');
+
+      positionPlaceholderInPile(pile, clientY);
+    }
+
+    function positionPlaceholderInPile(pile, clientY) {
+      if (!draggedCard || !placeholder) return;
+
+      const cardsContainer = pile.querySelector('.mzrearrange-cards-container');
+      if (!cardsContainer) return;
+
+      const afterElement = getDragAfterElement(cardsContainer, clientY);
+
+      // Remove empty message if present
+      const emptyMsg = cardsContainer.querySelector('.mzrearrange-empty-message');
+      if (emptyMsg) emptyMsg.remove();
+
+      // Determine if placeholder would actually move the card
+      const draggedCardParent = draggedCard.parentNode;
+      let wouldMove = false;
+
+      if (draggedCardParent !== cardsContainer) {
+        // Moving to a different pile - always show placeholder
+        wouldMove = true;
+      } else if (afterElement === null) {
+        // Dropping at end - no move if the dragged card is already the last real card
+        wouldMove = nextRealCardSibling(draggedCard) !== null;
+      } else {
+        // Dropping before the dragged card's current next real card is the same position
+        wouldMove = afterElement !== nextRealCardSibling(draggedCard);
       }
-      
-      if (dragPreview) {
-        dragPreview.remove();
-        dragPreview = null;
+
+      if (!wouldMove) {
+        if (placeholder.parentNode) placeholder.remove();
+        placeholder.classList.remove('active');
+        return;
       }
-      
-      if (placeholder && placeholder.parentNode) {
-        placeholder.remove();
+
+      // Position placeholder
+      if (placeholder.parentNode !== cardsContainer) {
+        if (placeholder.parentNode) placeholder.remove();
       }
-      placeholder = null;
-      
-      // Remove drag-over class from all piles
+
+      if (afterElement) {
+        cardsContainer.insertBefore(placeholder, afterElement);
+      } else {
+        cardsContainer.appendChild(placeholder);
+      }
+
+      placeholder.classList.add('active');
+    }
+
+    function commitDraggedCardToPlaceholder() {
+      if (!draggedCard || !placeholder || !placeholder.parentNode) return false;
+
+      // Capture positions for FLIP animation
+      const draggedRect = draggedCard.getBoundingClientRect();
+      const dragPreviewRect = dragPreview ? dragPreview.getBoundingClientRect() : draggedRect;
+
+      // Move the card to placeholder position
+      placeholder.parentNode.insertBefore(draggedCard, placeholder);
+      placeholder.remove();
+
+      // Get final position
+      const finalRect = draggedCard.getBoundingClientRect();
+
+      // Calculate transform from drag position to final position
+      const deltaX = dragPreviewRect.left - finalRect.left;
+      const deltaY = dragPreviewRect.top - finalRect.top;
+      const clampedDelta = clampDropDelta(deltaX, deltaY);
+
+      // Only animate if there's actual movement
+      if (Math.abs(clampedDelta.x) > 1 || Math.abs(clampedDelta.y) > 1) {
+        draggedCard.style.setProperty('--drop-from-transform', `translate(${clampedDelta.x}px, ${clampedDelta.y}px)`);
+        draggedCard.classList.add('dropping');
+
+        setTimeout(() => {
+          draggedCard.classList.remove('dropping');
+          draggedCard.style.removeProperty('--drop-from-transform');
+        }, 180);
+      }
+
+      return true;
+    }
+
+    function normalizePileContainers() {
       modal.querySelectorAll('.mzrearrange-pile').forEach(pile => {
         pile.classList.remove('drag-over');
       });
-      
-      // Update all order badges
+
       modal.querySelectorAll('.mzrearrange-cards-container').forEach(container => {
         updateOrderBadges(container);
-        // Update empty message
         const cards = container.querySelectorAll('.mzrearrange-card');
         const emptyMsg = container.querySelector('.mzrearrange-empty-message');
         if (cards.length === 0 && !emptyMsg) {
@@ -726,20 +822,262 @@
           emptyMsg.remove();
         }
       });
-      
+    }
+
+    function finishCardDrag() {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = null;
+      }
+
+      if (draggedCard) {
+        draggedCard.classList.remove('dragging');
+      }
+
+      if (dragPreview) {
+        dragPreview.remove();
+        dragPreview = null;
+      }
+
+      if (placeholder && placeholder.parentNode) {
+        placeholder.remove();
+      }
+      placeholder = null;
+
+      normalizePileContainers();
+
       draggedCard = null;
       currentMouseX = 0;
       currentMouseY = 0;
       setCardDetailSuppressed(false);
     }
+
+    function updateDirectDrag(state, clientX, clientY) {
+      if (!state) return false;
+      state.currentX = clientX;
+      state.currentY = clientY;
+
+      if (!state.hasStarted) {
+        if (!hasMovedEnough(state.startX, state.startY, clientX, clientY)) return false;
+        state.hasStarted = beginCardDrag(state.card, state.startX, state.startY);
+      }
+
+      if (!state.hasStarted) return false;
+      currentMouseX = clientX;
+      currentMouseY = clientY;
+      updateDropTargetAtPoint(clientX, clientY);
+      return true;
+    }
+
+    /**
+     * Setup listeners for cards in a container
+     */
+    function setupCardDragListeners(container) {
+      const cards = container.querySelectorAll('.mzrearrange-card');
+      cards.forEach(card => {
+        card.addEventListener('dragstart', handleDragStart, listenerOptions);
+        card.addEventListener('dragend', handleDragEnd, listenerOptions);
+        if (supportsPointerEvents) {
+          card.addEventListener('pointerdown', handlePointerDown, passiveListenerOptions);
+        } else {
+          card.addEventListener('touchstart', handleTouchStart, passiveListenerOptions);
+        }
+      });
+    }
+
+    // Make setupCardDragListeners available globally for reset
+    window._mzrearrangeSetupCardDragListeners = setupCardDragListeners;
+
+    /**
+     * Smoothly update preview position using requestAnimationFrame
+     */
+    function updatePreviewPosition() {
+      if (dragPreview && Number.isFinite(currentMouseX) && Number.isFinite(currentMouseY)) {
+        dragPreview.style.left = (currentMouseX + 10) + 'px';
+        dragPreview.style.top = (currentMouseY + 10) + 'px';
+      }
+      if (draggedCard) {
+        animationFrameId = requestAnimationFrame(updatePreviewPosition);
+      }
+    }
     
+    function handleDragStart(e) {
+      if (activePointerDrag || activeTouchDrag) {
+        e.preventDefault();
+        return;
+      }
+
+      const card = e.target.closest('.mzrearrange-card');
+      if (!beginCardDrag(card, e.clientX, e.clientY)) {
+        e.preventDefault();
+        return;
+      }
+
+      // Set drag image to transparent (we use our own preview)
+      if (e.dataTransfer) {
+        const emptyImg = new Image();
+        emptyImg.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+        e.dataTransfer.setDragImage(emptyImg, 0, 0);
+        e.dataTransfer.effectAllowed = 'move';
+      }
+    }
+
+    function handleDragEnd(e) {
+      finishCardDrag();
+    }
+
     // Track mouse position continuously for smooth preview movement
     document.addEventListener('dragover', (e) => {
-      if (draggedCard && e.clientX && e.clientY) {
+      if (draggedCard && Number.isFinite(e.clientX) && Number.isFinite(e.clientY)) {
         currentMouseX = e.clientX;
         currentMouseY = e.clientY;
       }
-    });
+    }, listenerOptions);
+
+    function handlePointerDown(e) {
+      if (e.pointerType === 'mouse' || (typeof e.button === 'number' && e.button !== 0)) return;
+      if (activePointerDrag || draggedCard) return;
+
+      const card = e.target.closest('.mzrearrange-card');
+      if (!card) return;
+
+      activePointerDrag = {
+        pointerId: e.pointerId,
+        card: card,
+        startX: e.clientX,
+        startY: e.clientY,
+        currentX: e.clientX,
+        currentY: e.clientY,
+        hasStarted: false
+      };
+
+      if (card.setPointerCapture) {
+        try {
+          card.setPointerCapture(e.pointerId);
+        } catch (err) {
+          // Some browsers reject capture if the pointer has already been released.
+        }
+      }
+
+      e.preventDefault();
+    }
+
+    function handlePointerMove(e) {
+      if (!activePointerDrag || e.pointerId !== activePointerDrag.pointerId) return;
+      if (updateDirectDrag(activePointerDrag, e.clientX, e.clientY)) {
+        e.preventDefault();
+      }
+    }
+
+    function handlePointerUp(e) {
+      if (!activePointerDrag || e.pointerId !== activePointerDrag.pointerId) return;
+      const state = activePointerDrag;
+      activePointerDrag = null;
+
+      if (state.card && state.card.releasePointerCapture) {
+        try {
+          state.card.releasePointerCapture(e.pointerId);
+        } catch (err) {
+          // Ignore capture-release mismatches.
+        }
+      }
+
+      if (state.hasStarted) {
+        updateDirectDrag(state, e.clientX, e.clientY);
+        commitDraggedCardToPlaceholder();
+        finishCardDrag();
+        e.preventDefault();
+      }
+    }
+
+    function handlePointerCancel(e) {
+      if (!activePointerDrag || e.pointerId !== activePointerDrag.pointerId) return;
+      const state = activePointerDrag;
+      activePointerDrag = null;
+
+      if (state.card && state.card.releasePointerCapture) {
+        try {
+          state.card.releasePointerCapture(e.pointerId);
+        } catch (err) {
+          // Ignore capture-release mismatches.
+        }
+      }
+
+      if (state.hasStarted) finishCardDrag();
+    }
+
+    function getTouchByIdentifier(touches, identifier) {
+      if (!touches) return null;
+      for (let i = 0; i < touches.length; ++i) {
+        if (touches[i].identifier === identifier) return touches[i];
+      }
+      return null;
+    }
+
+    function handleTouchStart(e) {
+      if (activeTouchDrag || draggedCard || !e.touches || e.touches.length !== 1) return;
+
+      const card = e.target.closest('.mzrearrange-card');
+      if (!card) return;
+
+      const touch = e.touches[0];
+      activeTouchDrag = {
+        identifier: touch.identifier,
+        card: card,
+        startX: touch.clientX,
+        startY: touch.clientY,
+        currentX: touch.clientX,
+        currentY: touch.clientY,
+        hasStarted: false
+      };
+
+      e.preventDefault();
+    }
+
+    function handleTouchMove(e) {
+      if (!activeTouchDrag) return;
+      const touch = getTouchByIdentifier(e.touches, activeTouchDrag.identifier);
+      if (!touch) return;
+
+      if (updateDirectDrag(activeTouchDrag, touch.clientX, touch.clientY)) {
+        e.preventDefault();
+      }
+    }
+
+    function handleTouchEnd(e) {
+      if (!activeTouchDrag) return;
+      const touch = getTouchByIdentifier(e.changedTouches, activeTouchDrag.identifier);
+      if (!touch) return;
+
+      const state = activeTouchDrag;
+      activeTouchDrag = null;
+      if (state.hasStarted) {
+        updateDirectDrag(state, touch.clientX, touch.clientY);
+        commitDraggedCardToPlaceholder();
+        finishCardDrag();
+        e.preventDefault();
+      }
+    }
+
+    function handleTouchCancel(e) {
+      if (!activeTouchDrag) return;
+      const touch = getTouchByIdentifier(e.changedTouches, activeTouchDrag.identifier);
+      if (!touch) return;
+
+      const state = activeTouchDrag;
+      activeTouchDrag = null;
+      if (state.hasStarted) finishCardDrag();
+    }
+
+    if (supportsPointerEvents) {
+      window.addEventListener('pointermove', handlePointerMove, passiveListenerOptions);
+      window.addEventListener('pointerup', handlePointerUp, listenerOptions);
+      window.addEventListener('pointercancel', handlePointerCancel, listenerOptions);
+    } else {
+      window.addEventListener('touchmove', handleTouchMove, passiveListenerOptions);
+      window.addEventListener('touchend', handleTouchEnd, passiveListenerOptions);
+      window.addEventListener('touchcancel', handleTouchCancel, listenerOptions);
+    }
     
     // Setup pile drop zones
     const piles = modal.querySelectorAll('.mzrearrange-pile');
@@ -748,65 +1086,13 @@
       
       pile.addEventListener('dragover', (e) => {
         e.preventDefault();
-        e.dataTransfer.dropEffect = 'move';
+        if (e.dataTransfer) e.dataTransfer.dropEffect = 'move';
         pile.classList.add('drag-over');
         
         if (!draggedCard) return;
-        
-        // Find insert position
-        const cards = [...cardsContainer.querySelectorAll('.mzrearrange-card:not(.dragging)')];
-        const afterElement = getDragAfterElement(cardsContainer, e.clientY);
-        
-        // Remove empty message if present
-        const emptyMsg = cardsContainer.querySelector('.mzrearrange-empty-message');
-        if (emptyMsg) emptyMsg.remove();
-        
-        // Determine if placeholder would actually move the card
-        const draggedCardParent = draggedCard.parentNode;
-        let wouldMove = false;
-        
-        if (draggedCardParent !== cardsContainer) {
-          // Moving to a different pile - always show placeholder
-          wouldMove = true;
-        } else {
-          // Same pile - check if position would actually change
-          if (afterElement === null) {
-            // Dropping at end - check if dragged card is not already last
-            const lastCard = cards[cards.length - 1];
-            wouldMove = (lastCard !== draggedCard);
-          } else {
-            // Check if we're not dropping in the same position
-            const nextSibling = draggedCard.nextElementSibling;
-            const prevSibling = draggedCard.previousElementSibling;
-            // Would move if afterElement is not the dragged card's next sibling
-            // and afterElement is not the dragged card itself
-            wouldMove = (afterElement !== draggedCard && afterElement !== nextSibling);
-          }
-        }
-        
-        if (!wouldMove) {
-          // Remove placeholder if it wouldn't actually move the card
-          if (placeholder.parentNode) {
-            placeholder.remove();
-            placeholder.classList.remove('active');
-          }
-          return;
-        }
-        
-        // Position placeholder
-        if (placeholder.parentNode !== cardsContainer) {
-          if (placeholder.parentNode) placeholder.remove();
-        }
-        
-        if (afterElement) {
-          cardsContainer.insertBefore(placeholder, afterElement);
-        } else {
-          cardsContainer.appendChild(placeholder);
-        }
-        
-        // Add active class for better visual feedback
-        placeholder.classList.add('active');
-      });
+
+        positionPlaceholderInPile(pile, e.clientY);
+      }, listenerOptions);
       
       pile.addEventListener('dragleave', (e) => {
         // Only remove if actually leaving the pile
@@ -816,50 +1102,13 @@
             placeholder.classList.remove('active');
           }
         }
-      });
+      }, listenerOptions);
       
       pile.addEventListener('drop', (e) => {
         e.preventDefault();
         pile.classList.remove('drag-over');
-        
-        if (!draggedCard || !placeholder) return;
-        
-        // Capture positions for FLIP animation
-        const draggedRect = draggedCard.getBoundingClientRect();
-        const dragPreviewRect = dragPreview ? dragPreview.getBoundingClientRect() : draggedRect;
-        
-        // Move the card to placeholder position
-        if (placeholder.parentNode) {
-          placeholder.parentNode.insertBefore(draggedCard, placeholder);
-          placeholder.remove();
-        }
-        
-        // Get final position
-        const finalRect = draggedCard.getBoundingClientRect();
-        
-        // Calculate transform from drag position to final position
-        const deltaX = dragPreviewRect.left - finalRect.left;
-        const deltaY = dragPreviewRect.top - finalRect.top;
-        
-        // Only animate if there's actual movement
-        if (Math.abs(deltaX) > 1 || Math.abs(deltaY) > 1) {
-          // Set custom property for animation
-          draggedCard.style.setProperty('--drop-from-transform', `translate(${deltaX}px, ${deltaY}px)`);
-          
-          // Add dropping class to trigger animation
-          draggedCard.classList.add('dropping');
-          
-          // Remove animation class after animation completes
-          setTimeout(() => {
-            draggedCard.classList.remove('dropping');
-            draggedCard.style.removeProperty('--drop-from-transform');
-          }, 300);
-        }
-        
-        // Re-setup listeners for the moved card
-        draggedCard.addEventListener('dragstart', handleDragStart);
-        draggedCard.addEventListener('dragend', handleDragEnd);
-      });
+        commitDraggedCardToPlaceholder();
+      }, listenerOptions);
       
       // Setup listeners for initial cards
       setupCardDragListeners(cardsContainer);
@@ -897,6 +1146,11 @@
   function HideMZRearrangePopup() {
     const existing = document.getElementById('mzrearrange-popup');
     if (existing) {
+      const modal = existing.querySelector('.mzrearrange-modal');
+      if (modal && modal.__mzrearrangeDndAbortController) {
+        modal.__mzrearrangeDndAbortController.abort();
+        modal.__mzrearrangeDndAbortController = null;
+      }
       existing.style.animation = 'mzrearrange-fade-in 0.2s ease-out reverse';
       setTimeout(() => existing.remove(), 150);
     }
