@@ -1,0 +1,17 @@
+/* switch.css — token-driven toggle. .btn-free, board-safe. Markup: <button class="switch" aria-pressed>
+   toggled by adding/removing .is-on (JS). Track + ::before knob; all colors from --switch-* tokens. */
+.switch {
+  position: relative; display: inline-block; width: var(--switch-w, 46px); height: var(--switch-h, 24px);
+  padding: 0; border: 0; cursor: pointer; vertical-align: middle;
+  background: var(--switch-track, var(--surface-sunken, #394452));
+  border-radius: 999px; transition: background 140ms;
+}
+.switch::before {
+  content: ''; position: absolute; top: 50%; left: 3px; transform: translateY(-50%);
+  width: var(--switch-knob-size, 16px); height: var(--switch-knob-size, 16px); border-radius: 50%;
+  background: var(--switch-knob, #fff); box-shadow: 0 1px 3px rgba(0,0,0,0.45);
+  transition: left 140ms, background 140ms;
+}
+.switch.is-on { background: var(--switch-on, var(--accent, #5aa0ff)); }
+.switch.is-on::before { left: calc(100% - var(--switch-knob-size, 18px) - 3px); background: var(--switch-on-knob, var(--switch-knob, #fff)); }
+.switch:disabled { opacity: .42; cursor: default; }

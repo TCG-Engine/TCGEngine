@@ -6,7 +6,7 @@ require_once __DIR__ . '/SiteDef.php';   // LoadSiteDef() — for RenderSiteStyl
 // source of truth = the SiteDef; replaces the old per-app hud-head.php partial.
 function RenderSiteStyles(string $site): string {
     $def = LoadSiteDef($site);
-    $out = '';
+    $out = _RenderThemeStack($def);
     foreach (($def['head']['styles'] ?? []) as $s) {
         $out .= '  <link rel="stylesheet" href="' . _VersionAsset($s) . "\">\n";
     }
@@ -36,13 +36,41 @@ function _VersionAsset(string $webPath): string {
     return $webPath . $sep . 'v=' . $mtime;
 }
 
+// Themes whose menu base is the shared menuStyles.css (loaded FIRST, before components).
+// Gradient/bespoke menu themes (clarent/gudnak/petranaki) supply their own menu structure
+// via theme tokens + <app>-overrides and must NOT load menuStyles.css.
+const _THEME_MENU_BASE = ['hud' => true, 'neutral' => true];
+
+// Emit the SHARED design-system menu stack for a site straight from its single `theme` key:
+// [menuStyles if the theme uses it] → tokens → components → Themes/<theme> (only if it
+// resolves). 'neutral'/unknown links no overlay (tokens.css defaults win), mirroring
+// zzDesignSystemPreview. The app-specific <app>-overrides.css is NOT derived here — it stays
+// in head.styles as the one genuine app extra (filenames don't follow a rootName rule), and
+// RenderHead appends head.styles AFTER this stack so an override still lands last.
+function _RenderThemeStack(array $def): string {
+    $theme = is_string($def['theme'] ?? null) ? $def['theme'] : 'neutral';
+    $docRoot = $_SERVER['DOCUMENT_ROOT'] ?? '';
+    $files = [];
+    if (!empty(_THEME_MENU_BASE[$theme])) $files[] = '/TCGEngine/SharedUI/css/menuStyles.css';
+    $files[] = '/TCGEngine/SharedUI/css/tokens.css';
+    $files[] = '/TCGEngine/SharedUI/css/components.css';
+    $themePath = "/TCGEngine/SharedUI/Themes/$theme.tokens.css";
+    if ($theme !== 'neutral' && $docRoot !== '' && @file_exists($docRoot . $themePath)) {
+        $files[] = $themePath;
+    }
+    $out = '';
+    foreach ($files as $f) $out .= '  <link rel="stylesheet" href="' . _VersionAsset($f) . "\">\n";
+    return $out;
+}
+
 function RenderHead(array $def): string {
     $b = $def['branding']; $h = $def['head'];
     $headTitle = $b['headTitle'] ?? $b['title'];   // distinct browser-tab title; defaults to the h1 title
     $out  = "<head>  <meta charset=\"utf-8\">\n";
     $out .= "  <title>$headTitle</title>\n";
     $out .= "  <link rel=\"icon\" type=\"image/png\" href=\"{$b['favicon']}\">\n";
-    $styleTags = '';
+    // Design-system stack is derived from the SiteDef `theme` key; head.styles carries only extras.
+    $styleTags = "\n" . _RenderThemeStack($def);
     foreach ($h['styles'] as $s) $styleTags .= "  <link rel=\"stylesheet\" href=\"" . _VersionAsset($s) . "\">";
     // StyledDialog loads on every SiteDef site so StyledConfirm/StyledAlert/StyledPrompt/Toast
     // are always available (self-injects its own CSS). No native alert/confirm/prompt anywhere.

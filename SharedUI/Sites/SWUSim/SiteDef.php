@@ -5,6 +5,7 @@
     'ipOwner'  => 'Fantasy Flight Games, Disney',
     'tcgName'  => 'Star Wars Unlimited',
   ],
+  'theme' => 'hud',   // in-game cyan HUD; menu adopts hud too (Phase 0 unification)
   'branding' => [
     'title'          => 'Petranaki Arena',                          // home-header h1 (also browser-tab title)
     'tagline'        => 'Fan-made Star Wars: Unlimited simulator',
@@ -14,10 +15,7 @@
     'disclaimerName' => 'Petranaki Arena',
   ],
   'head' => [
-    'styles'  => [
-      '/TCGEngine/SharedUI/css/tokens.css',
-      '/TCGEngine/SharedUI/css/components.css',
-      '/TCGEngine/SharedUI/Themes/petranaki.tokens.css',
+    'styles'  => [   // shared stack derived from `theme` (hud); only the app override remains
       '/TCGEngine/SharedUI/Sites/SWUSim/css/swusim-overrides.css',
     ],
     'scripts' => ['/TCGEngine/Core/AppSettings.js'],

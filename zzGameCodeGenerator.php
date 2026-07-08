@@ -1763,15 +1763,17 @@ if($versionsModule != null) {
       fwrite($handler, "      for(\$j=0; \$j<count(\$data); ++\$j) {\r\n");
       fwrite($handler, "        if(trim(\$data[\$j]) == \"\") continue;\r\n");
       fwrite($handler, "        \$data[\$j] = str_replace(\"<v2>\", \" \", \$data[\$j]);\r\n");
-      fwrite($handler, "        \$location = '" . $baseZoneName . "';\r\n");
-      fwrite($handler, "        \$controller = ");
-      if(str_starts_with('" . $baseZoneName . "', 'my')) {
-        fwrite($handler, "\$playerID;\r\n");
-      } elseif(str_starts_with('" . $baseZoneName . "', 'their')) {
-        fwrite($handler, "(\$playerID == 1 ? 2 : 1);\r\n");
-      } else {
-        fwrite($handler, "0;\r\n");
-      }
+      // Location MUST be the RELATIVE base name ($className, e.g. 'GroundArena') — matching ParseGamestate.
+      // The engine composes zone names as "my"/"their" . Location (GetMzID, SWUGetValidAttackTargets), so an
+      // absolute 'p2GroundArena' here builds a null zone ("theirp2GroundArena") and fatals combat on the next
+      // action. Normally invisible (a WriteGamestate + re-ParseGamestate follows every action and re-normalizes
+      // these objects); an in-memory match-replay "Play All" skips that boundary and carries the corruption in.
+      fwrite($handler, "        \$location = '" . $className . "';\r\n");
+      // Owner PlayerID, from the version-zone prefix (p1→1, p2→2, global→0) — also matching ParseGamestate.
+      // (Was always 0: a copy-paste bug tested the literal string "'\" . \$baseZoneName . \"'" instead of the value.)
+      $ownerPlayer = str_starts_with($baseZoneName, 'p1') ? '1'
+                   : (str_starts_with($baseZoneName, 'p2') ? '2' : '0');
+      fwrite($handler, "        \$controller = " . $ownerPlayer . ";\r\n");
       fwrite($handler, "        array_push(\$zone, new " . $className . "(\$data[\$j], \$location, \$controller));\r\n");
       fwrite($handler, "      }\r\n");
       fwrite($handler, "    }\r\n");

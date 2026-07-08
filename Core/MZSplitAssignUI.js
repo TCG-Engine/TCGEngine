@@ -56,34 +56,35 @@
       transform: scale(0.88);
     }
 
+    /* Circular steppers keep their bespoke shape but pull colours from tokens (danger/success). */
     .mzsplit-btn-minus {
-      background: #dc3545;
-      color: #fff;
-      box-shadow: 0 0 6px rgba(220,53,69,0.6);
+      background: var(--danger);
+      color: var(--on-danger);
+      box-shadow: 0 0 6px var(--danger);
     }
     .mzsplit-btn-minus:hover:not(:disabled) {
-      background: #ff4d5e;
-      box-shadow: 0 0 12px rgba(255,77,94,0.8);
+      filter: brightness(1.15);
+      box-shadow: 0 0 12px var(--danger);
     }
     .mzsplit-btn-minus:disabled {
-      background: #555;
-      color: #999;
+      background: var(--surface-sunken);
+      color: var(--text-muted);
       cursor: default;
       box-shadow: none;
     }
 
     .mzsplit-btn-plus {
-      background: #28a745;
-      color: #fff;
-      box-shadow: 0 0 6px rgba(40,167,69,0.6);
+      background: var(--success);
+      color: var(--on-success);
+      box-shadow: 0 0 6px var(--success);
     }
     .mzsplit-btn-plus:hover:not(:disabled) {
-      background: #34d058;
-      box-shadow: 0 0 12px rgba(52,208,88,0.8);
+      filter: brightness(1.15);
+      box-shadow: 0 0 12px var(--success);
     }
     .mzsplit-btn-plus:disabled {
-      background: #555;
-      color: #999;
+      background: var(--surface-sunken);
+      color: var(--text-muted);
       cursor: default;
       box-shadow: none;
     }
@@ -145,35 +146,8 @@
       text-align: center;
     }
 
-    .mzsplit-submit-btn {
-      padding: 8px 22px;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Orbitron', 'Segoe UI', sans-serif;
-      font-size: 14px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
-    }
-
-    .mzsplit-submit-btn:not(:disabled) {
-      background: #28a745;
-      color: #fff;
-      box-shadow: 0 0 12px rgba(40,167,69,0.5);
-    }
-    .mzsplit-submit-btn:not(:disabled):hover {
-      background: #34d058;
-      box-shadow: 0 0 20px rgba(52,208,88,0.7);
-      transform: scale(1.04);
-    }
-
-    .mzsplit-submit-btn:disabled {
-      background: #444;
-      color: #888;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
+    /* Skin from .btn.btn-primary (button.css); layout only kept here. */
+    .mzsplit-submit-btn { padding: 8px 22px; font-size: 14px; }
   `;
 
   let stylesInjected = false;
@@ -321,7 +295,7 @@
 
     // Submit button
     const submit = document.createElement('button');
-    submit.className = 'mzsplit-submit-btn';
+    submit.className = 'mzsplit-submit-btn btn btn-primary';
     submit.id = 'mzsplit-submit';
     submit.textContent = 'Confirm';
     submit.disabled = true;

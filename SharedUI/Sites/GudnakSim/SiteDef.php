@@ -5,6 +5,7 @@
     'ipOwner'  => 'the creators of Gudnak',
     'tcgName'  => 'Gudnak',
   ],
+  'theme' => 'gudnak',
   'branding' => [
     'title'          => 'Gudnak Simulator',                // home-header h1 (also the browser-tab title)
     'tagline'        => 'Master the Ultimate Card Battle',
@@ -14,10 +15,7 @@
     'disclaimerName' => 'Gudnak Simulator',
   ],
   'head' => [
-    'styles'  => [
-      '/TCGEngine/SharedUI/css/tokens.css',
-      '/TCGEngine/SharedUI/css/components.css',
-      '/TCGEngine/SharedUI/Themes/gudnak.tokens.css',
+    'styles'  => [   // shared stack derived from `theme` (gudnak); only the app override remains
       '/TCGEngine/SharedUI/Sites/GudnakSim/css/gudnak-overrides.css',
     ],
     'scripts' => [],

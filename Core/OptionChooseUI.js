@@ -76,24 +76,8 @@
       flex: 0 0 auto;
     }
     .optchoose-options { display: flex; gap: 10px; flex-shrink: 0; }
-    .optchoose-btn {
-      padding: 10px 24px;
-      border: 1px solid rgba(95,208,255,0.5);
-      border-radius: 8px;
-      font-family: 'Orbitron', 'Segoe UI', monospace;
-      font-size: 15px;
-      font-weight: bold;
-      cursor: pointer;
-      background: linear-gradient(135deg, #1b3a52, #28557a);
-      color: #eaf6ff;
-      box-shadow: 0 0 8px rgba(95,208,255,0.35);
-      transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
-    }
-    .optchoose-btn:hover {
-      background: linear-gradient(135deg, #28557a, #3a7aa8);
-      box-shadow: 0 0 16px rgba(95,208,255,0.6);
-    }
-    .optchoose-btn:active { transform: scale(0.94); }
+    /* Skin from .btn (button.css); layout only kept here. */
+    .optchoose-btn { padding: 10px 24px; font-size: 15px; }
   `;
 
   let styleEl = null;
@@ -136,7 +120,7 @@
 
     options.forEach(function(opt) {
       const btn = document.createElement('button');
-      btn.className = 'optchoose-btn';
+      btn.className = 'optchoose-btn btn';
       btn.textContent = opt;
       btn.addEventListener('click', function() {
         submitCallback(opt, decisionIndex);

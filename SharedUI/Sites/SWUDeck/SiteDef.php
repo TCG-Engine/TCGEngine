@@ -5,6 +5,7 @@
     'ipOwner'  => 'Fantasy Flight Games, Disney',   // rights holder
     'tcgName'  => 'Star Wars Unlimited',            // the game/franchise referenced in legal text
   ],
+  'theme' => 'hud',   // single design-system theme for menu + in-game (Phase 0)
   'branding' => [
     'title'      => 'SWU Stats',
     'tagline'    => 'Star Wars Unlimited Stats',
@@ -15,11 +16,7 @@
     'disclaimerName' => 'SWU Stats',
   ],
   'head' => [
-    'styles'  => [
-      '/TCGEngine/SharedUI/css/menuStyles.css',
-      '/TCGEngine/SharedUI/css/tokens.css',
-      '/TCGEngine/SharedUI/css/components.css',
-      '/TCGEngine/SharedUI/Themes/hud.tokens.css',
+    'styles'  => [   // shared stack (menuStyles/tokens/components/theme) derived from `theme`; only the app override remains
       '/TCGEngine/SharedUI/Sites/SWUDeck/css/swudeck-overrides.css',
     ],
     'scripts' => ['/TCGEngine/SharedUI/js/device-detector.js',

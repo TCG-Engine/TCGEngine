@@ -2810,6 +2810,15 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
     // block when the captor belongs to an opponent of the captive's controller.
     if (intval($player) !== intval($captive->Controller ?? $player) && SWUAvoidsCapture($captive)) return "-";
 
+    // Tokens can't be captured — a token that would be captured is defeated (removed from play) instead
+    // (tokens cease to exist when they leave play, so they can never become a captive subcard). Defeat it
+    // and stop: no captive is attached and the capture's own leave-play/bounty triggers do NOT fire (the
+    // token's own When Defeated / defeat reactions fire via SWUDefeatUnit instead).
+    if (strpos(strtolower(CardType($captive->CardID) ?? ''), 'token') !== false) {
+        SWUDefeatUnit(intval($player), $capturedMZ);
+        return "-";
+    }
+
     // Record the captured unit's identity before we remove it.
     $cardID     = $captive->CardID;
     $owner      = intval($captive->Owner ?? $player);
@@ -2874,6 +2883,13 @@ function _SWUBaseCaptureUnit(int $player, string $capturedMZ): bool {
     if ($captive === null || !empty($captive->removed)) { $playerID = $savedPID; return false; }
     // "Can't be captured by enemy card abilities" (SHD_187 / TWI_220).
     if (intval($player) !== intval($captive->Controller ?? $player) && SWUAvoidsCapture($captive)) { $playerID = $savedPID; return false; }
+    // Tokens can't be captured — defeat instead (same rule as DoCaptureUnit). No base-captive is stored,
+    // so _SWURescueBaseCaptives won't return a defeated token to its owner at regroup.
+    if (strpos(strtolower(CardType($captive->CardID) ?? ''), 'token') !== false) {
+        SWUDefeatUnit(intval($player), $capturedMZ);
+        $playerID = $savedPID;
+        return false;
+    }
     $cardID     = $captive->CardID;
     $owner      = intval($captive->Owner ?? $player);
     $controller = intval($captive->Controller ?? $owner);
@@ -4629,7 +4645,13 @@ function SWUSwapTurnPlayer() {
     // Goldfish: P2 is a passive bot. Whenever the turn swaps to it, auto-pass immediately — exactly
     // like an initiative-claimant. P1's action → swap to P2 → P2 passes → swap back to P1. Two passes
     // (P1 pass + P2 auto-pass) end the action phase and advance to the next regroup, so P1 plays solo.
-    if (SWUGameMode() === 'goldfish' && intval($gTurnPlayer) === 2) {
+    // Goldfish P2, OR the passive opponent of an interrupted replay ("Play from Here" — P1 plays a
+    // different line solo), auto-passes whenever the turn swaps to it, exactly like an initiative
+    // claimant. The function_exists guard keeps the schema test harness (which may not load MatchReplay)
+    // safe; MatchReplayIsInterrupted() is false in every normal/goldfish game.
+    if ((SWUGameMode() === 'goldfish'
+         || (function_exists('MatchReplayIsInterrupted') && MatchReplayIsInterrupted()))
+        && intval($gTurnPlayer) === 2) {
         SWUPassAction(2);
     }
 }
@@ -4885,13 +4907,17 @@ $gExploitDeferredBag   = $gExploitDeferredBag   ?? [];
 
 // JTL defeat-replacement bag ("if this would be defeated, you may instead …"). A would-be-defeated
 // unit with an available replacement is parked here (NOT discarded) and resolved at action end.
-global $gDeferredReplacements, $gReplaceSnapshots, $gSec035DefeatSnapshot, $gCombatDefeatByMz;
+global $gDeferredReplacements, $gReplaceSnapshots, $gSec035DefeatSnapshot, $gAsh195DefeatSnapshot, $gCombatDefeatByMz;
 $gDeferredReplacements = $gDeferredReplacements ?? [];
 $gReplaceSnapshots     = $gReplaceSnapshots     ?? []; // uid → snapshot for pilot-upgrade→unit replacement
 // SEC_035 Darth Sion — power-at-defeat snapshot (mzID → ['power','owner']). Captured in
 // CollectWhenDefeatedTriggers while subcards (Experience) are still intact, read by the
 // When Defeated closure after they've been stripped.
 $gSec035DefeatSnapshot = $gSec035DefeatSnapshot ?? [];
+// ASH_195 Helgait — power-at-defeat snapshot (mzID → power). Captured under the defeating player's frame
+// (where the mzID resolves to Helgait) and read by the When Defeated closure, which runs under Helgait's
+// controller's frame (where the same frame-relative mzID would resolve to a different unit).
+$gAsh195DefeatSnapshot = $gAsh195DefeatSnapshot ?? [];
 $gCombatDefeatByMz = $gCombatDefeatByMz ?? [];   // mzID → bool "defeated by combat damage" (ASH_028/191)
 
 // Task 1.3 — play-from-hand orchestrator globals.
@@ -6344,6 +6370,14 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                     'power' => intval(ObjectCurrentPower($defObj)),
                     'owner' => intval($defObj->Owner ?? $d['player']),
                 ];
+            }
+            // ASH_195 Helgait — "When Defeated: distribute Advantage equal to THIS unit's power." Snapshot
+            // its power NOW, resolved here under the active (defeating) player's frame where $d['mzID']
+            // correctly points at Helgait; the closure runs under Helgait's controller's frame, where that
+            // frame-relative mzID would resolve to a different unit (see the closure in CardDQHandlers.php).
+            if ($defObj !== null && ($d['cardID'] ?? '') === 'ASH_195') {
+                global $gAsh195DefeatSnapshot;
+                $gAsh195DefeatSnapshot[$d['mzID']] = intval(ObjectCurrentPower($defObj));
             }
             // Granted custom Bounty (SHD_006 phase grant / SHD_123 upgrade grant) — snapshot the
             // reward(s) NOW while the (removed) object still carries its turn-effects + subcards, so the

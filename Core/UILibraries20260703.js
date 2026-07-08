@@ -5109,34 +5109,13 @@ function ApplyInlineMultiSelectionDomState() {
   });
 }
 
-function StyleInlineMultiActionButton(btn) {
+function StyleInlineMultiActionButton(btn, variant) {
+  // Skin (bg/border/shadow/hover) now comes from .btn + the variant class (button.css, loaded
+  // in-game). Keep only layout inline; drop the JS hover handlers (.btn:hover handles it).
+  btn.classList.add('btn');
+  if (variant) btn.classList.add(variant);
   btn.style.padding = '7px 14px';
   btn.style.fontSize = '10px';
-  btn.style.fontWeight = '700';
-  btn.style.letterSpacing = '0.04em';
-  btn.style.textTransform = 'uppercase';
-  btn.style.background = 'linear-gradient(150deg, rgba(10, 19, 48, 0.95), rgba(22, 39, 86, 0.88))';
-  btn.style.color = '#e9f1ff';
-  btn.style.border = '1px solid rgba(156, 190, 255, 0.45)';
-  btn.style.borderRadius = '9px';
-  btn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 12px 28px rgba(4, 10, 28, 0.5)';
-  btn.style.backdropFilter = 'blur(8px)';
-  btn.style.webkitBackdropFilter = 'blur(8px)';
-  btn.style.cursor = 'pointer';
-  btn.style.transition = 'transform 150ms ease, box-shadow 180ms ease, filter 180ms ease, border-color 180ms ease';
-  btn.onmouseover = function() {
-    if (btn.disabled) return;
-    btn.style.transform = 'translateY(-1px) scale(1.02)';
-    btn.style.filter = 'brightness(1.08)';
-    btn.style.borderColor = 'rgba(184, 211, 255, 0.72)';
-    btn.style.boxShadow = 'inset 0 1px 0 rgba(236, 244, 255, 0.34), 0 16px 34px rgba(4, 10, 28, 0.6)';
-  };
-  btn.onmouseout = function() {
-    btn.style.transform = 'translateY(0) scale(1)';
-    btn.style.filter = 'brightness(1)';
-    btn.style.borderColor = 'rgba(156, 190, 255, 0.45)';
-    btn.style.boxShadow = 'inset 0 1px 0 rgba(226, 239, 255, 0.24), 0 12px 28px rgba(4, 10, 28, 0.5)';
-  };
 }
 
 function ExpandInlineMultiSelectableCards() {
@@ -5216,7 +5195,7 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   const selectAllBtn = document.createElement('button');
   selectAllBtn.id = 'inline-multi-select-all';
   selectAllBtn.textContent = 'Select All';
-  StyleInlineMultiActionButton(selectAllBtn);
+  StyleInlineMultiActionButton(selectAllBtn, 'btn-secondary');
   selectAllBtn.onclick = function() {
     const sm = window.SelectionMode || {};
     const all = ExpandInlineMultiSelectableCards();
@@ -5231,7 +5210,7 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   const clearAllBtn = document.createElement('button');
   clearAllBtn.id = 'inline-multi-clear-all';
   clearAllBtn.textContent = 'Deselect All';
-  StyleInlineMultiActionButton(clearAllBtn);
+  StyleInlineMultiActionButton(clearAllBtn, 'btn-secondary');
   clearAllBtn.onclick = function() {
     window.SelectionMode.multiSelected = [];
     ApplyInlineMultiSelectionDomState();
@@ -5244,7 +5223,7 @@ function ShowInlineMultiChooseMessage(msg, decisionIndex) {
   const confirmBtn = document.createElement('button');
   confirmBtn.id = 'inline-multi-confirm';
   confirmBtn.textContent = 'Confirm';
-  StyleInlineMultiActionButton(confirmBtn);
+  StyleInlineMultiActionButton(confirmBtn, 'btn-primary');
   confirmBtn.onclick = function() {
     const selected = (window.SelectionMode.multiSelected || []).slice();
     const payload = selected.length > 0 ? selected.join('&') : '-';
@@ -6092,6 +6071,7 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons) {
     row.style.cssText = 'display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;';
     buttons.forEach(function (def) {
       var b = document.createElement('button');
+      b.className = 'btn btn-primary';   // design-system skin (SWUSim sweep still overrides in-game until Tier 2)
       if (def.id) b.id = def.id;
       b.textContent = def.label;
       if (def.disabled) b.disabled = true;
@@ -6102,6 +6082,7 @@ function ShowGameOver(didWin, menuUrl, statsHtml, buttons) {
   } else {
     var btn = document.createElement('button');
     btn.id = 'game-over-menu-btn';
+    btn.className = 'btn btn-primary';
     btn.textContent = 'Return to Menu';
     btn.addEventListener('click', function () { window.location.href = url; });
     overlay.appendChild(btn);

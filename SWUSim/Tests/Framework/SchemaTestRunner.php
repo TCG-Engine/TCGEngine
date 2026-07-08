@@ -572,6 +572,12 @@ class SchemaTestRunner {
                 $g->passAction($player);
                 break;
 
+            case 'UndoCycle':
+                // SaveVersion→LoadVersion round-trip (a mid-game undo). Reconstructs every zone object
+                // via LoadVersion — regression guard for the relative-Location / owner-PlayerID invariant.
+                $g->undoCycle($player);
+                break;
+
             case 'Claim':
                 $g->takeInitiative($player);
                 break;
@@ -784,6 +790,17 @@ class SchemaTestRunner {
                 $pending = $g->state->pendingDecision($p);
                 if ($pending === null)
                     $failures[] = "{$line}: expected a pending decision, but none found";
+
+            } elseif (preg_match('/^P(\d+)DECISIONTOOLTIP:(.+)$/', $line, $m)) {
+                // Exact-match the pending decision's tooltip — lets a test assert an offered pool/amount
+                // that is embedded in the prompt (e.g. "Distribute_up_to_6_Advantage_among_friendly_units")
+                // but never surfaced in the board state the other assertions read.
+                $p       = intval($m[1]);
+                $pending = $g->state->pendingDecision($p);
+                if ($pending === null)
+                    $failures[] = "{$line}: expected a pending decision, but none found";
+                elseif (($pending->Tooltip ?? '') !== $m[2])
+                    $failures[] = "{$line}: expected tooltip '{$m[2]}', got '" . ($pending->Tooltip ?? '') . "'";
 
             } elseif (preg_match('/^P(\d+)HASFORCE$/', $line, $m)) {
                 $p = intval($m[1]);

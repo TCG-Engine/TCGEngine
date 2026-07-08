@@ -18,7 +18,7 @@
 <style>
     #swuMobileRoot {
         /* design tokens (desktop :root isn't loaded on this layout) */
-        --swu-gold:       #c8971e;
+        --swu-gold:       var(--accent-gold, #c8971e);   /* theme-driven (design-system token) */
         --swu-border:     rgba(255,255,255,0.10);
         --swu-border-hi:  rgba(255,255,255,0.22);
         --swu-font-ui:    "Aptos","Segoe UI Variable","Trebuchet MS",sans-serif;
@@ -41,8 +41,8 @@
 
     /* ── Section wrapper + label ─────────────────────────────────────────────── */
     .swu-m-section { padding: 4px 6px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-    .swu-m-section.is-mine   { background: rgba(60,120,200,0.06); }
-    .swu-m-section.is-theirs { background: rgba(200,80,80,0.05); }
+    .swu-m-section.is-mine   { background: rgba(var(--turn-mine-rgb),0.06); }
+    .swu-m-section.is-theirs { background: rgba(var(--turn-theirs-rgb),0.05); }
     /* Hand/arena labels removed to reclaim vertical space (zones are self-evident). */
     .swu-m-label { display: none; }
 
@@ -51,14 +51,14 @@
         display: flex; align-items: center; gap: 4px;
         overflow-x: auto; overflow-y: hidden;
         min-height: 132px; padding: 2px;
-        scrollbar-width: thin; scrollbar-color: rgba(120,200,255,0.45) transparent;
+        scrollbar-width: thin; scrollbar-color: var(--glow) transparent;
     }
     /* Opponent's hand is face-down — give it a shorter row to save vertical space. */
     #theirHandSlot.swu-m-scroll { min-height: 74px; }
     /* My hand sits in the sticky footer; keep it compact too. */
     #myHandSlot.swu-m-scroll { min-height: 104px; }
     .swu-m-scroll::-webkit-scrollbar { height: 6px; width: 6px; }
-    .swu-m-scroll::-webkit-scrollbar-thumb { background: rgba(120,200,255,0.45); border-radius: 99px; }
+    .swu-m-scroll::-webkit-scrollbar-thumb { background: var(--glow); border-radius: 99px; }
     /* Arenas: cards fill left→right, then wrap to the next line (row-major). The slot
        is a fixed ~2-row height and scrolls VERTICALLY for any overflow (not sideways). */
     #theirSpaceArenaSlot, #mySpaceArenaSlot,
@@ -118,8 +118,8 @@
         background-position: center; background-size: cover; background-repeat: no-repeat;
     }
     /* Faint side tint — the base look when no playmat is set. */
-    .swu-m-arena-row.is-mine   { background-color: rgba(60,120,200,0.06); }
-    .swu-m-arena-row.is-theirs { background-color: rgba(200,80,80,0.05); }
+    .swu-m-arena-row.is-mine   { background-color: rgba(var(--turn-mine-rgb),0.06); }
+    .swu-m-arena-row.is-theirs { background-color: rgba(var(--turn-theirs-rgb),0.05); }
     /* The blue HUD darkening overlay lives on each arena BOX (.swu-m-arena-col ::after)
        so it's clipped to the cyan-bracketed boundary rather than the whole row. */
     /* Light-blue tech-HUD frame per arena — faint full border + glow plus bright
@@ -127,15 +127,15 @@
        non-scrolling col wrapper so the brackets stay put while the slot scrolls. */
     .swu-m-arena-col {
         position: relative; isolation: isolate; flex: 1 1 0; min-width: 0; padding: 4px;
-        border: 1px solid rgba(120,200,255,0.22); border-radius: 4px;
-        box-shadow: 0 0 6px rgba(80,170,255,0.10), inset 0 0 14px rgba(80,170,255,0.08);
+        border: 1px solid rgba(var(--accent-rgb),0.22); border-radius: 4px;
+        box-shadow: 0 0 6px rgba(var(--accent-rgb),0.10), inset 0 0 14px rgba(var(--accent-rgb),0.08);
         animation: swuMArenaPulse 3.2s ease-in-out infinite;
     }
     @keyframes swuMArenaPulse {
-        0%, 100% { border-color: rgba(120,200,255,0.18);
-                   box-shadow: 0 0 5px rgba(80,170,255,0.08), inset 0 0 12px rgba(80,170,255,0.05); }
-        50%      { border-color: rgba(150,215,255,0.42);
-                   box-shadow: 0 0 13px rgba(95,185,255,0.28), inset 0 0 18px rgba(95,185,255,0.13); }
+        0%, 100% { border-color: rgba(var(--accent-rgb),0.18);
+                   box-shadow: 0 0 5px rgba(var(--accent-rgb),0.08), inset 0 0 12px rgba(var(--accent-rgb),0.05); }
+        50%      { border-color: rgba(var(--accent-rgb),0.42);
+                   box-shadow: 0 0 13px rgba(var(--accent-rgb),0.28), inset 0 0 18px rgba(var(--accent-rgb),0.13); }
     }
     /* The blue HUD darkening (.swu-m-arena-col::after) is a SHARED style, defined in
        GameLayoutShared.php so desktop (.swu-arena-bg) and mobile use one definition.
@@ -143,10 +143,10 @@
     .swu-m-arena-col > * { position: relative; z-index: 1; }
     .swu-m-arena-col::before {
         content: ''; position: absolute; inset: -1px; z-index: 3; pointer-events: none;
-        --c: rgba(150,215,255,0.92);   /* bracket color */
+        --c: var(--accent-strong);   /* bracket color (theme accent) */
         --len: 18px;                   /* arm length    */
         --th: 3px;                     /* arm thickness */
-        filter: drop-shadow(0 0 4px rgba(150,215,255,0.75));   /* light glow on the brackets */
+        filter: drop-shadow(0 0 4px rgba(var(--accent-rgb),0.75));   /* light glow on the brackets */
         animation: swuMArenaBracketPulse 3.2s ease-in-out infinite;
         background:
             linear-gradient(var(--c),var(--c)) left  top    / var(--len) var(--th) no-repeat,
@@ -159,8 +159,8 @@
             linear-gradient(var(--c),var(--c)) right bottom / var(--th)  var(--len) no-repeat;
     }
     @keyframes swuMArenaBracketPulse {
-        0%, 100% { filter: drop-shadow(0 0 3px rgba(150,215,255,0.45)); }
-        50%      { filter: drop-shadow(0 0 8px rgba(150,215,255,0.95)); }
+        0%, 100% { filter: drop-shadow(0 0 3px rgba(var(--accent-rgb),0.45)); }
+        50%      { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb),0.95)); }
     }
 
     /* ── Leader / Base row ───────────────────────────────────────────────────── */
@@ -168,8 +168,8 @@
         display: flex; gap: var(--swu-m-gap); justify-content: center;
         padding: 6px; border-bottom: 1px solid rgba(255,255,255,0.05);
     }
-    .swu-m-centers.is-mine   { background: rgba(60,120,200,0.06); }
-    .swu-m-centers.is-theirs { background: rgba(200,80,80,0.05); }
+    .swu-m-centers.is-mine   { background: rgba(var(--turn-mine-rgb),0.06); }
+    .swu-m-centers.is-theirs { background: rgba(var(--turn-theirs-rgb),0.05); }
     .swu-m-center { flex: 1 1 0; max-width: 48%; display: flex; justify-content: center; }
     .swu-m-center > div { width: 100%; display: flex; justify-content: center; }
     /* Consolidated single row: 4 zones, mine (left half) | theirs (right half).
@@ -178,7 +178,7 @@
     .swu-m-centers-row {
         gap: 4px; padding: 6px 30px;
         background: linear-gradient(90deg,
-            rgba(60,120,200,0.06) 0 50%, rgba(200,80,80,0.05) 50% 100%);
+            rgba(var(--turn-mine-rgb),0.06) 0 50%, rgba(var(--turn-theirs-rgb),0.05) 50% 100%);
     }
     .swu-m-centers-row .swu-m-center { max-width: none; }
 
@@ -204,14 +204,14 @@
     .swu-m-takeinit[hidden] { display: none; }
     .swu-m-takeinit-btn {
         flex: 1 1 auto; pointer-events: auto; position: relative; cursor: pointer; border: 0;
-        padding: 5px 10px; background: rgba(130,205,255,0.85); color: rgba(198,233,255,0.98);
+        padding: 5px 10px; background: var(--accent); color: var(--btn-text, var(--text));
         font: 700 9px/1 var(--swu-font-label); letter-spacing: 0.16em; text-transform: uppercase;
-        text-shadow: 0 0 5px rgba(120,200,255,0.45);
+        text-shadow: 0 0 5px var(--glow);
         clip-path: polygon(11px 0, 100% 0, 100% calc(100% - 11px), calc(100% - 11px) 100%, 0 100%, 0 11px);
-        filter: drop-shadow(0 0 5px rgba(110,190,255,0.4));
+        filter: drop-shadow(0 0 5px rgba(var(--accent-rgb),0.4));
     }
     .swu-m-takeinit-btn::before { content: ''; position: absolute; inset: 2px; z-index: 0;
-        background: rgba(16,34,58,0.92);
+        background: var(--btn-fill);
         clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px); }
     .swu-m-takeinit-btn > span { position: relative; z-index: 1; }
     .swu-m-takeinit-btn:active { transform: translateY(0.5px); }
@@ -315,17 +315,17 @@
        Cyan body = thin rim; ::before = flat fill inset inside it; label <span> on top. */
     .swu-init-pass-btn {
         position: relative; pointer-events: auto; cursor: pointer;
-        padding: 5px 14px; border: 0; background: rgba(130,205,255,0.80);
-        color: rgba(198,233,255,0.95); font: 700 9px/1 var(--swu-font-label);
+        padding: 5px 14px; border: 0; background: var(--accent);   /* rim */
+        color: var(--btn-text, var(--text)); font: 700 9px/1 var(--swu-font-label);
         letter-spacing: 0.16em; text-transform: uppercase;
-        text-shadow: 0 0 5px rgba(120,200,255,0.45);
+        text-shadow: 0 0 5px var(--glow);
         clip-path: polygon(9px 0, 100% 0, 100% calc(100% - 9px), calc(100% - 9px) 100%, 0 100%, 0 9px);
-        filter: drop-shadow(0 0 4px rgba(110,190,255,0.35));
+        filter: drop-shadow(0 0 4px var(--glow));
         transition: filter 150ms, color 150ms, transform 110ms;
     }
     .swu-init-pass-btn::before {
         content: ''; position: absolute; inset: 1.5px; z-index: 0;
-        background: rgba(16,34,58,0.92);
+        background: var(--btn-fill);   /* flat fill */
         clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
         transition: background 150ms;
     }
@@ -371,7 +371,7 @@
         background: transparent; color: rgba(255,255,255,0.6);
         font: 700 10px/1 var(--swu-font-label); text-transform: uppercase; cursor: pointer;
     }
-    .swu-tab-btn.is-active { background: rgba(120,200,255,0.14); color: #fff; border-color: rgba(120,200,255,0.4); }
+    .swu-tab-btn.is-active { background: rgba(120,200,255,0.14); color: #fff; border-color: var(--accent); }
     #swuLogPanel { max-height: 28vh; overflow-y: auto; font-size: 12px; }
 
     /* Chat — integrate the core #chatWidget into the Chat tab drawer (same as desktop)

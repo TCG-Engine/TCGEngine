@@ -122,33 +122,9 @@
       color: #8ab;
     }
 
-    .mzmodal-submit-btn {
-      padding: 8px 26px;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Orbitron', 'Segoe UI', sans-serif;
-      font-size: 14px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-      cursor: pointer;
-      transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
-    }
-    .mzmodal-submit-btn:not(:disabled) {
-      background: #28a745;
-      color: #fff;
-      box-shadow: 0 0 12px rgba(40,167,69,0.5);
-    }
-    .mzmodal-submit-btn:not(:disabled):hover {
-      background: #34d058;
-      box-shadow: 0 0 20px rgba(52,208,88,0.7);
-      transform: scale(1.04);
-    }
-    .mzmodal-submit-btn:disabled {
-      background: #444;
-      color: #888;
-      cursor: not-allowed;
-      box-shadow: none;
-    }
+    /* Skin (colour/border/radius/font/shadow/hover/disabled) now comes from .btn.btn-primary
+       (button.css, loaded in-game by NextTurn). Keep only the modal's layout here. */
+    .mzmodal-submit-btn { padding: 8px 26px; font-size: 14px; }
   `;
 
   let stylesInjected = false;
@@ -279,7 +255,7 @@
     footer.appendChild(counter);
 
     const submitBtn = document.createElement('button');
-    submitBtn.className = 'mzmodal-submit-btn';
+    submitBtn.className = 'mzmodal-submit-btn btn btn-primary';   // bespoke class = JS hook; btn/btn-primary = design-system skin
     submitBtn.id = 'mzmodal-submit';
     submitBtn.textContent = 'Confirm';
     submitBtn.disabled = true;

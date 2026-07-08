@@ -202,45 +202,8 @@
       gap: 10px;
     }
 
-    .mzmulti-btn {
-      border: none;
-      border-radius: 10px;
-      padding: 10px 18px;
-      font-family: 'Orbitron', 'Segoe UI', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.4px;
-      cursor: pointer;
-      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
-    }
-
-    .mzmulti-btn:disabled {
-      cursor: not-allowed;
-      opacity: 0.42;
-      box-shadow: none;
-      transform: none;
-    }
-
-    .mzmulti-btn-secondary {
-      background: rgba(255, 255, 255, 0.08);
-      color: #d9ebff;
-      border: 1px solid rgba(154, 184, 215, 0.2);
-    }
-
-    .mzmulti-btn-secondary:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.12);
-    }
-
-    .mzmulti-btn-primary {
-      background: linear-gradient(135deg, #36c16b, #66df8e);
-      color: #082012;
-      box-shadow: 0 0 16px rgba(54, 193, 107, 0.3);
-      font-weight: 700;
-    }
-
-    .mzmulti-btn-primary:hover:not(:disabled) {
-      transform: translateY(-1px);
-      box-shadow: 0 0 22px rgba(54, 193, 107, 0.42);
-    }
+    /* Skin now from .btn + .btn-primary/.btn-secondary (button.css). Layout only kept here. */
+    .mzmulti-btn { padding: 10px 18px; font-size: 13px; }
 
     @media (max-width: 720px) {
       .mzmulti-panel {
@@ -666,7 +629,7 @@
     actions.className = 'mzmulti-actions';
 
     const clearBtn = document.createElement('button');
-    clearBtn.className = 'mzmulti-btn mzmulti-btn-secondary';
+    clearBtn.className = 'mzmulti-btn mzmulti-btn-secondary btn btn-secondary';
     clearBtn.textContent = 'Clear';
     clearBtn.addEventListener('click', function() {
       if (!multiState) return;
@@ -677,7 +640,7 @@
 
     if (max === candidates.length) {
       const selectAllBtn = document.createElement('button');
-      selectAllBtn.className = 'mzmulti-btn mzmulti-btn-secondary';
+      selectAllBtn.className = 'mzmulti-btn mzmulti-btn-secondary btn btn-secondary';
       selectAllBtn.id = 'mzmulti-select-all';
       selectAllBtn.textContent = 'Select All';
       selectAllBtn.addEventListener('click', function() {
@@ -689,7 +652,7 @@
     }
 
     const confirmBtn = document.createElement('button');
-    confirmBtn.className = 'mzmulti-btn mzmulti-btn-primary';
+    confirmBtn.className = 'mzmulti-btn mzmulti-btn-primary btn btn-primary';
     confirmBtn.id = 'mzmulti-confirm';
     confirmBtn.textContent = 'Confirm';
     confirmBtn.addEventListener('click', function() {

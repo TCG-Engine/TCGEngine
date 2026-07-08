@@ -14,6 +14,7 @@ ServerInclude: /Custom/KeywordEffects.php
 AssetReflection: SWUSim
 Module: Versions=TurnPlayer,FirstPlayer,CurrentPhase,TurnNumber,PhaseParameters,DecisionQueueVariables,EffectStack,MacroTurnIndex,MacroGameIndex,InitiativeCounter,GameLog,p1DecisionQueue,p1GlobalEffects,p1Hand,p1Discard,p1Deck,p1Leader,p1Base,p1Resources,p1GroundArena,p1SpaceArena,p1TempZone,p2DecisionQueue,p2GlobalEffects,p2Hand,p2Discard,p2Deck,p2Leader,p2Base,p2Resources,p2GroundArena,p2SpaceArena,p2TempZone
 Module: UniqueID=GroundArena,SpaceArena,UniqueID,UniqueIDCounter
+Module: MatchReplay=MatchReplayInitialState,MatchReplayCommands
 
 # ── CardID Format Rule ────────────────────────────────────────────────────────
 # Every CardID stored in any zone must use the SET_NNN format:
@@ -429,4 +430,8 @@ Display: Visibility=Public, Mode=All, Scope=Global, BindTo=EffectStackSlot
 # sending, so private entries (e.g. Thrawn's deck peeks) never reach the
 # opponent or spectators. Written via AddGameLogEntry in Custom/GameLogic.php.
 GameLog - Value:string
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+MatchReplayInitialState - Value:string=-
+Display: Visibility=None, Mode=Value, Scope=Global, Display=None
+MatchReplayCommands - Value:string=-
 Display: Visibility=None, Mode=Value, Scope=Global, Display=None

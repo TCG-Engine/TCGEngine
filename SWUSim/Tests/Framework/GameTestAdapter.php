@@ -326,6 +326,27 @@ class GameTestAdapter {
         $playerID = $saved;
     }
 
+    /**
+     * Simulate a mid-game undo: checkpoint the current state (SaveVersion) then immediately restore it
+     * (LoadVersion) — the exact SaveVersion→LoadVersion round-trip a real undo performs. The board is
+     * unchanged, but every zone object is now the one LoadVersion reconstructed. In a live game a disk
+     * write + re-ParseGamestate follows every action and re-normalizes these objects, so this corruption
+     * is invisible; an in-memory "Play All" replay skips that boundary and carries it into the next action.
+     * Regression guard for the LoadVersion invariant that a unit keeps a RELATIVE Location ('GroundArena')
+     * and its owner PlayerID — a bad LoadVersion leaves absolute 'p2GroundArena' / PlayerID 0, which later
+     * makes SWUGetValidAttackTargets build a null zone and fatal on count(null).
+     */
+    public function undoCycle(int $player): void {
+        global $playerID;
+        $saved = $playerID;
+        $playerID = $player;
+        ob_start();
+        SaveVersion($player);
+        LoadVersion($player);
+        ob_end_clean();
+        $playerID = $saved;
+    }
+
     /** Use a leader's action ability (exhausts the leader, fires its handler). */
     public function useLeaderAbility(int $player, int $leaderIndex = 0): void {
         global $playerID;

@@ -5,6 +5,7 @@
     'ipOwner'  => 'the creators of Azuki',
     'tcgName'  => 'Azuki',
   ],
+  'theme' => 'clarent',
   'branding' => [
     'title'          => 'Azuki Sim',                       // home-header h1
     'headTitle'      => 'Azuki Simulator',                 // browser-tab <title>
@@ -15,10 +16,7 @@
     'disclaimerName' => 'Azuki Sim',
   ],
   'head' => [
-    'styles'  => [
-      '/TCGEngine/SharedUI/css/tokens.css',
-      '/TCGEngine/SharedUI/css/components.css',
-      '/TCGEngine/SharedUI/Themes/clarent.tokens.css',
+    'styles'  => [   // shared stack derived from `theme` (clarent); only the app override remains
       '/TCGEngine/SharedUI/Sites/AzukiSim/css/azuki-overrides.css',
     ],
     'scripts' => [],

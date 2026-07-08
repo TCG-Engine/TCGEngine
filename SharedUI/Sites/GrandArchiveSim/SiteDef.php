@@ -5,6 +5,7 @@
     'ipOwner'  => 'Weebs of the Shore',
     'tcgName'  => 'Grand Archive',
   ],
+  'theme' => 'clarent',
   'branding' => [
     'title'          => 'Clarent',                                  // home-header h1
     'headTitle'      => 'Grand Archive Simulator',                  // browser-tab <title>
@@ -15,10 +16,7 @@
     'disclaimerName' => 'Clarent',
   ],
   'head' => [
-    'styles'  => [
-      '/TCGEngine/SharedUI/css/tokens.css',
-      '/TCGEngine/SharedUI/css/components.css',
-      '/TCGEngine/SharedUI/Themes/clarent.tokens.css',
+    'styles'  => [   // shared stack derived from `theme` (clarent); only the app override remains
       '/TCGEngine/SharedUI/Sites/GrandArchiveSim/css/grandarchive-overrides.css',
     ],
     'scripts' => ['/TCGEngine/Core/AppSettings.js'],
