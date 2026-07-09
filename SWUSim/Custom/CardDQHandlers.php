@@ -1663,10 +1663,17 @@ $whenPlayedAbilities["LOF_147:0"] = function($player, $mzID) {
 };
 
 // LOF_100 Kelleran Beq — When Played: search the top 7 for a unit, reveal it, and play it costing 3 less.
+// Only offer units the player can actually pay for at the discounted price — otherwise the UI lets you
+// pick an unaffordable unit and the play just fizzles at resolve. Affordability mirrors the resolve
+// formula exactly: max(0, cost + aspect penalty − 3) ≤ ready resources (counted now, AFTER Kelleran's
+// own cost was paid on the way into play).
 $whenPlayedAbilities["LOF_100:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
+    $ready = SWUResourceCount(intval($player), readyOnly: true);
     _topDeckSearchBegin(intval($player), 7,
-        fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false, "count:1", "LOF_100#0");
+        fn($c) => strpos(CardType($c) ?? '', 'Unit') !== false
+                  && max(0, intval(CardCost($c)) + SWUAspectPenalty(intval($player), $c) - 3) <= $ready,
+        "count:1", "LOF_100#0");
 };
 $customDQHandlers["LOF_100#0"] = function($player, $parts, $lastDecision) {
     global $playerID; $playerID = intval($player);
@@ -8901,11 +8908,19 @@ $customDQHandlers["ASH_090#0"] = function($player, $parts, $lastDecision) {
     if ($host === null || !empty($host->removed)) return;
     $hostUID = intval($host->UniqueID ?? 0);
     if ($hostUID <= 0) return;
+    // Only offer upgrades that (a) can attach to the host AND (b) the player can pay for at the −4 price.
+    // SWUGetUpgradeValidTargets is called with a null upgrade object (host-restriction only, no built-in
+    // affordability gate), so affordability is checked separately here against the host-specific cost
+    // minus 4 — mirroring the prepaid=4 attach at resolve. Without this the UI offered unaffordable
+    // upgrades that then got stuck in hand when the (reduced) cost couldn't be paid.
+    $ready = SWUResourceCount(intval($player), readyOnly: true);
     _topDeckSearchBegin(intval($player), 8,
-        function($cid) use ($player, $hostUID) {
+        function($cid) use ($player, $hostUID, $ready) {
             if (strpos(CardType($cid) ?? '', 'Upgrade') === false) return false;
             $hMz = SWUFindMzByUID($hostUID);
-            return $hMz !== null && in_array($hMz, SWUGetUpgradeValidTargets(intval($player), $cid), true);
+            if ($hMz === null || !in_array($hMz, SWUGetUpgradeValidTargets(intval($player), $cid), true)) return false;
+            $host = GetZoneObject($hMz);
+            return max(0, SWUComputePlayCost(intval($player), (object)['CardID' => $cid], $host) - 4) <= $ready;
         },
         "count:1", "ASH_090#1|{$hostUID}");
 };
@@ -12405,8 +12420,13 @@ $customDQHandlers["LAW_086_DEFFIRST"] = function($player, $parts, $lastDecision)
 // via the SWU_LAW074_BOTTOM marker).
 $onAttackEndAbilities["LAW_074:0"] = function($player, $mzID) {
     global $playerID; $playerID = intval($player);
+    // Only offer Underworld units the player can actually pay for at the −4 price — otherwise the UI
+    // lets you pick an unaffordable unit and the play fizzles at resolve. Mirror the resolve's formula
+    // (max(0, SWUComputePlayCost − 4) ≤ ready resources).
+    $ready = SWUResourceCount(intval($player), readyOnly: true);
     _topDeckSearchBegin(intval($player), 5,
-        fn($cid) => CardType($cid) === 'Unit' && HasTrait($cid, 'Underworld'),
+        fn($cid) => CardType($cid) === 'Unit' && HasTrait($cid, 'Underworld')
+                    && max(0, SWUComputePlayCost(intval($player), (object)['CardID' => $cid]) - 4) <= $ready,
         "count:1", "LAW_074#0");
 };
 $customDQHandlers["LAW_074#0"] = function($player, $parts, $lastDecision) {

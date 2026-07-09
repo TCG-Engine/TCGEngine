@@ -965,8 +965,14 @@ function OnPlayEvent(int $player, string $cardID): void {
             global $playerID; $playerID = intval($player);
             $idx = _SWUTopDeckFrontIdx(intval($player));
             if ($idx === -1) return;
-            $topID = GetDeck(intval($player))[$idx]->CardID;
-            DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "@{$topID}&Play&Discard&Leave", 1, "Play_the_top_card_(costs_1_less),_discard_it,_or_leave_it");
+            $topObj = GetDeck(intval($player))[$idx];
+            $topID  = $topObj->CardID;
+            // Only offer "Play" if the player can afford the top card at its −1 discount — otherwise picking
+            // Play just fizzles at resolve. Discard / Leave are always available.
+            $canPlay = max(0, SWUComputePlayCost(intval($player), $topObj) - 1)
+                       <= SWUResourceCount(intval($player), readyOnly: true);
+            $opts = "@{$topID}" . ($canPlay ? "&Play" : "") . "&Discard&Leave";
+            DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", $opts, 1, "Play_the_top_card_(costs_1_less),_discard_it,_or_leave_it");
             DecisionQueueController::AddDecision($player, "CUSTOM", "LAW_242#0", 1);
             return;
         }
@@ -2414,6 +2420,14 @@ function OnPlayEvent(int $player, string $cardID): void {
         case 'LOF_188': { // As I Have Foreseen — "Look at the top card. You may use the Force. If you do,
                           // play that card. It costs 4 resources less." (No Force → you just looked.)
             if (!PlayerHasTheForce(intval($player))) return;
+            // Only offer to use the Force if the top card is affordable at its −4 discount — otherwise the
+            // Force would be spent for a play that can't happen. If unaffordable, the player just looked.
+            global $playerID; $playerID = intval($player);
+            $idx = _SWUTopDeckFrontIdx(intval($player));
+            if ($idx === -1) return;
+            $topObj = GetDeck(intval($player))[$idx];
+            if (max(0, SWUComputePlayCost(intval($player), $topObj) - 4)
+                > SWUResourceCount(intval($player), readyOnly: true)) return;
             DecisionQueueController::AddDecision($player, "YESNO", "-", 1,
                 tooltip: "Use_the_Force_to_play_the_top_card_(4_less)?");
             DecisionQueueController::AddDecision($player, "CUSTOM", "LOF_188#0", 1);
@@ -3567,7 +3581,18 @@ function OnPlayEvent(int $player, string $cardID): void {
             $playerID = intval($player);
             $idx = _SWUTopDeckFrontIdx(intval($player));
             if ($idx === -1) return;                       // empty deck → nothing to look at
-            $topID = GetDeck(intval($player))[$idx]->CardID;
+            $topObj = GetDeck(intval($player))[$idx];
+            $topID  = $topObj->CardID;
+            // Free if the base has ≤5 remaining HP (always playable); otherwise the −5 discount must be
+            // affordable. If neither holds, "Play" is impossible and "Leave" is the only outcome, so skip
+            // the prompt entirely (the top card just stays put) rather than offer an unplayable "Play".
+            $bases = GetBase(intval($player));
+            $free  = !empty($bases)
+                     && (intval(CardHp($bases[0]->CardID)) - intval($bases[0]->Damage)) <= 5;
+            $canPlay = $free
+                       || max(0, SWUComputePlayCost(intval($player), $topObj) - 5)
+                          <= SWUResourceCount(intval($player), readyOnly: true);
+            if (!$canPlay) return;
             DecisionQueueController::AddDecision($player, "OPTIONCHOOSE", "@{$topID}&Play&Leave", 1, "Play_the_top_card_(costs_5_less,_or_free_if_your_base_has_5_or_less_HP)");
             DecisionQueueController::AddDecision($player, "CUSTOM", "SOR_246#0", 1);
             return;

@@ -9,6 +9,5 @@ WithP1SpaceArena: [SOR_225]
 
 ## WHEN
 
-
 ## EXPECT
 P1SPACEARENACOUNT:1
