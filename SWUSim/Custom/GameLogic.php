@@ -303,6 +303,7 @@ function ObjectCurrentPower($obj) {
             if ($controller > 0 && PlayerHasIniative($controller)) $base += 2;
             break;
         case 'SEC_108': // Senator's Aide: while you have the initiative, +2/+0.
+        case 'SHD_086': // Warbird Stowaway: while you have the initiative, +2/+0.
             if ($controller > 0 && PlayerHasIniative($controller)) $base += 2;
             break;
         case 'SEC_151': // Kazuda Xiono: while you control fewer resources than an opponent, +2/+0.
@@ -707,6 +708,10 @@ $turnEffectRegistry = [
     'SEC_194' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Fully Armed and Operational — played unit gains Ambush this phase (token doubles as a findable marker)
     'SEC_007' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Dryden Vos — the ≤5 unit played by the leader action gains Ambush this phase
     'SHD_006' => ['kind' => 'GRANT_KEYWORD',  'value' => 'BOUNTY',   'label' => 'Bounty'],                                    // Jabba the Hutt — chosen unit gains a Bounty this phase (custom reward, discount carried in the dash param: SHD_006-1 front / SHD_006-2 deployed)
+    'SHD_031' => ['kind' => 'GRANT_KEYWORD',  'value' => 'BOUNTY',   'label' => 'Bounty'],                                    // The Client — chosen unit gains "Bounty — Heal 5 damage from a base" this phase (reward in SWUCollectBounty)
+    'SHD_097' => ['kind' => 'STAT_BUFF'],                                                                                     // Freetown Backup — On Attack: another friendly unit gets +2/+2 this phase
+    'SHD_129' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Timely Intervention — the played unit gains Ambush this phase
+    'SHD_215' => ['kind' => 'STAT_DEBUFF'],                                                                                   // Smuggler's Starfighter — enemy unit gets -3/-0 this phase
     'SEC_018' => ['kind' => 'MARKER',          'label' => 'DJ'],                                                               // DJ — transient findable marker on the unit just played by the leader action (captured immediately)
     'SOR_138' => ['kind' => 'LOSE_ABILITIES',                        'label' => 'Loses all abilities'],                       // Force Lightning — chosen unit loses all abilities this phase
     'SOR_140' => ['kind' => 'SUPPRESS_KEYWORD', 'value' => 'SENTINEL', 'label' => 'Loses Sentinel'],                          // SpecForce Soldier — a unit loses Sentinel this phase
@@ -1000,6 +1005,144 @@ function SWUApplyPhaseBuff(string $mzID, int $power, int $hp, string $source = '
 function SWUAddAttackPowerBonus(string $mzID, int $power): void {
     if ($power <= 0) return;
     AddTurnEffect($mzID, "SWU_ATK_POWER_{$power}");
+}
+
+// ── Uniqueness rule (CR 8.19.1.b / 29.3) ────────────────────────────────────
+// A player may control only ONE in-play copy of a given unique card at a time. Copies are matched by
+// name + subtitle (NOT CardID) so cross-set reprints of the same character still collide. If a player
+// ever controls more than one, they must immediately choose and defeat copies until only one remains
+// — this is a game RULE, not a triggered ability, and it resolves as the action finishes (before the
+// turn passes). Called from SWUAfterAction, the single action-end chokepoint.
+//
+// Returns true (and queues an interactive choose-and-defeat via UNIQUENESS_DEFEAT) when a violation
+// exists, so the caller can defer the action-end. Returns false when every unique card the player
+// controls is a singleton. Scope: arena units (ground + space); unique upgrades / pilot upgrades
+// (CR 29.3.a) are not yet covered (see SWUSim/Tests/Cases/core/UniquenessRule_* / TODO).
+function SWUEnforceUniqueness(int $player): bool {
+    global $playerID, $titleData, $subtitleData, $uniqueData;
+    $saved = $playerID;
+    $playerID = intval($player); // ZoneSearch("my…") is relative to $playerID; the chosen mzID is
+                                 // answered by $player, so "myGroundArena-N" resolves the same on both ends.
+
+    // CR 29.3.a mixed unit/pilot: a unique card the player controls as an arena UNIT can't ALSO be in
+    // play as an attached pilot/upgrade copy of the same card. Auto-defeat any such subcard (keep the
+    // unit — the unit-play path that reached here is what put a fresh copy on the board). No prompt.
+    // The reverse direction (a pilot was just played while the unit was in an arena) is resolved earlier,
+    // in SWUEnforceUpgradeUniqueness during the attach — so by here the unit is the copy to keep.
+    $unitCardIDs = [];
+    foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
+        foreach (ZoneSearch($zone, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o === null || !empty($o->removed)) continue;
+            $cid = $o->CardID ?? '';
+            if (!empty($uniqueData[$cid])) $unitCardIDs[$cid] = true;
+        }
+    }
+    foreach (array_keys($unitCardIDs) as $cid) {
+        $guard = 0;
+        while ($guard++ < 40) {
+            $found = false;
+            foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
+                foreach (ZoneSearch($zone, AnyUnitFilter) as $hostMz) {
+                    $host = GetZoneObject($hostMz);
+                    if ($host === null || !empty($host->removed) || !is_array($host->Subcards ?? null)) continue;
+                    $upgIdx = 0;
+                    foreach ($host->Subcards as $sub) {
+                        $isCaptive = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
+                        $isRemoved = is_array($sub) ? !empty($sub['removed'])   : !empty($sub->removed);
+                        if ($isCaptive || $isRemoved) continue;
+                        $subCid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+                        if ($subCid === $cid) {
+                            SWUDefeatUpgrade(intval($player), $hostMz, $upgIdx);
+                            DecisionQueueController::CleanupRemovedCards();
+                            $found = true;
+                            break 3;
+                        }
+                        $upgIdx++;
+                    }
+                }
+            }
+            if (!$found) break;
+        }
+    }
+
+    $groups = []; // "name|subtitle" => [mzID, …]
+    foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
+        foreach (ZoneSearch($zone, AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o === null || !empty($o->removed)) continue;
+            $cid = $o->CardID ?? '';
+            if (empty($uniqueData[$cid])) continue;
+            $key = ($titleData[$cid] ?? $cid) . '|' . ($subtitleData[$cid] ?? '');
+            $groups[$key][] = $mz;
+        }
+    }
+    $playerID = $saved;
+    foreach ($groups as $mzIDs) {
+        if (count($mzIDs) > 1) {
+            SWUQueueChooseTarget(intval($player), $mzIDs,
+                "Uniqueness_rule_choose_a_copy_to_defeat", "UNIQUENESS_DEFEAT");
+            return true;
+        }
+    }
+    return false;
+}
+
+// CR 8.19.1.b / 29.3 — uniqueness for UPGRADES (incl. PILOTS). A player may control only one copy of a
+// unique card. When a new copy attaches (via _SWUFinalizeUpgradeAttach), every OTHER controlled copy of
+// the same card is defeated AUTOMATICALLY — no prompt (unlike the unit case) — keeping the just-played
+// one. Copies are matched by CardID (a card played as a pilot upgrade shares its CardID with the same
+// card played as a unit — CR 29.3.a). $keepSub is the subcard just attached; it is skipped by object
+// identity so only the OTHER copy(ies) are defeated. Each pass defeats one copy and re-scans (defeats
+// rebuild Subcards / compact arenas), covering the rare 3+ copy pile. Two forms of "other copy":
+//   (a) the same card sitting in an arena as a UNIT (the pilot's unit form) → SWUDefeatUnit.
+//   (b) another copy attached as a subcard (pilot/upgrade) on some unit    → SWUDefeatUpgrade.
+function SWUEnforceUpgradeUniqueness(int $player, string $cardID, object $keepSub): void {
+    global $uniqueData, $playerID;
+    if (empty($uniqueData[$cardID])) return;
+    $saved = $playerID;
+    $playerID = intval($player);
+    $guard = 0;
+    while ($guard++ < 40) {
+        $defeated = false;
+        // (a) An arena UNIT of the same card (the unit form of a pilot) — keep the just-played pilot.
+        foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
+            foreach (ZoneSearch($zone, AnyUnitFilter) as $unitMz) {
+                $u = GetZoneObject($unitMz);
+                if ($u === null || !empty($u->removed)) continue;
+                if (($u->CardID ?? '') === $cardID) {
+                    SWUDefeatUnit(intval($player), $unitMz);
+                    DecisionQueueController::CleanupRemovedCards();
+                    $defeated = true;
+                    break 2;
+                }
+            }
+        }
+        if ($defeated) continue;
+        // (b) Another copy attached as a subcard elsewhere — skip the just-attached $keepSub.
+        foreach (['myGroundArena', 'mySpaceArena'] as $zone) {
+            foreach (ZoneSearch($zone, AnyUnitFilter) as $hostMz) {
+                $host = GetZoneObject($hostMz);
+                if ($host === null || !empty($host->removed) || !is_array($host->Subcards ?? null)) continue;
+                $upgIdx = 0; // index among non-captive, non-removed subcards — matches SWUDefeatUpgrade
+                foreach ($host->Subcards as $sub) {
+                    $isCaptive = is_array($sub) ? !empty($sub['IsCaptive']) : !empty($sub->IsCaptive);
+                    $isRemoved = is_array($sub) ? !empty($sub['removed'])   : !empty($sub->removed);
+                    if ($isCaptive || $isRemoved) continue;
+                    $subCid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
+                    if ($subCid === $cardID && !(is_object($sub) && $sub === $keepSub)) {
+                        SWUDefeatUpgrade(intval($player), $hostMz, $upgIdx);
+                        DecisionQueueController::CleanupRemovedCards();
+                        $defeated = true;
+                        break 3;
+                    }
+                    $upgIdx++;
+                }
+            }
+        }
+        if (!$defeated) break;
+    }
+    $playerID = $saved;
 }
 
 // ── Targeted-effect queue helpers ───────────────────────────────────────────
@@ -2867,7 +3010,7 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
     ];
 
     // Fire leave-play reactions and Bounty for the capture.
-    CollectCaptureTriggers(intval($player), $controller, $cardID);
+    CollectCaptureTriggers(intval($player), $controller, $cardID, $captive);
 
     return $capturingMZ;
 }
@@ -2909,7 +3052,7 @@ function _SWUBaseCaptureUnit(int $player, string $capturedMZ): bool {
     $captive->removed = true;
     DecisionQueueController::CleanupRemovedCards();
     AddGlobalEffects(intval($player), 'SWU_BASECAPTIVE|' . $cardID . '|' . $owner);  // base captive store
-    CollectCaptureTriggers(intval($player), $controller, $cardID);
+    CollectCaptureTriggers(intval($player), $controller, $cardID, $captive);
     $playerID = $savedPID;
     return true;
 }
@@ -2965,7 +3108,7 @@ function _SWUCheckConfidenceWin(): void {
 // $capturingPlayer : the player who performed the capture (receives Bounty).
 // $capturedController : the controller of the unit that just left play (used for leave-play reaction).
 // $capturedCardID : the CardID of the captured unit.
-function CollectCaptureTriggers(int $capturingPlayer, int $capturedController, string $capturedCardID): void {
+function CollectCaptureTriggers(int $capturingPlayer, int $capturedController, string $capturedCardID, ?object $capturedObj = null): void {
     // Leave-play reactions: Boba Fett trigger + SWU_ENEMY_LEFT_PLAY phase flag.
     // Called with $defeated = false so only the non-defeat reactions fire.
     SWUCollectLeavePlayReactions([['player' => $capturedController, 'cardID' => $capturedCardID]], false);
@@ -2975,6 +3118,15 @@ function CollectCaptureTriggers(int $capturingPlayer, int $capturedController, s
     global $Bounty_Cards;
     // SEC_046 Galen Erso — a named captured unit has lost its Bounty (no reward offered).
     if (isset($Bounty_Cards[$capturedCardID]) && !_SWUGalenSuppressesCard(intval($capturedController), $capturedCardID)) {
+        DecisionQueueController::AddDecision($capturingPlayer, "YESNO", "-", 1, tooltip:"Collect_bounty?");
+        DecisionQueueController::AddDecision($capturingPlayer, "CUSTOM", "SWUCollectBounty|{$capturedCardID}", 1);
+    }
+
+    // Conditional innate Bounty (SHD_033 / SHD_165 — "While this unit is exhausted, …"): live only if
+    // the unit was EXHAUSTED (Status 0) at capture time; the caller passes the pre-removal object.
+    if ($capturedObj !== null && in_array($capturedCardID, ['SHD_033', 'SHD_165'], true)
+        && intval($capturedObj->Status ?? 1) === 0
+        && !_SWUGalenSuppressesCard(intval($capturedController), $capturedCardID)) {
         DecisionQueueController::AddDecision($capturingPlayer, "YESNO", "-", 1, tooltip:"Collect_bounty?");
         DecisionQueueController::AddDecision($capturingPlayer, "CUSTOM", "SWUCollectBounty|{$capturedCardID}", 1);
     }
@@ -3918,6 +4070,45 @@ function RegroupPhaseStart(): void {
     _SWURescueBaseCaptives();              // SEC_195 Arrest — base captives' owners rescue them now
     _SWUCheckConfidenceWin();              // SEC_145 Confidence in Victory — arena-control win check
     _SWULawRegroupStartTriggers();         // LAW_071 (credit), LAW_073 (Exp + can't-ready) at regroup start
+    // SHD_225 Jetpack — "At the start of the regroup phase, defeat that [Shield] token." One flag per
+    // grant (host UID in the flag). Approximation: removes ONE non-removed Shield subcard from the
+    // host — if Jetpack's own shield was already consumed and the host gained another shield since,
+    // that other token is removed instead (individual tokens aren't identifiable across requests).
+    global $playerID;
+    foreach ([1, 2] as $jp) {
+        $jge = &GetGlobalEffects($jp);
+        for ($ji = count($jge) - 1; $ji >= 0; $ji--) {
+            $jflag = (string)($jge[$ji]->CardID ?? '');
+            if (strpos($jflag, 'SWU_SHD225_TOKEN_') !== 0) continue;
+            $jhostUID = intval(substr($jflag, strlen('SWU_SHD225_TOKEN_')));
+            array_splice($jge, $ji, 1);
+            $savedJPID = $playerID; $playerID = $jp;
+            $jmz = SWUFindMzByUID($jhostUID);
+            if ($jmz !== null) {
+                $jhost = GetZoneObject($jmz);
+                if ($jhost !== null && empty($jhost->removed) && is_array($jhost->Subcards ?? null)) {
+                    foreach ($jhost->Subcards as $jk => $jsub) {
+                        $jcid = is_array($jsub) ? ($jsub['CardID'] ?? '') : ($jsub->CardID ?? '');
+                        $jrem = is_array($jsub) ? !empty($jsub['removed']) : !empty($jsub->removed);
+                        if (!$jrem && $jcid === 'SOR_T02') { array_splice($jhost->Subcards, $jk, 1); break; }
+                    }
+                }
+            }
+            $playerID = $savedJPID;
+        }
+    }
+    // SHD_203 Zorii Bliss — each attack armed "at the start of the regroup phase, discard a card
+    // from your hand." One mandatory discard per armed instance (zone-name MZCHOOSE, Han-loop style;
+    // an empty hand auto-resolves to '-' and the handler no-ops). Consumed here, NOT prefix-cleared.
+    for ($zp = 1; $zp <= 2; $zp++) {
+        $zPending = GlobalEffectCount($zp, 'SWU_SHD203_DISCARD');
+        for ($zk = 0; $zk < $zPending; $zk++) {
+            RemoveGlobalEffect($zp, 'SWU_SHD203_DISCARD');
+            DecisionQueueController::AddDecision($zp, 'MZCHOOSE', 'myHand', 1,
+                'Discard_a_card_from_your_hand_(Zorii_Bliss)');
+            DecisionQueueController::AddDecision($zp, 'CUSTOM', "DISCARD_FROM_OWN_HAND|{$zp}", 1);
+        }
+    }
     _SWUAsh227RegroupStart();              // ASH_227 Heightened Awareness — Advantage token to each wearer
     _SWUAsh159RegroupStart();              // ASH_159 Alphabet Squadron U-Wing — Advantage token to a chosen unit
 
@@ -4165,6 +4356,7 @@ function RegroupPhaseStart(): void {
         // JTL_157 Relentless Firespray once-per-round now via per-unit NumUses (SWUResetAllNumUses).
         SWUClearGlobalEffectsByPrefix($p, 'SWU_PILOT_DISCOUNT');     // JTL_008 Wedge (safety; consumed at charge)
         SWUClearGlobalEffectsByPrefix($p, 'SWU_PLAYED_UNIT_');
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_PLAYED_FROM_HAND_'); // SHD_161/SHD_204 hand-source flag
         SWUClearGlobalEffectsByPrefix($p, 'SWU_UNIT_ATTACKED_');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_DEALT_BASEDMG_');
         SWUClearGlobalEffectsByPrefix($p, 'SWU_ATTACKED_');  // clears SWU_ATTACKED_{uid} + ..._MANDALORIAN_{uid} + ..._VEHICLE
@@ -4836,6 +5028,14 @@ function SWUQueueAfterAction(int $player, int $block = 1): void {
 function SWUAfterAction($player) {
     SWUFlushDeferredReplacements(); // resolve any "would be defeated → may instead …" deferrals first
     _SWURevertSec192Steals();       // SEC_192 Tarkin — revert any steal whose source left play
+    _SWURevertShd213Steals();       // SHD_213 DJ — stolen resource returns to its owner when DJ leaves play
+    // CR 8.19.1.b / 29.3 — uniqueness rule: if the acting player now controls >1 in-play copy of a
+    // unique card (e.g. they just played a second copy), they must choose and defeat copies until one
+    // remains BEFORE this action ends and the turn passes. Not a triggered ability. SWUEnforceUniqueness
+    // queues the choose-and-defeat and returns true; UNIQUENESS_DEFEAT re-enters SWUAfterAction after
+    // the defeat (looping for 3+ copy piles), so control only falls through to the turn-swap below once
+    // every unique the player controls is a singleton.
+    if (SWUEnforceUniqueness(intval($player))) return;
     // SEC_194 per-action tracking: finalize the just-completed action. SWU_LAST_ACTION records who acted
     // and whether it attacked a base (and whose), so SEC_194 can ask "did the opponent attack my base in
     // their previous action". The transient SWU_ACTION_BASEATK was set in ExecuteSWUAttack for base hits.
@@ -6396,10 +6596,24 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                     foreach ($defObj->Subcards as $sub) {
                         $scid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
                         $srem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
-                        if (!$srem && $scid === 'SHD_123') {
-                            $rewards[] = ['reward' => 'SHD_123', 'param' => CardUnique($d['cardID'] ?? '') ? 1 : 0];
+                        if (!$srem && in_array($scid, SWUBountyGrantUpgrades(), true)) {
+                            $rewards[] = ['reward' => $scid, 'param' => CardUnique($d['cardID'] ?? '') ? 1 : 0];
                         }
                     }
+                }
+                // SHD_161 Stolen Landspeeder — its bounty is gated on "if YOU (the collector) own this
+                // unit"; snapshot the owner now (the object is gone by the offer loop below).
+                if (($d['cardID'] ?? '') === 'SHD_161') {
+                    $GLOBALS['gShd161DefeatOwner'][$d['mzID']] = intval($defObj->Owner ?? $d['player']);
+                }
+                // Conditional innate Bounty (SHD_033 Synara San / SHD_165 Unlicensed Headhunter —
+                // "While this unit is exhausted, it gains 'Bounty — …'"): the quoted grant defeats the
+                // generator's $Bounty_Cards detection, so snapshot it here — active only if the unit was
+                // EXHAUSTED (Status 0) at defeat. Rides the granted-bounty offer below. (Exploit-sacrifice
+                // stays the accepted no-cover edge, same as the SHD_006/SHD_123 grants.)
+                if (in_array($d['cardID'] ?? '', ['SHD_033', 'SHD_165'], true)
+                    && intval($defObj->Status ?? 1) === 0) {
+                    $rewards[] = ['reward' => $d['cardID'], 'param' => 0];
                 }
                 if (!empty($rewards)) { $GLOBALS['gGrantedBountySnapshot'][$d['mzID']] = $rewards; }
             }
@@ -6424,13 +6638,15 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
         }
         $gPendingTriggers = [];
 
-        // Park bounty descriptors (tagged with __kind__ = 'bounty'). SEC_046 Galen — a named unit has no Bounty.
+        // Park bounty descriptors (tagged with __kind__ = 'bounty'). SEC_046 Galen — a named unit has no
+        // Bounty. Collector = the opponent of the sacrificed unit's controller (CR 13.f) — Exploit fodder
+        // is always the exploiter's own unit, so the OPPONENT collects at flush time.
         global $Bounty_Cards;
         foreach ($defeatedCards as $d) {
             if (isset($Bounty_Cards[$d['cardID']]) && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])) {
                 $gExploitDeferredBag[] = [
                     '__kind__'    => 'bounty',
-                    'activePlayer' => intval($activePlayer),
+                    'activePlayer' => OtherPlayer(intval($d['player'] ?? $activePlayer)),
                     'cardID'      => $d['cardID'],
                 ];
             }
@@ -6440,27 +6656,40 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
 
     FlushTriggerBag($activePlayer);
 
-    // Bounty (CR 7.6.3): after WhenDefeated triggers, offer the bounty reward to the defeating player.
+    // Bounty (CR 7.6.3 / 13.f): after WhenDefeated triggers, offer the bounty reward to the OPPONENT of
+    // the defeated unit's controller — usually the defeating $activePlayer, but when a player's OWN unit
+    // dies during their action (attacker counter-death, sacrifice), the opponent still collects.
     // SEC_046 Galen Erso — a named defeated unit has lost its Bounty (no reward offered).
     global $Bounty_Cards;
     foreach ($defeatedCards as $d) {
         if (isset($Bounty_Cards[$d['cardID']]) && !_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'])) {
-            DecisionQueueController::AddDecision(intval($activePlayer), "YESNO", "-", 1, tooltip:"Collect_bounty?");
-            DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM", "SWUCollectBounty|{$d['cardID']}", 1);
+            $collector = OtherPlayer(intval($d['player'] ?? $activePlayer));
+            // SHD_161 Stolen Landspeeder — thread "collector owns the defeated unit" (param 1/0) from
+            // the pre-cleanup owner snapshot; its reward only fires when the collector owns it.
+            $param = '';
+            if ($d['cardID'] === 'SHD_161') {
+                $own = $GLOBALS['gShd161DefeatOwner'][$d['mzID'] ?? ''] ?? 0;
+                $param = '|' . (intval($own) === $collector ? 1 : 0);
+                unset($GLOBALS['gShd161DefeatOwner'][$d['mzID'] ?? '']);
+            }
+            DecisionQueueController::AddDecision($collector, "YESNO", "-", 1, tooltip:"Collect_bounty?");
+            DecisionQueueController::AddDecision($collector, "CUSTOM", "SWUCollectBounty|{$d['cardID']}{$param}", 1);
         }
     }
 
-    // Granted custom bounties (SHD_006 phase grant / SHD_123 upgrade grant), snapshotted above while the
-    // object still had its turn-effects/subcards. Each is an independent ability (CR 13.b) offered to the
-    // defeating player ($activePlayer = the opponent of the bountied unit's controller, CR 13.f).
+    // Granted custom bounties (SHD_006 phase grant / SHD_123 upgrade grant) + conditional innate
+    // (SHD_033/SHD_165), snapshotted above while the object still had its turn-effects/subcards/status.
+    // Each is an independent ability (CR 13.b) offered to the opponent of the bountied unit's
+    // controller (CR 13.f — see the innate loop above for the self-death nuance).
     global $gGrantedBountySnapshot;
     foreach ($defeatedCards as $d) {
         $mz = $d['mzID'] ?? '';
         if ($mz === '' || empty($gGrantedBountySnapshot[$mz])) continue;
         if (!_SWUGalenSuppressesCard(intval($d['player'] ?? 0), $d['cardID'] ?? '')) {
+            $collector = OtherPlayer(intval($d['player'] ?? $activePlayer));
             foreach ($gGrantedBountySnapshot[$mz] as $rw) {
-                DecisionQueueController::AddDecision(intval($activePlayer), "YESNO", "-", 1, tooltip:"Collect_bounty?");
-                DecisionQueueController::AddDecision(intval($activePlayer), "CUSTOM", "SWUCollectBounty|{$rw['reward']}|{$rw['param']}", 1);
+                DecisionQueueController::AddDecision($collector, "YESNO", "-", 1, tooltip:"Collect_bounty?");
+                DecisionQueueController::AddDecision($collector, "CUSTOM", "SWUCollectBounty|{$rw['reward']}|{$rw['param']}", 1);
             }
         }
         unset($gGrantedBountySnapshot[$mz]);
@@ -6775,6 +7004,21 @@ function _SWUPlayerHasBlockingDecision(int $player): bool {
     return false;
 }
 
+// Uniqueness rule (CR 29.3): defeat the copy the player chose, then continue the paused action.
+// SWUDefeatUnit collects the defeated copy's WhenDefeated triggers (CR 29.3: those still resolve);
+// FlushEntryTriggerBag dispatches them — if they need interactive resolution it queues
+// SWU_TRIGGER_RESUME (which re-enters SWUAfterAction when done), otherwise we re-enter inline.
+// Either way SWUAfterAction re-checks uniqueness, so a 3+ copy pile keeps prompting until singleton.
+$customDQHandlers["UNIQUENESS_DEFEAT"] = function($player, $parts, $lastDecision) {
+    if (!$lastDecision || $lastDecision === '-' || $lastDecision === 'PASS') return; // mandatory — no decline
+    global $playerID; $playerID = intval($player);
+    SWUDefeatUnit(intval($player), $lastDecision);
+    $flushed = FlushEntryTriggerBag(intval($player));
+    DecisionQueueController::CleanupRemovedCards();
+    if ($flushed === 0) SWUAfterAction(intval($player));
+    // $flushed > 0: SWU_TRIGGER_RESUME (already queued) re-enters SWUAfterAction after the triggers resolve.
+};
+
 $customDQHandlers["SWU_TRIGGER_RESUME"] = function($player, $parts, $lastDecision) {
     global $playerID;
     $savedPID    = $playerID;
@@ -7017,7 +7261,81 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
         $cardID = $parts[0] ?? '';
         switch ($cardID) {
             case 'SHD_027': // Hylobon Enforcer — draw 1 card
+            case 'SHD_095': // Clone Deserter — draw 1 card
+            case 'SHD_134': // Guavian Antagonizer — draw 1 card
+            case 'SHD_195': // Cartel Turncoat — draw 1 card
                 DoDrawCard($player, 1);
+                break;
+            case 'SHD_185': // Doctor Evazan — ready up to 12 resources (fungible → auto-ready)
+                SWUReadyResources(intval($player), 12);
+                break;
+            case 'SHD_221': // Wanted's granted bounty — ready 2 friendly resources
+                SWUReadyResources(intval($player), 2);
+                break;
+            case 'SHD_211': // Fugitive Wookiee — exhaust a unit
+                $targets = _SWUCollectUnits(0, fn($o) => true);
+                SWUQueueChooseTarget(intval($player), $targets, 'Exhaust_a_unit', 'EXHAUST_UNIT');
+                $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
+                break;
+            case 'SHD_222': // Enticing Reward's granted bounty — search the top 10 for 2 non-unit cards,
+                            // reveal + draw; THEN, if the host was NOT unique (param 0), discard a card
+                            // from your hand (queued after the search finalize; SHD_222#0).
+                DoTopDeckSearch(intval($player), 10,
+                    fn($c) => stripos(CardType($c) ?? '', 'Unit') === false, 2);
+                if (intval($parts[1] ?? 0) !== 1) {
+                    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SHD_222#0", 1);
+                }
+                $savedPID = intval($player); // leave the collector frame for the queued search decisions
+                break;
+            case 'SHD_261': // Rich Reward's granted bounty — give an Experience token to each of up to 2 units
+                $targets = _SWUCollectUnits(0, fn($o) => true);
+                if (!empty($targets)) {
+                    DecisionQueueController::AddDecision(intval($player), "MZMULTICHOOSE",
+                        "0|" . min(2, count($targets)) . "|" . implode("&", $targets), 1,
+                        tooltip:"Give_an_Experience_token_to_each_of_up_to_2_units");
+                    DecisionQueueController::AddDecision(intval($player), "CUSTOM", "GIVE_EXP_EACH", 1);
+                    $savedPID = intval($player); // leave the collector frame for the queued MZMULTICHOOSE
+                }
+                break;
+            case 'SHD_068': // Public Enemy's granted bounty — give a Shield token to a unit
+                $targets = _SWUCollectUnits(0, fn($o) => true);
+                SWUQueueChooseTarget(intval($player), $targets,
+                    'Give_a_Shield_token_to_a_unit', 'GIVE_SHIELD');
+                $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
+                break;
+            case 'SHD_071': { // Top Target's granted bounty — heal 4 (6 if the host was unique) from a unit or base
+                $n = (intval($parts[1] ?? 0) === 1) ? 6 : 4;
+                $targets = array_merge(_SWUCollectUnits(0, fn($o) => true), ['myBase-0', 'theirBase-0']);
+                SWUQueueChooseTarget(intval($player), $targets,
+                    "Heal_{$n}_damage_from_a_unit_or_base", "HEAL_TARGET|{$n}");
+                $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
+                break;
+            }
+            case 'SHD_116': // Outlaw Corona — put the top card of your deck into play as a resource
+            case 'SHD_125': // Price on Your Head's granted bounty — same effect
+                            // (enters EXHAUSTED — no "and ready it" wording)
+                $deck = GetDeck($player);
+                if (!empty($deck) && !empty($deck[0]) && empty($deck[0]->removed)) {
+                    SWURampResourceExhausted(intval($player), 'myDeck-0');
+                }
+                break;
+            case 'SHD_161': // Stolen Landspeeder — if the collector OWNS the defeated unit (param 1,
+                            // threaded from the defeat-time owner snapshot), play it from their discard
+                            // for free and give it an Experience token. The replay is from DISCARD, so
+                            // its own "played from your hand" When Played does NOT flip control. A
+                            // CAPTURED copy never lands in discard (capture path passes no param → 0).
+                if (intval($parts[1] ?? 0) === 1) {
+                    $mz = _SWUFindDiscardMzID(intval($player), 'SHD_161');
+                    if ($mz !== null) {
+                        global $gTurnPlayer, $gPlayGrantExp;
+                        $savedTP = $gTurnPlayer; $savedPass = GetSWUVar('PASS', '0');
+                        $gPlayGrantExp = 1;
+                        ActivateCard($player, $mz, true);   // free play; entry grants the Experience
+                        $gPlayGrantExp = null;
+                        $gTurnPlayer = $savedTP; SetSWUVar('PASS', $savedPass);
+                        $savedPID = intval($player); // leave the collector frame after the nested play
+                    }
+                }
                 break;
             case 'SHD_006': // Jabba's granted bounty — "the next unit you play this phase costs N less"
                             // (N = the discount carried in parts[1]: 1 from the front Action, 2 deployed).
@@ -7032,6 +7350,42 @@ $customDQHandlers["SWUCollectBounty"] = function($player, $parts, $lastDecision)
                         fn($c) => stripos(CardType($c) ?? '', 'Unit') !== false && intval(CardCost($c)) <= 3,
                         3, 1);
                 }
+                break;
+            case 'SHD_031': // The Client's granted bounty — heal 5 damage from a base
+                SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'],
+                    'Heal_5_damage_from_which_base?', 'HEAL_TARGET|5');
+                $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
+                break;
+            case 'SHD_033': // Synara San — deal 5 damage to a base (exhausted-only bounty)
+                SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'],
+                    'Deal_5_damage_to_which_base?', 'DEAL_BASE_DAMAGE|5');
+                $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
+                break;
+            case 'SHD_058': // Val — deal 3 damage to a unit (any unit; fizzles with none in play)
+                $targets = _SWUCollectUnits(0, fn($o) => true);
+                SWUQueueChooseTarget(intval($player), $targets,
+                    'Deal_3_damage_to_a_unit', 'DEAL_UNIT_DAMAGE|3');
+                $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
+                break;
+            case 'SHD_167': // Wanted Insurgents — deal 2 damage to a unit
+                $targets = _SWUCollectUnits(0, fn($o) => true);
+                SWUQueueChooseTarget(intval($player), $targets,
+                    'Deal_2_damage_to_a_unit', 'DEAL_UNIT_DAMAGE|2');
+                $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
+                break;
+            case 'SHD_165': // Unlicensed Headhunter (exhausted-only bounty) — heal 5 from YOUR base
+                            // ("your" = the collector's; no target choice)
+                OnHealBase(intval($player), intval($player), 5);
+                break;
+            case 'SHD_173': { // Guild Target's granted bounty — deal 2 (3 if the host was unique) to a base
+                $n = (intval($parts[1] ?? 0) === 1) ? 3 : 2;
+                SWUQueueChooseTarget(intval($player), ['myBase-0', 'theirBase-0'],
+                    "Deal_{$n}_damage_to_which_base?", "DEAL_BASE_DAMAGE|{$n}");
+                $savedPID = intval($player); // leave the collector frame for the queued MZCHOOSE validation
+                break;
+            }
+            case 'SHD_176': // Death Mark's granted bounty — draw 2 cards
+                DoDrawCard($player, 2);
                 break;
         }
     }
@@ -7990,6 +8344,8 @@ function SWUGetUpgradeValidTargets(int $player, string $cardID, $upgradeObj = nu
         case 'ASH_114': // Sabine's Lightsaber
         case 'ASH_183': // Whistling Birds
         case 'ASH_210': // DDC Defender
+        case 'SHD_174': // Hotshot DL-44 Blaster
+        case 'SHD_225': // Jetpack
             $all = array_values(array_filter($all, fn($mz) =>
                 !HasTrait(GetZoneObject($mz)->CardID ?? '', 'Vehicle')));
             break;
@@ -8716,6 +9072,10 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
         }
 
         AddGlobalEffects($player, 'SWU_PLAYED_UNIT_' . $uid);
+        // SHD_161 Stolen Landspeeder / SHD_204 Millennium Falcon — "if you played this unit from your
+        // hand": per-UID flag set ONLY for hand-sourced plays (discard/deck/smuggle-resource plays
+        // don't set it). Cleared with the other per-phase flags at RegroupPhaseStart.
+        if (strpos($mzID, 'Hand') !== false) AddGlobalEffects($player, 'SWU_PLAYED_FROM_HAND_' . $uid);
         // JTL_032 Director Krennic: consume the "first When-Defeated unit you play each round" slot on
         // ANY such play — even before Krennic is in play and even when no discount applied. So a
         // WhenDefeated unit played, THEN Krennic, leaves the next WhenDefeated unit un-discounted (the
@@ -10385,6 +10745,15 @@ function SWUSmuggleResource(int $player, int $resourceIdx): void {
         return;
     }
 
+    // A smuggled UPGRADE (SHD_174 / SHD_175) needs a valid host BEFORE anything is paid — an
+    // upgrade with nowhere to attach can't be played at all.
+    $isUpgrade = stripos(CardType($cardID) ?? '', 'Upgrade') !== false;
+    if ($isUpgrade && empty(SWUGetUpgradeValidTargets($player, $cardID))) {
+        SetFlashMessage("No valid unit to attach that upgrade to.");
+        $playerID = $savedPID;
+        return;
+    }
+
     // CR 8.22.e: the card can exhaust itself toward payment while still in resources.
     // SWUExhaustResources exhausts ready resources in order, so it naturally includes the card.
     $exhaustOk = SWUExhaustResources($player, $totalCost);
@@ -10395,6 +10764,20 @@ function SWUSmuggleResource(int $player, int $resourceIdx): void {
     }
 
     AddGlobalEffects(intval($player), 'SWU_CARDS_PLAYED');  // playing via Smuggle counts
+
+    // UPGRADE smuggle branch (SHD_174 / SHD_175): attach to a chosen host instead of entering an
+    // arena. Cost is already paid; the SMUGGLE_ATTACH continuation removes the resource entry,
+    // attaches (ignoreCost), replaces the spent slot from the deck (CR 8.22.g), and fires the
+    // "When played using Smuggle" closure with the HOST mz. $playerID stays = $player for the
+    // queued host-choice validation (deliberately no restore on this path).
+    if ($isUpgrade) {
+        $hosts = SWUGetUpgradeValidTargets($player, $cardID);
+        SWUQueueChooseTarget(intval($player), $hosts,
+            "Choose_a_unit_to_attach_" . str_replace(' ', '_', CardTitle($cardID) ?? 'the_upgrade') . "_to",
+            "SMUGGLE_ATTACH|{$cardID}|{$actualIdx}");
+        return;
+    }
+
     // Remove card from resources zone (it has now been exhausted above).
     $resources[$actualIdx]->Remove();
 
@@ -10423,6 +10806,13 @@ function SWUSmuggleResource(int $player, int $resourceIdx): void {
     // CR 8.22.f: WhenPlayed and other entry triggers fire just as for normal play.
     $newCardMzID = $newCard->GetMzID();
     _SWUSec008HealOnResourcePlay($player);   // SEC_008 Bail Organa — "play a card from your resources"
+    // "When played using Smuggle:" (SHD_113 / SHD_148 / SHD_174 / SHD_213) — dispatch the registered
+    // closure for the entering card, before the generic entry triggers. (This registry was declared
+    // but never dispatched until SHD_113; the closure receives the new unit's mzID.)
+    global $whenPlayedUsingSmuggleAbilities;
+    if (isset($whenPlayedUsingSmuggleAbilities["{$cardID}:0"])) {
+        $whenPlayedUsingSmuggleAbilities["{$cardID}:0"]($player, $newCardMzID);
+    }
     $triggered   = CollectEntryTriggers($player, $cardID, $newCardMzID, $targetArena);
 
     if ($triggered === 0) {

@@ -451,8 +451,11 @@ if (SWUSimIsMobileRequest()) { include __DIR__ . '/GameLayoutMobile.php'; return
     /* Card flow inside arena cols — wrap, fill from edge nearest midline */
     #theirSpaceArena, #theirGroundArena { flex-wrap: wrap !important; align-content: flex-end !important; }
     #mySpaceArena,    #myGroundArena    { flex-wrap: wrap !important; align-content: flex-start !important; }
-    /* Horizontal: space builds from right (center-facing); ground builds from left (center-facing) */
-    #mySpaceArena,    #theirSpaceArena  { justify-content: flex-end !important; }
+    /* Horizontal: both arenas flow inside-out from the midline. Ground (right column) builds left→right
+       from its center-facing LEFT edge (flex-start). Space (left column) mirrors it: row-reverse pins
+       index-0 to its center-facing RIGHT edge and grows each newer unit outward to the left, so a newly
+       played space unit lands on the OUTSIDE — matching Ground — instead of shoving index-0 aside. */
+    #mySpaceArena,    #theirSpaceArena  { justify-content: flex-start !important; flex-direction: row-reverse !important; }
     /* Hide the generic "GroundArena"/"SpaceArena" label that UILibraries injects when a zone is empty */
     #myGroundArena > span:only-child:not([id]), #theirGroundArena > span:only-child:not([id]),
     #mySpaceArena  > span:only-child:not([id]), #theirSpaceArena  > span:only-child:not([id]) { display: none; }

@@ -322,6 +322,13 @@ function _SWUMirrorAnotherFriendlyHasKeyword($obj, string $kw): bool {
 
 function HasConditionalKeyword_Ambush($obj) {
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'AMBUSH')) return true;
+    // SHD_204 Millennium Falcon — "If you play this unit from your hand, it gains Ambush."
+    // The per-UID hand-source flag is set in ActivateCard before entry triggers collect
+    // (smuggle/discard/deck plays never set it).
+    if (($obj->CardID ?? '') === 'SHD_204'
+        && GlobalEffectCount(intval($obj->Controller ?? 0), 'SWU_PLAYED_FROM_HAND_' . intval($obj->UniqueID ?? 0)) > 0) {
+        return true;
+    }
     // ASH_113 Mandalorian Flagship — "While you control a leader unit, this unit gains Ambush."
     if (($obj->CardID ?? '') === 'ASH_113') {
         foreach (GetUnitsInPlay(intval($obj->Controller ?? 0)) as $u) {
@@ -679,20 +686,25 @@ function HasConditionalKeyword_Shielded($obj) {
 
 function HasConditionalKeyword_Bounty($obj) {
     switch ($obj->CardID) {
-        case 'SHD_033': // Synara San — while exhausted (Status != 2)
+        case 'SHD_033': // Synara San — while exhausted (Status 0; 1 = ready)
         case 'SHD_165': // Unlicensed Headhunter — while exhausted
-            return isset($obj->Status) && intval($obj->Status) !== 2;
+            return isset($obj->Status) && intval($obj->Status) === 0;
     }
     // Upgrade-granted Bounty — the attached unit gains a Bounty ability (the keyword shows the badge;
     // the custom reward is collected on defeat — see the granted-bounty snapshot in
-    // CollectWhenDefeatedTriggers + SWUCollectBounty). SHD_123 Bounty Hunter's Quarry.
+    // CollectWhenDefeatedTriggers + SWUCollectBounty). Shared list: SWUBountyGrantUpgrades().
     foreach (GetUpgradesOnUnit($obj) as $u) {
-        switch ($u->CardID) {
-            case 'SHD_123': // Bounty Hunter's Quarry
-                return true;
-        }
+        if (in_array($u->CardID, SWUBountyGrantUpgrades(), true)) return true;
     }
     return false;
+}
+
+// The Bounty-granting upgrades ("Attached unit gains: 'Bounty — …'"). One list drives BOTH the
+// badge (HasConditionalKeyword_Bounty above) and the defeat-time reward snapshot (the Subcards scan
+// in CollectWhenDefeatedTriggers, GameLogic.php); each ID also needs its reward case in
+// SWUCollectBounty. The snapshot param is uniformly "host was unique" (used by SHD_071/123/173).
+function SWUBountyGrantUpgrades(): array {
+    return ['SHD_068', 'SHD_071', 'SHD_123', 'SHD_125', 'SHD_173', 'SHD_176', 'SHD_221', 'SHD_222', 'SHD_261'];
 }
 
 // ═════════════════════════════════════════════════════════════════════════════

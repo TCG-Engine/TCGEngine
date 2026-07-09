@@ -245,11 +245,8 @@ ADD PRIMARY KEY (`GameID`),
   ADD KEY `FK_WINNING_PLAYER` (`WinningPID`),
   ADD KEY `FK_LOSING_PLAYER` (`LosingPID`);
 --
--- Indexes for table `favoritedeck`
---
-ALTER TABLE `favoritedeck`
-  ADD PRIMARY KEY (`decklink`,`usersId`) USING BTREE,
-  ADD KEY `usersId` (`usersId`);
+-- Indexes for table `favoritedeck` — PK and KEY `usersId` are defined inline in
+-- the CREATE TABLE above; re-adding them here caused ERROR 1068/1061 and aborted init.
 --
 -- Indexes for table `pwdreset`
 --

@@ -167,7 +167,7 @@
 	{
 		$arr = explode("&", $arr[1]);
 		$deckID = $arr[0];
-		
+
 		$sql = "SELECT * FROM ownership WHERE assetType = 1 AND assetIdentifier = ?";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
@@ -210,10 +210,10 @@
 	  ]);
 	  exit;
 	}
-	
+
 	$columns = "WinningHero, LosingHero, NumTurns, WinnerDeck, LoserDeck, WinnerHealth, FirstPlayer, WinningPlayer";
 	$values = "?, ?, ?, ?, ?, ?, ?, ?";
-  
+
 	if($p1id != "" && $p1id != "-") {
 	  $columns .= ", " . ($winner == 1 ? "WinningPID" : "LosingPID");
 	  $values .= ", " . $p1id;
@@ -222,7 +222,7 @@
 	  $columns .= ", " . ($winner == 2 ? "WinningPID" : "LosingPID");
 	  $values .= ", " . $p2id;
 	}
-  
+
 	$sql = "INSERT INTO completedgame (" . $columns . ") VALUES (" . $values . ");";
 	$stmt = mysqli_stmt_init($conn);
 	$gameResultID = 0;
@@ -303,7 +303,7 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 				mysqli_stmt_close($stmt);
 		}
 	}
-	
+
 	if(!$disableMetaStats) {
 		// Compute the week number (number of full weeks since 2025-09-20).
 		// Week 0 is historical; nearby logic lives in GetWeekSinceRef().
@@ -367,17 +367,17 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 		$timesDiscardedInWins = ($won === true) ? $card["discarded"] : 0;
 		$timesDrawn = $card["drawn"];
 		$timesDrawnInWins = ($won === true) ? $card["drawn"] : 0;
-		$sql = "UPDATE carddeckstats SET 
-				timesIncluded = timesIncluded + ?, 
-				timesIncludedInWins = timesIncludedInWins + ?, 
-				timesPlayed = timesPlayed + ?, 
-				timesPlayedInWins = timesPlayedInWins + ?, 
-				timesResourced = timesResourced + ?, 
-				timesResourcedInWins = timesResourcedInWins + ?, 
-				timesDiscarded = timesDiscarded + ?, 
-				timesDiscardedInWins = timesDiscardedInWins + ?, 
-				timesDrawn = timesDrawn + ?, 
-				timesDrawnInWins = timesDrawnInWins + ? 
+		$sql = "UPDATE carddeckstats SET
+				timesIncluded = timesIncluded + ?,
+				timesIncludedInWins = timesIncludedInWins + ?,
+				timesPlayed = timesPlayed + ?,
+				timesPlayedInWins = timesPlayedInWins + ?,
+				timesResourced = timesResourced + ?,
+				timesResourcedInWins = timesResourcedInWins + ?,
+				timesDiscarded = timesDiscarded + ?,
+				timesDiscardedInWins = timesDiscardedInWins + ?,
+				timesDrawn = timesDrawn + ?,
+				timesDrawnInWins = timesDrawnInWins + ?
 				WHERE cardID = ? AND deckID = ? AND source = ?";
 		$stmt = mysqli_stmt_init($conn);
 		if (mysqli_stmt_prepare($stmt, $sql)) {
@@ -408,13 +408,13 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 				}
 			}
 
-			$sql = "UPDATE cardmetastats SET 
-					timesIncluded = timesIncluded + ?, 
-					timesIncludedInWins = timesIncludedInWins + ?, 
-					timesPlayed = timesPlayed + ?, 
-					timesPlayedInWins = timesPlayedInWins + ?, 
-					timesResourced = timesResourced + ?, 
-					timesResourcedInWins = timesResourcedInWins + ? 
+			$sql = "UPDATE cardmetastats SET
+					timesIncluded = timesIncluded + ?,
+					timesIncludedInWins = timesIncludedInWins + ?,
+					timesPlayed = timesPlayed + ?,
+					timesPlayedInWins = timesPlayedInWins + ?,
+					timesResourced = timesResourced + ?,
+					timesResourcedInWins = timesResourcedInWins + ?
 					WHERE cardID = ? AND week = ?";
 			$stmt = mysqli_stmt_init($conn);
 			if (mysqli_stmt_prepare($stmt, $sql)) {
@@ -426,18 +426,18 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 		}
 	}
 
-	$sql = "UPDATE deckstats SET 
-			numPlays = numPlays + 1, 
-			totalTurns = totalTurns + ?, 
+	$sql = "UPDATE deckstats SET
+			numPlays = numPlays + 1,
+			totalTurns = totalTurns + ?,
 			totalCardsResourced = totalCardsResourced + ?";
 
        if ($wasFirstPlayer) {
 	       $sql .= ", playsGoingFirst = playsGoingFirst + 1";
        }
        if ($won === true) {
-	       $sql .= ", numWins = numWins + 1, 
-			 turnsInWins = turnsInWins + ?, 
-			 cardsResourcedInWins = cardsResourcedInWins + ?, 
+	       $sql .= ", numWins = numWins + 1,
+			 turnsInWins = turnsInWins + ?,
+			 cardsResourcedInWins = cardsResourcedInWins + ?,
 			 remainingHealthInWins = remainingHealthInWins + ?";
 	       if ($wasFirstPlayer) {
 		       $sql .= ", winsGoingFirst = winsGoingFirst + 1";
@@ -459,36 +459,36 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 
 	   if(!$disableMetaStats) {
 
-		  $sql = "UPDATE deckmetastats SET 
-			  numPlays = numPlays + 1, 
-			  totalTurns = totalTurns + ?, 
+		  $sql = "UPDATE deckmetastats SET
+			  numPlays = numPlays + 1,
+			  totalTurns = totalTurns + ?,
 			  totalCardsResourced = totalCardsResourced + ?";
 		  if ($won === true) {
-			  $sql .= ", numWins = numWins + 1, 
-				  turnsInWins = turnsInWins + ?, 
-				  cardsResourcedInWins = cardsResourcedInWins + ?, 
+			  $sql .= ", numWins = numWins + 1,
+				  turnsInWins = turnsInWins + ?,
+				  cardsResourcedInWins = cardsResourcedInWins + ?,
 				  remainingHealthInWins = remainingHealthInWins + ?";
 		  }
 		  $sql .= " WHERE leaderID = ? AND baseID = ? AND week = ?";
 		  $stmt = mysqli_stmt_init($conn);
 		  if (mysqli_stmt_prepare($stmt, $sql)) {
 			  if ($won === true) {
-			  mysqli_stmt_bind_param($stmt, "iiiiissi", 
-				  $numRounds, 
-				  $cardsResourced, 
-				  $numRounds, 
-				  $cardsResourced, 
-				  $winnerHealth, 
-				  $leaderID, 
-				  $baseID, 
+			  mysqli_stmt_bind_param($stmt, "iiiiissi",
+				  $numRounds,
+				  $cardsResourced,
+				  $numRounds,
+				  $cardsResourced,
+				  $winnerHealth,
+				  $leaderID,
+				  $baseID,
 				  $week
 			  );
 			  } else {
-			  mysqli_stmt_bind_param($stmt, "iissi", 
-				  $numRounds, 
-				  $cardsResourced, 
-				  $leaderID, 
-				  $baseID, 
+			  mysqli_stmt_bind_param($stmt, "iissi",
+				  $numRounds,
+				  $cardsResourced,
+				  $leaderID,
+				  $baseID,
 				  $week
 			  );
 			  }
@@ -519,14 +519,14 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 				   mysqli_stmt_close($stmt);
 			   }
 		   }
-		  $updateSql = "UPDATE deckmetamatchupstats SET 
-			  numPlays = numPlays + 1, 
-			  totalTurns = totalTurns + ?, 
+		  $updateSql = "UPDATE deckmetamatchupstats SET
+			  numPlays = numPlays + 1,
+			  totalTurns = totalTurns + ?,
 			  totalCardsResourced = totalCardsResourced + ?";
 		  if ($won === true) {
-			  $updateSql .= ", numWins = numWins + 1, 
-				  turnsInWins = turnsInWins + ?, 
-				  cardsResourcedInWins = cardsResourcedInWins + ?, 
+			  $updateSql .= ", numWins = numWins + 1,
+				  turnsInWins = turnsInWins + ?,
+				  cardsResourcedInWins = cardsResourcedInWins + ?,
 				  remainingHealthInWins = remainingHealthInWins + ?";
 			  if ($wasFirstPlayer) {
 				  $updateSql .= ", winsGoingFirst = winsGoingFirst + 1";
@@ -542,27 +542,27 @@ function SaveDeckStats($deckID, $playerData, $won, $wasFirstPlayer, $numRounds, 
 		  if (mysqli_stmt_prepare($stmt, $updateSql)) {
 			  if ($won === true) {
 				  // If won, 5 stats + 5 keys = 10 args
-				  mysqli_stmt_bind_param($stmt, "iiiiissssi", 
-					  $numRounds, 
-					  $cardsResourced, 
-					  $numRounds, 
-					  $cardsResourced, 
-					  $winnerHealth, 
-					  $leaderID, 
-					  $baseID, 
-					  $opponentLeaderID, 
-					  $opponentBaseID, 
+				  mysqli_stmt_bind_param($stmt, "iiiiissssi",
+					  $numRounds,
+					  $cardsResourced,
+					  $numRounds,
+					  $cardsResourced,
+					  $winnerHealth,
+					  $leaderID,
+					  $baseID,
+					  $opponentLeaderID,
+					  $opponentBaseID,
 					  $week
 				  );
 			  } else {
 				  // If not won, 2 stats + 5 keys = 7 args
-				  mysqli_stmt_bind_param($stmt, "iissssi", 
-					  $numRounds, 
-					  $cardsResourced, 
-					  $leaderID, 
-					  $baseID, 
-					  $opponentLeaderID, 
-					  $opponentBaseID, 
+				  mysqli_stmt_bind_param($stmt, "iissssi",
+					  $numRounds,
+					  $cardsResourced,
+					  $leaderID,
+					  $baseID,
+					  $opponentLeaderID,
+					  $opponentBaseID,
 					  $week
 				  );
 			  }

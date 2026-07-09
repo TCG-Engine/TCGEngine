@@ -149,6 +149,8 @@ class SchemaTestRunner {
                              'WithP1Discard',             'WithP2Discard',
                              'WithP1GroundArenaUpgrade',  'WithP2GroundArenaUpgrade',
                              'WithP1SpaceArenaUpgrade',   'WithP2SpaceArenaUpgrade',
+                             'WithP1GroundArenaPilot',    'WithP2GroundArenaPilot',
+                             'WithP1SpaceArenaPilot',     'WithP2SpaceArenaPilot',
                              'WithP1Deck',                'WithP2Deck'];
         // List-valued keys accept either one spec per line OR a bracketed, whitespace-separated
         // array on a single line — e.g. "WithP2Deck: [SOR_225 SEC_080 SOR_128]" or
@@ -159,7 +161,9 @@ class SchemaTestRunner {
                             'WithP1Deck', 'WithP2Deck',
                             'WithP1GroundArena', 'WithP2GroundArena', 'WithP1SpaceArena', 'WithP2SpaceArena',
                             'WithP1GroundArenaUpgrade', 'WithP2GroundArenaUpgrade',
-                            'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade'];
+                            'WithP1SpaceArenaUpgrade', 'WithP2SpaceArenaUpgrade',
+                            'WithP1GroundArenaPilot', 'WithP2GroundArenaPilot',
+                            'WithP1SpaceArenaPilot', 'WithP2SpaceArenaPilot'];
         $out = [];
         foreach ($lines as $line) {
             if (!str_contains($line, ':')) continue;
@@ -340,6 +344,29 @@ class SchemaTestRunner {
                 foreach ($byUnit as $unitIdx => $cardIDs) {
                     $upgrades = array_map(fn($cid) => GameStateBuilder::Upgrade($cid, $pn), $cardIDs);
                     $b->$method($pn, $unitIdx, $upgrades);
+                }
+            }
+        }
+
+        // Initial PILOT upgrades on arena units (WithP{n}{Ground|Space}ArenaPilot: idx:CARD_ID).
+        // Same wiring as ArenaUpgrade but flags IsPilot=true, so the host counts as occupied
+        // (SWUVehiclePilotCount) — the honest way to pre-seat a piloted Vehicle.
+        foreach ([1, 2] as $pn) {
+            foreach (['Ground', 'Space'] as $arenaType) {
+                $key    = "WithP{$pn}{$arenaType}ArenaPilot";
+                $byUnit = [];
+                foreach ($given[$key] ?? [] as $spec) {
+                    [$idxStr, $cardID] = array_pad(explode(':', trim($spec), 2), 2, '');
+                    $byUnit[intval($idxStr)][] = trim($cardID);
+                }
+                $method = "WithUpgradesOn{$arenaType}UnitForPlayer";
+                foreach ($byUnit as $unitIdx => $cardIDs) {
+                    $pilots = array_map(function($cid) use ($pn) {
+                        $u = GameStateBuilder::Upgrade($cid, $pn);
+                        $u['IsPilot'] = true;
+                        return $u;
+                    }, $cardIDs);
+                    $b->$method($pn, $unitIdx, $pilots);
                 }
             }
         }

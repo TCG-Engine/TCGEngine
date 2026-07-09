@@ -250,9 +250,9 @@ function SWUImportFromSWUDB($url) {
 // ─── Source: SWUStats / SWUDeck game link ────────────────────────────────────
 
 function SWUImportFromSWUStats($url) {
-    // A SWUStats/SWUDeck deck lives as a "game"; the link carries ?gameName=<numericId>.
+    // A SWUStats deck lives as a "game"; the link carries ?gameName=<numericId>.
     if (!preg_match('/[?&]gameName=(\d+)/', $url, $m)) {
-        return SWUDeckError('Could not extract a gameName from the SWUStats/SWUDeck link.');
+        return SWUDeckError('Could not extract a gameName from the SWUStats link.');
     }
     $deckId = $m[1];
 
@@ -269,7 +269,7 @@ function SWUImportFromSWUStats($url) {
     $apiUrl = $base . '/TCGEngine/APIs/LoadDeck.php?deckID=' . rawurlencode($deckId) . '&format=json&setId=true';
     $data   = SWUFetchDeckJson($apiUrl, ['Accept: application/json']);
     if (!is_array($data)) {
-        return SWUDeckError('Could not load the deck from SWUStats/SWUDeck. It may be private or unavailable.');
+        return SWUDeckError('Could not load the deck from SWUStats. It may be private or unavailable.');
     }
 
     return SWUNormalizeStandardJSON($data);

@@ -9,70 +9,70 @@
 ⚠ **Already partially implemented — verify, do NOT duplicate:** SHD_012, SHD_028, SHD_135, SHD_166, SHD_182. ⚠ **SHD_187** immunity halves likely already wired via `SWUAvoids*` helpers — only the Raid 2 (auto) + any remaining text needs checking.
 
 ### Already Done
-SHD_019, SHD_020, SHD_021, SHD_022, SHD_023, SHD_024, SHD_025, SHD_026, SHD_029, SHD_043, SHD_055, SHD_060, SHD_061, SHD_062, SHD_063, SHD_070, SHD_098, SHD_100, SHD_110, SHD_114, SHD_121, SHD_136, SHD_146, SHD_152, SHD_162, SHD_200, SHD_210, SHD_218, SHD_237, SHD_238, SHD_240, SHD_257, SHD_259, SHD_T01, SHD_T02, SHD_006, SHD_123
+SHD_019, SHD_020, SHD_021, SHD_022, SHD_023, SHD_024, SHD_025, SHD_026, SHD_029, SHD_043, SHD_055, SHD_060, SHD_061, SHD_062, SHD_063, SHD_070, SHD_098, SHD_100, SHD_110, SHD_114, SHD_121, SHD_136, SHD_146, SHD_152, SHD_162, SHD_200, SHD_210, SHD_218, SHD_237, SHD_238, SHD_240, SHD_257, SHD_259, SHD_T01, SHD_T02, SHD_006, SHD_123, SHD_027, SHD_031, SHD_033, SHD_058, SHD_068, SHD_071, SHD_095, SHD_116, SHD_125, SHD_134, SHD_161, SHD_165, SHD_167, SHD_173, SHD_176, SHD_185, SHD_195, SHD_211, SHD_221, SHD_222, SHD_261, SHD_032, SHD_050, SHD_052, SHD_065, SHD_075, SHD_086, SHD_089, SHD_097, SHD_107, SHD_111, SHD_113, SHD_119, SHD_127, SHD_129, SHD_148, SHD_149, SHD_160, SHD_174, SHD_175, SHD_184, SHD_197, SHD_201, SHD_203, SHD_204, SHD_213, SHD_215, SHD_225, SHD_252
 
 ## Phase 1 — Bounty payloads (reuse SWUCollectBounty dispatch) (autonomous)
-- [ ] **Batch 1.1 — SHD_027, SHD_031, SHD_033, SHD_058**
+- [x] **Batch 1.1 — SHD_027, SHD_031, SHD_033, SHD_058** ✅ 2356 passing. SHD_027 was already done (verify-only). Fixed the SHD_033/165 always-true `Status !== 2` conditional + the CR 13.f collector (bounty now goes to OtherPlayer(controller), incl. exploit park); conditional-innate bounty snapshot at defeat + capture (new `$capturedObj` param).
   - SHD_027 Hylobon Enforcer: Grit (This unit gets +1/+0 for each damage on it.) Bounty - Draw a card. (When this unit is defeated or captured, y
   - SHD_031 The Client: Shielded Action [Exhaust]: Choose a unit. For this phase, it gains: "Bounty - Heal 5 damage from a base." (When tha
   - SHD_033 Synara San: Grit While this unit is exhausted, she gains, "Bounty - Deal 5 damage to a base." (When this unit is defeated or ca
   - SHD_058 Val: Bounty - Deal 3 damage to a unit. When Defeated: Give 2 Experience tokens to a friendly unit. (The active player ch
-- [ ] **Batch 1.2 — SHD_068, SHD_071, SHD_095, SHD_116**
+- [x] **Batch 1.2 — SHD_068, SHD_071, SHD_095, SHD_116** ✅ 2362 passing. Generalized the SHD_123 one-off into `SWUBountyGrantUpgrades()` (drives badge + defeat snapshot; param = host-unique). SHD_116 ramp enters exhausted.
   - SHD_068 Public Enemy: Attached unit gains: "Bounty - Give a Shield token to a unit." (When this unit is defeated or captured, its opponen
   - SHD_071 Top Target: Attached unit gains: "Bounty - Heal 4 damage from a unit or base. If this unit is unique, heal 6 damage instead." (
   - SHD_095 Clone Deserter: Restore 1 (When this unit attacks, heal 1 damage from your base.) Bounty - Draw a card. (When this unit is defeated
   - SHD_116 Outlaw Corona: Bounty - Put the top card of your deck into play as a resource. (When this unit is defeated or captured, your oppon
-- [ ] **Batch 1.3 — SHD_123, SHD_125, SHD_134, SHD_161**
+- [x] **Batch 1.3 — SHD_123, SHD_125, SHD_134, SHD_161** ✅ 2366 passing. SHD_123 verified already-done. New `SWU_PLAYED_FROM_HAND_{uid}` flag (ActivateCard, hand-source only; also serves SHD_204); SHD_161 owner-snapshot param on the innate bounty offer + free discard replay w/ $gPlayGrantExp.
   - SHD_123 Bounty Hunter\'s Quarry: Attached unit gains: "Bounty - Search the top 5 cards of your deck, or 10 cards instead if this unit is unique, for
   - SHD_125 Price on Your Head: Attached unit gains: "Bounty - Put the top card of your deck into play as a resource." (When this unit is defeated 
   - SHD_134 Guavian Antagonizer: Saboteur (When this unit attacks, ignore Sentinel and defeat the defender's Shields.) Bounty - Draw a card. (When t
   - SHD_161 Stolen Landspeeder: When Played: If you played this unit from your hand, an opponent takes control of it. Bounty - If you own this unit
-- [ ] **Batch 1.4 — SHD_165, SHD_167, SHD_173, SHD_176**
+- [x] **Batch 1.4 — SHD_165, SHD_167, SHD_173, SHD_176** ✅ 2372 passing. All rode batch-1.1/1.2 seams (conditional snapshot, grant-upgrade list, reward cases).
   - SHD_165 Unlicensed Headhunter: Saboteur While this unit is exhausted, it gains: "Bounty - Heal 5 damage from your base." (When this unit is defeat
   - SHD_167 Wanted Insurgents: Bounty - Deal 2 damage to a unit. (When this unit is defeated or captured, your opponent collects its bounty.)
   - SHD_173 Guild Target: Attached unit gains: "Bounty - Deal 2 damage to a base. If this unit is unique, deal 3 damage instead." (When this 
   - SHD_176 Death Mark: Attached unit gains: "Bounty - Draw 2 cards." (When this unit is defeated or captured, its opponent collects its bo
-- [ ] **Batch 1.5 — SHD_185, SHD_195, SHD_211, SHD_221**
+- [x] **Batch 1.5 — SHD_185, SHD_195, SHD_211, SHD_221** ✅ 2379 passing (run together with 1.6). SWUReadyResources for the ready-resource bounties; all else rode existing seams.
   - SHD_185 Doctor Evazan: Shielded (When you play this unit, give a Shield token to him.) Bounty - Ready up to 12 resources. (When this unit 
   - SHD_195 Cartel Turncoat: Bounty - Draw a card. (When this unit is defeated or captured, your opponent collects its bounty.)
   - SHD_211 Fugitive Wookiee: Bounty - Exhaust a unit. (When this unit is defeated or captured, your opponent collects its bounty.)
   - SHD_221 Wanted: Attached unit gains: "Bounty - Ready 2 friendly resources." (When this unit is defeated or captured, its opponent c
-- [ ] **Batch 1.6 — SHD_222, SHD_261**
+- [x] **Batch 1.6 — SHD_222, SHD_261** ✅ 2379 passing. New universal `GIVE_EXP_EACH` (multi-target sibling of GIVE_EXPERIENCE|N); SHD_222 chains an own-hand discard after DoTopDeckSearch (unique-host gate via the snapshot param).
   - SHD_222 Enticing Reward: Attached unit gains: "Bounty - Search the top 10 cards of your deck for 2 non-unit cards, reveal them, and draw the
   - SHD_261 Rich Reward: Attached unit gains: "Bounty - Give an Experience token to each of up to 2 units." (When this unit is defeated or c
 
 ## Phase 2 — Smuggle alt-cost cards (Smuggle built — implement each card's own effect) (autonomous)
-- [ ] **Batch 2.1 — SHD_032, SHD_050, SHD_052, SHD_065**
+- [x] **Batch 2.1 — SHD_032, SHD_050, SHD_052, SHD_065** ✅ 2385 passing. SHD_065 keyword-only no-op; SHD_052 Sugi was already implemented (added 2 guard tests); SHD_050 uses remaining-HP (CurrentHP−Damage) filter.
   - SHD_032 Lom Pyke: On Attack: You may give a Shield token to an enemy unit. If you do, give a Shield token to a friendly unit. Smuggle
   - SHD_050 Chewbacca: Grit When Played: You may defeat a unit with 5 or less remaining HP. Smuggle [9 resources Aggression Heroism]
   - SHD_052 Sugi: While an enemy unit is upgraded, this unit gains Sentinel. Smuggle [6 resources Vigilance] (If this card is a resou
   - SHD_065 Vigilant Pursuit Craft: Sentinel (Units in this arena can't attack your non-Sentinel units or your base.)  Smuggle [7 resources, vigilance]
-- [ ] **Batch 2.2 — SHD_075, SHD_086, SHD_089, SHD_097**
+- [x] **Batch 2.2 — SHD_075, SHD_086, SHD_089, SHD_097** ✅ 2390 passing. SHD_089 keyword-only no-op; SHD_086 = one case label next to SOR_161/SEC_108; SHD_097 MZMAYCHOOSE (OnAttack-safe) + STAT_BUFF registry row.
   - SHD_075 Covert Strength: Heal 2 damage from a unit and give an Experience token to it. Smuggle [3 resources Vigilance] (If this card is a re
   - SHD_086 Warbird Stowaway: While you have the initiative, this unit gets +2/+0. Smuggle [4 resources Command Villainy] (If this card is a reso
   - SHD_089 Pirate Battle Tank: Sentinel (Units in this arena can't attack your non-Sentinel units or your base.) Smuggle [7 resources Command Vill
   - SHD_097 Freetown Backup: On Attack: Give another friendly unit +2/+2 for this phase. Smuggle [4 resources Command Heroism] (If this card is 
-- [ ] **Batch 2.3 — SHD_107, SHD_111, SHD_113, SHD_119**
+- [x] **Batch 2.3 — SHD_107, SHD_111, SHD_113, SHD_119** ✅ 2394 passing. SHD_111/119 keyword-only no-ops. **Wired the declared-but-never-dispatched `$whenPlayedUsingSmuggleAbilities` seam** in SWUSmuggleResource (serves SHD_113 now; 148/174/213 later). ⚠ SOR_164 Wampa is 4/5 (an old test comment said 5/4 — dictionary wins).
   - SHD_107 Enterprising Lackeys: When Defeated: You may defeat a friendly resource. If you do, put this unit into play as a resource. Smuggle [6 res
   - SHD_111 Collections Starhopper: Smuggle [3 resources Command] (If this card is a resource, you may play it for its smuggle cost. Replace it with th
   - SHD_113 Privateer Crew: Smuggle [6 resources, command] (If this card is a resource, you may play it for its smuggle cost. Replace it with t
   - SHD_119 Weequay Pirate Gang: Ambush (When you play this unit, it may ready and attack an enemy unit.) Smuggle [5 resources Command] (If this car
-- [ ] **Batch 2.4 — SHD_127, SHD_129, SHD_148, SHD_149**
+- [x] **Batch 2.4 — SHD_127, SHD_129, SHD_148, SHD_149** ✅ 2397 passing. SHD_149 keyword-only no-op; SHD_129 = SEC_007 mirror (event form, no after-action); SHD_148 rides the new smuggle-trigger seam.
   - SHD_127 Commission: Search the top 10 cards of your deck for a Bounty Hunter, Item, or Transport card, reveal it, and draw it. (Put the
   - SHD_129 Timely Intervention: Play a unit from your hand. Give it Ambush for this phase. (When you play it, it may ready and attack an enemy unit
   - SHD_148 Cassian Andor: Smuggle [5 resources Aggression Heroism] (If this card is a resource, you may play him for his smuggle cost. Replac
   - SHD_149 Nite Owl Skirmisher: Smuggle [5 resources Aggression Heroism] (If this card is a resource, you may play it for its smuggle cost. Replace
-- [ ] **Batch 2.5 — SHD_160, SHD_174, SHD_175, SHD_184**
+- [x] **Batch 2.5 — SHD_160, SHD_174, SHD_175, SHD_184** ✅ 2403 passing. **New SWUSmuggleResource UPGRADE branch** (pre-payment host guard + universal SMUGGLE_ATTACH continuation; smuggle-trigger closures receive the HOST mz). **Fixed a mis-mapping: SHD_184 Bazine was wrongly wired into the JTL_111 draw-reaction hook** — removed; her real When Played implemented (look-at-hand + may-discard → opponent draws).
   - SHD_160 Reckless Gunslinger: When Played: Deal 1 damage to each base. Smuggle [3 resources Aggression] (If this card is a resource, you may play
   - SHD_174 Hotshot DL-44 Blaster: Attach to a non-VEHICLE unit.  Smuggle [3 resources, cunning]  When played using Smuggle: Attack with attached unit
   - SHD_175 Armed to the Teeth: Attached unit gains: "On Attack: Give another friendly unit +2/+0 for this phase." Smuggle [4 resources Aggression]
   - SHD_184 Bazine Netal: When Played: Look at an opponent's hand. You may discard 1 of those cards. If you do, that player draws a card. Smu
-- [ ] **Batch 2.6 — SHD_197, SHD_201, SHD_203, SHD_204**
+- [x] **Batch 2.6 — SHD_197, SHD_201, SHD_203, SHD_204** ✅ 2411 passing. New targeted-rescue picker (TempZone staging, captorUID:subIdx map — SHD_197); Zorii regroup-discard drain-loop; SHD_204 conditional Ambush reads SWU_PLAYED_FROM_HAND flag.
   - SHD_197 L3-37: When Played: You may rescue a captured card. If you don't, give a Shield token to this unit. Smuggle [4 resources C
   - SHD_201 Principled Outlaw: On Attack: You may exhaust a ground unit. Smuggle [6 resources Cunning Heroism] (If this card is a resource, you ma
   - SHD_203 Zorii Bliss: On Attack: Draw a card. At the start of the regroup phase, discard a card from your hand. Smuggle [6 resources Cunn
   - SHD_204 Millennium Falcon: If you play this unit from your hand, it gains Ambush. Smuggle [6 resources Cunning Heroism] (If this card is a res
-- [ ] **Batch 2.7 — SHD_213, SHD_215, SHD_225, SHD_252**
+- [x] **Batch 2.7 — SHD_213, SHD_215, SHD_225, SHD_252** ✅ 2418 passing. DJ resource-steal + `_SWURevertShd213Steals` lazy leave-play sweep (SEC_192 twin); Jetpack regroup token-defeat drain (approximation noted: removes one shield if the original was consumed and another gained).
   - SHD_213 DJ: Smuggle [7 resources Cunning Cunning] When played using Smuggle: Take control of an enemy resource. When this unit 
   - SHD_215 Smuggler\'s Starfighter: When Played: If you control another Underworld unit, give an enemy unit -3/-0 for this phase. Smuggle [4 resources 
   - SHD_225 Jetpack: Attach to a non-Vehicle unit. When Played: Give a Shield token to attached unit. At the start of the regroup phase,

@@ -1093,6 +1093,49 @@ function OnPlayEvent(int $player, string $cardID): void {
             return;
         }
 
+        case 'SHD_252': { // Smuggler's Aid — heal 3 damage from your base.
+            OnHealBase(intval($player), intval($player), 3);
+            return;
+        }
+
+        case 'SHD_127': { // Commission — search the top 10 of your deck for a Bounty Hunter, Item,
+                          // or Transport card; reveal it and draw it.
+            global $playerID; $playerID = intval($player);
+            if (count(GetDeck($player)) === 0) return;
+            DoTopDeckSearch(intval($player), 10,
+                fn($c) => HasTrait($c, 'Bounty Hunter') || HasTrait($c, 'Item') || HasTrait($c, 'Transport'), 1);
+            return;
+        }
+
+        case 'SHD_129': { // Timely Intervention — play a unit from your hand (paying its cost);
+                          // it gains Ambush for this phase (SEC_007 Dryden mirror, event form).
+            global $playerID; $playerID = intval($player);
+            DecisionQueueController::CleanupRemovedCards();   // the event is a removed hand entry
+            $ready = SWUResourceCount(intval($player), readyOnly: true);
+            $units = [];
+            foreach (ZoneSearch('myHand') as $hmz) {
+                $u = GetZoneObject($hmz);
+                if ($u === null || !empty($u->removed)) continue;
+                if (stripos(CardType($u->CardID) ?? '', 'Unit') === false) continue;
+                if (SWUComputePlayCost(intval($player), $u) > $ready) continue;
+                $units[] = $hmz;
+            }
+            if (empty($units)) return;
+            SWUQueueChooseTarget(intval($player), $units,
+                "Play_a_unit_from_your_hand_(it_gains_Ambush)", "SHD_129#0");
+            return;
+        }
+
+        case 'SHD_075': { // Covert Strength — Heal 2 damage from a unit AND give an Experience token
+                          // to it (one pick, both effects → SHD_075#0).
+            global $playerID; $playerID = intval($player);
+            $targets = _SWUAllUnits();
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets,
+                "Heal_2_and_give_an_Experience_token_to_a_unit", "SHD_075#0");
+            return;
+        }
+
         case 'IBH_066':
         case 'IBH_091': { // Too Strong for Blasters — Heal 2 damage from a unit.
             global $playerID; $playerID = intval($player);
