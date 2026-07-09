@@ -1,0 +1,19 @@
+# SHD_156 (2-cost Aggression/Heroism event) — "Draw a card. Each opponent who controls more resources
+# than you discards a card from their hand." P1 has 2 resources, P2 has 5 (more) → P1 draws, and P2
+# (its lone hand card) discards.
+
+## GIVEN
+CommonSetup: rrw/rrw/{myResources:2}
+P1OnlyActions: true
+WithP1Hand: SHD_156
+WithP1Deck: SOR_095
+WithP2Resources: 5
+WithP2Hand: SOR_095
+
+## WHEN
+- P1>PlayHand:0
+
+## EXPECT
+P1HANDCOUNT:1
+P2HANDCOUNT:0
+P2DISCARDCOUNT:1

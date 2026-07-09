@@ -103,6 +103,8 @@ function _SWUUnitHasTrait($obj, string $trait): bool {
     if (strtoupper($trait) === 'UNDERWORLD' && _SWUUnitHasUpgrade($obj, 'LAW_111')) return true;
     // ASH_135 The Darksaber — attached unit GAINS the Mandalorian trait.
     if (strtoupper($trait) === 'MANDALORIAN' && _SWUUnitHasUpgrade($obj, 'ASH_135')) return true;
+    // SHD_069 Foundling — attached unit GAINS the Mandalorian trait.
+    if (strtoupper($trait) === 'MANDALORIAN' && _SWUUnitHasUpgrade($obj, 'SHD_069')) return true;
     // LAW_212 Malakili — "Each friendly Creature unit ... gains the Underworld trait." Granted to any
     // Creature whose controller controls a Malakili in play. (The "Creature you own that isn't in play"
     // half is NOT covered here — those reads go through bare-CardID HasTrait; deferred edge.)
@@ -252,6 +254,14 @@ function ObjectCurrentPower($obj) {
             if ($l->CardID === 'SOR_001') { $base += 1; break; }
         }
     }
+    // SHD_001 Gar Saxon: each friendly upgraded unit gets +1/+0 (front passive; continues while deployed).
+    if ($controller > 0 && _SWUIsUpgraded($obj)) {
+        $leaderArr = GetLeader($controller);
+        foreach ($leaderArr as $l) {
+            if (isset($l->removed) && $l->removed) continue;
+            if (($l->CardID ?? '') === 'SHD_001') { $base += 1; break; }
+        }
+    }
 
     // SEC_212 Libertine: gets +1/+0 for each captured card it's guarding.
     if (($obj->CardID ?? '') === 'SEC_212' && is_array($obj->Subcards ?? null)) {
@@ -273,6 +283,17 @@ function ObjectCurrentPower($obj) {
 
     // ASH_010 Bo-Katan Kryze (deployed): other friendly Mandalorian units get +1/+0.
     $base += SWUTraitCommanderBonus($obj, 'ASH_010', 'Mandalorian');
+
+    // SHD_190 Zuckuss: each friendly unit named 4-LOM gets +1/+1 (Saboteur granted in KeywordEffects).
+    if ($controller > 0 && CardTitle($obj->CardID ?? '') === '4-LOM'
+        && _SWUCountUnitsWithCardID($controller, 'SHD_190') > 0) $base += 1;
+    // SHD_188 4-LOM: each friendly unit named Zuckuss gets +1/+1 (Ambush granted in KeywordEffects).
+    if ($controller > 0 && CardTitle($obj->CardID ?? '') === 'Zuckuss'
+        && _SWUCountUnitsWithCardID($controller, 'SHD_188') > 0) $base += 1;
+    // SHD_056 Follower of The Way — "While this unit is upgraded, it gets +1/+1."
+    if (($obj->CardID ?? '') === 'SHD_056' && _SWUIsUpgraded($obj)) $base += 1;
+    // SHD_083 Seasoned Shoretrooper — "While you control 6 or more resources, this unit gets +2/+0."
+    if (($obj->CardID ?? '') === 'SHD_083' && $controller > 0 && SWUResourceCount($controller) >= 6) $base += 2;
 
     // Self-conditional buffs.
     switch ($obj->CardID) {
@@ -441,6 +462,9 @@ function ObjectCurrentPower($obj) {
         case 'ASH_226': // Qi'ra: this unit gets –1/–0 for each card in your hand. (Power floors at 0 below.)
             if ($controller > 0) $base -= count(GetHand($controller));
             break;
+        case 'SHD_011': // Kylo Ren (deployed): this unit gets –1/–0 for each card in your hand.
+            if ($controller > 0) $base -= count(GetHand($controller));
+            break;
     }
 
     // Field-presence trait buffs (other friendly X units get +1/+0).
@@ -534,6 +558,16 @@ function ObjectCurrentHP($obj) {
     $base += _SWUAsh100Bonus($obj);                               // ASH_100 Gallius Rax (+2 HP if ≥2 keywords)
     $base += 6 * SWUTraitCommanderBonus($obj, 'LOF_089', 'Vehicle'); // Supremacy (other friendly Vehicles +6/+6, HP half)
     $base += _SWUSpaceUnitBonus($obj);                            // JTL_085 aura / JTL_115 self-buff
+    // SHD_190 Zuckuss: each friendly unit named 4-LOM gets +1/+1 (the +1 HP half).
+    {
+        $c190 = intval($obj->Controller ?? $obj->Owner ?? 0);
+        if ($c190 > 0 && CardTitle($obj->CardID ?? '') === '4-LOM'
+            && _SWUCountUnitsWithCardID($c190, 'SHD_190') > 0) $base += 1;
+        if ($c190 > 0 && CardTitle($obj->CardID ?? '') === 'Zuckuss'
+            && _SWUCountUnitsWithCardID($c190, 'SHD_188') > 0) $base += 1;
+    }
+    // SHD_056 Follower of The Way — "While this unit is upgraded, it gets +1/+1" (the +1 HP half).
+    if (($obj->CardID ?? '') === 'SHD_056' && _SWUIsUpgraded($obj)) $base += 1;
     // JTL_150 Biggs Darklighter (pilot): if the attached unit is a Transport, +0/+1.
     if (_SWUUnitHasUpgrade($obj, 'JTL_150') && HasTrait($obj->CardID ?? '', 'Transport')) $base += 1;
     // JTL_050 Phantom II attached to The Ghost — "Attached unit gets +3/+3" (the +3 HP half).
@@ -703,6 +737,9 @@ $turnEffectRegistry = [
     //    Add a row here when a card grants a TurnEffect. Duration omitted ⇒ phase.
     'SOR_086' => ['kind' => 'GRANT_KEYWORD',  'value' => 'SENTINEL', 'label' => 'Sentinel'],                                  // Gladiator Star Destroyer — give a unit Sentinel this phase
     'SOR_003' => ['kind' => 'GRANT_KEYWORD',  'value' => 'SENTINEL', 'label' => 'Sentinel'],                                  // Chewbacca — the unit played by his action gains Sentinel this phase
+    'SHD_103' => ['kind' => 'GRANT_KEYWORD',  'value' => 'SENTINEL', 'label' => 'Sentinel'],                                  // General Rieekan — chosen friendly unit gains Sentinel this phase
+    'SHD_141' => ['kind' => 'STAT_BUFF'],                                                                                      // Kylo Ren (deployed OnAttack) — chosen unit +2/+0 this phase
+    'SHD_067' => ['kind' => 'STAT_DEBUFF'],                                                                                     // Fenn Rau — when you play an upgrade on him, give an enemy unit -2/-2 this phase
     'SOR_100' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush', 'duration' => SWU_DUR_PERM],        // Wedge Antilles — friendly Vehicles gain Ambush (while in play)
     'SOR_022' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Energy Conversion Lab — played unit gains Ambush this phase
     'SEC_194' => ['kind' => 'GRANT_KEYWORD',  'value' => 'AMBUSH',   'label' => 'Ambush'],                                    // Fully Armed and Operational — played unit gains Ambush this phase (token doubles as a findable marker)
@@ -1535,6 +1572,11 @@ function _SWUApplyDamagePrevention($obj, int $amount, bool $peek = false): int {
             }
         }
     }
+    // SHD_224 Boba Fett's Armor — "If attached unit is Boba Fett and damage would be dealt to him,
+    // prevent 2 of that damage." Continuous while attached; applies to every damage instance.
+    if ($amount > 0 && CardTitle($obj->CardID ?? '') === 'Boba Fett' && _SWUUnitHasUpgrade($obj, 'SHD_224')) {
+        $amount = max(0, $amount - 2);
+    }
     // ASH_150 Deadly Vulnerability — "If attached unit would take damage, it takes twice as much instead."
     // Applied last (after prevention) so it doubles the net damage. Covers combat AND ability paths (both
     // route through this function).
@@ -1731,6 +1773,31 @@ function SWUAspectPenalty($player, $cardID): int {
     $cardAspects = array_filter(array_map('trim', explode(',', $raw)), fn($a) => $a !== '');
     if (empty($cardAspects)) return 0;
 
+    // SHD_046 Rey: "While playing this unit, ignore her Heroism aspect penalty if you control Kylo Ren."
+    // Drop one Heroism pip from the requirement so it's never penalized (the Vigilance pip still applies).
+    if ($cardID === 'SHD_046' && _SWUControlsTitle(intval($player), ['Kylo Ren'])) {
+        $hidx = array_search('Heroism', $cardAspects);
+        if ($hidx !== false) unset($cardAspects[$hidx]);
+        $cardAspects = array_values($cardAspects);
+        if (empty($cardAspects)) return 0;
+    }
+    // SHD_141 Kylo Ren: "While playing this unit, ignore his Villainy aspect penalty if you control Rey."
+    if ($cardID === 'SHD_141' && _SWUControlsTitle(intval($player), ['Rey'])) {
+        $vidx = array_search('Villainy', $cardAspects);
+        if ($vidx !== false) unset($cardAspects[$vidx]);
+        $cardAspects = array_values($cardAspects);
+        if (empty($cardAspects)) return 0;
+    }
+
+    // SHD_198 Clone Trooper: "Ignore the aspect penalty on the first Clone unit you play each round."
+    // While the controller has an unused SHD_198 charge and this is a Clone unit, waive the whole penalty.
+    // The charge is marked used in ActivateCard once the (already-waived) cost is locked; cleared at RGS.
+    if (strpos(CardType($cardID) ?? '', 'Unit') !== false && HasTrait($cardID, 'Clone')
+            && _SWUControlsCardInPlay(intval($player), 'SHD_198')
+            && GlobalEffectCount(intval($player), 'SWU_SHD198_USED') <= 0) {
+        return 0;
+    }
+
     $provided = PlayerAspects($player);
     $penalty  = 0;
     foreach ($cardAspects as $need) {
@@ -1816,6 +1883,19 @@ $playCostModifiers["SOR_248"] = function($player, $subjectObj) {
     foreach (GetField($player) as $u) {
         if ($u === null || !empty($u->removed)) continue;
         if (HasTrait($u->CardID, 'Trooper')) return -1;
+    }
+    return 0;
+};
+
+// SHD_091 Jabba's Rancor — costs 1 less while you control Jabba the Hutt (as a leader or unit).
+$playCostModifiers["SHD_091"] = function($player, $subjectObj) {
+    return _SWUControlsTitle(intval($player), ['Jabba the Hutt']) ? -1 : 0;
+};
+
+// SHD_117 Reputable Hunter — costs 1 less if an enemy unit has a Bounty.
+$playCostModifiers["SHD_117"] = function($player, $subjectObj) {
+    foreach (GetUnitsInPlay(OtherPlayer(intval($player))) as $u) {
+        if (empty($u->removed) && ObjectHasBounty($u) > 0) return -1;
     }
     return 0;
 };
@@ -2953,6 +3033,28 @@ function DoCaptureUnit($player, $capturingMZ, $capturedMZ) {
     // block when the captor belongs to an opponent of the captive's controller.
     if (intval($player) !== intval($captive->Controller ?? $player) && SWUAvoidsCapture($captive)) return "-";
 
+    // SHD_170 IG-11 — "If this unit would be captured, defeat him and deal 3 damage to each enemy ground
+    // unit instead." Replacement, only vs an ENEMY captor. "Enemy ground unit" = the capturer's ground units.
+    if (($captive->CardID ?? '') === 'SHD_170'
+        && intval($player) !== intval($captive->Controller ?? $player)) {
+        SWUDefeatUnit(intval($player), $capturedMZ);   // capturedMZ is in the capturer's frame
+        // "each enemy ground unit" = the capturer's ground. Resolve everything in the capturer's frame so
+        // the found mzIDs and the damage calls agree.
+        $savedPID2 = $playerID; $playerID = intval($player);
+        $uids = [];
+        foreach (ZoneSearch('myGroundArena', AnyUnitFilter) as $mz) {
+            $o = GetZoneObject($mz);
+            if ($o !== null && empty($o->removed)) $uids[] = intval($o->UniqueID ?? 0);
+        }
+        foreach ($uids as $uid) {
+            $playerID = intval($player);
+            $mz = SWUFindMzByUID($uid);
+            if ($mz !== null) SWUDealDamageToUnit($mz, 3, intval($player));
+        }
+        $playerID = $savedPID2;
+        return "-";
+    }
+
     // Tokens can't be captured — a token that would be captured is defeated (removed from play) instead
     // (tokens cease to exist when they leave play, so they can never become a captive subcard). Defeat it
     // and stop: no captive is attached and the capture's own leave-play/bounty triggers do NOT fire (the
@@ -3517,6 +3619,10 @@ function _SWUUpgradeMatchesMoveFilter($sub, string $filter): bool {
     $isPilot = is_array($sub) ? !empty($sub['IsPilot']) : !empty($sub->IsPilot);
     if ($isPilot || HasTrait($scid, 'Pilot')) return false; // pilots excluded for both filters
     if ($filter === 'token') return strpos(CardType($scid) ?? '', 'Token') !== false;
+    if (strpos($filter, 'cost:') === 0) {   // real upgrade (non-token) costing <= N (SHD_077)
+        if (strpos(CardType($scid) ?? '', 'Upgrade') === false) return false;
+        return intval(CardCost($scid)) <= intval(substr($filter, 5));
+    }
     return true; // 'nonpilot' = any non-pilot upgrade
 }
 
@@ -3680,6 +3786,8 @@ function OnReadyCard($player, $mzID) {
         if ($uid > 0 && _SWUReadyLockedWhileSourceInPlay($ctrl, $uid)) { $playerID = $savedPID; return $mzID; }
         // LAW_077 Shadow of Stygeon Prime: attached unit can't ready (continuous while attached).
         if (_SWUUnitHasUpgrade($obj, 'LAW_077')) { $playerID = $savedPID; return $mzID; }
+        // SHD_193 Frozen in Carbonite: attached unit can't ready (continuous while attached).
+        if (_SWUUnitHasUpgrade($obj, 'SHD_193')) { $playerID = $savedPID; return $mzID; }
         $obj->Status = 1;
     }
     $playerID = $savedPID;
@@ -3830,6 +3938,8 @@ function ReadyPhase() {
             if ($uid > 0 && _SWUReadyLockedWhileSourceInPlay($p, $uid)) return true;
             // LAW_077 Shadow of Stygeon Prime: attached unit can't ready while the upgrade is attached.
             if (_SWUUnitHasUpgrade($u, 'LAW_077')) return true;
+            // SHD_193 Frozen in Carbonite: attached unit can't ready while the upgrade is attached.
+            if (_SWUUnitHasUpgrade($u, 'SHD_193')) return true;
             return false;
         };
         $ground = &GetGroundArena($p);
@@ -4363,6 +4473,7 @@ function RegroupPhaseStart(): void {
         SWUClearGlobalEffectsByPrefix($p, 'SWU_NEUTRAL_DISCOUNT');  // SOR_056 Bendu: "this phase" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SNAP_DISCOUNT');     // JTL_098 Snap Wexley: "next Resistance card" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_JTL260_USED');       // JTL_260 Death Star Plans: "first unit each round -2" use
+        SWUClearGlobalEffectsByPrefix($p, 'SWU_SHD198_USED');       // SHD_198 Clone Trooper: "first Clone unit each round ignores aspect penalty"
         SWUClearGlobalEffectsByPrefix($p, 'SWU_LAW229_USED');       // LAW_229 "first Gambit each round -1" use
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC110_DISCOUNT_NEXT'); // SEC_110 GNK "next unit -1" charge
         SWUClearGlobalEffectsByPrefix($p, 'SWU_SEC064_USED');       // SEC_064 "first upgrade each phase -1" use
@@ -5916,6 +6027,18 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'LOF_087': EighthBrotherReaction($player); break; // "When you play another unit": may use the Force → +2/+2
         case 'LOF_229': KyloRenUpgradeReaction($player); break; // "When you play an upgrade on this unit": may use the Force → draw
         case 'ASH_047': Ash047UpgradeReaction($player); break;  // "When you play an upgrade on this unit": may create a Mandalorian token (once/round)
+        case 'SHD_067': {                                       // Fenn Rau — give an enemy unit -2/-2 this phase
+            global $playerID; $playerID = intval($player);
+            $tg = [];
+            foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, AnyUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o !== null && empty($o->removed)) $tg[] = $mz;
+                }
+            }
+            SWUQueueChooseTarget(intval($player), $tg, "Give_an_enemy_unit_-2/-2_this_phase", "APPLY_PHASE_DEBUFF|2|2|SHD_067");
+            break;
+        }
         case 'ASH_063': SWUCreateUnitToken($player, 'ASH_T01'); break; // Bo-Katan's Gauntlet — granted "When Defeated: create a Mandalorian token"
         case 'ASH_134': SWUCreateUnitToken($player, 'ASH_T01'); break; // Warrior's Legacy (upgrade) — granted "When Defeated: create a Mandalorian token"
         case 'LOF_249': LukeSkywalkerReaction($player, intval($extra[0] ?? 0)); break; // "another unique unit": may use the Force → Exp+Shield
@@ -5929,6 +6052,13 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         // Upgrade-GRANTED When-Defeated abilities — the unit gained them, so JTL_002 Thrawn re-uses
         // them too (SWUCollectThrawnReuse with the granted trigger type).
         case 'JTL_073':  JTL073DefeatTrigger($player); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break;
+        case 'SHD_104': {  // Inspiring Mentor (granted When Defeated) — give an Experience token to another friendly unit
+            global $playerID; $playerID = intval($player);
+            $targets = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            if (!empty($targets)) SWUQueueChooseTarget(intval($player), $targets, "Give_an_Experience_token_to_another_friendly_unit", "GIVE_EXPERIENCE|1");
+            SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID);
+            break;
+        }
         case 'SEC_039':  SEC039DefeatTrigger($player); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break;
         case 'SEC_156':  SEC156DefeatTrigger($player); SWUCollectThrawnReuse($player, $cardID, $mzID, $cardID); break;
         case 'OnAttackFromUpgrade':
@@ -5981,6 +6111,7 @@ function DispatchTrigger($player, $triggerType, $cardID, $mzID, $extra = []): vo
         case 'LOF_017':         RevanExpTrigger($player, $mzID);               break;
         case 'SOR_133': SeventhSisterBaseTrigger($player);            break;
         case 'SOR_088':    BlizzardExcessTrigger($player, intval($extra[0] ?? 0)); break;
+        case 'SHD_138':    DoDrawCard($player, 1); break;   // Jango Fett — attacks and defeats a unit: draw a card
         case 'ASH_137':    Ash137ExcessTrigger($player, $mzID, intval($extra[0] ?? 0)); break;   // Wipe Them Out — excess to another unit in the arena
         case 'SOR_115':        KallusDrawTrigger($player);                   break;
         case 'SOR_013':       CassianDrawTrigger($player);                  break;
@@ -6147,6 +6278,10 @@ function CollectWhenPlayedAsUpgradeTriggers(int $player, string $cardID, string 
     if ($lof229Host !== null && ($lof229Host->CardID ?? '') === 'ASH_047'
         && GlobalEffectCount($player, 'SWU_ASH047_USED') <= 0) {
         AddTrigger($player, 'ASH_047', 'ASH_047', '');
+    }
+    // SHD_067 Fenn Rau — "When you play an upgrade on this unit: Give an enemy unit -2/-2 for this phase."
+    if ($lof229Host !== null && ($lof229Host->CardID ?? '') === 'SHD_067') {
+        AddTrigger($player, 'SHD_067', 'SHD_067', '');
     }
     return FlushEntryTriggerBag($player);
 }
@@ -6538,6 +6673,8 @@ function CollectWhenDefeatedTriggers($activePlayer, array $defeatedCards): void 
                     $scid = is_array($sub) ? ($sub['CardID'] ?? '') : ($sub->CardID ?? '');
                     $srem = is_array($sub) ? !empty($sub['removed']) : !empty($sub->removed);
                     if (!$srem && $scid === 'JTL_073') { AddTrigger($d['player'], 'JTL_073', 'JTL_073', ''); }
+                    // SHD_104 Inspiring Mentor — granted "When Defeated: give an Experience token to another friendly unit."
+                    if (!$srem && $scid === 'SHD_104') { AddTrigger($d['player'], 'SHD_104', 'SHD_104', ''); }
                     if (!$srem && $scid === 'SEC_039') { AddTrigger($d['player'], 'SEC_039', 'SEC_039', ''); }
                     if (!$srem && $scid === 'SEC_156') { AddTrigger($d['player'], 'SEC_156', 'SEC_156', ''); }
                     if (!$srem && $scid === 'ASH_134') { AddTrigger($d['player'], 'ASH_134', 'ASH_134', ''); } // Warrior's Legacy — granted "When Defeated: create a Mandalorian token"
@@ -8857,6 +8994,13 @@ function ActivateCard($player, $mzID, $ignoreCost, $discount = 0, $prepaid = 0) 
             && _SWUControlsUnitBearingUpgrade(intval($player), 'JTL_260')) {
         AddGlobalEffects(intval($player), 'SWU_JTL260_USED');
     }
+    // SHD_198 Clone Trooper: mark the once-per-round "first Clone unit ignores aspect penalty" charge used
+    // once this Clone unit's (already-waived) cost is locked in. Cleared at RegroupPhaseStart.
+    if (strpos(CardType($cardID) ?? '', 'Unit') !== false && HasTrait($cardID, 'Clone')
+            && GlobalEffectCount(intval($player), 'SWU_SHD198_USED') <= 0
+            && _SWUControlsCardInPlay(intval($player), 'SHD_198')) {
+        AddGlobalEffects(intval($player), 'SWU_SHD198_USED');
+    }
     // LAW_229 The Master Codebreaker: mark the once-per-round "first Gambit -1" discount used when the
     // player plays a Gambit card while controlling LAW_229. Cleared at RegroupPhaseStart.
     if (HasTrait($cardID, 'Gambit')
@@ -10823,6 +10967,20 @@ function SWUSmuggleResource(int $player, int $resourceIdx): void {
     $playerID = $savedPID;
 }
 
+// SHD_038 Brutal Traditions — an Upgrade whose "Action: If an enemy unit was defeated this phase, play
+// this upgrade from your discard pile (paying its cost)." Unlike LAW_200/SHD_135 (which stamp TPP at
+// discard time via cardDiscardedHandlers), SHD_038's condition can become true AFTER it's already in the
+// discard pile, so its effective play-from-discard modifier is computed LIVE: TPP whenever an enemy unit
+// was defeated this phase (the SWU_ENEMY_DEFEATED flag, cleared at RegroupPhaseStart).
+function _SWUEffectiveDiscardModifier(int $player, object $entry): string {
+    $mod = $entry->Modifier ?? '';
+    if ($mod === '' && ($entry->CardID ?? '') === 'SHD_038'
+        && GlobalEffectCount($player, 'SWU_ENEMY_DEFEATED') > 0) {
+        return 'TPP';
+    }
+    return $mod;
+}
+
 function SWUPlayFromDiscard(int $player, int $discardIdx): void {
     global $playerID;
     $savedPID = $playerID;
@@ -10844,7 +11002,7 @@ function SWUPlayFromDiscard(int $player, int $discardIdx): void {
 
     $entry    = $discard[$actualIdx];
     $cardID   = $entry->CardID;
-    $modifier = $entry->Modifier ?? '';
+    $modifier = _SWUEffectiveDiscardModifier($player, $entry);
 
     if ($modifier !== 'TPF' && $modifier !== 'TPP') {
         SetFlashMessage("That card cannot be played from discard this phase.");
@@ -11173,7 +11331,7 @@ function SWUComputeActionsData(int $player): array {
     $di = 0;
     for ($i = 0; $i < count($myDiscard); $i++) {
         if (isset($myDiscard[$i]->removed) && $myDiscard[$i]->removed) continue;
-        $mod = $myDiscard[$i]->Modifier ?? '';
+        $mod = _SWUEffectiveDiscardModifier($player, $myDiscard[$i]);
         if ($mod === 'TPF') {
             $playableDiscards[] = ['idx' => $di, 'free' => true];
         } elseif ($mod === 'TPP') {

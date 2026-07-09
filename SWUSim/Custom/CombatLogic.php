@@ -933,6 +933,9 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                 AddTrigger($activePlayer, 'SOR_088', 'SOR_088', '', strval(intval($combatCtx['excess'])));
             }
             break;
+        case 'SHD_138': // Jango Fett — "When this unit attacks and defeats a unit: Draw a card."
+            if (!empty($combatCtx['defenderDefeated'])) AddTrigger($activePlayer, 'SHD_138', 'SHD_138', '');
+            break;
         case 'SEC_017': // Sabé (deployed) — deals combat damage to a base: look at the defending player's
                         // hand, may discard a card; if you do, that player draws.
             if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'SEC_017', 'SEC_017', '');
@@ -942,6 +945,12 @@ function SWUCollectCombatHitTriggers($activePlayer, $attackerMzID, $defenderMzID
                         // Maul leaves play)."
             if (!empty($combatCtx['dealtToBase'])) AddTrigger($activePlayer, 'LAW_054', 'LAW_054', $attackerMzID);
             break;
+    }
+
+    // SHD_143 Ruthlessness (granted upgrade) — "When this unit attacks and defeats a unit: Deal 2 damage
+    // to the defending player's base." The attacker bears the upgrade; the defending player is the opponent.
+    if (!empty($combatCtx['defenderDefeated']) && _SWUUnitHasUpgrade($attacker, 'SHD_143')) {
+        SWUDealDamageToBase(2, OtherPlayer($activePlayer));
     }
 
     // LAW_056 Cassian Andor (field passive) — "When a friendly unit's attack ends: if the defending unit
@@ -1281,6 +1290,23 @@ function ExecuteSWUAttack($player, $attackerMzID, $targetMzID) {
             AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
         }
     }
+    // SHD_216 Chain Code Collector — On Attack: if the defender has a Bounty, it gets -4/-0 for this attack.
+    // Synchronous (the deferred OnAttack trigger is too late — SWUCombatDamage reads the marker first).
+    if (($attacker->CardID ?? '') === 'SHD_216') {
+        $d216 = GetZoneObject($targetMzID);
+        if ($d216 !== null && empty($d216->removed) && ObjectHasBounty($d216) > 0) {
+            AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_4');
+        }
+    }
+    // SHD_219 Enfys Nest — "While a friendly unit (including this one) is attacking using Ambush, the
+    // defender gets -3/-0." Field passive gated on the attacker's Ambush-attack marker + controlling SHD_219.
+    if (is_array($attacker->TurnEffects ?? null) && in_array('SWU_AMBUSH_ATTACK', $attacker->TurnEffects, true)) {
+        foreach (GetUnitsInPlay(intval($attacker->Controller ?? $player)) as $u219) {
+            if (empty($u219->removed) && ($u219->CardID ?? '') === 'SHD_219') {
+                AddTurnEffect($attackerMzID, 'SWU_DEF_DEBUFF_3'); break;
+            }
+        }
+    }
     // SEC_224 Saw's Renegades — "Each exhausted enemy unit gets -2/-0 while defending." Field passive:
     // while its controller has any unit attacking an EXHAUSTED enemy, that defender gets -2/-0.
     $def224 = GetZoneObject($targetMzID);
@@ -1429,6 +1455,22 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         && $target !== null && empty($target->removed)
         && intval($target->Damage ?? 0) > 0);
     if ($sor130VsDamaged) $attackPower += 2;
+    // SHD_138 Jango Fett: while attacking a unit WITH A BOUNTY, +3/+0 and gains Overwhelm (both combat-time,
+    // depend on the defender having a Bounty at declaration).
+    $shd138VsBounty = ($attacker->CardID === 'SHD_138'
+        && $target !== null && empty($target->removed)
+        && ObjectHasBounty($target) > 0);
+    if ($shd138VsBounty) $attackPower += 3;
+    // SHD_007 Moff Gideon — front Action's chosen attacker gets +1/+0 while attacking a unit; the deployed
+    // passive gives each friendly ≤3-cost unit +1/+0 AND Overwhelm while attacking an enemy unit.
+    $shd007VsUnitTarget = $target !== null && empty($target->removed)
+        && strpos((string)$targetMzID, 'Base') === false;
+    $shd007Front = $shd007VsUnitTarget && is_array($attacker->TurnEffects ?? null)
+        && in_array('SHD_007_FRONT', $attacker->TurnEffects, true);
+    $shd007Deployed = $shd007VsUnitTarget
+        && intval(CardCost($attacker->CardID ?? '')) <= 3
+        && _SWULeaderDeployed(intval($attacker->Controller ?? $player), 'SHD_007');
+    if ($shd007Front || $shd007Deployed) $attackPower += 1;
     // ASH_207 Heroic Purrgil — "While attacking using Ambush, this unit gets +2/+0." Marker set when the
     // Ambush entry-trigger attack proceeds; attack-duration.
     if (($attacker->CardID ?? '') === 'ASH_207' && is_array($attacker->TurnEffects ?? null)
@@ -1492,6 +1534,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
     // (SOR_198 gets the ordering with NO +1/+0).
     $hasShootFirst = (is_array($attacker->TurnEffects ?? null) && in_array('SHOOT_FIRST', $attacker->TurnEffects))
         || (($attacker->CardID ?? '') === 'SOR_198')
+        || (($attacker->CardID ?? '') === 'SHD_234')   // Incinerator Trooper — innate deal-first
         || _SWUAttackerGrants($attacker, 'ASH_202');   // Carson Teva (Support) — innate deal-first, own + lent
     // LAW_086 The Stranger: "you may have the defending unit deal combat damage before this unit" — the
     // REVERSE of Shoot First (the attacker chose it via the DEFENDER_FIRST marker). Mutually exclusive
@@ -1579,6 +1622,8 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
         $defendPower = max(0, intval(ObjectCurrentPower($target)) - $defenderPowerDebuff);
         // LOF_049 Jedi Guardian: "While this unit is defending, it gets +2/+0." (counter-damage only.)
         if (($target->CardID ?? '') === 'LOF_049') $defendPower += 2;
+        // SHD_042 Concord Dawn Interceptors: "This unit gets +2/+0 while defending." (counter-damage only.)
+        if (($target->CardID ?? '') === 'SHD_042') $defendPower += 2;
         // ASH_073 Palace Chef Droid: "This unit gets +2/+0 while defending." (counter-damage only.)
         if (($target->CardID ?? '') === 'ASH_073') $defendPower += 2;
         // ASH_018 Grogu (deployed): "While ANOTHER friendly unit is defending, it gets +1/+0." (counter-damage only.)
@@ -1807,7 +1852,7 @@ $customDQHandlers["SWUCombatDamage"] = function($player, $parts, $lastDecision) 
             }
             // Overwhelm: excess damage (negative $defenderHP) spills to the opponent's base (CR 7.6.4).
             // ASH_150 Deadly Vulnerability — "While attached unit is defending, the attacker loses Overwhelm."
-            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $sec139Overwhelm)
+            if ($defenderHP < 0 && (HasKeyword_Overwhelm($attacker) || $sor130VsDamaged || $shd138VsBounty || $sec139Overwhelm || $shd007Deployed)
                 && !_SWUUnitHasUpgrade($target, 'ASH_150')) {
                 $overflowAmt = -$defenderHP;
                 $GLOBALS['gInCombatDamage'] = true;

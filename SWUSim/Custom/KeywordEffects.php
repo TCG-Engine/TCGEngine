@@ -322,6 +322,9 @@ function _SWUMirrorAnotherFriendlyHasKeyword($obj, string $kw): bool {
 
 function HasConditionalKeyword_Ambush($obj) {
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'AMBUSH')) return true;
+    // SHD_188 4-LOM: each friendly unit named Zuckuss gains Ambush.
+    if (CardTitle($obj->CardID ?? '') === 'Zuckuss'
+        && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_188') > 0) return true;
     // SHD_204 Millennium Falcon — "If you play this unit from your hand, it gains Ambush."
     // The per-UID hand-source flag is set in ActivateCard before entry triggers collect
     // (smuggle/discard/deck plays never set it).
@@ -497,6 +500,9 @@ function HasConditionalKeyword_Saboteur($obj) {
     if (_SWUCountUnitsWithCardID(OtherPlayer(intval($obj->Controller ?? 0)), 'LAW_233') > 0) return true;
     if (($obj->CardID ?? '') === 'LOF_105' && _SWUMirrorAnotherFriendlyHasKeyword($obj, 'SABOTEUR')) return true;
     if (_SWULof191HasBuff($obj)) return true; // LOF_191 BD-1: chosen unit gains Saboteur while BD-1 in play
+    // SHD_190 Zuckuss: each friendly unit named 4-LOM gains Saboteur.
+    if (CardTitle($obj->CardID ?? '') === '4-LOM'
+        && _SWUCountUnitsWithCardID(intval($obj->Controller ?? 0), 'SHD_190') > 0) return true;
     // ASH_030 Marrok — "While this unit is upgraded, he loses Sentinel and gains Saboteur."
     if (($obj->CardID ?? '') === 'ASH_030' && _SWUIsUpgraded($obj)) return true;
     switch ($obj->CardID) {
