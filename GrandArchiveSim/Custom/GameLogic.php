@@ -21022,7 +21022,7 @@ function ApplyGeneratedReserveLikeCostModifiers($player, $subjectObj, $currentCo
 
     foreach($evaluators as $evaluator) {
         if(!function_exists($evaluator)) continue;
-        $currentCost += $evaluator($subjectObj->CardID, $player, $subjectObj, $currentCost, null);
+        $currentCost += $evaluator($subjectObj->CardID, $player, $subjectObj, $currentCost, $subjectObj);
 
         foreach([1, 2] as $fieldPlayer) {
             foreach(GetField($fieldPlayer) as $fieldObj) {

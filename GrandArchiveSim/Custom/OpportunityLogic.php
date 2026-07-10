@@ -731,6 +731,7 @@ $unconditionalFastCards = [
     "JeyOuhr3sj" => true, // Protector Raccoon
     "G8pN8Hackq" => true, // Aella, Zephyr's Hand
     "e8ygl32jef" => true, // Two of Spades
+    "oye74ibwo8" => true, // Baleful Oblation
 ];
 
 function EncodeOpportunityAbilityChoice($mzID, $abilityIndex, $label = "") {
