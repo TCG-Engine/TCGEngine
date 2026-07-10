@@ -412,6 +412,7 @@ function HasConditionalKeyword_Grit($obj) {
         if ($u->UniqueID === $obj->UniqueID) continue;
         switch ($u->CardID) {
             case 'SEC_088': // First Light — all friendly non-leader units gain Grit
+            case 'SHD_036': // First Light (SHD reprint) — each other friendly non-leader unit gains Grit
                 if (!IsLeaderUnit($obj)) return true;
                 break;
         }
@@ -710,7 +711,7 @@ function HasConditionalKeyword_Bounty($obj) {
 // in CollectWhenDefeatedTriggers, GameLogic.php); each ID also needs its reward case in
 // SWUCollectBounty. The snapshot param is uniformly "host was unique" (used by SHD_071/123/173).
 function SWUBountyGrantUpgrades(): array {
-    return ['SHD_068', 'SHD_071', 'SHD_123', 'SHD_125', 'SHD_173', 'SHD_176', 'SHD_221', 'SHD_222', 'SHD_261'];
+    return ['SHD_068', 'SHD_071', 'SHD_123', 'SHD_125', 'SHD_173', 'SHD_176', 'SHD_221', 'SHD_222', 'SHD_226', 'SHD_261'];
 }
 
 // ═════════════════════════════════════════════════════════════════════════════

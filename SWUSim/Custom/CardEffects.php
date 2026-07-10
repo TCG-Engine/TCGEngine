@@ -761,6 +761,45 @@ function OnPlayEvent(int $player, string $cardID): void {
             return;
         }
 
+        case 'SHD_205': { // Let the Wookiee Win — "An opponent chooses one: [You ready up to 6 resources] OR
+                          // [You ready a friendly unit. If it's a Wookiee, attack with it. It gets +2/+0]."
+            global $playerID;
+            $opp = OtherPlayer(intval($player));
+            $playerID = $opp;
+            DecisionQueueController::AddDecision($opp, "OPTIONCHOOSE", "Ready6Resources&ReadyUnit", 1,
+                "Opponent_chooses:_they_ready_up_to_6_resources_OR_ready_a_friendly_unit");
+            DecisionQueueController::AddDecision($opp, "CUSTOM", "SHD_205#0|" . intval($player), 1);
+            return;
+        }
+
+        case 'SHD_132': { // Choose Sides — "Choose a friendly non-leader unit and an enemy non-leader unit.
+                          // Exchange control of those units." (LAW_170 without the Credit-token half.)
+            global $playerID; $playerID = intval($player);
+            $friendly = array_merge(ZoneSearch("myGroundArena", NonLeaderUnitFilter), ZoneSearch("mySpaceArena", NonLeaderUnitFilter));
+            $enemy    = array_merge(ZoneSearch("theirGroundArena", NonLeaderUnitFilter), ZoneSearch("theirSpaceArena", NonLeaderUnitFilter));
+            if (empty($friendly) || empty($enemy)) return;
+            SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_non-leader_unit", "SHD_132#0|" . OtherPlayer(intval($player)));
+            return;
+        }
+
+        case 'SHD_106': { // Rule with Respect — "A friendly unit captures each enemy non-leader unit that
+                          // attacked your base this phase." (SWU_DEALT_BASEDMG_{uid} marks base-attackers.)
+            global $playerID; $playerID = intval($player);
+            $anyAttacker = false;
+            foreach (['theirGroundArena', 'theirSpaceArena'] as $z) {
+                foreach (ZoneSearch($z, NonLeaderUnitFilter) as $mz) {
+                    $o = GetZoneObject($mz);
+                    if ($o === null || !empty($o->removed)) continue;
+                    if (GlobalEffectCount(intval($o->Controller ?? 0), 'SWU_DEALT_BASEDMG_' . intval($o->UniqueID ?? 0)) > 0) { $anyAttacker = true; break 2; }
+                }
+            }
+            if (!$anyAttacker) return;
+            $friendly = array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter));
+            if (empty($friendly)) return;
+            SWUQueueChooseTarget(intval($player), $friendly, "Choose_a_friendly_unit_to_capture_the_base_attackers", "SHD_106#0");
+            return;
+        }
+
         case 'LAW_170': { // Double-Cross — "Choose a friendly non-leader unit and an enemy non-leader
                           // unit. Exchange control of those units. The player who takes control of the
                           // lower-cost unit creates Credit tokens equal to the difference between costs."
@@ -1278,6 +1317,35 @@ function OnPlayEvent(int $player, string $cardID): void {
             global $playerID; $playerID = intval($player);
             DecisionQueueController::AddDecision(intval($player), "OPTIONCHOOSE", "Ground&Space", 1, tooltip:"Choose_an_arena");
             DecisionQueueController::AddDecision(intval($player), "CUSTOM", "SEC_145#0", 1);
+            return;
+        }
+
+        case 'SHD_144': { // Give In to Your Anger — "Deal 1 damage to an enemy unit. Its controller's next
+                          // action this phase must be an attack action with that unit, if able. It must
+                          // attack a unit, if able." Choose the enemy unit → SHD_144#0 deals the damage and
+                          // arms SWU_SHD144_FORCE|{uid} on that unit's controller; _SWUCheckForcedAttack
+                          // (run after the turn passes to that controller) forces the attack.
+            global $playerID; $playerID = intval($player);
+            $targets = [];
+            foreach (array_merge(ZoneSearch('theirGroundArena', AnyUnitFilter), ZoneSearch('theirSpaceArena', AnyUnitFilter)) as $mz) {
+                $o = GetZoneObject($mz);
+                if ($o !== null && empty($o->removed)) $targets[] = $mz;
+            }
+            if (empty($targets)) return;
+            SWUQueueChooseTarget(intval($player), $targets, "Deal_1_damage_to_an_enemy_unit", "SHD_144#0");
+            return;
+        }
+
+        case 'SHD_208': { // Final Showdown — "Ready each unit you control. At the start of the regroup
+                          // phase, you lose the game." Ready every friendly unit now, then arm the
+                          // SWU_SHD208_LOSE flag; _SWUCheckFinalShowdownLose (RegroupPhaseStart, before
+                          // the draw step) declares the OTHER player the winner. Mirrors SEC_145's
+                          // regroup-start win check, inverted to a loss.
+            global $playerID; $playerID = intval($player);
+            foreach (array_merge(ZoneSearch("myGroundArena", AnyUnitFilter), ZoneSearch("mySpaceArena", AnyUnitFilter)) as $mz) {
+                OnReadyCard(intval($player), $mz);
+            }
+            AddGlobalEffects(intval($player), 'SWU_SHD208_LOSE');
             return;
         }
 
